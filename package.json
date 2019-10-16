@@ -20,8 +20,8 @@
     "eslint-plugin-react": "^7.16.0"
   },
   "scripts": {
-    "eslint": "eslint --ext .ts,.tsx,.jsx .",
-    "eslint:fix": "eslint --fix --ext .ts,.tsx,.jsx ."
+    "eslint": "eslint --ext .js,.ts,.tsx,.jsx .",
+    "eslint:fix": "eslint --fix --ext .js,.ts,.tsx,.jsx ."
   },
   "repository": {
     "type": "git",
