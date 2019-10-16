@@ -2,6 +2,9 @@
   "parser": "babel-eslint",
   "env": {
     "browser": true,
+    "es6": true,
+    "es2017": true,
+    "es2020": true
   },
   "plugins": [
     "react"
@@ -19,7 +22,7 @@
     "react/no-unknown-property": "error",
     "react/self-closing-comp": "error",
     "react/sort-comp": "error",
-    "react/jsx-closing-bracket-location": "error",
+    "react/jsx-closing-bracket-location": ["error", "line-aligned"],
     # "react/jsx-closing-tag-location": ["error", "line-aligned"],
     "react/jsx-curly-newline": ["error", "consistent"],
     "react/jsx-curly-spacing": ["error", "never"],

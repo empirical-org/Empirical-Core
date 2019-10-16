@@ -6,9 +6,9 @@ import {
 } from 'quill-component-library/dist/componentLibrary'
 
 export interface ComponentProps {
-  titleCards: any
-  routing: any
-  routeParams: any 
+  titleCards: any;
+  routing: any;
+  routeParams: any; 
 }
 class ShowTitleCard extends React.Component<ComponentProps, any> {
   constructor(props) {
@@ -26,7 +26,7 @@ class ShowTitleCard extends React.Component<ComponentProps, any> {
   renderTitleCard() {
     const titleCard = this.getTitleCard()
     if (titleCard) {
-      return <div><TitleCard html={this.getTitleCard().content}/></div>
+      return <div><TitleCard html={this.getTitleCard().content} /></div>
     }
   }
 
@@ -37,12 +37,12 @@ class ShowTitleCard extends React.Component<ComponentProps, any> {
       <section className="section">
         <div className="container">
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            {titleCard ? <h1 style={{fontSize: '30px'}}>{titleCard.title}</h1> : <span/>}
+            {titleCard ? <h1 style={{fontSize: '30px'}}>{titleCard.title}</h1> : <span />}
             <Link to={`admin/title-cards/${titleCardID}/edit`}>
               <button className="button is-primary">Edit Title Card</button>
             </Link>
           </div>
-          <hr/>
+          <hr />
           {this.renderTitleCard()}
         </div>
       </section>

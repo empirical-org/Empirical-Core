@@ -162,12 +162,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
         return (<Feedback
           feedback={(<p>Great Work! Please wait as your teacher reviews your answer...</p>)}
           feedbackType="correct-matched"
-                />);
+        />);
       } else if (this.props.data.play.instructions) {
         return (<Feedback
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
           feedbackType="default"
-                />);
+        />);
       }
     }
   }

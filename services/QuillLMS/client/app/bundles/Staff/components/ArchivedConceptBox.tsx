@@ -202,7 +202,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         concept={concept}
         levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
-              />)
+      />)
     }
   }
 
@@ -211,7 +211,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     if (this.props.levelNumber === 0) {
       return (<Query
         query={gql(levelOneConceptsQuery())}
-              >
+      >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
@@ -234,7 +234,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     } else {
       return (<Query
         query={gql(levelTwoConceptsQuery())}
-              >
+      >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
@@ -321,25 +321,25 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-              />)
+      />)
     } else if (levelNumber === 1 && concept.parent.visible) {
       return (<input
         className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-              />)
+      />)
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
       return (<input
         className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-              />)
+      />)
     } else {
       return (<input
         className="quill-button contained disabled primary medium"
         type="submit"
         value="Unarchive, set live"
-              />)
+      />)
     }
   }
 

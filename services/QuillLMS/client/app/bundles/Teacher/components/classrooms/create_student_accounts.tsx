@@ -149,7 +149,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
         removeRow={this.removeStudent}
         rows={studentRows}
         showRemoveIcon={true}
-              />)
+      />)
     }
   }
 

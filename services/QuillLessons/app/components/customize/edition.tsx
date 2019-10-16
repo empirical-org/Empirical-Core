@@ -250,7 +250,7 @@ class CustomizeEdition extends React.Component<any, any> {
       questionIndex={i+1}
       resetSlide={this.resetSlide}
       updateQuestion={this.updateQuestion}
-            />)
+    />)
   }
 
   renderEditModal() {
@@ -263,7 +263,7 @@ class CustomizeEdition extends React.Component<any, any> {
         sampleQuestion={this.props.editionMetadata.sample_question}
         updateName={this.updateName}
         updateSampleQuestion={this.updateSampleQuestion}
-              />)
+      />)
     }
   }
 
@@ -278,7 +278,7 @@ class CustomizeEdition extends React.Component<any, any> {
         backLink={backLink}
         editionLink={this.followUpLink()}
         editionName={this.props.editionMetadata.name}
-              />)
+      />)
     }
   }
 

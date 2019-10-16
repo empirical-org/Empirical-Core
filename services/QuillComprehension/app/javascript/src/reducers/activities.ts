@@ -10,11 +10,11 @@ export interface CompleteHash {
 }
 
 export interface ActivitiesState {
-  submissions: Submissions
-  complete: CompleteHash
-  readArticle: false
-  questionSetId: string|null
-  fontSize: number
+  submissions: Submissions;
+  complete: CompleteHash;
+  readArticle: false;
+  questionSetId: string|null;
+  fontSize: number;
 }
 
 export const initialState:ActivitiesState = {

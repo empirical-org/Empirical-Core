@@ -4,7 +4,7 @@ import moment from 'moment'
 import { ChangeLog } from '../interfaces/interfaces'
 
 interface ConceptChangeLogProps {
-  changeLogs: Array<ChangeLog>
+  changeLogs: Array<ChangeLog>;
 }
 
 interface ConceptChangeLogState {

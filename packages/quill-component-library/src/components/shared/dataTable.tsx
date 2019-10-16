@@ -56,7 +56,7 @@ interface DataTableState {
 }
 
 export class DataTable extends React.Component<DataTableProps, DataTableState> {
-  private selectedStudentActions: any
+  static selectedStudentActions: any
   static defaultProps: { averageFontWidth: number }
 
   constructor(props) {

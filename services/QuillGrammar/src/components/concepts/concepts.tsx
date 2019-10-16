@@ -24,7 +24,7 @@ class Concepts extends React.Component<ConceptsProps> {
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}
-         />)
+        />)
       )
     }
   }

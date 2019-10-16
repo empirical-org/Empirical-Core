@@ -16,10 +16,10 @@ interface TitleCardFormState {
 }
 
 export interface TitleCardFormProps {
-  titleCards: any
-  routing: any
-  routeParams: any
-  dispatch(any): void 
+  titleCards: any;
+  routing: any;
+  routeParams: any;
+  dispatch(any): void;
 }
 
 class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
@@ -92,18 +92,18 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     return (
       <div className="box">
         <h6 className="control subtitle">{this.renderHeaderText()}</h6>
-        <br/>
+        <br />
         <label className="label">Title</label>
-        <textarea className="input" value={this.state.title || ""} onChange={this.handleTitleChange}/>
-        <br/>
+        <textarea className="input" onChange={this.handleTitleChange} value={this.state.title || ""} />
+        <br />
         <label className="label">Content</label>
         <TextEditor
-          text={this.state.content || ""}
-          handleTextChange={this.handleContentChange}
-          EditorState={EditorState}
           ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleContentChange}
+          text={this.state.content || ""}
         />
-        <br/>
+        <br />
         <button className="button is-primary" onClick={this.submit}>Save Question</button>
       </div>
     )

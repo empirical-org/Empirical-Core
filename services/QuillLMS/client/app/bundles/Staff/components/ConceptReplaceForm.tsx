@@ -22,14 +22,14 @@ const REPLACE_CONCEPT = gql`
 
 
 interface ConceptReplaceFormProps {
-  concepts: Array<Concept>,
-  showSuccessBanner(data: any): void
+  concepts: Array<Concept>;
+  showSuccessBanner(data: any): void;
 }
 
 interface ConceptReplaceFormState {
-  replacedId: string|null,
-  replacementId: string|null,
-  showChangeLogModal: boolean
+  replacedId: string|null;
+  replacementId: string|null;
+  showChangeLogModal: boolean;
 }
 
 class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, ConceptReplaceFormState> {
@@ -67,7 +67,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
         concept={replacedConcept}
         levelNumber={0}
         save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
-              />)
+      />)
     }
   }
 
@@ -96,7 +96,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
         className="quill-button contained primary medium"
         type="submit"
         value="Replace"
-              />)
+      />)
     }
   }
 
@@ -112,7 +112,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
         label="Concept"
         options={options}
         value={value}
-              />)
+      />)
     } else {
       const value = options.find(o => o.value === replacementId)
       return (<DropdownInput
@@ -121,7 +121,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
         label="Concept"
         options={options}
         value={value}
-              />)
+      />)
     }
   }
 

@@ -70,11 +70,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
   }
 
-  componentWillUnmount() {
-    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
-  }
-
   componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student') ? getParameterByName('student') : '';
     const npCSData = nextProps.classroomSessions.data
@@ -134,6 +129,11 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         }
       }
     }
+  }
+
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   handleKeyDown(event) {
@@ -257,7 +257,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         onMouseOut={() => this.setState({leftHover: false})}
         onMouseOver={() => this.setState({leftHover: true})}
         src={imageSrc}
-              />)
+      />)
     }
 
   }
@@ -276,7 +276,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         onMouseOut={() => this.setState({rightHover: false})}
         onMouseOver={() => this.setState({rightHover: true})}
         src={imageSrc}
-              />)
+      />)
     }
   }
 

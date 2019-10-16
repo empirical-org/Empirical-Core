@@ -12,7 +12,7 @@ describe("<PlayProofreaderContainer />", () => {
     dispatch={() => {}}
     proofreaderActivities={ProofreaderActivityReducer}
     session={{passage: 'string'}}
-                          />)
+  />)
 
     it("should render", () => {
       expect(wrapper).toMatchSnapshot();

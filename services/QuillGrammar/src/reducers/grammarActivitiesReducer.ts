@@ -8,9 +8,9 @@ type GrammarActivityStateAction = Action & {cid: string, data: GrammarActivities
 export interface GrammarActivityState {
   hasreceiveddata: boolean;
   currentActivity: GrammarActivity|null;
-  data: GrammarActivities
-  newLessonModalOpen: boolean
-  states: {[key: string]: string}
+  data: GrammarActivities;
+  newLessonModalOpen: boolean;
+  states: {[key: string]: string};
   error?: string;
 }
 

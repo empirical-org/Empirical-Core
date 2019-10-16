@@ -33,6 +33,6 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
       spellCheck={false}
       style={{width: `${width}px`}}
       value={currentText}
-            />)
+    />)
   }
 }

@@ -63,40 +63,40 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
 
   renderCustomizeDropdown() {
     const customizeClass = this.state.showDropdown ? 'open' : ''
-    return <div className="customize-dropdown" tabIndex={0} onBlur={this.hideDropdown}>
+    return (<div className="customize-dropdown" onBlur={this.hideDropdown} tabIndex={0}>
       <div className={`customize ${customizeClass}`} onClick={this.toggleDropdown}>
-        <i className="fa fa-icon fa-magic"/>
+        <i className="fa fa-icon fa-magic" />
         Customize
-        <i className="fa fa-icon fa-caret-down"/>
+        <i className="fa fa-icon fa-caret-down" />
       </div>
       <div className="action">
         {this.renderDropdown()}
       </div>
-    </div>
+    </div>)
   }
 
   renderDropdown() {
     const dropdownClass = this.state.showDropdown ? '' : 'hidden'
       let options
-      const makeCopy = <div key="new" className="option" onClick={this.makeNewEdition}><img src={MakeCopy}/>Make Copy</div>
+      const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img src={MakeCopy} />Make Copy</div>
       if (this.props.creator === 'user') {
-        const editEdition = <div key="edit" className="option" onClick={this.editEdition}><img src={EditEdition}/>Edit Edition</div>
-        const archiveEdition = <div key="archive" className="option" onClick={this.archiveEdition}><img src={DeleteEdition}/>Delete Edition</div>
+        const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img src={EditEdition} />Edit Edition</div>
+        const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img src={DeleteEdition} />Delete Edition</div>
         options = [makeCopy, editEdition, archiveEdition]
       } else {
         options = [makeCopy]
       }
-      return <div className={`dropdown ${dropdownClass}`}>
+      return (<div className={`dropdown ${dropdownClass}`}>
         {options}
-      </div>
+      </div>)
   }
 
   renderSelectButton() {
     if (this.props.selectState) {
       if (this.props.selectedEdition) {
-        return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="resume-button">Resume</button>
+        return <button className="resume-button" onClick={() => this.props.selectAction(this.props.edition.key)}>Resume</button>
       } else {
-        return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="select-button">Select</button>
+        return <button className="select-button" onClick={() => this.props.selectAction(this.props.edition.key)}>Select</button>
       }
     }
   }
@@ -105,7 +105,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
     const teacher = this.props.customize.coteachers.find(t => t.id === this.props.edition.user_id)
     const name = teacher ? teacher.name : null
     if (name) {
-      return <span className='locked-unit'>  <i className="fa fa-icon fa-user"/>{name}</span>
+      return <span className='locked-unit'>  <i className="fa fa-icon fa-user" />{name}</span>
     }
   }
 
@@ -115,19 +115,19 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
     const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
     const selectedEditionClass = this.props.selectedEdition ? 'selected' : ''
     const selectedEditionTag = this.props.selectedEdition ? <span className="in-progress"><i className="fa fa-icon fa-check" />In Progress</span> : null
-    return <div className="edition-container">
+    return (<div className="edition-container">
       <div className={`edition ${selectedEditionClass}`}>
         <div className="text">
           <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
-            {sampleQuestionSection}
-          </div>
-          <div className="action">
-            {this.renderCustomizeDropdown()}
-            {this.renderSelectButton()}
-          </div>
+          {sampleQuestionSection}
+        </div>
+        <div className="action">
+          {this.renderCustomizeDropdown()}
+          {this.renderSelectButton()}
+        </div>
       </div>
       {selectedEditionTag}
-    </div>
+    </div>)
 
   }
 }
@@ -148,8 +148,8 @@ export interface DispatchFromProps {
 }
 
 export interface StateFromProps {
-  customize: any
-  classroomLesson: any
+  customize: any;
+  classroomLesson: any;
 }
 
 export default connect<StateFromProps, DispatchFromProps, EditionRowProps>(select)(EditionRow)

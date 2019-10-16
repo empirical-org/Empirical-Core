@@ -40,7 +40,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}
-                />)
+        />)
       })
     } else {
       return [<li />]

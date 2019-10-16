@@ -309,7 +309,7 @@ class ResponseComponent extends React.Component {
         showPathways
         states={this.props.states}
         toPathways={this.mapCountToToResponse}
-              />);
+      />);
     }
   }
 
@@ -322,7 +322,7 @@ class ResponseComponent extends React.Component {
       ascending={this.props.filters.ascending}
       sorting={this.props.filters.sorting}
       toggleResponseSort={this.toggleResponseSort}
-            />);
+    />);
   }
 
   toggleField(status) {

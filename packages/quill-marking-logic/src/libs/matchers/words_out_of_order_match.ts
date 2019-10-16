@@ -19,7 +19,7 @@ function mapWordCounts(sentenceString: string): Object {
   return wordsArray.reduce((wordMap, word) => {
     const noPunctWord = removePunctuation(word).toLowerCase();
     if (!wordMap[noPunctWord]) wordMap[noPunctWord] = 0;
-    wordMap[noPunctWord]++;
+    wordMap[noPunctWord]+=1;
     return wordMap;
   }, {});
 }
@@ -50,4 +50,3 @@ export function wordsOutOfOrderResponseBuilder(responses:Array<Response>, parent
   }
   return res
 }
-

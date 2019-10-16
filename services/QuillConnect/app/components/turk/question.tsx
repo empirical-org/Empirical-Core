@@ -96,7 +96,7 @@ const PlayDiagnosticQuestion = React.createClass({
     return (<RenderQuestionCues
       displayArrowAndText={true}
       getQuestion={this.getQuestion}
-            />);
+    />);
   },
 
   updateResponseResource(response) {

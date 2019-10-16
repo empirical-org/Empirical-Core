@@ -9,9 +9,9 @@ interface TooltipProps {
 }
 
 export class Tooltip extends React.Component<TooltipProps, {}> {
-  private timer: any
-  private tooltip: any
-  private tooltipTrigger: any
+  static timer: any
+  static tooltip: any
+  static tooltipTrigger: any
 
   constructor(props) {
     super(props)

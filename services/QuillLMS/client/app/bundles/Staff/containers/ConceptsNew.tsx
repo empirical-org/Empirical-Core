@@ -71,7 +71,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   renderContent() {
     return (<Query
       query={gql(allConceptsQuery)}
-            >
+    >
       {({ loading, error, data, refetch, networkStatus }) => {
         if (networkStatus === 4) return <p>Refetching!</p>;
         if (loading) return <p>Loading...</p>;

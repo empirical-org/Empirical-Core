@@ -64,7 +64,6 @@ class ConceptsFindAndReplace extends React.Component<ConceptsFindAndReplaceProps
           query={gql(levelZeroConcepts)}
         >
           {({ loading, error, data }) => {
-            console.log('error', error)
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
 

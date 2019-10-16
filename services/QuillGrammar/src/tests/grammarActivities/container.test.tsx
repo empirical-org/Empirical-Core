@@ -12,7 +12,7 @@ describe("<PlayGrammarContainer />", () => {
     dispatch={() => {}}
     grammarActivities={grammarActivities}
     session={session}
-                          />)
+  />)
 
     it("should render", () => {
       expect(wrapper).toMatchSnapshot();

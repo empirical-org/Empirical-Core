@@ -2,7 +2,7 @@ import { Editor } from 'slate-react'
 import Html from 'slate-html-serializer'
 import * as React from 'react'
 
-const BLOCK_TAGS = {
+const BLOCK_TAGS: {[key: string]: string} = {
   p: "paragraph"
 }
 ​​

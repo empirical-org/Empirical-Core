@@ -163,7 +163,7 @@ class ChooseEdition extends React.Component<any, any> {
         deleteNewEdition={this.deleteNewEdition}
         saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
         updateName={this.updateName}
-              />)
+      />)
     }
   }
 
@@ -191,7 +191,7 @@ class ChooseEdition extends React.Component<any, any> {
               selectAction={this.selectAction}
               selectedEdition={sessionEditionId === e}
               selectState={selectState}
-                                />)
+            />)
             myEditions.push(editionRow)
           } else if (String(edition.user_id) === 'quill-staff') {
             const editionRow = (<EditionRow
@@ -202,7 +202,7 @@ class ChooseEdition extends React.Component<any, any> {
               selectAction={this.selectAction}
               selectedEdition={sessionEditionId === e}
               selectState={selectState}
-                                />)
+            />)
             quillEditions.push(editionRow)
           } else {
             const editionRow = (<EditionRow
@@ -213,7 +213,7 @@ class ChooseEdition extends React.Component<any, any> {
               selectAction={this.selectAction}
               selectedEdition={sessionEditionId === e}
               selectState={selectState}
-                                />)
+            />)
             coteacherEditions.push(editionRow)
           }
         }
@@ -253,7 +253,7 @@ class ChooseEdition extends React.Component<any, any> {
       return (<SignupModal
         closeModal={this.hideSignupModal}
         goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
-              />)
+      />)
     }
   }
 

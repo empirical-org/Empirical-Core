@@ -10,15 +10,15 @@ const store = configureStore();
 store.dispatch(initStore());
 
 class App extends React.Component<{}, {}> {
-    public render(): JSX.Element {
-        return (
-            <LocaleProvider locale={enUS}>
-                <Provider store={store}>
-                    <HashRouter basename="/" children={route} />
-                </Provider>
-            </LocaleProvider>
-        );
-    }
+  render(): JSX.Element {
+    return (
+      <LocaleProvider locale={enUS}>
+        <Provider store={store}>
+          <HashRouter basename="/" children={route} />
+        </Provider>
+      </LocaleProvider>
+    );
+  }
 }
 
 export default App;

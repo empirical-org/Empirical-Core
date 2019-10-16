@@ -92,7 +92,7 @@ export default class ResponseList extends React.Component {
       state={this.props.states[this.props.questionID]}
       states={this.props.states}
       toPathways={this.props.toPathways}
-            />)
+    />)
   }
 
   render() {

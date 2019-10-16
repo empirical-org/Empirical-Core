@@ -341,7 +341,7 @@ export default class Response extends React.Component<any, any> {
       mode={mode}
       response={this.props.response}
       toggleCheckboxCorrect={this.toggleCheckboxCorrect}
-            />)
+    />)
   }
 
   renderResponseContent(isEditing, response) {
@@ -386,13 +386,13 @@ export default class Response extends React.Component<any, any> {
         className="button is-outlined has-top-margin"
         key="from"
         onClick={this.printResponsePathways.bind(null, this.props.key)}
-                               >
+      >
                          From Pathways
       </a> <a
         className="button is-outlined has-top-margin"
         key="to"
         onClick={this.toResponsePathways}
-           >
+      >
                             To Pathways
       </a>
       </span>);

@@ -1,13 +1,13 @@
 import { Event } from './event_definitions';
 import Events from './events';
 
-
 class SegmentAnalytics {
   analytics: Object;
 
   constructor() {
+    const win:any = window
     try {
-      this.analytics = (<any>window).analytics;
+      this.analytics = win.analytics;
     } catch(e) {
       this.reportError(e);
       this.analytics = null;

@@ -142,7 +142,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       key={i}
       onClick={() => this.toggleSuggestedSequence(seq)}
       style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
-            >
+    >
       {seq}
     </span>)
    }

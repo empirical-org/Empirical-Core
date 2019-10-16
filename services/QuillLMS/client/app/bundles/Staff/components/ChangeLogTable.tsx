@@ -6,7 +6,7 @@ import { ChangeLog } from '../interfaces/interfaces';
 import moment from 'moment';
 
 interface ChangeLogsTableProps {
-  changeLogs: Array<ChangeLog>
+  changeLogs: Array<ChangeLog>;
 }
 
 interface ChangeLogRow {

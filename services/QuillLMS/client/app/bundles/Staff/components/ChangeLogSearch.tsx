@@ -5,9 +5,9 @@ import { ChangeLog } from '../interfaces/interfaces'
 const Search = Input.Search;
 
 export interface ChangeLogSearchProps {
-  changeLogs: Array<ChangeLog>
-  searchValue: string
-  updateSearchValue(string): void
+  changeLogs: Array<ChangeLog>;
+  searchValue: string;
+  updateSearchValue(string): void;
 }
 
 export interface ChangeLogSearchState {
@@ -22,10 +22,10 @@ class ChangeLogSearch extends React.Component<ChangeLogSearchProps, ChangeLogSea
     return (
       <div className="certain-category-search-wrapper">
         <Search
-          placeholder="Search by concept name or UID"
           onSearch={this.props.updateSearchValue}
+          placeholder="Search by concept name or UID"
+          prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}} />}
           style={{ width: '100%' }}
-          prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}}></i>}
         />
       </div>
     )

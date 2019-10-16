@@ -168,7 +168,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
           label="Select a grade"
           options={GradeOptions}
           value={gradeOption}
-                               />)
+        />)
         return {
           name,
           id,
@@ -188,7 +188,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         showCheckboxes={true}
         uncheckAllRows={this.uncheckAllRows}
         uncheckRow={this.toggleRowCheck}
-              />)
+      />)
     }
   }
 

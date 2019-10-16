@@ -106,12 +106,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
   }
 
-  componentWillUnmount() {
-    if (this.interval) {
-      clearInterval(this.interval)
-    }
-  }
-
   componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
     if (
       (nextProps.proofreaderActivities.currentActivity && !this.state.passage)
@@ -128,6 +122,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         currentPassage = nextProps.session.passageFromFirebase
       }
       this.setState({ passage: currentPassage, originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval)
     }
   }
 
@@ -418,7 +418,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return (<EarlySubmitModal
         closeModal={this.closeEarlySubmitModal}
         requiredEditCount={requiredEditCount}
-              />)
+      />)
     }
   }
 
@@ -428,7 +428,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return (<ResetModal
         closeModal={this.closeResetModal}
         reset={this.reset}
-              />)
+      />)
     }
   }
 
@@ -440,7 +440,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         closeModal={this.closeReviewModal}
         numberOfCorrectChanges={numberOfCorrectChanges || 0}
         numberOfErrors={numberOfErrors}
-              />)
+      />)
     }
   }
 
@@ -453,7 +453,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         concepts={this.props.concepts.data[0]}
         finishReview={this.finishReview}
         text={text}
-              />)
+      />)
     } else if (passage) {
       const paragraphs = passage.map((p, i) => {
         return (<Paragraph
@@ -464,7 +464,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           resetting={resetting}
           underlineErrors={underlineErrorsInProofreader}
           words={p}
-                />)
+        />)
       })
       return <div className="editor">{paragraphs}</div>
     }

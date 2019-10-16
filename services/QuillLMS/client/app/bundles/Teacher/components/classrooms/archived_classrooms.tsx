@@ -87,7 +87,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
         classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-              />)
+      />)
     }
   }
 
@@ -112,7 +112,7 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
           selected={classroom.id === this.state.selectedClassroomId}
           unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
           user={user}
-                />)
+        />)
       })
       return (<div className="archived-classes">
         {classroomCards}

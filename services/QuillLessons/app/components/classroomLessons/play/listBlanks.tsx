@@ -43,15 +43,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
   }
 
-  toObject(answers) {
-    const arr = answers.split(',')
-    const objectifiedArr = {};
-    for (var i = 0; i < arr.length; i+=1) {
-      objectifiedArr[i] = arr[i];
-    }
-    return objectifiedArr;
-  }
-
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
@@ -74,6 +65,15 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         this.setState({answers: this.toObject(nextProps.submissions[student].data)})
       }
     }
+  }
+
+  toObject(answers) {
+    const arr = answers.split(',')
+    const objectifiedArr = {};
+    for (var i = 0; i < arr.length; i+=1) {
+      objectifiedArr[i] = arr[i];
+    }
+    return objectifiedArr;
   }
 
   customChangeEvent(e, index){
@@ -237,7 +237,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       let instructionsRow = this.props.data.play.instructions ? (<Feedback
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         feedbackType="default"
-                                                                 />) : null;
+      />) : null;
       let submitButton = !this.props.projector ? <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission} /> : null;
       return (
         <div>

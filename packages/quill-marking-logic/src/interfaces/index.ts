@@ -37,7 +37,7 @@ export interface PartialResponse {
   parent_id?: number|string|null,
   parentId?: number|string|null,
   sortOrder?: number,
-  statusCode?: number
+  statusCode?: number,
   uid?: string|null,
   updated_at?: string,
   weak?: Boolean|null,
@@ -62,10 +62,10 @@ export interface FocusPoint {
 }
 
 export interface IncorrectSequence {
-  text: string,
-  feedback: string,
-  concept_results?: Array<ConceptResult>
-  conceptResults?: Array<ConceptResult>
+  text: string;
+  feedback: string;
+  concept_results?: Array<ConceptResult>;
+  conceptResults?: Array<ConceptResult>;
 }
 
 export interface FeedbackObject {

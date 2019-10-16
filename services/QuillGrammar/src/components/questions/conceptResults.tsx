@@ -24,7 +24,7 @@ export default class ConceptResults extends React.Component<any, any> {
             key={uid}
             onCheckboxChange={() => this.props.toggleCheckboxCorrect(uid)}
             selectorDisabled={uid === null || uid === 'null' ? false : true}
-                  />)
+          />)
         });
       } else {
         components = Object.keys(conceptResults).map(uid => {

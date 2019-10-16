@@ -180,7 +180,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
-              />)
+      />)
     }
   }
 

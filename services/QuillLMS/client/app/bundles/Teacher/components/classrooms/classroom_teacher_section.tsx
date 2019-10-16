@@ -203,7 +203,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
       headers={classroom.visible ? activeHeaders : archivedHeaders}
       rows={rows}
       showActions={classroom.visible}
-            />)
+    />)
   }
 
   renderRemoveCoteacherModal() {
@@ -216,7 +216,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
         close={this.closeModal}
         coteacher={coteacher}
         onSuccess={onSuccess}
-              />)
+      />)
     }
   }
 
@@ -230,7 +230,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
         close={this.closeModal}
         coteacher={coteacher}
         onSuccess={onSuccess}
-              />)
+      />)
     }
   }
 
@@ -245,7 +245,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
         close={this.closeModal}
         coteacher={coteacher}
         onSuccess={onSuccess}
-              />)
+      />)
     }
   }
 

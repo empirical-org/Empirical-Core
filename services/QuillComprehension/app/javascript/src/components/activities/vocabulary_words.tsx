@@ -2,10 +2,10 @@ import React from 'react'
 import Modal from '../modals'
 
 export interface VocabularyWord {
-  id:number
-  text:string
-  description:string
-  example:string
+  id:number;
+  text:string;
+  description:string;
+  example:string;
 }
 
 export interface Props {

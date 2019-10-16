@@ -84,7 +84,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             next={this.next}
             numberOfEdits={numberOfEdits}
             state={state}
-                      />)
+          />)
           if (punctuationRegex.test(parts[i + 1])) {
             parts[i + 1] = `${parts[i + 1]}`
           } else {

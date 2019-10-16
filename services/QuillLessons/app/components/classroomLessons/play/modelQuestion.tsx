@@ -30,7 +30,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
       return (<Feedback
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         feedbackType="default"
-              />);
+      />);
     }
   }
 

@@ -124,7 +124,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         concept={concept}
         levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
-              />)
+      />)
     }
   }
 
@@ -195,9 +195,8 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     if (this.props.levelNumber === 0) {
       return (<Query
         query={gql(levelOneConceptsQuery())}
-              >
+      >
         {({ loading, error, data }) => {
-          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
@@ -208,13 +207,13 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
             label="Level 1"
             options={possibleConcepts}
             value={value}
-                  />)
+          />)
         }}
       </Query>)
     } else {
       return (<Query
         query={gql(levelTwoConceptsQuery())}
-              >
+      >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
@@ -226,7 +225,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
             label="Level 2"
             options={possibleConcepts}
             value={value}
-                  />)
+          />)
         }}
       </Query>)
 
@@ -314,7 +313,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         className="quill-button contained primary medium"
         type="submit"
         value="Save"
-              />)
+      />)
     }
   }
 

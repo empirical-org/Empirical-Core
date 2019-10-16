@@ -27,15 +27,15 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
     this.toggleHideBody = this.toggleHideBody.bind(this)
   }
 
-  header() {
-    if (this.props.item.data && this.props.item.data.heading) {
-      return <p className="script-item-heading" onClick={this.toggleHideBody}>{this.props.item.data.heading}</p>
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.onlyShowHeaders !== this.props.onlyShowHeaders) {
       this.setState({hideBody: nextProps.onlyShowHeaders})
+    }
+  }
+
+  header() {
+    if (this.props.item.data && this.props.item.data.heading) {
+      return <p className="script-item-heading" onClick={this.toggleHideBody}>{this.props.item.data.heading}</p>
     }
   }
 

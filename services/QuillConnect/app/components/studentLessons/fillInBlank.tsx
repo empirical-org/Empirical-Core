@@ -63,6 +63,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.setQuestionValues(this.props.question)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.question.prompt !== this.props.question.prompt) {
+      this.setQuestionValues(nextProps.question)
+    }
+  }
+
   setQuestionValues(question) {
     const q = question;
     const splitPrompt = q.prompt.split('___');
@@ -73,12 +79,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       cues: q.cues,
       blankAllowed: q.blankAllowed,
     }, () => this.getGradedResponsesWithCallback(question));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.question.prompt !== this.props.question.prompt) {
-      this.setQuestionValues(nextProps.question)
-    }
   }
 
   getGradedResponsesWithCallback(question) {

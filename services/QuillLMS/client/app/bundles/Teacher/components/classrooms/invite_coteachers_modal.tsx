@@ -102,7 +102,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
         label="Co-teacher email"
         type="text"
         value={email}
-              />)
+      />)
     } else {
       return (<Input
         className="email"
@@ -111,7 +111,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
         placeholder="teacher@example.edu"
         type="text"
         value={email}
-              />)
+      />)
     }
   }
 
@@ -155,7 +155,7 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
       showCheckboxes={true}
       uncheckAllRows={this.uncheckAllRows}
       uncheckRow={this.uncheckRow}
-            />)
+    />)
   }
 
   render() {

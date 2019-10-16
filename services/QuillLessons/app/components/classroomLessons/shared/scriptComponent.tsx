@@ -118,7 +118,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             key={index}
             onlyShowHeaders={this.props.onlyShowHeaders}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-                  />)
+          />)
         case 'STEP-HTML-TIP':
             return (<StepHtml
               isTip={true}
@@ -126,7 +126,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
               key={index}
               onlyShowHeaders={this.props.onlyShowHeaders}
               updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-                    />)
+            />)
         case 'T-MODEL':
           return this.renderTeacherModel()
         case 'Overview':

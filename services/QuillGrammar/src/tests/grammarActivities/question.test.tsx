@@ -25,7 +25,7 @@ describe("<PlayGrammarContainer />", () => {
     currentQuestion={currentQuestion}
     goToNextQuestion={() => {}}
     unansweredQuestions={session.unansweredQuestions}
-                                 />)
+  />)
 
     it("should render", () => {
       expect(shallowWrapper).toMatchSnapshot();
@@ -66,7 +66,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                         />)
+        />)
 
         it ("renders with the text 'Hide Example'", () => {
           expect(unclickedWrapper.update().find('.example-button').children().first().text()).toEqual('Hide Example')
@@ -91,7 +91,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                       />)
+        />)
 
         clickedWrapper.find('.example-button').simulate('click')
 
@@ -121,7 +121,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                         />)
+        />)
         const textArea = untypedInWrapper.find('textarea')
         it ('should not have any text', () => {
           expect(textArea.props().value).toEqual('')
@@ -142,7 +142,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                       />)
+        />)
         const typedText = 'Hello'
         typedInWrapper.find('textarea').simulate('change', { target: { value: typedText } })
 
@@ -181,7 +181,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestionWithOneIncorrectAttempt}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                                       />)
+        />)
 
         wrapperWithOneIncorrectAttempt.setState({questionStatus: 'incorrectly answered', responses })
 
@@ -204,7 +204,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestionWithTwoIncorrectAttempts}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                                        />)
+        />)
 
         wrapperWithTwoIncorrectAttempts.setState({questionStatus: 'final attempt', responses })
 
@@ -227,7 +227,7 @@ describe("<PlayGrammarContainer />", () => {
           currentQuestion={currentQuestionWithOneCorrectAttempt}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
-                                                     />)
+        />)
 
         wrapperWithOneCorrectAttempt.setState({questionStatus: 'correctly answered', responses })
 

@@ -64,7 +64,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
         label={`Action Explanation: ${this.state[key].action}`}
         timesSubmitted={0}
         value={this.state[key].explanation}
-              />)
+      />)
     })
   }
 

@@ -151,7 +151,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         return (<Feedback
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
           feedbackType="default"
-                />);
+        />);
       }
     }
   }

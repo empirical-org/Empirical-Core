@@ -6,9 +6,9 @@ import gql from "graphql-tag";
 import NotificationsCard from './notification_feed';
 
 export interface Notification {
-  id: number
-  text: string
-  href: string|null
+  id: number;
+  text: string;
+  href: string|null;
 }
 
 const notificationQuery:string = `
@@ -26,14 +26,14 @@ const notificationQuery:string = `
 export default () => (
   <ApolloProvider client={client}>
     <Query
-        query={gql(notificationQuery)}
-      >
+      query={gql(notificationQuery)}
+    >
       {({ loading, error, data }) => {
         if (loading) return (null);
         if (error) return <p>Error :(</p>;
         const notifications:Notification[] = data.currentUser.notifications;
         return (
-          <NotificationsCard notifications={notifications}/>
+          <NotificationsCard notifications={notifications} />
         )
       }}
     </Query>

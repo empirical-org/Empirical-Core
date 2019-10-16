@@ -16,7 +16,7 @@ export default class RuleDescriptionField extends React.Component<any, any> {
   }
 
   showEditor() {
-    this.setState({ showEditor: true }, () => console.log(this.state))
+    this.setState({ showEditor: true })
   }
 
   cancel() {
@@ -24,7 +24,6 @@ export default class RuleDescriptionField extends React.Component<any, any> {
   }
 
   renderAddRuleDescription() {
-    console.log('ima render the rule description')
     return (<div className="rule-description">
       <div className="add-rule-description" onClick={this.showEditor}>
         <i className="fas fa-plus" />

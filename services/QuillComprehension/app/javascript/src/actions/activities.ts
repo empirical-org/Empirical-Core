@@ -5,20 +5,20 @@ export const CHOOSE_QUESTION_SET = 'CHOOSE_QUESTION_SET';
 export const SET_FONT_SIZE = 'SET_FONT_SIZE';
 
 export interface ActivitiesActionData {
-  questionId?:number
-  submission?:string
-  questionSetId?:number
-  fontSize?:number
+  questionId?:number;
+  submission?:string;
+  questionSetId?:number;
+  fontSize?:number;
 }
 
 export interface ActivitiesAction {
-  type:string
-  data?:ActivitiesActionData
+  type:string;
+  data?:ActivitiesActionData;
 }
 
 export function completeQuestion(questionId:number):ActivitiesAction {
   return {
-    type: COMPLETE_QUESTION, 
+    type: COMPLETE_QUESTION,
     data: {
       questionId
     }
@@ -27,7 +27,7 @@ export function completeQuestion(questionId:number):ActivitiesAction {
 
 export function updateSubmission(questionId:number, submission:string):ActivitiesAction {
   return {
-    type: UPDATE_SUBMISSION, 
+    type: UPDATE_SUBMISSION,
     data: {
       questionId,
       submission
@@ -41,7 +41,7 @@ export function markArticleAsRead():ActivitiesAction {
 
 export function chooseQuestionSet(questionSetId:number):ActivitiesAction {
   return {
-    type: CHOOSE_QUESTION_SET, 
+    type: CHOOSE_QUESTION_SET,
     data: {
       questionSetId
     }

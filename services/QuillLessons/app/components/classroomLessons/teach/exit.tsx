@@ -53,7 +53,7 @@ class ExitSlide extends React.Component<any, any> {
       flaggedStudents={flaggedStudents}
       students={students}
       toggleStudentFlag={this.props.toggleStudentFlag}
-             />)
+    />)
   }
 
   renderAssignedSection() {

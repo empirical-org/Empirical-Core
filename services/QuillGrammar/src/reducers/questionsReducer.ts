@@ -5,7 +5,7 @@ import * as _ from 'lodash'
 
 export interface QuestionsReducerState {
   hasreceiveddata: boolean;
-  data?: Questions
+  data?: Questions;
   error?: string;
   states: { [key: string]: string };
   newConceptModalOpen: Boolean;

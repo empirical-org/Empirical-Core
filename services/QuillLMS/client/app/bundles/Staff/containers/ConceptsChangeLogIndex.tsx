@@ -73,7 +73,7 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
   renderConceptsChangeLog(data) {
     return (<ChangeLogTable
       changeLogs={this.filterChangeLog(data.changeLogs, this.state.searchValue)}
-            />)
+    />)
   }
 
   render() {
@@ -85,7 +85,6 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
           query={gql(conceptsChangeLogIndexQuery)}
         >
           {({ loading, error, data, refetch, networkStatus }) => {
-            console.log('error', error)
             if (networkStatus === 4) return <p>Refetching!</p>;
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;

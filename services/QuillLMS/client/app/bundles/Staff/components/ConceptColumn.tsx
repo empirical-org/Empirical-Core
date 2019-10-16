@@ -85,7 +85,7 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
       onChange={this.changeSort}
       options={options}
       value={value}
-            />)
+    />)
   }
 
   render() {

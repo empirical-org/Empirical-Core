@@ -150,7 +150,7 @@ const playLessonQuestion = React.createClass<any, any>({
       renderFeedbackStatements={this.renderFeedbackStatements}
       responses={this.getResponses()}
       sentence={sentence}
-            />);
+    />);
   },
 
   getErrorsForAttempt(attempt) {
@@ -165,7 +165,7 @@ const playLessonQuestion = React.createClass<any, any>({
     return (<RenderQuestionCues
       displayArrowAndText={true}
       getQuestion={this.getQuestion}
-            />);
+    />);
   },
 
   updateResponseResource(response) {

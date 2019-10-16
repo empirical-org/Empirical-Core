@@ -174,7 +174,7 @@ class TeacherNavbar extends React.Component<any, any> {
         onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
         onMouseLeave={(e) => this.hideTooltip(e)}
         target="_blank"
-              >
+      >
         <img className={className} src={pdfIcon} />
         {this.renderTooltip('pdf')}
       </a>)
