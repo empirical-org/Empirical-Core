@@ -8,6 +8,7 @@ export default {
   getChildRoutes: (partialNextState, cb) => {
     import(/* webpackChunkName: "admin-question" */ './question.js')
     .then(module => cb(null, module.default))
-    .catch(err => console.error('Dynamic page loading failed', err));
+    // to do, use Sentry to capture error
+    // .catch(err => console.error('Dynamic page loading failed', err));
   },
 };

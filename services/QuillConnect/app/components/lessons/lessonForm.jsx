@@ -102,7 +102,6 @@ class LessonForm extends React.Component {
     const questionType = this.state.questionType;
     let options = hashToCollection(this.props[questionType].data);
     const concepts = this.props.concepts.data[0];
-    console.log('Options: ', options);
     let formatted
     if (options.length > 0) {
       if (questionType !== 'titleCards') {

@@ -15,7 +15,6 @@ const ResponseComponentWrapper = React.createClass({
 
   componentWillMount() {
     const { questionID, } = this.props.params;
-    console.log('PARAMS: ', this.props.params);
   },
 
   getResponses() {

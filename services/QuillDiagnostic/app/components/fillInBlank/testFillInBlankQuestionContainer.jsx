@@ -65,7 +65,6 @@ class TestQuestion extends Component {
   render() {
     if (this.props.playDiagnostic.currentQuestion) {
       const question = this.props.playDiagnostic.currentQuestion.data;
-      console.log(question);
       return (
         <div>
           <div className="test-question-container">

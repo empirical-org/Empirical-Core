@@ -5,7 +5,7 @@ import $ from 'jquery'
 import DiagnosticActivityPacks from '../diagnostic_activity_packs'
 import EmptyDiagnosticProgressReport from '../empty_diagnostic_progress_report'
 import LoadingSpinner from '../../../shared/loading_indicator.jsx'
-import Units from '../../../lesson_planner/manage_units/units.jsx'
+import Units from '../../../assignment_flow/manage_units/units.jsx'
 
 const units = [
   {
