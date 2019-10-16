@@ -3,6 +3,7 @@ class UnitTemplate < ActiveRecord::Base
   belongs_to :author
   has_and_belongs_to_many :activities
   has_many :units
+  has_many :partner_curriculums, dependent: :destroy, as: :curriculum
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 
