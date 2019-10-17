@@ -81,16 +81,16 @@ export default class extends React.Component {
 
   renderModal(lessonID) {
     if (this.state.showModal === lessonID) {
-      return <PreviewOrLaunchModal
+      return (<PreviewOrLaunchModal
         closeModal={this.closeModal}
         lessonID={lessonID}
-      />;
+      />);
     }
   }
 
   renderModalContent() {
     if (this.state.lessons && this.state.lessons.length) {
-      return <div className="inner-container">
+      return (<div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">
           <h3 >
             List of Assigned Quill Lessons
@@ -98,10 +98,10 @@ export default class extends React.Component {
           <a href="/teachers/classrooms/activity_planner/lessons">View All Assigned Lessons </a>
         </div>
         {this.renderAssignedLessons()}
-      </div>
+      </div>)
     } else if (this.state.completedDiagnosticUnitInfo && Object.keys(this.state.completedDiagnosticUnitInfo).length > 0) {
       const {unit_id, classroom_id, activity_id} = this.state.completedDiagnosticUnitInfo
-      return <div className="inner-container">
+      return (<div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">
           <h3 >
             List of Assigned Quill Lessons
@@ -112,11 +112,11 @@ export default class extends React.Component {
           <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_lessons_launch_card.svg`} />
           <p>Based on your class performance on the diagnostic, your students need instructions in concepts such as <span className="recommendation">Complex Sentences</span>, <span className="recommendation">Fragments</span> and <span className="recommendation">Compound Sentences</span>.</p>
         </div>
-      </div>
+      </div>)
     } else if (this.state.loading) {
       return <div className="inner-container" />
     } else {
-      return <div className="inner-container">
+      return (<div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">
           <h3 >
             List of Assigned Quill Lessons
@@ -129,7 +129,7 @@ export default class extends React.Component {
           <p>Quill Lessons provides whole-class lessons that are led by the teacher.</p>
           <p>Select questions for your students and instantly see their responses. <a href="/tools/lessons" target="_blank">Learn More</a></p>
         </div>
-      </div>
+      </div>)
     }
   }
 

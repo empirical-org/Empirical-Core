@@ -110,10 +110,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>
-      </div>
+      </div>)
     }
   }
 

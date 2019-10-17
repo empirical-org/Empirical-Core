@@ -24,13 +24,13 @@ const Concepts = React.createClass({
     // const keys = _.keys(data["0"]);
     if (data) {
       return data.map((concept) => {
-        return <LinkListItem
+        return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts'
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}
-        />
+        />)
       })
     }
   },

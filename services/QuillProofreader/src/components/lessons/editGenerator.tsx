@@ -37,15 +37,15 @@ export default class EditGenerator extends React.Component {
 
   renderGeneratedEditTag() {
     if (this.state.generatedEdit) {
-      return <p>
+      return (<p>
         <label className="label">Generated Edit: </label>
         <span>{this.state.generatedEdit}</span>
-      </p>
+      </p>)
     }
   }
 
   render() {
-    return <div>
+    return (<div>
       <label className="label">Generate Edits</label>
       <i>Fill in the inputs and press submit to generate a formatted edit tag you can copy and paste into the passage.</i>
       <div style={{ border: 'black 1px solid', padding: '10px', marginTop: '10px' }}>
@@ -65,7 +65,7 @@ export default class EditGenerator extends React.Component {
         <button onClick={this.onClickSubmit}>Submit</button>
       </div>
       {this.renderGeneratedEditTag()}
-    </div>
+    </div>)
   }
 
 }

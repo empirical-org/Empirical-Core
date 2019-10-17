@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const EditionNamingModal: React.SFC<any> = (props) => {
- return <div className="name-modal-container">
+ return (<div className="name-modal-container">
    <div className="name-modal-background" />
    <div className="name-modal">
      <img className="exit" onClick={props.deleteNewEdition} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
@@ -15,7 +15,7 @@ const EditionNamingModal: React.SFC<any> = (props) => {
      <button className={props.buttonClassName} onClick={props.saveNameAndGoToCustomize}>Start Customizing</button>
      <span className="cancel" onClick={props.deleteNewEdition}>Cancel Customization</span>
    </div>
- </div>
+ </div>)
 }
 
 export default EditionNamingModal

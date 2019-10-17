@@ -186,7 +186,7 @@ class DataTables extends React.Component<any, any> {
       return row
     })
 
-    return <div id="data-tables">
+    return (<div id="data-tables">
       <h2 className="style-guide-h2">Data Tables</h2>
       <div className="element-container">
         <div>
@@ -308,7 +308,7 @@ const headers3 = ${JSON.stringify(headers3)}
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   }
 
 }

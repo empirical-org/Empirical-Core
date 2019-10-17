@@ -44,7 +44,7 @@ export default class MergeTwoClassrooms extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Merge Two Classrooms</h2>
       <p>This method will transfer all students and their data from the class identified by class code 1 to the class identified by class code 2.</p>
@@ -63,6 +63,6 @@ export default class MergeTwoClassrooms extends React.Component {
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

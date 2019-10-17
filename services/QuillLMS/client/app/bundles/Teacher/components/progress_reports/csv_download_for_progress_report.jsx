@@ -126,13 +126,13 @@ export default class extends React.Component {
         </div>
       )
     } else {
-      return <button
+      return (<button
         className={this.props.className || 'btn button-green'}
         onClick={this.handleClick}
         style={{
         display: 'block'
       }}
-      >{this.props.buttonCopy || "Download Report"}</button>
+      >{this.props.buttonCopy || "Download Report"}</button>)
     }
   }
 

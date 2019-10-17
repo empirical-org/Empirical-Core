@@ -16,24 +16,24 @@ class MultipleTextEditor extends React.Component {
     } = richButtonsPlugin;
 
     const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
-      <a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
+      (<a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span
           className={`${className}`}
           style={{ color: isActive ? '#000' : '#777' }}
           title={title ? title : label}
         >{title}
         </span>
-      </a>;
+      </a>);
 
       const BlockButton = ({className, toggleBlockType, isActive, label, blockType, title}) =>
-        <a onClick={toggleBlockType}>
+        (<a onClick={toggleBlockType}>
           <span
             className={`${className}`}
             style={{ color: isActive ? '#000' : '#777' }}
             title={title ? title : label}
           >{title}
           </span>
-        </a>;
+        </a>);
 
     this.state = {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),

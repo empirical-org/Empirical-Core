@@ -30,7 +30,7 @@ export default class EditLessonDetails extends Component<any, any> {
   }
 
   render() {
-    return <div style={{marginTop: 30, marginBottom: 30}}>
+    return (<div style={{marginTop: 30, marginBottom: 30}}>
       <div className="field">
         <label className="label">Title</label>
         <div className="control">
@@ -63,6 +63,6 @@ export default class EditLessonDetails extends Component<any, any> {
           <button className="button is-danger" onClick={this.props.deleteLesson}>Delete Lesson</button>
         </p>
       </div>
-    </div>
+    </div>)
   }
 }

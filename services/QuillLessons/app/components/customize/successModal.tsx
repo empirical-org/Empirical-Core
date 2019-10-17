@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router'
 
 const PublishSuccessModal: React.SFC<any> = (props) => {
- return <div className="publish-success-modal-container">
+ return (<div className="publish-success-modal-container">
    <div className="publish-success-modal-background" />
    <div className="publish-success-modal">
      <img src="https://assets.quill.org/images/illustrations/edition-published.svg" />
@@ -22,7 +22,7 @@ const PublishSuccessModal: React.SFC<any> = (props) => {
      <Link className="button-link" to={props.editionLink}>View My Edition</Link>
      <Link to={props.backLink}>Back to Customizing Edition</Link>
    </div>
- </div>
+ </div>)
 }
 
 export default PublishSuccessModal

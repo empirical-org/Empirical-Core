@@ -28,7 +28,7 @@ export default class UploadOptimalResponses extends React.Component {
   }
 
   render() {
-    return <div className="box">
+    return (<div className="box">
       <h6 className="control subtitle">Upload optimal responses</h6>
       <p>Upload an xlsx file with one sheet, with the prompt as the top line and the optimal responses to create on each line after that.</p>
       <label className="label">File</label>
@@ -40,7 +40,7 @@ export default class UploadOptimalResponses extends React.Component {
         />
       </p>
       <button className="button is-primary" onClick={this.submitResponses}>Upload Optimal Responses</button>
-    </div>
+    </div>)
   }
 
 }

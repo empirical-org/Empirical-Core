@@ -82,10 +82,10 @@ export default class UnitTemplateMinis extends React.Component {
 
   renderFilterOptions() {
     const { types, selectedTypeId, data, selectCategory, } = this.props
-    const typeOptions = types.map(type => <Link
+    const typeOptions = types.map(type => (<Link
       className={selectedTypeId === type.id ? 'active' : null}
       to={`${this.getIndexLink()}?type=${type.id}`}
-    >{type.name}</Link>)
+    >{type.name}</Link>))
     const categoryOptions = this.generateCategoryOptions()
     return (
       <div className="filter-options">

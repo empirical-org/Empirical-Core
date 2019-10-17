@@ -266,7 +266,7 @@ class ScoreAnalysis extends Component {
     const innerDivStyle = {display: 'flex', alignItems: 'center', marginRight: '10px'}
     const labelStyle = {marginRight: '10px'}
     const flagValue = this.state.flag ? this.state.flag : 'all'
-    return <div style={{display: 'flex', marginBottom: '15px'}}>
+    return (<div style={{display: 'flex', marginBottom: '15px'}}>
       <div style={innerDivStyle}>
         <label style={labelStyle}>Question Type:</label>
         <select onChange={this.updateQuestionTypeFilter} value={this.getAbbreviationFromQuestionType(this.state.questionType)}>
@@ -297,7 +297,7 @@ class ScoreAnalysis extends Component {
           <option value="production">Production</option>
         </select>
       </div>
-    </div>
+    </div>)
   }
 
   render() {

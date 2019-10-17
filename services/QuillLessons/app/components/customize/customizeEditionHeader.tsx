@@ -18,12 +18,12 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
 
   renderBackButton() {
     if (window.history.length > 1) {
-      return <div className="back-button">
+      return (<div className="back-button">
         <span onClick={this.goBack}>
           <i className="fa fa-icon fa-chevron-left" />
           Back
         </span>
-      </div>
+      </div>)
     }
   }
 
@@ -33,7 +33,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
 
   renderNote() {
     if (this.state.showNote) {
-      return <div className="note">
+      return (<div className="note">
         <div className="text">
           <h2>A note about creating your own lessons on Quill</h2>
           <p>You can build your own lesson by creating a customized edition of a Quill Lesson. However, you cannot yet create a new lesson from scratch. <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">Learn More</a>.</p>
@@ -42,13 +42,13 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
           <span onClick={this.closeNote}>Close</span>
           <img src="https://assets.quill.org/images/illustrations/customization-tip-x2.png" />
         </div>
-      </div>
+      </div>)
     }
   }
 
   render() {
     const errorClass = this.props.editionName ? '' : 'missing-name'
-    return <div className="customize-edition-header-container">
+    return (<div className="customize-edition-header-container">
       <div className='customize-edition-header'>
         {this.renderBackButton()}
         <div className="lesson-title-section">
@@ -71,7 +71,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
         </div>
         {this.renderNote()}
       </div>
-    </div>
+    </div>)
 
   }
 }

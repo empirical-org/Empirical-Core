@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const NameAndSampleQuestionModal: React.SFC<any> = (props) => {
- return <div className="name-and-sample-question-modal-container">
+ return (<div className="name-and-sample-question-modal-container">
    <div className="name-and-sample-question-modal-background" />
    <div className="name-and-sample-question-modal">
      <img className="exit" onClick={props.closeEditModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
@@ -21,7 +21,7 @@ const NameAndSampleQuestionModal: React.SFC<any> = (props) => {
      </div>
      <button className={props.buttonClassName} onClick={props.closeEditModal}>Submit</button>
    </div>
- </div>
+ </div>)
 }
 
 export default NameAndSampleQuestionModal

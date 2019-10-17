@@ -332,7 +332,7 @@ export default class Response extends React.Component<any, any> {
   }
 
   renderConceptResults(mode) {
-    return <ConceptResults
+    return (<ConceptResults
       conceptResults={this.state.conceptResults}
       concepts={this.props.concepts}
       deleteConceptResult={this.deleteConceptResult}
@@ -341,7 +341,7 @@ export default class Response extends React.Component<any, any> {
       mode={mode}
       response={this.props.response}
       toggleCheckboxCorrect={this.toggleCheckboxCorrect}
-    />
+    />)
   }
 
   renderResponseContent(isEditing, response) {

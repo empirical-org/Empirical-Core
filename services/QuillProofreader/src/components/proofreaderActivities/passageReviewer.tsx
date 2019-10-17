@@ -77,7 +77,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             state = 'incorrect'
           }
           index+=1
-          parts[i] = <Edit
+          parts[i] = (<Edit
             activeIndex={activeIndex}
             concept={concept}
             displayText={plus}
@@ -87,7 +87,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             next={this.next}
             numberOfEdits={numberOfEdits}
             state={state}
-          />
+          />)
           if (punctuationRegex.test(parts[i + 1])) {
             parts[i + 1] = `${parts[i + 1]}`
           } else {
@@ -101,9 +101,9 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
 
   render() {
     if (this.props.text) {
-      return <div className="reviewer" >
+      return (<div className="reviewer" >
         {this.renderFormattedText()}
-      </div>
+      </div>)
     } else {
       return <p>No passage</p>
     }

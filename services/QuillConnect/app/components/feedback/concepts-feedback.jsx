@@ -21,14 +21,14 @@ const ConceptsFeedback = React.createClass({
     if (data && data["0"]) {
       return data["0"].map((concept) => {
         const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
-        return <LinkListItem
+        return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts-feedback'
           className={hasFeedback ? "" : "no-feedback"}
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}
-        />
+        />)
       })
     }
   },

@@ -76,7 +76,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
 
   renderBody() {
     const { name, grade, code, timesSubmitted, errors } = this.state
-    return <div className="create-a-class-modal-body modal-body">
+    return (<div className="create-a-class-modal-body modal-body">
       <h3 className="title">Create a class</h3>
       <form className="create-a-class-form">
         <Input
@@ -112,13 +112,13 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
           <span className="reset" onClick={this.getClassCode}>Reset</span>
         </div>
       </form>
-    </div>
+    </div>)
   }
 
   renderFooter() {
-    return <div className="create-a-class-modal-footer">
+    return (<div className="create-a-class-modal-footer">
       <button className={this.footerButtonClass()} onClick={this.createClass}>Create class, next</button>
-    </div>
+    </div>)
   }
 
   render() {

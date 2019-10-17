@@ -36,5 +36,6 @@
     "react/jsx-props-no-multi-spaces": "error",
     "react/jsx-sort-props": "error",
     "react/jsx-tag-spacing": "error",
+    "react/jsx-wrap-multilines": "error"
   },
 }

@@ -44,7 +44,7 @@ export default class MergeStudentAccounts extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Merge Student Accounts</h2>
       <p>This method will not work unless both students are in the same classroom, and the second student only belongs to this classroom. If you need help with a different case, ask a dev.</p>
@@ -62,6 +62,6 @@ export default class MergeStudentAccounts extends React.Component {
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

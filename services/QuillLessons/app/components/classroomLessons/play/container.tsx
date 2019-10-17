@@ -226,10 +226,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       default:
 
     }
-    return <div>
+    return (<div>
       {this.renderProjectorModal()}
       {slide}
-    </div>
+    </div>)
   }
 
   handleChange(e) {
@@ -251,13 +251,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const imageSrc = this.state.leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
-      return <img
+      return (<img
         className="left-button"
         onClick={() => this.props.dispatch(goToPreviousSlide(sessionData, editionData, classroomSessionId))}
         onMouseOut={() => this.setState({leftHover: false})}
         onMouseOver={() => this.setState({leftHover: true})}
         src={imageSrc}
-      />
+      />)
     }
 
   }
@@ -270,13 +270,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
       const imageSrc = this.state.rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
-      return <img
+      return (<img
         className={className}
         onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
         onMouseOut={() => this.setState({rightHover: false})}
         onMouseOver={() => this.setState({rightHover: true})}
         src={imageSrc}
-      />
+      />)
     }
   }
 

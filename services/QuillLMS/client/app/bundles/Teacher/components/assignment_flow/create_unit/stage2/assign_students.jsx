@@ -194,10 +194,10 @@ export default class AssignStudents extends React.Component {
         <img alt="check" src={indeterminateSrc} />
       </span>)
     }
-    return <div className="all-classes-checkbox">
+    return (<div className="all-classes-checkbox">
       {checkbox}
       <span className="all-classes-text">All classes and students</span>
-    </div>
+    </div>)
   }
 
   renderClassroom(c) {

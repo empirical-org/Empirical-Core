@@ -57,14 +57,14 @@ const ItemLevelForm = React.createClass({
         integerValue=this.props.data.integerValue
         className="box"
         cancelAndDeleteButtons =
-          <div className="button-group">
+          (<div className="button-group">
             <Link to={'/admin/item-levels'}>
               <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
             </Link>
             <Link to={'/admin/item-levels'}>
               <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
             </Link>
-          </div>
+          </div>)
       }
 
       return (

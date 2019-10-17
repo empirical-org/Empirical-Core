@@ -43,7 +43,7 @@ export default class RecoverUnitActivities extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Recover Unit Activities</h2>
       <p>This method will unarchive all of the unit activities for all of the given teacher's non-archived units.</p>
@@ -55,6 +55,6 @@ export default class RecoverUnitActivities extends React.Component {
         <button onClick={this.submit}>Recover Unit Activities</button>
         {this.renderError()}
       </div>
-    </div>
+    </div>)
   }
 }

@@ -226,12 +226,12 @@ class CustomizeEdition extends React.Component<any, any> {
     } else {
       text = <p className="error"><i className="fa fa-icon fa-exclamation-triangle" />You have left one of the fields above empty. Please fill out all the required fields and click Publish Edition.</p>
     }
-    return <div className="publish-container">
+    return (<div className="publish-container">
       <div className="publish">
         {text}
         <div className="publish-button" onClick={this.publish}>Publish Edition</div>
       </div>
-    </div>
+    </div>)
   }
 
   renderSlides() {
@@ -242,7 +242,7 @@ class CustomizeEdition extends React.Component<any, any> {
 
   renderSlide(q: Question, i: number) {
     const incompletePrompt = this.props.incompleteQuestions && this.props.incompleteQuestions.includes(i)
-    return <Slide
+    return (<Slide
       clearSlide={this.clearSlide}
       incompletePrompt={incompletePrompt}
       key={i}
@@ -250,20 +250,20 @@ class CustomizeEdition extends React.Component<any, any> {
       questionIndex={i+1}
       resetSlide={this.resetSlide}
       updateQuestion={this.updateQuestion}
-    />
+    />)
   }
 
   renderEditModal() {
     if (this.state.showEditModal) {
       const buttonClassName = this.props.editionMetadata.name ? 'active' : 'inactive'
-      return <NameAndSampleQuestionModal
+      return (<NameAndSampleQuestionModal
         buttonClassName={buttonClassName}
         closeEditModal={this.closeEditModal}
         name={this.props.editionMetadata.name}
         sampleQuestion={this.props.editionMetadata.sample_question}
         updateName={this.updateName}
         updateSampleQuestion={this.updateSampleQuestion}
-      />
+      />)
     }
   }
 
@@ -273,18 +273,18 @@ class CustomizeEdition extends React.Component<any, any> {
       const backLink = classroomUnitId
         ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_unit_id=${classroomUnitId}`
         : `customize/${this.props.params.lessonID}/${this.props.params.editionID}`
-      return <SuccessModal
+      return (<SuccessModal
         activityName={this.props.classroomLesson.data.title}
         backLink={backLink}
         editionLink={this.followUpLink()}
         editionName={this.props.editionMetadata.name}
-      />
+      />)
     }
   }
 
   render() {
     if (this.props.editionMetadata) {
-      return <div className="customize-edition-container customize-page">
+      return (<div className="customize-edition-container customize-page">
         <div className="customize-edition">
           {this.renderEditModal()}
           {this.renderSuccessModal()}
@@ -298,7 +298,7 @@ class CustomizeEdition extends React.Component<any, any> {
           {this.renderSlides()}
           {this.renderPublishSection()}
         </div>
-      </div>
+      </div>)
     } else {
       return <span />
     }

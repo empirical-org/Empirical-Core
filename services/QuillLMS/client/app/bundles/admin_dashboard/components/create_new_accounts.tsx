@@ -72,7 +72,7 @@ class CreateNewAccounts extends React.Component<any, any> {
   }
 
   render() {
-    return <div id="create_new_accounts">
+    return (<div id="create_new_accounts">
       <div className="header">
         <h2>Create New Accounts and Link Existing Teachers</h2>
         <a className="green-link" href="mailto:becca@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
@@ -110,7 +110,7 @@ class CreateNewAccounts extends React.Component<any, any> {
       </div>
       {this.renderError()}
       {this.renderMessage()}
-    </div>
+    </div>)
   }
 }
 

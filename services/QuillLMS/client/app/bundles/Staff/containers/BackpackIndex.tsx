@@ -9,13 +9,13 @@ import DataTables from '../components/styleGuide/dataTables'
 
 export default class BackpackIndex extends React.Component {
   renderLink(href, text) {
-    return <li>
+    return (<li>
       <a href={href}>{text}</a>
-    </li>
+    </li>)
   }
 
   render() {
-    return <div className="style-guide-index">
+    return (<div className="style-guide-index">
       <aside className="menu">
         <p className="menu-label">
           CSS Elements
@@ -47,6 +47,6 @@ export default class BackpackIndex extends React.Component {
         <Tooltips />
         <DataTables />
       </div>
-    </div>
+    </div>)
   }
 }

@@ -48,13 +48,13 @@ export default class ChooseClassroomLesson extends React.Component {
       imgName = selectedClassName ? "radio_button_selected" : "radio_button_empty"
       clickFunction = () => {this.setSelectedClassroomUnitId(cu.id)}
     }
-    return <div className={`classroom-row ${selectedClassName} ${completionClass}`} key={i} onClick={clickFunction}>
+    return (<div className={`classroom-row ${selectedClassName} ${completionClass}`} key={i} onClick={clickFunction}>
       <div>
         <img src={`${process.env.CDN_URL}/images/shared/${imgName}.svg`} />
         <span>{cu.classroom_name}</span> ({numberOfStudents})
       </div>
       {completionText}
-    </div>
+    </div>)
   }
 
   setSelectedClassroomUnitId(id) {

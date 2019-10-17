@@ -44,7 +44,7 @@ export default class MergeTeacherAccounts extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Merge Teacher Accounts</h2>
       <p>This method will transfer all of the first teacher's classrooms and created units to the second teacher.</p>
@@ -62,6 +62,6 @@ export default class MergeTeacherAccounts extends React.Component {
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

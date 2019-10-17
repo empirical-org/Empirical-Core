@@ -30,7 +30,7 @@ export default class ConceptChangeLogs extends React.Component<ConceptChangeLogP
   renderChangeLogs() {
     if (this.state.open) {
       const changeLogItems = this.props.changeLogs.map(cl => {
-        return <div className="change-log-item" key={cl.id}>
+        return (<div className="change-log-item" key={cl.id}>
           <p className="date">{moment.unix(cl.createdAt).format('MMMM D, YYYY [at] LT')}</p>
           <p className="action">Action: {cl.action}</p>
           <p className="explanation">{cl.explanation}</p>
@@ -38,7 +38,7 @@ export default class ConceptChangeLogs extends React.Component<ConceptChangeLogP
             <i className="far fa-user-circle" />
             <span>{cl.user.name}</span>
           </p>
-        </div>
+        </div>)
       })
       return <div className="change-log-items">{changeLogItems}</div>
     }
@@ -47,12 +47,12 @@ export default class ConceptChangeLogs extends React.Component<ConceptChangeLogP
   render() {
     const numberOfChangeLogs = this.props.changeLogs.length
     const { open, } = this.state
-    return <div className="concept-change-logs">
+    return (<div className="concept-change-logs">
       <div className="concept-change-logs-header" onClick={this.toggleOpen}>
         <p>Change log - {numberOfChangeLogs} { numberOfChangeLogs === 1 ? 'edit' : 'edits' }</p>
         <i className={open ? 'fas fa-chevron-up' : 'fas fa-chevron-down'} />
       </div>
       {this.renderChangeLogs()}
-    </div>
+    </div>)
   }
 }

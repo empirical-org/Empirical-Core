@@ -144,18 +144,18 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
           studentRows.push(newStudent)
         }
       })
-      return <DataTable
+      return (<DataTable
         headers={tableHeaders}
         removeRow={this.removeStudent}
         rows={studentRows}
         showRemoveIcon={true}
-      />
+      />)
     }
   }
 
   renderBody() {
     const { firstName, lastName, } = this.state
-    return <div className="create-a-class-modal-body modal-body create-students">
+    return (<div className="create-a-class-modal-body modal-body create-students">
       <h3 className="title">Create accounts for your students</h3>
       <form onSubmit={this.addStudent}>
         <Input
@@ -177,7 +177,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
         <input className={this.submitClass()} name="commit" type="submit" value="Add" />
       </form>
       {this.renderTable()}
-    </div>
+    </div>)
   }
 
   renderFooter() {
@@ -187,10 +187,10 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     if (waiting) {
       nextButton = <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
     }
-    return <div className="create-a-class-modal-footer with-back-button">
+    return (<div className="create-a-class-modal-footer with-back-button">
       <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
       {nextButton}
-    </div>
+    </div>)
   }
 
   render() {

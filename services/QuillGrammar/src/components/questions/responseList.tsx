@@ -68,7 +68,7 @@ export default class ResponseList extends React.Component {
   }
 
   renderResponse(resp) {
-    return <Response
+    return (<Response
       allExpanded={this.props.expanded}
       conceptID={this.props.conceptID}
       concepts={this.props.concepts}
@@ -92,7 +92,7 @@ export default class ResponseList extends React.Component {
       state={this.props.states[this.props.questionID]}
       states={this.props.states}
       toPathways={this.props.toPathways}
-    />
+    />)
   }
 
   render() {

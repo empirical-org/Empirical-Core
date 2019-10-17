@@ -71,7 +71,7 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
 
   render() {
     const { coteacher, close, classroom } = this.props
-    return <div className="modal-container transfer-ownership-modal-container">
+    return (<div className="modal-container transfer-ownership-modal-container">
       <div className="modal-background" />
       <div className="transfer-ownership-modal quill-modal modal-body">
         <div>
@@ -84,6 +84,6 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
           <button className={this.submitButtonClass()} onClick={this.transferOwnership}>Transfer class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

@@ -220,10 +220,10 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
   renderButtonSection() {
     if (this.state.showButtonSection) {
-      return <div className="button-section">
+      return (<div className="button-section">
         <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
         <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
-      </div>
+      </div>)
     }
   }
 
@@ -233,7 +233,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = this.schoolTypeOptions().find(st => st.value === schoolType)
 
-    return <div className="teacher-account-general teacher-account-section">
+    return (<div className="teacher-account-general teacher-account-section">
       <h1>General</h1>
       <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
@@ -268,6 +268,6 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         </div>
         {this.renderButtonSection()}
       </form>
-    </div>
+    </div>)
   }
 }

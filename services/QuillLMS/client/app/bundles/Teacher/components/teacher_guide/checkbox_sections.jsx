@@ -68,11 +68,11 @@ sortBoxes: function(){
   section: function(){
     var that = this;
     var boxes = this.sortBoxes().map(box =>
-      <tr className={'completed-' + box.completed} key={box.id}>
+      (<tr className={'completed-' + box.completed} key={box.id}>
         <td className='check-or-number'>{that.checkOrNumber(box)}</td>
         <td className='text-left'><a href={box.action_url}>{box.name}</a></td>
         {this.optionalInfo(box)}
-      </tr>
+      </tr>)
     );
     return (
       <div>

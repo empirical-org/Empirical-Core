@@ -24,7 +24,7 @@ export default function (component, update, options) {
         default1 = null;
       }
 
-      return <TextInput
+      return (<TextInput
         default={default1}
         errorKey={ele.errorKey}
         errorLabel={ele.errorLabel}
@@ -37,7 +37,7 @@ export default function (component, update, options) {
         size={ele.size}
         type={ele.type}
         update={update}
-      />;
+      />);
   };
 
   this.setErrors = function (errors) {

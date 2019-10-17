@@ -163,10 +163,10 @@ export default React.createClass({
   render: function () {
     var tabSpecificComponents;
 
-    tabSpecificComponents = <UnitTemplatesManager
+    tabSpecificComponents = (<UnitTemplatesManager
       actions={this.unitTemplatesManagerActions()}
       data={this.state.unitTemplatesManager}
-    />;
+    />);
 
     return (
       <span>

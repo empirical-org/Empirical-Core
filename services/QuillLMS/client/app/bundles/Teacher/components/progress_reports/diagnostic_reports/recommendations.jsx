@@ -367,9 +367,9 @@ export default React.createClass({
         </div>
       );
     } else {
-      return <div className="recommendations-container">
+      return (<div className="recommendations-container">
         <p style={{ fontSize: '24px', }}>We do not yet have recommendations for this diagnostic. Please check back soon.</p>
-      </div>
+      </div>)
     }
   },
 

@@ -162,13 +162,13 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         const { name, username, id, creationTime, studentCount, checked, grade } = classroom
         const year = moment(creationTime).format('YYYY')
         const gradeOption = GradeOptions.find(go => go.value === grade)
-        const gradeSelector = <DropdownInput
+        const gradeSelector = (<DropdownInput
           className="grade"
           handleChange={(g) => this.handleGradeChange(id, g)}
           label="Select a grade"
           options={GradeOptions}
           value={gradeOption}
-        />
+        />)
         return {
           name,
           id,
@@ -180,7 +180,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         }
       })
 
-      return <DataTable
+      return (<DataTable
         checkAllRows={this.checkAllRows}
         checkRow={this.toggleRowCheck}
         headers={headers}
@@ -188,7 +188,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         showCheckboxes={true}
         uncheckAllRows={this.uncheckAllRows}
         uncheckRow={this.toggleRowCheck}
-      />
+      />)
     }
   }
 
@@ -203,7 +203,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
   render() {
     const { close } = this.props
-    return <div className="modal-container import-google-classrooms-modal-container">
+    return (<div className="modal-container import-google-classrooms-modal-container">
       <div className="modal-background" />
       <div className="import-google-classrooms-modal quill-modal">
 
@@ -227,6 +227,6 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         </div>
 
       </div>
-    </div>
+    </div>)
   }
 }

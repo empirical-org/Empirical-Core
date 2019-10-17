@@ -112,21 +112,21 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return <StepHtml
+          return (<StepHtml
             isTip={false}
             item={item}
             key={index}
             onlyShowHeaders={this.props.onlyShowHeaders}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-          />
+          />)
         case 'STEP-HTML-TIP':
-            return <StepHtml
+            return (<StepHtml
               isTip={true}
               item={item}
               key={index}
               onlyShowHeaders={this.props.onlyShowHeaders}
               updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-            />
+            />)
         case 'T-MODEL':
           return this.renderTeacherModel()
         case 'Overview':
@@ -285,7 +285,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf('correct') + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
 
-    return <tr className="sample-correct-answer-row">
+    return (<tr className="sample-correct-answer-row">
       <td colSpan={2}><div>Sample Correct Response</div></td>
       <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}} /></td>
       <td />
@@ -303,7 +303,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
       <td />
 
-    </tr>
+    </tr>)
   }
 
   renderReview(index: number) {
@@ -376,12 +376,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         headers.push(header)
       }
     }
-    return <thead>
+    return (<thead>
       <tr>
         {headers}
         <th />
       </tr>
-    </thead>
+    </thead>)
   }
 
   renderStudentRows() {
@@ -426,13 +426,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderNoSubmissionRow(studentKey: string) {
-    return <tr key={studentKey}>
+    return (<tr key={studentKey}>
       <td>{this.props.students[studentKey]}</td>
       <td>{this.renderFlag(studentKey)}</td>
       <td className="no-student-response">Waiting for the student's answer...</td>
       <td />
       <td />
-    </tr>
+    </tr>)
   }
 
   renderHTMLFromSubmissionObject(submission) {
@@ -451,7 +451,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
-      return <tr key={index}>
+      return (<tr key={index}>
         <td>{studentName}</td>
         <td>{this.renderFlag(studentKey)}</td>
         <td>{html}</td>
@@ -469,7 +469,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
         <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)} /></td>
-      </tr>
+      </tr>)
 
   }
 
@@ -478,11 +478,11 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (this.props.sampleCorrectAnswer) {
       content = this.renderSampleCorrectAnswer()
     } else {
-      content = <div className="no-student-submissions">
+      content = (<div className="no-student-submissions">
         Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
-      </div>
+      </div>)
     }
-    return <li className="student-submission-item" key={index}>
+    return (<li className="student-submission-item" key={index}>
 
       <div className="student-submission-item-header">
         <strong>0 of {numStudents}</strong> students have responded.
@@ -494,7 +494,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         {this.renderDisplayButton()}
       </div>
 
-    </li>
+    </li>)
   }
 
   elapsedMilliseconds(submittedTimestamp: any) {

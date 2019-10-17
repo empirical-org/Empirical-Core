@@ -9,7 +9,7 @@ interface titleFieldProps {
 }
 
 const TitleField: React.SFC<titleFieldProps> = (props) => {
-  return <div className="title-field field">
+  return (<div className="title-field field">
     <div className="spread-label">
       <label>Title</label>
       <div className="options">
@@ -26,7 +26,7 @@ const TitleField: React.SFC<titleFieldProps> = (props) => {
     <div className="control">
       <input className="input" onChange={props.handleTitleChange} type="text" value={props.title} />
     </div>
-  </div>
+  </div>)
 }
 
 export default TitleField

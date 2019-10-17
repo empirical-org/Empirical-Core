@@ -79,7 +79,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
   render() {
     const { selectedStudentIds, close } = this.props
     const numberOfSelectedStudents = selectedStudentIds.length
-    return <div className="modal-container remove-students-modal-container">
+    return (<div className="modal-container remove-students-modal-container">
       <div className="modal-background" />
       <div className="remove-students-modal quill-modal modal-body">
         <div>
@@ -92,6 +92,6 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
           <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

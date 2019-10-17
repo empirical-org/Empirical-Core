@@ -39,14 +39,14 @@ export default React.createClass({
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
       var isCurrentSort = (column.sortByField === this.props.currentSort.field);
-      return <SortableTh
+      return (<SortableTh
         displayClass={column.className}
         displayName={column.name}
         isCurrentSort={isCurrentSort}
         key={i}
         sortDirection={this.props.currentSort.direction || 'asc'}
         sortHandler={this.sortByColumn(column.sortByField)}
-      />
+      />)
     }, this);
   },
 

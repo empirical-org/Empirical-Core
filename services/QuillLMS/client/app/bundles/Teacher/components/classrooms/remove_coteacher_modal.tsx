@@ -80,7 +80,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
     if (coteacher.invitation_id) {
       coteacherName = "This co-teacher's"
     }
-    return <div className="modal-container remove-coteacher-modal-container">
+    return (<div className="modal-container remove-coteacher-modal-container">
       <div className="modal-background" />
       <div className="remove-coteacher-modal quill-modal modal-body">
         <div>
@@ -93,6 +93,6 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
           <button className={this.submitButtonClass()} onClick={this.removeCoteacher}>Remove from class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

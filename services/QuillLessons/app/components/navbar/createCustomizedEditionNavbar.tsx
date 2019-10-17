@@ -2,7 +2,7 @@ import * as React from 'react';
 const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
 
 const CreateCustomizedEditionNavbar: React.SFC<any> = () =>
-  <div className="customize-navbar-container">
+  (<div className="customize-navbar-container">
     <div className="customize-navbar">
       <div className="left">
         <span>Create Customized Edition</span>
@@ -15,6 +15,6 @@ const CreateCustomizedEditionNavbar: React.SFC<any> = () =>
       </div>
       <div className="right" />
     </div>
-  </div>
+  </div>)
 
 export default CreateCustomizedEditionNavbar

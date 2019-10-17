@@ -132,23 +132,23 @@ export default class CmsUserIndex extends React.Component {
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return <select multiple={true} onChange={this.updatePremiumStatus}>
+    return (<select multiple={true} onChange={this.updatePremiumStatus}>
       {options}
-    </select>
+    </select>)
   }
 
   renderUserRoleSelect() {
     const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
-    return <select onChange={e => this.updateField(e, 'user_role')}>
+    return (<select onChange={e => this.updateField(e, 'user_role')}>
       {options}
-    </select>
+    </select>)
   }
 
   renderUserFlagSelect() {
     const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
-    return <select onChange={e => this.updateField(e, 'user_flag')}>
+    return (<select onChange={e => this.updateField(e, 'user_flag')}>
       {options}
-    </select>
+    </select>)
   }
 
   submitPageForm(e) {
@@ -158,13 +158,13 @@ export default class CmsUserIndex extends React.Component {
   renderPageSelector() {
     const currentPage = this.state.query.page || 1
     const totalPages = this.state.numberOfPages || 1
-    return <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       <a onClick={() => this.updatePage(1)}>First</a>
       <form onSubmit={this.submitPageForm}>
         <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
       </form>
       <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>
+    </div>)
   }
 
   search() {

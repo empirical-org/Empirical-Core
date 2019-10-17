@@ -169,7 +169,7 @@ class TeacherNavbar extends React.Component<any, any> {
   renderPDFLink() {
     if (this.props.classroomSessions.data.supportingInfo) {
       const className = this.state.tooltip === 'pdf' ? 'hover' : ''
-      return <a
+      return (<a
         href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}
         onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
         onMouseLeave={(e) => this.hideTooltip(e)}
@@ -177,7 +177,7 @@ class TeacherNavbar extends React.Component<any, any> {
       >
         <img className={className} src={pdfIcon} />
         {this.renderTooltip('pdf')}
-      </a>
+      </a>)
     }
   }
 
@@ -291,10 +291,10 @@ class TeacherNavbar extends React.Component<any, any> {
       content = <span><p className="no-flagged-students" key='no-flagged-students'>No Flagged Students</p><p className="explanation" key="explanation">Flag students based on their performance for small group instruction.</p></span>
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
-    return <div className={className}>
+    return (<div className={className}>
       <i className="fa fa-caret-up" />
       {content}
-    </div>
+    </div>)
   }
 
   exitLesson() {
@@ -325,10 +325,10 @@ class TeacherNavbar extends React.Component<any, any> {
     if (preview === true) {
       const assignLink = `${process.env.EMPIRICAL_BASE_URL}/teachers/classrooms/assign_activities/create-unit?tool=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
-      return <div className="lessons-teacher-preview-bar">
+      return (<div className="lessons-teacher-preview-bar">
         <p><i className="fa fa-eye" />You are previewing the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
         <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
-      </div>
+      </div>)
     }
   }
 
