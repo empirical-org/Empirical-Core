@@ -13,10 +13,10 @@ const ConceptManagerNav: React.SFC = () => {
   }
   return <div className="concept-manager-nav">
     <div className="concept-manager-links">
-      <Link className={activeLink === 'concepts' ? 'active': ''} to ="/">Concepts</Link>
-      <Link className={activeLink === 'new' ? 'active': ''} to ="/new">Add Concepts</Link>
-      <Link className={activeLink === 'find_and_replace' ? 'active': ''} to ="/find_and_replace">Find & Replace</Link>
-      <Link className={activeLink === 'change_log' ? 'active': ''} to ="/change_log">Change Log</Link>
+      <Link className={activeLink === 'concepts' ? 'active': ''} to="/">Concepts</Link>
+      <Link className={activeLink === 'new' ? 'active': ''} to="/new">Add Concepts</Link>
+      <Link className={activeLink === 'find_and_replace' ? 'active': ''} to="/find_and_replace">Find & Replace</Link>
+      <Link className={activeLink === 'change_log' ? 'active': ''} to="/change_log">Change Log</Link>
     </div>
   </div>
 }

@@ -11,7 +11,8 @@ describe('UnitTemplate component', () => {
   describe('Markdown Preview', () => {
     it('should not render without activity_info in the state', () => {
       const wrapper = shallow(
-        <UnitTemplate unitTemplate={{}}
+        <UnitTemplate
+unitTemplate={{}}
           returnToIndex={() => null}
         />
       );
@@ -20,7 +21,8 @@ describe('UnitTemplate component', () => {
 
     it('should render if there is activity_info in the state', () => {
       const wrapper = shallow(
-        <UnitTemplate unitTemplate={{}}
+        <UnitTemplate
+unitTemplate={{}}
           returnToIndex={() => null}
         />
       );

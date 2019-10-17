@@ -516,7 +516,7 @@ export default class extends React.Component {
   renderDatepicker() {
     return <div>
         <label>Published At Date:</label>
-        <DatePicker selected={ this.state.publishedAt ? moment(this.state.publishedAt) : null } onChange={this.updatePublishedAt}/>
+        <DatePicker selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} onChange={this.updatePublishedAt}/>
       </div>
   }
 

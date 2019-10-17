@@ -81,7 +81,7 @@ class QuestionComponent extends React.Component<AppProps, any> {
             updateSubmission={this.updateSubmission}
             updateCompleteness={this.props.markQuestionAsComplete}
             submitResponse={submitResponse}
-            reset={() => {this.props.resetQuestion(a)} }
+            reset={() => {this.props.resetQuestion(a)}}
             number={i}
             />
           )}

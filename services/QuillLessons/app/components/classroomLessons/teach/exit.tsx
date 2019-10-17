@@ -33,7 +33,8 @@ class ExitSlide extends React.Component<any, any> {
         selectedOptionKey={this.props.selectedOptionKey}
         followUpActivityName={followUpActivityName}
         />
-        <AssignButton selectedOptionKey={this.props.selectedOptionKey}
+        <AssignButton
+selectedOptionKey={this.props.selectedOptionKey}
         assignAction={this.props.finishLesson}
         />
         </div>

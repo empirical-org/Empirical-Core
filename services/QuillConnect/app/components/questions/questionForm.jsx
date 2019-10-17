@@ -68,7 +68,8 @@ export default React.createClass({
       return <div>
         <label className="label">Concept</label>
         <div>
-          <ConceptSelector currentConceptUID={this.state.concept}
+          <ConceptSelector
+currentConceptUID={this.state.concept}
             handleSelectorChange={this.handleSelectorChange}
           />
           </div>

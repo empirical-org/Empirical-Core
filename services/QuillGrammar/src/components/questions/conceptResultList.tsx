@@ -46,7 +46,7 @@ export default class ConceptResultList extends React.Component<ConceptResultList
         currentConceptUID={key}
         checked={val}
         onCheckboxChange={() => this.toggleConceptResultCorrect(key)}
-        deleteConceptResult = {() => this.deleteConceptResult(key)}
+        deleteConceptResult={() => this.deleteConceptResult(key)}
         selectorDisabled={key === 'null' ? false : true}
       />
     ));
