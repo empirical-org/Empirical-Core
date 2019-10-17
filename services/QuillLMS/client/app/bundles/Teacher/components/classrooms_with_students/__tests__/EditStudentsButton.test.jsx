@@ -39,7 +39,7 @@ describe('EditStudentsButton component', () => {
       <EditStudentsButton
         enabled={false}
         disabledText={disabledText}
-        dataFunc = {dataFuncMock}
+        dataFunc={dataFuncMock}
       />)
       wrapper.setState({loading: false})
 
@@ -59,7 +59,7 @@ describe('EditStudentsButton component', () => {
   describe('if it is loading', () => {
     const wrapper = shallow(
       <EditStudentsButton
-        dataFunc = {dataFuncMock}
+        dataFunc={dataFuncMock}
       />)
       wrapper.setState({loading: true})
 

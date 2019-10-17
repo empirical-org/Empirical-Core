@@ -126,7 +126,8 @@ export default class extends React.Component {
     if (this.state.filteredReportData.length) {
       return (
         <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
-          <ReactTable data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+          <ReactTable
+data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }

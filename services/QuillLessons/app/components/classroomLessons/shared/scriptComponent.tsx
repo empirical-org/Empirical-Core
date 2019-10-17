@@ -543,8 +543,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         <Cues
           getQuestion={() => ({
             cues: this.props.cues,
-          })
-        }
+          })}
           displayArrowAndText={false}
         />
       );

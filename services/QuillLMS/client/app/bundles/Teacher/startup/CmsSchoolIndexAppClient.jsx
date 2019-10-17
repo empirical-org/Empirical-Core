@@ -190,7 +190,8 @@ export default class CmsSchoolIndex extends React.Component {
       const sort = this.state.query.sort ? this.state.query.sort : 'number_teachers'
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
       return (<div>
-        <ReactTable data={this.state.data}
+        <ReactTable
+data={this.state.data}
         columns={this.state.columns}
         showPagination={false}
         defaultSorted={[{id: sort, desc: sortDescending}]}

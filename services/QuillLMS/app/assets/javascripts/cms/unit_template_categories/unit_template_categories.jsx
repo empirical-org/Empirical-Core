@@ -47,7 +47,8 @@ EC.Cms.UnitTemplateCategories = React.createClass({
 
   render: function () {
     return (
-      <EC.Cms resourceNameSingular='unit_template_category'
+      <EC.Cms
+resourceNameSingular='unit_template_category'
               resourceNamePlural='unit_template_categories'
               resourceComponentGenerator={this.resourceComponentGenerator}
       />

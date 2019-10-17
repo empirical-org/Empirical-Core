@@ -109,7 +109,8 @@ export default React.createClass({
   determineInputTag: function () {
     var result;
     if (this.props.size == 'medium') {
-      result = (<textarea id={this.props.name}
+      result = (<textarea
+id={this.props.name}
                          type={this.determineType()}
                          ref={this.props.name}
                          onChange={this.update}
@@ -117,7 +118,8 @@ export default React.createClass({
       />)
 
     } else {
-      result = (<input id={this.getId()}
+      result = (<input
+id={this.getId()}
                        placeholder={this.determinePlaceholder()}
                        type={this.determineType()}
                        ref={this.props.name}

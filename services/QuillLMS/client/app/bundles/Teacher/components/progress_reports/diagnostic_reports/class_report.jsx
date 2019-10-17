@@ -130,7 +130,8 @@ export default React.createClass({
       <div id='individual-classroom-view'>
         {overviewBoxes}
         <div>
-          <ProgressReport    key={this.props.params.classroomId}
+          <ProgressReport
+key={this.props.params.classroomId}
                              columnDefinitions={this.columnDefinitions}
                              hideFaqLink={Boolean(true)}
                              pagination={false}
