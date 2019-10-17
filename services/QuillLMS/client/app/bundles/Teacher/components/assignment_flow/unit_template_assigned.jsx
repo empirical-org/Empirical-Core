@@ -92,7 +92,7 @@ export default class UnitTemplateAssigned extends React.Component {
       <span>
             <a href={href}>
               <button className="button-green add-students pull-right">
-                {text} <i className="fa fa-long-arrow-right"></i>
+                {text} <i className="fa fa-long-arrow-right" />
               </button>
             </a>
       </span>
@@ -105,7 +105,7 @@ export default class UnitTemplateAssigned extends React.Component {
         Share Quill With Your Colleagues
       </h2>
       <p className='nonprofit-copy'>
-        We’re a nonprofit providing free literacy activities. The more people <br></br>
+        We’re a nonprofit providing free literacy activities. The more people <br />
         who use Quill, the more free activities we can create.
       </p>
       <p className='social-copy'>
@@ -129,7 +129,7 @@ export default class UnitTemplateAssigned extends React.Component {
       <div className='container'>
         <div className='row' id='successBoxMessage'>
           <div className='col-md-9 successMessage'>
-            <i className="fa fa-check-circle pull-left"></i> You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
+            <i className="fa fa-check-circle pull-left" /> You’ve successfully assigned the <strong>{this.activityName()}</strong> Activity Pack!
           </div>
           <div className='col-md-4'>
             {this.teacherSpecificComponents()}

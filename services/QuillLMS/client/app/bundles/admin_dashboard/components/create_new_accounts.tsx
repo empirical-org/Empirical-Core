@@ -87,9 +87,9 @@ class CreateNewAccounts extends React.Component<any, any> {
       <div className="form-and-schools-list">
         <div className="form">
           <div className="first-line">
-            <input className="first-name" value={this.state.firstName} onChange={(e) => this.updateField(e, 'firstName')} placeholder="First Name" type="text"></input>
-            <input className="last-name" value={this.state.lastName} onChange={(e) => this.updateField(e, 'lastName')} placeholder="Last Name" type="text"></input>
-            <input className="email" value={this.state.email} onChange={(e) => this.updateField(e, 'email')} placeholder="Email Address" type="text"></input>
+            <input className="first-name" value={this.state.firstName} onChange={(e) => this.updateField(e, 'firstName')} placeholder="First Name" type="text" />
+            <input className="last-name" value={this.state.lastName} onChange={(e) => this.updateField(e, 'lastName')} placeholder="Last Name" type="text" />
+            <input className="email" value={this.state.email} onChange={(e) => this.updateField(e, 'email')} placeholder="Email Address" type="text" />
           </div>
           <DropdownMenu
             className='second-line'

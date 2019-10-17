@@ -22,5 +22,6 @@
     "no-cond-assign": "error",
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
     "react/no-unknown-property": "error",
+    "react/self-closing-comp": "error",
   },
 }

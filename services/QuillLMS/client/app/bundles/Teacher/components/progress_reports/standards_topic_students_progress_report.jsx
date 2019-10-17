@@ -138,7 +138,7 @@ export default class IndividualStandardsReport extends React.Component {
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.csvData}/>
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right"></i></a>
+            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
           <div className='dropdown-container'>
             <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom.name}/>

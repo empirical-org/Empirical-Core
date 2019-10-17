@@ -24,7 +24,7 @@ export default React.createClass({
               toggleTarget={'exploreActivityPacks'}
               title={'Featured Activity Packs'}
               img={`${process.env.CDN_URL}/images/shared/featured_activity_pack_icon.png`}
-              bodyText={[<span key={1}>Quickly assign packs of activities created</span>, <br key={2}></br>, <span key={3}>by experienced educators.</span>]}
+              bodyText={[<span key={1}>Quickly assign packs of activities created</span>, <br key={2} />, <span key={3}>by experienced educators.</span>]}
               directions={'use continuously'}
               routeToGetQuantity={'/count/featured_packs'}
               unit={'Pack'}
@@ -84,8 +84,7 @@ tools: function() {
     description='Find and Fix Errors in Passages'
     imgSrc={`${process.env.CDN_URL}/images/icons/proofreader-light-gray.svg`}
   />,
-  <div key='superfluous element' style={{width: '300px', height: '0px'}}>
-  </div>
+  <div key='superfluous element' style={{width: '300px', height: '0px'}} />
   ]
 },
 

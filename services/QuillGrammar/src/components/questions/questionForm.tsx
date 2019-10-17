@@ -84,7 +84,7 @@ export default class QuestionForm extends React.Component {
           />
           <label className="label">Instructions for student</label>
           <p className="control">
-            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
+            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} />
           </p>
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
           <label className="label">Concept</label>
@@ -103,7 +103,7 @@ export default class QuestionForm extends React.Component {
           </p>
           <label className="label">Optimal answer (you can add more later)</label>
           <p className="control">
-            <textarea className="input" type="text" ref="answers" defaultValue={optimalAnswer} onChange={this.handleAnswersChange}></textarea>
+            <textarea className="input" type="text" ref="answers" defaultValue={optimalAnswer} onChange={this.handleAnswersChange} />
           </p>
           <br/>
           <button className="button is-primary" onClick={this.submit}>Update Question</button>

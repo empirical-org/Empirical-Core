@@ -68,7 +68,7 @@ class QuestionListByConcept extends React.Component<any, any> {
 
   renderQuestionsWithoutValidKey() {
     if(!this.props.displayNoConceptQuestions) {
-      return (<div></div>)
+      return (<div />)
     } else {
       const concepts = hashToCollection(this.props.concepts.data['0']);
       const questions = hashToCollection(this.props.questions.data);

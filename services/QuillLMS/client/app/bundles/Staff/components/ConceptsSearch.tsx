@@ -25,7 +25,7 @@ class ConceptSearch extends React.Component<ConceptSearchProps, ConceptSearchSta
           placeholder="Search by concept name or UID"
           onSearch={this.props.updateSearchValue}
           style={{ width: '100%' }}
-          prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}}></i>}
+          prefix={<i className="fas fa-search" style={{color: '#d9d9d9'}} />}
         />
       </div>
     )

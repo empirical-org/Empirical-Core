@@ -51,7 +51,7 @@ export default React.createClass({
   render: function () {
     var result;
     if (this.state.notAvailable) {
-      result = <span></span>;
+      result = <span />;
     } else {
       result = (
       <a className='clever-sign-up' href={this.buildLink()} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})}>

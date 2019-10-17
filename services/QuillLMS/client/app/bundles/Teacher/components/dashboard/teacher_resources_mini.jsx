@@ -8,7 +8,7 @@ export default React.createClass({
     return (
       <div className='resources-container' onClick={() => window.location = '/teacher_resources'}>
         <h4>Teacher Center</h4>
-          <img src='/teacher_resources_icons.png'></img>
+          <img src='/teacher_resources_icons.png' />
         <p>Introduce fellow educators to Quill with presentations, guides, and videos.</p>
       </div>
     );
