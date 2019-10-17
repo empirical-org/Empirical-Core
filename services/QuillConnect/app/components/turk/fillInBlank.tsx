@@ -97,7 +97,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   generateInputs(numberOfInputVals: number) {
     const inputs:Array<string> = [];
-    for (let i = 0; i < numberOfInputVals; i++) {
+    for (let i = 0; i < numberOfInputVals; i+=1) {
       inputs.push('');
     }
     return inputs;

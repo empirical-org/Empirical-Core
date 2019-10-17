@@ -55,7 +55,7 @@ class Register extends React.Component<any, any> {
 
   hasSentenceFragment() {
     const { questions } = this.props.lesson;
-    for (let i = 0; i < questions.length; i++) {
+    for (let i = 0; i < questions.length; i+=1) {
       if (questions[i].questionType === "sentenceFragments") {
         return true;
       }

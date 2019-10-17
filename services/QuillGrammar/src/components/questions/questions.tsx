@@ -15,7 +15,7 @@ import { submitResponseEdit, deleteResponse } from '../../actions/responses';
 
 function sleep(milliseconds) {
   const start = new Date().getTime();
-  for (let i = 0; i < 1e7; i++) {
+  for (let i = 0; i < 1e7; i+=1) {
     if ((new Date().getTime() - start) > milliseconds) {
       break;
     }

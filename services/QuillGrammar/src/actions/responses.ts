@@ -193,7 +193,7 @@ function makeIterator(array) {
   return {
     next() {
       return nextIndex < array.length ?
-               { value: array[nextIndex++], done: false, } :
+               { value: array[nextIndex+=1], done: false, } :
                { done: true, };
     },
   };

@@ -73,7 +73,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   generateInputs(promptArray): Array<string> {
     const inputs: Array<string> = [];
-    for (let i = 0; i < promptArray.length - 2; i++) {
+    for (let i = 0; i < promptArray.length - 2; i+=1) {
       inputs.push('');
     }
     return inputs;

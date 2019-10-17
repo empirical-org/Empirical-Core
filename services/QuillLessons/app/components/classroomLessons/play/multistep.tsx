@@ -148,7 +148,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
     if (answers) {
         // counts the number of truthy answers or adds to empty answer count
         for (let key in answers) {
-          answers[key] ? nonBlankAnswers++ : null
+          answers[key] ? nonBlankAnswers+=1 : null
         }
     }
     return nonBlankAnswers
@@ -181,7 +181,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
     const stepLabels = this.props.data.play.stepLabels
     const nStepLabels = stepLabels.length;
     const textEditorArr : JSX.Element[]  = [];
-    for (let i = 0; i < nStepLabels; i++) {
+    for (let i = 0; i < nStepLabels; i+=1) {
         textEditorArr.push(
         this.textEditListComponents(stepLabels[i], i)
       )

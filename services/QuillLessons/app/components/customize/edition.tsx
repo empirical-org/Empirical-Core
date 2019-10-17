@@ -150,7 +150,7 @@ class CustomizeEdition extends React.Component<any, any> {
       } else if (k === 'stepLabels') {
         const number = question.play[k].length
         clearedSlide[k] = []
-        for (let i = 0; i < number; i++) {
+        for (let i = 0; i < number; i+=1) {
           clearedSlide[k].push('')
         }
       } else if (typeof question.play[k] === 'string') {

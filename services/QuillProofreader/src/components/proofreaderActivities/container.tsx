@@ -181,8 +181,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               paragraphIndex
             }
             wordArray = [wordObj]
-            necessaryEditCounter++
-            i++
+            necessaryEditCounter+=1
+            i+=1
           } else {
             wordArray = text.split(/\s+/).map(word => {
               if (word.length === 0) {
@@ -196,13 +196,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 wordIndex: i,
                 paragraphIndex
               }
-              i++
+              i+=1
               return wordObj
             })
           }
           return wordArray.filter(Boolean)
         })
-        paragraphIndex++
+        paragraphIndex+=1
         return _.flatten(paragraphArray)
       })
       return {passage: passageArray.filter(Boolean), necessaryEdits}
@@ -289,7 +289,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             const stringNormalizedOriginalText = stringNormalize(originalText)
             if (necessaryEditIndex || necessaryEditIndex === 0) {
               if (stringNormalizedCorrectText.split('~').includes(stringNormalizedCurrentText)) {
-                numberOfCorrectChanges++
+                numberOfCorrectChanges+=1
                 conceptResultsObjects.push({
                   metadata: {
                     answer: stringNormalizedCurrentText,

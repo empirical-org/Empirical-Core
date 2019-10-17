@@ -60,7 +60,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     let index = 0
     return paragraphs.map((paragraph: string) => {
       const parts: Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
-      for (let i = 0; i < parts.length; i ++) {
+      for (let i = 0; i < parts.length; i +=1) {
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
           const plusMatch = parts[i].match(/\+([^-]+)-/m)
           const plus = plusMatch ? plusMatch[1] : ''
@@ -76,7 +76,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           } else if (negative) {
             state = 'incorrect'
           }
-          index++
+          index+=1
           parts[i] = <Edit
             state={state}
             concept={concept}

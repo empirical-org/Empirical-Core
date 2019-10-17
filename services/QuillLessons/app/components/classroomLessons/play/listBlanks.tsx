@@ -46,7 +46,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   toObject(answers) {
     const arr = answers.split(',')
     const objectifiedArr = {};
-    for (var i = 0; i < arr.length; ++i) {
+    for (var i = 0; i < arr.length; +=1i) {
       objectifiedArr[i] = arr[i];
     }
     return objectifiedArr;
@@ -57,7 +57,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       const submittedAnswers = {};
       const splitAnswers = nextProps.submissions[student].data.split(", ");
-      for (let i = 0; i < splitAnswers.length; i++) {
+      for (let i = 0; i < splitAnswers.length; i+=1) {
         submittedAnswers[i] = splitAnswers[i]
       }
       this.setState({
@@ -147,7 +147,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (answers) {
         // counts the number of truthy answers or adds to empty answer count
         for (let key in answers) {
-          answers[key] ? nonBlankAnswers++ : null
+          answers[key] ? nonBlankAnswers+=1 : null
         }
     }
     return nonBlankAnswers
@@ -180,7 +180,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     // let { a, b }: { a: string, b: number } = o;
     const nBlanks = this.props.data.play.nBlanks;
     const textEditorArr : JSX.Element[]  = [];
-    for (let i = 0; i < nBlanks; i++) {
+    for (let i = 0; i < nBlanks; i+=1) {
         textEditorArr.push(
         this.textEditListComponents(i)
       )

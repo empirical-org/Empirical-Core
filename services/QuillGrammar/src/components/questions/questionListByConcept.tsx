@@ -76,7 +76,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     const questions = hashToCollection(this.props.questions);
     let count = 0
     return concepts.sort((a: Concept, b: Concept) => a.displayName.localeCompare(b.displayName)).map((concept: Concept) => {
-      count++
+      count+=1
       const label = this.renderLabel(concept);
       const questionsForConcept = questions.filter(q => q.concept_uid === concept.uid)
       return this.renderConceptWithQuestions(questionsForConcept, label, count);
