@@ -51,6 +51,12 @@ class ELLStudentDiagnostic extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(nextProps.playDiagnostic);
+    }
+  }
+
   getPreviousSessionData = () => {
     return this.state.session;
   }
@@ -72,12 +78,6 @@ class ELLStudentDiagnostic extends React.Component {
   saveSessionData = (lessonData) => {
     if (this.state.sessionID) {
       SessionActions.update(this.state.sessionID, lessonData);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playDiagnostic);
     }
   }
 

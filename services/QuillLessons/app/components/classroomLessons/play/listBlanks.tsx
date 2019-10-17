@@ -43,15 +43,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
   }
 
-  toObject(answers) {
-    const arr = answers.split(',')
-    const objectifiedArr = {};
-    for (var i = 0; i < arr.length; i+=1) {
-      objectifiedArr[i] = arr[i];
-    }
-    return objectifiedArr;
-  }
-
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
@@ -74,6 +65,15 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         this.setState({answers: this.toObject(nextProps.submissions[student].data)})
       }
     }
+  }
+
+  toObject(answers) {
+    const arr = answers.split(',')
+    const objectifiedArr = {};
+    for (var i = 0; i < arr.length; i+=1) {
+      objectifiedArr[i] = arr[i];
+    }
+    return objectifiedArr;
   }
 
   customChangeEvent(e, index){

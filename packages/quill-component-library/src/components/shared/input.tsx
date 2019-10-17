@@ -23,8 +23,8 @@ interface InputState {
 }
 
 export class Input extends React.Component<InputProps, InputState> {
-  private input: any
-  private node: any
+  private input: any // eslint-disable-line react/sort-comp
+  private node: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)

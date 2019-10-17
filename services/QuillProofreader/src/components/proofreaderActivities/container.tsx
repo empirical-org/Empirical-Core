@@ -55,7 +55,7 @@ interface PlayProofreaderContainerState {
 const FIREBASE_SAVE_INTERVAL = 30000 // 30 seconds
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
-    private interval: any
+    private interval: any // eslint-disable-line react/sort-comp
 
     constructor(props: any) {
       super(props);

@@ -30,6 +30,12 @@ class FillInBlankForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
+  componentWillMount() {
+    if(this.props.state) {
+      this.setState(this.props.state);
+    }
+  }
+
   handlePromptChange(prompt) {
     this.setState({ prompt });
   }
@@ -99,12 +105,6 @@ class FillInBlankForm extends Component {
       flag: 'alpha',
       cuesLabel: ''
     });
-  }
-
-  componentWillMount() {
-    if(this.props.state) {
-      this.setState(this.props.state);
-    }
   }
 
   renderOptimalField() {

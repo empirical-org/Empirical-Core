@@ -30,17 +30,6 @@ class questionHealth extends Component {
     this.props.dispatch(loadScoreData());
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextState.loading) {
-      const sc = Object.keys(nextState.sc)
-      const sf = Object.keys(nextState.sf)
-      const fib = Object.keys(nextState.fib)
-      if (sc && sc.length && sf && sf.length && fib && fib.length) {
-        this.setState({loading: false})
-      }
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
@@ -57,6 +46,17 @@ class questionHealth extends Component {
       // if (nextProps.fillInBlank.hasreceiveddata) {
       //   this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
       // }
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.loading) {
+      const sc = Object.keys(nextState.sc)
+      const sf = Object.keys(nextState.sf)
+      const fib = Object.keys(nextState.fib)
+      if (sc && sc.length && sf && sf.length && fib && fib.length) {
+        this.setState({loading: false})
+      }
     }
   }
 
