@@ -34,14 +34,12 @@ const routeLinks = {
   [activityTypeSlug]: () => [slash(), learningProcess(), slash(), activityType()],
   [createActivityPackSlug]: () => [slash(), learningProcess(), slash(), activityType(), slash(), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
-    if (isFromDiagnosticPath && unitTemplateId && unitTemplateName) {
+    if (isFromDiagnosticPath) {
       return [
         slash(),
         learningProcess(),
         slash(),
         diagnostic(),
-        slash(),
-        individualFeaturedActivityPack(unitTemplateId, unitTemplateName),
         slash(),
         selectClasses()
       ]
