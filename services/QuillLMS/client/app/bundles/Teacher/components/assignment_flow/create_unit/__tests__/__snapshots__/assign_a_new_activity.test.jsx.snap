@@ -24,8 +24,8 @@ exports[`AssignANewActivity component should render 1`] = `
   <p
     className="previously-assigned-activities"
   >
-    You have 
-     
+    You have
+
     activities
      assigned. 
     <a
@@ -50,7 +50,7 @@ exports[`AssignANewActivity component should render 1`] = `
     <AssignmentStep
       header="Choose Assignment Type"
       number="3"
-      text="Assign these activities to either the entire class or individual students."
+      text="Assign these activities to either the whole class or individual students."
     />
   </div>
 </div>

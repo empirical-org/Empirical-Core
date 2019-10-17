@@ -15,13 +15,13 @@ const selectCard = (router, link) => {
 const minis = (props) => [
   (<AssignmentCard
     selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=whole-class`)}
-    header="Browse packs with whole class and independent practice"
+    header="Browse packs with whole-class and independent practice"
     imgSrc={packsWholeSrc}
     imgAlt="teacher pointing at board"
     bodyArray={[
       { key: 'What', text: 'Each activity pack contains one teacher-led collaborative group lesson and a set of 3-5 follow up independent practice activities.', },
       { key: 'When', text: 'You want to introduce new concepts by leading whole-group lessons where you model concepts and facilitate discussions.', },
-      { key: 'Note', text: 'In whole class lessons, students receive feedback from teachers and peers rather than from Quill’s software.', }
+      { key: 'Note', text: 'In whole-class lessons, students receive feedback from teachers and peers rather than from Quill’s software.', }
     ]}
   />),
   (<AssignmentCard
@@ -31,8 +31,7 @@ const minis = (props) => [
     imgAlt="student with open laptop"
     bodyArray={[
       { key: 'What', text: 'An activity pack contains a set of 5-10 activities that each take 10-15 minutes to complete.', },
-      { key: 'When', text: 'You would like your students to independently practice a set of grammar activities and receive automatic feedback from Quill.', },
-      { key: 'Note', text: 'In whole class lessons, students receive feedback from teachers and peers rather than from Quill’s software.', }
+      { key: 'When', text: 'You would like your students to independently practice a set of grammar activities and receive automatic feedback from Quill.', }
     ]}
   />),
   (<AssignmentCard
@@ -42,7 +41,7 @@ const minis = (props) => [
     imgAlt="sheets of paper overlaid"
     bodyArray={[
       { key: 'What', text: 'Explore all of the activities in our library, and build your own activity pack.', },
-      { key: 'When', text: 'You want to assemble a specific sequence of independent practice and whole class activities rather than using a preassembled pack.', },
+      { key: 'When', text: 'You want to assemble a specific sequence of independent practice and whole-class activities rather than using a preassembled pack.', },
     ]}
   />)
 ]

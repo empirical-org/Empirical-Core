@@ -24,7 +24,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned }) => (<div className="
     <AssignmentStep
       number="1"
       header="Choose Assignment Type"
-      text="Choose which type of assignment you want to use: diagnostics, whole class activities, or independent practice."
+      text="Choose which type of assignment you want to use: diagnostics, whole class activities, or independent practice activities."
     />
     <AssignmentStep
       number="2"
@@ -34,7 +34,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned }) => (<div className="
     <AssignmentStep
       number="3"
       header="Choose Assignment Type"
-      text="Assign these activities to either the entire class or individual students."
+      text="Assign these activities to either the whole class or individual students."
     />
   </div>
 </div>)
