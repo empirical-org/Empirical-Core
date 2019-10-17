@@ -109,7 +109,8 @@ export default class extends React.Component {
   tableOrEmptyMessage(filteredClassroomsData){
     if (filteredClassroomsData.length) {
       return (<div key={`${filteredConceptReportsData.length}-length-for-concept-reports-by-classroom`}>
-        <ReactTable data={filteredConceptReportsData}
+        <ReactTable
+data={filteredConceptReportsData}
           columns={this.columns()}
           showPagination={false}
           defaultSorted={[{id: 'last_active', desc: true}]}

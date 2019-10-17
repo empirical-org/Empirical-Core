@@ -69,7 +69,8 @@ EC.Authors = React.createClass({
 
   render: function () {
     return (
-      <EC.Cms resourceNameSingular='author'
+      <EC.Cms
+resourceNameSingular='author'
               resourceNamePlural='authors'
               resourceComponentGenerator={this.resourceComponentGenerator}
       />

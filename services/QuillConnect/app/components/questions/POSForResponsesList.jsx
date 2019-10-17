@@ -70,7 +70,8 @@ export default React.createClass({
       const contentStyle = {"marginBottom": "0px"}
 
       return (
-        <POSForResponse bgColor={bgColor} headerStyle={headerStyle} contentStyle={contentStyle} tagsToRender={tagsToRender}
+        <POSForResponse
+bgColor={bgColor} headerStyle={headerStyle} contentStyle={contentStyle} tagsToRender={tagsToRender}
                         tag={tag} icon={icon}
         />
       )

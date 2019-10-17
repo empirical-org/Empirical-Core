@@ -19,7 +19,8 @@ export default React.createClass({
   render: function () {
     return (
       <div className='checkbox-and-label'>
-        <input type="checkbox"
+        <input
+type="checkbox"
          checked={this.determineCheckedText()}
          className="checkbox"
          onChange={this.handleChange}

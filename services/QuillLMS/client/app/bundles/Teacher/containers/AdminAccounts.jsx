@@ -64,7 +64,8 @@ export default React.createClass({
 
   render: function () {
     return (
-      <Cms resourceNameSingular='admin_account'
+      <Cms
+resourceNameSingular='admin_account'
               resourceNamePlural='admin_accounts'
               resourceComponentGenerator={this.resourceComponentGenerator}
       />
