@@ -157,7 +157,8 @@ var StudentDiagnostic = React.createClass({
             component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} dispatch={this.props.dispatch}/>)
 
           } else {
-            component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            component =   (<PlaySentenceFragment
+question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
                                     key={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
                                     updateAttempts={this.submitResponse} dispatch={this.props.dispatch}

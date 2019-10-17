@@ -24,7 +24,8 @@ export default function (component, update, options) {
         default1 = null;
       }
 
-      return <TextInput key={ele.name}
+      return <TextInput
+key={ele.name}
                            update={update}
                            name={ele.name}
                            label={ele.label}

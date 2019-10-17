@@ -168,7 +168,8 @@ export default class extends React.Component {
       if (data.length) {
         return (
           <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-  					<ReactTable data={data}
+  					<ReactTable
+data={data}
   						columns={this.columns()}
   						showPagination={false}
   						defaultSorted={[{id: 'standard_level', desc: false}]}
