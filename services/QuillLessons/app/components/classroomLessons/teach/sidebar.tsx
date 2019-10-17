@@ -48,15 +48,15 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     }
   }
 
-  componentWillUpdate(prevProps, prevState) {
-    if (!this.state.currentSlide) {
-      this.scrollToSlide(this.props.classroomSessions.data.current_slide)
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
       this.scrollToSlide(nextProps.classroomSessions.data.current_slide)
+    }
+  }
+
+  componentWillUpdate(prevProps, prevState) {
+    if (!this.state.currentSlide) {
+      this.scrollToSlide(this.props.classroomSessions.data.current_slide)
     }
   }
 

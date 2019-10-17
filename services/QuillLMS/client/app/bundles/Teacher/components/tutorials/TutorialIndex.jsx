@@ -24,14 +24,14 @@ export default class TutorialIndex extends React.Component {
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown.bind(this));
-  }
-
   componentWillReceiveProps(nextProps) {
     if (Number(nextProps.params.slideNumber) === this.state.slides.length) {
       this.finishTutorial();
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
   finishTutorial() {

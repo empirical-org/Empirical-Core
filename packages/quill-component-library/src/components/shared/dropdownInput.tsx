@@ -30,8 +30,8 @@ interface DropdownInputState {
 }
 
 export class DropdownInput extends React.Component<DropdownInputProps, DropdownInputState> {
-  private input: any
-  private node: any
+  private input: any // eslint-disable-line react/sort-comp
+  private node: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
