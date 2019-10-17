@@ -6,6 +6,16 @@ MAX_RETRIES = 3
 class RematchResponseWorker
   include Sidekiq::Worker
 
+  ALLOWED_PARAMS = [
+    "parent_id",
+    "author",
+    "feedback",
+    "optimal",
+    "weak",
+    "concept_results",
+    "spelling_error",
+  ].freeze
+
   def perform(response_id, question_type, question_uid)
     response = Response.find_by(id: response_id)
     question = retrieve_question_from_firebase(question_uid, question_type)
@@ -17,8 +27,15 @@ class RematchResponseWorker
   def rematch_response(response, question_type, question, reference_responses)
     lambda_payload = construct_lambda_payload(response, question_type, question, reference_responses)
     updated_response = call_lambda_http_endpoint(lambda_payload)
-    updated_response.delete("created_at")
-    response.update_attributes(updated_response)
+    sanitized_response = sanitize_update_params(updated_response)
+    response.update_attributes(sanitized_response)
+  end
+
+  def sanitize_update_params(params)
+    params.keys.each do |k|
+      params.delete(k) unless ALLOWED_PARAMS.include?(k)
+    end
+    params
   end
 
   def construct_lambda_payload(response, question_type, question, reference_responses)
