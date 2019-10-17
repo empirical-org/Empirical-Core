@@ -126,7 +126,8 @@ export default class extends React.Component {
         </div>
       )
     } else {
-      return <button style={{
+      return <button
+style={{
         display: 'block'
       }} onClick={this.handleClick} className={this.props.className || 'btn button-green'}
       >{this.props.buttonCopy || "Download Report"}</button>

@@ -89,7 +89,8 @@ export default class QuestionForm extends React.Component {
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector currentConceptUID={this.state.concept_uid}
+            <ConceptSelector
+currentConceptUID={this.state.concept_uid}
               handleSelectorChange={this.handleSelectorChange}
             />
           </div>

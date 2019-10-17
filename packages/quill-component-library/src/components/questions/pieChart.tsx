@@ -25,7 +25,7 @@ class PieChart extends React.Component<any, any> {
     return (
       <div id='pie-chart'>
           <Pie
-            slices= {this.props.data}
+            slices={this.props.data}
 
           />
         {

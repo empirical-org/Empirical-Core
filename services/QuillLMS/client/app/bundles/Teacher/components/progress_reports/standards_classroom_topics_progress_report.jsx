@@ -90,7 +90,8 @@ export default  React.createClass({
 
   render: function() {
     return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
+      <ProgressReport
+columnDefinitions={this.columnDefinitions}
                          pagination={false}
                          sourceUrl={this.props.sourceUrl}
                          sortDefinitions={this.sortDefinitions}

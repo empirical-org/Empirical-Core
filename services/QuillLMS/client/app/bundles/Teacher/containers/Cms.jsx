@@ -83,7 +83,8 @@ export default React.createClass({
         </div>
         <div className='row'>
           <div className='col-xs-12'>
-            <CmsIndexTable data={{ resources, }}
+            <CmsIndexTable
+data={{ resources, }}
                               actions={{edit: this.edit, delete: this.delete}}
                               isSortable={this.isSortable()}
                               updateOrder={this.updateOrder}

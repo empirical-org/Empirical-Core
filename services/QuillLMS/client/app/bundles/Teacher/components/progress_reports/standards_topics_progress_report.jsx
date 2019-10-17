@@ -150,7 +150,8 @@ export default class extends React.Component {
           </div>
         </div>
 				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
-					<ReactTable data={filteredData}
+					<ReactTable
+data={filteredData}
 						columns={this.columns()}
 						showPagination={false}
 						defaultSorted={[{id: 'average_score', desc: false}]}

@@ -35,7 +35,8 @@
       allSelected = this.props.allSelected;
     }
     return (
-        <input type='checkbox'
+        <input
+type='checkbox'
                checked={allSelected ? 'checked' : null}
                className='css-checkbox classroom_checkbox'
                id={'classroom_checkbox_' + this.props.classroom.id}

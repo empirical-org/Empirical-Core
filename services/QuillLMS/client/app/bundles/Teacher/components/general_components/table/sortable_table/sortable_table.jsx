@@ -39,7 +39,8 @@ export default React.createClass({
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
       var isCurrentSort = (column.sortByField === this.props.currentSort.field);
-      return <SortableTh key={i}
+      return <SortableTh
+key={i}
                             sortHandler={this.sortByColumn(column.sortByField)}
                             displayName={column.name}
                             displayClass={column.className}
@@ -70,7 +71,8 @@ export default React.createClass({
       var tbody;
       if (this.shouldTransition()) {
         tbody = (
-          <ReactCSSTransitionGroup component='tbody'
+          <ReactCSSTransitionGroup
+component='tbody'
                                      transitionName={this.props.transitionName}
                                      transitionEnterTimeout={2000}
                                      transitionLeaveTimeout={2000}

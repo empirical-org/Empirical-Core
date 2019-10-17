@@ -76,7 +76,8 @@ const ActivityScoresTable = ({ data }) => {
 
   if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-      <ReactTable data={data}
+      <ReactTable
+data={data}
         columns={columns}
         showPagination={true}
         defaultSorted={[{id: 'last_active', desc: true}]}

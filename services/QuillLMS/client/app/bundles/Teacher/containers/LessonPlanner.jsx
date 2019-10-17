@@ -337,7 +337,8 @@ export default React.createClass({
 		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		// } else
 		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
-			tabSpecificComponents = <CreateUnit data={{
+			tabSpecificComponents = <CreateUnit
+data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
 			}} actions={{
