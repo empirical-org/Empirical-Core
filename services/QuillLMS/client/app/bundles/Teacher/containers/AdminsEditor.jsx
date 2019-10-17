@@ -36,7 +36,8 @@ export default React.createClass({
                formFields={formFields}
                savingKeys={savingKeys}
                fieldsToNormalize={fieldsToNormalize}
-               returnToIndex={cmsComponent.returnToIndex} />
+               returnToIndex={cmsComponent.returnToIndex}
+            />
           </div>
         </div>
       </div>
@@ -47,7 +48,8 @@ export default React.createClass({
     return (
       <Cms resourceNameSingular='admin'
               resourceNamePlural='admins'
-              resourceComponentGenerator={this.resourceComponentGenerator}/>
+              resourceComponentGenerator={this.resourceComponentGenerator}
+      />
 
     );
   }

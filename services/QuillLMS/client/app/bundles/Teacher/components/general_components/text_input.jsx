@@ -113,7 +113,8 @@ export default React.createClass({
                          type={this.determineType()}
                          ref={this.props.name}
                          onChange={this.update}
-                         defaultValue={this.determine('default', null)} />)
+                         defaultValue={this.determine('default', null)}
+      />)
 
     } else {
       result = (<input id={this.getId()}
@@ -121,7 +122,8 @@ export default React.createClass({
                        type={this.determineType()}
                        ref={this.props.name}
                        onChange={this.getUpdateFn()}
-                       defaultValue={this.determine('default', null)} />);
+                       defaultValue={this.determine('default', null)}
+      />);
     }
     return result;
   },

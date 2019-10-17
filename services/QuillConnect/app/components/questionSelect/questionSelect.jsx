@@ -12,7 +12,8 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
           borderBottom: '1px solid #aaa',
           marginBottom: 10,
           paddingBottom: 10,
-        }}>
+        }}
+        >
           <label className="label">{'Question #' + (i + 1)}</label>
           <ConceptFilter index={i} questionType={'initial'} />
           { showSubQuestions ?
@@ -27,7 +28,7 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
                   index={i}
                   actionType={C.QUESTION_SELECT_MODIFY_QUESTION}
                   text={'Add ' +  type + ' question'}
-                />
+              />
             )
           : ''
           }

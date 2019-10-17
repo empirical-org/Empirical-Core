@@ -44,7 +44,8 @@ export default React.createClass({
                             displayName={column.name}
                             displayClass={column.className}
                             sortDirection={this.props.currentSort.direction || 'asc'}
-                            isCurrentSort={isCurrentSort} />
+                            isCurrentSort={isCurrentSort}
+      />
     }, this);
   },
 
@@ -72,7 +73,8 @@ export default React.createClass({
           <ReactCSSTransitionGroup component='tbody'
                                      transitionName={this.props.transitionName}
                                      transitionEnterTimeout={2000}
-                                     transitionLeaveTimeout={2000}>
+                                     transitionLeaveTimeout={2000}
+          >
             {this.rows()}
           </ReactCSSTransitionGroup>
         );

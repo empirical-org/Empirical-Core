@@ -52,7 +52,7 @@ class SortableList extends React.Component<any, any> {
           sortId={i}
           outline="list"
           childProps={childProps}
-        >
+				>
           {item}
         </SortableListItem>
 			);

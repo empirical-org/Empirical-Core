@@ -62,7 +62,8 @@ export default class UnitTemplateMini extends React.Component {
             <div>
               <UnitTemplateFirstRow
                   data={this.props.data}
-                  modules={{string: this.modules.string}} />
+                  modules={{string: this.modules.string}}
+              />
               <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
               {this.displayPicture()}
             </div>

@@ -171,7 +171,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(sl)}
           disabled={!this.state.isSubmittable && this.state.submitted}
-          />
+        />
       </div>
     )
   }

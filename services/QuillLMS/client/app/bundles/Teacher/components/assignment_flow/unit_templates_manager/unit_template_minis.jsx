@@ -85,7 +85,7 @@ export default class UnitTemplateMinis extends React.Component {
     const typeOptions = types.map(type => <Link
       to={`${this.getIndexLink()}?type=${type.id}`}
       className={selectedTypeId === type.id ? 'active' : null}
-      >{type.name}</Link>)
+    >{type.name}</Link>)
     const categoryOptions = this.generateCategoryOptions()
     return (
       <div className="filter-options">

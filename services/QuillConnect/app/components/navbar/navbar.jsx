@@ -56,7 +56,8 @@ const Navbar = React.createClass({
               <a href="http://www.connect.quill.org" className="nav-item">
               <img src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
               alt=""
-              style={{height: "35px"}}/>
+              style={{height: "35px"}}
+              />
             </a>
           </div>
           {this.renderLinks()}

@@ -126,7 +126,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             item={item}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
             isTip={true}
-          />
+            />
         case 'T-MODEL':
           return this.renderTeacherModel()
         case 'Overview':

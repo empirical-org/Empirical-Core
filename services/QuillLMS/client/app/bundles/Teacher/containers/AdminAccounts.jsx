@@ -54,7 +54,8 @@ export default React.createClass({
                savingKeys={savingKeys}
                fieldsToNormalize={fieldsToNormalize}
                nestedResources={nestedResources}
-               returnToIndex={cmsComponent.returnToIndex} />
+               returnToIndex={cmsComponent.returnToIndex}
+            />
           </div>
         </div>
       </div>
@@ -65,7 +66,8 @@ export default React.createClass({
     return (
       <Cms resourceNameSingular='admin_account'
               resourceNamePlural='admin_accounts'
-              resourceComponentGenerator={this.resourceComponentGenerator}/>
+              resourceComponentGenerator={this.resourceComponentGenerator}
+      />
 
     );
   }

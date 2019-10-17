@@ -276,7 +276,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       onMouseOver={() => this.setState({rightHover: true})}
       onMouseOut={() => this.setState({rightHover: false})}
       onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
-    />
+      />
     }
   }
 

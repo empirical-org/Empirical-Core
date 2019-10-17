@@ -165,7 +165,7 @@ class ChooseEdition extends React.Component<any, any> {
               updateName={this.updateName}
               buttonClassName={buttonClassName}
               deleteNewEdition={this.deleteNewEdition}
-              />
+      />
     }
   }
 
@@ -197,7 +197,7 @@ class ChooseEdition extends React.Component<any, any> {
             selectAction={this.selectAction}
             selectState={selectState}
             selectedEdition={sessionEditionId === e}
-            />
+          />
           myEditions.push(editionRow)
         } else if (String(edition.user_id) === 'quill-staff') {
           const editionRow = <EditionRow

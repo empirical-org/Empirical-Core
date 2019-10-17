@@ -127,7 +127,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
             className={`error ${sharedClasses}`}
             ref={node => this.node = node}
             onClick={this.activateInput}
-          >
+        >
             <label>{label}</label>
             <textarea
               id={id}

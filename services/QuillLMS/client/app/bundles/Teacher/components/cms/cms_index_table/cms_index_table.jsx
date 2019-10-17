@@ -20,7 +20,7 @@ export default React.createClass({
                   key={index}
                   actions={this.props.actions}
                   resourceNameSingular={this.props.resourceNameSingular}
-                />;
+    />;
   },
 
   identifier: function () {

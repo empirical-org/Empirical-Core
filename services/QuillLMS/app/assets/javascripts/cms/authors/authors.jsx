@@ -59,7 +59,8 @@ EC.Authors = React.createClass({
                            formFields={formFields}
                            savingKeys={savingKeys}
                            fieldsToNormalize={fieldsToNormalize}
-                           returnToIndex={cmsComponent.returnToIndex} />
+                           returnToIndex={cmsComponent.returnToIndex}
+                  />
                 </div>
               </div>
             </div>
@@ -70,7 +71,8 @@ EC.Authors = React.createClass({
     return (
       <EC.Cms resourceNameSingular='author'
               resourceNamePlural='authors'
-              resourceComponentGenerator={this.resourceComponentGenerator}/>
+              resourceComponentGenerator={this.resourceComponentGenerator}
+      />
 
     );
   }

@@ -201,7 +201,8 @@ export default React.createClass({
         className="tag"
         style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
         key={i}
-        onClick={() => this.toggleSuggestedSequence(seq)}>
+        onClick={() => this.toggleSuggestedSequence(seq)}
+    >
       {seq}
       </span>
    },

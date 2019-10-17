@@ -85,7 +85,8 @@ const ActivityScoresTable = ({ data }) => {
         showPageSizeOptions={false}
         defaultPageSize={100}
         minRows={1}
-        className='progress-report activity-scores-table has-green-arrow'/>
+        className='progress-report activity-scores-table has-green-arrow'
+      />
       </div>)
   } else {
     return <EmptyStateForReport/>

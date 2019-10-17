@@ -16,7 +16,8 @@ class MultipleTextEditor extends React.Component<any, any> {
         <span
           className={`${className}`}
           title={title ? title : label}
-          style={{ color: isActive ? '#990000' : '#777' }}>{title}
+          style={{ color: isActive ? '#990000' : '#777' }}
+        >{title}
         </span>
       </a>;
     const {

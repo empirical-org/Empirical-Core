@@ -27,7 +27,7 @@ const Concepts = React.createClass({
            basePath='concepts'
            text={concept.displayName}
            activeClassName='is-active'
-         />
+        />
       })
     }
   },

@@ -44,7 +44,8 @@ var StudentDiagnostic = React.createClass({
       return (<Question
                 question={this.props.question.currentQuestion}
                 submitResponse={this.submitResponse}
-                prefill={this.getLesson().prefill}/>)
+                prefill={this.getLesson().prefill}
+      />)
     }
   },
 
@@ -159,7 +160,8 @@ var StudentDiagnostic = React.createClass({
             component =   (<PlaySentenceFragment question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
                                     key={this.props.playDiagnostic.currentQuestion.data.key}
                                     nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-                                    updateAttempts={this.submitResponse} dispatch={this.props.dispatch}/>)
+                                    updateAttempts={this.submitResponse} dispatch={this.props.dispatch}
+            />)
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
           component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)

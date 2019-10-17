@@ -90,7 +90,8 @@ export default class extends React.Component {
               id: 'total_result_count',
               desc: true
             }
-          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.reportData.length} className='progress-report has-green-arrow'/>
+          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.reportData.length} className='progress-report has-green-arrow'
+          />
         </div>
       </div>
     )

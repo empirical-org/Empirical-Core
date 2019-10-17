@@ -97,7 +97,8 @@ export default  React.createClass({
                          jsonResultsKey={'topics'}
                          exportCsv={'standards_classroom_topics'}
                          onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={['unit']}>
+                         filterTypes={['unit']}
+      >
         <h2>Standards by Class: {this.state.classroom.name}</h2>
       </ProgressReport>
     );

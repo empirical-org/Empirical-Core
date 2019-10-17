@@ -201,7 +201,7 @@ export default class CmsSchoolIndex extends React.Component {
         minRows={1}
         className='progress-report activity-scores-table'
         onSortedChange={this.setSort}
-      />
+        />
       <div className='cms-pagination-container'>
         {this.renderPageSelector()}
       </div>

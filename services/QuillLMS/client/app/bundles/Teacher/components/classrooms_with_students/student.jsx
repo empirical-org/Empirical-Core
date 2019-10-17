@@ -25,13 +25,15 @@
                      checked="checked"
                      className="css-checkbox"
                      id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
-                     onChange={this.handleStudentSelection} />
+                     onChange={this.handleStudentSelection}
+      />
       );
     } else {
       return (<input type="checkbox"
                      className="css-checkbox"
                      id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
-                     onChange={this.handleStudentSelection} />
+                     onChange={this.handleStudentSelection}
+      />
       );
     }
   },

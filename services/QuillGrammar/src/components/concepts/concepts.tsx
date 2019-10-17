@@ -24,7 +24,7 @@ class Concepts extends React.Component<ConceptsProps> {
            basePath='concepts'
            text={concept.displayName}
            activeClassName='is-active'
-         />)
+        />)
       )
     }
   }

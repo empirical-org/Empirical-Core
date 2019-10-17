@@ -149,7 +149,8 @@ export default class IndividualStandardsReport extends React.Component {
               id: 'average_score',
               desc: false
             }
-          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.studentData.length} className='progress-report has-green-arrow'/>
+          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.studentData.length} className='progress-report has-green-arrow'
+          />
         </div>
       </div>
     )

@@ -74,19 +74,22 @@ class ChooseModelContainer extends React.Component<ChooseModelContainerProps, Ch
         <button
           className={'button is-primary'}
           onClick={this.saveModelConcept}
-          disabled={!!disabled}>
+          disabled={!!disabled}
+        >
           Save Model Concept
         </button>
         <button
           className={'button is-outlined is-info'}
           style={{marginLeft: 5}}
-          onClick={() => window.history.back()}>
+          onClick={() => window.history.back()}
+        >
           Cancel
         </button>
         <button
           className="button is-outlined is-danger"
           style={{marginLeft: 5}}
-          onClick={this.removeModelConcept}>
+          onClick={this.removeModelConcept}
+        >
           Remove
         </button>
       </p>

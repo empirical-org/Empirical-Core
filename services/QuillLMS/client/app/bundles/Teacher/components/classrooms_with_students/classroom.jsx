@@ -39,7 +39,8 @@
                checked={allSelected ? 'checked' : null}
                className='css-checkbox classroom_checkbox'
                id={'classroom_checkbox_' + this.props.classroom.id}
-               onChange={this.handleClassroomSelection} />
+               onChange={this.handleClassroomSelection}
+        />
       );
   },
 
@@ -87,7 +88,8 @@
                       student={student}
                       classroom={this.props.classroom}
                       handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
-                      toggleStudentSelection={this.props.toggleStudentSelection}/>;
+                      toggleStudentSelection={this.props.toggleStudentSelection}
+      />;
     }, this);
 
     return (

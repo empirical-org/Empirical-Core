@@ -49,19 +49,22 @@ class ChooseModelContainer extends Component {
         <button
           className={'button is-primary'}
           onClick={this.saveModelConcept}
-          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.params.questionID].modelConceptUID ? 'true' : null}>
+          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.params.questionID].modelConceptUID ? 'true' : null}
+        >
           Save Model Concept
         </button>
         <button
           className={'button is-outlined is-info'}
           style={{marginLeft: 5}}
-          onClick={() => window.history.back()}>
+          onClick={() => window.history.back()}
+        >
           Cancel
         </button>
         <button
           className="button is-outlined is-danger"
           style={{marginLeft: 5}}
-          onClick={this.removeModelConcept}>
+          onClick={this.removeModelConcept}
+        >
           Remove
         </button>
       </p>

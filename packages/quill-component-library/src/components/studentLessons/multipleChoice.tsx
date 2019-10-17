@@ -57,7 +57,7 @@ class MultipleChoice extends React.Component<any, any> {
           <a
             className={`button lesson-multiple-choice-button${this.buttonClasses(answer)}`}
             onClick={this.selectAnswer.bind(null, answer.key)}
-            >
+          >
               {answer.text}
             </a>
           </li>

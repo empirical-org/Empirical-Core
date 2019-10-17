@@ -71,14 +71,14 @@ export default React.createClass({
         style={{ color: '#969696', }}
         onMouseEnter={this.showMissedTooltip}
         onMouseLeave={this.hideMissedTooltip}
-        >Missed Lesson</p>);
+      >Missed Lesson</p>);
     } else if (this.props.data.locked === 't') {
       return (<p
         className="title-v-centered text-right"
         style={{ color: '#969696', }}
         onMouseEnter={this.showLockedTooltip}
         onMouseLeave={this.hideLockedTooltip}
-        >Needs Teacher</p>);
+      >Needs Teacher</p>);
     } else if (this.props.data.max_percentage) {
       linkText = 'Replay Activity';
     } else if (this.props.data.activity_classification_id === '6') {

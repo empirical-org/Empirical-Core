@@ -73,12 +73,14 @@ class TagResponsesContainer extends React.Component<any, AppState> {
                       e.preventDefault();
                       submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:1}})
                       this.setState({count: this.state.count + 1})
-                    }}>Yes</button>
+                    }}
+                    >Yes</button>
                     <button className="btn btn-danger ml1" style={{flexGrow:  1}} onClick={(e) => {
                       e.preventDefault();
                       submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:-1}})
                       this.setState({count: this.state.count + 1})
-                    }}>No</button>
+                    }}
+                    >No</button>
                   </div>
                 )}
               </Mutation>

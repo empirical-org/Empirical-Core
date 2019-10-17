@@ -22,7 +22,8 @@ export default React.createClass({
         <input type="checkbox"
          checked={this.determineCheckedText()}
          className="checkbox"
-         onChange={this.handleChange} />
+         onChange={this.handleChange}
+        />
         <label>{this.props.item}</label>
       </div>
     );

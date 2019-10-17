@@ -86,7 +86,7 @@ export default React.createClass({
                            colorByScoreKeys={['score']}
                            filterTypes={[]}
                            premiumStatus={this.props.premiumStatus}
-                           />
+        />
       </div>
     );
   }

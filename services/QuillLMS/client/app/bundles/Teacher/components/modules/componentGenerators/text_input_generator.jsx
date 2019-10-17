@@ -35,7 +35,8 @@ export default function (component, update, options) {
                            default={default1}
                            type={ele.type}
                            errorKey={ele.errorKey}
-                           isSingleRow={config.isSingleRow}/>;
+                           isSingleRow={config.isSingleRow}
+      />;
   };
 
   this.setErrors = function (errors) {

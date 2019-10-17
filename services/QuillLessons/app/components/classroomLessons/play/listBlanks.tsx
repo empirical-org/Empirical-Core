@@ -171,7 +171,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
           disabled={disabled}
-          />
+        />
       </div>
     )
   }

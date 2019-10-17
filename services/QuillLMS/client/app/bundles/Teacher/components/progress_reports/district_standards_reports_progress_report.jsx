@@ -105,7 +105,8 @@ export default class extends React.Component {
           showPaginationBottom={false}
           showPageSizeOptions={false}
           defaultPageSize={filteredStandardsReportsData.length}
-          className='progress-report has-green-arrow'/>
+          className='progress-report has-green-arrow'
+        />
         </div>)
     } else {
       return <EmptyStateForReport/>

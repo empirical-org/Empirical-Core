@@ -142,7 +142,7 @@ export class Input extends React.Component<InputProps, InputState> {
             className={`${sharedClassNames} error`}
             ref={node => this.node = node}
             onClick={this.activateInput}
-          >
+        >
             <label>{label}</label>
             <input {...commonProps} />
             {this.renderHelperText()}

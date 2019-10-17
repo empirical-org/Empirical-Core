@@ -20,7 +20,8 @@ class MultipleTextEditor extends React.Component {
         <span
           className={`${className}`}
           title={title ? title : label}
-          style={{ color: isActive ? '#000' : '#777' }}>{title}
+          style={{ color: isActive ? '#000' : '#777' }}
+        >{title}
         </span>
       </a>;
 
@@ -29,7 +30,8 @@ class MultipleTextEditor extends React.Component {
           <span
             className={`${className}`}
             title={title ? title : label}
-            style={{ color: isActive ? '#000' : '#777' }}>{title}
+            style={{ color: isActive ? '#000' : '#777' }}
+          >{title}
           </span>
         </a>;
 

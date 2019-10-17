@@ -174,7 +174,7 @@ class TeacherNavbar extends React.Component<any, any> {
         href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}
         onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
         onMouseLeave={(e) => this.hideTooltip(e)}
-        >
+      >
           <img className={className} src={pdfIcon}/>
           {this.renderTooltip('pdf')}
       </a>

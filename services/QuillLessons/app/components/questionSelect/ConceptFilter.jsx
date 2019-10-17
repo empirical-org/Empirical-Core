@@ -19,7 +19,8 @@ let ConceptFilter = ({ dispatch, index, concepts, conceptID, questionType }) => 
         { concepts.map(concept =>
           <option
             value={concept.key}
-            key={concept.key}>
+            key={concept.key}
+          >
             { concept.name }
           </option>
         ) }

@@ -51,12 +51,14 @@ export default React.createClass({
     return (
       <div
         id='results-page'
-        className='container-fluid'>
+        className='container-fluid'
+      >
         <ScrollToTop />
         <div className='top-section'>
           <ResultsIcon
             percentage={this.props.percentage}
-            activityType={this.props.activityType}/>
+            activityType={this.props.activityType}
+          />
           {this.headerMessage()}
         </div>
         <div className='bottom-section'>

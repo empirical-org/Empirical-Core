@@ -231,14 +231,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           type="flex"
           align="middle"
           justify="space-between"
-          >
+        >
           <h1>{this.props.activity ? this.props.activity.title : null}</h1>
           <div className="progress-bar-section">
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
               <span className="meter"
               style={{width: `${meterWidth}%`}}
-            />
+              />
             </div>
         </div>
       </Row>

@@ -300,7 +300,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
               onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
               updateToggledHeaderCount={this.updateToggledHeaderCount}
-            />
+          />
           break
         case 'CL-MD':
         case 'CL-SA':
@@ -322,7 +322,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               saveModel={this.saveModel}
               clearStudentSubmission={this.clearStudentSubmission}
               savePrompt={this.savePrompt}
-            />
+          />
           break
         case 'CL-EX':
           slide = <CLExit
@@ -338,7 +338,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
               finishLesson={this.finishLesson}
               completed={this.state.completed}
               followUpActivityName={data.followUpActivityName}
-            />
+          />
             break
         default:
           slide = <p>UNSUPPORTED QUESTION TYPE</p>

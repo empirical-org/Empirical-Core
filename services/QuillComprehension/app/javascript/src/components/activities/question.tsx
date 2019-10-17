@@ -88,7 +88,8 @@ class QuestionCard extends React.Component<Props, State> {
             <button className='btn btn-link m-r-1' onClick={(e) => {
               e.preventDefault();
               reset();
-            }}>Reset</button>
+            }}
+            >Reset</button>
             {this.renderSubmitButton(complete, clickSubmitButton)}
           </div>
         </div>

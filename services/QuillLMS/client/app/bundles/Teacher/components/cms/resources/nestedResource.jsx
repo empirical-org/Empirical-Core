@@ -52,7 +52,8 @@ export default React.createClass({
             <div className='col-xs-12'>
               <CmsIndexTable
                 data={{resources: this.props.data.resources, identifier: this.props.data.identifier}}
-                actions={{delete: this.delete}}/>
+                actions={{delete: this.delete}}
+              />
             </div>
           </div>
         </div>

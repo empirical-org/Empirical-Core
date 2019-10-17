@@ -187,7 +187,7 @@ export default React.createClass({
               page={this.state.currentPage}
               onPageChange={this.reactTablePageChange}
               onSortedChange={this.reactTableSortedChange}
-            />
+      />
       } else {
         tableOrEmptyMessage = <EmptyStateForReport/>
       }
@@ -204,7 +204,7 @@ export default React.createClass({
             selectUnit={this.selectUnit}
             selectedUnit={this.state.selectedUnit}
             filterTypes={['unit', 'classroom', 'student']}
-            />
+          />
           {tableOrEmptyMessage}
         </div>
       )

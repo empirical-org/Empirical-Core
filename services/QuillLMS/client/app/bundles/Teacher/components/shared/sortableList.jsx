@@ -39,7 +39,7 @@ export default class SortableList extends React.Component {
           draggingIndex={this.state.draggingIndex}
           sortId={i}
           outline="list"
-          >
+        >
             {item}
           </SortableListItem>
       );

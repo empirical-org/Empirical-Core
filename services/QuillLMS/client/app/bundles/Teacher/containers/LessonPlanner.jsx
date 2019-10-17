@@ -323,7 +323,8 @@ export default React.createClass({
 		<ManageUnits actions={{
 		 toggleTab: this.toggleTab,
 		 editUnit: this.editUnit
-	 }}/>;
+	 }}
+		/>;
 	},
 
 	render: function() {
@@ -346,7 +347,8 @@ export default React.createClass({
 				update: this.updateCreateUnitModel,
 					toggleActivitySelection: this.toggleActivitySelection,
 					assignSuccessActions: this.unitTemplatesAssignedActions()
-				}} analytics={this.analytics()}/>;
+				}} analytics={this.analytics()}
+			/>;
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
 		} else if ((tabParam === 'assign-a-diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
@@ -355,7 +357,8 @@ export default React.createClass({
 			tabSpecificComponents = <ManageUnits actions={{
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
-		 }}/>;
+		 }}
+			/>;
  // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
 	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}

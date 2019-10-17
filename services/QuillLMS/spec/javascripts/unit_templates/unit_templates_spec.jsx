@@ -19,7 +19,8 @@ describe('UnitTemplates', function () {
 
     this.component = TestUtils.renderIntoDocument(
       <EC.UnitTemplates data={props.data}
-                        eventHandlers={props.eventHandlers} />
+                        eventHandlers={props.eventHandlers}
+      />
     );
     this.component.getInitialState();
   });

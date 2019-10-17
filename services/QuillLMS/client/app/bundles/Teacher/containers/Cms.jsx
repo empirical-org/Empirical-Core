@@ -88,7 +88,7 @@ export default React.createClass({
                               isSortable={this.isSortable()}
                               updateOrder={this.updateOrder}
                               resourceNameSingular={this.props.resourceNameSingular}
-                            />
+            />
           </div>
         </div>
       </span>

@@ -27,7 +27,7 @@ export default () => (
   <ApolloProvider client={client}>
     <Query
         query={gql(notificationQuery)}
-      >
+    >
       {({ loading, error, data }) => {
         if (loading) return (null);
         if (error) return <p>Error :(</p>;
