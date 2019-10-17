@@ -7,7 +7,6 @@ exports[`Unit assignment followup component When there are only empty classes as
       <a
         className="quill-button medium contained primary"
         href="/"
-        onClick={[Function]}
       >
         Take me to my dashboard
       </a>
@@ -166,7 +165,6 @@ exports[`Unit assignment followup component When there are students assigned on 
       <a
         className="quill-button medium contained primary"
         href="/"
-        onClick={[Function]}
       >
         Take me to my dashboard
       </a>

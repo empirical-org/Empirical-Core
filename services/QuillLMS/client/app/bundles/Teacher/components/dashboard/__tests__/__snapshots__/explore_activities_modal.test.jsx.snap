@@ -8,37 +8,45 @@ exports[`ExploreActivitiesModal component should render ExploreActivitiesModal 1
     className="modal-background"
   />
   <div
-    className="explore-activities-modal quill-modal modal-body"
+    className="explore-activities-modal quill-modal"
   >
-    <div>
-      <h3
-        className="title"
-      >
-        Find the perfect writing activities
-      </h3>
-    </div>
+    <img
+      alt="teacher at projector in classroom"
+      src="undefined/images/illustrations/classroom-activities.svg"
+    />
     <div
-      className="explore-activities-modal-text"
+      className="modal-body"
     >
-      <p>
-        To get started, explore our library of activities or assign a diagnostic. You will then be able to create a class and add students. All of Quill's content is completely free to use with an unlimited number of students.
-      </p>
-    </div>
-    <div
-      className="form-buttons"
-    >
-      <button
-        className="quill-button outlined secondary medium"
-        onClick={[Function]}
+      <div>
+        <h3
+          className="title"
+        >
+          Find the perfect writing activities
+        </h3>
+      </div>
+      <div
+        className="explore-activities-modal-text"
       >
-        Not now
-      </button>
-      <a
-        className="quill-button contained primary medium"
-        href="/assign"
+        <p>
+          To get started, explore our library of activities or assign a diagnostic. You will then be able to create a class and add students. All of Quill's content is completely free to use with an unlimited number of students.
+        </p>
+      </div>
+      <div
+        className="form-buttons"
       >
-        Explore activities
-      </a>
+        <button
+          className="quill-button outlined secondary medium"
+          onClick={[Function]}
+        >
+          Not now
+        </button>
+        <a
+          className="quill-button contained primary medium"
+          href="/assign"
+        >
+          Explore activities
+        </a>
+      </div>
     </div>
   </div>
 </div>
