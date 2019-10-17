@@ -184,7 +184,9 @@ const PlaySentenceFragment = React.createClass({
       return (
         <div className="container">
           <ReactTransition
-            transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
+            transitionName={'text-editor'}
+            transitionAppear
+            transitionAppearTimeout={1200}
             transitionLeaveTimeout={300}
           >
             {component}

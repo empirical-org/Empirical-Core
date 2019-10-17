@@ -47,10 +47,10 @@ const ConceptsFeedback = React.createClass({
               <p className="control">
                 <label className="label">Name</label>
                 <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    ref="newConceptName"
+                  className="input"
+                  type="text"
+                  placeholder="Text input"
+                  ref="newConceptName"
                 />
               </p>
               <p className="control">

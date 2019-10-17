@@ -164,8 +164,8 @@ export default React.createClass({
     var tabSpecificComponents;
 
     tabSpecificComponents = <UnitTemplatesManager
-                                    data={this.state.unitTemplatesManager}
-                                    actions={this.unitTemplatesManagerActions()}
+      data={this.state.unitTemplatesManager}
+      actions={this.unitTemplatesManagerActions()}
     />;
 
     return (

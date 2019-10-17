@@ -36,7 +36,7 @@ const StandardsReportsTable = ({ data, }) => {
   if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
       <ReactTable
-data={data}
+        data={data}
         columns={columns}
         showPagination
         defaultSorted={[{ id: 'last_active', desc: true ,}]}

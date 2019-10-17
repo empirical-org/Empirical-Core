@@ -35,12 +35,12 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
               {optionObject[option]}
               <span>
                 <input
-                style={{display: 'none'}}
-                id={option}
-                value={option}
-                name='rad-button'
-                type="radio"
-                checked={isSelected}
+                  style={{display: 'none'}}
+                  id={option}
+                  value={option}
+                  name='rad-button'
+                  type="radio"
+                  checked={isSelected}
                 />
               </span>
             </p>

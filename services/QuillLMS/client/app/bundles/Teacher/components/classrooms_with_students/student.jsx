@@ -22,19 +22,19 @@
     // TODO: rewrite this method to make checked a variable, nothing else changes
     if (this.props.student.isSelected == true) {
       return ( <input
-type="checkbox"
-                     checked="checked"
-                     className="css-checkbox"
-                     id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
-                     onChange={this.handleStudentSelection}
+        type="checkbox"
+        checked="checked"
+        className="css-checkbox"
+        id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
+        onChange={this.handleStudentSelection}
       />
       );
     } else {
       return (<input
-type="checkbox"
-                     className="css-checkbox"
-                     id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
-                     onChange={this.handleStudentSelection}
+        type="checkbox"
+        className="css-checkbox"
+        id={'student_' + this.props.student.id + 'classroom_' + this.props.classroom.id}
+        onChange={this.handleStudentSelection}
       />
       );
     }

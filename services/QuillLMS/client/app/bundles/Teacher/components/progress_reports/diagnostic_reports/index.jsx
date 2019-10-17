@@ -135,16 +135,16 @@ const DiagnosticReports = React.createClass({
 			return (
   <div className='individual-activity-reports'>
     <NavBar
-						key={'key'}
-						classrooms={this.state.classrooms}
-						selectedStudentId={this.props.params.studentId}
-						studentDropdownCallback={this.changeStudent}
-						dropdownCallback={this.changeClassroom}
-						buttonGroupCallback={this.changeReport}
-						selectedActivity={this.state.selectedActivity}
-						showStudentDropdown={this.showStudentDropdown()}
-						students={this.state.students}
-						params={this.props.params}
+      key={'key'}
+      classrooms={this.state.classrooms}
+      selectedStudentId={this.props.params.studentId}
+      studentDropdownCallback={this.changeStudent}
+      dropdownCallback={this.changeClassroom}
+      buttonGroupCallback={this.changeReport}
+      selectedActivity={this.state.selectedActivity}
+      showStudentDropdown={this.showStudentDropdown()}
+      students={this.state.students}
+      params={this.props.params}
     />
     {this.props.children}
   </div>

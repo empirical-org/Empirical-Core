@@ -133,7 +133,8 @@ class Register extends React.Component<any, any> {
   render() {
     return (
       <section
-        className="student" style={{
+        className="student"
+        style={{
           paddingTop: 20,
         }}
       >

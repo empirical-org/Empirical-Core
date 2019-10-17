@@ -161,10 +161,10 @@ class ChooseEdition extends React.Component<any, any> {
     if (this.state.showNamingModal) {
       const buttonClassName = this.state.newEditionName ? 'active' : 'inactive'
       return <EditionNamingModal
-              saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
-              updateName={this.updateName}
-              buttonClassName={buttonClassName}
-              deleteNewEdition={this.deleteNewEdition}
+        saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
+        updateName={this.updateName}
+        buttonClassName={buttonClassName}
+        deleteNewEdition={this.deleteNewEdition}
       />
     }
   }

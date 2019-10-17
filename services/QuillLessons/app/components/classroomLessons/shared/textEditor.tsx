@@ -34,14 +34,14 @@ class TextEditor extends React.Component<TextEditorProps, TextEditorState> {
         <div className="card-content">
           <div className="content">
             <Textarea
-            spellCheck={false}
-            autoCapitalize="off"
-            autoCorrect="off"
-            value={this.props.value}
-            onInput={this.handleTextChange}
-            placeholder={this.props.placeholder}
-            ref="answerBox"
-            className="connect-text-area"
+              spellCheck={false}
+              autoCapitalize="off"
+              autoCorrect="off"
+              value={this.props.value}
+              onInput={this.handleTextChange}
+              placeholder={this.props.placeholder}
+              ref="answerBox"
+              className="connect-text-area"
             />
           </div>
         </div>

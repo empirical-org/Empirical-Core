@@ -12,7 +12,7 @@ describe('UnitTemplate component', () => {
     it('should not render without activity_info in the state', () => {
       const wrapper = shallow(
         <UnitTemplate
-unitTemplate={{}}
+          unitTemplate={{}}
           returnToIndex={() => null}
         />
       );
@@ -22,7 +22,7 @@ unitTemplate={{}}
     it('should render if there is activity_info in the state', () => {
       const wrapper = shallow(
         <UnitTemplate
-unitTemplate={{}}
+          unitTemplate={{}}
           returnToIndex={() => null}
         />
       );

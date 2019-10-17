@@ -171,22 +171,22 @@ export default React.createClass({
     let tableOrEmptyMessage
     if (this.state.results.length) {
       tableOrEmptyMessage = <ReactTable
-              loading={this.state.loadingNewTableData}
-              data={this.state.results}
-              columns={this.columnDefinitions()}
-              showPagination={true}
-              defaultSorted={[{id: 'completed_at', desc: true}]}
-              showPaginationTop={false}
-              showPaginationBottom={true}
-              showPageSizeOptions={false}
-              defaultPageSize={Math.min(this.state.results.length, 25)}
-              resizable={false}
-              className='progress-report'
-              manual={true}
-              pages={this.state.numPages}
-              page={this.state.currentPage}
-              onPageChange={this.reactTablePageChange}
-              onSortedChange={this.reactTableSortedChange}
+        loading={this.state.loadingNewTableData}
+        data={this.state.results}
+        columns={this.columnDefinitions()}
+        showPagination={true}
+        defaultSorted={[{id: 'completed_at', desc: true}]}
+        showPaginationTop={false}
+        showPaginationBottom={true}
+        showPageSizeOptions={false}
+        defaultPageSize={Math.min(this.state.results.length, 25)}
+        resizable={false}
+        className='progress-report'
+        manual={true}
+        pages={this.state.numPages}
+        page={this.state.currentPage}
+        onPageChange={this.reactTablePageChange}
+        onSortedChange={this.reactTableSortedChange}
       />
       } else {
         tableOrEmptyMessage = <EmptyStateForReport/>

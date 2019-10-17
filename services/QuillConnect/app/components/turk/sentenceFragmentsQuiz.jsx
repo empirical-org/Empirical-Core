@@ -159,11 +159,13 @@ const StudentDiagnostic = React.createClass({
             />);
           } else if (questionType === 'SF') {
             component = (<PlaySentenceFragment
-              question={this.props.playTurk.currentQuestion.data} currentKey={this.props.playTurk.currentQuestion.data.key}
+              question={this.props.playTurk.currentQuestion.data}
+              currentKey={this.props.playTurk.currentQuestion.data.key}
               key={this.props.playTurk.currentQuestion.data.key}
               // responses={this.props.responses.data[this.props.playTurk.currentQuestion.data.key]}
               dispatch={this.props.dispatch}
-              nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+              nextQuestion={this.nextQuestion}
+              markIdentify={this.markIdentify}
               updateAttempts={this.submitResponse}
             />);
           } else if (questionType === 'FB') {

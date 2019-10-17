@@ -55,7 +55,7 @@ const AdminsTeachers: React.SFC<AdminsTeachersProps> = ({
       </p>
       <div className={'admins-teachers'}>
         <ReactTable
-data={data}
+          data={data}
           columns={teacherColumns}
           showPagination={false}
           showPaginationTop={false}

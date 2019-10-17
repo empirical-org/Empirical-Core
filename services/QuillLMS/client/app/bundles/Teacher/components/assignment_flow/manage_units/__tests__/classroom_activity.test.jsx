@@ -13,7 +13,7 @@ describe('ClassroomActivity component', () => {
     });
     const wrapper = shallow(
       <ClassroomActivity
-          data={{ activity:
+        data={{ activity:
             { anonymous_path: '',
               classification: {
                 scorebook_icon_class: '',
@@ -29,7 +29,7 @@ describe('ClassroomActivity component', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/';
     const wrapper = shallow(
       <ClassroomActivity
-          data={{ activity:
+        data={{ activity:
           { anonymous_path: '',
             classification: {
                 scorebook_icon_class: '',
@@ -45,15 +45,15 @@ describe('ClassroomActivity component', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/lessons';
     const wrapper = shallow(
       <ClassroomActivity
-          data={{ activity:
+        data={{ activity:
           { anonymous_path: '',
             classification: {
                 scorebook_icon_class: '',
               },
           },
           }}
-          lesson
-          report={false}
+        lesson
+        report={false}
       />
       );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(1);
@@ -63,12 +63,12 @@ describe('ClassroomActivity component', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/lessons';
     const wrapper = shallow(
       <ClassroomActivity
-          data={{
+        data={{
             activityId: 567,
             activityClassificationId: 6,
             name: 'I am a lesson',
           }}
-          report={false}
+        report={false}
       />
       );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(1);
@@ -78,13 +78,13 @@ describe('ClassroomActivity component', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/lessons';
     const wrapper = shallow(
       <ClassroomActivity
-          data={{
+        data={{
             activityId: 567,
             activityClassificationId: 6,
             name: 'I am a lesson',
           }}
-          lesson
-          report
+        lesson
+        report
       />
       );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(0);

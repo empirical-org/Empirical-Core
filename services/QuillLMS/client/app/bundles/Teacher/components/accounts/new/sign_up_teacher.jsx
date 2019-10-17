@@ -132,45 +132,45 @@ class SignUpTeacher extends React.Component {
                   <input value={authToken} type="hidden" name="authenticity_token" />
                   <div className="name">
                     <Input
-                        label="First name"
-                        value={firstName}
-                        handleChange={this.update}
-                        type="text"
-                        className="first-name"
-                        id="firstName"
-                        error={errors.first_name}
-                        timesSubmitted={timesSubmitted}
+                      label="First name"
+                      value={firstName}
+                      handleChange={this.update}
+                      type="text"
+                      className="first-name"
+                      id="firstName"
+                      error={errors.first_name}
+                      timesSubmitted={timesSubmitted}
                     />
                     <Input
-                        label="Last name"
-                        value={lastName}
-                        handleChange={this.update}
-                        type="text"
-                        className="last-name"
-                        id="lastName"
-                        error={errors.last_name}
-                        timesSubmitted={timesSubmitted}
+                      label="Last name"
+                      value={lastName}
+                      handleChange={this.update}
+                      type="text"
+                      className="last-name"
+                      id="lastName"
+                      error={errors.last_name}
+                      timesSubmitted={timesSubmitted}
                     />
                   </div>
                   <Input
-                      label="Email"
-                      value={email}
-                      handleChange={this.update}
-                      type="text"
-                      className="email"
-                      id="email"
-                      error={errors.email}
-                      timesSubmitted={timesSubmitted}
+                    label="Email"
+                    value={email}
+                    handleChange={this.update}
+                    type="text"
+                    className="email"
+                    id="email"
+                    error={errors.email}
+                    timesSubmitted={timesSubmitted}
                   />
                   <Input
-                      label="Password"
-                      value={password}
-                      handleChange={this.update}
-                      type='password'
-                      className="password"
-                      error={errors.password}
-                      id="password"
-                      timesSubmitted={timesSubmitted}
+                    label="Password"
+                    value={password}
+                    handleChange={this.update}
+                    type='password'
+                    className="password"
+                    error={errors.password}
+                    id="password"
+                    timesSubmitted={timesSubmitted}
                   />
                   {this.renderNewsletterRow()}
                   <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />

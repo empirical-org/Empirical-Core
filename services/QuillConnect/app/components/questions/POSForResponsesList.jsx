@@ -71,8 +71,12 @@ export default React.createClass({
 
       return (
         <POSForResponse
-bgColor={bgColor} headerStyle={headerStyle} contentStyle={contentStyle} tagsToRender={tagsToRender}
-                        tag={tag} icon={icon}
+          bgColor={bgColor}
+          headerStyle={headerStyle}
+          contentStyle={contentStyle}
+          tagsToRender={tagsToRender}
+          tag={tag}
+          icon={icon}
         />
       )
     })

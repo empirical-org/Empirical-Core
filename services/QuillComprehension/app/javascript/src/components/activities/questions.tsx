@@ -75,14 +75,14 @@ class QuestionComponent extends React.Component<AppProps, any> {
         <Mutation mutation={SUBMIT_RESPONSE} key={a.id}>
           {(submitResponse, { data }) => (
             <QuestionCard
-            question={a}
-            submission={this.props.activities.submissions[a.id]}
-            complete={this.props.activities.complete[a.id]}
-            updateSubmission={this.updateSubmission}
-            updateCompleteness={this.props.markQuestionAsComplete}
-            submitResponse={submitResponse}
-            reset={() => {this.props.resetQuestion(a)}}
-            number={i}
+              question={a}
+              submission={this.props.activities.submissions[a.id]}
+              complete={this.props.activities.complete[a.id]}
+              updateSubmission={this.updateSubmission}
+              updateCompleteness={this.props.markQuestionAsComplete}
+              submitResponse={submitResponse}
+              reset={() => {this.props.resetQuestion(a)}}
+              number={i}
             />
           )}
         </Mutation>
