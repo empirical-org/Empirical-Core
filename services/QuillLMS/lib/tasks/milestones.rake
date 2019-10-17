@@ -31,7 +31,7 @@ namespace :milestones do
 
     def self.completed_diagnostic(teacher)
       milestone = Milestone.find_by(name: 'Complete Diagnostic')
-      if teacher.finished_diagnostic_unit_ids.length > 0 && !milestone.users.find_by(id: teacher.id)
+      if !teacher.finished_diagnostic_unit_ids.empty? && !milestone.users.find_by(id: teacher.id)
         teacher.milestones.push(milestone)
       end
     end
