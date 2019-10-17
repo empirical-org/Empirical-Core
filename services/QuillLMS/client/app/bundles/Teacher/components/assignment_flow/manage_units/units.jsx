@@ -1,5 +1,4 @@
 import * as React from 'react';
-import _ from 'underscore';
 import Unit from './unit';
 
 const Units = ({ data, hideClassroomActivity, hideUnit, report, lesson, updateDueDate}) => {
