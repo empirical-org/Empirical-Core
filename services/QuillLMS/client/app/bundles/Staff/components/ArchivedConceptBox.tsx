@@ -160,7 +160,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
   renderArchivedOrLive(concept) {
     if (concept.visible) {
       return (
-        <div  className="live-or-archived">
+        <div className="live-or-archived">
           <div>
             <div className="live" />
             Live
@@ -168,7 +168,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         </div>)
     } else {
       return (
-        <div  className="live-or-archived">
+        <div className="live-or-archived">
           <div>
             <div className="archived" />
             Archived
