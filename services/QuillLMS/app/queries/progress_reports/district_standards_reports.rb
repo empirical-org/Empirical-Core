@@ -10,7 +10,7 @@ class ProgressReports::DistrictStandardsReports
     # The database while testing
     # [{"id"=>"1", "name"=>"class 1b", "section_name"=>"how to tell cactus from cow", "total_activity_count"=>"2", "total_student_count"=>"33", "proficient_count"=>"15"}]
     ids = user_ids(admin_id)
-    if ids.length > 0
+    if !ids.empty?
       ActiveRecord::Base.connection.execute(query(ids)).to_a
     else
       []
