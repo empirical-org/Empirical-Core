@@ -7,7 +7,7 @@ class IntegrationsController < ApplicationController
     @body_class = 'full-width-page white-page'
     @js_file = 'public'
     @active_tab = 'Featured Activities'
-    @unit_templates = PartnerCurriculum.amplify.only_unit_templates.includes(:curriculum).order(:order).map(&:curriculum)
+    @unit_templates = PartnerContent.amplify.only_unit_templates.includes(:content).order(:order).map(&:content)
   end
 
   def amplify_all

@@ -9,7 +9,7 @@ describe IntegrationsController do
     end
 
     it 'should assign the unit_templates' do
-      create(:partner_curriculum)
+      create(:partner_content)
       get :amplify
 
       templates = assigns(:unit_templates)
