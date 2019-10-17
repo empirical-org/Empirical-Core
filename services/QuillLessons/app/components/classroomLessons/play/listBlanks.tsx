@@ -13,10 +13,10 @@ QuestionSubmissionsList
 import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
-import { Feedback } from 'quill-component-library/dist/componentLibrary' 
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg' 
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 interface ListBlankProps {
   data: QuestionData;
@@ -46,7 +46,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   toObject(answers) {
     const arr = answers.split(',')
     const objectifiedArr = {};
-    for (var i = 0; i < arr.length; +=1i) {
+    for (var i = 0; i < arr.length; i+=1) {
       objectifiedArr[i] = arr[i];
     }
     return objectifiedArr;
@@ -234,7 +234,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
       let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
-      let instructionsRow = this.props.data.play.instructions ? (<Feedback 
+      let instructionsRow = this.props.data.play.instructions ? (<Feedback
         feedbackType="default"
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
       />) : null;

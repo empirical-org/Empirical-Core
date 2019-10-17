@@ -1,5 +1,5 @@
 node_modules/**
-/public/webpack/server-bundle.js
+public/**
 services/QuillLMS/app/assets/javascripts/test_file_application.js
 services/QuillLMS/app/assets/javascripts/test_file_application_non_webpack.js
 services/QuillLMS/app/assets/javascripts/test_file_application_static.js
