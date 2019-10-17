@@ -258,7 +258,7 @@ module Teacher
 
     are_there_school_related_errors = false
     if params[:school_options_do_not_apply] == 'false' || !params[:school_options_do_not_apply]
-      if params[:school_id].nil? || params[:school_id].to_s.length == 0
+      if params[:school_id].blank?
         are_there_school_related_errors = true
       else
         self.school = School.find(params[:school_id])
