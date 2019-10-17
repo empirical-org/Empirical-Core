@@ -84,7 +84,7 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
               <span>Make sure you separate words with commas “,”</span>
             </div>
             <div className="control">
-            <input value={Object.values(this.props.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text"/>
+              <input value={Object.values(this.props.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text"/>
             </div>
           </div>
         </div>

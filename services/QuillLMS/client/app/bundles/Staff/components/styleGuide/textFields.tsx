@@ -28,7 +28,7 @@ class TextFields extends React.Component {
           <div className="big-element">
             <h4 className="style-guide-h4">Input</h4>
             <pre>
-{`<Input
+              {`<Input
   label="Label"
   handleChange={(e) => {this.changeSavedValues('inputOne', e)}}
   value={this.state.inputOne}
@@ -43,7 +43,7 @@ class TextFields extends React.Component {
           <div className="big-element">
             <h4 className="style-guide-h4">Input with helper text and placeholder</h4>
             <pre>
-{`<Input
+              {`<Input
   label="Label"
   value={this.state.inputTwo}
   handleChange={(e) => {this.changeSavedValues('inputTwo', e)}}
@@ -64,7 +64,7 @@ class TextFields extends React.Component {
           <div className="big-element">
             <h4 className="style-guide-h4">Single-line error</h4>
             <pre>
-{`<Input
+              {`<Input
   label="Label"
   handleChange={(e) => {this.changeSavedValues('inputThree', e)}}
   value={this.state.inputThree}
@@ -79,9 +79,9 @@ class TextFields extends React.Component {
             />
           </div>
           <div className="big-element">
-          <h4 className="style-guide-h4">Multi-line error</h4>
+            <h4 className="style-guide-h4">Multi-line error</h4>
             <pre>
-{`<Input
+              {`<Input
   label="Label"
   value={this.state.inputFour}
   handleChange={(e) => {this.changeSavedValues('inputFour', e)}}

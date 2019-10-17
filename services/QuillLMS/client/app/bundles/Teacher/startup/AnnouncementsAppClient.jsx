@@ -14,8 +14,8 @@ export default (props) => {
   const content = articles ? <div id="preview-card-container">{articles}</div>
   : <div style={{fontSize: '30px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
         Coming Soon!
-        <img style={{marginTop: '20px'}} src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg"/>
-      </div>
+    <img style={{marginTop: '20px'}} src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg"/>
+  </div>
     return <div className="announcements-page">
       <HeaderSection title="Announcements" subtitle="See what's new with Quill"/>
       {content}

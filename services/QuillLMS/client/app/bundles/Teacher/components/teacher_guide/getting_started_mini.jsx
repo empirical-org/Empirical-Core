@@ -24,8 +24,8 @@ export default React.createClass({
     } else {
       content =
         [<h3 key='h3-tag'>Getting Started</h3>,
-        <PercentageGraph key='percentage-graph' percentage={this.percentageCompleted()}/>,
-        <a className='green-link' key='all-tasks' href='/teachers/teacher_guide'>View All Tasks ></a>]
+          <PercentageGraph key='percentage-graph' percentage={this.percentageCompleted()}/>,
+          <a className='green-link' key='all-tasks' href='/teachers/teacher_guide'>View All Tasks ></a>]
     }
     return <div id='graph-section'>{content}</div>
   },
@@ -43,15 +43,15 @@ export default React.createClass({
   render: function() {
     return (
       <div className='mini-content'>
-      <div className='row'>
-        <div className='col-sm-4'>
-          {this.graphSection()}
+        <div className='row'>
+          <div className='col-sm-4'>
+            {this.graphSection()}
+          </div>
+          <div className='col-sm-8'>
+            {this.checklistSection()}
+          </div>
+        </div>
       </div>
-      <div className='col-sm-8'>
-          {this.checklistSection()}
-      </div>
-    </div>
-    </div>
   );
 
   }

@@ -43,15 +43,15 @@ EC.Authors = React.createClass({
     ];
 
     return (
-            <div>
-              <div className='row'>
-                <div className='col-xs-12'>
-                  <img src={this.getImageUrl(cmsComponent)} />
-                </div>
-              </div>
-              <div className='row'>
-                <div className='col-xs-12'>
-                  <EC.Resource
+      <div>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <img src={this.getImageUrl(cmsComponent)} />
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <EC.Resource
                            resourceNameSingular='author'
                            resourceNamePlural='authors'
                            initialModel={initialModel}
@@ -60,10 +60,10 @@ EC.Authors = React.createClass({
                            savingKeys={savingKeys}
                            fieldsToNormalize={fieldsToNormalize}
                            returnToIndex={cmsComponent.returnToIndex}
-                  />
-                </div>
-              </div>
-            </div>
+            />
+          </div>
+        </div>
+      </div>
            );
   },
 

@@ -64,10 +64,10 @@ export default React.createClass({
 
     introCopy: function() {
         return (
-            <div className='summary intro-copy'>
-                <h2>Complete these quests and become a Quill guru!</h2>
-                <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
-            </div>
+          <div className='summary intro-copy'>
+            <h2>Complete these quests and become a Quill guru!</h2>
+            <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
+          </div>
         )
     },
 
@@ -81,10 +81,10 @@ export default React.createClass({
             return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
         } else {
             return (
-                <div id='teacher-guide'>
-                    {this.introCopy()}
-                    {this.sectionPart()}
-                </div>
+              <div id='teacher-guide'>
+                {this.introCopy()}
+                {this.sectionPart()}
+              </div>
             );
         }
     },
@@ -95,9 +95,9 @@ export default React.createClass({
         return <span/>
       }
       return (
-          <div className={this.state.className} id={this.state.id}>
-              {this.stateSpecificComponents()}
-          </div>
+        <div className={this.state.className} id={this.state.id}>
+          {this.stateSpecificComponents()}
+        </div>
       );
     }
 

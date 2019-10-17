@@ -56,16 +56,16 @@ export default React.createClass({
 		} else {
 			const student = this.selectedStudent(this.state.students);
 			content = (
-				<div className='individual-student-activity-view'>
-					<h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{student.score}%</strong></h3>
-          {this.studentBoxes()}
-					<div className='how-we-grade'>
-					<p className="title title-not-started pull-right">
-						<a href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade</a>
-						<a href=""><i className="fa fa-long-arrow-right" /></a>
-					</p>
-					</div>
-				</div>
+  <div className='individual-student-activity-view'>
+    <h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{student.score}%</strong></h3>
+    {this.studentBoxes()}
+    <div className='how-we-grade'>
+      <p className="title title-not-started pull-right">
+        <a href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade</a>
+        <a href=""><i className="fa fa-long-arrow-right" /></a>
+      </p>
+    </div>
+  </div>
 			)
 		}
 		return content

@@ -103,9 +103,9 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
                     <div>
                       {this.renderConceptsChangeLog(data)}
                     </div>
+                  </div>
                 </div>
-              </div>
-            </div>)
+              </div>)
           }}
         </Query>
       </div>

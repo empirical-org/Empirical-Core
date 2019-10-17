@@ -40,8 +40,8 @@ export default class SortableList extends React.Component {
           sortId={i}
           outline="list"
         >
-            {item}
-          </SortableListItem>
+          {item}
+        </SortableListItem>
       );
     }, this);
 

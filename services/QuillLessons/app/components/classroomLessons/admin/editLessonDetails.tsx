@@ -40,19 +40,19 @@ export default class EditLessonDetails extends Component<any, any> {
       <div className="field">
         <label className="label">Lesson Number</label>
         <div className="control">
-        <input value={this.state.classroomLesson.lesson} onChange={(e) => this.handleLessonDetailsChange(e, 'lesson')} className="input" type="text" placeholder="Lesson Order Number"/>
+          <input value={this.state.classroomLesson.lesson} onChange={(e) => this.handleLessonDetailsChange(e, 'lesson')} className="input" type="text" placeholder="Lesson Order Number"/>
         </div>
       </div>
       <div className="field">
         <label className="label">Topic</label>
         <div className="control">
-        <input value={this.state.classroomLesson.topic} onChange={(e) => this.handleLessonDetailsChange(e, 'topic')} className="input" type="text" placeholder="Lesson Topic"/>
+          <input value={this.state.classroomLesson.topic} onChange={(e) => this.handleLessonDetailsChange(e, 'topic')} className="input" type="text" placeholder="Lesson Topic"/>
         </div>
       </div>
       <div className="field">
         <label className="label">Unit</label>
         <div className="control">
-        <input value={this.state.classroomLesson.unit} onChange={(e) => this.handleLessonDetailsChange(e, 'unit')} className="input" type="text" placeholder="Unit Name"/>
+          <input value={this.state.classroomLesson.unit} onChange={(e) => this.handleLessonDetailsChange(e, 'unit')} className="input" type="text" placeholder="Unit Name"/>
         </div>
       </div>
       <div className="control is-grouped" style={{marginTop: 10}}>

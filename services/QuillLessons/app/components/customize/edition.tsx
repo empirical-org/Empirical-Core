@@ -295,8 +295,8 @@ class CustomizeEdition extends React.Component<any, any> {
             sampleQuestion={this.props.editionMetadata.sample_question}
             showEditModal={this.showEditModal}
           />
-        {this.renderSlides()}
-        {this.renderPublishSection()}
+          {this.renderSlides()}
+          {this.renderPublishSection()}
         </div>
       </div>
     } else {

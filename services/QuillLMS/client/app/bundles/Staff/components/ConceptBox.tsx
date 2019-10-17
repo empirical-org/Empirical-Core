@@ -243,7 +243,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         <i className="fas fa-archive" />
         <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
       </span>
-  </div>
+    </div>
   }
 
   renderLevels() {

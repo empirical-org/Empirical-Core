@@ -43,7 +43,7 @@ class SortableList extends React.Component<any, any> {
 		};
 		const listItems = this.state.data.items.map((item: any, i: number) => {
 			return (
-				<SortableListItem
+  <SortableListItem
           key={i}
           onSortItems={this.updateState}
           updateState={this.updateState}
@@ -52,14 +52,14 @@ class SortableList extends React.Component<any, any> {
           sortId={i}
           outline="list"
           childProps={childProps}
-				>
-          {item}
-        </SortableListItem>
+  >
+    {item}
+  </SortableListItem>
 			);
 		}, this);
 
 		return (
-			<div className="list">{listItems}</div>
+  <div className="list">{listItems}</div>
 		);
 	}
 }

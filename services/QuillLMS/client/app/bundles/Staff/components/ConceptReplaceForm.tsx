@@ -130,7 +130,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
       <Mutation mutation={REPLACE_CONCEPT}  onCompleted={this.props.showSuccessBanner}>
         {(replaceConcept, {}) => (
           <div className="find-and-replace">
-          {this.renderChangeLogModal(replaceConcept)}
+            {this.renderChangeLogModal(replaceConcept)}
             <div className="find-and-replace-section">
               <div className="find-and-replace-section-header">
                 <div className="section-number">1</div>

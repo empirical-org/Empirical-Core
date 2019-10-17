@@ -146,7 +146,7 @@ key={this.props.params.classroomId}
           />
           {this.startedAndUnstartedStudents()}
         </div>
-          <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a target="_blank" href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing">short feedback form</a>.</div>
+        <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a target="_blank" href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing">short feedback form</a>.</div>
       </div>
     );
   }

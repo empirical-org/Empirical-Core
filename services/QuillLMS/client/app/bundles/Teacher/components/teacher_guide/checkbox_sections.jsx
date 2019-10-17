@@ -23,10 +23,10 @@ export default React.createClass({
       return (<a href={url}><img src='/images/getting_started_arrow.png'/></a>);
     } else {
       return (<a className='btn btn-default' href={url}><div>
-           <div>Launch</div>
-           <div className='favicon-div'><i className="fa fa-long-arrow-right" aria-hidden="true" /></div>
-         </div>
-       </a>);
+        <div>Launch</div>
+        <div className='favicon-div'><i className="fa fa-long-arrow-right" aria-hidden="true" /></div>
+      </div>
+      </a>);
     }
   },
 
@@ -78,9 +78,9 @@ sortBoxes: function(){
       <div>
         {this.category()}
         <table className='table quill-table'>
-            <tbody>
-              {boxes}
-            </tbody>
+          <tbody>
+            {boxes}
+          </tbody>
         </table>
       </div>
       );

@@ -13,7 +13,7 @@ class SubmitButton extends React.Component<{disabled: Boolean; onClick: Function
           onClick={()=>this.props.onClick()}
         >
             Submit
-          </button>
+        </button>
       </div>);
     }
 

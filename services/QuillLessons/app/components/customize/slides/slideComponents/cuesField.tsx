@@ -12,7 +12,7 @@ const CuesField: React.SFC<any> = (props) => {
       <span>Make sure you separate words with commas “,”</span>
     </div>
     <div className="control">
-    <input value={props.cues.join(',')} onChange={props.handleCuesChange} className="input" type="text"/>
+      <input value={props.cues.join(',')} onChange={props.handleCuesChange} className="input" type="text"/>
     </div>
   </div>
 }

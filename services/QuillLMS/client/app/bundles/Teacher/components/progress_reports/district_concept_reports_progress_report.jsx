@@ -120,7 +120,7 @@ data={filteredConceptReportsData}
           defaultPageSize={filteredConceptReportsData.length}
           className='progress-report has-green-arrow'
         />
-        </div>)
+      </div>)
     } else {
       return <EmptyStateForReport/>
     }

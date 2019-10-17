@@ -128,8 +128,8 @@ export class TextArea extends React.Component<InputProps, InputState> {
             ref={node => this.node = node}
             onClick={this.activateInput}
         >
-            <label>{label}</label>
-            <textarea
+          <label>{label}</label>
+          <textarea
               id={id}
               ref={(input) => { this.input = input; }}
               onChange={handleChange}
@@ -137,9 +137,9 @@ export class TextArea extends React.Component<InputProps, InputState> {
               placeholder={placeholder}
               disabled={disabled}
               maxLength={characterLimit ? characterLimit : 10000}
-            />
-            {this.renderCancelSymbol()}
-            {this.renderCharacterLimit()}
+          />
+          {this.renderCancelSymbol()}
+          {this.renderCharacterLimit()}
         </div>)
       } else {
         return (
@@ -160,7 +160,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
             {this.renderCharacterLimit()}
-        </div>)
+          </div>)
       }
     } else if (inactive) {
       return (
@@ -180,7 +180,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
           />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
-      </div>)
+        </div>)
     } else {
       return (
         <div
@@ -199,7 +199,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
           />
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
-      </div>)
+        </div>)
     }
   }
 

@@ -91,7 +91,7 @@ component='tbody'
               {this.columns()}
             </tr>
           </thead>
-         {tbody}
+          {tbody}
         </table>
       );
     }

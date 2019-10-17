@@ -165,19 +165,19 @@ id={this.getId()}
       result = this.determineInputTag();
     } else {
       result = (
-          <div className='row text-input-row'>
-            <div className='col-xs-12'>
-              {this.labelOrNot()}
-              <div className='row'>
-                <div className='col-xs-8'>
-                  {this.determineInputTag()}
-                </div>
-                <div className='col-xs-4 error'>
-                  {this.displayErrors()}
-                </div>
+        <div className='row text-input-row'>
+          <div className='col-xs-12'>
+            {this.labelOrNot()}
+            <div className='row'>
+              <div className='col-xs-8'>
+                {this.determineInputTag()}
+              </div>
+              <div className='col-xs-4 error'>
+                {this.displayErrors()}
               </div>
             </div>
           </div>
+        </div>
         );
     }
     return result;

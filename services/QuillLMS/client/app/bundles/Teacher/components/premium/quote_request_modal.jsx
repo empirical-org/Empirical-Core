@@ -36,7 +36,7 @@ export default React.createClass({
           <h1 className="q-h2">Receive a quote for a purchase order.</h1>
           <a className="q-button cta-button bg-quillgreen text-white" href="https://quillpremium.wufoo.com/forms/quill-premium-quote/" target="_blank">
                     Email a Quote
-                  </a>
+          </a>
         </Modal.Body>
         <Modal.Footer>
           {this.creditCardNotice()}

@@ -72,8 +72,8 @@ export default React.createClass({
 currentConceptUID={this.state.concept}
             handleSelectorChange={this.handleSelectorChange}
           />
-          </div>
         </div>
+      </div>
     }
   },
 

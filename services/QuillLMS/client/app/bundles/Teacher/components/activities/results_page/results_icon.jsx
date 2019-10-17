@@ -61,11 +61,11 @@ export default React.createClass({
         // insert below line if we decide we want to reinclude score
         // <h3 style={this.fontColor()}>{Math.round(this.props.percentage * 100) + '%'}</h3>
         return (
-            <div className='icon' style={this.backgroundColor()}>
-                <div>
-                    <img src={this.imageSrc()} alt='activity-type'/>
-                </div>
+          <div className='icon' style={this.backgroundColor()}>
+            <div>
+              <img src={this.imageSrc()} alt='activity-type'/>
             </div>
+          </div>
         )
 
     }

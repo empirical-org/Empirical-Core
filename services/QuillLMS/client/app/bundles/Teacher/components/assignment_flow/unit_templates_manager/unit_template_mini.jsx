@@ -58,16 +58,16 @@ export default class UnitTemplateMini extends React.Component {
     // else it is a normal mini
     else {
       return(
-          <Link to={this.getLink()}>
-            <div>
-              <UnitTemplateFirstRow
+        <Link to={this.getLink()}>
+          <div>
+            <UnitTemplateFirstRow
                   data={this.props.data}
                   modules={{string: this.modules.string}}
-              />
-              <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
-              {this.displayPicture()}
-            </div>
-          </Link>
+            />
+            <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
+            {this.displayPicture()}
+          </div>
+        </Link>
         );
       }
   }

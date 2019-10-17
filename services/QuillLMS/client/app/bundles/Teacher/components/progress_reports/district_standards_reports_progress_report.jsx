@@ -108,7 +108,7 @@ data={filteredStandardsReportsData}
           defaultPageSize={filteredStandardsReportsData.length}
           className='progress-report has-green-arrow'
         />
-        </div>)
+      </div>)
     } else {
       return <EmptyStateForReport/>
     }

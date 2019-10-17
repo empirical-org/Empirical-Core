@@ -320,7 +320,7 @@ export default React.createClass({
 	},
 
 	manageUnit: function()  {
-		<ManageUnits actions={{
+  <ManageUnits actions={{
 		 toggleTab: this.toggleTab,
 		 editUnit: this.editUnit
 	 }}
@@ -365,11 +365,11 @@ data={{
 		}
 
 		return (
-			<span>
-				<div id="lesson_planner">
-					{tabSpecificComponents}
-				</div>
-			</span>
+  <span>
+    <div id="lesson_planner">
+      {tabSpecificComponents}
+    </div>
+  </span>
 		);
 
 	}

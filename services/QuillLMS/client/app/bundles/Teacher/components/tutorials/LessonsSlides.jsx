@@ -2,14 +2,14 @@ import React from 'react'
 
 const SlideOne = () => {
   return <div key='one' className='slide lessons-slide-one'>
-      <div className="media">
-        <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1.svg`} />
-        <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1_text.svg`} />
-      </div>
-      <div className="text">
-        <h1>Class-Wide Interactive Activities</h1>
-        <p>Quill Lessons provides a series of interactive slides that allows the entire class to work on the activities with their teacher. Your students will answer the questions on their devices and you will be able to project the answers back to the class and lead a class discussion.</p>
-      </div>
+    <div className="media">
+      <img className="illustration" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1.svg`} />
+      <img className="caption" src={`${process.env.CDN_URL}/images/tutorials/lessons/slide_1_text.svg`} />
+    </div>
+    <div className="text">
+      <h1>Class-Wide Interactive Activities</h1>
+      <p>Quill Lessons provides a series of interactive slides that allows the entire class to work on the activities with their teacher. Your students will answer the questions on their devices and you will be able to project the answers back to the class and lead a class discussion.</p>
+    </div>
   </div>
 }
 

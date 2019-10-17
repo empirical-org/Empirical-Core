@@ -38,7 +38,7 @@ export default React.createClass({
     else if ((this.state.has_premium == 'trial') || (this.state.has_premium == 'locked')){
       return(<span>
         <FreeTrialStatus status={this.state.has_premium} data={this.state.trial_days_remaining}/>
-        </span>);
+      </span>);
     }
     else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
         return (<span/>);
@@ -73,11 +73,11 @@ export default React.createClass({
       } else
       {
         return (
-      <div id='premium-banner' style={divStyle}>
-        <div className='container'>
-          {this.stateSpecificComponents()}
-        </div>
-      </div>
+          <div id='premium-banner' style={divStyle}>
+            <div className='container'>
+              {this.stateSpecificComponents()}
+            </div>
+          </div>
     );
   }
   },

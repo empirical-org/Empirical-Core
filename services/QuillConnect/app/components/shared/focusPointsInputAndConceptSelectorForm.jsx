@@ -151,7 +151,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         onClick={() => this.toggleSuggestedSequence(seq)}
     >
       {seq}
-      </span>
+    </span>
    }
 
    renderExplanatoryNote() {

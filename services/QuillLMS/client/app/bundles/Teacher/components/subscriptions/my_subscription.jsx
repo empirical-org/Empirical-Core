@@ -29,7 +29,7 @@ export default class extends React.Component {
         <div className="form-row">
           <div className="form-label">
               Account Status
-            </div>
+          </div>
           <div className="form-input">
             <input disabled className="inactive" value={subType || 'Quill Basic'} />
             {this.button()}
@@ -38,7 +38,7 @@ export default class extends React.Component {
         <div className="form-row">
           <div className="form-label">
               Valid Until
-            </div>
+          </div>
           <div className="form-input">
             <input disabled className="inactive" value={expiration ? moment(expiration).format('MMMM Do, YYYY') : 'N/A'} />
           </div>

@@ -83,16 +83,16 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
         </div>)
       case 'Overview':
         return (<div className="admin-show-script-item">
-        <div className="field">
-          <label className="label">Body</label>
-          <div className="control">
-            <SlideHTMLEditor
+          <div className="field">
+            <label className="label">Body</label>
+            <div className="control">
+              <SlideHTMLEditor
               text={body}
               handleTextChange={(e) => this.updateBody(e)}
-            />
+              />
+            </div>
           </div>
-        </div>
-        <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+          <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
         </div>)
     }
   }

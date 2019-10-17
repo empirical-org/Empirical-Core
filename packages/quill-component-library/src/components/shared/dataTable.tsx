@@ -176,7 +176,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     return <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
       <div className="actions-menu">
-         {rowActions}
+        {rowActions}
       </div>
     </div>
   }

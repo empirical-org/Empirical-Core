@@ -504,20 +504,20 @@ export default class extends React.Component {
 
   renderPreviewCardTypeDropdown() {
     return <div>
-        <label>Preview Card Template:</label>
-        <ItemDropdown
+      <label>Preview Card Template:</label>
+      <ItemDropdown
           items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
           callback={this.handlePreviewCardTypeChange}
           selectedItem={this.state.preview_card_type}
-        />
-      </div>
+      />
+    </div>
   }
 
   renderDatepicker() {
     return <div>
-        <label>Published At Date:</label>
-        <DatePicker selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} onChange={this.updatePublishedAt}/>
-      </div>
+      <label>Published At Date:</label>
+      <DatePicker selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} onChange={this.updatePublishedAt}/>
+    </div>
   }
 
   renderArticleMarkdownOrPreview() {
@@ -542,7 +542,7 @@ export default class extends React.Component {
             centerImages={this.state.centerImages}
           />
         </article>
-        </div>
+      </div>
     } else {
         toolbarLeft = <div className="toolbar-left">
           <p onClick={() => this.insertMarkdown('# ')}>H1</p>

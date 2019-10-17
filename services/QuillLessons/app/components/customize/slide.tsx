@@ -78,12 +78,12 @@ export default class Slide extends React.Component<any, any> {
           resetSlide={this.props.resetSlide}
           incompletePrompt={this.props.incompletePrompt}
         />
-          <div className="script-header" onClick={this.toggleShowScript}>
-            <img src="https://assets.quill.org/images/icons/show-steps.svg"/>
-            <p>{showScriptButtonText}</p>
-          </div>
-          {this.renderScript()}
+        <div className="script-header" onClick={this.toggleShowScript}>
+          <img src="https://assets.quill.org/images/icons/show-steps.svg"/>
+          <p>{showScriptButtonText}</p>
         </div>
+        {this.renderScript()}
+      </div>
     }
   }
 
@@ -100,12 +100,12 @@ export default class Slide extends React.Component<any, any> {
     const showSlideButtonText = this.state.showSlide ? 'Hide' : 'Show'
     return <div className="slide-container" key={this.props.questionIndex}>
       <div className='slide-header'>
-      <div style={{minWidth: `${this.numberAndTypeWidth()}`}} className='slide-number-and-type-container'>
-        <span className="slide-number">Slide {this.props.questionIndex} - </span>
-        <span className="slide-type">{this.slideTypeName()}</span>
-      </div>
-      <span className="line" />
-      <span onClick={this.toggleShowSlide} className="hide">{showSlideButtonText}</span>
+        <div style={{minWidth: `${this.numberAndTypeWidth()}`}} className='slide-number-and-type-container'>
+          <span className="slide-number">Slide {this.props.questionIndex} - </span>
+          <span className="slide-type">{this.slideTypeName()}</span>
+        </div>
+        <span className="line" />
+        <span onClick={this.toggleShowSlide} className="hide">{showSlideButtonText}</span>
       </div>
       {this.renderSlide()}
     </div>

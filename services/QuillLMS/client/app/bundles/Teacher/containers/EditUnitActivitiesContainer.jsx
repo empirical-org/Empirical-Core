@@ -45,8 +45,8 @@ export default React.createClass({
   render() {
     return (
       <div>
-          <div className='container lesson_planner_main edit-assigned-activities-container'>
-            <UnitStage1
+        <div className='container lesson_planner_main edit-assigned-activities-container'>
+          <UnitStage1
                         unitName={this.props.params.unitName}
                         hideNameTheUnit={Boolean(true)}
                         selectedActivities={[...this.state.selectedActivities]}
@@ -54,7 +54,7 @@ export default React.createClass({
                         editing={Boolean(true)}
                         updateActivities={this.updateActivities}
                         toggleActivitySelection={this.toggleActivitySelection}
-            />
+          />
         </div>
       </div>
       )

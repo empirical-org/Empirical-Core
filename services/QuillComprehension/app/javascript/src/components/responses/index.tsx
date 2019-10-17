@@ -61,7 +61,7 @@ class TagResponsesContainer extends React.Component<any, AppState> {
           return (
             <div className="card" key={this.state.count}>
               <div className="card-header">
-              <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>
+                <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>
               </div>
               <div className="card-body">
                 <p>{ response.text}</p>

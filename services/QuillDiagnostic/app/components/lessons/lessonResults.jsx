@@ -120,11 +120,11 @@ const Lesson = React.createClass({
   render: function () {
     return (
       <div>
-      <ul>
-        {this.renderSessionList()}
-      </ul>
-      {this.renderModal()}
-    </div>
+        <ul>
+          {this.renderSessionList()}
+        </ul>
+        {this.renderModal()}
+      </div>
     )
   }
 })

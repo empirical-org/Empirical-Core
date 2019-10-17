@@ -238,12 +238,12 @@ data={this.state.data}
             <input id='user_username' name='user_username' value={this.state.query.user_username} onChange={e => this.updateField(e, 'user_username')}/>
           </div>
 
-            <div className='cms-form-row'>
+          <div className='cms-form-row'>
             <label>Email</label>
             <input id='user_email' name='user_email' value={this.state.query.user_email} onChange={e => this.updateField(e, 'user_email')}/>
           </div>
 
-            <div className='cms-form-row'>
+          <div className='cms-form-row'>
             <label>Ip</label>
             <input id='user_ip' name='user_ip' value={this.state.query.user_ip} onChange={e => this.updateField(e, 'user_ip')}/>
           </div>

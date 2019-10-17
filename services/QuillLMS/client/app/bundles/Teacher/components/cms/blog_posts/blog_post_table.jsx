@@ -56,17 +56,17 @@ export default class BlogPostTable extends React.Component {
 
   renderTableHeader() {
     return <tr>
-        <th />
-        <th>Title</th>
-        <th>Topic</th>
-        <th>Created</th>
-        <th>Updated</th>
-        <th>Rating</th>
-        <th>Views</th>
-        <th />
-        <th />
-        <th />
-      </tr>
+      <th />
+      <th>Title</th>
+      <th>Topic</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Rating</th>
+      <th>Views</th>
+      <th />
+      <th />
+      <th />
+    </tr>
   }
 
   renderTableRow(blogPost, index) {

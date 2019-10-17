@@ -50,8 +50,8 @@ export default React.createClass({
             <img src={this.props.img} alt="assignment-type-image"/>
             <p className='overview'>{this.props.bodyText}</p>
             <div className='meta-info-wrapper'>
-                <span className='directions'>{this.props.directions}</span>
-                <br/> {(countCopy || 'Calculating') + '  |  ' + this.props.timeDuration + ' ' + 'per ' + unit}
+              <span className='directions'>{this.props.directions}</span>
+              <br/> {(countCopy || 'Calculating') + '  |  ' + this.props.timeDuration + ' ' + 'per ' + unit}
             </div>
           </div>
       )

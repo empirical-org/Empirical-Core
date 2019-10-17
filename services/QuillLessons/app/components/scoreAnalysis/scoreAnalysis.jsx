@@ -288,14 +288,14 @@ class ScoreAnalysis extends Component {
         </select>
       </div>
       <div style={innerDivStyle}>
-          <label style={labelStyle}>Question Flag:</label>
-          <select value={flagValue} onChange={this.updateFlag}>
-            <option value="all">All</option>
-            <option value="archived">Archived</option>
-            <option value="alpha">Alpha</option>
-            <option value="beta">Beta</option>
-            <option value="production">Production</option>
-          </select>
+        <label style={labelStyle}>Question Flag:</label>
+        <select value={flagValue} onChange={this.updateFlag}>
+          <option value="all">All</option>
+          <option value="archived">Archived</option>
+          <option value="alpha">Alpha</option>
+          <option value="beta">Beta</option>
+          <option value="production">Production</option>
+        </select>
       </div>
     </div>
   }

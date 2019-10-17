@@ -194,10 +194,10 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
                     <div>
                       {this.renderConcepts(data)}
                     </div>
+                  </div>
+                  {this.renderConceptBox(refetch)}
                 </div>
-                {this.renderConceptBox(refetch)}
-              </div>
-            </div>)
+              </div>)
           }}
         </Query>
       </div>

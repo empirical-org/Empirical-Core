@@ -286,22 +286,22 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
 
     return <tr className="sample-correct-answer-row">
-          <td colSpan={2}><div>Sample Correct Response</div></td>
-          <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></td>
-          <td/>
-          <td>
-            <input
+      <td colSpan={2}><div>Sample Correct Response</div></td>
+      <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></td>
+      <td/>
+      <td>
+        <input
               id={'correct'}
               name={'correct'}
               type="checkbox"
               defaultChecked={checked}
-            />
-            <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
-              {checkbox}
-            </label>
-          </td>
-          <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-          <td/>
+        />
+        <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
+          {checkbox}
+        </label>
+      </td>
+      <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
+      <td/>
 
     </tr>
   }
@@ -323,8 +323,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
             <table>
               {this.renderTableHeaders()}
               <tbody>
-              {correctAnswerRow}
-              {this.renderStudentRows()}
+                {correctAnswerRow}
+                {this.renderStudentRows()}
               </tbody>
             </table>
           </div>
@@ -484,17 +484,17 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     }
     return <li className="student-submission-item" key={index}>
 
-        <div className="student-submission-item-header">
-          <strong>0 of {numStudents}</strong> students have responded.
-        </div>
+      <div className="student-submission-item-header">
+        <strong>0 of {numStudents}</strong> students have responded.
+      </div>
 
-        {content}
+      {content}
 
-        <div className="student-submission-item-footer">
-          {this.renderDisplayButton()}
-        </div>
+      <div className="student-submission-item-footer">
+        {this.renderDisplayButton()}
+      </div>
 
-      </li>
+    </li>
   }
 
   elapsedMilliseconds(submittedTimestamp: any) {

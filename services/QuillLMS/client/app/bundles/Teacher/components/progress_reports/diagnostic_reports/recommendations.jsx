@@ -198,8 +198,8 @@ export default React.createClass({
       <div className="recommendations-explanation-container">
         <p className="recommendations-explanation">
 					Based on the results of the diagnostic, we created a personalized learning plan for each student.
-					<br />Customize your learning plan by selecting the activity packs you would like to assign.
-				</p>
+          <br />Customize your learning plan by selecting the activity packs you would like to assign.
+        </p>
       </div>
     );
   },
@@ -332,7 +332,7 @@ export default React.createClass({
               src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
             />
             Independent Activity Recommendations
-            </h3>
+          </h3>
           {this.renderExplanation()}
           <div>
             {this.renderTopBar()}

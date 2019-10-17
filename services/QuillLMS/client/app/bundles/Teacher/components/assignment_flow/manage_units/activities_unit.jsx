@@ -86,10 +86,10 @@ export default class ActivitiesUnit extends React.Component {
         onMouseEnter={this.toggleTooltip}
         onMouseLeave={this.toggleTooltip}
       >
-          <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>
+        <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>
           Created By {firstCa.ownerName}
-          {this.renderTooltip()}
-        </span>);
+        {this.renderTooltip()}
+      </span>);
     }
   }
 
@@ -286,29 +286,29 @@ export default class ActivitiesUnit extends React.Component {
 
     return (
       <div>
-      <section className="activities-unit">
-        <div className="row unit-header-row" id={this.getUnitId()}>
-          <div className="left">
-            <span className="unit-name">
-              {this.showOrEditName()}
-            </span>
-            <span>
-              {this.nameActionLink()}
-              {this.deleteOrLockedInfo()}
-            </span>
+        <section className="activities-unit">
+          <div className="row unit-header-row" id={this.getUnitId()}>
+            <div className="left">
+              <span className="unit-name">
+                {this.showOrEditName()}
+              </span>
+              <span>
+                {this.nameActionLink()}
+                {this.deleteOrLockedInfo()}
+              </span>
+            </div>
+            <div className="right">
+              {this.assignedToSection()}
+            </div>
+            {this.editStudentsLink()}
           </div>
-          <div className="right">
-            {this.assignedToSection()}
-          </div>
-          {this.editStudentsLink()}
-        </div>
-        <div className="table assigned-activities">
-          {this.renderClassroomActivities()}
-          {this.addClassroomActivityRow()}
+          <div className="table assigned-activities">
+            {this.renderClassroomActivities()}
+            {this.addClassroomActivityRow()}
 
-        </div>
-      </section>
-      <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
+          </div>
+        </section>
+        <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
       </div>
     );
   }

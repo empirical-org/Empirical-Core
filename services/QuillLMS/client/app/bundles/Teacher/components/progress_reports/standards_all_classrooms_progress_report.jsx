@@ -168,7 +168,7 @@ export default class extends React.Component {
       if (data.length) {
         return (
           <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-  					<ReactTable
+            <ReactTable
 data={data}
   						columns={this.columns()}
   						showPagination={false}
@@ -178,7 +178,7 @@ data={data}
   						showPageSizeOptions={false}
   						defaultPageSize={data.length}
   						className='progress-report has-green-arrow'
-  					/></div>
+            /></div>
         )
       } else {
         return <EmptyStateForReport/>

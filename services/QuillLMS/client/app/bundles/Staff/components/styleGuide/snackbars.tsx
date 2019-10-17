@@ -23,7 +23,7 @@ class Snackbars extends React.Component {
       <h2 className="style-guide-h2">Snackbars</h2>
       <div className="element-container">
         <pre>
-{`constructor(props) {
+          {`constructor(props) {
   super(props)
 
   this.state = {

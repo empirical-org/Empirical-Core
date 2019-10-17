@@ -55,14 +55,14 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
           <Modal close={this.createNew}>
             <div className="box">
               <h4 className="title">Add New Concept</h4>
-                <p className="control">
-                  <label className="label">Name</label>
-                  <input
+              <p className="control">
+                <label className="label">Name</label>
+                <input
                     className="input"
                     type="text"
                     placeholder="Text input"
                     ref="newConceptName"
-                  />
+                />
               </p>
               <p className="control">
                 <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConceptFeedback}>Submit</button>

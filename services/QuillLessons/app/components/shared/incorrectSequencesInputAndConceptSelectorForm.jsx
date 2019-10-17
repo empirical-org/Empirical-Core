@@ -204,7 +204,7 @@ export default React.createClass({
         onClick={() => this.toggleSuggestedSequence(seq)}
     >
       {seq}
-      </span>
+    </span>
    },
 
   renderSuggestedIncorrectSequencesSection() {

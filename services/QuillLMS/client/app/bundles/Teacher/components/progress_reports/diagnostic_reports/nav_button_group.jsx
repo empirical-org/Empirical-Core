@@ -77,9 +77,9 @@ export default class NavButtonGroup extends React.Component {
 
 	render() {
 		return (
-			<div id='report-button-group' className="btn-group" role="group" aria-label="Basic example">
-				{this.buttons()}
-			</div>
+  <div id='report-button-group' className="btn-group" role="group" aria-label="Basic example">
+    {this.buttons()}
+  </div>
 		);
 	}
 };

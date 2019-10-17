@@ -88,7 +88,7 @@ data={data}
         minRows={1}
         className='progress-report activity-scores-table has-green-arrow'
       />
-      </div>)
+    </div>)
   } else {
     return <EmptyStateForReport/>
   }

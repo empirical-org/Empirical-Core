@@ -182,7 +182,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               menuIsOpen={false}
             />
             {this.renderErrorText()}
-        </div>)
+          </div>)
       }
     } else if (isMulti) {
       return (<div
@@ -217,7 +217,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             menuIsOpen={false}
           />
           {this.renderHelperText()}
-      </div>)
+        </div>)
     } else {
       return (
         <div
@@ -230,7 +230,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             onChange={this.handleOptionSelection}
             menuIsOpen={menuIsOpen}
           />
-      </div>)
+        </div>)
     }
   }
 

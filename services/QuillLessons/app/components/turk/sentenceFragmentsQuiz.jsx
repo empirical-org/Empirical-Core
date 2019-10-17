@@ -182,14 +182,14 @@ question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props
 
     return (
       <div>
-      <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
-      <section className="section is-fullheight minus-nav student">
-      <div className="student-container student-container-diagnostic">
-          <CarouselAnimation>
-            {component}
-          </CarouselAnimation>
-        </div>
-      </section>
+        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <section className="section is-fullheight minus-nav student">
+          <div className="student-container student-container-diagnostic">
+            <CarouselAnimation>
+              {component}
+            </CarouselAnimation>
+          </div>
+        </section>
       </div>
     )
   }

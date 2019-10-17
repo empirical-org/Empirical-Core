@@ -103,11 +103,11 @@ class AdminFillInTheBlanks extends Component<AdminFillInTheBlanksProps, AdminFil
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
-      <div className="admin-slide-preview">
-        <div className="scaler">
-          <StudentFillInTheBlank data={this.state.question} />
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <StudentFillInTheBlank data={this.state.question} />
+          </div>
         </div>
-      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">

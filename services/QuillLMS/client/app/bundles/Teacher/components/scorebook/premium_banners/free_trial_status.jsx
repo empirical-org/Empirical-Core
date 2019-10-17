@@ -5,11 +5,11 @@ export default React.createClass({
   stateSpecificComponents: function() {
     if (this.props.status == 'trial') {
       return (
-          <h4>You have {this.props.data} days left in your trial.</h4>
+        <h4>You have {this.props.data} days left in your trial.</h4>
       );
     } else if (this.props.status == 'locked') {
       return (
-          <h4>Your Premium Trial Has Expired</h4>
+        <h4>Your Premium Trial Has Expired</h4>
       );
     }
   },

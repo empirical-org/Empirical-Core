@@ -30,7 +30,7 @@ export default React.createClass({
       <div className='dropdown-select-and-label'>
         <h3 className='dropdown-select-label'>{this.props.label}</h3>
         <select ref={'select'} value={this.props.defaultValue} onChange={this.select}>
-         {options}
+          {options}
         </select>
       </div>
     );

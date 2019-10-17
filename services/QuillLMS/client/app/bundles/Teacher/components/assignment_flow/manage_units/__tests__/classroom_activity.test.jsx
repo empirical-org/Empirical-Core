@@ -12,7 +12,7 @@ describe('ClassroomActivity component', () => {
       }
     });
     const wrapper = shallow(
-        <ClassroomActivity
+      <ClassroomActivity
           data={{ activity:
             { anonymous_path: '',
               classification: {
@@ -20,7 +20,7 @@ describe('ClassroomActivity component', () => {
               },
             },
               activityId: 412, }}
-        />
+      />
       );
     expect(wrapper.find('.recommendations-button')).toHaveLength(0);
   });
@@ -28,7 +28,7 @@ describe('ClassroomActivity component', () => {
   it('should not render Recommendations div if it is not on the activity analysis page', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/';
     const wrapper = shallow(
-        <ClassroomActivity
+      <ClassroomActivity
           data={{ activity:
           { anonymous_path: '',
             classification: {
@@ -36,7 +36,7 @@ describe('ClassroomActivity component', () => {
               },
           },
             activityId: 413 ,}}
-        />
+      />
       );
     expect(wrapper.find('.recommendations-button')).toHaveLength(0);
   });
@@ -44,7 +44,7 @@ describe('ClassroomActivity component', () => {
   it('should render the Lessons End Row div if it is not a report and it gets the lesson prop', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/lessons';
     const wrapper = shallow(
-        <ClassroomActivity
+      <ClassroomActivity
           data={{ activity:
           { anonymous_path: '',
             classification: {
@@ -54,7 +54,7 @@ describe('ClassroomActivity component', () => {
           }}
           lesson
           report={false}
-        />
+      />
       );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(1);
   });
@@ -62,14 +62,14 @@ describe('ClassroomActivity component', () => {
   it('should render the Lessons End Row div if it is not a report and the activity classification is 6', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/lessons';
     const wrapper = shallow(
-        <ClassroomActivity
+      <ClassroomActivity
           data={{
             activityId: 567,
             activityClassificationId: 6,
             name: 'I am a lesson',
           }}
           report={false}
-        />
+      />
       );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(1);
   });
@@ -77,7 +77,7 @@ describe('ClassroomActivity component', () => {
   it('should not render the Lessons End Row div if it is a report', () => {
     window.location.pathname = '/teachers/classrooms/activity_planner/lessons';
     const wrapper = shallow(
-        <ClassroomActivity
+      <ClassroomActivity
           data={{
             activityId: 567,
             activityClassificationId: 6,
@@ -85,7 +85,7 @@ describe('ClassroomActivity component', () => {
           }}
           lesson
           report
-        />
+      />
       );
     expect(wrapper.find('.lessons-end-row')).toHaveLength(0);
   });

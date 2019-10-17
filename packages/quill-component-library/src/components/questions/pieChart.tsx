@@ -24,10 +24,9 @@ class PieChart extends React.Component<any, any> {
   render() {
     return (
       <div id='pie-chart'>
-          <Pie
+        <Pie
             slices={this.props.data}
-
-          />
+        />
         {
           this.props.data.map((d: any, i: number) => (
             <div key={i}>
@@ -46,7 +45,7 @@ class PieChart extends React.Component<any, any> {
             </div>
           : ''
         }
-          <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
+        <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
       </div>
     )
   }

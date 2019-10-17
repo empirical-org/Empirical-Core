@@ -28,21 +28,21 @@ export default React.createClass({
             </div>
           </div>
           <div className="icon" onClick={() => window.location.href = "/tools/grammar"}>
-              <div className="icon-wrapper icon-flag-embossed"/>
-              <div className="icons-description-wrapper">
-                <p className="title">Quill Proofreader</p>
-                <p className="description">Practice Mechanics</p>
-              </div>
-            </div>
-            <div className="icon" onClick={() => window.location.href = "/tools/proofreader"}>
-              <div className="icon-wrapper icon-puzzle-embossed"/>
-              <div className="icons-description-wrapper">
-                <p className="title">Quill Grammar</p>
-                <p className="description">Fix Errors In Passages</p>
-              </div>
+            <div className="icon-wrapper icon-flag-embossed"/>
+            <div className="icons-description-wrapper">
+              <p className="title">Quill Proofreader</p>
+              <p className="description">Practice Mechanics</p>
             </div>
           </div>
-    </div>
+          <div className="icon" onClick={() => window.location.href = "/tools/proofreader"}>
+            <div className="icon-wrapper icon-puzzle-embossed"/>
+            <div className="icons-description-wrapper">
+              <p className="title">Quill Grammar</p>
+              <p className="description">Fix Errors In Passages</p>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 });

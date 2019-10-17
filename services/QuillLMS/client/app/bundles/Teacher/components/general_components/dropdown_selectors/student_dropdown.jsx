@@ -49,9 +49,9 @@ export default React.createClass({
 
 	render: function() {
 			return (
-				<DropdownButton disabled={this.state.disabled} bsStyle='default' title={this.state.selectedStudent.name} id='select-student-dropdown' onSelect={this.handleSelect}>
-					{this.students()}
-				</DropdownButton>
+  <DropdownButton disabled={this.state.disabled} bsStyle='default' title={this.state.selectedStudent.name} id='select-student-dropdown' onSelect={this.handleSelect}>
+    {this.students()}
+  </DropdownButton>
 			);
 	}
 

@@ -115,7 +115,7 @@ class ChooseEdition extends React.Component<any, any> {
   renderBackButton() {
     if (window.history.length > 1) {
       return <div className="back-button" onClick={() => window.history.back()}>
-      <i className="fa fa-icon fa-chevron-left"/>
+        <i className="fa fa-icon fa-chevron-left"/>
       Back
       </div>
     }
@@ -230,20 +230,20 @@ class ChooseEdition extends React.Component<any, any> {
     let quillEditionSection, myEditionSection, coteacherEditionSection
     if (compactedQuillEditions.length > 0) {
       quillEditionSection = <div className="quill-editions">
-      <p className="header">Quill Created Editions</p>
-      {compactedQuillEditions}
+        <p className="header">Quill Created Editions</p>
+        {compactedQuillEditions}
       </div>
     }
     if (compactedCoteacherEditions.length > 0) {
       coteacherEditionSection = <div className="coteacher-editions">
-      <p className="header">Co-Teacher Customized Editions</p>
-      {compactedCoteacherEditions}
+        <p className="header">Co-Teacher Customized Editions</p>
+        {compactedCoteacherEditions}
       </div>
     }
     if (compactedMyEditions.length > 0) {
       myEditionSection = <div className="my-editions">
-      <p className="header">My Customized Editions</p>
-      {compactedMyEditions}
+        <p className="header">My Customized Editions</p>
+        {compactedMyEditions}
       </div>
     }
     return <div>

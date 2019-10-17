@@ -165,11 +165,11 @@ export default class extends React.Component {
       return (
         <label>
                 Recurring:
-                <input
+          <input
                   type="checkbox"
                   checked={this.state.subscription.recurring}
                   onChange={this.changeRecurring}
-                />
+          />
         </label>);
     }
   }
