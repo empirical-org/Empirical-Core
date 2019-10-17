@@ -35,7 +35,7 @@ export default class ConceptChangeLogs extends React.Component<ConceptChangeLogP
           <p className="action">Action: {cl.action}</p>
           <p className="explanation">{cl.explanation}</p>
           <p className="user">
-            <i className="far fa-user-circle"/>
+            <i className="far fa-user-circle" />
             <span>{cl.user.name}</span>
           </p>
         </div>

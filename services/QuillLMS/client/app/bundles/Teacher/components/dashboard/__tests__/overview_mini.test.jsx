@@ -48,7 +48,7 @@ describe('OverviewMini component', () => {
 
   it('should render header text', () => {
     const wrapper = shallow(
-      <OverviewMini overviewObj={{header: 'I am Groot', results: 'some stuff here'}}/>
+      <OverviewMini overviewObj={{header: 'I am Groot', results: 'some stuff here'}} />
     );
     expect(wrapper.find('h4').text()).toBe('I am Groot');
   });

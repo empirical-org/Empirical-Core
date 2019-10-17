@@ -98,7 +98,7 @@ export default React.createClass ({
           <button className="button is-primary" type="submit">Submit</button>
           <button className="button is-danger" onClick={this.cancel}>Cancel</button>
         </form>
-        <ConceptExplanation {...this.state}/>
+        <ConceptExplanation {...this.state} />
       </div>
 
     )

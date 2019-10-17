@@ -45,7 +45,7 @@ export default class MissedLessonRow extends React.Component {
       color: '#348fdf',
     }
     return <div style={tooltipStyle}>
-      <i className="fa fa-caret-up" style={caretStyle}/>
+      <i className="fa fa-caret-up" style={caretStyle} />
       You can reassign this lesson to the students who missed it.
     </div>
   }

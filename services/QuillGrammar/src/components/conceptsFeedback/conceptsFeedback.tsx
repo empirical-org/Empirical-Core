@@ -43,7 +43,7 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
         />
       })
     } else {
-      return [<li/>]
+      return [<li />]
     }
   }
 

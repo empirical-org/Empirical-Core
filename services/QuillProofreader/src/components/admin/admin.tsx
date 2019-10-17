@@ -48,9 +48,9 @@ class AdminContainer extends React.Component<AdminContainerProps> {
           </div>
         </section>
         <Switch>
-          <Route component={Lesson} path={`/admin/lessons/:lessonID`}/>
-          <Route component={Lessons} path={`/admin/lessons`}/>
-          <Route component={Concepts} path={`/admin/concepts`}/>
+          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
+          <Route component={Lessons} path={`/admin/lessons`} />
+          <Route component={Concepts} path={`/admin/concepts`} />
         </Switch>
       </div>
     );

@@ -137,7 +137,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
 
   renderEditSuccessBanner() {
     if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close"/></span></div>
+      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close" /></span></div>
     }
   }
 

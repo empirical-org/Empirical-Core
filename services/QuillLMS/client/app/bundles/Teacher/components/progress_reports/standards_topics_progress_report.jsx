@@ -51,7 +51,7 @@ export default class extends React.Component {
       row.mastery_status = row.mastery_status
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
         </a>
       )
       return row
@@ -109,7 +109,7 @@ export default class extends React.Component {
         resizable: false,
         width: 165,
         Cell: row => (
-          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['mastery_status']}</span>
+          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
       }, {
         Header: "",
@@ -135,7 +135,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     const filteredData = this.filteredData()
     return (
@@ -145,7 +145,7 @@ export default class extends React.Component {
             <h1><span>Standards Report:</span> {this.state.student.name}</h1>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport className="download-report-button" data={this.state.csvData}/>
+            <CSVDownloadForProgressReport className="download-report-button" data={this.state.csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>

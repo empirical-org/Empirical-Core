@@ -349,7 +349,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         {(editConcept, {}) => (
           <div className="concept-box archived-concept-box">
             {this.renderChangeLogModal(editConcept)}
-            <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
+            <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times" /></span>
             <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>

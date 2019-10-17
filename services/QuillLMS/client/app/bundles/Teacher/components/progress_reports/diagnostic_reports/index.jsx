@@ -130,7 +130,7 @@ const DiagnosticReports = React.createClass({
   <div>{this.props.children}</div>
 			)
 		} else if (this.state.loading) {
-			return <LoadingSpinner/>
+			return <LoadingSpinner />
 		} else {
 			return (
   <div className='individual-activity-reports'>

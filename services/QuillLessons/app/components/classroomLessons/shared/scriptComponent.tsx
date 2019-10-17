@@ -157,7 +157,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderRetryQuestionButton() {
-    return <p onClick={this.retryQuestion}><i className="fa fa-refresh"/>Retry Question</p>
+    return <p onClick={this.retryQuestion}><i className="fa fa-refresh" />Retry Question</p>
   }
 
   retryQuestion() {
@@ -287,8 +287,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
     return <tr className="sample-correct-answer-row">
       <td colSpan={2}><div>Sample Correct Response</div></td>
-      <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></td>
-      <td/>
+      <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}} /></td>
+      <td />
       <td>
         <input
           defaultChecked={checked}
@@ -301,7 +301,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         </label>
       </td>
       <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-      <td/>
+      <td />
 
     </tr>
   }
@@ -309,7 +309,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   renderReview(index: number) {
     const { selected_submissions, submissions, current_slide, students, presence, sampleCorrectAnswer } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
-    const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span/>
+    const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span />
     if (submissions && submissions[current_slide]) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
@@ -344,9 +344,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderSampleCorrectAnswer() {
     if (this.props.sampleCorrectAnswer) {
-      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></div>
+      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}} /></div>
     } else {
-      return <span/>
+      return <span />
     }
   }
 
@@ -443,7 +443,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, selected_submission_order, slideType } = this.props;
     const text: any = submissions[current_slide][studentKey].data
     const submissionText = this.state.showDifferences ? findDifferences(text, this.props.lessonPrompt) : text;
-    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}}/>
+    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}} />
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
@@ -468,7 +468,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           </label>
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
+        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)} /></td>
       </tr>
 
   }

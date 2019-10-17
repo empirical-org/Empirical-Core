@@ -88,7 +88,7 @@ export default class extends React.Component {
 				resizable: false,
         minWidth: 90,
         Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-          {row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span/>}
+          {row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span />}
         </a>),
 				sortMethod: sortFromSQLTimeStamp,
 			},
@@ -107,7 +107,7 @@ export default class extends React.Component {
         width: 80,
         Cell: row => (
           <a className='green-arrow' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
+            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>
         )
       }
@@ -141,7 +141,7 @@ export default class extends React.Component {
         />
       </div>)
     } else {
-      return <EmptyStateForReport/>
+      return <EmptyStateForReport />
     }
   }
 
@@ -151,7 +151,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     const filteredClassroomsData = this.filteredClassroomsData()
     return (
@@ -162,12 +162,12 @@ export default class extends React.Component {
             <p>View the overall average score for each student in an active classroom. Click on a student’s name to see a report of each individual activity and print it as a PDF. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.formatDataForCSV(filteredClassroomsData)} key={`${this.state.selectedClassroom} report button`}/>
+            <CSVDownloadForProgressReport data={this.formatDataForCSV(filteredClassroomsData)} key={`${this.state.selectedClassroom} report button`} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom}/>
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>

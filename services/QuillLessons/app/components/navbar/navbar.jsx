@@ -45,9 +45,9 @@ const Navbar = React.createClass({
 
   customizeNavbar: function() {
     if (this.props.params.editionID) {
-      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params}/>
+      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params} />
     } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
-      return <LaunchEditionNavbar params={this.props.params}/>
+      return <LaunchEditionNavbar params={this.props.params} />
     } else {
       return <CreateCustomizedEditionNavbar />
     }
@@ -72,7 +72,7 @@ const Navbar = React.createClass({
 
   render: function () {
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar params={this.props.params}/>);
+      return (<TeacherLessonsNavbar params={this.props.params} />);
     } else if (this.customizeRoute()) {
       return this.customizeNavbar()
     } else {

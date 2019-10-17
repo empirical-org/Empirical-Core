@@ -225,7 +225,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         </p>
         <p className="control">
           <label className="label">Concept Selector</label>
-          <ConceptSelector handleSelectorChange={this.addConcept}/>
+          <ConceptSelector handleSelectorChange={this.addConcept} />
         </p>
         {this.renderConceptRows()}
         <div className="control">

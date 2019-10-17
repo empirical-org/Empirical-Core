@@ -300,7 +300,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           />
           {this.renderRenameAndArchiveSection()}
         </div>
-        <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description}/>
+        <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>
     }
@@ -325,7 +325,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         {(editConcept, {}) => (
           <div className="concept-box">
             {this.renderChangeLogModal(editConcept)}
-            <span className="close-concept-box" onClick={closeConceptBox}><i className="fas fa-times"/></span>
+            <span className="close-concept-box" onClick={closeConceptBox}><i className="fas fa-times" /></span>
             <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <p>Level {levelNumber}</p>

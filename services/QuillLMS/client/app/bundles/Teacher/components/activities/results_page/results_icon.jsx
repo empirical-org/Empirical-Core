@@ -63,7 +63,7 @@ export default React.createClass({
         return (
           <div className='icon' style={this.backgroundColor()}>
             <div>
-              <img alt='activity-type' src={this.imageSrc()}/>
+              <img alt='activity-type' src={this.imageSrc()} />
             </div>
           </div>
         )

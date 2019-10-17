@@ -23,7 +23,7 @@ export default React.createClass({
       return <div className="locked-tooltip">
         <p className="tooltip-header">This is a whole group activity and is launched by the teacher.</p>
         <p className="text">Your teacher will press the “Launch Lesson” button from the teacher dashboard to start the activity. You will then be able to join it.</p>
-        <i className="fa fa-caret-down"/>
+        <i className="fa fa-caret-down" />
       </div>
     }
   },
@@ -33,7 +33,7 @@ export default React.createClass({
       return <div className="missed-tooltip">
         <p className="tooltip-header">Your teacher has launched and completed this group lesson in class.</p>
         <p className="text">This activity is now locked. Be sure to ask your teacher what you missed.</p>
-        <i className="fa fa-caret-down"/>
+        <i className="fa fa-caret-down" />
       </div>
     }
   },

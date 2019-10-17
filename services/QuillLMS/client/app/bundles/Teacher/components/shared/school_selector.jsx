@@ -129,13 +129,13 @@ class SchoolSelector extends React.Component {
 
   renderLoading() {
     return <div className="loading">
-      <LoadingIndicator/>
+      <LoadingIndicator />
     </div>
   }
 
   renderNoSchoolFound() {
     return <div className="no-school-found">
-      <img alt="map search image" src={mapSearchSrc}/>
+      <img alt="map search image" src={mapSearchSrc} />
       <p className="message">We couldn't find your school</p>
       <p className="sub-text">Try another search or click skip for now below.</p>
     </div>
@@ -143,7 +143,7 @@ class SchoolSelector extends React.Component {
 
   renderNoLocationFound() {
     return <div className="no-location-found">
-      <img alt="map search image" src={mapSearchSrc}/>
+      <img alt="map search image" src={mapSearchSrc} />
       <p className="message">We couldn't find your location</p>
       <p className="sub-text"><a href={this.locationServicesLink()} target="_blank">Enable location access</a> or search for your school above.</p>
     </div>

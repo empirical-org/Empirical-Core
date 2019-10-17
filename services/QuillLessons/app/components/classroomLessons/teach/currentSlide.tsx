@@ -250,7 +250,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderPreviewModal() {
     if (this.state.showPreviewModal) {
-      return <PreviewModal closeModal={this.closePreviewModal} openStudentView={this.openStudentView}/>
+      return <PreviewModal closeModal={this.closePreviewModal} openStudentView={this.openStudentView} />
     }
   }
 
@@ -265,7 +265,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal classroomSessionId={this.state.classroomSessionId} closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId}/>
+      return <CongratulationsModal classroomSessionId={this.state.classroomSessionId} closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} />
     }
   }
 
@@ -354,7 +354,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     } else {
       return (
         <div>
-          <Spinner/>
+          <Spinner />
         </div>
       );
     }

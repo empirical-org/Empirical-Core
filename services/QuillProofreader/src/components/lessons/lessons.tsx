@@ -91,7 +91,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true}/>
+            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true} />
           </div>
           <div className="columns">
             <div className="column">

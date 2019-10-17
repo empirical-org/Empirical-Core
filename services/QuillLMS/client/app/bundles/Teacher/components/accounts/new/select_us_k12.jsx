@@ -35,7 +35,7 @@ class SelectUSK12 extends React.Component {
     return (
       <div className="container account-form select-k12">
         <h1>Let's find your school</h1>
-        <SchoolSelector selectSchool={this.selectSchool}/>
+        <SchoolSelector selectSchool={this.selectSchool} />
         <a
           className="non-k12-link"
           href="/sign-up/add-non-k12"

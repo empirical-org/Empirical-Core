@@ -79,7 +79,7 @@ export default React.createClass({
           } else if (s.waitingForCsv) {
             content = <span>
                         Downloading
-              <ButtonLoadingIndicator/>
+              <ButtonLoadingIndicator />
             </span>
           } else {
             content = 'Download Report'

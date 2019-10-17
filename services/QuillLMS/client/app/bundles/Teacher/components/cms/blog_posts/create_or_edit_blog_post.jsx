@@ -516,7 +516,7 @@ export default class extends React.Component {
   renderDatepicker() {
     return <div>
       <label>Published At Date:</label>
-      <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null}/>
+      <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} />
     </div>
   }
 
@@ -530,7 +530,7 @@ export default class extends React.Component {
       dateDisplayed = moment()
     }
     if (this.state.showArticlePreview) {
-      toolbarLeft = <div/>
+      toolbarLeft = <div />
       content = <div id="article-container">
         <article>
           <BlogPostContent
@@ -622,15 +622,15 @@ export default class extends React.Component {
           <div className='short-fields'>
             <div>
               <label>External Link: (Optional, use only if this card should point to another website)</label>
-              <input onChange={this.handleExternalLinkChange} value={this.state.externalLink}/>
+              <input onChange={this.handleExternalLinkChange} value={this.state.externalLink} />
             </div>
           </div>
 
           <div>
             <label>Click the square below or drag an image into it to upload an image:</label>
-            <Dropzone onDrop={this.onDrop}/>
+            <Dropzone onDrop={this.onDrop} />
             <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
-            <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink}/>
+            <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink} />
             <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Images</a>
           </div>
 

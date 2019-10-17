@@ -63,7 +63,7 @@ export default React.createClass({
         </div>
         <div className='bottom-section'>
           <div className='results-wrapper'>
-            <StudentResultsTables results={this.props.results}/>
+            <StudentResultsTables results={this.props.results} />
           </div>
         </div>
       </div>

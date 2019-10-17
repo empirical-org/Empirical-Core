@@ -55,15 +55,15 @@ export default class GoogleUnsync extends React.Component {
       <div>
         <div className="input-row">
           <label>Google Classroom Email:</label>
-          <input onChange={(e) => this.updateField(e, 'originalEmail')} type="text" value={this.state.originalEmail}/>
+          <input onChange={(e) => this.updateField(e, 'originalEmail')} type="text" value={this.state.originalEmail} />
         </div>
         <div className="input-row">
           <label>New Email:</label>
-          <input onChange={(e) => this.updateField(e, 'newEmail')} type="text" value={this.state.newEmail}/>
+          <input onChange={(e) => this.updateField(e, 'newEmail')} type="text" value={this.state.newEmail} />
         </div>
         <div className="input-row">
           <label>Password:</label>
-          <input onChange={(e) => this.updateField(e, 'password')} type="text" value={this.state.password}/>
+          <input onChange={(e) => this.updateField(e, 'password')} type="text" value={this.state.password} />
         </div>
         <button onClick={this.submit}>Unsync</button>
         {this.renderError()}

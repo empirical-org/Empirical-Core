@@ -21,7 +21,7 @@ class TitleCards extends React.Component<ComponentProps, any> {
   renderQuestionsList() {
     const titleCards = hashToCollection(this.props.titleCards.data)
     if (this.props.titleCards.hasreceiveddata && titleCards) {
-      return <QuestionList basePath='title-cards' questions={titleCards || []}/>
+      return <QuestionList basePath='title-cards' questions={titleCards || []} />
     } else if (!this.props.titleCards.hasreceiveddata) {
       return <p>Loading...</p>
     } else {

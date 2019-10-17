@@ -48,9 +48,9 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
           <p>How was your experience with Quill Lessons?</p>
           <p>We are eager to hear your feedback to improve this tool.</p>
           <div className="emoji-row">
-            <img onClick={() => this.selectEmoji(0)} src="https://assets.quill.org/images/emojis/disappointed_face.png"/>
-            <img onClick={() => this.selectEmoji(1)} src="https://assets.quill.org/images/emojis/neutral_face.png"/>
-            <img onClick={() => this.selectEmoji(2)} src="https://assets.quill.org/images/emojis/inlove_face.png"/>
+            <img onClick={() => this.selectEmoji(0)} src="https://assets.quill.org/images/emojis/disappointed_face.png" />
+            <img onClick={() => this.selectEmoji(1)} src="https://assets.quill.org/images/emojis/neutral_face.png" />
+            <img onClick={() => this.selectEmoji(2)} src="https://assets.quill.org/images/emojis/inlove_face.png" />
           </div>
         </div>
     }
@@ -58,14 +58,14 @@ export default class CongratulationsModal extends React.Component<{closeModal: a
 
   render() {
     return <div className="congratulations-modal-container">
-      <div className="congratulations-modal-background" onClick={this.props.closeModal}/>
+      <div className="congratulations-modal-background" onClick={this.props.closeModal} />
       <div className="congratulations-modal">
-        <img className="exit" onClick={this.props.closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg"/>
+        <img className="exit" onClick={this.props.closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
         <img className="illustration" src="https://assets.quill.org/images/illustrations/congratulations_illustration.svg" />
         <h1 className="congratulations">Congratulations!</h1>
         <h1>You've completed a Quill Lessons Activity.</h1>
         <p>This lesson will be marked as complete for your students.</p>
-        <div className="dividing-line"/>
+        <div className="dividing-line" />
         <p>Your students' answers in this lesson are now saved in the <span>Activity Analysis</span> reports.</p>
         {this.renderFeedbackSection()}
       </div>

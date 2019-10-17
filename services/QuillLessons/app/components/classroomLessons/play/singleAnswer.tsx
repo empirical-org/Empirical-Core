@@ -146,7 +146,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return (<FeedbackRow/>);
+        return (<FeedbackRow />);
       } else if (this.props.data.play.instructions) {
         return (<Feedback
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}

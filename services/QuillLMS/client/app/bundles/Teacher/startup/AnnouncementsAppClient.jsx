@@ -14,10 +14,10 @@ export default (props) => {
   const content = articles ? <div id="preview-card-container">{articles}</div>
   : <div style={{fontSize: '30px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
         Coming Soon!
-    <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}}/>
+    <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
   </div>
     return <div className="announcements-page">
-      <HeaderSection subtitle="See what's new with Quill" title="Announcements"/>
+      <HeaderSection subtitle="See what's new with Quill" title="Announcements" />
       {content}
     </div>
 }

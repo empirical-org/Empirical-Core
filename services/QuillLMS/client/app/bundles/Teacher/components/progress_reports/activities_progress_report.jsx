@@ -189,7 +189,7 @@ export default React.createClass({
         showPaginationTop={false}
       />
       } else {
-        tableOrEmptyMessage = <EmptyStateForReport/>
+        tableOrEmptyMessage = <EmptyStateForReport />
       }
       return (
         <div>

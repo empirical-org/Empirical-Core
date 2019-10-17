@@ -84,7 +84,7 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
         {correctAnswerHTML}
       </div>
     } else {
-      return <span/>
+      return <span />
     }
   }
 
@@ -110,7 +110,7 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
     return <div className={`edit-tooltip ${visible} ${offset}`}>
       <div className="top-section">
         <div className="header">
-          <img src={src}/>
+          <img src={src} />
           <h1>{headerText}</h1>
         </div>
         <p>Edit {index + 1} of {numberOfEdits}</p>

@@ -56,11 +56,11 @@ export default class DeleteLastActivitySession extends React.Component {
       <div>
         <div className="input-row">
           <label>Activity Name:</label>
-          <input onChange={(e) => this.updateActivityName(e, 1)} type="text" value={this.state.activityName}/>
+          <input onChange={(e) => this.updateActivityName(e, 1)} type="text" value={this.state.activityName} />
         </div>
         <div className="input-row">
           <label>Student Username or Email:</label>
-          <input onChange={this.updateStudentIdentifier} type="text" value={this.state.studentIdentifier}/>
+          <input onChange={this.updateStudentIdentifier} type="text" value={this.state.studentIdentifier} />
         </div>
         <button onClick={this.submitData}>Delete Activity Session</button>
         {this.renderError()}

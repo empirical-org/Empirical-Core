@@ -65,7 +65,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
   renderStepLabels() {
     return this.props.question.play.stepLabels.map((sl, i) => {
       return <div className="control" key={i} style={{display: 'flex'}}>
-        <input className="input" onChange={(e) => this.handleStepLabelChange(e, i)} type="text" value={sl}/>
+        <input className="input" onChange={(e) => this.handleStepLabelChange(e, i)} type="text" value={sl} />
       </div>
     }
     )
@@ -92,7 +92,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
           <div className="field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions}/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <div className="field">
@@ -101,7 +101,7 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
               <span>Make sure you separate words with commas “,”</span>
             </div>
             <div className="control">
-              <input className="input" onChange={this.handleCuesChange} type="text" value={Object.values(this.props.question.play.cues || {}).join(',')}/>
+              <input className="input" onChange={this.handleCuesChange} type="text" value={Object.values(this.props.question.play.cues || {}).join(',')} />
             </div>
           </div>
           <div className="field">

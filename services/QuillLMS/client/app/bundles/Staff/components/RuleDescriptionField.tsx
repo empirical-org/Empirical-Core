@@ -37,7 +37,7 @@ export default class RuleDescriptionField extends React.Component<any, any> {
       <div className="rule-description-editor">
         <div className="rule-description-editor-header">
           <p>Grammar rule description (optional)</p>
-          {this.props.new ? '' : <p className="remove-rule-description" onClick={this.cancel}><i className="fas fa-archive"/><span>Remove</span></p>}
+          {this.props.new ? '' : <p className="remove-rule-description" onClick={this.cancel}><i className="fas fa-archive" /><span>Remove</span></p>}
         </div>
         <TextEditor
           ContentState={ContentState}

@@ -7,8 +7,8 @@ export default React.createClass({
   render: function () {
     return (
       <div className='text-center auth-section'>
-        <GoogleSignUp/>
-        <CleverSignUp/>
+        <GoogleSignUp />
+        <CleverSignUp />
       </div>
     );
   }

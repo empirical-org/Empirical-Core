@@ -69,14 +69,14 @@ class AdminContainer extends React.Component<AdminContainerProps> {
           </div>
         </section>
         <Switch>
-          <Route component={Lesson} path={`/admin/lessons/:lessonID`}/>
-          <Route component={Lessons} path={`/admin/lessons`}/>
-          <Route component={Question} path={`/admin/questions/:questionID`}/>
-          <Route component={Questions} path={`/admin/questions`}/>
-          <Route component={Concept} path={`/admin/concepts/:conceptID`}/>
-          <Route component={Concepts} path={`/admin/concepts`}/>
-          <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`}/>
-          <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`}/>
+          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
+          <Route component={Lessons} path={`/admin/lessons`} />
+          <Route component={Question} path={`/admin/questions/:questionID`} />
+          <Route component={Questions} path={`/admin/questions`} />
+          <Route component={Concept} path={`/admin/concepts/:conceptID`} />
+          <Route component={Concepts} path={`/admin/concepts`} />
+          <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`} />
+          <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`} />
           <Route component={QuestionDashboard} path={`/admin/question_dashboard`} />
           <Route component={ConceptDashboard} path={`/admin/concept_dashboard`} />
         </Switch>

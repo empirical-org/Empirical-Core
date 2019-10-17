@@ -96,7 +96,7 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
-            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title}/>
+            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">
@@ -111,25 +111,25 @@ class AdminSingleAnswer extends Component<SingleAnswerProps, any>{
         <div className="field">
           <label className="label">Instructions (Optional)</label>
           <div className="control">
-            <input className="input" onChange={this.handleInstructionsChange} placeholder="Text input" type="text" value={this.state.question.play.instructions}/>
+            <input className="input" onChange={this.handleInstructionsChange} placeholder="Text input" type="text" value={this.state.question.play.instructions} />
           </div>
         </div>
         <div className="field">
           <label className="label">Prefilled Text (Optional)</label>
           <div className="control">
-            <input className="input" onChange={this.handlePrefilledTextChange} placeholder="Text input" type="text" value={this.state.question.play.prefilledText}/>
+            <input className="input" onChange={this.handlePrefilledTextChange} placeholder="Text input" type="text" value={this.state.question.play.prefilledText} />
           </div>
         </div>
         <div className="field">
           <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
-            <input className="input" onChange={this.handleCuesChange} placeholder="Text input" type="text" value={Object.values(this.state.question.play.cues || {}).join(',')}/>
+            <input className="input" onChange={this.handleCuesChange} placeholder="Text input" type="text" value={Object.values(this.state.question.play.cues || {}).join(',')} />
           </div>
         </div>
         <div className="field">
           <label className="label">Sample correct answer (Optional)</label>
           <div className="control">
-            <input className="input" onChange={this.handleSampleCorrectAnswerChange} placeholder="Text input" type="text" value={this.state.question.play.sampleCorrectAnswer}/>
+            <input className="input" onChange={this.handleSampleCorrectAnswerChange} placeholder="Text input" type="text" value={this.state.question.play.sampleCorrectAnswer} />
           </div>
         </div>
         <button className="button is-primary" onClick={this.save} style={{marginTop: 10}}>Save Changes</button>

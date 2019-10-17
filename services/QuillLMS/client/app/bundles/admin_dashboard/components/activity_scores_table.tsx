@@ -90,7 +90,7 @@ const ActivityScoresTable = ({ data }) => {
       />
     </div>)
   } else {
-    return <EmptyStateForReport/>
+    return <EmptyStateForReport />
   }
 };
 

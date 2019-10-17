@@ -52,11 +52,11 @@ export default class MergeStudentAccounts extends React.Component {
       <div>
         <div className="input-row">
           <label>Student One Email Or Username:</label>
-          <input onChange={(e) => this.updateStudentIdentifier(e, 1)} type="text" value={this.state.student1Identifier}/>
+          <input onChange={(e) => this.updateStudentIdentifier(e, 1)} type="text" value={this.state.student1Identifier} />
         </div>
         <div className="input-row">
           <label>Student Two Email Or Username:</label>
-          <input onChange={(e) => this.updateStudentIdentifier(e, 2)} type="text" value={this.state.student2Identifier}/>
+          <input onChange={(e) => this.updateStudentIdentifier(e, 2)} type="text" value={this.state.student2Identifier} />
         </div>
         <button onClick={this.submitStudents}>Merge Student Accounts</button>
         {this.renderError()}

@@ -141,7 +141,7 @@ class Lesson extends React.Component<LessonProps> {
   renderActivity() {
     const lessonID: string|undefined = this.props.match.params.lessonID;
     return <div style={{marginTop: '50px', border: '1px solid black', paddingBottom: '50px'}}>
-      <ProofreaderActivityContainer activityUID={lessonID} admin={true}/>
+      <ProofreaderActivityContainer activityUID={lessonID} admin={true} />
     </div>
   }
 

@@ -143,9 +143,9 @@ export default React.createClass({
               </select>
             </span>
           </p>
-          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
+          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           {this.renderConceptSelector()}
-          <br/>
+          <br />
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
         </div>
       )

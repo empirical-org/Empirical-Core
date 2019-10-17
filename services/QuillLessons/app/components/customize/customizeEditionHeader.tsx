@@ -20,7 +20,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
     if (window.history.length > 1) {
       return <div className="back-button">
         <span onClick={this.goBack}>
-          <i className="fa fa-icon fa-chevron-left"/>
+          <i className="fa fa-icon fa-chevron-left" />
           Back
         </span>
       </div>
@@ -40,7 +40,7 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
         </div>
         <div className="image">
           <span onClick={this.closeNote}>Close</span>
-          <img src="https://assets.quill.org/images/illustrations/customization-tip-x2.png"/>
+          <img src="https://assets.quill.org/images/illustrations/customization-tip-x2.png" />
         </div>
       </div>
     }
@@ -56,13 +56,13 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
           <h1><span>Lesson {this.props.lessonNumber}:</span>{this.props.lessonTitle}</h1>
         </div>
         <div className="edition-name-and-sample-question-section">
-          <p className="edit" onClick={this.props.showEditModal}><i className="fa fa-icon fa-pencil"/>Edit</p>
+          <p className="edit" onClick={this.props.showEditModal}><i className="fa fa-icon fa-pencil" />Edit</p>
           <div className={`edition-name-and-sample-question ${errorClass}`} onClick={this.props.showEditModal}>
             <div className="name">
               <p>Edition Name</p>
               <h2>{this.props.editionName || <span>Enter a name</span>}</h2>
             </div>
-            <div className="vertical-line"/>
+            <div className="vertical-line" />
             <div className="sample-question">
               <p>Sample Question</p>
               <h2>{this.props.sampleQuestion || <span>Enter a sample question</span>}</h2>

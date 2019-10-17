@@ -85,7 +85,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderStudentPresence() {
-    const presentStudents = this.props.data ? this.renderPresentStudents(this.props.data.presence, this.props.data.students) : <span/>
+    const presentStudents = this.props.data ? this.renderPresentStudents(this.props.data.presence, this.props.data.students) : <span />
     const className = this.props.projector ? 'presence-container projector-presence' : 'presence-container'
     return (
       <div className={className}>

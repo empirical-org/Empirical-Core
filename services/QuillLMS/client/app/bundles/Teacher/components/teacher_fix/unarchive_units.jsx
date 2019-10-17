@@ -83,7 +83,7 @@ export default class UnarchiveUnits extends React.Component {
   renderTeacherForm() {
     return <div className="input-row">
       <label>Teacher Email Or Username:</label>
-      <input onChange={this.updateTeacherIdentifier} type="text" value={this.state.teacherIdentifier}/>
+      <input onChange={this.updateTeacherIdentifier} type="text" value={this.state.teacherIdentifier} />
       <button onClick={this.getArchivedUnits}>Submit</button>
     </div>
   }
@@ -94,7 +94,7 @@ export default class UnarchiveUnits extends React.Component {
         const checked = this.state.selectedUnitIds.find(unitId => unitId == u.id)
         const nameFieldStyle = u.shared_name ? {'border': 'red 1px solid', 'width': '447px'} : {'width': '447px'}
         return <div key={`${u.id}-${checked}`}>
-          <input checked={checked} id={u.id} onChange={this.toggleSelected} type="checkbox"/>
+          <input checked={checked} id={u.id} onChange={this.toggleSelected} type="checkbox" />
           <input onChange={(e) => this.updateName(e, u.id)} style={nameFieldStyle} value={this.state.changedNames[u.id] || u.name} />
         </div>
       })

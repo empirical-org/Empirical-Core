@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <ActivityContainer activity_id={document.getElementById('target').dataset.activityId}/>
+        <ActivityContainer activity_id={document.getElementById('target').dataset.activityId} />
       </ApolloProvider>
     </Provider>,
     document.getElementById('target'),

@@ -35,13 +35,13 @@ export default class EditLessonDetails extends Component<any, any> {
       <div className="field">
         <label className="label">Edition Name</label>
         <div className="control">
-          <input className="input" onChange={(e) => this.handleEditionDetailsChange(e, 'name')} placeholder="Edition Name" type="text" value={this.state.edition.name}/>
+          <input className="input" onChange={(e) => this.handleEditionDetailsChange(e, 'name')} placeholder="Edition Name" type="text" value={this.state.edition.name} />
         </div>
       </div>
       <div className="field">
         <label className="label">Sample Question</label>
         <div className="control">
-          <input className="input" onChange={(e) => this.handleEditionDetailsChange(e, 'sample_question')} placeholder="Sample Question" type="text" value={this.state.edition.sample_question}/>
+          <input className="input" onChange={(e) => this.handleEditionDetailsChange(e, 'sample_question')} placeholder="Sample Question" type="text" value={this.state.edition.sample_question} />
         </div>
       </div>
       <div className="field">

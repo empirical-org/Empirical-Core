@@ -353,9 +353,9 @@ export default React.createClass({
 			}}
 			/>;
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
-			tabSpecificComponents = <AssignANewActivity flag={this.props.flag} toggleTab={this.toggleTab}/>;
+			tabSpecificComponents = <AssignANewActivity flag={this.props.flag} toggleTab={this.toggleTab} />;
 		} else if ((tabParam === 'assign-a-diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
-			tabSpecificComponents = <AssignADiagnostic/>;
+			tabSpecificComponents = <AssignADiagnostic />;
 		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
 			tabSpecificComponents = <ManageUnits actions={{
 			 toggleTab: this.toggleTab,

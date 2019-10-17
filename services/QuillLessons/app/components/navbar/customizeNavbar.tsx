@@ -57,7 +57,7 @@ class CustomizeNavbar extends React.Component<any, any> {
           <span className="vertical-line" />
           <span>
             <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">
-              <img className="help" src={helpIcon}/>Help
+              <img className="help" src={helpIcon} />Help
             </a>
           </span>
         </div>

@@ -83,7 +83,7 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions}/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <CuesField
@@ -93,7 +93,7 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
           <div className="field">
             <label>Prefilled Text <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input className="input" onChange={this.handlePrefilledTextChange} type="text" value={this.props.question.play.prefilledText}/>
+              <input className="input" onChange={this.handlePrefilledTextChange} type="text" value={this.props.question.play.prefilledText} />
             </div>
           </div>
         </div>

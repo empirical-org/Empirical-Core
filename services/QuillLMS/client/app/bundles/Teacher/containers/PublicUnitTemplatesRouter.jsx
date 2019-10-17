@@ -10,10 +10,10 @@ export default React.createClass({
 		return (
   <Router history={browserHistory} Router>
     <Route component={LessonPlannerContainer} path="/activities/packs">
-      <IndexRoute component={UnitTemplatesManager}/>
-      <Route component={UnitTemplatesManager} path="category/:category"/>
-      <Route component={UnitTemplatesManager} path="grade/:grade"/>
-      <Route component={UnitTemplateProfile} path=":activityPackId"/>
+      <IndexRoute component={UnitTemplatesManager} />
+      <Route component={UnitTemplatesManager} path="category/:category" />
+      <Route component={UnitTemplatesManager} path="grade/:grade" />
+      <Route component={UnitTemplateProfile} path=":activityPackId" />
     </Route>
   </Router>
 		);

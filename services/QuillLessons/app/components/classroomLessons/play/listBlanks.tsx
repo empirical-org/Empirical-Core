@@ -132,7 +132,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         <li key={`li-${index}`}>
           <span className='li-number'>{index + 1}</span> {text}
         </li>);
-      }) : <span/>
+      }) : <span />
     return (
       <ul className="class-answer-list">
         {selected}
@@ -233,16 +233,16 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
+      let feedbackRow = this.state.submitted ? <FeedbackRow /> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         feedbackType="default"
       />) : null;
-      let submitButton = !this.props.projector ? <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission}/> : null;
+      let submitButton = !this.props.projector ? <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission} /> : null;
       return (
         <div>
           <h1 className="prompt">
-            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
+            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}} />
           </h1>
           {instructionsRow}
           {this.listBlanks()}

@@ -64,7 +64,7 @@ export default class ActivitiesUnit extends React.Component {
   classroomList = (classrooms) => {
     if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down"/></li>)
+      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down" /></li>)
       return classroomsArray
     }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
@@ -86,7 +86,7 @@ export default class ActivitiesUnit extends React.Component {
         onMouseEnter={this.toggleTooltip}
         onMouseLeave={this.toggleTooltip}
       >
-        <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>
+        <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
           Created By {firstCa.ownerName}
         {this.renderTooltip()}
       </span>);
@@ -122,7 +122,7 @@ export default class ActivitiesUnit extends React.Component {
     const visible = this.state.showTooltip ? 'visible' : 'invisible';
     const ownerName = this.state.classroomActivities.values().next().value.ownerName;
     return (<div className={`tooltip ${visible}`}>
-      <i className="fa fa-caret-up"/>
+      <i className="fa fa-caret-up" />
       <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
       <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
     </div>);

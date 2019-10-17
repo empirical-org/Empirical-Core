@@ -75,7 +75,7 @@ class TeacherNavbar extends React.Component<any, any> {
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
     return (
-      <p className="present-student-count"><span className={circleClassname}/> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
+      <p className="present-student-count"><span className={circleClassname} /> {numPresent} Student{numPresent === 1 ? '': 's'} Online</p>
     )
   }
 
@@ -123,7 +123,7 @@ class TeacherNavbar extends React.Component<any, any> {
     // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
       if (icon === 'watchTeacher') {
-        return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]}/>)
+        return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]} />)
       }
     } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown && !this.state.showCustomizeDropdown) {
       switch (icon) {
@@ -138,17 +138,17 @@ class TeacherNavbar extends React.Component<any, any> {
           break
         case 'projector':
           if (this.state.tooltip === 'projector') {
-            return (<Tooltip className={icon} text="Launch Projector"/>)
+            return (<Tooltip className={icon} text="Launch Projector" />)
           }
           break
         case 'watchTeacher':
           if (this.state.tooltip === 'watchTeacher') {
-            return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]}/>)
+            return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]} />)
           }
           break
         case 'exit':
           if (this.state.tooltip === 'exit') {
-            return (<Tooltip className={icon} text="Save and Exit Lesson"/>)
+            return (<Tooltip className={icon} text="Save and Exit Lesson" />)
           }
           break
         case 'help':
@@ -158,7 +158,7 @@ class TeacherNavbar extends React.Component<any, any> {
           break
         case 'pdf':
           if (this.state.tooltip === 'pdf') {
-            return <Tooltip className={icon} text="Download Lesson Plan"/>
+            return <Tooltip className={icon} text="Download Lesson Plan" />
           }
         default:
           break
@@ -175,7 +175,7 @@ class TeacherNavbar extends React.Component<any, any> {
         onMouseLeave={(e) => this.hideTooltip(e)}
         target="_blank"
       >
-        <img className={className} src={pdfIcon}/>
+        <img className={className} src={pdfIcon} />
         {this.renderTooltip('pdf')}
       </a>
     }
@@ -190,7 +190,7 @@ class TeacherNavbar extends React.Component<any, any> {
   helpDropdown() {
     return (
       <div className='help-dropdown'>
-        <i className="fa fa-caret-up"/>
+        <i className="fa fa-caret-up" />
         <a href={`${process.env.EMPIRICAL_BASE_URL}/tutorials/lessons?nocta=true`} target="_blank"><p>Tutorial</p></a>
         <a href="https://support.quill.org/using-quill-tools#quill-lessons" target="_blank"><p>Quill Lessons - Q&A</p></a>
       </div>
@@ -255,7 +255,7 @@ class TeacherNavbar extends React.Component<any, any> {
     const editText = this.props.classroomSessions.data.edition_id ? 'Edit This Edition' : 'Make A Copy'
     return (
       <div className='customize-dropdown'>
-        <i className="fa fa-caret-up"/>
+        <i className="fa fa-caret-up" />
         {this.renderEditLink()}
         <a onClick={this.switchOnClick}><p>Switch Edition</p></a>
       </div>
@@ -282,7 +282,7 @@ class TeacherNavbar extends React.Component<any, any> {
         } else {
           return (<span key={index}>
             <p>{students[studentId]}</p>
-            <hr/>
+            <hr />
           </span>)
         }
       })
@@ -292,7 +292,7 @@ class TeacherNavbar extends React.Component<any, any> {
     }
     const className = oneRow ? "flag-dropdown one-row" : "flag-dropdown"
     return <div className={className}>
-      <i className="fa fa-caret-up"/>
+      <i className="fa fa-caret-up" />
       {content}
     </div>
   }
@@ -327,7 +327,7 @@ class TeacherNavbar extends React.Component<any, any> {
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
       return <div className="lessons-teacher-preview-bar">
         <p><i className="fa fa-eye" />You are previewing the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
-        <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link"/></a>
+        <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
       </div>
     }
   }
@@ -377,7 +377,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseLeave={(e) => this.hideTooltip(e)}
               tabIndex={0}
             >
-              <i className={`${customizeClass} fa fa-icon fa-magic`}/>
+              <i className={`${customizeClass} fa fa-icon fa-magic`} />
               {this.renderCustomizeDropdown()}
               {this.renderTooltip('customize')}
             </div>
@@ -391,7 +391,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseLeave={(e) => this.hideTooltip(e)}
               tabIndex={0}
             >
-              <img className={`flag-icon ${flagClass}`} src={flagIcon}/>
+              <img className={`flag-icon ${flagClass}`} src={flagIcon} />
               {this.renderTooltip('flag')}
               {this.renderFlagDropdown()}
             </div>
@@ -400,7 +400,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseEnter={(e) => this.showTooltip(e, 'projector')}
               onMouseLeave={(e) => this.hideTooltip(e)}
             >
-              <img className={projectorClass} src={projectorIcon}/>
+              <img className={projectorClass} src={projectorIcon} />
               {this.renderTooltip('projector')}
             </div>
             <div
@@ -408,7 +408,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseEnter={(e) => this.showTooltip(e, 'watchTeacher')}
               onMouseLeave={(e) => this.hideTooltip(e)}
             >
-              <img className={watchTeacherClass} src={watchTeacherIcon}/>
+              <img className={watchTeacherClass} src={watchTeacherIcon} />
               {this.renderTooltip('watchTeacher')}
             </div>
             <div
@@ -416,7 +416,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseEnter={(e) => this.showTooltip(e, 'exit')}
               onMouseLeave={(e) => this.hideTooltip(e)}
             >
-              <img className={exitClass} src={exitIcon}/>
+              <img className={exitClass} src={exitIcon} />
               {this.renderTooltip('exit')}
             </div>
             <div
@@ -426,7 +426,7 @@ class TeacherNavbar extends React.Component<any, any> {
               onMouseLeave={(e) => this.hideTooltip(e)}
               tabIndex={0}
             >
-              <img className={`help-icon ${helpClass}`} src={helpIcon}/>
+              <img className={`help-icon ${helpClass}`} src={helpIcon} />
               {this.renderTooltip('help')}
               {this.renderHelpDropdown()}
             </div>

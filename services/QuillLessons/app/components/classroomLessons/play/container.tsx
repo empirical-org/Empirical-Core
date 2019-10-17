@@ -200,13 +200,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     let slide
     switch (current.type) {
       case 'CL-LB':
-        slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title}/>
+        slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title} />
         break
       case 'CL-ST':
         slide = <CLStudentStatic data={current.data} key={data.current_slide} />
         break
       case 'CL-MD':
-        slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt}/>
+        slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
         break
       case 'CL-SA':
         slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
@@ -215,10 +215,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-FL':
-        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props}/>
+        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-MS':
-        slide = <CLMultistep data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props}/>
+        slide = <CLMultistep data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-EX':
         slide = <CLStudentStatic data={current.data} key={data.current_slide} />
@@ -292,7 +292,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
                 <div className="easy-join-name-form-wrapper">
                   <div className="easy-join-name-form">
                     <p>Please enter your full name:</p>
-                    <input onChange={this.handleChange} value={this.state.easyDemoName}/>
+                    <input onChange={this.handleChange} value={this.state.easyDemoName} />
                     <button onClick={this.easyJoinDemo}>Join</button>
                   </div>
                 </div>
@@ -339,7 +339,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
        }
        return (
          <div>
-           <Spinner/>
+           <Spinner />
          </div>
        );
      }

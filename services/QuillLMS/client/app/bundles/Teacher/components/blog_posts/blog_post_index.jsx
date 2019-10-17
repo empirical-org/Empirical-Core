@@ -134,7 +134,7 @@ export default class extends React.Component {
     const currentPageIsSearchPage = window.location.pathname.includes('search');
     if (!currentPageIsSearchPage) {
       return (
-        <span/>
+        <span />
       )
     // } else if (currentPageIsTopicPage) {
     //   return (
@@ -170,7 +170,7 @@ export default class extends React.Component {
       return <div className="container">
         <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
           Coming Soon!
-          <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}}/>
+          <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
         </div>
       </div>
     } else {

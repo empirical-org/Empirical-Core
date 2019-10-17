@@ -36,7 +36,7 @@ export default React.createClass({
     if (today > marchFirst && today < julyFifteenth) {
       return <div className="premium-notification-box-container">
         <NotificationBox>
-          <span><strong>Upgrade now and get the rest of the school year free.</strong><br/> First time subscribers' subscriptions will be extended through July 31st, {today.getFullYear()}.</span>
+          <span><strong>Upgrade now and get the rest of the school year free.</strong><br /> First time subscribers' subscriptions will be extended through July 31st, {today.getFullYear()}.</span>
         </NotificationBox>
       </div>
     }

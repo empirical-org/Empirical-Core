@@ -47,7 +47,7 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
           </div>
           <label htmlFor={option}>
             <div className='img-container'>
-              <img alt="checkbox" src={imgSrc}/>
+              <img alt="checkbox" src={imgSrc} />
             </div>
           </label>
         </div>

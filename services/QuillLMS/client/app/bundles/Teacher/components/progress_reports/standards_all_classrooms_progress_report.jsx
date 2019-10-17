@@ -67,7 +67,7 @@ export default class extends React.Component {
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
         </a>
       )
       row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`
@@ -181,7 +181,7 @@ export default class extends React.Component {
             /></div>
         )
       } else {
-        return <EmptyStateForReport/>
+        return <EmptyStateForReport />
       }
     }
 
@@ -191,7 +191,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     return (
       <div className='standards-all-classrooms progress-reports-2018 '>
@@ -201,13 +201,13 @@ export default class extends React.Component {
             <p>Each activity on Quill is aligned to a Common Core standard. This reports shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${this.state.updatingData}`}/>
+            <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${this.state.updatingData}`} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom}/>
-          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(this.state.students.map(s => s.name))}/>
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(this.state.students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>

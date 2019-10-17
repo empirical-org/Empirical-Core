@@ -114,7 +114,7 @@ export default React.createClass({
 		if (this.state.loaded) {
 			if (this.state.units.length === 0) {
 				return (
-  <EmptyDiagnosticProgressReport status={this.state.diagnosticStatus}/>
+  <EmptyDiagnosticProgressReport status={this.state.diagnosticStatus} />
 				);
 			} else if (this.state.units.length === 1 && this.state.units[0].classroomActivities.size === 1) {
 				this.goToDiagnosticReport()
@@ -123,7 +123,7 @@ export default React.createClass({
   <div className='activity-analysis'>
     <h1>Diagnostic Analysis</h1>
     <p>Open a diagnostic report to view students' responses, the overall results on each question, and the individualized recommendations for each student.</p>
-    <Units data={this.state.units} report={Boolean(true)}/>
+    <Units data={this.state.units} report={Boolean(true)} />
   </div>
 				);
 			}

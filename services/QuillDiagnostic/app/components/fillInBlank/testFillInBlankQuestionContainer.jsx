@@ -68,7 +68,7 @@ class TestQuestion extends Component {
       return (
         <div>
           <div className="test-question-container">
-            <PlayFillInTheBlankQuestion dispatch={this.props.dispatch} key={this.state.key} nextQuestion={this.reset} prefill={false} question={question} setResponse={this.setResponse}/>
+            <PlayFillInTheBlankQuestion dispatch={this.props.dispatch} key={this.state.key} nextQuestion={this.reset} prefill={false} question={question} setResponse={this.setResponse} />
           </div>
           {this.renderGrading()}
         </div>

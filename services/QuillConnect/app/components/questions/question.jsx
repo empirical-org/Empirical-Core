@@ -223,7 +223,7 @@ const Question = React.createClass({
           {this.renderNewResponseForm()}
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
+            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
             <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <Cues

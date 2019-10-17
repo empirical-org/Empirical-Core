@@ -207,9 +207,9 @@ export default React.createClass({
   renderCheckOrUncheckAllRecommendedActivityPacks() {
     const hasSelectedActivities = this.state.selections.find(sel => _.compact(sel.students).length > 0)
     if (hasSelectedActivities) {
-      return <p className="uncheck-recommendations" onClick={this.unselectAllRecommendations}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg"/><span>Uncheck All</span></p>
+      return <p className="uncheck-recommendations" onClick={this.unselectAllRecommendations}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg" /><span>Uncheck All</span></p>
     } else {
-      return <p className="check-recommendations" onClick={this.selectAllRecommendations}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg"/><span>Check All</span></p>
+      return <p className="check-recommendations" onClick={this.selectAllRecommendations}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg" /><span>Check All</span></p>
     }
   },
 

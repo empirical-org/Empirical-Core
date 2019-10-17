@@ -32,7 +32,7 @@ class AssignedSection extends React.Component<any, any> {
       </div>
     }
     return <div className="assigned-section">
-      <div className="message"><i className="fa fa-check-circle"/> {text}</div>
+      <div className="message"><i className="fa fa-check-circle" /> {text}</div>
       {suggestion}
     </div>
   }

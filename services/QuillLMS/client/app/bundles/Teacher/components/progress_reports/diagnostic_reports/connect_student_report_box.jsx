@@ -45,7 +45,7 @@ export default React.createClass({
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
 				concept.correct ? score += 1 : null;
-				return [<ConceptResultTableRow concept={concept} key={concept.id + attemptNum}/>]
+				return [<ConceptResultTableRow concept={concept} key={concept.id + attemptNum} />]
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
 			let scoreRow = this.scoreRow(conceptsByAttempt[attemptNum][0].answer, attemptNum, averageScore)
@@ -60,9 +60,9 @@ export default React.createClass({
 
 	emptyRow: function(key){
 		return (<tr key={'empty-row'+key}>
-  <td/>
-  <td/>
-  <td/>
+  <td />
+  <td />
+  <td />
 						</tr>)
 	},
 
@@ -92,7 +92,7 @@ export default React.createClass({
 			return (
   <tr>
     <td>Score</td>
-    <td/>
+    <td />
     <td>{score}%</td>
   </tr>
 			);
@@ -111,7 +111,7 @@ export default React.createClass({
             {this.feedbackOrDirections(data.directions, 'Directions')}
             <tr>
               <td>Prompt</td>
-              <td/>
+              <td />
               <td>{data.prompt}</td>
             </tr>
             {this.questionScore()}

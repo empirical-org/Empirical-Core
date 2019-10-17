@@ -83,7 +83,7 @@ export default class Navbar extends React.Component {
     let appName, image, previewLink
     if (l.has(this.props.selectedActivity, 'classification.id')) {
       appName = blackIconAppName(this.props.selectedActivity.classification.id)
-      image = <img alt={`${appName}-icon`} src={`https://assets.quill.org/images/icons/${appName}-black.svg`}/>
+      image = <img alt={`${appName}-icon`} src={`https://assets.quill.org/images/icons/${appName}-black.svg`} />
       previewLink = <a href={`/activity_sessions/anonymous?activity_id=${this.props.selectedActivity.id}`}>Preview Activity</a>
     }
     return (
@@ -96,12 +96,12 @@ export default class Navbar extends React.Component {
           </div>
 
           <p className='description'>
-            <img alt="info-icon" src='https://assets.quill.org/images/icons/info-black.svg'/>
+            <img alt="info-icon" src='https://assets.quill.org/images/icons/info-black.svg' />
             {this.props.selectedActivity.description}
           </p>
 
           <p className='standard'>
-            <img alt="common-core-icon" src='https://assets.quill.org/images/icons/common-core-gray.svg'/>
+            <img alt="common-core-icon" src='https://assets.quill.org/images/icons/common-core-gray.svg' />
             {this.props.selectedActivity && this.props.selectedActivity.topic ? this.props.selectedActivity.topic.name : ''}
           </p>
 

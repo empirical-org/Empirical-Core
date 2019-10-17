@@ -80,7 +80,7 @@ class QuestionCard extends React.Component<Props, State> {
         </div>
         {this.renderInstructions(question)}
         <div className="card-body p-0">
-          <textarea className="form-control question" onChange={e => updateSubmission(e.target.value, question)} value={submission}/>
+          <textarea className="form-control question" onChange={e => updateSubmission(e.target.value, question)} value={submission} />
         </div>
         <div className="card-footer d-fl-r jc-sb">
           <div className="m-r-1 d-fl-r ai-c">{this.state.error}</div>

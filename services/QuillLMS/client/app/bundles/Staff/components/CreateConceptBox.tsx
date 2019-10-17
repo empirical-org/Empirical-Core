@@ -209,7 +209,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
             value={concept.name}
           />
         </div>
-        <RuleDescriptionField handleChange={this.changeDescription} new={true} ruleDescription=''/>
+        <RuleDescriptionField handleChange={this.changeDescription} new={true} ruleDescription='' />
       </div>
     }
   }

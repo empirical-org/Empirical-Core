@@ -34,14 +34,14 @@ export default class LessonPlannerRouter extends React.Component{
 		return (
   <Router history={browserHistory} Router>
     <Route component={LessonPlannerContainer} path="/teachers/classrooms/activity_planner">
-      <IndexRoute component={LessonPlanner}/>
-      <Route component={ClassroomLessonsPlanner} path="lessons"/>
-      <Route component={ClassroomLessonsPlanner} path="lessons/:classroomId"/>
-      <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId"/>
+      <IndexRoute component={LessonPlanner} />
+      <Route component={ClassroomLessonsPlanner} path="lessons" />
+      <Route component={ClassroomLessonsPlanner} path="lessons/:classroomId" />
+      <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" />
       <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
       <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="units/:unitId/students/edit" />
-      <Route component={EditUnitActivitiesContainer} path="units/:unitId/activities/edit(/:unitName)"/>
-      <Route component={EmptyAssignedUnits} path="no_units"/>
+      <Route component={EditUnitActivitiesContainer} path="units/:unitId/activities/edit(/:unitName)" />
+      <Route component={EmptyAssignedUnits} path="no_units" />
     </Route>
   </Router>
 		);

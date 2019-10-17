@@ -124,7 +124,7 @@ class SignUpTeacher extends React.Component {
           </div>
           <div className="account-container text-center">
             <AuthSignUp />
-            <div className='break'><span/>or<span/></div>
+            <div className='break'><span />or<span /></div>
             <div className="teacher-signup-form">
               <div>
                 <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >

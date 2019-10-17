@@ -15,12 +15,12 @@ export default React.createClass({
   },
 
   checkboxElement: function() {
-    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png'/></div>
+    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png' /></div>
   },
 
   pageBasedActionIcon: function(url) {
     if (this.props.dashboard) {
-      return (<a href={url}><img src='/images/getting_started_arrow.png'/></a>);
+      return (<a href={url}><img src='/images/getting_started_arrow.png' /></a>);
     } else {
       return (<a className='btn btn-default' href={url}><div>
         <div>Launch</div>

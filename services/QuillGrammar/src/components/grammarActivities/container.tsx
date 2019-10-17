@@ -217,7 +217,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       if (this.state.showTurkCode) {
-        return <TurkCodePage/>
+        return <TurkCodePage />
       }
       if ((this.props.grammarActivities.hasreceiveddata || proofreaderSessionId) && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
         return <QuestionComponent

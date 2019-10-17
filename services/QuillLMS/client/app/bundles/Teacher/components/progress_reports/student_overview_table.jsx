@@ -51,7 +51,7 @@ export default class extends React.Component {
   greenArrow(row) {
     if (row.completed_at) {
       return (<a href={`/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}`}>
-        <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
+        <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       </a>)
     }
   }

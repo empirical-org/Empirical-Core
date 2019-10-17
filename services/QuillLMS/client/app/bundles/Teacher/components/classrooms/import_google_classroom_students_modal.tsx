@@ -90,7 +90,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
   renderImportButton() {
     const { waiting } = this.state
     if (waiting) {
-      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator/></button>
+      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator /></button>
     } else {
       return <button className={this.submitButtonClass()} onClick={this.importStudents}>Import students</button>
     }

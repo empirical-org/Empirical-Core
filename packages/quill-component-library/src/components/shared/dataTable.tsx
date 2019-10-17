@@ -118,7 +118,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
         return <span className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
       } else if (anyChecked) {
         return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-          <img alt="check" onClick={uncheckAllRows} src={indeterminateSrc}/>
+          <img alt="check" onClick={uncheckAllRows} src={indeterminateSrc} />
         </span>
       } else {
         return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
