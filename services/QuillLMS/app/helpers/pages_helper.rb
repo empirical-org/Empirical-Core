@@ -120,8 +120,8 @@ module PagesHelper
           {
             img: 'thumb-rachel.jpg',
             name: 'Rachel Dantzler',
-            title: 'Editorial and Operations Associate',
-            desc: "Rachel is a curriculum and outreach associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
+            title: 'Curriculum and Operations Associate',
+            desc: "Rachel is a curriculum and operations associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
           },
 					{
 						img: 'thumb-rhea.png',

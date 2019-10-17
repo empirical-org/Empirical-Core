@@ -215,7 +215,7 @@ module PublicProgressReports
     end
 
     def get_score_for_question concept_results
-      if concept_results.length > 0 && concept_results.first[:metadata]['questionScore']
+      if !concept_results.empty? && concept_results.first[:metadata]['questionScore']
         concept_results.first[:metadata]['questionScore'] * 100
       else
         concept_results.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / concept_results.length * 100
@@ -223,7 +223,7 @@ module PublicProgressReports
     end
 
     def get_average_score formatted_results
-      if (formatted_results.length == 0)
+      if (formatted_results.empty?)
         return 100
       else
         return (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
