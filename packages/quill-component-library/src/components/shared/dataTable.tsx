@@ -111,19 +111,29 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderHeaderCheckbox() {
     const { showCheckboxes, rows, uncheckAllRows, checkAllRows } = this.props
-    if (showCheckboxes) {
-      const anyChecked = rows.some(row => row.checked)
-      const allDisabled = rows.every(row => row.checkDisabled)
-      if (allDisabled) {
-        return <span className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
-      } else if (anyChecked) {
-        return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-          <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
-        </span>
-      } else {
-        return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
-      }
+
+    if (!showCheckboxes) { return }
+
+    const allDisabled = rows.every(row => row.checkDisabled)
+    if (allDisabled) {
+      return <span className={`quill-checkbox disabled ${dataTableHeaderClassName}`} />
     }
+
+    const allChecked = rows.every(row => row.checked)
+    if (allChecked) {
+      return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        <img src={smallWhiteCheckSrc} alt="check" onClick={uncheckAllRows}/>
+      </span>
+    }
+
+    const anyChecked = rows.some(row => row.checked)
+    if (anyChecked) {
+      return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
+      </span>
+    }
+
+    return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
   }
 
   renderHeaderForRemoval() {
