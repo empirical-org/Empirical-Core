@@ -163,8 +163,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
           <Cues
             getQuestion={() => ({
               cues: this.props.data.play.cues,
-            })
-          }
+            })}
             displayArrowAndText={false}
           />
         );

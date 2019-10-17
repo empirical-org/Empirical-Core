@@ -179,8 +179,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
           <Cues
             getQuestion={() => ({
               cues: this.props.data.play.cues,
-            })
-          }
+            })}
             displayArrowAndText={false}
           />
         );

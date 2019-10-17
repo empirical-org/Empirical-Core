@@ -30,8 +30,7 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
                   text={'Add ' +  type + ' question'}
               />
             )
-          : ''
-          }
+          : ''}
         </div>
       )}
       <AddQuestion questionType={'initial'} />

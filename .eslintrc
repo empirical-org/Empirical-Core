@@ -25,5 +25,6 @@
     "react/self-closing-comp": "error",
     "react/sort-comp": "error",
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
+    "react/jsx-curly-newline": ["error", "consistent"],
   },
 }

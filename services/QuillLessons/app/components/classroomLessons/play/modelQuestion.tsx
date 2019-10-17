@@ -40,8 +40,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
         <Cues
           getQuestion={() => ({
             cues: this.props.data.play.cues,
-          })
-        }
+          })}
           displayArrowAndText={false}
         />
       );
