@@ -26,7 +26,9 @@ exports[`AssignmentFlowNavigation component should render AssignmentFlowNavigati
   <div
     className="progress-bar"
   >
-    <div />
+    <div
+      className={null}
+    />
   </div>
 </div>
 `;

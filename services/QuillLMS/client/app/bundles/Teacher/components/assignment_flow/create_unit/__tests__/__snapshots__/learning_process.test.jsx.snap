@@ -9,7 +9,7 @@ exports[`LearningProcess component should render 1`] = `
     className="learning-process container"
   >
     <h1>
-      Do you want to choose activities now or assess your students’ writing first?
+      Do you want to assess students' writing or choose activities first?
     </h1>
     <div
       className="minis"
@@ -19,7 +19,7 @@ exports[`LearningProcess component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Your students complete a short writing assessment, and Quill then recommends a set of practice activities for each student.",
+              "text": "Your students complete a short writing assessment, and Quill generates a unique set of practice activities for each student based on their performance.",
             },
             Object {
               "key": "When",
@@ -37,7 +37,7 @@ exports[`LearningProcess component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Search our library activities and then select activities you would like to assign to your students.",
+              "text": "Search our library of activities, and then select activities you would like to assign to your students.",
             },
             Object {
               "key": "When",
@@ -45,7 +45,7 @@ exports[`LearningProcess component should render 1`] = `
             },
           ]
         }
-        header="Choose activities now from our library"
+        header="Choose activities from our library"
         imgAlt="open book"
         imgSrc="undefined/images/illustrations/library.svg"
         selectCard={[Function]}
