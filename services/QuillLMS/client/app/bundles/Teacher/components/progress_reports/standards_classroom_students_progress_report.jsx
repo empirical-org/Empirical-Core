@@ -124,11 +124,19 @@ export default class extends React.Component {
         </div>
         <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
           <ReactTable
-            data={this.state.filteredReportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+            data={this.state.filteredReportData}
+            columns={this.columns()}
+            showPagination={false}
+            defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }
-          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.filteredReportData.length} className='progress-report has-green-arrow'
+          ]}
+            showPaginationTop={false}
+            showPaginationBottom={false}
+            showPageSizeOptions={false}
+            defaultPageSize={this.state.filteredReportData.length}
+            className='progress-report has-green-arrow'
           />
         </div>
       </div>

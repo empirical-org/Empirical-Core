@@ -143,11 +143,13 @@ const playLessonQuestion = React.createClass<any, any>({
       sentence = 'Keep writing! Revise your sentence by changing the order of the ideas.';
     }
     return (<RenderFeedback
-      question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}
+      question={this.props.question}
+      renderFeedbackStatements={this.renderFeedbackStatements}
       sentence={sentence}
       responses={this.getResponses()}
       override={!!override}
-      getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString}
+      getQuestion={this.getQuestion}
+      listCuesAsString={this.listCuesAsString}
     />);
   },
 
@@ -377,7 +379,8 @@ const playLessonQuestion = React.createClass<any, any>({
               {...sharedProps}
               handleChange={this.handleChange}
               toggleDisabled={this.toggleDisabled()}
-              conceptExplanation={this.renderConceptExplanation} checkAnswer={this.checkAnswer}
+              conceptExplanation={this.renderConceptExplanation}
+              checkAnswer={this.checkAnswer}
               spellCheck={(this.props.question.attempts.length > 3)}
             />
           );
@@ -387,7 +390,8 @@ const playLessonQuestion = React.createClass<any, any>({
           <AnswerForm
             {...sharedProps}
             handleChange={this.handleChange}
-            toggleDisabled={this.toggleDisabled()} checkAnswer={this.checkAnswer}
+            toggleDisabled={this.toggleDisabled()}
+            checkAnswer={this.checkAnswer}
           />
         );
       }

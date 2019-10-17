@@ -9,7 +9,8 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
     <div className="column">
       { questionSelect.map((b, i) =>
         <div
-          key={i} style={{
+          key={i}
+          style={{
           borderBottom: '1px solid #aaa',
           marginBottom: 10,
           paddingBottom: 10,

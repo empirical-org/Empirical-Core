@@ -111,7 +111,9 @@ class LessonForm extends React.Component {
         formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
       }
       return (<QuestionSelector
-        key={questionType} options={formatted} placeholder="Search for a question"
+        key={questionType}
+        options={formatted}
+        placeholder="Search for a question"
         onChange={this.handleSearchChange}
       />);
     }
