@@ -1,12 +1,17 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "env": {
     "browser": true,
+    "es6": true,
+    "es2017": true,
+    "es2020": true
   },
   "plugins": [
-    "react"
+    "react",
+    "@typescript-eslint/eslint-plugin"
   ],
   "parserOptions": {
+    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
@@ -15,6 +20,6 @@
     "no-console": "error",
     "for-direction": "error",
     "no-cond-assign": "error",
-    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}]
+    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
   },
 }
