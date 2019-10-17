@@ -21,5 +21,6 @@
     "for-direction": "error",
     "no-cond-assign": "error",
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "react/no-unknown-property": "error",
   },
 }
