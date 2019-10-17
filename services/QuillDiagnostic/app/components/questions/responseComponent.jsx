@@ -434,7 +434,8 @@ class ResponseComponent extends React.Component {
     return (
       <div className="column">
         <button
-          className="button is-fullwidth is-outlined" onClick={() => {
+          className="button is-fullwidth is-outlined"
+          onClick={() => {
             this.setState({
               viewingResponses: !this.state.viewingResponses,
             }, this.updatePageNumber(1));

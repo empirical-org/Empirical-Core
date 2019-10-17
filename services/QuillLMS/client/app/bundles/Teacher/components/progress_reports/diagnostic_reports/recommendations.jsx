@@ -329,7 +329,8 @@ export default React.createClass({
                 top: '-3px',
                 marginRight: '15px',
               }}
-              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg" alt="independent practice logo"
+              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
+              alt="independent practice logo"
             />
             Independent Activity Recommendations
           </h3>

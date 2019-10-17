@@ -74,9 +74,12 @@ export default class extends React.Component{
       <form onSubmit={this.handleSubmit}>
         {input}
         <input
-          type="submit" className='q-button cta-button bg-white text-black' value={this.state.updated
+          type="submit"
+          className='q-button cta-button bg-white text-black'
+          value={this.state.updated
               ? 'Updated!'
-              : 'Update Email'} disabled={this.state.updated}
+              : 'Update Email'}
+          disabled={this.state.updated}
         />
       </form>
       {this.showEmailErrors()}
