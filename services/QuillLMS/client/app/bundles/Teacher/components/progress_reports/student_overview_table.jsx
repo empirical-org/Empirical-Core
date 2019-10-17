@@ -79,7 +79,7 @@ export default class extends React.Component {
       <tr onClick={onClickFunction} className={row.completed_at ? 'clickable' : ''}>
         <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
         <td className='activity-name'>
-          <a className={scoreInfo.linkColor}href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
+          <a className={scoreInfo.linkColor} href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>
         </td>
         <td>{this.completedStatus(row)}</td>
         <td className={`score ${blurIfNotPremium}`}>{scoreInfo.content}</td>
