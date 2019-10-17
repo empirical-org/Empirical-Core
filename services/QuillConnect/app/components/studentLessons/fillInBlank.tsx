@@ -414,16 +414,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           <div>
             <Prompt style={styles.container} elements={this.getPromptElements()} />
             <Cues
-                getQuestion={this.getQuestion}
-                customText={this.customText()}
-                displayArrowAndText={true}
+              getQuestion={this.getQuestion}
+              customText={this.customText()}
+              displayArrowAndText={true}
             />
             <Feedback
-                question={this.props.question}
-                sentence={this.getInstructionText()}
-                responses={this.state.responses}
-                getQuestion={this.getQuestion}
-                renderFeedbackStatements={this.renderFeedbackStatements}
+              question={this.props.question}
+              sentence={this.getInstructionText()}
+              responses={this.state.responses}
+              getQuestion={this.getQuestion}
+              renderFeedbackStatements={this.renderFeedbackStatements}
             />
           </div>
         </div>

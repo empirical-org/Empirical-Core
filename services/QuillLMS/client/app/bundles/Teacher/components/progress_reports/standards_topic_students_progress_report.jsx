@@ -146,7 +146,7 @@ export default class IndividualStandardsReport extends React.Component {
         </div>
         <div key={`concept-progress-report-length-${this.state.studentData.length}`}>
           <ReactTable
-data={this.state.studentData} columns={this.columns()} showPagination={false} defaultSorted={[{
+            data={this.state.studentData} columns={this.columns()} showPagination={false} defaultSorted={[{
               id: 'average_score',
               desc: false
             }

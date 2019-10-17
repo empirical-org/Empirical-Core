@@ -510,7 +510,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                   <p>Edits Made: {edits} of {numberOfCorrectEdits}</p>
                   <div className="progress-bar-indication">
                     <span
-className="meter"
+                      className="meter"
                       style={{width: `${meterWidth}%`}}
                     />
                   </div>

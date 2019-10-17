@@ -271,11 +271,11 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
       const imageSrc = this.state.rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
       return <img
-      className={className}
-      src={imageSrc}
-      onMouseOver={() => this.setState({rightHover: true})}
-      onMouseOut={() => this.setState({rightHover: false})}
-      onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
+        className={className}
+        src={imageSrc}
+        onMouseOver={() => this.setState({rightHover: true})}
+        onMouseOut={() => this.setState({rightHover: false})}
+        onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
       />
     }
   }

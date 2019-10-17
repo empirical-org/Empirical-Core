@@ -16,10 +16,10 @@ export default React.createClass({
 
   furnishRow: function (resource, index) {
     return <CmsIndexTableRow
-                  data={{resource: resource, identifier: this.props.data.identifier}}
-                  key={index}
-                  actions={this.props.actions}
-                  resourceNameSingular={this.props.resourceNameSingular}
+      data={{resource: resource, identifier: this.props.data.identifier}}
+      key={index}
+      actions={this.props.actions}
+      resourceNameSingular={this.props.resourceNameSingular}
     />;
   },
 

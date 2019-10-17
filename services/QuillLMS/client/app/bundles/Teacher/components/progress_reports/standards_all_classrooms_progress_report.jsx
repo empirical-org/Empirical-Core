@@ -169,15 +169,15 @@ export default class extends React.Component {
         return (
           <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
             <ReactTable
-data={data}
-  						columns={this.columns()}
-  						showPagination={false}
-  						defaultSorted={[{id: 'standard_level', desc: false}]}
-  					  showPaginationTop={false}
-  						showPaginationBottom={false}
-  						showPageSizeOptions={false}
-  						defaultPageSize={data.length}
-  						className='progress-report has-green-arrow'
+              data={data}
+              columns={this.columns()}
+              showPagination={false}
+              defaultSorted={[{id: 'standard_level', desc: false}]}
+              showPaginationTop={false}
+              showPaginationBottom={false}
+              showPageSizeOptions={false}
+              defaultPageSize={data.length}
+              className='progress-report has-green-arrow'
             /></div>
         )
       } else {

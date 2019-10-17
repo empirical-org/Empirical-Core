@@ -124,19 +124,19 @@ export class TextArea extends React.Component<InputProps, InputState> {
     if (error) {
       if (errorAcknowledged) {
         return (<div
-            className={`error ${sharedClasses}`}
-            ref={node => this.node = node}
-            onClick={this.activateInput}
+          className={`error ${sharedClasses}`}
+          ref={node => this.node = node}
+          onClick={this.activateInput}
         >
           <label>{label}</label>
           <textarea
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              placeholder={placeholder}
-              disabled={disabled}
-              maxLength={characterLimit ? characterLimit : 10000}
+            id={id}
+            ref={(input) => { this.input = input; }}
+            onChange={handleChange}
+            value={value}
+            placeholder={placeholder}
+            disabled={disabled}
+            maxLength={characterLimit ? characterLimit : 10000}
           />
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}

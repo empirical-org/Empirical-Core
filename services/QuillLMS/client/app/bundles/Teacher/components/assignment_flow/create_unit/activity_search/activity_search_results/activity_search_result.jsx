@@ -12,10 +12,10 @@ export default React.createClass({
 
     ? (<td className="activity_name">
       <a
-          className="activity_link"
-          href={this.props.data.anonymous_path}
-          target="_new"
-          data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.topic_name}</p><p>${this.props.data.description}</p>`}
+        className="activity_link"
+        href={this.props.data.anonymous_path}
+        target="_new"
+        data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.topic_name}</p><p>${this.props.data.description}</p>`}
       >
         {this.props.data.name}
         <ReactTooltip html multiline className="react-tooltip-custom" type="light" effect="solid" />

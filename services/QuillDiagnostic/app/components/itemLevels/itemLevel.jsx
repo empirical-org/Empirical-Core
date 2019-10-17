@@ -37,9 +37,9 @@ const ItemLevel = React.createClass({
     let data = this.props.itemLevels.data[this.props.params.itemLevelID]
     return (
       <ItemLevelForm
-data={data} levelID={this.props.params.itemLevelID} mode="Edit"
-                     submitNewItemLevel={this.submitNewItemLevel} deleteItemLevel={this.deleteItemLevel}
-                     cancelEdit={this.cancelEdit}
+        data={data} levelID={this.props.params.itemLevelID} mode="Edit"
+        submitNewItemLevel={this.submitNewItemLevel} deleteItemLevel={this.deleteItemLevel}
+        cancelEdit={this.cancelEdit}
       />
     )
   }

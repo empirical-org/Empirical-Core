@@ -87,7 +87,7 @@ export default class extends React.Component {
         </div>
         <div key={`concepts-concepts-progress-report-length-${this.state.reportData.length}`}>
           <ReactTable
-data={this.state.reportData} columns={this.columns()} showPagination={false} defaultSorted={[{
+            data={this.state.reportData} columns={this.columns()} showPagination={false} defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }

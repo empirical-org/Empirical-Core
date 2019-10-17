@@ -87,8 +87,8 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
             <label className="label">Body</label>
             <div className="control">
               <SlideHTMLEditor
-              text={body}
-              handleTextChange={(e) => this.updateBody(e)}
+                text={body}
+                handleTextChange={(e) => this.updateBody(e)}
               />
             </div>
           </div>

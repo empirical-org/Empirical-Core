@@ -33,13 +33,13 @@ EC.Cms.UnitTemplateCategories = React.createClass({
     ];
 
     return (<EC.Resource
-                  resourceNameSingular='unit_template_category'
-                  resourceNamePlural='unit_template_categories'
-                  resource={cmsComponent.state.resourceToEdit}
-                  returnToIndex={cmsComponent.returnToIndex}
-                  initialModel={initialModel}
-                  savingKeys={savingKeys}
-                  formFields={formFields}
+      resourceNameSingular='unit_template_category'
+      resourceNamePlural='unit_template_categories'
+      resource={cmsComponent.state.resourceToEdit}
+      returnToIndex={cmsComponent.returnToIndex}
+      initialModel={initialModel}
+      savingKeys={savingKeys}
+      formFields={formFields}
     />
 
     );
@@ -48,9 +48,9 @@ EC.Cms.UnitTemplateCategories = React.createClass({
   render: function () {
     return (
       <EC.Cms
-resourceNameSingular='unit_template_category'
-              resourceNamePlural='unit_template_categories'
-              resourceComponentGenerator={this.resourceComponentGenerator}
+        resourceNameSingular='unit_template_category'
+        resourceNamePlural='unit_template_categories'
+        resourceComponentGenerator={this.resourceComponentGenerator}
       />
 
     );

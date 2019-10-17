@@ -86,7 +86,7 @@ class QuestionCard extends React.Component<Props, State> {
           <div className="m-r-1 d-fl-r ai-c">{this.state.error}</div>
           <div>
             <button
-className='btn btn-link m-r-1' onClick={(e) => {
+              className='btn btn-link m-r-1' onClick={(e) => {
               e.preventDefault();
               reset();
             }}

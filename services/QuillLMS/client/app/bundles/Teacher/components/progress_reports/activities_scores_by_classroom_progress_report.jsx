@@ -129,7 +129,7 @@ export default class extends React.Component {
     if (filteredClassroomsData.length) {
       return (<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
-data={filteredClassroomsData}
+          data={filteredClassroomsData}
           columns={this.columns()}
           showPagination={false}
           defaultSorted={[{id: 'last_active', desc: true}]}

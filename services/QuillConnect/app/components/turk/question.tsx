@@ -192,9 +192,9 @@ const PlayDiagnosticQuestion = React.createClass({
           {this.renderCues()}
           <div className="feedback-row">
             <Feedback
-            key={questionID}
-            feedbackType="default"
-            feedback={(<p>{instructions}</p>)}
+              key={questionID}
+              feedbackType="default"
+              feedback={(<p>{instructions}</p>)}
             />
           </div>
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>

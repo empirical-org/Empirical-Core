@@ -389,9 +389,9 @@ export default class Response extends React.Component<any, any> {
       >
                          From Pathways
       </a> <a
-                         className="button is-outlined has-top-margin"
-                         onClick={this.toResponsePathways}
-                         key="to"
+        className="button is-outlined has-top-margin"
+        onClick={this.toResponsePathways}
+        key="to"
       >
                             To Pathways
       </a></span>);

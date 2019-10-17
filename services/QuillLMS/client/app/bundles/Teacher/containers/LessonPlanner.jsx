@@ -338,7 +338,7 @@ export default React.createClass({
 		// } else
 		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit
-data={{
+  data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
 			}} actions={{
