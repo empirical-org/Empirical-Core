@@ -28,14 +28,14 @@ class ExitSlide extends React.Component<any, any> {
       if (followUpActivityName && students && Object.keys(students).length > 0) {
         return <div>
           <AssignmentOptions
-            numberOfStudents={students ? Object.keys(students).length : 0}
-            updateSelectedOptionKey={this.props.updateSelectedOptionKey}
-            selectedOptionKey={this.props.selectedOptionKey}
             followUpActivityName={followUpActivityName}
+            numberOfStudents={students ? Object.keys(students).length : 0}
+            selectedOptionKey={this.props.selectedOptionKey}
+            updateSelectedOptionKey={this.props.updateSelectedOptionKey}
           />
           <AssignButton
-            selectedOptionKey={this.props.selectedOptionKey}
             assignAction={this.props.finishLesson}
+            selectedOptionKey={this.props.selectedOptionKey}
           />
         </div>
       } else if (!followUpActivityName && !this.props.data.preview) {
@@ -71,8 +71,8 @@ class ExitSlide extends React.Component<any, any> {
           </h1>
         </div>
         <ScriptComponent
-          script={this.props.script}
           onlyShowHeaders={this.props.onlyShowHeaders}
+          script={this.props.script}
           updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
         {this.renderFlaggedStudents()}

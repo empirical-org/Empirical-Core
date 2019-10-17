@@ -22,7 +22,7 @@
          <p>Let's add your first activity.</p>
        </div>
        <div className="col-xs-4">
-         <button onClick={this.handleClick} className="button-green create-unit featured-button">Assign An Activity</button>
+         <button className="button-green create-unit featured-button" onClick={this.handleClick}>Assign An Activity</button>
        </div>
      </div>
    </div>

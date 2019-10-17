@@ -80,34 +80,34 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
       <h3 className="title">Create a class</h3>
       <form className="create-a-class-form">
         <Input
-          label="Class name"
-          value={name}
-          handleChange={this.handleNameChange}
-          type="text"
+          characterLimit={50}
           className="name"
           error={errors.name}
-          timesSubmitted={timesSubmitted}
-          characterLimit={50}
+          handleChange={this.handleNameChange}
+          label="Class name"
           placeholder="e.g., Ms. Hall's 6th Period"
+          timesSubmitted={timesSubmitted}
+          type="text"
+          value={name}
         />
         <DropdownInput
-          label="Grade"
           className="grade"
-          value={grade}
-          options={GradeOptions}
-          handleChange={this.handleGradeChange}
           error={errors.grade}
+          handleChange={this.handleGradeChange}
           helperText="This will not limit the activities you can access."
+          label="Grade"
+          options={GradeOptions}
+          value={grade}
         />
 
         <div className="class-code-section">
           <Input
-            label="Class code"
-            value={code}
-            type="text"
             className="code"
             disabled={true}
             helperText="Students use this to join your class."
+            label="Class code"
+            type="text"
+            value={code}
           />
           <span className="reset" onClick={this.getClassCode}>Reset</span>
         </div>

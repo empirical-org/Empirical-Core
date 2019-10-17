@@ -33,11 +33,11 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
       <h3 className="title">Share the class code link with your students</h3>
       <div className="copy-class-code-container">
         <Input
-          id="class-code"
           disabled={true}
+          id="class-code"
           value={this.classCodeLink()}
         />
-        <CopyToClipboard text={this.classCodeLink()} onCopy={this.showSnackbar}>
+        <CopyToClipboard onCopy={this.showSnackbar} text={this.classCodeLink()}>
           <button className="quill-button secondary outlined small">Copy</button>
         </CopyToClipboard>
       </div>

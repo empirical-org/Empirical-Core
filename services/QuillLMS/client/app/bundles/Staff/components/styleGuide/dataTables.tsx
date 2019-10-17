@@ -203,8 +203,8 @@ const headers1 = ${JSON.stringify(headers1)}
           </pre>
           <div className="data-tables-container">
             <DataTable
-              rows={rows1}
               headers={headers1}
+              rows={rows1}
             />
           </div>
         </div>
@@ -272,13 +272,13 @@ export class DataTableWrapper {
           </pre>
           <div className="data-tables-container">
             <DataTable
-              rows={checkedRows}
-              headers={headers2}
-              showCheckboxes={true}
-              checkRow={this.checkRow}
-              uncheckRow={this.uncheckRow}
-              uncheckAllRows={this.uncheckAllRows}
               checkAllRows={this.checkAllRows}
+              checkRow={this.checkRow}
+              headers={headers2}
+              rows={checkedRows}
+              showCheckboxes={true}
+              uncheckAllRows={this.uncheckAllRows}
+              uncheckRow={this.uncheckRow}
             />
           </div>
         </div>
@@ -301,9 +301,9 @@ const headers3 = ${JSON.stringify(headers3)}
           <div className="data-tables-container">
             <DataTable
               className="short"
-              rows={rows3}
-              headers={headers3}
               defaultSortAttribute='activities'
+              headers={headers3}
+              rows={rows3}
             />
           </div>
         </div>

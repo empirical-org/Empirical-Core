@@ -26,8 +26,8 @@ export default class BlogPosts extends React.Component {
       const filteredBlogPosts = this.props.blogPosts.filter(bp => bp.topic === t)
       if (filteredBlogPosts.length > 0) {
         return <BlogPostTable
-          topic={t}
           blogPosts={filteredBlogPosts}
+          topic={t}
         />
       }
     }
@@ -45,7 +45,7 @@ export default class BlogPosts extends React.Component {
     }
     return (
       <div className="cms-blog-posts">
-        <a href="/cms/blog_posts/new" className="btn button-green">New Blog Post</a>
+        <a className="btn button-green" href="/cms/blog_posts/new">New Blog Post</a>
         <br /><br />
         {this.renderBlogPostsByTopic()}
       </div>

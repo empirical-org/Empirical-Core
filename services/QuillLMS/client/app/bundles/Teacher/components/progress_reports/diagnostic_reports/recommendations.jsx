@@ -304,12 +304,12 @@ export default React.createClass({
 
       return (
         <RecommendationsTableCell
+          checkboxOnClick={this.toggleSelected.bind(null, student, i)}
           key={recommendation.activity_pack_id}
           previouslyAssigned={previouslyAssigned}
+          recommendation={recommendation}
           recommended={recommended}
           selected={selected}
-          recommendation={recommendation}
-          checkboxOnClick={this.toggleSelected.bind(null, student, i)}
         />
       );
     });
@@ -324,13 +324,13 @@ export default React.createClass({
             style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
           >
             <img
+              alt="independent practice logo"
+              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
               style={{
                 position: 'relative',
                 top: '-3px',
                 marginRight: '15px',
               }}
-              src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
-              alt="independent practice logo"
             />
             Independent Activity Recommendations
           </h3>

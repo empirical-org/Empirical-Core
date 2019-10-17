@@ -68,14 +68,14 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
           <h3 className="title">Rename your class</h3>
         </div>
         <Input
-          label="Class name"
-          value={name}
-          handleChange={this.handleNameChange}
-          type="text"
+          characterLimit={50}
           className="name"
           error={errors.name}
+          handleChange={this.handleNameChange}
+          label="Class name"
           timesSubmitted={timesSubmitted}
-          characterLimit={50}
+          type="text"
+          value={name}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>

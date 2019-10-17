@@ -90,7 +90,7 @@ class ShowEditionSlide extends Component<any, any> {
         <div className="add-new-slide-form">
           <p className="control has-addons">
             <span className="select is-large">
-              <select value={this.state.newScriptItem} onChange={this.selectNewScriptItemType}>
+              <select onChange={this.selectNewScriptItemType} value={this.state.newScriptItem}>
                 {options}
               </select>
             </span>
@@ -124,11 +124,11 @@ class ShowEditionSlide extends Component<any, any> {
           <button className="button is-primary" onClick={this.deleteSlide}>Delete Slide</button>
           <Component question={this.currentSlide().data} save={this.save}/>
           <Script
-            script={this.currentSlide().data.teach.script}
+            editionID={this.props.params.editionID}
             lesson={this.props.params.classroomLessonID}
+            script={this.currentSlide().data.teach.script}
             slide={this.props.params.slideID}
             updateScriptItemOrder={this.updateScriptItemOrder}
-            editionID={this.props.params.editionID}
           />
           {this.renderAddScriptItem()}
         </div>

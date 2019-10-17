@@ -159,32 +159,32 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const { email, } = this.state
     if (googleId) {
       return (<Input
-        label="Email"
-        value={email}
-        type="text"
         className="email google-or-clever"
         disabled={true}
         helperText={'Unlink your Google account below to change your email.'}
+        label="Email"
+        type="text"
+        value={email}
       />)
     } else if (cleverId) {
       return (<Input
-        label="Email"
-        value={email}
-        type="text"
         className="email google-or-clever"
         disabled={true}
         helperText={'Unlink your Clever account below to change your email.'}
+        label="Email"
+        type="text"
+        value={email}
       />)
     } else {
       return (<Input
-        label="Email"
-        value={email}
-        handleChange={this.handleEmailChange}
-        type='text'
         className="email"
         error={errors.email}
-        timesSubmitted={timesSubmitted}
+        handleChange={this.handleEmailChange}
+        label="Email"
         onClick={this.activateSection}
+        timesSubmitted={timesSubmitted}
+        type='text'
+        value={email}
       />)
     }
   }
@@ -200,11 +200,11 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         return (
           <div className="school-container">
             <Input
-              label="School"
-              value={schoolNameValue}
-              type="text"
               className="school"
               disabled={true}
+              label="School"
+              type="text"
+              value={schoolNameValue}
             />
             <span className="change-school" onClick={this.showSchoolSelector}>Change school</span>
           </div>
@@ -221,8 +221,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   renderButtonSection() {
     if (this.state.showButtonSection) {
       return <div className="button-section">
-        <div id="cancel" className="quill-button outlined secondary medium" onClick={this.resetAndDeactivateSection}>Cancel</div>
-        <input type="submit" name="commit" value="Save changes" className={this.submitClass()} />
+        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
+        <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
       </div>
     }
   }
@@ -235,34 +235,34 @@ export default class TeacherGeneralAccountInfo extends React.Component {
 
     return <div className="teacher-account-general teacher-account-section">
       <h1>General</h1>
-      <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+      <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
           <Input
-            label="Full name"
-            value={name}
-            handleChange={this.handleNameChange}
-            type="text"
             className="name"
             error={errors.name}
-            timesSubmitted={timesSubmitted}
+            handleChange={this.handleNameChange}
+            label="Full name"
             onClick={this.activateSection}
+            timesSubmitted={timesSubmitted}
+            type="text"
+            value={name}
           />
           {this.renderEmail()}
           <DropdownInput
-            label="Time zone"
-            value={selectedTimeZone}
-            options={timeZoneOptions}
-            handleChange={this.handleTimezoneChange}
             error={errors.timeZone}
+            handleChange={this.handleTimezoneChange}
+            label="Time zone"
             onClick={this.activateSection}
+            options={timeZoneOptions}
+            value={selectedTimeZone}
           />
           <DropdownInput
-            label="School type"
-            value={selectedSchoolType}
-            options={this.schoolTypeOptions()}
-            handleChange={this.handleSchoolTypeChange}
             error={errors.schoolType}
+            handleChange={this.handleSchoolTypeChange}
+            label="School type"
             onClick={this.activateSection}
+            options={this.schoolTypeOptions()}
+            value={selectedSchoolType}
           />
           {this.renderSchool()}
         </div>

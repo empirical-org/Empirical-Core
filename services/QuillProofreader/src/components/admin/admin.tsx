@@ -34,13 +34,13 @@ class AdminContainer extends React.Component<AdminContainerProps> {
               General
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/lessons'} activeClassName="is-active">Proofreader Activities</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Proofreader Activities</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
@@ -48,9 +48,9 @@ class AdminContainer extends React.Component<AdminContainerProps> {
           </div>
         </section>
         <Switch>
-          <Route path={`/admin/lessons/:lessonID`} component={Lesson}/>
-          <Route path={`/admin/lessons`} component={Lessons}/>
-          <Route path={`/admin/concepts`} component={Concepts}/>
+          <Route component={Lesson} path={`/admin/lessons/:lessonID`}/>
+          <Route component={Lessons} path={`/admin/lessons`}/>
+          <Route component={Concepts} path={`/admin/concepts`}/>
         </Switch>
       </div>
     );

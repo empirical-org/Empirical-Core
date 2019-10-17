@@ -74,7 +74,7 @@ export default class extends React.Component {
     }
     return (
       <div className='progress-reports-2018 concept-student-concepts' concept-student-concepts>
-        <a href="/teachers/progress_reports/concepts/students" className='navigate-back'><img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>Back to Concept Results</a>
+        <a className='navigate-back' href="/teachers/progress_reports/concepts/students"><img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>Back to Concept Results</a>
         <div className="meta-overview flex-row space-between">
           <div className='header-and-info flex-row vertically-centered'>
             <h1><span>Concept Results:</span> {this.state.studentName}</h1>
@@ -87,19 +87,19 @@ export default class extends React.Component {
         </div>
         <div key={`concepts-concepts-progress-report-length-${this.state.reportData.length}`}>
           <ReactTable
-            data={this.state.reportData}
+            className='progress-report has-green-arrow'
             columns={this.columns()}
-            showPagination={false}
+            data={this.state.reportData}
+            defaultPageSize={this.state.reportData.length}
             defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }
           ]}
-            showPaginationTop={false}
-            showPaginationBottom={false}
             showPageSizeOptions={false}
-            defaultPageSize={this.state.reportData.length}
-            className='progress-report has-green-arrow'
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
           />
         </div>
       </div>

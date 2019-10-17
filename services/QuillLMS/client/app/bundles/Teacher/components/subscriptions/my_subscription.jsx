@@ -31,7 +31,7 @@ export default class extends React.Component {
               Account Status
           </div>
           <div className="form-input">
-            <input disabled className="inactive" value={subType || 'Quill Basic'} />
+            <input className="inactive" disabled value={subType || 'Quill Basic'} />
             {this.button()}
           </div>
         </div>
@@ -40,10 +40,10 @@ export default class extends React.Component {
               Valid Until
           </div>
           <div className="form-input">
-            <input disabled className="inactive" value={expiration ? moment(expiration).format('MMMM Do, YYYY') : 'N/A'} />
+            <input className="inactive" disabled value={expiration ? moment(expiration).format('MMMM Do, YYYY') : 'N/A'} />
           </div>
         </div>
-        <a href="/subscriptions" className={'green-link'}>Manage Subscriptions</a>
+        <a className={'green-link'} href="/subscriptions">Manage Subscriptions</a>
       </span>
     );
   }

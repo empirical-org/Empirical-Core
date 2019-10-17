@@ -88,8 +88,8 @@ const PlaySentenceFragment = React.createClass<any, any>({
   renderSentenceOrFragmentButtons() {
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" value="Sentence" onClick={() => { this.checkChoice('Sentence'); }}>Complete Sentence</button>
-        <button className="button sf-button" value="Fragment" onClick={() => { this.checkChoice('Fragment'); }}>Incomplete Sentence</button>
+        <button className="button sf-button" onClick={() => { this.checkChoice('Sentence'); }} value="Sentence">Complete Sentence</button>
+        <button className="button sf-button" onClick={() => { this.checkChoice('Fragment'); }} value="Fragment">Incomplete Sentence</button>
       </div>
     );
   },
@@ -237,18 +237,18 @@ const PlaySentenceFragment = React.createClass<any, any>({
     return (
       <div className="container">
         <Feedback
-          question={this.props.question}
-          sentence={instructions}
-          responses={this.getResponses()}
           getQuestion={this.getQuestion}
+          question={this.props.question}
           renderFeedbackStatements={this.renderFeedbackStatements}
+          responses={this.getResponses()}
+          sentence={instructions}
         />
         <TextEditor
-          value={this.state.response}
-          handleChange={this.handleChange}
-          disabled={this.showNextQuestionButton()}
           checkAnswer={this.checkAnswer}
+          disabled={this.showNextQuestionButton()}
+          handleChange={this.handleChange}
           placeholder="Type your answer here."
+          value={this.state.response}
         />
         <div className="question-button-group">
           {this.renderButton()}

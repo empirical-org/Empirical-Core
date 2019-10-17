@@ -25,9 +25,9 @@ export default React.createClass({
           const selected = this.props.dateFilterName === filter.title
           return <DateRangeFilterOption
             key={filter.title}
-            title={filter.title}
             onClickFunction={() => { this.setDateFromFilter(filter) }}
             selected={selected}
+            title={filter.title}
           />
         }
         )}
@@ -38,18 +38,18 @@ export default React.createClass({
   render: function() {
     return (
       <DateRangePicker
-        startDate={this.props.beginDate}
-        endDate={this.props.endDate}
-        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate, null)}
-        focusedInput={this.state.focusedInput}
-        onFocusChange={focusedInput => this.setState({ focusedInput })}
-        numberOfMonths={1}
-        isOutsideRange={day => {return false}}
-        renderCalendarInfo={this.renderFilterOptions}
-        daySize={30}
-        navPrev={'‹'}
-        navNext={'›'}
         customInputIcon={<i className="fa fa-icon fa-calendar"/>}
+        daySize={30}
+        endDate={this.props.endDate}
+        focusedInput={this.state.focusedInput}
+        isOutsideRange={day => {return false}}
+        navNext={'›'}
+        navPrev={'‹'}
+        numberOfMonths={1}
+        onDatesChange={({ startDate, endDate }) => this.props.selectDates(startDate, endDate, null)}
+        onFocusChange={focusedInput => this.setState({ focusedInput })}
+        renderCalendarInfo={this.renderFilterOptions}
+        startDate={this.props.beginDate}
       />
     );
   }

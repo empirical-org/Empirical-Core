@@ -84,11 +84,11 @@ export default React.createClass({
         <div className='row'>
           <div className='col-xs-12'>
             <CmsIndexTable
-              data={{ resources, }}
               actions={{edit: this.edit, delete: this.delete}}
+              data={{ resources, }}
               isSortable={this.isSortable()}
-              updateOrder={this.updateOrder}
               resourceNameSingular={this.props.resourceNameSingular}
+              updateOrder={this.updateOrder}
             />
           </div>
         </div>
@@ -164,8 +164,8 @@ export default React.createClass({
       const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
       return <div style={{ marginLeft: '10px', display: 'inline', }}>
         <ItemDropdown
-          items={options}
           callback={this.switchFlag}
+          items={options}
           selectedItem={this.state.flag}
         />
       </div>

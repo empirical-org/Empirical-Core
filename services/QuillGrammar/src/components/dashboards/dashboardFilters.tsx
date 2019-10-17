@@ -54,12 +54,12 @@ export default class DashboardFilters extends React.Component<DashboardFiltersPr
     const updateFunction = isActivity ? this.updateActivityFlags : this.updateQuestionFlags
     return <div>
       <input
-        type="checkbox"
-        name={flag}
-        value={flag}
-        id={`${questionOrActivity}-${flag}`}
         checked={flagArray ? flagArray.includes(flag) : false}
+        id={`${questionOrActivity}-${flag}`}
+        name={flag}
         onChange={() => updateFunction ? updateFunction(flag) : null}
+        type="checkbox"
+        value={flag}
       />
       <label htmlFor={`${questionOrActivity}-${flag}`}>{flag}</label>
     </div>

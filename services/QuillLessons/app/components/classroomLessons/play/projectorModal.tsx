@@ -5,7 +5,7 @@ const ProjectorModal: React.SFC<{closeModal: any}> = (props) => {
    <div className="projector-modal-background" />
    <div className="projector-modal">
      <div className="top-section">
-       <img onClick={props.closeModal} className="exit" src="https://assets.quill.org/images/icons/CloseIcon.svg"/>
+       <img className="exit" onClick={props.closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg"/>
        <img className="illustration" src="https://assets.quill.org/images/illustrations/projector_modal.svg" />
        <h1><span>Next:</span> Project this window</h1>
        <p>Set your computer's display settings so that you can project the slides to students while keeping the lesson plan and student responses on your computer.</p>

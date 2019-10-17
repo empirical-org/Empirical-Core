@@ -13,7 +13,7 @@ export default class extends React.Component {
           <span className='bold-segment'>Multiple schools or a district?</span>
 				We provide group pricing, on-site training, and district dashboards.
         </span>
-        <a href='https://quillconsultation.youcanbook.me' target="_blank" className='q-button'>Request a Consultation</a>
+        <a className='q-button' href='https://quillconsultation.youcanbook.me' target="_blank">Request a Consultation</a>
       </div>
   	)}
 

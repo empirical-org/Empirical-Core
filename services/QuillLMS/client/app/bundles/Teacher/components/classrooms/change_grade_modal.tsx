@@ -71,13 +71,13 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
         </div>
         <p>Update the grade level for {classroom.name}.</p>
         <DropdownInput
-          label="Grade"
           className="grade"
-          value={grade}
-          options={GradeOptions}
-          handleChange={this.handleGradeChange}
           error={errors.grade}
+          handleChange={this.handleGradeChange}
           helperText="This will not limit the activities you can access."
+          label="Grade"
+          options={GradeOptions}
+          value={grade}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>

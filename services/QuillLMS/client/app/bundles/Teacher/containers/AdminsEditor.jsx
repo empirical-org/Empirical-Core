@@ -29,14 +29,14 @@ export default React.createClass({
         <div className='row'>
           <div className='col-xs-12'>
             <Resource
-              resourceNameSingular='admin'
-              resourceNamePlural='admins'
+              fieldsToNormalize={fieldsToNormalize}
+              formFields={formFields}
               initialModel={initialModel}
               resource={cmsComponent.state.resourceToEdit}
-              formFields={formFields}
-              savingKeys={savingKeys}
-              fieldsToNormalize={fieldsToNormalize}
+              resourceNamePlural='admins'
+              resourceNameSingular='admin'
               returnToIndex={cmsComponent.returnToIndex}
+              savingKeys={savingKeys}
             />
           </div>
         </div>
@@ -47,9 +47,9 @@ export default React.createClass({
   render: function () {
     return (
       <Cms
-        resourceNameSingular='admin'
-        resourceNamePlural='admins'
         resourceComponentGenerator={this.resourceComponentGenerator}
+        resourceNamePlural='admins'
+        resourceNameSingular='admin'
       />
 
     );

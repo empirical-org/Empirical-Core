@@ -106,9 +106,9 @@ export default class AssignStudents extends React.Component {
     const { googleClassrooms, showFormOrModal, } = this.state
     if (showFormOrModal === importGoogleClassroomsModal) {
       return (<ImportGoogleClassroomsModal
+        classrooms={googleClassrooms}
         close={this.closeFormOrModal}
         onSuccess={this.onSuccess}
-        classrooms={googleClassrooms}
         user={this.props.user}
       />)
     }
@@ -142,8 +142,8 @@ export default class AssignStudents extends React.Component {
       buttonClassName += ' loading'
     }
     return (<button
-      onClick={this.clickImportGoogleClassrooms}
       className={buttonClassName}
+      onClick={this.clickImportGoogleClassrooms}
     >
       {buttonContent}
     </button>)
@@ -163,7 +163,7 @@ export default class AssignStudents extends React.Component {
         </div>
         <div className="import-or-create-classroom-buttons">
           {this.renderImportGoogleClassroomsButton()}
-          <button onClick={() => this.openFormOrModal(createAClassForm)} className="quill-button medium secondary outlined create-a-class-button">Create a class</button>
+          <button className="quill-button medium secondary outlined create-a-class-button" onClick={() => this.openFormOrModal(createAClassForm)}>Create a class</button>
         </div>
       </div>
       <div className="assignment-section-body">
@@ -187,11 +187,11 @@ export default class AssignStudents extends React.Component {
     let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(null, true)}/>
     if (selectedClassrooms.length === classrooms.length) {
       checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(null, false)}>
-        <img src={smallWhiteCheckSrc} alt="check" />
+        <img alt="check" src={smallWhiteCheckSrc} />
       </span>)
     } else if (selectedClassrooms.length) {
       checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(null, false)}>
-        <img src={indeterminateSrc} alt="check"/>
+        <img alt="check" src={indeterminateSrc}/>
       </span>)
     }
     return <div className="all-classes-checkbox">
@@ -215,7 +215,7 @@ export default class AssignStudents extends React.Component {
       </div>)
     } else if (this.state.showFormOrModal !== createAClassForm) {
       return (<div className="no-active-classes">
-        <img src={emptyClassSrc} alt="empty class" />
+        <img alt="empty class" src={emptyClassSrc} />
         <p>Your classrooms will appear here. Add a class to get started.</p>
       </div>)
     }

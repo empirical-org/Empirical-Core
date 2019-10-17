@@ -19,9 +19,9 @@ export default class ActivityClassifications extends React.Component {
     return (
       <div className="cms-activity-classifications">
         <Cms
-          resourceNameSingular='activity_classification'
-          resourceNamePlural='activity_classifications'
           resourceComponentGenerator={this.resourceComponentGenerator}
+          resourceNamePlural='activity_classifications'
+          resourceNameSingular='activity_classification'
         />
       </div>);
   }

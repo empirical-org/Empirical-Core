@@ -173,7 +173,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         ? <span>Title Slide{titleSection}</span>
         : <span>Slide {slide} / {length}{titleSection}</span>
         components.push((
-          <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
+          <div id={slide} key={counter} onClick={() => this.goToSlide(slide)}>
             <div className="sidebar-header">
               <p className={`slide-number ${activeClass}`}>{headerText}</p>
               {currentSlide === slide ? this.presentStudents() : null}

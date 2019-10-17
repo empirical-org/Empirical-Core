@@ -36,16 +36,16 @@ const StandardsReportsTable = ({ data, }) => {
   if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
       <ReactTable
-        data={data}
+        className="progress-report has-green-arrow"
         columns={columns}
-        showPagination
-        defaultSorted={[{ id: 'last_active', desc: true ,}]}
-        showPaginationTop={false}
-        showPaginationBottom
-        showPageSizeOptions={false}
+        data={data}
         defaultPageSize={100}
+        defaultSorted={[{ id: 'last_active', desc: true ,}]}
         minRows={1}
-        className="progress-report has-green-arrow"  
+        showPageSizeOptions={false}
+        showPagination
+        showPaginationBottom
+        showPaginationTop={false}  
       />
     </div>);
   }

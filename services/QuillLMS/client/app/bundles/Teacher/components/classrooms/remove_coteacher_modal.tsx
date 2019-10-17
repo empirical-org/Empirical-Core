@@ -59,7 +59,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }

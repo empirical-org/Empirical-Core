@@ -21,11 +21,11 @@ describe('Assign students component', () => {
   it('should render', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={classroomProps}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
     expect(wrapper).toMatchSnapshot()
@@ -34,11 +34,11 @@ describe('Assign students component', () => {
   describe('if this.state.showFormOrModal = createAClassForm', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={classroomProps}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
     wrapper.setState({ showFormOrModal: createAClassForm })
@@ -51,11 +51,11 @@ describe('Assign students component', () => {
   describe('if this.state.showFormOrModal = importGoogleClassroomsModal', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={classroomProps}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
     wrapper.setState({ showFormOrModal: importGoogleClassroomsModal })
@@ -68,11 +68,11 @@ describe('Assign students component', () => {
   describe('if this.state.showFormOrModal = googleClassroomEmailModal', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={classroomProps}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
     wrapper.setState({ showFormOrModal: googleClassroomEmailModal })
@@ -85,11 +85,11 @@ describe('Assign students component', () => {
   describe('if this.state.showFormOrModal = googleClassroomsEmptyModal', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={classroomProps}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
     wrapper.setState({ showFormOrModal: googleClassroomsEmptyModal })
@@ -102,11 +102,11 @@ describe('Assign students component', () => {
   describe('if there are classrooms', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={classroomProps}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
 
@@ -119,11 +119,11 @@ describe('Assign students component', () => {
   describe('if there are no classrooms', () => {
     const wrapper = shallow(
       <AssignStudents
-        user={user}
         classrooms={[]}
-        toggleStudentSelection={() => {}}
-        toggleClassroomSelection={() => {}}
         fetchClassrooms={() => {}}
+        toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
+        user={user}
       />
     )
 

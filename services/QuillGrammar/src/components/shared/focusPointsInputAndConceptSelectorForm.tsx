@@ -86,19 +86,19 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   renderTextInputFields() {
     return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
-      <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} onBlur={this.getNewAffectedCount} type="text" value={text || ''} />
+      <input className="input focus-point-text" onBlur={this.getNewAffectedCount} onChange={this.handleChange.bind(null, 'itemText')} style={{ marginBottom: 5, }} type="text" value={text || ''} />
     ));
   }
 
   renderConceptSelectorFields() {
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
-        handleSelectorChange={this.handleConceptChange}
-        currentConceptUID={key}
         checked={val.correct}
+        currentConceptUID={key}
+        deleteConceptResult={() => this.deleteConceptResult(key)}
+        handleSelectorChange={this.handleConceptChange}
         onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
         selectorDisabled={key === 'null' ? false : true}
-        deleteConceptResult={() => this.deleteConceptResult(key)}
       />
     ));
     return _.values(components);
@@ -139,9 +139,9 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   renderSequenceTag(seq, backgroundColor, i) {
     return <span
       className="tag"
-      style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
       key={i}
       onClick={() => this.toggleSuggestedSequence(seq)}
+      style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
     >
       {seq}
     </span>
@@ -168,27 +168,27 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
             {this.renderTextInputFields()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              text={this.state.itemFeedback || ""}
+              ContentState={ContentState}
+              EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key={"feedback"}
-              EditorState={EditorState}
-              ContentState={ContentState}
+              text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
           </div>
           <p className="control">
             <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-            <button className={'button is-outlined is-info'} style={{ marginLeft: 5, }} onClick={() => window.history.back()}>Cancel</button>
+            <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
           </p>
         </div>
         <div>
           <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            selectedFocusPoints={this.state.itemText.split(/\|{3}(?!\|)/)}
-            question={dataset}
             mode={mode}
+            question={dataset}
             questionID={this.props.questionID}
+            selectedFocusPoints={this.state.itemText.split(/\|{3}(?!\|)/)}
             states={this.props.questions.states}
           />
         </div>

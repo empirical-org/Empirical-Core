@@ -68,16 +68,16 @@ export default React.createClass({
     } else if (this.props.data.max_percentage === null && this.props.data.marked_complete === 't'){
       return (<p
         className="title-v-centered text-right"
-        style={{ color: '#969696', }}
         onMouseEnter={this.showMissedTooltip}
         onMouseLeave={this.hideMissedTooltip}
+        style={{ color: '#969696', }}
       >Missed Lesson</p>);
     } else if (this.props.data.locked === 't') {
       return (<p
         className="title-v-centered text-right"
-        style={{ color: '#969696', }}
         onMouseEnter={this.showLockedTooltip}
         onMouseLeave={this.hideLockedTooltip}
+        style={{ color: '#969696', }}
       >Needs Teacher</p>);
     } else if (this.props.data.max_percentage) {
       linkText = 'Replay Activity';
@@ -95,7 +95,7 @@ export default React.createClass({
     return (
       <div className="line">
         <div className="row-list-beginning pull-left">
-          <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} />
+          <ActivityIconWithTooltip context={'studentProfile'} data={this.dataForActivityIconWithToolTip()} />
           <div className="icons-description-wrapper">
             <p className="title title-v-centered">{this.props.data.name}</p>
           </div>

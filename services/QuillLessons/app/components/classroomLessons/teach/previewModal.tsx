@@ -4,7 +4,7 @@ const PreviewModal = (props) =>
   (<div>
     <div className="preview-modal-background" />
     <div className="preview-modal">
-      <img onClick={props.closeModal} className="exit" src="https://assets.quill.org/images/icons/CloseIcon.svg" />
+      <img className="exit" onClick={props.closeModal} src="https://assets.quill.org/images/icons/CloseIcon.svg" />
       <img className="illustration" src="https://assets.quill.org/images/illustrations/preview_lesson_modal.svg" />
       <h1>You're about to preview Quill Lessons</h1>
       <p>Quill Lessons provides whole-class lessons that are led by the teacher. Select questions for your students and <span>instantly</span> see their responses.</p>

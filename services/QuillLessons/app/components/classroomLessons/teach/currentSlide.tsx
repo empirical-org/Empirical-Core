@@ -257,15 +257,15 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
   renderTimeoutModal() {
     if (this.state.showTimeoutModal) {
       return <TimeoutModal
-        finishLesson={this.finishLesson}
         closeModal={this.closeTimeoutModal}
+        finishLesson={this.finishLesson}
       />
     }
   }
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} classroomSessionId={this.state.classroomSessionId}/>
+      return <CongratulationsModal classroomSessionId={this.state.classroomSessionId} closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId}/>
     }
   }
 
@@ -273,8 +273,8 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     if (this.props.classroomSessions.showSignupModal) {
       return <SignupModal
         closeModal={this.closeSignupModal}
-        lessonId={this.props.lessonId}
         goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
+        lessonId={this.props.lessonId}
       />
     }
   }
@@ -297,8 +297,8 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           slide = <CLStatic
             data={data}
             editionData={editionData}
-            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
             updateToggledHeaderCount={this.updateToggledHeaderCount}
           />
           break
@@ -308,36 +308,36 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
         case 'CL-FL':
         case 'CL-MS':
           slide = <CLSingleAnswer
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+            clearAllSubmissions={this.clearAllSubmissions}
+            clearStudentSubmission={this.clearStudentSubmission}
             data={data}
             editionData={editionData}
-            toggleStudentFlag={this.toggleStudentFlag}
-            toggleSelected={this.toggleSelected}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            saveModel={this.saveModel}
+            savePrompt={this.savePrompt}
             startDisplayingAnswers={this.startDisplayingAnswers}
             stopDisplayingAnswers={this.stopDisplayingAnswers}
             toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-            clearAllSubmissions={this.clearAllSubmissions}
-            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            toggleSelected={this.toggleSelected}
+            toggleStudentFlag={this.toggleStudentFlag}
             updateToggledHeaderCount={this.updateToggledHeaderCount}
-            saveModel={this.saveModel}
-            clearStudentSubmission={this.clearStudentSubmission}
-            savePrompt={this.savePrompt}
           />
           break
         case 'CL-EX':
           slide = <CLExit
+            completed={this.state.completed}
             data={data}
             editionData={editionData}
-            selectedOptionKey={this.state.selectedOptionKey}
-            updateSelectedOptionKey={this.updateSelectedOptionKey}
-            script={current.data.teach.script}
+            finishLesson={this.finishLesson}
             flaggedStudents={data.flaggedStudents}
+            followUpActivityName={data.followUpActivityName}
+            lessonId={lessonId}
+            script={current.data.teach.script}
+            selectedOptionKey={this.state.selectedOptionKey}
             students={data.students}
             toggleStudentFlag={this.toggleStudentFlag}
-            lessonId={lessonId}
-            finishLesson={this.finishLesson}
-            completed={this.state.completed}
-            followUpActivityName={data.followUpActivityName}
+            updateSelectedOptionKey={this.updateSelectedOptionKey}
           />
             break
         default:

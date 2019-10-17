@@ -113,7 +113,7 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   renderCheckbox() {
     const { postAssignments } = this.state
     if (postAssignments) {
-      return <div className="quill-checkbox selected" onClick={this.togglePostAssignments}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.togglePostAssignments}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.togglePostAssignments} />
     }
@@ -163,11 +163,11 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         const year = moment(creationTime).format('YYYY')
         const gradeOption = GradeOptions.find(go => go.value === grade)
         const gradeSelector = <DropdownInput
-          label="Select a grade"
           className="grade"
-          value={gradeOption}
-          options={GradeOptions}
           handleChange={(g) => this.handleGradeChange(id, g)}
+          label="Select a grade"
+          options={GradeOptions}
+          value={gradeOption}
         />
         return {
           name,
@@ -181,13 +181,13 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
       })
 
       return <DataTable
+        checkAllRows={this.checkAllRows}
+        checkRow={this.toggleRowCheck}
         headers={headers}
         rows={rows}
         showCheckboxes={true}
-        checkRow={this.toggleRowCheck}
-        uncheckRow={this.toggleRowCheck}
         uncheckAllRows={this.uncheckAllRows}
-        checkAllRows={this.checkAllRows}
+        uncheckRow={this.toggleRowCheck}
       />
     }
   }

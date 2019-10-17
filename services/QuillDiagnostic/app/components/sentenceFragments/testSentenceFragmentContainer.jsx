@@ -63,7 +63,7 @@ class TestQuestion extends Component {
       const question = this.props.playDiagnostic.currentQuestion.data;
       return (
         <div className="test-question-container">
-          <PlaySentenceFragment currentKey={this.props.params.questionID} key={this.props.params.questionID} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} markIdentify={this.markIdentify} updateAttempts={this.submitResponse}/>
+          <PlaySentenceFragment currentKey={this.props.params.questionID} dispatch={this.props.dispatch} key={this.props.params.questionID} markIdentify={this.markIdentify} nextQuestion={this.reset} prefill={false} question={question} updateAttempts={this.submitResponse}/>
         </div>
       );
     } else {

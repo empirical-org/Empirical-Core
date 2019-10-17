@@ -45,15 +45,15 @@ export default class MissedLessonRow extends React.Component {
       color: '#348fdf',
     }
     return <div style={tooltipStyle}>
-      <i style={caretStyle} className="fa fa-caret-up"/>
+      <i className="fa fa-caret-up" style={caretStyle}/>
       You can reassign this lesson to the students who missed it.
     </div>
   }
 
   render() {
-    return <tr key={this.props.name} className='unstarted-row'>
+    return <tr className='unstarted-row' key={this.props.name}>
       <td>{this.props.name}</td>
-      <td onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} colSpan='3' style={{position: 'relative'}}>
+      <td colSpan='3' onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} style={{position: 'relative'}}>
         Missed Lesson
         {this.tooltip()}
       </td>

@@ -34,5 +34,6 @@
     "react/jsx-max-props-per-line": ["error", { "when": "multiline" }],
     "react/jsx-no-useless-fragment": "error",
     "react/jsx-props-no-multi-spaces": "error",
+    "react/jsx-sort-props": "error",
   },
 }

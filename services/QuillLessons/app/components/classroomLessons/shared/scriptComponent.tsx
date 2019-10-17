@@ -113,19 +113,19 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           return this.renderReview(index);
         case 'STEP-HTML':
           return <StepHtml
+            isTip={false}
+            item={item}
             key={index}
             onlyShowHeaders={this.props.onlyShowHeaders}
-            item={item}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-            isTip={false}
           />
         case 'STEP-HTML-TIP':
             return <StepHtml
+              isTip={true}
+              item={item}
               key={index}
               onlyShowHeaders={this.props.onlyShowHeaders}
-              item={item}
               updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-              isTip={true}
             />
         case 'T-MODEL':
           return this.renderTeacherModel()
@@ -291,10 +291,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       <td/>
       <td>
         <input
+          defaultChecked={checked}
           id={'correct'}
           name={'correct'}
           type="checkbox"
-          defaultChecked={checked}
         />
         <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
           {checkbox}
@@ -367,7 +367,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       if (key === 'retry') {
         headers.push(<th key={key}>{fields[key]}</th>)
       } else if (key === 'order') {
-        headers.push(<th key={key} className="hidden-order">{fields[key]}</th>)
+        headers.push(<th className="hidden-order" key={key}>{fields[key]}</th>)
       } else {
         let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
         const header = key === 'displayed'
@@ -458,10 +458,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         <td>{elapsedTime}</td>
         <td>
           <input
+            defaultChecked={checked}
             id={studentName}
             name={studentName}
             type="checkbox"
-            defaultChecked={checked}
           />
           <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
             {checkbox}
@@ -541,10 +541,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (this.props.cues) {
       return (
         <Cues
+          displayArrowAndText={false}
           getQuestion={() => ({
             cues: this.props.cues,
           })}
-          displayArrowAndText={false}
         />
       );
     }
@@ -559,9 +559,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       promptEditor = (
         <div className="prompt-component-wrapper">
           <MultipleTextEditor
-            text={this.state.prompt}
             handleTextChange={this.handlePromptChange}
             lessonPrompt={textEditorInputClean(this.props.lessonPrompt)}
+            text={this.state.prompt}
             title={"Prompt:"}
           />
         </div>
@@ -581,8 +581,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         {this.renderCues()}
         <div className="model-component-wrapper">
           <MultipleTextEditor
-            text={this.state.model}
             handleTextChange={this.handleModelChange}
+            text={this.state.model}
             title={"Your Model:"}
           />
         </div>

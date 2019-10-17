@@ -23,8 +23,8 @@ class ChooseModelContainer extends Component {
       <p className="control">
         <button
           className="button is-outlined is-danger"
-          style={{marginLeft: 5}}
           onClick={this.removeModelConcept}
+          style={{marginLeft: 5}}
         >
           Remove
         </button>
@@ -37,7 +37,7 @@ class ChooseModelContainer extends Component {
       <div className="box">
         <h4 className="title">Choose Model</h4>
         <div className="control">
-          <ConceptSelector onlyShowConceptsWithConceptFeedback currentConceptUID={this.props.modelConceptUID} handleSelectorChange={this.selectConcept} />
+          <ConceptSelector currentConceptUID={this.props.modelConceptUID} handleSelectorChange={this.selectConcept} onlyShowConceptsWithConceptFeedback />
           <ConceptExplanation {...this.props.conceptsFeedback.data[this.props.modelConceptUID]} />
           {this.props.children}
         </div>

@@ -37,7 +37,7 @@ export default React.createClass({
     }
     else if ((this.state.has_premium == 'trial') || (this.state.has_premium == 'locked')){
       return(<span>
-        <FreeTrialStatus status={this.state.has_premium} data={this.state.trial_days_remaining}/>
+        <FreeTrialStatus data={this.state.trial_days_remaining} status={this.state.has_premium}/>
       </span>);
     }
     else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {

@@ -59,15 +59,15 @@ export default class MoveStudent extends React.Component {
       <div>
         <div className="input-row">
           <label>Class Code 1:</label>
-          <input type="text" value={this.state.classCode1} onChange={(e) => this.updateClassCode(e, 1)}/>
+          <input onChange={(e) => this.updateClassCode(e, 1)} type="text" value={this.state.classCode1}/>
         </div>
         <div className="input-row">
           <label>Class Code 2:</label>
-          <input type="text" value={this.state.classcode2} onChange={(e) => this.updateClassCode(e, 2)}/>
+          <input onChange={(e) => this.updateClassCode(e, 2)} type="text" value={this.state.classcode2}/>
         </div>
         <div className="input-row">
           <label>Student Username or Email:</label>
-          <input type="text" value={this.state.studentIdentifier} onChange={this.updateStudentIdentifier}/>
+          <input onChange={this.updateStudentIdentifier} type="text" value={this.state.studentIdentifier}/>
         </div>
         <button onClick={this.submitData}>Move Student</button>
         {this.renderError()}

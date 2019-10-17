@@ -59,11 +59,11 @@ export default React.createClass ({
         return [
           (<label className="label">{part}</label>),
           (<TextEditor
-            text={this.state[part]}
-            handleTextChange={this.handleChange.bind(null, part)}
-            key={part}
             ContentState={ContentState}
             EditorState={EditorState}
+            handleTextChange={this.handleChange.bind(null, part)}
+            key={part}
+            text={this.state[part]}
           />)
         ]
       } else {
@@ -93,7 +93,7 @@ export default React.createClass ({
           <label className="label">Remember To</label>
           <TextEditor text={this.state.rememberTo} handleTextChange={this.handleChange.bind(null, "rememberTo")} key="rememberTo"/>*/}
           <br />
-          <button type="submit" className="button is-primary">Submit</button>
+          <button className="button is-primary" type="submit">Submit</button>
           <button className="button is-danger" onClick={this.cancel}>Cancel</button>
         </form>
         <ConceptExplanation {...this.state}/>

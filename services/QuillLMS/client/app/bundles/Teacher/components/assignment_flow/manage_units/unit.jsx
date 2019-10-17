@@ -61,7 +61,7 @@ export default React.createClass({
         classy = 'edit-unit';
         text = 'Edit Name';
       }
-      return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>;
+      return <span className={classy} onClick={this.changeToEdit} style={inlineStyle}>{text}</span>;
     }
   },
 
@@ -88,7 +88,7 @@ export default React.createClass({
   },
 
   editUnitName() {
-    return <input type="text" onChange={this.handleNameChange} value={this.state.unitName} />;
+    return <input onChange={this.handleNameChange} type="text" value={this.state.unitName} />;
   },
 
   editStudentsLink() {
@@ -155,14 +155,14 @@ export default React.createClass({
       this.props.data.classroom_activities.forEach((ca) => {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            key={`${ca.id}-${this.props.data.unit.id}`}
-            report={this.props.report}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideClassroomActivity={this.props.hideClassroomActivity}
-            unitId={this.props.data.unit.id}
-            data={ca}
             activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
+            data={ca}
+            hideClassroomActivity={this.props.hideClassroomActivity}
+            key={`${ca.id}-${this.props.data.unit.id}`}
+            lesson={this.props.lesson}
+            report={this.props.report}
+            unitId={this.props.data.unit.id}
+            updateDueDate={this.props.updateDueDate}
           />
         );
       });
@@ -170,14 +170,14 @@ export default React.createClass({
       for (const [key, ca] of this.props.data.classroomActivities) {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            key={`${this.props.data.unitId}-${key}`}
-            report={this.props.report}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideClassroomActivity={this.props.hideClassroomActivity}
-            unitId={this.props.data.unitId}
-            data={ca}
             activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
+            data={ca}
+            hideClassroomActivity={this.props.hideClassroomActivity}
+            key={`${this.props.data.unitId}-${key}`}
+            lesson={this.props.lesson}
+            report={this.props.report}
+            unitId={this.props.data.unitId}
+            updateDueDate={this.props.updateDueDate}
           />
         );
       }

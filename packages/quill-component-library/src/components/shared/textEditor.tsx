@@ -74,10 +74,10 @@ class TextEditor extends React.Component <any, any> {
         <div className="card-content">
           <div className="content landing-page-html-editor">
             <Editor
+              blockRenderMap={customRenderMap}
               editorState={this.state.text}
               onChange={this.handleTextChange}
               plugins={[richButtonsPlugin]}
-              blockRenderMap={customRenderMap}
             />
           </div>
         </div>

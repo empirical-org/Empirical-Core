@@ -15,8 +15,8 @@ class MultipleTextEditor extends React.Component<any, any> {
       <a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span
           className={`${className}`}
-          title={title ? title : label}
           style={{ color: isActive ? '#990000' : '#777' }}
+          title={title ? title : label}
         >{title}
         </span>
       </a>;
@@ -82,10 +82,10 @@ class MultipleTextEditor extends React.Component<any, any> {
           <div className="content">
             <Editor
               editorState={this.state.text}
-              onChange={this.handleTextChange}
-              plugins={this.state.plugins}
-              onFocus={() => this.setState({ hasFocus: true, })}
               onBlur={() => this.setState({ hasFocus: false, })}
+              onChange={this.handleTextChange}
+              onFocus={() => this.setState({ hasFocus: true, })}
+              plugins={this.state.plugins}
             />
           </div>
         </div>

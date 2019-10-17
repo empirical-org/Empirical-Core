@@ -145,9 +145,9 @@ const TurkDiagnostic = React.createClass({
   renderQuestionComponent() {
     if (this.props.question.currentQuestion) {
       return (<Question
+        prefill={this.getLesson().prefill}
         question={this.props.question.currentQuestion}
         submitResponse={this.submitResponse}
-        prefill={this.getLesson().prefill}
       />);
     }
   },
@@ -288,59 +288,59 @@ const TurkDiagnostic = React.createClass({
     let component;
     if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
       if (!this.props.playDiagnostic.questionSet) {
-        component = (<SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />);
+        component = (<SmartSpinner key="step2" message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} />);
       } else if (this.props.playDiagnostic.currentQuestion) {
         if (questionType === 'SC') {
           component = (<PlayDiagnosticQuestion
-            question={this.props.playDiagnostic.currentQuestion.data}
-            nextQuestion={this.nextQuestion}
             dispatch={this.props.dispatch}
-            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             key={this.props.playDiagnostic.currentQuestion.data.key}
             marking="diagnostic"
+            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+            nextQuestion={this.nextQuestion}
+            question={this.props.playDiagnostic.currentQuestion.data}
           />);
         } else if (questionType === 'SF') {
           component = (<PlaySentenceFragment
-            question={this.props.playDiagnostic.currentQuestion.data}
             currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            dispatch={this.props.dispatch}
             key={this.props.playDiagnostic.currentQuestion.data.key}
             // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
-            dispatch={this.props.dispatch}
-            nextQuestion={this.nextQuestion}
             markIdentify={this.markIdentify}
+            nextQuestion={this.nextQuestion}
+            question={this.props.playDiagnostic.currentQuestion.data}
             updateAttempts={this.submitResponse}
           />);
         } else if (questionType === 'FB') {
           component = (<PlayFillInTheBlankQuestion
-            question={this.props.playDiagnostic.currentQuestion.data}
             currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
             dispatch={this.props.dispatch}
+            key={this.props.playDiagnostic.currentQuestion.data.key}
             nextQuestion={this.nextQuestion}
+            question={this.props.playDiagnostic.currentQuestion.data}
           />);
         } else if (questionType === 'TL') {
           component = (
             <PlayTitleCard
-              data={this.props.playDiagnostic.currentQuestion.data}
               currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+              data={this.props.playDiagnostic.currentQuestion.data}
               dispatch={this.props.dispatch}
               nextQuestion={this.nextQuestionWithoutSaving}
             />
           );
         }
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-        component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} error={this.state.error} />);
+        component = (<FinishedDiagnostic error={this.state.error} saved={this.state.saved} saveToLMS={this.saveToLMS} />);
       } else {
         component = <LandingPage
           begin={() => { this.startActivity('John'); }}
-          session={this.getPreviousSessionData()}
-          resumeActivity={this.resumeSession}
-          questionCount={this.getQuestionCount()}
           landingPageHtml={this.landingPageHtml()}
+          questionCount={this.getQuestionCount()}
+          resumeActivity={this.resumeSession}
+          session={this.getPreviousSessionData()}
         />;
       }
     } else {
-      component = (<SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />);
+      component = (<SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => {}} />);
     }
     // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (

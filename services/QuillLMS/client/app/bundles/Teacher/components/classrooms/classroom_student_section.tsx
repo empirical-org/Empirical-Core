@@ -248,10 +248,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     if (showModal === modalNames.editStudentAccountModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
       return <EditStudentAccountModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         student={student}
-        classroom={classroom}
       />
     }
   }
@@ -262,10 +262,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     if (showModal === modalNames.resetStudentPasswordModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
       return <ResetStudentPasswordModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         student={student}
-        classroom={classroom}
       />
     }
   }
@@ -275,10 +275,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.mergeStudentAccountsModal) {
       return <MergeStudentAccountsModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         selectedStudentIds={studentIdsForModal}
-        classroom={classroom}
       />
     }
   }
@@ -288,11 +288,11 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.moveStudentsModal) {
       return <MoveStudentsModal
+        classroom={classroom}
+        classrooms={classrooms}
         close={this.closeModal}
         onSuccess={onSuccess}
         selectedStudentIds={studentIdsForModal}
-        classroom={classroom}
-        classrooms={classrooms}
       />
     }
   }
@@ -302,10 +302,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.removeStudentsModal) {
       return <RemoveStudentsModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         selectedStudentIds={studentIdsForModal}
-        classroom={classroom}
       />
     }
   }
@@ -361,11 +361,11 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       return null
     } else {
       return <DropdownInput
-        disabled={selectedStudentIds.length === 0}
-        label="Actions"
         className="student-actions-dropdown"
-        options={this.optionsForStudentActions()}
+        disabled={selectedStudentIds.length === 0}
         handleChange={this.selectAction}
+        label="Actions"
+        options={this.optionsForStudentActions()}
       />
     }
   }
@@ -388,7 +388,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
           <h4>Why can't I edit my students’ account information?</h4>
           <p>{copy}</p>
         </div>
-        <img src={bulbSrc} alt="lightbulb" />
+        <img alt="lightbulb" src={bulbSrc} />
       </div>
     }
   }
@@ -413,14 +413,14 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     })
 
     return <DataTable
+      checkAllRows={this.checkAllRows}
+      checkRow={this.checkRow}
       headers={classroom.visible ? activeHeaders : archivedHeaders}
       rows={rows}
-      showCheckboxes={classroom.visible}
       showActions={classroom.visible}
-      checkRow={this.checkRow}
-      uncheckRow={this.uncheckRow}
+      showCheckboxes={classroom.visible}
       uncheckAllRows={this.uncheckAllRows}
-      checkAllRows={this.checkAllRows}
+      uncheckRow={this.uncheckRow}
     />
   }
 
@@ -442,7 +442,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       download = true
     }
     return <div className="students-section-header-buttons">
-      <a href={loginPdfLink} target="_blank" className="quill-button secondary outlined small" download={download}>Download setup instructions</a>
+      <a className="quill-button secondary outlined small" download={download} href={loginPdfLink} target="_blank">Download setup instructions</a>
       {this.renderInviteStudents()}
     </div>
   }

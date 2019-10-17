@@ -97,20 +97,20 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     const { email } = this.state
     if (coteacher) {
       return <Input
-        label="Co-teacher email"
-        value={email}
-        type="text"
-        disabled={true}
         className="email disabled"
+        disabled={true}
+        label="Co-teacher email"
+        type="text"
+        value={email}
       />
     } else {
       return <Input
-        label="Co-teacher email"
-        value={email}
-        type="text"
-        handleChange={this.handleEmailChange}
         className="email"
+        handleChange={this.handleEmailChange}
+        label="Co-teacher email"
         placeholder="teacher@example.edu"
+        type="text"
+        value={email}
       />
     }
   }
@@ -148,13 +148,13 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     })
 
     return <DataTable
+      checkAllRows={this.checkAllRows}
+      checkRow={this.checkRow}
       headers={headers}
       rows={rows}
       showCheckboxes={true}
-      checkRow={this.checkRow}
-      uncheckRow={this.uncheckRow}
       uncheckAllRows={this.uncheckAllRows}
-      checkAllRows={this.checkAllRows}
+      uncheckRow={this.uncheckRow}
     />
   }
 

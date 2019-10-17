@@ -63,9 +63,9 @@ export default class ActivityCategory extends React.Component {
     return(<div>
       <ActivitySearchAndSelect
         selectedActivities={this.state.selectedActivities}
-        toggleActivitySelection={this.toggleActivitySelection}
         sortable={true}
         sortCallback={this.updateActivityOrder}
+        toggleActivitySelection={this.toggleActivitySelection}
       />
       <button onClick={this.destroyAndRecreateOrderNumbers}>Save Activities</button>
     </div>

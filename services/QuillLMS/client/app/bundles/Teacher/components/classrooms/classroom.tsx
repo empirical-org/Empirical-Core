@@ -162,8 +162,8 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       {this.renderClassSettings()}
       <ClassroomStudentSection
         {...sharedProps}
-        inviteStudents={inviteStudents}
         importGoogleClassroomStudents={importGoogleClassroomStudents}
+        inviteStudents={inviteStudents}
       />
       <ClassroomTeacherSection
         {...sharedProps}
@@ -177,8 +177,8 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const { showModal } = this.state
     if (showModal === leaveClassModal) {
       return <LeaveClassModal
-        close={this.closeModal}
         classroom={classroom}
+        close={this.closeModal}
         onSuccess={onSuccess}
       />
     }
@@ -186,7 +186,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
 
   renderClassroom() {
     const { selected, classroom, } = this.props
-    return <div id={classroom.id} className={`classroom ${selected ? 'open' : 'closed'}`}>
+    return <div className={`classroom ${selected ? 'open' : 'closed'}`} id={classroom.id}>
       {this.renderLeaveClassModal()}
       {this.renderClassroomHeader()}
       {selected ? this.renderClassroomContent() : null}

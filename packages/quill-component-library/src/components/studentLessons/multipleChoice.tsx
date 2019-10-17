@@ -86,9 +86,9 @@ class MultipleChoice extends React.Component<any, any> {
             <div className="content multiple-choice-content">
               {this.props.prompt}
               <Feedback
-                key="multiple-choice"
-                feedbackType="override"
                 feedback={(<p>Select a strong answer. There may be more than one.</p>)}
+                feedbackType="override"
+                key="multiple-choice"
               />
               {this.renderOptions()}
             </div>

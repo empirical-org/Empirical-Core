@@ -30,7 +30,7 @@ export default React.createClass({
 
 	students: function() {
 		if (!this.state.disabled) {
-				return this.props.students.map((student, index) => <MenuItem key={`${student.id}+${index}`} eventKey={student.id}>{student.name}</MenuItem>)
+				return this.props.students.map((student, index) => <MenuItem eventKey={student.id} key={`${student.id}+${index}`}>{student.name}</MenuItem>)
 		}
 	},
 
@@ -49,7 +49,7 @@ export default React.createClass({
 
 	render: function() {
 			return (
-  <DropdownButton disabled={this.state.disabled} bsStyle='default' title={this.state.selectedStudent.name} id='select-student-dropdown' onSelect={this.handleSelect}>
+  <DropdownButton bsStyle='default' disabled={this.state.disabled} id='select-student-dropdown' onSelect={this.handleSelect} title={this.state.selectedStudent.name}>
     {this.students()}
   </DropdownButton>
 			);

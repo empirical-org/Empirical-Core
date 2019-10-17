@@ -94,7 +94,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
   renderCheckbox(checkboxNumber: 'checkboxOne'|'checkboxTwo'|'checkboxThree') {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }
@@ -134,18 +134,18 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           <span>Swap accounts</span>
         </div>
         <DropdownInput
-          label="Select primary account"
-          value={studentOptions.find(so => so.value === primaryAccountId)}
-          options={studentOptionsForPrimary}
-          handleChange={this.handlePrimaryAccountIdChange}
           className="primary-account"
+          handleChange={this.handlePrimaryAccountIdChange}
+          label="Select primary account"
+          options={studentOptionsForPrimary}
+          value={studentOptions.find(so => so.value === primaryAccountId)}
         />
         <DropdownInput
-          label="Select account to merge"
-          value={studentOptions.find(so => so.value === secondaryAccountId)}
-          options={studentOptionsForSecondary}
-          handleChange={this.handleSecondaryAccountIdChange}
           className="secondary-account"
+          handleChange={this.handleSecondaryAccountIdChange}
+          label="Select account to merge"
+          options={studentOptionsForSecondary}
+          value={studentOptions.find(so => so.value === secondaryAccountId)}
         />
         {this.renderCheckboxes()}
         <div className="form-buttons">

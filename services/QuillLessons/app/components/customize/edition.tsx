@@ -243,13 +243,13 @@ class CustomizeEdition extends React.Component<any, any> {
   renderSlide(q: Question, i: number) {
     const incompletePrompt = this.props.incompleteQuestions && this.props.incompleteQuestions.includes(i)
     return <Slide
+      clearSlide={this.clearSlide}
+      incompletePrompt={incompletePrompt}
       key={i}
       question={q}
       questionIndex={i+1}
-      updateQuestion={this.updateQuestion}
-      clearSlide={this.clearSlide}
       resetSlide={this.resetSlide}
-      incompletePrompt={incompletePrompt}
+      updateQuestion={this.updateQuestion}
     />
   }
 
@@ -257,12 +257,12 @@ class CustomizeEdition extends React.Component<any, any> {
     if (this.state.showEditModal) {
       const buttonClassName = this.props.editionMetadata.name ? 'active' : 'inactive'
       return <NameAndSampleQuestionModal
-        updateName={this.updateName}
-        name={this.props.editionMetadata.name}
-        sampleQuestion={this.props.editionMetadata.sample_question}
-        updateSampleQuestion={this.updateSampleQuestion}
         buttonClassName={buttonClassName}
         closeEditModal={this.closeEditModal}
+        name={this.props.editionMetadata.name}
+        sampleQuestion={this.props.editionMetadata.sample_question}
+        updateName={this.updateName}
+        updateSampleQuestion={this.updateSampleQuestion}
       />
     }
   }
@@ -274,10 +274,10 @@ class CustomizeEdition extends React.Component<any, any> {
         ? `customize/${this.props.params.lessonID}/${this.props.params.editionID}?&classroom_unit_id=${classroomUnitId}`
         : `customize/${this.props.params.lessonID}/${this.props.params.editionID}`
       return <SuccessModal
-        editionName={this.props.editionMetadata.name}
         activityName={this.props.classroomLesson.data.title}
         backLink={backLink}
         editionLink={this.followUpLink()}
+        editionName={this.props.editionMetadata.name}
       />
     }
   }
@@ -289,9 +289,9 @@ class CustomizeEdition extends React.Component<any, any> {
           {this.renderEditModal()}
           {this.renderSuccessModal()}
           <CustomizeEditionHeader
+            editionName={this.props.editionMetadata.name}
             lessonNumber={this.props.classroomLesson.data.lesson}
             lessonTitle={this.props.classroomLesson.data.title}
-            editionName={this.props.editionMetadata.name}
             sampleQuestion={this.props.editionMetadata.sample_question}
             showEditModal={this.showEditModal}
           />

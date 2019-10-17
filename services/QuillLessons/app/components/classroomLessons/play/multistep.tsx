@@ -166,11 +166,11 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       <div className={`list-component`} key={sl}>
         <span className="list-number">{sl}</span>
         <TextEditor
-          index={sl}
-          value={this.state.answers[sl]}
+          disabled={!this.state.isSubmittable && this.state.submitted}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(sl)}
-          disabled={!this.state.isSubmittable && this.state.submitted}
+          index={sl}
+          value={this.state.answers[sl]}
         />
       </div>
     )
@@ -219,8 +219,8 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       let errorArea = this.state.errors ? this.renderWarning() : null;
       let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback 
-        feedbackType="default"
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+        feedbackType="default"
       />) : null;
       return (
         <div>
@@ -235,7 +235,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
               <div style={{marginBottom: 20}}>
                 {feedbackRow}
               </div>
-              <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
+              <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission}/>
             </div>
           </div>
         </div>

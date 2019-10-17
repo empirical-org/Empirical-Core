@@ -118,24 +118,24 @@ export default class extends React.Component {
     if (filteredStudentsData.length) {
       return (<div key={`${filteredStudentsData.length}-length-for-real-time`}>
         <ReactTable
-          data={filteredStudentsData}
+          className="progress-report"
           columns={this.columns()}
-          showPagination={false}
-          defaultSorted={[{ id: 'name', desc: true, }]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
+          data={filteredStudentsData}
           defaultPageSize={filteredStudentsData.length}
+          defaultSorted={[{ id: 'name', desc: true, }]}
           getTrProps={(state, rowInfo, column) => ({
             style: {
               background: rowInfo.row.timespent_question > 180 ? '#FEEDF0' : 'inherit',
             },
           })}
-          className="progress-report"
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
         />
       </div>);
     }
-    return <EmptyStateForReport title={'You have no students playing activities.'} body={'When students are online, you can use this report to see how long students are taking on each question.'} />;
+    return <EmptyStateForReport body={'When students are online, you can use this report to see how long students are taking on each question.'} title={'You have no students playing activities.'} />;
   }
 
   render() {

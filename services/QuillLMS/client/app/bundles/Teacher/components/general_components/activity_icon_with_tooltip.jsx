@@ -138,11 +138,11 @@ export default class ActivityIconWithTooltip extends React.Component {
     }
     return (
       <div
-        style={{ cursor: cursorType, position: 'relative', }}
+        className={this.tooltipClasses()}
         onClick={this.props.context === 'scorebook' ? this.checkForStudentReport : null}
         onMouseEnter={this.props.context === 'scorebook' ? this.showToolTipAndGetConceptResultInfo : null}
         onMouseLeave={this.props.context === 'scorebook' ? this.hideTooltip : null}
-        className={this.tooltipClasses()}
+        style={{ cursor: cursorType, position: 'relative', }}
       >
         {this.missedIndicator()}
         {this.statusIndicator()}

@@ -78,15 +78,15 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           }
           index+=1
           parts[i] = <Edit
-            state={state}
+            activeIndex={activeIndex}
             concept={concept}
             displayText={plus}
+            id={`${index}`}
             incorrectText={negative}
             index={indexToPass}
-            activeIndex={activeIndex}
             next={this.next}
             numberOfEdits={numberOfEdits}
-            id={`${index}`}
+            state={state}
           />
           if (punctuationRegex.test(parts[i + 1])) {
             parts[i + 1] = `${parts[i + 1]}`

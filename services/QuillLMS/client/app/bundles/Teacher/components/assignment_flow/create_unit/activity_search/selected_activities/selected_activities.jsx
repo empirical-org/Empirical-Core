@@ -12,7 +12,7 @@
 
 	render: function () {
 		let rows, buttonClassName, content
-		rows = this.props.selectedActivities.map((ele, i) => <SelectedActivity key={i} toggleActivitySelection={this.props.toggleActivitySelection} data={ele} />);
+		rows = this.props.selectedActivities.map((ele, i) => <SelectedActivity data={ele} key={i} toggleActivitySelection={this.props.toggleActivitySelection} />);
     const sortableRows = this.props.sortable ? <SortableList data={rows} sortCallback={this.props.sortCallback}/> : null
     const unitName = this.props.unitName ? this.props.unitName : 'New Activity Pack'
     if (this.props.selectedActivities.length > 0) {

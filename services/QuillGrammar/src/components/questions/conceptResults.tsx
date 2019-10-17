@@ -17,13 +17,13 @@ export default class ConceptResults extends React.Component<any, any> {
         components = Object.keys(conceptResultsPlus).map(uid => {
           const concept = _.find(this.props.concepts.data['0'], { uid, });
           return <ConceptSelectorWithCheckbox
-            key={uid}
-            handleSelectorChange={this.props.handleConceptChange}
-            currentConceptUID={uid}
             checked={conceptResults[uid]}
+            currentConceptUID={uid}
+            deleteConceptResult={() => this.props.deleteConceptResult(uid)}
+            handleSelectorChange={this.props.handleConceptChange}
+            key={uid}
             onCheckboxChange={() => this.props.toggleCheckboxCorrect(uid)}
             selectorDisabled={uid === null || uid === 'null' ? false : true}
-            deleteConceptResult={() => this.props.deleteConceptResult(uid)}
           />
         });
       } else {

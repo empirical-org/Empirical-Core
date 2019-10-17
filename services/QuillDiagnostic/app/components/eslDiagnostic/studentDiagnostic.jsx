@@ -158,44 +158,44 @@ class ELLStudentDiagnostic extends React.Component {
     let component
     if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
       component = (<PlayDiagnosticQuestion
-        question={this.props.playDiagnostic.currentQuestion.data}
-        nextQuestion={this.nextQuestion}
         dispatch={this.props.dispatch}
         key={this.props.playDiagnostic.currentQuestion.data.key}
-        marking="diagnostic"
         language={this.language()}
+        marking="diagnostic"
+        nextQuestion={this.nextQuestion}
+        question={this.props.playDiagnostic.currentQuestion.data}
       />);
     } else if (this.props.playDiagnostic.currentQuestion.type === 'SF') {
       component = (<PlaySentenceFragment
-        question={this.props.playDiagnostic.currentQuestion.data}
         currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-        key={this.props.playDiagnostic.currentQuestion.data.key}
         dispatch={this.props.dispatch}
-        nextQuestion={this.nextQuestion}
-        markIdentify={this.markIdentify}
-        updateAttempts={this.submitResponse}
+        key={this.props.playDiagnostic.currentQuestion.data.key}
         language={this.language()}
+        markIdentify={this.markIdentify}
+        nextQuestion={this.nextQuestion}
+        question={this.props.playDiagnostic.currentQuestion.data}
+        updateAttempts={this.submitResponse}
       />);
     } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
       component = (
         <PlayTitleCard
-          data={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+          data={this.props.playDiagnostic.currentQuestion.data}
           dispatch={this.props.dispatch}
-          nextQuestion={this.nextQuestionWithoutSaving}
-          language={this.language()}
           key={this.props.playDiagnostic.currentQuestion.data.key}
+          language={this.language()}
+          nextQuestion={this.nextQuestionWithoutSaving}
         />
       );
     } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
       component = (
         <PlayFillInTheBlankQuestion
-          question={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
           dispatch={this.props.dispatch}
-          nextQuestion={this.nextQuestion}
-          language={this.language()}
           key={this.props.playDiagnostic.currentQuestion.data.key}
+          language={this.language()}
+          nextQuestion={this.nextQuestion}
+          question={this.props.playDiagnostic.currentQuestion.data}
         />
       );
     }
@@ -328,26 +328,26 @@ class ELLStudentDiagnostic extends React.Component {
     const data = this.getFetchedData();
     if (!(data && this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata && this.props.fillInBlank.hasreceiveddata)) {
       component = (<SmartSpinner
+        key="step1"
         message={'Loading Your Lesson 25%'}
         onMount={() => {}}
-        key="step1"
       />)
     } else if (this.props.playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();
     } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
       component = (<FinishedDiagnostic
-        saveToLMS={this.saveToLMS}
-        saved={this.state.saved}
         error={this.state.error}
         language={this.language()}
+        saved={this.state.saved}
+        saveToLMS={this.saveToLMS}
       />);
     } else if (this.props.playDiagnostic.language) {
       component = (<LandingPage
         begin={() => { this.startActivity(data); }}
-        session={this.getPreviousSessionData()}
-        resumeActivity={this.resumeSession}
-        language={this.language()}
         landingPageHtml={this.landingPageHtml()}
+        language={this.language()}
+        resumeActivity={this.resumeSession}
+        session={this.getPreviousSessionData()}
 
       />);
     } else {

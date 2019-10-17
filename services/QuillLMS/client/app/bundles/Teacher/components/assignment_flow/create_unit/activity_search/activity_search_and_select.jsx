@@ -228,26 +228,26 @@ export default class ActivitySearchAndSelect extends React.Component {
     } else if (this.state.error) {
       table = <span>We're experiencing the following error: {this.state.error}</span>;
     } else {
-      pagination = <Pagination maxPageNumber={this.state.maxPageNumber} selectPageNumber={this.selectPageNumber} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} />;
-      table = <ActivitySearchResults selectedActivities={this.props.selectedActivities} currentPageSearchResults={this.currentPageResults()} toggleActivitySelection={this.props.toggleActivitySelection} />;
+      pagination = <Pagination currentPage={this.state.currentPage} maxPageNumber={this.state.maxPageNumber} numberOfPages={this.state.numberOfPages} selectPageNumber={this.selectPageNumber} />;
+      table = <ActivitySearchResults currentPageSearchResults={this.currentPageResults()} selectedActivities={this.props.selectedActivities} toggleActivitySelection={this.props.toggleActivitySelection} />;
     }
     return (
       <section>
         <h1 className="create-your-own-activity-pack-header">Create your own activity pack.</h1>
         <ActivitySearchAndFilters
-          showAllId={showAllId}
-          updateSearchQuery={this.updateSearchQuery}
+          activeFilterOn={this.state.activeFilterOn}
+          clearFilters={this.clearFilters}
+          data={this.state.filters}
           searchQuery={this.state.searchQuery}
           selectFilterOption={this.selectFilterOption}
-          data={this.state.filters}
-          clearFilters={this.clearFilters}
-          activeFilterOn={this.state.activeFilterOn}
+          showAllId={showAllId}
+          updateSearchQuery={this.updateSearchQuery}
         />
         <table className="table activity-table search-and-select green-rows-on-hover">
           <thead>
             <ActivitySearchSorts
-              updateSort={this.updateSort}
               sorts={this.state.sorts}
+              updateSort={this.updateSort}
             />
           </thead>
           {table}
@@ -258,10 +258,10 @@ export default class ActivitySearchAndSelect extends React.Component {
           clickContinue={this.props.clickContinue}
           errorMessage={this.props.errorMessage || ''}
           selectedActivities={this.props.selectedActivities}
-          toggleActivitySelection={this.props.toggleActivitySelection}
-          unitName={this.props.unitName}
           sortable={this.props.sortable}
           sortCallback={this.props.sortCallback}
+          toggleActivitySelection={this.props.toggleActivitySelection}
+          unitName={this.props.unitName}
         />
       </section>
     );

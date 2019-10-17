@@ -43,9 +43,9 @@ export default React.createClass({
 		let concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question, index) => {
 			if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence') {
-				return <ConnectStudentReportBox key={index} boxNumber={index+1} questionData={question}/>
+				return <ConnectStudentReportBox boxNumber={index+1} key={index} questionData={question}/>
 			}
-			return <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>
+			return <StudentReportBox boxNumber={index+1} key={index} questionData={question}/>
 		})
   },
 

@@ -92,11 +92,11 @@ const PlayDiagnosticQuestion = React.createClass({
 
   renderFeedback() {
     return (<RenderFeedback
+      getQuestion={this.getQuestion}
+      listCuesAsString={this.listCuesAsString}
       question={this.props.question}
       renderFeedbackStatements={this.renderFeedbackStatements}
       sentence="We have not seen this sentence before. Could you please try writing it in another way?"
-      getQuestion={this.getQuestion}
-      listCuesAsString={this.listCuesAsString}
     />);
   },
 
@@ -110,9 +110,9 @@ const PlayDiagnosticQuestion = React.createClass({
 
   renderCues() {
     return (<RenderQuestionCues
-      language={this.props.language}
-      getQuestion={this.getQuestion}
       displayArrowAndText
+      getQuestion={this.getQuestion}
+      language={this.props.language}
     />);
   },
 
@@ -231,24 +231,24 @@ const PlayDiagnosticQuestion = React.createClass({
               {this.renderSentenceFragments()}
               {this.renderCues()}
               <Feedback
-                feedbackType="instructions"
                 feedback={this.getInstructionText()}
+                feedbackType="instructions"
               />
             </div>
             {this.renderMedia()}
           </div>
 
-          <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
+          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName={'text-editor'}>
             <TextEditor
+              checkAnswer={this.checkAnswer}
               className={'textarea is-question is-disabled'}
               defaultValue={this.getInitialValue()}
-              handleChange={this.handleChange}
-              value={this.state.response}
-              getResponse={this.getResponse2}
               disabled={this.readyForNext()}
-              checkAnswer={this.checkAnswer}
+              getResponse={this.getResponse2}
+              handleChange={this.handleChange}
               hasError={this.state.error}
               placeholder="Type your answer here."
+              value={this.state.response}
             />
             <div className="button-and-error-row">
               <Error error={this.state.error} />

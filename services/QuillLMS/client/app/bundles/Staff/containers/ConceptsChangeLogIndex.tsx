@@ -81,8 +81,8 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
       <div>
         <ConceptManagerNav />
         <Query
-          query={gql(conceptsChangeLogIndexQuery)}
           notifyOnNetworkStatusChange
+          query={gql(conceptsChangeLogIndexQuery)}
         >
           {({ loading, error, data, refetch, networkStatus }) => {
             if (networkStatus === 4) return <p>Refetching!</p>;

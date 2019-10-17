@@ -62,10 +62,10 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     if (showChangeLogModal) {
       const changedFields = [ { fieldName: 'replaced' } ]
       return <ChangeLogModal
+        cancel={this.closeChangeLogModal}
+        changedFields={changedFields}
         concept={replacedConcept}
         levelNumber={0}
-        changedFields={changedFields}
-        cancel={this.closeChangeLogModal}
         save={(changeLogs) => { this.save(replaceConcept, changeLogs)}}
       />
     }
@@ -93,9 +93,9 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     const { replacementId, replacedId } = this.state
     if (replacementId && replacedId) {
       return <input
+        className="quill-button contained primary medium"
         type="submit"
         value="Replace"
-        className="quill-button contained primary medium"
       />
     }
   }
@@ -107,20 +107,20 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     if (replacedOrReplacement === 'replaced') {
       const value = options.find(o => o.value === replacedId)
       return <DropdownInput
-        label="Concept"
-        value={value}
-        options={options}
         handleChange={this.changeReplacedId}
         isSearchable={true}
+        label="Concept"
+        options={options}
+        value={value}
       />
     } else {
       const value = options.find(o => o.value === replacementId)
       return <DropdownInput
-        label="Concept"
-        value={value}
-        options={options}
         handleChange={this.changeReplacementId}
         isSearchable={true}
+        label="Concept"
+        options={options}
+        value={value}
       />
     }
   }
@@ -137,7 +137,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
                 <a href="/cms/concepts/concepts_in_use.csv">View Concepts in use</a>
               </div>
             </div>
-            <form className="find-and-replace-form" onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+            <form acceptCharset="UTF-8" className="find-and-replace-form" onSubmit={this.handleSubmit} >
               <div className="find-and-replace-section">
                 <div className="find-and-replace-section-header">
                   <div className="section-number">2</div>

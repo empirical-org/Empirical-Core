@@ -12,9 +12,9 @@ describe('EditStudentsButton component', () => {
     const buttonText = "Update Students"
     const wrapper = shallow(
       <EditStudentsButton
-        enabled={true}
         buttonText={buttonText}
         dataFunc={dataFuncMock}
+        enabled={true}
       />)
       wrapper.setState({loading: false})
       const handleClickMock = jest.fn()
@@ -37,9 +37,9 @@ describe('EditStudentsButton component', () => {
     const disabledText = "Edit Students Before Assigning"
     const wrapper = shallow(
       <EditStudentsButton
-        enabled={false}
-        disabledText={disabledText}
         dataFunc={dataFuncMock}
+        disabledText={disabledText}
+        enabled={false}
       />)
       wrapper.setState({loading: false})
 

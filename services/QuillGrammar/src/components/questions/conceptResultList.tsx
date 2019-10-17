@@ -42,11 +42,11 @@ export default class ConceptResultList extends React.Component<ConceptResultList
     const mapped = Object.assign({}, this.state.conceptResults, { null: false })
     const components = _.mapObject(mapped, (val: boolean, key: string) => (
       <ConceptSelectorWithCheckbox
-        handleSelectorChange={this.handleConceptChange}
-        currentConceptUID={key}
         checked={val}
-        onCheckboxChange={() => this.toggleConceptResultCorrect(key)}
+        currentConceptUID={key}
         deleteConceptResult={() => this.deleteConceptResult(key)}
+        handleSelectorChange={this.handleConceptChange}
+        onCheckboxChange={() => this.toggleConceptResultCorrect(key)}
         selectorDisabled={key === 'null' ? false : true}
       />
     ));

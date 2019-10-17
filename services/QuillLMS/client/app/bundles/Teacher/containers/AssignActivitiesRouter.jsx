@@ -13,17 +13,17 @@ import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
 
 const AssignActivitiesRouter = props => (
-  <Router Router history={browserHistory}>
-    <Route path="/teachers/classrooms/assign_activities" component={AssignActivitiesContainer}>
+  <Router history={browserHistory} Router>
+    <Route component={AssignActivitiesContainer} path="/teachers/classrooms/assign_activities">
       <IndexRoute component={AssignANewActivity}/>
-      <Route path="assign-a-diagnostic" component={AssignADiagnostic} />
-      <Route path="create-unit" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
-      <Route path="featured-activity-packs" component={UnitTemplatesManager}/>
+      <Route component={AssignADiagnostic} path="assign-a-diagnostic" />
+      <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="create-unit" />
+      <Route component={UnitTemplatesManager} path="featured-activity-packs"/>
       <Redirect from="featured-activity-packs/category/:category" to="featured-activity-packs" />
       <Redirect from="featured-activity-packs/grade/:grade" to="featured-activity-packs" />
-      <Route path="featured-activity-packs/:activityPackId" component={UnitTemplateProfile} />
-      <Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
-      <Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
+      <Route component={UnitTemplateProfile} path="featured-activity-packs/:activityPackId" />
+      <Route component={UnitTemplateAssigned} path="featured-activity-packs/:activityPackId/assigned"/>
+      <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
     </Route>
   </Router>
 );

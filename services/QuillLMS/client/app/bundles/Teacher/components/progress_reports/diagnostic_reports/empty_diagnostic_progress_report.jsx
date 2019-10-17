@@ -33,8 +33,8 @@
        <div className="col-xs-7">
          <h1>Quill Diagnostic Reports</h1>
          {content}
-         <button onClick={() => {window.location = linkOne}} className="button-green create-unit featured-button">{buttonTextOne}</button>
-         <button onClick={() => {window.location = linkTwo}} className="create-unit featured-button">{buttonTextTwo}</button>
+         <button className="button-green create-unit featured-button" onClick={() => {window.location = linkOne}}>{buttonTextOne}</button>
+         <button className="create-unit featured-button" onClick={() => {window.location = linkTwo}}>{buttonTextTwo}</button>
        </div>
        <div className="col-xs-4">
          {image}

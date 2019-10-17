@@ -128,9 +128,9 @@ class Lesson extends React.Component<LessonProps> {
         return (
           <Modal close={this.cancelEditingLesson}>
             <EditLessonForm
+              currentValues={lesson}
               lesson={lesson}
               submit={this.saveLessonEdits}
-              currentValues={lesson}
             />
           </Modal>
         );

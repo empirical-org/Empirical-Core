@@ -82,7 +82,7 @@ export default React.createClass({
       return <div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill} />
+          <input className="input" onBlur={this.copyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
         </p>
       </div>
     }
@@ -111,27 +111,27 @@ export default React.createClass({
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
           <TextEditor
-            text={this.props.question.prompt || ""}
-            handleTextChange={this.handlePromptChange}
-            EditorState={EditorState}
             ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={this.handlePromptChange}
+            text={this.props.question.prompt || ""}
           />
           <label className="label">Instructions for student</label>
           <p className="control">
-            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} />
+            <textarea className="input" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} ref="instructions" type="text" />
           </p>
           <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
           <p className="control">
-            <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel} />
+            <input className="input" defaultValue={this.props.question.cuesLabel} onChange={this.handleCuesLabelChange} type="text" />
           </p>
           <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
           <p className="control">
-            <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues} />
+            <input className="input" defaultValue={this.props.question.cues} ref="cues" type="text" />
           </p>
           {this.renderOptimalResponse()}
           <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
           <p className="control">
-            <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText} />
+            <input className="input" defaultValue={this.props.question.prefilledText} ref="prefilledText" type="text" />
           </p>
 
           <label className="label">Item level</label>

@@ -213,7 +213,7 @@ class questionHealth extends Component {
     const labelStyle = {marginRight: '10px'}
     return <div style={{marginTop: '5px', }}>
       <label style={labelStyle}>Question Flag:</label>
-      <select value={selectedValue} onChange={this.updateFlag}>
+      <select onChange={this.updateFlag} value={selectedValue}>
         <option value="all">All</option>
         <option value="archived">Archived</option>
         <option value="alpha">Alpha</option>

@@ -17,16 +17,16 @@ export default class StudentOptions extends React.Component<StudentOptionsProps>
       <h3 className="title">How do you want to add your students?</h3>
       <div className="quill-cards">
         <Card
-          imgSrc={joinLinkSrc}
           header="Students create their own accounts"
-          text="Get a unique link that students can use to create accounts and join your class."
+          imgSrc={joinLinkSrc}
           onClick={() => { this.props.setStudentOption(studentsCreate) }}
+          text="Get a unique link that students can use to create accounts and join your class."
         />
         <Card
-          imgSrc={studentAccountsSrc}
           header="Create accounts for students"
-          text="Create accounts by inputting each student name. You'll get downloadable login information to share with your students."
+          imgSrc={studentAccountsSrc}
           onClick={() => { this.props.setStudentOption(teacherCreates) }}
+          text="Create accounts by inputting each student name. You'll get downloadable login information to share with your students."
         />
       </div>
     </div>

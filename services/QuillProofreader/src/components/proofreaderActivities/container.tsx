@@ -418,8 +418,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (showEarlySubmitModal) {
         return <EarlySubmitModal
-          requiredEditCount={requiredEditCount}
           closeModal={this.closeEarlySubmitModal}
+          requiredEditCount={requiredEditCount}
         />
       }
     }
@@ -428,8 +428,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { showResetModal, } = this.state
       if (showResetModal) {
         return <ResetModal
-          reset={this.reset}
           closeModal={this.closeResetModal}
+          reset={this.reset}
         />
       }
     }
@@ -439,9 +439,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const numberOfErrors = necessaryEdits && necessaryEdits.length ? necessaryEdits.length : 0
       if (showReviewModal) {
         return <ReviewModal
-          numberOfErrors={numberOfErrors}
-          numberOfCorrectChanges={numberOfCorrectChanges || 0}
           closeModal={this.closeReviewModal}
+          numberOfCorrectChanges={numberOfCorrectChanges || 0}
+          numberOfErrors={numberOfErrors}
         />
       }
     }
@@ -452,20 +452,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
         return <PassageReviewer
-          text={text}
           concepts={this.props.concepts.data[0]}
           finishReview={this.finishReview}
+          text={text}
         />
       } else if (passage) {
         const paragraphs = passage.map((p, i) => {
           return <Paragraph
-            words={p}
-            handleParagraphChange={this.handleParagraphChange}
-            resetting={resetting}
             finishReset={this.finishReset}
-            underlineErrors={underlineErrorsInProofreader}
+            handleParagraphChange={this.handleParagraphChange}
             index={i}
             key={i}
+            resetting={resetting}
+            underlineErrors={underlineErrorsInProofreader}
+            words={p}
           />
         })
         return <div className="editor">{paragraphs}</div>

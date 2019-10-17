@@ -11,8 +11,8 @@ describe('ResultsPage container', () => {
   const wrapperNotAnonymous = shallow(
     <ResultsPage
       activityName='Cool Activity'
-      percentage={94}
       activityType='type'
+      percentage={94}
       results={{foo: 'bar'}}
     />
   );

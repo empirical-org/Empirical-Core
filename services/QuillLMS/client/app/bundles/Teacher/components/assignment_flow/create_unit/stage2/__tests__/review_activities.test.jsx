@@ -9,10 +9,10 @@ describe('ReviewActivities component', () => {
   it('should render', () => {
     const wrapper = shallow(
       <ReviewActivities
-        toggleActivitySelection={() => {}}
         activities={activities}
-        dueDates={dueDates}
         assignActivityDueDate={() => {}}
+        dueDates={dueDates}
+        toggleActivitySelection={() => {}}
       />
     )
     expect(wrapper).toMatchSnapshot()

@@ -19,10 +19,10 @@ const Cards = () => {
 />`}
           </pre>
           <Card
-            onClick={() => {}}
-            imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
-            imgAlt="office building"
             header="Other"
+            imgAlt="office building"
+            imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
+            onClick={() => {}}
             text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
           />
         </div>
@@ -38,8 +38,8 @@ const Cards = () => {
 />`}
           </pre>
           <Card
-            onClick={() => {}}
             header="Headline text"
+            onClick={() => {}}
             text="Secondary text"
           />
         </div>

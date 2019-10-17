@@ -79,10 +79,10 @@ const SentenceFragment = React.createClass({
           <div className="box">
             <h6 className="title is-h6">Edit Sentence Fragment</h6>
             <EditForm
-              mode="Edit"
-              data={this.props.sentenceFragments.data[this.props.params.questionID]}
-              submit={this.saveSentenceFragmentEdits}
               concepts={this.props.concepts}
+              data={this.props.sentenceFragments.data[this.props.params.questionID]}
+              mode="Edit"
+              submit={this.saveSentenceFragmentEdits}
             />
           </div>
         </Modal>
@@ -104,13 +104,13 @@ const SentenceFragment = React.createClass({
     if (this.getResponses()) {
       return (
         <ResponseComponent
-          question={data[questionID]}
-          responses={this.getResponses()}
-          questionID={questionID}
-          states={states}
-          dispatch={this.props.dispatch}
           admin
+          dispatch={this.props.dispatch}
           mode={'sentenceFragment'}
+          question={data[questionID]}
+          questionID={questionID}
+          responses={this.getResponses()}
+          states={states}
         />
       );
     }
@@ -134,7 +134,7 @@ const SentenceFragment = React.createClass({
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
-            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+            <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />

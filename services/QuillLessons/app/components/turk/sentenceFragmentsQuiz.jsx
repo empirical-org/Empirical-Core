@@ -42,9 +42,9 @@ var StudentDiagnostic = React.createClass({
   renderQuestionComponent: function () {
     if (this.props.question.currentQuestion) {
       return (<Question
+        prefill={this.getLesson().prefill}
         question={this.props.question.currentQuestion}
         submitResponse={this.submitResponse}
-        prefill={this.getLesson().prefill}
       />)
     }
   },
@@ -154,24 +154,24 @@ var StudentDiagnostic = React.createClass({
       if (data[lessonID]) {
         if (this.props.playDiagnostic.currentQuestion) {
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            component = (<PlayDiagnosticQuestion question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion} key={this.props.playDiagnostic.currentQuestion.data.key} dispatch={this.props.dispatch}/>)
+            component = (<PlayDiagnosticQuestion dispatch={this.props.dispatch} key={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion} question={this.props.playDiagnostic.currentQuestion.data}/>)
 
           } else {
             component =   (<PlaySentenceFragment
-              question={this.props.playDiagnostic.currentQuestion.data}
               currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-              key={this.props.playDiagnostic.currentQuestion.data.key}
-              nextQuestion={this.nextQuestion}
-              markIdentify={this.markIdentify}
-              updateAttempts={this.submitResponse}
               dispatch={this.props.dispatch}
+              key={this.props.playDiagnostic.currentQuestion.data.key}
+              markIdentify={this.markIdentify}
+              nextQuestion={this.nextQuestion}
+              question={this.props.playDiagnostic.currentQuestion.data}
+              updateAttempts={this.submitResponse}
             />)
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved}/>)
+          component = (<FinishedDiagnostic saved={this.state.saved} saveToLMS={this.saveToLMS}/>)
         }
         else {
-          component =  <LandingPage lesson={this.getLesson()} begin={()=>{this.startActivity("John")}}/>
+          component =  <LandingPage begin={()=>{this.startActivity("John")}} lesson={this.getLesson()}/>
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
@@ -185,7 +185,7 @@ var StudentDiagnostic = React.createClass({
 
     return (
       <div>
-        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>

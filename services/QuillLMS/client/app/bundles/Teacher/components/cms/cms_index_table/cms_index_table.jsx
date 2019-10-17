@@ -16,9 +16,9 @@ export default React.createClass({
 
   furnishRow: function (resource, index) {
     return <CmsIndexTableRow
+      actions={this.props.actions}
       data={{resource: resource, identifier: this.props.data.identifier}}
       key={index}
-      actions={this.props.actions}
       resourceNameSingular={this.props.resourceNameSingular}
     />;
   },

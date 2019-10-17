@@ -74,22 +74,22 @@ const ItemLevelForm = React.createClass({
             <label className="label">Name</label>
             <input
               className="input"
-              type="text"
-              placeholder={name}
-              value={this.state.name}
-              ref="newItemLevelName"
               onChange={this.handleChange}
+              placeholder={name}
+              ref="newItemLevelName"
+              type="text"
+              value={this.state.name}
             />
           </p>
           <p className="control">
             <label className="label">Integer Value</label>
             <input
               className="input"
-              type="text"
-              placeholder={integerValue}
-              value={this.state.integerValue}
-              ref="integerValue"
               onChange={this.handleChange}
+              placeholder={integerValue}
+              ref="integerValue"
+              type="text"
+              value={this.state.integerValue}
             />
           </p>
           <div className="control">

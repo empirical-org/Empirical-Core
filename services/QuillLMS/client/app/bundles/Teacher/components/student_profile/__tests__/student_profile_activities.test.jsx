@@ -54,9 +54,9 @@ describe('StudentProfileActivities component', () => {
     it('should render appropriate count', () => {
       const wrapper = shallow(
         <StudentProfileActivities
+          count={7}
           data={[{}, {}]}
           header={''}
-          count={7}
         />
       );
       expect(wrapper.find('.header-list-counter').text()).toBe('2 of 7');

@@ -115,7 +115,7 @@ export default class extends React.Component {
         width: 80,
         Cell: row => (
           <a className='green-arrow' href={row.original['concepts_href']}>
-            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
           </a>
         )
       }
@@ -127,19 +127,19 @@ export default class extends React.Component {
       return (
         <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>
           <ReactTable
-            data={this.state.filteredReportData}
+            className='progress-report has-green-arrow'
             columns={this.columns()}
-            showPagination={false}
+            data={this.state.filteredReportData}
+            defaultPageSize={this.state.filteredReportData.length}
             defaultSorted={[{
               id: 'total_result_count',
               desc: true
             }
           ]}
-            showPaginationTop={false}
-            showPaginationBottom={false}
             showPageSizeOptions={false}
-            defaultPageSize={this.state.filteredReportData.length}
-            className='progress-report has-green-arrow'
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
           />
         </div>
       )
@@ -165,11 +165,11 @@ export default class extends React.Component {
             <p>Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can see a student’s results on each concept by clicking on the student’s name. You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport key={`reports are ready ${this.state.updatingReportData}`} data={this.state.filteredReportData} valuesToChange={changeValues} keysToOmit={this.keysToOmit()} />
+            <CSVDownloadForProgressReport data={this.state.filteredReportData} key={`reports are ready ${this.state.updatingReportData}`} keysToOmit={this.keysToOmit()} valuesToChange={changeValues} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
           <div className='dropdown-container'>
-            <ItemDropdown items={this.state.dropdownClassrooms} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
+            <ItemDropdown callback={this.switchClassrooms} items={this.state.dropdownClassrooms} selectedItem={this.state.selectedClassroom}/>
           </div>
         </div>
         {this.tableOrEmptyMessage()}

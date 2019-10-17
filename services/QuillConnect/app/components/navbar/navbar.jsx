@@ -39,10 +39,10 @@ const Navbar = React.createClass({
     } else {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()}>
-          <a href="http://www.connect.quill.org/dwqa-questions/" className="nav-item">FAQ</a>
-          <Link to={'/play'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Demo</Link>
-          <Link to={'/results'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Results</Link>
-          <Link to={'/lessons'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Activities</Link>
+          <a className="nav-item" href="http://www.connect.quill.org/dwqa-questions/">FAQ</a>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/play'}>Demo</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/results'}>Results</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/lessons'}>Activities</Link>
         </div>
       )
     }
@@ -53,10 +53,10 @@ const Navbar = React.createClass({
         <header className="nav" style={{height: '65px'}}>
           <div className="container">
             <div className="nav-left">
-              <a href="http://www.connect.quill.org" className="nav-item">
+              <a className="nav-item" href="http://www.connect.quill.org">
                 <img
-                  src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
                   alt=""
+                  src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
                   style={{height: "35px"}}
                 />
               </a>

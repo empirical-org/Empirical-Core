@@ -34,10 +34,10 @@ const ItemLevels = React.createClass({
     return levelKeys.map((key) => {
       return (
         <LinkListItem
-          key={key}
-          itemKey={key}
-          basePath='item-levels'
           activeClassName="is-active"
+          basePath='item-levels'
+          itemKey={key}
+          key={key}
           text={levels[key].name}
         />
       )

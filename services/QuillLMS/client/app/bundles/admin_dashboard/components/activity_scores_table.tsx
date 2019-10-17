@@ -77,16 +77,16 @@ const ActivityScoresTable = ({ data }) => {
   if (data && data.length) {
     return (<div key={`${data.length}-length-for-activities-scores-by-classroom`}>
       <ReactTable
-        data={data}
-        columns={columns}
-        showPagination={true}
-        defaultSorted={[{id: 'last_active', desc: true}]}
-        showPaginationTop={false}
-        showPaginationBottom={true}
-        showPageSizeOptions={false}
-        defaultPageSize={100}
-        minRows={1}
         className='progress-report activity-scores-table has-green-arrow'
+        columns={columns}
+        data={data}
+        defaultPageSize={100}
+        defaultSorted={[{id: 'last_active', desc: true}]}
+        minRows={1}
+        showPageSizeOptions={false}
+        showPagination={true}
+        showPaginationBottom={true}
+        showPaginationTop={false}
       />
     </div>)
   } else {

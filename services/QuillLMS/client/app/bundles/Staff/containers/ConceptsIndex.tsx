@@ -125,11 +125,11 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
       return <ConceptBoxContainer
+        closeConceptBox={this.closeConceptBox}
         conceptID={conceptID}
+        finishEditingConcept={() => this.finishEditingConcept(refetch)}
         levelNumber={levelNumber}
         visible={visible}
-        finishEditingConcept={() => this.finishEditingConcept(refetch)}
-        closeConceptBox={this.closeConceptBox}
       />
     }
   }
@@ -143,8 +143,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
   renderLiveAndArchivedTabs() {
     const { visible } = this.state
     return <div className="concepts-index-tools">
-      <p onClick={() => this.setVisible(true)} className={visible ? 'active' : ''}>Live</p>
-      <p onClick={() => this.setVisible(false)} className={visible ? '' : 'active'}>Archived</p>
+      <p className={visible ? 'active' : ''} onClick={() => this.setVisible(true)}>Live</p>
+      <p className={visible ? '' : 'active'} onClick={() => this.setVisible(false)}>Archived</p>
     </div>
   }
 
@@ -152,8 +152,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     if (this.state.visible) {
       return <ConceptsTable
         concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
-        visible={this.state.visible}
         selectConcept={this.selectConcept}
+        visible={this.state.visible}
       />
     } else {
       return <ConceptLevels
@@ -171,8 +171,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
         <ConceptManagerNav />
         {this.renderEditSuccessBanner()}
         <Query
-          query={gql(conceptsIndexQuery)}
           notifyOnNetworkStatusChange
+          query={gql(conceptsIndexQuery)}
         >
           {({ loading, error, data, refetch, networkStatus }) => {
             if (networkStatus === 4) return <p>Refetching!</p>;

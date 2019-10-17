@@ -80,7 +80,7 @@ export default class extends React.Component {
   }
 
   purchasePremiumButton() {
-    return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.purchasePremium} className="q-button button cta-button bg-orange text-white">Update Card</button>;
+    return <button className="q-button button cta-button bg-orange text-white" data-toggle="modal" id="purchase-btn" onClick={this.purchasePremium} type="button">Update Card</button>;
   }
 
   currentSubscription(newSub) {
@@ -175,42 +175,42 @@ export default class extends React.Component {
       <div>
         <SubscriptionStatus
           key={subId}
+          showPurchaseModal={this.showPurchaseModal}
           subscriptionStatus={this.state.subscriptionStatus}
           subscriptionType={this.subscriptionType()}
           userIsContact={this.userIsContact()}
-          showPurchaseModal={this.showPurchaseModal}
         />
         <CurrentSubscription
-          showPurchaseModal={this.showPurchaseModal}
+          authorityLevel={this.state.authorityLevel}
+          lastFour={lastFour}
           purchaserNameOrEmail={this.state.purchaserNameOrEmail}
+          showPurchaseModal={this.showPurchaseModal}
           subscriptionStatus={this.state.subscriptionStatus}
           subscriptionType={this.subscriptionType()}
-          userIsContact={this.userIsContact()}
-          lastFour={lastFour}
           updateSubscription={this.updateSubscription}
-          authorityLevel={this.state.authorityLevel}
+          userIsContact={this.userIsContact()}
         />
         <SubscriptionHistory
-          subscriptions={this.state.subscriptions}
-          premiumCredits={this.props.premiumCredits}
           authorityLevel={this.state.authorityLevel}
+          premiumCredits={this.props.premiumCredits}
+          subscriptions={this.state.subscriptions}
         />
-        <AvailableCredits userHasValidSub={userHasValidSub} availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} />
+        <AvailableCredits availableCredits={this.state.availableCredits} redeemPremiumCredits={this.redeemPremiumCredits} userHasValidSub={userHasValidSub} />
         <PremiumCreditsTable
           earnedCredits={this.state.earnedCredits}
           premiumCredits={this.props.premiumCredits}
         />
         <RefundPolicy />
         <PremiumConfirmationModal
-          show={this.state.showPremiumConfirmationModal}
           hideModal={this.hidePremiumConfirmationModal}
+          show={this.state.showPremiumConfirmationModal}
           subscription={this.state.subscriptionStatus}
         />
         <PurchaseModal
-          show={this.state.showPurchaseModal}
-          subscriptionType={this.subscriptionType()}
           hideModal={this.hidePurchaseModal}
           lastFour={lastFour}
+          show={this.state.showPurchaseModal}
+          subscriptionType={this.subscriptionType()}
           updateSubscriptionStatus={this.updateSubscriptionStatus}
         />
       </div>

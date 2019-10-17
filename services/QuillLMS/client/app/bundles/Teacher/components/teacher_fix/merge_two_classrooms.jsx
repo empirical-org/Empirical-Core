@@ -53,11 +53,11 @@ export default class MergeTwoClassrooms extends React.Component {
       <div>
         <div className="input-row">
           <label>Class Code 1:</label>
-          <input type="text" value={this.state.classCode1} onChange={(e) => this.updateClassCode(e, 1)}/>
+          <input onChange={(e) => this.updateClassCode(e, 1)} type="text" value={this.state.classCode1}/>
         </div>
         <div className="input-row">
           <label>Class Code 2:</label>
-          <input type="text" value={this.state.classCode2} onChange={(e) => this.updateClassCode(e, 2)}/>
+          <input onChange={(e) => this.updateClassCode(e, 2)} type="text" value={this.state.classCode2}/>
         </div>
         <button onClick={this.submitData}>Merge Classrooms</button>
         {this.renderError()}

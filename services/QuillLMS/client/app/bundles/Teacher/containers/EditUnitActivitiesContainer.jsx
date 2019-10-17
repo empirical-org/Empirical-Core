@@ -47,13 +47,13 @@ export default React.createClass({
       <div>
         <div className='container lesson_planner_main edit-assigned-activities-container'>
           <UnitStage1
-            unitName={this.props.params.unitName}
+            editing={Boolean(true)}
+            errorMessage={this.state.errors}
             hideNameTheUnit={Boolean(true)}
             selectedActivities={[...this.state.selectedActivities]}
-            errorMessage={this.state.errors}
-            editing={Boolean(true)}
-            updateActivities={this.updateActivities}
             toggleActivitySelection={this.toggleActivitySelection}
+            unitName={this.props.params.unitName}
+            updateActivities={this.updateActivities}
           />
         </div>
       </div>

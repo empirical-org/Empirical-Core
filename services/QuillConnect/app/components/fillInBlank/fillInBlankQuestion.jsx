@@ -37,18 +37,18 @@ class FillInBlankQuestion extends Component {
         <div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
-            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+            <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <Cues
-            getQuestion={this.getQuestion}
             displayArrowAndText={true}
+            getQuestion={this.getQuestion}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
             <p>{this.getQuestion().instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-            {<Link to={`admin/fill-in-the-blanks/${questionID}/edit`} className="button is-outlined is-primary">Edit Question</Link>}
+            {<Link className="button is-outlined is-primary" to={`admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>}
           </p>
           <div className="tabs">
             <ul>

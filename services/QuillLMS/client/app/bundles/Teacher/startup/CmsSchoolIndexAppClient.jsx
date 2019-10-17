@@ -191,17 +191,17 @@ export default class CmsSchoolIndex extends React.Component {
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
       return (<div>
         <ReactTable
-          data={this.state.data}
-          columns={this.state.columns}
-          showPagination={false}
-          defaultSorted={[{id: sort, desc: sortDescending}]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
-          defaultPageSize={100}
-          minRows={1}
           className='progress-report activity-scores-table'
+          columns={this.state.columns}
+          data={this.state.data}
+          defaultPageSize={100}
+          defaultSorted={[{id: sort, desc: sortDescending}]}
+          minRows={1}
           onSortedChange={this.setSort}
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
         />
         <div className='cms-pagination-container'>
           {this.renderPageSelector()}
@@ -218,27 +218,27 @@ export default class CmsSchoolIndex extends React.Component {
         <div className='cms-meta-middle'>
           <div className='cms-form-row'>
             <label>School Name</label>
-            <input id='school_name' name='school_name' value={this.state.query.school_name} onChange={e => this.updateField(e, 'school_name')}/>
+            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name}/>
           </div>
 
           <div className='cms-form-row'>
             <label>City</label>
-            <input id='school_city' name='school_city' value={this.state.query.school_city} onChange={e => this.updateField(e, 'school_city')}/>
+            <input id='school_city' name='school_city' onChange={e => this.updateField(e, 'school_city')} value={this.state.query.school_city}/>
           </div>
 
           <div className='cms-form-row'>
             <label>State</label>
-            <input id='school_state' name='school_state' value={this.state.query.school_state} onChange={e => this.updateField(e, 'school_state')}/>
+            <input id='school_state' name='school_state' onChange={e => this.updateField(e, 'school_state')} value={this.state.query.school_state}/>
           </div>
 
           <div className='cms-form-row'>
             <label>Zip</label>
-            <input id='school_zip' name='school_zip' value={this.state.query.school_zip} onChange={e => this.updateField(e, 'school_zip')}/>
+            <input id='school_zip' name='school_zip' onChange={e => this.updateField(e, 'school_zip')} value={this.state.query.school_zip}/>
           </div>
 
           <div className='cms-form-row'>
             <label>District Name</label>
-            <input id='district_name' name='district_name' value={this.state.query.district_name} onChange={e => this.updateField(e, 'district_name')}/>
+            <input id='district_name' name='district_name' onChange={e => this.updateField(e, 'district_name')} value={this.state.query.district_name}/>
           </div>
         </div>
 
@@ -251,11 +251,11 @@ export default class CmsSchoolIndex extends React.Component {
           <div className='cms-form-row cms-checkbox-row'>
             <label>Include Schools with 0 Teachers</label>
             <input
-              type="checkbox"
-              name="search_schools_with_zero_teachers"
-              id="search_schools_with_zero_teachers"
               checked={this.state.query.search_schools_with_zero_teachers}
+              id="search_schools_with_zero_teachers"
+              name="search_schools_with_zero_teachers"
               onChange={this.updateCheckbox}
+              type="checkbox"
             />
           </div>
 

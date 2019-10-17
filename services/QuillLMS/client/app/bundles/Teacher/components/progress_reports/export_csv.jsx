@@ -87,10 +87,10 @@ export default React.createClass({
             return (
               <div className="export-csv">
                 <a
-                  href={s.csvUrl || null}
                   className="download-button q-button bg-quillgreen text-white"
                   disabled={this.state.waitingForCsv}
                   download={s.csvUrl ? 'CSV' : null}
+                  href={s.csvUrl || null}
                   onClick={!s.csvUrl && !s.waitingForCsv ? this.createExport : null}
                 >{content}</a>
               </div>

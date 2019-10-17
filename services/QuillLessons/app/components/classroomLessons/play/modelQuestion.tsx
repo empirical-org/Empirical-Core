@@ -28,8 +28,8 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
   renderInstructions() {
     if (this.props.data.play.instructions) {
       return (<Feedback
-        feedbackType="default"
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+        feedbackType="default"
       />);
     }
   }
@@ -38,10 +38,10 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     if (this.props.data.play.cues) {
       return (
         <Cues
+          displayArrowAndText={false}
           getQuestion={() => ({
             cues: this.props.data.play.cues,
           })}
-          displayArrowAndText={false}
         />
       );
     }

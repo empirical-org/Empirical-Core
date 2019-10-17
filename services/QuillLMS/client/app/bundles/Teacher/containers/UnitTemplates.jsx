@@ -8,8 +8,8 @@ export default React.createClass({
   resourceComponentGenerator: function (cmsComponent) {
     // FIXME : replace below with more general EC.Resource and the appropriate props
     return (<UnitTemplate
-      unitTemplate={cmsComponent.state.resourceToEdit}
       returnToIndex={cmsComponent.returnToIndex}
+      unitTemplate={cmsComponent.state.resourceToEdit}
     />);
   },
 
@@ -17,9 +17,9 @@ export default React.createClass({
     return (
       <div className="cms-unit-templates">
         <Cms
-          resourceNameSingular='unit_template'
-          resourceNamePlural='unit_templates'
           resourceComponentGenerator={this.resourceComponentGenerator}
+          resourceNamePlural='unit_templates'
+          resourceNameSingular='unit_template'
         />
       </div>
 

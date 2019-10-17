@@ -69,9 +69,9 @@ export default class extends React.Component {
               <div className="image-container flex-row space-around vertically-centered">
                 <img alt="quill-logo" src="/images/lesson_icon_green.svg" />
               </div>
-              <span onClick={() => this.openModal(l.activity_id)} className="lesson-name">{l.name}</span>
+              <span className="lesson-name" onClick={() => this.openModal(l.activity_id)}>{l.name}</span>
             </div>
-            <a href={`/teachers/units/select_lesson/${l.activity_id}`} className="q-button bg-quillgreen text-white">Launch Lesson</a>
+            <a className="q-button bg-quillgreen text-white" href={`/teachers/units/select_lesson/${l.activity_id}`}>Launch Lesson</a>
           </div>
         </div>
       );
@@ -82,8 +82,8 @@ export default class extends React.Component {
   renderModal(lessonID) {
     if (this.state.showModal === lessonID) {
       return <PreviewOrLaunchModal
-        lessonID={lessonID}
         closeModal={this.closeModal}
+        lessonID={lessonID}
       />;
     }
   }
@@ -127,7 +127,7 @@ export default class extends React.Component {
           <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_lessons_launch_card.svg`} />
           <p>Once you assign a shared group lesson, you can launch it from this window.</p>
           <p>Quill Lessons provides whole-class lessons that are led by the teacher.</p>
-          <p>Select questions for your students and instantly see their responses. <a target="_blank" href="/tools/lessons">Learn More</a></p>
+          <p>Select questions for your students and instantly see their responses. <a href="/tools/lessons" target="_blank">Learn More</a></p>
         </div>
       </div>
     }

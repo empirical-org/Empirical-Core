@@ -57,7 +57,7 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
         <p className={step === 2 ? 'active' : ''}>2. Add students</p>
         <p className={step === 3 ? 'active' : ''}>3. Setup instructions</p>
       </div>
-      <img src={closeIconSrc} onClick={this.props.close} />
+      <img onClick={this.props.close} src={closeIconSrc} />
     </div>
   }
 
@@ -67,9 +67,9 @@ export default class CreateAClassModal extends React.Component<CreateAClassModal
     if (step === 1) {
       return <CreateAClassForm next={this.next} setClassroom={this.setClassroom} />
     } else if (step === 2) {
-      return <AddStudents next={this.next} classroom={classroom} showSnackbar={showSnackbar} setStudents={this.setStudents} />
+      return <AddStudents classroom={classroom} next={this.next} setStudents={this.setStudents} showSnackbar={showSnackbar} />
     } else {
-      return <SetupInstructions back={this.back} close={close} classroom={classroom} />
+      return <SetupInstructions back={this.back} classroom={classroom} close={close} />
     }
   }
 

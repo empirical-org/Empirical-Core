@@ -60,10 +60,10 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
       }
     }).map((key: string) => (
       <LinkListItem
-        key={key}
-        itemKey={key}
-        basePath='lessons'
         activeClassName='is-active'
+        basePath='lessons'
+        itemKey={key}
+        key={key}
         text={data[key].title || 'No name'}
       />
     ));
@@ -74,7 +74,7 @@ class Lessons extends React.Component<LessonsProps, LessonsState> {
     if (this.props.lessons.newLessonModalOpen) {
       return (
         <Modal close={this.createNew}>
-          <EditLessonForm submit={this.submitNewLesson} stateSpecificClass={stateSpecificClass} />
+          <EditLessonForm stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
         </Modal>
       );
     }

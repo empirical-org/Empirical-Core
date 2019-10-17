@@ -74,7 +74,7 @@ const Lesson = React.createClass({
   renderSessionList: function () {
     return _.map(this.state.sessions, (session) => {
       return (
-        <li style={styles.container} key={session.key} onClick={this.showModal.bind(null, session)}>
+        <li key={session.key} onClick={this.showModal.bind(null, session)} style={styles.container}>
           <div>{session.name}</div>
           <div>{this.getPercentageScore(session.questions)}</div>
         </li>

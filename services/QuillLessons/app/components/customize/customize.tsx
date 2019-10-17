@@ -92,7 +92,7 @@ class Customize extends React.Component<customizeProps, customizeState> {
   render() {
     return (
       <div>
-        <NavBar params={this.props.params} goToSuccessPage={this.goToSuccessPage}/>
+        <NavBar goToSuccessPage={this.goToSuccessPage} params={this.props.params}/>
         {this.props.children}
       </div>
     );

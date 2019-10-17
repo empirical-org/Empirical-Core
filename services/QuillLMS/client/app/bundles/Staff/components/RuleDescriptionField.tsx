@@ -40,11 +40,11 @@ export default class RuleDescriptionField extends React.Component<any, any> {
           {this.props.new ? '' : <p className="remove-rule-description" onClick={this.cancel}><i className="fas fa-archive"/><span>Remove</span></p>}
         </div>
         <TextEditor
-          text={this.props.ruleDescription}
-          handleTextChange={this.props.handleChange}
           ContentState={ContentState}
           EditorState={EditorState}
+          handleTextChange={this.props.handleChange}
           key="rule-description"
+          text={this.props.ruleDescription}
         />
         {this.props.new ? <p className="cancel-rule-description" onClick={this.cancel}>Cancel</p> : ''}
       </div>

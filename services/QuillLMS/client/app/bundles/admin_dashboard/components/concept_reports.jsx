@@ -36,22 +36,22 @@ const ConceptReports = ({
     </div>
     <div className="dropdown-container">
       <ItemDropdown
-        items={schoolNames}
         callback={switchSchool}
-        selectedItem={selectedSchool}
         dropdownId="cr-school-select-dropdown"
+        items={schoolNames}
+        selectedItem={selectedSchool}
       />
       <ItemDropdown
-        items={teacherNames}
         callback={switchTeacher}
-        selectedItem={selectedTeacher}
         dropdownId="cr-teacher-select-dropdown"
+        items={teacherNames}
+        selectedItem={selectedTeacher}
       />
       <ItemDropdown
-        items={classroomNames}
         callback={switchClassroom}
-        selectedItem={selectedClassroom}
         dropdownId="cr-classroom-select-dropdown"
+        items={classroomNames}
+        selectedItem={selectedClassroom}
       />
     </div>
     <ConceptReportsTable data={filteredConceptReportsData} />

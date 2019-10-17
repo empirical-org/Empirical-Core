@@ -20,8 +20,8 @@ let QuestionSelecter = ({ dispatch, index, questions, questionID, questionType }
       >
         {questions.map(question =>
           <option
-            value={question.key}
             key={question.key}
+            value={question.key}
           >
             { question.prompt }
           </option>

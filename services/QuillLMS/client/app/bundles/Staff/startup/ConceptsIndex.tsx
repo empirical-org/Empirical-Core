@@ -14,11 +14,11 @@ const container = (props) => (
 export default () => (
   <ApolloProvider client={client}>
     <Router history={hashHistory}>
-      <Route path="/" component={container}>
+      <Route component={container} path="/">
         <IndexRoute component={ConceptsIndex}/>
-        <Route path="new" component={ConceptsNew}/>
-        <Route path="find_and_replace" component={ConceptsFindAndReplace}/>
-        <Route path="change_log" component={ConceptsChangeLogIndex}/>
+        <Route component={ConceptsNew} path="new"/>
+        <Route component={ConceptsFindAndReplace} path="find_and_replace"/>
+        <Route component={ConceptsChangeLogIndex} path="change_log"/>
       </Route>
     </Router>
   </ApolloProvider>

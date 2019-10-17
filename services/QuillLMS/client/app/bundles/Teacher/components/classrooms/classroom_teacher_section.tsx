@@ -212,10 +212,10 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     if (showModal === removeCoteacherModal && selectedCoteacherId) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
       return <RemoveCoteacherModal
-        close={this.closeModal}
-        onSuccess={onSuccess}
-        coteacher={coteacher}
         classroom={classroom}
+        close={this.closeModal}
+        coteacher={coteacher}
+        onSuccess={onSuccess}
       />
     }
   }
@@ -226,10 +226,10 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     if (showModal === transferOwnershipModal && selectedCoteacherId) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
       return <TransferOwnershipModal
-        close={this.closeModal}
-        onSuccess={onSuccess}
-        coteacher={coteacher}
         classroom={classroom}
+        close={this.closeModal}
+        coteacher={coteacher}
+        onSuccess={onSuccess}
       />
     }
   }
@@ -240,11 +240,11 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     if (showModal === inviteCoteachersModal) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
       return <InviteCoteachersModal
-        close={this.closeModal}
-        classrooms={this.classroomsOwnedByCurrentUser()}
         classroom={classroom}
-        onSuccess={onSuccess}
+        classrooms={this.classroomsOwnedByCurrentUser()}
+        close={this.closeModal}
         coteacher={coteacher}
+        onSuccess={onSuccess}
       />
     }
   }

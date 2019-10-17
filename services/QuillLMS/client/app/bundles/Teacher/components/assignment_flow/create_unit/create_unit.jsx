@@ -294,12 +294,12 @@ export default class CreateUnit extends React.Component {
   stage1SpecificComponents() {
     return (<Stage1
       activities={this.state.activities}
-      selectedActivities={this.getSelectedActivities()}
+      clickContinue={this.clickContinue}
       determineIfInputProvidedAndValid={this.determineIfInputProvidedAndValid}
       errorMessage={this.determineStage1ErrorMessage()}
-      updateUnitName={this.updateUnitName}
+      selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
-      clickContinue={this.clickContinue}
+      updateUnitName={this.updateUnitName}
     />);
   }
 
@@ -323,22 +323,22 @@ export default class CreateUnit extends React.Component {
 
   stage2SpecificComponents() {
     return (<Stage2
-      selectedActivities={this.getSelectedActivities()}
+      areAnyStudentsSelected={this.areAnyStudentsSelected()}
+      assignActivityDueDate={this.assignActivityDueDate}
+      classrooms={this.getClassrooms()}
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
-      classrooms={this.getClassrooms()}
-      updateUnitName={this.updateUnitName}
+      errorMessage={this.determineStage2ErrorMessage()}
+      fetchClassrooms={this.fetchClassrooms}
+      finish={this.finish}
+      selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
       toggleStudentSelection={this.toggleStudentSelection}
-      finish={this.finish}
       unitName={this.getUnitName()}
       unitTemplateName={this.props.params.unitName}
-      assignActivityDueDate={this.assignActivityDueDate}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      errorMessage={this.determineStage2ErrorMessage()}
+      updateUnitName={this.updateUnitName}
       user={this.props.user}
-      fetchClassrooms={this.fetchClassrooms}
     />);
   }
 
@@ -348,9 +348,9 @@ export default class CreateUnit extends React.Component {
     if ((this.state.assignSuccess)) {
       return (<UnitAssignmentFollowup
         classrooms={classrooms}
+        referralCode={referralCode}
         selectedActivities={selectedActivities}
         unitName={name}
-        referralCode={referralCode}
       />);
     }
 

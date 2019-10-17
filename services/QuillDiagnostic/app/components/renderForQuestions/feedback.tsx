@@ -80,9 +80,9 @@ class FeedbackComponent extends React.Component<any, any> {
     if (this.props.question) {
       return (
         <Feedback
-          key={key}
-          feedbackType={this.getFeedbackType(this.props)}
           feedback={this.getFeedbackCopy(this.props)}
+          feedbackType={this.getFeedbackType(this.props)}
+          key={key}
         />
       )
     } else {

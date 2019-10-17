@@ -161,10 +161,10 @@ class ChooseEdition extends React.Component<any, any> {
     if (this.state.showNamingModal) {
       const buttonClassName = this.state.newEditionName ? 'active' : 'inactive'
       return <EditionNamingModal
-        saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
-        updateName={this.updateName}
         buttonClassName={buttonClassName}
         deleteNewEdition={this.deleteNewEdition}
+        saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
+        updateName={this.updateName}
       />
     }
   }
@@ -188,37 +188,37 @@ class ChooseEdition extends React.Component<any, any> {
       if (edition.lesson_id === this.props.params.lessonID) {
         if (edition.user_id === user_id) {
           const editionRow = <EditionRow
-            key={e}
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
-            editEdition={this.editEdition}
             archiveEdition={this.archiveEdition}
             creator='user'
+            editEdition={this.editEdition}
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
             selectAction={this.selectAction}
-            selectState={selectState}
             selectedEdition={sessionEditionId === e}
+            selectState={selectState}
           />
           myEditions.push(editionRow)
         } else if (String(edition.user_id) === 'quill-staff') {
           const editionRow = <EditionRow
-            key={e}
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
             creator='quill'
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
             selectAction={this.selectAction}
-            selectState={selectState}
             selectedEdition={sessionEditionId === e}
+            selectState={selectState}
           />
           quillEditions.push(editionRow)
         } else {
           const editionRow = <EditionRow
-            key={e}
-            edition={edition}
-            makeNewEdition={this.makeNewEdition}
             creator='coteacher'
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
             selectAction={this.selectAction}
-            selectState={selectState}
             selectedEdition={sessionEditionId === e}
+            selectState={selectState}
           />
           coteacherEditions.push(editionRow)
         }

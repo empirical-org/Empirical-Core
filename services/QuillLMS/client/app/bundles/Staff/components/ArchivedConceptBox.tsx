@@ -197,10 +197,10 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         }
       })
       return <ChangeLogModal
-        concept={concept}
-        changedFields={changedFields}
-        levelNumber={this.props.levelNumber}
         cancel={this.closeChangeLogModal}
+        changedFields={changedFields}
+        concept={concept}
+        levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
       />
     }
@@ -220,12 +220,12 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           const value = options.find(opt => opt.value === concept.parent.id)
           return <div className="concept-input-container">
             <DropdownInput
-              label="Level 1"
-              value={value}
-              options={options}
-              handleChange={this.changeLevel1}
               error={errors.level1}
+              handleChange={this.changeLevel1}
               isSearchable={true}
+              label="Level 1"
+              options={options}
+              value={value}
             />
             {this.renderArchivedOrLive(value)}
           </div>
@@ -243,12 +243,12 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           const value = options.find(opt => opt.value === concept.parent.id)
           return <div className="concept-input-container">
             <DropdownInput
-              label="Level 2"
-              value={value}
-              options={options}
-              handleChange={this.changeLevel2}
               error={errors.level2}
+              handleChange={this.changeLevel2}
               isSearchable={true}
+              label="Level 2"
+              options={options}
+              value={value}
             />
             {this.renderArchivedOrLive(value)}
           </div>
@@ -264,10 +264,10 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       return <div>
         <div className="concept-input-container">
           <Input
-            label='Level 2'
-            value={concept.name}
-            type='text'
             disabled={true}
+            label='Level 2'
+            type='text'
+            value={concept.name}
           />
           {this.renderArchivedOrLive(concept)}
         </div>
@@ -278,10 +278,10 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         {this.renderDropdownInput()}
         <div className="concept-input-container">
           <Input
-            label='Level 1'
-            value={concept.name}
-            type='text'
             disabled={true}
+            label='Level 1'
+            type='text'
+            value={concept.name}
           />
           {this.renderArchivedOrLive(concept)}
         </div>
@@ -293,18 +293,18 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           <Input
             disabled={true}
             label='Level 2'
-            value={concept.parent.parent.name}
             type='text'
+            value={concept.parent.parent.name}
           />
           {this.renderArchivedOrLive(concept.parent.parent)}
         </div>
         {this.renderDropdownInput()}
         <div className="concept-input-container">
           <Input
-            label='Level 0'
-            value={concept.name}
-            type='text'
             disabled={true}
+            label='Level 0'
+            type='text'
+            value={concept.name}
           />
           {this.renderArchivedOrLive(concept)}
         </div>
@@ -318,27 +318,27 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     const { concept } = this.state
     if (levelNumber === 2) {
       return <input
+        className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-        className="quill-button contained primary medium"
       />
     } else if (levelNumber === 1 && concept.parent.visible) {
       return <input
+        className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-        className="quill-button contained primary medium"
       />
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
       return <input
+        className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-        className="quill-button contained primary medium"
       />
     } else {
       return <input
+        className="quill-button contained disabled primary medium"
         type="submit"
         value="Unarchive, set live"
-        className="quill-button contained disabled primary medium"
       />
     }
   }
@@ -350,7 +350,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           <div className="concept-box archived-concept-box">
             {this.renderChangeLogModal(editConcept)}
             <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
-            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+            <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>
                 <h1>{this.state.concept.name}</h1>

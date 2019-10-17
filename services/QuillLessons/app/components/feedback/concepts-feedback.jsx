@@ -25,11 +25,11 @@ const ConceptsFeedback = React.createClass({
       return data["0"].map((concept) => {
         const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
         return <LinkListItem
-          key={concept.uid}
-          basePath='concepts-feedback'
-          itemKey={concept.uid}
-          className={hasFeedback ? "" : "no-feedback"}
           activeClassName='is-active'
+          basePath='concepts-feedback'
+          className={hasFeedback ? "" : "no-feedback"}
+          itemKey={concept.uid}
+          key={concept.uid}
           text={concept.displayName}
         />
       })
@@ -48,9 +48,9 @@ const ConceptsFeedback = React.createClass({
                 <label className="label">Name</label>
                 <input
                   className="input"
-                  type="text"
                   placeholder="Text input"
                   ref="newConceptName"
+                  type="text"
                 />
               </p>
               <p className="control">

@@ -51,7 +51,7 @@ export default class extends React.Component {
   greenArrow(row) {
     if (row.completed_at) {
       return (<a href={`/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}`}>
-        <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+        <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
       </a>)
     }
   }
@@ -76,7 +76,7 @@ export default class extends React.Component {
     const onClickFunction = row.completed_at ? () => window.location.href = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${row.classroom_unit_id}/user/${this.props.studentId}/a/${row.activity_id}` : () => {}
 
     return (
-      <tr onClick={onClickFunction} className={row.completed_at ? 'clickable' : ''}>
+      <tr className={row.completed_at ? 'clickable' : ''} onClick={onClickFunction}>
         <td className='activity-image'>{this.activityImage(row.activity_classification_id, scoreInfo.color)}</td>
         <td className='activity-name'>
           <a className={scoreInfo.linkColor} href={`/activity_sessions/anonymous?activity_id=${row.activity_id}`}>{row.name}</a>

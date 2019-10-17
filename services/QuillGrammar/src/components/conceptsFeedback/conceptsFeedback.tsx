@@ -34,11 +34,11 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
       return data[0].sort((a, b) => a.displayName.localeCompare(b.displayName)).map((concept) => {
         const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
         return <LinkListItem
-          key={concept.uid}
-          basePath='concepts_feedback'
-          itemKey={concept.uid}
-          className={hasFeedback ? "" : "no-feedback"}
           activeClassName='is-active'
+          basePath='concepts_feedback'
+          className={hasFeedback ? "" : "no-feedback"}
+          itemKey={concept.uid}
+          key={concept.uid}
           text={concept.displayName}
         />
       })
@@ -59,9 +59,9 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
                 <label className="label">Name</label>
                 <input
                   className="input"
-                  type="text"
                   placeholder="Text input"
                   ref="newConceptName"
+                  type="text"
                 />
               </p>
               <p className="control">

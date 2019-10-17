@@ -79,11 +79,11 @@ class TestQuestion extends Component {
         <div>
           <div className="test-question-container">
             <PlayFillInTheBlankQuestion
-              key={this.state.key}
-              question={question}
-              prefill={false}
-              nextQuestion={this.reset}
               dispatch={this.props.dispatch}
+              key={this.state.key}
+              nextQuestion={this.reset}
+              prefill={false}
+              question={question}
               setResponse={this.setResponse}
               submitResponse={this.submitResponse}
             />

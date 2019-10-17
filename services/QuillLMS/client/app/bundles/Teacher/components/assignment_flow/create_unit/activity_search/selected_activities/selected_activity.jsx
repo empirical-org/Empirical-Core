@@ -16,7 +16,7 @@
         {this.props.data.name}
       </a>
     </td>
-    <td onClick={this.deselectActivity} data-model-id={this.props.data.id} className='deselect-activity'><img src="/images/x.svg" /></td>
+    <td className='deselect-activity' data-model-id={this.props.data.id} onClick={this.deselectActivity}><img src="/images/x.svg" /></td>
   </tr>
 		);
 

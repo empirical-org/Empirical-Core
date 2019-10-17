@@ -30,9 +30,9 @@ class NewIncorrectSequencesContainer extends React.Component {
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
-          questions={questions}
           questionID={match.params.questionID}
+          questions={questions}
+          usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
         />
         {this.props.children}
       </div>

@@ -47,10 +47,10 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
-              label="Label"
-              options={options}
               handleChange={(e) => {this.changeSavedValues('dropdownOne', e)}}
               isSearchable={false}
+              label="Label"
+              options={options}
               value={this.state.dropdownOne}
             />
           </div>
@@ -67,11 +67,11 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
-              label="Label"
-              value={this.state.dropdownTwo}
-              options={options}
               handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
               isSearchable={false}
+              label="Label"
+              options={options}
+              value={this.state.dropdownTwo}
             />
           </div>
         </div>
@@ -91,12 +91,12 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
+              handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
+              isSearchable={true}
               label="Label"
               options={options}
-              handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
-              value={this.state.dropdownThree}
-              isSearchable={true}
               placeholder="Value goes here"
+              value={this.state.dropdownThree}
             />
           </div>
           <div className="big-element">
@@ -112,11 +112,11 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
-              label="Label"
-              value={this.state.dropdownFour}
-              isSearchable={true}
-              options={options}
               handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
+              isSearchable={true}
+              label="Label"
+              options={options}
+              value={this.state.dropdownFour}
             />
           </div>
         </div>
@@ -135,11 +135,11 @@ handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
 />`}
             </pre>
             <DropdownInput
-              value={this.state.dropdownFive}
+              handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
               isMulti={true}
               options={options}
               optionType='option'
-              handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
+              value={this.state.dropdownFive}
             />
           </div>
         </div>

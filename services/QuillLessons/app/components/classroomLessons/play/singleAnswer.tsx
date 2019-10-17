@@ -132,13 +132,13 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     const textBoxDisabled = !!this.state.submitted || this.props.projector
       return (
         <TextEditor
-          defaultValue={''}
-          value={this.state.response}
-          disabled={textBoxDisabled}
           checkAnswer={this.submitSubmission}
-          hasError={undefined}
+          defaultValue={''}
+          disabled={textBoxDisabled}
           handleChange={this.handleChange}
+          hasError={undefined}
           placeholder={this.props.projector ? 'Students type their response.' : "Type your answer here."}
+          value={this.state.response}
         />
       );
   }
@@ -149,8 +149,8 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         return (<FeedbackRow/>);
       } else if (this.props.data.play.instructions) {
         return (<Feedback
-          feedbackType="default"
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+          feedbackType="default"
         />);
       }
     }
@@ -161,10 +161,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       if (this.props.data.play.cues) {
         return (
           <Cues
+            displayArrowAndText={false}
             getQuestion={() => ({
               cues: this.props.data.play.cues,
             })}
-            displayArrowAndText={false}
           />
         );
       }
@@ -178,7 +178,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     if (this.props.mode !== 'PROJECT') {
       const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
       return (<div className="question-button-group">
-        <button disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission} className={`button student-submit ${disabled}`}>Submit</button>
+        <button className={`button student-submit ${disabled}`} disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission}>Submit</button>
       </div>);
     }
   }

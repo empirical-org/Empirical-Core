@@ -106,7 +106,7 @@ export default class ActivitiesUnit extends React.Component {
         classy = 'edit-unit';
         text = 'Edit Name';
       }
-      return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>;
+      return <span className={classy} onClick={this.changeToEdit} style={inlineStyle}>{text}</span>;
     }
   }
 
@@ -137,7 +137,7 @@ export default class ActivitiesUnit extends React.Component {
   }
 
   editUnitName = () => {
-    return <input type="text" onChange={this.handleNameChange} value={this.state.unitName} />;
+    return <input onChange={this.handleNameChange} type="text" value={this.state.unitName} />;
   }
 
   editStudentsLink = () => {
@@ -255,18 +255,18 @@ export default class ActivitiesUnit extends React.Component {
       if (ca) {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            key={`${this.props.data.unitId}-${key}`}
-            report={this.props.report}
             activityReport={this.props.activityReport}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideUnitActivity={this.props.hideUnitActivity}
-            unitId={this.props.data.unitId}
-            data={ca}
-            updateAllDueDates={this.updateAllDueDates}
-            isFirst={i === 0}
-            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
             activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+            data={ca}
+            hideUnitActivity={this.props.hideUnitActivity}
+            isFirst={i === 0}
+            key={`${this.props.data.unitId}-${key}`}
+            lesson={this.props.lesson}
+            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
+            report={this.props.report}
+            unitId={this.props.data.unitId}
+            updateAllDueDates={this.updateAllDueDates}
+            updateDueDate={this.props.updateDueDate}
           />
         );
         i += 1;

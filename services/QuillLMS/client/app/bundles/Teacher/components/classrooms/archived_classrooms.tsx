@@ -84,9 +84,9 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
     if (showModal === unarchiveClassroomModal) {
       const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
       return <UnarchiveClassroomModal
+        classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classroom={selectedClassroom}
       />
     }
   }
@@ -106,12 +106,12 @@ export default class ArchivedClassrooms extends React.Component<ArchivedClassroo
         return <Classroom
           classroom={classroom}
           classrooms={ownArchivedClassrooms}
-          unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
-          selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
-          user={user}
           isOwnedByCurrentUser={isOwnedByCurrentUser}
           onSuccess={this.onSuccess}
+          selected={classroom.id === this.state.selectedClassroomId}
+          unarchiveClass={() => this.openModal(unarchiveClassroomModal)}
+          user={user}
         />
       })
       return <div className="archived-classes">

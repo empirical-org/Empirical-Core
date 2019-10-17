@@ -123,7 +123,7 @@ export default React.createClass({
   <div className='activity-analysis'>
     <h1>Diagnostic Analysis</h1>
     <p>Open a diagnostic report to view students' responses, the overall results on each question, and the individualized recommendations for each student.</p>
-    <Units report={Boolean(true)} data={this.state.units}/>
+    <Units data={this.state.units} report={Boolean(true)}/>
   </div>
 				);
 			}
@@ -139,7 +139,7 @@ export default React.createClass({
 		return (
   <div className="container manage-units">
     {this.stateBasedComponent()}
-    <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a target="_blank" href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing">short feedback form</a>.</div>
+    <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing" target="_blank">short feedback form</a>.</div>
   </div>
 		);
 

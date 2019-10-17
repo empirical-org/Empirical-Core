@@ -69,7 +69,7 @@ class ConceptsFindAndReplace extends React.Component<ConceptsFindAndReplaceProps
 
             return <div className="find-and-replace-container">
               <a className="find-and-replace-guide" href="https://www.notion.so/quill/Concept-Manager-Guide-08b52d41f62f47e59856b14c91b4a95a" target="_blank">Guide For Find & Replace</a>
-              <ConceptReplaceForm showSuccessBanner={this.showSuccessBanner} concepts={data.concepts}/>
+              <ConceptReplaceForm concepts={data.concepts} showSuccessBanner={this.showSuccessBanner}/>
             </div>
           }}
         </Query>

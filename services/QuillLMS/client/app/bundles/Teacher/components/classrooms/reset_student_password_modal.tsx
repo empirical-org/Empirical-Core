@@ -37,11 +37,11 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
         </div>
         <p>When you reset a student's password, the new password is the student's last name.</p>
         <Input
-          label="New password"
-          value={student.name.split(' ')[1]}
-          type="text"
-          disabled={true}
           className="password"
+          disabled={true}
+          label="New password"
+          type="text"
+          value={student.name.split(' ')[1]}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>

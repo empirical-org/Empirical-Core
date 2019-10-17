@@ -35,31 +35,31 @@ class SelectUSNonK12 extends React.Component {
         <h1>Where do you teach?</h1>
         <div className="quill-cards">
           <Card
-            onClick={() => this.selectSchool('home school')}
-            imgSrc={homeSchoolSrc}
-            imgAlt="home"
             header="Home school"
+            imgAlt="home"
+            imgSrc={homeSchoolSrc}
+            onClick={() => this.selectSchool('home school')}
             text="Tip: many home school teachers begin by assigning our Starter&nbsp;Diagnostic."
           />
           <Card
-            onClick={() => this.selectSchool('international')}
-            imgSrc={internationalSrc}
-            imgAlt="globe"
             header="International institution"
+            imgAlt="globe"
+            imgSrc={internationalSrc}
+            onClick={() => this.selectSchool('international')}
             text="Tip: many international teachers begin by assigning our ELL&nbsp;Diagnostic."
           />
           <Card
-            onClick={() => this.selectSchool('us higher ed')}
-            imgSrc={higherEdSrc}
-            imgAlt="college campus"
             header="U.S. higher education institution"
+            imgAlt="college campus"
+            imgSrc={higherEdSrc}
+            onClick={() => this.selectSchool('us higher ed')}
             text="Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities."
           />
           <Card
-            onClick={() => this.selectSchool('other')}
-            imgSrc={otherSrc}
-            imgAlt="office building"
             header="Other"
+            imgAlt="office building"
+            imgSrc={otherSrc}
+            onClick={() => this.selectSchool('other')}
             text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
           />
         </div>

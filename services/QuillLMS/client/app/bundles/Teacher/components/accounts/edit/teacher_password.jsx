@@ -74,8 +74,8 @@ export default class TeacherPassword extends React.Component {
   renderButtonSection() {
     if (this.state.showButtonSection) {
       return <div className="button-section">
-        <div id="cancel" className="quill-button outlined secondary medium" onClick={this.resetAndDeactivateSection}>Cancel</div>
-        <input type="submit" name="commit" value="Change password" className={this.submitClass()} />
+        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
+        <input className={this.submitClass()} name="commit" type="submit" value="Change password" />
       </div>
     }
   }
@@ -84,37 +84,37 @@ export default class TeacherPassword extends React.Component {
     const { currentPassword, newPassword, confirmedNewPassword, } = this.state
     const { errors, active, timesSubmitted, googleId, cleverId, } = this.props
     if (this.props.active) {
-      return <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+      return <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
           <div className="current-password-section">
             <Input
-              label="Current password"
-              value={currentPassword}
-              handleChange={(e) => this.handleChange('currentPassword', e)}
-              type="password"
               className="current-password inspectletIgnore"
               error={errors.current_password}
+              handleChange={(e) => this.handleChange('currentPassword', e)}
+              label="Current password"
               timesSubmitted={timesSubmitted}
+              type="password"
+              value={currentPassword}
             />
             <a classsName="forgot-password" href="/password_reset">Forgot password?</a>
           </div>
           <Input
-            label="New password"
-            value={newPassword}
-            handleChange={(e) => this.handleChange('newPassword', e)}
-            type="password"
             className="new-password inspectletIgnore"
             error={errors.new_password}
+            handleChange={(e) => this.handleChange('newPassword', e)}
+            label="New password"
             timesSubmitted={timesSubmitted}
+            type="password"
+            value={newPassword}
           />
           <Input
-            label="Confirm new password"
-            value={confirmedNewPassword}
-            handleChange={(e) => this.handleChange('confirmedNewPassword', e)}
-            type="password"
             className="confirmed-new-password inspectletIgnore"
             error={errors.confirmed_new_password}
+            handleChange={(e) => this.handleChange('confirmedNewPassword', e)}
+            label="Confirm new password"
             timesSubmitted={timesSubmitted}
+            type="password"
+            value={confirmedNewPassword}
           />
         </div>
         {this.renderButtonSection()}
@@ -128,13 +128,13 @@ export default class TeacherPassword extends React.Component {
     } else {
       return <div className="inactive-password-container">
         <Input
-          label="Password"
-          value="notapassword"
-          type="password"
           className="not-a-password"
           disabled={true}
+          label="Password"
+          type="password"
+          value="notapassword"
         />
-        <div onClick={this.activateSection} className="change-password">Change password</div>
+        <div className="change-password" onClick={this.activateSection}>Change password</div>
       </div>
     }
   }

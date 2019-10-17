@@ -56,11 +56,11 @@ export default class RecoverClassroomActivities extends React.Component {
       <div>
         <div className="input-row">
           <label>Teacher Email:</label>
-          <input type="text" value={this.state.email} onChange={this.updateEmail}/>
+          <input onChange={this.updateEmail} type="text" value={this.state.email}/>
         </div>
         <div className="input-row">
           <label>Unit Name:</label>
-          <input type="text" value={this.state.unitName} onChange={this.updateUnitName}/>
+          <input onChange={this.updateUnitName} type="text" value={this.state.unitName}/>
         </div>
         <button onClick={this.submit}>Recover Activity Sessions</button>
         {this.renderError()}

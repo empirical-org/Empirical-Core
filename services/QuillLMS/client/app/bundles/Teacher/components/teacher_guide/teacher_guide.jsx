@@ -57,7 +57,7 @@ export default React.createClass({
         var display = [];
         var sections = this.groupBySectionAndCompleted();
         for (var sect in sections) {
-            display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
+            display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false} key={sect}/>);
         }
         return display;
     },

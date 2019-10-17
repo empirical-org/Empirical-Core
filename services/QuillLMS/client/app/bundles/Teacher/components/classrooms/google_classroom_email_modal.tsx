@@ -40,7 +40,7 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
   renderCheckbox() {
     const checkbox = this.state.checkboxOne
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
     }

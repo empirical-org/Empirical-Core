@@ -16,7 +16,7 @@ export default React.createClass({
   },
 
   generateCheckBox: function (item) {
-    return (<CheckBox item={item} checked={this.determineIfChecked(item)} toggleItem={this.props.toggleItem} key={item} />);
+    return (<CheckBox checked={this.determineIfChecked(item)} item={item} key={item} toggleItem={this.props.toggleItem} />);
   },
 
   render: function () {

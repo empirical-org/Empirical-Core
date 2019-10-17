@@ -39,7 +39,7 @@ const ConceptFeedback = React.createClass({
         return (
           <div key={this.props.params.feedbackID}>
             <h4 className="title">{data[feedbackID].name}</h4>
-            <FeedbackForm {...data[feedbackID]} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
+            <FeedbackForm {...data[feedbackID]} cancelEdit={this.cancelEdit} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback}/>
           </div>
         )
       } else {
@@ -57,9 +57,9 @@ const ConceptFeedback = React.createClass({
       return (<p>Loading...</p>)
     } else {
       return (
-        <div key={this.props.params.feedbackID} className="container">
+        <div className="container" key={this.props.params.feedbackID}>
           <p>404: No Concept Feedback Found... So lets make one! 🙌 🖋 🇬🇧 🇮🇳</p>
-          <FeedbackForm feedbackID={this.props.params.feedbackID} submitNewFeedback={this.submitNewFeedback} cancelEdit={this.cancelEdit}/>
+          <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={this.props.params.feedbackID} submitNewFeedback={this.submitNewFeedback}/>
         </div>
       )
     }

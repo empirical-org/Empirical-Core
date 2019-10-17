@@ -25,7 +25,7 @@ export default React.createClass({
       content =
         [<h3 key='h3-tag'>Getting Started</h3>,
           <PercentageGraph key='percentage-graph' percentage={this.percentageCompleted()}/>,
-          <a className='green-link' key='all-tasks' href='/teachers/teacher_guide'>View All Tasks ></a>]
+          <a className='green-link' href='/teachers/teacher_guide' key='all-tasks'>View All Tasks ></a>]
     }
     return <div id='graph-section'>{content}</div>
   },

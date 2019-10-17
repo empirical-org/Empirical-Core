@@ -108,15 +108,15 @@ export default class extends React.Component {
     if (filteredClassroomsData.length) {
       return (<div key={`${filteredClassroomsData.length}-length-for-activities-scores-by-classroom`}>
         <ReactTable
-          data={filteredClassroomsData}
-          columns={this.columns()}
-          showPagination={false}
-          defaultSorted={[{id: 'last_active', desc: true}]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
-          defaultPageSize={filteredClassroomsData.length}
           className='progress-report has-green-arrow'
+          columns={this.columns()}
+          data={filteredClassroomsData}
+          defaultPageSize={filteredClassroomsData.length}
+          defaultSorted={[{id: 'last_active', desc: true}]}
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
         />
       </div>)
     } else {
@@ -146,7 +146,7 @@ export default class extends React.Component {
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown items={this.state.classroomNames} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom}/>
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>

@@ -56,10 +56,10 @@ export default class extends React.Component {
     const sectionLink = this.props.role === 'student' ? 'student-center' : 'teacher-center'
     return this.props.blogPosts.map(article =>
       <PreviewCard
-        key={article.title}
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/${sectionLink}/${article.slug}`}
         externalLink={!!article.external_link}
+        key={article.title}
+        link={article.external_link ? article.external_link : `/${sectionLink}/${article.slug}`}
       />
     )
   }
@@ -67,10 +67,10 @@ export default class extends React.Component {
   renderPreviewCardsByPopularity() {
     return this.state.blogPostsSortedByMostRead.map(article =>
       <PreviewCard
-        key={article.title}
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
         externalLink={!!article.external_link}
+        key={article.title}
+        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
       />
     )
   }
@@ -82,12 +82,12 @@ export default class extends React.Component {
       const articlesInThisTopic = articlesByTopic[topic.name];
       if (articlesInThisTopic) {
         sections.push(<TopicSection
-          role={this.props.role}
-          key={topic.name}
-          title={topic.name}
-          slug={topic.slug}
-          articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
           articleCount={articlesInThisTopic.length}
+          articles={articlesInThisTopic.sort((a, b) => a.order_number - b.order_number)}
+          key={topic.name}
+          role={this.props.role}
+          slug={topic.slug}
+          title={topic.name}
         />
       );
       }
@@ -170,17 +170,17 @@ export default class extends React.Component {
       return <div className="container">
         <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
           Coming Soon!
-          <img style={{marginTop: '20px'}} src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg"/>
+          <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}}/>
         </div>
       </div>
     } else {
       return (
         <div id="knowledge-center">
           <HeaderSection
-            title={this.pageTitle()}
-            subtitle={this.pageSubtitle()}
             query={this.props.query}
             showCancelSearchButton={!!window.location.href.includes('search')}
+            subtitle={this.pageSubtitle()}
+            title={this.pageTitle()}
           />
           {this.renderNavAndSectionHeader()}
           {this.renderAnnouncement()}

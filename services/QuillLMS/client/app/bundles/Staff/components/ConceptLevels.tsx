@@ -46,22 +46,22 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
         concepts={levelTwoConcepts}
         levelNumber={2}
         selectConcept={this.props.selectConcept}
-        unselectConcept={this.props.unselectConcept}
         selectedConcept={completeSelectedConcept}
+        unselectConcept={this.props.unselectConcept}
       />
       <ConceptColumn
         concepts={levelOneConcepts}
         levelNumber={1}
         selectConcept={this.props.selectConcept}
-        unselectConcept={this.props.unselectConcept}
         selectedConcept={completeSelectedConcept}
+        unselectConcept={this.props.unselectConcept}
       />
       <ConceptColumn
         concepts={levelZeroConcepts}
         levelNumber={0}
         selectConcept={this.props.selectConcept}
-        unselectConcept={this.props.unselectConcept}
         selectedConcept={completeSelectedConcept}
+        unselectConcept={this.props.unselectConcept}
       />
     </div>
   }

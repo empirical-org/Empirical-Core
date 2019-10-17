@@ -47,9 +47,9 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
       <label className="label">File</label>
       <p className="control">
         <input
-          type="file"
           accept=".xlsx"
           onChange={e => this.handleChangeFile(e.target.files[0])}
+          type="file"
         />
       </p>
       <button className="button is-primary" onClick={this.submitResponses}>Upload Optimal Responses</button>

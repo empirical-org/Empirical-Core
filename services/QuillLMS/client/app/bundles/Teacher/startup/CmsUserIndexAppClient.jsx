@@ -202,17 +202,17 @@ export default class CmsUserIndex extends React.Component {
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
       return (<div>
         <ReactTable
-          data={this.state.data}
-          columns={this.state.columns}
-          showPagination={false}
-          defaultSorted={[{id: sort, desc: sortDescending}]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
-          defaultPageSize={100}
-          minRows={1}
           className='progress-report activity-scores-table'
+          columns={this.state.columns}
+          data={this.state.data}
+          defaultPageSize={100}
+          defaultSorted={[{id: sort, desc: sortDescending}]}
+          minRows={1}
           onSortedChange={this.setSort}
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
         />
         <div className='cms-pagination-container'>
           {this.renderPageSelector()}
@@ -230,27 +230,27 @@ export default class CmsUserIndex extends React.Component {
         <div className='cms-meta-middle'>
           <div className='cms-form-row'>
             <label>Name</label>
-            <input id='user_name' name='user_name' value={this.state.query.user_name} onChange={e => this.updateField(e, 'user_name')}/>
+            <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name}/>
           </div>
 
           <div className='cms-form-row'>
             <label>Username</label>
-            <input id='user_username' name='user_username' value={this.state.query.user_username} onChange={e => this.updateField(e, 'user_username')}/>
+            <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username}/>
           </div>
 
           <div className='cms-form-row'>
             <label>Email</label>
-            <input id='user_email' name='user_email' value={this.state.query.user_email} onChange={e => this.updateField(e, 'user_email')}/>
+            <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email}/>
           </div>
 
           <div className='cms-form-row'>
             <label>Ip</label>
-            <input id='user_ip' name='user_ip' value={this.state.query.user_ip} onChange={e => this.updateField(e, 'user_ip')}/>
+            <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} value={this.state.query.user_ip}/>
           </div>
 
           <div className='cms-form-row'>
             <label>School Name</label>
-            <input id='school_name' name='school_name' value={this.state.query.school_name} onChange={e => this.updateField(e, 'school_name')}/>
+            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name}/>
           </div>
         </div>
 

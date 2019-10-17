@@ -71,17 +71,17 @@ export default class BlogPostTable extends React.Component {
 
   renderTableRow(blogPost, index) {
     return <BlogPostRow
+      createdAt={moment(blogPost.created_at).format('MM-DD-YY')}
+      deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
       draft={blogPost.draft ? 'DRAFT' : ''}
+      editLink={`/cms/blog_posts/${blogPost.id}/edit`}
+      key={index}
+      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher-center/${blogPost.slug}`}
+      rating={blogPost.rating}
       title={blogPost.title}
       topic={blogPost.topic}
-      createdAt={moment(blogPost.created_at).format('MM-DD-YY')}
       updatedAt={moment(blogPost.updated_at).format('MM-DD-YY')}
-      rating={blogPost.rating}
       views={blogPost.read_count}
-      editLink={`/cms/blog_posts/${blogPost.id}/edit`}
-      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher-center/${blogPost.slug}`}
-      deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
-      key={index}
     />
   }
 

@@ -143,11 +143,11 @@ const Question = React.createClass({
             <h6 className="control subtitle">Add a new response</h6>
             <label className="label">Response text</label>
             <p className="control">
-              <input className="input" type="text" ref="newResponseText" />
+              <input className="input" ref="newResponseText" type="text" />
             </p>
             <label className="label">Feedback</label>
             <p className="control">
-              <input className="input" type="text" ref="newResponseFeedback" />
+              <input className="input" ref="newResponseFeedback" type="text" />
             </p>
             <label className="label">Boilerplate feedback</label>
             <div className="boilerplate-feedback-dropdown-container">
@@ -185,7 +185,7 @@ const Question = React.createClass({
     if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditForm question={question} submit={this.saveQuestionEdits} itemLevels={this.props.itemLevels} concepts={this.props.concepts} />
+          <EditForm concepts={this.props.concepts} itemLevels={this.props.itemLevels} question={question} submit={this.saveQuestionEdits} />
         </Modal>
       );
     }
@@ -224,11 +224,11 @@ const Question = React.createClass({
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
-            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+            <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <Cues
-            getQuestion={this.getQuestion}
             displayArrowAndText={true}
+            getQuestion={this.getQuestion}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />

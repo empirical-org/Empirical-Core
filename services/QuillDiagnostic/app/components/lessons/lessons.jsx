@@ -55,10 +55,10 @@ class Lessons extends React.Component {
     }
     return keys.map(key => (
       <LinkListItem
-        key={key}
-        itemKey={key}
-        basePath='lessons'
         activeClassName='is-active'
+        basePath='lessons'
+        itemKey={key}
+        key={key}
         text={data[key].name || 'No name'}
       />
     ));
@@ -69,7 +69,7 @@ class Lessons extends React.Component {
     if (this.props.lessons.newLessonModalOpen) {
       return (
         <Modal close={this.createNew}>
-          <EditLessonForm submit={this.submitNewLesson} stateSpecificClass={stateSpecificClass} />
+          <EditLessonForm stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
         </Modal>
       );
     }
@@ -88,7 +88,7 @@ class Lessons extends React.Component {
           <div style={{display: 'inline-block'}}>
             <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true}/>
           </div>
-          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={true} />
+          <ArchivedButton lessons={true} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
           <div className="columns">
             <div className="column">
               <aside className="menu">

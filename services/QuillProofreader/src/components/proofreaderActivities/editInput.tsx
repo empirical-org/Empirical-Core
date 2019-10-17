@@ -28,11 +28,11 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     const width = (currentText.length * 10) + 3
     return <input
       className={className}
-      value={currentText}
-      onChange={this.handleWordChange}
       key={`${paragraphIndex}-${wordIndex}`}
-      style={{width: `${width}px`}}
+      onChange={this.handleWordChange}
       spellCheck={false}
+      style={{width: `${width}px`}}
+      value={currentText}
     />
   }
 }

@@ -63,7 +63,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
 
   renderCustomizeDropdown() {
     const customizeClass = this.state.showDropdown ? 'open' : ''
-    return <div className="customize-dropdown" tabIndex={0} onBlur={this.hideDropdown}>
+    return <div className="customize-dropdown" onBlur={this.hideDropdown} tabIndex={0}>
       <div className={`customize ${customizeClass}`} onClick={this.toggleDropdown}>
         <i className="fa fa-icon fa-magic"/>
         Customize
@@ -78,10 +78,10 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
   renderDropdown() {
     const dropdownClass = this.state.showDropdown ? '' : 'hidden'
       let options
-      const makeCopy = <div key="new" className="option" onClick={this.makeNewEdition}><img src={MakeCopy}/>Make Copy</div>
+      const makeCopy = <div className="option" key="new" onClick={this.makeNewEdition}><img src={MakeCopy}/>Make Copy</div>
       if (this.props.creator === 'user') {
-        const editEdition = <div key="edit" className="option" onClick={this.editEdition}><img src={EditEdition}/>Edit Edition</div>
-        const archiveEdition = <div key="archive" className="option" onClick={this.archiveEdition}><img src={DeleteEdition}/>Delete Edition</div>
+        const editEdition = <div className="option" key="edit" onClick={this.editEdition}><img src={EditEdition}/>Edit Edition</div>
+        const archiveEdition = <div className="option" key="archive" onClick={this.archiveEdition}><img src={DeleteEdition}/>Delete Edition</div>
         options = [makeCopy, editEdition, archiveEdition]
       } else {
         options = [makeCopy]
@@ -94,9 +94,9 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
   renderSelectButton() {
     if (this.props.selectState) {
       if (this.props.selectedEdition) {
-        return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="resume-button">Resume</button>
+        return <button className="resume-button" onClick={() => this.props.selectAction(this.props.edition.key)}>Resume</button>
       } else {
-        return <button onClick={() => this.props.selectAction(this.props.edition.key)} className="select-button">Select</button>
+        return <button className="select-button" onClick={() => this.props.selectAction(this.props.edition.key)}>Select</button>
       }
     }
   }

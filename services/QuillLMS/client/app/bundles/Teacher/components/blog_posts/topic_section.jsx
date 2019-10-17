@@ -15,8 +15,8 @@ export default class TopicSection extends React.Component {
     return this.props.articles.slice(0, 3).map(article =>
       <PreviewCard
         content={article.preview_card_content}
-        link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
         externalLink={!!article.external_link}
+        link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
       />
     )
   }

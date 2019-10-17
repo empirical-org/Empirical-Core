@@ -73,19 +73,19 @@ export default class ForgotPassword extends React.Component {
         <h1>Reset Password</h1>
         <p className="sub-header">We'll email you a link to reset your password. You can also ask your teacher to reset it for you.</p>
         <div className="form-container">
-          <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+          <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
             <input name="utf8" type="hidden" value="✓" />
-            <input value={authToken} type="hidden" name="authenticity_token" />
+            <input name="authenticity_token" type="hidden" value={authToken} />
             <Input
-              label="Email"
-              value={email}
-              handleChange={this.handleEmailChange}
-              type="text"
               className="email"
               error={errors.email}
+              handleChange={this.handleEmailChange}
+              label="Email"
               timesSubmitted={timesSubmitted}
+              type="text"
+              value={email}
             />
-            <input type="submit" name="commit" value="Reset password" className={this.submitClass()} />
+            <input className={this.submitClass()} name="commit" type="submit" value="Reset password" />
           </form>
         </div>
 

@@ -59,7 +59,7 @@ export default class IndividualStandardsReport extends React.Component {
       row.proficiency_status = row.proficiency_status
       row.green_arrow = (
         <a className='green-arrow' href={row.student_topics_href}>
-          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
         </a>
       )
       return row
@@ -141,24 +141,24 @@ export default class IndividualStandardsReport extends React.Component {
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
           <div className='dropdown-container'>
-            <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom.name}/>
+            <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom.name}/>
           </div>
         </div>
         <div key={`concept-progress-report-length-${this.state.studentData.length}`}>
           <ReactTable
-            data={this.state.studentData}
+            className='progress-report has-green-arrow'
             columns={this.columns()}
-            showPagination={false}
+            data={this.state.studentData}
+            defaultPageSize={this.state.studentData.length}
             defaultSorted={[{
               id: 'average_score',
               desc: false
             }
           ]}
-            showPaginationTop={false}
-            showPaginationBottom={false}
             showPageSizeOptions={false}
-            defaultPageSize={this.state.studentData.length}
-            className='progress-report has-green-arrow'
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
           />
         </div>
       </div>

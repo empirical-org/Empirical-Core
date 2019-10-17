@@ -51,7 +51,7 @@ export default class extends React.Component {
       row.mastery_status = row.mastery_status
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
-          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
         </a>
       )
       return row
@@ -151,15 +151,15 @@ export default class extends React.Component {
         </div>
         <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
           <ReactTable
-            data={filteredData}
-            columns={this.columns()}
-            showPagination={false}
-            defaultSorted={[{id: 'average_score', desc: false}]}
-            showPaginationTop={false}
-            showPaginationBottom={false}
-            showPageSizeOptions={false}
-            defaultPageSize={filteredData.length}
             className='progress-report has-green-arrow'
+            columns={this.columns()}
+            data={filteredData}
+            defaultPageSize={filteredData.length}
+            defaultSorted={[{id: 'average_score', desc: false}]}
+            showPageSizeOptions={false}
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
           /></div>
       </div>
     )

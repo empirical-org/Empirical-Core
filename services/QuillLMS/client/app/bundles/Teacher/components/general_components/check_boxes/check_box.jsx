@@ -20,10 +20,10 @@ export default React.createClass({
     return (
       <div className='checkbox-and-label'>
         <input
-          type="checkbox"
           checked={this.determineCheckedText()}
           className="checkbox"
           onChange={this.handleChange}
+          type="checkbox"
         />
         <label>{this.props.item}</label>
       </div>

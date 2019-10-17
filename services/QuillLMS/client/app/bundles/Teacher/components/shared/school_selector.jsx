@@ -135,7 +135,7 @@ class SchoolSelector extends React.Component {
 
   renderNoSchoolFound() {
     return <div className="no-school-found">
-      <img src={mapSearchSrc} alt="map search image"/>
+      <img alt="map search image" src={mapSearchSrc}/>
       <p className="message">We couldn't find your school</p>
       <p className="sub-text">Try another search or click skip for now below.</p>
     </div>
@@ -143,9 +143,9 @@ class SchoolSelector extends React.Component {
 
   renderNoLocationFound() {
     return <div className="no-location-found">
-      <img src={mapSearchSrc} alt="map search image"/>
+      <img alt="map search image" src={mapSearchSrc}/>
       <p className="message">We couldn't find your location</p>
-      <p className="sub-text"><a target="_blank" href={this.locationServicesLink()}>Enable location access</a> or search for your school above.</p>
+      <p className="sub-text"><a href={this.locationServicesLink()} target="_blank">Enable location access</a> or search for your school above.</p>
     </div>
   }
 
@@ -177,13 +177,13 @@ class SchoolSelector extends React.Component {
   render () {
     return <div className="school-search-container">
       <Input
-        label="Search by school name or zip code"
-        value={this.state.search}
-        handleChange={this.update}
-        type="text"
         className="search"
         error={this.state.errors.search}
+        handleChange={this.update}
         id="search"
+        label="Search by school name or zip code"
+        type="text"
+        value={this.state.search}
       />
       {this.renderSchoolsListSection()}
     </div>

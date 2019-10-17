@@ -31,7 +31,7 @@ describe('ActiveClassrooms component', () => {
   describe('with no classrooms or coteacher invitations ', () => {
 
     const wrapper = shallow(
-      <ActiveClassrooms classrooms={[]} user={userProps} coteacherInvitations={[]}/>
+      <ActiveClassrooms classrooms={[]} coteacherInvitations={[]} user={userProps}/>
     );
 
     it('should render with no classrooms', () => {
@@ -45,7 +45,7 @@ describe('ActiveClassrooms component', () => {
 
   describe('with classrooms', () => {
     const wrapper = shallow(
-      <ActiveClassrooms classrooms={classroomProps} user={userProps} coteacherInvitations={coteacherInvitations}/>
+      <ActiveClassrooms classrooms={classroomProps} coteacherInvitations={coteacherInvitations} user={userProps}/>
     );
 
     it('should render with classrooms', () => {

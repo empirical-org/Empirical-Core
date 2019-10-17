@@ -58,12 +58,12 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   renderChangeLogFields() {
     return Object.keys(this.state).map(key => {
       return <TextField
-        label={`Action Explanation: ${this.state[key].action}`}
-        value={this.state[key].explanation}
-        id={key}
-        handleChange={(e) => {this.updateExplanation(key, e)}}
-        timesSubmitted={0}
         characterLimit={800}
+        handleChange={(e) => {this.updateExplanation(key, e)}}
+        id={key}
+        label={`Action Explanation: ${this.state[key].action}`}
+        timesSubmitted={0}
+        value={this.state[key].explanation}
       />
     })
   }

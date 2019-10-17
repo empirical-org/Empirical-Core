@@ -232,19 +232,19 @@ export default class extends React.Component {
 
   renderSaveDraftButton() {
     if(this.props.action === 'new' || this.state.draft) {
-      return <input type="submit" value="Save Draft" onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} />
+      return <input onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
     }
   }
 
   renderUnpublishButton() {
     if(this.props.action === 'edit' && !this.state.draft) {
-      return <input type="submit" value="Unpublish & Save Draft" onClick={(e) => { this.handleSubmitClick(e, false, true) }} style={{background: 'white', color: '#00c2a2'}} />
+      return <input onClick={(e) => { this.handleSubmitClick(e, false, true) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
     }
   }
 
   renderSaveAndPreviewButton() {
     if (this.props.action === 'edit') {
-      return <input type="submit" value="Save and Preview" onClick={(e) => { this.handleSubmitClick(e, !this.state.draft, false, this.goToPreview) }} style={{background: 'white', color: '#00c2a2'}} />
+      return <input onClick={(e) => { this.handleSubmitClick(e, !this.state.draft, false, this.goToPreview) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
     }
   }
 
@@ -476,7 +476,7 @@ export default class extends React.Component {
     } else if (preview_card_type === 'Custom HTML') {
       contentFields = [
         <label>Custom HTML:</label>,
-        <textarea rows={4} type="text" id="preview-markdown-content" value={this.state.custom_preview_card_content} onChange={this.handleCustomPreviewChange} />,
+        <textarea id="preview-markdown-content" onChange={this.handleCustomPreviewChange} rows={4} type="text" value={this.state.custom_preview_card_content} />,
         <i>If no author is supposed to show, please delete "&lt;p class=author>" through the next "&lt;/p>".</i>
       ]
     } else if(preview_card_type === 'Tweet') {
@@ -506,8 +506,8 @@ export default class extends React.Component {
     return <div>
       <label>Preview Card Template:</label>
       <ItemDropdown
-        items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
         callback={this.handlePreviewCardTypeChange}
+        items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
         selectedItem={this.state.preview_card_type}
       />
     </div>
@@ -516,7 +516,7 @@ export default class extends React.Component {
   renderDatepicker() {
     return <div>
       <label>Published At Date:</label>
-      <DatePicker selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} onChange={this.updatePublishedAt}/>
+      <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null}/>
     </div>
   }
 
@@ -534,12 +534,12 @@ export default class extends React.Component {
       content = <div id="article-container">
         <article>
           <BlogPostContent
+            author={this.props.authors.find(a => a.id == this.state.author_id)}
             body={this.state.body}
+            centerImages={this.state.centerImages}
+            displayPaywall={false}
             title={this.state.title}
             updatedAt={dateDisplayed}
-            author={this.props.authors.find(a => a.id == this.state.author_id)}
-            displayPaywall={false}
-            centerImages={this.state.centerImages}
           />
         </article>
       </div>
@@ -548,18 +548,18 @@ export default class extends React.Component {
           <p onClick={() => this.insertMarkdown('# ')}>H1</p>
           <p onClick={() => this.insertMarkdown('## ')}>H2</p>
           <p onClick={() => this.insertMarkdown('### ')}>H3</p>
-          <i onClick={() => this.insertMarkdown('**', '**')} className="fa fa-bold" />
-          <i onClick={() => this.insertMarkdown('*', '*')} className="fa fa-italic" />
-          <i onClick={() => this.insertMarkdown('* ')} className="fa fa-list-ul" />
-          <i onClick={() => this.insertMarkdown('1. ')} className="fa fa-list-ol" />
-          <i onClick={() => this.insertMarkdown('> ')} className="fa fa-quote-left" />
-          <i onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} className="fa fa-link" />
-          <i onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} className="fa fa-file-image-o" />
-          <i onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} className="fa fa-square" />
-          <i onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} className="fa fa-square-o" />
+          <i className="fa fa-bold" onClick={() => this.insertMarkdown('**', '**')} />
+          <i className="fa fa-italic" onClick={() => this.insertMarkdown('*', '*')} />
+          <i className="fa fa-list-ul" onClick={() => this.insertMarkdown('* ')} />
+          <i className="fa fa-list-ol" onClick={() => this.insertMarkdown('1. ')} />
+          <i className="fa fa-quote-left" onClick={() => this.insertMarkdown('> ')} />
+          <i className="fa fa-link" onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} />
+          <i className="fa fa-file-image-o" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
+          <i className="fa fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} />
+          <i className="fa fa-square-o" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
         </div>
-        content = <textarea rows={20} type="text" id="markdown-content" value={this.state.body} onChange={this.handleBodyChange} />
-        mdLink = <a target="_blank" href="http://commonmark.org/help/" className='markdown-cheatsheet'>Markdown Cheatsheet</a>
+        content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={this.state.body} />
+        mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" target="_blank">Markdown Cheatsheet</a>
     }
     return <div>
       <label>Article Content</label>
@@ -594,23 +594,23 @@ export default class extends React.Component {
         <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left' /> All Blog Posts</a>
         <form>
           <label>Title:</label>
-          <input type="text" value={this.state.title} onChange={this.handleTitleChange} />
+          <input onChange={this.handleTitleChange} type="text" value={this.state.title} />
 
           <label>SEO Meta Description:</label>
-          <input type="text" value={this.state.subtitle} onChange={this.handleSubtitleChange} />
+          <input onChange={this.handleSubtitleChange} type="text" value={this.state.subtitle} />
 
           <label>SEO Meta Image:</label>
-          <input type="text" value={this.state.imageLink} onChange={this.handleImageLinkChange} />
+          <input onChange={this.handleImageLinkChange} type="text" value={this.state.imageLink} />
 
           <div className='short-fields'>
             <div>
               <label>Author:</label>
-              <ItemDropdown items={[nullAuthor].concat(this.props.authors)} callback={this.handleAuthorChange} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
+              <ItemDropdown callback={this.handleAuthorChange} items={[nullAuthor].concat(this.props.authors)} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
               <a className="link" href="/cms/authors/new" target="_blank">Create New Author</a>
             </div>
             <div>
               <label>Topic:</label>
-              <ItemDropdown items={allTopics} callback={this.handleTopicChange} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+              <ItemDropdown callback={this.handleTopicChange} items={allTopics} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
             </div>
           </div>
 
@@ -631,7 +631,7 @@ export default class extends React.Component {
             <Dropzone onDrop={this.onDrop}/>
             <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
             <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink}/>
-            <a className="link" style={{marginBottom: '10px'}} href="/cms/images" target="_blank">All Uploaded Images</a>
+            <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Images</a>
           </div>
 
           <div className="side-by-side">
@@ -648,17 +648,17 @@ export default class extends React.Component {
 
           <div>
             <label className="premium-label">Show Only to Premium Members:</label>
-            <input className="premium-checkbox" type='checkbox' checked={this.state.premium} onClick={this.handlePremiumChange} />
+            <input checked={this.state.premium} className="premium-checkbox" onClick={this.handlePremiumChange} type='checkbox' />
           </div>
 
           <div>
             <label className="center-images-label">Center Images:</label>
-            <input className="center-images-checkbox" type='checkbox' checked={this.state.centerImages} onClick={this.handleCenterImagesChange} />
+            <input checked={this.state.centerImages} className="center-images-checkbox" onClick={this.handleCenterImagesChange} type='checkbox' />
           </div>
 
           {this.renderArticleMarkdownOrPreview()}
 
-          <input type="submit" value="Publish" onClick={(e) => { this.handleSubmitClick(e, true) }} />
+          <input onClick={(e) => { this.handleSubmitClick(e, true) }} type="submit" value="Publish" />
 
           {this.renderSaveDraftButton()}
           {this.renderUnpublishButton()}

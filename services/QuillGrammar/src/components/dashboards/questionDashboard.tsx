@@ -140,21 +140,21 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
       })
       return (<div className="dashboard-table-container question-dashboard" key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
         <DashboardFilters
-          allowedQuestionFlags={allowedQuestionFlags}
           allowedActivityFlags={allowedActivityFlags}
+          allowedQuestionFlags={allowedQuestionFlags}
           updateAllowedActivityFlags={this.updateAllowedActivityFlags}
           updateAllowedQuestionFlags={this.updateAllowedQuestionFlags}
         />
         <ReactTable
-          data={filteredData}
+          className="question-dashboard-table"
           columns={this.columns()}
-          showPagination={false}
+          data={filteredData}
+          defaultPageSize={filteredData.length}
           defaultSorted={[{ id: 'prompt', desc: false, }]}
           defaultSortMethod={this.defaultSort}
-          showPageSizeOptions={false}
-          defaultPageSize={filteredData.length}
           minRows={1}
-          className="question-dashboard-table"
+          showPageSizeOptions={false}
+          showPagination={false}
         />
       </div>);
     }
