@@ -197,7 +197,6 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         query={gql(levelOneConceptsQuery())}
       >
         {({ loading, error, data }) => {
-          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));

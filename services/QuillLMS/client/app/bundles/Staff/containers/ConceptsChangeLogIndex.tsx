@@ -85,7 +85,6 @@ class ConceptsChangeLog extends React.Component<any, ConceptsChangeLogState> {
           notifyOnNetworkStatusChange
         >
           {({ loading, error, data, refetch, networkStatus }) => {
-            console.log('error', error)
             if (networkStatus === 4) return <p>Refetching!</p>;
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;

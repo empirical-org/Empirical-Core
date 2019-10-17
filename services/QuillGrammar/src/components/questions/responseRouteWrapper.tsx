@@ -17,7 +17,6 @@ class ResponseComponentWrapper extends React.Component {
 
   componentWillMount() {
     const { questionID, } = this.props.match.params;
-    console.log('PARAMS: ', this.props.match.params);
   }
 
   getResponses() {

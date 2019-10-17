@@ -212,7 +212,6 @@ class ResponseComponent extends React.Component {
   }
 
   rematchAllResponses() {
-    console.log('Rematching All Responses');
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {
@@ -224,7 +223,6 @@ class ResponseComponent extends React.Component {
     const weak = rematchAll(this.props.mode, this.props.questionID, callback);
     // weak.forEach((resp, index) => {
     //   const percentage = index / weak.length * 100;
-    //   console.log('Rematching: ', resp.key, percentage, '% complete');
     //   this.rematchResponse(resp.key);
     // });
   }

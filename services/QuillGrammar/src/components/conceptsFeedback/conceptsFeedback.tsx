@@ -74,7 +74,6 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
   }
 
   render() {
-    //// console.log("Inside render for left panel, all concepts, this:\n ", this)
     return (
       <section className="section">
         <div className="container">

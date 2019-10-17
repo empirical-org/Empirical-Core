@@ -61,12 +61,10 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   selectConcept(conceptID, levelNumber) {
-    console.log('conceptSelected')
     this.setState({ selectedConcept: { conceptID, levelNumber }})
   }
 
   closeConceptBox() {
-    console.log('concept unselected')
     this.setState({ selectedConcept: {} })
   }
 

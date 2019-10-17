@@ -49,14 +49,6 @@ class ChooseEdition extends React.Component<any, any> {
     this.deleteNewEdition = this.deleteNewEdition.bind(this)
   }
 
-  componentWillMount() {
-    console.log('in choose edtion')
-  }
-
-  componentWillUnmount() {
-    console.log('about to unmount chooseEdition')
-  }
-
   makeNewEdition(editionUid:string|null) {
     if (this.props.customize.user_id) {
       const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)

@@ -25,8 +25,6 @@ class TextEditor extends React.Component<TextEditorProps, TextEditorState> {
   handleTextChange(e) {
     if (!this.props.disabled) {
       this.props.handleChange(e.target.value, this.props.index);
-    } else {
-      console.log("I'm disable RN");
     }
   }
 

@@ -75,7 +75,6 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
         query={gql(conceptQuery(conceptID))}
       >
         {({ loading, error, data }) => {
-          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concept:QueryResult = data.concept;

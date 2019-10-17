@@ -28,7 +28,6 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
   }
 
   goBack() {
-    console.log('going back')
     window.history.back()
   }
 

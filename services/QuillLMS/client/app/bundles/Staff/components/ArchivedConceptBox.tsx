@@ -213,7 +213,6 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         query={gql(levelOneConceptsQuery())}
       >
         {({ loading, error, data }) => {
-          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts;

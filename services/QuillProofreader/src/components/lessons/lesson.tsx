@@ -117,7 +117,6 @@ class Lesson extends React.Component<LessonProps> {
     if (lessonID) {
       this.props.dispatch(lessonActions.startLessonEdit(lessonID));
     }
-    // // console.log("Edit button clicked");
   }
 
   renderEditLessonForm(): JSX.Element|void {

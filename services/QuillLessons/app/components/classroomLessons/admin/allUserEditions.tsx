@@ -57,8 +57,6 @@ class AllUserEditions extends Component<any, any> {
   }
 
   sortNumerically(data) {
-    console.log(data)
-    console.log(this.state.sort)
     return data.sort((a, b) => {
       const aSort = a[this.state.sort] ? a[this.state.sort] : 0
       const bSort = b[this.state.sort] ? b[this.state.sort] : 0
