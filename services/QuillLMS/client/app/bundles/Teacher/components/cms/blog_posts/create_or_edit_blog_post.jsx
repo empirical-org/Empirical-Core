@@ -506,9 +506,9 @@ export default class extends React.Component {
     return <div>
       <label>Preview Card Template:</label>
       <ItemDropdown
-          items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
-          callback={this.handlePreviewCardTypeChange}
-          selectedItem={this.state.preview_card_type}
+        items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
+        callback={this.handlePreviewCardTypeChange}
+        selectedItem={this.state.preview_card_type}
       />
     </div>
   }

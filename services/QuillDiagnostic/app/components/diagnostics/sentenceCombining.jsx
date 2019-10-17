@@ -192,16 +192,20 @@ const PlayDiagnosticQuestion = React.createClass({
           {this.renderCues()}
           <div className="feedback-row">
             <Feedback
-            key={questionID}
-            feedbackType="default"
-            feedback={(<p>{instructions}</p>)}
+              key={questionID}
+              feedbackType="default"
+              feedback={(<p>{instructions}</p>)}
             />
           </div>
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
-              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
-              handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
-              disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              className={'textarea is-question is-disabled'}
+              defaultValue={this.getInitialValue()}
+              handleChange={this.handleChange}
+              value={this.state.response}
+              getResponse={this.getResponse2}
+              disabled={this.readyForNext()}
+              checkAnswer={this.checkAnswer}
               hasError={this.state.error}
               placeholder="Type your answer here."
             />

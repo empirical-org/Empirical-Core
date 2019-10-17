@@ -1,24 +1,19 @@
-import React from 'react';
-import _ from 'underscore';
+import * as React from 'react';
 import Unit from './unit';
 
-export default React.createClass({
+const Units = ({ data, hideClassroomActivity, hideUnit, report, lesson, updateDueDate}) => {
+  const units = data.map(data =>
+    (<Unit
+      key={data.unitId}
+      hideClassroomActivity={hideClassroomActivity}
+      hideUnit={hideUnit}
+      report={report}
+      lesson={lesson}
+      updateDueDate={updateDueDate}
+      data={data}
+    />)
+  );
+  return <span>{units}</span>
+}
 
-  render() {
-    const units = _.map(this.props.data, function (data) {
-			return (<Unit
-        key={data.unitId}
-        hideClassroomActivity={this.props.hideClassroomActivity}
-        hideUnit={this.props.hideUnit}
-        report={this.props.report}
-        lesson={this.props.lesson}
-        updateDueDate={this.props.updateDueDate}
-        data={data}
-			/>);
-    }, this);
-    return (
-      <span>{units}</span>
-    );
-  },
-
-});
+export default Units

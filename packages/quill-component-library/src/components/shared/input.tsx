@@ -139,9 +139,9 @@ export class Input extends React.Component<InputProps, InputState> {
     if (error) {
       if (errorAcknowledged) {
         return (<div
-            className={`${sharedClassNames} error`}
-            ref={node => this.node = node}
-            onClick={this.activateInput}
+          className={`${sharedClassNames} error`}
+          ref={node => this.node = node}
+          onClick={this.activateInput}
         >
           <label>{label}</label>
           <input {...commonProps} />
@@ -152,7 +152,7 @@ export class Input extends React.Component<InputProps, InputState> {
       } else {
         return (
           <div
-          className={`${sharedClassNames} error unacknowledged`}
+            className={`${sharedClassNames} error unacknowledged`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >

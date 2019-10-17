@@ -166,9 +166,9 @@ export default class extends React.Component {
         <label>
                 Recurring:
           <input
-                  type="checkbox"
-                  checked={this.state.subscription.recurring}
-                  onChange={this.changeRecurring}
+            type="checkbox"
+            checked={this.state.subscription.recurring}
+            onChange={this.changeRecurring}
           />
         </label>);
     }

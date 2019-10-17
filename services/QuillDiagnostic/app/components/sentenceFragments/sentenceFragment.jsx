@@ -79,8 +79,10 @@ const SentenceFragment = React.createClass({
           <div className="box">
             <h6 className="title is-h6">Edit Sentence Fragment</h6>
             <EditForm
-              mode="Edit" data={this.props.sentenceFragments.data[this.props.params.questionID]}
-              submit={this.saveSentenceFragmentEdits} concepts={this.props.concepts}
+              mode="Edit"
+              data={this.props.sentenceFragments.data[this.props.params.questionID]}
+              submit={this.saveSentenceFragmentEdits}
+              concepts={this.props.concepts}
             />
           </div>
         </Modal>

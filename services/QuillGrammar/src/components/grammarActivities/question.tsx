@@ -237,8 +237,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
               <span
-className="meter"
-              style={{width: `${meterWidth}%`}}
+                className="meter"
+                style={{width: `${meterWidth}%`}}
               />
             </div>
           </div>

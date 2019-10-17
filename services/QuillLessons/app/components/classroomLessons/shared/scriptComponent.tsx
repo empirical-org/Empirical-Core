@@ -121,11 +121,11 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           />
         case 'STEP-HTML-TIP':
             return <StepHtml
-            key={index}
-            onlyShowHeaders={this.props.onlyShowHeaders}
-            item={item}
-            updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-            isTip={true}
+              key={index}
+              onlyShowHeaders={this.props.onlyShowHeaders}
+              item={item}
+              updateToggledHeaderCount={this.props.updateToggledHeaderCount}
+              isTip={true}
             />
         case 'T-MODEL':
           return this.renderTeacherModel()
@@ -291,10 +291,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       <td/>
       <td>
         <input
-              id={'correct'}
-              name={'correct'}
-              type="checkbox"
-              defaultChecked={checked}
+          id={'correct'}
+          name={'correct'}
+          type="checkbox"
+          defaultChecked={checked}
         />
         <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
           {checkbox}

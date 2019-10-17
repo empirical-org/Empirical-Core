@@ -338,17 +338,19 @@ export default React.createClass({
 		// } else
 		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
 			tabSpecificComponents = <CreateUnit
-data={{
+  data={{
 				createUnitData: this.state.createUnit,
 				assignSuccessData: this.state.unitTemplatesManager.model
-			}} actions={{
+			}}
+  actions={{
 				toggleStage: this.toggleStage,
 				toggleTab: this.toggleTab,
 				assignActivityDueDate: this.assignActivityDueDate,
 				update: this.updateCreateUnitModel,
 					toggleActivitySelection: this.toggleActivitySelection,
 					assignSuccessActions: this.unitTemplatesAssignedActions()
-				}} analytics={this.analytics()}
+				}}
+  analytics={this.analytics()}
 			/>;
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;

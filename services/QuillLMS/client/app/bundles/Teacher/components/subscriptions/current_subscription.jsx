@@ -25,7 +25,8 @@ export default class extends React.Component {
     return (
       <span>{`Credit Card Ending In ${this.state.lastFour}`}
         <span
-          onClick={this.editCreditCard} style={{
+          onClick={this.editCreditCard}
+          style={{
             color: '#027360',
             fontSize: '14px',
             paddingLeft: '10px',

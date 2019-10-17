@@ -58,10 +58,10 @@ class ConceptsFeedback extends React.Component<ConceptsFeedbackProps> {
               <p className="control">
                 <label className="label">Name</label>
                 <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    ref="newConceptName"
+                  className="input"
+                  type="text"
+                  placeholder="Text input"
+                  ref="newConceptName"
                 />
               </p>
               <p className="control">

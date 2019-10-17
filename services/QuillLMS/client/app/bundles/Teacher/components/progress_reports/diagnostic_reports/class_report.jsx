@@ -131,18 +131,18 @@ export default React.createClass({
         {overviewBoxes}
         <div>
           <ProgressReport
-key={this.props.params.classroomId}
-                             columnDefinitions={this.columnDefinitions}
-                             hideFaqLink={Boolean(true)}
-                             pagination={false}
-                             sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${this.props.params.unitId}/a/${this.props.params.activityId}/c/${this.props.params.classroomId}`}
-                             sortDefinitions={this.sortDefinitions}
-                             jsonResultsKey={'students'}
-                             colorByScoreKeys={['score']}
-                             onFetchSuccess={this.onFetchSuccess}
-                             filterTypes={[]}
-                             premiumStatus={this.props.premiumStatus}
-                             showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
+            key={this.props.params.classroomId}
+            columnDefinitions={this.columnDefinitions}
+            hideFaqLink={Boolean(true)}
+            pagination={false}
+            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${this.props.params.unitId}/a/${this.props.params.activityId}/c/${this.props.params.classroomId}`}
+            sortDefinitions={this.sortDefinitions}
+            jsonResultsKey={'students'}
+            colorByScoreKeys={['score']}
+            onFetchSuccess={this.onFetchSuccess}
+            filterTypes={[]}
+            premiumStatus={this.props.premiumStatus}
+            showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
           />
           {this.startedAndUnstartedStudents()}
         </div>

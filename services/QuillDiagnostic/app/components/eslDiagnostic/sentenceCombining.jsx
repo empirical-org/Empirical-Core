@@ -92,9 +92,11 @@ const PlayDiagnosticQuestion = React.createClass({
 
   renderFeedback() {
     return (<RenderFeedback
-      question={this.props.question} renderFeedbackStatements={this.renderFeedbackStatements}
+      question={this.props.question}
+      renderFeedbackStatements={this.renderFeedbackStatements}
       sentence="We have not seen this sentence before. Could you please try writing it in another way?"
-      getQuestion={this.getQuestion} listCuesAsString={this.listCuesAsString}
+      getQuestion={this.getQuestion}
+      listCuesAsString={this.listCuesAsString}
     />);
   },
 
@@ -238,9 +240,13 @@ const PlayDiagnosticQuestion = React.createClass({
 
           <ReactTransition transitionName={'text-editor'} transitionAppear transitionLeaveTimeout={500} transitionAppearTimeout={500} transitionEnterTimeout={500}>
             <TextEditor
-              className={'textarea is-question is-disabled'} defaultValue={this.getInitialValue()}
-              handleChange={this.handleChange} value={this.state.response} getResponse={this.getResponse2}
-              disabled={this.readyForNext()} checkAnswer={this.checkAnswer}
+              className={'textarea is-question is-disabled'}
+              defaultValue={this.getInitialValue()}
+              handleChange={this.handleChange}
+              value={this.state.response}
+              getResponse={this.getResponse2}
+              disabled={this.readyForNext()}
+              checkAnswer={this.checkAnswer}
               hasError={this.state.error}
               placeholder="Type your answer here."
             />

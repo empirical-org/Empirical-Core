@@ -142,8 +142,8 @@ class LoginFormApp extends React.Component {
           </div>
         </div>
         <p className="sign-up-link">Don't have an account?&nbsp;<a
-href="/account/new"
-           onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}
+          href="/account/new"
+          onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}
         >Sign up</a></p>
         <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>

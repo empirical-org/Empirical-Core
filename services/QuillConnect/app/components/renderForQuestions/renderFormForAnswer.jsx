@@ -25,8 +25,13 @@ export default React.createClass({
           <div className="box">
             <h4 className="title">Hint</h4>
             <iframe
-              src={this.props.assetURL} frameBorder="0" width="960" height="569" allowFullScreen="true"
-              mozallowfullscreen="true" webkitallowfullscreen="true"
+              src={this.props.assetURL}
+              frameBorder="0"
+              width="960"
+              height="569"
+              allowFullScreen="true"
+              mozallowfullscreen="true"
+              webkitallowfullscreen="true"
             />
           </div>
         </Modal>
@@ -59,14 +64,16 @@ export default React.createClass({
       }
       button = (
         <button
-          className={`button student-submit ${this.props.toggleDisabled}`} onClick={this.props.checkAnswer}
+          className={`button student-submit ${this.props.toggleDisabled}`}
+          onClick={this.props.checkAnswer}
         >
           {message}
         </button>
       );
       if (!this.props.responses) {
         <button
-          className={'button student-submit is-disabled'} onClick={() => {}}
+          className={'button student-submit is-disabled'}
+          onClick={() => {}}
         >
           {message}
         </button>;
@@ -85,7 +92,8 @@ export default React.createClass({
           {this.props.cues}
           {feedback}
           <TextEditor
-            disabled={this.props.disabled} defaultValue={this.props.initialValue}
+            disabled={this.props.disabled}
+            defaultValue={this.props.initialValue}
             key={this.props.questionID}
             questionID={this.props.questionID}
             checkAnswer={this.props.checkAnswer}
