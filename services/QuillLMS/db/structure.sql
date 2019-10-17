@@ -2431,6 +2431,40 @@ ALTER SEQUENCE subscriptions_id_seq OWNED BY subscriptions.id;
 
 
 --
+-- Name: third_party_user_ids; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE third_party_user_ids (
+    id integer NOT NULL,
+    user_id integer,
+    source character varying,
+    third_party_id character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: third_party_user_ids_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE third_party_user_ids_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: third_party_user_ids_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE third_party_user_ids_id_seq OWNED BY third_party_user_ids.id;
+
+
+--
 -- Name: title_cards; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3289,6 +3323,13 @@ ALTER TABLE ONLY subscriptions ALTER COLUMN id SET DEFAULT nextval('subscription
 
 
 --
+-- Name: third_party_user_ids id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY third_party_user_ids ALTER COLUMN id SET DEFAULT nextval('third_party_user_ids_id_seq'::regclass);
+
+
+--
 -- Name: title_cards id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3842,6 +3883,14 @@ ALTER TABLE ONLY subscription_types
 
 ALTER TABLE ONLY subscriptions
     ADD CONSTRAINT subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: third_party_user_ids third_party_user_ids_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY third_party_user_ids
+    ADD CONSTRAINT third_party_user_ids_pkey PRIMARY KEY (id);
 
 
 --
@@ -4719,17 +4768,24 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 
 
 --
+-- Name: index_third_party_user_ids_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_third_party_user_ids_on_user_id ON public.third_party_user_ids USING btree (user_id);
+
+
+--
+-- Name: index_third_party_user_ids_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_third_party_user_ids_on_user_id ON third_party_user_ids USING btree (user_id);
+
+
+--
 -- Name: index_title_cards_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_title_cards_on_uid ON public.title_cards USING btree (uid);
-
-
---
--- Name: index_title_cards_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_title_cards_on_uid ON title_cards USING btree (uid);
 
 
 --
@@ -5182,6 +5238,14 @@ ALTER TABLE ONLY classroom_units
 
 ALTER TABLE ONLY sales_stages
     ADD CONSTRAINT fk_rails_a8025d2621 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: third_party_user_ids fk_rails_aca4adc66a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY third_party_user_ids
+    ADD CONSTRAINT fk_rails_aca4adc66a FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -5929,4 +5993,6 @@ INSERT INTO schema_migrations (version) VALUES ('20191001184042');
 INSERT INTO schema_migrations (version) VALUES ('20191001190234');
 
 INSERT INTO schema_migrations (version) VALUES ('20191003192319');
+
+INSERT INTO schema_migrations (version) VALUES ('20191008191026');
 
