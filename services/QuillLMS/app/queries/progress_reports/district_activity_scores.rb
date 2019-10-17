@@ -6,7 +6,7 @@ class ProgressReports::DistrictActivityScores
   end
 
   def results
-    if classroom_ids_for_admin.length > 0
+    if !classroom_ids_for_admin.empty?
       ActiveRecord::Base.connection.execute(query).to_a
     else
       []
