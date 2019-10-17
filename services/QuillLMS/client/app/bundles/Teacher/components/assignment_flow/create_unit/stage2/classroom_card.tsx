@@ -16,7 +16,7 @@ interface ClassroomCardState {
 }
 
 export default class ClassroomCard extends React.Component<ClassroomCardProps, ClassroomCardState> {
-  private classroomCard: any
+  private studentSection: any
 
   constructor(props) {
 
@@ -36,7 +36,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
   }
 
   handleClick = (e) => {
-    if (this.classroomCard && this.classroomCard.contains(e.target)) {
+    if (this.studentSection && this.studentSection.contains(e.target)) {
       this.setState({ isActive: true})
     } else {
       this.setState({ isActive: false})
@@ -92,7 +92,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
 
   render() {
     const { classroom, toggleClassroomSelection, } = this.props
-    return (<div className="classroom" ref={node => this.classroomCard = node}>
+    return (<div className="classroom">
       <div className="checkbox-and-name-container">
         {this.renderClassroomCheckbox()}
         <div className="name-container">
@@ -100,7 +100,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
           <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{classroom.name}</span>
         </div>
       </div>
-      <div className="students-container">
+      <div className="students-container" ref={node => this.studentSection = node}>
         {this.renderStudentSection()}
       </div>
     </div>)

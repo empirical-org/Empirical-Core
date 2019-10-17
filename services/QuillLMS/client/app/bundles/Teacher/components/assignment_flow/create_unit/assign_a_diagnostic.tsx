@@ -19,7 +19,7 @@ const selectCard = (router, unitTemplateName, activityIdsArray, unitTemplateId) 
   window.localStorage.setItem(UNIT_NAME, unitTemplateName)
   window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
   window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateId)
-  router.push(`/assign/select-classes?unit_template_id=${unitTemplateId}`)
+  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateId}`)
 }
 
 const minis = (props) => [

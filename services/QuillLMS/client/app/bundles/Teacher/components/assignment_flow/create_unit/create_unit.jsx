@@ -23,7 +23,7 @@ export default class CreateUnit extends React.Component {
     let classrooms = []
     const previouslyStoredName = props.params.unitName || window.localStorage.getItem(UNIT_NAME) || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
     const previouslyStoredClassrooms = window.localStorage.getItem(CLASSROOMS) ? JSON.parse(window.localStorage.getItem(CLASSROOMS)) : []
-    if (props.location.query.unit_template_id || props.route.path === 'select-classes') {
+    if (props.location.query.unit_template_id || props.location.query.diagnostic_unit_template_id || props.route.path === 'select-classes') {
       stage = 2
       name = previouslyStoredName
       classrooms = previouslyStoredClassrooms
@@ -69,7 +69,7 @@ export default class CreateUnit extends React.Component {
 
   unitTemplateName = () => this.props.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
 
-  unitTemplateId = () => this.props.location.query.unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
+  unitTemplateId = () => this.props.location.query.unit_template_id || this.props.location.query.diagnostic_unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
 
   fetchClassrooms = () => {
     requestGet('/teachers/classrooms/retrieve_classrooms_i_teach_for_custom_assigning_activities', (body) => {
@@ -328,6 +328,7 @@ export default class CreateUnit extends React.Component {
   }
 
   stage2SpecificComponents = () => {
+    const { location, user, } = this.props
     return (<Stage2
       selectedActivities={this.getSelectedActivities()}
       data={this.assignSuccess}
@@ -344,8 +345,9 @@ export default class CreateUnit extends React.Component {
       assignActivityDueDate={this.assignActivityDueDate}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       errorMessage={this.determineStage2ErrorMessage()}
-      user={this.props.user}
+      user={user}
       fetchClassrooms={this.fetchClassrooms}
+      isFromDiagnosticPath={!!location.query.diagnostic_unit_template_id}
     />);
   }
 

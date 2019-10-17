@@ -81,6 +81,11 @@
         &.diagnostic-section, &.whole-class-section {
           margin-right: 16px;
         }
+        &.independent-practice-section {
+          button:not(:last-of-type) {
+            border-right: 1px solid white;
+          }
+        }
       }
     }
     .activity-filter-drop-downs {
@@ -733,8 +738,8 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
 
-    &.active {
-      border: solid 2px #009a80;
+    &.active, &:hover {
+      border: solid 2px #009a80 !important;
       padding: 15px;
     }
     h4 {

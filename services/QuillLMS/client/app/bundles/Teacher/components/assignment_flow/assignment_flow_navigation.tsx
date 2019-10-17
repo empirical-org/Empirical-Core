@@ -9,6 +9,7 @@ interface AssignmentFlowNavigationProps {
   button?: JSX.Element;
   unitTemplateId?: string;
   unitTemplateName?: string;
+  isFromDiagnosticPath?: boolean;
 }
 
 const learningProcessSlug = 'learning-process'
@@ -32,7 +33,20 @@ const routeLinks = {
   [diagnosticSlug]: () => [slash(), learningProcess(), slash(), diagnostic()],
   [activityTypeSlug]: () => [slash(), learningProcess(), slash(), activityType()],
   [createActivityPackSlug]: () => [slash(), learningProcess(), slash(), activityType(), slash(), createActivityPack()],
-  [selectClassesSlug]: (unitTemplateId, unitTemplateName) => {
+  [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
+    if (isFromDiagnosticPath && unitTemplateId && unitTemplateName) {
+      return [
+        slash(),
+        learningProcess(),
+        slash(),
+        diagnostic(),
+        slash(),
+        individualFeaturedActivityPack(unitTemplateId, unitTemplateName),
+        slash(),
+        selectClasses()
+      ]
+    }
+
     const base = [slash(), learningProcess(), slash(), activityType(), slash()]
     if (unitTemplateId && unitTemplateName) {
       return base.concat(
@@ -94,10 +108,10 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
   }
 
   renderLinks() {
-    const { unitTemplateId, unitTemplateName, } = this.props
+    const { unitTemplateId, unitTemplateName, isFromDiagnosticPath } = this.props
     let elements
     try {
-      elements = routeLinks[this.getSlug()](unitTemplateId, unitTemplateName)
+      elements = routeLinks[this.getSlug()](unitTemplateId, unitTemplateName, isFromDiagnosticPath)
     } catch {
       elements = null
     }
@@ -105,7 +119,7 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
   }
 
   renderProgressBar() {
-    const { unitTemplateId, unitTemplateName, } = this.props
+    const { unitTemplateId, unitTemplateName } = this.props
     let className
     try {
       className = routeProgress[this.getSlug()](unitTemplateId, unitTemplateName)

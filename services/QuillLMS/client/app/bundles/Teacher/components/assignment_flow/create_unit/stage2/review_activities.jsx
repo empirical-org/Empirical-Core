@@ -51,10 +51,16 @@ export default class ReviewActivities extends React.Component {
   }
 
   handleDueDateChange(id, date) {
-    const { activities, assignActivityDueDate, } = this.props
+    const { activities, assignActivityDueDate, dueDates, } = this.props
     const activity = activities.find(act => act.id === id)
-    const formattedDate = date ? `${date.year()}-${date.month() + 1}-${date.date()}` : null
-    assignActivityDueDate(activity, formattedDate);
+    const existingDate = dueDates[id] ? moment(dueDates[id]) : null
+    // if same date is selected twice, unselect it
+    if (date && existingDate && existingDate.dayOfYear() === date.dayOfYear()) {
+      assignActivityDueDate(activity, null)
+    } else {
+      const formattedDate = date ? `${date.year()}-${date.month() + 1}-${date.date()}` : null
+      assignActivityDueDate(activity, formattedDate);
+    }
   }
 
   rows() {

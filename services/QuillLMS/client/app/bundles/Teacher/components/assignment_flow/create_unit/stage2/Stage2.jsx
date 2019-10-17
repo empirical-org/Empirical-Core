@@ -94,7 +94,7 @@ export default class Stage2 extends React.Component {
   }
 
   render() {
-    const { errorMessage, unitTemplateName, unitTemplateId, selectedActivities, } = this.props
+    const { errorMessage, unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
     const buttonError = errorMessage ? errorMessage.students : null
     let assignName = 'Activity Pack'
     if (unitTemplateName) {
@@ -109,6 +109,7 @@ export default class Stage2 extends React.Component {
           button={this.assignButton()}
           unitTemplateName={unitTemplateName}
           unitTemplateId={unitTemplateId}
+          isFromDiagnosticPath={isFromDiagnosticPath}
         />
         <div className="name-and-assign-activity-pack container">
           <h1 className="assign-header">Assign {assignName}</h1>
