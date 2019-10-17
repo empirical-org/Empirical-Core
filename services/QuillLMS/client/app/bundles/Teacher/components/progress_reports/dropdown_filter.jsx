@@ -38,7 +38,7 @@ export default React.createClass({
         <div className={`button-select ${this.props.className}`}>
           <button type="button" className={this.getButtonClassName() + " select-mixin button-select button-select-wrapper"} data-toggle="dropdown">
             {icon} <span className="button-text">{buttonText}</span>
-            <i className="fa fa-caret-down"></i>
+            <i className="fa fa-caret-down" />
           </button>
           {this.getFilterOptions()}
         </div>

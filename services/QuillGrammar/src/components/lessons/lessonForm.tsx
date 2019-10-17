@@ -174,8 +174,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
                 <input
                   defaultValue={conceptVal.quantity.toString()}
                   style={{ width: '50px' }}
-                  onChange={(e) => this.changeConceptQuantity(c, e)}>
-                </input>
+                  onChange={(e) => this.changeConceptQuantity(c, e)} />
               </span>
               <span style={{ cursor: 'pointer' }} onClick={() => this.removeConcept(c)}>X</span>
             </span>

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const SignupModal = (props) =>
   (<div>
-    <div onClick={props.closeModal} className="signup-modal-background"></div>
+    <div onClick={props.closeModal} className="signup-modal-background" />
     <div className="signup-modal">
       <img onClick={props.closeModal} className="exit" src="https://assets.quill.org/images/icons/CloseIcon.svg" />
       <img className="illustration" src="https://assets.quill.org/images/illustrations/signup-to-customize.png" />

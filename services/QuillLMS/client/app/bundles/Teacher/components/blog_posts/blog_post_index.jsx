@@ -122,9 +122,9 @@ export default class extends React.Component {
     if(announcement) {
       return (
         <a className='announcement' href={announcement.link}>
-          <div className='circle'></div>
+          <div className='circle' />
           <p>{announcement.text}</p>
-          <i className='fa fa-chevron-right'></i>
+          <i className='fa fa-chevron-right' />
         </a>
       )
     }

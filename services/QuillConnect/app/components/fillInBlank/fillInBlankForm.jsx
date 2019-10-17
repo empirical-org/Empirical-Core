@@ -113,7 +113,7 @@ class FillInBlankForm extends Component {
         <div>
           <label className="label">Optimal Response</label>
           <p className="control">
-            <input className="input" type="text" value={this.state.newQuestionOptimalResponse} onChange={this.handleNewQuestionOptimalResponseChange}></input>
+            <input className="input" type="text" value={this.state.newQuestionOptimalResponse} onChange={this.handleNewQuestionOptimalResponseChange} />
           </p>
         </div>
       );
@@ -138,20 +138,20 @@ class FillInBlankForm extends Component {
         <br />
         <label className="label">Instructions for student</label>
         <p className="control">
-          <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange}></textarea>
+          <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange} />
         </p>
         <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.cuesLabel} onChange={this.handleCuesLabelChange}></input>
+          <input className="input" type="text" value={this.state.cuesLabel} onChange={this.handleCuesLabelChange} />
         </p>
         <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.cues} onChange={this.handleCuesChange}></input>
+          <input className="input" type="text" value={this.state.cues} onChange={this.handleCuesChange} />
         </p>
         {this.renderOptimalField()}
         <label className="label" onClick={this.toggleQuestionBlankAllowed}>Blank Allowed?</label>
         <p className="control">
-          <input type="checkbox" checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed}></input>
+          <input type="checkbox" checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed} />
         </p>
 
         <label className="label">Item level</label>

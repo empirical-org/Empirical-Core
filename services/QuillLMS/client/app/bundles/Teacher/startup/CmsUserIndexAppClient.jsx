@@ -138,14 +138,14 @@ export default class CmsUserIndex extends React.Component {
   }
 
   renderUserRoleSelect() {
-    const options = [<option value></option>].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
+    const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
     return <select onChange={e => this.updateField(e, 'user_role')}>
       {options}
     </select>
   }
 
   renderUserFlagSelect() {
-    const options = [<option value></option>].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
+    const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
     return <select onChange={e => this.updateField(e, 'user_flag')}>
       {options}
     </select>

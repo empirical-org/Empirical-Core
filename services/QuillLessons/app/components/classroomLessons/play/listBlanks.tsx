@@ -236,7 +236,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback
         feedbackType="default"
-        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
       />) : null;
       let submitButton = !this.props.projector ? <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/> : null;
       return (

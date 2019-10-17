@@ -39,7 +39,7 @@ class QuestionCard extends React.Component<Props, State> {
       classes += ' bg-blue'
     }
     return (
-      <div className={classes}></div>
+      <div className={classes} />
     )
   }
 

@@ -29,7 +29,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     if (this.props.data.play.instructions) {
       return (<Feedback
         feedbackType="default"
-        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
       />);
     }
   }
@@ -60,7 +60,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
           <p className="answer-header">
             Teacher Answer:
           </p>
-          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}}></p>
+          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}} />
         </div>
       )
     } else {
@@ -86,7 +86,7 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
     } else {
       return (
         <div className="student-model-question">
-          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}}></p>
+          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}} />
         </div>
       )
     }

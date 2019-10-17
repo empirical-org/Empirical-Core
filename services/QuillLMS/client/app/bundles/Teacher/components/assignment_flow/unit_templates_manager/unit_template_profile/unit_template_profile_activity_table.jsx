@@ -22,7 +22,7 @@
         width: 78,
         accessor: a => a,
         id: 'toolName',
-        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise'><div className={`icon-${props.value.classification.id}-green-no-border activity-icon`}></div></a>
+        Cell: props => <a onClick={() => this.redirectToActivity(props.value.id)} className='row-link-disguise'><div className={`icon-${props.value.classification.id}-green-no-border activity-icon`} /></a>
       },
       {
         Header: 'Activity',

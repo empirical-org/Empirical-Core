@@ -46,7 +46,7 @@ EC.Authors = React.createClass({
             <div>
               <div className='row'>
                 <div className='col-xs-12'>
-                  <img src={this.getImageUrl(cmsComponent)}></img>
+                  <img src={this.getImageUrl(cmsComponent)} />
                 </div>
               </div>
               <div className='row'>

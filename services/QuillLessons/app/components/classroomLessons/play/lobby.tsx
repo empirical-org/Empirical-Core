@@ -40,7 +40,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
         return (
           <div className="student-row" key={key}>
             <p><span className='student-number'>{number}</span><span className={className}>{name}</span></p>
-            <div className={statusClass}></div>
+            <div className={statusClass} />
           </div>
         );
       });

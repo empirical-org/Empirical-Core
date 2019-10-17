@@ -10,7 +10,7 @@
     return (
       <div className='video-container'>
         <h4>Building Better Writers</h4>
-        <iframe width='298' height='168' src={fullEmbedCode} frameBorder="0" allowFullScreen></iframe>
+        <iframe width='298' height='168' src={fullEmbedCode} frameBorder="0" allowFullScreen />
         <p>An overview of how Quill works.</p>
       </div>
 );

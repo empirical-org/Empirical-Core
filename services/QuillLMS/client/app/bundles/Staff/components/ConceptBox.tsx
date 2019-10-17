@@ -236,11 +236,11 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     const { concept, } = this.state
     return <div className="rename-and-archive">
       <span className="rename" onClick={this.activateConceptInput}>
-        <i className="fas fa-edit"></i>
+        <i className="fas fa-edit" />
         <span>Rename</span>
       </span>
       <span className="archive" onClick={this.toggleVisiblity}>
-        <i className="fas fa-archive"></i>
+        <i className="fas fa-archive" />
         <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
       </span>
   </div>

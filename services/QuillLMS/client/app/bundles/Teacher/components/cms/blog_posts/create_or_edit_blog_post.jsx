@@ -592,7 +592,7 @@ export default class extends React.Component {
     const allTopics = this.props.topics.concat(this.props.studentTopics)
     return (
       <div>
-        <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left'></i> All Blog Posts</a>
+        <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left' /> All Blog Posts</a>
         <form>
           <label>Title:</label>
           <input type="text" value={this.state.title} onChange={this.handleTitleChange} />

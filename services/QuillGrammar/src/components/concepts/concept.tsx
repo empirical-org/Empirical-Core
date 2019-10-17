@@ -137,7 +137,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
             />
             <label className="label">Instructions for student</label>
             <p className="control">
-              <textarea className="input" ref="instructions" onChange={this.handleInstructionsChange}></textarea>
+              <textarea className="input" ref="instructions" onChange={this.handleInstructionsChange} />
             </p>
             <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
             <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
@@ -150,7 +150,7 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
             </p>
             <label className="label">Optimal answer (you can add more later)</label>
             <p className="control">
-              <textarea className="input" ref="answers" onChange={this.handleAnswersChange}></textarea>
+              <textarea className="input" ref="answers" onChange={this.handleAnswersChange} />
             </p>
             <br/>
             <button className="button is-primary" onClick={this.submit}>Create Question</button>

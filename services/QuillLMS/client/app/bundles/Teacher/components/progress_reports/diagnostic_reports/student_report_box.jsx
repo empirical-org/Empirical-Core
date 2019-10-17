@@ -17,7 +17,7 @@ export default React.createClass({
 			return (
 				<tr className='directions'>
 					<td>Directions</td>
-					<td></td>
+					<td />
 					<td><span>{directions}</span></td>
 				</tr>
 			)
@@ -30,7 +30,7 @@ export default React.createClass({
 			return (
 				<tr>
 					<td>Prompt</td>
-					<td></td>
+					<td />
 					<td><span>{prompt}</span></td>
 				</tr>
 			)
@@ -54,7 +54,7 @@ export default React.createClass({
 										{this.prompt()}
 										<tr className={ScoreColor(data.score)}>
 											<td>Submission</td>
-											<td></td>
+											<td />
 											<td><span style={{ whiteSpace: 'pre-wrap' }}>{this.answer()}</span></td>
 										</tr>
 										{this.concepts()}

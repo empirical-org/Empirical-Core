@@ -111,7 +111,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
     const { inactive } = this.state
     const { handleCancel } = this.props
     if (!inactive && handleCancel) {
-      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times"></i></div>
+      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times" /></div>
     }
   }
 

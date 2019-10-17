@@ -80,7 +80,7 @@ export default React.createClass({
       return <div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill}></input>
+          <input className="input" type="text" ref="newQuestionOptimalResponse" onBlur={this.copyAnswerToPrefill} />
         </p>
       </div>
     }
@@ -116,20 +116,20 @@ export default React.createClass({
           />
           <label className="label">Instructions for student</label>
           <p className="control">
-            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange}></textarea>
+            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} />
           </p>
           <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
           <p className="control">
-            <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel}></input>
+            <input className="input" type="text" onChange={this.handleCuesLabelChange} defaultValue={this.props.question.cuesLabel} />
           </p>
           <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
           <p className="control">
-            <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues}></input>
+            <input className="input" type="text" ref="cues" defaultValue={this.props.question.cues} />
           </p>
           {this.renderOptimalResponse()}
           <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
           <p className="control">
-            <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText}></input>
+            <input className="input" type="text" ref="prefilledText" defaultValue={this.props.question.prefilledText} />
           </p>
 
           <label className="label">Item level</label>
