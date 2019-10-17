@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const PreviewModal = (props) =>
   (<div>
-    <div className="preview-modal-background"></div>
+    <div className="preview-modal-background" />
     <div className="preview-modal">
       <img onClick={props.closeModal} className="exit" src="https://assets.quill.org/images/icons/CloseIcon.svg" />
       <img className="illustration" src="https://assets.quill.org/images/illustrations/preview_lesson_modal.svg" />

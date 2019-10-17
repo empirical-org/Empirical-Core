@@ -56,8 +56,7 @@ const Navbar = React.createClass({
   renderLinks: function () {
     if (this.inLesson()) {
       return (
-        <div className="nav-right nav-menu" style={this.navStyles()}>
-        </div>
+        <div className="nav-right nav-menu" style={this.navStyles()} />
       )
     } else {
       return (

@@ -41,7 +41,7 @@ class PieChart extends React.Component<any, any> {
         {
           this.props.total ?
             <div>
-              <span style={{marginRight: '28px'}}></span>
+              <span style={{marginRight: '28px'}} />
               <span>Total: {this.props.total}</span>
             </div>
           : ''

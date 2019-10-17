@@ -45,11 +45,11 @@
             </div>
             <div style={{flex: 5}}>
               <div className='activities-count'>
-                <i className='fa fa-th-list'></i>
+                <i className='fa fa-th-list' />
                 {this.sayActivitiesCount()}
               </div>
               <div className='time'>
-                <i className='fa fa-clock-o'></i>
+                <i className='fa fa-clock-o' />
                 <div className='time-number'>
                   {this.sayTime()}
                 </div>

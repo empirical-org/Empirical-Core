@@ -259,7 +259,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         </Row>
       } else {
         return <Row type="flex" align="middle" justify="start">
-          <textarea value={this.state.response} spellcheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
+          <textarea value={this.state.response} spellCheck="false" className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter}/>
         </Row>
       }
     }

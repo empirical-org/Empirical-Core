@@ -26,14 +26,14 @@ export default React.createClass({
     correct: function() {
         return (
             <div className="circle">
-                <div className="inner-circle"></div>
+                <div className="inner-circle" />
             </div>
         );
     },
 
     incorrect: function() {
         return (
-            <div className="circle circle-red"></div>
+            <div className="circle circle-red" />
         );
     },
 

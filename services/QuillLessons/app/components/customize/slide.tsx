@@ -104,7 +104,7 @@ export default class Slide extends React.Component<any, any> {
         <span className="slide-number">Slide {this.props.questionIndex} - </span>
         <span className="slide-type">{this.slideTypeName()}</span>
       </div>
-      <span className="line"></span>
+      <span className="line" />
       <span onClick={this.toggleShowSlide} className="hide">{showSlideButtonText}</span>
       </div>
       {this.renderSlide()}

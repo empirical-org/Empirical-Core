@@ -131,7 +131,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           return this.renderTeacherModel()
         case 'Overview':
           const html:string = item && item.data && item.data.body ? item.data.body : ''
-          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} ></div>
+          return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
         default:
           return <li key={index}>Unsupported type</li>
       }
@@ -224,7 +224,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (selected_submissions && selected_submissions[current_slide]) {
       return <p onClick={this.clearSelectedSubmissions}>Unselect All</p>
     } else {
-      return <p></p>
+      return <p />
     }
   }
 
@@ -379,7 +379,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     return <thead>
       <tr>
         {headers}
-        <th></th>
+        <th />
       </tr>
     </thead>
   }
@@ -430,8 +430,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       <td>{this.props.students[studentKey]}</td>
       <td>{this.renderFlag(studentKey)}</td>
       <td className="no-student-response">Waiting for the student's answer...</td>
-      <td></td>
-      <td></td>
+      <td />
+      <td />
     </tr>
   }
 

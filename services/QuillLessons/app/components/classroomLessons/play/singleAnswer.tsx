@@ -150,7 +150,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       } else if (this.props.data.play.instructions) {
         return (<Feedback
           feedbackType="default"
-          feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+          feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         />);
       }
     }

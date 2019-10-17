@@ -220,7 +220,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback 
         feedbackType="default"
-        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
       />) : null;
       return (
         <div>

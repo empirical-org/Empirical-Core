@@ -33,7 +33,7 @@ export default React.createClass({
     if (this.state.showIntro) {
       return (
         <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.lesson.landingPageHtml}}></div>
+          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.lesson.landingPageHtml}} />
           <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
         </div>
       )

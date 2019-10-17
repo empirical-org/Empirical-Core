@@ -114,7 +114,7 @@ export default class extends React.Component {
         </div>
       </div>
     } else if (this.state.loading) {
-      return <div className="inner-container"></div>
+      return <div className="inner-container" />
     } else {
       return <div className="inner-container">
         <div className="header-container flex-row space-between vertically-centered lesson-item">

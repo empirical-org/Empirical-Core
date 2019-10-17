@@ -102,8 +102,7 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
       const scriptData = this.state.scriptItem.data
       if (scriptData) {
         const html:string =  scriptData.body || '';
-        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
-        </div>
+        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
       }
     } else {
       return <ScriptComponent script={[this.state.scriptItem]} />

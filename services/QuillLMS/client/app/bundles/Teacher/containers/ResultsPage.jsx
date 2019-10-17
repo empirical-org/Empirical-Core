@@ -12,13 +12,13 @@ export default React.createClass({
       const link = `/${this.props.integrationPartnerName}?session_id=${this.props.integrationPartnerSessionId}`;
       return (<a href={link}>
         <button className='btn button-green'>
-          Back to Activity List<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+          Back to Activity List<i className="fa fa-long-arrow-right" aria-hidden="true" />
         </button>
       </a>)
     } else if (this.props.anonymous) {
       return (<a href='/account/new'>
         <button className='btn button-green'>
-          Sign Up<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+          Sign Up<i className="fa fa-long-arrow-right" aria-hidden="true" />
         </button>
       </a>)
     } else {
@@ -26,7 +26,7 @@ export default React.createClass({
       return (
         <a href={link}>
           <button className='btn button-green'>
-            Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true"></i>
+            Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true" />
           </button>
         </a>
       )

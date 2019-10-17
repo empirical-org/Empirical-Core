@@ -103,10 +103,10 @@ export default class extends React.Component {
             Download report as:
             <span className='pull-right'>
               <div>
-                <i className="fa  fa-caret-up gray-caret" aria-hidden="true"></i>
+                <i className="fa  fa-caret-up gray-caret" aria-hidden="true" />
               </div>
               <div>
-                <i className="fa fa-caret-up " aria-hidden="true"></i>
+                <i className="fa fa-caret-up " aria-hidden="true" />
               </div>
             </span>
 
