@@ -494,6 +494,9 @@ color: #875a12;
   }
   button {
     width: min-content !important;
+    &.secondary {
+      font-weight: 600 !important;
+    }
   }
 }
 
