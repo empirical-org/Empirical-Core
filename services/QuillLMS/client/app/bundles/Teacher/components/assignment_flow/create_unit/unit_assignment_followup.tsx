@@ -170,7 +170,6 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   renderFollowUp = () => {
     const { showNextOptions, leaving, } = this.state
-    debugger;
     if (leaving) return
     if (!showNextOptions) {
       if (this.allAssignedClassroomsAreEmpty()) {
@@ -183,7 +182,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   render() {
-    let button = <a href="/" className="quill-button medium contained primary" onClick={this.setNextOptions}>Take me to my dashboard</a>
+    let button = <a href="/" className="quill-button medium contained primary">Take me to my dashboard</a>
     if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.setNextOptions}>Next</button>
     }

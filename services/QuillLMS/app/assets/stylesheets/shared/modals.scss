@@ -487,7 +487,14 @@ color: #875a12;
 }
 
 .explore-activities-modal {
-  height: 270px;
+  height: 574px;
+  img {
+    padding: 32px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  button {
+    width: min-content !important;
+  }
 }
 
 .archive-class-modal-text,
