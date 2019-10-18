@@ -33,10 +33,7 @@ class RematchResponseWorker
   end
 
   def sanitize_update_params(params)
-    params.keys.each do |k|
-      params.delete(k) unless ALLOWED_PARAMS.include?(k)
-    end
-    params
+    params.slice(*ALLOWED_PARAMS)
   end
 
   def construct_lambda_payload(response, question_type, question, reference_responses)
