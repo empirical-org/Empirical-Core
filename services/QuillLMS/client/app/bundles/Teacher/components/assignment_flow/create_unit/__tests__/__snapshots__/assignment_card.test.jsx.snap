@@ -3,6 +3,7 @@
 exports[`AssignmentCard component should render 1`] = `
 <div
   className="assignment-card quill-card"
+  onClick={[Function]}
 >
   <div
     className="top-row"
