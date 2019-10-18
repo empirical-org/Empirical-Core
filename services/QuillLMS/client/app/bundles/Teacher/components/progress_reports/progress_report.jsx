@@ -217,20 +217,20 @@ export default  React.createClass({
       faqLink;
     var filteredResults = this.getFilteredResults();
     if (this.props.pagination) {
-      pagination = <Pagination currentPage={this.state.currentPage} maxPageNumber={this.props.maxPageNumber} numberOfPages={this.state.numPages} selectPageNumber={this.goToPage}/>;
+      pagination = <Pagination currentPage={this.state.currentPage} maxPageNumber={this.props.maxPageNumber} numberOfPages={this.state.numPages} selectPageNumber={this.goToPage} />;
     }
     var visibleResults = this.getVisibleResults(filteredResults);
 
     if (this.props.exportCsv) {
-      csvExport = <ExportCsv disabled={!!this.state.disabled} exportType={this.props.exportCsv} filters={this.state.currentFilters} reportUrl={this.props.sourceUrl} teacher={this.state.teacher}/>;
+      csvExport = <ExportCsv disabled={!!this.state.disabled} exportType={this.props.exportCsv} filters={this.state.currentFilters} reportUrl={this.props.sourceUrl} teacher={this.state.teacher} />;
     }
     if (this.state.loading) {
-      mainSection = <LoadingIndicator/>;
+      mainSection = <LoadingIndicator />;
     } else {
-      mainSection = <SortableTable colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} currentSort={this.state.currentSort} onNonPremiumStudentPage={this.studentPageBlur()} rows={visibleResults} sortHandler={this.handleSort()}/>;
+      mainSection = <SortableTable colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columnDefinitions()} currentSort={this.state.currentSort} onNonPremiumStudentPage={this.studentPageBlur()} rows={visibleResults} sortHandler={this.handleSort()} />;
     }
     if (!this.props.hideFaqLink) {
-      faqLink = <FaqLink/>
+      faqLink = <FaqLink />
     }
 
 
@@ -245,7 +245,7 @@ export default  React.createClass({
             {faqLink}
           </div>
         </div>
-        <ProgressReportFilters classroomFilters={this.state.classroomFilters} filterTypes={this.props.filterTypes} selectClassroom={this.selectClassroom} selectedClassroom={this.state.selectedClassroom} selectedStudent={this.state.selectedStudent} selectedUnit={this.state.selectedUnit} selectStudent={this.selectStudent} selectUnit={this.selectUnit} studentFilters={this.state.studentFilters} unitFilters={this.state.unitFilters}/>
+        <ProgressReportFilters classroomFilters={this.state.classroomFilters} filterTypes={this.props.filterTypes} selectClassroom={this.selectClassroom} selectedClassroom={this.state.selectedClassroom} selectedStudent={this.state.selectedStudent} selectedUnit={this.state.selectedUnit} selectStudent={this.selectStudent} selectUnit={this.selectUnit} studentFilters={this.state.studentFilters} unitFilters={this.state.unitFilters} />
         {mainSection}
         {pagination}
       </div>

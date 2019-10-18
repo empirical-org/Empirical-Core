@@ -63,7 +63,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
   render() {
     const { classroom } = this.props
     const { grade, errors, timesSubmitted } = this.state
-    return <div className="modal-container change-grade-modal-container">
+    return (<div className="modal-container change-grade-modal-container">
       <div className="modal-background" />
       <div className="change-grade-modal quill-modal modal-body">
         <div>
@@ -84,6 +84,6 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
           <button className={this.submitButtonClass()} onClick={this.changeGrade}>Save</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

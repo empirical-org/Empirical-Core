@@ -170,7 +170,7 @@ export default React.createClass({
   tableOrEmptyMessage: function(){
     let tableOrEmptyMessage
     if (this.state.results.length) {
-      tableOrEmptyMessage = <ReactTable
+      tableOrEmptyMessage = (<ReactTable
         className='progress-report'
         columns={this.columnDefinitions()}
         data={this.state.results}
@@ -187,9 +187,9 @@ export default React.createClass({
         showPagination={true}
         showPaginationBottom={true}
         showPaginationTop={false}
-      />
+      />)
       } else {
-        tableOrEmptyMessage = <EmptyStateForReport/>
+        tableOrEmptyMessage = <EmptyStateForReport />
       }
       return (
         <div>

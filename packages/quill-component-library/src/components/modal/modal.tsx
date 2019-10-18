@@ -8,7 +8,7 @@ const Modal = (props: any) => (
         {props.children}
       </div>
     </div>
-    <button className="modal-close" onClick={props.close}/>
+    <button className="modal-close" onClick={props.close} />
   </div>
 )
 

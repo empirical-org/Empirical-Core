@@ -95,7 +95,7 @@ export default class extends React.Component {
         width: 80,
         Cell: row => (
           <a className='green-arrow' href={row.original['concepts_href']}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
+            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>
         )
       }
@@ -104,7 +104,7 @@ export default class extends React.Component {
 
   render() {
     if (this.state.loading || !this.state.reportData) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     const changeValues = [{key: 'percentage', function: ((num)=>num.toString() + '%')}]
     return (
@@ -115,11 +115,11 @@ export default class extends React.Component {
             <p>Each time a student correctly demonstrates a concept or creates an error, Quill generates a concept result. This report provides an aggregate picture of student progress on each concept.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.filteredReportData} keysToOmit={['concepts_href']} valuesToChange={changeValues}/>
+            <CSVDownloadForProgressReport data={this.state.filteredReportData} keysToOmit={['concepts_href']} valuesToChange={changeValues} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
           <div className='dropdown-container'>
-            <ItemDropdown callback={this.switchClassrooms} items={this.state.dropdownClassrooms} selectedItem={this.state.selectedClassroom}/>
+            <ItemDropdown callback={this.switchClassrooms} items={this.state.dropdownClassrooms} selectedItem={this.state.selectedClassroom} />
           </div>
         </div>
         <div key={`concept-progress-report-length-${this.state.filteredReportData.length}`}>

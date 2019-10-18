@@ -85,7 +85,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderStudentPresence() {
-    const presentStudents = this.props.data ? this.renderPresentStudents(this.props.data.presence, this.props.data.students) : <span/>
+    const presentStudents = this.props.data ? this.renderPresentStudents(this.props.data.presence, this.props.data.students) : <span />
     const className = this.props.projector ? 'presence-container projector-presence' : 'presence-container'
     return (
       <div className={className}>
@@ -100,7 +100,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
   }
 
   renderStudentView() {
-    return <div className="student-view">
+    return (<div className="student-view">
       <div className="joined-message">
         <p>You've joined this lesson:</p>
         <h1>{this.props.title}</h1>
@@ -110,7 +110,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
         <h2>Next Step:</h2>
         <p>Hold tight and wait for your teacher to begin the lesson.</p>
       </div>
-    </div>
+    </div>)
 
   }
 
@@ -129,10 +129,10 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
 
 
   render() {
-    return <div className="student-lobby">
+    return (<div className="student-lobby">
       {this.renderStudentOrProjectorLobby()}
       {this.renderStudentPresence()}
-    </div>
+    </div>)
   }
 
 }

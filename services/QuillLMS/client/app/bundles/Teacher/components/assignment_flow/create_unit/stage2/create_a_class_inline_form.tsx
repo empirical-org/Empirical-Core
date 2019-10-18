@@ -77,7 +77,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
 
   renderBody() {
     const { name, grade, code, timesSubmitted, errors, } = this.state
-    return <div className="create-a-class-inline-body inline-body">
+    return (<div className="create-a-class-inline-body inline-body">
       <form className="create-a-class-form">
         <Input
           characterLimit={50}
@@ -111,11 +111,11 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
           <span className="reset" onClick={this.getClassCode}>Reset</span>
         </div>
       </form>
-    </div>
+    </div>)
   }
 
   renderFooter() {
-    return <div className="create-a-class-inline-footer">
+    return (<div className="create-a-class-inline-footer">
       <div className="info">
         <img alt="the letter I in a circle" src={informationSrc} />
         <span>You’ll invite students after you assign.</span>
@@ -124,7 +124,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
         <button className="quill-button medium secondary outlined" onClick={this.props.cancel}>Cancel</button>
         <button className={this.submitButtonClass()} onClick={this.createClass}>Create</button>
       </div>
-    </div>
+    </div>)
   }
 
   render() {

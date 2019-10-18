@@ -84,13 +84,13 @@
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student
+      return (<Student
         classroom={this.props.classroom}
         handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
         key={`c${this.props.classroom.id}s${student.id}`}
         student={student}
         toggleStudentSelection={this.props.toggleStudentSelection}
-      />;
+      />);
     }, this);
 
     return (

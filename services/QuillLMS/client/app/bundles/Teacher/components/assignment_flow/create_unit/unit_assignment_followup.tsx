@@ -109,7 +109,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const { assignedClassrooms, } = this.state
     const { unitName, referralCode, } = this.props
     const referralLink = `${process.env.DEFAULT_URL}/?referral_code=${referralCode}`
-    return <div className="unit-assignment-followup referral">
+    return (<div className="unit-assignment-followup referral">
       {this.renderSnackbar()}
       <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms)}.</h1>
       <div className="referral-card">
@@ -140,7 +140,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <div className="button-container">
         <button className="quill-button primary contained medium" onClick={this.setNextOptions}>Next</button>
       </div>
-    </div>
+    </div>)
   }
 
   renderFollowUp = () => {

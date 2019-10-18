@@ -60,7 +60,7 @@ class AdminLobby extends Component<AdminLobbyProps, any>{
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
-            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title}/>
+            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">

@@ -69,7 +69,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   renderContent() {
-    return <Query
+    return (<Query
       query={gql(allConceptsQuery)}
     >
       {({ loading, error, data, refetch, networkStatus }) => {
@@ -77,7 +77,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
         const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
-        return <div className="concept-levels-and-forms-container">
+        return (<div className="concept-levels-and-forms-container">
           <ConceptLevels
             concepts={concepts}
             selectConcept={this.selectConcept}
@@ -85,9 +85,9 @@ class AddConcept extends React.Component<{}, AddConceptState> {
             unselectConcept={this.closeConceptBox}
           />
           {this.renderConceptForms(refetch, concepts)}
-        </div>
+        </div>)
       }}
-    </Query>
+    </Query>)
   }
 
   renderConceptForms(refetch, concepts) {
@@ -109,7 +109,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   renderAddNewConceptsForms(refetch, concepts) {
-    return <div className="new-concept-forms">
+    return (<div className="new-concept-forms">
       <div className="concept-guide-section">
         <i className="fas fa-book-open" />
         <div>
@@ -132,12 +132,12 @@ class AddConcept extends React.Component<{}, AddConceptState> {
         finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
         levelNumber={0}
       />
-    </div>
+    </div>)
   }
 
   renderEditSuccessBanner() {
     if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close"/></span></div>
+      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close" /></span></div>
     }
   }
 

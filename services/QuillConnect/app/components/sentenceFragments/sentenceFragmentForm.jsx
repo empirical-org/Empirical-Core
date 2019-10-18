@@ -137,7 +137,7 @@ const sentenceFragmentForm = React.createClass({
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
-        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleChange.bind(null, 'flag')} isLessons={false}/>
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleChange.bind(null, 'flag')} isLessons={false} />
         <p className="control">
           <label className="label">Associated Concept</label>
           <ConceptSelector

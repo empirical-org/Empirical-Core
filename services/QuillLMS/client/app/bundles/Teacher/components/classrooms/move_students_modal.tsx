@@ -114,7 +114,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     const numberOfSelectedStudents = selectedStudentIds.length
     const classroomOptions = this.classroomOptions()
     const classroomOptionsForDropdown = classroomOptions.filter(opt => opt.value !== classroom.id)
-    return <div className="modal-container move-students-modal-container">
+    return (<div className="modal-container move-students-modal-container">
       <div className="modal-background" />
       <div className="move-students-modal quill-modal modal-body">
         <div>
@@ -134,6 +134,6 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
           {this.renderSubmitButton()}
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

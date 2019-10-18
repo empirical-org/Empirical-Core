@@ -8,7 +8,7 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
   <div className="columns">
     <div className="column">
       { questionSelect.map((b, i) =>
-        <div
+        (<div
           key={i}
           style={{
           borderBottom: '1px solid #aaa',
@@ -33,7 +33,7 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
               />
             )
           : ''}
-        </div>
+        </div>)
       )}
       <AddQuestion questionType={'initial'} />
     </div>

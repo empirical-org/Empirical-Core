@@ -133,7 +133,7 @@ const SentenceFragment = React.createClass({
           {this.renderEditForm()}
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
+            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
             <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">

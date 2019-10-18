@@ -66,14 +66,14 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
         return (
           <div key={this.props.match.params.conceptFeedbackID}>
             {conceptName}
-            <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} conceptFeedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback}/>
+            <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} conceptFeedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
           </div>
         )
       } else if (conceptFeedbackID) {
         return (
           <div key={conceptFeedbackID}>
             {conceptName}
-            <ConceptExplanation {...data[conceptFeedbackID]}/>
+            <ConceptExplanation {...data[conceptFeedbackID]} />
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
             </p>

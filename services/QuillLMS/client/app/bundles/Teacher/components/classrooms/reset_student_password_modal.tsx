@@ -29,7 +29,7 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
 
   render() {
     const { student } = this.props
-    return <div className="modal-container reset-student-password-modal-container">
+    return (<div className="modal-container reset-student-password-modal-container">
       <div className="modal-background" />
       <div className="reset-student-password-modal quill-modal modal-body">
         <div>
@@ -48,6 +48,6 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
           <button className="quill-button primary contained medium" onClick={this.resetPassword}>Reset Password</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

@@ -16,7 +16,7 @@ export default class ConceptResults extends React.Component<any, any> {
         const conceptResultsPlus = Object.assign(conceptResults, {null: this.props.response.optimal})
         components = Object.keys(conceptResultsPlus).map(uid => {
           const concept = _.find(this.props.concepts.data['0'], { uid, });
-          return <ConceptSelectorWithCheckbox
+          return (<ConceptSelectorWithCheckbox
             checked={conceptResults[uid]}
             currentConceptUID={uid}
             deleteConceptResult={() => this.props.deleteConceptResult(uid)}
@@ -24,17 +24,17 @@ export default class ConceptResults extends React.Component<any, any> {
             key={uid}
             onCheckboxChange={() => this.props.toggleCheckboxCorrect(uid)}
             selectorDisabled={uid === null || uid === 'null' ? false : true}
-          />
+          />)
         });
       } else {
         components = Object.keys(conceptResults).map(uid => {
           const concept = _.find(this.props.concepts.data['0'], { uid, });
           if (concept) {
             // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
-            return  <li key={uid}>
+            return  (<li key={uid}>
               {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
               {'\t'}
-            </li>
+            </li>)
           }
         });
       }
@@ -43,9 +43,9 @@ export default class ConceptResults extends React.Component<any, any> {
   }
 
   render() {
-    return <div>
+    return (<div>
       {this.renderConceptResults()}
-    </div>
+    </div>)
   }
 
 }

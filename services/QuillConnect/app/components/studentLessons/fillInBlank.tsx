@@ -99,7 +99,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     let instructions;
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt && latestAttempt.response && latestAttempt.response.feedback) {
-      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}}/>
+      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
       'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
     } else if (this.props.question.instructions && this.props.question.instructions !== '') {

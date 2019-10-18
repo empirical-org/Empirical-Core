@@ -10,7 +10,7 @@ const ActivityScoresStudentOverview = ({ location }) => {
   return (
     <StudentOverview location={location} >
       <Link className='navigate-back' to={previous}>
-        <img alt="" src={imageSrc}/> Back to Activity Scores
+        <img alt="" src={imageSrc} /> Back to Activity Scores
       </Link>
     </StudentOverview>
   );

@@ -100,7 +100,7 @@ class ShowClassroomLesson extends Component<any, any> {
     const editions = Object.keys(this.props.customize.editions).map(e => {
       const edition = this.props.customize.editions[e]
       if (edition.user_id === 'quill-staff' && edition.lesson_id === this.props.params.classroomLessonID) {
-        return <li>
+        return (<li>
           <div>{edition.name}</div>
           <div>
             <span onClick={() => this.props.router.push(`admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)} style={{margin: '0px 5px'}}>Edit</span>
@@ -109,7 +109,7 @@ class ShowClassroomLesson extends Component<any, any> {
             |
             <span onClick={() => this.copyEdition(e)} style={{margin: '0px 5px'}}>Make A Copy</span>
           </div>
-        </li>
+        </li>)
       }
     })
     const components = _.compact(editions)

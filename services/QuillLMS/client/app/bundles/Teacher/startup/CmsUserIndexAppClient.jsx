@@ -132,23 +132,23 @@ export default class CmsUserIndex extends React.Component {
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return <select multiple={true} onChange={this.updatePremiumStatus}>
+    return (<select multiple={true} onChange={this.updatePremiumStatus}>
       {options}
-    </select>
+    </select>)
   }
 
   renderUserRoleSelect() {
     const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
-    return <select onChange={e => this.updateField(e, 'user_role')}>
+    return (<select onChange={e => this.updateField(e, 'user_role')}>
       {options}
-    </select>
+    </select>)
   }
 
   renderUserFlagSelect() {
     const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
-    return <select onChange={e => this.updateField(e, 'user_flag')}>
+    return (<select onChange={e => this.updateField(e, 'user_flag')}>
       {options}
-    </select>
+    </select>)
   }
 
   submitPageForm(e) {
@@ -158,13 +158,13 @@ export default class CmsUserIndex extends React.Component {
   renderPageSelector() {
     const currentPage = this.state.query.page || 1
     const totalPages = this.state.numberOfPages || 1
-    return <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
       <a onClick={() => this.updatePage(1)}>First</a>
       <form onSubmit={this.submitPageForm}>
-        <input defaultValue={currentPage} name='page'/><span>of {totalPages}</span>
+        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
       </form>
       <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>
+    </div>)
   }
 
   search() {
@@ -196,7 +196,7 @@ export default class CmsUserIndex extends React.Component {
 
   renderTableOrLoading() {
     if (this.state.loading) {
-      return <LoadingIndicator/>
+      return <LoadingIndicator />
     } else if (this.state.data && this.state.data.length) {
       const sort = this.state.query.sort ? this.state.query.sort : 'last_sign_in'
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
@@ -230,27 +230,27 @@ export default class CmsUserIndex extends React.Component {
         <div className='cms-meta-middle'>
           <div className='cms-form-row'>
             <label>Name</label>
-            <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name}/>
+            <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name} />
           </div>
 
           <div className='cms-form-row'>
             <label>Username</label>
-            <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username}/>
+            <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username} />
           </div>
 
           <div className='cms-form-row'>
             <label>Email</label>
-            <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email}/>
+            <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email} />
           </div>
 
           <div className='cms-form-row'>
             <label>Ip</label>
-            <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} value={this.state.query.user_ip}/>
+            <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} value={this.state.query.user_ip} />
           </div>
 
           <div className='cms-form-row'>
             <label>School Name</label>
-            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name}/>
+            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
           </div>
         </div>
 

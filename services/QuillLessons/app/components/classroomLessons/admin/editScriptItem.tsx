@@ -66,7 +66,7 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
           <div className="field">
             <label className="label">Heading</label>
             <div className="control">
-              <input className="input" onChange={(e) => this.updateValue(e, 'heading')} placeholder="Heading" type="text" value={heading}/>
+              <input className="input" onChange={(e) => this.updateValue(e, 'heading')} placeholder="Heading" type="text" value={heading} />
             </div>
           </div>
           <div className="field">

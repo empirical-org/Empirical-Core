@@ -75,7 +75,7 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions}/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <div className="cues-field field">
@@ -84,7 +84,7 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
               <span>Make sure you separate words with commas “,”</span>
             </div>
             <div className="control">
-              <input className="input" onChange={this.handleCuesChange} type="text" value={Object.values(this.props.question.play.cues || {}).join(',')}/>
+              <input className="input" onChange={this.handleCuesChange} type="text" value={Object.values(this.props.question.play.cues || {}).join(',')} />
             </div>
           </div>
         </div>

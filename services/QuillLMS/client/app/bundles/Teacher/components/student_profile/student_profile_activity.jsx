@@ -20,21 +20,21 @@ export default React.createClass({
 
   renderLockedTooltip() {
     if (this.state.showLockedTooltip) {
-      return <div className="locked-tooltip">
+      return (<div className="locked-tooltip">
         <p className="tooltip-header">This is a whole group activity and is launched by the teacher.</p>
         <p className="text">Your teacher will press the “Launch Lesson” button from the teacher dashboard to start the activity. You will then be able to join it.</p>
-        <i className="fa fa-caret-down"/>
-      </div>
+        <i className="fa fa-caret-down" />
+      </div>)
     }
   },
 
   renderMissedTooltip() {
     if (this.state.showMissedTooltip) {
-      return <div className="missed-tooltip">
+      return (<div className="missed-tooltip">
         <p className="tooltip-header">Your teacher has launched and completed this group lesson in class.</p>
         <p className="text">This activity is now locked. Be sure to ask your teacher what you missed.</p>
-        <i className="fa fa-caret-down"/>
-      </div>
+        <i className="fa fa-caret-down" />
+      </div>)
     }
   },
 

@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Question = (props) =>
-  <p>
+  (<p>
     <span>{props.prompt}</span>
     <span onClick={props.cloneFunction} style={{ color: 'blue', fontWeight: 600, cursor: 'pointer', paddingLeft: '5px' }}>Clone</span>
-  </p>
+  </p>)
 
 export default Question

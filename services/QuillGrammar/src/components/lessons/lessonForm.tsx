@@ -167,7 +167,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const conceptVal = this.state.concepts[c]
         const conceptAttributes = this.props.concepts.data['0'].find((concept: Concept) => concept.uid === c)
         if (conceptVal && conceptAttributes) {
-          return <div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
+          return (<div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>{conceptAttributes.displayName}</span>
             <span style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>
@@ -180,7 +180,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
               </span>
               <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
             </span>
-          </div>
+          </div>)
         } else {
           return undefined
         }
@@ -225,7 +225,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         </p>
         <p className="control">
           <label className="label">Concept Selector</label>
-          <ConceptSelector handleSelectorChange={this.addConcept}/>
+          <ConceptSelector handleSelectorChange={this.addConcept} />
         </p>
         {this.renderConceptRows()}
         <div className="control">

@@ -69,7 +69,7 @@ export default class Slide extends React.Component<any, any> {
     if (this.state.showSlide) {
       const Component = getComponent(this.props.question.type)
       const showScriptButtonText = this.state.showScript ? 'Hide Step-By-Step Guide' : 'Show Step-By-Step Guide'
-      return <div>
+      return (<div>
         <Component
           clearSlide={this.props.clearSlide}
           incompletePrompt={this.props.incompletePrompt}
@@ -79,26 +79,26 @@ export default class Slide extends React.Component<any, any> {
           updateQuestion={this.props.updateQuestion}
         />
         <div className="script-header" onClick={this.toggleShowScript}>
-          <img src="https://assets.quill.org/images/icons/show-steps.svg"/>
+          <img src="https://assets.quill.org/images/icons/show-steps.svg" />
           <p>{showScriptButtonText}</p>
         </div>
         {this.renderScript()}
-      </div>
+      </div>)
     }
   }
 
   renderScript() {
     if (this.state.showScript) {
       const filteredScript = this.props.question.data.teach.script.filter(s => s.type === 'STEP-HTML' || s.type === 'STEP-HTML-TIP')
-      return <div className="script">
+      return (<div className="script">
         <ScriptComponent script={filteredScript} />
-      </div>
+      </div>)
     }
   }
 
   render() {
     const showSlideButtonText = this.state.showSlide ? 'Hide' : 'Show'
-    return <div className="slide-container" key={this.props.questionIndex}>
+    return (<div className="slide-container" key={this.props.questionIndex}>
       <div className='slide-header'>
         <div className='slide-number-and-type-container' style={{minWidth: `${this.numberAndTypeWidth()}`}}>
           <span className="slide-number">Slide {this.props.questionIndex} - </span>
@@ -108,6 +108,6 @@ export default class Slide extends React.Component<any, any> {
         <span className="hide" onClick={this.toggleShowSlide}>{showSlideButtonText}</span>
       </div>
       {this.renderSlide()}
-    </div>
+    </div>)
   }
 }

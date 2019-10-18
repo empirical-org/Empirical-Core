@@ -16,12 +16,12 @@ export default React.createClass({
     render: function() {
         return (
           <div className={"mini_container add-or-import col-md-4 col-sm-5 text-center"}>
-            <AddClassSection/>
+            <AddClassSection />
             <span>or</span>
             <a className='dashed' href="/teachers/classrooms?modal=google-classroom">
               <div id="google-classroom-mini">
-                <img alt="google sync" src="/images/google_sync_icon.svg"/>
-                <h3>Sync Classrooms from <br/> Google Classroom</h3>
+                <img alt="google sync" src="/images/google_sync_icon.svg" />
+                <h3>Sync Classrooms from <br /> Google Classroom</h3>
               </div>
             </a>
           </div>

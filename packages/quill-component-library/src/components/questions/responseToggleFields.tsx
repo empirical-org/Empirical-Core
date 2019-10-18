@@ -62,7 +62,7 @@ class ResponseToggleFields extends React.Component<any, any> {
           {this.props.labels.map((label: string, i: number) => this.renderToggleField(label, i))}
         </div>
         <div>
-          <input checked={this.props.excludeMisspellings} onClick={() => this.props.toggleExcludeMisspellings()} type='checkbox'/> <label>Exclude Misspellings?</label>
+          <input checked={this.props.excludeMisspellings} onClick={() => this.props.toggleExcludeMisspellings()} type='checkbox' /> <label>Exclude Misspellings?</label>
         </div>
       </div>
     );

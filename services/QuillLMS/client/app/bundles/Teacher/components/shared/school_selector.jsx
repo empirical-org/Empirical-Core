@@ -128,25 +128,25 @@ class SchoolSelector extends React.Component {
   }
 
   renderLoading() {
-    return <div className="loading">
-      <LoadingIndicator/>
-    </div>
+    return (<div className="loading">
+      <LoadingIndicator />
+    </div>)
   }
 
   renderNoSchoolFound() {
-    return <div className="no-school-found">
-      <img alt="map search image" src={mapSearchSrc}/>
+    return (<div className="no-school-found">
+      <img alt="map search image" src={mapSearchSrc} />
       <p className="message">We couldn't find your school</p>
       <p className="sub-text">Try another search or click skip for now below.</p>
-    </div>
+    </div>)
   }
 
   renderNoLocationFound() {
-    return <div className="no-location-found">
-      <img alt="map search image" src={mapSearchSrc}/>
+    return (<div className="no-location-found">
+      <img alt="map search image" src={mapSearchSrc} />
       <p className="message">We couldn't find your location</p>
       <p className="sub-text"><a href={this.locationServicesLink()} target="_blank">Enable location access</a> or search for your school above.</p>
-    </div>
+    </div>)
   }
 
   renderSchoolsListSection() {
@@ -167,15 +167,15 @@ class SchoolSelector extends React.Component {
     } else {
       title = 'Results'
     }
-    return <div className="schools-list-section">
+    return (<div className="schools-list-section">
       <div className="title">{title}</div>
       {schoolsListOrEmptyState}
       <div className="school-not-listed">School not listed? <span onClick={() => this.props.selectSchool('not listed')}>Skip for now</span></div>
-    </div>
+    </div>)
   }
 
   render () {
-    return <div className="school-search-container">
+    return (<div className="school-search-container">
       <Input
         className="search"
         error={this.state.errors.search}
@@ -186,7 +186,7 @@ class SchoolSelector extends React.Component {
         value={this.state.search}
       />
       {this.renderSchoolsListSection()}
-    </div>
+    </div>)
   }
 }
 

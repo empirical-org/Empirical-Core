@@ -144,7 +144,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const wordArray:Array<JSX.Element> = []
     words.forEach((word, i) => {
       let html = `${word}&nbsp;`
-      wordArray.push(<div dangerouslySetInnerHTML={{__html: html}} key={`${word}${i}`}/>)
+      wordArray.push(<div dangerouslySetInnerHTML={{__html: html}} key={`${word}${i}`} />)
     })
     return wordArray
   }
@@ -272,7 +272,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return (
       <div className="warning-dialogue">
         <span>Use one of the options below.</span>
-        <i className="fa fa-caret-down"/>
+        <i className="fa fa-caret-down" />
       </div>
     );
   }

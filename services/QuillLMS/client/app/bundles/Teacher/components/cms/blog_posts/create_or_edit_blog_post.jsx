@@ -503,21 +503,21 @@ export default class extends React.Component {
   }
 
   renderPreviewCardTypeDropdown() {
-    return <div>
+    return (<div>
       <label>Preview Card Template:</label>
       <ItemDropdown
         callback={this.handlePreviewCardTypeChange}
         items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
         selectedItem={this.state.preview_card_type}
       />
-    </div>
+    </div>)
   }
 
   renderDatepicker() {
-    return <div>
+    return (<div>
       <label>Published At Date:</label>
-      <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null}/>
-    </div>
+      <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} />
+    </div>)
   }
 
   renderArticleMarkdownOrPreview() {
@@ -530,8 +530,8 @@ export default class extends React.Component {
       dateDisplayed = moment()
     }
     if (this.state.showArticlePreview) {
-      toolbarLeft = <div/>
-      content = <div id="article-container">
+      toolbarLeft = <div />
+      content = (<div id="article-container">
         <article>
           <BlogPostContent
             author={this.props.authors.find(a => a.id == this.state.author_id)}
@@ -542,9 +542,9 @@ export default class extends React.Component {
             updatedAt={dateDisplayed}
           />
         </article>
-      </div>
+      </div>)
     } else {
-        toolbarLeft = <div className="toolbar-left">
+        toolbarLeft = (<div className="toolbar-left">
           <p onClick={() => this.insertMarkdown('# ')}>H1</p>
           <p onClick={() => this.insertMarkdown('## ')}>H2</p>
           <p onClick={() => this.insertMarkdown('### ')}>H3</p>
@@ -557,11 +557,11 @@ export default class extends React.Component {
           <i className="fa fa-file-image-o" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
           <i className="fa fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} />
           <i className="fa fa-square-o" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
-        </div>
+        </div>)
         content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={this.state.body} />
         mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" target="_blank">Markdown Cheatsheet</a>
     }
-    return <div>
+    return (<div>
       <label>Article Content</label>
       <div className="article-content-container">
         <div id="article-preview-bar">
@@ -574,7 +574,7 @@ export default class extends React.Component {
         {content}
       </div>
       {mdLink}
-    </div>
+    </div>)
 
   }
 
@@ -622,15 +622,15 @@ export default class extends React.Component {
           <div className='short-fields'>
             <div>
               <label>External Link: (Optional, use only if this card should point to another website)</label>
-              <input onChange={this.handleExternalLinkChange} value={this.state.externalLink}/>
+              <input onChange={this.handleExternalLinkChange} value={this.state.externalLink} />
             </div>
           </div>
 
           <div>
             <label>Click the square below or drag an image into it to upload an image:</label>
-            <Dropzone onDrop={this.onDrop}/>
+            <Dropzone onDrop={this.onDrop} />
             <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
-            <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink}/>
+            <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink} />
             <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Images</a>
           </div>
 

@@ -23,12 +23,12 @@ export default React.createClass({
       <div className='calendar-prefill-options'>
         {this.props.filterOptions.map(filter => {
           const selected = this.props.dateFilterName === filter.title
-          return <DateRangeFilterOption
+          return (<DateRangeFilterOption
             key={filter.title}
             onClickFunction={() => { this.setDateFromFilter(filter) }}
             selected={selected}
             title={filter.title}
-          />
+          />)
         }
         )}
       </div>
@@ -38,7 +38,7 @@ export default React.createClass({
   render: function() {
     return (
       <DateRangePicker
-        customInputIcon={<i className="fa fa-icon fa-calendar"/>}
+        customInputIcon={<i className="fa fa-icon fa-calendar" />}
         daySize={30}
         endDate={this.props.endDate}
         focusedInput={this.state.focusedInput}

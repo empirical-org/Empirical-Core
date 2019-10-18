@@ -28,7 +28,7 @@
         Header: 'Activity',
         accessor: a => a,
         id: 'activityName',
-        Cell: props => <a
+        Cell: props => (<a
           className='row-link-disguise highlight-on-hover'
           data-tip={
             `<h1>${props.value.name}</h1>
@@ -42,7 +42,7 @@
         >
           {props.value.name}
           <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
-        </a>,
+        </a>),
       },
       {
         Header: 'Concept',
@@ -56,7 +56,7 @@
         textAlign: 'right',
         accessor: a => a,
         id: 'chevron',
-        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/></a>,
+        Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" /></a>,
       }
     ];
   },

@@ -77,7 +77,7 @@ class CustomizeFillInTheBlanks extends Component<CustomizeFillInTheBlanksProps>{
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions}/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <CuesField

@@ -55,7 +55,7 @@ export default React.createClass({
     } else {
       result = (
         <a className='clever-sign-up' href={this.buildLink()} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})}>
-          <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`}/>
+          <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
           <span>Sign up with Clever</span>
         </a>)
     }

@@ -122,7 +122,7 @@ class ShowEditionSlide extends Component<any, any> {
           <h5 className="title is-5">Slide: {this.currentSlide().data.teach.title}</h5>
           <h5 className="title is-5">Slide Type: {getComponentDisplayName(this.currentSlide().type)}</h5>
           <button className="button is-primary" onClick={this.deleteSlide}>Delete Slide</button>
-          <Component question={this.currentSlide().data} save={this.save}/>
+          <Component question={this.currentSlide().data} save={this.save} />
           <Script
             editionID={this.props.params.editionID}
             lesson={this.props.params.classroomLessonID}

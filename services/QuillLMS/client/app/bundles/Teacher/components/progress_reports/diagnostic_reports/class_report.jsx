@@ -59,7 +59,7 @@ export default React.createClass({
         sortByField: '',
         customCell: function(row) {
           return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>
-            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg"/>
+            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>)
         }
       }
@@ -104,7 +104,7 @@ export default React.createClass({
     if (this.state.showInProgressAndUnstartedStudents) {
       const startedRows = _.map(this.state.startedNames, name => <tr className='in-progress-row' key={name}><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
       const unstartedRows = _.map(this.state.unstartedNames, name => <tr className='unstarted-row' key={name}><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
-      const missedRows = _.map(this.state.missedNames, name => <MissedLessonRow name={name}/>)
+      const missedRows = _.map(this.state.missedNames, name => <MissedLessonRow name={name} />)
       return (
         <table className='student-report-box sortable-table'>
           <tbody>
@@ -124,7 +124,7 @@ export default React.createClass({
   render: function() {
     let overviewBoxes;
     if (this.state.students) {
-      overviewBoxes = <OverviewBoxes data={this.state.students}/>
+      overviewBoxes = <OverviewBoxes data={this.state.students} />
     }
     return (
       <div id='individual-classroom-view'>

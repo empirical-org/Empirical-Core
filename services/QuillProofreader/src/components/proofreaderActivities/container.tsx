@@ -417,20 +417,20 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (showEarlySubmitModal) {
-        return <EarlySubmitModal
+        return (<EarlySubmitModal
           closeModal={this.closeEarlySubmitModal}
           requiredEditCount={requiredEditCount}
-        />
+        />)
       }
     }
 
     renderShowResetModal(): JSX.Element|void {
       const { showResetModal, } = this.state
       if (showResetModal) {
-        return <ResetModal
+        return (<ResetModal
           closeModal={this.closeResetModal}
           reset={this.reset}
-        />
+        />)
       }
     }
 
@@ -438,11 +438,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { showReviewModal, necessaryEdits, numberOfCorrectChanges } = this.state
       const numberOfErrors = necessaryEdits && necessaryEdits.length ? necessaryEdits.length : 0
       if (showReviewModal) {
-        return <ReviewModal
+        return (<ReviewModal
           closeModal={this.closeReviewModal}
           numberOfCorrectChanges={numberOfCorrectChanges || 0}
           numberOfErrors={numberOfErrors}
-        />
+        />)
       }
     }
 
@@ -451,14 +451,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
-        return <PassageReviewer
+        return (<PassageReviewer
           concepts={this.props.concepts.data[0]}
           finishReview={this.finishReview}
           text={text}
-        />
+        />)
       } else if (passage) {
         const paragraphs = passage.map((p, i) => {
-          return <Paragraph
+          return (<Paragraph
             finishReset={this.finishReset}
             handleParagraphChange={this.handleParagraphChange}
             index={i}
@@ -466,7 +466,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             resetting={resetting}
             underlineErrors={underlineErrorsInProofreader}
             words={p}
-          />
+          />)
         })
         return <div className="editor">{paragraphs}</div>
       }
@@ -497,14 +497,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
         const meterWidth = edits / necessaryEditsLength * 100
-        return <div className="passage-container">
+        return (<div className="passage-container">
           <div className="header-section">
             <div className="inner-header">
               <h1>{currentActivity.title}</h1>
               <div className="instructions">
                 <div>
                   <img src={questionIconSrc} />
-                  <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}}/>
+                  <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
                 </div>
                 <div className="edits-made">
                   <p>Edits Made: {edits} of {numberOfCorrectEdits}</p>
@@ -528,7 +528,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             {this.renderResetButton()}
             {this.renderCheckWorkButton()}
           </div>
-        </div>
+        </div>)
       } else if (this.props.session.error) {
         return (
           <div>{this.props.session.error}</div>

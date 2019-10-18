@@ -157,63 +157,63 @@ export default React.createClass({
         const seqTag = this.renderSequenceTag(seq, color, i)
         covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
       })
-      const suggestedSequencesDiv = suggestedSequences.length > 0 ? <div>
+      const suggestedSequencesDiv = suggestedSequences.length > 0 ? (<div>
         <label className="label">Suggested Sequences</label>
         <div>{suggestedSequences}</div>
-      </div> : null
-      const coveredSequencesDiv = coveredSequences.length > 0 ? <div>
+      </div>) : null
+      const coveredSequencesDiv = coveredSequences.length > 0 ? (<div>
         <label className="label">Covered by Selected Sequences</label>
         <div>{coveredSequences}</div>
-      </div> : null
-      return <div>
+      </div>) : null
+      return (<div>
         {suggestedSequencesDiv}
         {coveredSequencesDiv}
-      </div>
+      </div>)
     }
   },
 
   renderUsedIncorrectSequences() {
     if (this.props.usedSequences && this.props.usedSequences.length > 0) {
       const usedSequences = this.props.usedSequences.map((seq, i) => this.renderSequenceTag(seq, '#c0c0c0', i))
-        return <div>
+        return (<div>
           <label className="label">Previously Used Sequences</label>
           <div>
             {usedSequences}
           </div>
-        </div>
+        </div>)
     }
   },
 
   renderCoveredByUsedIncorrectSequences() {
     if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
       const coveredSequences = this.props.coveredSequences.map((seq, i) => this.renderSequenceTag(seq, '#969696', i))
-        return <div>
+        return (<div>
           <label className="label">Covered by Previously Used Sequences</label>
           <div>
             {coveredSequences}
           </div>
-        </div>
+        </div>)
     }
   },
 
   renderSequenceTag(seq, backgroundColor, i) {
-    return <span
+    return (<span
       className="tag"
       key={i}
       onClick={() => this.toggleSuggestedSequence(seq)}
       style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
     >
       {seq}
-    </span>
+    </span>)
    },
 
   renderSuggestedIncorrectSequencesSection() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      return <div>
+      return (<div>
         {this.renderSuggestedIncorrectSequences()}
         {this.renderUsedIncorrectSequences()}
         {this.renderCoveredByUsedIncorrectSequences()}
-      </div>
+      </div>)
     }
   },
 

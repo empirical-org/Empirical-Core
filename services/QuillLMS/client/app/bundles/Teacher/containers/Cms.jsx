@@ -162,13 +162,13 @@ export default React.createClass({
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
       const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
-      return <div style={{ marginLeft: '10px', display: 'inline', }}>
+      return (<div style={{ marginLeft: '10px', display: 'inline', }}>
         <ItemDropdown
           callback={this.switchFlag}
           items={options}
           selectedItem={this.state.flag}
         />
-      </div>
+      </div>)
     }
   },
 

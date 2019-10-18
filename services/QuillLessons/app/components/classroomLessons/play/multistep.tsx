@@ -107,10 +107,10 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       const studentID = getParameterByName('student')
       const data = this.props.submissions && studentID && this.props.submissions[studentID] ? this.props.submissions[studentID].data : null
       const submission: string =  data ? data : ''
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}}/>
-      </div>
+        <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}} />
+      </div>)
     }
   }
 
@@ -131,9 +131,9 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       }
         return (
           <li key={`li-${index}`}>
-            <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
+            <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}} />
           </li>);
-        }) : <span/>
+        }) : <span />
       return (
         <ul className="class-answer-list">
           {selected}
@@ -217,7 +217,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
+      let feedbackRow = this.state.submitted ? <FeedbackRow /> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback 
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         feedbackType="default"
@@ -225,7 +225,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       return (
         <div>
           <h1 className="prompt">
-            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
+            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}} />
           </h1>
           {instructionsRow}
           {this.listBlanks()}
@@ -235,7 +235,7 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
               <div style={{marginBottom: 20}}>
                 {feedbackRow}
               </div>
-              <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission}/>
+              <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission} />
             </div>
           </div>
         </div>

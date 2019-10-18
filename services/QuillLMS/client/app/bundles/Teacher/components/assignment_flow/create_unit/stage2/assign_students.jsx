@@ -184,26 +184,26 @@ export default class AssignStudents extends React.Component {
       return !!(classroom.emptyClassroomSelected || selectedStudents.length)
     })
 
-    let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(null, true)}/>
+    let checkbox = <span className="quill-checkbox unselected" onClick={() => toggleClassroomSelection(null, true)} />
     if (selectedClassrooms.length === classrooms.length) {
       checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(null, false)}>
         <img alt="check" src={smallWhiteCheckSrc} />
       </span>)
     } else if (selectedClassrooms.length) {
       checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(null, false)}>
-        <img alt="check" src={indeterminateSrc}/>
+        <img alt="check" src={indeterminateSrc} />
       </span>)
     }
-    return <div className="all-classes-checkbox">
+    return (<div className="all-classes-checkbox">
       {checkbox}
       <span className="all-classes-text">All classes and students</span>
-    </div>
+    </div>)
   }
 
   renderClassroom(c) {
     const { toggleClassroomSelection, toggleStudentSelection } = this.props
     const { classroom, students, } = c
-    return <ClassroomCard classroom={classroom} students={students} toggleClassroomSelection={toggleClassroomSelection} toggleStudentSelection={toggleStudentSelection}/>
+    return <ClassroomCard classroom={classroom} students={students} toggleClassroomSelection={toggleClassroomSelection} toggleStudentSelection={toggleStudentSelection} />
   }
 
   renderClassroomList() {

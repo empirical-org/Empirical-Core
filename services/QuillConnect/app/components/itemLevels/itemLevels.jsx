@@ -20,7 +20,7 @@ const ItemLevels = React.createClass({
       return (
         <Modal close={this.createNew}>
           <div className="box">
-            <ItemLevelForm mode="New" submitNewItemLevel={this.submitNewItemLevel}/>
+            <ItemLevelForm mode="New" submitNewItemLevel={this.submitNewItemLevel} />
           </div>
         </Modal>
       )

@@ -6,7 +6,7 @@ import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibra
 describe('ResumeOrBeginButton component', () => {
   const clickMock = jest.fn()
   const text = 'I am the text that got passed'
-  const wrapper = shallow(<ResumeOrBeginButton onClickFn={clickMock} text={text}/> )
+  const wrapper = shallow(<ResumeOrBeginButton onClickFn={clickMock} text={text} /> )
 
   it('renders a button element', () => {
     expect(wrapper.find('button')).toHaveLength(1)

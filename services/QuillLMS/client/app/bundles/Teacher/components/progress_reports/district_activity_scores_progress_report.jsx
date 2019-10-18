@@ -81,7 +81,7 @@ export default class extends React.Component {
         accessor: 'last_active',
         resizable: false,
         minWidth: 90,
-        Cell: row => row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span/>,
+        Cell: row => row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span />,
         sortMethod: sortFromSQLTimeStamp,
       },
       {
@@ -120,7 +120,7 @@ export default class extends React.Component {
         />
       </div>)
     } else {
-      return <EmptyStateForReport/>
+      return <EmptyStateForReport />
     }
   }
 
@@ -130,7 +130,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     const filteredClassroomsData = this.filteredClassroomsData()
     return (
@@ -141,12 +141,12 @@ export default class extends React.Component {
             <p>View the overall average score for each student in an active classroom.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport data={this.state.csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom}/>
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>

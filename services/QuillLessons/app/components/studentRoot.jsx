@@ -4,7 +4,7 @@ import NavBar from './navbar/studentNavbar';
 const StudentRoot = ({ children }) => {
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       {children}
     </div>
   );

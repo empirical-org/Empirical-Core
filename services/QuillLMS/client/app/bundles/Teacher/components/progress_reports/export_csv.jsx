@@ -77,10 +77,10 @@ export default React.createClass({
           if (s.csvUrl) {
             content = 'Ready: Click here'
           } else if (s.waitingForCsv) {
-            content = <span>
+            content = (<span>
                         Downloading
-              <ButtonLoadingIndicator/>
-            </span>
+              <ButtonLoadingIndicator />
+            </span>)
           } else {
             content = 'Download Report'
           }

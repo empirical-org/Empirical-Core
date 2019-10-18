@@ -26,13 +26,13 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
       className += ' bolded'
     }
     const width = (currentText.length * 10) + 3
-    return <input
+    return (<input
       className={className}
       key={`${paragraphIndex}-${wordIndex}`}
       onChange={this.handleWordChange}
       spellCheck={false}
       style={{width: `${width}px`}}
       value={currentText}
-    />
+    />)
   }
 }

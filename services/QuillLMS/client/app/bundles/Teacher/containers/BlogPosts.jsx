@@ -25,10 +25,10 @@ export default class BlogPosts extends React.Component {
     const tables = allTopics.map(t => {
       const filteredBlogPosts = this.props.blogPosts.filter(bp => bp.topic === t)
       if (filteredBlogPosts.length > 0) {
-        return <BlogPostTable
+        return (<BlogPostTable
           blogPosts={filteredBlogPosts}
           topic={t}
-        />
+        />)
       }
     }
     )

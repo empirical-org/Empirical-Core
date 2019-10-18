@@ -5,7 +5,7 @@ export default React.createClass({
     var logos = this.props.subscribers.map(function(subscriber, index) {
       return (
         <div className='logo-wrapper' key={index}>
-          <img alt={subscriber.name} src={subscriber.source}/>
+          <img alt={subscriber.name} src={subscriber.source} />
         </div>
       );
     });

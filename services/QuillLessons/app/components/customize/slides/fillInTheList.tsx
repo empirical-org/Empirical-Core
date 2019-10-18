@@ -90,13 +90,13 @@ class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, {}>{
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions}/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <div className="number-of-blanks-field field">
             <label>Number of Blanks</label>
             <div className="control">
-              <input className="input" onChange={this.handleNBlanks} type="text" value={this.props.question.play.nBlanks}/>
+              <input className="input" onChange={this.handleNBlanks} type="text" value={this.props.question.play.nBlanks} />
             </div>
           </div>
         </div>

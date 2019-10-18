@@ -97,22 +97,22 @@ export default class ClassroomsWithStudents extends React.Component {
       warningBlurb;
     if (this.props.classrooms) {
       const that = this;
-      classroomList = this.props.classrooms.map(el => <Classroom
+      classroomList = this.props.classrooms.map(el => (<Classroom
         allSelected={el.allSelected}
         classroom={el}
         handleStudentCheckboxClick={that.props.handleStudentCheckboxClick}
         key={el.id}
         students={el.students}
         toggleClassroomSelection={that.props.toggleClassroomSelection}
-      />);
+      />));
     } else {
       classroomList = [];
     }
     if (this.props.createOrEdit === 'edit') {
-      warningBlurb = <div className="unselecting-students-note">
-        <i className="fa fa-icon fa-exclamation-circle"/>
+      warningBlurb = (<div className="unselecting-students-note">
+        <i className="fa fa-icon fa-exclamation-circle" />
         <p><span className="bold">Note:</span> If you unselect a student on this page, you will delete all of their assignments associated with this pack, even if those assignments <span className="italic">have already been completed</span>.</p>
-      </div>;
+      </div>);
     }
     return (
       <div>

@@ -217,10 +217,10 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
       if (this.state.showTurkCode) {
-        return <TurkCodePage/>
+        return <TurkCodePage />
       }
       if ((this.props.grammarActivities.hasreceiveddata || proofreaderSessionId) && this.props.session.hasreceiveddata && this.props.session.currentQuestion) {
-        return <QuestionComponent
+        return (<QuestionComponent
           activity={this.props.grammarActivities ? this.props.grammarActivities.currentActivity : null}
           answeredQuestions={this.props.session.answeredQuestions}
           checkAnswer={this.checkAnswer}
@@ -230,7 +230,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           goToNextQuestion={() => this.props.dispatch(goToNextQuestion())}
           key={this.props.session.currentQuestion.key}
           unansweredQuestions={this.props.session.unansweredQuestions}
-        />
+        />)
       } else if (this.props.session.error) {
         return (
           <div>{this.props.session.error}</div>

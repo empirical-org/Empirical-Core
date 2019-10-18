@@ -30,29 +30,29 @@ export default class EditLessonDetails extends Component<any, any> {
   }
 
   render() {
-    return <div style={{marginTop: 30, marginBottom: 30}}>
+    return (<div style={{marginTop: 30, marginBottom: 30}}>
       <div className="field">
         <label className="label">Title</label>
         <div className="control">
-          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'title')} placeholder="Lesson Title" type="text" value={this.state.classroomLesson.title}/>
+          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'title')} placeholder="Lesson Title" type="text" value={this.state.classroomLesson.title} />
         </div>
       </div>
       <div className="field">
         <label className="label">Lesson Number</label>
         <div className="control">
-          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'lesson')} placeholder="Lesson Order Number" type="text" value={this.state.classroomLesson.lesson}/>
+          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'lesson')} placeholder="Lesson Order Number" type="text" value={this.state.classroomLesson.lesson} />
         </div>
       </div>
       <div className="field">
         <label className="label">Topic</label>
         <div className="control">
-          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'topic')} placeholder="Lesson Topic" type="text" value={this.state.classroomLesson.topic}/>
+          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'topic')} placeholder="Lesson Topic" type="text" value={this.state.classroomLesson.topic} />
         </div>
       </div>
       <div className="field">
         <label className="label">Unit</label>
         <div className="control">
-          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'unit')} placeholder="Unit Name" type="text" value={this.state.classroomLesson.unit}/>
+          <input className="input" onChange={(e) => this.handleLessonDetailsChange(e, 'unit')} placeholder="Unit Name" type="text" value={this.state.classroomLesson.unit} />
         </div>
       </div>
       <div className="control is-grouped" style={{marginTop: 10}}>
@@ -63,6 +63,6 @@ export default class EditLessonDetails extends Component<any, any> {
           <button className="button is-danger" onClick={this.props.deleteLesson}>Delete Lesson</button>
         </p>
       </div>
-    </div>
+    </div>)
   }
 }

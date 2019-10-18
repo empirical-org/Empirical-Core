@@ -192,9 +192,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         if (this.state.showExample) {
           componentClasses += ' show'
         }
-        return <Row align="middle" className={componentClasses} justify="start" type="flex">
+        return (<Row align="middle" className={componentClasses} justify="start" type="flex">
           <div className="example" dangerouslySetInnerHTML={{__html: example.replace(/\n/g, "<br />")}} />
-        </Row>
+        </Row>)
 
       } else {
         return undefined
@@ -203,9 +203,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     renderExampleButton(): JSX.Element|void {
       if (this.example()) {
-        return <Row align="middle" justify="start" type="flex">
+        return (<Row align="middle" justify="start" type="flex">
           <Button className="example-button" onClick={this.toggleExample}>{this.state.showExample ? 'Hide Example' : 'Show Example'}</Button>
-        </Row>
+        </Row>)
       }
     }
 
@@ -226,7 +226,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const answeredQuestionCount = this.props.answeredQuestions.length
       const totalQuestionCount = answeredQuestionCount + this.props.unansweredQuestions.length + 1
       const meterWidth = answeredQuestionCount / totalQuestionCount * 100
-      return <div className="top-section">
+      return (<div className="top-section">
         <Row
           align="middle"
           justify="space-between"
@@ -249,19 +249,19 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           <img src={questionIconSrc} style={{ height: '22px', marginRight: '10px' }} />
           <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
         </Row>
-      </div>
+      </div>)
     }
 
     renderTextareaSection() {
       const { questionStatus } = this.state
       if (['correctly answered', 'final attempt'].includes(questionStatus)) {
-        return <Row align="middle" justify="start" type="flex">
-          <textarea className="input-field disabled" disabled value={this.state.response}/>
-        </Row>
+        return (<Row align="middle" justify="start" type="flex">
+          <textarea className="input-field disabled" disabled value={this.state.response} />
+        </Row>)
       } else {
-        return <Row align="middle" justify="start" type="flex">
-          <textarea className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter} spellCheck="false" value={this.state.response}/>
-        </Row>
+        return (<Row align="middle" justify="start" type="flex">
+          <textarea className="input-field" onChange={this.updateResponse} onKeyDown={this.onPressEnter} spellCheck="false" value={this.state.response} />
+        </Row>)
       }
     }
 
@@ -281,9 +281,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     renderFeedbackSection(): JSX.Element|undefined {
       const question = this.currentQuestion()
       if (this.state.submittedEmptyString) {
-        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}}/></div></div>
+        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}} /></div></div>
       } else if (this.state.submittedSameResponseTwice) {
-        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc}/><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}}/></div></div>
+        return <div className={`feedback try-again`}><div className="inner-container"><img src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}} /></div></div>
       } else if (question && question.attempts && question.attempts.length > 0) {
         let className: string, feedback: string|undefined|null, imgSrc: string
         if (question.attempts[1]) {
@@ -308,7 +308,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
           }
         }
         if (typeof feedback === 'string') {
-          return <div className={`feedback ${className}`}><div className="inner-container"><img src={imgSrc}/><div dangerouslySetInnerHTML={{__html: feedback}}/></div></div>
+          return <div className={`feedback ${className}`}><div className="inner-container"><img src={imgSrc} /><div dangerouslySetInnerHTML={{__html: feedback}} /></div></div>
         }
       }
       return undefined
@@ -350,12 +350,12 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
 
     render(): JSX.Element {
-      return <div className="question">
+      return (<div className="question">
         {this.renderTopSection()}
         {this.renderQuestionSection()}
         {this.renderFeedbackSection()}
         {this.renderConceptExplanation()}
-      </div>
+      </div>)
     }
 }
 

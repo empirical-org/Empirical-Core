@@ -137,10 +137,10 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             type="checkbox"
           />
         </p>
-        <EditGenerator/>
+        <EditGenerator />
         <p className="control">
           <label className="label">Passage</label>
-          <PassageCreator onChange={this.handlePassageChange} originalPassage={this.props.currentValues ? this.props.currentValues.passage : null}/>
+          <PassageCreator onChange={this.handlePassageChange} originalPassage={this.props.currentValues ? this.props.currentValues.passage : null} />
         </p>
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>

@@ -32,7 +32,7 @@ export default React.createClass({
     return 'select-white';
   },
   render() {
-    const icon = this.props.icon ? <i className={`fa fa-icon scorebook-dropdown-icon ${this.props.icon}`}/> : <span/>
+    const icon = this.props.icon ? <i className={`fa fa-icon scorebook-dropdown-icon ${this.props.icon}`} /> : <span />
     const buttonText = (this.props.selectedOption && this.props.selectedOption.name) ? this.props.selectedOption.name : this.props.placeholder
     return (
       <div className={`button-select ${this.props.className}`}>

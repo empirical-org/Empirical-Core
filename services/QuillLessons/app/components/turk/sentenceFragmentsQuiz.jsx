@@ -154,7 +154,7 @@ var StudentDiagnostic = React.createClass({
       if (data[lessonID]) {
         if (this.props.playDiagnostic.currentQuestion) {
           if(this.props.playDiagnostic.currentQuestion.type === "SC") {
-            component = (<PlayDiagnosticQuestion dispatch={this.props.dispatch} key={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion} question={this.props.playDiagnostic.currentQuestion.data}/>)
+            component = (<PlayDiagnosticQuestion dispatch={this.props.dispatch} key={this.props.playDiagnostic.currentQuestion.data.key} nextQuestion={this.nextQuestion} question={this.props.playDiagnostic.currentQuestion.data} />)
 
           } else {
             component =   (<PlaySentenceFragment
@@ -168,10 +168,10 @@ var StudentDiagnostic = React.createClass({
             />)
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saved={this.state.saved} saveToLMS={this.saveToLMS}/>)
+          component = (<FinishedDiagnostic saved={this.state.saved} saveToLMS={this.saveToLMS} />)
         }
         else {
-          component =  <LandingPage begin={()=>{this.startActivity("John")}} lesson={this.getLesson()}/>
+          component =  <LandingPage begin={()=>{this.startActivity("John")}} lesson={this.getLesson()} />
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
@@ -180,7 +180,7 @@ var StudentDiagnostic = React.createClass({
         }
       }
     } else {
-      component =  (<Spinner/>)
+      component =  (<Spinner />)
     }
 
     return (

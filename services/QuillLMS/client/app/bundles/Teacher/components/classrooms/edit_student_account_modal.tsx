@@ -78,7 +78,7 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
 
   render() {
     const { firstName, lastName, username, errors, timesSubmitted } = this.state
-    return <div className="modal-container edit-student-account-modal-container">
+    return (<div className="modal-container edit-student-account-modal-container">
       <div className="modal-background" />
       <div className="edit-student-account-modal quill-modal modal-body">
         <div>
@@ -118,6 +118,6 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
           <button className={this.submitButtonClass()} onClick={this.editStudentAccount}>Save</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

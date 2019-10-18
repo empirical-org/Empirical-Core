@@ -15,12 +15,12 @@ export default React.createClass({
   },
 
   checkboxElement: function() {
-    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png'/></div>
+    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png' /></div>
   },
 
   pageBasedActionIcon: function(url) {
     if (this.props.dashboard) {
-      return (<a href={url}><img src='/images/getting_started_arrow.png'/></a>);
+      return (<a href={url}><img src='/images/getting_started_arrow.png' /></a>);
     } else {
       return (<a className='btn btn-default' href={url}><div>
         <div>Launch</div>
@@ -68,11 +68,11 @@ sortBoxes: function(){
   section: function(){
     var that = this;
     var boxes = this.sortBoxes().map(box =>
-      <tr className={'completed-' + box.completed} key={box.id}>
+      (<tr className={'completed-' + box.completed} key={box.id}>
         <td className='check-or-number'>{that.checkOrNumber(box)}</td>
         <td className='text-left'><a href={box.action_url}>{box.name}</a></td>
         {this.optionalInfo(box)}
-      </tr>
+      </tr>)
     );
     return (
       <div>

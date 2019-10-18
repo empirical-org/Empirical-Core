@@ -331,13 +331,13 @@ const TurkDiagnostic = React.createClass({
       } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
         component = (<FinishedDiagnostic error={this.state.error} saved={this.state.saved} saveToLMS={this.saveToLMS} />);
       } else {
-        component = <LandingPage
+        component = (<LandingPage
           begin={() => { this.startActivity('John'); }}
           landingPageHtml={this.landingPageHtml()}
           questionCount={this.getQuestionCount()}
           resumeActivity={this.resumeSession}
           session={this.getPreviousSessionData()}
-        />;
+        />);
       }
     } else {
       component = (<SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => {}} />);

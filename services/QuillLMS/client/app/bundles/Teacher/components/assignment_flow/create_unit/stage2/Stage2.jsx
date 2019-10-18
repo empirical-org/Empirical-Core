@@ -75,13 +75,13 @@ export default class Stage2 extends React.Component {
       classrooms,
       fetchClassrooms
     } = this.props
-    return <AssignStudents
+    return (<AssignStudents
       classrooms={classrooms}
       fetchClassrooms={fetchClassrooms}
       toggleClassroomSelection={toggleClassroomSelection}
       toggleStudentSelection={toggleStudentSelection}
       user={user}
-    />
+    />)
   }
 
   assignButton() {

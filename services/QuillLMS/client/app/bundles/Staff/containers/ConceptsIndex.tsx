@@ -124,44 +124,44 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     const { selectedConcept, visible } = this.state
     const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
-      return <ConceptBoxContainer
+      return (<ConceptBoxContainer
         closeConceptBox={this.closeConceptBox}
         conceptID={conceptID}
         finishEditingConcept={() => this.finishEditingConcept(refetch)}
         levelNumber={levelNumber}
         visible={visible}
-      />
+      />)
     }
   }
 
   renderEditSuccessBanner() {
     if (this.state.showEditSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner}/></div>
+      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner} /></div>
     }
   }
 
   renderLiveAndArchivedTabs() {
     const { visible } = this.state
-    return <div className="concepts-index-tools">
+    return (<div className="concepts-index-tools">
       <p className={visible ? 'active' : ''} onClick={() => this.setVisible(true)}>Live</p>
       <p className={visible ? '' : 'active'} onClick={() => this.setVisible(false)}>Archived</p>
-    </div>
+    </div>)
   }
 
   renderConcepts(data) {
     if (this.state.visible) {
-      return <ConceptsTable
+      return (<ConceptsTable
         concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
         selectConcept={this.selectConcept}
         visible={this.state.visible}
-      />
+      />)
     } else {
-      return <ConceptLevels
+      return (<ConceptLevels
         concepts={this.filterConcepts(data.concepts, this.state.searchValue).filter(c => !c.visible)}
         selectConcept={this.selectConcept}
         selectedConcept={this.state.selectedConcept}
         unselectConcept={this.closeConceptBox}
-      />
+      />)
     }
   }
 

@@ -15,10 +15,10 @@ export default () => (
   <ApolloProvider client={client}>
     <Router history={hashHistory}>
       <Route component={container} path="/">
-        <IndexRoute component={ConceptsIndex}/>
-        <Route component={ConceptsNew} path="new"/>
-        <Route component={ConceptsFindAndReplace} path="find_and_replace"/>
-        <Route component={ConceptsChangeLogIndex} path="change_log"/>
+        <IndexRoute component={ConceptsIndex} />
+        <Route component={ConceptsNew} path="new" />
+        <Route component={ConceptsFindAndReplace} path="find_and_replace" />
+        <Route component={ConceptsChangeLogIndex} path="change_log" />
       </Route>
     </Router>
   </ApolloProvider>
