@@ -8,13 +8,13 @@ describe IntegrationsController do
       expect(response).to render_template 'integrations/amplify'
     end
 
-    it 'should assign the unit_templates' do
+    it 'should assign the partner_content' do
       create(:partner_content)
       get :amplify
 
-      templates = assigns(:unit_templates)
-      expect(templates.count).to eq 1
-      expect(templates.first.class.to_s).to eq 'UnitTemplate'
+      partner_content = assigns(:partner_content)
+      expect(partner_content.count).to eq 1
+      expect(partner_content.first.content.class.to_s).to eq 'UnitTemplate'
       expect(response).to render_template 'integrations/amplify'
     end
   end

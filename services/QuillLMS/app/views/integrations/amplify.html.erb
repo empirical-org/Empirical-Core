@@ -46,19 +46,19 @@
   </div>
 <% end %>
 
-  <% @unit_templates.each_with_index do |unit_template, index| %>
+  <% @partner_content.each_with_index do |partner_content, index| %>
     <div class="topic">
       <div>
-        <h4>Pack <%=index + 1%>. <%=unit_template.name%></h4>
+        <h4>Pack <%=index + 1%>. <%=partner_content.content.name%></h4>
       </div>
 
-        <% unit_template.activities.each_with_index do |activity, act_index| %>
+        <% partner_content.content.activities_unit_templates.order(:order_number).each_with_index do |activity, act_index| %>
           <div class="activity">
             <div class="name-and-description">
-              <div class="name"><%= act_index + 1 %>. <%= activity.name %></div>
-              <div class="activity-description"><%= activity.description&.html_safe %></div>
+              <div class="name"><%= act_index + 1 %>. <%= activity.activity.name %></div>
+              <div class="activity-description"><%= activity.activity.description&.html_safe %></div>
             </div>
-            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link', target: '_blank' %></div>
+            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.activity.id), class: 'green-link', target: '_blank' %></div>
           </div>
 
         <% end %>
