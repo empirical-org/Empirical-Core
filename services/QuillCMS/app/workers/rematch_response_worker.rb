@@ -53,6 +53,7 @@ class RematchResponseWorker
                      lambda_payload.to_json,
                      "Content-Type" => "application/json"
     raise Net::HTTPRetriableError.new("Timed out rematching response #{lambda_payload[:response][:id]}", 504) if resp.is_a?(Net::HTTPGatewayTimeOut)
+    raise Net::HTTPError.new("Got a non-200 response trying to rematch #{lambda_payload[:response][:id]") if resp.code != '200'
     JSON.parse(resp.body)
   end
 
