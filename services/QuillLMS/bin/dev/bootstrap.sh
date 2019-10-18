@@ -5,6 +5,9 @@ then
   exit 1
 fi
 
+echo 'Copy git hooks'
+cp ../../hooks/* ../../.git/hooks/
+
 echo 'Install Homebrew'
 if which brew > /dev/null; then
   echo 'Already installed'
