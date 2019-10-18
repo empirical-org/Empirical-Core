@@ -53,7 +53,7 @@ describe NavigationHelper do
   describe "#assign_activity_page_should_be_active?" do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
-      allow(helper).to receive(:action_name) { "assign_activities" }
+      allow(helper).to receive(:action_name) { "assign" }
     end
 
     it 'should return true when classroom manager controller and assign activities action' do

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 interface AssignmentCardProps {
-  link?: string;
+  selectCard?: () => void;
   imgSrc: string;
   imgAlt: string;
   header: string;
@@ -10,15 +10,21 @@ interface AssignmentCardProps {
   buttonLink?: string;
 }
 
-const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink}: AssignmentCardProps) => {
-  const button = buttonText && buttonLink ? <a className="quill-button medium outlined secondary" target="_blank" href={buttonLink}>{buttonText}</a> : null
+const attemptSelectCard = (e, selectCard) => {
+  if (e.target.tagName !== 'A') {
+    selectCard()
+  }
+}
+
+const AssignmentCard = ({ selectCard, imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink}: AssignmentCardProps) => {
+  const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" target="_blank" href={buttonLink}>{buttonText}</a> : null
   const bodyElements = bodyArray.map(obj => (
     <div className="body-element">
       <p className="key">{obj.key}</p>
       <p className="text">{obj.text}</p>
     </div>)
   )
-  return (<a href={link} className="assignment-card quill-card">
+  return (<div onClick={(e) => attemptSelectCard(e, selectCard)} className="assignment-card quill-card">
     <div className="top-row">
       <div className="left">
         <img src={imgSrc} alt={imgAlt} />
@@ -29,7 +35,7 @@ const AssignmentCard = ({ link, imgSrc, imgAlt, header, bodyArray, buttonText, b
     <div className="body">
       {bodyElements}
     </div>
-  </a>)
+  </div>)
 }
 
 export default AssignmentCard

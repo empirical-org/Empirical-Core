@@ -10,7 +10,7 @@ describe('Assigning unit templates flow', () => {
       }]
     ])
     cy.login('someone@gmail.com', 'password')
-    cy.visit('/teachers/classrooms/assign_activities/featured-activity-packs')
+    cy.visit('/assign/featured-activity-packs')
   })
 
   beforeEach(function() {
@@ -24,7 +24,7 @@ describe('Assigning unit templates flow', () => {
   describe('selecting a unit template', function() {
     it('clicking a unit template mini takes me to the unit template\'s profile page', function() {
       cy.get('.unit-template-mini').first().click()
-      cy.url().should('include', '/teachers/classrooms/assign_activities/featured-activity-packs/')
+      cy.url().should('include', '/assign/featured-activity-packs/')
     })
   })
 
@@ -40,10 +40,10 @@ describe('Assigning unit templates flow', () => {
 
   describe('assigning the unit template to some students', function() {
     it('clicking the customize students button will take me to the customize students page', function() {
-      cy.visit('/teachers/classrooms/assign_activities/featured-activity-packs')
+      cy.visit('/assign/featured-activity-packs')
       cy.get('.unit-template-mini').eq(3).click()
       cy.contains('Customize Students').click()
-      cy.url().should('include', '/teachers/classrooms/assign_activities/new_unit/students/edit/name')
+      cy.url().should('include', '/assign/new_unit/students/edit/name')
     })
 
     it('displays a block for each of my classrooms', function() {
@@ -52,7 +52,7 @@ describe('Assigning unit templates flow', () => {
 
     it('will not allow me to assign the activity pack with no students selected', function() {
       cy.contains('Add Students Before Assigning').click()
-      cy.url().should('include', '/teachers/classrooms/assign_activities/new_unit/students/edit/name')
+      cy.url().should('include', '/assign/new_unit/students/edit/name')
     })
 
     it('allows me to select an entire classroom', function() {
