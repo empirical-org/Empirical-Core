@@ -368,19 +368,22 @@ export default React.createClass({
     }
 
     if (this.props.showPathways) {
-      pathwayDetails = (<span> <a
-        className="button is-outlined has-top-margin"
-        key="from"
-        onClick={this.printResponsePathways.bind(null, this.props.key)}
-      >
-                         From Pathways
-      </a> <a
-        className="button is-outlined has-top-margin"
-        key="to"
-        onClick={this.toResponsePathways}
-      >
-                            To Pathways
-      </a></span>);
+      pathwayDetails = (<span>
+        <a
+          className="button is-outlined has-top-margin"
+          onClick={this.printResponsePathways.bind(null, this.props.key)}
+          key="from"
+        >
+          From Pathways
+        </a>
+        <a
+          className="button is-outlined has-top-margin"
+          onClick={this.toResponsePathways}
+          key="to"
+        >
+          To Pathways
+        </a>
+      </span>);
     }
 
     if (isEditing) {

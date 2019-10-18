@@ -14,11 +14,7 @@ function fontSizeToClass(fontSize:number):string  {
 }
 
 const Article = ({activity_id, article, title, markAsRead, fontSize}): JSX.Element => (
-  <div
-    className="card question-wrapper
-  "
-    key={activity_id}
-  >
+  <div key={activity_id} className="card question-wrapper">
     <div className="card-header">
       <h3 className="card-title">Read The Following Passage Carefully</h3>
     </div>
