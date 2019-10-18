@@ -14,11 +14,11 @@ export default React.createClass({
 	feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
 		if (directionsOrFeedback) {
 			return (
-				<tr className={classNameAndText}>
-					<td>{classNameAndText}</td>
-					<td />
-					<td>{directionsOrFeedback}</td>
-			</tr>)
+  <tr className={classNameAndText}>
+    <td>{classNameAndText}</td>
+    <td />
+    <td>{directionsOrFeedback}</td>
+  </tr>)
 		}
 	},
 
@@ -60,19 +60,19 @@ export default React.createClass({
 
 	emptyRow: function(key){
 		return (<tr key={'empty-row'+key}>
-							<td/>
-							<td/>
-							<td/>
+  <td/>
+  <td/>
+  <td/>
 						</tr>)
 	},
 
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
-			<tr key={attemptNum + answer} className={ScoreColor(averageScore)}>
-				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
-				<td />
-				<td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
-			</tr>
+  <tr key={attemptNum + answer} className={ScoreColor(averageScore)}>
+    <td>{`${NumberSuffix(attemptNum)} Submission`}</td>
+    <td />
+    <td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
+  </tr>
 		)
 	},
 
@@ -90,11 +90,11 @@ export default React.createClass({
         score = 0
       }
 			return (
-						<tr>
-							<td>Score</td>
-							<td/>
-							<td>{score}%</td>
-						</tr>
+  <tr>
+    <td>Score</td>
+    <td/>
+    <td>{score}%</td>
+  </tr>
 			);
 		}
 	},
@@ -102,26 +102,26 @@ export default React.createClass({
 	render: function() {
 		const data = this.props.questionData;
 		return (
-			<div className='individual-activity-report'>
-				<div className="student-report-box">
-					<div className='student-report-table-and-index'>
-							<div className='question-index'>{this.props.boxNumber}</div>
-								<table>
-									<tbody>
-										{this.feedbackOrDirections(data.directions, 'Directions')}
-										<tr>
-											<td>Prompt</td>
-											<td/>
-											<td>{data.prompt}</td>
-										</tr>
-										{this.questionScore()}
-										{this.emptyRow()}
-										{this.conceptsByAttempt()}
-	        				</tbody>
-								</table>
-				</div>
-				</div>
-			</div>
+  <div className='individual-activity-report'>
+    <div className="student-report-box">
+      <div className='student-report-table-and-index'>
+        <div className='question-index'>{this.props.boxNumber}</div>
+        <table>
+          <tbody>
+            {this.feedbackOrDirections(data.directions, 'Directions')}
+            <tr>
+              <td>Prompt</td>
+              <td/>
+              <td>{data.prompt}</td>
+            </tr>
+            {this.questionScore()}
+            {this.emptyRow()}
+            {this.conceptsByAttempt()}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 		);
 	}
 

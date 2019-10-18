@@ -52,11 +52,11 @@ class AdminStatic extends React.Component<AdminStaticProps, any>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
-      <div className="admin-slide-preview">
-        <div className="scaler">
-          <StudentStatic data={this.state.question} />
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <StudentStatic data={this.state.question} />
+          </div>
         </div>
-      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">

@@ -17,14 +17,14 @@
     const unitName = this.props.unitName ? this.props.unitName : 'New Activity Pack'
     if (this.props.selectedActivities.length > 0) {
       content = <section className="selected-activities-section">
-				<h3 className="section-header">Selected Activities for {unitName}:</h3>
-				{sortableRows ? sortableRows : <table className="table activity-table selected-activities headless-rounded-table"><tbody>{rows}</tbody></table>}
-			</section>
+        <h3 className="section-header">Selected Activities for {unitName}:</h3>
+        {sortableRows ? sortableRows : <table className="table activity-table selected-activities headless-rounded-table"><tbody>{rows}</tbody></table>}
+      </section>
     } else {
       content = <span/>
     }
 		return (
-      <div>{content}</div>
+  <div>{content}</div>
 		);
 	}
 });

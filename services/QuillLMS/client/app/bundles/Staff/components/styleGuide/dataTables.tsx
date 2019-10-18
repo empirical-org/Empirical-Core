@@ -192,7 +192,7 @@ class DataTables extends React.Component<any, any> {
         <div>
           <h4 className="style-guide-h4">Data table</h4>
           <pre>
-{`
+            {`
 const rows1 = ${JSON.stringify(rows1)}
 const headers1 = ${JSON.stringify(headers1)}
 <DataTable
@@ -213,7 +213,7 @@ const headers1 = ${JSON.stringify(headers1)}
         <div>
           <h4 className="style-guide-h4">Data table: Checkboxes</h4>
           <pre>
-{`
+            {`
 const rows2 = ${JSON.stringify(rows2)}
 const headers2 = ${JSON.stringify(headers2)}
 
@@ -287,7 +287,7 @@ export class DataTableWrapper {
         <div>
           <h4 className="style-guide-h4">Short data table with sorting</h4>
           <pre>
-{`
+            {`
 const rows3 = ${JSON.stringify(rows3)}
 const headers3 = ${JSON.stringify(headers3)}
 <DataTable

@@ -58,13 +58,13 @@ class MultipleChoice extends React.Component<any, any> {
             className={`button lesson-multiple-choice-button${this.buttonClasses(answer)}`}
             onClick={this.selectAnswer.bind(null, answer.key)}
           >
-              {answer.text}
-            </a>
-          </li>
+            {answer.text}
+          </a>
+        </li>
         ));
         return (
           <ul className="lesson-multiple-choice">
-          {components}
+            {components}
           </ul>
         );
       }
@@ -74,7 +74,7 @@ class MultipleChoice extends React.Component<any, any> {
           const buttonClass = this.getSelectedAnswer().optimal ? ' is-primary' : ' is-warning';
           return (
             <h4 className="title is-5">
-            <button className={`button is-large${buttonClass}`} onClick={this.next}>Continue </button>
+              <button className={`button is-large${buttonClass}`} onClick={this.next}>Continue </button>
             </h4>
           );
         }
@@ -83,15 +83,15 @@ class MultipleChoice extends React.Component<any, any> {
       render() {
         return (
           <section className="student-container">
-          <div className="content multiple-choice-content">
-          {this.props.prompt}
-          <Feedback
-          key="multiple-choice"
-          feedbackType="override"
-          feedback={(<p>Select a strong answer. There may be more than one.</p>)}
-          />
-          {this.renderOptions()}
-          </div>
+            <div className="content multiple-choice-content">
+              {this.props.prompt}
+              <Feedback
+                key="multiple-choice"
+                feedbackType="override"
+                feedback={(<p>Select a strong answer. There may be more than one.</p>)}
+              />
+              {this.renderOptions()}
+            </div>
           </section>
         );
       }

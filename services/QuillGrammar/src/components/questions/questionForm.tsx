@@ -90,7 +90,7 @@ export default class QuestionForm extends React.Component {
           <label className="label">Concept</label>
           <div>
             <ConceptSelector
-currentConceptUID={this.state.concept_uid}
+              currentConceptUID={this.state.concept_uid}
               handleSelectorChange={this.handleSelectorChange}
             />
           </div>

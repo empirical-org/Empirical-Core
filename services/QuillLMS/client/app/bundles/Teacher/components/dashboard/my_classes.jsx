@@ -22,7 +22,7 @@
         <h3 className='dashboard-header'>My Classes</h3>
         <div className='row'>
           {this.createMinis()}
-           <AddOrSyncClassroomsMini user={this.props.user}/>
+          <AddOrSyncClassroomsMini user={this.props.user}/>
         </div>
       </div>
     );

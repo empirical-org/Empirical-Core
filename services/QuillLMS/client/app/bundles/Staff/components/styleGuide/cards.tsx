@@ -10,7 +10,7 @@ const Cards = () => {
       <div className="card-with-img-container element-row">
         <div className="extra-big-element">
           <pre>
-{`<Card
+            {`<Card
   onClick={() => {}}
   imgSrc={\`${process.env.CDN_URL}/images/onboarding/business-building.svg\`}
   imgAlt="office building"
@@ -31,7 +31,7 @@ const Cards = () => {
       <div className="card-without-img-container element-row">
         <div className="extra-big-element">
           <pre>
-{`<Card
+            {`<Card
   onClick={() => {}}
   header="Headline text"
   text="Secondary text"

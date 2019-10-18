@@ -127,27 +127,27 @@ const DiagnosticReports = React.createClass({
 		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
 			return (
-				<div>{this.props.children}</div>
+  <div>{this.props.children}</div>
 			)
 		} else if (this.state.loading) {
 			return <LoadingSpinner/>
 		} else {
 			return (
-				<div className='individual-activity-reports'>
-					<NavBar
-						key={'key'}
-						classrooms={this.state.classrooms}
-						selectedStudentId={this.props.params.studentId}
-						studentDropdownCallback={this.changeStudent}
-						dropdownCallback={this.changeClassroom}
-						buttonGroupCallback={this.changeReport}
-						selectedActivity={this.state.selectedActivity}
-						showStudentDropdown={this.showStudentDropdown()}
-						students={this.state.students}
-						params={this.props.params}
-					/>
-					{this.props.children}
-				</div>
+  <div className='individual-activity-reports'>
+    <NavBar
+      key={'key'}
+      classrooms={this.state.classrooms}
+      selectedStudentId={this.props.params.studentId}
+      studentDropdownCallback={this.changeStudent}
+      dropdownCallback={this.changeClassroom}
+      buttonGroupCallback={this.changeReport}
+      selectedActivity={this.state.selectedActivity}
+      showStudentDropdown={this.showStudentDropdown()}
+      students={this.state.students}
+      params={this.props.params}
+    />
+    {this.props.children}
+  </div>
 			);
 		}
 	}

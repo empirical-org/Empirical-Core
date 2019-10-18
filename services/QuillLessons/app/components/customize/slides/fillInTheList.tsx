@@ -73,20 +73,20 @@ class CustomizeFillInTheList extends Component<CustomizeFillInTheListProps, {}>{
     return (
       <div className="slide">
         <div className="form">
-        <TitleField
-          clearSlide={this.props.clearSlide}
-          questionIndex={this.props.questionIndex}
-          resetSlide={this.props.resetSlide}
-          title={this.props.question.teach.title}
-          handleTitleChange={this.handleTitleChange}
-        />
-        <PromptField
-          incompletePrompt={this.props.incompletePrompt}
-          text={this.props.question.play.prompt}
-          reset={this.props.question.reset}
-          handleTextChange={(e) => this.handlePromptChange(e)}
-          showBlockquote={false}
-        />
+          <TitleField
+            clearSlide={this.props.clearSlide}
+            questionIndex={this.props.questionIndex}
+            resetSlide={this.props.resetSlide}
+            title={this.props.question.teach.title}
+            handleTitleChange={this.handleTitleChange}
+          />
+          <PromptField
+            incompletePrompt={this.props.incompletePrompt}
+            text={this.props.question.play.prompt}
+            reset={this.props.question.reset}
+            handleTextChange={(e) => this.handlePromptChange(e)}
+            showBlockquote={false}
+          />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">

@@ -26,7 +26,7 @@ const notificationQuery:string = `
 export default () => (
   <ApolloProvider client={client}>
     <Query
-        query={gql(notificationQuery)}
+      query={gql(notificationQuery)}
     >
       {({ loading, error, data }) => {
         if (loading) return (null);

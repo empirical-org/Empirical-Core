@@ -409,31 +409,31 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       fullPageInstructions = { display: 'block', width: '100%' }
     }
     return (<div className="student-container-inner-diagnostic">
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={fullPageInstructions}>
-            <div>
-              <Prompt style={styles.container} elements={this.getPromptElements()} />
-              <Cues
-                getQuestion={this.getQuestion}
-                customText={this.customText()}
-                displayArrowAndText={true}
-              />
-              <Feedback
-                question={this.props.question}
-                sentence={this.getInstructionText()}
-                responses={this.state.responses}
-                getQuestion={this.getQuestion}
-                renderFeedbackStatements={this.renderFeedbackStatements}
-              />
-            </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={fullPageInstructions}>
+          <div>
+            <Prompt style={styles.container} elements={this.getPromptElements()} />
+            <Cues
+              getQuestion={this.getQuestion}
+              customText={this.customText()}
+              displayArrowAndText={true}
+            />
+            <Feedback
+              question={this.props.question}
+              sentence={this.getInstructionText()}
+              responses={this.state.responses}
+              getQuestion={this.getQuestion}
+              renderFeedbackStatements={this.renderFeedbackStatements}
+            />
           </div>
-          {this.renderMedia()}
         </div>
-        <div style={{marginTop: 20}} className="question-button-group button-group">
-          {this.renderButton()}
-        </div>
-        {this.renderConceptExplanation()}
+        {this.renderMedia()}
       </div>
+      <div style={{marginTop: 20}} className="question-button-group button-group">
+        {this.renderButton()}
+      </div>
+      {this.renderConceptExplanation()}
+    </div>
     );
   }
 

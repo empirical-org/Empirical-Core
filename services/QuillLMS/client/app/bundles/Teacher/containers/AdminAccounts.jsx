@@ -46,15 +46,15 @@ export default React.createClass({
         <div className='row'>
           <div className='col-xs-12'>
             <Resource
-               resourceNameSingular='admin_account'
-               resourceNamePlural='admin_accounts'
-               initialModel={initialModel}
-               resource={cmsComponent.state.resourceToEdit}
-               formFields={formFields}
-               savingKeys={savingKeys}
-               fieldsToNormalize={fieldsToNormalize}
-               nestedResources={nestedResources}
-               returnToIndex={cmsComponent.returnToIndex}
+              resourceNameSingular='admin_account'
+              resourceNamePlural='admin_accounts'
+              initialModel={initialModel}
+              resource={cmsComponent.state.resourceToEdit}
+              formFields={formFields}
+              savingKeys={savingKeys}
+              fieldsToNormalize={fieldsToNormalize}
+              nestedResources={nestedResources}
+              returnToIndex={cmsComponent.returnToIndex}
             />
           </div>
         </div>
@@ -65,9 +65,9 @@ export default React.createClass({
   render: function () {
     return (
       <Cms
-resourceNameSingular='admin_account'
-              resourceNamePlural='admin_accounts'
-              resourceComponentGenerator={this.resourceComponentGenerator}
+        resourceNameSingular='admin_account'
+        resourceNamePlural='admin_accounts'
+        resourceComponentGenerator={this.resourceComponentGenerator}
       />
 
     );

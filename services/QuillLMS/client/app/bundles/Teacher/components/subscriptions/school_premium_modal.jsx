@@ -41,7 +41,7 @@ export default class extends React.Component {
               <p>
                 <span>Quote Purchaser:</span>
               Click on <i>Email Me a Quote</i> and forward the quote to your school’s purchaser.
-            </p>
+              </p>
             </div>
           </div>
         </Modal.Body>

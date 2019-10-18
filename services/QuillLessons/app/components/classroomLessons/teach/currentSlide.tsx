@@ -295,11 +295,11 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           break
         case 'CL-ST':
           slide = <CLStatic
-              data={data}
-              editionData={editionData}
-              toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-              updateToggledHeaderCount={this.updateToggledHeaderCount}
+            data={data}
+            editionData={editionData}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            updateToggledHeaderCount={this.updateToggledHeaderCount}
           />
           break
         case 'CL-MD':
@@ -308,36 +308,36 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
         case 'CL-FL':
         case 'CL-MS':
           slide = <CLSingleAnswer
-              data={data}
-              editionData={editionData}
-              toggleStudentFlag={this.toggleStudentFlag}
-              toggleSelected={this.toggleSelected}
-              startDisplayingAnswers={this.startDisplayingAnswers}
-              stopDisplayingAnswers={this.stopDisplayingAnswers}
-              toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
-              clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
-              clearAllSubmissions={this.clearAllSubmissions}
-              onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
-              updateToggledHeaderCount={this.updateToggledHeaderCount}
-              saveModel={this.saveModel}
-              clearStudentSubmission={this.clearStudentSubmission}
-              savePrompt={this.savePrompt}
+            data={data}
+            editionData={editionData}
+            toggleStudentFlag={this.toggleStudentFlag}
+            toggleSelected={this.toggleSelected}
+            startDisplayingAnswers={this.startDisplayingAnswers}
+            stopDisplayingAnswers={this.stopDisplayingAnswers}
+            toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
+            clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
+            clearAllSubmissions={this.clearAllSubmissions}
+            onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
+            updateToggledHeaderCount={this.updateToggledHeaderCount}
+            saveModel={this.saveModel}
+            clearStudentSubmission={this.clearStudentSubmission}
+            savePrompt={this.savePrompt}
           />
           break
         case 'CL-EX':
           slide = <CLExit
-              data={data}
-              editionData={editionData}
-              selectedOptionKey={this.state.selectedOptionKey}
-              updateSelectedOptionKey={this.updateSelectedOptionKey}
-              script={current.data.teach.script}
-              flaggedStudents={data.flaggedStudents}
-              students={data.students}
-              toggleStudentFlag={this.toggleStudentFlag}
-              lessonId={lessonId}
-              finishLesson={this.finishLesson}
-              completed={this.state.completed}
-              followUpActivityName={data.followUpActivityName}
+            data={data}
+            editionData={editionData}
+            selectedOptionKey={this.state.selectedOptionKey}
+            updateSelectedOptionKey={this.updateSelectedOptionKey}
+            script={current.data.teach.script}
+            flaggedStudents={data.flaggedStudents}
+            students={data.students}
+            toggleStudentFlag={this.toggleStudentFlag}
+            lessonId={lessonId}
+            finishLesson={this.finishLesson}
+            completed={this.state.completed}
+            followUpActivityName={data.followUpActivityName}
           />
             break
         default:

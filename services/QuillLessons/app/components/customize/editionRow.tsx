@@ -119,12 +119,12 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
       <div className={`edition ${selectedEditionClass}`}>
         <div className="text">
           <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
-            {sampleQuestionSection}
-          </div>
-          <div className="action">
-            {this.renderCustomizeDropdown()}
-            {this.renderSelectButton()}
-          </div>
+          {sampleQuestionSection}
+        </div>
+        <div className="action">
+          {this.renderCustomizeDropdown()}
+          {this.renderSelectButton()}
+        </div>
       </div>
       {selectedEditionTag}
     </div>

@@ -29,7 +29,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   renderLabel(concept: Concept) {
     return (
       <p className="menu-label">
-      {concept.displayName}
+        {concept.displayName}
       </p>
     );
   }

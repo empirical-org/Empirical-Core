@@ -12,8 +12,8 @@ const ErrorPage: React.SFC<{text: string}> = (props) => {
     </div>
   }
    return <div>
-       {props.text}
-     </div>
+     {props.text}
+   </div>
 }
 
 export default ErrorPage

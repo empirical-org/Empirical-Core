@@ -28,18 +28,18 @@
        image = <img src="/images/pages/diagnostic_reports/diagnostic_gray.svg"/>
      }
  		return (
-        <div className="container" style={{ margin: '44px' }}>
-          <div className="row diagnostic-empty-state">
-            <div className="col-xs-7">
-              <h1>Quill Diagnostic Reports</h1>
-              {content}
-              <button onClick={() => {window.location = linkOne}} className="button-green create-unit featured-button">{buttonTextOne}</button>
-              <button onClick={() => {window.location = linkTwo}} className="create-unit featured-button">{buttonTextTwo}</button>
-            </div>
-            <div className="col-xs-4">
-              {image}
-            </div>
-          </div>
-        </div>
+   <div className="container" style={{ margin: '44px' }}>
+     <div className="row diagnostic-empty-state">
+       <div className="col-xs-7">
+         <h1>Quill Diagnostic Reports</h1>
+         {content}
+         <button onClick={() => {window.location = linkOne}} className="button-green create-unit featured-button">{buttonTextOne}</button>
+         <button onClick={() => {window.location = linkTwo}} className="create-unit featured-button">{buttonTextTwo}</button>
+       </div>
+       <div className="col-xs-4">
+         {image}
+       </div>
+     </div>
+   </div>
     )}
 })

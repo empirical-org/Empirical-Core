@@ -94,7 +94,7 @@ class ShowEditionSlide extends Component<any, any> {
                 {options}
               </select>
             </span>
-            <a className="button is-primary is-large"onClick={this.addScriptItem}>
+            <a className="button is-primary is-large" onClick={this.addScriptItem}>
               Add Script Item
             </a>
           </p>

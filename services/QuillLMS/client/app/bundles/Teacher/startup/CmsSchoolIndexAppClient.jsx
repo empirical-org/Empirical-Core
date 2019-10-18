@@ -191,22 +191,22 @@ export default class CmsSchoolIndex extends React.Component {
       const sortDescending = this.state.query.sort_direction ? this.state.query.sort_direction === 'desc' : true
       return (<div>
         <ReactTable
-data={this.state.data}
-        columns={this.state.columns}
-        showPagination={false}
-        defaultSorted={[{id: sort, desc: sortDescending}]}
-        showPaginationTop={false}
-        showPaginationBottom={false}
-        showPageSizeOptions={false}
-        defaultPageSize={100}
-        minRows={1}
-        className='progress-report activity-scores-table'
-        onSortedChange={this.setSort}
+          data={this.state.data}
+          columns={this.state.columns}
+          showPagination={false}
+          defaultSorted={[{id: sort, desc: sortDescending}]}
+          showPaginationTop={false}
+          showPaginationBottom={false}
+          showPageSizeOptions={false}
+          defaultPageSize={100}
+          minRows={1}
+          className='progress-report activity-scores-table'
+          onSortedChange={this.setSort}
         />
-      <div className='cms-pagination-container'>
-        {this.renderPageSelector()}
-      </div>
-    </div>)
+        <div className='cms-pagination-container'>
+          {this.renderPageSelector()}
+        </div>
+      </div>)
   } else {
     return <p>No records found for your query.</p>
   }
@@ -226,12 +226,12 @@ data={this.state.data}
             <input id='school_city' name='school_city' value={this.state.query.school_city} onChange={e => this.updateField(e, 'school_city')}/>
           </div>
 
-            <div className='cms-form-row'>
+          <div className='cms-form-row'>
             <label>State</label>
             <input id='school_state' name='school_state' value={this.state.query.school_state} onChange={e => this.updateField(e, 'school_state')}/>
           </div>
 
-            <div className='cms-form-row'>
+          <div className='cms-form-row'>
             <label>Zip</label>
             <input id='school_zip' name='school_zip' value={this.state.query.school_zip} onChange={e => this.updateField(e, 'school_zip')}/>
           </div>

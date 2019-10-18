@@ -251,7 +251,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       <Mutation mutation={CREATE_CONCEPT} onCompleted={this.props.finishEditingOrCreatingConcept}>
         {(createConcept, {}) => (
           <div className={`concept-box create-concept-box create-concept-box-level-${levelNumber}`}>
-          {this.renderChangeLogModal(createConcept)}
+            {this.renderChangeLogModal(createConcept)}
             <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
               <div className="static">
                 <h1>Create a Level {levelNumber}</h1>

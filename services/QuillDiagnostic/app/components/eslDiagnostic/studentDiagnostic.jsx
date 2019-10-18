@@ -171,7 +171,8 @@ class ELLStudentDiagnostic extends React.Component {
         currentKey={this.props.playDiagnostic.currentQuestion.data.key}
         key={this.props.playDiagnostic.currentQuestion.data.key}
         dispatch={this.props.dispatch}
-        nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+        nextQuestion={this.nextQuestion}
+        markIdentify={this.markIdentify}
         updateAttempts={this.submitResponse}
         language={this.language()}
       />);
@@ -328,7 +329,8 @@ class ELLStudentDiagnostic extends React.Component {
     if (!(data && this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata && this.props.fillInBlank.hasreceiveddata)) {
       component = (<SmartSpinner
         message={'Loading Your Lesson 25%'}
-        onMount={() => {}} key="step1"
+        onMount={() => {}}
+        key="step1"
       />)
     } else if (this.props.playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();

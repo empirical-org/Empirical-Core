@@ -98,7 +98,7 @@ export default class extends React.Component {
     if (filteredClassroomsData.length) {
       return (<div key={`${filteredStandardsReportsData.length}-length-for-standards-reports-by-classroom`}>
         <ReactTable
-data={filteredStandardsReportsData}
+          data={filteredStandardsReportsData}
           columns={this.columns()}
           showPagination={false}
           defaultSorted={[{id: 'last_active', desc: true}]}
@@ -108,7 +108,7 @@ data={filteredStandardsReportsData}
           defaultPageSize={filteredStandardsReportsData.length}
           className='progress-report has-green-arrow'
         />
-        </div>)
+      </div>)
     } else {
       return <EmptyStateForReport/>
     }

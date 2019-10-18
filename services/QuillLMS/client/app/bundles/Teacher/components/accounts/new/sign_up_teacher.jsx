@@ -125,58 +125,58 @@ class SignUpTeacher extends React.Component {
           <div className="account-container text-center">
             <AuthSignUp />
             <div className='break'><span/>or<span/></div>
-              <div className="teacher-signup-form">
-                <div>
-                  <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
-                    <input name="utf8" type="hidden" value="✓" />
-                    <input value={authToken} type="hidden" name="authenticity_token" />
-                    <div className="name">
-                      <Input
-                        label="First name"
-                        value={firstName}
-                        handleChange={this.update}
-                        type="text"
-                        className="first-name"
-                        id="firstName"
-                        error={errors.first_name}
-                        timesSubmitted={timesSubmitted}
-                      />
-                      <Input
-                        label="Last name"
-                        value={lastName}
-                        handleChange={this.update}
-                        type="text"
-                        className="last-name"
-                        id="lastName"
-                        error={errors.last_name}
-                        timesSubmitted={timesSubmitted}
-                      />
-                    </div>
+            <div className="teacher-signup-form">
+              <div>
+                <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+                  <input name="utf8" type="hidden" value="✓" />
+                  <input value={authToken} type="hidden" name="authenticity_token" />
+                  <div className="name">
                     <Input
-                      label="Email"
-                      value={email}
+                      label="First name"
+                      value={firstName}
                       handleChange={this.update}
                       type="text"
-                      className="email"
-                      id="email"
-                      error={errors.email}
+                      className="first-name"
+                      id="firstName"
+                      error={errors.first_name}
                       timesSubmitted={timesSubmitted}
                     />
                     <Input
-                      label="Password"
-                      value={password}
+                      label="Last name"
+                      value={lastName}
                       handleChange={this.update}
-                      type='password'
-                      className="password"
-                      error={errors.password}
-                      id="password"
+                      type="text"
+                      className="last-name"
+                      id="lastName"
+                      error={errors.last_name}
                       timesSubmitted={timesSubmitted}
                     />
-                    {this.renderNewsletterRow()}
-                    <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />
-                  </form>
-                </div>
+                  </div>
+                  <Input
+                    label="Email"
+                    value={email}
+                    handleChange={this.update}
+                    type="text"
+                    className="email"
+                    id="email"
+                    error={errors.email}
+                    timesSubmitted={timesSubmitted}
+                  />
+                  <Input
+                    label="Password"
+                    value={password}
+                    handleChange={this.update}
+                    type='password'
+                    className="password"
+                    error={errors.password}
+                    id="password"
+                    timesSubmitted={timesSubmitted}
+                  />
+                  {this.renderNewsletterRow()}
+                  <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />
+                </form>
               </div>
+            </div>
           </div>
         </div>
         <AgreementsAndLinkToLogin />

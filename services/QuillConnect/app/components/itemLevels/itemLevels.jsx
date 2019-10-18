@@ -20,7 +20,7 @@ const ItemLevels = React.createClass({
       return (
         <Modal close={this.createNew}>
           <div className="box">
-              <ItemLevelForm mode="New" submitNewItemLevel={this.submitNewItemLevel}/>
+            <ItemLevelForm mode="New" submitNewItemLevel={this.submitNewItemLevel}/>
           </div>
         </Modal>
       )
@@ -52,15 +52,15 @@ const ItemLevels = React.createClass({
             <h1 className="title">
               <button className="button is-primary" onClick={this.createNew}>Create New Item Level</button>
             </h1>
-                {this.renderModal()}
-                <aside className="menu">
-                  <p className="menu-label">
+            {this.renderModal()}
+            <aside className="menu">
+              <p className="menu-label">
                     Item Levels
-                  </p>
-                  <ul className="menu-list">
-                    {this.renderItemLevels()}
-                  </ul>
-                </aside>
+              </p>
+              <ul className="menu-list">
+                {this.renderItemLevels()}
+              </ul>
+            </aside>
           </div>
         </section>
       )

@@ -182,10 +182,10 @@ export default class extends React.Component {
             query={this.props.query}
             showCancelSearchButton={!!window.location.href.includes('search')}
           />
-        {this.renderNavAndSectionHeader()}
-        {this.renderAnnouncement()}
-        {this.renderBasedOnArticleFilter()}
-      </div>
+          {this.renderNavAndSectionHeader()}
+          {this.renderAnnouncement()}
+          {this.renderBasedOnArticleFilter()}
+        </div>
     )};
   }
 }

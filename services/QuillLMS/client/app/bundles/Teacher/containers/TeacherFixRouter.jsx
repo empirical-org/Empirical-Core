@@ -17,20 +17,20 @@ import DeleteLastActivitySession from '../components/teacher_fix/delete_last_act
 export default React.createClass({
 	render: function() {
 		return (
-			<Router Router history={browserHistory}>
-        <Route path="/teacher_fix" component={TeacherFixIndex}/>
-				<Route path="/teacher_fix/unarchive_units" component={UnarchiveUnits}/>
-				<Route path="/teacher_fix/recover_classroom_units" component={RecoverClassroomUnits}/>
-        <Route path="/teacher_fix/recover_unit_activities" component={RecoverUnitActivities}/>
-				<Route path="/teacher_fix/recover_activity_sessions" component={RecoverActivitySessions}/>
-				<Route path="/teacher_fix/merge_student_accounts" component={MergeStudentAccounts}/>
-				<Route path="/teacher_fix/merge_teacher_accounts" component={MergeTeacherAccounts}/>
-				<Route path="/teacher_fix/move_student" component={MoveStudent}/>
-				<Route path="/teacher_fix/google_unsync" component={GoogleUnsync}/>
-				<Route path="/teacher_fix/merge_two_schools" component={MergeTwoSchools}/>
-				<Route path="/teacher_fix/merge_two_classrooms" component={MergeTwoClassrooms}/>
-				<Route path="/teacher_fix/delete_last_activity_session" component={DeleteLastActivitySession}/>
-			</Router>
+  <Router Router history={browserHistory}>
+    <Route path="/teacher_fix" component={TeacherFixIndex}/>
+    <Route path="/teacher_fix/unarchive_units" component={UnarchiveUnits}/>
+    <Route path="/teacher_fix/recover_classroom_units" component={RecoverClassroomUnits}/>
+    <Route path="/teacher_fix/recover_unit_activities" component={RecoverUnitActivities}/>
+    <Route path="/teacher_fix/recover_activity_sessions" component={RecoverActivitySessions}/>
+    <Route path="/teacher_fix/merge_student_accounts" component={MergeStudentAccounts}/>
+    <Route path="/teacher_fix/merge_teacher_accounts" component={MergeTeacherAccounts}/>
+    <Route path="/teacher_fix/move_student" component={MoveStudent}/>
+    <Route path="/teacher_fix/google_unsync" component={GoogleUnsync}/>
+    <Route path="/teacher_fix/merge_two_schools" component={MergeTwoSchools}/>
+    <Route path="/teacher_fix/merge_two_classrooms" component={MergeTwoClassrooms}/>
+    <Route path="/teacher_fix/delete_last_activity_session" component={DeleteLastActivitySession}/>
+  </Router>
 		);
 	}
 });

@@ -115,8 +115,8 @@ class AdminMultistep extends React.Component<AdminMultistepProps, any>{
     return this.state.question.play.stepLabels.concat(['']).map((sl, i) => {
       const deleteButton = i === this.state.question.play.stepLabels.length ? <span /> : <i className="fa fa-times" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.deleteStepLabel(i)}/>
       return <div className="control" style={{display: 'flex'}} key={i}>
-      <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
-      {deleteButton}
+        <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
+        {deleteButton}
       </div>
     })
   }

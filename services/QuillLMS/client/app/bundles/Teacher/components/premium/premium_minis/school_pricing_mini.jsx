@@ -43,7 +43,7 @@ export default React.createClass({
             <li>Professional Development Sessions</li>
             <li>Administrator dashboard for school-<br />
           wide reports
-        </li>
+            </li>
           </ul>
         </section>
         <button type="button" onClick={onClickEvent} className="btn btn-default mini-btn purple">Purchase</button>

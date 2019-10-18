@@ -214,13 +214,13 @@ class questionHealth extends Component {
     return <div style={{marginTop: '5px', }}>
       <label style={labelStyle}>Question Flag:</label>
       <select value={selectedValue} onChange={this.updateFlag}>
-      <option value="all">All</option>
-      <option value="archived">Archived</option>
-      <option value="alpha">Alpha</option>
-      <option value="beta">Beta</option>
-      <option value="production">Production</option>
-    </select>
-  </div>
+        <option value="all">All</option>
+        <option value="archived">Archived</option>
+        <option value="alpha">Alpha</option>
+        <option value="beta">Beta</option>
+        <option value="production">Production</option>
+      </select>
+    </div>
   }
 
   renderQuestionTypeTable(questionType) {

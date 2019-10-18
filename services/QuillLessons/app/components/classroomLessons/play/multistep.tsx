@@ -131,12 +131,12 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       }
         return (
           <li key={`li-${index}`}>
-          <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
+            <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
           </li>);
         }) : <span/>
       return (
         <ul className="class-answer-list">
-        {selected}
+          {selected}
         </ul>
       );
   }
@@ -224,20 +224,20 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       />) : null;
       return (
         <div>
-        <h1 className="prompt">
-          <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
-        </h1>
-        {instructionsRow}
-        {this.listBlanks()}
-        <div>
-          <div className='feedback-and-button-container'>
-            {errorArea}
-            <div style={{marginBottom: 20}}>
-            {feedbackRow}
+          <h1 className="prompt">
+            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
+          </h1>
+          {instructionsRow}
+          {this.listBlanks()}
+          <div>
+            <div className='feedback-and-button-container'>
+              {errorArea}
+              <div style={{marginBottom: 20}}>
+                {feedbackRow}
+              </div>
+              <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
             </div>
-            <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
           </div>
-        </div>
         </div>
       )
     }

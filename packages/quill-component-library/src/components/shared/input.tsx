@@ -139,20 +139,20 @@ export class Input extends React.Component<InputProps, InputState> {
     if (error) {
       if (errorAcknowledged) {
         return (<div
-            className={`${sharedClassNames} error`}
-            ref={node => this.node = node}
-            onClick={this.activateInput}
+          className={`${sharedClassNames} error`}
+          ref={node => this.node = node}
+          onClick={this.activateInput}
         >
-            <label>{label}</label>
-            <input {...commonProps} />
-            {this.renderHelperText()}
-            {this.renderCancelSymbol()}
-            {this.renderCharacterLimit()}
+          <label>{label}</label>
+          <input {...commonProps} />
+          {this.renderHelperText()}
+          {this.renderCancelSymbol()}
+          {this.renderCharacterLimit()}
         </div>)
       } else {
         return (
           <div
-          className={`${sharedClassNames} error unacknowledged`}
+            className={`${sharedClassNames} error unacknowledged`}
             onClick={this.acknowledgeError}
             ref={node => this.node = node}
           >
@@ -160,7 +160,7 @@ export class Input extends React.Component<InputProps, InputState> {
             <input {...commonProps} />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
-        </div>)
+          </div>)
       }
     } else if (inactive) {
       return (
@@ -173,7 +173,7 @@ export class Input extends React.Component<InputProps, InputState> {
           <input {...commonProps} onFocus={this.activateInput} />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
-      </div>)
+        </div>)
     } else {
       return (
         <div
@@ -185,7 +185,7 @@ export class Input extends React.Component<InputProps, InputState> {
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
-      </div>)
+        </div>)
     }
   }
 

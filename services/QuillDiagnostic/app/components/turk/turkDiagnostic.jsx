@@ -292,7 +292,8 @@ const TurkDiagnostic = React.createClass({
       } else if (this.props.playDiagnostic.currentQuestion) {
         if (questionType === 'SC') {
           component = (<PlayDiagnosticQuestion
-            question={this.props.playDiagnostic.currentQuestion.data} nextQuestion={this.nextQuestion}
+            question={this.props.playDiagnostic.currentQuestion.data}
+            nextQuestion={this.nextQuestion}
             dispatch={this.props.dispatch}
             // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             key={this.props.playDiagnostic.currentQuestion.data.key}
@@ -300,11 +301,13 @@ const TurkDiagnostic = React.createClass({
           />);
         } else if (questionType === 'SF') {
           component = (<PlaySentenceFragment
-            question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            question={this.props.playDiagnostic.currentQuestion.data}
+            currentKey={this.props.playDiagnostic.currentQuestion.data.key}
             key={this.props.playDiagnostic.currentQuestion.data.key}
             // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             dispatch={this.props.dispatch}
-            nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+            nextQuestion={this.nextQuestion}
+            markIdentify={this.markIdentify}
             updateAttempts={this.submitResponse}
           />);
         } else if (questionType === 'FB') {

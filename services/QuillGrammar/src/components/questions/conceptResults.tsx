@@ -32,9 +32,9 @@ export default class ConceptResults extends React.Component<any, any> {
           if (concept) {
             // hacky fix for the problem where concept result uids are being returned with string value 'false' rather than false
             return  <li key={uid}>
-            {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
-            {'\t'}
-          </li>
+              {concept.displayName} {conceptResults[uid] && conceptResults[uid] !== 'false' ? <span className="tag is-small is-success">Correct</span> : <span className="tag is-small is-danger">Incorrect</span>}
+              {'\t'}
+            </li>
           }
         });
       }

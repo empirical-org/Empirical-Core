@@ -40,12 +40,12 @@ export default React.createClass({
     return _.map(this.props.columns, function (column, i) {
       var isCurrentSort = (column.sortByField === this.props.currentSort.field);
       return <SortableTh
-key={i}
-                            sortHandler={this.sortByColumn(column.sortByField)}
-                            displayName={column.name}
-                            displayClass={column.className}
-                            sortDirection={this.props.currentSort.direction || 'asc'}
-                            isCurrentSort={isCurrentSort}
+        key={i}
+        sortHandler={this.sortByColumn(column.sortByField)}
+        displayName={column.name}
+        displayClass={column.className}
+        sortDirection={this.props.currentSort.direction || 'asc'}
+        isCurrentSort={isCurrentSort}
       />
     }, this);
   },
@@ -72,10 +72,10 @@ key={i}
       if (this.shouldTransition()) {
         tbody = (
           <ReactCSSTransitionGroup
-component='tbody'
-                                     transitionName={this.props.transitionName}
-                                     transitionEnterTimeout={2000}
-                                     transitionLeaveTimeout={2000}
+            component='tbody'
+            transitionName={this.props.transitionName}
+            transitionEnterTimeout={2000}
+            transitionLeaveTimeout={2000}
           >
             {this.rows()}
           </ReactCSSTransitionGroup>
@@ -91,7 +91,7 @@ component='tbody'
               {this.columns()}
             </tr>
           </thead>
-         {tbody}
+          {tbody}
         </table>
       );
     }

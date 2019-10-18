@@ -13,9 +13,9 @@
 			return <ActivitySearchResult key={ele.id} data={ele} selected={selected} toggleActivitySelection={this.props.toggleActivitySelection} />
 		}, this);
 		return (
-			<tbody>
-				{rows}
-			</tbody>
+  <tbody>
+    {rows}
+  </tbody>
 		);
 	}
 });

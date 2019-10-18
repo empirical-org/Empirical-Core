@@ -149,18 +149,18 @@ export default class extends React.Component {
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
-				<div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
-					<ReactTable
-data={filteredData}
-						columns={this.columns()}
-						showPagination={false}
-						defaultSorted={[{id: 'average_score', desc: false}]}
-					  showPaginationTop={false}
-						showPaginationBottom={false}
-						showPageSizeOptions={false}
-						defaultPageSize={filteredData.length}
-						className='progress-report has-green-arrow'
-					/></div>
+        <div key={`${filteredData.length}-length-for-activities-scores-by-classroom`}>
+          <ReactTable
+            data={filteredData}
+            columns={this.columns()}
+            showPagination={false}
+            defaultSorted={[{id: 'average_score', desc: false}]}
+            showPaginationTop={false}
+            showPaginationBottom={false}
+            showPageSizeOptions={false}
+            defaultPageSize={filteredData.length}
+            className='progress-report has-green-arrow'
+          /></div>
       </div>
     )
   }

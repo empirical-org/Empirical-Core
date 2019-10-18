@@ -54,21 +54,21 @@ const Navbar = React.createClass({
           <div className="container">
             <div className="nav-left">
               <a href="http://www.connect.quill.org" className="nav-item">
-              <img
-src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
-              alt=""
-              style={{height: "35px"}}
-              />
-            </a>
+                <img
+                  src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
+                  alt=""
+                  style={{height: "35px"}}
+                />
+              </a>
+            </div>
+            {this.renderLinks()}
+            <span className="nav-toggle" onClick={this.toggle}>
+              <span />
+              <span />
+              <span />
+            </span>
           </div>
-          {this.renderLinks()}
-          <span className="nav-toggle" onClick={this.toggle}>
-            <span />
-            <span />
-            <span />
-          </span>
-        </div>
-      </header>
+        </header>
     )
   }
 })

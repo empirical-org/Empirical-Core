@@ -160,7 +160,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
   renderArchivedOrLive(concept) {
     if (concept.visible) {
       return (
-        <div  className="live-or-archived">
+        <div className="live-or-archived">
           <div>
             <div className="live" />
             Live
@@ -168,7 +168,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         </div>)
     } else {
       return (
-        <div  className="live-or-archived">
+        <div className="live-or-archived">
           <div>
             <div className="archived" />
             Archived
@@ -348,8 +348,8 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box archived-concept-box">
-          {this.renderChangeLogModal(editConcept)}
-          <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
+            {this.renderChangeLogModal(editConcept)}
+            <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
             <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>

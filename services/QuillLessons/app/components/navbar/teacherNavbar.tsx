@@ -175,8 +175,8 @@ class TeacherNavbar extends React.Component<any, any> {
         onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
         onMouseLeave={(e) => this.hideTooltip(e)}
       >
-          <img className={className} src={pdfIcon}/>
-          {this.renderTooltip('pdf')}
+        <img className={className} src={pdfIcon}/>
+        {this.renderTooltip('pdf')}
       </a>
     }
   }
@@ -281,8 +281,8 @@ class TeacherNavbar extends React.Component<any, any> {
           return (<p key={index}>{students[studentId]}</p>)
         } else {
           return (<span key={index}>
-          <p>{students[studentId]}</p>
-          <hr/>
+            <p>{students[studentId]}</p>
+            <hr/>
           </span>)
         }
       })

@@ -75,17 +75,17 @@ export default React.createClass({
     return (
       <div id='individual-activity-classroom-view'>
         <ProgressReport
-                           key={unitActivityClassroom}
-                           columnDefinitions={this.columnDefinitions}
-                           hideFaqLink={Boolean(true)}
-                           pagination={false}
-                           sourceUrl={`/teachers/progress_reports/question_view${unitActivityClassroom}`}
-                           sortDefinitions={this.sortDefinitions}
-                           jsonResultsKey={'data'}
-                           colorByScore={Boolean(true)}
-                           colorByScoreKeys={['score']}
-                           filterTypes={[]}
-                           premiumStatus={this.props.premiumStatus}
+          key={unitActivityClassroom}
+          columnDefinitions={this.columnDefinitions}
+          hideFaqLink={Boolean(true)}
+          pagination={false}
+          sourceUrl={`/teachers/progress_reports/question_view${unitActivityClassroom}`}
+          sortDefinitions={this.sortDefinitions}
+          jsonResultsKey={'data'}
+          colorByScore={Boolean(true)}
+          colorByScoreKeys={['score']}
+          filterTypes={[]}
+          premiumStatus={this.props.premiumStatus}
         />
       </div>
     );

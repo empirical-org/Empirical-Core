@@ -67,18 +67,18 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
         </p>
 
         <div className="student-lesson-instructions">
-            <div className="student-lesson-instruction">
-              <span className="instruction-number">1</span>
-              <span className="instruction-text"> Go to <span className="student-highlighted">Quill.org</span> and sign in with your username and password</span>
-            </div>
-            <div className="student-lesson-instruction">
-              <span className="instruction-number">2</span>
-              <span className="instruction-text">Join the lesson by clicking on <span className="student-highlighted">Join Lesson</span></span>
-            </div>
-            <div className="student-lesson-instruction">
-              <span className="instruction-number">3</span>
-              <span className="instruction-text">Find your name on the list to the right once you are in the lesson</span>
-            </div>
+          <div className="student-lesson-instruction">
+            <span className="instruction-number">1</span>
+            <span className="instruction-text"> Go to <span className="student-highlighted">Quill.org</span> and sign in with your username and password</span>
+          </div>
+          <div className="student-lesson-instruction">
+            <span className="instruction-number">2</span>
+            <span className="instruction-text">Join the lesson by clicking on <span className="student-highlighted">Join Lesson</span></span>
+          </div>
+          <div className="student-lesson-instruction">
+            <span className="instruction-number">3</span>
+            <span className="instruction-text">Find your name on the list to the right once you are in the lesson</span>
+          </div>
         </div>
       </div>
     )
@@ -118,8 +118,8 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
     if (this.props.projector) {
       return (
         <div className="projector-view">
-        {this.renderLessonTitle()}
-        {this.renderLessonInstructions()}
+          {this.renderLessonTitle()}
+          {this.renderLessonInstructions()}
         </div>
       );
     } else {

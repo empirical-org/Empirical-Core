@@ -175,8 +175,8 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         components.push((
           <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
             <div className="sidebar-header">
-            <p className={`slide-number ${activeClass}`}>{headerText}</p>
-            {currentSlide === slide ? this.presentStudents() : null}
+              <p className={`slide-number ${activeClass}`}>{headerText}</p>
+              {currentSlide === slide ? this.presentStudents() : null}
             </div>
             <div className={`slide-preview ${activeClass}`}>
               <div className="scaler">
@@ -195,7 +195,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     return (
       <div className="side-bar">
           Loading...
-        </div>
+      </div>
     );
   }
 

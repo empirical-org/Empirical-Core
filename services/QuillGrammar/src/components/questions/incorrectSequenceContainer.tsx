@@ -55,7 +55,7 @@ class IncorrectSequencesContainer extends React.Component {
   renderConceptResults(concepts, sequenceKey: string) {
     if (concepts) {
       const components = _.mapObject(concepts, (val, key) => (
-        <p key={`${val.name}`}className="control sub-title is-6">{val.name}
+        <p key={`${val.name}`} className="control sub-title is-6">{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
           : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
           <span className="tag is-small is-warning" style={{ cursor: 'pointer', marginLeft: 5, }} onClick={() => this.deleteConceptResult(key, sequenceKey)}>Delete</span>

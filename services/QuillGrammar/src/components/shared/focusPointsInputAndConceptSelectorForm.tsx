@@ -138,13 +138,13 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
 
   renderSequenceTag(seq, backgroundColor, i) {
     return <span
-        className="tag"
-        style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
-        key={i}
-        onClick={() => this.toggleSuggestedSequence(seq)}
+      className="tag"
+      style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
+      key={i}
+      onClick={() => this.toggleSuggestedSequence(seq)}
     >
       {seq}
-      </span>
+    </span>
    }
 
    renderExplanatoryNote() {

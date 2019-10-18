@@ -90,17 +90,17 @@ export default class ChooseClassroomLesson extends React.Component {
             </div>
           </div>
 
-      <div className='class-section'>
-        <h3>Now, choose a class to launch this lesson:</h3>
-        {this.renderClasses()}
-      </div>
-      <div className="bottom-section">
-        {/* we will use the text below when we have a lessons page to send teachers to */}
-        {/* <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p> */}
-        <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it.</p>
-        <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>{text}</a>
-      </div>
-    </div>)
+          <div className='class-section'>
+            <h3>Now, choose a class to launch this lesson:</h3>
+            {this.renderClasses()}
+          </div>
+          <div className="bottom-section">
+            {/* we will use the text below when we have a lessons page to send teachers to */}
+            {/* <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it. To re-assign a lesson, you can click here.</p> */}
+            <p>*To re-do a completed lesson with your students, you can re-assign the lesson to the class and launch it.</p>
+            <a href={this.launchLessonLink()} className={`q-button text-white ${buttonClass}`}>{text}</a>
+          </div>
+        </div>)
     }
   }
 }

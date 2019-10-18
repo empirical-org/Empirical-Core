@@ -271,11 +271,11 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
       const imageSrc = this.state.rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
       return <img
-      className={className}
-      src={imageSrc}
-      onMouseOver={() => this.setState({rightHover: true})}
-      onMouseOut={() => this.setState({rightHover: false})}
-      onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
+        className={className}
+        src={imageSrc}
+        onMouseOver={() => this.setState({rightHover: true})}
+        onMouseOut={() => this.setState({rightHover: false})}
+        onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
       />
     }
   }
@@ -286,19 +286,19 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     if (this.state.shouldEnterName) {
       return (
         <div>
-        <div className="play-lesson-container">
-        <div className="main-content">
-        <div className="main-content-wrapper">
-        <div className="easy-join-name-form-wrapper">
-        <div className="easy-join-name-form">
-        <p>Please enter your full name:</p>
-        <input value={this.state.easyDemoName} onChange={this.handleChange}/>
-        <button onClick={this.easyJoinDemo}>Join</button>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
+          <div className="play-lesson-container">
+            <div className="main-content">
+              <div className="main-content-wrapper">
+                <div className="easy-join-name-form-wrapper">
+                  <div className="easy-join-name-form">
+                    <p>Please enter your full name:</p>
+                    <input value={this.state.easyDemoName} onChange={this.handleChange}/>
+                    <button onClick={this.easyJoinDemo}>Join</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )
     } else if (error) {
@@ -322,24 +322,24 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
          if (component) {
            return (
              <div>
-              <WakeLock />
-              {absentTeacher || watchTeacher}
-              {this.renderLeftButton()}
-                <div className="play-lesson-container">
-                  <div className="main-content">
+               <WakeLock />
+               {absentTeacher || watchTeacher}
+               {this.renderLeftButton()}
+               <div className="play-lesson-container">
+                 <div className="main-content">
                    <div className="main-content-wrapper">
                      {component}
                    </div>
                  </div>
                </div>
-              {this.renderRightButton()}
+               {this.renderRightButton()}
              </div>
            );
          }
        }
        return (
          <div>
-         <Spinner/>
+           <Spinner/>
          </div>
        );
      }

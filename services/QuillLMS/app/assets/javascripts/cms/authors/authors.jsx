@@ -43,36 +43,36 @@ EC.Authors = React.createClass({
     ];
 
     return (
-            <div>
-              <div className='row'>
-                <div className='col-xs-12'>
-                  <img src={this.getImageUrl(cmsComponent)} />
-                </div>
-              </div>
-              <div className='row'>
-                <div className='col-xs-12'>
-                  <EC.Resource
-                           resourceNameSingular='author'
-                           resourceNamePlural='authors'
-                           initialModel={initialModel}
-                           resource={cmsComponent.state.resourceToEdit}
-                           formFields={formFields}
-                           savingKeys={savingKeys}
-                           fieldsToNormalize={fieldsToNormalize}
-                           returnToIndex={cmsComponent.returnToIndex}
-                  />
-                </div>
-              </div>
-            </div>
+      <div>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <img src={this.getImageUrl(cmsComponent)} />
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <EC.Resource
+              resourceNameSingular='author'
+              resourceNamePlural='authors'
+              initialModel={initialModel}
+              resource={cmsComponent.state.resourceToEdit}
+              formFields={formFields}
+              savingKeys={savingKeys}
+              fieldsToNormalize={fieldsToNormalize}
+              returnToIndex={cmsComponent.returnToIndex}
+            />
+          </div>
+        </div>
+      </div>
            );
   },
 
   render: function () {
     return (
       <EC.Cms
-resourceNameSingular='author'
-              resourceNamePlural='authors'
-              resourceComponentGenerator={this.resourceComponentGenerator}
+        resourceNameSingular='author'
+        resourceNamePlural='authors'
+        resourceComponentGenerator={this.resourceComponentGenerator}
       />
 
     );

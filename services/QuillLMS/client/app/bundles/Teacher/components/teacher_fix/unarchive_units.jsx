@@ -94,8 +94,8 @@ export default class UnarchiveUnits extends React.Component {
         const checked = this.state.selectedUnitIds.find(unitId => unitId == u.id)
         const nameFieldStyle = u.shared_name ? {'border': 'red 1px solid', 'width': '447px'} : {'width': '447px'}
         return <div key={`${u.id}-${checked}`}>
-        <input type="checkbox" onChange={this.toggleSelected} id={u.id} checked={checked}/>
-        <input style={nameFieldStyle} onChange={(e) => this.updateName(e, u.id)} value={this.state.changedNames[u.id] || u.name} />
+          <input type="checkbox" onChange={this.toggleSelected} id={u.id} checked={checked}/>
+          <input style={nameFieldStyle} onChange={(e) => this.updateName(e, u.id)} value={this.state.changedNames[u.id] || u.name} />
         </div>
       })
       const selectAllCopy = this.state.archivedUnits.length === this.state.selectedUnitIds.length ? 'Unselect All Units' : 'Select All Units'

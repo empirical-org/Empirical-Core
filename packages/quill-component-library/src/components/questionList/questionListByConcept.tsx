@@ -15,7 +15,7 @@ class QuestionListByConcept extends React.Component<any, any> {
   renderLabel(concept) {
     return (
       <p className="menu-label">
-      {concept.name}
+        {concept.name}
       </p>
     );
   }

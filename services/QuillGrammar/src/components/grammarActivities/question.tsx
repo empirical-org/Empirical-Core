@@ -237,18 +237,18 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             <p>Sentences Completed: {answeredQuestionCount} of {totalQuestionCount}</p>
             <div className="progress-bar-indication">
               <span
-className="meter"
-              style={{width: `${meterWidth}%`}}
+                className="meter"
+                style={{width: `${meterWidth}%`}}
               />
             </div>
-        </div>
-      </Row>
-      {this.renderExampleButton()}
-      {this.renderExample()}
-      <Row type="flex" align="middle" justify="start">
-        <img style={{ height: '22px', marginRight: '10px' }} src={questionIconSrc} />
-        <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
-      </Row>
+          </div>
+        </Row>
+        {this.renderExampleButton()}
+        {this.renderExample()}
+        <Row type="flex" align="middle" justify="start">
+          <img style={{ height: '22px', marginRight: '10px' }} src={questionIconSrc} />
+          <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
+        </Row>
       </div>
     }
 

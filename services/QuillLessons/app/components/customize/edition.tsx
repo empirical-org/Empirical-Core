@@ -257,12 +257,12 @@ class CustomizeEdition extends React.Component<any, any> {
     if (this.state.showEditModal) {
       const buttonClassName = this.props.editionMetadata.name ? 'active' : 'inactive'
       return <NameAndSampleQuestionModal
-          updateName={this.updateName}
-          name={this.props.editionMetadata.name}
-          sampleQuestion={this.props.editionMetadata.sample_question}
-          updateSampleQuestion={this.updateSampleQuestion}
-          buttonClassName={buttonClassName}
-          closeEditModal={this.closeEditModal}
+        updateName={this.updateName}
+        name={this.props.editionMetadata.name}
+        sampleQuestion={this.props.editionMetadata.sample_question}
+        updateSampleQuestion={this.updateSampleQuestion}
+        buttonClassName={buttonClassName}
+        closeEditModal={this.closeEditModal}
       />
     }
   }
@@ -295,8 +295,8 @@ class CustomizeEdition extends React.Component<any, any> {
             sampleQuestion={this.props.editionMetadata.sample_question}
             showEditModal={this.showEditModal}
           />
-        {this.renderSlides()}
-        {this.renderPublishSection()}
+          {this.renderSlides()}
+          {this.renderPublishSection()}
         </div>
       </div>
     } else {

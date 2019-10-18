@@ -61,7 +61,7 @@ class TagResponsesContainer extends React.Component<any, AppState> {
           return (
             <div className="card" key={this.state.count}>
               <div className="card-header">
-              <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>
+                <p><span style={{textTransform: "uppercase"}}>{ label.name}</span> -- {label.description} </p>
               </div>
               <div className="card-body">
                 <p>{ response.text}</p>
@@ -70,14 +70,18 @@ class TagResponsesContainer extends React.Component<any, AppState> {
                 {(submitResponseLabelTag, { data }) => (
                   <div className="card-footer" style={{display:  "flex", flexDirection:  "row", alignItems: "left", justifyContent: "space around"}}>
                     <button
-className="btn btn-success mr1" style={{flexGrow: 1}} onClick={(e) => {
+                      className="btn btn-success mr1"
+                      style={{flexGrow: 1}}
+                      onClick={(e) => {
                       e.preventDefault();
                       submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:1}})
                       this.setState({count: this.state.count + 1})
                     }}
                     >Yes</button>
                     <button
-className="btn btn-danger ml1" style={{flexGrow:  1}} onClick={(e) => {
+                      className="btn btn-danger ml1"
+                      style={{flexGrow:  1}}
+                      onClick={(e) => {
                       e.preventDefault();
                       submitResponseLabelTag({variables: {response_id: response.id, response_label_id: label.id, score:-1}})
                       this.setState({count: this.state.count + 1})

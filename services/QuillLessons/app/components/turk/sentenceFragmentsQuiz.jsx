@@ -42,9 +42,9 @@ var StudentDiagnostic = React.createClass({
   renderQuestionComponent: function () {
     if (this.props.question.currentQuestion) {
       return (<Question
-                question={this.props.question.currentQuestion}
-                submitResponse={this.submitResponse}
-                prefill={this.getLesson().prefill}
+        question={this.props.question.currentQuestion}
+        submitResponse={this.submitResponse}
+        prefill={this.getLesson().prefill}
       />)
     }
   },
@@ -158,10 +158,13 @@ var StudentDiagnostic = React.createClass({
 
           } else {
             component =   (<PlaySentenceFragment
-question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-                                    key={this.props.playDiagnostic.currentQuestion.data.key}
-                                    nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-                                    updateAttempts={this.submitResponse} dispatch={this.props.dispatch}
+              question={this.props.playDiagnostic.currentQuestion.data}
+              currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+              key={this.props.playDiagnostic.currentQuestion.data.key}
+              nextQuestion={this.nextQuestion}
+              markIdentify={this.markIdentify}
+              updateAttempts={this.submitResponse}
+              dispatch={this.props.dispatch}
             />)
           }
         } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
@@ -182,14 +185,14 @@ question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props
 
     return (
       <div>
-      <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
-      <section className="section is-fullheight minus-nav student">
-      <div className="student-container student-container-diagnostic">
-          <CarouselAnimation>
-            {component}
-          </CarouselAnimation>
-        </div>
-      </section>
+        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <section className="section is-fullheight minus-nav student">
+          <div className="student-container student-container-diagnostic">
+            <CarouselAnimation>
+              {component}
+            </CarouselAnimation>
+          </div>
+        </section>
       </div>
     )
   }

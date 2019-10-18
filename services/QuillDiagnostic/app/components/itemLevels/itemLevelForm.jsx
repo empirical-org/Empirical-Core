@@ -68,39 +68,39 @@ const ItemLevelForm = React.createClass({
       }
 
       return (
-      <div className={className}>
-        <h4 className="title">Add New Item Level</h4>
-        <p className="control">
-          <label className="label">Name</label>
-          <input
-            className="input"
-            type="text"
-            placeholder={name}
-            value={this.state.name}
-            ref="newItemLevelName"
-            onChange={this.handleChange}
-          />
-        </p>
-        <p className="control">
-          <label className="label">Integer Value</label>
-          <input
-            className="input"
-            type="text"
-            placeholder={integerValue}
-            value={this.state.integerValue}
-            ref="integerValue"
-            onChange={this.handleChange}
-          />
-        </p>
-        <div className="control">
-          <Link to={'admin/item-levels'}>
-            <button className="button is-primary" onClick={this.submit}>Submit</button>
-          </Link>
+        <div className={className}>
+          <h4 className="title">Add New Item Level</h4>
+          <p className="control">
+            <label className="label">Name</label>
+            <input
+              className="input"
+              type="text"
+              placeholder={name}
+              value={this.state.name}
+              ref="newItemLevelName"
+              onChange={this.handleChange}
+            />
+          </p>
+          <p className="control">
+            <label className="label">Integer Value</label>
+            <input
+              className="input"
+              type="text"
+              placeholder={integerValue}
+              value={this.state.integerValue}
+              ref="integerValue"
+              onChange={this.handleChange}
+            />
+          </p>
+          <div className="control">
+            <Link to={'admin/item-levels'}>
+              <button className="button is-primary" onClick={this.submit}>Submit</button>
+            </Link>
+          </div>
+          <div>
+            {cancelAndDeleteButtons}
+          </div>
         </div>
-        <div>
-          {cancelAndDeleteButtons}
-        </div>
-      </div>
     )} else {
         return (
           <div>Loading...</div>

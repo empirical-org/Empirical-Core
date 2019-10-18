@@ -273,7 +273,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       <div className="warning-dialogue">
         <span>Use one of the options below.</span>
         <i className="fa fa-caret-down"/>
-    </div>
+      </div>
     );
   }
 
@@ -295,7 +295,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     }
     return(
       <div className="fill-in-the-blank">
-      {content}
+        {content}
       </div>
 
     )
