@@ -24,9 +24,13 @@ class Header extends React.Component<any, any> {
   }
 
   saveAndExit = () => {
-    const { passage, } = this.props.session
     const { firebaseSessionID, } = this.state
-    this.props.dispatch(updateSessionOnFirebase(firebaseSessionID, passage, this.goToLMS))
+    if (firebaseSessionID) {
+      const { passage, } = this.props.session
+      this.props.dispatch(updateSessionOnFirebase(firebaseSessionID, passage, this.goToLMS))
+    } else {
+      this.goToLMS()
+    }
   }
 
   render() {
