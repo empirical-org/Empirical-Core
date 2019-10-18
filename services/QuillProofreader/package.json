@@ -8,6 +8,8 @@
     "lint:fix": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}' --fix",
     "start": "EMPIRICAL_BASE_URL=localhost:3000 webpack-dev-server",
     "test": "jest",
+    "jest:u": "jest --updateSnapshot",
+    "jest": "jest",
     "build:jenkins": "tsc && webpack --optimize-minimize",
     "build": "npm install && tsc && webpack --progress",
     "build:staging": "npm install && webpack --progress --config webpack.staging.config.js",

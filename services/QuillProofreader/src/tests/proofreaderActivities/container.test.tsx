@@ -10,7 +10,7 @@ describe("<PlayProofreaderContainer />", () => {
   const wrapper = shallow(<PlayProofreaderContainer
     dispatch={() => {}}
     activityUID='KMyh3LulfVL0_KuPb8u'
-    session={{passage: 'string'}}
+    session={{ passage: [] }}
     proofreaderActivities={ProofreaderActivityReducer}
    />)
 
