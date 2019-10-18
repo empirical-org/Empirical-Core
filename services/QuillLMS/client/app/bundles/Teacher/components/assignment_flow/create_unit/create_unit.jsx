@@ -10,6 +10,7 @@ import {
   UNIT_TEMPLATE_NAME,
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
+  UNIT_ID
 } from '../localStorageKeyConstants.ts'
 import { requestGet, requestPost, } from '../../../../../modules/request';
 
@@ -235,6 +236,7 @@ export default class CreateUnit extends React.Component {
     const { classrooms, name, } = this.state
     this.setState({ newUnitId: response.id, assignSuccess: true, }, () => {
       window.localStorage.setItem(UNIT_NAME, name)
+      window.localStorage.setItem(UNIT_ID, response.id)
       const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
       if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
         this.props.router.push('/assign/add-students')
@@ -284,7 +286,7 @@ export default class CreateUnit extends React.Component {
     } else if (!this.isUnitNameValid()) {
       return { name: 'Please provide a name for your activity pack.', }
     } else if (!this.isUnitNameUnique()) {
-      return { name: "You're using that name for a different pack. Please try again.", }
+      return { name: "You're already using that name for another activity pack. Please modify the activity pack name to assign it.", }
     }
   }
 

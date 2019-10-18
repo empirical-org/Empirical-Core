@@ -14,19 +14,21 @@ export default class Stage2 extends React.Component {
     this.state = {
       buttonDisabled: false,
       prematureAssignAttempted: false,
-      loading: false
+      loading: false,
+      timesSubmitted: 0
     }
 
     this.finish = this.finish.bind(this)
   }
 
   finish() {
+    const { buttonDisabled, timesSubmitted, } = this.props
     if (!this.state.buttonDisabled && !this.props.errorMessage) {
       // this.setState({buttonDisabled: true});
       this.setState({ loading: true, });
       this.props.finish();
     } else {
-      this.setState({ prematureAssignAttempted: true, });
+      this.setState({ prematureAssignAttempted: true, timesSubmitted: timesSubmitted + 1 });
     }
   }
 
@@ -62,11 +64,13 @@ export default class Stage2 extends React.Component {
   }
 
   renderNameSection() {
+    const { timesSubmitted, } = this.state
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
       unitName={unitName}
       updateUnitName={updateUnitName}
       nameError={errorMessage ? errorMessage.name : null}
+      timesSubmitted={timesSubmitted}
     />)
   }
 

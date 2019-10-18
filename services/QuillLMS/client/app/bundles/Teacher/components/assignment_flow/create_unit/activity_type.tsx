@@ -20,7 +20,7 @@ const minis = (props) => [
     imgAlt="teacher pointing at board"
     bodyArray={[
       { key: 'What', text: 'Each activity pack contains one teacher-led collaborative group lesson and a set of 3-5 follow up independent practice activities.', },
-      { key: 'When', text: 'You want to introduce new concepts by leading whole-group lessons where you model concepts and facilitate discussions.', },
+      { key: 'When', text: 'You want to introduce new concepts by leading whole-class lessons where you model concepts and facilitate discussions.', },
       { key: 'Note', text: 'In whole-class lessons, students receive feedback from teachers and peers rather than from Quill’s software.', }
     ]}
   />),

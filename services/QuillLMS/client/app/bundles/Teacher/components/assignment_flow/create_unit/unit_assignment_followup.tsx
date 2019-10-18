@@ -11,6 +11,7 @@ import {
   UNIT_NAME,
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
+  UNIT_ID
 } from '../localStorageKeyConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
@@ -62,6 +63,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       window.localStorage.removeItem(UNIT_NAME)
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
       window.localStorage.removeItem(CLASSROOMS)
+      window.localStorage.removeItem(UNIT_ID)
     })
   }
 
@@ -107,10 +109,11 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   renderNextOptions = () => {
+    const unitId = window.localStorage.getItem(UNIT_ID)
     return (<div className="unit-assignment-followup next-options">
       <h1>What would you like to do next?</h1>
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner`}}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
         imgSrc={assignedActivitiesSrc}
         imgAlt="clipboard with check"
         header="See what I have assigned"

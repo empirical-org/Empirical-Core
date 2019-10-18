@@ -10,6 +10,12 @@ interface AssignmentCardProps {
   buttonLink?: string;
 }
 
+const attemptSelectCard = (e, selectCard) => {
+  if (e.target.tagName !== 'A') {
+    selectCard()
+  }
+}
+
 const AssignmentCard = ({ selectCard, imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink}: AssignmentCardProps) => {
   const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" target="_blank" href={buttonLink}>{buttonText}</a> : null
   const bodyElements = bodyArray.map(obj => (
@@ -18,7 +24,7 @@ const AssignmentCard = ({ selectCard, imgSrc, imgAlt, header, bodyArray, buttonT
       <p className="text">{obj.text}</p>
     </div>)
   )
-  return (<div onClick={selectCard} className="assignment-card quill-card">
+  return (<div onClick={(e) => attemptSelectCard(e, selectCard)} className="assignment-card quill-card">
     <div className="top-row">
       <div className="left">
         <img src={imgSrc} alt={imgAlt} />
