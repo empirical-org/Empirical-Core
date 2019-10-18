@@ -13,7 +13,7 @@ class Teachers::UnitTemplatesController < ApplicationController
             @image_link = unit_template.image_link
           end
         end
-        redirect_to "/teachers/classrooms/assign_activities/featured-activity-packs/#{params[:id]}" if @is_teacher
+        redirect_to "/assign/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
       format.json do
         render json: get_cached_formatted_unit_templates

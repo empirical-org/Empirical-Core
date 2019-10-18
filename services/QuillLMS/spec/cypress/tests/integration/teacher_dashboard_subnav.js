@@ -31,7 +31,7 @@ describe('Teacher Dashboard Subnav', function() {
 
   it('has a link to the Assign Activities page', function() {
     cy.get('#teacher-nav-tabs').contains('Assign Activities').click({force: true})
-    cy.url().should('include', '/teachers/classrooms/assign_activities')
+    cy.url().should('include', '/assign')
   })
 
   it('has a link to the My Activities page', function() {
