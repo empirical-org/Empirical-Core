@@ -60,7 +60,7 @@ class School < ActiveRecord::Base
       csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
       self.students.each do |student|
-        student.activity_sessions.where("completed_at >= ?", activities_since).each do |activity_session|
+        student.activity_sessions.where("completed_at >= ?", activities_since).where.not(completed_at: nil).each do |activity_session|
           classroom = activity_session.classroom
           teacher = User.joins(:classrooms_teachers).where(classrooms_teachers: {role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom_id: classroom.id}).first
           csv_file << generate_leap_csv_row(student, teacher, classroom, activity_session)

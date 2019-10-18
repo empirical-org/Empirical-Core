@@ -1,8 +1,7 @@
 import React from 'react';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
-const NameTheUnit = (props) => {
-  const { nameError, unitName, updateUnitName, } = props
+const NameTheUnit = ({ nameError, unitName, updateUnitName, timesSubmitted, }) => {
   return (
     <div className="assignment-section">
       <div className="assignment-section-header">
@@ -16,6 +15,7 @@ const NameTheUnit = (props) => {
           handleChange={updateUnitName}
           type="text"
           error={nameError}
+          timesSubmitted={timesSubmitted}
         />
       </div>
     </div>

@@ -83,7 +83,7 @@ export default class ClassroomLessons extends React.Component {
         <p>In order to launch a lesson, you need to assign a lesson to one of your classes.</p>
         <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and to see and display student responses in real-time.</p>
         <div className="buttons">
-          <a target="_blank" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
+          <a target="_blank" href="/assign/create-activity-pack?tool=lessons" className="bg-quillgreen text-white">Assign Lessons</a>
           <a target="_blank" href="/tools/lessons" className="bg-white text-quillgreen">Learn More</a>
         </div>
       </div>

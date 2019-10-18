@@ -11,7 +11,7 @@ describe Classroom, type: :model do
   it { should have_many(:activities).through(:unit_activities) }
   it { should have_many(:activity_sessions).through(:classroom_units) }
   #check if the code is correct as assign activities model does not exist
-  #it { should have_many(:sections).through(:assign_activities) }
+  #it { should have_many(:sections).through(:assign) }
   it { should have_many(:coteacher_classroom_invitations) }
   it { should have_many(:students_classrooms).with_foreign_key('classroom_id').dependent(:destroy).class_name("StudentsClassrooms") }
   it { should have_many(:students).through(:students_classrooms).source(:student).with_foreign_key('classroom_id').inverse_of(:classrooms).class_name("User") }

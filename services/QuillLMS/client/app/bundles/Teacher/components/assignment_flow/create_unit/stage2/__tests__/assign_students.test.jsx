@@ -7,7 +7,7 @@ import AssignStudents, {
   googleClassroomEmailModal,
   googleClassroomsEmptyModal
 } from '../assign_students'
-import ClassroomCard from '../classroom_card.jsx'
+import ClassroomCard from '../classroom_card.tsx'
 import CreateAClassInlineForm from '../create_a_class_inline_form.tsx'
 import ImportGoogleClassroomsModal from '../../../../classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../../../../classrooms/google_classroom_email_modal.tsx'

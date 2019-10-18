@@ -1,10 +1,47 @@
-import React from 'react'
+import * as React from 'react'
 
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
-export default class ClassroomCard extends React.Component {
+interface ClassroomCardProps {
+  classroom: any;
+  students: Array<any>;
+  toggleClassroomSelection: (any) => void;
+  toggleStudentSelection: (studentIds, classroomId) => void;
+}
+
+interface ClassroomCardState {
+  isActive: boolean;
+}
+
+export default class ClassroomCard extends React.Component<ClassroomCardProps, ClassroomCardState> {
+  private studentSection: any
+
+  constructor(props) {
+
+    super(props)
+
+    this.state = {
+      isActive: false
+    }
+  }
+
+  componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false)
+  }
+
+  handleClick = (e) => {
+    if (this.studentSection && this.studentSection.contains(e.target)) {
+      this.setState({ isActive: true})
+    } else {
+      this.setState({ isActive: false})
+    }
+  }
 
   selectStudents(studentOptions, classroomId) {
     const studentIds = studentOptions.map(s => s.value)
@@ -28,6 +65,7 @@ export default class ClassroomCard extends React.Component {
   }
 
   renderStudentSection() {
+    const { isActive, } = this.state
     const { classroom, students, } = this.props
     const { id, emptyClassroomSelected, } = classroom
 
@@ -37,9 +75,9 @@ export default class ClassroomCard extends React.Component {
 
     const selectedStudents = options.filter(s => s.isSelected)
 
-    if (!selectedStudents.length && !emptyClassroomSelected) { return null }
+    if (!selectedStudents.length && !emptyClassroomSelected && !isActive) { return null }
 
-    if (selectedStudents.length) {
+    if (options.length) {
       return (<DropdownInput
         value={selectedStudents}
         isMulti
@@ -47,21 +85,22 @@ export default class ClassroomCard extends React.Component {
         optionType="student"
         handleChange={(e) => { this.selectStudents(e, id) }}
       />)
+    } else if (emptyClassroomSelected) {
+      return <span className="empty-class-students">And all students who join in the future</span>
     }
-    return <span className="empty-class-students">And all students who join in the future</span>
   }
 
   render() {
-    const { name, } = this.props.classroom
+    const { classroom, toggleClassroomSelection, } = this.props
     return (<div className="classroom">
       <div className="checkbox-and-name-container">
         {this.renderClassroomCheckbox()}
         <div className="name-container">
           <span className="name-label">Class</span>
-          <span className="name">{name}</span>
+          <span className="name" onClick={() => toggleClassroomSelection(classroom)}>{classroom.name}</span>
         </div>
       </div>
-      <div className="students-container">
+      <div className="students-container" ref={node => this.studentSection = node}>
         {this.renderStudentSection()}
       </div>
     </div>)

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <g fill="none" fill-rule="evenodd">
+        <path d="M0 0h48v48H0z"/>
+        <g stroke="#BABABA" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <path d="M14 39v2c0 4.5-5 5-5 5h30a5 5 0 0 0 5-5v-2H14z"/>
+            <path d="M38 34V2H4v39a5 5 0 0 0 5 5M12 12h18M12 20h18M12 28h18"/>
+        </g>
+    </g>
+</svg>

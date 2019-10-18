@@ -12,7 +12,7 @@ class Classroom < ActiveRecord::Base
   has_many :unit_activities, through: :units
   has_many :activities, through: :unit_activities
   has_many :activity_sessions, through: :classroom_units
-  has_many :sections, through: :assign_activities
+  has_many :sections, through: :activities
   has_many :coteacher_classroom_invitations
 
   has_many :students_classrooms, foreign_key: 'classroom_id', dependent: :destroy, class_name: "StudentsClassrooms"
@@ -86,7 +86,7 @@ class Classroom < ActiveRecord::Base
   end
 
   def archived_classrooms_manager
-    coteachers = self.coteachers.length > 0 ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
+    coteachers = !self.coteachers.empty? ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
     {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code, ownerName: self.owner.name, from_google: !!self.google_classroom_id, coteachers: coteachers}
   end
 

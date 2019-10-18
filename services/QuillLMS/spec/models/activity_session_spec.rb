@@ -771,4 +771,22 @@ end
       expect(returned_activity_session.state).to eq('started')
     end
   end
+
+  describe "#minutes_to_complete" do
+    it "should return minutes between completed_at and started_at" do
+      now = Time.now
+      activity_session = create(:activity_session, started_at: now, completed_at: now + (1 * 60))
+      expect(activity_session.minutes_to_complete).to eq(1)
+    end
+
+    it "should return nil if completed_at is nil" do
+      activity_session = create(:activity_session, completed_at: nil)
+      expect(activity_session.minutes_to_complete).to be_nil
+    end
+
+    it "should return nil if started_at is nil" do
+      activity_session = create(:activity_session, started_at: nil)
+      expect(activity_session.minutes_to_complete).to be_nil
+    end
+  end
 end

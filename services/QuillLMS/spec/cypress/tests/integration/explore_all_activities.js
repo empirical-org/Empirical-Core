@@ -24,7 +24,7 @@ describe('Explore All Activities page', function() {
       }],
     ])
     cy.login('someone@gmail.com', 'password')
-    cy.visit('/teachers/classrooms/assign_activities/create-unit')
+    cy.visit('/assign/create-activity-pack')
   })
 
   beforeEach(function() {
