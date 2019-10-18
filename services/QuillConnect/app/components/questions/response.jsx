@@ -371,15 +371,15 @@ export default React.createClass({
       pathwayDetails = (<span>
         <a
           className="button is-outlined has-top-margin"
-          onClick={this.printResponsePathways.bind(null, this.props.key)}
           key="from"
+          onClick={this.printResponsePathways.bind(null, this.props.key)}
         >
           From Pathways
         </a>
         <a
           className="button is-outlined has-top-margin"
-          onClick={this.toResponsePathways}
           key="to"
+          onClick={this.toResponsePathways}
         >
           To Pathways
         </a>

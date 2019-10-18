@@ -4,13 +4,13 @@ import Unit from './unit';
 const Units = ({ data, hideClassroomActivity, hideUnit, report, lesson, updateDueDate}) => {
   const units = data.map(data =>
     (<Unit
-      key={data.unitId}
+      data={data}
       hideClassroomActivity={hideClassroomActivity}
       hideUnit={hideUnit}
-      report={report}
+      key={data.unitId}
       lesson={lesson}
+      report={report}
       updateDueDate={updateDueDate}
-      data={data}
     />)
   );
   return <span>{units}</span>

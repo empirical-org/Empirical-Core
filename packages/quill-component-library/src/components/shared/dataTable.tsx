@@ -121,16 +121,16 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const allChecked = rows.every(row => row.checked)
     if (allChecked) {
-      return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-        <img src={smallWhiteCheckSrc} alt="check" onClick={uncheckAllRows}/>
-      </span>
+      return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        <img alt="check" onClick={uncheckAllRows} src={smallWhiteCheckSrc} />
+      </span>)
     }
 
     const anyChecked = rows.some(row => row.checked)
     if (anyChecked) {
-      return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-        <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
-      </span>
+      return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        <img alt="check" onClick={uncheckAllRows} src={indeterminateSrc} />
+      </span>)
     }
 
     return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
