@@ -102,8 +102,8 @@ class ApplicationController < ActionController::Base
     route&.include?(Teachers::ClassroomsController::INDEX)
   end
 
-  def route_redirects_to_assign_activities?(route)
-    route&.include?(Teachers::ClassroomManagerController::ASSIGN_ACTIVITIES)
+  def route_redirects_to_assign?(route)
+    route&.include?(Teachers::ClassroomManagerController::ASSIGN)
   end
 
   def route_redirects_to_diagnostic?(route)
@@ -113,7 +113,7 @@ class ApplicationController < ActionController::Base
   def non_standard_route_redirect?(route)
     (
       route_redirects_to_my_account?(route) ||
-      route_redirects_to_assign_activities?(route) ||
+      route_redirects_to_assign?(route) ||
       route_redirects_to_classrooms_index?(route) ||
       route_redirects_to_diagnostic?(route)
     )

@@ -5,6 +5,8 @@ import UnitAssignmentFollowup from '../unit_assignment_followup'
 
 import { classroomProps, activities } from '../stage2/__tests__/test_data/test_data'
 
+const routerProps = { location: {} }
+
 describe('Unit assignment followup component', () => {
 
   describe('When there are students assigned', () => {
@@ -16,6 +18,7 @@ describe('Unit assignment followup component', () => {
           classrooms={classroomProps}
           unitName="A Unit"
           referralCode="code"
+          router={routerProps}
         />
       )
 
@@ -36,6 +39,7 @@ describe('Unit assignment followup component', () => {
           classrooms={classroomProps}
           unitName="A Unit"
           referralCode="code"
+          router={routerProps}
         />
       )
 
@@ -65,6 +69,7 @@ describe('Unit assignment followup component', () => {
         classrooms={classroomsWithNoStudents}
         unitName="A Unit"
         referralCode="code"
+        router={routerProps}
       />
     )
 

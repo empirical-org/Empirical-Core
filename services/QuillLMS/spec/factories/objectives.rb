@@ -46,7 +46,7 @@ FactoryBot.define do
       name              { 'Assign Entry Diagnostic' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/1144849' }
       section           'Getting Started'
-      action_url        { '/teachers/classrooms/activity_planner/assign-a-diagnostic' }
+      action_url        { '/teachers/classrooms/activity_planner/diagnostic' }
       section_placement { 4 }
     end
 

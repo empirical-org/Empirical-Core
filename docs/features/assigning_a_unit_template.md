@@ -1,7 +1,7 @@
 # Assigning A Unit Template
 
 ## Featured Activity Packs Page
-Teachers can assign a featured activity pack by navigating to the [Featured Activity Packs page](https://quill.org/teachers/classrooms/assign_activities/featured-activity-packs) and selecting the activity pack they'd like to assign. From that page, they can choose to either
+Teachers can assign a featured activity pack by navigating to the [Featured Activity Packs page](https://quill.org/assign/featured-activity-packs) and selecting the activity pack they'd like to assign. From that page, they can choose to either
 
 * Assign to All Students, which will assign every student in each of their classes, or
 * Customize Students, which will allow them to select individual classes or students to assign the unit template to.

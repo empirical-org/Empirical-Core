@@ -265,13 +265,11 @@ EmpiricalGrammar::Application.routes.draw do
           "#{Rails.application.routes.url_helpers.lesson_planner_teachers_classrooms_path}?#{request.params.to_query}"
         }
         post :lesson_planner, controller: "classroom_manager", action: 'lesson_planner'
-        get :assign_activities, controller: "classroom_manager", action: 'assign_activities', path: 'assign_activities'
         get :scorebook, controller: 'classroom_manager', action: 'scorebook'
         get :scores, controller: 'classroom_manager', action: 'scores'
         get :dashboard, controller: 'classroom_manager', action: 'dashboard'
         get :retrieve_classrooms_for_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_for_assigning_activities'
         get :retrieve_classrooms_i_teach_for_custom_assigning_activities, controller: 'classroom_manager', action: 'retrieve_classrooms_i_teach_for_custom_assigning_activities'
-        post :assign_activities, controller: 'classroom_manager', action: 'assign_activities'
         get :invite_students, controller: 'classroom_manager', action: 'invite_students'
         get :google_sync, controller: 'classroom_manager', action: 'google_sync'
         get :retrieve_google_classrooms, controller: 'classroom_manager', action: 'retrieve_google_classrooms'
@@ -560,6 +558,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'activities/packs/category/:category' => 'teachers/unit_templates#index'
   get 'activities/packs/grade/:grade' => 'teachers/unit_templates#index'
 
+  get 'teachers/classrooms/activity_planner/assign-a-diagnostic' => redirect('/assign/diagnostic')
   get 'teachers/classrooms/activity_planner/:tab' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/lessons/:classroom_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/lessons_for_activity/:activity_id' => 'teachers/classroom_manager#lesson_planner'
@@ -567,13 +566,23 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner', :constraints => { :unitName => /[^\/]+/ }
 
-  get 'teachers/classrooms/assign_activities/:tab' => 'teachers/classroom_manager#assign_activities'
-  get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign_activities'
-  get 'teachers/classrooms/assign_activities/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign_activities'
-  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign_activities'
-  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign_activities'
-  get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign_activities'
+  get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
+  get 'assign/assign-a-diagnostic' => redirect('/assign/diagnostic')
+  get 'assign/create-unit' => redirect('/assign/create-activity-pack')
+  get 'assign/:tab' => 'teachers/classroom_manager#assign'
+  get 'assign/featured-activity-packs/category/:category' => 'teachers/classroom_manager#assign'
+  get 'assign/featured-activity-packs/grade/:grade' => 'teachers/classroom_manager#assign'
+  get 'assign/featured-activity-packs/:activityPackId' => 'teachers/classroom_manager#assign'
+  get 'assign/featured-activity-packs/:activityPackId/assigned' => 'teachers/classroom_manager#assign'
+  get 'assign/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => 'teachers/classroom_manager#assign'
 
+  get 'teachers/classrooms/assign_activities' => redirect('/assign')
+  get 'teachers/classrooms/assign_activities/:tab' => redirect('/assign/%{tab}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/category/:category' => redirect('/assign/featured-activity-packs/category/%{category}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/grade/:grade' => redirect('/assign/featured-activity-packs/grade/%{grade}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId' => redirect('/assign/featured-activity-packs/%{activityPackId}')
+  get 'teachers/classrooms/assign_activities/featured-activity-packs/:activityPackId/assigned' => redirect('/assign/featured-activity-packs/%{activityPackId}/assigned')
+  get 'teachers/classrooms/assign_activities/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray' => redirect('/assign/new_unit/students/edit/name/%{unitName}/activity_ids/%{activityIdsArray}')
 
   # Integration routes (which should look pretty, and thus need some specifying)
   get 'amplify' => 'integrations#amplify'

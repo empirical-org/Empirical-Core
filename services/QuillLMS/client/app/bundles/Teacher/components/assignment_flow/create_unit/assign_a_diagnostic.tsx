@@ -1,5 +1,8 @@
 import * as React from 'react';
 import AssignmentCard from './assignment_card';
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
+import { UNIT_TEMPLATE_NAME, UNIT_TEMPLATE_ID, ACTIVITY_IDS_ARRAY, UNIT_NAME, } from '../localStorageKeyConstants'
+import ScrollToTop from '../../shared/scroll_to_top'
 
 const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-starter.svg`
 const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
@@ -11,9 +14,17 @@ const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
 
-const minis = [
+const selectCard = (router, unitTemplateName, activityIdsArray, unitTemplateId) => {
+  window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
+  window.localStorage.setItem(UNIT_NAME, unitTemplateName)
+  window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
+  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateId)
+  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateId}`)
+}
+
+const minis = (props) => [
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(STARTER_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([849].toString())}?unit_template_id=${99}`}
+    selectCard={() => selectCard(props.router, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
     buttonText="Preview"
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
     header={STARTER_DIAGNOSTIC}
@@ -25,7 +36,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(INTERMEDIATE_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([850].toString())}?unit_template_id=${100}`}
+    selectCard={() => selectCard(props.router, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKbzH_Er916zGjgHk5U"
     buttonText="Preview"
     header={INTERMEDIATE_DIAGNOSTIC}
@@ -37,7 +48,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(ADVANCED_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([888].toString())}?unit_template_id=${126}`}
+    selectCard={() => selectCard(props.router, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LVxlcVPdW5DvAh_xgnj"
     buttonText="Preview"
     header={ADVANCED_DIAGNOSTIC}
@@ -49,7 +60,7 @@ const minis = [
     ]}
   />),
   (<AssignmentCard
-    link={`${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities/new_unit/students/edit/name/${encodeURIComponent(ELL_DIAGNOSTIC)}/activity_ids/${encodeURIComponent([447].toString())}?unit_template_id=${34}`}
+    selectCard={() => selectCard(props.router, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
     buttonText="Preview"
     header={ELL_DIAGNOSTIC}
@@ -62,10 +73,14 @@ const minis = [
   />)
 ];
 
-const AssignADiagnostic = () => (
-  <div id="assign-a-diagnostic-page" className="text-center">
-    <h1>Which diagnostic covers the skills you want to assess?</h1>
-    <div className="minis">{minis}</div>
+const AssignADiagnostic = (props) => (
+  <div className="assignment-flow-container">
+    <AssignmentFlowNavigation />
+    <ScrollToTop />
+    <div className="diagnostic-page container">
+      <h1>Which diagnostic covers the skills you want to assess?</h1>
+      <div className="minis">{minis(props)}</div>
+    </div>
   </div>
 );
 

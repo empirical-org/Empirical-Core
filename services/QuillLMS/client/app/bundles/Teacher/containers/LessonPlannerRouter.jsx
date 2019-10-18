@@ -26,7 +26,7 @@ export default class LessonPlannerRouter extends React.Component{
 			pathEnd.slice(0, 5) === 'units' ||
 			pathEnd.slice(0, 8) === 'new_unit')
 		) {
-			window.location = locationArray[0] + '/assign_activities/' + pathEnd
+			window.location = locationArray[0] + '/assign/' + pathEnd
 		}
 	}
 
