@@ -1,13 +1,5 @@
 import React from 'react'
-import AssignActivitiesTabs from '../components/assignment_flow/assign_activities_tabs'
 
-export default React.createClass({
+const AssignActivitiesContainer = (props) => <div>{props.children}</div>
 
-  render: function() {
-    return (
-      <div>
-        <AssignActivitiesTabs/>
-        {this.props.children}
-      </div>)
-   }
- });
+export default AssignActivitiesContainer

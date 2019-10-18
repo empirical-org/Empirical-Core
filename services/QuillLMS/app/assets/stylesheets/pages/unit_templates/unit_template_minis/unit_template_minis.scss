@@ -1,5 +1,5 @@
 .unit-template-minis-container {
-  margin: 48px 0px 100px;
+  padding-bottom: 48px;
 
   h1 {
     font-size: 24px;
@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 40px;
+    margin-top: 48px;
   }
 
   .filter-options {

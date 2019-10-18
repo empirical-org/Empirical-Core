@@ -1,9 +1,3 @@
-#assign-new-activity-page {
-  .minis {
-    border-bottom: solid 1px #e9e9e9;
-  }
-}
-
 .assignment-card {
   border-radius: 6px;
   background-color: white;
@@ -13,6 +7,9 @@
   width: 100%;
   flex-direction: column;
   align-items: inherit;
+  &:hover {
+    text-decoration: none;
+  }
   .top-row {
     display: flex;
     justify-content: space-between;
@@ -46,239 +43,73 @@
   }
 }
 
-#assign-a-diagnostic-page {
-  .assignment-card {
-    margin-bottom: 24px;
-  }
+.assign-a-new-activity-container {
+  background-color: white;
 }
 
-#assign-new-activity-page, #assign-a-diagnostic-page {
-  a {
-    text-decoration: none;
-  }
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 48px;
-  }
-    .minis {
-      max-width: 1020px;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: justify;
-          -ms-flex-pack: justify;
-              justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 40px 20px 40px 20px;
-      margin: auto;
-       .assignment-type-mini {
-            color: #333333;
-             font-size: 12px;
-            min-width: 300px;
-            width: 300px;
-            height: 270px;
-            background: #fff;
-            border: solid 1px #cecece;
-            padding: 10px;
-            cursor: pointer;
-            margin-bottom: 40px;
-            h3 {
-              font-size: 19px;
-          font-weight: 600;
-          line-height: 1.25;
-          margin-top: 4px;
-            }
-            img {
-              padding: 20px;
-min-height: 112px;
-            }
-            &:hover {
-                outline: solid 2.5px #00c2a2;
-            }
-            p {
-              font-size: 14px;
-              line-height: 1.57;
-              margin-bottom: 10px;
-            }
-            .meta-info-wrapper {
-              padding-top: 8px;
-                border-top: solid 1px #cecece;
-                    line-height: 1.7;
-            }
-            .directions {
-                color: #868686;
-                font-weight: 700;
-                text-transform: uppercase;
-            }
-        }
-    }
-  .tools {
-    max-width: 1020px;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 20 auto;
-    padding: 0 20;
-    justify-content: space-between;
-    .flex-grow-1 {
-      flex-grow: 1
-    }
-    .lesson-type-mini {
-      cursor: pointer;
-      width: 300px;
-      height: 81px;
-      display: flex;
-      background-color: #ffffff;
-      align-items: center;
-      border: solid 1px #cecece;
-      padding-left: 25px;
-      text-align: left;
-      margin-bottom: 25px;
-      &:hover {
-        outline: solid 2.5px #00c2a2;
-      }
-      h1 {
-        margin-top: 0px;
-        font-size: 20px;
-        margin-bottom: 5px;
-      }
-      img {
-        margin-right: 25px;
-      }
-      p {
-        font-size: 12.5px;
-      }
-    }
-  }
-}
-
-.launching-soon-mini {
-  color: #969696;
-  font-size: 12px;
-  min-width: 300px;
-  width: 300px;
-  height: 270px;
-  border: dashed 1px #cecece;
-  padding: 10px;
-  margin-bottom: 40px;
-  cursor: default;
-  p {
-    font-size: 14px;
-  }
-  h3 {
-    font-weight: 600;
-    font-size: 19px;
-    margin-top: 35px;
-  }
-  .titles {
-    margin-top: 27px;
-    margin-bottom: 22px;
-    p {
-      font-weight: 600;
-    }
-  }
-}
-
-.activity-filter.button-row {
-  padding: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  button {
-    background-color: #ffffff;
+.assign-a-new-activity {
+  padding: 43px 0px;
+  .assign-a-new-activity-hero {
     border-radius: 4px;
     border: solid 1px #e0e0e0;
-    box-shadow: none !important;
-    box-sizing:border-box;
-    display: -ms-flexbox;
-    display: -webkit-box;
+    text-align: center;
+    padding: 40px;
+    align-items: center;
     display: flex;
     flex-direction: column;
-        -ms-flex-direction: column;
-    height: 98px;
-    padding: 16px;
-    width: 171px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-
-    &.active {
-      border: solid 2px #009a80;
-      padding: 15px;
-    }
-    h4 {
-      text-align: left;
-      padding-top: 4px;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      margin-top: 8px;
-      line-height: 1;
-    }
-    p {
-      font-size: 12px;
-      font-weight: normal;
-      font-style: normal;
-      font-stretch: normal;
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
       line-height: 1.33;
-      letter-spacing: normal;
-      color: #7f7f7f;
-    }
-    &.connect {
-      border-radius: 4px 0px 0px 4px;
-    }
-    &.sentence {
-      border-radius: 0px;
-    }
-    &.passage {
-      border-radius: 0px 4px 4px 0px;
+      margin: 24px;
     }
   }
-
-  button:last-of-type {
-    margin-right: 0;
+  .previously-assigned-activities {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 80px;
+    font-size: 14px;
+    color: #646464;
+    a {
+      color: #027360;
+    }
   }
-  .clear-filters {
-    padding: 1em;
-    display: -webkit-box;
-    display: -ms-flexbox;
+  .assignment-steps {
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    img {
-      padding-right: 8px;
-      margin-bottom: 2px;
-    }
-  }
-}
-
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .activity-filter.button-row {
-    button {
-      div:last-of-type {
-        width: 191px;
+    justify-content: space-between;
+    .assignment-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 272px;
+      width: 100%;
+      .assignment-step-number {
+        width: 40px;
+        height: 40px;
+        border: solid 1px #666666;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1;
+        text-align: center;
+        color: #666666;
+        margin-bottom: 24px;
+        align-items: center;
+      }
+      .assignment-step-header {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+      .assignment-step-text {
+        font-size: 16px;
+        line-height: normal;
+        text-align: center;
+        color: #7f7f7f;
       }
     }
-  }
-}
-
-@media (max-width: 992px) {
-  .activity-filter.button-row {
-    justify-content: flex-start;
-
-    button {
-      margin: 4px;
-    }
-  }
-}
-
-@media (max-width: 950px) {
-  .minis, .tools {
-    flex-direction: column;
-    align-items: center;
-  }
-  .assignment-type-mini {
-    margin-bottom: 25px;
   }
 }
