@@ -5,6 +5,7 @@ MAX_RETRIES = 3
 
 class RematchResponseWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 3
 
   ALLOWED_PARAMS = [
     "parent_id",
