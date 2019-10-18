@@ -10,7 +10,7 @@
   },
 
   handleClick() {
-    window.location = '/teachers/classrooms/assign_activities'
+    window.location = '/assign'
   },
 
    render: function () {

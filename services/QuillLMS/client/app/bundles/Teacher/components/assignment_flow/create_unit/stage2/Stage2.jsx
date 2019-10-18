@@ -4,6 +4,8 @@ import ButtonLoadingIndicator from '../../../shared/button_loading_indicator';
 import NameTheUnit from './name_the_unit';
 import ReviewActivities from './review_activities'
 import AssignStudents from './assign_students'
+import AssignmentFlowNavigation from '../../assignment_flow_navigation.tsx'
+import ScrollToTop from '../../../shared/scroll_to_top'
 
 export default class Stage2 extends React.Component {
   constructor(props) {
@@ -12,27 +14,30 @@ export default class Stage2 extends React.Component {
     this.state = {
       buttonDisabled: false,
       prematureAssignAttempted: false,
-      loading: false
+      loading: false,
+      timesSubmitted: 0
     }
 
     this.finish = this.finish.bind(this)
   }
 
   finish() {
+    const { buttonDisabled, timesSubmitted, } = this.props
     if (!this.state.buttonDisabled && !this.props.errorMessage) {
       // this.setState({buttonDisabled: true});
       this.setState({ loading: true, });
       this.props.finish();
     } else {
-      this.setState({ prematureAssignAttempted: true, });
+      this.setState({ prematureAssignAttempted: true, timesSubmitted: timesSubmitted + 1 });
     }
   }
 
   determineAssignButtonClass() {
-    if ((!this.state.buttonDisabled) && this.props.areAnyStudentsSelected) {
-      return 'button-green';
+    let buttonClass = 'quill-button contained primary medium';
+    if (this.state.buttonDisabled || !this.props.areAnyStudentsSelected) {
+      buttonClass += ' disabled';
     }
-    return 'button-gray';
+    return buttonClass;
   }
 
   determineErrorMessageClass() {
@@ -59,11 +64,13 @@ export default class Stage2 extends React.Component {
   }
 
   renderNameSection() {
+    const { timesSubmitted, } = this.state
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
       unitName={unitName}
       updateUnitName={updateUnitName}
       nameError={errorMessage ? errorMessage.name : null}
+      timesSubmitted={timesSubmitted}
     />)
   }
 
@@ -86,12 +93,12 @@ export default class Stage2 extends React.Component {
 
   assignButton() {
     return this.state.loading
-      ? <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
-      : <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign</button>;
+      ? <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
+      : <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign pack to classes</button>;
   }
 
   render() {
-    const { errorMessage, unitTemplateName, selectedActivities, } = this.props
+    const { errorMessage, unitTemplateName, unitTemplateId, selectedActivities, isFromDiagnosticPath, } = this.props
     const buttonError = errorMessage ? errorMessage.students : null
     let assignName = 'Activity Pack'
     if (unitTemplateName) {
@@ -100,14 +107,19 @@ export default class Stage2 extends React.Component {
       assignName = 'Diagnostic'
     }
     return (
-      <div className="name-and-assign-activity-pack">
-        <h1 className="assign-header">Assign {assignName}</h1>
-        {this.renderNameSection()}
-        {this.renderReviewActivitiesSection()}
-        {this.renderAssignStudentsSection()}
-        <div className="error-message-and-button">
-          <div className={this.determineErrorMessageClass()}>{buttonError}</div>
-          {this.assignButton()}
+      <div>
+        <ScrollToTop />
+        <AssignmentFlowNavigation
+          button={this.assignButton()}
+          unitTemplateName={unitTemplateName}
+          unitTemplateId={unitTemplateId}
+          isFromDiagnosticPath={isFromDiagnosticPath}
+        />
+        <div className="name-and-assign-activity-pack container">
+          <h1 className="assign-header">Assign {assignName}</h1>
+          {this.renderNameSection()}
+          {this.renderReviewActivitiesSection()}
+          {this.renderAssignStudentsSection()}
         </div>
       </div>
     );

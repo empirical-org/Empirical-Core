@@ -5,6 +5,7 @@ import { Link } from 'react-router'
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import UnitTemplateMini from './unit_template_mini'
+import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 
 export default class UnitTemplateMinis extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   getIndexLink() {
-    return this.props.signedInTeacher ? '/teachers/classrooms/assign_activities/featured-activity-packs' : '/activities/packs'
+    return this.props.signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
   }
 
   generateShowAllGradesView() {
@@ -112,6 +113,7 @@ export default class UnitTemplateMinis extends React.Component {
 
   render() {
     return (<div key='always-display' className='unit-template-minis-container'>
+      {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
       <div className="container">
         <div>
           <h1>Select an activity pack for your students</h1>

@@ -3,6 +3,17 @@ import * as React from 'react'
 import { Card, Input, Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import AssignmentFlowNavigation from '../assignment_flow_navigation'
+
+import {
+  UNIT_TEMPLATE_NAME,
+  UNIT_TEMPLATE_ID,
+  UNIT_NAME,
+  ACTIVITY_IDS_ARRAY,
+  CLASSROOMS,
+  UNIT_ID
+} from '../localStorageKeyConstants'
+
 import ScrollToTop from '../../shared/scroll_to_top'
 
 const assignedActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assigned-activities.svg`
@@ -19,6 +30,7 @@ interface UnitAssignmentFollowupProps {
   selectedActivities: Array<any>;
   unitName: string;
   referralCode: string;
+  router: any;
 }
 
 interface UnitAssignmentFollowupState {
@@ -26,6 +38,7 @@ interface UnitAssignmentFollowupState {
   assignedClassrooms: Array<any>;
   showSnackbar: boolean;
   snackbarCopy: string;
+  leaving: boolean;
 }
 
 export default class UnitAssignmentFollowup extends React.Component<UnitAssignmentFollowupProps, UnitAssignmentFollowupState> {
@@ -35,11 +48,27 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const assignedClassrooms = props.classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
 
     this.state = {
-      showNextOptions: false,
+      showNextOptions: props.router.location.pathname === '/assign/next',
       assignedClassrooms,
       showSnackbar: false,
-      snackbarCopy: ''
+      snackbarCopy: '',
+      leaving: false
     }
+  }
+
+  componentWillUnmount() {
+    this.setState({ leaving: true, }, () => {
+      window.localStorage.removeItem(UNIT_TEMPLATE_ID)
+      window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
+      window.localStorage.removeItem(UNIT_NAME)
+      window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
+      window.localStorage.removeItem(CLASSROOMS)
+      window.localStorage.removeItem(UNIT_ID)
+    })
+  }
+
+  allAssignedClassroomsAreEmpty = () => {
+    return this.state.assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)
   }
 
   showSnackbar = (snackbarCopy) => {
@@ -49,6 +78,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   setNextOptions = () => {
+    this.props.router.push('/assign/next')
     this.setState({ showNextOptions: true })
   }
 
@@ -79,10 +109,11 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   renderNextOptions = () => {
+    const unitId = window.localStorage.getItem(UNIT_ID)
     return (<div className="unit-assignment-followup next-options">
       <h1>What would you like to do next?</h1>
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner`}}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
         imgSrc={assignedActivitiesSrc}
         imgAlt="clipboard with check"
         header="See what I have assigned"
@@ -96,7 +127,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
         text="Add students to your classes."
       />
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities`}}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
         imgSrc={assignActivitiesSrc}
         imgAlt="squares with plus sign"
         header="Assign more activities"
@@ -137,17 +168,14 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
           </div>
         </div>
       </div>
-      <div className="button-container">
-        <button onClick={this.setNextOptions} className="quill-button primary contained medium">Next</button>
-      </div>
     </div>
   }
 
   renderFollowUp = () => {
-    const { showNextOptions, assignedClassrooms } = this.state
+    const { showNextOptions, leaving, } = this.state
+    if (leaving) return
     if (!showNextOptions) {
-      const allAssignedClassroomsAreEmpty = assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)
-      if (allAssignedClassroomsAreEmpty) {
+      if (this.allAssignedClassroomsAreEmpty()) {
         return this.renderInviteStudents()
       } else {
         return this.renderReferral()
@@ -157,9 +185,16 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   render() {
+    let button = <a href="/" className="quill-button medium contained primary">Take me to my dashboard</a>
+    if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
+      button = <button className="quill-button medium contained primary" onClick={this.setNextOptions}>Next</button>
+    }
     return (<div>
+      <AssignmentFlowNavigation button={button} />
       <ScrollToTop />
-      {this.renderFollowUp()}
+      <div className="container">
+        {this.renderFollowUp()}
+      </div>
     </div>)
   }
 }

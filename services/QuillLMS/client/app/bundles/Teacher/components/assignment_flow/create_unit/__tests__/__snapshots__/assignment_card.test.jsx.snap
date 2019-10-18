@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignmentCard component should render 1`] = `
-<a
+<div
   className="assignment-card quill-card"
-  href="http://localhost:3000/diagnostic/-LKX2sTTnPVhTOrWyUx9/stage/3"
+  onClick={[Function]}
 >
   <div
     className="top-row"
@@ -20,7 +20,7 @@ exports[`AssignmentCard component should render 1`] = `
       </h2>
     </div>
     <a
-      className="quill-button medium outlined secondary"
+      className="quill-button fun outlined secondary"
       href="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
       target="_blank"
     >
@@ -59,5 +59,5 @@ exports[`AssignmentCard component should render 1`] = `
       </p>
     </div>
   </div>
-</a>
+</div>
 `;

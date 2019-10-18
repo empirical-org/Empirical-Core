@@ -4,18 +4,23 @@ import ClassOverview from '../components/dashboard/class_overview';
 import MyClasses from '../components/dashboard/my_classes';
 import MyResources from '../components/dashboard/my_resources';
 import DashboardFooter from '../components/dashboard/dashboard_footer';
+import ExploreActivitiesModal from '../components/dashboard/explore_activities_modal'
 
-export default React.createClass({
-  getInitialState() {
-    return ({
+export default class Dashboard extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showExploreActivitiesModal: props.mustSeeModal,
       classrooms: null,
       hasPremium: null,
       notifications: [],
       performanceQuery: [
-        {header: 'Lowest Performing Students', results: null},
-        { header: 'Difficult Concepts', results: null, }],
-    });
-  },
+        { header: 'Lowest Performing Students', results: null, },
+        { header: 'Difficult Concepts', results: null, }
+      ],
+    }
+  }
 
   componentWillMount() {
     this.ajax = {};
@@ -31,7 +36,7 @@ export default React.createClass({
     this.ajax.notificationsQuery = requestGet('/teachers/classrooms/notifications', (results) => {
       this.setState({ notifications: results })
     })
-  },
+  }
 
   componentWillUnmount() {
     const ajaxCalls = this.ajax;
@@ -40,17 +45,30 @@ export default React.createClass({
         ajaxCalls[key].abort();
       }
     }
-  },
+  }
+
+  closeExploreActivitiesModal = () => {
+    this.setState({ showExploreActivitiesModal: false, })
+  }
 
   hasClasses() {
     if (this.state.classrooms) {
       return (<MyClasses classList={this.state.classrooms} user={JSON.parse(this.props.user)} />);
     }
-  },
+  }
+
+  renderExploreActivitiesModal() {
+    if (this.state.showExploreActivitiesModal) {
+      return <ExploreActivitiesModal
+        cancel={this.closeExploreActivitiesModal}
+      />
+    }
+  }
 
   render() {
     return (
       <div id="dashboard">
+        {this.renderExploreActivitiesModal()}
         <ClassOverview
           data={this.state.performanceQuery}
           premium={this.state.hasPremium}
@@ -62,5 +80,5 @@ export default React.createClass({
         <DashboardFooter />
       </div>
     );
-  },
-});
+  }
+}
