@@ -8,10 +8,10 @@ export default class ActivityClassifications extends React.Component {
   }
 
   resourceComponentGenerator(cmsComponent) {
-    return <ActivityClassification
+    return (<ActivityClassification
       activityClassification={cmsComponent.state.resourceToEdit}
       returnToIndex={cmsComponent.returnToIndex}
-    />
+    />)
   }
 
   render() {

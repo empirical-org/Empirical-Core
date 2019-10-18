@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const ProjectorModal: React.SFC<{closeModal: any}> = (props) => {
- return <div className="projector-modal-container">
+ return (<div className="projector-modal-container">
    <div className="projector-modal-background" />
    <div className="projector-modal">
      <div className="top-section">
@@ -35,7 +35,7 @@ const ProjectorModal: React.SFC<{closeModal: any}> = (props) => {
 
      </div>
    </div>
- </div>
+ </div>)
 }
 
 export default ProjectorModal

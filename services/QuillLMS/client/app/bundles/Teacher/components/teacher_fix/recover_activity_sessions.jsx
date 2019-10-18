@@ -49,7 +49,7 @@ export default class RecoverClassroomActivities extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Recover Activity Sessions</h2>
       <p>This method will unarchive all of the activity sessions for a given unit that may have been accidentally unassigned.</p>
@@ -65,6 +65,6 @@ export default class RecoverClassroomActivities extends React.Component {
         <button onClick={this.submit}>Recover Activity Sessions</button>
         {this.renderError()}
       </div>
-    </div>
+    </div>)
   }
 }

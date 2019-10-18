@@ -61,7 +61,7 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
 
   render() {
     const { name, errors, timesSubmitted } = this.state
-    return <div className="modal-container rename-class-modal-container">
+    return (<div className="modal-container rename-class-modal-container">
       <div className="modal-background" />
       <div className="rename-class-modal quill-modal modal-body">
         <div>
@@ -82,6 +82,6 @@ export default class RenameClassModal extends React.Component<RenameClassModalPr
           <button className={this.submitButtonClass()} onClick={this.renameClass}>Save</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

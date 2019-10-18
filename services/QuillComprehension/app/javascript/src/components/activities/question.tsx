@@ -54,9 +54,9 @@ class QuestionCard extends React.Component<Props, State> {
 
   renderInstructions(question) {
     if (question.instructions) {
-      return <div className="card-sub-header">
+      return (<div className="card-sub-header">
         <p className="instructions">{question.instructions}</p>
-      </div>
+      </div>)
     }
   }
 

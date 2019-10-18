@@ -256,10 +256,10 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderTimeoutModal() {
     if (this.state.showTimeoutModal) {
-      return <TimeoutModal
+      return (<TimeoutModal
         closeModal={this.closeTimeoutModal}
         finishLesson={this.finishLesson}
-      />
+      />)
     }
   }
 
@@ -271,11 +271,11 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderSignupModal() {
     if (this.props.classroomSessions.showSignupModal) {
-      return <SignupModal
+      return (<SignupModal
         closeModal={this.closeSignupModal}
         goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
         lessonId={this.props.lessonId}
-      />
+      />)
     }
   }
 
@@ -294,20 +294,20 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
           slide = <CLLobby data={data} lessonData={lessonData} slideData={current} />
           break
         case 'CL-ST':
-          slide = <CLStatic
+          slide = (<CLStatic
             data={data}
             editionData={editionData}
             onlyShowHeaders={this.props.classroomSessions.onlyShowHeaders}
             toggleOnlyShowHeaders={this.toggleOnlyShowHeaders}
             updateToggledHeaderCount={this.updateToggledHeaderCount}
-          />
+          />)
           break
         case 'CL-MD':
         case 'CL-SA':
         case 'CL-FB':
         case 'CL-FL':
         case 'CL-MS':
-          slide = <CLSingleAnswer
+          slide = (<CLSingleAnswer
             clearAllSelectedSubmissions={this.clearAllSelectedSubmissions}
             clearAllSubmissions={this.clearAllSubmissions}
             clearStudentSubmission={this.clearStudentSubmission}
@@ -322,10 +322,10 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
             toggleSelected={this.toggleSelected}
             toggleStudentFlag={this.toggleStudentFlag}
             updateToggledHeaderCount={this.updateToggledHeaderCount}
-          />
+          />)
           break
         case 'CL-EX':
-          slide = <CLExit
+          slide = (<CLExit
             completed={this.state.completed}
             data={data}
             editionData={editionData}
@@ -338,19 +338,19 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
             students={data.students}
             toggleStudentFlag={this.toggleStudentFlag}
             updateSelectedOptionKey={this.updateSelectedOptionKey}
-          />
+          />)
             break
         default:
           slide = <p>UNSUPPORTED QUESTION TYPE</p>
           break
       }
-      return <div>
+      return (<div>
         {this.renderPreviewModal()}
         {this.renderTimeoutModal()}
         {this.renderCongratulationsModal()}
         {this.renderSignupModal()}
         {slide}
-      </div>
+      </div>)
     } else {
       return (
         <div>

@@ -50,7 +50,7 @@ class CustomizeNavbar extends React.Component<any, any> {
   }
 
   render() {
-    return <div className="customize-navbar-container">
+    return (<div className="customize-navbar-container">
       <div className="customize-navbar">
         <div className="left">
           <span>Create Customized Edition</span>
@@ -66,7 +66,7 @@ class CustomizeNavbar extends React.Component<any, any> {
           {this.renderPublishButton()}
         </div>
       </div>
-    </div>
+    </div>)
   }
 
 }

@@ -26,15 +26,15 @@ class AssignedSection extends React.Component<any, any> {
     }
     let suggestion
     if (suggestionHeader) {
-      suggestion = <div className="suggestion">
+      suggestion = (<div className="suggestion">
         <p className="header">{suggestionHeader}</p>
         <p className="text">{suggestionText}</p>
-      </div>
+      </div>)
     }
-    return <div className="assigned-section">
+    return (<div className="assigned-section">
       <div className="message"><i className="fa fa-check-circle" /> {text}</div>
       {suggestion}
-    </div>
+    </div>)
   }
 
   render() {

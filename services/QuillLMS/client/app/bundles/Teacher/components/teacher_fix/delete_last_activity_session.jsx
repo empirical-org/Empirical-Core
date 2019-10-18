@@ -48,7 +48,7 @@ export default class DeleteLastActivitySession extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Delete Last Activity Session</h2>
       <p>This method will delete the last activity session a student has completed for a given activity.</p>
@@ -66,6 +66,6 @@ export default class DeleteLastActivitySession extends React.Component {
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

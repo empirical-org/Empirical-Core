@@ -100,7 +100,7 @@ export default class UnitTemplateAssigned extends React.Component {
   }
 
   renderSharingContainer() {
-    return <div className='sharing-container'>
+    return (<div className='sharing-container'>
       <h2>
         Share Quill With Your Colleagues
       </h2>
@@ -114,7 +114,7 @@ export default class UnitTemplateAssigned extends React.Component {
       <div className='container'>
         <UnitTemplateProfileShareButtons text={this.socialShareCopy()} url={this.socialShareUrl()} />
       </div>
-    </div>
+    </div>)
   }
 
   render() {

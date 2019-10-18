@@ -107,10 +107,10 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       const studentID = getParameterByName('student')
       const data = this.props.submissions && studentID && this.props.submissions[studentID] ? this.props.submissions[studentID].data : null
       const submission: string =  data ? data : ''
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}} />
-      </div>
+      </div>)
     }
   }
 

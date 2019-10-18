@@ -73,10 +73,10 @@ export default class TeacherPassword extends React.Component {
 
   renderButtonSection() {
     if (this.state.showButtonSection) {
-      return <div className="button-section">
+      return (<div className="button-section">
         <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
         <input className={this.submitClass()} name="commit" type="submit" value="Change password" />
-      </div>
+      </div>)
     }
   }
 
@@ -84,7 +84,7 @@ export default class TeacherPassword extends React.Component {
     const { currentPassword, newPassword, confirmedNewPassword, } = this.state
     const { errors, active, timesSubmitted, googleId, cleverId, } = this.props
     if (this.props.active) {
-      return <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+      return (<form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
           <div className="current-password-section">
             <Input
@@ -118,7 +118,7 @@ export default class TeacherPassword extends React.Component {
           />
         </div>
         {this.renderButtonSection()}
-      </form>
+      </form>)
     } else if (googleId || cleverId) {
       return (
         <p className="google-or-clever-password">
@@ -126,7 +126,7 @@ export default class TeacherPassword extends React.Component {
         </p>
       )
     } else {
-      return <div className="inactive-password-container">
+      return (<div className="inactive-password-container">
         <Input
           className="not-a-password"
           disabled={true}
@@ -135,14 +135,14 @@ export default class TeacherPassword extends React.Component {
           value="notapassword"
         />
         <div className="change-password" onClick={this.activateSection}>Change password</div>
-      </div>
+      </div>)
     }
   }
 
   render() {
-    return <div className="teacher-account-password teacher-account-section">
+    return (<div className="teacher-account-password teacher-account-section">
       <h1>Password</h1>
       {this.renderContent()}
-    </div>
+    </div>)
   }
 }

@@ -73,10 +73,10 @@ export default React.createClass({
 
     stateSpecificComponents: function() {
         if (this.state.loading && this.state.dashboardMini) {
-            return <GettingStartedMini checkboxData={{
+            return (<GettingStartedMini checkboxData={{
                 loading: true
             }}
-            />
+            />)
         } else if (this.state.dashboardMini) {
             return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']} />;
         } else {

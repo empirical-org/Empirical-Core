@@ -93,9 +93,9 @@ class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
 
   renderProjectorHeader() {
     if (this.props.projector) {
-      return <div className="projector-header-section">
+      return (<div className="projector-header-section">
         <div className="students-watch-teacher tag">Students Watch Teacher</div>
-      </div>
+      </div>)
     }
   }
 

@@ -55,23 +55,23 @@ export default class extends React.Component {
   renderPreviewCards() {
     const sectionLink = this.props.role === 'student' ? 'student-center' : 'teacher-center'
     return this.props.blogPosts.map(article =>
-      <PreviewCard
+      (<PreviewCard
         content={article.preview_card_content}
         externalLink={!!article.external_link}
         key={article.title}
         link={article.external_link ? article.external_link : `/${sectionLink}/${article.slug}`}
-      />
+      />)
     )
   }
 
   renderPreviewCardsByPopularity() {
     return this.state.blogPostsSortedByMostRead.map(article =>
-      <PreviewCard
+      (<PreviewCard
         content={article.preview_card_content}
         externalLink={!!article.external_link}
         key={article.title}
         link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
-      />
+      />)
     )
   }
 
@@ -167,12 +167,12 @@ export default class extends React.Component {
 
   render() {
     if (this.props.blogPosts.length === 0 && !this.props.query) {
-      return <div className="container">
+      return (<div className="container">
         <div style={{fontSize: '40px', display: 'flex', justifyContent: 'center', height: '60vh', alignItems: 'center', flexDirection: 'column', fontWeight: 'bold'}}>
           Coming Soon!
           <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
         </div>
-      </div>
+      </div>)
     } else {
       return (
         <div id="knowledge-center">

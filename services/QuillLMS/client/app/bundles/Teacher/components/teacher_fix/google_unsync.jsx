@@ -47,7 +47,7 @@ export default class GoogleUnsync extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Unsync Account with Google Classroom</h2>
       <p>This method will sever an account's connection with Google Classroom, allowing them to log in normally.</p>
@@ -69,6 +69,6 @@ export default class GoogleUnsync extends React.Component {
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

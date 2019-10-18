@@ -41,7 +41,7 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
         levelZeroConcepts = levelZeroConcepts.filter(c => c.parent.id === selectedConcept.conceptID)
       }
     }
-    return <div className="concept-level-columns">
+    return (<div className="concept-level-columns">
       <ConceptColumn
         concepts={levelTwoConcepts}
         levelNumber={2}
@@ -63,7 +63,7 @@ export default class ConceptLevels extends React.Component<ConceptLevelsProps, a
         selectedConcept={completeSelectedConcept}
         unselectConcept={this.props.unselectConcept}
       />
-    </div>
+    </div>)
   }
 
   render() {

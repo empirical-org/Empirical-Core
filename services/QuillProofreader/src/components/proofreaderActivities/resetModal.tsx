@@ -2,7 +2,7 @@ import * as React from 'react'
 
 // const ResetModal: React.SFC<{closeModal: ((event: MouseEvent) => void), requiredEditCount:number}> = (props) => {
 const ResetModal: React.SFC<{closeModal: any, reset: any}> = (props) => {
- return <div className="reset-modal-container">
+ return (<div className="reset-modal-container">
    <div className="reset-modal-background" />
    <div className="reset-modal">
      <div className="top-section">
@@ -14,7 +14,7 @@ const ResetModal: React.SFC<{closeModal: any, reset: any}> = (props) => {
        <button className="reset" onClick={props.reset}>Reset</button>
      </div>
    </div>
- </div>
+ </div>)
 }
 
 export default ResetModal

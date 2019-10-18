@@ -6,7 +6,7 @@ interface cuesFieldProps {
 }
 
 const CuesField: React.SFC<any> = (props) => {
-  return <div className="cues-field field">
+  return (<div className="cues-field field">
     <div className="spread-label">
       <label>Joining Words <span className="optional">(Optional)</span></label>
       <span>Make sure you separate words with commas “,”</span>
@@ -14,7 +14,7 @@ const CuesField: React.SFC<any> = (props) => {
     <div className="control">
       <input className="input" onChange={props.handleCuesChange} type="text" value={props.cues.join(',')} />
     </div>
-  </div>
+  </div>)
 }
 
 export default CuesField

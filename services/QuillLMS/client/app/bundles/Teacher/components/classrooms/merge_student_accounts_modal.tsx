@@ -122,7 +122,7 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
     const studentOptions = this.studentOptions()
     const studentOptionsForPrimary = studentOptions.filter(opt => opt.value !== secondaryAccountId)
     const studentOptionsForSecondary = studentOptions.filter(opt => opt.value !== primaryAccountId)
-    return <div className="modal-container merge-student-accounts-modal-container">
+    return (<div className="modal-container merge-student-accounts-modal-container">
       <div className="modal-background" />
       <div className="merge-student-accounts-modal quill-modal modal-body">
         <div>
@@ -153,6 +153,6 @@ export default class MergeStudentAccountsModal extends React.Component<MergeStud
           <button className={this.submitButtonClass()} onClick={this.mergeStudentAccounts}>Merge accounts</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

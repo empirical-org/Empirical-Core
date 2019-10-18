@@ -43,7 +43,7 @@ export default class RecoverClassroomActivities extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Recover Classroom Units</h2>
       <p>This method will unarchive all of the classroom units and associated activity sessions for a given classroom, as well as any units (activity packs) that are associated with these classroom units in the event that they have been hidden.</p>
@@ -55,6 +55,6 @@ export default class RecoverClassroomActivities extends React.Component {
         <button onClick={this.submitClassCode}>Recover Classroom Units</button>
         {this.renderError()}
       </div>
-    </div>
+    </div>)
   }
 }

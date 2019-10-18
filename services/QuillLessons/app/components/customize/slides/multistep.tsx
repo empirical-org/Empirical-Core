@@ -64,9 +64,9 @@ class CustomizeMultistep extends Component<CustomizeMultistepProps, {}>{
 
   renderStepLabels() {
     return this.props.question.play.stepLabels.map((sl, i) => {
-      return <div className="control" key={i} style={{display: 'flex'}}>
+      return (<div className="control" key={i} style={{display: 'flex'}}>
         <input className="input" onChange={(e) => this.handleStepLabelChange(e, i)} type="text" value={sl} />
-      </div>
+      </div>)
     }
     )
   }

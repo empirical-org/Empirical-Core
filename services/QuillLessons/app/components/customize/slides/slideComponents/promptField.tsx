@@ -9,7 +9,7 @@ interface promptFieldProps {
 }
 
 const PromptField: React.SFC<any> = (props) => {
-  return <div className="prompt-field field">
+  return (<div className="prompt-field field">
     <label>Prompt {props.blankInstructions}</label>
     <div className="control">
       <MultipleTextEditor
@@ -20,7 +20,7 @@ const PromptField: React.SFC<any> = (props) => {
         text={props.text}
       />
     </div>
-  </div>
+  </div>)
 }
 
 export default PromptField

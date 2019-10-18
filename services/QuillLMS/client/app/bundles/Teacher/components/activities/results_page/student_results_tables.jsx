@@ -57,9 +57,9 @@ export default React.createClass({
         var incorrect = result.reduce(function(prev, curr) {
             return prev + curr.incorrectCount;
         }, 0);
-        return <span className='pull-right'>{correct + ' '}
+        return (<span className='pull-right'>{correct + ' '}
             of {correct + incorrect + ' '}
-            Errors Found</span>
+            Errors Found</span>)
     },
 
     tableBuilder: function(data, questionType) {

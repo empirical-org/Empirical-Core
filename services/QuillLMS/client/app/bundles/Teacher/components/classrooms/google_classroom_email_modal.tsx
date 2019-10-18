@@ -57,7 +57,7 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
 
   render() {
     const { user, close } = this.props
-    return <div className="modal-container google-classroom-email-modal-container">
+    return (<div className="modal-container google-classroom-email-modal-container">
       <div className="modal-background" />
       <div className="google-classroom-email-modal quill-modal modal-body">
         <div>
@@ -70,6 +70,6 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
           {this.renderLinkAccountButton()}
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

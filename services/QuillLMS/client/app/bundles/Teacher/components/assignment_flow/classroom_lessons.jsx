@@ -71,9 +71,9 @@ export default class ClassroomLessons extends React.Component {
   }
 
   renderFeedbackNote() {
-    return <div className="feedback-note">
+    return (<div className="feedback-note">
       We would love to hear about your experience with Quill Lessons. Please share your feedback by filling out this <a href="https://goo.gl/forms/podicVxtfRR8CVVO2" target="_blank">short feedback form</a>.
-    </div>
+    </div>)
   }
 
   renderEmptyState() {

@@ -118,13 +118,13 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           changedFields.push(changedField)
         }
       })
-      return <ChangeLogModal
+      return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
         changedFields={changedFields}
         concept={concept}
         levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
-      />
+      />)
     }
   }
 
@@ -193,7 +193,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
   renderDropdownInput() {
     const { concept } = this.state
     if (this.props.levelNumber === 0) {
-      return <Query
+      return (<Query
         query={gql(levelOneConceptsQuery())}
       >
         {({ loading, error, data }) => {
@@ -201,17 +201,17 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts.filter(c => c.visible && c.parent.visible).sort((a, b) => a.label.localeCompare(b.label));
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
-          return <DropdownInput
+          return (<DropdownInput
             handleChange={this.changeLevel1}
             isSearchable={true}
             label="Level 1"
             options={possibleConcepts}
             value={value}
-          />
+          />)
         }}
-      </Query>
+      </Query>)
     } else {
-      return <Query
+      return (<Query
         query={gql(levelTwoConceptsQuery())}
       >
         {({ loading, error, data }) => {
@@ -219,22 +219,22 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts.filter(c => c.visible).sort((a, b) => a.label.localeCompare(b.label));
           const value = possibleConcepts.find(opt => opt.value === concept.parent.id)
-          return <DropdownInput
+          return (<DropdownInput
             handleChange={this.changeLevel2}
             isSearchable={true}
             label="Level 2"
             options={possibleConcepts}
             value={value}
-          />
+          />)
         }}
-      </Query>
+      </Query>)
 
     }
   }
 
   renderRenameAndArchiveSection() {
     const { concept, } = this.state
-    return <div className="rename-and-archive">
+    return (<div className="rename-and-archive">
       <span className="rename" onClick={this.activateConceptInput}>
         <i className="fas fa-edit" />
         <span>Rename</span>
@@ -243,14 +243,14 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         <i className="fas fa-archive" />
         <span>{ concept.visible ? 'Archive' : 'Unarchive' }</span>
       </span>
-    </div>
+    </div>)
   }
 
   renderLevels() {
     const { concept, } = this.state
     const { levelNumber, } = this.props
     if (levelNumber === 2) {
-      return <div>
+      return (<div>
         <div className="concept-input-container">
           <Input
             handleCancel={this.cancelRename}
@@ -263,9 +263,9 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           {this.renderRenameAndArchiveSection()}
         </div>
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
-      </div>
+      </div>)
     } else if (levelNumber === 1) {
-      return <div>
+      return (<div>
         {this.renderDropdownInput()}
         <div className="concept-input-container">
           <Input
@@ -279,9 +279,9 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           {this.renderRenameAndArchiveSection()}
         </div>
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
-      </div>
+      </div>)
     } else if (levelNumber === 0) {
-      return <div>
+      return (<div>
         <Input
           disabled={true}
           label='Level 2'
@@ -302,18 +302,18 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
         </div>
         <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
-      </div>
+      </div>)
     }
   }
 
   renderSaveButton() {
     const { concept, originalConcept } = this.state
     if (!_.isEqual(concept, originalConcept)) {
-      return <input
+      return (<input
         className="quill-button contained primary medium"
         type="submit"
         value="Save"
-      />
+      />)
     }
   }
 

@@ -94,10 +94,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer">{this.state.response}</p>
-      </div>
+      </div>)
     }
   }
 
@@ -188,10 +188,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       const studentCount:number|undefined = this.props.studentCount
       const submissionCount:number = this.props.submissions ? Object.keys(this.props.submissions).length : 0
       const studentCountText:string = studentCount && submissionCount ? `${submissionCount} of ${studentCount} Answered` : ''
-      return <div className="projector-header-section">
+      return (<div className="projector-header-section">
         <div className="students-type-tag tag">Students Type Response</div>
         <p className="answered-count">{studentCountText}</p>
-      </div>
+      </div>)
     }
   }
 

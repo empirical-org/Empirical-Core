@@ -65,7 +65,7 @@ export default React.createClass({
 
   renderConceptSelector: function() {
     if (!this.props.new) {
-      return <div>
+      return (<div>
         <label className="label">Concept</label>
         <div>
           <ConceptSelector
@@ -73,18 +73,18 @@ export default React.createClass({
             handleSelectorChange={this.handleSelectorChange}
           />
         </div>
-      </div>
+      </div>)
     }
   },
 
   renderOptimalResponse: function() {
     if (this.props.new) {
-      return <div>
+      return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
           <input className="input" onBlur={this.copyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
         </p>
-      </div>
+      </div>)
     }
   },
 

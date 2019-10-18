@@ -50,7 +50,7 @@ export default class MoveStudent extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Move Student From One Class to Another</h2>
       <p>This method will transfer a student and their data from the class identified by class code 1 to the class identified by class code 2.</p>
@@ -73,6 +73,6 @@ export default class MoveStudent extends React.Component {
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

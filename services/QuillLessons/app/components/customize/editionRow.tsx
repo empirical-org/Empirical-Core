@@ -63,7 +63,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
 
   renderCustomizeDropdown() {
     const customizeClass = this.state.showDropdown ? 'open' : ''
-    return <div className="customize-dropdown" onBlur={this.hideDropdown} tabIndex={0}>
+    return (<div className="customize-dropdown" onBlur={this.hideDropdown} tabIndex={0}>
       <div className={`customize ${customizeClass}`} onClick={this.toggleDropdown}>
         <i className="fa fa-icon fa-magic" />
         Customize
@@ -72,7 +72,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
       <div className="action">
         {this.renderDropdown()}
       </div>
-    </div>
+    </div>)
   }
 
   renderDropdown() {
@@ -86,9 +86,9 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
       } else {
         options = [makeCopy]
       }
-      return <div className={`dropdown ${dropdownClass}`}>
+      return (<div className={`dropdown ${dropdownClass}`}>
         {options}
-      </div>
+      </div>)
   }
 
   renderSelectButton() {
@@ -115,7 +115,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
     const sampleQuestionSection = this.props.edition.sample_question ? <p className="sample-question"><span>Sample Question: </span>{this.props.edition.sample_question}</p> : null
     const selectedEditionClass = this.props.selectedEdition ? 'selected' : ''
     const selectedEditionTag = this.props.selectedEdition ? <span className="in-progress"><i className="fa fa-icon fa-check" />In Progress</span> : null
-    return <div className="edition-container">
+    return (<div className="edition-container">
       <div className={`edition ${selectedEditionClass}`}>
         <div className="text">
           <div className="name-section"><p className="name">{name}</p>{createdByTag}</div>
@@ -127,7 +127,7 @@ class EditionRow extends React.Component<AppProps, EditionRowState> {
         </div>
       </div>
       {selectedEditionTag}
-    </div>
+    </div>)
 
   }
 }
