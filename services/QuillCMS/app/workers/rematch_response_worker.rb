@@ -5,6 +5,17 @@ MAX_RETRIES = 3
 
 class RematchResponseWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 3
+
+  ALLOWED_PARAMS = [
+    "parent_id",
+    "author",
+    "feedback",
+    "optimal",
+    "weak",
+    "concept_results",
+    "spelling_error",
+  ].freeze
 
   def perform(response_id, question_type, question_uid)
     response = Response.find_by(id: response_id)
@@ -17,8 +28,12 @@ class RematchResponseWorker
   def rematch_response(response, question_type, question, reference_responses)
     lambda_payload = construct_lambda_payload(response, question_type, question, reference_responses)
     updated_response = call_lambda_http_endpoint(lambda_payload)
-    updated_response.delete("created_at")
-    response.update_attributes(updated_response)
+    sanitized_response = sanitize_update_params(updated_response)
+    response.update_attributes(sanitized_response)
+  end
+
+  def sanitize_update_params(params)
+    params.slice(*ALLOWED_PARAMS)
   end
 
   def construct_lambda_payload(response, question_type, question, reference_responses)
@@ -38,6 +53,7 @@ class RematchResponseWorker
                      lambda_payload.to_json,
                      "Content-Type" => "application/json"
     raise Net::HTTPRetriableError.new("Timed out rematching response #{lambda_payload[:response][:id]}", 504) if resp.is_a?(Net::HTTPGatewayTimeOut)
+    raise Net::HTTPError.new("Got a non-200 response trying to rematch #{lambda_payload[:response][:id]}") if resp.code != '200'
     JSON.parse(resp.body)
   end
 

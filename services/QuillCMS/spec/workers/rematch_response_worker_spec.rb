@@ -169,7 +169,14 @@ describe RematchResponseWorker do
       response = subject.retrieve_question_from_firebase(sample_payload["question"]["key"], sample_payload["type"])
       expect(response).to eq(sample_payload["question"])
     end
-
   end
 
+  describe "#sanitize_update_params" do
+    it 'should strip out non-permitted params' do
+      sanitized_response = subject.sanitize_update_params(sample_lambda_response)
+      sanitized_response.keys.each do |k|
+        expect(RematchResponseWorker::ALLOWED_PARAMS).to include(k)
+      end
+    end
+  end
 end
