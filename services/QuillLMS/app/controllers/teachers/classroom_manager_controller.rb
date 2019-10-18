@@ -9,16 +9,17 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   MY_ACCOUNT = 'my_account'
-  ASSIGN_ACTIVITIES = 'assign_activities'
+  ASSIGN = 'assign'
   SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
     set_classroom_variables
   end
 
-  def assign_activities
+  def assign
     session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     set_classroom_variables
+    @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
   end
 
   def generic_add_students
@@ -52,7 +53,12 @@ class Teachers::ClassroomManagerController < ApplicationController
         redirect_to teachers_admin_dashboard_path
       end
     end
+    explore_activities_milestone = Milestone.find_by_name(Milestone::TYPES[:see_explore_activities_modal])
+    @must_see_modal = !UserMilestone.find_by(milestone_id: explore_activities_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
     @firewall_test = true
+    if @must_see_modal && current_user && explore_activities_milestone
+      UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: explore_activities_milestone.id)
+    end
   end
 
   def students_list

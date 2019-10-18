@@ -9,7 +9,7 @@ export default React.createClass({
       title;
     if (this.props.missing === 'activities') {
       title = 'You have no reports yet!';
-      onButtonClick = () => { window.location.assign('/teachers/classrooms/assign_activities'); }
+      onButtonClick = () => { window.location.assign('/assign'); }
       buttonText = 'Assign an Activity';
       content = 'In order to access our different reports, you need to assign activities to your students.';
     } else if (this.props.missing === 'students') {
