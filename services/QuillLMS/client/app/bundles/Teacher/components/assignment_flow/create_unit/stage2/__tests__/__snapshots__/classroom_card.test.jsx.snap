@@ -21,6 +21,7 @@ exports[`Classroom card component should render 1`] = `
       </span>
       <span
         className="name"
+        onClick={[Function]}
       >
         Ninth Grade English - 101 - B. Glover (Section 3)
       </span>

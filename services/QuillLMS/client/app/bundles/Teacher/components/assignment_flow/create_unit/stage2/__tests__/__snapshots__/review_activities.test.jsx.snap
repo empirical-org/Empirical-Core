@@ -29,7 +29,7 @@ exports[`ReviewActivities component should render 1`] = `
             "attribute": "tool",
             "name": "Tool",
             "rowSectionClassName": "tool-icon",
-            "width": "20px",
+            "width": "30px",
           },
           Object {
             "attribute": "activity",
@@ -45,7 +45,7 @@ exports[`ReviewActivities component should render 1`] = `
             "attribute": "dueDate",
             "name": "Due date (optional)",
             "rowSectionClassName": "due-date-picker",
-            "width": "175px",
+            "width": "150px",
           },
         ]
       }
