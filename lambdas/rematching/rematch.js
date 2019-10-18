@@ -91,17 +91,17 @@ function hashToCollection(hash) {
   return _.compact(array)
 }
 
-function rematchIndividualQuestion(response, type, question, referenceResponses, finishRematching) {
+function rematchIndividualQuestion(response, type, question, referenceResponses) {
     const matcher = getMatcher(type);
     const data = referenceResponses;
     const formattedReferenceResponses = formatGradedResponses(data)
     if (_.values(formattedReferenceResponses).find(resp => resp.optimal)) {
       const matcherFields = getMatcherFields(type, question, formattedReferenceResponses);
-      rematchResponse(matcher, matcherFields, response, finishRematching)
+      return rematchResponse(matcher, matcherFields, response)
     }
 }
 
-function rematchResponse(matcher, matcherFields, response, finishRematching) {
+function rematchResponse(matcher, matcherFields, response) {
   let newResponse, fieldsWithResponse;
   if (Array.isArray(matcherFields)) {
     fieldsWithResponse = [...matcherFields]
@@ -112,18 +112,18 @@ function rematchResponse(matcher, matcherFields, response, finishRematching) {
     newResponse = {response: matcher(fieldsWithResponse)};
   }
 
-  Promise.resolve(newResponse.response).then(newResolvedResponse => {
+  return Promise.resolve(newResponse.response).then(newResolvedResponse => {
     const newResponse = { response: newResolvedResponse }
     const delta = determineDelta(response, newResponse);
     switch (delta) {
       case 'tobeunmatched':
-        return finishRematching(unmatchRematchedResponse(response));
+        return unmatchRematchedResponse(response);
       case 'tobeupdated':
-        return finishRematching(updateRematchedResponse(response, newResponse));
+        return updateRematchedResponse(response, newResponse);
       default:
-        return finishRematching({});
+        return {};
     }
-  })
+  });
 }
 
 function unmatchRematchedResponse(response) {
