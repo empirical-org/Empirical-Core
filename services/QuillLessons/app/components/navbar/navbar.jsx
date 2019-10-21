@@ -45,9 +45,9 @@ const Navbar = React.createClass({
 
   customizeNavbar: function() {
     if (this.props.params.editionID) {
-      return <CustomizeNavbar params={this.props.params} goToSuccessPage={this.props.goToSuccessPage}/>
+      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params} />
     } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
-      return <LaunchEditionNavbar params={this.props.params}/>
+      return <LaunchEditionNavbar params={this.props.params} />
     } else {
       return <CreateCustomizedEditionNavbar />
     }
@@ -61,10 +61,10 @@ const Navbar = React.createClass({
     } else {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()}>
-          <a href="http://www.connect.quill.org/dwqa-questions/" className="nav-item">FAQ</a>
-          <Link to={'/play'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Demo</Link>
-          <Link to={'/results'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Results</Link>
-          <Link to={'/lessons'} className="nav-item" activeClassName="is-active" onClick={this.reset}>Activities</Link>
+          <a className="nav-item" href="http://www.connect.quill.org/dwqa-questions/">FAQ</a>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/play'}>Demo</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/results'}>Results</Link>
+          <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/lessons'}>Activities</Link>
         </div>
       )
     }
@@ -72,7 +72,7 @@ const Navbar = React.createClass({
 
   render: function () {
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar params={this.props.params}/>);
+      return (<TeacherLessonsNavbar params={this.props.params} />);
     } else if (this.customizeRoute()) {
       return this.customizeNavbar()
     } else {
@@ -80,20 +80,22 @@ const Navbar = React.createClass({
         <header className="nav" style={{height: '65px'}}>
           <div className="container">
             <div className="nav-left">
-              <a href="http://www.connect.quill.org" className="nav-item">
-              <img src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
-              alt=""
-              style={{height: "35px"}}/>
-            </a>
+              <a className="nav-item" href="http://www.connect.quill.org">
+                <img
+                  alt=""
+                  src="http://45.55.217.62/wp-content/uploads/2016/04/quill_connect_logo2.png"
+                  style={{height: "35px"}}
+                />
+              </a>
+            </div>
+            {this.renderLinks()}
+            <span className="nav-toggle" onClick={this.toggle}>
+              <span />
+              <span />
+              <span />
+            </span>
           </div>
-          {this.renderLinks()}
-          <span className="nav-toggle" onClick={this.toggle}>
-            <span />
-            <span />
-            <span />
-          </span>
-        </div>
-      </header>
+        </header>
     )
     }
   }
@@ -101,7 +103,7 @@ const Navbar = React.createClass({
 
 const rightNav = (<div className="nav-right nav-menu">
   <span className="nav-item">
-    <Link to={'/admin'} className="nav-item" activeClassName="is-active">Admin</Link>
+    <Link activeClassName="is-active" className="nav-item" to={'/admin'}>Admin</Link>
   </span>
   <span className="nav-item">
     <a href="#">

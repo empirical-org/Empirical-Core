@@ -63,13 +63,13 @@ export default class ClassroomsWithStudents extends React.Component {
     if (!this.props.isSaveButtonEnabled) { return null }
     return (
       <EditStudentsButton
-        enabled={this.props.isSaveButtonEnabled}
-        disabledText={'Add Students Before Assigning'}
-        requestType={'POST'}
-        url={'/teachers/units'}
-        successCallback={this.resetPage}
         buttonText={'Assign Activity Pack'}
         dataFunc={this.ajaxData}
+        disabledText={'Add Students Before Assigning'}
+        enabled={this.props.isSaveButtonEnabled}
+        requestType={'POST'}
+        successCallback={this.resetPage}
+        url={'/teachers/units'}
       />
     );
   }
@@ -77,13 +77,13 @@ export default class ClassroomsWithStudents extends React.Component {
   updateButton() {
     return (
       <EditStudentsButton
-        enabled={this.props.isSaveButtonEnabled}
-        disabledText={'Edit Students Before Saving'}
-        requestType={'PUT'}
-        url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
-        successCallback={this.resetPage}
         buttonText={'Update Students'}
         dataFunc={this.ajaxData}
+        disabledText={'Edit Students Before Saving'}
+        enabled={this.props.isSaveButtonEnabled}
+        requestType={'PUT'}
+        successCallback={this.resetPage}
+        url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
       />
     );
   }
@@ -97,22 +97,22 @@ export default class ClassroomsWithStudents extends React.Component {
       warningBlurb;
     if (this.props.classrooms) {
       const that = this;
-      classroomList = this.props.classrooms.map(el => <Classroom
-        key={el.id}
-        classroom={el}
-        students={el.students}
+      classroomList = this.props.classrooms.map(el => (<Classroom
         allSelected={el.allSelected}
-        toggleClassroomSelection={that.props.toggleClassroomSelection}
+        classroom={el}
         handleStudentCheckboxClick={that.props.handleStudentCheckboxClick}
-      />);
+        key={el.id}
+        students={el.students}
+        toggleClassroomSelection={that.props.toggleClassroomSelection}
+      />));
     } else {
       classroomList = [];
     }
     if (this.props.createOrEdit === 'edit') {
-      warningBlurb = <div className="unselecting-students-note">
-        <i className="fa fa-icon fa-exclamation-circle"/>
+      warningBlurb = (<div className="unselecting-students-note">
+        <i className="fa fa-icon fa-exclamation-circle" />
         <p><span className="bold">Note:</span> If you unselect a student on this page, you will delete all of their assignments associated with this pack, even if those assignments <span className="italic">have already been completed</span>.</p>
-      </div>;
+      </div>);
     }
     return (
       <div>

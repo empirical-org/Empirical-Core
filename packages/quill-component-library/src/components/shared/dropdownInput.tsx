@@ -158,8 +158,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         return (
           <div
             className={`error ${sharedClasses}`}
-            ref={node => this.node = node}
             onClick={this.activateInput}
+            ref={node => this.node = node}
           >
             <label>{label}</label>
             <Select
@@ -178,29 +178,29 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             <label>{label}</label>
             <Select
               {...sharedProps}
-              onFocus={this.activateInput}
               menuIsOpen={false}
+              onFocus={this.activateInput}
             />
             {this.renderErrorText()}
-        </div>)
+          </div>)
       }
     } else if (isMulti) {
       return (<div
         className={sharedClasses}
-        ref={node => this.node = node}
         onClick={this.activateInput}
+        ref={node => this.node = node}
       >
         <label>{label}</label>
         <Select
           {...sharedProps}
-          onChange={this.handleOptionSelection}
-          menuIsOpen={inactive ? false : menuIsOpen}
-          isSearchable={false}
           closeMenuOnSelect={false}
-          hideSelectedOptions={false}
           components={{ Option: CheckableDropdownOption, ValueContainer: CheckableDropdownValueContainer }}
-          optionType={optionType}
+          hideSelectedOptions={false}
           isMulti
+          isSearchable={false}
+          menuIsOpen={inactive ? false : menuIsOpen}
+          onChange={this.handleOptionSelection}
+          optionType={optionType}
         />
       </div>)
     } else if (inactive) {
@@ -213,11 +213,11 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <label>{label}</label>
           <Select
             {...sharedProps}
-            onFocus={this.activateInput}
             menuIsOpen={false}
+            onFocus={this.activateInput}
           />
           {this.renderHelperText()}
-      </div>)
+        </div>)
     } else {
       return (
         <div
@@ -227,10 +227,10 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <label>{label}</label>
           <Select
             {...sharedProps}
-            onChange={this.handleOptionSelection}
             menuIsOpen={menuIsOpen}
+            onChange={this.handleOptionSelection}
           />
-      </div>)
+        </div>)
     }
   }
 

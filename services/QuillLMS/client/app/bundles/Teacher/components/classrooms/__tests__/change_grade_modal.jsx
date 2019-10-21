@@ -9,9 +9,9 @@ describe('ChangeGradeModal component', () => {
 
   const wrapper = shallow(
     <ChangeGradeModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
     />
   );
 

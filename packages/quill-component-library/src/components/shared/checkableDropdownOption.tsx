@@ -8,14 +8,14 @@ const renderCheckbox = (props) => {
   const { value, options } = props.selectProps
   const anyOptionsAreSelected = !!value.length
   const allOptionsAreSelected = value.length === (options.length - 1)
-  let checkbox = <span className="quill-checkbox unselected"/>
+  let checkbox = <span className="quill-checkbox unselected" />
   if (props.isSelected || allOptionsAreSelected) {
     checkbox = (<span className="quill-checkbox selected">
-      <img src={smallWhiteCheckSrc} alt="check" />
+      <img alt="check" src={smallWhiteCheckSrc} />
     </span>)
   } else if (props.value === 'All' && anyOptionsAreSelected) {
     checkbox = (<span className="quill-checkbox selected">
-      <img src={indeterminateSrc} alt="check"/>
+      <img alt="check" src={indeterminateSrc} />
     </span>)
   }
   return checkbox

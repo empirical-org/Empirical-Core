@@ -10,12 +10,12 @@
 		var rows = _.map(this.props.currentPageSearchResults, function (ele) {
 			var selectedIds = _.pluck(this.props.selectedActivities, 'id')
 			var selected = _.include(selectedIds, ele.id)
-			return <ActivitySearchResult key={ele.id} data={ele} selected={selected} toggleActivitySelection={this.props.toggleActivitySelection} />
+			return <ActivitySearchResult data={ele} key={ele.id} selected={selected} toggleActivitySelection={this.props.toggleActivitySelection} />
 		}, this);
 		return (
-			<tbody>
-				{rows}
-			</tbody>
+  <tbody>
+    {rows}
+  </tbody>
 		);
 	}
 });

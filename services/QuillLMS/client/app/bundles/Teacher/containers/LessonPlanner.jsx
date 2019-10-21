@@ -320,10 +320,11 @@ export default React.createClass({
 	},
 
 	manageUnit: function()  {
-		<ManageUnits actions={{
+  <ManageUnits actions={{
 		 toggleTab: this.toggleTab,
 		 editUnit: this.editUnit
-	 }}/>;
+	 }}
+		/>;
 	},
 
 	render: function() {
@@ -346,7 +347,13 @@ export default React.createClass({
 				update: this.updateCreateUnitModel,
 					toggleActivitySelection: this.toggleActivitySelection,
 					assignSuccessActions: this.unitTemplatesAssignedActions()
-				}} analytics={this.analytics()}/>;
+				}}
+  analytics={this.analytics()}
+  data={{
+				createUnitData: this.state.createUnit,
+				assignSuccessData: this.state.unitTemplatesManager.model
+			}}
+			/>);
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
 			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
 		} else if ((tabParam === 'diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
@@ -361,11 +368,11 @@ export default React.createClass({
 		}
 
 		return (
-			<span>
-				<div id="lesson_planner">
-					{tabSpecificComponents}
-				</div>
-			</span>
+  <span>
+    <div id="lesson_planner">
+      {tabSpecificComponents}
+    </div>
+  </span>
 		);
 
 	}

@@ -57,7 +57,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
 
     if (emptyClassroomSelected || selectedStudents.length) {
       checkbox = (<span className="quill-checkbox selected" onClick={() => toggleClassroomSelection(classroom)} >
-        <img src={smallWhiteCheckSrc} alt="check" />
+        <img alt="check" src={smallWhiteCheckSrc} />
       </span>)
     }
 
@@ -79,11 +79,11 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
 
     if (options.length) {
       return (<DropdownInput
-        value={selectedStudents}
+        handleChange={(e) => { this.selectStudents(e, id) }}
         isMulti
         options={options}
         optionType="student"
-        handleChange={(e) => { this.selectStudents(e, id) }}
+        value={selectedStudents}
       />)
     } else if (emptyClassroomSelected) {
       return <span className="empty-class-students">And all students who join in the future</span>

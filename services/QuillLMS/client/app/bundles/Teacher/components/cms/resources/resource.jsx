@@ -91,7 +91,7 @@ export default React.createClass({
       nestedResources = this.props.nestedResources.map((nr, index)=>{
         var resources = this.state.model[nr.name];
         var data = _.extend(nr, {resources: resources});
-        return <CmsNestedResource key={index} data={data} actions={{save: this.addNestedResource, delete: this.removeNestedResourceAndSave}} />;
+        return <CmsNestedResource actions={{save: this.addNestedResource, delete: this.removeNestedResourceAndSave}} data={data} key={index} />;
       });
     }
     return (
@@ -115,7 +115,7 @@ export default React.createClass({
           </div>
           <div className='row'>
             <div className='col-xs-12'>
-              <button onClick={this.save} className='button-green pull-left'>Save</button>
+              <button className='button-green pull-left' onClick={this.save}>Save</button>
             </div>
           </div>
         </div>

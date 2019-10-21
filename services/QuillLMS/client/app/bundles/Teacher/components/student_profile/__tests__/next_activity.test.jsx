@@ -20,9 +20,9 @@ describe('NextActivity component', () => {
   it('should display a linked button to start next activity if props.data is not empty', () => {
     const wrapper = shallow(
       <NextActivity
-        name={'Activity Name'}
-        caId={1024}
         activityId={10}
+        caId={1024}
+        name={'Activity Name'}
       />
     );
     expect(wrapper.find('a').prop('href')).toBe('/activity_sessions/classroom_units/1024/activities/10');

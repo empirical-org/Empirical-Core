@@ -37,7 +37,7 @@ export default class DiagnosticMini extends React.Component {
       </div>
       <img src={`${process.env.CDN_URL}/images/shared/diagnostics_completed.svg`} />
       <p>View our recommendations for each&nbsp;student.</p>
-      <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`} className="bg-quillgreen text-white">View Recommended Activities</a>
+      <a className="bg-quillgreen text-white" href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`}>View Recommended Activities</a>
     </div>);
   }
 

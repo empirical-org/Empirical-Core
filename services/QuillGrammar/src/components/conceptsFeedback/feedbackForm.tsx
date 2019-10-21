@@ -72,11 +72,11 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
         return [
           (<label className="label">{part}</label>),
           (<TextEditor
-            text={this.state[part]}
-            handleTextChange={this.handleChange.bind(null, part)}
-            key={part}
             ContentState={ContentState}
             EditorState={EditorState}
+            handleTextChange={this.handleChange.bind(null, part)}
+            key={part}
+            text={this.state[part]}
           />)
         ]
       } else {
@@ -96,10 +96,10 @@ export default class FeedbackForm extends React.Component<FeedbackFormProps, Fee
         <form className="box" onSubmit={this.submit}>
           {this.renderEditor()}
           <br />
-          <button type="submit" className="button is-primary">Submit</button>
+          <button className="button is-primary" type="submit">Submit</button>
           <button className="button is-danger" onClick={this.cancel}>Cancel</button>
         </form>
-        <ConceptExplanation {...this.state}/>
+        <ConceptExplanation {...this.state} />
       </div>
 
     )

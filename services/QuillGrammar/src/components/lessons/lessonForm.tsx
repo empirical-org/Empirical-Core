@@ -139,7 +139,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         </p>
         );
       });
-      return <SortableList key={Object.keys(this.state.questions).length} sortCallback={this.sortCallback} data={questionsList} />;
+      return <SortableList data={questionsList} key={Object.keys(this.state.questions).length} sortCallback={this.sortCallback} />;
     } else {
       return <div>No questions</div>;
     }
@@ -153,8 +153,9 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
         formatted = options.map(opt => ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, }));
       return (<QuestionSelector
-        options={formatted} placeholder="Search for a question"
         onChange={this.handleSearchChange}
+        options={formatted}
+        placeholder="Search for a question"
       />);
     }
   }
@@ -166,19 +167,20 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         const conceptVal = this.state.concepts[c]
         const conceptAttributes = this.props.concepts.data['0'].find((concept: Concept) => concept.uid === c)
         if (conceptVal && conceptAttributes) {
-          return <div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
+          return (<div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>{conceptAttributes.displayName}</span>
             <span style={{ display: 'flex', justifyContent: 'space-between' }}>
               <span>
                 <span>Quantity: </span>
                 <input
                   defaultValue={conceptVal.quantity.toString()}
+                  onChange={(e) => this.changeConceptQuantity(c, e)}
                   style={{ width: '50px' }}
-                  onChange={(e) => this.changeConceptQuantity(c, e)} />
+                />
               </span>
-              <span style={{ cursor: 'pointer' }} onClick={() => this.removeConcept(c)}>X</span>
+              <span onClick={() => this.removeConcept(c)} style={{ cursor: 'pointer' }}>X</span>
             </span>
-          </div>
+          </div>)
         } else {
           return undefined
         }
@@ -194,20 +196,20 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Name</label>
           <input
             className="input"
-            type="text"
-            placeholder="Text input"
-            value={this.state.title}
             onChange={this.handleStateChange.bind(null, 'title')}
+            placeholder="Text input"
+            type="text"
+            value={this.state.title}
           />
         </p>
         <p className="control">
           <label className="label">Description</label>
         </p>
         <TextEditor
-          text={this.state.description || ''}
-          handleTextChange={this.handleDescriptionChange}
-          EditorState={EditorState}
           ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleDescriptionChange}
+          text={this.state.description || ''}
         />
         <br />
         <p className="control">
@@ -223,7 +225,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         </p>
         <p className="control">
           <label className="label">Concept Selector</label>
-          <ConceptSelector handleSelectorChange={this.addConcept}/>
+          <ConceptSelector handleSelectorChange={this.addConcept} />
         </p>
         {this.renderConceptRows()}
         <div className="control">

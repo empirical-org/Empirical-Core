@@ -20,9 +20,9 @@ export default class LessonsRecommendationRow extends React.Component {
   renderExpandedSection() {
     const rec = this.props.recommendation;
     const activities = rec.activities.map((act, index) => (
-      <div key={act.name} className="activity-row flex-row vertically-centered">
+      <div className="activity-row flex-row vertically-centered" key={act.name}>
         <span>{` ${act.name}`}</span>
-        <a target="_blank" href={act.url}>Preview Lesson</a>
+        <a href={act.url} target="_blank">Preview Lesson</a>
       </div >));
     return (
       <div className="expanded-section">
@@ -37,7 +37,7 @@ export default class LessonsRecommendationRow extends React.Component {
     } else if (this.props.recommendation.previously_assigned || this.props.status === 'assigned') {
       return <span className="assigned-lesson-pack vertically-centered centered"><i className="fa fa-check-circle" />Pack Assigned</span>;
     }
-    return (<a onClick={this.assignActivityPack} className="assign q-button bg-quillgreen text-white">Assign Pack</a>);
+    return (<a className="assign q-button bg-quillgreen text-white" onClick={this.assignActivityPack}>Assign Pack</a>);
   }
 
   render() {

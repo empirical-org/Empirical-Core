@@ -70,7 +70,7 @@ class showScriptItem extends Component<any, any> {
           <h4 className="title is-4">Edition: <a href={editionLink}>{this.edition().name}</a></h4>
           <h5 className="title is-5">Slide: <a href={slideLink}>{this.currentSlide().data.teach.title}</a></h5>
           <h5 className="title is-5">Script Item #{Number(scriptItemID) + 1}</h5>
-          <EditScriptItem scriptItem={this.getCurrentScriptItem()} save={this.save} delete={this.delete}/>
+          <EditScriptItem delete={this.delete} save={this.save} scriptItem={this.getCurrentScriptItem()} />
         </div>
       )
     } else {

@@ -27,7 +27,7 @@ const AssignmentCard = ({ selectCard, imgSrc, imgAlt, header, bodyArray, buttonT
   return (<div onClick={(e) => attemptSelectCard(e, selectCard)} className="assignment-card quill-card">
     <div className="top-row">
       <div className="left">
-        <img src={imgSrc} alt={imgAlt} />
+        <img alt={imgAlt} src={imgSrc} />
         <h2>{header}</h2>
       </div>
       {button}

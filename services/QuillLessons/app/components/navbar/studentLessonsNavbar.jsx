@@ -27,9 +27,9 @@ const Navbar = React.createClass({
         <nav className="student-lessons">
           <a onClick={() => this.handleLogoClick()}>
             <img
+              alt="quill-logo"
               className="quill-logo"
               src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png"
-              alt="quill-logo"
             />
           </a>
           <div className="slide-name" key="slide-name">{slideName}</div>

@@ -26,20 +26,20 @@ export default class SetupInstructions extends React.Component<SetupInstructions
       imageSrc = setupInstructionsSrc
       download = false
     }
-    return <div className="create-a-class-modal-body modal-body setup-instructions">
+    return (<div className="create-a-class-modal-body modal-body setup-instructions">
       <h3 className="title">Download student logins and setup instructions</h3>
       <p>This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.</p>
-      <a href={downloadLink} download={download} target="_blank"><img src={imageSrc} /></a>
-      <a href={downloadLink} className="quill-button secondary outlined medium" download={download} target="_blank">Download PDF</a>
-    </div>
+      <a download={download} href={downloadLink} target="_blank"><img src={imageSrc} /></a>
+      <a className="quill-button secondary outlined medium" download={download} href={downloadLink} target="_blank">Download PDF</a>
+    </div>)
   }
 
   renderFooter() {
     const { back, close, } = this.props
-    return <div className="create-a-class-modal-footer with-back-button">
+    return (<div className="create-a-class-modal-footer with-back-button">
       <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
       <button className="quill-button primary contained medium" onClick={close}>Done</button>
-    </div>
+    </div>)
   }
 
   render() {

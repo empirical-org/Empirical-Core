@@ -33,12 +33,12 @@ export default React.createClass({
 		};
 		var listItems = this.state.data.items.map(function(item, i) {
 			return (
-				<SortableListItem key={i} updateState={this.updateState} items={this.state.data.items} draggingIndex={this.state.draggingIndex} sortId={i} outline="list" childProps={childProps}>{item}</SortableListItem>
+  <SortableListItem childProps={childProps} draggingIndex={this.state.draggingIndex} items={this.state.data.items} key={i} outline="list" sortId={i} updateState={this.updateState}>{item}</SortableListItem>
 			);
 		}, this);
 
 		return (
-			<div className="list">{listItems}</div>
+  <div className="list">{listItems}</div>
 		);
 	}
 });

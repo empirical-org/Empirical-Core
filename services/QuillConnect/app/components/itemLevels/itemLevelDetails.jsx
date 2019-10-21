@@ -25,7 +25,7 @@ const ItemLevelDetails = React.createClass({
           <div className="menu-list">
             <p>{"Integer value: " + itemLevels[levelID].integerValue}</p>
           </div>
-          <br/>
+          <br />
           <p>{questionsExist}</p>
           <ul className="menu-list">{questionsToRender}</ul>
           <br />

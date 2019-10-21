@@ -17,26 +17,26 @@ const StandardsReports = ({
   filteredStandardsReportsData,
 }) => (
   <div className="standards-reports-by-classroom progress-reports-2018">
-      <div className="meta-overview flex-row space-between">
-        <div className="header-and-info">
-          <h1>
+    <div className="meta-overview flex-row space-between">
+      <div className="header-and-info">
+        <h1>
             School Standards Reports
-          </h1>
-          <p>
+        </h1>
+        <p>
             Each activity on Quill is aligned to a Common Core standard. This reports shows the school’s overall progress on each of the standards. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
-          </p>
-        </div>
-        <div className="csv-and-how-we-grade">
-          <CSVDownloadForProgressReport data={csvData} />
-          <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">
-            How We Grade
-            <i className="fa fa-long-arrow-right" />
-          </a>
-        </div>
+        </p>
       </div>
-      <div className="dropdown-container" />
-      <StandardsReportsTable data={filteredStandardsReportsData} />
+      <div className="csv-and-how-we-grade">
+        <CSVDownloadForProgressReport data={csvData} />
+        <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">
+            How We Grade
+          <i className="fa fa-long-arrow-right" />
+        </a>
+      </div>
     </div>
+    <div className="dropdown-container" />
+    <StandardsReportsTable data={filteredStandardsReportsData} />
+  </div>
   );
 
 export default StandardsReports;

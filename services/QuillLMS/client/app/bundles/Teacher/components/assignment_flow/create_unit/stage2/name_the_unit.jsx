@@ -10,9 +10,9 @@ const NameTheUnit = ({ nameError, unitName, updateUnitName, timesSubmitted, }) =
       </div>
       <div className="assignment-section-body">
         <Input
-          label="Activity pack name"
-          value={unitName}
+          error={nameError}
           handleChange={updateUnitName}
+          label="Activity pack name"
           type="text"
           error={nameError}
           timesSubmitted={timesSubmitted}

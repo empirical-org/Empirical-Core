@@ -20,8 +20,8 @@ export default React.createClass({
       <div className="dashboard-section-container">
         <h3 className="dashboard-header">My Resources</h3>
         <div className="row">
-           {this.createMinis()}
-         </div>
+          {this.createMinis()}
+        </div>
       </div>
     );
   },

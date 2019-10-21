@@ -8,8 +8,8 @@ describe('CreateAClassInlineForm component', () => {
   it('should render', () => {
     const wrapper = shallow(
       <CreateAClassInlineForm
-        onSuccess={() => {}}
         cancel={() => {}}
+        onSuccess={() => {}}
       />
     )
     expect(wrapper).toMatchSnapshot()

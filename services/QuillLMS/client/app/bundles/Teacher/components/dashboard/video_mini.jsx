@@ -10,7 +10,7 @@
     return (
       <div className='video-container'>
         <h4>Building Better Writers</h4>
-        <iframe width='298' height='168' src={fullEmbedCode} frameBorder="0" allowFullScreen />
+        <iframe allowFullScreen frameBorder="0" height='168' src={fullEmbedCode} width='298' />
         <p>An overview of how Quill works.</p>
       </div>
 );
@@ -20,7 +20,7 @@
   render: function() {
     return (
       <div className={"mini_container  col-md-4 col-sm-5 text-center"}>
-        <div className ={"mini_content"}>
+        <div className={"mini_content"}>
           {this.embedCodeGenerator()}
         </div>
       </div>

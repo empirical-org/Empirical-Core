@@ -13,7 +13,7 @@ export default class GettingStartedMini extends React.Component {
   graphSection() {
     let content;
     if (this.props.checkboxData.loading) {
-      content = <LoadingIndicator/>;
+      content = <LoadingIndicator />;
     } else {
       content =
       [

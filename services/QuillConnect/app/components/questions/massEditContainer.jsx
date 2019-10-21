@@ -157,7 +157,7 @@ class MassEditContainer extends React.Component {
 
   renderMassEditSummaryListResponse(response) {
     return (
-      <p><input type="checkbox" defaultChecked checked style={{ marginRight: '0.5em', }} onClick={() => this.removeResponseFromMassEditArray(response)} />{this.state.responses[response].text}</p>
+      <p><input checked defaultChecked onClick={() => this.removeResponseFromMassEditArray(response)} style={{ marginRight: '0.5em', }} type="checkbox" />{this.state.responses[response].text}</p>
     );
   }
 
@@ -168,13 +168,13 @@ class MassEditContainer extends React.Component {
 
   boilerplateCategoriesToOptions() {
     return getBoilerplateFeedback().map(category => (
-      <option key={category.key} className="boilerplate-feedback-dropdown-option">{category.description}</option>
+      <option className="boilerplate-feedback-dropdown-option" key={category.key}>{category.description}</option>
         ));
   }
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
     return selectedCategory.children.map(childFeedback => (
-      <option key={childFeedback.key} className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
+      <option className="boilerplate-feedback-dropdown-option" key={childFeedback.key}>{childFeedback.description}</option>
         ));
   }
 
@@ -232,11 +232,11 @@ class MassEditContainer extends React.Component {
             <div className="content">
               <h3>FEEDBACK <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
               <TextEditor
-                text={this.state.massEditFeedback || ''}
-                handleTextChange={this.handleMassEditFeedbackTextChange}
                 boilerplate={this.state.selectedMassEditBoilerplate}
                 ContentState={ContentState}
                 EditorState={EditorState}
+                handleTextChange={this.handleMassEditFeedbackTextChange}
+                text={this.state.massEditFeedback || ''}
               />
             </div>
             <div className="content">
@@ -248,7 +248,7 @@ class MassEditContainer extends React.Component {
             </div>
             <div className="content">
               <label className="checkbox">
-                <h3><input ref="massEditOptimal" defaultChecked={false} type="checkbox" /> OPTIMAL <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
+                <h3><input defaultChecked={false} ref="massEditOptimal" type="checkbox" /> OPTIMAL <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
               </label>
             </div>
           </div>

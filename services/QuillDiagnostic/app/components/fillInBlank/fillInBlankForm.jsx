@@ -115,7 +115,7 @@ class FillInBlankForm extends Component {
         <div>
           <label className="label">Optimal Response</label>
           <p className="control">
-            <input className="input" type="text" value={this.state.newQuestionOptimalResponse} onChange={this.handleNewQuestionOptimalResponseChange} />
+            <input className="input" onChange={this.handleNewQuestionOptimalResponseChange} type="text" value={this.state.newQuestionOptimalResponse} />
           </p>
         </div>
       );
@@ -132,44 +132,44 @@ class FillInBlankForm extends Component {
         <h6 className="control subtitle">Create a new question</h6>
         <label className="label">Prompt</label>
         <TextEditor
-          text={this.state.prompt}
-          handleTextChange={this.handlePromptChange}
           ContentState={ContentState}
           EditorState={EditorState}
+          handleTextChange={this.handlePromptChange}
+          text={this.state.prompt}
         />
         <br />
         <label className="label">Instructions for student</label>
         <p className="control">
-          <textarea className="input" type="text" value={this.state.instructions} onChange={this.handleInstructionsChange} />
+          <textarea className="input" onChange={this.handleInstructionsChange} type="text" value={this.state.instructions} />
         </p>
         <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.cuesLabel} onChange={this.handleCuesLabelChange} />
+          <input className="input" onChange={this.handleCuesLabelChange} type="text" value={this.state.cuesLabel} />
         </p>
         <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
-          <input className="input" type="text" value={this.state.cues} onChange={this.handleCuesChange} />
+          <input className="input" onChange={this.handleCuesChange} type="text" value={this.state.cues} />
         </p>
         {this.renderOptimalField()}
         <label className="label" onClick={this.toggleQuestionBlankAllowed}>Blank Allowed?</label>
         <p className="control">
-          <input type="checkbox" checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed} />
+          <input checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed} type="checkbox" />
         </p>
 
         <label className="label">Item level</label>
         <p className="control">
           <span className="select">
-            <select value={this.state.itemLevel} onChange={this.handleItemLevelChange}>
+            <select onChange={this.handleItemLevelChange} value={this.state.itemLevel}>
               <option value="Select Item Level">Select Item Level</option>
               {this.itemLevelToOptions()}
             </select>
           </span>
         </p>
-        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
+        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
         <label className="label">Concept</label>
         <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
         <br />
-        <button type="submit" className="button is-primary">{this.renderButtonText()}</button>
+        <button className="button is-primary" type="submit">{this.renderButtonText()}</button>
       </form>
     );
   }

@@ -14,7 +14,7 @@ describe('ArchivedClassrooms component', () => {
   describe('with no classrooms', () => {
 
     const wrapper = shallow(
-      <ArchivedClassrooms classrooms={[]} user={userProps}/>
+      <ArchivedClassrooms classrooms={[]} user={userProps} />
     );
 
     it('should render with no classrooms', () => {

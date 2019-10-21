@@ -10,9 +10,9 @@ const NotificationFeed = ({ notifications, }) => {
             <h4>Notifications</h4>
           </div>
           <ul style={styles.list}>
-            {notifications.map(notification => <li style={styles.listItem}>
+            {notifications.map(notification => (<li style={styles.listItem}>
               <Notification {...notification} />
-            </li>)}
+            </li>))}
           </ul>
         </div>
       </div>

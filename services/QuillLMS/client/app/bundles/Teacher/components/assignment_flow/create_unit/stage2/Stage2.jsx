@@ -57,9 +57,9 @@ export default class Stage2 extends React.Component {
     } = this.props
     return (<ReviewActivities
       activities={selectedActivities}
-      toggleActivitySelection={toggleActivitySelection}
       assignActivityDueDate={assignActivityDueDate}
       dueDates={dueDates}
+      toggleActivitySelection={toggleActivitySelection}
     />)
   }
 
@@ -67,6 +67,7 @@ export default class Stage2 extends React.Component {
     const { timesSubmitted, } = this.state
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
+      nameError={errorMessage ? errorMessage.name : null}
       unitName={unitName}
       updateUnitName={updateUnitName}
       nameError={errorMessage ? errorMessage.name : null}
@@ -82,13 +83,13 @@ export default class Stage2 extends React.Component {
       classrooms,
       fetchClassrooms
     } = this.props
-    return <AssignStudents
-      user={user}
+    return (<AssignStudents
       classrooms={classrooms}
+      fetchClassrooms={fetchClassrooms}
       toggleClassroomSelection={toggleClassroomSelection}
       toggleStudentSelection={toggleStudentSelection}
-      fetchClassrooms={fetchClassrooms}
-    />
+      user={user}
+    />)
   }
 
   assignButton() {

@@ -171,9 +171,9 @@ class Questions extends React.Component {
               <label className="label">Name</label>
               <input
                 className="input"
-                type="text"
                 placeholder="Text input"
                 ref="newQuestionName"
+                type="text"
               />
             </p>
             <p className="control">
@@ -240,18 +240,18 @@ class Questions extends React.Component {
             { this.renderSearchBox() }
             <br />
             <label className="checkbox">
-              <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} />
+              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
               Display questions with no valid concept
             </label>
-            <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
+            <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
-              questions={this.state.questions}
+              basePath={'questions'}
               concepts={concepts}
               displayNoConceptQuestions={this.state.displayNoConceptQuestions}
+              questions={this.state.questions}
               showOnlyArchived={this.state.showOnlyArchived}
-              basePath={'questions'}
             />
 
           </div>

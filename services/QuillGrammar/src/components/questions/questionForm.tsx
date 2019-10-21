@@ -77,35 +77,37 @@ export default class QuestionForm extends React.Component {
           <h6 className="control subtitle">Create a new question</h6>
           <label className="label">Prompt</label>
           <TextEditor
-            text={this.props.question.prompt || ""}
-            handleTextChange={this.handlePromptChange}
-            EditorState={EditorState}
             ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={this.handlePromptChange}
+            text={this.props.question.prompt || ""}
           />
           <label className="label">Instructions for student</label>
           <p className="control">
-            <textarea className="input" type="text" ref="instructions" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} />
+            <textarea className="input" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} ref="instructions" type="text" />
           </p>
-          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
+          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           <label className="label">Concept</label>
           <div>
-            <ConceptSelector currentConceptUID={this.state.concept_uid}
-              handleSelectorChange={this.handleSelectorChange}/>
+            <ConceptSelector
+              currentConceptUID={this.state.concept_uid}
+              handleSelectorChange={this.handleSelectorChange}
+            />
           </div>
           <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
           <p className="control">
             <TextEditor
-              text={this.props.question.rule_description || ""}
-              handleTextChange={this.handleRuleDescriptionChange}
-              EditorState={EditorState}
               ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={this.handleRuleDescriptionChange}
+              text={this.props.question.rule_description || ""}
             />
           </p>
           <label className="label">Optimal answer (you can add more later)</label>
           <p className="control">
-            <textarea className="input" type="text" ref="answers" defaultValue={optimalAnswer} onChange={this.handleAnswersChange} />
+            <textarea className="input" defaultValue={optimalAnswer} onChange={this.handleAnswersChange} ref="answers" type="text" />
           </p>
-          <br/>
+          <br />
           <button className="button is-primary" onClick={this.submit}>Update Question</button>
         </div>
       )

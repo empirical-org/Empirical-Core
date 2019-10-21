@@ -27,7 +27,7 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
 
   render() {
     const { classroom } = this.props
-    return <div className="modal-container archive-class-modal-container">
+    return (<div className="modal-container archive-class-modal-container">
       <div className="modal-background" />
       <div className="archive-class-modal quill-modal modal-body">
         <div>
@@ -42,6 +42,6 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
           <button className="quill-button contained primary medium" onClick={this.archiveClass}>Archive</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

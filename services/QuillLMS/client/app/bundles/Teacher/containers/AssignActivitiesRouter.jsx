@@ -29,7 +29,7 @@ const AssignActivitiesRouter = props => (
 			<Route path="featured-activity-packs/:activityPackId/assigned" component={UnitTemplateAssigned}/>
 			<Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <CreateUnit {...props} {...routerProps} />} />
     </Route>
-	</Router>
+  </Router>
 );
 
 export default AssignActivitiesRouter

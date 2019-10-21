@@ -79,9 +79,9 @@ class FeedbackComponent extends React.Component<any, any> {
     const key:number = this.props ? this.props.question.attempts.length : 0;
     return (
       <Feedback
-        key={key}
-        feedbackType={this.getFeedbackType(this.props)}
         feedback={this.getFeedbackCopy(this.props)}
+        feedbackType={this.getFeedbackType(this.props)}
+        key={key}
       />
     )
   }

@@ -12,7 +12,7 @@ describe('CreateStudentAccounts component', () => {
   describe('on initial load', () => {
 
     const wrapper = shallow(
-      <CreateStudentAccounts next={() => {}} classroom={classroom} />
+      <CreateStudentAccounts classroom={classroom} next={() => {}} />
     );
 
     it('should render', () => {
@@ -30,7 +30,7 @@ describe('CreateStudentAccounts component', () => {
 
   describe('after filling out the form to add a student', () => {
     const wrapper = shallow(
-      <CreateStudentAccounts next={() => {}} classroom={classroom} />
+      <CreateStudentAccounts classroom={classroom} next={() => {}} />
     );
 
     wrapper.setState({ firstName: 'Happy', lastName: "Kid" })
@@ -42,7 +42,7 @@ describe('CreateStudentAccounts component', () => {
 
   describe('after adding a student', () => {
     const wrapper = shallow(
-      <CreateStudentAccounts next={() => {}} classroom={classroom} />
+      <CreateStudentAccounts classroom={classroom} next={() => {}} />
     );
 
     wrapper.setState({ students: [{ name: 'Happy Kid', password: 'Kid', username: 'happy.kid@happy-day'}] })

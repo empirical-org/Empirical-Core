@@ -98,37 +98,37 @@ class LoginFormApp extends React.Component {
         <div className="account-container text-center">
           <div className="auth-section">
             <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
-              <img src="/images/google_icon.svg" alt="google icon" />
+              <img alt="google icon" src="/images/google_icon.svg" />
               <span>Log in with Google</span>
             </a>
             <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})}>
-              <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
+              <img alt="clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
               <span>Log in with Clever</span>
             </a>
           </div>
           <div className="break"><span  />or<span  /></div>
           <div className="login-form">
             <div>
-              <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+              <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
                 <input name="utf8" type="hidden" value="✓" />
-                <input value={authToken} type="hidden" name="authenticity_token" />
+                <input name="authenticity_token" type="hidden" value={authToken} />
                 <Input
-                  label="Email or username"
-                  value={email}
-                  handleChange={this.handleEmailChange}
-                  type="text"
                   className="email"
                   error={errors.email}
+                  handleChange={this.handleEmailChange}
+                  label="Email or username"
                   timesSubmitted={timesSubmitted}
+                  type="text"
+                  value={email}
                 />
                 <Input
-                  label="Password"
-                  value={password}
-                  handleChange={this.handlePasswordChange}
-                  type={this.togglePass()}
                   className="password inspectletIgnore"
                   error={errors.password}
+                  handleChange={this.handlePasswordChange}
+                  label="Password"
                   timesSubmitted={timesSubmitted}
+                  type={this.togglePass()}
+                  value={password}
                 />
                 <div className="forget-and-show-password">
                   <a href="/password_reset">Forgot password?</a>
@@ -136,13 +136,15 @@ class LoginFormApp extends React.Component {
                     {this.toggleButtonText()} password
                   </span>
                 </div>
-                <input type="submit" name="commit" value="Log in" className={this.submitClass()} />
+                <input className={this.submitClass()} name="commit" type="submit" value="Log in" />
               </form>
             </div>
           </div>
         </div>
-        <p className="sign-up-link">Don't have an account?&nbsp;<a href="/account/new"
-           onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}>Sign up</a></p>
+        <p className="sign-up-link">Don't have an account?&nbsp;<a
+          href="/account/new"
+          onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}
+        >Sign up</a></p>
         <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>
     );

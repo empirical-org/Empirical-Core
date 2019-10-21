@@ -136,8 +136,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       return (
         <div className="teach-lesson-container" style={teachLessonContainerStyle}>
           <WakeLock />
-          <Sidebar params={this.props.params}/>
-          <MainContentContainer params={this.props.params}/>
+          <Sidebar params={this.props.params} />
+          <MainContentContainer params={this.props.params} />
         </div>
       );
     }
