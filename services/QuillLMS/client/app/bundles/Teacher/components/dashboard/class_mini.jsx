@@ -7,7 +7,7 @@ export default React.createClass({
   manageClassGear() {
     return (
       <a className="class-mini-edit-link" href={this.manageClassLink()}>
-        <img src={editSrc} alt="pencil-icon" />
+        <img alt="pencil-icon" src={editSrc} />
       </a>
     );
   },

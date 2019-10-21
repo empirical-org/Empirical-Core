@@ -65,33 +65,33 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
           </p>
         </div>
         <ScriptComponent
-          script={this.props.editionData.questions[this.props.data.current_slide].data.teach.script}
-          prompt={promptNotEmpty ? prompts[current_slide] : ''}
-          cues={this.props.editionData.questions[current_slide].data.play.cues || undefined}
-          lessonPrompt={this.props.editionData.questions[current_slide].data.play.prompt}
-          selected_submission_order={selected_submission_order}
-          selected_submissions={selected_submissions}
-          submissions={submissions}
-          current_slide={current_slide}
-          students={students}
-          presence={presence}
-          modes={modes}
-          models={models}
-          flaggedStudents={flaggedStudents}
-          startDisplayingAnswers={this.startDisplayingAnswers}
-          stopDisplayingAnswers={this.stopDisplayingAnswers}
-          toggleSelected={this.toggleSelected}
-          timestamps={timestamps}
-          onlyShowHeaders={this.props.onlyShowHeaders}
-          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
           clearAllSubmissions={this.props.clearAllSubmissions}
-          toggleStudentFlag={this.props.toggleStudentFlag}
-          saveModel={this.props.saveModel}
           clearStudentSubmission={this.props.clearStudentSubmission}
-          slideType={this.props.editionData.questions[this.props.data.current_slide].type}
-          savePrompt={this.props.savePrompt}
+          cues={this.props.editionData.questions[current_slide].data.play.cues || undefined}
+          current_slide={current_slide}
+          flaggedStudents={flaggedStudents}
+          lessonPrompt={this.props.editionData.questions[current_slide].data.play.prompt}
+          models={models}
+          modes={modes}
+          onlyShowHeaders={this.props.onlyShowHeaders}
+          presence={presence}
+          prompt={promptNotEmpty ? prompts[current_slide] : ''}
           sampleCorrectAnswer={this.props.editionData.questions[this.props.data.current_slide].data.play.sampleCorrectAnswer}
+          saveModel={this.props.saveModel}
+          savePrompt={this.props.savePrompt}
+          script={this.props.editionData.questions[this.props.data.current_slide].data.teach.script}
+          selected_submission_order={selected_submission_order}
+          selected_submissions={selected_submissions}
+          slideType={this.props.editionData.questions[this.props.data.current_slide].type}
+          startDisplayingAnswers={this.startDisplayingAnswers}
+          stopDisplayingAnswers={this.stopDisplayingAnswers}
+          students={students}
+          submissions={submissions}
+          timestamps={timestamps}
+          toggleSelected={this.toggleSelected}
+          toggleStudentFlag={this.props.toggleStudentFlag}
+          updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
 
       </div>

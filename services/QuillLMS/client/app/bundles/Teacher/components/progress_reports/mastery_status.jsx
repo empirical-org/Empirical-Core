@@ -25,7 +25,7 @@ export default React.createClass({
   render: function() {
     return (
       <div>
-        <div className={this.circleClass()}></div>
+        <div className={this.circleClass()} />
         <span>{this.text()}</span>
       </div>
     );

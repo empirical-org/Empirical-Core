@@ -110,7 +110,7 @@ describe('ClassReport component', () => {
           sortByField: '',
           customCell: function(row) {
             return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>
-              <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+              <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
             </a>)
           }
         }

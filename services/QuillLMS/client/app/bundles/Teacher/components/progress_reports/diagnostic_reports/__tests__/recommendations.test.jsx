@@ -18,8 +18,8 @@ describe('Recommendations Component', () => {
   it('renders a loading spinner if state.loading', () => {
     const wrapper = shallow(
       <RecommendationsComponent
-        routeParams={routeParams}
         params={routeParams}
+        routeParams={routeParams}
       />)
     expect(wrapper.find(LoadingSpinner)).toHaveLength(1)
   })
@@ -27,8 +27,8 @@ describe('Recommendations Component', () => {
   it('renders as many RecommendationsTableCells as the number of students x number of activities', () => {
     const wrapper = shallow(
       <RecommendationsComponent
-        routeParams={routeParams}
         params={routeParams}
+        routeParams={routeParams}
       />)
     wrapper.setState({recommendations, students, selections: recommendations, loading: false})
     const numberOfRecommendationsTableCells = recommendations.length * students.length
@@ -38,8 +38,8 @@ describe('Recommendations Component', () => {
   describe('assignButton text', () => {
     const wrapper = shallow(
       <RecommendationsComponent
-        routeParams={routeParams}
         params={routeParams}
+        routeParams={routeParams}
       />)
       wrapper.setState({recommendations, students, selections: recommendations, loading: false})
       it('is Assigning... if this.state.assigning', () => {
@@ -59,8 +59,8 @@ describe('Recommendations Component', () => {
   describe('calling setSelections', () => {
     const wrapper = shallow(
       <RecommendationsComponent
-        routeParams={routeParams}
         params={routeParams}
+        routeParams={routeParams}
       />)
     wrapper.setState({recommendations, students, previouslyAssignedRecommendations})
     wrapper.instance().setSelections(previouslyAssignedRecommendations)
@@ -74,8 +74,8 @@ describe('Recommendations Component', () => {
 
   describe('IMPORTANT: calling formatSelectionsForAssignment', () => {
     const wrapper = shallow(<RecommendationsComponent
-      routeParams={routeParams}
       params={routeParams}
+      routeParams={routeParams}
     />)
     wrapper.setState({recommendations, students, previouslyAssignedRecommendations, selections: recommendations})
     it ('returns an object with key selections and value array of objects with ids and classrooms', () => {

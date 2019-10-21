@@ -25,8 +25,6 @@ class TextEditor extends React.Component<TextEditorProps, TextEditorState> {
   handleTextChange(e) {
     if (!this.props.disabled) {
       this.props.handleChange(e.target.value, this.props.index);
-    } else {
-      console.log("I'm disable RN");
     }
   }
 
@@ -36,14 +34,14 @@ class TextEditor extends React.Component<TextEditorProps, TextEditorState> {
         <div className="card-content">
           <div className="content">
             <Textarea
-            spellCheck={false}
-            autoCapitalize="off"
-            autoCorrect="off"
-            value={this.props.value}
-            onInput={this.handleTextChange}
-            placeholder={this.props.placeholder}
-            ref="answerBox"
-            className="connect-text-area"
+              autoCapitalize="off"
+              autoCorrect="off"
+              className="connect-text-area"
+              onInput={this.handleTextChange}
+              placeholder={this.props.placeholder}
+              ref="answerBox"
+              spellCheck={false}
+              value={this.props.value}
             />
           </div>
         </div>

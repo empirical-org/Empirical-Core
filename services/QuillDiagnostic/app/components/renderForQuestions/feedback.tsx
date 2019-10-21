@@ -22,7 +22,6 @@ class FeedbackComponent extends React.Component<any, any> {
           return "override"
         } else if (latestAttempt.response.feedback !== undefined) {
           const state = getAnswerState(latestAttempt);
-          console.log("state: ", state, latestAttempt);
           return state ? 'correct-matched' : 'revise-matched'
         } else {
           return "revise-unmatched"
@@ -81,9 +80,9 @@ class FeedbackComponent extends React.Component<any, any> {
     if (this.props.question) {
       return (
         <Feedback
-          key={key}
-          feedbackType={this.getFeedbackType(this.props)}
           feedback={this.getFeedbackCopy(this.props)}
+          feedbackType={this.getFeedbackType(this.props)}
+          key={key}
         />
       )
     } else {

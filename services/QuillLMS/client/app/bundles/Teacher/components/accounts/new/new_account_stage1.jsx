@@ -16,13 +16,13 @@ class App extends Component {
     return (
       <Router>
         <div id='sign-up'>
-          <Route exact path="/account/new" component={SelectUserType}/>
+          <Route component={SelectUserType} exact path="/account/new" />
 
-          <Route path="/sign-up/teacher" component={SignUpTeacher}/>
-          <Route path="/sign-up/student" component={SignUpStudent}/>
+          <Route component={SignUpTeacher} path="/sign-up/teacher" />
+          <Route component={SignUpStudent} path="/sign-up/student" />
 
-          <Route path="/sign-up/add-k12" component={SelectUSK12}/>
-          <Route path="/sign-up/add-non-k12" component={SelectNonUSK12}/>
+          <Route component={SelectUSK12} path="/sign-up/add-k12" />
+          <Route component={SelectNonUSK12} path="/sign-up/add-non-k12" />
         </div>
       </Router>
     )

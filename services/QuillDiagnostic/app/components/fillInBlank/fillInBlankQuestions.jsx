@@ -39,12 +39,12 @@ class FillInBlankQuestions extends Component {
           <Link to={'admin/fill-in-the-blanks/new'}>
             <button className="button is-primary">Create a New Fill In The Blank</button>
           </Link>
-          <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
+          <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
           <p className="menu-label">Fill In The Blank</p>
           <QuestionList
+            basePath="fill-in-the-blanks"
             questions={hashToCollection(this.state.diagnosticQuestions) || []}
             showOnlyArchived={this.state.showOnlyArchived}
-            basePath="fill-in-the-blanks"
           />
         </div>
       </section>

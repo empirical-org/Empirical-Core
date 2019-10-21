@@ -97,65 +97,65 @@ class SignUpStudent extends React.Component {
         </p>
         <div className="account-container text-center">
           <AuthSignUp />
-          <div className='break'><span/>or<span/></div>
+          <div className='break'><span />or<span /></div>
           <div className="student-signup-form">
             <div>
-              <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+              <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
                 <input name="utf8" type="hidden" value="✓" />
-                <input value={authToken} type="hidden" name="authenticity_token" />
+                <input name="authenticity_token" type="hidden" value={authToken} />
                 <div className="name">
                   <Input
-                    label="First name"
-                    value={firstName}
-                    handleChange={this.update}
-                    type="text"
                     className="first-name"
-                    id="firstName"
                     error={errors.first_name}
+                    handleChange={this.update}
+                    id="firstName"
+                    label="First name"
                     timesSubmitted={timesSubmitted}
+                    type="text"
+                    value={firstName}
                   />
                   <Input
-                    label="Last name"
-                    value={lastName}
-                    handleChange={this.update}
-                    type="text"
                     className="last-name"
-                    id="lastName"
                     error={errors.last_name}
+                    handleChange={this.update}
+                    id="lastName"
+                    label="Last name"
                     timesSubmitted={timesSubmitted}
+                    type="text"
+                    value={lastName}
                   />
                 </div>
                 <Input
-                  label="Username"
-                  value={username}
-                  handleChange={this.update}
-                  type="text"
                   className="username"
-                  id="username"
                   error={errors.username}
-                  timesSubmitted={timesSubmitted}
-                />
-                <Input
-                  label="Email (optional)"
-                  value={email}
                   handleChange={this.update}
+                  id="username"
+                  label="Username"
+                  timesSubmitted={timesSubmitted}
                   type="text"
-                  className="email"
-                  id="email"
-                  error={errors.email}
-                  timesSubmitted={timesSubmitted}
+                  value={username}
                 />
                 <Input
-                  label="Password"
-                  value={password}
+                  className="email"
+                  error={errors.email}
                   handleChange={this.update}
-                  type='password'
+                  id="email"
+                  label="Email (optional)"
+                  timesSubmitted={timesSubmitted}
+                  type="text"
+                  value={email}
+                />
+                <Input
                   className="password"
                   error={errors.password}
+                  handleChange={this.update}
                   id="password"
+                  label="Password"
                   timesSubmitted={timesSubmitted}
+                  type='password'
+                  value={password}
                 />
-                <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />
+                <input className={this.submitClass()} name="commit" type="submit" value="Sign up" />
               </form>
             </div>
           </div>

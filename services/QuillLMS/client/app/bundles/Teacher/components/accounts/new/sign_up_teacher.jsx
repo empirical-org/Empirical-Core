@@ -98,7 +98,7 @@ class SignUpTeacher extends React.Component {
   renderNewsletterRow() {
     let checkbox
     if (this.state.sendNewsletter) {
-      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
     }
@@ -124,59 +124,59 @@ class SignUpTeacher extends React.Component {
           </div>
           <div className="account-container text-center">
             <AuthSignUp />
-            <div className='break'><span/>or<span/></div>
-              <div className="teacher-signup-form">
-                <div>
-                  <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
-                    <input name="utf8" type="hidden" value="✓" />
-                    <input value={authToken} type="hidden" name="authenticity_token" />
-                    <div className="name">
-                      <Input
-                        label="First name"
-                        value={firstName}
-                        handleChange={this.update}
-                        type="text"
-                        className="first-name"
-                        id="firstName"
-                        error={errors.first_name}
-                        timesSubmitted={timesSubmitted}
-                      />
-                      <Input
-                        label="Last name"
-                        value={lastName}
-                        handleChange={this.update}
-                        type="text"
-                        className="last-name"
-                        id="lastName"
-                        error={errors.last_name}
-                        timesSubmitted={timesSubmitted}
-                      />
-                    </div>
+            <div className='break'><span />or<span /></div>
+            <div className="teacher-signup-form">
+              <div>
+                <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+                  <input name="utf8" type="hidden" value="✓" />
+                  <input name="authenticity_token" type="hidden" value={authToken} />
+                  <div className="name">
                     <Input
-                      label="Email"
-                      value={email}
+                      className="first-name"
+                      error={errors.first_name}
                       handleChange={this.update}
+                      id="firstName"
+                      label="First name"
+                      timesSubmitted={timesSubmitted}
                       type="text"
-                      className="email"
-                      id="email"
-                      error={errors.email}
-                      timesSubmitted={timesSubmitted}
+                      value={firstName}
                     />
                     <Input
-                      label="Password"
-                      value={password}
+                      className="last-name"
+                      error={errors.last_name}
                       handleChange={this.update}
-                      type='password'
-                      className="password"
-                      error={errors.password}
-                      id="password"
+                      id="lastName"
+                      label="Last name"
                       timesSubmitted={timesSubmitted}
+                      type="text"
+                      value={lastName}
                     />
-                    {this.renderNewsletterRow()}
-                    <input type="submit" name="commit" value="Sign up" className={this.submitClass()} />
-                  </form>
-                </div>
+                  </div>
+                  <Input
+                    className="email"
+                    error={errors.email}
+                    handleChange={this.update}
+                    id="email"
+                    label="Email"
+                    timesSubmitted={timesSubmitted}
+                    type="text"
+                    value={email}
+                  />
+                  <Input
+                    className="password"
+                    error={errors.password}
+                    handleChange={this.update}
+                    id="password"
+                    label="Password"
+                    timesSubmitted={timesSubmitted}
+                    type='password'
+                    value={password}
+                  />
+                  {this.renderNewsletterRow()}
+                  <input className={this.submitClass()} name="commit" type="submit" value="Sign up" />
+                </form>
               </div>
+            </div>
           </div>
         </div>
         <AgreementsAndLinkToLogin />

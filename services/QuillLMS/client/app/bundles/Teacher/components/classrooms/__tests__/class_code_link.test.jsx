@@ -8,7 +8,7 @@ const classroom = { id: 1, code: 'happy-day', name: 'Classroom'}
 describe('ClassCodeLink component', () => {
 
   const wrapper = shallow(
-    <ClassCodeLink next={() => {}} showSnackbar={() => {}} classroom={classroom} />
+    <ClassCodeLink classroom={classroom} next={() => {}} showSnackbar={() => {}} />
   );
 
   it('should render ClassCodeLink', () => {

@@ -20,7 +20,7 @@ export default class TeacherEmailNotifications extends React.Component {
   renderCheckbox() {
     const { sendNewsletter, } = this.props
     if (sendNewsletter) {
-      return <div className="quill-checkbox selected" onClick={this.toggleSendNewsletter}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleSendNewsletter}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.toggleSendNewsletter} />
     }

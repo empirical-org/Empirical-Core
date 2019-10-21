@@ -21,7 +21,7 @@ export default React.createClass({
       text = <span>Begin</span>;
     }
     return (
-      <ResumeOrBeginButton text={text} onClickFn={onClickFn} />
+      <ResumeOrBeginButton onClickFn={onClickFn} text={text} />
     );
   },
 

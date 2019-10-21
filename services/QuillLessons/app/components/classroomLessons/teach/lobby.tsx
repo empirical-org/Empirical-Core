@@ -40,7 +40,7 @@ class Lobby extends React.Component<LobbyProps, LobbyState> {
         const statusClass = presence[key] ? "online" : "offline";
         return (
           <li key={name}>
-            <p>{name}</p> <div className={statusClass}></div>
+            <p>{name}</p> <div className={statusClass} />
           </li>
         );
       });

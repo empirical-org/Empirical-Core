@@ -43,29 +43,29 @@ export default React.createClass({
 		let concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question, index) => {
 			if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence') {
-				return <ConnectStudentReportBox key={index} boxNumber={index+1} questionData={question}/>
+				return <ConnectStudentReportBox boxNumber={index+1} key={index} questionData={question} />
 			}
-			return <StudentReportBox key={index} boxNumber={index+1} questionData={question}/>
+			return <StudentReportBox boxNumber={index+1} key={index} questionData={question} />
 		})
   },
 
 	render: function() {
 		let content;
 		if (this.state.loading) {
-			content = <LoadingSpinner/>
+			content = <LoadingSpinner />
 		} else {
 			const student = this.selectedStudent(this.state.students);
 			content = (
-				<div className='individual-student-activity-view'>
-					<h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{student.score}%</strong></h3>
-          {this.studentBoxes()}
-					<div className='how-we-grade'>
-					<p className="title title-not-started pull-right">
-						<a href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade</a>
-						<a href=""><i className="fa fa-long-arrow-right"></i></a>
-					</p>
-					</div>
-				</div>
+  <div className='individual-student-activity-view'>
+    <h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{student.name}  <strong style={{paddingLeft: '20px'}}>{student.score}%</strong></h3>
+    {this.studentBoxes()}
+    <div className='how-we-grade'>
+      <p className="title title-not-started pull-right">
+        <a href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade</a>
+        <a href=""><i className="fa fa-long-arrow-right" /></a>
+      </p>
+    </div>
+  </div>
 			)
 		}
 		return content

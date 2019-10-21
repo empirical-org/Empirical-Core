@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 const LinkListItem = (props: any) => (
   <li>
     <Link
-      to={'/admin/' + props.basePath + '/' + props.itemKey + '/' + (props.subpath || '')}
       className={props.className}
+      to={'/admin/' + props.basePath + '/' + props.itemKey + '/' + (props.subpath || '')}
     >
       {props.text}
     </Link>

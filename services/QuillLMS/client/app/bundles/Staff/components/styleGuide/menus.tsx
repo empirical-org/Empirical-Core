@@ -36,7 +36,7 @@ class Menus extends React.Component {
         <div className="element-row">
           <div className="big-element">
             <pre>
-{`const options = ${JSON.stringify(options)}
+              {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -47,16 +47,16 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
-              label="Label"
-              options={options}
               handleChange={(e) => {this.changeSavedValues('dropdownOne', e)}}
               isSearchable={false}
+              label="Label"
+              options={options}
               value={this.state.dropdownOne}
             />
           </div>
           <div className="big-element">
             <pre>
-{`const options = ${JSON.stringify(options)}
+              {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -67,11 +67,11 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
-              label="Label"
-              value={this.state.dropdownTwo}
-              options={options}
               handleChange={(e) => {this.changeSavedValues('dropdownTwo', e)}}
               isSearchable={false}
+              label="Label"
+              options={options}
+              value={this.state.dropdownTwo}
             />
           </div>
         </div>
@@ -79,7 +79,7 @@ class Menus extends React.Component {
         <div className="element-row">
           <div className="big-element">
             <pre>
-{`const options = ${JSON.stringify(options)}
+              {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -91,17 +91,17 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
+              handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
+              isSearchable={true}
               label="Label"
               options={options}
-              handleChange={(e) => {this.changeSavedValues('dropdownThree', e)}}
-              value={this.state.dropdownThree}
-              isSearchable={true}
               placeholder="Value goes here"
+              value={this.state.dropdownThree}
             />
           </div>
           <div className="big-element">
             <pre>
-{`const options = ${JSON.stringify(options)}
+              {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
   label="Label"
@@ -112,19 +112,19 @@ class Menus extends React.Component {
 />`}
             </pre>
             <DropdownInput
-              label="Label"
-              value={this.state.dropdownFour}
-              isSearchable={true}
-              options={options}
               handleChange={(e) => {this.changeSavedValues('dropdownFour', e)}}
+              isSearchable={true}
+              label="Label"
+              options={options}
+              value={this.state.dropdownFour}
             />
           </div>
         </div>
         <h3 className="style-guide-h3">Uneditable Checkbox Dropdown Menu</h3>
         <div className="element-row">
-        <div className="big-element">
-          <pre>
-{`const options = ${JSON.stringify(options)}
+          <div className="big-element">
+            <pre>
+              {`const options = ${JSON.stringify(options)}
 
 <DropdownInput
 value={this.state.dropdownFive}
@@ -133,15 +133,15 @@ options={options}
 optionType='option'
 handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
 />`}
-          </pre>
-          <DropdownInput
-            value={this.state.dropdownFive}
-            isMulti={true}
-            options={options}
-            optionType='option'
-            handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
-          />
-        </div>
+            </pre>
+            <DropdownInput
+              handleChange={(e) => {this.changeSavedValues('dropdownFive', e)}}
+              isMulti={true}
+              options={options}
+              optionType='option'
+              value={this.state.dropdownFive}
+            />
+          </div>
         </div>
       </div>
     </div>)

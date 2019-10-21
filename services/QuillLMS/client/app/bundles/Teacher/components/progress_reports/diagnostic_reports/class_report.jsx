@@ -59,7 +59,7 @@ export default React.createClass({
         sortByField: '',
         customCell: function(row) {
           return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>
-            <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+            <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>)
         }
       }
@@ -102,9 +102,9 @@ export default React.createClass({
 
   startedAndUnstartedStudents: function() {
     if (this.state.showInProgressAndUnstartedStudents) {
-      const startedRows = _.map(this.state.startedNames, name => <tr key={name} className='in-progress-row'><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
-      const unstartedRows = _.map(this.state.unstartedNames, name => <tr key={name} className='unstarted-row'><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
-      const missedRows = _.map(this.state.missedNames, name => <MissedLessonRow name={name}/>)
+      const startedRows = _.map(this.state.startedNames, name => <tr className='in-progress-row' key={name}><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
+      const unstartedRows = _.map(this.state.unstartedNames, name => <tr className='unstarted-row' key={name}><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
+      const missedRows = _.map(this.state.missedNames, name => <MissedLessonRow name={name} />)
       return (
         <table className='student-report-box sortable-table'>
           <tbody>
@@ -124,28 +124,29 @@ export default React.createClass({
   render: function() {
     let overviewBoxes;
     if (this.state.students) {
-      overviewBoxes = <OverviewBoxes data={this.state.students}/>
+      overviewBoxes = <OverviewBoxes data={this.state.students} />
     }
     return (
       <div id='individual-classroom-view'>
         {overviewBoxes}
         <div>
-          <ProgressReport    key={this.props.params.classroomId}
-                             columnDefinitions={this.columnDefinitions}
-                             hideFaqLink={Boolean(true)}
-                             pagination={false}
-                             sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${this.props.params.unitId}/a/${this.props.params.activityId}/c/${this.props.params.classroomId}`}
-                             sortDefinitions={this.sortDefinitions}
-                             jsonResultsKey={'students'}
-                             colorByScoreKeys={['score']}
-                             onFetchSuccess={this.onFetchSuccess}
-                             filterTypes={[]}
-                             premiumStatus={this.props.premiumStatus}
-                             showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
-                             />
+          <ProgressReport
+            colorByScoreKeys={['score']}
+            columnDefinitions={this.columnDefinitions}
+            filterTypes={[]}
+            hideFaqLink={Boolean(true)}
+            jsonResultsKey={'students'}
+            key={this.props.params.classroomId}
+            onFetchSuccess={this.onFetchSuccess}
+            pagination={false}
+            premiumStatus={this.props.premiumStatus}
+            showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
+            sortDefinitions={this.sortDefinitions}
+            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${this.props.params.unitId}/a/${this.props.params.activityId}/c/${this.props.params.classroomId}`}
+          />
           {this.startedAndUnstartedStudents()}
         </div>
-          <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a target="_blank" href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing">short feedback form</a>.</div>
+        <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing" target="_blank">short feedback form</a>.</div>
       </div>
     );
   }

@@ -10,7 +10,7 @@ describe('CreateAClassModal component', () => {
 
   describe('step 1', () => {
     const wrapper = shallow(
-      <CreateAClassModal showSnackbar={() => {}} close={() => {}} />
+      <CreateAClassModal close={() => {}} showSnackbar={() => {}} />
     );
 
     it('should render create a class form', () => {
@@ -25,7 +25,7 @@ describe('CreateAClassModal component', () => {
   describe('step 2', () => {
 
     const wrapper = shallow(
-      <CreateAClassModal showSnackbar={() => {}} close={() => {}} />
+      <CreateAClassModal close={() => {}} showSnackbar={() => {}} />
     );
 
     wrapper.setState({ step: 2})
@@ -42,7 +42,7 @@ describe('CreateAClassModal component', () => {
   describe('step 3', () => {
 
     const wrapper = shallow(
-      <CreateAClassModal showSnackbar={() => {}} close={() => {}} />
+      <CreateAClassModal close={() => {}} showSnackbar={() => {}} />
     );
 
     wrapper.setState({ step: 3})

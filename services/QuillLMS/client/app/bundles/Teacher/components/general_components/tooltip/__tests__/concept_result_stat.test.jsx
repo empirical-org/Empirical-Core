@@ -8,9 +8,9 @@ describe('ConceptResultStat component', () => {
   it('should render name, number correct, and number incorrect', () => {
     const wrapper = shallow(
       <ConceptResultStat
-        name='Cool Concept'
         correct={7}
         incorrect={3}
+        name='Cool Concept'
       />
     );
     expect(wrapper.text()).toMatch('Cool Concept');

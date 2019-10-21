@@ -46,7 +46,7 @@ export function startLesson(classroomUnitId: ClassroomUnitId, classroomSessionId
     credentials: 'include',
   }).then(response => {
     if (!response.ok) {
-      console.log(response.statusText)
+      // to do - do something with the status text
     } else {
       return response.json()
     }
@@ -97,7 +97,7 @@ export function finishActivity(
       callback(response);
     }
   }).catch((error) => {
-    console.log('error', error);
+    // to do - do something with this error
   })
 
 }
@@ -412,9 +412,9 @@ export function unpinActivityOnSaveAndExit(
       }
       return response.json();
     }).then((response) => {
-      console.log(response)
+      // to do - do something with this response
     }).catch((error) => {
-      console.log(error)
+      // to do - do something with this error
     });
 }
 
@@ -450,7 +450,7 @@ export function getClassroomAndTeacherNameFromServer(
     }).then((response) => {
       _setClassroomAndTeacherName(response, classroomSessionId)
     }).catch((error) => {
-      console.log('error retrieving classroom and teacher name', error)
+      // to do - do something with this error
     });
   }
 }
@@ -604,7 +604,7 @@ export function loadStudentNames(
     }).then((response) => {
       addStudents(classroomSessionId, response)
     }).catch((error) => {
-      console.log('error retrieving students names ', error)
+      // to do - do something with this error
     });
   };
 }
@@ -630,7 +630,7 @@ export function loadFollowUpNameAndSupportingInfo(
       addFollowUpName(classroomSessionId, response.follow_up_activity_name)
       addSupportingInfo(classroomSessionId, response.supporting_info)
     }).catch((error) => {
-      console.log('error retrieving follow up ', error)
+      // to do - do something with this error
     });
   };
 }
@@ -654,7 +654,7 @@ export function loadSupportingInfo(
     }).then((response) => {
       addSupportingInfo(classroomSessionId, response.supporting_info)
     }).catch((error) => {
-      console.log('error retrieving supporting info ', error)
+      // to do - do something with this error
     });
   };
 }

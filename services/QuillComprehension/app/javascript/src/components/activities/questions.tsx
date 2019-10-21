@@ -72,17 +72,18 @@ class QuestionComponent extends React.Component<AppProps, any> {
   renderQuestions(questions:Array<Question>, submissions: Submissions) {
     return this.orderQuestions(questions).map((a, i) => {
       return (
-        <Mutation mutation={SUBMIT_RESPONSE} key={a.id}>
+        <Mutation key={a.id} mutation={SUBMIT_RESPONSE}>
           {(submitResponse, { data }) => (
             <QuestionCard
-            question={a}
-            submission={this.props.activities.submissions[a.id]}
-            complete={this.props.activities.complete[a.id]}
-            updateSubmission={this.updateSubmission}
-            updateCompleteness={this.props.markQuestionAsComplete}
-            submitResponse={submitResponse}
-            reset={() => {this.props.resetQuestion(a)} }
-            number={i}/>
+              complete={this.props.activities.complete[a.id]}
+              number={i}
+              question={a}
+              reset={() => {this.props.resetQuestion(a)}}
+              submission={this.props.activities.submissions[a.id]}
+              submitResponse={submitResponse}
+              updateCompleteness={this.props.markQuestionAsComplete}
+              updateSubmission={this.updateSubmission}
+            />
           )}
         </Mutation>
       )

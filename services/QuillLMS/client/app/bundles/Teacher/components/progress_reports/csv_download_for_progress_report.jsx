@@ -103,17 +103,17 @@ export default class extends React.Component {
             Download report as:
             <span className='pull-right'>
               <div>
-                <i className="fa  fa-caret-up gray-caret" aria-hidden="true"></i>
+                <i aria-hidden="true" className="fa  fa-caret-up gray-caret" />
               </div>
               <div>
-                <i className="fa fa-caret-up " aria-hidden="true"></i>
+                <i aria-hidden="true" className="fa fa-caret-up " />
               </div>
             </span>
 
             <div className='button-wrapper'>
-              <button onClick={window.print} className="print-button"><img className="print-img" src="https://assets.quill.org/images/icons/download-report-premium.svg" alt="print"/>PDF</button>
+              <button className="print-button" onClick={window.print}><img alt="print" className="print-img" src="https://assets.quill.org/images/icons/download-report-premium.svg" />PDF</button>
               <CSVLink data={this.state.data} target="_blank">
-                <button><img src="https://assets.quill.org/images/icons/download-report-premium-csv.svg" alt="csv"/>CSV</button>
+                <button><img alt="csv" src="https://assets.quill.org/images/icons/download-report-premium-csv.svg" />CSV</button>
               </CSVLink>
             </div>
           </div>
@@ -121,14 +121,18 @@ export default class extends React.Component {
       }
       return (
         <div className='download-button-wrapper'>
-          <button onClick={this.toggleDropdown} style={style} className={this.props.className || 'btn button-green'}>{this.props.buttonCopy || "Download Report"}</button>
+          <button className={this.props.className || 'btn button-green'} onClick={this.toggleDropdown} style={style}>{this.props.buttonCopy || "Download Report"}</button>
           {dropdown}
         </div>
       )
     } else {
-      return <button style={{
+      return (<button
+        className={this.props.className || 'btn button-green'}
+        onClick={this.handleClick}
+        style={{
         display: 'block'
-      }} onClick={this.handleClick} className={this.props.className || 'btn button-green'}>{this.props.buttonCopy || "Download Report"}</button>
+      }}
+      >{this.props.buttonCopy || "Download Report"}</button>)
     }
   }
 

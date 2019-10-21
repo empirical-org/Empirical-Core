@@ -18,7 +18,7 @@ export default class extends React.Component {
           ? Math.round(matchingTransaction.amount / 7)
           : 1;
         rows.push(
-          <tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
+          <tr className="subscription-row text-center" key={`${matchingTransaction.id}-credit-subscription-table`}>
             <td colSpan="5">
               Your school purchased School Premium during your subscription, so we credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`} of Teacher Premium.
             </td>

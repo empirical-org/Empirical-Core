@@ -49,16 +49,16 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   renderTagsForSequence(sequenceString: string) {
-    return sequenceString.split('|||').map((seq, index) => (<span key={`seq${index}`} className="tag is-medium is-light" style={{ margin: '3px', }}>{seq}</span>));
+    return sequenceString.split('|||').map((seq, index) => (<span className="tag is-medium is-light" key={`seq${index}`} style={{ margin: '3px', }}>{seq}</span>));
   }
 
   renderConceptResults(concepts, sequenceKey: string) {
     if (concepts) {
       const components = _.mapObject(concepts, (val, key) => (
-        <p key={`${val.name}`}className="control sub-title is-6">{val.name}
+        <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
           : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
-          <span className="tag is-small is-warning" style={{ cursor: 'pointer', marginLeft: 5, }} onClick={() => this.deleteConceptResult(key, sequenceKey)}>Delete</span>
+          <span className="tag is-small is-warning" onClick={() => this.deleteConceptResult(key, sequenceKey)} style={{ cursor: 'pointer', marginLeft: 5, }}>Delete</span>
         </p>
         )
       );
@@ -68,7 +68,7 @@ class IncorrectSequencesContainer extends React.Component {
 
   renderSequenceList() {
     const components = _.mapObject(this.getSequences(), (val, key) => (
-      <div key={key} className="card is-fullwidth has-bottom-margin">
+      <div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
           <p className="card-header-title" style={{ display: 'inline-block', }}>
             {this.renderTagsForSequence(val.text)}
@@ -82,12 +82,12 @@ class IncorrectSequencesContainer extends React.Component {
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">
-          <a href={`/#/admin/questions/${this.props.match.params.questionID}/incorrect-sequences/${key}/edit`} className="card-footer-item">Edit</a>
-          <a onClick={() => this.deleteSequence(key)} className="card-footer-item">Delete</a>
+          <a className="card-footer-item" href={`/#/admin/questions/${this.props.match.params.questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
         </footer>
       </div>
     ));
-    return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
+    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
   sortCallback(sortInfo) {
@@ -102,7 +102,7 @@ class IncorrectSequencesContainer extends React.Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" style={{ float: 'right', }} href={`/#/admin/questions/${this.props.match.params.questionID}/incorrect-sequences/new`}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/questions/${this.props.match.params.questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
         {this.props.children}

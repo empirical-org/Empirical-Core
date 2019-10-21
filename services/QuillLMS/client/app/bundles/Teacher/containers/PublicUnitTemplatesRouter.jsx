@@ -8,14 +8,14 @@ import UnitTemplateProfile from '../components/assignment_flow/unit_templates_ma
 export default React.createClass({
 	render: function() {
 		return (
-			<Router Router history={browserHistory}>
-        <Route path="/activities/packs" component={LessonPlannerContainer}>
-					<IndexRoute component={UnitTemplatesManager}/>
-					<Route path="category/:category" component={UnitTemplatesManager}/>
-					<Route path="grade/:grade" component={UnitTemplatesManager}/>
-					<Route path=":activityPackId" component={UnitTemplateProfile}/>
-        </Route>
-			</Router>
+  <Router history={browserHistory} Router>
+    <Route component={LessonPlannerContainer} path="/activities/packs">
+      <IndexRoute component={UnitTemplatesManager} />
+      <Route component={UnitTemplatesManager} path="category/:category" />
+      <Route component={UnitTemplatesManager} path="grade/:grade" />
+      <Route component={UnitTemplateProfile} path=":activityPackId" />
+    </Route>
+  </Router>
 		);
 	}
 });

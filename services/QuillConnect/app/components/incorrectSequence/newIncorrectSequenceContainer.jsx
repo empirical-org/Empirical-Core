@@ -38,11 +38,11 @@ class NewIncorrectSequencesContainer extends Component {
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          usedSequences={generatedIncorrectSequences.used[params.questionID]}
+          questionID={params.questionID}
           questions={questions}
           sentenceFragments={sentenceFragments}
-          questionID={params.questionID}
           states
+          usedSequences={generatedIncorrectSequences.used[params.questionID]}
         />
         {this.props.children}
       </div>

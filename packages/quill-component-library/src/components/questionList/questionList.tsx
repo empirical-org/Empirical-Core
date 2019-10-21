@@ -29,10 +29,10 @@ export class QuestionList extends React.Component<any, {}> {
       }
       return filtered.map((question: any) => (
         <LinkListItem
-          key={question.key}
-          itemKey={question.key}
-          text={question.prompt ? question.prompt : question.title}
           basePath={this.props.basePath}
+          itemKey={question.key}
+          key={question.key}
+          text={question.prompt ? question.prompt : question.title}
         />
       ));
     }
