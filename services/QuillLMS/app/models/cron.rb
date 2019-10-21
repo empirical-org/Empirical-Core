@@ -6,13 +6,20 @@ class Cron
 
   # Configured in Heroku Scheduler to run every hour on the XX:30 mark
   def self.interval_1_hour
-
+    CreditReferringAccounts.perform_async
   end
 
   # Configured in Heroku Scheduler to run every day at 07:00UTC
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
   def self.interval_1_day
     run_saturday if now.wday == 6
+
+    # Rake tasks to migrate
+    #staff:check
+    #update_todays_expired_recurring_subscriptions
+    #sync_salesmachine
+    #recommendation_assignments_report:email
+    #number_of_students_sentences_and_cities:set
   end
 
   def self.run_saturday
