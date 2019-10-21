@@ -68,10 +68,10 @@ export default class Stage2 extends React.Component {
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
       nameError={errorMessage ? errorMessage.name : null}
-      unitName={unitName}
-      updateUnitName={updateUnitName}
       nameError={errorMessage ? errorMessage.name : null}
       timesSubmitted={timesSubmitted}
+      unitName={unitName}
+      updateUnitName={updateUnitName}
     />)
   }
 
@@ -94,8 +94,8 @@ export default class Stage2 extends React.Component {
 
   assignButton() {
     return this.state.loading
-      ? <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
-      : <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign pack to classes</button>;
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign">Assigning... <ButtonLoadingIndicator /></button>
+      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.finish}>Assign pack to classes</button>;
   }
 
   render() {
@@ -112,9 +112,9 @@ export default class Stage2 extends React.Component {
         <ScrollToTop />
         <AssignmentFlowNavigation
           button={this.assignButton()}
-          unitTemplateName={unitTemplateName}
-          unitTemplateId={unitTemplateId}
           isFromDiagnosticPath={isFromDiagnosticPath}
+          unitTemplateId={unitTemplateId}
+          unitTemplateName={unitTemplateName}
         />
         <div className="name-and-assign-activity-pack container">
           <h1 className="assign-header">Assign {assignName}</h1>

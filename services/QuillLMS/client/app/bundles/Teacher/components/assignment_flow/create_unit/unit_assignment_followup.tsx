@@ -113,12 +113,12 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return (<div className="unit-assignment-followup next-options">
       <h1>What would you like to do next?</h1>
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
-        imgSrc={assignedActivitiesSrc}
-        imgAlt="clipboard with check"
         header="See what I have assigned"
         imgAlt="clipboard with check"
+        imgAlt="clipboard with check"
         imgSrc={assignedActivitiesSrc}
+        imgSrc={assignedActivitiesSrc}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
         onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner`}}
         text="View your assigned packs."
       />
@@ -130,12 +130,12 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
         text="Add students to your classes."
       />
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
-        imgSrc={assignActivitiesSrc}
-        imgAlt="squares with plus sign"
         header="Assign more activities"
         imgAlt="squares with plus sign"
+        imgAlt="squares with plus sign"
         imgSrc={assignActivitiesSrc}
+        imgSrc={assignActivitiesSrc}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
         onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities`}}
         text="Select or build another pack."
       />
@@ -174,7 +174,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   }
 
   renderFollowUp = () => {
@@ -191,7 +191,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   render() {
-    let button = <a href="/" className="quill-button medium contained primary">Take me to my dashboard</a>
+    let button = <a className="quill-button medium contained primary" href="/">Take me to my dashboard</a>
     if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.setNextOptions}>Next</button>
     }

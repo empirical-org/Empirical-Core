@@ -112,7 +112,7 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   render() {
-    return (<div key='always-display' className='unit-template-minis-container'>
+    return (<div className='unit-template-minis-container' key='always-display'>
       {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
       <div className="container">
         <div>

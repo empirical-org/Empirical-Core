@@ -60,7 +60,7 @@ export default class DiagnosticMini extends React.Component {
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
       <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
-      <a href={'/assign/diagnostic'} className="bg-quillgreen text-white">Assign Diagnostic</a>
+      <a className="bg-quillgreen text-white" href={'/assign/diagnostic'}>Assign Diagnostic</a>
     </div>);
   }
 

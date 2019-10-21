@@ -59,9 +59,9 @@ export default class Dashboard extends React.Component {
 
   renderExploreActivitiesModal() {
     if (this.state.showExploreActivitiesModal) {
-      return <ExploreActivitiesModal
+      return (<ExploreActivitiesModal
         cancel={this.closeExploreActivitiesModal}
-      />
+      />)
     }
   }
 

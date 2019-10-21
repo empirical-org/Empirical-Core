@@ -138,7 +138,7 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
       {this.renderLeavingModal()}
       <div className="assignment-flow-navigation-container">
         <div className="left">
-          <img onClick={this.toggleLeavingModal} src={quillLogoGreenSrc} alt="green Quill logo"/>
+          <img alt="green Quill logo" onClick={this.toggleLeavingModal} src={quillLogoGreenSrc} />
           {this.renderLinks()}
         </div>
         <div className="right">

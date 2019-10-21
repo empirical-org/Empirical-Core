@@ -17,14 +17,14 @@ const attemptSelectCard = (e, selectCard) => {
 }
 
 const AssignmentCard = ({ selectCard, imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink}: AssignmentCardProps) => {
-  const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" target="_blank" href={buttonLink}>{buttonText}</a> : null
+  const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" href={buttonLink} target="_blank">{buttonText}</a> : null
   const bodyElements = bodyArray.map(obj => (
     <div className="body-element">
       <p className="key">{obj.key}</p>
       <p className="text">{obj.text}</p>
     </div>)
   )
-  return (<div onClick={(e) => attemptSelectCard(e, selectCard)} className="assignment-card quill-card">
+  return (<div className="assignment-card quill-card" onClick={(e) => attemptSelectCard(e, selectCard)}>
     <div className="top-row">
       <div className="left">
         <img alt={imgAlt} src={imgSrc} />

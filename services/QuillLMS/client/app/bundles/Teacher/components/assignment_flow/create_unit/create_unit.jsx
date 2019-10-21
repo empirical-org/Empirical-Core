@@ -333,26 +333,26 @@ export default class CreateUnit extends React.Component {
     const { location, user, } = this.props
     return (<Stage2
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
+      areAnyStudentsSelected={this.areAnyStudentsSelected()}
+      assignActivityDueDate={this.assignActivityDueDate}
       assignActivityDueDate={this.assignActivityDueDate}
       classrooms={this.getClassrooms()}
       data={this.assignSuccess}
       dueDates={this.state.model.dueDates}
       errorMessage={this.determineStage2ErrorMessage()}
+      errorMessage={this.determineStage2ErrorMessage()}
+      fetchClassrooms={this.fetchClassrooms}
       fetchClassrooms={this.fetchClassrooms}
       finish={this.finish}
+      isFromDiagnosticPath={!!location.query.diagnostic_unit_template_id}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
       toggleStudentSelection={this.toggleStudentSelection}
       unitName={this.getUnitName()}
-      unitTemplateName={this.unitTemplateName()}
       unitTemplateId={this.unitTemplateId()}
-      assignActivityDueDate={this.assignActivityDueDate}
-      areAnyStudentsSelected={this.areAnyStudentsSelected()}
-      errorMessage={this.determineStage2ErrorMessage()}
+      unitTemplateName={this.unitTemplateName()}
       user={user}
-      fetchClassrooms={this.fetchClassrooms}
-      isFromDiagnosticPath={!!location.query.diagnostic_unit_template_id}
     />);
   }
 
@@ -363,10 +363,10 @@ export default class CreateUnit extends React.Component {
       return (<UnitAssignmentFollowup
         classrooms={classrooms}
         referralCode={referralCode}
-        selectedActivities={selectedActivities}
-        unitName={name}
         referralCode={referralCode}
         router={router}
+        selectedActivities={selectedActivities}
+        unitName={name}
       />);
     }
 
