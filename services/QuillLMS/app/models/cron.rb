@@ -6,7 +6,7 @@ class Cron
 
   # Configured in Heroku Scheduler to run every hour on the XX:30 mark
   def self.interval_1_hour
-    CreditReferringAccounts.perform_async
+    CreditReferringAccountsWorker.perform_async
   end
 
   # Configured in Heroku Scheduler to run every day at 07:00UTC

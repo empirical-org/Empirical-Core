@@ -1,4 +1,4 @@
-class CreditReferringAccounts
+class CreditReferringAccountsWorker
   include Sidekiq::Worker
 
   def perform

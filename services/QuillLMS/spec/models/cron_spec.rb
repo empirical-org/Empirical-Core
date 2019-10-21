@@ -1,0 +1,32 @@
+require 'rails_helper'
+
+describe "Cron", type: :model do
+  describe "#interval_10_min" do
+  end
+
+  describe "#interval_1_hour" do
+    it "enqueues CreditReferringAccounts" do
+      expect(CreditReferringAccountsWorker).to receive(:perform_async)
+
+      Cron.interval_1_hour
+    end
+  end
+
+  describe "#interval_1_day" do
+    it "calls run_saturday is now is a Saturday" do
+      a_saturday = Time.new(2019, 10, 19)
+      expect(Cron).to receive(:now).and_return(a_saturday)
+
+      expect(Cron).to receive(:run_saturday)
+      Cron.interval_1_day
+    end
+  end
+
+  describe "#run_saturday" do
+    it "enqueues UploadLeapReportWorker on school_id 29087" do
+      expect(UploadLeapReportWorker).to receive(:perform_async)
+
+      Cron.run_saturday
+    end
+  end
+end
