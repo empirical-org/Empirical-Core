@@ -7,13 +7,13 @@ import PlaySentenceFragment from '../sentenceFragmentTemplateComponentML.tsx';
 describe('PlaySentenceFragment component', () => {
   const wrapper = shallow(
     <PlaySentenceFragment
-      question={sentenceFragmentQuestionWithOneAttempt}
+      conceptsFeedback={conceptsFeedback}
       currentKey="-KX7X8sXKemipQF_BmrU"
+      dispatch={() => {}}
       markIdentify={() => {}}
       marking="diagnostic"
       nextQuestion={() => {}}
-      dispatch={() => {}}
-      conceptsFeedback={conceptsFeedback}
+      question={sentenceFragmentQuestionWithOneAttempt}
       updateAttempts={() => {}}
     />
   )

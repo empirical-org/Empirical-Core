@@ -21,12 +21,12 @@ export default class RecommendationsOverview extends React.Component {
         <h3>Quill now provides both <strong>Teacher-Led Activities</strong> and <strong>Independent Activities</strong></h3>
         <p>In the new Quill Lessons tool, you can teach writing skills to your class through a set of teacher-led slides.</p>
         <div className="flex-row space-between button-group">
-          <a onClick={this.scrollToLessons} className="q-button text-quillblue bg-white">
-            <img src="https://assets.quill.org/images/icons/group-lesson-icon-blue.svg" alt="group-lesson-logo" />
+          <a className="q-button text-quillblue bg-white" onClick={this.scrollToLessons}>
+            <img alt="group-lesson-logo" src="https://assets.quill.org/images/icons/group-lesson-icon-blue.svg" />
             View Teacher-Led Activities
           </a>
-          <a onClick={this.scrollToIndependent} className="q-button text-quillblue bg-white">
-            <img src="https://assets.quill.org/images/icons/independent-lesson-black.svg" alt="independent-lesson-logo" />
+          <a className="q-button text-quillblue bg-white" onClick={this.scrollToIndependent}>
+            <img alt="independent-lesson-logo" src="https://assets.quill.org/images/icons/independent-lesson-black.svg" />
             View Independent Activities</a>
         </div>
       </div>);

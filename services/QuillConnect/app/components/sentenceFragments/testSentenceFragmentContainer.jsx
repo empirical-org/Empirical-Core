@@ -68,12 +68,12 @@ class TestQuestion extends Component {
         <div className="test-question-container">
           <PlaySentenceFragment
             currentKey={this.props.params.questionID}
-            key={this.props.params.questionID}
-            question={question}
-            prefill={false}
-            nextQuestion={this.reset}
             dispatch={this.props.dispatch}
+            key={this.props.params.questionID}
             markIdentify={this.markIdentify}
+            nextQuestion={this.reset}
+            prefill={false}
+            question={question}
             updateAttempts={this.submitResponse}
           />
         </div>

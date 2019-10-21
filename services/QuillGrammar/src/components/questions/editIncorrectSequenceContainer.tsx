@@ -32,12 +32,12 @@ class EditIncorrectSequencesContainer extends React.Component {
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
+          item={Object.assign(this.getIncorrectSequence(), { id: match.params.incorrectSequenceID, })}
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
-          usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
-          item={Object.assign(this.getIncorrectSequence(), { id: match.params.incorrectSequenceID, })}
-          questions={questions}
           questionID={match.params.questionID}
+          questions={questions}
+          usedSequences={generatedIncorrectSequences.used[match.params.questionID]}
         />
         {this.props.children}
       </div>

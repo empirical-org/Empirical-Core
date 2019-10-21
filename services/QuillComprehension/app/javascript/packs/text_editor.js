@@ -17,7 +17,7 @@ class TextEditor extends React.Component {
   }
 
   render() {
-    return <ReactQuill value={this.state.text} onChange={this.handleChange} theme="snow"/>
+    return <ReactQuill onChange={this.handleChange} theme="snow" value={this.state.text} />
   }
 
 }
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var newInput = document.createElement("div")
     formGroups[i].appendChild(newInput)
     ReactDOM.render(
-      <TextEditor fieldName={oldInput.id} text={oldInput.value}/>,
+      <TextEditor fieldName={oldInput.id} text={oldInput.value} />,
       newInput
     )
   }

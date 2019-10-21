@@ -100,8 +100,8 @@ export default class extends React.Component {
         <div key={`purchaser-from-school ${this.state.subscription.purchaser_id}`}>
           <label>Purchaser From School</label>
           <ItemDropdown
-            items={[{ name: 'None', id: '', }].concat(this.props.schoolsUsers)}
             callback={this.changePurchaserId}
+            items={[{ name: 'None', id: '', }].concat(this.props.schoolsUsers)}
             selectedItem={this.props.schoolsUsers.find(u => u.id === this.state.subscription.purchaser_id)}
           />
         </div>
@@ -165,18 +165,18 @@ export default class extends React.Component {
       return (
         <label>
                 Recurring:
-                <input
-                  type="checkbox"
-                  checked={this.state.subscription.recurring}
-                  onChange={this.changeRecurring}
-                />
+          <input
+            checked={this.state.subscription.recurring}
+            onChange={this.changeRecurring}
+            type="checkbox"
+          />
         </label>);
     }
   }
 
   changeToPurchaserInfo() {
     if (this.props.user) {
-      return <span onClick={this.changePurchaserInfoToTeacherInfo} className="green-text text-green">Same As Teacher Info</span>;
+      return <span className="green-text text-green" onClick={this.changePurchaserInfoToTeacherInfo}>Same As Teacher Info</span>;
     }
   }
 
@@ -189,8 +189,8 @@ export default class extends React.Component {
         <h2>Subscription Information</h2>
         <label>Premium Status</label>
         <ItemDropdown
-          items={this.props.premiumTypes}
           callback={this.changeAccountType}
+          items={this.props.premiumTypes}
           selectedItem={this.state.subscription.account_type || ''}
         />
         <label>Created At:</label>
@@ -198,8 +198,8 @@ export default class extends React.Component {
         <h2>Payment Information</h2>
         <label>Payment Method</label>
         <ItemDropdown
-          items={this.props.subscriptionPaymentMethods}
           callback={this.changePaymentMethod}
+          items={this.props.subscriptionPaymentMethods}
           selectedItem={this.state.subscription.payment_method || ''}
         />
         <label>Purchase Amount (dollar value as integer -- no decimal or symbol)</label>
@@ -208,7 +208,7 @@ export default class extends React.Component {
         {this.purchaserFromSchool()}
         <label>Purchaser Email</label>
         <p>If the purchaser is not in the school and you see a school dropdown, select 'None' and put in the purchasers email.</p>
-        <input type="text" value={this.state.subscription.purchaser_email} onChange={this.changePurchaserEmail} />
+        <input onChange={this.changePurchaserEmail} type="text" value={this.state.subscription.purchaser_email} />
         <br />
         {this.changeToPurchaserInfo()}
         {this.recurringIfCreditCard()}
@@ -217,12 +217,12 @@ export default class extends React.Component {
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.
         </p>
-        <DatePicker selected={this.state.subscription.start_date ? moment(this.state.subscription.start_date) : null} onChange={this.changeStartDate} />
+        <DatePicker onChange={this.changeStartDate} selected={this.state.subscription.start_date ? moment(this.state.subscription.start_date) : null} />
         <label htmlFor="">End Date</label>
         <p>
           If this a school or users first paid subscription, the default end date is {this.props.promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
-        <DatePicker selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} onChange={this.changeExpirationDate} />
+        <DatePicker onChange={this.changeExpirationDate} selected={this.state.subscription.expiration ? moment(this.state.subscription.expiration) : null} />
         <div>
           <button className="q-button cta-button bg-quillgreen text-white" onClick={submitAction}>
             {this.props.view === 'new' ? 'New' : 'Update'} Subscription

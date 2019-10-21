@@ -57,50 +57,50 @@ const ItemLevelForm = React.createClass({
         integerValue=this.props.data.integerValue
         className="box"
         cancelAndDeleteButtons =
-          <div className="button-group">
+          (<div className="button-group">
             <Link to={'/admin/item-levels'}>
               <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
             </Link>
             <Link to={'/admin/item-levels'}>
               <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
             </Link>
-          </div>
+          </div>)
       }
 
       return (
-      <div className={className}>
-        <h4 className="title">Add New Item Level</h4>
-        <p className="control">
-          <label className="label">Name</label>
-          <input
-            className="input"
-            type="text"
-            placeholder={name}
-            value={this.state.name}
-            ref="newItemLevelName"
-            onChange={this.handleChange}
-          />
-        </p>
-        <p className="control">
-          <label className="label">Integer Value</label>
-          <input
-            className="input"
-            type="text"
-            placeholder={integerValue}
-            value={this.state.integerValue}
-            ref="integerValue"
-            onChange={this.handleChange}
-          />
-        </p>
-        <div className="control">
-          <Link to={'admin/item-levels'}>
-            <button className="button is-primary" onClick={this.submit}>Submit</button>
-          </Link>
+        <div className={className}>
+          <h4 className="title">Add New Item Level</h4>
+          <p className="control">
+            <label className="label">Name</label>
+            <input
+              className="input"
+              onChange={this.handleChange}
+              placeholder={name}
+              ref="newItemLevelName"
+              type="text"
+              value={this.state.name}
+            />
+          </p>
+          <p className="control">
+            <label className="label">Integer Value</label>
+            <input
+              className="input"
+              onChange={this.handleChange}
+              placeholder={integerValue}
+              ref="integerValue"
+              type="text"
+              value={this.state.integerValue}
+            />
+          </p>
+          <div className="control">
+            <Link to={'admin/item-levels'}>
+              <button className="button is-primary" onClick={this.submit}>Submit</button>
+            </Link>
+          </div>
+          <div>
+            {cancelAndDeleteButtons}
+          </div>
         </div>
-        <div>
-          {cancelAndDeleteButtons}
-        </div>
-      </div>
     )} else {
         return (
           <div>Loading...</div>

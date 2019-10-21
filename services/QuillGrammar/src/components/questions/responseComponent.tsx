@@ -212,7 +212,6 @@ class ResponseComponent extends React.Component {
   }
 
   rematchAllResponses() {
-    console.log('Rematching All Responses');
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {
@@ -224,7 +223,6 @@ class ResponseComponent extends React.Component {
     const weak = rematchAll(this.props.mode, this.props.questionID, callback);
     // weak.forEach((resp, index) => {
     //   const percentage = index / weak.length * 100;
-    //   console.log('Rematching: ', resp.key, percentage, '% complete');
     //   this.rematchResponse(resp.key);
     // });
   }
@@ -293,28 +291,28 @@ class ResponseComponent extends React.Component {
       const responsesWStatus = this.responsesWithStatus();
       const responses = _.sortBy(responsesWStatus, 'sortOrder');
       return (<ResponseList
-        selectedIncorrectSequences={selectedIncorrectSequences}
-        selectedFocusPoints={selectedFocusPoints}
-        responses={responses}
-        getResponse={this.getResponse}
-        getChildResponses={this.getChildResponses}
-        states={this.props.states}
-        questionID={questionID}
-        dispatch={this.props.dispatch}
         admin={this.props.admin}
-        expanded={this.props.filters.expanded}
-        expand={this.expand}
         ascending={this.props.filters.ascending}
-        getMatchingResponse={this.rematchResponse}
-        showPathways
-        printPathways={this.mapCountToResponse}
-        toPathways={this.mapCountToToResponse}
-        conceptsFeedback={this.props.conceptsFeedback}
-        mode={this.props.mode}
-        concepts={this.props.concepts}
         conceptID={this.props.question.conceptID}
+        concepts={this.props.concepts}
+        conceptsFeedback={this.props.conceptsFeedback}
+        dispatch={this.props.dispatch}
+        expand={this.expand}
+        expanded={this.props.filters.expanded}
+        getChildResponses={this.getChildResponses}
+        getMatchingResponse={this.rematchResponse}
+        getResponse={this.getResponse}
         massEdit={this.props.massEdit}
+        mode={this.props.mode}
+        printPathways={this.mapCountToResponse}
         question={this.props.question}
+        questionID={questionID}
+        responses={responses}
+        selectedFocusPoints={selectedFocusPoints}
+        selectedIncorrectSequences={selectedIncorrectSequences}
+        showPathways
+        states={this.props.states}
+        toPathways={this.mapCountToToResponse}
       />);
     }
   }
@@ -325,8 +323,8 @@ class ResponseComponent extends React.Component {
 
   renderSortingFields() {
     return (<ResponseSortFields
-      sorting={this.props.filters.sorting}
       ascending={this.props.filters.ascending}
+      sorting={this.props.filters.sorting}
       toggleResponseSort={this.toggleResponseSort}
     />);
   }
@@ -350,15 +348,15 @@ class ResponseComponent extends React.Component {
   renderStatusToggleMenu() {
     return (
       <ResponseToggleFields
+        deselectFields={this.deselectFields}
+        excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
         labels={labels}
         qualityLabels={qualityLabels}
+        resetFields={this.resetFields}
+        resetPageNumber={this.resetPageNumber}
+        toggleExcludeMisspellings={this.toggleExcludeMisspellings}
         toggleField={this.toggleField}
         visibleStatuses={this.props.filters.visibleStatuses}
-        excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
-        toggleExcludeMisspellings={this.toggleExcludeMisspellings}
-        resetPageNumber={this.resetPageNumber}
-        resetFields={this.resetFields}
-        deselectFields={this.deselectFields}
       />
     );
   }
@@ -402,7 +400,7 @@ class ResponseComponent extends React.Component {
     if (this.props.admin) {
       const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
 
-      return (<button disabled={!!this.state.progress} className="button is-outlined is-danger" style={{ float: 'right', }} onClick={this.rematchAllResponses}>{text}</button>);
+      return (<button className="button is-outlined is-danger" disabled={!!this.state.progress} onClick={this.rematchAllResponses} style={{ float: 'right', }}>{text}</button>);
     }
   }
 
@@ -421,7 +419,8 @@ class ResponseComponent extends React.Component {
     return (
       <div className="column">
         <button
-          className="button is-fullwidth is-outlined" onClick={() => {
+          className="button is-fullwidth is-outlined"
+          onClick={() => {
             this.setState({
               viewingResponses: !this.state.viewingResponses,
             }, this.updatePageNumber(1));
@@ -620,7 +619,7 @@ class ResponseComponent extends React.Component {
       }
       return (
         <li key={i}>
-          <a className="button" style={pageNumberStyle} onClick={() => this.updatePageNumber(pageNumber)}>{pageNumber}</a>
+          <a className="button" onClick={() => this.updatePageNumber(pageNumber)} style={pageNumberStyle}>{pageNumber}</a>
           {/* <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a> */}
         </li>
       );
@@ -685,7 +684,7 @@ class ResponseComponent extends React.Component {
             </div>
           </div>
         </div>
-        <input className="input" type="text" value={this.props.filters.stringFilter} ref="stringFilter" onChange={this.handleStringFiltering} placeholder="Search responses" />
+        <input className="input" onChange={this.handleStringFiltering} placeholder="Search responses" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

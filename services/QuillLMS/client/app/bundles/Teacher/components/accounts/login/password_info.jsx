@@ -16,7 +16,7 @@ export default class PasswordInfo extends React.Component {
     if (this.props.showHintBox) {
       return (
         <div id="password-hint">
-          <h3><span>Having trouble signing in? Here's a hint:</span> <img src={bulbSrc}/></h3>
+          <h3><span>Having trouble signing in? Here's a hint:</span> <img src={bulbSrc} /></h3>
           <div>
             <p>Example username:</p>
             <p className="example">jane.smith@magic-apple</p>
@@ -30,7 +30,7 @@ export default class PasswordInfo extends React.Component {
         </div>
       );
     } else {
-      return <span/>
+      return <span />
     }
   }
 

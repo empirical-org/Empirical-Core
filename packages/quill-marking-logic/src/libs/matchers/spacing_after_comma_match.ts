@@ -5,7 +5,7 @@ import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {feedbackStrings} from '../constants/feedback_strings'
 
 export function spacingAfterCommaMatch(response):Boolean {
-  for (let i = 0; i < response.length; i++) {
+  for (let i = 0; i < response.length; i+=1) {
     if (response[i] === ',' && (i + 1 < response.length)) {
       const priorCharacter = response[i - 1]
       const followingCharacter = response[i + 1]

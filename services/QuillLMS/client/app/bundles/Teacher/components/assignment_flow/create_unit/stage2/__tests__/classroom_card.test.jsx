@@ -12,8 +12,8 @@ describe('Classroom card component', () => {
       <ClassroomCard
         classroom={classroom}
         students={students}
-        toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
       />
     )
     expect(wrapper).toMatchSnapshot()
@@ -29,8 +29,8 @@ describe('Classroom card component', () => {
       <ClassroomCard
         classroom={classroom}
         students={selectedStudents}
-        toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
       />
     )
 
@@ -50,8 +50,8 @@ describe('Classroom card component', () => {
       <ClassroomCard
         classroom={classroom}
         students={[]}
-        toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
       />
     )
 
@@ -75,8 +75,8 @@ describe('Classroom card component', () => {
       <ClassroomCard
         classroom={classroom}
         students={selectedStudents}
-        toggleStudentSelection={() => {}}
         toggleClassroomSelection={() => {}}
+        toggleStudentSelection={() => {}}
       />
     )
 

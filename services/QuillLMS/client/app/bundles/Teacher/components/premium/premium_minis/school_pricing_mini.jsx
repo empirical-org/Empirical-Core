@@ -24,7 +24,7 @@ export default React.createClass({
         </div>
         <header className="pricing-mini-header purple">
           <div className="img-holder">
-            <img src={`${process.env.CDN_URL}/images/shared/school_premium_icon.png`} alt="teacher_premium_icon" />
+            <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/school_premium_icon.png`} />
           </div>
           <h4>School Premium</h4>
         </header>
@@ -43,11 +43,11 @@ export default React.createClass({
             <li>Professional Development Sessions</li>
             <li>Administrator dashboard for school-<br />
           wide reports
-        </li>
+            </li>
           </ul>
         </section>
-        <button type="button" onClick={onClickEvent} className="btn btn-default mini-btn purple">Purchase</button>
-        <a href="https://quillpdemo.youcanbook.me/" target="_blank"><button type="button" className="btn btn-default mini-btn empty-purple">Schedule Demo</button></a>
+        <button className="btn btn-default mini-btn purple" onClick={onClickEvent} type="button">Purchase</button>
+        <a href="https://quillpdemo.youcanbook.me/" target="_blank"><button className="btn btn-default mini-btn empty-purple" type="button">Schedule Demo</button></a>
       </div>
     );
   },

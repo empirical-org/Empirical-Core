@@ -15,7 +15,7 @@ export function getCurrentUserAndCoteachersFromLMS() {
       credentials: 'include',
     }).then(response => {
       if (!response.ok) {
-        console.log(response.statusText)
+        // to do - do something with this status text
       } else {
         return response.json()
       }
@@ -94,7 +94,6 @@ export function createNewEdition(
   }
   socket.instance.emit('createNewEdition', { editionData: newEditionData });
   socket.instance.on(`editionCreated:${newEditionKey}`, () => {
-    console.log('newEditionKey: ', newEditionKey)
 
     socket.instance.removeAllListeners(`editionCreated:${newEditionKey}`)
     if (callback) {

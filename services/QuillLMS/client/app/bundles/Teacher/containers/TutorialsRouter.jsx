@@ -7,10 +7,10 @@ export default React.createClass({
   render() {
     return (
       <Router history={browserHistory}>
-        <Route path="/tutorials" component={TutorialIndex}>
+        <Route component={TutorialIndex} path="/tutorials">
           <IndexRoute component={TutorialIndex} />
-          <Route path=":tool" component={TutorialIndex} />
-          <Route path=":tool/:slideNumber" component={TutorialIndex} />
+          <Route component={TutorialIndex} path=":tool" />
+          <Route component={TutorialIndex} path=":tool/:slideNumber" />
         </Route>
       </Router>
     );

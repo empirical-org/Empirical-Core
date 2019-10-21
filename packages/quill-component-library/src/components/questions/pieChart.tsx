@@ -24,13 +24,12 @@ class PieChart extends React.Component<any, any> {
   render() {
     return (
       <div id='pie-chart'>
-          <Pie
-            slices= {this.props.data}
-
-          />
+        <Pie
+          slices={this.props.data}
+        />
         {
           this.props.data.map((d: any, i: number) => (
-            <div key={ i }>
+            <div key={i}>
               <span style={{ backgroundColor: d.color, width: '20px', marginRight: 5, color: d.color, borderRadius: '100%' }}>OO</span>
               <span style={{ fontWeight: this.state.expandedSector == i ? 'bold' : null }}>
                 { d.label }: { d.value }
@@ -41,12 +40,12 @@ class PieChart extends React.Component<any, any> {
         {
           this.props.total ?
             <div>
-              <span style={{marginRight: '28px'}}></span>
+              <span style={{marginRight: '28px'}} />
               <span>Total: {this.props.total}</span>
             </div>
           : ''
         }
-          <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
+        <a href="https://github.com/empirical-org/Quill-Connect/blob/master/app/libs/README.md">How our marking works</a>
       </div>
     )
   }

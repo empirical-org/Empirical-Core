@@ -43,23 +43,23 @@ class SortableList extends React.Component<any, any> {
 		};
 		const listItems = this.state.data.items.map((item: any, i: number) => {
 			return (
-				<SortableListItem
-          key={i}
-          onSortItems={this.updateState}
-          updateState={this.updateState}
-          items={this.state.data.items}
-          draggingIndex={this.state.draggingIndex}
-          sortId={i}
-          outline="list"
-          childProps={childProps}
-        >
-          {item}
-        </SortableListItem>
+  <SortableListItem
+    childProps={childProps}
+    draggingIndex={this.state.draggingIndex}
+    items={this.state.data.items}
+    key={i}
+    onSortItems={this.updateState}
+    outline="list"
+    sortId={i}
+    updateState={this.updateState}
+  >
+    {item}
+  </SortableListItem>
 			);
 		}, this);
 
 		return (
-			<div className="list">{listItems}</div>
+  <div className="list">{listItems}</div>
 		);
 	}
 }

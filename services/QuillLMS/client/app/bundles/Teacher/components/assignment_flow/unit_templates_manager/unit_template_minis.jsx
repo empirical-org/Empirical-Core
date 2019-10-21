@@ -40,10 +40,10 @@ export default class UnitTemplateMinis extends React.Component {
 
   generateUnitTemplateView(model, index) {
     return (<UnitTemplateMini
-      key={model.id}
+      actions={this.props.actions}
       data={model}
       index={index}
-      actions={this.props.actions}
+      key={model.id}
       signedInTeacher={this.props.signedInTeacher}
     />)
   }
@@ -55,7 +55,7 @@ export default class UnitTemplateMinis extends React.Component {
   generateShowAllGradesView() {
     if (this.props.data.grade) {
       return (
-        <Link to={this.getIndexLink()} className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all">Show All Activity Packs</Link>
+        <Link className="see-all-activity-packs button-grey button-dark-grey text-center center-block show-all" to={this.getIndexLink()}>Show All Activity Packs</Link>
       )
     }
   }
@@ -83,21 +83,21 @@ export default class UnitTemplateMinis extends React.Component {
 
   renderFilterOptions() {
     const { types, selectedTypeId, data, selectCategory, } = this.props
-    const typeOptions = types.map(type => <Link
-      to={`${this.getIndexLink()}?type=${type.id}`}
+    const typeOptions = types.map(type => (<Link
       className={selectedTypeId === type.id ? 'active' : null}
-      >{type.name}</Link>)
+      to={`${this.getIndexLink()}?type=${type.id}`}
+    >{type.name}</Link>))
     const categoryOptions = this.generateCategoryOptions()
     return (
       <div className="filter-options">
         <div className='type-options'>
-          <Link to={this.getIndexLink()} className={!selectedTypeId ? 'active' : null}>All packs</Link>
+          <Link className={!selectedTypeId ? 'active' : null} to={this.getIndexLink()}>All packs</Link>
           {typeOptions}
         </div>
         <DropdownInput
-          value={categoryOptions.find(cat => cat.value === data.selectedCategoryId) || categoryOptions[0]}
-          options={categoryOptions}
           handleChange={selectCategory}
+          options={categoryOptions}
+          value={categoryOptions.find(cat => cat.value === data.selectedCategoryId) || categoryOptions[0]}
         />
       </div>
     )
@@ -112,7 +112,7 @@ export default class UnitTemplateMinis extends React.Component {
   }
 
   render() {
-    return (<div key='always-display' className='unit-template-minis-container'>
+    return (<div className='unit-template-minis-container' key='always-display'>
       {this.userLoggedIn() ? <AssignmentFlowNavigation /> : null}
       <div className="container">
         <div>

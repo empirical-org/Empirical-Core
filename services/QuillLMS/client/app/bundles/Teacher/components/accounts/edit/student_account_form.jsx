@@ -65,9 +65,9 @@ export default class StudentAccountForm extends React.Component {
             </div>
             <div className="col-xs-4">
               <input
-                name='Email'
-                label='Email'
                 defaultValue={this.props.email}
+                label='Email'
+                name='Email'
                 onChange={this.updateEmail}
               />
             </div>
@@ -80,7 +80,7 @@ export default class StudentAccountForm extends React.Component {
       <div>
         {email}
         {submitButton}
-        <p><strong>Need to change your account type?</strong> Email us at <a style={{ color: '#00c2a2' }} href="mailto:support@quill.org">support@quill.org</a>, and we'll help you sort it out.</p>
+        <p><strong>Need to change your account type?</strong> Email us at <a href="mailto:support@quill.org" style={{ color: '#00c2a2' }}>support@quill.org</a>, and we'll help you sort it out.</p>
         {this.showErrors()}
       </div>
     );

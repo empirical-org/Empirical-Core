@@ -17,7 +17,6 @@ class ResponseComponentWrapper extends React.Component {
 
   componentWillMount() {
     const { questionID, } = this.props.match.params;
-    console.log('PARAMS: ', this.props.match.params);
   }
 
   getResponses() {
@@ -38,13 +37,13 @@ class ResponseComponentWrapper extends React.Component {
     const { questionID, } = this.props.match.params;
     return (
       <ResponseComponent
-        question={dataset}
-        responses={this.getResponses()}
-        questionID={questionID}
-        states={states}
+        admin
         dispatch={this.props.dispatch}
         mode={mode}
-        admin
+        question={dataset}
+        questionID={questionID}
+        responses={this.getResponses()}
+        states={states}
       />
     );
   }

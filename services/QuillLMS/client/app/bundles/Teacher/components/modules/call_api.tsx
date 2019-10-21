@@ -11,7 +11,6 @@ function put(path: string, payload: object, onSuccess: Function, onError: Functi
   }, (error, response) => {
     if (error) {
       // TODO: Replace this with some sort of real error reporting
-      console.error(error);
       throw error;
     }
     switch (response.statusCode) {

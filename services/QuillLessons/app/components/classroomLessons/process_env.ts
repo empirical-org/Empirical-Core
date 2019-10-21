@@ -20,10 +20,8 @@ if (process.env.NODE_ENV === 'production') {
   config = {
     someItem: 'prod'
   }
-  console.log('Running in prod');
 } else {
   config = {
     someItem: 'test'
   }
-  console.log('Running in test');
 }
