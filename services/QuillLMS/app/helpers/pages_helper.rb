@@ -136,10 +136,22 @@ module PagesHelper
             desc: "Yves Peirsman is the founder and Natural Language Processing expert at NLP Town. Yves holds a PhD in computational linguistics from the University of Leuven and was a postdoctoral researcher at Stanford University. Since he made the move from academia to industry, he has gained extensive experience in consultancy and software development for Natural Language Processing. As the co-founder of NLP Town, he leads several NLP projects, organizes NLP-focused events and contributes to open-source software."
           },
           {
+            img: 'thumb-lindsey.jpg',
+            name: 'Lindsey Murphy',
+            title: 'Lead Curriculum Developer',
+            desc: "Lindsey designs curriculum for an upcoming reading comprehension tool. Prior to working at Quill, she was teaching fourth grade English in Brooklyn. In college and as a teacher, Lindsey has engaged in various policy campaigns and initiatives to fight for educational equity. She has an undergraduate degree in political science from Boston College and a master's in teaching from the Relay Graduate School of Education."
+          },
+          {
+            img: 'thumb-max.png',
+            name: 'Maximilian de Martino',
+            title: 'Curriculum Developer',
+            desc: "Max is a curriculum developer who is committed to closing literacy gaps in all content areas. Prior to joining Quill, Max spent five years teaching social studies grades seven, eight, and ten, and English grade nine in public and charter schools serving low-income students in New York City. He holds a Master of Arts in Social Studies Teacher Education from Teacher's College of Columbia University."
+          },
+          {
             img: 'thumb-haronil.jpg',
             name: 'Haronil Estevez',
             title: 'Senior Software Developer',
-            desc: "Haronil is a senior sofware developer with experience in media, government, and education. He holds a degree in Computer Science from Columbia University."
+            desc: "Haronil is a senior software developer with experience in media, government, and education. He holds a degree in Computer Science from Columbia University."
           },
 				]
 			},
