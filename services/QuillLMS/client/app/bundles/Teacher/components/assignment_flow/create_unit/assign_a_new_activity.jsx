@@ -1,101 +1,44 @@
-'use strict'
 import React from 'react'
-import AssignmentTypeMini from './assignment_type_mini.jsx'
-import LessonTypeMini from '../../shared/lesson_type_mini.jsx'
 
-export default React.createClass({
-  minis: function(){
-    let minis =
-      [
-          <AssignmentTypeMini
-            link='/teachers/classrooms/assign_activities/assign-a-diagnostic'
-            key={'diagnostics'}
-            title={'Entry Diagnostics'}
-            img={`${process.env.CDN_URL}/images/shared/diagnostic_icon.svg`}
-            bodyText={[<span key={1}>Identify the skills each student needs to work on with one of our 4 diagnostics.</span>]}
-            directions={'use intermittently'}
-            quantity={4}
-            unit={'Diagnostic'}
-            timeDuration={'~30 Min.'}
-          />,
-            <AssignmentTypeMini
-              link='/teachers/classrooms/assign_activities/featured-activity-packs'
-              key={'featured'}
-              toggleTarget={'exploreActivityPacks'}
-              title={'Featured Activity Packs'}
-              img={`${process.env.CDN_URL}/images/shared/featured_activity_pack_icon.png`}
-              bodyText={[<span key={1}>Quickly assign packs of activities created</span>, <br key={2} />, <span key={3}>by experienced educators.</span>]}
-              directions={'use continuously'}
-              routeToGetQuantity={'/count/featured_packs'}
-              unit={'Pack'}
-              timeDuration={'~1 Hour'}
-            />,
-            <AssignmentTypeMini
-              link='/teachers/classrooms/assign_activities/create-unit'
-              key={'custom'}
-              toggleTarget={'createUnit'}
-              title={'Explore All Activities'}
-              img={`${process.env.CDN_URL}/images/shared/custom_activity_pack_icon.svg`}
-              bodyText={'Browse our entire library of activities and create your own activity pack.'}
-              directions={'use continuously'}
-              routeToGetQuantity={'/count/activities'}
-              unit={'Activity'}
-              timeDuration={'~10 Min.'}
-            />
-        ]
-      return minis
-},
+const paperSrc = `${process.env.CDN_URL}/images/illustrations/paper.svg`
 
-tools: function() {
-  const userFlag = document.getElementById('current-user-testing-flag').getAttribute('content');
-  return [
-  <LessonTypeMini
-    key={'diagnostic'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=diagnostic'
-    name='Quill Diagnostic'
-    description='Identify Learning Gaps'
-    imgSrc={`${process.env.CDN_URL}/images/icons/diagnostic-light-gray.svg`}
-  />,
-  <LessonTypeMini
-    key={'lessons'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=lessons'
-    name='Quill Lessons'
-    description='Lead Group Lessons'
-    imgSrc={`${process.env.CDN_URL}/images/icons/lessons-light-gray.svg`}
-  />,
-  <LessonTypeMini
-    key={'connect'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=connect'
-    name='Quill Connect'
-    description='Combine Sentences'
-    imgSrc={`${process.env.CDN_URL}/images/icons/connect-light-gray.svg`}
-  />,
-  <LessonTypeMini
-    key={'grammmar'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=sentence'
-    name='Quill Grammar'
-    description='Practice Basic Grammar'
-    imgSrc={`${process.env.CDN_URL}/images/icons/grammar-light-gray.svg`}
-  />,
-  <LessonTypeMini
-    key={'proofreader'}
-    link='/teachers/classrooms/assign_activities/create-unit?tool=passage'
-    name='Quill Proofreader'
-    description='Find and Fix Errors in Passages'
-    imgSrc={`${process.env.CDN_URL}/images/icons/proofreader-light-gray.svg`}
-  />,
-  <div key='superfluous element' style={{width: '300px', height: '0px'}} />
-  ]
-},
+const AssignmentStep = ({ number, header, text }) => (
+  <div className="assignment-step">
+    <div className="assignment-step-number">{number}</div>
+    <p className="assignment-step-header">{header}</p>
+    <p className="assignment-step-text">{text}</p>
+  </div>
+)
 
-render: function(){
-  return(
-    <div id='assign-new-activity-page' className='text-center'>
-      <h1>Choose which type of assignment you'd like to use:</h1>
-      <div className='minis'>{this.minis()}</div>
-      <h1>Search all activities by tool:</h1>
-      <div className="tools">{this.tools()}</div>
+const AssignANewActivity = ({ numberOfActivitiesAssigned }) => (<div className="assign-a-new-activity-container">
+  <div className="assign-a-new-activity container">
+    <div className="assign-a-new-activity-hero">
+      <img src={paperSrc} alt="paper scroll" />
+      <h1>Find the perfect writing activities for your students.</h1>
+      <a href="/assign/learning-process" className="quill-button primary contained large">Explore activities</a>
     </div>
-  )
-}
-})
+    <p className="previously-assigned-activities">
+      You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
+      <a href="/teachers/classrooms/activity_planner">View assigned activities</a>
+    </p>
+    <div className="assignment-steps">
+      <AssignmentStep
+        number="1"
+        header="Choose Assignment Type"
+        text="Choose which type of assignment you want to use: diagnostics, whole class activities, or independent practice activities."
+      />
+      <AssignmentStep
+        number="2"
+        header="Browse Activities"
+        text="Explore our library of diagnostic assessments and learning activities to find the best materials for your students."
+      />
+      <AssignmentStep
+        number="3"
+        header="Choose Assignment Type"
+        text="Assign these activities to either the whole class or individual students."
+      />
+    </div>
+  </div>
+</div>)
+
+export default AssignANewActivity

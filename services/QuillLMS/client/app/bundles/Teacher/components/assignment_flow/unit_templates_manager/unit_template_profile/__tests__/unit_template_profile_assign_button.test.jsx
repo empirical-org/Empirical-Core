@@ -23,16 +23,8 @@ describe('UnitTemplateProfileAssignButton component', () => {
       id={1}
     />)
 
-    it('renders one buttons', () => {
-      expect(wrapper.find('button')).toHaveLength(1)
-    })
-
-    describe('the first button', () => {
-      const firstButton = wrapper.find('button').first()
-
-      it('has the text "Assign this activity"', () => {
-        expect(firstButton.text()).toEqual("Assign this activity")
-      })
+    it('renders no buttons', () => {
+      expect(wrapper.find('button')).toHaveLength(0)
     })
   })
 })

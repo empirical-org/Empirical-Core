@@ -24,19 +24,19 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
   end
 
-  describe '#assign_activities as a staff w/o classrooms' do
+  describe '#assign as a staff w/o classrooms' do
     let(:user) { create(:staff) }
     before do
       allow(controller).to receive(:current_user) { user }
     end
 
     it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-      get :assign_activities, tab: "test tab", grade: "test grade"
+      get :assign, tab: "test tab", grade: "test grade"
       expect(response.status).to eq(200)
     end
   end
 
-  describe '#assign_activities' do
+  describe '#assign' do
     let!(:teacher) { create(:classrooms_teacher, user: user, role: "owner") }
     let(:user) { create(:teacher, first_name: "test") }
 
@@ -51,7 +51,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
         end
 
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-          get :assign_activities, tab: "test tab", grade: "test grade"
+          get :assign, tab: "test tab", grade: "test grade"
           expect(assigns(:tab)).to eq "test tab"
           expect(assigns(:grade)).to eq "test grade"
           expect(assigns(:students)).to eq user.students.any?
@@ -62,7 +62,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
       context 'when user has classrooms i teach' do
         it 'should assign the tab, grade, students, last_classroom_name and last_classroom_id' do
-          get :assign_activities, tab: "test tab", grade: "test grade"
+          get :assign, tab: "test tab", grade: "test grade"
           expect(assigns(:tab)).to eq "test tab"
           expect(assigns(:grade)).to eq "test grade"
           expect(assigns(:students)).to eq user.students.any?

@@ -3,11 +3,16 @@ import { ActionTypes } from './actionTypes'
 const sessionsRef = rootRef.child('proofreaderSessions')
 import { ConceptResultObject, WordObject } from '../interfaces/proofreaderActivities'
 
-export const updateSessionOnFirebase = (sessionID: string, passage: Array<Array<WordObject>>|undefined) => {
+export const updateSessionOnFirebase = (sessionID: string, passage: Array<Array<WordObject>>|undefined, callback: Function) => {
   return (dispatch: Function) => {
     sessionsRef.child(`${sessionID}/passage`).set(
       passage,
-      () => dispatch(setSessionReducerToSavedSession(sessionID))
+      () => {
+        dispatch(setSessionReducerToSavedSession(sessionID))
+        if (callback) {
+          callback()
+        }
+      }
     )
   }
 }
@@ -37,6 +42,12 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
 export const setSessionReducer = (passage: string) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SET_FIREBASE_PASSAGE, passage})
+  }
+}
+
+export const setPassage = (passage: Array<Array<WordObject>>) => {
+  return (dispatch: Function) => {
+    dispatch({ type: ActionTypes.SET_PASSAGE, passage})
   }
 }
 
