@@ -52,13 +52,13 @@
         <h4>Pack <%=index + 1%>. <%=partner_content.content.name%></h4>
       </div>
 
-        <% partner_content.content.activities_unit_templates.order(:order_number).each_with_index do |activity, act_index| %>
+        <% partner_content.content.activities_unit_templates.order(:order_number).each_with_index do |activity_unit_template, act_index| %>
           <div class="activity">
             <div class="name-and-description">
-              <div class="name"><%= act_index + 1 %>. <%= activity.activity.name %></div>
-              <div class="activity-description"><%= activity.activity.description&.html_safe %></div>
+              <div class="name"><%= act_index + 1 %>. <%= activity_unit_template.activity.name %></div>
+              <div class="activity-description"><%= activity_unit_template.activity.description&.html_safe %></div>
             </div>
-            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.activity.id), class: 'green-link', target: '_blank' %></div>
+            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity_unit_template.activity.id), class: 'green-link', target: '_blank' %></div>
           </div>
 
         <% end %>
