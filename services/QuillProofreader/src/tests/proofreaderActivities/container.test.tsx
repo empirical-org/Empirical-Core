@@ -11,7 +11,7 @@ describe("<PlayProofreaderContainer />", () => {
     activityUID='KMyh3LulfVL0_KuPb8u'
     proofreaderActivities={ProofreaderActivityReducer}
     session={{ passage: [] }}
-    session={{passage: 'string'}}
+    dispatch={() => {}}
   />)
 
     it("should render", () => {
