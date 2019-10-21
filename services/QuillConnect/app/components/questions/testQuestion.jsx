@@ -57,12 +57,12 @@ class TestQuestion extends Component {
       return (
         <div className="test-question-container">
           <PlayLessonQuestion
+            conceptsFeedback={conceptsFeedback}
             dispatch={dispatch}
             key={this.state.key}
             nextQuestion={this.reset}
             prefill={false}
             question={question}
-            conceptsFeedback={conceptsFeedback}
           />
         </div>
       );
