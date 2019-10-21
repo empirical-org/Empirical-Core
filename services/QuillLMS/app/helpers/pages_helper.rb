@@ -147,6 +147,12 @@ module PagesHelper
             title: 'Senior Software Developer',
             desc: "Haronil is a senior software developer with experience in media, government, and education. He holds a degree in Computer Science from Columbia University."
           },
+          {
+            img: 'thumb-christina.jpg',
+            name: 'Christina Collins',
+            title: 'Head of School Success',
+            desc: "Christina manages the full cycle of the school partnership from onboarding through implementation. Prior to Quill, she spent 9 years in the Chicago area teaching middle school ELA and serving as a District Literacy Specialist for Chicago Public Schools. She transitioned into education publishing by leading literacy and assessment professional development at NWEA and then as a curriculum and training specialist at Pearson where she worked with schools across the northeast as they implemented Pearson's literacy and humanities programs. Christina holds an undergraduate degree in English Education from Indiana University and a masters degree from National- Louis University."
+          }
 				]
 			},
 			{
