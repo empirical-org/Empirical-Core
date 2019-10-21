@@ -5,7 +5,8 @@ describe UnitTemplate, redis: :true, type: :model do
 
   it { should belong_to(:unit_template_category) }
   it { should belong_to(:author) }
-  it { should have_and_belong_to_many(:activities) }
+  it { should have_many(:activities_unit_templates) }
+  it { should have_many(:activities).through(:activities_unit_templates) }
   it { should have_many(:units) }
   it { should serialize(:grades).as(Array) }
   it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :production])}
