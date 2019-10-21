@@ -352,6 +352,7 @@ export default class CreateUnit extends React.Component {
       unitName={this.getUnitName()}
       unitTemplateId={this.unitTemplateId()}
       unitTemplateName={this.unitTemplateName()}
+      updateUnitName={this.updateUnitName}
       user={user}
     />);
   }
