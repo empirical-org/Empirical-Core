@@ -68,22 +68,22 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
         <div className="form">
           <TitleField
             clearSlide={this.props.clearSlide}
+            handleTitleChange={this.handleTitleChange}
             questionIndex={this.props.questionIndex}
             resetSlide={this.props.resetSlide}
             title={this.props.question.teach.title}
-            handleTitleChange={this.handleTitleChange}
           />
           <PromptField
-            incompletePrompt={this.props.incompletePrompt}
-            text={this.props.question.play.prompt}
-            reset={this.props.question.reset}
             handleTextChange={(e) => this.handlePromptChange(e)}
+            incompletePrompt={this.props.incompletePrompt}
+            reset={this.props.question.reset}
             showBlockquote={false}
+            text={this.props.question.play.prompt}
           />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input value={this.props.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <CuesField
@@ -93,7 +93,7 @@ class CustomizeSingleAnswer extends Component<SingleAnswerProps, {}>{
           <div className="field">
             <label>Prefilled Text <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input value={this.props.question.play.prefilledText} onChange={this.handlePrefilledTextChange} className="input" type="text"/>
+              <input className="input" onChange={this.handlePrefilledTextChange} type="text" value={this.props.question.play.prefilledText} />
             </div>
           </div>
         </div>

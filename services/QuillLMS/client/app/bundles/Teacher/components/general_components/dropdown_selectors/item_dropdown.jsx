@@ -17,9 +17,9 @@ export default React.createClass({
     return this.props.items.map((item) => {
       if (!item.id) {
         // then we don't need ids
-        return (<MenuItem key={item} eventKey={item}>{item.name || item}</MenuItem>);
+        return (<MenuItem eventKey={item} key={item}>{item.name || item}</MenuItem>);
       }
-      return <MenuItem key={item.id} eventKey={item.id}>{item.name}</MenuItem>;
+      return <MenuItem eventKey={item.id} key={item.id}>{item.name}</MenuItem>;
     });
   },
 
@@ -44,7 +44,7 @@ export default React.createClass({
   render() {
     const title = this.state.selectedItem.name || this.state.selectedItem;
     return (
-      <DropdownButton disabled={!this.props.items.length} bsStyle="default" title={title} class="select-item-dropdown" onSelect={this.handleSelect}>
+      <DropdownButton bsStyle="default" class="select-item-dropdown" disabled={!this.props.items.length} onSelect={this.handleSelect} title={title}>
         {this.items()}
       </DropdownButton>
     );

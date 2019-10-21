@@ -72,7 +72,7 @@ class Lesson extends React.Component<LessonProps> {
       const quantity = lessonConcept ? lessonConcept.quantity : null
       const concept = this.props.concepts.data[0] ? this.props.concepts.data[0].find(c => c.uid === conceptId) : null
       const quantitySpan = <span style={{ fontStyle: 'italic' }}>{quantity} {quantity === 1 ? 'Question' : 'Questions'} Chosen at Random</span>
-      conceptSections.push(<br/>)
+      conceptSections.push(<br />)
       conceptSections.push(<h3>{concept ? concept.displayName : null} - {quantitySpan}</h3>)
       conceptSections.push(<ul>{conceptIds[conceptId]}</ul>)
     })
@@ -142,7 +142,6 @@ class Lesson extends React.Component<LessonProps> {
     if (lessonID) {
       this.props.dispatch(lessonActions.startLessonEdit(lessonID));
     }
-    // // console.log("Edit button clicked");
   }
 
   renderEditLessonForm(): JSX.Element|void {
@@ -154,9 +153,9 @@ class Lesson extends React.Component<LessonProps> {
         return (
           <Modal close={this.cancelEditingLesson}>
             <EditLessonForm
+              currentValues={lesson}
               lesson={lesson}
               submit={this.saveLessonEdits}
-              currentValues={lesson}
             />
           </Modal>
         );

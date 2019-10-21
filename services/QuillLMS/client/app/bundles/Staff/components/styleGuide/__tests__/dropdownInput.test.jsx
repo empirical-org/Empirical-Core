@@ -15,10 +15,10 @@ describe('Dropdown input component', () => {
   it('should render when it is not searchable', () => {
     const wrapper = shallow(
       <DropdownInput
-        label="Label"
-        options={options}
         handleChange={() => {}}
         isSearchable={false}
+        label="Label"
+        options={options}
         value={options[0]}
       />)
     expect(wrapper).toMatchSnapshot()
@@ -27,12 +27,12 @@ describe('Dropdown input component', () => {
   it('should render when it is searchable', () => {
     const wrapper = shallow(
       <DropdownInput
+        handleChange={() => {}}
+        isSearchable
         label="Label"
         options={options}
-        handleChange={() => {}}
-        value={options[1]}
-        isSearchable
         placeholder="Value goes here"
+        value={options[1]}
       />)
     expect(wrapper).toMatchSnapshot()
   })
@@ -40,10 +40,10 @@ describe('Dropdown input component', () => {
   it('should render when it is multi-option', () => {
     const wrapper = shallow(
       <DropdownInput
+        handleChange={() => {}}
         isMulti
         options={options}
         optionType='option'
-        handleChange={() => {}}
         value={[]}
       />)
     expect(wrapper).toMatchSnapshot()

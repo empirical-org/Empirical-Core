@@ -10,9 +10,9 @@ describe('RemoveStudentsModal component', () => {
 
   const wrapper = shallow(
     <RemoveStudentsModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
       selectedStudentIds={studentIds}
     />
   );

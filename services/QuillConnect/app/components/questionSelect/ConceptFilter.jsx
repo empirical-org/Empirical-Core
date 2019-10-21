@@ -17,11 +17,12 @@ let ConceptFilter = ({ dispatch, index, concepts, conceptID, questionType }) => 
         }}
       >
         { concepts.map(concept =>
-          <option
+          (<option
+            key={concept.key}
             value={concept.key}
-            key={concept.key}>
+          >
             { concept.name }
-          </option>
+          </option>)
         ) }
       </select>
     </span>

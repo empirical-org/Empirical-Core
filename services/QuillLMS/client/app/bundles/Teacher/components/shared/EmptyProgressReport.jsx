@@ -38,7 +38,7 @@ export default React.createClass({
      <img src='/images/empty_state_illustration.png' />
      <h1>{title}</h1>
      <p>{content}</p>
-     <button onClick={onButtonClick} className="button-green create-unit featured-button">{buttonText}</button>
+     <button className="button-green create-unit featured-button" onClick={onButtonClick}>{buttonText}</button>
      <a href="/teacher-center">Teacher Center</a>
    </div>
  );

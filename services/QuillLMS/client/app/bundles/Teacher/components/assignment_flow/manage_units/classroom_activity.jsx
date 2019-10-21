@@ -109,7 +109,7 @@ export default class ClassroomActivity extends React.Component {
     const activityWithRecommendationIds = this.props.activityWithRecommendationsIds;
     if (activityWithRecommendationIds && activityWithRecommendationIds.includes(this.activityId()) && window.location.pathname.includes('diagnostic_reports')) {
       return (
-        <div onClick={this.goToRecommendations} className="recommendations-button">
+        <div className="recommendations-button" onClick={this.goToRecommendations}>
           Recommendations
         </div>
       );
@@ -123,7 +123,7 @@ export default class ClassroomActivity extends React.Component {
       } else if (this.props.data.started) {
         const href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
 
-        return <a className="mark-completed" target="_blank" href={href}>Mark As Complete</a>;
+        return <a className="mark-completed" href={href} target="_blank">Mark As Complete</a>;
       }
     }
   }
@@ -142,10 +142,10 @@ export default class ClassroomActivity extends React.Component {
       </a>
       <a
         className="supporting-info"
-        target="_blank"
         href={`/activities/${this.activityId()}/supporting_info`}
         onMouseEnter={this.toggleLessonPlanTooltip}
         onMouseLeave={this.toggleLessonPlanTooltip}
+        target="_blank"
       >
         <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
         {this.renderLessonPlanTooltip()}
@@ -176,19 +176,19 @@ export default class ClassroomActivity extends React.Component {
   finalCell = () => {
     if (this.props.activityReport) {
       return [
-        <span key="number-of-students" className="number-of-students">{this.renderPieChart()} {this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
-        <span key="average-score" className="average-score">{this.calculateAverageScore()}</span>,
-        <img key="chevron-right" className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        <span className="number-of-students" key="number-of-students">{this.renderPieChart()} {this.props.data.completedCount} of {this.props.numberOfStudentsAssignedToUnit} {Pluralize('student', this.props.numberOfStudentsAssignedToUnit)}</span>,
+        <span className="average-score" key="average-score">{this.calculateAverageScore()}</span>,
+        <img className="chevron-right" key="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ];
     } else if (this.props.report) {
-      return [<a key="this.props.data.activity.anonymous_path" href={this.anonymousPath()} target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.urlForReport}>View Report</a>];
+      return [<a href={this.anonymousPath()} key="this.props.data.activity.anonymous_path" target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.urlForReport}>View Report</a>];
     } else if (this.isLesson()) {
       return this.lessonFinalCell();
     }
     if (this.props.data.ownedByCurrentUser) {
       const startDate = this.state.startDate;
       return (<span className="due-date-field">
-        <DatePicker className="due-date-input" onChange={this.handleChange} selected={startDate} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} />
+        <DatePicker className="due-date-input" onChange={this.handleChange} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} selected={startDate} />
         {startDate && this.props.isFirst ? <span className="apply-to-all" onClick={() => this.props.updateAllDueDates(startDate)}>Apply to All</span> : null}
       </span>);
     }
@@ -201,7 +201,7 @@ export default class ClassroomActivity extends React.Component {
     const largeArcFlag = percent > 0.5 ? 1 : 0;
     const pathData = `M 1 0 A 1 1 0 ${largeArcFlag} 1 ${Math.cos(2 * Math.PI * percent)} ${Math.sin(2 * Math.PI * percent)} L 0 0`;
     return (
-      <svg viewBox="-1 -1 2 2" className="activity-analysis-pie-chart">
+      <svg className="activity-analysis-pie-chart" viewBox="-1 -1 2 2">
         <path d={pathData} fill="#348fdf" />
       </svg>
     );
@@ -252,13 +252,13 @@ export default class ClassroomActivity extends React.Component {
 
   lessonCompletedOrLaunch = () => {
     if (this.props.data.completed === 't') {
-      return <a className="report-link" target="_blank" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`}>View Report</a>;
+      return <a className="report-link" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`} target="_blank">View Report</a>;
     }
     if (this.props.data.studentCount === 0) {
-      return <a onClick={this.noStudentsWarning} id="launch-lesson">{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>;
+      return <a id="launch-lesson" onClick={this.noStudentsWarning}>{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>;
     }
     if (this.props.data.started) {
-      return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} className="resume-lesson">Resume Lesson</a>;
+      return <a className="resume-lesson" href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`}>Resume Lesson</a>;
     }
     return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
   }
@@ -291,10 +291,10 @@ export default class ClassroomActivity extends React.Component {
   renderModal = () => {
     if (this.state.showModal) {
       return (<PreviewOrLaunchModal
-        lessonID={this.activityId()}
         classroomUnitId={this.classroomUnitId()}
         closeModal={this.closeModal}
         completed={this.props.data.completed}
+        lessonID={this.activityId()}
       />);
     }
   }
@@ -313,7 +313,7 @@ export default class ClassroomActivity extends React.Component {
       endRow = styles.endRow;
     }
     return (
-      <div className="row activity" style={this.props.activityReport ? Object.assign({}, styles.row, { cursor: 'pointer', }) : styles.row} onClick={this.props.activityReport ? this.urlForReport : null}>
+      <div className="row activity" onClick={this.props.activityReport ? this.urlForReport : null} style={this.props.activityReport ? Object.assign({}, styles.row, { cursor: 'pointer', }) : styles.row}>
         <div className="starting-row">
           <div className="cell">
             <div className={`pull-left icon-wrapper ${this.icon()}`} />

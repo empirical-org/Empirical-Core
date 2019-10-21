@@ -44,15 +44,15 @@ class SentenceFragments extends React.Component {
             <button className="button is-primary">Create a New Sentence Fragment</button>
           </Link>
           <ArchivedButton
+            lessons={false}
             showOnlyArchived={this.state.showOnlyArchived}
             toggleShowArchived={this.toggleShowArchived}
-            lessons={false}
           />
           <p className="menu-label">Sentence Fragments</p>
           <QuestionList
+            basePath={'sentence-fragments'}
             questions={sentenceFragments || []}
             showOnlyArchived={this.state.showOnlyArchived}
-            basePath={'sentence-fragments'}
           />
         </div>
       </section>

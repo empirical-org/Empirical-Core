@@ -33,13 +33,13 @@ class NewFocusPointsContainer extends Component {
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
+          diagnosticQuestions={this.props.diagnosticQuestions}
+          fillInBlank={this.props.fillInBlank}
           itemLabel="Focus Point"
           onSubmit={this.submitFocusPointForm}
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
-          diagnosticQuestions={this.props.diagnosticQuestions}
-          fillInBlank={this.props.fillInBlank}
           states={states}
         />
         {this.props.children}

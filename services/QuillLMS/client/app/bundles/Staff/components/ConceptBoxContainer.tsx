@@ -75,7 +75,6 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
         query={gql(conceptQuery(conceptID))}
       >
         {({ loading, error, data }) => {
-          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const concept:QueryResult = data.concept;
@@ -83,10 +82,10 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
             return (
               <div className="concept-box-container">
                 <ConceptBox
-                  concept={concept}
-                  levelNumber={levelNumber}
-                  finishEditingConcept={finishEditingConcept}
                   closeConceptBox={closeConceptBox}
+                  concept={concept}
+                  finishEditingConcept={finishEditingConcept}
+                  levelNumber={levelNumber}
                 />
               </div>
             )
@@ -94,10 +93,10 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
             return (
               <div className="concept-box-container">
                 <ArchivedConceptBox
-                  concept={concept}
-                  levelNumber={levelNumber}
-                  finishEditingConcept={finishEditingConcept}
                   closeConceptBox={closeConceptBox}
+                  concept={concept}
+                  finishEditingConcept={finishEditingConcept}
+                  levelNumber={levelNumber}
                 />
               </div>
             )

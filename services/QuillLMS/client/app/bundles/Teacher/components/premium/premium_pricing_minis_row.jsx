@@ -59,29 +59,29 @@ export default class extends React.Component {
         <div className="col-md-4">
           <TeacherPricingMini
             {...this.props}
-            showPurchaseModal={this.showPurchaseModal}
             hidePurchaseModal={this.hidePurchaseModal}
+            showPurchaseModal={this.showPurchaseModal}
             userIsSignedIn={this.state.userIsSignedIn}
           />
         </div>
         <div className="col-md-4">
           <SchoolPricingMini
             {...this.props}
-            userIsSignedIn={this.state.userIsSignedIn}
-            showPurchaseModal={this.showPurchaseModalForSchoolPurchase}
             hidePurchaseModal={this.hidePurchaseModal}
+            showPurchaseModal={this.showPurchaseModalForSchoolPurchase}
+            userIsSignedIn={this.state.userIsSignedIn}
           />
         </div>
         <PremiumConfirmationModal
-          show={this.state.showPremiumConfirmationModal}
           hideModal={this.hidePremiumConfirmationModal}
+          show={this.state.showPremiumConfirmationModal}
           subscription={this.state.subscriptionStatus}
         />
         <PurchaseModal
-          show={this.state.showPurchaseModal}
-          subscriptionType={this.state.subscriptionType}
           hideModal={this.hidePurchaseModal}
           lastFour={this.props.lastFour}
+          show={this.state.showPurchaseModal}
+          subscriptionType={this.state.subscriptionType}
           updateSubscriptionStatus={this.updateSubscriptionStatus}
         />
       </div>

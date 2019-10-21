@@ -57,9 +57,9 @@ export default class Stage2 extends React.Component {
     } = this.props
     return (<ReviewActivities
       activities={selectedActivities}
-      toggleActivitySelection={toggleActivitySelection}
       assignActivityDueDate={assignActivityDueDate}
       dueDates={dueDates}
+      toggleActivitySelection={toggleActivitySelection}
     />)
   }
 
@@ -67,10 +67,11 @@ export default class Stage2 extends React.Component {
     const { timesSubmitted, } = this.state
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
-      unitName={unitName}
-      updateUnitName={updateUnitName}
+      nameError={errorMessage ? errorMessage.name : null}
       nameError={errorMessage ? errorMessage.name : null}
       timesSubmitted={timesSubmitted}
+      unitName={unitName}
+      updateUnitName={updateUnitName}
     />)
   }
 
@@ -82,19 +83,19 @@ export default class Stage2 extends React.Component {
       classrooms,
       fetchClassrooms
     } = this.props
-    return <AssignStudents
-      user={user}
+    return (<AssignStudents
       classrooms={classrooms}
+      fetchClassrooms={fetchClassrooms}
       toggleClassroomSelection={toggleClassroomSelection}
       toggleStudentSelection={toggleStudentSelection}
-      fetchClassrooms={fetchClassrooms}
-    />
+      user={user}
+    />)
   }
 
   assignButton() {
     return this.state.loading
-      ? <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
-      : <button id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign pack to classes</button>;
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign">Assigning... <ButtonLoadingIndicator /></button>
+      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.finish}>Assign pack to classes</button>;
   }
 
   render() {
@@ -111,9 +112,9 @@ export default class Stage2 extends React.Component {
         <ScrollToTop />
         <AssignmentFlowNavigation
           button={this.assignButton()}
-          unitTemplateName={unitTemplateName}
-          unitTemplateId={unitTemplateId}
           isFromDiagnosticPath={isFromDiagnosticPath}
+          unitTemplateId={unitTemplateId}
+          unitTemplateName={unitTemplateName}
         />
         <div className="name-and-assign-activity-pack container">
           <h1 className="assign-header">Assign {assignName}</h1>

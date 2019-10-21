@@ -13,10 +13,10 @@ QuestionSubmissionsList
 import TextEditor from '../shared/textEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
-import { Feedback } from 'quill-component-library/dist/componentLibrary' 
+import { Feedback } from 'quill-component-library/dist/componentLibrary'
 import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg' 
+const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 interface ListBlankProps {
   data: QuestionData;
@@ -43,21 +43,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
   }
 
-  toObject(answers) {
-    const arr = answers.split(',')
-    const objectifiedArr = {};
-    for (var i = 0; i < arr.length; ++i) {
-      objectifiedArr[i] = arr[i];
-    }
-    return objectifiedArr;
-  }
-
   componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       const submittedAnswers = {};
       const splitAnswers = nextProps.submissions[student].data.split(", ");
-      for (let i = 0; i < splitAnswers.length; i++) {
+      for (let i = 0; i < splitAnswers.length; i+=1) {
         submittedAnswers[i] = splitAnswers[i]
       }
       this.setState({
@@ -74,6 +65,15 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         this.setState({answers: this.toObject(nextProps.submissions[student].data)})
       }
     }
+  }
+
+  toObject(answers) {
+    const arr = answers.split(',')
+    const objectifiedArr = {};
+    for (var i = 0; i < arr.length; i+=1) {
+      objectifiedArr[i] = arr[i];
+    }
+    return objectifiedArr;
   }
 
   customChangeEvent(e, index){
@@ -110,10 +110,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>
-      </div>
+      </div>)
     }
   }
 
@@ -130,12 +130,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     }
       return (
         <li key={`li-${index}`}>
-        <span className='li-number'>{index + 1}</span> {text}
+          <span className='li-number'>{index + 1}</span> {text}
         </li>);
-      }) : <span/>
+      }) : <span />
     return (
       <ul className="class-answer-list">
-      {selected}
+        {selected}
       </ul>
     );
   }
@@ -147,7 +147,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (answers) {
         // counts the number of truthy answers or adds to empty answer count
         for (let key in answers) {
-          answers[key] ? nonBlankAnswers++ : null
+          answers[key] ? nonBlankAnswers+=1 : null
         }
     }
     return nonBlankAnswers
@@ -166,12 +166,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       <div className={`list-component`} key={`${i}`}>
         <span className="list-number">{`${i + 1}:`}</span>
         <TextEditor
-          index={i}
-          value={this.state.answers[i]}
+          disabled={disabled}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
-          disabled={disabled}
-          />
+          index={i}
+          value={this.state.answers[i]}
+        />
       </div>
     )
   }
@@ -180,7 +180,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     // let { a, b }: { a: string, b: number } = o;
     const nBlanks = this.props.data.play.nBlanks;
     const textEditorArr : JSX.Element[]  = [];
-    for (let i = 0; i < nBlanks; i++) {
+    for (let i = 0; i < nBlanks; i+=1) {
         textEditorArr.push(
         this.textEditListComponents(i)
       )
@@ -188,7 +188,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (!this.props.projector) {
       return (
         <div className="list-blanks">
-        {textEditorArr}
+          {textEditorArr}
         </div>
       )
     }
@@ -233,26 +233,26 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
-      let instructionsRow = this.props.data.play.instructions ? (<Feedback 
+      let feedbackRow = this.state.submitted ? <FeedbackRow /> : null;
+      let instructionsRow = this.props.data.play.instructions ? (<Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
         feedbackType="default"
-        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}}></p>)}
       />) : null;
-      let submitButton = !this.props.projector ? <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/> : null;
+      let submitButton = !this.props.projector ? <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission} /> : null;
       return (
         <div>
-        <h1 className="prompt">
-          <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
-        </h1>
-        {instructionsRow}
-        {this.listBlanks()}
-        <div>
-          <div className='feedback-and-button-container'>
-            {errorArea}
-            <div style={{marginBottom: 20}}>{feedbackRow}</div>
-            {submitButton}
+          <h1 className="prompt">
+            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}} />
+          </h1>
+          {instructionsRow}
+          {this.listBlanks()}
+          <div>
+            <div className='feedback-and-button-container'>
+              {errorArea}
+              <div style={{marginBottom: 20}}>{feedbackRow}</div>
+              {submitButton}
+            </div>
           </div>
-        </div>
         </div>
       )
     }

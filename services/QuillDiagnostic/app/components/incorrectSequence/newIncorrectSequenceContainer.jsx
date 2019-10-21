@@ -29,15 +29,15 @@ class NewIncorrectSequencesContainer extends Component {
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
+          diagnosticQuestions
+          fillInBlank
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
-          questions={this.props.questions}
           questionID={this.props.params.questionID}
-          fillInBlank
+          questions={this.props.questions}
           sentenceFragments
-          diagnosticQuestions
           states
+          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
         />
         {this.props.children}
       </div>

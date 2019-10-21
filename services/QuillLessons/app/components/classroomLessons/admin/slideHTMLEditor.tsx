@@ -12,13 +12,14 @@ class MultipleTextEditor extends React.Component<any, any> {
     super(props);
     const richButtonsPlugin = createRichButtonsPlugin();
     const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
-      <a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
+      (<a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span
           className={`${className}`}
+          style={{ color: isActive ? '#990000' : '#777' }}
           title={title ? title : label}
-          style={{ color: isActive ? '#990000' : '#777' }}>{title}
+        >{title}
         </span>
-      </a>;
+      </a>);
     const {
       ItalicButton, BoldButton, UnderlineButton,
       BlockquoteButton, OLButton, ULButton, H4Button, MonospaceButton
@@ -81,10 +82,10 @@ class MultipleTextEditor extends React.Component<any, any> {
           <div className="content">
             <Editor
               editorState={this.state.text}
-              onChange={this.handleTextChange}
-              plugins={this.state.plugins}
-              onFocus={() => this.setState({ hasFocus: true, })}
               onBlur={() => this.setState({ hasFocus: false, })}
+              onChange={this.handleTextChange}
+              onFocus={() => this.setState({ hasFocus: true, })}
+              plugins={this.state.plugins}
             />
           </div>
         </div>

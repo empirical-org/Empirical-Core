@@ -30,7 +30,7 @@ export default React.createClass({
   overviewMinis() {
     const minis = _.map(this.props.data, (overviewObj) => {
       if (overviewObj.results && overviewObj.results !== 'insufficient data') {
-        return <OverviewMini overviewObj={overviewObj} key={overviewObj.header} />;
+        return <OverviewMini key={overviewObj.header} overviewObj={overviewObj} />;
       }
     });
     return _.compact(minis);
@@ -44,7 +44,7 @@ export default React.createClass({
 
   teacherGuide() {
     if (this.state.displayTeacherGuide) {
-      return <TeacherGuide dashboardMini key="teacher-guide-displayed" hideTeacherGuide={this.hideTeacherGuide} isDisplayed={false} />;
+      return <TeacherGuide dashboardMini hideTeacherGuide={this.hideTeacherGuide} isDisplayed={false} key="teacher-guide-displayed" />;
     }
   },
 

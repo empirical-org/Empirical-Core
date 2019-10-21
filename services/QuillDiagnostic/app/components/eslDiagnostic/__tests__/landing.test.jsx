@@ -9,8 +9,8 @@ describe('Landing component', () => {
       const wrapper = mount(
         <Landing
           begin={() => null}
-          resumeActivity={() => null}
           language='spanish'
+          resumeActivity={() => null}
         />
       );
       expect(wrapper.find('.student-begin').text()).toBe('Begin / Comienzo');
@@ -21,8 +21,8 @@ describe('Landing component', () => {
       const wrapper = mount(
         <Landing
           begin={mockBegin}
-          resumeActivity={() => null}
           language='spanish'
+          resumeActivity={() => null}
         />
       );
       wrapper.find('.student-begin').simulate('click');
@@ -35,9 +35,9 @@ describe('Landing component', () => {
       const wrapper = mount(
         <Landing
           begin={() => null}
-          session={'anything'}
-          resumeActivity={() => null}
           language='spanish'
+          resumeActivity={() => null}
+          session={'anything'}
         />
       );
       expect(wrapper.find('.student-begin').text()).toBe('Resume / Reanudo');
@@ -48,9 +48,9 @@ describe('Landing component', () => {
       const wrapper = mount(
         <Landing
           begin={() => null}
-          session={'anything'}
-          resumeActivity={mockResumeActivity}
           language='spanish'
+          resumeActivity={mockResumeActivity}
+          session={'anything'}
         />
       );
       wrapper.find('.student-begin').simulate('click');

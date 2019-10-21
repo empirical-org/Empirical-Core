@@ -228,10 +228,10 @@ export default class ActivityPacks extends React.Component {
       content = <EmptyProgressReport missing="activities" />;
     } else {
       content = (<Units
-        report={Boolean(true)}
         activityReport={Boolean(true)}
-        data={this.state.units}
         activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
+        data={this.state.units}
+        report={Boolean(true)}
       />);
     }
 
@@ -242,8 +242,8 @@ export default class ActivityPacks extends React.Component {
         <div className="classroom-selector">
           <p>Select a classroom:</p>
           <ItemDropdown
-            items={classrooms.filter(Boolean)}
             callback={this.switchClassrooms}
+            items={classrooms.filter(Boolean)}
             selectedItem={selectedClassroom}
           />
         </div>

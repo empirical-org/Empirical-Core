@@ -228,14 +228,14 @@ export default React.createClass({
       return <LoadingIndicator />;
     } else {
       content = (<Units
-        updateDueDate={this.updateDueDate}
-        editUnit={this.props.actions.editUnit}
-        hideUnitActivity={this.hideUnitActivity}
-        hideUnit={this.hideUnit}
-        data={this.state.units}
-        updateMultipleDueDates={this.updateMultipleDueDates}
         activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
         allowSorting="true"
+        data={this.state.units}
+        editUnit={this.props.actions.editUnit}
+        hideUnit={this.hideUnit}
+        hideUnitActivity={this.hideUnitActivity}
+        updateDueDate={this.updateDueDate}
+        updateMultipleDueDates={this.updateMultipleDueDates}
       />);
     }
     const allClassroomsClassroom = { name: allClassroomKey, id: allClassroomKey, };
@@ -252,8 +252,8 @@ export default React.createClass({
         <div className="classroom-selector">
           <p>Select a classroom: </p>
           <ItemDropdown
-            items={classrooms}
             callback={this.switchClassrooms}
+            items={classrooms}
             selectedItem={selectedClassroom}
           />
         </div>
