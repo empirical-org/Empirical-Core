@@ -14,6 +14,7 @@ describe IntegrationsController do
 
       partner_content = assigns(:partner_content)
       expect(partner_content.count).to eq 1
+      expect(partner_content.first.class.to_s).to eq 'PartnerContent'
       expect(partner_content.first.content.class.to_s).to eq 'UnitTemplate'
       expect(response).to render_template 'integrations/amplify'
     end
