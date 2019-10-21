@@ -10,8 +10,8 @@ const store = createStore(studentProfile, applyMiddleware(thunk));
 export default props => (
   <Provider store={store}>
     <StudentProfile
-      router={props.router}
       classroomId={props && props.params ? props.params.classroomId : null}
+      router={props.router}
     />
   </Provider>
 );

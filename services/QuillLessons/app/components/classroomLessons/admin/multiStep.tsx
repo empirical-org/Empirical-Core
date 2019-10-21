@@ -113,11 +113,11 @@ class AdminMultistep extends React.Component<AdminMultistepProps, any>{
 
   renderStepLabels() {
     return this.state.question.play.stepLabels.concat(['']).map((sl, i) => {
-      const deleteButton = i === this.state.question.play.stepLabels.length ? <span /> : <i className="fa fa-times" style={{marginLeft: '10px', cursor: 'pointer'}} onClick={() => this.deleteStepLabel(i)}/>
-      return <div className="control" style={{display: 'flex'}} key={i}>
-        <input value={sl} onChange={(e) => this.handleStepLabelChange(e, i)} className="input" type="text" placeholder="Text input"/>
+      const deleteButton = i === this.state.question.play.stepLabels.length ? <span /> : <i className="fa fa-times" onClick={() => this.deleteStepLabel(i)} style={{marginLeft: '10px', cursor: 'pointer'}} />
+      return (<div className="control" key={i} style={{display: 'flex'}}>
+        <input className="input" onChange={(e) => this.handleStepLabelChange(e, i)} placeholder="Text input" type="text" value={sl} />
         {deleteButton}
-      </div>
+      </div>)
     })
   }
 
@@ -132,25 +132,25 @@ class AdminMultistep extends React.Component<AdminMultistepProps, any>{
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">
-            <input value={this.state.question.play.prompt} onChange={this.handlePromptChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handlePromptChange} placeholder="Text input" type="text" value={this.state.question.play.prompt} />
           </div>
         </div>
         <div className="field">
           <label className="label">Instructions (Optional)</label>
           <div className="control">
-            <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleInstructionsChange} placeholder="Text input" type="text" value={this.state.question.play.instructions} />
           </div>
         </div>
         <div className="field">
           <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
-            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleCuesChange} placeholder="Text input" type="text" value={Object.values(this.state.question.play.cues || {}).join(',')} />
           </div>
         </div>
         <div className="field">
@@ -162,10 +162,10 @@ class AdminMultistep extends React.Component<AdminMultistepProps, any>{
           <div className="control">
             <i>Copy the text below into the input field and replace the blanks.</i>
             <p style={{border: '1px dashed black', padding: '8px', margin: '5px 0px'}}>{this.state.prefilledSampleCorrectAnswer}</p>
-            <input value={this.state.question.play.sampleCorrectAnswer} onChange={this.handleSampleCorrectAnswerChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleSampleCorrectAnswerChange} placeholder="Text input" type="text" value={this.state.question.play.sampleCorrectAnswer} />
           </div>
         </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
+        <button className="button is-primary" onClick={this.save} style={{marginTop: 10}}>Save Changes</button>
       </div>
     )
   }

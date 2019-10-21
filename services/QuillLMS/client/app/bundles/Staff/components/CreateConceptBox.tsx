@@ -143,13 +143,13 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       }
       const options = possibleConcepts.map(c => {return { label: c.name, value: c.id }}).sort((a, b) => a.label.localeCompare(b.label))
       const value = options.find(opt => opt.value === concept.parent.id)
-      return <DropdownInput
-        label="Level 1"
-        value={value}
-        options={options}
+      return (<DropdownInput
         handleChange={this.changeLevel1}
         isSearchable={true}
-      />
+        label="Level 1"
+        options={options}
+        value={value}
+      />)
     } else {
       let possibleConcepts = level2Concepts
       if (levelNumber === 0 && concept.parent.id) {
@@ -162,55 +162,55 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
       } else {
         value = options.find(opt => opt.value === concept.parent.id)
       }
-      return <DropdownInput
-        label="Level 2"
-        value={value}
-        options={options}
+      return (<DropdownInput
         handleChange={this.changeLevel2}
         isSearchable={true}
-      />
+        label="Level 2"
+        options={options}
+        value={value}
+      />)
     }
   }
 
   renderLevels() {
     const { concept, } = this.state
     if (this.props.levelNumber === 2) {
-      return <div>
+      return (<div>
         <div className="concept-input-container">
           <Input
-            label='Level 2'
-            value={concept.name}
-            type='text'
             handleChange={this.renameConcept}
+            label='Level 2'
+            type='text'
+            value={concept.name}
           />
         </div>
-      </div>
+      </div>)
     } else if (this.props.levelNumber === 1) {
-      return <div>
+      return (<div>
         {this.renderDropdownInput(2)}
         <div className="concept-input-container">
           <Input
-            label='Level 1'
-            value={concept.name}
-            type='text'
             handleChange={this.renameConcept}
+            label='Level 1'
+            type='text'
+            value={concept.name}
           />
         </div>
-      </div>
+      </div>)
     } else if (this.props.levelNumber === 0) {
-      return <div>
+      return (<div>
         {this.renderDropdownInput(2)}
         {this.renderDropdownInput(1)}
         <div className="concept-input-container">
           <Input
-            label='Level 0'
-            value={concept.name}
-            type='text'
             handleChange={this.renameConcept}
+            label='Level 0'
+            type='text'
+            value={concept.name}
           />
         </div>
-        <RuleDescriptionField new={true} ruleDescription='' handleChange={this.changeDescription}/>
-      </div>
+        <RuleDescriptionField handleChange={this.changeDescription} new={true} ruleDescription='' />
+      </div>)
     }
   }
 
@@ -218,30 +218,30 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     const { levelNumber } = this.props
     const { concept } = this.state
     if (levelNumber === 2 && concept.name) {
-      return <input
+      return (<input
+        className="quill-button contained primary medium"
         type="submit"
         value={`Add New Level ${this.props.levelNumber}`}
-        className="quill-button contained primary medium"
-      />
+      />)
     } else if ((levelNumber === 1 || levelNumber === 0) && concept.parent.id) {
-      return <input
+      return (<input
+        className="quill-button contained primary medium"
         type="submit"
         value={`Add New Level ${this.props.levelNumber}`}
-        className="quill-button contained primary medium"
-      />
+      />)
     }
   }
 
   renderChangeLogModal(createConcept) {
     if (this.state.showChangeLogModal) {
       const { concept, } = this.state
-      return <ChangeLogModal
-        concept={concept}
-        changedFields={[{ fieldName: 'new' }]}
-        levelNumber={this.props.levelNumber}
+      return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
+        changedFields={[{ fieldName: 'new' }]}
+        concept={concept}
+        levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(createConcept, changeLogs)}}
-      />
+      />)
     }
   }
 
@@ -252,7 +252,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
         {(createConcept, {}) => (
           <div className={`concept-box create-concept-box create-concept-box-level-${levelNumber}`}>
             {this.renderChangeLogModal(createConcept)}
-            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+            <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <h1>Create a Level {levelNumber}</h1>
               </div>

@@ -13,7 +13,7 @@ export default React.createClass({
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i className="fa fa-close" /></span></button>
+              <button aria-label="Close" className="close" data-dismiss="modal" type="button"><span aria-hidden="true"><i className="fa fa-close" /></span></button>
               <h4 className="modal-title"><strong>Your reports are on the way!</strong></h4>
             </div>
             <div className="modal-body csv-email-modal">
@@ -22,7 +22,7 @@ export default React.createClass({
               <p>If you do not receive an email within 10 minutes, please check your spamfolder. You may also change the email we have on file by visiting <strong><a href="https://www.quill.org/teachers/my_account">My Account.</a></strong></p>
             </div>
             <div className="modal-footer">
-              <button type="button" className="button-green" data-dismiss="modal">Got It</button>
+              <button className="button-green" data-dismiss="modal" type="button">Got It</button>
             </div>
           </div>
         </div>

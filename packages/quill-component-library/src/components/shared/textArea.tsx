@@ -125,18 +125,18 @@ export class TextArea extends React.Component<InputProps, InputState> {
       if (errorAcknowledged) {
         return (<div
           className={`error ${sharedClasses}`}
-          ref={node => this.node = node}
           onClick={this.activateInput}
+          ref={node => this.node = node}
         >
           <label>{label}</label>
           <textarea
-            id={id}
-            ref={(input) => { this.input = input; }}
-            onChange={handleChange}
-            value={value}
-            placeholder={placeholder}
             disabled={disabled}
+            id={id}
             maxLength={characterLimit ? characterLimit : 10000}
+            onChange={handleChange}
+            placeholder={placeholder}
+            ref={(input) => { this.input = input; }}
+            value={value}
           />
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
@@ -151,11 +151,11 @@ export class TextArea extends React.Component<InputProps, InputState> {
             <label>{label}</label>
             <textarea
               id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              placeholder={placeholder}
               maxLength={characterLimit ? characterLimit : 10000}
+              onChange={handleChange}
+              placeholder={placeholder}
+              ref={(input) => { this.input = input; }}
+              value={value}
             />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
@@ -171,12 +171,12 @@ export class TextArea extends React.Component<InputProps, InputState> {
         >
           <label>{label}</label>
           <textarea
-            id={id}
-            ref={(input) => { this.input = input; }}
-            onFocus={this.activateInput}
-            value={value}
             disabled={disabled}
+            id={id}
             maxLength={characterLimit ? characterLimit : 10000}
+            onFocus={this.activateInput}
+            ref={(input) => { this.input = input; }}
+            value={value}
           />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
@@ -190,12 +190,12 @@ export class TextArea extends React.Component<InputProps, InputState> {
           <label>{label}</label>
           <textarea
             id={id}
-            ref={(input) => { this.input = input; }}
-            onChange={handleChange}
-            value={value}
-            placeholder={placeholder}
-            onKeyDown={this.handleTab}
             maxLength={characterLimit ? characterLimit : 10000}
+            onChange={handleChange}
+            onKeyDown={this.handleTab}
+            placeholder={placeholder}
+            ref={(input) => { this.input = input; }}
+            value={value}
           />
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}

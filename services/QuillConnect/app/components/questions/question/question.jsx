@@ -98,7 +98,7 @@ export default React.createClass({
         </ul>
         {this.renderFeedback()}
         <div className="control">
-          <textarea className="textarea" ref="response" placeholder="Textarea" onChange={this.handleChange} />
+          <textarea className="textarea" onChange={this.handleChange} placeholder="Textarea" ref="response" />
         </div>
         <div className="button-group">
           <button className={"button is-outlined is-primary " + this.toggleDisabled()} onClick={this.checkAnswer}>Check Your Answer</button>

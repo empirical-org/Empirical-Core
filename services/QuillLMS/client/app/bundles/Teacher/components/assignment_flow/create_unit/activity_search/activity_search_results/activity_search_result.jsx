@@ -13,25 +13,25 @@ export default React.createClass({
     ? (<td className="activity_name">
       <a
         className="activity_link"
+        data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.topic_name}</p><p>${this.props.data.description}</p>`}
         href={this.props.data.anonymous_path}
         target="_new"
-        data-tip={`<h1>${this.props.data.name}</h1><p>Tool: ${this.props.data.activity_classification.alias}</p><p>${this.props.data.section.name}</p><p>${this.props.data.topic_name}</p><p>${this.props.data.description}</p>`}
       >
         {this.props.data.name}
-        <ReactTooltip html multiline className="react-tooltip-custom" type="light" effect="solid" />
+        <ReactTooltip className="react-tooltip-custom" effect="solid" html multiline type="light" />
       </a>
     </td>)
     : <span />;
     return (
-      <tr onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop} className={`tooltip-trigger ${selectedClass}`}>
+      <tr className={`tooltip-trigger ${selectedClass}`} onMouseEnter={this.tooltipTrigger} onMouseLeave={this.tooltipTriggerStop}>
         <td>{this.props.data.activity_category ? this.props.data.activity_category.name : ''}</td>
         <td>
           <div className={`icon-${this.props.data.activity_classification.id}-green-no-border`} />
         </td>
         {toolTip}
         <td>
-          <input type="checkbox" checked={this.props.selected} onChange={this.callToggleActivitySelection} id={`activity_${this.props.data.id}`} data-model-id={this.props.data.id} className="css-checkbox" />
-          <label htmlFor={`activity_${this.props.data.id}`} id={`activity_${this.props.data.id}`} className="css-label" />
+          <input checked={this.props.selected} className="css-checkbox" data-model-id={this.props.data.id} id={`activity_${this.props.data.id}`} onChange={this.callToggleActivitySelection} type="checkbox" />
+          <label className="css-label" htmlFor={`activity_${this.props.data.id}`} id={`activity_${this.props.data.id}`} />
         </td>
       </tr>
     );

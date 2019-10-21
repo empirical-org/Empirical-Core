@@ -12,11 +12,11 @@ describe('InviteCoteacherModal component', () => {
   describe('if a coteacher gets passed', () => {
     const wrapper = shallow(
       <InviteCoteacherModal
-        close={() => {}}
-        onSuccess={() => {}}
         classroom={classroomWithStudents}
         classrooms={classroomProps}
+        close={() => {}}
         coteacher={classroomWithStudents.teachers[1]}
+        onSuccess={() => {}}
       />
     );
 
@@ -37,10 +37,10 @@ describe('InviteCoteacherModal component', () => {
   describe('if a coteacher does not get passed', () => {
     const wrapper = shallow(
       <InviteCoteacherModal
-        close={() => {}}
-        onSuccess={() => {}}
         classroom={classroomWithStudents}
         classrooms={classroomProps}
+        close={() => {}}
+        onSuccess={() => {}}
       />
     );
 

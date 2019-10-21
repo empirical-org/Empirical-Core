@@ -70,14 +70,14 @@ export default class NavButtonGroup extends React.Component {
 				// don't show recommendations unless it is a diagnostic
 				return
 			} else {
-				return <button key={name} type="button" onClick={this.buttonBuilder(name)} className={`btn btn-secondary ${activeState}`}>{name}</button>
+				return <button className={`btn btn-secondary ${activeState}`} key={name} onClick={this.buttonBuilder(name)} type="button">{name}</button>
 			}
 		})
 	}
 
 	render() {
 		return (
-  <div id='report-button-group' className="btn-group" role="group" aria-label="Basic example">
+  <div aria-label="Basic example" className="btn-group" id='report-button-group' role="group">
     {this.buttons()}
   </div>
 		);

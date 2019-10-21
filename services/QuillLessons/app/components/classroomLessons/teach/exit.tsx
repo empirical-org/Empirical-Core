@@ -21,27 +21,27 @@ class ExitSlide extends React.Component<any, any> {
   renderAssignmentOptionsAndButton() {
     const { followUpActivityName, students } = this.props;
     if (this.props.completed) {
-      return <div className='assign-button-container'>
+      return (<div className='assign-button-container'>
         <button onClick={this.goToReports}>Exit Lesson | View Report</button>
-      </div>
+      </div>)
     } else {
       if (followUpActivityName && students && Object.keys(students).length > 0) {
-        return <div>
+        return (<div>
           <AssignmentOptions
-            numberOfStudents={students ? Object.keys(students).length : 0}
-            updateSelectedOptionKey={this.props.updateSelectedOptionKey}
-            selectedOptionKey={this.props.selectedOptionKey}
             followUpActivityName={followUpActivityName}
+            numberOfStudents={students ? Object.keys(students).length : 0}
+            selectedOptionKey={this.props.selectedOptionKey}
+            updateSelectedOptionKey={this.props.updateSelectedOptionKey}
           />
           <AssignButton
-            selectedOptionKey={this.props.selectedOptionKey}
             assignAction={this.props.finishLesson}
+            selectedOptionKey={this.props.selectedOptionKey}
           />
-        </div>
+        </div>)
       } else if (!followUpActivityName && !this.props.data.preview) {
-        return <div className='assign-button-container'>
+        return (<div className='assign-button-container'>
           <button onClick={this.props.finishLesson}>Mark Lesson As Complete</button>
-        </div>
+        </div>)
       }
     }
   }
@@ -49,11 +49,11 @@ class ExitSlide extends React.Component<any, any> {
   renderFlaggedStudents() {
     const {flaggedStudents, students} = this.props
     if (students && Object.keys(students).length > 0)
-    return  <FlaggedStudents
+    return  (<FlaggedStudents
       flaggedStudents={flaggedStudents}
       students={students}
       toggleStudentFlag={this.props.toggleStudentFlag}
-    />
+    />)
   }
 
   renderAssignedSection() {
@@ -71,8 +71,8 @@ class ExitSlide extends React.Component<any, any> {
           </h1>
         </div>
         <ScriptComponent
-          script={this.props.script}
           onlyShowHeaders={this.props.onlyShowHeaders}
+          script={this.props.script}
           updateToggledHeaderCount={this.props.updateToggledHeaderCount}
         />
         {this.renderFlaggedStudents()}

@@ -79,7 +79,7 @@ class ActivityContainer extends React.Component<AppProps, any> {
     return (
       <div>
         <h1 className="article-title">Now Complete The Following Sentences</h1>
-        <Questions questions={questions} key={questionSetId}/>
+        <Questions key={questionSetId} questions={questions} />
       </div>
     )
 
@@ -118,8 +118,8 @@ class ActivityContainer extends React.Component<AppProps, any> {
               {this.renderSubnav()}
               <div className="container">
                 <div className="article-container">
-                  <VocabularyWords vocabWords={data.activity.vocabularyWords}/>
-                  <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} title={data.activity.title} markAsRead={this.props.markArticleAsRead} fontSize={this.props.activities.fontSize} />
+                  <VocabularyWords vocabWords={data.activity.vocabularyWords} />
+                  <Article activity_id={parseInt(this.props.activity_id)} article={data.activity.article} fontSize={this.props.activities.fontSize} markAsRead={this.props.markArticleAsRead} title={data.activity.title} />
                   {this.renderQuestions(data.activity, this.props.activities.questionSetId, this.props.activities.readArticle)}
                 </div>
               </div>

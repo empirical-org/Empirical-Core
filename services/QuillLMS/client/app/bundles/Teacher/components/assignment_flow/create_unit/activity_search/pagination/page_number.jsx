@@ -32,7 +32,7 @@
 
 	render: function () {
 		return (
-  <li onClick={this.clickNumber} className={this.state.classy}>
+  <li className={this.state.classy} onClick={this.clickNumber}>
     <span>{this.props.number}</span>
   </li>
 		);

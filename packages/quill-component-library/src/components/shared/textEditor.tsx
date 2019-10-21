@@ -63,21 +63,21 @@ class TextEditor extends React.Component <any, any> {
       <div className="card is-fullwidth">
         <header className="card-header">
           <div className="myToolbar" style={{margin: '1em'}}>
-            <H3Button/>
-            <BoldButton/>
-            <ItalicButton/>
-            <UnderlineButton/>
-            <BlockquoteButton/>
-            <ULButton/>
+            <H3Button />
+            <BoldButton />
+            <ItalicButton />
+            <UnderlineButton />
+            <BlockquoteButton />
+            <ULButton />
           </div>
         </header>
         <div className="card-content">
           <div className="content landing-page-html-editor">
             <Editor
+              blockRenderMap={customRenderMap}
               editorState={this.state.text}
               onChange={this.handleTextChange}
               plugins={[richButtonsPlugin]}
-              blockRenderMap={customRenderMap}
             />
           </div>
         </div>

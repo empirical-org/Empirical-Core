@@ -273,10 +273,10 @@ class ScoreAnalysis extends Component {
     const innerDivStyle = {display: 'flex', alignItems: 'center', marginRight: '10px'}
     const labelStyle = {marginRight: '10px'}
     const flagValue = this.state.flag ? this.state.flag : 'all'
-    return <div style={{display: 'flex', marginBottom: '15px'}}>
+    return (<div style={{display: 'flex', marginBottom: '15px'}}>
       <div style={innerDivStyle}>
         <label style={labelStyle}>Question Type:</label>
-        <select value={this.getAbbreviationFromQuestionType(this.state.questionType)} onChange={this.updateQuestionTypeFilter}>
+        <select onChange={this.updateQuestionTypeFilter} value={this.getAbbreviationFromQuestionType(this.state.questionType)}>
           <option value="all">All</option>
           <option value="sc">Sentence Combining</option>
           <option value="sf">Sentence Fragment</option>
@@ -285,7 +285,7 @@ class ScoreAnalysis extends Component {
       </div>
       <div style={innerDivStyle}>
         <label style={labelStyle}>Health Status:</label>
-        <select value={this.getAbbreviationFromStatus(this.state.status)} onChange={this.updateStatusFilter}>
+        <select onChange={this.updateStatusFilter} value={this.getAbbreviationFromStatus(this.state.status)}>
           <option value="all">All</option>
           <option value="vw">Very Weak</option>
           <option value="w">Weak</option>
@@ -295,7 +295,7 @@ class ScoreAnalysis extends Component {
       </div>
       <div style={innerDivStyle}>
         <label style={labelStyle}>Question Flag:</label>
-        <select value={flagValue} onChange={this.updateFlag}>
+        <select onChange={this.updateFlag} value={flagValue}>
           <option value="all">All</option>
           <option value="archived">Archived</option>
           <option value="alpha">Alpha</option>
@@ -303,7 +303,7 @@ class ScoreAnalysis extends Component {
           <option value="production">Production</option>
         </select>
       </div>
-    </div>
+    </div>)
   }
 
   render() {
@@ -316,7 +316,7 @@ class ScoreAnalysis extends Component {
             <thead>
               <tr>
                 <th onClick={this.clickSort.bind(this, 'questionType')}>Type</th>
-                <th width="600px" onClick={this.clickSort.bind(this, 'prompt')}>Prompt</th>
+                <th onClick={this.clickSort.bind(this, 'prompt')} width="600px">Prompt</th>
                 <th onClick={this.clickSort.bind(this, 'responses')}>Responses</th>
                 <th onClick={this.clickSort.bind(this, 'weakResponses')}>Weak Responses</th>
                 <th onClick={this.clickSort.bind(this, 'status')}>Status</th>

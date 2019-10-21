@@ -17,7 +17,7 @@ export default React.createClass({
       return acc;
     }, 0);
     const extant = this.props.data.incomplete ? this.props.data.incomplete[0] : this.props.data.complete[0];
-    const activities = compacted.map(ele => <StudentProfileActivities key={ele.header} data={ele.data} header={ele.header} count={count} finished={ele.complete} />);
+    const activities = compacted.map(ele => <StudentProfileActivities count={count} data={ele.data} finished={ele.complete} header={ele.header} key={ele.header} />);
     return (
       <section>
         <h3 className="section-header">{extant.unit_name}</h3>

@@ -33,7 +33,7 @@ export default () => (
         if (error) return <p>Error :(</p>;
         const notifications:Notification[] = data.currentUser.notifications;
         return (
-          <NotificationsCard notifications={notifications}/>
+          <NotificationsCard notifications={notifications} />
         )
       }}
     </Query>

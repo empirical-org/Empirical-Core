@@ -68,14 +68,14 @@ class TestQuestion extends React.Component {
       return (
         <div className="test-question-container">
           <PlayQuestion
-            currentQuestion={currentQuestion}
+            activity={{title: 'Test Question', concepts: {}, description: ''}}
             answeredQuestions={answeredQuestions}
+            checkAnswer={this.checkAnswer}
+            concepts={this.props.concepts}
+            conceptsFeedback={this.props.conceptsFeedback}
+            currentQuestion={currentQuestion}
             goToNextQuestion={this.reset}
             unansweredQuestions={unansweredQuestions}
-            activity={{title: 'Test Question', concepts: {}, description: ''}}
-            checkAnswer={this.checkAnswer}
-            conceptsFeedback={this.props.conceptsFeedback}
-            concepts={this.props.concepts}
           />
         </div>
       );

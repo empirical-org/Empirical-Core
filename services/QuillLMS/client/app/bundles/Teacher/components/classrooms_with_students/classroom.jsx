@@ -36,11 +36,11 @@
     }
     return (
       <input
-        type='checkbox'
         checked={allSelected ? 'checked' : null}
         className='css-checkbox classroom_checkbox'
         id={'classroom_checkbox_' + this.props.classroom.id}
         onChange={this.handleClassroomSelection}
+        type='checkbox'
       />
       );
   },
@@ -84,13 +84,13 @@
 
   render: function() {
     var studentList = this.props.students.map(function(student) {
-      return <Student
-        key={`c${this.props.classroom.id}s${student.id}`}
-        student={student}
+      return (<Student
         classroom={this.props.classroom}
         handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
+        key={`c${this.props.classroom.id}s${student.id}`}
+        student={student}
         toggleStudentSelection={this.props.toggleStudentSelection}
-      />;
+      />);
     }, this);
 
     return (

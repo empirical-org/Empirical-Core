@@ -32,16 +32,16 @@ export default class LessonPlannerRouter extends React.Component{
 
 	render() {
 		return (
-  <Router Router history={browserHistory}>
-    <Route path="/teachers/classrooms/activity_planner" component={LessonPlannerContainer}>
-      <IndexRoute component={LessonPlanner}/>
-      <Route path="lessons" component={ClassroomLessonsPlanner}/>
-      <Route path="lessons/:classroomId" component={ClassroomLessonsPlanner}/>
-      <Route path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" component={ChooseClassroomLesson}/>
-      <Route path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} />
-      <Route path="units/:unitId/students/edit" component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} />
-      <Route path="units/:unitId/activities/edit(/:unitName)" component={EditUnitActivitiesContainer}/>
-      <Route path="no_units" component={EmptyAssignedUnits}/>
+  <Router history={browserHistory} Router>
+    <Route component={LessonPlannerContainer} path="/teachers/classrooms/activity_planner">
+      <IndexRoute component={LessonPlanner} />
+      <Route component={ClassroomLessonsPlanner} path="lessons" />
+      <Route component={ClassroomLessonsPlanner} path="lessons/:classroomId" />
+      <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" />
+      <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
+      <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="units/:unitId/students/edit" />
+      <Route component={EditUnitActivitiesContainer} path="units/:unitId/activities/edit(/:unitName)" />
+      <Route component={EmptyAssignedUnits} path="no_units" />
     </Route>
   </Router>
 		);

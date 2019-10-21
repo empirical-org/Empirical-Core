@@ -20,29 +20,29 @@ export default React.createClass({
       <div className="row activity-page-dropdown-wrapper scorebook-filters">
         <div style={inputDropdownStyle}>
           <DropdownFilter
-            options={this.props.classroomFilters}
-            selectOption={this.props.selectClassroom}
-            selectedOption={this.props.selectedClassroom}
-            placeholder={'Select a Classroom'}
             icon="fa-group"
+            options={this.props.classroomFilters}
+            placeholder={'Select a Classroom'}
+            selectedOption={this.props.selectedClassroom}
+            selectOption={this.props.selectClassroom}
           />
         </div>
         <div style={inputDropdownStyle}>
           <DropdownFilter
-            options={this.props.unitFilters}
-            selectOption={this.props.selectUnit}
-            selectedOption={this.props.selectedUnit}
             icon="fa-book"
+            options={this.props.unitFilters}
+            selectedOption={this.props.selectedUnit}
+            selectOption={this.props.selectUnit}
           />
         </div>
         <div style={datepickerDropdownStyle}>
           <DateRangeFilter
-            selectDates={this.props.selectDates}
-            filterOptions={this.props.dateRangeFilterOptions}
             beginDate={this.props.beginDate}
-            endDate={this.props.endDate}
-            icon="fa-calendar"
             dateFilterName={this.props.dateFilterName}
+            endDate={this.props.endDate}
+            filterOptions={this.props.dateRangeFilterOptions}
+            icon="fa-calendar"
+            selectDates={this.props.selectDates}
           />
         </div>
       </div>

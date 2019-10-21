@@ -21,7 +21,7 @@ export default React.createClass({
         <p>Let's add your first diagnostic!</p>
       </div>
       <div className="col-xs-4">
-        <button onClick={this.switchToDiagnosticAssign} className="button-green create-unit featured-button">Assign Diagnostic</button>
+        <button className="button-green create-unit featured-button" onClick={this.switchToDiagnosticAssign}>Assign Diagnostic</button>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@ import AppLegend from '../app_legend.jsx'
 describe('AppLegend component', () => {
 
   it('should render', () => {
-    const wrapper = shallow(<AppLegend/>)
+    const wrapper = shallow(<AppLegend />)
     expect(wrapper).toMatchSnapshot();
   });
 

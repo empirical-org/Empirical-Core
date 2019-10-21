@@ -57,14 +57,14 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
 
   renderChangeLogFields() {
     return Object.keys(this.state).map(key => {
-      return <TextField
-        label={`Action Explanation: ${this.state[key].action}`}
-        value={this.state[key].explanation}
-        id={key}
-        handleChange={(e) => {this.updateExplanation(key, e)}}
-        timesSubmitted={0}
+      return (<TextField
         characterLimit={800}
-      />
+        handleChange={(e) => {this.updateExplanation(key, e)}}
+        id={key}
+        label={`Action Explanation: ${this.state[key].action}`}
+        timesSubmitted={0}
+        value={this.state[key].explanation}
+      />)
     })
   }
 
@@ -83,7 +83,7 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
   }
 
   render() {
-    return <div className="change-log-modal-container">
+    return (<div className="change-log-modal-container">
       <div className="modal-background" />
       <div className="change-log-modal">
         <h1>Describe what action you took and why.</h1>
@@ -93,6 +93,6 @@ export default class ChangeLogModal extends React.Component<ChangeLogModalProps,
           {this.renderButtons()}
         </form>
       </div>
-    </div>
+    </div>)
   }
 }

@@ -34,7 +34,7 @@ export default React.createClass({
     let content = 'LOADING';
     if (!this.props.loading) {
       // give unit unit id key whether it is complete or incomplete
-      content = this.groupUnits().map(unit => <StudentProfileUnit key={unit[Object.keys(unit)[0]][0].unit_id} data={unit} />);
+      content = this.groupUnits().map(unit => <StudentProfileUnit data={unit} key={unit[Object.keys(unit)[0]][0].unit_id} />);
     }
     return (
       <div className="container">

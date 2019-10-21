@@ -8,7 +8,7 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
   <div className="columns">
     <div className="column">
       { questionSelect.map((b, i) =>
-        <div
+        (<div
           key={i}
           style={{
           borderBottom: '1px solid #aaa',
@@ -26,14 +26,14 @@ const QuestionSelect = ({ questionSelect, showSubQuestions }) => (
                   <ConceptFilter index={i} questionType={type} />
                 </div>
               : <AddQuestion
-                questionType={type}
-                index={i}
                 actionType={C.QUESTION_SELECT_MODIFY_QUESTION}
+                index={i}
+                questionType={type}
                 text={'Add ' +  type + ' question'}
               />
             )
           : ''}
-        </div>
+        </div>)
       )}
       <AddQuestion questionType={'initial'} />
     </div>

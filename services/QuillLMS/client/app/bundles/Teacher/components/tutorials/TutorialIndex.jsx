@@ -46,7 +46,7 @@ export default class TutorialIndex extends React.Component {
     const circles = this.state.slides.map((el, index) => {
       const currSlide = this.state.slideNumber - 1;
       const current = index === currSlide ? 'current' : null;
-      return (<div key={index} onClick={() => this.goToSlide(index + 1)} className={`${current} circle`} />);
+      return (<div className={`${current} circle`} key={index} onClick={() => this.goToSlide(index + 1)} />);
     });
     return <div className="circles">{circles}</div>;
   }
@@ -76,7 +76,7 @@ export default class TutorialIndex extends React.Component {
     if (this.state.slideNumber !== 1) {
       return <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(this.state.slideNumber - 1)}>Back</p>;
     }
-    return <div style={{ height: '22px', }} className="text-quillgreen previous-button" />;
+    return <div className="text-quillgreen previous-button" style={{ height: '22px', }} />;
   }
 
   goToSlide(slideNumber) {

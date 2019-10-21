@@ -57,7 +57,7 @@ export default React.createClass({
         var display = [];
         var sections = this.groupBySectionAndCompleted();
         for (var sect in sections) {
-            display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
+            display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false} key={sect} />);
         }
         return display;
     },
@@ -73,12 +73,12 @@ export default React.createClass({
 
     stateSpecificComponents: function() {
         if (this.state.loading && this.state.dashboardMini) {
-            return <GettingStartedMini checkboxData={{
+            return (<GettingStartedMini checkboxData={{
                 loading: true
             }}
-            />
+            />)
         } else if (this.state.dashboardMini) {
-            return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
+            return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']} />;
         } else {
             return (
               <div id='teacher-guide'>
@@ -92,7 +92,7 @@ export default React.createClass({
     render: function() {
 
       if (this.state.display === false) {
-        return <span/>
+        return <span />
       }
       return (
         <div className={this.state.className} id={this.state.id}>

@@ -74,28 +74,28 @@ export default class ReviewActivities extends React.Component {
       const dropdownIconStyle = this.state[focusedKey] ? { transform: 'rotate(180deg)', } : null;
 
       const dueDate = (<SingleDatePicker
-        date={selectedDate} // momentPropTypes.momentObj or null
-        onDateChange={date => this.handleDueDateChange(id, date)}
+        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />} // momentPropTypes.momentObj or null
+        date={selectedDate}
         focused={this.state[focusedKey]} // PropTypes.bool
-        onFocusChange={({ focused, }) => this.setState({ [focusedKey]: focused })} // PropTypes.func.isRequired
-        id={`${id}-date-picker`} // PropTypes.string.isRequired,
-        placeholder="No due date"
-        numberOfMonths={1}
-        navPrev={'‹'}
+        id={`${id}-date-picker`} // PropTypes.func.isRequired
+        inputIconPosition="after" // PropTypes.string.isRequired,
         navNext={'›'}
-        customInputIcon={<img src="https://assets.quill.org/images/icons/dropdown.svg" alt="dropdown indicator" style={dropdownIconStyle} />}
-        inputIconPosition="after"
+        navPrev={'‹'}
+        numberOfMonths={1}
+        onDateChange={date => this.handleDueDateChange(id, date)}
+        onFocusChange={({ focused, }) => this.setState({ [focusedKey]: focused })}
+        placeholder="No due date"
       />)
       const toolTooltipId = `${id}-tool`
       const nameTooltipId = `${id}-name`
       const iconClassName = 'tooltip-trigger ' + activity_classification ? `icon-${activity_classification.id}-green-no-border` : ''
       const toolIcon = (<div className="activate-tooltip" data-for={toolTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
-        <ReactTooltip id={toolTooltipId} html multiline className="react-tooltip-custom" type="light" effect="solid" />
+        <ReactTooltip className="react-tooltip-custom" effect="solid" html id={toolTooltipId} multiline type="light" />
         <span className={iconClassName} />
       </div>)
       const activityName = (<div>
         <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
-          <ReactTooltip id={nameTooltipId} html multiline className="react-tooltip-custom" type="light" effect="solid" />
+          <ReactTooltip className="react-tooltip-custom" effect="solid" html id={nameTooltipId} multiline type="light" />
           <span className="tooltip-trigger activity-name">{name}</span>
         </div>
       </div>)
@@ -121,8 +121,8 @@ export default class ReviewActivities extends React.Component {
         <div className="assignment-section-body">
           <DataTable
             headers={tableHeaders}
-            rows={this.rows()}
             removeRow={this.removeRow}
+            rows={this.rows()}
             showRemoveIcon
           />
         </div>

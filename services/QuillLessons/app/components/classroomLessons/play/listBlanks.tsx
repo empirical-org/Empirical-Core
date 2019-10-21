@@ -110,10 +110,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer">{this.sortedAndJoinedAnswers()}</p>
-      </div>
+      </div>)
     }
   }
 
@@ -132,7 +132,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         <li key={`li-${index}`}>
           <span className='li-number'>{index + 1}</span> {text}
         </li>);
-      }) : <span/>
+      }) : <span />
     return (
       <ul className="class-answer-list">
         {selected}
@@ -166,11 +166,11 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       <div className={`list-component`} key={`${i}`}>
         <span className="list-number">{`${i + 1}:`}</span>
         <TextEditor
-          index={i}
-          value={this.state.answers[i]}
+          disabled={disabled}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
-          disabled={disabled}
+          index={i}
+          value={this.state.answers[i]}
         />
       </div>
     )
@@ -233,16 +233,16 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
+      let feedbackRow = this.state.submitted ? <FeedbackRow /> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback
-        feedbackType="default"
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+        feedbackType="default"
       />) : null;
-      let submitButton = !this.props.projector ? <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/> : null;
+      let submitButton = !this.props.projector ? <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission} /> : null;
       return (
         <div>
           <h1 className="prompt">
-            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
+            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}} />
           </h1>
           {instructionsRow}
           {this.listBlanks()}

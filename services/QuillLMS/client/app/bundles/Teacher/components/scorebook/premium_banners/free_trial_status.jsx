@@ -24,7 +24,7 @@ export default React.createClass({
         <div className='col-md-3 col-xs-12 pull-right'>
           <div className='premium-button-box text-center'>
             <a href='/premium'>
-              <button type='button' className='btn-orange'>Upgrade to Premium Now</button>
+              <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
             </a>
           </div>
         </div>

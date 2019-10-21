@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const ReviewModal: React.SFC<{closeModal: any, numberOfErrors: number, numberOfCorrectChanges: number}> = (props) => {
- return <div className="review-modal-container">
+ return (<div className="review-modal-container">
    <div className="review-modal-background" />
    <div className="review-modal">
      <div className="top-section">
@@ -10,7 +10,7 @@ const ReviewModal: React.SFC<{closeModal: any, numberOfErrors: number, numberOfC
        <button onClick={props.closeModal}>Review Your Work</button>
      </div>
    </div>
- </div>
+ </div>)
 }
 
 export default ReviewModal

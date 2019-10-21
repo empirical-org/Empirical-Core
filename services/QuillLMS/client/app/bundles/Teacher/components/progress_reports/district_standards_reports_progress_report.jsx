@@ -98,19 +98,19 @@ export default class extends React.Component {
     if (filteredClassroomsData.length) {
       return (<div key={`${filteredStandardsReportsData.length}-length-for-standards-reports-by-classroom`}>
         <ReactTable
-          data={filteredStandardsReportsData}
-          columns={this.columns()}
-          showPagination={false}
-          defaultSorted={[{id: 'last_active', desc: true}]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
-          defaultPageSize={filteredStandardsReportsData.length}
           className='progress-report has-green-arrow'
+          columns={this.columns()}
+          data={filteredStandardsReportsData}
+          defaultPageSize={filteredStandardsReportsData.length}
+          defaultSorted={[{id: 'last_active', desc: true}]}
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
         />
       </div>)
     } else {
-      return <EmptyStateForReport/>
+      return <EmptyStateForReport />
     }
   }
 
@@ -120,7 +120,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     const filteredStandardsReportsData = this.filteredStandardsReportsData()
     return (
@@ -132,12 +132,12 @@ export default class extends React.Component {
             {/* TODO: what should the above text really be? */}
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport data={this.state.csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown items={this.state.classroomNames} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classroomNames} selectedItem={this.state.selectedClassroom} />
         </div>
         {this.tableOrEmptyMessage(filteredClassroomsData)}
       </div>

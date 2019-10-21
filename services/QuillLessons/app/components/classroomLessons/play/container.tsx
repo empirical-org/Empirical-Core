@@ -200,36 +200,36 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     let slide
     switch (current.type) {
       case 'CL-LB':
-        slide = <CLStudentLobby key={data.current_slide} data={data} title={lessonData.title} projector={projector}/>
+        slide = <CLStudentLobby data={data} key={data.current_slide} projector={projector} title={lessonData.title} />
         break
       case 'CL-ST':
-        slide = <CLStudentStatic key={data.current_slide} data={current.data} />
+        slide = <CLStudentStatic data={current.data} key={data.current_slide} />
         break
       case 'CL-MD':
-        slide = <CLStudentModelQuestion key={data.current_slide} data={current.data} model={model} prompt={prompt} projector={projector}/>
+        slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
         break
       case 'CL-SA':
-        slide = <CLStudentSingleAnswer key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+        slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-FB':
-        slide = <CLStudentFillInTheBlank key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props} />
+        slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-FL':
-        slide = <CLListBlanks key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-MS':
-        slide = <CLMultistep key={data.current_slide} data={current.data} handleStudentSubmission={this.handleStudentSubmission} {...props}/>
+        slide = <CLMultistep data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-EX':
-        slide = <CLStudentStatic key={data.current_slide} data={current.data} />
+        slide = <CLStudentStatic data={current.data} key={data.current_slide} />
         break
       default:
 
     }
-    return <div>
+    return (<div>
       {this.renderProjectorModal()}
       {slide}
-    </div>
+    </div>)
   }
 
   handleChange(e) {
@@ -251,13 +251,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const imageSrc = this.state.leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
-      return <img
+      return (<img
         className="left-button"
-        src={imageSrc}
-        onMouseOver={() => this.setState({leftHover: true})}
-        onMouseOut={() => this.setState({leftHover: false})}
         onClick={() => this.props.dispatch(goToPreviousSlide(sessionData, editionData, classroomSessionId))}
-      />
+        onMouseOut={() => this.setState({leftHover: false})}
+        onMouseOver={() => this.setState({leftHover: true})}
+        src={imageSrc}
+      />)
     }
 
   }
@@ -270,13 +270,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
       const imageSrc = this.state.rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
-      return <img
+      return (<img
         className={className}
-        src={imageSrc}
-        onMouseOver={() => this.setState({rightHover: true})}
-        onMouseOut={() => this.setState({rightHover: false})}
         onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
-      />
+        onMouseOut={() => this.setState({rightHover: false})}
+        onMouseOver={() => this.setState({rightHover: true})}
+        src={imageSrc}
+      />)
     }
   }
 
@@ -292,7 +292,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
                 <div className="easy-join-name-form-wrapper">
                   <div className="easy-join-name-form">
                     <p>Please enter your full name:</p>
-                    <input value={this.state.easyDemoName} onChange={this.handleChange}/>
+                    <input onChange={this.handleChange} value={this.state.easyDemoName} />
                     <button onClick={this.easyJoinDemo}>Join</button>
                   </div>
                 </div>
@@ -339,7 +339,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
        }
        return (
          <div>
-           <Spinner/>
+           <Spinner />
          </div>
        );
      }

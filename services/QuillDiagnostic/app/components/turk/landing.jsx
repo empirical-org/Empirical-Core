@@ -46,7 +46,7 @@ export default React.createClass({
             Please answer to the best of your ability.
           </p>
           <button className="button student-begin" onClick={this.startActivity}>
-            Begin <img className="begin-arrow" src={beginArrow}/>
+            Begin <img className="begin-arrow" src={beginArrow} />
           </button>
         </div>
       )

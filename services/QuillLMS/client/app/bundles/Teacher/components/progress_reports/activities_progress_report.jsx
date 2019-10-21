@@ -170,40 +170,40 @@ export default React.createClass({
   tableOrEmptyMessage: function(){
     let tableOrEmptyMessage
     if (this.state.results.length) {
-      tableOrEmptyMessage = <ReactTable
-        loading={this.state.loadingNewTableData}
-        data={this.state.results}
-        columns={this.columnDefinitions()}
-        showPagination={true}
-        defaultSorted={[{id: 'completed_at', desc: true}]}
-        showPaginationTop={false}
-        showPaginationBottom={true}
-        showPageSizeOptions={false}
-        defaultPageSize={Math.min(this.state.results.length, 25)}
-        resizable={false}
+      tableOrEmptyMessage = (<ReactTable
         className='progress-report'
+        columns={this.columnDefinitions()}
+        data={this.state.results}
+        defaultPageSize={Math.min(this.state.results.length, 25)}
+        defaultSorted={[{id: 'completed_at', desc: true}]}
+        loading={this.state.loadingNewTableData}
         manual={true}
-        pages={this.state.numPages}
-        page={this.state.currentPage}
         onPageChange={this.reactTablePageChange}
         onSortedChange={this.reactTableSortedChange}
-      />
+        page={this.state.currentPage}
+        pages={this.state.numPages}
+        resizable={false}
+        showPageSizeOptions={false}
+        showPagination={true}
+        showPaginationBottom={true}
+        showPaginationTop={false}
+      />)
       } else {
-        tableOrEmptyMessage = <EmptyStateForReport/>
+        tableOrEmptyMessage = <EmptyStateForReport />
       }
       return (
         <div>
           <ProgressReportFilters
             classroomFilters={this.state.classroomFilters}
-            studentFilters={this.state.studentFilters}
-            unitFilters={this.state.unitFilters}
+            filterTypes={['unit', 'classroom', 'student']}
             selectClassroom={this.selectClassroom}
             selectedClassroom={this.state.selectedClassroom}
-            selectStudent={this.selectStudent}
             selectedStudent={this.state.selectedStudent}
-            selectUnit={this.selectUnit}
             selectedUnit={this.state.selectedUnit}
-            filterTypes={['unit', 'classroom', 'student']}
+            selectStudent={this.selectStudent}
+            selectUnit={this.selectUnit}
+            studentFilters={this.state.studentFilters}
+            unitFilters={this.state.unitFilters}
           />
           {tableOrEmptyMessage}
         </div>
@@ -245,7 +245,7 @@ export default React.createClass({
             <p>You can export the data as a CSV file by filtering for the classrooms, activity packs, or students you would like to export and then pressing "Download Report."</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <button style={{display: 'block'}} className='btn button-green' onClick={this.downloadReport}>Download Report</button>
+            <button className='btn button-green' onClick={this.downloadReport} style={{display: 'block'}}>Download Report</button>
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>

@@ -127,13 +127,13 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
         </div>
         <input
           className={inputClass}
+          disabled={inputClass === "disabled-button"}
           id={`input${i}`}
           key={i + 100}
+          onBlur={() => this.validateInput(i)}
+          onChange={(e) => this.updateBlankValue(e, i)}
           type="text"
           value={value}
-          onChange={(e) => this.updateBlankValue(e, i)}
-          disabled={inputClass === "disabled-button"}
-          onBlur={() => this.validateInput(i)}
         />
       </span>
     );
@@ -144,7 +144,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const wordArray:Array<JSX.Element> = []
     words.forEach((word, i) => {
       let html = `${word}&nbsp;`
-      wordArray.push(<div key={`${word}${i}`} dangerouslySetInnerHTML={{__html: html}}/>)
+      wordArray.push(<div dangerouslySetInnerHTML={{__html: html}} key={`${word}${i}`} />)
     })
     return wordArray
   }
@@ -160,13 +160,13 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
         return (<Feedback
-          feedbackType="correct-matched"
           feedback={(<p>Great Work! Please wait as your teacher reviews your answer...</p>)}
+          feedbackType="correct-matched"
         />);
       } else if (this.props.data.play.instructions) {
         return (<Feedback
-          feedbackType="default"
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+          feedbackType="default"
         />);
       }
     }
@@ -177,10 +177,10 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       if (this.props.data.play.cues) {
         return (
           <Cues
+            displayArrowAndText={false}
             getQuestion={() => ({
               cues: this.props.data.play.cues,
             })}
-            displayArrowAndText={false}
           />
         );
       }
@@ -198,11 +198,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     if (this.props.mode !== 'PROJECT' && !this.props.projector) {
       if (this.state.editing && !this.inputsEmpty()) {
         return (<div className="question-button-group">
-          <button disabled={this.state.submitted} onClick={this.submitSubmission} className="button student-submit">Submit</button>
+          <button className="button student-submit" disabled={this.state.submitted} onClick={this.submitSubmission}>Submit</button>
         </div>);
       } else {
         return (<div className="question-button-group">
-          <button disabled={true} className="button student-submit">Submit</button>
+          <button className="button student-submit" disabled={true}>Submit</button>
         </div>);
       }
 
@@ -241,7 +241,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       }
       return (
         <li key={index}>
-          <span className="answer-number">{index + 1}</span><div style={{display: 'inline'}} dangerouslySetInnerHTML={{__html: html}} />
+          <span className="answer-number">{index + 1}</span><div dangerouslySetInnerHTML={{__html: html}} style={{display: 'inline'}} />
         </li>
       );
     }) : null;
@@ -272,7 +272,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return (
       <div className="warning-dialogue">
         <span>Use one of the options below.</span>
-        <i className="fa fa-caret-down"/>
+        <i className="fa fa-caret-down" />
       </div>
     );
   }

@@ -85,7 +85,7 @@ export default class UnitTemplateProfile extends React.Component {
             <div className="assign-buttons-and-standards">
               <UnitTemplateProfileAssignButton data={data}  />
               <UnitTemplateProfileStandards data={data}  />
-              <UnitTemplateProfileShareButtons data={data} url={this.socialShareUrl()} text={this.socialText()}/>
+              <UnitTemplateProfileShareButtons data={data} text={this.socialText()} url={this.socialShareUrl()} />
             </div>
           </div>
         </div>

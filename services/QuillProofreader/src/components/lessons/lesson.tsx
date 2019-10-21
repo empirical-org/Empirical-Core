@@ -128,9 +128,9 @@ class Lesson extends React.Component<LessonProps> {
         return (
           <Modal close={this.cancelEditingLesson}>
             <EditLessonForm
+              currentValues={lesson}
               lesson={lesson}
               submit={this.saveLessonEdits}
-              currentValues={lesson}
             />
           </Modal>
         );
@@ -140,9 +140,9 @@ class Lesson extends React.Component<LessonProps> {
 
   renderActivity() {
     const lessonID: string|undefined = this.props.match.params.lessonID;
-    return <div style={{marginTop: '50px', border: '1px solid black', paddingBottom: '50px'}}>
-      <ProofreaderActivityContainer activityUID={lessonID} admin={true}/>
-    </div>
+    return (<div style={{marginTop: '50px', border: '1px solid black', paddingBottom: '50px'}}>
+      <ProofreaderActivityContainer activityUID={lessonID} admin={true} />
+    </div>)
   }
 
   render() {

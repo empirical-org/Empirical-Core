@@ -11,9 +11,9 @@ export const Header: React.StatelessComponent<{}> = () => {
           backgroundColor: "#00c2a2",
           padding: "0 30px"}}
       >
-        <Row type="flex" align="middle" justify="space-between" style={{height: '100%', maxWidth: '56em', margin: 'auto'}}>
-          <img style={{ height: '25px' }} src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" />
-          <a style={{color: 'white'}} href={process.env.EMPIRICAL_BASE_URL}>Save & Exit</a>
+        <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '56em', margin: 'auto'}} type="flex">
+          <img src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" style={{ height: '25px' }} />
+          <a href={process.env.EMPIRICAL_BASE_URL} style={{color: 'white'}}>Save & Exit</a>
         </Row>
       </Layout.Header>
     );

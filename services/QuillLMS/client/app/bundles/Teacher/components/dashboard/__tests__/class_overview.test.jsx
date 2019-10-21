@@ -60,7 +60,7 @@ describe('ClassOverview component', () => {
   describe('LessonsList', () => {
     it('should render LessonsList', () => {
       const wrapper = shallow(
-        <ClassOverview/>
+        <ClassOverview />
       );
       expect(wrapper.find(LessonsList).exists()).toBe(true);
     });
@@ -69,7 +69,7 @@ describe('ClassOverview component', () => {
   describe('DiagnosticMini', () => {
     it('should render DiagnosticMini', () => {
       const wrapper = shallow(
-        <ClassOverview/>
+        <ClassOverview />
       );
       expect(wrapper.find(DiagnosticMini).exists()).toBe(true);
     });

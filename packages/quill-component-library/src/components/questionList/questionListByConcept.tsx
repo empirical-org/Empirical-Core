@@ -32,9 +32,9 @@ class QuestionListByConcept extends React.Component<any, any> {
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
           <LinkListItem
-            key={question.key}
-            itemKey={question.key}
             basePath={this.props.basePath}
+            itemKey={question.key}
+            key={question.key}
             text={formattedPrompt}
           />
         );

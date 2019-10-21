@@ -57,18 +57,18 @@ const ActivityScores: React.SFC<ActivityScoresProps> = ({
       </div>
       <div className="dropdown-container">
         <ItemDropdown
-          items={schoolNames}
           callback={switchSchool}
+          items={schoolNames}
           selectedItem={selectedSchool}
         />
         <ItemDropdown
-          items={teacherNames}
           callback={switchTeacher}
+          items={teacherNames}
           selectedItem={selectedTeacher}
         />
         <ItemDropdown
-          items={classroomNames}
           callback={switchClassroom}
+          items={classroomNames}
           selectedItem={selectedClassroom}
         />
       </div>

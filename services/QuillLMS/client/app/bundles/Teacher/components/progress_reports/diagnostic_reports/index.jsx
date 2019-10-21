@@ -130,21 +130,21 @@ const DiagnosticReports = React.createClass({
   <div>{this.props.children}</div>
 			)
 		} else if (this.state.loading) {
-			return <LoadingSpinner/>
+			return <LoadingSpinner />
 		} else {
 			return (
   <div className='individual-activity-reports'>
     <NavBar
-      key={'key'}
-      classrooms={this.state.classrooms}
-      selectedStudentId={this.props.params.studentId}
-      studentDropdownCallback={this.changeStudent}
-      dropdownCallback={this.changeClassroom}
       buttonGroupCallback={this.changeReport}
-      selectedActivity={this.state.selectedActivity}
-      showStudentDropdown={this.showStudentDropdown()}
-      students={this.state.students}
+      classrooms={this.state.classrooms}
+      dropdownCallback={this.changeClassroom}
+      key={'key'}
       params={this.props.params}
+      selectedActivity={this.state.selectedActivity}
+      selectedStudentId={this.props.params.studentId}
+      showStudentDropdown={this.showStudentDropdown()}
+      studentDropdownCallback={this.changeStudent}
+      students={this.state.students}
     />
     {this.props.children}
   </div>

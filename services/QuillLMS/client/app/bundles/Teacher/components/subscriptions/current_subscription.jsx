@@ -74,7 +74,7 @@ export default class extends React.Component {
 
   changePlan() {
     if (this.state.showChangePlan) {
-      return (<ChangePlan subscriptionType={this.props.subscriptionType} price={this.getPrice()} recurring={this.state.recurring} changeRecurringStatus={this.changeRecurringStatus} />);
+      return (<ChangePlan changeRecurringStatus={this.changeRecurringStatus} price={this.getPrice()} recurring={this.state.recurring} subscriptionType={this.props.subscriptionType} />);
     }
   }
 
@@ -116,14 +116,14 @@ export default class extends React.Component {
     // <button className="q-button bg-quillblue text-white">Download Quote</button>
     return (
       <div>
-        <button onClick={this.props.showPurchaseModal} className="q-button bg-orange text-white">Renew Subscription</button>
+        <button className="q-button bg-orange text-white" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
       </div>
     );
   }
 
   renewPremium() {
     return (<div>
-      <button onClick={this.props.showPurchaseModal} className="renew-subscription q-button bg-orange text-white cta-button">Renew Subscription</button>
+      <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>
     </div>);
   }
 
@@ -197,9 +197,9 @@ export default class extends React.Component {
       return this.nextPlanAlertOrButtons(`${condition} expired`);
     } else if (this.props.subscriptionStatus.account_type === 'Premium Credit') {
       const content = (<span>Quill Basic - Free
-        <a href="/premium" className="green-link">Change Plan</a>
+        <a className="green-link" href="/premium">Change Plan</a>
       </span>);
-      return (<TitleAndContent title={'Next Plan'} content={content} />);
+      return (<TitleAndContent content={content} title={'Next Plan'} />);
     } else if (condition === 'school sponsored') {
       nextPlan = this.nextPlanAlertOrButtons(condition);
     } else if (this.props.subscriptionStatus.recurring) {
@@ -209,7 +209,7 @@ export default class extends React.Component {
       const renewDate = moment(this.props.subscriptionStatus.expiration).add('days', 1).format('MMMM Do, YYYY');
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons('recurring', renewDate);
       beginsOn = (
-        <TitleAndContent title={'Begins On'} content={renewDate} />
+        <TitleAndContent content={renewDate} title={'Begins On'} />
         );
     } else if (condition === 'school' && !this.props.subscriptionStatus.recurring) {
       nextPlanAlertOrButtons = this.nextPlanAlertOrButtons(`${condition} non-recurring`);
@@ -221,7 +221,7 @@ export default class extends React.Component {
     return (
       <div>
         <div className="flex-row space-between">
-          <TitleAndContent title={'Next Plan'} content={<span >{nextPlan}</span>} />
+          <TitleAndContent content={<span >{nextPlan}</span>} title={'Next Plan'} />
           {beginsOn}
         </div>
         {nextPlanAlertOrButtons}
@@ -250,12 +250,12 @@ export default class extends React.Component {
             <h3>CURRENT SUBSCRIPTION</h3>
             <div className="flex-row space-between">
               <div>
-                <TitleAndContent title={'Plan'} content={currSub.account_type} />
-                <TitleAndContent title={'Purchaser'} content={this.props.purchaserNameOrEmail} />
+                <TitleAndContent content={currSub.account_type} title={'Plan'} />
+                <TitleAndContent content={this.props.purchaserNameOrEmail} title={'Purchaser'} />
               </div>
               <div>
-                <TitleAndContent title={'Start Date'} content={moment(currSub.start_date).format('MMMM Do, YYYY')} />
-                <TitleAndContent title={'End Date'} content={moment(currSub.expiration).format('MMMM Do, YYYY')} />
+                <TitleAndContent content={moment(currSub.start_date).format('MMMM Do, YYYY')} title={'Start Date'} />
+                <TitleAndContent content={moment(currSub.expiration).format('MMMM Do, YYYY')} title={'End Date'} />
               </div>
             </div>
           </div>
@@ -270,7 +270,7 @@ export default class extends React.Component {
       <div className={metaRowClassName}>
         <div className="meta-section">
           <h3>CURRENT SUBSCRIPTION</h3>
-          <TitleAndContent title={'Plan'} content={'Quill Basic - Free'} />
+          <TitleAndContent content={'Quill Basic - Free'} title={'Plan'} />
         </div>
         {this.paymentMethod()}
         {this.nextPlan()}
@@ -278,8 +278,8 @@ export default class extends React.Component {
     ),
       cta: (
         <div className="sub-button-row">
-          <a href="/premium" className="q-button button cta-button bg-orange text-white">Learn More About Quill Premium</a>
-          <a target="_blank" rel="noopener noreferrer" href="https://assets.quill.org/documents/quill_premium.pdf" className="q-button button cta-button bg-quillblue text-white"><i className="fa fa-file-pdf-o" />Download Premium PDF</a>
+          <a className="q-button button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>
+          <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fa fa-file-pdf-o" />Download Premium PDF</a>
         </div>
     ), });
   }

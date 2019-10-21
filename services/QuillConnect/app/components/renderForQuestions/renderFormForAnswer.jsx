@@ -25,13 +25,13 @@ export default React.createClass({
           <div className="box">
             <h4 className="title">Hint</h4>
             <iframe
-              src={this.props.assetURL}
-              frameBorder="0"
-              width="960"
-              height="569"
               allowFullScreen="true"
+              frameBorder="0"
+              height="569"
               mozallowfullscreen="true"
+              src={this.props.assetURL}
               webkitallowfullscreen="true"
+              width="960"
             />
           </div>
         </Modal>
@@ -52,7 +52,7 @@ export default React.createClass({
     if (this.props.finished) {
       button = this.props.nextQuestionButton;
       const answeredCorrectly = getAnswerState(getLatestAttempt(this.props.attempts))
-      feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredNonMultipleChoiceCorrectly={answeredCorrectly} multipleChoiceCorrect={this.props.multipleChoiceCorrect} key={`-${this.props.questionID}`} responses={this.props.responses} />;
+      feedback = <EndState answeredNonMultipleChoiceCorrectly={answeredCorrectly} key={`-${this.props.questionID}`} multipleChoiceCorrect={this.props.multipleChoiceCorrect} question={this.props.question} questionID={this.props.questionID} responses={this.props.responses} />;
     } else if (this.props.nextQuestionButton) { // if you're going to next, it is the end state
       button = this.props.nextQuestionButton;
     } else {
@@ -92,17 +92,17 @@ export default React.createClass({
           {this.props.cues}
           {feedback}
           <TextEditor
-            disabled={this.props.disabled}
-            defaultValue={this.props.initialValue}
-            key={this.props.questionID}
-            questionID={this.props.questionID}
             checkAnswer={this.props.checkAnswer}
-            handleChange={this.props.handleChange}
-            value={this.props.value}
-            latestAttempt={getLatestAttempt(this.props.question.attempts)}
+            defaultValue={this.props.initialValue}
+            disabled={this.props.disabled}
             getResponse={this.props.getResponse}
-            spellCheck={this.props.spellCheck}
+            handleChange={this.props.handleChange}
+            key={this.props.questionID}
+            latestAttempt={getLatestAttempt(this.props.question.attempts)}
             placeholder="Type your answer here."
+            questionID={this.props.questionID}
+            spellCheck={this.props.spellCheck}
+            value={this.props.value}
           />
           <div className="question-button-group button-group">
             {this.getHelpModal()}

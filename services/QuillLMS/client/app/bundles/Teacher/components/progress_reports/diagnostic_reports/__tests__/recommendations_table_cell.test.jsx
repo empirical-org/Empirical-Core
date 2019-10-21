@@ -12,11 +12,11 @@ describe('RecommendationsTableCell component', () => {
     const mockCheckboxOnClick = jest.fn()
     const wrapper = shallow(
       <RecommendationsTableCell
+        checkboxOnClick={mockCheckboxOnClick}
         previouslyAssigned={' previously-assigned '}
+        recommendation={recommendation}
         recommended={' recommended '}
         selected={' selected '}
-        recommendation={recommendation}
-        checkboxOnClick={mockCheckboxOnClick}
       />);
 
     it('should render a div with the class previously-assigned', () => {
@@ -44,11 +44,11 @@ describe('RecommendationsTableCell component', () => {
     const mockCheckboxOnClick = jest.fn()
     const wrapper = shallow(
       <RecommendationsTableCell
+        checkboxOnClick={mockCheckboxOnClick}
         previouslyAssigned={' previously-assigned '}
+        recommendation={recommendation}
         recommended={' recommended '}
         selected={''}
-        recommendation={recommendation}
-        checkboxOnClick={mockCheckboxOnClick}
       />);
 
     it('should render a div with the class previously-assigned', () => {
@@ -76,11 +76,11 @@ describe('RecommendationsTableCell component', () => {
     const mockCheckboxOnClick = jest.fn()
     const wrapper = shallow(
       <RecommendationsTableCell
+        checkboxOnClick={mockCheckboxOnClick}
         previouslyAssigned={''}
+        recommendation={recommendation}
         recommended={' recommended '}
         selected={' selected '}
-        recommendation={recommendation}
-        checkboxOnClick={mockCheckboxOnClick}
       />);
 
     it('should not render a div with the class previously-assigned', () => {
@@ -107,11 +107,11 @@ describe('RecommendationsTableCell component', () => {
     const mockCheckboxOnClick = jest.fn()
     const wrapper = shallow(
       <RecommendationsTableCell
+        checkboxOnClick={mockCheckboxOnClick}
         previouslyAssigned={''}
+        recommendation={recommendation}
         recommended={' recommended '}
         selected={''}
-        recommendation={recommendation}
-        checkboxOnClick={mockCheckboxOnClick}
       />);
 
     it('should not render a div with the class previously-assigned', () => {
@@ -139,11 +139,11 @@ describe('RecommendationsTableCell component', () => {
     const mockCheckboxOnClick = jest.fn()
     const wrapper = shallow(
       <RecommendationsTableCell
+        checkboxOnClick={mockCheckboxOnClick}
         previouslyAssigned={' previously-assigned '}
+        recommendation={recommendation}
         recommended={''}
         selected={' selected '}
-        recommendation={recommendation}
-        checkboxOnClick={mockCheckboxOnClick}
       />);
 
     it('should render a div with the class previously-assigned', () => {
@@ -172,11 +172,11 @@ describe('RecommendationsTableCell component', () => {
     const mockCheckboxOnClick = jest.fn()
     const wrapper = shallow(
       <RecommendationsTableCell
+        checkboxOnClick={mockCheckboxOnClick}
         previouslyAssigned={''}
+        recommendation={recommendation}
         recommended={''}
         selected={' selected '}
-        recommendation={recommendation}
-        checkboxOnClick={mockCheckboxOnClick}
       />);
 
     it('should not render a div with the class previously-assigned', () => {

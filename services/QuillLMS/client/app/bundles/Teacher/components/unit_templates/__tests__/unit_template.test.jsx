@@ -12,8 +12,8 @@ describe('UnitTemplate component', () => {
     it('should not render without activity_info in the state', () => {
       const wrapper = shallow(
         <UnitTemplate
-          unitTemplate={{}}
           returnToIndex={() => null}
+          unitTemplate={{}}
         />
       );
       expect(wrapper.find(MarkdownParser)).toHaveLength(0);
@@ -22,8 +22,8 @@ describe('UnitTemplate component', () => {
     it('should render if there is activity_info in the state', () => {
       const wrapper = shallow(
         <UnitTemplate
-          unitTemplate={{}}
           returnToIndex={() => null}
+          unitTemplate={{}}
         />
       );
       wrapper.setState({model: {activity_info: 'i am the activity info'}})

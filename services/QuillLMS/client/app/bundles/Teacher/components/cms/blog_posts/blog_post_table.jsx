@@ -55,7 +55,7 @@ export default class BlogPostTable extends React.Component {
   }
 
   renderTableHeader() {
-    return <tr>
+    return (<tr>
       <th />
       <th>Title</th>
       <th>Topic</th>
@@ -66,28 +66,28 @@ export default class BlogPostTable extends React.Component {
       <th />
       <th />
       <th />
-    </tr>
+    </tr>)
   }
 
   renderTableRow(blogPost, index) {
-    return <BlogPostRow
+    return (<BlogPostRow
+      createdAt={moment(blogPost.created_at).format('MM-DD-YY')}
+      deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
       draft={blogPost.draft ? 'DRAFT' : ''}
+      editLink={`/cms/blog_posts/${blogPost.id}/edit`}
+      key={index}
+      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher-center/${blogPost.slug}`}
+      rating={blogPost.rating}
       title={blogPost.title}
       topic={blogPost.topic}
-      createdAt={moment(blogPost.created_at).format('MM-DD-YY')}
       updatedAt={moment(blogPost.updated_at).format('MM-DD-YY')}
-      rating={blogPost.rating}
       views={blogPost.read_count}
-      editLink={`/cms/blog_posts/${blogPost.id}/edit`}
-      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher-center/${blogPost.slug}`}
-      deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
-      key={index}
-    />
+    />)
   }
 
   render() {
     const blogPostRows = this.state.blogPosts.map((bp, i) => this.renderTableRow(bp, i))
-    return <div>
+    return (<div>
       <h1>{this.props.topic} <span className="save-order" onClick={this.saveOrder}>Save Order</span></h1>
       <div className="blog-post-table">
         <table>
@@ -95,7 +95,7 @@ export default class BlogPostTable extends React.Component {
           <SortableList data={blogPostRows} sortCallback={this.updateOrder} />
         </table>
       </div>
-    </div>
+    </div>)
   }
 
 };

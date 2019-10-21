@@ -5,9 +5,9 @@ const NotificationFeed = ({ notifications }) => {
   if (notifications) {
     return(
       <ul>
-        {notifications.map((notification) => <li>
+        {notifications.map((notification) => (<li>
           <Notification {...notification} />
-        </li>)}
+        </li>))}
       </ul>
     );
   }

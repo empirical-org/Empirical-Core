@@ -337,11 +337,7 @@ export default React.createClass({
 		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		// } else
 		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
-			tabSpecificComponents = <CreateUnit
-  data={{
-				createUnitData: this.state.createUnit,
-				assignSuccessData: this.state.unitTemplatesManager.model
-			}}
+			tabSpecificComponents = (<CreateUnit
   actions={{
 				toggleStage: this.toggleStage,
 				toggleTab: this.toggleTab,
@@ -351,17 +347,21 @@ export default React.createClass({
 					assignSuccessActions: this.unitTemplatesAssignedActions()
 				}}
   analytics={this.analytics()}
-			/>;
+  data={{
+				createUnitData: this.state.createUnit,
+				assignSuccessData: this.state.unitTemplatesManager.model
+			}}
+			/>);
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
-			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
+			tabSpecificComponents = <AssignANewActivity flag={this.props.flag} toggleTab={this.toggleTab} />;
 		} else if ((tabParam === 'assign-a-diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
-			tabSpecificComponents = <AssignADiagnostic/>;
+			tabSpecificComponents = <AssignADiagnostic />;
 		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
-			tabSpecificComponents = <ManageUnits actions={{
+			tabSpecificComponents = (<ManageUnits actions={{
 			 toggleTab: this.toggleTab,
 			 editUnit: this.editUnit
 		 }}
-			/>;
+			/>);
  // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
 	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}

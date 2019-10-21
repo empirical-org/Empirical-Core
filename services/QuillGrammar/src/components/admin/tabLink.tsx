@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const TabLink = props => (
   <li>
-    <Link to={props.to} activeClassName="is-active">{props.children}</Link>
+    <Link activeClassName="is-active" to={props.to}>{props.children}</Link>
   </li>
 );
 

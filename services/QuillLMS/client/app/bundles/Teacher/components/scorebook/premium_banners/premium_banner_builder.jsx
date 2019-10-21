@@ -30,18 +30,18 @@ export default React.createClass({
     //   return <EC.LoadingIndicator/>;
     // }
     if (this.state.has_premium == 'none'){
-      return(<FreeTrialBanner status={this.state.has_premium}/>);
+      return(<FreeTrialBanner status={this.state.has_premium} />);
     }
     else if (this.state.first_day_of_premium_or_trial ){
-      return(<NewSignUpBanner status={this.state.has_premium}/>);
+      return(<NewSignUpBanner status={this.state.has_premium} />);
     }
     else if ((this.state.has_premium == 'trial') || (this.state.has_premium == 'locked')){
       return(<span>
-        <FreeTrialStatus status={this.state.has_premium} data={this.state.trial_days_remaining}/>
+        <FreeTrialStatus data={this.state.trial_days_remaining} status={this.state.has_premium} />
       </span>);
     }
     else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
-        return (<span/>);
+        return (<span />);
       }
   },
 
@@ -69,7 +69,7 @@ export default React.createClass({
       backgroundImage: img
     };
     if ((this.state.has_premium === null) || (this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
-        return (<span/>);
+        return (<span />);
       } else
       {
         return (

@@ -124,44 +124,44 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
     const { selectedConcept, visible } = this.state
     const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
-      return <ConceptBoxContainer
+      return (<ConceptBoxContainer
+        closeConceptBox={this.closeConceptBox}
         conceptID={conceptID}
+        finishEditingConcept={() => this.finishEditingConcept(refetch)}
         levelNumber={levelNumber}
         visible={visible}
-        finishEditingConcept={() => this.finishEditingConcept(refetch)}
-        closeConceptBox={this.closeConceptBox}
-      />
+      />)
     }
   }
 
   renderEditSuccessBanner() {
     if (this.state.showEditSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner}/></div>
+      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner} /></div>
     }
   }
 
   renderLiveAndArchivedTabs() {
     const { visible } = this.state
-    return <div className="concepts-index-tools">
-      <p onClick={() => this.setVisible(true)} className={visible ? 'active' : ''}>Live</p>
-      <p onClick={() => this.setVisible(false)} className={visible ? '' : 'active'}>Archived</p>
-    </div>
+    return (<div className="concepts-index-tools">
+      <p className={visible ? 'active' : ''} onClick={() => this.setVisible(true)}>Live</p>
+      <p className={visible ? '' : 'active'} onClick={() => this.setVisible(false)}>Archived</p>
+    </div>)
   }
 
   renderConcepts(data) {
     if (this.state.visible) {
-      return <ConceptsTable
+      return (<ConceptsTable
         concepts={this.filterConcepts(data.concepts, this.state.searchValue)}
-        visible={this.state.visible}
         selectConcept={this.selectConcept}
-      />
+        visible={this.state.visible}
+      />)
     } else {
-      return <ConceptLevels
+      return (<ConceptLevels
         concepts={this.filterConcepts(data.concepts, this.state.searchValue).filter(c => !c.visible)}
         selectConcept={this.selectConcept}
         selectedConcept={this.state.selectedConcept}
         unselectConcept={this.closeConceptBox}
-      />
+      />)
     }
   }
 
@@ -171,8 +171,8 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
         <ConceptManagerNav />
         {this.renderEditSuccessBanner()}
         <Query
-          query={gql(conceptsIndexQuery)}
           notifyOnNetworkStatusChange
+          query={gql(conceptsIndexQuery)}
         >
           {({ loading, error, data, refetch, networkStatus }) => {
             if (networkStatus === 4) return <p>Refetching!</p>;

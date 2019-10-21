@@ -24,13 +24,13 @@ const Concepts = React.createClass({
     // const keys = _.keys(data["0"]);
     if (data) {
       return data.map((concept) => {
-        return <LinkListItem
-          key={concept.uid}
-          itemKey={concept.uid}
-          basePath='concepts'
-          text={concept.displayName}
+        return (<LinkListItem
           activeClassName='is-active'
-        />
+          basePath='concepts'
+          itemKey={concept.uid}
+          key={concept.uid}
+          text={concept.displayName}
+        />)
       })
     }
   },
@@ -46,9 +46,9 @@ const Concepts = React.createClass({
                 <label className="label">Name</label>
                 <input
                   className="input"
-                  type="text"
                   placeholder="Text input"
                   ref="newConceptName"
+                  type="text"
                 />
               </p>
               <p className="control">

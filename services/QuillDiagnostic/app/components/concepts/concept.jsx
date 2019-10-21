@@ -47,7 +47,7 @@ const Concept = React.createClass({
   },
 
   renderNewQuestionForm: function () {
-    return <QuestionForm new={true} itemLevels={this.props.itemLevels} question={{}} submit={this.submitNewQuestion} />
+    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
   },
 
   render: function (){

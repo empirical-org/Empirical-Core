@@ -9,7 +9,7 @@ describe('SetupInstructions component', () => {
 
   describe('if there are students', () => {
     const wrapper = shallow(
-      <SetupInstructions close={() => {}} classroom={classroomWithStudents} />
+      <SetupInstructions classroom={classroomWithStudents} close={() => {}} />
     );
 
     it('should render SetupInstructions', () => {
@@ -23,7 +23,7 @@ describe('SetupInstructions component', () => {
 
   describe('if there are no students', () => {
     const wrapper = shallow(
-      <SetupInstructions close={() => {}} classroom={classroomWithoutStudents} />
+      <SetupInstructions classroom={classroomWithoutStudents} close={() => {}} />
     );
 
     it('should render SetupInstructions', () => {

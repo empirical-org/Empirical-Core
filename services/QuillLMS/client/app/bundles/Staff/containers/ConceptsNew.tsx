@@ -69,7 +69,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   renderContent() {
-    return <Query
+    return (<Query
       query={gql(allConceptsQuery)}
     >
       {({ loading, error, data, refetch, networkStatus }) => {
@@ -77,7 +77,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
         const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
-        return <div className="concept-levels-and-forms-container">
+        return (<div className="concept-levels-and-forms-container">
           <ConceptLevels
             concepts={concepts}
             selectConcept={this.selectConcept}
@@ -85,9 +85,9 @@ class AddConcept extends React.Component<{}, AddConceptState> {
             unselectConcept={this.closeConceptBox}
           />
           {this.renderConceptForms(refetch, concepts)}
-        </div>
+        </div>)
       }}
-    </Query>
+    </Query>)
   }
 
   renderConceptForms(refetch, concepts) {
@@ -95,11 +95,11 @@ class AddConcept extends React.Component<{}, AddConceptState> {
     if (conceptID && (levelNumber || levelNumber === 0)) {
       return (<div>
         <ConceptBoxContainer
-          conceptID={conceptID}
-          levelNumber={levelNumber}
-          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-          visible={true}
           closeConceptBox={this.closeConceptBox}
+          conceptID={conceptID}
+          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          levelNumber={levelNumber}
+          visible={true}
         />
         {this.renderAddNewConceptsForms(refetch, concepts)}
       </div>)
@@ -109,35 +109,35 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   renderAddNewConceptsForms(refetch, concepts) {
-    return <div className="new-concept-forms">
+    return (<div className="new-concept-forms">
       <div className="concept-guide-section">
         <i className="fas fa-book-open" />
         <div>
-          <a target="_blank" href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p">Concept Guide</a>
+          <a href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p" target="_blank">Concept Guide</a>
           <p>Are you an intern, or not sure how to create a Concept? Then please read our documentation.</p>
         </div>
       </div>
       <CreateConceptBox
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
         levelNumber={2}
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
       <CreateConceptBox
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
         levelNumber={1}
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
       <CreateConceptBox
-        levelNumber={0}
         concepts={concepts}
         finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+        levelNumber={0}
       />
-    </div>
+    </div>)
   }
 
   renderEditSuccessBanner() {
     if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close"/></span></div>
+      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close" /></span></div>
     }
   }
 

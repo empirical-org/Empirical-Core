@@ -35,19 +35,19 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
               {optionObject[option]}
               <span>
                 <input
-                  style={{display: 'none'}}
-                  id={option}
-                  value={option}
-                  name='rad-button'
-                  type="radio"
                   checked={isSelected}
+                  id={option}
+                  name='rad-button'
+                  style={{display: 'none'}}
+                  type="radio"
+                  value={option}
                 />
               </span>
             </p>
           </div>
           <label htmlFor={option}>
             <div className='img-container'>
-              <img src={imgSrc} alt="checkbox"/>
+              <img alt="checkbox" src={imgSrc} />
             </div>
           </label>
         </div>

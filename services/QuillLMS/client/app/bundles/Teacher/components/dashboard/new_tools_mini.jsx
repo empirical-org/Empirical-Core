@@ -18,7 +18,7 @@
           <a href='/tools/connect' style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><img src="/images/icon-connect-black.svg" style={{height: '26px', marginRight: '10px'}} /><p style={{fontWeight: 'bold', fontSize: '18px', margin: '8px 0'}}>Quill Connect</p></a>
         </div>
         <p style={{padding: '0px 15px', marginTop: '12px'}}>Use our new tools to assess your students’ writing and build sentence structure skills.</p>
-        <a href='/tools/diagnostic'><button style={{marginTop: '18px'}} className="button button-white beta">Learn More</button></a>
+        <a href='/tools/diagnostic'><button className="button button-white beta" style={{marginTop: '18px'}}>Learn More</button></a>
       </div>
     );
   },

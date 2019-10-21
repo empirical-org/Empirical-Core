@@ -72,7 +72,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
   renderCheckbox() {
     const checkbox = this.state.checkboxOne
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
     }
@@ -90,7 +90,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
   renderImportButton() {
     const { waiting } = this.state
     if (waiting) {
-      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator/></button>
+      return <button className={this.submitButtonClass()}><ButtonLoadingIndicator /></button>
     } else {
       return <button className={this.submitButtonClass()} onClick={this.importStudents}>Import students</button>
     }
@@ -98,7 +98,7 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
 
   render() {
     const { classroom, close } = this.props
-    return <div className="modal-container import-google-classroom-students-modal-container">
+    return (<div className="modal-container import-google-classroom-students-modal-container">
       <div className="modal-background" />
       <div className="import-google-classroom-students-modal quill-modal modal-body">
         <div>
@@ -111,6 +111,6 @@ export default class ImportGoogleClassroomStudentsModal extends React.Component<
           {this.renderImportButton()}
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

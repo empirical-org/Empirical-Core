@@ -48,22 +48,22 @@ class ChooseModelContainer extends Component {
       <p className="control">
         <button
           className={'button is-primary'}
-          onClick={this.saveModelConcept}
           disabled={this.state.modelConceptUID == this.props.questions.data[this.props.params.questionID].modelConceptUID ? 'true' : null}
+          onClick={this.saveModelConcept}
         >
           Save Model Concept
         </button>
         <button
           className={'button is-outlined is-info'}
-          style={{marginLeft: 5}}
           onClick={() => window.history.back()}
+          style={{marginLeft: 5}}
         >
           Cancel
         </button>
         <button
           className="button is-outlined is-danger"
-          style={{marginLeft: 5}}
           onClick={this.removeModelConcept}
+          style={{marginLeft: 5}}
         >
           Remove
         </button>
@@ -75,10 +75,10 @@ class ChooseModelContainer extends Component {
     if (this.state.lessonModelConceptUID && this.state.lessonModelConceptUID !== this.state.modelConceptUID) {
       const concept = this.props.concepts.data['0'].find(c => c.uid === this.state.lessonModelConceptUID)
       if (concept) {
-        return <div style={{ marginBottom: '10px' }}>
+        return (<div style={{ marginBottom: '10px' }}>
           <p>The activity that this question belongs to has the following Model Concept:</p>
           <p><i>"{concept.displayName}"</i></p>
-        </div>
+        </div>)
       }
     }
   }
@@ -89,7 +89,7 @@ class ChooseModelContainer extends Component {
         <h4 className="title">Choose Model</h4>
         {this.renderLessonModelNote()}
         <div className="control">
-          <ConceptSelector onlyShowConceptsWithConceptFeedback currentConceptUID={this.getModelConceptUID()} handleSelectorChange={this.selectConcept} />
+          <ConceptSelector currentConceptUID={this.getModelConceptUID()} handleSelectorChange={this.selectConcept} onlyShowConceptsWithConceptFeedback />
           <ConceptExplanation {...this.props.conceptsFeedback.data[this.getModelConceptUID()]} />
           {this.props.children}
         </div>

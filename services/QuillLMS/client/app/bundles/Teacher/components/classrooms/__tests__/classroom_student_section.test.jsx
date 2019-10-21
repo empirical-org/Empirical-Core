@@ -15,12 +15,12 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
-        isOwnedByCurrentUser
-        classrooms={classroomProps}
         classroom={classroomWithoutStudents}
-        user={userProps}
-        onSuccess={() => {}}
+        classrooms={classroomProps}
         inviteStudents={() => {}}
+        isOwnedByCurrentUser
+        onSuccess={() => {}}
+        user={userProps}
       />
     );
 
@@ -38,11 +38,11 @@ describe('ClassroomStudentSection component', () => {
 
     const wrapper = shallow(
       <ClassroomStudentSection
-        classrooms={classroomProps}
         classroom={classroomWithStudents}
-        user={userProps}
-        onSuccess={() => {}}
+        classrooms={classroomProps}
         inviteStudents={() => {}}
+        onSuccess={() => {}}
+        user={userProps}
       />
     );
 

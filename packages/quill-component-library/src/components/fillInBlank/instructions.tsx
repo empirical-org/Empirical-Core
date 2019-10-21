@@ -8,7 +8,7 @@ const questionIconSrc = 'https://assets.quill.org/images/icons/question_icon.svg
 
 const Instructions = (props: any) => (
   <div className="feedback-row">
-    <img className="info" src={questionIconSrc} alt="icon" style={{ marginTop: 3, }} />
+    <img alt="icon" className="info" src={questionIconSrc} style={{ marginTop: 3, }} />
     <div dangerouslySetInnerHTML={{ __html: props.html, }} />
   </div>
 );

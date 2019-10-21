@@ -77,20 +77,20 @@ export default React.createClass({
           if (s.csvUrl) {
             content = 'Ready: Click here'
           } else if (s.waitingForCsv) {
-            content = <span>
+            content = (<span>
                         Downloading
-              <ButtonLoadingIndicator/>
-            </span>
+              <ButtonLoadingIndicator />
+            </span>)
           } else {
             content = 'Download Report'
           }
             return (
               <div className="export-csv">
                 <a
-                  href={s.csvUrl || null}
                   className="download-button q-button bg-quillgreen text-white"
                   disabled={this.state.waitingForCsv}
                   download={s.csvUrl ? 'CSV' : null}
+                  href={s.csvUrl || null}
                   onClick={!s.csvUrl && !s.waitingForCsv ? this.createExport : null}
                 >{content}</a>
               </div>

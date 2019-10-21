@@ -150,9 +150,9 @@ class StudentDiagnostic extends React.Component {
   renderQuestionComponent = () => {
     if (this.props.question.currentQuestion) {
       return (<Question
+        prefill={this.getLesson().prefill}
         question={this.props.question.currentQuestion}
         submitResponse={this.submitResponse}
-        prefill={this.getLesson().prefill}
       />);
     }
   }
@@ -293,7 +293,7 @@ class StudentDiagnostic extends React.Component {
           <DiagnosticProgressBar percent={this.getProgressPercent()} />
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />
+              <SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => {}} />
             </div>
           </section>
         </div>
@@ -306,7 +306,7 @@ class StudentDiagnostic extends React.Component {
           <DiagnosticProgressBar percent={this.getProgressPercent()} />
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />
+              <SmartSpinner key="step2" message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} />
             </div>
           </section>
         </div>
@@ -316,37 +316,37 @@ class StudentDiagnostic extends React.Component {
     if (this.props.playDiagnostic.currentQuestion) {
       if (questionType === 'SC') {
         component = (<PlayDiagnosticQuestion
-          question={this.props.playDiagnostic.currentQuestion.data}
-          nextQuestion={this.nextQuestion}
           dispatch={this.props.dispatch}
-          // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
           key={this.props.playDiagnostic.currentQuestion.data.key}
           marking="diagnostic"
+          // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+          nextQuestion={this.nextQuestion}
+          question={this.props.playDiagnostic.currentQuestion.data}
         />);
       } else if (questionType === 'SF') {
         component = (<PlaySentenceFragment
-          question={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+          dispatch={this.props.dispatch}
           key={this.props.playDiagnostic.currentQuestion.data.key}
           // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
-          dispatch={this.props.dispatch}
-          nextQuestion={this.nextQuestion}
           markIdentify={this.markIdentify}
+          nextQuestion={this.nextQuestion}
+          question={this.props.playDiagnostic.currentQuestion.data}
           updateAttempts={this.submitResponse}
         />);
       } else if (questionType === 'FB') {
         component = (<PlayFillInTheBlankQuestion
-          question={this.props.playDiagnostic.currentQuestion.data}
           currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-          key={this.props.playDiagnostic.currentQuestion.data.key}
           dispatch={this.props.dispatch}
+          key={this.props.playDiagnostic.currentQuestion.data.key}
           nextQuestion={this.nextQuestion}
+          question={this.props.playDiagnostic.currentQuestion.data}
         />)
       } else if (questionType === 'TL') {
         component = (
           <PlayTitleCard
-            data={this.props.playDiagnostic.currentQuestion.data}
             currentKey={this.props.playDiagnostic.currentQuestion.data.key}
+            data={this.props.playDiagnostic.currentQuestion.data}
             dispatch={this.props.dispatch}
             nextQuestion={this.nextQuestionWithoutSaving}
           />
@@ -354,17 +354,17 @@ class StudentDiagnostic extends React.Component {
       }
     } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
       component = (<FinishedDiagnostic
-        saveToLMS={this.saveToLMS}
-        saved={this.state.saved}
         error={this.state.error}
+        saved={this.state.saved}
+        saveToLMS={this.saveToLMS}
       />);
     } else {
       component = (<LandingPage
         begin={() => { this.startActivity('John'); }}
-        session={this.getPreviousSessionData()}
-        resumeActivity={this.resumeSession}
-        questionCount={this.getQuestionCount()}
         landingPageHtml={this.landingPageHtml()}
+        questionCount={this.getQuestionCount()}
+        resumeActivity={this.resumeSession}
+        session={this.getPreviousSessionData()}
       />);
     }
     return (

@@ -9,9 +9,9 @@ describe('LeaveClassModal component', () => {
 
   const wrapper = shallow(
     <LeaveClassModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
     />
   );
 

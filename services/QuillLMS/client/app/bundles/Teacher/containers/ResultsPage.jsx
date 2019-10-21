@@ -12,13 +12,13 @@ export default React.createClass({
       const link = `/${this.props.integrationPartnerName}?session_id=${this.props.integrationPartnerSessionId}`;
       return (<a href={link}>
         <button className='btn button-green'>
-          Back to Activity List<i className="fa fa-long-arrow-right" aria-hidden="true" />
+          Back to Activity List<i aria-hidden="true" className="fa fa-long-arrow-right" />
         </button>
       </a>)
     } else if (this.props.anonymous) {
       return (<a href='/account/new'>
         <button className='btn button-green'>
-          Sign Up<i className="fa fa-long-arrow-right" aria-hidden="true" />
+          Sign Up<i aria-hidden="true" className="fa fa-long-arrow-right" />
         </button>
       </a>)
     } else {
@@ -26,7 +26,7 @@ export default React.createClass({
       return (
         <a href={link}>
           <button className='btn button-green'>
-            Back to Your Dashboard<i className="fa fa-long-arrow-right" aria-hidden="true" />
+            Back to Your Dashboard<i aria-hidden="true" className="fa fa-long-arrow-right" />
           </button>
         </a>
       )
@@ -50,20 +50,20 @@ export default React.createClass({
   render: function() {
     return (
       <div
-        id='results-page'
         className='container-fluid'
+        id='results-page'
       >
         <ScrollToTop />
         <div className='top-section'>
           <ResultsIcon
-            percentage={this.props.percentage}
             activityType={this.props.activityType}
+            percentage={this.props.percentage}
           />
           {this.headerMessage()}
         </div>
         <div className='bottom-section'>
           <div className='results-wrapper'>
-            <StudentResultsTables results={this.props.results}/>
+            <StudentResultsTables results={this.props.results} />
           </div>
         </div>
       </div>

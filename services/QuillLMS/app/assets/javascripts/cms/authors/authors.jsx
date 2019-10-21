@@ -52,14 +52,14 @@ EC.Authors = React.createClass({
         <div className='row'>
           <div className='col-xs-12'>
             <EC.Resource
-              resourceNameSingular='author'
-              resourceNamePlural='authors'
+              fieldsToNormalize={fieldsToNormalize}
+              formFields={formFields}
               initialModel={initialModel}
               resource={cmsComponent.state.resourceToEdit}
-              formFields={formFields}
-              savingKeys={savingKeys}
-              fieldsToNormalize={fieldsToNormalize}
+              resourceNamePlural='authors'
+              resourceNameSingular='author'
               returnToIndex={cmsComponent.returnToIndex}
+              savingKeys={savingKeys}
             />
           </div>
         </div>
@@ -70,9 +70,9 @@ EC.Authors = React.createClass({
   render: function () {
     return (
       <EC.Cms
-        resourceNameSingular='author'
-        resourceNamePlural='authors'
         resourceComponentGenerator={this.resourceComponentGenerator}
+        resourceNamePlural='authors'
+        resourceNameSingular='author'
       />
 
     );

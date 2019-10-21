@@ -112,21 +112,21 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         case 'T-REVIEW':
           return this.renderReview(index);
         case 'STEP-HTML':
-          return <StepHtml
+          return (<StepHtml
+            isTip={false}
+            item={item}
             key={index}
             onlyShowHeaders={this.props.onlyShowHeaders}
-            item={item}
             updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-            isTip={false}
-          />
+          />)
         case 'STEP-HTML-TIP':
-            return <StepHtml
+            return (<StepHtml
+              isTip={true}
+              item={item}
               key={index}
               onlyShowHeaders={this.props.onlyShowHeaders}
-              item={item}
               updateToggledHeaderCount={this.props.updateToggledHeaderCount}
-              isTip={true}
-            />
+            />)
         case 'T-MODEL':
           return this.renderTeacherModel()
         case 'Overview':
@@ -157,7 +157,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderRetryQuestionButton() {
-    return <p onClick={this.retryQuestion}><i className="fa fa-refresh"/>Retry Question</p>
+    return <p onClick={this.retryQuestion}><i className="fa fa-refresh" />Retry Question</p>
   }
 
   retryQuestion() {
@@ -285,31 +285,31 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf('correct') + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
 
-    return <tr className="sample-correct-answer-row">
+    return (<tr className="sample-correct-answer-row">
       <td colSpan={2}><div>Sample Correct Response</div></td>
-      <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></td>
-      <td/>
+      <td><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}} /></td>
+      <td />
       <td>
         <input
+          defaultChecked={checked}
           id={'correct'}
           name={'correct'}
           type="checkbox"
-          defaultChecked={checked}
         />
         <label htmlFor={'correct'} onClick={(e) => { this.props.toggleSelected(e, current_slide, 'correct'); }}>
           {checkbox}
         </label>
       </td>
       <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-      <td/>
+      <td />
 
-    </tr>
+    </tr>)
   }
 
   renderReview(index: number) {
     const { selected_submissions, submissions, current_slide, students, presence, sampleCorrectAnswer } = this.props;
     const numStudents: number = presence ? Object.keys(presence).length : 0;
-    const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span/>
+    const correctAnswerRow = sampleCorrectAnswer ? this.renderCorrectAnswerRow() : <span />
     if (submissions && submissions[current_slide]) {
       const numAnswers: number = Object.keys(submissions[current_slide]).length;
 
@@ -344,9 +344,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   renderSampleCorrectAnswer() {
     if (this.props.sampleCorrectAnswer) {
-      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}}/></div>
+      return <div className="sample-correct-answer"><span>Sample Correct Response</span><span dangerouslySetInnerHTML={{__html: this.props.sampleCorrectAnswer}} /></div>
     } else {
-      return <span/>
+      return <span />
     }
   }
 
@@ -367,7 +367,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       if (key === 'retry') {
         headers.push(<th key={key}>{fields[key]}</th>)
       } else if (key === 'order') {
-        headers.push(<th key={key} className="hidden-order">{fields[key]}</th>)
+        headers.push(<th className="hidden-order" key={key}>{fields[key]}</th>)
       } else {
         let caret = sort === key && dir === 'asc' ? 'fa-caret-up' : 'fa-caret-down'
         const header = key === 'displayed'
@@ -376,12 +376,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         headers.push(header)
       }
     }
-    return <thead>
+    return (<thead>
       <tr>
         {headers}
         <th />
       </tr>
-    </thead>
+    </thead>)
   }
 
   renderStudentRows() {
@@ -426,13 +426,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderNoSubmissionRow(studentKey: string) {
-    return <tr key={studentKey}>
+    return (<tr key={studentKey}>
       <td>{this.props.students[studentKey]}</td>
       <td>{this.renderFlag(studentKey)}</td>
       <td className="no-student-response">Waiting for the student's answer...</td>
       <td />
       <td />
-    </tr>
+    </tr>)
   }
 
   renderHTMLFromSubmissionObject(submission) {
@@ -443,7 +443,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, selected_submission_order, slideType } = this.props;
     const text: any = submissions[current_slide][studentKey].data
     const submissionText = this.state.showDifferences ? findDifferences(text, this.props.lessonPrompt) : text;
-    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}}/>
+    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}} />
     const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
     const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
     const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
@@ -451,25 +451,25 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
     const studentNumberClassName: string = checked === true ? 'answer-number' : ''
     const studentName: string = students[studentKey]
-      return <tr key={index}>
+      return (<tr key={index}>
         <td>{studentName}</td>
         <td>{this.renderFlag(studentKey)}</td>
         <td>{html}</td>
         <td>{elapsedTime}</td>
         <td>
           <input
+            defaultChecked={checked}
             id={studentName}
             name={studentName}
             type="checkbox"
-            defaultChecked={checked}
           />
           <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
             {checkbox}
           </label>
         </td>
         <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)}/></td>
-      </tr>
+        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)} /></td>
+      </tr>)
 
   }
 
@@ -478,11 +478,11 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (this.props.sampleCorrectAnswer) {
       content = this.renderSampleCorrectAnswer()
     } else {
-      content = <div className="no-student-submissions">
+      content = (<div className="no-student-submissions">
         Once students answer, anonymously discuss their work by selecting answers and then projecting them. You can use the step-by-step guide below to lead a discussion.
-      </div>
+      </div>)
     }
-    return <li className="student-submission-item" key={index}>
+    return (<li className="student-submission-item" key={index}>
 
       <div className="student-submission-item-header">
         <strong>0 of {numStudents}</strong> students have responded.
@@ -494,7 +494,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         {this.renderDisplayButton()}
       </div>
 
-    </li>
+    </li>)
   }
 
   elapsedMilliseconds(submittedTimestamp: any) {
@@ -541,10 +541,10 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     if (this.props.cues) {
       return (
         <Cues
+          displayArrowAndText={false}
           getQuestion={() => ({
             cues: this.props.cues,
           })}
-          displayArrowAndText={false}
         />
       );
     }
@@ -559,9 +559,9 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       promptEditor = (
         <div className="prompt-component-wrapper">
           <MultipleTextEditor
-            text={this.state.prompt}
             handleTextChange={this.handlePromptChange}
             lessonPrompt={textEditorInputClean(this.props.lessonPrompt)}
+            text={this.state.prompt}
             title={"Prompt:"}
           />
         </div>
@@ -581,8 +581,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
         {this.renderCues()}
         <div className="model-component-wrapper">
           <MultipleTextEditor
-            text={this.state.model}
             handleTextChange={this.handleModelChange}
+            text={this.state.model}
             title={"Your Model:"}
           />
         </div>
