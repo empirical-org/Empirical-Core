@@ -78,7 +78,8 @@ describe('ConceptResultStats component', () => {
         { name: 'Y', metadata: { correct: 1, incorrect: 0 } },
         { name: 'X', metadata: { correct: 1, incorrect: 0 } },
         { name: 'X', metadata: { correct: 0, incorrect: 1 } },
-      ]} />
+      ]}
+      />
     );
     expect(wrapper.find(ConceptResultStat).at(0).props().name).toBe('A');
     expect(wrapper.find(ConceptResultStat).at(1).props().name).toBe('B');

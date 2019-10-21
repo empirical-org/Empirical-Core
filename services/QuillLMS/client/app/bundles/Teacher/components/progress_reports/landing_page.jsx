@@ -67,7 +67,7 @@ export default React.createClass({
   },
 
   miniBuilder(mini) {
-    const premium = mini.premium ? <h4 className="premium">Premium<i className="fa fa-star" aria-hidden="true" /></h4> : null;
+    const premium = mini.premium ? <h4 className="premium">Premium<i aria-hidden="true" className="fa fa-star" /></h4> : null;
     return (
       <GenericMini key={mini.title}>
         <a href={mini.href}>

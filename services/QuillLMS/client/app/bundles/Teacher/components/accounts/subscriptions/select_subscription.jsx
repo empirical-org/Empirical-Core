@@ -37,7 +37,7 @@ export default React.createClass({
             Status
           </div>
           <div className="col-xs-4">
-            <select ref="select" onChange={this.updateSubscriptionType} value={this.props.subscription.account_type}>
+            <select onChange={this.updateSubscriptionType} ref="select" value={this.props.subscription.account_type}>
               {options}
             </select>
           </div>

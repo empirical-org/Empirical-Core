@@ -97,7 +97,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     const presence = this.props.classroomSessions.data.presence
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     return (
-      <div className="present-students"><img src={studentIcon}/><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
+      <div className="present-students"><img src={studentIcon} /><span> {numPresent} Student{numPresent === 1 ? '': 's'} Viewing</span></div>
     )
   }
 
@@ -117,7 +117,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         const activeClass = currentSlide === slide ? 'active' : '';
         let thumb;
         let title = editionData.questions[slide].data.teach.title
-        let titleSection = title ? <span> - {title}</span> : <span/>
+        let titleSection = title ? <span> - {title}</span> : <span />
         let prompt = data.prompts && data.prompts[slide] ? data.prompts[slide] : null;
         let model: string|null = data.models && data.models[slide] ? data.models[slide] : null;
         let mode: string | null = data.modes && data.modes[slide] ? data.modes[slide] : null;
@@ -128,7 +128,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         switch (questions[slide].type) {
           case 'CL-LB':
             thumb = (
-              <CLStudentLobby data={data} title={lessonData.title}/>
+              <CLStudentLobby data={data} title={lessonData.title} />
             );
             break;
           case 'CL-ST':
@@ -138,7 +138,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
             break;
           case 'CL-MD':
             thumb = (
-              <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt}/>
+              <CLStudentModelQuestion data={questions[slide].data} model={model} prompt={prompt} />
             );
             break;
           case 'CL-SA':
@@ -173,10 +173,10 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         ? <span>Title Slide{titleSection}</span>
         : <span>Slide {slide} / {length}{titleSection}</span>
         components.push((
-          <div key={counter} onClick={() => this.goToSlide(slide)} id={slide}>
+          <div id={slide} key={counter} onClick={() => this.goToSlide(slide)}>
             <div className="sidebar-header">
-            <p className={`slide-number ${activeClass}`}>{headerText}</p>
-            {currentSlide === slide ? this.presentStudents() : null}
+              <p className={`slide-number ${activeClass}`}>{headerText}</p>
+              {currentSlide === slide ? this.presentStudents() : null}
             </div>
             <div className={`slide-preview ${activeClass}`}>
               <div className="scaler">
@@ -195,7 +195,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     return (
       <div className="side-bar">
           Loading...
-        </div>
+      </div>
     );
   }
 

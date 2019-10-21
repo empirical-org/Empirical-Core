@@ -29,7 +29,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   renderLabel(concept: Concept) {
     return (
       <p className="menu-label">
-      {concept.displayName}
+        {concept.displayName}
       </p>
     );
   }
@@ -46,11 +46,11 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
           <LinkListItem
-            key={question.key}
-            itemKey={question.key}
             basePath={this.props.basePath}
-            text={formattedPrompt}
+            itemKey={question.key}
+            key={question.key}
             subpath={'responses'}
+            text={formattedPrompt}
           />
         );
       }

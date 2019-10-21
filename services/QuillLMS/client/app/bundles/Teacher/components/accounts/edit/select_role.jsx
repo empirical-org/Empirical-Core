@@ -23,7 +23,7 @@ export default React.createClass({
           Role
         </div>
         <div className='col-xs-4'>
-          <select ref='select' value={this.props.role.toLowerCase()} onChange={this.updateRole}>
+          <select onChange={this.updateRole} ref='select' value={this.props.role.toLowerCase()}>
             {options}
           </select>
         </div>

@@ -5,11 +5,11 @@ export default React.createClass({
   stateSpecificComponents: function() {
     if (this.props.status == 'trial') {
       return (
-          <h4>You have {this.props.data} days left in your trial.</h4>
+        <h4>You have {this.props.data} days left in your trial.</h4>
       );
     } else if (this.props.status == 'locked') {
       return (
-          <h4>Your Premium Trial Has Expired</h4>
+        <h4>Your Premium Trial Has Expired</h4>
       );
     }
   },
@@ -24,7 +24,7 @@ export default React.createClass({
         <div className='col-md-3 col-xs-12 pull-right'>
           <div className='premium-button-box text-center'>
             <a href='/premium'>
-              <button type='button' className='btn-orange'>Upgrade to Premium Now</button>
+              <button className='btn-orange' type='button'>Upgrade to Premium Now</button>
             </a>
           </div>
         </div>

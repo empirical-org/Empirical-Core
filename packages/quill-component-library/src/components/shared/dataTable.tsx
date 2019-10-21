@@ -121,16 +121,16 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const allChecked = rows.every(row => row.checked)
     if (allChecked) {
-      return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-        <img src={smallWhiteCheckSrc} alt="check" onClick={uncheckAllRows}/>
-      </span>
+      return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        <img alt="check" onClick={uncheckAllRows} src={smallWhiteCheckSrc} />
+      </span>)
     }
 
     const anyChecked = rows.some(row => row.checked)
     if (anyChecked) {
-      return <span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-        <img src={indeterminateSrc} alt="check" onClick={uncheckAllRows}/>
-      </span>
+      return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
+        <img alt="check" onClick={uncheckAllRows} src={indeterminateSrc} />
+      </span>)
     }
 
     return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
@@ -153,7 +153,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderRowCheckbox(row) {
     if (this.props.showCheckboxes) {
       if (row.checked) {
-        return <span className="quill-checkbox selected data-table-row-section" onClick={() => this.props.uncheckRow(row.id)}><img src={smallWhiteCheckSrc} alt="check" /></span>
+        return <span className="quill-checkbox selected data-table-row-section" onClick={() => this.props.uncheckRow(row.id)}><img alt="check" src={smallWhiteCheckSrc} /></span>
       } else if (row.checkDisabled) {
         return <span className="quill-checkbox disabled data-table-row-section" />
       } else {
@@ -164,7 +164,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
   renderRowRemoveIcon(row) {
     if (this.props.showRemoveIcon && row.removable) {
-      return <span className="removable data-table-row-section" onClick={() => this.props.removeRow(row.id)}><img src={removeSrc} alt="x" /></span>
+      return <span className="removable data-table-row-section" onClick={() => this.props.removeRow(row.id)}><img alt="x" src={removeSrc} /></span>
     } else {
       return <span className='removable data-table-row-section' />
     }
@@ -176,28 +176,28 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { rowWithActionsOpen } = this.state
     const actionsIsOpen = rowWithActionsOpen === row.id;
 
-    return <span className="data-table-row-section actions-section">
+    return (<span className="data-table-row-section actions-section">
       {actionsIsOpen ? this.renderOpenActions(row) : this.renderClosedActions(row)}
-    </span>
+    </span>)
   }
 
   renderOpenActions(row) {
     const rowActions = row.actions.map(act => <span onClick={() => this.clickAction(act.action, row.id)}>{act.name}</span>)
 
-    return <div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
+    return (<div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
       <div className="actions-menu">
-         {rowActions}
+        {rowActions}
       </div>
-    </div>
+    </div>)
   }
 
   renderClosedActions(row) {
-    return <button
+    return (<button
       className="quill-button actions-button"
       onClick={() => this.setState({ rowWithActionsOpen: row.id })}
     >
-      <img src={moreHorizontalSrc} alt="ellipses" />
-    </button>
+      <img alt="ellipses" src={moreHorizontalSrc} />
+    </button>)
   }
 
   renderHeader(header) {
@@ -210,14 +210,14 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       sortArrow = <img className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
       className+= ' sortable'
     }
-    return <span
-      onClick={onClick}
+    return (<span
       className={className}
+      onClick={onClick}
       style={style as any}
     >
       {sortArrow}
       {header.name}
-    </span>
+    </span>)
   }
 
   renderHeaders() {
@@ -232,20 +232,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
     if ((String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
-      return <Tooltip
-        tooltipTriggerTextClass={dataTableRowSectionClassName}
-        tooltipTriggerText={sectionText}
+      return (<Tooltip
         tooltipText={sectionText}
         tooltipTriggerStyle={style}
+        tooltipTriggerText={sectionText}
+        tooltipTriggerTextClass={dataTableRowSectionClassName}
         tooltipTriggerTextStyle={style}
-      />
+      />)
     } else {
-      return <span
+      return (<span
         className={dataTableRowSectionClassName}
         style={style as any}
       >
         {sectionText}
-      </span>
+      </span>)
     }
   }
 
@@ -262,10 +262,10 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   render() {
-    return <div className={`data-table ${this.props.className}`}>
+    return (<div className={`data-table ${this.props.className}`}>
       {this.renderHeaders()}
       {this.renderRows()}
-    </div>
+    </div>)
   }
 
 }

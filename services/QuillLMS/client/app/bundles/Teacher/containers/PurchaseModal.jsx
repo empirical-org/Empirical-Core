@@ -23,7 +23,7 @@ export default class PurchaseModal extends React.Component {
 
   render() {
     if (this.state.readyForSchoolPremiumPurchase) {
-      return <SelectCreditCardModal price={900} type={'school'} setCreditCardToFalse={this.setCreditCardToFalse} {...this.props} />;
+      return <SelectCreditCardModal price={900} setCreditCardToFalse={this.setCreditCardToFalse} type={'school'} {...this.props} />;
     } else if (this.props.subscriptionType === 'School') {
       return <SchoolPremiumModal purchaseSchoolPremium={this.purchaseSchoolPremium} {...this.props} />;
     }

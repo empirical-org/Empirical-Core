@@ -82,10 +82,10 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
             return (
               <div className="concept-box-container">
                 <ConceptBox
-                  concept={concept}
-                  levelNumber={levelNumber}
-                  finishEditingConcept={finishEditingConcept}
                   closeConceptBox={closeConceptBox}
+                  concept={concept}
+                  finishEditingConcept={finishEditingConcept}
+                  levelNumber={levelNumber}
                 />
               </div>
             )
@@ -93,10 +93,10 @@ class ConceptBoxContainer extends React.Component<any, ConceptBoxContainerProps>
             return (
               <div className="concept-box-container">
                 <ArchivedConceptBox
-                  concept={concept}
-                  levelNumber={levelNumber}
-                  finishEditingConcept={finishEditingConcept}
                   closeConceptBox={closeConceptBox}
+                  concept={concept}
+                  finishEditingConcept={finishEditingConcept}
+                  levelNumber={levelNumber}
                 />
               </div>
             )

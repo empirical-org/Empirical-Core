@@ -45,17 +45,17 @@ class CustomizeExit extends Component<ExitProps, {}>{
         <div className="form">
           <TitleField
             clearSlide={this.props.clearSlide}
+            handleTitleChange={this.handleTitleChange}
             questionIndex={this.props.questionIndex}
             resetSlide={this.props.resetSlide}
             title={this.props.question.teach.title}
-            handleTitleChange={this.handleTitleChange}
           />
           <PromptField
-            incompletePrompt={this.props.incompletePrompt}
-            text={this.props.question.play.html}
-            reset={this.props.question.reset}
             handleTextChange={(e) => this.handleHTMLChange(e)}
+            incompletePrompt={this.props.incompletePrompt}
+            reset={this.props.question.reset}
             showBlockquote={true}
+            text={this.props.question.play.html}
           />
         </div>
         <div className="slide-preview-container">

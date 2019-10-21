@@ -30,7 +30,7 @@ export default class DeleteAccountModal extends React.Component {
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }
@@ -66,8 +66,8 @@ export default class DeleteAccountModal extends React.Component {
           </p>
           {this.renderCheckboxes()}
           <div className="button-section">
-            <div id="cancel" className="quill-button outlined secondary medium" onClick={cancel}>Cancel</div>
-            <input type="submit" name="commit" value="Delete account" onClick={deleteAccount} className={this.submitClass()} />
+            <div className="quill-button outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
+            <input className={this.submitClass()} name="commit" onClick={deleteAccount} type="submit" value="Delete account" />
           </div>
         </div>
       </div>)

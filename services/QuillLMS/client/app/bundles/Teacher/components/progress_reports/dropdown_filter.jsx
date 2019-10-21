@@ -14,7 +14,7 @@ export default React.createClass({
     return (
       <ul className="dropdown-menu" role="menu">
         {_.map(this.props.options, function (option, i) {
-          return <DropdownFilterOption key={i} name={option.name} value={option.value} selectOption={this.handleSelect} />;
+          return <DropdownFilterOption key={i} name={option.name} selectOption={this.handleSelect} value={option.value} />;
         }, this)}
       </ul>
     );
@@ -32,16 +32,16 @@ export default React.createClass({
     return 'select-white';
   },
   render() {
-    const icon = this.props.icon ? <i className={`fa fa-icon scorebook-dropdown-icon ${this.props.icon}`}/> : <span/>
+    const icon = this.props.icon ? <i className={`fa fa-icon scorebook-dropdown-icon ${this.props.icon}`} /> : <span />
     const buttonText = (this.props.selectedOption && this.props.selectedOption.name) ? this.props.selectedOption.name : this.props.placeholder
     return (
-        <div className={`button-select ${this.props.className}`}>
-          <button type="button" className={this.getButtonClassName() + " select-mixin button-select button-select-wrapper"} data-toggle="dropdown">
-            {icon} <span className="button-text">{buttonText}</span>
-            <i className="fa fa-caret-down" />
-          </button>
-          {this.getFilterOptions()}
-        </div>
+      <div className={`button-select ${this.props.className}`}>
+        <button className={this.getButtonClassName() + " select-mixin button-select button-select-wrapper"} data-toggle="dropdown" type="button">
+          {icon} <span className="button-text">{buttonText}</span>
+          <i className="fa fa-caret-down" />
+        </button>
+        {this.getFilterOptions()}
+      </div>
     );
   },
 });

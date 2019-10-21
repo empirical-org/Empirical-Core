@@ -18,7 +18,7 @@ export default class UnitTemplateFirstRow extends React.Component {
 
   render() {
     return (
-      <div style={{backgroundColor: this.getBackgroundColor()}} className='first-row'>
+      <div className='first-row' style={{backgroundColor: this.getBackgroundColor()}}>
         <div className='col-xs-12'>
           <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <div className='unit-template-type'>

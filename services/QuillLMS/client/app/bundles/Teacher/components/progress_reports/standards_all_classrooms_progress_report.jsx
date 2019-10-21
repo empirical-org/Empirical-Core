@@ -67,7 +67,7 @@ export default class extends React.Component {
       row.activities = Number(row.total_activity_count)
       row.green_arrow = (
         <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`}>
-          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
         </a>
       )
       row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`
@@ -109,7 +109,7 @@ export default class extends React.Component {
         resizable: false,
         minWidth: 300,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} className="row-link-disguise">
+          <a className="row-link-disguise" href={row.original['link']}>
             {row.original['name']}
           </a>
         )
@@ -118,7 +118,7 @@ export default class extends React.Component {
         accessor: 'number_of_students',
         resizable: false,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} className="row-link-disguise">
+          <a className="row-link-disguise" href={row.original['link']}>
             {row.original['number_of_students']}
           </a>
         )
@@ -128,7 +128,7 @@ export default class extends React.Component {
 				resizable: false,
         className: blurIfNotPremium,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} className="row-link-disguise">
+          <a className="row-link-disguise" href={row.original['link']}>
             {row.original['proficient']}
           </a>
         )
@@ -137,7 +137,7 @@ export default class extends React.Component {
 				accessor: 'activities',
 				resizable: false,
         Cell: (row, selectedClassroomId) => (
-          <a href={row.original['link']} className="row-link-disguise">
+          <a className="row-link-disguise" href={row.original['link']}>
             {row.original['activities']}
           </a>
         )
@@ -168,18 +168,20 @@ export default class extends React.Component {
       if (data.length) {
         return (
           <div key={`${data.length}-length-for-activities-scores-by-classroom`}>
-  					<ReactTable data={data}
-  						columns={this.columns()}
-  						showPagination={false}
-  						defaultSorted={[{id: 'standard_level', desc: false}]}
-  					  showPaginationTop={false}
-  						showPaginationBottom={false}
-  						showPageSizeOptions={false}
-  						defaultPageSize={data.length}
-  						className='progress-report has-green-arrow'/></div>
+            <ReactTable
+              className='progress-report has-green-arrow'
+              columns={this.columns()}
+              data={data}
+              defaultPageSize={data.length}
+              defaultSorted={[{id: 'standard_level', desc: false}]}
+              showPageSizeOptions={false}
+              showPagination={false}
+              showPaginationBottom={false}
+              showPaginationTop={false}
+            /></div>
         )
       } else {
-        return <EmptyStateForReport/>
+        return <EmptyStateForReport />
       }
     }
 
@@ -189,7 +191,7 @@ export default class extends React.Component {
       errors = <div className='errors'>{this.state.errors}</div>
     }
     if (this.state.loading) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     return (
       <div className='standards-all-classrooms progress-reports-2018 '>
@@ -199,13 +201,13 @@ export default class extends React.Component {
             <p>Each activity on Quill is aligned to a Common Core standard. This reports shows your students’ overall progress on each of the standards. You can filter by student on this page to see one student’s progress on all of the standards. You can click on an individual standard to see all of the student results for that standard.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport key={`data is updating: ${this.state.updatingData}`} data={this.formatDataForCSV()}/>
+            <CSVDownloadForProgressReport data={this.formatDataForCSV()} key={`data is updating: ${this.state.updatingData}`} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
         </div>
         <div className='dropdown-container'>
-          <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom}/>
-          <ItemDropdown items={_.uniq(this.state.students.map(s => s.name))} callback={this.goToStudentPage}/>
+          <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(this.state.students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>

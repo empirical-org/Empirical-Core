@@ -87,10 +87,10 @@ class ClassLessonsIndex extends Component<any, any> {
         <p className="control has-addons">
           <input
             className="input is-expanded"
-            type="text"
-            placeholder="Algebra 101"
-            value={this.state.newLessonName}
             onChange={this.changeNewLessonName}
+            placeholder="Algebra 101"
+            type="text"
+            value={this.state.newLessonName}
           />
           <a className="button is-info" onClick={this.addLesson}>
             Add New Lesson
@@ -101,9 +101,9 @@ class ClassLessonsIndex extends Component<any, any> {
   }
 
   renderLinkToAllEditions() {
-    return <div className="all-editions-link">
+    return (<div className="all-editions-link">
       <a href="#/admin/classroom-lessons/editions">See All User-Created Lesson Editions</a>
-    </div>
+    </div>)
   }
 
   addLesson() {

@@ -124,35 +124,35 @@ class Concept extends React.Component<ConceptProps, ConceptState> {
     if (this.props.concepts.hasreceiveddata && this.getConcept()) {
       return (
         <div>
-          <Link to ={'/admin/concepts'}>Return to All Concepts</Link>
+          <Link to={'/admin/concepts'}>Return to All Concepts</Link>
           <h4 className="title">{this.getConcept().displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           <div className="box">
             <h6 className="control subtitle">Create a new question</h6>
             <label className="label">Prompt</label>
             <TextEditor
-              handleTextChange={this.handlePromptChange}
-              EditorState={EditorState}
               ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={this.handlePromptChange}
             />
             <label className="label">Instructions for student</label>
             <p className="control">
-              <textarea className="input" ref="instructions" onChange={this.handleInstructionsChange} />
+              <textarea className="input" onChange={this.handleInstructionsChange} ref="instructions" />
             </p>
-            <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false}/>
+            <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
             <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
             <p className="control">
               <TextEditor
-                handleTextChange={this.handleRuleDescriptionChange}
-                EditorState={EditorState}
                 ContentState={ContentState}
+                EditorState={EditorState}
+                handleTextChange={this.handleRuleDescriptionChange}
               />
             </p>
             <label className="label">Optimal answer (you can add more later)</label>
             <p className="control">
-              <textarea className="input" ref="answers" onChange={this.handleAnswersChange} />
+              <textarea className="input" onChange={this.handleAnswersChange} ref="answers" />
             </p>
-            <br/>
+            <br />
             <button className="button is-primary" onClick={this.submit}>Create Question</button>
           </div>
           {this.renderQuestionsForConcept()}

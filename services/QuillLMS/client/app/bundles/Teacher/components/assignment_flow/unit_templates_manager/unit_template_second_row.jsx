@@ -37,25 +37,25 @@
   render: function () {
     return (
       <div className='white-row'>
-          <div className='row info-row'>
-            <div style={{flex: 3}}>
-              <div className='author'>
-                {this.sayAttribution()}
-              </div>
+        <div className='row info-row'>
+          <div style={{flex: 3}}>
+            <div className='author'>
+              {this.sayAttribution()}
             </div>
-            <div style={{flex: 5}}>
-              <div className='activities-count'>
-                <i className='fa fa-th-list' />
-                {this.sayActivitiesCount()}
-              </div>
-              <div className='time'>
-                <i className='fa fa-clock-o' />
-                <div className='time-number'>
-                  {this.sayTime()}
-                </div>
+          </div>
+          <div style={{flex: 5}}>
+            <div className='activities-count'>
+              <i className='fa fa-th-list' />
+              {this.sayActivitiesCount()}
+            </div>
+            <div className='time'>
+              <i className='fa fa-clock-o' />
+              <div className='time-number'>
+                {this.sayTime()}
               </div>
             </div>
           </div>
+        </div>
       </div>
     );
   }

@@ -94,10 +94,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   renderYourAnswer() {
     if (!this.props.projector) {
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
         <p className="your-answer">{this.state.response}</p>
-      </div>
+      </div>)
     }
   }
 
@@ -132,13 +132,13 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     const textBoxDisabled = !!this.state.submitted || this.props.projector
       return (
         <TextEditor
-          defaultValue={''}
-          value={this.state.response}
-          disabled={textBoxDisabled}
           checkAnswer={this.submitSubmission}
-          hasError={undefined}
+          defaultValue={''}
+          disabled={textBoxDisabled}
           handleChange={this.handleChange}
+          hasError={undefined}
           placeholder={this.props.projector ? 'Students type their response.' : "Type your answer here."}
+          value={this.state.response}
         />
       );
   }
@@ -146,11 +146,11 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   renderInstructions() {
     if (this.props.mode !== 'PROJECT') {
       if (this.state.submitted) {
-        return (<FeedbackRow/>);
+        return (<FeedbackRow />);
       } else if (this.props.data.play.instructions) {
         return (<Feedback
-          feedbackType="default"
           feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+          feedbackType="default"
         />);
       }
     }
@@ -161,11 +161,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       if (this.props.data.play.cues) {
         return (
           <Cues
+            displayArrowAndText={false}
             getQuestion={() => ({
               cues: this.props.data.play.cues,
-            })
-          }
-            displayArrowAndText={false}
+            })}
           />
         );
       }
@@ -179,7 +178,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     if (this.props.mode !== 'PROJECT') {
       const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
       return (<div className="question-button-group">
-        <button disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission} className={`button student-submit ${disabled}`}>Submit</button>
+        <button className={`button student-submit ${disabled}`} disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission}>Submit</button>
       </div>);
     }
   }
@@ -189,10 +188,10 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       const studentCount:number|undefined = this.props.studentCount
       const submissionCount:number = this.props.submissions ? Object.keys(this.props.submissions).length : 0
       const studentCountText:string = studentCount && submissionCount ? `${submissionCount} of ${studentCount} Answered` : ''
-      return <div className="projector-header-section">
+      return (<div className="projector-header-section">
         <div className="students-type-tag tag">Students Type Response</div>
         <p className="answered-count">{studentCountText}</p>
-      </div>
+      </div>)
     }
   }
 

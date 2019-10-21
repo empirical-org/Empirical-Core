@@ -11,8 +11,8 @@ export default class extends React.Component {
     return (
       <ReactMarkdown
         className={`markdown-text ${this.props.className}`}
-        source={this.props.markdownText}
         renderers={{ Link: LinkRenderer, }}
+        source={this.props.markdownText}
       />
   	);
   }

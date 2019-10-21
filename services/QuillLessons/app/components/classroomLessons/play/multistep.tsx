@@ -107,10 +107,10 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       const studentID = getParameterByName('student')
       const data = this.props.submissions && studentID && this.props.submissions[studentID] ? this.props.submissions[studentID].data : null
       const submission: string =  data ? data : ''
-      return <div>
+      return (<div>
         <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}}/>
-      </div>
+        <p className="your-answer" dangerouslySetInnerHTML={{__html: submission}} />
+      </div>)
     }
   }
 
@@ -131,12 +131,12 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       }
         return (
           <li key={`li-${index}`}>
-          <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}}/>
+            <span className='li-number'>{index + 1}</span> <span dangerouslySetInnerHTML={{__html: html}} />
           </li>);
-        }) : <span/>
+        }) : <span />
       return (
         <ul className="class-answer-list">
-        {selected}
+          {selected}
         </ul>
       );
   }
@@ -166,12 +166,12 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       <div className={`list-component`} key={sl}>
         <span className="list-number">{sl}</span>
         <TextEditor
-          index={sl}
-          value={this.state.answers[sl]}
+          disabled={!this.state.isSubmittable && this.state.submitted}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(sl)}
-          disabled={!this.state.isSubmittable && this.state.submitted}
-          />
+          index={sl}
+          value={this.state.answers[sl]}
+        />
       </div>
     )
   }
@@ -217,27 +217,27 @@ class Multisteps extends React.Component<MultistepProps, MultistepState> {
       return this.renderProject()
     } else {
       let errorArea = this.state.errors ? this.renderWarning() : null;
-      let feedbackRow = this.state.submitted ? <FeedbackRow/> : null;
+      let feedbackRow = this.state.submitted ? <FeedbackRow /> : null;
       let instructionsRow = this.props.data.play.instructions ? (<Feedback 
-        feedbackType="default"
         feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
+        feedbackType="default"
       />) : null;
       return (
         <div>
-        <h1 className="prompt">
-          <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}}/>
-        </h1>
-        {instructionsRow}
-        {this.listBlanks()}
-        <div>
-          <div className='feedback-and-button-container'>
-            {errorArea}
-            <div style={{marginBottom: 20}}>
-            {feedbackRow}
+          <h1 className="prompt">
+            <div dangerouslySetInnerHTML={{__html: this.props.data.play.prompt}} />
+          </h1>
+          {instructionsRow}
+          {this.listBlanks()}
+          <div>
+            <div className='feedback-and-button-container'>
+              {errorArea}
+              <div style={{marginBottom: 20}}>
+                {feedbackRow}
+              </div>
+              <SubmitButton disabled={this.state.submitted || !this.state.isSubmittable} key={`${this.state.isSubmittable}`} onClick={this.handleStudentSubmission} />
             </div>
-            <SubmitButton key={`${this.state.isSubmittable}`} disabled={this.state.submitted || !this.state.isSubmittable} onClick={this.handleStudentSubmission}/>
           </div>
-        </div>
         </div>
       )
     }

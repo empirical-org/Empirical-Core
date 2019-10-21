@@ -38,11 +38,11 @@ export default class SelectActivitiesContainer extends React.Component {
       const clickHandler = this.state.loading ? null : this.handleClick;
       const color = this.state.loading ? 'lightgray' : 'quillgreen';
       const text = this.state.loading ? <span>Saving <AssigningIndicator /></span> : 'Update Activities';
-      return <button onClick={clickHandler} className={`q-button cta-button bg-${color} text-white pull-right`} id="continue">{text}</button>;
+      return <button className={`q-button cta-button bg-${color} text-white pull-right`} id="continue" onClick={clickHandler}>{text}</button>;
     } else if (this.props.determineIfInputProvidedAndValid) {
-      return <button onClick={this.clickContinue} className="button-green pull-right" id="continue">Continue</button>;
+      return <button className="button-green pull-right" id="continue" onClick={this.clickContinue}>Continue</button>;
     }
-    return <button onClick={this.clickContinue} className="button-grey pull-right" id="continue">Continue</button>;
+    return <button className="button-grey pull-right" id="continue" onClick={this.clickContinue}>Continue</button>;
   }
 
   render = () => {
@@ -51,10 +51,10 @@ export default class SelectActivitiesContainer extends React.Component {
       <div>
         <ActivitySearchAndSelect
           activities={this.props.activities}
-          selectedActivities={this.props.selectedActivities}
-          toggleActivitySelection={this.props.toggleActivitySelection}
           clickContinue={this.props.clickContinue}
           errorMessage={this.props.errorMessage}
+          selectedActivities={this.props.selectedActivities}
+          toggleActivitySelection={this.props.toggleActivitySelection}
           unitName={this.props.unitName}
         />
         <div className="error-message-and-button">

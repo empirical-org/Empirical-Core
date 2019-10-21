@@ -5,6 +5,6 @@
 
  export default  React.createClass({
   render: function () {
-    return <MarkdownParser markdownText={this.props.data.activity_info}/>
+    return <MarkdownParser markdownText={this.props.data.activity_info} />
   }
 });

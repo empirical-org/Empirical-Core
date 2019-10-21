@@ -40,20 +40,20 @@ export default React.createClass({
       _.times(this.props.numberOfPages, function (pageNumber) {
         if (pageNumber < this.props.maxPageNumber) {
           const actualPageNumber = firstPage + pageNumber;
-          const ele = <PageNumber key={pageNumber} selectPageNumber={this.props.selectPageNumber} number={actualPageNumber} currentPage={this.props.currentPage} />;
+          const ele = <PageNumber currentPage={this.props.currentPage} key={pageNumber} number={actualPageNumber} selectPageNumber={this.props.selectPageNumber} />;
           pages.push(ele);
         }
       }, this);
 
       result = (
         <ul className="pagination">
-          <li onClick={this.leftArrow} className="left_arrow">
+          <li className="left_arrow" onClick={this.leftArrow}>
             <span>
               <i className="fa fa-caret-left" />
             </span>
           </li>
           {pages}
-          <li onClick={this.rightArrow} className="right_arrow">
+          <li className="right_arrow" onClick={this.rightArrow}>
             <span>
               <i className="fa fa-caret-right" />
             </span>

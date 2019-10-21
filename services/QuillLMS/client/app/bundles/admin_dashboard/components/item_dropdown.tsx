@@ -24,8 +24,8 @@ const ItemDropdown: React.SFC<ItemDropdownProps> = ({
       if (!item.id) {
         return (
           <MenuItem
-            key={item}
             eventKey={item}
+            key={item}
           >
             {item.name || item}
           </MenuItem>
@@ -33,8 +33,8 @@ const ItemDropdown: React.SFC<ItemDropdownProps> = ({
       }
       return (
         <MenuItem
-          key={item.id}
           eventKey={item.id}
+          key={item.id}
         >
           {item.name}
         </MenuItem>
@@ -58,11 +58,11 @@ const ItemDropdown: React.SFC<ItemDropdownProps> = ({
 
   return (
     <DropdownButton
-      disabled={!items.length}
       bsStyle='default'
-      title={selectedItem}
       className='select-item-dropdown'
+      disabled={!items.length}
       onSelect={handleSelect}
+      title={selectedItem}
     >
       {dropdownItems()}
     </DropdownButton>

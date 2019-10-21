@@ -52,7 +52,7 @@ export default React.createClass({
       headerStyle.marginBottom = '0px';
     }
     return (
-      <header onClick={this.toggleExpandSinglePOS} className={`card-content ${this.props.bgColor}`} style={headerStyle}>
+      <header className={`card-content ${this.props.bgColor}`} onClick={this.toggleExpandSinglePOS} style={headerStyle}>
         <div className="content">
           <div className="media">
             <div className="media-content" style={this.props.contentStyle}>

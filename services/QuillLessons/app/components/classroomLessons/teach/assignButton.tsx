@@ -10,8 +10,8 @@ class AssignButton extends React.Component<{selectedOptionKey: string, assignAct
     return(
       <div className='assign-button-container'>
         <button onClick={()=>this.props.assignAction(this.props.selectedOptionKey)}>
-            {this.props.selectedOptionKey}
-         </button>
+          {this.props.selectedOptionKey}
+        </button>
       </div>
     )
 

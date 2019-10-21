@@ -19,12 +19,12 @@ let QuestionSelecter = ({ dispatch, index, questions, questionID, questionType }
         value={questionID}
       >
         {questions.map(question =>
-          <option
-            value={question.key}
+          (<option
             key={question.key}
+            value={question.key}
           >
             { question.prompt }
-          </option>
+          </option>)
         )}
       </select>
     </span>

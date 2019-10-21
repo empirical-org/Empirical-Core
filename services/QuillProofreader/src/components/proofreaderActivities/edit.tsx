@@ -56,10 +56,10 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
   renderGrammaticalConcept():JSX.Element|void {
     const { concept } = this.props
     if (concept) {
-      return <div>
+      return (<div>
         <p className="label">Grammatical Concept:</p>
         <p>{concept.name}</p>
-      </div>
+      </div>)
     }
   }
 
@@ -79,12 +79,12 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
         correctAnswerHTML = <p>{correctAnswers}</p>
         labelText = 'Correct Edit:'
       }
-      return <div>
+      return (<div>
         <p className="label">{labelText}</p>
         {correctAnswerHTML}
-      </div>
+      </div>)
     } else {
-      return <span/>
+      return <span />
     }
   }
 
@@ -107,10 +107,10 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
         headerText = 'Not Necessary'
         break
     }
-    return <div className={`edit-tooltip ${visible} ${offset}`}>
+    return (<div className={`edit-tooltip ${visible} ${offset}`}>
       <div className="top-section">
         <div className="header">
-          <img src={src}/>
+          <img src={src} />
           <h1>{headerText}</h1>
         </div>
         <p>Edit {index + 1} of {numberOfEdits}</p>
@@ -122,16 +122,16 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
       <div className="button-section">
         <button onClick={next}>Next Edit ➞</button>
       </div>
-    </div>
+    </div>)
   }
 
   render() {
     const { activeIndex, index, state, id } = this.props
     const className = activeIndex === index ? 'active' : ''
     const tooltip = this.renderTooltip()
-    return <div className={`edit ${className} ${state}`} id={id}>
+    return (<div className={`edit ${className} ${state}`} id={id}>
       <strong>{this.props.incorrectText || this.props.displayText}</strong>
       {tooltip}
-    </div>
+    </div>)
   }
 }

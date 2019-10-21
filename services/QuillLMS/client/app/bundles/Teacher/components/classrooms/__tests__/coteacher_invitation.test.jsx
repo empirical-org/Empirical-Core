@@ -9,9 +9,9 @@ describe('CoteacherInvitation component', () => {
 
   const wrapper = shallow(
     <CoteacherInvitation
-      showSnackbar={() => {}}
       coteacherInvitation={coteacherInvitations[0]}
       getClassroomsAndCoteacherInvitations={() => {}}
+      showSnackbar={() => {}}
     />
   );
 

@@ -19,12 +19,12 @@ class Concepts extends React.Component<ConceptsProps> {
     if (data) {
       return data.sort((a: Concept, b: Concept) => a.displayName.localeCompare(b.displayName)).map((concept: Concept) =>
         (<LinkListItem
-           key={concept.uid}
-           itemKey={concept.uid}
-           basePath='concepts'
-           text={concept.displayName}
-           activeClassName='is-active'
-         />)
+          activeClassName='is-active'
+          basePath='concepts'
+          itemKey={concept.uid}
+          key={concept.uid}
+          text={concept.displayName}
+        />)
       )
     }
   }

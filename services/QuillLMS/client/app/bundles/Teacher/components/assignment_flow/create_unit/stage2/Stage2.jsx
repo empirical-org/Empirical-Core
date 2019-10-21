@@ -52,18 +52,18 @@ export default class Stage2 extends React.Component {
     } = this.props
     return (<ReviewActivities
       activities={selectedActivities}
-      toggleActivitySelection={toggleActivitySelection}
       assignActivityDueDate={assignActivityDueDate}
       dueDates={dueDates}
+      toggleActivitySelection={toggleActivitySelection}
     />)
   }
 
   renderNameSection() {
     const { errorMessage, unitName, updateUnitName, } = this.props
     return (<NameTheUnit
+      nameError={errorMessage ? errorMessage.name : null}
       unitName={unitName}
       updateUnitName={updateUnitName}
-      nameError={errorMessage ? errorMessage.name : null}
     />)
   }
 
@@ -75,19 +75,19 @@ export default class Stage2 extends React.Component {
       classrooms,
       fetchClassrooms
     } = this.props
-    return <AssignStudents
-      user={user}
+    return (<AssignStudents
       classrooms={classrooms}
+      fetchClassrooms={fetchClassrooms}
       toggleClassroomSelection={toggleClassroomSelection}
       toggleStudentSelection={toggleStudentSelection}
-      fetchClassrooms={fetchClassrooms}
-    />
+      user={user}
+    />)
   }
 
   assignButton() {
     return this.state.loading
-      ? <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`}>Assigning... <ButtonLoadingIndicator /></button>
-      : <button ref="button" id="assign" className={`${this.determineAssignButtonClass()} pull-right`} onClick={this.finish}>Assign</button>;
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" ref="button">Assigning... <ButtonLoadingIndicator /></button>
+      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.finish} ref="button">Assign</button>;
   }
 
   render() {

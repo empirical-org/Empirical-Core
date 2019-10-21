@@ -12,7 +12,7 @@ describe('AddStudents component', () => {
 
   describe('with no studentOption selected', () => {
     const wrapper = shallow(
-      <AddStudents showSnackbar={() => {}} close={() => {}} classroom={classroom} />
+      <AddStudents classroom={classroom} close={() => {}} showSnackbar={() => {}} />
     );
 
     it('should render StudentOptions', () => {
@@ -23,7 +23,7 @@ describe('AddStudents component', () => {
   describe('studentsCreate', () => {
 
     const wrapper = shallow(
-      <AddStudents showSnackbar={() => {}} close={() => {}} classroom={classroom} />
+      <AddStudents classroom={classroom} close={() => {}} showSnackbar={() => {}} />
     );
 
     wrapper.setState({ studentOption: studentsCreate, })
@@ -36,7 +36,7 @@ describe('AddStudents component', () => {
   describe('teacherCreates ', () => {
 
     const wrapper = shallow(
-      <AddStudents showSnackbar={() => {}} close={() => {}} classroom={classroom} />
+      <AddStudents classroom={classroom} close={() => {}} showSnackbar={() => {}} />
     );
 
     wrapper.setState({ studentOption: teacherCreates })

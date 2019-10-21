@@ -117,15 +117,15 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
           updateAllowedActivityFlags={this.updateAllowedActivityFlags}
         />
         <ReactTable
-          data={questionAndConceptMap.data.conceptRows}
+          className="concept-dashboard-table"
           columns={this.columns()}
-          showPagination={false}
+          data={questionAndConceptMap.data.conceptRows}
+          defaultPageSize={questionAndConceptMap.data.conceptRows.length}
           defaultSorted={[{ id: 'name', desc: false, }]}
           defaultSortMethod={this.defaultSort}
-          showPageSizeOptions={false}
-          defaultPageSize={questionAndConceptMap.data.conceptRows.length}
           minRows={1}
-          className="concept-dashboard-table"
+          showPageSizeOptions={false}
+          showPagination={false}
         />
       </div>);
     }

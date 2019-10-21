@@ -47,11 +47,11 @@ export default React.createClass({
         return (
           <div className='assignment-type-mini' key={this.props.title} onClick={() => window.location = this.props.link}>
             <h3>{this.props.title}</h3>
-            <img src={this.props.img} alt="assignment-type-image"/>
+            <img alt="assignment-type-image" src={this.props.img} />
             <p className='overview'>{this.props.bodyText}</p>
             <div className='meta-info-wrapper'>
-                <span className='directions'>{this.props.directions}</span>
-                <br/> {(countCopy || 'Calculating') + '  |  ' + this.props.timeDuration + ' ' + 'per ' + unit}
+              <span className='directions'>{this.props.directions}</span>
+              <br /> {(countCopy || 'Calculating') + '  |  ' + this.props.timeDuration + ' ' + 'per ' + unit}
             </div>
           </div>
       )

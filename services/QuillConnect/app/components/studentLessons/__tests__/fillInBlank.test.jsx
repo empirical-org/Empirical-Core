@@ -7,10 +7,10 @@ import PlayFillInBlankQuestion from '../fillInBlank.tsx';
 describe('PlayFillInBlankQuestion component', () => {
   const wrapper = shallow(
     <PlayFillInBlankQuestion
-      question={fillInBlankQuestionWithOneAttempt}
-      nextQuestion={() => {}}
-      dispatch={() => {}}
       conceptsFeedback={conceptsFeedback}
+      dispatch={() => {}}
+      nextQuestion={() => {}}
+      question={fillInBlankQuestionWithOneAttempt}
       submitResponse={() => {}}
     />
   )

@@ -59,7 +59,7 @@ export default class IndividualStandardsReport extends React.Component {
       row.proficiency_status = row.proficiency_status
       row.green_arrow = (
         <a className='green-arrow' href={row.student_topics_href}>
-          <img src="https://assets.quill.org/images/icons/chevron-dark-green.svg" alt=""/>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
         </a>
       )
       return row
@@ -107,7 +107,7 @@ export default class IndividualStandardsReport extends React.Component {
         className: blurIfNotPremium,
         resizable: false,
         Cell: row => (
-          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'}/>{row.original['mastery_status']}</span>
+          <span><span className={row.original['mastery_status'] === 'Proficient' ? 'proficient-indicator' : 'not-proficient-indicator'} />{row.original['mastery_status']}</span>
         )
 
       }, {
@@ -127,7 +127,7 @@ export default class IndividualStandardsReport extends React.Component {
 
   render() {
     if (this.state.loading || !this.state.studentData) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner />
     }
     return (
       <div className='progress-reports-2018 individual-standard'>
@@ -137,19 +137,29 @@ export default class IndividualStandardsReport extends React.Component {
             <p>You can print this report by downloading a PDF file or export this data by downloading a CSV file.</p>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport data={this.state.csvData}/>
+            <CSVDownloadForProgressReport data={this.state.csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
           </div>
           <div className='dropdown-container'>
-            <ItemDropdown items={this.state.classrooms.map(c => c.name)} callback={this.switchClassrooms} selectedItem={this.state.selectedClassroom.name}/>
+            <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom.name} />
           </div>
         </div>
         <div key={`concept-progress-report-length-${this.state.studentData.length}`}>
-          <ReactTable data={this.state.studentData} columns={this.columns()} showPagination={false} defaultSorted={[{
+          <ReactTable
+            className='progress-report has-green-arrow'
+            columns={this.columns()}
+            data={this.state.studentData}
+            defaultPageSize={this.state.studentData.length}
+            defaultSorted={[{
               id: 'average_score',
               desc: false
             }
-          ]} showPaginationTop={false} showPaginationBottom={false} showPageSizeOptions={false} defaultPageSize={this.state.studentData.length} className='progress-report has-green-arrow'/>
+          ]}
+            showPageSizeOptions={false}
+            showPagination={false}
+            showPaginationBottom={false}
+            showPaginationTop={false}
+          />
         </div>
       </div>
     )

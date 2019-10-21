@@ -9,9 +9,9 @@ describe('ResetStudentPasswordModal component', () => {
 
   const wrapper = shallow(
     <ResetStudentPasswordModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
       student={classroomWithStudents.students[0]}
     />
   );

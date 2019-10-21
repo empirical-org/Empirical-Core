@@ -10,9 +10,9 @@ describe('MergeStudentAccountsModal component', () => {
 
   const wrapper = shallow(
     <MergeStudentAccountsModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
       selectedStudentIds={studentIds}
     />
   );

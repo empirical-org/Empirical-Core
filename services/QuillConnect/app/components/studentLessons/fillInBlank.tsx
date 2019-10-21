@@ -99,7 +99,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     let instructions;
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt && latestAttempt.response && latestAttempt.response.feedback) {
-      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}}/>
+      const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
       'Revise your work. Fill in the blanks with the word or phrase that best fits the sentence.';
     } else if (this.props.question.instructions && this.props.question.instructions !== '') {
@@ -194,9 +194,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
     return (
       <WarningDialogue
+        chevyStyle={chevyStyle}
         key={`warning${i}`}
         style={warningStyle}
-        chevyStyle={chevyStyle}
         text={this.warningText()}
       />
     );
@@ -244,14 +244,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           {warning}
         </div>
         <input
+          autoComplete="off"
           id={`input${i}`}
           key={i + 100}
+          onBlur={() => this.validateInput(i)}
+          onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
-          onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
-          onBlur={() => this.validateInput(i)}
-          autoComplete="off"
         />
       </span>
     );
@@ -409,31 +409,31 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       fullPageInstructions = { display: 'block', width: '100%' }
     }
     return (<div className="student-container-inner-diagnostic">
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={fullPageInstructions}>
-            <div>
-              <Prompt style={styles.container} elements={this.getPromptElements()} />
-              <Cues
-                getQuestion={this.getQuestion}
-                customText={this.customText()}
-                displayArrowAndText={true}
-              />
-              <Feedback
-                question={this.props.question}
-                sentence={this.getInstructionText()}
-                responses={this.state.responses}
-                getQuestion={this.getQuestion}
-                renderFeedbackStatements={this.renderFeedbackStatements}
-              />
-            </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={fullPageInstructions}>
+          <div>
+            <Prompt elements={this.getPromptElements()} style={styles.container} />
+            <Cues
+              customText={this.customText()}
+              displayArrowAndText={true}
+              getQuestion={this.getQuestion}
+            />
+            <Feedback
+              getQuestion={this.getQuestion}
+              question={this.props.question}
+              renderFeedbackStatements={this.renderFeedbackStatements}
+              responses={this.state.responses}
+              sentence={this.getInstructionText()}
+            />
           </div>
-          {this.renderMedia()}
         </div>
-        <div style={{marginTop: 20}} className="question-button-group button-group">
-          {this.renderButton()}
-        </div>
-        {this.renderConceptExplanation()}
+        {this.renderMedia()}
       </div>
+      <div className="question-button-group button-group" style={{marginTop: 20}}>
+        {this.renderButton()}
+      </div>
+      {this.renderConceptExplanation()}
+    </div>
     );
   }
 

@@ -53,9 +53,9 @@ export default React.createClass({
       <div id="dashboard">
         <ClassOverview
           data={this.state.performanceQuery}
-          premium={this.state.hasPremium}
           flag={JSON.parse(this.props.user).flag}
           notifications={this.state.notifications}
+          premium={this.state.hasPremium}
         />
         {this.hasClasses()}
         <MyResources data={this.state} />

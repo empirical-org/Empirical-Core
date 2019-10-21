@@ -10,9 +10,9 @@ describe('ImportGoogleClassroomsModal component', () => {
 
   const wrapper = shallow(
     <ImportGoogleClassroomsModal
+      classrooms={googleClassrooms}
       close={() => {}}
       onSuccess={() => {}}
-      classrooms={googleClassrooms}
       user={userProps}
     />
   );

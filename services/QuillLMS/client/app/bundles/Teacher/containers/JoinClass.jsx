@@ -84,24 +84,24 @@ export default class JoinClass extends React.Component {
         <h1>Join Your Class</h1>
         <p className="sub-header">Add the class code to join your teacher's&nbsp;class.</p>
         <div className="form-container">
-          <form onSubmit={this.addClassroom} acceptCharset="UTF-8" >
+          <form acceptCharset="UTF-8" onSubmit={this.addClassroom} >
             <input name="utf8" type="hidden" value="✓" />
-            <input value={authToken} type="hidden" name="authenticity_token" />
+            <input name="authenticity_token" type="hidden" value={authToken} />
             <Input
-              label="Add your class code"
-              value={classCodeInput}
-              handleChange={this.updateClassCode}
-              type="text"
               className="class-code"
               error={errors.classCode}
+              handleChange={this.updateClassCode}
+              label="Add your class code"
               timesSubmitted={timesSubmitted}
+              type="text"
+              value={classCodeInput}
             />
-            <input type="submit" name="commit" value="Join your class" className={this.submitClass()} />
+            <input className={this.submitClass()} name="commit" type="submit" value="Join your class" />
           </form>
         </div>
 
         <div className="student-info-box">
-          <h3><span>Don't have a class&nbsp;code?</span> <img src={bulbSrc} alt="lightbulb" /></h3>
+          <h3><span>Don't have a class&nbsp;code?</span> <img alt="lightbulb" src={bulbSrc} /></h3>
           <p>Ask your teacher to share the class code with&nbsp;you.</p>
           <p>To use Quill, a teacher must create a class for&nbsp;you.</p>
         </div>

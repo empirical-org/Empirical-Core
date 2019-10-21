@@ -7,10 +7,10 @@ import PlayLessonQuestion from '../question.tsx';
 describe('PlayLessonQuestion component', () => {
   const wrapper = shallow(
     <PlayLessonQuestion
-      question={sentenceCombiningQuestionWithOneAttempt}
-      nextQuestion={() => {}}
-      dispatch={() => {}}
       conceptsFeedback={conceptsFeedback}
+      dispatch={() => {}}
+      nextQuestion={() => {}}
+      question={sentenceCombiningQuestionWithOneAttempt}
     />
   )
 
