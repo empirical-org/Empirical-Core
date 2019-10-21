@@ -100,12 +100,6 @@ module PagesHelper
             desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
           },
           {
-            img: 'thumb-alysia.jpg',
-            name: 'Alysia Belle',
-            title: 'Literacy Director',
-            desc: "Alysia develops content for Quill with a focus on building its forthcoming reading curriculum. She has experience teaching in a variety of settings, including 5 years as an ESL educator in the Bronx. Before joining Quill, Alysia wrote curricula and managed edtech-focused professional learning at Democracy Prep Public Schools. Prior to Democracy Prep, she led professional development initiatives at Newsela. Alysia holds an undergraduate degree in English and a master’s degree in education."
-          },
-          {
             img: 'thumb-emma.png',
             name: 'Emma Volk',
             title: 'Curriculum Developer',
@@ -200,17 +194,17 @@ module PagesHelper
 						title: 'Board Member',
 						desc: "Stephanie is the global head of Financial Sponsor M&A and is a member of the Partnership Committee at Goldman Sachs. She joined Goldman Sachs in 1999 as an analyst and was named managing director in 2008 and partner in 2014. Stephanie serves on the National Boards for two literacy focused non-profits, Reading Partners and Quill."
 					},
+					{
+						img: 'thumb-peg.jpg',
+						name: 'Peg Tyre',
+						title: "Board Member",
+						desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
+					}
 				]
 			},
 			{
 				team: 'Education Advisory Board',
 				members: [
-					{
-						img: 'thumb-peg.jpg',
-						name: 'Peg Tyre',
-						title: "Advisory Board Member",
-						desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
-					},
 					{
 						img: 'thumb-emily.jpg',
 						name: 'Emily Dalton Smith',
