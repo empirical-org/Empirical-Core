@@ -39,7 +39,7 @@ export default class SelectActivitiesContainer extends React.Component {
       const clickHandler = this.state.loading ? null : this.handleClick;
       const color = this.state.loading ? 'lightgray' : 'quillgreen';
       const text = this.state.loading ? <span>Saving <AssigningIndicator /></span> : 'Update Activities';
-      return <button onClick={clickHandler} className={`q-button cta-button bg-${color} text-white pull-right`} id="continue">{text}</button>;
+      return <button className={`q-button cta-button bg-${color} text-white pull-right`} id="continue" onClick={clickHandler}>{text}</button>;
     }
   }
 
@@ -61,10 +61,10 @@ export default class SelectActivitiesContainer extends React.Component {
         <div className="container">
           <ActivitySearchAndSelect
             activities={this.props.activities}
-            selectedActivities={this.props.selectedActivities}
-            toggleActivitySelection={this.props.toggleActivitySelection}
             clickContinue={this.props.clickContinue}
             errorMessage={this.props.errorMessage}
+            selectedActivities={this.props.selectedActivities}
+            toggleActivitySelection={this.props.toggleActivitySelection}
             unitName={this.props.unitName}
           />
           <div className="error-message-and-button">

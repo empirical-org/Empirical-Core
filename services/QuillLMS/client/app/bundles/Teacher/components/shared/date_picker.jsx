@@ -17,6 +17,6 @@ import moment from 'moment';
     },
 
     render: function() {
-        return <DatePicker selected={this.state.startDate} onChange={this.handleChange}/>;
+        return <DatePicker onChange={this.handleChange} selected={this.state.startDate} />;
     }
 });

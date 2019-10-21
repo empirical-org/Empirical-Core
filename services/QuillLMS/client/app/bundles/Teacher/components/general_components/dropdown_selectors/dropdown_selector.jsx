@@ -29,8 +29,8 @@ export default React.createClass({
     return (
       <div className='dropdown-select-and-label'>
         <h3 className='dropdown-select-label'>{this.props.label}</h3>
-        <select ref={'select'} value={this.props.defaultValue} onChange={this.select}>
-         {options}
+        <select onChange={this.select} ref={'select'} value={this.props.defaultValue}>
+          {options}
         </select>
       </div>
     );

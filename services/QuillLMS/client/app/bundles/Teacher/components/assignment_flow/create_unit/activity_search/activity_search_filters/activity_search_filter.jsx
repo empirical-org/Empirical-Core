@@ -44,10 +44,10 @@ export default class ActivitySearchFilter extends React.Component {
 
   renderButton(opt) {
     return (<FilterButton
-      key={`${opt.id}-activity`}
-      handleFilterButtonClick={this.handleFilterButtonClick}
-      data={opt}
       active={this.state.activeFilterId === opt.id}
+      data={opt}
+      handleFilterButtonClick={this.handleFilterButtonClick}
+      key={`${opt.id}-activity`}
     />);
   }
 
@@ -119,11 +119,11 @@ export default class ActivitySearchFilter extends React.Component {
 
     const options = this.getDisplayedFilterOptions()
     return (<DropdownInput
-      label={this.props.data.alias}
       className={this.props.data.field}
+      handleChange={(opt) => this.handleFilterButtonClick(opt.value)}
+      label={this.props.data.alias}
       options={options}
       value={options.find(opt => opt.value === this.state.activeFilterId)}
-      handleChange={(opt) => this.handleFilterButtonClick(opt.value)}
     />)
   }
 }

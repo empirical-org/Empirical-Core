@@ -78,46 +78,46 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
 
   render() {
     const { firstName, lastName, username, errors, timesSubmitted } = this.state
-    return <div className="modal-container edit-student-account-modal-container">
+    return (<div className="modal-container edit-student-account-modal-container">
       <div className="modal-background" />
       <div className="edit-student-account-modal quill-modal modal-body">
         <div>
           <h3 className="title">Edit your student account</h3>
         </div>
         <Input
-          label="First name"
-          value={firstName}
-          handleChange={this.handleFirstNameChange}
-          type="text"
+          characterLimit={50}
           className="firstName"
           error={errors.firstName}
+          handleChange={this.handleFirstNameChange}
+          label="First name"
           timesSubmitted={timesSubmitted}
-          characterLimit={50}
+          type="text"
+          value={firstName}
         />
         <Input
-          label="Last name"
-          value={lastName}
-          handleChange={this.handleLastNameChange}
-          type="text"
+          characterLimit={50}
           className="lastName"
           error={errors.lastName}
+          handleChange={this.handleLastNameChange}
+          label="Last name"
           timesSubmitted={timesSubmitted}
-          characterLimit={50}
+          type="text"
+          value={lastName}
         />
         <Input
-          label="Username"
-          value={username}
-          handleChange={this.handleUsernameChange}
-          type="text"
           className="username"
           error={errors.username}
+          handleChange={this.handleUsernameChange}
+          label="Username"
           timesSubmitted={timesSubmitted}
+          type="text"
+          value={username}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
           <button className={this.submitButtonClass()} onClick={this.editStudentAccount}>Save</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

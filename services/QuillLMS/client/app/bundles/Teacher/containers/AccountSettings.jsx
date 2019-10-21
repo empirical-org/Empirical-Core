@@ -5,7 +5,7 @@ export default React.createClass({
   render: function () {
     return (
       <div className="container user-select-role">
-        <StudentAccountForm {...this.props}/>
+        <StudentAccountForm {...this.props} />
       </div>
     );
   }

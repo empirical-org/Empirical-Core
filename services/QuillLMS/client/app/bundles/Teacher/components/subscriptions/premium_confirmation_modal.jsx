@@ -30,9 +30,9 @@ export default React.createClass({
     }
     const content = this.getModalContent();
     return (
-      <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="premium-confirmation" restoreFocus>
+      <Modal {...this.props} dialogClassName="premium-confirmation" onHide={this.props.hideModal} restoreFocus show={this.props.show}>
         <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
+          <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
           <h1>Congratulations!</h1>
           <h2>You have a {this.props.subscription.account_type} Subscription</h2>
           {content}

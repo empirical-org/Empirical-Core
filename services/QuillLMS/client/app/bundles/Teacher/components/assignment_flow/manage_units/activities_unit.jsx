@@ -64,7 +64,7 @@ export default class ActivitiesUnit extends React.Component {
   classroomList = (classrooms) => {
     if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down"/></li>)
+      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down" /></li>)
       return classroomsArray
     }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
@@ -85,11 +85,11 @@ export default class ActivitiesUnit extends React.Component {
         className='locked-unit'
         onMouseEnter={this.toggleTooltip}
         onMouseLeave={this.toggleTooltip}
-        >
-          <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"/>
+      >
+        <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg" />
           Created By {firstCa.ownerName}
-          {this.renderTooltip()}
-        </span>);
+        {this.renderTooltip()}
+      </span>);
     }
   }
 
@@ -106,7 +106,7 @@ export default class ActivitiesUnit extends React.Component {
         classy = 'edit-unit';
         text = 'Edit Name';
       }
-      return <span style={inlineStyle} className={classy} onClick={this.changeToEdit}>{text}</span>;
+      return <span className={classy} onClick={this.changeToEdit} style={inlineStyle}>{text}</span>;
     }
   }
 
@@ -122,7 +122,7 @@ export default class ActivitiesUnit extends React.Component {
     const visible = this.state.showTooltip ? 'visible' : 'invisible';
     const ownerName = this.state.classroomActivities.values().next().value.ownerName;
     return (<div className={`tooltip ${visible}`}>
-      <i className="fa fa-caret-up"/>
+      <i className="fa fa-caret-up" />
       <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
       <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
     </div>);
@@ -137,7 +137,7 @@ export default class ActivitiesUnit extends React.Component {
   }
 
   editUnitName = () => {
-    return <input type="text" onChange={this.handleNameChange} value={this.state.unitName} />;
+    return <input onChange={this.handleNameChange} type="text" value={this.state.unitName} />;
   }
 
   editStudentsLink = () => {
@@ -255,18 +255,18 @@ export default class ActivitiesUnit extends React.Component {
       if (ca) {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            key={`${this.props.data.unitId}-${key}`}
-            report={this.props.report}
             activityReport={this.props.activityReport}
-            lesson={this.props.lesson}
-            updateDueDate={this.props.updateDueDate}
-            hideUnitActivity={this.props.hideUnitActivity}
-            unitId={this.props.data.unitId}
-            data={ca}
-            updateAllDueDates={this.updateAllDueDates}
-            isFirst={i === 0}
-            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
             activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+            data={ca}
+            hideUnitActivity={this.props.hideUnitActivity}
+            isFirst={i === 0}
+            key={`${this.props.data.unitId}-${key}`}
+            lesson={this.props.lesson}
+            numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
+            report={this.props.report}
+            unitId={this.props.data.unitId}
+            updateAllDueDates={this.updateAllDueDates}
+            updateDueDate={this.props.updateDueDate}
           />
         );
         i += 1;
@@ -286,29 +286,29 @@ export default class ActivitiesUnit extends React.Component {
 
     return (
       <div>
-      <section className="activities-unit">
-        <div className="row unit-header-row" id={this.getUnitId()}>
-          <div className="left">
-            <span className="unit-name">
-              {this.showOrEditName()}
-            </span>
-            <span>
-              {this.nameActionLink()}
-              {this.deleteOrLockedInfo()}
-            </span>
+        <section className="activities-unit">
+          <div className="row unit-header-row" id={this.getUnitId()}>
+            <div className="left">
+              <span className="unit-name">
+                {this.showOrEditName()}
+              </span>
+              <span>
+                {this.nameActionLink()}
+                {this.deleteOrLockedInfo()}
+              </span>
+            </div>
+            <div className="right">
+              {this.assignedToSection()}
+            </div>
+            {this.editStudentsLink()}
           </div>
-          <div className="right">
-            {this.assignedToSection()}
-          </div>
-          {this.editStudentsLink()}
-        </div>
-        <div className="table assigned-activities">
-          {this.renderClassroomActivities()}
-          {this.addClassroomActivityRow()}
+          <div className="table assigned-activities">
+            {this.renderClassroomActivities()}
+            {this.addClassroomActivityRow()}
 
-        </div>
-      </section>
-      <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
+          </div>
+        </section>
+        <Snackbar text="Activity order saved" visible={this.state.snackbarVisible} />
       </div>
     );
   }

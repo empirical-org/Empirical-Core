@@ -51,7 +51,7 @@ class TestQuestion extends Component {
       const { question, } = this.props.playLesson.currentQuestion;
       return (
         <div className="test-question-container">
-          <PlayLessonQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} />
+          <PlayLessonQuestion dispatch={this.props.dispatch} key={this.state.key} nextQuestion={this.reset} prefill={false} question={question} />
         </div>
       );
     } else {

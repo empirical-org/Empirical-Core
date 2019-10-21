@@ -59,11 +59,11 @@ class MergeTwoSchools extends React.Component {
         <div>
           <div className="input-row">
             <label>From School ID:</label>
-            <input type="text" value={this.state.fromSchoolId} onChange={this.updateState} id="from" />
+            <input id="from" onChange={this.updateState} type="text" value={this.state.fromSchoolId} />
           </div>
           <div className="input-row">
             <label>To School ID:</label>
-            <input type="text" value={this.state.toSchoolId} onChange={this.updateState} id="to" />
+            <input id="to" onChange={this.updateState} type="text" value={this.state.toSchoolId} />
           </div>
           <button onClick={this.submit}>Merge Teacher Accounts</button>
           {this.renderErrorOrSuccess()}

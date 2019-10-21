@@ -80,12 +80,12 @@ const ConceptsTable: React.SFC<ConceptsTableProps> = ({concepts, visible, select
   const data = prepareData(filterData(concepts, visible));
   return (
     <Table
+      bordered
+      className="concepts-table"
       columns={columns(selectConcept)}
       dataSource={data}
-      size="middle"
-      bordered
       pagination={false}
-      className="concepts-table"
+      size="middle"
     />
   );
 };

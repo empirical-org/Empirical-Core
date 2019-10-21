@@ -62,10 +62,9 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     }
     return response.json();
   }).then((response) => {
-    console.log('success');
     callback('done')
   }).catch((error) => {
-    console.log('error', error);
+    // to do - do something with this error
   });
 
 }
@@ -104,7 +103,7 @@ export function paginatedNonHumanResponses(matcher: any, matcherFields: any, qid
     }
     callback({ progress: undefined, }, true);
   }).catch((err: string) => {
-    console.log(err);
+    // to do - do something with this error
   });
 }
 
@@ -126,7 +125,6 @@ function rematchResponse(matcher: any, matcherFields: any, response: any) {
   }
 
   const delta = determineDelta(response, newResponse);
-  // console.log(response.id, response.text, delta);
   switch (delta) {
     case 'tobeunmatched':
       return unmatchRematchedResponse(response);
@@ -163,7 +161,7 @@ function updateRematchedResponse(response: any, newResponse: any) {
 
 function deleteRematchedResponse(response: any) {
   // deleteResponse(rid);
-  console.log('Should be deleted');
+  // to do - do something with this method or delete it
 }
 
 function updateResponse(rid: any, content: any) {
@@ -184,8 +182,6 @@ function determineDelta(response: any, newResponse: any) {
   const feedbackChanged = newResponse.response.feedback !== response.feedback;
   const conceptResultsChanged = !_.isEqual(convertResponsesArrayToHash(conceptResults), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
-  // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
-  // console.log(response, newResponse.response);
   if (changed) {
     if (unmatched) {
       return 'tobeunmatched';

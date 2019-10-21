@@ -24,14 +24,14 @@ const ConceptsFeedback = React.createClass({
     if (data && data["0"]) {
       return data["0"].map((concept) => {
         const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
-        return <LinkListItem
-          key={concept.uid}
-          basePath='concepts-feedback'
-          itemKey={concept.uid}
-          className={hasFeedback ? "" : "no-feedback"}
+        return (<LinkListItem
           activeClassName='is-active'
+          basePath='concepts-feedback'
+          className={hasFeedback ? "" : "no-feedback"}
+          itemKey={concept.uid}
+          key={concept.uid}
           text={concept.displayName}
-        />
+        />)
       })
     }
   },
@@ -44,14 +44,14 @@ const ConceptsFeedback = React.createClass({
           <Modal close={this.createNew}>
             <div className="box">
               <h4 className="title">Add New Concept</h4>
-                <p className="control">
-                  <label className="label">Name</label>
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    ref="newConceptName"
-                  />
+              <p className="control">
+                <label className="label">Name</label>
+                <input
+                  className="input"
+                  placeholder="Text input"
+                  ref="newConceptName"
+                  type="text"
+                />
               </p>
               <p className="control">
                 <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>

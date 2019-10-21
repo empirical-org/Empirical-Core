@@ -42,11 +42,11 @@ export default class AddStudents extends React.Component<AddStudentsProps, AddSt
     const { next, classroom, showSnackbar, setStudents, } = this.props
     const { studentOption } = this.state
     if (studentOption === studentsCreate) {
-      return <ClassCodeLink back={this.unsetStudentOption} next={next} classroom={classroom} showSnackbar={showSnackbar} />
+      return <ClassCodeLink back={this.unsetStudentOption} classroom={classroom} next={next} showSnackbar={showSnackbar} />
     } else if (studentOption === teacherCreates) {
-      return <CreateStudentAccounts back={this.unsetStudentOption} next={next} classroom={classroom} setStudents={setStudents} />
+      return <CreateStudentAccounts back={this.unsetStudentOption} classroom={classroom} next={next} setStudents={setStudents} />
     } else {
-      return <StudentOptions next={next} setStudentOption={this.setStudentOption}/>
+      return <StudentOptions next={next} setStudentOption={this.setStudentOption} />
     }
   }
 }

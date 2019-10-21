@@ -60,19 +60,19 @@ class AdminLobby extends Component<AdminLobbyProps, any>{
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">
           <label className="label">HTML</label>
           <div className="control">
             <MultipleTextEditor
-              text={this.state.question.play.html}
               handleTextChange={(e) => this.handleHTMLChange(e)}
+              text={this.state.question.play.html}
             />
           </div>
         </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
+        <button className="button is-primary" onClick={this.save} style={{marginTop: 10}}>Save Changes</button>
       </div>
     )
   }

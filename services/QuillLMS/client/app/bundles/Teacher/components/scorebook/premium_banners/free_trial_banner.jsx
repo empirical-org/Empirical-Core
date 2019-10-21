@@ -29,7 +29,7 @@ export default React.createClass({
         </div>
         <div className="col-md-3 col-xs-12 pull-right">
           <div className="premium-button-box text-center">
-            <button type="button" onClick={this.beginTrial} className="btn-orange">Try it Free for 30 Days</button>
+            <button className="btn-orange" onClick={this.beginTrial} type="button">Try it Free for 30 Days</button>
             <br />
             <span>No credit card required</span>
           </div>

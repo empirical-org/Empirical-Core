@@ -17,7 +17,7 @@ export const routes: RouteConfig[] = [
 ];
 
 export const route = (
-    <Switch>
-        <Route path="/" component={PageLayout} />
-    </Switch>
+  <Switch>
+    <Route component={PageLayout} path="/" />
+  </Switch>
 );

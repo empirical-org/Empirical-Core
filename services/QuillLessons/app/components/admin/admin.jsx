@@ -15,7 +15,7 @@ import levelActions from '../../actions/item-levels';
 
 const TabLink = props => (
   <li>
-    <Link to={props.to} activeClassName="is-active">{props.children}</Link>
+    <Link activeClassName="is-active" to={props.to}>{props.children}</Link>
   </li>
 );
 
@@ -34,7 +34,7 @@ const adminContainer = React.createClass({
               General
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/classroom-lessons'} activeClassName="is-active">Classroom Lessons</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/classroom-lessons'}>Classroom Lessons</TabLink>
             </ul>
           </aside>
           <div className="admin-container">

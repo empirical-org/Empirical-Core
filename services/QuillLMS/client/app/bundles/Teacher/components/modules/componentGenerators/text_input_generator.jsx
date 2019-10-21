@@ -24,18 +24,20 @@ export default function (component, update, options) {
         default1 = null;
       }
 
-      return <TextInput key={ele.name}
-                           update={update}
-                           name={ele.name}
-                           label={ele.label}
-                           errors={config.errors}
-                           errorLabel={ele.errorLabel}
-                           noLabel={ele.noLabel}
-                           size={ele.size}
-                           default={default1}
-                           type={ele.type}
-                           errorKey={ele.errorKey}
-                           isSingleRow={config.isSingleRow}/>;
+      return (<TextInput
+        default={default1}
+        errorKey={ele.errorKey}
+        errorLabel={ele.errorLabel}
+        errors={config.errors}
+        isSingleRow={config.isSingleRow}
+        key={ele.name}
+        label={ele.label}
+        name={ele.name}
+        noLabel={ele.noLabel}
+        size={ele.size}
+        type={ele.type}
+        update={update}
+      />);
   };
 
   this.setErrors = function (errors) {

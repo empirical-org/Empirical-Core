@@ -14,9 +14,7 @@ describe('Unit assignment followup component', () => {
     describe('on initial load', () => {
       const wrapper = shallow(
         <UnitAssignmentFollowup
-          selectedActivities={activities}
           classrooms={classroomProps}
-          unitName="A Unit"
           referralCode="code"
           router={routerProps}
         />
@@ -35,9 +33,7 @@ describe('Unit assignment followup component', () => {
     describe('on showNextOptions', () => {
       const wrapper = shallow(
         <UnitAssignmentFollowup
-          selectedActivities={activities}
           classrooms={classroomProps}
-          unitName="A Unit"
           referralCode="code"
           router={routerProps}
         />
@@ -65,9 +61,7 @@ describe('Unit assignment followup component', () => {
     })
     const wrapper = shallow(
       <UnitAssignmentFollowup
-        selectedActivities={activities}
         classrooms={classroomsWithNoStudents}
-        unitName="A Unit"
         referralCode="code"
         router={routerProps}
       />

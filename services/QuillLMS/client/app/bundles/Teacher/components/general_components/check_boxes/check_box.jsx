@@ -19,10 +19,12 @@ export default React.createClass({
   render: function () {
     return (
       <div className='checkbox-and-label'>
-        <input type="checkbox"
-         checked={this.determineCheckedText()}
-         className="checkbox"
-         onChange={this.handleChange} />
+        <input
+          checked={this.determineCheckedText()}
+          className="checkbox"
+          onChange={this.handleChange}
+          type="checkbox"
+        />
         <label>{this.props.item}</label>
       </div>
     );

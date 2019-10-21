@@ -57,6 +57,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.setQuestionValues(this.props.question)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.question.prompt !== this.props.question.prompt) {
+      this.setQuestionValues(nextProps.question)
+    }
+  }
+
   setQuestionValues(question) {
     const q = question;
     const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
@@ -68,12 +74,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       cues: q.cues,
       blankAllowed: q.blankAllowed,
     }, () => this.getGradedResponsesWithCallback(question));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.question.prompt !== this.props.question.prompt) {
-      this.setQuestionValues(nextProps.question)
-    }
   }
 
   getGradedResponsesWithCallback(question) {
@@ -97,7 +97,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   generateInputs(numberOfInputVals: number) {
     const inputs:Array<string> = [];
-    for (let i = 0; i < numberOfInputVals; i++) {
+    for (let i = 0; i < numberOfInputVals; i+=1) {
       inputs.push('');
     }
     return inputs;
@@ -168,9 +168,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
     return (
       <WarningDialogue
+        chevyStyle={chevyStyle}
         key={`warning${i}`}
         style={warningStyle}
-        chevyStyle={chevyStyle}
         text={this.warningText()}
       />
     );
@@ -220,11 +220,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <input
           id={`input${i}`}
           key={i + 100}
+          onBlur={() => this.validateInput(i)}
+          onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
-          onChange={this.getChangeHandler(i)}
           value={this.state.inputVals[i]}
-          onBlur={() => this.validateInput(i)}
         />
       </span>
     );
@@ -313,18 +313,18 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={fullPageInstructions}>
             <div>
-              <Prompt style={styles.container} elements={this.getPromptElements()} />
+              <Prompt elements={this.getPromptElements()} style={styles.container} />
               <Cues
-                getQuestion={this.getQuestion}
                 customText={this.customText()}
                 displayArrowAndText={true}
+                getQuestion={this.getQuestion}
               />
-              <Feedback feedbackType="instructions" feedback={this.getInstructionText()} />
+              <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
             </div>
           </div>
           {this.renderMedia()}
         </div>
-        <div style={{marginTop: 20}} className="question-button-group button-group">
+        <div className="question-button-group button-group" style={{marginTop: 20}}>
           {button}
         </div>
       </div>

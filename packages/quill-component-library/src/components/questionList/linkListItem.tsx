@@ -12,9 +12,9 @@ import {Link} from 'react-router'
 const LinkListItem = (props:any) => (
   <li>
     <Link
-      to={'admin/' + props.basePath + '/' + props.itemKey}
       activeClassName={props.activeClassName}
       className={props.className}
+      to={'admin/' + props.basePath + '/' + props.itemKey}
     >
       {props.text}
     </Link>

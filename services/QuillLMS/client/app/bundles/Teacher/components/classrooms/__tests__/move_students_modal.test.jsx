@@ -10,10 +10,10 @@ describe('MoveStudentsModal component', () => {
 
   const wrapper = shallow(
     <MoveStudentsModal
-      close={() => {}}
-      onSuccess={() => {}}
       classroom={classroomWithStudents}
       classrooms={classroomProps}
+      close={() => {}}
+      onSuccess={() => {}}
       selectedStudentIds={studentIds}
     />
   );

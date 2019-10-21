@@ -25,24 +25,24 @@ export default React.createClass({
 
   classroomFilter: function() {
     return (
-      <div key="classroom-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter">
-        <DropdownFilter selectedOption={this.props.selectedClassroom} options={this.props.classroomFilters} selectOption={this.props.selectClassroom} className={this.activeFilter(this.props.selectedClassroom, this.props.classroomFilters)} />
+      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 classroom-filter" key="classroom-filter">
+        <DropdownFilter className={this.activeFilter(this.props.selectedClassroom, this.props.classroomFilters)} options={this.props.classroomFilters} selectedOption={this.props.selectedClassroom} selectOption={this.props.selectClassroom} />
       </div>
     );
   },
 
   unitFilter: function() {
     return (
-      <div key="unit-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 unit-filter">
-        <DropdownFilter selectedOption={this.props.selectedUnit} options={this.props.unitFilters} selectOption={this.props.selectUnit} className={this.activeFilter(this.props.selectedUnit, this.props.unitFilters)} />
+      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 unit-filter" key="unit-filter">
+        <DropdownFilter className={this.activeFilter(this.props.selectedUnit, this.props.unitFilters)} options={this.props.unitFilters} selectedOption={this.props.selectedUnit} selectOption={this.props.selectUnit} />
       </div>
     );
   },
 
   studentFilter: function() {
     return (
-      <div key="student-filter" className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 student-filter">
-        <DropdownFilter selectedOption={this.props.selectedStudent} options={this.props.studentFilters} selectOption={this.props.selectStudent} className={this.activeFilter(this.props.selectedStudent, this.props.studentFilters)} />
+      <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 student-filter" key="student-filter">
+        <DropdownFilter className={this.activeFilter(this.props.selectedStudent, this.props.studentFilters)} options={this.props.studentFilters} selectedOption={this.props.selectedStudent} selectOption={this.props.selectStudent} />
       </div>
     );
   },

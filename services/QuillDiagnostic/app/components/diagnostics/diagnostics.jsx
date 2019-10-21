@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 const Diagnostics = React.createClass({
   renderList: function() {
     return (
-      <div className="list"></div>
+      <div className="list" />
     )
   },
   render: function() {

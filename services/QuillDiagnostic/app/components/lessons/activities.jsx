@@ -34,7 +34,7 @@ const Lessons = React.createClass({
         if (q[question]) {
           const displayName = q[question].prompt || 'No Lesson Name';
           return (
-            <li key={q[question].key} className="menu-list"><div className="column">
+            <li className="menu-list" key={q[question].key}><div className="column">
               <Link to={`/play/questions/${question}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link>
             </div></li>
           );
@@ -47,8 +47,8 @@ const Lessons = React.createClass({
 
       return (<li key={key}>
         <div className="activities-title">
-          <Link to={`/play/lesson/${key}`} className="menu-label" activeClassName="is-active">{data[key].name}</Link>
-          <Link to={`/play/lesson/${key}`} className="menu-label is-pulled-right" activeClassName="is-active">Start Activity</Link>
+          <Link activeClassName="is-active" className="menu-label" to={`/play/lesson/${key}`}>{data[key].name}</Link>
+          <Link activeClassName="is-active" className="menu-label is-pulled-right" to={`/play/lesson/${key}`}>Start Activity</Link>
         </div>
         <ul>{questionsToDisplay}</ul>
       </li>);
@@ -60,7 +60,7 @@ const Lessons = React.createClass({
     if (this.props.lessons.newLessonModalOpen) {
       return (
         <Modal close={this.createNew}>
-          <EditLessonForm submit={this.submitNewLesson} renderQuestionSelect={this.renderQuestionSelect} stateSpecificClass={stateSpecificClass} />
+          <EditLessonForm renderQuestionSelect={this.renderQuestionSelect} stateSpecificClass={stateSpecificClass} submit={this.submitNewLesson} />
         </Modal>
       );
     }

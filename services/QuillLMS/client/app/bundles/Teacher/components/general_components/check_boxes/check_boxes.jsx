@@ -16,14 +16,14 @@ export default React.createClass({
   },
 
   generateCheckBox: function (item) {
-    return (<CheckBox item={item} checked={this.determineIfChecked(item)} toggleItem={this.props.toggleItem} key={item} />);
+    return (<CheckBox checked={this.determineIfChecked(item)} item={item} key={item} toggleItem={this.props.toggleItem} />);
   },
 
   render: function () {
     var checkBoxes = _.map(this.props.items, this.generateCheckBox, this);
-    return <div className='vertical-checkboxes'>
-              <h3>{this.props.label}</h3>
-              <div>{checkBoxes}</div>
-            </div>;
+    return (<div className='vertical-checkboxes'>
+      <h3>{this.props.label}</h3>
+      <div>{checkBoxes}</div>
+    </div>);
   }
 });
