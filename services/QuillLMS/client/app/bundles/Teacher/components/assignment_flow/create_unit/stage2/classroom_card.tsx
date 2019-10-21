@@ -16,7 +16,7 @@ interface ClassroomCardState {
 }
 
 export default class ClassroomCard extends React.Component<ClassroomCardProps, ClassroomCardState> {
-  private studentSection: any
+  private studentSection: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
 
