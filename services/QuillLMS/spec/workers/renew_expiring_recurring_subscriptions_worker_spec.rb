@@ -10,4 +10,3 @@ describe RenewExpiringRecurringSubscriptionsWorker, type: :worker do
     end
   end
 end
-
