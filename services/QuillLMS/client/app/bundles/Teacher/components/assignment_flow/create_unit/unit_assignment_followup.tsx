@@ -115,11 +115,8 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <Card
         header="See what I have assigned"
         imgAlt="clipboard with check"
-        imgAlt="clipboard with check"
-        imgSrc={assignedActivitiesSrc}
         imgSrc={assignedActivitiesSrc}
         onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner`}}
         text="View your assigned packs."
       />
       <Card
@@ -132,11 +129,8 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <Card
         header="Assign more activities"
         imgAlt="squares with plus sign"
-        imgAlt="squares with plus sign"
-        imgSrc={assignActivitiesSrc}
         imgSrc={assignActivitiesSrc}
         onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/assign_activities`}}
         text="Select or build another pack."
       />
     </div>)
