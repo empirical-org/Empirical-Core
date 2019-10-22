@@ -15,8 +15,9 @@ class Cron
     run_saturday if now.wday == 6
 
     QuillStaffAccountsChangedWorker.perform_async
+    RenewExpiringRecurringSubscriptionsWorker.perform_async
+
     # Rake tasks to migrate
-    #update_todays_expired_recurring_subscriptions
     #sync_salesmachine
     #recommendation_assignments_report:email
     #number_of_students_sentences_and_cities:set
