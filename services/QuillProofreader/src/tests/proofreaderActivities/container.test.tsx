@@ -9,9 +9,9 @@ process.env.QUILL_CMS = 'https://cms.quill.org'
 describe("<PlayProofreaderContainer />", () => {
   const wrapper = shallow(<PlayProofreaderContainer
     activityUID='KMyh3LulfVL0_KuPb8u'
+    dispatch={() => {}}
     proofreaderActivities={ProofreaderActivityReducer}
     session={{ passage: [] }}
-    session={{passage: 'string'}}
   />)
 
     it("should render", () => {
