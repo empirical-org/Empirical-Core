@@ -10,7 +10,7 @@ const Cards = () => {
       <div className="card-with-img-container element-row">
         <div className="extra-big-element">
           <pre>
-{`<Card
+            {`<Card
   onClick={() => {}}
   imgSrc={\`${process.env.CDN_URL}/images/onboarding/business-building.svg\`}
   imgAlt="office building"
@@ -19,10 +19,10 @@ const Cards = () => {
 />`}
           </pre>
           <Card
-            onClick={() => {}}
-            imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
-            imgAlt="office building"
             header="Other"
+            imgAlt="office building"
+            imgSrc={`${process.env.CDN_URL}/images/onboarding/business-building.svg`}
+            onClick={() => {}}
             text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
           />
         </div>
@@ -31,15 +31,15 @@ const Cards = () => {
       <div className="card-without-img-container element-row">
         <div className="extra-big-element">
           <pre>
-{`<Card
+            {`<Card
   onClick={() => {}}
   header="Headline text"
   text="Secondary text"
 />`}
           </pre>
           <Card
-            onClick={() => {}}
             header="Headline text"
+            onClick={() => {}}
             text="Secondary text"
           />
         </div>

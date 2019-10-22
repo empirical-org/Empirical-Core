@@ -20,21 +20,21 @@ export default React.createClass({
 
   renderLockedTooltip() {
     if (this.state.showLockedTooltip) {
-      return <div className="locked-tooltip">
+      return (<div className="locked-tooltip">
         <p className="tooltip-header">This is a whole group activity and is launched by the teacher.</p>
         <p className="text">Your teacher will press the “Launch Lesson” button from the teacher dashboard to start the activity. You will then be able to join it.</p>
-        <i className="fa fa-caret-down"/>
-      </div>
+        <i className="fa fa-caret-down" />
+      </div>)
     }
   },
 
   renderMissedTooltip() {
     if (this.state.showMissedTooltip) {
-      return <div className="missed-tooltip">
+      return (<div className="missed-tooltip">
         <p className="tooltip-header">Your teacher has launched and completed this group lesson in class.</p>
         <p className="text">This activity is now locked. Be sure to ask your teacher what you missed.</p>
-        <i className="fa fa-caret-down"/>
-      </div>
+        <i className="fa fa-caret-down" />
+      </div>)
     }
   },
 
@@ -68,17 +68,17 @@ export default React.createClass({
     } else if (this.props.data.max_percentage === null && this.props.data.marked_complete === 't'){
       return (<p
         className="title-v-centered text-right"
-        style={{ color: '#969696', }}
         onMouseEnter={this.showMissedTooltip}
         onMouseLeave={this.hideMissedTooltip}
-        >Missed Lesson</p>);
+        style={{ color: '#969696', }}
+      >Missed Lesson</p>);
     } else if (this.props.data.locked === 't') {
       return (<p
         className="title-v-centered text-right"
-        style={{ color: '#969696', }}
         onMouseEnter={this.showLockedTooltip}
         onMouseLeave={this.hideLockedTooltip}
-        >Needs Teacher</p>);
+        style={{ color: '#969696', }}
+      >Needs Teacher</p>);
     } else if (this.props.data.max_percentage) {
       linkText = 'Replay Activity';
     } else if (this.props.data.activity_classification_id === '6') {
@@ -95,7 +95,7 @@ export default React.createClass({
     return (
       <div className="line">
         <div className="row-list-beginning pull-left">
-          <ActivityIconWithTooltip data={this.dataForActivityIconWithToolTip()} context={'studentProfile'} />
+          <ActivityIconWithTooltip context={'studentProfile'} data={this.dataForActivityIconWithToolTip()} />
           <div className="icons-description-wrapper">
             <p className="title title-v-centered">{this.props.data.name}</p>
           </div>

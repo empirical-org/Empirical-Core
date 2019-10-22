@@ -4,6 +4,9 @@
   position: relative;
   cursor: pointer;
   @media (max-width: 500px) { width: 95%; }
+  a {
+    text-decoration: none;
+  }
   .create-your-own {
     background-color: white;
     height: 270px;

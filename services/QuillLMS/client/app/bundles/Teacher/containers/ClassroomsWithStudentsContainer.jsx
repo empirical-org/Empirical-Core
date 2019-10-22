@@ -6,7 +6,7 @@ import CreateAClassModal from '../components/classrooms/create_a_class_modal.tsx
 import ImportGoogleClassroomsModal from '../components/classrooms/import_google_classrooms_modal.tsx'
 import GoogleClassroomEmailModal from '../components/classrooms/google_classroom_email_modal.tsx'
 import GoogleClassroomsEmptyModal from '../components/classrooms/google_classrooms_empty_modal.tsx'
-import ClassroomsWithStudents from '../components/lesson_planner/create_unit/stage2/ClassroomsWithStudents.jsx';
+import ClassroomsWithStudents from '../components/classrooms_with_students/ClassroomsWithStudents.jsx';
 import LoadingIndicator from '../components/shared/loading_indicator.jsx';
 import ButtonLoadingIndicator from '../components/shared/button_loading_indicator'
 import _ from 'underscore';
@@ -292,9 +292,9 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     const { googleClassrooms, showModal, } = this.state
     if (showModal === importGoogleClassroomsModal) {
       return (<ImportGoogleClassroomsModal
+        classrooms={googleClassrooms}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classrooms={googleClassrooms}
         user={this.props.user}
       />)
     }
@@ -328,8 +328,8 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       buttonClassName += ' loading'
     }
     return (<button
-      onClick={this.clickImportGoogleClassrooms}
       className={buttonClassName}
+      onClick={this.clickImportGoogleClassrooms}
     >
       {buttonContent}
     </button>)
@@ -347,14 +347,14 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       return (
         <div className="edit-assigned-students-container">
           <ClassroomsWithStudents
-            unitId={this.props.params.unitId}
-            unitName={this.state.unitName}
-            classrooms={this.state.classrooms}
             activityIds={this.props.params.activityIdsArray}
+            classrooms={this.state.classrooms}
             createOrEdit={this.state.newUnit ? 'create' : 'edit'}
             handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
-            toggleClassroomSelection={this.toggleClassroomSelection}
             isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
+            toggleClassroomSelection={this.toggleClassroomSelection}
+            unitId={this.props.params.unitId}
+            unitName={this.state.unitName}
           />
         </div>);
     }
@@ -380,7 +380,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         <h2>{this.headerCopy()}</h2>
         <div className="buttons">
           {this.renderImportGoogleClassroomsButton()}
-          <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium primary contained create-a-class-button">Create a class</button>
+          <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
         </div>
       </div>
       {this.renderContent()}

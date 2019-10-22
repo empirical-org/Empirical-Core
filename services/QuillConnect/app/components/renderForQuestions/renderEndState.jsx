@@ -19,9 +19,9 @@ const EndState = React.createClass({
     }
     return (
       <Feedback
-        key="end-state"
-        feedbackType="continue"
         feedback={(<p>{message}</p>)}
+        feedbackType="continue"
+        key="end-state"
       />
     );
   },
@@ -71,7 +71,7 @@ const EndState = React.createClass({
     return responsesToRender.map((response, index) => {
       const active = attemptKey === response.key ? 'active' : '';
       return (
-        <li key={index} className={`top-answer-list-item ${active}`}>
+        <li className={`top-answer-list-item ${active}`} key={index}>
           <div className="top-answer-list-item-index">
             {`${index + 1}. `}
           </div>

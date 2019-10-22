@@ -56,9 +56,9 @@ const Diagnostics = React.createClass({
               <label className="label">Title</label>
               <input
                 className="input"
+                onChange={this.changeTitle}
                 placeholder="Diagnostic title"
                 value={this.props.title}
-                onChange={this.changeTitle}
               />
             </div>
             <div className="column">

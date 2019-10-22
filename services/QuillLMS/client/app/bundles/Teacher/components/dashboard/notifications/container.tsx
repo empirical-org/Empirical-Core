@@ -26,14 +26,14 @@ const notificationQuery:string = `
 export default () => (
   <ApolloProvider client={client}>
     <Query
-        query={gql(notificationQuery)}
-      >
+      query={gql(notificationQuery)}
+    >
       {({ loading, error, data }) => {
         if (loading) return (null);
         if (error) return <p>Error :(</p>;
         const notifications:Notification[] = data.currentUser.notifications;
         return (
-          <NotificationsCard notifications={notifications}/>
+          <NotificationsCard notifications={notifications} />
         )
       }}
     </Query>

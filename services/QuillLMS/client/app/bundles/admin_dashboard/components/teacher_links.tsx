@@ -5,7 +5,7 @@ const TeacherLinks = ({ links, isValid }) => {
   let teacherLinks = links.map((link) => {
     let { name, path, } = link;
 
-    return <TeacherLink key={name} name={name} path={path} isValid={isValid} />;
+    return <TeacherLink isValid={isValid} key={name} name={name} path={path} />;
   });
 
   return <span>{teacherLinks}</span>;

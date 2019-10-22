@@ -9,7 +9,7 @@ export default React.createClass({
   },
 
   handleScores() {
-    return this.props.data.scores.map((score, index) => <ActivityIconWithTooltip key={`${this.props.data.name} ${index} ${score.cuId}`} data={score} premium_state={this.props.premium_state} context={'scorebook'} />);
+    return this.props.data.scores.map((score, index) => <ActivityIconWithTooltip context={'scorebook'} data={score} key={`${this.props.data.name} ${index} ${score.cuId}`} premium_state={this.props.premium_state} />);
   },
 
   calculateAverageScore() {
@@ -17,7 +17,7 @@ export default React.createClass({
     let relevantScores = 0;
     this.props.data.scores.forEach(score => {
       if(shouldCountForScoring(score.activity_classification_id) && score.percentage) {
-        relevantScores++;
+        relevantScores += 1;
         totalScore += parseFloat(score.percentage);
       }
     });
@@ -33,7 +33,7 @@ export default React.createClass({
         <header className="student-header">
           <h3 className="student-name">{this.props.data.name}</h3>
           <p className="average-score">{this.calculateAverageScore()}</p>
-          <a className="activity-scores-link" target="_blank" href={`/teachers/progress_reports/student_overview?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`}>View Activity Scores <i className="fa fa-star" /></a>
+          <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`} target="_blank">View Activity Scores <i className="fa fa-star" /></a>
         </header>
         <div className="flex-row vertically-centered">
           {this.handleScores()}

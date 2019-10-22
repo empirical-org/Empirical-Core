@@ -22,8 +22,8 @@ interface InputState {
 }
 
 export class TextArea extends React.Component<InputProps, InputState> {
-  private input: any
-  private node: any
+  private input: any // eslint-disable-line react/sort-comp
+  private node: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
@@ -111,7 +111,7 @@ export class TextArea extends React.Component<InputProps, InputState> {
     const { inactive } = this.state
     const { handleCancel } = this.props
     if (!inactive && handleCancel) {
-      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times"></i></div>
+      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times" /></div>
     }
   }
 
@@ -124,22 +124,22 @@ export class TextArea extends React.Component<InputProps, InputState> {
     if (error) {
       if (errorAcknowledged) {
         return (<div
-            className={`error ${sharedClasses}`}
-            ref={node => this.node = node}
-            onClick={this.activateInput}
-          >
-            <label>{label}</label>
-            <textarea
-              id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              placeholder={placeholder}
-              disabled={disabled}
-              maxLength={characterLimit ? characterLimit : 10000}
-            />
-            {this.renderCancelSymbol()}
-            {this.renderCharacterLimit()}
+          className={`error ${sharedClasses}`}
+          onClick={this.activateInput}
+          ref={node => this.node = node}
+        >
+          <label>{label}</label>
+          <textarea
+            disabled={disabled}
+            id={id}
+            maxLength={characterLimit ? characterLimit : 10000}
+            onChange={handleChange}
+            placeholder={placeholder}
+            ref={(input) => { this.input = input; }}
+            value={value}
+          />
+          {this.renderCancelSymbol()}
+          {this.renderCharacterLimit()}
         </div>)
       } else {
         return (
@@ -151,16 +151,16 @@ export class TextArea extends React.Component<InputProps, InputState> {
             <label>{label}</label>
             <textarea
               id={id}
-              ref={(input) => { this.input = input; }}
-              onChange={handleChange}
-              value={value}
-              placeholder={placeholder}
               maxLength={characterLimit ? characterLimit : 10000}
+              onChange={handleChange}
+              placeholder={placeholder}
+              ref={(input) => { this.input = input; }}
+              value={value}
             />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
             {this.renderCharacterLimit()}
-        </div>)
+          </div>)
       }
     } else if (inactive) {
       return (
@@ -171,16 +171,16 @@ export class TextArea extends React.Component<InputProps, InputState> {
         >
           <label>{label}</label>
           <textarea
-            id={id}
-            ref={(input) => { this.input = input; }}
-            onFocus={this.activateInput}
-            value={value}
             disabled={disabled}
+            id={id}
             maxLength={characterLimit ? characterLimit : 10000}
+            onFocus={this.activateInput}
+            ref={(input) => { this.input = input; }}
+            value={value}
           />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
-      </div>)
+        </div>)
     } else {
       return (
         <div
@@ -190,16 +190,16 @@ export class TextArea extends React.Component<InputProps, InputState> {
           <label>{label}</label>
           <textarea
             id={id}
-            ref={(input) => { this.input = input; }}
-            onChange={handleChange}
-            value={value}
-            placeholder={placeholder}
-            onKeyDown={this.handleTab}
             maxLength={characterLimit ? characterLimit : 10000}
+            onChange={handleChange}
+            onKeyDown={this.handleTab}
+            placeholder={placeholder}
+            ref={(input) => { this.input = input; }}
+            value={value}
           />
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
-      </div>)
+        </div>)
     }
   }
 

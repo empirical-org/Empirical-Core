@@ -45,7 +45,7 @@ class PlayForm extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label>
           <span className="prompt">{this.props.prompt}</span>
-          <input className="entry" type="text" value={this.state.value} onChange={this.handleChange} />
+          <input className="entry" onChange={this.handleChange} type="text" value={this.state.value} />
         </label>
         <input className="right btn" type="submit" value="Submit" />
         {this.state.feedback === null ? '' : (<div className="feedback">{this.state.feedback}</div>)}

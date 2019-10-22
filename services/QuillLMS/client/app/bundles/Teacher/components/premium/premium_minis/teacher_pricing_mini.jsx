@@ -16,7 +16,7 @@ export default React.createClass({
 
   beginTrialButton() {
     if (this.props.userIsEligibleForTrial || !this.props.userIsSignedIn) {
-      return <button type="button" className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial}>Free Trial</button>;
+      return <button className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial} type="button">Free Trial</button>;
     }
   },
 
@@ -41,9 +41,9 @@ export default React.createClass({
 
   purchaseButton() {
     if (this.props.userIsSignedIn === true) {
-      return <button type="button" id="purchase-btn" data-toggle="modal" onClick={this.charge} className="btn btn-default mini-btn blue">Buy Now</button>;
+      return <button className="btn btn-default mini-btn blue" data-toggle="modal" id="purchase-btn" onClick={this.charge} type="button">Buy Now</button>;
     }
-    return <button type="button" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} className="btn btn-default mini-btn blue">Buy Now</button>;
+    return <button className="btn btn-default mini-btn blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Buy Now</button>;
   },
 
   render() {
@@ -51,7 +51,7 @@ export default React.createClass({
       <div className="pricing-mini">
         <header className="pricing-mini-header blue">
           <div className="img-holder">
-            <img src={`${process.env.CDN_URL}/images/shared/teacher_premium_icon.png`} alt="teacher_premium_icon" />
+            <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/teacher_premium_icon.png`} />
           </div>
 
           <h4>Teacher Premium</h4>

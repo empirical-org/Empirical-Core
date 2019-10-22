@@ -1,5 +1,5 @@
 import React from 'react'
-import Units from '../../lesson_planner/manage_units/units.jsx'
+import Units from '../../assignment_flow/manage_units/units.jsx'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.jsx'
 import $ from 'jquery'
@@ -114,22 +114,22 @@ export default React.createClass({
 		if (this.state.loaded) {
 			if (this.state.units.length === 0) {
 				return (
-					<EmptyDiagnosticProgressReport status={this.state.diagnosticStatus}/>
+  <EmptyDiagnosticProgressReport status={this.state.diagnosticStatus} />
 				);
 			} else if (this.state.units.length === 1 && this.state.units[0].classroomActivities.size === 1) {
 				this.goToDiagnosticReport()
       } else {
 				return (
-					<div className='activity-analysis'>
-						<h1>Diagnostic Analysis</h1>
-						<p>Open a diagnostic report to view students' responses, the overall results on each question, and the individualized recommendations for each student.</p>
-						<Units report={Boolean(true)} data={this.state.units}/>
-					</div>
+  <div className='activity-analysis'>
+    <h1>Diagnostic Analysis</h1>
+    <p>Open a diagnostic report to view students' responses, the overall results on each question, and the individualized recommendations for each student.</p>
+    <Units data={this.state.units} report={Boolean(true)} />
+  </div>
 				);
 			}
 		} else {
 			return (
-			<LoadingSpinner />
+  <LoadingSpinner />
 			)
 		}
 	},
@@ -137,10 +137,10 @@ export default React.createClass({
 	render: function() {
 
 		return (
-			<div className="container manage-units">
-				{this.stateBasedComponent()}
-                                <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a target="_blank" href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing">short feedback form</a>.</div>
-			</div>
+  <div className="container manage-units">
+    {this.stateBasedComponent()}
+    <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing" target="_blank">short feedback form</a>.</div>
+  </div>
 		);
 
 	}

@@ -19,9 +19,9 @@ describe('ClassroomTeacherSection component', () => {
 
   const wrapper = shallow(
     <ClassroomTeacherSection
-      isOwnedByCurrentUser
       classroom={classroomWithStudents}
       classrooms={classroomProps}
+      isOwnedByCurrentUser
       user={userProps}
     />
   );

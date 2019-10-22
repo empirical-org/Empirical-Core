@@ -27,7 +27,7 @@ describe('ActivityIconWithTooltip', function() {
     };
 
     this.component = TestUtils.renderIntoDocument(
-      <EC.ActivityIconWithTooltip data={this.data}/>
+      <EC.ActivityIconWithTooltip data={this.data} />
     );
   });
 

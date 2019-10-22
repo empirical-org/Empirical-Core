@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import LessonPlannerContainer from '../LessonPlannerContainer.jsx';
-import MyActivitiesTabs from '../../components/lesson_planner/my_activities_tabs.jsx'
+import MyActivitiesTabs from '../../components/assignment_flow/my_activities_tabs.jsx'
 
 describe('LessonPlannerContainer container', () => {
 

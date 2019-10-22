@@ -58,14 +58,14 @@ async function processSessions(sessionIds) {
         if (!questionTotal[key]) questionTotal[key] = 0;
         if (!questionMatches[key]) questionMatches[key] = 0;
         if (key === 'currentQuestion') {
-          questionTotal[key]++;
+          questionTotal[key] += 1;
           //if (_.isEqual(originalResponse[key], processedResponse[key])) {
           if (_.isEqual(originalResponse[key], processedResponse[key])) {
-            questionMatches[key]++;
+            questionMatches[key] += 1;
           }
         } else {
           for (let i = 0; i < processedResponse[key].length; i++) {
-            questionTotal[key]++;
+            questionTotal[key] += 1;
             questionMatches[key] += _.isEqual(originalResponse[key][i], processedResponse[key][i]) ? 1 : 0;
           }
         }
@@ -74,17 +74,10 @@ async function processSessions(sessionIds) {
       nullUids.push(uid);
     }
   }
-
-  console.log(`Exact matches: ${matchUids.length}`);
-  console.log(`Mismatches: ${mismatchUids.length}`);
-  console.log(`Missing sessions: ${nullUids.length}`);
-  Object.keys(questionMatches).forEach((key) => {
-    console.log(`${questionMatches[key]} out of ${questionTotal[key]} ${key} questions matched (${questionMatches[key]/questionTotal[key] * 100}%)`);
-  });
 }
 
 function compareDataKey(key, oldSess, newSess) {
-  console.log(`${key} matches: ${_.isEqual(oldSess[key], newSess[key])}`);
+  // to do, use Sentry to capture error
 }
 
 function stripExtraKeys(session) {

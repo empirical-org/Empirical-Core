@@ -27,7 +27,7 @@ export default class MergeStudentAccounts extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Accounts have been merged!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }
@@ -44,7 +44,7 @@ export default class MergeStudentAccounts extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Merge Student Accounts</h2>
       <p>This method will not work unless both students are in the same classroom, and the second student only belongs to this classroom. If you need help with a different case, ask a dev.</p>
@@ -52,16 +52,16 @@ export default class MergeStudentAccounts extends React.Component {
       <div>
         <div className="input-row">
           <label>Student One Email Or Username:</label>
-          <input type="text" value={this.state.student1Identifier} onChange={(e) => this.updateStudentIdentifier(e, 1)}/>
+          <input onChange={(e) => this.updateStudentIdentifier(e, 1)} type="text" value={this.state.student1Identifier} />
         </div>
         <div className="input-row">
           <label>Student Two Email Or Username:</label>
-          <input type="text" value={this.state.student2Identifier} onChange={(e) => this.updateStudentIdentifier(e, 2)}/>
+          <input onChange={(e) => this.updateStudentIdentifier(e, 2)} type="text" value={this.state.student2Identifier} />
         </div>
         <button onClick={this.submitStudents}>Merge Student Accounts</button>
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

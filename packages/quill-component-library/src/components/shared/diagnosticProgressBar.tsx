@@ -1,6 +1,6 @@
 import React from 'react'
 
 const DiagnosticProgressBar = props => (
-  <progress className="progress diagnostic-progress" value={props.percent} max="100">15%</progress>)
+  <progress className="progress diagnostic-progress" max="100" value={props.percent}>15%</progress>)
 
 export { DiagnosticProgressBar }

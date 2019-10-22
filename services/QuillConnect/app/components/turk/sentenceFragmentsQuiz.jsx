@@ -39,9 +39,9 @@ const StudentDiagnostic = React.createClass({
   renderQuestionComponent() {
     if (this.props.question.currentQuestion) {
       return (<Question
+        prefill={this.getLesson().prefill}
         question={this.props.question.currentQuestion}
         submitResponse={this.submitResponse}
-        prefill={this.getLesson().prefill}
       />);
     }
   },
@@ -125,7 +125,6 @@ const StudentDiagnostic = React.createClass({
 
   getFetchedData() {
     const returnValue = this.getData().map((obj) => {
-      console.log(obj);
       const data = (obj.questionType === 'questions') ? this.props.questions.data[obj.key] : this.props.sentenceFragments.data[obj.key];
       data.key = obj.key;
       // if(obj.type==="SF") {
@@ -151,44 +150,46 @@ const StudentDiagnostic = React.createClass({
         if (this.props.playTurk.currentQuestion) {
           if (questionType === 'SC') {
             component = (<PlayTurkQuestion
-              question={this.props.playTurk.currentQuestion.data}
-              nextQuestion={this.nextQuestion}
               dispatch={this.props.dispatch}
-              // responses={this.props.responses.data[this.props.playTurk.currentQuestion.data.key]}
               key={this.props.playTurk.currentQuestion.data.key}
+              nextQuestion={this.nextQuestion}
+              // responses={this.props.responses.data[this.props.playTurk.currentQuestion.data.key]}
+              question={this.props.playTurk.currentQuestion.data}
               submitResponse={this.submitResponse}
             />);
           } else if (questionType === 'SF') {
             component = (<PlaySentenceFragment
-              question={this.props.playTurk.currentQuestion.data} currentKey={this.props.playTurk.currentQuestion.data.key}
+              currentKey={this.props.playTurk.currentQuestion.data.key}
+              dispatch={this.props.dispatch}
               key={this.props.playTurk.currentQuestion.data.key}
               // responses={this.props.responses.data[this.props.playTurk.currentQuestion.data.key]}
-              dispatch={this.props.dispatch}
-              nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
+              markIdentify={this.markIdentify}
+              nextQuestion={this.nextQuestion}
+              question={this.props.playTurk.currentQuestion.data}
               updateAttempts={this.submitResponse}
             />);
           } else if (questionType === 'FB') {
             component = (<PlayFillInTheBlankQuestion
-              question={this.props.playTurk.currentQuestion.data}
               currentKey={this.props.playTurk.currentQuestion.data.key}
-              key={this.props.playTurk.currentQuestion.data.key}
               dispatch={this.props.dispatch}
+              key={this.props.playTurk.currentQuestion.data.key}
               nextQuestion={this.nextQuestion}
+              question={this.props.playTurk.currentQuestion.data}
               submitResponse={this.submitResponse}
             />)
           } else if (questionType === 'TL') {
             component = (
               <PlayTitleCard
-                data={this.props.playTurk.currentQuestion.data}
                 currentKey={this.props.playTurk.currentQuestion.data.key}
+                data={this.props.playTurk.currentQuestion.data}
                 dispatch={this.props.dispatch}
                 nextQuestion={this.nextQuestionWithoutSaving}
               />
             );
           }        } else if (this.props.playTurk.answeredQuestions.length > 0 && this.props.playTurk.unansweredQuestions.length === 0) {
-          component = (<FinishedDiagnostic saveToLMS={this.saveToLMS} saved={this.state.saved} />);
+          component = (<FinishedDiagnostic saved={this.state.saved} saveToLMS={this.saveToLMS} />);
         } else {
-          component = <LandingPage lesson={this.getLesson()} begin={() => { this.startActivity('John'); }} />;
+          component = <LandingPage begin={() => { this.startActivity('John'); }} lesson={this.getLesson()} />;
           // (
           //   <div className="container">
           //     <button className="button is-info" onClick={()=>{this.startActivity("John", data)}}>Start</button>
@@ -202,7 +203,7 @@ const StudentDiagnostic = React.createClass({
 
     return (
       <div>
-        <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+        <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
         <section className="section is-fullheight minus-nav student">
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>

@@ -29,27 +29,27 @@ export default class ClassCodeLink extends React.Component<ClassCodeLinkProps, C
   }
 
   renderBody() {
-    return <div className="create-a-class-modal-body modal-body">
+    return (<div className="create-a-class-modal-body modal-body">
       <h3 className="title">Share the class code link with your students</h3>
       <div className="copy-class-code-container">
         <Input
-          id="class-code"
           disabled={true}
+          id="class-code"
           value={this.classCodeLink()}
         />
-        <CopyToClipboard text={this.classCodeLink()} onCopy={this.showSnackbar}>
+        <CopyToClipboard onCopy={this.showSnackbar} text={this.classCodeLink()}>
           <button className="quill-button secondary outlined small">Copy</button>
         </CopyToClipboard>
       </div>
-    </div>
+    </div>)
   }
 
   renderFooter() {
     const { back, next, } = this.props
-    return <div className="create-a-class-modal-footer with-back-button">
+    return (<div className="create-a-class-modal-footer with-back-button">
       <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
       <button className="quill-button primary contained medium" onClick={next}>Next</button>
-    </div>
+    </div>)
   }
 
   render() {

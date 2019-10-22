@@ -36,7 +36,7 @@ export default class Navbar extends React.Component {
         $('.activity-analysis-tab').addClass('active');
       }
     }).catch((error) => {
-      console.log('error', error)
+      // to do, use Sentry to capture error
     })
   }
 
@@ -71,10 +71,10 @@ export default class Navbar extends React.Component {
     }
     if (this.props.showStudentDropdown) {
       return (<StudentDropdown
-        key={studentId}
-        students={this.students()}
         callback={this.props.studentDropdownCallback}
+        key={studentId}
         selectedStudent={selectedStudent || (this.students()[0] || null)}
+        students={this.students()}
       />);
     }
   }
@@ -83,7 +83,7 @@ export default class Navbar extends React.Component {
     let appName, image, previewLink
     if (l.has(this.props.selectedActivity, 'classification.id')) {
       appName = blackIconAppName(this.props.selectedActivity.classification.id)
-      image = <img src={`https://assets.quill.org/images/icons/${appName}-black.svg`} alt={`${appName}-icon`}/>
+      image = <img alt={`${appName}-icon`} src={`https://assets.quill.org/images/icons/${appName}-black.svg`} />
       previewLink = <a href={`/activity_sessions/anonymous?activity_id=${this.props.selectedActivity.id}`}>Preview Activity</a>
     }
     return (
@@ -96,24 +96,24 @@ export default class Navbar extends React.Component {
           </div>
 
           <p className='description'>
-            <img src='https://assets.quill.org/images/icons/info-black.svg' alt="info-icon"/>
+            <img alt="info-icon" src='https://assets.quill.org/images/icons/info-black.svg' />
             {this.props.selectedActivity.description}
           </p>
 
           <p className='standard'>
-            <img src='https://assets.quill.org/images/icons/common-core-gray.svg' alt="common-core-icon"/>
+            <img alt="common-core-icon" src='https://assets.quill.org/images/icons/common-core-gray.svg' />
             {this.props.selectedActivity && this.props.selectedActivity.topic ? this.props.selectedActivity.topic.name : ''}
           </p>
 
           <div className="nav-elements">
             <ItemDropdown
-              items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
               callback={this.props.dropdownCallback}
+              items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
               selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
             />
             <NavButtonGroup
-              params={this.props.params}
               clickCallback={this.props.buttonGroupCallback}
+              params={this.props.params}
             />
             {this.studentDropdown()}
           </div>

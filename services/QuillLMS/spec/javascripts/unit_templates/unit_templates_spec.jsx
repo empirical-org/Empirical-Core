@@ -14,11 +14,14 @@ describe('UnitTemplates', function () {
       eventHandlers: {
         selectModel: function () {},
         filterByCategory: function () {}
-    }
+      }
+    };
 
     this.component = TestUtils.renderIntoDocument(
-      <EC.UnitTemplates data={props.data}
-                        eventHandlers={props.eventHandlers} />
+      <EC.UnitTemplates
+        data={props.data}
+        eventHandlers={props.eventHandlers}
+      />
     );
     this.component.getInitialState();
   });

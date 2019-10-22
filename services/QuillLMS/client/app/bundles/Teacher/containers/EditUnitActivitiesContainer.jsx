@@ -1,5 +1,5 @@
 import React from 'react'
-import UnitStage1 from '../components/lesson_planner/create_unit/stage1/unit_stage1.jsx'
+import UnitStage1 from '../components/assignment_flow/create_unit/select_activities_container.jsx'
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token';
 
@@ -45,16 +45,16 @@ export default React.createClass({
   render() {
     return (
       <div>
-          <div className='container lesson_planner_main edit-assigned-activities-container'>
-            <UnitStage1
-                        unitName={this.props.params.unitName}
-                        hideNameTheUnit={Boolean(true)}
-                        selectedActivities={[...this.state.selectedActivities]}
-                        errorMessage={this.state.errors}
-                        editing={Boolean(true)}
-                        updateActivities={this.updateActivities}
-                        toggleActivitySelection={this.toggleActivitySelection}
-            />
+        <div className='container lesson_planner_main edit-assigned-activities-container'>
+          <UnitStage1
+            editing={Boolean(true)}
+            errorMessage={this.state.errors}
+            hideNameTheUnit={Boolean(true)}
+            selectedActivities={[...this.state.selectedActivities]}
+            toggleActivitySelection={this.toggleActivitySelection}
+            unitName={this.props.params.unitName}
+            updateActivities={this.updateActivities}
+          />
         </div>
       </div>
       )

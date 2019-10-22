@@ -66,33 +66,33 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
           <div className="field">
             <label className="label">Heading</label>
             <div className="control">
-              <input value={heading} onChange={(e) => this.updateValue(e, 'heading')} className="input" type="text" placeholder="Heading"/>
+              <input className="input" onChange={(e) => this.updateValue(e, 'heading')} placeholder="Heading" type="text" value={heading} />
             </div>
           </div>
           <div className="field">
             <label className="label">Body</label>
             <div className="control">
               <SlideHTMLEditor
-                text={body}
                 handleTextChange={(e) => this.updateBody(e)}
+                text={body}
               />
             </div>
           </div>
-          <button style={{marginRight: '15px'}} className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+          <button className='button is-primary' onClick={this.saveChanges} style={{marginRight: '15px'}}>Save Changes</button>
           <button className='button is-primary' onClick={this.deleteScriptItem}>Delete</button>
         </div>)
       case 'Overview':
         return (<div className="admin-show-script-item">
-        <div className="field">
-          <label className="label">Body</label>
-          <div className="control">
-            <SlideHTMLEditor
-              text={body}
-              handleTextChange={(e) => this.updateBody(e)}
-            />
+          <div className="field">
+            <label className="label">Body</label>
+            <div className="control">
+              <SlideHTMLEditor
+                handleTextChange={(e) => this.updateBody(e)}
+                text={body}
+              />
+            </div>
           </div>
-        </div>
-        <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
+          <button className='button is-primary' onClick={this.saveChanges}>Save Changes</button>
         </div>)
     }
   }
@@ -102,8 +102,7 @@ class EditScriptItem extends Component<EditScriptItemProps, EditScriptItemState>
       const scriptData = this.state.scriptItem.data
       if (scriptData) {
         const html:string =  scriptData.body || '';
-        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}} >
-        </div>
+        return <div className="lobby-text" dangerouslySetInnerHTML={{__html: html}}  />
       }
     } else {
       return <ScriptComponent script={[this.state.scriptItem]} />

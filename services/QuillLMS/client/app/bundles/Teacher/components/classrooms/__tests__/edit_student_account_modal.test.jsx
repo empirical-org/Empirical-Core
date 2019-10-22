@@ -9,9 +9,9 @@ describe('EditStudentAccountModal component', () => {
 
   const wrapper = shallow(
     <EditStudentAccountModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
       student={classroomWithStudents.students[0]}
     />
   );

@@ -62,7 +62,7 @@ export default class UnlinkModal extends React.Component {
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }
@@ -109,27 +109,27 @@ export default class UnlinkModal extends React.Component {
             please create a password to use when logging into Quill.
           </p>
           <Input
-            label="Change email (optional)"
-            value={email}
-            handleChange={(e) => this.handleChange('email', e)}
-            type="text"
             className="email"
             error={errors.email}
+            handleChange={(e) => this.handleChange('email', e)}
+            label="Change email (optional)"
             timesSubmitted={timesSubmitted}
+            type="text"
+            value={email}
           />
           <Input
-            label="Password"
-            value={password}
-            handleChange={(e) => this.handleChange('password', e)}
-            type="password"
             className="password inspectletIgnore"
             error={errors.password}
+            handleChange={(e) => this.handleChange('password', e)}
+            label="Password"
             timesSubmitted={timesSubmitted}
+            type="password"
+            value={password}
           />
           {this.renderCheckboxes()}
           <div className="button-section">
-            <div id="cancel" className="quill-button outlined secondary medium" onClick={cancel}>Cancel</div>
-            <input type="submit" name="commit" value={`Unlink ${googleOrClever}`} onClick={this.handleSubmit} className={this.submitClass()} />
+            <div className="quill-button outlined secondary medium" id="cancel" onClick={cancel}>Cancel</div>
+            <input className={this.submitClass()} name="commit" onClick={this.handleSubmit} type="submit" value={`Unlink ${googleOrClever}`} />
           </div>
         </div>
       </div>)

@@ -19,11 +19,11 @@ class Snackbars extends React.Component {
   }
 
   render() {
-    return <div id="snackbars">
+    return (<div id="snackbars">
       <h2 className="style-guide-h2">Snackbars</h2>
       <div className="element-container">
         <pre>
-{`constructor(props) {
+          {`constructor(props) {
   super(props)
 
   this.state = {
@@ -52,7 +52,7 @@ render() {
         <button className="quill-button medium primary contained" onClick={this.triggerSnackbar}>Click Me</button>
       </div>
       <Snackbar text="I am a snackbar!" visible={this.state.visible} />
-    </div>
+    </div>)
   }
 
 }

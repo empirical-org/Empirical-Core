@@ -19,40 +19,40 @@ const ConceptReports = ({
   <div className="concept-reports-by-classroom progress-reports-2018">
     <div className="meta-overview flex-row space-between">
       <div className="header-and-info">
-          <h1>
+        <h1>
             School Concept Reports
-          </h1>
-          <p>
+        </h1>
+        <p>
             Each question on Quill targets a specific writing concept. This report shows the number of times the student correctly or incorrectly used the targeted concept to answer the question. You can print this report by downloading a PDF file or export this data by downloading a CSV file.
-          </p>
-        </div>
+        </p>
+      </div>
       <div className="csv-and-how-we-grade">
-          <CSVDownloadForProgressReport data={csvData} />
-          <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">
+        <CSVDownloadForProgressReport data={csvData} />
+        <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">
             How We Grade
-            <i className="fa fa-long-arrow-right" />
-          </a>
-        </div>
+          <i className="fa fa-long-arrow-right" />
+        </a>
+      </div>
     </div>
     <div className="dropdown-container">
       <ItemDropdown
-          items={schoolNames}
-          callback={switchSchool}
-          selectedItem={selectedSchool}
-          dropdownId="cr-school-select-dropdown"
-        />
+        callback={switchSchool}
+        dropdownId="cr-school-select-dropdown"
+        items={schoolNames}
+        selectedItem={selectedSchool}
+      />
       <ItemDropdown
-          items={teacherNames}
-          callback={switchTeacher}
-          selectedItem={selectedTeacher}
-          dropdownId="cr-teacher-select-dropdown"
-        />
+        callback={switchTeacher}
+        dropdownId="cr-teacher-select-dropdown"
+        items={teacherNames}
+        selectedItem={selectedTeacher}
+      />
       <ItemDropdown
-          items={classroomNames}
-          callback={switchClassroom}
-          selectedItem={selectedClassroom}
-          dropdownId="cr-classroom-select-dropdown"
-        />
+        callback={switchClassroom}
+        dropdownId="cr-classroom-select-dropdown"
+        items={classroomNames}
+        selectedItem={selectedClassroom}
+      />
     </div>
     <ConceptReportsTable data={filteredConceptReportsData} />
   </div>

@@ -24,13 +24,13 @@ const Concepts = React.createClass({
     // const keys = _.keys(data["0"]);
     if (data) {
       return data.map((concept) => {
-        return <LinkListItem
-           key={concept.uid}
-           itemKey={concept.uid}
-           basePath='concepts'
-           text={concept.displayName}
-           activeClassName='is-active'
-         />
+        return (<LinkListItem
+          activeClassName='is-active'
+          basePath='concepts'
+          itemKey={concept.uid}
+          key={concept.uid}
+          text={concept.displayName}
+        />)
       })
     }
   },
@@ -42,14 +42,14 @@ const Concepts = React.createClass({
           <Modal close={this.createNew}>
             <div className="box">
               <h4 className="title">Add New Concept</h4>
-                <p className="control">
-                  <label className="label">Name</label>
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    ref="newConceptName"
-                  />
+              <p className="control">
+                <label className="label">Name</label>
+                <input
+                  className="input"
+                  placeholder="Text input"
+                  ref="newConceptName"
+                  type="text"
+                />
               </p>
               <p className="control">
                 <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>
@@ -67,14 +67,14 @@ const Concepts = React.createClass({
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
           { this.renderModal() }
-              <aside className="menu">
-                <p className="menu-label">
+          <aside className="menu">
+            <p className="menu-label">
                   Concepts
-                </p>
-                <ul className="menu-list">
-                  {this.renderConcepts()}
-                </ul>
-              </aside>
+            </p>
+            <ul className="menu-list">
+              {this.renderConcepts()}
+            </ul>
+          </aside>
         </div>
       </section>
     )

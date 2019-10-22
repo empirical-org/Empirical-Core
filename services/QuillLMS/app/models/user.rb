@@ -34,10 +34,14 @@ class User < ActiveRecord::Base
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
   has_many :students_i_teach, through: :classrooms_i_teach, source: :students
 
+  has_many :students_classrooms, class_name: 'StudentsClassrooms', foreign_key: 'student_id'
+  has_many :student_in_classroom, through: :students_classrooms, source: :classroom
+
   has_and_belongs_to_many :districts
   has_one :ip_location
   has_many :user_milestones
   has_many :milestones, through: :user_milestones
+  has_many :third_party_user_ids
 
   has_many :blog_post_user_ratings
 
@@ -73,17 +77,22 @@ class User < ActiveRecord::Base
 
   validate :validate_flags
 
-
-  ROLES      = %w(student teacher staff)
-  SAFE_ROLES = %w(student teacher)
+  TEACHER = 'teacher'
+  STUDENT = 'student'
+  STAFF = 'staff'
+  ROLES      = [TEACHER, STUDENT, STAFF]
+  SAFE_ROLES = [STUDENT, TEACHER]
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  TESTING_FLAGS = %w(alpha beta private)
+  ALPHA = 'alpha'
+  BETA = 'beta'
+  PRIVATE = 'private'
+  TESTING_FLAGS = [ALPHA, BETA, PRIVATE]
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  scope :teacher, lambda { where(role: 'teacher') }
-  scope :student, lambda { where(role: 'student') }
+  scope :teacher, lambda { where(role: TEACHER) }
+  scope :student, lambda { where(role: STUDENT) }
 
   attr_accessor :newsletter
 
@@ -92,7 +101,7 @@ class User < ActiveRecord::Base
   after_save :check_for_school
 
   def testing_flag
-    self.flags.detect{|f| TESTING_FLAGS.include?(f)}
+    self.role == STAFF ? PRIVATE : self.flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
 
   def auditor?
@@ -100,7 +109,7 @@ class User < ActiveRecord::Base
   end
 
   def utc_offset
-    if self.time_zone && self.time_zone.length > 0
+    if self.time_zone.present?
       tz = TZInfo::Timezone.get(time_zone)
       tz.period_for_utc(Time.new.utc).utc_total_offset
     else

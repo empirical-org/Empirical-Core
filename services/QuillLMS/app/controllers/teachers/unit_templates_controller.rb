@@ -13,7 +13,7 @@ class Teachers::UnitTemplatesController < ApplicationController
             @image_link = unit_template.image_link
           end
         end
-        redirect_to "/teachers/classrooms/assign_activities/featured-activity-packs/#{params[:id]}" if @is_teacher
+        redirect_to "/assign/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
       format.json do
         render json: get_cached_formatted_unit_templates
@@ -43,7 +43,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def profile_info
     ut = UnitTemplate.find(params[:id])
-    response = {data: format_unit_template(ut.id), related_models: related_models(ut)}
+    response = {data: format_unit_template(ut.id)}
     response = response.merge({ referral_code: current_user.referral_code }) if current_user && current_user.teacher?
     render json: response
   end
@@ -74,15 +74,6 @@ class Teachers::UnitTemplatesController < ApplicationController
     formatted_unit_template = get_formatted_unit_template_for_profile(ut_id)
     formatted_unit_template[:non_authenticated] = !is_teacher?
     formatted_unit_template
-  end
-
-  def related_models(ut)
-    related_models = ut.related_models(related_models_flag)
-    formatted_related_models = []
-    related_models.each do |rm|
-      formatted_related_models << format_unit_template(rm)
-    end
-    formatted_related_models
   end
 
   def current_user_testing_flag

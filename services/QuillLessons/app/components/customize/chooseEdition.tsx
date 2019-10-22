@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
+
 import {
   createNewEdition,
   saveEditionName,
@@ -45,14 +47,6 @@ class ChooseEdition extends React.Component<any, any> {
     this.selectAction = this.selectAction.bind(this)
     this.hideSignupModal = this.hideSignupModal.bind(this)
     this.deleteNewEdition = this.deleteNewEdition.bind(this)
-  }
-
-  componentWillMount() {
-    console.log('in choose edtion')
-  }
-
-  componentWillUnmount() {
-    console.log('about to unmount chooseEdition')
   }
 
   makeNewEdition(editionUid:string|null) {
@@ -120,10 +114,10 @@ class ChooseEdition extends React.Component<any, any> {
 
   renderBackButton() {
     if (window.history.length > 1) {
-      return <div className="back-button" onClick={() => window.history.back()}>
-      <i className="fa fa-icon fa-chevron-left"/>
+      return (<div className="back-button" onClick={() => window.history.back()}>
+        <i className="fa fa-icon fa-chevron-left" />
       Back
-      </div>
+      </div>)
     }
   }
 
@@ -139,10 +133,10 @@ class ChooseEdition extends React.Component<any, any> {
     } else {
       text = 'You are customizing this lesson:'
     }
-    return <div className="lesson-info">
+    return (<div className="lesson-info">
       <p>{text}</p>
       <h2 className="lesson-title"><span>Lesson {lessonData.lesson}:</span> {lessonData.title}</h2>
-    </div>
+    </div>)
   }
 
   renderHeader() {
@@ -157,26 +151,21 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   renderExplanation() {
-    const selectState = this.props.classroomSessions.data.preview ||
-      getParameterByName('classroom_unit_id');
-
-
-    if (selectState) {
-      return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>. If you decide to customize a lesson now, your launched lesson will be paused until you publish your new edition.</p>
-    } else {
-      return <p className="explanation">By clicking <span>“Customize”</span> and then selecting <span>“Make Copy,”</span> you will be able to customize the lesson with your own content. You can update your own editions at any time by clicking on <span>“Customize”</span> and then selecting <span>“Edit Edition”</span>.</p>
-    }
+    return (<div className="explanation">
+      <p>You can change the prompts in this lesson by clicking <span>"Customize"</span> and selecting <span>"Make Copy."</span> This will create your own edition of the lesson, which you can customize.</p>
+      <p>Once you publish your customized edition of the lesson, it will be listed as an option any time you click on the lesson's name.</p>
+    </div>)
   }
 
   renderNamingModal() {
     if (this.state.showNamingModal) {
       const buttonClassName = this.state.newEditionName ? 'active' : 'inactive'
-      return <EditionNamingModal
-              saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
-              updateName={this.updateName}
-              buttonClassName={buttonClassName}
-              deleteNewEdition={this.deleteNewEdition}
-              />
+      return (<EditionNamingModal
+        buttonClassName={buttonClassName}
+        deleteNewEdition={this.deleteNewEdition}
+        saveNameAndGoToCustomize={this.saveNameAndGoToCustomize}
+        updateName={this.updateName}
+      />)
     }
   }
 
@@ -185,93 +174,96 @@ class ChooseEdition extends React.Component<any, any> {
       getParameterByName('classroom_unit_id');
     const { editions, user_id } = this.props.customize
     const sessionEditionId:string|undefined = this.props.classroomSessions.data ? this.props.classroomSessions.data.edition_id : undefined
-    if (Object.keys(editions).length > 0) {
-      const quillEditions:Array<JSX.Element>  = []
-      const myEditions:Array<JSX.Element> = []
-      const coteacherEditions:Array<JSX.Element>  = []
-      Object.keys(editions).forEach((e) => {
-        const edition:CustomizeIntF.EditionMetadata = editions[e]
-        edition.key = e
-        if (edition.lesson_id === this.props.params.lessonID) {
-          if (edition.user_id === user_id) {
-            const editionRow = <EditionRow
-              key={e}
-              edition={edition}
-              makeNewEdition={this.makeNewEdition}
-              editEdition={this.editEdition}
-              archiveEdition={this.archiveEdition}
-              creator='user'
-              selectAction={this.selectAction}
-              selectState={selectState}
-              selectedEdition={sessionEditionId === e}
-              />
-            myEditions.push(editionRow)
-          } else if (String(edition.user_id) === 'quill-staff') {
-            const editionRow = <EditionRow
-              key={e}
-              edition={edition}
-              makeNewEdition={this.makeNewEdition}
-              creator='quill'
-              selectAction={this.selectAction}
-              selectState={selectState}
-              selectedEdition={sessionEditionId === e}
-            />
-            quillEditions.push(editionRow)
-          } else {
-            const editionRow = <EditionRow
-              key={e}
-              edition={edition}
-              makeNewEdition={this.makeNewEdition}
-              creator='coteacher'
-              selectAction={this.selectAction}
-              selectState={selectState}
-              selectedEdition={sessionEditionId === e}
-            />
-            coteacherEditions.push(editionRow)
-          }
+
+    if (!Object.keys(editions).length) {
+      return <Spinner />
+    }
+
+    const quillEditions:Array<JSX.Element>  = []
+    const myEditions:Array<JSX.Element> = []
+    const coteacherEditions:Array<JSX.Element>  = []
+    Object.keys(editions).forEach((e) => {
+      const edition:CustomizeIntF.EditionMetadata = editions[e]
+      edition.key = e
+      if (edition.lesson_id === this.props.params.lessonID) {
+        if (edition.user_id === user_id) {
+          const editionRow = (<EditionRow
+            archiveEdition={this.archiveEdition}
+            creator='user'
+            editEdition={this.editEdition}
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
+            selectAction={this.selectAction}
+            selectedEdition={sessionEditionId === e}
+            selectState={selectState}
+          />)
+          myEditions.push(editionRow)
+        } else if (String(edition.user_id) === 'quill-staff') {
+          const editionRow = (<EditionRow
+            creator='quill'
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
+            selectAction={this.selectAction}
+            selectedEdition={sessionEditionId === e}
+            selectState={selectState}
+          />)
+          quillEditions.push(editionRow)
+        } else {
+          const editionRow = (<EditionRow
+            creator='coteacher'
+            edition={edition}
+            key={e}
+            makeNewEdition={this.makeNewEdition}
+            selectAction={this.selectAction}
+            selectedEdition={sessionEditionId === e}
+            selectState={selectState}
+          />)
+          coteacherEditions.push(editionRow)
         }
-      })
-      const compactedQuillEditions = _.compact(quillEditions)
-      const compactedMyEditions = _.compact(myEditions)
-      const compactedCoteacherEditions = _.compact(coteacherEditions)
-      let quillEditionSection, myEditionSection, coteacherEditionSection
-      if (compactedQuillEditions.length > 0) {
-        quillEditionSection = <div className="quill-editions">
+      }
+    })
+    const compactedQuillEditions = _.compact(quillEditions)
+    const compactedMyEditions = _.compact(myEditions)
+    const compactedCoteacherEditions = _.compact(coteacherEditions)
+    let quillEditionSection, myEditionSection, coteacherEditionSection
+    if (compactedQuillEditions.length > 0) {
+      quillEditionSection = (<div className="quill-editions">
         <p className="header">Quill Created Editions</p>
         {compactedQuillEditions}
-        </div>
-      }
-      if (compactedCoteacherEditions.length > 0) {
-        coteacherEditionSection = <div className="coteacher-editions">
+      </div>)
+    }
+    if (compactedCoteacherEditions.length > 0) {
+      coteacherEditionSection = (<div className="coteacher-editions">
         <p className="header">Co-Teacher Customized Editions</p>
         {compactedCoteacherEditions}
-        </div>
-      }
-      if (compactedMyEditions.length > 0) {
-        myEditionSection = <div className="my-editions">
+      </div>)
+    }
+    if (compactedMyEditions.length > 0) {
+      myEditionSection = (<div className="my-editions">
         <p className="header">My Customized Editions</p>
         {compactedMyEditions}
-        </div>
-      }
-      return <div>
-        {quillEditionSection}
-        {myEditionSection}
-        {coteacherEditionSection}
-      </div>
+      </div>)
     }
+    return (<div>
+      {quillEditionSection}
+      {myEditionSection}
+      {coteacherEditionSection}
+    </div>)
   }
 
   renderSignupModal() {
     if (this.state.showSignupModal) {
-      return <SignupModal
+      return (<SignupModal
         closeModal={this.hideSignupModal}
         goToSignup={() => window.location.href = `${process.env.EMPIRICAL_BASE_URL}/account/new`}
-      />
+      />)
     }
   }
 
   render() {
-    return <div className="choose-edition customize-page">
+    return (<div className="choose-edition customize-page">
       {this.renderSignupModal()}
       {this.renderBackButton()}
       {this.renderLessonInfo()}
@@ -279,7 +271,7 @@ class ChooseEdition extends React.Component<any, any> {
       {this.renderExplanation()}
       {this.renderEditions()}
       {this.renderNamingModal()}
-    </div>
+    </div>)
   }
 }
 

@@ -100,12 +100,6 @@ module PagesHelper
             desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
           },
           {
-            img: 'thumb-alysia.jpg',
-            name: 'Alysia Belle',
-            title: 'Literacy Director',
-            desc: "Alysia develops content for Quill with a focus on building its forthcoming reading curriculum. She has experience teaching in a variety of settings, including 5 years as an ESL educator in the Bronx. Before joining Quill, Alysia wrote curricula and managed edtech-focused professional learning at Democracy Prep Public Schools. Prior to Democracy Prep, she led professional development initiatives at Newsela. Alysia holds an undergraduate degree in English and a master’s degree in education."
-          },
-          {
             img: 'thumb-emma.png',
             name: 'Emma Volk',
             title: 'Curriculum Developer',
@@ -120,8 +114,8 @@ module PagesHelper
           {
             img: 'thumb-rachel.jpg',
             name: 'Rachel Dantzler',
-            title: 'Editorial and Outreach Associate',
-            desc: "Rachel is a curriculum and outreach associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
+            title: 'Curriculum and Operations Associate',
+            desc: "Rachel is a curriculum and operations associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
           },
 					{
 						img: 'thumb-rhea.png',
@@ -134,6 +128,30 @@ module PagesHelper
             name: 'Yves Peirsman',
             title: 'AI Open Source Partner',
             desc: "Yves Peirsman is the founder and Natural Language Processing expert at NLP Town. Yves holds a PhD in computational linguistics from the University of Leuven and was a postdoctoral researcher at Stanford University. Since he made the move from academia to industry, he has gained extensive experience in consultancy and software development for Natural Language Processing. As the co-founder of NLP Town, he leads several NLP projects, organizes NLP-focused events and contributes to open-source software."
+          },
+          {
+            img: 'thumb-lindsey.jpg',
+            name: 'Lindsey Murphy',
+            title: 'Lead Curriculum Developer',
+            desc: "Lindsey designs curriculum for an upcoming reading comprehension tool. Prior to working at Quill, she was teaching fourth grade English in Brooklyn. In college and as a teacher, Lindsey has engaged in various policy campaigns and initiatives to fight for educational equity. She has an undergraduate degree in political science from Boston College and a master's in teaching from the Relay Graduate School of Education."
+          },
+          {
+            img: 'thumb-max.png',
+            name: 'Maximilian de Martino',
+            title: 'Curriculum Developer',
+            desc: "Max is a curriculum developer who is committed to closing literacy gaps in all content areas. Prior to joining Quill, Max spent five years teaching social studies grades seven, eight, and ten, and English grade nine in public and charter schools serving low-income students in New York City. He holds a Master of Arts in Social Studies Teacher Education from Teacher's College of Columbia University."
+          },
+          {
+            img: 'thumb-haronil.jpg',
+            name: 'Haronil Estevez',
+            title: 'Senior Software Developer',
+            desc: "Haronil is a senior software developer with experience in media, government, and education. He holds a degree in Computer Science from Columbia University."
+          },
+          {
+            img: 'thumb-christina.jpg',
+            name: 'Christina Collins',
+            title: 'Head of School Success',
+            desc: "Christina manages the full cycle of the school partnership from onboarding through implementation. Prior to Quill, she spent 9 years in the Chicago area teaching middle school ELA and serving as a District Literacy Specialist for Chicago Public Schools. She transitioned into education publishing by leading literacy and assessment professional development at NWEA and then as a curriculum and training specialist at Pearson where she worked with schools across the northeast as they implemented Pearson's literacy and humanities programs. Christina holds an undergraduate degree in English Education from Indiana University and a masters degree from National- Louis University."
           }
 				]
 			},
@@ -182,17 +200,17 @@ module PagesHelper
 						title: 'Board Member',
 						desc: "Stephanie is the global head of Financial Sponsor M&A and is a member of the Partnership Committee at Goldman Sachs. She joined Goldman Sachs in 1999 as an analyst and was named managing director in 2008 and partner in 2014. Stephanie serves on the National Boards for two literacy focused non-profits, Reading Partners and Quill."
 					},
+					{
+						img: 'thumb-peg.jpg',
+						name: 'Peg Tyre',
+						title: "Board Member",
+						desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
+					}
 				]
 			},
 			{
 				team: 'Education Advisory Board',
 				members: [
-					{
-						img: 'thumb-peg.jpg',
-						name: 'Peg Tyre',
-						title: "Advisory Board Member",
-						desc: "Peg Tyre is a longtime education journalist and the best-selling author of two books on education. She is also director of strategy for The Edwin Gould Foundation, which invests in organizations that get low-income students to and through college. Tyre is currently at work on a book about literacy."
-					},
 					{
 						img: 'thumb-emily.jpg',
 						name: 'Emily Dalton Smith',

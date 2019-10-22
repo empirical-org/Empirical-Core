@@ -4,9 +4,9 @@ import { Card } from "antd";
 class HomePage extends React.Component<{}, {}> {
     public render(): JSX.Element {
         return (
-            <Card bordered title="Hello React & Antd" style={{ margin: "16px 16px"}}>
-                <p>Happy coding!</p>
-            </Card>
+          <Card bordered style={{ margin: "16px 16px"}} title="Hello React & Antd">
+            <p>Happy coding!</p>
+          </Card>
         );
     }
 }

@@ -9,9 +9,9 @@ describe('RenameClassroomModal component', () => {
 
   const wrapper = shallow(
     <RenameClassroomModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
     />
   );
 

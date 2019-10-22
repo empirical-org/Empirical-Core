@@ -23,8 +23,8 @@ const NextActivity = ({
       <div className="next-activity">
         <div className="next-activity-name">
           <ActivityIconWithTooltip
-            data={data}
             context={'studentProfile'}
+            data={data}
             placement={'bottom'}
           />
           <p>

@@ -16,7 +16,7 @@ class Dashboard
         user_id = user.id
         diff_con ||= self.difficult_concepts(user_id)
         strug_stud ||= self.lowest_performing_students(user_id)
-        if diff_con.length == 0
+        if diff_con.empty?
           diff_con = 'insufficient data'
         end
       else

@@ -15,7 +15,8 @@ describe('OverviewMini component', () => {
           {name: 'Cool Activity', score: 50},
           {name: 'Another Activity', score: 97}
         ]
-      }} />
+      }}
+      />
     );
     expect(wrapper.find('td').at(0).text()).toMatch('Cool Activity');
     expect(wrapper.find('td').at(1).text()).toMatch('50%');
@@ -28,7 +29,8 @@ describe('OverviewMini component', () => {
       <OverviewMini overviewObj={{
         results: {},
         header: 'This text includes the word student.'
-      }} />
+      }}
+      />
     );
     expect(wrapperStudent.find('button').text()).toBe('View All Student Results');
     expect(wrapperStudent.find('a').prop('href')).toBe('/teachers/progress_reports/concepts/students');
@@ -37,7 +39,8 @@ describe('OverviewMini component', () => {
       <OverviewMini overviewObj={{
         results: {},
         header: 'This text includes the word concept.'
-      }} />
+      }}
+      />
     );
     expect(wrapperConcept.find('button').text()).toBe('View All Concept Results');
     expect(wrapperConcept.find('a').prop('href')).toBe('/teachers/progress_reports/concepts/students');
@@ -45,7 +48,7 @@ describe('OverviewMini component', () => {
 
   it('should render header text', () => {
     const wrapper = shallow(
-      <OverviewMini overviewObj={{header: 'I am Groot', results: 'some stuff here'}}/>
+      <OverviewMini overviewObj={{header: 'I am Groot', results: 'some stuff here'}} />
     );
     expect(wrapper.find('h4').text()).toBe('I am Groot');
   });

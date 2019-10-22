@@ -81,7 +81,7 @@ class SegmentAnalytics {
 
   reportError(e: Error): void {
     // placeholder for actual error reporting
-    console.error(e);
+    // to do - do something with this error
   }
 }
 

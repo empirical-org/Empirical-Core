@@ -99,6 +99,11 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.overflowY = "scroll";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+  }
+
   handleKeyDown(event) {
     const tag = event.target.tagName.toLowerCase()
     const className = event.target.className.toLowerCase()
@@ -117,11 +122,6 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     }
   }
 
-  componentWillUnmount() {
-    document.getElementsByTagName("html")[0].style.overflowY = "scroll";
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
-  }
-
   render() {
     const classroomActivityError = this.props.classroomSessions.error;
     const lessonError = this.props.classroomLesson.error;
@@ -136,8 +136,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       return (
         <div className="teach-lesson-container" style={teachLessonContainerStyle}>
           <WakeLock />
-          <Sidebar params={this.props.params}/>
-          <MainContentContainer params={this.props.params}/>
+          <Sidebar params={this.props.params} />
+          <MainContentContainer params={this.props.params} />
         </div>
       );
     }

@@ -81,11 +81,11 @@ export default class UnarchiveUnits extends React.Component {
   }
 
   renderTeacherForm() {
-    return <div className="input-row">
+    return (<div className="input-row">
       <label>Teacher Email Or Username:</label>
-      <input type="text" value={this.state.teacherIdentifier} onChange={this.updateTeacherIdentifier}/>
+      <input onChange={this.updateTeacherIdentifier} type="text" value={this.state.teacherIdentifier} />
       <button onClick={this.getArchivedUnits}>Submit</button>
-    </div>
+    </div>)
   }
 
   renderUnitsForm() {
@@ -93,17 +93,17 @@ export default class UnarchiveUnits extends React.Component {
       const unitsList = this.state.archivedUnits.map(u => {
         const checked = this.state.selectedUnitIds.find(unitId => unitId == u.id)
         const nameFieldStyle = u.shared_name ? {'border': 'red 1px solid', 'width': '447px'} : {'width': '447px'}
-        return <div key={`${u.id}-${checked}`}>
-        <input type="checkbox" onChange={this.toggleSelected} id={u.id} checked={checked}/>
-        <input style={nameFieldStyle} onChange={(e) => this.updateName(e, u.id)} value={this.state.changedNames[u.id] || u.name} />
-        </div>
+        return (<div key={`${u.id}-${checked}`}>
+          <input checked={checked} id={u.id} onChange={this.toggleSelected} type="checkbox" />
+          <input onChange={(e) => this.updateName(e, u.id)} style={nameFieldStyle} value={this.state.changedNames[u.id] || u.name} />
+        </div>)
       })
       const selectAllCopy = this.state.archivedUnits.length === this.state.selectedUnitIds.length ? 'Unselect All Units' : 'Select All Units'
-      return <div>
+      return (<div>
         <button className="unselect-all-button" onClick={this.toggleSelectAllUnits}>{selectAllCopy}</button>
         {unitsList}
         <button onClick={this.unarchiveUnits}>Unarchive Units</button>
-      </div>
+      </div>)
     }
   }
 

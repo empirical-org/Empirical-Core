@@ -34,10 +34,10 @@ class CloneConnectQuestions extends React.Component<any, any> {
   }
 
   renderQuestionSection(title: string, questions) {
-    return <div>
+    return (<div>
       <h3 style={{ fontWeight: 600, fontSize: '24px', }}>{title}</h3>
       {questions}
-    </div>
+    </div>)
   }
 
   renderFillInBlankQuestions() {

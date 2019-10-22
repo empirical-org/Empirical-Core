@@ -19,14 +19,19 @@ import { permittedFlag } from '../../libs/flagArray'
 
 const request = require('request');
 
-const Lesson = React.createClass({
+class Lesson extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      hasOrIsGettingResponses: false,
+      sessionInitialized: false
+    }
+  }
+
   componentWillMount() {
     this.props.dispatch(clearData());
-  },
-
-  getInitialState() {
-    return { hasOrIsGettingResponses: false, sessionInitalized: false };
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length
@@ -36,7 +41,7 @@ const Lesson = React.createClass({
     if (answeredQuestionsHasChanged || attemptsHasChanged) {
       this.saveSessionData(nextProps.playLesson);
     }
-  },
+  }
 
   componentDidUpdate() {
     // At mount time the component may still be waiting on questions
@@ -58,28 +63,28 @@ const Lesson = React.createClass({
         this.saveSessionIdToState();
       }
     }
-  },
+  }
 
-  doesNotHaveAndIsNotGettingResponses() {
+  doesNotHaveAndIsNotGettingResponses = () => {
     return (!this.state.hasOrIsGettingResponses);
-  },
+  }
 
-  getPreviousSessionData() {
+  getPreviousSessionData = () => {
     return this.state.session;
-  },
+  }
 
-  resumeSession(data) {
+  resumeSession = (data) => {
     if (data) {
       this.props.dispatch(resumePreviousSession(data));
     }
-  },
+  }
 
-  hasQuestionsInQuestionSet(props) {
+  hasQuestionsInQuestionSet = (props) => {
     const pL = props.playLesson;
     return (pL && pL.questionSet && pL.questionSet.length);
-  },
+  }
 
-  saveSessionIdToState() {
+  saveSessionIdToState = () => {
     let sessionID = getParameterByName('student');
     if (sessionID === 'null') {
       sessionID = undefined;
@@ -91,18 +96,17 @@ const Lesson = React.createClass({
         });
       }
     });
-  },
+  }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
     const action = submitResponse(response);
     this.props.dispatch(action);
-  },
+  }
 
-  saveToLMS() {
+  saveToLMS = () => {
     this.setState({ error: false, });
     const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    console.log(results);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
     const { lessonID, } = this.props.params;
     const sessionID = this.state.sessionID;
@@ -111,9 +115,9 @@ const Lesson = React.createClass({
     } else {
       this.createAnonActivitySession(lessonID, results, score);
     }
-  },
+  }
 
-  finishActivitySession(sessionID, results, score) {
+  finishActivitySession = (sessionID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -122,12 +126,11 @@ const Lesson = React.createClass({
           state: 'finished',
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
@@ -139,14 +142,14 @@ const Lesson = React.createClass({
         }
       }
     );
-  },
+  }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
     const action = updateCurrentQuestion({ identified: bool, });
     this.props.dispatch(action);
-  },
+  }
 
-  createAnonActivitySession(lessonID, results, score) {
+  createAnonActivitySession = (lessonID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -156,20 +159,19 @@ const Lesson = React.createClass({
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
       }
     );
-  },
+  }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.params;
     const filteredQuestions = data[lessonID].questions.filter((ques) => {
@@ -202,133 +204,133 @@ const Lesson = React.createClass({
       }
       return { type, question, };
     });
-  },
+  }
 
-  startActivity(name) {
+  startActivity = (name) => {
     this.saveStudentName(name);
     const action = loadData(this.questionsForLesson());
     this.props.dispatch(action);
     const next = nextQuestion();
     this.props.dispatch(next);
-  },
+  }
 
-  nextQuestion() {
+  nextQuestion = () => {
     const next = nextQuestion();
     return this.props.dispatch(next);
-  },
+  }
 
-  getLesson() {
+  getLesson = () => {
     return this.props.lessons.data[this.props.params.lessonID];
-  },
+  }
 
-  getLessonName() {
+  getLessonName = () => {
     return this.props.lessons.data[this.props.params.lessonID].name;
-  },
+  }
 
   saveStudentName(name) {
     this.props.dispatch(updateName(name));
-  },
+  }
 
-  getProgressPercent() {
+  getProgressPercent = () => {
     if (this.props.playLesson && this.props.playLesson.answeredQuestions && this.props.playLesson.questionSet) {
       return this.props.playLesson.answeredQuestions.length / this.props.playLesson.questionSet.length * 100;
     } else {
       return 0;
     }
-  },
+  }
 
-  saveSessionData(lessonData) {
+  saveSessionData = (lessonData) => {
     if (this.state.sessionID) {
       SessionActions.update(this.state.sessionID, lessonData);
     }
-  },
+  }
 
   render() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    const { conceptsFeedback, playLesson, dispatch, } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, params, } = this.props
+    const { data, hasreceiveddata, } = lessons
+    const { lessonID, } = params;
     let component;
-    if (data[lessonID]) {
-      if (playLesson.currentQuestion) {
-        const { type, question, } = playLesson.currentQuestion;
-
-        if (type === 'SF') {
-          component = (
-            <PlaySentenceFragment
-              currentKey={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              key={question.key}
-              marking="diagnostic"
-              updateAttempts={this.submitResponse}
-              markIdentify={this.markIdentify}
-              dispatch={dispatch}
-              conceptsFeedback={conceptsFeedback}
-            />
-          );
-        } else if (type === 'FB') {
-          component = (
-            <PlayFillInTheBlankQuestion
-              key={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              prefill={this.getLesson().prefill}
-              dispatch={dispatch}
-              submitResponse={this.submitResponse}
-              conceptsFeedback={conceptsFeedback}
-            />
-          );
-        } else if (type === 'TL'){
-          component = (
-            <PlayTitleCard
-              nextQuestion={this.nextQuestion}
-              data={question}
-            />
-          )
-        } else {
-          component = (
-            <PlayLessonQuestion
-              key={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              prefill={this.getLesson().prefill}
-              dispatch={dispatch}
-              conceptsFeedback={conceptsFeedback}
-            />
-          );
-        }
-      } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
-        component = (
-          <Finished
-            data={this.props.playLesson}
-            name={this.state.sessionID}
-            lessonID={this.props.params.lessonID}
-            saveToLMS={this.saveToLMS}
-            saved={this.state.saved}
-            error={this.state.error}
-          />
-        );
-      } else {
-        component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.state.session} resumeActivity={this.resumeSession} />
-        );
-      }
-
-      return (
-        <div>
-          <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
-          <section className="section is-fullheight minus-nav student">
-            <div className="student-container student-container-diagnostic">
-              {component}
-            </div>
-          </section>
-        </div>
-      );
-    } else {
+    
+    if (!(this.state.sessionInitialized && hasreceiveddata && data && data[lessonID])) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
-  },
-});
+
+    if (playLesson.currentQuestion) {
+      const { type, question, } = playLesson.currentQuestion;
+      if (type === 'SF') {
+        component = (
+          <PlaySentenceFragment
+            conceptsFeedback={conceptsFeedback}
+            currentKey={question.key}
+            dispatch={dispatch}
+            key={question.key}
+            markIdentify={this.markIdentify}
+            marking="diagnostic"
+            nextQuestion={this.nextQuestion}
+            question={question}
+            updateAttempts={this.submitResponse}
+          />
+        );
+      } else if (type === 'FB') {
+        component = (
+          <PlayFillInTheBlankQuestion
+            conceptsFeedback={conceptsFeedback}
+            dispatch={dispatch}
+            key={question.key}
+            nextQuestion={this.nextQuestion}
+            prefill={this.getLesson().prefill}
+            question={question}
+            submitResponse={this.submitResponse}
+          />
+        );
+      } else if (type === 'TL'){
+        component = (
+          <PlayTitleCard
+            data={question}
+            nextQuestion={this.nextQuestion}
+          />
+        )
+      } else {
+        component = (
+          <PlayLessonQuestion
+            conceptsFeedback={conceptsFeedback}
+            dispatch={dispatch}
+            key={question.key}
+            nextQuestion={this.nextQuestion}
+            prefill={this.getLesson().prefill}
+            question={question}
+          />
+        );
+      }
+    } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
+      component = (
+        <Finished
+          data={this.props.playLesson}
+          error={this.state.error}
+          lessonID={this.props.params.lessonID}
+          name={this.state.sessionID}
+          saved={this.state.saved}
+          saveToLMS={this.saveToLMS}
+        />
+      );
+    } else {
+      component = (
+        <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={this.state.session} startActivity={this.startActivity} />
+      );
+    }
+
+    return (
+      <div>
+        <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
+        <section className="section is-fullheight minus-nav student">
+          <div className="student-container student-container-diagnostic">
+            {component}
+          </div>
+        </section>
+      </div>
+    );
+  }
+}
 
 function select(state) {
   return {
@@ -340,8 +342,6 @@ function select(state) {
     fillInBlank: state.fillInBlank,
     titleCards: state.titleCards,
     conceptsFeedback: state.conceptsFeedback
-    // sessions: state.sessions,
-    // responses: state.responses,
   };
 }
 

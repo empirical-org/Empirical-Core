@@ -1,7 +1,7 @@
 import React from 'react'
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token'
-import ActivitySearchAndSelect from '../components/lesson_planner/create_unit/activity_search/activity_search_and_select'
+import ActivitySearchAndSelect from '../components/assignment_flow/create_unit/activity_search/activity_search_and_select'
 
 export default class ActivityCategory extends React.Component {
   constructor(props) {
@@ -63,9 +63,9 @@ export default class ActivityCategory extends React.Component {
     return(<div>
       <ActivitySearchAndSelect
         selectedActivities={this.state.selectedActivities}
-        toggleActivitySelection={this.toggleActivitySelection}
         sortable={true}
         sortCallback={this.updateActivityOrder}
+        toggleActivitySelection={this.toggleActivitySelection}
       />
       <button onClick={this.destroyAndRecreateOrderNumbers}>Save Activities</button>
     </div>

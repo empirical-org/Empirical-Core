@@ -33,13 +33,13 @@ class EditFocusPointsContainer extends Component {
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
+          item={this.getFocusPoint()}
           itemLabel="Focus Point"
           onSubmit={this.submitForm}
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
           states={true}
-          item={this.getFocusPoint()}
         />
         {this.props.children}
       </div>

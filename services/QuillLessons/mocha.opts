@@ -1,3 +1,2 @@
---compilers js:babel-register
 -r jsdom-global/register
 test/**/*.js

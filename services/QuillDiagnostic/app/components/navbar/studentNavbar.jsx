@@ -46,7 +46,7 @@ const Navbar = React.createClass({
     return (
       <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
         {this.renderLessonSpecificContent()}
-        <a key="a-tag-student-navabar" onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
+        <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={this.saveAndExitConfirm}>Save & Exit</a>
       </div>
     );
   },
@@ -74,10 +74,10 @@ const Navbar = React.createClass({
       <header className={`nav student-nav ${ellNavClassName}`} style={{ height: '50px', }}>
         <div className="container">
           <div className="nav-left">
-            <a href={`${process.env.EMPIRICAL_BASE_URL}`} className="nav-item">
+            <a className="nav-item" href={`${process.env.EMPIRICAL_BASE_URL}`}>
               <img
-                src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png"
                 alt=""
+                src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png"
                 style={{ height: '35px', }}
               />
             </a>

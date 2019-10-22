@@ -1,8 +1,10 @@
 class UnitTemplate < ActiveRecord::Base
   belongs_to :unit_template_category
   belongs_to :author
-  has_and_belongs_to_many :activities
+  has_many :activities_unit_templates
+  has_many :activities, through: :activities_unit_templates
   has_many :units
+  has_many :partner_contents, dependent: :destroy, as: :content
   has_many :recommendations, dependent: :destroy
   serialize :grades, Array
 

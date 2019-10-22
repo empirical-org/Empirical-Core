@@ -87,7 +87,6 @@ const Lesson = React.createClass({
     this.setState({ error: false, });
     const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    console.log(results);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
     const { lessonID, } = this.props.params;
     const sessionID = this.state.sessionID;
@@ -111,8 +110,7 @@ const Lesson = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
           this.setState({ saved: true, });
@@ -145,8 +143,7 @@ const Lesson = React.createClass({
       },
       (err, httpResponse, body) => {
         if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+          // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
@@ -238,41 +235,41 @@ const Lesson = React.createClass({
           component = (
             <PlaySentenceFragment
               currentKey={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              key={question.key}
-              marking="diagnostic"
-              updateAttempts={this.submitResponse}
-              markIdentify={this.markIdentify}
               dispatch={this.props.dispatch}
+              key={question.key}
+              markIdentify={this.markIdentify}
+              marking="diagnostic"
+              nextQuestion={this.nextQuestion}
+              question={question}
+              updateAttempts={this.submitResponse}
             />
           );
         } else if (type === 'FB') {
           component = (
             <PlayFillInTheBlankQuestion
+              dispatch={this.props.dispatch}
               key={question.key}
-              question={question}
               nextQuestion={this.nextQuestion}
               prefill={this.getLesson().prefill}
-              dispatch={this.props.dispatch}
+              question={question}
               submitResponse={this.submitResponse}
             />
           );
         } else if (type === 'TL'){
           component = (
             <PlayTitleCard
-              nextQuestion={this.nextQuestion}
               data={question}
+              nextQuestion={this.nextQuestion}
             />
           )
         } else {
           component = (
             <PlayLessonQuestion
+              dispatch={this.props.dispatch}
               key={question.key}
-              question={question}
               nextQuestion={this.nextQuestion}
               prefill={this.getLesson().prefill}
-              dispatch={this.props.dispatch}
+              question={question}
             />
           );
         }
@@ -280,22 +277,22 @@ const Lesson = React.createClass({
         component = (
           <Finished
             data={this.props.playLesson}
-            name={this.state.sessionID}
-            lessonID={this.props.params.lessonID}
-            saveToLMS={this.saveToLMS}
-            saved={this.state.saved}
             error={this.state.error}
+            lessonID={this.props.params.lessonID}
+            name={this.state.sessionID}
+            saved={this.state.saved}
+            saveToLMS={this.saveToLMS}
           />
         );
       } else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.state.session} resumeActivity={this.resumeSession} />
+          <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={this.state.session} startActivity={this.startActivity} />
         );
       }
 
       return (
         <div>
-          <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+          <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
               {component}

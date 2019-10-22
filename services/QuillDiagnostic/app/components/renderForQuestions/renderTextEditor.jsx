@@ -102,8 +102,6 @@ export default React.createClass({
   handleTextChange(e) {
     if (!this.props.disabled) {
       this.props.handleChange(e.target.value, this.props.editorIndex);
-    } else {
-      console.log("I'm disable RN");
     }
   },
 
@@ -122,16 +120,16 @@ export default React.createClass({
         <div className="card-content">
           <div className="content">
             <Textarea
-              spellCheck={this.props.spellCheck || false}
               autoCapitalize="off"
               autoCorrect="off"
-              value={this.props.value}
+              autoFocus
+              className="connect-text-area"
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               placeholder={this.props.placeholder}
               ref="answerBox"
-              className="connect-text-area"
-              autoFocus
+              spellCheck={this.props.spellCheck || false}
+              value={this.props.value}
             />
           </div>
         </div>

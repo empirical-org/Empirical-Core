@@ -96,6 +96,7 @@
   "dependencies": {
     "actioncable": "^5.1.1",
     "animejs": "^2.2.0",
+    "apply-feature": "^1.0.1",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.26.0",
@@ -122,7 +123,7 @@
     "pos": "^0.4.2",
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.1.0",
-    "quill-component-library": "0.3.26",
+    "quill-component-library": "0.3.29",
     "quill-marking-logic": "^0.9.1",
     "raven-js": "^3.17.0",
     "react": "^15.6.2",

@@ -3,6 +3,7 @@ require 'net/http'
 
 class RematchResponsesForQuestionWorker
   include Sidekiq::Worker
+  sidekiq_options retry: 3
 
   def perform(question_uid, question_type)
     responses_to_reprocess = get_ungraded_responses(question_uid) + get_machine_graded_responses(question_uid)

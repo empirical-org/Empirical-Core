@@ -34,11 +34,11 @@ export default React.createClass({
     const marchFirst = new Date(today.getFullYear(), 2, 1)
     const julyFifteenth = new Date(today.getFullYear(), 6, 15)
     if (today > marchFirst && today < julyFifteenth) {
-      return <div className="premium-notification-box-container">
+      return (<div className="premium-notification-box-container">
         <NotificationBox>
-          <span><strong>Upgrade now and get the rest of the school year free.</strong><br/> First time subscribers' subscriptions will be extended through July 31st, {today.getFullYear()}.</span>
+          <span><strong>Upgrade now and get the rest of the school year free.</strong><br /> First time subscribers' subscriptions will be extended through July 31st, {today.getFullYear()}.</span>
         </NotificationBox>
-      </div>
+      </div>)
     }
   },
 

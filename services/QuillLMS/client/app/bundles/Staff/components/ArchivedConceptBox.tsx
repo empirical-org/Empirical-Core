@@ -160,7 +160,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
   renderArchivedOrLive(concept) {
     if (concept.visible) {
       return (
-        <div  className="live-or-archived">
+        <div className="live-or-archived">
           <div>
             <div className="live" />
             Live
@@ -168,7 +168,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
         </div>)
     } else {
       return (
-        <div  className="live-or-archived">
+        <div className="live-or-archived">
           <div>
             <div className="archived" />
             Archived
@@ -196,44 +196,43 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           changedFields.push(changedField)
         }
       })
-      return <ChangeLogModal
-        concept={concept}
-        changedFields={changedFields}
-        levelNumber={this.props.levelNumber}
+      return (<ChangeLogModal
         cancel={this.closeChangeLogModal}
+        changedFields={changedFields}
+        concept={concept}
+        levelNumber={this.props.levelNumber}
         save={(changeLogs) => { this.save(editConcept, changeLogs)}}
-      />
+      />)
     }
   }
 
   renderDropdownInput() {
     const { concept, errors } = this.state
     if (this.props.levelNumber === 0) {
-      return <Query
+      return (<Query
         query={gql(levelOneConceptsQuery())}
       >
         {({ loading, error, data }) => {
-          console.log('error', error)
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           const possibleConcepts = data.concepts;
           const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt, parent: c.parent }}).sort((a, b) => a.label.localeCompare(b.label))
           const value = options.find(opt => opt.value === concept.parent.id)
-          return <div className="concept-input-container">
+          return (<div className="concept-input-container">
             <DropdownInput
-              label="Level 1"
-              value={value}
-              options={options}
-              handleChange={this.changeLevel1}
               error={errors.level1}
+              handleChange={this.changeLevel1}
               isSearchable={true}
+              label="Level 1"
+              options={options}
+              value={value}
             />
             {this.renderArchivedOrLive(value)}
-          </div>
+          </div>)
         }}
-      </Query>
+      </Query>)
     } else {
-      return <Query
+      return (<Query
         query={gql(levelTwoConceptsQuery())}
       >
         {({ loading, error, data }) => {
@@ -242,19 +241,19 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
           const possibleConcepts = data.concepts;
           const options = possibleConcepts.map(c => {return { label: c.label, value: c.value, visible: c.visible, updatedAt: c.updatedAt }}).sort((a, b) => a.label.localeCompare(b.label))
           const value = options.find(opt => opt.value === concept.parent.id)
-          return <div className="concept-input-container">
+          return (<div className="concept-input-container">
             <DropdownInput
-              label="Level 2"
-              value={value}
-              options={options}
-              handleChange={this.changeLevel2}
               error={errors.level2}
+              handleChange={this.changeLevel2}
               isSearchable={true}
+              label="Level 2"
+              options={options}
+              value={value}
             />
             {this.renderArchivedOrLive(value)}
-          </div>
+          </div>)
         }}
-      </Query>
+      </Query>)
 
     }
   }
@@ -262,55 +261,55 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
   renderLevels() {
     const { concept, } = this.state
     if (this.props.levelNumber === 2) {
-      return <div>
+      return (<div>
         <div className="concept-input-container">
           <Input
-            label='Level 2'
-            value={concept.name}
-            type='text'
             disabled={true}
+            label='Level 2'
+            type='text'
+            value={concept.name}
           />
           {this.renderArchivedOrLive(concept)}
         </div>
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
-      </div>
+      </div>)
     } else if (this.props.levelNumber === 1) {
-      return <div>
+      return (<div>
         {this.renderDropdownInput()}
         <div className="concept-input-container">
           <Input
-            label='Level 1'
-            value={concept.name}
-            type='text'
             disabled={true}
+            label='Level 1'
+            type='text'
+            value={concept.name}
           />
           {this.renderArchivedOrLive(concept)}
         </div>
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
-      </div>
+      </div>)
     } else if (this.props.levelNumber === 0) {
-      return <div>
+      return (<div>
         <div className="concept-input-container">
           <Input
             disabled={true}
             label='Level 2'
-            value={concept.parent.parent.name}
             type='text'
+            value={concept.parent.parent.name}
           />
           {this.renderArchivedOrLive(concept.parent.parent)}
         </div>
         {this.renderDropdownInput()}
         <div className="concept-input-container">
           <Input
-            label='Level 0'
-            value={concept.name}
-            type='text'
             disabled={true}
+            label='Level 0'
+            type='text'
+            value={concept.name}
           />
           {this.renderArchivedOrLive(concept)}
         </div>
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
-      </div>
+      </div>)
     }
   }
 
@@ -318,29 +317,29 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     const { levelNumber } = this.props
     const { concept } = this.state
     if (levelNumber === 2) {
-      return <input
+      return (<input
+        className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-        className="quill-button contained primary medium"
-      />
+      />)
     } else if (levelNumber === 1 && concept.parent.visible) {
-      return <input
+      return (<input
+        className="quill-button contained primary medium"
         type="submit"
         value="Unarchive, set live"
-        className="quill-button contained primary medium"
-      />
+      />)
     } else if (levelNumber === 0 && concept.parent.visible && concept.parent.parent.visible) {
-      return <input
-        type="submit"
-        value="Unarchive, set live"
+      return (<input
         className="quill-button contained primary medium"
-      />
-    } else {
-      return <input
         type="submit"
         value="Unarchive, set live"
+      />)
+    } else {
+      return (<input
         className="quill-button contained disabled primary medium"
-      />
+        type="submit"
+        value="Unarchive, set live"
+      />)
     }
   }
 
@@ -349,9 +348,9 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
       <Mutation mutation={EDIT_CONCEPT} onCompleted={this.props.finishEditingConcept}>
         {(editConcept, {}) => (
           <div className="concept-box archived-concept-box">
-          {this.renderChangeLogModal(editConcept)}
-          <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times"/></span>
-            <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+            {this.renderChangeLogModal(editConcept)}
+            <span className="close-concept-box" onClick={this.props.closeConceptBox}><i className="fas fa-times" /></span>
+            <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
               <div className="static">
                 <p>Level {this.props.levelNumber}</p>
                 <h1>{this.state.concept.name}</h1>

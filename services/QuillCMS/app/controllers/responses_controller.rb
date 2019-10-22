@@ -4,6 +4,11 @@ require 'modules/incorrect_sequence_calculator'
 class ResponsesController < ApplicationController
   include ResponseSearch
   include ResponseAggregator
+
+  RESPONSE_LIMIT = 100
+  MULTIPLE_CHOICE_LIMIT = 2
+  CACHE_EXPIRY = 15.minutes.to_i
+
   before_action :set_response, only: [:show, :update, :destroy]
 
   # GET /responses
@@ -58,7 +63,7 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => 900) do
+    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => CACHE_EXPIRY) do
       Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
     end
     render json: @responses
@@ -66,13 +71,13 @@ class ResponsesController < ApplicationController
 
   # POST /questions/rematch_all
   def rematch_all_responses_for_question
-    RematchResponsesForQuestionWorker.perform_async(params[:question_uid], params[:question_type])
+    RematchResponsesForQuestionWorker.perform_async(params[:uid], params[:type])
   end
 
   def multiple_choice_options
-    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
-      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(2).to_a
+    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => CACHE_EXPIRY) do
+      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
       optimal_responses.concat(sub_optimal_responses)
     end
     render json: multiple_choice_options
@@ -94,13 +99,13 @@ class ResponsesController < ApplicationController
     used_sequences = params_for_get_count_affected_by_incorrect_sequences[:used_sequences] || []
     selected_sequences = params_for_get_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
-    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
+    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text) }
+      no_matching_used_sequences = used_sequences.none? { |us| !us.empty? && Regexp.new(us).match(response.text) }
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp).match(response.text)}
+        sequence_particles.all? { |sp| !sp.empty? && Regexp.new(sp).match(response.text)}
       end
       if no_matching_used_sequences && matching_selected_sequence
         matched_responses_count += 1
@@ -112,12 +117,12 @@ class ResponsesController < ApplicationController
   def get_count_affected_by_focus_points
     selected_sequences = params_for_get_count_affected_by_focus_points[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid])
-    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
+    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
       match = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp, 'i').match(response.text)}
+        sequence_particles.all? { |sp| !sp.empty? && Regexp.new(sp, 'i').match(response.text)}
       end
       if match
         matched_responses_count += 1
