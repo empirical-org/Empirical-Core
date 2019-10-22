@@ -34,11 +34,6 @@ describe "Cron", type: :model do
       expect(SyncSalesmachineWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
-
-    it "enqueues RecommendationAssignmentsCalculationReportWorker" do
-      expect(RecommendationAssignmentsCalculationReportWorker).to receive(:perform_async)
-      Cron.interval_1_day
-    end
   end
 
   describe "#run_saturday" do

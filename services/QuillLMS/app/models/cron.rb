@@ -17,10 +17,6 @@ class Cron
     QuillStaffAccountsChangedWorker.perform_async
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     SyncSalesmachineWorker.perform_async
-
-    # Rake tasks to migrate
-    #recommendation_assignments_report:email
-    #number_of_students_sentences_and_cities:set
   end
 
   def self.run_saturday
