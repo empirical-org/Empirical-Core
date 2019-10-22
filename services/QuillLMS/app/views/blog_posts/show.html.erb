@@ -1,4 +1,4 @@
-<% if @topic == 'Getting Started' || @topic == 'Teacher Stories' || @topic == 'Writing Instruction Research' %>
+<% if @topic == BlogPost::GETTING_STARTED || @topic == BlogPost::TEACHER_STORIES || @topic == BlogPost::WRITING_INSTRUCTION_RESEARCH %>
   <% @active_tab = @topic %>
 <% else %>
   <% @active_tab = 'All Resources'%>

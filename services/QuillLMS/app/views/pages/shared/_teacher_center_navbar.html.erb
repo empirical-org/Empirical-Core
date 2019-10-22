@@ -2,9 +2,9 @@
   <div class="container">
     <% if current_user&.role == 'student' %>
       <% tabs = [
-        {name: 'All Resources', url: 'student-center'},
-        {name: 'Getting Started', url: 'student-center/topic/student-getting-started'},
-        {name: 'How To', url: 'student-center/topic/student-how-to'},
+        {name: 'All resources', url: 'student-center'},
+        {name: BlogPost::GETTING_STARTED, url: 'student-center/topic/student-getting-started'},
+        {name: 'How to', url: 'student-center/topic/student-how-to'},
       ]
         @tabs = tabs
         @mobile = false
@@ -16,8 +16,8 @@
 
       <% tabs = [
         {name: 'All', url: 'student-center'},
-        {name: 'Getting Started', url: 'student-center/topic/student-getting-started'},
-        {name: 'How To', url: 'student-center/topic/student-how-to'},
+        {name: BlogPost::GETTING_STARTED, url: 'student-center/topic/student-getting-started'},
+        {name: 'How to', url: 'student-center/topic/student-how-to'},
       ]
       @tabs = tabs
       if @active_tab == 'All Resources'
@@ -32,9 +32,9 @@
 
       <% tabs = [
         {name: 'All Resources', url: 'teacher-center'},
-        {name: 'Getting Started', url: 'teacher-center/topic/getting-started'},
-        {name: 'Teacher Stories', url: 'teacher-center/topic/teacher-stories'},
-        {name: 'Writing Instruction Research', url: 'teacher-center/topic/writing-instruction-research'},
+        {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
+        {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
+        {name: BlogPost::WRITING_INSTRUCTION_RESEARCH, url: 'teacher-center/topic/writing-instruction-research'},
         {name: 'FAQ', url: 'faq'},
         {name: 'Premium', url: 'premium'},
       ]
@@ -48,8 +48,8 @@
 
       <% tabs = [
         {name: 'All', url: 'teacher-center'},
-        {name: 'Getting Started', url: 'teacher-center/topic/getting-started'},
-        {name: 'Teacher Stories', url: 'teacher-center/topic/teacher-stories'},
+        {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
+        {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
         {name: 'Research', url: 'teacher-center/topic/writing-instruction-research'},
         {name: 'FAQ', url: 'faq'},
         {name: 'Premium', url: 'premium'},
@@ -57,7 +57,7 @@
       @tabs = tabs
       if @active_tab == 'All Resources'
         @active_tab = 'All'
-      elsif @active_tab == 'Writing Instruction Research'
+      elsif @active_tab == BlogPost::WRITING_INSTRUCTION_RESEARCH
         @active_tab = 'Research'
       end
       %>

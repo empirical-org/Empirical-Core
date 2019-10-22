@@ -36,11 +36,11 @@ export default class extends React.Component {
     }
 
     switch (this.pageTitle()) {
-      case 'Teacher Stories':
+      case 'Teacher stories':
         return 'Read success stories about Quill in the class'
-      case 'Getting Started':
+      case 'Getting started':
         return 'Set up your classroom on Quill with guides, videos, and presentations'
-      case 'Writing Instruction Research':
+      case 'Writing instruction research':
         return 'Read and download handpicked materials to teach writing'
       case 'Support':
         return 'The most common questions teachers ask about Quill'
