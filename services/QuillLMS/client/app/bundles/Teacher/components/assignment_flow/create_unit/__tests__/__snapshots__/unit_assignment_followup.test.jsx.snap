@@ -21,7 +21,6 @@ exports[`Unit assignment followup component When there are only empty classes as
     >
       <h1>
         Success! You assigned 
-        A Unit
          to 
         0 classes
         .
@@ -63,7 +62,6 @@ exports[`Unit assignment followup component When there are students assigned on 
       />
       <h1>
         Success! You assigned 
-        A Unit
          to 
         1 class
         .
