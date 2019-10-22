@@ -4,7 +4,10 @@ import PreviewCard from '../shared/preview_card.jsx';
 
 export default class TopicSection extends React.Component {
   displayTitle() {
-    return this.props.role === 'student' ? this.props.title.replace('Student ', '') : this.props.title
+    const { role, title, } = this.props
+    if (role !== 'student') { return title }
+    const titleWithoutWordStudent = this.props.title.replace('Student ', '')
+    return titleWithoutWordStudent.charAt(0).toUpperCase() + titleWithoutWordStudent.slice(1)
   }
 
   sectionLink() {

@@ -67,7 +67,7 @@ class BlogPostsController < ApplicationController
       end
       @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       # hide student part of topic name for display
-      @title = @role == 'student' ? topic.gsub('Student ', '') : topic
+      @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
       return render 'index'
     end
   end

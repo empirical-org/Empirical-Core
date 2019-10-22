@@ -20,7 +20,7 @@
         {name: 'How to', url: 'student-center/topic/student-how-to'},
       ]
       @tabs = tabs
-      if @active_tab == 'All Resources'
+      if @active_tab == 'All resources'
         @active_tab = 'All'
       end
       %>
@@ -31,7 +31,7 @@
     <% else %>
 
       <% tabs = [
-        {name: 'All Resources', url: 'teacher-center'},
+        {name: 'All resources', url: 'teacher-center'},
         {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
         {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
         {name: BlogPost::WRITING_INSTRUCTION_RESEARCH, url: 'teacher-center/topic/writing-instruction-research'},
@@ -55,7 +55,7 @@
         {name: 'Premium', url: 'premium'},
       ]
       @tabs = tabs
-      if @active_tab == 'All Resources'
+      if @active_tab == 'All resources'
         @active_tab = 'All'
       elsif @active_tab == BlogPost::WRITING_INSTRUCTION_RESEARCH
         @active_tab = 'Research'
