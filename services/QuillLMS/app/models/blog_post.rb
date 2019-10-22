@@ -1,5 +1,5 @@
 class BlogPost < ActiveRecord::Base
-  TOPICS = ["Getting Started", "Teacher Stories", "Writing Instruction Research", "Announcements", "Press", "Case Studies", "Teacher Materials", "Best Practices", "Support", "Webinars", "Twitter Love", "Video Tutorials", "What's New"]
+  TOPICS = ["Getting Started", "Teacher Stories", "Writing Instruction Research", "Press Releases", "Press", "Case Studies", "Teacher Materials", "Best Practices", "Support", "Webinars", "Twitter Love", "Video Tutorials", "What's New"]
   STUDENT_TOPICS = ['Student Getting Started', 'Student How To']
 
   before_create :generate_slug, :set_order_number
