@@ -139,7 +139,7 @@ module PagesHelper
             img: 'thumb-max.png',
             name: 'Maximilian de Martino',
             title: 'Curriculum Developer',
-            desc: "Max is a curriculum developer who is committed to closing literacy gaps in all content areas. Prior to joining Quill, Max spent five years teaching social studies grades seven, eight, and ten, and English grade nine in public and charter schools serving low-income students in New York City. He holds a Master of Arts in Social Studies Teacher Education from Teacher's College of Columbia University."
+            desc: "Max is a curriculum developer who is committed to closing literacy gaps in all content areas. Prior to joining Quill, Max spent five years teaching Social Studies grades seven, eight, and ten, and English grade nine in public and charter schools serving low-income students in New York City. He holds a Master of Arts in Social Studies Teacher Education from Teacher's College of Columbia University."
           },
           {
             img: 'thumb-haronil.jpg',
