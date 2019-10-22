@@ -4,6 +4,9 @@ class QuillStaffAccountsChangedWorker
   PARAMS_TO_TRACK = %w(id name email username created_at google_id signed_up_with_google)
   STAFF_ACCOUNTS_CACHE_KEY = 'check_staff_accounts'
 
+  EMAIL_NOTIFICATION_FROM = 'eng-alerts@quill.org'
+  EMAIL_NOTIFICATION_TO = 'eng-alerts@quill.org'
+
   def perform
     current_staff_accounts = current_staff_account_data
     previous_staff_accounts = cached_staff_account_data
@@ -12,10 +15,11 @@ class QuillStaffAccountsChangedWorker
   end
 
   def current_staff_account_data
-    current_staff_accounts = ActiveRecord::Base.connection.execute("SELECT * FROM users WHERE role='staff'").to_a
+    current_staff_accounts = User.where(role: User::STAFF)
     current_staff_accounts.map do |account|
       hash = {}
-      PARAMS_TO_TRACK.each { |key| hash[key] = account[key] }
+      obj = account.as_json
+      PARAMS_TO_TRACK.each { |key| hash[key] = obj[key].to_s }
       hash
     end
   end
@@ -33,7 +37,7 @@ class QuillStaffAccountsChangedWorker
     existing_ids = current_ids & previous_ids
 
     new_ids.each do |id|
-      body << "New Account: #{current_staff_accounts.find{ |acc| acc['id'] === id.to_s }['name']} (ID ##{id})\n\n"
+      body << "New Account: #{current_staff_accounts.find{ |acc| acc['id'] == id.to_s }['name']} (ID ##{id})\n\n"
     end
 
     existing_ids.each do |id|
@@ -49,8 +53,8 @@ class QuillStaffAccountsChangedWorker
     unless body.empty?
       body.prepend("Staff Account Changes:\n\n")
       ActionMailer::Base.mail(
-        from: 'devtools@quill.org',
-        to: 'devtools@quill.org',
+        from: EMAIL_NOTIFICATION_FROM,
+        to: EMAIL_NOTIFICATION_TO,
         subject: 'SECURITY NOTIFICATION: Staff Account Updates',
         body: body
       ).deliver

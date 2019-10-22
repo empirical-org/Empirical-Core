@@ -2,9 +2,6 @@ require 'rails_helper'
 require 'sidekiq/testing'
 
 describe "Cron", type: :model do
-  describe "#interval_10_min" do
-  end
-
   describe "#interval_1_hour" do
     it "enqueues CreditReferringAccountsWorker" do
       expect(CreditReferringAccountsWorker).to receive(:perform_async)
