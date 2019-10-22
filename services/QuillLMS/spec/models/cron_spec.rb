@@ -39,16 +39,16 @@ describe "Cron", type: :model do
       expect(RecommendationAssignmentsCalculationReportWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
-
-    it "enqueues UpdateSentencesCompletedAndCitiesActiveWorker" do
-      expect(UpdateSentencesCompletedAndCitiesActiveWorker).to receive(:perform_async)
-      Cron.interval_1_day
-    end
   end
 
   describe "#run_saturday" do
     it "enqueues UploadLeapReportWorker on school_id 29087" do
       expect(UploadLeapReportWorker).to receive(:perform_async)
+      Cron.run_saturday
+    end
+
+    it "enqueues SetNumberOfStudentsSentencesAndCitiesWorker" do
+      expect(SetNumberOfStudentsSentencesAndCitiesWorker).to receive(:perform_async)
       Cron.run_saturday
     end
   end
