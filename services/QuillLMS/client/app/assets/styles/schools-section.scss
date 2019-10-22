@@ -168,6 +168,7 @@
     }
     ul {
       margin-top: 0;
+      padding-left: 0px;
     }
     ul li {
       list-style: none;
@@ -268,10 +269,8 @@
     padding-top: 35px;
     padding-bottom: 35px;
     color: #e1e1e1;
-    text-align: center;
     font-size: 15px;
     line-height: 1.93;
-    // height: 29px;
     max-width: 1030px;
     margin: 0 auto;
     p a {
@@ -318,10 +317,9 @@
     }
 
     .partners-footer .partner-links {
-      flex-wrap: wrap;
-      justify-content: space-between;
+      flex-direction: column;
       img {
-        margin-bottom: 10px;
+        margin-top: 20px;
         // min-width: 40%;
       }
     }
