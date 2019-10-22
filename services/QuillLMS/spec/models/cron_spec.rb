@@ -1,13 +1,13 @@
 require 'rails_helper'
+require 'sidekiq/testing'
 
 describe "Cron", type: :model do
   describe "#interval_10_min" do
   end
 
   describe "#interval_1_hour" do
-    it "enqueues CreditReferringAccounts" do
+    it "enqueues CreditReferringAccountsWorker" do
       expect(CreditReferringAccountsWorker).to receive(:perform_async)
-
       Cron.interval_1_hour
     end
   end
@@ -16,8 +16,32 @@ describe "Cron", type: :model do
     it "calls run_saturday is now is a Saturday" do
       a_saturday = Time.new(2019, 10, 19)
       expect(Cron).to receive(:now).and_return(a_saturday)
-
       expect(Cron).to receive(:run_saturday)
+      Cron.interval_1_day
+    end
+
+    it "enqueues QuillStaffAccountsChangedWorker" do
+      expect(QuillStaffAccountsChangedWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
+    it "enqueues RenewExpiringRecurringSubscriptionsWorker" do
+      expect(RenewExpiringRecurringSubscriptionsWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
+    it "enqueues SyncSalesmachineWorker" do
+      expect(SyncSalesmachineWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
+    it "enqueues RecommendationAssignmentsCalculationReportWorker" do
+      expect(RecommendationAssignmentsCalculationReportWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
+
+    it "enqueues UpdateSentencesCompletedAndCitiesActiveWorker" do
+      expect(UpdateSentencesCompletedAndCitiesActiveWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
   end
@@ -25,7 +49,6 @@ describe "Cron", type: :model do
   describe "#run_saturday" do
     it "enqueues UploadLeapReportWorker on school_id 29087" do
       expect(UploadLeapReportWorker).to receive(:perform_async)
-
       Cron.run_saturday
     end
   end

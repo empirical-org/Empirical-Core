@@ -14,8 +14,8 @@ class Cron
   def self.interval_1_day
     run_saturday if now.wday == 6
 
+    QuillStaffAccountsChangedWorker.perform_async
     # Rake tasks to migrate
-    #staff:check
     #update_todays_expired_recurring_subscriptions
     #sync_salesmachine
     #recommendation_assignments_report:email
