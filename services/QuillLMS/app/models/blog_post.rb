@@ -16,6 +16,9 @@ class BlogPost < ActiveRecord::Base
   STUDENT_GETTING_STARTED = 'Student getting started'
   STUDENT_HOW_TO = 'Student how to'
 
+  HOW_TO = 'How to'
+  ALL_RESOURCES = 'All resources'
+
   TOPICS = [
     GETTING_STARTED,
     TEACHER_STORIES,

@@ -6,9 +6,9 @@
 <% elsif current_path.include?('writing-instruction-research') %>
   <% @active_tab = BlogPost::WRITING_INSTRUCTION_RESEARCH %>
 <% elsif current_path.include?('how-to') %>
-    <% @active_tab = 'How to' %>
+    <% @active_tab = BlogPost::HOW_TO %>
 <% else %>
-  <% @active_tab = 'All resources'%>
+  <% @active_tab = BlogPost::ALL_RESOURCES%>
 <% end %>
 <%= render partial: 'pages/shared/teacher_center_navbar', active_tab: @active_tab %>
 <div class="container">
