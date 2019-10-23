@@ -1,6 +1,7 @@
-import React from 'react';
-import PreviewCard from '../shared/preview_card.jsx';
+import * as React from 'react';
 import request from 'request';
+
+import PreviewCard from '../shared/preview_card.jsx';
 import BlogPostContent from './blog_post_content'
 
 const RATING_MESSAGES = {
