@@ -56,144 +56,178 @@ module PagesHelper
     [
       {
         team: 'Leadership team',
-        imagePrepend: 'team-',
+        image_prepend: 'team-',
         members: [
           {
             name: 'Daniel Drabik',
-            title: 'Vice President of Engineering'
+            title: 'Vice President of Engineering',
+            img: 'daniel-drabik.jpg'
           },
           {
             name: 'Peter Gault',
-            title: 'Executive Director, Cofounder'
+            title: 'Executive Director, Cofounder',
+            img: 'peter-gault.jpg'
           },
           {
             name: 'Sara Jeruss',
-            title: 'Chief Operating Officer'
+            title: 'Chief Operating Officer',
+            img: 'sara-jeruss.jpg'
           }
         ]
       },
       {
         team: 'Entire team',
-        imagePrepend: 'team-',
+        image_prepend: 'team-',
         members: [
           {
             name: 'Tom Calabrese',
-            title: 'Product Designer'
+            title: 'Product Designer',
+            img: 'tom-calabrese.jpg'
           },
           {
             name: 'Christina Collins',
-            title: 'Head of School Success'
+            title: 'Head of School Success',
+            img: 'christina-collins.jpg'
           },
           {
             name: 'Rachel Dantzler',
-            title: 'Editorial and Outreach Associate'
+            title: 'Editorial and Outreach Associate',
+            img: 'rachel-dantzler.jpg'
           },
           {
             name: 'Maximilian de Martino',
-            title: 'Curriculum Developer'
+            title: 'Curriculum Developer',
+            img: 'maximilian-de-martino.jpg'
           },
           {
             name: 'Haronil Estevez',
-            title: 'Senior Software Developer'
+            title: 'Senior Software Developer',
+            img: 'haronil-estevez.jpg'
           },
           {
             name: 'Emilia Friedberg',
-            title: 'Software Developer'
+            title: 'Software Developer',
+            img: 'emilia-friedberg.jpg'
           },
           {
             name: 'Maddy Maher',
-            title: 'Outreach Lead'
+            title: 'Outreach Lead',
+            img: 'maddy-maher.jpg'
           },
           {
             name: 'Hannah Monk',
-            title: 'Curriculum Director'
+            title: 'Curriculum Director',
+            img: 'hannah-monk.jpg'
           },
           {
             name: 'Lindsey Murphy',
-            title: 'Lead Curriculum Developer'
+            title: 'Lead Curriculum Developer',
+            img: 'lindsey-murphy.jpg'
           },
           {
             name: 'Yves Peirsman',
-            title: 'AI Open Source Partner'
+            title: 'AI Open Source Partner',
+            img: 'yves-peirsman.jpg'
           },
           {
             name: 'Thomas Robertson',
-            title: 'Senior Web Developer'
+            title: 'Senior Web Developer',
+            img: 'thomas-robertson.jpg'
           },
           {
             name: 'Emma Volk',
-            title: 'Curriculum Developer'
+            title: 'Curriculum Developer',
+            img: 'emma-volk.jpg'
           },
           {
             name: 'Rhea Wong',
-            title: 'Director of Strategic Initiatives'
+            title: 'Director of Strategic Initiatives',
+            img: 'rhea-wong.jpg'
           }
         ]
-      },
+      }
+    ]
+	end
+
+  def board_and_advisors_info
+    [
       {
         team: 'Board of directors',
-        imagePrepend: 'board-',
+        image_prepend: 'board-',
         members: [
           {
             name: 'Stephanie Cohen',
-            title: 'Chief Strategy Officer at Goldman Sachs'
+            title: 'Chief Strategy Officer at Goldman Sachs',
+            img: 'stephanie-cohen.jpg'
           },
           {
             name: 'Reuben Gutoff',
-            title: 'Retired Vice President at General Electric'
+            title: 'Retired Vice President at General Electric',
+            img: 'reuben-gutoff.jpg'
           },
           {
             name: 'Rhys Kidd',
-            title: 'Vice President at Macquarie Group'
+            title: 'Vice President at Macquarie Group',
+            img: 'rhys-kidd.jpg'
           },
           {
             name: 'Jane Parver',
-            title: 'Partner at Kaye Scholer'
+            title: 'Partner at Kaye Scholer',
+            img: 'jane-parver.jpg'
           },
           {
             name: 'Matthew Rodriguez',
-            title: 'Managing Director at BlackRock'
+            title: 'Managing Director at BlackRock',
+            img: 'matthew-rodriguez.jpg'
           },
           {
             name: 'Ben Sussman',
-            title: 'Engineer at Spell'
+            title: 'Engineer at Spell',
+            img: 'ben-sussman.jpg'
           },
           {
             name: 'Peg Tyre',
-            title: 'Director of Strategy at The Edwin Gould Foundation'
+            title: 'Director of Strategy at The Edwin Gould Foundation',
+            img: 'peg-tyre.jpg'
           },
           {
             name: 'Paul Walker',
-            title: 'Quill Board Chair, Retired Partner at Goldman Sachs'
+            title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
+            img: 'paul-walker.jpg'
           }
         ]
       },
       {
         team: 'Advisors',
-        imagePrepend: 'advisor-',
+        image_prepend: 'advisor-',
         members: [
           {
             name: 'Donald McKendrick',
-            title: 'Software Engineer at One Medical'
+            title: 'Software Engineer at One Medical',
+            img: 'donald-mckendrick.jpg'
           },
           {
             name: 'Jane Nevins',
-            title: 'Director of Giving at Freedom for All Americans'
+            title: 'Director of Giving at Freedom for All Americans',
+            img: 'jane-nevins.jpg'
           },
           {
             name: 'Alex Redmon',
-            title: 'Senior Software Engineer at Cylera'
+            title: 'Senior Software Engineer at Cylera',
+            img: 'alex-redmon.jpg'
           },
           {
             name: 'John Silberstein',
-            title: 'Board of Directors at  Snap Interactive'
+            title: 'Board of Directors at  Snap Interactive',
+            img: 'john-silberstein.jpg'
           },
           {
             name: 'Emily Dalton Smith',
-            title: 'Director of Social Impact  Product at Facebook'
+            title: 'Director of Social Impact  Product at Facebook',
+            img: 'emily-dalton-smith.jpg'
           }
         ]
-      },
+      }
     ]
-	end
+  end
 end
