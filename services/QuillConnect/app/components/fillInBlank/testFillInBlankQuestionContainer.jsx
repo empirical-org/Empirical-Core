@@ -56,10 +56,10 @@ class TestQuestion extends Component {
   renderGrading() {
     if (this.state.gradedResponse) {
       const {author, feedback} = this.state.gradedResponse.response
-      return <div style={{marginTop: '30px'}}>
+      return (<div style={{marginTop: '30px'}}>
         <p>Author: {author}</p>
         <p>Feedback: {feedback}</p>
-      </div>
+      </div>)
     }
   }
 
@@ -79,11 +79,11 @@ class TestQuestion extends Component {
         <div>
           <div className="test-question-container">
             <PlayFillInTheBlankQuestion
-              key={this.state.key}
-              question={question}
-              prefill={false}
-              nextQuestion={this.reset}
               dispatch={this.props.dispatch}
+              key={this.state.key}
+              nextQuestion={this.reset}
+              prefill={false}
+              question={question}
               setResponse={this.setResponse}
               submitResponse={this.submitResponse}
             />

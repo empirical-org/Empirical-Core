@@ -16,22 +16,24 @@ class MultipleTextEditor extends React.Component {
     } = richButtonsPlugin;
 
     const InlineButton = ({className, toggleInlineStyle, isActive, label, inlineStyle, onMouseDown, title}) =>
-      <a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
+      (<a onClick={toggleInlineStyle} onMouseDown={onMouseDown}>
         <span
           className={`${className}`}
+          style={{ color: isActive ? '#000' : '#777' }}
           title={title ? title : label}
-          style={{ color: isActive ? '#000' : '#777' }}>{title}
+        >{title}
         </span>
-      </a>;
+      </a>);
 
       const BlockButton = ({className, toggleBlockType, isActive, label, blockType, title}) =>
-        <a onClick={toggleBlockType}>
+        (<a onClick={toggleBlockType}>
           <span
             className={`${className}`}
+            style={{ color: isActive ? '#000' : '#777' }}
             title={title ? title : label}
-            style={{ color: isActive ? '#000' : '#777' }}>{title}
+          >{title}
           </span>
-        </a>;
+        </a>);
 
     this.state = {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || '')),
@@ -80,10 +82,10 @@ class MultipleTextEditor extends React.Component {
           <div className="content">
             <Editor
               editorState={this.state.text}
-              onChange={this.handleTextChange}
-              plugins={this.state.plugins}
-              onFocus={() => this.setState({ hasFocus: true, })}
               onBlur={() => this.setState({ hasFocus: false, })}
+              onChange={this.handleTextChange}
+              onFocus={() => this.setState({ hasFocus: true, })}
+              plugins={this.state.plugins}
             />
           </div>
         </div>

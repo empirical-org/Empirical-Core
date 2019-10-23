@@ -15,7 +15,7 @@ class QuestionListByConcept extends React.Component<any, any> {
   renderLabel(concept) {
     return (
       <p className="menu-label">
-      {concept.name}
+        {concept.name}
       </p>
     );
   }
@@ -32,9 +32,9 @@ class QuestionListByConcept extends React.Component<any, any> {
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
           <LinkListItem
-            key={question.key}
-            itemKey={question.key}
             basePath={this.props.basePath}
+            itemKey={question.key}
+            key={question.key}
             text={formattedPrompt}
           />
         );
@@ -68,7 +68,7 @@ class QuestionListByConcept extends React.Component<any, any> {
 
   renderQuestionsWithoutValidKey() {
     if(!this.props.displayNoConceptQuestions) {
-      return (<div></div>)
+      return (<div />)
     } else {
       const concepts = hashToCollection(this.props.concepts.data['0']);
       const questions = hashToCollection(this.props.questions.data);

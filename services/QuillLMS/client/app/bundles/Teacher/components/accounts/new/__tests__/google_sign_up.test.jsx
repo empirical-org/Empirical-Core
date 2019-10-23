@@ -7,7 +7,7 @@ describe('GoogleSignUp component', () => {
 
   it('should render', () => {
     const wrapper = shallow(
-        <GoogleSignUp />
+      <GoogleSignUp />
     );
     expect(wrapper).toMatchSnapshot();
   });

@@ -18,17 +18,17 @@ const StudentsClassroomsHeader = ({
     classrooms.forEach((classroom, index) => {
       if (index < numberOfClassroomTabs) {
         classroomTabs.push(<StudentsClassroom
-          key={classroom.id}
           classroom={classroom}
           handleClick={handleClick}
+          key={classroom.id}
           selectedClassroomId={selectedClassroomId}
         />);
       } else {
         classroomList.push(<li>
           <StudentsClassroom
-            key={classroom.id}
             classroom={classroom}
             handleClick={handleClick}
+            key={classroom.id}
             selectedClassroomId={selectedClassroomId}
           />
         </li>);
@@ -44,8 +44,8 @@ const StudentsClassroomsHeader = ({
               <StudentsClassroomsDropdown
                 classroomList={classroomList}
                 hideDropdown={hideDropdown}
-                toggleDropdown={toggleDropdown}
                 showDropdown={showDropdown}
+                toggleDropdown={toggleDropdown}
               />
             </div>
           </span>

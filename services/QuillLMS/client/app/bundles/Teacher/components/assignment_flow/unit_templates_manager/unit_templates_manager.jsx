@@ -193,13 +193,13 @@ export default class UnitTemplatesManager extends React.Component {
     const { category, grade, type, } = this.props.location.query
     const displayedModels = this.filterModels(category, grade, type)
     return (<UnitTemplateMinis
-      signedInTeacher={this.state.signedInTeacher}
-      data={this.state.unitTemplatesManager}
       actions={this.unitTemplatesManagerActions()}
-      types={types}
-      selectedTypeId={type}
-      selectCategory={this.selectCategory}
+      data={this.state.unitTemplatesManager}
       displayedModels={displayedModels}
+      selectCategory={this.selectCategory}
+      selectedTypeId={type}
+      signedInTeacher={this.state.signedInTeacher}
+      types={types}
     />)
   }
 

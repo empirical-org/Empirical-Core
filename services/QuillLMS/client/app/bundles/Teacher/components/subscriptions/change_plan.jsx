@@ -14,11 +14,11 @@ export default class extends React.Component {
   render() {
     return (
       <div className="change-plan">
-        <RadioGroup onChange={this.handleChange} vertical className="radio-group">
-          <ReversedRadioButton checked={this.props.recurring} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} iconSize={20} value={Boolean(true)}>
+        <RadioGroup className="radio-group" onChange={this.handleChange} vertical>
+          <ReversedRadioButton checked={this.props.recurring} iconSize={20} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} value={Boolean(true)}>
             {this.props.subscriptionType} Premium - ${this.props.price} Annual Subscription
           </ReversedRadioButton>
-          <ReversedRadioButton checked={!this.props.recurring} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} iconSize={20} value={Boolean(false)}>
+          <ReversedRadioButton checked={!this.props.recurring} iconSize={20} padding={'0'} pointColor={' #00c2a2'} rootColor={'#666'} value={Boolean(false)}>
             Quill Basic - Free
           </ReversedRadioButton>
         </RadioGroup>

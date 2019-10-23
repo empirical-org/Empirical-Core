@@ -15,12 +15,12 @@ export default React.createClass({
   },
 
   furnishRow: function (resource, index) {
-    return <CmsIndexTableRow
-                  data={{resource: resource, identifier: this.props.data.identifier}}
-                  key={index}
-                  actions={this.props.actions}
-                  resourceNameSingular={this.props.resourceNameSingular}
-                />;
+    return (<CmsIndexTableRow
+      actions={this.props.actions}
+      data={{resource: resource, identifier: this.props.data.identifier}}
+      key={index}
+      resourceNameSingular={this.props.resourceNameSingular}
+    />);
   },
 
   identifier: function () {
@@ -29,10 +29,10 @@ export default React.createClass({
 
   renderRows: function () {
     if(this.props.isSortable) {
-      return <div className="sortable-table">
+      return (<div className="sortable-table">
         <div className="header"><span>Name</span><span>Actions</span></div>
         <SortableList data={this.furnishRows()} sortCallback={this.props.updateOrder} />
-      </div>
+      </div>)
     } else {
       return (<table className='table'>
         <thead>

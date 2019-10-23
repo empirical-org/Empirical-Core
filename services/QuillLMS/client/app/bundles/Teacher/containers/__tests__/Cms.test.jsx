@@ -12,9 +12,9 @@ describe('Cms container', () => {
       .mockReturnValue(<div>Index Pugs</div>);
     const wrapper = shallow(
       <Cms
-        resourceNameSingular="Pug"
-        resourceNamePlural="Pugs"
         resourceComponentGenerator={resourceComponentGeneratorMock}
+        resourceNamePlural="Pugs"
+        resourceNameSingular="Pug"
       />
     );
     wrapper.instance().crudNew = jest.fn();
@@ -36,9 +36,9 @@ describe('Cms container', () => {
       .mockReturnValue(<div>Edit Pugs</div>);
     const wrapper = shallow(
       <Cms
-        resourceNameSingular="Pug"
-        resourceNamePlural="Pugs"
         resourceComponentGenerator={resourceComponentGeneratorMock}
+        resourceNamePlural="Pugs"
+        resourceNameSingular="Pug"
       />
     );
     wrapper.setState({crudState: 'new', resourceToEdit: {}});
@@ -53,9 +53,9 @@ describe('Cms container', () => {
       .mockReturnValue(<div>New Pugs</div>);
     const wrapper = shallow(
       <Cms
-        resourceNameSingular="Pug"
-        resourceNamePlural="Pugs"
         resourceComponentGenerator={resourceComponentGeneratorMock}
+        resourceNamePlural="Pugs"
+        resourceNameSingular="Pug"
       />
     );
     wrapper.setState({crudState: 'new', resourceToEdit: {}});
@@ -68,9 +68,9 @@ describe('Cms container', () => {
   describe('crud function', () => {
     const wrapper = shallow(
       <Cms
-        resourceNameSingular="Pug"
-        resourceNamePlural="Pugs"
         resourceComponentGenerator={() => null}
+        resourceNamePlural="Pugs"
+        resourceNameSingular="Pug"
       />
     );
     wrapper.setState({crudState: 'something absurd', resourceToEdit: {something: 'absurd'}});

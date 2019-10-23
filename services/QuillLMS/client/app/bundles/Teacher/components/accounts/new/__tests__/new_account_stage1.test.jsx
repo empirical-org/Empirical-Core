@@ -7,7 +7,7 @@ describe('NewAccountStage1 component', () => {
 
   it('should render ', () => {
       const wrapper = shallow(
-          <NewAccountStage1 selectRole={() => null} />
+        <NewAccountStage1 selectRole={() => null} />
       );
       expect(wrapper).toMatchSnapshot();
   });

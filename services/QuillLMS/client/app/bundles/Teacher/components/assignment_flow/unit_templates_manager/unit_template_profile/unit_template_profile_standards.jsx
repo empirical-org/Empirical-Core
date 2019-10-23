@@ -22,7 +22,7 @@ export default React.createClass({
   },
 
   renderConcepts(concepts) {
-    return _.map(concepts, concept => <dd key={concept} className="concept">{concept}</dd>);
+    return _.map(concepts, concept => <dd className="concept" key={concept}>{concept}</dd>);
   },
 
   render() {

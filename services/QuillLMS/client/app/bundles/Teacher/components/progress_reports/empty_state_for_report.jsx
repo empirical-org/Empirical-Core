@@ -5,8 +5,8 @@ const EmptyState = ({ title, body, }) => (
     <img className="no-report-image" src={`${process.env.CDN_URL}/images/illustrations/empty-state-premium-reports.svg`} />
     <h2>{title || 'You have no reports yet!'}</h2>
     <p className="text-center">
-     {body || 'Once your students have completed their assigned activities, their reports will be displayed here.'}
-   </p>
+      {body || 'Once your students have completed their assigned activities, their reports will be displayed here.'}
+    </p>
   </div>
 );
 

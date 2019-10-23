@@ -4,10 +4,10 @@ import ActiveClassrooms from '../components/classrooms/active_classrooms.tsx'
 import ArchivedClassrooms from '../components/classrooms/archived_classrooms.tsx'
 
 const TeacherClassroomsRouter = props => (
-  <Router Router history={browserHistory}>
+  <Router history={browserHistory} Router>
     <Route path="/teachers/classrooms">
       <IndexRoute component={() => <ActiveClassrooms {...props} />} />
-      <Route path="archived" component={() => <ArchivedClassrooms {...props} />} />
+      <Route component={() => <ArchivedClassrooms {...props} />} path="archived" />
     </Route>
   </Router>
 )

@@ -17,19 +17,19 @@ const ActivitySearchFilters = (props) => {
   data.forEach((filter, index) => {
     if (index < 2) {
       dropDowns.push(<ActivitySearchFilter
-        showAllId={showAllId}
+        activeFilterOn={activeFilterOn}
+        data={filter}
         key={filter.alias}
         selectFilterOption={selectFilterOption}
-        data={filter}
-        activeFilterOn={activeFilterOn}
+        showAllId={showAllId}
       />)
     } else {
       appFilter = (<ActivitySearchFilter
-        showAllId={showAllId}
+        activeFilterOn={activeFilterOn}
+        data={filter}
         key={filter.alias}
         selectFilterOption={selectFilterOption}
-        data={filter}
-        activeFilterOn={activeFilterOn}
+        showAllId={showAllId}
       />)
     }
   });

@@ -39,7 +39,7 @@ const newSentenceFragment = React.createClass({
       <section className="section">
         <div className="container">
           <h4 className="title is-4">Create a New Sentence Fragment</h4>
-          <Form mode="New" handleChange={this.handleChange} submit={this.createNewSentenceFragment} concepts={this.props.concepts} />
+          <Form concepts={this.props.concepts} handleChange={this.handleChange} mode="New" submit={this.createNewSentenceFragment} />
         </div>
       </section>
     );

@@ -57,8 +57,6 @@ class AllUserEditions extends Component<any, any> {
   }
 
   sortNumerically(data) {
-    console.log(data)
-    console.log(this.state.sort)
     return data.sort((a, b) => {
       const aSort = a[this.state.sort] ? a[this.state.sort] : 0
       const bSort = b[this.state.sort] ? b[this.state.sort] : 0
@@ -90,7 +88,7 @@ class AllUserEditions extends Component<any, any> {
 
   renderEditionTable() {
     if (Object.keys(this.state.editions).length > 0) {
-      return <table className="table is-striped is-bordered">
+      return (<table className="table is-striped is-bordered">
         <thead>
           <tr>
             <th onClick={this.clickSort.bind(this, 'lessonName')}>Lesson Name</th>
@@ -102,7 +100,7 @@ class AllUserEditions extends Component<any, any> {
         <tbody>
           {this.renderEditionRows()}
         </tbody>
-      </table>
+      </table>)
     }
   }
 
@@ -114,12 +112,12 @@ class AllUserEditions extends Component<any, any> {
       const edition:CustomizeIntf.EditionMetadata|any = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
       const date = edition.last_published_at ? `${new Date(edition.last_published_at)}` : 'Not Published'
-      return <tr key={edition.key}>
+      return (<tr key={edition.key}>
         <td>{edition.lessonName}</td>
         <td>{edition.user_id}</td>
         <td><a href={link}>{edition.name || 'No Name'}</a></td>
         <td>{date}</td>
-      </tr>
+      </tr>)
     }
     );
   }

@@ -8,8 +8,8 @@ describe('DateRangeFilterOption', () => {
 
   const wrapper = shallow(
     <DateRangeFilterOption
-      title='Example Title'
       onClickFunction={mockFunction}
+      title='Example Title'
     />
   );
 

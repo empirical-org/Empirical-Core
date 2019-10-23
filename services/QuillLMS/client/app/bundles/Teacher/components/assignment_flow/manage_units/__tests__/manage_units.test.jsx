@@ -142,7 +142,7 @@ describe.skip('ManageUnits component', () => {
   });
 
   describe('getUnitsForCurrentClass', () => {
-    const wrapper = shallow(<ManageUnits actions={{editUnit: null}}/>);
+    const wrapper = shallow(<ManageUnits actions={{editUnit: null}} />);
     wrapper.setState({ allUnits: mockUnits, units: mockUnits, classrooms: mockClassrooms });
 
     // skip for now because parseUnits isn't tested and this relies on

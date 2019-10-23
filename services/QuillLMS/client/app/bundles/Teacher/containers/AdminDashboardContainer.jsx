@@ -6,7 +6,7 @@ const AdminDashboardContainer = (props) => {
     <div className="tab-content">
       <div className="tab-pane active" id="class-manager">
         <SubnavTabs />
-        <div id="admin-dashboard" data-id={props.id}>
+        <div data-id={props.id} id="admin-dashboard">
           {props.children}
         </div>
       </div>

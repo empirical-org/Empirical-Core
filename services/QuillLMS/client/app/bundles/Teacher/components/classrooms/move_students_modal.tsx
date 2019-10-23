@@ -84,7 +84,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
   renderCheckbox() {
     const checkbox = this.state.checkboxOne
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleCheckbox}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.toggleCheckbox} />
     }
@@ -114,7 +114,7 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
     const numberOfSelectedStudents = selectedStudentIds.length
     const classroomOptions = this.classroomOptions()
     const classroomOptionsForDropdown = classroomOptions.filter(opt => opt.value !== classroom.id)
-    return <div className="modal-container move-students-modal-container">
+    return (<div className="modal-container move-students-modal-container">
       <div className="modal-background" />
       <div className="move-students-modal quill-modal modal-body">
         <div>
@@ -122,11 +122,11 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
         </div>
         <p>All of the data from the activities that your {numberOfSelectedStudents === 1 ? 'student has' :'students have'} started or completed will be moved.</p>
         <DropdownInput
-          label="Class"
-          value={classroomOptions.find(co => co.value === newClassroomId)}
-          options={classroomOptionsForDropdown}
-          handleChange={this.handleClassroomChange}
           className="class"
+          handleChange={this.handleClassroomChange}
+          label="Class"
+          options={classroomOptionsForDropdown}
+          value={classroomOptions.find(co => co.value === newClassroomId)}
         />
         {this.renderCheckboxes()}
         <div className="form-buttons">
@@ -134,6 +134,6 @@ export default class MoveStudentsModal extends React.Component<MoveStudentsModal
           {this.renderSubmitButton()}
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

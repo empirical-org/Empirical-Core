@@ -13,9 +13,9 @@ const AssignmentStep = ({ number, header, text }) => (
 const AssignANewActivity = ({ numberOfActivitiesAssigned }) => (<div className="assign-a-new-activity-container">
   <div className="assign-a-new-activity container">
     <div className="assign-a-new-activity-hero">
-      <img src={paperSrc} alt="paper scroll" />
+      <img alt="paper scroll" src={paperSrc} />
       <h1>Find the perfect writing activities for your students.</h1>
-      <a href="/assign/learning-process" className="quill-button primary contained large">Explore activities</a>
+      <a className="quill-button primary contained large" href="/assign/learning-process">Explore activities</a>
     </div>
     <p className="previously-assigned-activities">
       You have {numberOfActivitiesAssigned} {numberOfActivitiesAssigned === 1 ? 'activity' : 'activities'} assigned.&nbsp;
@@ -23,18 +23,18 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned }) => (<div className="
     </p>
     <div className="assignment-steps">
       <AssignmentStep
-        number="1"
         header="Choose Assignment Type"
+        number="1"
         text="Choose which type of assignment you want to use: diagnostics, whole class activities, or independent practice activities."
       />
       <AssignmentStep
-        number="2"
         header="Browse Activities"
+        number="2"
         text="Explore our library of diagnostic assessments and learning activities to find the best materials for your students."
       />
       <AssignmentStep
-        number="3"
         header="Choose Assignment Type"
+        number="3"
         text="Assign these activities to either the whole class or individual students."
       />
     </div>

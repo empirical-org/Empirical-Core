@@ -6,7 +6,7 @@ const AbsentTeacher = props => (
   <div>
     <div className="absent-teacher-container">
       <div className="absent-teacher">
-        <img src={AbsentTeacherIllustration}/>
+        <img src={AbsentTeacherIllustration} />
         <h1>Your teacher is not in this lesson!</h1>
       </div>
     </div>

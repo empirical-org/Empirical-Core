@@ -32,8 +32,8 @@ describe('StudentsClassroomsHeader', () => {
     const wrapper = shallow(
       <StudentsClassroomsHeader
         classrooms={fiveClassrooms}
-        numberOfClassroomTabs={3}
         handleClick={handleClick}
+        numberOfClassroomTabs={3}
         selectedClassroomId={5}
       />
     );
@@ -62,8 +62,8 @@ describe('StudentsClassroomsHeader', () => {
     const wrapper = shallow(
       <StudentsClassroomsHeader
         classrooms={fiveClassrooms}
-        numberOfClassroomTabs={3}
         handleClick={handleClick}
+        numberOfClassroomTabs={3}
         selectedClassroomId={5}
       />
     );

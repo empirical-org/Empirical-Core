@@ -35,16 +35,17 @@ class Header extends React.Component<any, any> {
 
   render() {
     return (
-        <Layout.Header style={{
+      <Layout.Header style={{
           height: '60px',
           width: "100%",
           backgroundColor: "#00c2a2",
-          padding: "0 30px"}}>
-          <Row type="flex" align="middle" justify="space-between" style={{height: '100%', maxWidth: '896px', margin: 'auto'}}>
-            <img style={{ height: '25px' }} src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" />
-            <span style={{ color: 'white', cursor: 'pointer' }} onClick={this.saveAndExit}>Save & Exit</span>
-          </Row>
-        </Layout.Header>
+          padding: "0 30px"}}
+      >
+        <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '896px', margin: 'auto'}} type="flex">
+          <img src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" style={{ height: '25px' }} />
+          <span onClick={this.saveAndExit} style={{ color: 'white', cursor: 'pointer' }}>Save & Exit</span>
+        </Row>
+      </Layout.Header>
     );
   }
 };

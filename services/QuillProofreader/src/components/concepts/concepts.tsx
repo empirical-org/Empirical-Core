@@ -24,7 +24,6 @@ class Concepts extends React.Component<ConceptsProps> {
   }
 
   render() {
-    // // console.log("this.props.concepts", this.props.concepts)
     return (
       <section className="section">
         <div className="container">

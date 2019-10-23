@@ -11,9 +11,11 @@ describe('ConceptResultStat', function() {
     };
 
     this.component = TestUtils.renderIntoDocument(
-      <EC.ConceptResultStat name={this.conceptStat.name}
-                            correct={this.conceptStat.correct}
-                            incorrect={this.conceptStat.incorrect} />
+      <EC.ConceptResultStat
+        correct={this.conceptStat.correct}
+        incorrect={this.conceptStat.incorrect}
+        name={this.conceptStat.name}
+      />
     );
   });
 

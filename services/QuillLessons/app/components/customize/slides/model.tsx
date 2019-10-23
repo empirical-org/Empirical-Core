@@ -60,22 +60,22 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
         <div className="form">
           <TitleField
             clearSlide={this.props.clearSlide}
+            handleTitleChange={this.handleTitleChange}
             questionIndex={this.props.questionIndex}
             resetSlide={this.props.resetSlide}
             title={this.props.question.teach.title}
-            handleTitleChange={this.handleTitleChange}
           />
           <PromptField
-            incompletePrompt={this.props.incompletePrompt}
-            text={this.props.question.play.prompt}
-            reset={this.props.question.reset}
             handleTextChange={(e) => this.handlePromptChange(e)}
+            incompletePrompt={this.props.incompletePrompt}
+            reset={this.props.question.reset}
             showBlockquote={true}
+            text={this.props.question.play.prompt}
           />
           <div className="instructions-field field">
             <label>Instructions <span className="optional">(Optional)</span></label>
             <div className="control">
-              <input value={this.props.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text"/>
+              <input className="input" onChange={this.handleInstructionsChange} type="text" value={this.props.question.play.instructions} />
             </div>
           </div>
           <div className="cues-field field">
@@ -84,7 +84,7 @@ class CustomizeModel extends Component<CustomizeModelProps, {}>{
               <span>Make sure you separate words with commas “,”</span>
             </div>
             <div className="control">
-            <input value={Object.values(this.props.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text"/>
+              <input className="input" onChange={this.handleCuesChange} type="text" value={Object.values(this.props.question.play.cues || {}).join(',')} />
             </div>
           </div>
         </div>
