@@ -53,27 +53,20 @@ module PagesHelper
 	end
 
 	def team_info
-		[
-			{
-				team: 'Quill Team',
-				members: [
-	     		{
-			      img: 'thumb-peter.png',
-			      name: 'Peter Gault',
-			      title: 'Executive Director, Cofounder',
-			      desc: "Peter designs the user experience, manages the team, and leads fundraising. Peter found his passion for writing as a journalist at his high school's newspaper, and studied philosophy at Bates College. By teaching students how to write, we teach them how to organize and articulate their ideas. With Quill, he aims to help millions of people improve their writing and thinking skills. In 2016, he was awarded Forbes' 30 Under 30 for education."
-					},
+    [
+      {
+        team: 'Leadership team',
+        image_prepend: 'team-',
+        members: [
           {
-            img: 'thumb-sara.jpg',
-            name: 'Sara Jeruss',
-            title: 'Chief Operating Officer',
-            desc: "Sara provides day-to-day leadership and management for Quill. She has 9+ years of tech industry experience, most recently as the Chief Product Officer for Climb Credit. Sara spent 3 years at Facebook, managing an internal product and advising product teams about privacy. Prior to Facebook, Sara was a product director at Lex Machina, a leading machine learning startup that was acquired by LexisNexis. Sara is a graduate of Yale Law School and Cornell University."
-          },
-          {
-            img: 'thumb-dan.jpg',
             name: 'Daniel Drabik',
             title: 'Vice President of Engineering',
-            desc: "Daniel is responsible for the oversight and development of Quill’s technology. Daniel has over a decade of experience writing software, leading tech teams, and managing engineers. He was the lead developer for Kickstarter's international expansion, building a system that has processed over a billion dollars in pledges, and he was an engineer on the Data Infrastructure team for the Hillary For America Presidential Campaign. Daniel has a Master in Public Administration from the Harvard Kennedy School and a Mathematics degree from Villanova University."
+            img: 'daniel-drabik.jpg'
+          },
+          {
+            name: 'Peter Gault',
+            title: 'Executive Director, Cofounder',
+            img: 'peter-gault.jpg'
           },
 					{
 			      img: 'thumb-hannah.png',
@@ -88,22 +81,26 @@ module PagesHelper
 			      desc: "Emilia is a software developer who is passionate about education. Before joining Quill, Emilia taught at an elementary school in Arizona and tutored students at Breakthrough Santa Fe. As a developer, the first program she built was Word by Word, a grammar tool that teaches students how to identify parts of speech in a sentence."
 			    },
           {
-						img: 'thumb-maddy.png',
-						name: 'Maddy Maher',
-						title: 'Outreach Lead',
-						desc: "Maddy is an outreach associate who joined Quill full-time after contributing as an Education Team intern. She is passionate about education and holds an Undergraduate degree in English Literature from Hamilton College."
-					},
+            name: 'Sara Jeruss',
+            title: 'Chief Operating Officer',
+            img: 'sara-jeruss.jpg'
+          }
+        ]
+      },
+      {
+        team: 'Entire team',
+        image_prepend: 'team-',
+        members: [
           {
             img: 'thumb-tom.png',
             name: 'Tom Calabrese',
             title: 'Product Designer',
-            desc: "Tom is a designer who's passionate about building meaningful and magical products. He studied at the Fashion Institute of Technology with a Bachelor’s degree in Communication Design, as well as the School of Visual Arts with a Masters in Branding."
+            img: 'tom-calabrese.jpg'
           },
           {
-            img: 'thumb-emma.png',
-            name: 'Emma Volk',
-            title: 'Curriculum Developer',
-            desc: "Emma is a curriculum developer with a love for writing. She has an undergraduate degree in English from Columbia University and a master’s degree in English from the University of Oxford."
+            name: 'Christina Collins',
+            title: 'Head of School Success',
+            img: 'christina-collins.jpg'
           },
 					{
 						img: 'thumb-thomas.jpg',
@@ -114,8 +111,8 @@ module PagesHelper
           {
             img: 'thumb-rachel.jpg',
             name: 'Rachel Dantzler',
-            title: 'Curriculum and Operations Associate',
-            desc: "Rachel is a curriculum and operations associate who joined Quill full-time after working as an education team intern. Rachel worked as an ELL teacher before her time at Quill, and she has an undergraduate degree in Mandarin Chinese and International Affairs from Wofford College."
+            title: 'Editorial and Outreach Associate',
+            img: 'rachel-dantzler.jpg'
           },
 					{
 						img: 'thumb-rhea.png',
@@ -124,51 +121,70 @@ module PagesHelper
 						desc: "Rhea supports Quill’s strategic partnerships, outreach and fundraising efforts. Rhea loves writing and wrote her first (self-published) book at the age of 8. She pursued her love of writing through college as the Editor in Chief of her campus paper. She was then called to mission-based work and has 15 years of experience in the nonprofit sector, 12 of them as Executive Director of Breakthrough New York. When she’s not at Quill, you can catch her on her podcast #{link_to 'Nonprofit Lowdown', 'https://podcasts.apple.com/us/podcast/nonprofit-lowdown/id1436858854?ign-mpt=uo%3D4&mt=2'}. Rhea is a graduate of McGill University and has certificates in nonprofit management and fundraising from Columbia Business School and Harvard Kennedy School."
 					},
           {
-            img: 'thumb-yves.jpg',
-            name: 'Yves Peirsman',
-            title: 'AI Open Source Partner',
-            desc: "Yves Peirsman is the founder and Natural Language Processing expert at NLP Town. Yves holds a PhD in computational linguistics from the University of Leuven and was a postdoctoral researcher at Stanford University. Since he made the move from academia to industry, he has gained extensive experience in consultancy and software development for Natural Language Processing. As the co-founder of NLP Town, he leads several NLP projects, organizes NLP-focused events and contributes to open-source software."
-          },
-          {
-            img: 'thumb-lindsey.jpg',
-            name: 'Lindsey Murphy',
-            title: 'Lead Curriculum Developer',
-            desc: "Lindsey designs curriculum for an upcoming reading comprehension tool. Prior to working at Quill, she was teaching fourth grade English in Brooklyn. In college and as a teacher, Lindsey has engaged in various policy campaigns and initiatives to fight for educational equity. She has an undergraduate degree in political science from Boston College and a master's in teaching from the Relay Graduate School of Education."
-          },
-          {
-            img: 'thumb-max.png',
             name: 'Maximilian de Martino',
             title: 'Curriculum Developer',
-            desc: "Max is a curriculum developer who is committed to closing literacy gaps in all content areas. Prior to joining Quill, Max spent five years teaching Social Studies grades seven, eight, and ten, and English grade nine in public and charter schools serving low-income students in New York City. He holds a Master of Arts in Social Studies Teacher Education from Teacher's College of Columbia University."
+            img: 'maximilian-de-martino.jpg'
           },
           {
-            img: 'thumb-haronil.jpg',
             name: 'Haronil Estevez',
             title: 'Senior Software Developer',
-            desc: "Haronil is a senior software developer with experience in media, government, and education. He holds a degree in Computer Science from Columbia University."
+            img: 'haronil-estevez.jpg'
           },
           {
-            img: 'thumb-christina.jpg',
-            name: 'Christina Collins',
-            title: 'Head of School Success',
-            desc: "Christina manages the full cycle of the school partnership from onboarding through implementation. Prior to Quill, she spent 9 years in the Chicago area teaching middle school ELA and serving as a District Literacy Specialist for Chicago Public Schools. She transitioned into education publishing by leading literacy and assessment professional development at NWEA and then as a curriculum and training specialist at Pearson where she worked with schools across the northeast as they implemented Pearson's literacy and humanities programs. Christina holds an undergraduate degree in English Education from Indiana University and a masters degree from National- Louis University."
-          }
-				]
-			},
-			{
-				team: 'Board of Directors',
-				members: [
-					{
-						img: 'thumb-paulwalker.png',
-						name: 'Paul Walker',
-						title: 'Board Chair',
-						desc: "Paul Walker is a New York City based technologist and philanthropist. Paul spends his philanthropic energies working with organizations that provide opportunity and social capital to young adults through access to education, science, and critical reasoning. Paul retired as a partner from Goldman Sachs in 2015, where he co-headed the firm’s technology division and held roles in risk management and technology. He holds a PhD in Physics from the University of Illinois and a BA in Physics from Cornell University."
-					},
+            name: 'Emilia Friedberg',
+            title: 'Software Developer',
+            img: 'emilia-friedberg.jpg'
+          },
           {
-            img: "thumb-jane.png",
-            name: "Jane Parver",
-            title: "Board Member",
-            desc: "Jane Parver is an experienced trial lawyer who concentrates her practice in the areas of civil and white collar litigation and internal investigations. She is Special Counsel at Kaye Scholer, as well as part of the ASCPA board and the Columbia Law School Board of Visitors. Ms. Parver established and now oversees the Susan Price Carr Scholarship Committee, which awards several scholarships annually to Columbia Law School students."
+            name: 'Maddy Maher',
+            title: 'Outreach Lead',
+            img: 'maddy-maher.jpg'
+          },
+          {
+            name: 'Hannah Monk',
+            title: 'Curriculum Director',
+            img: 'hannah-monk.jpg'
+          },
+          {
+            name: 'Lindsey Murphy',
+            title: 'Lead Curriculum Developer',
+            img: 'lindsey-murphy.jpg'
+          },
+          {
+            name: 'Yves Peirsman',
+            title: 'AI Open Source Partner',
+            img: 'yves-peirsman.jpg'
+          },
+          {
+            name: 'Thomas Robertson',
+            title: 'Senior Web Developer',
+            img: 'thomas-robertson.jpg'
+          },
+          {
+            name: 'Emma Volk',
+            title: 'Curriculum Developer',
+            img: 'emma-volk.jpg'
+          },
+          {
+            name: 'Rhea Wong',
+            title: 'Director of Strategic Initiatives',
+            img: 'rhea-wong.jpg'
+          }
+        ]
+      }
+    ]
+	end
+
+  def board_and_advisors_info
+    [
+      {
+        team: 'Board of directors',
+        image_prepend: 'board-',
+        members: [
+          {
+            name: 'Stephanie Cohen',
+            title: 'Chief Strategy Officer at Goldman Sachs',
+            img: 'stephanie-cohen.jpg'
           },
 					{
 						img: 'thumb_ben.png',
@@ -229,41 +245,73 @@ module PagesHelper
 				team: 'Technical Advisory Board',
 				members: [
           {
-            img: 'thumb-donald.png',
-            name: 'Donald McKendrick',
-            title: 'Advisory Board Member',
-            desc: "Donald is a Software Engineer at One Medical. He previously served as Quill's Technology Director. Prior to that, he led financial services and e-commerce startups. He is inspired by the opportunity to help educate millions of students through educational technology."
+            name: 'Reuben Gutoff',
+            title: 'Retired Vice President at General Electric',
+            img: 'reuben-gutoff.jpg'
           },
-					{
-						img: 'thumb-alex.png',
-						name: "Alex Redmon",
-						title: "Advisory Board Member",
-						desc: "Alex is an art collector, I.T. professional, and entrepreneur living in Brooklyn who enjoys reading, writing, photography, and music."
-					}
-				]
-			},
+          {
+            name: 'Rhys Kidd',
+            title: 'Vice President at Macquarie Group',
+            img: 'rhys-kidd.jpg'
+          },
+          {
+            name: 'Jane Parver',
+            title: 'Partner at Kaye Scholer',
+            img: 'jane-parver.jpg'
+          },
+          {
+            name: 'Matthew Rodriguez',
+            title: 'Managing Director at BlackRock',
+            img: 'matthew-rodriguez.jpg'
+          },
+          {
+            name: 'Ben Sussman',
+            title: 'Engineer at Spell',
+            img: 'ben-sussman.jpg'
+          },
+          {
+            name: 'Peg Tyre',
+            title: 'Director of Strategy at The Edwin Gould Foundation',
+            img: 'peg-tyre.jpg'
+          },
+          {
+            name: 'Paul Walker',
+            title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
+            img: 'paul-walker.jpg'
+          }
+        ]
+      },
       {
-        team: 'Marketing Advisory Board',
+        team: 'Advisors',
+        image_prepend: 'advisor-',
         members: [
           {
-            img: 'thumb-jane.jpg',
+            name: 'Donald McKendrick',
+            title: 'Software Engineer at One Medical',
+            img: 'donald-mckendrick.jpg'
+          },
+          {
             name: 'Jane Nevins',
-            title: 'Marketing Advisor',
-            desc: 'Before moving to New York, Jane worked in Silicon Valley for 10 years. She was one of the first 11 employees at Lyft and has worked at other noteworthy startups like SolarCity and SunRun. In 2017 she received a master’s degree from the Communication Department of Stanford University, where she studied journalism, data analysis and the economics of news. She also earned a Bachelor of Arts degree from Stanford in 2005. '
+            title: 'Director of Giving at Freedom for All Americans',
+            img: 'jane-nevins.jpg'
+          },
+          {
+            name: 'Alex Redmon',
+            title: 'Senior Software Engineer at Cylera',
+            img: 'alex-redmon.jpg'
+          },
+          {
+            name: 'John Silberstein',
+            title: 'Board of Directors at  Snap Interactive',
+            img: 'john-silberstein.jpg'
+          },
+          {
+            name: 'Emily Dalton Smith',
+            title: 'Director of Social Impact  Product at Facebook',
+            img: 'emily-dalton-smith.jpg'
           }
         ]
       }
-			# {
-			# 	team: 'Interns and Volunteers',
-			# 	members: [
-      #     {
-      #       img: 'thumb-eric.jpg',
-      #       name: 'Eric Tang',
-      #       title: 'Software Development Intern',
-      #       desc: "Eric is a rising sophomore at Stanford University who enjoys reading novels, tutoring students and fiddling with Natural Language Processing algorithms. He’s working at Quill this summer because he’s excited to help students become better writers and communicators!"
-      #     }
-			# 	]
-			# }
-		]
-	end
+    ]
+  end
 end
