@@ -187,7 +187,7 @@ describe PagesController do
   end
 
   describe '#press' do
-    let!(:post) { create(:blog_post, draft: false, topic: "Press") }
+    let!(:post) { create(:blog_post, draft: false, topic: "In the news") }
 
     it 'should assign the blog posts' do
       get :press
@@ -196,7 +196,7 @@ describe PagesController do
   end
 
   describe '#announcements' do
-    let!(:post) { create(:blog_post, draft: false, topic: "Announcements") }
+    let!(:post) { create(:blog_post, draft: false, topic: "What's new?") }
 
     it 'should assign the blog posts' do
       get :announcements
