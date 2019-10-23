@@ -56,7 +56,7 @@ module PagesHelper
     [
       {
         team: 'Leadership team',
-        imagePrepend: 'team',
+        imagePrepend: 'team-',
         members: [
           {
             name: 'Daniel Drabik',
@@ -74,7 +74,7 @@ module PagesHelper
       },
       {
         team: 'Entire team',
-        imagePrepend: 'team',
+        imagePrepend: 'team-',
         members: [
           {
             name: 'Tom Calabrese',
@@ -132,19 +132,65 @@ module PagesHelper
       },
       {
         team: 'Board of directors',
-        imagePrepend: 'team',
+        imagePrepend: 'board-',
         members: [
           {
-            name: 'Daniel Drabik',
-            title: 'Vice President of Engineering'
+            name: 'Stephanie Cohen',
+            title: 'Chief Strategy Officer at Goldman Sachs'
           },
           {
-            name: 'Peter Gault',
-            title: 'Executive Director, Cofounder'
+            name: 'Reuben Gutoff',
+            title: 'Retired Vice President at General Electric'
           },
           {
-            name: 'Sara Jeruss',
-            title: 'Chief Operating Officer'
+            name: 'Rhys Kidd',
+            title: 'Vice President at Macquarie Group'
+          },
+          {
+            name: 'Jane Parver',
+            title: 'Partner at Kaye Scholer'
+          },
+          {
+            name: 'Matthew Rodriguez',
+            title: 'Managing Director at BlackRock'
+          },
+          {
+            name: 'Ben Sussman',
+            title: 'Engineer at Spell'
+          },
+          {
+            name: 'Peg Tyre',
+            title: 'Director of Strategy at The Edwin Gould Foundation'
+          },
+          {
+            name: 'Paul Walker',
+            title: 'Quill Board Chair, Retired Partner at Goldman Sachs'
+          }
+        ]
+      },
+      {
+        team: 'Advisors',
+        imagePrepend: 'advisor-',
+        members: [
+          {
+            name: 'Donald McKendrick',
+            title: 'Software Engineer at One Medical'
+          },
+          {
+            name: 'Jane Nevins',
+            title: 'Director of Giving at Freedom for All Americans'
+          },
+          {
+            name: 'Alex Redmon',
+            title: 'Senior Software Engineer at Cylera'
+          },
+          {
+            name: 'John Silberstein',
+            title: 'Board of Directors at  Snap Interactive'
+          },
+          {
+            name: 'Emily Dalton Smith',
+            title: 'Director of Social Impact  Product at Facebook'
           }
         ]
       },
