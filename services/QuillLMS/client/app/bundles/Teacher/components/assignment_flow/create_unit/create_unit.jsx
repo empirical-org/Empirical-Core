@@ -80,7 +80,7 @@ export default class CreateUnit extends React.Component {
   }
 
   getActivities = () => {
-    requestGet('/activities/search', (body) => {
+    requestGet('/activities/search?flag=private', (body) => {
       const { activities, } = body
       const activityIdsArray = this.props.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
       const activityIdsArrayAsArray = activityIdsArray.split(',')
