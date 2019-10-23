@@ -1,6 +1,9 @@
 .container.pages-container.careers-page {
   padding-right: 15px;
   padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .careers-page {
@@ -10,16 +13,36 @@
   font-stretch: normal;
   line-height: 1.5;
   letter-spacing: normal;
-  color: #666666;
+  color: #000;
 
-  h3 {
-    font-size: 30px;
+  .header {
+    margin-top: 121px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1 {
+      margin-top: 0px;
+      line-height: 1.5;
+      font-size: 30px;
+      font-weight: bold;
+    }
+    p {
+      max-width: 630px;
+      text-align: center;
+      margin: 16px 0px 24px;
+    }
+  }
+
+  h2 {
+    font-size: 24px;
     font-weight: bold;
     color: #000000;
+    line-height: 1.5;
   }
 
   p {
     margin-top: 8px !important;
+    margin-bottom: 28px;
   }
 
   ol {
@@ -30,64 +53,33 @@
       line-height: 2;
     }
   }
-  
+
 
   a:hover {
     text-decoration: none;
   }
 
   p.img-caption {
-    margin-top: 4px !important;
+    color: #646464;
+    line-height: 1.57;
     font-size: 14px !important;
-  }
-
-  .cta-banner {
-    background-image: url(<%= "#{ENV['CDN_URL']}/images/careers/classroom-raising-hands@2x.jpg" %>);
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 350px;
-    object-fit: contain;
-    position: relative;
-
-    .cta-banner-contents {
-      text-align: center;
-      color: #ffffff;
-      position: absolute;
-      top: 50%;
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-
-      h3 {
-        color: #ffffff;
-      }
-
-      button {
-        margin: 24 auto;
-        display: block;
-        width: 182px;
-      }
-    }
   }
 
   .text-and-image {
     display: flex;
-    align-items: flex-end;
-    margin-top: 120px;
+    align-items: center;
+    margin: 120px auto 0px;
 
     div {
       padding: 5px;
 
-      h3 {
+      h2 {
         margin-top: 0px;
       }
     }
 
     div:nth-child(n+2), img:nth-child(n+2) {
-      margin-left: 150px;
+      margin-left: 56px;
     }
 
     img {
@@ -125,6 +117,7 @@
   .job-listings {
     margin-top: 120px;
     margin-bottom: 80px;
+    width: 100%;
 
     .job-board {
       display: flex;
@@ -164,7 +157,7 @@
             flex-direction: row;
             justify-content: space-between;
             margin: 14px;
-  
+
             img.icon-img {
               transform: rotate(270deg);
             }
