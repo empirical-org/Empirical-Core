@@ -64,7 +64,8 @@ class Cms::BlogPostsController < Cms::CmsController
                     :external_link,
                     :published_at,
                     :center_images,
-                    :image_link
+                    :image_link,
+                    :press_name
                   )
   end
 

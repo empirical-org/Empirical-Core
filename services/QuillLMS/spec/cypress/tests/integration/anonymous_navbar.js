@@ -76,11 +76,11 @@ describe('Anonymous Navbar', function() {
         cy.url().should('include', '/teacher-center')
       })
       it('has a link to the Getting Started page', function() {
-        cy.get('#teacher-center').contains('Getting Started').click({force: true})
+        cy.get('#teacher-center').contains('Getting started').click({force: true})
         cy.url().should('include', '/teacher-center/topic/getting-started')
       })
-      it('has a link to the Teacher Stories Page page', function() {
-        cy.get('#teacher-center').contains('Teacher Stories').click({force: true})
+      it('has a link to the Teacher stories Page page', function() {
+        cy.get('#teacher-center').contains('Teacher stories').click({force: true})
         cy.url().should('include', '/teacher-center/topic/teacher-stories')
       })
       it('has a link to the Writing Instruction Research page', function() {
@@ -120,8 +120,8 @@ describe('Anonymous Navbar', function() {
         cy.get('#our-story').contains('Announcements').click({force: true})
         cy.url().should('include', '/announcements')
       })
-      it('has a link to the In the Press page', function() {
-        cy.get('#our-story').contains('In the Press').click({force: true})
+      it('has a link to the In the news page', function() {
+        cy.get('#our-story').contains('In the news').click({force: true})
         cy.url().should('include', '/press')
       })
       it('has a link to the Team page', function() {

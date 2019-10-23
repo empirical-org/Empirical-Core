@@ -1,14 +1,30 @@
-import React from 'react';
+import * as React from 'react';
+import _ from 'underscore';
+
 import TopicSection from './topic_section.jsx';
 import PreviewCard from '../shared/preview_card.jsx';
 import HeaderSection from './header_section'
-import _ from 'underscore';
+import {
+  STUDENT,
+  STUDENT_CENTER,
+  STUDENT_CENTER_SLUG,
+  TEACHER_CENTER ,
+  TEACHER_CENTER_SLUG,
+  TOPIC,
+  ALL,
+  SEARCH,
+  TEACHER_STORIES,
+  GETTING_STARTED,
+  WRITING_INSTRUCTION_RESEARCH,
+  SUPPORT,
+  WEBINARS,
+} from './blog_post_constants'
 
-export default class extends React.Component {
+export default class BlogPostIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      articleFilter: window.location.pathname.includes('topic') || props.query ? 'all' : 'topic',
+      articleFilter: window.location.pathname.includes(TOPIC) || props.query ? ALL : TOPIC,
       loading: true,
       blogPostsSortedByMostRead: [...this.props.blogPosts].sort((a, b) => (a.read_count < b.read_count) ? 1 : ((b.read_count < a.read_count) ? -1 : 0))
     };
@@ -20,40 +36,40 @@ export default class extends React.Component {
 
   pageTitle() {
     const { role, title, } = this.props
-    if (window.location.pathname.includes('topic')) {
+    if (window.location.pathname.includes(TOPIC)) {
       const topicTitle = this.props.title
-      return role === 'student' ? topicTitle.replace('Student ', '') : topicTitle
-    } else if (role === 'student') {
-      return 'Student Center'
+      return role === STUDENT ? topicTitle.replace('Student ', '') : topicTitle
+    } else if (role === STUDENT) {
+      return STUDENT_CENTER
     } else {
-      return 'Teacher Center'
+      return TEACHER_CENTER
     }
   }
 
   pageSubtitle() {
-    if (this.props.role === 'student') {
+    if (this.props.role === STUDENT) {
       return 'Everything you need to know about using Quill'
     }
 
     switch (this.pageTitle()) {
-      case 'Teacher Stories':
+      case TEACHER_STORIES:
         return 'Read success stories about Quill in the class'
-      case 'Getting Started':
+      case GETTING_STARTED:
         return 'Set up your classroom on Quill with guides, videos, and presentations'
-      case 'Writing Instruction Research':
+      case WRITING_INSTRUCTION_RESEARCH:
         return 'Read and download handpicked materials to teach writing'
-      case 'Support':
+      case SUPPORT:
         return 'The most common questions teachers ask about Quill'
-      case 'Webinars':
+      case WEBINARS:
         return 'Join online conferences to learn best practices for how to use Quill with your students'
-      case 'Teacher Center':
+      case TEACHER_CENTER:
       default:
         return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
     }
   }
 
   renderPreviewCards() {
-    const sectionLink = this.props.role === 'student' ? 'student-center' : 'teacher-center'
+    const sectionLink = this.props.role === STUDENT ? STUDENT_CENTER_SLUG : TEACHER_CENTER_SLUG
     return this.props.blogPosts.map(article =>
       (<PreviewCard
         content={article.preview_card_content}
@@ -70,14 +86,14 @@ export default class extends React.Component {
         content={article.preview_card_content}
         externalLink={!!article.external_link}
         key={article.title}
-        link={article.external_link ? article.external_link : `/teacher-center/${article.slug}`}
+        link={article.external_link ? article.external_link : `/${TEACHER_CENTER_SLUG}/${article.slug}`}
       />)
     )
   }
 
   renderPreviewCardsByTopic() {
     let sections = [];
-    const articlesByTopic = _.groupBy(this.props.blogPosts, "topic");
+    const articlesByTopic = _.groupBy(this.props.blogPosts, TOPIC);
     this.props.topics.forEach(topic => {
       const articlesInThisTopic = articlesByTopic[topic.name];
       if (articlesInThisTopic) {
@@ -99,7 +115,7 @@ export default class extends React.Component {
     let response;
     if (this.props.blogPosts.length === 0) {
       response = <h1 className='no-results'>No results found.</h1>
-    } else if (this.state.articleFilter === 'topic') {
+    } else if (this.state.articleFilter === TOPIC) {
       response = this.renderPreviewCardsByTopic();
     } else if (this.state.articleFilter === 'popularity') {
       response = (
@@ -131,7 +147,7 @@ export default class extends React.Component {
   }
 
   renderNavAndSectionHeader() {
-    const currentPageIsSearchPage = window.location.pathname.includes('search');
+    const currentPageIsSearchPage = window.location.pathname.includes(SEARCH);
     if (!currentPageIsSearchPage) {
       return (
         <span />
@@ -156,7 +172,7 @@ export default class extends React.Component {
 
   renderMostReadPost() {
     const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
-    if (window.location.pathname.includes('search')) { return null; }
+    if (window.location.pathname.includes(SEARCH)) { return null; }
     const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher-center/${mostReadArticle.slug}`
     return (
       <h3>
@@ -178,7 +194,7 @@ export default class extends React.Component {
         <div id="knowledge-center">
           <HeaderSection
             query={this.props.query}
-            showCancelSearchButton={!!window.location.href.includes('search')}
+            showCancelSearchButton={!!window.location.href.includes(SEARCH)}
             subtitle={this.pageSubtitle()}
             title={this.pageTitle()}
           />
