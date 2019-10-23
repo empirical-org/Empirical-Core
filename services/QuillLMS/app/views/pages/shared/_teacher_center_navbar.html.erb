@@ -1,10 +1,15 @@
+<% @all = 'All' %>
+<% @research = 'Research' %>
+<% @faq = 'FAQ' %>
+<% @premium = 'Premium' %>
+
 <div class="subnav teacher-center-navbar">
   <div class="container">
     <% if current_user&.role == 'student' %>
       <% tabs = [
-        {name: 'All Resources', url: 'student-center'},
-        {name: 'Getting Started', url: 'student-center/topic/student-getting-started'},
-        {name: 'How To', url: 'student-center/topic/student-how-to'},
+        {name: BlogPost::ALL_RESOURCES, url: 'student-center'},
+        {name: BlogPost::GETTING_STARTED, url: 'student-center/topic/student-getting-started'},
+        {name: BlogPost::HOW_TO, url: 'student-center/topic/student-how-to'},
       ]
         @tabs = tabs
         @mobile = false
@@ -15,13 +20,13 @@
       </div>
 
       <% tabs = [
-        {name: 'All', url: 'student-center'},
-        {name: 'Getting Started', url: 'student-center/topic/student-getting-started'},
-        {name: 'How To', url: 'student-center/topic/student-how-to'},
+        {name: @all, url: 'student-center'},
+        {name: BlogPost::GETTING_STARTED, url: 'student-center/topic/student-getting-started'},
+        {name: BlogPost::HOW_TO, url: 'student-center/topic/student-how-to'},
       ]
       @tabs = tabs
-      if @active_tab == 'All Resources'
-        @active_tab = 'All'
+      if @active_tab == BlogPost::ALL_RESOURCES
+        @active_tab = @all
       end
       %>
       <div class="small-screen">
@@ -31,11 +36,11 @@
     <% else %>
 
       <% tabs = [
-        {name: 'All Resources', url: 'teacher-center'},
-        {name: 'Getting Started', url: 'teacher-center/topic/getting-started'},
-        {name: 'Teacher Stories', url: 'teacher-center/topic/teacher-stories'},
-        {name: 'Writing Instruction Research', url: 'teacher-center/topic/writing-instruction-research'},
-        {name: 'FAQ', url: 'faq'},
+        {name: BlogPost::ALL_RESOURCES, url: 'teacher-center'},
+        {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
+        {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
+        {name: BlogPost::WRITING_INSTRUCTION_RESEARCH, url: 'teacher-center/topic/writing-instruction-research'},
+        {name: @faq, url: 'faq'},
         {name: 'Premium', url: 'premium'},
       ]
         @tabs = tabs
@@ -47,18 +52,18 @@
       </div>
 
       <% tabs = [
-        {name: 'All', url: 'teacher-center'},
-        {name: 'Getting Started', url: 'teacher-center/topic/getting-started'},
-        {name: 'Teacher Stories', url: 'teacher-center/topic/teacher-stories'},
-        {name: 'Research', url: 'teacher-center/topic/writing-instruction-research'},
-        {name: 'FAQ', url: 'faq'},
-        {name: 'Premium', url: 'premium'},
+        {name: @all, url: 'teacher-center'},
+        {name: BlogPost::GETTING_STARTED, url: 'teacher-center/topic/getting-started'},
+        {name: BlogPost::TEACHER_STORIES, url: 'teacher-center/topic/teacher-stories'},
+        {name: @research, url: 'teacher-center/topic/writing-instruction-research'},
+        {name: @faq, url: 'faq'},
+        {name: @premium, url: 'premium'},
       ]
       @tabs = tabs
-      if @active_tab == 'All Resources'
-        @active_tab = 'All'
-      elsif @active_tab == 'Writing Instruction Research'
-        @active_tab = 'Research'
+      if @active_tab == BlogPost::ALL_RESOURCES
+        @active_tab = @all
+      elsif @active_tab == BlogPost::WRITING_INSTRUCTION_RESEARCH
+        @active_tab = @research
       end
       %>
       <div class="small-screen">
