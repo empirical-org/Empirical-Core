@@ -30,11 +30,12 @@
   .text-and-image {
     display: flex;
     align-items: center;
-    margin: 120px auto 0px;
+    margin: 120px 0px 0px;
+    width: 100%;
 
     div {
-      padding: 5px;
-
+      max-width: 447px;
+      width: 100%;
       h2 {
         margin-top: 0px;
       }
@@ -53,7 +54,7 @@
     flex-direction: row-reverse;
     justify-content: flex-end;
     div:nth-child(n+2), img:nth-child(n+2) {
-      margin-right: 150px;
+      margin-right: 56px;
       margin-left: 0px;
     }
   }
