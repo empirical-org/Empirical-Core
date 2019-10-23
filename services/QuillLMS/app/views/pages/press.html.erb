@@ -1,4 +1,4 @@
-<% @active_tab = 'In the Press' %>
+<% @active_tab = BlogPost::IN_THE_NEWS %>
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 <div class="container">
   <%= react_component('PressApp', props: {blogPosts: @blog_posts})%>
