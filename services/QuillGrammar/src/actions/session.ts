@@ -48,7 +48,6 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
           dispatch(setSessionReducer(session))
         })
       } else {
-        console.log('there is no session')
         dispatch(setSessionPending(false))
       }
     })

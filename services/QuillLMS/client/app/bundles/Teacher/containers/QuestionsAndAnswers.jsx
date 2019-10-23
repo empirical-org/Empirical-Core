@@ -26,7 +26,7 @@ export default class QuestionsAndAnswers extends React.Component {
   }
 
   renderQuestionsAndAnswers() {
-    return this.state.questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa}/>)
+    return this.state.questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa} />)
   }
 
   render() {

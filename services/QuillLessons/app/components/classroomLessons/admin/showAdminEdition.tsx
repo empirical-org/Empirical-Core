@@ -105,7 +105,7 @@ class ShowAdminEdition extends Component<any, any> {
     const exitSlideIndex = questions.length - 1
     const deleteSlideButton = key === 0 || key === exitSlideIndex ? <span /> : <span className="slide-delete" onClick={() => this.deleteSlide(key)}>Delete Slide</span>
     return (
-      <div key={key} className="box slide-box">
+      <div className="box slide-box" key={key}>
         <span className="slide-type">{getComponentDisplayName(questions[key].type)}</span>
         <span className="slide-title">{questions[key].data.teach.title}</span>
         {deleteSlideButton}
@@ -121,7 +121,7 @@ class ShowAdminEdition extends Component<any, any> {
         <div className="add-new-slide-form">
           <p className="control has-addons">
             <span className="select is-large">
-              <select value={this.state.newSlideType} onChange={this.selectNewSlideType}>
+              <select onChange={this.selectNewSlideType} value={this.state.newSlideType}>
                 {options}
               </select>
             </span>
@@ -145,8 +145,8 @@ class ShowAdminEdition extends Component<any, any> {
               <h5 className="title is-4">Lesson: {this.classroomLesson().title}</h5>
               <a href="https://docs.google.com/document/d/1oc3IlB4pDPUFcFLl4eHItPinC9GEKvblkifIKStMSmQ/edit">Quill Lessons Style Guide</a>
             </div>
-            <h4 className="title is-4">Edition: {this.edition().name} <a target="_blank" href={`/#/teach/class-lessons/${this.props.params.classroomLessonID}/preview/${this.props.params.editionID}`}>Preview</a> </h4>
-            <EditEditionDetails edition={this.edition()} save={this.saveEditionDetails} deleteEdition={this.deleteEdition} />
+            <h4 className="title is-4">Edition: {this.edition().name} <a href={`/#/teach/class-lessons/${this.props.params.classroomLessonID}/preview/${this.props.params.editionID}`} target="_blank">Preview</a> </h4>
+            <EditEditionDetails deleteEdition={this.deleteEdition} edition={this.edition()} save={this.saveEditionDetails} />
           </div>
           <h5 className="title is-5">{questions.length} Slides</h5>
           {this.renderSlide(questions, editionId, 0)}

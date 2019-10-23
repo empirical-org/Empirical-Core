@@ -168,11 +168,11 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
             <h6 className="control subtitle">Add a new response</h6>
             <label className="label">Response text</label>
             <p className="control">
-              <input className="input" type="text" ref="newResponseText" />
+              <input className="input" ref="newResponseText" type="text" />
             </p>
             <label className="label">Feedback</label>
             <p className="control">
-              <input className="input" type="text" ref="newResponseFeedback" />
+              <input className="input" ref="newResponseFeedback" type="text" />
             </p>
             <label className="label">Boilerplate feedback</label>
             <div className="boilerplate-feedback-dropdown-container">
@@ -200,7 +200,7 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
     if (this.props.questions.states[questionID] === ActionTypes.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditForm question={question} submit={this.saveQuestionEdits} concepts={this.props.concepts} />
+          <EditForm concepts={this.props.concepts} question={question} submit={this.saveQuestionEdits} />
         </Modal>
       );
     }
@@ -227,8 +227,8 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
-            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
+            <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
@@ -251,16 +251,16 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
           </div>
           {this.props.children}
           <Switch>
-            <Route path={`/admin/questions/:questionID/responses`} component={ResponseComponentWrapper} questionID={questionID}/>
-            <Route path={`/admin/questions/:questionID/test`} component={TestQuestion}/>
-            <Route path={`/admin/questions/:questionID/choose_model`} component={ChooseModelContainer}/>
-            <Route path={`/admin/questions/:questionID/mass-edit`} component={MassEditContainer}/>
-            <Route path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} component={EditFocusPointsContainer}/>
-            <Route path={`/admin/questions/:questionID/focus-points/new`} component={NewFocusPointsContainer}/>
-            <Route path={`/admin/questions/:questionID/focus-points`} component={FocusPointsContainer}/>
-            <Route path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} component={EditIncorrectSequenceContainer}/>
-            <Route path={`/admin/questions/:questionID/incorrect-sequences/new`} component={NewIncorrectSequenceContainer}/>
-            <Route path={`/admin/questions/:questionID/incorrect-sequences`} component={IncorrectSequenceContainer}/>
+            <Route component={ResponseComponentWrapper} path={`/admin/questions/:questionID/responses`} questionID={questionID} />
+            <Route component={TestQuestion} path={`/admin/questions/:questionID/test`} />
+            <Route component={ChooseModelContainer} path={`/admin/questions/:questionID/choose_model`} />
+            <Route component={MassEditContainer} path={`/admin/questions/:questionID/mass-edit`} />
+            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} />
+            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
+            <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
+            <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
+            <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
+            <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
           </Switch>
         </div>
       );

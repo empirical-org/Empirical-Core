@@ -109,19 +109,23 @@ export default React.createClass({
   determineInputTag: function () {
     var result;
     if (this.props.size == 'medium') {
-      result = (<textarea id={this.props.name}
-                         type={this.determineType()}
-                         ref={this.props.name}
-                         onChange={this.update}
-                         defaultValue={this.determine('default', null)} />)
+      result = (<textarea
+        defaultValue={this.determine('default', null)}
+        id={this.props.name}
+        onChange={this.update}
+        ref={this.props.name}
+        type={this.determineType()}
+      />)
 
     } else {
-      result = (<input id={this.getId()}
-                       placeholder={this.determinePlaceholder()}
-                       type={this.determineType()}
-                       ref={this.props.name}
-                       onChange={this.getUpdateFn()}
-                       defaultValue={this.determine('default', null)} />);
+      result = (<input
+        defaultValue={this.determine('default', null)}
+        id={this.getId()}
+        onChange={this.getUpdateFn()}
+        placeholder={this.determinePlaceholder()}
+        ref={this.props.name}
+        type={this.determineType()}
+      />);
     }
     return result;
   },
@@ -161,19 +165,19 @@ export default React.createClass({
       result = this.determineInputTag();
     } else {
       result = (
-          <div className='row text-input-row'>
-            <div className='col-xs-12'>
-              {this.labelOrNot()}
-              <div className='row'>
-                <div className='col-xs-8'>
-                  {this.determineInputTag()}
-                </div>
-                <div className='col-xs-4 error'>
-                  {this.displayErrors()}
-                </div>
+        <div className='row text-input-row'>
+          <div className='col-xs-12'>
+            {this.labelOrNot()}
+            <div className='row'>
+              <div className='col-xs-8'>
+                {this.determineInputTag()}
+              </div>
+              <div className='col-xs-4 error'>
+                {this.displayErrors()}
               </div>
             </div>
           </div>
+        </div>
         );
     }
     return result;

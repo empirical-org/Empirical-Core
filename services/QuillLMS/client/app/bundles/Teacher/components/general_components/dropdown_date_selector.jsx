@@ -114,17 +114,17 @@ export default React.createClass({
     return (
       <span>
         <div className='col-xs-2'>
-          <select ref='month' value={dateParts.month} onChange={this.updateMonth}>
+          <select onChange={this.updateMonth} ref='month' value={dateParts.month}>
             {monthOptions}
           </select>
         </div>
         <div className='col-xs-2'>
-          <select ref='day' value={dateParts.day} onChange={this.updateDay}>
+          <select onChange={this.updateDay} ref='day' value={dateParts.day}>
             {dayOptions}
           </select>
         </div>
         <div className='col-xs-2'>
-          <select ref='year' value={dateParts.year} onChange={this.updateYear}>
+          <select onChange={this.updateYear} ref='year' value={dateParts.year}>
             {yearOptions}
           </select>
         </div>

@@ -100,16 +100,16 @@ class ShowClassroomLesson extends Component<any, any> {
     const editions = Object.keys(this.props.customize.editions).map(e => {
       const edition = this.props.customize.editions[e]
       if (edition.user_id === 'quill-staff' && edition.lesson_id === this.props.params.classroomLessonID) {
-        return <li>
+        return (<li>
           <div>{edition.name}</div>
           <div>
-            <span style={{margin: '0px 5px'}} onClick={() => this.props.router.push(`admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)}>Edit</span>
+            <span onClick={() => this.props.router.push(`admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)} style={{margin: '0px 5px'}}>Edit</span>
             |
-            <span style={{margin: '0px 5px'}} onClick={() => this.props.router.push(`teach/class-lessons/${edition.lesson_id}/preview/${e}`)}>Preview</span>
+            <span onClick={() => this.props.router.push(`teach/class-lessons/${edition.lesson_id}/preview/${e}`)} style={{margin: '0px 5px'}}>Preview</span>
             |
-            <span style={{margin: '0px 5px'}} onClick={() => this.copyEdition(e)}>Make A Copy</span>
+            <span onClick={() => this.copyEdition(e)} style={{margin: '0px 5px'}}>Make A Copy</span>
           </div>
-        </li>
+        </li>)
       }
     })
     const components = _.compact(editions)
@@ -130,10 +130,10 @@ class ShowClassroomLesson extends Component<any, any> {
         <p className="control has-addons">
           <input
             className="input is-expanded"
-            type="text"
-            placeholder="Generic Edition"
-            value={this.state.newEditionName}
             onChange={this.changeNewEditionName}
+            placeholder="Generic Edition"
+            type="text"
+            value={this.state.newEditionName}
           />
           <a className="button is-info" onClick={this.addEdition}>
             Add New Edition
@@ -154,12 +154,12 @@ class ShowClassroomLesson extends Component<any, any> {
               <a href="https://docs.google.com/document/d/1oc3IlB4pDPUFcFLl4eHItPinC9GEKvblkifIKStMSmQ/edit">Quill Lessons Style Guide</a>
             </div>
             <h5 className="title is-5">{this.renderPercentage()}</h5>
-            <EditLessonDetails classroomLesson={this.classroomLesson()} save={this.saveLessonDetails} deleteLesson={this.deleteLesson} />
+            <EditLessonDetails classroomLesson={this.classroomLesson()} deleteLesson={this.deleteLesson} save={this.saveLessonDetails} />
           </div>
           {this.renderAddEdition()}
           {this.renderEditionsList()}
           <br />
-          <a className='button is-info' style={{fontSize: 16}} href={`/#/admin/classroom-lessons/${classroomLessonID}/editions`}>User Editions</a>
+          <a className='button is-info' href={`/#/admin/classroom-lessons/${classroomLessonID}/editions`} style={{fontSize: 16}}>User Editions</a>
         </div>
       )
     } else {

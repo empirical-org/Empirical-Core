@@ -64,7 +64,7 @@ export default React.createClass({
             Status
           </div>
           <div className="form-input">
-            <input disabled className="inactive" value={this.subscriptionTypeInUserLanguage()} />
+            <input className="inactive" disabled value={this.subscriptionTypeInUserLanguage()} />
           </div>
           {getPremium}
 

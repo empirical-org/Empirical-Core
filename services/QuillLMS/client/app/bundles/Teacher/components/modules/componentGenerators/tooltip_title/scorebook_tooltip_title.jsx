@@ -56,10 +56,10 @@ export default class ScorebookTooltip extends React.Component {
 
   activityOverview() {
     const data = this.props.data
-    return <div className="activity-overview">
+    return (<div className="activity-overview">
       <ActivityDetails data={data} />
       {this.totalScoreOrNot()}
-    </div>
+    </div>)
   }
 
   displayScores() {

@@ -92,7 +92,7 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
     }
     callback({ progress: undefined, }, true);
   }).catch((err) => {
-    console.log(err);
+    // to do - do something with this error
   });
 }
 
@@ -114,7 +114,6 @@ function rematchResponse(matcher, matcherFields, response) {
   }
 
   const delta = determineDelta(response, newResponse);
-  // console.log(response.id, response.text, delta);
   switch (delta) {
     case 'tobeunmatched':
       return unmatchRematchedResponse(response);
@@ -150,7 +149,7 @@ function updateRematchedResponse(response, newResponse) {
 
 function deleteRematchedResponse(response) {
   // deleteResponse(rid);
-  console.log('Should be deleted');
+  // to do - do something with this method or delete it
 }
 
 function updateResponse(rid, content) {
@@ -170,8 +169,6 @@ function determineDelta(response, newResponse) {
   const feedbackChanged = newResponse.response.feedback != response.feedback;
   const conceptResultsChanged = _.isEqual(convertResponsesArrayToHash(newResponse.response.concept_results), response.concept_results);
   const changed = parentIDChanged || authorChanged || feedbackChanged || conceptResultsChanged;
-  // console.log(response.id, parentIDChanged, authorChanged, feedbackChanged, conceptResultsChanged);
-  // console.log(response, newResponse.response);
   if (changed) {
     if (unmatched) {
       return 'tobeunmatched';

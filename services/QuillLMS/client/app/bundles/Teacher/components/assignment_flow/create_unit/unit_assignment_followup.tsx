@@ -99,10 +99,10 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return (<div className="unit-assignment-followup invite-students">
       <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms)}.</h1>
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
-        imgSrc={addStudentsSrc}
-        imgAlt="students"
         header="Invite students to your classes"
+        imgAlt="students"
+        imgSrc={addStudentsSrc}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
         text={`You currently have ${this.numberOfClassroomsText(emptyClassrooms)} that ${emptyClassrooms.length === 1 ? 'has' : 'have'} no students.`}
       />
     </div>)
@@ -113,24 +113,24 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return (<div className="unit-assignment-followup next-options">
       <h1>What would you like to do next?</h1>
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
-        imgSrc={assignedActivitiesSrc}
-        imgAlt="clipboard with check"
         header="See what I have assigned"
+        imgAlt="clipboard with check"
+        imgSrc={assignedActivitiesSrc}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
         text="View your assigned packs."
       />
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
-        imgSrc={addStudentsSrc}
-        imgAlt="students"
         header="Invite students"
+        imgAlt="students"
+        imgSrc={addStudentsSrc}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
         text="Add students to your classes."
       />
       <Card
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
-        imgSrc={assignActivitiesSrc}
-        imgAlt="squares with plus sign"
         header="Assign more activities"
+        imgAlt="squares with plus sign"
+        imgSrc={assignActivitiesSrc}
+        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
         text="Select or build another pack."
       />
     </div>)
@@ -140,35 +140,35 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const { assignedClassrooms, } = this.state
     const { unitName, referralCode, } = this.props
     const referralLink = `${process.env.DEFAULT_URL}/?referral_code=${referralCode}`
-    return <div className="unit-assignment-followup referral">
+    return (<div className="unit-assignment-followup referral">
       {this.renderSnackbar()}
       <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms)}.</h1>
       <div className="referral-card">
-        <img src={giftSrc} alt="gift" />
+        <img alt="gift" src={giftSrc} />
         <h1>Share Quill and earn a month of free Quill Premium for Teachers.</h1>
         <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word. </p>
         <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
         <div className='share-box'>
           <div className="referral-link-container">
             <Input
-              id="referral-link"
               disabled={true}
+              id="referral-link"
               value={referralLink}
             />
-            <CopyToClipboard text={referralLink} onCopy={() => this.showSnackbar('Link copied')}>
+            <CopyToClipboard onCopy={() => this.showSnackbar('Link copied')} text={referralLink}>
               <button className="quill-button secondary outlined small">Copy link</button>
             </CopyToClipboard>
           </div>
           <p className="share-text">More ways to share: </p>
           <div className='share-links'>
-            <a target="_blank" href={`https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? ${referralLink}`}><img src={twitterSrc} alt="twitter icon" /></a>
-            <a target="_blank" href={`https://www.facebook.com/share.php?u=${referralLink}`}><img src={facebookSrc} alt="facebook icon" /></a>
-            <a target="_blank" href={`https://plus.google.com/share?url=${referralLink}`}><img src={googleSrc} alt="google plus icon" /></a>
-            <a target="_blank" href={`mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! ${referralLink}`}><img src={emailSrc} alt="mail" /></a>
+            <a href={`https://twitter.com/home?status=I'm using @quill_org to help my students become better writers and critical thinkers. Want to join me? ${referralLink}`} target="_blank"><img alt="twitter icon" src={twitterSrc} /></a>
+            <a href={`https://www.facebook.com/share.php?u=${referralLink}`} target="_blank"><img alt="facebook icon" src={facebookSrc} /></a>
+            <a href={`https://plus.google.com/share?url=${referralLink}`} target="_blank"><img alt="google plus icon" src={googleSrc} /></a>
+            <a href={`mailto:mailto:?subject=Free tool to help your students become better writers&body=Hi! I've been using this free tool called Quill.org to help my students become better writers and critical thinkers, and I wanted to let you know about it. Hopefully it helps your students as much as it's helped mine! ${referralLink}`} target="_blank"><img alt="mail" src={emailSrc} /></a>
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   }
 
   renderFollowUp = () => {
@@ -185,7 +185,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   }
 
   render() {
-    let button = <a href="/" className="quill-button medium contained primary">Take me to my dashboard</a>
+    let button = <a className="quill-button medium contained primary" href="/">Take me to my dashboard</a>
     if (!(this.state.showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.setNextOptions}>Next</button>
     }

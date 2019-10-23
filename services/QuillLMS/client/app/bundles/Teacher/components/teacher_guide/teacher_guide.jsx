@@ -54,7 +54,7 @@ export default class TeacherGuide extends React.Component {
     const display = [];
     const sections = this.groupBySectionAndCompleted();
     for (const sect in sections) {
-      display.push(<CheckboxSection checkboxes={sections[sect]} key={sect} dashboard={false}/>);
+      display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false} key={sect} />);
     }
     return display;
   }
@@ -62,8 +62,8 @@ export default class TeacherGuide extends React.Component {
   introCopy() {
     return (
       <div className='summary intro-copy'>
-          <h2>Complete these quests and become a Quill guru!</h2>
-          <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
+        <h2>Complete these quests and become a Quill guru!</h2>
+        <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
       </div>
     )
   }
@@ -72,7 +72,7 @@ export default class TeacherGuide extends React.Component {
     if (this.state.loading && this.state.dashboardMini) {
       return (<GettingStartedMini checkboxData={{ loading: true, }} />)
     } else if (this.state.dashboardMini) {
-      return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']}/>;
+      return <GettingStartedMini checkboxData={this.groupBySectionAndCompleted()['Getting Started']} />;
     }
     return (
       <div id='teacher-guide'>

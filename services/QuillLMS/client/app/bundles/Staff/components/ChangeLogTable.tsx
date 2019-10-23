@@ -108,12 +108,12 @@ const ChangeLogsTable: React.SFC<ChangeLogsTableProps> = ({changeLogs}) => {
   const data = prepareData(changeLogs)
   return (
     <Table
+      bordered
+      className="concepts-table"
       columns={columns()}
       dataSource={data}
-      size="middle"
-      bordered
       pagination={false}
-      className="concepts-table"
+      size="middle"
     />
   );
 };

@@ -96,8 +96,8 @@ const PlaySentenceFragment = React.createClass({
     // HARDCODED
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" value="Sentence" onClick={() => { this.checkChoice('Sentence'); }}>Complete / Completa la oración</button>
-        <button className="button sf-button" value="Fragment" onClick={() => { this.checkChoice('Fragment'); }}>Incomplete / Oración incompleta</button>
+        <button className="button sf-button" onClick={() => { this.checkChoice('Sentence'); }} value="Sentence">Complete / Completa la oración</button>
+        <button className="button sf-button" onClick={() => { this.checkChoice('Fragment'); }} value="Fragment">Incomplete / Oración incompleta</button>
       </div>
     );
   },
@@ -143,7 +143,7 @@ const PlaySentenceFragment = React.createClass({
     if (this.choosingSentenceOrFragment()) {
       return (
         <div className="container">
-          <ReactTransition transitionName={'sentence-fragment-buttons'} transitionLeave transitionLeaveTimeout={2000}>
+          <ReactTransition transitionLeave transitionLeaveTimeout={2000} transitionName={'sentence-fragment-buttons'}>
             <div className="feedback-row">
               <img className="info" src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
               <p dangerouslySetInnerHTML={{ __html: this.getChoiceHTML(), }} />
@@ -176,24 +176,26 @@ const PlaySentenceFragment = React.createClass({
     if (!this.choosingSentenceOrFragment()) {
       const component = (
         <Feedback
-          feedbackType="instructions"
           feedback={this.getInstructionText()}
+          feedbackType="instructions"
         />
       );
 
       return (
         <div className="container">
           <ReactTransition
-            transitionName={'text-editor'} transitionAppear transitionAppearTimeout={1200}
+            transitionAppear
+            transitionAppearTimeout={1200}
             transitionLeaveTimeout={300}
+            transitionName={'text-editor'}
           >
             {component}
             <TextEditor
-              value={this.state.response}
-              handleChange={this.handleChange}
-              disabled={this.showNextQuestionButton()}
               checkAnswer={this.checkAnswer}
+              disabled={this.showNextQuestionButton()}
+              handleChange={this.handleChange}
               placeholder="Type your answer here."
+              value={this.state.response}
             />
             <div className="question-button-group">
               {button}

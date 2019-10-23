@@ -13,17 +13,17 @@ export default React.createClass({
 
 	render: function() {
 		return (
-			<Router history={hashHistory}>
-				<Route path="/" component={Index}>
-					<Route path='u/:unitId/a/:activityId/c/:classroomId/student_report(/:studentId)' component={StudentReport}/>
-					<Route path='u/:unitId/a/:activityId/c/:classroomId/recommendations' component={Recommendations}/>
-					<Route path='u/:unitId/a/:activityId/c/:classroomId/questions' component={QuestionReport}/>
-					<Route path='u/:unitId/a/:activityId/c/:classroomId/students' component={ClassReport}/>
-					<Route path='activity_packs' component={ActivityPacks}/>
-					<Route path='diagnostics' component={DiagnosticActivityPacks}/>
-					<Route path='not_completed' component={NotCompleted}/>
-				</Route>
-			</Router>
+  <Router history={hashHistory}>
+    <Route component={Index} path="/">
+      <Route component={StudentReport} path='u/:unitId/a/:activityId/c/:classroomId/student_report(/:studentId)' />
+      <Route component={Recommendations} path='u/:unitId/a/:activityId/c/:classroomId/recommendations' />
+      <Route component={QuestionReport} path='u/:unitId/a/:activityId/c/:classroomId/questions' />
+      <Route component={ClassReport} path='u/:unitId/a/:activityId/c/:classroomId/students' />
+      <Route component={ActivityPacks} path='activity_packs' />
+      <Route component={DiagnosticActivityPacks} path='diagnostics' />
+      <Route component={NotCompleted} path='not_completed' />
+    </Route>
+  </Router>
 		);
 	}
 });

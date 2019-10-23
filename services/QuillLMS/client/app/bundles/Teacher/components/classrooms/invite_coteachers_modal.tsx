@@ -96,31 +96,31 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
     const { coteacher } = this.props
     const { email } = this.state
     if (coteacher) {
-      return <Input
-        label="Co-teacher email"
-        value={email}
-        type="text"
-        disabled={true}
+      return (<Input
         className="email disabled"
-      />
-    } else {
-      return <Input
+        disabled={true}
         label="Co-teacher email"
-        value={email}
         type="text"
-        handleChange={this.handleEmailChange}
+        value={email}
+      />)
+    } else {
+      return (<Input
         className="email"
+        handleChange={this.handleEmailChange}
+        label="Co-teacher email"
         placeholder="teacher@example.edu"
-      />
+        type="text"
+        value={email}
+      />)
     }
   }
 
   renderModalContent() {
-    return <div className="invite-coteachers-modal-content">
+    return (<div className="invite-coteachers-modal-content">
       <p>Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.</p>
       {this.renderEmailInput()}
       {this.renderDataTable()}
-    </div>
+    </div>)
   }
 
   renderDataTable() {
@@ -147,20 +147,20 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
       }
     })
 
-    return <DataTable
+    return (<DataTable
+      checkAllRows={this.checkAllRows}
+      checkRow={this.checkRow}
       headers={headers}
       rows={rows}
       showCheckboxes={true}
-      checkRow={this.checkRow}
-      uncheckRow={this.uncheckRow}
       uncheckAllRows={this.uncheckAllRows}
-      checkAllRows={this.checkAllRows}
-    />
+      uncheckRow={this.uncheckRow}
+    />)
   }
 
   render() {
     const { close } = this.props
-    return <div className="modal-container invite-coteachers-modal-container">
+    return (<div className="modal-container invite-coteachers-modal-container">
       <div className="modal-background" />
       <div className="invite-coteachers-modal quill-modal">
 
@@ -180,6 +180,6 @@ export default class InviteCoteachersModal extends React.Component<InviteCoteach
         </div>
 
       </div>
-    </div>
+    </div>)
   }
 }

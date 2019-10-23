@@ -8,13 +8,13 @@ export default React.createClass({
       // then the user is logged in and we should not show sign up
       signupButtonOrNothing = null;
     } else {
-      signupButtonOrNothing = <a href="/account/new"><button type="button" className="btn btn-default mini-btn green">Sign Up</button></a>;
+      signupButtonOrNothing = <a href="/account/new"><button className="btn btn-default mini-btn green" type="button">Sign Up</button></a>;
     }
     return (
       <div className="pricing-mini first">
         <header className="pricing-mini-header green">
           <div className="img-holder basic">
-            <img src={`${process.env.CDN_URL}/images/shared/basic_icon.png`} alt="basic_icon" />
+            <img alt="basic_icon" src={`${process.env.CDN_URL}/images/shared/basic_icon.png`} />
           </div>
           <h4>Basic</h4>
         </header>

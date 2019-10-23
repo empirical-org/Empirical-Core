@@ -25,7 +25,7 @@ export default React.createClass({
 
   activitiesLink: function() {
     if (this.props.resourceNameSingular === 'activity_classification') {
-      return <div key={'activities'} className='col-xs-4' onClick={this.goToActivities}>activities</div>
+      return <div className='col-xs-4' key={'activities'} onClick={this.goToActivities}>activities</div>
     }
   },
 
@@ -37,7 +37,7 @@ export default React.createClass({
     var edit_and_delete;
     edit_and_delete = _.reduce(['edit', 'delete'], function (acc, ele) {
       if (this.props.actions[ele]) {
-        var el = <div key={ele} className='col-xs-4' onClick={this[ele]}>{ele}</div>
+        var el = <div className='col-xs-4' key={ele} onClick={this[ele]}>{ele}</div>
         return _.chain(acc).push(el).value();
       } else {
         return acc

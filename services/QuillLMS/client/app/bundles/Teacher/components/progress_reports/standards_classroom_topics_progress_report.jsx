@@ -90,14 +90,16 @@ export default  React.createClass({
 
   render: function() {
     return (
-      <ProgressReport columnDefinitions={this.columnDefinitions}
-                         pagination={false}
-                         sourceUrl={this.props.sourceUrl}
-                         sortDefinitions={this.sortDefinitions}
-                         jsonResultsKey={'topics'}
-                         exportCsv={'standards_classroom_topics'}
-                         onFetchSuccess={this.onFetchSuccess}
-                         filterTypes={['unit']}>
+      <ProgressReport
+        columnDefinitions={this.columnDefinitions}
+        exportCsv={'standards_classroom_topics'}
+        filterTypes={['unit']}
+        jsonResultsKey={'topics'}
+        onFetchSuccess={this.onFetchSuccess}
+        pagination={false}
+        sortDefinitions={this.sortDefinitions}
+        sourceUrl={this.props.sourceUrl}
+      >
         <h2>Standards by Class: {this.state.classroom.name}</h2>
       </ProgressReport>
     );

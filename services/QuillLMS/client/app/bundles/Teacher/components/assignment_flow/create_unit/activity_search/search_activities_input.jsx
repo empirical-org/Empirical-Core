@@ -5,12 +5,12 @@ const searchIconSrc = `${process.env.CDN_URL}/images/icons/search.svg`
 
 const SearchActivitiesInput = ({ searchQuery, updateSearchQuery, }) => (
   <div className="search-activities">
-    <img src={searchIconSrc} alt="Magnifying glass" />
+    <img alt="Magnifying glass" src={searchIconSrc} />
     <Input
-      value={searchQuery}
       handleChange={updateSearchQuery}
       label="Search concepts and activities"
       placeholder="e.g., Adjectives"
+      value={searchQuery}
     />
   </div>
 )

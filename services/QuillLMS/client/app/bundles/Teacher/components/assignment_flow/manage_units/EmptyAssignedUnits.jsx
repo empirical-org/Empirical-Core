@@ -15,16 +15,16 @@
 
    render: function () {
  		return (
-        <div className="container">
-          <div className="row empty-state-manager">
-            <div className="col-xs-7">
-              <p>Welcome! This is where your assigned activity packs are stored, but it's empty at the moment.</p>
-              <p>Let's add your first activity.</p>
-            </div>
-            <div className="col-xs-4">
-              <button onClick={this.handleClick} className="button-green create-unit featured-button">Assign An Activity</button>
-            </div>
-          </div>
-        </div>
+   <div className="container">
+     <div className="row empty-state-manager">
+       <div className="col-xs-7">
+         <p>Welcome! This is where your assigned activity packs are stored, but it's empty at the moment.</p>
+         <p>Let's add your first activity.</p>
+       </div>
+       <div className="col-xs-4">
+         <button className="button-green create-unit featured-button" onClick={this.handleClick}>Assign An Activity</button>
+       </div>
+     </div>
+   </div>
     )}
 })

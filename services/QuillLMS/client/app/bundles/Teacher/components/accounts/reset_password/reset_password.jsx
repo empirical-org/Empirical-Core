@@ -81,28 +81,28 @@ export default class ForgotPassword extends React.Component {
         <h1>Reset Password</h1>
 
         <div className="form-container">
-          <form onSubmit={this.handleSubmit} acceptCharset="UTF-8" >
+          <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
             <input name="utf8" type="hidden" value="✓" />
-            <input value={authToken} type="hidden" name="authenticity_token" />
+            <input name="authenticity_token" type="hidden" value={authToken} />
             <Input
-              label="New password"
-              value={password}
-              handleChange={this.handlePasswordChange}
-              type="password"
               className="password inspectletIgnore"
               error={errors.password}
+              handleChange={this.handlePasswordChange}
+              label="New password"
               timesSubmitted={timesSubmitted}
+              type="password"
+              value={password}
             />
             <Input
-              label="Confirm password"
-              value={passwordConfirmation}
-              handleChange={this.handlePasswordConfirmationChange}
-              type="password"
               className="password-confirmation inspectletIgnore"
               error={errors.password_confirmation}
+              handleChange={this.handlePasswordConfirmationChange}
+              label="Confirm password"
               timesSubmitted={timesSubmitted}
+              type="password"
+              value={passwordConfirmation}
             />
-            <input type="submit" name="commit" value="Save and log in" className={this.submitClass()} />
+            <input className={this.submitClass()} name="commit" type="submit" value="Save and log in" />
           </form>
         </div>
 

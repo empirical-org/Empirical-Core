@@ -2,10 +2,10 @@ import * as React from 'react'
 const classroomActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/classroom-activities.svg`
 
 const ExploreActivitiesModal = (props) => {
-  return <div className="modal-container explore-activities-modal-container">
+  return (<div className="modal-container explore-activities-modal-container">
     <div className="modal-background" />
     <div className="explore-activities-modal quill-modal">
-      <img src={classroomActivitiesSrc} alt="teacher at projector in classroom" />
+      <img alt="teacher at projector in classroom" src={classroomActivitiesSrc} />
       <div className="modal-body">
         <div>
           <h3 className="title">Find the perfect writing activities</h3>
@@ -15,11 +15,11 @@ const ExploreActivitiesModal = (props) => {
         </div>
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={props.cancel}>Not now</button>
-          <a href="/assign" className="quill-button contained primary medium">Explore activities</a>
+          <a className="quill-button contained primary medium" href="/assign">Explore activities</a>
         </div>
       </div>
     </div>
-  </div>
+  </div>)
 }
 
 export default ExploreActivitiesModal

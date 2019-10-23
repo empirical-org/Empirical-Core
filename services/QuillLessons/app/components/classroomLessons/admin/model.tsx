@@ -78,39 +78,39 @@ class AdminModel extends Component<AdminModelProps, AdminModelState>{
   render() {
     return (
       <div style={{marginTop: 30, marginBottom: 30}}>
-      <div className="admin-slide-preview">
-        <div className="scaler">
-          <StudentModel data={this.state.question} />
+        <div className="admin-slide-preview">
+          <div className="scaler">
+            <StudentModel data={this.state.question} />
+          </div>
         </div>
-      </div>
         <div className="field">
           <label className="label">Title</label>
           <div className="control">
-            <input value={this.state.question.teach.title} onChange={this.handleTitleChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleTitleChange} placeholder="Text input" type="text" value={this.state.question.teach.title} />
           </div>
         </div>
         <div className="field">
           <label className="label">Prompt</label>
           <div className="control">
             <MultipleTextEditor
-              text={this.state.question.play.prompt}
               handleTextChange={(e) => this.handlePromptChange(e)}
+              text={this.state.question.play.prompt}
             />
           </div>
         </div>
         <div className="field">
           <label className="label">Instructions (Optional)</label>
           <div className="control">
-            <input value={this.state.question.play.instructions} onChange={this.handleInstructionsChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleInstructionsChange} placeholder="Text input" type="text" value={this.state.question.play.instructions} />
           </div>
         </div>
         <div className="field">
           <label className="label">Cues comma separated (Optional)</label>
           <div className="control">
-            <input value={Object.values(this.state.question.play.cues || {}).join(',')} onChange={this.handleCuesChange} className="input" type="text" placeholder="Text input"/>
+            <input className="input" onChange={this.handleCuesChange} placeholder="Text input" type="text" value={Object.values(this.state.question.play.cues || {}).join(',')} />
           </div>
         </div>
-        <button className="button is-primary" style={{marginTop: 10}} onClick={this.save}>Save Changes</button>
+        <button className="button is-primary" onClick={this.save} style={{marginTop: 10}}>Save Changes</button>
       </div>
     )
   }

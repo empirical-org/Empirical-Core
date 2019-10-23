@@ -23,11 +23,11 @@ export function firebaseAuth() {
             const currentUser = firebase.auth().currentUser
             if (currentUser) {
               currentUser.getToken().then((token) => {
-                console.log(jwt_decode(token));
+                // to do - do something with this token
               });
             }
           }).catch((error) => {
-            console.log("Failed to create token", error.message)
+            // to do - do something with this error
           })
         })
     }

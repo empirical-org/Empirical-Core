@@ -8,15 +8,15 @@ import DistrictStandardsReportsProgressReport from './DistrictStandardsReports';
 import ActivityScoresStudentOverview from '../components/activity_scores_student_overview.tsx';
 
 const AdminDashboardRouter = props => (
-  <Router Router history={browserHistory}>
-      <Route path="teachers/admin_dashboard" component={AdminDashboardContainer} >
-        <IndexRoute component={AdminDashboard} adminId={props.id} />
-        <Route path="district_activity_scores" component={DistrictActivityScoresProgressReport} />
-        <Route path="district_activity_scores/student_overview" component={ActivityScoresStudentOverview} />
-        <Route path="district_concept_reports" component={DistrictConceptReportsProgressReport} />
-        <Route path="district_standards_reports" component={DistrictStandardsReportsProgressReport} />
-      </Route>
-    </Router>
+  <Router history={browserHistory} Router>
+    <Route component={AdminDashboardContainer} path="teachers/admin_dashboard" >
+      <IndexRoute adminId={props.id} component={AdminDashboard} />
+      <Route component={DistrictActivityScoresProgressReport} path="district_activity_scores" />
+      <Route component={ActivityScoresStudentOverview} path="district_activity_scores/student_overview" />
+      <Route component={DistrictConceptReportsProgressReport} path="district_concept_reports" />
+      <Route component={DistrictStandardsReportsProgressReport} path="district_standards_reports" />
+    </Route>
+  </Router>
   );
 
 export default AdminDashboardRouter;

@@ -29,7 +29,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
   renderLabel(concept: Concept) {
     return (
       <p className="menu-label">
-      {concept.displayName}
+        {concept.displayName}
       </p>
     );
   }
@@ -46,11 +46,11 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
         const formattedPrompt = question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")
         return (
           <LinkListItem
-            key={question.key}
-            itemKey={question.key}
             basePath={this.props.basePath}
-            text={formattedPrompt}
+            itemKey={question.key}
+            key={question.key}
             subpath={'responses'}
+            text={formattedPrompt}
           />
         );
       }
@@ -76,7 +76,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
     const questions = hashToCollection(this.props.questions);
     let count = 0
     return concepts.sort((a: Concept, b: Concept) => a.displayName.localeCompare(b.displayName)).map((concept: Concept) => {
-      count++
+      count+=1
       const label = this.renderLabel(concept);
       const questionsForConcept = questions.filter(q => q.concept_uid === concept.uid)
       return this.renderConceptWithQuestions(questionsForConcept, label, count);
@@ -85,7 +85,7 @@ export default class QuestionListByConcept extends React.Component<QuestionListB
 
   renderQuestionsWithoutValidKey() {
     if (!this.props.displayNoConceptQuestions) {
-      return (<div></div>)
+      return (<div />)
     } else {
       const concepts = hashToCollection(this.props.concepts.data['0']);
       const questions = hashToCollection(this.props.questions.data);

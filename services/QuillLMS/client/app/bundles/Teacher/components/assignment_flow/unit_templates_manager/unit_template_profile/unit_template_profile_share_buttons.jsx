@@ -47,7 +47,7 @@ export default React.createClass({
     ];
 
     const links = _.map(stuff, hash => (
-      <a href={hash.href} key={hash.title} title={hash.title} className={`btn btn-default btn-social ${hash.className}`} target="_blank">
+      <a className={`btn btn-default btn-social ${hash.className}`} href={hash.href} key={hash.title} target="_blank" title={hash.title}>
         <i className={`fa ${hash.icon}`} /><span className="social-action">{hash.action}</span>
       </a>
       ));

@@ -235,41 +235,41 @@ const Lesson = React.createClass({
           component = (
             <PlaySentenceFragment
               currentKey={question.key}
-              question={question}
-              nextQuestion={this.nextQuestion}
-              key={question.key}
-              marking="diagnostic"
-              updateAttempts={this.submitResponse}
-              markIdentify={this.markIdentify}
               dispatch={this.props.dispatch}
+              key={question.key}
+              markIdentify={this.markIdentify}
+              marking="diagnostic"
+              nextQuestion={this.nextQuestion}
+              question={question}
+              updateAttempts={this.submitResponse}
             />
           );
         } else if (type === 'FB') {
           component = (
             <PlayFillInTheBlankQuestion
+              dispatch={this.props.dispatch}
               key={question.key}
-              question={question}
               nextQuestion={this.nextQuestion}
               prefill={this.getLesson().prefill}
-              dispatch={this.props.dispatch}
+              question={question}
               submitResponse={this.submitResponse}
             />
           );
         } else if (type === 'TL'){
           component = (
             <PlayTitleCard
-              nextQuestion={this.nextQuestion}
               data={question}
+              nextQuestion={this.nextQuestion}
             />
           )
         } else {
           component = (
             <PlayLessonQuestion
+              dispatch={this.props.dispatch}
               key={question.key}
-              question={question}
               nextQuestion={this.nextQuestion}
               prefill={this.getLesson().prefill}
-              dispatch={this.props.dispatch}
+              question={question}
             />
           );
         }
@@ -277,22 +277,22 @@ const Lesson = React.createClass({
         component = (
           <Finished
             data={this.props.playLesson}
-            name={this.state.sessionID}
-            lessonID={this.props.params.lessonID}
-            saveToLMS={this.saveToLMS}
-            saved={this.state.saved}
             error={this.state.error}
+            lessonID={this.props.params.lessonID}
+            name={this.state.sessionID}
+            saved={this.state.saved}
+            saveToLMS={this.saveToLMS}
           />
         );
       } else {
         component = (
-          <Register lesson={this.getLesson()} startActivity={this.startActivity} session={this.state.session} resumeActivity={this.resumeSession} />
+          <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={this.state.session} startActivity={this.startActivity} />
         );
       }
 
       return (
         <div>
-          <progress className="progress diagnostic-progress" value={this.getProgressPercent()} max="100">15%</progress>
+          <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
               {component}

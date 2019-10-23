@@ -8,11 +8,11 @@ const FlagDropdown = (props) => {
       {label}
       <span className="select">
         <select defaultValue={props.flag} onChange={props.handleFlagChange}>
-        {allFlags}
-        <option value="alpha">alpha</option>
-        <option value="beta">beta</option>
-        <option value="production">production</option>
-        <option value="archived">archived</option>
+          {allFlags}
+          <option value="alpha">alpha</option>
+          <option value="beta">beta</option>
+          <option value="production">production</option>
+          <option value="archived">archived</option>
         </select>
       </span>
     </p>

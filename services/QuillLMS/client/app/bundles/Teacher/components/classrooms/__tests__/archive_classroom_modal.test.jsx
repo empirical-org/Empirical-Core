@@ -9,9 +9,9 @@ describe('ArchiveClassroomModal component', () => {
 
   const wrapper = shallow(
     <ArchiveClassroomModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
     />
   );
 

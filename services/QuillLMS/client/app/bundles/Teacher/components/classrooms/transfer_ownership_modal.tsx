@@ -54,7 +54,7 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }
@@ -71,7 +71,7 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
 
   render() {
     const { coteacher, close, classroom } = this.props
-    return <div className="modal-container transfer-ownership-modal-container">
+    return (<div className="modal-container transfer-ownership-modal-container">
       <div className="modal-background" />
       <div className="transfer-ownership-modal quill-modal modal-body">
         <div>
@@ -84,6 +84,6 @@ export default class TransferOwnershipModal extends React.Component<TransferOwne
           <button className={this.submitButtonClass()} onClick={this.transferOwnership}>Transfer class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

@@ -20,7 +20,7 @@ export default React.createClass({
       } else {
         arrowDirection = 'up';
       }
-      arrowIfSortable = <i className= {`fa fa-caret-${arrowDirection}`} />
+      arrowIfSortable = <i className={`fa fa-caret-${arrowDirection}`} />
     }
     return (
       <th className={`sorter ${this.props.data.className}`} onClick={this.clickSort}>

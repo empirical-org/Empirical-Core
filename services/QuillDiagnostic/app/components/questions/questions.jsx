@@ -207,9 +207,9 @@ class Questions extends React.Component {
               <label className="label">Name</label>
               <input
                 className="input"
-                type="text"
                 placeholder="Text input"
                 ref="newQuestionName"
+                type="text"
               />
             </p>
             <p className="control">
@@ -260,7 +260,7 @@ class Questions extends React.Component {
         }
         return { name, value: opt.key || 'key', };
       });
-      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange} />);
+      const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
   }
@@ -276,18 +276,18 @@ class Questions extends React.Component {
             { this.renderSearchBox() }
             <br />
             <label className="checkbox">
-              <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} />
+              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
               Display questions with no valid concept
             </label>
-            <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
+            <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
-              questions={this.state.diagnosticQuestions}
+              basePath={'questions'}
               concepts={concepts}
               displayNoConceptQuestions={this.state.displayNoConceptQuestions}
+              questions={this.state.diagnosticQuestions}
               showOnlyArchived={this.state.showOnlyArchived}
-              basePath={'questions'}
             />
 
           </div>

@@ -199,11 +199,11 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     const teachers = [owner].concat(alphabeticalCoteachers)
 
     const rows = teachers.map(teacher => this.renderTeacherRow(teacher))
-    return <DataTable
+    return (<DataTable
       headers={classroom.visible ? activeHeaders : archivedHeaders}
       rows={rows}
       showActions={classroom.visible}
-    />
+    />)
   }
 
   renderRemoveCoteacherModal() {
@@ -211,12 +211,12 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     const { showModal, selectedCoteacherId } = this.state
     if (showModal === removeCoteacherModal && selectedCoteacherId) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
-      return <RemoveCoteacherModal
-        close={this.closeModal}
-        onSuccess={onSuccess}
-        coteacher={coteacher}
+      return (<RemoveCoteacherModal
         classroom={classroom}
-      />
+        close={this.closeModal}
+        coteacher={coteacher}
+        onSuccess={onSuccess}
+      />)
     }
   }
 
@@ -225,12 +225,12 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     const { showModal, selectedCoteacherId } = this.state
     if (showModal === transferOwnershipModal && selectedCoteacherId) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
-      return <TransferOwnershipModal
-        close={this.closeModal}
-        onSuccess={onSuccess}
-        coteacher={coteacher}
+      return (<TransferOwnershipModal
         classroom={classroom}
-      />
+        close={this.closeModal}
+        coteacher={coteacher}
+        onSuccess={onSuccess}
+      />)
     }
   }
 
@@ -239,13 +239,13 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
     const { showModal, selectedCoteacherId } = this.state
     if (showModal === inviteCoteachersModal) {
       const coteacher = classroom.teachers.find(t => t.id === selectedCoteacherId)
-      return <InviteCoteachersModal
-        close={this.closeModal}
-        classrooms={this.classroomsOwnedByCurrentUser()}
+      return (<InviteCoteachersModal
         classroom={classroom}
-        onSuccess={onSuccess}
+        classrooms={this.classroomsOwnedByCurrentUser()}
+        close={this.closeModal}
         coteacher={coteacher}
-      />
+        onSuccess={onSuccess}
+      />)
     }
   }
 
@@ -259,7 +259,7 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
   }
 
   render() {
-    return <div className="teacher-section">
+    return (<div className="teacher-section">
       {this.renderRemoveCoteacherModal()}
       {this.renderTransferOwnershipModal()}
       {this.renderInviteCoteachersModal()}
@@ -268,6 +268,6 @@ export default class ClassroomTeacherSection extends React.Component<ClassroomTe
         {this.renderInviteCoteachersButton()}
       </div>
       {this.renderTeachers()}
-    </div>
+    </div>)
   }
 }

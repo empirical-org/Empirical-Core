@@ -34,8 +34,8 @@ export default React.createClass({
       }
     }
     const obj = this.props.data.activity_description;
-    const objSection = obj ? <p><strong>Objectives:</strong>{` ${obj}`}</p> : <span/>
-    const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}</p> : <span/>
+    const objSection = obj ? <p><strong>Objectives:</strong>{` ${obj}`}</p> : <span />
+    const dateSection = dateTitle ? <p><strong>{`${dateTitle}: `}</strong>{`${moment(dateBody).format('MMMM D, YYYY')}`}</p> : <span />
     return (
       <div className="activity-detail">
         {objSection}

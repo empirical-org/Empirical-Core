@@ -180,13 +180,13 @@ describe('DataTable component', () => {
   describe('with checkboxes', () => {
     const wrapper = shallow(
       <DataTable
-        rows={rows2}
-        headers={headers2}
-        showCheckboxes={true}
-        checkRow={() => {}}
-        uncheckRow={() => {}}
-        uncheckAllRows={() => {}}
         checkAllRows={() => {}}
+        checkRow={() => {}}
+        headers={headers2}
+        rows={rows2}
+        showCheckboxes={true}
+        uncheckAllRows={() => {}}
+        uncheckRow={() => {}}
       />
     )
 
@@ -198,9 +198,9 @@ describe('DataTable component', () => {
   describe('with sorting', () => {
     const wrapper = shallow(
       <DataTable
-        rows={rows3}
-        headers={headers3}
         defaultSortAttribute='activities'
+        headers={headers3}
+        rows={rows3}
       />
     )
 
@@ -219,10 +219,10 @@ describe('DataTable component', () => {
   describe('with remove icons', () => {
     const wrapper = shallow(
       <DataTable
-        rows={rows3}
         headers={headers3}
-        showRemoveIcon={true}
         removeRow={() => {}}
+        rows={rows3}
+        showRemoveIcon={true}
       />
     )
 
@@ -238,8 +238,8 @@ describe('DataTable component', () => {
   describe('with actions', () => {
     const wrapper = shallow(
       <DataTable
-        rows={rows4}
         headers={headers3}
+        rows={rows4}
         showActions={true}
       />
     )

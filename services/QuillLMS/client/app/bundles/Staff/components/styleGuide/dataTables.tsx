@@ -186,13 +186,13 @@ class DataTables extends React.Component<any, any> {
       return row
     })
 
-    return <div id="data-tables">
+    return (<div id="data-tables">
       <h2 className="style-guide-h2">Data Tables</h2>
       <div className="element-container">
         <div>
           <h4 className="style-guide-h4">Data table</h4>
           <pre>
-{`
+            {`
 const rows1 = ${JSON.stringify(rows1)}
 const headers1 = ${JSON.stringify(headers1)}
 <DataTable
@@ -203,8 +203,8 @@ const headers1 = ${JSON.stringify(headers1)}
           </pre>
           <div className="data-tables-container">
             <DataTable
-              rows={rows1}
               headers={headers1}
+              rows={rows1}
             />
           </div>
         </div>
@@ -213,7 +213,7 @@ const headers1 = ${JSON.stringify(headers1)}
         <div>
           <h4 className="style-guide-h4">Data table: Checkboxes</h4>
           <pre>
-{`
+            {`
 const rows2 = ${JSON.stringify(rows2)}
 const headers2 = ${JSON.stringify(headers2)}
 
@@ -272,13 +272,13 @@ export class DataTableWrapper {
           </pre>
           <div className="data-tables-container">
             <DataTable
-              rows={checkedRows}
-              headers={headers2}
-              showCheckboxes={true}
-              checkRow={this.checkRow}
-              uncheckRow={this.uncheckRow}
-              uncheckAllRows={this.uncheckAllRows}
               checkAllRows={this.checkAllRows}
+              checkRow={this.checkRow}
+              headers={headers2}
+              rows={checkedRows}
+              showCheckboxes={true}
+              uncheckAllRows={this.uncheckAllRows}
+              uncheckRow={this.uncheckRow}
             />
           </div>
         </div>
@@ -287,7 +287,7 @@ export class DataTableWrapper {
         <div>
           <h4 className="style-guide-h4">Short data table with sorting</h4>
           <pre>
-{`
+            {`
 const rows3 = ${JSON.stringify(rows3)}
 const headers3 = ${JSON.stringify(headers3)}
 <DataTable
@@ -301,14 +301,14 @@ const headers3 = ${JSON.stringify(headers3)}
           <div className="data-tables-container">
             <DataTable
               className="short"
-              rows={rows3}
-              headers={headers3}
               defaultSortAttribute='activities'
+              headers={headers3}
+              rows={rows3}
             />
           </div>
         </div>
       </div>
-    </div>
+    </div>)
   }
 
 }

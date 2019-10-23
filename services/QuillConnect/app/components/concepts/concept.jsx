@@ -48,7 +48,7 @@ const Concept = React.createClass({
   },
 
   renderNewQuestionForm: function () {
-    return <QuestionForm new={true} itemLevels={this.props.itemLevels} question={{}} submit={this.submitNewQuestion} />
+    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
   },
 
   render: function (){
@@ -56,7 +56,7 @@ const Concept = React.createClass({
     if (this.getConcept()) {
       return (
         <div>
-          <Link to ={'admin/concepts'}>Return to All Concepts</Link>
+          <Link to={'admin/concepts'}>Return to All Concepts</Link>
           <h4 className="title">{this.getConcept().displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           {this.renderNewQuestionForm()}
