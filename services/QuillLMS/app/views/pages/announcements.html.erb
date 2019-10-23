@@ -1,4 +1,4 @@
-<% @active_tab = 'Announcements' %>
+<% @active_tab = BlogPost::WHATS_NEW %>
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 <div class="container">
   <%= react_component('AnnouncementsApp', props: {blogPosts: @blog_posts})%>
