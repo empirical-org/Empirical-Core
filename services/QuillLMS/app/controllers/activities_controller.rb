@@ -6,7 +6,8 @@ class ActivitiesController < ApplicationController
   DIAGNOSTIC = 'diagnostic'
 
   def search
-    search_result = Activity.search_results(current_user&.testing_flag)
+    flag = params[:flag] || current_user&.testing_flag
+    search_result = Activity.search_results(flag)
     render json: search_result.to_json
   end
 
