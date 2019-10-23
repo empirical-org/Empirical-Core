@@ -60,17 +60,17 @@ module PagesHelper
           {
             name: 'Daniel Drabik',
             title: 'Vice President of Engineering',
-            img: 'team-daniel-drabik.jpg'
+            img: 'team-daniel-drabik@2x.png'
           },
           {
             name: 'Peter Gault',
             title: 'Executive Director, Cofounder',
-            img: 'team-peter-gault.jpg'
+            img: 'team-peter-gault@2x.png'
           },
           {
             name: 'Sara Jeruss',
             title: 'Chief Operating Officer',
-            img: 'team-sara-jeruss.jpg'
+            img: 'team-sara-jeruss@2x.png'
           }
         ]
       },
@@ -81,67 +81,67 @@ module PagesHelper
           {
             name: 'Tom Calabrese',
             title: 'Product Designer',
-            img: 'team-tom-calabrese.jpg'
+            img: 'team-tom-calabrese@2x.png'
           },
           {
             name: 'Christina Collins',
             title: 'Head of School Success',
-            img: 'team-christina-collins.jpg'
+            img: 'team-christina-collins@2x.png'
           },
           {
             name: 'Rachel Dantzler',
             title: 'Editorial and Outreach Associate',
-            img: 'team-rachel-dantzler.jpg'
+            img: 'team-rachel-dantzler@2x.png'
           },
           {
             name: 'Maximilian de Martino',
             title: 'Curriculum Developer',
-            img: 'team-maximilian-de-martino.jpg'
+            img: 'team-maximilian-de-martino@2x.png'
           },
           {
             name: 'Haronil Estevez',
             title: 'Senior Software Developer',
-            img: 'team-haronil-estevez.jpg'
+            img: 'team-haronil-estevez@2x.png'
           },
           {
             name: 'Emilia Friedberg',
             title: 'Software Developer',
-            img: 'team-emilia-friedberg.jpg'
+            img: 'team-emilia-friedberg@2x.png'
           },
           {
             name: 'Maddy Maher',
             title: 'Outreach Lead',
-            img: 'team-maddy-maher.jpg'
+            img: 'team-maddy-maher@2x.png'
           },
           {
             name: 'Hannah Monk',
             title: 'Curriculum Director',
-            img: 'team-hannah-monk.jpg'
+            img: 'team-hannah-monk@2x.png'
           },
           {
             name: 'Lindsey Murphy',
             title: 'Lead Curriculum Developer',
-            img: 'team-lindsey-murphy.jpg'
+            img: 'team-lindsey-murphy@2x.png'
           },
           {
             name: 'Yves Peirsman',
             title: 'AI Open Source Partner',
-            img: 'team-yves-peirsman.jpg'
+            img: 'team-yves-peirsman@2x.png'
           },
           {
             name: 'Thomas Robertson',
             title: 'Senior Web Developer',
-            img: 'team-thomas-robertson.jpg'
+            img: 'team-thomas-robertson@2x.png'
           },
           {
             name: 'Emma Volk',
             title: 'Curriculum Developer',
-            img: 'team-emma-volk.jpg'
+            img: 'team-emma-volk@2x.png'
           },
           {
             name: 'Rhea Wong',
             title: 'Director of Strategic Initiatives',
-            img: 'team-rhea-wong.jpg'
+            img: 'team-rhea-wong@2x.png'
           }
         ]
       }
@@ -156,42 +156,42 @@ module PagesHelper
           {
             name: 'Stephanie Cohen',
             title: 'Chief Strategy Officer at Goldman Sachs',
-            img: 'board-stephanie-cohen.jpg'
+            img: 'board-stephanie-cohen@2x.png'
           },
           {
             name: 'Reuben Gutoff',
             title: 'Retired Vice President at General Electric',
-            img: 'board-reuben-gutoff.jpg'
+            img: 'board-reuben-gutoff@2x.png'
           },
           {
             name: 'Rhys Kidd',
             title: 'Vice President at Macquarie Group',
-            img: 'board-rhys-kidd.jpg'
+            img: 'board-rhys-kidd@2x.png'
           },
           {
             name: 'Jane Parver',
             title: 'Partner at Kaye Scholer',
-            img: 'board-jane-parver.jpg'
+            img: 'board-jane-parver@2x.png'
           },
           {
             name: 'Matthew Rodriguez',
             title: 'Managing Director at BlackRock',
-            img: 'board-matthew-rodriguez.jpg'
+            img: 'board-matthew-rodriguez@2x.png'
           },
           {
             name: 'Ben Sussman',
             title: 'Engineer at Spell',
-            img: 'board-ben-sussman.jpg'
+            img: 'board-ben-sussman@2x.png'
           },
           {
             name: 'Peg Tyre',
             title: 'Director of Strategy at The Edwin Gould Foundation',
-            img: 'board-peg-tyre.jpg'
+            img: 'board-peg-tyre@2x.png'
           },
           {
             name: 'Paul Walker',
             title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
-            img: 'board-paul-walker.jpg'
+            img: 'board-paul-walker@2x.png'
           }
         ]
       },
@@ -201,17 +201,17 @@ module PagesHelper
           {
             name: 'Donald McKendrick',
             title: 'Software Engineer at One Medical',
-            img: 'advisor-donald-mckendrick.jpg'
+            img: 'advisor-donald-mckendrick@2x.png'
           },
           {
             name: 'Jane Nevins',
             title: 'Director of Giving at Freedom for All Americans',
-            img: 'advisor-jane-nevins.jpg'
+            img: 'advisor-jane-nevins@2x.png'
           },
           {
             name: 'Alex Redmon',
             title: 'Senior Software Engineer at Cylera',
-            img: 'advisor-alex-redmon.jpg'
+            img: 'advisor-alex-redmon@2x.png'
           },
           {
             name: 'John Silberstein',
@@ -221,7 +221,7 @@ module PagesHelper
           {
             name: 'Emily Dalton Smith',
             title: 'Director of Social Impact  Product at Facebook',
-            img: 'advisor-emily-dalton-smith.jpg'
+            img: 'advisor-emily-dalton-smith@2x.png'
           }
         ]
       }
