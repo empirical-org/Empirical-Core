@@ -24,6 +24,7 @@
   p.img-caption {
     margin-top: 4px !important;
     font-size: 14px !important;
+    margin-bottom: 0px;
   }
 
   .cta-banner {
@@ -75,10 +76,6 @@
     div:nth-child(n+2), img:nth-child(n+2) {
       margin-left: 150px;
     }
-
-    img {
-      width: auto;
-    }
   }
 
   .flex-reverse {
@@ -91,17 +88,16 @@
   }
 
   .img-gallery {
+    width: 100%;
     .img-row {
       display: flex;
-      padding-top: 54px;
+      padding-top: 40px;
 
       div:nth-child(1n+2) {
         padding-left: 40px;
       }
 
       img {
-        height: auto;
-        width: auto;
         max-width: 100%;
       }
     }
@@ -111,6 +107,10 @@
   .job-listings {
     margin-top: 120px;
     margin-bottom: 80px;
+
+    h2 {
+      margin-top: 0px !important;
+    }
 
     .job-board {
       display: flex;
@@ -184,8 +184,6 @@
     }
 
     img {
-      width: 100%;
-      height: auto;
       max-width: 100%;
     }
 

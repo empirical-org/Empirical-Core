@@ -151,7 +151,7 @@ module PagesHelper
   def board_and_advisors_info
     [
       {
-        team: 'Board of directors',
+        team: 'Board of Directors',
         members: [
           {
             name: 'Stephanie Cohen',
