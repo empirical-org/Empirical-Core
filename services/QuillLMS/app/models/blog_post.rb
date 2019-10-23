@@ -1,6 +1,41 @@
 class BlogPost < ActiveRecord::Base
-  TOPICS = ["Getting Started", "Teacher Stories", "Writing Instruction Research", "Announcements", "Press", "Case Studies", "Teacher Materials", "Best Practices", "Support", "Webinars", "Twitter Love", "Video Tutorials", "What's New"]
-  STUDENT_TOPICS = ['Student Getting Started', 'Student How To']
+  GETTING_STARTED = "Getting started"
+  TEACHER_STORIES = "Teacher stories"
+  WRITING_INSTRUCTION_RESEARCH = "Writing instruction research"
+  PRESS_RELEASES = "Press releases"
+  IN_THE_NEWS = "In the news"
+  CASE_STUDIES = "Case studies"
+  TEACHER_MATERIALS = "Teacher materials"
+  BEST_PRACTICES = "Best practices"
+  SUPPORT = "Support"
+  WEBINARS = "Webinars"
+  TWITTER_LOVE = "Twitter love"
+  VIDEO_TUTORIALS = "Video tutorials"
+  WHATS_NEW = "What's new?"
+
+  STUDENT_GETTING_STARTED = 'Student getting started'
+  STUDENT_HOW_TO = 'Student how to'
+
+  HOW_TO = 'How to'
+  ALL_RESOURCES = 'All resources'
+
+  TOPICS = [
+    GETTING_STARTED,
+    TEACHER_STORIES,
+    WRITING_INSTRUCTION_RESEARCH,
+    PRESS_RELEASES,
+    IN_THE_NEWS,
+    CASE_STUDIES,
+    TEACHER_MATERIALS,
+    BEST_PRACTICES,
+    SUPPORT,
+    WEBINARS,
+    TWITTER_LOVE,
+    VIDEO_TUTORIALS,
+    WHATS_NEW
+  ]
+
+  STUDENT_TOPICS = [STUDENT_GETTING_STARTED, STUDENT_HOW_TO]
 
   before_create :generate_slug, :set_order_number
 

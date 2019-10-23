@@ -14,8 +14,8 @@ describe('Teacher Center Navbar', function() {
     cy.url().should('include', '/teacher-center/topic/getting-started')
   })
 
-  it('has a link to the Teacher Stories page', function() {
-    cy.get('.q-nav-bar > .desktop-nav-list').contains('Teacher Stories').click({force: true})
+  it('has a link to the Teacher stories page', function() {
+    cy.get('.q-nav-bar > .desktop-nav-list').contains('Teacher stories').click({force: true})
     cy.url().should('include', '/teacher-center/topic/teacher-stories')
   })
 

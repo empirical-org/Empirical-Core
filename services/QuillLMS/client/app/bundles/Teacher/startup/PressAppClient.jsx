@@ -17,7 +17,7 @@ export default (props) => {
     <img src="https://assets.quill.org/images/illustrations/empty-state-premium-reports.svg" style={{marginTop: '20px'}} />
   </div>)
     return (<div className="press-page">
-      <HeaderSection subtitle="Read articles that feature Quill" title="In the Press" />
+      <HeaderSection subtitle="Read articles that feature Quill" title="In the news" />
       {content}
     </div>)
 
