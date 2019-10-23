@@ -46,46 +46,14 @@ export default class extends React.Component {
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
       tweetAuthor: 'EdSurge',
       premium: p ? p.premium : false,
+      pressName: p ? p.press_name : null,
       publishedAt: p ? p.published_at : null,
       externalLink: p ? p.external_link : null,
       centerImages: p ? p.center_images : false
     };
-
-    this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.handleSubtitleChange = this.handleSubtitleChange.bind(this)
-    this.handleImageLinkChange = this.handleImageLinkChange.bind(this)
-    this.handleBodyChange = this.handleBodyChange.bind(this)
-    this.handleSubmitClick = this.handleSubmitClick.bind(this)
-    this.handleTopicChange = this.handleTopicChange.bind(this)
-    this.handleExternalLinkChange = this.handleExternalLinkChange.bind(this)
-    this.handleAuthorChange = this.handleAuthorChange.bind(this)
-    this.handleCustomPreviewChange = this.handleCustomPreviewChange.bind(this)
-    this.handlePreviewCardTypeChange = this.handlePreviewCardTypeChange.bind(this)
-    this.handleBlogPostPreviewImageChange = this.handleBlogPostPreviewImageChange.bind(this)
-    this.handleBlogPostPreviewTitleChange = this.handleBlogPostPreviewTitleChange.bind(this)
-    this.handleBlogPostPreviewDescriptionChange = this.handleBlogPostPreviewDescriptionChange.bind(this)
-    this.updatePreviewCardFromBlogPostPreview = this.updatePreviewCardFromBlogPostPreview.bind(this)
-    this.renderPreviewCardContentFields = this.renderPreviewCardContentFields.bind(this)
-    this.updatePreviewCardVideoLink = this.updatePreviewCardVideoLink.bind(this)
-    this.updatePreviewCardVideoDescription = this.updatePreviewCardVideoDescription.bind(this)
-    this.updatePreviewCardVideoContent = this.updatePreviewCardVideoContent.bind(this)
-    this.updateTweetLink = this.updateTweetLink.bind(this)
-    this.updateTweetImage = this.updateTweetImage.bind(this)
-    this.updateTweetText = this.updateTweetText.bind(this)
-    this.updateTweetAuthor = this.updateTweetAuthor.bind(this)
-    this.updatePreviewCardTweetContent = this.updatePreviewCardTweetContent.bind(this)
-    this.handlePremiumChange = this.handlePremiumChange.bind(this)
-    this.handleCenterImagesChange = this.handleCenterImagesChange.bind(this)
-    this.renderArticleMarkdownOrPreview = this.renderArticleMarkdownOrPreview.bind(this)
-    this.hideArticlePreview = this.hideArticlePreview.bind(this)
-    this.showArticlePreview = this.showArticlePreview.bind(this)
-    this.updatePublishedAt = this.updatePublishedAt.bind(this)
-    this.goToPreview = this.goToPreview.bind(this)
-    this.onDrop = this.onDrop.bind(this)
-    this.handlePreviewCardButtonTextChange = this.handlePreviewCardButtonTextChange.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.updatePreviewCardBasedOnType();
     if(this.props.action === 'new') {
       this.setState({ previewCardHasAlreadyBeenManuallyEdited: false });
@@ -94,7 +62,7 @@ export default class extends React.Component {
     }
   }
 
-  appropriatePlaceholderImage() {
+  appropriatePlaceholderImage = () => {
     switch (this.state.preview_card_type) {
       case 'Large Image':
         return 'http://placehold.it/300x200'
@@ -106,15 +74,15 @@ export default class extends React.Component {
     }
   }
 
-  hideArticlePreview() {
+  hideArticlePreview = () => {
     this.setState({showArticlePreview: false})
   }
 
-  showArticlePreview() {
+  showArticlePreview = () => {
     this.setState({showArticlePreview: true})
   }
 
-  handleTitleChange(e) {
+  handleTitleChange = (e) => {
     const targetValue = e.target.value;
     let state = {title: targetValue};
     if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
@@ -127,7 +95,7 @@ export default class extends React.Component {
     });
   }
 
-  handleSubtitleChange(e) {
+  handleSubtitleChange = (e) => {
     const targetValue = e.target.value;
     let state = {subtitle: targetValue};
     if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
@@ -140,7 +108,11 @@ export default class extends React.Component {
     });
   }
 
-  handleImageLinkChange(e) {
+  handlePressNameChange = (e) => {
+    this.setState({ pressName: e.target.value })
+  }
+
+  handleImageLinkChange = (e) => {
     const targetValue = e.target.value;
     let state = { imageLink: targetValue };
     if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
@@ -153,7 +125,7 @@ export default class extends React.Component {
     });
   }
 
-  handleBodyChange(e) {
+  handleBodyChange = (e) => {
     this.setState({body: e.target.value})
     const container = document.getElementById('markdown-content');
     container.rows = 4;
@@ -161,19 +133,19 @@ export default class extends React.Component {
     container.rows = 2 + rows;
   }
 
-  handleTopicChange(e) {
+  handleTopicChange = (e) => {
     this.setState({topic: e})
   }
 
-  handleExternalLinkChange(e) {
+  handleExternalLinkChange = (e) => {
     this.setState({externalLink: e.target.value})
   }
 
-  handleAuthorChange(e) {
+  handleAuthorChange = (e) => {
     this.setState({author_id: e.id}, this.updatePreviewCardFromBlogPostPreview)
   }
 
-  handleCustomPreviewChange(e) {
+  handleCustomPreviewChange = (e) => {
     this.setState({
       preview_card_content: e.target.value,
       custom_preview_card_content: e.target.value,
@@ -185,9 +157,25 @@ export default class extends React.Component {
     container.rows = 2 + rows;
   }
 
-  handleSubmitClick(e, shouldPublish, unpublish = false, callback) {
-    if(unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { e.preventDefault(); return; }
-    e.preventDefault();
+  handleSubmitClick = (e, shouldPublish, unpublish = false, callback) => {
+    const {
+      title,
+      subtitle,
+      imageLink,
+      body,
+      topic,
+      author_id,
+      preview_card_content,
+      premium,
+      publishedAt,
+      externalLink,
+      centerImages,
+      pressName,
+    } = this.state
+
+    e.preventDefault()
+
+    if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
     let action
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
     if (this.props.action === 'new' && !unpublish) {
@@ -196,22 +184,24 @@ export default class extends React.Component {
       action = 'put'
       url += this.props.postToEdit.id
     }
+
     request[action]({
       url,
       form: {
         blog_post: {
-          title: this.state.title,
-          subtitle: this.state.subtitle,
-          image_link: this.state.imageLink,
-          body: this.state.body,
-          topic: this.state.topic,
-          author_id: this.state.author_id,
-          preview_card_content: this.state.preview_card_content,
+          title: title,
+          subtitle: subtitle,
+          image_link: imageLink,
+          body: body,
+          topic: topic,
+          author_id: author_id,
+          preview_card_content: preview_card_content,
           draft: !shouldPublish,
-          premium: this.state.premium,
-          published_at: this.state.publishedAt ? moment(this.state.publishedAt).format() : null,
-          external_link: this.state.externalLink,
-          center_images: this.state.centerImages
+          premium: premium,
+          published_at: publishedAt ? moment(publishedAt).format() : null,
+          external_link: externalLink,
+          center_images: centerImages,
+          press_name: pressName
         },
         authenticity_token: ReactOnRails.authenticityToken()
       }
@@ -230,25 +220,25 @@ export default class extends React.Component {
     })
   }
 
-  renderSaveDraftButton() {
+  renderSaveDraftButton = () => {
     if(this.props.action === 'new' || this.state.draft) {
       return <input onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
     }
   }
 
-  renderUnpublishButton() {
+  renderUnpublishButton = () => {
     if(this.props.action === 'edit' && !this.state.draft) {
       return <input onClick={(e) => { this.handleSubmitClick(e, false, true) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
     }
   }
 
-  renderSaveAndPreviewButton() {
+  renderSaveAndPreviewButton = () => {
     if (this.props.action === 'edit') {
       return <input onClick={(e) => { this.handleSubmitClick(e, !this.state.draft, false, this.goToPreview) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
     }
   }
 
-  goToPreview() {
+  goToPreview = () => {
     let url
     if (this.state.externalLink) {
       url = this.state.externalLink
@@ -260,7 +250,7 @@ export default class extends React.Component {
     window.open(url, '_blank')
   }
 
-  insertMarkdown(startChar, endChar = null) {
+  insertMarkdown = (startChar, endChar = null) => {
     /*
       TODO:
         - Special behaviors:
@@ -285,11 +275,11 @@ export default class extends React.Component {
     this.setState({ body: newValue });
   }
 
-  handlePreviewCardTypeChange(e) {
+  handlePreviewCardTypeChange = (e) => {
     this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
   }
 
-  onDrop(acceptedFiles) {
+  onDrop = (acceptedFiles) => {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
@@ -307,7 +297,7 @@ export default class extends React.Component {
     });
   }
 
-  updatePreviewCardBasedOnType() {
+  updatePreviewCardBasedOnType = () => {
     switch (this.state.preview_card_type) {
       case 'Tiny Image':
       case 'Medium Image':
@@ -328,35 +318,35 @@ export default class extends React.Component {
     }
   }
 
-  handleBlogPostPreviewImageChange(e) {
+  handleBlogPostPreviewImageChange = (e) => {
     this.setState({
       blogPostPreviewImage: e.target.value,
       previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
-  handleBlogPostPreviewTitleChange(e) {
+  handleBlogPostPreviewTitleChange = (e) => {
     this.setState({
       blogPostPreviewTitle: e.target.value,
       previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
-  handleBlogPostPreviewDescriptionChange(e) {
+  handleBlogPostPreviewDescriptionChange = (e) => {
     this.setState({
       blogPostPreviewDescription: e.target.value,
       previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
-  handlePreviewCardButtonTextChange(e) {
+  handlePreviewCardButtonTextChange = (e) => {
     this.setState({
       previewCardButtonText: e.target.value,
       previewCardHasAlreadyBeenManuallyEdited: true
     }, this.updatePreviewCardFromBlogPostPreview)
   }
 
-  updatePreviewCardFromBlogPostPreview() {
+  updatePreviewCardFromBlogPostPreview = () => {
     const author = this.props.authors.find(a => a.id == this.state.author_id)
     const publishDate = this.state.publishedAt
     let footerContent, button
@@ -384,35 +374,35 @@ export default class extends React.Component {
     this.setState({ preview_card_content: previewCardContent })
   }
 
-  updatePreviewCardVideoLink(e) {
+  updatePreviewCardVideoLink = (e) => {
     this.setState({videoLink: e.target.value}, this.updatePreviewCardVideoContent)
   }
 
-  updatePreviewCardVideoDescription(e) {
+  updatePreviewCardVideoDescription = (e) => {
     this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
   }
 
-  updateTweetLink(e) {
+  updateTweetLink = (e) => {
     this.setState({ tweetLink: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updateTweetImage(e) {
+  updateTweetImage = (e) => {
     this.setState({ tweetImage: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updateTweetText(e) {
+  updateTweetText = (e) => {
     this.setState({ tweetText: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updateTweetAuthor(e) {
+  updateTweetAuthor = (e) => {
     this.setState({ tweetAuthor: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updatePublishedAt(e) {
+  updatePublishedAt = (e) => {
     this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
   }
 
-  updatePreviewCardTweetContent() {
+  updatePreviewCardTweetContent = () => {
     const author = this.props.authors.find(a => a.id == this.state.author_id)
     const publishDate = this.state.publishedAt
     let footerContent
@@ -434,7 +424,7 @@ export default class extends React.Component {
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
 
-  updatePreviewCardVideoContent() {
+  updatePreviewCardVideoContent = () => {
     const matchedQueryParameter = this.state.videoLink.match(/\?v=(.*)(\&)/) || this.state.videoLink.match(/\?v=(.*)$/)
     const embedUrl = `https://www.youtube-nocookie.com/embed/${matchedQueryParameter[1]}?rel=0&amp;controls=0&amp;showinfo=0&player=html5`
     const author = this.props.authors.find(a => a.id == this.state.author_id)
@@ -459,7 +449,7 @@ export default class extends React.Component {
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
 
-  renderPreviewCardContentFields() {
+  renderPreviewCardContentFields = () => {
     const preview_card_type = this.state.preview_card_type;
     let contentFields;
     if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
@@ -502,7 +492,7 @@ export default class extends React.Component {
     return (<div id='preview-card-content-fields'>{contentFields}</div>)
   }
 
-  renderPreviewCardTypeDropdown() {
+  renderPreviewCardTypeDropdown = () => {
     return (<div>
       <label>Preview Card Template:</label>
       <ItemDropdown
@@ -513,14 +503,14 @@ export default class extends React.Component {
     </div>)
   }
 
-  renderDatepicker() {
+  renderDatepicker = () => {
     return (<div>
       <label>Published At Date:</label>
       <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} />
     </div>)
   }
 
-  renderArticleMarkdownOrPreview() {
+  renderArticleMarkdownOrPreview = () => {
     let content, toolbarLeft, mdLink, dateDisplayed
     if (this.state.publishedAt) {
       dateDisplayed = this.state.publishedAt
@@ -578,15 +568,15 @@ export default class extends React.Component {
 
   }
 
-  handlePremiumChange() {
+  handlePremiumChange = () => {
     this.setState({premium: !this.state.premium});
   }
 
-  handleCenterImagesChange() {
+  handleCenterImagesChange = () => {
     this.setState({centerImages: !this.state.centerImages});
   }
 
-  render() {
+  render = () => {
     const nullAuthor = {id: null, name: 'None'}
     const allTopics = this.props.topics.concat(this.props.studentTopics)
     return (
@@ -601,6 +591,9 @@ export default class extends React.Component {
 
           <label>SEO Meta Image:</label>
           <input onChange={this.handleImageLinkChange} type="text" value={this.state.imageLink} />
+
+          <label>Press Name (optional):</label>
+          <input onChange={this.handlePressNameChange} type="text" value={this.state.pressName} />
 
           <div className='short-fields'>
             <div>

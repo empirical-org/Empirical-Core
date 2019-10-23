@@ -46,8 +46,8 @@ Blog posts have the following attributes, which are saved to the LMS database:
 
 Blog posts can belong to the following topics:
 
-- Case Studies
-- Teacher Stories
+- Case studies
+- Teacher stories
 - Webinars
 - Teacher Materials
 - Education Research
