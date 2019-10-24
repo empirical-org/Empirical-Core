@@ -46,6 +46,7 @@ class PagesController < ApplicationController
   end
 
   def mission
+    redirect_to('/about')
   end
 
   def careers
@@ -61,7 +62,6 @@ class PagesController < ApplicationController
   end
 
   def about
-    @body_class = 'full-width-page white-page'
   end
 
   def faq
