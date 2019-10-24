@@ -1,4 +1,6 @@
 .team-page {
+  align-items: flex-start;
+
   h2 {
     margin-bottom: 16px;
   }
@@ -8,6 +10,7 @@
     padding: 0px;
   }
   .header {
+    width: 100%;
     margin-bottom: 80px;
   }
   .team-members, .board-and-advisory-members {
