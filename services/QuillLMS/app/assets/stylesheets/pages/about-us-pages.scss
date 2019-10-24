@@ -34,4 +34,32 @@
       margin: 16px 0px 24px;
     }
   }
+
+  .text-and-image {
+    display: flex;
+    align-items: center;
+    margin: 120px 0px 0px;
+    width: 100%;
+
+    div {
+      max-width: 447px;
+      width: 100%;
+      h2 {
+        margin-top: 0px;
+      }
+    }
+
+    div:nth-child(n+2), img:nth-child(n+2) {
+      margin-left: 56px;
+    }
+  }
+
+  .flex-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    div:nth-child(n+2), img:nth-child(n+2) {
+      margin-right: 56px;
+      margin-left: 0px;
+    }
+  }
 }

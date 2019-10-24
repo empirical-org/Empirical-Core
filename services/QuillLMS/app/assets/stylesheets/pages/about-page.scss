@@ -1,0 +1,16 @@
+.about-page {
+  h1 {
+    text-align: center;
+    max-width: 750px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  .text-and-image {
+    p:last-of-type {
+      margin-bottom: 0px;
+    }
+  }
+}
