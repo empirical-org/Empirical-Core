@@ -18,9 +18,9 @@ namespace :clever_bug do
 
       impacted_students_array.each do |s|
         new_s = s
-        new_s[:id] = nil
-        new_s[:created_at] = nil
-        new_ss[:updated_at] = nil
+        new_s['id'] = nil
+        new_s['created_at'] = nil
+        new_s['updated_at'] = nil
         new_student = User.create(new_s)
         if new_student
           clever_s = User.find_by_id(s[:id])
