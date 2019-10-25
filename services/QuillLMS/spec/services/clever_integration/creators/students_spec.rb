@@ -45,7 +45,7 @@ describe 'CleverIntegration::Creators::Students' do
   end
 
   it 'will create a brand new existing student if the email is nil' do
-    CleverIntegration::Creators::Students.run([clever_student_1])
+    CleverIntegration::Creators::Students.run([clever_student_3])
     student = User.find_by(clever_id: '3')
     expect(student.id).not_to be(existing_student2.id)
   end
