@@ -11,7 +11,7 @@ module CleverIntegration::Creators::Students
   private
 
   def self.create_student(parsed_student_response)
-    if parsed_student_response[:email]
+    if !parsed_student_response[:email].nil?
       student = User.find_by(email: parsed_student_response[:email])
     end
 
@@ -20,7 +20,7 @@ module CleverIntegration::Creators::Students
     else
       student = User.find_or_initialize_by(clever_id: parsed_student_response[:clever_id])
     end
-    
+
     student.update(parsed_student_response.merge({
       role: 'student',
       account_type: 'Clever'
