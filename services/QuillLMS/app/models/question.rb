@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
+  validates :data, presence: true
 
   def as_json(options=nil)
     self.data

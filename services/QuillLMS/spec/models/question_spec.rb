@@ -34,6 +34,27 @@ RSpec.describe Question, type: :model do
     }
   end
 
+  describe '#valid' do
+    it 'should be valid from the factory' do
+      expect(question.valid?).to be true
+    end
+
+    it 'should be invalid without a uid' do
+      question.uid = nil
+      expect(question.valid?).to be false
+    end
+
+    it 'should be invalid without data' do
+      question.data = nil
+      expect(question.valid?).to be false
+    end
+
+    it 'should be invalid if the uid is not unique' do
+      new_question = Question.new(uid: question.uid, data: {foo: 'bar'})
+      expect(new_question.valid?).to be false
+    end
+  end
+
   describe '#add_focus_point' do
     it 'should increase the number of focus points' do
       starting_length = question.data['focusPoints'].keys.length
