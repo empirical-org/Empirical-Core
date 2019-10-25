@@ -23,7 +23,7 @@ namespace :clever_bug do
         new_s['created_at'] = nil
         new_s['updated_at'] = nil
         new_student = User.create(new_s)
-        if new_student
+        if new_student && new_student_id
           clever_s = User.find_by_id(extant_id)
           non_clever_classroom_ids = clever_s.classrooms.where(clever_id: nil).ids
           non_clever_students_classrooms = StudentsClassrooms.where(classroom_id: non_clever_classroom_ids, student_id: clever_s)
