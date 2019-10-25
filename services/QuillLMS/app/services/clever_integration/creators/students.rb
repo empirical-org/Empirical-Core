@@ -11,8 +11,10 @@ module CleverIntegration::Creators::Students
   private
 
   def self.create_student(parsed_student_response)
-    if !parsed_student_response[:email].nil?
+    if parsed_student_response[:email].present?
       student = User.find_by(email: parsed_student_response[:email])
+    else
+      student = nil
     end
 
     if student
