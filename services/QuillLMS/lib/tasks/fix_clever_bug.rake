@@ -10,20 +10,21 @@ namespace :clever_bug do
 
     def self.fix
       file = File.expand_path('../original_students.csv', __FILE__)
-      csv = CSV.parse(file, :headers => true)
+      csv = CSV.parse(File.read(file), :headers => true)
       impacted_students_array = []
       csv.each do |row|
         impacted_students_array.push(row.to_hash)
       end
 
       impacted_students_array.each do |s|
+        extant_id = s['id']
         new_s = s
         new_s['id'] = nil
         new_s['created_at'] = nil
         new_s['updated_at'] = nil
         new_student = User.create(new_s)
         if new_student
-          clever_s = User.find_by_id(s[:id])
+          clever_s = User.find_by_id(extant_id)
           non_clever_classroom_ids = clever_s.classrooms.where(clever_id: nil).ids
           non_clever_students_classrooms = StudentsClassrooms.where(classroom_id: non_clever_classroom_ids, student_id: clever_s)
           non_clever_students_classrooms.update_all(student_id: new_student.id)
@@ -36,6 +37,9 @@ namespace :clever_bug do
             end
           end
           ActivitySession.where(classroom_unit_id: non_clever_classroom_units.ids, user_id: clever_s.id).update_all(user_id: new_student.id)
+        else
+          puts 'COULD NOT CREATE'
+          puts new_s
         end
       end
     end
