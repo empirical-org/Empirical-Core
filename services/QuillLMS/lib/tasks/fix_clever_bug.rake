@@ -31,7 +31,7 @@ namespace :clever_bug do
           non_clever_classroom_units = ClassroomUnit.where(classroom_id: non_clever_classroom_ids)
           non_clever_classroom_units.each do |cu|
             if cu.assigned_student_ids.include?(clever_s.id)
-              new_assigned_student_ids = cu.assigned_student_ids - clever_s.id
+              new_assigned_student_ids = cu.assigned_student_ids - [clever_s.id]
               new_assigned_student_ids.push(new_student.id)
               cu.update(assigned_student_ids: new_assigned_student_ids)
             end
