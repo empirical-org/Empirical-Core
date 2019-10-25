@@ -1,8 +1,3 @@
-.container.pages-container.careers-page {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
 .careers-page {
   font-size: 16px;
   font-weight: normal;
@@ -10,17 +5,7 @@
   font-stretch: normal;
   line-height: 1.5;
   letter-spacing: normal;
-  color: #666666;
-
-  h3 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #000000;
-  }
-
-  p {
-    margin-top: 8px !important;
-  }
+  color: #000;
 
   ol {
     margin-top: 8px;
@@ -30,68 +15,35 @@
       line-height: 2;
     }
   }
-  
+
 
   a:hover {
     text-decoration: none;
   }
 
   p.img-caption {
-    margin-top: 4px !important;
+    color: #646464;
+    line-height: 1.57;
     font-size: 14px !important;
-  }
-
-  .cta-banner {
-    background-image: url(<%= "#{ENV['CDN_URL']}/images/careers/classroom-raising-hands@2x.jpg" %>);
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 350px;
-    object-fit: contain;
-    position: relative;
-
-    .cta-banner-contents {
-      text-align: center;
-      color: #ffffff;
-      position: absolute;
-      top: 50%;
-      -ms-transform: translateY(-50%);
-      transform: translateY(-50%);
-
-      h3 {
-        color: #ffffff;
-      }
-
-      button {
-        margin: 24 auto;
-        display: block;
-        width: 182px;
-      }
-    }
+    margin-bottom: 0px;
   }
 
   .text-and-image {
     display: flex;
-    align-items: flex-end;
-    margin-top: 120px;
+    align-items: center;
+    margin: 120px 0px 0px;
+    width: 100%;
 
     div {
-      padding: 5px;
-
-      h3 {
+      max-width: 447px;
+      width: 100%;
+      h2 {
         margin-top: 0px;
       }
     }
 
     div:nth-child(n+2), img:nth-child(n+2) {
-      margin-left: 150px;
-    }
-
-    img {
-      width: auto;
+      margin-left: 56px;
     }
   }
 
@@ -99,23 +51,22 @@
     flex-direction: row-reverse;
     justify-content: flex-end;
     div:nth-child(n+2), img:nth-child(n+2) {
-      margin-right: 150px;
+      margin-right: 56px;
       margin-left: 0px;
     }
   }
 
   .img-gallery {
+    width: 100%;
     .img-row {
       display: flex;
-      padding-top: 54px;
+      padding-top: 40px;
 
       div:nth-child(1n+2) {
         padding-left: 40px;
       }
 
       img {
-        height: auto;
-        width: auto;
         max-width: 100%;
       }
     }
@@ -125,6 +76,11 @@
   .job-listings {
     margin-top: 120px;
     margin-bottom: 80px;
+    width: 100%;
+
+    h2 {
+      margin-top: 0px !important;
+    }
 
     .job-board {
       display: flex;
@@ -164,7 +120,7 @@
             flex-direction: row;
             justify-content: space-between;
             margin: 14px;
-  
+
             img.icon-img {
               transform: rotate(270deg);
             }
@@ -198,8 +154,6 @@
     }
 
     img {
-      width: 100%;
-      height: auto;
       max-width: 100%;
     }
 

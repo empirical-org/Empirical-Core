@@ -33,11 +33,11 @@ describe('Teacher Navbar', function() {
         cy.url().should('include', '/teacher-center')
       })
       it('has a link to the Getting Started page', function() {
-        cy.get('#teacher-center').contains('Getting Started').click({force: true})
+        cy.get('#teacher-center').contains('Getting started').click({force: true})
         cy.url().should('include', '/teacher-center/topic/getting-started')
       })
-      it('has a link to the Teacher Stories Page page', function() {
-        cy.get('#teacher-center').contains('Teacher Stories').click({force: true})
+      it('has a link to the Teacher stories Page page', function() {
+        cy.get('#teacher-center').contains('Teacher stories').click({force: true})
         cy.url().should('include', '/teacher-center/topic/teacher-stories')
       })
       it('has a link to the Writing Instruction Research page', function() {

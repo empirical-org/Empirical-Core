@@ -61,13 +61,13 @@ class BlogPostsController < ApplicationController
         redirect_to "/teacher-center/topic/#{new_topic}"
       end
     else
-      topic = CGI::unescape(params[:topic]).gsub('-', ' ').titleize
+      topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
       if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
         raise ActionController::RoutingError.new('Topic Not Found')
       end
       @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       # hide student part of topic name for display
-      @title = @role == 'student' ? topic.gsub('Student ', '') : topic
+      @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
       return render 'index'
     end
   end

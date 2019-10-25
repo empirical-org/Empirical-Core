@@ -364,11 +364,12 @@ class PagesController < ApplicationController
   end
 
   def press
-    @blog_posts = BlogPost.where(draft: false, topic: 'Press').order('order_number')
+    @in_the_news = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order(published_at: :desc)
+    @press_releases = BlogPost.where(draft: false, topic: BlogPost::PRESS_RELEASES).order(published_at: :desc)
   end
 
   def announcements
-    @blog_posts = BlogPost.where(draft: false, topic: 'Announcements').order('order_number')
+    @blog_posts = BlogPost.where(draft: false, topic: BlogPost::WHATS_NEW).order('order_number')
   end
 
   def referrals_toc
