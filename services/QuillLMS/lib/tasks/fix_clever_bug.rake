@@ -22,8 +22,9 @@ namespace :clever_bug do
         new_s['id'] = nil
         new_s['created_at'] = nil
         new_s['updated_at'] = nil
-        new_student = User.create(new_s)
-        if new_student && new_student.id
+        new_student = User.new(new_s)
+        new_student.password = new_student.last_name
+        if new_student.save
           clever_s = User.find_by_id(extant_id)
           non_clever_classroom_ids = clever_s.classrooms.where(clever_id: nil).ids
           non_clever_students_classrooms = StudentsClassrooms.where(classroom_id: non_clever_classroom_ids, student_id: clever_s)
@@ -39,7 +40,7 @@ namespace :clever_bug do
           ActivitySession.where(classroom_unit_id: non_clever_classroom_units.ids, user_id: clever_s.id).update_all(user_id: new_student.id)
         else
           puts 'COULD NOT CREATE'
-          puts new_s
+          puts new_student.attributes
         end
       end
     end
