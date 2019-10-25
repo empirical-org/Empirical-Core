@@ -24,17 +24,19 @@ def label(payload):
 def scoreSort(e):
     return e.classification.score
 
+def log(**items):
+    print(items)
+
 def response_endpoint(request):
     request_json = request.get_json()
     entry = ''
-    print(request)
-    print(request_json)
+
     if request.args and 'entry' in request.args:
         entry = request.args.get('entry')
     elif request_json and 'entry' in request_json:
         entry = request_json['entry']
     else:
-        return make_response(jsonify(message="error"), 400) 
+        return make_response(jsonify(message="error"), 400)
 
     prediction_client = automl.PredictionServiceClient()
 
@@ -43,5 +45,8 @@ def response_endpoint(request):
 
     response = prediction_client.predict(model_url, payload, {})
     prediction_label = label(response.payload)
+    feedback = LABELS[prediction_label]
 
-    return make_response(jsonify(message=LABELS[prediction_label],correct=True), 200) 
+    log(request=request_json, label=prediction_label, feedback=feedback)
+
+    return make_response(jsonify(message=feedback,correct=True), 200)
