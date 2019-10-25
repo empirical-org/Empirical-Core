@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
 
   def as_json(options=nil)
-    super(options).except("id")
+    self.data
   end
 
   def add_focus_point(data)
