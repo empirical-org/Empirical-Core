@@ -364,7 +364,8 @@ class PagesController < ApplicationController
   end
 
   def press
-    @blog_posts = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order('order_number')
+    @in_the_news = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order(published_at: :desc)
+    @press_releases = BlogPost.where(draft: false, topic: BlogPost::PRESS_RELEASES).order(published_at: :desc)
   end
 
   def announcements
