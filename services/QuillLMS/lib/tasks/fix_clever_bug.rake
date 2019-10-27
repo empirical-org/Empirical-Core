@@ -34,7 +34,7 @@ namespace :clever_bug do
             if cu.assigned_student_ids.include?(extant_id)
               new_assigned_student_ids = cu.assigned_student_ids - [extant_id]
               new_assigned_student_ids.push(new_student.id)
-              cu.update(assigned_student_ids: new_assigned_student_ids)
+              cu.update_column(:assigned_student_ids, new_assigned_student_ids)
             end
           end
           ActivitySession.unscoped.where(classroom_unit_id: original_student_classroom_units.ids, user_id: extant_id).update_all(user_id: new_student.id)
