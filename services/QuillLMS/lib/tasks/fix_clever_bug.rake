@@ -45,7 +45,7 @@ namespace :clever_bug do
       end
 
       puts 'IDS OF CREATED STUDENTS'
-      puts new_ids_array
+      puts new_ids_array.to_json
       puts 'NUMBER OF NEW STUDENTS'
       puts new_ids_array.count
     end
