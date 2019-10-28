@@ -28,11 +28,11 @@ class Api::V1::ActivitySessionsController < Api::ApiController
       end
       @status = :success
       @message =
-      render json: @activity_session, meta: {
-        status: :success,
-        message: "Activity Session Updated",
-        errors: [] # FIXME: this is dumb
-      }
+        render json: @activity_session, meta: {
+          status: :success,
+          message: "Activity Session Updated",
+          errors: [] # FIXME: this is dumb
+        }
     else
       render json: @activity_session, meta: {
         status: :failed,

@@ -154,9 +154,9 @@ class Demo::CreateAdminReport
         teacher.unit_activities.each do |unit_activity|
           we_want_to_create_another_activity_session_for_this_student_and_unit_activity = true
           # We want to ensure that activity 567 shows as in progress for demoing purposes
-          the_activity_session_should_be_marked_as_in_progress = unit_activity.activity.id === 567 ? true : false
+          the_activity_session_should_be_marked_as_in_progress = unit_activity.activity.id === 567
           classroom_unit = ClassroomUnit.find_by(unit_id: unit_activity.unit_id, classroom_id: [student.classroom_ids])
-          while we_want_to_create_another_activity_session_for_this_student_and_unit_activity do
+          while we_want_to_create_another_activity_session_for_this_student_and_unit_activity
             exemplar_activity_session = ActivitySession.unscoped.find(exemplar_activity_sessions[unit_activity.activity_id].sample)
             activity_session = ActivitySession.create!(
               classroom_unit: classroom_unit,
