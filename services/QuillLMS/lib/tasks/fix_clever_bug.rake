@@ -16,6 +16,8 @@ namespace :clever_bug do
         impacted_students_array.push(row.to_hash)
       end
 
+      new_ids_array = []
+
       impacted_students_array.each do |s|
         extant_id = s['id'].to_i
         original_student_classroom_ids = JSON.parse(s['classroom_ids'])
@@ -24,6 +26,7 @@ namespace :clever_bug do
         new_student = User.new(new_s)
         new_student.password = new_student.last_name
         if new_student.save
+          new_ids_array.push(new_student.id)
           original_student_students_classrooms = StudentsClassrooms.unscoped.where(classroom_id: original_student_classroom_ids, student_id: extant_id)
           original_student_students_classrooms.update_all(student_id: new_student.id)
           original_student_classroom_units = ClassroomUnit.unscoped.where(classroom_id: original_student_classroom_ids)
@@ -40,6 +43,11 @@ namespace :clever_bug do
           puts new_student.attributes
         end
       end
+
+      puts 'IDS OF CREATED STUDENTS'
+      puts new_ids_array
+      puts 'NUMBER OF NEW STUDENTS'
+      puts new_ids_array.count
     end
   end
 end
