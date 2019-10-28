@@ -17,7 +17,7 @@ namespace :clever_bug do
       end
 
       impacted_students_array.each do |s|
-        extant_id = s['id']
+        extant_id = s['id'].to_i
         original_student_classroom_ids = eval(s['classroom_ids'])
         new_s = s
         new_s.delete('classroom_ids')
