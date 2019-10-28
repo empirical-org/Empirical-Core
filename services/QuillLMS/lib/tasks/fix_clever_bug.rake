@@ -18,12 +18,9 @@ namespace :clever_bug do
 
       impacted_students_array.each do |s|
         extant_id = s['id'].to_i
-        original_student_classroom_ids = eval(s['classroom_ids'])
-        new_s = s
-        new_s.delete('classroom_ids')
-        new_s['id'] = nil
-        new_s['created_at'] = nil
-        new_s['updated_at'] = nil
+        original_student_classroom_ids = JSON.parse(s['classroom_ids'])
+        keys_needed = ["name", "email", "role", "active", "username", "token", "ip_address", "clever_id", "signed_up_with_google", "send_newsletter", "google_id", "last_sign_in", "last_active", "stripe_customer_id", "flags", "title", "time_zone", "account_type", "post_google_classroom_assignments"]
+        new_s = s.select{ |k,_| k.in?(keys_needed) }
         new_student = User.new(new_s)
         new_student.password = new_student.last_name
         if new_student.save
