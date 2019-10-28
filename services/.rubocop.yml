@@ -2,3 +2,95 @@ inherit_from: .rubocop_todo.yml
 
 Style/ZeroLengthPredicate:
   Enabled: true
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+
+Layout/IndentAssignment:
+  Enabled: true
+
+Layout/InitialIndentation:
+  Enabled: true
+
+Layout/LeadingBlankLines:
+  Enabled: true
+
+Layout/SpaceAfterMethodName:
+  Enabled: true
+
+Layout/SpaceAroundBlockParameters:
+  Enabled: true
+
+Layout/SpaceInsideReferenceBrackets:
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: true
+
+Lint/DuplicateCaseCondition:
+  Enabled: true
+
+Lint/DuplicatedKey:
+  Enabled: true
+
+Lint/InterpolationCheck:
+  Enabled: true
+
+Lint/LiteralInInterpolation:
+  Enabled: true
+
+Lint/RescueException:
+  Enabled: true
+
+Lint/SafeNavigationChain:
+  Enabled: true
+
+Security/Open:
+  Enabled: true
+
+Style/ClassCheck:
+  Enabled: true
+
+Style/EachWithObject:
+  Enabled: true
+
+Style/InverseMethods:
+  Enabled: true
+
+Style/MixinGrouping:
+  Enabled: true
+
+Style/NegatedWhile:
+  Enabled: true
+
+Style/NumericLiteralPrefix:
+  Enabled: true
+
+Style/RedundantConditional:
+  Enabled: true
+
+Style/SignalException:
+  Enabled: true
+
+Style/SpecialGlobalVars:
+  EnforcedStyle: use_perl_names
+  Enabled: true
+
+Style/Strip:
+  Enabled: true
+
+Style/TernaryParentheses:
+  Enabled: true
+
+Style/UnneededCapitalW:
+  Exclude: 
+   - 'QuillLMS/config/initializers/sentry.rb'
+  Enabled: true
+
+Style/UnneededSort:
+  Exclude: 
+   - 'QuillComprehension/app/models/question.rb'
+  Enabled: true
+
+Style/WhileUntilDo:
+  Enabled: true
