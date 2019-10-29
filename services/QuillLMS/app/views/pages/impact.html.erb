@@ -10,25 +10,70 @@
 
     <div class="impact-metrics">
       <div class="impact-metric">
-        <h2><%= @number_of_students %></h2>
+        <h2><%= number_with_delimiter(@number_of_students, :delimiter => ',') %></h2>
         <p>Students impacted</p>
       </div>
       <div class="impact-metric">
-        <h2><%= @number_of_schools %></h2>
+        <h2><%= number_with_delimiter(@number_of_schools, :delimiter => ',') %></h2>
         <p>Schools</p>
       </div>
       <div class="impact-metric">
-        <h2><%= @number_of_sentences %></h2>
+        <h2><%= number_with_delimiter(@number_of_sentences, :delimiter => ',') %></h2>
         <p>Sentences written</p>
       </div>
       <div class="impact-metric">
-        <h2><%= @number_of_low_income_schools %></h2>
+        <h2><%= number_with_delimiter(@number_of_low_income_schools, :delimiter => ',') %></h2>
         <p>Low-income schools</p>
       </div>
       <div class="impact-metric">
-        <h2><%= @number_of_teachers %></h2>
+        <h2><%= number_with_delimiter(@number_of_teachers, :delimiter => ',') %></h2>
         <p>Teachers</p>
       </div>
     </div>
+
+    <div class="student-usage-by-school-year">
+      <h2 class="student-usage-title">Student usage by school year</h2>
+      <div class="student-usage-rows">
+        <div class="student-usage-row eighteen-nineteen">
+          <div class="year-and-bar">
+            <p>2018-2019</p>
+            <div class="bar-and-count">
+              <div class="bar"></div>
+              <h2>1 million</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-usage-row seventeen-eighteen">
+          <div class="year-and-bar">
+            <p>2017-2018</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="student-usage-row sixteen-seventeen">
+          <div class="year-and-bar">
+            <p>2016-2017</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="student-usage-row fifteen-sixteen">
+          <div class="year-and-bar">
+            <p>2015-2016</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="student-usage-row fourteen-fifteen">
+          <div class="year-and-bar">
+            <p>2014-2015</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </div>
