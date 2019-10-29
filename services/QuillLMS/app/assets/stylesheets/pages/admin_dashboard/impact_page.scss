@@ -1,5 +1,5 @@
 .impact-page {
-  width: 950px;
+  max-width: 950px;
   padding-bottom: 350px;
   .impact-metrics {
     display: flex;
@@ -128,7 +128,25 @@
         }
       }
     }
+  }
 
+  @media screen and (max-width: 1010px) {
+    .impact-metrics .impact-metric {
+      max-width: 250px;
+      margin-right: 0px;
+    }
+  }
 
+  @media screen and (max-width: 780px) {
+    .teacher-testimonials {
+      flex-direction: column;
+      .teacher-testimonial-column {
+      margin: auto !important;;
+      }
+    }
+    .impact-metrics .impact-metric {
+      max-width: 100%;
+      margin-right: 0px;
+    }
   }
 }
