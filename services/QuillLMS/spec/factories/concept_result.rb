@@ -1,8 +1,10 @@
-  FactoryBot.define do
+# frozen_string_literal: true
+
+FactoryBot.define do
   factory :concept_result do
     concept
     activity_session
-    metadata {{"answer": "Arbitrary sample correct answer.", "correct": 1}}
+    metadata { { "answer": 'Arbitrary sample correct answer.', "correct": 1 } }
 
     # TODO: generate metadata.
 
@@ -13,7 +15,7 @@
 
     factory :sentence_writing do
       question_type { 'sentence-writing' }
-      activity_session { FactoryBot.create("#{['proofreader', 'grammar'].sample}_activity_session".to_s) }
+      activity_session { FactoryBot.create("#{%w[proofreader grammar].sample}_activity_session".to_s) }
     end
 
     factory :passage_proofreader do
@@ -28,7 +30,7 @@
 
     factory :sentence_combining do
       question_type { 'sentence-combining' }
-      activity_session { FactoryBot.create("#{['connect', 'diagnostic'].sample}_activity_session".to_s) }
+      activity_session { FactoryBot.create("#{%w[connect diagnostic].sample}_activity_session".to_s) }
     end
 
     factory :sentence_fragment_identification do

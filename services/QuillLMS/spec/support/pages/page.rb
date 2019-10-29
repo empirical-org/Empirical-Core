@@ -5,7 +5,7 @@ class Page
 
   # FIXME: I don't get why this is a class method [KK - 3/16/15]
   def self.path
-    fail "#{self.name} does not implement 'path'"
+    raise "#{self.name} does not implement 'path'"
   end
 
   def self.visit

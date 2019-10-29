@@ -657,7 +657,6 @@ end
       expect(ConceptResult).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
-        activity_session_id: activity_session.id,
         metadata: '{}',
         question_type: 'lessons-slide'
       })
