@@ -11,7 +11,7 @@ namespace :zipcode do
             decommissioned,estimated_population,
             _area_codes) FROM STDIN")
     file = File.open(zipcodes_file_path, 'r')
-    while !file.eof?
+    until file.eof?
       data = file.readline
       rc.put_copy_data(data)
     end

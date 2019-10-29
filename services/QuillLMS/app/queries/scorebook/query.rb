@@ -82,7 +82,7 @@ class Scorebook::Query
     )"
   end
 
-  def self.to_offset_datetime (date, offset)
+  def self.to_offset_datetime(date, offset)
     (Date.parse(date).midnight - offset.seconds).to_s(:db)
   end
 

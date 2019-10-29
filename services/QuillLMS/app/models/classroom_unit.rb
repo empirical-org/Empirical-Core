@@ -27,7 +27,7 @@ class ClassroomUnit < ActiveRecord::Base
   def validate_assigned_student(student_id)
     if self.assign_on_join
       if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
-        if !self.assigned_student_ids.kind_of?(Array)
+        if !self.assigned_student_ids.is_a?(Array)
           self.update(assigned_student_ids: [])
         end
         self.update(assigned_student_ids: StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id))
