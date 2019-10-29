@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     width: 100%;
     margin-top: 120px;
+    margin-bottom: 63px;
     .impact-metric {
       max-width: 300px;
       width: 100%;
@@ -14,6 +15,8 @@
       margin-bottom: 57px;
       margin-right: 25px;
       p {
+        font-size: 16px;
+        line-height: 1.5;
         margin-bottom: 0px;
         margin-top: 0px !important;
       }
@@ -89,6 +92,15 @@
       font-size: 16px;
       line-height: 1.5;
       margin-bottom: 0px;
+    }
+    .image-container {
+      position: relative;
+      .logo {
+        position: absolute;
+        bottom: 16;
+        margin-left: 0px;
+        left: 16;
+      }
     }
   }
 
