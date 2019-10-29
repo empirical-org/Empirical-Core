@@ -1,48 +1,142 @@
 const C = require('../constants').default;
 
 import rootRef from '../libs/firebase';
+import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
 
 const	questionsRef = rootRef.child('questions');
 const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
 
 import Pusher from 'pusher-js';
+// Put 'pusher' on global window for TypeScript validation
+declare global {
+  interface Window { pusher: any }
+}
+
 import request from 'request';
 import _ from 'underscore';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
+const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
+
+/*
+  2019-10-29:
+  I'm not super-thrilled about all of these API calls taking and returning
+  "any", but I'm not confident that the shapes of these objects are
+  consistent enough in Firebase (and thus in the JSONB blob copies from
+  Firebase) for it to be safe to be strict about them.
+
+  Choosing not to define them here is definitely a punt on fixing
+  inconsistencies later, but given our current goals, that seems like
+  the correct thing to do.
+*/
+class QuestionApi {
+  static getAll(): Promise<any> {
+    return requestGet(`${questionApiBaseUrl}.json`);
+  }
+
+  static get(uid: string): Promise<any> {
+    return requestGet(`${questionApiBaseUrl}/${uid}.json`);
+  }
+
+  static create(data: any): Promise<any> {
+    return requestPost(`${questionApiBaseUrl}.json`, data);
+  }
+
+  static update(uid: string, data: any): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${uid}.json`, data);
+  }
+
+  static updateFlag(uid: string, flag: string): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${uid}/update_flag.json`, flag);
+  }
+
+  static updateModelConcept(uid: string, modelConceptUid: string): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${uid}/update_model_concept.json`, modelConceptUid);
+  }
+}
+
+class FocusPointApi {
+  static getAll(questionId: string): Promise<any> {
+    return requestGet(`${questionApiBaseUrl}/${questionId}/focus_points.json`);
+  }
+
+  static get(questionId: string, focusPointId: string): Promise<any> {
+    return requestGet(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
+  }
+
+  static create(questionId: string, data: any): Promise<any> {
+    return requestPost(`${questionApiBaseUrl}/${questionId}/focus_points.json`, data);
+  }
+
+  static update(questionId: string, focusPointId: string, data: any): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`, data);
+  }
+
+  static update_all(questionId: string, data: any): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points.json`, data);
+  }
+
+  static remove(questionId: string, focusPointId: string): Promise<any> {
+    return requestDelete(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
+  }
+}
+
+class IncorrectSequenceApi {
+  static getAll(questionId: string): Promise<any> {
+    return requestGet(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`);
+  }
+
+  static get(questionId: string, incorrectSequenceId: string): Promise<any> {
+    return requestGet(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
+  }
+
+  static create(questionId: string, data: any): Promise<any> {
+    return requestPost(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, data);
+  }
+
+  static update(questionId: string, incorrectSequenceId: string, data: any): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`, data);
+  }
+
+  static update_all(questionId: string, data: any): Promise<any> {
+    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, data);
+  }
+
+  static remove(questionId: string, incorrectSequenceId: string): Promise<any> {
+    return requestDelete(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
+  }
+}
+
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
 function startListeningToQuestions() {
   return (dispatch, getState) => {
-    questionsRef.on('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
-    });
+    return loadQuestions();
   };
 }
 
 function loadQuestions() {
   return (dispatch, getState) => {
-    questionsRef.once('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
+    QuestionApi.getAll().then((questions) => {
+      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questions, });
     });
   };
 }
 
 function loadSpecifiedQuestions(uids) {
   return (dispatch, getState) => {
-    const firebasePromises = [];
+    const requestPromises: Promise<any>[] = [];
     uids.forEach((uid) => {
-      firebasePromises.push(questionsRef.child(uid).once('value'));
+      requestPromises.push(QuestionApi.get(uid));
     });
-    const allPromises = Promise.all(firebasePromises);
+    const allPromises = Promise.all(requestPromises);
     const questionData = {};
     allPromises.then((results) => {
-      results.forEach((result) => {
-        const value = result.val();
-        questionData[result.key] = value;
+      results.forEach((result, index) => {
+        questionData[uids[index]] = result;
       });
       dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questionData, });
     });
@@ -60,135 +154,115 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    questionsRef.child(qid).update(content, (error) => {
+    QuestionApi.update(qid, content).then( () => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
+      dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+    }, (error) => {
+      dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
+      dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
   };
 }
+
 function toggleNewQuestionModal() {
   return { type: C.TOGGLE_NEW_QUESTION_MODAL, };
 }
+
 function submitNewQuestion(content, response) {
   return (dispatch, getState) => {
     dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
-    const newRef = questionsRef.push(content, (error) => {
+    const newRef = QuestionApi.create(content).then((question) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        response.questionUID = newRef.key;
-        response.gradeIndex = `human${newRef.key}`;
-        dispatch(submitResponse(response));
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        const action = push(`/admin/questions/${newRef.key}`);
-        dispatch(action);
-      }
+      response.questionUID = Object.keys(question)[0];
+      response.gradeIndex = `human${response.questionUID}`;
+      dispatch(submitResponse(response));
+      dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+      const action = push(`/admin/questions/${response.questionUID}`);
+      dispatch(action);
+    }, (error) => {
+      dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
+      dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
     });
   };
 }
 
 function submitNewFocusPoint(qid, data) {
-  questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
-    if (error) {
-      alert(`Submission failed! ${error}`);
-    }
+  FocusPointApi.create(qid, data).then(null, (error) => {
+    alert(`Submission failed! ${error}`);
   });
 }
 
 function submitEditedFocusPoint(qid, data, fpid) {
   return (dispatch, getState) => {
-    questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
+    FocusPointApi.update(qid, fpid, data).then(null, (error) => {
+      alert(`Submission failed! ${error}`);
     });
   };
 }
 
 function submitBatchEditedFocusPoint(qid, data) {
   return (dispatch, getState) => {
-    questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
+    FocusPointApi.update_all(qid, data).then(null, (error) => {
+      alert(`Submission failed! ${error}`);
     });
   };
 }
 
 function deleteFocusPoint(qid, fpid) {
   return (dispatch, getState) => {
-    questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
-      if (error) {
-        alert(`Delete failed! ${error}`);
-      }
+    FocusPointApi.remove(qid, fpid).then(null, (error) => {
+      alert(`Delete failed! ${error}`);
     });
   };
 }
 
 function updateFlag(qid, flag) {
   return dispatch => {
-    questionsRef.child(`${qid}/flag/`).set(flag, (error) => {
-      if (error) {
-        alert(`Flag update failed! ${error}`);
-      }
+    QuestionApi.updateFlag(qid, flag).then(null, (error) => {
+      alert(`Flag update failed! ${error}`);
     });
   }
 }
 
 function updateModelConceptUID(qid, modelConceptUID) {
   return dispatch => {
-    questionsRef.child(`${qid}/modelConceptUID/`).once('value', (snapshot) => {
-      if (!snapshot.val()) {
-        questionsRef.child(`${qid}/modelConceptUID/`).set(modelConceptUID, (error) => {
-          if (error) {
-            alert(`Model concept update failed! ${error}`);
-          }
+    QuestionApi.get(qid).then((question) => {
+      if (!question.modelConceptUID) {
+        QuestionApi.updateModelConcept(qid, modelConceptUID).then(null, (error) => {
+          alert(`Model concept update failed! ${error}`);
         });
       }
-    })
+    });
   }
 }
 
 function submitNewIncorrectSequence(qid, data) {
   return (dispatch, getState) => {
-    questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
+    IncorrectSequenceApi.create(qid, data).then(null, (error) => {
+      alert(`Submission failed! ${error}`);
     });
   };
 }
 
 function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
-    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
+    IncorrectSequenceApi.update(qid, seqid, data).then(null, (error) => {
+      alert(`Submission failed! ${error}`);
     });
   };
 }
 
 function deleteIncorrectSequence(qid, seqid) {
   return (dispatch, getState) => {
-    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
-      if (error) {
-        alert(`Delete failed! ${error}`);
-      }
+    IncorrectSequenceApi.remove(qid, seqid).then(null, (error) => {
+      alert(`Delete failed! ${error}`);
     });
   };
 }
 
 function updateIncorrectSequences(qid, data) {
-  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error) => {
-    if (error) {
-      alert(`Order update failed! ${error}`);
-    }
+  IncorrectSequenceApi.update_all(qid, data).then(null, (error) => {
+    alert(`Order update failed! ${error}`);
   });
 }
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
 class IncorrectSequencesContainer extends Component {
