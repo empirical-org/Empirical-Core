@@ -38,7 +38,7 @@ class ClassroomActivitiesToUnitActivitiesAndClassroomUnitsWorker
               completed: ca.completed
             )
           end
-        rescue Exception => e
+        rescue StandardError => e
           puts e.message
         end
 
