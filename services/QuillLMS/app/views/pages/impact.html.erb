@@ -1,12 +1,34 @@
 <% @active_tab = 'Impact' %>
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 
-<div class="container impact-page">
-  <h1>Quill has reached <%= number_with_delimiter(@number_of_cities) %> cities in the United States and has been used by <%= number_to_human(@number_of_students).downcase %> students.</h1>
+<div class="white-background">
+  <div class="container about-us-page impact-page">
+    <div class="header">
+      <h1>No hype machine. Real data. Real impact.</h1>
+      <p class="hide-mobile">Humility, transparency, and education technology are concepts rarely found in the same sentence. We want to change that. We’re candid about who uses Quill and how much so everyone can gauge how we’re doing and what our users are learning. Our goal is to be helpful to teachers and the students they serve—and we can only do that by keeping it real.</p>
+    </div>
 
-  <iframe id="map-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1ddUc_gtX3ZVxW2SS5Z5VtpKfKfo&z=5&ll=39.05582,-95.68901" width=“100%” height=“700” scrolling="no"></iframe>
-
-  <iframe src="https://quill.geckoboard.com/dashboards/6545ABBE1D67B8A3" frameborder=0 height=1450 width="100%" scrolling=no>
-    <p>Your browser does not support iframes.</p>
-  </iframe>
+    <div class="impact-metrics">
+      <div class="impact-metric">
+        <h2><%= @number_of_students %></h2>
+        <p>Students impacted</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= @number_of_schools %></h2>
+        <p>Schools</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= @number_of_sentences %></h2>
+        <p>Sentences written</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= @number_of_low_income_schools %></h2>
+        <p>Low-income schools</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= @number_of_teachers %></h2>
+        <p>Teachers</p>
+      </div>
+    </div>
+  </div>
 </div>
