@@ -55,18 +55,19 @@ describe Api::V1::QuestionsController, type: :controller do
     end
   end
 
-  describe "#destroy" do
-    it "should delete the existing record" do
-      delete :destroy, id: question.uid
-      expect(Question.find_by(uid: question.uid)).to be_nil
-    end
+  # Disabling these since we have no working auth
+  #describe "#destroy" do
+  #  it "should delete the existing record" do
+  #    delete :destroy, id: question.uid
+  #    expect(Question.find_by(uid: question.uid)).to be_nil
+  #  end
 
-    it "should return a 404 if the requested Question is not found" do
-      delete :destroy, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
+  #  it "should return a 404 if the requested Question is not found" do
+  #    delete :destroy, id: 'doesnotexist'
+  #    expect(response.status).to eq(404)
+  #    expect(response.body).to include("The resource you were looking for does not exist")
+  #  end
+  #end
 
   describe "#update_flag" do
     it "should update the flag attribute in the data" do

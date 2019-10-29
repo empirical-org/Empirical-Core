@@ -382,8 +382,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
-      resources :questions do
-        resources :focus_points do
+      resources :questions, except: [:destroy] do
+        resources :focus_points, except: [:destroy] do
           collection do
             put '' => 'focus_points#update_all'
           end
