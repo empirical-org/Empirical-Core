@@ -7,30 +7,28 @@ class Api::V1::FocusPointsController < Api::ApiController
   end
 
   def show
-    focus_point = @question.data["focusPoints"][params[:id]]
-    return not_found unless focus_point
-    render(json: focus_point)
+    render_focus_point
   end
 
   def create
-    @question.add_focus_point(valid_params)
-    show
+    uid = @question.add_focus_point(valid_params)
+    render(json: {uid => @question.data.dig("focusPoints", uid)})
   end
 
   def update
-    return not_found unless @question.data["focusPoints"][params[:id]]
+    return not_found unless @question.data.dig("focusPoints", params[:id])
     @question.set_focus_point(params[:id], valid_params)
-    show
+    render_focus_point
   end
 
   def update_all
     @question.update_focus_points(valid_params)
-    show
+    render_focus_point
   end
 
   def destroy
     @question.delete_focus_point(params[:id])
-    show
+    render_focus_point
   end
 
   private def get_question_by_uid
@@ -40,5 +38,10 @@ class Api::V1::FocusPointsController < Api::ApiController
   private def valid_params
     params.require(:focus_point).except(:uid)
   end
-end
 
+  private def render_focus_point
+    focus_point = @question.data.dig("focusPoints", params[:id])
+    return not_found unless focus_point
+    render(json: focus_point)
+  end
+end

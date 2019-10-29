@@ -7,25 +7,23 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   end
 
   def show
-    incorrect_sequence = @question.data["incorrectSequences"][params[:id]]
-    return not_found unless incorrect_sequence
-    render(json: incorrect_sequence)
+    render_incorrect_sequence(params[:id])
   end
 
   def create
     @question.add_incorrect_sequence(valid_params)
-    show
+    render(json: {params[:id] => @question.data.dig("incorrectSequences", params[:id])})
   end
 
   def update
-    return not_found unless @question.data["incorrectSequences"][params[:id]]
+    return not_found unless @question.data.dig("incorrectSequences", params[:id])
     @question.set_incorrect_sequence(params[:id], valid_params)
-    show
+    render_incorrect_sequence(params[:id])
   end
 
   def update_all
     @question.update_incorrect_sequences(valid_params)
-    show
+    render_incorrect_sequence(params[:id])
   end
 
   private def get_question_by_uid
@@ -43,4 +41,11 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   private def valid_params
     params.require(:incorrect_sequence).except(:uid)
   end
+
+  private def render_incorrect_sequence(incorrect_sequence_id)
+    incorrect_sequence = @question.data.dig("incorrectSequences", incorrect_sequence_id)
+    return not_found unless incorrect_sequence
+    render(json: incorrect_sequence)
+  end
+
 end

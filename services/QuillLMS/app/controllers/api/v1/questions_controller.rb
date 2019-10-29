@@ -4,7 +4,7 @@ class Api::V1::QuestionsController < Api::ApiController
 
   def index
     all_questions = Question.all.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-    render(json: all_questions || [])
+    render(json: all_questions)
   end
 
   def show

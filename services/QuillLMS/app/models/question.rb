@@ -3,51 +3,53 @@ class Question < ActiveRecord::Base
   validates :data, presence: true
 
   def as_json(options=nil)
-    self.data
+    data
   end
 
-  def add_focus_point(data)
-    set_focus_point(new_uuid, data)
+  def add_focus_point(new_data)
+    set_focus_point(new_uuid, new_data)
   end
 
-  def set_focus_point(uid, data)
-    self.data['focusPoints'][uid] = data
+  def set_focus_point(focus_point_id, new_data)
+    data['focusPoints'] ||= {}
+    data['focusPoints'][focus_point_id] = new_data
     save
-    uid
+    focus_point_id
   end
 
-  def update_focus_points(data)
-    self.data['focusPoints'] = data
+  def update_focus_points(new_data)
+    data['focusPoints'] = new_data
     save
   end
 
-  def delete_focus_point(uid)
-    self.data['focusPoints'].delete(uid)
+  def delete_focus_point(focus_point_id)
+    data['focusPoints'].delete(focus_point_id)
     save
   end
 
   def update_flag(flag_value)
-    self.data['flag'] = flag_value
+    data['flag'] = flag_value
     save
   end
 
-  def update_model_concept(uid)
-    self.data['modelConceptUID'] = uid
+  def update_model_concept(model_concept_id)
+    data['modelConceptUID'] = model_concept_id
     save
   end
 
-  def add_incorrect_sequence(data)
-    set_incorrect_sequence(new_uuid, data)
+  def add_incorrect_sequence(new_data)
+    set_incorrect_sequence(new_uuid, new_data)
   end
 
-  def set_incorrect_sequence(uid, data)
-    self.data['incorrectSequences'][uid] = data
+  def set_incorrect_sequence(incorrect_sequence_id, new_data)
+    data['incorrectSequences'] ||= {}
+    data['incorrectSequences'][incorrect_sequence_id] = new_data
     save
-    uid
+    incorrect_sequence_id
   end
 
-  def update_incorrect_sequences(data)
-    self.data['incorrectSequences'] = data
+  def update_incorrect_sequences(new_data)
+    data['incorrectSequences'] = new_data
     save
   end
 
