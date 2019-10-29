@@ -94,30 +94,5 @@
       <img src=<%= "#{base_image_url}/school-rome-city.svg" %> alt="Rome City Schools logo" />
     </div>
 
-    <div class="teacher-testimonial-container">
-      <h2>Learn more about the thousands of teachers using Quill to help their students become strong writers and critical thinkers.</h2>
-
-      <div class="teacher-testimonials">
-        <div class="teacher-testimonial-column">
-        <% testimonials[:column_one].each do |t| %>
-          <div class='teacher-testimonial'>
-            <p> “<%= t[:testimonial] %>“ </p>
-            <p class="teacher-name"> <%= t[:teacher_name] %> </p>
-          </div>
-        <% end %>
-        </div>
-
-        <div class="teacher-testimonial-column">
-        <% testimonials[:column_two].each do |t| %>
-          <div class='teacher-testimonial'>
-            <p> “<%= t[:testimonial] %>“ </p>
-            <p class="teacher-name"> <%= t[:teacher_name] %> </p>
-          </div>
-        <% end %>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 </div>

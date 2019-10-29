@@ -100,35 +100,6 @@
     margin: 64px 0px 120px;
   }
 
-  .teacher-testimonial-container {
-    h2 {
-      max-width: 748px;
-      width: 100%;
-      text-align: center;
-      margin: 0px auto 32px;
-    }
-    .teacher-testimonials {
-      display: flex;
-      .teacher-testimonial-column {
-        .teacher-testimonial {
-          max-width: 447px;
-          width: 100%;
-          margin-bottom: 40px;
-          p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin: 0px;
-          }
-          .teacher-name {
-            font-weight: bold;
-          }
-        }
-        &:first-of-type {
-          margin-right: 56px;
-        }
-      }
-    }
-  }
 
   @media screen and (max-width: 1010px) {
     .impact-metrics .impact-metric {
@@ -138,12 +109,6 @@
   }
 
   @media screen and (max-width: 780px) {
-    .teacher-testimonials {
-      flex-direction: column;
-      .teacher-testimonial-column {
-      margin: auto !important;;
-      }
-    }
     .impact-metrics .impact-metric {
       max-width: 100%;
       margin-right: 0px;
