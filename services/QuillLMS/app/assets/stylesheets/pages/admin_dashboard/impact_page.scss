@@ -1,4 +1,6 @@
 .impact-page {
+  width: 950px;
+  padding-bottom: 350px;
   .impact-metrics {
     display: flex;
     flex-wrap: wrap;
@@ -35,7 +37,6 @@
 
     .student-usage-row {
       display: flex;
-      margin-bottom: 46px;
       p {
         margin-bottom: 0px;
         margin-top: 0px !important;
@@ -78,6 +79,56 @@
           background-color: #888888;
         }
       }
+      &:not(:last-of-type) {
+        margin-bottom: 46px;
+      }
     }
+  }
+
+  .text-and-image {
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 0px;
+    }
+  }
+
+  .school-logos {
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 64px 0px 120px;
+  }
+
+  .teacher-testimonial-container {
+    h2 {
+      max-width: 748px;
+      width: 100%;
+      text-align: center;
+      margin: 0px auto 32px;
+    }
+    .teacher-testimonials {
+      display: flex;
+      .teacher-testimonial-column {
+        .teacher-testimonial {
+          max-width: 447px;
+          width: 100%;
+          margin-bottom: 40px;
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0px;
+          }
+          .teacher-name {
+            font-weight: bold;
+          }
+        }
+        &:first-of-type {
+          margin-right: 56px;
+        }
+      }
+    }
+
+
   }
 }
