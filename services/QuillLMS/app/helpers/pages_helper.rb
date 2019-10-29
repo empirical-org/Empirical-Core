@@ -39,7 +39,7 @@ module PagesHelper
 		elsif tabname == 'topics'
 			topics_actions.include?(action_name) ? 'active' : ''
 		elsif tabname == 'premium'
-			(action_name == 'premium_from_discover') ? "premium-tab active" : ''
+			action_name == 'premium_from_discover' ? "premium-tab active" : ''
 		end
 
 	end

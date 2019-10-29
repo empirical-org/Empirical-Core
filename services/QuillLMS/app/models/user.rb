@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  include Student, Teacher, CheckboxCallback
+  include Student
+  include Teacher
+  include CheckboxCallback
 
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present

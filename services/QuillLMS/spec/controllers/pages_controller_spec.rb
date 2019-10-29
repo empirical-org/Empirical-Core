@@ -188,10 +188,12 @@ describe PagesController do
 
   describe '#press' do
     let!(:post) { create(:blog_post, draft: false, topic: "In the news") }
+    let!(:other_post) { create(:blog_post, draft: false, topic: "Press releases") }
 
     it 'should assign the blog posts' do
       get :press
-      expect(assigns(:blog_posts)).to eq([post])
+      expect(assigns(:in_the_news)).to eq([post])
+      expect(assigns(:press_releases)).to eq([other_post])
     end
   end
 
