@@ -21,7 +21,7 @@ class Cron
 
   def self.run_saturday
     UploadLeapReportWorker.perform_async(29087)
-    SetNumberOfStudentsSentencesAndCitiesWorker.perform_async
+    SetImpactMetricsWorker.perform_async
   end
 
   def self.now
