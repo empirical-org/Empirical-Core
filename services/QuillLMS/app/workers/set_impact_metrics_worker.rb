@@ -13,7 +13,7 @@ class SetImpactMetricsWorker
       FROM activity_sessions
       WHERE activity_sessions.state = 'finished'
     ")
-    teachers_query = User.select(:id).joins(:units).joins(:classroom_units).joins(:activity_sessions).where("activity_sessions.state = 'finished'").group('users.id').having('count(activity_sessions) > 9')
+    teachers_query = User.select(:id).joins(:units).joins(:classroom_units).joins("JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id").where("activity_sessions.state = 'finished'").group('users.id').having('count(activity_sessions) > 9')
     schools_query = School.joins(:schools_users).joins(:users).where("users.id IN (?)", teachers_query.to_a.map(&:id)).distinct
     low_income_schools_query = schools_query.where("free_lunches > 39")
 

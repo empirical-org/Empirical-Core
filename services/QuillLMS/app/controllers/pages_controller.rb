@@ -308,7 +308,7 @@ class PagesController < ApplicationController
   def impact
     @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
     @number_of_schools = $redis.get(NUMBER_OF_SCHOOLS) || 2100000
-    @number_of_sentences = $redis.get(NUMBER_OF_SCHOOLS) || 252000000
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
     @number_of_low_income_schools = $redis.get(NUMBER_OF_LOW_INCOME_SCHOOLS) || 2100000
     @number_of_teachers = $redis.get(NUMBER_OF_TEACHERS) || 2100000
   end
@@ -375,8 +375,7 @@ class PagesController < ApplicationController
   end
 
   def press
-    @in_the_news = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order(published_at: :desc)
-    @press_releases = BlogPost.where(draft: false, topic: BlogPost::PRESS_RELEASES).order(published_at: :desc)
+    @blog_posts = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order('order_number')
   end
 
   def announcements
