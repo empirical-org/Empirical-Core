@@ -184,11 +184,6 @@ module PagesHelper
             img: 'board-ben-sussman@2x.png'
           },
           {
-            name: 'Peg Tyre',
-            title: 'Director of Strategy at The Edwin Gould Foundation',
-            img: 'board-peg-tyre@2x.png'
-          },
-          {
             name: 'Paul Walker',
             title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
             img: 'board-paul-walker@2x.png'
@@ -222,6 +217,11 @@ module PagesHelper
             name: 'Emily Dalton Smith',
             title: 'Director of Social Impact  Product at Facebook',
             img: 'advisor-emily-dalton-smith@2x.png'
+          },
+          {
+            name: 'Peg Tyre',
+            title: 'Director of Strategy at The Edwin Gould Foundation',
+            img: 'board-peg-tyre@2x.png'
           }
         ]
       }
