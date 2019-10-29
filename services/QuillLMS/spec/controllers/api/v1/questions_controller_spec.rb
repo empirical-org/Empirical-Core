@@ -68,69 +68,6 @@ describe Api::V1::QuestionsController, type: :controller do
     end
   end
 
-  describe "#create_focus_point" do
-    it "should add a new focus point to the question data" do
-      data = {"foo" => "bar"}
-      focus_point_count = question.data["focusPoints"].keys.length
-      post :create_focus_point, id: question.uid, question: data
-      question.reload
-      expect(question.data["focusPoints"].keys.length).to eq(focus_point_count + 1)
-    end
-  end
-
-  describe "#update_focus_point" do
-    it "should update an existing focus point in the question data" do
-      data = {"foo" => "bar"}
-      focus_point_uid = question.data["focusPoints"].keys.first
-      put :update_focus_point, id: question.uid, fp_id: focus_point_uid, question: data
-      question.reload
-      expect(question.data["focusPoints"][focus_point_uid]).to eq(data)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      put :update_focus_point, id: 'doesnotexist', fp_id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-
-    it "should return a 404 if the requested Question does not have the specified focusPoint" do
-      put :update_focus_point, id: question.uid, fp_id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
-  describe "#update_all_focus_points" do
-    it "should replace all focusPoints" do
-      data = {"foo" => "bar"}
-      put :update_all_focus_points, id: question.uid, question: data
-      question.reload
-      expect(question.data["focusPoints"]).to eq(data)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      put :update_all_focus_points, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
-  describe "#destroy_focus_point" do
-    it "should delete the focus point" do
-      focus_point_uid = question.data["focusPoints"].keys.first
-      pre_delete_count = question.data["focusPoints"].keys.length
-      delete :destroy_focus_point, id: question.uid, fp_id: focus_point_uid
-      question.reload
-      expect(question.data["focusPoints"].keys.length).to eq(pre_delete_count - 1)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      delete :destroy_focus_point, id: 'doesnotexist', fp_id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
   describe "#update_flag" do
     it "should update the flag attribute in the data" do
       new_flag = 'newflag'
@@ -155,54 +92,7 @@ describe Api::V1::QuestionsController, type: :controller do
     end
 
     it "should return a 404 if the requested Question is not found" do
-      put :update_flag, id: 'doesnotexist', question: {flag: nil}
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
-  describe "#create_incorrect_sequence" do
-    it "should add a new incorrect sequence to the question data" do
-      data = {"foo" => "bar"}
-      incorrect_sequence_count = question.data["incorrectSequences"].keys.length
-      post :create_incorrect_sequence, id: question.uid, question: data
-      question.reload
-      expect(question.data["incorrectSequences"].keys.length).to eq(incorrect_sequence_count + 1)
-    end
-  end
-
-  describe "#update_incorrect_sequence" do
-    it "should update an existing incorrect sequence in the question data" do
-      data = {"foo" => "bar"}
-      incorrect_sequence_uid = question.data["incorrectSequences"].keys.first
-      put :update_incorrect_sequence, id: question.uid, is_id: incorrect_sequence_uid, question: data
-      question.reload
-      expect(question.data["incorrectSequences"][incorrect_sequence_uid]).to eq(data)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      put :update_incorrect_sequence, id: 'doesnotexist', is_id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-
-    it "should return a 404 if the requested Question does not have the specified focusPoint" do
-      put :update_incorrect_sequence, id: question.uid, is_id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-  end
-
-  describe "#update_all_incorrect_sequences" do
-    it "should replace all incorrectSequences" do
-      data = {"foo" => "bar"}
-      put :update_all_incorrect_sequences, id: question.uid, question: data
-      question.reload
-      expect(question.data["incorrectSequences"]).to eq(data)
-    end
-
-    it "should return a 404 if the requested Question is not found" do
-      put :update_all_incorrect_sequences, id: 'doesnotexist'
+      put :update_model_concept, id: 'doesnotexist', question: {flag: nil}
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end

@@ -382,16 +382,22 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
-      resources :questions
-      post 'questions/:id/focus_points' => 'questions#create_focus_point'
-      put 'questions/:id/focus_points' => 'questions#update_all_focus_points'
-      put 'questions/:id/focus_points/:fp_id' => 'questions#update_focus_point'
-      delete 'questions/:id/focus_points/:fp_id' => 'questions#destroy_focus_point'
-      put 'questions/:id/update_flag' => 'questions#update_flag'
-      put 'questions/:id/update_model_concept_uid' => 'questions#update_model_concept'
-      post 'questions/:id/incorrect_sequences' => 'questions#create_incorrect_sequence'
-      put 'questions/:id/incorrect_sequences' => 'questions#update_all_incorrect_sequences'
-      put 'questions/:id/incorrect_sequences/:is_id' => 'questions#update_incorrect_sequence'
+      resources :questions do
+        resources :focus_points do
+          collection do
+            put '' => 'focus_points#update_all'
+          end
+        end
+        resources :incorrect_sequences, except: [:destroy] do
+          collection do
+            put '' =>'incorrect_sequences#update_all'
+          end
+        end
+        member do
+          put 'update_flag'
+          put 'update_model_concept'
+        end
+      end
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
