@@ -388,7 +388,7 @@ EmpiricalGrammar::Application.routes.draw do
       put 'questions/:id/focus_points/:fp_id' => 'questions#update_focus_point'
       delete 'questions/:id/focus_points/:fp_id' => 'questions#destroy_focus_point'
       put 'questions/:id/update_flag' => 'questions#update_flag'
-      put 'questions/:id/update_model_concept_uid' => 'questions#update_model_concept_uid'
+      put 'questions/:id/update_model_concept_uid' => 'questions#update_model_concept'
       post 'questions/:id/incorrect_sequences' => 'questions#create_incorrect_sequence'
       put 'questions/:id/incorrect_sequences' => 'questions#update_all_incorrect_sequences'
       put 'questions/:id/incorrect_sequences/:is_id' => 'questions#update_incorrect_sequence'

@@ -146,10 +146,10 @@ describe Api::V1::QuestionsController, type: :controller do
     end
   end
 
-  describe "#update_model_concept_uid" do
+  describe "#update_model_concept" do
     it "should update the model concept uid attribute in the data" do
       new_model_concept = SecureRandom.uuid
-      put :update_model_concept_uid, id: question.uid, question: {modelConcept: new_model_concept}
+      put :update_model_concept, id: question.uid, question: {modelConcept: new_model_concept}
       question.reload
       expect(question.data["modelConceptUID"]).to eq(new_model_concept)
     end

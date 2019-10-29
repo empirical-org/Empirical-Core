@@ -12,23 +12,28 @@ class Question < ActiveRecord::Base
 
   def set_focus_point(uid, data)
     self.data['focusPoints'][uid] = data
+    save
     uid
   end
 
   def update_focus_points(data)
     self.data['focusPoints'] = data
+    save
   end
 
   def delete_focus_point(uid)
     self.data['focusPoints'].delete(uid)
+    save
   end
 
   def update_flag(flag_value)
     self.data['flag'] = flag_value
+    save
   end
 
   def update_model_concept(uid)
     self.data['modelConceptUID'] = uid
+    save
   end
 
   def add_incorrect_sequence(data)
@@ -37,11 +42,13 @@ class Question < ActiveRecord::Base
 
   def set_incorrect_sequence(uid, data)
     self.data['incorrectSequences'][uid] = data
+    save
     uid
   end
 
   def update_incorrect_sequences(data)
     self.data['incorrectSequences'] = data
+    save
   end
 
   private def new_uuid

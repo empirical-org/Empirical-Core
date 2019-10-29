@@ -59,11 +59,13 @@ RSpec.describe Question, type: :model do
     it 'should increase the number of focus points' do
       starting_length = question.data['focusPoints'].keys.length
       question.add_focus_point(new_focus_point)
+      question.reload
       expect(question.data['focusPoints'].keys.length).to eq(starting_length + 1)
     end
 
     it 'should put the new focus point in the data attribute' do
       uid = question.add_focus_point(new_focus_point)
+      question.reload
       expect(question.data['focusPoints'][uid]).to eq(new_focus_point)
     end
   end
@@ -78,14 +80,16 @@ RSpec.describe Question, type: :model do
     it 'should set the value of the specified focusPoint' do
       replace_uid = question.data['focusPoints'].keys.first
       question.set_focus_point(replace_uid, new_focus_point)
+      question.reload
       expect(question.data['focusPoints'][replace_uid]).to eq(new_focus_point)
     end
   end
 
   describe '#update_focus_points' do
-    let(:update_data) { {foo: 'bar'} }
+    let(:update_data) { {"foo" => "bar"} }
     it 'should change the contents of focusPoints' do
       question.update_focus_points(update_data)
+      question.reload
       expect(question.data['focusPoints']).to eq(update_data)
     end
   end
@@ -94,6 +98,7 @@ RSpec.describe Question, type: :model do
     it 'should remove the specified focusPoint' do
       first_focus_point_key = question.data['focusPoints'].keys.first
       question.delete_focus_point(first_focus_point_key)
+      question.reload
       expect(question.data['focusPoints'][first_focus_point_key]).to be_nil
     end
   end
@@ -102,6 +107,7 @@ RSpec.describe Question, type: :model do
     it 'should change the value of the flag key' do
       new_val = 'foo'
       question.update_flag(new_val)
+      question.reload
       expect(question.data['flag']).to eq(new_val)
     end
   end
@@ -110,6 +116,7 @@ RSpec.describe Question, type: :model do
     it 'should change the modelConceptUID key' do
       new_val = 'foo'
       question.update_model_concept(new_val)
+      question.reload
       expect(question.data['modelConceptUID']).to eq(new_val)
     end
   end
@@ -118,11 +125,13 @@ RSpec.describe Question, type: :model do
     it 'should increase the number of incorrectSequences' do
       starting_length = question.data['incorrectSequences'].keys.length
       question.add_incorrect_sequence(new_incorrect_sequence)
+      question.reload
       expect(question.data['incorrectSequences'].keys.length).to eq(starting_length + 1)
     end
 
     it 'should put the new incorrectSequence in the data attribute' do
       uid = question.add_incorrect_sequence(new_incorrect_sequence)
+      question.reload
       expect(question.data['incorrectSequences'][uid]).to eq(new_incorrect_sequence)
     end
   end
@@ -137,14 +146,16 @@ RSpec.describe Question, type: :model do
     it 'should set the value of the specified incorrectSequence' do
       replace_uid = question.data['incorrectSequences'].keys.first
       question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
+      question.reload
       expect(question.data['incorrectSequences'][replace_uid]).to eq(new_incorrect_sequence)
     end
   end
 
   describe '#update_incorrect_sequences' do
-    let(:update_data) { {foo: 'bar'} }
+    let(:update_data) { {"foo" => "bar"} }
     it 'should change the contents of incorrectSequences' do
       question.update_incorrect_sequences(update_data)
+      question.reload
       expect(question.data['incorrectSequences']).to eq(update_data)
     end
   end
