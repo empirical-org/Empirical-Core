@@ -23,11 +23,11 @@ class SetImpactMetricsWorker
     $redis.set(PagesController::NUMBER_OF_SENTENCES, number_of_sentences)
     number_of_students = finished_activity_sessions_query.count("DISTINCT(user_id)").floor(-5)
     $redis.set(PagesController::NUMBER_OF_STUDENTS, number_of_students)
-    number_of_teachers = teachers_query.to_a.count.floor(-2)
+    number_of_teachers = teacher_ids.size.floor(-2)
     $redis.set(PagesController::NUMBER_OF_TEACHERS, number_of_teachers)
-    number_of_schools = schools_query.to_a.count
+    number_of_schools = schools_query.count
     $redis.set(PagesController::NUMBER_OF_SCHOOLS, number_of_schools)
-    number_of_low_income_schools = low_income_schools_query.to_a.count
+    number_of_low_income_schools = low_income_schools_query.count
     $redis.set(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS, number_of_low_income_schools)
   end
 
