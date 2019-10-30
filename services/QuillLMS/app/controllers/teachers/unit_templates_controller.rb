@@ -16,7 +16,7 @@ class Teachers::UnitTemplatesController < ApplicationController
         redirect_to "/assign/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
       format.json do
-        render json: get_cached_formatted_unit_templates
+        render json: cached_formatted_unit_templates
       end
     end
   end
@@ -86,14 +86,14 @@ class Teachers::UnitTemplatesController < ApplicationController
     current_user_testing_flag || "production"
   end
 
-  def get_unit_templats_by_user_testing_flag
+  def unit_templates_by_user_testing_flag
     UnitTemplate.user_scope(related_models_flag)
     .includes(:author, :unit_template_category)
     .order(:order_number)
     .map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
-  def get_cached_formatted_unit_templates
+  def cached_formatted_unit_templates
     ut_cache_name = "#{related_models_flag}_unit_templates"
     cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
@@ -104,7 +104,7 @@ class Teachers::UnitTemplatesController < ApplicationController
     if ut_cache
       ut_cache
     else
-      uts = get_unit_templats_by_user_testing_flag
+      uts = unit_templates_by_user_testing_flag
       $redis.set(ut_cache_name, uts.to_json)
       uts
     end

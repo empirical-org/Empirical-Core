@@ -23,7 +23,7 @@ module Owner
     end
   end
 
-  def set_owner object
+  def owner= object
     send "#{self.class.owner_name}=", object
   end
 

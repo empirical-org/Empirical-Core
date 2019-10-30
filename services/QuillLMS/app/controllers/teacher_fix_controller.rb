@@ -1,12 +1,12 @@
 class TeacherFixController < ApplicationController
   include TeacherFixes
   before_filter :staff!
-  before_filter :set_user, only: :get_archived_units
+  before_filter :set_user, only: :archived_units
 
   def index
   end
 
-  def get_archived_units
+  def archived_units
     if !@user
       render json: {error: 'No such user.'}
     elsif @user.role != 'teacher'

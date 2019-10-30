@@ -77,7 +77,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    render json: { classes: current_user.get_classroom_minis_info}
+    render json: { classes: current_user.classroom_minis_info}
   end
 
   def dashboard_query
