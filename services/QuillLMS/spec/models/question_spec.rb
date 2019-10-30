@@ -3,15 +3,15 @@ require 'rails_helper'
 RSpec.describe Question, type: :model do
   let(:question) { create(:question) }
   let(:new_focus_point) do
-    { 
+    {
       'conceptResults' => {
         'asfdGCdbTy6l8xTe-_p6Qg' => {
-          'conceptUID' => 'asfdGCdbTy6l8xTe-_p6Qg', 
+          'conceptUID' => 'asfdGCdbTy6l8xTe-_p6Qg',
           'correct' => false,
           'name' => 'Structure | Compound Subjects, Objects, & Predicates | Compound Predicates'
         }
       },
-      'feedback' => '<p>Try again. Use <em>and</em> to combine the sentences.</p>', 
+      'feedback' => '<p>Try again. Use <em>and</em> to combine the sentences.</p>',
       'order' => 1,
       'text' => 'and'
     }
@@ -20,12 +20,12 @@ RSpec.describe Question, type: :model do
     {
       'conceptResults' => {
         'hJKqVOkQQQgfEsmzOWC1xw' => {
-          'conceptUID' => 'hJKqVOkQQQgfEsmzOWC1xw', 
+          'conceptUID' => 'hJKqVOkQQQgfEsmzOWC1xw',
           'correct' => false,
           'name' => 'Conjunctions | Coordinating Conjunctions | And'
         }
       },
-      'feedback' => '<p>That is not correct. Put <em>a</em> before both things.</p>', 
+      'feedback' => '<p>That is not correct. Put <em>a</em> before both things.</p>',
       'text' => 'e d|||e D|||e c|||e C|||d d|||d D|||d c|||d C'
     }
   end
