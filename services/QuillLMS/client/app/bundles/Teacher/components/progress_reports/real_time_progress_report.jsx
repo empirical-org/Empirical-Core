@@ -21,15 +21,18 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
+    this.getRealTimeData()
+    this.initializePusher();
+  }
+
+  getRealTimeData = () => {
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/real_time_data`,
     }, (e, r, body) => {
       const data = JSON.parse(body).data;
       const studentsData = data;
-      that.setState({ loading: false, errors: body.errors, studentsData, });
+      this.setState({ loading: false, errors: body.errors, studentsData, });
     });
-    this.initializePusher();
   }
 
   clearStudentData() {
@@ -51,15 +54,14 @@ export default class extends React.Component {
       this.clearStudentData,
       maxIntervalWithoutInteractionBeforeClearing
     );
-    channel.bind('as-interaction-log-pushed', (pushedData) => {
+    channel.bind('as-interaction-log-pushed', () => {
       // reset clock on table
       clearTimeout(clearStudentDataAfterPause);
       clearStudentDataAfterPause = setTimeout(
         this.clearStudentData,
         maxIntervalWithoutInteractionBeforeClearing
       );
-      const studentsData = pushedData.data;
-      this.setState({ studentsData, });
+      this.getRealTimeData()
     });
   }
 
