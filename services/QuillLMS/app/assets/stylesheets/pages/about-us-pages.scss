@@ -29,9 +29,11 @@
       font-weight: bold;
     }
     p {
-      max-width: 630px;
+      max-width: 656px;
       text-align: center;
       margin: 16px 0px 24px;
+      line-height: 1.5;
+      font-size: 16px;
     }
   }
 
@@ -68,13 +70,23 @@
     width: 447px;
   }
 
+  .square-small-img {
+    height: 219px;
+    width: 219px;
+  }
+
   .square-extra-small-img {
     height: 72px;
     width: 72px;
   }
 
+  .rectangularimg {
+    height: 306px;
+    width: 604px;
+  }
+
   @media only screen and (max-width: 900px) {
-    img {
+    .square-medium-img, .square-small-img, .rectangular-img {
       height: auto;
       width: auto;
     }
