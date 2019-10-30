@@ -7,9 +7,13 @@ class SetImpactMetricsWorker
 
   def set_impact_metrics
     finished_activity_sessions_query = ActivitySession.where(state: 'finished')
-    teachers_query = User.select(:id).joins(:units).joins(:classroom_units).joins("JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id").where("activity_sessions.state = 'finished'").group('users.id').having('count(activity_sessions) > 9')
+    teachers_query = User.select(:id)
+      .joins(:units, classroom_units: :activity_sessions)
+      .where("activity_sessions.state = 'finished'")
+      .group('users.id')
+      .having('count(activity_sessions) > 9')
     teacher_ids = teachers_query.to_a.map(&:id)
-    schools_query = School.joins(:schools_users).where("schools_users.user_id IN (?)", teacher_ids).distinct
+    schools_query = School.joins(:schools_users).where(schools_users: {user_id: teacher_ids}).distinct
     low_income_schools_query = schools_query.where("free_lunches > 39")
 
     number_of_sentences = finished_activity_sessions_query.size.floor(-5) * 10
