@@ -42,19 +42,27 @@ class QuestionApi {
   }
 
   static create(data: any): Promise<any> {
-    return requestPost(`${questionApiBaseUrl}.json`, data);
+    return requestPost(`${questionApiBaseUrl}.json`, {question: data});
   }
 
   static update(uid: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${uid}.json`, data);
+    return requestPut(`${questionApiBaseUrl}/${uid}.json`, {question: data});
   }
 
   static updateFlag(uid: string, flag: string): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${uid}/update_flag.json`, flag);
+    return requestPut(`${questionApiBaseUrl}/${uid}/update_flag.json`, {
+      question: {
+        flag: flag
+      }
+    });
   }
 
   static updateModelConcept(uid: string, modelConceptUid: string): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${uid}/update_model_concept.json`, modelConceptUid);
+    return requestPut(`${questionApiBaseUrl}/${uid}/update_model_concept.json`, {
+      question: {
+        modelConcept: modelConceptUid
+      }
+    });
   }
 }
 
@@ -68,15 +76,15 @@ class FocusPointApi {
   }
 
   static create(questionId: string, data: any): Promise<any> {
-    return requestPost(`${questionApiBaseUrl}/${questionId}/focus_points.json`, data);
+    return requestPost(`${questionApiBaseUrl}/${questionId}/focus_points.json`, {focus_point: data});
   }
 
   static update(questionId: string, focusPointId: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`, data);
+    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`, {focus_point: data});
   }
 
   static update_all(questionId: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points.json`, data);
+    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points.json`, {focus_point: data});
   }
 
   static remove(questionId: string, focusPointId: string): Promise<any> {
@@ -94,15 +102,15 @@ class IncorrectSequenceApi {
   }
 
   static create(questionId: string, data: any): Promise<any> {
-    return requestPost(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, data);
+    return requestPost(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, {incorrect_sequence: data});
   }
 
   static update(questionId: string, incorrectSequenceId: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`, data);
+    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`, {incorrect_sequence: data});
   }
 
   static update_all(questionId: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, data);
+    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, {incorrect_sequence: data});
   }
 
   static remove(questionId: string, incorrectSequenceId: string): Promise<any> {
