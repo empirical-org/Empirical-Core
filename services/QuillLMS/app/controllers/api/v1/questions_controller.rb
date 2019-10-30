@@ -8,7 +8,7 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   def show
-    render(json: @question.as_json)
+    render_question
   end
 
   def create
@@ -29,12 +29,12 @@ class Api::V1::QuestionsController < Api::ApiController
 
   def update_flag
     @question.update_flag(valid_params[:flag])
-    show
+    render_question
   end
 
   def update_model_concept
     @question.update_model_concept(valid_params[:modelConcept])
-    show
+    render_question
   end
 
   private def get_question_by_uid
@@ -43,5 +43,9 @@ class Api::V1::QuestionsController < Api::ApiController
 
   private def valid_params
     params.require(:question).except(:uid)
+  end
+
+  private def render_question
+    render(json: @question.as_json)
   end
 end
