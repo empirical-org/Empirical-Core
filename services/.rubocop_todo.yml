@@ -825,20 +825,6 @@ Naming/VariableNumber:
     - 'QuillLMS/app/controllers/teacher_fix_controller.rb'
     - 'QuillLMS/app/helpers/application_helper.rb'
 
-# Offense count: 4
-Security/Eval:
-  Exclude:
-    - 'QuillLMS/app/controllers/teachers/unit_templates_controller.rb'
-    - 'QuillLMS/app/models/unit_template.rb'
-    - 'QuillLMS/app/queries/dashboard.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect.
-Security/JSONLoad:
-  Exclude:
-    - 'QuillLMS/app/controllers/schools_controller.rb'
-
 # Offense count: 11
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: inline, group
