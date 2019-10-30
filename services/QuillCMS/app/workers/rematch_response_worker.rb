@@ -17,11 +17,12 @@ class RematchResponseWorker
     "spelling_error",
   ].freeze
 
-  def perform(response_id, question_type, question_uid)
+  def perform(response_id, question_type, question_uid, reference_response_ids)
     response = Response.find_by(id: response_id)
     question = retrieve_question_from_firebase(question_uid, question_type)
     return unless question
-    reference_responses = get_human_graded_responses(question_uid).to_a
+
+    reference_responses = Response.where(id: reference_response_ids).to_a
     rematch_response(response, question_type, question, reference_responses)
   end
 
@@ -57,12 +58,6 @@ class RematchResponseWorker
     JSON.parse(resp.body)
   end
 
-  def get_human_graded_responses(question_uid)
-    Response.where(question_uid: question_uid)
-            .where.not(optimal: nil)
-            .where(parent_id: nil)
-  end
-
   def retrieve_question_from_firebase(question_uid, question_type)
     uri = URI(ENV['FIREBASE_URL'])
     path = get_firebase_path(question_uid, question_type)
@@ -82,5 +77,4 @@ class RematchResponseWorker
       return "/v2/#{question_type}/#{question_uid}.json"
     end
   end
-
 end

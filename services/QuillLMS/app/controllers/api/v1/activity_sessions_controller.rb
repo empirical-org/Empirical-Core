@@ -27,7 +27,6 @@ class Api::V1::ActivitySessionsController < Api::ApiController
         handle_concept_results
       end
       @status = :success
-      @message =
       render json: @activity_session, meta: {
         status: :success,
         message: "Activity Session Updated",
