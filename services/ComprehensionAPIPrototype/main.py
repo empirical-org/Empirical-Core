@@ -1,6 +1,7 @@
 from google.cloud import automl_v1beta1 as automl
 from flask import jsonify
 from flask import make_response
+# import yaml
 
 LABELS = {
   "greenhouse_general" : 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.',
@@ -18,24 +19,12 @@ PROJECT_ID = 'comprehension-247816'
 COMPUTE_REGION = 'us-central1'
 MODEL_ID = 'TCN136527252061972837'
 
-def label(payload):
-    return sorted(payload, key=scoreSort, reverse=True)[0].display_name
-
-def scoreSort(e):
-    return e.classification.score
-
-def log(**items):
-    print(items)
-
 def response_endpoint(request):
     request_json = request.get_json()
-    entry = ''
 
-    if request.args and 'entry' in request.args:
-        entry = request.args.get('entry')
-    elif request_json and 'entry' in request_json:
-        entry = request_json['entry']
-    else:
+    entry = param_for('entry', request, request_json)
+
+    if entry == None:
         return make_response(jsonify(message="error"), 400)
 
     prediction_client = automl.PredictionServiceClient()
@@ -50,3 +39,20 @@ def response_endpoint(request):
     log(request=request_json, label=prediction_label, feedback=feedback)
 
     return make_response(jsonify(message=feedback,correct=True), 200)
+
+def param_for(key, request, request_json):
+  if request.args and key in request.args:
+      return request.args.get(key)
+  elif request_json and key in request_json:
+      return request_json[key]
+  else:
+      return None
+
+def label(payload):
+    return sorted(payload, key=scoreSort, reverse=True)[0].display_name
+
+def scoreSort(e):
+    return e.classification.score
+
+def log(**items):
+    print(items)
