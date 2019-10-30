@@ -100,12 +100,12 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def set_cache_if_necessary_and_return(cached, ut_cache_name)
-    ut_cache = cached.nil? || cached&.blank? ? nil : eval(cached)
+    ut_cache = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     if ut_cache
       ut_cache
     else
       uts = get_unit_templats_by_user_testing_flag
-      $redis.set(ut_cache_name, uts)
+      $redis.set(ut_cache_name, uts.to_json)
       uts
     end
   end
