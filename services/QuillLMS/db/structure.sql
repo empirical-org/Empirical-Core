@@ -1844,8 +1844,8 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 CREATE TABLE public.questions (
     id integer NOT NULL,
-    uid character varying,
-    data jsonb,
+    uid character varying NOT NULL,
+    data jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -5833,4 +5833,6 @@ INSERT INTO schema_migrations (version) VALUES ('20191016202708');
 INSERT INTO schema_migrations (version) VALUES ('20191022142949');
 
 INSERT INTO schema_migrations (version) VALUES ('20191024150907');
+
+INSERT INTO schema_migrations (version) VALUES ('20191030183959');
 
