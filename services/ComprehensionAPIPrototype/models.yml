@@ -1,0 +1,21 @@
+# model settings indexed by the question_id
+models:
+  35: # take this from the comprehension beta app question id
+    name: "Eating Meat Because"
+    label_type: "single" #single or multi
+    automl:
+      project_id: 'comprehension-247816'
+      compute_region: 'us-central1'
+      model_id: 'TCN136527252061972837'
+    feedback:
+      greenhouse_general: 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.'
+      greenhouse_specifc: 'You are correct! Well done!'
+      harms_animals: "It does harm animals"
+      outside_scope: "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
+      because_as_prep: "Maybe because isn't the right preposition to use here."
+      harms_env_no_mention: "It does harm the environment, but include why that is bad"
+      plagiarism: "It seems you've copied directly from the passage, try to write in your own words"
+      irrelevant: "It seems that your answer is irrelevant"
+      insufficient: "Your answer is short and insufficent, please try again"
+    correct:
+      - greenhouse_specifc

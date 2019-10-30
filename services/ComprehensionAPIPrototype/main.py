@@ -1,7 +1,7 @@
 from google.cloud import automl_v1beta1 as automl
 from flask import jsonify
 from flask import make_response
-# import yaml
+import yaml
 
 LABELS = {
   "greenhouse_general" : 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.',
@@ -15,9 +15,6 @@ LABELS = {
   "insufficient" : "Your answer is short and insufficent, please try again"
 }
 
-PROJECT_ID = 'comprehension-247816'
-COMPUTE_REGION = 'us-central1'
-MODEL_ID = 'TCN136527252061972837'
 
 def response_endpoint(request):
     request_json = request.get_json()
@@ -28,13 +25,16 @@ def response_endpoint(request):
     if entry == None or prompt_id == None:
         return make_response(jsonify(message="error"), 400)
 
-    prediction_client = automl.PredictionServiceClient()
+    with open("models.yml", 'r') as ymlfile:
+      configs = yaml.load(ymlfile)['models']
 
-    model_url = 'projects/{}/locations/{}/models/{}'.format(PROJECT_ID, COMPUTE_REGION, MODEL_ID)
-    payload = {'text_snippet': {'content': entry, 'mime_type': 'text/plain' }}
+    if prompt_id in configs:
+      model_settings = configs[prompt_id]
+    else:
+      return make_response(jsonify(message="error: model not found"), 400)
 
-    response = prediction_client.predict(model_url, payload, {})
-    prediction_label = label(response.payload)
+    automl_response = automl_prediction(entry, model_settings['automl'])
+    prediction_label = label(automl_response.payload)
     feedback = LABELS[prediction_label]
 
     log(request=request_json, label=prediction_label, feedback=feedback)
@@ -48,6 +48,14 @@ def param_for(key, request, request_json):
       return request_json[key]
   else:
       return None
+
+def automl_prediction(entry, settings):
+    prediction_client = automl.PredictionServiceClient()
+
+    model_url = 'projects/{}/locations/{}/models/{}'.format(settings['project_id'], settings['compute_region'], settings['model_id'])
+    payload = {'text_snippet': {'content': entry, 'mime_type': 'text/plain' }}
+
+    return prediction_client.predict(model_url, payload, {})
 
 def label(payload):
     return sorted(payload, key=scoreSort, reverse=True)[0].display_name
