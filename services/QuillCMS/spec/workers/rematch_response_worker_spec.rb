@@ -115,15 +115,23 @@ describe RematchResponseWorker do
       "spelling_error":false
     }]
   }.stringify_keys
+  reference_responses = []
+  sample_payload["referenceResponses"].each_with_index do |r|
+    reference_responses.push(Response.create_with(r).find_or_create_by(id: r[:id]))
+  end
 
   describe '#perform' do
-    let(:response) { create(:response) }
+    let(:response) { Response.create(sample_payload['response']) }
     it 'should update the response based on the lambda payload' do
       stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/).
         to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
-      expect(response).to receive(:update_index_in_elastic_search)
-      subject.rematch_response(response, sample_payload['type'], sample_payload['question'], sample_payload['reference_responses'])
+      reference_response_ids = reference_responses.map { |r| r.id }
+
+      expect(subject).to receive(:retrieve_question_from_firebase).with(sample_payload['question']['key'], sample_payload['type']).and_return(sample_payload['question'])
+      expect(subject).to receive(:rematch_response).with(response, sample_payload['type'], sample_payload['question'], reference_responses).and_call_original
+      subject.perform(response.id, sample_payload['type'], sample_payload['question']['key'], reference_response_ids)
+      response.reload
       expect(response.feedback).to eq(sample_lambda_response[:feedback])
     end
 
