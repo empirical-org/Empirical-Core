@@ -4,37 +4,33 @@ RSpec.describe Question, type: :model do
   let(:question) { create(:question) }
   let(:new_focus_point) do
     { 
-      '-LlmyO0Cn9LPlVvCfRlW' => {
-        'conceptResults' => {
-          'asfdGCdbTy6l8xTe-_p6Qg' => {
-            'conceptUID' => 'asfdGCdbTy6l8xTe-_p6Qg', 
-            'correct' => false,
-            'name' => 'Structure | Compound Subjects, Objects, & Predicates | Compound Predicates'
-          }
-        },
-        'feedback' => '<p>Try again. Use <em>and</em> to combine the sentences.</p>', 
-        'order' => 1,
-        'text' => 'and'
-      }
+      'conceptResults' => {
+        'asfdGCdbTy6l8xTe-_p6Qg' => {
+          'conceptUID' => 'asfdGCdbTy6l8xTe-_p6Qg', 
+          'correct' => false,
+          'name' => 'Structure | Compound Subjects, Objects, & Predicates | Compound Predicates'
+        }
+      },
+      'feedback' => '<p>Try again. Use <em>and</em> to combine the sentences.</p>', 
+      'order' => 1,
+      'text' => 'and'
     }
   end
   let(:new_incorrect_sequence) do
     {
-      '-LY3zIvRRkbFxdzf90ey' => {
-        'conceptResults' => {
-          'hJKqVOkQQQgfEsmzOWC1xw' => {
-            'conceptUID' => 'hJKqVOkQQQgfEsmzOWC1xw', 
-            'correct' => false,
-            'name' => 'Conjunctions | Coordinating Conjunctions | And'
-          }
-        },
-        'feedback' => '<p>That is not correct. Put <em>a</em> before both things.</p>', 
-        'text' => 'e d|||e D|||e c|||e C|||d d|||d D|||d c|||d C'
-      }
+      'conceptResults' => {
+        'hJKqVOkQQQgfEsmzOWC1xw' => {
+          'conceptUID' => 'hJKqVOkQQQgfEsmzOWC1xw', 
+          'correct' => false,
+          'name' => 'Conjunctions | Coordinating Conjunctions | And'
+        }
+      },
+      'feedback' => '<p>That is not correct. Put <em>a</em> before both things.</p>', 
+      'text' => 'e d|||e D|||e c|||e C|||d d|||d D|||d c|||d C'
     }
   end
 
-  describe '#valid' do
+  describe '#valid?' do
     it 'should be valid from the factory' do
       expect(question.valid?).to be true
     end
@@ -47,6 +43,12 @@ RSpec.describe Question, type: :model do
     it 'should be invalid without data' do
       question.data = nil
       expect(question.valid?).to be false
+    end
+
+    it 'should be invalid if data is not a hash' do
+      question.data = 1
+      expect(question.valid?).to be false
+      expect(question.errors[:data]).to include('must be a hash')
     end
 
     it 'should be invalid if the uid is not unique' do
@@ -79,6 +81,7 @@ RSpec.describe Question, type: :model do
 
     it 'should set the value of the specified focusPoint' do
       replace_uid = question.data['focusPoints'].keys.first
+      expect(question.data['focusPoints'][replace_uid]).not_to eq(new_focus_point)
       question.set_focus_point(replace_uid, new_focus_point)
       question.reload
       expect(question.data['focusPoints'][replace_uid]).to eq(new_focus_point)

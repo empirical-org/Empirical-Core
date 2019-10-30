@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
   validates :uid, presence: true, uniqueness: true
   validates :data, presence: true
+  validate :data_must_be_hash
 
   def as_json(options=nil)
     data
@@ -55,5 +56,9 @@ class Question < ActiveRecord::Base
 
   private def new_uuid
     SecureRandom.uuid
+  end
+
+  private def data_must_be_hash
+    errors.add(:data, "must be a hash") unless data.is_a?(Hash)
   end
 end
