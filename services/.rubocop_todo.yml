@@ -10,6 +10,17 @@
 # Cop supports --auto-correct.
 # Configuration parameters: TreatCommentsAsGroupSeparators, Include.
 # Include: **/*.gemfile, **/Gemfile, **/gems.rb
+AllCops:
+  Exclude:
+    - 'QuillConnect/node_modules/**/*'
+    - 'QuillComprehension/node_modules/**/*'
+    - 'QuillDiagnostic/node_modules/**/*'
+    - 'QuillGrammar/node_modules/**/*'
+    - 'QuillLessons/node_modules/**/*'
+    - 'QuillLMS/node_modules/**/*'
+    - 'QuillLMS/client/node_modules/**/*'
+    - 'QuillProofreader/node_modules/**/*'
+
 Bundler/OrderedGems:
   Exclude:
     - 'QuillCMS/Gemfile'
@@ -1498,7 +1509,7 @@ Style/UnlessElse:
 
 # Offense count: 5
 # Cop supports --auto-correct.
-Style/UnneededCondition:
+Style/RedundantCondition:
   Exclude:
     - 'QuillCMS/lib/tasks/sync_lms_and_connect_flags.rake'
     - 'QuillLMS/app/controllers/api/v1/classroom_units_controller.rb'
@@ -1508,7 +1519,7 @@ Style/UnneededCondition:
 
 # Offense count: 13
 # Cop supports --auto-correct.
-Style/UnneededInterpolation:
+Style/RedundantInterpolation:
   Exclude:
     - 'QuillCMS/lib/modules/response_search.rb'
     - 'QuillCMS/spec/controllers/responses_controller_spec.rb'
@@ -1522,7 +1533,7 @@ Style/UnneededInterpolation:
 
 # Offense count: 23
 # Cop supports --auto-correct.
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Exclude:
     - 'QuillLMS/db/migrate/20180821200652_add_function_timespent_activity_session.rb'
     - 'QuillLMS/db/migrate/20180821201236_add_function_timespent_teacher.rb'

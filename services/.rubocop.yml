@@ -48,6 +48,9 @@ Lint/SafeNavigationChain:
 Security/Open:
   Enabled: true
 
+Security/YAMLLoad:
+  Enabled: true
+
 Style/ClassCheck:
   Enabled: true
 
@@ -82,13 +85,13 @@ Style/Strip:
 Style/TernaryParentheses:
   Enabled: true
 
-Style/UnneededCapitalW:
-  Exclude: 
+Style/RedundantCapitalW:
+  Exclude:
    - 'QuillLMS/config/initializers/sentry.rb'
   Enabled: true
 
-Style/UnneededSort:
-  Exclude: 
+Style/RedundantSort:
+  Exclude:
    - 'QuillComprehension/app/models/question.rb'
   Enabled: true
 
