@@ -22,7 +22,6 @@ class SetImpactMetricsWorker
     $redis.set(PagesController::NUMBER_OF_SCHOOLS, number_of_schools)
     number_of_low_income_schools = low_income_schools_query.to_a.size
     $redis.set(PagesController::NUMBER_OF_LOW_INCOME_SCHOOLS, number_of_low_income_schools)
-    $redis.set(PagesController::IMPACT_METRICS_LAST_SET, Time.now)
   end
 
 end
