@@ -729,19 +729,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 28
 
-# Offense count: 34
-Naming/AccessorMethodName:
-  Enabled: false
-
-# Offense count: 3
-# Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts, AllowedAcronyms.
-# AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
-Naming/FileName:
-  Exclude:
-    - 'QuillLMS/config/initializers/rack-attack.rb'
-    - 'QuillLMS/lib/tasks/db-snapshots.rake'
-    - 'QuillLMS/lib/tasks/quill-writer.rake'
-
 # Offense count: 10
 # Configuration parameters: EnforcedStyleForLeadingUnderscores.
 # SupportedStylesForLeadingUnderscores: disallowed, required, optional
