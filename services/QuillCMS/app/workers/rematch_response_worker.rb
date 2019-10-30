@@ -21,7 +21,8 @@ class RematchResponseWorker
     response = Response.find_by(id: response_id)
     question = retrieve_question_from_firebase(question_uid, question_type)
     return unless question
-    reference_responses = retrieve_reference_responses(reference_response_ids).to_a
+
+    reference_responses = Response.where(id: reference_response_ids).to_a
     rematch_response(response, question_type, question, reference_responses)
   end
 
@@ -75,9 +76,5 @@ class RematchResponseWorker
     else
       return "/v2/#{question_type}/#{question_uid}.json"
     end
-  end
-
-  def retrieve_reference_responses(reference_response_ids)
-    Response.where(id: reference_response_ids)
   end
 end
