@@ -1,5 +1,4 @@
 class Api::V1::QuestionsController < Api::ApiController
-  wrap_parameters format: [:json]
   before_filter :get_question_by_uid, except: [:index, :create, :valid_params]
 
   def index

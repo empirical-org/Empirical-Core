@@ -1,5 +1,4 @@
 class Api::V1::IncorrectSequencesController < Api::ApiController
-  wrap_parameters format: [:json]
   before_filter :get_question_by_uid
 
   def index
