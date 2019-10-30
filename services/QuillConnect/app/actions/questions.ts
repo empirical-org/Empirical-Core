@@ -288,7 +288,7 @@ function searchResponses(qid) {
         // if equal to const set earlier, update the state
         // otherwise, do nothing
         if (getState().filters.requestCount === requestNumber) {
-          const embeddedOrder = _.map(data.results, (response, i) => {
+          const embeddedOrder = _.map(data.results, (response: any, i: number) => {
             response.sortOrder = i;
             return response;
           });
@@ -345,9 +345,9 @@ function updateStringFilter(stringFilter, qid) {
 function getUsedSequences(qid) {
   return (dispatch, getState) => {
     const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
-    const usedSeqs = []
+    const usedSeqs: string[] = []
     if (existingIncorrectSeqs) {
-      Object.values(existingIncorrectSeqs).forEach(inSeq => {
+      Object.values(existingIncorrectSeqs).forEach((inSeq: any) => {
         const phrases = inSeq.text.split('|||')
         phrases.forEach((p) => {
           usedSeqs.push(p)
