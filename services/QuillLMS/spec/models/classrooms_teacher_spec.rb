@@ -10,9 +10,9 @@ RSpec.describe ClassroomsTeacher, type: :model, redis: :true do
   it { should belong_to(:classroom) }
 
   it { is_expected.to callback(:delete_classroom_minis_cache_for_each_teacher_of_this_classroom).after(:create) }
-  it { is_expected.to callback(:reset_lessons_cache_for_teacher).after(:create) }
+  it { is_expected.to callback(:relessons_cache=_for_teacher).after(:create) }
   it { is_expected.to callback(:delete_classroom_minis_cache_for_each_teacher_of_this_classroom).before(:destroy) }
-  it { is_expected.to callback(:reset_lessons_cache_for_teacher).before(:destroy) }
+  it { is_expected.to callback(:relessons_cache=_for_teacher).before(:destroy) }
   it { is_expected.to callback(:trigger_analytics_events_for_classroom_creation).after(:commit).on(:create) }
 
   describe 'teacher' do

@@ -98,7 +98,7 @@ describe UnitTemplate, redis: :true, type: :model do
     }
 
     before do
-      allow_any_instance_of(UnitTemplatePseudoSerializer).to receive(:get_data).and_return(json)
+      allow_any_instance_of(UnitTemplatePseudoSerializer).to receive(:data).and_return(json)
     end
 
     it 'should save the serialized hash to the db and returns it' do

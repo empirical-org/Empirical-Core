@@ -45,8 +45,11 @@ Lint/RescueException:
 Lint/SafeNavigationChain:
   Enabled: true
 
+Naming/AsciiIdentifiers:
+  Enabled: true
+
 Naming/AccessorMethodName:
-  Enabled: false
+  Enabled: true
 
 Naming/FileName:
   Enabled: true

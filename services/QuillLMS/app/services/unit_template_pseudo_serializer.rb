@@ -5,7 +5,7 @@ class UnitTemplatePseudoSerializer
     @unit_template = unit_template
   end
 
-  def get_data
+  def data
     ut = @unit_template
     {
       id: ut.id,
