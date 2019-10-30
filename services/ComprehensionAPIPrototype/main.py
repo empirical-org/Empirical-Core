@@ -23,8 +23,9 @@ def response_endpoint(request):
     request_json = request.get_json()
 
     entry = param_for('entry', request, request_json)
+    prompt_id = param_for('prompt_id', request, request_json)
 
-    if entry == None:
+    if entry == None or prompt_id == None:
         return make_response(jsonify(message="error"), 400)
 
     prediction_client = automl.PredictionServiceClient()

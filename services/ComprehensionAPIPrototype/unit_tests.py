@@ -11,7 +11,7 @@ def app():
     return flask.Flask(__name__)
 
 def test_single_label_response(app):
-    with app.test_request_context(json={'entry': 'something'}):
+    with app.test_request_context(json={'entry': 'something', 'prompt_id': 35}):
       with patch('google.cloud.automl_v1beta1.PredictionServiceClient') as mock_automl:
 
         mock_response = Mock()
