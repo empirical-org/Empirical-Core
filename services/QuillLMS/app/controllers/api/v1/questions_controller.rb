@@ -12,7 +12,7 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   def create
-    uid = params[:uid] ||= SecureRandom.uuid
+    uid = SecureRandom.uuid
     @question = Question.create!(uid: uid, data: valid_params)
     render(json: {@question.uid => @question.as_json})
   end
