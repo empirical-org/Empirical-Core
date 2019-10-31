@@ -8,8 +8,8 @@
 
     <div class="header">
       <h1>Meet our team</h1>
-      <p class="hide-mobile">Learn more about the dedicated educators, visionary designers, and innovative engineers behind Quill's tools.</p>
-      <a class="quill-button medium secondary outlined" href="https://angel.co/company/quill-org/jobs" target="_blank">Join our team</a>
+      <p>Learn more about the dedicated educators, visionary designers, and innovative engineers behind Quill's tools.</p>
+      <a class="quill-button medium secondary outlined hide-mobile" href="https://angel.co/company/quill-org/jobs" target="_blank">Join our team</a>
     </div>
 
     <% team_info.each do |team_type| %>
@@ -18,7 +18,7 @@
         <div class='team-members'>
           <% team_type[:members].each do |person| %>
             <div class='team-member'>
-              <img height=219 width=219 src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
+              <img class="square-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
               <h4> <%= person[:name] %> </h4>
               <h5> <%= person[:title] %> </h5>
             </div>
@@ -38,7 +38,7 @@
         <div class='board-and-advisory-members'>
           <% team_type[:members].each do |person| %>
             <div class='board-or-advisory-member'>
-              <img height=72 width=72 src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
+              <img class="square-extra-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
               <div>
                 <h4> <%= person[:name] %> </h4>
                 <h5> <%= person[:title] %> </h5>
