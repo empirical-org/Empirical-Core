@@ -783,15 +783,6 @@ Naming/UncommunicativeMethodParamName:
     - 'QuillLMS/app/models/subscription.rb'
     - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
 
-# Offense count: 26
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, normalcase, non_integer
-Naming/VariableNumber:
-  Exclude:
-    - 'QuillLMS/app/controllers/concerns/teacher_fixes.rb'
-    - 'QuillLMS/app/controllers/teacher_fix_controller.rb'
-    - 'QuillLMS/app/helpers/application_helper.rb'
-
 # Offense count: 11
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: inline, group
