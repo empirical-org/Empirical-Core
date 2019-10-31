@@ -2,7 +2,7 @@ class Api::V1::FocusPointsController < Api::ApiController
   before_filter :get_question_by_uid
 
   def index
-    render(json: @question.data["focusPoints"])
+    render_all_focus_points
   end
 
   def show
@@ -22,7 +22,7 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def update_all
     @question.update_focus_points(valid_params)
-    render_focus_point
+    render_all_focus_points
   end
 
   def destroy
@@ -42,5 +42,9 @@ class Api::V1::FocusPointsController < Api::ApiController
     focus_point = @question.data.dig("focusPoints", params[:id])
     return not_found unless focus_point
     render(json: focus_point)
+  end
+
+  private def render_all_focus_points
+    render(json: @question.data["focusPoints"])
   end
 end

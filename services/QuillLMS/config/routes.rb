@@ -384,14 +384,10 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
       resources :questions, except: [:destroy] do
         resources :focus_points, except: [:destroy] do
-          collection do
-            put '' => 'focus_points#update_all'
-          end
+          put :update_all, on: :collection
         end
         resources :incorrect_sequences, except: [:destroy] do
-          collection do
-            put '' =>'incorrect_sequences#update_all'
-          end
+          put :update_all, on: :collection
         end
         member do
           put 'update_flag'

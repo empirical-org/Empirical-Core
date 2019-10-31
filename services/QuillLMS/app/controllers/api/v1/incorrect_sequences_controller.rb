@@ -2,7 +2,7 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   before_filter :get_question_by_uid
 
   def index
-    render(json: @question.data["incorrectSequences"])
+    render_all_incorrect_sequences
   end
 
   def show
@@ -22,7 +22,7 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
 
   def update_all
     @question.update_incorrect_sequences(valid_params)
-    render_incorrect_sequence(params[:id])
+    render_all_incorrect_sequences
   end
 
   private def get_question_by_uid
@@ -47,4 +47,7 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
     render(json: incorrect_sequence)
   end
 
+  private def render_all_incorrect_sequences
+    render(json: @question.data["incorrectSequences"])
+  end
 end
