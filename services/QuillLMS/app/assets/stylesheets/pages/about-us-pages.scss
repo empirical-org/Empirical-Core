@@ -29,9 +29,130 @@
       font-weight: bold;
     }
     p {
-      max-width: 630px;
+      max-width: 656px;
       text-align: center;
       margin: 16px 0px 24px;
+      line-height: 1.5;
+      font-size: 16px;
     }
+  }
+
+  .text-and-image {
+    display: flex;
+    align-items: center;
+    margin: 120px 0px 0px;
+    width: 100%;
+
+    div {
+      max-width: 447px;
+      width: 100%;
+      h2 {
+        margin-top: 0px;
+      }
+    }
+
+    div:nth-child(n+2), img:nth-child(n+2) {
+      margin-left: 56px;
+    }
+  }
+
+  .flex-reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    div:nth-child(n+2), img:nth-child(n+2) {
+      margin-right: 56px;
+      margin-left: 0px;
+    }
+  }
+
+  .square-medium-img {
+    height: 447px;
+    width: 447px;
+  }
+
+  .square-small-img {
+    height: 219px;
+    width: 219px;
+  }
+
+  .square-extra-small-img {
+    height: 72px;
+    width: 72px;
+  }
+
+  .rectangularimg {
+    height: 306px;
+    width: 604px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .square-medium-img, .square-small-img, .rectangular-img {
+      height: auto;
+      width: auto;
+    }
+
+    .header {
+      align-items: flex-start;
+      margin-top: 48px;
+      p, h1 {
+        text-align: left;
+      }
+    }
+
+    .hide-mobile {
+      display: none !important;;
+    }
+
+    .text-and-image {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 48px;
+      div:nth-child(n+2), img:nth-child(n+2) {
+        margin-right: 0px;
+        margin-left: 0px;
+      }
+      div {
+        margin-bottom: 28px;
+      }
+    }
+
+    .flex-reverse {
+      flex-direction: column;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .img-gallery .img-row {
+      flex-direction: column;
+      padding-top: 54px;
+      align-items: center;
+
+      div:nth-child(1n+2) {
+        padding-left: 0px !important;
+        padding-top: 54px;
+      }
+    }
+
+    .job-listings {
+      margin-top: 48px;
+
+      .job-board {
+        .job-section:nth-child(n+2) {
+          margin-top: 0px;
+        }
+
+        img.icon-img {
+          width: 24px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 780px) {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin: auto;
   }
 }

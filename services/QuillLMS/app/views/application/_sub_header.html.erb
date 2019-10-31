@@ -12,7 +12,7 @@
 <% if current_path.include?('tools') %>
 	<% active_tab = 'Learning Tools' %>
 <% elsif ['announcements', 'mission', 'impact', 'press', 'team'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'Our Story' %>
+	<% active_tab = 'About Us' %>
 <% elsif current_path.include?('activities') %>
 	<% active_tab = 'Explore Curriculum' %>
 <% elsif ['teacher-center', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
@@ -136,7 +136,7 @@
 						<a href='/teacher-center' class="text-white">Teacher Center</a>
 					</li>
 		      <li>
-		        <a href="/mission" class="text-white">Our Story</a>
+		        <a href="/about" class="text-white">About Us</a>
 		      </li>
 		      <li>
                         <%= render layout: "tracked_link", locals: { href: "/session/new",
