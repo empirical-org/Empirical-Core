@@ -134,6 +134,14 @@ function loadQuestions() {
   };
 }
 
+function loadQuestion(uid) {
+  return (dispatch, getState) => {
+    QuestionApi.get(uid).then((question) => {
+      dispatch({ type: C.RECEIVE_QUESTION_DATA, uid: uid, data: question, });
+    });
+  }
+}
+
 function loadSpecifiedQuestions(uids) {
   return (dispatch, getState) => {
     const requestPromises: Promise<any>[] = [];
@@ -164,6 +172,7 @@ function submitQuestionEdit(qid, content) {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
     QuestionApi.update(qid, content).then( () => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
+      dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
     }, (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
@@ -184,6 +193,7 @@ function submitNewQuestion(content, response) {
       response.questionUID = Object.keys(question)[0];
       response.gradeIndex = `human${response.questionUID}`;
       dispatch(submitResponse(response));
+      dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       const action = push(`/admin/questions/${response.questionUID}`);
       dispatch(action);
@@ -195,14 +205,20 @@ function submitNewQuestion(content, response) {
 }
 
 function submitNewFocusPoint(qid, data) {
-  FocusPointApi.create(qid, data).then(null, (error) => {
-    alert(`Submission failed! ${error}`);
-  });
+  return (dispatch, getState) => {
+    FocusPointApi.create(qid, data).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
+      alert(`Submission failed! ${error}`);
+    });
+  }
 }
 
 function submitEditedFocusPoint(qid, data, fpid) {
   return (dispatch, getState) => {
-    FocusPointApi.update(qid, fpid, data).then(null, (error) => {
+    FocusPointApi.update(qid, fpid, data).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -210,7 +226,9 @@ function submitEditedFocusPoint(qid, data, fpid) {
 
 function submitBatchEditedFocusPoint(qid, data) {
   return (dispatch, getState) => {
-    FocusPointApi.update_all(qid, data).then(null, (error) => {
+    FocusPointApi.update_all(qid, data).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -218,7 +236,9 @@ function submitBatchEditedFocusPoint(qid, data) {
 
 function deleteFocusPoint(qid, fpid) {
   return (dispatch, getState) => {
-    FocusPointApi.remove(qid, fpid).then(null, (error) => {
+    FocusPointApi.remove(qid, fpid).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Delete failed! ${error}`);
     });
   };
@@ -226,7 +246,9 @@ function deleteFocusPoint(qid, fpid) {
 
 function updateFlag(qid, flag) {
   return dispatch => {
-    QuestionApi.updateFlag(qid, flag).then(null, (error) => {
+    QuestionApi.updateFlag(qid, flag).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Flag update failed! ${error}`);
     });
   }
@@ -236,7 +258,9 @@ function updateModelConceptUID(qid, modelConceptUID) {
   return dispatch => {
     QuestionApi.get(qid).then((question) => {
       if (!question.modelConceptUID) {
-        QuestionApi.updateModelConcept(qid, modelConceptUID).then(null, (error) => {
+        QuestionApi.updateModelConcept(qid, modelConceptUID).then(() => {
+          dispatch(loadQuestion(qid));
+        }, (error) => {
           alert(`Model concept update failed! ${error}`);
         });
       }
@@ -246,7 +270,9 @@ function updateModelConceptUID(qid, modelConceptUID) {
 
 function submitNewIncorrectSequence(qid, data) {
   return (dispatch, getState) => {
-    IncorrectSequenceApi.create(qid, data).then(null, (error) => {
+    IncorrectSequenceApi.create(qid, data).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -254,7 +280,9 @@ function submitNewIncorrectSequence(qid, data) {
 
 function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
-    IncorrectSequenceApi.update(qid, seqid, data).then(null, (error) => {
+    IncorrectSequenceApi.update(qid, seqid, data).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -262,16 +290,22 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
 
 function deleteIncorrectSequence(qid, seqid) {
   return (dispatch, getState) => {
-    IncorrectSequenceApi.remove(qid, seqid).then(null, (error) => {
+    IncorrectSequenceApi.remove(qid, seqid).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
       alert(`Delete failed! ${error}`);
     });
   };
 }
 
 function updateIncorrectSequences(qid, data) {
-  IncorrectSequenceApi.update_all(qid, data).then(null, (error) => {
-    alert(`Order update failed! ${error}`);
-  });
+  return (dispatch, getState) => {
+    IncorrectSequenceApi.update_all(qid, data).then(() => {
+      dispatch(loadQuestion(qid));
+    }, (error) => {
+      alert(`Order update failed! ${error}`);
+    });
+  }
 }
 
 function getFormattedSearchData(state) {

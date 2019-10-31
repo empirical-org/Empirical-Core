@@ -104,7 +104,7 @@ class IncorrectSequencesContainer extends Component {
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    this.state.actionFile.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences)
+    this.props.dispatch(this.state.actionFile.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences));
   }
 
   render() {
