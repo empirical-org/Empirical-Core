@@ -59,4 +59,20 @@ def test_single_label_response_no_entry(app):
         assert response.status_code == 400
         assert data['message'] == "error"
 
+def test_multi_label_response(app):
+    with app.test_request_context(json={'entry': 'something', 'prompt_id': 98}):
+      with patch('google.cloud.automl_v1beta1.PredictionServiceClient') as mock_automl:
+
+        mock_response = Mock()
+        mock_response.payload = [
+          Mock(display_name="Leaders", classification=Mock(score=0.97)),
+          Mock(display_name="Feels_Represented", classification=Mock(score=0.51))
+        ]
+        mock_automl.return_value.predict.return_value = mock_response
+
+        response = main.response_endpoint(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data['message'] == "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
 

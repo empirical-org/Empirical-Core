@@ -51,7 +51,12 @@ def automl_prediction(entry, settings):
     return prediction_client.predict(model_url, payload, {})
 
 def feedback_for(labels, feedback_settings, type):
-    return feedback_settings[labels] if type == 'single' else 'TODO'
+    if type == 'single':
+      label = labels
+    else:
+      label = "-".join(sorted(labels))
+
+    return feedback_settings[label]
 
 def labels_for(payload, type):
     return single_label(payload) if type == 'single' else multi_labels(payload)
@@ -60,7 +65,11 @@ def single_label(payload):
     return sorted(payload, key=scoreSort, reverse=True)[0].display_name
 
 def multi_labels(payload):
-    return 'TODO'
+    labels = filter(above_threshold, payload)
+    return map(lambda x: x.display_name, labels)
+
+def above_threshold(e):
+    return e.classification.score > 0.5
 
 def scoreSort(e):
     return e.classification.score
