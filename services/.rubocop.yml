@@ -47,6 +47,9 @@ Lint/SafeNavigationChain:
 
 Naming/AccessorMethodName:
   Enabled: true
+  Exclude:
+    - 'QuillLMS/app/models/concerns/teacher.rb'
+    - 'QuillLMS/app/models/subscription.rb'
 
 Naming/AsciiIdentifiers:
   Enabled: true
@@ -63,6 +66,9 @@ Naming/MethodName:
   Enabled: true
   Exclude:
     - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
+
+Naming/VariableNumber:
+  Enabled: true
 
 Naming/VariableName:
   Enabled: true

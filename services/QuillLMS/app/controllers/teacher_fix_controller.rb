@@ -183,11 +183,11 @@ class TeacherFixController < ApplicationController
 
   def merge_two_classrooms
     begin
-      classroom_1 = Classroom.find_by(code: params['class_code_1'])
-      classroom_2 = Classroom.find_by(code: params['class_code_2'])
-      raise 'The first class code is invalid' if !classroom_1
-      raise 'The second class code is invalid' if !classroom_2
-      TeacherFixes::merge_two_classrooms(classroom_1.id, classroom_2.id)
+      classroom1 = Classroom.find_by(code: params['class_code_1'])
+      classroom2 = Classroom.find_by(code: params['class_code_2'])
+      raise 'The first class code is invalid' if !classroom1
+      raise 'The second class code is invalid' if !classroom2
+      TeacherFixes::merge_two_classrooms(classroom1.id, classroom2.id)
     rescue => e
       return render json: { error: e.message || e }
     end
