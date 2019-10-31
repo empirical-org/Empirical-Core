@@ -81,7 +81,7 @@ class FocusPointApi {
   }
 
   static update_all(questionId: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points.json`, {focus_point: data});
+    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points/update_all.json`, {focus_point: data});
   }
 
   static remove(questionId: string, focusPointId: string): Promise<any> {
@@ -107,7 +107,7 @@ class IncorrectSequenceApi {
   }
 
   static update_all(questionId: string, data: any): Promise<any> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, {incorrect_sequence: data});
+    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/update_all.json`, {incorrect_sequence: data});
   }
 
   static remove(questionId: string, incorrectSequenceId: string): Promise<any> {
