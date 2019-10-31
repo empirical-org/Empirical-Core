@@ -39,8 +39,8 @@ describe "Cron", type: :model do
       Cron.run_saturday
     end
 
-    it "enqueues SetNumberOfStudentsSentencesAndCitiesWorker" do
-      expect(SetNumberOfStudentsSentencesAndCitiesWorker).to receive(:perform_async)
+    it "enqueues SetImpactMetricsWorker" do
+      expect(SetImpactMetricsWorker).to receive(:perform_async)
       Cron.run_saturday
     end
   end
