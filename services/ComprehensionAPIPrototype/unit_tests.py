@@ -24,6 +24,7 @@ def test_single_label_response(app):
         data = json.loads(response.data)
 
         assert response.status_code == 200
+        assert data['correct'] == False
         assert data['message'] == "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
 
 def test_single_label_no_model(app):
@@ -56,7 +57,25 @@ def test_no_label_feedback(app):
         data = json.loads(response.data)
 
         assert response.status_code == 200
+        assert data['correct'] == False
         assert data['message'] == "Please read the passage and try again!"
+
+def test_correct_feedback(app):
+    with app.test_request_context(json={'entry': 'something', 'prompt_id': 35}):
+      with patch('google.cloud.automl_v1beta1.PredictionServiceClient') as mock_automl:
+
+        mock_response = Mock()
+        mock_response.payload = [
+          Mock(display_name="greenhouse_specifc", classification=Mock(score=0.97))
+        ]
+        mock_automl.return_value.predict.return_value = mock_response
+
+        response = main.response_endpoint(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data['correct'] == True
+        assert data['message'] == 'You are correct! Well done!'
 
 def test_single_label_response_no_entry(app):
     with app.test_request_context(json={}):
@@ -89,5 +108,6 @@ def test_multi_label_response(app):
         data = json.loads(response.data)
 
         assert response.status_code == 200
+        assert data['correct'] == False
         assert data['message'] == "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
 

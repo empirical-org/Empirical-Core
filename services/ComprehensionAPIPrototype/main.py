@@ -18,12 +18,13 @@ def response_endpoint(request):
       return make_response(jsonify(message="error: model not found"), 400)
 
     automl_response = automl_prediction(entry, model_settings['automl'])
-    prediction_labels = labels_for(automl_response.payload, model_settings['label_type'])
-    feedback = feedback_for(prediction_labels, model_settings['feedback'], model_settings['label_type'])
+    label = label_for(automl_response.payload, model_settings['label_type'])
+    feedback = feedback_for(label, model_settings['feedback'])
+    correct = label in model_settings['correct']
 
-    log(request=request_json, labels=prediction_labels, feedback=feedback)
+    log(request=request_json, label=label, feedback=feedback, correct=correct)
 
-    return make_response(jsonify(message=feedback,correct=True), 200)
+    return make_response(jsonify(message=feedback, correct=correct), 200)
 
 def param_for(key, request, request_json):
     if request.args and key in request.args:
@@ -50,26 +51,23 @@ def automl_prediction(entry, settings):
 
     return prediction_client.predict(model_url, payload, {})
 
-def feedback_for(labels, feedback_settings, type):
-    if type == 'single':
-      label = labels
-    else:
-      label = "-".join(sorted(labels))
-
+def feedback_for(label, feedback_settings):
     if label in feedback_settings:
       return feedback_settings[label]
     else:
       return feedback_settings['default_feedback']
 
-def labels_for(payload, type):
-    return single_label(payload) if type == 'single' else multi_labels(payload)
+def label_for(payload, type):
+    return single_label(payload) if type == 'single' else multi_label_string(payload)
 
 def single_label(payload):
     return sorted(payload, key=scoreSort, reverse=True)[0].display_name
 
-def multi_labels(payload):
+# For now, combine these into one label string for ease of use.
+def multi_label_string(payload):
     labels = filter(above_threshold, payload)
-    return map(lambda x: x.display_name, labels)
+    label_names = map(lambda x: x.display_name, labels)
+    return "-".join(sorted(label_names))
 
 def above_threshold(e):
     return e.classification.score > 0.5
