@@ -227,4 +227,5 @@ module PagesHelper
       }
     ]
   end
+
 end

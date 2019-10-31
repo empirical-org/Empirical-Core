@@ -1,13 +1,128 @@
 .impact-page {
-  margin-top: 20px;
-  iframe {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  max-width: 950px;
+  .impact-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 120px;
+    margin-bottom: 63px;
+    .impact-metric {
+      max-width: 300px;
+      width: 100%;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 57px;
+      margin-right: 25px;
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 0px;
+        margin-top: 0px !important;
+      }
+      &:nth-child(3n + 3) {
+        margin-right: 0px;
+      }
+    }
   }
-  h1 {
-    font-size: 24px;
-    text-align: center;
-    width: 600px;
-    margin: 20px auto;
+
+  .student-usage-by-school-year {
+    background-color: #f2f2f2;
+    width: 100%;
+    padding: 72px 56px;
+    display: flex;
+
+    .student-usage-title {
+      max-width: 213px;
+      margin-right: 72px;
+    }
+
+    .student-usage-row {
+      display: flex;
+      p {
+        margin-bottom: 0px;
+        margin-top: 0px !important;
+      }
+      .bar {
+        height: 10px;
+      }
+      &.eighteen-nineteen {
+        h2 {
+          margin-left: 32px;
+          line-height: 1;
+        }
+        .bar {
+          width: 415px;
+          background-color: #000;
+        }
+        .bar-and-count {
+          display: flex;
+          align-items: center;
+        }
+      }
+      &.seventeen-eighteen .bar {
+        width: 233.4px;
+      }
+      &.sixteen-seventeen .bar {
+        width: 114.7px;
+      }
+      &.fifteen-sixteen .bar {
+        width: 31.5px;
+      }
+      &.fourteen-fifteen .bar {
+        width: 14.2px;
+      }
+      &:not(.eighteen-nineteen) {
+        p {
+          color: #646464;
+          margin-bottom: 4px;
+        }
+        .bar {
+          background-color: #888888;
+        }
+      }
+      &:not(:last-of-type) {
+        margin-bottom: 46px;
+      }
+    }
+  }
+
+  .text-and-image {
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 0px;
+    }
+    .image-container {
+      position: relative;
+      .logo {
+        position: absolute;
+        bottom: 16;
+        margin-left: 0px;
+        left: 16;
+      }
+    }
+  }
+
+  .school-logos {
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 64px 0px 120px;
+  }
+
+
+  @media screen and (max-width: 1010px) {
+    .impact-metrics .impact-metric {
+      max-width: 250px;
+      margin-right: 0px;
+    }
+  }
+
+  @media screen and (max-width: 780px) {
+    .impact-metrics .impact-metric {
+      max-width: 100%;
+      margin-right: 0px;
+    }
   }
 }
