@@ -96,4 +96,30 @@
       }
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    padding: 48px 16px;
+    .press-highlights {
+      flex-direction: column;
+      .press-highlight {
+        margin-bottom: 32px;
+      }
+    }
+    .also-featured-in-links {
+      flex-direction: column;
+      a {
+        margin-bottom: 20px;
+      }
+    }
+    .in-the-news, .press-releases {
+      margin-top: 48px;
+    }
+    .in-the-news-content {
+      flex-direction: column;
+      .press-kit-container {
+        margin-left: 16px !important;
+        margin-top: 20px;
+      }
+    }
+  }
 }

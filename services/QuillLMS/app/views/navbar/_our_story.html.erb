@@ -1,5 +1,5 @@
-<div id="our-story" class="navbar-tooltip-trigger <%= active_tab == 'Our Story' ? 'active' : '' %>" tabindex="1">
-  <span>Our Story</span>
+<div id="our-story" class="navbar-tooltip-trigger <%= active_tab == 'About Us' ? 'active' : '' %>" tabindex="1">
+  <span>About Us</span>
   <div class="navbar-tooltip">
     <i class="fa fa-caret-up"></i>
     <%= render 'navbar/tooltip_link',
@@ -8,7 +8,7 @@
       hover_image_src: 'https://assets.quill.org/images/navbar/navbar-aboutus-solid.svg',
       image_src: 'https://assets.quill.org/images/navbar/navbar-aboutus-gradient.svg',
       image_id: 'aboutus-img',
-      link: '/mission'
+      link: '/about'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Impact',
