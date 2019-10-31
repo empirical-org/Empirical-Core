@@ -1,10 +1,7 @@
 const C = require('../constants').default;
 
-import rootRef from '../libs/firebase';
 import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
 
-const	questionsRef = rootRef.child('questions');
-const	responsesRef = rootRef.child('responses');
 const moment = require('moment');
 
 import Pusher from 'pusher-js';
@@ -188,7 +185,7 @@ function toggleNewQuestionModal() {
 function submitNewQuestion(content, response) {
   return (dispatch, getState) => {
     dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
-    const newRef = QuestionApi.create(content).then((question) => {
+    QuestionApi.create(content).then((question) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       response.questionUID = Object.keys(question)[0];
       response.gradeIndex = `human${response.questionUID}`;
