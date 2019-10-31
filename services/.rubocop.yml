@@ -45,10 +45,13 @@ Lint/RescueException:
 Lint/SafeNavigationChain:
   Enabled: true
 
+Naming/AccessorMethodName:
+  Enabled: true
+
 Naming/AsciiIdentifiers:
   Enabled: true
 
-Naming/AccessorMethodName:
+Naming/ClassAndModuleCamelCase:
   Enabled: true
 
 Naming/FileName:
