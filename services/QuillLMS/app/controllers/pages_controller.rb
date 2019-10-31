@@ -3,6 +3,13 @@ class PagesController < ApplicationController
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
+  NUMBER_OF_SENTENCES = "NUMBER_OF_SENTENCES"
+  NUMBER_OF_STUDENTS = "NUMBER_OF_STUDENTS"
+  NUMBER_OF_CITIES = "NUMBER_OF_CITIES"
+  NUMBER_OF_TEACHERS = "NUMBER_OF_TEACHERS"
+  NUMBER_OF_SCHOOLS = "NUMBER_OF_SCHOOLS"
+  NUMBER_OF_LOW_INCOME_SCHOOLS = "NUMBER_OF_LOW_INCOME_SCHOOLS"
+
   def home
     if signed_in?
       redirect_to(profile_path) && return
@@ -19,8 +26,8 @@ class PagesController < ApplicationController
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
     # default numbers are current as of 03/12/19
-    @number_of_sentences = $redis.get("NUMBER_OF_SENTENCES") || 180000000
-    @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
+    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
 
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
@@ -46,6 +53,7 @@ class PagesController < ApplicationController
   end
 
   def mission
+    redirect_to('/about')
   end
 
   def careers
@@ -61,7 +69,6 @@ class PagesController < ApplicationController
   end
 
   def about
-    @body_class = 'full-width-page white-page'
   end
 
   def faq
@@ -298,8 +305,11 @@ class PagesController < ApplicationController
   end
 
   def impact
-    @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
-    @number_of_cities = $redis.get("NUMBER_OF_CITIES") || 4200
+    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
+    @number_of_schools = $redis.get(NUMBER_OF_SCHOOLS) || 14651
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
+    @number_of_low_income_schools = $redis.get(NUMBER_OF_LOW_INCOME_SCHOOLS) || 8911
+    @number_of_teachers = $redis.get(NUMBER_OF_TEACHERS) || 44100
   end
 
   def team
