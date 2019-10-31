@@ -240,7 +240,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def self.premium_expiration_and_start_date=(school_or_user)
+  def self.set_premium_expiration_and_start_date(school_or_user)
       if !Subscription.school_or_user_has_ever_paid?(school_or_user)
         # We end their trial if they have one
         school_or_user.subscription&.update(de_activated_date: Date.today)
@@ -286,7 +286,7 @@ class Subscription < ActiveRecord::Base
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
       else
-        attributes = attributes.merge(Subscription.premium_expiration_and_start_date=(school_or_user))
+        attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
       end
     end
     subscription = Subscription.create!(attributes)

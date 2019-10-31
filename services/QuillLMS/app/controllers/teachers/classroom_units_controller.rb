@@ -51,7 +51,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
 
   def lessons_units_and_activities
     render json: {
-      data: lessons_units_and_activities
+      data: lessons_units_and_activities_data
     }
   end
 
@@ -118,7 +118,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
 
-  def lessons_units_and_activities
+  def lessons_units_and_activities_data
     # collapses lessons cache into unique array of activity ids
     grouped_lessons_cache = lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], name: ca['activity_name'], completed: ca['completed']}}
     grouped_lessons_cache.keys.select { |lesson| lesson[:completed] == false }

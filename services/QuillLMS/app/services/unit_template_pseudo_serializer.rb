@@ -76,7 +76,6 @@ class UnitTemplatePseudoSerializer
       {
         id: act['id'],
         name: act['name'],
-        flags: act['flags'],
         description: act['description'],
         section_name: act['section_name'],
         topic: {

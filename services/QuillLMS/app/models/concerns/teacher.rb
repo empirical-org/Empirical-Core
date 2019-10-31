@@ -400,11 +400,11 @@ module Teacher
 
   def set_and_return_lessons_cache_data
     lessons_cache = data_for_lessons_cache
-    lessons_cache=(lessons_cache)
+    set_lessons_cache(lessons_cache)
     lessons_cache
   end
 
-  def lessons_cache=(lessons_data=nil)
+  def set_lessons_cache(lessons_data=nil)
     if !lessons_data
       lessons_data = data_for_lessons_cache
     end
