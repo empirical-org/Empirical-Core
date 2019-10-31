@@ -745,14 +745,6 @@ Naming/MemoizedInstanceVariableName:
     - 'QuillLMS/app/models/user.rb'
     - 'QuillLMS/app/services/analytics/sales_contact_analytics.rb'
 
-# Offense count: 5
-# Configuration parameters: EnforcedStyle, IgnoredPatterns.
-# SupportedStyles: snake_case, camelCase
-Naming/MethodName:
-  Exclude:
-    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
-    - 'QuillLMS/app/services/creators/student_creator.rb'
-
 # Offense count: 17
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
 # NamePrefix: is_, has_, have_

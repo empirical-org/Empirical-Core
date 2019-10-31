@@ -58,8 +58,11 @@ Naming/FileName:
   Enabled: true
   Exclude:
     - 'QuillLMS/config/initializers/rack-attack.rb'
-    - 'QuillLMS/lib/tasks/db-snapshots.rake'
-    - 'QuillLMS/lib/tasks/quill-writer.rake'
+
+Naming/MethodName:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
 
 Security/Eval:
   Enabled: true
