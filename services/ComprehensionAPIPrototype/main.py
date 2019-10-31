@@ -24,7 +24,7 @@ def response_endpoint(request):
 
     log(request=request_json, label=label, feedback=feedback, correct=correct)
 
-    return make_response(jsonify(message=feedback, correct=correct), 200)
+    return make_response(jsonify(message=feedback, correct=correct, label=label), 200)
 
 def param_for(key, request, request_json):
     if request.args and key in request.args:
