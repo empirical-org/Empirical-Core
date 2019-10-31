@@ -99,12 +99,12 @@ describe('Anonymous Navbar', function() {
     })
   })
 
-  describe('Our Story item', function() {
+  describe('About Us item', function() {
     it ('should make the tooltip appear on focus', function() {
       cy.get('#our-story').focus()
       // cy.get('#our-story > .navbar-tooltip').should('be.visible')
     })
-    describe('Our Story tooltip', function() {
+    describe('About Us tooltip', function() {
       beforeEach(function() {
         cy.get('#our-story').focus()
       })
