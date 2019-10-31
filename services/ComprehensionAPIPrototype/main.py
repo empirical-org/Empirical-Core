@@ -56,7 +56,10 @@ def feedback_for(labels, feedback_settings, type):
     else:
       label = "-".join(sorted(labels))
 
-    return feedback_settings[label]
+    if label in feedback_settings:
+      return feedback_settings[label]
+    else:
+      return feedback_settings['default_feedback']
 
 def labels_for(payload, type):
     return single_label(payload) if type == 'single' else multi_labels(payload)

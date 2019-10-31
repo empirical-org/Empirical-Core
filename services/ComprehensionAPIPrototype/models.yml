@@ -8,6 +8,7 @@ models:
       compute_region: 'us-central1'
       model_id: 'TCN136527252061972837'
     feedback:
+      default_feedback: "Please read the passage and try again!"
       greenhouse_general: 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.'
       greenhouse_specifc: 'You are correct! Well done!'
       harms_animals: "It does harm animals"
@@ -27,6 +28,7 @@ models:
       compute_region: 'us-central1'
       model_id: 'TCN4416927324776169472'
     feedback:
+      default_feedback: "Please read the passage and try again!"
       # Apathy:
       # Civic_Duty:
       Feels_Represented: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
