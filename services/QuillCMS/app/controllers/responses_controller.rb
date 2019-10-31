@@ -95,7 +95,7 @@ class ResponsesController < ApplicationController
     render json: multiple_choice_options
   end
 
-  def get_health_of_question
+  def health_of_question
     render json: health_of_question(params[:question_uid])
   end
 
