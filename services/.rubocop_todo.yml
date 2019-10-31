@@ -783,18 +783,6 @@ Naming/UncommunicativeMethodParamName:
     - 'QuillLMS/app/models/subscription.rb'
     - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
 
-# Offense count: 12
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, camelCase
-Naming/VariableName:
-  Exclude:
-    - 'QuillComprehension/spec/models/vocabulary_word_spec.rb'
-    - 'QuillLMS/app/controllers/accounts_controller.rb'
-    - 'QuillLMS/app/controllers/auth/google_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/units_controller.rb'
-    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
-    - 'QuillLMS/app/services/google_integration/classroom/parsers/courses.rb'
-
 # Offense count: 26
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: snake_case, normalcase, non_integer

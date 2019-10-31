@@ -64,6 +64,9 @@ Naming/MethodName:
   Exclude:
     - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
 
+Naming/VariableName:
+  Enabled: true
+
 Security/Eval:
   Enabled: true
 
