@@ -39,10 +39,7 @@ def model_settings_for(prompt_id):
     with open("models.yml", 'r') as ymlfile:
       configs = yaml.load(ymlfile)['models']
 
-    if int(prompt_id) in configs:
-        return configs[int(prompt_id)]
-    else:
-        return None
+    return configs.get(int(prompt_id))
 
 def automl_prediction(entry, settings):
     prediction_client = automl.PredictionServiceClient()
@@ -53,10 +50,7 @@ def automl_prediction(entry, settings):
     return prediction_client.predict(model_url, payload, {})
 
 def feedback_for(label, feedback_settings):
-    if label in feedback_settings:
-      return feedback_settings[label]
-    else:
-      return feedback_settings['default_feedback']
+    return feedback_settings.get(label, feedback_settings['default_feedback'])
 
 def label_for(payload, type):
     return single_label(payload) if type == 'single' else multi_label_string(payload)
