@@ -37,7 +37,7 @@ def param_for(key, request, request_json):
 
 def model_settings_for(prompt_id):
     with open("models.yml", 'r') as ymlfile:
-      configs = yaml.load(ymlfile)['models']
+      configs = yaml.load(ymlfile, Loader=yaml.SafeLoader)['models']
 
     return configs.get(int(prompt_id))
 
