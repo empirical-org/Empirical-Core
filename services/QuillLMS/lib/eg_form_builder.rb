@@ -264,7 +264,7 @@ class EgFormBuilder < CMS::FormBuilder
       :hidden_field
     when :boolean, :radio
       :radio_button
-    when :boolean, :check
+    when :check
       :check_box
     when :choices
       :select

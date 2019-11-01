@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  include Student, Teacher, CheckboxCallback
+  include Student
+  include Teacher
+  include CheckboxCallback
 
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
@@ -33,6 +35,9 @@ class User < ActiveRecord::Base
   has_many :classrooms_teachers
   has_many :classrooms_i_teach, through: :classrooms_teachers, source: :classroom
   has_many :students_i_teach, through: :classrooms_i_teach, source: :students
+
+  has_many :units
+  has_many :classroom_units, through: :units
 
   has_many :students_classrooms, class_name: 'StudentsClassrooms', foreign_key: 'student_id'
   has_many :student_in_classroom, through: :students_classrooms, source: :classroom
