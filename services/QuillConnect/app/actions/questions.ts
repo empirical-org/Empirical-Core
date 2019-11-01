@@ -19,21 +19,19 @@ import { submitResponse } from './responses';
 const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
 
 /*
-  2019-10-29:
-  I'm not super-thrilled about all of these API calls taking and returning
-  "any", but I'm not confident that the shapes of these objects are
-  consistent enough in Firebase (and thus in the JSONB blob copies from
-  Firebase) for it to be safe to be strict about them.
+  There are a LOT of non-required properties in these interfaces.
 
-  Choosing not to define them here is definitely a punt on fixing
-  inconsistencies later, but given our current goals, that seems like
-  the correct thing to do.
+  These are, as best I can tell, the current expected properties
+  for each type, but because Firebase has a bunch of historical
+  data, I can't guarantee that these properties are actually
+  present on any given instance from the database, so we're playing
+  it safe.
 */
 
 interface ConceptResult {
-  conceptUID: string,
-  correct: boolean,
-  name: string,
+  conceptUID?: string,
+  correct?: boolean,
+  name?: string,
 }
 
 interface ConceptResultCollection {
@@ -42,9 +40,9 @@ interface ConceptResultCollection {
 
 interface FocusPoint {
   conceptResults: ConceptResultCollection,
-  feedback: string,
-  order: string,
-  text: string,
+  feedback?: string,
+  order?: string,
+  text?: string,
 }
 
 interface FocusPointCollection {
@@ -52,9 +50,9 @@ interface FocusPointCollection {
 }
 
 interface IncorrectSequence {
-  conceptResults: ConceptResultCollection;
-  feedback: string;
-  text: string;
+  conceptResults?: ConceptResultCollection;
+  feedback?: string;
+  text?: string;
 }
 
 interface IncorrectSequenceCollection {
@@ -62,7 +60,6 @@ interface IncorrectSequenceCollection {
 }
 
 interface Question {
-  uid: string;
   conceptUID?: string;
   cues?: string[];
   cuesLabel?: string;
