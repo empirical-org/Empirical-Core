@@ -24,6 +24,7 @@
     "react/no-children-prop": "error",
     "react/no-danger-with-children": "error",
     "react/no-unknown-property": "error",
+    "react/no-is-mounted": "error",
     "react/self-closing-comp": "error",
     "react/sort-comp": "error",
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
