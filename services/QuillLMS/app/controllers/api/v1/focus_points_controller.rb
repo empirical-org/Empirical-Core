@@ -27,7 +27,7 @@ class Api::V1::FocusPointsController < Api::ApiController
 
   def destroy
     @question.delete_focus_point(params[:id])
-    render_focus_point
+    render(plain: 'OK')
   end
 
   private def get_question_by_uid

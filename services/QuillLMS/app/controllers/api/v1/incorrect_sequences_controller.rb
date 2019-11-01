@@ -20,6 +20,11 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
     render_incorrect_sequence(params[:id])
   end
 
+  def destroy
+    @question.delete_incorrect_sequence(params[:id])
+    render(plain: 'OK')
+  end
+
   def update_all
     @question.update_incorrect_sequences(valid_params)
     render_all_incorrect_sequences

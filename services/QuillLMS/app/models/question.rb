@@ -54,6 +54,11 @@ class Question < ActiveRecord::Base
     save
   end
 
+  def delete_incorrect_sequence(incorrect_sequence_id)
+    self.data['incorrectSequences'].delete(incorrect_sequence_id)
+    save
+  end
+
   private def new_uuid
     SecureRandom.uuid
   end

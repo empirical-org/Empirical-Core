@@ -106,6 +106,15 @@ RSpec.describe Question, type: :model do
     end
   end
 
+  describe '#delete_incorrect_sequence' do
+    it 'should remove the specified incorrectSequence' do
+      first_incorrect_sequence_key = question.data['incorrectSequences'].keys.first
+      question.delete_incorrect_sequence(first_incorrect_sequence_key)
+      question.reload
+      expect(question.data['incorrectSequences'][first_incorrect_sequence_key]).to be_nil
+    end
+  end
+
   describe '#update_flag' do
     it 'should change the value of the flag key' do
       new_val = 'foo'
