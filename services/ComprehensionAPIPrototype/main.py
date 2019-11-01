@@ -5,7 +5,7 @@ import yaml
 
 def response_endpoint(request):
     request_json = request.get_json()
-    log(request=request_json)
+    log(request=request)
 
     entry = param_for('entry', request, request_json)
     prompt_id = param_for('prompt_id', request, request_json)
