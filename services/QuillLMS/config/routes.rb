@@ -383,10 +383,10 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
       resources :questions, except: [:destroy] do
-        resources :focus_points, except: [:destroy] do
+        resources :focus_points do
           put :update_all, on: :collection
         end
-        resources :incorrect_sequences, except: [:destroy] do
+        resources :incorrect_sequences do
           put :update_all, on: :collection
         end
         member do

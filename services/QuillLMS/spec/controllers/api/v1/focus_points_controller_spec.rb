@@ -76,22 +76,21 @@ describe Api::V1::FocusPointsController, type: :controller do
     end
   end
 
-  # Disabling these since we don't currently have working auth
-  #describe "#destroy" do
-  #  it "should delete the focus point" do
-  #    focus_point_uid = question.data["focusPoints"].keys.first
-  #    pre_delete_count = question.data["focusPoints"].keys.length
-  #    delete :destroy, question_id: question.uid, id: focus_point_uid
-  #    question.reload
-  #    expect(question.data["focusPoints"].keys.length).to eq(pre_delete_count - 1)
-  #  end
+  describe "#destroy" do
+    it "should delete the focus point" do
+      focus_point_uid = question.data["focusPoints"].keys.first
+      pre_delete_count = question.data["focusPoints"].keys.length
+      delete :destroy, question_id: question.uid, id: focus_point_uid
+      question.reload
+      expect(question.data["focusPoints"].keys.length).to eq(pre_delete_count - 1)
+    end
 
-  #  it "should return a 404 if the requested Question is not found" do
-  #    delete :destroy, question_id: 'doesnotexist', id: 'doesnotexist'
-  #    expect(response.status).to eq(404)
-  #    expect(response.body).to include("The resource you were looking for does not exist")
-  #  end
-  #end
+    it "should return a 404 if the requested Question is not found" do
+      delete :destroy, question_id: 'doesnotexist', id: 'doesnotexist'
+      expect(response.status).to eq(404)
+      expect(response.body).to include("The resource you were looking for does not exist")
+    end
+  end
 
   describe "#update_all" do
     it "should replace all focusPoints" do
