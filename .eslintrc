@@ -22,6 +22,7 @@
     "no-cond-assign": "error",
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
     "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
     "react/no-unknown-property": "error",
     "react/self-closing-comp": "error",
     "react/sort-comp": "error",
