@@ -1,0 +1,46 @@
+# model settings indexed by the question_id
+models:
+  35: # take this from the comprehension beta app question id
+    name: "Eating Meat Because"
+    label_type: "single" #single or multi
+    automl:
+      project_id: 'comprehension-247816'
+      compute_region: 'us-central1'
+      model_id: 'TCN136527252061972837'
+    feedback:
+      default_feedback: "Please read the passage and try again!"
+      greenhouse_general: 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.'
+      greenhouse_specifc: 'You are correct! Well done!'
+      harms_animals: "It does harm animals"
+      outside_scope: "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
+      because_as_prep: "Maybe because isn't the right preposition to use here."
+      harms_env_no_mention: "It does harm the environment, but include why that is bad"
+      plagiarism: "It seems you've copied directly from the passage, try to write in your own words"
+      irrelevant: "It seems that your answer is irrelevant"
+      insufficient: "Your answer is short and insufficent, please try again"
+    correct:
+      - greenhouse_specifc # TODO
+  98: # take this from the comprehension beta app question id
+    name: "Voting So"
+    label_type: "multi" #single or multi
+    automl:
+      project_id: 'comprehension-247816'
+      compute_region: 'us-central1'
+      model_id: 'TCN4416927324776169472'
+    feedback:
+      default_feedback: "Please read the passage and try again!"
+      # Apathy:
+      # Civic_Duty:
+      Feels_Represented: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+      Increased_Voting: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Leaders: "Revise your sentence. Write about how the leader is representative of the people."
+      Miscellaneous: "Rewrite your sentence. Write about how requiring people to vote leads to a government that represents all people."
+      More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Leaders-More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Miscellaneous-More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Leaders-Miscellaneous-More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Increased_Voting-More_Representative: "You are correct"
+      Feels_Represented-Leaders: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+      Feels_Represented-Miscellaneous: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+    correct:
+      - Increased_Voting-More_Representative
