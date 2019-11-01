@@ -39,7 +39,7 @@ def model_settings_for(prompt_id):
     with open("models.yml", 'r') as ymlfile:
       configs = yaml.load(ymlfile)['models']
 
-    if int(prompt_id) in configs:
+    if prompt_id in configs:
         return configs[prompt_id]
     else:
         return None
