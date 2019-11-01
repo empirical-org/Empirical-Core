@@ -28,12 +28,7 @@ def response_endpoint(request):
     return make_response(jsonify(message=feedback, correct=correct, label=label), 200)
 
 def param_for(key, request, request_json):
-    if request.args and key in request.args:
-        return request.args.get(key)
-    elif request_json and key in request_json:
-        return request_json[key]
-    else:
-        return None
+    return (request.args or request_json or {}).get(key)
 
 def model_settings_for(prompt_id):
     with open("models.yml", 'r') as ymlfile:
