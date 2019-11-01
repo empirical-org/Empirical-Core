@@ -190,7 +190,7 @@ function submitNewQuestion(content, response) {
       response.questionUID = Object.keys(question)[0];
       response.gradeIndex = `human${response.questionUID}`;
       dispatch(submitResponse(response));
-      dispatch(loadQuestion(qid));
+      dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       const action = push(`/admin/questions/${response.questionUID}`);
       dispatch(action);
