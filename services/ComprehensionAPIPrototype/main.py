@@ -1,52 +1,72 @@
 from google.cloud import automl_v1beta1 as automl
 from flask import jsonify
 from flask import make_response
+import yaml
 
-LABELS = {
-  "greenhouse_general" : 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.',
-  "greenhouse_specifc" : 'You are correct! Well done!',
-  "harms_animals" : "It does harm animals",
-  "outside_scope" : "Your answer is outside the scope of this article. Use evidence from the passage to make your argument",
-  "because_as_prep" : "Maybe because isn't the right preposition to use here.",
-  "harms_env_no_mention" : "It does harm the environment, but include why that is bad",
-  "plagiarism" : "It seems you've copied directly from the passage, try to write in your own words",
-  "irrelevant" : "It seems that your answer is irrelevant",
-  "insufficient" : "Your answer is short and insufficent, please try again"
-}
+def response_endpoint(request):
+    request_json = request.get_json()
+    log(request=request)
 
-PROJECT_ID = 'comprehension-247816'
-COMPUTE_REGION = 'us-central1'
-MODEL_ID = 'TCN136527252061972837'
+    entry = param_for('entry', request, request_json)
+    prompt_id = param_for('prompt_id', request, request_json)
 
-def label(payload):
+    if entry == None or prompt_id == None:
+        return make_response(jsonify(message="error"), 400)
+
+    model_settings = model_settings_for(prompt_id)
+
+    if model_settings == None:
+      return make_response(jsonify(message="error: model not found"), 400)
+
+    automl_response = automl_prediction(entry, model_settings['automl'])
+    label = label_for(automl_response.payload, model_settings['label_type'])
+    feedback = feedback_for(label, model_settings['feedback'])
+    correct = label in model_settings['correct']
+
+    log(request=request_json, label=label, feedback=feedback, correct=correct)
+
+    return make_response(jsonify(message=feedback, correct=correct, label=label), 200)
+
+def param_for(key, request, request_json):
+    if request.args and key in request.args:
+        return request.args.get(key)
+    else:
+        return (request_json or {}).get(key)
+
+def model_settings_for(prompt_id):
+    with open("models.yml", 'r') as ymlfile:
+      configs = yaml.load(ymlfile, Loader=yaml.SafeLoader)['models']
+
+    return configs.get(int(prompt_id))
+
+def automl_prediction(entry, settings):
+    prediction_client = automl.PredictionServiceClient()
+
+    model_url = 'projects/{}/locations/{}/models/{}'.format(settings['project_id'], settings['compute_region'], settings['model_id'])
+    payload = {'text_snippet': {'content': entry, 'mime_type': 'text/plain' }}
+
+    return prediction_client.predict(model_url, payload, {})
+
+def feedback_for(label, feedback_settings):
+    return feedback_settings.get(label, feedback_settings['default_feedback'])
+
+def label_for(payload, type):
+    return single_label(payload) if type == 'single' else multi_label_string(payload)
+
+def single_label(payload):
     return sorted(payload, key=scoreSort, reverse=True)[0].display_name
+
+# For now, combine these into one label string for ease of use.
+def multi_label_string(payload):
+    labels = filter(above_threshold, payload)
+    label_names = map(lambda x: x.display_name, labels)
+    return "-".join(sorted(label_names))
+
+def above_threshold(e):
+    return e.classification.score > 0.5
 
 def scoreSort(e):
     return e.classification.score
 
 def log(**items):
     print(items)
-
-def response_endpoint(request):
-    request_json = request.get_json()
-    entry = ''
-
-    if request.args and 'entry' in request.args:
-        entry = request.args.get('entry')
-    elif request_json and 'entry' in request_json:
-        entry = request_json['entry']
-    else:
-        return make_response(jsonify(message="error"), 400)
-
-    prediction_client = automl.PredictionServiceClient()
-
-    model_url = 'projects/{}/locations/{}/models/{}'.format(PROJECT_ID, COMPUTE_REGION, MODEL_ID)
-    payload = {'text_snippet': {'content': entry, 'mime_type': 'text/plain' }}
-
-    response = prediction_client.predict(model_url, payload, {})
-    prediction_label = label(response.payload)
-    feedback = LABELS[prediction_label]
-
-    log(request=request_json, label=prediction_label, feedback=feedback)
-
-    return make_response(jsonify(message=feedback,correct=True), 200)

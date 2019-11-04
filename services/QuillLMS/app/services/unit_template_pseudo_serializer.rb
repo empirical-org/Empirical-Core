@@ -5,7 +5,7 @@ class UnitTemplatePseudoSerializer
     @unit_template = unit_template
   end
 
-  def get_data
+  def data
     ut = @unit_template
     {
       id: ut.id,
@@ -76,7 +76,6 @@ class UnitTemplatePseudoSerializer
       {
         id: act['id'],
         name: act['name'],
-        flags: act['flags'],
         description: act['description'],
         section_name: act['section_name'],
         topic: {

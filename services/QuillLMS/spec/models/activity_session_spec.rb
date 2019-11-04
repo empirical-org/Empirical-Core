@@ -149,7 +149,7 @@ describe ActivitySession, type: :model, redis: :true do
 
     context 'student_id' do
       let(:student) { create(:student) }
-      let(:classroom_unit_1) { create(:classroom_unit, user: student) }
+      let(:classroom_unit1) { create(:classroom_unit, user: student) }
 
       it 'should return the given query with the given student_id' do
         expect(ActivitySession.with_filters(ClassroomUnit, {student_id: student.id}))
