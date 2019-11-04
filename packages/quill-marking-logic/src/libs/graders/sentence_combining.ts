@@ -52,16 +52,18 @@ export function checkSentenceCombining(
 
   const spellCheckedData = prepareSpellingData(data);
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
+  const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
   if (spellingPass) {
     // Update the feedback to indicate spelling is also needed.
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
+    console.log('spelling pass')
     return Object.assign(responseTemplate, spellingAwareFeedback, { text: data.response, spelling_error: true, misspelled_words: misspelledWords });
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
   if (secondPass) {
-    return Object.assign(responseTemplate, secondPass);
+    console.log('second pass')
+    return Object.assign(responseTemplate, secondPass, { misspelled_words: misspelledWords });
   };
 
   return responseTemplate;
@@ -135,5 +137,6 @@ function getMisspelledWords(text: string, spellCheckedText: string) {
   const textArray: Array<string> = removePunctuation(text).split(' ')
   const spellCheckedTextArray: Array<string> = removePunctuation(spellCheckedText).split(' ')
   const misspelledWords = textArray.filter(word => !spellCheckedTextArray.includes(word))
+  console.log('misspelledWords', misspelledWords)
   return misspelledWords
 }
