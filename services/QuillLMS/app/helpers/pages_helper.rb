@@ -85,7 +85,7 @@ module PagesHelper
           },
           {
             name: 'Christina Collins',
-            title: 'Head of School Success',
+            title: 'Managing Director of Partnerships',
             img: 'team-christina-collins@2x.png'
           },
           {
