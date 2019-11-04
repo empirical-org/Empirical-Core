@@ -110,7 +110,7 @@ module PagesHelper
           },
           {
             name: 'Maddy Maher',
-            title: 'Outreach Lead',
+            title: 'Partnerships Specialist',
             img: 'team-maddy-maher@2x.png'
           },
           {
