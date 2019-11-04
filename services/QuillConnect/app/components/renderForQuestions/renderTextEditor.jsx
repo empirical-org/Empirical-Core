@@ -101,10 +101,11 @@ export default React.createClass({
   },
 
   applyNewStyle(newStyle) {
+    debugger;
     if (newStyle.inlineStyleRanges[0]) {
       const offset = newStyle.inlineStyleRanges[0].offset;
       const end = offset + newStyle.inlineStyleRanges[0].length;
-      const input = this.refs.answerBox;
+      const input = this.answerBox;
       input.selectionStart = offset;
       input.selectionEnd = end;
     }
@@ -145,7 +146,7 @@ export default React.createClass({
               onKeyDown={this.handleKeyDown}
               onKeyUp={this.reportActivtySessionTextBoxInteraction}
               placeholder={this.props.placeholder}
-              ref="answerBox"
+              inputRef={node => this.answerBox = node}
               spellCheck={this.props.spellCheck || false}
               value={this.props.value}
             />
