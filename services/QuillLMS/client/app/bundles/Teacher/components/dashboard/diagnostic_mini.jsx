@@ -16,7 +16,7 @@ export default class DiagnosticMini extends React.Component {
   getDiagnosticInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/get_diagnostic_info_for_dashboard_mini`,
+      url: `${process.env.DEFAULT_URL}/teachers/diagnostic_info_for_dashboard_mini`,
     },
     (e, r, response) => {
       const parsedResponse = JSON.parse(response)

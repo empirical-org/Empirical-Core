@@ -15,7 +15,7 @@ class ActivitySearchWrapper
     if @user_id
       ActivitySearchAnalyticsWorker.perform_async(@user_id, @search_query)
     end
-    get_custom_search_results
+    custom_search_results
     search_result
   end
 
@@ -28,7 +28,7 @@ class ActivitySearchWrapper
     }
   end
 
-  def self.set_and_return_search_cache_data(flag = nil)
+  def self.search_cache_data=(flag = nil)
     substring = flag ? flag + "_" : ""
     activity_search_json = ActivitySearchWrapper.new(flag).search.to_json
     $redis.set("default_#{substring}activity_search", activity_search_json)
@@ -37,17 +37,17 @@ class ActivitySearchWrapper
 
   private
 
-  def get_custom_search_results
-    get_activity_search
-    get_activity_categories_classifications_topics_and_section
-    get_formatted_search_results
+  def custom_search_results
+    activity_search
+    activity_categories_classifications_topics_and_section
+    formatted_search_results
   end
 
-  def get_activity_search
+  def activity_search
     @activities = ActivitySearch.search(@flag)
   end
 
-  def get_formatted_search_results
+  def formatted_search_results
     @activities = @activities.map do |a|
       activity_id = a['activity_id'].to_i
       classification_id = a['classification_id'].to_i
@@ -69,7 +69,7 @@ class ActivitySearchWrapper
     end
   end
 
-  def get_activity_categories_classifications_topics_and_section
+  def activity_categories_classifications_topics_and_section
     section_ids = []
     activity_classification_ids = []
     @activities.each do |a|
@@ -77,12 +77,12 @@ class ActivitySearchWrapper
       activity_classification_ids << a['classification_id'].to_i
     end
     @activity_classification_ids = activity_classification_ids.uniq
-    @activity_classifications = get_activity_classifications
+    @activity_classifications = activity_classifications
     @activity_categories = ActivityCategory.all
     @sections = Section.where(id: section_ids.uniq)
   end
 
-  def get_activity_classifications
+  def activity_classifications
     if @activity_classification_ids.any?
       activity_classifications = ActiveRecord::Base.connection.execute("SELECT ac.key, ac.id, ac.order_number FROM activity_classifications AS ac WHERE ac.id = ANY(array#{@activity_classification_ids})").to_a
       activity_classification_details = activity_classifications.map do |ac|

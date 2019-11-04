@@ -21,8 +21,8 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unitNames = current_user.units.pluck(:name).map(&:downcase)
-    render json: { prohibitedUnitNames: unitNames }.to_json
+    unit_names = current_user.units.pluck(:name).map(&:downcase)
+    render json: { prohibitedUnitNames: unit_names }.to_json
   end
 
   def last_assigned_unit_id

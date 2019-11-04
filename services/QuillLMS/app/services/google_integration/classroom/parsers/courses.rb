@@ -23,8 +23,8 @@ example JSON.parse(response.body) :
     if course_response[:courses] && course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
       course_response[:courses].each do |course|
-        alreadyImported = self.already_imported?(course, existing_google_classroom_ids)
-        if alreadyImported
+        already_imported = self.already_imported?(course, existing_google_classroom_ids)
+        if already_imported
           grade = Classroom.unscoped.find_by(google_classroom_id: course[:id]).grade
         end
         if self.valid?(course, user, existing_google_classroom_ids)
@@ -34,7 +34,7 @@ example JSON.parse(response.body) :
             id: course[:id].to_i, name: name,
             ownerId: course[:ownerId],
             section: course[:section],
-            alreadyImported: alreadyImported,
+            alreadyImported: already_imported,
             grade: grade,
             creationTime: course[:creationTime],
             studentCount: students.count

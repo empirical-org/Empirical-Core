@@ -27,14 +27,14 @@ describe TeacherFixes do
 
       describe '#merge_activity_sessions_between_two_classroom_units' do
         it 'moves all activity sessions from the first classroom unit to the second' do
-          old_cu_1_activity_session_ids = classroom_unit_with_activity_sessions_1.activity_sessions.ids
-          expect(old_cu_1_activity_session_ids).not_to be_empty
-          old_cu_2_activity_session_ids = classroom_unit_with_activity_sessions_2.activity_sessions.ids
+          old_cu1_activity_session_ids = classroom_unit_with_activity_sessions_1.activity_sessions.ids
+          expect(old_cu1_activity_session_ids).not_to be_empty
+          old_cu2_activity_session_ids = classroom_unit_with_activity_sessions_2.activity_sessions.ids
           TeacherFixes::merge_activity_sessions_between_two_classroom_units(classroom_unit_with_activity_sessions_1.reload, classroom_unit_with_activity_sessions_2.reload)
-          new_cu_1_activity_session_ids = classroom_unit_with_activity_sessions_1.reload.activity_sessions.ids
-          new_cu_2_activity_session_ids = classroom_unit_with_activity_sessions_2.reload.activity_sessions.ids
-          expect(new_cu_1_activity_session_ids).to be_empty
-          expect(new_cu_2_activity_session_ids).to match_array(old_cu_2_activity_session_ids.concat(old_cu_1_activity_session_ids))
+          new_cu1_activity_session_ids = classroom_unit_with_activity_sessions_1.reload.activity_sessions.ids
+          new_cu2_activity_session_ids = classroom_unit_with_activity_sessions_2.reload.activity_sessions.ids
+          expect(new_cu1_activity_session_ids).to be_empty
+          expect(new_cu2_activity_session_ids).to match_array(old_cu2_activity_session_ids.concat(old_cu1_activity_session_ids))
         end
 
         # it 'hides the first passed classroom unit' do
@@ -110,22 +110,22 @@ describe TeacherFixes do
     let (:student_a) {create(:student)}
     let (:student_b) {create(:student)}
     let! (:classroom_with_classroom_units) {create(:classroom_with_classroom_units, students: [student_a, student_b])}
-    let! (:unit_1) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
-    let! (:unit_2) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
+    let! (:unit1) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
+    let! (:unit2) {create(:unit, user_id: classroom_with_classroom_units.owner.id)}
     let (:activity_session_1) {create(:activity_session, classroom_unit: classroom_with_classroom_units.classroom_units.first, user_id: student_a.id)}
     let (:activity_session_2) {create(:activity_session, classroom_unit: classroom_with_classroom_units.classroom_units.last, user_id: student_b.id)}
 
-    def cu_1
+    def cu1
       classroom_with_classroom_units.classroom_units.first
     end
 
-    def cu_2
+    def cu2
       classroom_with_classroom_units.classroom_units.last
     end
 
     def prep
-      cu_1.update(assigned_student_ids: [student_a.id], unit_id: unit_1.id)
-      cu_2.update(assigned_student_ids: [student_b.id], unit_id: unit_2.id)
+      cu1.update(assigned_student_ids: [student_a.id], unit_id: unit1.id)
+      cu2.update(assigned_student_ids: [student_b.id], unit_id: unit2.id)
       activity_session_1
       activity_session_2
     end
@@ -138,26 +138,26 @@ describe TeacherFixes do
 
       describe 'the first unit passed' do
         # it 'is no longer visible' do
-        #   TeacherFixes::merge_two_units(unit_1, unit_2)
-        #   expect(unit_1.reload.visible).not_to be
+        #   TeacherFixes::merge_two_units(unit1, unit2)
+        #   expect(unit1.reload.visible).not_to be
         # end
 
         it 'has no classroom units' do
-            TeacherFixes::merge_two_units(unit_1, unit_2)
-            expect(unit_1.reload.classroom_units.where(visible: true)).to be_empty
+            TeacherFixes::merge_two_units(unit1, unit2)
+            expect(unit1.reload.classroom_units.where(visible: true)).to be_empty
         end
       end
 
       describe '#self.merge_two_classroom_units' do
         it 'is called when both units have a classroom unit with the same classroom' do
-          TeacherFixes.should receive(:merge_two_classroom_units).with(cu_1.reload, cu_2)
-          TeacherFixes::merge_two_units(unit_1, unit_2)
+          TeacherFixes.should receive(:merge_two_classroom_units).with(cu1.reload, cu2)
+          TeacherFixes::merge_two_units(unit1, unit2)
         end
 
         it 'is not called when both units do not have a classroom unit with the same classroom' do
-          cu_2.update(classroom: classroom2)
-          TeacherFixes.should_not receive(:merge_two_classroom_units).with(cu_1, cu_2.reload)
-          TeacherFixes::merge_two_units(unit_1, unit_2)
+          cu2.update(classroom: classroom2)
+          TeacherFixes.should_not receive(:merge_two_classroom_units).with(cu1, cu2.reload)
+          TeacherFixes::merge_two_units(unit1, unit2)
         end
       end
     end
@@ -168,16 +168,16 @@ describe TeacherFixes do
 
       it 'moves all assigned students from the first activity to the second' do
         prep
-        expect(cu_1.assigned_student_ids).not_to be_empty
-        all_assigned_students = cu_1.assigned_student_ids.push(cu_2.assigned_student_ids).flatten.uniq
-        TeacherFixes::merge_two_classroom_units(cu_1.reload, cu_2.reload)
-        expect(cu_2.reload.assigned_student_ids).to eq(all_assigned_students)
+        expect(cu1.assigned_student_ids).not_to be_empty
+        all_assigned_students = cu1.assigned_student_ids.push(cu2.assigned_student_ids).flatten.uniq
+        TeacherFixes::merge_two_classroom_units(cu1.reload, cu2.reload)
+        expect(cu2.reload.assigned_student_ids).to eq(all_assigned_students)
       end
 
       it 'calls #self.merge_activity_sessions_between_two_classroom_units' do
         prep
-        TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_units).with(cu_1, cu_2)
-        TeacherFixes::merge_two_classroom_units(cu_1.reload, cu_2.reload)
+        TeacherFixes.should receive(:merge_activity_sessions_between_two_classroom_units).with(cu1, cu2)
+        TeacherFixes::merge_two_classroom_units(cu1.reload, cu2.reload)
       end
     end
   end

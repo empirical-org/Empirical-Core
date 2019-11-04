@@ -378,7 +378,7 @@ describe User, type: :model do
       end
     end
 
-    describe '#get_classroom_minis_info' do
+    describe '#classroom_minis_info' do
       it 'returns an array of visible classrooms and their visible data' do
         # Make a teacher and a couple classrooms, some of which are visible and some of which aren't
         teacher = create(:teacher_with_a_couple_active_and_archived_classrooms)
@@ -407,7 +407,7 @@ describe User, type: :model do
             teacher_role: ClassroomsTeacher.find_by(user_id: teacher.id, classroom_id: classroom.id).role
           }
         end
-        expect(teacher.get_classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
+        expect(teacher.classroom_minis_info).to match_array(sanitize_hash_array_for_comparison_with_redis(expected_response))
       end
     end
 

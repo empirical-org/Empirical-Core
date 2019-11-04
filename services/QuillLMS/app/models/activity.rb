@@ -136,7 +136,7 @@ class Activity < ActiveRecord::Base
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
     unless activity_search_results
-      activity_search_results = ActivitySearchWrapper.set_and_return_search_cache_data(flag)
+      activity_search_results = ActivitySearchWrapper.search_cache_data=(flag)
     end
     JSON.parse(activity_search_results)
   end

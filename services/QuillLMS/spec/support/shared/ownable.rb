@@ -27,9 +27,9 @@ shared_examples_for "ownable" do
       end
     end
 
-    describe "#set_owner" do 
+    describe "#owner=" do 
       it "must change the owner" do 
-        parent.set_owner owner
+        parent.owner= owner
         expect(parent.send(owner_name) ).to eq owner
       end
     end
