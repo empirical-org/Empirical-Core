@@ -4,7 +4,7 @@ describe Cms::SchoolsController do
   it { should use_before_filter :signed_in! }
   it { should use_before_action :text_search_inputs }
   it { should use_before_action :set_school }
-  it { should use_before_action :get_subscription_data }
+  it { should use_before_action :subscription_data }
 
   let(:user) { create(:staff) }
 

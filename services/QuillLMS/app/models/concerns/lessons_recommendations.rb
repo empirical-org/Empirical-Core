@@ -7,20 +7,20 @@ module LessonsRecommendations
       @activity_id = activity_id
       @classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       @activity_sessions_with_counted_concepts = act_sesh_with_counted_concepts
-      get_recommendations
+      recommendations
     end
 
-    def get_activity_sessions
+    def activity_sessions
       ActivitySession.includes(concept_results: :concept)
                       .where(classroom_unit_id: @classroom_unit.id, is_final_score: true, activity: @activity_id)
     end
 
     def act_sesh_with_counted_concepts
-      @activity_sessions = get_activity_sessions
+      @activity_sessions = activity_sessions
       PublicProgressReports.activity_sessions_with_counted_concepts(@activity_sessions)
     end
 
-    def get_recommendations
+    def recommendations
       LessonRecommendationsQuery.new(
         @activity_id,
         @classroom_unit.classroom_id
