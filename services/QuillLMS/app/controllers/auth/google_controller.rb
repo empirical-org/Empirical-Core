@@ -66,12 +66,12 @@ class Auth::GoogleController < ApplicationController
     if @user.save
       CompleteAccountCreation.new(@user, request.remote_ip).call
       @user.subscribe_to_newsletter
-      @teacherFromGoogleSignUp = true
+      @teacher_from_google_signup = true
 
       sign_in(@user)
       return redirect_to '/sign-up/add-k12'
     else
-      @teacherFromGoogleSignUp = false
+      @teacher_from_google_signup = false
       flash.now[:error] = @user.errors.full_messages.join(', ')
     end
 

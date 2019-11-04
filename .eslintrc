@@ -21,7 +21,13 @@
     "for-direction": "error",
     "no-cond-assign": "error",
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "react/no-children-prop": "error",
+    "react/no-danger-with-children": "error",
+    "react/no-is-mounted": "error",
+    "react/no-render-return-value": "error",
     "react/no-unknown-property": "error",
+    "react/react-in-jsx-scope": "error",
+    "react/require-render-return": "error",
     "react/self-closing-comp": "error",
     "react/sort-comp": "error",
     "react/jsx-closing-bracket-location": ["error", "line-aligned"],
@@ -36,6 +42,8 @@
     "react/jsx-props-no-multi-spaces": "error",
     "react/jsx-sort-props": "error",
     "react/jsx-tag-spacing": "error",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
     "react/jsx-wrap-multilines": "error"
   },
 }

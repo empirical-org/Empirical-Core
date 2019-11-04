@@ -80,10 +80,10 @@ class Dashboard
 
   def self.set_cache_if_empty(strug_stud, diff_con, user)
     unless @@cached_strug_stud || strug_stud == 'insufficient data'
-      $redis.set("user_id:#{user.id}_struggling_students", strug_stud, {ex: 16.hours})
+      $redis.set("user_id:#{user.id}_struggling_students", strug_stud.to_json, {ex: 16.hours})
     end
     unless @@cached_diff_con || diff_con == 'insufficient data'
-      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con, {ex: 16.hours})
+      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con.to_json, {ex: 16.hours})
     end
   end
 
@@ -91,8 +91,8 @@ class Dashboard
     strug_stud = $redis.get("user_id:#{user.id}_struggling_students")
     diff_con = $redis.get("user_id:#{user.id}_difficult_concepts")
     # don't use cache if it doesn't exist or is blank
-    @@cached_strug_stud = strug_stud.nil? || strug_stud&.blank? ? nil : eval(strug_stud)
-    @@cached_diff_con = diff_con.nil? || diff_con&.blank? ? nil : eval(diff_con)
+    @@cached_strug_stud = strug_stud.nil? || strug_stud&.blank? ? nil : JSON.parse(strug_stud)
+    @@cached_diff_con = diff_con.nil? || diff_con&.blank? ? nil : JSON.parse(diff_con)
   end
 
 

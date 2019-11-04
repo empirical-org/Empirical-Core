@@ -14,11 +14,14 @@ class SchoolsController < ApplicationController
 
     school_ids = []
     if @lat.present? and @lng.present?
-      school_ids = JSON.load($redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}"))
+      stored_school_ids = $redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}")
+      school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
     elsif @zipcode.present?
-      school_ids = JSON.load($redis.get("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}"))
+      stored_school_ids = $redis.get("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}")
+      school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
     else
-      school_ids = JSON.load($redis.get("PREFIX_TO_SCHOOL_#{@prefix}"))
+      stored_school_ids = $redis.get("PREFIX_TO_SCHOOL_#{@prefix}")
+      school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
       @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
       .where(id: school_ids)

@@ -14,7 +14,7 @@ class App extends React.Component<{}, {}> {
         return (
           <LocaleProvider locale={enUS}>
             <Provider store={store}>
-              <HashRouter basename="/" children={route} />
+              <HashRouter basename="/">{route}</HashRouter>
             </Provider>
           </LocaleProvider>
         );
