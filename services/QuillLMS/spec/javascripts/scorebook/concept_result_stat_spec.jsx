@@ -1,4 +1,4 @@
-'use strict';
+import * as React from 'react'
 
 var TestUtils = React.addons.TestUtils;
 
