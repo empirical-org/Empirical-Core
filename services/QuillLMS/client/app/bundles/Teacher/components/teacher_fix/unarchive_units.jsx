@@ -46,7 +46,7 @@ export default class UnarchiveUnits extends React.Component {
     const that = this
     that.setState({archivedUnits: [], selectedUnitIds: [], error: ''})
     request.get({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/get_archived_units`,
+      url: `${process.env.DEFAULT_URL}/teacher_fix/archived_units`,
       qs: {teacher_identifier: that.state.teacherIdentifier}
     },
     (e, r, response) => {

@@ -5,7 +5,7 @@ module Demo::ConceptResults
                             .map(&:students).flatten
                             .map(&:activity_sessions).flatten
 
-    data_from_csv = self.get_data_from_csv
+    data_from_csv = self.data_from_csv
 
     crs = activity_sessions.each do |as|
       self.create_concept_results_for_activity_session(data_from_csv, as)
@@ -60,7 +60,7 @@ module Demo::ConceptResults
   end
 
 
-  def self.get_data_from_csv
+  def self.data_from_csv
     # OUTPUT:
     # [
     #   {
