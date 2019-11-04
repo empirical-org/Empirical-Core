@@ -23,7 +23,7 @@ module Student
     end
     protected :classroom_unit_score_join
 
-    def get_student_average_score
+    def student_average_score
       avg_str = ActiveRecord::Base.connection.execute(
        "select avg(percentage) from activity_sessions
         join users on activity_sessions.user_id = users.id

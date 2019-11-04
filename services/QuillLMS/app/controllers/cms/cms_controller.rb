@@ -3,7 +3,7 @@ class Cms::CmsController < ApplicationController
 
   private
 
-  def get_subscription_data
+  def subscription_data
     if !@school && !@user && @subscription.schools.any?
       # then we are here directly through edit subscriptions and we want to select
       # the subscription's school

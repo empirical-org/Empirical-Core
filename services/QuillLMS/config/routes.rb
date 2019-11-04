@@ -107,7 +107,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'students_classrooms_json' => 'profiles#students_classrooms_json'
   get 'student_profile_data' => 'profiles#student_profile_data'
-  get 'student_mobile_profile_data/:current_classroom_id' => 'profiles#get_mobile_profile_data'
+  get 'student_mobile_profile_data/:current_classroom_id' => 'profiles#mobile_profile_data'
 
 
   resources :activities, only: [] do
@@ -136,8 +136,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/admin_dashboard/district_standards_reports' => 'teachers#admin_dashboard'
   put 'teachers/update_current_user' => 'teachers#update_current_user'
   get 'teachers/:id/schools/:school_id' => 'teachers#add_school'
-  get 'teachers/get_completed_diagnostic_unit_info' => 'teachers#get_completed_diagnostic_unit_info'
-  get 'teachers/get_diagnostic_info_for_dashboard_mini' => 'teachers#get_diagnostic_info_for_dashboard_mini'
+  get 'teachers/completed_diagnostic_unit_info' => 'teachers#completed_diagnostic_unit_info'
+  get 'teachers/diagnostic_info_for_dashboard_mini' => 'teachers#diagnostic_info_for_dashboard_mini'
   get 'teachers/classrooms_i_teach_with_students' => 'teachers#classrooms_i_teach_with_students'
   get 'teachers/classrooms_i_own_with_students' => 'teachers#classrooms_i_own_with_students'
   get 'teachers/classrooms_i_teach_with_lessons' => 'teachers#classrooms_i_teach_with_lessons'
@@ -538,7 +538,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teacher_fix/merge_two_schools' => 'teacher_fix#index'
   get 'teacher_fix/merge_two_classrooms' => 'teacher_fix#index'
   get 'teacher_fix/delete_last_activity_session' => 'teacher_fix#index'
-  get 'teacher_fix/get_archived_units' => 'teacher_fix#get_archived_units'
+  get 'teacher_fix/archived_units' => 'teacher_fix#archived_units'
   post 'teacher_fix/recover_classroom_units' => 'teacher_fix#recover_classroom_units'
   post 'teacher_fix/recover_unit_activities' => 'teacher_fix#recover_unit_activities'
   post 'teacher_fix/recover_activity_sessions' => 'teacher_fix#recover_activity_sessions'
