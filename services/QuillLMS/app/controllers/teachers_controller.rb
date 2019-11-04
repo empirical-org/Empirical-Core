@@ -99,7 +99,7 @@ class TeachersController < ApplicationController
     end
   end
 
-  def get_completed_diagnostic_unit_info
+  def completed_diagnostic_unit_info
     begin
       last_finished_diagnostic = current_user.finished_diagnostic_unit_ids_with_classroom_id_and_activity_id.first
       unit_info = { unit_id: last_finished_diagnostic.unit_id, classroom_id: last_finished_diagnostic.classroom_id, activity_id: last_finished_diagnostic.activity_id }
@@ -109,7 +109,7 @@ class TeachersController < ApplicationController
     render json: {unit_info: unit_info}
   end
 
-  def get_diagnostic_info_for_dashboard_mini
+  def diagnostic_info_for_dashboard_mini
     if current_user
       records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
         units.id AS unit_id,

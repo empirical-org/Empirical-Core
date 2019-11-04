@@ -35,7 +35,7 @@ export default class extends React.Component {
   getCompletedDiagnosticInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/get_completed_diagnostic_unit_info`,
+      url: `${process.env.DEFAULT_URL}/teachers/completed_diagnostic_unit_info`,
     },
     (e, r, body) => {
       that.setState({ completedDiagnosticUnitInfo: JSON.parse(body).unit_info, }, this.checkIfStillLoading);

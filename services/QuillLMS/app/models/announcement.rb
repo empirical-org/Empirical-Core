@@ -5,7 +5,7 @@ class Announcement < ActiveRecord::Base
 
   TIME_ZONE = 'America/New_York'
 
-  def self.get_current_webinar_announcement
+  def self.current_webinar_announcement
     ActiveRecord::Base.connection.execute("
       SELECT text, link FROM announcements
       WHERE announcements.announcement_type = '#{TYPES[:webinar]}'

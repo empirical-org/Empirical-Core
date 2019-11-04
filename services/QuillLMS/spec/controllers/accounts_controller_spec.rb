@@ -19,7 +19,7 @@ describe AccountsController, type: :controller do
       get :new, redirect: "www.test.com"
       expect(session[:role]).to eq 'something'
       expect(session[:post_sign_up_redirect]).to eq "www.test.com"
-      expect(assigns(:teacherFromGoogleSignUp)).to eq false
+      expect(assigns(:teacher_from_google_signup)).to eq false
       expect(assigns(:js_file)).to eq "session"
     end
   end
