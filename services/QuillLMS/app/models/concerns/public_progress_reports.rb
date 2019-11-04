@@ -165,7 +165,7 @@ module PublicProgressReports
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,
-        average_score_on_quill: student.get_student_average_score
+        average_score_on_quill: student.student_average_score
       }
     end
 
@@ -230,7 +230,7 @@ module PublicProgressReports
       end
     end
 
-    def get_recommendations_for_classroom(unit_id, classroom_id, activity_id)
+    def recommendations_for_classroom(unit_id, classroom_id, activity_id)
       classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)

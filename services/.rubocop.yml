@@ -45,7 +45,47 @@ Lint/RescueException:
 Lint/SafeNavigationChain:
   Enabled: true
 
+Naming/AccessorMethodName:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/models/concerns/teacher.rb'
+    - 'QuillLMS/app/models/subscription.rb'
+
+Naming/AsciiIdentifiers:
+  Enabled: true
+
+Naming/ClassAndModuleCamelCase:
+  Enabled: true
+
+Naming/FileName:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/config/initializers/rack-attack.rb'
+
+Naming/MethodName:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
+
+Naming/VariableNumber:
+  Enabled: true
+
+Naming/VariableName:
+  Enabled: true
+
+Security/Eval:
+  Enabled: true
+
+Security/JSONLoad:
+  Enabled: true
+
+Security/MarshalLoad:
+  Enabled: true
+
 Security/Open:
+  Enabled: true
+
+Security/YAMLLoad:
   Enabled: true
 
 Style/ClassCheck:
@@ -82,13 +122,13 @@ Style/Strip:
 Style/TernaryParentheses:
   Enabled: true
 
-Style/UnneededCapitalW:
-  Exclude: 
+Style/RedundantCapitalW:
+  Exclude:
    - 'QuillLMS/config/initializers/sentry.rb'
   Enabled: true
 
-Style/UnneededSort:
-  Exclude: 
+Style/RedundantSort:
+  Exclude:
    - 'QuillComprehension/app/models/question.rb'
   Enabled: true
 

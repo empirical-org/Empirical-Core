@@ -8,8 +8,7 @@ class PlayController < ApplicationController
   end
 
   def create
-    # TODO set prompt_key from question
-    feedback = Feedback.new(prompt_key: 'not_used_yet', entry: params[:entry]).response
+    feedback = Feedback.new(prompt_id: @question.id, entry: params[:entry]).response
     json = feedback.parsed_response
     render json: json, status: feedback.code
   end

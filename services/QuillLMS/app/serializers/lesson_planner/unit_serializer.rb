@@ -67,8 +67,8 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
 
   def select_certain_students(students, assigned_student_ids)
     students.map do |student|
-      isSelected = assigned_student_ids.include?(student.id)
-      {id: student.id, name: student.name, isSelected: isSelected}
+      is_selected = assigned_student_ids.include?(student.id)
+      {id: student.id, name: student.name, isSelected: is_selected}
     end
   end
 

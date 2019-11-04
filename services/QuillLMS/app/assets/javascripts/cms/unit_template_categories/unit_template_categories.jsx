@@ -1,4 +1,5 @@
-'use strict';
+import * as React from 'react'
+
 $(function () {
   var ele = $('#cms-unit-template-categories');
   if (ele.length > 0) {

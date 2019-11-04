@@ -15,8 +15,8 @@ module ApplicationHelper
   def question_section
   end
 
-  def combine(array_1, array_2)
-    array_1 + array_2
+  def combine(array1, array2)
+    array1 + array2
   end
 
   def body_class

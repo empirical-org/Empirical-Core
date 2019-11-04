@@ -74,7 +74,7 @@ class BlogPostsController < ApplicationController
 
   private
   def set_announcement
-    @announcement = Announcement.get_current_webinar_announcement
+    @announcement = Announcement.current_webinar_announcement
   end
 
   def set_role

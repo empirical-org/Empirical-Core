@@ -242,7 +242,7 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
     before do
       allow(controller).to receive(:current_user) { teacher }
-      allow(teacher).to receive(:get_classroom_minis_info) { "some class info" }
+      allow(teacher).to receive(:classroom_minis_info) { "some class info" }
     end
 
     it 'should render the correct json' do

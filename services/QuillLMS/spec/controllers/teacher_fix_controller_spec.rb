@@ -9,10 +9,10 @@ describe TeacherFixController do
     allow(controller).to receive(:current_user) { staff }
   end
 
-  describe '#get_archived_units' do
+  describe '#archived_units' do
     context 'when user does not exist' do
       it 'should render no such user' do
-        get :get_archived_units, teacher_identifier: "new@email.com"
+        get :archived_units, teacher_identifier: "new@email.com"
         expect(response.body).to eq({error: "No such user."}.to_json)
       end
     end
@@ -21,7 +21,7 @@ describe TeacherFixController do
       let!(:user) { create(:student) }
 
       it 'should render user is not a teacher' do
-        get :get_archived_units, teacher_identifier: user.email
+        get :archived_units, teacher_identifier: user.email
         expect(response.body).to eq({error: "This user is not a teacher."}.to_json)
       end
     end
@@ -33,14 +33,14 @@ describe TeacherFixController do
         let!(:unit) { create(:unit, visible: false, user_id: user.id) }
 
         it 'should render the archived units' do
-          get :get_archived_units, teacher_identifier: user.email
+          get :archived_units, teacher_identifier: user.email
           expect(response.body).to eq({archived_units: [unit.attributes.merge({"shared_name" => false})]}.to_json)
         end
       end
 
       context 'when archived units are not present' do
         it 'should render the user has no archived units' do
-          get :get_archived_units, teacher_identifier: user.email
+          get :archived_units, teacher_identifier: user.email
           expect(response.body).to eq({error: "This user has no archived units."}.to_json)
         end
       end
