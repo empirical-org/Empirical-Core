@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import ContentEditable from 'react-contenteditable';
+import ContentEditable from 'react-sane-contenteditable';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
@@ -116,9 +116,9 @@ export default React.createClass({
     input.selectionEnd = 0;
   },
 
-  handleTextChange(e) {
+  handleTextChange(e, value) {
     if (!this.props.disabled) {
-      const stripBTags = e.target.value.replace(/<b>|<\/b>/g, '')
+      const stripBTags = value.replace(/<b>|<\/b>/g, '')
       this.props.handleChange(stripBTags, this.props.editorIndex);
     }
   },
@@ -156,11 +156,8 @@ export default React.createClass({
         <div className="card-content">
           <div className="content">
             <ContentEditable
-              autoCapitalize="off"
-              autoCorrect="off"
-              autoFocus
               className="connect-text-area"
-              html={this.displayedHTML()}
+              content={this.displayedHTML()}
               onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               onKeyUp={this.reportActivtySessionTextBoxInteraction}
