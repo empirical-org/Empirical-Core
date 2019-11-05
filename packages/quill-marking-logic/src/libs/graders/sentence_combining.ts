@@ -135,6 +135,5 @@ function getMisspelledWords(text: string, spellCheckedText: string) {
   const textArray: Array<string> = removePunctuation(text).split(' ')
   const spellCheckedTextArray: Array<string> = removePunctuation(spellCheckedText).split(' ')
   const misspelledWords = textArray.filter(word => !spellCheckedTextArray.includes(word))
-  console.log('misspelledWords', misspelledWords)
   return misspelledWords
 }
