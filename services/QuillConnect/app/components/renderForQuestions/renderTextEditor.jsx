@@ -13,20 +13,22 @@ const feedbackStrings = C.FEEDBACK_STRINGS;
 
 const timeBetweenActivitySessionInteractionLogsInMS = 2000;
 
-export default React.createClass({
-  getInitialState() {
-    return {
+export default class TextEditor extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       text: this.props.value || '',
-    };
-  },
+    }
+  }
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+  }
 
   reportActivtySessionTextBoxInteraction() {
     sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: this.props.questionID, });
-  },
+  }
 
   componentWillMount() {
     this.reportActivtySessionTextBoxInteraction = _.debounce(
@@ -34,7 +36,7 @@ export default React.createClass({
       timeBetweenActivitySessionInteractionLogsInMS,
       true
     );
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
@@ -63,7 +65,7 @@ export default React.createClass({
         }
       }
     }
-  },
+  }
 
   getUnderliningFunction(errorType, targetString, userString) {
     switch (errorType) {
@@ -81,7 +83,7 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  }
 
   getUnderliningFunctionFromAuthor(author, targetString, userString) {
     switch (author) {
@@ -98,7 +100,7 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  }
 
   applyNewStyle(newStyle) {
     if (newStyle.inlineStyleRanges[0]) {
@@ -108,29 +110,29 @@ export default React.createClass({
       input.selectionStart = offset;
       input.selectionEnd = end;
     }
-  },
+  }
 
   clearStyle() {
     const input = this.refs.answerBox;
     input.selectionStart = 0;
     input.selectionEnd = 0;
-  },
+  }
 
-  handleTextChange(e, value) {
+  handleTextChange = (e, value) => {
     if (!this.props.disabled) {
       const stripBTags = value.replace(/<b>|<\/b>/g, '')
       this.props.handleChange(stripBTags, this.props.editorIndex);
     }
-  },
+  }
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     if (!this.props.disabled) {
       if (e.key === 'Enter') {
         e.preventDefault();
         this.props.checkAnswer();
       }
     }
-  },
+  }
 
   displayedHTML() {
     const { value, latestAttempt, } = this.props
@@ -147,27 +149,28 @@ export default React.createClass({
       }
     })
     return newWordArray.join(' ')
-  },
+  }
 
   render() {
-    const { value, latestAttempt, } = this.props
+    const { disabled, hasError, placeholder, spellCheck, } = this.props
     return (
-      <div className={`student text-editor card is-fullwidth ${this.props.hasError ? 'red-outline' : ''} ${this.props.disabled ? 'disabled-editor' : ''}`}>
+      <div className={`student text-editor card is-fullwidth ${hasError ? 'red-outline' : ''} ${disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
           <div className="content">
             <ContentEditable
               className="connect-text-area"
               content={this.displayedHTML()}
+              editable={!disabled}
               onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               onKeyUp={this.reportActivtySessionTextBoxInteraction}
-              placeholder={this.props.placeholder}
+              placeholder={placeholder}
               innerRef={node => this.answerBox = node}
-              spellCheck={this.props.spellCheck || false}
+              spellCheck={spellCheck || false}
             />
           </div>
         </div>
       </div>
     );
-  },
-});
+  }
+}
