@@ -79,6 +79,11 @@ module PagesHelper
         image_prepend: 'team-',
         members: [
           {
+            name: 'Eric Adams',
+            title: 'Software Developer',
+            img: 'team-eric-adams@2x.png'
+          },
+          {
             name: 'Tom Calabrese',
             title: 'Product Designer',
             img: 'team-tom-calabrese@2x.png'
