@@ -68,7 +68,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].includes(classroom.grade)) {
       return `${NumberSuffix(classroom.grade)} grade`
     } else {
-      return classroom.grade || 'Other'
+      return classroom.grade && classroom.grade !== 'Other' ? classroom.grade : 'Other grade'
     }
   }
 
