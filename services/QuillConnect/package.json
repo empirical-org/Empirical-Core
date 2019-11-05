@@ -92,6 +92,7 @@
     "webpack-merge": "^4.1.3"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
     "actioncable": "^5.1.1",
     "animejs": "^2.2.0",
     "apply-feature": "^1.0.1",
