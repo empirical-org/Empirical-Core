@@ -56,13 +56,11 @@ export function checkSentenceCombining(
   if (spellingPass) {
     // Update the feedback to indicate spelling is also needed.
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    console.log('spelling pass')
     return Object.assign(responseTemplate, spellingAwareFeedback, { text: data.response, spelling_error: true, misspelled_words: misspelledWords });
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
   if (secondPass) {
-    console.log('second pass')
     return Object.assign(responseTemplate, secondPass, { misspelled_words: misspelledWords });
   };
 
