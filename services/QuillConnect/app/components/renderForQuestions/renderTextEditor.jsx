@@ -22,14 +22,6 @@ export default class TextEditor extends React.Component {
     }
   }
 
-  getErrorsForAttempt(attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES);
-  }
-
-  reportActivtySessionTextBoxInteraction() {
-    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: this.props.questionID, });
-  }
-
   componentWillMount() {
     this.reportActivtySessionTextBoxInteraction = _.debounce(
       this.reportActivtySessionTextBoxInteraction,
@@ -65,6 +57,14 @@ export default class TextEditor extends React.Component {
         }
       }
     }
+  }
+
+  getErrorsForAttempt(attempt) {
+    return _.pick(attempt, ...C.ERROR_TYPES);
+  }
+
+  reportActivtySessionTextBoxInteraction() {
+    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: this.props.questionID, });
   }
 
   getUnderliningFunction(errorType, targetString, userString) {
@@ -161,11 +161,11 @@ export default class TextEditor extends React.Component {
               className="connect-text-area"
               content={this.displayedHTML()}
               editable={!disabled}
+              innerRef={node => this.answerBox = node}
               onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               onKeyUp={this.reportActivtySessionTextBoxInteraction}
               placeholder={placeholder}
-              innerRef={node => this.answerBox = node}
               spellCheck={spellCheck || false}
             />
           </div>
