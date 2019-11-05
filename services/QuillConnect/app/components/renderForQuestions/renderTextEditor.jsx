@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import Textarea from 'react-textarea-autosize';
+import ContentEditable from 'react-contenteditable';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
@@ -101,7 +101,6 @@ export default React.createClass({
   },
 
   applyNewStyle(newStyle) {
-    debugger;
     if (newStyle.inlineStyleRanges[0]) {
       const offset = newStyle.inlineStyleRanges[0].offset;
       const end = offset + newStyle.inlineStyleRanges[0].length;
@@ -119,7 +118,8 @@ export default React.createClass({
 
   handleTextChange(e) {
     if (!this.props.disabled) {
-      this.props.handleChange(e.target.value, this.props.editorIndex);
+      const stripBTags = e.target.value.replace(/<b>|<\/b>/g, '')
+      this.props.handleChange(stripBTags, this.props.editorIndex);
     }
   },
 
@@ -132,23 +132,41 @@ export default React.createClass({
     }
   },
 
+  displayedHTML() {
+    const { value, latestAttempt, } = this.props
+    if (!(latestAttempt && latestAttempt.response && latestAttempt.response.misspelled_words)) {
+      return value
+    }
+    const wordArray = value.split(' ')
+    const newWordArray = wordArray.map(word => {
+      const punctuationStrippedWord = word.replace(/[^A-Za-z0-9\s]/g, '')
+      if (latestAttempt.response.misspelled_words.includes(punctuationStrippedWord)) {
+        return `<b>${word}</b>`
+      } else {
+        return word
+      }
+    })
+    return newWordArray.join(' ')
+  },
+
   render() {
+    const { value, latestAttempt, } = this.props
     return (
       <div className={`student text-editor card is-fullwidth ${this.props.hasError ? 'red-outline' : ''} ${this.props.disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
           <div className="content">
-            <Textarea
+            <ContentEditable
               autoCapitalize="off"
               autoCorrect="off"
               autoFocus
               className="connect-text-area"
-              onInput={this.handleTextChange}
+              html={this.displayedHTML()}
+              onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
               onKeyUp={this.reportActivtySessionTextBoxInteraction}
               placeholder={this.props.placeholder}
-              inputRef={node => this.answerBox = node}
+              innerRef={node => this.answerBox = node}
               spellCheck={this.props.spellCheck || false}
-              value={this.props.value}
             />
           </div>
         </div>
