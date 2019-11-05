@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request';
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import PasswordInfo from './password_info.jsx';
@@ -97,7 +97,7 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2?prompt=consent" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
+            <a href="/auth/google_oauth2" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
               <img alt="google icon" src="/images/google_icon.svg" />
               <span>Log in with Google</span>
             </a>
