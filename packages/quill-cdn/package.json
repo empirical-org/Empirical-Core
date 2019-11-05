@@ -1,6 +1,6 @@
 {
   "name": "quill-cdn",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Locally hosts Quill assets and Deploys to Cloudfront",
   "main": "index.js",
   "scripts": {
