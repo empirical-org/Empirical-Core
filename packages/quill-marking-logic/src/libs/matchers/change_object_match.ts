@@ -60,6 +60,7 @@ export function rigidChangeObjectMatchResponseBuilder(match: ChangeObjectMatch, 
       res.feedback = spellingFeedbackStrings['Spelling Hint'];
       res.author = 'Spelling Hint';
       res.parent_id = match.response.key;
+      res.misspelled_words = [match.extraneousText]
       res.concept_results = copyMatchConceptResults && matchConceptResults ? matchConceptResults : [
         conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g')
       ];
