@@ -1,4 +1,6 @@
 nohup bundle exec puma -C config/puma.rb > rake.out 2>&1 &
-sed -e "s@/webpack/home@$DEFAULT_URL/webpack/home@g" -i public/webpack/manifest.json
-sed -e "s@/webpack/vendor@$DEFAULT_URL/webpack/vendor@g" -i public/webpack/manifest.json
+#nohup rails s > rake.out 2>&1 &
+sed -e "s@/webpack@$DEFAULT_URL/webpack@g" -i public/webpack/manifest.json
+mkdir -p public/javascripts/
+cp app/assets/javascripts/application.js public/javascripts/
 tail -f rake.out

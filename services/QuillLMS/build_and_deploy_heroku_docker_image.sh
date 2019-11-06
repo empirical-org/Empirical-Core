@@ -22,8 +22,10 @@ rm -rf *.uuid
 echo "test" > $(uuidgen).uuid
 echo "RUNNING NPM BUILD"
 npm install
-rm app/assets/webpack/* || true && cd client && nohup npm run build:dev:client > npm_build_log.out 2>&1 &
+rm app/assets/webpack/* || true && cd client && nohup npm run build:dev:client && nohup run build:dev:server > npm_build_log.out 2>&1 &
 sleep 30
+mkdir -p public/javascripts/
+cp app/assets/javascripts/application.js public/javascripts/
 export DOCKER_IMAGE_NAME="ruby5_3_1"
 echo "BUILDING DOCKER IMAGE: $DOCKER_IMAGE_NAME"
 docker build -t "$DOCKER_IMAGE_NAME" .
