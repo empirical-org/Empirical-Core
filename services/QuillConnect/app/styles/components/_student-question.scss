@@ -383,6 +383,15 @@ progress[value]::-webkit-progress-value {
   &:focus {
     outline: none;
   }
+
+  &:empty::before {
+    content: attr(placeholder);
+    color: #555;
+  }
+
+  &:focus:empty::before {
+    content: '';
+  }
 }
 
 .red-outline {
