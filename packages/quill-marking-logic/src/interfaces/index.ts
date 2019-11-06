@@ -9,6 +9,7 @@ export interface Response {
   created_at?: string,
   id?: number,
   key?: string,
+  misspelled_words?: Array<string>;
   optimal?: Boolean|null,
   parent_uid?: string|null,
   parent_id?: number|string|null,
@@ -32,6 +33,7 @@ export interface PartialResponse {
   created_at?: string,
   id?: number,
   key?: string,
+  misspelled_words?: Array<string>;
   optimal?: Boolean|null,
   parent_uid?: string|null,
   parent_id?: number|string|null,

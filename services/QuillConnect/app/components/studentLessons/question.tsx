@@ -3,7 +3,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Question from '../../libs/question';
-import Textarea from 'react-textarea-autosize';
 import * as _ from 'underscore';
 import {
   hashToCollection,
