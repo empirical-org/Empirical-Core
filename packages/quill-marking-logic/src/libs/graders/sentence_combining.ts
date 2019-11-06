@@ -3,6 +3,7 @@ import {Response, PartialResponse, IncorrectSequence, FocusPoint, GradingObject}
 import {correctSentenceFromSamples} from 'quill-spellchecker';
 import {getOptimalResponses} from '../sharedResponseFunctions';
 import {conceptResultTemplate} from '../helpers/concept_result_template'
+import {removePunctuation} from '../helpers/remove_punctuation'
 
 import {exactMatch} from '../matchers/exact_match';
 import {focusPointChecker} from '../matchers/focus_point_match';
@@ -51,15 +52,16 @@ export function checkSentenceCombining(
 
   const spellCheckedData = prepareSpellingData(data);
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
+  const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
   if (spellingPass) {
     // Update the feedback to indicate spelling is also needed.
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    return Object.assign(responseTemplate, spellingAwareFeedback, {text: data.response, spelling_error: true});
+    return Object.assign(responseTemplate, spellingAwareFeedback, { text: data.response, spelling_error: true, misspelled_words: misspelledWords });
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
   if (secondPass) {
-    return Object.assign(responseTemplate, secondPass);
+    return Object.assign(responseTemplate, secondPass, { misspelled_words: misspelledWords });
   };
 
   return responseTemplate;
@@ -109,7 +111,7 @@ function checkForMatches(data: GradingObject, matchingFunction: Function, spellC
 function prepareSpellingData(data: GradingObject) {
   const spellingData = Object.assign({}, data);
   const optimalAnswerStrings = getOptimalResponses(data.responses).map(resp => resp.text);
-  spellingData.spellCorrectedResponse = correctSentenceFromSamples(optimalAnswerStrings,data.response,false);
+  spellingData.spellCorrectedResponse = correctSentenceFromSamples(optimalAnswerStrings, data.response, false);
   return spellingData;
 }
 
@@ -127,4 +129,11 @@ function getSpellingFeedback(spellingMatch: Response|PartialResponse): PartialRe
     delete match.id;
   }
   return match;
+}
+
+function getMisspelledWords(text: string, spellCheckedText: string) {
+  const textArray: Array<string> = removePunctuation(text).split(' ')
+  const spellCheckedTextArray: Array<string> = removePunctuation(spellCheckedText).split(' ')
+  const misspelledWords = textArray.filter(word => !spellCheckedTextArray.includes(word))
+  return misspelledWords
 }
