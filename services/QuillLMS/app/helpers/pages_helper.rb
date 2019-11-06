@@ -147,6 +147,11 @@ module PagesHelper
             name: 'Rhea Wong',
             title: 'Director of Strategic Initiatives',
             img: 'team-rhea-wong@2x.png'
+          },
+          {
+            name: 'Cissy Yu',
+            title: 'Software Developer',
+            img: 'team-cissy-yu@2x.png'
           }
         ]
       }
