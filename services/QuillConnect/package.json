@@ -36,12 +36,9 @@
     "@types/react": "^15.6.28",
     "@types/react-addons-css-transition-group": "^15.0.3",
     "@types/react-redux": "^4.4.45",
-<<<<<<< HEAD
     "@types/react-router": "^3.0.20",
     "@types/react-textarea-autosize": "^4.3.5",
-=======
     "@types/react-router": "^3.0.5",
->>>>>>> e89384187b4c6cb42808fd169d1d0976677e1815
     "@types/redux": "^3.6.31",
     "@types/request": "^2.48.3",
     "@types/request-promise": "^4.1.44",
@@ -97,12 +94,9 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-<<<<<<< HEAD
     "actioncable": "^5.2.3",
-=======
     "@babel/plugin-proposal-class-properties": "^7.7.0",
     "actioncable": "^5.1.1",
->>>>>>> e89384187b4c6cb42808fd169d1d0976677e1815
     "animejs": "^2.2.0",
     "apply-feature": "^1.0.1",
     "babel-loader": "^8.0.6",
