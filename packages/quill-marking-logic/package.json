@@ -1,6 +1,6 @@
 {
   "name": "quill-marking-logic",
-  "version": "0.10.0",
+  "version": "0.12.0",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "./dist/lib",
   "module": "./dist/lib",
@@ -60,9 +60,9 @@
     "tslint": "^4.3.1",
     "typescript": "^2.2.2",
     "uglify-js": "^2.7.5",
-    "watchify": "^3.11.0",
+    "watchify": "^3.11.1",
     "webpack": "^2.7.0",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.11.5"
   },
   "dependencies": {
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -72,7 +72,7 @@
     "diff": "^3.2.0",
     "immutable": "^3.8.2",
     "levenshtein": "^1.0.5",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.15",
     "pos": "^0.4.2",
     "quill-component-library": "0.3.29",
     "quill-spellchecker": "^0.1.12",
