@@ -65,9 +65,14 @@
     }
   }
 
-  .square-medium-img {
+  .square-large-img {
     height: 447px;
     width: 447px;
+  }
+
+  .square-medium-img {
+    height: 306px;
+    width: 306px;
   }
 
   .square-small-img {
@@ -80,13 +85,13 @@
     width: 72px;
   }
 
-  .rectangularimg {
+  .rectangular-img {
     height: 306px;
     width: 604px;
   }
 
   @media only screen and (max-width: 900px) {
-    .square-medium-img, .square-small-img, .rectangular-img {
+    .square-large-img, .square-medium-img, .square-small-img, .rectangular-img {
       height: auto;
       width: auto;
     }
