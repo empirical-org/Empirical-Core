@@ -31,6 +31,16 @@ class StudentsController < ApplicationController
     end
   end
 
+  def update_account
+    response = current_user.update_student(params)
+    if response && response[:errors] && response[:errors].any?
+      errors = response[:errors]
+      render json: {errors: errors}, status: 422
+    else
+      render json: current_user.generate_teacher_account_info
+    end
+  end
+
   def update_email
     if current_user.update(email: params[:email])
       render json: {status: 200}
