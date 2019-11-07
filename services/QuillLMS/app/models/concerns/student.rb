@@ -11,6 +11,22 @@ module Student
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
+    def update_student params
+      return if !self.student?
+      self.validate_username = true
+
+      if self.update_attributes(username: params.key?(:username) ? params[:username] : self.username,
+                                  email: params.key?(:email) ? params[:email] : self.email,
+                                  name: params.key?(:name) ? params[:name] : self.class_name)
+      end
+      if self.errors
+        response = {errors: self.errors}
+      else
+        response = self
+      end
+      response
+    end
+
     def finished_activities classroom
       classroom_unit_score_join(classroom).where('activity_sessions.completed_at is not null')
     end
