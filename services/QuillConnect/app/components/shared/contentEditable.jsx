@@ -283,7 +283,6 @@ class ContentEditable extends React.Component {
       <Element
         {...omit(props, Object.keys(propTypes))}
         {...(styled ? { innerRef: this.setRef } : { ref: this.setRef })}
-        style={{ whiteSpace: 'pre-wrap', ...props.style }}
         contentEditable={editable}
         dangerouslySetInnerHTML={{ __html: this.state.value }}
         onBlur={this.onBlur}
@@ -291,6 +290,7 @@ class ContentEditable extends React.Component {
         onKeyDown={this.onKeyDown}
         onKeyUp={this.onKeyUp}
         onPaste={this.onPaste}
+        style={{ whiteSpace: 'pre-wrap', ...props.style }}
       />
     );
   }
