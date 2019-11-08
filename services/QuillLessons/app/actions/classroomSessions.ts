@@ -524,7 +524,7 @@ export function setEditionId(
   socket.instance.on(`editionIdSet:${classroomSessionId}`, () => {
     socket.instance.removeAllListeners(`editionIdSet:${classroomSessionId}`);
     if (callback) {
-      callback();
+      setTimeout(callback, 5000);
     }
   })
 }
