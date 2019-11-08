@@ -13,8 +13,12 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   end
 
   def teacher_and_classroom_name
-    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
-    render json: classroom_unit.teacher_and_classroom_name
+    if classroom_unit_id.starts_with?('prvw-')
+      render json: {"teacher": "Demo Teacher", "classroom":"Quill Classroom"}
+    else
+      classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+      render json: classroom_unit.teacher_and_classroom_name
+    end
   end
 
   def finish_lesson
@@ -102,7 +106,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   def classroom_teacher_and_coteacher_ids
     classroom_unit_id = params[:classroom_unit_id]
     if classroom_unit_id.starts_with?('prvw-')
-      render json: {"user": nil, "coteachers":[]}
+      render json: {"teacher_ids": [] }
     else
       classroom_unit = ClassroomUnit.find(classroom_unit_id)
 
