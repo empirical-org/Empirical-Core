@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import ContentEditable from 'react-sane-contenteditable';
+import ContentEditable from '../shared/contentEditable';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
