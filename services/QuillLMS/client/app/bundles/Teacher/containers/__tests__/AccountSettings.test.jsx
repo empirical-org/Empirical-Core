@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import AccountSettings from '../AccountSettings.jsx';
+import StudentAccount from '../StudentAccount.jsx';
 
-import StudentAccountForm from '../../components/accounts/edit/student_account_form.jsx'
+import StudentGeneralAccountInfo from '../../components/accounts/edit/student_general.jsx'
 
-describe('AccountSettings container', () => {
+describe('StudentAccount container', () => {
 
   it('should render a StudentAccountForm component', () => {
-    expect(shallow(<AccountSettings />).find(StudentAccountForm).exists()).toBe(true);
+    expect(shallow(<StudentAccount />).find(StudentGeneralAccountInfo).exists()).toBe(true);
   });
 
 });
