@@ -1,6 +1,6 @@
 import React from 'react';
-import AccountSettings from '../../Teacher/containers/AccountSettings.jsx';
+import StudentAccount from '../../Teacher/containers/StudentAccount.jsx';
 
 export default (props) => (
-  <AccountSettings {...props} />
+  <StudentAccount {...props} />
 );

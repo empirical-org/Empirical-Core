@@ -135,6 +135,7 @@ export default class TeacherAccount extends React.Component {
   }
 
   render() {
+    console.log('errors', this.state.errors);
     const {
       name,
       email,
