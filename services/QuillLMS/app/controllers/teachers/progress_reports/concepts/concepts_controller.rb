@@ -37,6 +37,6 @@ class Teachers::ProgressReports::Concepts::ConceptsController < Teachers::Progre
   def student
     student_object = current_user.students.find{|student| student.id == params[:student_id].to_i}
     raise ActiveRecord::RecordNotFound unless student_object
-    student
+    student_object
   end
 end
