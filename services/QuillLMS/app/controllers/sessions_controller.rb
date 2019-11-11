@@ -77,6 +77,7 @@ class SessionsController < ApplicationController
       redirect_to profile_path
     else # we must go deeper
       staff = User.find_by_id(staff_id)
+      sign_out
       if staff.present? and (staff != current_user)
         sign_in(staff)
         redirect_to cms_users_path
@@ -87,7 +88,6 @@ class SessionsController < ApplicationController
         session[CLEAR_ANALYTICS_SESSION_KEY] = true
         redirect_to signed_out_path
       end
-      sign_out
     end
   end
 
