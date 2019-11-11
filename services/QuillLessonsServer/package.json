@@ -6,15 +6,12 @@
   "scripts": {
     "build": "$(npm bin)/babel src --out-dir lib --presets es2015,stage-2",
     "start": "npm run build && node lib/index.js",
-    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node --presets es2015,stage-2; ./rethink_local.sh stop",
+    "start:dev": "./rethink_local.sh start; PORT=3200 RETHINKDB_HOST=localhost RETHINK_DB_PORT=28015 nodemon src/index.js --exec babel-node .babelrc; ./rethink_local.sh stop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "dotenv": "^5.0.1",
     "jsonwebtoken": "^8.2.1",
     "newrelic": "^4.8.0",
@@ -22,6 +19,11 @@
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.7.0",
+    "@babel/node": "^7.7.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
     "nodemon": "^1.17.3",
     "socket.io-redis": "^5.2.0"
   },

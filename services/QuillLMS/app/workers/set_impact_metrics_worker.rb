@@ -9,7 +9,7 @@ class SetImpactMetricsWorker
   end
 
   def set_impact_metrics
-    finished_activity_sessions_query = ActivitySession.where(state: 'finished')
+    finished_activity_sessions_query = ActivitySession.unscoped.where(state: 'finished')
     teachers_query = User.select(:id)
       .joins(:units, classroom_units: :activity_sessions)
       .where("activity_sessions.state = 'finished'")
