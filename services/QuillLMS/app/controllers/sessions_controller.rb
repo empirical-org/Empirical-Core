@@ -78,17 +78,16 @@ class SessionsController < ApplicationController
     else # we must go deeper
       staff = User.find_by_id(staff_id)
       if staff.present? and (staff != current_user)
-        sign_out
         sign_in(staff)
         redirect_to cms_users_path
       else
-        sign_out
         # Wherever our user eventually lands after logout, we want to do some special stuff
         # So we set a session value here for the final controller to pick up and convert into
         # a variable for the view
         session[CLEAR_ANALYTICS_SESSION_KEY] = true
         redirect_to signed_out_path
       end
+      sign_out
     end
   end
 
