@@ -2,12 +2,12 @@ require 'active_support/inflector'
 
 shared_context "calling the api" do
 
-  let(:application) { Doorkeeper::Application.create!(name: "MyApp", redirect_uri: "https://app.com") }
   let(:user) { create(:user) }
-  let(:token) { Doorkeeper::AccessToken.create! application_id: application.id, resource_owner_id: user.id }
+  let(:token) { double :acceptable? => true }
 
   before do
     allow(controller).to receive(:doorkeeper_token) { token }
+    allow(token).to receive(:resource_owner_id) { user.id }
   end
 end
 

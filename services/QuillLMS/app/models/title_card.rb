@@ -4,6 +4,6 @@ class TitleCard < ActiveRecord::Base
   validates :title, presence: true
 
   def as_json(options=nil)
-    super.except("id")
+    super(options).except("id")
   end
 end

@@ -10,10 +10,11 @@ describe SetImpactMetricsWorker do
     let!(:second_classroom) { create(:classroom_with_students_and_activities) }
     let!(:first_schools_user) { create(:schools_users, school: school, user: first_classroom.owner)}
     let!(:second_schools_user) { create(:schools_users, school: low_income_school, user: second_classroom.owner)}
+    let!(:archived_activity_session) { create(:activity_session, user: User.where(role: 'student').first, visible: false )}
 
     before(:all) do
-      @number_of_sentences = ActivitySession.where(state: 'finished').count.floor(-5) * 10
-      @number_of_students = ActivitySession.where(state: 'finished').count('DISTINCT(user_id)')
+      @number_of_sentences = ActivitySession.unscoped.where(state: 'finished').count.floor(-5) * 10
+      @number_of_students = ActivitySession.unscoped.where(state: 'finished').count('DISTINCT(user_id)')
       teachers_query = User.select(:id)
         .joins(:units, classroom_units: :activity_sessions)
         .where("activity_sessions.state = 'finished'")
