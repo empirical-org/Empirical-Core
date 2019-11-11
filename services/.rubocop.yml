@@ -192,7 +192,8 @@ Style/PreferredHashMethods:
   Enabled: true
 
 Style/RescueModifier:
-  Enabled: true
+  Exclude:
+    - 'services/QuillLMS/db/migrate/20140916143956_make_username_downcase.rb'
 
 Style/StderrPuts:
   Enabled: true
