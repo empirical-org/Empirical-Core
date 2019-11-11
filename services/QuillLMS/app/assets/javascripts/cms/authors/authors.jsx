@@ -1,4 +1,5 @@
-'use strict';
+import * as React from 'react'
+
 $(function () {
   var ele = $('#cms-authors');
   if (ele.length > 0) {

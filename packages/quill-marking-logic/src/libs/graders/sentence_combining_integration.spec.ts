@@ -145,6 +145,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
       assert.equal(matchedResponse.spelling_error, true);
+      assert.equal(matchedResponse.misspelled_words[0], 'zings')
     });
 
     it('should be able to find a flexible change match', () => {
@@ -152,6 +153,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.author, 'Modified Word Hint');
       assert.equal(matchedResponse.spelling_error, true);
+      assert.equal(matchedResponse.misspelled_words[0], 'shave')
     });
 
   })

@@ -24,7 +24,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def recommendations_for_classroom
-        render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
+        render json: generate_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
     def lesson_recommendations_for_classroom

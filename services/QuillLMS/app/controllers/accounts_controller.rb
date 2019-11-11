@@ -8,7 +8,7 @@ class AccountsController < ApplicationController
     if params[:redirect]
       session[:post_sign_up_redirect] = params[:redirect]
     end
-    @teacherFromGoogleSignUp = false
+    @teacher_from_google_signup = false
     @js_file = 'session'
   end
 

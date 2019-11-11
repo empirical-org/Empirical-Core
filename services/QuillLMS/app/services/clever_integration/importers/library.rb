@@ -18,7 +18,7 @@ module CleverIntegration::Importers::Library
   end
 
   def self.import_teacher(client)
-    teacher_id = client.get_user()["id"]
+    teacher_id = client.user()["id"]
     teacher_data = client.get_teacher(teacher_id: teacher_id)
     CleverIntegration::Creators::Teacher.run(
       email: teacher_data["email"],

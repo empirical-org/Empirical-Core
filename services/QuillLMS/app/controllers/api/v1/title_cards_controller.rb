@@ -1,6 +1,6 @@
 class Api::V1::TitleCardsController < Api::ApiController
   wrap_parameters format: [:json]
-  before_filter :get_title_card_by_uid, only: [:show, :update, :destroy]
+  before_filter :title_card_by_uid, only: [:show, :update, :destroy]
 
   def index
     render(json: TitleCard.all.as_json || {title_cards:[]})
@@ -27,7 +27,7 @@ class Api::V1::TitleCardsController < Api::ApiController
     render(plain: 'OK')
   end
 
-  private def get_title_card_by_uid
+  private def title_card_by_uid
     @title_card = TitleCard.find_by!(uid: params[:id])
   end
 

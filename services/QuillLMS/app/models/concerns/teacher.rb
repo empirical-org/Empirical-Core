@@ -169,12 +169,12 @@ module Teacher
   end
 
 
-  def get_classroom_minis_cache
+  def classroom_minis_cache
     cache = $redis.get("user_id:#{self.id}_classroom_minis")
     cache ? JSON.parse(cache) : nil
   end
 
-  def set_classroom_minis_cache(info)
+  def classroom_minis_cache=(info)
     # TODO: move this to background worker
     $redis.set("user_id:#{self.id}_classroom_minis", info.to_json, {ex: 16.hours} )
   end
@@ -183,8 +183,8 @@ module Teacher
     $redis.del("user_id:#{teacher_id}_classroom_minis")
   end
 
-  def get_classroom_minis_info
-    cache = get_classroom_minis_cache
+  def classroom_minis_info
+    cache = classroom_minis_cache
     if cache
       return cache
     end
@@ -213,7 +213,7 @@ module Teacher
       classy
     end
     # TODO: move setter to background worker
-    set_classroom_minis_cache(info)
+    classroom_minis_cache=(info)
     info
   end
 
@@ -399,19 +399,19 @@ module Teacher
   end
 
   def set_and_return_lessons_cache_data
-    lessons_cache = get_data_for_lessons_cache
+    lessons_cache = data_for_lessons_cache
     set_lessons_cache(lessons_cache)
     lessons_cache
   end
 
   def set_lessons_cache(lessons_data=nil)
     if !lessons_data
-      lessons_data = get_data_for_lessons_cache
+      lessons_data = data_for_lessons_cache
     end
     $redis.set("user_id:#{self.id}_lessons_array", lessons_data.to_json)
   end
 
-  def get_data_for_lessons_cache
+  def data_for_lessons_cache
     format_initial_lessons_cache(self)
   end
 
