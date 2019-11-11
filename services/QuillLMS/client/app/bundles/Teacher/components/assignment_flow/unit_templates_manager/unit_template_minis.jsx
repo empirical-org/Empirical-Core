@@ -89,11 +89,12 @@ export default class UnitTemplateMinis extends React.Component {
     const baseLink = this.getIndexLink()
 
     const typeOptions = types.map(type => {
-      const qs = currentCategory ? `?category=${currentCategory.label}&type=${type.id}` : `?type=${type.id}`
+      const { id, name, } = type
+      const qs = currentCategory ? `?category=${currentCategory.label}&type=${id}` : `?type=${id}`
       return (<Link
-        className={selectedTypeId === type.id ? 'active' : null}
+        className={selectedTypeId === id ? 'active' : null}
         to={`${baseLink}${qs}`}
-      >{type.name}</Link>)
+      >{name}</Link>)
     })
 
     return (
