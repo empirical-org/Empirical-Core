@@ -3,6 +3,7 @@ import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/c
 import StudentGeneralAccountInfo from '../components/accounts/edit/student_general.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
 import request from 'request';
+import _ from 'lodash';
 
 export default class StudentAccount extends Component {
   state = {
@@ -37,37 +38,46 @@ export default class StudentAccount extends Component {
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
-  updateUser = (data, url, snackbarCopy) => {
-    const { timesSubmitted } = this.state;
-    request.put({
-      url: `${process.env.DEFAULT_URL}${url}`,
-      json: { ...data, authenticity_token: getAuthToken(), },
-    }, (error, httpStatus, body) => {
-      if (httpStatus && httpStatus.statusCode === 200) {
-        const {
-          name,
-          username,
-          email
-        } = body;
-        this.setState({
-          firstName: name.split(' ')[0],
-          lastName: name.split(' ')[1],
-          userName: username,
-          email,
-          snackbarCopy,
-          errors: {}
-        }, () => {
-          this.showSnackbar();
-          this.deactivateSection('general');
-        });
-      } else if (body.errors) {
-        this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
-      }
-    });
+  updateUser = (data, url, snackbarCopy, errors) => {
+    if(!_.isEmpty(errors)) {
+      this.setState({ errors: errors });
+    } else {
+      const { timesSubmitted } = this.state;
+      request.put({
+        url: `${process.env.DEFAULT_URL}${url}`,
+        json: { ...data, authenticity_token: getAuthToken(), },
+      }, (error, httpStatus, body) => {
+        if (httpStatus && httpStatus.statusCode === 200) {
+          const {
+            name,
+            username,
+            email
+          } = body;
+          this.setState({
+            firstName: name.split(' ')[0],
+            lastName: name.split(' ')[1],
+            userName: username,
+            email,
+            snackbarCopy,
+            errors: {}
+          }, () => {
+            this.showSnackbar();
+            this.deactivateSection('general');
+          });
+        } else if (body.errors) {
+          // combine errors from front and backend error handling
+          let errorsObject = body.errors;
+          errorsObject.firstName = errors.firstName;
+          errorsObject.lastName = errors.lastName;
+          errorsObject.username ? errorsObject.username : errors.username;
+          this.setState({ errors: errorsObject, timesSubmitted: timesSubmitted + 1, });
+        }
+      });
+    }
   }
 
   render() {
-    const { firstName, lastName, userName, email, timesSubmitted, activeSection } = this.state;
+    const { firstName, lastName, userName, email, timesSubmitted, activeSection, errors } = this.state;
     const { googleId, signedUpWithGoogle, accountType } = this.props;
     return(
       <div className="teacher-account">
@@ -80,6 +90,7 @@ export default class StudentAccount extends Component {
           signedUpWithGoogle={signedUpWithGoogle}
           accountType={accountType}
           timesSubmitted={timesSubmitted}
+          errors={errors}
           active={activeSection === 'general'}
           activateSection={() => this.activateSection('general')}
           deactivateSection={() => this.deactivateSection('general')}

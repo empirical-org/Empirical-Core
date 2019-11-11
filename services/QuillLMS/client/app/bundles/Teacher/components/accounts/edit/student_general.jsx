@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from 'quill-component-library/dist/componentLibrary';
+import getAuthToken from '../../modules/get_auth_token';
+import request from 'request';
 
 export default class StudentGeneralAccountInfo extends Component {
   state = {
@@ -8,7 +10,6 @@ export default class StudentGeneralAccountInfo extends Component {
     lastName: this.props.lastName,
     userName: this.props.userName,
     notGoogleUser: (!this.props.googleId && !this.props.signedUpWithGoogle),
-    errors: { firstName: null, lastName: null },
     showButtonSection: false
   }
 
@@ -61,20 +62,8 @@ export default class StudentGeneralAccountInfo extends Component {
     this.setState({ email: e.target.value, })
   }
 
-  handleFirstNameChange = (e) => {
-    this.setState({ firstName: e.target.value, });  
-  }
- 
-  handleLastNameChange = (e) => {
-    this.setState({ lastName: e.target.value, });
-  }
-
-  handleEmailChange = (e) => {
-    this.setState({ email: e.target.value, });
-  }
-
-  handleUsernameChange = (e) => {
-    this.setState({ userName: e.target.value });
+  handleFieldChange = (e, field) => {
+    this.setState({[`${field}`]: e.target.value });
   }
 
   handleClick = () => {
@@ -82,7 +71,7 @@ export default class StudentGeneralAccountInfo extends Component {
       url: `${process.env.DEFAULT_URL}/update_email`,
       json: {
         email: this.state.email,
-        role: this.state.role,
+        role: "student",
         authenticity_token: getAuthToken(),
       }
     },
@@ -94,8 +83,6 @@ export default class StudentGeneralAccountInfo extends Component {
       }
     });
   }
-
-
 
   submitClass = () => {
     const { firstName, lastName, email, userName } = this.state;
@@ -123,72 +110,30 @@ export default class StudentGeneralAccountInfo extends Component {
     e.preventDefault();
     const { email, firstName, lastName, userName } = this.state;
     const name = `${firstName} ${lastName}`;
+    let errors = {};
 
     if (!firstName && !lastName) {
-      const errors = { ...this.state.errors }
       errors.firstName = "First name cannot be blank";
       errors.lastName = "Last name cannot be blank";
-      this.setState({ errors: errors });
     } else if (!firstName) {
-      const errors = { ...this.state.errors }
       errors.firstName = "First name cannot be blank";
-      this.setState({ errors: errors });
     } else if (!lastName) {
-      const errors = { ...this.state.errors }
       errors.lastName = "Last name cannot be blank";
-      this.setState({ errors: errors });
-    } else {
-      this.setState({ errors: {} }, () => {
-        const data = {
-          name,
-          email,
-          username: userName
-        };
-        this.props.updateUser(data, '/update_account', 'Settings saved');
-      });
     }
+    if(!userName) {
+      errors.username = "Username cannot be blank"
+    }
+    const data = {
+      name,
+      email,
+      username: userName
+    };
+    this.props.updateUser(data, '/students/update_account', 'Settings saved', errors);
   }
 
-  // handleUpdate = () => {
-  //   const { email, userName, firstName, lastName } = this.state;
-
-  //   if (!firstName && !lastName) {
-  //     const errors = { ...this.state.errors }
-  //     errors.firstName = "First name cannot be blank";
-  //     errors.lastName = "Last name cannot be blank";
-  //     this.setState({ errors: errors });
-  //   } else if (!firstName) {
-  //     const errors = { ...this.state.errors }
-  //     errors.firstName = "First name cannot be blank";
-  //     this.setState({ errors: errors });
-  //   } else if (!lastName) {
-  //     const errors = { ...this.state.errors }
-  //     errors.lastName = "Last name cannot be blank";
-  //     this.setState({ errors: errors });
-  //   }
-  //   const name = `${firstName} ${lastName}`;
-  //   request.put({
-  //     url: `${process.env.DEFAULT_URL}/update_account`,
-  //     json: {
-  //       name: name,
-  //       email: email,
-  //       username: userName,
-  //       authenticity_token: getAuthToken()
-  //     }
-  //   },
-  //     (e, r, body) => {
-  //       if (r.statusCode === 200 && !errors) {
-  //         console.log('success!~')
-  //         // window.location = '/account_settings';
-  //       } else {
-  //         this.setState({ errors: body.errors, })
-  //       }
-  //     });
-  // }
-
   render() {
-    const { notGoogleUser, firstName, lastName, userName, email, errors } = this.state;
-    const { accountType, timesSubmitted } = this.props;
+    const { notGoogleUser, firstName, lastName, userName, email } = this.state;
+    const { accountType, timesSubmitted, errors } = this.props;
     const correctPath = window.location.pathname === '/account_settings';
     let submitButton, emailField, form
     // email and submitButton should only show for the student page
@@ -203,7 +148,7 @@ export default class StudentGeneralAccountInfo extends Component {
                 className="first-name"
                 error={errors.firstName}
                 onClick={this.activateSection}
-                handleChange={this.handleFirstNameChange}
+                handleChange={e => this.handleFieldChange(e, 'firstName')}
                 timesSubmitted={timesSubmitted}
                 label="First name"
                 type="text"
@@ -214,7 +159,7 @@ export default class StudentGeneralAccountInfo extends Component {
                 className="last-name"
                 error={errors.lastName}
                 onClick={this.activateSection}
-                handleChange={this.handleLastNameChange}
+                handleChange={e => this.handleFieldChange(e, 'lastName')}
                 timesSubmitted={timesSubmitted}
                 label="Last name"
                 type="text"
@@ -222,9 +167,9 @@ export default class StudentGeneralAccountInfo extends Component {
               />
               <Input
                 className="username"
-                error={errors.userName}
+                error={errors.username}
                 onClick={this.activateSection}
-                handleChange={this.handleUsernameChange}
+                handleChange={e => this.handleFieldChange(e, 'userName')}
                 timesSubmitted={timesSubmitted}
                 label="Username"
                 type="text"
@@ -234,7 +179,7 @@ export default class StudentGeneralAccountInfo extends Component {
                 className="email"
                 error={errors.email}
                 onClick={this.activateSection}
-                handleChange={this.handleEmailChange}
+                handleChange={e => this.handleFieldChange(e, 'email')}
                 timesSubmitted={timesSubmitted}
                 label="Email (Optional)"
                 type="text"
