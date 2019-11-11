@@ -13,11 +13,21 @@ module Student
 
     def update_student params
       return if !self.student?
+      params.permit(:id,
+              :name,
+              :username,
+              :email,
+              :authenticity_token,
+              student: [
+                :name,
+                :email,
+                :username
+    ])
       self.validate_username = true
 
       if self.update_attributes(username: params.key?(:username) ? params[:username] : self.username,
                                   email: params.key?(:email) ? params[:email] : self.email,
-                                  name: params.key?(:name) ? params[:name] : self.class_name)
+                                  name: params.key?(:name) ? params[:name] : self.name)
       end
       if self.errors
         response = {errors: self.errors}

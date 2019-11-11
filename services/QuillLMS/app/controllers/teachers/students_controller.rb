@@ -26,6 +26,7 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def update
+    puts @student
     respond_to do |format|
       format.html {
         if user_params[:username] == @student.username
