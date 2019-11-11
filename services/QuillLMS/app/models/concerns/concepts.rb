@@ -18,12 +18,12 @@ module Concepts
   end
 
   def organize_by_type
-    h = Hash.new {|h,k| h[k] = [] }
+    hash_object = Hash.new {|h,k| h[k] = [] }
     @concepts.map do |concept|
       @concept_results_by_question_type.map do |cr|
         if cr.any?
           type = human_readable_question_type(cr.first['question_type'])
-          h[type].push(stats_for_concept(concept, cr))
+          hash_object[type].push(stats_for_concept(concept, cr))
         end
       end
     end
