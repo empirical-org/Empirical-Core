@@ -1,7 +1,6 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
