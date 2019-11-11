@@ -134,3 +134,9 @@ Style/RedundantSort:
 
 Style/WhileUntilDo:
   Enabled: true
+
+Layout/ClosingHeredocIndentation:
+  Enabled: true
+
+Layout/DefEndAlignment:
+  Enabled: true

@@ -125,13 +125,6 @@ Layout/CaseIndentation:
     - 'QuillLMS/app/serializers/classification_serializer.rb'
     - 'QuillLMS/lib/tasks/schools.rake'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Layout/ClosingHeredocIndentation:
-  Exclude:
-    - 'QuillLMS/app/queries/progress_reports/district_standards_reports.rb'
-    - 'QuillLMS/app/queries/progress_reports/standards/new_student.rb'
-
 # Offense count: 69
 # Cop supports --auto-correct.
 Layout/ClosingParenthesisIndentation:
