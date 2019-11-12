@@ -41,7 +41,7 @@ describe('The spacingAfterCommaChecker', () => {
   it('Should return a partialResponse object if there is no space after a comma', () => {
     const responseString = "My dog took a nap,did yours?";
     const partialResponse: PartialResponse =  {
-        feedback: '<p>Revise your work. Always put a space after a <em>comma</em>.</p>',
+        feedback: 'Revise your work. Always put a space after a comma.',
         author: 'Spacing After Comma Hint',
         parent_id: 1,
         concept_results: [
