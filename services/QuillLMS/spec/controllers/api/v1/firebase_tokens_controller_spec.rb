@@ -26,11 +26,15 @@ describe Api::V1::FirebaseTokensController, type: :controller do
     end
 
     context 'when authenticated via OAuth' do
-      let(:application) { Doorkeeper::Application.create!(name: "MyFirebaseApp", redirect_uri: "https://app.com") }
-      let(:token) { Doorkeeper::AccessToken.create! application_id: application.id, resource_owner_id: user.id }
+      let(:token) { double :acceptable? => true }
+
+      before do
+        allow(controller).to receive(:doorkeeper_token) { token }
+        allow(token).to receive(:resource_owner_id) { user.id }
+      end
 
       def subject
-        post :create, app: 'foobar', access_token: token.token
+        post :create, app: 'foobar'
       end
 
       it 'responds with 200' do
