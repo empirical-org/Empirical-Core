@@ -49,7 +49,7 @@
               {this.sayActivitiesCount()}
             </div>
             <div className='time'>
-              <i className='fas fa-clock-o' />
+              <i className='far fa-clock' />
               <div className='time-number'>
                 {this.sayTime()}
               </div>

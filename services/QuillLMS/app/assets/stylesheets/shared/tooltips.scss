@@ -44,8 +44,10 @@
   opacity: 1.0;
   border: 1px solid #cecece;
   h1 {
-    font-size: 12px;
+    font-size: 12px !important;
     font-weight: bold;
+    margin: 5px 0px !important;
+    text-align: left !important;
   }
   h1, p {
     margin-bottom: 5px;

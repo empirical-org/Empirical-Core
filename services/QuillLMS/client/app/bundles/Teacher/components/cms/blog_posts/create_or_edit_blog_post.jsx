@@ -544,9 +544,9 @@ export default class extends React.Component {
           <i className="fas fa-list-ol" onClick={() => this.insertMarkdown('1. ')} />
           <i className="fas fa-quote-left" onClick={() => this.insertMarkdown('> ')} />
           <i className="fas fa-link" onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} />
-          <i className="fas fa-file-image-o" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
+          <i className="fas fa-file-image" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
           <i className="fas fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} />
-          <i className="fas fa-square-o" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
+          <i className="far fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
         </div>)
         content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={this.state.body} />
         mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" target="_blank">Markdown Cheatsheet</a>
