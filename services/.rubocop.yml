@@ -171,7 +171,8 @@ Style/For:
   Enabled: true
 
 Style/IdenticalConditionalBranches:
-  Enabled: true
+  Exclude:
+    - 'services/QuillLMS/app/controllers/sessions_controller.rb'
 
 Style/IfInsideElse:
   Enabled: true
