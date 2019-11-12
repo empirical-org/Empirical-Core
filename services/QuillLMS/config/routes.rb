@@ -128,6 +128,7 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'account_settings' => 'students#account_settings'
   put 'students/update_account' => 'students#update_account'
+  put 'students/update_password' => 'students#update_password'
   put 'update_email' => 'students#update_email'
   get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'

@@ -63,7 +63,7 @@ export default class StudentGeneralAccountInfo extends Component {
   }
 
   handleFieldChange = (e, field) => {
-    this.setState({[`${field}`]: e.target.value });
+    this.setState({[field]: e.target.value });
   }
 
   handleClick = () => {
