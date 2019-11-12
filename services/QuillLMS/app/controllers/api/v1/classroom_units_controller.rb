@@ -13,12 +13,9 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   end
 
   def teacher_and_classroom_name
-    if classroom_unit_id.starts_with?('prvw-')
-      render json: {"teacher": "Demo Teacher", "classroom":"Quill Classroom"}
-    else
-      classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
-      render json: classroom_unit.teacher_and_classroom_name
-    end
+    return render json:  {"teacher": "Demo Teacher", "classroom":"Quill Classroom"} if classroom_unit_id.starts_with?('prvw-')
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    render json: classroom_unit.teacher_and_classroom_name
   end
 
   def finish_lesson
