@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
 class NewFocusPointsContainer extends Component {
@@ -24,7 +24,7 @@ class NewFocusPointsContainer extends Component {
   submitFocusPointForm(data) {
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
-    this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data);
+    this.props.dispatch(this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data));
     window.history.back();
   }
 
