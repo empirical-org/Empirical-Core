@@ -3,20 +3,22 @@ namespace :firebase do
   task :import_data, [:firebase_url, :model] => :environment do |_, args|
     include FirebaseTaskHelpers
 
-    FIREBASE_URL = args[:firebase_url]
-    RAILS_MODEL = args[:model]
-    if !FIREBASE_URL || !RAILS_MODEL
-      puts('You must provide Firebase URL and Rails model args to run this task.')
-      puts('Example usage:')
-      puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/titleCards,TitleCard]')
-      exit
-    end
+    set_arg_values(args)
 
-    klass = get_klass(RAILS_MODEL)
-    firebase_shallow = fetch_firebase_data("#{FIREBASE_URL}.json?shallow=true")
-    firebase_keys = firebase_shallow.keys
-    firebase_keys.each do |key|
-      copy_firebase_key(FIREBASE_URL, key, klass)
+    for_each_firebase_key do |obj, data|
+      obj.assign_attributes(data)
+      obj.save!
+    end
+  end
+
+  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
+    include FirebaseTaskHelpers
+
+    set_arg_values(args)
+
+    for_each_firebase_key do |obj, data|
+      obj.data = data
+      obj.save!
     end
   end
 
@@ -24,7 +26,7 @@ namespace :firebase do
     def get_klass(model_name)
       return model_name.constantize
     rescue NameError
-      puts("'#{RAILS_MODEL}' does not seem to be a defined model.")
+      puts("'#{@RAILS_MODEL}' does not seem to be a defined model.")
       exit
     end
 
@@ -37,15 +39,33 @@ namespace :firebase do
     end
 
     def copy_firebase_key(base_url, key, klass)
-      data = fetch_firebase_data("#{base_url}/#{key}.json")
-      obj = klass.find_or_create_by(uid: key)
-      if obj.valid?
-        puts("updating #{RAILS_MODEL} with uid '#{key}'")
-      else
-        puts("creating #{RAILS_MODEL} with uid '#{key}'")
+    end
+
+    def set_arg_values(args)
+      @FIREBASE_URL = args[:firebase_url]
+      @RAILS_MODEL = args[:model]
+      if !@FIREBASE_URL || !@RAILS_MODEL
+        puts('You must provide Firebase URL and Rails model args to run this task.')
+        puts('Example usage:')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/titleCards,TitleCard]')
+        exit
       end
-      obj.assign_attributes(data)
-      obj.save!
+    end
+
+    def for_each_firebase_key
+      klass = get_klass(@RAILS_MODEL)
+      firebase_shallow = fetch_firebase_data("#{@FIREBASE_URL}.json?shallow=true")
+      firebase_keys = firebase_shallow.keys
+      firebase_keys.each do |key|
+        data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
+        obj = klass.find_or_create_by(uid: key)
+        if obj.valid?
+          puts("updating #{@RAILS_MODEL} with uid '#{key}'")
+        else
+          puts("creating #{@RAILS_MODEL} with uid '#{key}'")
+        end
+        yield(obj, data)
+      end
     end
   end
 end
