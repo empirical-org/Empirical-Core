@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
 class IncorrectSequencesContainer extends Component {
@@ -104,7 +104,7 @@ class IncorrectSequencesContainer extends Component {
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    this.state.actionFile.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences)
+    this.props.dispatch(this.state.actionFile.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences));
   }
 
   render() {
