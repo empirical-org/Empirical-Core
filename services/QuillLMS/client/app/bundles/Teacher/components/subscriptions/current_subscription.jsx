@@ -92,7 +92,7 @@ export default class extends React.Component {
   }
 
   nextPlanAlert(body) {
-    return <div className="next-plan-alert flex-row vertically-centered"><i className="fa fa-icon fa-lightbulb-o" />{body}</div>;
+    return <div className="next-plan-alert flex-row vertically-centered"><i className="fas fa-icon fa-lightbulb-o" />{body}</div>;
   }
 
   changePlanInline() {
@@ -279,7 +279,7 @@ export default class extends React.Component {
       cta: (
         <div className="sub-button-row">
           <a className="q-button button cta-button bg-orange text-white" href="/premium">Learn More About Quill Premium</a>
-          <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fa fa-file-pdf-o" />Download Premium PDF</a>
+          <a className="q-button button cta-button bg-quillblue text-white" href="https://assets.quill.org/documents/quill_premium.pdf" rel="noopener noreferrer" target="_blank"><i className="fas fa-file-pdf-o" />Download Premium PDF</a>
         </div>
     ), });
   }

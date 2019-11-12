@@ -39,7 +39,7 @@ export default class ChooseClassroomLesson extends React.Component {
     const selectedClassName = cu.id === this.state.classroomUnitId ? 'selected' : null
     let completionText, completionClass, imgName, clickFunction
     if (cu.completed) {
-      completionText = <span className="completed-text"><i className="fa fa-check-circle" /> Lesson Completed*</span>
+      completionText = <span className="completed-text"><i className="fas fa-check-circle" /> Lesson Completed*</span>
       completionClass = 'completed'
       imgName = "radio_button_light_gray"
     } else {

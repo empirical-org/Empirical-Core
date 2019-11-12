@@ -85,7 +85,7 @@ export default class ClassroomActivity extends React.Component {
   renderCustomizeTooltip = () => {
     if (this.state.showCustomizeTooltip) {
       return (<div className="customize-tooltip">
-        <i className="fa fa-caret-up" />
+        <i className="fas fa-caret-up" />
         Customize
       </div>);
     }
@@ -94,7 +94,7 @@ export default class ClassroomActivity extends React.Component {
   renderLessonPlanTooltip = () => {
     if (this.state.showLessonPlanTooltip) {
       return (<div className="lesson-plan-tooltip">
-        <i className="fa fa-caret-up" />
+        <i className="fas fa-caret-up" />
         Download Lesson Plan
       </div>);
     }
@@ -119,7 +119,7 @@ export default class ClassroomActivity extends React.Component {
   renderLessonsAction = () => {
     if (window.location.pathname.includes('lessons')) {
       if (this.props.data.completed === 't') {
-        return <p className="lesson-completed"><i className="fa fa-icon fa-check-circle" />Lesson Complete</p>;
+        return <p className="lesson-completed"><i className="fas fa-icon fa-check-circle" />Lesson Complete</p>;
       } else if (this.props.data.started) {
         const href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
 
@@ -137,7 +137,7 @@ export default class ClassroomActivity extends React.Component {
         onMouseEnter={this.toggleCustomizeTooltip}
         onMouseLeave={this.toggleCustomizeTooltip}
       >
-        <i className="fa fa-icon fa-magic" />
+        <i className="fas fa-icon fa-magic" />
         {this.renderCustomizeTooltip()}
       </a>
       <a

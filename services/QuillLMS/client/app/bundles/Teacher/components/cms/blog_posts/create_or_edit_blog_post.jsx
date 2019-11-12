@@ -538,15 +538,15 @@ export default class extends React.Component {
           <p onClick={() => this.insertMarkdown('# ')}>H1</p>
           <p onClick={() => this.insertMarkdown('## ')}>H2</p>
           <p onClick={() => this.insertMarkdown('### ')}>H3</p>
-          <i className="fa fa-bold" onClick={() => this.insertMarkdown('**', '**')} />
-          <i className="fa fa-italic" onClick={() => this.insertMarkdown('*', '*')} />
-          <i className="fa fa-list-ul" onClick={() => this.insertMarkdown('* ')} />
-          <i className="fa fa-list-ol" onClick={() => this.insertMarkdown('1. ')} />
-          <i className="fa fa-quote-left" onClick={() => this.insertMarkdown('> ')} />
-          <i className="fa fa-link" onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} />
-          <i className="fa fa-file-image-o" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
-          <i className="fa fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} />
-          <i className="fa fa-square-o" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
+          <i className="fas fa-bold" onClick={() => this.insertMarkdown('**', '**')} />
+          <i className="fas fa-italic" onClick={() => this.insertMarkdown('*', '*')} />
+          <i className="fas fa-list-ul" onClick={() => this.insertMarkdown('* ')} />
+          <i className="fas fa-list-ol" onClick={() => this.insertMarkdown('1. ')} />
+          <i className="fas fa-quote-left" onClick={() => this.insertMarkdown('> ')} />
+          <i className="fas fa-link" onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} />
+          <i className="fas fa-file-image-o" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
+          <i className="fas fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} />
+          <i className="fas fa-square-o" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
         </div>)
         content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={this.state.body} />
         mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" target="_blank">Markdown Cheatsheet</a>
@@ -581,7 +581,7 @@ export default class extends React.Component {
     const allTopics = this.props.topics.concat(this.props.studentTopics)
     return (
       <div>
-        <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fa fa-chevron-left' /> All Blog Posts</a>
+        <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fas fa-chevron-left' /> All Blog Posts</a>
         <form>
           <label>Title:</label>
           <input onChange={this.handleTitleChange} type="text" value={this.state.title} />
