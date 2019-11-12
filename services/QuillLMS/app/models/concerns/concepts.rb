@@ -27,7 +27,7 @@ module Concepts
         end
       end
     end
-    h
+    hash_object
   end
 
   # TODO: These stats should all be pre-calculated and cached
