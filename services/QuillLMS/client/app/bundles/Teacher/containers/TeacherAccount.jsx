@@ -3,7 +3,7 @@ import request from 'request';
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import TeacherGeneralAccountInfo from '../components/accounts/edit/teacher_general'
-import TeacherPasswordAccountInfo from '../components/accounts/edit/teacher_password'
+import TeacherPasswordAccountInfo from '../components/accounts/edit/update_password'
 import TeacherLinkedAccounts from '../components/accounts/edit/teacher_linked_accounts'
 import TeacherEmailNotifications from '../components/accounts/edit/teacher_email_notifications'
 import TeacherDangerZone from '../components/accounts/edit/teacher_danger_zone'
@@ -135,7 +135,6 @@ export default class TeacherAccount extends React.Component {
   }
 
   render() {
-    console.log('errors', this.state.errors);
     const {
       name,
       email,
@@ -150,7 +149,7 @@ export default class TeacherAccount extends React.Component {
       sendNewsletter,
       postGoogleClassroomAssignments,
     } = this.state
-    const { alternativeSchools, alternativeSchoolsNameMap, cleverLink, } = this.props
+    const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink } = this.props
     return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
         activateSection={() => this.activateSection('general')}
@@ -176,6 +175,7 @@ export default class TeacherAccount extends React.Component {
         deactivateSection={() => this.deactivateSection('password')}
         errors={errors}
         googleId={googleId}
+        role={accountInfo.role}
         timesSubmitted={timesSubmitted}
         updateUser={this.updateUser}
       />

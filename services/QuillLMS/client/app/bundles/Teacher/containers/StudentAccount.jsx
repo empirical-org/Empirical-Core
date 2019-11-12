@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary';
 import StudentGeneralAccountInfo from '../components/accounts/edit/student_general.jsx';
+import StudentPasswordAccountInfo from '../components/accounts/edit/update_password';
 import getAuthToken from '../components/modules/get_auth_token';
 import request from 'request';
 import _ from 'lodash';
@@ -52,7 +53,7 @@ export default class StudentAccount extends Component {
             name,
             username,
             email
-          } = body;
+          } = body.user;
           this.setState({
             firstName: name.split(' ')[0],
             lastName: name.split(' ')[1],
@@ -62,14 +63,16 @@ export default class StudentAccount extends Component {
             errors: {}
           }, () => {
             this.showSnackbar();
-            this.deactivateSection('general');
+            this.setState({ activeSection: null });
           });
         } else if (body.errors) {
           // combine errors from front and backend error handling
           let errorsObject = body.errors;
-          errorsObject.firstName = errors.firstName;
-          errorsObject.lastName = errors.lastName;
-          errorsObject.username ? errorsObject.username : errors.username;
+          if(errors) {
+            errorsObject.firstName = errors.firstName;
+            errorsObject.lastName = errors.lastName;
+            errorsObject.username ? errorsObject.username : errors.username;
+          }
           this.setState({ errors: errorsObject, timesSubmitted: timesSubmitted + 1, });
         }
       });
@@ -78,7 +81,7 @@ export default class StudentAccount extends Component {
 
   render() {
     const { firstName, lastName, userName, email, timesSubmitted, activeSection, errors } = this.state;
-    const { googleId, signedUpWithGoogle, accountType } = this.props;
+    const { googleId, cleverId, signedUpWithGoogle, accountType, role } = this.props;
     return(
       <div className="teacher-account">
         <StudentGeneralAccountInfo
@@ -86,6 +89,7 @@ export default class StudentAccount extends Component {
           lastName={lastName} 
           userName={userName} 
           email={email}
+          cleverId={cleverId}
           googleId={googleId}
           signedUpWithGoogle={signedUpWithGoogle}
           accountType={accountType}
@@ -96,6 +100,17 @@ export default class StudentAccount extends Component {
           deactivateSection={() => this.deactivateSection('general')}
           updateUser={this.updateUser}
           />
+        <StudentPasswordAccountInfo
+          activateSection={() => this.activateSection('password')}
+          active={activeSection === 'password'}
+          cleverId={cleverId}
+          deactivateSection={() => this.deactivateSection('password')}
+          errors={errors}
+          googleId={googleId}
+          role={role}
+          timesSubmitted={timesSubmitted}
+          updateUser={this.updateUser}
+        />
         {this.renderSnackbar()}
       </div>
     );
