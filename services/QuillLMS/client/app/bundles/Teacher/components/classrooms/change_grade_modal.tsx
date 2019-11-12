@@ -22,7 +22,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
     super(props)
 
     this.state = {
-      grade: GradeOptions.find(grade => grade.value === Number(props.classroom.grade)),
+      grade: GradeOptions.find(grade => [Number(props.classroom.grade), props.classroom.grade].includes(grade.value)),
       errors: {},
       timesSubmitted: 0
     }

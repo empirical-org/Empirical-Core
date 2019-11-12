@@ -14,11 +14,11 @@ module Creators::StudentCreator
     @student = User.new(user_params)
     @student.generate_student(classroom_id)
     @student.save!
-    buildClassroomRelation(classroom_id)
+    build_classroom_relation(classroom_id)
     @student
   end
 
-  def self.buildClassroomRelation(classroom_id)
+  def self.build_classroom_relation(classroom_id)
     sc  = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: @student.id, classroom_id: classroom_id)
     if sc.new_record?
       if sc.save!

@@ -64,7 +64,7 @@ end
 
 module IncorrectSequenceCalculator
 
-  def self.get_incorrect_sequences_for_question(uid)
+  def self.incorrect_sequences_for_question(uid)
     model = train_correct_sentences(Response.where(question_uid: uid, optimal: true).pluck(:text))
     counter = Hash.new(0)
     response_count = Response.where(question_uid: uid, optimal: [false, nil]).count > 250 ? 1 : 0

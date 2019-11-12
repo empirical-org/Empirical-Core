@@ -10,6 +10,17 @@
 # Cop supports --auto-correct.
 # Configuration parameters: TreatCommentsAsGroupSeparators, Include.
 # Include: **/*.gemfile, **/Gemfile, **/gems.rb
+AllCops:
+  Exclude:
+    - 'QuillConnect/node_modules/**/*'
+    - 'QuillComprehension/node_modules/**/*'
+    - 'QuillDiagnostic/node_modules/**/*'
+    - 'QuillGrammar/node_modules/**/*'
+    - 'QuillLessons/node_modules/**/*'
+    - 'QuillLMS/node_modules/**/*'
+    - 'QuillLMS/client/node_modules/**/*'
+    - 'QuillProofreader/node_modules/**/*'
+
 Bundler/OrderedGems:
   Exclude:
     - 'QuillCMS/Gemfile'
@@ -718,19 +729,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 28
 
-# Offense count: 34
-Naming/AccessorMethodName:
-  Enabled: false
-
-# Offense count: 3
-# Configuration parameters: ExpectMatchingDefinition, Regex, IgnoreExecutableScripts, AllowedAcronyms.
-# AllowedAcronyms: CLI, DSL, ACL, API, ASCII, CPU, CSS, DNS, EOF, GUID, HTML, HTTP, HTTPS, ID, IP, JSON, LHS, QPS, RAM, RHS, RPC, SLA, SMTP, SQL, SSH, TCP, TLS, TTL, UDP, UI, UID, UUID, URI, URL, UTF8, VM, XML, XMPP, XSRF, XSS
-Naming/FileName:
-  Exclude:
-    - 'QuillLMS/config/initializers/rack-attack.rb'
-    - 'QuillLMS/lib/tasks/db-snapshots.rake'
-    - 'QuillLMS/lib/tasks/quill-writer.rake'
-
 # Offense count: 10
 # Configuration parameters: EnforcedStyleForLeadingUnderscores.
 # SupportedStylesForLeadingUnderscores: disallowed, required, optional
@@ -746,14 +744,6 @@ Naming/MemoizedInstanceVariableName:
     - 'QuillLMS/app/models/firebase_app.rb'
     - 'QuillLMS/app/models/user.rb'
     - 'QuillLMS/app/services/analytics/sales_contact_analytics.rb'
-
-# Offense count: 5
-# Configuration parameters: EnforcedStyle, IgnoredPatterns.
-# SupportedStyles: snake_case, camelCase
-Naming/MethodName:
-  Exclude:
-    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
-    - 'QuillLMS/app/services/creators/student_creator.rb'
 
 # Offense count: 17
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
@@ -792,41 +782,6 @@ Naming/UncommunicativeMethodParamName:
     - 'QuillLMS/app/helpers/application_helper.rb'
     - 'QuillLMS/app/models/subscription.rb'
     - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
-
-# Offense count: 12
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, camelCase
-Naming/VariableName:
-  Exclude:
-    - 'QuillComprehension/spec/models/vocabulary_word_spec.rb'
-    - 'QuillLMS/app/controllers/accounts_controller.rb'
-    - 'QuillLMS/app/controllers/auth/google_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/units_controller.rb'
-    - 'QuillLMS/app/serializers/lesson_planner/unit_serializer.rb'
-    - 'QuillLMS/app/services/google_integration/classroom/parsers/courses.rb'
-
-# Offense count: 26
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: snake_case, normalcase, non_integer
-Naming/VariableNumber:
-  Exclude:
-    - 'QuillLMS/app/controllers/concerns/teacher_fixes.rb'
-    - 'QuillLMS/app/controllers/teacher_fix_controller.rb'
-    - 'QuillLMS/app/helpers/application_helper.rb'
-
-# Offense count: 4
-Security/Eval:
-  Exclude:
-    - 'QuillLMS/app/controllers/teachers/unit_templates_controller.rb'
-    - 'QuillLMS/app/models/unit_template.rb'
-    - 'QuillLMS/app/queries/dashboard.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect.
-Security/JSONLoad:
-  Exclude:
-    - 'QuillLMS/app/controllers/schools_controller.rb'
 
 # Offense count: 11
 # Configuration parameters: EnforcedStyle.
@@ -1498,7 +1453,7 @@ Style/UnlessElse:
 
 # Offense count: 5
 # Cop supports --auto-correct.
-Style/UnneededCondition:
+Style/RedundantCondition:
   Exclude:
     - 'QuillCMS/lib/tasks/sync_lms_and_connect_flags.rake'
     - 'QuillLMS/app/controllers/api/v1/classroom_units_controller.rb'
@@ -1508,7 +1463,7 @@ Style/UnneededCondition:
 
 # Offense count: 13
 # Cop supports --auto-correct.
-Style/UnneededInterpolation:
+Style/RedundantInterpolation:
   Exclude:
     - 'QuillCMS/lib/modules/response_search.rb'
     - 'QuillCMS/spec/controllers/responses_controller_spec.rb'
@@ -1522,7 +1477,7 @@ Style/UnneededInterpolation:
 
 # Offense count: 23
 # Cop supports --auto-correct.
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Exclude:
     - 'QuillLMS/db/migrate/20180821200652_add_function_timespent_activity_session.rb'
     - 'QuillLMS/db/migrate/20180821201236_add_function_timespent_teacher.rb'

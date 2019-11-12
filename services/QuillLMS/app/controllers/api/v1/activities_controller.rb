@@ -1,6 +1,6 @@
 class Api::V1::ActivitiesController < Api::ApiController
 
-  doorkeeper_for :create, :update, :destroy
+  before_action :doorkeeper_authorize!, only: [:create, :update, :destroy]
   before_action :find_activity, except: [:index, :create, :uids_and_flags]
 
   # GET
@@ -25,7 +25,7 @@ class Api::V1::ActivitiesController < Api::ApiController
   # POST
   def create
     activity = Activity.new(activity_params)
-    activity.set_owner(current_user) if activity.ownable?
+    activity.owner=(current_user) if activity.ownable?
 
     if activity.valid? && activity.save
       @status = :success

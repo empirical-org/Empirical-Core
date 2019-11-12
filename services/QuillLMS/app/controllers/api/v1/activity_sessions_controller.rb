@@ -1,6 +1,6 @@
 class Api::V1::ActivitySessionsController < Api::ApiController
 
-  doorkeeper_for :destroy
+  before_action :doorkeeper_authorize!, only: [:destroy]
   before_action :find_activity_session, only: [:show, :update, :destroy]
   before_action :strip_access_token_from_request
   before_action :transform_incoming_request, only: [:update, :create]
@@ -48,7 +48,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     crs = @activity_session.concept_results
     @activity_session.user = current_user if current_user
     @activity_session.concept_results = []
-    # activity_session.set_owner(current_user) if activity_session.ownable?
+    # activity_session.owner=(current_user) if activity_session.ownable?
     # activity_session.data = @data # FIXME: may no longer be necessary?
     if @activity_session.valid? && @activity_session.save
       if @activity_session.update(activity_session_params.except(:id))

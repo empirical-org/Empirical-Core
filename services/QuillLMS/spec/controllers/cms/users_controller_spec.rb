@@ -5,7 +5,7 @@ describe Cms::UsersController do
   it { should use_before_action :set_flags }
   it { should use_before_action :set_user }
   it { should use_before_action :set_search_inputs }
-  it { should use_before_action :get_subscription_data }
+  it { should use_before_action :subscription_data }
   it { should use_before_action :filter_zeroes_from_checkboxes }
 
   let!(:user) { create(:staff) }

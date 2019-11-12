@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
     end
   end
 
-  def get_mobile_profile_data
+  def mobile_profile_data
     if current_user.classrooms.any?
       grouped_scores = get_parsed_mobile_profile_data(params[:current_classroom_id])
       render json: {grouped_scores: grouped_scores}
