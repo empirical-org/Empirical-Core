@@ -85,4 +85,4 @@ gem 'pusher'
 # HTTP
 gem 'httparty'
 
-gem 'rb-readline'
+gem 'rb-readline', :group => [:test, :development]
