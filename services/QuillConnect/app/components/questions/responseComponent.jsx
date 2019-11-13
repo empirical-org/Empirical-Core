@@ -671,7 +671,7 @@ class ResponseComponent extends React.Component {
             </div>
           </div>
         </div>
-        <input className="input" onChange={this.handleStringFiltering} placeholder="Search responses" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
+        <input className="input" onChange={this.handleStringFiltering} placeholder="Enter a search term or /regular expression/" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}
