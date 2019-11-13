@@ -108,11 +108,9 @@ namespace :responses do
       end
       if val_array.length == 1000
         begin
-
           Response.transaction do
             Response.import columns, val_array, validate: false
           end
-
         rescue ActiveRecord::RecordNotUnique
         end
         val_array = []
@@ -258,11 +256,9 @@ namespace :responses do
 
             if rows.length == 1000
               begin
-
                 Response.transaction do
                   Response.import columns, rows, validate: false;0
                 end;0
-
               rescue ActiveRecord::RecordNotUnique
               end
               rows = []

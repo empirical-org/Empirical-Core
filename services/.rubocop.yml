@@ -134,3 +134,45 @@ Style/RedundantSort:
 
 Style/WhileUntilDo:
   Enabled: true
+
+Layout/EmptyLinesAroundBeginBody:
+  Enabled: true
+
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: true
+
+Layout/SpaceBeforeComment:
+  Enabled: true
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/spec/models/activity_session_spec.rb'
+    - 'QuillLMS/spec/models/user_spec.rb'
+
+Lint/UriEscapeUnescape:
+  Enabled: true
+
+Style/CommentedKeyword:
+  Enabled: true
+
+Style/EmptyLiteral:
+  Enabled: true
+
+Style/MultipleComparison:
+  Enabled: true
+
+Layout/AlignArray:
+  Enabled: true
+
+Style/NilComparison:
+  Enabled: true
+
+Style/NilComparison:
+  Enabled: true
+
+Style/ParallelAssignment:
+  Enabled: true
+
+Style/RegexpLiteral:
+  Enabled: true

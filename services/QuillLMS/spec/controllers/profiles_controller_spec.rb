@@ -234,9 +234,9 @@ describe ProfilesController, type: :controller do
           # This sort emulates the sort we are doing in the student_profile_data_sql method.
           sorted_scores = scores_array.sort { |a, b|
             [
-              b['pinned'], a['locked'], a['unit_created_at'], b['max_percentage'] == nil ? 1.01 : b['max_percentage'], a['order_number'], a['unit_activity_created_at']
+              b['pinned'], a['locked'], a['unit_created_at'], b['max_percentage'].nil? ? 1.01 : b['max_percentage'], a['order_number'], a['unit_activity_created_at']
             ] <=> [
-              a['pinned'], b['locked'], b['unit_created_at'], a['max_percentage'] == nil ? 1.01 : a['max_percentage'], b['order_number'], b['unit_activity_created_at']
+              a['pinned'], b['locked'], b['unit_created_at'], a['max_percentage'].nil? ? 1.01 : a['max_percentage'], b['order_number'], b['unit_activity_created_at']
             ]
           }
           expect(scores).to eq(sanitize_hash_array_for_comparison_with_sql(sorted_scores))

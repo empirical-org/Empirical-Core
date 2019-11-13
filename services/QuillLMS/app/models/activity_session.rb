@@ -454,7 +454,7 @@ class ActivitySession < ActiveRecord::Base
 
   def set_state
     self.state ||= 'unstarted'
-    self.data ||= Hash.new
+    self.data ||= {}
   end
 
   def set_activity_id
