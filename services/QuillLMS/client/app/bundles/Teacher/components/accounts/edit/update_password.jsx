@@ -73,7 +73,10 @@ export default class UpdatePassword extends Component {
 
   renderContent = () => {
     const { currentPassword, newPassword, confirmedNewPassword, } = this.state
-    const { errors, active, timesSubmitted, googleId, cleverId, } = this.props
+    const { errors, active, timesSubmitted, googleId, cleverId, role,} = this.props;
+    const accountType = googleId ? 'Google' : 'Clever';
+    const teacherScript = `Before you can create a password, you will need to unlink your ${accountType} account below.`;
+    const studentScript = `Your Quill account is linked to ${accountType}. Go to your ${accountType} account settings to change your password.`;
     if (active) {
       return (<form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
@@ -112,9 +115,7 @@ export default class UpdatePassword extends Component {
       </form>)
     } else if (googleId || cleverId) {
       return (
-        <p className="google-or-clever-password">
-          Before you can create a password, you will need to unlink your {googleId ? 'Google' : 'Clever'} account&nbsp;below.
-        </p>
+        <p className="google-or-clever-password">{role === 'teacher' ? teacherScript : studentScript}</p>
       )
     } else {
       return (<div className="inactive-password-container">

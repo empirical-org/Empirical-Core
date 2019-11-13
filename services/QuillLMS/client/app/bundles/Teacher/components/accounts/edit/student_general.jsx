@@ -3,14 +3,20 @@ import { Input } from 'quill-component-library/dist/componentLibrary';
 import getAuthToken from '../../modules/get_auth_token';
 import request from 'request';
 
+const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
+
 export default class StudentGeneralAccountInfo extends Component {
-  state = {
-    email: this.props.email,
-    firstName: this.props.firstName,
-    lastName: this.props.lastName,
-    userName: this.props.userName,
-    notGoogleUser: (!this.props.googleId && !this.props.signedUpWithGoogle),
-    showButtonSection: false
+  constructor(props) {
+    super(props);
+    const { email, firstName, lastName, userName, googleId, signedUpWithGoogle } = props;
+    this.state = {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      userName: userName,
+      notGoogleUser: (!googleId && !signedUpWithGoogle),
+      showButtonSection: false
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -133,95 +139,71 @@ export default class StudentGeneralAccountInfo extends Component {
 
   render() {
     const { notGoogleUser, firstName, lastName, userName, email } = this.state;
-    const { accountType, timesSubmitted, errors } = this.props;
-    const correctPath = window.location.pathname === '/account_settings';
-    let submitButton, emailField, form
-    // email and submitButton should only show for the student page
-    if (correctPath && notGoogleUser && accountType === "Student Created Account") {
-      form = (
-        <div className="teacher-account-general teacher-account-section">
-          <h1>General</h1>
-          <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-            <div className="fields">
-              <Input
-                characterLimit={50}
-                className="first-name"
-                error={errors.firstName}
-                onClick={this.activateSection}
-                handleChange={e => this.handleFieldChange(e, 'firstName')}
-                timesSubmitted={timesSubmitted}
-                label="First name"
-                type="text"
-                value={firstName}
-              />
-              <Input
-                characterLimit={50}
-                className="last-name"
-                error={errors.lastName}
-                onClick={this.activateSection}
-                handleChange={e => this.handleFieldChange(e, 'lastName')}
-                timesSubmitted={timesSubmitted}
-                label="Last name"
-                type="text"
-                value={lastName}
-              />
-              <Input
-                className="username"
-                error={errors.username}
-                onClick={this.activateSection}
-                handleChange={e => this.handleFieldChange(e, 'userName')}
-                timesSubmitted={timesSubmitted}
-                label="Username"
-                type="text"
-                value={userName}
-              />
-              <Input
-                className="email"
-                error={errors.email}
-                onClick={this.activateSection}
-                handleChange={e => this.handleFieldChange(e, 'email')}
-                timesSubmitted={timesSubmitted}
-                label="Email (Optional)"
-                type="text"
-                value={email}
-              />
-            </div>
-            {this.renderButtonSection()}
-          </form>
-        </div>
-      )
-    } else if (correctPath && notGoogleUser) {
-      submitButton = (
-        <div className="row">
-          <div className="col-xs-4 offset-xs-2">
-            <button className="button-green" onClick={this.handleClick}>Submit</button>
-          </div>
-        </div>)
-        // email should only show up if the student is not a google user
-      if (this.state.notGoogleUser) {
-        emailField = (
-          <div className="row">
-            <div className="form-label col-xs-2">
-              Email
-            </div>
-            <div className="col-xs-4">
-              <input
-                defaultValue={this.props.email}
-                label='Email'
-                name='Email'
-                onChange={this.updateEmail}
-              />
-            </div>
-          </div>
-        )
-      }
-    }
+    const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
+    const isDisabled = cleverId || googleId;
 
     return (
-      <div>
-        {form}
-        {emailField}
-        {submitButton}
+      <div className="teacher-account-general teacher-account-section">
+        <h1>General</h1>
+        <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+          <div className="fields">
+            <Input
+              characterLimit={50}
+              className="first-name"
+              disabled={isDisabled}
+              error={errors.firstName}
+              handleChange={e => this.handleFieldChange(e, 'firstName')}
+              label="First name"
+              onClick={!isDisabled ? this.activateSection : null}
+              timesSubmitted={timesSubmitted}
+              type="text"
+              value={firstName}
+            />
+            <Input
+              characterLimit={50}
+              className="last-name"
+              disabled={isDisabled}
+              error={errors.lastName}
+              handleChange={e => this.handleFieldChange(e, 'lastName')}
+              label="Last name"
+              onClick={!isDisabled ? this.activateSection : null}
+              timesSubmitted={timesSubmitted}
+              type="text"
+              value={lastName}
+            />
+            {accountType === "Student Created Account" && <Input
+              className="username"
+              error={errors.username}
+              disabled={isDisabled}
+              handleChange={e => this.handleFieldChange(e, 'userName')}
+              label="Username"
+              onClick={!isDisabled ? this.activateSection : null}
+              timesSubmitted={timesSubmitted}
+              type="text"
+              value={userName}
+            />}
+            {accountType === "Teacher Created Account" && <Input
+              className="username"
+              disabled={true}
+              helperText={'Only your teacher can change your username'}
+              label="Username"
+              type="text"
+              value={userName}
+            />}
+            <Input
+              className="email"
+              disabled={isDisabled}
+              error={errors.email}
+              handleChange={e => this.handleFieldChange(e, 'email')}
+              label="Email (Optional)"
+              onClick={!isDisabled ? this.activateSection : null}
+              timesSubmitted={timesSubmitted}
+              type="text"
+              value={email}
+            />
+          </div>
+          {this.renderButtonSection()}
+        </form>
       </div>
     );
   }

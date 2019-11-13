@@ -7,16 +7,24 @@ import request from 'request';
 import _ from 'lodash';
 
 export default class StudentAccount extends Component {
-  state = {
-    firstName: this.props.name.split(' ')[0],
-    lastName: this.props.name.split(' ')[1],
-    userName: this.props.userName,
-    email: this.props.email,
-    snackbarCopy: '',
-    activeSection: null,
-    timesSubmitted: 0,
-    errors: {}
-  };
+  constructor(props) {
+    super(props);
+    const { name, userName, email } = props;
+    this.state = {
+      firstName: this.formatName(name, 0),
+      lastName: this.formatName(name, 1),
+      userName: userName,
+      email: email,
+      snackbarCopy: '',
+      activeSection: null,
+      timesSubmitted: 0,
+      errors: {}
+    };
+  }
+
+  formatName = (name, i) => {
+    return name.split(' ')[i];
+  }
 
   activateSection = (section) => {
     this.setState({ activeSection: section, })
@@ -28,15 +36,45 @@ export default class StudentAccount extends Component {
     }
   }
 
-  showSnackbar() {
+  showSnackbar = () => {
     this.setState({ showSnackbar: true, }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
     })
   }
 
-  renderSnackbar() {
+  renderSnackbar = () => {
     const { showSnackbar, snackbarCopy, } = this.state
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
+  }
+
+  renderLinkedAccount = () => {
+    const { cleverId } = this.props;
+    const label = cleverId ? 'clever' : 'google';
+    const path = cleverId ? `${process.env.CDN_URL}/images/shared/clever_icon.svg` : '/images/google_icon.svg';
+    return(
+      <div className="teacher-account-linked-accounts teacher-account-section">
+        <h1>Linked accounts</h1>
+        <div className={`${label}-row`}>
+          <div className="first-half">
+            <img alt={`${label} icon`} src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+            <span>{`${label[0].toUpperCase()}${label.slice(1)} account is linked`}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  renderExplanation = () => {
+    const accountType = this.props.cleverId ? 'Clever' : 'Google';
+    return(
+      <div className="teacher-account-section google-clever-explanation">
+        <div className="google-clever-explanation header">
+          <h4>Why can't I edit my account information?</h4>
+          <img alt="lightbulb" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
+        </div>
+        <p className="google-clever-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
+      </div>
+    );
   }
 
   updateUser = (data, url, snackbarCopy, errors) => {
@@ -55,8 +93,8 @@ export default class StudentAccount extends Component {
             email
           } = body.user;
           this.setState({
-            firstName: name.split(' ')[0],
-            lastName: name.split(' ')[1],
+            firstName: this.formatName(name, 0),
+            lastName: this.formatName(name, 1),
             userName: username,
             email,
             snackbarCopy,
@@ -84,6 +122,7 @@ export default class StudentAccount extends Component {
     const { googleId, cleverId, signedUpWithGoogle, accountType, role } = this.props;
     return(
       <div className="teacher-account">
+        {(cleverId || googleId) && this.renderExplanation()}
         <StudentGeneralAccountInfo
           firstName={firstName} 
           lastName={lastName} 
@@ -111,6 +150,7 @@ export default class StudentAccount extends Component {
           timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
         />
+        {(cleverId || googleId) && this.renderLinkedAccount()}
         {this.renderSnackbar()}
       </div>
     );
