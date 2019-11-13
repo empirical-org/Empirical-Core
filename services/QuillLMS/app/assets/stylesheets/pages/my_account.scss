@@ -487,3 +487,20 @@
     margin-bottom: 40px;
   }
 }
+
+.google-clever-explanation {
+  background-color: #EEEEEE;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+    h4 {
+      font-weight: bold;
+    }
+  }
+  .text {
+    color: #646464;
+    margin: 0px 30px 40px 0px;
+  }
+}
