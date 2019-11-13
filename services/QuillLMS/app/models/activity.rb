@@ -175,6 +175,6 @@ class Activity < ActiveRecord::Base
       @url.fragment = nil
     end
 
-    return @url
+    @url
   end
 end

@@ -184,12 +184,15 @@ Style/Encoding:
   Enabled: true
 
 Style/Not:
-  Enaled: true
+  Enabled: true
 
 Style/OrAssignment:
   Enabled: true
 
 Style/PreferredHashMethods:
+  Enabled: true
+
+Style/RedundantReturn:
   Enabled: true
 
 Style/RescueModifier:
