@@ -78,7 +78,6 @@ const lessonUid = extractLessonUIDFromLocation();
 
 if (lessonUid) {
   setTimeout(() => {
-    console.log(lessonUid);
     store.dispatch(conceptActions.startListeningToConcepts());
     store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
     store.dispatch(lessonActions.loadLessonWithQuestions(lessonUid));
