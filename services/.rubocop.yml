@@ -135,6 +135,70 @@ Style/RedundantSort:
 Style/WhileUntilDo:
   Enabled: true
 
+Layout/ClosingHeredocIndentation:
+  Enabled: true
+
+Layout/DefEndAlignment:
+  Enabled: true
+
+Layout/IndentHeredoc:
+  Enabled: true
+
+Layout/SpaceInLambdaLiteral:
+  Enabled: true
+
+Lint/DuplicateMethods:
+  Exclude:
+    - 'QuillLMS/app/models/concerns/teacher.rb'
+    - 'QuillLMS/app/services/create_lessons_token.rb'
+
+Lint/ImplicitStringConcatenation:
+  Enabled: true
+
+Lint/SendWithMixinArgument:
+  Enabled: true
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: true
+
+Style/BarePercentLiterals:
+  Enabled: true
+
+Style/DefWithParentheses:
+  Enabled: true
+
+Style/For:
+  Enabled: true
+
+Style/IdenticalConditionalBranches:
+  Exclude:
+    - 'services/QuillLMS/app/controllers/sessions_controller.rb'
+
+Style/IfInsideElse:
+  Enabled: true
+
+Style/NonNilCheck:
+  Enabled: true
+
+Style/Encoding:
+  Enabled: true
+
+Style/Not:
+  Enaled: true
+
+Style/OrAssignment:
+  Enabled: true
+
+Style/PreferredHashMethods:
+  Enabled: true
+
+Style/RescueModifier:
+  Exclude:
+    - 'services/QuillLMS/db/migrate/20140916143956_make_username_downcase.rb'
+
+Style/StderrPuts:
+  Enabled: true
+
 Layout/EmptyLinesAroundBeginBody:
   Enabled: true
 
