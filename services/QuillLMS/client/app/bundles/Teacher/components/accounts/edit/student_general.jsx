@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import { Input } from 'quill-component-library/dist/componentLibrary';
-import getAuthToken from '../../modules/get_auth_token';
-import request from 'request';
-
-const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
 
 export default class StudentGeneralAccountInfo extends Component {
   constructor(props) {
     super(props);
-    const { email, firstName, lastName, userName, googleId, signedUpWithGoogle } = props;
+    const { email, firstName, lastName, userName} = props;
     this.state = {
       email: email,
       firstName: firstName,
       lastName: lastName,
       userName: userName,
-      notGoogleUser: (!googleId && !signedUpWithGoogle),
       showButtonSection: false
     };
   }
@@ -64,30 +59,8 @@ export default class StudentGeneralAccountInfo extends Component {
     this.props.deactivateSection();
   }
 
-  updateEmail = (e) => {
-    this.setState({ email: e.target.value, })
-  }
-
-  handleFieldChange = (e, field) => {
+  updateField = (e, field) => {
     this.setState({[field]: e.target.value });
-  }
-
-  handleClick = () => {
-    request.put({
-      url: `${process.env.DEFAULT_URL}/update_email`,
-      json: {
-        email: this.state.email,
-        role: "student",
-        authenticity_token: getAuthToken(),
-      }
-    },
-    (e, r, body) => {
-      if (r.statusCode === 200) {
-        window.location = '/profile'
-      } else {
-        this.setState({ errors: body.errors, })
-      }
-    });
   }
 
   submitClass = () => {
@@ -138,12 +111,13 @@ export default class StudentGeneralAccountInfo extends Component {
   }
 
   render() {
-    const { notGoogleUser, firstName, lastName, userName, email } = this.state;
+    const { firstName, lastName, userName, email } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
     const isDisabled = cleverId || googleId;
+    const teacherCreated = accountType === "Teacher Created Account";
 
     return (
-      <div className="teacher-account-general teacher-account-section">
+      <div className="user-account-general user-account-section">
         <h1>General</h1>
         <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
           <div className="fields">
@@ -152,7 +126,7 @@ export default class StudentGeneralAccountInfo extends Component {
               className="first-name"
               disabled={isDisabled}
               error={errors.firstName}
-              handleChange={e => this.handleFieldChange(e, 'firstName')}
+              handleChange={e => this.updateField(e, 'firstName')}
               label="First name"
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
@@ -164,37 +138,30 @@ export default class StudentGeneralAccountInfo extends Component {
               className="last-name"
               disabled={isDisabled}
               error={errors.lastName}
-              handleChange={e => this.handleFieldChange(e, 'lastName')}
+              handleChange={e => this.updateField(e, 'lastName')}
               label="Last name"
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
               type="text"
               value={lastName}
             />
-            {accountType === "Student Created Account" && <Input
+            <Input
               className="username"
               error={errors.username}
-              disabled={isDisabled}
-              handleChange={e => this.handleFieldChange(e, 'userName')}
+              disabled={isDisabled || teacherCreated}
+              handleChange={e => this.updateField(e, 'userName')}
+              helperText={teacherCreated ? 'Only your teacher can change your username' : ''}
               label="Username"
-              onClick={!isDisabled ? this.activateSection : null}
+              onClick={(!isDisabled && !teacherCreated) ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
               type="text"
               value={userName}
-            />}
-            {accountType === "Teacher Created Account" && <Input
-              className="username"
-              disabled={true}
-              helperText={'Only your teacher can change your username'}
-              label="Username"
-              type="text"
-              value={userName}
-            />}
+            />
             <Input
               className="email"
               disabled={isDisabled}
               error={errors.email}
-              handleChange={e => this.handleFieldChange(e, 'email')}
+              handleChange={e => this.updateField(e, 'email')}
               label="Email (Optional)"
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}

@@ -52,7 +52,7 @@ export default class StudentAccount extends Component {
     const label = cleverId ? 'clever' : 'google';
     const path = cleverId ? `${process.env.CDN_URL}/images/shared/clever_icon.svg` : '/images/google_icon.svg';
     return(
-      <div className="teacher-account-linked-accounts teacher-account-section">
+      <div className="user-linked-accounts user-account-section">
         <h1>Linked accounts</h1>
         <div className={`${label}-row`}>
           <div className="first-half">
@@ -67,7 +67,7 @@ export default class StudentAccount extends Component {
   renderExplanation = () => {
     const accountType = this.props.cleverId ? 'Clever' : 'Google';
     return(
-      <div className="teacher-account-section google-clever-explanation">
+      <div className="user-account-section google-clever-explanation">
         <div className="google-clever-explanation header">
           <h4>Why can't I edit my account information?</h4>
           <img alt="lightbulb" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
@@ -119,9 +119,9 @@ export default class StudentAccount extends Component {
 
   render() {
     const { firstName, lastName, userName, email, timesSubmitted, activeSection, errors } = this.state;
-    const { googleId, cleverId, signedUpWithGoogle, accountType, role } = this.props;
+    const { googleId, cleverId, accountType, role } = this.props;
     return(
-      <div className="teacher-account">
+      <div className="user-account">
         {(cleverId || googleId) && this.renderExplanation()}
         <StudentGeneralAccountInfo
           firstName={firstName} 
@@ -130,7 +130,6 @@ export default class StudentAccount extends Component {
           email={email}
           cleverId={cleverId}
           googleId={googleId}
-          signedUpWithGoogle={signedUpWithGoogle}
           accountType={accountType}
           timesSubmitted={timesSubmitted}
           errors={errors}

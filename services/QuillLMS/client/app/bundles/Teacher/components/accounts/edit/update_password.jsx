@@ -11,14 +11,15 @@ export default class UpdatePassword extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.active && !nextProps.active) {
-      this.reset()
+      this.reset();
     }
   }
 
   activateSection = (e) => {
-    if (!this.props.active || !this.state.showButtonSection) {
-      this.setState({ showButtonSection: true, })
-      this.props.activateSection()
+    const { active, activateSection } = this.props;
+    if (!active || !this.state.showButtonSection) {
+      this.setState({ showButtonSection: true, });
+      activateSection();
     }
   }
 
@@ -32,7 +33,7 @@ export default class UpdatePassword extends Component {
       new_password: newPassword,
       confirmed_new_password: confirmedNewPassword
     };
-    updateUser(data, url, 'Settings saved')
+    updateUser(data, url, 'Settings saved');
   }
 
 
@@ -41,11 +42,11 @@ export default class UpdatePassword extends Component {
       currentPassword: '',
       newPassword: '',
       confirmedNewPassword: ''
-    })
+    });
   }
 
   handleChange = (field, e) => {
-    this.setState({ [field]: e.target.value, })
+    this.setState({ [field]: e.target.value, });
   }
 
   submitClass = () => {
@@ -58,8 +59,8 @@ export default class UpdatePassword extends Component {
   }
 
   resetAndDeactivateSection = () => {
-    this.reset()
-    this.props.deactivateSection()
+    this.reset();
+    this.props.deactivateSection();
   }
 
   renderButtonSection = () => {
@@ -132,7 +133,7 @@ export default class UpdatePassword extends Component {
   }
 
   render() {
-    return (<div className="teacher-account-password teacher-account-section">
+    return (<div className="user-account-password user-account-section">
       <h1>Password</h1>
       {this.renderContent()}
     </div>)
