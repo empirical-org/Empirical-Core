@@ -14,16 +14,6 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
-// called when the app starts. this means we immediately download all questions, and
-// then receive all questions again as soon as anyone changes anything.
-function startListeningToQuestions() {
-  return (dispatch, getState) => {
-    questionsRef.on('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: snapshot.val(), });
-    });
-  };
-}
-
 function loadQuestions() {
   return (dispatch, getState) => {
     questionsRef.once('value', (snapshot) => {
@@ -75,6 +65,7 @@ function submitQuestionEdit(qid, content) {
       if (error) {
         dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
       } else {
+        dispatch(loadQuestion(qid));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       }
     });
@@ -94,6 +85,7 @@ function submitNewQuestion(content, response) {
         response.questionUID = newRef.key;
         response.gradeIndex = `human${newRef.key}`;
         dispatch(submitResponse(response));
+        dispatch(loadQuestion(newRef.key));
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
         const action = push(`/admin/questions/${newRef.key}`);
         dispatch(action);
@@ -103,16 +95,20 @@ function submitNewQuestion(content, response) {
 }
 
 function submitNewFocusPoint(qid, data) {
-  questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
-    if (error) {
-      alert(`Submission failed! ${error}`);
-    }
-  });
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
+      dispatch(loadQuestion(qid));
+      if (error) {
+        alert(`Submission failed! ${error}`);
+      }
+    });
+  }
 }
 
 function submitEditedFocusPoint(qid, data, fpid) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Submission failed! ${error}`);
       }
@@ -123,6 +119,7 @@ function submitEditedFocusPoint(qid, data, fpid) {
 function submitBatchEditedFocusPoint(qid, data) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/focusPoints/`).set(data, (error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Submission failed! ${error}`);
       }
@@ -133,6 +130,7 @@ function submitBatchEditedFocusPoint(qid, data) {
 function deleteFocusPoint(qid, fpid) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Delete failed! ${error}`);
       }
@@ -143,6 +141,7 @@ function deleteFocusPoint(qid, fpid) {
 function updateFlag(qid, flag) {
   return dispatch => {
     questionsRef.child(`${qid}/flag/`).set(flag, (error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Flag update failed! ${error}`);
       }
@@ -155,6 +154,7 @@ function updateModelConceptUID(qid, modelConceptUID) {
     questionsRef.child(`${qid}/modelConceptUID/`).once('value', (snapshot) => {
       if (!snapshot.val()) {
         questionsRef.child(`${qid}/modelConceptUID/`).set(modelConceptUID, (error) => {
+          dispatch(loadQuestion(qid));
           if (error) {
             alert(`Model concept update failed! ${error}`);
           }
@@ -167,6 +167,7 @@ function updateModelConceptUID(qid, modelConceptUID) {
 function submitNewIncorrectSequence(qid, data) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/incorrectSequences`).push(data, (error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Submission failed! ${error}`);
       }
@@ -177,6 +178,7 @@ function submitNewIncorrectSequence(qid, data) {
 function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Submission failed! ${error}`);
       }
@@ -187,6 +189,7 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
 function deleteIncorrectSequence(qid, seqid) {
   return (dispatch, getState) => {
     questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error) => {
+      dispatch(loadQuestion(qid));
       if (error) {
         alert(`Delete failed! ${error}`);
       }
@@ -195,11 +198,14 @@ function deleteIncorrectSequence(qid, seqid) {
 }
 
 function updateIncorrectSequences(qid, data) {
-  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error) => {
-    if (error) {
-      alert(`Order update failed! ${error}`);
-    }
-  });
+  return (dispatch, getState) => {
+    questionsRef.child(`${qid}/incorrectSequences`).set(data, (error) => {
+      dispatch(loadQuestion(qid));
+      if (error) {
+        alert(`Order update failed! ${error}`);
+      }
+    });
+  }
 }
 
 function getFormattedSearchData(state) {
@@ -351,7 +357,6 @@ function incrementRequestCount() {
 }
 
 export default {
-  startListeningToQuestions,
   loadQuestions,
   loadQuestion,
   loadSpecifiedQuestions,
