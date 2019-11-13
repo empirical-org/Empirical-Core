@@ -33,7 +33,7 @@ function loadQuestion(uid) {
 
 function loadSpecifiedQuestions(uids) {
   return (dispatch, getState) => {
-    const requestPromises: Promise<any>[] = [];
+    const requestPromises = [];
     uids.forEach((uid) => {
       requestPromises.push(questionsRef.child(uid).once('value'));
     });
