@@ -523,7 +523,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_student_username_if_absent
-    return if not student?
+    return if !student?
     return if username.present?
     classroom_id = classrooms.any? ? classrooms.first.id : nil
     generate_username(classroom_id)

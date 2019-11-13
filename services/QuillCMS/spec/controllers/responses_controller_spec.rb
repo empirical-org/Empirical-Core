@@ -21,23 +21,23 @@ RSpec.describe ResponsesController, type: :controller do
 
   describe '#create_or_increment' do
     let(:q_response) { create(:response, question_uid: '123456', text: 'Reading is fundamental.') }
+    let(:response_payload) { {question_uid: q_response.question_uid, text: q_response.text} }
 
     before do
       allow_any_instance_of(Response).to receive(:create_index_in_elastic_search)
       allow_any_instance_of(Response).to receive(:update_index_in_elastic_search)
     end
 
-    it 'should return 200 for matching' do
-      post :create_or_increment, params: { response: {question_uid: q_response.question_uid, text: q_response.text}}
+    it 'should enqueue CreateOrIncrementResponseWorker' do
+      expect(CreateOrIncrementResponseWorker).to receive(:perform_async).with(response_payload)
+      post :create_or_increment, params: {response: response_payload}
 
-      expect(response.status).to eq(201)
     end
 
-    it 'should return 200 for non-matching' do
-      expect(AdminUpdates).to receive(:run)
-      post :create_or_increment, params: { response: {question_uid: q_response.question_uid, text: 'other text'}}
-
-      expect(response.status).to eq(201)
+    it 'should return a 200' do
+      allow(CreateOrIncrementResponseWorker).to receive(:perform_async)
+      post :create_or_increment, params: {response: response_payload}
+      expect(response.status).to eq(200)
     end
   end
 
