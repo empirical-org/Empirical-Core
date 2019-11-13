@@ -200,7 +200,7 @@ class EgFormBuilder < CMS::FormBuilder
 
     if options[:help_text]
       help_text = send("#{name}_help_text")
-      help_html = %Q(<a class="tipsy" title="#{help_text}" href="#">learn more</a>).html_safe
+      help_html = %(<a class="tipsy" title="#{help_text}" href="#">learn more</a>).html_safe
       out.concat help_html
     end
 

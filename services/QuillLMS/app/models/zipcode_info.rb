@@ -43,7 +43,7 @@ class ZipcodeInfo < ActiveRecord::Base
       "lat < #{latmax}"
     )
 
-    for z in zips
+    zips.each do |z|
       if Haversine.distance(point[0], point[1], z.lat, z.lng).to_miles <= distance
         zips_in_radius << z
       end
