@@ -9,8 +9,8 @@ export default class StudentGeneralAccountInfo extends Component {
       email: email,
       firstName: firstName,
       lastName: lastName,
-      userName: userName,
-      showButtonSection: false
+      showButtonSection: false,
+      userName: userName
     };
   }
 
@@ -64,7 +64,7 @@ export default class StudentGeneralAccountInfo extends Component {
   }
 
   submitClass = () => {
-    const { firstName, lastName, email, userName } = this.state;
+    const { email, firstName, lastName, userName } = this.state;
     let buttonClass = 'quill-button contained primary medium';
     if (firstName === this.props.firstName
       && lastName === this.props.lastName
@@ -111,7 +111,7 @@ export default class StudentGeneralAccountInfo extends Component {
   }
 
   render() {
-    const { firstName, lastName, userName, email } = this.state;
+    const { email, firstName, lastName, userName } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
     const isDisabled = cleverId || googleId;
     const teacherCreated = accountType === "Teacher Created Account";
@@ -147,8 +147,8 @@ export default class StudentGeneralAccountInfo extends Component {
             />
             <Input
               className="username"
-              error={errors.username}
               disabled={isDisabled || teacherCreated}
+              error={errors.username}
               handleChange={e => this.updateField(e, 'userName')}
               helperText={teacherCreated ? 'Only your teacher can change your username' : ''}
               label="Username"
