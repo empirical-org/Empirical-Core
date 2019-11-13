@@ -11,8 +11,8 @@ export default class StudentAccount extends Component {
     super(props);
     const { name, userName, email } = props;
     this.state = {
-      firstName: this.formatName(name, 0),
-      lastName: this.formatName(name, 1),
+      firstName: name.split(' ')[0],
+      lastName: name.split(' ')[1],
       userName: userName,
       email: email,
       snackbarCopy: '',
@@ -20,10 +20,6 @@ export default class StudentAccount extends Component {
       timesSubmitted: 0,
       errors: {}
     };
-  }
-
-  formatName = (name, i) => {
-    return name.split(' ')[i];
   }
 
   activateSection = (section) => {
@@ -93,8 +89,8 @@ export default class StudentAccount extends Component {
             email
           } = body.user;
           this.setState({
-            firstName: this.formatName(name, 0),
-            lastName: this.formatName(name, 1),
+            firstName: name.split(' ')[0],
+            lastName: name.split(' ')[1],
             userName: username,
             email,
             snackbarCopy,
@@ -124,20 +120,20 @@ export default class StudentAccount extends Component {
       <div className="user-account">
         {(cleverId || googleId) && this.renderExplanation()}
         <StudentGeneralAccountInfo
-          firstName={firstName} 
-          lastName={lastName} 
-          userName={userName} 
-          email={email}
-          cleverId={cleverId}
-          googleId={googleId}
           accountType={accountType}
-          timesSubmitted={timesSubmitted}
-          errors={errors}
           active={activeSection === 'general'}
           activateSection={() => this.activateSection('general')}
+          cleverId={cleverId}
           deactivateSection={() => this.deactivateSection('general')}
+          email={email}
+          errors={errors}
+          firstName={firstName} 
+          googleId={googleId}
+          lastName={lastName} 
+          timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
-          />
+          userName={userName} 
+        />
         <StudentPasswordAccountInfo
           activateSection={() => this.activateSection('password')}
           active={activeSection === 'password'}
