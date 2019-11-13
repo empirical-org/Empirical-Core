@@ -2,7 +2,7 @@ namespace :upgrade do
   task :set_upgrade_vars, [:app_name, :start_time, :end_time] => [:environment] do |t, args|
     app_name = args[:app_name].downcase.gsub(/"/,'')
     if (app_name.include('empirical-grammar-staging', 'empirical-grammar')) && args[:start_time] && args[:end_time] && Time.parse(args[:start_time]) && Time.parse(args[:end_time])
-      sh %Q{curl -n -X PATCH https://api.heroku.com/apps/#{app_name}/config-vars \
+      sh %{curl -n -X PATCH https://api.heroku.com/apps/#{app_name}/config-vars \
           -d '{
           "UPGRADE": "true",
           "UPGRADE_START_TIME": #{args[:start_time]},
