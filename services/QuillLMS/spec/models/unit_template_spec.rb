@@ -133,7 +133,7 @@ describe UnitTemplate, redis: :true, type: :model do
       flag_types.each do |flag|
         exist_count += $redis.exists(flag) ? 1 : 0
       end
-      return exist_count
+      exist_count
     end
 
     it "deletes the cache of the saved unit" do

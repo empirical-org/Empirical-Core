@@ -4,11 +4,11 @@ module ProgressReportHelper
     when 'beta'
       'BETA'
     when 'paid' || 'school'
-      "<i class='fa fa-star'></i>"
+      "<i class='fas fa-star'></i>"
     when 'trial'
       'TRIAL'
     when 'locked'
-      "<i class='fa fa-lock'></i>"
+      "<i class='fas fa-lock'></i>"
     end
   end
 
