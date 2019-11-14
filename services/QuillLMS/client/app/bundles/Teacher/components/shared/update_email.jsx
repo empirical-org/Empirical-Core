@@ -58,7 +58,7 @@ export default class extends React.Component{
   showEmailErrors() {
     let content
     if (this.state.error) {
-      content = <span><i aria-hidden="true" className="fa fa-exclamation-triangle" />{this.state.error}</span>
+      content = <span><i aria-hidden="true" className="fas fa-exclamation-triangle" />{this.state.error}</span>
     }
     return <div className="error">{content}</div>
   }

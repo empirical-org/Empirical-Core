@@ -106,7 +106,7 @@ export default class extends React.Component {
                 <i aria-hidden="true" className="fa  fa-caret-up gray-caret" />
               </div>
               <div>
-                <i aria-hidden="true" className="fa fa-caret-up " />
+                <i aria-hidden="true" className="fas fa-caret-up " />
               </div>
             </span>
 

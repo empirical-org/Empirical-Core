@@ -476,8 +476,9 @@
   &.scorebook-filters {
     display: flex;
     padding-left: 15px;
-    .fa-caret-down {
-      margin-bottom: 5px;
+    .button-select-wrapper {
+      display: flex;
+      align-items: center;
     }
   }
   .scorebook-dropdown-icon {

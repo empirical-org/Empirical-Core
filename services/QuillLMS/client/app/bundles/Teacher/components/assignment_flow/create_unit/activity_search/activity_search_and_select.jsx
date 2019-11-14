@@ -180,7 +180,7 @@ export default class ActivitySearchAndSelect extends React.Component {
     }, this.updateFilterOptionsAfterChange);
   }
 
-  updateSort(field, asc_or_desc) {
+  updateSort = (field, asc_or_desc) => {
     const sorts = _.map(this.state.sorts, (sort) => {
       if (sort.field == field) {
         sort.selected = true;
