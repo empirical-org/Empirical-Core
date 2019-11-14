@@ -20,7 +20,7 @@ export default React.createClass({
       <div className="row activity-page-dropdown-wrapper scorebook-filters">
         <div style={inputDropdownStyle}>
           <DropdownFilter
-            icon="fa-group"
+            icon="fa-users"
             options={this.props.classroomFilters}
             placeholder={'Select a Classroom'}
             selectedOption={this.props.selectedClassroom}

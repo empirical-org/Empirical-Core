@@ -166,7 +166,7 @@ export default class extends React.Component {
           </div>
           <div className='csv-and-how-we-grade'>
             <CSVDownloadForProgressReport data={this.state.filteredReportData} key={`reports are ready ${this.state.updatingReportData}`} keysToOmit={this.keysToOmit()} valuesToChange={changeValues} />
-            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fa fa-long-arrow-right" /></a>
+            <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
           <div className='dropdown-container'>
             <ItemDropdown callback={this.switchClassrooms} items={this.state.dropdownClassrooms} selectedItem={this.state.selectedClassroom} />

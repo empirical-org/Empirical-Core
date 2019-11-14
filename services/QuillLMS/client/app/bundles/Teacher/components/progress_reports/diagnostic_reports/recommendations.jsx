@@ -222,7 +222,7 @@ export default React.createClass({
             <p>Recommended Activity Packs</p>
             {this.renderCheckOrUncheckAllRecommendedActivityPacks()}
           </span>
-          <div className="assigned-recommendations-key-icon"><i className="fa fa-check-circle" /></div>
+          <div className="assigned-recommendations-key-icon"><i className="fas fa-check-circle" /></div>
           <span className="assigned-activity-pack-text">
             <p>Assigned Activity Packs</p>
             <p>Assigned activities will not be assigned again.</p>
@@ -281,7 +281,7 @@ export default React.createClass({
     const studentReportLink = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`
     return (
       <div className="recommendations-table-row" key={student.id}>
-        <div className="recommendations-table-row-name"><a href={studentReportLink} target="_blank"><span>{student.name}</span> <i className="fa fa-icon fa-external-link" /></a></div>
+        <div className="recommendations-table-row-name"><a href={studentReportLink} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a></div>
         {this.renderActivityPackRowItems(student)}
       </div>
     );

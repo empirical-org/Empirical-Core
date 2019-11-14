@@ -65,9 +65,7 @@ class ConceptReplacementGrammarWorker
       rescue => e
         NewRelic::Agent.notice_error(e)
       end
-      return new_fp_or_is
-    else
-      return nil
+      new_fp_or_is
     end
   end
 

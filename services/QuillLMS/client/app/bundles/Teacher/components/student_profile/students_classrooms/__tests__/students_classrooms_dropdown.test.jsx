@@ -34,7 +34,7 @@ describe('StudentsClassroomsDropdown', () => {
       />
     );
 
-    expect(wrapper.find('i').prop('className')).toBe('fa fa-angle-down');
+    expect(wrapper.find('i').prop('className')).toBe('fas fa-angle-down');
   });
 
   it('displays the closed carrot icon', () => {
@@ -45,7 +45,7 @@ describe('StudentsClassroomsDropdown', () => {
       />
     );
 
-    expect(wrapper.find('i').prop('className')).toBe('fa fa-angle-up');
+    expect(wrapper.find('i').prop('className')).toBe('fas fa-angle-up');
   });
 
   it('displays the number of classes in the dropdown button', () => {
