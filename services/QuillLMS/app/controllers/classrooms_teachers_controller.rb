@@ -14,7 +14,7 @@ class ClassroomsTeachersController < ApplicationController
     rescue => e
       return render json: { error_message: e }, status: 422
     end
-    return render json: {message: 'Update Succeeded!'}
+    render json: {message: 'Update Succeeded!'}
   end
 
   def remove_coteacher
@@ -33,7 +33,7 @@ class ClassroomsTeachersController < ApplicationController
     rescue => e
       return render json: { error_message: e }, status: 422
     end
-    return render json: {message: 'Deletion Succeeded!'}
+    render json: {message: 'Deletion Succeeded!'}
   end
 
   private

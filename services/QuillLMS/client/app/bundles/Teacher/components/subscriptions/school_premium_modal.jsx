@@ -30,14 +30,14 @@ export default class extends React.Component {
           <div className="not-the-purchaser-section">
             <h3>Not the Purchaser?</h3>
             <div className="flex-row space-between">
-              <i className="fa fa-credit-card" />
+              <i className="fas fa-credit-card" />
               <p>
                 <span>Credit Card Purchaser:</span>
                 Reach out to your school purchaser and ask them to login to Quill and renew the subscription.
               </p>
             </div>
             <div className="flex-row space-between">
-              <i className="fa fa-file" />
+              <i className="fas fa-file" />
               <p>
                 <span>Quote Purchaser:</span>
               Click on <i>Email Me a Quote</i> and forward the quote to your school’s purchaser.

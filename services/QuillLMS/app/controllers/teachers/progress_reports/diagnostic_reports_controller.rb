@@ -63,7 +63,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         return render json: {}, status: 404
       end
       classroom_id = classroom_hash[0]['classroom_id']
-      return render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
 
     def assign_selected_packs

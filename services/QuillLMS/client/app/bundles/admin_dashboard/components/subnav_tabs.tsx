@@ -38,17 +38,17 @@ export default class AdminSubnav extends React.Component<any, any> {
             </li>
             <li>
               <Link className={`premium ${this.state.activityScores}`} to="/teachers/admin_dashboard/district_activity_scores">
-            Activity Scores <i className="fa fa-star" />
+            Activity Scores <i className="fas fa-star" />
               </Link>
             </li>
             <li>
               <Link className={`premium ${this.state.conceptReports}`} to="/teachers/admin_dashboard/district_concept_reports">
-          Concept Reports <i className="fa fa-star" />
+          Concept Reports <i className="fas fa-star" />
               </Link>
             </li>
             <li>
               <Link className={`premium ${this.state.standardsReports}`} to="/teachers/admin_dashboard/district_standards_reports">
-        Standards Reports <i className="fa fa-star" />
+        Standards Reports <i className="fas fa-star" />
               </Link>
             </li>
           </ul>
