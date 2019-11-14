@@ -129,7 +129,7 @@ class SchoolsController < ApplicationController
     unless zipcode.present?
       zipcode = nil
     end
-    return prefix,zipcode
+    [prefix, zipcode]
   end
 
   def school_params

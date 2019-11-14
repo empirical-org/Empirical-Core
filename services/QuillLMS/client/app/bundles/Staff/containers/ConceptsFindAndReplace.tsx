@@ -43,7 +43,7 @@ class ConceptsFindAndReplace extends React.Component<ConceptsFindAndReplaceProps
 
   renderSuccessBanner() {
     if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You replaced a concept.</span><i className="fa fa-close" onClick={this.closeSuccessBanner} /></div>
+      return <div className="success-banner"><span>You replaced a concept.</span><i className="fas fa-close" onClick={this.closeSuccessBanner} /></div>
     }
   }
 

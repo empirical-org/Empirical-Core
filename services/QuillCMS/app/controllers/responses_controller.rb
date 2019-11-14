@@ -272,6 +272,6 @@ class ResponsesController < ApplicationController
           new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
         end
       end
-      return new_vals
+      new_vals
     end
 end
