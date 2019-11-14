@@ -131,8 +131,9 @@ concepts.each do |c|
     parent_name = c["parent_name"] ?  c["parent_name"] + ' | ' : ''
     new_oc = {}
     new_oc["grades_connect_activities"] = [],
-                                          new_oc["grades_grammar_activities"] = [],
-                                          new_oc["grades_proofreader_activities"] = []
+    new_oc["grades_grammar_activities"] = [],
+    new_oc["grades_proofreader_activities"] = []
+
     new_oc["name"] = grandparent_name + parent_name + c["concept_name"]
     new_oc["uid"] = uid
 
