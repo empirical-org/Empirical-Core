@@ -95,25 +95,25 @@ describe RematchResponseWorker do
       "updated_at":"2018-12-05T21:38:31.644Z",
       "spelling_error":false
     },
-                          {
-                            "id":16671745,
-                            "uid":nil,
-                            "parent_id":nil,
-                            "parent_uid":nil,
-                            "question_uid":"-Km49BK-JxPlcgtO4x9P",
-                            "author":"",
-                            "text":"my brother goes jogging daily / day.",
-                            "feedback":"\u003cp\u003e\u003cstrong\u003eTry again\u003c/strong\u003e. Choose either \u003cem\u003edaily\u003c/em\u003e or \u003cem\u003eday.\u003c/em\u003e\u003c/p\u003e",
-                            "count":4,
-                            "first_attempt_count":2,
-                            "child_count":0,
-                            "optimal":false,
-                            "weak":false,
-                            "concept_results":{"tz_mTSJAeZq_jm4Fry_wRw":false},
-                            "created_at":"2019-04-01T16:54:38.819Z",
-                            "updated_at":"2019-04-23T14:58:55.512Z",
-                            "spelling_error":false
-                          }]
+    {
+      "id":16671745,
+      "uid":nil,
+      "parent_id":nil,
+      "parent_uid":nil,
+      "question_uid":"-Km49BK-JxPlcgtO4x9P",
+      "author":"",
+      "text":"my brother goes jogging daily / day.",
+      "feedback":"\u003cp\u003e\u003cstrong\u003eTry again\u003c/strong\u003e. Choose either \u003cem\u003edaily\u003c/em\u003e or \u003cem\u003eday.\u003c/em\u003e\u003c/p\u003e",
+      "count":4,
+      "first_attempt_count":2,
+      "child_count":0,
+      "optimal":false,
+      "weak":false,
+      "concept_results":{"tz_mTSJAeZq_jm4Fry_wRw":false},
+      "created_at":"2019-04-01T16:54:38.819Z",
+      "updated_at":"2019-04-23T14:58:55.512Z",
+      "spelling_error":false
+    }]
   }.stringify_keys
   reference_responses = []
   sample_payload["referenceResponses"].each do |r|
