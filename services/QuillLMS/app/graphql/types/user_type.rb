@@ -37,9 +37,9 @@ class Types::UserType < Types::BaseObject
       diagnostic_session = ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").last
       counted_concept_results = concept_results_by_count(diagnostic_session)
       units = get_recommended_units(counted_concept_results)
-      return get_acts_from_recommended_units(units).flatten
+      get_acts_from_recommended_units(units).flatten
     else
-      return []
+      []
     end
    
   end

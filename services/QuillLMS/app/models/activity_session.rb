@@ -146,7 +146,7 @@ class ActivitySession < ActiveRecord::Base
       a.update_columns is_final_score: false
     end
     # return true otherwise save will be prevented
-    return true
+    true
   end
 
   def formatted_due_date
@@ -402,7 +402,7 @@ class ActivitySession < ActiveRecord::Base
         errors.add(:incorrectly_assigned, "student was not assigned this activity")
       end
     else
-      return true
+      true
     end
   end
 

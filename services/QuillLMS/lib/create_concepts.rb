@@ -16,7 +16,7 @@ module Setup
       if parent.nil?
         parent = create_concept(found_parent)
       end
-      return parent
+      parent
     end
 
     def create_concept(concept)
@@ -26,7 +26,7 @@ module Setup
         con.parent_id = parent.id
       end
       con.save
-      return con
+      con
     end
 
     def create_all
