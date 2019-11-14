@@ -55,10 +55,12 @@ describe StudentsController do
     end
   end
 
-  describe '#update_email' do
-    it 'should update the role and email' do
-      post :update_email, email: "test@email.com"
-      expect(user.reload.email).to eq "test@email.com"
+  describe '#update_account' do
+    it 'should update the name, email and username' do
+      put :update_account, [email: "pvittar@email.com", username: "pabllo-vittar", name: "Pabllo Vittar"]
+      expect(user.reload.email).to eq "pvittar@email.com"
+      expect(user.reload.username).to eq "pabllo-vittar"
+      expect(user.reload.name).to eq "Pabllo Vittar"
     end
   end
 end

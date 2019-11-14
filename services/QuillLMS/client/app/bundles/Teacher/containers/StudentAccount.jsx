@@ -13,8 +13,8 @@ export default class StudentAccount extends Component {
     this.state = {
       firstName: name.split(' ')[0],
       lastName: name.split(' ')[1],
-      userName: userName,
-      email: email,
+      userName,
+      email,
       snackbarCopy: '',
       activeSection: null,
       timesSubmitted: 0,
@@ -44,20 +44,22 @@ export default class StudentAccount extends Component {
   }
 
   renderLinkedAccount = () => {
-    const { cleverId } = this.props;
-    const label = cleverId ? 'clever' : 'google';
-    const path = cleverId ? `${process.env.CDN_URL}/images/shared/clever_icon.svg` : '/images/google_icon.svg';
-    return(
-      <div className="user-linked-accounts user-account-section">
-        <h1>Linked accounts</h1>
-        <div className={`${label}-row`}>
-          <div className="first-half">
-            <img alt={`${label} icon`} src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-            <span>{`${label[0].toUpperCase()}${label.slice(1)} account is linked`}</span>
+    const { cleverId, googleId } = this.props;
+    if(cleverId || googleId ) {
+      const label = cleverId ? 'clever' : 'google';
+      const path = cleverId ? `${process.env.CDN_URL}/images/shared/clever_icon.svg` : '/images/google_icon.svg';
+      return(
+        <div className="user-linked-accounts user-account-section">
+          <h1>Linked accounts</h1>
+          <div className={`${label}-row`}>
+            <div className="first-half">
+              <img alt={`${label} icon`} src={path} />
+              <span>{`${label[0].toUpperCase()}${label.slice(1)} account is linked`}</span>
+            </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   renderExplanation = () => {
@@ -102,11 +104,11 @@ export default class StudentAccount extends Component {
         } else if (body.errors) {
           // combine errors from front and backend error handling
           let errorsObject = body.errors;
-          if(errors) {
-            errorsObject.firstName = errors.firstName;
-            errorsObject.lastName = errors.lastName;
-            errorsObject.username ? errorsObject.username : errors.username;
-          }
+          // if(errors) {
+          //   errorsObject.firstName = errors.firstName;
+          //   errorsObject.lastName = errors.lastName;
+          //   errorsObject.username ? errorsObject.username : errors.username;
+          // }
           this.setState({ errors: errorsObject, timesSubmitted: timesSubmitted + 1, });
         }
       });
@@ -121,8 +123,8 @@ export default class StudentAccount extends Component {
         {(cleverId || googleId) && this.renderExplanation()}
         <StudentGeneralAccountInfo
           accountType={accountType}
-          active={activeSection === 'general'}
           activateSection={() => this.activateSection('general')}
+          active={activeSection === 'general'}
           cleverId={cleverId}
           deactivateSection={() => this.deactivateSection('general')}
           email={email}
@@ -145,7 +147,7 @@ export default class StudentAccount extends Component {
           timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
         />
-        {(cleverId || googleId) && this.renderLinkedAccount()}
+        {this.renderLinkedAccount()}
         {this.renderSnackbar()}
       </div>
     );

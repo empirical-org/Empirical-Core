@@ -11,23 +11,13 @@ module Student
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
-    def update_student params
+    def update_student name, email, username
       return if !self.student?
-      params.permit(:id,
-              :name,
-              :username,
-              :email,
-              :authenticity_token,
-              student: [
-                :name,
-                :email,
-                :username
-    ])
       self.validate_username = true
 
-      if self.update_attributes(username: params.key?(:username) ? params[:username] : self.username,
-                                  email: params.key?(:email) ? params[:email] : self.email,
-                                  name: params.key?(:name) ? params[:name] : self.name)
+      if self.update_attributes(name: name ? name : self.name,
+                                  email: email ? email : self.email,
+                                  username: username ? username : self.username)
       end
       if self.errors
         response = {errors: self.errors}

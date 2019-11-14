@@ -32,7 +32,7 @@ class StudentsController < ApplicationController
   end
 
   def update_account
-    response = current_user.update_student(params)
+    response = current_user.update_student(student_params[:name], student_params[:email], student_params[:username])
     if response && response[:errors] && response[:errors].any?
       errors = response[:errors]
       render json: {errors: errors}, status: 422
@@ -57,14 +57,6 @@ class StudentsController < ApplicationController
       render json: {errors: errors}, status: 422
     else
       render json: current_user
-    end
-  end
-
-  def update_email
-    if current_user.update(email: params[:email])
-      render json: {status: 200}
-    else
-      render json: {errors: 'Please enter a valid email address.'}, status: 422
     end
   end
 
@@ -113,6 +105,10 @@ class StudentsController < ApplicationController
       flash.keep(:error)
       redirect_to '/profile'
     end
+  end
+
+  def student_params
+    params.permit(:name, :email, :username, :authenticity_token, student: [:name, :email, :username])
   end
 
 end
