@@ -43,7 +43,7 @@ function loadLessonWithQuestions(uid) {
       const fetchedLesson = getState().lessons.data[uid];
       const questionTypes = ['questions', 'fillInBlank', 'titleCards', 'sentenceFragments'];
       questionTypes.forEach((questionType) => {
-        const questionUids = fetchedLesson.questions.filter((q) => q.questionType == questionType).map((q) => q.key);
+        const questionUids = fetchedLesson.questions.filter((q) => q.questionType === questionType).map((q) => q.key);
         switch (questionType) {
           case 'questions':
             dispatch(questionActions.loadSpecifiedQuestions(questionUids));
