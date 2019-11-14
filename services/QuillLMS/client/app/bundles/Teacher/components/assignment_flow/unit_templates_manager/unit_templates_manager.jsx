@@ -182,7 +182,21 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   selectCategory(category) {
-    this.props.router.push(category.link)
+    const { unitTemplatesManager, } = this.state
+    const newUnitTemplatesManager = unitTemplatesManager
+    newUnitTemplatesManager.selectedCategoryId = category.value
+    this.setState({ unitTemplatesManager: newUnitTemplatesManager })
+
+    const { type, } = this.props.location.query
+    let url = '/assign/featured-activity-packs'
+    if (type && category.value) {
+      url = url.concat(`?type=${type}&category=${category.label}`)
+    } else if (type) {
+      url = url.concat(`?type=${type}`)
+    } else if (category.value) {
+      url = url.concat(`?category=${category.label}`)
+    }
+    this.props.router.push(url)
   }
 
   showUnitTemplates() {
