@@ -49,7 +49,7 @@ class ZipcodeInfo < ActiveRecord::Base
       end
     end
 
-    return zips_in_radius
+    zips_in_radius
 
   end
 end

@@ -20,19 +20,19 @@ class Types::QueryType < Types::BaseObject
     return Concept.level_zero_only if level_zero_only
     return Concept.where(parent_id: nil) if level_two_only
     return Concept.level_one_only if level_one_only
-    return Concept.all
+    Concept.all
   end
 
   field :activities, [Types::ActivityType], null: false
 
   def activities
-    return Activity.all
+    Activity.all
   end
 
   field :activity_categories, [Types::ActivityCategoryType], null: false
 
   def activity_categories
-    return ActivityCategory.all
+    ActivityCategory.all
   end
 
   field :change_logs, [Types::ChangeLogType], null: false do
@@ -41,6 +41,6 @@ class Types::QueryType < Types::BaseObject
 
   def change_logs(concept_change_logs: false)
     return ChangeLog.where(changed_record_type: 'Concept') if concept_change_logs
-    return ChangeLog.all
+    ChangeLog.all
   end
 end

@@ -11,7 +11,7 @@ module CleverIntegration::Importers::Library
       elsif auth_hash[:info][:user_type] == 'school_admin'
         self.import_schools(client, user.clever_id)
       end
-      return {type: 'user_success', data: user}
+      {type: 'user_success', data: user}
     end
   rescue
     {type: 'user_failure', data: "Error: " + $!.message}
