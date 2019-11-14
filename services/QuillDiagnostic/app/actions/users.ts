@@ -22,7 +22,7 @@ export function firebaseAuth() {
           firebase.auth().signInWithCustomToken(response.token).then((firebaseResponse) => {
             const currentUser = firebase.auth().currentUser
             if (currentUser) {
-              currentUser.getToken().then((token) => {
+              currentUser.getIdToken().then((token) => {
                 // to do - do something with this token
               });
             }
