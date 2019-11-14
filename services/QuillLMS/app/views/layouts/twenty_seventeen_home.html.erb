@@ -20,9 +20,7 @@
     <meta property="og:description" content="<%= @description %>" />
     <meta property="og:image"       content=<%= image_url('share/facebook.png') %> />
 
-
     <script defer src=<%= ENV['FONT_AWESOME_KIT_LINK'] %> crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
-    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
     <%= render partial: 'typekit' unless Rails.env.test? %>
     <%= javascript_pack_tag('vendor') %>
     <%= javascript_pack_tag(@js_file || 'home') %>
