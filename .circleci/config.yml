@@ -361,6 +361,17 @@ jobs:
           name: Run ESlint
           command: |
             npm run eslint
+  rubocop_lint:
+    working_directory: ~/Empirical-Core
+    docker:
+      - image: circleci/ruby:2.5.1-node
+    steps:
+      - checkout
+      - run:
+          name: Run Rubocop
+          command: |
+            cd services
+            rubocop.sh
 workflows:
   version: 2
   build-test:
@@ -397,6 +408,7 @@ workflows:
       - comprehension_rails_build:
           requires:
             - lms_rails_build
-  run-eslint:
+  lint-code:
     jobs:
       - node_lint
+      - rubocop_lint
