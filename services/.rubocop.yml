@@ -192,6 +192,9 @@ Style/OrAssignment:
 Style/PreferredHashMethods:
   Enabled: true
 
+Style/RedundantFreeze:
+  Enabled: true
+
 Style/RedundantReturn:
   Enabled: true
 
