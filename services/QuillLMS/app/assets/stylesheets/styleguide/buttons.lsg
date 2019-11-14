@@ -31,7 +31,7 @@
 
 ## Other Buttons
 ```
-<a class="q-button icon-button text-white">Icon Button<i class='fa fa-star'></i></a>
+<a class="q-button icon-button text-white">Icon Button<i class='fas fa-star'></i></a>
 @css {
   .lsg-html {
     background-color: #dedede;

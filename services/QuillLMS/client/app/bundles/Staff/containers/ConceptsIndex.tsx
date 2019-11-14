@@ -136,7 +136,7 @@ class ConceptsIndex extends React.Component<any, ConceptsIndexState> {
 
   renderEditSuccessBanner() {
     if (this.state.showEditSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><i className="fa fa-close" onClick={this.closeEditSuccessBanner} /></div>
+      return <div className="success-banner"><span>You saved a concept.</span><i className="fas fa-close" onClick={this.closeEditSuccessBanner} /></div>
     }
   }
 

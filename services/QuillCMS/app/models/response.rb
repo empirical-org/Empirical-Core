@@ -55,7 +55,7 @@ class Response < ApplicationRecord
 
   def grade_status
     if optimal.nil? && parent_id.nil?
-      return 4
+      4
     elsif parent_uid || parent_id
       optimal ? 2 : 3
     else

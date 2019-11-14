@@ -7,7 +7,7 @@ export default React.createClass ({
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <button aria-label="Close" className="close" data-dismiss="modal" type="button"><span aria-hidden="true"><i className="fa fa-close" /></span></button>
+                <button aria-label="Close" className="close" data-dismiss="modal" type="button"><span aria-hidden="true"><i className="fas fa-close" /></span></button>
                 <h4 className="modal-title"><strong>Please Login to Proceed!</strong></h4>
               </div>
               <div className="modal-body csv-email-modal">
