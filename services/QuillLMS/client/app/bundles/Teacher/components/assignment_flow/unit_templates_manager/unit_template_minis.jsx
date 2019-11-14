@@ -83,21 +83,33 @@ export default class UnitTemplateMinis extends React.Component {
 
   renderFilterOptions() {
     const { types, selectedTypeId, data, selectCategory, } = this.props
-    const typeOptions = types.map(type => (<Link
-      className={selectedTypeId === type.id ? 'active' : null}
-      to={`${this.getIndexLink()}?type=${type.id}`}
-    >{type.name}</Link>))
     const categoryOptions = this.generateCategoryOptions()
+
+    const currentCategory = categoryOptions.find(cat => cat.value && cat.value === data.selectedCategoryId)
+    const baseLink = this.getIndexLink()
+
+    const typeOptions = types.map(type => {
+      const { id, name, } = type
+      const qs = currentCategory ? `?category=${currentCategory.label}&type=${id}` : `?type=${id}`
+      return (<Link
+        className={selectedTypeId === id ? 'active' : null}
+        to={`${baseLink}${qs}`}
+      >{name}</Link>)
+    })
+
     return (
       <div className="filter-options">
         <div className='type-options'>
-          <Link className={!selectedTypeId ? 'active' : null} to={this.getIndexLink()}>All packs</Link>
+          <Link
+            className={!selectedTypeId ? 'active' : null}
+            to={currentCategory ? `${baseLink}?category=${currentCategory.label}`: baseLink}
+          >All packs</Link>
           {typeOptions}
         </div>
         <DropdownInput
           handleChange={selectCategory}
           options={categoryOptions}
-          value={categoryOptions.find(cat => cat.value === data.selectedCategoryId) || categoryOptions[0]}
+          value={currentCategory || categoryOptions[0]}
         />
       </div>
     )
