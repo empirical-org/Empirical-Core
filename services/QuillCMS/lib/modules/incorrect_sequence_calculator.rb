@@ -39,7 +39,7 @@ class ActiveRecord::Relation
     end
 
     loop do
-      items = self.where(table[primary_key].gteq(batch_start))
+      items = where(table[primary_key].gteq(batch_start))
                   .limit(batch_size)
                   .order(table[primary_key].asc)
                   .pluck(*select_columns)

@@ -129,7 +129,7 @@ class Activity < ActiveRecord::Base
   end
 
   def is_lesson?
-    self.activity_classification_id == 6
+    activity_classification_id == 6
   end
 
   def self.search_results(flag)

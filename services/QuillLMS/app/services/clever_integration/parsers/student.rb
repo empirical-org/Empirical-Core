@@ -2,7 +2,7 @@ module CleverIntegration::Parsers::Student
 
   def self.run(student)
     name_hash = student.name
-    name = self.generate_name(name_hash.first, name_hash.last)
+    name = generate_name(name_hash.first, name_hash.last)
     username = student.credentials ? student.credentials.district_username : nil
     {
       clever_id: student.id,

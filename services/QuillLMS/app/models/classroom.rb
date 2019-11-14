@@ -27,7 +27,7 @@ class Classroom < ActiveRecord::Base
   def validate_name
     return unless name_changed?
     # can't use owner method below for new records
-    owner = self.classrooms_teachers&.find { |ct| ct.role == 'owner' }&.teacher
+    owner = classrooms_teachers&.find { |ct| ct.role == 'owner' }&.teacher
     owner_has_other_classrooms_with_same_name = owner && owner.classrooms_i_own.any? { |classroom| classroom.name == name && classroom.id != id }
     if owner_has_other_classrooms_with_same_name
       errors.add(:name, :taken)
@@ -55,11 +55,11 @@ class Classroom < ActiveRecord::Base
   end
 
   def owner
-    self.classrooms_teachers.includes(:user).find_by_role('owner')&.teacher
+    classrooms_teachers.includes(:user).find_by_role('owner')&.teacher
   end
 
   def coteachers
-    self.classrooms_teachers.includes(:user).where(role: 'coteacher').map(&:teacher)
+    classrooms_teachers.includes(:user).where(role: 'coteacher').map(&:teacher)
   end
 
   def unique_topic_count_array
@@ -87,17 +87,17 @@ class Classroom < ActiveRecord::Base
 
   def archived_classrooms_manager
     coteachers = !self.coteachers.empty? ? self.coteachers.map { |ct| { name: ct.name, id: ct.id, email: ct.email } } : []
-    {createdDate: self.created_at.strftime("%m/%d/%Y"), className: self.name, id: self.id, studentCount: self.students.count, classcode: self.code, ownerName: self.owner.name, from_google: !!self.google_classroom_id, coteachers: coteachers}
+    {createdDate: created_at.strftime("%m/%d/%Y"), className: name, id: id, studentCount: students.count, classcode: code, ownerName: owner.name, from_google: !!google_classroom_id, coteachers: coteachers}
   end
 
   def import_students!
     clever_students = clever_classroom.students
 
-    existing_student_ids = self.students.pluck(&:clever_id).uniq.compact
+    existing_student_ids = students.pluck(&:clever_id).uniq.compact
     students_to_add = clever_students.reject {|s| existing_student_ids.include?(s.id) }
     new_students = students_to_add.collect {|s| User.create_from_clever({info: s}, 'student')}
 
-    self.students << new_students
+    students << new_students
   end
 
   def set_code
@@ -115,38 +115,38 @@ class Classroom < ActiveRecord::Base
 
   def hide_appropriate_classroom_units
     # on commit callback that checks if archived
-    if self.visible == false
+    if visible == false
       hide_all_classroom_units
       return
     end
   end
 
   def hide_all_classroom_units
-    ActivitySession.where(classroom_unit: self.classroom_units).update_all(visible: false)
-    self.classroom_units.update_all(visible: false)
-    SetTeacherLessonCache.perform_async(self.owner.id)
+    ActivitySession.where(classroom_unit: classroom_units).update_all(visible: false)
+    classroom_units.update_all(visible: false)
+    SetTeacherLessonCache.perform_async(owner.id)
     ids = Unit.find_by_sql("
       SELECT unit.id FROM units unit
       LEFT JOIN classroom_units as cu ON cu.unit_id = unit.id AND cu.visible = true
       WHERE unit.visible = true
       AND cu.id IS null
-      AND unit.user_id = #{self.owner.id}")
+      AND unit.user_id = #{owner.id}")
     Unit.where(id: ids).update_all(visible: false)
   end
 
   def with_students
-    self.attributes.merge({students: self.students})
+    attributes.merge({students: students})
   end
 
   def with_students_ids
-    self.attributes.merge({student_ids: self.students.ids})
+    attributes.merge({student_ids: students.ids})
   end
 
   private
 
   # Clever integration
   def clever_classroom
-    Clever::Section.retrieve(self.clever_id, teacher.districts.first.token)
+    Clever::Section.retrieve(clever_id, teacher.districts.first.token)
   end
 
 

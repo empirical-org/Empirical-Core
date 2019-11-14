@@ -192,6 +192,9 @@ Style/OrAssignment:
 Style/PreferredHashMethods:
   Enabled: true
 
+Style/RedundantSelf:
+  Enabled: true
+
 Style/RescueModifier:
   Exclude:
     - 'services/QuillLMS/db/migrate/20140916143956_make_username_downcase.rb'

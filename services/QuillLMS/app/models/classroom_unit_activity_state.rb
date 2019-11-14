@@ -12,7 +12,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
   validate :not_duplicate, :only_one_pinned
 
   def visible
-    self.classroom_unit.visible && self.unit_activity.visible
+    classroom_unit.visible && unit_activity.visible
   end
 
   def update_lessons_cache_with_data
@@ -22,23 +22,23 @@ class ClassroomUnitActivityState < ActiveRecord::Base
   private
 
   def lock_if_lesson
-    if self.unit_activity.activity.is_lesson?
-      self.update(locked: true)
+    if unit_activity.activity.is_lesson?
+      update(locked: true)
     end
   end
 
   def not_duplicate
     cua = ClassroomUnitActivityState.find_by(
-      classroom_unit_id: self.classroom_unit_id,
-      unit_activity_id: self.unit_activity_id
+      classroom_unit_id: classroom_unit_id,
+      unit_activity_id: unit_activity_id
     )
-    if cua && (cua.id != self.id)
+    if cua && (cua.id != id)
       begin
         raise 'This classroom unit activity state is a duplicate'
       rescue => e
         NewRelic::Agent.add_custom_attributes({
-          classroom_unit_id: self.classroom_unit_id,
-          unit_activity_id: self.unit_activity_id
+          classroom_unit_id: classroom_unit_id,
+          unit_activity_id: unit_activity_id
         })
         NewRelic::Agent.notice_error(e)
         errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
@@ -49,13 +49,13 @@ class ClassroomUnitActivityState < ActiveRecord::Base
   end
 
   def handle_pinning
-    if self.pinned == true
-      if self.visible == false
+    if pinned == true
+      if visible == false
         # unpin ca before archiving
-        self.update!(pinned: false)
+        update!(pinned: false)
       else
         # unpin any other pinned ca before pinning new one
-        classroom = self.classroom_unit.classroom
+        classroom = classroom_unit.classroom
         classroom_unit_ids = classroom.classroom_units.ids.flatten
         pinned_cua = ClassroomUnitActivityState.unscoped.find_by(pinned: true, classroom_unit_id: classroom_unit_ids)
         return if pinned_cua && pinned_cua == self
@@ -65,8 +65,8 @@ class ClassroomUnitActivityState < ActiveRecord::Base
   end
 
   def only_one_pinned
-    if self.pinned
-      classroom = self.classroom_unit.classroom
+    if pinned
+      classroom = classroom_unit.classroom
       classroom_unit_ids = classroom.classroom_units.ids.flatten
       pinned_cuas = ClassroomUnitActivityState.unscoped.where(pinned: true, classroom_unit_id: classroom_unit_ids)
       pinned_cuas.length == 1

@@ -1176,11 +1176,6 @@ Style/RedundantParentheses:
 Style/RedundantReturn:
   Enabled: false
 
-# Offense count: 509
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Enabled: false
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowInnerSlashes.

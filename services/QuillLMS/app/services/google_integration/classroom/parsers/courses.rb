@@ -10,9 +10,9 @@ example JSON.parse(response.body) :
 
   def self.run(user, course_response, student_requester)
     if user.role == 'teacher'
-      self.parse_courses_for_teacher(course_response, user, student_requester)
+      parse_courses_for_teacher(course_response, user, student_requester)
     else
-      self.parse_courses_for_student(course_response, user)
+      parse_courses_for_student(course_response, user)
     end
   end
 
@@ -23,11 +23,11 @@ example JSON.parse(response.body) :
     if course_response[:courses] && course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
       course_response[:courses].each do |course|
-        already_imported = self.already_imported?(course, existing_google_classroom_ids)
+        already_imported = already_imported?(course, existing_google_classroom_ids)
         if already_imported
           grade = Classroom.unscoped.find_by(google_classroom_id: course[:id]).grade
         end
-        if self.valid?(course, user, existing_google_classroom_ids)
+        if valid?(course, user, existing_google_classroom_ids)
           students = student_requester.call(course[:id])
           name = course[:section] ? "#{course[:name]} #{course[:section]}" : course[:name]
           courses << {
@@ -65,7 +65,7 @@ example JSON.parse(response.body) :
     # but we are using an outdated method of calling the api elsewhere
     # and need to do a more robust overhaul for this to make sense
     # self.own_course(course, user) && (self.not_archived(course) || course[:alreadyImported])
-    self.not_archived(course) || course[:alreadyImported]
+    not_archived(course) || course[:alreadyImported]
   end
 
   def self.own_course(course, user)
