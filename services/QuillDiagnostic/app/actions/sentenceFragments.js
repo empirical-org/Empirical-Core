@@ -24,6 +24,23 @@ function loadSentenceFragments() {
     });
   };
 }
+function loadSpecifiedSentenceFragments(uids) {
+  return (dispatch, getState) => {
+    const requestPromises = [];
+    uids.forEach((uid) => {
+      requestPromises.push(sentenceFragmentsRef.child(uid).once('value'));
+    });
+    const allPromises = Promise.all(requestPromises);
+    const questionData = {};
+    allPromises.then((results) => {
+      results.forEach((snapshot, index) => {
+        const val = snapshot.val();
+        questionData[uids[index]] = snapshot.val();
+      });
+      dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENTS_DATA, data: questionData, });
+    });
+  }
+}
 function startSentenceFragmentEdit(sfid) {
   return { type: C.START_SENTENCE_FRAGMENT_EDIT, sfid, };
 }
@@ -177,6 +194,7 @@ function cancelToResponseView(sfid, rid) {
 export default {
   startListeningToSentenceFragments,
   loadSentenceFragments,
+  loadSpecifiedSentenceFragments,
   startSentenceFragmentEdit,
   cancelSentenceFragmentEdit,
   submitSentenceFragmentEdit,
