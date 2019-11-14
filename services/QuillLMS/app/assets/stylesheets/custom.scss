@@ -174,7 +174,7 @@ button:not(.select-mixin):not(.quill-button) {
   &.actively-selected .button-select-wrapper {
     color: #00c2a2;
     border-color: #00c2a2;
-    .fa {
+    .fas {
       color: #00c2a2;
     }
   }
@@ -232,7 +232,7 @@ button:not(.select-mixin):not(.quill-button) {
 
 .how-we-grade {
   float: right;
-  .fa {
+  .fas {
     margin-left: 10px;
   }
 }
