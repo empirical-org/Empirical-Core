@@ -150,7 +150,7 @@ export default class TeacherAccount extends React.Component {
       postGoogleClassroomAssignments,
     } = this.state
     const { accountInfo, alternativeSchools, alternativeSchoolsNameMap, cleverLink } = this.props
-    return (<div className="user-account">
+    return (<div className="teacher-account">
       <TeacherGeneralAccountInfo
         activateSection={() => this.activateSection('general')}
         active={activeSection === 'general'}

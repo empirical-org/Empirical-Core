@@ -79,7 +79,7 @@ export default class StudentGeneralAccountInfo extends Component {
   renderButtonSection() {
     if (this.state.showButtonSection) {
       return (<div className="button-section">
-        <div className="quill-button outlined secondary medium" id="cancel" onClick={() => this.resetAndDeactivateSection()}>Cancel</div>
+        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
         <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
       </div>)
     }
@@ -89,18 +89,19 @@ export default class StudentGeneralAccountInfo extends Component {
     e.preventDefault();
     const { email, firstName, lastName, userName } = this.state;
     const name = `${firstName} ${lastName}`;
+    const errorMessages = ['First name cannot be blank', 'Last name cannot be blank', 'Username cannot be blank'];
     let errors = {};
 
     if (!firstName && !lastName) {
-      errors.firstName = "First name cannot be blank";
-      errors.lastName = "Last name cannot be blank";
+      errors.firstName = errorMessages[0];
+      errors.lastName = errorMessages[1];
     } else if (!firstName) {
-      errors.firstName = "First name cannot be blank";
+      errors.firstName = errorMessages[0];
     } else if (!lastName) {
-      errors.lastName = "Last name cannot be blank";
+      errors.lastName = errorMessages[1];
     }
     if(!userName) {
-      errors.username = "Username cannot be blank"
+      errors.username = errorMessages[2]
     }
     const data = {
       name,
