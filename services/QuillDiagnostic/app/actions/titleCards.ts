@@ -26,7 +26,7 @@ function loadTitleCards() {
 
 function loadSpecifiedTitleCards(uids) {
   return (dispatch, getState) => {
-    const requestPromises = [];
+    const requestPromises: Promise<any>[]= [];
     uids.forEach((uid) => {
       requestPromises.push(titleCardsRef.child(uid).once('value'));
     });
