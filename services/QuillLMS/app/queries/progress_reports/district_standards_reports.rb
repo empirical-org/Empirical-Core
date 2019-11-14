@@ -48,7 +48,7 @@ class ProgressReports::DistrictStandardsReports
         ) AS avg_score_for_topic_by_user ON avg_score_for_topic_by_user.topic_id = topics.id
       GROUP BY topics.id, sections.name
       ORDER BY topics.name ASC;
-   SQL
+    SQL
   end
 
   def user_ids(admin_id)
