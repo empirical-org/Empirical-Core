@@ -67,7 +67,7 @@ class ActivitySessionsController < ApplicationController
   def activity_session_for_update
     @activity_session ||= if params[:anonymous]
       nil
-    else
+                          else
       ActivitySession.unscoped.find(params[:id])
     end
   end

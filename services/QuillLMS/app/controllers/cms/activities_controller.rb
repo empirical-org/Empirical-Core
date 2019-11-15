@@ -8,7 +8,7 @@ class Cms::ActivitiesController < Cms::CmsController
 
     @activities = if @flag == :production
       @activity_classification.activities.production
-    else
+                  else
       @activity_classification.activities.flagged(@flag)
     end
   end

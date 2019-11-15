@@ -14,10 +14,12 @@ class UserLoginWorker
       elsif @user.role == 'student'
         # keep these in the following order so the student is the last one identified
         teacher = @user.teacher_of_student
-        analytics.track(
-          teacher,
-          SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
-        ) unless teacher.nil?
+        unless teacher.nil?
+          analytics.track(
+            teacher,
+            SegmentIo::BackgroundEvents::TEACHERS_STUDENT_SIGNIN,
+          )
+        end
         analytics.track_with_attributes(
           @user,
           SegmentIo::BackgroundEvents::STUDENT_SIGNIN,

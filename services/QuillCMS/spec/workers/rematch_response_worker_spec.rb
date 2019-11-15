@@ -116,7 +116,7 @@ describe RematchResponseWorker do
     }]
   }.stringify_keys
   reference_responses = []
-  sample_payload["referenceResponses"].each_with_index do |r|
+  sample_payload["referenceResponses"].each do |r|
     reference_responses.push(Response.create_with(r).find_or_create_by(id: r[:id]))
   end
 
