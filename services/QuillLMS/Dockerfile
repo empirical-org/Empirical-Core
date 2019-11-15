@@ -19,6 +19,8 @@ RUN apt-get -y update && \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ENV NODE_ENV=production
+ENV RAILS_ENV production
 RUN gem install bundler -v 1.17.3
 #Install gems
 RUN mkdir /gems
