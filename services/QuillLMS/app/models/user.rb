@@ -96,8 +96,8 @@ class User < ActiveRecord::Base
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  scope :teacher, lambda { where(role: TEACHER) }
-  scope :student, lambda { where(role: STUDENT) }
+  scope :teacher, -> { where(role: TEACHER) }
+  scope :student, -> { where(role: STUDENT) }
 
   attr_accessor :newsletter
 
@@ -240,7 +240,7 @@ class User < ActiveRecord::Base
   def safe_role_assignment role
     self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
       sanitized_role
-    else
+                else
       'user'
     end
   end

@@ -116,16 +116,16 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         WHERE classrooms_teachers.user_id = #{current_user.id}
       ").to_a[0]['count'].to_f / PAGE_SIZE).ceil
 
-      unless(params[:without_filters])
+      if(params[:without_filters])
         render json: {
-          classrooms: current_user.ids_and_names_of_affiliated_classrooms,
-          students: current_user.ids_and_names_of_affiliated_students,
-          units: current_user.ids_and_names_of_affiliated_units,
           activity_sessions: activity_sessions,
           page_count: page_count,
         }
       else
         render json: {
+          classrooms: current_user.ids_and_names_of_affiliated_classrooms,
+          students: current_user.ids_and_names_of_affiliated_students,
+          units: current_user.ids_and_names_of_affiliated_units,
           activity_sessions: activity_sessions,
           page_count: page_count,
         }
