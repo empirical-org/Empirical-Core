@@ -35,7 +35,7 @@ class Admin::TeacherSerializer < ActiveModel::Serializer
     hh, mm2 = mm.divmod(60)
     dd, hh2 = hh.divmod(24)
 
-    "#{dd} days, #{hh2} hours, #{mm2} minutes"#, #{ss2} seconds"
+    "#{dd} days, #{hh2} hours, #{mm2} minutes" #, #{ss2} seconds"
   end
 
 end
