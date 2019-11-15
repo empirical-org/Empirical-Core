@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
     end
   end
 
-    def update_password
+  def update_password
     # @TODO - move to the model in an update_password method that uses validations and returns the user record with errors if it's not successful.
     errors = {}
     if current_user.authenticate(params[:current_password])
@@ -53,11 +53,8 @@ class StudentsController < ApplicationController
     else
       errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
     end
-    if errors.any?
-      render json: {errors: errors}, status: 422
-    else
-      render json: current_user
-    end
+    return render json: {errors: errors}, status: 422 if errors.any?
+    render json: current_user
   end
 
   def join_classroom
