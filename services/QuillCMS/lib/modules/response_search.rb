@@ -1,5 +1,7 @@
 module ResponseSearch
 
+  module_function
+
   def search_responses(question_uid, query_filters)
     sort_values = get_sort_values(query_filters)
     query_values = get_query_values(question_uid, query_filters)
@@ -35,11 +37,8 @@ module ResponseSearch
   end
 
   def get_query_values(question_uid, query_filters)
-    user_input = query_filters["text"]
-    is_regex = false
-    if user_input.first == '/' && user_input.last == '/'
-      is_regex = true
-    end
+    user_input = query_filters["text"].strip
+    is_regex = user_input.first == '/' && user_input.last == '/'
     query = {
       query_string: {
         default_field: is_regex ? 'text.keyword' : 'text',
@@ -50,29 +49,22 @@ module ResponseSearch
 
   def build_query_string(question_uid, query_filters, is_regex) 
     if is_regex
-      string = build_regex_query_string(query_filters["text"]) || ""
+      string = build_regex_query_string(query_filters["text"])
     else
       string = "\"#{query_filters["text"]}\""
     end
+    
     string = add_question_uid_filter(string, question_uid)
     string = add_not_filters(string, query_filters[:filters].to_h)
     string = add_spelling_filter(string, query_filters[:excludeMisspellings])
   end
 
   def build_regex_query_string(user_input)
-    unless user_input[1] == '^'
-      user_input.insert(1, '.*')
-    else
-      user_input.slice!(1)
-    end
-
-    unless user_input[-2] == '$'
-      user_input.insert(-2, '.*')
-    else
-      user_input.slice!(-2)
-    end
-
-    return user_input
+    user_input.gsub!(/(?<=^\/)([^\^])/, '.*\1')
+    user_input.gsub!(/(?<=^\/)[\^]/, '')
+    user_input.gsub!(/([^\$])(?=\/$)/, '\1.*')
+    user_input.gsub!(/([\$])(?=\/$)/, '')
+    user_input
   end
 
   def add_question_uid_filter(current_string, question_uid)
