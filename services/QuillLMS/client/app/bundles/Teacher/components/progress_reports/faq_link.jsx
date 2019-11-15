@@ -7,7 +7,7 @@ export default React.createClass({
       <div className="how-we-grade">
         <p className="title title-not-started">
           <a href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade</a>
-          <a href=""><i className="fa fa-long-arrow-right" /></a>
+          <a href=""><i className="fas fa-long-arrow-alt-right" /></a>
         </p>
       </div>
     );

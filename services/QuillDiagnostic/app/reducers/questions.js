@@ -18,6 +18,12 @@ export default function (currentstate, action) {
         hasreceiveddata: true,
         data: action.data,
       });
+    case C.RECEIVE_QUESTION_DATA:
+      return Object.assign({}, currentstate, {
+        data: Object.assign({}, currentstate.data, {
+          [action.uid]: action.data,
+        })
+      });
     case C.AWAIT_NEW_QUESTION_RESPONSE:
       return Object.assign({}, currentstate, {
         submittingnew: true,

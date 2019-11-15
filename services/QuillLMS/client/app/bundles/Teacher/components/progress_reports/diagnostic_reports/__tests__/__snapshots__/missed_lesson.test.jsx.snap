@@ -39,7 +39,7 @@ exports[`ClassReport component matches the snapshot 1`] = `
       }
     >
       <i
-        className="fa fa-caret-up"
+        className="fas fa-caret-up"
         style={
           Object {
             "bottom": "22px",
