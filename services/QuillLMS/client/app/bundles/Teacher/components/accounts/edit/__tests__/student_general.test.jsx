@@ -12,7 +12,7 @@ describe('StudentGeneralAccountInfo component', () => {
         updateUser: jest.fn(),
         userName: 'test-username'
     };
-    const component = shallow(<StudentGeneralAccountInfo {...mockProps}/>);
+    const component = shallow(<StudentGeneralAccountInfo {...mockProps} />);
     it('should render', () => {
         expect(component).toMatchSnapshot();
     });
@@ -52,10 +52,10 @@ describe('StudentGeneralAccountInfo component', () => {
         expect(component.instance().submitClass()).toEqual('quill-button contained primary medium disabled');
     });
     it('renderButtonSection should render button section if showButtonSection piece of state is true', () => {
-        const button = <div className="button-section">
-            <div className="quill-button outlined secondary medium" id="cancel" onClick={component.instance().resetAndDeactivateSection}>Cancel</div>
-            <input className={component.instance().submitClass()} name="commit" type="submit" value="Save changes" />
-        </div>;
+        const button = (<div className="button-section">
+          <div className="quill-button outlined secondary medium" id="cancel" onClick={component.instance().resetAndDeactivateSection}>Cancel</div>
+          <input className={component.instance().submitClass()} name="commit" type="submit" value="Save changes" />
+        </div>);
         component.setState({ showButtonSection: true });
         expect(component.instance().renderButtonSection()).toEqual(button);
         component.setState({ showButtonSection: false });

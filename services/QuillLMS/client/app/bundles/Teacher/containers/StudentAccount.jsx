@@ -65,12 +65,12 @@ export default class StudentAccount extends Component {
   renderExplanation = () => {
     const accountType = this.props.cleverId ? 'Clever' : 'Google';
     return(
-      <div className="user-account-section google-clever-explanation">
-        <div className="google-clever-explanation header">
+      <div className="user-account-section third-party-integration-explanation">
+        <div className="third-party-integration-explanation header">
           <h4>Why can't I edit my account information?</h4>
           <img alt="lightbulb" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
         </div>
-        <p className="google-clever-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
+        <p className="third-party-integration-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
       </div>
     );
   }
@@ -102,14 +102,7 @@ export default class StudentAccount extends Component {
             this.setState({ activeSection: null });
           });
         } else if (body.errors) {
-          // combine errors from front and backend error handling
-          let errorsObject = body.errors;
-          // if(errors) {
-          //   errorsObject.firstName = errors.firstName;
-          //   errorsObject.lastName = errors.lastName;
-          //   errorsObject.username ? errorsObject.username : errors.username;
-          // }
-          this.setState({ errors: errorsObject, timesSubmitted: timesSubmitted + 1, });
+          this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, });
         }
       });
     }

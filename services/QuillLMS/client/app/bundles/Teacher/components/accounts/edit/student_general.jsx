@@ -14,17 +14,17 @@ export default class StudentGeneralAccountInfo extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { active, email, firstName, lastName, userName } = nextProps;
+  componentDidUpdate(prevProps) {
+    const { active, email, firstName, lastName, userName } = this.props;
 
-    if (this.props.active && !active) {
+    if (prevProps.active && !active) {
       this.reset();
     }
 
-    if (email !== this.props.email
-      || firstName !== this.props.firstName
-      || lastName !== this.props.lastName
-      || userName !== this.props.userName
+    if (email !== prevProps.email
+      || firstName !== prevProps.firstName
+      || lastName !== prevProps.lastName
+      || userName !== prevProps.userName
     ) {
       this.setState({
         email,
@@ -38,8 +38,7 @@ export default class StudentGeneralAccountInfo extends Component {
   activateSection = () => {
     const { active, activateSection } = this.props;
     if (!active || !this.state.showButtonSection) {
-      this.setState({ showButtonSection: true });
-      activateSection();
+      this.setState({ showButtonSection: true }, activateSection);
     }
   }
 

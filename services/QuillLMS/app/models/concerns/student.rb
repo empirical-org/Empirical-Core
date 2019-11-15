@@ -13,18 +13,14 @@ module Student
 
     def update_student name, email, username
       return if !self.student?
-      self.validate_username = true
+      # self.validate_username = true
 
       if self.update_attributes(name: name ? name : self.name,
                                   email: email ? email : self.email,
                                   username: username ? username : self.username)
       end
-      if self.errors
-        response = {errors: self.errors}
-      else
-        response = self
-      end
-      response
+      return {errors: errors} if errors
+      self
     end
 
     def finished_activities classroom
