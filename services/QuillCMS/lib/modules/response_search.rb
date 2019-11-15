@@ -88,7 +88,7 @@ module ResponseSearch
 
   def key_value_to_not_string(key, value)
     if value.empty?
-      return ""
+      ""
     else
       vals = value.map {|val| "\"#{val}\"" }.join(" OR ")
       " AND NOT #{key.to_s}:(#{vals})"

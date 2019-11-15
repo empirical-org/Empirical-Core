@@ -125,7 +125,7 @@ class TeachersController < ApplicationController
                  AND acts.activity_classification_id = 4
                  ORDER BY actsesh.completed_at DESC").to_a
       if !records.empty?
-        most_recently_completed = records.find { |r| r['completed_at'] != nil }
+        most_recently_completed = records.find { |r| !r['completed_at'].nil? }
         # checks to see if the diagnostic was completed within a week
         if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
           number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.user_id) FROM activity_sessions actsesh

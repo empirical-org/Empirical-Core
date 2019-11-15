@@ -64,7 +64,7 @@ export default class ActivitiesUnit extends React.Component {
   classroomList = (classrooms) => {
     if (classrooms.length >= 4 && !this.state.showAllClassrooms) {
       const classroomsArray = classrooms.slice(0, 3).map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
-      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fa fa-icon fa-chevron-down" /></li>)
+      classroomsArray.push(<li className="see-all" onClick={() => this.setState({showAllClassrooms: true})}>Show all {classrooms.length} classes <i className="fas fa-icon fa-chevron-down" /></li>)
       return classroomsArray
     }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
@@ -122,7 +122,7 @@ export default class ActivitiesUnit extends React.Component {
     const visible = this.state.showTooltip ? 'visible' : 'invisible';
     const ownerName = this.state.classroomActivities.values().next().value.ownerName;
     return (<div className={`tooltip ${visible}`}>
-      <i className="fa fa-caret-up" />
+      <i className="fas fa-caret-up" />
       <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
       <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
     </div>);
@@ -231,7 +231,7 @@ export default class ActivitiesUnit extends React.Component {
     return numberOfStudentsAssignedToUnit;
   }
 
-  updateSortOrder(sortableListState) {
+  updateSortOrder = (sortableListState) => {
     // There are data states in which this update call is triggered with no items in the
     // sortableListState.  If there are no items, there's nothing to do, so we bail
     if (!sortableListState.items) return;
