@@ -1,7 +1,5 @@
 module ResponseSearch
 
-  module_function
-
   def search_responses(question_uid, query_filters)
     sort_values = get_sort_values(query_filters)
     query_values = get_query_values(question_uid, query_filters)
@@ -36,7 +34,7 @@ module ResponseSearch
     sort_value
   end
 
-  def get_query_values(question_uid, query_filters)
+  module_function def get_query_values(question_uid, query_filters)
     user_input = query_filters["text"].strip
     is_regex = user_input.first == '/' && user_input.last == '/'
     query = {
@@ -47,7 +45,7 @@ module ResponseSearch
     }
   end
 
-  def build_query_string(question_uid, query_filters, is_regex) 
+  module_function def build_query_string(question_uid, query_filters, is_regex) 
     if is_regex
       string = build_regex_query_string(query_filters["text"])
     else
@@ -59,7 +57,7 @@ module ResponseSearch
     string = add_spelling_filter(string, query_filters[:excludeMisspellings])
   end
 
-  def build_regex_query_string(user_input)
+  module_function def build_regex_query_string(user_input)
     user_input.gsub!(/(?<=^\/)([^\^])/, '.*\1')
     user_input.gsub!(/(?<=^\/)[\^]/, '')
     user_input.gsub!(/([^\$])(?=\/$)/, '\1.*')
@@ -67,7 +65,7 @@ module ResponseSearch
     user_input
   end
 
-  def add_question_uid_filter(current_string, question_uid)
+  module_function def add_question_uid_filter(current_string, question_uid)
     if current_string.empty?
       "question_uid:(\"#{question_uid}\")"
     else
@@ -75,18 +73,18 @@ module ResponseSearch
     end
   end
 
-  def add_not_filters(current_string, filters)
+  module_function def add_not_filters(current_string, filters)
     parsed_filters = filters.map do |key, value|
       key_value_to_not_string(key, value)
     end
     current_string + parsed_filters.join("")
   end
 
-  def add_spelling_filter(current_string, filter)
+  module_function def add_spelling_filter(current_string, filter)
     if filter then current_string + " AND NOT spelling_error:(true)" else current_string end
   end
 
-  def key_value_to_not_string(key, value)
+  module_function def key_value_to_not_string(key, value)
     if value.empty?
       ""
     else
