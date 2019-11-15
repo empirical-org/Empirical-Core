@@ -72,9 +72,9 @@ class RematchResponseWorker
 
   def get_firebase_path(question_uid, question_type)
     if question_type == 'grammar_questions'
-      return "/v3/questions/#{question_uid}.json"
+      "/v3/questions/#{question_uid}.json"
     else
-      return "/v2/#{question_type}/#{question_uid}.json"
+      "/v2/#{question_type}/#{question_uid}.json"
     end
   end
 end

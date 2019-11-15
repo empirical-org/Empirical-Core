@@ -28,7 +28,7 @@ const adminContainer = React.createClass({
     this.props.dispatch(userActions.firebaseAuth());
     this.props.dispatch(conceptActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
-    this.props.dispatch(questionActions.startListeningToQuestions());
+    this.props.dispatch(questionActions.loadQuestions());
     this.props.dispatch(fillInBlankActions.startListeningToQuestions());
     this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
