@@ -371,7 +371,7 @@ jobs:
           name: Run Rubocop
           command: |
             cd services
-            rubocop
+            ./rubocop.sh
 workflows:
   version: 2
   build-test:
