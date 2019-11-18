@@ -33,7 +33,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   def show
     @content = "Try out the #{@unit_template.name} Activity Pack I’m using at Quill.org"
     @unit_template_id = @unit_template.id
-    render 'public_show' if not @is_teacher
+    render 'public_show' if !@is_teacher
   end
 
   def count

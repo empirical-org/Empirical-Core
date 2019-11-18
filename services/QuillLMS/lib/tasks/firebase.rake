@@ -24,7 +24,7 @@ namespace :firebase do
 
   module FirebaseTaskHelpers
     def get_klass(model_name)
-      return model_name.constantize
+      model_name.constantize
     rescue NameError
       puts("'#{@RAILS_MODEL}' does not seem to be a defined model.")
       exit

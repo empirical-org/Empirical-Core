@@ -38,7 +38,7 @@ export default React.createClass({
   render: function() {
     return (
       <DateRangePicker
-        customInputIcon={<i className="fa fa-icon fa-calendar" />}
+        customInputIcon={<i className="fas fa-icon fa-calendar" />}
         daySize={30}
         endDate={this.props.endDate}
         focusedInput={this.state.focusedInput}

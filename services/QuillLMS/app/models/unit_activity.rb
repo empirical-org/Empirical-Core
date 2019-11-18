@@ -2,7 +2,7 @@ class UnitActivity < ActiveRecord::Base
   include ::NewRelic::Agent
   include CheckboxCallback
 
-  belongs_to :unit#, touch: true
+  belongs_to :unit #, touch: true
   belongs_to :activity
   has_many :classroom_unit_activity_states
 

@@ -48,7 +48,7 @@ class BlogPostsController < ApplicationController
       ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
     ").to_a
     @title = "Search: #{@query}"
-    return render 'index'
+    render 'index'
   end
 
   def show_topic
@@ -68,7 +68,7 @@ class BlogPostsController < ApplicationController
       @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       # hide student part of topic name for display
       @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
-      return render 'index'
+      render 'index'
     end
   end
 
