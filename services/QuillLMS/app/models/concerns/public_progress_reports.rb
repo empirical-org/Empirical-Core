@@ -179,7 +179,7 @@ module PublicProgressReports
           return time
         end
       else
-        return 'Untracked'
+        'Untracked'
       end
     end
 
@@ -224,9 +224,9 @@ module PublicProgressReports
 
     def get_average_score formatted_results
       if (formatted_results.empty?)
-        return 100
+        100
       else
-        return (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+        (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
       end
     end
 

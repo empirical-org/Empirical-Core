@@ -1,6 +1,6 @@
 <!-- <%= render partial: 'application/notification_bar' %> -->
 <% flash.each do |key, value| %>
-  <%= content_tag(:div, "<p>#{value}</p><i class='fa fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
+  <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
 <% end %>
 
 <section class="q-hero bg-quillgreen flex-column space-between">
@@ -383,7 +383,7 @@ Quill Grammar has over 150 sentence writing activities to help your students. Ou
                                                  event: SegmentIo::Events::CLICK_SIGN_UP,
                                                  properties: { location: "finalCTA" }
                                                 } do %>
-      Join Now, It's Free <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+      Join Now, It's Free <i class="fas fa-graduation-cap" aria-hidden="true"></i>
     <% end %>
   </div>
 </section>

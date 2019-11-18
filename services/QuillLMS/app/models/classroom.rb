@@ -117,7 +117,6 @@ class Classroom < ActiveRecord::Base
     # on commit callback that checks if archived
     if self.visible == false
       hide_all_classroom_units
-      return
     end
   end
 

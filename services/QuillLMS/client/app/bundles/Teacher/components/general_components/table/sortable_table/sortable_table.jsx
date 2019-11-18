@@ -59,7 +59,7 @@ export default React.createClass({
   loadingView: function () {
     return (
       <div className='sortable-table-spinner-container'>
-        <i className='fa fa-refresh fa-spin sortable-table-spinner' />
+        <i className='fas fa-refresh fa-spin sortable-table-spinner' />
       </div>
     );
   },

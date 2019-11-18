@@ -1,7 +1,7 @@
 class EditionsController < ApplicationController
 
   def index
-    return :ok
+    :ok
   end
 
 end

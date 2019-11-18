@@ -24,7 +24,7 @@ export default React.createClass({
     } else {
       return (<a className='btn btn-default' href={url}><div>
         <div>Launch</div>
-        <div className='favicon-div'><i aria-hidden="true" className="fa fa-long-arrow-right" /></div>
+        <div className='favicon-div'><i aria-hidden="true" className="fas fa-long-arrow-alt-right" /></div>
       </div>
       </a>);
     }
