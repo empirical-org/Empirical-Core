@@ -7,8 +7,8 @@ class Cms::ActivitiesController < Cms::CmsController
     @flag = :archived if @flag == :archive
 
     @activities = if @flag == :production
-      @activity_classification.activities.production
-                  else
+        @activity_classification.activities.production
+      else
       @activity_classification.activities.flagged(@flag)
     end
   end
