@@ -49,13 +49,13 @@ export default React.createClass({
         <ul className="pagination">
           <li className="left_arrow" onClick={this.leftArrow}>
             <span>
-              <i className="fa fa-caret-left" />
+              <i className="fas fa-caret-left" />
             </span>
           </li>
           {pages}
           <li className="right_arrow" onClick={this.rightArrow}>
             <span>
-              <i className="fa fa-caret-right" />
+              <i className="fas fa-caret-right" />
             </span>
           </li>
         </ul>

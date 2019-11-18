@@ -32,13 +32,13 @@ export default React.createClass({
     return 'select-white';
   },
   render() {
-    const icon = this.props.icon ? <i className={`fa fa-icon scorebook-dropdown-icon ${this.props.icon}`} /> : <span />
+    const icon = this.props.icon ? <i className={`fas fa-icon scorebook-dropdown-icon ${this.props.icon}`} /> : <span />
     const buttonText = (this.props.selectedOption && this.props.selectedOption.name) ? this.props.selectedOption.name : this.props.placeholder
     return (
       <div className={`button-select ${this.props.className}`}>
         <button className={this.getButtonClassName() + " select-mixin button-select button-select-wrapper"} data-toggle="dropdown" type="button">
           {icon} <span className="button-text">{buttonText}</span>
-          <i className="fa fa-caret-down" />
+          <i className="fas fa-caret-down" />
         </button>
         {this.getFilterOptions()}
       </div>

@@ -23,7 +23,7 @@
   bottom: -20px;
   color: #c0c0c0;
   z-index: -1;
-  font-family: "Font Awesome\ 5 Free";  /* updated font-family */
+  font-family: "Font Awesome 5 Pro";  /* updated font-family */
   font-weight: 900; /* regular style/weight */
 }
 
@@ -44,8 +44,10 @@
   opacity: 1.0;
   border: 1px solid #cecece;
   h1 {
-    font-size: 12px;
+    font-size: 12px !important;
     font-weight: bold;
+    margin: 5px 0px !important;
+    text-align: left !important;
   }
   h1, p {
     margin-bottom: 5px;

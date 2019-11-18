@@ -6,7 +6,8 @@ class SchoolsController < ApplicationController
 
   def index
     @radius = params[:radius].presence || 5
-    @lat, @lng = params[:lat],params[:lng]
+    @lat = params[:lat]
+    @lng = params[:lng]
     @search = params[:search]
     @prefix,@zipcode = get_prefix_and_zipcode(@search)
     @limit = @prefix || @zipcode ? nil : params[:limit].presence || 10
@@ -119,7 +120,8 @@ class SchoolsController < ApplicationController
   private
 
   def get_prefix_and_zipcode(search)
-    prefix, zipcode = '',nil
+    prefix = ''
+    zipcode = nil
     if search.present?
       zipcode = search.match(/\d{5}/).to_s
       prefix = search.gsub(/\d{5}/, "").strip()
@@ -127,7 +129,7 @@ class SchoolsController < ApplicationController
     unless zipcode.present?
       zipcode = nil
     end
-    return prefix,zipcode
+    [prefix, zipcode]
   end
 
   def school_params

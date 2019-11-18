@@ -24,11 +24,9 @@ namespace :responses_csv do
 
         if rows.length == 1000
           begin
-
             Response.transaction do
               Response.import columns, rows, validate: false;0
             end;0
-
           rescue ActiveRecord::RecordNotUnique
           end
           rows = []
