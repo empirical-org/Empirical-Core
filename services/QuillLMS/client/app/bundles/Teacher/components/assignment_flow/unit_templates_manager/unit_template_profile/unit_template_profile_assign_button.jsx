@@ -26,7 +26,7 @@ export default React.createClass({
     return (
       <div>
         {this.propsSpecificComponent()}
-        <p className="time"><i className="fa fa-clock-o" />Estimated Time: {this.props.data.time} mins</p>
+        <p className="time"><i className="far fa-clock" />Estimated Time: {this.props.data.time} mins</p>
       </div>
     );
   },

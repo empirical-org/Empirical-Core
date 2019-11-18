@@ -7,7 +7,7 @@ module ResponseAggregator
     common_unmatched_attempts = Response.where(question_uid: question_uid, parent_id: nil, optimal: nil).where('count > 4').sum('count')
     common_unmatched_responses = Response.where(question_uid: question_uid, parent_id: nil, optimal: nil).where('count > 4').count
 
-    return {
+    {
       total_number_of_responses: total_number_of_responses,
       total_number_of_attempts: total_number_of_attempts,
       common_matched_attempts: common_matched_attempts,
@@ -23,7 +23,7 @@ module ResponseAggregator
     algo_suboptimal = Response.where(question_uid: question_uid, optimal: nil).where.not(parent_id: nil).sum('count')
     unmatched = Response.where(question_uid: question_uid, optimal: nil, parent_id: nil).sum('count')
 
-    return {
+    {
       "Human Optimal": human_optimal,
       "Human Sub-Optimal": human_suboptimal,
       "Algorithm Optimal": algo_optimal,

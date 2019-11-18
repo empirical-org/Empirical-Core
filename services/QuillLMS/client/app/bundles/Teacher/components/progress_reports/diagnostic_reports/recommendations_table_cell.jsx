@@ -5,7 +5,7 @@ export default class RecommendationsTableCell extends React.Component {
   renderCheck() {
     if (this.props.previouslyAssigned) {
       return (
-        <i className="fa fa-check-circle" />
+        <i className="fas fa-check-circle" />
       );
     }		else if (this.props.selected) {
       return (
