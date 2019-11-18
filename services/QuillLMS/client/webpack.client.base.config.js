@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
@@ -16,17 +17,18 @@ const configPath = join(__dirname, '..', 'config');
 const { output, } = webpackConfigLoader(configPath);
 const mode = devBuild ? 'development' : 'production';
 
-const basePlugins = [new webpack.DefinePlugin({
-  'process.env': {
-    RAILS_ENV: JSON.stringify(railsEnv),
-    FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
-    FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
-    PUSHER_KEY: JSON.stringify(pusherKey),
-    DEFAULT_URL: JSON.stringify(defaultUrl),
-    CDN_URL: JSON.stringify(cdnUrl),
-  },
-  TRACE_TURBOLINKS: devBuild,
-}),
+const basePlugins = [
+  new webpack.DefinePlugin({
+    'process.env': {
+      RAILS_ENV: JSON.stringify(railsEnv),
+      FIREBASE_API_KEY: JSON.stringify(firebaseApiKey),
+      FIREBASE_DATABASE_URL: JSON.stringify(firebaseDatabaseUrl),
+      PUSHER_KEY: JSON.stringify(pusherKey),
+      DEFAULT_URL: JSON.stringify(defaultUrl),
+      CDN_URL: JSON.stringify(cdnUrl),
+    },
+    TRACE_TURBOLINKS: devBuild,
+  }),
   new webpack.LoaderOptionsPlugin({
     test: /\.scss$/,
     options: {
@@ -38,7 +40,8 @@ const basePlugins = [new webpack.DefinePlugin({
   new ManifestPlugin({
     publicPath: output.publicPath,
     writeToFileEmit: true,
-  })
+  }),
+  new CompressionPlugin()
 ];
 
 module.exports = {
