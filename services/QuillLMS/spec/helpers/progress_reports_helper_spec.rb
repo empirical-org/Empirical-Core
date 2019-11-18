@@ -60,7 +60,7 @@ describe ProgressReportHelper do
     end
 
     it 'should return the ratio of the current activity sessions to the trial limit' do
-      expect(helper.trial_activities_display_ratio).to eq "#{5} / #{Teacher::TRIAL_LIMIT}"
+      expect(helper.trial_activities_display_ratio).to eq "5 / #{Teacher::TRIAL_LIMIT}"
     end
   end
 end
