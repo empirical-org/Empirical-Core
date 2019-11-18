@@ -135,9 +135,7 @@ class Activity < ActiveRecord::Base
   def self.search_results(flag)
     substring = flag ? flag + "_" : ""
     activity_search_results = $redis.get("default_#{substring}activity_search")
-    unless activity_search_results
-      activity_search_results = ActivitySearchWrapper.search_cache_data=(flag)
-    end
+    activity_search_results ||= ActivitySearchWrapper.search_cache_data=(flag)
     JSON.parse(activity_search_results)
   end
 
@@ -175,6 +173,6 @@ class Activity < ActiveRecord::Base
       @url.fragment = nil
     end
 
-    return @url
+    @url
   end
 end

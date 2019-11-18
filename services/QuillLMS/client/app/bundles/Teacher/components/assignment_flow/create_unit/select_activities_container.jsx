@@ -52,7 +52,7 @@ export default class SelectActivitiesContainer extends React.Component {
   }
 
   render = () => {
-    const error = this.props.errorMessage ? <span><i className="fa fa-exclamation-triangle" />{this.props.errorMessage}</span> : '';
+    const error = this.props.errorMessage ? <span><i className="fas fa-exclamation-triangle" />{this.props.errorMessage}</span> : '';
     const navigation = this.props.editing ? null : <AssignmentFlowNavigation button={this.renderSelectActivitiesButton()} />
 
     return (

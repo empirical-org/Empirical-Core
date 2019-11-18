@@ -156,7 +156,7 @@ module PagesHelper
         ]
       }
     ]
-	end
+	 end
 
   def board_and_advisors_info
     [

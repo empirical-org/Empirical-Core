@@ -178,7 +178,7 @@ class TeacherFixController < ApplicationController
     rescue => e
       return render json: { error: e.message || e }
     end
-    return render json: {}, status: 200
+    render json: {}, status: 200
   end
 
   def merge_two_classrooms
@@ -191,7 +191,7 @@ class TeacherFixController < ApplicationController
     rescue => e
       return render json: { error: e.message || e }
     end
-    return render json: {}, status: 200
+    render json: {}, status: 200
   end
 
   def delete_last_activity_session
@@ -205,7 +205,7 @@ class TeacherFixController < ApplicationController
     rescue => e
       return render json: { error: e.message || e }
     end
-    return render json: {}, status: 200
+    render json: {}, status: 200
   end
 
   private

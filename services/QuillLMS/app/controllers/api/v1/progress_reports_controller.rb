@@ -94,7 +94,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
       .where('schools_users.user_id = ?', teacher_ids)
       .where(id: current_user.id)
 
-    return teachers.count > 0
+    teachers.count > 0
   end
 
   def authorize_classroom_and_student_teacher_relationship!

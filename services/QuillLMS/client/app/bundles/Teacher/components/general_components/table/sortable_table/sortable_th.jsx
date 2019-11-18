@@ -12,7 +12,7 @@ export default React.createClass({
   },
 
   arrowClass: function() {
-    return this.props.sortDirection === 'desc' ? 'fa fa-caret-down table-header-arrow' : 'fa fa-caret-up table-header-arrow';
+    return this.props.sortDirection === 'desc' ? 'fas fa-caret-down table-header-arrow' : 'fas fa-caret-up table-header-arrow';
   },
 
   clickSort: function() {
