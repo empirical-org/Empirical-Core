@@ -18,7 +18,7 @@ class Cms::UsersController < Cms::CmsController
   def search
     user_search_query = user_query_params
     user_search_query_results = user_query(user_query_params)
-    user_search_query_results = user_search_query_results ? user_search_query_results : []
+    user_search_query_results ||= []
     number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end

@@ -76,10 +76,11 @@ $spinner-thickness:  8px;
 .con-darkblue       { background: $darkblue; }
 .con-darkgrey       { background: $darkgray; }
 
-$header-font: "Comfortaa", cursive;
-
 $baseFontFamily: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-$headingsFontFamily: $header-font;
 $headingsFontWeight: normal;
 $family-sans-serif: "adelle-sans", "Helvetica", "Arial", sans-serif;
 $family-monospace: "Roboto-mono", "Monaco", "Inconsolata", monospace;
+
+.wf-loading {
+  visibility: hidden;
+}
