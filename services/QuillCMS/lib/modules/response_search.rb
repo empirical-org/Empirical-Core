@@ -66,7 +66,7 @@ module ResponseSearch
   end
 
   def add_spelling_filter(current_string, filter)
-    if filter then current_string + " AND NOT spelling_error:(true)" else current_string end
+    filter ? current_string + " AND NOT spelling_error:(true)" : current_string
   end
 
   def key_value_to_not_string(key, value)
@@ -74,7 +74,7 @@ module ResponseSearch
       ""
     else
       vals = value.map {|val| "\"#{val}\"" }.join(" OR ")
-      " AND NOT #{key.to_s}:(#{vals})"
+      " AND NOT #{key}:(#{vals})"
     end
   end
 end
