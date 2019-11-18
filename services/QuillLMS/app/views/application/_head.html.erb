@@ -20,8 +20,8 @@
   <meta name="description" content="<%= @description || @content %>">
   <meta name="og:description" content="<%= @description || @content %>">
 
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" media="all">
   <script defer src=<%= ENV['FONT_AWESOME_KIT_LINK'] %> crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" lazyload>
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
   <%= stylesheet_pack_tag('app') %>
@@ -38,9 +38,6 @@
   <meta id='current-user-id' property="id" content=<%= current_user&.id%> />
   <meta id='current-user-is-premium?' property="is_premium?" content=<%= current_user&.is_premium?%> />
   <meta id='current-user-email' property="email" content=<%= current_user&.email%> />
-  <% unless Rails.env.test? %>
-    <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
-  <% end %>
 
   <%= render :partial => 'firewall_test' if @firewall_test %>
 
