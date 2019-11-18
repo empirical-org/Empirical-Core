@@ -19,8 +19,9 @@ RUN apt-get -y update && \
       apt-get clean && \
       rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV NODE_ENV=production
-ENV RAILS_ENV production
+ENV NODE_ENV=staging
+ENV RAILS_ENV=staging
+ENV NODE_MODULES_CACHE=true
 RUN gem install bundler -v 1.17.3
 #Install gems
 RUN mkdir /gems
@@ -28,6 +29,8 @@ WORKDIR /gems
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN bundle install
+RUN rake assets:precompile
+RUN cd ./client && npm install
 ARG INSTALL_PATH=/opt/lms
 ENV INSTALL_PATH $INSTALL_PATH
 WORKDIR $INSTALL_PATH
