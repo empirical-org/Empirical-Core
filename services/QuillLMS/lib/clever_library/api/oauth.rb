@@ -2,7 +2,7 @@ class CleverLibrary::Api::Oauth
   include HTTParty
   base_uri 'https://clever.com'
 
-  def initialize()
+  def initialize
     @options = {
       headers: {
         "Authorization": "Basic " + Base64.strict_encode64(Clever.const_get(:CLIENT_ID) + ":" + Clever.const_get(:CLIENT_SECRET))
