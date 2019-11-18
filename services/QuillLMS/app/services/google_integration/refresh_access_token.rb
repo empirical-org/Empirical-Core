@@ -43,7 +43,7 @@ class GoogleIntegration::RefreshAccessToken
   end
 
   def parse_attributes(data)
-    Hash.new.tap do |attributes|
+    {}.tap do |attributes|
       if data['access_token'].present?
         attributes[:access_token] = data['access_token']
       end

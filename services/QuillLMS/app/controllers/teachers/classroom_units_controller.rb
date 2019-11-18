@@ -39,7 +39,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
         redirect_to :back
       end
     else
-      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}" and return
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(launch_lesson_url)}" and return
     end
   end
 
