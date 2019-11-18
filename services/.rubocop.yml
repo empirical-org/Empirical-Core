@@ -257,3 +257,47 @@ Style/ParallelAssignment:
 
 Style/RegexpLiteral:
   Enabled: true
+
+Layout/AlignParameters:
+  Enabled: true
+
+Layout/EndAlignment:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/controllers/activity_sessions_controller.rb'
+    - 'QuillLMS/app/controllers/api/v1/activity_session_interaction_logs_controller.rb'
+    - 'QuillLMS/app/controllers/cms/activities_controller.rb'
+    - 'QuillLMS/app/models/user.rb'
+    - 'QuillLMS/config/initializers/salesmachine.rb'
+
+Layout/SpaceAroundKeyword:
+  Enabled: true
+
+Lint/StringConversionInInterpolation:
+  Enabled: true
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: true
+
+Style/FloatDivision:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
+    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
+    - 'QuillLMS/app/services/demo/concept_results.rb'
+    - 'QuillLMS/app/services/serialize_sales_account.rb'
+    - 'QuillLMS/app/services/serialize_sales_contact.rb'
+
+Style/NestedParenthesizedCalls:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/services/serialize_sales_contact.rb'
+
+Style/OneLineConditional:
+  Enabled: true
+
+Style/RedundantCondition:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/controllers/cms/users_controller.rb'
+    - 'QuillLMS/app/controllers/profiles_controller.rb'

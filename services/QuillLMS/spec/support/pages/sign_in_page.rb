@@ -6,7 +6,7 @@ class SignInPage < Page
   end
 
   def sign_in(user, using: :username,
-                cred_case: :as_is)
+              cred_case: :as_is)
     user_cred = user[using]
     user_cred.swapcase! if cred_case == :changed
 
