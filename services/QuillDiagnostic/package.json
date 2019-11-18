@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --inline",
+    "start:prod-cms": "QUILL_CMS=https://cms.quill.org npm run start",
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
     "storybook": "start-storybook -p 9001",

@@ -26,11 +26,13 @@ class Teachers::ClassroomManagerController < ApplicationController
     redirect_to teachers_classrooms_path
   end
 
-  def retrieve_classrooms_for_assigning_activities # in response to ajax request
+  # in response to ajax request
+  def retrieve_classrooms_for_assigning_activities
     render json: classroom_with_students_json(current_user.classrooms_i_own)
   end
 
-  def retrieve_classrooms_i_teach_for_custom_assigning_activities # in response to ajax request
+  # in response to ajax request
+  def retrieve_classrooms_i_teach_for_custom_assigning_activities
     render json: classroom_with_students_json(current_user.classrooms_i_teach)
   end
 
