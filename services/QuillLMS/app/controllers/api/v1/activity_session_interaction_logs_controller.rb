@@ -41,7 +41,7 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
       end
       PusherActivitySessionInteractionLogPosted.run(teachers)
 			render :nothing => true, :status => 204
-		  else
+	  else
 			render_error(400)
 		end
 

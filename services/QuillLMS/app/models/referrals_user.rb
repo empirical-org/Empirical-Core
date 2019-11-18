@@ -44,12 +44,12 @@ class ReferralsUser < ActiveRecord::Base
 
     if act_sess_ids.empty?
       return []
-    else
-      classroom_unit_ids =ActiveRecord::Base.connection.execute("
-        SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id IN (#{act_sess_ids.join(',')})
-        AND activity_sessions.completed_at IS NOT NULL
-      ").to_a.map(&:values).flatten
     end
+
+    classroom_unit_ids =ActiveRecord::Base.connection.execute("
+      SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id IN (#{act_sess_ids.join(',')})
+      AND activity_sessions.completed_at IS NOT NULL
+    ").to_a.map(&:values).flatten
 
     if classroom_unit_ids.empty?
       return []

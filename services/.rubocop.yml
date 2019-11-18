@@ -259,7 +259,7 @@ Style/RegexpLiteral:
   Enabled: true
 
 Layout/ElseAlignment:
-  Enabled: true
+  Enabled: false
 
 Lint/AssignmentInCondition:
   Enabled: true
