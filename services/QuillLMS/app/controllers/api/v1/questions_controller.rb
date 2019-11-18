@@ -5,12 +5,12 @@ class Api::V1::QuestionsController < Api::ApiController
   ALL_QUESTIONS_CACHE_EXPIRY = 600
 
   def index
-    all_questions = $redis.get(ALL_QUESTIONS_CACHE_KEY)
+    all_questions = eval($redis.get(ALL_QUESTIONS_CACHE_KEY) || '')
     if !all_questions
       all_questions = Question.all.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
       $redis.set(ALL_QUESTIONS_CACHE_KEY, all_questions, {ex: ALL_QUESTIONS_CACHE_EXPIRY})
     end
-    render(json: all_questions.as_json)
+    render(json: all_questions)
   end
 
   def show
