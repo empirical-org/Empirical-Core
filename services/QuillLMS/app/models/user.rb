@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
                                     uniqueness:   { if: :email_required_or_present?},
                                     on: :create
 
-  validate  :validate_username_and_email,  on: :update
+  validate  :validate_email,  on: :update
   validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
@@ -77,7 +77,8 @@ class User < ActiveRecord::Base
 
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username?}
+                                    uniqueness:   { allow_blank: true, message: :taken, if: :username_taken? },
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
 
   validate :validate_flags
 
@@ -216,6 +217,12 @@ class User < ActiveRecord::Base
 
   def validate_username?
     validate_username.present? ? validate_username : false
+  end
+
+  def username_taken?
+    username_taken = User.find_by(username: self.username)
+    return true if username_taken
+    false
   end
 
   def username_cannot_be_an_email
@@ -581,25 +588,18 @@ private
     end
   end
 
-  def validate_username_and_email
-    # change_field will return the field (username or email) that is changing
-    change_field = detect_username_or_email_updated
-    if change_field && self[change_field].present? && User.find_by(change_field => self[change_field])
-      # if the field has been changed, to that of an existing record,
-      # raise an error
-      errors.add(change_field, :taken)
+  def validate_email
+    email = detect_email_updated
+    if email && self[email].present? && User.find_by(email => self[email])
+      # if the email has been changed to that of an existing record, raise an error
+      errors.add(email, :taken)
     end
   end
 
-  def detect_username_or_email_updated
+  def detect_email_updated
     @db_self = User.find(self.id)
-    if @db_self.username != self.username
-      return :username
-    elsif @db_self.email != self.email
-      return :email
-    else
-      nil
-    end
+    return :email if @db_self.email != self.email
+    nil
   end
 
   def prep_authentication_terms

@@ -13,7 +13,6 @@ module Student
 
     def update_student name, email, username
       return if !self.student?
-      # self.validate_username = true
 
       if self.update_attributes(name: name ? name : self.name,
                                   email: email ? email : self.email,
