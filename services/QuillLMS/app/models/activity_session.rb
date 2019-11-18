@@ -40,7 +40,7 @@ class ActivitySession < ActiveRecord::Base
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
 
-  scope :for_teacher, -> (teacher_id) {
+  scope :for_teacher, ->(teacher_id) {
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
@@ -146,7 +146,7 @@ class ActivitySession < ActiveRecord::Base
       a.update_columns is_final_score: false
     end
     # return true otherwise save will be prevented
-    return true
+    true
   end
 
   def formatted_due_date
@@ -402,7 +402,7 @@ class ActivitySession < ActiveRecord::Base
         errors.add(:incorrectly_assigned, "student was not assigned this activity")
       end
     else
-      return true
+      true
     end
   end
 
@@ -454,7 +454,7 @@ class ActivitySession < ActiveRecord::Base
 
   def set_state
     self.state ||= 'unstarted'
-    self.data ||= Hash.new
+    self.data ||= {}
   end
 
   def set_activity_id

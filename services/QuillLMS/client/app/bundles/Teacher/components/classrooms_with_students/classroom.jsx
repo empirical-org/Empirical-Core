@@ -103,7 +103,7 @@
               </span>
               <Button className='toggle-button pull-right select-by-student-button' onClick={()=> this.setState({ open: !this.state.open })}>
                 <span className='pull-right panel-select-by-student' >
-                  Select by Student <i className={'fa fa-angle-' + this.angleIcon()} />
+                  Select by Student <i className={'fas fa-angle-' + this.angleIcon()} />
                 </span>
               </Button>
               <div>

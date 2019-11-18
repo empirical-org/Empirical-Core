@@ -1,7 +1,7 @@
 <div id="our-story" class="navbar-tooltip-trigger <%= active_tab == 'About Us' ? 'active' : '' %>" tabindex="1">
   <span>About Us</span>
   <div class="navbar-tooltip">
-    <i class="fa fa-caret-up"></i>
+    <i class="fas fa-caret-up"></i>
     <%= render 'navbar/tooltip_link',
       text: 'About Us',
       subtext: "Learn about Quill's mission",
@@ -21,19 +21,19 @@
     <%= render 'navbar/tooltip_link',
       text: 'Team',
       subtext: 'Learn about our team',
-      fa_class: 'fa fa-icon fa-users',
+      fa_class: 'fas fa-icon fa-users',
       link: '/team'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Careers',
       subtext: 'See open positions',
-      fa_class: 'fa fa-icon fa-user-plus',
+      fa_class: 'fas fa-icon fa-user-plus',
       link: '/careers'
     %>
     <%= render 'navbar/tooltip_link',
       text: 'Press',
       subtext: 'Read articles that feature Quill',
-      fa_class: 'fa fa-icon fa-newspaper-o',
+      fa_class: 'fas fa-icon fa-newspaper-o',
       link: '/press'
     %>
   </div>

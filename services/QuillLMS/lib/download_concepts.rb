@@ -10,7 +10,7 @@ module Setup
       uri = URI.parse("https://staging.quill.org/api/v1/concepts")
       response = Net::HTTP.get_response(uri)
       self.concepts = self.string_to_json(response.body)["concepts"]
-      return response
+      response
     end
 
     def string_to_json(response_string)
