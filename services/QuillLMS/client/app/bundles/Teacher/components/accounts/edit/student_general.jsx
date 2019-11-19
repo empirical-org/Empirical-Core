@@ -113,9 +113,10 @@ export default class StudentGeneralAccountInfo extends Component {
   render() {
     const { email, firstName, lastName, userName } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
+    const editStatus = isDisabled ? '-not-editable' : '';
+    const emailLabel = (cleverId || googleId) ? 'Email' : 'Email (Optional)';
     const isDisabled = !!(cleverId || googleId);
     const teacherCreated = accountType === "Teacher Created Account";
-    const editStatus = isDisabled ? '-not-editable' : '';
 
     return (
       <div className="user-account-general user-account-section">
@@ -163,7 +164,7 @@ export default class StudentGeneralAccountInfo extends Component {
               error={errors.email}
               handleChange={e => this.updateField(e, 'email')}
               id={`email${editStatus}`}
-              label="Email (Optional)"
+              label={emailLabel}
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
               type="text"
