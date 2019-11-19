@@ -7,7 +7,7 @@ class CreateOrIncrementResponseWorker
     if !response
       response = Response.new(indifferent_vals)
       if !response.text.blank? && response.save!
-        #AdminUpdates.run(response.question_uid)
+        AdminUpdates.run(response.question_uid)
       end
     else
       increment_counts(response, indifferent_vals)
