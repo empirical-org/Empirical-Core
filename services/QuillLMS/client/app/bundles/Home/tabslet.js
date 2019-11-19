@@ -131,7 +131,7 @@
 
         var forward = function() {
 
-          i = ++i % elements.length; // wrap around
+          i = i+=1 % elements.length; // wrap around
 
           $this.opts.mouseevent == 'hover' ? elements.eq(i).trigger('mouseover') : elements.eq(i).click();
 
@@ -191,9 +191,9 @@
 
         var move = function(direction) {
 
-          if (direction == 'forward') i = ++i % elements.length; // wrap around
+          if (direction == 'forward') i = i+=1 % elements.length; // wrap around
 
-          if (direction == 'backward') i = --i % elements.length; // wrap around
+          if (direction == 'backward') i = i-=1 % elements.length; // wrap around
 
           elements.eq(i).click();
 
