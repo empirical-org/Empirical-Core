@@ -113,8 +113,9 @@ export default class StudentGeneralAccountInfo extends Component {
   render() {
     const { email, firstName, lastName, userName } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
-    const isDisabled = cleverId || googleId;
+    const isDisabled = !!(cleverId || googleId);
     const teacherCreated = accountType === "Teacher Created Account";
+    const editStatus = isDisabled ? '-not-editable' : '';
 
     return (
       <div className="user-account-general user-account-section">
@@ -123,10 +124,10 @@ export default class StudentGeneralAccountInfo extends Component {
           <div className="fields">
             <Input
               characterLimit={50}
-              className="first-name"
               disabled={isDisabled}
               error={errors.firstName}
               handleChange={e => this.updateField(e, 'firstName')}
+              id={`first-name${editStatus}`}
               label="First name"
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
@@ -135,10 +136,10 @@ export default class StudentGeneralAccountInfo extends Component {
             />
             <Input
               characterLimit={50}
-              className="last-name"
               disabled={isDisabled}
               error={errors.lastName}
               handleChange={e => this.updateField(e, 'lastName')}
+              id={`last-name${editStatus}`}
               label="Last name"
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
@@ -146,11 +147,11 @@ export default class StudentGeneralAccountInfo extends Component {
               value={lastName}
             />
             <Input
-              className="username"
               disabled={isDisabled || teacherCreated}
               error={errors.username}
               handleChange={e => this.updateField(e, 'userName')}
               helperText={teacherCreated ? 'Only your teacher can change your username' : ''}
+              id={`username${(isDisabled || teacherCreated) ? '-not-editable' : ''}`}
               label="Username"
               onClick={(!isDisabled && !teacherCreated) ? this.activateSection : null}
               timesSubmitted={timesSubmitted}
@@ -158,10 +159,10 @@ export default class StudentGeneralAccountInfo extends Component {
               value={userName}
             />
             <Input
-              className="email"
               disabled={isDisabled}
               error={errors.email}
               handleChange={e => this.updateField(e, 'email')}
+              id={`email${editStatus}`}
               label="Email (Optional)"
               onClick={!isDisabled ? this.activateSection : null}
               timesSubmitted={timesSubmitted}

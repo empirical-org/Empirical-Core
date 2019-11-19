@@ -490,6 +490,7 @@
 
 .third-party-integration-explanation {
   background-color: #EEEEEE;
+  border-color: #EEEEEE;
   .header {
     display: flex;
     justify-content: space-between;
@@ -503,4 +504,8 @@
     color: #646464;
     margin: 0px 30px 40px 0px;
   }
+}
+
+input[id*="-not-editable"] {
+  border-color: white!important;
 }
