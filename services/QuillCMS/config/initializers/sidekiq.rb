@@ -1,4 +1,4 @@
-sidekiq_base_url = ENV['REDISCLOUD_URL'] || 'localhost:6379'
+sidekiq_base_url = ENV['REDISCLOUD_URL'] || 'redis://localhost:6379'
 sidekiq_url = "#{sidekiq_base_url}/2"
 
 Sidekiq.configure_server do |config|

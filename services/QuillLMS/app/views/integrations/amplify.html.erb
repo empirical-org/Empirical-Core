@@ -35,7 +35,7 @@
     <div>
       <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
         <%= @section.name %>
-        <i class="fa fa-caret-down"></i>
+        <i class="fas fa-caret-down"></i>
       </div>
       <ul class="dropdown-menu" role='menu'>
         <% Section.all.sort_by(&:position).each do |section| %>

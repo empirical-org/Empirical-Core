@@ -26,7 +26,7 @@ class ProgressReports::Standards::NewStudent
         COUNT(DISTINCT(best_activity_sessions.activity_id)) as total_activity_count,
         COALESCE(AVG(proficient_count.topic_count), 0)::integer as proficient_standard_count,
         COALESCE(AVG(not_proficient_count.topic_count), 0)::integer as not_proficient_standard_count
-      SQL
+          SQL
     ).joins('JOIN best_activity_sessions ON users.id = best_activity_sessions.user_id')
       .joins("
       LEFT JOIN (
