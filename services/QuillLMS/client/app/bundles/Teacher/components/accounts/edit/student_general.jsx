@@ -113,9 +113,10 @@ export default class StudentGeneralAccountInfo extends Component {
   render() {
     const { email, firstName, lastName, userName } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
-    const isDisabled = !!(cleverId || googleId);
+    const oAuthed = (cleverId || googleId);
+    const isDisabled = !!oAuthed;
     const editStatus = isDisabled ? '-not-editable' : '';
-    const emailLabel = (cleverId || googleId) ? 'Email' : 'Email (Optional)';
+    const emailLabel = oAuthed ? 'Email' : 'Email (Optional)';
     const teacherCreated = accountType === "Teacher Created Account";
 
     return (
@@ -124,7 +125,7 @@ export default class StudentGeneralAccountInfo extends Component {
         <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
           <div className="fields">
             <Input
-              characterLimit={50}
+              characterLimit={oAuthed ? 0 : 50}
               disabled={isDisabled}
               error={errors.firstName}
               handleChange={e => this.updateField(e, 'firstName')}
@@ -136,7 +137,7 @@ export default class StudentGeneralAccountInfo extends Component {
               value={firstName}
             />
             <Input
-              characterLimit={50}
+              characterLimit={oAuthed ? 0 : 50}
               disabled={isDisabled}
               error={errors.lastName}
               handleChange={e => this.updateField(e, 'lastName')}

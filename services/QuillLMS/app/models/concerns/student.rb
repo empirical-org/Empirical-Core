@@ -11,17 +11,6 @@ module Student
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
-    def update_student(name, email, username)
-      return if !self.student?
-
-      if self.update_attributes(name: name || self.name,
-                                  email: email || self.email,
-                                  username: username || self.username)
-      end
-      return {errors: errors} if errors
-      self
-    end
-
     def finished_activities(classroom)
       classroom_unit_score_join(classroom).where('activity_sessions.completed_at is not null')
     end

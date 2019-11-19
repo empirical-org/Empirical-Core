@@ -156,13 +156,4 @@ describe 'Student Concern', type: :model do
     end
   end
 
-  describe("#update_student") do
-    it 'updates the students name, email & username' do
-      student1.update_student("Pabllo Vittar", "vittar@wemail.com", "pabllo-vittar")
-      expect(student1.name).to eq "Pabllo Vittar"
-      expect(student1.email).to eq "vittar@wemail.com"
-      expect(student1.username).to eq "pabllo-vittar"
-    end
-  end
-
 end

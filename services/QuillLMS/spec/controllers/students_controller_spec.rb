@@ -57,11 +57,24 @@ describe StudentsController do
 
   describe '#update_account' do
     let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username:"maya-angelou", role: "student") }
+    let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username:"harvey-milk", role: "student") }
     it 'should update the name, email and username' do
-      put :update_account, {email: "pvittar@email.com", username: "pabllo-vittar", name: "Pabllo Vittar"}
-      expect(user.reload.email).to eq "pvittar@email.com"
+      put :update_account, {email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar"}
+      expect(user.reload.email).to eq "pablo@quill.org"
       expect(user.reload.username).to eq "pabllo-vittar"
       expect(user.reload.name).to eq "Pabllo Vittar"
+    end
+    it 'should update only the fields that are changed' do
+      put :update_account, {email: "pablo@quill.org", username: "rainha-do-carnaval", name: "Pabllo Vittar"}
+      expect(user.reload.email).to eq "pablo@quill.org"
+      expect(user.reload.username).to eq "rainha-do-carnaval"
+      expect(user.reload.name).to eq "Pabllo Vittar"
+    end
+    it 'should not update the email or username if already taken' do
+      put :update_account, {email: "harvey@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar"}
+      expect(user.reload.errors.messages[:email].first).to eq "That email is taken. Try another."
+      put :update_account, {email: "pablo@quill.org", username: "harvey-milk", name: "Pabllo Vittar"}
+      expect(user.reload.errors.messages[:username].first).to eq "That username is taken. Try another."
     end
   end
 end
