@@ -61,6 +61,7 @@ module.exports = {
     minimizer: [new UglifyJsPlugin()]
   },
   plugins: [
+    new CompressionPlugin(),
     assetsPluginInstance,
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -91,8 +92,7 @@ module.exports = {
         }
         return 0;
       },
-    }),
-    new CompressionPlugin()
+    })
   ],
   module: {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
