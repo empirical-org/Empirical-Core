@@ -1,4 +1,7 @@
 import $ from 'jquery';
+import 'lazysizes';
+// import a plugin
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 require('../../assets/styles/home.scss');
 require('./bootstrap_carousel.js');
