@@ -220,9 +220,7 @@ class User < ActiveRecord::Base
   end
 
   def username_taken?
-    username_taken = User.find_by(username: self.username)
-    return true if username_taken
-    false
+    User.where(username: username).count != 0
   end
 
   def username_cannot_be_an_email

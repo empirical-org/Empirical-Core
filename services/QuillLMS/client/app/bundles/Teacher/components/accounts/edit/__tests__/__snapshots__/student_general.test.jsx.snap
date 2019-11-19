@@ -16,33 +16,36 @@ exports[`StudentGeneralAccountInfo component should render 1`] = `
     >
       <Input
         characterLimit={50}
-        className="first-name"
+        disabled={false}
         handleChange={[Function]}
+        id="first-name"
         label="First name"
         onClick={[Function]}
         type="text"
       />
       <Input
         characterLimit={50}
-        className="last-name"
+        disabled={false}
         handleChange={[Function]}
+        id="last-name"
         label="Last name"
         onClick={[Function]}
         type="text"
       />
       <Input
-        className="username"
         disabled={false}
         handleChange={[Function]}
         helperText=""
+        id="username"
         label="Username"
         onClick={[Function]}
         type="text"
         value="test-username"
       />
       <Input
-        className="email"
+        disabled={false}
         handleChange={[Function]}
+        id="email"
         label="Email (Optional)"
         onClick={[Function]}
         type="text"

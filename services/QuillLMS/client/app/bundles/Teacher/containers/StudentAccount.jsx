@@ -3,6 +3,7 @@ import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/c
 import StudentGeneralAccountInfo from '../components/accounts/edit/student_general.jsx';
 import StudentPasswordAccountInfo from '../components/accounts/edit/update_password';
 import getAuthToken from '../components/modules/get_auth_token';
+import { requestPut } from '../../../modules/request/index.js';
 import request from 'request';
 import _ from 'lodash';
 
@@ -80,30 +81,27 @@ export default class StudentAccount extends Component {
       this.setState({ errors: errors });
     } else {
       const { timesSubmitted } = this.state;
-      request.put({
-        url: `${process.env.DEFAULT_URL}${url}`,
-        json: { ...data, authenticity_token: getAuthToken(), },
-      }, (error, httpStatus, body) => {
-        if (httpStatus && httpStatus.statusCode === 200) {
-          const {
-            name,
-            username,
-            email
-          } = body.user;
-          this.setState({
-            firstName: name.split(' ')[0],
-            lastName: name.split(' ')[1],
-            userName: username,
-            email,
-            snackbarCopy,
-            errors: {}
-          }, () => {
-            this.showSnackbar();
-            this.setState({ activeSection: null });
-          });
-        } else if (body.errors) {
-          this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, });
-        }
+      let dataObject = data;
+      dataObject.authenticity_token = getAuthToken();
+      requestPut(`${process.env.DEFAULT_URL}${url}`, dataObject, (body) => {
+        const {
+          name,
+          username,
+          email
+        } = body.user;
+        this.setState({
+          firstName: name.split(' ')[0],
+          lastName: name.split(' ')[1],
+          userName: username,
+          email,
+          snackbarCopy,
+          errors: {}
+        }, () => {
+          this.showSnackbar();
+          this.setState({ activeSection: null });
+        });
+      }, (error) => {
+        this.setState({ errors: error.errors, timesSubmitted: timesSubmitted + 1, });
       });
     }
   }
