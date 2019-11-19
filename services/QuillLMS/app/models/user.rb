@@ -65,10 +65,8 @@ class User < ActiveRecord::Base
   validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { if: :email_required_or_present?},
-                                    on: :create
+                                    uniqueness:   { message: :taken, if: :email_required_or_present?}
 
-  validate  :validate_email,  on: :update
   validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
@@ -77,7 +75,7 @@ class User < ActiveRecord::Base
 
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { allow_blank: true, message: :taken, if: :username_taken? },
+                                    uniqueness:   { allow_blank: true, message: :taken },
                                     format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
 
   validate :validate_flags
@@ -217,10 +215,6 @@ class User < ActiveRecord::Base
 
   def validate_username?
     validate_username.present? ? validate_username : false
-  end
-
-  def username_taken?
-    User.where(username: username).count != 0
   end
 
   def username_cannot_be_an_email
@@ -583,14 +577,6 @@ private
     invalid_flags = flags - VALID_FLAGS
     if invalid_flags.any?
        errors.add(:flags, "invalid flag(s) #{invalid_flags.to_s}")
-    end
-  end
-
-  def validate_email
-    email = detect_email_updated
-    if email && self[email].present? && User.find_by(email => self[email])
-      # if the email has been changed to that of an existing record, raise an error
-      errors.add(email, :taken)
     end
   end
 

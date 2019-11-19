@@ -32,12 +32,10 @@ class StudentsController < ApplicationController
   end
 
   def update_account
-    response = current_user.update_student(student_params[:name], student_params[:email], student_params[:username])
-    if response && response[:errors] && response[:errors].any?
-      errors = response[:errors]
-      render json: {errors: errors}, status: 422
-    else
+    if current_user.update_attributes(student_params.slice(:email, :name, :username))
       render json: current_user
+    else
+      render json: {errors: current_user.errors.messages}, status: 422
     end
   end
 

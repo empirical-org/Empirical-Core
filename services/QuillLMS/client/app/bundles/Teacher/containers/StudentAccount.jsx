@@ -78,7 +78,13 @@ export default class StudentAccount extends Component {
 
   updateUser = (data, url, snackbarCopy, errors) => {
     if(!_.isEmpty(errors)) {
-      this.setState({ errors: errors });
+      // combine front and backend errors if any lingering backend errors remain
+      const { firstName, lastName, username } = errors;
+      let errorsObject = this.state.errors;
+      errorsObject.firstName = firstName;
+      errorsObject.lastName = lastName;
+      errorsObject.username = username ? username : errorsObject.username;
+      this.setState({ errors: errorsObject });
     } else {
       const { timesSubmitted } = this.state;
       let dataObject = data;
