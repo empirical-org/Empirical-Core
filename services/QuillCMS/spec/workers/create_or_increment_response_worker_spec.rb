@@ -40,6 +40,24 @@ describe CreateOrIncrementResponseWorker do
         expect(Response.find_by(text: 'Totally different text').id).to be
       end
     end
+
+    it 'should exctract the right params from the hash if it is keyed with strings' do
+      input = {
+        'text' => 'foo',
+        'question_uid' => 'bar',
+      }
+      expect(Response).to receive(:find_by).with(text: 'foo', question_uid: 'bar')
+      subject.perform(input)
+    end
+
+    it 'should exctract the right params from the hash if it is keyed with symbols' do
+      input = {
+        :text => 'foo',
+        :question_uid => 'bar',
+      }
+      expect(Response).to receive(:find_by).with(text: 'foo', question_uid: 'bar')
+      subject.perform(input)
+    end
   end
 
 end

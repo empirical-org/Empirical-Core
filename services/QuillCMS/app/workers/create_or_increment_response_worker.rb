@@ -2,27 +2,27 @@ class CreateOrIncrementResponseWorker
   include Sidekiq::Worker
 
   def perform(new_vals)
-    indifferent_vals = new_vals.with_indifferent_access
-    response = Response.find_by(text: indifferent_vals[:text], question_uid: indifferent_vals[:question_uid])
+    symbolized_vals = new_vals.symbolize_keys
+    response = Response.find_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
     if !response
-      response = Response.new(indifferent_vals)
+      response = Response.new(symbolized_vals)
       if !response.text.blank? && response.save!
         AdminUpdates.run(response.question_uid)
       end
     else
-      increment_counts(response, indifferent_vals)
+      increment_counts(response, symbolized_vals)
     end
   end
 
-  def increment_counts(response, indifferent_vals)
+  def increment_counts(response, symbolized_vals)
     response.increment!(:count)
-    increment_first_attempt_count(response, indifferent_vals)
+    increment_first_attempt_count(response, symbolized_vals)
     increment_child_count_of_parent(response)
     response.update_index_in_elastic_search
   end
 
-  def increment_first_attempt_count(response, indifferent_vals)
-    indifferent_vals[:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
+  def increment_first_attempt_count(response, symbolized_vals)
+    symbolized_vals[:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
   end
 
   def increment_child_count_of_parent(response)
