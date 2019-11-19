@@ -142,5 +142,30 @@ RSpec.describe ResponsesController, type: :controller do
 
 end
 
+  describe "#concept_results_to_boolean" do
+    it "should return a hash of keys with booleans based on the input hash" do
+      input = {:foo => "bar"}
+      output = controller.send(:concept_results_to_boolean, input)
+      expect(output.keys).to eq(input.keys)
+    end
 
+    it "should evaluate hash values of boolean true as true" do
+      input = {foo: true}
+      output = controller.send(:concept_results_to_boolean, input)
+      expect(output[:foo]).to eq(true)
+    end
+
+    it "should evaluate hash values of string 'true' as true" do
+      input = {:foo => 'true'}
+      output = controller.send(:concept_results_to_boolean, input)
+      expect(output[:foo]).to eq(true)
+    end
+
+    it "should extract conceptUID and correct from sub-hash values" do
+    input = {foo: {'conceptUID' => 'mock_uid',
+                   'correct' => 'true'}}
+      output = controller.send(:concept_results_to_boolean, input)
+      expect(output['mock_uid']).to eq(true)
+    end
+  end
 end
