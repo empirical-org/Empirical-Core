@@ -3,6 +3,7 @@ const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 
@@ -90,7 +91,8 @@ module.exports = {
         }
         return 0;
       },
-    })
+    }),
+    new CompressionPlugin()
   ],
   module: {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/,
