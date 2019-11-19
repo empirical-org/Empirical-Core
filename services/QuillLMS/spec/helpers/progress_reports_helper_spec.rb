@@ -12,11 +12,11 @@ describe ProgressReportHelper do
       allow(user).to receive(:premium_state) { "beta" }
       expect(helper.tab_symbol).to eq "BETA"
       allow(user).to receive(:premium_state) { "paid" }
-      expect(helper.tab_symbol).to eq "<i class='fa fa-star'></i>"
+      expect(helper.tab_symbol).to eq "<i class='fas fa-star'></i>"
       allow(user).to receive(:premium_state) { "trial" }
       expect(helper.tab_symbol).to eq "TRIAL"
       allow(user).to receive(:premium_state) { "locked" }
-      expect(helper.tab_symbol).to eq "<i class='fa fa-lock'></i>"
+      expect(helper.tab_symbol).to eq "<i class='fas fa-lock'></i>"
     end
   end
 
@@ -60,7 +60,7 @@ describe ProgressReportHelper do
     end
 
     it 'should return the ratio of the current activity sessions to the trial limit' do
-      expect(helper.trial_activities_display_ratio).to eq "#{5} / #{Teacher::TRIAL_LIMIT}"
+      expect(helper.trial_activities_display_ratio).to eq "5 / #{Teacher::TRIAL_LIMIT}"
     end
   end
 end

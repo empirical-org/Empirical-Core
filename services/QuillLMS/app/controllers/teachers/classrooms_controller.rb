@@ -139,7 +139,7 @@ class Teachers::ClassroomsController < ApplicationController
       return render json: { error: 'Please ensure this teacher is a co-teacher before transferring ownership.' }, status: 401
     end
 
-    return render json: {}
+    render json: {}
   end
 
 private

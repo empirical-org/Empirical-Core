@@ -8,6 +8,6 @@ class Types::ActivityCategoryType < Types::BaseObject
   field :activities, [Types::ActivityType], null: false
 
   def activities 
-    return object.activities
+    object.activities
   end
 end

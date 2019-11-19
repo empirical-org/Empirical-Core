@@ -8,7 +8,7 @@ def fetch_concepts
 
   # Shortcut
   response = Net::HTTP.get_response(uri)
-  return 4
+  4
 end
 
 concepts_from_api.each do |con|

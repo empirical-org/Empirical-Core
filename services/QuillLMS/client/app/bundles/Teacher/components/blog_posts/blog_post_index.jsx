@@ -140,7 +140,7 @@ export default class BlogPostIndex extends React.Component {
         <a className='announcement' href={announcement.link}>
           <div className='circle' />
           <p>{announcement.text}</p>
-          <i className='fa fa-chevron-right' />
+          <i className='fas fa-chevron-right' />
         </a>
       )
     }

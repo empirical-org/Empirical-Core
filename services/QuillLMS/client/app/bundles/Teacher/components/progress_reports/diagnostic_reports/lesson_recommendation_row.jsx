@@ -35,7 +35,7 @@ export default class LessonsRecommendationRow extends React.Component {
     if (this.props.status === 'loading') {
       return (<LoadingIndicator />);
     } else if (this.props.recommendation.previously_assigned || this.props.status === 'assigned') {
-      return <span className="assigned-lesson-pack vertically-centered centered"><i className="fa fa-check-circle" />Pack Assigned</span>;
+      return <span className="assigned-lesson-pack vertically-centered centered"><i className="fas fa-check-circle" />Pack Assigned</span>;
     }
     return (<a className="assign q-button bg-quillgreen text-white" onClick={this.assignActivityPack}>Assign Pack</a>);
   }
