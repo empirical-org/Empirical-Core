@@ -113,9 +113,9 @@ export default class StudentGeneralAccountInfo extends Component {
   render() {
     const { email, firstName, lastName, userName } = this.state;
     const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
+    const isDisabled = !!(cleverId || googleId);
     const editStatus = isDisabled ? '-not-editable' : '';
     const emailLabel = (cleverId || googleId) ? 'Email' : 'Email (Optional)';
-    const isDisabled = !!(cleverId || googleId);
     const teacherCreated = accountType === "Teacher Created Account";
 
     return (
