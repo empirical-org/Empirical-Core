@@ -58,10 +58,10 @@ module ResponseSearch
   end
 
   module_function def build_regex_query_string(user_input)
-    user_input.gsub!(/(?<=^\/)([^\^])/, '.*\1')
-    user_input.gsub!(/(?<=^\/)[\^]/, '')
-    user_input.gsub!(/([^\$])(?=\/$)/, '\1.*')
-    user_input.gsub!(/([\$])(?=\/$)/, '')
+    user_input.gsub!(%r{(?<=^\/)([^\^])}, '.*\1')
+    user_input.gsub!(%r{(?<=^\/)[\^]}, '')
+    user_input.gsub!(%r{([^\$])(?=\/$)}, '\1.*')
+    user_input.gsub!(%r{([\$])(?=\/$)}, '')
     user_input
   end
 
