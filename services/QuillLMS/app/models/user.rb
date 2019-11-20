@@ -580,12 +580,6 @@ private
     end
   end
 
-  def detect_email_updated
-    @db_self = User.find(self.id)
-    return :email if @db_self.email != self.email
-    nil
-  end
-
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
     self.username= username.downcase unless username.blank?
