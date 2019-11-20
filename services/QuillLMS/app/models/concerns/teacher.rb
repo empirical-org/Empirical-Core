@@ -485,7 +485,7 @@ module Teacher
     end
   end
 
-   def referral_link
+  def referral_link
     Rails.application.routes.url_helpers.root_url(referral_code: referral_code)
   end
 

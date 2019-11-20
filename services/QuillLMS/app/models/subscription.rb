@@ -16,31 +16,31 @@ class Subscription < ActiveRecord::Base
 
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
-    'School NYC Paid',
-    'School Strategic Paid',
-    'School Paid',
-    'Teacher Paid',
-    'Purchase Missing School',
-    'Premium Credit'
+                         'School NYC Paid',
+                         'School Strategic Paid',
+                         'School Paid',
+                         'Teacher Paid',
+                         'Purchase Missing School',
+                         'Premium Credit'
   ]
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
-        'School Research',
-        'School Sponsored Free',
-        'School Strategic Free',
-        'Teacher Contributor Free',
-        'Teacher Sponsored Free',
-        'Teacher Trial']
+                         'School Research',
+                         'School Sponsored Free',
+                         'School Strategic Free',
+                         'Teacher Contributor Free',
+                         'Teacher Sponsored Free',
+                         'Teacher Trial']
 
   OFFICIAL_SCHOOL_TYPES = ['School District Paid',
-        'School NYC Paid',
-        'School Strategic Paid',
-        'School Paid',
-        'Purchase Missing School',
-        'School NYC Free',
-        'School Research',
-        'School Sponsored Free',
-        'School Strategic Free']
+                           'School NYC Paid',
+                           'School Strategic Paid',
+                           'School Paid',
+                           'Purchase Missing School',
+                           'School NYC Free',
+                           'School Research',
+                           'School Sponsored Free',
+                           'School Strategic Free']
 
   OFFICIAL_TEACHER_TYPES = [
         'Teacher Paid',

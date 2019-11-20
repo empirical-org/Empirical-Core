@@ -40,7 +40,7 @@ class ActivitySession < ActiveRecord::Base
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
 
-  scope :for_teacher, -> (teacher_id) {
+  scope :for_teacher, ->(teacher_id) {
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
@@ -454,7 +454,7 @@ class ActivitySession < ActiveRecord::Base
 
   def set_state
     self.state ||= 'unstarted'
-    self.data ||= Hash.new
+    self.data ||= {}
   end
 
   def set_activity_id

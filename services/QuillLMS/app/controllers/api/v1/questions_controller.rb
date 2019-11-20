@@ -1,8 +1,15 @@
 class Api::V1::QuestionsController < Api::ApiController
   before_filter :get_question_by_uid, except: [:index, :create, :valid_params]
 
+  ALL_QUESTIONS_CACHE_KEY = 'ALL_QUESTIONS'
+  ALL_QUESTIONS_CACHE_EXPIRY = 600
+
   def index
-    all_questions = Question.all.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+    all_questions = $redis.get(ALL_QUESTIONS_CACHE_KEY)
+    if !all_questions
+      all_questions = Question.all.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      $redis.set(ALL_QUESTIONS_CACHE_KEY, all_questions.to_json, {ex: ALL_QUESTIONS_CACHE_EXPIRY})
+    end
     render(json: all_questions)
   end
 

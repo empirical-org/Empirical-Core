@@ -2,7 +2,7 @@ class ClassroomUnit < ActiveRecord::Base
   include ::NewRelic::Agent
   include AtomicArrays
 
-  belongs_to :unit#, touch: true
+  belongs_to :unit #, touch: true
   belongs_to :classroom
   has_many :activity_sessions
   has_many :classroom_unit_activity_states
