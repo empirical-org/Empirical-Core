@@ -3,9 +3,10 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     context: resolve(__dirname, 'src'),
     entry: './index.tsx',
     output: {
@@ -57,6 +58,7 @@ module.exports = {
             // },
             {
                 test:/\.(css|scss)$/,
+                // use: ['css-hot-loader']
                 use: ['css-hot-loader', 'style-loader', "css-loader", "sass-loader"]
             },
             { test: /\.png$/, loader: "url-loader?limit=100000" },
@@ -72,6 +74,7 @@ module.exports = {
         //     filename: "style.css",
         //     chunkFilename: "[id].css"
         //   }),
+        new CompressionPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
@@ -79,8 +82,8 @@ module.exports = {
         new HtmlWebpackPlugin({template: resolve(__dirname, 'src/index.html')}),
         // inject <script> in html file.
         new webpack.DefinePlugin({
-          "process.env.EMPIRICAL_BASE_URL": JSON.stringify('https://www.quill.org'),
-          "process.env.QUILL_CMS": JSON.stringify('https://cms.quill.org'),
+          "process.env.EMPIRICAL_BASE_URL": JSON.stringify('https://staging.quill.org'),
+          "process.env.QUILL_GRAMMAR_URL": JSON.stringify('https://staging-grammar.quill.org/#'),
           "process.env.PUSHER_KEY": JSON.stringify('a253169073ce7474f0ce'),
           "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org')
         })
