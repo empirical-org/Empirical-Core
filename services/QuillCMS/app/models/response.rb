@@ -55,7 +55,7 @@ class Response < ApplicationRecord
 
   def grade_status
     if optimal.nil? && parent_id.nil?
-      return 4
+      4
     elsif parent_uid || parent_id
       optimal ? 2 : 3
     else
@@ -79,4 +79,7 @@ class Response < ApplicationRecord
     Rails.cache.delete("questions/#{self.question_uid}/responses")
   end
 
+  def self.find_by_id_or_uid(string)
+    find_by_id(string) || find_by_uid(string)
+  end
 end

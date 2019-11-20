@@ -20,12 +20,8 @@
   <meta name="description" content="<%= @description || @content %>">
   <meta name="og:description" content="<%= @description || @content %>">
 
-  <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" data-auto-replace-svg="nest"></script>
-  <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/v4-shims.js"></script>
+  <script defer src=<%= ENV['FONT_AWESOME_KIT_LINK'] %> crossorigin="anonymous" integrity="sha384-p7JrABPXxZLpj1XoHTzkPyVs8ekVssRFXc4B7XU6Z1c8XVDA7sVPem/lQ9UouxqE"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" lazyload>
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
   <%= stylesheet_pack_tag('app') %>
@@ -42,9 +38,6 @@
   <meta id='current-user-id' property="id" content=<%= current_user&.id%> />
   <meta id='current-user-is-premium?' property="is_premium?" content=<%= current_user&.is_premium?%> />
   <meta id='current-user-email' property="email" content=<%= current_user&.email%> />
-  <% unless Rails.env.test? %>
-    <link href="//fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet" type="text/css" />
-  <% end %>
 
   <%= render :partial => 'firewall_test' if @firewall_test %>
 

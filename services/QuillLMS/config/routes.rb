@@ -150,7 +150,8 @@ EmpiricalGrammar::Application.routes.draw do
       get :classrooms_with_students_and_classroom_units, on: :member
       put :update_classroom_unit_assigned_students, on: :member
       put :update_activities, on: :member
-    end # moved from within classroom, since units are now cross-classroom
+      # moved from within classroom, since units are now cross-classroom
+    end
 
     get 'prohibited_unit_names' => 'units#prohibited_unit_names'
     get 'last_assigned_unit_id' => 'units#last_assigned_unit_id'
@@ -382,6 +383,18 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
+      resources :questions, except: [:destroy] do
+        resources :focus_points do
+          put :update_all, on: :collection
+        end
+        resources :incorrect_sequences do
+          put :update_all, on: :collection
+        end
+        member do
+          put 'update_flag'
+          put 'update_model_concept'
+        end
+      end
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -564,7 +577,7 @@ EmpiricalGrammar::Application.routes.draw do
   get 'teachers/classrooms/activity_planner/lessons_for_activity/:activity_id' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/students/edit' => 'teachers/classroom_manager#lesson_planner'
   get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit' => 'teachers/classroom_manager#lesson_planner'
-  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner', :constraints => { :unitName => /[^\/]+/ }
+  get 'teachers/classrooms/activity_planner/units/:unitId/activities/edit/:unitName' => 'teachers/classroom_manager#lesson_planner', :constraints => { :unitName => %r{[^/]+} }
 
   get 'assign' => 'teachers/classroom_manager#assign', as: 'assign_path'
   get 'assign/assign-a-diagnostic' => redirect('/assign/diagnostic')

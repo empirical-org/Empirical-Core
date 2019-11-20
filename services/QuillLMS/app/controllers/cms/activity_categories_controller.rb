@@ -38,7 +38,7 @@ class Cms::ActivityCategoriesController < Cms::CmsController
 
   def create
     ActivityCategory.create(activity_category_params)
-    return redirect_to cms_activity_categories_path
+    redirect_to cms_activity_categories_path
   end
 
   def destroy

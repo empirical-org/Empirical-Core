@@ -12,7 +12,7 @@
        buttonTextOne = 'Learn More About Diagnostic Reports'
        buttonTextTwo = 'My Activity Packs'
        content = (<div>
-         <p><i className="fa fa-check-circle" />You have successfully assigned a diagnostic to your students.</p>
+         <p><i className="fas fa-check-circle" />You have successfully assigned a diagnostic to your students.</p>
          <p>Once a student completes the activity, you can return to this page to see your reports. In the meantime, you can learn more about Diagnostic Reports.</p>
        </div>)
        image = <img src="/images/pages/diagnostic_reports/diagnostic_colored.svg" />
