@@ -81,9 +81,10 @@
       <h1>Press releases</h1>
       <div class="articles">
         <% @press_releases.each do |article| %>
-          <% link = article[:external_link] || "#{teacher_center_link}/#{article[:slug]}" %>
+          <% class_name = "article" %>
+          <% link = "#{teacher_center_link}/#{article[:slug]}/" %>
           <% date = article[:published_at].strftime("%B %d, %Y") %>
-          <a class="article" target="_blank" href=<%="#{link}"%>>
+          <a href=<%="#{link}"%> class=<%="#{class_name}"%> target="_blank">
             <h3><%="#{date}"%></h3>
             <h2><%="#{article[:title]}"%></h2>
           </a>

@@ -26,7 +26,7 @@ export default class extends React.Component {
   handleExpired(content, remainingDays) {
     if (remainingDays < 1) {
       content.boxColor = '#ff4542';
-      content.status = <h2><i className="fa fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
+      content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
       content.pCopy = (
         <span>
           <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>

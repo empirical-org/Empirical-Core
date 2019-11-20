@@ -61,7 +61,7 @@ export default class extends React.Component {
     }
     return ([
       <button className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="extant" onClick={this.toggleExtantCard}>Credit Card ending with {this.state.lastFour}</button>,
-      <button className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fa fa-credit-card" />Use a Different Card</button>
+      <button className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fas fa-credit-card" />Use a Different Card</button>
     ]);
   }
 

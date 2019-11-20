@@ -47,7 +47,7 @@ describe ActivitiesController, type: :controller, redis: true do
   describe '#preview_lesson' do
     let!(:activity) { create(:activity) }
     let(:preview_url) { "#{activity.classification_form_url}teach/class-lessons/#{activity.uid}/preview" }
-    let(:tutorial_lesson_preview_url) { "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(preview_url)}" }
+    let(:tutorial_lesson_preview_url) { "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(preview_url)}" }
 
     context 'when current user' do
       context 'when milestone is completed for user' do

@@ -8,10 +8,10 @@ class Cms::AnnouncementsController < Cms::CmsController
   def create
     if Announcement.create(announcement_params)
       flash[:success] = 'Announcement created successfully!'
-      return redirect_to cms_announcements_path
+      redirect_to cms_announcements_path
     else
       flash[:error] = 'Rut roh. Something has gone awry! 😭'
-      return redirect_to :back
+      redirect_to :back
     end
   end
 
