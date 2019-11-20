@@ -97,4 +97,8 @@ class UserMailer < ActionMailer::Base
     mail from: "Maddy Maher <maddy@quill.org>", to: user.email, subject: "Quill Premium Renewal"
   end
 
+  def daily_stats_email
+    mail from: "Quill Team <hello@quill.org>", to: "eric@quill.org", subject: "Quill Daily Stats"
+  end
+
 end
