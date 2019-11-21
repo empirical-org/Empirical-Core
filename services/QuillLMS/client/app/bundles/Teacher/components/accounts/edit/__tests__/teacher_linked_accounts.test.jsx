@@ -17,9 +17,9 @@ describe('TeacherLinkedAccounts component', () => {
     const wrapper = shallow(
       <TeacherLinkedAccounts
         {...sharedProps}
-        postGoogleClassroomAssignments={false}
-        googleId={null}
         cleverId={null}
+        googleId={null}
+        postGoogleClassroomAssignments={false}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -29,9 +29,9 @@ describe('TeacherLinkedAccounts component', () => {
     const wrapper = shallow(
       <TeacherLinkedAccounts
         {...sharedProps}
-        postGoogleClassroomAssignments={false}
-        googleId={123}
         cleverId={456}
+        googleId={123}
+        postGoogleClassroomAssignments={false}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -41,9 +41,9 @@ describe('TeacherLinkedAccounts component', () => {
     const wrapper = shallow(
       <TeacherLinkedAccounts
         {...sharedProps}
-        postGoogleClassroomAssignments={false}
-        googleId={null}
         cleverId={456}
+        googleId={null}
+        postGoogleClassroomAssignments={false}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -54,9 +54,9 @@ describe('TeacherLinkedAccounts component', () => {
       const wrapper = shallow(
         <TeacherLinkedAccounts
           {...sharedProps}
-          postGoogleClassroomAssignments={false}
-          googleId={null}
           cleverId={456}
+          googleId={null}
+          postGoogleClassroomAssignments={false}
         />
       );
       expect(wrapper).toMatchSnapshot();
@@ -66,9 +66,9 @@ describe('TeacherLinkedAccounts component', () => {
       const wrapper = shallow(
         <TeacherLinkedAccounts
           {...sharedProps}
-          postGoogleClassroomAssignments={true}
-          googleId={null}
           cleverId={456}
+          googleId={null}
+          postGoogleClassroomAssignments={true}
         />
       );
       expect(wrapper).toMatchSnapshot();
