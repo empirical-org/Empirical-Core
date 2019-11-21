@@ -59,6 +59,12 @@ class Question < ActiveRecord::Base
     save
   end
 
+  def save
+    valid = super
+    $redis.del(Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY)
+    valid
+  end
+
   private def new_uuid
     SecureRandom.uuid
   end
