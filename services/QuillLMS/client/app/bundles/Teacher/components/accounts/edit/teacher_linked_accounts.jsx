@@ -132,7 +132,7 @@ export default class TeacherLinkedAccounts extends React.Component {
   }
 
   render() {
-    return (<div className="teacher-account-linked-accounts teacher-account-section">
+    return (<div className="user-linked-accounts user-account-section">
       {this.renderModal()}
       <h1>Linked accounts</h1>
       {this.renderGoogleSection()}
