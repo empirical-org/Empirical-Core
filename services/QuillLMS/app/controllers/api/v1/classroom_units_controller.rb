@@ -13,12 +13,8 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   end
 
   def teacher_and_classroom_name
-    if classroom_unit_id.starts_with?('prvw-')
-      render json: {"teacher": "Demo Teacher", "classroom":"Quill Classroom"}
-    else
-      classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
-      render json: classroom_unit.teacher_and_classroom_name
-    end
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
+    render json: classroom_unit.teacher_and_classroom_name
   end
 
   def finish_lesson
@@ -104,28 +100,19 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
   end
 
   def classroom_teacher_and_coteacher_ids
-    classroom_unit_id = params[:classroom_unit_id]
-    if classroom_unit_id.starts_with?('prvw-')
-      render json: {"teacher_ids": [] }
-    else
-      classroom_unit = ClassroomUnit.find(classroom_unit_id)
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
 
-      teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
-      if teacher_ids
-        teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] }]
-      end
-      render json: {teacher_ids: teacher_ids_h ? teacher_ids_h : {}}
+    teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
+    if teacher_ids
+      teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] }]
     end
+    render json: {teacher_ids: teacher_ids_h ? teacher_ids_h : {}}
   end
 
   private
 
   def authorize!
-    classroom_unit_id = params[:classroom_unit_id]
-    if classroom_unit_id.starts_with?('prvw-')
-      return true
-    end
-    classroom_unit = ClassroomUnit.find(classroom_unit_id)
+    classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
     classroom_teacher!(classroom_unit.classroom.id)
   end
 

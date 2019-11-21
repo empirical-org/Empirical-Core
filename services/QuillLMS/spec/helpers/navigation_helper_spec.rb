@@ -89,13 +89,13 @@ describe NavigationHelper do
   describe '#Premium_tab_copy' do
     it 'should return the correct values' do
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fa fa-star'></i> 5 Days Left"
+      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> 5 Days Left"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked") }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fa fa-star'></i> Trial Expired"
+      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> Trial Expired"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fa fa-star'></i>"
+      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fas fa-star'></i>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fa fa-star'></i>"
+      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fas fa-star'></i>"
     end
   end
 

@@ -30,7 +30,7 @@ const ConceptReports = ({
         <CSVDownloadForProgressReport data={csvData} />
         <a className="how-we-grade" href="https://support.quill.org/activities-implementation/how-does-grading-work">
             How We Grade
-          <i className="fa fa-long-arrow-right" />
+          <i className="fas fa-long-arrow-alt-right" />
         </a>
       </div>
     </div>

@@ -86,8 +86,8 @@ export default class ScorebookTooltip extends React.Component {
     const name = data.activity ? data.activity.name : data.name;
     return (
       <div className="scorebook-tooltip" style={{ position: 'relative', }}>
-        <i className="fa fa-caret-up" />
-        <i className="fa fa-caret-up border-color" />
+        <i className="fas fa-caret-up" />
+        <i className="fas fa-caret-up border-color" />
         <div className="title">
           {name}
         </div>
