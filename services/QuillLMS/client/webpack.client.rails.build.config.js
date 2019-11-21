@@ -63,16 +63,7 @@ module.exports = merge(config, {
       }
     },
     minimizer: [
-      new UglifyJsPlugin({
-        chunkFilter: (chunk) => {
-          // Exclude uglification for the `vendor` chunk
-          if (chunk.name === 'home') {
-            return false;
-          }
-
-          return true;
-        }
-      }),
+      new UglifyJsPlugin(),
     ]
   },
 
