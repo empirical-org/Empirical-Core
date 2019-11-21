@@ -594,6 +594,8 @@ Metrics/AbcSize:
 # ExcludedMethods: refine
 Metrics/BlockLength:
   Max: 940
+  Exclude:
+    - 'QuillLMS/spec/models/user_spec.rb'
 
 # Offense count: 4
 # Configuration parameters: CountBlocks.
