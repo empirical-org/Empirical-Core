@@ -1,0 +1,276 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TeacherLinkedAccounts component should render when the user is linked to both clever and google 1`] = `
+<div
+  className="user-linked-accounts user-account-section"
+>
+  <h1>
+    Linked accounts
+  </h1>
+  <div>
+    <div
+      className="google-row"
+    >
+      <div
+        className="first-half"
+      >
+        <img
+          alt="google icon"
+          src="/images/google_icon.svg"
+        />
+        <span>
+          Google is not linked
+        </span>
+      </div>
+      <a
+        className="google-or-clever-action"
+        href="/auth/google_oauth2?prompt=consent"
+      >
+        Link your account
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div
+    className="clever-row"
+  >
+    <div
+      className="first-half"
+    >
+      <img
+        alt="clever icon"
+        src="undefined/images/shared/clever_icon.svg"
+      />
+      <span>
+        Clever is not linked
+      </span>
+    </div>
+    <a
+      className="google-or-clever-action"
+      href=""
+    >
+      Link your account
+    </a>
+  </div>
+</div>
+`;
+
+exports[`TeacherLinkedAccounts component should render when the user is linked to clever but not google 1`] = `
+<div
+  className="user-linked-accounts user-account-section"
+>
+  <h1>
+    Linked accounts
+  </h1>
+  <div>
+    <div
+      className="google-row"
+    >
+      <div
+        className="first-half"
+      >
+        <img
+          alt="google icon"
+          src="/images/google_icon.svg"
+        />
+        <span>
+          Google is not linked
+        </span>
+      </div>
+      <a
+        className="google-or-clever-action"
+        href="/auth/google_oauth2?prompt=consent"
+      >
+        Link your account
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div
+    className="clever-row"
+  >
+    <div
+      className="first-half"
+    >
+      <img
+        alt="clever icon"
+        src="undefined/images/shared/clever_icon.svg"
+      />
+      <span>
+        Clever is not linked
+      </span>
+    </div>
+    <a
+      className="google-or-clever-action"
+      href=""
+    >
+      Link your account
+    </a>
+  </div>
+</div>
+`;
+
+exports[`TeacherLinkedAccounts component should render when the user is linked to google but not clever when post google classroom announcements is false 1`] = `
+<div
+  className="user-linked-accounts user-account-section"
+>
+  <h1>
+    Linked accounts
+  </h1>
+  <div>
+    <div
+      className="google-row"
+    >
+      <div
+        className="first-half"
+      >
+        <img
+          alt="google icon"
+          src="/images/google_icon.svg"
+        />
+        <span>
+          Google is not linked
+        </span>
+      </div>
+      <a
+        className="google-or-clever-action"
+        href="/auth/google_oauth2?prompt=consent"
+      >
+        Link your account
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div
+    className="clever-row"
+  >
+    <div
+      className="first-half"
+    >
+      <img
+        alt="clever icon"
+        src="undefined/images/shared/clever_icon.svg"
+      />
+      <span>
+        Clever is not linked
+      </span>
+    </div>
+    <a
+      className="google-or-clever-action"
+      href=""
+    >
+      Link your account
+    </a>
+  </div>
+</div>
+`;
+
+exports[`TeacherLinkedAccounts component should render when the user is linked to google but not clever when post google classroom announcements is true 1`] = `
+<div
+  className="user-linked-accounts user-account-section"
+>
+  <h1>
+    Linked accounts
+  </h1>
+  <div>
+    <div
+      className="google-row"
+    >
+      <div
+        className="first-half"
+      >
+        <img
+          alt="google icon"
+          src="/images/google_icon.svg"
+        />
+        <span>
+          Google is not linked
+        </span>
+      </div>
+      <a
+        className="google-or-clever-action"
+        href="/auth/google_oauth2?prompt=consent"
+      >
+        Link your account
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div
+    className="clever-row"
+  >
+    <div
+      className="first-half"
+    >
+      <img
+        alt="clever icon"
+        src="undefined/images/shared/clever_icon.svg"
+      />
+      <span>
+        Clever is not linked
+      </span>
+    </div>
+    <a
+      className="google-or-clever-action"
+      href=""
+    >
+      Link your account
+    </a>
+  </div>
+</div>
+`;
+
+exports[`TeacherLinkedAccounts component should render when the user is not linked to clever or google 1`] = `
+<div
+  className="user-linked-accounts user-account-section"
+>
+  <h1>
+    Linked accounts
+  </h1>
+  <div>
+    <div
+      className="google-row"
+    >
+      <div
+        className="first-half"
+      >
+        <img
+          alt="google icon"
+          src="/images/google_icon.svg"
+        />
+        <span>
+          Google is not linked
+        </span>
+      </div>
+      <a
+        className="google-or-clever-action"
+        href="/auth/google_oauth2?prompt=consent"
+      >
+        Link your account
+      </a>
+    </div>
+  </div>
+  <hr />
+  <div
+    className="clever-row"
+  >
+    <div
+      className="first-half"
+    >
+      <img
+        alt="clever icon"
+        src="undefined/images/shared/clever_icon.svg"
+      />
+      <span>
+        Clever is not linked
+      </span>
+    </div>
+    <a
+      className="google-or-clever-action"
+      href=""
+    >
+      Link your account
+    </a>
+  </div>
+</div>
+`;
