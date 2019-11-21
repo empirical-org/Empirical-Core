@@ -1179,4 +1179,41 @@ describe User, type: :model do
       expect(teacher.satismeter_threshold_met?).to be false
     end
   end
+
+  describe '#find_by_username_or_email' do
+    describe 'find a user by email' do
+      it 'should find a user by email when the email and search term are downcased' do
+        user = create(:user, email: 'demostudent@gmail.com')
+        expect(User.find_by_username_or_email(user.email.downcase)).to eq user
+      end
+
+      it 'should find a user by email when the email and search term include capitals' do
+        user = create(:user, email: 'DemoStudent@gmail.com')
+        expect(User.find_by_username_or_email('DemoStudent@gmail.com')).to eq user
+      end
+
+      it 'should find a user by email when the email and search term do not match in case' do
+        user = create(:user, email: 'DemoStudent@gmail.com')
+        expect(User.find_by_username_or_email(user.email.downcase)).to eq user
+      end
+
+    end
+
+    describe 'find a user by username' do
+      it 'should find a user by username when the username and search term are downcased' do
+        user = create(:user, username: 'demo.student@demo-teacher')
+        expect(User.find_by_username_or_email(user.username.downcase)).to eq user
+      end
+
+      it 'should find a user by username when the username and search term include capitals' do
+        user = create(:user, username: 'Demo.Student@demo-teacher')
+        expect(User.find_by_username_or_email('Demo.Student@demo-teacher')).to eq user
+      end
+
+      it 'should find a user by username when the username and search term do not match in case' do
+        user = create(:user, username: 'Demo.Student@demo-teacher')
+        expect(User.find_by_username_or_email(user.username.downcase)).to eq user
+      end
+    end
+  end
 end

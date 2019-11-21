@@ -284,8 +284,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_username_or_email(login_name)
-    login_name.downcase!
-    User.where("email = ? OR username = ?", login_name, login_name).first
+    User.where("lower(email) = lower(?) OR lower(username) = lower(?)", login_name, login_name).limit(1).first
   end
 
   def self.setup_from_clever(auth_hash)
