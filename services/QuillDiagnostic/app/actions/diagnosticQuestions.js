@@ -11,7 +11,6 @@ const actions = {
 	// called when the app starts. this means we immediately download all diagnosticQuestions, and
 	// then receive all diagnosticQuestions again as soon as anyone changes anything.
   startListeningToDiagnosticQuestions() {
-    console.log("3");
     return function (dispatch, getState) {
       diagnosticQuestionsRef.on('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_DIAGNOSTIC_QUESTIONS_DATA, data: snapshot.val(), });
@@ -19,7 +18,6 @@ const actions = {
     };
   },
   loadDiagnosticQuestions() {
-    console.log("4");
     return function (dispatch, getState) {
       diagnosticQuestionsRef.once('value', (snapshot) => {
         dispatch({ type: C.RECEIVE_DIAGNOSTIC_QUESTIONS_DATA, data: snapshot.val(), });
@@ -33,7 +31,6 @@ const actions = {
     return { type: C.FINISH_DIAGNOSTIC_QUESTION_EDIT, qid, };
   },
   submitQuestionEdit(qid, content) {
-    console.log("5");
     return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_DIAGNOSTIC_QUESTION_EDIT, qid, });
       diagnosticQuestionsRef.child(qid).update(content, (error) => {
@@ -60,7 +57,6 @@ const actions = {
     return { type: C.TOGGLE_NEW_DIAGNOSTIC_QUESTION_MODAL, };
   },
   submitNewQuestion(content, response) {
-    console.log("7");
     return (dispatch, getState) => {
       dispatch({ type: C.AWAIT_NEW_DIAGNOSTIC_QUESTION_RESPONSE, });
       const newRef = diagnosticQuestionsRef.push(content, (error) => {
@@ -79,7 +75,6 @@ const actions = {
     };
   },
   submitNewFocusPoint(qid, data) {
-    console.log("8");
     return function (dispatch, getState) {
       diagnosticQuestionsRef.child(`${qid}/focusPoints`).push(data, (error) => {
         if (error) {
