@@ -177,4 +177,14 @@ RSpec.describe Question, type: :model do
       expect(question.as_json).to eq(question.data)
     end
   end
+
+  describe '#after_save' do
+    it 'should execute invalidate_all_questions_cache to invalidate the ALL_QUESTIONS cache' do
+      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY
+      $redis.set(key, 'Dummy data')
+      question.data = {foo: "bar"}
+      question.save
+      expect($redis.get(key)).to be_nil
+    end
+  end
 end
