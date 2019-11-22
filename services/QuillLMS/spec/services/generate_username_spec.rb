@@ -7,6 +7,6 @@ describe GenerateUsername do
 
   it 'inserts a number after the last name if there is already a student in the database with that username' do
     create(:student, { username: 'john.smith@student' })
-    expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq ('john.smith2@student')
+    expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq 'john.smith2@student'
   end
 end
