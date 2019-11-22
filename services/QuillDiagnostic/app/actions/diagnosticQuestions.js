@@ -44,7 +44,6 @@ const actions = {
     };
   },
   submitEditedFocusPoint(qid, data, fpid) {
-    console.log("6");
     return function (dispatch, getState) {
       diagnosticQuestionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error) => {
         if (error) {
