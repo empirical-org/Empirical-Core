@@ -7,7 +7,6 @@ const	connectSentenceCombiningRef = rootRef.child('questions');
 const	diagnosticSentenceCombiningRef = rootRef.child('diagnostic_questions');
 
 export function startListeningToConnectQuestions() {
-  console.log("1");
   return (dispatch, getState) => {
     connectSentenceCombiningRef.on('value', (snapshot) => {
       if (snapshot) {
@@ -18,7 +17,6 @@ export function startListeningToConnectQuestions() {
 }
 
 export function cloneConnectSentenceCombiningQuestion(uid: string) {
-  console.log("2");
   return (dispatch) => {
     connectSentenceCombiningRef.child(uid).on('value', (snapshot) => {
       const connectSentenceCombiningQuestion = snapshot ? snapshot.val() : null
