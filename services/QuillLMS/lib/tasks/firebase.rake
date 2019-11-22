@@ -16,14 +16,10 @@ namespace :firebase do
 
     set_arg_values(args)
 
-    collision_count = 0
-
     for_each_firebase_key do |obj, data|
       obj.data = data
       obj.save!
     end
-    
-    puts "Collision Count: #{collision_count}"
   end
 
   module FirebaseTaskHelpers
