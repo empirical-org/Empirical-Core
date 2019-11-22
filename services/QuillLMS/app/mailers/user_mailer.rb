@@ -98,6 +98,18 @@ class UserMailer < ActionMailer::Base
   end
 
   def daily_stats_email
+    @daily_active_teachers = User.where(role: "teacher").where("last_sign_in >= ?", 1.day.ago).size
+    @daily_active_students = User.where(role: "student").where("last_sign_in >= ?", 1.day.ago).size
+    @new_teacher_signups = User.where(role: "teacher").where("created_at >= ?", 1.day.ago).size
+    @new_student_signups = User.where(role: "student").where("created_at >= ?", 1.day.ago).size
+    @classrooms_created = Classroom.where("created_at >= ?", 1.day.ago).size
+    # from trial to regular users
+    @teacher_conversion1 = nil
+    # from free to premium users
+    @teacher_conversion2 = nil
+    @activities_assigned = ClassroomUnit.where("created_at >= ?", 1.day.ago).size
+    @sentences_written = nil
+    @diagnostics_completed = nil
     mail from: "Quill Team <hello@quill.org>", to: "eric@quill.org", subject: "Quill Daily Stats"
   end
 
