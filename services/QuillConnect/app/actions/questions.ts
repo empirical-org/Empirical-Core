@@ -16,7 +16,7 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
-const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
+const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/question_types/1/questions`;
 
 /*
   There are a LOT of non-required properties in these interfaces.
