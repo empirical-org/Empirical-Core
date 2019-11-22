@@ -1,6 +1,8 @@
 class Question < ActiveRecord::Base
+  belongs_to :question_type
   validates :uid, presence: true, uniqueness: true
   validates :data, presence: true
+  validates :question_type_id, presence: true
   validate :data_must_be_hash
 
   def as_json(options=nil)

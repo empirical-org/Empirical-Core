@@ -1,6 +1,6 @@
 namespace :firebase do
   desc "Import data from Firebase into a Rails model"
-  task :import_data, [:firebase_url, :model] => :environment do |_, args|
+  task :import_data, [:firebase_url, :model, :column_data] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
@@ -11,15 +11,19 @@ namespace :firebase do
     end
   end
 
-  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
+  task :import_as_blob, [:firebase_url, :model, :column_data] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
+
+    collision_count = 0
 
     for_each_firebase_key do |obj, data|
       obj.data = data
       obj.save!
     end
+    
+    puts "Collision Count: #{collision_count}"
   end
 
   module FirebaseTaskHelpers
@@ -44,10 +48,13 @@ namespace :firebase do
     def set_arg_values(args)
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
+      @COLUMN_NAME, @COLUMN_VAL = args[:column_data].split(":")
       if !@FIREBASE_URL || !@RAILS_MODEL
         puts('You must provide Firebase URL and Rails model args to run this task.')
+        puts('Optional args:')
+        puts('  column_name:<value>   the column name and value you wish to set for each imported entry')
         puts('Example usage:')
-        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/titleCards,TitleCard]')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,question_type_id:2]')
         exit
       end
     end
@@ -58,11 +65,11 @@ namespace :firebase do
       firebase_keys = firebase_shallow.keys
       firebase_keys.each do |key|
         data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
-        obj = klass.find_or_create_by(uid: key)
+        obj = klass.find_or_create_by(uid: key, "#{@COLUMN_NAME}": "#{@COLUMN_VAL}")
         if obj.valid?
-          puts("updating #{@RAILS_MODEL} with uid '#{key}'")
+          puts("updating #{@RAILS_MODEL} with uid '#{key}' and '#{@COLUMN_NAME}': #{@COLUMN_VAL}")
         else
-          puts("creating #{@RAILS_MODEL} with uid '#{key}'")
+          puts("creating #{@RAILS_MODEL} with uid '#{key}' and '#{@COLUMN_NAME}': #{@COLUMN_VAL}")
         end
         yield(obj, data)
       end
