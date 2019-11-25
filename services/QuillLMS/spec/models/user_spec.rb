@@ -3,7 +3,7 @@ require 'rails_helper'
 describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
-  it { is_expected.to callback(:generate_student_username_if_absent).before(:save) }
+  it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
   it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
   it { is_expected.to callback(:check_for_school).after(:save) }
 
@@ -926,13 +926,6 @@ describe User, type: :model do
       end
 
       context 'role is permanent' do
-        it 'is invalid without username and email' do
-          user.safe_role_assignment 'student'
-          user.email = nil
-          user.username = nil
-          expect(user).to_not be_valid
-        end
-
         it 'is valid with username' do
           user.safe_role_assignment 'student'
           user.email = nil
@@ -1017,7 +1010,7 @@ describe User, type: :model do
 
     describe '#username' do
       subject { super().username }
-      it { is_expected.to eq('John.Doe@101') }
+      it { is_expected.to eq('john.doe@101') }
     end
 
     describe '#role' do
