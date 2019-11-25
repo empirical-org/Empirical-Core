@@ -85,7 +85,8 @@ module.exports = {
           "process.env.EMPIRICAL_BASE_URL": JSON.stringify('https://www.quill.org'),
           "process.env.QUILL_GRAMMAR_URL": JSON.stringify('https://beta-grammar.quill.org/#'),
           "process.env.PUSHER_KEY": JSON.stringify('a253169073ce7474f0ce'),
-          "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org')
+          "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org'),
+          "process.env.NODE_ENV": JSON.stringify('production')
         })
     ],
     node: {

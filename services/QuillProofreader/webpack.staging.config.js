@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     context: resolve(__dirname, 'src'),
     entry: './index.tsx',
     output: {
@@ -85,7 +85,8 @@ module.exports = {
           "process.env.EMPIRICAL_BASE_URL": JSON.stringify('https://staging.quill.org'),
           "process.env.QUILL_GRAMMAR_URL": JSON.stringify('https://staging-grammar.quill.org/#'),
           "process.env.PUSHER_KEY": JSON.stringify('a253169073ce7474f0ce'),
-          "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org')
+          "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org'),
+          "process.env.NODE_ENV": JSON.stringify('staging')
         })
     ],
     node: {
