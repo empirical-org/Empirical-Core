@@ -5,7 +5,7 @@ class CreateQuestionTypes < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    QuestionType.create :name => "c_sentence_combining"
-    QuestionType.create :name => "d_sentence_combining"
+    QuestionType.create :name => "connect_sentence_combining"
+    QuestionType.create :name => "diagnostic_sentence_combining"
   end
 end
