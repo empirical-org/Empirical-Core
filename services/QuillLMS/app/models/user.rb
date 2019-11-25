@@ -6,11 +6,12 @@ class User < ActiveRecord::Base
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
 
+  before_validation :generate_student_username_if_absent
+  before_validation :prep_authentication_terms
   before_save :capitalize_name
-  before_save :generate_student_username_if_absent
   after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
+  after_save :check_for_school
   after_create :generate_referrer_id, if: Proc.new { self.teacher? }
-
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
@@ -98,10 +99,6 @@ class User < ActiveRecord::Base
   scope :student, lambda { where(role: STUDENT) }
 
   attr_accessor :newsletter
-
-  before_validation :prep_authentication_terms
-
-  after_save :check_for_school
 
   def testing_flag
     self.role == STAFF ? PRIVATE : self.flags.detect{|f| TESTING_FLAGS.include?(f)}
