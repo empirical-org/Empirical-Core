@@ -15,7 +15,7 @@ class GenerateUsername
   attr_reader :first_name, :last_name, :classcode
 
   def generate
-    part1         = "#{first_name}.#{last_name}"
+    part1         = "#{first_name}.#{last_name}".downcase
     part1_pattern = "%#{part1}%"
     at_classcode  = at_classcode(classcode)
     extant        = User.where("username ILIKE ?", part1_pattern)
