@@ -29,28 +29,18 @@ models:
       model_id: 'TCN4416927324776169472'
     feedback:
       default_feedback: "Please read the passage and try again!"
-      Apathy: "Revise your sentence. There is no evidence in the passage to support that voters will become less apathetic about elections and have more enthusiasm for the process. What is one thing that will change as a result of compulsory voting?"
-      Apathy-Increased_Voting: "Revise your sentence. Explain how increasing voter turnout will positively affect governments. How will governments change?"
-      Apathy-Increased_Voting-More_Representative: "Nice work! You accurately named the two major effects of compuslory voting--increasing voter turnout and making governments more representative of their people. You also took it one step further and explained how compulsory voting will help overcome voter apathy."
-      Apathy-Miscellaneous: "Revise your sentence. There is no evidence in the passage to support that voters will become less apathetic about elections and have more enthusiasm for the process. What is one thing that will change as a result of compulsory voting?"
-      Civic_Duty: "Revise your sentence by explaining how voting makes governments more representative of their citizens."
-      Civic_Duty-Increased_Voting: "Your argument that more people will perform their civic duty of voting is strong! Now, revise your sentence by adding the idea that as more people vote, the government becomes more representative of the citizenry."
-      Civic_Duty-More_Representative: "Your argument that compulsory voting gets people to perform their civic duty and makes governments more representative of their citizens is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
-      Civic_Duty-Miscellaneous: "Revise your sentence by explaining how voting makes governments more representative of their citizens."
+      # Apathy:
+      # Civic_Duty:
       Feels_Represented: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
-      Increased_Voting: "Revise your sentence. Explain how increasing voter turnout will positively affect governments. How will governments change?"
+      Increased_Voting: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
       Leaders: "Revise your sentence. Write about how the leader is representative of the people."
-      Miscellaneous: "Rewrite your sentence. Write about how requiring people to vote leads to a government that more accurately represents the citizenry."
-      More_Representative: "Your argument that compulsory voting results in governments becoming more representative of their citizens is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
-      Leaders-More_Representative: "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by adding the idea that more people are voting, which results in electing government officals who more accurately represent the citizenry."
-      Miscellaneous-More_Representative: "Your argument that compulsory voting results in governments becoming more representative of the citizenry is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
-      Leaders-Miscellaneous-More_Representative: "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by adding the idea that more people are voting, which results in electing officals who more accurately represent the citizenry."
-      Increased_Voting-More_Representative: "Nice work! You accurately named the two major effects of compuslory voting--increasing voter turnout and making governments more representative of their people."
+      Miscellaneous: "Rewrite your sentence. Write about how requiring people to vote leads to a government that represents all people."
+      More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Leaders-More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Miscellaneous-More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Leaders-Miscellaneous-More_Representative: "Revise your sentence. At the start of your response, add the idea of 'more people are voting' which results in a more representative government."
+      Increased_Voting-More_Representative: "You are correct"
       Feels_Represented-Leaders: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
       Feels_Represented-Miscellaneous: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
-      Increased_Voting-Miscellaneous-More_Representative: Your argument that compulsory would increase voter turnout and result in a more representative government is strong! Now, revise your sentence by eliminating extraneous information that doesn't support your argument.
-      Feels_Represented-More_Representative: "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by eliminating anything suggesting that people feel more represented, since there is no evidence in the passage that states that people will feel more represented."
-      Feels_Represented-Increased_Voting: "Your argument that compulsory voting would increase voter turnout is strong! Now, revise your sentence by eliminating anything suggesting that people feel more represented, since there is no evidence in the passage that states that people will feel more represented. Instead, write how as more citizens cast their votes, the government becomes more representative of the citizenry."
     correct:
       - Increased_Voting-More_Representative
-      - Apathy-Increased_Voting-More_Representative
