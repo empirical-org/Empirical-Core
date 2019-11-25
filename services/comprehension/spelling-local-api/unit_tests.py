@@ -23,54 +23,45 @@ def mock_response_for(label_dict):
 
     return mock_response
 
-def test_correct_spelling(app):
-    with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': 35}):
+def test_http_response(app):
+    with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': None}):
       response = main.response_endpoint(flask.request)
       data = json.loads(response.data)
 
-      assert response.status_code == 200
-      assert data['optimal'] == True
-      assert data['feedback'] == "Correct spelling!"
-      assert data['highlight'] == []
+      assert response.status_code == 400
 
-def test_incorrect_spelling_single_error_middle_of_sentence(app):
-    with app.test_request_context(json={'entry': 'This is spelllled incorrectly.', 'prompt_id': 35}):
-      response = main.response_endpoint(flask.request)
-      data = json.loads(response.data)
 
-      assert response.status_code == 200
-      assert data['optimal'] == False
-      assert data['feedback'] == "Try again. There may be a spelling mistake."
-      assert data['highlight'][0]['text'] == 'spelllled'
+def test_correct_spelling():
+    misspelled = main.get_misspelled_words_no_casing('This is spelled correctly.')
+    assert len(misspelled) == 0
 
-def test_incorrect_spelling_single_error_end_of_sentence(app):
-    with app.test_request_context(json={'entry': 'This is spelled incorrectlee.', 'prompt_id': 35}):
-      response = main.response_endpoint(flask.request)
-      data = json.loads(response.data)
+def test_incorrect_spelling_single_error_middle_of_sentence():
+    misspelled = main.get_misspelled_words_no_casing('This is spellllled correctly.')
+    assert len(misspelled) == 1
+    assert 'spellllled' in misspelled
 
-      assert response.status_code == 200
-      assert data['optimal'] == False
-      assert data['feedback'] == "Try again. There may be a spelling mistake."
-      assert data['highlight'][0]['text'] == 'incorrectlee'
+def test_incorrect_spelling_single_error_end_of_sentence():
+    misspelled = main.get_misspelled_words_no_casing('This is spelled incorrectlee.')
+    assert len(misspelled) == 1
+    assert 'incorrectlee' in misspelled
 
-def test_incorrect_spelling_single_error_beginning_of_sentence(app):
-    with app.test_request_context(json={'entry': 'Thisss is spelled incorrectly.', 'prompt_id': 35}):
-      response = main.response_endpoint(flask.request)
-      data = json.loads(response.data)
+def test_incorrect_spelling_single_error_beginning_of_sentence():
+    misspelled = main.get_misspelled_words_no_casing('Thissss is spelled incorrectly.')
+    assert len(misspelled) == 1
+    assert 'thissss' in misspelled
 
-      assert response.status_code == 200
-      assert data['optimal'] == False
-      assert data['feedback'] == "Try again. There may be a spelling mistake."
-      assert data['highlight'][0]['text'] == 'Thisss'
+def test_incorrect_spelling_multiple_errors():
+    misspelled = main.get_misspelled_words_no_casing('Thissss is spellllled incorrectlee.')
+    assert len(misspelled) == 3
+    assert 'thissss' in misspelled
+    assert 'spellllled' in misspelled
+    assert 'incorrectlee' in misspelled
 
-def test_incorrect_spelling_multiple_errors(app):
-    with app.test_request_context(json={'entry': 'Thisss is spelleeed incorrectlee.', 'prompt_id': 35}):
-      response = main.response_endpoint(flask.request)
-      data = json.loads(response.data)
-
-      assert response.status_code == 200
-      assert data['optimal'] == False
-      assert data['feedback'] == "Try again. There may be a spelling mistake."
-      assert data['highlight'][0]['text'] == 'Thisss'
-      assert data['highlight'][1]['text'] == 'spelleeed'
-      assert data['highlight'][2]['text'] == 'incorrectlee'
+def test_casing():
+    flagged = ['thissss', 'spEled']
+    entry = 'Thissss is spEled incorrectly.'
+    highlight = main.get_misspelled_highlight_list_with_casing(flagged, entry)
+    assert len(highlight) == 2
+    assert highlight[0]['text'] == 'Thissss'
+    assert highlight[1]['text'] == 'spEled'
+    
