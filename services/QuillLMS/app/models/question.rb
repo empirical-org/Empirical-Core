@@ -5,6 +5,8 @@ class Question < ActiveRecord::Base
   validates :question_type_id, presence: true
   validate :data_must_be_hash
 
+  after_save :expire_all_questions_cache
+
   def as_json(options=nil)
     data
   end
@@ -59,6 +61,10 @@ class Question < ActiveRecord::Base
   def delete_incorrect_sequence(incorrect_sequence_id)
     self.data['incorrectSequences'].delete(incorrect_sequence_id)
     save
+  end
+
+  private def expire_all_questions_cache
+    $redis.del(Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY)
   end
 
   private def new_uuid
