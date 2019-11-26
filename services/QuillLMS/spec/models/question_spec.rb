@@ -57,7 +57,7 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if it has no question type' do
-      question.question_type = nil
+      question.question_type_id = nil
       expect(question.valid?).to be false
     end
   end
