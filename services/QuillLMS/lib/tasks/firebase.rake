@@ -16,10 +16,18 @@ namespace :firebase do
 
     set_arg_values(args)
 
+    file = File.open("collisions.txt", "w")
     for_each_firebase_key do |obj, data|
       obj.data = data
-      obj.save!
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        file.puts obj.uid
+        puts obj.uid
+      end
     end
+    file.close
   end
 
   module FirebaseTaskHelpers
@@ -52,7 +60,7 @@ namespace :firebase do
         puts('Optional args:')
         puts('  column_name:<value>   the column name and value you wish to set for each imported entry')
         puts('Example usage:')
-        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,question_type_id:2]')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,question_type:2]')
         exit
       end
     end
