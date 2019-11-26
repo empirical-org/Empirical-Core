@@ -55,6 +55,11 @@ RSpec.describe Question, type: :model do
       new_question = Question.new(uid: question.uid, data: {foo: 'bar'})
       expect(new_question.valid?).to be false
     end
+
+    it 'should be invalid if it has no question type' do
+      question.question_type = nil
+      expect(question.valid?).to be false
+    end
   end
 
   describe '#add_focus_point' do
@@ -133,7 +138,7 @@ RSpec.describe Question, type: :model do
     end
   end
 
-  describe '#add_incorrect_sequence' do
+  describe 'q#add_incorrect_sequence' do
     it 'should increase the number of incorrectSequences' do
       starting_length = question.data['incorrectSequences'].keys.length
       question.add_incorrect_sequence(new_incorrect_sequence)
