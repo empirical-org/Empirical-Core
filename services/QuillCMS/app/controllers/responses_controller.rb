@@ -84,7 +84,7 @@ class ResponsesController < ApplicationController
   end
 
   def health_of_question
-    render json: health_of_question(params[:question_uid])
+    render json: health_of_question_obj(params[:question_uid])
   end
 
   def grade_breakdown
