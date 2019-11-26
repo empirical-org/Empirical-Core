@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions.ts';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
 class EditFocusPointsContainer extends Component {
