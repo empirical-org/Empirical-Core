@@ -127,7 +127,8 @@ EmpiricalGrammar::Application.routes.draw do
   get :current_user_json, controller: 'teachers', action: 'current_user_json'
 
   get 'account_settings' => 'students#account_settings'
-  put 'update_email' => 'students#update_email'
+  put 'students/update_account' => 'students#update_account'
+  put 'students/update_password' => 'students#update_password'
   get 'join/:classcode' => 'students#join_classroom'
   get 'teachers/admin_dashboard' => 'teachers#admin_dashboard'
   get 'teachers/admin_dashboard/district_activity_scores' => 'teachers#admin_dashboard'

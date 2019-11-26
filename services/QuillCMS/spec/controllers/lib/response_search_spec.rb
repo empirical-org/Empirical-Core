@@ -8,23 +8,23 @@ RSpec.describe ResponseSearch do
 
   describe '#build_regex_query_string' do
     it 'should add wildcards to start and end of regex if there is no start or end symbol in the original' do
-      test_1 = '/normal testt? regex/'
-      expect(ResponseSearch.build_regex_query_string(test_1)).to eq('/.*normal testt? regex.*/')  
+      test1 = '/normal testt? regex/'
+      expect(ResponseSearch.build_regex_query_string(test1)).to eq('/.*normal testt? regex.*/')  
     end
 
     it 'should remove ^ symbol but NOT add wildcard at beginning of regex if original regex starts with ^' do
-      test_2 = '/^starts with regex/'
-      expect(ResponseSearch.build_regex_query_string(test_2)).to eq('/starts with regex.*/')
+      test2 = '/^starts with regex/'
+      expect(ResponseSearch.build_regex_query_string(test2)).to eq('/starts with regex.*/')
     end
     
     it 'should remove $ symbol but NOT add wildcard at end of regex if original regex ends with $' do
-      test_3 = '/ends with regex$/'
-      expect(ResponseSearch.build_regex_query_string(test_3)).to eq('/.*ends with regex/')
+      test3 = '/ends with regex$/'
+      expect(ResponseSearch.build_regex_query_string(test3)).to eq('/.*ends with regex/')
     end
 
     it 'should remove both ^ and $ symbols and add NO wildcards if original regex starts and ends with ^/$' do
-      test_4 = '/^starts and ends with regex$/'
-      expect(ResponseSearch.build_regex_query_string(test_4)).to eq('/starts and ends with regex/')
+      test4 = '/^starts and ends with regex$/'
+      expect(ResponseSearch.build_regex_query_string(test4)).to eq('/starts and ends with regex/')
     end
   end  
 

@@ -257,7 +257,7 @@ class ResponsesController < ApplicationController
         if val.respond_to?(:keys)
           new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
         else
-          new_concept_results[key] = val.include?('true', true)
+          new_concept_results[key] = ['true', true].include?(val)
         end
       end
       new_concept_results
