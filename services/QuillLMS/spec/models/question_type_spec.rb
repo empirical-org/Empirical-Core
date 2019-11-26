@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe QuestionType, type: :model do
-  let(:question_type) { create(:question_type)}
+  let(:question_type) { create(:question_type, :connect)}
   describe '#valid?' do
     it 'should be valid from the factory' do
       expect(question_type.valid?).to be true
