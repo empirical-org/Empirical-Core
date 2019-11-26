@@ -13,3 +13,4 @@ case $1 in
 esac
 
 eb deploy ${EB_ENVIRONMENT_NAME}
+open "https://rpm.newrelic.com/accounts/770600/applications/74496669"

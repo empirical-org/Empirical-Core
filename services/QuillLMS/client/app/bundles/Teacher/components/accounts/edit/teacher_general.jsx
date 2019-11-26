@@ -233,7 +233,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     const selectedTimeZone = timeZoneOptions.find(tz => tz.name === timeZone)
     const selectedSchoolType = this.schoolTypeOptions().find(st => st.value === schoolType)
 
-    return (<div className="teacher-account-general teacher-account-section">
+    return (<div className="user-account-general user-account-section">
       <h1>General</h1>
       <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
         <div className="fields">
