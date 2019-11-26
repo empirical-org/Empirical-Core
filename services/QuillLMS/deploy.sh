@@ -24,3 +24,4 @@ TEMP_DEPLOY_BRANCH=temp-for-deploy
  git push -f ${DEPLOY_GIT_REMOTE} ${TEMP_DEPLOY_BRANCH}:master)
 git checkout ${STARTING_BRANCH}
 git branch -D ${TEMP_DEPLOY_BRANCH}
+open "https://rpm.newrelic.com/accounts/770600/applications/3825541"
