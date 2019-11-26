@@ -138,7 +138,7 @@ RSpec.describe Question, type: :model do
     end
   end
 
-  describe 'q#add_incorrect_sequence' do
+  describe '#add_incorrect_sequence' do
     it 'should increase the number of incorrectSequences' do
       starting_length = question.data['incorrectSequences'].keys.length
       question.add_incorrect_sequence(new_incorrect_sequence)
