@@ -34,12 +34,19 @@ describe Api::V1::QuestionsController, type: :controller do
 
   describe "#show" do
     it "should return the specified question" do
-      get :show, id: question.uid, question_type_id: 1
+      get :show, id: question.uid, question_type_id: 'connect_sentence_combining'
       expect(JSON.parse(response.body)).to eq(question.data)
     end
 
     it "should return a 404 if the requested Question is not found" do
-      get :show, question_type_id: 1, :id => 'doesnotexist'
+      get :show, question_type_id: 'connect_sentence_combining', :id => 'doesnotexist'
+      expect(response.status).to eq(404)
+      expect(response.body).to include("The resource you were looking for does not exist")
+    end
+
+    it "should return a 404 if the requested Question has a different question type" do
+      new_question_type = create(:question_type, :diagnostic)
+      get :show, id: question.uid, question_type_id: 'diagnostic_sentence_combining'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -59,13 +66,13 @@ describe Api::V1::QuestionsController, type: :controller do
   describe "#update" do
     it "should update the existing record" do
       data = {"foo" => "bar"}
-      put :update, question_type_id: 1, :id => question.uid, question: data
+      put :update, question_type_id: 'connect_sentence_combining', :id => question.uid, question: data
       question.reload
       expect(question.data).to eq(data)
     end
 
     it "should return a 404 if the requested Question is not found" do
-      get :update, question_type_id: 1, id: 'doesnotexist'
+      get :update, question_type_id: 'connect_sentence_combining', id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -88,13 +95,13 @@ describe Api::V1::QuestionsController, type: :controller do
   describe "#update_flag" do
     it "should update the flag attribute in the data" do
       new_flag = 'newflag'
-      put :update_flag, question_type_id: 1, id: question.uid, question: {flag: new_flag}
+      put :update_flag, question_type_id: 'connect_sentence_combining', id: question.uid, question: {flag: new_flag}
       question.reload
       expect(question.data["flag"]).to eq(new_flag)
     end
 
     it "should return a 404 if the requested Question is not found" do
-      put :update_flag, question_type_id: 1, id: 'doesnotexist', question: {flag: nil}
+      put :update_flag, question_type_id: 'connect_sentence_combining', id: 'doesnotexist', question: {flag: nil}
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
