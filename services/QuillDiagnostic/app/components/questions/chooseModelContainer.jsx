@@ -11,6 +11,7 @@ class ChooseModelContainer extends Component {
     const modelConceptUID = props.questions.data[props.params.questionID].modelConceptUID
     const lessonUID = Object.keys(props.lessons.data).find((uid) => {
       const lesson = props.lessons.data[uid]
+      if (!lesson.questions) return false;
       return lesson.questions.find(q => q.key === props.params.questionID)
     })
     const lessonModelConceptUID = lessonUID && props.lessons.data[lessonUID] ? props.lessons.data[lessonUID].modelConceptUID : null
