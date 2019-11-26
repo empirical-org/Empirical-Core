@@ -44,7 +44,9 @@ namespace :firebase do
     def set_arg_values(args)
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
-      @COLUMN_NAME, @COLUMN_VAL = args[:column_data].split(":")
+      column_parts = args[:column_data].split(":")
+      @COLUMN_NAME = column_parts[0]
+      @COLUMN_VAL = column_parts[1]
       if !@FIREBASE_URL || !@RAILS_MODEL
         puts('You must provide Firebase URL and Rails model args to run this task.')
         puts('Optional args:')

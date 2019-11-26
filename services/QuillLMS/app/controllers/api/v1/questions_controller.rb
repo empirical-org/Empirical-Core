@@ -57,6 +57,6 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   private def get_question_type
-    @question_type = QuestionType.find(params[:question_type_id])
+    @question_type = QuestionType.find_by(name: params[:question_type_id])
   end
 end

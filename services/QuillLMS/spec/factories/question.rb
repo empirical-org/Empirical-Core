@@ -115,7 +115,8 @@ FactoryBot.define do
     'prompt' => '<p>The moon is smaller than the sun.</p><p>Earth is smaller than the sun.</p>'
   }
   factory :question do
-    uid      SecureRandom.uuid
-    data     data
+    uid                   SecureRandom.uuid
+    data                  data
+    question_type         {create(:question_type)}
   end
 end
