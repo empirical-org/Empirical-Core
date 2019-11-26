@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :question_type do
-    name            "connect_sentence_combining"
+    trait(:connect)      { name    "connect_sentence_combining" }
+    trait(:diagnostic)   { name    "diagnostic_sentence_combining" }
   end
 end
