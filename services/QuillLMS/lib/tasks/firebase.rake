@@ -71,7 +71,7 @@ namespace :firebase do
       firebase_keys = firebase_shallow.keys
       firebase_keys.each do |key|
         data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
-        obj = klass.find_or_create_by(uid: key, "#{@COLUMN_NAME}": "#{@COLUMN_VAL}")
+        obj = klass.find_or_create_by(uid: key, "#{@COLUMN_NAME}": @COLUMN_VAL.to_s)
         if obj.valid?
           puts("updating #{@RAILS_MODEL} with uid '#{key}' and '#{@COLUMN_NAME}': #{@COLUMN_VAL}")
         else
