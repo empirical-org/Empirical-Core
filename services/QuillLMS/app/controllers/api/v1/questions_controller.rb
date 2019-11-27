@@ -1,6 +1,6 @@
 class Api::V1::QuestionsController < Api::ApiController
-  before_filter :get_question_by_uid, except: [:index, :create, :valid_params]
   before_action :get_question_type
+  before_action :get_question_by_uid, except: [:index, :create, :valid_params]
 
   ALL_QUESTIONS_CACHE_KEY = 'ALL_QUESTIONS'
   ALL_QUESTIONS_CACHE_EXPIRY = 600
@@ -45,7 +45,7 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   private def get_question_by_uid
-    @question = Question.find_by!(uid: params[:id])
+    @question = Question.find_by!(uid: params[:id], question_type_id: @question_type.id)
   end
 
   private def valid_params

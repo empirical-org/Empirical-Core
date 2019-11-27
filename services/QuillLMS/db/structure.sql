@@ -4546,10 +4546,24 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
+-- Name: index_questions_on_question_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_questions_on_question_type_id ON public.questions USING btree (question_type_id);
+
+
+--
 -- Name: index_questions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_questions_on_uid ON public.questions USING btree (uid);
+CREATE INDEX index_questions_on_uid ON public.questions USING btree (uid);
+
+
+--
+-- Name: index_questions_on_uid_and_question_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_questions_on_uid_and_question_type_id ON public.questions USING btree (uid, question_type_id);
 
 
 --
@@ -6033,4 +6047,6 @@ INSERT INTO schema_migrations (version) VALUES ('20191122161233');
 INSERT INTO schema_migrations (version) VALUES ('20191122180459');
 
 INSERT INTO schema_migrations (version) VALUES ('20191122181105');
+
+INSERT INTO schema_migrations (version) VALUES ('20191127150712');
 
