@@ -6,11 +6,12 @@ class User < ActiveRecord::Base
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
 
+  before_validation :generate_student_username_if_absent
+  before_validation :prep_authentication_terms
   before_save :capitalize_name
-  before_save :generate_student_username_if_absent
   after_save  :update_invitee_email_address, if: Proc.new { email_changed? }
+  after_save :check_for_school
   after_create :generate_referrer_id, if: Proc.new { teacher? }
-
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
@@ -65,10 +66,8 @@ class User < ActiveRecord::Base
   validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { if: :email_required_or_present?},
-                                    on: :create
+                                    uniqueness:   { message: :taken, if: :email_required_or_present?}
 
-  validate  :validate_username_and_email,  on: :update
   validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
@@ -77,8 +76,8 @@ class User < ActiveRecord::Base
 
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { allow_blank: true },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username?}
+                                    uniqueness:   { allow_blank: true, message: :taken },
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
 
   validate :validate_flags
 
@@ -100,10 +99,6 @@ class User < ActiveRecord::Base
   scope :student, lambda { where(role: STUDENT) }
 
   attr_accessor :newsletter
-
-  before_validation :prep_authentication_terms
-
-  after_save :check_for_school
 
   def testing_flag
     role == STAFF ? PRIVATE : flags.detect{|f| TESTING_FLAGS.include?(f)}
@@ -579,27 +574,6 @@ private
     invalid_flags = flags - VALID_FLAGS
     if invalid_flags.any?
        errors.add(:flags, "invalid flag(s) #{invalid_flags.to_s}")
-    end
-  end
-
-  def validate_username_and_email
-    # change_field will return the field (username or email) that is changing
-    change_field = detect_username_or_email_updated
-    if change_field && self[change_field].present? && User.find_by(change_field => self[change_field])
-      # if the field has been changed, to that of an existing record,
-      # raise an error
-      errors.add(change_field, :taken)
-    end
-  end
-
-  def detect_username_or_email_updated
-    @db_self = User.find(id)
-    if @db_self.username != username
-      return :username
-    elsif @db_self.email != email
-      return :email
-    else
-      nil
     end
   end
 

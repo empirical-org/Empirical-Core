@@ -39,7 +39,7 @@ module ResponseSearch
     is_regex = user_input.first == '/' && user_input.last == '/'
     query = {
       query_string: {
-        default_field: is_regex ? 'text.keyword' : 'text',
+        default_field: is_regex ? 'sortable_text' : 'text',
         query: build_query_string(question_uid, query_filters, is_regex)
       }
     }

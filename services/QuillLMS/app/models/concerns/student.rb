@@ -11,11 +11,11 @@ module Student
     has_many :assigned_activities, through: :classrooms, source: :activities
     has_many :started_activities, through: :activity_sessions, source: :activity
 
-    def finished_activities classroom
+    def finished_activities(classroom)
       classroom_unit_score_join(classroom).where('activity_sessions.completed_at is not null')
     end
 
-    def classroom_unit_score_join classroom
+    def classroom_unit_score_join(classroom)
       started_activities
       .joins('join unit_activities ON unit_activities.activity_id = activities.id')
       .joins('join classroom_units ON classroom_units.unit_id = unit_activities.unit_id')

@@ -5,8 +5,16 @@ class CreateOrIncrementResponseWorker
     symbolized_vals = new_vals.symbolize_keys
     response = Response.find_by(text: symbolized_vals[:text], question_uid: symbolized_vals[:question_uid])
     if !response
-      response = Response.new(symbolized_vals)
-      if !response.text.blank? && response.save!
+      begin
+        response = Response.new(symbolized_vals)
+        if !response.text.blank? && response.save!
+          AdminUpdates.run(response.question_uid)
+        end
+      # In cases with "bad faith" responses that are particularly large,
+      # Elasticsearch will reject them.  But we don't want to retry indexing
+      # those, so we rescue the exception and do make sure AdminUpdates run.
+      # The data should persist to the DB safely.
+      rescue Elasticsearch::Transport::Transport::Errors::BadRequest
         AdminUpdates.run(response.question_uid)
       end
     else
