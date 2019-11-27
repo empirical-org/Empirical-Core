@@ -51,8 +51,8 @@ RSpec.describe Question, type: :model do
       expect(question.errors[:data]).to include('must be a hash')
     end
 
-    it 'should be invalid if the uid is not unique' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'})
+    it 'should be invalid if the uid is not unique and question type is the same' do
+      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type_id: question.question_type_id)
       expect(new_question.valid?).to be false
     end
 
@@ -138,7 +138,7 @@ RSpec.describe Question, type: :model do
     end
   end
 
-  describe 'q#add_incorrect_sequence' do
+  describe '#add_incorrect_sequence' do
     it 'should increase the number of incorrectSequences' do
       starting_length = question.data['incorrectSequences'].keys.length
       question.add_incorrect_sequence(new_incorrect_sequence)
