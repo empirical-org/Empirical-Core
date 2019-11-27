@@ -19,7 +19,7 @@ class Response < ApplicationRecord
       indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
       indexes :uid, type: 'text'
-      indexes :question_uid, type: 'text', index: "false"
+      indexes :question_uid, type: 'text', index: "true"
       indexes :parent_id, type: 'integer'
       indexes :parent_uid, type: 'text'
       indexes :feedback, type: 'text'
