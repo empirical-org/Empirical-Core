@@ -137,6 +137,10 @@ USE_TZ = True
 # is commented to serve static content from GCS
 # STATIC_URL = 'https://storage.googleapis.com/<your-gcs-bucket>/static/'
 STATIC_URL = 'https://storage.googleapis.com/quill-comprehension-api/static/'
+if os.getenv('GAE_INSTANCE'):
+    pass
+else:
+    STATIC_URL = '/static/'
 # [END staticurl]
 
 STATIC_ROOT = 'static/'
