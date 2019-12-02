@@ -233,11 +233,8 @@ class User < ActiveRecord::Base
   end
 
   def safe_role_assignment role
-    self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
-      sanitized_role
-    else
-      'user'
-    end
+    sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
+    self.role = sanitized_role || 'user'
   end
 
   def self.sorting_name_sql
