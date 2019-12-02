@@ -1,4 +1,4 @@
-import os.environ
+import os
 
 # Ignoring style rules about importing '*' so that we can cascade
 # settings values without having to re-specify all of them
