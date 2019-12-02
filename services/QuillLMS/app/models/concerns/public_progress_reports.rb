@@ -171,16 +171,10 @@ module PublicProgressReports
 
 
     def get_time_in_minutes activity_session
-      if activity_session.started_at && activity_session.completed_at
-        time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
-        if time > 60
-          '> 60'
-        else
-          time
-        end
-      else
-        'Untracked'
-      end
+      return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
+
+      time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
+      time > 60 ? '> 60' : time
     end
 
     def get_concept_results activity_session

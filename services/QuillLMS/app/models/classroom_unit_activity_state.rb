@@ -32,19 +32,17 @@ class ClassroomUnitActivityState < ActiveRecord::Base
       classroom_unit_id: self.classroom_unit_id,
       unit_activity_id: self.unit_activity_id
     )
-    if cua && (cua.id != self.id)
-      begin
-        raise 'This classroom unit activity state is a duplicate'
-      rescue => e
-        NewRelic::Agent.add_custom_attributes({
-          classroom_unit_id: self.classroom_unit_id,
-          unit_activity_id: self.unit_activity_id
-        })
-        NewRelic::Agent.notice_error(e)
-        errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
-      end
-    else
-      true
+    return true if !cua || cua.id == self.id
+    
+    begin
+      raise 'This classroom unit activity state is a duplicate'
+    rescue => e
+      NewRelic::Agent.add_custom_attributes({
+        classroom_unit_id: self.classroom_unit_id,
+        unit_activity_id: self.unit_activity_id
+      })
+      NewRelic::Agent.notice_error(e)
+      errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
     end
   end
 

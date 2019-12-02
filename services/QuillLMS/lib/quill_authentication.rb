@@ -18,7 +18,7 @@ module QuillAuthentication
       if session[:user_id]
         @current_user ||= User.find(session[:user_id])
       elsif doorkeeper_token
-        return User.find_by_id(doorkeeper_token.resource_owner_id) if doorkeeper_token
+        User.find_by_id(doorkeeper_token.resource_owner_id)
       else
         authenticate_with_http_basic do |username, password|
           return @current_user ||= User.find_by_token!(username) if username.present?
