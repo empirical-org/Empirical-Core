@@ -51,16 +51,16 @@ class ReferralsUser < ActiveRecord::Base
       AND activity_sessions.completed_at IS NOT NULL
     ").to_a.map(&:values).flatten
 
-    if classroom_unit_ids.empty?
+    if not classroom_unit_ids.empty?
       return []
-    else
-      ActiveRecord::Base.connection.execute("
-        SELECT DISTINCT referrals_users.id FROM referrals_users
-          JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
-          JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-          WHERE classroom_units.id IN (#{classroom_unit_ids.join(',')})
-      ").to_a.map(&:values).flatten
     end
+
+    ActiveRecord::Base.connection.execute("
+      SELECT DISTINCT referrals_users.id FROM referrals_users
+        JOIN classrooms_teachers ON referrals_users.referred_user_id = classrooms_teachers.user_id
+        JOIN classroom_units ON classrooms_teachers.classroom_id = classroom_units.classroom_id
+        WHERE classroom_units.id IN (#{classroom_unit_ids.join(',')})
+    ").to_a.map(&:values).flatten
   end
 
   private
