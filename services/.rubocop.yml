@@ -278,6 +278,8 @@ Lint/RedundantStringCoercion:
 
 Naming/RescuedExceptionsVariableName:
   Enabled: true
+  Exclude:
+    - 'QuillLMS/app/workers/get_concepts_in_use_individual_concept_worker.rb'
 
 Style/FloatDivision:
   Enabled: true
