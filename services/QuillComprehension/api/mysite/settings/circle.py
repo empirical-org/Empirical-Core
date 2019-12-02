@@ -1,15 +1,17 @@
-from os import environ
+import os.environ
 
-from .base import *
+# Ignoring style rules about importing '*' so that we can cascade
+# settings values without having to re-specify all of them
+from .base import *  # noqa: F401,F403
 
 # [START dbconfig]
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': environ['PG_DB'],
-        'USER': environ['PG_USER'],
-        'PASSWORD': environ['PG_PASS'],
+        'NAME': os.environ['PG_DB'],
+        'USER': os.environ['PG_USER'],
+        'PASSWORD': os.environ['PG_PASS'],
         'PORT': '5432',
     }
 }
