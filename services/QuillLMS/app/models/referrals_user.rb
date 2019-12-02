@@ -59,7 +59,7 @@ class ReferralsUser < ActiveRecord::Base
           WHERE classroom_units.id IN (#{classroom_unit_ids.join(',')})
       ").to_a.map(&:values).flatten
     else
-      return []
+      []
     end
   end
 

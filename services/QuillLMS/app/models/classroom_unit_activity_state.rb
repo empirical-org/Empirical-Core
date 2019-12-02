@@ -44,7 +44,7 @@ class ClassroomUnitActivityState < ActiveRecord::Base
         errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
       end
     else
-      return true
+      true
     end
   end
 

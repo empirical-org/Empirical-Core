@@ -23,7 +23,7 @@ class Api::ApiController < ActionController::Base
   private def current_user
     begin
       if session[:user_id]
-        return @current_user ||= User.find(session[:user_id])
+        @current_user ||= User.find(session[:user_id])
       elsif doorkeeper_token
         return User.find_by_id(doorkeeper_token.resource_owner_id) if doorkeeper_token
       else

@@ -34,9 +34,9 @@ module PublicProgressReports
       cu = last_completed_diagnostic
       if cu
         custom_url = "#u/#{cu.unit.id}/a/#{cu.activity_id}/c/#{cu.classroom_id}"
-        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
+        "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
-        return "/teachers/progress_reports/diagnostic_reports/#not_completed"
+        "/teachers/progress_reports/diagnostic_reports/#not_completed"
       end
     end
 
@@ -174,9 +174,9 @@ module PublicProgressReports
       if activity_session.started_at && activity_session.completed_at
         time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
         if time > 60
-          return '> 60'
+          '> 60'
         else
-          return time
+          time
         end
       else
         'Untracked'
