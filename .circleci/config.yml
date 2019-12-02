@@ -431,38 +431,38 @@ workflows:
     # If we add more workers, we'd need to adjust this order/logic.
     # This makes sure the longest 2 tests run parallel to start and the other long ones follow after
     jobs:
-      - lms_rails_build
-      - connect_node_build
-      - lms_node_build:
-          requires:
-            - connect_node_build
-      - marking_logic_node_build:
-          requires:
-            - connect_node_build
-      - diagnostic_node_build:
-          requires:
-            - lms_rails_build
-      - grammar_node_build:
-          requires:
-            - lms_rails_build
-      - cms_rails_build:
-          requires:
-            - lms_rails_build
-      - lessons_node_build:
-          requires:
-            - lms_rails_build
-      - proofreader_node_build:
-          requires:
-            - lms_rails_build
-      - spellchecker_node_build:
-          requires:
-            - lms_rails_build
-      - comprehension_rails_build:
-          requires:
-            - lms_rails_build
+#      - lms_rails_build
+#      - connect_node_build
+#      - lms_node_build:
+#          requires:
+#            - connect_node_build
+#      - marking_logic_node_build:
+#          requires:
+#            - connect_node_build
+#      - diagnostic_node_build:
+#          requires:
+#            - lms_rails_build
+#      - grammar_node_build:
+#          requires:
+#            - lms_rails_build
+#      - cms_rails_build:
+#          requires:
+#            - lms_rails_build
+#      - lessons_node_build:
+#          requires:
+#            - lms_rails_build
+#      - proofreader_node_build:
+#          requires:
+#            - lms_rails_build
+#      - spellchecker_node_build:
+#          requires:
+#            - lms_rails_build
+#      - comprehension_rails_build:
+#          requires:
+#            - lms_rails_build
       - comprehension_python_build
   lint-code:
     jobs:
-      - node_lint
-      - rubocop_lint
+#      - node_lint
+#      - rubocop_lint
       - flake8_lint
