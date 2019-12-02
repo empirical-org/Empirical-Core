@@ -52,7 +52,7 @@ Layout/AccessModifierIndentation:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/AlignArguments:
+Layout/ArgumentAlignment:
   Enabled: false
 
 # Offense count: 267
@@ -61,14 +61,14 @@ Layout/AlignArguments:
 # SupportedHashRocketStyles: key, separator, table
 # SupportedColonStyles: key, separator, table
 # SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: with_first_parameter, with_fixed_indentation
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Exclude:
     - 'QuillLMS/spec/support/pages/sign_in_page.rb'
     - 'QuillLMS/spec/support/pages/sign_up_page.rb'
@@ -236,21 +236,21 @@ Layout/ExtraSpacing:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: consistent, consistent_relative_to_receiver, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: false
 
 # Offense count: 52
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_brackets
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
 # Offense count: 247
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: special_inside_parentheses, consistent, align_braces
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   Enabled: false
 
 # Offense count: 112
@@ -488,7 +488,7 @@ Layout/Tab:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: false
 
 # Offense count: 154
@@ -522,7 +522,7 @@ Lint/BooleanSymbol:
 
 # Offense count: 7
 # Configuration parameters: AllowComments.
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'QuillCMS/lib/tasks/import_from_firebase.rake'
     - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
@@ -551,7 +551,7 @@ Lint/ParenthesesAsGroupedExpression:
 
 # Offense count: 5
 # Cop supports --auto-correct.
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Exclude:
     - 'QuillCMS/lib/modules/response_search.rb'
     - 'QuillLMS/app/models/user.rb'
@@ -676,7 +676,7 @@ Naming/RescuedExceptionsVariableName:
 # Offense count: 4
 # Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
 # AllowedNames: io, id, to, by, on, in, at, ip, db
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Exclude:
     - 'QuillLMS/app/helpers/application_helper.rb'
     - 'QuillLMS/app/models/subscription.rb'
