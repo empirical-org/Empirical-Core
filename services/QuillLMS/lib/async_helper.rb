@@ -10,8 +10,8 @@ def eventually(options = {})
       yield
     rescue *EXCEPTIONS => e
     end
-    return if error.nil?
-    raise error if Time.now >= time_limit
+    return if e.nil?
+    raise e if Time.now >= time_limit
     sleep interval
   end
 end
