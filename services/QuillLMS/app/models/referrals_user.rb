@@ -51,7 +51,7 @@ class ReferralsUser < ActiveRecord::Base
       AND activity_sessions.completed_at IS NOT NULL
     ").to_a.map(&:values).flatten
 
-    if not classroom_unit_ids.empty?
+    if classroom_unit_ids.empty?
       return []
     end
 
