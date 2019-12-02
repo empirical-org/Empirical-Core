@@ -206,7 +206,7 @@ Style/RedundantFreeze:
   Enabled: true
 
 Style/RedundantReturn:
-  Enabled: true
+  Enabled: false
 
 Style/RescueModifier:
   Exclude:
