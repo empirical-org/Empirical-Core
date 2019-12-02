@@ -29,9 +29,9 @@ RSpec.describe ResponseSearch do
   end  
 
   describe '#get_query_values' do
-    it 'should search in field \'text.keyword\' if original query contains regex' do
+    it 'should search in field \'sortable_text\' if original query contains regex' do
       test_query_filters['text'] = '/test_regex/'
-      expect(ResponseSearch.get_query_values('000', test_query_filters)[:query_string][:default_field]).to eq('text.keyword')
+      expect(ResponseSearch.get_query_values('000', test_query_filters)[:query_string][:default_field]).to eq('sortable_text')
     end
 
     it 'should search in field \'text\' if original query does not contain regex' do
