@@ -6,13 +6,13 @@ Style/ZeroLengthPredicate:
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   Enabled: true
 
 Layout/InitialIndentation:
   Enabled: true
 
-Layout/LeadingBlankLines:
+Layout/LeadingEmptyLines:
   Enabled: true
 
 Layout/SpaceAfterMethodName:
@@ -30,7 +30,7 @@ Lint/DeprecatedClassMethods:
 Lint/DuplicateCaseCondition:
   Enabled: true
 
-Lint/DuplicatedKey:
+Lint/DuplicateHashKey:
   Enabled: true
 
 Lint/InterpolationCheck:
@@ -147,7 +147,7 @@ Layout/ClosingHeredocIndentation:
 Layout/DefEndAlignment:
   Enabled: true
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: true
 
 Layout/SpaceInLambdaLiteral:
@@ -243,7 +243,7 @@ Style/EmptyLiteral:
 Style/MultipleComparison:
   Enabled: true
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: true
   Exclude:
     - 'QuillCMS/spec/workers/rematch_response_worker_spec.rb'
@@ -258,7 +258,7 @@ Style/ParallelAssignment:
 Style/RegexpLiteral:
   Enabled: true
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: true
 
 Layout/EndAlignment:
@@ -273,7 +273,7 @@ Layout/EndAlignment:
 Layout/SpaceAroundKeyword:
   Enabled: true
 
-Lint/StringConversionInInterpolation:
+Lint/RedundantStringCoercion:
   Enabled: true
 
 Naming/RescuedExceptionsVariableName:
