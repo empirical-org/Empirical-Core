@@ -117,7 +117,7 @@ class SerializeSalesContact
     end
 
     if teacher.last_expired_subscription.present?
-      return teacher.last_expired_subscription
+      teacher.last_expired_subscription
     end
   end
 
