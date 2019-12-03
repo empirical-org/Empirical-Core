@@ -260,9 +260,9 @@ class Subscription < ActiveRecord::Base
     {expiration: Date.today + 30, start_date: Date.today}
   end
 
-  def report_to_new_relic(e)
+  def report_to_new_relic(error)
     begin
-      raise e
+      raise error
     rescue => e
       NewRelic::Agent.notice_error(e)
     end
