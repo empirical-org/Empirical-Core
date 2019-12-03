@@ -35,14 +35,14 @@ class Auth::CleverController < ApplicationController
     if session[ApplicationController::CLEVER_REDIRECT]
       redirect_route = session[ApplicationController::CLEVER_REDIRECT]
       session[ApplicationController::CLEVER_REDIRECT] = nil
-      return redirect_to redirect_route
+      redirect_to redirect_route
     else
       sign_in(data)
       if current_user.is_new_teacher_without_school?
         # then the user does not have a school and needs one
         return redirect_to '/sign-up/add-k12'
       end
-      return redirect_to profile_url
+      redirect_to profile_url
     end
   end
 
