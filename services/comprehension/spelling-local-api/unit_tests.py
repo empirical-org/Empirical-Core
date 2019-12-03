@@ -11,25 +11,26 @@ from flask import json
 def app():
     return flask.Flask(__name__)
 
-def mock_response_for(label_dict):
-    mock_response = Mock()
-    payload = []
-
-    for label, score in label_dict.items():
-      mock = Mock(display_name=label, classification=Mock(score=score))
-      payload.append(mock)
-
-    mock_response.payload = payload
-
-    return mock_response
-
-def test_http_response(app):
+def test_missing_prompt_id(app):
     with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': None}):
       response = main.response_endpoint(flask.request)
       data = json.loads(response.data)
 
       assert response.status_code == 400
 
+def test_missing_entry(app):
+    with app.test_request_context(json={'entry': None, 'prompt_id': 000}):
+      response = main.response_endpoint(flask.request)
+      data = json.loads(response.data)
+
+      assert response.status_code == 400
+
+def test_misspelled_param(app):
+    with app.test_request_context(json={'entree': 'This is spelled correctly.', 'prompt_id': 000}):
+      response = main.response_endpoint(flask.request)
+      data = json.loads(response.data)
+
+      assert response.status_code == 400
 
 def test_correct_spelling():
     misspelled = main.get_misspelled_words_no_casing('This is spelled correctly.')
