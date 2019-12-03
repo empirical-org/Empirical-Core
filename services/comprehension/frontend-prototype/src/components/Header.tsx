@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout, Row } from "antd";
 import * as Redux from "redux";
 import { connect } from "react-redux";
 import '../styles/Header.scss'

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout } from "antd";
 import Header from "./Header";
 import { Redirect } from "react-router-dom";
 import {renderRoutes} from "react-router-config";
