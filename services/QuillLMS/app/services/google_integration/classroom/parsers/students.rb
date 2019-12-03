@@ -1,24 +1,22 @@
 module GoogleIntegration::Classroom::Parsers::Students
 
-=begin
-example result of JSON.parse(response.body) :
-
-{"students":
-  [
-    {"courseId":"455798942",
-     "userId":"107708392406225674265",
-     "profile":
-        {"id":"107708392406225674265",
-         "name":
-          {"givenName":"test1_s1",
-           "familyName":"s1",
-           "fullName":"test1_s1 s1"},
-          "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
-        }
-    }
-  ]}
-
-=end
+  # example result of JSON.parse(response.body) :
+  #
+  # {"students":
+  #   [
+  #     {"courseId":"455798942",
+  #      "userId":"107708392406225674265",
+  #      "profile":
+  #         {"id":"107708392406225674265",
+  #          "name":
+  #           {"givenName":"test1_s1",
+  #            "familyName":"s1",
+  #            "fullName":"test1_s1 s1"},
+  #           "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
+  #         }
+  #     }
+  #   ]}
+  #
 
   def self.run(students)
     return [] if !students || !students.length

@@ -23,9 +23,9 @@ module Associators::StudentsToClassrooms
 
   private
 
-  def self.update_classroom_units(sc)
-    cus = ClassroomUnit.where(classroom_id: sc.classroom_id)
-    cus.each{|cu| cu.validate_assigned_student(sc.student_id)}
+  def self.update_classroom_units(student_classroom)
+    cus = ClassroomUnit.where(classroom_id: student_classroom.classroom_id)
+    cus.each{|cu| cu.validate_assigned_student(student_classroom.student_id)}
   end
 
   def self.legit_classroom

@@ -22,7 +22,7 @@ class Activity < ActiveRecord::Base
 
   delegate :form_url, to: :classification, prefix: true
 
-  scope :production, -> {
+  scope :production, lambda {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
     SQL
