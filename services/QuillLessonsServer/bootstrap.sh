@@ -18,6 +18,7 @@ $(rethinkdb restore --force $rethink_dump_path)
 echo "Generating and configuring JWT public/private keypair..."
 ssh-keygen -t rsa -b 4096 -N '' -m PEM -f lessons_server_jwt_keypair
 jq -n --arg cert "$(openssl rsa -in lessons_server_jwt_keypair -pubout)" '{env: {JWT_PUBLIC_KEY: $cert}}' > nodemon.json
+echo -e '\n' >> ../QuillLMS/.env
 echo "LESSONS_PRIVATE_KEY=$(cat lessons_server_jwt_keypair | jq -R -c -s)" >> ../QuillLMS/.env
 rm lessons_server_jwt_keypair*
 
