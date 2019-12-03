@@ -29,10 +29,10 @@ class Cms::ActivityCategoriesController < Cms::CmsController
       aca.save!
       errors << aca.errors if aca.errors.any?
     end
-    unless errors.any?
-      render json: { activities: get_activities_query(params[:activity_category_id]) }, status: 200
-    else
+    if errors.any?
       render json: { errors: errors }, status: 500
+    else
+      render json: { activities: get_activities_query(params[:activity_category_id]) }, status: 200
     end
   end
 

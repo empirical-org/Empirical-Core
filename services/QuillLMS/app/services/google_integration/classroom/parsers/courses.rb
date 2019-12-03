@@ -1,12 +1,10 @@
 module GoogleIntegration::Classroom::Parsers::Courses
 
 
-=begin
-example JSON.parse(response.body) :
-
-{"id"=>"5169992618", "name"=>"archive test", "descriptionHeading"=>"archive test", "ownerId"=>"112188393285935083024", "creationTime"=>"2017-03-16T19:09:15.524Z", "updateTime"=>"2017-03-16T19:10:21.493Z", "enrollmentCode"=>"csaous", "courseState"=>"ARCHIVED", "alternateLink"=>"http://classroom.google.com/c/NTE2OTk5MjYxOFpa", "teacherGroupEmail"=>"archive_test_teachers_d85e9a6a@quill.org", "courseGroupEmail"=>"archive_test_732f640d@quill.org", "teacherFolder"=>{"id"=>"0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg", "title"=>"archive test", "alternateLink"=>"https://drive.google.com/drive/folders/0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg"}, "guardiansEnabled"=>false}
-
-=end
+  # example JSON.parse(response.body) :
+  #
+  # {"id"=>"5169992618", "name"=>"archive test", "descriptionHeading"=>"archive test", "ownerId"=>"112188393285935083024", "creationTime"=>"2017-03-16T19:09:15.524Z", "updateTime"=>"2017-03-16T19:10:21.493Z", "enrollmentCode"=>"csaous", "courseState"=>"ARCHIVED", "alternateLink"=>"http://classroom.google.com/c/NTE2OTk5MjYxOFpa", "teacherGroupEmail"=>"archive_test_teachers_d85e9a6a@quill.org", "courseGroupEmail"=>"archive_test_732f640d@quill.org", "teacherFolder"=>{"id"=>"0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg", "title"=>"archive test", "alternateLink"=>"https://drive.google.com/drive/folders/0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg"}, "guardiansEnabled"=>false}
+  #
 
   def self.run(user, course_response, student_requester)
     if user.role == 'teacher'
