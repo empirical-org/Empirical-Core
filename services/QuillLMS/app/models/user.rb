@@ -157,12 +157,12 @@ class User < ActiveRecord::Base
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
     if subscription.purchaser_id == id
-        return 'purchaser'
+        'purchaser'
     elsif subscription.schools.include?(school)
       if school.coordinator == self
-        return 'coordinator'
+        'coordinator'
       elsif school.authorizer == self
-        return 'authorizer'
+        'authorizer'
       end
     end
   end

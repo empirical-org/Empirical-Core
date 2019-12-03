@@ -16,7 +16,7 @@ module GoogleIntegration::Classroom::Main
     raw_course_response = GoogleIntegration::Classroom::Requesters::Courses.run(client)
     course_response = JSON.parse(raw_course_response.body, symbolize_names: true)
     if course_response.dig(:error, :status) == 'UNAUTHENTICATED'
-      return 'UNAUTHENTICATED'
+      'UNAUTHENTICATED'
     # TODO: pass back any other errors and we can handle them on the front end
     # elsif course_response(:error)
     #   return error

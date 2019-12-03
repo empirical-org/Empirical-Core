@@ -32,19 +32,18 @@ class ClassroomUnitActivityState < ActiveRecord::Base
       classroom_unit_id: classroom_unit_id,
       unit_activity_id: unit_activity_id
     )
-    if cua && (cua.id != id)
-      begin
-        raise 'This classroom unit activity state is a duplicate'
-      rescue => e
-        NewRelic::Agent.add_custom_attributes({
-          classroom_unit_id: classroom_unit_id,
-          unit_activity_id: unit_activity_id
-        })
-        NewRelic::Agent.notice_error(e)
-        errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
-      end
-    else
-      return true
+
+    return true if !cua || cua.id == id
+    
+    begin
+      raise 'This classroom unit activity state is a duplicate'
+    rescue => e
+      NewRelic::Agent.add_custom_attributes({
+        classroom_unit_id: classroom_unit_id,
+        unit_activity_id: unit_activity_id
+      })
+      NewRelic::Agent.notice_error(e)
+      errors.add(:duplicate_classroom_unit_activity_state, "this classroom unit activity state is a duplicate")
     end
   end
 
@@ -58,7 +57,8 @@ class ClassroomUnitActivityState < ActiveRecord::Base
         classroom = classroom_unit.classroom
         classroom_unit_ids = classroom.classroom_units.ids.flatten
         pinned_cua = ClassroomUnitActivityState.unscoped.find_by(pinned: true, classroom_unit_id: classroom_unit_ids)
-        return if pinned_cua && pinned_cua == self
+        return if pinned_cua && pinned_cua == 
+
         pinned_cua.update_column("pinned", false) if pinned_cua
       end
     end
