@@ -1,9 +1,9 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
     mode: 'production',
@@ -51,11 +51,6 @@ module.exports = {
                 exclude: [resolve(__dirname, "node_modules")],
             },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-            // {
-            //     test:/\.css$/,
-            //     // use: ['css-hot-loader']
-            //     use: ['css-hot-loader', 'style-loader', MiniCssExtractPlugin.loader, "css-loader"]
-            // },
             {
                 test:/\.(css|scss)$/,
                 use: ['css-hot-loader', 'style-loader', "css-loader", "sass-loader"]
@@ -69,10 +64,7 @@ module.exports = {
         ]
     },
     plugins: [
-        // new MiniCssExtractPlugin({
-        //     filename: "style.css",
-        //     chunkFilename: "[id].css"
-        //   }),
+        new CompressionPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         // enable HMR globally
         new webpack.NamedModulesPlugin(),
@@ -83,7 +75,8 @@ module.exports = {
           "process.env.EMPIRICAL_BASE_URL": JSON.stringify('https://www.quill.org'),
           "process.env.QUILL_CMS": JSON.stringify('https://cms.quill.org'),
           "process.env.PUSHER_KEY": JSON.stringify('a253169073ce7474f0ce'),
-          "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org')
+          "process.env.QUILL_CDN_URL": JSON.stringify('https://assets.quill.org'),
+          "process.env.NODE_ENV": JSON.stringify('production')
         })
     ],
     node: {

@@ -144,7 +144,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
           ]
         end
       end
-      return render text: csv_string
+      render text: csv_string
     end
   end
 end
