@@ -17,6 +17,7 @@ class Cron
     QuillStaffAccountsChangedWorker.perform_async
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     SyncSalesmachineWorker.perform_async
+    DailyStatsEmailJob.perform_async
   end
 
   def self.run_saturday
