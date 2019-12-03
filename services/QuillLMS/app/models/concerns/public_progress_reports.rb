@@ -34,9 +34,9 @@ module PublicProgressReports
       cu = last_completed_diagnostic
       if cu
         custom_url = "#u/#{cu.unit.id}/a/#{cu.activity_id}/c/#{cu.classroom_id}"
-        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
+        "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
-        return "/teachers/progress_reports/diagnostic_reports/#not_completed"
+        "/teachers/progress_reports/diagnostic_reports/#not_completed"
       end
     end
 
@@ -171,16 +171,10 @@ module PublicProgressReports
 
 
     def get_time_in_minutes activity_session
-      if activity_session.started_at && activity_session.completed_at
-        time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
-        if time > 60
-          return '> 60'
-        else
-          return time
-        end
-      else
-        'Untracked'
-      end
+      return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
+
+      time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
+      time > 60 ? '> 60' : time
     end
 
     def get_concept_results activity_session
