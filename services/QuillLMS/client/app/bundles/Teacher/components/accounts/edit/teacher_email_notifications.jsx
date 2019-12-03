@@ -27,7 +27,7 @@ export default class TeacherEmailNotifications extends React.Component {
   }
 
   render() {
-    return (<div className="teacher-account-email-notifications teacher-account-section">
+    return (<div className="teacher-account-email-notifications user-account-section">
       <h1>Email notifications</h1>
       <div className="checkboxes">
         <div className="checkbox-row">
