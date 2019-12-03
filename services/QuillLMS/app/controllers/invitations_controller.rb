@@ -10,27 +10,27 @@ class InvitationsController < ApplicationController
       raise StandardError.new(@pending_invite.errors[:base].join(" ")) unless @pending_invite.valid?
       assign_classrooms_to_invitee
       invoke_email_worker
-      return render json: { invite_id: @pending_invite.id }
+      render json: { invite_id: @pending_invite.id }
     rescue => e
-      return render json: { error: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 
   def destroy_pending_invitations_to_specific_invitee
     begin
       Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: current_user.id, invitee_email: params[:invitee_email], archived: false).destroy
-      return render json: {}
+      render json: {}
     rescue => e
-      return render json: { error: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 
   def destroy_pending_invitations_from_specific_inviter
     begin
       Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email, archived: false).destroy
-      return render json: {}
+      render json: {}
     rescue => e
-      return render json: { error: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 
