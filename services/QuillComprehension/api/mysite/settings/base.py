@@ -1,3 +1,5 @@
+import os
+
 # Copyright 2015 Google Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -93,9 +95,10 @@ DATABASES = {
 # In the flexible environment, you connect to CloudSQL using a unix socket.
 # Locally, you can use the CloudSQL proxy to proxy a localhost connection
 # to the instance
-DATABASES['default']['HOST'] = '/cloudsql/<your-cloudsql-connection-string>'
+DATABASES['default']['HOST'] = '/cloudsql/comprehension-247816:us-east1:comprehension-app-engine'
 if os.getenv('GAE_INSTANCE'):
-    pass
+    DATABASES['default']['USER'] = 'postgres'
+    DATABASES['default']['PASSWORD'] = os.environ['PG_PASS']
 else:
     DATABASES['default']['HOST'] = '127.0.0.1'
 # [END dbconfig]
