@@ -257,3 +257,39 @@ Style/ParallelAssignment:
 
 Style/RegexpLiteral:
   Enabled: true
+
+Layout/ElseAlignment:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  Exclude:
+    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
+    - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
+    - 'QuillLMS/app/models/user.rb'
+    - 'QuillLMS/bin/spring'
+
+Metrics/BlockNesting:
+  Max: 4
+
+Naming/MethodParameterName:
+  Enabled: true
+
+Style/BlockComments:
+  Enabled: true
+
+Style/ClassVars:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/queries/dashboard.rb'
+    - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
+    - 'QuillLMS/app/services/quill_clever.rb'
+
+Style/Lambda:
+  Enabled: true
+
+Style/MultilineIfModifier:
+  Enabled: true
+
+Style/UnlessElse:
+  Enabled: true
