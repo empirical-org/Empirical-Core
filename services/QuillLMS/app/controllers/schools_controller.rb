@@ -54,7 +54,7 @@ class SchoolsController < ApplicationController
         @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
         .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
         .where(
-          "zipcode in #{self.array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{self.array_to_postgres_array_helper(zip_arr)}"
+          "zipcode in #{array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{array_to_postgres_array_helper(zip_arr)}"
          ).where(
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
          ).group("schools.id")

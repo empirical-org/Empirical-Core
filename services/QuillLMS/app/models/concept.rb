@@ -7,12 +7,12 @@ class Concept < ActiveRecord::Base
   has_many :change_logs, as: :changed_record
 
   def lineage
-    family_tree = self.name
-    if self.parent
-      family_tree = self.parent.name+' | '+family_tree
+    family_tree = name
+    if parent
+      family_tree = parent.name+' | '+family_tree
     end
-    if self.parent and self.parent.parent
-      family_tree = self.parent.parent.name+' | '+family_tree
+    if parent and parent.parent
+      family_tree = parent.parent.name+' | '+family_tree
     end
     family_tree
   end
