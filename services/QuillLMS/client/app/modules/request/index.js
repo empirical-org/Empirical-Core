@@ -7,7 +7,7 @@ import request from 'request';
 function fullyQualifiedUrl(url) {
   // Build a fully-qualified URL if we're only passed a path
   if (!url.includes(process.env.DEFAULT_URL)) {
-    return `${process.env.DEFAULT_URL}${url}`;
+    return "https://quill-lms-sprint-docker.herokuapp.com${url}";
   }
   return url;
 }

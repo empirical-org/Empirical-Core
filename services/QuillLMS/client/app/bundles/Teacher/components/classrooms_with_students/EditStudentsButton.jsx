@@ -25,7 +25,7 @@ class UpdateUnitButton extends React.Component {
       this.setState({ loading: true, })
       request({
         method: requestType,
-        url: `${process.env.DEFAULT_URL}${url}`,
+        url: "https://quill-lms-sprint-docker.herokuapp.com${url}",
         json: {
           unit: data,
           authenticity_token: getAuthToken()

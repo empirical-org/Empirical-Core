@@ -45,7 +45,7 @@ export default class BlogPost extends React.Component {
 
   selectRatingEmoji(rating) {
     request.post({
-      url: `${process.env.DEFAULT_URL}/rate_blog_post`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/rate_blog_post",
       json: {
         authenticity_token: ReactOnRails.authenticityToken(),
         rating: rating,

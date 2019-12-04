@@ -55,7 +55,7 @@ class SignUpTeacher extends React.Component {
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
-      url: `${process.env.DEFAULT_URL}/account`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/account",
       method: 'POST',
       json: {
         user: {

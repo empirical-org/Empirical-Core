@@ -17,7 +17,7 @@ export default class RecoverClassroomActivities extends React.Component {
   submitClassCode() {
     const that = this
     request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/recover_classroom_units`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/recover_classroom_units",
       json: {class_code: that.state.classCode, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {

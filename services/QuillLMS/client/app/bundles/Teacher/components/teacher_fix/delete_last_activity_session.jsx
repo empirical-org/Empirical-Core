@@ -19,7 +19,7 @@ export default class DeleteLastActivitySession extends React.Component {
   submitData() {
     const that = this
     request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/delete_last_activity_session`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/delete_last_activity_session",
       json: {activity_name: that.state.activityName, student_identifier: that.state.studentIdentifier, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {

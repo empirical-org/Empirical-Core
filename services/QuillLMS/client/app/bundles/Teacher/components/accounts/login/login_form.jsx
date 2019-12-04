@@ -58,7 +58,7 @@ class LoginFormApp extends React.Component {
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.EMAIL});
     request({
-      url: `${process.env.DEFAULT_URL}/session/login_through_ajax`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/session/login_through_ajax",
       method: 'POST',
       json: {
         user: {
@@ -71,7 +71,7 @@ class LoginFormApp extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         // console.log(body);
-        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
+        window.location = "https://quill-lms-sprint-docker.herokuapp.com${body.redirect}";
       } else {
         let state;
         if (body.type && body.message) {

@@ -16,6 +16,6 @@ describe('PremiumMini component', () => {
   it('should post to subscriptions on button click', () => {
     const wrapper = shallow(<PremiumMini userIsEligibleForTrial />);
     wrapper.find('button').simulate('click');
-    expect(request.post.mock.calls[0][0].url).toBe(`${process.env.DEFAULT_URL}/subscriptions`);
+    expect(request.post.mock.calls[0][0].url).toBe("https://quill-lms-sprint-docker.herokuapp.com/subscriptions");
   });
 });

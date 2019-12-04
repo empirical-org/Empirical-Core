@@ -149,7 +149,7 @@ export default React.createClass({
     this.setState({ unitFilters: [loadingUnit], selectedUnit: loadingUnit, });
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms/${classroomId}/units`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms/${classroomId}/units",
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body);
       const units = parsedBody.units;

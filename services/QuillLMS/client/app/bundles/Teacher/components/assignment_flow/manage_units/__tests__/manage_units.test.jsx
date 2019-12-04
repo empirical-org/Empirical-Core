@@ -187,7 +187,7 @@ describe.skip('ManageUnits component', () => {
 
     it('calls the correct API endpoint with authenticity_token', () => {
       expect(request.put).toHaveBeenCalled();
-      expect(request.put.mock.calls[0][0]).toEqual(`${process.env.DEFAULT_URL}/teachers/units/${UNIT_ID_TO_HIDE}/hide`);
+      expect(request.put.mock.calls[0][0]).toEqual("https://quill-lms-sprint-docker.herokuapp.com/teachers/units/${UNIT_ID_TO_HIDE}/hide");
       // TODO: test JSON w/ auth token
     });
   });

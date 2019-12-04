@@ -30,7 +30,8 @@ for i in `grep -rli process.env . | grep -v node_modules | grep -v build_and_dep
   sed -i -e "s@\`\${process.env.DEFAULT_URL}\(.*\)\`@\"https://quill-lms-sprint-docker.herokuapp.com\1\"@g" $i
 done
 for i in `grep -rli process.env . | grep -v node_modules | grep -v build_and_deploy_heroku_docker_image.sh`; do
-  sed -i -e "s@\`\${process.env.DEFAULT_URL}\(.*\)@\"https://quill-lms-sprint-docker.herokuapp.com\1@g" $i
+  #sed -i -e "s@\`\${process.env.DEFAULT_URL}\(.*\)@\"https://quill-lms-sprint-docker.herokuapp.com\1@g" $i
+  sed -i -e "s@\(\`\${process.env.DEFAULT_URL}/\)\(.*\)\"@\"https://quill-lms-sprint-docker.herokuapp.com/\"\`\2\`@g" $i
 done
 export DOCKER_IMAGE_NAME="ruby5_3_1"
 echo "BUILDING DOCKER IMAGE: $DOCKER_IMAGE_NAME"

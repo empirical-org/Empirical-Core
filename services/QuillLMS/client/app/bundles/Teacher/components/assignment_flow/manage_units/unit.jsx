@@ -97,7 +97,7 @@ export default React.createClass({
 
   handleSubmit() {
     request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/units/${this.props.data.unitId}",
       json: {
         unit: { name: this.state.unitName, },
         authenticity_token: getAuthToken()

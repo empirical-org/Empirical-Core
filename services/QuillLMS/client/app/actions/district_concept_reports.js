@@ -33,7 +33,7 @@ export const initializePusherForDistrictConceptReports = (adminId) => {
 export const getDistrictConceptReports = () => {
   return (dispatch) => {
     request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_concept_reports`
+      url: "https://quill-lms-sprint-docker.herokuapp.com/api/v1/progress_reports/district_concept_reports"
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)

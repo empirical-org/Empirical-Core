@@ -29,7 +29,7 @@ export default class extends React.Component {
   componentDidMount() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/activities_scores_by_classroom_data`
+      url: "https://quill-lms-sprint-docker.herokuapp.com/api/v1/progress_reports/activities_scores_by_classroom_data"
     }, (e, r, body) => {
       const data = JSON.parse(body).data
       const classroomsData = data;

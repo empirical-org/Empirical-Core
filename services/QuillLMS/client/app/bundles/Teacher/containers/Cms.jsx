@@ -138,7 +138,7 @@ export default React.createClass({
     if(this.isSortable()) {
       const resourceName = this.props.resourceNamePlural;
       const that = this;
-      request.put(`${process.env.DEFAULT_URL}/cms/${resourceName}/update_order_numbers`, {
+      request.put("https://quill-lms-sprint-docker.herokuapp.com/cms/${resourceName}/update_order_numbers", {
         json: {
           [resourceName]: that.state[resourceName],
           authenticity_token: getAuthToken()
