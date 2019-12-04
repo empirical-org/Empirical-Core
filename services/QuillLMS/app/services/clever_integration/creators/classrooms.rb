@@ -2,7 +2,7 @@ module CleverIntegration::Creators::Classrooms
 
   def self.run(array)
     classrooms = array.map do |ele|
-      self.create_classroom(ele)
+      create_classroom(ele)
     end
     classrooms
   end
