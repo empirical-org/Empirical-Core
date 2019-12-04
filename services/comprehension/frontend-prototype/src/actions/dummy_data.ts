@@ -9,19 +9,19 @@ export const activityOne = {
       prompt_id: 1,
   		text: "Governments should make voting compulsory because",
   		max_attempts: 5,
-      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory because school is for learning about facts."
+      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory because otherwise not everyone will vote."
     },
     {
       prompt_id: 2,
       text: "Governments should make voting compulsory, but",
       max_attempts: 5,
-      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory, but teachers can still be sensitive to students' beliefs."
+      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote."
     },
     {
       prompt_id: 3,
   		text: "Governments should make voting compulsory so",
   		max_attempts: 5,
-      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory so that education remains based in fact."
+      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory so that the elected government represents the majority of the population."
     }
   ]
 }
@@ -29,15 +29,15 @@ export const activityOne = {
 export const responses = [
   {
     prompt_id: 1,
-    text: "Governments should make voting compulsory because school is for learning about facts."
+    text: "Governments should make voting compulsory because otherwise not everyone will vote."
   },
   {
     prompt_id: 2,
-    text: "Governments should make voting compulsory, but teachers can still be sensitive to students' beliefs."
+    text: "Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote."
   },
   {
     prompt_id: 3,
-    text: "Governments should make voting compulsory so that education remains based in fact."
+    text: "Governments should make voting compulsory so that the elected government represents the majority of the population."
   }
 ]
 
