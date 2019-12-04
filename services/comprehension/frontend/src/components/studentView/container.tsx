@@ -4,12 +4,13 @@ import {connect} from "react-redux";
 
 import getParameterByName from '../../helpers/getParameterByName'
 import { getActivity } from "../../actions/activities";
+import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 
 const bigCheckSrc =  `${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`
 
 interface StudentViewContainerProps {
   dispatch: Function;
-  activities: any;
+  activities: ActivitiesReducerState;
 }
 
 interface StudentViewContainerState {

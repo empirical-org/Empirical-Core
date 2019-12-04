@@ -3,7 +3,7 @@ import { ActionTypes } from "../actions/actionTypes";
 
 import { Activity } from '../interfaces/activities'
 
-export interface ActivityState {
+export interface ActivitiesReducerState {
   hasReceivedData: boolean;
   currentActivity: Activity;
   error?: string;
