@@ -1,6 +1,6 @@
 class Api::V1::QuestionsController < Api::ApiController
   before_action :get_question_type
-  before_action :get_question_by_uid, except: [:index, :create, :valid_params]
+  before_action :get_question_by_uid, except: [:index, :create]
 
   ALL_QUESTIONS_CACHE_KEY = 'ALL_QUESTIONS'
   ALL_QUESTIONS_CACHE_EXPIRY = 600
