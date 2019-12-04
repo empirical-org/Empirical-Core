@@ -1,0 +1,15 @@
+@import './Header.scss';
+@import "./node_modules/bulma/bulma.sass";
+
+.app-container {
+  height: 100vw;
+  background-color: #ededed;
+  font-family: adelle-sans,Helvetica,Arial,sans-serif;
+}
+
+button {
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+}

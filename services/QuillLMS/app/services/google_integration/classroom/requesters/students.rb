@@ -5,7 +5,7 @@ module GoogleIntegration::Classroom::Requesters::Students
       students = []
       service = client.discovered_api('classroom', 'v1')
       api_method = service.courses.students.list
-      self.make_google_classroom_api_call(course_id, api_method, client, students)
+      make_google_classroom_api_call(course_id, api_method, client, students)
     end
   end
 
@@ -23,7 +23,7 @@ module GoogleIntegration::Classroom::Requesters::Students
     students ||= []
     students.concat(JSON.parse(response.body)['students'] || [])
     if response.next_page_token
-      return self.make_google_classroom_api_call(course_id, api_method, client, students, response.next_page_token)
+      return make_google_classroom_api_call(course_id, api_method, client, students, response.next_page_token)
     end
     students
   end
