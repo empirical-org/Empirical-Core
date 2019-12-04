@@ -42,22 +42,46 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
     this.setState({ step: step + 1, completedSteps: uniqueCompletedSteps })
   }
 
-  renderReadPassageStep() {
+  scrollToStep = (ref: string) => {
+    this[ref].scrollIntoView(false)
+  }
+
+  renderStepLinks = () => {
+    const { currentActivity, } = this.props.activities
+    const links = []
+    const numberOfLinks = currentActivity.prompts.length + 1
+
+    for (let i=1; i <= numberOfLinks; i++ ) {
+      links.push(<div onClick={() => this.scrollToStep(`step${i}`)}>{this.renderStepNumber(i)}</div>)
+    }
+    return <div className="hide-on-desktop step-links">
+      {links}
+    </div>
+  }
+
+  renderStepNumber(number: number) {
     const { step, completedSteps, } = this.state
+    const active = step === number
+    const completed = completedSteps.includes(number)
+    if (completed) {
+      return <img key={number} className="step-number completed" src={bigCheckSrc} alt="white check in green circle" />
+    } else {
+      return <div key={number} className={`step-number ${active ? 'active' : ''}`}>{number}</div>
+    }
+  }
+
+  renderReadPassageStep() {
+    const { step, } = this.state
     const { currentActivity, } = this.props.activities
     let className = 'step'
     let button
-    let stepNumber = <div className="step-number">1</div>
     if (step === 1) {
       className += ' active'
       button = <button onClick={this.goToNextStep}>Done reading</button>
     }
-    if (completedSteps.includes(1)) {
-      stepNumber = <img className="step-number completed" src={bigCheckSrc} alt="white check in green circle" />
-    }
     return (<div className={className}>
-      {stepNumber}
-      <div className="step-content">
+      {this.renderStepNumber(1)}
+      <div className="step-content" ref={(node) => this.step1 = node}>
         <p className="directions">Read the passage:</p>
         <p className="passage-title">{currentActivity.title}</p>
         {button}
@@ -72,8 +96,9 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
       let className = 'step'
       const allButLastWordOfPrompt = text.substring(0, text.lastIndexOf(' '))
       const lastWordOfPrompt = text.split(' ').splice('-1')
-      return (<div className={className}>
-        <div className="step-number">{i + 2}</div>
+      const stepNumber = i + 2
+      return (<div className={className} ref={(node) => this[`step${stepNumber}`] = node}>
+        {this.renderStepNumber(stepNumber)}
         <div className="step-content">
           <p className="directions">Use information from the text to finish the sentence:</p>
           <p className="prompt-text">{allButLastWordOfPrompt} <span>{lastWordOfPrompt}</span></p>
@@ -86,6 +111,7 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
     const { currentActivity, hasReceivedData, } = this.props.activities
     if (hasReceivedData) {
       return <div className="activity-container">
+        {this.renderStepLinks()}
         <div className="read-passage-container">
           <div>
             <p className="directions">Read the passage</p>
