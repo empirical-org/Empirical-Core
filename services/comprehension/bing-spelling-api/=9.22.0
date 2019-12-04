@@ -1,0 +1,5 @@
+Requirement already satisfied: requests in /Library/Python/2.7/site-packages (2.22.0)
+Requirement already satisfied: idna<2.9,>=2.5 in /Library/Python/2.7/site-packages (from requests) (2.8)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /Library/Python/2.7/site-packages (from requests) (3.0.4)
+Requirement already satisfied: certifi>=2017.4.17 in /Library/Python/2.7/site-packages (from requests) (2019.11.28)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in /Library/Python/2.7/site-packages (from requests) (1.25.7)
