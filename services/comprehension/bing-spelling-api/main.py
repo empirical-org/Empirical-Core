@@ -26,8 +26,8 @@ def response_endpoint(request):
         
 
 def get_bing_api_response(entry):
-    headers = {"Ocp-Apim-Subscription-Key":"38ce5e3bba1e46b4b211bfa00f31563c"}
-    params = {"text": entry, "mode":"proof"}
+    headers = {"Ocp-Apim-Subscription-Key": "38ce5e3bba1e46b4b211bfa00f31563c"}
+    params = {"text": entry, "mode": "proof"}
     response = requests.get(
       "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck", 
       params=params, 
