@@ -42,14 +42,18 @@ class ReferralsUser < ActiveRecord::Base
         WHERE referrals_users.activated = FALSE;
     ").to_a.map(&:values).flatten
 
-    return [] if act_sess_ids.empty?
+    if act_sess_ids.empty?
+      return []
+    end
 
     classroom_unit_ids =ActiveRecord::Base.connection.execute("
       SELECT classroom_unit_id FROM activity_sessions WHERE classroom_unit_id IN (#{act_sess_ids.join(',')})
       AND activity_sessions.completed_at IS NOT NULL
     ").to_a.map(&:values).flatten
 
-    return [] if classroom_unit_ids.empty?
+    if classroom_unit_ids.empty?
+      return []
+    end
 
     ActiveRecord::Base.connection.execute("
       SELECT DISTINCT referrals_users.id FROM referrals_users
