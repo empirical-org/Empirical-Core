@@ -104,17 +104,26 @@
 }
 
 .press-section {
-  min-height: 386px;
+  min-height: 382px;
   background-color: beige;
-  background-image: url(../../../../public/images/homepage/quill_laptop.jpg);
-  background-size: cover;
-  background-position: center center;
+  position: relative;
+  .background-img {
+    position: absolute;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+  .press-link-container {
+    width: 100%;
+    position: absolute;
+  }
   .press-links {
     max-width: 1033px;
-    width: 100%auto;
+    z-index: 200;
+    width: 100%;
     margin: 0 auto;
     height: 127px;
-    border-bottom: 2px solid rgba($white, 0.17);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.17);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -126,9 +135,12 @@
     }
   }
   .press-cta {
-    margin-top: 77px;
+    margin-top: 205px;
+    position: absolute;
     text-align: center;
-
+    transform: translateX(-50%);
+    z-index: 200;
+    left: 50%;
     a.cta-button {
       height: auto;
     }
@@ -143,7 +155,8 @@
       }
     }
     .press-cta {
-      margin-top: 40px;
+      margin-top: 100px;
+      white-space: nowrap;
     }
   }
 
