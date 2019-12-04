@@ -107,31 +107,38 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
     })
   }
 
+  renderReadPassageContainer() {
+    const { currentActivity, } = this.props.activities
+    return <div className="read-passage-container">
+      <div>
+        <p className="directions">Read the passage</p>
+        <h1 className="title">{currentActivity.title}</h1>
+        <div className="passage">
+          {currentActivity.passages}
+        </div>
+      </div>
+    </div>
+  }
+
+  renderSteps() {
+    return <div className="steps-container">
+      {this.renderReadPassageStep()}
+      {this.renderPromptSteps()}
+    </div>
+  }
+
   render() {
-    const { currentActivity, hasReceivedData, } = this.props.activities
+    const { hasReceivedData, } = this.props.activities
     if (hasReceivedData) {
       return <div className="activity-container">
         {this.renderStepLinks()}
-        <div className="read-passage-container">
-          <div>
-            <p className="directions">Read the passage</p>
-            <h1 className="title">{currentActivity.title}</h1>
-            <div className="passage">
-              {currentActivity.passages}
-            </div>
-          </div>
-        </div>
-        <div className="steps-container">
-          {this.renderReadPassageStep()}
-          {this.renderPromptSteps()}
-        </div>
+        {this.renderReadPassageContainer()}
+        {this.renderSteps()}
       </div>
     } else {
       return 'Loading'
     }
   }
-
-
 }
 
 const mapStateToProps = (state: any) => {
