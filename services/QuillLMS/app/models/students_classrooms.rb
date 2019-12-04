@@ -10,7 +10,7 @@ class StudentsClassrooms < ActiveRecord::Base
   default_scope { where(visible: true)}
 
   def archived_classrooms_manager
-    {joinDate: self.created_at.strftime("%m/%d/%Y"), className: self.classroom.name, teacherName: self.classroom.owner.name, id: self.id}
+    {joinDate: created_at.strftime("%m/%d/%Y"), className: classroom.name, teacherName: classroom.owner.name, id: id}
   end
 
   def archive_student_associations_for_classroom
@@ -20,20 +20,20 @@ class StudentsClassrooms < ActiveRecord::Base
   private
 
   def run_associator
-    if self.student && self.classroom && self.visible
-      Associators::StudentsToClassrooms.run(self.student, self.classroom)
+    if student && classroom && visible
+      Associators::StudentsToClassrooms.run(student, classroom)
     end
   end
 
   def checkbox
-    if self.classroom
-      find_or_create_checkbox('Add Students', self.classroom.owner)
+    if classroom
+      find_or_create_checkbox('Add Students', classroom.owner)
     end
   end
 
   def invalidate_classroom_minis
     if classroom.owner.present?
-      $redis.del("user_id:#{self.classroom.owner.id}_classroom_minis")
+      $redis.del("user_id:#{classroom.owner.id}_classroom_minis")
     end
   end
 end
