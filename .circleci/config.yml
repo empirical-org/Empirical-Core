@@ -366,12 +366,12 @@ jobs:
       - run:
           name: Pip Install
           command: |
-            cd services/QuillComprehension/api
+            cd services/comprehension/main-api
             pip install --user -r requirements.txt.dev
       - run:
           name: Set up DB
           command: |
-            cd services/QuillComprehension/api
+            cd services/comprehension/main-api
             python manage.py migrate
           environment:
             PG_DB: quill_comprehension_api_db
@@ -381,7 +381,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            cd services/QuillComprehension/api
+            cd services/comprehension/main-api
             python manage.py test
           environment:
             PG_DB: quill_comprehension_api_db
@@ -422,12 +422,12 @@ jobs:
       - run:
           name: Pip Install
           command: |
-            cd services/QuillComprehension/api
+            cd services/comprehension/main-api
             pip install --user flake8
       - run:
           name: Run Flake8
           command: |
-            cd services/QuillComprehension/api
+            cd services/comprehension/main-api
             flake8
 workflows:
   version: 2
