@@ -1,0 +1,26 @@
+.activity-container {
+  display: flex;
+  background-color: white;
+  height: 100%;
+  .passage-container {
+    padding: 48px 40px;
+  }
+  .passage {
+    max-width: 680px;
+    white-space: pre-wrap;
+    font-size: 21px;
+    line-height: 1.52;
+  }
+  .directions {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.38;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.22;
+    margin-bottom: 32px;
+  }
+}

@@ -1,27 +1,27 @@
 export const activityOne = {
   activity_id: 1,
-  title: "Should Intelligent Design Be Taught in School?",
+  title: "Should Voting be Required?",
   passages: [
-  	"Bethany Collchay’s parents want Bethany to believe exactly what it says in the Bible. The Bible says that God created human beings and all the plants and animals. At Bethany’s school, however, the science teacher says that living things evolve. This idea was first written about in a book by Charles Darwin that came out in 1859. Darwin’s theory of evolution says that humans and other animals developed from common ancestors over millions of years. This theory explains similarities and differences among species. It also explains why some species survived while others became extinct. When scientists study fossils from millions of years ago, they find evidence that supports what Darwin said. Changes in flu viruses and in color patterns on birds and fishes show that evolution is going on right now. While scientists say that evolution is undeniable, and point out that it is taught in all developed countries, people like Bethany’s parents have the right to their religious beliefs. They don’t want anything to threaten their child’s religious beliefs. When schools teach about evolution, some people fear a child’s belief in creationism could be threatened. So such people are asking schools to teach intelligent design along with evolution. The central concept behind intelligent design is that living things must have been designed by an intelligent being. Supporters ask us to think about the eye. An eye has to be created all at once with all its parts, they say, or it won’t work. Even though the law in America does not allow public schools to teach religion, intelligent design doesn’t name the designer or use the word “God,” so many argue that teaching about it would not break the law. Scientists, however, are against teaching intelligent design. They say intelligent design is not science. It doesn’t explain how living things came about or why some are like each other. It doesn’t fit with evidence, and it doesn’t predict anything. Therefore, intelligent design is not a scientific perspective, but a religious one. What do you think? Should schools teach intelligent design along with evolution?"
+  	"Crispin Morales is a poor Bolivian factory worker who works 12-hour days. He works every day but Sunday. The last presidential election fell on a Saturday. Although he was given the day off as the law required, Crispin was unable to get to a polling station to vote. After failing to vote, Crispin was not allowed to withdraw his salary from his bank for over two months. This is because those who do not vote are punished in Bolivia given that voting there is compulsory, a civic duty required by law. Not all countries with compulsory voting enforce this law.\n\nIf a citizen of Australia or Brazil provides a good reason for not voting (e.g. being in a hospital) it is accepted. In fact, many nations have dropped mandatory voting altogether. However, this can have a negative effect. When Venezuela, for example, discontinued mandatory voting in 1993, it saw a 30% decline in attendance at the polls.\n\nLow voter turnout is a common problem in countries without compulsory voting. This problem might be explained by voter apathy or lack of enthusiasm around elections. Of 222 million eligible voters, only 125 million cast their votes in the 2012 U.S. presidential election. By contrast, over 750 million votes were cast during season 10 of American Idol. Some people find it discouraging that voting for American Idol seems to generate more enthusiasm than voting in national elections. While it's important to note that American Idol viewers as young as 13 years old can vote multiple times during multiple episodes, these numbers may indicate that some citizens feel that their vote counts more in television contests than in political contests. Or perhaps they’re just not interested in politics.\n\nMandatory voting may seem like a great way to encourage voter participation, but governments can sometimes misuse it. For example, in some dictatorships, citizens are forced to vote, but the same person is elected every time because the government does not allow political competition. In March 2014 in North Korea, 99% of the country cast votes for Kim Jong Un, the only candidate listed on the ballot.\n\nBut how can democracies have representative governments unless all or most of their citizens vote? Some say that compulsory voting ensures that the elected government represents the majority of the population. But those against compulsory voting say that it is a violation of personal liberties and choices. Others say that voting should be seen as a civic right and not a civic duty."
   ],
 	prompts: [
     {
       prompt_id: 1,
-  		text: "Schools should only teach evolution, the accepted scientific theory, because",
+  		text: "Governments should make voting compulsory because",
   		max_attempts: 5,
-      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n Schools should only teach evolution, the accepted scientific theory, because school is for learning about facts."
+      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory because school is for learning about facts."
     },
     {
       prompt_id: 2,
-      text: "Schools should only teach evolution, the accepted scientific theory, but",
+      text: "Governments should make voting compulsory, but",
       max_attempts: 5,
-      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n Schools should only teach evolution, the accepted scientific theory, but teachers can still be sensitive to students' beliefs."
+      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory, but teachers can still be sensitive to students' beliefs."
     },
     {
       prompt_id: 3,
-  		text: "Schools should only teach evolution, the accepted scientific theory, so",
+  		text: "Governments should make voting compulsory so",
   		max_attempts: 5,
-      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n Schools should only teach evolution, the accepted scientific theory, so that education remains based in fact."
+      max_attempts_feedback: "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? \n\n Governments should make voting compulsory so that education remains based in fact."
     }
   ]
 }
@@ -29,15 +29,15 @@ export const activityOne = {
 export const responses = [
   {
     prompt_id: 1,
-    text: "Schools should only teach evolution, the accepted scientific theory, because school is for learning about facts."
+    text: "Governments should make voting compulsory because school is for learning about facts."
   },
   {
     prompt_id: 2,
-    text: "Schools should only teach evolution, the accepted scientific theory, but teachers can still be sensitive to students' beliefs."
+    text: "Governments should make voting compulsory, but teachers can still be sensitive to students' beliefs."
   },
   {
     prompt_id: 3,
-    text: "Schools should only teach evolution, the accepted scientific theory, so that education remains based in fact."
+    text: "Governments should make voting compulsory so that education remains based in fact."
   }
 ]
 
