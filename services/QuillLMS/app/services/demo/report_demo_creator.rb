@@ -1,14 +1,14 @@
 module Demo::ReportDemoCreator
 
   def self.create_demo(name)
-    teacher = self.create_teacher(name)
-    classroom = self.create_classroom(teacher)
-    students = self.create_students(classroom)
-    unit = self.create_unit(teacher)
-    classroom_units = self.create_classroom_units(classroom, unit)
-    unit_activities = self.create_unit_activities(unit)
-    activity_sessions = self.create_activity_sessions(students)
-    subscription = self.create_subscription(teacher)
+    teacher = create_teacher(name)
+    classroom = create_classroom(teacher)
+    students = create_students(classroom)
+    unit = create_unit(teacher)
+    classroom_units = create_classroom_units(classroom, unit)
+    unit_activities = create_unit_activities(unit)
+    activity_sessions = create_activity_sessions(students)
+    subscription = create_subscription(teacher)
   end
 
   def self.create_teacher(name)
