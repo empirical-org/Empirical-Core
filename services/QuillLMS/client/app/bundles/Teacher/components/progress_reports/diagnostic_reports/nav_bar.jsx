@@ -16,7 +16,7 @@ export default class Navbar extends React.Component {
   }
 
   componentWillMount() {
-    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/diagnostic_activity_ids`, {
+    fetch("https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/diagnostic_activity_ids", {
       method: 'GET',
       mode: 'cors',
       credentials: 'include'

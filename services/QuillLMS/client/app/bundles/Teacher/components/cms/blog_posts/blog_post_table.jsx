@@ -25,7 +25,7 @@ export default class BlogPostTable extends React.Component {
   }
 
   saveOrder() {
-    const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_order_numbers`
+    const link = "https://quill-lms-sprint-docker.herokuapp.com/cms/blog_posts/update_order_numbers"
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(this.state.blogPosts) );
     fetch(link, {

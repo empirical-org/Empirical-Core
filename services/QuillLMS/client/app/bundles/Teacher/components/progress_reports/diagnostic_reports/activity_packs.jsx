@@ -35,7 +35,7 @@ export default class ActivityPacks extends React.Component {
   }
 
   getRecommendationIds = () => {
-    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+    fetch("https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/activity_with_recommendations_ids", {
     method: 'GET',
     mode: 'cors',
     credentials: 'include',
@@ -52,7 +52,7 @@ export default class ActivityPacks extends React.Component {
   }
 
   getClassrooms = () => {
-    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
+    request.get("https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms/classrooms_i_teach", (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
         this.setState({ classrooms, }, () => this.getUnits());
@@ -65,7 +65,7 @@ export default class ActivityPacks extends React.Component {
   populateCompletionAndAverageScore = (data) => {
     const requests = data.map((u) => {
       return new Promise(resolve => {
-        request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
+        request.get("https://quill-lms-sprint-docker.herokuapp.com/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}", (error, httpStatus, body) => {
           this.state.allUnits.forEach((stateUnit) => {
             if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
               stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
@@ -80,7 +80,7 @@ export default class ActivityPacks extends React.Component {
   }
 
   getUnits = () => {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units?report=true`, (error, httpStatus, body) => {
+    request.get("https://quill-lms-sprint-docker.herokuapp.com/teachers/units?report=true", (error, httpStatus, body) => {
       this.setAllUnits(JSON.parse(body));
       this.populateCompletionAndAverageScore(JSON.parse(body));
     })

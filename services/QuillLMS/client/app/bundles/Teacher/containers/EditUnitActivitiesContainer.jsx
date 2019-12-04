@@ -28,7 +28,7 @@ export default React.createClass({
   updateActivities() {
     const that = this;
     request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/units/${that.props.params.unitId}/update_activities`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/units/${that.props.params.unitId}/update_activities",
       json: {
         authenticity_token: getAuthToken(),
         data: { activities_data: that.getActivityIds(), }

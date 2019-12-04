@@ -19,7 +19,7 @@ export default class GoogleUnsync extends React.Component {
   submit() {
     const that = this
     request.put({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/google_unsync_account`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/google_unsync_account",
       json: {original_email: that.state.originalEmail,
         new_email: that.state.newEmail,
         password: that.state.password,

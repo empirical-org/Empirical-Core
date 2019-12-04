@@ -123,7 +123,7 @@ export default React.createClass({
       // {name: 'related_unit_templates', idName: 'related_unit_template_ids'}
     ];
 
-    this.modules.server.save(model, { callback: (() => { window.location.href = `${process.env.DEFAULT_URL}/cms/unit_templates` }), fieldsToNormalize ,});
+    this.modules.server.save(model, { callback: (() => { window.location.href = "https://quill-lms-sprint-docker.herokuapp.com/cms/unit_templates" }), fieldsToNormalize ,});
   },
 
   determineErrorMessage() {

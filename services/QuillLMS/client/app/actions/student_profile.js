@@ -8,7 +8,7 @@ export const receiveStudentProfile = data => ({
 export const fetchNotifications = () => {
   return (dispatch) => {
     request.get({
-      url: `${process.env.DEFAULT_URL}/notifications`
+      url: "https://quill-lms-sprint-docker.herokuapp.com/notifications"
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
@@ -20,7 +20,7 @@ export const fetchNotifications = () => {
 export const fetchStudentProfile = (classroomId) => {
   return (dispatch) => {
     request.get({
-      url: `${process.env.DEFAULT_URL}/student_profile_data`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/student_profile_data",
       qs: { current_classroom_id: classroomId, }
     },
     (e, r, body) => {
@@ -69,7 +69,7 @@ export const updateNumberOfClassroomTabs = (screenWidth) => {
 export const fetchStudentsClassrooms = () => {
   return (dispatch) => {
     request.get({
-      url: `${process.env.DEFAULT_URL}/students_classrooms_json`
+      url: "https://quill-lms-sprint-docker.herokuapp.com/students_classrooms_json"
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)

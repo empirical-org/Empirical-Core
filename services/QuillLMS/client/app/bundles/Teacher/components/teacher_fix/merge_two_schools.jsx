@@ -20,7 +20,7 @@ class MergeTwoSchools extends React.Component {
   submit() {
     const that = this;
     request.post({
-      url: `${process.env.DEFAULT_URL}/teacher_fix/merge_two_schools`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/merge_two_schools",
       json: {
         from_school_id: that.state.fromSchoolId,
         to_school_id: that.state.toSchoolId,

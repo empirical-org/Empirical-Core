@@ -26,7 +26,7 @@ export default class UnitTemplateAssigned extends React.Component {
     // const that = this;
     // const activityId = this.props.data.id;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_students`
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms_i_teach_with_students"
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
@@ -35,7 +35,7 @@ export default class UnitTemplateAssigned extends React.Component {
     });
 
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/last_assigned_unit_id`
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/last_assigned_unit_id"
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
@@ -43,7 +43,7 @@ export default class UnitTemplateAssigned extends React.Component {
     });
 
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/unit_templates/assigned_info`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/unit_templates/assigned_info",
       qs: { id: this.props.params.activityPackId, }
     },
     (e, r, body) => {

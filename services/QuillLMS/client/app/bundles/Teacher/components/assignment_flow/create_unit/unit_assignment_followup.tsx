@@ -102,7 +102,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
         header="Invite students to your classes"
         imgAlt="students"
         imgSrc={addStudentsSrc}
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
+        onClick={() => { window.location.href = "https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms"}}
         text={`You currently have ${this.numberOfClassroomsText(emptyClassrooms)} that ${emptyClassrooms.length === 1 ? 'has' : 'have'} no students.`}
       />
     </div>)
@@ -116,21 +116,21 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
         header="See what I have assigned"
         imgAlt="clipboard with check"
         imgSrc={assignedActivitiesSrc}
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`}}
+        onClick={() => { window.location.href = "https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms/activity_planner#${unitId}"}}
         text="View your assigned packs."
       />
       <Card
         header="Invite students"
         imgAlt="students"
         imgSrc={addStudentsSrc}
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`}}
+        onClick={() => { window.location.href = "https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms"}}
         text="Add students to your classes."
       />
       <Card
         header="Assign more activities"
         imgAlt="squares with plus sign"
         imgSrc={assignActivitiesSrc}
-        onClick={() => { window.location.href = `${process.env.DEFAULT_URL}/assign`}}
+        onClick={() => { window.location.href = "https://quill-lms-sprint-docker.herokuapp.com/assign"}}
         text="Select or build another pack."
       />
     </div>)
@@ -139,7 +139,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   renderReferral = () => {
     const { assignedClassrooms, } = this.state
     const { unitName, referralCode, } = this.props
-    const referralLink = `${process.env.DEFAULT_URL}/?referral_code=${referralCode}`
+    const referralLink = "https://quill-lms-sprint-docker.herokuapp.com/?referral_code=${referralCode}"
     return (<div className="unit-assignment-followup referral">
       {this.renderSnackbar()}
       <h1>Success! You assigned {unitName} to {this.numberOfClassroomsText(assignedClassrooms)}.</h1>

@@ -47,7 +47,7 @@ export default class extends React.Component {
 
   stripeCharge() {
     const that = this;
-    request.post({ url: `${process.env.DEFAULT_URL}/charges/new_${this.props.type}_premium`, form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
+    request.post({ url: "https://quill-lms-sprint-docker.herokuapp.com/charges/new_${this.props.type}_premium", form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
         that.props.updateSubscriptionStatus(JSON.parse(body).new_subscription);
       }

@@ -68,7 +68,7 @@ export default class extends React.Component {
     const idPath = 'subscriptionStatus.id';
     const subId = _.get(that.state, idPath) || _.get(that.props, idPath);
     request.get({
-      url: `${process.env.DEFAULT_URL}/subscriptions/${subId}/purchaser_name`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/subscriptions/${subId}/purchaser_name",
     },
     (e, r, body) => {
       that.setState({ purchaserNameOrEmail: JSON.parse(body).name, });
@@ -92,7 +92,7 @@ export default class extends React.Component {
 
   redeemPremiumCredits() {
     request.put({
-      url: `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/credit_transactions/redeem_credits_for_premium",
       json: {
         authenticity_token: getAuthToken(),
       },
@@ -112,7 +112,7 @@ export default class extends React.Component {
 
   updateSubscription(params, subscriptionId) {
     request.put({
-      url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      url: "https://quill-lms-sprint-docker.herokuapp.com/subscriptions/${subscriptionId}",
       json: { subscription: params, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus.statusCode === 200) {

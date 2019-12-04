@@ -28,7 +28,7 @@ export default class ActivityCategories extends React.Component {
 
   saveActivityCategories() {
     const that = this
-    request.put(`${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`, {
+    request.put("https://quill-lms-sprint-docker.herokuapp.com/cms/activity_categories/update_order_numbers", {
       json: {
         activity_categories: this.state.activity_categories,
         authenticity_token: getAuthToken()
@@ -46,7 +46,7 @@ export default class ActivityCategories extends React.Component {
 
   deleteActivityCategory(key) {
     const activityCategoryToDelete = this.state.activity_categories[key]
-    request.del(`${process.env.DEFAULT_URL}/cms/activity_categories/${activityCategoryToDelete.id}`, {
+    request.del("https://quill-lms-sprint-docker.herokuapp.com/cms/activity_categories/${activityCategoryToDelete.id}", {
       json: {
         authenticity_token: getAuthToken()
       }}, (e, r, response) => {

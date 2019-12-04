@@ -17,7 +17,7 @@ const minis = (props) => [
     header="Assess student writing with a diagnostic"
     imgAlt="page with writing and a magnifying glass over it"
     imgSrc={allDiagnosticsSrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/diagnostic`)}
+    selectCard={() => selectCard(props.router, "https://quill-lms-sprint-docker.herokuapp.com/assign/diagnostic")}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -27,7 +27,7 @@ const minis = (props) => [
     header="Choose activities from our library"
     imgAlt="open book"
     imgSrc={librarySrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/activity-type`)}
+    selectCard={() => selectCard(props.router, "https://quill-lms-sprint-docker.herokuapp.com/assign/activity-type")}
   />)
 ];
 

@@ -85,7 +85,7 @@ export default class CmsSchoolIndex extends React.Component {
           resizable: false,
           minWidth: 60,
           Cell: (row) => {
-            return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.id}`}>Edit</a>
+            return <a href={"https://quill-lms-sprint-docker.herokuapp.com/cms/schools/${row.original.id}"}>Edit</a>
           }
         }
       ];
@@ -158,7 +158,7 @@ export default class CmsSchoolIndex extends React.Component {
 
   search() {
     this.setState({loading: true})
-    const link = `${process.env.DEFAULT_URL}/cms/schools/search`
+    const link = "https://quill-lms-sprint-docker.herokuapp.com/cms/schools/search"
     const data = new FormData();
     Object.keys(this.state.query).forEach((k) => {
       data.append(k, this.state.query[k])
