@@ -25,12 +25,21 @@ def test_missing_entry(app):
 
       assert response.status_code == 400
 
-def test_misspelled_param(app):
-    with app.test_request_context(json={'entree': 'This is spelled correctly.', 'prompt_id': 000}):
+def test_spelled_correctly_branch(app):
+    with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': 000}):
       response = main.response_endpoint(flask.request)
       data = json.loads(response.data)
 
-      assert response.status_code == 400
+      assert response.status_code == 200
+      assert data.get('feedback') == 'Correct spelling!'
+
+def test_spelled_incorrectly_branch(app):
+    with app.test_request_context(json={'entry': 'This is spelllled correctly.', 'prompt_id': 000}):
+      response = main.response_endpoint(flask.request)
+      data = json.loads(response.data)
+
+      assert response.status_code == 200
+      assert data.get('feedback') == 'Try again. There may be a spelling mistake.'
 
 def test_correct_spelling():
     misspelled = main.get_misspelled_words_no_casing('This is spelled correctly.')
