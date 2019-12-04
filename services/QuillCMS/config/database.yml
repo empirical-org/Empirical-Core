@@ -45,13 +45,7 @@ staging:
 # For Makara configured environments:
 <% else %>
 
-elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
-  <<: *elastic_beanstalk_env
-  host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
-  port: <%= ENV['RDS_REPLICA_PORT'] %>
-
 development:
-  <<: *default
   <<: *default
   adapter: postgresql_makara
   makara:
@@ -83,6 +77,7 @@ staging:
 
 production:
   <<: *default
+  adapter: postgresql_makara
   makara:
     id: postgres_production_db
     disable_blacklist: true
@@ -98,6 +93,10 @@ production:
       - role: slave
         name: replica
         weight: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *elastic_beanstalk_replica_env
+        <<: *elastic_beanstalk_env
+        host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
+        <% if ENV.key?('RDS_REPLICA_PORT') %>
+        port: <%= ENV['RDS_REPLICA_PORT'] %>
+        <% end %>
 
 <% end %>
