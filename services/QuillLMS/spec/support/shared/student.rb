@@ -9,12 +9,5 @@ shared_examples_for "student" do
       expect(student).to be_valid
     end
 
-    context 'when email and username is missing' do
-      it 'should have an error' do
-        student.email = nil
-        student.valid?
-        expect(student.errors[:username]).to include "can't be blank"
-      end
-    end
   end
 end
