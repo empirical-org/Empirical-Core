@@ -10,7 +10,7 @@ class Api::V1::QuestionsController < Api::ApiController
     all_questions = $redis.get(cache_key)
 
     if !all_questions
-      all_questions = Question.where(question_type: "#{@question_type}").reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      all_questions = Question.where(question_type: @question_type.to_s).reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
       $redis.set(cache_key, all_questions.to_json, {ex: ALL_QUESTIONS_CACHE_EXPIRY})
     end
     render(json: all_questions)  
