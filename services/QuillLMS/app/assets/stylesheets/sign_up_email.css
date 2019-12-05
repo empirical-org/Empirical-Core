@@ -96,6 +96,7 @@
 
     .top-content {
       margin-top: 30px;
+      width: 100%;
     }
 
     .left-cell {
@@ -118,4 +119,8 @@
     .small-text {
       font-size: 14px;
       margin-left: 10px;
+    }
+
+    .date {
+      float: right;
     }

@@ -98,17 +98,20 @@ class UserMailer < ActionMailer::Base
   end
 
   def daily_stats_email
-    @daily_active_teachers = User.where(role: "teacher").where("last_sign_in >= ?", 1.day.ago).size
-    @daily_active_students = User.where(role: "student").where("last_sign_in >= ?", 1.day.ago).size
-    @new_teacher_signups = User.where(role: "teacher").where("created_at >= ?", 1.day.ago).size
-    @new_student_signups = User.where(role: "student").where("created_at >= ?", 1.day.ago).size
-    @classrooms_created = Classroom.where("created_at >= ?", 1.day.ago).size
-    @activities_assigned = UnitActivity.where("created_at >= ?", 1.day.ago).size
+    @current_date = Time.now.strftime("%A, %B %d")
+    start_time = 1.day.ago.beginning_of_day
+    end_time = 1.day.ago.end_of_day
+    @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
+    @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
+    @new_teacher_signups = User.where(role: "teacher").where(created_at: start_time..end_time).size
+    @new_student_signups = User.where(role: "student").where(created_at: start_time..end_time).size
+    @classrooms_created = Classroom.where(created_at: start_time..end_time).size
+    @activities_assigned = UnitActivity.where(created_at: start_time..end_time).size
     # Sentences written is quantified by number of activities completed multiplied by 10 because
     # there are an average of 10 sentences per activity.    
-    @sentences_written = ActivitySession.where("completed_at >= ?", 1.day.ago).size * 10
-    @diagnostics_completed = ActivitySession.where("completed_at >= ?", 1.day.ago).where(activity_id: Activity.diagnostic_activity_ids).size
-    mail to: "team@quill.org", subject: "Quill Daily Analytics"
+    @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
+    @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
+    mail to: "team@quill.org", subject: "Quill Daily Analytics - #{Time.now.strftime("%m/%d/%Y")}"
   end
 
 end
