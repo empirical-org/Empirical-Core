@@ -6,13 +6,13 @@ Style/ZeroLengthPredicate:
 Layout/EmptyLineAfterMagicComment:
   Enabled: true
 
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   Enabled: true
 
 Layout/InitialIndentation:
   Enabled: true
 
-Layout/LeadingBlankLines:
+Layout/LeadingEmptyLines:
   Enabled: true
 
 Layout/SpaceAfterMethodName:
@@ -30,7 +30,7 @@ Lint/DeprecatedClassMethods:
 Lint/DuplicateCaseCondition:
   Enabled: true
 
-Lint/DuplicatedKey:
+Lint/DuplicateHashKey:
   Enabled: true
 
 Lint/InterpolationCheck:
@@ -147,7 +147,7 @@ Layout/ClosingHeredocIndentation:
 Layout/DefEndAlignment:
   Enabled: true
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: true
 
 Layout/SpaceInLambdaLiteral:
@@ -208,6 +208,9 @@ Style/RedundantFreeze:
 Style/RedundantReturn:
   Enabled: true
 
+Style/RedundantSelf:
+  Enabled: true
+
 Style/RescueModifier:
   Exclude:
     - 'QuillLMS/db/migrate/20140916143956_make_username_downcase.rb'
@@ -243,7 +246,7 @@ Style/EmptyLiteral:
 Style/MultipleComparison:
   Enabled: true
 
-Layout/AlignArray:
+Layout/ArrayAlignment:
   Enabled: true
   Exclude:
     - 'QuillCMS/spec/workers/rematch_response_worker_spec.rb'
@@ -256,4 +259,40 @@ Style/ParallelAssignment:
   Enabled: true
 
 Style/RegexpLiteral:
+  Enabled: true
+
+Layout/ElseAlignment:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: true
+  Exclude:
+    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
+    - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
+    - 'QuillLMS/app/models/user.rb'
+    - 'QuillLMS/bin/spring'
+
+Metrics/BlockNesting:
+  Max: 4
+
+Naming/MethodParameterName:
+  Enabled: true
+
+Style/BlockComments:
+  Enabled: true
+
+Style/ClassVars:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/app/queries/dashboard.rb'
+    - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
+    - 'QuillLMS/app/services/quill_clever.rb'
+
+Style/Lambda:
+  Enabled: true
+
+Style/MultilineIfModifier:
+  Enabled: true
+
+Style/UnlessElse:
   Enabled: true

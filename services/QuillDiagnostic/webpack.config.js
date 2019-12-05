@@ -2,6 +2,7 @@ const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -66,6 +67,7 @@ module.exports = {
   },
   plugins: [
     assetsPluginInstance,
+    new CompressionPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
