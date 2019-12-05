@@ -5,13 +5,13 @@ module CleverIntegration::SignUp::SubMain
   def self.run(auth_hash)
     case auth_hash[:info][:user_type]
     when 'district'
-      result = self.district(auth_hash)
+      result = district(auth_hash)
     when 'student'
-      result = self.student(auth_hash)
+      result = student(auth_hash)
     when 'school_admin'
-      result = self.school_admin(auth_hash)
+      result = school_admin(auth_hash)
     else
-      result = self.teacher(auth_hash)
+      result = teacher(auth_hash)
     end
     result
   end
