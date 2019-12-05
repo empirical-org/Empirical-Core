@@ -16,7 +16,7 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
-const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/question_types/connect_sentence_combining/questions`;
+const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
 
 /*
   There are a LOT of non-required properties in these interfaces.
@@ -79,7 +79,7 @@ interface QuestionCollection {
 
 class QuestionApi {
   static getAll(): Promise<QuestionCollection> {
-    return requestGet(`${questionApiBaseUrl}.json`);
+    return requestGet(`${questionApiBaseUrl}.json?question_type=connect_sentence_combining`);
   }
 
   static get(uid: string): Promise<Question> {
@@ -87,7 +87,7 @@ class QuestionApi {
   }
 
   static create(data: Question): Promise<QuestionCollection> {
-    return requestPost(`${questionApiBaseUrl}.json`, {question: data});
+    return requestPost(`${questionApiBaseUrl}.json?question_type=connect_sentence_combining`, {question: data});
   }
 
   static update(uid: string, data: Question): Promise<Question> {
