@@ -10,8 +10,8 @@ describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
     const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
     const wrapper = mount(<StudentViewContainer
-      dispatch={() => {}}
       activities={activitiesReducer}
+      dispatch={() => {}}
     />)
 
     it('renders', () => {
@@ -32,8 +32,8 @@ describe('StudentViewContainer component', () => {
   describe('when the activity has not loaded', () => {
     const activitiesReducer = { hasReceivedData: false }
     const wrapper = shallow(<StudentViewContainer
-      dispatch={() => {}}
       activities={activitiesReducer}
+      dispatch={() => {}}
     />)
 
     it('renders a loading spinner', () => {

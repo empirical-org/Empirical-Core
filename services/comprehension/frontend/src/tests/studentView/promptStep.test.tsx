@@ -5,10 +5,10 @@ import PromptStep from '../../components/studentView/promptStep'
 
 describe('PromptStep component', () => {
   const wrapper = shallow(<PromptStep
-    text={'A prompt'}
-    passedRef={() => {}}
     className="step"
-    stepNumberComponent={<div></div>}
+    passedRef={() => {}}
+    stepNumberComponent={<div />}
+    text={'A prompt'}
   />)
 
   it('renders', () => {

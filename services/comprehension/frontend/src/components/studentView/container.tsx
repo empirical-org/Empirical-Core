@@ -20,10 +20,10 @@ interface StudentViewContainerState {
 }
 
 export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
-  private step1: any
-  private step2: any
-  private step3: any
-  private step4: any
+  private step1: any // eslint-disable-line react/sort-comp
+  private step2: any // eslint-disable-line react/sort-comp
+  private step3: any // eslint-disable-line react/sort-comp
+  private step4: any // eslint-disable-line react/sort-comp
 
   constructor(props: StudentViewContainerProps) {
     super(props)
@@ -68,9 +68,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     for (let i=1; i <= numberOfLinks; i++ ) {
       links.push(<div onClick={() => this.scrollToStep(`step${i}`)}>{this.renderStepNumber(i)}</div>)
     }
-    return <div className="hide-on-desktop step-links">
+    return (<div className="hide-on-desktop step-links">
       {links}
-    </div>
+    </div>)
   }
 
   renderStepNumber(number: number) {
@@ -78,9 +78,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const active = step === number
     const completed = completedSteps.includes(number)
     if (completed) {
-      return <img key={number} className="step-number completed" src={bigCheckSrc} alt="white check in green circle" />
+      return <img alt="white check in green circle" className="step-number completed" key={number} src={bigCheckSrc} />
     } else {
-      return <div key={number} className={`step-number ${active ? 'active' : ''}`}>{number}</div>
+      return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number}</div>
     }
   }
 
@@ -110,19 +110,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return currentActivity.prompts.map((prompt, i) => {
       const { text, } = prompt
       const stepNumber = i + 2
-      return <PromptStep
+      return (<PromptStep
         className='step'
         passedRef={(node) => this[`step${stepNumber}`] = node}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
         text={text}
-      />
+      />)
     })
   }
 
   renderReadPassageContainer() {
     const { currentActivity, } = this.props.activities
     if (!currentActivity) return
-    return <div className="read-passage-container">
+    return (<div className="read-passage-container">
       <div>
         <p className="directions">Read the passage</p>
         <h1 className="title">{currentActivity.title}</h1>
@@ -130,24 +130,24 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
           {currentActivity.passages}
         </div>
       </div>
-    </div>
+    </div>)
   }
 
   renderSteps() {
-    return <div className="steps-container">
+    return (<div className="steps-container">
       {this.renderReadPassageStep()}
       {this.renderPromptSteps()}
-    </div>
+    </div>)
   }
 
   render() {
     const { hasReceivedData, } = this.props.activities
     if (!hasReceivedData) return <LoadingSpinner />
-    return <div className="activity-container">
+    return (<div className="activity-container">
       {this.renderStepLinks()}
       {this.renderReadPassageContainer()}
       {this.renderSteps()}
-    </div>
+    </div>)
   }
 }
 
