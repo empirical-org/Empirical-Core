@@ -3,8 +3,8 @@ class Scorebook::Query
   SCORES_PER_PAGE = 10000
 
   def self.run(classroom_id, current_page=1, unit_id=nil, begin_date=nil, end_date=nil, offset=0)
-    first_unit = self.units(unit_id) ? self.units(unit_id).first : nil
-    last_unit = self.units(unit_id) ? self.units(unit_id).last : nil
+    first_unit = units(unit_id) ? units(unit_id).first : nil
+    last_unit = units(unit_id) ? units(unit_id).last : nil
     ActiveRecord::Base.connection.execute(
     "SELECT
        students.id AS user_id,
@@ -41,7 +41,7 @@ class Scorebook::Query
      AND sc.visible
      AND 'archived' != ANY(activity.flags)
      #{last_unit}
-     #{self.date_conditional_string(begin_date, end_date, offset)}
+     #{date_conditional_string(begin_date, end_date, offset)}
      GROUP BY
       students.id,
        students.name, cu.id, activity.activity_classification_id, activity.name, activity.description, cuas.completed, activity.id
@@ -67,17 +67,17 @@ class Scorebook::Query
 
   def self.date_conditional_string(begin_date, end_date, offset)
     new_end_date = end_date ? (Date.parse(end_date) + 1.days).to_s : end_date
-    sanitized_begin_date = self.sanitize_date(begin_date)
-    sanitized_end_date = self.sanitize_date(new_end_date)
+    sanitized_begin_date = sanitize_date(begin_date)
+    sanitized_end_date = sanitize_date(new_end_date)
     return unless sanitized_begin_date || sanitized_end_date
     "AND (
       CASE
       WHEN acts.completed_at IS NOT NULL THEN
-        #{self.date_substring_for_acts_completed_at(sanitized_begin_date, sanitized_end_date, offset)}
+        #{date_substring_for_acts_completed_at(sanitized_begin_date, sanitized_end_date, offset)}
       WHEN acts.started_at IS NOT NULL THEN
-        #{self.date_substring_for_acts_started_at(sanitized_begin_date, sanitized_end_date, offset)}
+        #{date_substring_for_acts_started_at(sanitized_begin_date, sanitized_end_date, offset)}
       ELSE
-        #{self.date_substring_for_ca_created_at(sanitized_begin_date, sanitized_end_date, offset)}
+        #{date_substring_for_ca_created_at(sanitized_begin_date, sanitized_end_date, offset)}
       END
     )"
   end
@@ -88,23 +88,23 @@ class Scorebook::Query
 
   def self.date_substring_for_acts_completed_at(begin_date, end_date, offset)
     [
-      begin_date ? "acts.completed_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
-      end_date ? "acts.completed_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
+      begin_date ? "acts.completed_at >= '#{to_offset_datetime(begin_date, offset)}'" : nil,
+      end_date ? "acts.completed_at <= '#{to_offset_datetime(end_date, offset)}'" : nil
     ].reject(&:nil?).join(' AND ')
   end
 
   def self.date_substring_for_acts_started_at(begin_date, end_date, offset)
     [
-      begin_date ? "acts.started_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
-      end_date ? "acts.started_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
+      begin_date ? "acts.started_at >= '#{to_offset_datetime(begin_date, offset)}'" : nil,
+      end_date ? "acts.started_at <= '#{to_offset_datetime(end_date, offset)}'" : nil
     ].reject(&:nil?).join(' AND ')
 
   end
 
   def self.date_substring_for_ca_created_at(begin_date, end_date, offset)
     [
-      begin_date ? "cu.created_at >= '#{self.to_offset_datetime(begin_date, offset)}'" : nil,
-      end_date ? "cu.created_at <= '#{self.to_offset_datetime(end_date, offset)}'" : nil
+      begin_date ? "cu.created_at >= '#{to_offset_datetime(begin_date, offset)}'" : nil,
+      end_date ? "cu.created_at <= '#{to_offset_datetime(end_date, offset)}'" : nil
     ].reject(&:nil?).join(' AND ')
   end
 

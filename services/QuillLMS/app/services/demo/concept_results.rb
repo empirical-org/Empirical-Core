@@ -8,7 +8,7 @@ module Demo::ConceptResults
     data_from_csv = self.data_from_csv
 
     crs = activity_sessions.each do |as|
-      self.create_concept_results_for_activity_session(data_from_csv, as)
+      create_concept_results_for_activity_session(data_from_csv, as)
     end
   end
 
@@ -17,13 +17,13 @@ module Demo::ConceptResults
   def self.create_concept_results_for_activity_session(data_from_csv, activity_session)
     data = data_from_csv.find{ |ele| ele[:activity] == activity_session.activity.name }
     crs = data[:concept_result_data].reduce([]) do |acc, ele|
-      crs_for_concept = self.create_concept_results_for_concept(ele[:concept],
+      crs_for_concept = create_concept_results_for_concept(ele[:concept],
                                                                 ele[:number_of_concept_results],
                                                                 activity_session)
       new_acc = [].concat(acc).concat(crs_for_concept)
       new_acc
     end
-    crs = self.handle_scores(activity_session)
+    crs = handle_scores(activity_session)
   end
 
   def self.handle_scores(activity_session)
@@ -33,8 +33,8 @@ module Demo::ConceptResults
     shuffled = crs.shuffle
     correct = shuffled[0..(num_correct-1)]
     incorrect = shuffled[num_correct..((shuffled.length) - 1)]
-    correct.map{ |c| self.update_metadata(c, :correct, 1) }
-    incorrect.map{ |c| self.update_metadata(c, :correct, 0) }
+    correct.map{ |c| update_metadata(c, :correct, 1) }
+    incorrect.map{ |c| update_metadata(c, :correct, 0) }
 
     new_percentage = num_correct.to_f / crs.count.to_f
     activity_session.update(percentage: new_percentage)
@@ -70,8 +70,8 @@ module Demo::ConceptResults
     #     ]
     #   }
     # ]
-    arr = self.turn_csv_into_arr
-    processed = self.process_arr(arr)
+    arr = turn_csv_into_arr
+    processed = process_arr(arr)
   end
 
   def self.process_arr(arr)
