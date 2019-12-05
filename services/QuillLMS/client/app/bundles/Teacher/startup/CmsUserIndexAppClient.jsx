@@ -62,7 +62,7 @@ export default class CmsUserIndex extends React.Component {
         minWidth: 90,
         Cell: (row) => {
           if (row.original.school) {
-            return <a href={"https://quill-lms-sprint-docker.herokuapp.com/cms/schools/${row.original.school_id}"}>{row.original.school}</a>
+            return <a href={`${process.env.DEFAULT_URL}/cms/schools/${row.original.school_id}`}>{row.original.school}</a>
           }
           return 'N/A';
         }
@@ -72,7 +72,7 @@ export default class CmsUserIndex extends React.Component {
         resizable: false,
         minWidth: 40,
         Cell: (row) => {
-          return <a href={"https://quill-lms-sprint-docker.herokuapp.com/cms/users/${row.original.id}/edit"}>Edit</a>
+          return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}/edit`}>Edit</a>
         }
       }, {
         Header: "Details",
@@ -80,7 +80,7 @@ export default class CmsUserIndex extends React.Component {
         resizable: false,
         minWidth: 60,
         Cell: (row) => {
-          return <a href={"https://quill-lms-sprint-docker.herokuapp.com/cms/users/${row.original.id}"}>Details</a>
+          return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}`}>Details</a>
         }
       }, {
         Header: "Sign In",
@@ -88,7 +88,7 @@ export default class CmsUserIndex extends React.Component {
         resizable: false,
         minWidth: 60,
         Cell: (row) => {
-          return <a href={"https://quill-lms-sprint-docker.herokuapp.com/cms/users/${row.original.id}/sign_in"}>Sign In</a>
+          return <a href={`${process.env.DEFAULT_URL}/cms/users/${row.original.id}/sign_in`}>Sign In</a>
         }
       }
     ];
@@ -169,7 +169,7 @@ export default class CmsUserIndex extends React.Component {
 
   search() {
     this.setState({loading: true})
-    const link = "https://quill-lms-sprint-docker.herokuapp.com/cms/users/search"
+    const link = `${process.env.DEFAULT_URL}/cms/users/search`
     const data = new FormData();
     Object.keys(this.state.query).forEach((k) => {
       data.append(k, this.state.query[k])

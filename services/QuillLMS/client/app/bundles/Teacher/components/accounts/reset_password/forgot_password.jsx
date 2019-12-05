@@ -34,7 +34,7 @@ export default class ForgotPassword extends React.Component {
     const { email, password, timesSubmitted, } = this.state
     e.preventDefault();
     request({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/password_reset",
+      url: `${process.env.DEFAULT_URL}/password_reset`,
       method: 'POST',
       json: {
         user: {
@@ -47,7 +47,7 @@ export default class ForgotPassword extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         // console.log(body);
-        window.location = "https://quill-lms-sprint-docker.herokuapp.com${body.redirect}";
+        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
         let state
         if (body.type && body.message) {

@@ -15,7 +15,7 @@ class SelectUSK12 extends React.Component {
       SegmentAnalytics.track(Events.CLICK_SELECT_SCHOOL, {schoolSelected: idOrType});
     }
     request({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/select_school",
+      url: `${process.env.DEFAULT_URL}/select_school`,
       json: {
         school_id_or_type: idOrType,
         authenticity_token: getAuthToken(),

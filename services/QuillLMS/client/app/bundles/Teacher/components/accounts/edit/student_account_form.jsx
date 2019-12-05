@@ -26,7 +26,7 @@ export default class StudentAccountForm extends React.Component {
 
   handleClick() {
     request.put({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/update_email",
+      url: `${process.env.DEFAULT_URL}/update_email`,
       json: {
         email: this.state.email,
         role: this.state.role,

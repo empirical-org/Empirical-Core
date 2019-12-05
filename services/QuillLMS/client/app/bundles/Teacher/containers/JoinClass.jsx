@@ -38,7 +38,7 @@ export default class JoinClass extends React.Component {
     SegmentAnalytics.track(Events.JOIN_CLASS, {mechanism: 'classCode'});
     const data = new FormData()
     data.append('classcode', classCodeInput)
-    fetch("https://quill-lms-sprint-docker.herokuapp.com/students_classrooms", {
+    fetch(`${process.env.DEFAULT_URL}/students_classrooms`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',

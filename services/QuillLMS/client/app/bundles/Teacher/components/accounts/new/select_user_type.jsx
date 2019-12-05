@@ -33,7 +33,7 @@ class SelectUserType extends React.Component {
   }
 
   setRoleOnSession(role) {
-    request.post("https://quill-lms-sprint-docker.herokuapp.com/account/role", {
+    request.post(`${process.env.DEFAULT_URL}/account/role`, {
       json: {
         role,
         authenticity_token: getAuthToken(),

@@ -55,7 +55,7 @@ export default class ForgotPassword extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         // console.log(body);
-        window.location = "https://quill-lms-sprint-docker.herokuapp.com${body.redirect}";
+        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
         let state
         if (body.type && body.message) {

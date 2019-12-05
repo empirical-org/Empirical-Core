@@ -33,7 +33,7 @@ export default class extends React.Component {
         <td key={`${sub.id}-5-row`}>{`${startD.format('MM/DD/YY')} - ${endD.format('MM/DD/YY')}`}</td>
       ];
       if (this.props.view === 'subscriptionHistory') {
-        tds.push(<td key={`${sub.id}-6-row`}><a href={"https://quill-lms-sprint-docker.herokuapp.com/cms/subscriptions/${sub.id}/edit"}>Edit Subscription</a></td>);
+        tds.push(<td key={`${sub.id}-6-row`}><a href={`${process.env.DEFAULT_URL}/cms/subscriptions/${sub.id}/edit`}>Edit Subscription</a></td>);
       }
       rows.push(
         <tr key={`${sub.id}-subscription-table`}>{tds}</tr>

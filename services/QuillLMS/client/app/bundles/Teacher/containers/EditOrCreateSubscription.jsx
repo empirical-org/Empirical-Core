@@ -116,7 +116,7 @@ export default class extends React.Component {
   }
 
   submitVars() {
-    const varsObj = { data: { subscription: this.state.subscription, authenticity_token: getAuthToken(), }, urlString: "https://quill-lms-sprint-docker.herokuapp.com/cms/subscriptions", };
+    const varsObj = { data: { subscription: this.state.subscription, authenticity_token: getAuthToken(), }, urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`, };
     if (this.props.view === 'edit') {
       varsObj.httpVerb = 'put';
       varsObj.urlString += `/${this.state.subscription.id}`;

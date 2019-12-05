@@ -17,7 +17,7 @@ export default React.createClass({
     },
 
   getDefaultProps() {
-      return {requestUrl: "https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/csv_exports"}
+      return {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`}
     },
 
   getInitialState() {

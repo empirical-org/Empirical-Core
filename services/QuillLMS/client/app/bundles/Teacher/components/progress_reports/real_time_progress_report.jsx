@@ -27,7 +27,7 @@ export default class extends React.Component {
 
   getRealTimeData = () => {
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/api/v1/progress_reports/real_time_data",
+      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/real_time_data`,
     }, (e, r, body) => {
       const data = JSON.parse(body).data;
       const studentsData = data;

@@ -45,7 +45,7 @@ export default class extends React.Component {
       qs = classroom ? {classroom_id: classroom.id} : null
     }
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/standards/classrooms.json", qs
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms.json`, qs
     }, (e, r, body) => {
       const standardsData = this.formatStandardsData(JSON.parse(body).data)
       // gets unique classroom names

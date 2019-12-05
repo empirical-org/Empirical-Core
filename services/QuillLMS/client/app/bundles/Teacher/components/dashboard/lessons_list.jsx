@@ -25,7 +25,7 @@ export default class extends React.Component {
   getListOfAssignedLessons() {
     const that = this;
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/classroom_units/lessons_units_and_activities",
+      url: `${process.env.DEFAULT_URL}/teachers/classroom_units/lessons_units_and_activities`,
     },
     (e, r, lessons) => {
       that.setState({ lessons: JSON.parse(lessons).data, }, this.checkIfStillLoading);
@@ -35,7 +35,7 @@ export default class extends React.Component {
   getCompletedDiagnosticInfo() {
     const that = this;
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/completed_diagnostic_unit_info",
+      url: `${process.env.DEFAULT_URL}/teachers/completed_diagnostic_unit_info`,
     },
     (e, r, body) => {
       that.setState({ completedDiagnosticUnitInfo: JSON.parse(body).unit_info, }, this.checkIfStillLoading);

@@ -17,7 +17,7 @@ export default class NavButtonGroup extends React.Component {
 	}
 
   componentDidMount() {
-    fetch("https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/activity_with_recommendations_ids", {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include'

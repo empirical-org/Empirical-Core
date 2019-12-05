@@ -43,7 +43,7 @@ export default class ActivityCategory extends React.Component {
   destroyAndRecreateOrderNumbers() {
     const that = this
     const activities = this.state.selectedActivities;
-    request.post("https://quill-lms-sprint-docker.herokuapp.com/cms/activity_categories/destroy_and_recreate_acas", {
+    request.post(`${process.env.DEFAULT_URL}/cms/activity_categories/destroy_and_recreate_acas`, {
       json: {
         authenticity_token: getAuthToken(),
         activities: activities,
