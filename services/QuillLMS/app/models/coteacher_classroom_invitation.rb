@@ -12,8 +12,8 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
   private
 
   def update_parent_invitation
-    unless CoteacherClassroomInvitation.exists?(invitation_id: self.invitation_id)
-      Invitation.find(self.invitation_id).update(archived: true)
+    unless CoteacherClassroomInvitation.exists?(invitation_id: invitation_id)
+      Invitation.find(invitation_id).update(archived: true)
     end
   end
 
@@ -24,9 +24,9 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
       JOIN users
         ON invitations.invitee_email = users.email
       JOIN classrooms_teachers
-        ON classrooms_teachers.classroom_id = #{self.classroom_id}
+        ON classrooms_teachers.classroom_id = #{classroom_id}
         AND classrooms_teachers.user_id = users.id
-      WHERE invitations.id = #{self.invitation_id};
+      WHERE invitations.id = #{invitation_id};
     ").to_a
     return false if classrooms_teachers.any?
   end
@@ -45,10 +45,10 @@ class CoteacherClassroomInvitation < ActiveRecord::Base
     # In order to avoid letting people use our platform to spam folks,
     # we want to put some limits on the number of invitations a user can issue.
     # One of those limits is a cap on invitations per classroom
-    current_count = CoteacherClassroomInvitation.where(classroom_id: self.classroom_id).count
+    current_count = CoteacherClassroomInvitation.where(classroom_id: classroom_id).count
     return if current_count < MAX_COTEACHER_INVITATIONS_PER_CLASS
 
-    errors.add(:base, "The maximum limit of #{MAX_COTEACHER_INVITATIONS_PER_CLASS} coteacher invitations have already been issued for class #{self.classroom_id}")
+    errors.add(:base, "The maximum limit of #{MAX_COTEACHER_INVITATIONS_PER_CLASS} coteacher invitations have already been issued for class #{classroom_id}")
   end
 
 end

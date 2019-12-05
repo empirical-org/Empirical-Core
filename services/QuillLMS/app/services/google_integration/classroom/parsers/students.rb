@@ -21,7 +21,7 @@ module GoogleIntegration::Classroom::Parsers::Students
   def self.run(students)
     return [] if !students || !students.length
     student_data = students.map do |hash|
-      self.parse_hash(hash)
+      parse_hash(hash)
     end
   end
 
