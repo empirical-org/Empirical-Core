@@ -12,7 +12,7 @@ describe('PromptStep component', () => {
   />)
 
   it('renders', () => {
-    expect((wrapper).toMatchSnapshot())
+    expect(wrapper).toMatchSnapshot()
   })
 
 })

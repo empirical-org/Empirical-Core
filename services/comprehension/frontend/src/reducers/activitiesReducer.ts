@@ -5,7 +5,7 @@ import { Activity } from '../interfaces/activities'
 
 export interface ActivitiesReducerState {
   hasReceivedData: boolean;
-  currentActivity: Activity;
+  currentActivity?: Activity;
   error?: string;
 }
 

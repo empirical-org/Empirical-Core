@@ -2,6 +2,7 @@ import * as React from "react";
 import {connect} from "react-redux";
 
 import PromptStep from './promptStep'
+import LoadingSpinner from '../shared/loadingSpinner'
 import getParameterByName from '../../helpers/getParameterByName'
 import { getActivity } from "../../actions/activities";
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
@@ -18,7 +19,7 @@ interface StudentViewContainerState {
   completedSteps: Array<number>;
 }
 
-class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
+export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
   private step1: any
   private step2: any
   private step3: any
@@ -136,15 +137,12 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
 
   render() {
     const { hasReceivedData, } = this.props.activities
-    if (hasReceivedData) {
-      return <div className="activity-container">
-        {this.renderStepLinks()}
-        {this.renderReadPassageContainer()}
-        {this.renderSteps()}
-      </div>
-    } else {
-      return 'Loading'
-    }
+    if (!hasReceivedData) return <LoadingSpinner />
+    return <div className="activity-container">
+      {this.renderStepLinks()}
+      {this.renderReadPassageContainer()}
+      {this.renderSteps()}
+    </div>
   }
 }
 
