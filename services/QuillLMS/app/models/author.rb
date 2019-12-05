@@ -5,7 +5,7 @@ class Author < ActiveRecord::Base
   DEFAULT_AVATAR_URL = 'https://assets.quill.org/images/authors/placeholder.png'
 
   def avatar_url
-    self.avatar.blank? ? DEFAULT_AVATAR_URL : self.avatar
+    avatar.blank? ? DEFAULT_AVATAR_URL : avatar
   end
 
   private
