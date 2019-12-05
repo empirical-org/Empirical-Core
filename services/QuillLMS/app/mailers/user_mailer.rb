@@ -108,7 +108,7 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where("completed_at >= ?", 1.day.ago).size * 10
     @diagnostics_completed = ActivitySession.where("completed_at >= ?", 1.day.ago).where(activity_id: Activity.diagnostic_activity_ids).size
-    mail to: "eric@quill.org", subject: "Quill Daily Analytics"
+    mail to: "team@quill.org", subject: "Quill Daily Analytics"
   end
 
 end
