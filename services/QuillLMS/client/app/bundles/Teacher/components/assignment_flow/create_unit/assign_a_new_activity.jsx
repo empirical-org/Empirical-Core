@@ -33,7 +33,7 @@ const AssignANewActivity = ({ numberOfActivitiesAssigned }) => (<div className="
         text="Explore our library of diagnostic assessments and learning activities to find the best materials for your students."
       />
       <AssignmentStep
-        header="Choose Assignment Type"
+        header="Assign to Classes"
         number="3"
         text="Assign these activities to either the whole class or individual students."
       />

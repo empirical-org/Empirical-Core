@@ -64,19 +64,19 @@ class Response < ApplicationRecord
   end
 
   def create_index_in_elastic_search
-    self.__elasticsearch__.index_document
+    __elasticsearch__.index_document
   end
 
   def update_index_in_elastic_search
-    self.__elasticsearch__.update_document
+    __elasticsearch__.update_document
   end
 
   def destroy_index_in_elastic_search
-    self.__elasticsearch__.delete_document
+    __elasticsearch__.delete_document
   end
 
   def clear_responses_route_cache
-    Rails.cache.delete("questions/#{self.question_uid}/responses")
+    Rails.cache.delete("questions/#{question_uid}/responses")
   end
 
   def self.find_by_id_or_uid(string)
