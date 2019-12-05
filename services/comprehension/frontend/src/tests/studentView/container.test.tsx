@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { shallow } from 'enzyme';
+import { shallow, mount, } from 'enzyme';
 
 import { StudentViewContainer } from '../../components/studentView/container'
 import LoadingSpinner from '../../components/shared/loadingSpinner'
@@ -9,7 +9,7 @@ import { activityOne } from './data'
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
     const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
-    const wrapper = shallow(<StudentViewContainer
+    const wrapper = mount(<StudentViewContainer
       dispatch={() => {}}
       activities={activitiesReducer}
     />)
@@ -20,6 +20,12 @@ describe('StudentViewContainer component', () => {
 
     it('should render a promptStep for each prompt in the activity', () => {
       expect(wrapper.find(PromptStep).length).toBe(activityOne.prompts.length)
+    })
+
+    it('should increase to the next step when the user clicks the "Done reading" button', () => {
+      wrapper.find('.done-reading-button').simulate('click')
+      expect(wrapper.state('step')).toBe(2)
+      expect(wrapper.state('completedSteps')).toEqual([1])
     })
   })
 

@@ -39,7 +39,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.step4 = React.createRef()
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const activityUID = getParameterByName('uid', window.location.href)
 
     if (activityUID) {
@@ -60,6 +60,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   renderStepLinks = () => {
     const { currentActivity, } = this.props.activities
+    if (!currentActivity) return
+
     const links = []
     const numberOfLinks = currentActivity.prompts.length + 1
 
@@ -85,11 +87,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   renderReadPassageStep() {
     const { step, } = this.state
     const { currentActivity, } = this.props.activities
+    if (!currentActivity) return
     let className = 'step'
     let button
     if (step === 1) {
       className += ' active'
-      button = <button onClick={this.goToNextStep}>Done reading</button>
+      button = <button className='done-reading-button' onClick={this.goToNextStep}>Done reading</button>
     }
     return (<div className={className}>
       {this.renderStepNumber(1)}
@@ -103,6 +106,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   renderPromptSteps() {
     const { currentActivity, } = this.props.activities
+    if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
       const { text, } = prompt
       const stepNumber = i + 2
@@ -117,6 +121,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   renderReadPassageContainer() {
     const { currentActivity, } = this.props.activities
+    if (!currentActivity) return
     return <div className="read-passage-container">
       <div>
         <p className="directions">Read the passage</p>
