@@ -6,21 +6,21 @@ class SchoolSubscription < ActiveRecord::Base
   after_create :send_premium_emails, :update_subscription
 
   def update_schools_users
-    if self.school && self.school.users
-      self.school.users.each do |u|
-        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(u.id, self.subscription_id)
+    if school && school.users
+      school.users.each do |u|
+        UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(u.id, subscription_id)
       end
     end
   end
 
   def send_premium_emails
-    if self.school && self.school.users
+    if school && school.users
       if Rails.env.production?
-        self.school.users.each do |u|
+        school.users.each do |u|
           PremiumSchoolSubscriptionEmailWorker.perform_async(u.id)
         end
       else
-        self.school.users.each do |u|
+        school.users.each do |u|
           PremiumSchoolSubscriptionEmailWorker.perform_async(u.id) if u.email.match('quill.org')
         end
       end
@@ -28,8 +28,8 @@ class SchoolSubscription < ActiveRecord::Base
   end
 
   def update_subscription
-    if self.subscription.account_type === 'Purchase Missing School'
-      self.subscription.update(account_type: 'School Paid')
+    if subscription.account_type === 'Purchase Missing School'
+      subscription.update(account_type: 'School Paid')
     end
   end
 

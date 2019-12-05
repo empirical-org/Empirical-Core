@@ -2,12 +2,12 @@ module GoogleIntegration::Classroom::Main
 
   def self.join_existing_google_classrooms(student)
     client = GoogleIntegration::Client.new(student).create
-    GoogleIntegration::Classroom::Student.run(student, self.parse_courses(student, client))
+    GoogleIntegration::Classroom::Student.run(student, parse_courses(student, client))
   end
 
   def self.pull_data(user)
     client = GoogleIntegration::Client.new(user).create
-    self.parse_courses(user, client)
+    parse_courses(user, client)
   end
 
   private
