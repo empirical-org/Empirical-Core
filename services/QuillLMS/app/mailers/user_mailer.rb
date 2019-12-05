@@ -103,7 +103,7 @@ class UserMailer < ActionMailer::Base
     @new_teacher_signups = User.where(role: "teacher").where("created_at >= ?", 1.day.ago).size
     @new_student_signups = User.where(role: "student").where("created_at >= ?", 1.day.ago).size
     @classrooms_created = Classroom.where("created_at >= ?", 1.day.ago).size
-    @activities_assigned = ClassroomUnit.where("created_at >= ?", 1.day.ago).size
+    @activities_assigned = UnitActivity.where("created_at >= ?", 1.day.ago).size
     # Sentences written is quantified by number of activities completed multiplied by 10 because
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where("completed_at >= ?", 1.day.ago).size * 10
