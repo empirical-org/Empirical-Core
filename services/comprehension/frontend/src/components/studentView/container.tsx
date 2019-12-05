@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as Redux from "redux";
 import {connect} from "react-redux";
 
+import PromptStep from './promptStep'
 import getParameterByName from '../../helpers/getParameterByName'
 import { getActivity } from "../../actions/activities";
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
@@ -19,6 +19,11 @@ interface StudentViewContainerState {
 }
 
 class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
+  private step1: any
+  private step2: any
+  private step3: any
+  private step4: any
+
   constructor(props: StudentViewContainerProps) {
     super(props)
 
@@ -26,6 +31,11 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
       step: 1,
       completedSteps: []
     }
+
+    this.step1 = React.createRef()
+    this.step2 = React.createRef()
+    this.step3 = React.createRef()
+    this.step4 = React.createRef()
   }
 
   componentWillMount() {
@@ -94,17 +104,13 @@ class StudentViewContainer extends React.Component<StudentViewContainerProps, St
     const { currentActivity, } = this.props.activities
     return currentActivity.prompts.map((prompt, i) => {
       const { text, } = prompt
-      let className = 'step'
-      const allButLastWordOfPrompt = text.substring(0, text.lastIndexOf(' '))
-      const lastWordOfPrompt = text.split(' ').splice('-1')
       const stepNumber = i + 2
-      return (<div className={className} ref={(node) => this[`step${stepNumber}`] = node}>
-        {this.renderStepNumber(stepNumber)}
-        <div className="step-content">
-          <p className="directions">Use information from the text to finish the sentence:</p>
-          <p className="prompt-text">{allButLastWordOfPrompt} <span>{lastWordOfPrompt}</span></p>
-        </div>
-      </div>)
+      return <PromptStep
+        className='step'
+        passedRef={(node) => this[`step${stepNumber}`] = node}
+        stepNumberComponent={this.renderStepNumber(stepNumber)}
+        text={text}
+      />
     })
   }
 
