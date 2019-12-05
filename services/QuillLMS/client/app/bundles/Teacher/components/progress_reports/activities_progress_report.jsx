@@ -49,7 +49,7 @@ export default React.createClass({
     this.setState({ loadingNewTableData: true });
     const that = this;
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/activity_sessions.json",
+      url: `${process.env.DEFAULT_URL}/teachers/progress_reports/activity_sessions.json`,
       qs: this.requestParams()
     }, (e, r, body) => {
       const data = JSON.parse(body);

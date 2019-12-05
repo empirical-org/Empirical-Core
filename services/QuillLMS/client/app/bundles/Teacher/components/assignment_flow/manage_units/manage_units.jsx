@@ -34,14 +34,14 @@ export default React.createClass({
   },
 
   getClassrooms() {
-    request.get("https://quill-lms-sprint-docker.herokuapp.com/teachers/classrooms/classrooms_i_teach", (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       this.handleClassrooms(classrooms);
     });
   },
 
   getRecommendationIds() {
-    fetch("https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/activity_with_recommendations_ids", {
+    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
       method: 'GET',
       mode: 'cors',
       credentials: 'include',
@@ -75,7 +75,7 @@ export default React.createClass({
   },
 
   getUnits() {
-    request.get("https://quill-lms-sprint-docker.herokuapp.com/teachers/units", (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
       this.setAllUnits(JSON.parse(body));
     });
   },
@@ -166,14 +166,14 @@ export default React.createClass({
     x1 = _.reject(units, unit => this.getIdFromUnit(unit) == id);
     this.setState({ units: x1, });
 
-    request.put("https://quill-lms-sprint-docker.herokuapp.com/teachers/units/${id}/hide", {
+    request.put(`${process.env.DEFAULT_URL}/teachers/units/${id}/hide`, {
       json: { authenticity_token: getAuthToken(), },
     });
   },
 
   hideUnitActivity(uaId, unitId) {
     request.put({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/unit_activities/${uaId}/hide",
+      url: `${process.env.DEFAULT_URL}/teachers/unit_activities/${uaId}/hide`,
       json: { authenticity_token: getAuthToken(), }, },
       (error, httpStatus, body) => {
         if (httpStatus && httpStatus.statusCode === 200) {
@@ -196,13 +196,13 @@ export default React.createClass({
   },
 
   updateDueDate(ua_id, date) {
-    request.put("https://quill-lms-sprint-docker.herokuapp.com/teachers/unit_activities/${ua_id}", {
+    request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/${ua_id}`, {
       json: { unit_activity: { due_date: date, }, authenticity_token: getAuthToken(), },
     });
   },
 
   updateMultipleDueDates(ua_ids, date) {
-    request.put("https://quill-lms-sprint-docker.herokuapp.com/teachers/unit_activities/update_multiple_due_dates", {
+    request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/update_multiple_due_dates`, {
       json: { unit_activity_ids: ua_ids, due_date: date, authenticity_token: getAuthToken(), },
     });
   },

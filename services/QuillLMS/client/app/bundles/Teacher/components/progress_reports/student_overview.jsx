@@ -28,7 +28,7 @@ export default class extends React.Component {
     const classroomId = l.get(query, 'classroom_id') || getParameterByName('classroom_id', window.location.href);
     const studentId = l.get(query, 'student_id') || getParameterByName('student_id', window.location.href);
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}",
+      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/student_overview_data/${studentId}/${classroomId}`,
     }, (e, r, body) => {
       const data = JSON.parse(body);
       that.setState({ loading: false, errors: body.errors, studentData: data.student_data, reportData: data.report_data, classroomName: data.classroom_name, });

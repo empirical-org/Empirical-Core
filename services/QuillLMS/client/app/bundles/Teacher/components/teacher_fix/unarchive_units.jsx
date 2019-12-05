@@ -46,7 +46,7 @@ export default class UnarchiveUnits extends React.Component {
     const that = this
     that.setState({archivedUnits: [], selectedUnitIds: [], error: ''})
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/archived_units",
+      url: `${process.env.DEFAULT_URL}/teacher_fix/archived_units`,
       qs: {teacher_identifier: that.state.teacherIdentifier}
     },
     (e, r, response) => {
@@ -61,7 +61,7 @@ export default class UnarchiveUnits extends React.Component {
   unarchiveUnits() {
     const that = this
     request.post({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/unarchive_units",
+      url: `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
       json: {unit_ids: that.state.selectedUnitIds, changed_names: that.state.changedNames, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {

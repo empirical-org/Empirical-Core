@@ -18,7 +18,7 @@ export default class MergeStudentAccounts extends React.Component {
   submitStudents() {
     const that = this
     request.post({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/merge_student_accounts",
+      url: `${process.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
       json: {account_1_identifier: that.state.student1Identifier, account_2_identifier: that.state.student2Identifier, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {

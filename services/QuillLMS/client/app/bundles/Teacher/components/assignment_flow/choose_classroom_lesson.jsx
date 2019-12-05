@@ -17,7 +17,7 @@ export default class ChooseClassroomLesson extends React.Component {
   }
 
   getClassroomLessonInfo() {
-    request.get("https://quill-lms-sprint-docker.herokuapp.com/teachers/units/lesson_info_for_activity/${this.props.params.activityId}", (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
       const data = JSON.parse(body)
       this.setState({
         classroomUnits: data.classroom_units,
@@ -64,7 +64,7 @@ export default class ChooseClassroomLesson extends React.Component {
   launchLessonLink() {
     const classroomUnitId = this.state.classroomUnitId
     const lessonId = this.props.routeParams.activityId
-    return "https://quill-lms-sprint-docker.herokuapp.com/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}"
+    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 
   goBack() {

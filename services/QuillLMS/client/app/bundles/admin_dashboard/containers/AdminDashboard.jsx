@@ -36,7 +36,7 @@ export default React.createClass({
 
   getData() {
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/admins/${this.props.route.adminId}",
+      url: `${process.env.DEFAULT_URL}/admins/${this.props.route.adminId}`,
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
@@ -69,7 +69,7 @@ export default React.createClass({
     const that = this;
     that.setState({ message: '', error: '', });
     data.authenticity_token = getAuthToken();
-    request.post("https://quill-lms-sprint-docker.herokuapp.com/admins/${that.props.id}/teachers", {
+    request.post(`${process.env.DEFAULT_URL}/admins/${that.props.id}/teachers`, {
       json: data,
     },
     (e, r, response) => {

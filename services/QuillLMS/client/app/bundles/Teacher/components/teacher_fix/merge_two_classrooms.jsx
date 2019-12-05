@@ -18,7 +18,7 @@ export default class MergeTwoClassrooms extends React.Component {
   submitData() {
     const that = this
     request.post({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/merge_two_classrooms",
+      url: `${process.env.DEFAULT_URL}/teacher_fix/merge_two_classrooms`,
       json: {class_code_1: that.state.classCode1, class_code_2: that.state.classCode2, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {

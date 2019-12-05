@@ -17,7 +17,7 @@ export default class RecoverUnitActivities extends React.Component {
   submit() {
     const that = this
     request.post({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teacher_fix/recover_unit_activities",
+      url: `${process.env.DEFAULT_URL}/teacher_fix/recover_unit_activities`,
       json: {email: that.state.email, authenticity_token: getAuthToken()}
     },
     (e, r, response) => {

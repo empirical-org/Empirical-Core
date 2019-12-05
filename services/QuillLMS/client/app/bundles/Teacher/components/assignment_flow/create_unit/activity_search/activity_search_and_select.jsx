@@ -46,7 +46,7 @@ export default class ActivitySearchAndSelect extends React.Component {
   searchRequest() {
     this.setState({ loading: true, });
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/activities/search"
+      url: `${process.env.DEFAULT_URL}/activities/search`
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)

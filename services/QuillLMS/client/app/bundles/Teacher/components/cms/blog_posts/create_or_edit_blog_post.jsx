@@ -177,7 +177,7 @@ export default class extends React.Component {
 
     if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
     let action
-    let url = "https://quill-lms-sprint-docker.herokuapp.com/cms/blog_posts/"
+    let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
     if (this.props.action === 'new' && !unpublish) {
       action = 'post'
     } else {
@@ -283,7 +283,7 @@ export default class extends React.Component {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
-      fetch("https://quill-lms-sprint-docker.herokuapp.com/cms/images", {
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',

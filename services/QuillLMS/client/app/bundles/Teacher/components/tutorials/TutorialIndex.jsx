@@ -36,7 +36,7 @@ export default class TutorialIndex extends React.Component {
 
   finishTutorial() {
     if (this.props.params.tool === 'lessons') {
-      request.post("https://quill-lms-sprint-docker.herokuapp.com/milestones/complete_view_lesson_tutorial", {
+      request.post(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`, {
         json: { authenticity_token: $('meta[name=csrf-token]').attr('content'), },
       });
     }

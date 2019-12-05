@@ -34,7 +34,7 @@ export default class IndividualStandardsReport extends React.Component {
       const that = this;
       const selectedTopicId = this.state.topic ? this.state.topic.id : null
       const selectedClassroomId = this.state.selectedClassroom && this.state.selectedClassroom.id ? this.state.selectedClassroom.id : 0
-      const url = selectedTopicId && selectedClassroomId ? "https://quill-lms-sprint-docker.herokuapp.com/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${selectedTopicId}/students.json` : "https://quill-lms-sprint-docker.herokuapp.com/"`${this.props.sourceUrl}`
+      const url = selectedTopicId && selectedClassroomId ? `${process.env.DEFAULT_URL}/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${selectedTopicId}/students.json` : `${process.env.DEFAULT_URL}/${this.props.sourceUrl}`
       request.get({
         url: url
       }, (e, r, body) => {

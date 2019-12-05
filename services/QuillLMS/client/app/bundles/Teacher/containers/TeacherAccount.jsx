@@ -82,7 +82,7 @@ export default class TeacherAccount extends React.Component {
   updateUser(data, url, snackbarCopy) {
     const { timesSubmitted, } = this.state
     request.put({
-      url: "https://quill-lms-sprint-docker.herokuapp.com${url}",
+      url: `${process.env.DEFAULT_URL}${url}`,
       json: { ...data, authenticity_token: getAuthToken(), },
     }, (error, httpStatus, body) => {
       if (httpStatus && httpStatus.statusCode === 200) {
@@ -122,7 +122,7 @@ export default class TeacherAccount extends React.Component {
   deleteAccount() {
     const { id, } = this.props.accountInfo
     request.post({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/teachers/clear_data/${id}",
+      url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
       json: { authenticity_token: getAuthToken(), },
     }, () => {
       window.location.href = window.location.origin;

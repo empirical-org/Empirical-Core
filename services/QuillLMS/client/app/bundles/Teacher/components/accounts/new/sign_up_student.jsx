@@ -53,7 +53,7 @@ class SignUpStudent extends React.Component {
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/account",
+      url: `${process.env.DEFAULT_URL}/account`,
       method: 'POST',
       json: {
         user: {
@@ -70,7 +70,7 @@ class SignUpStudent extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         // console.log(body);
-        window.location = "https://quill-lms-sprint-docker.herokuapp.com${body.redirect}";
+        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
       } else {
         let state
         if (body.errors) {

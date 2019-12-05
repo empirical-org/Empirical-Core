@@ -160,7 +160,7 @@ export default class ClassroomActivity extends React.Component {
   }
 
   anonymousPath = () => {
-    return "https://quill-lms-sprint-docker.herokuapp.com/activity_sessions/anonymous?activity_id=${this.activityId()}";
+    return `${process.env.DEFAULT_URL}/activity_sessions/anonymous?activity_id=${this.activityId()}`;
   }
 
   calculateAverageScore = () => {
@@ -258,14 +258,14 @@ export default class ClassroomActivity extends React.Component {
       return <a id="launch-lesson" onClick={this.noStudentsWarning}>{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>;
     }
     if (this.props.data.started) {
-      return <a className="resume-lesson" href={"https://quill-lms-sprint-docker.herokuapp.com/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}"}>Resume Lesson</a>;
+      return <a className="resume-lesson" href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`}>Resume Lesson</a>;
     }
-    return <a href={"https://quill-lms-sprint-docker.herokuapp.com/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}"} id="launch-lesson">Launch Lesson</a>;
+    return <a href={`${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`} id="launch-lesson">Launch Lesson</a>;
   }
 
   noStudentsWarning = () => {
     if (window.confirm("You have no students in this class. Quill Lessons is a collaborative tool for teachers and students to work together. If you'd like to launch this lesson anyway, click OK below. Otherwise, click Cancel.")) {
-      window.location.href = "https://quill-lms-sprint-docker.herokuapp.com/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}";
+      window.location.href = `${process.env.DEFAULT_URL}/teachers/classroom_units/${this.classroomUnitId()}/launch_lesson/${this.activityId()}`;
     }
   }
 

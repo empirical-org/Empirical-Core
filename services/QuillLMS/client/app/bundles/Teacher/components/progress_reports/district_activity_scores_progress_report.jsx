@@ -28,7 +28,7 @@ export default class extends React.Component {
   componentDidMount() {
     const that = this;
     request.get({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/api/v1/progress_reports/district_activity_scores"
+      url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/district_activity_scores`
     }, (e, r, body) => {
       const data = JSON.parse(body).data
       const csvData = this.formatDataForCSV(data)

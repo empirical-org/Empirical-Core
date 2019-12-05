@@ -63,7 +63,7 @@ class SchoolSelector extends React.Component {
     }
 
     request({
-      url: "https://quill-lms-sprint-docker.herokuapp.com/schools",
+      url: `${process.env.DEFAULT_URL}/schools`,
       qs: { search, lat: latitude, lng: longitude, },
       method: 'GET',
     },
