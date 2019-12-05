@@ -21,3 +21,9 @@ button {
     display: none;
   }
 }
+
+@media (max-width: 1099px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
