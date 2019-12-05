@@ -52,12 +52,12 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if the uid is not unique and question type is the same' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type_id: question.question_type_id)
+      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
       expect(new_question.valid?).to be false
     end
 
     it 'should be invalid if it has no question type' do
-      question.question_type_id = nil
+      question.question_type = nil
       expect(question.valid?).to be false
     end
   end
