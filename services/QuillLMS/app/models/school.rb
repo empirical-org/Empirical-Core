@@ -35,7 +35,7 @@ class School < ActiveRecord::Base
   }
 
   def subscription
-   self.subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
+   subscriptions.where("expiration > ? AND start_date <= ?", Date.today, Date.today).order(expiration: :desc).limit(1).first
   end
 
   def ulocal_to_school_type
@@ -59,7 +59,7 @@ class School < ActiveRecord::Base
     CSV.generate(options) do |csv_file|
       csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
-      self.students.each do |student|
+      students.each do |student|
         student.activity_sessions.where("completed_at >= ?", activities_since).where.not(completed_at: nil).each do |activity_session|
           classroom = activity_session.classroom
           teacher = User.joins(:classrooms_teachers).where(classrooms_teachers: {role: ClassroomsTeacher::ROLE_TYPES[:owner], classroom_id: classroom.id}).first
@@ -70,7 +70,7 @@ class School < ActiveRecord::Base
   end
 
   def students
-    User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: self.id}).uniq
+    User.joins(student_in_classroom: {teachers: :school}).where(schools: {id: id}).uniq
   end
 
   private def generate_leap_csv_row(student, teacher, classroom, activity_session)
@@ -81,7 +81,7 @@ class School < ActiveRecord::Base
       student.email,
       teacher.name,
       classroom.name,
-      self.name,
+      name,
       activity_session.percentage,
       activity_session.completed_at,
       activity_session.activity.name,
@@ -91,15 +91,15 @@ class School < ActiveRecord::Base
   end
 
   private def lower_grade_within_bounds
-    errors.add(:lower_grade, 'must be between 0 and 12') unless (0..12).include?(self.lower_grade.to_i)
+    errors.add(:lower_grade, 'must be between 0 and 12') unless (0..12).include?(lower_grade.to_i)
   end
 
   private def upper_grade_within_bounds
-    errors.add(:upper_grade, 'must be between 0 and 12') unless (0..12).include?(self.upper_grade.to_i)
+    errors.add(:upper_grade, 'must be between 0 and 12') unless (0..12).include?(upper_grade.to_i)
   end
 
   private def lower_grade_greater_than_upper_grade
-    return true unless self.lower_grade && self.upper_grade
-    errors.add(:lower_grade, 'must be less than or equal to upper grade') if self.lower_grade.to_i > self.upper_grade.to_i
+    return true unless lower_grade && upper_grade
+    errors.add(:lower_grade, 'must be less than or equal to upper grade') if lower_grade.to_i > upper_grade.to_i
   end
 end
