@@ -9,19 +9,19 @@ class PasswordResetController < ApplicationController
 
     if user && params[:user][:email].present?
       if user.google_id
-        return render json: { message: 'Oops! You have a Google account. Log in that way instead.', type: 'email' }, status: 401
+        render json: { message: 'Oops! You have a Google account. Log in that way instead.', type: 'email' }, status: 401
       elsif user.clever_id
-        return render json: { message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email' }, status: 401
+        render json: { message: 'Oops! You have a Clever account. Log in that way instead.', type: 'email' }, status: 401
       else
         user.refresh_token!
         UserMailer.password_reset_email(user).deliver_now!
         flash[:notice] = 'We sent you an email with instructions on how to reset your password.'
         flash.keep(:notice)
-        return render json: { redirect: '/password_reset'}
+        render json: { redirect: '/password_reset'}
       end
     else
       @user = User.new
-      return render json: { message: 'An account with this email does not exist. Try again.', type: 'email' }, status: 401
+      render json: { message: 'An account with this email does not exist. Try again.', type: 'email' }, status: 401
     end
   end
 
@@ -40,9 +40,9 @@ class PasswordResetController < ApplicationController
       sign_in @user
       flash[:notice] = 'Your password has been updated.'
       flash.keep(:notice)
-      return render json: { redirect: '/profile'}
+      render json: { redirect: '/profile'}
     else
-      return render json: { message: "Those passwords didn't match. Try again.", type: 'password_confirmation' }, status: 401
+      render json: { message: "Those passwords didn't match. Try again.", type: 'password_confirmation' }, status: 401
     end
   end
 end

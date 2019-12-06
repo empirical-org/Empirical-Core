@@ -1,11 +1,11 @@
 module CleverIntegration::Importers::Classrooms
 
   def self.run(teacher, district_token)
-    sections = self.fetch_clever_teacher(teacher.clever_id, district_token)
+    sections = fetch_clever_teacher(teacher.clever_id, district_token)
     sections_response = sections.data
-    parsed_sections_response = self.parse_sections_response(sections_response)
-    classrooms = self.create_classrooms(parsed_sections_response)
-    updated_classrooms = self.associate_classrooms_to_teacher(classrooms, teacher)
+    parsed_sections_response = parse_sections_response(sections_response)
+    classrooms = create_classrooms(parsed_sections_response)
+    updated_classrooms = associate_classrooms_to_teacher(classrooms, teacher)
     updated_classrooms
   end
 
