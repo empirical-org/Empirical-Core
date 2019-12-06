@@ -1,9 +1,10 @@
 class Question < ActiveRecord::Base
   belongs_to :question_type
-  validates :uid, presence: true, uniqueness: true
   validates :data, presence: true
   validates :question_type_id, presence: true
+  validates :uid, presence: true
   validate :data_must_be_hash
+  validates_uniqueness_of :uid, scope: :question_type_id
 
   after_save :expire_all_questions_cache
 
