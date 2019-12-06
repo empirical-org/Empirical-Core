@@ -1,0 +1,53 @@
+.step {
+  padding: 16px;
+  border-radius: 4px;
+  border: solid 1px #d8d8d8;
+  max-width: 631px;
+  margin-bottom: 10px;
+  display: flex;
+  .step-content {
+    width: 100%;
+  }
+  .passage-title {
+    font-size: 16px;
+    font-style: italic;
+  }
+  .prompt-text span {
+    text-decoration: underline;
+  }
+  button {
+    border-radius: 4px;
+    background-color: #009a80;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    width: 100%;
+    padding: 15px 0px;
+    margin-top: 24px;
+    border: none;
+  }
+  .editor-container {
+    position: relative;
+    .editor {
+      min-height: 129px;
+      border-radius: 4px;
+      padding: 16px;
+      background-color: #f1f3f4;
+      margin-top: 16px;
+      font-size: 18px;
+      border-bottom: 2px solid #009a80;
+      &:focus {
+        outline: none;
+      }
+    }
+    .clear {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      cursor: pointer;
+    }
+  }
+  &.active {
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
+  }
+}

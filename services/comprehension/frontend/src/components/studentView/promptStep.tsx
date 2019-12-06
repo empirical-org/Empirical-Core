@@ -1,21 +1,37 @@
 import * as React from 'react'
 import ContentEditable from 'react-contenteditable'
 
+const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
+
 interface PromptStepProps {
- className: string,
- stepNumberComponent: JSX.Element,
- text: string,
- passedRef: any,
+  active: Boolean;
+  className: string,
+  stepNumberComponent: JSX.Element,
+  text: string,
+  passedRef: any,
 }
 
-export default class PromptStep extends React.Component<PromptStepProps, any> {
-  private editor
+interface PromptStepState {
+  html: string;
+}
+
+export default class PromptStep extends React.Component<PromptStepProps, PrompStepState> {
+  private editor: any // eslint-disable-line react/sort-comp
 
   constructor(props: PromptStepProps) {
     super(props)
 
     this.state = { html: this.formattedPrompt() };
   }
+
+  shouldComponentUpdate(nextProps: PromptStepProps, nextState: PromptStepState) {
+    // this prevents some weird cursor stuff from happening in the text editor
+    const textHasChanged = this.state.html !== nextState.html
+    const textHasNotBeenReset = nextState.html !== this.formattedPrompt()
+    if (textHasChanged && textHasNotBeenReset) return false
+    return true
+  }
+
 
   formattedPrompt = () => {
     const { text, } = this.props
@@ -35,8 +51,33 @@ export default class PromptStep extends React.Component<PromptStepProps, any> {
     if (text.match(regex)) {
       this.setState({ html: value, })
     } else {
-      this.setState({ html, })
+      this.setState({ html, }, () => { this.editor.blur() })
     }
+  }
+
+  resetText = () => {
+    this.setState({ html: this.formattedPrompt() })
+  }
+
+  renderEditorAndButton = () => {
+    if (!this.props.active) return
+    return (<div className="editor-and-button-container">
+      <div className="editor-container">
+        <ContentEditable
+          className="editor"
+          innerRef={(node: JSX.Element) => this.editor = node}
+          html={this.state.html}
+          onChange={this.handleTextChange}
+          spellCheck={false}
+        />
+        <img
+          alt="circle with an x in it"
+          className="clear"
+          onClick={this.resetText}
+          src={clearSrc}
+        />
+      </div>
+    </div>)
   }
 
   render() {
@@ -47,12 +88,7 @@ export default class PromptStep extends React.Component<PromptStepProps, any> {
       <div className="step-content">
         <p className="directions">Use information from the text to finish the sentence:</p>
         {promptTextComponent}
-        <ContentEditable
-          innerRef={(node: JSX.Element) => this.editor = node}
-          html={this.state.html}
-          onChange={this.handleTextChange}
-          spellCheck={false}
-        />
+        {this.renderEditorAndButton()}
       </div>
     </div>)
   }
