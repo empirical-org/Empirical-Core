@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import questionActions from '../../actions/questions.ts';
+import questionActions from '../../actions/questions';
 import {
   hashToCollection,
   SortableList

@@ -1,6 +1,7 @@
 const C = require('../constants').default;
 
 import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
+import { ApiConstants } from '../utils/api';
 
 const moment = require('moment');
 
@@ -16,8 +17,6 @@ import _l from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
-
-const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
 
 /*
   There are a LOT of non-required properties in these interfaces.
@@ -79,23 +78,23 @@ interface QuestionCollection {
 
 class QuestionApi {
   static getAll(): Promise<QuestionCollection> {
-    return requestGet(`${questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`);
+    return requestGet(`${ApiConstants.questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`);
   }
 
   static get(uid: string): Promise<Question> {
-    return requestGet(`${questionApiBaseUrl}/${uid}.json`);
+    return requestGet(`${ApiConstants.questionApiBaseUrl}/${uid}.json`);
   }
 
   static create(data: Question): Promise<QuestionCollection> {
-    return requestPost(`${questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`, {question: data});
+    return requestPost(`${ApiConstants.questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`, {question: data});
   }
 
   static update(uid: string, data: Question): Promise<Question> {
-    return requestPut(`${questionApiBaseUrl}/${uid}.json`, {question: data});
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}.json`, {question: data});
   }
 
   static updateFlag(uid: string, flag: string): Promise<Question> {
-    return requestPut(`${questionApiBaseUrl}/${uid}/update_flag.json`, {
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}/update_flag.json`, {
       question: {
         flag: flag
       }
@@ -103,7 +102,7 @@ class QuestionApi {
   }
 
   static updateModelConcept(uid: string, modelConceptUid: string): Promise<Question> {
-    return requestPut(`${questionApiBaseUrl}/${uid}/update_model_concept.json`, {
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}/update_model_concept.json`, {
       question: {
         modelConcept: modelConceptUid
       }
@@ -113,53 +112,53 @@ class QuestionApi {
 
 class FocusPointApi {
   static getAll(questionId: string): Promise<FocusPointCollection> {
-    return requestGet(`${questionApiBaseUrl}/${questionId}/focus_points.json`);
+    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points.json`);
   }
 
   static get(questionId: string, focusPointId: string): Promise<FocusPoint> {
-    return requestGet(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
+    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
   }
 
   static create(questionId: string, data: FocusPoint): Promise<FocusPointCollection> {
-    return requestPost(`${questionApiBaseUrl}/${questionId}/focus_points.json`, {focus_point: data});
+    return requestPost(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points.json`, {focus_point: data});
   }
 
   static update(questionId: string, focusPointId: string, data: FocusPoint): Promise<FocusPoint> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`, {focus_point: data});
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`, {focus_point: data});
   }
 
   static updateAllForQuestion(questionId: string, data: FocusPointCollection): Promise<FocusPointCollection> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/focus_points/update_all.json`, {focus_point: data});
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/update_all.json`, {focus_point: data});
   }
 
   static remove(questionId: string, focusPointId: string): Promise<string> {
-    return requestDelete(`${questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
+    return requestDelete(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
   }
 }
 
 class IncorrectSequenceApi {
   static getAll(questionId: string): Promise<IncorrectSequenceCollection> {
-    return requestGet(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`);
+    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences.json`);
   }
 
   static get(questionId: string, incorrectSequenceId: string): Promise<IncorrectSequence> {
-    return requestGet(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
+    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
   }
 
   static create(questionId: string, data: IncorrectSequence): Promise<IncorrectSequenceCollection> {
-    return requestPost(`${questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, {incorrect_sequence: data});
+    return requestPost(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, {incorrect_sequence: data});
   }
 
   static update(questionId: string, incorrectSequenceId: string, data: IncorrectSequence): Promise<IncorrectSequence> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`, {incorrect_sequence: data});
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`, {incorrect_sequence: data});
   }
 
   static updateAllForQuestion(questionId: string, data: IncorrectSequenceCollection): Promise<IncorrectSequenceCollection> {
-    return requestPut(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/update_all.json`, {incorrect_sequence: data});
+    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/update_all.json`, {incorrect_sequence: data});
   }
 
   static remove(questionId: string, incorrectSequenceId: string): Promise<string> {
-    return requestDelete(`${questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
+    return requestDelete(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
   }
 }
 
