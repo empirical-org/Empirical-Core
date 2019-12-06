@@ -16,7 +16,7 @@ module TeacherFixes
     ClassroomUnit.where(unit_id: unit1.id).each do |cu1|
       cu2 = ClassroomUnit.find_by(unit_id: unit2.id, classroom_id: cu1.classroom_id)
       if cu2
-        self.merge_two_classroom_units(cu1, cu2)
+        merge_two_classroom_units(cu1, cu2)
       else
         cu1.update!(unit_id: unit2.id)
       end
@@ -38,7 +38,7 @@ module TeacherFixes
     end
     cu1.update(visible: false)
     # update cu1 activity sessions to belong to cu2
-    self.merge_activity_sessions_between_two_classroom_units(cu1, cu2)
+    merge_activity_sessions_between_two_classroom_units(cu1, cu2)
   end
 
   def self.merge_activity_sessions_between_two_classroom_units(cu1, cu2)
