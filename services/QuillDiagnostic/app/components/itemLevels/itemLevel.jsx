@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import ItemLevelForm from './itemLevelForm.jsx'
-import levelActions from '../../actions/item-levels.js'
-import questionActions from '../../actions/questions.ts'
+import levelActions from '../../actions/item-levels'
+import questionActions from '../../actions/questions'
 import _ from 'lodash'
 
 const ItemLevel = React.createClass({
