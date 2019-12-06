@@ -24,6 +24,8 @@
   "author": "Quill.org",
   "license": "AGPL-3.0",
   "dependencies": {
+    "@types/draft-convert": "^2.1.1",
+    "@types/draft-js": "^0.10.37",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/immutable": "^3.8.7",
     "@types/lodash": "^4.14.149",
@@ -42,6 +44,7 @@
     "bulma": "^0.8.0",
     "css-hot-loader": "^1.4.4",
     "draft-convert": "^2.1.8",
+    "draft-js": "^0.11.3",
     "enzyme-adapter-react-16": "^1.15.1",
     "fs": "0.0.2",
     "immutable": "^3.8.2",
