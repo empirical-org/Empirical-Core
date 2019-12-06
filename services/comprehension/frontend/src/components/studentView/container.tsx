@@ -19,6 +19,8 @@ interface StudentViewContainerState {
   completedSteps: Array<number>;
 }
 
+const READ_PASSAGE_STEP = 1
+
 export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
   private step1: any // eslint-disable-line react/sort-comp
   private step2: any // eslint-disable-line react/sort-comp
@@ -79,9 +81,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const completed = completedSteps.includes(number)
     if (completed) {
       return <img alt="white check in green circle" className="step-number completed" key={number} src={bigCheckSrc} />
-    } else {
-      return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number}</div>
     }
+    return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number}</div>
   }
 
   renderReadPassageStep() {
@@ -90,12 +91,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!currentActivity) return
     let className = 'step'
     let button
-    if (step === 1) {
+    if (step === READ_PASSAGE_STEP) {
       className += ' active'
       button = <button className='done-reading-button' onClick={this.goToNextStep}>Done reading</button>
     }
     return (<div className={className}>
-      {this.renderStepNumber(1)}
+      {this.renderStepNumber(READ_PASSAGE_STEP)}
       <div className="step-content" ref={(node) => this.step1 = node}>
         <p className="directions">Read the passage:</p>
         <p className="passage-title">{currentActivity.title}</p>
@@ -109,10 +110,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
       const { text, } = prompt
+      // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       return (<PromptStep
         className='step'
-        passedRef={(node) => this[`step${stepNumber}`] = node}
+        passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
         text={text}
       />)
