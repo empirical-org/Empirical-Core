@@ -1,9 +1,11 @@
 from flask import jsonify
 from flask import make_response
+from dotenv import load_dotenv
 import string
 import requests
 import os
 
+load_dotenv()
 
 def response_endpoint(request):
     request_json = request.get_json()
