@@ -6,11 +6,12 @@ class User < ActiveRecord::Base
   attr_accessor :validate_username,
                 :require_password_confirmation_when_password_present
 
+  before_validation :generate_student_username_if_absent
+  before_validation :prep_authentication_terms
   before_save :capitalize_name
-  before_save :generate_student_username_if_absent
-  after_save  :update_invitee_email_address, if: Proc.new { self.email_changed? }
-  after_create :generate_referrer_id, if: Proc.new { self.teacher? }
-
+  after_save  :update_invitee_email_address, if: Proc.new { email_changed? }
+  after_save :check_for_school
+  after_create :generate_referrer_id, if: Proc.new { teacher? }
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
@@ -65,10 +66,8 @@ class User < ActiveRecord::Base
   validates :password,              presence:     { if: :requires_password? }
 
   validates :email,                 presence:     { if: :email_required? },
-                                    uniqueness:   { if: :email_required_or_present?},
-                                    on: :create
+                                    uniqueness:   { message: :taken, if: :email_required_or_present?}
 
-  validate  :validate_username_and_email,  on: :update
   validate :username_cannot_be_an_email
 
   # gem validates_email_format_of
@@ -77,8 +76,8 @@ class User < ActiveRecord::Base
 
 
   validates :username,              presence:     { if: ->(m) { m.email.blank? && m.permanent? } },
-                                    uniqueness:   { allow_blank: true },
-                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username?}
+                                    uniqueness:   { allow_blank: true, message: :taken },
+                                    format:       { without: /\s/, message: :no_spaces_allowed, if: :validate_username? }
 
   validate :validate_flags
 
@@ -96,25 +95,21 @@ class User < ActiveRecord::Base
   PERMISSIONS_FLAGS = %w(auditor purchaser school_point_of_contact)
   VALID_FLAGS = TESTING_FLAGS.dup.concat(PERMISSIONS_FLAGS)
 
-  scope :teacher, lambda { where(role: TEACHER) }
-  scope :student, lambda { where(role: STUDENT) }
+  scope :teacher, -> { where(role: TEACHER) }
+  scope :student, -> { where(role: STUDENT) }
 
   attr_accessor :newsletter
 
-  before_validation :prep_authentication_terms
-
-  after_save :check_for_school
-
   def testing_flag
-    self.role == STAFF ? PRIVATE : self.flags.detect{|f| TESTING_FLAGS.include?(f)}
+    role == STAFF ? PRIVATE : flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
 
   def auditor?
-    self.flags.include?('auditor')
+    flags.include?('auditor')
   end
 
   def utc_offset
-    if self.time_zone.present?
+    if time_zone.present?
       tz = TZInfo::Timezone.get(time_zone)
       tz.period_for_utc(Time.new.utc).utc_total_offset
     else
@@ -123,21 +118,21 @@ class User < ActiveRecord::Base
   end
 
   def purchaser?
-    self.flags.include?('purchaser')
+    flags.include?('purchaser')
   end
 
   def school_poc?
-    self.flags.include?('school_point_of_contact')
+    flags.include?('school_point_of_contact')
   end
 
   def redeem_credit
     balance = credit_transactions.sum(:amount)
     if balance > 0
-      new_sub = Subscription.create_with_user_join(self.id, {account_type: 'Premium Credit',
+      new_sub = Subscription.create_with_user_join(id, {account_type: 'Premium Credit',
                                                             payment_method: 'Premium Credit',
                                                             expiration: redemption_start_date + balance,
                                                             start_date: redemption_start_date,
-                                                            purchaser_id: self.id})
+                                                            purchaser_id: id})
       if new_sub
         CreditTransaction.create!(user: self, amount: 0 - balance, source: new_sub)
       end
@@ -146,7 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def redemption_start_date
-    last_subscription = self.subscriptions
+    last_subscription = subscriptions
       .where(de_activated_date: nil)
       .where("expiration > ?", Date.today)
       .order(expiration: :asc)
@@ -161,13 +156,13 @@ class User < ActiveRecord::Base
 
   def subscription_authority_level(subscription_id)
     subscription = Subscription.find subscription_id
-    if subscription.purchaser_id == self.id
-        return 'purchaser'
-    elsif subscription.schools.include?(self.school)
-      if self.school.coordinator == self
-        return 'coordinator'
-      elsif self.school.authorizer == self
-        return 'authorizer'
+    if subscription.purchaser_id == id
+        'purchaser'
+    elsif subscription.schools.include?(school)
+      if school.coordinator == self
+        'coordinator'
+      elsif school.authorizer == self
+        'authorizer'
       end
     end
   end
@@ -183,15 +178,15 @@ class User < ActiveRecord::Base
   end
 
   def last_expired_subscription
-    self.subscriptions.where("expiration <= ?", Date.today).order(expiration: :desc).limit(1).first
+    subscriptions.where("expiration <= ?", Date.today).order(expiration: :desc).limit(1).first
   end
 
   def subscription
-    self.subscriptions.where("expiration > ? AND start_date <= ? AND de_activated_date IS NULL", Date.today, Date.today,).order(expiration: :desc).limit(1).first
+    subscriptions.where("expiration > ? AND start_date <= ? AND de_activated_date IS NULL", Date.today, Date.today,).order(expiration: :desc).limit(1).first
   end
 
   def present_and_future_subscriptions
-    self.subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
+    subscriptions.where("expiration > ? AND de_activated_date IS NULL", Date.today).order(expiration: :asc)
   end
 
   def create(*args)
@@ -221,8 +216,8 @@ class User < ActiveRecord::Base
 
   def username_cannot_be_an_email
     if username =~ VALID_EMAIL_REGEX
-      if self.id
-        db_self = User.find(self.id)
+      if id
+        db_self = User.find(id)
         errors.add(:username, :invalid) unless db_self.username == username
       else
         errors.add(:username, :invalid)
@@ -232,17 +227,14 @@ class User < ActiveRecord::Base
 
   # gets last four digits of Stripe card
   def last_four
-    if self.stripe_customer_id
-      Stripe::Customer.retrieve(self.stripe_customer_id).sources.data.first&.last4
+    if stripe_customer_id
+      Stripe::Customer.retrieve(stripe_customer_id).sources.data.first&.last4
     end
   end
 
   def safe_role_assignment role
-    self.role = if sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
-      sanitized_role
-    else
-      'user'
-    end
+    sanitized_role = SAFE_ROLES.find{ |r| r == role.strip }
+    self.role = sanitized_role || 'user'
   end
 
   def self.sorting_name_sql
@@ -282,7 +274,7 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    SchoolsAdmins.find_by_user_id(self.id).present?
+    SchoolsAdmins.find_by_user_id(id).present?
   end
 
   def self.find_by_username_or_email(login_name)
@@ -363,7 +355,7 @@ class User < ActiveRecord::Base
   ## End satismeter
 
   def admins_teachers
-    schools = self.administered_schools.includes(:users)
+    schools = administered_schools.includes(:users)
     if schools.any?
       schools.map{|school| school.users.ids}.flatten
     end
@@ -387,13 +379,13 @@ class User < ActiveRecord::Base
   def clear_data
     ActiveRecord::Base.transaction do
       update!(
-        name:      "Deleted User_#{self.id}",
-        email:     "deleted_user_#{self.id}@example.com",
-        username:  "deleted_user_#{self.id}",
+        name:      "Deleted User_#{id}",
+        email:     "deleted_user_#{id}@example.com",
+        username:  "deleted_user_#{id}",
         google_id: nil,
         clever_id: nil
       )
-      StudentsClassrooms.where(student_id: self.id).update_all(visible: false)
+      StudentsClassrooms.where(student_id: id).update_all(visible: false)
       if auth_credential.present?
         auth_credential.destroy!
       end
@@ -480,14 +472,14 @@ class User < ActiveRecord::Base
   end
 
   def subscribe_to_newsletter
-    if self.role == "teacher"
-      SubscribeToNewsletterWorker.perform_async(self.id)
+    if role == "teacher"
+      SubscribeToNewsletterWorker.perform_async(id)
     end
   end
 
   def unsubscribe_from_newsletter
-    if self.role == "teacher"
-      UnsubscribeFromNewsletterWorker.perform_async(self.id)
+    if role == "teacher"
+      UnsubscribeFromNewsletterWorker.perform_async(id)
     end
   end
 
@@ -554,23 +546,23 @@ class User < ActiveRecord::Base
   end
 
   def delete_classroom_minis_cache
-    $redis.del("user_id:#{self.id}_classroom_minis")
+    $redis.del("user_id:#{id}_classroom_minis")
   end
 
   def delete_struggling_students_cache
-    $redis.del("user_id:#{self.id}_struggling_students")
+    $redis.del("user_id:#{id}_struggling_students")
   end
 
   def delete_difficult_concepts_cache
-    $redis.del("user_id:#{self.id}_difficult_concepts")
+    $redis.del("user_id:#{id}_difficult_concepts")
   end
 
   def coteacher_invitations
-    Invitation.where(archived: false, invitation_type: 'coteacher', invitee_email: self.email)
+    Invitation.where(archived: false, invitation_type: 'coteacher', invitee_email: email)
   end
 
   def is_new_teacher_without_school?
-    self.role == 'teacher' && !self.school && self.previous_changes["id"]
+    role == 'teacher' && !school && previous_changes["id"]
   end
 
 private
@@ -582,42 +574,21 @@ private
     end
   end
 
-  def validate_username_and_email
-    # change_field will return the field (username or email) that is changing
-    change_field = detect_username_or_email_updated
-    if change_field && self[change_field].present? && User.find_by(change_field => self[change_field])
-      # if the field has been changed, to that of an existing record,
-      # raise an error
-      errors.add(change_field, :taken)
-    end
-  end
-
-  def detect_username_or_email_updated
-    @db_self = User.find(self.id)
-    if @db_self.username != self.username
-      return :username
-    elsif @db_self.email != self.email
-      return :email
-    else
-      nil
-    end
-  end
-
   def prep_authentication_terms
     self.email = email.downcase unless email.blank?
     self.username= username.downcase unless username.blank?
   end
 
   def check_for_school
-    if self.school
+    if school
       find_or_create_checkbox('Add School', self)
     end
   end
 
   # Clever integration
   def clever_user
-    klass = "Clever::#{self.role.capitalize}".constantize
-    @clever_user ||= klass.retrieve(self.clever_id, self.districts.first.token)
+    klass = "Clever::#{role.capitalize}".constantize
+    @clever_user ||= klass.retrieve(clever_id, districts.first.token)
   end
 
   # validation filters
@@ -626,15 +597,15 @@ private
   end
 
   def email_required?
-    return false if self.clever_id
+    return false if clever_id
     return false if role.temporary?
     return true if teacher?
     false
   end
 
   def requires_password?
-    return false if self.clever_id
-    return false if self.signed_up_with_google
+    return false if clever_id
+    return false if signed_up_with_google
     permanent? && new_record?
   end
 
@@ -650,13 +621,13 @@ private
 
   def generate_username(classroom_id=nil)
     self.username = GenerateUsername.new(
-      self.first_name,
-      self.last_name,
+      first_name,
+      last_name,
       get_class_code(classroom_id)
     ).call
   end
 
   def update_invitee_email_address
-    Invitation.where(invitee_email: self.email_was).update_all(invitee_email: self.email)
+    Invitation.where(invitee_email: email_was).update_all(invitee_email: email)
   end
 end

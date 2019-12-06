@@ -3,9 +3,9 @@ class SegmentAnalyticsUserSerializer < UserSerializer
 
   def render
     {
-      userType: self.object.role,
-      createdAt: self.object.created_at,
-      daysSinceJoining: ((Time.zone.now - self.object.created_at) / 60 / 60 / 24).to_i,
+      userType: object.role,
+      createdAt: object.created_at,
+      daysSinceJoining: ((Time.zone.now - object.created_at) / 60 / 60 / 24).to_i,
     }
   end
 end
