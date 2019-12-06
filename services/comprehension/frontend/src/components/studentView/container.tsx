@@ -15,7 +15,7 @@ interface StudentViewContainerProps {
 }
 
 interface StudentViewContainerState {
-  step: number;
+  activeStep: number;
   completedSteps: Array<number>;
 }
 
@@ -31,7 +31,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     super(props)
 
     this.state = {
-      step: 1,
+      activeStep: 1,
       completedSteps: []
     }
 
@@ -50,10 +50,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   goToNextStep = () => {
-    const { step, completedSteps, } = this.state
-    const newCompletedSteps = completedSteps.concat(step)
+    const { activeStep, completedSteps, } = this.state
+    const newCompletedSteps = completedSteps.concat(activeStep)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
-    this.setState({ step: step + 1, completedSteps: uniqueCompletedSteps })
+    this.setState({ activeStep: activeStep + 1, completedSteps: uniqueCompletedSteps })
   }
 
   scrollToStep = (ref: string) => {
@@ -76,8 +76,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderStepNumber(number: number) {
-    const { step, completedSteps, } = this.state
-    const active = step === number
+    const { activeStep, completedSteps, } = this.state
+    const active = activeStep === number
     const completed = completedSteps.includes(number)
     if (completed) {
       return <img alt="white check in green circle" className="step-number completed" key={number} src={bigCheckSrc} />
@@ -86,12 +86,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderReadPassageStep() {
-    const { step, } = this.state
+    const { activeStep, } = this.state
     const { currentActivity, } = this.props.activities
     if (!currentActivity) return
     let className = 'step'
     let button
-    if (step === READ_PASSAGE_STEP) {
+    if (activeStep === READ_PASSAGE_STEP) {
       className += ' active'
       button = <button className='done-reading-button' onClick={this.goToNextStep}>Done reading</button>
     }

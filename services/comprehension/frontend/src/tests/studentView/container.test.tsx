@@ -24,7 +24,7 @@ describe('StudentViewContainer component', () => {
 
     it('should increase to the next step when the user clicks the "Done reading" button', () => {
       wrapper.find('.done-reading-button').simulate('click')
-      expect(wrapper.state('step')).toBe(2)
+      expect(wrapper.state('activeStep')).toBe(2)
       expect(wrapper.state('completedSteps')).toEqual([1])
     })
   })
