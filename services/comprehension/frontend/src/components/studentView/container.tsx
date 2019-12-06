@@ -31,7 +31,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     super(props)
 
     this.state = {
-      activeStep: 1,
+      activeStep: READ_PASSAGE_STEP,
       completedSteps: []
     }
 
@@ -49,15 +49,26 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  goToNextStep = () => {
-    const { activeStep, completedSteps, } = this.state
-    const newCompletedSteps = completedSteps.concat(activeStep)
+  activateStep = (step: number) => {
+    // don't activate steps before Done reading button has been clicked
+    if (step > 1 && !this.state.completedSteps.includes(READ_PASSAGE_STEP)) return
+    this.setState({ activeStep: step, })
+  }
+
+  doneReading = () => {
+    const { completedSteps, } = this.state
+    const newCompletedSteps = completedSteps.concat(READ_PASSAGE_STEP)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
-    this.setState({ activeStep: activeStep + 1, completedSteps: uniqueCompletedSteps })
+    this.setState({ completedSteps: uniqueCompletedSteps }, () => this.activateStep(READ_PASSAGE_STEP + 1))
   }
 
   scrollToStep = (ref: string) => {
     this[ref].scrollIntoView(false)
+  }
+
+  clickStepLink = (stepNumber: number) => {
+    this.activateStep(stepNumber)
+    this.scrollToStep(`step${stepNumber}`)
   }
 
   renderStepLinks = () => {
@@ -68,7 +79,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const numberOfLinks = currentActivity.prompts.length + 1
 
     for (let i=1; i <= numberOfLinks; i++ ) {
-      links.push(<div onClick={() => this.scrollToStep(`step${i}`)}>{this.renderStepNumber(i)}</div>)
+      links.push(<div onClick={() => this.clickStepLink(i)}>{this.renderStepNumber(i)}</div>)
     }
     return (<div className="hide-on-desktop step-links">
       {links}
@@ -93,7 +104,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     let button
     if (activeStep === READ_PASSAGE_STEP) {
       className += ' active'
-      button = <button className='done-reading-button' onClick={this.goToNextStep}>Done reading</button>
+      button = <button className='done-reading-button' onClick={this.doneReading}>Done reading</button>
     }
     return (<div className={className}>
       {this.renderStepNumber(READ_PASSAGE_STEP)}
@@ -106,7 +117,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderPromptSteps() {
-    const { activeStep, } = this.state
+    const { activeStep, completedSteps, } = this.state
     const { currentActivity, } = this.props.activities
     if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
@@ -116,6 +127,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       return (<PromptStep
         active={stepNumber === activeStep}
         className='step'
+        onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
         text={text}

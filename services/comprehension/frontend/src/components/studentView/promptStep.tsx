@@ -7,6 +7,7 @@ interface PromptStepProps {
   active: Boolean;
   className: string,
   stepNumberComponent: JSX.Element,
+  onClick?: (event: any) => void;
   text: string,
   passedRef: any,
 }
@@ -81,9 +82,9 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
   }
 
   render() {
-    const { text, className, passedRef, stepNumberComponent, } = this.props
+    const { text, className, passedRef, stepNumberComponent, onClick, } = this.props
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
-    return (<div className={className} ref={passedRef}>
+    return (<div className={className} ref={passedRef} onClick={onClick}>
       {stepNumberComponent}
       <div className="step-content">
         <p className="directions">Use information from the text to finish the sentence:</p>
