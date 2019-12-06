@@ -1,9 +1,9 @@
-from spellchecker import SpellChecker
 from flask import jsonify
 from flask import make_response
 import string
-import re
 import requests
+import os
+
 
 def response_endpoint(request):
     request_json = request.get_json()
@@ -14,26 +14,37 @@ def response_endpoint(request):
     if entry == None or prompt_id == None:
         return make_response(jsonify(message="error"), 400)
 
-    response = get_bing_api_response(entry)
-    if response.get('error'):
-        return make_response(jsonify(message=response.get('error').get('message')), 400)
+    bing_result = get_bing_api_response(entry)
+    if bing_result.get('error'):
+        return make_response(jsonify(message=bing_result.get('error').get('message')), 400)
 
-    misspelled_flagged = response.get('flaggedTokens')
-    if not misspelled_flagged:
-        return make_response(jsonify(feedback="Correct spelling!", feedback_type="spelling", optimal=True, response_uid="q23123@3sdfASDF", highlight=[]), 200)
-    else:
-        return make_response(jsonify(feedback="Try again. There may be a spelling mistake.", feedback_type="spelling", optimal=False, response_uid="q23123@3sdfASDF", highlight=get_misspelled_highlight_list(misspelled_flagged)), 200)  
+    response_data = {
+        'feedback_type': 'spelling',
+        'response_uid': 'q23123@3sdfASDF',
+        'feedback': 'Correct spelling!',
+        'optimal': True,
+        'highlight': [],
+    }
+
+    misspelled_flagged = bing_result.get('flaggedTokens')
+    if misspelled_flagged:
+        response_data.update({
+            'feedback': 'Try again. There may be a spelling mistake.',
+            'optimal': False,
+            'highlight': get_misspelled_highlight_list(misspelled_flagged),
+        })
+    
+    return make_response(jsonify(**response_data), 200)  
         
 
 def get_bing_api_response(entry):
-    headers = {"Ocp-Apim-Subscription-Key": "38ce5e3bba1e46b4b211bfa00f31563c"}
+    headers = {"Ocp-Apim-Subscription-Key": os.getenv('OCP-APIM-SUBSCRIPTION-KEY')}
     params = {"text": entry, "mode": "proof"}
     response = requests.get(
       "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck", 
       params=params, 
       headers=headers)
-    json_response = response.json()
-    return json_response
+    return response.json()
 
 def get_misspelled_highlight_list(misspelled_flagged):
     highlight = []
