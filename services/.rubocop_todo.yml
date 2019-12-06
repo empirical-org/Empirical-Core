@@ -440,6 +440,7 @@ Layout/SpaceBeforeFirstArg:
     - 'QuillLMS/spec/factories/classroom_unit_activity_state.rb'
     - 'QuillLMS/spec/factories/oauth_application.rb'
     - 'QuillLMS/spec/factories/subscription.rb'
+    - 'QuillLMS/spec/factories/question_type.rb'
 
 # Offense count: 15
 # Cop supports --auto-correct.
