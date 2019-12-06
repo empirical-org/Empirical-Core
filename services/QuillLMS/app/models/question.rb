@@ -63,7 +63,7 @@ class Question < ActiveRecord::Base
   end
 
   private def expire_all_questions_cache
-    cache_key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{self.question_type}"
+    cache_key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question_type}"
     $redis.del(cache_key)
   end
 
