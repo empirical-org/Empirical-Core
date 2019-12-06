@@ -5,6 +5,6 @@ class Notification < ActiveRecord::Base
   validates :user, presence: true
 
   def activity_student_report_path
-    self.meta['activity_student_report_path']
+    meta['activity_student_report_path']
   end
 end
