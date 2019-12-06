@@ -1094,15 +1094,10 @@ Style/RedundantBegin:
 Style/RedundantParentheses:
   Enabled: false
 
-# Offense count: 3
+# Offense count: 509
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'QuillLMS/config/application.rb'
-    - 'QuillLMS/config/routes.rb'
-    - 'QuillLMS/spec/models/csv_export_spec.rb'
+Style/RedundantSelf:
+  Enabled: false
 
 # Offense count: 26
 # Cop supports --auto-correct.
