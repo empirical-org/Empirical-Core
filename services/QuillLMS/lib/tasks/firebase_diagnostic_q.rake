@@ -18,12 +18,7 @@ namespace :firebase do
 
     for_each_firebase_key do |obj, data|
       obj.data = data
-      begin
-        obj.save!
-      rescue ActiveRecord::RecordInvalid => e
-        puts e
-        puts obj.uid
-      end
+      obj.save!
     end
   end
 
@@ -49,16 +44,43 @@ namespace :firebase do
     def set_arg_values(args)
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
-      column_parts = args[:column_data].split(":")
-      @COLUMN_NAME = column_parts[0]
-      @COLUMN_VAL = column_parts[1]
       if !@FIREBASE_URL || !@RAILS_MODEL
         puts('You must provide Firebase URL and Rails model args to run this task.')
-        puts('Optional args:')
-        puts('  column_name:<value>   the column name and value you wish to set for each imported entry')
         puts('Example usage:')
-        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,question_type:diagnostic_sentence_combining]')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question]')
         exit
+      end
+    end
+
+    def copy_duplicate(obj)
+      klass = get_klass(@RAILS_MODEL)
+      key = obj.uid
+      delete_diagnostic_copy = [
+        '-sen-fra',
+        '-KPt2OD4fkKen27eyiry',
+        '-KQS5LBNknrMg6dnURbH'
+      ]
+      keep_both_copies = [
+        '-KP-M1Crf2pvqO4QH6zI-esp',
+        '-KP-Mv5jsZKhraQH2DOt-esp',
+        '-KdCgy8wt_rQiYpOURdW',
+        '-KPt3I_hR_Xlv5Cr1mvB-esp',
+        '-KP-MEpdOxjU7OyzL6ss-esp'
+      ]
+      
+      if keep_both_copies.include? key
+        puts "DUPLICATE: creating duplicate ID for #{key}"
+        dup_key = key.concat('-dup')
+        obj = klass.find_or_create_by(uid: dup_key, question_type: "diagnostic_sentence_combining")
+      elsif delete_diagnostic_copy.include? key
+        # simulates a deletion (data does not get copied over)
+        puts "DUPLICATE: omitting diagnostic copy of #{key}"
+        obj = nil
+      else
+        puts "DUPLICATE: deleting connect copy and replacing with diagnostic copy of #{obj.uid}"
+        prevObj = klass.find_or_create_by(uid: key)
+        prevObj.delete
+        obj
       end
     end
 
@@ -68,13 +90,15 @@ namespace :firebase do
       firebase_keys = firebase_shallow.keys
       firebase_keys.each do |key|
         data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
-        obj = klass.find_or_create_by(uid: key, "#{@COLUMN_NAME}": @COLUMN_VAL.to_s)
-        if obj.valid?
-          puts("updating #{@RAILS_MODEL} with uid '#{key}' and '#{@COLUMN_NAME}': #{@COLUMN_VAL}")
+        obj = klass.find_or_create_by(uid: key, question_type: "diagnostic_sentence_combining")
+        if klass.find_or_create_by(uid: key, question_type: "connect_sentence_combining").valid?
+          obj = copy_duplicate(obj)
         else
-          puts("creating #{@RAILS_MODEL} with uid '#{key}' and '#{@COLUMN_NAME}': #{@COLUMN_VAL}")
+          puts("creating #{@RAILS_MODEL} with uid '#{key}' and question_type: diagnostic_sentence_combining")
         end
-        yield(obj, data)
+        if obj.present?
+          yield(obj, data)
+        end
       end
     end
   end
