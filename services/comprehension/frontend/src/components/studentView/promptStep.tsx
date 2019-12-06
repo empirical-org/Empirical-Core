@@ -1,7 +1,5 @@
 import * as React from 'react'
-import { Editor, EditorState, ContentState, convertToRaw } from 'draft-js';
-import { convertFromHTML, convertToHTML } from 'draft-convert'
-
+import ContentEditable from 'react-contenteditable'
 
 interface PromptStepProps {
  className: string,
@@ -11,18 +9,17 @@ interface PromptStepProps {
 }
 
 export default class PromptStep extends React.Component<PromptStepProps, any> {
+  private editor
+
   constructor(props: PromptStepProps) {
     super(props)
 
-    this.state = {
-      text: EditorState.createWithContent(convertFromHTML(this.formattedPrompt() || '')),
-      hasFocus: false
-    }
+    this.state = { html: this.formattedPrompt() };
   }
 
   formattedPrompt = () => {
     const { text, } = this.props
-    return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u> </p>`
+    return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
   }
 
   allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
@@ -30,11 +27,15 @@ export default class PromptStep extends React.Component<PromptStepProps, any> {
   lastWord = (str: string) => str.split(' ').splice(-1)
 
   handleTextChange = (e) => {
-    const text = convertToHTML(e.getCurrentContent()).replace(/<p>|<\p>/, '')
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\p>/, '')
+    const { html, } = this.state
+    const { value, } = e.target
+    const text = value.replace(/<p>|<\/p>/g, '')
+    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>/g, '')
     const regex = new RegExp(`^${formattedPrompt}`)
     if (text.match(regex)) {
-      this.setState({ text: e, })
+      this.setState({ html: value, })
+    } else {
+      this.setState({ html, })
     }
   }
 
@@ -46,11 +47,11 @@ export default class PromptStep extends React.Component<PromptStepProps, any> {
       <div className="step-content">
         <p className="directions">Use information from the text to finish the sentence:</p>
         {promptTextComponent}
-        <Editor
-          editorState={this.state.text}
-          onBlur={() => this.setState({ hasFocus: false, })}
+        <ContentEditable
+          innerRef={(node: JSX.Element) => this.editor = node}
+          html={this.state.html}
           onChange={this.handleTextChange}
-          onFocus={() => this.setState({ hasFocus: true, })}
+          spellCheck={false}
         />
       </div>
     </div>)
