@@ -92,19 +92,8 @@ namespace :firebase do
         '-KPt2OD4fkKen27eyiry',
         '-KQS5LBNknrMg6dnURbH'
       ]
-      keep_both_copies = [
-        '-KP-M1Crf2pvqO4QH6zI-esp',
-        '-KP-Mv5jsZKhraQH2DOt-esp',
-        '-KdCgy8wt_rQiYpOURdW',
-        '-KPt3I_hR_Xlv5Cr1mvB-esp',
-        '-KP-MEpdOxjU7OyzL6ss-esp'
-      ]
       
-      if keep_both_copies.include? key
-        puts "DUPLICATE: creating duplicate ID for #{key}"
-        dup_key = key.concat('-dup')
-        obj = klass.find_or_create_by(uid: dup_key, question_type: "diagnostic_sentence_combining")
-      elsif delete_diagnostic_copy.include? key
+      if delete_diagnostic_copy.include? key
         # simulates a deletion (data does not get copied over)
         puts "DUPLICATE: omitting diagnostic copy of #{key}"
         obj = nil
