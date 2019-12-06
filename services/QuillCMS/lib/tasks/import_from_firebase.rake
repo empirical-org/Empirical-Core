@@ -293,9 +293,9 @@ namespace :responses do
   def parse_concept_results(concept_results)
     if concept_results.class == String
       begin
-        return JSON.parse(concept_results)
+        JSON.parse(concept_results)
       rescue JSON::ParserError
-        return nil
+        nil
       end
     end
   end

@@ -24,7 +24,7 @@ def nces_grade_level_mapping(nces_grade)
 end
 
 def charter_value(value)
-  return value.first if value.include?('No', 'Yes')
+  return value.first if ['No', 'Yes'].include?(value)
 end
 
 namespace :schools do

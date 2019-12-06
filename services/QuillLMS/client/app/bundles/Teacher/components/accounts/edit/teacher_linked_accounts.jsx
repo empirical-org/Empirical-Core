@@ -52,6 +52,16 @@ export default class TeacherLinkedAccounts extends React.Component {
     updateUser(data, '/teachers/update_my_account', 'Settings saved')
   }
 
+  isLinkedToGoogle = () => {
+    const { googleId } = this.props
+    return googleId && googleId.length
+  }
+
+  isLinkedToClever = () => {
+    const { cleverId } = this.props
+    return cleverId && cleverId.length
+  }
+
   renderCheckbox() {
     const { postGoogleClassroomAssignments, } = this.props
     if (postGoogleClassroomAssignments) {
@@ -63,8 +73,9 @@ export default class TeacherLinkedAccounts extends React.Component {
 
   renderGoogleSection() {
     let actionElement, copy, checkboxRow
-    const { googleId, } = this.props
-    if (!googleId || !googleId.length) {
+    if (this.isLinkedToClever() && !this.isLinkedToGoogle()) {
+      copy = 'Google is not linked. Unlink Clever to link your Google account.'
+    } else if (!this.isLinkedToGoogle()) {
       copy = 'Google is not linked'
       actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2?prompt=consent">Link your account</a>
     } else {
@@ -91,8 +102,9 @@ export default class TeacherLinkedAccounts extends React.Component {
 
   renderCleverSection() {
     let actionElement, copy
-    const { cleverId, } = this.props
-    if (!cleverId || !cleverId.length) {
+    if (this.isLinkedToGoogle() && !this.isLinkedToClever()) {
+      copy = 'Clever is not linked. Unlink Google to link your Clever account.'
+    } else if (!this.isLinkedToClever()) {
       copy = 'Clever is not linked'
       actionElement = <a className="google-or-clever-action" href={this.props.cleverLink}>Link your account</a>
     } else {
@@ -132,7 +144,7 @@ export default class TeacherLinkedAccounts extends React.Component {
   }
 
   render() {
-    return (<div className="teacher-account-linked-accounts teacher-account-section">
+    return (<div className="user-linked-accounts user-account-section">
       {this.renderModal()}
       <h1>Linked accounts</h1>
       {this.renderGoogleSection()}
