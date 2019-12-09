@@ -27,7 +27,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
 
   def unselectedClassroomData(classrooms)
     classrooms.map do |classroom|
-      students = classroom.students.map do|student|
+      students = classroom.students.map do |student|
         { id: student.id, name: student.name, isSelected: false }
       end
 

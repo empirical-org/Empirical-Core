@@ -2,7 +2,7 @@ module CleverIntegration::Parsers::Teacher
 
   def self.run(hash)
     begin
-      name = self.generate_name(hash[:name][:first], hash[:name][:last])
+      name = generate_name(hash[:name][:first], hash[:name][:last])
       {
         clever_id: hash[:id],
         email: hash[:email].downcase,
