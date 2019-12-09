@@ -9,6 +9,10 @@ development_env: &development_env
   user: root
   password: password
 
+test_env: &test_env
+  <<: *development_env
+  database: quill_cms_test
+
 elastic_beanstalk_env: &elastic_beanstalk_env
   database: <%= ENV['RDS_DB_NAME'] %>
   user: <%= ENV['RDS_DB_USERNAME'] %>
@@ -16,36 +20,15 @@ elastic_beanstalk_env: &elastic_beanstalk_env
   host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: quill_cms_test
-  host: localhost
+elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
+  database: <%= ENV['RDS_REPLICA_NAME'] %>
+  user: <%= ENV['RDS_REPLICA_USERNAME'] %>
+  password: <%= ENV['RDS_REPLICA_PASSWORD'] %>
+  host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
+  port: <%= ENV['RDS_REPLICA_PORT'] %>
 
-# For non-replica-configured environments, just set up regular dbs
-# Non-present ENV variables are `nil`, and non-numeric to_i is 0
-<% if ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i == 0 %>
 
-development:
-  <<: *default
-  <<: *development_env
-  adapter: postgresql
-  debug: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'] %>
-
-production: &production
-  <<: *default
-  <<: *elastic_beanstalk_env
-  adapter: postgresql
-
-staging:
-  <<: *production
-
-# For Makara configured environments:
-<% else %>
-
-development:
+development: &development
   <<: *default
   adapter: postgresql_makara
   makara:
@@ -54,11 +37,30 @@ development:
     sticky: true
     connections:
       - role: master
-        name: master
+        name: leader
         <<: *development_env
       - role: slave
         name: replica
         <<: *development_env
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  adapter: postgresql_makara
+  makara:
+    id: postgres_development_db
+    disable_blacklist: true
+    sticky: true
+    connections:
+      - role: master
+        name: leader
+        <<: *test_env
+      - role: slave
+        name: replica
+        <<: *test_env
+
 
 staging:
   <<: *default
@@ -69,7 +71,7 @@ staging:
     sticky: true
     connections:
       - role: master
-        name: master
+        name: leader
         <<: *elastic_beanstalk_env
       - role: slave
         name: replica
@@ -84,7 +86,7 @@ production:
     sticky: true
     connections:
       - role: master
-        name: master
+        name: leader
         <<: *elastic_beanstalk_env
       - role: slave
         name: dummy_replica
@@ -93,10 +95,4 @@ production:
       - role: slave
         name: replica
         weight: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *elastic_beanstalk_env
-        host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
-        <% if ENV.key?('RDS_REPLICA_PORT') %>
-        port: <%= ENV['RDS_REPLICA_PORT'] %>
-        <% end %>
-
-<% end %>
+        <<: *elastic_beanstalk_replica_env
