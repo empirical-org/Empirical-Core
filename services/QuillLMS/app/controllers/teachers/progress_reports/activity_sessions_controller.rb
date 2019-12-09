@@ -25,7 +25,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
     student_filter = !params[:student_id].blank? ? " AND activity_sessions.user_id = #{params[:student_id].to_i}" : ''
     unit_filter = !params[:unit_id].blank? ? " AND classroom_units.unit_id = #{params[:unit_id].to_i}" : ''
 
-    case(params[:sort_param])
+    case (params[:sort_param])
     when 'student_id'
       sort_field = 'sorting_name'
     when 'activity_name'
@@ -91,7 +91,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       #{query_offset}
     ").to_a;
 
-    if(should_return_json)
+    if should_return_json
       page_count = (ActiveRecord::Base.connection.execute("
         SELECT count(activity_sessions.id) FROM classrooms_teachers
         JOIN classrooms
@@ -116,7 +116,8 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
         WHERE classrooms_teachers.user_id = #{current_user.id}
       ").to_a[0]['count'].to_f / PAGE_SIZE).ceil
 
-      if(params[:without_filters])
+
+      if params[:without_filters]
         render json: {
           activity_sessions: activity_sessions,
           page_count: page_count,
