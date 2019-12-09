@@ -1,23 +1,23 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
-import { WordObject } from '../interfaces/proofreaderActivities'
 
-export interface SessionState {
-  session: any;
+export interface ActivitiesReducerState {
+  responses: { [key:number]: Array<any> }
 }
 
-type SessionAction = Action & { passage: Array<Array<WordObject>> }
+type SessionAction = Action & { prompt_id: number } & { feedback: any }
 
 export default (
-    currentState: SessionState = { passage: []},
-    action: SessionAction,
-): SessionState => {
+    currentState = { responses: {} },
+    action: SessionAction
+) => {
     switch (action.type) {
-      case ActionTypes.SET_FIREBASE_PASSAGE:
-          return Object.assign({}, currentState, {passageFromFirebase: action.passage})
-      case ActionTypes.SET_PASSAGE:
-          return Object.assign({}, currentState, {passage: action.passage})
+      case ActionTypes.RECORD_FEEDBACK:
+        const responsesForPrompt = currentState.responses[action.prompt_id] || []
+        responsesForPrompt.push(action.feedback)
+        const newResponses = Object.assign({}, currentState.responses, { [action.prompt_id]: responsesForPrompt })
+        return Object.assign({}, currentState, { responses: newResponses });
       default:
-          return currentState;
+        return currentState;
     }
 };

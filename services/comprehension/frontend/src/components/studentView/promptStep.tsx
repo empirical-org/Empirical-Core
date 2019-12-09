@@ -9,8 +9,9 @@ interface PromptStepProps {
   getFeedback: Function;
   stepNumberComponent: JSX.Element,
   onClick?: (event: any) => void;
-  text: string,
+  prompt: any,
   passedRef: any,
+  responses: Array<any>
 }
 
 interface PromptStepState {
@@ -35,7 +36,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
   }
 
   formattedPrompt = () => {
-    const { text, } = this.props
+    const { text, } = this.props.prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
   }
 
@@ -94,7 +95,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
   }
 
   render() {
-    const { text, className, passedRef, stepNumberComponent, onClick, } = this.props
+    const { prompt, className, passedRef, stepNumberComponent, onClick, } = this.props
+    const { text, } = prompt.text
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
     return (<div className={className} ref={passedRef} onClick={onClick}>
       {stepNumberComponent}
