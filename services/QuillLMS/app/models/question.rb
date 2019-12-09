@@ -1,6 +1,10 @@
 class Question < ActiveRecord::Base
+  TYPES = [
+    TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
+    TYPE_DIAGNOSTIC_SENTENCE_COMBINING = 'diagnostic_sentence_combining'
+  ]
   validates :data, presence: true
-  validates :question_type, presence: true
+  validates :question_type, presence: true, inclusion: {in: TYPES}
   validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
 

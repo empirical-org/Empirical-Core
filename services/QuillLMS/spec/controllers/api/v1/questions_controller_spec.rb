@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe Api::V1::QuestionsController, type: :controller do
   let!(:question) { create(:question) }
-  
+
   describe "#index" do
     it "should return a list of Questions" do
       expect($redis).to receive(:get).and_return(nil)
@@ -39,7 +39,7 @@ describe Api::V1::QuestionsController, type: :controller do
     end
 
     it "should return a 404 if the requested Question is not found" do
-      get :show, :id => 'doesnotexist'
+      get :show, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -59,7 +59,7 @@ describe Api::V1::QuestionsController, type: :controller do
   describe "#update" do
     it "should update the existing record" do
       data = {"foo" => "bar"}
-      put :update, :id => question.uid, question: data
+      put :update, id: question.uid, question: data
       question.reload
       expect(question.data).to eq(data)
     end
