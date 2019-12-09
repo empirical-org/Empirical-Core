@@ -34,21 +34,20 @@ def response_endpoint(request):
             'optimal': False,
             'highlight': get_misspelled_highlight_list(misspelled_flagged),
         })
-    
-    return make_response(jsonify(**response_data), 200)  
-        
+
+    return make_response(jsonify(**response_data), 200)
+
 
 def get_bing_api_response(entry):
     headers = {"Ocp-Apim-Subscription-Key": os.getenv('OCP-APIM-SUBSCRIPTION-KEY')}
     params = {"text": entry, "mode": "proof"}
     response = requests.get(
-      "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck", 
-      params=params, 
+      "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck",
+      params=params,
       headers=headers)
     return response.json()
 
 def get_misspelled_highlight_list(misspelled_flagged):
-    highlight = []
     return map(lambda entry: {
         'type': 'response',
         'id': None,
