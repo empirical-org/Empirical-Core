@@ -39,7 +39,7 @@ module ResponseSearch
     is_regex = user_input.first == '/' && user_input.last == '/'
     query = {
       query_string: {
-        default_field: is_regex ? 'text.keyword' : 'text',
+        default_field: is_regex ? 'sortable_text' : 'text',
         query: build_query_string(question_uid, query_filters, is_regex)
       }
     }
@@ -58,10 +58,10 @@ module ResponseSearch
   end
 
   module_function def build_regex_query_string(user_input)
-    user_input.gsub!(/(?<=^\/)([^\^])/, '.*\1')
-    user_input.gsub!(/(?<=^\/)[\^]/, '')
-    user_input.gsub!(/([^\$])(?=\/$)/, '\1.*')
-    user_input.gsub!(/([\$])(?=\/$)/, '')
+    user_input.gsub!(%r{(?<=^/)([^\^])}, '.*\1')
+    user_input.gsub!(%r{(?<=^/)[\^]}, '')
+    user_input.gsub!(%r{([^\$])(?=/$)}, '\1.*')
+    user_input.gsub!(%r{([\$])(?=/$)}, '')
     user_input
   end
 
@@ -81,7 +81,7 @@ module ResponseSearch
   end
 
   module_function def add_spelling_filter(current_string, filter)
-    if filter then current_string + " AND NOT spelling_error:(true)" else current_string end
+    filter ? current_string + " AND NOT spelling_error:(true)" : current_string
   end
 
   module_function def key_value_to_not_string(key, value)
@@ -89,7 +89,7 @@ module ResponseSearch
       ""
     else
       vals = value.map {|val| "\"#{val}\"" }.join(" OR ")
-      " AND NOT #{key.to_s}:(#{vals})"
+      " AND NOT #{key}:(#{vals})"
     end
   end
 end

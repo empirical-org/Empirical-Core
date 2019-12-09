@@ -31,12 +31,28 @@ class StudentsController < ApplicationController
     end
   end
 
-  def update_email
-    if current_user.update(email: params[:email])
-      render json: {status: 200}
+  def update_account
+    if current_user.update_attributes(student_params.slice(:email, :name, :username))
+      render json: current_user
     else
-      render json: {errors: 'Please enter a valid email address.'}, status: 422
+      render json: {errors: current_user.errors.messages}, status: 422
     end
+  end
+
+  def update_password
+    # @TODO - move to the model in an update_password method that uses validations and returns the user record with errors if it's not successful.
+    errors = {}
+    if current_user.authenticate(params[:current_password])
+      if params[:new_password] == params[:confirmed_new_password]
+        current_user.update(password: params[:new_password])
+      else
+        errors['confirmed_new_password'] = "Those passwords didn't match. Try again."
+      end
+    else
+      errors['current_password'] = 'Wrong password. Try again or click Forgot password to reset it.'
+    end
+    return render json: {errors: errors}, status: 422 if errors.any?
+    render json: current_user
   end
 
   def join_classroom
@@ -47,7 +63,7 @@ class StudentsController < ApplicationController
           classroom = Classroom.find_by(code: classcode)
           Associators::StudentsToClassrooms.run(current_user, classroom)
           JoinClassroomWorker.perform_async(current_user.id)
-        rescue NoMethodError => exception
+        rescue NoMethodError => e
           if Classroom.unscoped.find_by(code: classcode).nil?
             InvalidClasscodeWorker.perform_async(current_user.id, params[:classcode], classcode)
             flash[:error] = "Oops! There is no class with the code #{classcode}. Ask your teacher for help."
@@ -84,6 +100,10 @@ class StudentsController < ApplicationController
       flash.keep(:error)
       redirect_to '/profile'
     end
+  end
+
+  def student_params
+    params.permit(:name, :email, :username, :authenticity_token, student: [:name, :email, :username])
   end
 
 end

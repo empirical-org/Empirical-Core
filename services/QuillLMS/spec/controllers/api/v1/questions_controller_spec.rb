@@ -18,11 +18,11 @@ describe Api::V1::QuestionsController, type: :controller do
     end
 
     it "should not set cache if there is a cache hit" do
-      mock_cached_data = "CACHED DATA"
-      expect($redis).to receive(:get).and_return(mock_cached_data)
+      mock_cached_data = {"foo" => "bar"}
+      expect($redis).to receive(:get).and_return(JSON.dump(mock_cached_data))
       expect($redis).not_to receive(:set)
       get :index
-      expect(response.body).to eq(mock_cached_data)
+      expect(JSON.parse(response.body)).to eq(mock_cached_data)
     end
 
     it "should include the response from the db" do

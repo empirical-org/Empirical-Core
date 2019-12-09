@@ -2,7 +2,7 @@ module CleverIntegration::Importers::Students
 
   def self.run(classrooms, district_token)
     students_arr_of_arrs = classrooms.map do |classroom|
-      students = self.import_students_for_single_classroom(classroom, district_token)
+      students = import_students_for_single_classroom(classroom, district_token)
       students
     end
     students = students_arr_of_arrs.flatten
@@ -12,11 +12,11 @@ module CleverIntegration::Importers::Students
   private
 
   def self.import_students_for_single_classroom(classroom, district_token)
-    clever_section = self.fetch_clever_section(classroom.clever_id, district_token)
+    clever_section = fetch_clever_section(classroom.clever_id, district_token)
     students_response = clever_section.data
-    parsed_students_response = self.parse_students_response(students_response)
-    students = self.create_students(parsed_students_response)
-    updated_students = self.associate_students_to_classroom(students, classroom)
+    parsed_students_response = parse_students_response(students_response)
+    students = create_students(parsed_students_response)
+    updated_students = associate_students_to_classroom(students, classroom)
     updated_students
   end
 
