@@ -9,7 +9,7 @@ class StudentsClassroomsController < ApplicationController
         classroom = Classroom.where(code: classcode).first
         Associators::StudentsToClassrooms.run(@user, classroom)
         JoinClassroomWorker.perform_async(@user.id)
-      rescue NoMethodError => exception
+      rescue NoMethodError => e
         if Classroom.unscoped.where(code: classcode).first.nil?
           InvalidClasscodeWorker.perform_async(@user.id, params[:classcode], classcode)
           render status: 404, json: {error: "No such classcode"}, text: "No such classcode"
@@ -60,7 +60,7 @@ class StudentsClassroomsController < ApplicationController
       .where(student_id: current_user.id, visible: false)
       .includes(classroom: :teacher)
       .map(&:archived_classrooms_manager)
-    rescue NoMethodError => exception
+    rescue NoMethodError => e
       render json: {error: "No classrooms yet!"}, status: 400
     else
       render json: {active: active, inactive: inactive}
