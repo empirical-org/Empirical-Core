@@ -19,7 +19,7 @@ module GoogleIntegration::Classroom::Creators::Students
 
   def self.get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
     #use string keys as the classrooms are coming through sidekiq and don't have symbols
-    course_ids = classrooms.map{|classroom| classroom["google_classroom_id"] ? classroom["google_classroom_id"] : classroom["id"]}
+    course_ids = classrooms.map{|classroom| classroom["google_classroom_id"] || classroom["id"]}
     # FIXME: there is probably a more performant way to do this. I hijacked it from the
     # old method that waas here in order to avoid the race conditions in student
     # account creation that were occurring when we revisit google classrooms, we should redo this

@@ -570,7 +570,7 @@ private
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
     if invalid_flags.any?
-       errors.add(:flags, "invalid flag(s) #{invalid_flags.to_s}")
+       errors.add(:flags, "invalid flag(s) #{invalid_flags}")
     end
   end
 
