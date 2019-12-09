@@ -7,7 +7,17 @@ class RetrieveGoogleClassroomsWorker
   def perform(user_id)
     return unless user_id
     user = User.find(user_id)
-    google_response = GoogleIntegration::Classroom::Main.pull_data(user)
+    begin
+      google_response = GoogleIntegration::Classroom::Main.pull_data(user)
+    rescue ArgumentError => e
+      NewRelic::Agent.add_custom_attributes({
+        user_id: user_id
+      })
+      NewRelic::Agent.notice_error(e)
+      # If we couldn't get Google sync to work, no reason to do any of
+      # the rest of this
+      return
+    end
     data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
     serialized_data = data.to_json
     $redis.set("#{Teachers::ClassroomManagerController::SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{user_id}", serialized_data)

@@ -6,12 +6,14 @@ describe RetrieveGoogleClassroomsWorker, type: :worker do
   describe '#perform' do
     let(:user) { create(:user) }
 
-    before do
+    it 'run' do
       expect(GoogleIntegration::Classroom::Main).to receive(:pull_data).with(user).and_return({})
       expect(PusherTrigger).to receive(:run)
+      subject.perform(user.id)
     end
 
-    it 'run' do
+    it 'should rescue ArgumentError in the Google integration' do
+      expect(GoogleIntegration::Classroom::Main).to receive(:pull_data).with(user).and_raise(ArgumentError)
       subject.perform(user.id)
     end
   end
