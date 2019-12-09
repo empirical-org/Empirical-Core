@@ -81,4 +81,4 @@ def test_casing():
     assert len(highlight) == 2
     assert highlight[0]['text'] == 'Thissss'
     assert highlight[1]['text'] == 'spEled'
-    
+
