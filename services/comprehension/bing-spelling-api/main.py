@@ -1,7 +1,6 @@
 from flask import jsonify
 from flask import make_response
 from dotenv import load_dotenv
-import string
 import requests
 import os
 
@@ -10,8 +9,8 @@ load_dotenv()
 def response_endpoint(request):
     request_json = request.get_json()
 
-    entry = param_for('entry', request, request_json)
-    prompt_id = param_for('prompt_id', request, request_json)
+    entry = request_json.get('entry')
+    prompt_id = request_json.get('prompt_id')
 
     if entry == None or prompt_id == None:
         return make_response(jsonify(message="error"), 400)
@@ -55,8 +54,3 @@ def get_misspelled_highlight_list(misspelled_flagged):
         highlight.append(wordObj)
     return highlight
 
-def param_for(key, request, request_json):
-    if request.args and key in request.args:
-        return request.args.get(key)
-    else:
-        return (request_json or {}).get(key)

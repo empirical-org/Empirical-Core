@@ -1,10 +1,8 @@
 from mock import Mock, patch
-from unittest import TestCase
 import flask
 import pytest
 import main
 from flask import json
-import time
 
 
 # Create a fake "app" for generating test request contexts.
@@ -12,30 +10,44 @@ import time
 def app():
     return flask.Flask(__name__)
 
+def mock_response_for(misspelled):
+    class MockResponse:
+        def __init__(self, json_data, status_code):
+            self.json_data = json_data
+            self.status_code = status_code
+
+        def json(self):
+            return self.json_data
+
+    def tokens_helper(token):
+        return {'token': token}
+
+    mock_response_data = {'flaggedTokens': map(tokens_helper, misspelled)}
+    return MockResponse(mock_response_data, 200)
+
 class TestParameterChecks:
 
-      def test_missing_prompt_id(self, app):
-          with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': None}):
-              response = main.response_endpoint(flask.request)
-              data = json.loads(response.data)
+    def test_missing_prompt_id(self, app):
+        with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': None}):
+            response = main.response_endpoint(flask.request)
+            data = json.loads(response.data)
 
-              assert response.status_code == 400
+            assert response.status_code == 400
 
-      def test_missing_entry(self, app):
-          with app.test_request_context(json={'entry': None, 'prompt_id': 000}):
-              response = main.response_endpoint(flask.request)
-              data = json.loads(response.data)
+    def test_missing_entry(self, app):
+        with app.test_request_context(json={'entry': None, 'prompt_id': 000}):
+            response = main.response_endpoint(flask.request)
+            data = json.loads(response.data)
 
-              assert response.status_code == 400
+            assert response.status_code == 400
 
-class TestRequestProcessing:
-    # Set API calls 1 second apart because the free version of Azure
-    # blocks quick calls in succession
-    def teardown_method(self, method):   
-        time.sleep(1)    
+class TestRequestProcessing:  
 
-    def test_spelled_correctly_branch(self, app):
+    @patch('requests.get')
+    def test_spelled_correctly_branch(self, mock_get, app):
         with app.test_request_context(json={'entry': 'This is spelled correctly.', 'prompt_id': 000}):
+            mock_get.return_value = mock_response_for([])
+            
             response = main.response_endpoint(flask.request)
             data = json.loads(response.data)
 
@@ -45,8 +57,11 @@ class TestRequestProcessing:
             assert data.get('optimal') == True
             assert len(data.get('highlight')) == 0  
 
-    def test_spelled_incorrectly_branch(self, app):
+    @patch('requests.get')
+    def test_spelled_incorrectly_branch(self, mock_get, app):
         with app.test_request_context(json={'entry': 'This is spelllled incorrectly.', 'prompt_id': 000}):
+            mock_get.return_value = mock_response_for(['spelllled'])
+            
             response = main.response_endpoint(flask.request)
             data = json.loads(response.data)
 
@@ -57,29 +72,37 @@ class TestRequestProcessing:
             assert data.get('highlight')[0].get('text') == 'spelllled'
 
 class TestBingSpellingApi(object):
-    # Set API calls 1 second apart because the free version of Azure
-    # blocks quick calls in succession
-    def teardown_method(self, method):   
-        time.sleep(1) 
       
-    def test_correct_spelling(self):
+    @patch('requests.get')
+    def test_correct_spelling(self, mock_get):
+        mock_get.return_value = mock_response_for([]) 
+
         response = main.get_bing_api_response('This is spelled correctly.')
         misspelled = response.get('flaggedTokens')
         assert len(misspelled) == 0
 
-    def test_incorrect_spelling_single_error_middle_of_sentence(self):
+    @patch('requests.get')
+    def test_incorrect_spelling_single_error_middle_of_sentence(self, mock_get):
+        mock_get.return_value = mock_response_for(['spellllled']) 
+
         response = main.get_bing_api_response('This is spellllled incorrectly.')
         misspelled = response.get('flaggedTokens')
         assert len(misspelled) == 1
         assert 'spellllled' in misspelled[0].get('token')
 
-    def test_incorrect_spelling_single_error_end_of_sentence(self):
+    @patch('requests.get')
+    def test_incorrect_spelling_single_error_end_of_sentence(self, mock_get):
+        mock_get.return_value = mock_response_for(['incorrectlee']) 
+
         response = main.get_bing_api_response('This is spelled incorrectlee.')
         misspelled = response.get('flaggedTokens')
         assert len(misspelled) == 1
         assert 'incorrectlee' in misspelled[0].get('token')
 
-    def test_incorrect_spelling_multiple_errors(self):
+    @patch('requests.get')
+    def test_incorrect_spelling_multiple_errors(self, mock_get):
+        mock_get.return_value = mock_response_for(['Thissss','spellllled','incorrectlee']) 
+
         response = main.get_bing_api_response('Thissss is spellllled incorrectlee.')
         misspelled = response.get('flaggedTokens')
         assert len(misspelled) == 3
