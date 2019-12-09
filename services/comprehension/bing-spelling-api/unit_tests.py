@@ -109,11 +109,3 @@ class TestBingSpellingApi(object):
         assert 'Thissss' in misspelled[0].get('token')
         assert 'spellllled' in misspelled[1].get('token')
         assert 'incorrectlee' in misspelled[2].get('token')
-
-
-
-
-
-
-
-    
