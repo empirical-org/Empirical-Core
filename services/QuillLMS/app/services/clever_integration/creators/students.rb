@@ -2,7 +2,7 @@ module CleverIntegration::Creators::Students
 
   def self.run(parsed_students_response)
     students = parsed_students_response.map do |parsed_student_response|
-      student = self.create_student(parsed_student_response)
+      student = create_student(parsed_student_response)
       student
     end
     students
