@@ -206,7 +206,7 @@ Style/RedundantFreeze:
   Enabled: true
 
 Style/RedundantReturn:
-  Enabled: true
+  Enabled: false
 
 Style/RedundantSelf:
   Enabled: true
@@ -260,7 +260,6 @@ Style/ParallelAssignment:
 
 Style/RegexpLiteral:
   Enabled: true
-
 Layout/ElseAlignment:
   Enabled: false
 
@@ -296,3 +295,22 @@ Style/MultilineIfModifier:
 
 Style/UnlessElse:
   Enabled: true
+
+Layout/EndAlignment:
+  Enabled: false
+  Excludes:
+    - 'QuillLMS/app/controllers/activity_sessions_controller.rb'
+    - 'QuillLMS/app/controllers/api/v1/activity_session_interaction_logs_controller.rb'
+
+FloatDivision:
+  Enabled: false
+  Excludes:
+    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
+    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
+    - 'QuillLMS/app/services/demo/concept_results.rb'
+    - 'QuillLMS/app/services/serialize_sales_account.rb'
+    - 'QuillLMS/app/services/serialize_sales_contact.rb'
+
+
+RescuedExceptionsVariableName:
+  Enabled: false

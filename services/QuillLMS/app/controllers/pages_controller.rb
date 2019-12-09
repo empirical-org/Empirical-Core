@@ -356,7 +356,7 @@ class PagesController < ApplicationController
 
   def activities
     @body_class = 'full-width-page white-page'
-    @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
+    @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.first
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
 
