@@ -208,6 +208,9 @@ Style/RedundantFreeze:
 Style/RedundantReturn:
   Enabled: false
 
+Style/RedundantSelf:
+  Enabled: true
+
 Style/RescueModifier:
   Exclude:
     - 'QuillLMS/db/migrate/20140916143956_make_username_downcase.rb'
@@ -257,49 +260,38 @@ Style/ParallelAssignment:
 
 Style/RegexpLiteral:
   Enabled: true
+Layout/ElseAlignment:
+  Enabled: false
 
-Layout/ParameterAlignment:
-  Enabled: true
-
-Layout/EndAlignment:
+Lint/AssignmentInCondition:
   Enabled: true
   Exclude:
-    - 'QuillLMS/app/controllers/activity_sessions_controller.rb'
-    - 'QuillLMS/app/controllers/api/v1/activity_session_interaction_logs_controller.rb'
-    - 'QuillLMS/app/controllers/cms/activities_controller.rb'
+    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
+    - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
     - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/config/initializers/salesmachine.rb'
+    - 'QuillLMS/bin/spring'
 
-Layout/SpaceAroundKeyword:
+Metrics/BlockNesting:
+  Max: 4
+
+Naming/MethodParameterName:
   Enabled: true
 
-Lint/RedundantStringCoercion:
+Style/BlockComments:
   Enabled: true
 
-Naming/RescuedExceptionsVariableName:
-  Enabled: true
-  Exclude:
-    - 'QuillLMS/app/workers/get_concepts_in_use_individual_concept_worker.rb'
-
-Style/FloatDivision:
+Style/ClassVars:
   Enabled: true
   Exclude:
-    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
-    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
-    - 'QuillLMS/app/services/demo/concept_results.rb'
-    - 'QuillLMS/app/services/serialize_sales_account.rb'
-    - 'QuillLMS/app/services/serialize_sales_contact.rb'
+    - 'QuillLMS/app/queries/dashboard.rb'
+    - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
+    - 'QuillLMS/app/services/quill_clever.rb'
 
-Style/NestedParenthesizedCalls:
-  Enabled: true
-  Exclude:
-    - 'QuillLMS/app/services/serialize_sales_contact.rb'
-
-Style/OneLineConditional:
+Style/Lambda:
   Enabled: true
 
-Style/RedundantCondition:
+Style/MultilineIfModifier:
   Enabled: true
-  Exclude:
-    - 'QuillLMS/app/controllers/cms/users_controller.rb'
-    - 'QuillLMS/app/controllers/profiles_controller.rb'
+
+Style/UnlessElse:
+  Enabled: true
