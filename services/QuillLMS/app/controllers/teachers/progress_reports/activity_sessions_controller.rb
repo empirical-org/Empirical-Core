@@ -117,7 +117,7 @@ class Teachers::ProgressReports::ActivitySessionsController < Teachers::Progress
       ").to_a[0]['count'].to_f / PAGE_SIZE).ceil
 
 
-      if(params[:without_filters])
+      if params[:without_filters]
         render json: {
           activity_sessions: activity_sessions,
           page_count: page_count,
