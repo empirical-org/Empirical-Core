@@ -19,10 +19,7 @@ def mock_response_for(misspelled):
         def json(self):
             return self.json_data
 
-    def tokens_helper(token):
-        return {'token': token}
-
-    mock_response_data = {'flaggedTokens': map(tokens_helper, misspelled)}
+    mock_response_data = {'flaggedTokens': map(lambda entry: {'token': entry}, misspelled)}
     return MockResponse(mock_response_data, 200)
 
 class TestParameterChecks:
