@@ -70,7 +70,7 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
       } else if (selectedConcept && selectedConcept.parent && (selectedConcept.parent.id === c.id || (selectedConcept.parent.parent && c.id === selectedConcept.parent.parent.id))) {
         selected = 'selected'
       }
-      return <div className={`concept-list-item ${selected}`} onClick={(e) => this.selectConcept(e, c.id, levelNumber)}>{c.name}{removeSelectionIcon}</div>
+      return <div key={c.id} className={`concept-list-item ${selected}`} onClick={(e) => this.selectConcept(e, c.id, levelNumber)}>{c.name}{removeSelectionIcon}</div>
     })
     return <div className="concept-list">{conceptItems}</div>
   }
