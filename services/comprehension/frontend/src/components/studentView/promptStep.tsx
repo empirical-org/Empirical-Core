@@ -29,9 +29,9 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
 
   shouldComponentUpdate(nextProps: PromptStepProps, nextState: PromptStepState) {
     // this prevents some weird cursor stuff from happening in the text editor
-    const textHasChanged = this.state.html !== nextState.html
     const textHasNotBeenReset = nextState.html !== this.formattedPrompt()
-    if (textHasChanged && textHasNotBeenReset) return false
+    const firstEditHasAlreadyBeenMade = this.state.html !== this.formattedPrompt()
+    if (textHasNotBeenReset && firstEditHasAlreadyBeenMade) return false
     return true
   }
 
@@ -53,7 +53,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
     if (text.match(regex)) {
       this.setState({ html: value, })
     } else {
-      this.setState({ html, }, () => { this.editor.blur() })
+      this.editor.innerHTML = html
     }
   }
 
@@ -96,7 +96,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
 
   render() {
     const { prompt, className, passedRef, stepNumberComponent, onClick, } = this.props
-    const { text, } = prompt.text
+    const { text, } = prompt
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
     return (<div className={className} ref={passedRef} onClick={onClick}>
       {stepNumberComponent}
