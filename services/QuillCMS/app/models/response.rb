@@ -18,10 +18,10 @@ class Response < ApplicationRecord
       indexes :text, type: 'text', analyzer: :custom_analyzer
       indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
-      indexes :uid, type: 'keyword'
+      indexes :uid, type: 'text'
       indexes :question_uid, type: 'keyword'
       indexes :parent_id, type: 'integer'
-      indexes :parent_uid, type: 'keyword'
+      indexes :parent_uid, type: 'text'
       indexes :feedback, type: 'text'
       indexes :count, type: 'integer'
       indexes :child_count, type: 'integer'
