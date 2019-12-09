@@ -134,14 +134,6 @@ Layout/DotPosition:
     - 'QuillCMS/spec/workers/rematch_response_worker_spec.rb'
     - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Layout/ElseAlignment:
-  Exclude:
-    - 'QuillLMS/app/controllers/activity_sessions_controller.rb'
-    - 'QuillLMS/app/controllers/api/v1/activity_session_interaction_logs_controller.rb'
-    - 'QuillLMS/app/controllers/cms/activities_controller.rb'
-    - 'QuillLMS/app/models/user.rb'
 
 # Offense count: 11
 # Cop supports --auto-correct.
@@ -468,15 +460,6 @@ Layout/TrailingEmptyLines:
 Layout/TrailingWhitespace:
   Enabled: false
 
-# Offense count: 4
-# Configuration parameters: AllowSafeAssignment.
-Lint/AssignmentInCondition:
-  Exclude:
-    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
-    - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/bin/spring'
-
 # Offense count: 10
 Lint/BooleanSymbol:
   Exclude:
@@ -557,11 +540,6 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Max: 940
 
-# Offense count: 4
-# Configuration parameters: CountBlocks.
-Metrics/BlockNesting:
-  Max: 4
-
 # Offense count: 32
 # Configuration parameters: CountComments.
 Metrics/ClassLength:
@@ -625,15 +603,6 @@ Naming/PredicateName:
     - 'QuillLMS/app/models/user.rb'
     - 'QuillLMS/spec/support/pages/page.rb'
 
-# Offense count: 4
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: io, id, to, by, on, in, at, ip, db
-Naming/MethodParameterName:
-  Exclude:
-    - 'QuillLMS/app/helpers/application_helper.rb'
-    - 'QuillLMS/app/models/subscription.rb'
-    - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
-
 # Offense count: 13
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: inline, group
@@ -677,15 +646,6 @@ Style/AsciiComments:
     - 'QuillLMS/lib/tasks/private_schools.rake'
     - 'QuillLMS/spec/controllers/teachers/unit_templates_controller_spec.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/BlockComments:
-  Exclude:
-    - 'QuillCMS/spec/spec_helper.rb'
-    - 'QuillComprehension/spec/spec_helper.rb'
-    - 'QuillLMS/app/services/google_integration/classroom/parsers/courses.rb'
-    - 'QuillLMS/app/services/google_integration/classroom/parsers/students.rb'
-
 # Offense count: 141
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, IgnoredMethods, AllowBracesOnProceduralOneLiners.
@@ -727,13 +687,6 @@ Style/CaseEquality:
 # SupportedStyles: nested, compact
 Style/ClassAndModuleChildren:
   Enabled: false
-
-# Offense count: 4
-Style/ClassVars:
-  Exclude:
-    - 'QuillLMS/app/queries/dashboard.rb'
-    - 'QuillLMS/app/services/associators/students_to_classrooms.rb'
-    - 'QuillLMS/app/services/quill_clever.rb'
 
 # Offense count: 30
 # Cop supports --auto-correct.
@@ -859,16 +812,6 @@ Style/HashSyntax:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'QuillLMS/app/models/activity.rb'
-    - 'QuillLMS/app/models/activity_session.rb'
-    - 'QuillLMS/app/models/user.rb'
-
 # Offense count: 9
 # Cop supports --auto-correct.
 Style/LineEndConcatenation:
@@ -914,14 +857,6 @@ Style/MixinUsage:
     - 'QuillLMS/db/seeds.rb'
     - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
     - 'QuillLMS/spec/workers/fast_assign_worker_spec.rb'
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/MultilineIfModifier:
-  Exclude:
-    - 'QuillLMS/app/workers/classroom_activities_to_unit_activities_and_classroom_units_worker.rb'
-    - 'QuillLMS/app/workers/user_login_worker.rb'
-    - 'QuillLMS/config/initializers/omniauth.rb'
 
 # Offense count: 111
 # Cop supports --auto-correct.
@@ -1015,10 +950,15 @@ Style/RedundantBegin:
 Style/RedundantParentheses:
   Enabled: false
 
-# Offense count: 509
+# Offense count: 3
 # Cop supports --auto-correct.
-Style/RedundantSelf:
-  Enabled: false
+# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
+# SupportedStyles: slashes, percent_r, mixed
+Style/RegexpLiteral:
+  Exclude:
+    - 'QuillLMS/config/application.rb'
+    - 'QuillLMS/config/routes.rb'
+    - 'QuillLMS/spec/models/csv_export_spec.rb'
 
 # Offense count: 26
 # Cop supports --auto-correct.
@@ -1128,14 +1068,6 @@ Style/TrailingCommaInArrayLiteral:
 # SupportedStylesForMultiline: comma, consistent_comma, no_comma
 Style/TrailingCommaInHashLiteral:
   Enabled: false
-
-# Offense count: 4
-# Cop supports --auto-correct.
-Style/UnlessElse:
-  Exclude:
-    - 'QuillLMS/app/controllers/cms/activity_categories_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/progress_reports/activity_sessions_controller.rb'
-    - 'QuillLMS/app/models/referrals_user.rb'
 
 # Offense count: 13
 # Cop supports --auto-correct.
