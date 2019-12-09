@@ -6,6 +6,7 @@ const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 interface PromptStepProps {
   active: Boolean;
   className: string,
+  getFeedback: Function;
   stepNumberComponent: JSX.Element,
   onClick?: (event: any) => void;
   text: string,
@@ -33,7 +34,6 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
     return true
   }
 
-
   formattedPrompt = () => {
     const { text, } = this.props
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
@@ -60,6 +60,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
     this.setState({ html: this.formattedPrompt() })
   }
 
+  renderButton = () => {
+    const { html, } = this.state
+    let className = ''
+    let onClick = this.props.getFeedback
+    if (html === this.formattedPrompt()) {
+      className = 'disabled'
+      onClick = null
+    }
+    return <button onClick={onClick} className={className}>Get feedback</button>
+  }
+
   renderEditorAndButton = () => {
     if (!this.props.active) return
     return (<div className="editor-and-button-container">
@@ -78,6 +89,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
           src={clearSrc}
         />
       </div>
+      {this.renderButton()}
     </div>)
   }
 

@@ -17,6 +17,7 @@ interface StudentViewContainerProps {
 interface StudentViewContainerState {
   activeStep: number;
   completedSteps: Array<number>;
+  responses: any;
 }
 
 const READ_PASSAGE_STEP = 1
@@ -32,7 +33,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.state = {
       activeStep: READ_PASSAGE_STEP,
-      completedSteps: []
+      completedSteps: [],
+      responses: {}
     }
 
     this.step1 = React.createRef()
@@ -117,7 +119,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderPromptSteps() {
-    const { activeStep, completedSteps, } = this.state
+    const { activeStep, } = this.state
     const { currentActivity, } = this.props.activities
     if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
@@ -127,6 +129,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       return (<PromptStep
         active={stepNumber === activeStep}
         className='step'
+        getFeedback={() => {}}
         onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         stepNumberComponent={this.renderStepNumber(stepNumber)}

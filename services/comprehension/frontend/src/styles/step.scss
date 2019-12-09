@@ -25,6 +25,10 @@
     padding: 15px 0px;
     margin-top: 24px;
     border: none;
+    &.disabled {
+      background-color: #cccccc;
+      color: #878787;
+    }
   }
   .editor-container {
     position: relative;
