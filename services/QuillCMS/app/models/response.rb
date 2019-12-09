@@ -15,18 +15,18 @@ class Response < ApplicationRecord
     }
   }, index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
-      indexes :text, type: 'string', analyzer: :custom_analyzer
+      indexes :text, type: 'text', analyzer: :custom_analyzer
       indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
-      indexes :uid, type: 'string'
-      indexes :question_uid, type: 'string', index: "not_analyzed"
+      indexes :uid, type: 'text'
+      indexes :question_uid, type: 'keyword'
       indexes :parent_id, type: 'integer'
-      indexes :parent_uid, type: 'string'
+      indexes :parent_uid, type: 'text'
       indexes :feedback, type: 'text'
       indexes :count, type: 'integer'
       indexes :child_count, type: 'integer'
       indexes :first_attempt_count, type: 'integer'
-      indexes :author, type: 'string'
+      indexes :author, type: 'text'
       indexes :status, type: 'integer'
       indexes :created_at, type: 'integer'
       indexes :spelling_error, type: 'boolean'

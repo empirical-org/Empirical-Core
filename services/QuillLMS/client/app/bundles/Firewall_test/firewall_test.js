@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import firebase from 'firebase';
 
 if (process.env.RAILS_ENV === 'development' || process.env.FIREBASE_API_KEY) {
