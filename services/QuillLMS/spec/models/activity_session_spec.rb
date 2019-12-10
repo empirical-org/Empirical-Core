@@ -617,6 +617,11 @@ end
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
     end
+
+    it 'mark finished anonymous sessions as final' do
+      new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
+      expect(new_activity_session.is_final_score).to eq(true)
+    end
   end
 
   describe '#validations' do
