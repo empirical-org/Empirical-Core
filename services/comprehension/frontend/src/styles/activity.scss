@@ -89,7 +89,7 @@
   @media (max-width: 1099px) {
     flex-direction: column;
     height: auto;
-    .steps-outer-container {
+    .steps-outer-container, .steps-inner-container {
       position: inherit;
       max-width: 100%;
       padding: 0px;
