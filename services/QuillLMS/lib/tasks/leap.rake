@@ -1,15 +1,14 @@
-require 'open-uri'
 require 'csv'
 
 namespace :leap do
   desc "Import LEAP District ID values from a CSV piped to the command"
   task :import_from_pipe, [:email_domain] => :environment do |_, args|
     include LeapTaskHelpers
-    set_arg_values(args)
+    arg_values(args)
 
     pipe_data = STDIN.read unless STDIN.tty?
 
-    if !@EMAIL_DOMAIN or !pipe_data
+    if !@email_domain or !pipe_data
       puts('You must pipe the csv data you want to process and provide the email domain to use to identify users')
       puts('Example usage:')
       puts('  cat lee-elementary-leap-district-ids.csv | rake leap:import_from_pipe[cps.edu]')
@@ -23,28 +22,38 @@ namespace :leap do
   desc "Import LEAP District ID values from a CSV"
   task :import, [:csv_path, :email_domain] => :environment do |_, args|
     include LeapTaskHelpers
-    set_arg_values(args)
+    arg_values(args)
 
-    if !@CSV_PATH || !@EMAIL_DOMAIN
+    if !@csv_path || !@email_domain
       puts('You must provide a path to the csv file you want to process and the email domain to use to identify users')
       puts('Example usage:')
       puts('  rake leap:import[lee-elementary-leap-district-ids.csv,cps.edu]')
       exit
     end
 
-    data = CSV.new(open(args[:csv_path]), headers:true)
+    begin
+      file = File.open(@csv_path)
+    rescue Errno::ENOENT
+      begin
+        file = URI.parse(@csv_path).open
+      rescue OpenURI::HTTPError
+        puts("Could not find a valid local file or public URL for #{@csv_path}")
+        exit 1
+      end
+    end
+
+    data = CSV.new(file, headers:true)
     process_data(data)
   end
 
   module LeapTaskHelpers
 
-    def set_arg_values(args)
-      @EMAIL_DOMAIN = args[:email_domain]
-      @CSV_PATH = args[:csv_path]
-      @GOOGLE_ID_COLUMN_NAME = "Google ID"
-      @DISTRICT_ID_COLUMN_NAME = "District ID"
-      @EMAIL_DOMAIN = @EMAIL_DOMAIN
-      @ID_SOURCE = ThirdPartyUserId::SOURCES::LEAP
+    def arg_values(args)
+      @email_domain = args[:email_domain]
+      @csv_path = args[:csv_path]
+      @google_id_column_name = "Google ID"
+      @district_id_column_name = "District ID"
+      @id_source = ThirdPartyUserId::SOURCES::LEAP
     end
 
     def process_data(data)
@@ -54,14 +63,14 @@ namespace :leap do
     end
 
     def process_row(row)
-      email = "#{row[@GOOGLE_ID_COLUMN_NAME].strip}@#{@EMAIL_DOMAIN}".downcase
+      email = "#{row[@google_id_column_name].strip}@#{@email_domain}".downcase
       user = User.find_by(email: email)
       if !user
         puts "Could not find user with email #{email}"
       else
         district_id = ThirdPartyUserId.find_or_create_by(user: user,
-                                                         source: @ID_SOURCE)
-        district_id.third_party_id = row[@DISTRICT_ID_COLUMN_NAME].strip
+                                                         source: @id_source)
+        district_id.third_party_id = row[@district_id_column_name].strip
         district_id.save! 
       end
     end
