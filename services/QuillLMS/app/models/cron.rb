@@ -13,11 +13,13 @@ class Cron
   # Which is 02:00 or 03:00 Eastern depending on Daylight Savings
   def self.interval_1_day
     run_saturday if now.wday == 6
+    # pass yesterday's date for stats email queries and labels
+    date = Time.now.getlocal('-05:00').yesterday
 
     QuillStaffAccountsChangedWorker.perform_async
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     SyncSalesmachineWorker.perform_async
-    DailyStatsEmailJob.perform_async
+    DailyStatsEmailJob.perform_async(date)
   end
 
   def self.run_saturday
