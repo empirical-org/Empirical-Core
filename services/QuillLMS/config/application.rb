@@ -50,7 +50,7 @@ module EmpiricalGrammar
 
     # changed config.exceptions_app from what was commented out
     # in order to enable custom controller actions https://mattbrictson.com/dynamic-rails-error-pages
-    config.exceptions_app = self.routes
+    config.exceptions_app = routes
     # config.exceptions_app = Proc.new do |env|
     #   ApplicationController.action(:show_errors).call(env)
     # end
