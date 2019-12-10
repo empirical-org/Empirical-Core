@@ -37,7 +37,7 @@ def test_spelled_correctly_branch(app):
       assert len(data.get('highlight')) == 0
 
 def test_spelled_incorrectly_branch(app):
-    with app.test_request_context(json={'entry': 'This is spelllled correctly.', 'prompt_id': 000}):
+    with app.test_request_context(json={'entry': 'This is spelllled incorrectly.', 'prompt_id': 000}):
       response = main.response_endpoint(flask.request)
       data = json.loads(response.data)
 
