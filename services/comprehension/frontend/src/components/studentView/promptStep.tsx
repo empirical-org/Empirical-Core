@@ -107,12 +107,12 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
         Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
       </p>
       <CSSTransitionGroup
-        transitionName="fade"
         transitionAppear={true}
         transitionAppearTimeout={300}
         transitionEnterTimeout={300}
+        transitionName="fade"
       >
-        <div key={lastSubmittedResponse.response_id} className={className}>
+        <div className={className} key={lastSubmittedResponse.response_id}>
           <img alt={imageAlt} src={imageSrc} />
           <p>{feedback}</p>
         </div>

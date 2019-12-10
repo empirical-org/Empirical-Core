@@ -19,12 +19,12 @@ export default class EditorContainer extends React.Component<any, any> {
   renderClear = () => {
     const { disabled, resetText, } = this.props
     if (disabled) return
-    return <img
+    return (<img
       alt="circle with an x in it"
       className="clear"
       onClick={resetText}
       src={clearSrc}
-    />
+    />)
   }
 
   render() {
