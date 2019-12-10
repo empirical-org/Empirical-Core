@@ -534,7 +534,7 @@ end
       context "when completed_at is already set" do
         before { activity_session.completed_at = 5.minutes.ago }
 
-        it "should not change completed at "do
+        it "should not change completed at " do
           expect {
             activity_session.save!
           }.to_not change {

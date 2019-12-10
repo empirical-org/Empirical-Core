@@ -15,18 +15,18 @@ class Types::UserType < Types::BaseObject
   field :completed_diagnostic, Boolean, null: false
 
   def notifications
-    object.notifications.order("created_at DESC").limit(10)
+    object.notifications.order("notifications.id DESC").limit(10)
   end
 
-  def activity_scores 
+  def activity_scores
     scores = ActivitySession.find_by_sql("
-      SELECT 
+      SELECT
         activity_sessions.activity_id as activity_id,
         MAX(activity_sessions.percentage) as percentage,
         MAX(activity_sessions.updated_at) AS updated_at,
         SUM(CASE WHEN activity_sessions.state = 'started' THEN 1 ELSE 0 END) AS resume_link
       FROM activity_sessions
-      
+
       WHERE activity_sessions.user_id = #{object.id}
       GROUP BY activity_sessions.activity_id
     ")
@@ -41,14 +41,14 @@ class Types::UserType < Types::BaseObject
     else
       []
     end
-   
+
   end
 
   def completed_diagnostic
     ActivitySession.where(user_id: object.id, activity_id: 413, state: "finished").any?
   end
 
-  private 
+  private
 
   def get_recommended_units(concept_result_scores)
     units = []
@@ -71,7 +71,7 @@ class Types::UserType < Types::BaseObject
   def get_acts_from_recommended_units(units)
     units.map do |actpackid|
       UnitTemplate.find(actpackid).activities.map(&:id)
-    end 
+    end
   end
 
   def concept_results_by_count activity_session
