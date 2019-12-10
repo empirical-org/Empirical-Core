@@ -21,10 +21,10 @@ class SignUpPage < Page
   def sign_up(type: nil,
               first_name: '',
               last_name: '',
-          username: '',
-          password: '',
-             email: '',
-   send_newsletter: true)
+              username: '',
+              password: '',
+              email: '',
+              send_newsletter: true)
 
     # ideally these are in the order seen on the form
     # so that the form appears to be filled out from
