@@ -6,10 +6,12 @@ const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 interface PromptStepProps {
   active: Boolean;
   className: string,
+  getFeedback: Function;
   stepNumberComponent: JSX.Element,
   onClick?: (event: any) => void;
-  text: string,
+  prompt: any,
   passedRef: any,
+  responses: Array<any>
 }
 
 interface PromptStepState {
@@ -27,15 +29,14 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
 
   shouldComponentUpdate(nextProps: PromptStepProps, nextState: PromptStepState) {
     // this prevents some weird cursor stuff from happening in the text editor
-    const textHasChanged = this.state.html !== nextState.html
     const textHasNotBeenReset = nextState.html !== this.formattedPrompt()
-    if (textHasChanged && textHasNotBeenReset) return false
+    const firstEditHasAlreadyBeenMade = this.state.html !== this.formattedPrompt()
+    if (textHasNotBeenReset && firstEditHasAlreadyBeenMade) return false
     return true
   }
 
-
   formattedPrompt = () => {
-    const { text, } = this.props
+    const { text, } = this.props.prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
   }
 
@@ -52,12 +53,23 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
     if (text.match(regex)) {
       this.setState({ html: value, })
     } else {
-      this.setState({ html, }, () => { this.editor.blur() })
+      this.editor.innerHTML = html
     }
   }
 
   resetText = () => {
     this.setState({ html: this.formattedPrompt() })
+  }
+
+  renderButton = () => {
+    const { html, } = this.state
+    let className = ''
+    let onClick = this.props.getFeedback
+    if (html === this.formattedPrompt()) {
+      className = 'disabled'
+      onClick = null
+    }
+    return <button onClick={onClick} className={className}>Get feedback</button>
   }
 
   renderEditorAndButton = () => {
@@ -78,11 +90,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
           src={clearSrc}
         />
       </div>
+      {this.renderButton()}
     </div>)
   }
 
   render() {
-    const { text, className, passedRef, stepNumberComponent, onClick, } = this.props
+    const { prompt, className, passedRef, stepNumberComponent, onClick, } = this.props
+    const { text, } = prompt
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
     return (<div className={className} ref={passedRef} onClick={onClick}>
       {stepNumberComponent}
