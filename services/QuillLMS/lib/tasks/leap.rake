@@ -8,7 +8,7 @@ namespace :leap do
 
     pipe_data = STDIN.read unless STDIN.tty?
 
-    if !@email_domain or !pipe_data
+    if !@email_domain || !pipe_data
       puts('You must pipe the csv data you want to process and provide the email domain to use to identify users')
       puts('Example usage:')
       puts('  cat lee-elementary-leap-district-ids.csv | rake leap:import_from_pipe[cps.edu]')
