@@ -48,9 +48,9 @@ def get_bing_api_response(entry):
     return response.json()
 
 def get_misspelled_highlight_list(misspelled_flagged):
-    return map(lambda entry: {
+    return list(map(lambda entry: {
         'type': 'response',
         'id': None,
         'text': entry.get('token'),
-    }, misspelled_flagged)
+    }, misspelled_flagged))
 
