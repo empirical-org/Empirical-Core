@@ -5,19 +5,21 @@ import PromptStep from './promptStep'
 import LoadingSpinner from '../shared/loadingSpinner'
 import getParameterByName from '../../helpers/getParameterByName'
 import { getActivity } from "../../actions/activities";
+import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
+import { SessionReducerState } from '../../reducers/sessionReducer'
 
 const bigCheckSrc =  `${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`
 
 interface StudentViewContainerProps {
   dispatch: Function;
   activities: ActivitiesReducerState;
+  session: SessionReducerState;
 }
 
 interface StudentViewContainerState {
   activeStep: number;
   completedSteps: Array<number>;
-  responses: any;
 }
 
 const READ_PASSAGE_STEP = 1
@@ -43,10 +45,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   componentDidMount() {
-    const activityUID = getParameterByName('uid', window.location.href)
+    const activityUID = this.activityUID()
 
     if (activityUID) {
       this.props.dispatch(getActivity(activityUID))
+    }
+  }
+
+  activityUID = () => getParameterByName('uid', window.location.href)
+
+  submitResponse = (entry: string, promptID: string) => {
+    const activityUID = this.activityUID()
+    if (activityUID) {
+      this.props.dispatch(getFeedback(activityUID, entry, promptID))
     }
   }
 
@@ -120,7 +131,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   renderPromptSteps() {
     const { activeStep, } = this.state
     const { currentActivity, } = this.props.activities
-    const { responses, } = this.props.session
+    const { submittedResponses, } = this.props.session
     if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
@@ -128,11 +139,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       return (<PromptStep
         active={stepNumber === activeStep}
         className='step'
-        getFeedback={() => {}}
+        submitResponse={this.submitResponse}
         onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         prompt={prompt}
-        responses={responses[prompt.prompt_id]}
+        submittedResponses={submittedResponses[prompt.prompt_id] || []}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
       />)
     })

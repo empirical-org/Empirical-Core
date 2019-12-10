@@ -1,17 +1,16 @@
 import * as React from 'react'
-import ContentEditable from 'react-contenteditable'
 
-const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
+import EditorContainer from './editorContainer'
 
 interface PromptStepProps {
   active: Boolean;
   className: string,
-  getFeedback: Function;
+  submitResponse: Function;
   stepNumberComponent: JSX.Element,
   onClick?: (event: any) => void;
   prompt: any,
   passedRef: any,
-  responses: Array<any>
+  submittedResponses: Array<any>
 }
 
 interface PromptStepState {
@@ -27,13 +26,12 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
     this.state = { html: this.formattedPrompt() };
   }
 
-  shouldComponentUpdate(nextProps: PromptStepProps, nextState: PromptStepState) {
-    // this prevents some weird cursor stuff from happening in the text editor
-    const textHasNotBeenReset = nextState.html !== this.formattedPrompt()
-    const firstEditHasAlreadyBeenMade = this.state.html !== this.formattedPrompt()
-    if (textHasNotBeenReset && firstEditHasAlreadyBeenMade) return false
-    return true
+  unsubmittableResponses = () => {
+    const { submittedResponses, prompt } = this.props
+    return submittedResponses.map(r => r.entry).concat(prompt.text)
   }
+
+  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>/g, '').replace('&nbsp;', ' ')
 
   formattedPrompt = () => {
     const { text, } = this.props.prompt
@@ -45,6 +43,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
   lastWord = (str: string) => str.split(' ').splice(-1)
 
   handleTextChange = (e) => {
+    console.log('is this app')
     const { html, } = this.state
     const { value, } = e.target
     const text = value.replace(/<p>|<\/p>/g, '')
@@ -58,39 +57,49 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
   }
 
   resetText = () => {
-    this.setState({ html: this.formattedPrompt() })
+    const html = this.formattedPrompt()
+    this.setState({ html }, () => this.editor.innerHTML = html)
   }
 
   renderButton = () => {
+    const { prompt, submitResponse, submittedResponses, } = this.props
     const { html, } = this.state
+    const entry = this.stripHtml(html).trim()
+    const buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = ''
-    let onClick = this.props.getFeedback
-    if (html === this.formattedPrompt()) {
+    let onClick = () => submitResponse(entry, prompt.prompt_id)
+    console.log('this.unsubmittableResponses()', this.unsubmittableResponses())
+    console.log('entry', entry)
+    if (this.unsubmittableResponses().includes(entry)) {
       className = 'disabled'
-      onClick = null
+      onClick = () => {}
     }
-    return <button className={className} onClick={onClick}>Get feedback</button>
+    return <button className={className} onClick={onClick}>{buttonCopy}</button>
   }
 
-  renderEditorAndButton = () => {
+  renderFeedbackSection = () => {
+    const { submittedResponses, } = this.props
+    if (submittedResponses.length === 0) return
+
+  }
+
+  renderEditorContainer = () => {
+    return <EditorContainer
+      html={this.state.html}
+      innerRef={(node: JSX.Element) => this.editor = node}
+      handleTextChange={this.handleTextChange}
+      resetText={this.resetText}
+      stripHtml={this.stripHtml}
+      unsubmittableResponses={this.unsubmittableResponses()}
+    />
+  }
+
+  renderActiveContent = () => {
     if (!this.props.active) return
-    return (<div className="editor-and-button-container">
-      <div className="editor-container">
-        <ContentEditable
-          className="editor"
-          html={this.state.html}
-          innerRef={(node: JSX.Element) => this.editor = node}
-          onChange={this.handleTextChange}
-          spellCheck={false}
-        />
-        <img
-          alt="circle with an x in it"
-          className="clear"
-          onClick={this.resetText}
-          src={clearSrc}
-        />
-      </div>
+    return (<div className="active-content-container">
+      {this.renderEditorContainer()}
       {this.renderButton()}
+      {this.renderFeedbackSection()}
     </div>)
   }
 
@@ -103,7 +112,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
       <div className="step-content">
         <p className="directions">Use information from the text to finish the sentence:</p>
         {promptTextComponent}
-        {this.renderEditorAndButton()}
+        {this.renderActiveContent()}
       </div>
     </div>)
   }

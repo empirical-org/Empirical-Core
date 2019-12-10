@@ -2,9 +2,9 @@ import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
 
-import FeedbackObject from '../interfaces/feedback'
+import { FeedbackObject } from '../interfaces/feedback'
 
-export const getFeedback = (activityUID: number, entry: string, promptId: number) => {
+export const getFeedback = (activityUID: string, entry: string, promptID: string) => {
   return (dispatch: Function) => {
     request.get(`https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityUID}/responses.json`, (e, r, body) => {
       const responses = JSON.parse(body)
@@ -13,6 +13,7 @@ export const getFeedback = (activityUID: number, entry: string, promptId: number
         feedback_type: "semantic",
         optimal: false,
         response_id: "q23123@3sdfASDF",
+        entry,
       }
       const matchedResponse = responses.find((r: any) => r.text === entry)
       if (matchedResponse) {
@@ -21,14 +22,10 @@ export const getFeedback = (activityUID: number, entry: string, promptId: number
           feedback_type: "semantic",
           optimal: true,
           response_id: matchedResponse.response_id,
-        	highlight: [ {
-            type: "response",
-        		id: null,
-        		text: "misspelllling"
-          }]
+          entry
         }
       }
-      dispatch({ type: ActionTypes.RECORD_FEEDBACK, data: { promptId, feedbackObj }, });
+      dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
     })
   }
 }

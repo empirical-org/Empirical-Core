@@ -1,22 +1,25 @@
 import { Action } from "redux";
 import { ActionTypes } from "../actions/actionTypes";
 
-export interface ActivitiesReducerState {
-  responses: { [key:number]: Array<any> }
+import { FeedbackObject } from '../interfaces/feedback'
+
+export interface SessionReducerState {
+  submittedResponses: { [key:string]: Array<FeedbackObject> }|{}
 }
 
-type SessionAction = Action & { prompt_id: number } & { feedback: any }
+type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject }
 
 export default (
-    currentState = { responses: {} },
+    currentState: SessionReducerState = { submittedResponses: {} },
     action: SessionAction
 ) => {
     switch (action.type) {
       case ActionTypes.RECORD_FEEDBACK:
-        const responsesForPrompt = currentState.responses[action.prompt_id] || []
-        responsesForPrompt.push(action.feedback)
-        const newResponses = Object.assign({}, currentState.responses, { [action.prompt_id]: responsesForPrompt })
-        return Object.assign({}, currentState, { responses: newResponses });
+        const { promptID, feedbackObj, } = action
+        const submittedResponsesForPrompt = currentState.submittedResponses[promptID] || []
+        submittedResponsesForPrompt.push(feedbackObj)
+        const newResponses = Object.assign({}, currentState.submittedResponses, { [promptID]: submittedResponsesForPrompt })
+        return Object.assign({}, currentState, { submittedResponses: newResponses });
       default:
         return currentState;
     }
