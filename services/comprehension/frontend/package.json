@@ -59,6 +59,7 @@
     "react-router-redux": "^4.0.8",
     "react-select": "^3.0.8",
     "react-sortable": "^2.0.0",
+    "react-transition-group": "^1.2.1",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "request": "^2.88.0",

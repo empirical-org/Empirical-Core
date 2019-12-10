@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 import EditorContainer from './editorContainer'
 
@@ -96,10 +97,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       <p className="feedback-section-header">
         Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
       </p>
-      <div className={className}>
-        <img alt={imageAlt} src={imageSrc} />
-        <p>{lastSubmittedResponse.feedback}</p>
-      </div>
+      <CSSTransitionGroup
+        transitionName="fade"
+        transitionAppear={true}
+        transitionAppearTimeout={300}
+        transitionEnterTimeout={300}
+      >
+        <div key={lastSubmittedResponse.response_id} className={className}>
+          <img alt={imageAlt} src={imageSrc} />
+          <p>{lastSubmittedResponse.feedback}</p>
+        </div>
+      </CSSTransitionGroup>
     </div>)
   }
 

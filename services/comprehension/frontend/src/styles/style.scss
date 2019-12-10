@@ -18,6 +18,24 @@ button {
   }
 }
 
+.fade-enter, .fade-appear {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active, .fade-appear-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 1ms ease-in;
+}
+
 @media (min-width: 1100px) {
   .hide-on-desktop {
     display: none !important;
