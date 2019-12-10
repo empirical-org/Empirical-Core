@@ -78,7 +78,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
     "@types/jest": "^24.0.23",
-    "compression-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^3.0.1",
     "css-loader": "^3.2.1",
     "enzyme": "^3.10.0",
     "file-loader": "^5.0.2",
