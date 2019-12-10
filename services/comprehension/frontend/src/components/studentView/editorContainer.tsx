@@ -15,7 +15,7 @@ export default class EditorContainer extends React.Component<any, any> {
 
   render() {
     const { html, innerRef, handleTextChange, resetText, className, } = this.props
-    return <div className="editor-container">
+    return (<div className="editor-container">
       <ContentEditable
         className={className}
         html={html}
@@ -29,6 +29,6 @@ export default class EditorContainer extends React.Component<any, any> {
         onClick={resetText}
         src={clearSrc}
       />
-    </div>
+    </div>)
   }
 }

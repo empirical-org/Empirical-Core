@@ -92,7 +92,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       imageSrc = smallCheckCircleSrc
       imageAlt = 'Small green circle with a check in it'
     }
-    return <div className="feedback-section">
+    return (<div className="feedback-section">
       <p className="feedback-section-header">
         Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
       </p>
@@ -100,7 +100,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
         <img alt={imageAlt} src={imageSrc} />
         <p>{lastSubmittedResponse.feedback}</p>
       </div>
-    </div>
+    </div>)
   }
 
   renderEditorContainer = () => {
@@ -110,15 +110,15 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       const lastSubmittedResponse = submittedResponses.slice(-1)[0]
       className += lastSubmittedResponse.optimal ? ' optimal' : ' suboptimal'
     }
-    return <EditorContainer
+    return (<EditorContainer
       className={className}
+      handleTextChange={this.handleTextChange}
       html={this.state.html}
       innerRef={(node: JSX.Element) => this.editor = node}
-      handleTextChange={this.handleTextChange}
       resetText={this.resetText}
       stripHtml={this.stripHtml}
       unsubmittableResponses={this.unsubmittableResponses()}
-    />
+    />)
   }
 
   renderActiveContent = () => {

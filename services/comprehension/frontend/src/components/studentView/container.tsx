@@ -139,12 +139,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       return (<PromptStep
         active={stepNumber === activeStep}
         className='step'
-        submitResponse={this.submitResponse}
         onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         prompt={prompt}
-        submittedResponses={submittedResponses[prompt.prompt_id] || []}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
+        submitResponse={this.submitResponse}
+        submittedResponses={submittedResponses[prompt.prompt_id] || []}
       />)
     })
   }
