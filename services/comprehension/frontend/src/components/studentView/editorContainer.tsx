@@ -14,10 +14,10 @@ export default class EditorContainer extends React.Component<any, any> {
   }
 
   render() {
-    const { html, innerRef, handleTextChange, resetText, } = this.props
+    const { html, innerRef, handleTextChange, resetText, className, } = this.props
     return <div className="editor-container">
       <ContentEditable
-        className="editor"
+        className={className}
         html={html}
         innerRef={innerRef}
         onChange={handleTextChange}

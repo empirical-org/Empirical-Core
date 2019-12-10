@@ -30,25 +30,33 @@
       color: #878787;
     }
   }
-  .editor-container {
-    position: relative;
-    .editor {
-      min-height: 129px;
-      border-radius: 4px;
-      padding: 16px;
-      background-color: #f1f3f4;
-      margin-top: 16px;
-      font-size: 18px;
-      border-bottom: 2px solid #009a80;
-      &:focus {
-        outline: none;
+  .feedback-section {
+    margin-top: 24px;
+    .feedback-section-header {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.38;
+      margin-bottom: 10px;
+      span {
+        font-weight: normal;
+        margin-left: 16px;
       }
     }
-    .clear {
-      position: absolute;
-      bottom: 16px;
-      right: 16px;
-      cursor: pointer;
+    .feedback {
+      border-radius: 6px;
+      border: solid 1px #ff9f00;
+      background-color: #fff6e4;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      font-size: 16px;
+      line-height: normal;
+      p {
+        margin-top: -5px;
+      }
+      img {
+        margin-right: 12px;
+      }
     }
   }
   &.active {

@@ -1,0 +1,26 @@
+.editor-container {
+  position: relative;
+  .editor {
+    min-height: 129px;
+    border-radius: 4px;
+    padding: 16px;
+    background-color: #f1f3f4;
+    margin-top: 16px;
+    font-size: 18px;
+    border-bottom: 2px solid #009a80;
+    &:focus {
+      outline: none;
+    }
+    &.suboptimal {
+      border-bottom: 2px solid #ff9f00;
+    }
+    &.optimal {
+    }
+  }
+  .clear {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    cursor: pointer;
+  }
+}
