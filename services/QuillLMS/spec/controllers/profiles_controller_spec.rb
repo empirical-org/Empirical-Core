@@ -81,7 +81,7 @@ describe ProfilesController, type: :controller do
           }
         end
         expected_response = JSON.parse(response.body)['classrooms'].sort_by { |c| c[:id] }
-        sql_response = sanitize_hash_array_for_comparison_with_sql(student_classrooms).sort_by { |c| c[:id] }
+        sql_response = sanitize_hash_array_for_comparison_with_sql(student_classrooms).sort_by { |c| c['id'] }
         expect(expected_response).to eq(sql_response)
       end
     end
