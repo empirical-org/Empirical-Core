@@ -10,6 +10,7 @@ interface PromptStepProps {
   active: Boolean;
   className: string,
   submitResponse: Function;
+  completeStep: (event: any) => void;
   stepNumberComponent: JSX.Element,
   onClick?: (event: any) => void;
   prompt: any,
@@ -30,6 +31,11 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     this.state = { html: this.formattedPrompt() };
   }
 
+  lastSubmittedResponse = () => {
+    const { submittedResponses, } = this.props
+    return submittedResponses.length ? submittedResponses.slice(-1)[0] : {}
+  }
+
   unsubmittableResponses = () => {
     const { submittedResponses, prompt } = this.props
     return submittedResponses.map(r => r.entry).concat(prompt.text)
@@ -47,7 +53,6 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   lastWord = (str: string) => str.split(' ').splice(-1)
 
   handleTextChange = (e) => {
-    console.log('is this app')
     const { html, } = this.state
     const { value, } = e.target
     const text = value.replace(/<p>|<\/p>/g, '')
@@ -66,15 +71,16 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderButton = () => {
-    const { prompt, submitResponse, submittedResponses, } = this.props
+    const { prompt, submitResponse, submittedResponses, completeStep, } = this.props
     const { html, } = this.state
     const entry = this.stripHtml(html).trim()
-    const buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
+    let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = ''
     let onClick = () => submitResponse(entry, prompt.prompt_id)
-    console.log('this.unsubmittableResponses()', this.unsubmittableResponses())
-    console.log('entry', entry)
-    if (this.unsubmittableResponses().includes(entry)) {
+    if (submittedResponses.length === prompt.max_attempts || this.lastSubmittedResponse().optimal) {
+      onClick = completeStep
+      buttonCopy = 'Start next sentence'
+    } else if (this.unsubmittableResponses().includes(entry)) {
       className = 'disabled'
       onClick = () => {}
     }
@@ -84,7 +90,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   renderFeedbackSection = () => {
     const { submittedResponses, prompt, } = this.props
     if (submittedResponses.length === 0) return
-    const lastSubmittedResponse = submittedResponses.slice(-1)[0]
+    const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'feedback'
     let imageSrc = loopSrc
     let imageAlt = 'Arrows pointing in opposite directions, making a loop'
@@ -93,6 +99,9 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       imageSrc = smallCheckCircleSrc
       imageAlt = 'Small green circle with a check in it'
     }
+    const madeLastAttempt = submittedResponses.length === prompt.max_attempts
+    const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
+    const feedback = madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
     return (<div className="feedback-section">
       <p className="feedback-section-header">
         Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
@@ -105,21 +114,30 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       >
         <div key={lastSubmittedResponse.response_id} className={className}>
           <img alt={imageAlt} src={imageSrc} />
-          <p>{lastSubmittedResponse.feedback}</p>
+          <p>{feedback}</p>
         </div>
       </CSSTransitionGroup>
     </div>)
   }
 
   renderEditorContainer = () => {
-    const { submittedResponses, } = this.props
+    const { submittedResponses, prompt, } = this.props
+    const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
-    if (submittedResponses.length) {
-      const lastSubmittedResponse = submittedResponses.slice(-1)[0]
-      className += lastSubmittedResponse.optimal ? ' optimal' : ' suboptimal'
+    let disabled = false
+    const outOfAttempts = submittedResponses.length === prompt.max_attempts
+    if (lastSubmittedResponse.optimal) {
+      className += ' optimal disabled'
+      disabled = true
+    } else if (outOfAttempts) {
+      className += ' suboptimal disabled'
+      disabled = true
+    } else if (submittedResponses.length) {
+      className += ' suboptimal'
     }
     return (<EditorContainer
       className={className}
+      disabled={disabled}
       handleTextChange={this.handleTextChange}
       html={this.state.html}
       innerRef={(node: JSX.Element) => this.editor = node}

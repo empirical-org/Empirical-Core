@@ -14,7 +14,15 @@
     &.suboptimal {
       border-bottom: 2px solid #ff9f00;
     }
-    &.optimal {
+    &.disabled {
+      background-color: white;
+      border-bottom: none;
+      &.suboptimal {
+        border-left: 2px solid #ff9f00;
+      }
+      &.optimal {
+        border-left: 2px solid #55a200;
+      }
     }
   }
   .clear {

@@ -1,5 +1,5 @@
 .step {
-  padding: 16px;
+  padding: 16px 24px 24px 16px;
   border-radius: 4px;
   border: solid 1px #d8d8d8;
   max-width: 631px;
@@ -52,10 +52,15 @@
       font-size: 16px;
       line-height: normal;
       p {
+        white-space: pre-wrap;
         margin-top: -5px;
       }
       img {
         margin-right: 12px;
+      }
+      &.optimal {
+        border: solid 1px #55a200;
+        background-color: #f4ffe8;
       }
     }
   }
