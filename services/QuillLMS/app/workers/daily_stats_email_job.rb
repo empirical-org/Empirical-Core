@@ -1,7 +1,7 @@
 class DailyStatsEmailJob
   include Sidekiq::Worker
 
-  def perform
-    UserMailer.daily_stats_email.deliver_now!
+  def perform(date)
+    UserMailer.daily_stats_email(date).deliver_now!
   end
 end
