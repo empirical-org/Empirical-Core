@@ -50,7 +50,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
     @activity_session.concept_results = []
     # activity_session.owner=(current_user) if activity_session.ownable?
     # activity_session.data = @data # FIXME: may no longer be necessary?
-    if @activity_session.valid? && @activity_session.save
+    if @activity_session.save
       if @activity_session.update(activity_session_params.except(:id))
         if @concept_results
           handle_concept_results
