@@ -69,7 +69,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
       className = 'disabled'
       onClick = null
     }
-    return <button onClick={onClick} className={className}>Get feedback</button>
+    return <button className={className} onClick={onClick}>Get feedback</button>
   }
 
   renderEditorAndButton = () => {
@@ -78,8 +78,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
       <div className="editor-container">
         <ContentEditable
           className="editor"
-          innerRef={(node: JSX.Element) => this.editor = node}
           html={this.state.html}
+          innerRef={(node: JSX.Element) => this.editor = node}
           onChange={this.handleTextChange}
           spellCheck={false}
         />
@@ -98,7 +98,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PrompSt
     const { prompt, className, passedRef, stepNumberComponent, onClick, } = this.props
     const { text, } = prompt
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
-    return (<div className={className} ref={passedRef} onClick={onClick}>
+    return (<div className={className} onClick={onClick} ref={passedRef}>
       {stepNumberComponent}
       <div className="step-content">
         <p className="directions">Use information from the text to finish the sentence:</p>
