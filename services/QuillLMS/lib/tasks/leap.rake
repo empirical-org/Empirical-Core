@@ -1,3 +1,4 @@
+require 'open-uri'
 require 'csv'
 
 namespace :leap do
@@ -15,7 +16,7 @@ namespace :leap do
     EMAIL_DOMAIN = args[:email_domain]
     ID_SOURCE = ThirdPartyUserId::SOURCES::LEAP
 
-    data = CSV.read(args[:csv_path], headers:true)
+    data = CSV.new(open(args[:csv_path]), headers:true)
     data.each do |row|
       email = "#{row[GOOGLE_ID_COLUMN_NAME].strip}@#{EMAIL_DOMAIN}".downcase
       user = User.find_by(email: email)
