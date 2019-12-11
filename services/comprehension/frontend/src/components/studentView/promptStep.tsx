@@ -162,9 +162,11 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { text, } = prompt
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
     return (<div className={className} onClick={onClick} ref={passedRef}>
-      {stepNumberComponent}
       <div className="step-content">
-        <p className="directions">Use information from the text to finish the sentence:</p>
+        <div className="step-header">
+          {stepNumberComponent}
+          <p className="directions">Use information from the text to finish the sentence:</p>
+        </div>
         {promptTextComponent}
         {this.renderActiveContent()}
       </div>

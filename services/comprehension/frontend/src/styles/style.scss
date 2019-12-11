@@ -6,9 +6,13 @@
 @import './fade.scss';
 @import "./node_modules/bulma/bulma.sass";
 
+body {
+  background-color: white;
+}
+
 .app-container {
   height: 100vw;
-  background-color: #ededed;
+  background-color: white;
   font-family: adelle-sans,Helvetica,Arial,sans-serif;
 }
 

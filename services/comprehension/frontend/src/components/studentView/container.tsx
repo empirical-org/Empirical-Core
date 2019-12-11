@@ -119,9 +119,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       button = <button className='done-reading-button' onClick={() => this.completeStep(READ_PASSAGE_STEP)}>Done reading</button>
     }
     return (<div className={className}>
-      {this.renderStepNumber(READ_PASSAGE_STEP)}
       <div className="step-content" ref={(node) => this.step1 = node}>
-        <p className="directions">Read the passage:</p>
+        <div className="step-header">
+          {this.renderStepNumber(READ_PASSAGE_STEP)}
+          <p className="directions">Read the passage:</p>
+        </div>
         <p className="passage-title">{currentActivity.title}</p>
         {button}
       </div>
@@ -138,7 +140,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       const stepNumber = i + 2
       return (<PromptStep
         active={stepNumber === activeStep}
-        className='step'
+        className={`step ${activeStep === stepNumber ? 'active' : ''}`}
         completeStep={() => this.completeStep(stepNumber)}
         onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
