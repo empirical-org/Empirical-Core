@@ -575,6 +575,8 @@ GEM
     rspec-retry (0.6.1)
       rspec-core (> 3.3)
     rspec-support (3.7.1)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     ruby-progressbar (1.10.0)
     ruby-rc4 (0.1.5)
     ruby_dep (1.5.0)
@@ -820,6 +822,7 @@ DEPENDENCIES
   rspec-rails (~> 3.7.2)
   rspec-redis_helper
   rspec-retry
+  rspec_junit_formatter
   rubyzip
   salesmachine-ruby (~> 1.0.0)
   sass

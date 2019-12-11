@@ -178,6 +178,7 @@ group :test, :development do
   gem 'rspec-retry'
   gem 'rspec-redis_helper'
   gem 'brakeman', '= 4.1.1'
+  gem 'rspec_junit_formatter'
 end
 
 group :test, :development, :cypress do
