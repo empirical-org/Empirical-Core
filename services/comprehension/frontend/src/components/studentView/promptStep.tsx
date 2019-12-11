@@ -61,6 +61,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const regex = new RegExp(`^${formattedPrompt}`)
     if (text.match(regex)) {
       this.setState({ html: value, })
+      // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
     } else {
