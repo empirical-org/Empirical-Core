@@ -17,6 +17,9 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
+      - run:
+          name: Make test result directory
+          command: mkdir ~/rspec
       - restore_cache:
           keys:
             - bundle-cache-lms-v1-{{ checksum "services/QuillLMS/Gemfile.lock" }}
@@ -69,9 +72,9 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
       - run:
           name: Make test result directory
-          command: mkdir /tmp/test-results/rspec
+          command: mkdir ~/rspec
       - store_test_results:
-          path: /tmp/test-results/rspec
+          path: ~/rspec
   lms_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -441,20 +444,20 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-      - connect_node_build
-      - lms_node_build
-      - marking_logic_node_build
-      - diagnostic_node_build
-      - lms_rails_build
-      - grammar_node_build
-      - cms_rails_build
-      - lessons_node_build
-      - proofreader_node_build
-      - spellchecker_node_build
-      - comprehension_rails_build
-      - comprehension_python_build
-  lint-code:
-    jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+  #     - connect_node_build
+  #     - lms_node_build
+  #     - marking_logic_node_build
+  #     - diagnostic_node_build
+  #     - lms_rails_build
+  #     - grammar_node_build
+  #     - cms_rails_build
+  #     - lessons_node_build
+  #     - proofreader_node_build
+  #     - spellchecker_node_build
+  #     - comprehension_rails_build
+  #     - comprehension_python_build
+  # lint-code:
+  #   jobs:
+  #     - node_lint
+  #     - rubocop_lint
+  #     - flake8_lint
