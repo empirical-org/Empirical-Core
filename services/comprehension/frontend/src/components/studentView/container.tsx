@@ -18,11 +18,12 @@ interface StudentViewContainerProps {
 }
 
 interface StudentViewContainerState {
-  activeStep: number;
+  activeStep?: number;
   completedSteps: Array<number>;
 }
 
 const READ_PASSAGE_STEP = 1
+const ALL_STEPS = [READ_PASSAGE_STEP, 2, 3, 4]
 
 export class StudentViewContainer extends React.Component<StudentViewContainerProps, StudentViewContainerState> {
   private step1: any // eslint-disable-line react/sort-comp
@@ -61,9 +62,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  activateStep = (step: number) => {
+  activateStep = (step?: number) => {
     // don't activate steps before Done reading button has been clicked
-    if (step > 1 && !this.state.completedSteps.includes(READ_PASSAGE_STEP)) return
+    if (step && step > 1 && !this.state.completedSteps.includes(READ_PASSAGE_STEP)) return
     this.setState({ activeStep: step, })
   }
 
@@ -71,7 +72,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { completedSteps, } = this.state
     const newCompletedSteps = completedSteps.concat(stepNumber)
     const uniqueCompletedSteps = Array.from(new Set(newCompletedSteps))
-    this.setState({ completedSteps: uniqueCompletedSteps }, () => this.activateStep(stepNumber + 1))
+    this.setState({ completedSteps: uniqueCompletedSteps }, () => {
+      let nextStep: number|undefined = stepNumber + 1
+      if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
+        nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
+      }
+      this.activateStep(nextStep)
+    })
   }
 
   scrollToStep = (ref: string) => {
@@ -88,11 +95,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!currentActivity) return
 
     const links = []
-    const numberOfLinks = currentActivity.prompts.length + 1
+    const numberOfLinks = ALL_STEPS.length
 
     for (let i=1; i <= numberOfLinks; i++ ) {
       links.push(<div onClick={() => this.clickStepLink(i)}>{this.renderStepNumber(i)}</div>)
     }
+
     return (<div className="hide-on-desktop step-links">
       {links}
     </div>)
@@ -131,17 +139,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderPromptSteps() {
-    const { activeStep, } = this.state
+    const { activeStep, completedSteps } = this.state
     const { currentActivity, } = this.props.activities
     const { submittedResponses, } = this.props.session
     if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
+      const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
       return (<PromptStep
         active={stepNumber === activeStep}
         className={`step ${activeStep === stepNumber ? 'active' : ''}`}
         completeStep={() => this.completeStep(stepNumber)}
+        everyOtherStepCompleted={everyOtherStepCompleted}
         onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         prompt={prompt}

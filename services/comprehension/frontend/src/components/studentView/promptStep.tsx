@@ -9,6 +9,7 @@ const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-cir
 interface PromptStepProps {
   active: Boolean;
   className: string,
+  everyOtherStepCompleted: boolean;
   submitResponse: Function;
   completeStep: (event: any) => void;
   stepNumberComponent: JSX.Element,
@@ -71,7 +72,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderButton = () => {
-    const { prompt, submitResponse, submittedResponses, completeStep, } = this.props
+    const { prompt, submitResponse, submittedResponses, completeStep, everyOtherStepCompleted, } = this.props
     const { html, } = this.state
     const entry = this.stripHtml(html).trim()
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
@@ -79,7 +80,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     let onClick = () => submitResponse(entry, prompt.prompt_id)
     if (submittedResponses.length === prompt.max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = completeStep
-      buttonCopy = 'Start next sentence'
+      buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry)) {
       className = 'disabled'
       onClick = () => {}
