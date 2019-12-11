@@ -1,0 +1,19 @@
+# [START runtime]
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT mysite.wsgi
+
+beta_settings:
+    cloud_sql_instances: comprehension-247816:us-east1:comprehension-app-engine
+
+skip_files:
+- static/
+- env/
+- node_modules/
+
+env_variables:
+  PG_PASS: ""
+
+runtime_config:
+  python_version: 3
+# [END runtime]

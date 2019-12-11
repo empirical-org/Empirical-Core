@@ -106,7 +106,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
     if teacher_ids
       teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] }]
     end
-    render json: {teacher_ids: teacher_ids_h ? teacher_ids_h : {}}
+    render json: {teacher_ids: teacher_ids_h || {}}
   end
 
   private
