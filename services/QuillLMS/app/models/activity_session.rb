@@ -136,7 +136,14 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return true if (percentage.nil? or state != 'finished')
+    return if percentage.nil? || state != 'finished'
+
+    # mark all finished anonymous sessions as final score.
+    if user.nil?
+      update_columns(is_final_score: true)
+      return
+    end
+
     a = ActivitySession.where(classroom_unit: classroom_unit, user: user, is_final_score: true, activity: activity)
                        .where.not(id: id).first
     if a.nil?
