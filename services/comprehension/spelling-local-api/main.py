@@ -4,6 +4,9 @@ from flask import jsonify
 from flask import make_response
 import string
 
+FEEDBACK_TYPE = 'spelling'
+POS_FEEDBACK = 'Correct spelling!'
+NEG_FEEDBACK = 'Try again. There may be a spelling mistake.'
 
 def response_endpoint(request):
     request_json = request.get_json()
@@ -15,28 +18,21 @@ def response_endpoint(request):
         return make_response(jsonify(message="error"), 400)
 
     try:
-        misspelled_flagged = get_misspelled_words(entry)
+        misspellings = get_misspellings(entry)
     except AssertionError as error:
         return make_response(jsonify(message=error), 500)
 
     response_data = {
-        'feedback_type': 'spelling',
+        'feedback_type': FEEDBACK_TYPE,
         'response_uid': 'q23123@3sdfASDF',
-        'feedback': 'Correct spelling!',
-        'optimal': True,
-        'highlight': [],
+        'feedback': misspellings and NEG_FEEDBACK or POS_FEEDBACK,
+        'optimal': not misspellings,
+        'highlight': misspellings and get_highlight_list(misspellings) or [],
     }
-
-    if misspelled_flagged:
-        response_data.update({
-            'feedback': 'Try again. There may be a spelling mistake.',
-            'optimal': False,
-            'highlight': get_misspelled_highlight_list(misspelled_flagged),
-        })
 
     return make_response(jsonify(**response_data), 200)
 
-def get_misspelled_words(entry):
+def get_misspellings(entry):
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
     dictionary_path = pkg_resources.resource_filename("symspellpy", "frequency_dictionary_en_82_765.txt")
     bigram_path = pkg_resources.resource_filename("symspellpy", "frequency_bigramdictionary_en_243_342.txt")
@@ -50,9 +46,9 @@ def get_misspelled_words(entry):
 
     return wrong_words
 
-def get_misspelled_highlight_list(misspelled_flagged):
+def get_highlight_list(misspellings):
     return list(map(lambda entry: {
         'type': 'response',
         'id': None,
         'text': entry,
-    }, misspelled_flagged))
+    }, misspellings))
