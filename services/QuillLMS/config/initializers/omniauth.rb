@@ -11,7 +11,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
               'classroom.announcements',
               'classroom.rosters.readonly',
               'classroom.profile.emails'],
-      access_type: 'offline'
+      access_type: 'offline',
+      prompt: 'consent'
     }
 end
 
