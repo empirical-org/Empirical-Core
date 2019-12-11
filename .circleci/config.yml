@@ -62,15 +62,11 @@ jobs:
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
       - run:
-          name: Make test result directory
-          command: mkdir -p ~/rspec
-      - run:
           name: Run tests
           command: |
             cd services/QuillLMS
-            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            bundle exec rspec -- ${TESTFILES} --format RspecJunitFormatter --out ~/rspec/rspec.xml --format progress
-
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
+            bundle exec rspec -- ${TESTFILES}
       - store_test_results:
           path: ~/rspec
   lms_node_build:
