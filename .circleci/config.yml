@@ -39,7 +39,7 @@ jobs:
           paths:
             - services/QuillLMS/vendor/bundle
       - save_cache:
-          key: - npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
+          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
           paths:
             - services/QuillLMS/node_modules
       - run:
