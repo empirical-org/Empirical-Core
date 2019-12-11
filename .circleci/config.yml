@@ -17,9 +17,6 @@ jobs:
           POSTGRES_PASSWORD: ""
     steps:
       - checkout
-      - run:
-          name: Make test result directory
-          command: mkdir ~/rspec
       - restore_cache:
           keys:
             - bundle-cache-lms-v1-{{ checksum "services/QuillLMS/Gemfile.lock" }}
@@ -72,7 +69,7 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
       - run:
           name: Make test result directory
-          command: mkdir ~/rspec
+          command: mkdir -p ~/rspec
       - store_test_results:
           path: ~/rspec
   lms_node_build:
