@@ -67,6 +67,9 @@ jobs:
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
             bundle exec rspec -- ${TESTFILES}
+      - run:
+          name: Make test result directory
+          command: mkdir /tmp/test-results/rspec
       - store_test_results:
           path: /tmp/test-results/rspec
   lms_node_build:
