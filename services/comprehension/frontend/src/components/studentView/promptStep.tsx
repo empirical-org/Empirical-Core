@@ -59,7 +59,6 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const text = value.replace(/<p>|<\/p>|<br>/g, '')
     const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
     const regex = new RegExp(`^${formattedPrompt}`)
-    console.log('text', text)
     if (text.match(regex)) {
       this.setState({ html: value, })
     } else if (!text.length) {
