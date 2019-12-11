@@ -14,7 +14,7 @@ class IntegrationsController < ApplicationController
     @body_class = 'full-width-page white-page'
     @js_file = 'public'
     @active_tab = 'Explore All Activities'
-    @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
+    @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.first
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
     render :template => 'integrations/amplify'
   end
