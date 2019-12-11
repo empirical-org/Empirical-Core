@@ -55,7 +55,7 @@
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
-    "tls": "0.0.1",
+    "tls": "0.0.1"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
