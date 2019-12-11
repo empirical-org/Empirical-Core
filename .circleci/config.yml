@@ -68,7 +68,7 @@ jobs:
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
             bundle exec rspec -- ${TESTFILES}
       - store_test_results:
-          path: test-results
+          path: /tmp/test-results/rspec
   lms_node_build:
     working_directory: ~/Empirical-Core
     docker:
