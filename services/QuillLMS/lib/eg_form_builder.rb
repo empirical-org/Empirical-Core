@@ -176,7 +176,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
 
     unless options[:placeholder].nil?
-      input_options[:placeholder] = if (placeholder = options.delete(:placeholder)) == true then name.to_s.humanize else placeholder end
+      input_options[:placeholder] = ((placeholder = options.delete(:placeholder)) == true ? name.to_s.humanize : placeholder)
     end
 
     unless options[:hidden].nil?

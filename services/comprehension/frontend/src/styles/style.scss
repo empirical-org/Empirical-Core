@@ -1,4 +1,6 @@
-@import './Header.scss';
+@import './header.scss';
+@import './activity.scss';
+@import './spinner.scss';
 @import "./node_modules/bulma/bulma.sass";
 
 .app-container {
@@ -11,5 +13,17 @@ button {
   cursor: pointer;
   &:focus {
     outline: none;
+  }
+}
+
+@media (min-width: 1100px) {
+  .hide-on-desktop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1099px) {
+  .hide-on-mobile {
+    display: none !important;
   }
 }
