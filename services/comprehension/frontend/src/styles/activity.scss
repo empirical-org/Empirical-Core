@@ -2,6 +2,7 @@
   display: flex;
   background-color: white;
   color: #000;
+  height: 100%;
 
   .step-number {
     width: 100%;
@@ -32,7 +33,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: min-content;
+    height: 100%;
   }
 
   .steps-outer-container {

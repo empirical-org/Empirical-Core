@@ -8,12 +8,11 @@
 
 body {
   background-color: white;
+  font-family: adelle-sans,Helvetica,Arial,sans-serif;
 }
 
-.app-container {
-  height: 100vw;
-  background-color: white;
-  font-family: adelle-sans,Helvetica,Arial,sans-serif;
+#app, .app-container {
+  height: 100%;
 }
 
 button {
