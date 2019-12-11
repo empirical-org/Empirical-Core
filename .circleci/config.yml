@@ -68,8 +68,6 @@ jobs:
             cd services/QuillLMS
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split)
             bundle exec rspec -- ${TESTFILES}
-      - store_test_results:
-          path: ~/rspec
   lms_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -439,20 +437,20 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-  #     - connect_node_build
-  #     - lms_node_build
-  #     - marking_logic_node_build
-  #     - diagnostic_node_build
-  #     - lms_rails_build
-  #     - grammar_node_build
-  #     - cms_rails_build
-  #     - lessons_node_build
-  #     - proofreader_node_build
-  #     - spellchecker_node_build
-  #     - comprehension_rails_build
-  #     - comprehension_python_build
-  # lint-code:
-  #   jobs:
-  #     - node_lint
-  #     - rubocop_lint
-  #     - flake8_lint
+      - connect_node_build
+      - lms_node_build
+      - marking_logic_node_build
+      - diagnostic_node_build
+      - lms_rails_build
+      - grammar_node_build
+      - cms_rails_build
+      - lessons_node_build
+      - proofreader_node_build
+      - spellchecker_node_build
+      - comprehension_rails_build
+      - comprehension_python_build
+  lint-code:
+    jobs:
+      - node_lint
+      - rubocop_lint
+      - flake8_lint
