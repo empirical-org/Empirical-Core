@@ -7,15 +7,15 @@ class Dashboard
     strug_stud = @@cached_strug_stud
     diff_con = @@cached_diff_con
     unless @@cached_strug_stud && @@cached_diff_con
-      completed_count = self.completed_activity_count(user.id)
+      completed_count = completed_activity_count(user.id)
       if !completed_count || completed_count == 0
         strug_stud = 'insufficient data'
         diff_con = 'insufficient data'
       end
       if completed_count >= SUFFICIENT_DATA_AMOUNT
         user_id = user.id
-        diff_con ||= self.difficult_concepts(user_id)
-        strug_stud ||= self.lowest_performing_students(user_id)
+        diff_con ||= difficult_concepts(user_id)
+        strug_stud ||= lowest_performing_students(user_id)
         if diff_con.empty?
           diff_con = 'insufficient data'
         end
@@ -34,13 +34,13 @@ class Dashboard
 
   def self.completed_activity_count(user_id)
     ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT acts.id) FROM activity_sessions as acts
-    #{self.body_of_sql_search(user_id)}").to_a.first["count"].to_i
+    #{body_of_sql_search(user_id)}").to_a.first["count"].to_i
   end
 
   def self.lowest_performing_students(user_id)
     ActiveRecord::Base.connection.execute(
         "SELECT students.name, (AVG(acts.percentage)*100) AS score FROM activity_sessions as acts
-        #{self.body_of_sql_search(user_id)}
+        #{body_of_sql_search(user_id)}
         GROUP BY students.id
         ORDER BY score
         LIMIT #{RESULT_LIMITS}").to_a
@@ -56,7 +56,7 @@ class Dashboard
      AND classrooms.visible = true
      AND acts.percentage IS NOT null
      AND acts.visible IS true
-     AND #{self.completed_since_sql}"
+     AND #{completed_since_sql}"
   end
 
   def self.completed_since_sql
@@ -71,7 +71,7 @@ class Dashboard
     JOIN concept_results ON acts.id = concept_results.activity_session_id
     JOIN concepts ON concepts.id = concept_results.concept_id
     JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-    WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
+    WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{completed_since_sql}
     GROUP BY concepts.id
     ORDER BY non_zero DESC, score
     LIMIT #{RESULT_LIMITS}").to_a

@@ -92,4 +92,3 @@ def test_multi_label_response(mock_automl, app):
         assert response.status_code == 200
         assert data['correct'] == False
         assert data['message'] == "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
-

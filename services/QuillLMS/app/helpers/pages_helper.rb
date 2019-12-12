@@ -95,7 +95,7 @@ module PagesHelper
           },
           {
             name: 'Rachel Dantzler',
-            title: 'Editorial and Outreach Associate',
+            title: 'Curriculum Associate',
             img: 'team-rachel-dantzler@2x.png'
           },
           {
