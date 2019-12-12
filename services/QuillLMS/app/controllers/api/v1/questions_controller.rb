@@ -1,15 +1,17 @@
 class Api::V1::QuestionsController < Api::ApiController
-  before_action :get_question_type
-  before_action :get_question_by_uid, except: [:index, :create, :valid_params]
+  before_action :get_question_type, only: [:index, :create]
+  before_action :get_question_by_uid, except: [:index, :create]
 
   ALL_QUESTIONS_CACHE_KEY = 'ALL_QUESTIONS'
   ALL_QUESTIONS_CACHE_EXPIRY = 600
 
   def index
-    all_questions = $redis.get(ALL_QUESTIONS_CACHE_KEY + "_#{@question_type.name}")
+    cache_key = ALL_QUESTIONS_CACHE_KEY + "_#{@question_type}"
+    all_questions = $redis.get(cache_key)
+
     if !all_questions
-      all_questions = @question_type.questions.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
-      $redis.set(ALL_QUESTIONS_CACHE_KEY + "_#{@question_type.name}", all_questions.to_json, {ex: ALL_QUESTIONS_CACHE_EXPIRY})
+      all_questions = Question.where(question_type: @question_type.to_s).reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+      $redis.set(cache_key, all_questions.to_json, {ex: ALL_QUESTIONS_CACHE_EXPIRY})
     end
     render(json: all_questions)
   end
@@ -20,7 +22,7 @@ class Api::V1::QuestionsController < Api::ApiController
 
   def create
     uid = SecureRandom.uuid
-    @question = Question.create!(uid: uid, data: valid_params, question_type_id: @question_type.id)
+    @question = Question.create!(uid: uid, data: valid_params, question_type: @question_type)
     render(json: {@question.uid => @question.as_json})
   end
 
@@ -45,7 +47,7 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   private def get_question_by_uid
-    @question = Question.find_by!(uid: params[:id], question_type_id: @question_type.id)
+    @question = Question.find_by!(uid: params[:id])
   end
 
   private def valid_params
@@ -57,6 +59,6 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   private def get_question_type
-    @question_type = QuestionType.find_by(name: params[:question_type_id])
+    @question_type = params[:question_type]
   end
 end

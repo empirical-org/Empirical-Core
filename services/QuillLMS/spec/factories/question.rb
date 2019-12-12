@@ -117,6 +117,6 @@ FactoryBot.define do
   factory :question do
     uid                   SecureRandom.uuid
     data                  data
-    question_type         {create(:question_type, :connect)}
+    question_type         "connect_sentence_combining"
   end
 end
