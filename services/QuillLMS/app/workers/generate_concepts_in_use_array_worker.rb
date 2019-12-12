@@ -8,13 +8,13 @@ class GenerateConceptsInUseArrayWorker
     concepts_in_use << headers
     $redis.set("CONCEPTS_IN_USE", concepts_in_use.to_json)
     $redis.set("NUMBER_OF_CONCEPTS_IN_USE_LAST_SET", Time.now)
-    sc_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/questions.json").parsed_response
+    sc_questions = Question.where(question_type: 'connect_sentence_combining').reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
     $redis.set('SC_QUESTIONS', sc_questions.to_json)
     fib_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/fillInBlankQuestions.json").parsed_response
     $redis.set('FIB_QUESTIONS', fib_questions.to_json)
     sf_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/sentenceFragments.json").parsed_response
     $redis.set('SF_QUESTIONS', sf_questions.to_json)
-    d_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_questions.json").parsed_response
+    d_questions = Question.where(question_type: 'diagnostic_sentence_combining').reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
     $redis.set('D_QUESTIONS', d_questions.to_json)
     d_fib_questions = HTTParty.get("https://quillconnect.firebaseio.com/v2/diagnostic_fillInBlankQuestions.json").parsed_response
     $redis.set('D_FIB_QUESTIONS', d_fib_questions.to_json)
