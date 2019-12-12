@@ -37,6 +37,7 @@ class ChooseModelContainer extends Component {
   removeModelConcept() {
     let questionData = Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: null});
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, questionData));
+    this.setState({modelConceptUID: null});
   }
 
   selectConcept(e) {
