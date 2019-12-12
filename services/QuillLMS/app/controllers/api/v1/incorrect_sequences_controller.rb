@@ -43,7 +43,7 @@ class Api::V1::IncorrectSequencesController < Api::ApiController
   end
 
   private def valid_params
-    params.require(:incorrect_sequence).except(:uid)
+    params.require(:incorrect_sequence)
   end
 
   private def render_incorrect_sequence(incorrect_sequence_id)
