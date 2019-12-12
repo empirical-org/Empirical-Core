@@ -1,5 +1,23 @@
 class GoogleIntegration::RefreshAccessToken
 
+  class RefreshAccessTokenError < StandardError; end
+
+  class NoRefreshTokenError < RefreshAccessTokenError
+    def message
+      "No existing Google Refresh Token available to submit"
+    end
+  end
+
+  class TokenTooOldToRefreshError < RefreshAccessTokenError
+    def message
+      "Existing Google Access Token is too old to refresh"
+    end
+  end
+
+  class FailedToRefreshTokenError < RefreshAccessTokenError; end
+
+  class FailedToSaveRefreshedTokenError < RefreshAccessTokenError; end
+
   TOKEN_ENDPOINT = 'https://accounts.google.com/o/oauth2/token'
 
   def initialize(user, http_client = nil)
@@ -9,7 +27,12 @@ class GoogleIntegration::RefreshAccessToken
 
   def refresh
     if should_refresh?
-      handle_response { make_request }
+      raise NoRefreshTokenError if !current_credentials&.refresh_token
+      # According to Google documentation, refresh tokens older than
+      # 6 months can not be refreshed:
+      # https://developers.google.com/identity/protocols/OAuth2#expiration
+      raise TokenTooOldToRefreshError if token_too_old_to_refresh?
+      handle_response(make_request)
     else
       current_credentials
     end
@@ -21,13 +44,12 @@ class GoogleIntegration::RefreshAccessToken
     @http_client.post(TOKEN_ENDPOINT, refresh_token_options)
   end
 
-  def handle_response(&request)
-    response = request.call
-
+  def handle_response(response)
     if response.code == 200
       store_credentials(response)
     else
-      nil
+      msg = "Non-200 response when attempting to refresh access token: '#{response.parsed_response['error']}'"
+      raise FailedToRefreshTokenError, msg
     end
   end
 
@@ -38,7 +60,8 @@ class GoogleIntegration::RefreshAccessToken
     if current_credentials.update(attributes)
       current_credentials.reload
     else
-      nil
+      msg = "Failed to save updated access token: '#{current_credentials.errors.messages}'"
+      raise FailedToSaveRefreshedTokenError, msg
     end
   end
 
@@ -67,10 +90,13 @@ class GoogleIntegration::RefreshAccessToken
   end
 
   def should_refresh?
-    current_credentials && current_credentials.refresh_token.present? && (
-      current_credentials.expires_at.nil? ||
+    current_credentials && (current_credentials.expires_at.nil? ||
       Time.now > current_credentials.expires_at
     )
+  end
+
+  def token_too_old_to_refresh?
+    Time.now - 6.months >= current_credentials.expires_at
   end
 
   def refresh_token_options
