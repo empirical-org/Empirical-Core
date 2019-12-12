@@ -51,9 +51,14 @@ RSpec.describe Question, type: :model do
       expect(question.errors[:data]).to include('must be a hash')
     end
 
-    it 'should be invalid if the uid is not unique' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'})
+    it 'should be invalid if the uid is not unique and question type is the same' do
+      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
       expect(new_question.valid?).to be false
+    end
+
+    it 'should be invalid if it has no question type' do
+      question.question_type = nil
+      expect(question.valid?).to be false
     end
   end
 
@@ -175,6 +180,16 @@ RSpec.describe Question, type: :model do
   describe '#as_json' do
     it 'should just be the data attribute' do
       expect(question.as_json).to eq(question.data)
+    end
+  end
+
+  describe '#after_save' do
+    it 'should execute invalidate_all_questions_cache to invalidate the ALL_QUESTIONS cache' do
+      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question.question_type}"
+      $redis.set(key, 'Dummy data')
+      question.data = {foo: "bar"}
+      question.save
+      expect($redis.get(key)).to be_nil
     end
   end
 end

@@ -5,7 +5,7 @@ class SchoolsAdmins < ActiveRecord::Base
   after_create :send_admin_email
 
   def admin
-    self.user
+    user
   end
 
   def send_admin_email

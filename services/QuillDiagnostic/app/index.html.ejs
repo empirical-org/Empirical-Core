@@ -15,8 +15,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- <link rel="stylesheet" href="./style.css"> -->
     <title>Quill Diagnostic</title>
-    <script src="https://use.typekit.net/njf0kro.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <!-- credit for the script below to https://blog.typekit.com/2011/05/25/loading-typekit-fonts-asynchronously/ -->
+    <script>
+      (function() {
+        var config = {
+          kitId: 'njf0kro',
+          scriptTimeout: 3000
+        };
+        var h = document.getElementsByTagName('html')[0];
+        h.className += ' wf-loading';
+        var t = setTimeout(function() {
+          h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, ' ');
+          h.className += ' wf-inactive';
+        }, config.scriptTimeout);
+        var d = false;
+        var tk = document.createElement('script');
+        tk.src = '//use.typekit.net/' + config.kitId + '.js';
+        tk.type = 'text/javascript';
+        tk.async = 'true';
+        tk.onload = tk.onreadystatechange = function() {
+          var rs = this.readyState;
+          if (d || rs && rs != 'complete' && rs != 'loaded') return;
+          d = true;
+          clearTimeout(t);
+          try { Typekit.load(config); } catch (e) {}
+        };
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(tk, s);
+      })();
+    </script>
     <!-- Begin Inspectlet Embed Code -->
     <script type="text/javascript" id="inspectletjs">
       window.__insp = window.__insp || [];

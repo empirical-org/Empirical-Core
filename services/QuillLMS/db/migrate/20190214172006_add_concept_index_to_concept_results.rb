@@ -1,5 +1,5 @@
 class AddConceptIndexToConceptResults < ActiveRecord::Migration
-  self.disable_ddl_transaction!
+  disable_ddl_transaction!
   def up
     add_index :concept_results, :concept_id, algorithm: :concurrently unless index_exists?(:concept_results, :concept_id)
   end
