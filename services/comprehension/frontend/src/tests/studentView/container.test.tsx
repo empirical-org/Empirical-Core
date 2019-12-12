@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { shallow, mount, } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
 import { StudentViewContainer } from '../../components/studentView/container'
 import LoadingSpinner from '../../components/shared/loadingSpinner'
@@ -17,7 +18,7 @@ describe('StudentViewContainer component', () => {
     />)
 
     it('renders', () => {
-      expect(wrapper).toMatchSnapshot()
+      expect(toJson(wrapper)).toMatchSnapshot()
     })
 
     it('should render a promptStep for each prompt in the activity', () => {

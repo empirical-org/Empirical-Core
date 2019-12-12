@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
 import PromptStep from '../../components/studentView/promptStep'
 import EditorContainer from '../../components/studentView/editorContainer'
@@ -23,25 +24,25 @@ const defaultProps = {
 
 describe('PromptStep component', () => {
   describe('inactive state', () => {
-    const wrapper = shallow(<PromptStep
+    const wrapper = mount(<PromptStep
       { ...defaultProps}
     />)
 
     it('renders', () => {
-      expect(wrapper).toMatchSnapshot()
+      expect(toJson(wrapper)).toMatchSnapshot()
     })
   })
 
   describe('active state', () => {
     describe('before any responses have been submitted', () => {
-      const wrapper = shallow(<PromptStep
+      const wrapper = mount(<PromptStep
         { ...defaultProps}
         active
         className="step active"
       />)
 
       it('matches snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(toJson(wrapper)).toMatchSnapshot()
       })
 
       it('renders an EditorContainer', () => {
@@ -56,14 +57,14 @@ describe('PromptStep component', () => {
     })
 
     describe('before any responses have been submitted', () => {
-      const wrapper = shallow(<PromptStep
+      const wrapper = mount(<PromptStep
         { ...defaultProps}
         active
         className="step active"
       />)
 
       it('matches snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(toJson(wrapper)).toMatchSnapshot()
       })
 
       it('renders an EditorContainer', () => {
@@ -79,7 +80,7 @@ describe('PromptStep component', () => {
 
     describe('when an optimal response has been submitted', () => {
       const submittedResponses = [optimalSubmittedResponse]
-      const wrapper = shallow(<PromptStep
+      const wrapper = mount(<PromptStep
         { ...defaultProps}
         active
         className="step active"
@@ -87,7 +88,7 @@ describe('PromptStep component', () => {
       />)
 
       it('matches snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(toJson(wrapper)).toMatchSnapshot()
       })
 
       it('renders an EditorContainer', () => {
@@ -103,7 +104,7 @@ describe('PromptStep component', () => {
 
     describe('when a suboptimal response has been submitted', () => {
       const submittedResponses = [suboptimalSubmittedResponse]
-      const wrapper = shallow(<PromptStep
+      const wrapper = mount(<PromptStep
         { ...defaultProps}
         active
         className="step active"
@@ -111,7 +112,7 @@ describe('PromptStep component', () => {
       />)
 
       it('matches snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(toJson(wrapper)).toMatchSnapshot()
       })
 
       it('renders an EditorContainer', () => {
@@ -126,7 +127,7 @@ describe('PromptStep component', () => {
 
     describe('when the max attempts have been reached', () => {
       const submittedResponses = [suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse]
-      const wrapper = shallow(<PromptStep
+      const wrapper = mount(<PromptStep
         { ...defaultProps}
         active
         className="step active"
@@ -134,7 +135,7 @@ describe('PromptStep component', () => {
       />)
 
       it('matches snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(toJson(wrapper)).toMatchSnapshot()
       })
 
       it('renders an EditorContainer', () => {
@@ -143,13 +144,13 @@ describe('PromptStep component', () => {
 
       it('has a non-disabled button with the text "Start next sentence"', () => {
         expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button.disabled').text()).toEqual("Start next sentence")
+        expect(wrapper.find('button').text()).toEqual("Start next sentence")
       })
     })
 
     describe('when the max attempts have been reached or the last answer is optimal and every other question has been completed', () => {
       const submittedResponses = [optimalSubmittedResponse]
-      const wrapper = shallow(<PromptStep
+      const wrapper = mount(<PromptStep
         { ...defaultProps}
         active
         everyOtherStepCompleted
@@ -158,7 +159,7 @@ describe('PromptStep component', () => {
       />)
 
       it('matches snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(toJson(wrapper)).toMatchSnapshot()
       })
 
       it('renders an EditorContainer', () => {
@@ -167,7 +168,7 @@ describe('PromptStep component', () => {
 
       it('has a non-disabled button with the text "Done"', () => {
         expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button.disabled').text()).toEqual("Done")
+        expect(wrapper.find('button').text()).toEqual("Done")
       })
     })
 
