@@ -239,7 +239,6 @@ function submitNewQuestion(content, response) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      console.log(1);
       const action = push(`/admin/questions/${response.questionUID}`);
       dispatch(action);
     }, (error) => {
