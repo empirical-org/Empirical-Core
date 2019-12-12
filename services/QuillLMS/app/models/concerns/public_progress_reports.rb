@@ -63,8 +63,7 @@ module PublicProgressReports
         {question_id: k,
          score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
          prompt: v[:prompt],
-         instructions: v[:instructions]
-        }
+         instructions: v[:instructions]}
       end
       questions_arr
     end
