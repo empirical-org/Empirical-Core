@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <%= stylesheet_link_tag 'sign_up_email' %>
+  </head>
+    <body>
+      <div class='header'>
+        <div class='main-width'>
+          <img src='https://ci5.googleusercontent.com/proxy/a4zYv3v3GQLqWWSoJdISs5xG3WfVtDrsdOjmF7FYlzR1Uxl3DLKYJDguWOe0-RwKbs1b2kdz8Rp2SQYyEmnTmY4MooTpM_eJ-6guOtGlFt6NlXe0Bnq9dns-h7K-LPOzHXinrPHox5o0YA7AIdoHL5OUk40cBgojm4HuN-U=s0-d-e1-ft#https://gallery.mailchimp.com/6efffadd89fc71ad0ca41dc4d/images/ad694fbe-b270-4348-b9c1-3f43f848e6b1.png'/>
+        </div>
+      </div>
+      <div class='content-section top-content'>
+        <p class="medium-text">Hello, Team! Here are the stats for <%= @current_date %> 📈</p>
+      </div>
+      <table class='table'>
+        <tbody>
+            <tr>
+                <td class="left-cell medium-text">👨 Daily Active Teachers</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @daily_active_teachers %></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">👧 Daily Active Students</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @daily_active_students%></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">👩 New Teacher Sign Ups</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @new_teacher_signups %></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">👦 New Student Sign Ups</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @new_student_signups %></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">🏫 Classrooms Created</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @classrooms_created %></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">📚 Activities Assigned</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @activities_assigned %></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">✏️ Sentences Written*</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @sentences_written %></h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">📝 Diagnostics Completed</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @diagnostics_completed %></h1></td>
+            </tr>
+        </tbody>
+      </table>
+      <p class="small-text">*activities completed multiplied by 10 (average number of sentences per activity).</p>
+      <div class='content-section'>
+        <p class="medium-text">Keep up the great work!</p>
+      </div>
+  </body>
+</html>

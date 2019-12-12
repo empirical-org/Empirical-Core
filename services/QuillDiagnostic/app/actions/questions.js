@@ -59,7 +59,11 @@ function cancelQuestionEdit(qid) {
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
-    const cleanedContent = _l.pickBy(content)
+    const cleanedContent = _l.pickBy(content, (value, key) => {
+      // We want to be able to set modelConceptUID to null, so we can't
+      // just remove it from the object in pickBy before updating
+      return value || key === 'modelConceptUID';
+    });
     questionsRef.child(qid).update(cleanedContent, (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       if (error) {
