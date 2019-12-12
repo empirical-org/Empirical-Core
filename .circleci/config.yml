@@ -34,7 +34,7 @@ jobs:
       - run:
           name: NPM install, should be short-cutted if cache is present
           command: |
-            cd services/QuillLMS/client
+            cd services/QuillLMS
             npm install
       - save_cache:
           key: bundle-cache-lms-v1-{{ checksum "services/QuillLMS/Gemfile.lock" }}
@@ -83,7 +83,7 @@ jobs:
             - npm-cache-lms-frontend-
           name: Install NPM dependencies
           command: |
-            cd services/QuillLMS/client
+            cd services/QuillLMS
             npm install
       - save_cache:
           key: npm-cache-lms-frontend-{{ .Branch }}-{{ checksum "services/QuillLMS/package.json" }}
