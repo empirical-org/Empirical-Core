@@ -14,10 +14,11 @@ describe 'GoogleIntegration::Classroom::Parsers::Students' do
                  "name":
                   {"givenName":"test1_s1",
                    "familyName":"s1",
-                   "fullName":"test1_s1 s1"},
+                   "fullName":"test1_s1 s1"
+                  },
                   "emailAddress":"test1_s1@gedu.demo.rockerz.xyz"
                 }
-            }
+        }
 
 
     x = JSON.parse(x.to_json)

@@ -66,6 +66,6 @@ Doorkeeper.configure do
     true
   end
 
-  # WWW-Authenticate Realm (default "Doorkeeper").
+  # WWW-Authenticate Realm (default "Doorkeeper").
   # realm "Doorkeeper"
 end
