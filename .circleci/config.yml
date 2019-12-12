@@ -20,9 +20,11 @@ jobs:
       - restore_cache:
           keys:
             - bundle-cache-lms-v1-{{ checksum "services/QuillLMS/Gemfile.lock" }}
+            - bundle-cache-lms-v1-
       - restore_cache:
           keys:
-            - npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
+            - npm-cache-lms-v2-{{ .Branch }}-{{ checksum "services/QuillLMS/package.json" }}
+            - npm-cache-lms-v2-{{ .Branch }}-
             - npm-cache-lms-v2-
       - run:
           name: Bundle Install if cache isn't present.
@@ -39,7 +41,7 @@ jobs:
           paths:
             - services/QuillLMS/vendor/bundle
       - save_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
+          key: npm-cache-lms-v2-{{ .Branch }}-{{ checksum "services/QuillLMS/package.json" }}
           paths:
             - services/QuillLMS/node_modules
       - run:
@@ -75,17 +77,18 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
-      - run:
+          keys:
+            - npm-cache-lms-v2-{{ .Branch }}-{{ checksum "services/QuillLMS/package.json" }}
+            - npm-cache-lms-v2-{{ .Branch }}
+            - npm-cache-lms-v2-
           name: Install NPM dependencies
           command: |
             cd services/QuillLMS
             npm install
       - save_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-v2-{{ .Branch }}-{{ checksum "services/QuillLMS/package.json" }}
           paths:
             - services/QuillLMS/node_modules
-            - services/QuillLMS/client/node_modules
       - run:
           name: Run LMS Frontend Tests
           command: |
@@ -122,6 +125,7 @@ jobs:
       - restore_cache:
           keys:
             - bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
+            - bundle-cache-cms
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -155,14 +159,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
+          keys:
+            - npm-cache-connect-v2-{{ .Branch }}-{{ checksum "services/QuillConnect/package.json" }}
+            - npm-cache-connect-v2-{{ .Branch }}-
+            - npm-cache-connect-v2-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillConnect
             npm install
       - save_cache:
-          key: npm-cache-connect-v2-{{ checksum "services/QuillConnect/package-lock.json" }}
+          key: npm-cache-connect-v2-{{ .Branch }}-{{ checksum "services/QuillConnect/package.json" }}
           paths:
             - services/QuillConnect/node_modules
       - run:
@@ -178,14 +185,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-lessons-v1-{{ checksum "services/QuillLessons/package-lock.json" }}
+          keys:
+            - npm-cache-lessons-v1-{{ .Branch }}-{{ checksum "services/QuillLessons/package.json" }}
+            - npm-cache-lessons-v1-{{ .Branch }}-
+            - npm-cache-lessons-v1-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillLessons
             npm install
       - save_cache:
-          key: npm-cache-lessons-v1-{{ checksum "services/QuillLessons/package-lock.json" }}
+          key: npm-cache-lessons-v1-{{ .Branch }}-{{ checksum "services/QuillLessons/package.json" }}
           paths:
             - services/QuillLessons/node_modules
       - run:
@@ -201,14 +211,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-grammar-v1-{{ checksum "services/QuillGrammar/package-lock.json" }}
+          keys:
+            - npm-cache-grammar-v1-{{ .Branch }}-{{ checksum "services/QuillGrammar/package.json" }}
+            - npm-cache-grammar-v1-{{ .Branch }}-
+            - npm-cache-grammar-v1-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillGrammar
             npm install
       - save_cache:
-          key: npm-cache-grammar-v1-{{ checksum "services/QuillGrammar/package-lock.json" }}
+          key: npm-cache-grammar-v1-{{ .Branch }}-{{ checksum "services/QuillGrammar/package.json" }}
           paths:
             - services/QuillGrammar/node_modules
       - run:
@@ -223,14 +236,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
+          keys:
+            - npm-cache-diagnostic-v1-{{ .Branch }}-{{ checksum "services/QuillDiagnostic/package.json" }}
+            - npm-cache-diagnostic-v1-{{ .Branch }}-
+            - npm-cache-diagnostic-v1-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillDiagnostic
             npm install
       - save_cache:
-          key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
+          key: npm-cache-diagnostic-v1-{{ .Branch }}-{{ checksum "services/QuillDiagnostic/package.json" }}
           paths:
             - services/QuillDiagnostic/node_modules
       - run:
@@ -245,14 +261,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
+          keys:
+            - npm-cache-proofreader-v1-{{ .Branch }}-{{ checksum "services/QuillProofreader/package.json" }}
+            - npm-cache-proofreader-v1-{{ .Branch }}-
+            - npm-cache-proofreader-v1-
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillProofreader
             npm install
       - save_cache:
-          key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
+          key: npm-cache-proofreader-v1-{{ .Branch }}-{{ checksum "services/QuillProofreader/package.json" }}
           paths:
             - services/QuillProofreader/node_modules
       - run:
@@ -267,14 +286,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
+          keys:
+            - npm-cache-spellchecker-v1-{{ .Branch }}-{{ checksum "packages/quill-spellchecker/package.json" }}
+            - npm-cache-spellchecker-v1-{{ .Branch }}-
+            - npm-cache-spellchecker-v1-
       - run:
           name: Install NPM dependencies
           command: |
             cd packages/quill-spellchecker
             npm install
       - save_cache:
-          key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
+          key: npm-cache-spellchecker-v1-{{ .Branch }}-{{ checksum "packages/quill-spellchecker/package.json" }}
           paths:
             - packages/quill-spellchecker/node_modules
       - run:
@@ -289,14 +311,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
+          keys:
+            - npm-cache-marking-logic-v1-{{ .Branch }}-{{ checksum "packages/quill-marking-logic/package.json" }}
+            - npm-cache-marking-logic-v1-{{ .Branch }}
+            - npm-cache-marking-logic-v1-
       - run:
           name: Install NPM dependencies
           command: |
             cd packages/quill-marking-logic
             npm install
       - save_cache:
-          key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
+          key: npm-cache-marking-logic-v1-{{ .Branch }}-{{ checksum "packages/quill-marking-logic/package.json" }}
           paths:
             - packages/quill-marking-logic/node_modules
       - run:
