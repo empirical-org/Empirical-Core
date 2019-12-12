@@ -48,8 +48,8 @@ class GoogleIntegration::RefreshAccessToken
     if response.code == 200
       store_credentials(response)
     else
-      msg = "Non-200 response when attempting to refresh access token: '#{response&.parsed_response["error"]}'"
-      raise FailedToRefreshTokenError.new(msg)
+      msg = "Non-200 response when attempting to refresh access token: '#{response.parsed_response['error']}'"
+      raise FailedToRefreshTokenError, msg
     end
   end
 
@@ -61,7 +61,7 @@ class GoogleIntegration::RefreshAccessToken
       current_credentials.reload
     else
       msg = "Failed to save updated access token: '#{current_credentials.errors.messages}'"
-      raise FailedToSaveRefreshedTokenError.new(msg)
+      raise FailedToSaveRefreshedTokenError, msg
     end
   end
 

@@ -7,7 +7,6 @@ describe GoogleIntegration::RefreshAccessToken do
 
   describe '#refresh' do
     it 'returns current_credentials if should_refresh? is false' do
-      assert(user.auth_credential != nil)
       expect(subject).to receive(:should_refresh?).and_return(false)
       expect(subject).not_to receive(:make_request)
       expect(subject).to receive(:current_credentials)
