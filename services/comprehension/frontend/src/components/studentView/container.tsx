@@ -152,6 +152,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         className={`step ${activeStep === stepNumber ? 'active' : ''}`}
         completeStep={() => this.completeStep(stepNumber)}
         everyOtherStepCompleted={everyOtherStepCompleted}
+        key={stepNumber}
         onClick={() => this.activateStep(stepNumber)}
         passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
         prompt={prompt}

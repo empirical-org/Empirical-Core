@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PromptStep component renders 1`] = `ShallowWrapper {}`;
+exports[`PromptStep component active state before any responses have been submitted matches snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`PromptStep component inactive state renders 1`] = `ShallowWrapper {}`;

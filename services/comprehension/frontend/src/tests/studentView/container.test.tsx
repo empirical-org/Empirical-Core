@@ -9,8 +9,10 @@ import { activityOne } from './data'
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
     const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
+    const sessionReducer = { submittedResponses: [] }
     const wrapper = mount(<StudentViewContainer
       activities={activitiesReducer}
+      session={sessionReducer}
       dispatch={() => {}}
     />)
 
@@ -31,8 +33,10 @@ describe('StudentViewContainer component', () => {
 
   describe('when the activity has not loaded', () => {
     const activitiesReducer = { hasReceivedData: false }
+    const sessionReducer = { submittedResponses: {} }
     const wrapper = shallow(<StudentViewContainer
       activities={activitiesReducer}
+      session={sessionReducer}
       dispatch={() => {}}
     />)
 
