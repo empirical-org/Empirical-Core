@@ -1,7 +1,7 @@
 # require 'zip'
 # require 'csv'
 # require 'open-uri'
-# require 'httparty' # when you httparty, you must party hard! 💃
+# require 'httparty' # when you httparty, you must party hard!
 # require 'bigdecimal'
 # require 'bigdecimal/util'
 
@@ -26,7 +26,7 @@
 # end
 
 # def exit_task
-#   puts "All done! ✅"
+#   puts "All done!"
 #   puts "Here's how many schools with PPINs there are now: #{School.where.not(ppin: nil).count}"
 #   exit
 # end
@@ -34,7 +34,7 @@
 # namespace :private_schools do
 #   desc 'Import all of the private schools data from CSV'
 #   task :import => :environment do
-#     puts "The task is beginning! 🚀"
+#     puts "The task is beginning!"
 #     puts "Here's how many schools with PPINs there were before: #{School.where.not(ppin: nil).count}"
 #     zipfile = Tempfile.new
 #     zipfile.binmode
