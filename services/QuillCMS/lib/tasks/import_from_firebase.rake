@@ -73,6 +73,7 @@ namespace :responses do
         begin
           Response.create(val_array)
         rescue ActiveRecord::RecordNotUnique
+          nil
         end
         val_array = []
       end
@@ -112,6 +113,7 @@ namespace :responses do
             Response.import columns, val_array, validate: false
           end
         rescue ActiveRecord::RecordNotUnique
+          nil
         end
         val_array = []
       end
@@ -260,6 +262,7 @@ namespace :responses do
                   Response.import columns, rows, validate: false;0
                 end;0
               rescue ActiveRecord::RecordNotUnique
+                nil
               end
               rows = []
             end

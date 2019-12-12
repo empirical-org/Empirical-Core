@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10
--- Dumped by pg_dump version 10.10
+-- Dumped from database version 10.11
+-- Dumped by pg_dump version 10.11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1860,38 +1860,6 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 
 --
--- Name: question_types; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.question_types (
-    id integer NOT NULL,
-    name character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.question_types_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.question_types_id_seq OWNED BY public.question_types.id;
-
-
---
 -- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1901,7 +1869,7 @@ CREATE TABLE public.questions (
     data jsonb NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    question_type_id integer DEFAULT 1 NOT NULL
+    question_type character varying NOT NULL
 );
 
 
@@ -3206,13 +3174,6 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- Name: question_types id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.question_types ALTER COLUMN id SET DEFAULT nextval('public.question_types_id_seq'::regclass);
-
-
---
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3758,14 +3719,6 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
-
-
---
--- Name: question_types question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.question_types
-    ADD CONSTRAINT question_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -4546,10 +4499,10 @@ CREATE INDEX index_partner_contents_on_partner ON public.partner_contents USING 
 
 
 --
--- Name: index_questions_on_question_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_questions_on_question_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_questions_on_question_type_id ON public.questions USING btree (question_type_id);
+CREATE INDEX index_questions_on_question_type ON public.questions USING btree (question_type);
 
 
 --
@@ -4557,13 +4510,6 @@ CREATE INDEX index_questions_on_question_type_id ON public.questions USING btree
 --
 
 CREATE INDEX index_questions_on_uid ON public.questions USING btree (uid);
-
-
---
--- Name: index_questions_on_uid_and_question_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_questions_on_uid_and_question_type_id ON public.questions USING btree (uid, question_type_id);
 
 
 --
@@ -5204,14 +5150,6 @@ ALTER TABLE ONLY public.change_logs
 
 ALTER TABLE ONLY public.activity_session_interaction_logs
     ADD CONSTRAINT fk_rails_1ac1e7b3b5 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
-
-
---
--- Name: questions fk_rails_3308b63de5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.questions
-    ADD CONSTRAINT fk_rails_3308b63de5 FOREIGN KEY (question_type_id) REFERENCES public.question_types(id);
 
 
 --
@@ -6044,9 +5982,5 @@ INSERT INTO schema_migrations (version) VALUES ('20191122160057');
 
 INSERT INTO schema_migrations (version) VALUES ('20191122161233');
 
-INSERT INTO schema_migrations (version) VALUES ('20191122180459');
-
 INSERT INTO schema_migrations (version) VALUES ('20191122181105');
-
-INSERT INTO schema_migrations (version) VALUES ('20191127150712');
 

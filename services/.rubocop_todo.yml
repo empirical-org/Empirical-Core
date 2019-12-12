@@ -275,18 +275,6 @@ Layout/MultilineBlockLayout:
     - 'QuillLMS/spec/support/shared/topic_progress_report.rb'
     - 'QuillLMS/spec/workers/lesson_plan_email_worker_spec.rb'
 
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineHashBraceLayout:
-  Exclude:
-    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
-    - 'QuillLMS/lib/csv_loader/loader.rb'
-    - 'QuillLMS/spec/controllers/teachers/progress_reports/diagnostic_reports_controller_spec.rb'
-    - 'QuillLMS/spec/models/classroom_unit_activity_state_spec.rb'
-    - 'QuillLMS/spec/services/google_integration/classroom/parsers/students_spec.rb'
-
 # Offense count: 128
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -403,7 +391,6 @@ Layout/SpaceBeforeFirstArg:
     - 'QuillLMS/spec/factories/classroom_unit_activity_state.rb'
     - 'QuillLMS/spec/factories/oauth_application.rb'
     - 'QuillLMS/spec/factories/subscription.rb'
-    - 'QuillLMS/spec/factories/question_type.rb'
 
 # Offense count: 15
 # Cop supports --auto-correct.
@@ -475,16 +462,6 @@ Lint/BooleanSymbol:
     - 'QuillLMS/spec/models/unit_template_spec.rb'
     - 'QuillLMS/spec/queries/dashboard_spec.rb'
 
-# Offense count: 7
-# Configuration parameters: AllowComments.
-Lint/SuppressedException:
-  Exclude:
-    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
-    - 'QuillCMS/lib/tasks/import_responses_from_csv.rake'
-    - 'QuillLMS/app/workers/get_concepts_in_use_individual_concept_worker.rb'
-    - 'QuillLMS/bin/rspec'
-    - 'QuillLMS/lib/async_helper.rb'
-
 # Offense count: 81
 Lint/IneffectiveAccessModifier:
   Enabled: false
@@ -554,11 +531,6 @@ Metrics/CyclomaticComplexity:
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/MethodLength:
   Max: 230
-
-# Offense count: 7
-# Configuration parameters: CountComments.
-Metrics/ModuleLength:
-  Max: 448
 
 # Offense count: 8
 # Configuration parameters: CountKeywordArgs.
@@ -636,16 +608,6 @@ Style/AndOr:
     - 'QuillLMS/app/services/validate_full_name.rb'
     - 'QuillLMS/config/unicorn.rb'
     - 'QuillLMS/lib/tasks/create_concepts.rake'
-
-# Offense count: 7
-# Configuration parameters: AllowedChars.
-Style/AsciiComments:
-  Exclude:
-    - 'QuillLMS/app/helpers/pages_helper.rb'
-    - 'QuillLMS/app/models/classroom_unit.rb'
-    - 'QuillLMS/config/initializers/doorkeeper.rb'
-    - 'QuillLMS/lib/tasks/private_schools.rake'
-    - 'QuillLMS/spec/controllers/teachers/unit_templates_controller_spec.rb'
 
 # Offense count: 141
 # Cop supports --auto-correct.

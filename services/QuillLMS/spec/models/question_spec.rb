@@ -52,12 +52,12 @@ RSpec.describe Question, type: :model do
     end
 
     it 'should be invalid if the uid is not unique and question type is the same' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type_id: question.question_type_id)
+      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
       expect(new_question.valid?).to be false
     end
 
     it 'should be invalid if it has no question type' do
-      question.question_type_id = nil
+      question.question_type = nil
       expect(question.valid?).to be false
     end
   end
@@ -185,7 +185,7 @@ RSpec.describe Question, type: :model do
 
   describe '#after_save' do
     it 'should execute invalidate_all_questions_cache to invalidate the ALL_QUESTIONS cache' do
-      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY
+      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question.question_type}"
       $redis.set(key, 'Dummy data')
       question.data = {foo: "bar"}
       question.save

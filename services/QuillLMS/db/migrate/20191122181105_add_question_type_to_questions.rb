@@ -1,10 +1,11 @@
 class AddQuestionTypeToQuestions < ActiveRecord::Migration
   def up
-    add_reference :questions, :question_type, :foreign_key => true, :null => false, :default => 1
-    add_index :questions, [:uid, :question_type_id], unique:true
-    add_index :questions, :question_type_id
+    add_column :questions, :question_type, :string
+    add_index :questions, :question_type
+    Question.update_all(question_type: 'connect_sentence_combining')
+    change_column_null :questions, :question_type, false
   end
   def down
-    remove_column :questions, :question_type_id
+    remove_column :questions, :question_type
   end
 end
