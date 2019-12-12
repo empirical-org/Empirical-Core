@@ -7,26 +7,27 @@ describe Api::V1::QuestionsController, type: :controller do
   describe "#index" do
     it "should return a list of Questions" do
       expect($redis).to receive(:get).and_return(nil)
-      get :index
+      get :index, question_type: 'connect_sentence_combining'
       expect(JSON.parse(response.body).keys.length).to eq(1)
     end
 
     it "should set cache if it is empty" do
       expect($redis).to receive(:get).and_return(nil)
       expect($redis).to receive(:set)
-      get :index
+      get :index, question_type: 'connect_sentence_combining'
     end
 
     it "should not set cache if there is a cache hit" do
       mock_cached_data = {"foo" => "bar"}
       expect($redis).to receive(:get).and_return(JSON.dump(mock_cached_data))
       expect($redis).not_to receive(:set)
-      get :index
+      get :index, question_type: 'connect_sentence_combining'
       expect(JSON.parse(response.body)).to eq(mock_cached_data)
     end
 
     it "should include the response from the db" do
-      get :index
+      get :index, question_type: 'connect_sentence_combining'
+      puts response.body
       expect(JSON.parse(response.body).keys.first).to eq(question.uid)
     end
   end
@@ -50,7 +51,7 @@ describe Api::V1::QuestionsController, type: :controller do
       data = {foo: "bar"}
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = Question.count
-      post :create, question: data
+      post :create, question_type: 'connect_sentence_combining', question: data
       expect(Question.count).to eq(pre_create_count + 1)
     end
   end
