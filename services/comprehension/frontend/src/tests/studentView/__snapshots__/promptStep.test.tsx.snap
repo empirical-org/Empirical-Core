@@ -2,4 +2,14 @@
 
 exports[`PromptStep component active state before any responses have been submitted matches snapshot 1`] = `ShallowWrapper {}`;
 
+exports[`PromptStep component active state before any responses have been submitted matches snapshot 2`] = `ShallowWrapper {}`;
+
+exports[`PromptStep component active state when a suboptimal response has been submitted matches snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`PromptStep component active state when an optimal response has been submitted matches snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`PromptStep component active state when the max attempts have been reached matches snapshot 1`] = `ShallowWrapper {}`;
+
+exports[`PromptStep component active state when the max attempts have been reached or the last answer is optimal and every other question has been completed matches snapshot 1`] = `ShallowWrapper {}`;
+
 exports[`PromptStep component inactive state renders 1`] = `ShallowWrapper {}`;
