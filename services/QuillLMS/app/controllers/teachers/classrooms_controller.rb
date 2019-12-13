@@ -157,6 +157,7 @@ private
 
   def format_classrooms_for_index
     classrooms = Classroom.unscoped.order(created_at: :desc).joins(:classrooms_teachers).where(classrooms_teachers: {user_id: current_user.id})
+
     classrooms.compact.map do |classroom|
       classroom_obj = classroom.attributes
       classroom_obj[:students] = format_students_for_classroom(classroom)
@@ -169,9 +170,17 @@ private
 
   def format_students_for_classroom(classroom)
     sorted_students = classroom.students.sort_by { |s| s.last_name }
+    # create a hash of the form {user_id: count}
+    activity_counts_by_student = ActivitySession
+      .select(:user_id, "count(activity_sessions.id) as total")
+      .where(user_id: sorted_students.map(&:id), state: 'finished')
+      .group(:user_id)
+      .map{|r| [r.user_id, r.total]}
+      .to_h
+
     sorted_students.map do |s|
       student = s.attributes
-      student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
+      student[:number_of_completed_activities] = activity_counts_by_student[s.id] || 0
       student
     end
   end
