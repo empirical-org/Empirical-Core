@@ -1,9 +1,11 @@
 class Api::V1::QuestionsController < Api::ApiController
   before_action :get_question_type, only: [:index, :create]
-  before_action :get_question_by_uid, except: [:index, :create]
+  before_action :get_question_by_uid, except: [:index, :create, :show]
 
   ALL_QUESTIONS_CACHE_KEY = 'ALL_QUESTIONS'
   ALL_QUESTIONS_CACHE_EXPIRY = 600
+  QUESTION_CACHE_KEY_PREFIX = 'QUESTION'
+  QUESTION_CACHE_KEY_EXPIRY = 600
 
   def index
     cache_key = ALL_QUESTIONS_CACHE_KEY + "_#{@question_type}"
@@ -17,6 +19,11 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   def show
+    @question = $redis.get(get_question_cache_key(params[:id])
+    if !@question
+      @question = Question.find_by!(uid: params[:id])
+      $redis.set(get_question_cache_key(@question.uid, @question, {ex: QUESTION_CACHE_KEY_EXPIRY})
+    end
     render_question
   end
 
@@ -60,5 +67,9 @@ class Api::V1::QuestionsController < Api::ApiController
 
   private def get_question_type
     @question_type = params[:question_type]
+  end
+
+  private def get_question_cache_key(uid)
+    return "#{QUESTION_CACHE_KEY_PREFIX}_#{uid}"
   end
 end
