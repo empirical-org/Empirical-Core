@@ -19,7 +19,7 @@ def standardized_flags(flag)
     'Alpha' => 'alpha',
     'Archive' => 'archived'
   }
-  standardization_map[flag] ? standardization_map[flag] : flag
+  standardization_map[flag] || flag
 end
 
 def sync_lms_and_connect_flags
