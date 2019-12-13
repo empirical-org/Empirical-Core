@@ -16,5 +16,10 @@ describe RetrieveGoogleClassroomsWorker, type: :worker do
       expect(GoogleIntegration::Classroom::Main).to receive(:pull_data).with(user).and_raise(GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError)
       subject.perform(user.id)
     end
+
+    it 'should rescue GoogleIntegration::Client::AccessTokenError in the Google integration' do
+      expect(GoogleIntegration::Classroom::Main).to receive(:pull_data).with(user).and_raise(GoogleIntegration::Client::AccessTokenError)
+      subject.perform(user.id)
+    end
   end
 end
