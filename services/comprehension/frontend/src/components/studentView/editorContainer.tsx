@@ -1,9 +1,20 @@
 import * as React from 'react'
-import ContentEditable from 'react-contenteditable'
+import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
 
 const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 
-export default class EditorContainer extends React.Component<any, any> {
+interface EditorContainerProps {
+  unsubmittableResponses: Array<string>;
+  stripHtml: Function;
+  html: string;
+  disabled: boolean;
+  resetText: (event: MouseEvent<HTMLImageElement, MouseEvent>) => void;
+  innerRef: Function;
+  handleTextChange: (event: ContentEditableEvent) => void;
+  className: string;
+}
+
+export default class EditorContainer extends React.Component<EditorContainerProps, {}> {
   componentDidMount() {
     window.addEventListener('paste', (e) => {
       e.preventDefault()
@@ -11,7 +22,7 @@ export default class EditorContainer extends React.Component<any, any> {
     }, true);
   }
 
-  shouldComponentUpdate(nextProps: any, nextState: any) {
+  shouldComponentUpdate(nextProps: EditorContainerProps) {
     // this prevents some weird cursor stuff from happening in the text editor
     const { unsubmittableResponses, stripHtml, html, disabled } = nextProps
     if (disabled) return true

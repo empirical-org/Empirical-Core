@@ -6,6 +6,10 @@
 @import './fade.scss';
 @import "./node_modules/bulma/bulma.sass";
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   background-color: white;
   font-family: adelle-sans,Helvetica,Arial,sans-serif;
