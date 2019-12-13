@@ -257,7 +257,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": "0.28671114483144367",
+        "response_id": 1,
       },
     ]
   }
@@ -396,7 +396,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
                 >
                   <div
                     className="feedback"
-                    key="0.28671114483144367"
+                    key="1"
                   >
                     <img
                       alt="Arrows pointing in opposite directions, making a loop"
@@ -444,7 +444,7 @@ exports[`PromptStep component active state when an optimal response has been sub
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
-        "response_id": "0.9924051969720984",
+        "response_id": 2,
       },
     ]
   }
@@ -577,7 +577,7 @@ exports[`PromptStep component active state when an optimal response has been sub
                 >
                   <div
                     className="feedback optimal"
-                    key="0.9924051969720984"
+                    key="2"
                   >
                     <img
                       alt="Small green circle with a check in it"
@@ -625,35 +625,35 @@ exports[`PromptStep component active state when the max attempts have been reach
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": "0.28671114483144367",
+        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": "0.28671114483144367",
+        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": "0.28671114483144367",
+        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": "0.28671114483144367",
+        "response_id": 1,
       },
       Object {
         "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
         "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
         "feedback_type": "semantic",
         "optimal": false,
-        "response_id": "0.28671114483144367",
+        "response_id": 1,
       },
     ]
   }
@@ -790,7 +790,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 >
                   <div
                     className="feedback"
-                    key="0.28671114483144367"
+                    key="1"
                   >
                     <img
                       alt="Arrows pointing in opposite directions, making a loop"
@@ -840,7 +840,7 @@ exports[`PromptStep component active state when the max attempts have been reach
         "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
         "feedback_type": "semantic",
         "optimal": true,
-        "response_id": "0.9924051969720984",
+        "response_id": 2,
       },
     ]
   }
@@ -973,7 +973,7 @@ exports[`PromptStep component active state when the max attempts have been reach
                 >
                   <div
                     className="feedback optimal"
-                    key="0.9924051969720984"
+                    key="2"
                   >
                     <img
                       alt="Small green circle with a check in it"

@@ -51,7 +51,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
 
-  lastWord = (str: string) => str.split(' ').splice(-1)
+  lastWord = (str: string) => str.split(' ').splice(-1)[0]
 
   handleTextChange = (e) => {
     const { html, } = this.state

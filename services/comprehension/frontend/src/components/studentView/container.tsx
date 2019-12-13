@@ -98,7 +98,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const numberOfLinks = ALL_STEPS.length
 
     for (let i=1; i <= numberOfLinks; i++ ) {
-      links.push(<div onClick={() => this.clickStepLink(i)}>{this.renderStepNumber(i)}</div>)
+      links.push(<div className="step-link" onClick={() => this.clickStepLink(i)}>{this.renderStepNumber(i)}</div>)
     }
 
     return (<div className="hide-on-desktop step-links">

@@ -1,20 +1,20 @@
 import * as React from 'react'
-import ContentEditable, { ContentEditableEvent } from 'react-contenteditable'
+import ContentEditable from 'react-contenteditable'
 
 const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 
 interface EditorContainerProps {
   unsubmittableResponses: Array<string>;
-  stripHtml: Function;
+  stripHtml: (string: string) => string;
   html: string;
   disabled: boolean;
-  resetText: (event: MouseEvent<HTMLImageElement, MouseEvent>) => void;
+  resetText: (event: any) => void;
   innerRef: Function;
-  handleTextChange: (event: ContentEditableEvent) => void;
+  handleTextChange: (event: any) => void;
   className: string;
 }
 
-export default class EditorContainer extends React.Component<EditorContainerProps, {}> {
+export default class EditorContainer extends React.Component<EditorContainerProps, any> {
   componentDidMount() {
     window.addEventListener('paste', (e) => {
       e.preventDefault()

@@ -49,7 +49,7 @@ export const suboptimalSubmittedResponse = {
   feedback: "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
   feedback_type: "semantic",
   optimal: false,
-  response_id: String(Math.random()),
+  response_id: 1,
   entry: "Governments should make voting compulsory so that more voices are heard in elections."
 }
 
@@ -57,6 +57,6 @@ export const optimalSubmittedResponse = {
   feedback: "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
   feedback_type: "semantic",
   optimal: true,
-  response_id: String(Math.random()),
+  response_id: 2,
   entry: "Governments should make voting compulsory so that the elected government represents the majority of the population."
 }
