@@ -22,7 +22,7 @@ class Api::V1::QuestionsController < Api::ApiController
     @question = $redis.get(get_question_cache_key(params[:id])
     if !@question
       @question = Question.find_by!(uid: params[:id])
-      $redis.set(get_question_cache_key(@question.uid, @question, {ex: QUESTION_CACHE_KEY_EXPIRY})
+      $redis.set(get_question_cache_key(@question.uid), @question, {ex: QUESTION_CACHE_KEY_EXPIRY})
     end
     render_question
   end
