@@ -206,7 +206,7 @@ Style/RedundantFreeze:
   Enabled: true
 
 Style/RedundantReturn:
-  Enabled: true
+  Enabled: false
 
 Style/RedundantSelf:
   Enabled: true
@@ -260,7 +260,6 @@ Style/ParallelAssignment:
 
 Style/RegexpLiteral:
   Enabled: true
-
 Layout/ElseAlignment:
   Enabled: false
 
@@ -296,3 +295,28 @@ Style/MultilineIfModifier:
 
 Style/UnlessElse:
   Enabled: true
+
+Layout/EndAlignment:
+  Enabled: false
+
+FloatDivision:
+  Enabled: false
+
+RescuedExceptionsVariableName:
+  Enabled: false
+
+Lint/SuppressedException:
+  Enabled: true
+  AllowComments: true
+
+Metrics/ModuleLength:
+  Enabled: true
+  Max: 448
+
+Style/AsciiComments:
+  Enabled: true
+
+Layout/MultilineHashBraceLayout:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/spec/services/google_integration/classroom/parsers/students_spec.rb'

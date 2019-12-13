@@ -1,6 +1,11 @@
 class Question < ActiveRecord::Base
-  validates :uid, presence: true, uniqueness: true
+  TYPES = [
+    TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
+    TYPE_DIAGNOSTIC_SENTENCE_COMBINING = 'diagnostic_sentence_combining'
+  ]
   validates :data, presence: true
+  validates :question_type, presence: true, inclusion: {in: TYPES}
+  validates :uid, presence: true, uniqueness: true
   validate :data_must_be_hash
 
   after_save :expire_all_questions_cache
@@ -62,7 +67,10 @@ class Question < ActiveRecord::Base
   end
 
   private def expire_all_questions_cache
-    $redis.del(Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY)
+    cache_key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question_type}"
+    $redis.del(cache_key)
+    cache_key = "#{Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX}_#{uid}"
+    $redis.del(cache_key)
   end
 
   private def new_uuid

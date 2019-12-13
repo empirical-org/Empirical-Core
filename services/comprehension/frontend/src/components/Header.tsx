@@ -5,6 +5,9 @@ import '../styles/Header.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 
+const logoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
+const mobileLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white-mobile.svg`
+
 import {
   updateSessionOnFirebase,
 } from "../actions/session";
@@ -34,8 +37,9 @@ class Header extends React.Component<any, any> {
     return (
       <div className="header">
         <div>
-          <img src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" />
-          <span className="save-and-exit" onClick={this.saveAndExit}>Save & Exit</span>
+          <img className="hide-on-desktop" src={mobileLogoSrc} />
+          <img className="hide-on-mobile" src={logoSrc} />
+          <span className="save-and-exit" onClick={this.saveAndExit}>Save and exit</span>
         </div>
       </div>
     );
