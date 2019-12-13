@@ -4,6 +4,6 @@ FactoryBot.define do
     classroom_unit       { create(:classroom_unit) }
     pinned  false
     locked  false
-    completed  false
+    completed false
   end
 end
