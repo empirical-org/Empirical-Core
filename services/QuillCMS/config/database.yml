@@ -75,7 +75,7 @@ staging:
         <<: *elastic_beanstalk_env
       - role: slave
         name: replica
-        <<: *elastic_beanstalk_env
+        <<: *elastic_beanstalk_replica_env
 
 production:
   <<: *default
