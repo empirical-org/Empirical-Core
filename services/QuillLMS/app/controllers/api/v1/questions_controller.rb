@@ -70,6 +70,6 @@ class Api::V1::QuestionsController < Api::ApiController
   end
 
   private def get_question_cache_key(uid)
-    return "#{QUESTION_CACHE_KEY_PREFIX}_#{uid}"
+    "#{QUESTION_CACHE_KEY_PREFIX}_#{uid}"
   end
 end
