@@ -2,6 +2,8 @@ require 'google/api_client'
 
 class GoogleIntegration::Client
 
+  class AccessTokenError < StandardError; end
+
   def initialize(user, api_client = nil, token_refresher = nil, api_version = nil, os_version = nil)
     @user            = user
     @api_client      = api_client      || Google::APIClient
@@ -11,6 +13,7 @@ class GoogleIntegration::Client
   end
 
   def create
+    raise AccessTokenError, "No access token found" if !access_token
     client.authorization.access_token = access_token
     client
   end
