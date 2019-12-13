@@ -13,8 +13,8 @@ describe('StudentViewContainer component', () => {
     const sessionReducer = { submittedResponses: [] }
     const wrapper = mount(<StudentViewContainer
       activities={activitiesReducer}
-      session={sessionReducer}
       dispatch={() => {}}
+      session={sessionReducer}
     />)
 
     it('renders', () => {
@@ -94,8 +94,8 @@ describe('StudentViewContainer component', () => {
     const sessionReducer = { submittedResponses: {} }
     const wrapper = shallow(<StudentViewContainer
       activities={activitiesReducer}
-      session={sessionReducer}
       dispatch={() => {}}
+      session={sessionReducer}
     />)
 
     it('renders a loading spinner', () => {

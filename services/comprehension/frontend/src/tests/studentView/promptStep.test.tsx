@@ -25,7 +25,7 @@ const defaultProps = {
 describe('PromptStep component', () => {
   describe('inactive state', () => {
     const wrapper = mount(<PromptStep
-      { ...defaultProps}
+      {...defaultProps}
     />)
 
     it('renders', () => {
@@ -37,7 +37,7 @@ describe('PromptStep component', () => {
     describe('instance methods', () => {
       const submittedResponses = [suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse]
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
         className="step active"
         submittedResponses={submittedResponses}
@@ -123,7 +123,7 @@ describe('PromptStep component', () => {
 
     describe('before any responses have been submitted', () => {
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
         className="step active"
       />)
@@ -145,7 +145,7 @@ describe('PromptStep component', () => {
 
     describe('before any responses have been submitted', () => {
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
         className="step active"
       />)
@@ -168,7 +168,7 @@ describe('PromptStep component', () => {
     describe('when an optimal response has been submitted', () => {
       const submittedResponses = [optimalSubmittedResponse]
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
         className="step active"
         submittedResponses={submittedResponses}
@@ -192,7 +192,7 @@ describe('PromptStep component', () => {
     describe('when a suboptimal response has been submitted', () => {
       const submittedResponses = [suboptimalSubmittedResponse]
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
         className="step active"
         submittedResponses={submittedResponses}
@@ -215,7 +215,7 @@ describe('PromptStep component', () => {
     describe('when the max attempts have been reached', () => {
       const submittedResponses = [suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse, suboptimalSubmittedResponse]
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
         className="step active"
         submittedResponses={submittedResponses}
@@ -238,10 +238,10 @@ describe('PromptStep component', () => {
     describe('when the max attempts have been reached or the last answer is optimal and every other question has been completed', () => {
       const submittedResponses = [optimalSubmittedResponse]
       const wrapper = mount(<PromptStep
-        { ...defaultProps}
+        {...defaultProps}
         active
-        everyOtherStepCompleted
         className="step active"
+        everyOtherStepCompleted
         submittedResponses={submittedResponses}
       />)
 
