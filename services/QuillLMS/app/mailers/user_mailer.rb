@@ -97,10 +97,14 @@ class UserMailer < ActionMailer::Base
     mail from: "Maddy Maher <maddy@quill.org>", to: user.email, subject: "Quill Premium Renewal"
   end
 
-  def daily_stats_email(date)
-    @current_date = date.strftime("%A, %B %d")
-    start_time = date.beginning_of_day
-    end_time = date.end_of_day
+  def daily_stats_email(date_string)
+    # Sidekiq converts variables to strings, so we recreate the Time object with the date string
+    date_object = Time.parse(date_string)
+    start_time = date_object.beginning_of_day
+    end_time = date_object.end_of_day
+    subject_date = date_object.strftime('%m/%d/%Y')
+
+    @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
     @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
     @new_teacher_signups = User.where(role: "teacher").where(created_at: start_time..end_time).size
@@ -111,7 +115,7 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
-    mail to: "team@quill.org", subject: "Quill Daily Analytics - #{date.strftime('%m/%d/%Y')}"
+    mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
 end
