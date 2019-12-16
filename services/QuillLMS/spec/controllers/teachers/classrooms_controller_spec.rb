@@ -118,9 +118,24 @@ describe Teachers::ClassroomsController, type: :controller do
 
     context 'when current user has classrooms i teach' do
 
-      it 'should assign the classrooms and classroom' do
+      it 'should assign the classrooms and classroom and no students' do
         get :index
         expect(assigns(:classrooms)[0]['id']).to eq classroom.id
+        expect(assigns(:classrooms)[0][:students]).to be_empty
+      end
+
+      context "with activity sesions" do
+        let!(:activity) { create(:activity) }
+        let!(:student) { create(:user, classcode: classroom.code) }
+        let!(:cu) { create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
+        let!(:ua) { create(:unit_activity, unit: cu.unit, activity: activity)}
+        let!(:activity_session) { create(:activity_session, user: student, activity: activity, classroom_unit: cu, state: 'finished') }
+
+        it 'should assign students and number_of_completed_activities' do
+          get :index
+          expect(assigns(:classrooms)[0]['id']).to eq classroom.id
+          expect(assigns(:classrooms)[0][:students][0][:number_of_completed_activities]).to eq 1
+        end
       end
     end
   end
