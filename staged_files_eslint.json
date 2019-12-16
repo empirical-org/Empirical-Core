@@ -1,0 +1,22 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "es2017": true,
+    "es2020": true
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint/eslint-plugin"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "react/destructuring-assignment": "error"
+  }
+}
