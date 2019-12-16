@@ -24,7 +24,8 @@
   },
   "scripts": {
     "eslint": "eslint --ext .js,.ts,.tsx,.jsx .",
-    "eslint:fix": "eslint --fix --ext .js,.ts,.tsx,.jsx ."
+    "eslint:fix": "eslint --fix --ext .js,.ts,.tsx,.jsx .",
+    "eslint:staged_files": "eslint -c ./staged_files_eslint.json --ext .js,.ts,.tsx,.jsx"
   },
   "husky": {
     "hooks": {
@@ -32,7 +33,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint -c ./staged_files_eslint.json --ext .js,.ts,.tsx,.jsx ."
+    "*.{js,jsx,ts,tsx}": "npm run eslint:staged_files"
   },
   "repository": {
     "type": "git",
