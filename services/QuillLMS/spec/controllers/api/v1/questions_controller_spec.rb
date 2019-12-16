@@ -38,6 +38,20 @@ describe Api::V1::QuestionsController, type: :controller do
       expect(JSON.parse(response.body)).to eq(question.data)
     end
 
+    it "should set cache if it is empty" do
+      expect($redis).to receive(:get).and_return(nil)
+      expect($redis).to receive(:set)
+      get :show, id: question.uid
+    end
+
+    it "should not set cache if there is a cache hit" do
+      mock_cached_data = {"foo" => "bar"}
+      expect($redis).to receive(:get).and_return(JSON.dump(mock_cached_data))
+      expect($redis).not_to receive(:set)
+      get :show, id: question.uid
+      expect(JSON.parse(response.body)).to eq(mock_cached_data)
+    end
+
     it "should return a 404 if the requested Question is not found" do
       get :show, id: 'doesnotexist'
       expect(response.status).to eq(404)
