@@ -85,6 +85,8 @@ class Question < ActiveRecord::Base
   private def expire_all_questions_cache
     cache_key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question_type}"
     $redis.del(cache_key)
+    cache_key = "#{Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX}_#{uid}"
+    $redis.del(cache_key)
   end
 
   private def new_uuid

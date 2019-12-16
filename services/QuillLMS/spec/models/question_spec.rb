@@ -235,5 +235,13 @@ RSpec.describe Question, type: :model do
       question.save
       expect($redis.get(key)).to be_nil
     end
+
+    it 'should execute invalidate_all_questions_cache to invalidate the specific QUESTION_* cache' do
+      key = Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX + "_#{question.uid}"
+      $redis.set(key, 'Dummy data')
+      question.data = {foo: "bar"}
+      question.save
+      expect($redis.get(key)).to be_nil
+    end
   end
 end
