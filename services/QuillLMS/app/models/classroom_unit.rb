@@ -17,29 +17,29 @@ class ClassroomUnit < ActiveRecord::Base
   end
 
   def is_valid_for_google_announcement_with_specific_user?(user)
-    !!self.classroom.google_classroom_id && !!user.google_id && !!user.post_google_classroom_assignments
+    !!classroom.google_classroom_id && !!user.google_id && !!user.post_google_classroom_assignments
   end
 
   def is_valid_for_google_announcement_with_owner?
-    !!self.classroom.google_classroom_id && !!self.classroom.owner.google_id && !!self.classroom.owner.post_google_classroom_assignments
+    !!classroom.google_classroom_id && !!classroom.owner.google_id && !!classroom.owner.post_google_classroom_assignments
   end
 
   def validate_assigned_student(student_id)
-    if self.assign_on_join
-      if !self.assigned_student_ids || self.assigned_student_ids.exclude?(student_id)
-        if !self.assigned_student_ids.is_a?(Array)
-          self.update(assigned_student_ids: [])
+    if assign_on_join
+      if !assigned_student_ids || assigned_student_ids.exclude?(student_id)
+        if !assigned_student_ids.is_a?(Array)
+          update(assigned_student_ids: [])
         end
-        self.update(assigned_student_ids: StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id))
+        update(assigned_student_ids: StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id))
       end
       true
     else
-      self.assigned_student_ids && self.assigned_student_ids.include?(student_id)
+      assigned_student_ids && assigned_student_ids.include?(student_id)
     end
   end
 
   def teacher_and_classroom_name
-    {teacher: self.classroom&.owner&.name, classroom: self.classroom&.name}
+    {teacher: classroom&.owner&.name, classroom: classroom&.name}
   end
 
   def remove_assigned_student(student_id)
@@ -47,7 +47,7 @@ class ClassroomUnit < ActiveRecord::Base
     # we need to set assign_on_join to false so that the student doesn't get added back
     # in by the #check_for_assign_on_join_and_update_students_array_if_true method.
     # if assign on join should still be true the aforementioned method will set it.
-    self.update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
+    update(assigned_student_ids: new_assigned_student_ids, assign_on_join: false)
   end
 
   private
@@ -58,8 +58,8 @@ class ClassroomUnit < ActiveRecord::Base
       activity_sessions.each do |as|
         # We are explicitly checking to ensure that the student here actually belongs
         # in this classroom before running the validate_assigned_student method because
-        # if this is not true, validate_assigned_student starts an infinite loop! 😨
-        if !StudentsClassrooms.find_by(classroom_id: self.classroom_id, student_id: as.user_id)
+        # if this is not true, validate_assigned_student starts an infinite loop!
+        if !StudentsClassrooms.find_by(classroom_id: classroom_id, student_id: as.user_id)
           as.update(visible: false)
         elsif !validate_assigned_student(as.user_id)
           as.update(visible: false)
@@ -69,12 +69,12 @@ class ClassroomUnit < ActiveRecord::Base
   end
 
   def hide_all_activity_sessions
-    self.activity_sessions.update_all(visible: false)
+    activity_sessions.update_all(visible: false)
   end
 
   def hide_appropriate_activity_sessions
     # on save callback that checks if archived
-    if self.visible == false
+    if visible == false
       hide_all_activity_sessions
       return
     end
@@ -82,15 +82,15 @@ class ClassroomUnit < ActiveRecord::Base
   end
 
   def check_for_assign_on_join_and_update_students_array_if_true
-    student_ids = StudentsClassrooms.where(classroom_id: self.classroom_id).pluck(:student_id)
-    if self.assigned_student_ids&.any? && !self.assign_on_join && self.assigned_student_ids.length >= student_ids.length
+    student_ids = StudentsClassrooms.where(classroom_id: classroom_id).pluck(:student_id)
+    if assigned_student_ids&.any? && !assign_on_join && assigned_student_ids.length >= student_ids.length
       # then maybe it should be assign on join, so we do a more thorough check
       if (assigned_student_ids - student_ids).empty?
         # then it should indeed be assigned to all
         self.assign_on_join = true
       end
     end
-    if self.assign_on_join
+    if assign_on_join
       # then we ensure that it has all the student ids
       self.assigned_student_ids = student_ids
     end

@@ -1,6 +1,6 @@
 module ResponseAggregator
 
-  def health_of_question(question_uid)
+  def health_of_question_obj(question_uid)
     total_number_of_responses = Response.where(question_uid: question_uid).count
     total_number_of_attempts = Response.where(question_uid: question_uid).sum('count')
     common_matched_attempts = Response.where(question_uid: question_uid).where('count > 4').sum('count')

@@ -40,7 +40,7 @@ class ActivitySession < ActiveRecord::Base
   scope :completed,  -> { where.not(completed_at: nil) }
   scope :incomplete, -> { where(completed_at: nil, is_retry: false) }
 
-  scope :for_teacher, ->(teacher_id) {
+  scope :for_teacher, lambda { |teacher_id|
     joins(classroom_unit: {classroom: :teachers})
     .where(users: { id: teacher_id})
   }
@@ -67,7 +67,7 @@ class ActivitySession < ActiveRecord::Base
     if read_attribute(:timespent).present?
       read_attribute(:timespent)
     else
-      self.calculate_timespent
+      calculate_timespent
     end
   end
 
@@ -87,7 +87,7 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def self.by_teacher(teacher)
-    self.joins(
+    joins(
       " JOIN classroom_units cu ON activity_sessions.classroom_unit_id = cu.id
         JOIN classrooms_teachers ON cu.classroom_id = classrooms_teachers.classroom_id
         JOIN classrooms ON cu.classroom_id = classrooms.id
@@ -120,12 +120,12 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def unit
-    self.classroom_unit&.unit
+    classroom_unit&.unit
   end
 
   def unit_activity
-    if self.activity_id
-      UnitActivity.find_by(unit: unit, activity_id: self.activity_id)
+    if activity_id
+      UnitActivity.find_by(unit: unit, activity_id: activity_id)
     else
       unit&.unit_activities&.length == 1 ? unit&.unit_activities&.first : nil
     end
@@ -136,13 +136,20 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def determine_if_final_score
-    return true if (self.percentage.nil? or self.state != 'finished')
-    a = ActivitySession.where(classroom_unit: self.classroom_unit, user: self.user, is_final_score: true, activity: self.activity)
-                       .where.not(id: self.id).first
+    return if percentage.nil? || state != 'finished'
+
+    # mark all finished anonymous sessions as final score.
+    if user.nil?
+      update_columns(is_final_score: true)
+      return
+    end
+
+    a = ActivitySession.where(classroom_unit: classroom_unit, user: user, is_final_score: true, activity: activity)
+                       .where.not(id: id).first
     if a.nil?
-      self.update_columns is_final_score: true
-    elsif self.percentage > a.percentage
-      self.update_columns is_final_score: true
+      update_columns is_final_score: true
+    elsif percentage > a.percentage
+      update_columns is_final_score: true
       a.update_columns is_final_score: false
     end
     # return true otherwise save will be prevented
@@ -155,13 +162,13 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def formatted_completed_at
-    return nil if self.completed_at.nil?
-    self.completed_at.strftime('%A, %B %d, %Y')
+    return nil if completed_at.nil?
+    completed_at.strftime('%A, %B %d, %Y')
   end
 
   def display_due_date_or_completed_at_date
-    if self.completed_at.present?
-      "#{self.completed_at.strftime('%A, %B %d, %Y')}"
+    if completed_at.present?
+      "#{completed_at.strftime('%A, %B %d, %Y')}"
     elsif (unit_activity.present? and unit_activity.due_date.present?)
       "#{unit_activity.due_date.strftime('%A, %B %d, %Y')}"
     else
@@ -197,7 +204,7 @@ class ActivitySession < ActiveRecord::Base
 
   def data=(input)
     data_will_change!
-    self['data'] = self.data.to_h.update(input.except("activity_session"))
+    self['data'] = data.to_h.update(input.except("activity_session"))
   end
 
   def activity_uid= uid
@@ -232,8 +239,8 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def invalidate_activity_session_count_if_completed
-    classroom_id = self.classroom_unit&.classroom_id
-    if self.state == 'finished' && classroom_id
+    classroom_id = classroom_unit&.classroom_id
+    if state == 'finished' && classroom_id
       $redis.del("classroom_id:#{classroom_id}_completed_activity_count")
     end
   end
@@ -382,7 +389,7 @@ class ActivitySession < ActiveRecord::Base
   def add_interaction_log(meta={},date=DateTime.now)
     # NOTE: the below won't work because activity session interaction logs have no primary key, this is ok
     # `self.activity_session_interaction_logs << ActivitySessionInteractionLog.create(meta: meta, date: date)`
-    ActivitySessionInteractionLog.create(meta: meta, date: date, activity_session_id: self.id)
+    ActivitySessionInteractionLog.create(meta: meta, date: date, activity_session_id: id)
     # Dually, please do not add reload here, the db cost is not worth it
   end
 
@@ -394,7 +401,7 @@ class ActivitySession < ActiveRecord::Base
   private
 
   def correctly_assigned
-    if self.classroom_unit && (classroom_unit.validate_assigned_student(self.user_id) == false)
+    if classroom_unit && (classroom_unit.validate_assigned_student(user_id) == false)
       begin
         raise 'Student was not assigned this activity'
       rescue => e
@@ -448,7 +455,7 @@ class ActivitySession < ActiveRecord::Base
     return unless should_async
 
     if state == 'finished'
-      FinishActivityWorker.perform_async(self.uid)
+      FinishActivityWorker.perform_async(uid)
     end
   end
 
@@ -471,7 +478,7 @@ class ActivitySession < ActiveRecord::Base
     # at a later date, we might have to update this check in case we want a milestone for sessions being assigned
     # or started.
     if self.state == 'finished'
-      UpdateMilestonesWorker.perform_async(self.uid)
+      UpdateMilestonesWorker.perform_async(uid)
     end
   end
 
