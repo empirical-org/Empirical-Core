@@ -265,7 +265,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           },
         },
         (err, httpResponse, body) => {
-          if (httpResponse.statusCode === 200) {
+          if (httpResponse && httpResponse.statusCode === 200) {
             if (sessionID) { removeSession(sessionID) }
             document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           }
