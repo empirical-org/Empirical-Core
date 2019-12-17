@@ -1,6 +1,5 @@
-include PublicProgressReports
-
 module LessonsRecommendations
+    include PublicProgressReports
     extend ActiveSupport::Concern
 
     def get_recommended_lessons unit_id, classroom_id, activity_id

@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe LoginPdf do
+  let(:student) { create(:student) }
+  let(:clever_student) { create(:student, :signed_up_with_clever) }
+  let(:google_student) { create(:student, :signed_up_with_google) }
+  let(:normal_student) { create(:student, :with_generated_password) }
+  let(:custom_pass_student) { create(:student) }
+
   describe 'generate a login pdf' do
-    let(:student) { create(:student) }
-    let(:clever_student) { create(:student, :signed_up_with_clever) }
-    let(:google_student) { create(:student, :signed_up_with_google) }
-    let(:normal_student) { create(:student, :with_generated_password) }
-    let(:custom_pass_student) { create(:student) }
     let(:students) { [student, clever_student, google_student, normal_student] }
     let(:classroom) { create(:classroom, students: students) }
 
@@ -62,6 +63,17 @@ describe LoginPdf do
 
     it 'registers a pdf Mime Type' do
       expect(Mime::Type.lookup_by_extension(:pdf)).to_not be_nil
+    end
+
+  end
+
+  describe 'when given a student with a username containing non-Windows-1252 characters' do
+    let(:student_with_weird_username) { create(:student, username: 'studentツ' )}
+    let(:students) { [student, clever_student, google_student, normal_student] }
+    let(:classroom) { create(:classroom, students: students) }
+
+    it 'will not error' do
+      expect { LoginPdf.new(classroom) }.not_to raise_error
     end
 
   end
