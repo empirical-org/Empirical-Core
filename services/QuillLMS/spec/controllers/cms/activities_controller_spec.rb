@@ -57,7 +57,7 @@ describe Cms::ActivitiesController, type: :controller do
   describe "#create" do
     let(:activity_attributes) { build(:activity).attributes }
 
-    it  'should create the activity' do
+    it 'should create the activity' do
       post :create, activity_classification_id: classification.id, activity: activity_attributes
       expect(response).to redirect_to cms_activity_classification_activity_data_path(classification.id, classification.reload.activities.last)
     end
