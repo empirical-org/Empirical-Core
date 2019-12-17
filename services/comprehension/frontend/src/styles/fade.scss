@@ -1,0 +1,27 @@
+.fade-enter, .fade-appear {
+  opacity: 0;
+}
+
+.fade-appear-active {
+  opacity: 1;
+  transition: 0.4s;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  /* Delay the enter animation until the leave completes */
+  transition: opacity 0.4s ease-in 0.6s;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0;
+  transition: opacity 0.4s ease-in;
+}
+
+.fade-height {
+  transition: height 0.5s ease-in-out;
+}
