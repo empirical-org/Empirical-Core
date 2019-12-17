@@ -38,7 +38,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
     if (coteacher.invitation_id) {
       requestDelete(`/coteacher_classroom_invitations/${coteacher.id}`, {}, callback)
     } else {
-      requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher_from_class`, { classroom_id: classroom.id }, callback)
+      requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher`, { classroom_id: classroom.id }, callback)
     }
   }
 
