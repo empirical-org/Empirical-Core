@@ -5,6 +5,14 @@ class LoginPdf < Prawn::Document
     super(margin: [22, 24, 22, 24])
     @classroom = classroom
     StudentLoginPdfDownloadAnalyticsWorker.perform_async(classroom.owner.id, classroom.id)
+    font_families.update(
+      "DejaVuSans" => {
+        :normal => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans.ttf",
+        :bold => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-Bold.ttf",
+        :italic => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-Oblique.ttf",
+        :bold_italic => "#{File.dirname(__FILE__)}/../assets/fonts/dejavu-sans/DejaVuSans-BoldOblique.ttf",
+      }
+    )
     render_login_pdf
   end
 
@@ -167,6 +175,7 @@ class LoginPdf < Prawn::Document
 
   def render_login_pdf
     font("Helvetica")
+    fallback_fonts(["DejaVuSans"])
     render_cover_page_header
     render_cover_page_table
     start_new_page
