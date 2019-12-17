@@ -104,7 +104,7 @@ const TurkDiagnostic = React.createClass({
         },
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           this.setState({ saved: true, });
@@ -129,7 +129,7 @@ const TurkDiagnostic = React.createClass({
         },
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           this.setState({ saved: true, });
         }
