@@ -33,63 +33,38 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: 100%;
   }
 
-  .steps-container {
+  .steps-outer-container {
+    height: auto;
+    max-width: 680px;
+    width: 100%;
+  }
+
+  .steps-inner-container {
     padding: 22px 24px;
     position: sticky;
     position: -webkit-sticky;/* required */
     right: 0;
     top: 0;
-    max-width: 680px;
-    width: 100%;
     height: min-content;
   }
 
-  .step {
-    padding: 16px;
-    border-radius: 4px;
-    border: solid 1px #d8d8d8;
-    max-width: 631px;
-    margin-bottom: 10px;
-    display: flex;
-    .step-content {
-      width: 100%;
-    }
-    .passage-title {
-      font-size: 16px;
-      font-style: italic;
-    }
-    .prompt-text span {
-      text-decoration: underline;
-    }
-    button {
-      border-radius: 4px;
-      background-color: #009a80;
-      font-size: 18px;
-      font-weight: bold;
-      color: white;
-      width: 100%;
-      padding: 15px 0px;
-      margin-top: 24px;
-      border: none;
-    }
-    &.active {
-      box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
-    }
-  }
   .passage {
     max-width: 680px;
     white-space: pre-wrap;
     font-size: 21px;
     line-height: 1.52;
   }
+
   .directions {
     font-size: 16px;
     font-weight: 600;
     line-height: 1.38;
     margin-bottom: 10px;
   }
+
   .title {
     font-size: 36px;
     font-weight: 600;
@@ -105,6 +80,7 @@
     position: -webkit-sticky;/* required */
     top: 0;
     background-color: white;
+    z-index: 100;
     div {
       width: 32px;
       margin-right: 16px;
@@ -114,7 +90,7 @@
   @media (max-width: 1099px) {
     flex-direction: column;
     height: auto;
-    .steps-container {
+    .steps-outer-container, .steps-inner-container {
       position: inherit;
       max-width: 100%;
       padding: 0px;
