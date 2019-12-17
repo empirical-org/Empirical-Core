@@ -47,9 +47,7 @@ class Activity < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
       find(arg)
     rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound.new(
-        "Couldn't find Activity with 'id' or 'uid'=#{arg}"
-      )
+      raise ActiveRecord::RecordNotFound, "Couldn't find Activity with 'id' or 'uid'=#{arg}"
     end
   end
 
