@@ -532,11 +532,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 230
 
-# Offense count: 8
-# Configuration parameters: CountKeywordArgs.
-Metrics/ParameterLists:
-  Max: 7
-
 # Offense count: 44
 Metrics/PerceivedComplexity:
   Max: 28
@@ -711,20 +706,6 @@ Style/DoubleNegation:
     - 'QuillLMS/spec/controllers/pages_controller_spec.rb'
     - 'QuillLMS/spec/models/classroom_spec.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'QuillLMS/app/controllers/cms/schools_controller.rb'
-    - 'QuillLMS/app/controllers/cms/users_controller.rb'
-    - 'QuillLMS/app/models/concerns/teacher.rb'
-    - 'QuillLMS/app/models/subscription.rb'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/app/services/google_integration/refresh_access_token.rb'
-    - 'QuillLMS/lib/clever_library/api/client.rb'
-
 # Offense count: 43
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -809,18 +790,6 @@ Style/MethodCallWithoutArgsParentheses:
 Style/MethodDefParentheses:
   Enabled: false
 
-# Offense count: 8
-Style/MixinUsage:
-  Exclude:
-    - 'QuillCMS/bin/setup'
-    - 'QuillCMS/bin/update'
-    - 'QuillComprehension/bin/setup'
-    - 'QuillComprehension/bin/update'
-    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
-    - 'QuillLMS/db/seeds.rb'
-    - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
-    - 'QuillLMS/spec/workers/fast_assign_worker_spec.rb'
-
 # Offense count: 111
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -891,18 +860,6 @@ Style/Proc:
     - 'QuillLMS/config/initializers/rails_admin.rb'
     - 'QuillLMS/lib/eg_form_builder.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'QuillLMS/app/controllers/blog_posts_controller.rb'
-    - 'QuillLMS/app/controllers/invitations_controller.rb'
-    - 'QuillLMS/app/models/activity.rb'
-    - 'QuillLMS/app/models/concept.rb'
-    - 'QuillCMS/app/workers/rematch_response_worker.rb'
-
 # Offense count: 23
 # Cop supports --auto-correct.
 Style/RedundantBegin:
@@ -955,18 +912,6 @@ Style/Semicolon:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'QuillCMS/lib/modules/response_search.rb'
-    - 'QuillCMS/lib/tasks/sync_lms_and_connect_flags.rake'
-    - 'QuillLMS/app/controllers/pages_controller.rb'
-    - 'QuillLMS/lib/salesmachine_client.rb'
-    - 'QuillLMS/spec/lib/salesmachine_client_spec.rb'
 
 # Offense count: 135
 # Cop supports --auto-correct.
