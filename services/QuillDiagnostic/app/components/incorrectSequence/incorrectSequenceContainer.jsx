@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions';
 import {
   hashToCollection,
   SortableList
@@ -98,7 +98,7 @@ class IncorrectSequencesContainer extends Component {
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    questionActions.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences)
+    this.props.dispatch(questionActions.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences));
   }
 
   render() {

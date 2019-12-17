@@ -3,7 +3,7 @@ module Associators::StudentsToClassrooms
   def self.run(student, classroom)
     @@classroom = classroom
     @@classroom.update(updated_at: Time.now)
-    if self.legit_classroom && self.legit_teacher && (student&.role == 'student')
+    if legit_classroom && legit_teacher && (student&.role == 'student')
       sc = StudentsClassrooms.unscoped.find_or_initialize_by(student_id: student.id, classroom_id: classroom[:id])
       if sc.new_record?
         sc.visible = true
@@ -23,9 +23,9 @@ module Associators::StudentsToClassrooms
 
   private
 
-  def self.update_classroom_units(sc)
-    cus = ClassroomUnit.where(classroom_id: sc.classroom_id)
-    cus.each{|cu| cu.validate_assigned_student(sc.student_id)}
+  def self.update_classroom_units(student_classroom)
+    cus = ClassroomUnit.where(classroom_id: student_classroom.classroom_id)
+    cus.each{|cu| cu.validate_assigned_student(student_classroom.student_id)}
   end
 
   def self.legit_classroom

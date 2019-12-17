@@ -19,7 +19,7 @@ class Response < ApplicationRecord
     mapped = labels.map do |v|
       [v.name.to_sym, 0]
     end
-    mapped.to_h.merge(self.metrics)
+    mapped.to_h.merge(metrics)
   end
 
   def latest_metrics
@@ -27,7 +27,7 @@ class Response < ApplicationRecord
       SELECT response_labels.name, recent_tag.score FROM response_labels
       join lateral (
           select * from response_label_tags rlt
-          where rlt.response_label_id = response_labels.id and rlt.response_id = #{self.id}
+          where rlt.response_label_id = response_labels.id and rlt.response_id = #{id}
           order by rlt.created_at DESC
           limit 1
       ) recent_tag on true

@@ -34,9 +34,9 @@ module PublicProgressReports
       cu = last_completed_diagnostic
       if cu
         custom_url = "#u/#{cu.unit.id}/a/#{cu.activity_id}/c/#{cu.classroom_id}"
-        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
+        "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
-        return "/teachers/progress_reports/diagnostic_reports/#not_completed"
+        "/teachers/progress_reports/diagnostic_reports/#not_completed"
       end
     end
 
@@ -63,8 +63,7 @@ module PublicProgressReports
         {question_id: k,
          score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
          prompt: v[:prompt],
-         instructions: v[:instructions]
-        }
+         instructions: v[:instructions]}
       end
       questions_arr
     end
@@ -171,16 +170,10 @@ module PublicProgressReports
 
 
     def get_time_in_minutes activity_session
-      if activity_session.started_at && activity_session.completed_at
-        time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
-        if time > 60
-          return '> 60'
-        else
-          return time
-        end
-      else
-        return 'Untracked'
-      end
+      return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
+
+      time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
+      time > 60 ? '> 60' : time
     end
 
     def get_concept_results activity_session
@@ -224,9 +217,9 @@ module PublicProgressReports
 
     def get_average_score formatted_results
       if (formatted_results.empty?)
-        return 100
+        100
       else
-        return (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+        (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
       end
     end
 

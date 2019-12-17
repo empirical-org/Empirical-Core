@@ -8,10 +8,11 @@ def eventually(options = {})
   loop do
     begin
       yield
-    rescue *EXCEPTIONS => error
+    rescue *EXCEPTIONS => e
+      nil
     end
-    return if error.nil?
-    raise error if Time.now >= time_limit
+    return if e.nil?
+    raise e if Time.now >= time_limit
     sleep interval
   end
 end

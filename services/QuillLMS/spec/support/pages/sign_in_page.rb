@@ -5,8 +5,7 @@ class SignInPage < Page
     "#{BASE_PATH}/new"
   end
 
-  def sign_in(user, using: :username,
-                cred_case: :as_is)
+  def sign_in(user, using: :username, cred_case: :as_is)
     user_cred = user[using]
     user_cred.swapcase! if cred_case == :changed
 

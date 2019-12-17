@@ -52,7 +52,7 @@
     "net": "^1.0.2",
     "node-sass": "^4.12.0",
     "quill-component-library": "^0.1.22",
-    "quill-marking-logic": "^0.12.0",
+    "quill-marking-logic": "^0.12.3",
     "quill-string-normalizer": "0.0.9",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -80,6 +80,7 @@
   "devDependencies": {
     "@types/enzyme": "^3.1.1",
     "@types/jest": "^22.2.0",
+    "compression-webpack-plugin": "^3.0.0",
     "css-loader": "^3.0.0",
     "enzyme": "^3.1.0",
     "file-loader": "^1.1.5",

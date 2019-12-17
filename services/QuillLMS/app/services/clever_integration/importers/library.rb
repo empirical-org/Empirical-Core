@@ -3,15 +3,15 @@ module CleverIntegration::Importers::Library
   def self.run(auth_hash)
     begin
       client = CleverLibrary::Api::Client.new(auth_hash.credentials.token)
-      user = self.import_teacher(client)
+      user = import_teacher(client)
       if auth_hash[:info][:user_type] == 'teacher'
-        classrooms = self.import_classrooms(client, user.clever_id)
+        classrooms = import_classrooms(client, user.clever_id)
         CleverIntegration::Associators::ClassroomsToTeacher.run(classrooms, user)
         CleverLibraryStudentImporterWorker.perform_async(classrooms.map(&:id), auth_hash.credentials.token)
       elsif auth_hash[:info][:user_type] == 'school_admin'
-        self.import_schools(client, user.clever_id)
+        import_schools(client, user.clever_id)
       end
-      return {type: 'user_success', data: user}
+      {type: 'user_success', data: user}
     end
   rescue
     {type: 'user_failure', data: "Error: " + $!.message}
