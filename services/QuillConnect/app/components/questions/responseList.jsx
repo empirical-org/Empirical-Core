@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'underscore'
 import { AffectedResponse, isValidRegex } from 'quill-component-library/dist/componentLibrary'
+import { focusPointMatchHelper } from "quill-marking-logic"
 
 import Response from './response.jsx'
 import massEdit from '../../actions/massEdit';
@@ -29,17 +30,6 @@ export default class ResponseList extends React.Component {
     return _.every(matchList, m => {
       if (isValidRegex(m)) {
         return new RegExp(m).test(responseString)
-      } else {
-        return false
-      }
-    });
-  }
-
-  focusPointMatchHelper(responseString, sequenceParticle) {
-    const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => {
-      if (isValidRegex(m)) {
-        return new RegExp(m, 'i').test(responseString)
       } else {
         return false
       }
@@ -103,7 +93,7 @@ export default class ResponseList extends React.Component {
       }
       if (resp && this.props.selectedFocusPoints) {
         const focusPoints = this.props.selectedFocusPoints.filter(fp => fp.length > 0)
-        const matchAllFocusPoints = focusPoints.some(fp => this.focusPointMatchHelper(resp.text, fp))
+        const matchAllFocusPoints = focusPoints.some(fp => focusPointMatchHelper(resp.text, fp))
         if (matchAllFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
