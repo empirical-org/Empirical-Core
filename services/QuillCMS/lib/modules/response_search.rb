@@ -49,7 +49,7 @@ module ResponseSearch
     if is_regex
       string = build_regex_query_string(query_filters["text"])
     else
-      string = "\"#{query_filters["text"]}\""
+      string = "\"#{query_filters['text']}\""
     end
     
     string = add_question_uid_filter(string, question_uid)
