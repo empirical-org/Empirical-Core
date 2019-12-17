@@ -39,7 +39,7 @@ class ActiveRecord::Relation
     end
 
     loop do
-      items = self.where(table[primary_key].gteq(batch_start))
+      items = where(table[primary_key].gteq(batch_start))
                   .limit(batch_size)
                   .order(table[primary_key].asc)
                   .pluck(*select_columns)
@@ -72,7 +72,7 @@ module IncorrectSequenceCalculator
       counter = train_incorrect_sentences(batch, model, counter)
     end
     amplify(counter, model)
-    return counter.sort_by {|k, v| v }.reverse.first(100).map do |k,v|
+    counter.sort_by {|k, v| v }.reverse.first(100).map do |k,v|
       if k[0] != ' '
         "^#{k}"
       elsif k[-1] != ' '

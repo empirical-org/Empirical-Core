@@ -42,7 +42,7 @@ class ActivitiesController < ApplicationController
 
   def preview_lesson
     if current_user && !user_completed_view_lessons_tutorial?
-      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(preview_url)}"
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(preview_url)}"
     else
       redirect_to preview_url
     end

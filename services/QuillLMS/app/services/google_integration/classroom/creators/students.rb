@@ -2,8 +2,8 @@ module GoogleIntegration::Classroom::Creators::Students
 
   def self.run(classrooms, students_requester)
     students_requester_and_parser = self.students_requester_and_parser(students_requester)
-    student_data = self.get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
-    students = self.create_students(student_data)
+    student_data = get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
+    students = create_students(student_data)
     students.compact
   end
 
@@ -19,7 +19,7 @@ module GoogleIntegration::Classroom::Creators::Students
 
   def self.get_student_data_for_all_classrooms(classrooms, students_requester_and_parser)
     #use string keys as the classrooms are coming through sidekiq and don't have symbols
-    course_ids = classrooms.map{|classroom| classroom["google_classroom_id"] ? classroom["google_classroom_id"] : classroom["id"]}
+    course_ids = classrooms.map{|classroom| classroom["google_classroom_id"] || classroom["id"]}
     # FIXME: there is probably a more performant way to do this. I hijacked it from the
     # old method that waas here in order to avoid the race conditions in student
     # account creation that were occurring when we revisit google classrooms, we should redo this
@@ -37,7 +37,7 @@ module GoogleIntegration::Classroom::Creators::Students
 
   def self.create_students(student_data)
     students = student_data.map do |k, v|
-      self.create_student(student_data[k])
+      create_student(student_data[k])
     end
     students.compact
   end
@@ -68,7 +68,7 @@ module GoogleIntegration::Classroom::Creators::Students
       end
 
       if student.errors.any?
-        student = self.create_student(data, counter += 1)
+        student = create_student(data, counter += 1)
       else
         data[:classrooms].each do |id|
           classroom = Classroom.find(id)

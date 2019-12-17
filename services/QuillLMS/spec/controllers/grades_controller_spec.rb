@@ -12,7 +12,7 @@ describe GradesController do
   describe '#index' do
     it 'should render the correct json' do
       get :index
-      expect(JSON.parse response.body).to eq({"grades" => Classroom::GRADES})
+      expect(JSON.parse(response.body)).to eq({"grades" => Classroom::GRADES})
     end
   end
 

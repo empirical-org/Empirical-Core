@@ -18,7 +18,7 @@ class CleverLibrary::Api::Client
     self.class.get('/districts/' + district_id, @options).parsed_response["data"]
   end
 
-  def user()
+  def user
     self.class.get('/me', @options).parsed_response["data"]
   end
 

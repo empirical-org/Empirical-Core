@@ -11,27 +11,27 @@ module Setup
     end
 
     def find_or_create_parent_in_db(child)
-      found_parent = self.find_parent_concept_from_concepts(child)
+      found_parent = find_parent_concept_from_concepts(child)
       parent = Concept.find_by_name(found_parent["name"])
       if parent.nil?
         parent = create_concept(found_parent)
       end
-      return parent
+      parent
     end
 
     def create_concept(concept)
       con = Concept.new(name: concept["name"], uid: concept["uid"])
       if concept["parent_id"]
-        parent = self.find_or_create_parent_in_db(concept) 
+        parent = find_or_create_parent_in_db(concept)
         con.parent_id = parent.id
       end
       con.save
-      return con
+      con
     end
 
     def create_all
-      self.concepts.each do |con|
-        self.create_concept(con)
+      concepts.each do |con|
+        create_concept(con)
       end
     end
   end

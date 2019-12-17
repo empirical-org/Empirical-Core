@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentGeneralAccountInfo component should render 1`] = `
+<div
+  className="user-account-general user-account-section"
+>
+  <h1>
+    General
+  </h1>
+  <form
+    acceptCharset="UTF-8"
+    onSubmit={[Function]}
+  >
+    <div
+      className="fields"
+    >
+      <Input
+        characterLimit={50}
+        disabled={false}
+        handleChange={[Function]}
+        id="first-name"
+        label="First name"
+        onClick={[Function]}
+        type="text"
+      />
+      <Input
+        characterLimit={50}
+        disabled={false}
+        handleChange={[Function]}
+        id="last-name"
+        label="Last name"
+        onClick={[Function]}
+        type="text"
+      />
+      <Input
+        disabled={false}
+        handleChange={[Function]}
+        helperText=""
+        id="username"
+        label="Username"
+        onClick={[Function]}
+        type="text"
+        value="test-username"
+      />
+      <Input
+        disabled={false}
+        handleChange={[Function]}
+        id="email"
+        label="Email (Optional)"
+        onClick={[Function]}
+        type="text"
+        value="test@email.com"
+      />
+    </div>
+  </form>
+</div>
+`;

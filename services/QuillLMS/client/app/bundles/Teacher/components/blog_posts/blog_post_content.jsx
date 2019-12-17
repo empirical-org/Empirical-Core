@@ -16,7 +16,7 @@ export default class BlogPostContent extends React.Component {
         <div id='quill-article-paywall'>
           <h2>This article is only for Premium users.</h2>
           <p>Quill Premium users have access to a slew of awesome features, including premium reports, priority support, and enhanced professional development opportunities.</p>
-          <a href='/premium'>Try Quill Premium <i className='fa fa-star' /></a>
+          <a href='/premium'>Try Quill Premium <i className='fas fa-star' /></a>
         </div>
       );
     } else {

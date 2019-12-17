@@ -1,2 +1,2 @@
-ActiveRecord::Base.send :include, Owner
+ActiveRecord::Base.include Owner
 

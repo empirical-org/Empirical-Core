@@ -54,7 +54,7 @@ class RematchResponseWorker
                      lambda_payload.to_json,
                      "Content-Type" => "application/json"
     raise Net::HTTPRetriableError.new("Timed out rematching response #{lambda_payload[:response][:id]}", 504) if resp.is_a?(Net::HTTPGatewayTimeOut)
-    raise Net::HTTPError.new("Got a non-200 response trying to rematch #{lambda_payload[:response][:id]}") if resp.code != '200'
+    raise Net::HTTPError.new("Got a non-200 response trying to rematch #{lambda_payload[:response][:id]}", resp.code) if resp.code != '200'
     JSON.parse(resp.body)
   end
 
@@ -72,9 +72,9 @@ class RematchResponseWorker
 
   def get_firebase_path(question_uid, question_type)
     if question_type == 'grammar_questions'
-      return "/v3/questions/#{question_uid}.json"
+      "/v3/questions/#{question_uid}.json"
     else
-      return "/v2/#{question_type}/#{question_uid}.json"
+      "/v2/#{question_type}/#{question_uid}.json"
     end
   end
 end

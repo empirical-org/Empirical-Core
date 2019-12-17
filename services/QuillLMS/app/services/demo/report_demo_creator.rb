@@ -1,18 +1,22 @@
 module Demo::ReportDemoCreator
 
   def self.create_demo(name)
-    teacher = self.create_teacher(name)
-    classroom = self.create_classroom(teacher)
-    students = self.create_students(classroom)
-    unit = self.create_unit(teacher)
-    classroom_units = self.create_classroom_units(classroom, unit)
-    unit_activities = self.create_unit_activities(unit)
-    activity_sessions = self.create_activity_sessions(students)
-    subscription = self.create_subscription(teacher)
+    teacher = create_teacher(name)
+    classroom = create_classroom(teacher)
+    students = create_students(classroom)
+    unit = create_unit(teacher)
+    classroom_units = create_classroom_units(classroom, unit)
+    unit_activities = create_unit_activities(unit)
+    activity_sessions = create_activity_sessions(students)
+    subscription = create_subscription(teacher)
   end
 
   def self.create_teacher(name)
     email = name ? "hello+#{name}@quill.org" : "hello+demoteacher@quill.org"
+
+    existing_teacher = User.find_by_email(email)
+    existing_teacher.destroy if existing_teacher
+
     values = {
       name: "Demo Teacher",
       email: email,
@@ -20,6 +24,7 @@ module Demo::ReportDemoCreator
       password: 'password',
       password_confirmation: 'password',
     }
+
     teacher = User.create(values)
   end
 
@@ -123,7 +128,7 @@ module Demo::ReportDemoCreator
 
   def self.create_activity_sessions(students)
     templates = [
-      {849 => 657589,
+      {849 => 2949282,
       437 => 313241,
       434 => 446637,
       215 => 369874,
@@ -134,7 +139,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 657588,
+      {849 => 2949340,
       437 => 409030,
       434 => 313319,
       215 => 370995,
@@ -145,7 +150,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 657593,
+      {849 => 2949330,
       437 => 446637,
       434 => 312664,
       215 => 369875,
@@ -156,7 +161,7 @@ module Demo::ReportDemoCreator
       418 => 662204},
 
 
-      {849 => 657586,
+      {849 => 2949353,
       437 => 312664,
       434 => 313241,
       215 => 369883,
@@ -166,8 +171,7 @@ module Demo::ReportDemoCreator
       295 => 442653,
       418 => 662204},
 
-
-      {849 => 657503,
+      {849 => 3050346,
       437 => 446641,
       434 => 446641,
       215 => 369872,

@@ -7,7 +7,7 @@ exports[`NotificationBox component should render 1`] = `
   <p>
     <i
       aria-hidden="true"
-      className="fa fa-lightbulb-o"
+      className="fas fa-lightbulb-o"
     />
     hi
   </p>
