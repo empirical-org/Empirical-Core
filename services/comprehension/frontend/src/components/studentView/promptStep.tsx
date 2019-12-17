@@ -34,7 +34,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   lastSubmittedResponse = () => {
     const { submittedResponses, } = this.props
-    return submittedResponses.length ? submittedResponses.slice(-1)[0] : {}
+    return submittedResponses.length ? submittedResponses[submittedResponses.length - 1] : {}
   }
 
   unsubmittableResponses = () => {
@@ -51,7 +51,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
 
-  lastWord = (str: string) => str.split(' ').splice(-1)[0]
+  lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
   handleTextChange = (e) => {
     const { html, } = this.state

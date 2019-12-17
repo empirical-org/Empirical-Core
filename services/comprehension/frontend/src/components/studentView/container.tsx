@@ -1,5 +1,6 @@
 import * as React from "react";
-import {connect} from "react-redux";
+import queryString from 'query-string';
+import { connect } from "react-redux";
 
 import PromptStep from './promptStep'
 import LoadingSpinner from '../shared/loadingSpinner'
@@ -15,6 +16,7 @@ interface StudentViewContainerProps {
   dispatch: Function;
   activities: ActivitiesReducerState;
   session: SessionReducerState;
+  location: any;
 }
 
 interface StudentViewContainerState {
@@ -53,7 +55,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
-  activityUID = () => getParameterByName('uid', window.location.href)
+  activityUID = () => {
+    const { search, } = this.props.location
+    if (!search) { return }
+    return queryString.parse(search).uid
+  }
 
   submitResponse = (entry: string, promptID: string) => {
     const activityUID = this.activityUID()

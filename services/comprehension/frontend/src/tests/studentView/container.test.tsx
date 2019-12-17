@@ -2,6 +2,9 @@ import * as React from 'react'
 import { shallow, mount, } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
+import queryStringMock from '../../../__mocks__/query-string';
+jest.mock('query-string')
+
 import { StudentViewContainer } from '../../components/studentView/container'
 import LoadingSpinner from '../../components/shared/loadingSpinner'
 import PromptStep from '../../components/studentView/promptStep'
@@ -15,6 +18,7 @@ describe('StudentViewContainer component', () => {
       activities={activitiesReducer}
       dispatch={() => {}}
       session={sessionReducer}
+      location={{ search: "?uid=1" }}
     />)
 
     it('renders', () => {
@@ -96,6 +100,7 @@ describe('StudentViewContainer component', () => {
       activities={activitiesReducer}
       dispatch={() => {}}
       session={sessionReducer}
+      location={{ search: "?uid=1" }}
     />)
 
     it('renders a loading spinner', () => {
