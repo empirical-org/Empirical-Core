@@ -199,7 +199,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           },
         },
         (err, httpResponse, body) => {
-          if (httpResponse.statusCode === 200) {
+          if (httpResponse && httpResponse.statusCode === 200) {
             this.removeSession()
             if (!this.state.showTurkCode) {
               document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
