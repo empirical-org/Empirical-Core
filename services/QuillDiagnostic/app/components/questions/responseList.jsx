@@ -39,7 +39,7 @@ export default class ResponseList extends React.Component {
     const matchList = sequenceParticle.split('&&');
     return _.every(matchList, m => {
       if (isValidRegex(m)) {
-        return new RegExp(m).test(responseString)
+        return new RegExp(m, 'i').test(responseString)
       } else {
         return false
       }
