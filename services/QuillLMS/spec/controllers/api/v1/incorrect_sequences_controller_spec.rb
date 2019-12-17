@@ -94,6 +94,13 @@ describe Api::V1::IncorrectSequencesController, type: :controller do
       expect(question.data["incorrectSequences"]).to eq(data)
     end
 
+    it "should handle array data as an input" do
+      data = [{"foo" => "bar"}, {"boo" => "baz"}]
+      put :update_all, question_id: question.uid, incorrect_sequence: data
+      question.reload
+      expect(question.data["incorrectSequences"]).to eq(data)
+    end
+
     it "should return a 404 if the requested Question is not found" do
       put :update_all, question_id: 'doesnotexist'
       expect(response.status).to eq(404)
