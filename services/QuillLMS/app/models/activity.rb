@@ -100,7 +100,7 @@ class Activity < ActiveRecord::Base
     module_url_helper(initial_params)
   end
 
-  # TODO cleanup
+  # TODO: cleanup
   def flag flag = nil
     return super(flag) unless flag.nil?
     flags.first

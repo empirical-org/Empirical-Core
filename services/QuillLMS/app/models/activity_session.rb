@@ -229,7 +229,7 @@ class ActivitySession < ActiveRecord::Base
 
   alias owner user
 
-  # TODO legacy fix
+  # TODO: legacy fix
   def anonymous= anonymous
     self.temporary = anonymous
   end

@@ -1,13 +1,13 @@
 class StatsController < ApplicationController
 
   def question_health_index
-    # TODO - This query takes 327 seconds on average (almost 6 minutes) to run, commenting out for now
+    # TODO: - This query takes 327 seconds on average (almost 6 minutes) to run, commenting out for now
     #question_health_index_helper('lessons', 'datadash')
     render json: :ok
   end
 
   def diagnostic_question_health_index
-    # TODO - This query takes 186 seconds on average (3 minutes) to run, commenting out for now
+    # TODO: - This query takes 186 seconds on average (3 minutes) to run, commenting out for now
     #question_health_index_helper('diagnostics', 'diagnostic_datadash')
     render json: :ok
   end
