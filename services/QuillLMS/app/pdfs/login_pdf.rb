@@ -73,7 +73,7 @@ class LoginPdf < Prawn::Document
   end
 
   def render_section_for_one_student(student)
-    font("Helvetica", size: 18, style: :bold) do
+    font("DejaVuSans", size: 18, style: :bold) do
       text_box(
         student.name,
         at: [0, cursor],
@@ -91,7 +91,7 @@ class LoginPdf < Prawn::Document
         fill_color '000000'
         render_text username_or_email_for_student(student), 10
         move_down 2
-        font("Helvetica", style: :bold) do
+        font("DejaVuSans", style: :bold) do
           text_box(
             username_or_email_value_for_student(student),
             at: [0, cursor],
@@ -103,7 +103,7 @@ class LoginPdf < Prawn::Document
         move_down 20
         render_password_instructions_for_student(student)
         move_down 2
-        font("Helvetica", style: :bold) do
+        font("DejaVuSans", style: :bold) do
           text_box(
             render_password_for_student(student),
             at: [0, cursor],
@@ -174,8 +174,7 @@ class LoginPdf < Prawn::Document
   end
 
   def render_login_pdf
-    font("Helvetica")
-    fallback_fonts(["DejaVuSans"])
+    font("DejaVuSans")
     render_cover_page_header
     render_cover_page_table
     start_new_page
