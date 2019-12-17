@@ -63,7 +63,7 @@ class BlogPostsController < ApplicationController
     else
       topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
       if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
-        raise ActionController::RoutingError.new('Topic Not Found')
+        raise ActionController::RoutingError, 'Topic Not Found'
       end
       @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       # hide student part of topic name for display

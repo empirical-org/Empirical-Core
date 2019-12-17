@@ -105,7 +105,7 @@ class StudentDiagnostic extends React.Component {
         }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           SessionActions.delete(this.state.sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL
@@ -133,7 +133,7 @@ class StudentDiagnostic extends React.Component {
         }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
