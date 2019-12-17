@@ -66,9 +66,7 @@ class Concept < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
       find_by(uid: arg)
     rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound.new(
-        "Couldn't find Concept with 'id' or 'uid'=#{arg}"
-      )
+      raise ActiveRecord::RecordNotFound, "Couldn't find Concept with 'id' or 'uid'=#{arg}"
     end
   end
 
