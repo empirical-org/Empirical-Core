@@ -22,6 +22,11 @@ export default React.createClass({
 
   submit: function () {
     const questionObj = {
+      conceptUID: this.props.question.conceptUID,
+      cuesLabel: this.props.question.cuesLabel,
+      focusPoints: this.props.question.focusPoints,
+      incorrectSequences: this.props.question.incorrectSequences,
+      modelConceptUID: this.props.question.modelConceptUID,
       prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
       cues: this.refs.cues.value.split(','),
