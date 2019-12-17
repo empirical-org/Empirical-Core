@@ -361,6 +361,7 @@ Style/MixinUsage:
     - 'QuillCMS/bin/update'
     - 'QuillComprehension/bin/setup'
     - 'QuillComprehension/bin/update'
+    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
     - 'QuillLMS/db/seeds.rb'
     - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
     - 'QuillLMS/spec/workers/fast_assign_worker_spec.rb'
