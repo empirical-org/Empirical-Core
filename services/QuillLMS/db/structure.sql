@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.11
--- Dumped by pg_dump version 10.11
+-- Dumped from database version 10.3 (Ubuntu 10.3-1.pgdg16.04+1)
+-- Dumped by pg_dump version 10.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -359,7 +359,7 @@ CREATE TABLE activities (
     name character varying(255),
     description text,
     uid character varying(255) NOT NULL,
-    data public.hstore,
+    data hstore,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
@@ -375,7 +375,7 @@ CREATE TABLE activities (
 -- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activities_id_seq
+CREATE SEQUENCE activities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -439,7 +439,7 @@ CREATE TABLE activity_categories (
 -- Name: activity_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_categories_id_seq
+CREATE SEQUENCE activity_categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -472,7 +472,7 @@ CREATE TABLE activity_category_activities (
 -- Name: activity_category_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_category_activities_id_seq
+CREATE SEQUENCE activity_category_activities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -512,7 +512,7 @@ CREATE TABLE activity_classifications (
 -- Name: activity_classifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_classifications_id_seq
+CREATE SEQUENCE activity_classifications_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -590,7 +590,7 @@ CREATE TABLE activity_sessions (
 -- Name: activity_sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.activity_sessions_id_seq
+CREATE SEQUENCE activity_sessions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -634,7 +634,7 @@ CREATE TABLE admin_accounts_admins (
 -- Name: admin_accounts_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.admin_accounts_admins_id_seq
+CREATE SEQUENCE admin_accounts_admins_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -653,7 +653,7 @@ ALTER SEQUENCE admin_accounts_admins_id_seq OWNED BY admin_accounts_admins.id;
 -- Name: admin_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.admin_accounts_id_seq
+CREATE SEQUENCE admin_accounts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -685,7 +685,7 @@ CREATE TABLE admin_accounts_teachers (
 -- Name: admin_accounts_teachers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.admin_accounts_teachers_id_seq
+CREATE SEQUENCE admin_accounts_teachers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -786,7 +786,7 @@ CREATE TABLE authors (
 -- Name: authors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.authors_id_seq
+CREATE SEQUENCE authors_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -900,7 +900,7 @@ CREATE TABLE categories (
 -- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.categories_id_seq
+CREATE SEQUENCE categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -972,7 +972,7 @@ CREATE TABLE checkboxes (
 -- Name: checkboxes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.checkboxes_id_seq
+CREATE SEQUENCE checkboxes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1012,7 +1012,7 @@ CREATE TABLE classroom_activities (
 -- Name: classroom_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.classroom_activities_id_seq
+CREATE SEQUENCE classroom_activities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1124,7 +1124,7 @@ CREATE TABLE classrooms (
 -- Name: classrooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.classrooms_id_seq
+CREATE SEQUENCE classrooms_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1158,7 +1158,7 @@ CREATE TABLE classrooms_teachers (
 -- Name: classrooms_teachers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.classrooms_teachers_id_seq
+CREATE SEQUENCE classrooms_teachers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1177,7 +1177,7 @@ ALTER SEQUENCE classrooms_teachers_id_seq OWNED BY classrooms_teachers.id;
 -- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.comments (
+CREATE TABLE comments (
     id integer NOT NULL,
     title character varying(255),
     body text,
@@ -1194,7 +1194,7 @@ CREATE TABLE public.comments (
 -- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.comments_id_seq
+CREATE SEQUENCE comments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1206,7 +1206,7 @@ CREATE SEQUENCE public.comments_id_seq
 -- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
+ALTER SEQUENCE comments_id_seq OWNED BY comments.id;
 
 
 --
@@ -1227,7 +1227,7 @@ CREATE TABLE concept_results (
 -- Name: concept_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.concept_results_id_seq
+CREATE SEQUENCE concept_results_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1263,7 +1263,7 @@ CREATE TABLE concepts (
 -- Name: concepts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.concepts_id_seq
+CREATE SEQUENCE concepts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1295,7 +1295,7 @@ CREATE TABLE coteacher_classroom_invitations (
 -- Name: coteacher_classroom_invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.coteacher_classroom_invitations_id_seq
+CREATE SEQUENCE coteacher_classroom_invitations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1398,7 +1398,7 @@ CREATE TABLE csv_exports (
 -- Name: csv_exports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.csv_exports_id_seq
+CREATE SEQUENCE csv_exports_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1431,7 +1431,7 @@ CREATE TABLE districts (
 -- Name: districts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.districts_id_seq
+CREATE SEQUENCE districts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1474,7 +1474,7 @@ CREATE TABLE file_uploads (
 -- Name: file_uploads_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.file_uploads_id_seq
+CREATE SEQUENCE file_uploads_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1507,7 +1507,7 @@ CREATE TABLE firebase_apps (
 -- Name: firebase_apps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.firebase_apps_id_seq
+CREATE SEQUENCE firebase_apps_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1573,7 +1573,7 @@ CREATE TABLE invitations (
 -- Name: invitations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.invitations_id_seq
+CREATE SEQUENCE invitations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1608,7 +1608,7 @@ CREATE TABLE ip_locations (
 -- Name: ip_locations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.ip_locations_id_seq
+CREATE SEQUENCE ip_locations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1639,7 +1639,7 @@ CREATE TABLE milestones (
 -- Name: milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.milestones_id_seq
+CREATE SEQUENCE milestones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1709,7 +1709,7 @@ CREATE TABLE oauth_access_grants (
 -- Name: oauth_access_grants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.oauth_access_grants_id_seq
+CREATE SEQUENCE oauth_access_grants_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1745,7 +1745,7 @@ CREATE TABLE oauth_access_tokens (
 -- Name: oauth_access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.oauth_access_tokens_id_seq
+CREATE SEQUENCE oauth_access_tokens_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1779,7 +1779,7 @@ CREATE TABLE oauth_applications (
 -- Name: oauth_applications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.oauth_applications_id_seq
+CREATE SEQUENCE oauth_applications_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1815,7 +1815,7 @@ CREATE TABLE objectives (
 -- Name: objectives_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.objectives_id_seq
+CREATE SEQUENCE objectives_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1875,7 +1875,7 @@ CREATE TABLE page_areas (
 -- Name: page_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.page_areas_id_seq
+CREATE SEQUENCE page_areas_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2064,7 +2064,7 @@ ALTER SEQUENCE referrer_users_id_seq OWNED BY referrer_users.id;
 -- Name: rules_misseds; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.rules_misseds (
+CREATE TABLE rules_misseds (
     id integer NOT NULL,
     rule_id integer,
     user_id integer,
@@ -2080,7 +2080,7 @@ CREATE TABLE public.rules_misseds (
 -- Name: rules_misseds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.rules_misseds_id_seq
+CREATE SEQUENCE rules_misseds_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2092,7 +2092,7 @@ CREATE SEQUENCE public.rules_misseds_id_seq
 -- Name: rules_misseds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.rules_misseds_id_seq OWNED BY public.rules_misseds.id;
+ALTER SEQUENCE rules_misseds_id_seq OWNED BY rules_misseds.id;
 
 
 --
@@ -2201,7 +2201,7 @@ ALTER SEQUENCE sales_stages_id_seq OWNED BY sales_stages.id;
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.schema_migrations (
+CREATE TABLE schema_migrations (
     version character varying(255) NOT NULL
 );
 
@@ -2223,7 +2223,7 @@ CREATE TABLE school_subscriptions (
 -- Name: school_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.school_subscriptions_id_seq
+CREATE SEQUENCE school_subscriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2297,7 +2297,7 @@ CREATE TABLE schools_admins (
 -- Name: schools_admins_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.schools_admins_id_seq
+CREATE SEQUENCE schools_admins_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2316,7 +2316,7 @@ ALTER SEQUENCE schools_admins_id_seq OWNED BY schools_admins.id;
 -- Name: schools_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.schools_id_seq
+CREATE SEQUENCE schools_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2346,7 +2346,7 @@ CREATE TABLE schools_users (
 -- Name: schools_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.schools_users_id_seq
+CREATE SEQUENCE schools_users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2379,7 +2379,7 @@ CREATE TABLE sections (
 -- Name: sections_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.sections_id_seq
+CREATE SEQUENCE sections_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2412,7 +2412,7 @@ CREATE TABLE students_classrooms (
 -- Name: students_classrooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.students_classrooms_id_seq
+CREATE SEQUENCE students_classrooms_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2486,7 +2486,7 @@ CREATE TABLE subscriptions (
 -- Name: subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.subscriptions_id_seq
+CREATE SEQUENCE subscriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2586,7 +2586,7 @@ CREATE TABLE topic_categories (
 -- Name: topic_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.topic_categories_id_seq
+CREATE SEQUENCE topic_categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2620,7 +2620,7 @@ CREATE TABLE topics (
 -- Name: topics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.topics_id_seq
+CREATE SEQUENCE topics_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2687,7 +2687,7 @@ CREATE TABLE unit_template_categories (
 -- Name: unit_template_categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.unit_template_categories_id_seq
+CREATE SEQUENCE unit_template_categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2726,7 +2726,7 @@ CREATE TABLE unit_templates (
 -- Name: unit_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.unit_templates_id_seq
+CREATE SEQUENCE unit_templates_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2760,7 +2760,7 @@ CREATE TABLE units (
 -- Name: units_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.units_id_seq
+CREATE SEQUENCE units_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2792,7 +2792,7 @@ CREATE TABLE user_milestones (
 -- Name: user_milestones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.user_milestones_id_seq
+CREATE SEQUENCE user_milestones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2824,7 +2824,7 @@ CREATE TABLE user_subscriptions (
 -- Name: user_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.user_subscriptions_id_seq
+CREATE SEQUENCE user_subscriptions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2875,7 +2875,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.users_id_seq
+CREATE SEQUENCE users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -3152,7 +3152,7 @@ ALTER TABLE ONLY classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('classr
 -- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
+ALTER TABLE ONLY comments ALTER COLUMN id SET DEFAULT nextval('comments_id_seq'::regclass);
 
 
 --
@@ -3327,7 +3327,7 @@ ALTER TABLE ONLY referrer_users ALTER COLUMN id SET DEFAULT nextval('referrer_us
 -- Name: rules_misseds id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.rules_misseds ALTER COLUMN id SET DEFAULT nextval('public.rules_misseds_id_seq'::regclass);
+ALTER TABLE ONLY rules_misseds ALTER COLUMN id SET DEFAULT nextval('rules_misseds_id_seq'::regclass);
 
 
 --
@@ -3694,7 +3694,7 @@ ALTER TABLE ONLY classrooms_teachers
 -- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.comments
+ALTER TABLE ONLY comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
@@ -3894,7 +3894,7 @@ ALTER TABLE ONLY referrer_users
 -- Name: rules_misseds rules_misseds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.rules_misseds
+ALTER TABLE ONLY rules_misseds
     ADD CONSTRAINT rules_misseds_pkey PRIMARY KEY (id);
 
 
@@ -4655,7 +4655,7 @@ CREATE INDEX index_questions_on_question_type ON public.questions USING btree (q
 -- Name: index_questions_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_questions_on_uid ON public.questions USING btree (uid);
+CREATE UNIQUE INDEX index_questions_on_uid ON public.questions USING btree (uid);
 
 
 --
@@ -6127,14 +6127,6 @@ INSERT INTO schema_migrations (version) VALUES ('20191022142949');
 INSERT INTO schema_migrations (version) VALUES ('20191024150907');
 
 INSERT INTO schema_migrations (version) VALUES ('20191030183959');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122153830');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122155902');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122160057');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122161233');
 
 INSERT INTO schema_migrations (version) VALUES ('20191122181105');
 
