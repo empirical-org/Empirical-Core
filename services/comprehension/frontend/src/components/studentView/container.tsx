@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import PromptStep from './promptStep'
 import LoadingSpinner from '../shared/loadingSpinner'
-import getParameterByName from '../../helpers/getParameterByName'
 import { getActivity } from "../../actions/activities";
 import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'

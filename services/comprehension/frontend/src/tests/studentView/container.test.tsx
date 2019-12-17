@@ -17,8 +17,8 @@ describe('StudentViewContainer component', () => {
     const wrapper = mount(<StudentViewContainer
       activities={activitiesReducer}
       dispatch={() => {}}
-      session={sessionReducer}
       location={{ search: "?uid=1" }}
+      session={sessionReducer}
     />)
 
     it('renders', () => {
@@ -99,8 +99,8 @@ describe('StudentViewContainer component', () => {
     const wrapper = shallow(<StudentViewContainer
       activities={activitiesReducer}
       dispatch={() => {}}
-      session={sessionReducer}
       location={{ search: "?uid=1" }}
+      session={sessionReducer}
     />)
 
     it('renders a loading spinner', () => {
