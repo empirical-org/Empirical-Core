@@ -37,6 +37,6 @@ class SalesmachineClient
   end
 
   def auth_header_value
-    "Basic #{Base64.encode64(@api_key + ":")}"
+    "Basic #{Base64.encode64(@api_key + ':')}"
   end
 end
