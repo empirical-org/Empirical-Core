@@ -125,16 +125,6 @@ Layout/CommentIndentation:
     - 'QuillLMS/spec/models/activity_session_spec.rb'
     - 'QuillLMS/spec/services/google_integration/classroom/main_spec.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: leading, trailing
-Layout/DotPosition:
-  Exclude:
-    - 'QuillCMS/spec/workers/rematch_response_worker_spec.rb'
-    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
-
-
 # Offense count: 11
 # Cop supports --auto-correct.
 # Configuration parameters: AllowBorderComment, AllowMarginComment.
@@ -377,21 +367,6 @@ Layout/SpaceBeforeComma:
     - 'QuillLMS/spec/workers/sync_sales_accounts_worker_spec.rb'
     - 'QuillLMS/spec/workers/user_login_worker_spec.rb'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Layout/SpaceBeforeFirstArg:
-  Exclude:
-    - 'QuillLMS/app/models/unit_activity.rb'
-    - 'QuillLMS/spec/controllers/cms/activities_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/cms/sections_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/sessions_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/teachers/unit_templates_controller_spec.rb'
-    - 'QuillLMS/spec/controllers/teachers_controller_spec.rb'
-    - 'QuillLMS/spec/factories/classroom_unit_activity_state.rb'
-    - 'QuillLMS/spec/factories/oauth_application.rb'
-    - 'QuillLMS/spec/factories/subscription.rb'
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
@@ -532,11 +507,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 230
 
-# Offense count: 8
-# Configuration parameters: CountKeywordArgs.
-Metrics/ParameterLists:
-  Max: 7
-
 # Offense count: 44
 Metrics/PerceivedComplexity:
   Max: 28
@@ -667,20 +637,6 @@ Style/ColonMethodCall:
     - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
     - 'QuillLMS/lib/tasks/fix_clever_bug.rake'
 
-# Offense count: 9
-# Cop supports --auto-correct.
-# Configuration parameters: Keywords.
-# Keywords: TODO, FIXME, OPTIMIZE, HACK, REVIEW
-Style/CommentAnnotation:
-  Exclude:
-    - 'QuillCMS/app/controllers/stats_controller.rb'
-    - 'QuillComprehension/app/controllers/play_controller.rb'
-    - 'QuillLMS/app/models/activity.rb'
-    - 'QuillLMS/app/models/activity_session.rb'
-    - 'QuillLMS/spec/controllers/teachers/units_controller_spec.rb'
-    - 'QuillLMS/spec/models/user_milestone_spec.rb'
-    - 'QuillLMS/spec/models/user_spec.rb'
-
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
@@ -710,20 +666,6 @@ Style/DoubleNegation:
     - 'QuillLMS/script/recommendations/01_import_group_lesson_recommendations.rb'
     - 'QuillLMS/spec/controllers/pages_controller_spec.rb'
     - 'QuillLMS/spec/models/classroom_spec.rb'
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty, nil, both
-Style/EmptyElse:
-  Exclude:
-    - 'QuillLMS/app/controllers/cms/schools_controller.rb'
-    - 'QuillLMS/app/controllers/cms/users_controller.rb'
-    - 'QuillLMS/app/models/concerns/teacher.rb'
-    - 'QuillLMS/app/models/subscription.rb'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/app/services/google_integration/refresh_access_token.rb'
-    - 'QuillLMS/lib/clever_library/api/client.rb'
 
 # Offense count: 43
 # Cop supports --auto-correct.
@@ -775,15 +717,6 @@ Style/HashSyntax:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 9
-# Cop supports --auto-correct.
-Style/LineEndConcatenation:
-  Exclude:
-    - 'QuillLMS/app/helpers/application_helper.rb'
-    - 'QuillLMS/app/helpers/concept_helper.rb'
-    - 'QuillLMS/spec/controllers/api/v1/classroom_units_controller_spec.rb'
-    - 'QuillLMS/spec/services/notify_of_completed_activity_spec.rb'
-
 # Offense count: 20
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.
@@ -808,18 +741,6 @@ Style/MethodCallWithoutArgsParentheses:
 # SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
 Style/MethodDefParentheses:
   Enabled: false
-
-# Offense count: 8
-Style/MixinUsage:
-  Exclude:
-    - 'QuillCMS/bin/setup'
-    - 'QuillCMS/bin/update'
-    - 'QuillComprehension/bin/setup'
-    - 'QuillComprehension/bin/update'
-    - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
-    - 'QuillLMS/db/seeds.rb'
-    - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
-    - 'QuillLMS/spec/workers/fast_assign_worker_spec.rb'
 
 # Offense count: 111
 # Cop supports --auto-correct.
@@ -891,18 +812,6 @@ Style/Proc:
     - 'QuillLMS/config/initializers/rails_admin.rb'
     - 'QuillLMS/lib/eg_form_builder.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'QuillLMS/app/controllers/blog_posts_controller.rb'
-    - 'QuillLMS/app/controllers/invitations_controller.rb'
-    - 'QuillLMS/app/models/activity.rb'
-    - 'QuillLMS/app/models/concept.rb'
-    - 'QuillCMS/app/workers/rematch_response_worker.rb'
-
 # Offense count: 23
 # Cop supports --auto-correct.
 Style/RedundantBegin:
@@ -955,18 +864,6 @@ Style/Semicolon:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'QuillCMS/lib/modules/response_search.rb'
-    - 'QuillCMS/lib/tasks/sync_lms_and_connect_flags.rake'
-    - 'QuillLMS/app/controllers/pages_controller.rb'
-    - 'QuillLMS/lib/salesmachine_client.rb'
-    - 'QuillLMS/spec/lib/salesmachine_client_spec.rb'
 
 # Offense count: 135
 # Cop supports --auto-correct.
@@ -1085,5 +982,3 @@ Metrics/LineLength:
 
 Style/AccessModifierDeclarations:
   Enabled: false
-  Exclude:
-    - 'QuillLMS/app/controllers/api/v1/questions_controller.rb'

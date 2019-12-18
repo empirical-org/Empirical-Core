@@ -135,7 +135,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         format: 'json'
       )
 
-      expected_url = "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/" +
+      expected_url = "#{ENV['DEFAULT_URL']}/activity_sessions/classroom_units/" \
         "#{classroom_unit.id}/activities/#{activity.follow_up_activity_id}"
 
       expect(JSON.parse(response.body))
