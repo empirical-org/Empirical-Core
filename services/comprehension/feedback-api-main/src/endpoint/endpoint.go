@@ -7,27 +7,22 @@ import (
 	"net/http"
 	"encoding/json"
 	"time"
+	"io/ioutil"
 )
 
 func EndPoint(responseWriter http.ResponseWriter, request *http.Request) {
 	start := time.Now()
-	// mocking the API Request
-	// TODO pass in real API request
-	api_request := APIRequest{Entry: "more people vote", Prompt_id: 98, Session_id: "Asfasdf", Attempt: 2}
-	request_json, err := json.Marshal(api_request)
 
+	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
-		fmt.Println("Marshall error", err)
-		// TODO return an APIResponse
-		return
+	  http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
+	  return
 	}
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
-		"https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check",
 		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
 		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
-		"https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check",
 	}
 
 	results := map[int]APIResponse{}
@@ -35,7 +30,7 @@ func EndPoint(responseWriter http.ResponseWriter, request *http.Request) {
 	c := make(chan InternalAPIResponse)
 
 	for priority, url := range urls {
-		go getAPIResponse(url, priority, request_json, c)
+		go getAPIResponse(url, priority, request_body, c)
 	}
 
 	var returnable_result APIResponse
@@ -88,12 +83,12 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
 	start := time.Now()
 	fmt.Println("\n*****in request***************\n", url, time.Now())
-	response_json, err := http.Post(url, "application/json", bytes.NewBuffer(json_params))
+	response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
 	fmt.Println("\n*****response received***************\n", url, time.Now())
 	if err != nil {
 		fmt.Println("error: ", err)
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an endpoint hitting the API", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an error hitting the API", Optimal: false}}
 		return
 	}
 
