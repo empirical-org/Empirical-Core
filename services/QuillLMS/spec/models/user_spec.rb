@@ -1184,25 +1184,25 @@ describe User, type: :model do
       create(:student, clever_id: 'already_used')
       new_user = build(:student, clever_id: 'already_used')
       new_user.save
-      expect(new_user.id.nil?).to_be
+      expect(new_user.save).not_to be
     end
 
     it 'should pass the validation if the user already exists and has not changed their clever id, even if another user already has it' do
-      create(:student, clever_id: 'already_used')
-      second_user = build(:student, clever_id: 'already_used')
-      second_user.save(:validate => false)
-      expect(second_user.update(name: 'Clever User')).to be
+      create(:teacher, clever_id: 'already_used')
+      second_user = build(:teacher, clever_id: 'already_used')
+      second_user.save!(validate: false)
+      expect(second_user.update!(name: 'Clever User')).to be
     end
 
     it 'should not pass the validation if the user already exists and is changing their clever id to a non-unique one' do
       create(:student, clever_id: 'already_used')
       second_user = create(:student, clever_id: 'different_clever_id')
-      expect(second_user.update(clever_id: 'already_used')).not_to be
+      expect(second_user.update(clever_id: 'already_used')).to eq false
     end
 
     it 'should pass the validation if the user already exists and changes their clever id to a unique one' do
       user = create(:student)
-      expect(user.update(clever_id: 'something')).to_be
+      expect(user.update(clever_id: 'something')).to be
     end
   end
 end
