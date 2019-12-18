@@ -18,35 +18,35 @@
         <tbody>
             <tr>
                 <td class="left-cell medium-text">👨 Daily Active Teachers</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @daily_active_teachers %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@daily_active_teachers) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">👧 Daily Active Students</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @daily_active_students%></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@daily_active_students)%></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">👩 New Teacher Sign Ups</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @new_teacher_signups %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@new_teacher_signups) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">👦 New Student Sign Ups</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @new_student_signups %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@new_student_signups) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">🏫 Classrooms Created</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @classrooms_created %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@classrooms_created) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">📚 Activities Assigned</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @activities_assigned %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@activities_assigned) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">✏️ Sentences Written*</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @sentences_written %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@sentences_written) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">📝 Diagnostics Completed</td>
-                <td class="right-cell medium-text" align="center"><h1><%= @diagnostics_completed %></h1></td>
+                <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@diagnostics_completed) %></h1></td>
             </tr>
         </tbody>
       </table>
