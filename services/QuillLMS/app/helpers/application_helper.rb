@@ -55,8 +55,8 @@ module ApplicationHelper
     classroom_id = activity_session&.classroom&.id
     user_id = activity_session&.user_id
 
-    "/teachers/progress_reports/diagnostic_reports#/" +
-    "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" +
+    "/teachers/progress_reports/diagnostic_reports#/" \
+    "u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/student_report/" \
     "#{user_id}"
   end
 end
