@@ -27,7 +27,7 @@ describe Cms::SectionsController do
     end
   end
 
-  describe  '#update' do
+  describe '#update' do
     let!(:section) { create(:section) }
 
     it 'should update the given section' do

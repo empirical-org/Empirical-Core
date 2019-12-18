@@ -7,7 +7,7 @@ describe User, type: :model do
   it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
   it { is_expected.to callback(:check_for_school).after(:save) }
 
-  #TODO the validation uses a proc, figure out how to stub that
+  #TODO: the validation uses a proc, figure out how to stub that
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
   it { should have_many(:notifications) }
@@ -32,7 +32,7 @@ describe User, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:password) }
 
-  #TODO matchers don't support if conditions
+  #TODO: matchers don't support if conditions
   #it { should validate_presence_of(:email).on(:create) }
   #it { should validate_uniqueness_of(:email).on(:create) }
   #it { should validate_presence_of(:username).on(:create) }
