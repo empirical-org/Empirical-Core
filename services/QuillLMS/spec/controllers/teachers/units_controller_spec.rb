@@ -141,7 +141,7 @@ describe Teachers::UnitsController, type: :controller do
       expect(response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
     end
 
-    # TODO write a VCR-like test to check when this request returns something other than what we expect.
+    # TODO: write a VCR-like test to check when this request returns something other than what we expect.
   end
 
   describe '#update' do
