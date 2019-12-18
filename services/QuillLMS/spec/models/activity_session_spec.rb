@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe ActivitySession, type: :model, redis: :true do
+describe ActivitySession, type: :model, redis: true do
 
   it { should belong_to(:classroom_unit) }
   it { should belong_to(:activity) }

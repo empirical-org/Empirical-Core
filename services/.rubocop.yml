@@ -320,3 +320,15 @@ Layout/MultilineHashBraceLayout:
   Enabled: true
   Exclude:
     - 'QuillLMS/spec/services/google_integration/classroom/parsers/students_spec.rb'
+
+Layout/CaseIndentation:
+  Enabled: true
+
+Layout/MultilineArrayBraceLayout:
+  Enabled: true
+
+Lint/BooleanSymbol:
+  Enabled: true
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false

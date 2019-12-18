@@ -98,15 +98,6 @@ Layout/BlockEndNewline:
     - 'QuillLMS/spec/support/shared/student_concept_progress_report.rb'
     - 'QuillLMS/spec/support/shared/topic_progress_report.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentOneStep, IndentationWidth.
-# SupportedStyles: case, end
-Layout/CaseIndentation:
-  Exclude:
-    - 'QuillLMS/app/serializers/classification_serializer.rb'
-    - 'QuillLMS/lib/tasks/schools.rake'
-
 # Offense count: 69
 # Cop supports --auto-correct.
 Layout/ClosingParenthesisIndentation:
@@ -242,23 +233,6 @@ Layout/IndentationWidth:
 # Configuration parameters: AllowDoxygenCommentStyle.
 Layout/LeadingCommentSpace:
   Enabled: false
-
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: symmetrical, new_line, same_line
-Layout/MultilineArrayBraceLayout:
-  Exclude:
-    - 'QuillLMS/app/controllers/cms/subscriptions_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/progress_reports/csv_exports_controller.rb'
-    - 'QuillLMS/app/models/subscription.rb'
-    - 'QuillLMS/app/queries/dashboard.rb'
-    - 'QuillLMS/spec/serializers/activity_serializer_spec.rb'
-    - 'QuillLMS/spec/serializers/progress_reports/concepts/concept_serializer_spec.rb'
-    - 'QuillLMS/spec/serializers/progress_reports/concepts/student_serializer_spec.rb'
-    - 'QuillLMS/spec/serializers/progress_reports/standards/classroom_serializer_spec.rb'
-    - 'QuillLMS/spec/serializers/progress_reports/standards/topic_serializer_spec.rb'
-    - 'QuillLMS/spec/support/pages/teachers/class_manager/class_manager_page.rb'
 
 # Offense count: 47
 # Cop supports --auto-correct.
@@ -448,20 +422,6 @@ Layout/TrailingEmptyLines:
 Layout/TrailingWhitespace:
   Enabled: false
 
-# Offense count: 10
-Lint/BooleanSymbol:
-  Exclude:
-    - 'QuillLMS/spec/models/activity_session_spec.rb'
-    - 'QuillLMS/spec/models/activity_spec.rb'
-    - 'QuillLMS/spec/models/author_spec.rb'
-    - 'QuillLMS/spec/models/classroom_unit_activity_state_spec.rb'
-    - 'QuillLMS/spec/models/classroom_unit_spec.rb'
-    - 'QuillLMS/spec/models/classrooms_teacher_spec.rb'
-    - 'QuillLMS/spec/models/students_classrooms_spec.rb'
-    - 'QuillLMS/spec/models/unit_activity_spec.rb'
-    - 'QuillLMS/spec/models/unit_template_spec.rb'
-    - 'QuillLMS/spec/queries/dashboard_spec.rb'
-
 # Offense count: 81
 Lint/IneffectiveAccessModifier:
   Enabled: false
@@ -540,22 +500,6 @@ Metrics/ParameterLists:
 # Offense count: 44
 Metrics/PerceivedComplexity:
   Max: 28
-
-# Offense count: 10
-# Configuration parameters: EnforcedStyleForLeadingUnderscores.
-# SupportedStylesForLeadingUnderscores: disallowed, required, optional
-Naming/MemoizedInstanceVariableName:
-  Exclude:
-    - 'QuillLMS/app/controllers/activities_controller.rb'
-    - 'QuillLMS/app/controllers/activity_sessions_controller.rb'
-    - 'QuillLMS/app/controllers/teacher_fix_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/classroom_units_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/progress_reports_controller.rb'
-    - 'QuillLMS/app/models/cron.rb'
-    - 'QuillLMS/app/models/csv_export.rb'
-    - 'QuillLMS/app/models/firebase_app.rb'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/app/services/analytics/sales_contact_analytics.rb'
 
 # Offense count: 17
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist, MethodDefinitionMacros.
