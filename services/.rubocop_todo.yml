@@ -116,19 +116,6 @@ Layout/CommentIndentation:
     - 'QuillLMS/spec/models/activity_session_spec.rb'
     - 'QuillLMS/spec/services/google_integration/classroom/main_spec.rb'
 
-# Offense count: 11
-# Cop supports --auto-correct.
-# Configuration parameters: AllowBorderComment, AllowMarginComment.
-Layout/EmptyComment:
-  Exclude:
-    - 'QuillLMS/app/controllers/teachers/classrooms_controller.rb'
-    - 'QuillLMS/config/initializers/rails_admin.rb'
-    - 'QuillLMS/spec/controllers/teachers/classroom_units_controller_spec.rb'
-    - 'QuillLMS/spec/models/activity_session_spec.rb'
-    - 'QuillLMS/spec/services/clever_integration/importers/school_spec.rb'
-    - 'QuillLMS/spec/services/clever_integration/importers/students_spec.rb'
-    - 'QuillLMS/spec/services/clever_integration/sign_up/main_spec.rb'
-
 # Offense count: 81
 # Cop supports --auto-correct.
 Layout/EmptyLineAfterGuardClause:
@@ -622,15 +609,6 @@ Style/EmptyMethod:
 # Cop supports --auto-correct.
 Style/ExpandPathArguments:
   Enabled: false
-
-# Offense count: 11
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  Exclude:
-    - 'QuillLMS/app/models/concept_result.rb'
-    - 'QuillLMS/app/models/unit_template.rb'
-    - 'QuillLMS/config/routes.rb'
 
 # Offense count: 1472
 # Cop supports --auto-correct.

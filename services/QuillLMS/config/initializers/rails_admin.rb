@@ -66,7 +66,6 @@ RailsAdmin.config do |config|
 
     # rest of your ParentModel configuration
   end
-  #
   config.model User do
     list do
       field :password_digest do

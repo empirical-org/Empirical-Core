@@ -371,3 +371,11 @@ Lint/BooleanSymbol:
 
 Naming/MemoizedInstanceVariableName:
   Enabled: false
+
+Layout/EmptyComment:
+  Enabled: true
+
+Style/FormatStringToken:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/config/routes.rb'
