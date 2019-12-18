@@ -50,6 +50,6 @@ namespace :duplicate_clever_accounts do
     end
 
     puts NOT_FIXED_STUDENT_ROWS
-    puts not_fixed_student_rows.to_json
+    puts not_fixed_student_rows
   end
 end
