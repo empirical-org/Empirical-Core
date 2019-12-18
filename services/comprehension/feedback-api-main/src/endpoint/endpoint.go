@@ -13,7 +13,7 @@ func main() {
 	start := time.Now()
 	// mocking the API Request
 	// TODO pass in real API request
-	api_request := APIRequest{Entry: "more people vote", Prompt_id: 98}
+	api_request := APIRequest{Entry: "more people vote", Prompt_id: 98, Session_id: "Asfasdf", Attempt: 2}
 	request_json, err := json.Marshal(api_request)
 
 	if err != nil {
@@ -23,10 +23,10 @@ func main() {
 	}
 
 	urls := [...]string{
-		"https://us-east1-comprehension-247816.cloudfunctions.net/response-api-alpha",
+		"https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check",
 		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
 		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
-		"https://us-east1-comprehension-247816.cloudfunctions.net/response-api-alpha",
+		"https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check",
 	}
 
 	results := map[int]APIResponse{}
@@ -66,7 +66,7 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 			return 0, false
 		}
 
-		if !result.Correct {
+		if !result.Optimal {
 			fmt.Println("\n*****incorrect***************\n")
 			return i, true
 		}
@@ -88,7 +88,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	fmt.Println("\n*****response received***************\n", url, time.Now())
 	if err != nil {
 		fmt.Println("error: ", err)
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Message: "There was an endpoint hitting the API", Correct: false, Label: "none"}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an endpoint hitting the API", Optimal: false}}
 		return
 	}
 
@@ -97,7 +97,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		fmt.Println(err)
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Message: "There was an JSON error", Correct: false, Label: "none"}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Optimal: false}}
 		return
 	}
 
@@ -111,12 +111,22 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 type APIRequest struct {
 	Entry string `json:"entry"`
 	Prompt_id int `json:"prompt_id"`
+	Session_id string `json:"session_id"`
+	Attempt int `json:"attempt"`
 }
 
 type APIResponse struct {
-	Message string `json:"message"`
-	Correct bool `json:"correct"`
+	Feedback string `json:"message"`
+	Optimal bool `json:"optimal"`
 	Label string `json:"label"`
+	Response_id string `json:"response_id"`
+	Highlight []Highlight `json:"highlight"`
+}
+
+type Highlight struct {
+	Type string `json:"type"`
+	Id int `json:"id,omitempty"`
+	Text string `json:"text"`
 }
 
 type InternalAPIResponse struct {
