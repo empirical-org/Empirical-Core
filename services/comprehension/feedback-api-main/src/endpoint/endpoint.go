@@ -1,5 +1,5 @@
 
-package main
+package endpoint
 
 import (
 	"bytes"
@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func main() {
+func EndPoint(responseWriter http.ResponseWriter, request *http.Request) {
 	start := time.Now()
 	// mocking the API Request
 	// TODO pass in real API request
@@ -22,6 +22,7 @@ func main() {
 		return
 	}
 
+	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
 		"https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check",
 		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
@@ -51,23 +52,27 @@ func main() {
 			break
 		}
 	}
+
 	fmt.Println("\n*****END OF FUNCTION**************\n", returnable_result)
 	t := time.Now()
 	elapsed := t.Sub(start)
 	fmt.Println("Time Elapsed: ", elapsed)
+
+	responseWriter.Header().Set("Content-Type", "application/json")
+  json.NewEncoder(responseWriter).Encode(returnable_result)
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]APIResponse, length int) (int, bool) {
 	for i := 0; i < len(results); i++ {
-		fmt.Println("\n*****in for loop***************\n")
+		fmt.Println("\n*****in for loop***************")
 		result, has_key := results[i]
 		if !has_key {
-			fmt.Println("\n*****missing***************\n")
+			fmt.Println("\n*****missing***************")
 			return 0, false
 		}
 
 		if !result.Optimal {
-			fmt.Println("\n*****incorrect***************\n")
+			fmt.Println("\n*****incorrect***************")
 			return i, true
 		}
 	}
