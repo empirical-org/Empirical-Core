@@ -30,7 +30,7 @@ describe SalesmachineClient do
     end
 
     it 'should return the base encoded api key' do
-      expect(subject.auth_header_value).to eq "Basic #{ENV['SALESMACHINE_API_KEY'] + ":"}"
+      expect(subject.auth_header_value).to eq "Basic #{ENV['SALESMACHINE_API_KEY'] + ':'}"
     end
   end
 

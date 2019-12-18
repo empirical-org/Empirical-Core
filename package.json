@@ -17,11 +17,23 @@
     "eslint": "^6.5.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0"
+    "eslint-plugin-react": "^7.16.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "node": "^8.6.0"
   },
   "scripts": {
     "eslint": "eslint --ext .js,.ts,.tsx,.jsx .",
-    "eslint:fix": "eslint --fix --ext .js,.ts,.tsx,.jsx ."
+    "eslint:fix": "eslint --fix --ext .js,.ts,.tsx,.jsx .",
+    "eslint:staged_files": "eslint -c ./staged_files_eslint.json --ext .js,.ts,.tsx,.jsx"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "npm run eslint:staged_files"
   },
   "repository": {
     "type": "git",

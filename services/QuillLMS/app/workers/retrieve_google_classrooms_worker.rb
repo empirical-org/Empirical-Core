@@ -9,7 +9,8 @@ class RetrieveGoogleClassroomsWorker
     user = User.find(user_id)
     begin
       google_response = GoogleIntegration::Classroom::Main.pull_data(user)
-    rescue GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError => e
+    rescue GoogleIntegration::RefreshAccessToken::RefreshAccessTokenError,
+           GoogleIntegration::Client::AccessTokenError => e
       NewRelic::Agent.add_custom_attributes({
         user_id: user_id
       })
