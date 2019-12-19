@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  after_save  :update_invitee_email_address, if: Proc.new { email_changed? }
+  after_save  :update_invitee_email_address, if: proc { email_changed? }
   after_save :check_for_school
-  after_create :generate_referrer_id, if: Proc.new { teacher? }
+  after_create :generate_referrer_id, if: proc { teacher? }
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
