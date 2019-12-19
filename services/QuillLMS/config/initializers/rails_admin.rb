@@ -66,7 +66,6 @@ RailsAdmin.config do |config|
 
     # rest of your ParentModel configuration
   end
-  #
   config.model User do
     list do
       field :password_digest do
@@ -113,7 +112,7 @@ RailsAdmin.config do |config|
   config.model SchoolSubscription do
     field :school do
       searchable [:name, :zipcode]
-        Proc.new { |scope|
+        proc { |scope|
           scope = scope.where(role: ['teacher','admin'])
         }
     end
@@ -126,13 +125,13 @@ RailsAdmin.config do |config|
     field :user do
       searchable [:email, :username]
       sortable :email
-        Proc.new { |scope|
+        proc { |scope|
           scope = scope.where(role: ['teacher','admin'])
         }
     end
     field :school do
       searchable [:name, :zipcode]
-        Proc.new { |scope|
+        proc { |scope|
           scope = scope.where(role: ['teacher','admin'])
         }
     end
