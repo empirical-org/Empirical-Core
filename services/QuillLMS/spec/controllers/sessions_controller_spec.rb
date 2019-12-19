@@ -149,7 +149,7 @@ describe SessionsController, type: :controller do
       allow(controller).to receive(:current_user) { user }
     end
 
-    context'when session admin id present' do
+    context 'when session admin id present' do
       let!(:admin) { create(:admin) }
 
       before do
