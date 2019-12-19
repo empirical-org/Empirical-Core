@@ -337,32 +337,6 @@ Style/MixinUsage:
     - 'QuillCMS/bin/update'
     - 'QuillComprehension/bin/setup'
     - 'QuillComprehension/bin/update'
-    - 'QuillLMS/db/seeds.rb'
-    - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
-    - 'QuillLMS/spec/workers/fast_assign_worker_spec.rb'
-
-Style/RaiseArgs:
-  Enabled: true
-  Exclude:
-    - 'QuillCMS/app/workers/rematch_response_worker.rb'
-
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-
-Metrics/ParameterLists:
-  Enabled: true
-  Max: 7
-
-Style/EmptyElse:
-  Enabled: false
-
-Style/MixinUsage:
-  Enabled: true
-  Exclude:
-    - 'QuillCMS/bin/setup'
-    - 'QuillCMS/bin/update'
-    - 'QuillComprehension/bin/setup'
-    - 'QuillComprehension/bin/update'
     - 'QuillLMS/app/models/concerns/lessons_recommendations.rb'
     - 'QuillLMS/db/seeds.rb'
     - 'QuillLMS/spec/controllers/concerns/teacher_fixes_spec.rb'
@@ -386,4 +360,27 @@ Style/CommentAnnotation:
   Enabled: true
 
 Style/LineEndConcatenation:
+  Enabled: true
+
+Layout/CaseIndentation:
+  Enabled: true
+
+Layout/MultilineArrayBraceLayout:
+  Enabled: true
+
+Lint/BooleanSymbol:
+  Enabled: true
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Layout/EmptyComment:
+  Enabled: true
+
+Style/FormatStringToken:
+  Enabled: true
+  Exclude:
+    - 'QuillLMS/config/routes.rb'
+
+Style/Proc:
   Enabled: true
