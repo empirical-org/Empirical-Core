@@ -149,6 +149,8 @@ Layout/DefEndAlignment:
 
 Layout/HeredocIndentation:
   Enabled: true
+  Exclude:
+    - QuillLMS/lib/tasks/merge_duplicate_clever_accounts.rake
 
 Layout/SpaceInLambdaLiteral:
   Enabled: true
