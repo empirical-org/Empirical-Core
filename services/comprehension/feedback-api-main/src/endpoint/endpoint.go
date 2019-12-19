@@ -10,7 +10,7 @@ import (
 	"io/ioutil"
 )
 
-func EndPoint(responseWriter http.ResponseWriter, request *http.Request) {
+func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	start := time.Now()
 
 	request_body, err := ioutil.ReadAll(request.Body)
@@ -115,9 +115,8 @@ type APIRequest struct {
 }
 
 type APIResponse struct {
-	Feedback string `json:"message"`
+	Feedback string `json:"feedback"`
 	Optimal bool `json:"optimal"`
-	Label string `json:"label"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
 }
