@@ -379,3 +379,6 @@ Style/FormatStringToken:
   Enabled: true
   Exclude:
     - 'QuillLMS/config/routes.rb'
+
+Style/Proc:
+  Enabled: true'

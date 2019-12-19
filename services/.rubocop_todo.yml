@@ -720,20 +720,6 @@ Style/ParenthesesAroundCondition:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
-# Offense count: 12
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'QuillComprehension/app/models/question.rb'
-    - 'QuillLMS/app/models/classroom.rb'
-    - 'QuillLMS/app/models/referrals_user.rb'
-    - 'QuillLMS/app/models/students_classrooms.rb'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/app/services/analytics/segment_analytics.rb'
-    - 'QuillLMS/config/initializers/omniauth.rb'
-    - 'QuillLMS/config/initializers/rails_admin.rb'
-    - 'QuillLMS/lib/eg_form_builder.rb'
-
 # Offense count: 23
 # Cop supports --auto-correct.
 Style/RedundantBegin:
