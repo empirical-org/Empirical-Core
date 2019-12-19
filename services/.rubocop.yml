@@ -381,4 +381,4 @@ Style/FormatStringToken:
     - 'QuillLMS/config/routes.rb'
 
 Style/Proc:
-  Enabled: true'
+  Enabled: true
