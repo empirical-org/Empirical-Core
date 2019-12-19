@@ -3,7 +3,7 @@
 brew install wget
 virtualenv -p python3.7 env
 source env/bin/activate
-pip install --upgrade pip
+python -m pip install --upgrade pip
 wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-272.0.0-darwin-x86_64.tar.gz
 tar xf google-cloud-sdk-272.0.0-darwin-x86_64.tar.gz --directory ~/
 ~/google-cloud-sdk/install.sh
