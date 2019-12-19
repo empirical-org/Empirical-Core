@@ -44,8 +44,7 @@ describe ProgressReports::Concepts::ConceptSerializer, type: :serializer do
                            correct_result_count
                            incorrect_result_count
                            level_2_concept_name
-                           percentage
-                          )
+                           percentage)
     end
 
     it 'includes the percentage' do
