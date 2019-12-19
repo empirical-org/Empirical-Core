@@ -44,7 +44,7 @@ namespace :duplicate_clever_accounts do
         end
         good_user.merge_activity_sessions(bad_user)
         bad_user.remove_student_classrooms
-        bad_user.destroy
+        bad_user.clear_data
         fixed_student_rows.push(r)
       else
         not_fixed_student_rows.push(r)
