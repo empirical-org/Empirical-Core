@@ -21,7 +21,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
-		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
+		"https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function",
 	}
 
 	results := map[int]APIResponse{}
