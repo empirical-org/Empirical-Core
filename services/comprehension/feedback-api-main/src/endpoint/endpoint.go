@@ -6,12 +6,10 @@ import (
 	"fmt"
 	"net/http"
 	"encoding/json"
-	"time"
 	"io/ioutil"
 )
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
-	start := time.Now()
 
 	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
@@ -45,9 +43,6 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 			break
 		}
 	}
-
-	t := time.Now()
-	elapsed := t.Sub(start)
 
 	responseWriter.Header().Set("Content-Type", "application/json")
   json.NewEncoder(responseWriter).Encode(returnable_result)
