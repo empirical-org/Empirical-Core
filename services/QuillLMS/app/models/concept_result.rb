@@ -9,7 +9,7 @@ class ConceptResult < ActiveRecord::Base
 
 
   validates :question_type, inclusion: { in: %w(passage-proofreader sentence-writing sentence-fragment-expansion sentence-fragment-identification sentence-combining fill-in-the-blanks lessons-slide),
-                   message: "%{value} is not a valid question_type" }, :allow_nil => true
+                   message: "%<value>s is not a valid question_type" }, :allow_nil => true
 
   def correct?
     metadata.key?('correct') && metadata['correct'] == 1
