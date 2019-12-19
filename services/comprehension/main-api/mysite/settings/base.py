@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(THIS_PATH)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'pf-@jxtojga)z+4s*uwbgjrq$aep62-thd0q7f&o77xtpka!_m')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'pf-@jxt)-thd0q7f&o77xtpka!_m')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,10 +83,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'quill_comprehension_api_prod',
-        'USER': 'quill_api_user',
-        'PASSWORD': os.environ.get('PG_PASS', ''),
-        'PORT': '5434',
+        'HOST': os.environ['PG_HOST'],
+        'NAME': os.environ['PG_NAME'],
+        'USER': os.environ['PG_USER'],
+        'PASSWORD': os.environ['PG_PASS'],
+        'PORT': os.environ['PG_PORT'],
     }
 }
 
