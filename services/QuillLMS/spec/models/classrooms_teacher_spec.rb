@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ClassroomsTeacher, type: :model, redis: :true do
+RSpec.describe ClassroomsTeacher, type: :model, redis: true do
   let(:classrooms_teacher_with_arbitrary_role) { build(:classrooms_teacher, role: 'hippopotamus') }
   let(:classrooms_teacher_with_null_user_id) { build(:classrooms_teacher, user_id: nil) }
   let(:classrooms_teacher_with_null_classroom_id) { build(:classrooms_teacher, classroom_id: nil) }

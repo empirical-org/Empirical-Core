@@ -40,7 +40,6 @@ describe 'CleverIntegration::Importers::Students' do
 
     clever_student_response = Clever::StudentResponse.new({ data: clever_student })
     allow_any_instance_of(Clever::DataApi).to receive(:get_students_for_section).and_return(Clever::StudentsResponse.new({ data: [clever_student_response] }))
-    #
   end
 
   it 'creates a student' do
