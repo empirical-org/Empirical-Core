@@ -20,4 +20,11 @@ RSpec.describe Response do
       response.destroy
     end
   end
+
+  it "should validate the uniqueness of question_uid + text" do
+    response = create(:response)
+    dup_response = Response.create(question_uid: response.question_uid, text: response.text)
+    expect(dup_response.valid?).to be false
+    expect(dup_response.errors.messages[:question_uid]).to eq(["has already been taken"])
+  end
 end
