@@ -42,7 +42,7 @@ class SalesmachineClient
       end
     rescue Faraday::ClientError => err
       if err.response[:status] == TOO_MANY_REQUESTS
-        fail "All retries are exhausted" if retries == 0
+        raise "All retries are exhausted" if retries == 0
         retries -= 1
         # delay increases by 1 second on each failed retry
         sleep(delay += (MAX_RETRIES - retries))
