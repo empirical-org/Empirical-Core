@@ -434,7 +434,7 @@ GEM
     pusher-signature (0.1.8)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-affiliates (0.4.0)
       rack
     rack-attack (5.4.2)
