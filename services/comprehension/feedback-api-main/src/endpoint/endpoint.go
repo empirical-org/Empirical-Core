@@ -10,6 +10,7 @@ import (
 )
 
 const (
+	automl_api = "https://us-east1-comprehension-247816.cloudfunctions.net/response-api-alpha"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha"
 )
 
@@ -24,6 +25,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
+		automl_api,
 		spell_check_local,
 	}
 
@@ -39,7 +41,6 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	for response := range c {
 		results[response.Priority] = response.APIResponse
-
 		return_index, returnable := processResults(results, len(urls))
 
 		if returnable {
@@ -69,7 +70,6 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 	return 0, all_correct
 }
 
-
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
 	response_json, err := http.Post(url, "application/json", bytes.NewReader(json_params))
 
@@ -89,7 +89,6 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
 }
-
 
 type APIRequest struct {
 	Entry string `json:"entry"`
