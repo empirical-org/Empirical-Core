@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UnitActivity, type: :model, redis: :true do
+describe UnitActivity, type: :model, redis: true do
 
   it { should belong_to(:activity) }
   it { should belong_to(:unit) }

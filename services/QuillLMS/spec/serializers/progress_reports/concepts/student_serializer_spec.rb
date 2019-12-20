@@ -40,8 +40,7 @@ describe ProgressReports::Concepts::StudentSerializer, type: :serializer do
                            correct_result_count
                            incorrect_result_count
                            percentage
-                           id
-                          )
+                           id)
     end
 
     it 'includes the percentage' do
