@@ -18,7 +18,7 @@ class SalesmachineClient
   end
 
   def client
-    Faraday.new(url: 'http://api.salesmachine.io/')
+    Faraday.new(url: 'https://api.salesmachine.io/')
   end
 
   def batch(data)
