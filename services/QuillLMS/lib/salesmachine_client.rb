@@ -29,9 +29,6 @@ class SalesmachineClient
   end
 
   def make_request(path, data)
-    retries = MAX_RETRIES
-    delay = 1
-
     begin
       client.post do |request|
         request.url(path)
