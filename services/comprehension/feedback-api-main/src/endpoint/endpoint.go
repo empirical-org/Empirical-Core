@@ -9,6 +9,10 @@ import (
 	"io/ioutil"
 )
 
+const (
+	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha"
+)
+
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	request_body, err := ioutil.ReadAll(request.Body)
@@ -20,7 +24,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
-		"https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha",
+		spell_check_local,
 	}
 
 	results := map[int]APIResponse{}
