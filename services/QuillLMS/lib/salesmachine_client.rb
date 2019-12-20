@@ -2,6 +2,8 @@ class SalesmachineClient
 
   BATCH_ENDPOINT = '/v1/batch'
   EVENT_ENDPOINT = '/v1/track/event'
+  TOO_MANY_REQUESTS = 429
+  MAX_RETRIES = 10
 
   def self.batch(data)
     new.batch(data)
@@ -16,7 +18,7 @@ class SalesmachineClient
   end
 
   def client
-    Faraday.new(url: 'https://api.salesmachine.io/')
+    Faraday.new(url: 'http://api.salesmachine.io/')
   end
 
   def batch(data)
@@ -28,11 +30,23 @@ class SalesmachineClient
   end
 
   def make_request(path, data)
-    client.post do |request|
-      request.url(path)
-      request.headers['Authorization'] = auth_header_value
-      request.headers['Content-Type'] = 'application/json'
-      request.body = data.to_json
+    retries = MAX_RETRIES
+    delay = 1
+
+    begin
+      client.post do |request|
+        request.url(path)
+        request.headers['Authorization'] = auth_header_value
+        request.headers['Content-Type'] = 'application/json'
+        request.body = data.to_json
+      end
+    rescue Faraday::ClientError => err
+      if err.response[:status] == TOO_MANY_REQUESTS
+        fail "All retries are exhausted" if retries == 0
+        retries -= 1
+        # delay increases by 1 second on each failed retry
+        sleep(delay += (MAX_RETRIES - retries))
+      end
     end
   end
 
