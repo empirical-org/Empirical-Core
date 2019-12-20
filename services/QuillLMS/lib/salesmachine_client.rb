@@ -3,7 +3,6 @@ class SalesmachineClient
   BATCH_ENDPOINT = '/v1/batch'
   EVENT_ENDPOINT = '/v1/track/event'
   TOO_MANY_REQUESTS = 429
-  MAX_RETRIES = 10
 
   def self.batch(data)
     new.batch(data)
