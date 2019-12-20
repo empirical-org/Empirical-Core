@@ -39,7 +39,6 @@ class SalesmachineClient
     rescue Faraday::ClientError => err
       raise if err.response[:status] != TOO_MANY_REQUESTS
       raise SalesmachineRetryError
-      end
     end
   end
 
