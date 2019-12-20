@@ -36,21 +36,21 @@ class ContentEditable extends React.Component {
   static propTypes = propTypes;
 
   static defaultProps = {
+    caretPosition: null,
     content: '',
     editable: true,
     focus: false,
+    innerRef: null,
     maxLength: Infinity,
     multiLine: false,
-    sanitise: true,
-    caretPosition: null,
-    tagName: 'div',
-    innerRef: null,
     onBlur: null,
+    onChange: null,
     onKeyDown: null,
     onKeyUp: null,
     onPaste: null,
-    onChange: null,
+    sanitise: true,
     styled: false,
+    tagName: 'div',
   };
 
   constructor(props) {
