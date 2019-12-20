@@ -145,7 +145,7 @@ class SchoolSelector extends React.Component {
     return (<div className="no-location-found">
       <img alt="map search image" src={mapSearchSrc} />
       <p className="message">We couldn't find your location</p>
-      <p className="sub-text"><a href={this.locationServicesLink()} target="_blank">Enable location access</a> or search for your school above.</p>
+      <p className="sub-text"><a href={this.locationServicesLink()} rel="noopener noreferrer" target="_blank">Enable location access</a> or search for your school above.</p>
     </div>)
   }
 

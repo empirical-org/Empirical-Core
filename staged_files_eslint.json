@@ -6,11 +6,9 @@
     "react/no-access-state-in-setstate": "error",
     "react/no-deprecated": "error",
     "react/no-unescaped-entities": "error",
-    "react/no-unsafe": "error",
     "react/jsx-handler-names": "error",
     "react/jsx-key": "error",
     "react/jsx-no-bind": "error",
-    "react/jsx-one-expression-per-line": "error",
     "react/jsx-curly-brace-presence": "error"
   }
 }

@@ -264,12 +264,15 @@ export default React.createClass({
   },
 
   renderActivityPackHeaderItems() {
-    return this.state.recommendations.map(recommendation => (
-      <div className="recommendations-table-header-item" key={recommendation.activity_pack_id}>
+    return this.state.recommendations.map(recommendation => {
+      /* eslint-disable react/jsx-no-target-blank */
+      const link = <a href={`/activities/packs/${recommendation.activity_pack_id}`} target="_blank">View Pack</a>
+      /* eslint-enable react/jsx-no-target-blank */
+      return (<div className="recommendations-table-header-item" key={recommendation.activity_pack_id}>
         <p>{recommendation.name}</p>
-        <a href={`/activities/packs/${recommendation.activity_pack_id}`} target="_blank">View Pack</a>
-      </div>
-			));
+        {link}
+      </div>)
+    });
   },
 
   renderTableRows() {
@@ -278,10 +281,12 @@ export default React.createClass({
 
   renderTableRow(student) {
     const { activityId, classroomId, unitId } = this.props.routeParams
-    const studentReportLink = `/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`
+    /* eslint-disable react/jsx-no-target-blank */
+    const studentReportLink = <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (
       <div className="recommendations-table-row" key={student.id}>
-        <div className="recommendations-table-row-name"><a href={studentReportLink} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a></div>
+        <div className="recommendations-table-row-name">{studentReportLink}</div>
         {this.renderActivityPackRowItems(student)}
       </div>
     );

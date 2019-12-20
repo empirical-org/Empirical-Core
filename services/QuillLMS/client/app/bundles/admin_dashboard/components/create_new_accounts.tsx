@@ -72,6 +72,9 @@ class CreateNewAccounts extends React.Component<any, any> {
   }
 
   render() {
+    /* eslint-disable react/jsx-no-target-blank */
+    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here's the guide.</a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (<div id="create_new_accounts">
       <div className="header">
         <h2>Create New Accounts and Link Existing Teachers</h2>
@@ -82,7 +85,7 @@ class CreateNewAccounts extends React.Component<any, any> {
       <p><span>Teachers New to Quill?</span> Input their information to create new Quill accounts.</p>
       <p>
         <span>Teachers Have Quill Accounts?</span> When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page.
-        <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here's the guide.</a>
+        {supportLink}
       </p>
       <div className="form-and-schools-list">
         <div className="form">

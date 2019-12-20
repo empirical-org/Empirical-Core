@@ -28,12 +28,15 @@ export default React.createClass({
   },
 
   render() {
+    /* eslint-disable react/jsx-no-target-blank */
+    const activityScoresLink = <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`} target="_blank">View Activity Scores <i className="fas fa-star" /></a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (
       <section className="overview-section">
         <header className="student-header">
           <h3 className="student-name">{this.props.data.name}</h3>
           <p className="average-score">{this.calculateAverageScore()}</p>
-          <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`} target="_blank">View Activity Scores <i className="fas fa-star" /></a>
+          {activityScoresLink}
         </header>
         <div className="flex-row vertically-centered">
           {this.handleScores()}

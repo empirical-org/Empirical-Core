@@ -45,10 +45,11 @@ export default class ClassroomActivity extends React.Component {
     }
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    const { startDate, } = this.state
     const newDueDate = nextProps.data ? nextProps.data.dueDate : null
     const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined;
-    if (formattedNewDueDate !== this.state.startDate) {
+    if (formattedNewDueDate !== startDate) {
       this.setState({ startDate: formattedNewDueDate, });
     }
   }
@@ -123,12 +124,24 @@ export default class ClassroomActivity extends React.Component {
       } else if (this.props.data.started) {
         const href = `/teachers/classroom_units/${this.classroomUnitId()}/mark_lesson_as_completed/${this.activityId()}`;
 
-        return <a className="mark-completed" href={href} target="_blank">Mark As Complete</a>;
+        return <a className="mark-completed" href={href} target="_blank">Mark As Complete</a>; //eslint-disable-line react/jsx-no-target-blank
       }
     }
   }
 
   lessonFinalCell = () => {
+    /* eslint-disable react/jsx-no-target-blank */
+    const supportingInfoLink = (<a
+      className="supporting-info"
+      href={`/activities/${this.activityId()}/supporting_info`}
+      onMouseEnter={this.toggleLessonPlanTooltip}
+      onMouseLeave={this.toggleLessonPlanTooltip}
+      target="_blank"
+    >
+      <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
+      {this.renderLessonPlanTooltip()}
+    </a>)
+    /* eslint-enable react/jsx-no-target-blank */
     return (<div className="lessons-end-row">
       {this.lessonCompletedOrLaunch()}
       <a
@@ -140,16 +153,7 @@ export default class ClassroomActivity extends React.Component {
         <i className="fas fa-icon fa-magic" />
         {this.renderCustomizeTooltip()}
       </a>
-      <a
-        className="supporting-info"
-        href={`/activities/${this.activityId()}/supporting_info`}
-        onMouseEnter={this.toggleLessonPlanTooltip}
-        onMouseLeave={this.toggleLessonPlanTooltip}
-        target="_blank"
-      >
-        <img src="https://assets.quill.org/images/icons/download-lesson-plan-green-icon.svg" />
-        {this.renderLessonPlanTooltip()}
-      </a>
+      {supportingInfoLink}
     </div>);
   }
 
@@ -181,7 +185,9 @@ export default class ClassroomActivity extends React.Component {
         <img className="chevron-right" key="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
       ];
     } else if (this.props.report) {
+      /* eslint-disable react/jsx-no-target-blank */
       return [<a href={this.anonymousPath()} key="this.props.data.activity.anonymous_path" target="_blank">Preview</a>, <a key={`report-url-${this.classroomUnitId()}`} onClick={this.urlForReport}>View Report</a>];
+      /* eslint-enable react/jsx-no-target-blank */
     } else if (this.isLesson()) {
       return this.lessonFinalCell();
     }
@@ -252,7 +258,9 @@ export default class ClassroomActivity extends React.Component {
 
   lessonCompletedOrLaunch = () => {
     if (this.props.data.completed === 't') {
+      /* eslint-disable react/jsx-no-target-blank */
       return <a className="report-link" href={`/teachers/progress_reports/report_from_classroom_unit_and_activity/${this.classroomUnitId()}/a/${this.activityId()}`} target="_blank">View Report</a>;
+      /* eslint-enable react/jsx-no-target-blank */
     }
     if (this.props.data.studentCount === 0) {
       return <a id="launch-lesson" onClick={this.noStudentsWarning}>{this.props.data.started ? 'Resume Lesson' : 'Launch Lesson'}</a>;
@@ -303,13 +311,13 @@ export default class ClassroomActivity extends React.Component {
     let link,
       endRow;
     if (this.props.report) {
-      link = <a onClick={this.urlForReport} target="_new">{this.activityName()}</a>;
+      link = <a onClick={this.urlForReport} target="_new">{this.activityName()}</a>; // eslint-disable-line react/jsx-no-target-blank
       endRow = Object.assign({}, styles.reportEndRow, { width: this.props.activityReport ? '350px' : '150px', });
     } else if (this.isLesson()) {
       link = <span onClick={this.openModal}>{this.activityName()}</span>;
       endRow = styles.lessonEndRow;
     } else {
-      link = <a href={this.anonymousPath()} target="_new">{this.activityName()}</a>;
+      link = <a href={this.anonymousPath()} target="_new">{this.activityName()}</a>;  // eslint-disable-line react/jsx-no-target-blank
       endRow = styles.endRow;
     }
     return (

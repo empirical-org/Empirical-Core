@@ -18,28 +18,46 @@ const defaultPreviewCardContent = `<img class='preview-card-image' src='http://c
   <p class='author'>by Quill Staff</p>
 </div>`;
 
-export default class extends React.Component {
+export default class CreateOrEditBlogPost extends React.Component {
   constructor(props) {
     super(props);
-    const p = this.props.postToEdit
+
+    const { postToEdit, action } = props
+    const {
+      id,
+      title,
+      subtitle,
+      image_link,
+      body,
+      author_id,
+      topic,
+      draft,
+      slug,
+      preview_card_content,
+      premium,
+      press_name,
+      published_at,
+      external_link,
+      center_images,
+    } = postToEdit
     // set state to empty values or those of the postToEdit
 
     this.state = {
-      previewCardHasAlreadyBeenManuallyEdited: props.action !== 'new',
-      id: p ? p.id : null,
-      title: p ? p.title : '',
-      subtitle: p ? p.subtitle : '',
-      imageLink: p ? p.image_link : '',
-      body: p ? p.body : '',
-      author_id: p ? p.author_id : 11 /* Quill Staff */,
-      topic: p ? p.topic : 'Webinars',
-      draft: p ? p.draft : true,
-      slug: p ? p.slug : true,
-      preview_card_content: p ? p.preview_card_content : null,
-      custom_preview_card_content: p ? p.preview_card_content : defaultPreviewCardContent,
-      preview_card_type: this.props.action === 'new' ? 'Medium Image' : 'Custom HTML',
+      previewCardHasAlreadyBeenManuallyEdited: action !== 'new',
+      id,
+      title,
+      subtitle,
+      imageLink: image_link,
+      body,
+      author_id,
+      topic,
+      draft,
+      slug,
+      preview_card_content,
+      custom_preview_card_content,
+      preview_card_type: action === 'new' ? 'Medium Image' : 'Custom HTML',
       blogPostPreviewImage: 'http://placehold.it/300x135',
-      blogPostPreviewTitle: p ? p.title : 'Write Your Title Here',
+      blogPostPreviewTitle: title,
       blogPostPreviewDescription: 'Write your description here, but be careful not to make it too long!',
       videoLink: 'https://www.youtube.com/watch?v=oVXZTmi2ruI',
       videoDescription: "I'll write it myself, and we'll do it live!",
@@ -47,11 +65,11 @@ export default class extends React.Component {
       tweetImage: 'http://placehold.it/300x135/00998a/fff',
       tweetText: '"Climbing up Ben Bloom’s learning hierarchy won’t be easy, but it is necessary if we want to build education technology capable of helping learners move beyond basic remembering and understanding."',
       tweetAuthor: 'EdSurge',
-      premium: p ? p.premium : false,
-      pressName: p ? p.press_name : null,
-      publishedAt: p ? p.published_at : null,
-      externalLink: p ? p.external_link : null,
-      centerImages: p ? p.center_images : false
+      premium,
+      pressName: press_name,
+      publishedAt: published_at,
+      externalLink: external_link,
+      centerImages: center_images
     };
   }
 
@@ -59,47 +77,53 @@ export default class extends React.Component {
     this.updatePreviewCardBasedOnType();
   }
 
-  appropriatePlaceholderImage = () => {
-    switch (this.state.preview_card_type) {
-      case 'Large Image':
-        return 'http://placehold.it/300x200'
-      case 'Tiny Image':
-        return 'http://placehold.it/300x90'
-      case 'Medium Image':
-      default:
-        return 'http://placehold.it/300x138'
-    }
+  handlePremiumChange = () => {
+    this.setState(prevState => ({premium: !prevState.premium}));
   }
 
-  hideArticlePreview = () => {
+  handleCenterImagesChange = () => {
+    this.setState(prevState => ({centerImages: !prevState.centerImages}));
+  }
+
+  handleSaveDraftClick = (e) => { this.handleSubmitClick(e, false) }
+
+  handlePublishClick = (e) => this.handleSubmitClick(e, true)
+
+  handleUnpublishClick = (e) => { this.handleSubmitClick(e, false, true) }
+
+  handleSaveAndPreviewClick = (e) => { this.handleSubmitClick(e, !draft, false, this.goToPreview) }
+
+  handleClickEdit = () => {
     this.setState({showArticlePreview: false})
   }
 
-  showArticlePreview = () => {
+  handleClickPreview = () => {
     this.setState({showArticlePreview: true})
   }
 
   handleTitleChange = (e) => {
-    const targetValue = e.target.value;
-    let state = {title: targetValue};
-    if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
-      state['blogPostPreviewTitle'] = targetValue;
+    const { value, } = e.target;
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.stte
+    let state = { title: value };
+    if(!previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewTitle'] = value;
     }
     this.setState(state, () => {
-      if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+      if(!previewCardHasAlreadyBeenManuallyEdited) {
         this.updatePreviewCardFromBlogPostPreview();
       }
     });
   }
 
   handleSubtitleChange = (e) => {
-    const targetValue = e.target.value;
-    let state = {subtitle: targetValue};
-    if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
-      state['blogPostPreviewDescription'] = targetValue;
+    const { value, } = e.target;
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.stte
+    let state = {subtitle: value};
+    if(!previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewDescription'] = value;
     }
     this.setState(state, () => {
-      if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+      if(!previewCardHasAlreadyBeenManuallyEdited) {
         this.updatePreviewCardFromBlogPostPreview();
       }
     });
@@ -110,13 +134,14 @@ export default class extends React.Component {
   }
 
   handleImageLinkChange = (e) => {
-    const targetValue = e.target.value;
-    let state = { imageLink: targetValue };
-    if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+    const { value, } = e.target;
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.stte
+    let state = { imageLink: value };
+    if(!previewCardHasAlreadyBeenManuallyEdited) {
       state['blogPostPreviewImage'] = targetValue;
     }
     this.setState(state, () => {
-      if(!this.state.previewCardHasAlreadyBeenManuallyEdited) {
+      if(!previewCardHasAlreadyBeenManuallyEdited) {
         this.updatePreviewCardFromBlogPostPreview();
       }
     });
@@ -130,7 +155,7 @@ export default class extends React.Component {
     container.rows = 2 + rows;
   }
 
-  handleTopicChange = (e) => {
+  changeTopic = (e) => {
     this.setState({topic: e})
   }
 
@@ -138,7 +163,7 @@ export default class extends React.Component {
     this.setState({externalLink: e.target.value})
   }
 
-  handleAuthorChange = (e) => {
+  changeAuthor = (e) => {
     this.setState({author_id: e.id}, this.updatePreviewCardFromBlogPostPreview)
   }
 
@@ -155,6 +180,7 @@ export default class extends React.Component {
   }
 
   handleSubmitClick = (e, shouldPublish, unpublish = false, callback) => {
+    const { action, postToEdit, } = this.props
     const {
       title,
       subtitle,
@@ -175,11 +201,11 @@ export default class extends React.Component {
     if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
     let action
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
-    if (this.props.action === 'new' && !unpublish) {
+    if (action === 'new' && !unpublish) {
       action = 'post'
     } else {
       action = 'put'
-      url += this.props.postToEdit.id
+      url += postToEdit.id
     }
 
     request[action]({
@@ -204,7 +230,7 @@ export default class extends React.Component {
       }
     }, (error, httpStatus, body) => {
       const parsedBody = JSON.parse(body)
-      if (httpStatus.statusCode === 200 && this.props.action === 'new') {
+      if (httpStatus.statusCode === 200 && action === 'new') {
         alert('Post added successfully!');
         window.location.href = (`/cms/blog_posts/${parsedBody.id}/edit`)
       } else if (httpStatus.statusCode === 200) {
@@ -217,32 +243,54 @@ export default class extends React.Component {
     })
   }
 
+  appropriatePlaceholderImage = () => {
+    const { preview_card_type, } = this.state
+    switch (preview_card_type) {
+      case 'Large Image':
+        return 'http://placehold.it/300x200'
+      case 'Tiny Image':
+        return 'http://placehold.it/300x90'
+      case 'Medium Image':
+      default:
+        return 'http://placehold.it/300x138'
+    }
+  }
+
   renderSaveDraftButton = () => {
-    if(this.props.action === 'new' || this.state.draft) {
-      return <input onClick={(e) => { this.handleSubmitClick(e, false) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
+    const { action, } = this.props
+    const { draft, } = this.state
+    if (action === 'new' || draft) {
+      return <input onClick={this.handleSaveDraftClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
     }
   }
 
   renderUnpublishButton = () => {
-    if(this.props.action === 'edit' && !this.state.draft) {
-      return <input onClick={(e) => { this.handleSubmitClick(e, false, true) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
+    const { action, } = this.props
+    const { draft, } = this.state
+    if (action === 'edit' && !draft) {
+      return <input onClick={this.handleUnpublishClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
     }
   }
 
   renderSaveAndPreviewButton = () => {
-    if (this.props.action === 'edit') {
-      return <input onClick={(e) => { this.handleSubmitClick(e, !this.state.draft, false, this.goToPreview) }} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
+    const { action, } = this.props
+    const { draft, } = this.state
+
+    if (action === 'edit') {
+      return <input onClick={this.handleSaveAndPreviewClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
     }
   }
 
   goToPreview = () => {
+    const { studentTopics, } = this.props
+    const { slug, externalLink, topic, } = this.state
     let url
-    if (this.state.externalLink) {
-      url = this.state.externalLink
-    } else if (this.props.studentTopics.includes(this.state.topic)) {
-      url = `/student-center/${this.state.slug}`
+    if (externalLink) {
+      url = externalLink
+    } else if (studentTopics.includes(topic)) {
+      url = `/student-center/${slug}`
     } else {
-      url = `/teacher-center/${this.state.slug}`
+      url = `/teacher-center/${slug}`
     }
     window.open(url, '_blank')
   }
@@ -255,8 +303,9 @@ export default class extends React.Component {
           - if multiple lines are highlighted, we should insert startChar at beginning of each line
         - Extract this and the buttons into a separate component
     */
+   const { body, } = this.state
     const container = document.getElementById('markdown-content');
-    let newValue = this.state.body;
+    let newValue = body;
     if (container.selectionStart || container.selectionStart === 0) {
       var startPos = container.selectionStart;
       var endPos = container.selectionEnd;
@@ -272,11 +321,11 @@ export default class extends React.Component {
     this.setState({ body: newValue });
   }
 
-  handlePreviewCardTypeChange = (e) => {
+  changePreviewCardType = (e) => {
     this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
   }
 
-  onDrop = (acceptedFiles) => {
+  handleDrop = (acceptedFiles) => {
     acceptedFiles.forEach(file => {
       const data = new FormData()
       data.append('file', file)
@@ -295,7 +344,8 @@ export default class extends React.Component {
   }
 
   updatePreviewCardBasedOnType = () => {
-    switch (this.state.preview_card_type) {
+    const { preview_card_type, custom_preview_card_content, }
+    switch (preview_card_type) {
       case 'Tiny Image':
       case 'Medium Image':
       case 'Large Image':
@@ -311,7 +361,7 @@ export default class extends React.Component {
         this.updatePreviewCardButtonContent();
         break;
       default:
-        this.setState({ preview_card_content: this.state.custom_preview_card_content })
+        this.setState({ preview_card_content: custom_preview_card_content })
     }
   }
 
@@ -344,25 +394,34 @@ export default class extends React.Component {
   }
 
   updatePreviewCardFromBlogPostPreview = () => {
-    const author = this.props.authors.find(a => a.id == this.state.author_id)
-    const publishDate = this.state.publishedAt
+    const { authors, } = this.props
+    const {
+      publishedAt,
+      previewCardButtonText,
+      externalLink,
+      blogPostPreviewImage,
+      blogPostPreviewTitle,
+      blogPostPreviewDescription,
+      author_id,
+    } = this.state
+    const author = authors.find(a => a.id == author_id)
     let footerContent, button
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
-    } else if (publishDate) {
-      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+    } else if (publishedAt) {
+      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
-    if (this.state.previewCardButtonText) {
-      button = `<div class='button-container'><a target='_blank' class='article-cta-primary' href=${this.state.externalLink}>${this.state.previewCardButtonText}</a></div>`
+    if (previewCardButtonText) {
+      button = `<div class='button-container'><a target='_blank' class='article-cta-primary' href=${externalLink}>${previewCardButtonText}</a></div>`
     } else {
       button = '<span/>'
     }
-    const previewCardContent = `<img class='preview-card-image' src='${this.state.blogPostPreviewImage}' />
+    const previewCardContent = `<img class='preview-card-image' src='${blogPostPreviewImage}' />
     <div class='preview-card-body'>
-       <h3>${this.state.blogPostPreviewTitle}</h3>
-       <p>${this.state.blogPostPreviewDescription}</p>
+       <h3>${blogPostPreviewTitle}</h3>
+       <p>${blogPostPreviewDescription}</p>
        ${button}
     </div>
     <div class='preview-card-footer'>
@@ -371,49 +430,50 @@ export default class extends React.Component {
     this.setState({ preview_card_content: previewCardContent })
   }
 
-  updatePreviewCardVideoLink = (e) => {
+  handlePreviewCardVideoLinkChange = (e) => {
     this.setState({videoLink: e.target.value}, this.updatePreviewCardVideoContent)
   }
 
-  updatePreviewCardVideoDescription = (e) => {
+  handlePreviewCardVideoDescriptionChange = (e) => {
     this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
   }
 
-  updateTweetLink = (e) => {
+  handleTweetLinkChange = (e) => {
     this.setState({ tweetLink: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updateTweetImage = (e) => {
+  handleTweetImageChange = (e) => {
     this.setState({ tweetImage: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updateTweetText = (e) => {
+  handleTweetTextChange = (e) => {
     this.setState({ tweetText: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updateTweetAuthor = (e) => {
+  handleTweetAuthorChange = (e) => {
     this.setState({ tweetAuthor: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  updatePublishedAt = (e) => {
+  handlePublishedAtChange = (e) => {
     this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
   }
 
   updatePreviewCardTweetContent = () => {
-    const author = this.props.authors.find(a => a.id == this.state.author_id)
-    const publishDate = this.state.publishedAt
+    const { authors, } = this.props
+    const { publishedAt, tweetImage, tweetText, tweetAuthor, author_id, } = this.state
+    const author = authors.find(a => a.id == author_id)
     let footerContent
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
-    } else if (publishDate) {
-      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+    } else if (publishedAt) {
+      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
-    const previewCardContent = `<img class='preview-card-image' src='${this.state.tweetImage}' />
+    const previewCardContent = `<img class='preview-card-image' src='${tweetImage}' />
     <div class='preview-card-body'>
-       <p>${this.state.tweetText}</p>
-       <p class='author'>@${this.state.tweetAuthor}</p>
+       <p>${tweetText}</p>
+       <p class='author'>@${tweetAuthor}</p>
     </div>
     <div class='preview-card-footer'>
       ${footerContent}
@@ -422,15 +482,16 @@ export default class extends React.Component {
   }
 
   updatePreviewCardVideoContent = () => {
-    const matchedQueryParameter = this.state.videoLink.match(/\?v=(.*)(\&)/) || this.state.videoLink.match(/\?v=(.*)$/)
+    const { videoLink, author_id, publishedAt, videoDescription, } = this.state
+    const { authors, } = this.props
+    const matchedQueryParameter = videoLink.match(/\?v=(.*)(\&)/) || videoLink.match(/\?v=(.*)$/)
     const embedUrl = `https://www.youtube-nocookie.com/embed/${matchedQueryParameter[1]}?rel=0&amp;controls=0&amp;showinfo=0&player=html5`
-    const author = this.props.authors.find(a => a.id == this.state.author_id)
-    const publishDate = this.state.publishedAt
+    const author = authors.find(a => a.id == author_id)
     let footerContent
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
-    } else if (publishDate) {
-      footerContent = `<p class='published'>${moment(publishDate).format('MMMM Do, YYYY')}</p>`
+    } else if (publishedAt) {
+      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -438,7 +499,7 @@ export default class extends React.Component {
       <iframe src="${embedUrl}" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
     </div>
     <div class='preview-card-body'>
-       <p>${this.state.videoDescription}</p>
+       <p>${videoDescription}</p>
     </div>
     <div class='preview-card-footer'>
       ${footerContent}
@@ -446,43 +507,80 @@ export default class extends React.Component {
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
 
+  handleInsertH1 = () => this.insertMarkdown('# ')
+
+  handleInsertH2 = () => this.insertMarkdown('## ')
+
+  handleInsertH3 = () => this.insertMarkdown('### ')
+
+  handleInsertBold = () => this.insertMarkdown('**', '**')
+
+  handleInsertItalic = () => this.insertMarkdown('*', '*')
+
+  handleInsertUnorderedList = () => this.insertMarkdown('* ')
+
+  handleInsertOrderedList = () => this.insertMarkdown('1. ')
+
+  handleInsertQuote = () => this.insertMarkdown('> ')
+
+  handleInsertLink = () => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')
+
+  handleInsertFileImage = () => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')
+
+  handleInsertPrimaryButton = () => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")
+
+  handleInsertSecondaryButton = () => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")
+
   renderPreviewCardContentFields = () => {
-    const preview_card_type = this.state.preview_card_type;
+    const {
+      preview_card_type,
+      blogPostPreviewImage,
+      blogPostPreviewTitle,
+      blogPostPreviewDescription,
+      previewCardButtonText,
+      custom_preview_card_content,
+      tweetLink,
+      tweetImage,
+      tweetText,
+      tweetAuthor,
+      videoLink,
+      videoDescription
+    } = this.state
     let contentFields;
     if (['Tiny Image', 'Medium Image', 'Large Image'].includes(preview_card_type)) {
       contentFields = [
-        <label>Link to an image with the dimensions in the preview:</label>,
-        <input onChange={this.handleBlogPostPreviewImageChange} type='text' value={this.state.blogPostPreviewImage} />,
-        <label>Title:</label>,
-        <input onChange={this.handleBlogPostPreviewTitleChange} type='text' value={this.state.blogPostPreviewTitle} />,
-        <label>Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: "I put jazz on and my kids work on Quill.")</i></label>,
-        <input onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={this.state.blogPostPreviewDescription} />,
-        <label>Button Text (button will link to whatever the external link is above, but the external link must be there prior to adding text here):</label>,
-        <input onChange={this.handlePreviewCardButtonTextChange} type='text' value={this.state.previewCardButtonText} />
+        <label key="preview-image-label">Link to an image with the dimensions in the preview:</label>,
+        <input key="preview-image" onChange={this.handleBlogPostPreviewImageChange} type='text' value={blogPostPreviewImage} />,
+        <label key="title-label">Title:</label>,
+        <input key="title" onChange={this.handleBlogPostPreviewTitleChange} type='text' value={blogPostPreviewTitle} />,
+        <label key="description-label">Description: <i>(Please, choose the juiciest quote from the article that makes you want to read it and you should aim for 200 characters for the card description., for example: &#34;I put jazz on and my kids work on Quill.&#34;)</i></label>,
+        <input key="description" onChange={this.handleBlogPostPreviewDescriptionChange} type='text' value={blogPostPreviewDescription} />,
+        <label key="button-text-label">Button Text (button will link to whatever the external link is above, but the external link must be there prior to adding text here):</label>,
+        <input key="button-text" onChange={this.handlePreviewCardButtonTextChange} type='text' value={previewCardButtonText} />
       ]
     } else if (preview_card_type === 'Custom HTML') {
       contentFields = [
-        <label>Custom HTML:</label>,
-        <textarea id="preview-markdown-content" onChange={this.handleCustomPreviewChange} rows={4} type="text" value={this.state.custom_preview_card_content} />,
-        <i>If no author is supposed to show, please delete "&lt;p class=author>" through the next "&lt;/p>".</i>
+        <label key="custom-html-label">Custom HTML:</label>,
+        <textarea id="preview-markdown-content" key="custom-html" onChange={this.handleCustomPreviewChange} rows={4} type="text" value={custom_preview_card_content} />,
+        <i key="info">If no author is supposed to show, please delete &#34;&lt;p class=author&gt&#34; through the next &#34;&lt;/p&gt&#34;.</i>
       ]
-    } else if(preview_card_type === 'Tweet') {
+    } else if (preview_card_type === 'Tweet') {
       contentFields = [
-        <label>Link to Tweet:</label>,
-        <input onChange={this.updateTweetLink} type='text' value={this.state.tweetLink} />,
-        <label>Link to Image:</label>,
-        <input onChange={this.updateTweetImage} type='text' value={this.state.tweetImage} />,
-        <label>Text to Display:</label>,
-        <input onChange={this.updateTweetText} type='text' value={this.state.tweetText} />,
-        <label>Twitter Account:</label>,
-        <input onChange={this.updateTweetAuthor} type='text' value={this.state.tweetAuthor} />,
+        <label key="tweet-link-label">Link to Tweet:</label>,
+        <input key="tweet-link" onChange={this.handleTweetLinkChange} type='text' value={tweetLink} />,
+        <label key="image-link-label">Link to Image:</label>,
+        <input key="image-link" onChange={this.handleTweetImageChange} type='text' value={tweetImage} />,
+        <label key="tweet-text-label">Text to Display:</label>,
+        <input key="tweet-text" onChange={this.handleTweetTextChange} type='text' value={tweetText} />,
+        <label key="tweet-author-label">Twitter Account:</label>,
+        <input key="tweet-author" onChange={this.handleTweetAuthorChange} type='text' value={tweetAuthor} />,
       ]
     } else if(preview_card_type === 'YouTube Video') {
       contentFields = [
-        <label>Link to YouTube Video:</label>,
-        <input onChange={this.updatePreviewCardVideoLink} type='text' value={this.state.videoLink} />,
-        <label>Video Description:</label>,
-        <input onChange={this.updatePreviewCardVideoDescription} type='text' value={this.state.videoDescription} />
+        <label key="youtube-label">Link to YouTube Video:</label>,
+        <input key="youtube" onChange={this.handlePreviewCardVideoLinkChange} type='text' value={videoLink} />,
+        <label key="video-description-label">Video Description:</label>,
+        <input key="video-description" onChange={this.handlePreviewCardVideoDescriptionChange} type='text' value={videoDescription} />
       ]
     }
 
@@ -490,63 +588,67 @@ export default class extends React.Component {
   }
 
   renderPreviewCardTypeDropdown = () => {
+    const { preview_card_type, } = this.state
     return (<div>
       <label>Preview Card Template:</label>
       <ItemDropdown
-        callback={this.handlePreviewCardTypeChange}
+        callback={this.changePreviewCardType}
         items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
-        selectedItem={this.state.preview_card_type}
+        selectedItem={preview_card_type}
       />
     </div>)
   }
 
   renderDatepicker = () => {
+    const { publishedAt, } = this.state
     return (<div>
       <label>Published At Date:</label>
-      <DatePicker onChange={this.updatePublishedAt} selected={this.state.publishedAt ? moment(this.state.publishedAt) : null} />
+      <DatePicker onChange={this.handlePublishedAtChange} selected={publishedAt ? moment(publishedAt) : null} />
     </div>)
   }
 
   renderArticleMarkdownOrPreview = () => {
+    const { publishedAt, showArticlePreview, body, centerImages, author_id, title, } = this.state
+    const { postToEdit, authors, } = this.props
     let content, toolbarLeft, mdLink, dateDisplayed
-    if (this.state.publishedAt) {
-      dateDisplayed = this.state.publishedAt
-    } else if (this.props.postToEdit) {
-      dateDisplayed = this.props.postToEdit.updated_at
+    if (publishedAt) {
+      dateDisplayed = publishedAt
+    } else if (postToEdit) {
+      dateDisplayed = postToEdit.updated_at
     } else {
       dateDisplayed = moment()
     }
-    if (this.state.showArticlePreview) {
+    if (showArticlePreview) {
       toolbarLeft = <div />
       content = (<div id="article-container">
         <article>
           <BlogPostContent
-            author={this.props.authors.find(a => a.id == this.state.author_id)}
-            body={this.state.body}
-            centerImages={this.state.centerImages}
+            author={authors.find(a => a.id == author_id)}
+            body={body}
+            centerImages={centerImages}
             displayPaywall={false}
-            title={this.state.title}
+            title={title}
             updatedAt={dateDisplayed}
           />
         </article>
       </div>)
     } else {
         toolbarLeft = (<div className="toolbar-left">
-          <p onClick={() => this.insertMarkdown('# ')}>H1</p>
-          <p onClick={() => this.insertMarkdown('## ')}>H2</p>
-          <p onClick={() => this.insertMarkdown('### ')}>H3</p>
-          <i className="fas fa-bold" onClick={() => this.insertMarkdown('**', '**')} />
-          <i className="fas fa-italic" onClick={() => this.insertMarkdown('*', '*')} />
-          <i className="fas fa-list-ul" onClick={() => this.insertMarkdown('* ')} />
-          <i className="fas fa-list-ol" onClick={() => this.insertMarkdown('1. ')} />
-          <i className="fas fa-quote-left" onClick={() => this.insertMarkdown('> ')} />
-          <i className="fas fa-link" onClick={() => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')} />
-          <i className="fas fa-file-image" onClick={() => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')} />
-          <i className="fas fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")} />
-          <i className="far fa-square" onClick={() => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")} />
+          <p onClick={this.handleInsertH1}>H1</p>
+          <p onClick={this.handleInsertH2}>H2</p>
+          <p onClick={this.handleInsertH3}>H3</p>
+          <i className="fas fa-bold" onClick={this.handleInsertBold} />
+          <i className="fas fa-italic" onClick={this.handleInsertItalic} />
+          <i className="fas fa-list-ul" onClick={this.handleInsertUnorderedList} />
+          <i className="fas fa-list-ol" onClick={this.handleInsertOrderedList} />
+          <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
+          <i className="fas fa-link" onClick={this.handleInsertLink} />
+          <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
+          <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
+          <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
         </div>)
-        content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={this.state.body} />
-        mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" target="_blank">Markdown Cheatsheet</a>
+        content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
+        mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
     }
     return (<div>
       <label>Article Content</label>
@@ -554,8 +656,8 @@ export default class extends React.Component {
         <div id="article-preview-bar">
           {toolbarLeft}
           <div>
-            <span className={`article-tab ${this.state.showArticlePreview ? null : 'active'}`} onClick={this.hideArticlePreview}>Edit</span>
-            <span className={`article-tab ${this.state.showArticlePreview ? 'active' : null}`} onClick={this.showArticlePreview}>Preview</span>
+            <span className={`article-tab ${showArticlePreview ? null : 'active'}`} onClick={this.handleClickEdit}>Edit</span>
+            <span className={`article-tab ${showArticlePreview ? 'active' : null}`} onClick={this.handleClickPreview}>Preview</span>
           </div>
         </div>
         {content}
@@ -565,42 +667,48 @@ export default class extends React.Component {
 
   }
 
-  handlePremiumChange = () => {
-    this.setState({premium: !this.state.premium});
-  }
-
-  handleCenterImagesChange = () => {
-    this.setState({centerImages: !this.state.centerImages});
-  }
-
   render = () => {
+    const { topics, studentTopics, authors, } = this.props
+    const {
+      title,
+      subtitle,
+      imageLink,
+      pressName,
+      author_id,
+      topic,
+      externalLink,
+      uploadedImageLink,
+      preview_card_content,
+      premium,
+      centerImages,
+    } = this.state
     const nullAuthor = {id: null, name: 'None'}
-    const allTopics = this.props.topics.concat(this.props.studentTopics)
+    const allTopics = topics.concat(studentTopics)
     return (
       <div>
         <a className='all-blog-posts-back-button' href='/cms/blog_posts'><i className='fas fa-chevron-left' /> All Blog Posts</a>
         <form>
           <label>Title:</label>
-          <input onChange={this.handleTitleChange} type="text" value={this.state.title} />
+          <input onChange={this.handleTitleChange} type="text" value={title} />
 
           <label>SEO Meta Description:</label>
-          <input onChange={this.handleSubtitleChange} type="text" value={this.state.subtitle} />
+          <input onChange={this.handleSubtitleChange} type="text" value={subtitle} />
 
           <label>SEO Meta Image:</label>
-          <input onChange={this.handleImageLinkChange} type="text" value={this.state.imageLink} />
+          <input onChange={this.handleImageLinkChange} type="text" value={imageLink} />
 
           <label>Press Name (optional):</label>
-          <input onChange={this.handlePressNameChange} type="text" value={this.state.pressName} />
+          <input onChange={this.handlePressNameChange} type="text" value={pressName} />
 
           <div className='short-fields'>
             <div>
               <label>Author:</label>
-              <ItemDropdown callback={this.handleAuthorChange} items={[nullAuthor].concat(this.props.authors)} selectedItem={this.props.authors.find(a => a.id === this.state.author_id) || nullAuthor} />
+              <ItemDropdown callback={this.changeAuthor} items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />
               <a className="link" href="/cms/authors/new" target="_blank">Create New Author</a>
             </div>
             <div>
               <label>Topic:</label>
-              <ItemDropdown callback={this.handleTopicChange} items={allTopics} selectedItem={this.props.topics.find(t => t === this.state.topic)} />
+              <ItemDropdown callback={this.changeTopic} items={allTopics} selectedItem={topics.find(t => t === topic)} />
             </div>
           </div>
 
@@ -612,15 +720,15 @@ export default class extends React.Component {
           <div className='short-fields'>
             <div>
               <label>External Link: (Optional, use only if this card should point to another website)</label>
-              <input onChange={this.handleExternalLinkChange} value={this.state.externalLink} />
+              <input onChange={this.handleExternalLinkChange} value={externalLink} />
             </div>
           </div>
 
           <div>
             <label>Click the square below or drag an image into it to upload an image:</label>
-            <Dropzone onDrop={this.onDrop} />
+            <Dropzone onDrop={this.handleDrop} />
             <label style={{marginTop: '10px'}}>Here is the link to your uploaded image:</label>
-            <input style={{marginBottom: '0px'}} value={this.state.uploadedImageLink} />
+            <input style={{marginBottom: '0px'}} value={uploadedImageLink} />
             <a className="link" href="/cms/images" style={{marginBottom: '10px'}} target="_blank">All Uploaded Images</a>
           </div>
 
@@ -632,23 +740,23 @@ export default class extends React.Component {
 
             <div>
               <label>Card Preview:</label>
-              <PreviewCard content={this.state.preview_card_content} />
+              <PreviewCard content={preview_card_content} />
             </div>
           </div>
 
           <div>
             <label className="premium-label">Show Only to Premium Members:</label>
-            <input checked={this.state.premium} className="premium-checkbox" onClick={this.handlePremiumChange} type='checkbox' />
+            <input checked={premium} className="premium-checkbox" onClick={this.handlePremiumChange} type='checkbox' />
           </div>
 
           <div>
             <label className="center-images-label">Center Images:</label>
-            <input checked={this.state.centerImages} className="center-images-checkbox" onClick={this.handleCenterImagesChange} type='checkbox' />
+            <input checked={centerImages} className="center-images-checkbox" onClick={this.handleCenterImagesChange} type='checkbox' />
           </div>
 
           {this.renderArticleMarkdownOrPreview()}
 
-          <input onClick={(e) => { this.handleSubmitClick(e, true) }} type="submit" value="Publish" />
+          <input onClick={this.handlePublishClick} type="submit" value="Publish" />
 
           {this.renderSaveDraftButton()}
           {this.renderUnpublishButton()}
@@ -656,5 +764,25 @@ export default class extends React.Component {
         </form>
       </div>
     )
+  }
+}
+
+CreateOrEditBlogPost.defaultProps = {
+  postToEdit: {
+    id: null,
+    subtitle: '',
+    image_link: '',
+    body: '',
+    author_id: 11 /* Quill Staff */,
+    topic: 'Webinars',
+    draft: true,
+    slug: true,
+    preview_card_content: defaultPreviewCardContent,
+    title: 'Write Your Title Here',
+    premium: false,
+    press_name: null,
+    published_at: null,
+    external_link: null,
+    center_images: false
   }
 }

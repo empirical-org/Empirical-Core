@@ -61,17 +61,19 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderCustomizedEditionsTag() {
-    const {editions} = this.props.customize
+    const { params, customize, } = this.props
+    const { editions, } = customize
     const customEdition = Object.keys(editions).find(e => {
-      return editions[e].lesson_id === this.props.params.lessonID && editions[e].user_id !== 'quill-staff'
+      return editions[e].lesson_id === params.lessonID && editions[e].user_id !== 'quill-staff'
     })
     if (customEdition) {
-      return <div className="custom-editions-tag">Customized</div>
+      return (<div className="custom-editions-tag">Customized</div>)
     }
   }
 
   presentStudentCount() {
-    const presence = this.props.classroomSessions.data.presence
+    const { classroomSessions, } = this.props
+    const { presence } = classroomSessions.data
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
     return (
@@ -88,9 +90,10 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   toggleHelpDropdown() {
+    const { classroomSessions, } = this.props
     // helpDropdown should not be toggled if watchTeacherState is true
-    if (!this.props.classroomSessions.data.watchTeacherState) {
-      this.setState({showHelpDropdown: !this.state.showHelpDropdown})
+    if (!classroomSessions.data.watchTeacherState) {
+      this.setState(prevState => ({showHelpDropdown: !prevState.showHelpDropdown}));
     }
   }
 
@@ -99,7 +102,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   toggleFlagDropdown() {
-    this.setState({showFlagDropdown: !this.state.showFlagDropdown})
+    this.setState(prevState => ({showFlagDropdown: !prevState.showFlagDropdown}));
   }
 
   hideFlagDropdown() {
@@ -107,7 +110,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   toggleCustomizeDropdown() {
-    this.setState({showCustomizeDropdown: !this.state.showCustomizeDropdown})
+    this.setState(prevState => ({showCustomizeDropdown: !prevState.showCustomizeDropdown}));
   }
 
   hideCustomizeDropdown() {
@@ -169,6 +172,7 @@ class TeacherNavbar extends React.Component<any, any> {
   renderPDFLink() {
     if (this.props.classroomSessions.data.supportingInfo) {
       const className = this.state.tooltip === 'pdf' ? 'hover' : ''
+      /* eslint-disable react/jsx-no-target-blank */
       return (<a
         href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}
         onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
@@ -178,6 +182,7 @@ class TeacherNavbar extends React.Component<any, any> {
         <img className={className} src={pdfIcon} />
         {this.renderTooltip('pdf')}
       </a>)
+      /* eslint-enable react/jsx-no-target-blank */
     }
   }
 
@@ -188,6 +193,7 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   helpDropdown() {
+    /* eslint-disable react/jsx-no-target-blank */
     return (
       <div className='help-dropdown'>
         <i className="fa fa-caret-up" />
@@ -195,6 +201,7 @@ class TeacherNavbar extends React.Component<any, any> {
         <a href="https://support.quill.org/using-quill-tools#quill-lessons" target="_blank"><p>Quill Lessons - Q&A</p></a>
       </div>
     )
+    /* eslint-enable react/jsx-no-target-blank */
   }
 
   renderCustomizeDropdown() {
@@ -325,10 +332,12 @@ class TeacherNavbar extends React.Component<any, any> {
     if (preview === true) {
       const assignLink = `${process.env.EMPIRICAL_BASE_URL}/assign/create-activity-pack?tool=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
+      /* eslint-disable react/jsx-no-target-blank */
       return (<div className="lessons-teacher-preview-bar">
         <p><i className="fa fa-eye" />You are previewing the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
         <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
       </div>)
+      /* eslint-enable react/jsx-no-target-blank */
     }
   }
 

@@ -19,11 +19,13 @@ export default class LessonsRecommendationRow extends React.Component {
 
   renderExpandedSection() {
     const rec = this.props.recommendation;
-    const activities = rec.activities.map((act, index) => (
-      <div className="activity-row flex-row vertically-centered" key={act.name}>
+    const activities = rec.activities.map((act, index) => {
+      const previewLessonLink = <a href={act.url} target="_blank">Preview Lesson</a> //eslint-disable-line react/jsx-no-target-blank
+      return (<div className="activity-row flex-row vertically-centered" key={act.name}>
         <span>{` ${act.name}`}</span>
-        <a href={act.url} target="_blank">Preview Lesson</a>
-      </div >));
+        {previewLessonLink}
+      </div>)
+    });
     return (
       <div className="expanded-section">
         {activities}

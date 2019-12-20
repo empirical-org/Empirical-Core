@@ -138,6 +138,9 @@ class ShowAdminEdition extends Component<any, any> {
     if (this.loaded() && this.props.classroomLessons.hasreceiveddata) {
       const questions = this.editionQuestions()
       const editionId = this.props.params.editionID
+      /* eslint-disable react/jsx-no-target-blank */
+      const editionHeader = <h4 className="title is-4">Edition: {this.edition().name} <a href={`/#/teach/class-lessons/${this.props.params.classroomLessonID}/preview/${this.props.params.editionID}`} target="_blank">Preview</a> </h4>
+      /* eslint-enable react/jsx-no-target-blank */
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
@@ -145,7 +148,7 @@ class ShowAdminEdition extends Component<any, any> {
               <h5 className="title is-4">Lesson: {this.classroomLesson().title}</h5>
               <a href="https://docs.google.com/document/d/1oc3IlB4pDPUFcFLl4eHItPinC9GEKvblkifIKStMSmQ/edit">Quill Lessons Style Guide</a>
             </div>
-            <h4 className="title is-4">Edition: {this.edition().name} <a href={`/#/teach/class-lessons/${this.props.params.classroomLessonID}/preview/${this.props.params.editionID}`} target="_blank">Preview</a> </h4>
+            {editionHeader}
             <EditEditionDetails deleteEdition={this.deleteEdition} edition={this.edition()} save={this.saveEditionDetails} />
           </div>
           <h5 className="title is-5">{questions.length} Slides</h5>

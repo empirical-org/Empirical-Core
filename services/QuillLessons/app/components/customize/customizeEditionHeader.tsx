@@ -32,11 +32,14 @@ export default class CustomizeEditionHeader extends React.Component<any, any> {
   }
 
   renderNote() {
+    /* eslint-disable react/jsx-no-target-blank */
+    const paragraphWithLink = <p>You can build your own lesson by creating a customized edition of a Quill Lesson. However, you cannot yet create a new lesson from scratch. <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">Learn More</a>.</p>
+    /* eslint-enable react/jsx-no-target-blank */
     if (this.state.showNote) {
       return (<div className="note">
         <div className="text">
           <h2>A note about creating your own lessons on Quill</h2>
-          <p>You can build your own lesson by creating a customized edition of a Quill Lesson. However, you cannot yet create a new lesson from scratch. <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">Learn More</a>.</p>
+          {paragraphWithLink}
         </div>
         <div className="image">
           <span onClick={this.closeNote}>Close</span>
