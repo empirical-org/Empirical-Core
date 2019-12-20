@@ -23,7 +23,9 @@ export default class extends React.Component {
     super(props);
     const p = this.props.postToEdit
     // set state to empty values or those of the postToEdit
+
     this.state = {
+      previewCardHasAlreadyBeenManuallyEdited: props.action !== 'new',
       id: p ? p.id : null,
       title: p ? p.title : '',
       subtitle: p ? p.subtitle : '',
@@ -55,11 +57,6 @@ export default class extends React.Component {
 
   componentDidMount = () => {
     this.updatePreviewCardBasedOnType();
-    if(this.props.action === 'new') {
-      this.setState({ previewCardHasAlreadyBeenManuallyEdited: false });
-    } else {
-      this.setState({ previewCardHasAlreadyBeenManuallyEdited: true })
-    }
   }
 
   appropriatePlaceholderImage = () => {
