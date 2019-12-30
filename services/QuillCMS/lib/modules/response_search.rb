@@ -21,13 +21,13 @@ module ResponseSearch
     if query_filters[:sort][:column] == 'text'
       sort_value = [
         {
-          "sortable_text": "#{query_filters[:sort][:direction] || 'desc'}"
+          "sortable_text": (query_filters[:sort][:direction] || 'desc').to_s
         }
       ]
     else
       sort_value = [
         {
-          "#{query_filters[:sort][:column]&.underscore || 'count'}": "#{query_filters[:sort][:direction] || 'desc'}"
+          "#{query_filters[:sort][:column]&.underscore || 'count'}": (query_filters[:sort][:direction] || 'desc').to_s
         }
       ]
     end

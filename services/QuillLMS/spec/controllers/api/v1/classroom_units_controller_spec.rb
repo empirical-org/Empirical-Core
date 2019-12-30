@@ -152,7 +152,7 @@ describe Api::V1::ClassroomUnitsController, type: :controller do
         format: 'json'
       )
       expect(JSON.parse(response.body))
-        .to eq({"follow_up_url"=> "#{ENV['DEFAULT_URL']}"})
+        .to eq({"follow_up_url"=> (ENV['DEFAULT_URL']).to_s})
     end
   end
 
