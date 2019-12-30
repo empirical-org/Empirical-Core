@@ -6,7 +6,7 @@ interface ApplyToAllProps {
 }
 
 export default class ApplyToAll extends React.Component<ApplyToAllProps, {}> {
-  handleApplyToAllClick() {
+  handleApplyToAllClick = () => {
     const { updateAllDueDates, startDate, } = this.props
     updateAllDueDates(startDate)
   }

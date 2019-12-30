@@ -4,7 +4,6 @@
     "react/destructuring-assignment": "error",
     "react/display-name": "error",
     "react/no-access-state-in-setstate": "error",
-    "react/no-deprecated": "error",
     "react/no-unescaped-entities": "error",
     "react/jsx-handler-names": "error",
     "react/jsx-key": "error",
