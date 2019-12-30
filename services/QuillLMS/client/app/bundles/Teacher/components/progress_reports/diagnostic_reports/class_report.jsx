@@ -4,36 +4,33 @@ import OverviewBoxes from './overview_boxes.jsx'
 import MissedLessonRow from './missed_lesson_row.jsx'
 import _ from 'underscore';
 
-export default React.createClass({
+export default class ClassReport extends React.Component {
+  constructor(props) {
+    super(props)
 
-  propTypes: {
-    premiumStatus: React.PropTypes.string,
-    params: React.PropTypes.object.isRequired
-  },
-
-  getInitialState: function() {
-    return {
+    this.state = {
       students: null,
       showInProgressAndUnstartedStudents: false
     }
-  },
+  }
 
-  columnDefinitions: function() {
-    let p = this.props.params
+  columnDefinitions() {
+    const { params, } = this.props
+    const { unitId, activityId, classroomId, } = params
     return [
       {
         name: 'Name',
         field: 'name',
         sortByField: 'name',
-        customCell: function(row) {
-          return (<a href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>{row['name']}</a>)
+        customCell(row) {
+          return (<a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${row.id}`}>{row['name']}</a>)
         }
       },
       {
         name: 'Score',
         field: 'score',
         sortByField: 'score',
-        customCell: function(row) {
+        customCell(row) {
           return row['score'] + '%'
         }
       },
@@ -41,7 +38,7 @@ export default React.createClass({
         name: 'Questions',
         field: 'number_of_questions',
         sortByField: 'number_of_questions',
-        customCell: function(row) {
+        customCell(row) {
           return row['number_of_questions'];
         }
       },
@@ -49,7 +46,7 @@ export default React.createClass({
         name: 'Avg. Score on Quill',
         field: 'average_score_on_quill',
         sortByField: 'average_score_on_quill',
-        customCell: function(row) {
+        customCell(row) {
           return row['average_score_on_quill'] + '%';
         }
       },
@@ -57,16 +54,16 @@ export default React.createClass({
         name: '',
         field: '',
         sortByField: '',
-        customCell: function(row) {
-          return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${row.id}`}>
+        customCell(row) {
+          return (<a className="green-arrow" href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${row.id}`}>
             <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
           </a>)
         }
       }
     ];
-  },
+  }
 
-  sortDefinitions: function() {
+  sortDefinitions() {
     return {
       config: {
         name: 'lastName',
@@ -81,51 +78,50 @@ export default React.createClass({
         direction: 'asc'
       }
     };
-  },
+  }
 
-  sortByLastName: function(names) {
+  sortByLastName(names) {
     return names.sort((a, b) => {
       const aLast = a.split(' ')[1]
       const bLast = b.split(' ')[1]
       return aLast.localeCompare(bLast)
     })
-  },
+  }
 
-  onFetchSuccess: function(responseData) {
+  handleFetchSuccess = (responseData) => {
     this.setState({
       students: responseData.students,
       startedNames: this.sortByLastName(responseData.started_names),
       unstartedNames: this.sortByLastName(responseData.unstarted_names),
       missedNames: this.sortByLastName(responseData.missed_names)
     });
-  },
+  }
 
-  startedAndUnstartedStudents: function() {
-    if (this.state.showInProgressAndUnstartedStudents) {
-      const startedRows = _.map(this.state.startedNames, name => <tr className='in-progress-row' key={name}><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
-      const unstartedRows = _.map(this.state.unstartedNames, name => <tr className='unstarted-row' key={name}><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
-      const missedRows = _.map(this.state.missedNames, name => <MissedLessonRow name={name} />)
-      return (
-        <table className='student-report-box sortable-table'>
-          <tbody>
-            {startedRows}
-            {unstartedRows}
-            {missedRows}
-          </tbody>
-        </table>
-      )
-    }
-   },
+  startedAndUnstartedStudents() {
+    const { showInProgressAndUnstartedStudents, startedNames, unstartedNames, missedNames, } = this.state
+    if (!showInProgressAndUnstartedStudents) { return }
 
-   showInProgressAndUnstartedStudents(bool) {
-     this.setState({showInProgressAndUnstartedStudents: bool})
-   },
+    const startedRows = _.map(startedNames, name => <tr className='in-progress-row' key={name}><td>{name}</td><td colSpan='3'>In Progress</td></tr>)
+    const unstartedRows = _.map(unstartedNames, name => <tr className='unstarted-row' key={name}><td>{name}</td><td colSpan='3'>Not Started</td></tr>)
+    const missedRows = _.map(missedNames, name => <MissedLessonRow name={name} />)
+    return (
+      <table className='student-report-box sortable-table'>
+        <tbody>
+          {startedRows}
+          {unstartedRows}
+          {missedRows}
+        </tbody>
+      </table>
+    )
+  }
 
-  render: function() {
-    let overviewBoxes;
-    if (this.state.students) {
-      overviewBoxes = <OverviewBoxes data={this.state.students} />
-    }
+  showInProgressAndUnstartedStudents = (bool) => this.setState({ showInProgressAndUnstartedStudents: bool })
+
+  render() {
+    const { students, } = this.state
+    const { params, premiumStatus, } = this.props
+    const overviewBoxes = students ? <OverviewBoxes data={students} /> : null
+
     return (
       <div id='individual-classroom-view'>
         {overviewBoxes}
@@ -135,19 +131,19 @@ export default React.createClass({
             columnDefinitions={this.columnDefinitions}
             filterTypes={[]}
             hideFaqLink={Boolean(true)}
-            jsonResultsKey={'students'}
-            key={this.props.params.classroomId}
-            onFetchSuccess={this.onFetchSuccess}
+            jsonResultsKey='students'
+            key={params.classroomId}
+            onFetchSuccess={this.handleFetchSuccess}
             pagination={false}
-            premiumStatus={this.props.premiumStatus}
+            premiumStatus={premiumStatus}
             showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
             sortDefinitions={this.sortDefinitions}
-            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${this.props.params.unitId}/a/${this.props.params.activityId}/c/${this.props.params.classroomId}`}
+            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`}
           />
           {this.startedAndUnstartedStudents()}
         </div>
-        <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing" target="_blank">short feedback form</a>.</div>
+        <div className="feedback-note">We would love to hear about your experience with our diagnostics. Please share your feedback by filling out this <a href="https://docs.google.com/forms/d/1iPmKjOO1KhvgF1tbj--kUVml40FSf-CTbRxcuYHij5Q/edit?usp=sharing" rel="noopener noreferrer" target="_blank">short feedback form</a>.</div>
       </div>
     );
   }
-});
+}

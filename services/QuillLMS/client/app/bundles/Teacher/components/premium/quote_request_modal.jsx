@@ -11,11 +11,11 @@ export default class QuoteRequestModal extends React.Component {
     }
   }
 
-  charge() {
+  charge = () => {
     new Stripe(90000, '$900 per Year - School Premium');
   }
 
-  handlePayNowClick() {
+  handlePayNowClick = () => {
     const { isUserSignedIn, } = this.state
     if (isUserSignedIn) {
       this.charge();
@@ -24,7 +24,7 @@ export default class QuoteRequestModal extends React.Component {
     }
   }
 
-  creditCardNotice() {
+  creditCardNotice = () => {
     const { userHasSchool, } = this.props
     if (userHasSchool) {
       return (<p>To pay now with a credit card, please <span data-toggle="modal" onClick={this.handlePayNowClick}>click here</span>.</p>);
