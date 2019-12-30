@@ -2,7 +2,7 @@ import React from 'react';
 import QuoteRequestModal from '../quote_request_modal.jsx';
 
 const SchoolPricingMini = ({
-  showPurchaseModel,
+  showPurchaseModal,
   userBelongsToSchoolThatHasPaid,
   userIsSignedIn,
   userHasSchool,

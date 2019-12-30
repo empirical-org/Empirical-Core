@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DistrictPricingBox = () => React.Component (
+const DistrictPricingBox = () => (
   <div className="district-pricing-box flex-row vertically-centered space-between">
     <span>
       <span className='bold-segment'>Multiple schools or a district?</span>
