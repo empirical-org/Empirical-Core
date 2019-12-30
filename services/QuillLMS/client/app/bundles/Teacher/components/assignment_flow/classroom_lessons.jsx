@@ -6,24 +6,25 @@ import ItemDropdown from '../general_components/dropdown_selectors/item_dropdown
 
 export default class ClassroomLessons extends React.Component {
   constructor(props) {
-    super();
+    super(props);
+
+    const { classroomId, } = props.routeParams
 
     this.state = {
       allLessons: [],
       lessons: [],
-      classrooms: this.getClassrooms(),
+      classrooms: this.getClassrooms(classroomId),
       loaded: false,
-      selectedClassroomId: `${props.routeParams.classroomId}`,
+      selectedClassroomId: classroomId,
       lessonUidsWithEditions: []
     };
   }
 
-  getClassrooms = () => {
-    const { routeParams, } = this.props
+  getClassrooms = (classroomId) => {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms_i_teach_with_lessons`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       if (classrooms.length > 0) {
-        this.setState({ classrooms, selectedClassroomId: routeParams.classroomId || `${classrooms[0].id}`, }, () => this.getAllLessons());
+        this.setState({ classrooms, selectedClassroomId: classroomId || `${classrooms[0].id}`, }, () => this.getAllLessons());
       } else {
         this.setState({ empty: true, loaded: true, });
       }
@@ -64,7 +65,7 @@ export default class ClassroomLessons extends React.Component {
 
   renderHeader() {
     /* eslint-disable react/jsx-no-target-blank */
-    const paragraphWithLinks = <p>Before you launch a lessons activity with your students, we recommend you check out<a href={`${process.env.DEFAULT_URL}/tutorials/lessons/1`} target="_blank">this tutorial</a> on how to lead a lesson. We have also put together a <a href="https://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson" target="_blank">comprehensive guide</a> that will explain how to set up lessons in your classroom.</p>
+    const paragraphWithLinks = <p>Before you launch a lessons activity with your students, we recommend you check out <a href={`${process.env.DEFAULT_URL}/tutorials/lessons/1`} target="_blank">this tutorial</a> on how to lead a lesson. We have also put together a <a href="https://support.quill.org/using-quill-tools/quill-lessons/getting-started-how-to-set-up-your-first-quill-lesson" target="_blank">comprehensive guide</a> that will explain how to set up lessons in your classroom.</p>
     /* eslint-enable react/jsx-no-target-blank */
 
     return (<div className="my-lessons-header">

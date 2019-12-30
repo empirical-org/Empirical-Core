@@ -54,7 +54,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       draft,
       slug,
       preview_card_content,
-      custom_preview_card_content,
+      custom_preview_card_content: preview_card_content,
       preview_card_type: action === 'new' ? 'Medium Image' : 'Custom HTML',
       blogPostPreviewImage: 'http://placehold.it/300x135',
       blogPostPreviewTitle: title,
@@ -103,7 +103,7 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   handleTitleChange = (e) => {
     const { value, } = e.target;
-    const { previewCardHasAlreadyBeenManuallyEdited, } = this.stte
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
     let state = { title: value };
     if(!previewCardHasAlreadyBeenManuallyEdited) {
       state['blogPostPreviewTitle'] = value;
@@ -117,7 +117,7 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   handleSubtitleChange = (e) => {
     const { value, } = e.target;
-    const { previewCardHasAlreadyBeenManuallyEdited, } = this.stte
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
     let state = {subtitle: value};
     if(!previewCardHasAlreadyBeenManuallyEdited) {
       state['blogPostPreviewDescription'] = value;
@@ -135,7 +135,7 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   handleImageLinkChange = (e) => {
     const { value, } = e.target;
-    const { previewCardHasAlreadyBeenManuallyEdited, } = this.stte
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
     let state = { imageLink: value };
     if(!previewCardHasAlreadyBeenManuallyEdited) {
       state['blogPostPreviewImage'] = targetValue;
@@ -199,16 +199,16 @@ export default class CreateOrEditBlogPost extends React.Component {
     e.preventDefault()
 
     if (unpublish && window.prompt('To unpublish this post, please type UNPUBLISH.') !== 'UNPUBLISH') { return }
-    let action
+    let requestAction
     let url = `${process.env.DEFAULT_URL}/cms/blog_posts/`
     if (action === 'new' && !unpublish) {
-      action = 'post'
+      requestAction = 'post'
     } else {
-      action = 'put'
+      requestAction = 'put'
       url += postToEdit.id
     }
 
-    request[action]({
+    request[requestAction]({
       url,
       form: {
         blog_post: {
@@ -344,7 +344,7 @@ export default class CreateOrEditBlogPost extends React.Component {
   }
 
   updatePreviewCardBasedOnType = () => {
-    const { preview_card_type, custom_preview_card_content, }
+    const { preview_card_type, custom_preview_card_content, } = this.state
     switch (preview_card_type) {
       case 'Tiny Image':
       case 'Medium Image':
@@ -562,7 +562,7 @@ export default class CreateOrEditBlogPost extends React.Component {
       contentFields = [
         <label key="custom-html-label">Custom HTML:</label>,
         <textarea id="preview-markdown-content" key="custom-html" onChange={this.handleCustomPreviewChange} rows={4} type="text" value={custom_preview_card_content} />,
-        <i key="info">If no author is supposed to show, please delete &#34;&lt;p class=author&gt&#34; through the next &#34;&lt;/p&gt&#34;.</i>
+        <i key="info">If no author is supposed to show, please delete &#34;&lt;p class=author&gt;&#34; through the next &#34;&lt;/p&gt;&#34;.</i>
       ]
     } else if (preview_card_type === 'Tweet') {
       contentFields = [
