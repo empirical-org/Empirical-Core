@@ -14,7 +14,7 @@ export default class ClassReport extends React.Component {
     }
   }
 
-  columnDefinitions() {
+  columnDefinitions = () => {
     const { params, } = this.props
     const { unitId, activityId, classroomId, } = params
     return [

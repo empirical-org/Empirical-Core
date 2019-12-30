@@ -82,7 +82,7 @@ export default class Recommendations extends React.Component {
         };
       });
     }
-    const lessonsRecommendations = lessonsRecommendations.map((recommendation) => {
+    const newLessonsRecommendations = lessonsRecommendations.map((recommendation) => {
       if (previouslyAssignedLessonsRecommendations.includes(recommendation.activity_pack_id)) {
         return Object.assign({}, recommendation, { status: 'assigned', });
       } else {
@@ -92,7 +92,7 @@ export default class Recommendations extends React.Component {
     if (assigned) {
       this.setState({ selections: newSelections, assigned, assigning: false, }, this.setAssignedToFalseAfterFiveSeconds);
     } else {
-      this.setState({ selections: newSelections, lessonsRecommendations, });
+      this.setState({ selections: newSelections, newLessonsRecommendations, });
     }
   }
 
@@ -376,7 +376,7 @@ export default class Recommendations extends React.Component {
   renderGroupActivityRecommendations() {
     const { lessonsRecommendations, } = this.state
 
-    if (!lessonRecommendations.length) { return }
+    if (!lessonsRecommendations.length) { return }
 
     return (
       <LessonsRecommendations

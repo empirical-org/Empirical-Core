@@ -32,7 +32,7 @@ export default class LessonsRecommendationRow extends React.Component {
   }
 
   statusSpecificComponent() {
-    const { status, recommendation, }
+    const { status, recommendation, } = this.props
     if (status === 'loading') {
       return (<LoadingIndicator />);
     } else if (recommendation.previously_assigned || status === 'assigned') {
