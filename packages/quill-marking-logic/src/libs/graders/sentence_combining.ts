@@ -55,7 +55,7 @@ export function checkSentenceCombining(
   const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
   if (spellingPass) {
     // Update the feedback to indicate spelling is also needed.
-    if (Array.isArray(spellingPass.concept_results)) spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'))
+    if (Array.isArray(spellingPass.concept_results)) spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
     const spellingFeedbackObj = {
       text: data.response,
@@ -118,8 +118,6 @@ function prepareSpellingData(data: GradingObject) {
   const spellingData = Object.assign({}, data);
   const optimalAnswerStrings = getOptimalResponses(data.responses).map(resp => resp.text);
   spellingData.spellCorrectedResponse = correctSentenceFromSamples(optimalAnswerStrings, data.response, false);
-  console.log('spelling data is')
-  console.log(spellingData)
   return spellingData;
 }
 
