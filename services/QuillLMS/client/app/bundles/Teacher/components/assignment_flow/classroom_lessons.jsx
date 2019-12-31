@@ -82,14 +82,16 @@ export default class ClassroomLessons extends React.Component {
   }
 
   renderEmptyState() {
+    const assignLessonsLink = <a className="bg-quillgreen text-white" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" target="_blank">Assign Lessons</a>  // eslint-disable-line react/jsx-no-target-blank
+    const learnMoreLink = <a className="bg-white text-quillgreen" href="/tools/lessons" target="_blank">Learn More</a> // eslint-disable-line react/jsx-no-target-blank
     return (<div className="empty-lessons manage-units">
       <div className="content">
         <h1>You have no lessons assigned!</h1>
         <p>In order to launch a lesson, you need to assign a lesson to one of your classes.</p>
         <p>With Quill Lessons, teachers can use Quill to lead whole-class lessons and to see and display student responses in real-time.</p>
         <div className="buttons">
-          <a className="bg-quillgreen text-white" href="/teachers/classrooms/assign_activities/create-unit?tool=lessons" target="_blank">Assign Lessons</a>  // eslint-disable-line react/jsx-no-target-blank
-          <a className="bg-white text-quillgreen" href="/tools/lessons" target="_blank">Learn More</a> // eslint-disable-line react/jsx-no-target-blank
+          {assignLessonsLink}
+          {learnMoreLink}
         </div>
       </div>
       <img src={`${process.env.CDN_URL}/images/illustrations/empty_state_illustration_lessons.svg`} />

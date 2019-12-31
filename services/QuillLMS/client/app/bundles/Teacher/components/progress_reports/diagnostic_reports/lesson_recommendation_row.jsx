@@ -8,7 +8,7 @@ export default class LessonsRecommendationRow extends React.Component {
     this.state = { expanded: false, };
   }
 
-  handleAssignPackClick() {
+  handleAssignPackClick = () => {
     const { assignToWholeClass, activityPackId, } = this.props
     assignToWholeClass(activityPackId)
   }
