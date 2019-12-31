@@ -477,19 +477,6 @@ Naming/PredicateName:
     - 'QuillLMS/app/models/user.rb'
     - 'QuillLMS/spec/support/pages/page.rb'
 
-# Offense count: 13
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: inline, group
-#Style/SpaceAfterColon:
-#  Exclude:
-#    - 'QuillComprehension/app/controllers/play_controller.rb'
-#    - 'QuillLMS/app/controllers/api/api_controller.rb'
-#    - 'QuillLMS/app/controllers/api/v1/title_cards_controller.rb'
-#    - 'QuillLMS/app/models/concerns/student.rb'
-#    - 'QuillLMS/app/models/school.rb'
-#    - 'QuillLMS/app/controllers/api/v1/focus_points_controller.rb'
-#    - 'QuillLMS/app/controllers/api/v1/incorrect_sequences_controller.rb'
-
 # Offense count: 27
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
@@ -698,22 +685,6 @@ Style/NumericLiterals:
 Style/NumericPredicate:
   Enabled: false
 
-# Offense count: 13
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'QuillComprehension/app/controllers/activities_controller.rb'
-    - 'QuillLMS/app/controllers/concerns/teacher_fixes.rb'
-    - 'QuillLMS/app/controllers/grades_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/classroom_units_controller.rb'
-    - 'QuillLMS/app/models/activity_session.rb'
-    - 'QuillLMS/app/models/concerns/checkbox_callback.rb'
-    - 'QuillLMS/app/models/concerns/public_progress_reports.rb'
-    - 'QuillLMS/app/models/concerns/student.rb'
-    - 'QuillLMS/app/workers/test_for_earned_checkboxes_worker.rb'
-    - 'QuillLMS/spec/factories/users.rb'
-
 # Offense count: 84
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
@@ -836,20 +807,6 @@ Style/TrailingCommaInArrayLiteral:
 # SupportedStylesForMultiline: comma, consistent_comma, no_comma
 Style/TrailingCommaInHashLiteral:
   Enabled: false
-
-# Offense count: 13
-# Cop supports --auto-correct.
-Style/RedundantInterpolation:
-  Exclude:
-    - 'QuillCMS/lib/modules/response_search.rb'
-    - 'QuillCMS/spec/controllers/responses_controller_spec.rb'
-    - 'QuillLMS/app/controllers/api/v1/classroom_units_controller.rb'
-    - 'QuillLMS/app/helpers/application_helper.rb'
-    - 'QuillLMS/app/models/activity_session.rb'
-    - 'QuillLMS/app/pdfs/login_pdf.rb'
-    - 'QuillLMS/config/routes.rb'
-    - 'QuillLMS/spec/controllers/api/v1/classroom_units_controller_spec.rb'
-    - 'QuillLMS/spec/cypress/app_commands/factory_bot.rb'
 
 # Offense count: 23
 # Cop supports --auto-correct.
