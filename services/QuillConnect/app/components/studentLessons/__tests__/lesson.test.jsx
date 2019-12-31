@@ -8,6 +8,8 @@ import PlayLessonQuestion from '../question';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank.tsx';
 import SessionActions from '../../../actions/sessions.js';
+import request from 'request';
+jest.mock('request');
 
 const mockProps = {
   conceptsFeedback: {},
@@ -84,9 +86,6 @@ const mockProps = {
     hasreceiveddata: false
   }
 };
-
-// needed for class functions that make request calls
-jest.mock('request');
 
 describe('Lesson Container prop-dependent component rendering', () => {
   const container = shallow(<Lesson {...mockProps} />);
@@ -190,21 +189,16 @@ describe('Lesson Container functions', () => {
     container.instance().saveToLMS();
     expect(finishActivitySession).toHaveBeenCalled();
   });
-  // it("finishActivitySession makes a get request and sets saved piece of date to true on success", () => {
-  //   const callback = jest.fn();
-  //   const request = jest.fn().mockImplementation(({}, callback) => {
-  //     return Promise.resolve(callback({ data: {} }));
-  //   });
-  //   container.instance().finishActivitySession();
-  //   expect(container.state().saved).toEqual(true);
-  // });
-  // it("finishActivitySession makes a get request and sets saved piece of date to true on success; otherwise, saved is set to false", async () => {
-  //   await container.instance().finishActivitySession();
-  //   container.update();
-  //   expect(container.state().saved).toEqual(true);
-  // });
-  //   it("createAnonActivitySession", () => {
-  //   });
+
+  // TODO: implement finishActivitySession and createAnonActivitySession tests with request module mocking
+
+  it("finishActivitySession makes a put request and sets saved piece of state to true on success", () => {
+  });
+  it("finishActivitySession makes a put request and sets saved piece of state to false on failure", () => {
+  });
+  it("createAnonActivitySession makes a post request and sets saved piece of state to true on success", () => {
+  });
+
   it("markIdentify calls dispatch() props method, passing updateCurrentQuestion(bool) action as a callback", () => {
     container.instance().markIdentify({});
     expect(mockProps.dispatch).toHaveBeenCalled();
@@ -246,9 +240,9 @@ describe('Lesson Container functions', () => {
     SessionActions.update = jest.fn();
     container.instance().saveSessionData({
       questionSet: [
-        { question: { key: "-KSIktbarQVG4sSxfIx6", attempts: 1 } },
         { question: { key: "test1", attempts: 1 } },
-        { question: { key: "-KSIktwooQVG4sSxfIx6", attempts: 1 } }
+        { question: { key: "test2", attempts: 1 } },
+        { question: { key: "test3", attempts: 1 } }
       ]
     });
     expect(SessionActions.update).toHaveBeenCalled()
