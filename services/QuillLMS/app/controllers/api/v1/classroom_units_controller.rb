@@ -77,7 +77,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
           follow_up_unit_activity.activity_id
         )
       else
-        "#{ENV['DEFAULT_URL']}"
+        (ENV['DEFAULT_URL']).to_s
       end
     end
 
