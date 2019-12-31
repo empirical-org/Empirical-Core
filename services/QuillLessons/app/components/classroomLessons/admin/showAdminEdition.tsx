@@ -34,22 +34,22 @@ class ShowAdminEdition extends Component<any, any> {
     props.dispatch(getEditionQuestions(props.params.editionID))
   }
 
-  classroomLesson() {
+  classroomLesson = () => {
     const { classroomLessons, params, } = this.props
     return classroomLessons.data[params.classroomLessonID]
   }
 
-  edition() {
+  edition = () => {
     const { customize, params, } = this.props
     return customize.editions[params.editionID]
   }
 
-  loaded() {
+  loaded = () => {
     const { customize, } = this.props
     return customize.editions && Object.keys(customize.editions).length > 0 && this.edition() && this.editionQuestions() && this.editionQuestions().length > 0
   }
 
-  editionQuestions() {
+  editionQuestions = () => {
     const { customize, } = this.props
     return customize.editionQuestions ? customize.editionQuestions.questions : null
   }
@@ -95,7 +95,7 @@ class ShowAdminEdition extends Component<any, any> {
     updateEditionSlides(params.editionID, newSlides)
   }
 
-  deleteSlide(slideID) {
+  deleteSlide = (slideID) => {
     const { params, } = this.props
     const confirmation = window.confirm('Are you sure you want to delete this slide?')
     if (confirmation) {
@@ -104,7 +104,7 @@ class ShowAdminEdition extends Component<any, any> {
     }
   }
 
-  renderSortableMiddleSlides() {
+  renderSortableMiddleSlides = () => {
     const { params, } = this.props
     if (this.loaded()) {
       const questions = this.editionQuestions()
@@ -113,7 +113,7 @@ class ShowAdminEdition extends Component<any, any> {
     }
   }
 
-  renderSlide(questions, editionId, key) {
+  renderSlide = (questions, editionId, key) => {
     const { params, } = this.props
 
     const exitSlideIndex = questions.length - 1
@@ -128,7 +128,7 @@ class ShowAdminEdition extends Component<any, any> {
     )
   }
 
-  renderAddSlide() {
+  renderAddSlide = () => {
     const { newSlideType, } = this.state
     if (this.loaded()) {
       const options = slideTypeKeys.map(key => <option key={key} value={key}>{getComponentDisplayName(key)}</option>)

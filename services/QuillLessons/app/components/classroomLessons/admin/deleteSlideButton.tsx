@@ -7,7 +7,7 @@ interface DeleteSlideButtonProps {
 
 export default class DeleteSlideButton extends React.Component<DeleteSlideButtonProps, any> {
 
-  handleDeleteSlideClick() {
+  handleDeleteSlideClick = () => {
     const { deleteSlide, slideKey, } = this.props
     deleteSlide(slideKey)
   }
