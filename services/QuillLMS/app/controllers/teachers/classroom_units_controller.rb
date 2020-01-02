@@ -90,7 +90,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   def lesson_url(lesson)
-    if (ActivitySession.find_by(classroom_unit_id: @classroom_unit.id, state: 'started'))
+    if ActivitySession.find_by(classroom_unit_id: @classroom_unit.id, state: 'started')
       "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     else
       "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"

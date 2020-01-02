@@ -62,7 +62,7 @@ describe GoogleIntegration::RefreshAccessToken do
 
   describe '#store_credentials' do
     it 'should persist credentials and reload them if successful' do
-      parsed_response = {foo:'bar'}
+      parsed_response = {foo: 'bar'}
       response_dbl = double
       expect(response_dbl).to receive(:parsed_response).and_return(parsed_response)
       expect(subject).to receive(:parse_attributes).with(parsed_response).and_return(parsed_response)
@@ -72,7 +72,7 @@ describe GoogleIntegration::RefreshAccessToken do
     end
 
     it 'should raise FailedToSaveRefreshedTokenError if credential update fails' do
-      parsed_response = {foo:'bar'}
+      parsed_response = {foo: 'bar'}
       response_dbl = double
       expect(response_dbl).to receive(:parsed_response).and_return(parsed_response)
       expect(subject).to receive(:parse_attributes).with(parsed_response).and_return(parsed_response)

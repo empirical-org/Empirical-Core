@@ -355,9 +355,11 @@ jobs:
     docker:
       - image: circleci/python:3.7.4
         environment:
-          PG_DB: quill_comprehension_api_db
+          PG_HOST: "localhost"
+          PG_NAME: quill_comprehension_api_db
           PG_USER: ubuntu
           PG_PASS: ""
+          PG_PORT: "5432"
           DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
       - image: postgres:10.5-alpine
         environment:
