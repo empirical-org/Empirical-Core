@@ -1172,4 +1172,38 @@ describe User, type: :model do
       expect(teacher.satismeter_threshold_met?).to be false
     end
   end
+
+  describe 'clever_id validation' do
+    it 'should pass the validation if the user is new and the clever id is not currently in use' do
+      user = build(:student, clever_id: 'new_and_different')
+      expect(user.valid?).to be
+    end
+
+    it 'should not pass the validation if the user is new and the clever id is already in use' do
+      create(:student, clever_id: 'already_used')
+      new_user = build(:student, clever_id: 'already_used')
+      expect(new_user.valid?).not_to be
+    end
+
+    it 'should pass the validation if the user already exists and has not changed their clever id, even if another user already has it' do
+      create(:teacher, clever_id: 'already_used')
+      second_user = build(:teacher, clever_id: 'already_used')
+      second_user.save!(validate: false)
+      second_user.name = 'Clever User'
+      expect(second_user.valid?).to be
+    end
+
+    it 'should not pass the validation if the user already exists and is changing their clever id to a non-unique one' do
+      create(:student, clever_id: 'already_used')
+      second_user = create(:student, clever_id: 'different_clever_id')
+      second_user.clever_id = 'already_used'
+      expect(second_user.valid?).not_to be
+    end
+
+    it 'should pass the validation if the user already exists and changes their clever id to a unique one' do
+      user = create(:student)
+      user.clever_id = 'something'
+      expect(user.valid?).to be
+    end
+  end
 end
