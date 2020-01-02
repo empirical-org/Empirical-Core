@@ -70,6 +70,8 @@ class User < ActiveRecord::Base
 
   validate :username_cannot_be_an_email
 
+  validates :clever_id,             uniqueness:   { if: :clever_id_present_and_has_changed? }
+
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
 
@@ -601,6 +603,14 @@ private
     return false if role.temporary?
     return true if teacher?
     false
+  end
+
+  def clever_id_present_and_has_changed?
+    return false if !clever_id
+    return true if !id
+
+    extant_user = User.find_by_id(id)
+    extant_user.clever_id != clever_id
   end
 
   def requires_password?
