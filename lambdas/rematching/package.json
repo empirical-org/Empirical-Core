@@ -11,11 +11,7 @@
   "dependencies": {
     "lodash": "^4.17.11",
     "pg": "^7.7.1",
-<<<<<<< HEAD
     "quill-marking-logic": "^0.12.12",
-=======
-    "quill-marking-logic": "0.12.11",
->>>>>>> 7a76b172a427fb759ba6337872dc3f3b30f529e3
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "sequelize": "^4.42.0",
