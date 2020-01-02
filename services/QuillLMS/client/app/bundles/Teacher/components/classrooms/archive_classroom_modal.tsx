@@ -12,13 +12,7 @@ interface ArchiveClassModalState {
 }
 
 export default class ArchiveClassModal extends React.Component<ArchiveClassModalProps, ArchiveClassModalState> {
-  constructor(props) {
-    super(props)
-
-    this.archiveClass = this.archiveClass.bind(this)
-  }
-
-  archiveClass() {
+  handleArchiveClassButtonClick = () => {
     const { onSuccess, classroom } = this.props
     requestPost(`/teachers/classrooms/${classroom.id}/hide`, null, () => {
       onSuccess('Class archived')
@@ -26,7 +20,8 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
   }
 
   render() {
-    const { classroom } = this.props
+    const { classroom, close, } = this.props
+    const supportLink = <a href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-manage-my-classes-and-student-profiles" target="_blank">Learn more</a>  //eslint-disable-line react/jsx-no-target-blank
     return (<div className="modal-container archive-class-modal-container">
       <div className="modal-background" />
       <div className="archive-class-modal quill-modal modal-body">
@@ -34,12 +29,12 @@ export default class ArchiveClassModal extends React.Component<ArchiveClassModal
           <h3 className="title">Archive this class?</h3>
         </div>
         <div className="archive-class-modal-text">
-          <p>If you archive the class {classroom.name}, students in this class will no longer be able to access activities. You can view this class in "Archived Classes" under the "Classes" tab.</p>
-          <a href="https://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-manage-my-classes-and-student-profiles" target="_blank">Learn more</a>
+          <p>If you archive the class {classroom.name}, students in this class will no longer be able to access activities. You can view this class in &#34;Archived Classes&#34; under the &#34;Classes&#34; tab.</p>
+          {supportLink}
         </div>
         <div className="form-buttons">
-          <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
-          <button className="quill-button contained primary medium" onClick={this.archiveClass}>Archive</button>
+          <button className="quill-button outlined secondary medium" onClick={close} type="button">Cancel</button>
+          <button className="quill-button contained primary medium" onClick={this.handleArchiveClassButtonClick} type="button">Archive</button>
         </div>
       </div>
     </div>)
