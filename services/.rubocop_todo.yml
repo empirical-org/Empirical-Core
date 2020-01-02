@@ -27,27 +27,6 @@ Bundler/OrderedGems:
     - 'QuillComprehension/Gemfile'
     - 'QuillLMS/Gemfile'
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: outdent, indent
-Layout/AccessModifierIndentation:
-  Exclude:
-    - 'QuillLMS/app/controllers/accounts_controller.rb'
-    - 'QuillLMS/app/controllers/activities_controller.rb'
-    - 'QuillLMS/app/controllers/cms/activities_controller.rb'
-    - 'QuillLMS/app/controllers/cms/sections_controller.rb'
-    - 'QuillLMS/app/controllers/cms/topic_categories_controller.rb'
-    - 'QuillLMS/app/controllers/cms/topics_controller.rb'
-    - 'QuillLMS/app/controllers/cms/users_controller.rb'
-    - 'QuillLMS/app/controllers/profiles_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/classrooms_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/students_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/unit_activities_controller.rb'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/lib/name_generator.rb'
-
 # Offense count: 200
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -423,12 +402,6 @@ Lint/UselessAccessModifier:
 # Offense count: 98
 Lint/UselessAssignment:
   Enabled: false
-
-# Offense count: 14
-# Configuration parameters: CheckForMethodsWithNoSideEffects.
-Lint/Void:
-  Exclude:
-    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
 
 # Offense count: 222
 Metrics/AbcSize:

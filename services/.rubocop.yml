@@ -301,10 +301,10 @@ Style/UnlessElse:
 Layout/EndAlignment:
   Enabled: false
 
-FloatDivision:
+Style/FloatDivision:
   Enabled: false
 
-RescuedExceptionsVariableName:
+Naming/RescuedExceptionsVariableName:
   Enabled: false
 
 Lint/SuppressedException:
@@ -396,3 +396,26 @@ Style/RedundantInterpolation:
   Exclude:
   - 'QuillLMS/config/routes.rb'
   - 'QuillLMS/spec/cypress/app_commands/factory_bot.rb'
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+  Exclude:
+    #- 'QuillLMS/app/controllers/accounts_controller.rb'
+    #- 'QuillLMS/app/controllers/activities_controller.rb'
+    #- 'QuillLMS/app/controllers/cms/activities_controller.rb'
+    #- 'QuillLMS/app/controllers/cms/sections_controller.rb'
+    #- 'QuillLMS/app/controllers/cms/topic_categories_controller.rb'
+    #- 'QuillLMS/app/controllers/cms/topics_controller.rb'
+    # - 'QuillLMS/app/controllers/cms/users_controller.rb'
+    #- 'QuillLMS/app/controllers/profiles_controller.rb'
+    #- 'QuillLMS/app/controllers/teachers/classrooms_controller.rb'
+    #- 'QuillLMS/app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb'
+    #- 'QuillLMS/app/controllers/teachers/students_controller.rb'
+    #- 'QuillLMS/app/controllers/teachers/unit_activities_controller.rb'
+    #- 'QuillLMS/app/models/user.rb'
+    #- 'QuillLMS/lib/name_generator.rb'
+
+Lint/Void:
+  Enabled: true
+  #Exclude:
+  #  - 'QuillCMS/lib/tasks/import_from_firebase.rake'
