@@ -1,6 +1,10 @@
 {
   "name": "quill-marking-logic",
+<<<<<<< HEAD
   "version": "0.12.12",
+=======
+  "version": "0.12.11",
+>>>>>>> 7a76b172a427fb759ba6337872dc3f3b30f529e3
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "./dist/lib",
   "module": "./dist/lib",
@@ -72,7 +76,7 @@
     "lodash": "^4.17.15",
     "pos": "^0.4.2",
     "quill-component-library": "0.3.29",
-    "quill-spellchecker": "^0.1.16",
+    "quill-spellchecker": "^0.1.19",
     "quill-string-normalizer": "0.0.9",
     "request-promise": "^4.2.5",
     "rollup-plugin-commonjs": "^8.3.0",

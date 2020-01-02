@@ -1,25 +1,21 @@
 import React from 'react';
 import _ from 'underscore';
 
-export default React.createClass({
-
-  propTypes: {
-    url: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-  },
+export default class UnitTemplateProfileShareButtons extends React.Component {
 
   urlEncodedMessage() {
-    return encodeURI(this.props.text) ;
-  },
+    const { text, } = this.props
+    return encodeURI(text) ;
+  }
 
   render() {
-    const url = this.props.url;
+    const { url, text, } = this.props
 
     const stuff = [
       {
         icon: 'fa-twitter',
         className: 'btn-twitter',
-        href: `http://twitter.com/home?status=${encodeURIComponent(this.props.text)}`,
+        href: `http://twitter.com/home?status=${encodeURIComponent(text)}`,
         title: 'Share on Twitter',
         action: 'Tweet',
       },
@@ -47,10 +43,10 @@ export default React.createClass({
     ];
 
     const links = _.map(stuff, hash => (
-      <a className={`btn btn-default btn-social ${hash.className}`} href={hash.href} key={hash.title} target="_blank" title={hash.title}>
+      <a className={`btn btn-default btn-social ${hash.className}`} href={hash.href} key={hash.title} rel="noopener noreferrer" target="_blank" title={hash.title}>
         <i className={`fab ${hash.icon}`} /><span className="social-action">{hash.action}</span>
       </a>
-      ));
+    ));
 
     return (
       <div className="share light-gray-bordered-box">
@@ -60,6 +56,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-
-});
+  }
+}
