@@ -1,3 +1,5 @@
+import { stringNormalize } from 'quill-string-normalizer'
+
 import {processSentences} from  './processSentences';
 import {train} from './train';
 import common from './mostCommonWords';
@@ -10,7 +12,8 @@ export function correctSentenceFromSamples(samples: string[], sentence: string, 
   if (useCommon) {
     dictstring = dictstring + "\n" + common;
   }
-  const dictionary = train(dictstring);
-  
+  const normalizedDictString = stringNormalize(dictstring)
+  const dictionary = train(normalizedDictString);
+
   return correctSentence(dictionary, sentence);
 }
