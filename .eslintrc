@@ -16,6 +16,12 @@
       "jsx": true
     }
   },
+  "settings": {
+    "linkComponents": [
+      "Hyperlink",
+      {"name": "Link", "linkAttribute": "to"}
+    ]
+  },
   "rules": {
     "no-console": "error",
     "for-direction": "error",
@@ -23,12 +29,14 @@
     "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
     "react/no-children-prop": "error",
     "react/no-danger-with-children": "error",
+    "react/no-did-mount-set-state": "error",
     "react/no-direct-mutation-state": "error",
     "react/no-find-dom-node": "error",
     "react/no-is-mounted": "error",
     "react/no-multi-comp": ["error", { "ignoreStateless": true }],
     "react/no-redundant-should-component-update": "error",
     "react/no-render-return-value": "error",
+    "react/jsx-no-target-blank": "error",
     "react/no-this-in-sfc": "error",
     "react/no-typos": "error",
     "react/no-unknown-property": "error",
@@ -51,6 +59,7 @@
     "react/jsx-no-comment-textnodes": "error",
     "react/jsx-no-useless-fragment": "error",
     "react/jsx-props-no-multi-spaces": "error",
+    "react/jsx-sort-default-props": "error",
     "react/jsx-sort-props": "error",
     "react/jsx-tag-spacing": "error",
     "react/jsx-uses-react": "error",

@@ -168,9 +168,9 @@ class ActivitySession < ActiveRecord::Base
 
   def display_due_date_or_completed_at_date
     if completed_at.present?
-      "#{completed_at.strftime('%A, %B %d, %Y')}"
-    elsif (unit_activity.present? and unit_activity.due_date.present?)
-      "#{unit_activity.due_date.strftime('%A, %B %d, %Y')}"
+      (completed_at.strftime('%A, %B %d, %Y')).to_s
+    elsif unit_activity.present? and unit_activity.due_date.present?
+      (unit_activity.due_date.strftime('%A, %B %d, %Y')).to_s
     else
       ""
     end

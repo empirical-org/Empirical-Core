@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   before_validation :generate_student_username_if_absent
   before_validation :prep_authentication_terms
   before_save :capitalize_name
-  after_save  :update_invitee_email_address, if: Proc.new { email_changed? }
+  after_save  :update_invitee_email_address, if: proc { email_changed? }
   after_save :check_for_school
-  after_create :generate_referrer_id, if: Proc.new { teacher? }
+  after_create :generate_referrer_id, if: proc { teacher? }
 
   has_secure_password validations: false
   has_one :auth_credential, dependent: :destroy
@@ -69,6 +69,8 @@ class User < ActiveRecord::Base
                                     uniqueness:   { message: :taken, if: :email_required_or_present?}
 
   validate :username_cannot_be_an_email
+
+  validates :clever_id,             uniqueness:   { if: :clever_id_present_and_has_changed? }
 
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
@@ -601,6 +603,14 @@ private
     return false if role.temporary?
     return true if teacher?
     false
+  end
+
+  def clever_id_present_and_has_changed?
+    return false if !clever_id
+    return true if !id
+
+    extant_user = User.find_by_id(id)
+    extant_user.clever_id != clever_id
   end
 
   def requires_password?
