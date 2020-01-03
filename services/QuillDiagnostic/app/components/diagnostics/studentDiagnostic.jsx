@@ -103,7 +103,6 @@ class StudentDiagnostic extends React.Component {
   }
 
   finishActivitySession = (sessionID, results, score) => {
-    const { sessionID, } = this.state
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -250,7 +249,7 @@ class StudentDiagnostic extends React.Component {
 
   getProgressPercent = () => {
     let percent;
-    const { playDiagnostic } = playDiagnostic;
+    const { playDiagnostic } = this.props;
     if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
       const questionSetCount = playDiagnostic.questionSet.length;
       const answeredQuestionCount = questionSetCount - playDiagnostic.unansweredQuestions.length;
