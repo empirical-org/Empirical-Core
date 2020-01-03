@@ -76,7 +76,7 @@ class SerializeSalesContact
 
   def activities_per_student
     if number_of_students > 0
-      (number_of_completed_activities.to_f / number_of_students.to_f).round(2)
+      (number_of_completed_activities.to_f / number_of_students).round(2)
     else
       0
     end

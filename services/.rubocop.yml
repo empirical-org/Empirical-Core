@@ -302,10 +302,10 @@ Layout/EndAlignment:
   Enabled: false
 
 Style/FloatDivision:
-  Enabled: false
+  Enabled: true
 
 Naming/RescuedExceptionsVariableName:
-  Enabled: false
+  Enabled: true
 
 Lint/SuppressedException:
   Enabled: true
@@ -399,21 +399,6 @@ Style/RedundantInterpolation:
 
 Layout/AccessModifierIndentation:
   Enabled: true
-  Exclude:
-    #- 'QuillLMS/app/controllers/accounts_controller.rb'
-    #- 'QuillLMS/app/controllers/activities_controller.rb'
-    #- 'QuillLMS/app/controllers/cms/activities_controller.rb'
-    #- 'QuillLMS/app/controllers/cms/sections_controller.rb'
-    #- 'QuillLMS/app/controllers/cms/topic_categories_controller.rb'
-    #- 'QuillLMS/app/controllers/cms/topics_controller.rb'
-    # - 'QuillLMS/app/controllers/cms/users_controller.rb'
-    #- 'QuillLMS/app/controllers/profiles_controller.rb'
-    #- 'QuillLMS/app/controllers/teachers/classrooms_controller.rb'
-    #- 'QuillLMS/app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb'
-    #- 'QuillLMS/app/controllers/teachers/students_controller.rb'
-    #- 'QuillLMS/app/controllers/teachers/unit_activities_controller.rb'
-    #- 'QuillLMS/app/models/user.rb'
-    #- 'QuillLMS/lib/name_generator.rb'
 
 Lint/Void:
   Enabled: true
