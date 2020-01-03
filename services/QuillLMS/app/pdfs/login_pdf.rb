@@ -167,7 +167,7 @@ class LoginPdf < Prawn::Document
     elsif student.signed_up_with_google?
       "N/A (Log in with Google)"
     elsif student.authenticate(student.last_name)
-      "#{student.last_name.capitalize}"
+      (student.last_name.capitalize).to_s
     else
       "N/A (Custom Password)"
     end

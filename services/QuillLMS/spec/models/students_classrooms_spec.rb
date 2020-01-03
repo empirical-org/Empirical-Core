@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe StudentsClassrooms, type: :model, redis: :true do
+describe StudentsClassrooms, type: :model, redis: true do
   it { should belong_to(:student).class_name('User') }
   it { should belong_to(:classroom).class_name("Classroom") }
 

@@ -216,7 +216,7 @@ module PublicProgressReports
     end
 
     def get_average_score formatted_results
-      if (formatted_results.empty?)
+      if formatted_results.empty?
         100
       else
         (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
