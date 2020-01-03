@@ -1,4 +1,4 @@
-import Turk from 'components/turk/sentenceFragmentsQuiz.jsx';
+import Turk from 'components/turk/turkActivity.jsx';
 import { getParameterByName } from 'libs/getParameterByName';
 
 const route = {
