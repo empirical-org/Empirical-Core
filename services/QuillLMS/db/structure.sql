@@ -1860,6 +1860,38 @@ ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.i
 
 
 --
+-- Name: question_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.question_types (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.question_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.question_types_id_seq OWNED BY public.question_types.id;
+
+
+--
 -- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3174,6 +3206,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: question_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_types ALTER COLUMN id SET DEFAULT nextval('public.question_types_id_seq'::regclass);
+
+
+--
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3719,6 +3758,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: question_types question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_types
+    ADD CONSTRAINT question_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -4342,6 +4389,13 @@ CREATE INDEX index_concept_results_on_concept_id ON public.concept_results USING
 --
 
 CREATE INDEX index_concept_results_on_question_type ON public.concept_results USING btree (question_type);
+
+
+--
+-- Name: index_concepts_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concepts_on_name ON public.concepts USING btree (name);
 
 
 --
@@ -5974,13 +6028,11 @@ INSERT INTO schema_migrations (version) VALUES ('20191024150907');
 
 INSERT INTO schema_migrations (version) VALUES ('20191030183959');
 
-INSERT INTO schema_migrations (version) VALUES ('20191122153830');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122155902');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122160057');
-
-INSERT INTO schema_migrations (version) VALUES ('20191122161233');
-
 INSERT INTO schema_migrations (version) VALUES ('20191122181105');
+
+INSERT INTO schema_migrations (version) VALUES ('20191230180632');
+
+INSERT INTO schema_migrations (version) VALUES ('20200102185312');
+
+INSERT INTO schema_migrations (version) VALUES ('20200103221529');
 
