@@ -159,10 +159,10 @@ CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS inte
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-          -- modern calculation (using activity session interaction logs)
+          -- modern calculation (using activity session interaction logs) 
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -208,7 +208,7 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
           item timestamp;
         BEGIN
           SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-
+          
           -- backward compatibility block
           IF as_created_at IS NULL OR as_created_at < timestamp '2013-08-25 00:00:00.000000' THEN
             SELECT SUM(
@@ -223,11 +223,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
                       'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
                     )
                 END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-
+                
                 RETURN COALESCE(time_spent,0);
           END IF;
-
-
+          
+          
           first_item := NULL;
           last_item := NULL;
           max_item := NULL;
@@ -251,11 +251,11 @@ CREATE FUNCTION public.timespent_question(act_sess integer, question character v
 
             END IF;
           END LOOP;
-
+          
           IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
             time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
           END IF;
-
+          
           RETURN time_spent;
         END;
       $$;
@@ -270,7 +270,7 @@ CREATE FUNCTION public.timespent_student(student integer) RETURNS bigint
     AS $$
         SELECT COALESCE(SUM(time_spent),0) FROM (
           SELECT id,timespent_activity_session(id) AS time_spent FROM activity_sessions
-          WHERE activity_sessions.user_id = student
+          WHERE activity_sessions.user_id = student 
           GROUP BY id) as as_ids;
 
       $$;
@@ -1858,6 +1858,39 @@ CREATE SEQUENCE public.partner_contents_id_seq
 
 ALTER SEQUENCE public.partner_contents_id_seq OWNED BY public.partner_contents.id;
 
+
+--
+-- Name: question_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.question_types (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: question_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.question_types_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: question_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.question_types_id_seq OWNED BY public.question_types.id;
+
+
 --
 -- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
@@ -3173,6 +3206,13 @@ ALTER TABLE ONLY public.partner_contents ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
+-- Name: question_types id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_types ALTER COLUMN id SET DEFAULT nextval('public.question_types_id_seq'::regclass);
+
+
+--
 -- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3718,6 +3758,14 @@ ALTER TABLE ONLY public.page_areas
 
 ALTER TABLE ONLY public.partner_contents
     ADD CONSTRAINT partner_contents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: question_types question_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.question_types
+    ADD CONSTRAINT question_types_pkey PRIMARY KEY (id);
 
 
 --
@@ -5981,6 +6029,10 @@ INSERT INTO schema_migrations (version) VALUES ('20191024150907');
 INSERT INTO schema_migrations (version) VALUES ('20191030183959');
 
 INSERT INTO schema_migrations (version) VALUES ('20191122181105');
+
+INSERT INTO schema_migrations (version) VALUES ('20191230180632');
+
+INSERT INTO schema_migrations (version) VALUES ('20200102185312');
 
 INSERT INTO schema_migrations (version) VALUES ('20200103221529');
 
