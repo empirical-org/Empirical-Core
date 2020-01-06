@@ -13,7 +13,7 @@ import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import TitleCard from '../studentLessons/titleCard.tsx';
+// import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
@@ -21,7 +21,7 @@ import { getParameterByName } from '../../libs/getParameterByName';
 
 const request = require('request');
 
-class StudentDiagnostic extends React.Component {
+export class StudentDiagnostic extends React.Component {
   constructor(props) {
     super(props)
 
@@ -95,7 +95,8 @@ class StudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+      {
+        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
@@ -122,7 +123,8 @@ class StudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+      {
+        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
@@ -293,7 +295,7 @@ class StudentDiagnostic extends React.Component {
           <DiagnosticProgressBar percent={this.getProgressPercent()} />
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => {}} />
+              <SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => { }} />
             </div>
           </section>
         </div>

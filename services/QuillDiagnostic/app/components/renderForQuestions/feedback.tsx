@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom'
 import _ from 'underscore';
 const icon = 'https://assets.quill.org//images/icons/question_icon.svg';
@@ -6,11 +6,11 @@ const revise = 'https://assets.quill.org//images/icons/revise_orange_icon.svg';
 const multiple = 'https://assets.quill.org//images/icons/multiple_choice_icon.svg';
 const success = 'https://assets.quill.org//images/icons/check-mark.svg';
 import getAnswerState from './answerState';
-import {Response} from 'quill-marking-logic';
+import { Response } from 'quill-marking-logic';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 class FeedbackComponent extends React.Component<any, any> {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
@@ -27,10 +27,10 @@ class FeedbackComponent extends React.Component<any, any> {
           return "revise-unmatched"
         }
       } else {
-        if(!!data.question.instructions) {
+        if (!!data.question.instructions) {
           return "instructions"
         }
-        else if(data.getQuestion && data.getQuestion().instructions!=="") {
+        else if (data.getQuestion && data.getQuestion().instructions !== "") {
           return "getQuestion-instructions"
         }
         else if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
@@ -76,7 +76,7 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   render() {
-    const key:number = this.props && this.props.question ? this.props.question.attempts.length : 0;
+    const key: number = this.props && this.props.question ? this.props.question.attempts.length : 0;
     if (this.props.question) {
       return (
         <Feedback
