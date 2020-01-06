@@ -57,6 +57,7 @@
     "react/jsx-indent-props": ["error", 2],
     "react/jsx-max-props-per-line": ["error", { "when": "multiline" }],
     "react/jsx-no-comment-textnodes": "error",
+    "react/jsx-no-undef": "error",
     "react/jsx-no-useless-fragment": "error",
     "react/jsx-props-no-multi-spaces": "error",
     "react/jsx-sort-default-props": "error",
