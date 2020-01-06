@@ -32,7 +32,7 @@ class Cms::TopicCategoriesController < Cms::CmsController
     head :ok
   end
 
-private
+  private
 
   def set_topic_category
     @topic_category = TopicCategory.find(params[:id])
