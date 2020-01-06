@@ -58,11 +58,7 @@ class TurkDiagnostic extends React.Component {
   }
 
   getSessionId = () => {
-    let sessionID = getParameterByName('student');
-    if (sessionID === 'null') {
-      sessionID = undefined;
-    }
-    return sessionID;
+    return getParameterByName('student') === 'null' ? undefined : getParameterByName('student')
   }
 
   saveSessionData = (lessonData) => {
@@ -87,7 +83,6 @@ class TurkDiagnostic extends React.Component {
   }
 
   finishActivitySession = (sessionID, results, score) => {
-    const { sessionID, } = this.state
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
