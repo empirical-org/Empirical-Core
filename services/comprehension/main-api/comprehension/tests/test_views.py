@@ -27,7 +27,7 @@ class ActivityViewTest(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.activity = Activity.objects.create(title='Test Activity',
-                                               flag=Activity.FLAGS.DRAFT)
+                                                flag=Activity.FLAGS.DRAFT)
 
     def test_list_activities(self):
         request = self.factory.get('/activities')
@@ -58,11 +58,11 @@ class ActivityViewTest(TestCase):
         self.prompt2 = Prompt.objects.create(text='Prompt2',
                                              max_attempts_feedback='Feedback2')
         ActivityPrompt.objects.create(activity=self.activity,
-                                       prompt=self.prompt1,
-                                       order=1)
+                                      prompt=self.prompt1,
+                                      order=1)
         ActivityPrompt.objects.create(activity=self.activity,
-                                       prompt=self.prompt2,
-                                       order=2)
+                                      prompt=self.prompt2,
+                                      order=2)
 
         request = self.factory.get(f"/activities/{self.activity.id}")
 
@@ -75,13 +75,14 @@ class ActivityViewTest(TestCase):
                                       self.passage2.text],
                          'prompts': [{
                              'max_attempts': self.prompt1.max_attempts,
-                             'max_attempts_feedback': self.prompt1.max_attempts_feedback,
+                             'max_attempts_feedback':
+                                 self.prompt1.max_attempts_feedback,
                              'prompt_id': self.prompt1.id,
                              'text': self.prompt1.text
-                         },
-                         {
+                         }, {
                              'max_attempts': self.prompt2.max_attempts,
-                             'max_attempts_feedback': self.prompt2.max_attempts_feedback,
+                             'max_attempts_feedback':
+                                 self.prompt2.max_attempts_feedback,
                              'prompt_id': self.prompt2.id,
                              'text': self.prompt2.text
                          }],
