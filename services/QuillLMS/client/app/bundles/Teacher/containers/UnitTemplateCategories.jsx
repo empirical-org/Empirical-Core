@@ -1,25 +1,17 @@
 import * as React from 'react'
+import Cms from './Cms.jsx'
+import Resource from '../components/cms/resources/resource.jsx'
 
-$(function () {
-  var ele = $('#cms-unit-template-categories');
-  if (ele.length > 0) {
-    var props, comp;
-    props = {}
-    comp = React.createElement(EC.Cms.UnitTemplateCategories, props);
-    React.render(comp, ele[0]);
-  }
-});
+export default class UnitTemplateCategories extends React.Component {
 
-EC.Cms.UnitTemplateCategories = React.createClass({
-
-  resourceComponentGenerator: function (cmsComponent) {
-    var initialModel = {
+  resourceComponentGenerator(cmsComponent) {
+    const initialModel = {
       name: null
     };
 
-    var savingKeys = ['name', 'id', 'primary_color', 'secondary_color'];
+    const savingKeys = ['name', 'id', 'primary_color', 'secondary_color'];
 
-    var formFields = [
+    const formFields = [
       {
         name: 'name'
       },
@@ -33,7 +25,7 @@ EC.Cms.UnitTemplateCategories = React.createClass({
       }
     ];
 
-    return (<EC.Resource
+    return (<Resource
       formFields={formFields}
       initialModel={initialModel}
       resource={cmsComponent.state.resourceToEdit}
@@ -41,19 +33,16 @@ EC.Cms.UnitTemplateCategories = React.createClass({
       resourceNameSingular='unit_template_category'
       returnToIndex={cmsComponent.returnToIndex}
       savingKeys={savingKeys}
-    />
+    />);
+  }
 
-    );
-  },
-
-  render: function () {
+  render() {
     return (
-      <EC.Cms
+      <Cms
         resourceComponentGenerator={this.resourceComponentGenerator}
         resourceNamePlural='unit_template_categories'
         resourceNameSingular='unit_template_category'
       />
-
-    );
+    )
   }
-});
+}
