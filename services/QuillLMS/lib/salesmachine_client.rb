@@ -36,8 +36,8 @@ class SalesmachineClient
         request.headers['Content-Type'] = 'application/json'
         request.body = data.to_json
       end
-    rescue Faraday::ClientError => err
-      raise if err.response[:status] != TOO_MANY_REQUESTS
+    rescue Faraday::ClientError => e
+      raise if e.response[:status] != TOO_MANY_REQUESTS
       raise SalesmachineRetryError
     end
   end
