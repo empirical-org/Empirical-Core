@@ -567,7 +567,7 @@ class User < ActiveRecord::Base
     role == 'teacher' && !school && previous_changes["id"]
   end
 
-private
+  private
   def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
