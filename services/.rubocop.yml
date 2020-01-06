@@ -402,5 +402,6 @@ Layout/AccessModifierIndentation:
 
 Lint/Void:
   Enabled: true
-  #Exclude:
-  #  - 'QuillCMS/lib/tasks/import_from_firebase.rake'
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: true
