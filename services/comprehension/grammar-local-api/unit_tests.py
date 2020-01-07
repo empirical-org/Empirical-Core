@@ -1,6 +1,7 @@
 import flask
 import pytest
 import main
+import grammarcheck
 from flask import json
 
 
@@ -46,5 +47,19 @@ def test_incorrect_grammar(app):
         assert data.get('feedback_type') == 'grammar'
         assert data.get('optimal') == False
         assert data.get('highlight')[0]["text"] == 'Its'
-        assert data.get('highlight')[0]["type"] == "Its versus it's"
+        assert data.get('highlight')[0]["type"] == grammarcheck.ITS_IT_S_ERROR
         assert data.get('highlight')[0]["index"] == 0
+
+
+def test_incorrect_grammar_repeated_words(app):
+    with app.test_request_context(json={'entry': 'It is is cold outside.', 'prompt_id': 000}):
+        response = main.check_grammar(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data.get('feedback') == 'Try again. There may be a grammar error.'
+        assert data.get('feedback_type') == 'grammar'
+        assert data.get('optimal') == False
+        assert data.get('highlight')[0]["text"] == 'is'
+        assert data.get('highlight')[0]["type"] == grammarcheck.REPEATED_WORD_ERROR
+        assert data.get('highlight')[0]["index"] == 6
