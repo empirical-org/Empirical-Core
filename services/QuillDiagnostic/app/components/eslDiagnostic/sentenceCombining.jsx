@@ -15,119 +15,126 @@ import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 
 const C = require('../../constants').default;
 
-const PlayDiagnosticQuestion = React.createClass({
-  getInitialState() {
-    return {
+class ELLSentenceCombining extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       editing: false,
       response: '',
       readyForNext: false,
-    };
-  },
+    }
+  }
 
-  componentDidMount() {
+  componentDidMount = () => {
     getGradedResponsesWithCallback(
       this.getQuestion().key,
       (data) => {
         this.setState({ responses: data, });
       }
     );
-  },
+  }
 
-  getInitialValue() {
-    if (this.props.prefill) {
+  getInitialValue = () => {
+    if (prefill) {
       return this.getQuestion().prefilledText;
     }
-  },
+  }
 
-  removePrefilledUnderscores() {
-    this.setState({ response: this.state.response.replace(/_/g, ''), });
-  },
+  removePrefilledUnderscores = () => {
+    this.setState(prevState => ({ value: prevState.response.replace(/_/g, '') }))
+  }
 
-  getQuestion() {
+  getQuestion = () => {
     const { question, } = this.props;
     if (question.key.endsWith('-esp')) {
       question.key = question.key.slice(0, -4);
     }
     return question;
-  },
+  }
 
-  getInstructionText() {
+  getInstructionText = () => {
+    const { language, } = this.props
     const q = this.getQuestion()
     const textKey = translationMap[q.key];
     let text = q.instructions ? q.instructions : translations.english[textKey];
-    if (this.props.language && this.props.language !== 'english') {
-      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
-      text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
+    if (language && language !== 'english') {
+      const textClass = language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
     }
     return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
-  },
+  }
 
-  getResponses() {
-    return this.state.responses;
-  },
+  getResponses = () => {
+    const { responses, } = this.state
+    return responses;
+  }
 
   getResponse2(rid) {
     return this.getResponses()[rid];
-  },
+  }
 
-  submitResponse(response) {
-    submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
-  },
+  submitResponse = (response) => {
+    const { sessionKey, } = this.state
+    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+  }
 
-  renderSentenceFragments() {
+  renderSentenceFragments = () => {
     return <SentenceFragments prompt={this.getQuestion().prompt} />;
-  },
+  }
 
   listCuesAsString(cues) {
     const newCues = cues.slice(0);
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
-  },
+  }
 
-  renderFeedback() {
+  renderFeedback = () => {
+    const { question, } = this.props
     return (<RenderFeedback
       getQuestion={this.getQuestion}
       listCuesAsString={this.listCuesAsString}
-      question={this.props.question}
+      question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
       sentence="We have not seen this sentence before. Could you please try writing it in another way?"
     />);
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+  }
 
   renderFeedbackStatements(attempt) {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
-  },
+  }
 
-  renderCues() {
+  renderCues = () => {
+    const { language, } = this.props
     return (<RenderQuestionCues
       displayArrowAndText
       getQuestion={this.getQuestion}
-      language={this.props.language}
+      language={language}
     />);
-  },
+  }
 
-  updateResponseResource(response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
-  },
+  updateResponseResource = (response) => {
+    const { dispatch, } = this.props
 
-  submitPathway(response) {
-    submitPathway(response, this.props);
-  },
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+  }
 
-  checkAnswer(e) {
-    if (this.state.editing && this.state.responses) {
+  handleSubmitResponse = (e) => {
+    const { editing, responses, response, } = this.state
+    const { marking, } = this.props
+
+    if (editing && responses) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
+      const response = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
       this.updateResponseResource(response);
       if (response.response && response.response.author === 'Missing Details Hint') {
         this.setState({
@@ -140,27 +147,26 @@ const PlayDiagnosticQuestion = React.createClass({
           editing: false,
           response: '',
           error: undefined,
-        },
-          this.nextQuestion()
+        }, this.handleNextQuestionClick()
         );
       }
     }
-  },
+  }
 
-  toggleDisabled() {
-    if (this.state.editing) {
-      return '';
-    }
-    return 'is-disabled';
-  },
+  toggleDisabled = () => {
+    const { editing, } = this.state
 
-  handleChange(e) {
+    return editing ? '' : 'is-disabled'
+  }
+
+  handleChange = (e) => {
     this.setState({ editing: true, response: e, });
-  },
+  }
 
-  readyForNext() {
-    if (this.props.question.attempts.length > 0) {
-      const latestAttempt = getLatestAttempt(this.props.question.attempts);
+  readyForNext = () => {
+    const { question, } = this.props
+    if (question.attempts.length > 0) {
+      const latestAttempt = getLatestAttempt(question.attempts);
       if (latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
@@ -169,61 +175,66 @@ const PlayDiagnosticQuestion = React.createClass({
       }
     }
     return false;
-  },
+  }
 
-  getProgressPercent() {
-    return this.props.question.attempts.length / 3 * 100;
-  },
+  getProgressPercent = () => {
+    const { question, } = this.props
+    return question.attempts.length / 3 * 100;
+  }
 
-  finish() {
+  finish = () => {
     this.setState({ finished: true, });
-  },
+  }
 
-  nextQuestion() {
+  handleNextQuestionClick = () => {
+    const { nextQuestion, } = this.props
     this.setState({ response: '', });
-    this.props.nextQuestion();
+    nextQuestion();
     this.setState({ response: '', });
-  },
+  }
 
   renderNextQuestionButton(correct) {
     if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Siguiente</button>);
+      return (<button className="button is-outlined is-success" onClick={this.handleNextQuestionClick} type="button">Siguiente</button>);
     }
-    return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Siguiente</button>);
-  },
+    return (<button className="button is-outlined is-warning" onClick={this.handleNextQuestionClick} type="button">Siguiente</button>);
+  }
 
-  renderMedia() {
+  renderMedia = () => {
     if (this.getQuestion().mediaURL) {
       return (
         <div style={{ marginTop: 15, minWidth: 200, }}>
-          <img src={this.getQuestion().mediaURL} />
+          <img alt={this.getQuestion().mediaAlt} src={this.getQuestion().mediaURL} />
         </div>
       );
     }
-  },
+  }
 
-  getSubmitButtonText() {
+  getSubmitButtonText = () => {
+    const { language, } = this.props
     let text = translations.english['submit button text'];
-    if (this.props.language !== 'english') {
-      text += ` / ${translations[this.props.language]['submit button text']}`;
+    if (language !== 'english') {
+      text += ` / ${translations[language]['submit button text']}`;
     }
     return text;
-  },
+  }
 
-  render() {
+  render = () => {
+    const { language, questions, } = this.props
+    const { responses, error, response, } = this.state
     let button;
-    const fullPageInstructions = this.props.language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
-    if (this.state.responses && Object.keys(this.state.responses).length) {
-      if (this.props.question.attempts.length > 0) {
-        button = <button className="button student-submit" onClick={this.nextQuestion}>{this.getSubmitButtonText()}</button>;
+    const fullPageInstructions = language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
+    if (responses && Object.keys(responses).length) {
+      if (question.attempts.length > 0) {
+        button = <button className="button student-submit" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
       } else {
-        button = <button className="button student-submit" onClick={this.checkAnswer}>{this.getSubmitButtonText()}</button>;
+        button = <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
       }
     } else {
-      button = <button className="button student-submit is-disabled">{this.getSubmitButtonText()}</button>;
+      button = <button className="button student-submit is-disabled" type="button">{this.getSubmitButtonText()}</button>;
     }
-    if (this.props.question) {
-      const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
+    if (question) {
+      const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
       return (
         <div className="student-container-inner-diagnostic">
           <div style={{ display: 'flex', justifyContent: 'spaceBetween', }}>
@@ -238,20 +249,20 @@ const PlayDiagnosticQuestion = React.createClass({
             {this.renderMedia()}
           </div>
 
-          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName={'text-editor'}>
+          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
-              checkAnswer={this.checkAnswer}
-              className={'textarea is-question is-disabled'}
+              className='textarea is-question is-disabled'
               defaultValue={this.getInitialValue()}
               disabled={this.readyForNext()}
               getResponse={this.getResponse2}
-              handleChange={this.handleChange}
-              hasError={this.state.error}
+              hasError={error}
+              onChange={this.handleChange}
+              onSubmitResponse={this.handleSubmitResponse}
               placeholder="Type your answer here."
-              value={this.state.response}
+              value={response}
             />
             <div className="button-and-error-row">
-              <Error error={this.state.error} />
+              <Error error={error} />
               <div className="question-button-group button-group">
                 {button}
               </div>
@@ -261,10 +272,10 @@ const PlayDiagnosticQuestion = React.createClass({
       );
     }
     return (<p>Loading / Cargando...</p>);
-  },
-});
+  }
+}
 
-const getLatestAttempt = function (attempts = []) {
+const getLatestAttempt = (attempts = []) => {
   const lastIndex = attempts.length - 1;
   return attempts[lastIndex];
 };
@@ -276,4 +287,5 @@ function select(state) {
     routing: state.routing,
   };
 }
+
 export default connect(select)(PlayDiagnosticQuestion);
