@@ -115,6 +115,7 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
+    @teacher_conversion_rate = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
