@@ -7,6 +7,8 @@ class Response < ApplicationRecord
   after_commit :clear_responses_route_cache
   before_destroy :destroy_index_in_elastic_search
 
+  validates :question_uid, uniqueness: { scope: :text }
+
   settings analysis: {
     analyzer: {
       custom_analyzer: {
