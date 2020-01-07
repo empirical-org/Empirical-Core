@@ -13,8 +13,8 @@ NEG_FEEDBACK = 'Try again. There may be a grammar error.'
 def check_grammar(request):
     request_json = request.get_json()
 
-    entry = param_for('entry', request, request_json)
-    prompt_id = param_for('prompt_id', request, request_json)
+    entry = request_json.get('entry')
+    prompt_id = request_json.get('prompt_id')
 
     if entry is None or prompt_id is None:
         return make_response(jsonify(message="error"), 400)
@@ -29,13 +29,6 @@ def check_grammar(request):
                      "highlight": errors}
 
     return make_response(jsonify(**response_data), 200)
-
-
-def param_for(key, request, request_json):
-    if request.args and key in request.args:
-        return request.args.get(key)
-    else:
-        return (request_json or {}).get(key)
 
 
 if __name__ == "__main__":
