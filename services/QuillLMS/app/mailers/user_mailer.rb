@@ -104,6 +104,9 @@ class UserMailer < ActionMailer::Base
     end_time = date_object.end_of_day
     subject_date = date_object.strftime('%m/%d/%Y')
 
+    teacher_count = User.where(role: "teacher").count
+    new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+
     @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
     @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
@@ -115,7 +118,7 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
-    @teacher_conversion_rate = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+    @teacher_conversion_rate = (new_premium_accounts/teacher_count.to_f).round(5)
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
