@@ -288,4 +288,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(PlayDiagnosticQuestion);
+export default connect(select)(ELLSentenceCombining);

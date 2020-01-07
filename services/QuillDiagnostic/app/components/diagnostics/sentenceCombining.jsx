@@ -17,101 +17,114 @@ import { Error } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
-const PlayDiagnosticQuestion = React.createClass({
-  getInitialState() {
-    return {
-      editing: false,
-      response: '',
-      readyForNext: false,
-    };
-  },
+class PlayDiagnosticQuestion extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      return {
+        editing: false,
+        response: '',
+        readyForNext: false,
+      };
+    }
+  }
 
   componentDidMount() {
+    const { question, } = this.props
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
     );
-  },
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.question !== nextProps.question) {
+    const { question, } = this.props
+    const { response, responses, error, } = this.state
+
+    if (question !== nextProps.question) {
       return true;
-    } else if (this.state.response !== nextState.response) {
+    } else if (response !== nextState.response) {
       return true;
-    } else if (this.state.responses !== nextState.responses) {
+    } else if (responses !== nextState.responses) {
       return true;
-    } else if (this.state.error !== nextState.error) {
+    } else if (error !== nextState.error) {
       return true;
     }
     return false;
-  },
+  }
 
-  getInitialValue() {
-    if (this.props.prefill) {
+  getInitialValue = () => {
+    const { prefill, } = this.props
+    if (prefill) {
       return this.getQuestion().prefilledText;
     }
-  },
+  }
 
-  getResponses() {
-    return this.state.responses;
-    // return this.props.responses.data[this.props.question.key];
-  },
+  getResponses = () => {
+    const { responses, } = this.state
+    return responses;
+  }
 
-  removePrefilledUnderscores() {
-    this.setState({ response: this.state.response.replace(/_/g, ''), });
-  },
+  removePrefilledUnderscores = () => {
+    const { response, } = this.state
+    this.setState({ response: response.replace(/_/g, ''), });
+  }
 
-  getQuestion() {
+  getQuestion = () => {
     return this.props.question;
-  },
+  }
 
-  getResponse2(rid) {
-    return this.props.responses[rid];
-  },
+  getResponse2 = (rid) => {
+    const { responses, } = this.props
+    return responses[rid];
+  }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
+    const { sessionKey, } = this.state
     submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
-  },
+  }
 
-  renderSentenceFragments() {
+  renderSentenceFragments = () => {
     return <SentenceFragments prompt={this.getQuestion().prompt} />;
-  },
+  }
 
   listCuesAsString(cues) {
     const newCues = cues.slice(0);
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+  }
 
   renderFeedbackStatements(attempt) {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
-  },
+  }
 
-  renderCues() {
+  renderCues = () => {
     return (<RenderQuestionCues
       displayArrowAndText={true}
       getQuestion={this.getQuestion}
     />);
-  },
+  }
 
   updateResponseResource(response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
-  },
+    const { dispatch, } = this.props
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+  }
 
   submitPathway(response) {
     submitPathway(response, this.props);
-  },
+  }
 
   setResponse(response) {
     if (this.props.setResponse) {
       this.props.setResponse(response);
     }
-  },
+  }
 
   checkAnswer(e) {
     if (this.state.editing && this.state.responses) {
@@ -130,25 +143,25 @@ const PlayDiagnosticQuestion = React.createClass({
           editing: false,
           response: '',
           error: undefined,
-        },
+        }
           this.nextQuestion()
         );
       }
     }
-  },
+  }
 
-  toggleDisabled() {
+  toggleDisabled = () => {
     if (this.state.editing) {
       return '';
     }
     return 'is-disabled';
-  },
+  }
 
   handleChange(e) {
     this.setState({ editing: true, response: e, });
-  },
+  }
 
-  readyForNext() {
+  readyForNext = () => {
     if (this.props.question.attempts.length > 0) {
       const latestAttempt = getLatestAttempt(this.props.question.attempts);
       if (latestAttempt.found) {
@@ -159,19 +172,19 @@ const PlayDiagnosticQuestion = React.createClass({
       }
     }
     return false;
-  },
+  }
 
-  getProgressPercent() {
+  getProgressPercent = () => {
     return this.props.question.attempts.length / 3 * 100;
-  },
+  }
 
-  finish() {
+  finish = () => {
     this.setState({ finished: true, });
-  },
+  }
 
-  nextQuestion() {
+  nextQuestion = () => {
     this.props.nextQuestion();
-  },
+  }
 
   renderNextQuestionButton(correct) {
     if (correct) {
@@ -179,13 +192,15 @@ const PlayDiagnosticQuestion = React.createClass({
     }
       return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Next</button>);
 
-  },
+  }
 
-  render() {
-    const questionID = this.props.question.key;
+  render = () => {
+    const { question, } = this.props
+    const { responses, } = this.state
+    const questionID = question.key;
     const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
-    if (this.props.question) {
-      const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence.';
+    if (question) {
+      const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
         <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
@@ -199,13 +214,13 @@ const PlayDiagnosticQuestion = React.createClass({
           </div>
           <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName={'text-editor'}>
             <TextEditor
-              checkAnswer={this.checkAnswer}
               className={'textarea is-question is-disabled'}
               defaultValue={this.getInitialValue()}
               disabled={this.readyForNext()}
               getResponse={this.getResponse2}
-              handleChange={this.handleChange}
               hasError={this.state.error}
+              onChange={this.handleChange}
+              onSubmitResponse={this.checkAnswer}
               placeholder="Type your answer here."
               value={this.state.response}
             />
@@ -221,8 +236,8 @@ const PlayDiagnosticQuestion = React.createClass({
     }
       return (<p>Loading...</p>);
 
-  },
-});
+  }
+}
 
 const getLatestAttempt = function (attempts = []) {
   const lastIndex = attempts.length - 1;

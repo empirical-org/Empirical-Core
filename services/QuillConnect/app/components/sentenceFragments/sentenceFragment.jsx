@@ -12,7 +12,7 @@ import {
 } from '../../actions/responses';
 import C from '../../constants';
 
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 const NavLink = activeComponent('li');
 

@@ -18,7 +18,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 const PlaySentenceFragment = React.createClass<any, any>({
   getInitialState() {
