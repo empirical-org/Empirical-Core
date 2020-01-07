@@ -7,14 +7,80 @@ from collections import namedtuple
 from spacy.tokens.doc import Doc
 from spacy.tokens.token import Token
 
+# Tag, part-of-speech and dependency constants
+
+POSSESSIVE_TAG = "POS"
+PARTICIPLE_POS = "PART"
+DETERMINER_POS = "DET"
+VERB_POS = "VERB"
+ADVERB_POS = "ADV"
+NOUN_POS = "NOUN"
+PLURAL_NOUN_TAG = "NNP"
+COORD_CONJ_POS = "CCONJ"
+SUBJECT_DEP = "nsubj"
+CONJUNCTION_DEP = "conj"
+DETERMINER_DEP = "det"
+POSSIBLE_POS_IN_NOUN_PHRASE = set(["NOUN", "ADJ", "NUM", "ADP", "ADV"])
+COMPARATIVE_TAGS = set(["RBR", "JJR"])
+
+# Token constants
+
+INDEF_ARTICLE_BEFORE_CONSONANT = "a"
+INDEF_ARTICLE_BEFORE_VOWEL = "an"
+THIS = "this"
+THAT = "that"
+THOSE = "those"
+THESE = "these"
+HERE = "here"
+THERE = "there"
+THEN = "then"
+INCORRECT_PLURAL_WOMAN = "womans"
+INCORRECT_PLURAL_MAN = "mans"
+
+# Token set constants
+
+PUNCTUATION_FOLLOWED_BY_SPACE = set([".", "!", "?", ")", ";", ":", ","])
+PUNCTUATION_NOT_PRECEDED_BY_SPACE = set([".", "!", "?", ")", ";", ":", ","])
+INDEF_ARTICLES = set([INDEF_ARTICLE_BEFORE_VOWEL, INDEF_ARTICLE_BEFORE_CONSONANT])
+DEMONSTRATIVES = set([THIS, THAT, THOSE, THESE])
+SUBJECT_PRONOUNS = set(["i", "he", "she", "we", "they"])
+OBJECT_PRONOUNS = set(["me", "him", "her", "us", "them"])
+POSSESSIVE_DETERMINERS = set(["my", "your", "her", "his", "its", "our", "their"])
+POSSESSIVE_PRONOUNS = set(["mine", "yours", "hers", "his", "ours", "theirs"])
+YES_NO = set(["yes", "no"])
+INCORRECT_CONTRACTIONS = set(["im", "youre", "hes", "shes", "theyre", "dont", "didnt", "wont"])
+CONTRACTED_VERBS_WITHOUT_APOSTROPHE = set(["m", "re", "s", "nt"])
+QUESTION_WORDS = set(["how", "when", "why"])
+
+# Error type constants
+
+PLURAL_POSSESSIVE_ERROR = "Plural versus possessive nouns"
+QUESTION_MARK_ERROR = "Question marks"
+ARTICLE_ERROR = "Articles"
+THIS_THAT_ERROR = "This versus that"
+THESE_THOSE_ERROR = "These versus those"
+SPACING_ERROR = "Spacing"
+WOMAN_WOMEN_ERROR = "Woman versus women"
+MAN_MEN_ERROR = "Man versus men"
+THAN_THEN_ERROR = "Than versus then"
+REPEATED_WORD_ERROR = "Repeated word"
+SUBJECT_PRONOUN_ERROR = "Subject pronouns"
+OBJECT_PRONOUN_ERROR = "Object pronouns"
+POSSESSIVE_NOUN_ERROR = "Possessive nouns"
+COMMAS_IN_NUMBERS_ERROR = "Commas in numbers"
+YES_NO_COMMA_ERROR = "Commas after yes & no"
+SINGULAR_PLURAL_ERROR = "Singular and plural nouns"
+CAPITALIZATION_ERROR = "Capitalization"
+CONTRACTION_ERROR = "Contractions"
+ITS_IT_S_ERROR = "Its versus it's"
+
+
 Doc.set_extension("grammar_errors", default=[])
 Token.set_extension("grammar_errors", default=[])
 
-question_words = set(["how", "when", "why"])
-
-statistical_error_map = {"WOMAN": "Woman versus women",
-                         "ITS": "Its versus it's",
-                         "THEN": "Than versus then"}
+statistical_error_map = {"WOMAN": WOMAN_WOMEN_ERROR,
+                         "ITS": ITS_IT_S_ERROR,
+                         "THEN": THAN_THEN_ERROR}
 
 Error = namedtuple("Error", ["text", "index", "type"])
 
@@ -48,73 +114,70 @@ class RuleBasedGrammarChecker(object):
         # TODO: this does not treat cases like "it's my cousin's" correctly.
         # TODO: Fix problem: infinitival "to" also has pos_ "PART"
         for i in range(0, len(doc) - 1):
-            if (doc[i].tag_ == "POS" or doc[i].pos_ == "PART") and (doc[i + 1].pos_ not in ["NOUN", "CCONJ"]):
-                doc._.grammar_errors.append("Plural versus possessive nouns")
-                doc[i]._.grammar_errors.append("Plural versus possessive nouns")
+            if (doc[i].tag_ == POSSESSIVE_TAG or doc[i].pos_ == PARTICIPLE_POS) and \
+                    (doc[i + 1].pos_ not in [NOUN_POS, COORD_CONJ_POS]):
+                doc._.grammar_errors.append(PLURAL_POSSESSIVE_ERROR)
+                doc[i]._.grammar_errors.append(PLURAL_POSSESSIVE_ERROR)
 
     def check_question_mark(self, doc):
         #TODO: should also catch "Is he going to dance tonight." with AUX
         if doc[-1].text != "?":
-            if doc[0].text.lower() in question_words:
-                doc._.grammar_errors.append("Question marks")
+            if doc[0].text.lower() in QUESTION_WORDS:
+                doc._.grammar_errors.append(QUESTION_MARK_ERROR)
             else:
                 for token in doc:
-                    if token.dep_.startswith("nsubj") and token.i > token.head.i:
-                        doc._.grammar_errors.append("Question marks")
+                    if token.dep_.startswith(SUBJECT_DEP) and token.i > token.head.i:
+                        doc._.grammar_errors.append(QUESTION_MARK_ERROR)
 
     def check_articles(self, doc):
         for token in doc[:-1]:
-            if token.pos_ == "DET" and token.text.lower() == "a" \
-                    and re.search("^[aeiou]", doc[token.i+1].text.lower()):
-                doc._.grammar_errors.append("Articles")
-                token._.grammar_errors.append("Articles")
-            elif token.pos_ == "DET" and token.text.lower() == "an" \
-                    and not re.search("^[aeiou]", doc[token.i+1].text.lower()):
-                doc._.grammar_errors.append("Articles")
-                token._.grammar_errors.append("Articles")
+            if token.pos_ == DETERMINER_POS and token.text.lower() == INDEF_ARTICLE_BEFORE_CONSONANT \
+                    and self._starts_with_vowel(doc[token.i+1].text):
+                doc._.grammar_errors.append(ARTICLE_ERROR)
+                token._.grammar_errors.append(ARTICLE_ERROR)
+            elif token.pos_ == DETERMINER_POS and token.text.lower() == INDEF_ARTICLE_BEFORE_VOWEL \
+                    and not self._starts_with_vowel(doc[token.i+1].text):
+                doc._.grammar_errors.append(ARTICLE_ERROR)
+                token._.grammar_errors.append(ARTICLE_ERROR)
 
     def check_this_versus_that(self, doc):
         # It's not straightforward to rewrite this using spaCy's noun chunks
         # as "this table over there" is not a noun chunk, but "this table" is.
-        target_words = set(["this", "that", "those", "these"])
-        noun_phrase_pos = set(["NOUN", "ADJ", "NUM", "ADP", "ADV"])
 
         current_noun_phrase = []
         for token in doc:
-            if token.text.lower() in target_words and token.pos_ == "DET":
+            if token.text.lower() in DEMONSTRATIVES and token.pos_ == DETERMINER_POS:
                 current_noun_phrase = [token]
-            elif token.pos_ in noun_phrase_pos:
+            elif token.pos_ in POSSIBLE_POS_IN_NOUN_PHRASE:
                 current_noun_phrase.append(token)
-                if token.text.lower() == "here" and current_noun_phrase[0].text.lower() == "that":
-                    doc._.grammar_errors.append("This versus that")
-                    current_noun_phrase[0]._.grammar_errors.append("This versus that")
-                elif token.text.lower() == "here" and current_noun_phrase[0].text.lower() == "those":
-                    doc._.grammar_errors.append("Those versus these")
-                    current_noun_phrase[0]._.grammar_errors.append("Those versus these")
-                elif token.text.lower() == "there" and current_noun_phrase[0].text.lower() == "this":
-                    doc._.grammar_errors.append("This versus that")
-                    current_noun_phrase[0]._.grammar_errors.append("This versus that")
-                elif token.text.lower() == "there" and current_noun_phrase[0].text.lower() == "these":
-                    doc._.grammar_errors.append("Those versus these")
-                    current_noun_phrase[0]._.grammar_errors.append("Those versus these")
+                if token.text.lower() == HERE and current_noun_phrase[0].text.lower() == THAT:
+                    doc._.grammar_errors.append(THIS_THAT_ERROR)
+                    current_noun_phrase[0]._.grammar_errors.append(THIS_THAT_ERROR)
+                elif token.text.lower() == HERE and current_noun_phrase[0].text.lower() == THOSE:
+                    doc._.grammar_errors.append(THESE_THOSE_ERROR)
+                    current_noun_phrase[0]._.grammar_errors.append(THESE_THOSE_ERROR)
+                elif token.text.lower() == THERE and current_noun_phrase[0].text.lower() == THIS:
+                    doc._.grammar_errors.append(THIS_THAT_ERROR)
+                    current_noun_phrase[0]._.grammar_errors.append(THIS_THAT_ERROR)
+                elif token.text.lower() == THERE and current_noun_phrase[0].text.lower() == THESE:
+                    doc._.grammar_errors.append(THESE_THOSE_ERROR)
+                    current_noun_phrase[0]._.grammar_errors.append(THESE_THOSE_ERROR)
             else:
                 current_noun_phrase = []
 
     def check_spacing(self, doc):
-        punctuation_followed_by_space = set([".", "!", "?", ")", ";", ":", ","])
-        punctuation_not_preceded_by_space = set([".", "!", "?", ")", ";", ":", ","])
         for token in doc[:-1]:
-            if token.text in punctuation_followed_by_space and token.whitespace_ == "":
-                doc._.grammar_errors.append("Spacing")
-                token._.grammar_errors.append("Spacing")
+            if token.text in PUNCTUATION_FOLLOWED_BY_SPACE and token.whitespace_ == "":
+                doc._.grammar_errors.append(SPACING_ERROR)
+                token._.grammar_errors.append(SPACING_ERROR)
 
         for token in doc:
-            if token.i > 0 and token.text in punctuation_not_preceded_by_space and len(doc[token.i-1].whitespace_) > 0:
-                doc._.grammar_errors.append("Spacing")
-                token._.grammar_errors.append("Spacing")
+            if token.i > 0 and token.text in PUNCTUATION_NOT_PRECEDED_BY_SPACE and len(doc[token.i-1].whitespace_) > 0:
+                doc._.grammar_errors.append(SPACING_ERROR)
+                token._.grammar_errors.append(SPACING_ERROR)
             elif "." in token.text and re.search("\.\w", token.text):
-                doc._.grammar_errors.append("Spacing")
-                token._.grammar_errors.append("Spacing")
+                doc._.grammar_errors.append(SPACING_ERROR)
+                token._.grammar_errors.append(SPACING_ERROR)
 
     def check_woman_versus_women(self, doc):
         """
@@ -127,9 +190,9 @@ class RuleBasedGrammarChecker(object):
 
         """
         for token in doc:
-            if token.text.lower() == "womans":
-                doc._.grammar_errors.append("Woman versus women")
-                token._.grammar_errors.append("Woman versus women")
+            if token.text.lower() == INCORRECT_PLURAL_WOMAN:
+                doc._.grammar_errors.append(WOMAN_WOMEN_ERROR)
+                token._.grammar_errors.append(WOMAN_WOMEN_ERROR)
 
     def check_men_versus_man(self, doc):
         """
@@ -141,54 +204,42 @@ class RuleBasedGrammarChecker(object):
         Returns:
         """
         for token in doc:
-            if token.text.lower() == "mans":
-                doc._.grammar_errors.append("Men versus man")
-                token._.grammar_errors.append("Men versus man")
+            if token.text.lower() == INCORRECT_PLURAL_MAN:
+                doc._.grammar_errors.append(MAN_MEN_ERROR)
+                token._.grammar_errors.append(MAN_MEN_ERROR)
 
     def check_than_versus_then(self, doc):
         for token in doc[1:]:
-            if token.text.lower() == "then" and (doc[token.i-1].tag_ == "RBR" or doc[token.i-1].tag_ == "JJR"):
-                doc._.grammar_errors.append("Than versus then")
-                token._.grammar_errors.append("Than versus then")
+            if token.text.lower() == THEN and doc[token.i-1].tag_ in COMPARATIVE_TAGS:
+                doc._.grammar_errors.append(THAN_THEN_ERROR)
+                token._.grammar_errors.append(THAN_THEN_ERROR)
 
     def check_repeated_word(self, doc):
         for token in doc[1:]:
             if token.text.lower() == doc[token.i-1].text.lower():
-                doc._.grammar_errors.append("Repeated word")
-                token._.grammar_errors.append("Repeated word")
-
-    def _is_subject(self, token):
-        if token.dep_.startswith("nsubj"):
-            return True
-        elif token.dep_ == "conj" and token.head.dep_.startswith("nsubj"):
-            return True
-        else:
-            return False
+                doc._.grammar_errors.append(REPEATED_WORD_ERROR)
+                token._.grammar_errors.append(REPEATED_WORD_ERROR)
 
     def check_subject_pronouns(self, doc):
-        obj_pronouns = set(["me", "him", "her", "us", "them"])
-        poss_pronouns = set(["my", "your", "her", "his", "its", "our", "their"])
-        poss2_pronouns = set(["mine", "yours", "hers", "his", "ours", "theirs"])
 
-        nonsubj_pronouns = obj_pronouns | poss_pronouns | poss2_pronouns
+        nonsubj_pronouns = OBJECT_PRONOUNS | POSSESSIVE_DETERMINERS | POSSESSIVE_PRONOUNS
         for token in doc:
             if self._is_subject(token) and token.text.lower() in nonsubj_pronouns:
-                doc._.grammar_errors.append("Subject pronouns")
-                token._.grammar_errors.append("Subject pronouns")
+                doc._.grammar_errors.append(SUBJECT_PRONOUN_ERROR)
+                token._.grammar_errors.append(SUBJECT_PRONOUN_ERROR)
 
     def check_object_pronouns(self, doc):
-        subj_pronouns = set(["i", "he", "she", "we", "they"])
 
         for token in doc:
-            if token.text.lower() in subj_pronouns and not self._is_subject(token):
-                doc._.grammar_errors.append("Object pronouns")
-                token._.grammar_errors.append("Object pronouns")
+            if token.text.lower() in SUBJECT_PRONOUNS and not self._is_subject(token):
+                doc._.grammar_errors.append(OBJECT_PRONOUN_ERROR)
+                token._.grammar_errors.append(OBJECT_PRONOUN_ERROR)
 
     def check_possessive_nouns(self, doc):
         for token in doc[:-1]:
-            if token.tag_ == "NNS" and doc[token.i+1].tag_.startswith("NN"):
-                doc._.grammar_errors.append("Possessive nouns")
-                token._.grammar_errors.append("Possessive nouns")
+            if token.tag_ == PLURAL_NOUN_TAG and doc[token.i+1].pos_ == NOUN_POS:
+                doc._.grammar_errors.append(POSSESSIVE_NOUN_ERROR)
+                token._.grammar_errors.append(POSSESSIVE_NOUN_ERROR)
 
     def check_commas_in_numbers(self, doc):
         """
@@ -202,8 +253,8 @@ class RuleBasedGrammarChecker(object):
         """
         for token in doc:
             if re.search("\d{4,}", token.text):
-                doc._.grammar_errors.append("Commas in numbers")
-                token._.grammar_errors.append("Commas in numbers")
+                doc._.grammar_errors.append(COMMAS_IN_NUMBERS_ERROR)
+                token._.grammar_errors.append(COMMAS_IN_NUMBERS_ERROR)
 
     def check_commas_after_yes_and_no(self, doc):
         """
@@ -217,9 +268,9 @@ class RuleBasedGrammarChecker(object):
 
         """
         for token in doc[:-1]:
-            if token.text.lower() in ["yes", "no"] and not doc[token.i+1].is_punct:
-                doc._.grammar_errors.append("Commas after yes & no")
-                token._.grammar_errors.append("Commas after yes & no")
+            if token.text.lower() in YES_NO and not doc[token.i+1].is_punct:
+                doc._.grammar_errors.append(YES_NO_COMMA_ERROR)
+                token._.grammar_errors.append(YES_NO_COMMA_ERROR)
 
     def check_singular_and_plural_nouns(self, doc):
         """
@@ -234,9 +285,11 @@ class RuleBasedGrammarChecker(object):
         """
         for noun_chunk in doc.noun_chunks:
             for token in noun_chunk:
-                if token.text.lower() in ["a", "an"] and token.dep_ == "det" and token.head.tag_ == "NNS":
-                    doc._.grammar_errors.append("Singular and plural nouns")
-                    token._.grammar_errors.append("Singular and plural nouns")
+                if token.text.lower() in INDEF_ARTICLES and \
+                        token.dep_ == DETERMINER_DEP and \
+                        token.head.tag_ == PLURAL_NOUN_TAG:
+                    doc._.grammar_errors.append(SINGULAR_PLURAL_ERROR)
+                    token._.grammar_errors.append(SINGULAR_PLURAL_ERROR)
 
     def check_capitalization(self, doc):
         """
@@ -249,14 +302,14 @@ class RuleBasedGrammarChecker(object):
         Returns:
 
         """
-        if re.search("^[a-z]", doc[0].text):
-            doc._.grammar_errors.append("Capitalization")
-            doc[0]._.grammar_errors.append("Capitalization")
+        if re.match("[a-z]", doc[0].text):
+            doc._.grammar_errors.append(CAPITALIZATION_ERROR)
+            doc[0]._.grammar_errors.append(CAPITALIZATION_ERROR)
 
         for token in doc[1:]:
             if token.text == "i":
-                doc._.grammar_errors.append("Capitalization")
-                token._.grammar_errors.append("Capitalization")
+                doc._.grammar_errors.append(CAPITALIZATION_ERROR)
+                token._.grammar_errors.append(CAPITALIZATION_ERROR)
 
     def check_contractions(self, doc):
         """
@@ -268,19 +321,26 @@ class RuleBasedGrammarChecker(object):
         Returns:
 
         """
-        incorrect_contractions1 = set(["im", "youre", "hes", "shes", "theyre"])
-        incorrect_contractions2 = set(["dont", "didnt", "wont"])
-        incorrect_contractions = incorrect_contractions1 | incorrect_contractions2
-
-        incorrect_verbs = set(["m", "re", "s", "nt"])
-
         for token in doc:
-            if token.text.lower() in incorrect_contractions:
-                doc._.grammar_errors.append("Contractions")
-                token._.grammar_errors.append("Contractions")
-            elif token.pos_ in ["VERB", "ADV"] and token.text.lower() in incorrect_verbs:
-                doc._.grammar_errors.append("Contractions")
-                token._.grammar_errors.append("Contractions")
+            if token.text.lower() in INCORRECT_CONTRACTIONS:
+                doc._.grammar_errors.append(CONTRACTION_ERROR)
+                token._.grammar_errors.append(CONTRACTION_ERROR)
+            elif token.pos_ in [VERB_POS, ADVERB_POS] and token.text.lower() in CONTRACTED_VERBS_WITHOUT_APOSTROPHE:
+                doc._.grammar_errors.append(CONTRACTION_ERROR)
+                token._.grammar_errors.append(CONTRACTION_ERROR)
+
+    # Private utility functions
+
+    def _starts_with_vowel(self, token):
+        return re.match("[aeiou]", token, re.IGNORECASE)
+
+    def _is_subject(self, token):
+        if token.dep_.startswith(SUBJECT_DEP):
+            return True
+        elif token.dep_ == CONJUNCTION_DEP and token.head.dep_.startswith(SUBJECT_DEP):
+            return True
+        else:
+            return False
 
 
 class GrammarChecker:

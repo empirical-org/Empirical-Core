@@ -24,7 +24,7 @@ def check_grammar(request):
 
     response_data = {"feedback_type": FEEDBACK_TYPE,
                      "response_uid": "q23123@3sdfASDF",
-                     "feedback": NEG_FEEDBACK if errors else POS_FEEDBACK
+                     "feedback": NEG_FEEDBACK if errors else POS_FEEDBACK,
                      "optimal": not errors,
                      "highlight": errors}
 
