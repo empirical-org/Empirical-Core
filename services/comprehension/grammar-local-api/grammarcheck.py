@@ -74,8 +74,6 @@ CAPITALIZATION_ERROR = "Capitalization"
 CONTRACTION_ERROR = "Contractions"
 ITS_IT_S_ERROR = "Its versus it's"
 
-
-Doc.set_extension("grammar_errors", default=[])
 Token.set_extension("grammar_errors", default=[])
 
 statistical_error_map = {"WOMAN": WOMAN_WOMEN_ERROR,
@@ -116,28 +114,25 @@ class RuleBasedGrammarChecker(object):
         for i in range(0, len(doc) - 1):
             if (doc[i].tag_ == POSSESSIVE_TAG or doc[i].pos_ == PARTICIPLE_POS) and \
                     (doc[i + 1].pos_ not in [NOUN_POS, COORD_CONJ_POS]):
-                doc._.grammar_errors.append(PLURAL_POSSESSIVE_ERROR)
                 doc[i]._.grammar_errors.append(PLURAL_POSSESSIVE_ERROR)
 
     def check_question_mark(self, doc):
         #TODO: should also catch "Is he going to dance tonight." with AUX
         if doc[-1].text != "?":
             if doc[0].text.lower() in QUESTION_WORDS:
-                doc._.grammar_errors.append(QUESTION_MARK_ERROR)
+                doc[-1]._.grammar_errors.append(QUESTION_MARK_ERROR)
             else:
                 for token in doc:
                     if token.dep_.startswith(SUBJECT_DEP) and token.i > token.head.i:
-                        doc._.grammar_errors.append(QUESTION_MARK_ERROR)
+                        doc[-1]._.grammar_errors.append(QUESTION_MARK_ERROR)
 
     def check_articles(self, doc):
         for token in doc[:-1]:
             if token.pos_ == DETERMINER_POS and token.text.lower() == INDEF_ARTICLE_BEFORE_CONSONANT \
                     and self._starts_with_vowel(doc[token.i+1].text):
-                doc._.grammar_errors.append(ARTICLE_ERROR)
                 token._.grammar_errors.append(ARTICLE_ERROR)
             elif token.pos_ == DETERMINER_POS and token.text.lower() == INDEF_ARTICLE_BEFORE_VOWEL \
                     and not self._starts_with_vowel(doc[token.i+1].text):
-                doc._.grammar_errors.append(ARTICLE_ERROR)
                 token._.grammar_errors.append(ARTICLE_ERROR)
 
     def check_this_versus_that(self, doc):
@@ -151,16 +146,12 @@ class RuleBasedGrammarChecker(object):
             elif token.pos_ in POSSIBLE_POS_IN_NOUN_PHRASE:
                 current_noun_phrase.append(token)
                 if token.text.lower() == HERE and current_noun_phrase[0].text.lower() == THAT:
-                    doc._.grammar_errors.append(THIS_THAT_ERROR)
                     current_noun_phrase[0]._.grammar_errors.append(THIS_THAT_ERROR)
                 elif token.text.lower() == HERE and current_noun_phrase[0].text.lower() == THOSE:
-                    doc._.grammar_errors.append(THESE_THOSE_ERROR)
                     current_noun_phrase[0]._.grammar_errors.append(THESE_THOSE_ERROR)
                 elif token.text.lower() == THERE and current_noun_phrase[0].text.lower() == THIS:
-                    doc._.grammar_errors.append(THIS_THAT_ERROR)
                     current_noun_phrase[0]._.grammar_errors.append(THIS_THAT_ERROR)
                 elif token.text.lower() == THERE and current_noun_phrase[0].text.lower() == THESE:
-                    doc._.grammar_errors.append(THESE_THOSE_ERROR)
                     current_noun_phrase[0]._.grammar_errors.append(THESE_THOSE_ERROR)
             else:
                 current_noun_phrase = []
@@ -168,15 +159,12 @@ class RuleBasedGrammarChecker(object):
     def check_spacing(self, doc):
         for token in doc[:-1]:
             if token.text in PUNCTUATION_FOLLOWED_BY_SPACE and token.whitespace_ == "":
-                doc._.grammar_errors.append(SPACING_ERROR)
                 token._.grammar_errors.append(SPACING_ERROR)
 
         for token in doc:
             if token.i > 0 and token.text in PUNCTUATION_NOT_PRECEDED_BY_SPACE and len(doc[token.i-1].whitespace_) > 0:
-                doc._.grammar_errors.append(SPACING_ERROR)
                 token._.grammar_errors.append(SPACING_ERROR)
             elif "." in token.text and re.search("\.\w", token.text):
-                doc._.grammar_errors.append(SPACING_ERROR)
                 token._.grammar_errors.append(SPACING_ERROR)
 
     def check_woman_versus_women(self, doc):
@@ -191,7 +179,6 @@ class RuleBasedGrammarChecker(object):
         """
         for token in doc:
             if token.text.lower() == INCORRECT_PLURAL_WOMAN:
-                doc._.grammar_errors.append(WOMAN_WOMEN_ERROR)
                 token._.grammar_errors.append(WOMAN_WOMEN_ERROR)
 
     def check_men_versus_man(self, doc):
@@ -205,19 +192,16 @@ class RuleBasedGrammarChecker(object):
         """
         for token in doc:
             if token.text.lower() == INCORRECT_PLURAL_MAN:
-                doc._.grammar_errors.append(MAN_MEN_ERROR)
                 token._.grammar_errors.append(MAN_MEN_ERROR)
 
     def check_than_versus_then(self, doc):
         for token in doc[1:]:
             if token.text.lower() == THEN and doc[token.i-1].tag_ in COMPARATIVE_TAGS:
-                doc._.grammar_errors.append(THAN_THEN_ERROR)
                 token._.grammar_errors.append(THAN_THEN_ERROR)
 
     def check_repeated_word(self, doc):
         for token in doc[1:]:
             if token.text.lower() == doc[token.i-1].text.lower():
-                doc._.grammar_errors.append(REPEATED_WORD_ERROR)
                 token._.grammar_errors.append(REPEATED_WORD_ERROR)
 
     def check_subject_pronouns(self, doc):
@@ -225,20 +209,17 @@ class RuleBasedGrammarChecker(object):
         nonsubj_pronouns = OBJECT_PRONOUNS | POSSESSIVE_DETERMINERS | POSSESSIVE_PRONOUNS
         for token in doc:
             if self._is_subject(token) and token.text.lower() in nonsubj_pronouns:
-                doc._.grammar_errors.append(SUBJECT_PRONOUN_ERROR)
                 token._.grammar_errors.append(SUBJECT_PRONOUN_ERROR)
 
     def check_object_pronouns(self, doc):
 
         for token in doc:
             if token.text.lower() in SUBJECT_PRONOUNS and not self._is_subject(token):
-                doc._.grammar_errors.append(OBJECT_PRONOUN_ERROR)
                 token._.grammar_errors.append(OBJECT_PRONOUN_ERROR)
 
     def check_possessive_nouns(self, doc):
         for token in doc[:-1]:
             if token.tag_ == PLURAL_NOUN_TAG and doc[token.i+1].pos_ == NOUN_POS:
-                doc._.grammar_errors.append(POSSESSIVE_NOUN_ERROR)
                 token._.grammar_errors.append(POSSESSIVE_NOUN_ERROR)
 
     def check_commas_in_numbers(self, doc):
@@ -253,7 +234,6 @@ class RuleBasedGrammarChecker(object):
         """
         for token in doc:
             if re.search("\d{4,}", token.text):
-                doc._.grammar_errors.append(COMMAS_IN_NUMBERS_ERROR)
                 token._.grammar_errors.append(COMMAS_IN_NUMBERS_ERROR)
 
     def check_commas_after_yes_and_no(self, doc):
@@ -269,7 +249,6 @@ class RuleBasedGrammarChecker(object):
         """
         for token in doc[:-1]:
             if token.text.lower() in YES_NO and not doc[token.i+1].is_punct:
-                doc._.grammar_errors.append(YES_NO_COMMA_ERROR)
                 token._.grammar_errors.append(YES_NO_COMMA_ERROR)
 
     def check_singular_and_plural_nouns(self, doc):
@@ -288,7 +267,6 @@ class RuleBasedGrammarChecker(object):
                 if token.text.lower() in INDEF_ARTICLES and \
                         token.dep_ == DETERMINER_DEP and \
                         token.head.tag_ == PLURAL_NOUN_TAG:
-                    doc._.grammar_errors.append(SINGULAR_PLURAL_ERROR)
                     token._.grammar_errors.append(SINGULAR_PLURAL_ERROR)
 
     def check_capitalization(self, doc):
@@ -303,12 +281,10 @@ class RuleBasedGrammarChecker(object):
 
         """
         if re.match("[a-z]", doc[0].text):
-            doc._.grammar_errors.append(CAPITALIZATION_ERROR)
             doc[0]._.grammar_errors.append(CAPITALIZATION_ERROR)
 
         for token in doc[1:]:
             if token.text == "i":
-                doc._.grammar_errors.append(CAPITALIZATION_ERROR)
                 token._.grammar_errors.append(CAPITALIZATION_ERROR)
 
     def check_contractions(self, doc):
@@ -323,10 +299,8 @@ class RuleBasedGrammarChecker(object):
         """
         for token in doc:
             if token.text.lower() in INCORRECT_CONTRACTIONS:
-                doc._.grammar_errors.append(CONTRACTION_ERROR)
                 token._.grammar_errors.append(CONTRACTION_ERROR)
             elif token.pos_ in [VERB_POS, ADVERB_POS] and token.text.lower() in CONTRACTED_VERBS_WITHOUT_APOSTROPHE:
-                doc._.grammar_errors.append(CONTRACTION_ERROR)
                 token._.grammar_errors.append(CONTRACTION_ERROR)
 
     # Private utility functions
