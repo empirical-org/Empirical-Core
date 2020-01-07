@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Dashboard, redis: :true do
+describe Dashboard, redis: true do
   let(:classroom_with_sufficient_data) {create(:classroom_with_3_classroom_units)}
   let(:teacher_with_sufficient_data) {classroom_with_sufficient_data.owner}
   let(:classroom_with_no_activities) {create(:classroom)}
