@@ -5,14 +5,15 @@ import {
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux';
-const arrow = 'https://assets.quill.org/images/icons/correct_icon.svg';
+const arrow = `${process.env.QUILL_CDN_URL}/images/icons/continue.svg`;
 const jsDiff = require('diff');
 
-const EndState = React.createClass({
+class EndState extends React.Component {
 
-  renderStaticText() {
+  renderStaticText = () => {
+    const { answeredNonMultipleChoiceCorrectly, multipleChoiceCorrect, } = this.props
     let message = '';
-    if (this.props.answeredNonMultipleChoiceCorrectly || this.props.multipleChoiceCorrect) {
+    if (answeredNonMultipleChoiceCorrectly || multipleChoiceCorrect) {
       message = 'Good work! Here are the most popular strong answers:';
     } else {
       message = 'Keep going! Here are the most popular strong answers:';
@@ -24,15 +25,16 @@ const EndState = React.createClass({
         key="end-state"
       />
     );
-  },
+  }
 
   returnSanitizedArray(str) {
     return str.toLowerCase().replace(/\n/g, ' ').replace(/(<([^>]+)>)/ig, ' ').replace(/&nbsp;/g, '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g, '').split(' ').sort().join(' ').trim().split(' ');
-  },
+  }
 
   findDiffs(answer) {
+    const { question, } = this.props
     let styledString = answer;
-    const sanitizedQuestionArray = this.returnSanitizedArray(this.props.question.prompt);
+    const sanitizedQuestionArray = this.returnSanitizedArray(question.prompt);
     const sanitizedAnswerArray = this.returnSanitizedArray(answer);
     const diffObjects = jsDiff.diffArrays(sanitizedQuestionArray, sanitizedAnswerArray);
     diffObjects.forEach((diff) => {
@@ -56,17 +58,18 @@ const EndState = React.createClass({
       }
     });
     return styledString;
-  },
+  }
 
-  renderTopThreeResponses() {
-    let responses = this.props.responses;
-    responses = hashToCollection(responses);
-    responses = responses.filter(response => response.optimal).sort((a, b) => b.count - a.count);
-    const responsesToRender = _.first(responses, 3);
+  renderTopThreeResponses = () => {
+    const { responses, question, answeredNonMultipleChoiceCorrectly, } = this.props
+    let selectedResponses = responses
+    selectedResponses = hashToCollection(selectedResponses);
+    selectedResponses = selectedResponses.filter(response => response.optimal).sort((a, b) => b.count - a.count);
+    const responsesToRender = _.first(selectedResponses, 3);
     const sum = _.reduce(responsesToRender, (memo, response) => memo + response.count, 0);
     let attemptKey;
-    if (this.props.answeredNonMultipleChoiceCorrectly) {
-      attemptKey = getLatestAttempt(this.props.question.attempts).response.key;
+    if (answeredNonMultipleChoiceCorrectly) {
+      attemptKey = getLatestAttempt(question.attempts).response.key;
     }
     return responsesToRender.map((response, index) => {
       const active = attemptKey === response.key ? 'active' : '';
@@ -75,13 +78,13 @@ const EndState = React.createClass({
           <div className="top-answer-list-item-index">
             {`${index + 1}. `}
           </div>
-          <div className="top-answer-list-item-text prevent-selection" dangerouslySetInnerHTML={{ __html: this.findDiffs(response.text), }} />
+          <div className="top-answer-list-item-text" dangerouslySetInnerHTML={{ __html: this.findDiffs(response.text), }} />
         </li>
       );
     });
-  },
+  }
 
-  render() {
+  render = () => {
     const listStyle = {
       listStyle: 'none',
       marginLeft: '1em',
@@ -96,8 +99,8 @@ const EndState = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
 
 const getLatestAttempt = function (attempts = []) {
   const lastIndex = attempts.length - 1;
@@ -109,4 +112,5 @@ function select(state) {
     questions: state.questions,
   };
 }
+
 export default connect(select)(EndState);
