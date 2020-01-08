@@ -205,7 +205,7 @@ class PlaySentenceFragment extends React.Component {
     return (
       <div className="container">
         <div className="feedback-row">
-          <img className="info" src={icon} />
+          <img alt="Directions Icon" className="info" src={icon} />
           <p>Is this a complete or an incomplete sentence?</p>
         </div>
         {this.renderSentenceOrFragmentButtons()}

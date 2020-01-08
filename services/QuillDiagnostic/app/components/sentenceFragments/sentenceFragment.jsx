@@ -151,7 +151,7 @@ class SentenceFragment extends React.Component {
             <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="Directions Icon" className="info" src={icon} />
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <div className="button-group" style={{ marginTop: 10, }}>

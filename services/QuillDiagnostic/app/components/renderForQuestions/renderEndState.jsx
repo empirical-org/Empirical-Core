@@ -5,7 +5,6 @@ import {
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import { connect } from 'react-redux';
-const arrow = `${process.env.QUILL_CDN_URL}/images/icons/continue.svg`;
 const jsDiff = require('diff');
 
 class EndState extends React.Component {

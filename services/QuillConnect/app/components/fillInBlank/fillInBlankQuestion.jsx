@@ -47,7 +47,7 @@ class FillInBlankQuestion extends Component {
             getQuestion={this.getQuestion}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="Directions Icon" className="info" src={icon} />
             <p>{this.getQuestion().instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>

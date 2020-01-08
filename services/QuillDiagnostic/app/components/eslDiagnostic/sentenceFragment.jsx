@@ -158,7 +158,7 @@ class PlaySentenceFragment extends React.Component {
         <div className="container">
           <ReactTransition transitionLeave transitionLeaveTimeout={2000} transitionName='sentence-fragment-buttons'>
             <div className="feedback-row">
-              <img className="info" src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
+              <img alt="Directions Icon" className="info" src={icon} style={{ marginTop: 3, alignSelf: 'flex-start', }} />
               <p dangerouslySetInnerHTML={{ __html: this.getChoiceHTML(), }} />
             </div>
             {this.getSentenceOrFragmentButtons()}

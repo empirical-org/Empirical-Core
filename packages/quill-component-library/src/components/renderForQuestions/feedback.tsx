@@ -53,10 +53,34 @@ function getFeedbackIcon(feedbackType: string): string {
     case "getQuestion-instructions":
     case "default-with-cues":
     case "default":
-      returnVal = icon;
-      break;
     default:
       returnVal = icon;
+  }
+  return returnVal;
+}
+
+function getIconAlt(feedbackType: string): string {
+  let returnVal;
+  switch (feedbackType) {
+    case "revise-unmatched":
+    case "revise-matched":
+      returnVal = 'Retry Icon';
+      break;
+    case "correct-matched":
+      returnVal = 'Check Icon';
+      break;
+    case "override":
+      returnVal = 'Choice Icon';
+      break;
+    case "continue":
+      returnVal = 'Next Icon';
+      break;
+    case "instructions":
+    case "getQuestion-instructions":
+    case "default-with-cues":
+    case "default":
+    default:
+      returnVal = 'Directions Icon';
   }
   return returnVal;
 }
@@ -87,7 +111,7 @@ function getCSSClasses(feedbackType: string): string {
 const Feedback = ({ feedbackType, feedback, }: any) => (
   <div className={getCSSClasses(feedbackType)}>
     <div className='feedback-row student-feedback-inner-container'>
-      <img className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
+      <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
       {feedback}
     </div>
   </div>

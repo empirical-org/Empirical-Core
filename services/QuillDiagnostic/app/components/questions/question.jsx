@@ -55,7 +55,7 @@ class Question extends React.Component {
   }
 
   getQuestion = () => {
-    const { dispatch, params, } = this.props
+    const { dispatch, params, questions, } = this.props
     const { data, } = questions;
     const { questionID, } = params;
     return data[questionID];
@@ -234,7 +234,7 @@ class Question extends React.Component {
             getQuestion={this.getQuestion}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="Directions Icon" className="info" src={icon} />
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
