@@ -3,30 +3,29 @@ default: &default
   timeout: 5000
 
 development_env: &development_env
-  database: quill_cms_development
-  host: localhost
-  port: 5433
-  user: root
-  password: password
+  adapter: postgresql
+  encoding: unicode
+  database: emp_gr_development
+  host:     localhost
+  port: 5432
 
 test_env: &test_env
   <<: *development_env
-  database: quill_cms_test
+  database: emp_gr_test
 
-elastic_beanstalk_env: &elastic_beanstalk_env
-  database: <%= ENV['RDS_DB_NAME'] %>
-  user: <%= ENV['RDS_DB_USERNAME'] %>
-  password: <%= ENV['RDS_DB_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+leader_db_env: &leader_db_env
+  database: <%= ENV['LEADER_DB_NAME'] %>
+  user: <%= ENV['LEADER_DB_USERNAME'] %>
+  password: <%= ENV['LEADER_DB_PASSWORD'] %>
+  host: <%= ENV['LEADER_DB_HOSTNAME'] %>
+  port: <%= ENV['LEADER_DB_PORT'] %>
 
-elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
-  database: <%= ENV['RDS_REPLICA_NAME'] %>
-  user: <%= ENV['RDS_REPLICA_USERNAME'] %>
-  password: <%= ENV['RDS_REPLICA_PASSWORD'] %>
-  host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
-  port: <%= ENV['RDS_REPLICA_PORT'] %>
-
+follower_db_env: &follower_db_env
+  database: <%= ENV['FOLLOWER_DB_NAME'] %>
+  user: <%= ENV['FOLLOWER_DB_USERNAME'] %>
+  password: <%= ENV['FOLLOWER_DB_PASSWORD'] %>
+  host: <%= ENV['FOLLOWER_DB_HOSTNAME'] %>
+  port: <%= ENV['FOLLOWER_DB_PORT'] %>
 
 development: &development
   <<: *default
@@ -63,8 +62,7 @@ test:
         name: replica
         <<: *test_env
 
-
-staging:
+staging: &staging
   <<: *default
   adapter: postgresql_makara
   makara:
@@ -75,10 +73,13 @@ staging:
     connections:
       - role: master
         name: leader
-        <<: *elastic_beanstalk_env
+        <<: *leader_db_env
       - role: slave
         name: replica
-        <<: *elastic_beanstalk_replica_env
+        <<: *follower_db_env
+
+sprint:
+  <<: *staging
 
 production:
   <<: *default
@@ -91,12 +92,12 @@ production:
     connections:
       - role: master
         name: leader
-        <<: *elastic_beanstalk_env
+        <<: *leader_db_env
       - role: slave
         name: dummy_replica
         weight: <%= 100 - ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *elastic_beanstalk_env
+        <<: *leader_db_env
       - role: slave
         name: replica
         weight: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *elastic_beanstalk_replica_env
+        <<: *follower_db_env
