@@ -50,10 +50,10 @@ const styles = {
 export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   constructor(props) {
     super(props);
-    this.checkAnswer = this.checkAnswer.bind(this);
-    this.getQuestion = this.getQuestion.bind(this);
+
     const q = this.getQuestion();
     const splitPrompt = q.prompt.split('___');
+
     this.state = {
       splitPrompt,
       inputVals: this.generateInputs(splitPrompt),
@@ -72,17 +72,18 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     );
   }
 
-  getQuestion() {
+  getQuestion = () => {
     const { question, } = this.props;
     return question;
   }
 
   getInstructionText() {
+    const { language, } = this.props
     const textKey = translationMap[this.getQuestion().key];
     let text = translations.english[textKey];
-    if (this.props.language && this.props.language !== 'english') {
-      const textClass = this.props.language === 'arabic' ? 'right-to-left' : '';
-      text += `<br/><br/><span class="${textClass}">${translations[this.props.language][textKey]}</span>`;
+    if (language && language !== 'english') {
+      const textClass = language === 'arabic' ? 'right-to-left' : '';
+      text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
     }
     return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   }
@@ -95,18 +96,25 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return inputs;
   }
 
-  handleChange(i, e) {
-    const existing = [...this.state.inputVals];
+  handleChange = (i, e) => {
+    const { inputVals, } = this.state
+    const existing = [...inputVals];
     existing[i] = e.target.value.trim();
     this.setState({
       inputVals: existing,
     });
   }
 
-  getChangeHandler(index) {
+  getChangeHandler = index => {
     return (e) => {
       this.handleChange(index, e);
     };
+  }
+
+  getBlurHandler = index => {
+    return () => {
+      this.validateInput(index)
+    }
   }
 
   renderText(text, i) {
@@ -117,12 +125,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return <span key={i} style={style}>{text}</span>;
   }
 
-  validateInput(i) {
-    const newErrors = new Set(this.state.inputErrors);
-    const inputVal = this.state.inputVals[i] || '';
-    const inputSufficient = this.state.blankAllowed ? true : inputVal;
+  validateInput = (i) => {
+    const { inputErrors, inputVals, blankAllowed, cues, } = this.state
+    const newErrors = new Set(inputErrors);
+    const inputVal = inputVals[i] || '';
+    const inputSufficient = blankAllowed ? true : inputVal;
 
-    if (!inputSufficient || (inputVal && this.state.cues.indexOf(inputVal.toLowerCase()) === -1)) {
+    if (!inputSufficient || (inputVal && cues.indexOf(inputVal.toLowerCase()) === -1)) {
       newErrors.add(i);
     } else {
       newErrors.delete(i);
@@ -130,7 +139,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
     // following condition will return false if no new errors
     if (newErrors.size) {
-      const newInputVals = this.state.inputVals
+      const newInputVals = inputVals
       newInputVals[i] = ''
       this.setState({ inputErrors: newErrors, inputVals: newInputVals })
     } else {
@@ -170,9 +179,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     );
   }
 
-  warningText() {
+  warningText = () => {
+    const { blankAllowed, } = this.state
     const text = 'Use one of the options below';
-    return `${text}${this.state.blankAllowed ? ' or leave blank.' : '.'}`;
+    return `${text}${blankAllowed ? ' or leave blank.' : '.'}`;
   }
 
   chevyStyleRight() {
@@ -193,10 +203,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     };
   }
 
-  renderInput(i) {
+  renderInput = (i) => {
+    const { inputErrors, inputVals, } = this.state
     let styling:any = styles.input;
     let warning;
-    if (this.state.inputErrors.has(i)) {
+    if (inputErrors.has(i)) {
       warning = this.renderWarning(i);
       styling = Object.assign({}, styling);
       styling.borderColor = '#ff7370';
@@ -211,19 +222,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         <input
           id={`input${i}`}
           key={i + 100}
-          onBlur={() => this.validateInput(i)}
+          onBlur={this.getBlurHandler(i)}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
-          value={this.state.inputVals[i]}
+          value={inputVals[i]}
         />
       </span>
     );
   }
 
-  getPromptElements() {
-    if (this.state.splitPrompt) {
-      const { splitPrompt, } = this.state;
+  getPromptElements = () => {
+    const { splitPrompt, } = this.state
+    if (splitPrompt) {
       const l = splitPrompt.length;
       const splitPromptWithInput:Array<JSX.Element> = [];
       splitPrompt.forEach((section, i) => {
@@ -238,92 +249,96 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  zipInputsAndText() {
-    const zipped = _.zip(this.state.splitPrompt, this.state.inputVals);
+  zipInputsAndText = () => {
+    const { splitPrompt, inputVals, } = this.state
+    const zipped = _.zip(splitPrompt, inputVals);
     return _.flatten(zipped).join('');
   }
 
-  checkAnswer() {
-    if (!this.state.inputErrors.size) {
-      if (!this.state.blankAllowed) {
-        if (this.state.inputVals.length === 0) {
+  handleSubmitResponse = () => {
+    const { inputErrors, blankAllowed, inputVals, responses, } = this.state
+    const { submitResponse, } = this.props
+    if (!inputErrors.size) {
+      if (!blankAllowed) {
+        if (inputVals.length === 0) {
           this.validateInput(0);
           return;
         }
       }
       const zippedAnswer = this.zipInputsAndText();
       const questionUID = this.getQuestion().key
-      const responses = hashToCollection(this.state.responses)
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responses)}
+      const responsesArray = hashToCollection(responses)
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray)}
       this.updateResponseResource(response);
-      this.props.submitResponse(response);
+      submitResponse(response);
     }
   }
 
-  setResponse(response) {
-    if (this.props.setResponse) {
-      this.props.setResponse(response)
-    }
+  setResponse = (response) => {
+    const { setResponse, } = this.props
+    if (!setResponse) { return }
+
+    setResponse(response)
   }
 
-  updateResponseResource(response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
+  updateResponseResource = (response) => {
+    const { dispatch, } = this.props
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
   }
 
   renderMedia() {
     if (this.getQuestion().mediaURL) {
       return (
         <div className='ell-illustration' style={{ marginTop: 15, minWidth: 200 }}>
-          <img src={this.getQuestion().mediaURL} />
+          <img alt={this.getQuestion().mediaAlt} src={this.getQuestion().mediaURL} />
         </div>
       );
     }
   }
 
-  customText() {
+  customText = () => {
+    const { blankAllowed, } = this.state
+    const { language, } = this.props
     const cuesLabel = this.getQuestion().cuesLabel
     if (cuesLabel) {
       return cuesLabel
     } else {
       let text = translations.english['add word bank cue'];
-      text = `${text}${this.state.blankAllowed ? ' or leave blank' : ''}`;
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['add word bank cue']}`;
+      text = `${text}${blankAllowed ? ' or leave blank' : ''}`;
+      if (language && language !== 'english') {
+        text += ` / ${translations[language]['add word bank cue']}`;
       }
       return text;
     }
   }
 
-  getLatestAttempt(): Attempt | undefined {
-    return _.last(this.props.question.attempts || []);
+  getLatestAttempt = (): Attempt | undefined => {
+    const { question, } = this.props
+    return _.last(question.attempts || []);
   }
 
-  showNextQuestionButton() {
+  showNextQuestionButton = () => {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
-    const readyForNext =
-      question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal);
-    if (readyForNext) {
-      return true;
-    } else {
-      return false;
-    }
+    return (question.attempts.length > 4 || (latestAttempt && latestAttempt.response.optimal))
   }
 
-  renderButton() {
+  renderButton = () => {
+    const { nextQuestion, question, } = this.props
+    const { responses, } = this.state
     if (this.showNextQuestionButton()) {
       return (
-        <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
+        <button className="button student-submit" onClick={nextQuestion} type="button">Next</button>
       );
-    } else if (this.state.responses) {
-      if (this.props.question.attempts.length > 0) {
+    } else if (responses) {
+      if (question.attempts.length > 0) {
         const buttonClass = "button student-recheck";
-        return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
+        return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck Your Answer</button>;
       } else {
-        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+        return <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">Submit</button>;
       }
     } else {
-      <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
+      <button className="button student-submit is-disabled" type="button">Submit</button>;
     }
   }
 
@@ -332,8 +347,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   render() {
+    const { language, question, } = this.props
+    const { responses, } = this.state
     let fullPageInstructions
-    if (this.props.language === 'arabic' && !(this.getQuestion().mediaURL)) {
+    if (language === 'arabic' && !(this.getQuestion().mediaURL)) {
       fullPageInstructions = { maxWidth: 800, width: '100%' }
     } else {
       fullPageInstructions = { display: 'block', width: '100%' }
@@ -351,9 +368,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
               />
               <Feedback
                 getQuestion={this.getQuestion}
-                question={this.props.question}
+                question={question}
                 renderFeedbackStatements={this.renderFeedbackStatements}
-                responses={this.state.responses}
+                responses={responses}
                 sentence={this.getInstructionText()}
               />
             </div>
