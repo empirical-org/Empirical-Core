@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import _ from 'underscore';
 import { submitResponse, clearResponses } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
@@ -22,11 +22,9 @@ class PlayDiagnosticQuestion extends React.Component {
     super(props)
 
     this.state = {
-      return {
-        editing: false,
-        response: '',
-        readyForNext: false,
-      };
+      editing: false,
+      response: '',
+      readyForNext: false,
     }
   }
 
@@ -74,7 +72,8 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   getQuestion = () => {
-    return this.props.question;
+    const { question, } = this.props
+    return question;
   }
 
   getResponse2 = (rid) => {
@@ -84,7 +83,7 @@ class PlayDiagnosticQuestion extends React.Component {
 
   submitResponse = (response) => {
     const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
+    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
   }
 
   renderSentenceFragments = () => {
@@ -111,25 +110,28 @@ class PlayDiagnosticQuestion extends React.Component {
     />);
   }
 
-  updateResponseResource(response) {
+  updateResponseResource = (response) => {
     const { dispatch, } = this.props
     updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
   }
 
-  submitPathway(response) {
+  submitPathway = (response) => {
     submitPathway(response, this.props);
   }
 
-  setResponse(response) {
-    if (this.props.setResponse) {
-      this.props.setResponse(response);
-    }
+  setResponse = (response) => {
+    const { setResponse, } = this.props
+    if (!setResponse) { return }
+
+    setResponse(response);
   }
 
-  checkAnswer(e) {
-    if (this.state.editing && this.state.responses) {
+  handleSubmitResponse = (e) => {
+    const { editing, responses, response, } = this.state
+    const { marking, } = this.props
+    if (editing && responses) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
+      const response = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
       this.updateResponseResource(response);
       this.setResponse(response);
       if (response.response && response.response.author === 'Missing Details Hint') {
@@ -143,27 +145,24 @@ class PlayDiagnosticQuestion extends React.Component {
           editing: false,
           response: '',
           error: undefined,
-        }
-          this.nextQuestion()
-        );
+        }, this.handleNextClick);
       }
     }
   }
 
   toggleDisabled = () => {
-    if (this.state.editing) {
-      return '';
-    }
-    return 'is-disabled';
+    const { editing, } = this.state
+    return editing ? '' : 'is-disabled'
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ editing: true, response: e, });
   }
 
   readyForNext = () => {
-    if (this.props.question.attempts.length > 0) {
-      const latestAttempt = getLatestAttempt(this.props.question.attempts);
+    const { question, } = this.props
+    if (question.attempts.length > 0) {
+      const latestAttempt = getLatestAttempt(question.attempts);
       if (latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
@@ -175,30 +174,31 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   getProgressPercent = () => {
-    return this.props.question.attempts.length / 3 * 100;
+    const { question, } = this.props
+    return question.attempts.length / 3 * 100;
   }
 
   finish = () => {
     this.setState({ finished: true, });
   }
 
-  nextQuestion = () => {
-    this.props.nextQuestion();
+  handleNextClick = () => {
+    const { nextQuestion, } = this.props
+    nextQuestion();
   }
 
   renderNextQuestionButton(correct) {
     if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Next</button>);
+      return (<button className="button is-outlined is-success" onClick={this.handleNextClick} type="button">Next</button>);
     }
-      return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Next</button>);
-
+    return (<button className="button is-outlined is-warning" onClick={this.handleNextClick} type="button">Next</button>);
   }
 
   render = () => {
     const { question, } = this.props
-    const { responses, } = this.state
+    const { responses, error, response, } = this.state
     const questionID = question.key;
-    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
+    const button = responses ? <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="button student-submit is-disabled" type="button">Submit</button>;
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
@@ -212,20 +212,20 @@ class PlayDiagnosticQuestion extends React.Component {
               key={questionID}
             />
           </div>
-          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName={'text-editor'}>
+          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
-              className={'textarea is-question is-disabled'}
+              className='textarea is-question is-disabled'
               defaultValue={this.getInitialValue()}
               disabled={this.readyForNext()}
               getResponse={this.getResponse2}
-              hasError={this.state.error}
+              hasError={error}
               onChange={this.handleChange}
-              onSubmitResponse={this.checkAnswer}
+              onSubmitResponse={this.handleSubmitResponse}
               placeholder="Type your answer here."
-              value={this.state.response}
+              value={response}
             />
             <div className="button-and-error-row">
-              <Error error={this.state.error} />
+              <Error error={error} />
               <div className="question-button-group button-group">
                 {button}
               </div>
