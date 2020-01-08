@@ -39,8 +39,7 @@ describe ProgressReports::Standards::ClassroomSerializer, type: :serializer do
                            not_proficient_student_count
                            total_standard_count
                            students_href
-                           topics_href
-                          )
+                           topics_href)
     end
   end
 end

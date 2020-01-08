@@ -3,18 +3,18 @@ class ClassificationSerializer < ActiveModel::Serializer
 
 
   def alias
-  	case object.id
-  	when 1
-  		'Quill Proofreader'
-  	when 2
-  		'Quill Grammar'
+    case object.id
+    when 1
+      'Quill Proofreader'
+    when 2
+      'Quill Grammar'
     when 4
       'Quill Diagnostic'
     when 5
       'Quill Connect'
     when 6
       'Quill Lessons'
-  	end
+    end
   end
 
   def green_image_class
