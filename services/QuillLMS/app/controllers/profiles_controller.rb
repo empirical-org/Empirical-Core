@@ -65,7 +65,7 @@ class ProfilesController < ApplicationController
     render :staff
   end
 
-protected
+  protected
   def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end

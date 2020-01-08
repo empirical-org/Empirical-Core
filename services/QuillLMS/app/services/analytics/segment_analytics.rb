@@ -12,7 +12,7 @@ class SegmentAnalytics
     unless Rails.env.test?
       self.backend ||= Segment::Analytics.new({
         write_key: SegmentIo.configuration.write_key,
-        on_error: Proc.new { |status, msg| print msg }
+        on_error: proc { |status, msg| print msg }
       })
     end
   end
