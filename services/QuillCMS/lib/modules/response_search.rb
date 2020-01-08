@@ -21,13 +21,13 @@ module ResponseSearch
     if query_filters[:sort][:column] == 'text'
       sort_value = [
         {
-          "sortable_text": "#{query_filters[:sort][:direction] || 'desc'}"
+          "sortable_text": (query_filters[:sort][:direction] || 'desc').to_s
         }
       ]
     else
       sort_value = [
         {
-          "#{query_filters[:sort][:column]&.underscore || 'count'}": "#{query_filters[:sort][:direction] || 'desc'}"
+          "#{query_filters[:sort][:column]&.underscore || 'count'}": (query_filters[:sort][:direction] || 'desc').to_s
         }
       ]
     end
@@ -36,7 +36,7 @@ module ResponseSearch
 
   module_function def get_query_values(question_uid, query_filters)
     user_input = query_filters["text"].strip
-    is_regex = user_input.first == '/' && user_input.last == '/'
+    is_regex = user_input.length > 1 && user_input.first == '/' && user_input.last == '/'
     query = {
       query_string: {
         default_field: is_regex ? 'sortable_text' : 'text',
@@ -45,13 +45,13 @@ module ResponseSearch
     }
   end
 
-  module_function def build_query_string(question_uid, query_filters, is_regex) 
+  module_function def build_query_string(question_uid, query_filters, is_regex)
     if is_regex
       string = build_regex_query_string(query_filters["text"])
     else
-      string = "\"#{query_filters["text"]}\""
+      string = "\"#{query_filters['text']}\""
     end
-    
+
     string = add_question_uid_filter(string, question_uid)
     string = add_not_filters(string, query_filters[:filters].to_h)
     string = add_spelling_filter(string, query_filters[:excludeMisspellings])

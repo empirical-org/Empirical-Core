@@ -71,7 +71,7 @@ describe TeachersController, type: :controller do
     describe '#current_user_json' do
       it 'render current user json' do
         get :current_user_json
-        expect(response.body).to  eq teacher.to_json
+        expect(response.body).to eq teacher.to_json
       end
     end
 

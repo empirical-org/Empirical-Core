@@ -47,7 +47,7 @@ class Cms::ActivitiesController < Cms::CmsController
     redirect_to cms_activities_path
   end
 
-protected
+  protected
 
   def set_activity
     @activity = @activity_classification.activities.find(params[:id])

@@ -3,12 +3,12 @@ module PublicProgressReports
 
     def last_completed_diagnostic
       diagnostic_activity_ids = Activity.diagnostic_activity_ids
-      current_user.classroom_units.
-                  joins(activity_sessions: :classroom_unit).
-                  where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids).
-                  order('created_at DESC').
-                  limit(1).
-                  first
+      current_user.classroom_units
+                  .joins(activity_sessions: :classroom_unit)
+                  .where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids)
+                  .order('created_at DESC')
+                  .limit(1)
+                  .first
     end
 
     def activity_session_report(classroom_unit_id, user_id, activity_id)
@@ -61,7 +61,7 @@ module PublicProgressReports
       # being converted to an array because that is what the diagnostic reports expect
       questions_arr = questions.map do |k,v|
         {question_id: k,
-         score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
+         score: ((v[:correct].to_f/v[:total]) * 100).round,
          prompt: v[:prompt],
          instructions: v[:instructions]}
       end
@@ -216,7 +216,7 @@ module PublicProgressReports
     end
 
     def get_average_score formatted_results
-      if (formatted_results.empty?)
+      if formatted_results.empty?
         100
       else
         (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()

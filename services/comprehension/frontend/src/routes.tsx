@@ -7,7 +7,7 @@ import StudentView from './components/studentView/container'
 export const routes: RouteConfig[] = [
   {
     path: "/play",
-    component: () => (<StudentView />)
+    component: (props: any) => (<StudentView {...props} />)
   }
 ];
 

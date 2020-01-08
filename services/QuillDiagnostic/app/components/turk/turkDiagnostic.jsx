@@ -21,78 +21,68 @@ import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagno
 const request = require('request');
 import { getParameterByName } from '../../libs/getParameterByName';
 
-const TurkDiagnostic = React.createClass({
+class TurkDiagnostic extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       saved: false,
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
-    };
-  },
+    }
+  }
 
   componentWillMount() {
-    this.props.dispatch(clearData());
-    if (this.state.sessionID) {
-      SessionActions.get(this.state.sessionID, (data) => {
+    const { dispatch, } = this.props
+    const { sessionID, } = this.state
+    dispatch(clearData());
+    if (sessionID) {
+      SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
-  },
-
-  getPreviousSessionData() {
-    return this.state.session;
-  },
-
-  resumeSession(data) {
-    if (data) {
-      this.props.dispatch(resumePreviousDiagnosticSession(data));
-    }
-  },
-
-  getSessionId() {
-    let sessionID = getParameterByName('student');
-    if (sessionID === 'null') {
-      sessionID = undefined;
-    }
-    return sessionID;
-  },
-
-  saveSessionData(lessonData) {
-    if (this.state.sessionID) {
-      SessionActions.update(this.state.sessionID, lessonData);
-    }
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
+    const { playDiagnostic, } = this.props
+    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
     }
-  },
+  }
 
-  doesNotHaveAndIsNotGettingResponses() {
-    return (!this.state.hasOrIsGettingResponses);
-  },
+  resumeSession = (data) => {
+    if (!data) { return }
 
-  hasQuestionsInQuestionSet(props) {
-    const pL = props.playDiagnostic;
-    return (pL && pL.questionSet && pL.questionSet.length);
-  },
+    const { dispatch, } = this.props
+    dispatch(resumePreviousDiagnosticSession(data));
+  }
 
-  saveToLMS() {
+  getSessionId = () => {
+    return getParameterByName('student') === 'null' ? undefined : getParameterByName('student')
+  }
+
+  saveSessionData = (lessonData) => {
+    const { sessionID, } = this.state
+
+    if (!sessionID) { return }
+    SessionActions.update(sessionID, lessonData);
+  }
+
+  saveToLMS = () => {
+    const { sessionID, } = this.state
+    const { playDiagnostic, params, } = this.props
+
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
+    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
 
-    const { diagnosticID, } = this.props.params;
-    const sessionID = this.state.sessionID;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession(diagnosticID, results, 1);
+      this.createAnonActivitySession(params.diagnosticID, results, 1);
     }
-  },
+  }
 
-  finishActivitySession(sessionID, results, score) {
+  finishActivitySession = (sessionID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -101,12 +91,12 @@ const TurkDiagnostic = React.createClass({
           state: 'finished',
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(this.state.sessionID);
+          SessionActions.delete(sessionID);
           this.setState({ saved: true, });
         } else {
           // to do, use Sentry to capture error
@@ -114,9 +104,9 @@ const TurkDiagnostic = React.createClass({
         }
       }
     );
-  },
+  }
 
-  createAnonActivitySession(lessonID, results, score) {
+  createAnonActivitySession = (lessonID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -126,87 +116,58 @@ const TurkDiagnostic = React.createClass({
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           this.setState({ saved: true, });
         }
       }
     );
-  },
+  }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
     const action = submitResponse(response);
-    this.props.dispatch(action);
-  },
+    dispatch(action);
+  }
 
-  renderQuestionComponent() {
-    if (this.props.question.currentQuestion) {
-      return (<Question
-        prefill={this.getLesson().prefill}
-        question={this.props.question.currentQuestion}
-        submitResponse={this.submitResponse}
-      />);
-    }
-  },
+  handleSmartSpinnerMount = () => this.loadQuestionSet()
 
-  questionsForDiagnostic() {
-    const questionsCollection = hashToCollection(this.props.questions.data);
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
-  },
-
-  startActivity(name) {
-    // this.saveStudentName(name);
-    const next = nextQuestion();
-    this.props.dispatch(next);
-  },
-
-  loadQuestionSet() {
+  loadQuestionSet = () => {
+    const { dispatch, } = this.props
     const data = this.questionsForLesson();
     const action = loadData(data);
-    this.props.dispatch(action);
-  },
+    dispatch(action);
+  }
 
-  nextQuestion() {
+  nextQuestion = () => {
+    const { dispatch, } = this.props
     const next = nextQuestion();
-    this.props.dispatch(next);
-  },
+    dispatch(next);
+  }
 
-  nextQuestionWithoutSaving() {
+  nextQuestionWithoutSaving = () => {
+    const { dispatch, } = this.props
     const next = nextQuestionWithoutSaving();
-    this.props.dispatch(next);
-  },
+    dispatch(next);
+  }
 
-  getLesson() {
-    return this.props.lessons.data[this.props.params.diagnosticID];
-  },
-
-  getLessonName() {
-    return this.props.lessons.data[this.props.params.diagnosticID].name;
-  },
-
-  saveStudentName(name) {
-    this.props.dispatch(updateName(name));
-  },
-
-  questionsForLesson() {
-    const { data, } = this.props.lessons,
-      { diagnosticID, } = this.props.params;
+  questionsForLesson = () => {
+    const { lessons, params, } = this.props
+    const { data, } = lessons
+    const { diagnosticID, } = params
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
-      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
-    }
-    );
+      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null  // eslint-disable-line react/destructuring-assignment
+    });
     // this is a quickfix for missing questions -- if we leave this in here
     // long term, we should return an array through a forloop to
     // cut the time from 2N to N
     return filteredQuestions.map((questionItem) => {
       const questionType = questionItem.questionType;
       const key = questionItem.key;
-      const question = this.props[questionType].data[key];
+      const question = this.props[questionType].data[key]; // eslint-disable-line react/destructuring-assignment
       question.key = key;
       question.attempts = question.attempts ? question.attempts : []
       let type
@@ -226,28 +187,31 @@ const TurkDiagnostic = React.createClass({
       }
       return { type, data: question, };
     });
-  },
+  }
 
-  getQuestionCount() {
-    const { diagnosticID, } = this.props.params;
+  getQuestionCount = () => {
+    const { params, } = this.props
+    const { diagnosticID, } = params;
     if (diagnosticID == 'researchDiagnostic') {
       return '15';
     }
     return '22';
-  },
+  }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
+    const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
-    this.props.dispatch(action);
-  },
+    dispatch(action);
+  }
 
-  getProgressPercent() {
+  getProgressPercent = () => {
+    const { playDiagnostic, } = this.props
     let percent;
-    const playDiagnostic = this.props.playDiagnostic;
+
     if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
       const questionSetCount = playDiagnostic.questionSet.length;
-      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length;
-      if (this.props.playDiagnostic.currentQuestion) {
+      const answeredQuestionCount = questionSetCount - playDiagnostic.unansweredQuestions.length;
+      if (playDiagnostic.currentQuestion) {
         percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
       } else {
         percent = ((answeredQuestionCount) / questionSetCount) * 100;
@@ -255,94 +219,75 @@ const TurkDiagnostic = React.createClass({
     } else {
       percent = 0;
     }
-    return percent;
-  },
 
-  getQuestionType(type) {
-    let questionType
-    switch (type) {
-      case 'questions':
-        questionType = 'SC'
-        break
-      case 'fillInBlanks':
-        questionType = 'FB'
-        break
-      case 'titleCards':
-        questionType = 'TL'
-        break
-      case 'sentenceFragments':
-        questionType = 'SF'
-        break
-    }
-    return questionType
-  },
+    return percent;
+  }
 
   landingPageHtml() {
-    const { data, } = this.props.lessons,
-      { diagnosticID, } = this.props.params;
-    return data[diagnosticID].landingPageHtml
-  },
+    const { lessons, params, } = this.props
+    return lessons.data[params.diagnosticID].landingPageHtml
+  }
 
   render() {
-    const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
+    const { session, error, saved, } = this.state
+    const { playDiagnostic, questions, sentenceFragments, dispatch, } = this.props
+    const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
+
     let component;
-    if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
-      if (!this.props.playDiagnostic.questionSet) {
-        component = (<SmartSpinner key="step2" message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} />);
-      } else if (this.props.playDiagnostic.currentQuestion) {
+    if (questions.hasreceiveddata && sentenceFragments.hasreceiveddata) {
+      if (!playDiagnostic.questionSet) {
+        component = (<SmartSpinner key="step2" message='Loading Your Lesson 50%' onMount={this.handleSmartSpinnerMount} />);
+      } else if (playDiagnostic.currentQuestion) {
         if (questionType === 'SC') {
           component = (<PlayDiagnosticQuestion
-            dispatch={this.props.dispatch}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
+            dispatch={dispatch}
+            key={playDiagnostic.currentQuestion.data.key}
             marking="diagnostic"
-            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
             nextQuestion={this.nextQuestion}
-            question={this.props.playDiagnostic.currentQuestion.data}
+            question={playDiagnostic.currentQuestion.data}
           />);
         } else if (questionType === 'SF') {
           component = (<PlaySentenceFragment
-            currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-            dispatch={this.props.dispatch}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
-            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+            currentKey={playDiagnostic.currentQuestion.data.key}
+            dispatch={dispatch}
+            key={playDiagnostic.currentQuestion.data.key}
             markIdentify={this.markIdentify}
             nextQuestion={this.nextQuestion}
-            question={this.props.playDiagnostic.currentQuestion.data}
+            question={playDiagnostic.currentQuestion.data}
             updateAttempts={this.submitResponse}
           />);
         } else if (questionType === 'FB') {
           component = (<PlayFillInTheBlankQuestion
-            currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-            dispatch={this.props.dispatch}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
+            currentKey={playDiagnostic.currentQuestion.data.key}
+            dispatch={dispatch}
+            key={playDiagnostic.currentQuestion.data.key}
             nextQuestion={this.nextQuestion}
-            question={this.props.playDiagnostic.currentQuestion.data}
+            question={playDiagnostic.currentQuestion.data}
           />);
         } else if (questionType === 'TL') {
           component = (
             <PlayTitleCard
-              currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-              data={this.props.playDiagnostic.currentQuestion.data}
-              dispatch={this.props.dispatch}
+              currentKey={playDiagnostic.currentQuestion.data.key}
+              data={playDiagnostic.currentQuestion.data}
+              dispatch={dispatch}
               nextQuestion={this.nextQuestionWithoutSaving}
             />
           );
         }
-      } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-        component = (<FinishedDiagnostic error={this.state.error} saved={this.state.saved} saveToLMS={this.saveToLMS} />);
+      } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
+        component = (<FinishedDiagnostic error={error} saved={saved} saveToLMS={this.saveToLMS} />);
       } else {
         component = (<LandingPage
-          begin={() => { this.startActivity('John'); }}
+          begin={this.nextQuestion}
           landingPageHtml={this.landingPageHtml()}
           questionCount={this.getQuestionCount()}
           resumeActivity={this.resumeSession}
-          session={this.getPreviousSessionData()}
+          session={session}
         />);
       }
     } else {
-      component = (<SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => {}} />);
+      component = (<SmartSpinner key="step1" message='Loading Your Lesson 25%' />);
     }
-    // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
     return (
       <div>
         <DiagnosticProgressBar percent={this.getProgressPercent()} />
@@ -355,8 +300,8 @@ const TurkDiagnostic = React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {
