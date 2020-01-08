@@ -46,9 +46,18 @@ class Navbar extends React.Component {
     const navMenu = this.ellDiagnostic() ? '' : 'nav-menu';
     return (
       <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
+        {this.renderLessonSpecificContent()}
         <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={this.handleSaveAndExitClick}>Save & Exit</a>
       </div>
     );
+  }
+
+  renderLessonSpecificContent = () => {
+    if (this.ellDiagnostic()) {
+      return (
+        <LanguageSelector key="language-selector" />
+      );
+    }
   }
 
   render = () => {

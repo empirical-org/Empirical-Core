@@ -42,6 +42,7 @@ class ELLSentenceCombining extends React.Component {
   }
 
   getInitialValue = () => {
+    const { prefill, } = this.props
     if (prefill) {
       return this.getQuestion().prefilledText;
     }
@@ -134,21 +135,20 @@ class ELLSentenceCombining extends React.Component {
 
     if (editing && responses) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
-      this.updateResponseResource(response);
-      if (response.response && response.response.author === 'Missing Details Hint') {
+      const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
+      this.updateResponseResource(submittedResponse);
+      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',
         });
       } else {
-        this.submitResponse(response);
+        this.submitResponse(submittedResponse);
         this.setState({
           editing: false,
           response: '',
           error: undefined,
-        }, this.handleNextQuestionClick()
-        );
+        }, this.handleNextQuestionClick);
       }
     }
   }
@@ -220,7 +220,7 @@ class ELLSentenceCombining extends React.Component {
   }
 
   render = () => {
-    const { language, questions, } = this.props
+    const { language, questions, question, } = this.props
     const { responses, error, response, } = this.state
     let button;
     const fullPageInstructions = language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };

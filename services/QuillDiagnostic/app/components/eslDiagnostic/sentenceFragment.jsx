@@ -172,7 +172,7 @@ class PlaySentenceFragment extends React.Component {
   getSubmitButtonText = () => {
     const { language, } = this.props
     let text = translations.english['submit button text'];
-    if (language !== 'english') {
+    if (language && language !== 'english') {
       text += ` / ${translations[language]['submit button text']}`;
     }
     return text;

@@ -113,7 +113,7 @@ class PlaySentenceFragment extends React.Component {
     // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       response: e,
       editing: true,
