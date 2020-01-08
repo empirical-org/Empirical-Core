@@ -21,7 +21,7 @@
     }
 
     &.continue {
-      margin-top: 7px;
+      margin-top: 4px;
     }
   }
   p {
@@ -224,8 +224,11 @@
     font-weight: bold;
     padding-left: 15px;
     padding-right: 15px;
-    // font-size: 20px;
-    // margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 8px;
+    }
   }
   .concept-explanation-description {
     padding-left: 15px;
