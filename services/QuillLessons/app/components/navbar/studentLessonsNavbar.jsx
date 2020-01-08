@@ -1,21 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Navbar = React.createClass({
-  handleLogoClick() {
+const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
+
+class Navbar extends React.Component {
+  handleLogoClick = () => {
     if (window.confirm('Are you sure you want to leave your lesson?')) {
       window.location = process.env.EMPIRICAL_BASE_URL;
     }
-  },
+  }
 
   render() {
-    const data = this.props.classroomSessions.data;
-    const lessonData = this.props.classroomLesson.data;
-    const editionData = this.props.customize.editionQuestions;
+    const { classroomSessions, classroomLesson, customize, } = this.props
+    const { data } = classroomSessions;
+    const lessonData = classroomLesson.data;
+    const editionData = customize.editionQuestions;
     let slideName
     if (editionData && editionData.questions && data) {
       if (data.current_slide > 0) {
-        slideName = [<span>Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
+        slideName = [<span key="slide-number">Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
       } else {
         slideName = "Lobby"
       }
@@ -23,22 +26,21 @@ const Navbar = React.createClass({
       slideName = ''
     }
     return (
-      <header className={'nav student-nav'} style={{ height: '66px', }}>
+      <header className='nav student-nav'>
         <nav className="student-lessons">
-          <a onClick={() => this.handleLogoClick()}>
-            <img
-              alt="quill-logo"
-              className="quill-logo"
-              src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png"
-            />
-          </a>
+          <img
+            alt="Quill.org logo"
+            className="quill-logo"
+            onClick={this.handleLogoClick}
+            src={quillLogoSrc}
+          />
           <div className="slide-name" key="slide-name">{slideName}</div>
           <div className="lesson-name">{lessonData.title}</div>
         </nav>
       </header>
     );
-  },
-});
+  }
+}
 
 function select(props) {
   return {

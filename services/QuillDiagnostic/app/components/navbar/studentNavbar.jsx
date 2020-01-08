@@ -6,31 +6,6 @@ import LanguageSelector from './languageSelector.jsx';
 const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      expanded: false
-    }
-  }
-
-  navStyles = () => {
-    const { expanded, } = this.state
-    if (expanded) {
-      return {
-        background: '#fff',
-        display: 'initial',
-      };
-    }
-  }
-
-  handleToggleClick = () => {
-    this.setState(prevState => ({ expanded: !prevState.expanded, }));
-  }
-
-  reset = () => {
-    this.setState({ expanded: false, });
-  }
 
   handleSaveAndExitClick = () => {
     if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
@@ -43,11 +18,10 @@ class Navbar extends React.Component {
   }
 
   renderLinks = () => {
-    const navMenu = this.ellDiagnostic() ? '' : 'nav-menu';
     return (
-      <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
+      <div className='nav-right'>
         {this.renderLessonSpecificContent()}
-        <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={this.handleSaveAndExitClick}>Save & Exit</a>
+        <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={this.handleSaveAndExitClick}>Save and exit</a>
       </div>
     );
   }
@@ -62,23 +36,17 @@ class Navbar extends React.Component {
 
   render = () => {
     return (
-      <header className='nav student-nav' style={{ height: '50px', }}>
+      <header className='nav student-nav'>
         <div className="container">
           <div className="nav-left">
             <a className="nav-item" href={`${process.env.EMPIRICAL_BASE_URL}`}>
               <img
                 alt="Quill.org logo"
                 src={quillLogoSrc}
-                style={{ height: '35px', }}
               />
             </a>
           </div>
           {this.renderLinks()}
-          <span className="nav-toggle" onClick={this.handleToggleClick}>
-            <span />
-            <span />
-            <span />
-          </span>
         </div>
       </header>
     );
