@@ -185,7 +185,7 @@ module PagesHelper
           },
           {
             name: 'Matthew Rodriguez',
-            title: 'Managing Director at BlackRock',
+            title: 'Trader at Millennium Management',
             img: 'board-matthew-rodriguez@2x.png'
           },
           {
