@@ -131,16 +131,16 @@ class PlayDiagnosticQuestion extends React.Component {
     const { marking, } = this.props
     if (editing && responses) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
-      this.updateResponseResource(response);
-      this.setResponse(response);
-      if (response.response && response.response.author === 'Missing Details Hint') {
+      const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
+      this.updateResponseResource(submittedResponse);
+      this.setResponse(submittedResponse);
+      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',
         });
       } else {
-        this.submitResponse(response);
+        this.submitResponse(submittedResponse);
         this.setState({
           editing: false,
           response: '',

@@ -55,7 +55,7 @@ class Question extends React.Component {
   }
 
   getQuestion = () => {
-    const { dispatch, params, } = this.props
+    const { dispatch, params, questions, } = this.props
     const { data, } = questions;
     const { questionID, } = params;
     return data[questionID];

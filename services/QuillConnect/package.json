@@ -140,6 +140,7 @@
     "react-selectize": "^2.1.0",
     "react-simple-pie-chart": "^0.4.1",
     "react-sortable": "^2.0.0",
+    "react-textarea-autosize": "^7.1.2",
     "react-transition-group": "^2.9.0",
     "react-wakelock": "0.0.4",
     "redux-persist": "^4.8.1",

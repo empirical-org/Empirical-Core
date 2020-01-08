@@ -77,10 +77,11 @@ export default class RenderFormForAnswer extends React.Component {
     } = this.props
     let content
     let button
+    let renderedFeedback = feedback
     if (finished) {
       button = nextQuestionButton;
       const answeredCorrectly = getAnswerState(getLatestAttempt(attempts))
-      feedback = (<EndState
+      renderedFeedback = (<EndState
         answeredNonMultipleChoiceCorrectly={answeredCorrectly}
         key={`-${questionID}`}
         multipleChoiceCorrect={multipleChoiceCorrect}
@@ -126,7 +127,7 @@ export default class RenderFormForAnswer extends React.Component {
         {sentenceFragments}
         <div className="content">
           {cues}
-          {feedback}
+          {renderedFeedback}
           <TextEditor
             defaultValue={initialValue}
             disabled={disabled}

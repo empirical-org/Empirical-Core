@@ -12,9 +12,6 @@ import {
   ConceptExplanation
 } from 'quill-component-library/dist/componentLibrary';
 import {
-  submitResponse,
-  incrementResponseCount,
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
