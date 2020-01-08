@@ -27,27 +27,6 @@ Bundler/OrderedGems:
     - 'QuillComprehension/Gemfile'
     - 'QuillLMS/Gemfile'
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: outdent, indent
-Layout/AccessModifierIndentation:
-  Exclude:
-    - 'QuillLMS/app/controllers/accounts_controller.rb'
-    - 'QuillLMS/app/controllers/activities_controller.rb'
-    - 'QuillLMS/app/controllers/cms/activities_controller.rb'
-    - 'QuillLMS/app/controllers/cms/sections_controller.rb'
-    - 'QuillLMS/app/controllers/cms/topic_categories_controller.rb'
-    - 'QuillLMS/app/controllers/cms/topics_controller.rb'
-    - 'QuillLMS/app/controllers/cms/users_controller.rb'
-    - 'QuillLMS/app/controllers/profiles_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/classrooms_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/progress_reports/diagnostic_reports_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/students_controller.rb'
-    - 'QuillLMS/app/controllers/teachers/unit_activities_controller.rb'
-    - 'QuillLMS/app/models/user.rb'
-    - 'QuillLMS/lib/name_generator.rb'
-
 # Offense count: 200
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.
@@ -328,20 +307,6 @@ Layout/SpaceBeforeComma:
     - 'QuillLMS/spec/workers/sync_sales_accounts_worker_spec.rb'
     - 'QuillLMS/spec/workers/user_login_worker_spec.rb'
 
-# Offense count: 15
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBrackets.
-# SupportedStyles: space, no_space, compact
-# SupportedStylesForEmptyBrackets: space, no_space
-Layout/SpaceInsideArrayLiteralBrackets:
-  Exclude:
-    - 'QuillCMS/config/environments/production.rb'
-    - 'QuillComprehension/config/environments/production.rb'
-    - 'QuillLMS/app/models/criterion.rb'
-    - 'QuillLMS/app/queries/recommendations_query.rb'
-    - 'QuillLMS/spec/models/criterion_spec.rb'
-    - 'QuillLMS/spec/models/school_spec.rb'
-
 # Offense count: 742
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
@@ -423,12 +388,6 @@ Lint/UselessAccessModifier:
 # Offense count: 98
 Lint/UselessAssignment:
   Enabled: false
-
-# Offense count: 14
-# Configuration parameters: CheckForMethodsWithNoSideEffects.
-Lint/Void:
-  Exclude:
-    - 'QuillCMS/lib/tasks/import_from_firebase.rake'
 
 # Offense count: 222
 Metrics/AbcSize:
