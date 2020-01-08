@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
   # before_action :setup_visitor
   before_action :should_load_intercom
   before_action :set_raven_context
-  before_action :stick_to_leader_db
   before_action :confirm_valid_session
+  before_action :stick_to_leader_db
 
   def admin!
     return if current_user.try(:admin?)
