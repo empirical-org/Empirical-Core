@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'underscore';
-import { submitResponse, clearResponses } from '../../actions/turk.js';
 import ReactTransition from 'react-addons-css-transition-group';
 import {
   getGradedResponsesWithCallback
@@ -9,7 +8,6 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
@@ -17,109 +15,130 @@ import { Error, Response } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
-const PlayDiagnosticQuestion = React.createClass({
-  getInitialState() {
-    return {
+class PlayDiagnosticQuestion extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       editing: false,
       response: '',
       readyForNext: false,
-    };
-  },
+    }
+  }
 
   componentDidMount() {
+    const { question, } = this.props
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
     );
-  },
+  }
 
   shouldComponentUpdate(nextProps: any, nextState: any) {
-    if (this.props.question !== nextProps.question) {
+    const { question, } = this.props
+    const { response, responses, error, } = this.state
+
+    if (question !== nextProps.question) {
       return true;
-    } else if (this.state.response !== nextState.response) {
+    } else if (response !== nextState.response) {
       return true;
-    } else if (this.state.responses !== nextState.responses) {
+    } else if (responses !== nextState.responses) {
       return true;
-    } else if (this.state.error !== nextState.error) {
+    } else if (error !== nextState.error) {
       return true;
     }
     return false;
-  },
+  }
 
-  getInitialValue() {
-    if (this.props.prefill) {
+  getInitialValue = () => {
+    const { prefill, } = this.props
+
+    if (prefill) {
       return this.getQuestion().prefilledText;
     }
-  },
+  }
 
-  getResponses() {
-    return this.state.responses;
-    // return this.props.responses.data[this.props.question.key];
-  },
+  getResponses = () => {
+    const { responses, } = this.state
 
-  removePrefilledUnderscores() {
-    this.setState({ response: this.state.response.replace(/_/g, ''), });
-  },
+    return responses;
+  }
 
-  getQuestion() {
-    return this.props.question;
-  },
+  removePrefilledUnderscores = () => {
+    this.setState(prevState => ({ response: prevState.response.replace(/_/g, ''), }));
+  }
 
-  getResponse2(rid) {
-    return this.props.responses[rid];
-  },
+  getQuestion = () => {
+    const { question, } = this.props
 
-  submitResponse(response) {
-    this.props.submitResponse(response)
-  },
+    return question;
+  }
 
-  renderSentenceFragments() {
+  getResponse2 = (rid) => {
+    const { responses, } = this.props
+
+    return responses[rid];
+  }
+
+  submitResponse = (response) => {
+    const { submitResponse, } = this.props
+
+    submitResponse(response)
+  }
+
+  renderSentenceFragments = () => {
     return <SentenceFragments prompt={this.getQuestion().prompt} />;
-  },
+  }
 
   listCuesAsString(cues) {
     const newCues = cues.slice(0);
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+  }
 
   renderFeedbackStatements(attempt) {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
-  },
+  }
 
-  renderCues() {
+  renderCues = () => {
     return (<RenderQuestionCues
       displayArrowAndText={true}
       getQuestion={this.getQuestion}
     />);
-  },
+  }
 
-  updateResponseResource(response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
-  },
+  updateResponseResource = (response) => {
+    const { dispatch, } = this.props
+
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+  }
 
   submitPathway(response) {
     submitPathway(response, this.props);
-  },
+  }
 
   setResponse(response) {
-    if (this.props.setResponse) {
-      this.props.setResponse(response);
-    }
-  },
+    const { setResponse, } = this.props
 
-  checkAnswer(e) {
-    if (this.state.editing) {
+    if (setResponse) {
+      setResponse(response);
+    }
+  }
+
+  handleResponseSubmission = (e) => {
+    const { editing, response, } = this.state
+    const { marking, } = this.props
+    if (editing) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses(), this.props.marking || 'diagnostic');
-      this.updateResponseResource(response);
-      this.setResponse(response);
-      if (response.response && response.response.author === 'Missing Details Hint') {
+      const markedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
+      this.updateResponseResource(markedResponse);
+      this.setResponse(markedResponse);
+      if (markedResponse.response && markedResponse.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',
@@ -130,27 +149,26 @@ const PlayDiagnosticQuestion = React.createClass({
           editing: false,
           response: '',
           error: undefined,
-        },
-          this.nextQuestion()
+        }, this.handleNextClick
         );
       }
     }
-  },
+  }
 
-  toggleDisabled() {
-    if (this.state.editing) {
-      return '';
-    }
-    return 'is-disabled';
-  },
+  toggleDisabled = () => {
+    const { editing, } = this.state
 
-  handleChange(e) {
+    return editing ? '' : 'is-disabled'
+  }
+
+  handleChange = (e) => {
     this.setState({ editing: true, response: e, });
-  },
+  }
 
-  readyForNext() {
-    if (this.props.question.attempts.length > 0) {
-      const latestAttempt = getLatestAttempt(this.props.question.attempts);
+  readyForNext = () => {
+    const { question, } = this.props
+    if (question.attempts.length > 0) {
+      const latestAttempt = getLatestAttempt(question.attempts);
       if (latestAttempt && latestAttempt.found) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
@@ -159,33 +177,37 @@ const PlayDiagnosticQuestion = React.createClass({
       }
     }
     return false;
-  },
+  }
 
-  getProgressPercent() {
-    return this.props.question.attempts.length / 3 * 100;
-  },
+  getProgressPercent = () => {
+    const { question, } = this.props
 
-  finish() {
+    return question.attempts.length / 3 * 100;
+  }
+
+  finish = () => {
     this.setState({ finished: true, });
-  },
+  }
 
-  nextQuestion() {
-    this.props.nextQuestion();
-  },
+  handleNextClick = () => {
+    const { nextQuestion, } = this.props
+    nextQuestion();
+  }
 
   renderNextQuestionButton(correct) {
     if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.nextQuestion}>Next</button>);
+      return (<button className="button is-outlined is-success" onClick={this.handleNextClick} type="button">Next</button>);
     }
-      return (<button className="button is-outlined is-warning" onClick={this.nextQuestion}>Next</button>);
-
-  },
+    return (<button className="button is-outlined is-warning" onClick={this.handleNextClick} type="button">Next</button>);
+  }
 
   render() {
-    const questionID = this.props.question.key;
-    const button = this.state.responses ? <button className="button student-submit" onClick={this.checkAnswer}>Submit</button> : <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
-    if (this.props.question) {
-      const instructions = (this.props.question.instructions && this.props.question.instructions !== '') ? this.props.question.instructions : 'Combine the sentences into one sentence.';
+    const { question, } = this.props
+    const { responses, error, response } = this.state
+    const questionID = question.key;
+    const button = responses ? <button className="button student-submit" onClick={this.handleResponseSubmission} type="button">Submit</button> : <button className="button student-submit is-disabled" type="button">Submit</button>;
+    if (question) {
+      const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
         <div className="student-container-inner-diagnostic">
           {this.renderSentenceFragments()}
@@ -197,20 +219,20 @@ const PlayDiagnosticQuestion = React.createClass({
               key={questionID}
             />
           </div>
-          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName={'text-editor'}>
+          <ReactTransition transitionAppear transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName='text-editor'>
             <TextEditor
-              checkAnswer={this.checkAnswer}
-              className={'textarea is-question is-disabled'}
+              className='textarea is-question is-disabled'
               defaultValue={this.getInitialValue()}
               disabled={this.readyForNext()}
               getResponse={this.getResponse2}
-              handleChange={this.handleChange}
-              hasError={this.state.error}
+              hasError={error}
+              onChange={this.handleChange}
+              onSubmitResponse={this.handleResponseSubmission}
               placeholder="Type your answer here."
-              value={this.state.response}
+              value={response}
             />
             <div className="button-and-error-row">
-              <Error error={this.state.error} />
+              <Error error={error} />
               <div className="question-button-group button-group">
                 {button}
               </div>
@@ -221,8 +243,8 @@ const PlayDiagnosticQuestion = React.createClass({
     }
       return (<p>Loading...</p>);
 
-  },
-});
+  }
+}
 
 const getLatestAttempt = function (attempts = []): { found: any, response: Response } {
   const lastIndex = attempts.length - 1;

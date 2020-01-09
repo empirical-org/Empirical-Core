@@ -12,17 +12,17 @@ import {
   ConceptExplanation
 } from 'quill-component-library/dist/componentLibrary';
 import {
-  submitResponse,
-  incrementResponseCount,
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
-const PlaySentenceFragment = React.createClass<any, any>({
-  getInitialState() {
-    const { question } = this.props
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+
+class PlaySentenceFragment extends React.Component {
+  constructor(props) {
+    super(props)
+
+    const { question } = props
     let response = ''
     if (question && question.attempts.length) {
       const attemptLength = question.attempts.length
@@ -31,27 +31,18 @@ const PlaySentenceFragment = React.createClass<any, any>({
     } else if (question) {
       response = question.prompt
     }
-    return {
+
+    this.state = {
       response,
       checkAnswerEnabled: true,
       editing: false,
-    };
-  },
-
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.question !== nextProps.question) {
-      return true;
-    } else if (this.state.response !== nextState.response) {
-      return true;
-    } else if (this.state.responses !== nextState.responses) {
-      return true;
     }
-    return false;
-  },
+  }
 
   componentDidMount() {
-    const question = this.props.question
-    if (question && !this.state.responses) {
+    const { question } = this.props
+    const { responses, } = this.state
+    if (question && !responses) {
       getGradedResponsesWithCallback(
         question.key,
         (data) => {
@@ -59,15 +50,29 @@ const PlaySentenceFragment = React.createClass<any, any>({
         }
       )
     }
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.question.attempts.length !== this.props.question.attempts.length) {
+    const { question, } = this.props
+    if (nextProps.question.attempts.length !== question.attempts.length) {
       this.setState({editing: false})
     }
-  },
+  }
 
-  showNextQuestionButton() {
+  shouldComponentUpdate(nextProps, nextState) {
+    const { question, } = this.props
+    const { response, responses, } = this.state
+    if (question !== nextProps.question) {
+      return true;
+    } else if (response !== nextState.response) {
+      return true;
+    } else if (responses !== nextState.responses) {
+      return true;
+    }
+    return false;
+  }
+
+  showNextQuestionButton = () => {
     const { question, } = this.props;
     const latestAttempt = this.getLatestAttempt();
     const readyForNext =
@@ -77,59 +82,69 @@ const PlaySentenceFragment = React.createClass<any, any>({
     } else {
       return false;
     }
-  },
+  }
 
-  getLatestAttempt():{response:Response}|undefined {
-    return _.last(this.props.question.attempts || []);
-  },
+  getLatestAttempt = ():{response:Response}|undefined => {
+    const { question, } = this.props
+    return _.last(question.attempts || []);
+  }
 
-  getQuestion() {
-    return this.props.question;
-  },
+  getQuestion = () => {
+    const { question, } = this.props
+    return question;
+  }
 
-  getResponses() {
-    return this.state.responses;
-    // return this.props.responses.data[this.props.question.key];
-  },
+  getResponses = () => {
+    const { responses, } = this.state
+    return responses;
+  }
+
+  handleClickCompleteSentence = () => this.checkChoice('Sentence')
+
+  handleClickIncompleteSentence = () => this.checkChoice('Fragment')
 
   checkChoice(choice) {
-    const questionType = this.props.question.isFragment ? 'Fragment' : 'Sentence';
-    this.props.markIdentify(choice === questionType);
-  },
+    const { question, markIdentify, } = this.props
 
-  renderSentenceOrFragmentButtons() {
+    const questionType = question.isFragment ? 'Fragment' : 'Sentence';
+    markIdentify(choice === questionType);
+  }
+
+  renderSentenceOrFragmentButtons = () => {
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={() => { this.checkChoice('Sentence'); }} value="Sentence">Complete Sentence</button>
-        <button className="button sf-button" onClick={() => { this.checkChoice('Fragment'); }} value="Fragment">Incomplete Sentence</button>
+        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
+        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
       </div>
     );
-  },
+  }
 
-  choosingSentenceOrFragment() {
+  choosingSentenceOrFragment = () => {
     const { question, } = this.props;
     return question.identified === undefined && (question.needsIdentification === undefined || question.needsIdentification === true);
     // the case for question.needsIdentification===undefined is for sentenceFragments that were created before the needsIdentification field was put in
-  },
+  }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       response: e,
       editing: true,
     });
-  },
+  }
 
-  checkAnswer() {
-    if (this.state.checkAnswerEnabled && this.state.responses) {
-      const key = this.props.currentKey;
-      const { attempts } = this.props.question;
+  handleResponseSubmission = () => {
+    const { checkAnswerEnabled, responses, response, } = this.state
+    const { currentKey, question, dispatch, updateAttempts, handleAttemptSubmission, } = this.props
+    if (checkAnswerEnabled && responses) {
+      const key = currentKey;
+      const { attempts } = question;
       this.setState({ checkAnswerEnabled: false, }, () => {
         const { prompt, wordCountChange, ignoreCaseAndPunc, incorrectSequences, focusPoints, modelConceptUID, concept_uid, conceptID } = this.getQuestion();
         const responses = hashToCollection(this.getResponses())
         const defaultConceptUID = modelConceptUID || concept_uid || conceptID
         const fields = {
           question_uid: key,
-          response: this.state.response,
+          response: response,
           checkML: true,
           mlUrl: 'https://nlp.quill.org',
           responses,
@@ -143,34 +158,35 @@ const PlaySentenceFragment = React.createClass<any, any>({
         checkSentenceFragment(fields).then((resp) => {
           const matched = {response: resp}
           if (typeof(matched) === 'object') {
-            updateResponseResource(matched, key, attempts, this.props.dispatch, );
-            this.props.updateAttempts(matched);
+            updateResponseResource(matched, key, attempts, dispatch, );
+            updateAttempts(matched);
             this.setState({ checkAnswerEnabled: true, });
-            this.props.handleAttemptSubmission();
+            handleAttemptSubmission();
           }
         })
 
       });
     }
-  },
+  }
 
   getNegativeConceptResultsForResponse(conceptResults) {
     return hashToCollection(conceptResults).filter(cr => !cr.correct)
-  },
+  }
 
   getNegativeConceptResultForResponse(conceptResults) {
     const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
     return negCRs.length > 0 ? negCRs[0] : undefined;
-  },
+  }
 
-  renderConceptExplanation() {
+  renderConceptExplanation = () => {
+    const { question, conceptsFeedback, } = this.props
     if (!this.showNextQuestionButton()) {
-      const latestAttempt:{response: Response}|undefined  = getLatestAttempt(this.props.question.attempts);
+      const latestAttempt:{response: Response}|undefined  = getLatestAttempt(question.attempts);
       if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal) {
         if (latestAttempt.response.conceptResults) {
             const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
             if (conceptID) {
-              const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+              const data = conceptsFeedback.data[conceptID.conceptUID];
               if (data) {
                 return <ConceptExplanation {...data} />;
               }
@@ -178,70 +194,72 @@ const PlaySentenceFragment = React.createClass<any, any>({
         } else if (latestAttempt.response.concept_results) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
           if (conceptID) {
-            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            const data = conceptsFeedback.data[conceptID.conceptUID];
             if (data) {
               return <ConceptExplanation {...data} />;
             }
           }
         } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-          const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+          const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
           if (dataF) {
             return <ConceptExplanation {...dataF} />;
           }
         } else if (this.getQuestion().conceptID) {
-          const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+          const data = conceptsFeedback.data[this.getQuestion().conceptID];
           if (data) {
             return <ConceptExplanation {...data} />;
           }
         }
       }
     }
-  },
+  }
 
-  renderSentenceOrFragmentMode() {
+  renderSentenceOrFragmentMode = () => {
     return (
       <div className="container">
         <div className="feedback-row">
-          <img className="info" src={icon} />
+          <img alt="Directions Icon" className="info" src={icon} />
           <p>Is this a complete or an incomplete sentence?</p>
         </div>
         {this.renderSentenceOrFragmentButtons()}
       </div>
     );
-  },
+  }
 
-  renderButton() {
+  renderButton = () => {
+    const { responses, } = this.state
+    const { nextQuestion, question, } = this.props
     if (this.showNextQuestionButton()) {
       return (
-        <button className="button student-submit" onClick={this.props.nextQuestion}>Next</button>
+        <button className="button student-submit" onClick={nextQuestion} type="button">Next</button>
       );
-    } else if (this.state.responses) {
-      if (this.props.question && this.props.question.attempts ? this.props.question.attempts.length > 0 : false) {
+    } else if (responses) {
+      if (question && question.attempts ? question.attempts.length > 0 : false) {
         const buttonClass = "button student-recheck";
-        return <button className={buttonClass} onClick={this.checkAnswer}>Recheck Your Answer</button>;
+        return <button className={buttonClass} onClick={this.handleResponseSubmission} type="button">Recheck Your Answer</button>;
       } else {
-        return <button className="button student-submit" onClick={this.checkAnswer}>Submit</button>;
+        return <button className="button student-submit" onClick={this.handleResponseSubmission} type="button">Submit</button>;
       }
     } else {
-      return <button className="button student-submit is-disabled" onClick={() => {}}>Submit</button>;
+      return <button className="button student-submit is-disabled" type="button">Submit</button>;
     }
-  },
+  }
 
   renderFeedbackStatements(attempt) {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
-  },
+  }
 
-  renderPlaySentenceFragmentMode() {
-    const fragment = this.props.question;
-    const button = this.renderButton();
+  renderPlaySentenceFragmentMode = () => {
+    const { question, } = this.props
+    const { response, } = this.state
     let instructions;
     const latestAttempt = this.getLatestAttempt();
     if (latestAttempt) {
       const component = <span dangerouslySetInnerHTML={{__html: latestAttempt.response.feedback}} />
       instructions = latestAttempt.response.feedback ? component :
       'Revise your work. A complete sentence must have an action word and a person or thing doing the action.';
-    } else if (fragment.instructions && fragment.instructions !== '') {
-      instructions = this.props.question.instructions;
+    } else if (question.instructions && question.instructions !== '') {
+      instructions = question.instructions;
     } else {
       instructions = 'If it is a complete sentence, press submit. If it is an incomplete sentence, make it complete.';
     }
@@ -250,18 +268,18 @@ const PlaySentenceFragment = React.createClass<any, any>({
       <div className="container">
         <Feedback
           getQuestion={this.getQuestion}
-          question={this.props.question}
+          question={question}
           renderFeedbackStatements={this.renderFeedbackStatements}
           responses={this.getResponses()}
           sentence={instructions}
         />
         <TextEditor
-          checkAnswer={this.checkAnswer}
           disabled={this.showNextQuestionButton()}
-          handleChange={this.handleChange}
+          onChange={this.handleChange}
+          onSubmitResponse={this.handleResponseSubmission}
           placeholder="Type your answer here."
-          questionID={this.props.question.key}
-          value={this.state.response}
+          questionID={question.key}
+          value={response}
         />
         <div className="question-button-group">
           {this.renderButton()}
@@ -269,31 +287,30 @@ const PlaySentenceFragment = React.createClass<any, any>({
         {this.renderConceptExplanation()}
       </div>
     );
-  },
+  }
 
-  renderInteractiveComponent() {
+  renderInteractiveComponent = () => {
     if (this.choosingSentenceOrFragment()) {
       return this.renderSentenceOrFragmentMode();
     } else {
       return this.renderPlaySentenceFragmentMode();
     }
-  },
+  }
 
   render() {
-    if (this.props.question) {
-      return (
-        <div className="student-container-inner-diagnostic">
-          <div className="draft-js sentence-fragments prevent-selection">
-            <p>{this.getQuestion() ? this.getQuestion().prompt : ''}</p>
-          </div>
-          {this.renderInteractiveComponent()}
+    const { question, } = this.props
+    if (!question) { return (<div className="container">Loading...</div>) }
+
+    return (
+      <div className="student-container-inner-diagnostic">
+        <div className="draft-js sentence-fragments prevent-selection">
+          <p>{this.getQuestion() ? this.getQuestion().prompt : ''}</p>
         </div>
-      );
-    } else {
-      return (<div className="container">Loading...</div>);
-    }
-  },
-});
+        {this.renderInteractiveComponent()}
+      </div>
+    );
+  }
+}
 
 function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
   const lastIndex = attempts.length - 1;
