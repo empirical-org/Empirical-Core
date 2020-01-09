@@ -35,7 +35,6 @@ development: &development
     id: postgres_development_db
     disable_blacklist: true
     sticky: true
-    master_ttl: 60
     connections:
       - role: master
         name: leader
@@ -54,7 +53,6 @@ test:
     id: postgres_development_db
     disable_blacklist: true
     sticky: true
-    master_ttl: 60
     connections:
       - role: master
         name: leader
@@ -71,7 +69,6 @@ staging:
     id: postgres_staging_db
     disable_blacklist: true
     sticky: true
-    master_ttl: 60
     connections:
       - role: master
         name: leader
@@ -87,7 +84,6 @@ production:
     id: postgres_production_db
     disable_blacklist: true
     sticky: true
-    master_ttl: 60
     connections:
       - role: master
         name: leader
