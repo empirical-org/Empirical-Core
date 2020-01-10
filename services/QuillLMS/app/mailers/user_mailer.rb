@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: 'hello@quill.org'
+  include SatismeterHelper
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
@@ -115,6 +116,8 @@ class UserMailer < ActionMailer::Base
     intercom.conversations.find_all(open: false, sort_by: 'updated_at', order: 'desc').each do |convo|
       convo.updated_at > start_time ? closed_conversations << convo : break
     end
+
+    satismeter_data = SatismeterHelper.get_data(start_time, end_time)
 
     @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
