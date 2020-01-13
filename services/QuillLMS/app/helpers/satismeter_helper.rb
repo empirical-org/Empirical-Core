@@ -5,7 +5,7 @@ module SatismeterHelper
     result = {}
     if response['data'] && response['data'][0] && response['data'][0]['attributes']
       data = response['data'][0]['attributes']
-      result['nps'] = data['nps']
+      result['nps'] = data['nps'].round(2)
       result['respondents'] = [data['promoters'], data['passives'], data['detractors']]
     end
     result

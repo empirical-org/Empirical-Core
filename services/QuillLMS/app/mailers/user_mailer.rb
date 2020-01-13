@@ -133,6 +133,8 @@ class UserMailer < ActionMailer::Base
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
     @teacher_conversion_rate = (new_premium_accounts/teacher_count.to_f).round(5)
     @support_tickets_resolved = closed_conversations.length
+    @satismeter_nps_data = satismeter_nps_data
+    @satismeter_comment_data = satismeter_comment_data
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
