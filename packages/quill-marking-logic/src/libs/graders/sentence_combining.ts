@@ -54,9 +54,20 @@ export function checkSentenceCombining(
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
   const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
   if (spellingPass) {
-    // Update the feedback to indicate spelling is also needed.
+    let foundConcepts = spellingPass.concept_results
+    //convert concept_results to an array if it's not already
+    if (typeof foundConcepts === 'object' && foundConcepts.constructor === Object) {
+      spellingPass.concept_results =
+        Object.keys(foundConcepts).map((k) => foundConcepts[k])
+    }
+    spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    return Object.assign(responseTemplate, spellingAwareFeedback, { text: data.response, spelling_error: true, misspelled_words: misspelledWords });
+    const spellingFeedbackObj = {
+      text: data.response,
+      spelling_error: true,
+      misspelled_words: misspelledWords
+    }
+    return Object.assign(responseTemplate, spellingAwareFeedback, spellingFeedbackObj);
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);

@@ -114,6 +114,11 @@ module PagesHelper
             img: 'team-emilia-friedberg@2x.png'
           },
           {
+            name: 'Jeremy Hertz',
+            title: 'Director of School Partnerships',
+            img: 'team-jeremy-hertz@2x.png'
+          },
+          {
             name: 'Maddy Maher',
             title: 'Partnerships Specialist',
             img: 'team-maddy-maher@2x.png'
@@ -127,6 +132,11 @@ module PagesHelper
             name: 'Lindsey Murphy',
             title: 'Lead Curriculum Developer',
             img: 'team-lindsey-murphy@2x.png'
+          },
+          {
+            name: 'Erika Parker-Havens',
+            title: 'Senior Instructional Coach',
+            img: 'team-erika-parker-havens@2x.png'
           },
           {
             name: 'Yves Peirsman',
@@ -185,7 +195,7 @@ module PagesHelper
           },
           {
             name: 'Matthew Rodriguez',
-            title: 'Managing Director at BlackRock',
+            title: 'Trader at Millennium Management',
             img: 'board-matthew-rodriguez@2x.png'
           },
           {

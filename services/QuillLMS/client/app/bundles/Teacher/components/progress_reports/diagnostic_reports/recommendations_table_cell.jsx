@@ -3,33 +3,40 @@ import React from 'react';
 export default class RecommendationsTableCell extends React.Component {
 
   renderCheck() {
-    if (this.props.previouslyAssigned) {
+    const { previouslyAssigned, selected, } = this.props
+    if (previouslyAssigned) {
       return (
         <i className="fas fa-check-circle" />
       );
-    }		else if (this.props.selected) {
+    }	else if (selected) {
       return (
         <img className="recommendation-check" src="/images/recommendation_check.svg" />
       );
     }
   }
 
+  handleCheckboxClick = () => {
+    const { checkboxOnClick, student, index, } = this.props
+    checkboxOnClick(student, index)
+  }
+
   render() {
+    const { previouslyAssigned, recommended, selected, recommendation, } = this.props
     let checkboxClass,
       checkboxOnClick;
-    if (this.props.previouslyAssigned) {
+    if (previouslyAssigned) {
       checkboxClass = 'previously-assigned-checkbox';
       checkboxOnClick = null;
     } else {
       checkboxClass = 'donalito-checkbox';
-      checkboxOnClick = this.props.checkboxOnClick;
+      checkboxOnClick = this.handleCheckboxClick;
     }
     return (
-      <div className={`recommendations-table-row-item${this.props.previouslyAssigned}${this.props.recommended}${this.props.selected}`} onClick={checkboxOnClick}>
+      <div className={`recommendations-table-row-item${previouslyAssigned}${recommended}${selected}`} onClick={checkboxOnClick}>
         <div className={checkboxClass} >
           {this.renderCheck()}
         </div>
-        <p>{this.props.recommendation.name}</p>
+        <p>{recommendation.name}</p>
       </div>);
   }
 }

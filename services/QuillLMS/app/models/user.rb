@@ -70,6 +70,8 @@ class User < ActiveRecord::Base
 
   validate :username_cannot_be_an_email
 
+  validates :clever_id,             uniqueness:   { if: :clever_id_present_and_has_changed? }
+
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
 
@@ -331,7 +333,7 @@ class User < ActiveRecord::Base
   end
 
   ## Satismeter settings
-  SATISMETER_PERCENT_PER_DAY = 1.0
+  SATISMETER_PERCENT_PER_DAY = 5.0
   SATISMETER_ACTIVITIES_PER_STUDENT_THRESHOLD = 3.0
   SATISMETER_NEW_USER_THRESHOLD = 60.days
 
@@ -565,7 +567,7 @@ class User < ActiveRecord::Base
     role == 'teacher' && !school && previous_changes["id"]
   end
 
-private
+  private
   def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
@@ -601,6 +603,14 @@ private
     return false if role.temporary?
     return true if teacher?
     false
+  end
+
+  def clever_id_present_and_has_changed?
+    return false if !clever_id
+    return true if !id
+
+    extant_user = User.find_by_id(id)
+    extant_user.clever_id != clever_id
   end
 
   def requires_password?

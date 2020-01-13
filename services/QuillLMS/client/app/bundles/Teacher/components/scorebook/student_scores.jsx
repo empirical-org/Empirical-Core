@@ -2,20 +2,19 @@ import React from 'react';
 import ActivityIconWithTooltip from '../general_components/activity_icon_with_tooltip';
 import shouldCountForScoring from '../../../../modules/activity_classifications.js';
 
-export default React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-    premium_state: React.PropTypes.string.isRequired,
-  },
+export default class StudentScores extends React.Component {
 
   handleScores() {
-    return this.props.data.scores.map((score, index) => <ActivityIconWithTooltip context={'scorebook'} data={score} key={`${this.props.data.name} ${index} ${score.cuId}`} premium_state={this.props.premium_state} />);
-  },
+    const { data, premium_state, } = this.props
+    return data.scores.map((score, index) => <ActivityIconWithTooltip context='scorebook' data={score} key={`${data.name} ${index} ${score.cuId}`} premium_state={premium_state} />);
+  }
 
   calculateAverageScore() {
+    const { data, } = this.props
+
     let totalScore = 0;
     let relevantScores = 0;
-    this.props.data.scores.forEach(score => {
+    data.scores.forEach(score => {
       if(shouldCountForScoring(score.activity_classification_id) && score.percentage) {
         relevantScores += 1;
         totalScore += parseFloat(score.percentage);
@@ -25,20 +24,24 @@ export default React.createClass({
     if(averageScore) {
       return `${Math.round(averageScore * 100)}% Avg. Score`;
     }
-  },
+  }
 
   render() {
+    const { data, } = this.props
+    /* eslint-disable react/jsx-no-target-blank */
+    const activityScoresLink = <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${data.userId}&classroom_id=${data.classroomId}`} target="_blank">View Activity Scores <i className="fas fa-star" /></a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (
       <section className="overview-section">
         <header className="student-header">
-          <h3 className="student-name">{this.props.data.name}</h3>
+          <h3 className="student-name">{data.name}</h3>
           <p className="average-score">{this.calculateAverageScore()}</p>
-          <a className="activity-scores-link" href={`/teachers/progress_reports/student_overview?student_id=${this.props.data.userId}&classroom_id=${this.props.data.classroomId}`} target="_blank">View Activity Scores <i className="fas fa-star" /></a>
+          {activityScoresLink}
         </header>
         <div className="flex-row vertically-centered">
           {this.handleScores()}
         </div>
       </section>
     );
-  },
-});
+  }
+}
