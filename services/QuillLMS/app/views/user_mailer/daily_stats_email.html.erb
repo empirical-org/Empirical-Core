@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <%= stylesheet_link_tag 'sign_up_email' %>
   </head>
-    <body>
-      <div class='header'>
+    <body class="email-body">
+      <div class='dark-header'>
         <div class='main-width'>
           <img src='https://ci5.googleusercontent.com/proxy/a4zYv3v3GQLqWWSoJdISs5xG3WfVtDrsdOjmF7FYlzR1Uxl3DLKYJDguWOe0-RwKbs1b2kdz8Rp2SQYyEmnTmY4MooTpM_eJ-6guOtGlFt6NlXe0Bnq9dns-h7K-LPOzHXinrPHox5o0YA7AIdoHL5OUk40cBgojm4HuN-U=s0-d-e1-ft#https://gallery.mailchimp.com/6efffadd89fc71ad0ca41dc4d/images/ad694fbe-b270-4348-b9c1-3f43f848e6b1.png'/>
         </div>
@@ -58,6 +58,40 @@
             </tr>
         </tbody>
       </table>
+      <p class="nps-header medium-text">Satismeter Summary</p>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td class="left-cell medium-text">🗣️ Net Promoter Score</td>
+            <td class="right-cell medium-text" align="center"><h1><%= @satismeter_nps_data['nps'] %>%</h1></td>
+          </tr>
+          <tr>
+            <td class="left-cell medium-text">👍 Promoters</td>
+            <td class="right-cell medium-text" align="center"><h1><%= @satismeter_nps_data['respondents'][0] %></h1></td>
+          </tr>
+          <tr>
+            <td class="left-cell medium-text">👌 Passives</td>
+            <td class="right-cell medium-text" align="center"><h1><%= @satismeter_nps_data['respondents'][1] %></h1></td>
+          </tr>
+          <tr>
+            <td class="left-cell medium-text">👎 Detractors</td>
+            <td class="right-cell medium-text" align="center"><h1><%= @satismeter_nps_data['respondents'][2] %></h1></td>
+          </tr>
+        </tbody>
+      </table>
+      <% if @satismeter_comment_data.length > 0 %>
+      <p class="nps-header medium-text">Satismeter Teacher Comments</p>
+      <table class="table">
+        <tbody>
+          <% @satismeter_comment_data.each do |comment| %>
+            <tr>
+              <td class="left-cell medium-text comment padded"><%= comment['feedback'] %></td>
+              <td class="right-cell medium-text padded" align="center"><h1><%= comment['rating'] %></h1></td>
+            </tr>
+          <% end %> 
+        </tbody>
+      </table>
+      <% end %>
       <p class="small-text">*activities completed multiplied by 10 (average number of sentences per activity).</p>
       <div class='content-section'>
         <p class="medium-text">Keep up the great work!</p>
