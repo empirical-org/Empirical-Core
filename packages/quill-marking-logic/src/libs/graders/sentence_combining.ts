@@ -60,7 +60,9 @@ export function checkSentenceCombining(
       spellingPass.concept_results =
         Object.keys(foundConcepts).map((k) => foundConcepts[k])
     }
-    spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
+    else if (Array.isArray(foundConcepts)) {
+      spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
+    }
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
     const spellingFeedbackObj = {
       text: data.response,
