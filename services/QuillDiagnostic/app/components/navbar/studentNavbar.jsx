@@ -5,53 +5,44 @@ import LanguageSelector from './languageSelector.jsx';
 
 const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
-class Navbar extends React.Component {
-
-  handleSaveAndExitClick = () => {
-    if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
-      window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
-    }
+const handleSaveAndExitClick = () => {
+  if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
+    window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
   }
+}
 
-  ellDiagnostic = () => {
-    return window.location.href.includes('play/diagnostic/ell');
-  }
+const ellDiagnostic = () => window.location.href.includes('play/diagnostic/ell')
 
-  renderLinks = () => {
+const renderLinks = () => (
+  <div className='nav-right'>
+    {renderLessonSpecificContent()}
+    <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={handleSaveAndExitClick}>Save and exit</a>
+  </div>
+)
+
+const renderLessonSpecificContent = () => {
+  if (ellDiagnostic()) {
     return (
-      <div className='nav-right'>
-        {this.renderLessonSpecificContent()}
-        <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={this.handleSaveAndExitClick}>Save and exit</a>
-      </div>
-    );
-  }
-
-  renderLessonSpecificContent = () => {
-    if (this.ellDiagnostic()) {
-      return (
-        <LanguageSelector key="language-selector" />
-      );
-    }
-  }
-
-  render = () => {
-    return (
-      <header className='nav student-nav'>
-        <div className="container">
-          <div className="nav-left">
-            <a className="nav-item" href={`${process.env.EMPIRICAL_BASE_URL}`}>
-              <img
-                alt="Quill.org logo"
-                src={quillLogoSrc}
-              />
-            </a>
-          </div>
-          {this.renderLinks()}
-        </div>
-      </header>
+      <LanguageSelector key="language-selector" />
     );
   }
 }
+
+const Navbar = () => (
+  <header className='nav student-nav'>
+    <div className="container">
+      <div className="nav-left">
+        <a className="nav-item" href={`${process.env.EMPIRICAL_BASE_URL}`}>
+          <img
+            alt="Quill.org logo"
+            src={quillLogoSrc}
+          />
+        </a>
+      </div>
+      {renderLinks()}
+    </div>
+  </header>
+);
 
 function select(state) {
   return {
