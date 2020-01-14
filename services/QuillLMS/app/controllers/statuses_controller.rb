@@ -1,10 +1,16 @@
 class StatusesController < ApplicationController
+  skip_before_action :stick_to_leader_db, only: [:database_follower]
 
   def index
     render plain: 'OK'
   end
 
   def database
+    User.first
+    render plain: 'OK'
+  end
+
+  def database_follower
     User.first
     render plain: 'OK'
   end
