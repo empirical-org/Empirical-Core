@@ -710,7 +710,7 @@ describe User, type: :model do
     end
 
     it "changes the user's name to one that is not personally identiable" do
-      expect(user.name).to eq("Deleted User_#{user.id}")
+      expect(user.name).to eq("Deleted User #{user.id}")
     end
 
     it "removes the google id" do
@@ -954,6 +954,13 @@ describe User, type: :model do
       it 'has a last name only' do
         user.first_name = nil
         expect(user.name).to eq(user.last_name)
+      end
+
+      it 'has multiple last names' do
+        user.first_name = 'Has'
+        user.last_name = 'Multiple Last Names'
+        user.save
+        expect(user.name).to eq(user.first_name + ' ' + user.last_name)
       end
     end
   end
