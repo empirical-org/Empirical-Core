@@ -9,20 +9,21 @@ const handleLogoClick = () => {
   }
 }
 
+const getSlideName = (editionData, data) => {
+  if (!(editionData && editionData.questions && data)) { return '' }
+
+  if (data.current_slide > 0) {
+    return [<span key="slide-number">Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
+  }
+
+  return "Lobby"
+}
+
 const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
   const { data } = classroomSessions;
   const lessonData = classroomLesson.data;
   const editionData = customize.editionQuestions;
-  let slideName
-  if (editionData && editionData.questions && data) {
-    if (data.current_slide > 0) {
-      slideName = [<span key="slide-number">Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
-    } else {
-      slideName = "Lobby"
-    }
-  } else {
-    slideName = ''
-  }
+
   return (
     <header className='nav student-nav'>
       <nav className="student-lessons">
@@ -32,7 +33,7 @@ const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
           onClick={handleLogoClick}
           src={quillLogoSrc}
         />
-        <div className="slide-name" key="slide-name">{slideName}</div>
+        <div className="slide-name" key="slide-name">{getSlideName(editionData, data)}</div>
         <div className="lesson-name">{lessonData.title}</div>
       </nav>
     </header>
