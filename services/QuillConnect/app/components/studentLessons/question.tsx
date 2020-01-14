@@ -47,7 +47,7 @@ export default class PlayLessonQuestion extends React.Component {
     }
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { question, } = this.props
     getGradedResponsesWithCallback(
       question.key,
@@ -94,7 +94,7 @@ export default class PlayLessonQuestion extends React.Component {
 
   getQuestion = () => {
     const { question, } = this.props
-    return this.props
+    return question
   }
 
   getResponse2(rid) {
@@ -188,9 +188,9 @@ export default class PlayLessonQuestion extends React.Component {
     const { editing, response, } = this.state
     if (editing && this.getResponses() && Object.keys(this.getResponses()).length) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), response, this.getResponses());
-      this.updateResponseResource(response);
-      this.submitResponse(response);
+      const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses());
+      this.updateResponseResource(submittedResponse);
+      this.submitResponse(submittedResponse);
       this.setState({ editing: false, });
     }
   }
@@ -373,7 +373,6 @@ export default class PlayLessonQuestion extends React.Component {
             );
         }
       } else if (question.attempts.length > 0) {
-        const latestAttempt = getLatestAttempt(question.attempts);
         if (this.readyForNext()) {
           component = (
             <AnswerForm
