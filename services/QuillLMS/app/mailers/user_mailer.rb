@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: 'hello@quill.org'
-  include SatismeterHelper
+  include EmailApiHelper
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
@@ -108,18 +108,6 @@ class UserMailer < ActionMailer::Base
     teacher_count = User.where(role: "teacher").count
     new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
 
-    # The Intercom API has a before key to fetch all conversations before a certain time, but it does not yet
-    # have support for fetching conversations closed after a certain time, so this is the most efficient way to handle this case
-    # https://github.com/intercom/intercom-ruby/issues/377
-    intercom = Intercom::Client.new(token: ENV['INTERCOM_ACCESS_TOKEN'])
-    closed_conversations = []
-    intercom.conversations.find_all(open: false, sort_by: 'updated_at', order: 'desc').each do |convo|
-      convo.updated_at > start_time ? closed_conversations << convo : break
-    end
-
-    satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
-    satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
-
     @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
     @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
@@ -132,10 +120,10 @@ class UserMailer < ActionMailer::Base
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
     @teacher_conversion_rate = (new_premium_accounts/teacher_count.to_f).round(5)
-    @support_tickets_resolved = closed_conversations.length
-    @satismeter_nps_data = satismeter_nps_data
-    @satismeter_comment_data = satismeter_comment_data
-    mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
+    @support_tickets_resolved = get_intercom_data(start_time, end_time)
+    @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
+    @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
+    mail to: "eric@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
 end
