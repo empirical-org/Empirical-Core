@@ -11,21 +11,21 @@ def response_endpoint(request):
     prompt_id = param_for('prompt_id', request, request_json)
 
     if entry == None or prompt_id == None:
-        return make_response(jsonify(feedback="error"), 400)
+        return make_response(jsonify(message="error"), 400)
 
     model_settings = model_settings_for(prompt_id)
 
     if model_settings == None:
-      return make_response(jsonify(feedback="error: model not found"), 400)
+      return make_response(jsonify(message="error: model not found"), 400)
 
     automl_response = automl_prediction(entry, model_settings['automl'])
     label = label_for(automl_response.payload, model_settings['label_type'])
     feedback = feedback_for(label, model_settings['feedback'])
-    optimal = label in model_settings['correct']
+    correct = label in model_settings['correct']
 
-    log(request=request_json, label=label, feedback=feedback, optimal=optimal)
+    log(request=request_json, label=label, feedback=feedback, correct=correct)
 
-    return make_response(jsonify(feedback=feedback, optimal=optimal), 200)
+    return make_response(jsonify(message=feedback, correct=correct, label=label), 200)
 
 def param_for(key, request, request_json):
     if request.args and key in request.args:
