@@ -124,7 +124,7 @@
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.4.0",
     "quill-component-library": "0.5.1",
-    "quill-marking-logic": "0.12.12",
+    "quill-marking-logic": "0.12.13",
     "raven-js": "^3.27.2",
     "react": "^15.6.2",
     "react-addons-css-transition-group": "^15.6.0",
