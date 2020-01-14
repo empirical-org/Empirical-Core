@@ -259,7 +259,7 @@ const Lesson = React.createClass({
           component = (
             <PlayTitleCard
               data={question}
-              nextQuestion={this.nextQuestion}
+              handleContinueClick={this.nextQuestion}
             />
           )
         } else {
