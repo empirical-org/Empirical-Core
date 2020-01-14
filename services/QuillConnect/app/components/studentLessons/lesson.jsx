@@ -250,7 +250,7 @@ class Lesson extends React.Component {
     const { data, hasreceiveddata, } = lessons
     const { lessonID, } = params;
     let component;
-    
+
     if (!(this.state.sessionInitialized && hasreceiveddata && data && data[lessonID])) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
