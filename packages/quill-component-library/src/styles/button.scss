@@ -7,6 +7,7 @@
   align-items: center;
   border-radius: 4px;
   width: min-content;
+  min-width: 88px;
   padding: 0px 16px;
   white-space: nowrap;
   &:focus, &:hover {
@@ -47,10 +48,10 @@
   &.primary {
     &.contained {
       color: #ffffff;
-      background-color: #01c2a2;
+      background-color: #06806b;
       &:not(.disabled) {
         &:hover, &:focus {
-          background-color: #00a47c;
+          background-color: #08907b;
         }
       }
     }
