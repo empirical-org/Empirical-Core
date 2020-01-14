@@ -365,7 +365,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       fullPageInstructions = { display: 'block' }
     }
-    const button = responses ? <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button> : <button className="button student-submit is-disabled" type="button">Submit</button>;
+    const button = responses ? <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button> : <button className="quill-button large primary contained disabled" type="button">Submit</button>;
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>

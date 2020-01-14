@@ -152,7 +152,7 @@ class PlayDiagnosticQuestion extends React.Component {
 
   toggleDisabled = () => {
     const { editing, } = this.state
-    return editing ? '' : 'is-disabled'
+    return editing ? '' : 'disabled'
   }
 
   handleChange = (e) => {
@@ -198,7 +198,7 @@ class PlayDiagnosticQuestion extends React.Component {
     const { question, } = this.props
     const { responses, error, response, } = this.state
     const questionID = question.key;
-    const button = responses ? <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="button student-submit is-disabled" type="button">Submit</button>;
+    const button = responses ? <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="quill-button large primary contained disabled" type="button">Submit</button>;
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (

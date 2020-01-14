@@ -51,7 +51,6 @@ class TestQuestion extends Component {
 
   getQuestion = () => {
     const { fillInBlank, params, } = this.props
-    const fillInBlank = fillInBlank;
     return fillInBlank.data[params.questionID];
   }
 
@@ -72,7 +71,7 @@ class TestQuestion extends Component {
 
   submitResponse = (response) => {
     const { dispatch, } = this.props
-    ispatch(submitResponse(response))
+    dispatch(submitResponse(response))
   }
 
   render() {

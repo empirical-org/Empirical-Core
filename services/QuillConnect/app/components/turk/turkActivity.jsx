@@ -144,7 +144,7 @@ export class TurkActivity extends React.Component {
                 currentKey={playTurk.currentQuestion.data.key}
                 data={playTurk.currentQuestion.data}
                 dispatch={dispatch}
-                nextQuestion={this.nextQuestionWithoutSaving}
+                handleContinueClick={this.nextQuestionWithoutSaving}
               />
             );
           }
