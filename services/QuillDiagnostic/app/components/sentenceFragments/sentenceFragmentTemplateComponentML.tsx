@@ -228,7 +228,7 @@ class PlaySentenceFragment extends React.Component {
         return <button className="quill-button large primary contained" onClick={this.handleSubmit} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button large primary contained is-disabled" type="button">Submit</button>;
+      <button className="quill-button large primary contained disabled" type="button">Submit</button>;
     }
   }
 

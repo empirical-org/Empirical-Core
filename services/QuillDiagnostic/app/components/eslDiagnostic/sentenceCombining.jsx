@@ -156,7 +156,7 @@ class ELLSentenceCombining extends React.Component {
   toggleDisabled = () => {
     const { editing, } = this.state
 
-    return editing ? '' : 'is-disabled'
+    return editing ? '' : 'disabled'
   }
 
   handleChange = (e) => {
@@ -231,7 +231,7 @@ class ELLSentenceCombining extends React.Component {
         button = <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
       }
     } else {
-      button = <button className="quill-button large primary contained is-disabled" type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
     }
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';

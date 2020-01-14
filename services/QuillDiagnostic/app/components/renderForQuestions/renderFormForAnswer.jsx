@@ -108,7 +108,7 @@ export default class RenderFormForAnswer extends React.Component {
         </button>
       );
       if (!responses) {
-        <button className='quill-button large primary contained is-disabled' type="button">
+        <button className='quill-button large primary contained disabled' type="button">
           {message}
         </button>;
       }

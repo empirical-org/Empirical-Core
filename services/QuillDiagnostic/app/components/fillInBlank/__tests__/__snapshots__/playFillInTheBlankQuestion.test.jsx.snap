@@ -514,7 +514,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
       }
     >
       <button
-        className="button student-submit is-disabled"
+        className="quill-button large primary contained is-disabled"
         type="button"
       >
         Submit

@@ -158,7 +158,7 @@ class PlayDiagnosticQuestion extends React.Component {
   toggleDisabled = () => {
     const { editing, } = this.state
 
-    return editing ? '' : 'is-disabled'
+    return editing ? '' : 'disabled'
   }
 
   handleChange = (e) => {
