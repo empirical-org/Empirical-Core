@@ -51,7 +51,6 @@ class TestQuestion extends Component {
 
   getQuestion = () => {
     const { fillInBlank, params, } = this.props
-    const fillInBlank = fillInBlank;
     return fillInBlank.data[params.questionID];
   }
 
