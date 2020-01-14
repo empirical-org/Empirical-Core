@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse, JsonResponse
 
 from .models.activity import Activity
+from .models.ml_feedback import MLFeedback
 
 
 def index(request):
