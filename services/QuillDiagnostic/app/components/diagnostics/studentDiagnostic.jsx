@@ -355,7 +355,7 @@ class StudentDiagnostic extends React.Component {
             currentKey={playDiagnostic.currentQuestion.data.key}
             data={playDiagnostic.currentQuestion.data}
             dispatch={dispatch}
-            nextQuestion={this.nextQuestionWithoutSaving}
+            handleContinueClick={this.nextQuestionWithoutSaving}
           />
         );
       }
