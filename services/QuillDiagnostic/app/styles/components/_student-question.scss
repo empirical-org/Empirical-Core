@@ -73,41 +73,6 @@
   // margin-top: 28px;
 }
 
-.student-submit, .student-next, .student-recheck {
-  background-color: $green;
-  font-family: $family-sans-serif;
-  color: $white;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 18px;
-  height: 45px;
-  line-height: 45px;
-  padding: 0 25px;
-
-  &:hover, &:focus {
-    color: $white;
-  }
-
-  &.is-disabled {
-    opacity: 1;
-    background-color: $disabled;
-  }
-}
-
-.student-begin {
-  @extend .student-next;
-  padding: 0 50px;
-
-  &:hover, &:focus {
-    color: $white;
-  }
-  img.begin-arrow {
-    margin-top: -2px;
-    margin-left: 10px;
-  }
-}
-
 .sf-button-group {
   margin-top: 28px;
 

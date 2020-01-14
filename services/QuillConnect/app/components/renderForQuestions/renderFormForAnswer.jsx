@@ -94,13 +94,13 @@ export default class RenderFormForAnswer extends React.Component {
     } else {
       let message;
       if (question.attempts.length) {
-        message = 'Recheck Your Answer';
+        message = 'Recheck work';
       } else {
-        message = 'Check Your Answer';
+        message = 'Check work';
       }
       button = (
         <button
-          className={`button student-submit ${toggleDisabled}`}
+          className={`quill-button large primary contained ${toggleDisabled}`}
           onClick={checkAnswer}
           type="button"
         >
@@ -109,7 +109,7 @@ export default class RenderFormForAnswer extends React.Component {
       );
       if (!responses) {
         <button
-          className='button student-submit is-disabled'
+          className='quill-button large primary contained disabled'
           type="button"
         >
           {message}
