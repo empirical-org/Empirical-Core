@@ -136,7 +136,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-
   renderInput = (i) => {
     const { inputErrors, cues, inputVals, } = this.state
     let className = 'fill-in-blank-input'
