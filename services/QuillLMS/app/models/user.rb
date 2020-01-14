@@ -265,7 +265,7 @@ class User < ActiveRecord::Base
   def capitalize_name
     result = name
     if name.present?
-      f,l = name.split(/\s+/)
+      f,l = name.split(/\s+/, 2)
       if f.present? and l.present?
         result = "#{f.capitalize} #{l.capitalize}"
       else
@@ -405,7 +405,7 @@ class User < ActiveRecord::Base
   end
 
   def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
+    @last_name ||= name.to_s.split("\s")[1..-1].join("\s")
   end
 
   def set_name
