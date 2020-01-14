@@ -235,13 +235,12 @@ class PlaySentenceFragment extends React.Component {
       );
     } else if (responses) {
       if (question && question.attempts ? question.attempts.length > 0 : false) {
-        const buttonClass = "button student-recheck";
-        return <button className={buttonClass} onClick={this.handleResponseSubmission} type="button">Recheck Your Answer</button>;
+        return <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">Recheck work</button>;
       } else {
         return <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button>;
       }
     } else {
-      return <button className="quill-button large primary contained is-disabled" type="button">Submit</button>;
+      return <button className="quill-button large primary contained disabled" type="button">Submit</button>;
     }
   }
 

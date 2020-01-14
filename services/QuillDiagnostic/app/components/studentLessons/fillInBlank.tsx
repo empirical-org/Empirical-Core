@@ -332,13 +332,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       );
     } else if (responses) {
       if (question.attempts.length > 0) {
-        const buttonClass = "button student-recheck";
-        return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck Your Answer</button>;
+        const buttonClass = "quill-button large primary contained" ;
+        return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck work</button>;
       } else {
         return <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button large primary contained is-disabled" type="button">Submit</button>;
+      <button className="quill-button large primary contained disabled" type="button">Submit</button>;
     }
   }
 

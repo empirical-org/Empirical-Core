@@ -71,7 +71,7 @@ class TestQuestion extends Component {
 
   submitResponse = (response) => {
     const { dispatch, } = this.props
-    ispatch(submitResponse(response))
+    dispatch(submitResponse(response))
   }
 
   render() {
