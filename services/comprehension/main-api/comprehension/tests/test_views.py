@@ -3,6 +3,7 @@ import json
 from django.http import Http404
 from django.test import RequestFactory, TestCase
 
+from .factories.prompt import PromptFactory
 from ..models.activity import Activity, ActivityPassage, ActivityPrompt
 from ..models.passage import Passage
 from ..models.prompt import Prompt
@@ -53,10 +54,10 @@ class ActivityViewTest(TestCase):
         ActivityPassage.objects.create(activity=self.activity,
                                        passage=self.passage2,
                                        order=2)
-        self.prompt1 = Prompt.objects.create(text='Prompt1',
-                                             max_attempts_feedback='Feedback1')
-        self.prompt2 = Prompt.objects.create(text='Prompt2',
-                                             max_attempts_feedback='Feedback2')
+        self.prompt1 = PromptFactory(text='Prompt1',
+                                     max_attempts_feedback='Feedback1')
+        self.prompt2 = PromptFactory(text='Prompt2',
+                                     max_attempts_feedback='Feedback2')
         ActivityPrompt.objects.create(activity=self.activity,
                                       prompt=self.prompt1,
                                       order=1)
