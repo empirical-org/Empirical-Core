@@ -212,9 +212,10 @@ class ELLStudentDiagnostic extends React.Component {
     return component
   }
 
-  startActivity = (data) => {
+  startActivity = () => {
     const { dispatch, } = this.props
 
+    const data = this.getFetchedData()
     const action = loadData(data);
     dispatch(action);
     const next = nextQuestion();
@@ -275,7 +276,6 @@ class ELLStudentDiagnostic extends React.Component {
   getProgressPercent = () => {
     const { playDiagnostic, } = this.props
     let percent;
-    const playDiagnostic = playDiagnostic;
     if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
       const questionSetCount = playDiagnostic.questionSet.length;
       const answeredQuestionCount = questionSetCount - playDiagnostic.unansweredQuestions.length;
