@@ -7,7 +7,6 @@ import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import Cues from '../renderForQuestions/cues.jsx';
 import {
-  WarningDialogue,
   Prompt,
   hashToCollection,
   ConceptExplanation,
