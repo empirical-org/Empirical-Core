@@ -4,7 +4,7 @@ import { ActionTypes } from './actionTypes'
 
 export const getActivity = (activityUID: string) => {
   return (dispatch: Function) => {
-    request.get(`https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityUID}.json`, (e, r, body) => {
+    request.get(`https://comprehension-247816.appspot.com/activities/${activityUID}`, (e, r, body) => {
       const activity = JSON.parse(body)
       if (activity) {
         dispatch({ type: ActionTypes.RECEIVE_ACTIVITY_DATA, data: activity, });
