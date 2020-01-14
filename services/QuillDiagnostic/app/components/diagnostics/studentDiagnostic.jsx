@@ -33,27 +33,31 @@ class StudentDiagnostic extends React.Component {
   }
 
   componentWillMount = () => {
-    this.props.dispatch(clearData());
-    if (this.state.sessionID) {
-      SessionActions.get(this.state.sessionID, (data) => {
+    const { dispatch, } = this.props
+    const { sessionID, } = this.state
+    dispatch(clearData());
+    if (sessionID) {
+      SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
+    const { playDiagnostic, } = this.props
+    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
     }
   }
 
   getPreviousSessionData = () => {
-    return this.state.session;
+    const { session, } = this.state
+    return session;
   }
 
   resumeSession = (data) => {
     if (data) {
-      this.props.dispatch(resumePreviousDiagnosticSession(data));
+      dispatch(resumePreviousDiagnosticSession(data));
     }
   }
 
@@ -66,13 +70,15 @@ class StudentDiagnostic extends React.Component {
   }
 
   saveSessionData = (lessonData) => {
-    if (this.state.sessionID) {
-      SessionActions.update(this.state.sessionID, lessonData);
-    }
+    const { sessionID, } = this.state
+    if (!sessionID) { return }
+
+    SessionActions.update(sessionID, lessonData);
   }
 
   doesNotHaveAndIsNotGettingResponses = () => {
-    return (!this.state.hasOrIsGettingResponses);
+    const { hasOrIsGettingResponses, } = this.state
+    return (!hasOrIsGettingResponses);
   }
 
   hasQuestionsInQuestionSet = (props) => {
@@ -81,11 +87,14 @@ class StudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
+    const { playDiagnostic, params, } = this.props
+    const { sessionID, } = this.state
 
-    const { diagnosticID, } = this.props.params;
-    const sessionID = this.state.sessionID;
+    this.setState({ error: false, });
+
+    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const { diagnosticID, } = params;
+
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
@@ -107,7 +116,7 @@ class StudentDiagnostic extends React.Component {
       (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(this.state.sessionID);
+          SessionActions.delete(sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({ saved: true, });
         } else {
@@ -143,61 +152,57 @@ class StudentDiagnostic extends React.Component {
   }
 
   submitResponse = (response) => {
+    const { dispatch, } = this.props
     const action = submitResponse(response);
-    this.props.dispatch(action);
-  }
-
-  renderQuestionComponent = () => {
-    if (this.props.question.currentQuestion) {
-      return (<Question
-        prefill={this.getLesson().prefill}
-        question={this.props.question.currentQuestion}
-        submitResponse={this.submitResponse}
-      />);
-    }
+    dispatch(action);
   }
 
   questionsForDiagnostic = () => {
-    const questionsCollection = hashToCollection(this.props.questions.data);
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+    const { questions, lessons, params, } = this.props
+    const questionsCollection = hashToCollection(questions.data);
+    const { data, } = lessons
+    const { lessonID, } = params
     return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
   }
 
   startActivity = () => {
+    const { dispatch, } = this.props
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
-  loadQuestionSet = () => {
+  handleSpinnerMount = () => {
+    const { dispatch, } = this.props
+
     const data = this.questionsForLesson();
     const action = loadData(data);
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   nextQuestion = () => {
+    const { dispatch, } = this.props
+
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   nextQuestionWithoutSaving = () => {
+    const { dispatch, } = this.props
     const next = nextQuestionWithoutSaving();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   getLesson = () => {
-    return this.props.lessons.data[this.props.params.diagnosticID];
-  }
-
-  getLessonName = () => {
-    return this.props.lessons.data[this.props.params.diagnosticID].name;
+    const { lessons, params, } = this.props
+    return lessons.data[params.diagnosticID];
   }
 
   questionsForLesson = () => {
-    const { data, } = this.props.lessons,
-      { diagnosticID, } = this.props.params;
+    const { lessons, params, } = this.props
+    const { data, } = lessons
+    const { diagnosticID, } = params
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
-      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
+      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null  // eslint-disable-line react/destructuring-assignment
     }
     );
     // this is a quickfix for missing questions -- if we leave this in here
@@ -206,7 +211,7 @@ class StudentDiagnostic extends React.Component {
     return filteredQuestions.map((questionItem) => {
       const questionType = questionItem.questionType;
       const key = questionItem.key;
-      const question = this.props[questionType].data[key];
+      const question = this.props[questionType].data[key];  // eslint-disable-line react/destructuring-assignment
       question.key = key;
       question.attempts = question.attempts ? question.attempts : []
       let type
@@ -229,25 +234,26 @@ class StudentDiagnostic extends React.Component {
   }
 
   getQuestionCount = () => {
-    const { diagnosticID, } = this.props.params;
-    if (diagnosticID == 'researchDiagnostic') {
+    const { params, } = this.props
+    if (params.diagnosticID == 'researchDiagnostic') {
       return '15';
     }
     return '22';
   }
 
   markIdentify = (bool) => {
+    const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   getProgressPercent = () => {
     let percent;
-    const playDiagnostic = this.props.playDiagnostic;
+    const { playDiagnostic } = this.props;
     if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
       const questionSetCount = playDiagnostic.questionSet.length;
-      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length;
-      if (this.props.playDiagnostic.currentQuestion) {
+      const answeredQuestionCount = questionSetCount - playDiagnostic.unansweredQuestions.length;
+      if (playDiagnostic.currentQuestion) {
         percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
       } else {
         percent = ((answeredQuestionCount) / questionSetCount) * 100;
@@ -278,89 +284,90 @@ class StudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { data, } = this.props.lessons,
-      { diagnosticID, } = this.props.params;
+    const { lessons, params, } = this.props
+    const { data, } = lessons
+    const { diagnosticID, } = params;
     return data[diagnosticID].landingPageHtml
   }
 
   render() {
-    const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
+    const { playDiagnostic, lessons, questions, sentenceFragments, dispatch, } = this.props
+    const { error, saved, } = this.state
+    const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
 
-    if (!(this.props.lessons.hasreceiveddata && this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata)) {
+    if (!(lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata)) {
       return (
         <div>
           <DiagnosticProgressBar percent={this.getProgressPercent()} />
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <SmartSpinner key="step1" message={'Loading Your Lesson 25%'} onMount={() => {}} />
+              <SmartSpinner key="step1" message='Loading Your Lesson 25%' />
             </div>
           </section>
         </div>
       );
     }
 
-    if (!this.props.playDiagnostic.questionSet) {
+    if (!playDiagnostic.questionSet) {
       return (
         <div>
           <DiagnosticProgressBar percent={this.getProgressPercent()} />
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <SmartSpinner key="step2" message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} />
+              <SmartSpinner key="step2" message='Loading Your Lesson 50%' onMount={this.handleSpinnerMount} />
             </div>
           </section>
         </div>
       );
     }
 
-    if (this.props.playDiagnostic.currentQuestion) {
+    if (playDiagnostic.currentQuestion) {
       if (questionType === 'SC') {
         component = (<PlayDiagnosticQuestion
-          dispatch={this.props.dispatch}
-          key={this.props.playDiagnostic.currentQuestion.data.key}
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
           marking="diagnostic"
-          // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
           nextQuestion={this.nextQuestion}
-          question={this.props.playDiagnostic.currentQuestion.data}
+          question={playDiagnostic.currentQuestion.data}
         />);
       } else if (questionType === 'SF') {
         component = (<PlaySentenceFragment
-          currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-          dispatch={this.props.dispatch}
-          key={this.props.playDiagnostic.currentQuestion.data.key}
-          // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
+          currentKey={playDiagnostic.currentQuestion.data.key}
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
           markIdentify={this.markIdentify}
           nextQuestion={this.nextQuestion}
-          question={this.props.playDiagnostic.currentQuestion.data}
+          question={playDiagnostic.currentQuestion.data}
           updateAttempts={this.submitResponse}
         />);
       } else if (questionType === 'FB') {
         component = (<PlayFillInTheBlankQuestion
-          currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-          dispatch={this.props.dispatch}
-          key={this.props.playDiagnostic.currentQuestion.data.key}
+          currentKey={playDiagnostic.currentQuestion.data.key}
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
           nextQuestion={this.nextQuestion}
-          question={this.props.playDiagnostic.currentQuestion.data}
+          question={playDiagnostic.currentQuestion.data}
         />)
       } else if (questionType === 'TL') {
         component = (
           <PlayTitleCard
-            currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-            data={this.props.playDiagnostic.currentQuestion.data}
-            dispatch={this.props.dispatch}
-            nextQuestion={this.nextQuestionWithoutSaving}
+            currentKey={playDiagnostic.currentQuestion.data.key}
+            data={playDiagnostic.currentQuestion.data}
+            dispatch={dispatch}
+            handleContinueClick={this.nextQuestionWithoutSaving}
           />
         );
       }
-    } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
+    } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
       component = (<FinishedDiagnostic
-        error={this.state.error}
-        saved={this.state.saved}
+        error={error}
+        saved={saved}
         saveToLMS={this.saveToLMS}
       />);
     } else {
       component = (<LandingPage
-        begin={() => { this.startActivity('John'); }}
+        begin={this.startActivity}
         landingPageHtml={this.landingPageHtml()}
         questionCount={this.getQuestionCount()}
         resumeActivity={this.resumeSession}
