@@ -328,17 +328,17 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses, } = this.state
     if (this.showNextQuestionButton()) {
       return (
-        <button className="button student-submit" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button large primary contained" onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if (question.attempts.length > 0) {
         const buttonClass = "button student-recheck";
         return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck Your Answer</button>;
       } else {
-        return <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">Submit</button>;
+        return <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
       }
     } else {
-      <button className="button student-submit is-disabled" type="button">Submit</button>;
+      <button className="quill-button large primary contained is-disabled" type="button">Submit</button>;
     }
   }
 
