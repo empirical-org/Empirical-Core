@@ -58,7 +58,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       props.nextQuestion = nextQuestion;
       const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
       wrapper.setState({responses: []})
-      wrapper.find('.button').simulate('click');
+      wrapper.find('.quill-button').simulate('click');
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
   });
