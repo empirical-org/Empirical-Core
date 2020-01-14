@@ -1,48 +1,51 @@
 import React from 'react';
 
-import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
+import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary'
 
-export default React.createClass({
+export default class Landing extends React.Component {
 
-  resume() {
-    this.props.resumeActivity(this.props.session);
-  },
+  resume = () => {
+    const { resumeActivity, session, } = this.props
+    resumeActivity(session);
+  }
 
-  renderButton() {
+  renderButton = () => {
+    const { session, begin, } = this.props
     let onClickFn,
       text;
-    if (this.props.session) {
+    if (session) {
       // resume session if one is passed
       onClickFn = this.resume;
       text = <span>Resume</span>;
     } else {
       // otherwise begin new session
-      onClickFn = this.props.begin;
+      onClickFn = begin;
       text = <span>Begin</span>;
     }
     return (
       <ResumeOrBeginButton onClickFn={onClickFn} text={text} />
     );
-  },
+  }
 
-  getLandingPageHTML() {
-    if (this.props.landingPageHtml && this.props.landingPageHtml !== '<br/>') {
-      return this.props.landingPageHtml
+  getLandingPageHTML = () => {
+    const { landingPageHtml, questionCount, } = this.props
+    if (landingPageHtml && landingPageHtml !== '<br/>') {
+      return landingPageHtml
     } else {
       return (<div>
-        <h1>You're working on the Quill Placement Activity </h1>
+        <h1>You&#39;re working on the Quill Placement Activity </h1>
         <p>
-          You're about to answer {this.props.questionCount || '22'} questions about writing sentences.
-          Don't worry, it's not a test. It's just to figure out what you know.
+          You&#39;re about to answer {questionCount || '22'} questions about writing sentences.
+          Don&#39;t worry, it&#39;s not a test. It&#39;s just to figure out what you know.
         </p>
         <p className="second-p">
-          Some of the questions might be about things you haven't learned yet—that's okay!
+          Some of the questions might be about things you haven&#39;t learned yet—that&#39;s okay!
           Just answer them as best as you can.
-          Once you're finished, Quill will create a learning plan just for you!
+          Once you&#39;re finished, Quill will create a learning plan just for you!
         </p>
       </div>)
     }
-  },
+  }
 
   render() {
     return (
@@ -51,6 +54,6 @@ export default React.createClass({
         {this.renderButton()}
       </div>
     );
-  },
+  }
 
-});
+}
