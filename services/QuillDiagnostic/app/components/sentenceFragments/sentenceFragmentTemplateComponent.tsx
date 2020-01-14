@@ -215,17 +215,17 @@ class PlaySentenceFragment extends React.Component {
     const { responses, editing} = this.state
     if (this.showNextQuestionButton()) {
       return (
-        <button className="button student-submit" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button large primary contained" onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if (question.attempts.length > 0) {
         const buttonClass = editing ? "button student-recheck" : "button student-recheck is-disabled";
         return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck Your Answer</button>;
       } else {
-        return <button className="button student-submit" onClick={this.handleSubmitResponse} type="button">Submit</button>;
+        return <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
       }
     } else {
-      <button className="button student-submit is-disabled" type="button">Submit</button>;
+      <button className="quill-button large primary contained is-disabled" type="button">Submit</button>;
     }
   }
 
