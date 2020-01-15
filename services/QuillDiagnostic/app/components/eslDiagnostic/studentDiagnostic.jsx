@@ -26,6 +26,7 @@ import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import Footer from './footer'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 
@@ -386,6 +387,10 @@ class ELLStudentDiagnostic extends React.Component {
             </CarouselAnimation>
           </div>
         </section>
+        <Footer
+          language={this.language()}
+          updateLanguage={this.updateLanguage}
+        />
       </div>
     );
   }
