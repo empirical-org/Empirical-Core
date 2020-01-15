@@ -1,7 +1,11 @@
+import json
+
 from django.http import Http404, HttpResponse, JsonResponse
 
 from .models.activity import Activity
 from .models.ml_feedback import MLFeedback
+from .models.prompt import Prompt
+from .utils import construct_feedback_payload
 
 
 def index(request):
@@ -32,3 +36,29 @@ def show_activity(request, id):
         } for prompt in prompts]
     }
     return JsonResponse(data)
+
+
+def get_multi_label_ml_feedback(request):
+    submission = json.loads(request.body)
+    prompt_id = submission['prompt_id']
+    entry = submission['entry']
+
+    prompt = Prompt.objects.get(pk=prompt_id)
+    feedback = prompt.fetch_auto_ml_feedback(entry)
+
+    return JsonResponse(construct_feedback_payload(feedback.feedback,
+                                                   'auto_ml_semantic',
+                                                   feedback.optimal))
+
+
+def get_single_label_ml_feedback(request):
+    submission = json.loads(request.body)
+    prompt_id = submission['prompt_id']
+    entry = submission['entry']
+
+    prompt = Prompt.objects.get(pk=prompt_id)
+    feedback = prompt.fetch_auto_ml_feedback(entry, multi_label=False)
+
+    return JsonResponse(construct_feedback_payload(feedback.feedback,
+                                                   'auto_ml_semantic',
+                                                   feedback.optimal))
