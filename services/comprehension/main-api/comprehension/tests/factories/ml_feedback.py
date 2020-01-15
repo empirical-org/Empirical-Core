@@ -8,6 +8,7 @@ class MLFeedbackFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = MLFeedback
 
-    feedback = 'Example feedback'
     combined_labels = MLFeedback.DEFAULT_FEEDBACK_LABEL
+    feedback = 'Example feedback'
+    optimal = False
     prompt = factory.SubFactory(PromptFactory)
