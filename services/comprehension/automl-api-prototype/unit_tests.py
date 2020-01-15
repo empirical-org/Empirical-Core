@@ -92,3 +92,15 @@ def test_multi_label_response(mock_automl, app):
         assert response.status_code == 200
         assert data['optimal'] == False
         assert data['feedback'] == "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+
+@patch('google.cloud.automl_v1beta1.PredictionServiceClient')
+def test_multi_label_response(mock_automl, app):
+    with app.test_request_context(json={'entry': 'something', 'prompt_id': 105}):
+        mock_automl.return_value.predict.return_value = mock_response_for({"Fin_Trouble": 0.97, "Overspending": 0.51})
+
+        response = main.response_endpoint(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data['optimal'] == True
+        assert data['feedback'] == "Nice work! You explained that Eastern Michigan cut women's tennis and softball because it was in financial trouble given that it was spending too much money."
