@@ -2,36 +2,41 @@
   
 case $1 in
   prod)
-    HEROKU_APP_NAME=quill-lms-prod-docker
+    HEROKU_APP_NAME=quill-lms-production-docker
     ;;
   staging)
     HEROKU_APP_NAME=quill-lms-staging-docker
     ;;
   sprint)
-    HEROKU_APP_NAME=quill-lms-sprint-docker
+    HEROKU_APP_NAME=quill-lms-sprint-docker-2
     ;;
   *)
     echo "You must provide an environment argument of 'sprint', 'staging', or 'prod'."
     exit 1
 esac
 
+function timeout() { perl -e 'alarm shift; exec @ARGV' "$@"; }
 #echo "PRUNING PREVIOUS DOCKER IMAGES"
-#docker system prune -f -a
+#timeout 5 docker system prune -f -a
+find . -name "*-e" | xargs rm -rf
 # create unique filename to force new docker image build
 rm -rf *.uuid
 echo "test" > $(uuidgen).uuid
 echo "RUNNING NPM BUILD"
+timeout 240 bin/dev/bootstrap.sh
 npm install
-rm app/assets/webpack/* || true && cd client && nohup npm run build:dev:client && nohup run build:dev:server > npm_build_log.out 2>&1 &
+rm app/assets/webpack/* || true && cd client && nohup npm run build:dev:client && nohup npm run build:dev:server > npm_build_log.out 2>&1 &
 sleep 30
 mkdir -p public/javascripts/
 cp app/assets/javascripts/application.js public/javascripts/
 for i in `grep -rli process.env . | grep -v node_modules | grep -v build_and_deploy_heroku_docker_image.sh`; do
-  sed -i '' -e "s@\`\(\${process.env.DEFAULT_URL}\)\(.*\)\`@\"https://quill-lms-sprint-docker.herokuapp.com\" + \`\2\`@g" $i
-  sed -i -e "s@\"https://quill-lms-sprint-docker.herokuapp.com\" + \`\${body.redirect}\"@\"https://quill-lms-sprint-docker.herokuapp.com\" + \`\${body.redirect}\`@g" $i
+  sed -i '' -e "s@\`\(\${process.env.DEFAULT_URL}\)\(.*\)\`@\"https://quill-lms-production-docker.herokuapp.com\" + \`\2\`@g" $i
+  sed -i -e "s@\"https://quill-lms-production-docker.herokuapp.com\" + \`\${body.redirect}\"@\"https://quill-lms-production-docker.herokuapp.com\" + \`\${body.redirect}\`@g" $i
   sed -i '' -e "s@{\`\(\${process.env.CDN_URL}\)\(.*\)\`}@\"https://assets.quill.org\2\"@g" $i
   sed -i '' -e "s@\`\(\${process.env.CDN_URL}\)\(.*\)\`@\"https://assets.quill.org\2\"@g" $i
 done
+#git clean -f
+find . -name "*-e" | xargs rm -rf
 export DOCKER_IMAGE_NAME="ruby5_3_1"
 echo "BUILDING DOCKER IMAGE: $DOCKER_IMAGE_NAME"
 docker build -t "$DOCKER_IMAGE_NAME" .
