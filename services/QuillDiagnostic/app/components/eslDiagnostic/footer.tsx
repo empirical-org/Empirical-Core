@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DropdownInput } from '../../../../../packages/quill-component-library/src/components/shared/dropdownInput'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 const ENGLISH = 'english'
 const SPANISH = 'spanish'
