@@ -3,11 +3,11 @@ import json
 from django.http import Http404
 from django.test import RequestFactory, TestCase
 
-from .factories.prompt import PromptFactory
-from ..models.activity import Activity, ActivityPassage, ActivityPrompt
-from ..models.passage import Passage
-from ..models.prompt import Prompt
-from ..views import index, show_activity, list_activities
+from ..factories.prompt import PromptFactory
+from ...models.activity import Activity, ActivityPassage, ActivityPrompt
+from ...models.passage import Passage
+from ...models.prompt import Prompt
+from ...views import index, show_activity, list_activities
 
 
 class ViewTest(TestCase):
@@ -24,9 +24,9 @@ class ViewTest(TestCase):
                          b'This could return something helpful!')
 
 
-class ActivityViewTest(TestCase):
+class ActivityViewTest(ViewTest):
     def setUp(self):
-        self.factory = RequestFactory()
+        super().setUp()
         self.activity = Activity.objects.create(title='Test Activity',
                                                 flag=Activity.FLAGS.DRAFT)
 
