@@ -102,7 +102,7 @@ export class TurkActivity extends React.Component {
 
   render() {
     const { saved, } = this.state
-    const { lessons, params, playTurk, questions, sentenceFragments, dispatch, } = this.props
+    const { lessons, params, playTurk, questions, sentenceFragments, dispatch, conceptsFeedback, } = this.props
     const { data, } = lessons
     const { lessonID, } = params
     const questionType = playTurk.currentQuestion ? playTurk.currentQuestion.type : ''
@@ -120,6 +120,7 @@ export class TurkActivity extends React.Component {
             />);
           } else if (questionType === 'SF') {
             component = (<PlaySentenceFragment
+              conceptsFeedback={conceptsFeedback}
               currentKey={playTurk.currentQuestion.data.key}
               dispatch={dispatch}
               key={playTurk.currentQuestion.data.key}
@@ -143,7 +144,7 @@ export class TurkActivity extends React.Component {
                 currentKey={playTurk.currentQuestion.data.key}
                 data={playTurk.currentQuestion.data}
                 dispatch={dispatch}
-                nextQuestion={this.nextQuestionWithoutSaving}
+                handleContinueClick={this.nextQuestionWithoutSaving}
               />
             );
           }
@@ -174,6 +175,7 @@ export class TurkActivity extends React.Component {
 
 function select(state) {
   return {
+    conceptsFeedback: state.conceptsFeedback,
     lessons: state.lessons,
     routing: state.routing,
     questions: state.questions,
