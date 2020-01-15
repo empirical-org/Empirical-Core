@@ -405,7 +405,12 @@ class User < ActiveRecord::Base
   end
 
   def last_name
-    @last_name ||= name.to_s.split("\s")[-1]
+    name_strings = name.to_s.split("\s")
+    if name_strings.length > 1
+      @last_name ||= name_strings[1..-1].join("\s")
+    else
+      @last_name ||= name_strings[0]
+    end
   end
 
   def set_name
