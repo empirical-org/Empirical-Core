@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"encoding/json"
 	"io/ioutil"
+	"fmt"
+	"net/http/httputil"
 )
 
 const (
@@ -14,7 +16,17 @@ const (
 	// spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha"
 )
 
+func main() {
+
+}
+
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
+
+	requestDump, err := httputil.DumpRequest(request, true)
+	if err != nil {
+	  fmt.Println(err)
+	}
+	fmt.Println(string(requestDump))
 
 	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
