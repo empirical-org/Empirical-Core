@@ -1,37 +1,41 @@
 import React, { Component } from 'react';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
-import Cues from '../renderForQuestions/cues.jsx';
+import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import activeComponent from 'react-router-active-component';
+
+import Cues from '../renderForQuestions/cues.jsx';
 import fillInTheBlankActions from '../../actions/fillInBlank';
+
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 const NavLink = activeComponent('li');
 
 class FillInBlankQuestion extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.getQuestion = this.getQuestion.bind(this);
   }
 
-  getQuestion() {
-    const { questionID, } = this.props.params;
-    return this.props.fillInBlank ? this.props.fillInBlank.data[questionID] : null;
+  getQuestion = () => {
+    const { params, fillInBlank, } = this.props
+    const { questionID, } = params;
+    return fillInBlank ? fillInBlank.data[questionID] : null;
   }
 
-  isLoading() {
-    const loadingData = this.props.fillInBlank.hasreceiveddata === false;
-    return loadingData;
+  isLoading = () => {
+    const { fillInBlank, } = this.props
+    return !fillInBlank.hasreceiveddata
   }
 
   render() {
-    const { questionID} = this.props.params;
+    const { params, massEdit, fillInBlank, children, } = this.props
+    const { questionID} = params;
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (this.getQuestion()) {
-      const activeLink = this.props.massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
-      const data = this.props.fillInBlank.data
+      const activeLink = massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
+      const data = fillInBlank.data
       return (
         <div>
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -43,11 +47,11 @@ class FillInBlankQuestion extends Component {
             getQuestion={this.getQuestion}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="Directions Icon" className="info" src={icon} />
             <p>{this.getQuestion().instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-            {<Link className="button is-outlined is-primary" to={`admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>}
+            <Link className="button is-outlined is-primary" to={`admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>
           </p>
           <div className="tabs">
             <ul>
@@ -56,7 +60,7 @@ class FillInBlankQuestion extends Component {
               {activeLink}
             </ul>
           </div>
-          {this.props.children}
+          {children}
         </div>
       );
     } else {
@@ -65,7 +69,6 @@ class FillInBlankQuestion extends Component {
       );
     }
   }
-
 }
 
 function select(props) {
