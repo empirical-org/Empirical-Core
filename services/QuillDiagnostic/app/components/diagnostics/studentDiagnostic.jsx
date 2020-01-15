@@ -56,6 +56,7 @@ class StudentDiagnostic extends React.Component {
   }
 
   resumeSession = (data) => {
+    const { dispatch, } = this.props
     if (data) {
       dispatch(resumePreviousDiagnosticSession(data));
     }
