@@ -1,4 +1,7 @@
 .nav.student-nav {
+  height: 64px;
+  background-color: #06806b;
+
   .student-lessons {
     height: 66px;
     display: flex;
@@ -8,7 +11,7 @@
     .quill-logo {
       position: relative;
       left: 35;
-      height: 40px;
+      height: 32px;
     }
   }
     .slide-name, .lesson-name {
@@ -27,8 +30,6 @@
     .lesson-name {
       right: 35;
     }
-    height: 50px;
-    background-color: $green;
 
     .container {
         max-width: 800px;
@@ -37,7 +38,11 @@
     }
 
     .nav-item {
-        color: $white;
+      color: $white;
+      img {
+        height: 32px;
+        max-height: 32px;
+      }
     }
 
     .question-counter {
