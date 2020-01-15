@@ -16,6 +16,7 @@ exports[`ClassroomStudentSection component classroom without students should ren
       <button
         className="quill-button primary outlined small"
         onClick={[Function]}
+        type="button"
       >
         Invite students
       </button>
@@ -60,6 +61,7 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
         <button
           className="quill-button primary outlined small"
           onClick={[Function]}
+          type="button"
         >
           Invite students
         </button>

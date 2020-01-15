@@ -1,139 +1,144 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import Question from '../../libs/question';
-import Textarea from 'react-textarea-autosize';
 import * as _ from 'underscore';
 import {
   hashToCollection,
   SentenceFragments,
   MultipleChoice,
-  ThankYou,
   ConceptExplanation
 } from 'quill-component-library/dist/componentLibrary';
-import { submitResponse, clearResponses } from '../../actions.js';
-import pathwayActions from '../../actions/pathways';
-var C = require('../../constants').default;
-import rootRef from '../../libs/firebase';
-const sessionsRef = rootRef.child('sessions');
-var C = require('../../constants').default;
+import {Response} from 'quill-marking-logic'
+
+import { submitResponse } from '../../actions.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import RenderFeedback from '../renderForQuestions/feedback';
-import generateFeedbackString from '../renderForQuestions/generateFeedbackString.js';
 import getResponse from '../renderForQuestions/checkAnswer';
-import handleFocus from '../renderForQuestions/handleFocus.js';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import AnswerForm from '../renderForQuestions/renderFormForAnswer.jsx';
-import { getOptimalResponses, getSubOptimalResponses, getTopOptimalResponse } from '../../libs/sharedResponseFunctions';
+import { getOptimalResponses, getSubOptimalResponses, } from '../../libs/sharedResponseFunctions';
 import {
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
-import {Response} from 'quill-marking-logic'
-const StateFinished = ThankYou
 
-const feedbackStrings = C.FEEDBACK_STRINGS;
+const C = require('../../constants').default;
 
-const playLessonQuestion = React.createClass<any, any>({
-  getInitialState() {
-    return {
+class PlayQuestion extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       editing: false,
       response: '',
       finished: false,
       multipleChoice: false,
-    };
-  },
+    }
+  }
 
   componentDidMount() {
+    const { question, } = this.props
     getGradedResponsesWithCallback(
-      this.props.question.key,
+      question.key,
       (data) => {
         this.setState({ responses: data, });
       }
     );
-  },
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.question !== nextProps.question) {
+    const { response, finished, multipleChoice, responses, } = this.state
+    const { question, } = this.props
+
+    if (question !== nextProps.question) {
       return true;
-    } else if (this.state.response !== nextState.response) {
+    } else if (response !== nextState.response) {
       return true;
-    } else if (this.state.finished !== nextState.finished) {
+    } else if (finished !== nextState.finished) {
       return true;
-    } else if (this.state.multipleChoice !== nextState.multipleChoice) {
+    } else if (multipleChoice !== nextState.multipleChoice) {
       return true;
-    } else if (this.state.responses !== nextState.responses) {
+    } else if (responses !== nextState.responses) {
       return true;
     }
     return false;
-  },
+  }
 
-  getInitialValue() {
-    if (this.props.prefill) {
+  getInitialValue = () => {
+    const { prefill, } = this.props
+
+    if (prefill) {
       return this.getQuestion().prefilledText;
     }
-  },
+  }
 
-  removePrefilledUnderscores() {
-    this.setState({ response: this.state.response.replace(/_/g, ''), });
-  },
+  removePrefilledUnderscores = () => {
+    const { response, } = this.state
 
-  getQuestion() {
-    return this.props.question;
-  },
+    this.setState({ response: response.replace(/_/g, ''), });
+  }
 
-  getResponse2(rid) {
+  getQuestion = () => {
+    const { question, } = this.props
+
+    return question;
+  }
+
+  getResponse2 = (rid) => {
     return (this.getResponses()[rid]);
-  },
+  }
 
-  getResponses() {
-    return this.state.responses;
-  },
+  getResponses = () => {
+    const { responses, } = this.state
 
-  getQuestionMarkerFields() {
+    return responses;
+  }
+
+  getQuestionMarkerFields = () => {
     return ({
       prompt: this.getQuestion().prompt,
       responses: hashToCollection(this.getResponses()),
     });
-  },
+  }
 
-  getNewQuestionMarker() {
+  getNewQuestionMarker = () => {
     const fields = this.getQuestionMarkerFields();
     return new Question(fields);
-  },
+  }
 
-  getOptimalResponses() {
+  getOptimalResponses = () => {
     return getOptimalResponses(hashToCollection(this.getResponses()));
-  },
+  }
 
-  getSubOptimalResponses() {
+  getSubOptimalResponses = () => {
     return getSubOptimalResponses(hashToCollection(this.getResponses()));
-  },
+  }
 
-  get4MarkedResponses() {
+  get4MarkedResponses = () => {
     const twoOptimal = _.first(_.shuffle(this.getOptimalResponses()), 2);
     const twoSubOptimal = _.first(_.shuffle(this.getSubOptimalResponses()), 2);
     return _.shuffle(twoOptimal.concat(twoSubOptimal));
-  },
+  }
 
-  submitResponse(response) {
-    submitQuestionResponse(response, this.props, this.state.sessionKey, submitResponse);
-  },
+  submitResponse = (response) => {
+    const { sessionKey, } = this.state
+    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+  }
 
-  renderSentenceFragments() {
+  renderSentenceFragments = () => {
     return <SentenceFragments prompt={this.getQuestion().prompt} />;
-  },
+  }
 
   listCuesAsString(cues) {
     const newCues = cues.slice(0);
     return `${newCues.splice(0, newCues.length - 1).join(', ')} or ${newCues.pop()}.`;
-  },
+  }
 
   renderFeedback(override) {
+    const { question, } = this.props
     let sentence;
     if (override) {
       sentence = override;
@@ -146,73 +151,82 @@ const playLessonQuestion = React.createClass<any, any>({
       getQuestion={this.getQuestion}
       listCuesAsString={this.listCuesAsString}
       override={!!override}
-      question={this.props.question}
+      question={question}
       renderFeedbackStatements={this.renderFeedbackStatements}
       responses={this.getResponses()}
       sentence={sentence}
     />);
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+  }
 
   renderFeedbackStatements(attempt) {
     return <RenderQuestionFeedback attempt={attempt} getErrorsForAttempt={this.getErrorsForAttempt} getQuestion={this.getQuestion} />;
-  },
+  }
 
-  renderCues() {
+  renderCues = () => {
     return (<RenderQuestionCues
       displayArrowAndText={true}
       getQuestion={this.getQuestion}
     />);
-  },
+  }
 
   updateResponseResource(response) {
-    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, this.props.dispatch);
-  },
+    const { dispatch, } = this.props
+    updateResponseResource(response, this.getQuestion().key, this.getQuestion().attempts, dispatch);
+  }
 
   submitPathway(response) {
     submitPathway(response, this.props);
-  },
+  }
 
-  answeredCorrectly() {
+  answeredCorrectly = () => {
     const question = this.getQuestion();
     const latestAttempt = getLatestAttempt(question.attempts);
     const errorsForAttempt = _.keys(this.getErrorsForAttempt(latestAttempt)).length > 0;
     return (latestAttempt && latestAttempt.response && !errorsForAttempt && latestAttempt.response.optimal);
-  },
+  }
 
   checkAnswer(e) {
-    if (this.state.editing) {
+    const { editing, response, } = this.state
+
+    if (editing) {
       this.removePrefilledUnderscores();
-      const response = getResponse(this.getQuestion(), this.state.response, this.getResponses());
-      this.updateResponseResource(response);
-      this.submitResponse(response);
+      const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses());
+      this.updateResponseResource(submittedResponse);
+      this.submitResponse(submittedResponse);
       this.setState({ editing: false, });
     }
-  },
+  }
 
-  completeMultiChoice() {
+  completeMultiChoice = () => {
     this.setState({ finished: true, });
-  },
+  }
 
-  toggleDisabled() {
-    if (this.state.editing) {
+  toggleDisabled = () => {
+    const { editing, } = this.state
+
+    if (editing) {
       return '';
     }
-    return 'is-disabled';
-  },
+    return 'disabled';
+  }
 
-  handleChange(e) {
-    if (e !== this.state.response) {
+  onChange = (e) => {
+    const { response, } = this.state
+
+    if (e !== response) {
       this.setState({ editing: true, response: e, });
     }
-  },
+  }
 
-  readyForNext() {
-    if (this.props.question.attempts.length > 0) {
-      const latestAttempt = getLatestAttempt(this.props.question.attempts);
+  readyForNext = () => {
+    const { question, } = this.props
+
+    if (question.attempts.length > 0) {
+      const latestAttempt = getLatestAttempt(question.attempts);
       if (latestAttempt && latestAttempt.response) {
         const errors = _.keys(this.getErrorsForAttempt(latestAttempt));
         if (latestAttempt.response.optimal && errors.length === 0) {
@@ -221,59 +235,65 @@ const playLessonQuestion = React.createClass<any, any>({
       }
     }
     return false;
-  },
+  }
 
-  getProgressPercent() {
-    return this.props.question.attempts.length / 3 * 100;
-  },
+  getProgressPercent = () => {
+    const { question, } = this.props
 
-  finish() {
+    return question.attempts.length / 3 * 100;
+  }
+
+  finish = () => {
     this.setState({ finished: true, });
-  },
+  }
 
-  nextQuestion() {
-    this.props.nextQuestion();
+  handleNextQuestionClick = () => {
+    const { nextQuestion, } = this.props
+
+    nextQuestion();
     this.setState({ response: '', });
-  },
+  }
 
-  renderNextQuestionButton(correct) {
-    return (<button className="button student-next" onClick={this.nextQuestion}>Next Question</button>);
-  },
+  renderNextQuestionButton = () => {
+    return (<button className="quill-button large primary contained" onClick={this.handleNextQuestionClick} type="button">Next question</button>);
+  }
 
-  renderFinishedQuestionButton() {
+  renderFinishedQuestionButton = () => {
     const nextF = () => {
       this.setState({ finished: true, });
     };
-    return (<button className="button student-next" onClick={nextF}>Next</button>);
-  },
+    return (<button className="quill-button large primary contained" onClick={nextF} type="button">Next</button>);
+  }
 
-  renderMultipleChoiceButton() {
+  renderMultipleChoiceButton = () => {
     const nextF = () => {
       this.setState({ multipleChoice: true, });
     };
-    return (<button className="button student-next" onClick={nextF}>Next</button>);
-  },
+    return (<button className="quill-button large primary contained" onClick={nextF} type="button">Next</button>);
+  }
 
-  finishQuestion() {
+  finishQuestion = () => {
     this.setState({ finished: true, });
-  },
+  }
 
-  getNegativeConceptResultsForResponse(conceptResults) {
+  getNegativeConceptResultsForResponse = (conceptResults) => {
     return hashToCollection(conceptResults).filter(cr => !cr.correct);
-  },
+  }
 
-  getNegativeConceptResultForResponse(conceptResults) {
+  getNegativeConceptResultForResponse = (conceptResults) => {
     const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
     return negCRs.length > 0 ? negCRs[0] : undefined;
-  },
+  }
 
-  renderConceptExplanation() {
-    const latestAttempt:{response: Response}|undefined = getLatestAttempt(this.props.question.attempts);
+  renderConceptExplanation = () => {
+    const { question, conceptsFeedback, } = this.props
+
+    const latestAttempt:{response: Response}|undefined = getLatestAttempt(question.attempts);
     if (latestAttempt) {
       if (!latestAttempt.response.optimal && latestAttempt.response.conceptResults) {
           const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
           if (conceptID) {
-            const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+            const data = conceptsFeedback.data[conceptID.conceptUID];
             if (data) {
               return <ConceptExplanation {...data} />;
             }
@@ -281,35 +301,38 @@ const playLessonQuestion = React.createClass<any, any>({
       } else if (latestAttempt.response && !latestAttempt.response.optimal && latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
-          const data = this.props.conceptsFeedback.data[conceptID.conceptUID];
+          const data = conceptsFeedback.data[conceptID.conceptUID];
           if (data) {
             return <ConceptExplanation {...data} />;
           }
         }
       } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
-        const dataF = this.props.conceptsFeedback.data[this.getQuestion().modelConceptUID];
+        const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
         if (dataF) {
           return <ConceptExplanation {...dataF} />;
         }
       } else if (this.getQuestion().conceptID) {
-        const data = this.props.conceptsFeedback.data[this.getQuestion().conceptID];
+        const data = conceptsFeedback.data[this.getQuestion().conceptID];
         if (data) {
           return <ConceptExplanation {...data} />;
         }
       }
     }
-  },
+  }
 
-  multipleChoiceFinishQuestion() {
+  multipleChoiceFinishQuestion = () => {
     this.setState({ multipleChoiceCorrect: true, }, this.finishQuestion());
-  },
+  }
 
   render() {
-    const questionID = this.props.question.key;
-    if (this.props.question) {
+    const { response, finished, multipleChoice, multipleChoiceCorrect, } = this.state
+    const { question, } = this.props
+
+    const questionID = question.key;
+    if (question) {
       const sharedProps = {
-        value: this.state.response,
-        question: this.props.question,
+        value: response,
+        question: question,
         responses: this.getResponses(),
         getResponse: this.getResponse2,
         feedback: this.renderFeedback(),
@@ -322,18 +345,17 @@ const playLessonQuestion = React.createClass<any, any>({
         className: 'fubar',
       };
       let component;
-      if (this.state.finished) {
+      if (finished) {
         component = (
           <AnswerForm
             {...sharedProps}
             disabled
             finished
-            handleChange={() => {}}
-            multipleChoiceCorrect={this.state.multipleChoiceCorrect}
+            multipleChoiceCorrect={multipleChoiceCorrect}
             nextQuestionButton={this.renderNextQuestionButton()}
           />
         );
-      } else if (this.state.multipleChoice) {
+      } else if (multipleChoice) {
         component = (
           <MultipleChoice
             answers={this.get4MarkedResponses()}
@@ -341,13 +363,12 @@ const playLessonQuestion = React.createClass<any, any>({
             prompt={this.renderSentenceFragments()}
           />
         );
-      } else if (this.props.question.attempts.length > 4) {
+      } else if (question.attempts.length > 4) {
         if (this.answeredCorrectly()) {
           component = (
             <AnswerForm
               {...sharedProps}
               disabled
-              handleChange={() => {}}
               nextQuestionButton={this.renderFinishedQuestionButton()}
             />
             );
@@ -357,19 +378,17 @@ const playLessonQuestion = React.createClass<any, any>({
             <AnswerForm
               {...sharedProps}
               disabled
-              handleChange={() => {}}
               nextQuestionButton={this.renderMultipleChoiceButton()}
             />
             );
         }
-      } else if (this.props.question.attempts.length > 0) {
-        const latestAttempt = getLatestAttempt(this.props.question.attempts);
+      } else if (question.attempts.length > 0) {
+        const latestAttempt = getLatestAttempt(question.attempts);
         if (this.readyForNext()) {
           component = (
             <AnswerForm
               {...sharedProps}
               disabled
-              handleChange={() => {}}
               nextQuestionButton={this.renderFinishedQuestionButton()}
             />
           );
@@ -379,8 +398,8 @@ const playLessonQuestion = React.createClass<any, any>({
               {...sharedProps}
               checkAnswer={this.checkAnswer}
               conceptExplanation={this.renderConceptExplanation}
-              handleChange={this.handleChange}
-              spellCheck={(this.props.question.attempts.length > 3)}
+              handleChange={this.onChange}
+              spellCheck={(question.attempts.length > 3)}
               toggleDisabled={this.toggleDisabled()}
             />
           );
@@ -390,7 +409,7 @@ const playLessonQuestion = React.createClass<any, any>({
           <AnswerForm
             {...sharedProps}
             checkAnswer={this.checkAnswer}
-            handleChange={this.handleChange}
+            handleChange={this.onChange}
             toggleDisabled={this.toggleDisabled()}
           />
         );
@@ -402,8 +421,8 @@ const playLessonQuestion = React.createClass<any, any>({
       );
     }
     return (<p>Loading...</p>);
-  },
-});
+  }
+}
 
 function getLatestAttempt(attempts:Array<{response: Response}> = []):{response: Response}|undefined {
   const lastIndex = attempts.length - 1;
@@ -415,4 +434,4 @@ function select(state) {
     conceptsFeedback: state.conceptsFeedback,
   };
 }
-export default connect(select)(playLessonQuestion);
+export default connect(select)(PlayQuestion);

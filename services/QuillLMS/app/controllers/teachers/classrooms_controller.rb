@@ -82,7 +82,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def hide
     classroom = Classroom.find(params[:id])
-    classroom.visible = false #
+    classroom.visible = false
     classroom.save(validate: false)
     respond_to do |format|
       format.html{redirect_to teachers_classrooms_path}
@@ -142,7 +142,7 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
-private
+  private
 
   def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})

@@ -5142,6 +5142,13 @@ CREATE UNIQUE INDEX unique_index_schools_on_ppin ON public.schools USING btree (
 
 
 --
+-- Name: unique_index_users_on_clever_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX unique_index_users_on_clever_id ON public.users USING btree (clever_id) WHERE ((clever_id IS NOT NULL) AND ((clever_id)::text <> ''::text) AND ((id > 5593155) OR ((role)::text = 'student'::text)));
+
+
+--
 -- Name: unique_index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6129,4 +6136,6 @@ INSERT INTO schema_migrations (version) VALUES ('20191024150907');
 INSERT INTO schema_migrations (version) VALUES ('20191030183959');
 
 INSERT INTO schema_migrations (version) VALUES ('20191122181105');
+
+INSERT INTO schema_migrations (version) VALUES ('20191218174724');
 

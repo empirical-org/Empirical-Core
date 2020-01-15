@@ -413,7 +413,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               </span>
             </div>
           </Prompt>
-          <cues
+          <Cues
             customText="Add words or leave blank"
             displayArrowAndText={true}
             getQuestion={[Function]}
@@ -450,7 +450,8 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   </div>
                 </Cue>
                 <img
-                  src="https://assets.quill.org/images/icons/arrow_icon.svg"
+                  alt="Arrow Icon"
+                  src="undefined/images/icons/pointing-arrow.svg"
                 />
                 <CueExplanation
                   text="Add words or leave blank"
@@ -463,7 +464,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </CueExplanation>
               </div>
             </div>
-          </cues>
+          </Cues>
           <Feedback
             feedback={
               <p
@@ -485,8 +486,9 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 className="feedback-row student-feedback-inner-container"
               >
                 <img
+                  alt="Directions Icon"
                   className="info"
-                  src="https://assets.quill.org/images/icons/question_icon.svg"
+                  src="undefined/images/icons/direction.svg"
                 />
                 <p
                   dangerouslySetInnerHTML={
@@ -512,8 +514,8 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
       }
     >
       <button
-        className="button student-submit is-disabled"
-        onClick={[Function]}
+        className="quill-button large primary contained disabled"
+        type="button"
       >
         Submit
       </button>

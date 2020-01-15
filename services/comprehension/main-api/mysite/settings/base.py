@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(THIS_PATH)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'pf-@jxtojga)z+4s*uwbgjrq$aep62-thd0q7f&o77xtpka!_m'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'pf-@jxt)-thd0q7f&o77xtpka!_m')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,24 +83,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'comprehension_api_dev',
-        'USER': '',
-        'PASSWORD': '',
-        'PORT': '5432',
+        'HOST': os.environ['PG_HOST'],
+        'NAME': os.environ['PG_NAME'],
+        'USER': os.environ['PG_USER'],
+        'PASSWORD': os.environ['PG_PASS'],
+        'PORT': os.environ['PG_PORT'],
     }
 }
-
-# In the flexible environment, you connect to CloudSQL using a unix socket.
-# Locally, you can use the CloudSQL proxy to proxy a localhost connection
-# to the instance
-DB_HOST = '/cloudsql/comprehension-247816:us-east1:comprehension-app-engine'
-DATABASES['default']['HOST'] = DB_HOST
-if os.getenv('GAE_INSTANCE'):
-    DATABASES['default']['USER'] = 'postgres'
-    DATABASES['default']['PASSWORD'] = os.environ['PG_PASS']
-else:
-    DATABASES['default']['HOST'] = '127.0.0.1'
-# [END dbconfig]
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

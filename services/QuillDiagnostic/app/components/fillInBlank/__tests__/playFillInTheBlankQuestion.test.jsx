@@ -33,13 +33,13 @@ describe('PlayFillInTheBlankQuestion component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  describe('checkAnswer', () => {
+  describe('handleSubmitResponse', () => {
     it('should call nextQuestion if there are no inputErrors in state', () => {
       const nextQuestion = jest.fn();
       props.nextQuestion = nextQuestion;
       const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
       wrapper.setState({responses: []})
-      wrapper.instance().checkAnswer();
+      wrapper.instance().handleSubmitResponse();
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
 
@@ -49,7 +49,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       const inputErrors = new Set();
       inputErrors.add(1);
       wrapper.setState({ inputErrors, responses: []});
-      wrapper.instance().checkAnswer();
+      wrapper.instance().handleSubmitResponse();
       expect(nextQuestion.mock.calls.length).toBe(0);
     });
 
@@ -58,7 +58,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       props.nextQuestion = nextQuestion;
       const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
       wrapper.setState({responses: []})
-      wrapper.find('.button').simulate('click');
+      wrapper.find('.quill-button').simulate('click');
       expect(nextQuestion.mock.calls.length).toBe(1);
     });
   });

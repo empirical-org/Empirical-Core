@@ -2,6 +2,7 @@ class SalesmachineClient
 
   BATCH_ENDPOINT = '/v1/batch'
   EVENT_ENDPOINT = '/v1/track/event'
+  TOO_MANY_REQUESTS = 429
 
   def self.batch(data)
     new.batch(data)
@@ -28,11 +29,16 @@ class SalesmachineClient
   end
 
   def make_request(path, data)
-    client.post do |request|
-      request.url(path)
-      request.headers['Authorization'] = auth_header_value
-      request.headers['Content-Type'] = 'application/json'
-      request.body = data.to_json
+    begin
+      client.post do |request|
+        request.url(path)
+        request.headers['Authorization'] = auth_header_value
+        request.headers['Content-Type'] = 'application/json'
+        request.body = data.to_json
+      end
+    rescue Faraday::ClientError => e
+      raise if e.response[:status] != TOO_MANY_REQUESTS
+      raise SalesmachineRetryError
     end
   end
 
