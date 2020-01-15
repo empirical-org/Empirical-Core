@@ -50,7 +50,7 @@ describe LoginPdf do
     end
 
     it 'shows users with the default password the default password' do
-      expect(@text_analysis.strings).to include("#{normal_student.first_name} #{normal_student.last_name} - ")
+      expect(@text_analysis.strings).to include("#{normal_student.last_name.capitalize}")
     end
 
     it 'shows users with a custom password the right message' do
