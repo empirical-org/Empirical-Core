@@ -123,7 +123,7 @@ class UserMailer < ActionMailer::Base
     @support_tickets_resolved = get_intercom_data(start_time, end_time)
     @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
     @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
-    mail to: "eric@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
+    mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
 end
