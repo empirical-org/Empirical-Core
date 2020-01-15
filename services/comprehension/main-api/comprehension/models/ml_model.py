@@ -19,7 +19,8 @@ class MLModel(TimestampedModel):
 
     def _request_google_auto_ml_label(self, entry):
         response = self._request_google_auto_ml_response(entry)
-        ordered = sorted(response, key=sortScore, reverse=True)
+        ordered = sorted(response, key=lambda x: x.classification.score,
+                         reverse=True)
         return [ordered[0].display_name]
 
     def _request_google_auto_ml_labels(self, entry):

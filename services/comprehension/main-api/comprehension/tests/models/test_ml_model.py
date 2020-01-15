@@ -4,15 +4,8 @@ from django.test import TestCase
 from google.cloud import automl_v1beta1 as automl
 
 from ..factories.ml_model import MLModelFactory
+from ..mocks.google_auto_ml import generate_auto_ml_label_response_mock
 from ...models.ml_model import MLModel
-
-
-def generate_auto_ml_label_response_mock(score=0.6, label=''):
-    mock = Mock()
-    mock.classification = Mock()
-    mock.classification.score = score
-    mock.display_name = label
-    return mock
 
 
 class TestAutoMLModel(TestCase):
