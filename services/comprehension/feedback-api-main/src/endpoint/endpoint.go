@@ -10,6 +10,7 @@ import (
 
 const (
 	automl_api = "https://us-east1-comprehension-247816.cloudfunctions.net/response-api-alpha"
+	grammar_check = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha"
 )
 
