@@ -710,7 +710,7 @@ describe User, type: :model do
     end
 
     it "changes the user's name to one that is not personally identiable" do
-      expect(user.name).to eq("Deleted User #{user.id}")
+      expect(user.name).to eq("Deleted User_#{user.id}")
     end
 
     it "removes the google id" do
