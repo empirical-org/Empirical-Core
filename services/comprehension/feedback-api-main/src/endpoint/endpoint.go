@@ -98,6 +98,7 @@ type APIRequest struct {
 
 type APIResponse struct {
 	Feedback string `json:"feedback"`
+	Feedback_type string `json:"feedback_type"`
 	Optimal bool `json:"optimal"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`

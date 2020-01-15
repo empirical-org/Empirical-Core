@@ -13,7 +13,7 @@ def response_endpoint(request):
     prompt_id = param_for('prompt_id', request, request_json)
 
     if entry == None or prompt_id == None:
-        return make_response(jsonify(feedback="error"), 400)
+        return make_response(jsonify(feedback="error: missing entry or prompt_id"), 400)
 
     model_settings = model_settings_for(prompt_id)
 
