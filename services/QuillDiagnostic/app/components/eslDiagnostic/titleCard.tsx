@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg';
+
 import translations from '../../libs/translations/index.js';
 
 export interface ComponentProps {

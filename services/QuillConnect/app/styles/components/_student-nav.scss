@@ -71,21 +71,6 @@
       flex-grow: 1;
       flex-shrink: 0;
       justify-content: flex-end;
-        .nav-language-selector-container {
-          display: flex;
-          align-items: center;
-          @media (max-width: 690px) {
-            .nav-language-selector-directions {
-              display: none;
-            }
-            .nav-language-selector-trigger, .nav-language-selector-dropdown {
-              width: 132px;
-              .language-button-img {
-                margin-right: 7px;
-              }
-            }
-          }
-        }
     }
   }
 }
