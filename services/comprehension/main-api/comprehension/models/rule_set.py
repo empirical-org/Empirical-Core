@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import DjangoChoices
+from . import DjangoChoices, Prompt
 
 
 class RuleSet(models.Model):

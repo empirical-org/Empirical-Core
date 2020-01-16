@@ -43,7 +43,7 @@ def first_pass(request):
         return make_response(jsonify(message="error"), 400)
 
     prompt = Prompt.objects.get(id=prompt_id)
-    response = prompt.process_regex_rules(entry, RuleSet.PASS_ORDER.FIRST)
+    response = prompt.fetch_rules_based_feedback(entry, RuleSet.PASS_ORDER.FIRST)
 
     return JsonResponse(response)
 
@@ -58,7 +58,7 @@ def second_pass(request):
         return make_response(jsonify(message="error"), 400)
 
     prompt = Prompt.objects.get(id=prompt_id)
-    response = prompt.process_regex_rules(entry, RuleSet.PASS_ORDER.SECOND)
+    response = prompt.fetch_rules_based_feedback(entry, RuleSet.PASS_ORDER.SECOND)
 
     return JsonResponse(response)
 
