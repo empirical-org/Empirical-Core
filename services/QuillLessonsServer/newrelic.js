@@ -52,7 +52,7 @@ exports.config = {
   },
   rules: {
     ignore: [
-      '^/socket.io'
+      '^/socket.io/.*/polling'
     ]
   }
 }

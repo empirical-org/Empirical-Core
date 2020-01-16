@@ -223,6 +223,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
             cleanDatabase({ ...adaptors, ...data });
           } else {
             Sentry.captureMessage(`Cannot clean database in ${process.env.NODE_ENV}`);
+            newrelic.noticeError(`Cannot clean database in ${process.env.NODE_ENV}`);
           }
         });
 
