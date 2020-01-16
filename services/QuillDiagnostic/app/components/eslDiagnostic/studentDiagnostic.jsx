@@ -26,6 +26,7 @@ import LandingPage from './landing.jsx';
 import LanguagePage from './languagePage.jsx';
 import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import Footer from './footer'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
 
@@ -342,11 +343,21 @@ class ELLStudentDiagnostic extends React.Component {
     return data['ell'].landingPageHtml
   }
 
+  renderFooter = () => {
+    if (!this.language()) { return }
+
+    return (<Footer
+      language={this.language()}
+      updateLanguage={this.updateLanguage}
+    />)
+  }
+
   render() {
     const { error, saved, } = this.state
     const { questions, sentenceFragments, playDiagnostic, fillInBlank, } = this.props
 
     let component;
+    const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
     const data = this.getFetchedData();
     if (!(data && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata)) {
       component = (<SmartSpinner
@@ -379,13 +390,14 @@ class ELLStudentDiagnostic extends React.Component {
     return (
       <div>
         <DiagnosticProgressBar percent={this.getProgressPercent()} />
-        <section className="section is-fullheight minus-nav student">
+        <section className={`section is-fullheight student ${minusHowMuch}`}>
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
             </CarouselAnimation>
           </div>
         </section>
+        {this.renderFooter()}
       </div>
     );
   }
