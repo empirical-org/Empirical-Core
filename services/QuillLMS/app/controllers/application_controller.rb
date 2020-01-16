@@ -147,6 +147,6 @@ class ApplicationController < ActionController::Base
     return if !current_user || !session
     # If the user is google authed, but doesn't have a valid refresh
     # token, then we need to invalidate their session
-    return reset_session if current_user.signed_up_with_google && !current_user.auth_credential&.refresh_token
+    return reset_session if current_user.google_id && !current_user.auth_credential&.refresh_token
   end
 end
