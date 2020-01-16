@@ -242,10 +242,17 @@ class Lesson extends React.Component {
 
   renderProgressBar = () => {
     const { playLesson, } = this.props
-    if (!playLesson.currentQuestion || playLesson.currentQuestion.type === 'TL') { return }
+    if (!playLesson.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playLesson)
+
+    const currentQuestionIsTitleCard = playLesson.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
     return (<ProgressBar
-      answeredQuestionCount={answeredQuestionCount(playLesson)}
+      answeredQuestionCount={displayedAnsweredQuestionCount}
       percent={getProgressPercent(playLesson)}
       questionCount={questionCount(playLesson)}
     />)
