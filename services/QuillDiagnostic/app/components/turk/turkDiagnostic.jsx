@@ -15,7 +15,6 @@ import diagnosticQuestions from './diagnosticQuestions.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
