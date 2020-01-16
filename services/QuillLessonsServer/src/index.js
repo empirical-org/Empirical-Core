@@ -9,8 +9,12 @@ import http from 'http';
 import path from 'path';
 import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
+
 const Sentry = require('@sentry/node');
-Sentry.init({ dsn: process.env.LESSONS_SENTRY_DSN, debug: true });
+Sentry.init({ 
+  dsn: process.env.LESSONS_SENTRY_DSN, 
+  debug: false 
+});
 
 dotenv.config();
 
@@ -522,11 +526,11 @@ r.connect(rethinkdbConfig, (err, connection) => {
             archiveEdition({ ...adaptors, ...data });
           });
         });
+        client.on('error', err => {
+          newrelic.noticeError(err);
+          Sentry.captureException(err);
+        });
       });
-    });
-    io.on('error', err => {
-      newrelic.noticeError(err);
-      Sentry.captureException(err);
     });
   }
 });
@@ -535,6 +539,3 @@ app.listen(port, () => {
   console.log(`Node server started and listening at ${port}`);
 });
 
-app.on('error', error => {
-  Sentry.captureException(error);
-});
