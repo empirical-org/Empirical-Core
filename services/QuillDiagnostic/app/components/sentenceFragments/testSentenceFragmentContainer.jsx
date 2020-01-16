@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
+import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions/diagnostics.js';
 
 class TestQuestion extends Component {
-  constructor() {
-    super();
-    this.reset = this.reset.bind(this);
-    this.markIdentify = this.markIdentify.bind(this);
-    this.submitResponse = this.submitResponse.bind(this);
+  constructor(props) {
+    super(props);
+
     this.state = {
       responsesForGrading: [],
       allResponses: [],
@@ -20,15 +18,18 @@ class TestQuestion extends Component {
     this.reset();
   }
 
-  reset() {
-    this.props.dispatch(clearData());
+  reset = () => {
+    const { dispatch, } = this.props
+    dispatch(clearData());
     this.startActivity();
-    this.setState({ key: this.state.key + 1, });
+    this.setState(prevState => ({ key: prevState.key + 1, }));
   }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
+    const { params, } = this.props
+
     const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    question.key = params.questionID;
     return [
       {
         type: 'SF',
@@ -38,32 +39,51 @@ class TestQuestion extends Component {
   }
 
   startActivity(name = 'Triangle') {
+    const { dispatch, } = this.props
+
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
-  getQuestion() {
-    return this.props.sentenceFragments.data[this.props.params.questionID];
+  getQuestion = () => {
+    const { sentenceFragments, params, } = this.props
+
+    return sentenceFragments.data[params.questionID];
   }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
+    const { dispatch, } = this.props
+
     const action = updateCurrentQuestion({identified: bool})
-    this.props.dispatch(action)
+    dispatch(action)
   }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
+
     const action = submitResponse(response);
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   render() {
-    if (this.props.playDiagnostic.currentQuestion) {
-      const question = this.props.playDiagnostic.currentQuestion.data;
+    const { playDiagnostic, params, dispatch, } = this.props
+
+    if (playDiagnostic.currentQuestion) {
+      const question = playDiagnostic.currentQuestion.data;
       return (
         <div className="test-question-container">
-          <PlaySentenceFragment currentKey={this.props.params.questionID} dispatch={this.props.dispatch} key={this.props.params.questionID} markIdentify={this.markIdentify} nextQuestion={this.reset} prefill={false} question={question} updateAttempts={this.submitResponse} />
+          <PlaySentenceFragment
+            currentKey={params.questionID}
+            dispatch={dispatch}
+            key={params.questionID}
+            markIdentify={this.markIdentify}
+            nextQuestion={this.reset}
+            prefill={false}
+            question={question}
+            updateAttempts={this.submitResponse}
+          />
         </div>
       );
     } else {
