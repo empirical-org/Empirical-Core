@@ -32,8 +32,8 @@ def test_single_label_response(mock_automl, app):
       data = json.loads(response.data)
 
       assert response.status_code == 200
-      assert data['correct'] == False
-      assert data['message'] == "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
+      assert data['optimal'] == False
+      assert data['feedback'] == "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
 
 @patch('google.cloud.automl_v1beta1.PredictionServiceClient')
 def test_single_label_no_model(mock_automl, app):
@@ -44,7 +44,7 @@ def test_single_label_no_model(mock_automl, app):
       data = json.loads(response.data)
 
       assert response.status_code == 400
-      assert data['message'] == "error: model not found"
+      assert data['feedback'] == "error: model not found"
 
 @patch('google.cloud.automl_v1beta1.PredictionServiceClient')
 def test_no_label_feedback(mock_automl, app):
@@ -55,8 +55,8 @@ def test_no_label_feedback(mock_automl, app):
         data = json.loads(response.data)
 
         assert response.status_code == 200
-        assert data['correct'] == False
-        assert data['message'] == "Please read the passage and try again!"
+        assert data['optimal'] == False
+        assert data['feedback'] == "Please read the passage and try again!"
 
 @patch('google.cloud.automl_v1beta1.PredictionServiceClient')
 def test_correct_feedback(mock_automl, app):
@@ -67,8 +67,8 @@ def test_correct_feedback(mock_automl, app):
         data = json.loads(response.data)
 
         assert response.status_code == 200
-        assert data['correct'] == True
-        assert data['message'] == 'You are correct! Well done!'
+        assert data['optimal'] == True
+        assert data['feedback'] == 'You are correct! Well done!'
 
 @patch('google.cloud.automl_v1beta1.PredictionServiceClient')
 def test_single_label_response_no_entry(mock_automl, app):
@@ -79,7 +79,7 @@ def test_single_label_response_no_entry(mock_automl, app):
         data = json.loads(response.data)
 
         assert response.status_code == 400
-        assert data['message'] == "error"
+        assert data['feedback'] == "error"
 
 @patch('google.cloud.automl_v1beta1.PredictionServiceClient')
 def test_multi_label_response(mock_automl, app):
@@ -90,5 +90,5 @@ def test_multi_label_response(mock_automl, app):
         data = json.loads(response.data)
 
         assert response.status_code == 200
-        assert data['correct'] == False
-        assert data['message'] == "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+        assert data['optimal'] == False
+        assert data['feedback'] == "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
