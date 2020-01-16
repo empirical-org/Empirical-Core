@@ -136,6 +136,9 @@
     color: white;
     margin-right: 10px;
   }
+  @media (max-width: 770px) {
+    display: none;
+  }
 }
 
 .nav-language-selector {

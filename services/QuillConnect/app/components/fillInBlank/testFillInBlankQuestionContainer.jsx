@@ -4,32 +4,32 @@ import PlayFillInTheBlankQuestion from '../studentLessons/fillInBlank.tsx';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 
 class TestQuestion extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       responsesForGrading: [],
       allResponses: [],
       key: 0,
     };
-
-    this.setResponse = this.setResponse.bind(this)
-    this.reset = this.reset.bind(this);
-    this.submitResponse = this.submitResponse.bind(this)
   }
 
   componentDidMount() {
     this.reset();
   }
 
-  reset() {
-    this.props.dispatch(clearData());
+  reset = () => {
+    const { dispatch, } = this.props
+    dispatch(clearData());
     this.startActivity();
-    this.setState({ key: this.state.key + 1, });
+    this.setState(prevState => ({ key: prevState.key + 1, }));
   }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
+    const { params, } = this.props
+
     const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    question.key = params.questionID;
     if (!question.attempts) {
       question.attempts = []
     }
@@ -41,21 +41,23 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  startActivity = () => {
+    const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
-  getQuestion() {
-    const fillInBlank = this.props.fillInBlank;
-    return this.props.fillInBlank.data[this.props.params.questionID];
+  getQuestion = () => {
+    const { fillInBlank, params, } = this.props
+    return fillInBlank.data[params.questionID];
   }
 
-  renderGrading() {
-    if (this.state.gradedResponse) {
-      const {author, feedback} = this.state.gradedResponse.response
+  renderGrading = () => {
+    const { gradedResponse, } = this.state
+    if (gradedResponse) {
+      const {author, feedback} = gradedResponse.response
       return (<div style={{marginTop: '30px'}}>
         <p>Author: {author}</p>
         <p>Feedback: {feedback}</p>
@@ -63,24 +65,27 @@ class TestQuestion extends Component {
     }
   }
 
-  setResponse(response) {
-
-    this.setState({gradedResponse: response})
+  setResponse = (response) => {
+    this.setState({ gradedResponse: response })
   }
 
-  submitResponse(response) {
-    this.props.dispatch(submitResponse(response))
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
+    dispatch(submitResponse(response))
   }
 
   render() {
-    if (this.props.playLesson.currentQuestion) {
-      const question = this.props.playLesson.currentQuestion.question;
+    const { playLesson, dispatch, conceptsFeedback, } = this.props
+    const { key, } = this.state
+    if (playLesson.currentQuestion) {
+      const question = playLesson.currentQuestion.question;
       return (
         <div>
           <div className="test-question-container">
             <PlayFillInTheBlankQuestion
-              dispatch={this.props.dispatch}
-              key={this.state.key}
+              conceptsFeedback={conceptsFeedback}
+              dispatch={dispatch}
+              key={key}
               nextQuestion={this.reset}
               prefill={false}
               question={question}
@@ -102,6 +107,7 @@ class TestQuestion extends Component {
 
 function select(props) {
   return {
+    conceptsFeedback: props.conceptsFeedback,
     fillInBlank: props.fillInBlank,
     playLesson: props.playLesson
   };
