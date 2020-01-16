@@ -9,7 +9,8 @@ from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.prompt import PromptFactory
 from ..mocks.google_auto_ml import generate_auto_ml_label_response_mock
 from ...models.ml_model import MLModel
-from ...views import get_single_label_ml_feedback, get_multi_label_ml_feedback
+from ...views.feedback_ml_multi import MultiLabelMLFeedbackView
+from ...views.feedback_ml_single import SingleLabelMLFeedbackView
 from ...utils import construct_feedback_payload
 
 
@@ -42,7 +43,7 @@ class TestMLFeedbackView(TestCase):
                                     data=json.dumps(self.request_body),
                                     content_type='application/json')
 
-        response = get_single_label_ml_feedback(request)
+        response = SingleLabelMLFeedbackView().post(request)
         json_body = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
@@ -61,16 +62,15 @@ class TestMLFeedbackView(TestCase):
                                     data=json.dumps(request_body),
                                     content_type='application/json')
 
-        response = get_single_label_ml_feedback(request)
-
-        self.assertEqual(response.status_code, 404)
+        with self.assertRaises(Http404):
+            response = SingleLabelMLFeedbackView.as_view()(request)
 
     def test_get_multi_label_ml_feedback(self):
         request = self.factory.post(reverse('get_multi_label_ml_feedback'),
                                     data=json.dumps(self.request_body),
                                     content_type='application/json')
 
-        response = get_multi_label_ml_feedback(request)
+        response = MultiLabelMLFeedbackView().post(request)
         json_body = json.loads(response.content)
 
         expected_payload = construct_feedback_payload(self.ml_feedback_multi.feedback,
@@ -89,6 +89,5 @@ class TestMLFeedbackView(TestCase):
                                     data=json.dumps(request_body),
                                     content_type='application/json')
 
-        response = get_multi_label_ml_feedback(request)
-
-        self.assertEqual(response.status_code, 404)
+        with self.assertRaises(Http404):
+            response = MultiLabelMLFeedbackView.as_view()(request)
