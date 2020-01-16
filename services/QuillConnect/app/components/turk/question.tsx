@@ -207,8 +207,8 @@ class PlayDiagnosticQuestion extends React.Component {
 
     return (<div className="error-container">
       <Feedback
-        feedbackType="revise-unmatched"
         feedback={<p>{error}</p>}
+        feedbackType="revise-unmatched"
       />
     </div>)
   }
