@@ -8,8 +8,9 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  DiagnosticProgressBar
+  // DiagnosticProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+import { DiagnosticProgressBar } from '../shared/diagnosticProgressBar'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
@@ -18,8 +19,14 @@ import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
-const request = require('request');
 import { getParameterByName } from '../../libs/getParameterByName';
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
+
+const request = require('request');
 
 class TurkDiagnostic extends React.Component {
   constructor(props) {
@@ -228,6 +235,17 @@ class TurkDiagnostic extends React.Component {
     return lessons.data[params.diagnosticID].landingPageHtml
   }
 
+  renderProgressBar = () => {
+    const { playDiagnostic, } = this.props
+    if (!playDiagnostic.currentQuestion || playDiagnostic.currentQuestion.type === 'TL') { return }
+
+    return (<DiagnosticProgressBar
+      answeredQuestionCount={answeredQuestionCount(playDiagnostic)}
+      percent={getProgressPercent(playDiagnostic)}
+      questionCount={questionCount(playDiagnostic)}
+    />)
+  }
+
   render() {
     const { session, error, saved, } = this.state
     const { playDiagnostic, questions, sentenceFragments, dispatch, } = this.props
@@ -290,8 +308,8 @@ class TurkDiagnostic extends React.Component {
     }
     return (
       <div>
-        <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
