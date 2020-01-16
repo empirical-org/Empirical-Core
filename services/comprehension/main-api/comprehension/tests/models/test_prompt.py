@@ -31,7 +31,6 @@ class PromptValidationTest(PromptModelTest):
         self.assertEqual(prompt.max_attempts, 5)
 
 
-
 class PromptFunctionTest(PromptModelTest):
     def test_max_attempts_feedback_not_null(self):
         with self.assertRaises(ValidationError):
@@ -44,7 +43,8 @@ class PromptFunctionTest(PromptModelTest):
         self.assertEqual(feedback, retrieved_feedback)
 
     def test_get_for_labels_muiltiple_labels(self):
-        retrieved_feedback = self.prompt._get_feedback_for_labels(['Test1', 'Test2'])
+        retrieved_feedback = self.prompt._get_feedback_for_labels(['Test1',
+                                                                   'Test2'])
         self.assertEqual(self.feedback, retrieved_feedback)
 
     @patch.object(Prompt, '_get_default_feedback')

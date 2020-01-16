@@ -1,8 +1,6 @@
 from django.db import models
 
 from . import TimestampedModel
-from .ml_model import MLModel
-from ..utils import combine_labels
 
 
 class MLFeedback(TimestampedModel):
