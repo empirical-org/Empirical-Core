@@ -11,10 +11,13 @@ import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
 
 const Sentry = require('@sentry/node');
-Sentry.init({ 
-  dsn: process.env.LESSONS_SENTRY_DSN, 
-  debug: false 
-});
+
+if(process.env.NODE_ENV === 'production') {
+  Sentry.init({ 
+    dsn: process.env.LESSONS_SENTRY_DSN,
+    debug: false 
+  });
+}
 
 dotenv.config();
 
