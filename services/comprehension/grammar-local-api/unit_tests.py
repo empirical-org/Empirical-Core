@@ -47,8 +47,10 @@ def test_incorrect_grammar(app):
         assert data.get('feedback_type') == 'grammar'
         assert data.get('optimal') == False
         assert data.get('highlight')[0]["text"] == 'Its'
-        assert data.get('highlight')[0]["type"] == grammarcheck.ITS_IT_S_ERROR
-        assert data.get('highlight')[0]["index"] == 0
+        assert data.get('highlight')[0]["type"] == 'response'
+        assert data.get('highlight')[0]["id"] == None
+        assert data.get('highlight')[0]["category"] == grammarcheck.ITS_IT_S_ERROR
+        assert data.get('highlight')[0]["character"] == 0
 
 
 def test_incorrect_grammar_repeated_words(app):
@@ -61,5 +63,7 @@ def test_incorrect_grammar_repeated_words(app):
         assert data.get('feedback_type') == 'grammar'
         assert data.get('optimal') == False
         assert data.get('highlight')[0]["text"] == 'is'
-        assert data.get('highlight')[0]["type"] == grammarcheck.REPEATED_WORD_ERROR
-        assert data.get('highlight')[0]["index"] == 6
+        assert data.get('highlight')[0]["type"] == 'response'
+        assert data.get('highlight')[0]["id"] == None
+        assert data.get('highlight')[0]["category"] == grammarcheck.REPEATED_WORD_ERROR
+        assert data.get('highlight')[0]["character"] == 6
