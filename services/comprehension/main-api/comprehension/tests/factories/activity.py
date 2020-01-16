@@ -1,6 +1,5 @@
 import factory
 from ...models.activity import Activity
-from ...models.prompt import Prompt
 
 
 class ActivityFactory(factory.django.DjangoModelFactory):

@@ -41,5 +41,6 @@ class MLModel(TimestampedModel):
         client = automl.PredictionServiceClient()
         return client.predict(url, payload, {}).payload
 
-    def _filter_for_relevant_labels(self, labels, threshold=RELEVANCY_THRESHOLD):
+    def _filter_for_relevant_labels(self, labels,
+                                    threshold=RELEVANCY_THRESHOLD):
         return filter(lambda x: x.classification.score > threshold, labels)

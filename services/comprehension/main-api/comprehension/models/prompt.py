@@ -34,4 +34,5 @@ class Prompt(TimestampedModel):
             return self._get_default_feedback()
 
     def _get_default_feedback(self):
-        return self.ml_feedback.get(combined_labels=MLFeedback.DEFAULT_FEEDBACK_LABEL)
+        default_label = MLFeedback.DEFAULT_FEEDBACK_LABEL
+        return self.ml_feedback.get(combined_labels=default_label)

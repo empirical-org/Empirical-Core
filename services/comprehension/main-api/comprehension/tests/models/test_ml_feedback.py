@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -18,6 +16,7 @@ class TestMLFeedback(TestCase):
 
     def test_prompt_id_and_combined_labels_is_unique(self):
         with self.assertRaises(ValidationError):
+            combined_labels = self.feedback.combined_labels
             MLFeedback.objects.create(feedback='New feedback',
-                                      combined_labels=self.feedback.combined_labels,
+                                      combined_labels=combined_labels,
                                       prompt=self.feedback.prompt)

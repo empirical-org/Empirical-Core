@@ -17,7 +17,8 @@ class TestActivityView(TestCase):
         self.factory = RequestFactory()
 
     def test_show_activity_404(self):
-        request = self.factory.get(f"/activities/200")
+        request = self.factory.get(reverse('show_activity',
+                                           kwargs={'id': 200}))
 
         with self.assertRaises(Http404):
             ActivityView().get(request, 200)
@@ -43,7 +44,8 @@ class TestActivityView(TestCase):
                               prompt=self.prompt2,
                               order=2)
 
-        request = self.factory.get(f"/activities/{self.activity.id}")
+        request = self.factory.get(reverse('show_activity',
+                                           kwargs={'id': self.activity.id}))
 
         response = ActivityView().get(request, self.activity.id)
 

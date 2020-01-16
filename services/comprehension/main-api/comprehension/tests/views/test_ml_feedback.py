@@ -22,17 +22,18 @@ def mock_google_auto_ml_response(*args, **kwargs):
     ]
 
 
-@patch.object(MLModel, '_request_google_auto_ml_response', mock_google_auto_ml_response)
+@patch.object(MLModel, '_request_google_auto_ml_response',
+              mock_google_auto_ml_response)
 class TestMLFeedbackView(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
         self.prompt = PromptFactory()
-        self.ml_feedback_single = MLFeedbackFactory(combined_labels='Highest',
-                                                    prompt=self.prompt,
-                                                    feedback='Single label feedback')
-        self.ml_feedback_multi = MLFeedbackFactory(combined_labels='Highest_Middle',
-                                                   prompt=self.prompt,
-                                                   feedback='Multi label feedback')
+        self.fb_single = MLFeedbackFactory(combined_labels='Highest',
+                                           prompt=self.prompt,
+                                           feedback='Single label feedback')
+        self.fb_multi = MLFeedbackFactory(combined_labels='Highest_Middle',
+                                          prompt=self.prompt,
+                                          feedback='Multi label feedback')
         self.request_body = {
             'prompt_id': self.prompt.id,
             'entry': 'SAMPLE ENTRY',
@@ -47,11 +48,11 @@ class TestMLFeedbackView(TestCase):
         json_body = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        expected_payload = construct_feedback_payload(self.ml_feedback_single.feedback,
-                                                      'auto_ml_semantic',
-                                                      self.ml_feedback_single.optimal)
-   
-        self.assertEqual(json_body, expected_payload)
+        expected = construct_feedback_payload(self.fb_single.feedback,
+                                              'auto_ml_semantic',
+                                              self.fb_single.optimal)
+
+        self.assertEqual(json_body, expected)
 
     def test_get_single_label_ml_feedback_404(self):
         request_body = {
@@ -63,7 +64,7 @@ class TestMLFeedbackView(TestCase):
                                     content_type='application/json')
 
         with self.assertRaises(Http404):
-            response = SingleLabelMLFeedbackView.as_view()(request)
+            SingleLabelMLFeedbackView.as_view()(request)
 
     def test_get_multi_label_ml_feedback(self):
         request = self.factory.post(reverse('get_multi_label_ml_feedback'),
@@ -73,12 +74,12 @@ class TestMLFeedbackView(TestCase):
         response = MultiLabelMLFeedbackView().post(request)
         json_body = json.loads(response.content)
 
-        expected_payload = construct_feedback_payload(self.ml_feedback_multi.feedback,
-                                                      'auto_ml_semantic',
-                                                      self.ml_feedback_multi.optimal)
+        expected = construct_feedback_payload(self.fb_multi.feedback,
+                                              'auto_ml_semantic',
+                                              self.fb_multi.optimal)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(json_body, expected_payload)
+        self.assertEqual(json_body, expected)
 
     def test_get_multi_label_ml_feedback_404(self):
         request_body = {
@@ -90,4 +91,4 @@ class TestMLFeedbackView(TestCase):
                                     content_type='application/json')
 
         with self.assertRaises(Http404):
-            response = MultiLabelMLFeedbackView.as_view()(request)
+            MultiLabelMLFeedbackView.as_view()(request)

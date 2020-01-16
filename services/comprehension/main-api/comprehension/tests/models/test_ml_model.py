@@ -24,16 +24,16 @@ class TestAutoMLModelRelevancyFilter(TestAutoMLModel):
             generate_auto_ml_label_response_mock(score=0.8),
             generate_auto_ml_label_response_mock(score=0.99),
         ]
-        
+
     def test_filter_for_relevant_labels(self):
-        filtered = self.ml_model._filter_for_relevant_labels(self.auto_ml_labels)
-        scores = list(map(lambda x: x.classification.score, filtered))
+        labels = self.ml_model._filter_for_relevant_labels(self.auto_ml_labels)
+        scores = list(map(lambda x: x.classification.score, labels))
         self.assertEqual(scores, [0.6, 0.8, 0.99])
 
     def test_custom_threshold(self):
-        filtered = self.ml_model._filter_for_relevant_labels(self.auto_ml_labels,
-                                                             threshold=0.9)
-        scores = list(map(lambda x: x.classification.score, filtered))
+        labels = self.ml_model._filter_for_relevant_labels(self.auto_ml_labels,
+                                                           threshold=0.9)
+        scores = list(map(lambda x: x.classification.score, labels))
         self.assertEqual(scores, [0.99])
 
 
@@ -48,24 +48,24 @@ class TestAutoMLModelLabeling(TestAutoMLModel):
 
     @patch.object(MLModel, '_request_google_auto_ml_label')
     def test_request_single_label(self, request_mock):
-         entry = 'foo'
-         self.ml_model.request_single_label(entry)
-         self.assertTrue(request_mock.called_with(entry))
+        entry = 'foo'
+        self.ml_model.request_single_label(entry)
+        self.assertTrue(request_mock.called_with(entry))
 
     @patch.object(MLModel, '_request_google_auto_ml_response')
     def test_request_google_auto_ml_label(self, google_request_mock):
         google_request_mock.return_value = self.auto_ml_labels
         label = self.ml_model._request_google_auto_ml_label(None)
-        self.assertEqual(label, 'Highest')
+        self.assertEqual(label, ['Highest'])
 
     @patch.object(MLModel, '_request_google_auto_ml_labels')
     def test_request_labels(self, request_mock):
-         entry = 'foo'
-         self.ml_model.request_labels(entry)
-         self.assertTrue(request_mock.called_with(entry))
-        
+        entry = 'foo'
+        self.ml_model.request_labels(entry)
+        self.assertTrue(request_mock.called_with(entry))
+
     @patch.object(MLModel, '_request_google_auto_ml_response')
-    def test_request_google_auto_ml_label(self, google_request_mock):
+    def test_request_google_auto_ml_labels(self, google_request_mock):
         google_request_mock.return_value = self.auto_ml_labels
         label = self.ml_model._request_google_auto_ml_labels(None)
         self.assertEqual(label, ['Middle', 'Highest'])
@@ -87,7 +87,6 @@ class TestAutoMLModelLabeling(TestAutoMLModel):
             'content': sample_entry,
             'mime_type': 'text/plain',
         }}
-
 
         self.ml_model._request_google_auto_ml_response(sample_entry)
         self.assertTrue(client_mock.called)

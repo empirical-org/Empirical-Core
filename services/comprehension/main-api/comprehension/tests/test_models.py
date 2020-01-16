@@ -8,6 +8,7 @@ from .factories.passage import PassageFactory
 from .factories.prompt import PromptFactory
 from ..models.passage import Passage
 
+
 class ActivityModelTest(TestCase):
     def setUp(self):
         self.activity = ActivityFactory()
