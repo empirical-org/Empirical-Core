@@ -535,7 +535,10 @@ r.connect(rethinkdbConfig, (err, connection) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Node server started and listening at ${port}`);
+app.on('error', err => {
+  newrelic.noticeError(err);
+  Sentry.captureException(err);
 });
+
+app.listen(port, () => {});
 
