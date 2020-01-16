@@ -52,6 +52,19 @@ class TestMLFeedbackView(TestCase):
    
         self.assertEqual(json_body, expected_payload)
 
+    def test_get_single_label_ml_feedback_404(self):
+        request_body = {
+            'prompt_id': '10000000',
+            'entry': 'Prompt does not exist',
+        }
+        request = self.factory.post(reverse('get_single_label_ml_feedback'),
+                                    data=json.dumps(request_body),
+                                    content_type='application/json')
+
+        response = get_single_label_ml_feedback(request)
+
+        self.assertEqual(response.status_code, 404)
+
     def test_get_multi_label_ml_feedback(self):
         request = self.factory.post(reverse('get_multi_label_ml_feedback'),
                                     data=json.dumps(self.request_body),
@@ -66,3 +79,16 @@ class TestMLFeedbackView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_body, expected_payload)
+
+    def test_get_multi_label_ml_feedback_404(self):
+        request_body = {
+            'prompt_id': '10000000',
+            'entry': 'Prompt does not exist',
+        }
+        request = self.factory.post(reverse('get_multi_label_ml_feedback'),
+                                    data=json.dumps(request_body),
+                                    content_type='application/json')
+
+        response = get_multi_label_ml_feedback(request)
+
+        self.assertEqual(response.status_code, 404)
