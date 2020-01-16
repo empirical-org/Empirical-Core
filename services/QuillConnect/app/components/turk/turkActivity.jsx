@@ -5,7 +5,8 @@ import {
   hashToCollection,
   Spinner,
   CarouselAnimation,
-  PlayTitleCard
+  PlayTitleCard,
+  DiagnosticProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
@@ -14,6 +15,11 @@ import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import PlayTurkQuestion from './question.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
 
 export class TurkActivity extends React.Component {
   constructor(props) {
@@ -93,12 +99,17 @@ export class TurkActivity extends React.Component {
     dispatch(action);
   }
 
-  getProgressPercent = () => {
+  renderProgressBar = () => {
     const { playTurk, } = this.props
-    if (!(playTurk && playTurk.answeredQuestions && playTurk.questionSet)) { return }
+    if (!playTurk.currentQuestion || playTurk.currentQuestion.type === 'TL') { return }
 
-    return playTurk.answeredQuestions.length / playTurk.questionSet.length * 100;
+    return (<DiagnosticProgressBar
+      answeredQuestionCount={answeredQuestionCount(playTurk)}
+      percent={getProgressPercent(playTurk)}
+      questionCount={questionCount(playTurk)}
+    />)
   }
+
 
   render() {
     const { saved, } = this.state
@@ -160,8 +171,8 @@ export class TurkActivity extends React.Component {
 
     return (
       <div>
-        <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
         <section className="section is-fullheight minus-nav student">
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
