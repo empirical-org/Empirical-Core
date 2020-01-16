@@ -5,9 +5,8 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  // ProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { ProgressBar } from '../shared/ProgressBar'
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
