@@ -13,14 +13,16 @@ module EmailApiHelper
 
   def parse_comment_response(response)
     results = []
-    response['responses'] && response['responses'].each do |resp|
-      # only collect feedback responses if there was a comment left
-      if resp['feedback']
-        result = {}
-        result['rating'] = resp['rating']
-        result['feedback'] = resp['feedback']
-        results << result
-      end     
+    if response['responses']     
+      response['responses'].each do |resp|
+        # only collect feedback responses if there was a comment left
+        if resp['feedback']
+          result = {}
+          result['rating'] = resp['rating']
+          result['feedback'] = resp['feedback']
+          results << result
+        end     
+      end
     end
     results
   end
