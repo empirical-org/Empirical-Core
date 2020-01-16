@@ -29,11 +29,11 @@ describe PagesController do
   # end
 
   describe '#home_new' do
-    it 'should stick to the leader db' do
-      expect(controller).to receive(:stick_to_leader_db).and_call_original
-      expect(ActiveRecord::Base.connection).to receive(:stick_to_master!).at_least(:once)
-      get :home_new
-    end
+    #it 'should stick to the leader db' do
+    #  expect(controller).to receive(:stick_to_leader_db).and_call_original
+    #  expect(ActiveRecord::Base.connection).to receive(:stick_to_master!).at_least(:once)
+    #  get :home_new
+    #end
 
     context 'when user is signed in' do
       before do
