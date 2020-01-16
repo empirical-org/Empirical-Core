@@ -16,10 +16,6 @@ const (
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 )
 
-func main() {
-
-}
-
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	requestDump, err := httputil.DumpRequest(request, true)
@@ -120,6 +116,8 @@ type Highlight struct {
 	Type string `json:"type"`
 	Id int `json:"id,omitempty"`
 	Text string `json:"text"`
+	Category string `json:"category"`
+	Character int `json:"character,omitempty"`
 }
 
 type InternalAPIResponse struct {
