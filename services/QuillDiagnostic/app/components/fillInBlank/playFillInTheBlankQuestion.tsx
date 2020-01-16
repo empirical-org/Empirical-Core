@@ -5,7 +5,6 @@ import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import {
   hashToCollection,
-  WarningDialogue,
   Prompt,
   Feedback
  } from 'quill-component-library/dist/componentLibrary';
@@ -25,18 +24,6 @@ const styles = {
     alignItems: 'center',
     flexWrap: 'wrap',
     fontSize: 24,
-  },
-  input: {
-    color: '#3D3D3D',
-    fontSize: 24,
-    marginRight: 10,
-    width: 75,
-    textAlign: 'center',
-    boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderImageSource: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0))',
-    borderImageSlice: 1,
   },
   text: {
     marginRight: 5,
@@ -164,84 +151,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  renderWarning(i) {
-    const warningStyle:any = {
-      border: '1px #ff3730 solid',
-      color: '#ff3730',
-      fontSize: '14px',
-      top: '-34px',
-      position: 'absolute',
-      textAlign: 'center',
-      backgroundColor: 'white',
-      borderRadius: '3px',
-      height: '26px',
-      zIndex: '100',
-      padding: '2px 7px',
-    };
-    const body:ClientRect|null = document.getElementsByTagName('body')[0].getBoundingClientRect();
-    const inputFromDom:HTMLElement|null = document.getElementById(`input${i}`)
-    const rectangle:ClientRect|null =  inputFromDom ? inputFromDom.getBoundingClientRect() : null;
-    let chevyStyle:any = this.chevyStyleLeft();
-    if (rectangle && body && rectangle.left > (body.width / 2)) {
-      warningStyle.right = '-73px';
-      chevyStyle = this.chevyStyleRight();
-    }
-    return (
-      <WarningDialogue
-        chevyStyle={chevyStyle}
-        key={`warning${i}`}
-        style={warningStyle}
-        text={this.warningText()}
-      />
-    );
-  }
-
-  warningText = () => {
-    const { blankAllowed, } = this.state
-    const text = 'Use one of the options below';
-    return `${text}${blankAllowed ? ' or leave blank.' : '.'}`;
-  }
-
-  chevyStyleRight() {
-    return {
-      float: 'right',
-      marginRight: '20px',
-      position: 'relative',
-      top: '-3px',
-    };
-  }
-
-  chevyStyleLeft():object {
-    return {
-      float: 'left',
-      marginLeft: '20px',
-      position: 'relative',
-      top: '-3px',
-    };
-  }
-
   renderInput = (i) => {
     const { inputErrors, cues, inputVals, } = this.state
-
-    let styling:any = styles.input;
-    let warning;
+    let className = 'fill-in-blank-input'
     if (inputErrors.has(i)) {
-      warning = this.renderWarning(i);
-      styling = Object.assign({}, styling);
-      styling.borderColor = '#ff7370';
-      styling.borderWidth = '2px';
-      delete styling.borderImageSource;
+      className += ' error'
     }
     const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    styling.width = `${width}px`
+    const styling = { width: `${width}px`}
     return (
       <span key={`span${i}`}>
-        <div style={{ position: 'relative', height: 0, width: 0, }}>
-          {warning}
-        </div>
         <input
-          autoComplete="off"
+          className={className}
           id={`input${i}`}
           key={i + 100}
           onBlur={this.getBlurHandler(i)}
@@ -355,6 +277,23 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return text;
   }
 
+  renderFeedback = () => {
+    const { question, } = this.props
+    const { inputErrors, } = this.state
+
+    if (inputErrors && inputErrors.size) {
+      const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
+      const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
+      const feedback = <p>{feedbackText}</p>
+      return (<Feedback
+        feedback={feedback}
+        feedbackType="revise-unmatched"
+      />)
+    }
+
+    return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
+  }
+
   render() {
     const { language, question, } = this.props
     const { responses, } = this.state
@@ -377,7 +316,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
                 displayArrowAndText={true}
                 getQuestion={this.getQuestion}
               />
-              <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
+              {this.renderFeedback()}
             </div>
           </div>
           {this.renderMedia()}

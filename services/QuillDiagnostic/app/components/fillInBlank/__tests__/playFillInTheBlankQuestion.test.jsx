@@ -112,7 +112,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
       });
     });
 
-    describe('warning dialogues', () => {
+    describe('errored input fields', () => {
       const inputErrors = new Set();
       it('renders if there are input errors in state', () => {
         const wrapper = mount(
@@ -120,7 +120,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
         );
         inputErrors.add(1);
         wrapper.setState({ inputErrors, });
-        expect(wrapper.find('.warning-dialogue')).toHaveLength(1);
+        expect(wrapper.find('.error')).toHaveLength(1);
       });
       it('does not renders if there are not input errors in state', () => {
         const wrapper = mount(
@@ -128,7 +128,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
         );
         inputErrors.delete(1);
         wrapper.setState({ inputErrors, });
-        expect(wrapper.find('.warning-dialogue')).toHaveLength(0);
+        expect(wrapper.find('.error')).toHaveLength(0);
       });
     });
   });
