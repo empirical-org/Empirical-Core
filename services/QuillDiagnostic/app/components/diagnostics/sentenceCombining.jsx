@@ -134,19 +134,19 @@ class PlayDiagnosticQuestion extends React.Component {
       const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
       this.updateResponseResource(submittedResponse);
       this.setResponse(submittedResponse);
-      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint') {
+      // if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',
         });
-      } else {
-        this.submitResponse(submittedResponse);
-        this.setState({
-          editing: false,
-          response: '',
-          error: undefined,
-        }, this.handleNextClick);
-      }
+      // } else {
+      //   this.submitResponse(submittedResponse);
+      //   this.setState({
+      //     editing: false,
+      //     response: '',
+      //     error: undefined,
+      //   }, this.handleNextClick);
+      // }
     }
   }
 
@@ -194,6 +194,18 @@ class PlayDiagnosticQuestion extends React.Component {
     return (<button className="button is-outlined is-warning" onClick={this.handleNextClick} type="button">Next</button>);
   }
 
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedbackType="revise-unmatched"
+        feedback={<p>{error}</p>}
+      />
+    </div>)
+  }
+
   render = () => {
     const { question, } = this.props
     const { responses, error, response, } = this.state
@@ -224,11 +236,9 @@ class PlayDiagnosticQuestion extends React.Component {
               placeholder="Type your answer here."
               value={response}
             />
-            <div className="button-and-error-row">
-              <Error error={error} />
-              <div className="question-button-group button-group">
-                {button}
-              </div>
+            {this.renderError()}
+            <div className="question-button-group button-group">
+              {button}
             </div>
           </ReactTransition>
         </div>

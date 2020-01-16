@@ -11,7 +11,7 @@ import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Error, Response } from 'quill-component-library/dist/componentLibrary';
+import { Response } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
@@ -201,6 +201,18 @@ class PlayDiagnosticQuestion extends React.Component {
     return (<button className="button is-outlined is-warning" onClick={this.handleNextClick} type="button">Next</button>);
   }
 
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedbackType="revise-unmatched"
+        feedback={<p>{error}</p>}
+      />
+    </div>)
+  }
+
   render() {
     const { question, } = this.props
     const { responses, error, response } = this.state
@@ -231,11 +243,9 @@ class PlayDiagnosticQuestion extends React.Component {
               placeholder="Type your answer here."
               value={response}
             />
-            <div className="button-and-error-row">
-              <Error error={error} />
-              <div className="question-button-group button-group">
-                {button}
-              </div>
+            {this.renderError()}
+            <div className="question-button-group button-group">
+              {button}
             </div>
           </ReactTransition>
         </div>
