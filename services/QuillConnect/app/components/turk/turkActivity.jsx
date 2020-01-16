@@ -6,7 +6,7 @@ import {
   Spinner,
   CarouselAnimation,
   PlayTitleCard,
-  DiagnosticProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
@@ -103,7 +103,7 @@ export class TurkActivity extends React.Component {
     const { playTurk, } = this.props
     if (!playTurk.currentQuestion || playTurk.currentQuestion.type === 'TL') { return }
 
-    return (<DiagnosticProgressBar
+    return (<ProgressBar
       answeredQuestionCount={answeredQuestionCount(playTurk)}
       percent={getProgressPercent(playTurk)}
       questionCount={questionCount(playTurk)}

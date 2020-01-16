@@ -8,9 +8,9 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  // DiagnosticProgressBar
+  // ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { DiagnosticProgressBar } from '../shared/diagnosticProgressBar'
+import { ProgressBar } from '../shared/ProgressBar'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
@@ -239,7 +239,7 @@ class TurkDiagnostic extends React.Component {
     const { playDiagnostic, } = this.props
     if (!playDiagnostic.currentQuestion || playDiagnostic.currentQuestion.type === 'TL') { return }
 
-    return (<DiagnosticProgressBar
+    return (<ProgressBar
       answeredQuestionCount={answeredQuestionCount(playDiagnostic)}
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}

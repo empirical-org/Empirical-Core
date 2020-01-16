@@ -4,9 +4,9 @@ import {
   CarouselAnimation,
   hashToCollection,
   SmartSpinner,
-  // DiagnosticProgressBar
+  // ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { DiagnosticProgressBar } from '../shared/diagnosticProgressBar'
+import { ProgressBar } from '../shared/ProgressBar'
 
 import {
   clearData,
@@ -327,7 +327,7 @@ class ELLStudentDiagnostic extends React.Component {
     const { playDiagnostic, } = this.props
     if (!playDiagnostic.currentQuestion || playDiagnostic.currentQuestion.type === 'TL') { return }
 
-    return (<DiagnosticProgressBar
+    return (<ProgressBar
       answeredQuestionCount={answeredQuestionCount(playDiagnostic)}
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}

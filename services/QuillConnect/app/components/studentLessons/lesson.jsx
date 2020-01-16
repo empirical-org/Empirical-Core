@@ -7,7 +7,7 @@ import {
   PlayTitleCard,
   Register,
   Spinner,
-  DiagnosticProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
@@ -244,7 +244,7 @@ class Lesson extends React.Component {
     const { playLesson, } = this.props
     if (!playLesson.currentQuestion || playLesson.currentQuestion.type === 'TL') { return }
 
-    return (<DiagnosticProgressBar
+    return (<ProgressBar
       answeredQuestionCount={answeredQuestionCount(playLesson)}
       percent={getProgressPercent(playLesson)}
       questionCount={questionCount(playLesson)}

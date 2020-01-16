@@ -228,26 +228,6 @@
   }
 }
 
-.progress.diagnostic-progress {
-  margin-bottom: 0px;
-  border-radius: 0;
-  height: 13px;
-  color: #eee;
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.28);
-}
-
-progress[value]::-webkit-progress-bar {
-  background-color: $white;
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.28);
-  // border-radius: 2px;
-  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-}
-
-progress[value]::-webkit-progress-value {
-  background-color: #027360;
-  color: #027360;
-}
-
 .landing-page {
   padding-top: 20px;
   h1, h3 {

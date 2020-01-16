@@ -5,9 +5,9 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  // DiagnosticProgressBar
+  // ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { DiagnosticProgressBar } from '../shared/diagnosticProgressBar'
+import { ProgressBar } from '../shared/ProgressBar'
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
 import SessionActions from '../../actions/sessions.js';
@@ -284,7 +284,7 @@ class StudentDiagnostic extends React.Component {
     const { playDiagnostic, } = this.props
     if (!playDiagnostic.currentQuestion || playDiagnostic.currentQuestion.type === 'TL') { return }
 
-    return (<DiagnosticProgressBar
+    return (<ProgressBar
       answeredQuestionCount={answeredQuestionCount(playDiagnostic)}
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}
