@@ -4,9 +4,8 @@ import {
   CarouselAnimation,
   hashToCollection,
   SmartSpinner,
-  // ProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { ProgressBar } from '../shared/ProgressBar'
 
 import {
   clearData,

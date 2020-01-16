@@ -8,9 +8,8 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  // ProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { ProgressBar } from '../shared/ProgressBar'
 import diagnosticQuestions from './diagnosticQuestions.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
