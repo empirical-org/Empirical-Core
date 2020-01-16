@@ -334,10 +334,17 @@ class ELLStudentDiagnostic extends React.Component {
 
   renderProgressBar = () => {
     const { playDiagnostic, } = this.props
-    if (!playDiagnostic.currentQuestion || playDiagnostic.currentQuestion.type === 'TL') { return }
+    if (!playDiagnostic.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
+
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
     return (<ProgressBar
-      answeredQuestionCount={answeredQuestionCount(playDiagnostic)}
+      answeredQuestionCount={displayedAnsweredQuestionCount}
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}
     />)
@@ -379,7 +386,7 @@ class ELLStudentDiagnostic extends React.Component {
       />);
     }
     return (
-      <div>
+      <div className="ell-diagnostic-container">
         <section className={`section is-fullheight student ${minusHowMuch}`}>
           {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
