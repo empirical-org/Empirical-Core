@@ -25,6 +25,7 @@ echo "test" > $(uuidgen).uuid
 echo "RUNNING NPM BUILD"
 timeout 240 bin/dev/bootstrap.sh
 npm install
+npm rebuild node-sass
 rm app/assets/webpack/* || true && cd client && nohup npm run build:dev:client && nohup npm run build:dev:server > npm_build_log.out 2>&1 &
 sleep 30
 mkdir -p public/javascripts/
