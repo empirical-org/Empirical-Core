@@ -8,7 +8,7 @@ class Prompt(TimestampedModel):
     max_attempts = models.PositiveIntegerField(default=5)
     max_attempts_feedback = models.TextField(null=False)
 
-    def process_regex_rules(entry, pass_number):
+    def process_regex_rules(entry, pass_order):
         response_data = {
             'feedback_type': 'rules-based',
             'response_uid': 'q23123@3sdfASDF',
@@ -18,7 +18,7 @@ class Prompt(TimestampedModel):
         }
 
         regex_rule_sets = prompt.rule_sets.get(
-                    pass_order=RuleSet.PASS_ORDER.FIRST)
+                    pass_order=pass_order)
                     .order_by('priority')
 
         for regex_rule_set in regex_rule_sets:
