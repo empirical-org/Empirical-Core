@@ -29,75 +29,26 @@ follower_db_env: &follower_db_env
 
 development: &development
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_development_db
-    disable_blacklist: true
-    sticky: true
-    master_ttl: 60
-    connections:
-      - role: master
-        name: leader
-        <<: *development_env
-      - role: slave
-        name: replica
-        <<: *development_env
+  adapter: postgresql
+  <<: *leader_db_env
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_development_db
-    disable_blacklist: true
-    sticky: true
-    master_ttl: 60
-    connections:
-      - role: master
-        name: leader
-        <<: *test_env
-      - role: slave
-        name: replica
-        <<: *test_env
+  adapter: postgresql
+  <<: *test_env
 
 staging: &staging
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_staging_db
-    disable_blacklist: true
-    sticky: true
-    master_ttl: 60
-    connections:
-      - role: master
-        name: leader
-        <<: *leader_db_env
-      - role: slave
-        name: replica
-        <<: *follower_db_env
+  adapter: postgresql
+  <<: *leader_db_env
 
 sprint:
   <<: *staging
 
 production:
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_production_db
-    disable_blacklist: true
-    sticky: true
-    master_ttl: 60
-    connections:
-      - role: master
-        name: leader
-        <<: *leader_db_env
-      - role: slave
-        name: dummy_replica
-        weight: <%= 100 - ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *leader_db_env
-      - role: slave
-        name: replica
-        weight: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *follower_db_env
+  adapter: postgresql
+  <<: *leader_db_env
