@@ -1,11 +1,12 @@
 import json
 
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, HttpResponseNotFound, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-from .models.activity import Activity
-from .models.ml_feedback import MLFeedback
-from .models.prompt import Prompt
-from .utils import construct_feedback_payload
+from ..models.activity import Activity
+from ..models.ml_feedback import MLFeedback
+from ..models.prompt import Prompt
+from ..utils import construct_feedback_payload
 
 
 def index(request):
@@ -38,12 +39,16 @@ def show_activity(request, id):
     return JsonResponse(data)
 
 
+@csrf_exempt
 def get_multi_label_ml_feedback(request):
     submission = json.loads(request.body)
     prompt_id = submission['prompt_id']
     entry = submission['entry']
 
-    prompt = Prompt.objects.get(pk=prompt_id)
+    try:
+        prompt = Prompt.objects.get(pk=prompt_id)
+    except Prompt.DoesNotExist:
+        return HttpResponseNotFound('Specified prompt not found')
     feedback = prompt.fetch_auto_ml_feedback(entry)
 
     return JsonResponse(construct_feedback_payload(feedback.feedback,
@@ -51,12 +56,16 @@ def get_multi_label_ml_feedback(request):
                                                    feedback.optimal))
 
 
+@csrf_exempt
 def get_single_label_ml_feedback(request):
     submission = json.loads(request.body)
     prompt_id = submission['prompt_id']
     entry = submission['entry']
 
-    prompt = Prompt.objects.get(pk=prompt_id)
+    try:
+        prompt = Prompt.objects.get(pk=prompt_id)
+    except Prompt.DoesNotExist:
+        return HttpResponseNotFound('Specified prompt not found')
     feedback = prompt.fetch_auto_ml_feedback(entry, multi_label=False)
 
     return JsonResponse(construct_feedback_payload(feedback.feedback,
