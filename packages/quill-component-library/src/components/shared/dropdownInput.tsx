@@ -113,9 +113,11 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleOptionSelection = (e) => {
-    const { handleChange, value, options, } = this.props
-    this.deactivateInput()
+    const { handleChange, value, options, isMulti, } = this.props
     const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
+    
+    if (!isMulti) { this.deactivateInput() }
+
     if (allWasClicked) {
       if (value && value.length) {
         // if there are any selected, they should all get unselected
@@ -208,11 +210,11 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         <div
           className={sharedClasses}
           onClick={this.handleInputActivation}
+          ref={node => this.node = node}
         >
           <label>{label}</label>
           <Select
             {...sharedProps}
-            closeMenuOnSelect={false}
             components={{ SingleValue: HTMLDropdownSingleValue, Option: HTMLDropdownOption }}
             hideSelectedOptions={false}
             menuIsOpen={inactive ? false : menuIsOpen}
