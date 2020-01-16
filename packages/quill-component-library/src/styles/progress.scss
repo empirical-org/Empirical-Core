@@ -1,4 +1,7 @@
 .progress-bar-container {
+  max-width: 950px;
+  margin: auto;
+
   progress[value]::-webkit-progress-bar {
     background-color: rgba(6, 128, 107, 0.24);
   }
