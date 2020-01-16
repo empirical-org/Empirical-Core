@@ -1,10 +1,8 @@
 import React from 'react'
-const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg'
 
-const ResumeOrBeginButton = props => (
-  <button className="button student-begin" onClick={props.onClickFn}>
-    {props.text}
-    <img className="begin-arrow" src={beginArrow} />
+const ResumeOrBeginButton = ({ onClickFn, text, }) => (
+  <button className="quill-button primary contained large" onClick={onClickFn} type="button">
+    {text}
   </button>)
 
 export { ResumeOrBeginButton }
