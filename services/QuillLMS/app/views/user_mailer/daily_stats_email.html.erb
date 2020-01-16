@@ -3,9 +3,9 @@
   <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%= stylesheet_link_tag 'sign_up_email' %>
+        <%= stylesheet_link_tag 'stats_email' %>
   </head>
-    <body>
+    <body class="email-body">
       <div class='header'>
         <div class='main-width'>
           <img src='https://ci5.googleusercontent.com/proxy/a4zYv3v3GQLqWWSoJdISs5xG3WfVtDrsdOjmF7FYlzR1Uxl3DLKYJDguWOe0-RwKbs1b2kdz8Rp2SQYyEmnTmY4MooTpM_eJ-6guOtGlFt6NlXe0Bnq9dns-h7K-LPOzHXinrPHox5o0YA7AIdoHL5OUk40cBgojm4HuN-U=s0-d-e1-ft#https://gallery.mailchimp.com/6efffadd89fc71ad0ca41dc4d/images/ad694fbe-b270-4348-b9c1-3f43f848e6b1.png'/>
@@ -41,18 +41,59 @@
                 <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@activities_assigned) %></h1></td>
             </tr>
             <tr>
-                <td class="left-cell medium-text">✏️ Sentences Written*</td>
+                <td class="left-cell medium-text">
+                  <div class="vertical-align">
+                    <p>✏️ Sentences Written</p>
+                    <p class="small-text">*activities completed multiplied by 10 (average number of sentences per activity)</p>
+                  </div>
+                </td>
                 <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@sentences_written) %></h1></td>
             </tr>
             <tr>
                 <td class="left-cell medium-text">📝 Diagnostics Completed</td>
                 <td class="right-cell medium-text" align="center"><h1><%= number_with_delimiter(@diagnostics_completed) %></h1></td>
             </tr>
+            <tr>
+                <td class="left-cell medium-text">📐 Teacher Conversion Rate</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @teacher_conversion_rate %>%</h1></td>
+            </tr>
+            <tr>
+                <td class="left-cell medium-text">💬 Support Tickets Resolved</td>
+                <td class="right-cell medium-text" align="center"><h1><%= @support_tickets_resolved %></h1></td>
+            </tr>
+            <tr>
+              <td class="vertical-align" colspan="2">
+                <p class="medium-text">Satismeter Summary</p>
+                <p class="small-text">The Net Promoter score is calculated as the difference between the percentage of Promoters (users who give Quill a score of 9 or 10, and would recommend it) and Detractors (users who give a score of 6 or less; those who would not recommend it). Passives are defined as users who give a score of 7 or 8. This score is an absolute number lying between -100 and 100.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="left-cell medium-text">🗣️ Net Promoter Score</td>
+              <td class="right-cell medium-text" align="center"><h1><%= @satismeter_nps_data['nps'] %></h1></td>
+            </tr>
+            <tr>
+              <td class="left-cell medium-text">👍 Promoters</td>
+              <td class="right-cell medium-text green" align="center"><h1><%= @satismeter_nps_data['respondents'][0] %></h1></td>
+            </tr>
+            <tr>
+              <td class="left-cell medium-text">👌 Passives</td>
+              <td class="right-cell medium-text yellow" align="center"><h1><%= @satismeter_nps_data['respondents'][1] %></h1></td>
+            </tr>
+            <tr>
+              <td class="left-cell medium-text">👎 Detractors</td>
+              <td class="right-cell medium-text red" align="center"><h1><%= @satismeter_nps_data['respondents'][2] %></h1></td>
+            </tr>
+            <% if @satismeter_comment_data.length > 0 %>
+            <tr><td class="medium-text sub-header">Satismeter Teacher Comments</td></tr>
+                <% @satismeter_comment_data.each do |comment| %>
+                  <tr>
+                    <td class="comment-cell medium-text">"<%= comment['feedback'] %>"</td>
+                    <td id="rating-<%= comment['rating'] %>" class="right-cell medium-text" align="center"><h1><%= comment['rating'] %></h1></td>
+                  </tr>
+                <% end %> 
+            <% end %>
+            <tr><td class="medium-text sub-header">Keep up the great work!</td></tr>
         </tbody>
       </table>
-      <p class="small-text">*activities completed multiplied by 10 (average number of sentences per activity).</p>
-      <div class='content-section'>
-        <p class="medium-text">Keep up the great work!</p>
-      </div>
   </body>
 </html>
