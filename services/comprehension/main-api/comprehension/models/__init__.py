@@ -26,4 +26,5 @@ class DjangoChoices():
 
 
 from .activity import *
-from .regex_rule_set import *
+from .rule_set import *
+from .rule import *
