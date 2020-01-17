@@ -6,10 +6,8 @@ import {
   hashToCollection,
   SentenceFragments,
   ConceptExplanation,
-  // MultipleChoice
+  MultipleChoice
 } from 'quill-component-library/dist/componentLibrary';
-
-import { MultipleChoice } from '../../../../../packages/quill-component-library/src/components/studentLessons/multipleChoice'
 
 import { submitResponse } from '../../actions.js';
 import Question from '../../libs/question';
