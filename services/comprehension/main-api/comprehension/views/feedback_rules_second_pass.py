@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 from . import ApiView
 from ..models.prompt import Prompt
-from ..utils import construct_feedback_payload
+from ..models.rule_set import RuleSet
 
 
 class RulesBasedFeedbackSecondPassView(ApiView):
@@ -15,6 +15,7 @@ class RulesBasedFeedbackSecondPassView(ApiView):
         entry = submission['entry']
 
         prompt = get_object_or_404(Prompt, pk=prompt_id)
-        feedback = prompt.fetch_rules_based_feedback(entry, RuleSet.PASS_ORDER.SECOND)
+        feedback = prompt.fetch_rules_based_feedback(entry,
+                                                     RuleSet.PASS_ORDER.SECOND)
 
         return JsonResponse(feedback)

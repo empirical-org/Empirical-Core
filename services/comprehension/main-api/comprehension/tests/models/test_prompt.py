@@ -6,7 +6,6 @@ from django.test import TestCase
 from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.ml_model import MLModelFactory
 from ..factories.prompt import PromptFactory
-from ..factories.rule_set import RuleSetFactory
 from ..factories.rule import RuleFactory
 from ...models.ml_model import MLModel
 from ...models.prompt import Prompt
@@ -76,17 +75,19 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback, response)
 
+
 class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
     def test_first_pass(self):
         prompt = RuleFactory().rule_set.prompt
-        feedback = prompt.fetch_rules_based_feedback('incorrect test correct', RuleSet.PASS_ORDER.FIRST)
+        feedback = prompt.fetch_rules_based_feedback('incorrect test correct',
+                                                     RuleSet.PASS_ORDER.FIRST)
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
     def test_second_pass(self):
-        prompt = RuleFactory(rule_set__pass_order=RuleSet.PASS_ORDER.SECOND).rule_set.prompt
-        feedback = prompt.fetch_rules_based_feedback('incorrect test correct', RuleSet.PASS_ORDER.SECOND)
+        prompt = RuleFactory(rule_set__pass_order=RuleSet.PASS_ORDER.SECOND) \
+                             .rule_set.prompt
+        feedback = prompt.fetch_rules_based_feedback('incorrect test correct',
+                                                     RuleSet.PASS_ORDER.SECOND)
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
-
-
