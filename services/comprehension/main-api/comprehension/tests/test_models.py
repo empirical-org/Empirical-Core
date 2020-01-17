@@ -1,17 +1,20 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from ..models.activity import Activity
-from ..models.activity import ActivityPassage
-from ..models.activity import ActivityPrompt
+from .factories.activity import ActivityFactory
+from .factories.activity_passage import ActivityPassageFactory
+from .factories.activity_prompt import ActivityPromptFactory
+from .factories.passage import PassageFactory
+from .factories.prompt import PromptFactory
+from .factories.rule_set import RuleSetFactory
+from .factories.rule import RuleFactory
 from ..models.passage import Passage
-from ..models.prompt import Prompt
+from ..models.rule_set import RuleSet
 
 
 class ActivityModelTest(TestCase):
     def setUp(self):
-        self.activity = Activity.objects.create(title='Test Activity',
-                                                flag=Activity.FLAGS.DRAFT)
+        self.activity = ActivityFactory()
 
     def test_title_not_nullable(self):
         self.activity.title = None
@@ -24,29 +27,27 @@ class ActivityModelTest(TestCase):
             self.activity.save()
 
     def test_get_passages_order(self):
-        self.passage1 = Passage.objects.create(text='passage1')
-        self.passage2 = Passage.objects.create(text='passage2')
-        ActivityPassage.objects.create(activity=self.activity,
-                                       passage=self.passage2,
-                                       order=1)
-        ActivityPassage.objects.create(activity=self.activity,
-                                       passage=self.passage1,
-                                       order=2)
+        self.passage1 = PassageFactory(text='passage1')
+        self.passage2 = PassageFactory(text='passage2')
+        ActivityPassageFactory(activity=self.activity,
+                               passage=self.passage2,
+                               order=1)
+        ActivityPassageFactory(activity=self.activity,
+                               passage=self.passage1,
+                               order=2)
 
         self.assertEqual(self.activity.get_passages(),
                          [self.passage2, self.passage1])
 
     def test_get_prompts_order(self):
-        self.prompt1 = Prompt.objects.create(text='prompt1',
-                                             max_attempts_feedback='foo')
-        self.prompt2 = Prompt.objects.create(text='prompt2',
-                                             max_attempts_feedback='foo')
-        ActivityPrompt.objects.create(activity=self.activity,
-                                      prompt=self.prompt2,
-                                      order=1)
-        ActivityPrompt.objects.create(activity=self.activity,
-                                      prompt=self.prompt1,
-                                      order=2)
+        self.prompt1 = PromptFactory(text='prompt1')
+        self.prompt2 = PromptFactory(text='prompt2')
+        ActivityPromptFactory(activity=self.activity,
+                              prompt=self.prompt2,
+                              order=1)
+        ActivityPromptFactory(activity=self.activity,
+                              prompt=self.prompt1,
+                              order=2)
 
         self.assertEqual(self.activity.get_prompts(),
                          [self.prompt2, self.prompt1])
@@ -55,50 +56,55 @@ class ActivityModelTest(TestCase):
 class PassageModelTest(TestCase):
     def test_text_not_null(self):
         with self.assertRaises(ValidationError):
-            Passage.objects.create()
+            Passage.objects.create(text=None)
 
 
-class PromptModelTest(TestCase):
-    def test_text_not_null(self):
-        with self.assertRaises(ValidationError):
-            Prompt.objects.create(max_attempts_feedback='foo')
-
-    def test_default_max_attempts(self):
-        prompt = Prompt.objects.create(text='foo', max_attempts_feedback='bar')
-        self.assertEqual(prompt.max_attempts, 5)
-
-    def test_max_attempts_feedback_not_null(self):
-        with self.assertRaises(ValidationError):
-            Prompt.objects.create(text='foo')
-
-class RegexRuleTest(TestCase):
+class RuleSetModelTest(TestCase):
     def setUp(self):
-        self.regex_rule_set = RegexRuleSet.objects.create(prompt_id=0,
-                                name='Test Rule Set',
-                                feedback='Test feedback',
-                                priority=1,
-                                pass_order=Activity.FLAGS.FIRST)
+        self.rule_set = RuleSetFactory()
 
     def test_name_not_nullable(self):
-        self.regex_rule_set.title = None
+        self.rule_set.name = None
         with self.assertRaises(ValidationError):
-            self.regex_rule_set.save()
+            self.rule_set.save()
 
     def test_feedback_not_nullable(self):
-        self.regex_rule_set.feedback = None
+        self.rule_set.feedback = None
         with self.assertRaises(ValidationError):
-            self.regex_rule_set.save()
+            self.rule_set.save()
 
     def test_priority_unique_on_prompt_id(self):
-        self.regex_rule_set_2 = RegexRuleSet.objects.create(prompt_id=0,
-                                    name='Test Rule Set Duplicate',
-                                    feedback='Test feedback',
-                                    priority=1,
-                                    pass_order=RegexRuleSet.PASS_ORDER.FIRST)
+        self.rule_set_duplicate = RuleSet(prompt=self.rule_set.prompt,
+                                name="duplicate",
+                                pass_order=self.rule_set.pass_order,
+                                feedback="duplicate",
+                                priority=self.rule_set.priority)
         with self.assertRaises(ValidationError):
-            self.regex_rule_set_2.save()
+            self.rule_set_duplicate.save()
 
     def test_pass_order_validation(self):
-        self.regex_rule_set.pass_order = 'DEFINITELY NOT A VALID FLAG'
+        self.rule_set.pass_order = 'DEFINITELY NOT A VALID FLAG'
         with self.assertRaises(ValidationError):
-            self.regex_rule_set.save()
+            self.rule_set.save()
+
+
+class RuleModelTest(TestCase):
+    def setUp(self):
+        self.rule = RuleFactory()
+
+    def test_regex_text_not_nullable(self):
+        self.rule.regex_text = None
+        with self.assertRaises(ValidationError):
+            self.rule.save()
+
+    def test_rule_set_not_nullable(self):
+        self.rule.rule_set = None
+        with self.assertRaises(ValidationError):
+            self.rule.save()
+
+    def test_match(self):
+        self.assertTrue(self.rule.match('test matches ^test'))
+        self.assertTrue(self.rule.match('TeSt matches ^test'))
+        self.assertFalse(self.rule.match('WRONG does not match ^test'))
+
+

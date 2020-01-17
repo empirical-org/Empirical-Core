@@ -25,6 +25,5 @@ class DjangoChoices():
                 if not attr.startswith('_') and not attr == 'get_for_choices']
 
 
-from .activity import *
 from .rule_set import *
 from .rule import *
