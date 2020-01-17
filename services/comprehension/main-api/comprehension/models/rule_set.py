@@ -1,9 +1,10 @@
 from django.db import models
 
-from . import DjangoChoices, Prompt
+from . import DjangoChoices, BaseModel
+from .prompt import Prompt
 
 
-class RuleSet(models.Model):
+class RuleSet(BaseModel):
     class PASS_ORDER(DjangoChoices):
         FIRST = 'first'
         SECOND = 'second'
@@ -17,5 +18,3 @@ class RuleSet(models.Model):
     class Meta:
         unique_together = ('prompt', 'priority','pass_order',)
 
-    def __str__(self):
-        return self.name
