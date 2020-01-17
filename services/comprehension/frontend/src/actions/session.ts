@@ -4,7 +4,7 @@ import { ActionTypes } from './actionTypes'
 
 import { FeedbackObject } from '../interfaces/feedback'
 
-// TODO remove
+// TODO remove dummy method.
 const randomFeedbackString = () => {
   const feedbackStrings = [
     "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
@@ -21,23 +21,15 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
     const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
     // TODO remove dummy endpoint and mock responses
     // const feedbackURL = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityUID}/responses.json`
-    console.log(entry)
+    // TODO remove this hack
+    const entryWithoutStem = entry.replace(/^Eastern Michigan University cut women's tennis and softball because/, "").trim()
     const requestObject = {
       url: feedbackURL,
-      body: {'prompt_id': promptID, 'entry': entry},
+      body: {'prompt_id': promptID, 'entry': entryWithoutStem},
       json: true,
-      // headers: {
-      //   'Access-Control-Allow-Origin': '*',
-      //   'Access-Control-Allow-Methods': 'POST',
-      //   'Access-Control-Allow-Headers': 'Content-Type',
-      //   'Access-Control-Max-Age': '3600',
-      //   'Sec-Fetch-Mode': 'no-cors'
-      // }
     }
 
     request.post(requestObject, (e, r, body) => {
-      console.log(body)
-      console.log(body.feedback)
       const feedbackObj: FeedbackObject = {
         feedback: body.feedback,
         feedback_type: body.feedback_type,
