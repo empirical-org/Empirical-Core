@@ -113,8 +113,8 @@ class PlaySentenceFragment extends React.Component {
   renderSentenceOrFragmentButtons = () => {
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
-        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
       </div>
     );
   }

@@ -105,8 +105,8 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
-        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
       </div>
     );
   }
