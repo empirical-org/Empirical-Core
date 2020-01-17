@@ -11,22 +11,11 @@ const handleSaveAndExitClick = () => {
   }
 }
 
-const ellDiagnostic = () => window.location.href.includes('play/diagnostic/ell')
-
 const renderLinks = () => (
   <div className='nav-right'>
-    {renderLessonSpecificContent()}
     <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={handleSaveAndExitClick}>Save and exit</a>
   </div>
 )
-
-const renderLessonSpecificContent = () => {
-  if (ellDiagnostic()) {
-    return (
-      <LanguageSelector key="language-selector" />
-    );
-  }
-}
 
 const Navbar = () => (
   <header className='nav student-nav'>
