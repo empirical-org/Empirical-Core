@@ -4,6 +4,7 @@ import { ActionTypes } from './actionTypes'
 
 import { FeedbackObject } from '../interfaces/feedback'
 
+// TODO remove
 const randomFeedbackString = () => {
   const feedbackStrings = [
     "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
@@ -17,25 +18,43 @@ const randomFeedbackString = () => {
 
 export const getFeedback = (activityUID: string, entry: string, promptID: string) => {
   return (dispatch: Function) => {
-    request.get(`https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityUID}/responses.json`, (e, r, body) => {
-      const responses = JSON.parse(body)
-      let feedbackObj: FeedbackObject = {
-        feedback: randomFeedbackString(),
-        feedback_type: "semantic",
-        optimal: false,
-        response_id: String(Math.random()),
+    const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
+    // TODO remove dummy endpoint and mock responses
+    // const feedbackURL = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityUID}/responses.json`
+    console.log(entry)
+    const requestObject = {
+      url: feedbackURL,
+      body: {'prompt_id': promptID, 'entry': entry},
+      json: true,
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Access-Control-Allow-Methods': 'POST',
+      //   'Access-Control-Allow-Headers': 'Content-Type',
+      //   'Access-Control-Max-Age': '3600',
+      //   'Sec-Fetch-Mode': 'no-cors'
+      // }
+    }
+
+    request.post(requestObject, (e, r, body) => {
+      console.log(body)
+      console.log(body.feedback)
+      const feedbackObj: FeedbackObject = {
+        feedback: body.feedback,
+        feedback_type: body.feedback_type,
+        optimal: body.optimal,
+        response_id: body.response_id,
         entry,
       }
-      const matchedResponse = responses.find((r: any) => r.text === entry)
-      if (matchedResponse) {
-        feedbackObj = {
-          feedback: "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
-          feedback_type: "semantic",
-          optimal: true,
-          response_id: matchedResponse.response_id,
-          entry
-        }
-      }
+      // const matchedResponse = responses.find((r: any) => r.text === entry)
+      // if (matchedResponse) {
+      //   feedbackObj = {
+      //     feedback: "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+      //     feedback_type: "semantic",
+      //     optimal: true,
+      //     response_id: matchedResponse.response_id,
+      //     entry
+      //   }
+      // }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
     })
   }
