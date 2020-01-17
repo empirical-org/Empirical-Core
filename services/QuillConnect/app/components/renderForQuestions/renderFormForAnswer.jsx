@@ -100,8 +100,9 @@ export default class RenderFormForAnswer extends React.Component {
       }
       button = (
         <button
-          className={`quill-button large primary contained ${toggleDisabled}`}
+          className={`quill-button focus-on-light focus-on-light large primary contained ${toggleDisabled}`}
           onClick={checkAnswer}
+          tabIndex="0"
           type="button"
         >
           {message}
@@ -109,7 +110,8 @@ export default class RenderFormForAnswer extends React.Component {
       );
       if (!responses) {
         <button
-          className='quill-button large primary contained disabled'
+          className='quill-button focus-on-light large primary contained disabled'
+          tabIndex="0"
           type="button"
         >
           {message}

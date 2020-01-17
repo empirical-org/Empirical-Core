@@ -198,7 +198,7 @@ class PlayDiagnosticQuestion extends React.Component {
     const { question, } = this.props
     const { responses, error, response, } = this.state
     const questionID = question.key;
-    const button = responses ? <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} tabIndex="0" type="button">Submit</button> : <button className="quill-button focus-on-light large primary contained disabled" tabIndex="0" type="button">Submit</button>;
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (

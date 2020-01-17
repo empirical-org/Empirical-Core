@@ -246,21 +246,21 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   renderNextQuestionButton = () => {
-    return (<button className="quill-button primary contained large" onClick={this.handleNextQuestionClick} type="button">Next question</button>);
+    return (<button className="quill-button focus-on-light primary contained large" onClick={this.handleNextQuestionClick} tabIndex="0" type="button">Next question</button>);
   }
 
   renderFinishedQuestionButton = () => {
     const nextF = () => {
       this.setState({ finished: true, });
     };
-    return (<button className="quill-button primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button focus-on-light primary contained large" onClick={nextF} tabIndex="0" type="button">Next</button>);
   }
 
   renderMultipleChoiceButton = () => {
     const nextF = () => {
       this.setState({ multipleChoice: true, });
     };
-    return (<button className="quill-button primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button focus-on-light primary contained large" onClick={nextF} tabIndex="0" type="button">Next</button>);
   }
 
   finishQuestion = () => {
