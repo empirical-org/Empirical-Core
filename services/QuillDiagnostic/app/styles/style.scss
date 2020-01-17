@@ -13,6 +13,10 @@
 @import '../../node_modules/font-awesome/css/font-awesome.css';
 @import "../../node_modules/quill-component-library/src/styles/styles.scss";
 
+html {
+  overscroll-behavior: none;
+}
+
 body {
   color: #3D3D3D
 }
@@ -339,7 +343,11 @@ textarea.submission {
   &.is-fullheight{
     min-height: 100vh;
     &.minus-nav {
-      min-height: calc(100vh - 50px);
+      min-height: calc(100vh - 64px);
+    }
+    &.minus-nav-and-footer {
+      min-height: calc(100vh - 64px - 81px);
+      flex: 1 1 auto;
     }
     .hero-body {
       align-items: center;

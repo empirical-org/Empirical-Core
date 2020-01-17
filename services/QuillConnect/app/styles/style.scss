@@ -338,7 +338,7 @@ textarea.submission {
   &.is-fullheight{
     min-height: 100vh;
     &.minus-nav {
-      min-height: calc(100vh - 50px);
+      min-height: calc(100vh - 64px);
     }
     .hero-body {
       align-items: center;
