@@ -1,6 +1,7 @@
 from django.db import models
 
-from . import RuleSet, BaseModel
+from . import BaseModel
+from .rule_set import RuleSet
 import re
 
 class Rule(BaseModel):
