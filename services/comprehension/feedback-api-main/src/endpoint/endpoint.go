@@ -17,6 +17,16 @@ const (
 )
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
+	// need this for javascript cors requests
+	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
+  if request.Method == http.MethodOptions {
+    responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
+    responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
+    responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+    responseWriter.Header().Set("Access-Control-Max-Age", "3600")
+    responseWriter.WriteHeader(http.StatusNoContent)
+    return
+  }
 
 	requestDump, err := httputil.DumpRequest(request, true)
 	if err != nil {
@@ -57,6 +67,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 	}
 
+	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
   json.NewEncoder(responseWriter).Encode(returnable_result)
 }
