@@ -15,6 +15,7 @@ class RulesBasedFeedbackFirstPassView(ApiView):
         entry = submission['entry']
 
         prompt = get_object_or_404(Prompt, pk=prompt_id)
-        feedback = prompt.fetch_rules_based_feedback(entry, RuleSet.PASS_ORDER.FIRST)
+        feedback = prompt.fetch_rules_based_feedback(entry,
+                                                     RuleSet.PASS_ORDER.FIRST)
 
         return JsonResponse(feedback)

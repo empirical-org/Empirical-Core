@@ -75,10 +75,10 @@ class RuleSetModelTest(TestCase):
 
     def test_priority_unique_on_prompt_id(self):
         self.rule_set_duplicate = RuleSet(prompt=self.rule_set.prompt,
-                                name="duplicate",
-                                pass_order=self.rule_set.pass_order,
-                                feedback="duplicate",
-                                priority=self.rule_set.priority)
+                                          name="duplicate",
+                                          pass_order=self.rule_set.pass_order,
+                                          feedback="duplicate",
+                                          priority=self.rule_set.priority)
         with self.assertRaises(ValidationError):
             self.rule_set_duplicate.save()
 
@@ -106,5 +106,3 @@ class RuleModelTest(TestCase):
         self.assertTrue(self.rule.match('test matches ^test'))
         self.assertTrue(self.rule.match('TeSt matches ^test'))
         self.assertFalse(self.rule.match('WRONG does not match ^test'))
-
-
