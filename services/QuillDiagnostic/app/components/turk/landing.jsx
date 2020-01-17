@@ -31,7 +31,7 @@ export default class TurkLanding extends React.Component {
       return (
         <div className="container">
           <div className="landing-page-html" dangerouslySetInnerHTML={{__html: landingPageHtml}} />
-          <button className="quill-button large primary contained" onClick={this.handleStartLessonClick} type="button">Start lesson</button>
+          <button className="quill-button focus-on-light large primary contained" onClick={this.handleStartLessonClick} tabIndex="0" type="button">Start lesson</button>
         </div>
       )
     } else {
@@ -42,7 +42,7 @@ export default class TurkLanding extends React.Component {
             You&#39;re about to answer questions about writing sentences.
             Please answer to the best of your ability.
           </p>
-          <button className="quill-button large primary contained" onClick={this.handleBeginClick} type="button">
+          <button className="quill-button focus-on-light large primary contained" onClick={this.handleBeginClick} tabIndex="0" type="button">
             Begin
           </button>
         </div>
