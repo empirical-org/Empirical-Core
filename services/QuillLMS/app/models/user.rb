@@ -265,9 +265,9 @@ class User < ActiveRecord::Base
   def capitalize_name
     result = name
     if name.present?
-      f,l = name.split(/\s+/)
+      f,l = name.split(/\s+/, 2)
       if f.present? and l.present?
-        result = "#{f.capitalize} #{l.capitalize}"
+        result = "#{f.capitalize} #{l.gsub(/\S+/, &:capitalize)}"
       else
         result = name.capitalize
       end
