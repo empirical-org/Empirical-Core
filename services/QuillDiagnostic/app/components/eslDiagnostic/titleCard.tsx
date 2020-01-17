@@ -34,7 +34,7 @@ class TitleCard extends Component<ComponentProps, any> {
     return (
       <div className="landing-page">
         <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />
-        <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} tabIndex="0" type="button">
+        <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} type="button">
           {this.getButtonText()}
         </button>
       </div>
