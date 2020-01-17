@@ -23,7 +23,3 @@ class DjangoChoices():
     def get_for_choices(cls):
         return [(getattr(cls, attr), getattr(cls, attr)) for attr in dir(cls)
                 if not attr.startswith('_') and not attr == 'get_for_choices']
-
-
-from .rule_set import *
-from .rule import *

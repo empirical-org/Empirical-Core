@@ -20,7 +20,6 @@ class PromptModelTest(TestCase):
                                           prompt=self.prompt)
         self.default = MLFeedbackFactory(feedback='Default feedback',
                                          prompt=self.prompt)
-        self.rule = RuleFactory()
 
 
 class PromptValidationTest(PromptModelTest):
@@ -79,19 +78,15 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
 
 class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
     def test_first_pass(self):
-        prompt = self.rule.rule_set.prompt
+        prompt = RuleFactory().rule_set.prompt
         feedback = prompt.fetch_rules_based_feedback('incorrect test correct', RuleSet.PASS_ORDER.FIRST)
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
     def test_second_pass(self):
-        prompt = self.rule.rule_set.prompt
-        rs = RuleSet(prompt=prompt,name='test',feedback='test',priority=1,pass_order='second')
-        self.rule.rule_set = rs
-        rs.save()
-        self.rule.rule_set = rs
-        self.rule.save()
-        feedback = prompt.fetch_rules_based_feedback('incorrect test incorrect', RuleSet.PASS_ORDER.SECOND)
+        prompt = RuleFactory(rule_set__pass_order=RuleSet.PASS_ORDER.SECOND).rule_set.prompt
+        feedback = prompt.fetch_rules_based_feedback('incorrect test correct', RuleSet.PASS_ORDER.SECOND)
         self.assertFalse(feedback['optimal'])
-        self.assertEqual(feedback['feedback'], 'test')
+        self.assertEqual(feedback['feedback'], 'Test feedback')
+
 
