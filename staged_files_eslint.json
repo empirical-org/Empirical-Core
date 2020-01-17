@@ -7,7 +7,7 @@
     "react/no-unescaped-entities": "error",
     "react/jsx-handler-names": "error",
     "react/jsx-key": "error",
-    "react/jsx-no-bind": "error",
+    "react/jsx-no-bind": ["error", { "ignoreRefs": true }],
     "react/jsx-curly-brace-presence": "error"
   }
 }
