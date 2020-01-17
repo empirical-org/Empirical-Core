@@ -128,7 +128,7 @@
     "moment": "^2.18.1",
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.1.0",
-    "quill-component-library": "0.5.1",
+    "quill-component-library": "0.6.3",
     "quill-marking-logic": "^0.12.13",
     "raven-js": "^3.17.0",
     "react": "15.6.2",

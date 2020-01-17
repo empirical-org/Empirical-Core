@@ -8,18 +8,23 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  DiagnosticProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 import diagnosticQuestions from './diagnosticQuestions.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx'
 import {getConceptResultsForAllQuestions} from '../../libs/conceptResults/diagnostic'
-const request = require('request');
 import { getParameterByName } from '../../libs/getParameterByName';
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
+
+const request = require('request');
 
 class TurkDiagnostic extends React.Component {
   constructor(props) {
@@ -228,6 +233,24 @@ class TurkDiagnostic extends React.Component {
     return lessons.data[params.diagnosticID].landingPageHtml
   }
 
+  renderProgressBar = () => {
+    const { playDiagnostic, } = this.props
+    if (!playDiagnostic.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
+
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+
+    return (<ProgressBar
+      answeredQuestionCount={displayedAnsweredQuestionCount}
+      percent={getProgressPercent(playDiagnostic)}
+      questionCount={questionCount(playDiagnostic)}
+    />)
+  }
+
   render() {
     const { session, error, saved, } = this.state
     const { playDiagnostic, questions, sentenceFragments, dispatch, } = this.props
@@ -290,8 +313,8 @@ class TurkDiagnostic extends React.Component {
     }
     return (
       <div>
-        <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
