@@ -104,7 +104,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const { options, } = this.props
     const { inactive, menuIsOpen, cursor, } = this.state
 
-    if (!['Enter', 'ArrowUp', 'ArrowDown'].includes(e.key)) { return }
     if (!(this.node && this.node.contains(e.target))) { return }
 
     if (e.key === 'Enter' && (inactive || !menuIsOpen)) {
