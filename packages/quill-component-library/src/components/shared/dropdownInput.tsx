@@ -52,6 +52,15 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     document.addEventListener('keydown', this.handleKeyDown, true)
   }
 
+  componentDidUpdate(_, prevState) {
+    const { cursor, } = this.state
+
+    if (!cursor && cursor !== 0) { return }
+    if (cursor === prevState.cursor) { return }
+
+    this.setOptionFocus()
+  }
+
   componentWillReceiveProps(nextProps) {
     const { error, timesSubmitted, } = this.props
     const { errorAcknowledged, } = this.state
@@ -70,8 +79,17 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const { disabled, } = this.props
     const { inactive, menuIsOpen, } = this.state
     if (!disabled && (!menuIsOpen || inactive)) {
-      this.setState({ inactive: false, menuIsOpen: true, cursor: 0 }, () => this.input ? this.input.focus() : null)
+      this.setState({ inactive: false, menuIsOpen: true, cursor: 0 })
     }
+  }
+
+  setOptionFocus = () => {
+    const { cursor, } = this.state
+    const { options, } = this.props
+
+    const optionToFocus = options[cursor]
+    const elementToFocus = optionToFocus ? document.getElementById(optionToFocus.value) : null
+    elementToFocus ? elementToFocus.focus() : null
   }
 
   deactivateInput = () => {
@@ -110,7 +128,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       this.handleInputActivation()
     } else if (e.key === 'ArrowUp' && cursor > 0) {
       this.setState(prevState => ({ cursor: prevState.cursor - 1 }))
-    } else if (e.keyCode === 'ArrowDown' && cursor < options.length - 1) {
+    } else if (e.key === 'ArrowDown' && cursor < options.length - 1) {
       this.setState(prevState => ({ cursor: prevState.cursor + 1 }))
     } else if (e.key === 'Enter' && (cursor || cursor === 0)) {
       const chosenOption = options[cursor]
@@ -140,8 +158,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const { handleChange, value, options, isMulti, } = this.props
     const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
 
-    if (!isMulti) { this.deactivateInput() }
-
     if (allWasClicked) {
       if (value && value.length) {
         // if there are any selected, they should all get unselected
@@ -153,6 +169,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else {
       handleChange(e)
     }
+
+    if (!isMulti) { this.deactivateInput() }
   }
 
   renderInput() {
