@@ -131,15 +131,38 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
     if (!(this.node && this.node.contains(e.target))) { return }
 
+    if (e.key === 'Enter') { e.preventDefault() }
+
     if (e.key === 'Enter' && (inactive || !menuIsOpen)) {
       this.handleInputActivation()
     } else if (e.key === 'ArrowUp' && cursor > 0) {
       this.setState(prevState => ({ cursor: prevState.cursor - 1 }))
     } else if (e.key === 'ArrowDown' && cursor < options.length - 1) {
-      this.setState(prevState => ({ cursor: prevState.cursor + 1 }))
+      this.setState(prevState => {
+        if (prevState.cursor || prevState.cursor === 0) {
+          return { cursor: prevState.cursor + 1 }
+        }
+        return { cursor: 0 }
+      })
     } else if (e.key === 'Enter' && (cursor || cursor === 0)) {
-      const chosenOption = options[cursor]
-      this.handleOptionSelection(chosenOption)
+      this.handleEnterWithFocusedOption()
+    } else if (e.key === 'Tab') {
+      this.deactivateInput()
+    }
+  }
+
+  handleEnterWithFocusedOption = () => {
+    const { cursor, options, } = this.state
+    const { value, isMulti, } = this.props
+
+    const focusedOption = options[cursor]
+
+    if (isMulti && Array.isArray(value)) {
+      const valueWasPreviouslySelected = value.find(opt => opt.value === focusedOption.value)
+      const newArray = valueWasPreviouslySelected ? value.filter(opt => opt.value === focusedOption.value) : value.concat(focusedOption)
+      this.handleOptionSelection(newArray)
+    } else {
+      this.handleOptionSelection(focusedOption)
     }
   }
 
@@ -162,7 +185,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleOptionSelection = (e) => {
-    const { options, } = this.state
+    const { options, } = this.props
     const { handleChange, value, isMulti, } = this.props
     const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
 
@@ -182,8 +205,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   renderInput() {
-    const { inactive, errorAcknowledged, menuIsOpen, cursor, } = this.state
-    const { className, label, value, placeholder, error, type, id, options, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
+    const { inactive, errorAcknowledged, menuIsOpen, cursor, options, } = this.state
+    const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
