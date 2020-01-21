@@ -11,7 +11,8 @@ const handleMouseEnter = (props) => {
 }
 
 const renderCheckbox = (props) => {
-  const { value, options, selectProps, } = props
+  const { selectProps, } = props
+  const { value, options } = selectProps
   const anyOptionsAreSelected = !!value.length
   const allOptionsAreSelected = value.length === (options.length - 1)
   let checkbox = <span className="quill-checkbox unselected" />
@@ -28,7 +29,7 @@ const renderCheckbox = (props) => {
 }
 
 export const CheckableDropdownOption = props => {
-  const { data, label, } = props
+  const { data, } = props
 
   const passedProps = {...props}
   passedProps.innerProps.id = data.value
@@ -37,7 +38,7 @@ export const CheckableDropdownOption = props => {
     <div className="checkable-dropdown-option" onMouseOver={handleMouseEnter(props)}>
       <components.Option {...passedProps}>
         {renderCheckbox(props)}
-        <span>{label}</span>
+        <span>{data.label}</span>
       </components.Option>
     </div>
   );
