@@ -19,7 +19,8 @@ class Prompt(TimestampedModel):
                             order_by('priority').all()
 
         for rule_set in rule_sets:
-            for rule in rule_set.rules.all():
+            rules = rule_set.rules.all() if rule_set.rules else []
+            for rule in rules:
                 if not rule.match(entry):
                     return construct_feedback_payload(rule_set.feedback,
                                                       'rules-based',
