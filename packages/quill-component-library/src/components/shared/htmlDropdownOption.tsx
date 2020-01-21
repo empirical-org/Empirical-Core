@@ -8,9 +8,9 @@ const handleMouseEnter = (props) => {
 }
 
 export const HTMLDropdownOption = props => {
-  const { label, selectProps, options, data, } = props
+  const { label, data, } = props
   const passedProps = {...props}
-  passedProps.isFocused = options[selectProps.cursor] === data
+  passedProps.innerProps.id = data.value
   return (
     <div className="html-dropdown-option" onMouseOver={handleMouseEnter(props)}>
       <components.Option {...passedProps}>
