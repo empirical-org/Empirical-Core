@@ -345,7 +345,8 @@ textarea.submission {
       min-height: calc(100vh - 64px);
     }
     &.minus-nav-and-footer {
-      min-height: calc(100vh - 64px - 81px);
+      height: calc(100vh - 64px - 81px);
+      min-height: min-content;
       flex: 1 1 auto;
     }
     .hero-body {
