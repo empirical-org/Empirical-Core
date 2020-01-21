@@ -12,6 +12,17 @@
     }
   }
 
+  .dropdown-container.inactive:focus {
+    outline: none;
+    label {
+      color: #009a80;
+    }
+    .dropdown__control {
+      border: 2px #009a80;
+      border-style: none none solid;
+    }
+  }
+
   input, input:focus, textarea, textarea:focus {
     outline: none;
     margin-bottom: 8px;
@@ -287,6 +298,9 @@
       .input-container {
         min-height: 0px;
       }
+    }
+    &:focus {
+      outline: none;
     }
   }
   &.error {
