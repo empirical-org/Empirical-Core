@@ -18,7 +18,7 @@ class GenerateUsername
     part1         = "#{first_name}.#{last_name}".downcase
     part1_pattern = "%#{part1}%"
     at_classcode  = at_classcode(classcode)
-    extant        = User.where("username ILIKE ?", part1_pattern)
+    extant        = User.where("username LIKE ?", part1_pattern)
 
     if extant.any?
       final = "#{part1}#{extant.length + 1}#{at_classcode}"
