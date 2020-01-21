@@ -1,7 +1,7 @@
 import React from 'react'
 import { components } from 'react-select';
 
-export class HTMLDropdownOption extends React.Component<any> {
+export class HTMLDropdownOption extends React.StatelessComponent {
   handleMouseEnter = () => {
     const { options, selectProps, data, } = this.props
     const index = options.findIndex(opt => opt.value === data.value)
