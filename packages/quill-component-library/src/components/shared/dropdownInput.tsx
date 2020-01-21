@@ -31,6 +31,7 @@ interface DropdownInputState {
   inactive: boolean;
   errorAcknowledged: boolean;
   menuIsOpen: boolean;
+  options: Array<any>;
   cursor?: number;
 }
 
@@ -41,10 +42,16 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   constructor(props) {
     super(props)
 
+    const { options, isMulti, optionType, } = props
+
+    const showAllOption = isMulti && optionType ? { label: `All ${optionType}s`, value: 'All' } : null
+    const passedOptions = showAllOption ? [showAllOption].concat(options) : options
+
     this.state = {
       inactive: true,
       errorAcknowledged: false,
       menuIsOpen: false,
+      options: passedOptions
     }
   }
 
@@ -77,16 +84,16 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleInputActivation = () => {
-    const { disabled, } = this.props
+    const { disabled, isSearchable, } = this.props
     const { inactive, menuIsOpen, } = this.state
     if (!disabled && (!menuIsOpen || inactive)) {
-      this.setState({ inactive: false, menuIsOpen: true, cursor: 0 })
+      const cursor = isSearchable ? null : 0
+      this.setState({ inactive: false, menuIsOpen: true, cursor }, () => { this.input ? this.input.focus() : null })
     }
   }
 
   setOptionFocus = () => {
-    const { cursor, } = this.state
-    const { options, } = this.props
+    const { cursor, options, } = this.state
 
     const optionToFocus = options[cursor]
     const elementToFocus = optionToFocus ? document.getElementById(optionToFocus.value) : null
@@ -120,8 +127,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleKeyDown = (e) => {
-    const { options, } = this.props
-    const { inactive, menuIsOpen, cursor, } = this.state
+    const { inactive, menuIsOpen, cursor, options, } = this.state
 
     if (!(this.node && this.node.contains(e.target))) { return }
 
@@ -156,7 +162,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleOptionSelection = (e) => {
-    const { handleChange, value, options, isMulti, } = this.props
+    const { options, } = this.state
+    const { handleChange, value, isMulti, } = this.props
     const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
 
     if (allWasClicked) {
@@ -183,8 +190,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const notEditable = isSearchable || isMulti ? '' : 'not-editable'
     const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
     const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${checkboxDropdown}`
-    const showAllOption = isMulti && optionType ? { label: `All ${optionType}s`, value: 'All' } : null
-    const passedOptions = showAllOption ? [showAllOption].concat(options) : options
     const sharedProps = {
       id,
       cursor,
@@ -193,7 +198,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       type,
       placeholder: placeholder || '',
       onKeyDown: this.onKeyDown,
-      options: passedOptions,
+      options,
       isClearable: false,
       className: "dropdown",
       classNamePrefix: "dropdown",

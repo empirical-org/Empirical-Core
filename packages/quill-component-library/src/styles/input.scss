@@ -15,11 +15,11 @@
   &.dropdown-container:focus {
     outline: none;
     label {
-      color: #009a80;
+      color: #009a80 !important;
     }
     .dropdown__control {
-      border: 2px #009a80;
-      border-style: none none solid;
+      border: 2px #009a80 !important;
+      border-style: none none solid !important;
     }
   }
 
