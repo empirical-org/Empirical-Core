@@ -4,6 +4,7 @@ import { HTMLDropdownOption } from './htmlDropdownOption'
 import { HTMLDropdownSingleValue } from './htmlDropdownSingleValue'
 import { CheckableDropdownOption } from './checkableDropdownOption'
 import { CheckableDropdownValueContainer } from './checkableDropdownValueContainer'
+import { StandardDropdownOption } from './standardDropdownOption'
 
 interface DropdownInputProps {
   options: Array<any>;
@@ -197,7 +198,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       className: "dropdown",
       classNamePrefix: "dropdown",
       isSearchable,
-      updateCursor: this.updateCursor
+      updateCursor: this.updateCursor,
+      components: { Option: StandardDropdownOption },
     }
     if (error) {
       if (errorAcknowledged) {

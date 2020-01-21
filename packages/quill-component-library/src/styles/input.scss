@@ -12,7 +12,7 @@
     }
   }
 
-  .dropdown-container.inactive:focus {
+  &.dropdown-container:focus {
     outline: none;
     label {
       color: #009a80;
