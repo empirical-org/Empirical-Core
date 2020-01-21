@@ -1,0 +1,13 @@
+.focus-on-dark {
+  &:focus {
+    outline: dashed 2px #fff;
+    outline-offset: 6px;
+  }
+}
+
+.focus-on-light {
+  &:focus {
+    outline: dashed 2px #06806b;
+    outline-offset: 6px;
+  }
+}
