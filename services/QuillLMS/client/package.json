@@ -58,7 +58,7 @@
     "postcss-loader": "^0.8.2",
     "pusher": "^2.2.2",
     "pusher-js": "^5.0.1",
-    "quill-component-library": "0.6.3",
+    "quill-component-library": "0.6.5",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",

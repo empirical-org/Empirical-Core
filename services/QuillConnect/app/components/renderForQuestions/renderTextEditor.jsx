@@ -119,6 +119,7 @@ export default class RenderTextEditor extends React.Component {
 
   render() {
     const { hasError, disabled, value, spellCheck, placeholder, } = this.props
+    const tabIndex = disabled ? -1 : 0
     return (
       <div className={`student text-editor card is-fullwidth ${hasError ? 'red-outline' : ''} ${disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
@@ -133,6 +134,7 @@ export default class RenderTextEditor extends React.Component {
               placeholder={placeholder}
               ref="answerBox"
               spellCheck={spellCheck || false}
+              tabIndex={tabIndex}
               value={value}
             />
           </div>
