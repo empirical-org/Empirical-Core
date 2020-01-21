@@ -31,11 +31,17 @@
   background-color: #ffffff;
   height: 81px;
   padding: 20px;
+  width: 100%;
   .student-container {
     display: flex;
     height: 100%;
     align-items: center;
   }
+}
+
+.ell-diagnostic-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .ell-language-selector {

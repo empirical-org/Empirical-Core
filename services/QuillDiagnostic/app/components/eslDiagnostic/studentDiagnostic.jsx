@@ -4,8 +4,9 @@ import {
   CarouselAnimation,
   hashToCollection,
   SmartSpinner,
-  DiagnosticProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+
 import {
   clearData,
   loadData,
@@ -28,6 +29,11 @@ import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import Footer from './footer'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
 import { getParameterByName } from '../../libs/getParameterByName';
 
 const request = require('request');
@@ -259,36 +265,10 @@ class ELLStudentDiagnostic extends React.Component {
     }
   }
 
-  getQuestionCount = () => {
-    const { params, } = this.props
-    const { diagnosticID, } = params;
-    if (diagnosticID == 'researchDiagnostic') {
-      return '15';
-    }
-    return '22';
-  }
-
   markIdentify = (bool) => {
     const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
     dispatch(action);
-  }
-
-  getProgressPercent = () => {
-    const { playDiagnostic, } = this.props
-    let percent;
-    if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
-      const questionSetCount = playDiagnostic.questionSet.length;
-      const answeredQuestionCount = questionSetCount - playDiagnostic.unansweredQuestions.length;
-      if (playDiagnostic.currentQuestion) {
-        percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
-      } else {
-        percent = ((answeredQuestionCount) / questionSetCount) * 100;
-      }
-    } else {
-      percent = 0;
-    }
-    return percent;
   }
 
   getFetchedData = () => {
@@ -352,6 +332,24 @@ class ELLStudentDiagnostic extends React.Component {
     />)
   }
 
+  renderProgressBar = () => {
+    const { playDiagnostic, } = this.props
+    if (!playDiagnostic.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
+
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+
+    return (<ProgressBar
+      answeredQuestionCount={displayedAnsweredQuestionCount}
+      percent={getProgressPercent(playDiagnostic)}
+      questionCount={questionCount(playDiagnostic)}
+    />)
+  }
+
   render() {
     const { error, saved, } = this.state
     const { questions, sentenceFragments, playDiagnostic, fillInBlank, } = this.props
@@ -388,9 +386,9 @@ class ELLStudentDiagnostic extends React.Component {
       />);
     }
     return (
-      <div>
-        <DiagnosticProgressBar percent={this.getProgressPercent()} />
+      <div className="ell-diagnostic-container">
         <section className={`section is-fullheight student ${minusHowMuch}`}>
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
