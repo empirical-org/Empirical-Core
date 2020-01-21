@@ -13,7 +13,7 @@ export const HTMLDropdownOption = props => {
   passedProps.isFocused = options[selectProps.cursor] === data
   return (
     <div className="html-dropdown-option" onMouseOver={handleMouseEnter(props)}>
-      <components.Option {...props}>
+      <components.Option {...passedProps}>
         <div dangerouslySetInnerHTML={{ __html: label }} />
       </components.Option>
     </div>
