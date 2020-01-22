@@ -84,6 +84,11 @@ module PagesHelper
             img: 'team-eric-adams@2x.png'
           },
           {
+            name: 'Shannon Browne',
+            title: 'Senior Instructional Coach',
+            img: 'team-shannon-browne@2x.png'
+          },
+          {
             name: 'Tom Calabrese',
             title: 'Product Designer',
             img: 'team-tom-calabrese@2x.png'

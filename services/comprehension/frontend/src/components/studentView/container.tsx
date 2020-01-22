@@ -60,10 +60,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return queryString.parse(search).uid
   }
 
-  submitResponse = (entry: string, promptID: string) => {
+  submitResponse = (entry: string, promptID: string, promptText: string) => {
     const activityUID = this.activityUID()
     if (activityUID) {
-      this.props.dispatch(getFeedback(activityUID, entry, promptID))
+      this.props.dispatch(getFeedback(activityUID, entry, promptID, promptText))
     }
   }
 
