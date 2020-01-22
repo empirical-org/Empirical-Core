@@ -20,7 +20,7 @@ const Navbar = () => (
   <header className='nav student-nav'>
     <div className="container">
       <div className="student-nav-section">
-        <a className="student-nav-item focus-on-dark" href={`${process.env.EMPIRICAL_BASE_URL}`} tabIndex="0">
+        <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${process.env.EMPIRICAL_BASE_URL}`} tabIndex="0">
           <img
             alt="Quill.org logo"
             src={quillLogoSrc}
