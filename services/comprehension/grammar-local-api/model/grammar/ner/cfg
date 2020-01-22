@@ -7,7 +7,7 @@
   "deprecation_fixes":{
     "vectors_name":null
   },
-  "nr_class":86,
+  "nr_class":102,
   "hidden_depth":1,
   "token_vector_width":96,
   "hidden_width":64,
