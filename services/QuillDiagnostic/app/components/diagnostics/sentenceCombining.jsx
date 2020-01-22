@@ -194,6 +194,18 @@ class PlayDiagnosticQuestion extends React.Component {
     return (<button className="button is-outlined is-warning" onClick={this.handleNextClick} type="button">Next</button>);
   }
 
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedback={<p>{error}</p>}
+        feedbackType="revise-unmatched"
+      />
+    </div>)
+  }
+
   render = () => {
     const { question, } = this.props
     const { responses, error, response, } = this.state
@@ -224,11 +236,9 @@ class PlayDiagnosticQuestion extends React.Component {
               placeholder="Type your answer here."
               value={response}
             />
-            <div className="button-and-error-row">
-              <Error error={error} />
-              <div className="question-button-group button-group">
-                {button}
-              </div>
+            {this.renderError()}
+            <div className="question-button-group button-group">
+              {button}
             </div>
           </ReactTransition>
         </div>
