@@ -2,23 +2,30 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { StudentDiagnostic } from '../studentDiagnostic';
 import {
-    CarouselAnimation,
-    SmartSpinner,
-    PlayTitleCard,
-    DiagnosticProgressBar
+  CarouselAnimation,
+  SmartSpinner,
+  PlayTitleCard,
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../../actions/diagnostics.js';
-import _ from 'underscore';
 import SessionActions from '../../../actions/sessions.js';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
 import PlayDiagnosticQuestion from '../sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../../fillInBlank/playFillInTheBlankQuestion';
 import LandingPage from '../landing.jsx';
 import FinishedDiagnostic from '../finishedDiagnostic.jsx';
+import * as progressHelpers from '../../../libs/calculateProgress';
 import * as diagnosticHelper from '../../../libs/conceptResults/diagnostic';
 import * as parameterHelper from '../../../libs/getParameterByName';
-import request from 'request';
-jest.mock('request', () => jest.fn(() => { }));
+
+// required mocked functions
+jest.mock('request', () => jest.fn(() => {}));
+progressHelpers.questionCount = jest.fn();
+progressHelpers.answeredQuestionCount = jest.fn();
+progressHelpers.getProgressPercent = jest.fn(() => {return 0});
+parameterHelper.getParameterByName = jest.fn();
+diagnosticHelper.getConceptResultsForAllQuestions = jest.fn();
+SessionActions.update = jest.fn();
 
 let mockProps = {
     dispatch: jest.fn(),
@@ -42,7 +49,14 @@ let mockProps = {
 describe('StudentDiagnostic Container prop-dependent component rendering', () => {
     const container = shallow(<StudentDiagnostic {...mockProps} />);
     let mockPlayDiagnosticProp = {
-        questionSet: [],
+        questionSet: [
+            {
+                type: 'SC',
+                data: {
+                    key: 'test=key'
+                }
+            }
+        ],
         answeredQuestions: [],
         currentQuestion: {
             type: 'SC',
@@ -51,12 +65,11 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
             }
         }
     };
-    it("renders a DiagnosticProgressBar with 25% load message and SmartSpinner if no props have been received", () => {
-        expect(container.find(DiagnosticProgressBar).length).toEqual(1);
+    it("renders a SmartSpinner with 25% load message if no props have been received", () => {
         expect(container.find(SmartSpinner).length).toEqual(1);
         expect(container.find(SmartSpinner).props().message).toEqual('Loading Your Lesson 25%');
     });
-    it("renders a DiagnosticProgressBar with 50% load message and SmartSpinner if playDiagnostic.questionSet props has not been received", () => {
+    it("renders a SmartSpinner with 50% load message if playDiagnostic.questionSet props has not been received", () => {
         container.setProps({
             lessons: {
                 hasreceiveddata: true,
@@ -67,9 +80,12 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
                 }
             },
             questions: { hasreceiveddata: true },
-            sentenceFragments: { hasreceiveddata: true }
+            sentenceFragments: { hasreceiveddata: true },
+            playDiagnostic: { 
+                questionSet: null,
+                answeredQuestions: [] 
+            }
         });
-        expect(container.find(DiagnosticProgressBar).length).toEqual(1);
         expect(container.find(SmartSpinner).length).toEqual(1);
         expect(container.find(SmartSpinner).props().message).toEqual('Loading Your Lesson 50%');
     });
@@ -118,12 +134,11 @@ describe('StudentDiagnostic Container functions', () => {
         data: {
             testID: {
                 landingPageHtml: 'test-html',
-                // questions: ['test1', 'test2', 'test3'],
                 questions: [
                     { key: "test1", questionType: "questions" },
                     { key: "test2", questionType: "fillInBlank" },
-                    { key: "test3", questionType: "titleCards" },
-                    { key: "test4", questionType: "sentenceFragments" }
+                    { key: "test3", questionType: "sentenceFragments" },
+                    { key: "test4", questionType: "titleCards" },
                 ],
                 name: 'Test Lesson'
             }
@@ -156,23 +171,30 @@ describe('StudentDiagnostic Container functions', () => {
         },
         hasreceiveddata: false
     };
-    mockProps.titleCards = {
-        data: {
-            "test3": {
-                questionType: "titleCards"
-            }
-        },
-        hasreceiveddata: false
-    };
     mockProps.sentenceFragments = {
         data: {
-            "test4": {
+            "test3": {
                 questionType: "sentenceFragments"
             }
         },
         hasreceiveddata: false
     };
+    mockProps.titleCards = {
+        data: {
+            "test4": {
+                questionType: "titleCards"
+            }
+        },
+        hasreceiveddata: false
+    };
+    const filteredQuestions = [
+        { data: { attempts: [], key: "test1", questionType: "questions" }, type: "SC" },
+        { data: { attempts: [], key: "test2", questionType: "fillInBlank" }, type: "FB" },
+        { data: { attempts: [], key: "test3", questionType: "sentenceFragments" }, type: "SF" },
+        { data: { attempts: [], key: "test4", questionType: "titleCards" }, type: "TL" }];
+
     let container = shallow(<StudentDiagnostic {...mockProps} />);
+
     it("dispatch() prop function gets called on mount with clearData() passed as an argument", () => {
         const argument = clearData();
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
@@ -187,7 +209,6 @@ describe('StudentDiagnostic Container functions', () => {
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
     });
     it("getSessionId returns undefined if 'null', otherwise, returns sessionId", () => {
-        parameterHelper.getParameterByName = jest.fn();
         parameterHelper.getParameterByName.mockImplementation(() => 'null');
         expect(container.instance().getSessionId()).toEqual(undefined);
         parameterHelper.getParameterByName.mockImplementation(() => 'test123');
@@ -195,7 +216,6 @@ describe('StudentDiagnostic Container functions', () => {
         expect(parameterHelper.getParameterByName).toHaveBeenCalledWith('student');
     });
     it("saveSessionData calls SessionActions.update, passing sessionId and lessonData if sessionId is present", () => {
-        SessionActions.update = jest.fn();
         container.setState({ sessionID: 'test-session-id' })
         container.instance().saveSessionData({});
         expect(SessionActions.update).toHaveBeenCalledWith('test-session-id', {});
@@ -219,20 +239,20 @@ describe('StudentDiagnostic Container functions', () => {
     });
     it("saveToLMS calls finishActivitySession class function passing sessionID, results & 1 as arguments if sessionID is not null", () => {
         const finishActivitySession = jest.spyOn(container.instance(), 'finishActivitySession');
-        diagnosticHelper.getConceptResultsForAllQuestions = jest.fn();
         container.setState({ sessionID: 'test-session-id' });
         container.instance().saveToLMS();
         expect(finishActivitySession).toHaveBeenCalled();
         expect(diagnosticHelper.getConceptResultsForAllQuestions).toHaveBeenCalledWith([]);
     });
+
     // TODO: implement finishActivitySession and createAnonActivitySession tests with request module mocking
 
-    it("finishActivitySession makes a put request and sets saved piece of state to true on success", () => {
-    });
-    it("finishActivitySession makes a put request and sets saved piece of state to false on failure", () => {
-    });
-    it("createAnonActivitySession makes a post request and sets saved piece of state to true on success", () => {
-    });
+    // it("finishActivitySession makes a put request and sets saved piece of state to true on success", () => {
+    // });
+    // it("finishActivitySession makes a put request and sets saved piece of state to false on failure", () => {
+    // });
+    // it("createAnonActivitySession makes a post request and sets saved piece of state to true on success", () => {
+    // });
 
     it("submitResponse calls dispatch() prop function, passing submitResponse(response) as an argument", () => {
         const response = {};
@@ -248,10 +268,10 @@ describe('StudentDiagnostic Container functions', () => {
         container.instance().startActivity();
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
     });
-    it("loadQuestionSet calls dispatch() prop function passing loadData(data) as an argument", () => {
+    it("handleSpinnerMount calls dispatch() prop function passing loadData(data) as an argument", () => {
         const questionsForLesson = jest.spyOn(container.instance(), 'questionsForLesson');
         const argument = loadData(questionsForLesson());
-        container.instance().loadQuestionSet();
+        container.instance().handleSpinnerMount();
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
     });
     it("nextQuestion calls dispatch() prop function passing nextQuestion as an argument", () => {
@@ -268,16 +288,7 @@ describe('StudentDiagnostic Container functions', () => {
         const response = container.instance().getLesson();
         expect(response).toEqual(mockProps.lessons.data.testID);
     });
-    it("getLessonName returns lesson name at lessons.data prop at key of [params.diagnosticID] prop ", () => {
-        const response = container.instance().getLessonName();
-        expect(response).toEqual('Test Lesson');
-    });
     it("questionsForLesson returns an array of filtered questions objects", () => {
-        const filteredQuestions = [
-            { data: { attempts: [], key: "test1", questionType: "questions" }, type: "SC" },
-            { data: { attempts: [], key: "test2", questionType: "fillInBlank" }, type: "FB" },
-            { data: { attempts: [], key: "test3", questionType: "titleCards" }, type: "TL" },
-            { data: { attempts: [], key: "test4", questionType: "sentenceFragments" }, type: "SF" }];
         expect(container.instance().questionsForLesson()).toEqual(filteredQuestions);
     });
     it("getQuestionCount returns 15 if diagnosticID is 'researchDiagnostic', otherwise returns 22", () => {
@@ -294,19 +305,35 @@ describe('StudentDiagnostic Container functions', () => {
         container.instance().markIdentify(true);
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
     });
-    it("getProgressPercent returns percentage value dependent on props", () => {
-        let response = container.instance().getProgressPercent();
-        expect(response).toEqual(50);
-    });
     it("getQuestionType returns abbreviated question type", () => {
         expect(container.instance().getQuestionType('questions')).toEqual('SC')
         expect(container.instance().getQuestionType('fillInBlanks')).toEqual('FB')
-        expect(container.instance().getQuestionType('titleCards')).toEqual('TL')
         expect(container.instance().getQuestionType('sentenceFragments')).toEqual('SF')
+        expect(container.instance().getQuestionType('titleCards')).toEqual('TL')
     });
-    it("landingPageHtml returns html string ", () => {
+    it("landingPageHtml returns html string", () => {
         mockProps.params = { diagnosticID: 'testID' };
         container = shallow(<StudentDiagnostic {...mockProps} />);
         expect(container.instance().landingPageHtml()).toEqual('test-html')
+    });
+    it("renderProgressBar render progress dependent on props", () => {
+        mockProps.lessons.hasreceiveddata = true;
+        mockProps.questions.hasreceiveddata = true;
+        mockProps.sentenceFragments.hasreceiveddata = true;
+        mockProps.playDiagnostic = {
+            questionSet: filteredQuestions,
+            answeredQuestions: [],
+            unansweredQuestions: filteredQuestions.slice(3),
+            currentQuestion: {
+                type: 'TL',
+                data: {
+                    key: 'test-key'
+                }
+            }
+        };
+        container = shallow(<StudentDiagnostic {...mockProps} />);
+        container.instance().renderProgressBar();
+        expect(container.find(ProgressBar).length).toEqual(1);
+        expect(container.find(ProgressBar).props().percent).toEqual(0)
     });
 });

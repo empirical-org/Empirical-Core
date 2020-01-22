@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import getAnswerState from './answerState';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
