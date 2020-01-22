@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'comprehension'
 )
 
@@ -53,6 +54,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -91,18 +93,6 @@ DATABASES = {
     }
 }
 
-# In the flexible environment, you connect to CloudSQL using a unix socket.
-# Locally, you can use the CloudSQL proxy to proxy a localhost connection
-# to the instance
-DB_HOST = '/cloudsql/comprehension-247816:us-east1:comprehension-app-engine'
-DATABASES['default']['HOST'] = DB_HOST
-if os.getenv('GAE_INSTANCE'):
-    DATABASES['default']['NAME'] = 'quill_comprehension_api_prod'
-    DATABASES['default']['PASSWORD'] = os.environ['PG_PASS']
-else:
-    DATABASES['default']['HOST'] = '127.0.0.1'
-# [END dbconfig]
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -131,3 +121,7 @@ else:
 # [END staticurl]
 
 STATIC_ROOT = 'static/'
+
+
+# Cors Headers Config
+CORS_ORIGIN_ALLOW_ALL = True

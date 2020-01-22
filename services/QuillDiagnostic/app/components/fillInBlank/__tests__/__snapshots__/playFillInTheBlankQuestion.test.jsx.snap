@@ -74,31 +74,13 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   
                 </span>,
                 <span>
-                  <div
-                    style={
-                      Object {
-                        "height": 0,
-                        "position": "relative",
-                        "width": 0,
-                      }
-                    }
-                  />
                   <input
-                    autoComplete="off"
+                    className="fill-in-blank-input"
                     id="input0"
                     onBlur={[Function]}
                     onChange={[Function]}
                     style={
                       Object {
-                        "borderImageSlice": 1,
-                        "borderImageSource": "linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0))",
-                        "borderStyle": "solid",
-                        "borderWidth": 1,
-                        "boxShadow": "0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)",
-                        "color": "#3D3D3D",
-                        "fontSize": 24,
-                        "marginRight": 10,
-                        "textAlign": "center",
                         "width": "55px",
                       }
                     }
@@ -170,31 +152,13 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   
                 </span>,
                 <span>
-                  <div
-                    style={
-                      Object {
-                        "height": 0,
-                        "position": "relative",
-                        "width": 0,
-                      }
-                    }
-                  />
                   <input
-                    autoComplete="off"
+                    className="fill-in-blank-input"
                     id="input1"
                     onBlur={[Function]}
                     onChange={[Function]}
                     style={
                       Object {
-                        "borderImageSlice": 1,
-                        "borderImageSource": "linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0))",
-                        "borderStyle": "solid",
-                        "borderWidth": 1,
-                        "boxShadow": "0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)",
-                        "color": "#3D3D3D",
-                        "fontSize": 24,
-                        "marginRight": 10,
-                        "textAlign": "center",
                         "width": "55px",
                       }
                     }
@@ -271,31 +235,13 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <span>
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "position": "relative",
-                      "width": 0,
-                    }
-                  }
-                />
                 <input
-                  autoComplete="off"
+                  className="fill-in-blank-input"
                   id="input0"
                   onBlur={[Function]}
                   onChange={[Function]}
                   style={
                     Object {
-                      "borderImageSlice": 1,
-                      "borderImageSource": "linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0))",
-                      "borderStyle": "solid",
-                      "borderWidth": 1,
-                      "boxShadow": "0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)",
-                      "color": "#3D3D3D",
-                      "fontSize": 24,
-                      "marginRight": 10,
-                      "textAlign": "center",
                       "width": "55px",
                     }
                   }
@@ -363,31 +309,13 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 }
               />
               <span>
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "position": "relative",
-                      "width": 0,
-                    }
-                  }
-                />
                 <input
-                  autoComplete="off"
+                  className="fill-in-blank-input"
                   id="input1"
                   onBlur={[Function]}
                   onChange={[Function]}
                   style={
                     Object {
-                      "borderImageSlice": 1,
-                      "borderImageSource": "linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1) 5%, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0))",
-                      "borderStyle": "solid",
-                      "borderWidth": 1,
-                      "boxShadow": "0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)",
-                      "color": "#3D3D3D",
-                      "fontSize": 24,
-                      "marginRight": 10,
-                      "textAlign": "center",
                       "width": "55px",
                     }
                   }
@@ -413,7 +341,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               </span>
             </div>
           </Prompt>
-          <cues
+          <Cues
             customText="Add words or leave blank"
             displayArrowAndText={true}
             getQuestion={[Function]}
@@ -450,7 +378,8 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                   </div>
                 </Cue>
                 <img
-                  src="https://assets.quill.org/images/icons/arrow_icon.svg"
+                  alt="Arrow Icon"
+                  src="undefined/images/icons/pointing-arrow.svg"
                 />
                 <CueExplanation
                   text="Add words or leave blank"
@@ -463,7 +392,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </CueExplanation>
               </div>
             </div>
-          </cues>
+          </Cues>
           <Feedback
             feedback={
               <p
@@ -485,8 +414,9 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 className="feedback-row student-feedback-inner-container"
               >
                 <img
+                  alt="Directions Icon"
                   className="info"
-                  src="https://assets.quill.org/images/icons/question_icon.svg"
+                  src="undefined/images/icons/direction.svg"
                 />
                 <p
                   dangerouslySetInnerHTML={
@@ -512,8 +442,8 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
       }
     >
       <button
-        className="button student-submit is-disabled"
-        onClick={[Function]}
+        className="quill-button large primary contained disabled"
+        type="button"
       >
         Submit
       </button>

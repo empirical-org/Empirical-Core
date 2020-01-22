@@ -80,7 +80,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const entry = this.stripHtml(html).trim()
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = ''
-    let onClick = () => submitResponse(entry, prompt.prompt_id)
+    let onClick = () => submitResponse(entry, prompt.prompt_id, prompt.text)
     if (submittedResponses.length === prompt.max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'

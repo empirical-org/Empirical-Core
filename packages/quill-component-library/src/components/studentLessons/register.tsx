@@ -1,5 +1,4 @@
 import React from 'react';
-const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg';
 
 class Register extends React.Component<any, any> {
   constructor(props) {
@@ -7,54 +6,40 @@ class Register extends React.Component<any, any> {
 
     this.state = {
       showIntro: false,
-      name: '',
       hasSentenceFragment: this.hasSentenceFragment(),
     }
-
-    this.handleNameChange = this.handleNameChange.bind(this)
-    this.getLessonName = this.getLessonName.bind(this)
-    this.landingPageHtmlHasText = this.landingPageHtmlHasText.bind(this)
-    this.startActivity = this.startActivity.bind(this)
-    this.leaveIntro = this.leaveIntro.bind(this)
-    this.resume = this.resume.bind(this)
-    this.hasSentenceFragment = this.hasSentenceFragment.bind(this)
-    this.renderButton = this.renderButton.bind(this)
-    this.renderIntro = this.renderIntro.bind(this)
-  }
-
-  handleNameChange(e) {
-    this.setState({ name: e.target.value, });
-  }
-
-  getLessonName() {
-    return this.props.lesson.name;
   }
 
   landingPageHtmlHasText(){
+    const { lesson, } = this.props
     // strips out everything nested betwee < and >.
     // we should also not allow draft js to send text-less answers from
     // the lp editor
-    return this.props.lesson.landingPageHtml.replace(/(<([^>]+)>)/ig, "").length > 0;
+    return lesson.landingPageHtml.replace(/(<([^>]+)>)/ig, "").length > 0;
   }
 
-  startActivity() {
-    if (this.props.lesson.landingPageHtml && this.landingPageHtmlHasText()) {
+  startActivity = () => {
+    const { lesson, startActivity, } = this.props
+    if (lesson.landingPageHtml && this.landingPageHtmlHasText()) {
       this.setState({ showIntro: true, });
     } else {
-      this.props.startActivity(this.state.name);
+      startActivity();
     }
   }
 
-  leaveIntro() {
-    this.props.startActivity(this.state.name);
+  handleStartLessonClick = () => {
+    const { startActivity, } = this.props
+    startActivity();
   }
 
-  resume() {
-    this.props.resumeActivity(this.props.session);
+  resume = () => {
+    const { resumeActivity, session, } = this.props
+    resumeActivity(session);
   }
 
-  hasSentenceFragment() {
-    const { questions } = this.props.lesson;
+  hasSentenceFragment = () => {
+    const { lesson, } = this.props
+    const { questions } = lesson;
     for (let i = 0; i < questions.length; i+=1) {
       if (questions[i].questionType === "sentenceFragments") {
         return true;
@@ -63,10 +48,11 @@ class Register extends React.Component<any, any> {
     return false;
   }
 
-  renderButton() {
+  renderButton = () => {
+    const { session, } = this.props
     let onClickFn,
       text;
-    if (this.props.session) {
+    if (session) {
       // resume session if one is passed
       onClickFn = this.resume;
       text = <span>Resume</span>;
@@ -76,22 +62,23 @@ class Register extends React.Component<any, any> {
       text = <span>Begin</span>;
     }
     return (
-      <button className="button student-begin" onClick={onClickFn}>
+      <button className="quill-button primary contained large" onClick={onClickFn} type="button">
         {text}
-        <img className="begin-arrow" src={beginArrow} />
       </button>
     );
   }
 
-  renderIntro() {
-    if (this.state.showIntro) {
+  renderIntro = () => {
+    const { lesson, } = this.props
+    const { showIntro, hasSentenceFragment, } = this.state
+    if (showIntro) {
       return (
         <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.props.lesson.landingPageHtml, }} />
-          <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
+          <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: lesson.landingPageHtml, }} />
+          <button className="quill-button large primary contained" onClick={this.handleStartLessonClick} type="button">Start lesson</button>
         </div>
       );
-    } else if (this.state.hasSentenceFragment) {
+    } else if (hasSentenceFragment) {
       return (
         <div className="container">
           <h2 className="title is-3 register">
