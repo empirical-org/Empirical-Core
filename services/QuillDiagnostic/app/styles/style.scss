@@ -5,7 +5,6 @@
 @import "components/student-question";
 @import "components/animations";
 @import "components/landing-page-html";
-@import "components/multiple-choice";
 @import "components/_language-choices";
 @import "components/_question_health";
 @import '../../node_modules/react-selectize/themes/index.css';
@@ -346,7 +345,8 @@ textarea.submission {
       min-height: calc(100vh - 64px);
     }
     &.minus-nav-and-footer {
-      min-height: calc(100vh - 64px - 81px);
+      height: calc(100vh - 64px - 81px);
+      min-height: min-content;
       flex: 1 1 auto;
     }
     .hero-body {
