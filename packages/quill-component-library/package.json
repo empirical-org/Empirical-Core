@@ -1,6 +1,6 @@
 {
   "name": "quill-component-library",
-  "version": "0.6.3",
+  "version": "0.6.12",
   "description": "A library for components shared between Quill apps.",
   "main": "componentLibrary.js",
   "module": "componentLibrary.module.js",
@@ -67,7 +67,7 @@
     "react-select": "^2.4.2",
     "react-simple-pie-chart": "^0.5.0",
     "reify": "^0.19.1",
-    "rollup": "^0.60.7",
+    "rollup": "^1.29.1",
     "xlsx": "^0.14.2"
   },
   "peerDependencies": {

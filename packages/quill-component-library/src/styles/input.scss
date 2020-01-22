@@ -12,6 +12,17 @@
     }
   }
 
+  &.dropdown-container:focus {
+    outline: none;
+    label {
+      color: #009a80 !important;
+    }
+    .dropdown__control {
+      border: 2px #009a80 !important;
+      border-style: none none solid !important;
+    }
+  }
+
   input, input:focus, textarea, textarea:focus {
     outline: none;
     margin-bottom: 8px;
@@ -167,8 +178,9 @@
       color: black;
       padding: 12px;
       font-size: 16px;
-      &:active, &:hover {
-        background-color: #f2f2f2;
+      &:active, &:hover, &:focus {
+        background-color: #f2f2f2 !important;
+        outline: none;
       }
     }
     .checkable-dropdown-option {
@@ -287,6 +299,9 @@
       .input-container {
         min-height: 0px;
       }
+    }
+    &:focus {
+      outline: none;
     }
   }
   &.error {
