@@ -11,6 +11,14 @@ class Rule(BaseModel):
                                  on_delete=models.CASCADE,
                                  related_name='rules',
                                  null=False)
+    case_sensitive = models.BooleanField(null=False,
+                                         default=False)
+
+
 
     def match(self, entry):
-        return re.search(self.regex_text, entry, re.IGNORECASE)
+        if self.case_sensitive:
+            return re.search(self.regex_text, entry)
+        else:
+            return re.search(self.regex_text, entry, re.IGNORECASE)
+
