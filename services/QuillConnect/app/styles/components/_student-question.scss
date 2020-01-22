@@ -342,19 +342,12 @@
   }
 }
 
-.red-outline {
-  border: 1px solid #ff4542;
+.error {
+  border-bottom: 3px solid #b17410;
 }
 
-.button-and-error-row {
-  display: flex;
-  justify-content: space-between;
-  .error {
-    font-size: 20px;
-    color: #ff4542;
-    padding-right: 25px;
-    padding-left: 15px;
-  }
+.error-container {
+  margin-bottom: 20px;
 }
 
 .ell-illustration {
