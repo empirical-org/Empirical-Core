@@ -9,3 +9,4 @@ class RuleFactory(factory.django.DjangoModelFactory):
 
     regex_text = '^test'
     rule_set = factory.SubFactory(RuleSetFactory)
+    case_sensitive = False

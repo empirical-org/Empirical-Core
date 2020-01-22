@@ -79,19 +79,37 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
 
 class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
     def test_first_pass(self):
-        rule_set = (RuleSetFactory(feedback='Test feedback', pass_order=RuleSet.PASS_ORDER.FIRST,
-                   prompt=self.prompt))
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt))
         RuleFactory(regex_text='^test', rule_set=rule_set)
-        feedback = self.prompt.fetch_rules_based_feedback('incorrect test correct',
-                                                     RuleSet.PASS_ORDER.FIRST)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('incorrect test correct',
+                                               RuleSet.PASS_ORDER.FIRST))
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
     def test_second_pass(self):
-        rule_set = (RuleSetFactory(feedback='Test feedback', pass_order=RuleSet.PASS_ORDER.SECOND,
-                    prompt=self.prompt))
+        rule_set = (RuleSetFactory(feedback='Test feedback',
+                                   pass_order=RuleSet.PASS_ORDER.SECOND,
+                                   prompt=self.prompt))
         RuleFactory(regex_text='^test', rule_set=rule_set)
-        feedback = self.prompt.fetch_rules_based_feedback('incorrect test correct',
-                                                     RuleSet.PASS_ORDER.SECOND)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('incorrect test correct',
+                                               RuleSet.PASS_ORDER.SECOND))
+        self.assertFalse(feedback['optimal'])
+        self.assertEqual(feedback['feedback'], 'Test feedback')
+
+    def test_does_not_contain_regex(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    test_for_contains=False))
+        RuleFactory(regex_text='does not contain', rule_set=rule_set)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('test does not contain',
+                                               RuleSet.PASS_ORDER.FIRST))
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')

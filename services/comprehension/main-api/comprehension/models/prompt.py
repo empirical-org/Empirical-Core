@@ -5,6 +5,7 @@ from .ml_feedback import MLFeedback
 from .ml_model import MLModel
 from ..utils import combine_labels
 
+
 CORRECT_FEEDBACK = 'All rules-based checks passed!'
 
 
