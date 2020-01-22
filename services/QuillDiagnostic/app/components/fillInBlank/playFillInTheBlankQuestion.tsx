@@ -40,6 +40,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   componentDidMount() {
     const { question, } = this.props
 
+    document.addEventListener('keydown', this.handleKeyDown, true)
     this.setQuestionValues(question)
   }
 
@@ -48,6 +49,17 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown, true)
+  }
+
+  handleKeyDown = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    e.preventDefault()
+    this.handleSubmitResponse()
   }
 
   setQuestionValues = (question) => {
@@ -160,9 +172,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     const styling = { width: `${width}px`}
+    const autofocus = i === 0
     return (
       <span key={`span${i}`}>
         <input
+          autoFocus={autofocus}
           className={className}
           id={`input${i}`}
           key={i + 100}
