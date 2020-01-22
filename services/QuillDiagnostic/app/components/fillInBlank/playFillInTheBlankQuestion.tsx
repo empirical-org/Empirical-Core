@@ -313,10 +313,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses, } = this.state
 
     let fullPageInstructions
-    if (language === 'arabic' && !(question.mediaURL)) {
-      fullPageInstructions = { maxWidth: 800, width: '100%' }
-    } else {
+    if (question.mediaURL) {
       fullPageInstructions = { display: 'block' }
+    } else {
+      fullPageInstructions = { maxWidth: 800, width: '100%' }
     }
     const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     return (

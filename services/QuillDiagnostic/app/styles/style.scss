@@ -125,14 +125,10 @@ ul.is-unstyled {
   }
 }
 
-.register-container {
+.register-container, .register {
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-}
-
-h2.register {
-  text-align: center;
 }
 
 .is-question {
@@ -367,7 +363,6 @@ textarea.submission {
 }
 
 .student-container-inner-diagnostic {
-  position: absolute;
   width: 100%;
 }
 
