@@ -235,7 +235,7 @@ class ELLSentenceCombining extends React.Component {
     const { language, questions, question, } = this.props
     const { responses, error, response, } = this.state
     let button;
-    const fullPageInstructions = language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
+    const fullPageInstructions = { maxWidth: 800, width: '100%', }
     if (responses && Object.keys(responses).length) {
       if (question.attempts.length > 0) {
         button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
