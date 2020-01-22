@@ -90,7 +90,7 @@ class RuleSetModelTest(TestCase):
 
 class RuleModelTest(TestCase):
     def setUp(self):
-        self.rule = RuleFactory()
+        self.rule = RuleFactory(regex_text='^test', case_sensitive=False)
 
     def test_regex_text_not_nullable(self):
         self.rule.regex_text = None

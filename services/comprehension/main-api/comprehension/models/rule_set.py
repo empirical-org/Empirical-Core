@@ -17,6 +17,8 @@ class RuleSet(BaseModel):
     priority = models.IntegerField(null=False, default=1)
     pass_order = models.TextField(null=False,
                                   choices=PASS_ORDER.get_for_choices())
+    test_for_contains = models.BooleanField(null=False,
+                                            default=True)
 
     class Meta:
         unique_together = ('prompt', 'priority', 'pass_order', )
