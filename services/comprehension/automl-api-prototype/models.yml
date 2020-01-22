@@ -54,3 +54,31 @@ models:
     correct:
       - Increased_Voting-More_Representative
       - Apathy-Increased_Voting-More_Representative
+  105: # take this from the comprehension beta app question id
+    name: "Title IX because"
+    label_type: "multi" #single or multi
+    automl:
+      project_id: 'comprehension-247816'
+      compute_region: 'us-central1'
+      model_id: 'TCN2545391408533995520'
+    feedback:
+      default_feedback: "Revise your work. At least some of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Fin_Trouble: "Be specific. Why was Eastern Michigan in financial trouble?"
+      Fin_Trouble-Miscellaneous: "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Fin_Trouble-Overspending: "Nice work! You explained that Eastern Michigan cut women's tennis and softball because it was in financial trouble given that it was spending too much money."
+      Fin_Trouble-Overspending-To_Save_Money: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      Fin_Trouble-To_Save_Money: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      Lack_of_funds: "That's a strong sentence! You accurately explained why Eastern Michigan decided to cut women's tennis and softball."
+      Lack_of_funds-Miscellaneous: "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Lack_of_funds-To_Save_Money: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      Miscellaneous: "Revise your work. Your response is not supported by the text.\n\nRe-read the text and find at least one reason to explain why Eastern Michigan cut women's softball and tennis."
+      Miscellaneous-To_Save_Money: "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Overspending: "Add to your sentence. If Eastern Michigan spent too much money, why did it decide to cut women's tennis and softball?"
+      To_Save_Money: "Add to your sentence. Why did Eastern Michigan need to save money?"
+      To_Save_Money-Overspending: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+    correct:
+      - Fin_Trouble-Overspending
+      - Fin_Trouble-Overspending-To_Save_Money
+      - Fin_Trouble-To_Save_Money
+      - Lack_of_funds
+      - Lack_of_funds-To_Save_Money
