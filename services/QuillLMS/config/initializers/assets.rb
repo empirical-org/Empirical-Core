@@ -5,4 +5,5 @@ Rails.application.config.assets.precompile += [
   'cookie_warning.js',
   'jquery-1.8.2',
   'sign_up_email.css',
+  'stats_email.css'
 ]
