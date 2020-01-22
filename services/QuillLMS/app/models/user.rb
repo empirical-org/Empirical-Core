@@ -265,9 +265,9 @@ class User < ActiveRecord::Base
   def capitalize_name
     result = name
     if name.present?
-      f,l = name.split(/\s+/)
+      f,l = name.split(/\s+/, 2)
       if f.present? and l.present?
-        result = "#{f.capitalize} #{l.capitalize}"
+        result = "#{f.capitalize} #{l.gsub(/\S+/, &:capitalize)}"
       else
         result = name.capitalize
       end
@@ -333,7 +333,7 @@ class User < ActiveRecord::Base
   end
 
   ## Satismeter settings
-  SATISMETER_PERCENT_PER_DAY = 1.0
+  SATISMETER_PERCENT_PER_DAY = 5.0
   SATISMETER_ACTIVITIES_PER_STUDENT_THRESHOLD = 3.0
   SATISMETER_NEW_USER_THRESHOLD = 60.days
 
