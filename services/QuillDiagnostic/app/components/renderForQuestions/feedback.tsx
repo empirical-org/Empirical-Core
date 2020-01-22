@@ -3,7 +3,7 @@ import getAnswerState from './answerState';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 class FeedbackComponent extends React.Component<any, any> {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
@@ -20,10 +20,10 @@ class FeedbackComponent extends React.Component<any, any> {
           return "revise-unmatched"
         }
       } else {
-        if(!!data.question.instructions) {
+        if (!!data.question.instructions) {
           return "instructions"
         }
-        else if(data.getQuestion && data.getQuestion().instructions!=="") {
+        else if (data.getQuestion && data.getQuestion().instructions !== "") {
           return "getQuestion-instructions"
         }
         else if (data.getQuestion && data.getQuestion().cues && data.getQuestion().cues.length > 0 && data.getQuestion().cues[0] !== "") {
