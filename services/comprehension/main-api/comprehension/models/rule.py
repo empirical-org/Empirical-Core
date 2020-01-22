@@ -4,6 +4,8 @@ from . import BaseModel
 from .rule_set import RuleSet
 import re
 
+NO_REGEX_FLAGS = 0
+
 
 class Rule(BaseModel):
     regex_text = models.TextField(null=False)
@@ -14,11 +16,15 @@ class Rule(BaseModel):
     case_sensitive = models.BooleanField(null=False,
                                          default=False)
 
+    def _match_for_contains(self, entry, flags):
+        return re.search(self.regex_text, entry, flags)
 
+    def _match_for_does_not_contain(self, entry, flags):
+        return not re.search(self.regex_text, entry, flags)
 
     def match(self, entry):
-        if self.case_sensitive:
-            return re.search(self.regex_text, entry)
+        flags = NO_REGEX_FLAGS if self.case_sensitive else re.IGNORECASE
+        if self.rule_set.test_for_contains:
+            return self._match_for_contains(entry, flags)
         else:
-            return re.search(self.regex_text, entry, re.IGNORECASE)
-
+            return self._match_for_does_not_contain(entry, flags)
