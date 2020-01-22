@@ -119,3 +119,23 @@ def test_multi_label_response(mock_automl, app):
                              "sentence that states how people will be more "
                              "represented in government.")
         assert data['feedback'] == expected_feedback
+
+
+@patch('google.cloud.automl_v1beta1.PredictionServiceClient')
+def test_multi_label_response_second_passage(mock_automl, app):
+    request_json = {'entry': 'something', 'prompt_id': 105}
+    with app.test_request_context(json=request_json):
+        label_json = {"Fin_Trouble": 0.97, "Overspending": 0.51}
+        mock_response = mock_response_for(label_json)
+        mock_automl.return_value.predict.return_value = mock_response
+
+        response = main.response_endpoint(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data['optimal'] is True
+        expected_feedback = ("Nice work! You explained that Eastern Michigan "
+                             "cut women's tennis and softball because "
+                             "it was in financial trouble given that it "
+                             "was spending too much money.")
+        assert data['feedback'] == expected_feedback
