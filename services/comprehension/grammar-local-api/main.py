@@ -33,5 +33,5 @@ def check_grammar(request):
     return make_response(jsonify(**response_data), 200)
 
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+#     app.run()
