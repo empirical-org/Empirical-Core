@@ -25,7 +25,6 @@ class Prompt(TimestampedModel):
                     }
 
         for rule_set in rule_sets:
-            rules = rule_set.rules.all() if rule_set.rules else []
             for rule in rules:
                 if not rule.match(entry):
                     feedback['feedback'] = rule_set.feedback
