@@ -1,15 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { clearData, loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, updateName, nextQuestion } from '../../../actions.js';
+import { clearData, loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, nextQuestion } from '../../../actions.js';
 import { Lesson } from '../lesson.jsx';
-import { PlayTitleCard, Register, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { PlayTitleCard, Register, Spinner, ProgressBar } from 'quill-component-library/dist/componentLibrary';
 import Finished from '../finished.jsx';
 import PlayLessonQuestion from '../question';
 import PlaySentenceFragment from '../sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank.tsx';
 import SessionActions from '../../../actions/sessions.js';
-import request from 'request';
-jest.mock('request');
+import * as progressHelpers from '../../../libs/calculateProgress';
+
+// required function mocks
+jest.mock('request', () => jest.fn(() => {}));
+SessionActions.update = jest.fn();
+progressHelpers.questionCount = jest.fn();
+progressHelpers.answeredQuestionCount = jest.fn();
+progressHelpers.getProgressPercent = jest.fn(() => {return 0});
 
 const mockProps = {
   conceptsFeedback: {},
@@ -139,17 +145,16 @@ describe('Lesson Container prop-dependent component rendering', () => {
 });
 
 describe('Lesson Container functions', () => {
+  const filteredQuestions = [
+    { question: { key: "test1", questionType: "questions" }, type: "SC" },
+    { question: { key: "test2", questionType: "fillInBlank" }, type: "FB" },
+    { question: { key: "test3", questionType: "titleCards" }, type: "TL" },
+    { question: { key: "test4", questionType: "sentenceFragments" }, type: "SF" }
+  ];
   let container = shallow(<Lesson {...mockProps} />);
 
   it("will call dispatch() props function on mount, passing clearData() action as a callback", () => {
     expect(mockProps.dispatch).toHaveBeenCalledWith(clearData());
-  });
-  it("doesNotHaveAndIsNotGettingResponses() returns opposite boolean value of hasOrIsGettingResponses piece of state", () => {
-    expect(container.state().hasOrIsGettingResponses).toEqual(false);
-    expect(container.instance().doesNotHaveAndIsNotGettingResponses()).toEqual(true);
-  });
-  it("getPreviousSessionData returns session piece of state", () => {
-    expect(container.instance().getPreviousSessionData()).toEqual(container.state().session);
   });
   it("resumeSession calls dispatch() props function passing resumePreviousSession(data) action as a callback if data prop is present", () => {
     let data = null;
@@ -192,31 +197,26 @@ describe('Lesson Container functions', () => {
 
   // TODO: implement finishActivitySession and createAnonActivitySession tests with request module mocking
 
-  it("finishActivitySession makes a put request and sets saved piece of state to true on success", () => {
-  });
-  it("finishActivitySession makes a put request and sets saved piece of state to false on failure", () => {
-  });
-  it("createAnonActivitySession makes a post request and sets saved piece of state to true on success", () => {
-  });
+  // it("finishActivitySession makes a put request and sets saved piece of state to true on success", () => {
+  // });
+  // it("finishActivitySession makes a put request and sets saved piece of state to false on failure", () => {
+  // });
+  // it("createAnonActivitySession makes a post request and sets saved piece of state to true on success", () => {
+  // });
 
   it("markIdentify calls dispatch() props method, passing updateCurrentQuestion(bool) action as a callback", () => {
-    container.instance().markIdentify({});
-    expect(mockProps.dispatch).toHaveBeenCalled();
+    const argument = updateCurrentQuestion({ identified: true });
+    container.instance().markIdentify(true);
+    expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
   });
   it("questionsForLesson returns an array of filtered questions", () => {
-    const filteredQuestions = [
-      { question: { key: "test1", questionType: "questions" }, type: "SC" },
-      { question: { key: "test2", questionType: "fillInBlank" }, type: "FB" },
-      { question: { key: "test3", questionType: "titleCards" }, type: "TL" },
-      { question: { key: "test4", questionType: "sentenceFragments" }, type: "SF" }];
     expect(container.instance().questionsForLesson()).toEqual(filteredQuestions);
   });
   it("startActivity calls saveStudentName() and dispatch() prop function twice, passing loadData(this.questionsForLesson()) & nextQuestion() as callbacks", () => {
-    const saveStudentName = jest.spyOn(container.instance(), "saveStudentName");
     const questionsForLesson = jest.spyOn(container.instance(), "questionsForLesson");
-    container.instance().startActivity("Eric Adams");
-    expect(saveStudentName).toHaveBeenCalledWith("Eric Adams");
-    expect(mockProps.dispatch).toHaveBeenCalledWith(loadData(questionsForLesson()));
+    const argument = loadData(questionsForLesson());
+    container.instance().startActivity();
+    expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
     expect(mockProps.dispatch).toHaveBeenLastCalledWith(nextQuestion());
   });
   it("nextQuestion calls dispatch() prop function passing nextQuestion action as callback", () => {
@@ -226,18 +226,7 @@ describe('Lesson Container functions', () => {
   it("getLesson returns props.lessons.data[this.props.params.lessonID]", () => {
     expect(container.instance().getLesson()).toEqual(mockProps.lessons.data["-KTAQiTDo_9gAnk3aBG5"]);
   });
-  it("getLessonName returns props.lessons.data[this.props.params.lessonID].name", () => {
-    expect(container.instance().getLessonName()).toEqual("Como Fazer Um Rolê");
-  });
-  it("saveStudentName calls dispatch() prop function, passing updateName(name) as a callback", () => {
-    container.instance().saveStudentName("Eric Adams");
-    expect(mockProps.dispatch).toHaveBeenLastCalledWith(updateName("Eric Adams"));
-  });
-  it("getProgressPercent returns percent if playLesson, playLesson.answeredQuestions & playLesson.questionSet are present; otherwise, returns 0", () => {
-    expect(container.instance().getProgressPercent()).toEqual(0);
-  });
   it("saveSessionData calls SessionActions.update(this.state.sessionID, lessonData) if sessionID is present", () => {
-    SessionActions.update = jest.fn();
     container.instance().saveSessionData({
       questionSet: [
         { question: { key: "test1", attempts: 1 } },
@@ -246,5 +235,38 @@ describe('Lesson Container functions', () => {
       ]
     });
     expect(SessionActions.update).toHaveBeenCalled()
+  });
+  it("renderProgressBar render progress dependent on props", () => {
+    mockProps.lessons = { 
+      hasreceiveddata: true,
+      data: {
+        "-KTAQiTDo_9gAnk3aBG5": {
+          flag: "production",
+          name: "Como Fazer Um Rolê",
+          questions: [
+            { key: "test1", questionType: "questions" },
+            { key: "test2", questionType: "fillInBlank" },
+            { key: "test3", questionType: "titleCards" },
+            { key: "test4", questionType: "sentenceFragments" }
+          ]
+        }
+      }
+    };
+    mockProps.playLesson = {
+      questionSet: filteredQuestions,
+      answeredQuestions: [],
+      unansweredQuestions: filteredQuestions.slice(3),
+      currentQuestion: {
+        type: 'TL',
+        data: {
+            key: 'test-key'
+        }
+      }
+    };
+    container = shallow(<Lesson {...mockProps} />);
+    container.setState({ sessionInitialized: true });
+    container.instance().renderProgressBar();
+    expect(container.find(ProgressBar).length).toEqual(1);
+    expect(container.find(ProgressBar).props().percent).toEqual(0)
   });
 });
