@@ -427,12 +427,10 @@ jobs:
       - run:
           name: Pip Install
           command: |
-            cd services/comprehension/main-api
             pip install --user flake8
       - run:
           name: Run Flake8
           command: |
-            cd services/comprehension/main-api
             flake8
 workflows:
   version: 2
