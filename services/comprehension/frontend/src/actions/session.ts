@@ -17,11 +17,13 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
     }
 
     request.post(requestObject, (e, r, body) => {
+
       const feedbackObj: FeedbackObject = {
         feedback: body.feedback,
         feedback_type: body.feedback_type,
         optimal: body.optimal,
         response_id: body.response_id,
+        highlight: body.highlight,
         entry,
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
