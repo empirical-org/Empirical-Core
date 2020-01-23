@@ -19,6 +19,12 @@ if(process.env.NODE_ENV === 'production') {
   });
 }
 
+const throwSentryError = (err) => {
+  if(process.env.NODE_ENV === 'production') {
+    Sentry.captureException(err);
+  }
+}
+
 dotenv.config();
 
 const app = http.createServer(requestHandler);
@@ -209,7 +215,7 @@ function verifyToken(token) {
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
     newrelic.noticeError(err);
-    Sentry.captureException(err);
+    throwSentryError(err);
   } else {
     io.on('connection', (client) => {
       client.on('authentication', (data) => {
@@ -221,8 +227,9 @@ r.connect(rethinkdbConfig, (err, connection) => {
         client.on('cleanDatabase', (data) => {
           if (process.env.NODE_ENV === 'test') {
             cleanDatabase({ ...adaptors, ...data });
-          } else {
+          } else if (process.env.NODE_ENV === 'production') {
             Sentry.captureMessage(`Cannot clean database in ${process.env.NODE_ENV}`);
+          } else {
             newrelic.noticeError(`Cannot clean database in ${process.env.NODE_ENV}`);
           }
         });
@@ -532,7 +539,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
         client.on('error', err => {
           newrelic.noticeError(err);
-          Sentry.captureException(err);
+          throwSentryError(err);
         });
       });
     });
@@ -541,7 +548,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
 
 app.on('error', err => {
   newrelic.noticeError(err);
-  Sentry.captureException(err);
+  throwSentryError(err);
 });
 
 app.listen(port, () => {});
