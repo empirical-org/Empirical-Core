@@ -113,3 +113,28 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
                                                RuleSet.PASS_ORDER.FIRST))
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
+
+    def test_two_rules_in_rule_set(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    test_for_contains=True))
+
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        RuleFactory(regex_text='^teeest', rule_set=rule_set)
+
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('teeest test correct',
+                                               RuleSet.PASS_ORDER.FIRST))
+        feedback_two = (self.prompt.
+                    fetch_rules_based_feedback('test test correct',
+                                               RuleSet.PASS_ORDER.FIRST))
+        feedback_three = (self.prompt.
+                    fetch_rules_based_feedback('teest test incorrect',
+                                               RuleSet.PASS_ORDER.FIRST))
+        self.assertTrue(feedback['optimal'])
+        self.assertTrue(feedback_two['optimal'])
+        self.assertFalse(feedback_three['optimal'])
+
+
