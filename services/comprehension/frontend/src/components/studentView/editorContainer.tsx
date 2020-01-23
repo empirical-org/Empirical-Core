@@ -5,7 +5,7 @@ const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 
 interface EditorContainerProps {
   promptText: string;
-  stripHtml: (string: string) => string;
+  stripHtml: (str: string) => string;
   html: string;
   disabled: boolean;
   resetText: (event: any) => void;
@@ -25,18 +25,18 @@ export default class EditorContainer extends React.Component<EditorContainerProp
   shouldComponentUpdate(nextProps: EditorContainerProps) {
     // this prevents some weird cursor stuff from happening in the text editor
     const { promptText, stripHtml, html, disabled } = nextProps
-    if (disabled) return true
+    if (disabled) { return true }
 
     // this prevents some weird cursor stuff from happening in the text editor
     const firstEditHasAlreadyBeenMade = promptText !== stripHtml(html)
-    if (firstEditHasAlreadyBeenMade) return false
+    if (firstEditHasAlreadyBeenMade) { return false }
 
     return true
   }
 
   renderClear = () => {
     const { disabled, resetText, } = this.props
-    if (disabled) return
+    if (disabled) { return }
     return (<img
       alt="circle with an x in it"
       className="clear"
