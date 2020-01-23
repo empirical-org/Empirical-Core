@@ -30,6 +30,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     super(props)
 
     this.state = { html: this.formattedPrompt() };
+
+    this.editor = React.createRef()
   }
 
   lastSubmittedResponse = () => {
@@ -45,7 +47,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>/g, '').replace('&nbsp;', ' ')
 
   formattedPrompt = () => {
-    const { text, } = this.props.prompt
+    const { prompt, } = this.props
+    const { text, } = prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
   }
 
@@ -53,7 +56,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   lastWord = (str: string) => str.substring(str.lastIndexOf(' ') + 1)
 
-  handleTextChange = (e) => {
+  onTextChange = (e) => {
     const { html, } = this.state
     const { value, } = e.target
     const text = value.replace(/<p>|<\/p>|<br>/g, '')
@@ -74,6 +77,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     this.setState({ html }, () => this.editor.innerHTML = html)
   }
 
+  setEditorRef = (node: JSX.Element) => this.editor = node
+
   renderButton = () => {
     const { prompt, submitResponse, submittedResponses, completeStep, everyOtherStepCompleted, } = this.props
     const { html, } = this.state
@@ -88,7 +93,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       className = 'disabled'
       onClick = () => {}
     }
-    return <button className={className} onClick={onClick}>{buttonCopy}</button>
+    return <button className={className} onClick={onClick} type="button">{buttonCopy}</button>
   }
 
   renderFeedbackSection = () => {
@@ -126,6 +131,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderEditorContainer = () => {
+    const { html, } = this.state
     const { submittedResponses, prompt, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
@@ -143,17 +149,19 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return (<EditorContainer
       className={className}
       disabled={disabled}
-      handleTextChange={this.handleTextChange}
-      html={this.state.html}
-      innerRef={(node: JSX.Element) => this.editor = node}
+      handleTextChange={this.onTextChange}
+      html={html}
+      innerRef={this.setEditorRef}
+      promptText={prompt.text}
       resetText={this.resetText}
       stripHtml={this.stripHtml}
-      unsubmittableResponses={this.unsubmittableResponses()}
     />)
   }
 
   renderActiveContent = () => {
-    if (!this.props.active) return
+    const { active, } = this.props
+    if (!active) return
+
     return (<div className="active-content-container">
       {this.renderEditorContainer()}
       {this.renderButton()}
