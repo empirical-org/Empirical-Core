@@ -10,6 +10,15 @@ import path from 'path';
 import rethinkdbConfig from './config/rethinkdb';
 import { requestHandler } from './config/server';
 
+const Sentry = require('@sentry/node');
+
+if(process.env.NODE_ENV === 'production') {
+  Sentry.init({ 
+    dsn: process.env.LESSONS_SENTRY_DSN,
+    debug: false 
+  });
+}
+
 dotenv.config();
 
 const app = http.createServer(requestHandler);
@@ -158,17 +167,17 @@ function cleanDatabase({
   ackCallback
 }) {
   r.tableList()
-  .run(connection)
-  .then((list) => {
-    if (list) {
-      list.forEach((tableName) => {
-        r.table(tableName).delete().run(connection)
-      })
-    }
-  })
-  .then(() => {
-    ackCallback('ok')
-  })
+    .run(connection)
+    .then((list) => {
+      if (list) {
+        list.forEach((tableName) => {
+          r.table(tableName).delete().run(connection)
+        })
+      }
+    })
+    .then(() => {
+      ackCallback('ok')
+    })
 }
 
 function registerConnection(socket) {
@@ -190,7 +199,7 @@ function verifyToken(token) {
       isValid = false;
     } else {
       tokenData = decodedToken.data;
-      isValid   = true;
+      isValid = true;
     }
   });
 
@@ -199,22 +208,22 @@ function verifyToken(token) {
 
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
-    newrelic.noticeError(err)
-    // to do, use Sentry to capture error
+    newrelic.noticeError(err);
+    Sentry.captureException(err);
   } else {
     io.on('connection', (client) => {
       client.on('authentication', (data) => {
-        const adaptors   = { connection, client };
+        const adaptors = { connection, client };
         const adminRoles = ['teacher', 'staff'];
-        const authToken  = verifyToken(data.token);
+        const authToken = verifyToken(data.token);
         registerConnection(client);
 
         client.on('cleanDatabase', (data) => {
           if (process.env.NODE_ENV === 'test') {
             cleanDatabase({ ...adaptors, ...data });
           } else {
-            // to do, use Sentry to capture error
-            // console.error(`Cannot clean database in ${process.env.NODE_ENV}`);
+            Sentry.captureMessage(`Cannot clean database in ${process.env.NODE_ENV}`);
+            newrelic.noticeError(`Cannot clean database in ${process.env.NODE_ENV}`);
           }
         });
 
@@ -521,12 +530,19 @@ r.connect(rethinkdbConfig, (err, connection) => {
             archiveEdition({ ...adaptors, ...data });
           });
         });
+        client.on('error', err => {
+          newrelic.noticeError(err);
+          Sentry.captureException(err);
+        });
       });
     });
   }
 });
 
-app.listen(port, () => {
-  // to do, use Sentry to capture error
-  // console.log(`Node server started and listening at ${port}`)
+app.on('error', err => {
+  newrelic.noticeError(err);
+  Sentry.captureException(err);
 });
+
+app.listen(port, () => {});
+
