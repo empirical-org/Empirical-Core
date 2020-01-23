@@ -19,9 +19,15 @@ if(process.env.NODE_ENV === 'production') {
   });
 }
 
-const throwSentryError = (err) => {
+const captureSentryError = (err) => {
   if(process.env.NODE_ENV === 'production') {
     Sentry.captureException(err);
+  }
+}
+
+const captureSentryMessage = (message) => {
+  if(process.env.NODE_ENV === 'production') {
+    Sentry.captureMessage(message);
   }
 }
 
@@ -215,7 +221,7 @@ function verifyToken(token) {
 r.connect(rethinkdbConfig, (err, connection) => {
   if (err) {
     newrelic.noticeError(err);
-    throwSentryError(err);
+    captureSentryError(err);
   } else {
     io.on('connection', (client) => {
       client.on('authentication', (data) => {
@@ -227,9 +233,8 @@ r.connect(rethinkdbConfig, (err, connection) => {
         client.on('cleanDatabase', (data) => {
           if (process.env.NODE_ENV === 'test') {
             cleanDatabase({ ...adaptors, ...data });
-          } else if (process.env.NODE_ENV === 'production') {
-            Sentry.captureMessage(`Cannot clean database in ${process.env.NODE_ENV}`);
           } else {
+            captureSentryMessage(`Cannot clean database in ${process.env.NODE_ENV}`);
             newrelic.noticeError(`Cannot clean database in ${process.env.NODE_ENV}`);
           }
         });
@@ -539,7 +544,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
         });
         client.on('error', err => {
           newrelic.noticeError(err);
-          throwSentryError(err);
+          captureSentryError(err);
         });
       });
     });
@@ -548,7 +553,7 @@ r.connect(rethinkdbConfig, (err, connection) => {
 
 app.on('error', err => {
   newrelic.noticeError(err);
-  throwSentryError(err);
+  captureSentryError(err);
 });
 
 app.listen(port, () => {});
