@@ -11,4 +11,6 @@ export interface Highlight {
   type: string;
   text: string
   id?: number;
+  category: string;
+  character?: number;
 }
