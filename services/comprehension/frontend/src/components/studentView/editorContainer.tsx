@@ -22,18 +22,6 @@ export default class EditorContainer extends React.Component<EditorContainerProp
     }, true);
   }
 
-  shouldComponentUpdate(nextProps: EditorContainerProps) {
-    // this prevents some weird cursor stuff from happening in the text editor
-    const { promptText, stripHtml, html, disabled } = nextProps
-    if (disabled) { return true }
-
-    // this prevents some weird cursor stuff from happening in the text editor
-    const firstEditHasAlreadyBeenMade = promptText !== stripHtml(html)
-    if (firstEditHasAlreadyBeenMade) { return false }
-
-    return true
-  }
-
   renderClear = () => {
     const { disabled, resetText, } = this.props
     if (disabled) { return }

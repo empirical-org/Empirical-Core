@@ -41,7 +41,7 @@ if (window.getSelection && document.createRange) {
               charIndex = nextCharIndex;
           } else {
               let i = node.childNodes.length;
-              while (i=-1) { // eslint-disable-line no-cond-assign
+              while (i--) { // eslint-disable-line no-plusplus
                   nodeStack.push(node.childNodes[i]);
               }
           }

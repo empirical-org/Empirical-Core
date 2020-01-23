@@ -1,11 +1,8 @@
 import * as React from 'react'
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
 import EditorContainer from './editorContainer'
+import Feedback from './feedback'
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
-
-const loopSrc = `${process.env.QUILL_CDN_URL}/images/icons/loop.svg`
-const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`
 
 interface PromptStepProps {
   active: Boolean;
@@ -35,20 +32,6 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     this.editor = React.createRef()
   }
 
-  componentDidUpdate = (prevProps: PromptStepProps) => {
-    const { submittedResponses, } = this.props
-    const { html, } = this.state
-
-    if (prevProps.submittedResponses.length === submittedResponses.length) { return true }
-
-    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
-    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
-    const regex = new RegExp(`^${formattedPrompt}`)
-    const textWithoutStem = text.replace(regex, '')
-    const newValue = `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}</p>`
-    this.setState({ html: newValue }, () => this.editor.innerHTML = newValue)
-  }
-
   lastSubmittedResponse = () => {
     const { submittedResponses, } = this.props
     return submittedResponses.length ? submittedResponses[submittedResponses.length - 1] : {}
@@ -59,7 +42,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     return submittedResponses.map(r => r.entry).concat(prompt.text)
   }
 
-  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace('&nbsp;', ' ')
+  stripHtml = (html: string) => html.replace(/<p>|<\/p>|<u>|<\/u>|<b>|<\/b>/g, '').replace(/&nbsp;/g, ' ')
 
   formattedPrompt = () => {
     const { prompt, } = this.props
@@ -95,16 +78,9 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
     const regex = new RegExp(`^${formattedPrompt}`)
-    const textWithoutStem = text.replace(regex, '')
     if (text.match(regex)) {
-      const newValue = `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}</p>`
-      this.setState({ html: newValue, }, () => {
-        if (newValue !== value) {
-          const caretPosition = EditCaretPositioning.saveSelection(this.editor)
-          this.editor.innerHTML = newValue
-          EditCaretPositioning.restoreSelection(this.editor, caretPosition)
-        }
-      })
+      const caretPosition = EditCaretPositioning.saveSelection(this.editor)
+      this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
@@ -140,37 +116,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   renderFeedbackSection = () => {
     const { submittedResponses, prompt, } = this.props
     if (submittedResponses.length === 0) { return }
-    const lastSubmittedResponse = this.lastSubmittedResponse()
-    let className = 'feedback'
-    let imageSrc = loopSrc
-    let imageAlt = 'Arrows pointing in opposite directions, making a loop'
-    if (lastSubmittedResponse.optimal) {
-      className += ' optimal'
-      imageSrc = smallCheckCircleSrc
-      imageAlt = 'Small green circle with a check in it'
-    }
-    const madeLastAttempt = submittedResponses.length === prompt.max_attempts
-    const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
-    const feedback = madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
-    return (
-      <ReactCSSTransitionReplace
-        transitionAppear={true}
-        transitionAppearTimeout={400}
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={400}
-        transitionName="fade"
-      >
-        <div className="feedback-section">
-          <p className="feedback-section-header">
-            Feedback<span>{submittedResponses.length} of {prompt.max_attempts} attempts</span>
-          </p>
-          <div className={className} key={lastSubmittedResponse.response_id}>
-            <img alt={imageAlt} src={imageSrc} />
-            <p>{feedback}</p>
-          </div>
-        </div>
-      </ReactCSSTransitionReplace>
-    )
+
+    return <Feedback lastSubmittedResponse={this.lastSubmittedResponse()} prompt={prompt} submittedResponses={submittedResponses} />
   }
 
   renderEditorContainer = () => {
@@ -189,11 +136,19 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     } else if (submittedResponses.length) {
       className += ' suboptimal'
     }
+
+    const text = html.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
+    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
+    const regex = new RegExp(`^${formattedPrompt}`)
+    const textWithoutStem = text.replace(regex, '')
+    const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
+    const htmlWithBolding = `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>`
+
     return (<EditorContainer
       className={className}
       disabled={disabled}
       handleTextChange={this.onTextChange}
-      html={html}
+      html={htmlWithBolding}
       innerRef={this.setEditorRef}
       promptText={prompt.text}
       resetText={this.resetText}
