@@ -128,13 +128,11 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
                     fetch_rules_based_feedback('teeest test correct',
                                                RuleSet.PASS_ORDER.FIRST))
         feedback_two = (self.prompt.
-                    fetch_rules_based_feedback('test test correct',
-                                               RuleSet.PASS_ORDER.FIRST))
+                        fetch_rules_based_feedback('test test correct',
+                                                   RuleSet.PASS_ORDER.FIRST))
         feedback_three = (self.prompt.
-                    fetch_rules_based_feedback('teest test incorrect',
-                                               RuleSet.PASS_ORDER.FIRST))
+                          fetch_rules_based_feedback('teest test incorrect',
+                                                     RuleSet.PASS_ORDER.FIRST))
         self.assertTrue(feedback['optimal'])
         self.assertTrue(feedback_two['optimal'])
         self.assertFalse(feedback_three['optimal'])
-
-
