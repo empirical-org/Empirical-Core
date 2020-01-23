@@ -1,4 +1,7 @@
 .nav.student-nav {
+  height: 64px;
+  background-color: #06806b;
+
   .student-lessons {
     height: 66px;
     display: flex;
@@ -27,8 +30,6 @@
     .lesson-name {
       right: 35;
     }
-    height: 50px;
-    background-color: $green;
 
     .container {
         max-width: 800px;
@@ -37,7 +38,13 @@
     }
 
     .nav-item {
-        color: $white;
+      color: $white;
+      font-weight: 600;
+      font-size: 16px;
+      img {
+        height: 32px;
+        max-height: 32px;
+      }
     }
 
     .question-counter {
@@ -64,21 +71,6 @@
       flex-grow: 1;
       flex-shrink: 0;
       justify-content: flex-end;
-        .nav-language-selector-container {
-          display: flex;
-          align-items: center;
-          @media (max-width: 690px) {
-            .nav-language-selector-directions {
-              display: none;
-            }
-            .nav-language-selector-trigger, .nav-language-selector-dropdown {
-              width: 132px;
-              .language-button-img {
-                margin-right: 7px;
-              }
-            }
-          }
-        }
     }
   }
 }

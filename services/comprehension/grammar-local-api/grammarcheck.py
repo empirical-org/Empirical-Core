@@ -432,7 +432,6 @@ class CapitalizationCheck(RuleBasedGrammarCheck):
     def check(self, doc: Doc) -> List[Error]:
         errors = []
         if re.match("[a-z]", doc[0].text):
-            doc[0]._.grammar_errors.append(CAPITALIZATION_ERROR)
             errors.append(Error(doc[0].text, doc[0].idx, self.name))
         for token in doc[1:]:
             if token.text == "i":

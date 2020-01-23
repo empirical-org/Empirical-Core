@@ -16,12 +16,14 @@ case $1 in
     export EMPIRICAL_BASE_URL=https://www.quill.org
     export LESSONS_WEBSOCKETS_URL=https://lessons-server.quill.org/
     export NODE_ENV=prod
+    export QUILL_CDN_URL=https://assets.quill.org
     S3_DEPLOY_BUCKET=s3://aws-website-quill-lessons
     ;;
   staging)
     export EMPIRICAL_BASE_URL=https://staging.quill.org
     export LESSONS_WEBSOCKETS_URL=https://staging-lessons-server.quill.org/
     export NODE_ENV=staging
+    export QUILL_CDN_URL=https://assets.quill.org
     S3_DEPLOY_BUCKET=s3://aws-website-quill-lessons-staging
     ;;
   *)

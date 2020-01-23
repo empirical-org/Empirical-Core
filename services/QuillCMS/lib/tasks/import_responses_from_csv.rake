@@ -28,6 +28,7 @@ namespace :responses_csv do
               Response.import columns, rows, validate: false;0
             end;0
           rescue ActiveRecord::RecordNotUnique
+            nil
           end
           rows = []
         end
