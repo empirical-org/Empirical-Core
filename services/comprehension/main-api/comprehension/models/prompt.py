@@ -20,17 +20,19 @@ class Prompt(TimestampedModel):
         rule_sets = (self.rule_sets.filter(pass_order=pass_order).
                      order_by('priority').all())
         feedback = {
-                     'feedback': CORRECT_FEEDBACK,
-                     'optimal': True
+                     'feedback': None,
+                     'optimal': False
                     }
 
         for rule_set in rule_sets:
             for rule in rule_set.rules.all():
-                if not rule.match(entry):
-                    feedback['feedback'] = rule_set.feedback
-                    feedback['optimal'] = False
-                    return feedback
+                if rule.match(entry):
+                    break
+            else:
+                feedback.update(feedback=rule_set.feedback)
+                return feedback
 
+        feedback.update(feedback=CORRECT_FEEDBACK, optimal=True)
         return feedback
 
     def fetch_auto_ml_feedback(self, entry, multi_label=True):
