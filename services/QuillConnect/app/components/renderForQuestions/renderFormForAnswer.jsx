@@ -100,7 +100,7 @@ export default class RenderFormForAnswer extends React.Component {
       }
       button = (
         <button
-          className={`quill-button focus-on-light focus-on-light large primary contained ${toggleDisabled}`}
+          className={`quill-button focus-on-light large primary contained ${toggleDisabled}`}
           onClick={checkAnswer}
           tabIndex="0"
           type="button"

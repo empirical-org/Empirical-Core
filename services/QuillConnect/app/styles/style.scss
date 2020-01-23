@@ -372,3 +372,11 @@ textarea.submission {
 .wf-loading {
   visibility: hidden;
 }
+
+.hide-focus-outline {
+  .focus-on-light, .focus-on-dark {
+    &:focus {
+      outline: none !important;
+    }
+  }
+}
