@@ -98,6 +98,8 @@ def test_grammar_errors(app):
             response = main.check_grammar(flask.request)
             data = json.loads(response.data)
 
+            print(error, "=>", data.get('feedback'))
+
             if index is not None:
                 print(data)
 
@@ -105,8 +107,8 @@ def test_grammar_errors(app):
                 assert data.get('feedback') == 'Try again. There may be a grammar error.'
                 assert data.get('feedback_type') == 'grammar'
                 assert data.get('optimal') == False
-                assert data.get('highlight')[0][2] == error_type
-                assert data.get('highlight')[0][1] == index
+                assert data.get('highlight')[0]["category"] == error_type
+                assert data.get('highlight')[0]["character"] == index
             else:
 
                 assert response.status_code == 200
