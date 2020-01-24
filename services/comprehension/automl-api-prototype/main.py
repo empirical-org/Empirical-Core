@@ -3,6 +3,8 @@ from flask import jsonify
 from flask import make_response
 import yaml
 
+FEEDBACK_TYPE = "semantic"
+
 
 def response_endpoint(request):
     request_json = request.get_json()
@@ -26,7 +28,15 @@ def response_endpoint(request):
 
     log(request=request_json, label=label, feedback=feedback, optimal=optimal)
 
-    return make_response(jsonify(feedback=feedback, optimal=optimal), 200)
+    response_data = {
+        'feedback_type': FEEDBACK_TYPE,
+        'response_uid': 'q23123@3sdfASDF',
+        'feedback': feedback,
+        'optimal': optimal,
+        'highlight': [],
+    }
+
+    return make_response(jsonify(**response_data), 200)
 
 
 def param_for(key, request, request_json):
