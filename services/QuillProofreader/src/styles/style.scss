@@ -5,7 +5,8 @@
 @import './edit.scss';
 @import './admin.scss';
 @import './Header.scss';
-@import "./node_modules/bulma/bulma.sass";
+@import "~bulma/bulma.sass";
+@import "~quill-component-library/src/styles/styles.scss";
 
 .ant-layout {
   height: 100vw;
