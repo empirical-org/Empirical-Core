@@ -3,6 +3,7 @@ import * as React from 'react'
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
+import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
 
 interface PromptStepProps {
   active: Boolean;
@@ -11,7 +12,8 @@ interface PromptStepProps {
   submitResponse: Function;
   completeStep: (event: any) => void;
   stepNumberComponent: JSX.Element,
-  onClick?: (event: any) => void;
+  stepNumber: number;
+  activateStep: (event: any) => void;
   prompt: any,
   passedRef: any,
   submittedResponses: Array<any>
@@ -19,6 +21,7 @@ interface PromptStepProps {
 
 interface PromptStepState {
   html: string;
+  numberOfSubmissions: number;
 }
 
 const RESPONSE = 'response'
@@ -29,7 +32,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   constructor(props: PromptStepProps) {
     super(props)
 
-    this.state = { html: this.formattedPrompt() };
+    this.state = {
+      html: this.formattedPrompt(),
+      numberOfSubmissions: 0
+    };
 
     this.editor = React.createRef()
   }
@@ -98,21 +104,43 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   setEditorRef = (node: JSX.Element) => this.editor = node
 
+  handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
+    const { submitResponse, } = this.props
+
+    this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
+      submitResponse(entry, promptId, promptText)
+    })
+  }
+
+  handleStepInteraction = () => {
+    const { activateStep, stepNumber, } = this.props
+
+    activateStep(stepNumber)
+  }
+
+  completeStep = () => {
+    const { completeStep, stepNumber, } = this.props
+
+    completeStep(stepNumber)
+  }
+
   renderButton = () => {
-    const { prompt, submitResponse, submittedResponses, completeStep, everyOtherStepCompleted, } = this.props
-    const { html, } = this.state
+    const { prompt, submittedResponses, everyOtherStepCompleted, } = this.props
+    const { html, numberOfSubmissions, } = this.state
     const entry = this.stripHtml(html).trim()
+    const awaitingFeedback = numberOfSubmissions !== submittedResponses.length
+    const buttonLoadingSpinner = awaitingFeedback ? <ButtonLoadingSpinner /> : null
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
-    let className = ''
-    let onClick = () => submitResponse(entry, prompt.prompt_id, prompt.text)
+    let className = 'quill-button'
+    let onClick = () => this.handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
     if (submittedResponses.length === prompt.max_attempts || this.lastSubmittedResponse().optimal) {
-      onClick = completeStep
+      onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
-    } else if (this.unsubmittableResponses().includes(entry)) {
-      className = 'disabled'
+    } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
+      className+= 'disabled'
       onClick = () => {}
     }
-    return <button className={className} onClick={onClick} type="button">{buttonCopy}</button>
+    return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>
   }
 
   renderFeedbackSection = () => {
@@ -170,10 +198,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   render() {
-    const { prompt, className, passedRef, stepNumberComponent, onClick, } = this.props
+    const { prompt, className, passedRef, stepNumberComponent, } = this.props
     const { text, } = prompt
     const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
-    return (<div className={className} onClick={onClick} ref={passedRef}>
+    return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
       <div className="step-content">
         <div className="step-header">
           {stepNumberComponent}

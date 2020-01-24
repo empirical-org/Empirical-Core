@@ -29,7 +29,7 @@
       text-decoration: underline;
     }
   }
-  button {
+  .quill-button {
     border-radius: 4px;
     background-color: #009a80;
     font-size: 18px;
@@ -39,9 +39,15 @@
     padding: 15px 0px;
     margin-top: 24px;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &.disabled {
       background-color: #cccccc;
       color: #878787;
+    }
+    .button-loading-spinner-container {
+      margin-right: 10px;
     }
   }
   .feedback-section {
