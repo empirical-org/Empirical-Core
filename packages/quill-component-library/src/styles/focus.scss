@@ -11,3 +11,11 @@
     outline-offset: 6px;
   }
 }
+
+.hide-focus-outline {
+  .focus-on-light, .focus-on-dark {
+    &:focus {
+      outline: none !important;
+    }
+  }
+}
