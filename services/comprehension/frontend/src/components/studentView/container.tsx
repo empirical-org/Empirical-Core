@@ -22,6 +22,7 @@ interface StudentViewContainerProps {
 interface StudentViewContainerState {
   activeStep?: number;
   completedSteps: Array<number>;
+  showFocusState: boolean;
 }
 
 const READ_PASSAGE_STEP = 1
@@ -38,7 +39,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     this.state = {
       activeStep: READ_PASSAGE_STEP,
-      completedSteps: []
+      completedSteps: [],
+      showFocusState: false
     }
 
     this.step1 = React.createRef()
@@ -54,6 +56,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (activityUID) {
       dispatch(getActivity(activityUID))
     }
+
+    window.addEventListener('keydown', this.handleKeyDown)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown)
   }
 
   activityUID = () => {
@@ -89,6 +97,14 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       }
       this.activateStep(nextStep)
     })
+  }
+
+  handleKeyDown = (e) => {
+    const { showFocusState, } = this.state
+
+    if (e.key !== 'Tab' || showFocusState) { return }
+
+    this.setState({ showFocusState: true })
   }
 
   handleDoneReadingClick = () => this.completeStep(READ_PASSAGE_STEP)
@@ -205,10 +221,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
   render() {
     const { activities,} = this.props
+    const { showFocusState, } = this.state
 
     if (!activities.hasReceivedData) return <LoadingSpinner />
 
-    return (<div className="activity-container">
+    const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
+
+    return (<div className={className}>
       {this.renderStepLinks()}
       {this.renderReadPassageContainer()}
       {this.renderSteps()}
