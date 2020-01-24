@@ -100,11 +100,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   handleKeyDown = (e) => {
-    if (e.key !== 'Tab') { return }
-
     const { showFocusState, } = this.state
 
-    if (showFocusState) { return }
+    if (e.key !== 'Tab' || showFocusState) { return }
 
     this.setState({ showFocusState: true })
   }
