@@ -25,7 +25,7 @@ import {
 
 const request = require('request');
 
-class Lesson extends React.Component {
+export class Lesson extends React.Component {
   constructor(props) {
     super(props)
 
