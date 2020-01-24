@@ -110,7 +110,6 @@
 
   .cue-explanation {
     font-size: 14px;
-    font-family: $family-monospace;
     line-height: 28px;
     color: #636363;
   }
@@ -145,6 +144,11 @@
       .top-answer-list-item {
         display: flex;
         justify-content: space-between;
+
+        .diffed-word {
+          color: #464646;
+          font-weight: bold;
+        }
 
         &.active  {
           .top-answer-list-item-index,
