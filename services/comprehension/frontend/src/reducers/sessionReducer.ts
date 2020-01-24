@@ -4,7 +4,7 @@ import { ActionTypes } from "../actions/actionTypes";
 import { FeedbackObject } from '../interfaces/feedback'
 
 export interface SessionReducerState {
-  submittedResponses: { [key:string]: Array<FeedbackObject> }|{}
+  submittedResponses: { [key:string]: FeedbackObject[] }|{}
 }
 
 type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject }

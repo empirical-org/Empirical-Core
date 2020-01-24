@@ -22,6 +22,7 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
         feedback_type: body.feedback_type,
         optimal: body.optimal,
         response_id: body.response_id,
+        highlight: body.highlight,
         entry,
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
