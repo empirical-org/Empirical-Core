@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { connect } from "react-redux";
 
 import PromptStep from './promptStep'
+import StepLink from './stepLink'
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
 import { getFeedback } from '../../actions/session'
@@ -47,29 +48,33 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   componentDidMount() {
+    const { dispatch, } = this.props
     const activityUID = this.activityUID()
 
     if (activityUID) {
-      this.props.dispatch(getActivity(activityUID))
+      dispatch(getActivity(activityUID))
     }
   }
 
   activityUID = () => {
-    const { search, } = this.props.location
+    const { location, } = this.props
+    const { search, } = location
     if (!search) { return }
     return queryString.parse(search).uid
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string) => {
+    const { dispatch, } = this.props
     const activityUID = this.activityUID()
     if (activityUID) {
-      this.props.dispatch(getFeedback(activityUID, entry, promptID, promptText))
+      dispatch(getFeedback(activityUID, entry, promptID, promptText))
     }
   }
 
   activateStep = (step?: number) => {
+    const { completedSteps, } = this.state
     // don't activate steps before Done reading button has been clicked
-    if (step && step > 1 && !this.state.completedSteps.includes(READ_PASSAGE_STEP)) return
+    if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
     this.setState({ activeStep: step, })
   }
 
@@ -86,6 +91,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
+  handleDoneReadingClick = () => this.completeStep(READ_PASSAGE_STEP)
+
   scrollToStep = (ref: string) => {
     this[ref].scrollIntoView(false)
   }
@@ -96,14 +103,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderStepLinks = () => {
-    const { currentActivity, } = this.props.activities
+    const { activities, } = this.props
+    const { currentActivity, } = activities
     if (!currentActivity) return
 
     const links = []
     const numberOfLinks = ALL_STEPS.length
 
     for (let i=1; i <= numberOfLinks; i++ ) {
-      links.push(<div className="step-link" onClick={() => this.clickStepLink(i)}>{this.renderStepNumber(i)}</div>)
+      links.push(<StepLink clickStepLink={this.clickStepLink} index={i} renderStepNumber={this.renderStepNumber} />)
     }
 
     return (<div className="hide-on-desktop step-links">
@@ -111,7 +119,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderStepNumber(number: number) {
+  renderStepNumber = (number: number) => {
     const { activeStep, completedSteps, } = this.state
     const active = activeStep === number
     const completed = completedSteps.includes(number)
@@ -121,17 +129,18 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number}</div>
   }
 
-  renderReadPassageStep() {
+  renderReadPassageStep = () => {
     const { activeStep, } = this.state
-    const { currentActivity, } = this.props.activities
+    const { activities, } = this.props
+    const { currentActivity, } = activities
     if (!currentActivity) return
     let className = 'step'
     let button
     if (activeStep === READ_PASSAGE_STEP) {
       className += ' active'
-      button = <button className='done-reading-button' onClick={() => this.completeStep(READ_PASSAGE_STEP)}>Done reading</button>
+      button = <button className='quill-button done-reading-button' onClick={this.handleDoneReadingClick} type="button">Done reading</button>
     }
-    return (<div className={className}>
+    return (<div className={className} role="button" tabIndex={0}>
       <div className="step-content" ref={(node) => this.step1 = node}>
         <div className="step-header">
           {this.renderStepNumber(READ_PASSAGE_STEP)}
@@ -143,24 +152,26 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderPromptSteps() {
+  renderPromptSteps = () => {
+    const { activities, session, } = this.props
     const { activeStep, completedSteps } = this.state
-    const { currentActivity, } = this.props.activities
-    const { submittedResponses, } = this.props.session
+    const { currentActivity, } = activities
+    const { submittedResponses, } = session
     if (!currentActivity) return
     return currentActivity.prompts.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
       return (<PromptStep
+        activateStep={this.activateStep}
         active={stepNumber === activeStep}
         className={`step ${activeStep === stepNumber ? 'active' : ''}`}
-        completeStep={() => this.completeStep(stepNumber)}
+        completeStep={this.completeStep}
         everyOtherStepCompleted={everyOtherStepCompleted}
         key={stepNumber}
-        onClick={() => this.activateStep(stepNumber)}
-        passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node}
+        passedRef={(node: JSX.Element) => this[`step${stepNumber}`] = node} // eslint-disable-line react/jsx-no-bind
         prompt={prompt}
+        stepNumber={stepNumber}
         stepNumberComponent={this.renderStepNumber(stepNumber)}
         submitResponse={this.submitResponse}
         submittedResponses={submittedResponses[prompt.prompt_id] || []}
@@ -168,8 +179,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
-  renderReadPassageContainer() {
-    const { currentActivity, } = this.props.activities
+  renderReadPassageContainer = () => {
+    const { activities, } = this.props
+    const { currentActivity, } = activities
     if (!currentActivity) return
     return (<div className="read-passage-container">
       <div>
@@ -182,7 +194,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderSteps() {
+  renderSteps = () => {
     return (<div className="steps-outer-container">
       <div className="steps-inner-container">
         {this.renderReadPassageStep()}
@@ -192,8 +204,10 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   render() {
-    const { hasReceivedData, } = this.props.activities
-    if (!hasReceivedData) return <LoadingSpinner />
+    const { activities,} = this.props
+
+    if (!activities.hasReceivedData) return <LoadingSpinner />
+
     return (<div className="activity-container">
       {this.renderStepLinks()}
       {this.renderReadPassageContainer()}
