@@ -119,7 +119,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderStepNumber(number: number) {
+  renderStepNumber = (number: number) => {
     const { activeStep, completedSteps, } = this.state
     const active = activeStep === number
     const completed = completedSteps.includes(number)
@@ -129,7 +129,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number}</div>
   }
 
-  renderReadPassageStep() {
+  renderReadPassageStep = () => {
     const { activeStep, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
@@ -140,7 +140,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       className += ' active'
       button = <button className='quill-button done-reading-button' onClick={this.handleDoneReadingClick} type="button">Done reading</button>
     }
-    return (<div className={className}>
+    return (<div className={className} role="button" tabIndex={0}>
       <div className="step-content" ref={(node) => this.step1 = node}>
         <div className="step-header">
           {this.renderStepNumber(READ_PASSAGE_STEP)}
@@ -152,7 +152,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderPromptSteps() {
+  renderPromptSteps = () => {
     const { activities, session, } = this.props
     const { activeStep, completedSteps } = this.state
     const { currentActivity, } = activities
@@ -179,7 +179,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     })
   }
 
-  renderReadPassageContainer() {
+  renderReadPassageContainer = () => {
     const { activities, } = this.props
     const { currentActivity, } = activities
     if (!currentActivity) return
@@ -194,7 +194,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  renderSteps() {
+  renderSteps = () => {
     return (<div className="steps-outer-container">
       <div className="steps-inner-container">
         {this.renderReadPassageStep()}

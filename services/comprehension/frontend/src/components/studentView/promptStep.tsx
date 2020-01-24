@@ -137,7 +137,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
     } else if (this.unsubmittableResponses().includes(entry) || awaitingFeedback) {
-      className+= 'disabled'
+      className+= ' disabled'
       onClick = () => {}
     }
     return <button className={className} onClick={onClick} type="button">{buttonLoadingSpinner}<span>{buttonCopy}</span></button>

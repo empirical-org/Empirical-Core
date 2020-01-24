@@ -81,6 +81,13 @@
     top: 0;
     background-color: white;
     z-index: 100;
+    .step-link {
+      width: min-content;
+      padding: 0px;
+      border: none;
+      background-color: transparent;
+      line-height: 24px;
+    }
     div {
       width: 32px;
       margin-right: 16px;
