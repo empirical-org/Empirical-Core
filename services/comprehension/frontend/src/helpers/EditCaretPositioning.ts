@@ -1,6 +1,8 @@
 // code courtesy of https://stackoverflow.com/questions/13949059/persisting-the-changes-of-range-objects-after-selection-in-html/13950376#13950376
 
 const EditCaretPositioning = {}
+const TEXT_TYPE = 3
+
 
 if (window.getSelection && document.createRange) {
     //saves caret position(s)
@@ -28,7 +30,7 @@ if (window.getSelection && document.createRange) {
         let stop = false;
 
         while (!stop && (node = nodeStack.pop())) {
-          if (node.nodeType === 3) {
+          if (node.nodeType === TEXT_TYPE) {
               const nextCharIndex = charIndex + node.length;
               if (!foundStart && savedSel.start >= charIndex && savedSel.start <= nextCharIndex) {
                   range.setStart(node, savedSel.start - charIndex);

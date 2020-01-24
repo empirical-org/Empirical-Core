@@ -21,6 +21,8 @@ interface PromptStepState {
   html: string;
 }
 
+const RESPONSE = 'response'
+
 export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
 
@@ -56,10 +58,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   boldMisspellings = (str: string) => {
     const lastSubmittedResponse = this.lastSubmittedResponse()
-    if (!(lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === 'response').length)) {
+    if (!(lastSubmittedResponse && lastSubmittedResponse.highlight && lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).length)) {
       return str
     }
-    const misspelledWords = lastSubmittedResponse.highlight.filter(hl => hl.type === 'response').map(hl => hl.text)
+    const misspelledWords = lastSubmittedResponse.highlight.filter(hl => hl.type === RESPONSE).map(hl => hl.text)
     const wordArray = this.stripHtml(str).split(' ')
     const newWordArray = wordArray.map(word => {
       const punctuationStrippedWord = word.replace(/[^A-Za-z0-9\s]/g, '')
