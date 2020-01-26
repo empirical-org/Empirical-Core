@@ -66,7 +66,8 @@ def automl_prediction(entry, settings):
 
 
 def feedback_for(label, feedback_settings):
-    return feedback_settings.get(label, feedback_settings['default_feedback'])
+    feedback_array = feedback_settings.get(label, feedback_settings['default_feedback'])
+    return feedback_array[0]
 
 
 def label_for(payload, type):

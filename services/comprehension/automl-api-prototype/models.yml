@@ -8,16 +8,26 @@ models:
       compute_region: 'us-central1'
       model_id: 'TCN136527252061972837'
     feedback:
-      default_feedback: "Please read the passage and try again!"
-      greenhouse_general: 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.'
-      greenhouse_specifc: 'You are correct! Well done!'
-      harms_animals: "It does harm animals"
-      outside_scope: "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
-      because_as_prep: "Maybe because isn't the right preposition to use here."
-      harms_env_no_mention: "It does harm the environment, but include why that is bad"
-      plagiarism: "It seems you've copied directly from the passage, try to write in your own words"
-      irrelevant: "It seems that your answer is irrelevant"
-      insufficient: "Your answer is short and insufficent, please try again"
+      default_feedback:
+        - "Please read the passage and try again!"
+      greenhouse_general:
+        - 'Greenhouse gases are a concern. Include specific stats to make a stronger argument.'
+      greenhouse_specifc:
+        - 'You are correct! Well done!'
+      harms_animals:
+        - "It does harm animals"
+      outside_scope:
+        - "Your answer is outside the scope of this article. Use evidence from the passage to make your argument"
+      because_as_prep:
+        - "Maybe because isn't the right preposition to use here."
+      harms_env_no_mention:
+        - "It does harm the environment, but include why that is bad"
+      plagiarism:
+        - "It seems you've copied directly from the passage, try to write in your own words"
+      irrelevant:
+        - "It seems that your answer is irrelevant"
+      insufficient:
+        - "Your answer is short and insufficent, please try again"
     correct:
       - greenhouse_specifc # TODO
   98: # take this from the comprehension beta app question id
@@ -29,28 +39,50 @@ models:
       model_id: 'TCN4416927324776169472'
     feedback:
       default_feedback: "Please read the passage and try again!"
-      Apathy: "Revise your sentence. There is no evidence in the passage to support that voters will become less apathetic about elections and have more enthusiasm for the process. What is one thing that will change as a result of compulsory voting?"
-      Apathy-Increased_Voting: "Revise your sentence. Explain how increasing voter turnout will positively affect governments. How will governments change?"
-      Apathy-Increased_Voting-More_Representative: "Nice work! You accurately named the two major effects of compuslory voting--increasing voter turnout and making governments more representative of their people. You also took it one step further and explained how compulsory voting will help overcome voter apathy."
-      Apathy-Miscellaneous: "Revise your sentence. There is no evidence in the passage to support that voters will become less apathetic about elections and have more enthusiasm for the process. What is one thing that will change as a result of compulsory voting?"
-      Civic_Duty: "Revise your sentence by explaining how voting makes governments more representative of their citizens."
-      Civic_Duty-Increased_Voting: "Your argument that more people will perform their civic duty of voting is strong! Now, revise your sentence by adding the idea that as more people vote, the government becomes more representative of the citizenry."
-      Civic_Duty-More_Representative: "Your argument that compulsory voting gets people to perform their civic duty and makes governments more representative of their citizens is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
-      Civic_Duty-Miscellaneous: "Revise your sentence by explaining how voting makes governments more representative of their citizens."
-      Feels_Represented: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
-      Increased_Voting: "Revise your sentence. Explain how increasing voter turnout will positively affect governments. How will governments change?"
-      Leaders: "Revise your sentence. Write about how the leader is representative of the people."
-      Miscellaneous: "Rewrite your sentence. Write about how requiring people to vote leads to a government that more accurately represents the citizenry."
-      More_Representative: "Your argument that compulsory voting results in governments becoming more representative of their citizens is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
-      Leaders-More_Representative: "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by adding the idea that more people are voting, which results in electing government officals who more accurately represent the citizenry."
-      Miscellaneous-More_Representative: "Your argument that compulsory voting results in governments becoming more representative of the citizenry is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
-      Leaders-Miscellaneous-More_Representative: "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by adding the idea that more people are voting, which results in electing officals who more accurately represent the citizenry."
-      Increased_Voting-More_Representative: "Nice work! You accurately named the two major effects of compuslory voting--increasing voter turnout and making governments more representative of their people."
-      Feels_Represented-Leaders: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
-      Feels_Represented-Miscellaneous: "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
-      Increased_Voting-Miscellaneous-More_Representative: Your argument that compulsory would increase voter turnout and result in a more representative government is strong! Now, revise your sentence by eliminating extraneous information that doesn't support your argument.
-      Feels_Represented-More_Representative: "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by eliminating anything suggesting that people feel more represented, since there is no evidence in the passage that states that people will feel more represented."
-      Feels_Represented-Increased_Voting: "Your argument that compulsory voting would increase voter turnout is strong! Now, revise your sentence by eliminating anything suggesting that people feel more represented, since there is no evidence in the passage that states that people will feel more represented. Instead, write how as more citizens cast their votes, the government becomes more representative of the citizenry."
+      Apathy:
+        - "Revise your sentence. There is no evidence in the passage to support that voters will become less apathetic about elections and have more enthusiasm for the process. What is one thing that will change as a result of compulsory voting?"
+      Apathy-Increased_Voting:
+        - "Revise your sentence. Explain how increasing voter turnout will positively affect governments. How will governments change?"
+      Apathy-Increased_Voting-More_Representative:
+        - "Nice work! You accurately named the two major effects of compuslory voting--increasing voter turnout and making governments more representative of their people. You also took it one step further and explained how compulsory voting will help overcome voter apathy."
+      Apathy-Miscellaneous:
+        - "Revise your sentence. There is no evidence in the passage to support that voters will become less apathetic about elections and have more enthusiasm for the process. What is one thing that will change as a result of compulsory voting?"
+      Civic_Duty:
+        - "Revise your sentence by explaining how voting makes governments more representative of their citizens."
+      Civic_Duty-Increased_Voting:
+        - "Your argument that more people will perform their civic duty of voting is strong! Now, revise your sentence by adding the idea that as more people vote, the government becomes more representative of the citizenry."
+      Civic_Duty-More_Representative:
+        - "Your argument that compulsory voting gets people to perform their civic duty and makes governments more representative of their citizens is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
+      Civic_Duty-Miscellaneous:
+        - "Revise your sentence by explaining how voting makes governments more representative of their citizens."
+      Feels_Represented:
+        - "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+      Increased_Voting:
+        - "Revise your sentence. Explain how increasing voter turnout will positively affect governments. How will governments change?"
+      Leaders:
+        - "Revise your sentence. Write about how the leader is representative of the people."
+      Miscellaneous:
+        - "Rewrite your sentence. Write about how requiring people to vote leads to a government that more accurately represents the citizenry."
+      More_Representative:
+        - "Your argument that compulsory voting results in governments becoming more representative of their citizens is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
+      Leaders-More_Representative:
+        - "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by adding the idea that more people are voting, which results in electing government officals who more accurately represent the citizenry."
+      Miscellaneous-More_Representative:
+        - "Your argument that compulsory voting results in governments becoming more representative of the citizenry is strong! Now, revise your sentence by adding the idea that more people are voting, which results in governments becoming representative of their citizens."
+      Leaders-Miscellaneous-More_Representative:
+        - "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by adding the idea that more people are voting, which results in electing officals who more accurately represent the citizenry."
+      Increased_Voting-More_Representative:
+        - "Nice work! You accurately named the two major effects of compuslory voting--increasing voter turnout and making governments more representative of their people."
+      Feels_Represented-Leaders:
+        - "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+      Feels_Represented-Miscellaneous:
+        - "Rewrite your sentence. There's no evidence in the passage that states that people will feel more represented. Instead write a sentence that states how people will be more represented in government."
+      Increased_Voting-Miscellaneous-More_Representative:
+        - "Your argument that compulsory would increase voter turnout and result in a more representative government is strong! Now, revise your sentence by eliminating extraneous information that doesn't support your argument."
+      Feels_Represented-More_Representative:
+        - "Your argument that compulsory voting would result in more representative government leadership is strong! Now, revise your sentence by eliminating anything suggesting that people feel more represented, since there is no evidence in the passage that states that people will feel more represented."
+      Feels_Represented-Increased_Voting:
+        - "Your argument that compulsory voting would increase voter turnout is strong! Now, revise your sentence by eliminating anything suggesting that people feel more represented, since there is no evidence in the passage that states that people will feel more represented. Instead, write how as more citizens cast their votes, the government becomes more representative of the citizenry."
     correct:
       - Increased_Voting-More_Representative
       - Apathy-Increased_Voting-More_Representative
@@ -62,20 +94,41 @@ models:
       compute_region: 'us-central1'
       model_id: 'TCN2545391408533995520'
     feedback:
-      default_feedback: "Revise your work. At least some of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
-      Fin_Trouble: "Be specific. Why was Eastern Michigan in financial trouble?"
-      Fin_Trouble-Miscellaneous: "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
-      Fin_Trouble-Overspending: "Nice work! You explained that Eastern Michigan cut women's tennis and softball because it was in financial trouble given that it was spending too much money."
-      Fin_Trouble-Overspending-To_Save_Money: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
-      Fin_Trouble-To_Save_Money: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
-      Lack_of_funds: "That's a strong sentence! You accurately explained why Eastern Michigan decided to cut women's tennis and softball."
-      Lack_of_funds-Miscellaneous: "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
-      Lack_of_funds-To_Save_Money: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
-      Miscellaneous: "Revise your work. Your response is not supported by the text.\n\nRe-read the text and find at least one reason to explain why Eastern Michigan cut women's softball and tennis."
-      Miscellaneous-To_Save_Money: "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
-      Overspending: "Add to your sentence. If Eastern Michigan spent too much money, why did it decide to cut women's tennis and softball?"
-      To_Save_Money: "Add to your sentence. Why did Eastern Michigan need to save money?"
-      To_Save_Money-Overspending: "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      default_feedback:
+        - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
+        - "Revise your work. At least some of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Fin_Trouble:
+        - "Be specific. Why was Eastern Michigan in financial trouble?"
+        - "Revise your response. Explain why Eastern Michigan was in financial trouble."
+      Fin_Trouble-Miscellaneous:
+        - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
+        - "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Fin_Trouble-Overspending:
+        - "Nice work! You explained that Eastern Michigan cut women's tennis and softball because it was in financial trouble given that it was spending too much money."
+      Fin_Trouble-Overspending-To_Save_Money:
+        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      Fin_Trouble-To_Save_Money:
+        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      Lack_of_funds:
+        - "That's a strong sentence! You accurately explained why Eastern Michigan decided to cut women's tennis and softball."
+      Lack_of_funds-Miscellaneous:
+        - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
+        - "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Lack_of_funds-To_Save_Money:
+        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+      Miscellaneous:
+        - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
+        - "Revise your work. Your response is not supported by the text.\n\nRe-read the text and find at least one reason to explain why Eastern Michigan cut women's softball and tennis."
+      Miscellaneous-To_Save_Money:
+        - "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
+      Overspending:
+        - "Add to your sentence. If Eastern Michigan spent too much money, why did it decide to cut women's tennis and softball?"
+        - "Add to your response. Explain how cutting women's tennis and softball would help Eastern Michigan with its overspending."
+      To_Save_Money:
+        - "Add to your sentence. Why did Eastern Michigan need to save money?"
+        - "Revise your work. Explain why Eastern Michigan needed to save money."
+      To_Save_Money-Overspending:
+        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
     correct:
       - Fin_Trouble-Overspending
       - Fin_Trouble-Overspending-To_Save_Money
