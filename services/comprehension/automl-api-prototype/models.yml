@@ -95,27 +95,27 @@ models:
       model_id: 'TCN2545391408533995520'
     feedback:
       default_feedback:
-        - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
+        - &because_default1 "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
         - "Revise your work. At least some of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
       Fin_Trouble:
         - "Be specific. Why was Eastern Michigan in financial trouble?"
         - "Revise your response. Explain why Eastern Michigan was in financial trouble."
       Fin_Trouble-Miscellaneous:
-        - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
+        - *because_default1
         - "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
       Fin_Trouble-Overspending:
         - "Nice work! You explained that Eastern Michigan cut women's tennis and softball because it was in financial trouble given that it was spending too much money."
       Fin_Trouble-Overspending-To_Save_Money:
-        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+        - &because_correct1 "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
       Fin_Trouble-To_Save_Money:
-        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+        - *because_correct1
       Lack_of_funds:
-        - "That's a strong sentence! You accurately explained why Eastern Michigan decided to cut women's tennis and softball."
+        - *because_correct1
       Lack_of_funds-Miscellaneous:
         - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
         - "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text."
       Lack_of_funds-To_Save_Money:
-        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+        - *because_correct1
       Miscellaneous:
         - "Make sure that your response uses information from the text.\n\nWhy did Eastern Michigan University decide to cut women's softball and tennis?"
         - "Revise your work. Your response is not supported by the text.\n\nRe-read the text and find at least one reason to explain why Eastern Michigan cut women's softball and tennis."
@@ -128,7 +128,7 @@ models:
         - "Add to your sentence. Why did Eastern Michigan need to save money?"
         - "Revise your work. Explain why Eastern Michigan needed to save money."
       To_Save_Money-Overspending:
-        - "Nice work! You correctly used text-based evidence to explain why Eastern Michigan University cut the women's softball and tennis teams."
+        - *because_correct1
     correct:
       - Fin_Trouble-Overspending
       - Fin_Trouble-Overspending-To_Save_Money
