@@ -144,6 +144,7 @@ models:
       model_id: 'TCN3159006857763225600'
     feedback:
       default_feedback:
+        - "Rewrite your sentence. Use text-based evidence to explain why Eastern Michigan University claimed not to violate Title IX."
       Affected_More_Men-Cuts_to_WSD-Limit_woms_opps:
         - "Nice work! You used the text to write a strong sentence. Eastern Michigan's cuts affected more men than women, but they also limited women's opportunities to play sports even more."
         - "Nice work! You used the text to write a strong sentence.\n\nEastern Michigan's cuts affected more men than women, but they also limited women's opportunities to play sports even more."
@@ -165,7 +166,6 @@ models:
       Affected_More_Men:
         - "Nice work! You accurately summarized the argument that more men were affected by the cuts than women."
         - "Nice work! You accurately summarized the argument that more men were affected by the cuts than women."
-
       Court_Decision-Teams_reinstated:
         - "Revise your response. Did EMU reinstate the teams or did a judge rule that EMU would have to reinstate the teams? Use the evidence below to help you.\n\n\"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
         - "Revise your work. It is true that the judge ruled that the women's teams would need to be reinstated. However, there is no evidence from the text that indicates that the school followed the judge's orders."
@@ -203,11 +203,9 @@ models:
         - *but_helper
       Judge_reinstate:
         - "Nice work! You used the text to show that a judge disagreed with Eastern Michigan's decision."
-
       Kept_other_ones:
         - "Rewrite your response. Which men's sports did Eastern Michigan cut?"
         - "Rewrite your sentence.Use text-based evidence to identify the men's teams that were cut."
-
       Limit_woms_opps-EMU_viol_TitleIX:
         - "Rewrite your sentence. The joining word \"but\" means that the first part of the sentence must contrast the second part of the sentence. Which fact from the text contrasts the statement, \"Eastern Michigan University cut women's tennis and softball\"?"
         - *but_helper
@@ -257,3 +255,123 @@ models:
       - Cuts_to_WSD-Kept_other_ones
       - Judge_reinstate
       - Women_sued-Court_Decision
+
+  107: # take this from the comprehension beta app question id
+    name: "Title IX So"
+    label_type: "multi" #single or multi
+    automl:
+      project_id: 'comprehension-247816'
+      compute_region: 'us-central1'
+      model_id: 'TCN5667511850208591872'
+    feedback:
+      default_feedback:
+      Ath_claim_TitleIX-Teams_got_reinstated:
+        - "Revise your response. Did Eastern Michigan University reinstate the teams or did a judge rule that Eastern Michigan University would have to reinstate the teams? Use the evidence below to help you. \"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
+        - "Revise your sentence. There is no evidence from the text that indicates that Eastern Michigan actually followed the judge's orders."
+      Ath_claim_TitleIX:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Ath_fought-Teams_got_reinstated:
+        - "Revise your response. Did Eastern Michigan University reinstate the teams or did a judge rule that Eastern Michigan University would have to reinstate the teams? Use the evidence below to help you.\"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
+        - "Revise your sentence. There is no evidence from the text that indicates that Eastern Michigan actually followed the judge's orders. "
+      Ath_fought:
+        - "Be specific. What did the two female athletes, Marie Mayerova and Ariana Chretien, do?"
+        - "Be specific. Use text-based evidence to explain how the two female students challenged the decision to cut women's softball and tennis."
+      Ath_sued_TitleIX-Court_EMU_viol-Made_viol_worse:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Ath_sued_TitleIX-Court_EMU_viol,:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Ath_sued_TitleIX-Miscellaneous:
+        - "Make sure that your response uses information from the text. What was one effect or result of Eastern Michigan University's decision to cut women's softball and tennis?"
+        - "Re-read your response. Then, delete any information from outside the text."
+      Ath_sued_TitleIX-Reduce_costs:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Ath_sued_TitleIX-Teams_got_reinstated-Miscellaneous:
+        - "Make sure that your response uses information from the text. What was one effect or result of Eastern Michigan University's decision to cut women's softball and tennis?"
+        - "Re-read your response. Then, delete any information from outside the text."
+      Ath_sued_TitleIX-Teams_got_reinstated:
+        - "Revise your response. Did Eastern Michigan University reinstate the teams or did a judge rule that Eastern Michigan University would have to reinstate the teams? Use the evidence below to help you.\n\n\"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
+        - "Revise your sentence. There is no evidence from the text that indicates that Eastern Michigan actually followed the judge's orders. "
+      Ath_sued_TitleIX:
+        - "Nice work! You correctly used text-based evidence to explain that two female athletes sued Eastern Michigan University for Title IX violations."
+      Ath_sued-Court_EMU_viol:
+        - "Strong start. Add to your sentence. What law did these two athletes say Eastern Michigan violated?"
+        - "Add to your sentence. Use text-based evidence to identify the law that Eastern Michigan University violated."
+      Ath_sued-Judge_said_reinstate:
+        - "Strong start. Add to your sentence. Which law did these two athletes say Eastern Michigan violated?"
+        - "Be specific. Use text-based evidence to explain which law the two female athletes said Eastern Michigan University violated."
+      Ath_sued-Reduce_costs:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Ath_sued-Teams_got_reinstated:
+        - "Revise your response. Did Eastern Michigan University reinstate the teams or did a judge rule that Eastern Michigan University would have to reinstate the teams? Use the evidence below to help you.\n\n\"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
+      Ath_sued-Teams_got_reinstated:
+        - "Revise your response. Did EMU reinstate the teams or did a judge rule that EMU would have to reinstate the teams? Use the evidence below to help you.\n\n\"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
+        - "Revise your sentence. There is no evidence from the text that indicates that Eastern Michigan actually followed the judge's orders."
+      Ath_sued:
+        - "Strong start. Add to your sentence. What law did these two athletes say Eastern Michigan violated?"
+        - "Add to your sentence. Use text-based evidence to identify the law that Eastern Michigan University violated."
+      C_had_to_choose-Ath_sued:
+        - "Strong start. Add to your sentence. What law did these two athletes say Eastern Michigan violated?"
+        - "Add to your sentence. Use text-based evidence to identify the law that Eastern Michigan University violated."
+      C_had_to_choose:
+        - "Nice work! You used the text to show one effect of Eastern Michigan's decision to cut women's tennis and softball."
+      Court_EMU_viol-Judge_said_reinstate:
+        - "Revise your work. When the joining word \"so\" is in a sentence, the first and second part of the sentence should show a direct cause and effect. It's true that the court ruled that Eastern Michigan broke the law, but that didn't happen right after Eastern Michigan cut women's tennis and softball. What was the direct effect of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Court_EMU_viol-Made_viol_worse:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball. "
+      Court_EMU_viol-Miscellaneous:
+        - "Revise your work. When the joining word \"so\" is in a sentence, the first and second part of the sentence should show a direct cause and effect.It's true that the court ruled that Eastern Michigan broke the law, but that didn't happen right after Eastern Michigan cut women's tennis and softball. What was the direct effect of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Court_EMU_viol:
+        - "Revise your work. When the joining word \"so\" is in a sentence, the first and second part of the sentence should show a direct cause and effect. It's true that the court ruled that Eastern Michigan broke the law, but that didn't happen right after Eastern Michigan cut women's tennis and softball. What was the direct effect of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Judge_said_reinstate-Teams_got_reinstated:
+        - "Revise your work. When the joining word \"so\" is in a sentence, the first and second part of the sentence should show a direct cause and effect. It's true that the judge said that the teams should be reinstated, but that didn't happen right after Eastern Michigan cut women's tennis and softball.What was the direct effect of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Judge_said_reinstate:
+        - "Revise your work. When the joining word \"so\" is in a sentence, the first and second part of the sentence should show a direct cause and effect. It's true that the judge ruled that the teams should be reinstated, but that didn't happen right after Eastern Michigan cut women's tennis and softball. What was the direct effect of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Limit_to_fem_opps-Reduce_costs:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Limit_to_fem_opps:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Made_viol_worse:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+      Miscellaneous:
+        - "Make sure that your response uses information from the text. What was one effect or result of Eastern Michigan University's decision to cut women's softball and tennis?"
+        - "Revise your work. Part of your response is not supported by the text.\n\nRe-read your response and delete any information from outside the text. "
+      Reduce_costs-Miscellaneous:
+        - "Revise your response. You gave a reason why Eastern Michigan cut women's tennis and softball. However, when the joining word \"so\" is in a sentence, the first and second parts of the sentence should show a direct cause and effect. What was one thing that happened as a result of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Reduce_costs-Would_not_continue:
+        - "Revise your response. You gave a reason why Eastern Michigan cut women's tennis and softball. However, when the joining word \"so\" is in a sentence, the first and second parts of the sentence should show a direct cause and effect. What was one thing that happened as a result of Eastern Michigan cutting women's tennis and softball?"
+        - "Rewrite your sentence. Use text-based evidence to explain what happened right after Eastern Michigan University cut women's softball and tennis."
+      Reduce_costs:
+        - "Revise your response. You gave a reason why Eastern Michigan cut women's tennis and softball. However, when the joining word \"so\" is in a sentence, the first and second parts of the sentence should show a direct cause and effect. What was one thing that happened as a result of Eastern Michigan cutting women's tennis and softball?"
+        - "Re-read the sentence stem. Use text-based evidence to write an effect or result of the information from the sentence stem."
+      Teams_got_reinstated-Miscellaneous:
+        - "Make sure that your response uses information from the text. What was one effect or result of Eastern Michigan University's decision to cut women's softball and tennis?"
+        - "Re-read your response. Then, delete any information from outside the text."
+      Teams_got_reinstated:
+        - "Revise your response. Did Eastern Michigan University reinstate the teams or did a judge rule that Eastern Michigan University would have to reinstate the teams? Use the evidence below to help you.\n\n\"As a result, the judge ruled that the school would have to reinstate both women's softball and tennis.\""
+        - "Revise your sentence. There is no evidence from the text that indicates that Eastern Michigan actually followed the judge's orders."
+      Would_not_continue:
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball."
+        - "Nice work! You used the text to show what happened as a result of Eastern Michigan cutting women's tennis and softball. "
+    correct:
+      - Ath_sued_TitleIX-Court_EMU_viol
+      - Ath_sued_TitleIX
+      - Made_viol_worse
+      - Limit_to_fem_opps
+      - Ath_claim_TitleIX
+      - Would_not_continue
+      - Court_EMU_viol-Made_viol_worse
+      - Ath_sued_TitleIX-Court_EMU_viol-Made_viol_worse
+      - C_had_to_choose
+      - Limit_to_fem_opps-Reduce_costs
+      - Ath_sued-Reduce_costs
+      - Ath_sued_TitleIX-Reduce_costs
+
+
+
