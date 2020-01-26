@@ -4,6 +4,7 @@
 @import './step.scss';
 @import './editorContainer.scss';
 @import './fade.scss';
+@import './buttonLoadingSpinner.scss';
 @import "./node_modules/bulma/bulma.sass";
 
 html {
@@ -12,7 +13,10 @@ html {
 
 body {
   background-color: white;
-  font-family: adelle-sans,Helvetica,Arial,sans-serif;
+}
+
+body, button, input, select, textarea {
+  font-family: adelle-sans,Helvetica,Arial,sans-serif !important;
 }
 
 #app, .app-container {
@@ -21,8 +25,13 @@ body {
 
 button {
   cursor: pointer;
-  &:focus {
-    outline: none;
+}
+
+.hide-focus-outline {
+  button, div, .step {
+    &:focus {
+      outline: none;
+    }
   }
 }
 
