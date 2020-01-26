@@ -109,7 +109,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { numberOfSubmissions, } = this.state
 
     this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
-      submitResponse(entry, promptId, promptText, numberOfSubmissions)
+      submitResponse(entry, promptId, promptText, numberOfSubmissions + 1)
     })
   }
 
