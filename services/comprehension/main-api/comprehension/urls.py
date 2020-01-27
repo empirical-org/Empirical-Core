@@ -3,7 +3,6 @@ from django.conf.urls import url
 from . import views
 from .views.activity import ActivityView
 from .views.feedback_ml_multi import MultiLabelMLFeedbackView
-from .views.feedback_ml_single import SingleLabelMLFeedbackView
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

@@ -11,7 +11,6 @@ from ..mocks.google_auto_ml import generate_auto_ml_label_response_mock
 from ...models.ml_model import MLModel
 from ...views.feedback_ml_multi import MultiLabelMLFeedbackView
 from ...views.feedback_ml_multi import FEEDBACK_TYPE
-from ...views.feedback_ml_single import SingleLabelMLFeedbackView
 from ...utils import construct_feedback_payload
 
 
