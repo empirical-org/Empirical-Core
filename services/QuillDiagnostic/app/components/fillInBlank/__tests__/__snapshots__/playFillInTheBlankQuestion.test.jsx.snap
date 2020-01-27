@@ -75,6 +75,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </span>,
                 <span>
                   <input
+                    autoFocus={true}
                     className="fill-in-blank-input"
                     id="input0"
                     onBlur={[Function]}
@@ -153,6 +154,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
                 </span>,
                 <span>
                   <input
+                    autoFocus={false}
                     className="fill-in-blank-input"
                     id="input1"
                     onBlur={[Function]}
@@ -236,6 +238,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               />
               <span>
                 <input
+                  autoFocus={true}
                   className="fill-in-blank-input"
                   id="input0"
                   onBlur={[Function]}
@@ -310,6 +313,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
               />
               <span>
                 <input
+                  autoFocus={false}
                   className="fill-in-blank-input"
                   id="input1"
                   onBlur={[Function]}
@@ -442,7 +446,7 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
       }
     >
       <button
-        className="quill-button large primary contained disabled"
+        className="quill-button focus-on-light large primary contained disabled"
         type="button"
       >
         Submit
