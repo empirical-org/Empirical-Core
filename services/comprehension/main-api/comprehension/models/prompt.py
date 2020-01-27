@@ -6,12 +6,34 @@ from .ml_model import MLModel
 from ..utils import combine_labels
 
 
+CORRECT_FEEDBACK = 'All rules-based checks passed!'
+
+
 class Prompt(TimestampedModel):
     text = models.TextField(null=False)
     max_attempts = models.PositiveIntegerField(default=5)
     max_attempts_feedback = models.TextField(null=False)
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
                                  related_name='prompts', null=True)
+
+    def fetch_rules_based_feedback(self, entry, pass_order):
+        rule_sets = (self.rule_sets.filter(pass_order=pass_order).
+                     order_by('priority').all())
+        feedback = {
+                     'feedback': None,
+                     'optimal': False
+                    }
+
+        for rule_set in rule_sets:
+            for rule in rule_set.rules.all():
+                if rule.match(entry):
+                    break
+            else:
+                feedback.update(feedback=rule_set.feedback)
+                return feedback
+
+        feedback.update(feedback=CORRECT_FEEDBACK, optimal=True)
+        return feedback
 
     def fetch_auto_ml_feedback(self, entry, multi_label=True):
         if multi_label:
