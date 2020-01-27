@@ -12,7 +12,7 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
 
     const requestObject = {
       url: feedbackURL,
-      body: {prompt_id: promptID, entry: entryWithoutStem, attempt: attempt},
+      body: {prompt_id: promptID, entry: entryWithoutStem, attempt},
       json: true,
     }
 
