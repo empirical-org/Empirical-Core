@@ -32,14 +32,18 @@ class Prompt(TimestampedModel):
         filtered_feedback = list(filter(self._filter_feedback(labels),
                                         previous_feedback))
         used_feedback = list(map(lambda x: x['feedback'], filtered_feedback))
+        label_match_count = len(used_feedback)
         feedback_options = (self.ml_feedback
                                 .filter(combined_labels=combined_labels)
                                 .order_by('order')
                                 .all())
-        for feedback in feedback_options:
-            if feedback.feedback not in used_feedback:
-                return feedback
-        return self._get_default_feedback(),
+        available_feedback_count = len(feedback_options)
+
+        if not available_feedback_count:
+            return self._get_default_feedback()
+
+        next_feedback_index = label_match_count % available_feedback_count
+        return feedback_options[next_feedback_index]
 
     def _get_default_feedback(self):
         default_label = MLFeedback.DEFAULT_FEEDBACK_LABEL
