@@ -6,7 +6,8 @@ import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
 import {
   PlayTitleCard,
   Register,
-  Spinner
+  Spinner,
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
@@ -16,10 +17,15 @@ import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../..
 import Finished from './finished.jsx';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { permittedFlag } from '../../libs/flagArray'
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
 
 const request = require('request');
 
-class Lesson extends React.Component {
+export class Lesson extends React.Component {
   constructor(props) {
     super(props)
 
@@ -227,20 +233,29 @@ class Lesson extends React.Component {
     return lessons.data[params.lessonID];
   }
 
-  getProgressPercent = () => {
-    const { playLesson, } = this.props
-    if (playLesson && playLesson.answeredQuestions && playLesson.questionSet) {
-      return playLesson.answeredQuestions.length / playLesson.questionSet.length * 100;
-    } else {
-      return 0;
-    }
-  }
-
   saveSessionData = (lessonData) => {
     const { sessionID, } = this.state
     if (sessionID) {
       SessionActions.update(sessionID, lessonData);
     }
+  }
+
+  renderProgressBar = () => {
+    const { playLesson, } = this.props
+    if (!playLesson.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playLesson)
+
+    const currentQuestionIsTitleCard = playLesson.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+
+    return (<ProgressBar
+      answeredQuestionCount={displayedAnsweredQuestionCount}
+      percent={getProgressPercent(playLesson)}
+      questionCount={questionCount(playLesson)}
+    />)
   }
 
   render() {
@@ -320,8 +335,8 @@ class Lesson extends React.Component {
 
     return (
       <div>
-        <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
         <section className="section is-fullheight minus-nav student">
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             {component}
           </div>
