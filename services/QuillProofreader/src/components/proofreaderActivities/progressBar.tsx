@@ -9,7 +9,7 @@ interface ProgressBarProps {
 const ProgressBar = ({ percent, answeredQuestionCount, questionCount, }: ProgressBarProps) => (
   <div className="progress-bar-container">
     <progress className="progress activity-progress" max="100" value={percent} />
-    <p>{answeredQuestionCount} of {questionCount} sentences completed</p>
+    <p>{answeredQuestionCount} of {questionCount} edits made</p>
   </div>)
 
 export default ProgressBar

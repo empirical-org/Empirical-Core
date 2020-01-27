@@ -219,6 +219,18 @@ class ELLSentenceCombining extends React.Component {
     return text;
   }
 
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedback={<p>{error}</p>}
+        feedbackType="revise-unmatched"
+      />
+    </div>)
+  }
+
   render = () => {
     const { language, questions, question, } = this.props
     const { responses, error, response, } = this.state
@@ -261,11 +273,9 @@ class ELLSentenceCombining extends React.Component {
               placeholder="Type your answer here."
               value={response}
             />
-            <div className="button-and-error-row">
-              <Error error={error} />
-              <div className="question-button-group button-group">
-                {button}
-              </div>
+            {this.renderError()}
+            <div className="question-button-group button-group">
+              {button}
             </div>
           </ReactTransition>
         </div>

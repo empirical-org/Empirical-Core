@@ -6,14 +6,33 @@ import (
 	"net/http"
 	"encoding/json"
 	"io/ioutil"
+	"fmt"
+	"net/http/httputil"
 )
 
 const (
 	automl_api = "https://us-east1-comprehension-247816.cloudfunctions.net/response-api-alpha"
-	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spelling-check-alpha"
+	grammar_check = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
+	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 )
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
+	// need this for javascript cors requests
+	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
+	if request.Method == http.MethodOptions {
+	  responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
+	  responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
+	  responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	  responseWriter.Header().Set("Access-Control-Max-Age", "3600")
+	  responseWriter.WriteHeader(http.StatusNoContent)
+	  return
+	}
+
+	requestDump, err := httputil.DumpRequest(request, true)
+	if err != nil {
+	  fmt.Println(err)
+	}
+	fmt.Println(string(requestDump))
 
 	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
@@ -25,7 +44,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
 		automl_api,
-		spell_check_local,
+		// spell_check_local,
 	}
 
 	results := map[int]APIResponse{}
@@ -48,6 +67,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 	}
 
+	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
   json.NewEncoder(responseWriter).Encode(returnable_result)
 }
@@ -97,6 +117,7 @@ type APIRequest struct {
 
 type APIResponse struct {
 	Feedback string `json:"feedback"`
+	Feedback_type string `json:"feedback_type"`
 	Optimal bool `json:"optimal"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
@@ -106,6 +127,8 @@ type Highlight struct {
 	Type string `json:"type"`
 	Id int `json:"id,omitempty"`
 	Text string `json:"text"`
+	Category string `json:"category"`
+	Character int `json:"character,omitempty"`
 }
 
 type InternalAPIResponse struct {
