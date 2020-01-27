@@ -1,16 +1,14 @@
 import React from 'react';
-import ReactCSSTransitionReplace from 'react-css-transition-replace'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 const CarouselAnimation = ({ children, }) => (
-  <ReactCSSTransitionReplace
-    transitionAppear={true}
-    transitionAppearTimeout={400}
+  <ReactCSSTransitionGroup
     transitionEnterTimeout={300}
     transitionLeaveTimeout={300}
     transitionName="carousel"
   >
     {children}
-  </ReactCSSTransitionReplace>
+  </ReactCSSTransitionGroup>
 )
 
 export { CarouselAnimation }
