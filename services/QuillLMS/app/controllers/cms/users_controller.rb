@@ -5,6 +5,7 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_search_inputs, only: [:index, :search]
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
   before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
+  before_action :log_attribute_change, only: [:update]
 
   USERS_PER_PAGE = 30.0
 
@@ -13,6 +14,7 @@ class Cms::UsersController < Cms::CmsController
     @user_search_query_results = []
     @user_flags = User::VALID_FLAGS
     @number_of_pages = 0
+    update_change_log('Visited User Directory')
   end
 
   def search
@@ -20,6 +22,7 @@ class Cms::UsersController < Cms::CmsController
     user_search_query_results = user_query(user_query_params)
     user_search_query_results ||= []
     number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
+    update_change_log('Searched Users')
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
 
@@ -46,6 +49,7 @@ class Cms::UsersController < Cms::CmsController
 
   def show
     # everything is set as props from @user in the view
+    update_change_log('Visited User Admin Page')
   end
 
   def show_json
@@ -66,6 +70,7 @@ class Cms::UsersController < Cms::CmsController
   def sign_in
     session[:staff_id] = current_user.id
     super(User.find(params[:id]))
+    update_change_log('Ghosted User')
     redirect_to profile_path
   end
 
@@ -85,6 +90,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit
+    update_change_log('Visited User Edit Page')
   end
 
   def edit_subscription
@@ -282,5 +288,73 @@ class Cms::UsersController < Cms::CmsController
 
   def subscription_params
     params.permit([:id, :payment_method, :payment_amount, :purchaser_email, :premium_status, :start_date => [:day, :month, :year], :expiration_date => [:day, :month, :year]] + default_params)
+  end
+
+  def log_attribute_change
+    previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json
+    #omit password field if password not filled in
+    new_user_params = user_params[:password].blank? ?
+                      user_params.except("password", "password_confirmation") :
+                      user_params.except("password_confirmation")
+
+    difference = Hash[new_user_params.to_a - previous_user_params.to_a]
+    difference.each_key do |field|
+      new_value = field == 'password' ? nil : difference[field]
+      update_change_log('Edited User', field, previous_user_params[field], new_value)
+    end
+  end
+
+  def update_change_log(logged_action, changed_attribute = nil, previous_value = nil, new_value = nil)
+    change_log = {
+      action: logged_action,
+      changed_record_type: 'User',
+      user_id: current_user.id.to_s
+    }
+
+    if logged_action == 'Visited User Directory'
+      change_log.update({
+                          explanation: 'User ' + current_user.id.to_s +
+                                      ' visited User Directory page'
+      })
+    elsif logged_action == 'Searched Users'
+      change_log.update({
+                          explanation: 'User ' + current_user.id.to_s +
+                                       ' searched User Directory for ' +
+                                       user_query_params.to_s
+      })
+    elsif logged_action == 'Visited User Admin Page'
+      change_log.update({
+                          explanation: 'User ' + current_user.id.to_s +
+                                        ' visited admin page for User ' +
+                                        @user.id.to_s,
+                          changed_record_id: @user.id.to_s
+      })
+    elsif logged_action == 'Visited User Edit Page'
+      change_log.update({
+                          explanation: 'User ' + current_user.id.to_s +
+                                      ' visited edit page for User ' +
+                                      @user.id.to_s,
+                          changed_record_id: @user.id.to_s
+      })
+    elsif logged_action == 'Edited User'
+      change_log.update({
+                          explanation: 'User ' + current_user.id.to_s +
+                                      ' changed ' + changed_attribute + ' of User ' +
+                                      @user.id.to_s,
+                          changed_record_id: @user.id.to_s,
+                          changed_attribute: changed_attribute,
+                          previous_value: previous_value,
+                          new_value: new_value
+       })
+    elsif logged_action == 'Ghosted User'
+      change_log.update({
+                          explanation: 'User ' + session[:staff_id].to_s +
+                                      ' signed in as User ' + params[:id],
+                          changed_record_id: params[:id],
+                          user_id: session[:staff_id].to_s
+      })
+    end
+
+    ChangeLog.create(change_log)
   end
 end
