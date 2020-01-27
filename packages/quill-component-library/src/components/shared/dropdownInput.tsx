@@ -35,6 +35,9 @@ interface DropdownInputState {
   cursor: number|null;
 }
 
+const KEYDOWN = 'keydown'
+const MOUSEDOWN = 'mousedown'
+
 export class DropdownInput extends React.Component<DropdownInputProps, DropdownInputState> {
   private input: any // eslint-disable-line react/sort-comp
   private node: any // eslint-disable-line react/sort-comp
@@ -57,8 +60,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClick, true)
-    document.addEventListener('keydown', this.handleKeyDown, true)
+    document.addEventListener(MOUSEDOWN, this.handleClick, true)
+    document.addEventListener(KEYDOWN, this.handleKeyDown, true)
   }
 
   componentDidUpdate(_, prevState) {
@@ -80,7 +83,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, true)
+    document.removeEventListener(MOUSEDOWN, this.handleClick, true)
+    document.removeEventListener(KEYDOWN, this.handleClick, true)
   }
 
   handleInputActivation = () => {
