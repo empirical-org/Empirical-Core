@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import QuestionSelector from 'react-select-search';
 import {
@@ -7,10 +7,11 @@ import {
   TextEditor
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import ChooseModelContainer from './chooseModelContainer.jsx'
+import ChooseModel from './chooseModel.jsx'
 import _ from 'underscore';
+import { DeleteButton, NameInput } from './lessonFormComponents';
 
-class LessonForm extends React.Component {
+export class LessonForm extends Component {
   constructor(props) {
     super(props)
 
@@ -23,85 +24,78 @@ class LessonForm extends React.Component {
       selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : 'alpha',
       questionType: 'questions',
-      modelConceptUID: currentValues ? currentValues.modelConceptUID : null
+      modelConceptUID: currentValues ? currentValues.modelConceptUID : null,
+      isELL: currentValues ? currentValues.isELL || false : false
     }
-
-    this.submit = this.submit.bind(this)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.sortCallback = this.sortCallback.bind(this)
-    this.renderQuestionSelect = this.renderQuestionSelect.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-    this.handleSelectQuestionType = this.handleSelectQuestionType.bind(this)
-    this.handleLPChange = this.handleLPChange.bind(this)
   }
 
-  submit() {
-    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
-    this.props.submit({
+  handleSubmit = () => {
+    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, isELL } = this.state;
+    const { submit } = this.props;
+    submit({
       name,
       questions: selectedQuestions,
       landingPageHtml,
       flag,
-      modelConceptUID
+      modelConceptUID,
+      isELL
     });
   }
 
-  handleStateChange(key, event) {
+  handleStateChange = (key, event) => {
     const changes = {};
     changes[key] = event.target.value;
     this.setState(changes);
   }
 
-  handleChange(value) {
-    const currentSelectedQuestions = this.state.selectedQuestions;
+  handleChange = (value) => {
+    const { selectedQuestions, questionType } = this.state;
     let newSelectedQuestions;
-    const changedQuestion = currentSelectedQuestions.find(q => q.key === value);
+    const changedQuestion = selectedQuestions.find(q => q.key === value);
     if (!changedQuestion) {
-      newSelectedQuestions = currentSelectedQuestions.concat([{ key: value, questionType: this.state.questionType, }]);
+      newSelectedQuestions = selectedQuestions.concat([{ key: value, questionType: questionType, }]);
     } else {
-      newSelectedQuestions = _.without(currentSelectedQuestions, changedQuestion);
+      newSelectedQuestions = _.without(selectedQuestions, changedQuestion);
     }
     this.setState({ selectedQuestions: newSelectedQuestions, });
   }
 
-  handleSearchChange(e) {
+  handleSearchChange = (e) => {
     this.handleChange(e.value);
   }
 
-  sortCallback(sortInfo) {
+  sortCallback = (sortInfo) => {
     const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key, questionType: item.props.questionType}));
     this.setState({ selectedQuestions: newOrder, });
   }
 
-  renderQuestionSelect() {
-    let questions;
+  renderQuestionSelect = () => {
+    const { selectedQuestions } = this.state;
     // select changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
-    if (this.state.selectedQuestions && this.state.selectedQuestions.length) {
-      const questionsList = this.state.selectedQuestions.map((question) => {
-        const questionobj = this.props[question.questionType].data[question.key];
+    if (selectedQuestions && selectedQuestions.length) {
+      const questionsList = selectedQuestions.map((question) => {
+        const questionobj = this.props[question.questionType].data[question.key]; // eslint-disable-line react/destructuring-assignment
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
         return (<p className="sortable-list-item" key={question.key} questionType={question.questionType}>
           {promptOrTitle}
           {'\t\t'}
-          <button onClick={this.handleChange.bind(null, question.key)}>Delete</button>
+          <DeleteButton onHandleChange={this.handleChange} questionId={question.key} />
         </p>
         );
       });
-      return <SortableList data={questionsList} key={this.state.selectedQuestions.length} sortCallback={this.sortCallback} />;
+      return <SortableList data={questionsList} id="currently-selected-questions" key={selectedQuestions.length} sortCallback={this.sortCallback} />;
     } else {
-      return <div>No questions</div>;
+      return <div id="currently-selected-questions">No questions</div>;
     }
   }
 
-  renderSearchBox() {
+  renderSearchBox = () => {
+    const { questionType } = this.state;
+    const { data } = this.props.concepts; // eslint-disable-line react/destructuring-assignment
     // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
-    const questionType = this.state.questionType;
-    let options = hashToCollection(this.props[questionType].data);
-    const concepts = this.props.concepts.data[0];
+    let options = hashToCollection(this.props[questionType].data); // eslint-disable-line react/destructuring-assignment
+    const concepts = data[0];
     let formatted
     if (options.length > 0) {
       if (questionType !== 'titleCards') {
@@ -111,6 +105,7 @@ class LessonForm extends React.Component {
         formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
       }
       return (<QuestionSelector
+        id="all-questions"
         key={questionType}
         onChange={this.handleSearchChange}
         options={formatted}
@@ -119,92 +114,120 @@ class LessonForm extends React.Component {
     }
   }
 
-  handleSelect(e) {
+  handleSelectFlag = (e) => {
     this.setState({ flag: e.target.value, });
   }
 
-  handleSelectQuestionType(e) {
+  handleSelectQuestionType = (e) => {
     this.setState({ questionType: e.target.value, });
   }
 
-  handleLPChange(e) {
+  handleLPChange = (e) => {
     this.setState({ landingPageHtml: e, });
   }
 
+  handleELLChange = () => {
+    const { isELL } = this.state;
+    this.setState({ isELL: !isELL });
+  }
+
+  handleUpdateModelConcept = (uid) => {
+    this.setState({ modelConceptUID: uid });
+  }
+
   render() {
+    const { flag, isELL, landingPageHtml, modelConceptUID, name, selectedQuestions } = this.state;
+    const { conceptsFeedback, stateSpecificClass } = this.props;
     return (
       <div className="box">
         <h4 className="title">Add New Activity</h4>
         <p className="control">
-          <label className="label">Name</label>
-          <input
-            className="input"
-            onChange={this.handleStateChange.bind(null, 'name')}
-            placeholder="Text input"
-            type="text"
-            value={this.state.name}
-          />
+          <NameInput name={name} onHandleChange={this.handleStateChange} />
         </p>
         <p className="control">
-          <label className="label">Landing Page Content</label>
+          <label className="label" htmlFor="landing-page-content">
+            Landing Page Content
+            <TextEditor
+              ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={this.handleLPChange} // eslint-disable-line react/jsx-handler-names
+              id="landing-page-content"
+              text={landingPageHtml || ''}
+            />
+          </label>
         </p>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={this.handleLPChange}
-          text={this.state.landingPageHtml || ''}
-        />
         <br />
         <p className="control">
-          <label className="label">Flag</label>
-          <span className="select">
-            <select defaultValue={this.state.flag} onChange={this.handleSelect}>
-              <option value="alpha">alpha</option>
-              <option value="beta">beta</option>
-              <option value="production">production</option>
-              <option value="archived">archived</option>
-            </select>
-          </span>
+          <label className="label" htmlFor="flag">
+            Flag
+            <span className="select">
+              <select defaultValue={flag} onBlur={this.handleSelectFlag}>
+                <option value="alpha">alpha</option>
+                <option value="beta">beta</option>
+                <option value="production">production</option>
+                <option value="archived">archived</option>
+              </select>
+            </span>
+          </label>
         </p>
         <p className="control">
-          <label className="label">Question Type</label>
-          <span className="select">
-            <select defaultValue={'questions'} onChange={this.handleSelectQuestionType}>
-              <option value="questions">Sentence Combining</option>
-              <option value="sentenceFragments">Sentence Fragment</option>
-              <option value="fillInBlank">Fill In the Blank</option>
-              <option value="titleCards">Title Cards</option>
-            </select>
-          </span>
+          <label className="label" htmlFor="ell-check-input">
+            Is ELL?
+            <span className="select">
+              <input
+                aria-label="ell-check-input"
+                checked={isELL}
+                onChange={this.handleELLChange}
+                type="checkbox"
+              />
+            </span>
+          </label>
+        </p>
+        <p className="control">
+          <label className="label" htmlFor="question-type">
+            Question Type
+            <span className="select">
+              <select defaultValue="questions" id="question-type" onBlur={this.handleSelectQuestionType}>
+                <option value="questions">Sentence Combining</option>
+                <option value="sentenceFragments">Sentence Fragment</option>
+                <option value="fillInBlank">Fill In the Blank</option>
+                <option value="titleCards">Title Cards</option>
+              </select>
+            </span>
+          </label>
         </p>
         <div className="control">
-          <label className="label">Currently Selected Questions -- {`Total: ${this.state.selectedQuestions.length}`}</label>
-          {this.renderQuestionSelect()}
+          <label className="label" htmlFor="currently-selected-questions">
+            Currently Selected Questions -- {`Total: ${selectedQuestions.length}`}
+            {this.renderQuestionSelect()}
+          </label>
         </div>
-        <label className="label">All Questions</label>
-        {this.renderSearchBox()}
+        <label className="label" htmlFor="all-questions">
+          All Questions
+          {this.renderSearchBox()}
+        </label>
         <br />
-        <ChooseModelContainer
-          conceptsFeedback={this.props.conceptsFeedback}
-          modelConceptUID={this.state.modelConceptUID}
-          updateModelConcept={modelConceptUID => this.setState({ modelConceptUID })}
+        <ChooseModel
+          conceptsFeedback={conceptsFeedback}
+          modelConceptUID={modelConceptUID}
+          onUpdateModelConcept={this.handleUpdateModelConcept}
         />
         <p className="control">
-          <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
+          <button className={`button is-primary ${stateSpecificClass}`} onClick={this.handleSubmit} type="submit">Submit</button>
         </p>
       </div>
     );
   }
 };
 
-function select(state) {
+function select({ questions, concepts, sentenceFragments, conceptsFeedback, fillInBlank, titleCards }) {
   return {
-    questions: state.questions,
-    concepts: state.concepts,
-    sentenceFragments: state.sentenceFragments,
-    conceptsFeedback: state.conceptsFeedback,
-    fillInBlank: state.fillInBlank,
-    titleCards: state.titleCards
+    questions,
+    concepts,
+    sentenceFragments,
+    conceptsFeedback,
+    fillInBlank,
+    titleCards
   };
 }
 
