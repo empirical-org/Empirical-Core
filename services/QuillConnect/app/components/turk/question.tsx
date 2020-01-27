@@ -194,6 +194,18 @@ class PlayDiagnosticQuestion extends React.Component {
     nextQuestion();
   }
 
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedback={<p>{error}</p>}
+        feedbackType="revise-unmatched"
+      />
+    </div>)
+  }
+
   render() {
     const { question, } = this.props
     const { responses, error, response } = this.state

@@ -12,13 +12,13 @@ interface DropdownInputProps {
   disabled?: boolean;
   error?: string;
   handleCancel?: (event: any) => void;
-  handleChange?: (event: any) => void;
+  handleChange?: (selection: any|any[]) => void;
   helperText?: string;
   label?: string;
   id?: string;
   isMulti?: boolean;
   isSearchable?: boolean;
-  onClick?: (event: any) => void;
+  onClick?: (event?: any) => void;
   optionType?: string;
   placeholder?: string;
   timesSubmitted?: Number;
@@ -28,12 +28,15 @@ interface DropdownInputProps {
 }
 
 interface DropdownInputState {
-  inactive: boolean;
+  active: boolean;
   errorAcknowledged: boolean;
   menuIsOpen: boolean;
   options: Array<any>;
-  cursor?: number;
+  cursor: number|null;
 }
+
+const KEYDOWN = 'keydown'
+const MOUSEDOWN = 'mousedown'
 
 export class DropdownInput extends React.Component<DropdownInputProps, DropdownInputState> {
   private input: any // eslint-disable-line react/sort-comp
@@ -48,23 +51,23 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const passedOptions = showAllOption ? [showAllOption].concat(options) : options
 
     this.state = {
-      inactive: true,
+      active: false,
       errorAcknowledged: false,
       menuIsOpen: false,
-      options: passedOptions
+      options: passedOptions,
+      cursor: null
     }
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClick, true)
-    document.addEventListener('keydown', this.handleKeyDown, true)
+    document.addEventListener(MOUSEDOWN, this.handleClick, true)
+    document.addEventListener(KEYDOWN, this.handleKeyDown, true)
   }
 
   componentDidUpdate(_, prevState) {
     const { cursor, } = this.state
 
-    if (!cursor && cursor !== 0) { return }
-    if (cursor === prevState.cursor) { return }
+    if (cursor === null || cursor === prevState.cursor) { return }
 
     this.setOptionFocus()
   }
@@ -80,15 +83,19 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, true)
+    document.removeEventListener(MOUSEDOWN, this.handleClick, true)
+    document.removeEventListener(KEYDOWN, this.handleClick, true)
   }
 
   handleInputActivation = () => {
-    const { disabled, isSearchable, } = this.props
-    const { inactive, menuIsOpen, } = this.state
-    if (!disabled && (!menuIsOpen || inactive)) {
+    const { disabled, isSearchable, onClick, } = this.props
+    const { active, menuIsOpen, } = this.state
+
+    if (onClick) { onClick() }
+
+    if (!disabled && (!menuIsOpen || !active)) {
       const cursor = isSearchable ? null : 0
-      this.setState({ inactive: false, menuIsOpen: true, cursor }, () => { this.input ? this.input.focus() : null })
+      this.setState({ active: true, menuIsOpen: true, cursor }, () => { this.input ? this.input.focus() : null })
     }
   }
 
@@ -101,7 +108,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   deactivateInput = () => {
-    this.setState({ inactive: true, menuIsOpen: false, cursor: null })
+    this.setState({ active: false, menuIsOpen: false, cursor: null })
   }
 
   handleClick = (e) => {
@@ -112,6 +119,10 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
   updateCursor = (cursor) => {
     this.setState({ cursor: cursor })
+  }
+
+  handleErrorAcknowledgement = () => {
+    this.setState({ errorAcknowledged: true, active: true, }, () => this.input ? this.input.focus() : null)
   }
 
   onKeyDown = (event) => {
@@ -127,27 +138,37 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleKeyDown = (e) => {
-    const { inactive, menuIsOpen, cursor, options, } = this.state
+    const { active, menuIsOpen, cursor, options, } = this.state
 
     if (!(this.node && this.node.contains(e.target))) { return }
 
-    if (e.key === 'Enter') { e.preventDefault() }
-
-    if (e.key === 'Enter' && (inactive || !menuIsOpen)) {
-      this.handleInputActivation()
-    } else if (e.key === 'ArrowUp' && cursor > 0) {
-      this.setState(prevState => ({ cursor: prevState.cursor - 1 }))
-    } else if (e.key === 'ArrowDown' && cursor < options.length - 1) {
-      this.setState(prevState => {
-        if (prevState.cursor || prevState.cursor === 0) {
-          return { cursor: prevState.cursor + 1 }
+    switch (e.key) {
+      case 'Enter':
+        e.preventDefault()
+        if (!active || !menuIsOpen) {
+          this.handleInputActivation()
+        } else if (cursor !== null) {
+          this.handleEnterWithFocusedOption()
         }
-        return { cursor: 0 }
-      })
-    } else if (e.key === 'Enter' && (cursor || cursor === 0)) {
-      this.handleEnterWithFocusedOption()
-    } else if (e.key === 'Tab') {
-      this.deactivateInput()
+        break
+      case 'ArrowDown':
+        if (cursor < options.length - 1) {
+          this.setState(prevState => {
+            if (prevState.cursor !== null) {
+              return { cursor: prevState.cursor + 1 }
+            }
+            return { cursor: 0 }
+          })
+        }
+        break
+      case 'ArrowUp':
+        this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }))
+        break
+      case 'Tab':
+        this.deactivateInput()
+        break
+      default:
+        break
     }
   }
 
@@ -166,10 +187,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
-  handleErrorAcknowledgement = () => {
-    this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input ? this.input.focus() : null)
-  }
-
   renderHelperText() {
     const { helperText } = this.props
     if (helperText) {
@@ -184,10 +201,10 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
-  handleOptionSelection = (e) => {
+  handleOptionSelection = (selection) => {
     const { options, } = this.props
     const { handleChange, value, isMulti, } = this.props
-    const allWasClicked = Array.isArray(e) && e.find(opt => opt.value === 'All')
+    const allWasClicked = Array.isArray(selection) && selection.find(opt => opt.value === 'All')
 
     if (allWasClicked) {
       if (value && value.length) {
@@ -198,18 +215,18 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         handleChange(options)
       }
     } else {
-      handleChange(e)
+      handleChange(selection)
     }
 
     if (!isMulti) { this.deactivateInput() }
   }
 
   renderInput() {
-    const { inactive, errorAcknowledged, menuIsOpen, cursor, options, } = this.state
+    const { active, errorAcknowledged, menuIsOpen, cursor, options, } = this.state
     const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
-    const inactiveOrActive = inactive ? 'inactive' : 'active'
+    const inactiveOrActive = active ? 'active' : 'inactive'
     const notEditable = isSearchable || isMulti ? '' : 'not-editable'
     const checkboxDropdown = isMulti ? 'checkbox-dropdown' : ''
     const sharedClasses = `dropdown-container input-container ${inactiveOrActive} ${hasText} ${notEditable} ${className} ${checkboxDropdown}`
@@ -235,10 +252,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <div
             className={`error ${sharedClasses}`}
             onClick={this.handleInputActivation}
+            onKeyDown={this.handleInputActivation}
             ref={node => this.node = node}
+            role="button"
             tabIndex={0}
           >
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <Select
               {...sharedProps}
               menuIsOpen={menuIsOpen}
@@ -250,10 +269,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <div
             className={`error unacknowledged ${sharedClasses}`}
             onClick={this.handleErrorAcknowledgement}
+            onKeyDown={this.handleErrorAcknowledgement}
             ref={node => this.node = node}
+            role="button"
             tabIndex={0}
           >
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <Select
               {...sharedProps}
               menuIsOpen={false}
@@ -266,10 +287,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (<div
         className={sharedClasses}
         onClick={this.handleInputActivation}
+        onKeyDown={this.handleInputActivation}
         ref={node => this.node = node}
+        role="button"
         tabIndex={0}
       >
-        <label>{label}</label>
+        <label htmlFor={id}>{label}</label>
         <Select
           {...sharedProps}
           closeMenuOnSelect={false}
@@ -277,7 +300,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           hideSelectedOptions={false}
           isMulti
           isSearchable={false}
-          menuIsOpen={inactive ? false : menuIsOpen}
+          menuIsOpen={active ? menuIsOpen : false}
           onChange={this.handleOptionSelection}
           optionType={optionType}
         />
@@ -287,27 +310,31 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         <div
           className={sharedClasses}
           onClick={this.handleInputActivation}
+          onKeyDown={this.handleInputActivation}
           ref={node => this.node = node}
+          role="button"
           tabIndex={0}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <Select
             {...sharedProps}
             components={{ SingleValue: HTMLDropdownSingleValue, Option: HTMLDropdownOption }}
             hideSelectedOptions={false}
-            menuIsOpen={inactive ? false : menuIsOpen}
+            menuIsOpen={active ? menuIsOpen : false}
             onChange={this.handleOptionSelection}
           />
         </div>)
-    } else if (inactive) {
+    } else if (!active) {
       return (
         <div
           className={`${sharedClasses}`}
           onClick={this.handleInputActivation}
+          onKeyDown={this.handleInputActivation}
           ref={node => this.node = node}
+          role="button"
           tabIndex={0}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <Select
             {...sharedProps}
             menuIsOpen={false}
@@ -320,10 +347,13 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (
         <div
           className={`dropdown ${sharedClasses}`}
+          onClick={this.handleInputActivation}
+          onKeyDown={this.handleInputActivation}
           ref={node => this.node = node}
+          role="button"
           tabIndex={0}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <Select
             {...sharedProps}
             menuIsOpen={menuIsOpen}
@@ -335,7 +365,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   render() {
-    const { onClick, } = this.props
-    return <div onClick={onClick}>{this.renderInput()}</div>
+    return this.renderInput()
   }
 }

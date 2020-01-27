@@ -44,7 +44,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
 		automl_api,
-		spell_check_local,
+		// spell_check_local,
 	}
 
 	results := map[int]APIResponse{}
