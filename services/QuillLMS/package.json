@@ -65,6 +65,7 @@
     "faye-websocket": "^0.11.3",
     "memory-fs": "^0.4.1",
     "mime": "^2.4.4",
+    "node-sass": "^4.13.1",
     "qs": "^6.9.0",
     "redux-test-utils": "^0.2.2"
   }

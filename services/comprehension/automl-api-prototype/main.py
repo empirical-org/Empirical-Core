@@ -12,6 +12,7 @@ def response_endpoint(request):
 
     entry = param_for('entry', request, request_json)
     prompt_id = param_for('prompt_id', request, request_json)
+    attempt = param_for('attempt', request, request_json) or 1
 
     if entry is None or prompt_id is None:
         return make_response(jsonify(feedback="error"), 400)
@@ -23,7 +24,7 @@ def response_endpoint(request):
 
     automl_response = automl_prediction(entry, model_settings['automl'])
     label = label_for(automl_response.payload, model_settings['label_type'])
-    feedback = feedback_for(label, model_settings['feedback'])
+    feedback = feedback_for(label, model_settings['feedback'], attempt)
     optimal = label in model_settings['correct']
 
     log(request=request_json, label=label, feedback=feedback, optimal=optimal)
@@ -65,8 +66,16 @@ def automl_prediction(entry, settings):
     return prediction_client.predict(model_url, payload, {})
 
 
-def feedback_for(label, feedback_settings):
-    return feedback_settings.get(label, feedback_settings['default_feedback'])
+def feedback_for(label, feedback_settings, attempt):
+    feedback_array = feedback_settings.get(
+        label,
+        feedback_settings['default_feedback'])
+    odd_attempt = attempt % 2 == 1
+
+    # TODO - This only supports two pieces of feedback
+    # and pulls first or last depending on odd or even (so it alternates)
+    # This is just to get multiple feedback in place for user testing
+    return feedback_array[0] if odd_attempt else feedback_array[-1]
 
 
 def label_for(payload, type):
