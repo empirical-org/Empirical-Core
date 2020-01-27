@@ -9,7 +9,7 @@ class MLFeedback(TimestampedModel):
     combined_labels = models.TextField(null=False)
     feedback = models.TextField(null=False)
     optimal = models.BooleanField(null=False, default=False)
-    order = models.PositiveIntegerField(default=0)
+    order = models.PositiveIntegerField(default=1)
     prompt = models.ForeignKey('Prompt', on_delete=models.PROTECT,
                                related_name='ml_feedback')
 

@@ -29,10 +29,9 @@ class Prompt(TimestampedModel):
 
     def _get_feedback_for_labels(self, labels, previous_feedback=[]):
         combined_labels = combine_labels(labels)
-        filtered_feedback = list(filter(self._filter_feedback(labels),
+        filtered_feedback = list(filter(self._filter_feedback(combined_labels),
                                         previous_feedback))
-        used_feedback = list(map(lambda x: x['feedback'], filtered_feedback))
-        label_match_count = len(used_feedback)
+        label_match_count = len(filtered_feedback)
         feedback_options = (self.ml_feedback
                                 .filter(combined_labels=combined_labels)
                                 .order_by('order')
