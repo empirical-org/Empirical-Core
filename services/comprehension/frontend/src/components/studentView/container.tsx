@@ -74,8 +74,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
     const { dispatch, } = this.props
     const activityUID = this.activityUID()
+    const previousFeedback = this.props.session.submittedResponses[promptID] || [];
     if (activityUID) {
-      dispatch(getFeedback(activityUID, entry, promptID, promptText, attempt))
+      dispatch(getFeedback(activityUID, entry, promptID, promptText, attempt, previousFeedback))
     }
   }
 

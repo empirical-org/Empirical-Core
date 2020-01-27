@@ -4,8 +4,9 @@ import ContentEditable from 'react-contenteditable'
 const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 
 interface EditorContainerProps {
+  unsubmittableResponses: string[];
   promptText: string;
-  stripHtml: (str: string) => string;
+  stripHtml: (input: string) => input;
   html: string;
   disabled: boolean;
   resetText: (event: any) => void;
@@ -20,6 +21,18 @@ export default class EditorContainer extends React.Component<EditorContainerProp
       e.preventDefault()
       return false
     }, true);
+  }
+
+  shouldComponentUpdate(nextProps: EditorContainerProps) {
+    // this prevents some weird cursor stuff from happening in the text editor
+    const { unsubmittableResponses, stripHtml, html, disabled } = nextProps
+    if (disabled) { return true }
+
+    // this prevents some weird cursor stuff from happening in the text editor
+    const firstEditHasAlreadyBeenMade = !unsubmittableResponses.includes(stripHtml(html))
+    if (firstEditHasAlreadyBeenMade) { return false }
+
+    return true
   }
 
   renderClear = () => {
