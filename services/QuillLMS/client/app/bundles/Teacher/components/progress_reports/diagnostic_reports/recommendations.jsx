@@ -29,7 +29,6 @@ export default class Recommendations extends React.Component {
     const { params, } = this.props
     this.getRecommendationData(params.classroomId, params.activityId);
     this.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId, false);
-    this.assignToWholeClass(params.unitTemplateId);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,7 +39,6 @@ export default class Recommendations extends React.Component {
     });
     this.getRecommendationData(nextProps.params.classroomId, nextProps.params.activityId);
     this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId, false);
-    this.assignToWholeClass(nextProps.params.unitTemplateId);
   }
 
   setAssignedToFalseAfterFiveSeconds = () => {
