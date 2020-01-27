@@ -28,19 +28,20 @@ RUN mkdir /config
 ADD ./config/ /config/
 ADD ./Rakefile /Rakefile
 WORKDIR $INSTALL_PATH
-ENV NODE_ENV=staging
-ENV RAILS_ENV=staging
-ENV RACK_ENV=staging
+ENV NODE_ENV=development
+ENV RAILS_ENV=production
+ENV RACK_ENV=production
 ENV SALESMACHINE_API_KEY=EMPTY_KEY
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN gem install bundler -v 1.17.3
 RUN bundle install
 WORKDIR $INSTALL_PATH
+RUN rm -rf package-lock.json
+RUN npm rebuild node-sass
 RUN npm install
-RUN cd ./client && nohup npm install > npm_install_log.out 2>&1 &
-RUN cd ./client && nohup npm run build:client && nohup npm run build:server > npm_build_log.out 2>&1 &
-RUN sleep 90
+RUN cd ./client && npm rebuild node-sass && rm -rf package-lock.json && npm install 
+RUN cd ./client && npm run build:client && npm run build:server || true
 RUN rake assets:precompile
 RUN rake assets:clean
-RUN bash
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
