@@ -48,10 +48,12 @@ class TestMLFeedbackView(TestCase):
         json_body = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        expected = construct_feedback_payload(self.fb_single.feedback,
-                                              FEEDBACK_TYPE,
-                                              self.fb_single.optimal,
-                                              labels=self.fb_single.combined_labels)
+        expected = construct_feedback_payload(
+            self.fb_single.feedback,
+            FEEDBACK_TYPE,
+            self.fb_single.optimal,
+            labels=self.fb_single.combined_labels
+        )
 
         self.assertEqual(json_body, expected)
 
@@ -75,10 +77,12 @@ class TestMLFeedbackView(TestCase):
         response = MLFeedbackView(multi_label=True).post(request)
         json_body = json.loads(response.content)
 
-        expected = construct_feedback_payload(self.fb_multi.feedback,
-                                              FEEDBACK_TYPE,
-                                              self.fb_multi.optimal,
-                                              labels=self.fb_multi.combined_labels)
+        expected = construct_feedback_payload(
+            self.fb_multi.feedback,
+            FEEDBACK_TYPE,
+            self.fb_multi.optimal,
+            labels=self.fb_multi.combined_labels
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_body, expected)

@@ -10,6 +10,7 @@ from ..utils import construct_feedback_payload
 
 FEEDBACK_TYPE = 'semantic'
 
+
 class MLFeedbackView(ApiView):
     multi_label = True
 

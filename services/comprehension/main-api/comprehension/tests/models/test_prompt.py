@@ -80,9 +80,11 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
 class PromptVariableAutoMLFeedbackTest(PromptModelTest):
     def setUp(self):
         super().setUp()
-        self.feedback2 = MLFeedbackFactory(combined_labels=self.feedback.combined_labels,
-                                           prompt=self.prompt,
-                                           order=self.feedback.order + 1)
+        self.feedback2 = MLFeedbackFactory(
+            combined_labels=self.feedback.combined_labels,
+            prompt=self.prompt,
+            order=self.feedback.order + 1
+        )
 
     @patch.object(MLModel, 'request_labels')
     def test_variable_feedback(self, label_mock):
@@ -90,7 +92,10 @@ class PromptVariableAutoMLFeedbackTest(PromptModelTest):
         mock_previous_feedback = [{
             'labels': self.feedback.combined_labels
         }]
-        response = self.prompt.fetch_auto_ml_feedback(None, previous_feedback=mock_previous_feedback)
+        response = self.prompt.fetch_auto_ml_feedback(
+            None,
+            previous_feedback=mock_previous_feedback
+        )
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback2, response)
 
@@ -102,7 +107,10 @@ class PromptVariableAutoMLFeedbackTest(PromptModelTest):
         }, {
             'labels': self.feedback.combined_labels
         }]
-        response = self.prompt.fetch_auto_ml_feedback(None, previous_feedback=mock_previous_feedback)
+        response = self.prompt.fetch_auto_ml_feedback(
+            None,
+            previous_feedback=mock_previous_feedback
+        )
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback, response)
 
