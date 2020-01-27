@@ -12,3 +12,4 @@ class RuleSetFactory(factory.django.DjangoModelFactory):
     feedback = 'Test feedback'
     priority = 1
     pass_order = RuleSet.PASS_ORDER.FIRST
+    test_for_contains = True

@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404
 
 from . import ApiView
 from ..models.prompt import Prompt
-from ..models.rule_set import RuleSet
 from ..utils import construct_feedback_payload
 
 
