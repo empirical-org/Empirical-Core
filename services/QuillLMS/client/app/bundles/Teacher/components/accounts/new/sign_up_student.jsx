@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'request'
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
-import { Input } from 'quill-component-library/dist/componentLibrary'
+import { Input } from '../../../../../../../../../packages/quill-component-library/src/components/shared/input'
 
 import AuthSignUp from './auth_sign_up'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'

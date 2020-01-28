@@ -73,8 +73,8 @@ export class Input extends React.Component<InputProps, InputState> {
     this.setState({ inactive: true, }, () => this.input.blur())
   }
 
-  handleClick(e) {
-    if (!this.node.contains(e.target)) {
+  handleClick = (e) => {
+    if (!this.node || !this.node.contains(e.target)) {
       this.deactivateInput()
     }
   }
@@ -84,8 +84,6 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   handleKeyDownOnUnacknowledgedError = (e) => {
-    if (e.key !== 'Enter') { return }
-
     this.handleClickOnUnacknowledgedError()
   }
 
