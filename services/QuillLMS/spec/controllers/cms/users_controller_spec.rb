@@ -24,6 +24,7 @@ describe Cms::UsersController do
       expect(assigns(:user_search_query)).to eq({sort: 'last_sign_in', sort_direction: 'desc'})
       expect(assigns(:user_search_query_results)).to eq []
       expect(assigns(:user_flags)).to eq User::VALID_FLAGS
+      expect(ChangeLog.last.action).to eq('Visited User Directory')
     end
   end
 
@@ -35,6 +36,8 @@ describe Cms::UsersController do
     it 'should search for the users' do
       get :search, user_flag: "auditor"
       expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: ["results"], userSearchQuery: {user_flag: "auditor"}}.to_json)
+      expect(ChangeLog.last.action).to eq('Searched Users')
+      expect(ChangeLog.last.explanation).to include('auditor')
     end
   end
 
@@ -125,10 +128,13 @@ describe Cms::UsersController do
   describe '#update' do
     let!(:another_user) { create(:user) }
 
-    it 'should update the attributes for the given user' do
+    it 'should update the attributes for the given user and update change_log' do
       post :update, id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] }
       expect(another_user.reload.email).to eq "new@test.com"
       expect(response).to redirect_to cms_users_path
+      expect(ChangeLog.last.action).to eq('Edited User')
+      expect(ChangeLog.last.changed_attribute).to eq('flags')
+      expect(ChangeLog.last.new_value).to include('purchaser')
     end
   end
 
