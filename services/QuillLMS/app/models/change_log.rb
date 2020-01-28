@@ -13,7 +13,7 @@ class ChangeLog < ActiveRecord::Base
     'Ghosted User',
     'Visited User Admin Page',
     'Visited User Edit Page',
-    'Edited User',
+    'Edited User'
   ]
   GENERIC_ACTIONS = [
     'Visited User Directory',
