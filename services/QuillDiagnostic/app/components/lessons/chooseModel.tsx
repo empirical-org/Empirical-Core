@@ -1,14 +1,21 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import _ from 'underscore';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 
-export class ChooseModel extends Component {
+export interface ChooseModelProps {
+  children: any,
+  conceptsFeedback: { data: {} },
+  modelConceptUID: string,
+  onUpdateModelConcept(model: {} | null): void
+}
+
+export class ChooseModel extends React.Component<ChooseModelProps, {}> {
   removeModelConcept = () => {
     const { onUpdateModelConcept } = this.props;
     onUpdateModelConcept(null);
   };
-  selectConcept = (e) => {
+  selectConcept = (e: { value: string }) => {
     const { onUpdateModelConcept } = this.props;
     onUpdateModelConcept(e.value);
   }

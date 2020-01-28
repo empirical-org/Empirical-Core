@@ -8,7 +8,7 @@ import {
 import { EditorState, ContentState } from 'draft-js'
 import ChooseModel from '../chooseModel.jsx'
 import _ from 'underscore';
-import { NameInput } from '../lessonFormComponents';
+import { NameInput } from '../lessonFormComponents.tsx';
 
 describe('LessonForm component', () => {
     const mockQuestions = [

@@ -5,12 +5,12 @@ import classroomLesson from './classroomLesson';
 import classroomLessons from './classroomLessons'; // this is the admin one
 import classroomLessonsReviews from './classroomLessonsReviews'
 import classroomSessions from './classroomSessions';
-import concepts from './concepts';
+import concepts from './concepts.ts';
 import conceptsFeedback from './concepts-feedback';
 import customize, * as FromCustomize from './customize'
 import diagnosticQuestions from './diagnosticQuestions';
 import display from './display';
-import fillInBlank from './fillInBlank';
+import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
 import itemLevels from './item-levels';
@@ -20,11 +20,11 @@ import pathways from './pathways';
 import playDiagnostic from './diagnostics';
 import playLesson from './questionReducer';
 import question from './questionReducerV2';
-import questions from './questions';
+import questions from './questions.ts';
 import questionSelect from './questionSelect';
 import responses from './responsesReducer';
 import scoreAnalysis from './scoreAnalysis';
-import sentenceFragments from './sentenceFragments';
+import sentenceFragments from './sentenceFragments.ts';
 import sessions from './sessions';
 import titleCards from './titleCards';
 import connectSentenceCombining from './connectSentenceCombining';

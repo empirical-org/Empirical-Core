@@ -4,10 +4,7 @@ import actions from '../../actions/lessons';
 import _ from 'underscore';
 import { Link } from 'react-router';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import EditLessonForm from './lessonForm.jsx';
-import renderQuestionSelect from './lessonForm.jsx';
-import renderQuestionsForLesson from './lesson.jsx';
-import questionsForLesson from './lesson.jsx';
+import EditLessonForm from './lessonForm.tsx';
 
 const Lessons = React.createClass({
 
