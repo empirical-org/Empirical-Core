@@ -113,8 +113,8 @@ class PlaySentenceFragment extends React.Component {
   renderSentenceOrFragmentButtons = () => {
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
-        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
       </div>
     );
   }
@@ -231,16 +231,16 @@ class PlaySentenceFragment extends React.Component {
     const { nextQuestion, question, } = this.props
     if (this.showNextQuestionButton()) {
       return (
-        <button className="quill-button large primary contained" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if (question && question.attempts ? question.attempts.length > 0 : false) {
-        return <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">Recheck work</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Recheck work</button>;
       } else {
-        return <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button>;
       }
     } else {
-      return <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
   }
 

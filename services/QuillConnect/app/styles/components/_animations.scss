@@ -1,24 +1,18 @@
 .carousel-enter {
-  transform: translateX(1000px);
+  transform: translateX(100%);
   opacity: 0.01;
+  display: none;
 }
 .carousel-enter.carousel-enter-active {
   opacity: 1;
-  // transition: opacity 0.2s ease-out;
   transform: translateX(0);
-  transition: transform 0.3s linear;
+  transition: all .3s ease-in;
 }
 .carousel-leave {
-  transform: translateX(0);
-  opacity: 1;
-  // transition: opacity 0.2s ease-in-out;
-  transition: all 0.3s linear;
-
+  display: none;
 }
 .carousel-leave.carousel-leave-active {
-  transform: translateX(calc(1000px * -1));
-  opacity: 0;
-
+  display: none
 }
 
 .feedback-carousel-enter {
