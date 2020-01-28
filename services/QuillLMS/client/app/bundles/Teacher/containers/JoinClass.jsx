@@ -22,7 +22,7 @@ export default class JoinClass extends React.Component {
 
   submitClass() {
     const { classCodeInput, } = this.state
-    let buttonClass = "quill-button contained primary medium"
+    let buttonClass = "quill-button contained primary medium focus-on-light"
     if (!classCodeInput.length) {
       buttonClass += ' disabled'
     }

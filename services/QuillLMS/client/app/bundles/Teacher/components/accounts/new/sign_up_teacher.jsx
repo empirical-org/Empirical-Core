@@ -1,7 +1,8 @@
 import React from 'react';
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
-import { Input } from 'quill-component-library/dist/componentLibrary'
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
+// import { Input } from 'quill-component-library/dist/componentLibrary'
+import { Input } from '../../../../../../../../../packages/quill-component-library/src/components/shared/input'
 
 import AuthSignUp from './auth_sign_up'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
@@ -23,34 +24,28 @@ class SignUpTeacher extends React.Component {
       analytics: new AnalyticsWrapper(),
       timesSubmitted: 0
     }
-
-    this.updateKeyValue = this.updateKeyValue.bind(this);
-    this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.submitClass = this.submitClass.bind(this)
-    this.toggleNewsletter = this.toggleNewsletter.bind(this)
   }
 
-  updateKeyValue(key, value) {
+  updateKeyValue = (key, value) => {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
     this.setState(newState);
   }
 
-  update(e) {
+  update = (e) => {
     this.updateKeyValue(e.target.id, e.target.value)
   }
 
-  submitClass() {
+  submitClass = () => {
     const { password, firstName, lastName, email, } = this.state
-    let buttonClass = "quill-button contained primary medium"
+    let buttonClass = "quill-button contained primary medium focus-on-light"
     if (!password.length || !firstName.length || !lastName.length || !email.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     const { firstName, lastName, email, password, sendNewsletter, timesSubmitted, } = this.state
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
@@ -88,34 +83,51 @@ class SignUpTeacher extends React.Component {
     });
   }
 
-  toggleNewsletter() {
-    this.setState({ sendNewsletter: !this.state.sendNewsletter, }, () => {
-      let setState = this.state.sendNewsletter ? 'optIn' : 'optOut';
-      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, {setState: setState});
+  handleToggleNewsletter = () => {
+    this.setState(prevState => ({ sendNewsletter: !prevState.sendNewsletter, }), () => {
+      const { sendNewsletter, } = this.state
+      const setState = sendNewsletter ? 'optIn' : 'optOut';
+      SegmentAnalytics.track(Events.CLICK_NEWSLETTER_OPT_IN_OUT, { setState, });
     });
   }
 
-  renderNewsletterRow() {
+  handleKeyDownOnToggleNewsletter = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleToggleNewsletter()
+  }
+
+  handleClickSignUpAsStudent = (e) => {
+    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)
+    window.location.href = '/sign-up/student'
+  }
+
+  handleKeyDownOnSignUpAsStudent = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleClickSignUpAsStudent(e)
+  }
+
+  renderNewsletterRow = () => {
+    const { sendNewsletter, } = this.state
     let checkbox
-    if (this.state.sendNewsletter) {
-      checkbox = <div className="quill-checkbox selected" onClick={this.toggleNewsletter}><img alt="check" src={smallWhiteCheckSrc} /></div>
+    if (sendNewsletter) {
+      checkbox = <div aria-checked={true} className="quill-checkbox selected focus-on-light" onClick={this.handleToggleNewsletter} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" tabIndex={0}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
-      checkbox = <div className="quill-checkbox unselected" onClick={this.toggleNewsletter} />
+      checkbox = <div aria-checked={false} aria-label="Unchecked" className="quill-checkbox unselected focus-on-light" onClick={this.handleToggleNewsletter} onKeyDown={this.handleKeyDownOnToggleNewsletter} role="checkbox" tabIndex={0} />
     }
     return <div className="newsletter-row">{checkbox} <p>Send me a monthly update on new&nbsp;content</p></div>
   }
 
-  render () {
+  render() {
     const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
       <div className="container account-form teacher-sign-up">
         <h1>Create a teacher account</h1>
-        <p className="sub-header">Are you a student?
-          <a href="/sign-up/student" onClick={(e) => SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)}>Sign up here</a>
-        </p>
+        <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
         <div className="info-and-form-container">
           <div className="info">
-            <h2>More than 5,000 schools use Quill's free online tools to help their students become strong&nbsp;writers.</h2>
+            <h2>More than 5,000 schools use Quill&#39;s free online tools to help their students become strong&nbsp;writers.</h2>
             <ul>
               <li>Quill provides free access to 400 writing and grammar&nbsp;activities</li>
               <li>Students receive immediate feedback on their&nbsp;work</li>
@@ -128,8 +140,8 @@ class SignUpTeacher extends React.Component {
             <div className="teacher-signup-form">
               <div>
                 <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-                  <input name="utf8" type="hidden" value="✓" />
-                  <input name="authenticity_token" type="hidden" value={authToken} />
+                  <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+                  <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
                   <div className="name">
                     <Input
                       className="first-name"
@@ -173,7 +185,7 @@ class SignUpTeacher extends React.Component {
                     value={password}
                   />
                   {this.renderNewsletterRow()}
-                  <input className={this.submitClass()} name="commit" type="submit" value="Sign up" />
+                  <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />
                 </form>
               </div>
             </div>
