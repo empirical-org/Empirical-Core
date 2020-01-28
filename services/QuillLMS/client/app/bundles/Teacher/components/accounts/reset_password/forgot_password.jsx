@@ -9,8 +9,7 @@ const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 export default class ForgotPassword extends React.Component {
   constructor() {
     super();
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
       email: '',
       errors: {},
@@ -18,19 +17,20 @@ export default class ForgotPassword extends React.Component {
     };
   }
 
-  handleEmailChange(e) {
+  onEmailChange = (e) => {
     this.setState({ email: e.target.value, });
   }
 
   submitClass() {
+    const { email, } = this.state
     let buttonClass = "quill-button contained primary medium"
-    if (!this.state.email.length) {
+    if (!email.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     const { email, password, timesSubmitted, } = this.state
     e.preventDefault();
     request({
@@ -71,31 +71,31 @@ export default class ForgotPassword extends React.Component {
     return (
       <div className="container account-form forgot-password">
         <h1>Reset Password</h1>
-        <p className="sub-header">We'll email you a link to reset your password. You can also ask your teacher to reset it for you.</p>
+        <p className="sub-header">We&#39;ll email you a link to reset your password. You can also ask your teacher to reset it for you.</p>
         <div className="form-container">
           <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-            <input name="utf8" type="hidden" value="✓" />
-            <input name="authenticity_token" type="hidden" value={authToken} />
+            <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+            <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
             <Input
               className="email"
               error={errors.email}
-              handleChange={this.handleEmailChange}
+              handleChange={this.onEmailChange}
               label="Email"
               timesSubmitted={timesSubmitted}
               type="text"
               value={email}
             />
-            <input className={this.submitClass()} name="commit" type="submit" value="Reset password" />
+            <input aria-label="Reset password" className={this.submitClass()} name="commit" type="submit" value="Reset password" />
           </form>
         </div>
 
         <div className="student-info-box">
-          <h3><span>Need your teacher to reset your password? Share these instructions:</span> <img src={bulbSrc} /></h3>
+          <h3><span>Need your teacher to reset your password? Share these instructions:</span> <img alt="Lightbulb" src={bulbSrc} /></h3>
           <ol>
             <li>Sign in to your teacher account</li>
-            <li>Click on the "Classes" tab, and then click on  "Edit Students"</li>
-            <li>Find the student, and click on "Edit Account"</li>
-            <li>Click on "Reset password to last name"</li>
+            <li>Click on the &#34;Classes&#34; tab, and then click on  &#34;Edit Students&#34;</li>
+            <li>Find the student, and click on &#34;Edit Account&#34;</li>
+            <li>Click on &#34;Reset password to last name&#34;</li>
           </ol>
         </div>
 

@@ -7,11 +7,9 @@ import PasswordInfo from './password_info.jsx';
 import getAuthToken from '../../modules/get_auth_token';
 
 class LoginFormApp extends React.Component {
-  constructor() {
-    super();
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  constructor(props) {
+    super(props);
+
     this.state = {
       showPass: false,
       email: '',
@@ -21,39 +19,44 @@ class LoginFormApp extends React.Component {
     };
   }
 
-  clickHandler() {
+  handleTogglePassClick = () => {
     this.setState(prevState => ({
       showPass: !prevState.showPass,
-    }));
-    let setState = this.state.showPass ? 'showPassword' : 'hidePassword';
-    SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
+    }), () => {
+      const { showPass, } = this.state
+      let setState = showPass ? 'showPassword' : 'hidePassword';
+      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
+    });
   }
 
-  togglePass() {
-    return !this.state.showPass ? 'password' : 'text';
+  togglePass = () => {
+    const { showPass, } = this.state
+    return !showPass ? 'password' : 'text';
   }
 
-  toggleButtonText() {
-    return !this.state.showPass ? 'Show' : 'Hide';
+  toggleButtonText = () => {
+    const { showPass, } = this.state
+    return !showPass ? 'Show' : 'Hide';
   }
 
-  submitClass() {
+  submitClass = () => {
+    const { password, email, } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (!this.state.password.length || !this.state.email.length) {
+    if (!password.length || !email.length) {
       buttonClass += ' disabled';
     }
     return buttonClass;
   }
 
-  handleEmailChange(e) {
+  onEmailChange = (e) => {
     this.setState({ email: e.target.value, });
   }
 
-  handlePasswordChange(e) {
+  onPasswordChange = (e) => {
     this.setState({ password: e.target.value, });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.EMAIL});
@@ -90,6 +93,34 @@ class LoginFormApp extends React.Component {
     });
   }
 
+  handleSignUpClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})
+    window.location.href = '/account/new'
+  }
+
+  handleKeyEnterOnSignUpLink = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleSignUpClick(e)
+  }
+
+  handleKeyEnterOnTogglePassword = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleTogglePassClick(e)
+  }
+
+  handleGoogleClick = (e) => {
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})
+    window.location.href = '/auth/google_oauth2'
+  }
+
+  handleCleverClick = (e) => {
+    const { cleverLink, } = this.props
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})
+    window.location.href = cleverLink
+  }
+
   render() {
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
     return (
@@ -97,25 +128,25 @@ class LoginFormApp extends React.Component {
         <h1>Good to see you again!</h1>
         <div className="account-container text-center">
           <div className="auth-section">
-            <a href="/auth/google_oauth2" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
-              <img alt="google icon" src="/images/google_icon.svg" />
+            <button onClick={this.handleGoogleClick} type="button">
+              <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
               <span>Log in with Google</span>
-            </a>
-            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})}>
-              <img alt="clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+            </button>
+            <button onClick={this.handleCleverClick} type="button">
+              <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
               <span>Log in with Clever</span>
-            </a>
+            </button>
           </div>
           <div className="break"><span  />or<span  /></div>
           <div className="login-form">
             <div>
               <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-                <input name="utf8" type="hidden" value="✓" />
-                <input name="authenticity_token" type="hidden" value={authToken} />
+                <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+                <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
                 <Input
                   className="email"
                   error={errors.email}
-                  handleChange={this.handleEmailChange}
+                  handleChange={this.onEmailChange}
                   label="Email or username"
                   timesSubmitted={timesSubmitted}
                   type="text"
@@ -124,7 +155,7 @@ class LoginFormApp extends React.Component {
                 <Input
                   className="password inspectletIgnore"
                   error={errors.password}
-                  handleChange={this.handlePasswordChange}
+                  handleChange={this.onPasswordChange}
                   label="Password"
                   timesSubmitted={timesSubmitted}
                   type={this.togglePass()}
@@ -132,20 +163,17 @@ class LoginFormApp extends React.Component {
                 />
                 <div className="forget-and-show-password">
                   <a href="/password_reset">Forgot password?</a>
-                  <span onClick={() => { this.clickHandler(); }}>
+                  <span onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
                     {this.toggleButtonText()} password
                   </span>
                 </div>
-                <input className={this.submitClass()} name="commit" type="submit" value="Log in" />
+                <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
               </form>
             </div>
           </div>
         </div>
-        <p className="sign-up-link">Don't have an account?&nbsp;<a
-          href="/account/new"
-          onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}
-        >Sign up</a></p>
-        <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
+        <p className="sign-up-link">Don&#39;t have an account?&nbsp;<span onClick={this.handleSignUpClick} onKeyDown={this.handleKeyEnterOnSignUpLink} role="link" tabIndex={0}>Sign up</span></p>
+        <PasswordInfo showHintBox={Object.keys(errors).length} />
       </div>
     );
   }

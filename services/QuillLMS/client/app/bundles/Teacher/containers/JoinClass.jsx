@@ -18,20 +18,18 @@ export default class JoinClass extends React.Component {
       loading: false,
       timesSubmitted: 0,
     }
-
-    this.addClassroom = this.addClassroom.bind(this)
-    this.updateClassCode = this.updateClassCode.bind(this)
   }
 
   submitClass() {
+    const { classCodeInput, } = this.state
     let buttonClass = "quill-button contained primary medium"
-    if (!this.state.classCodeInput.length) {
+    if (!classCodeInput.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
   }
 
-  addClassroom(e) {
+  handleFormSubmission = (e) => {
     const { timesSubmitted, classCodeInput, } = this.state
     e.preventDefault();
     // this.setState({ loading: true, })
@@ -70,7 +68,7 @@ export default class JoinClass extends React.Component {
     })
   }
 
-  updateClassCode(e) {
+  updateClassCode = (e) => {
     this.setState({ classCodeInput: e.target.value, })
   }
 
@@ -82,11 +80,11 @@ export default class JoinClass extends React.Component {
     return (
       <div className="container account-form" id="add-class">
         <h1>Join Your Class</h1>
-        <p className="sub-header">Add the class code to join your teacher's&nbsp;class.</p>
+        <p className="sub-header">Add the class code to join your teacher&#39;s&nbsp;class.</p>
         <div className="form-container">
-          <form acceptCharset="UTF-8" onSubmit={this.addClassroom} >
-            <input name="utf8" type="hidden" value="✓" />
-            <input name="authenticity_token" type="hidden" value={authToken} />
+          <form acceptCharset="UTF-8" onSubmit={this.handleFormSubmission} >
+            <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+            <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
             <Input
               className="class-code"
               error={errors.classCode}
@@ -96,12 +94,12 @@ export default class JoinClass extends React.Component {
               type="text"
               value={classCodeInput}
             />
-            <input className={this.submitClass()} name="commit" type="submit" value="Join your class" />
+            <input aria-label="Join your class" className={this.submitClass()} name="commit" type="submit" value="Join your class" />
           </form>
         </div>
 
         <div className="student-info-box">
-          <h3><span>Don't have a class&nbsp;code?</span> <img alt="lightbulb" src={bulbSrc} /></h3>
+          <h3><span>Don&#39;t have a class&nbsp;code?</span> <img alt="Lightbulb" src={bulbSrc} /></h3>
           <p>Ask your teacher to share the class code with&nbsp;you.</p>
           <p>To use Quill, a teacher must create a class for&nbsp;you.</p>
         </div>
