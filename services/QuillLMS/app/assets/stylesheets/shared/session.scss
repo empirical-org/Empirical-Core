@@ -5,8 +5,22 @@
   color: #646464;
   max-width: 432px;
   margin: auto;
-  a {
+  .inline-link {
     margin-left: 4px;
+  }
+}
+
+.inline-link {
+  color: #009a80;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    outline: none;
   }
 }
 
@@ -51,7 +65,7 @@
         margin: auto;
         justify-content: center;
         border-radius: 4px;
-        border: solid 1px #bdbdbd;
+        box-shadow: 0 0 0 1px #bdbdbd;
         background-color: #ffffff;
         font-size: 15px;
         font-weight: 600;
@@ -59,6 +73,8 @@
         padding: 0px;
         &:hover, &:focus {
           text-decoration: none;
+          box-shadow: 0 0 0 2px #06806b;
+          outline: none;
         }
         img {
           margin-right: 8px;

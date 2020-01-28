@@ -172,7 +172,7 @@ class LoginFormApp extends React.Component {
             </div>
           </div>
         </div>
-        <p className="sign-up-link">Don&#39;t have an account?&nbsp;<span onClick={this.handleSignUpClick} onKeyDown={this.handleKeyEnterOnSignUpLink} role="link" tabIndex={0}>Sign up</span></p>
+        <p className="sign-up-link">Don&#39;t have an account?&nbsp;<span className="inline-link" onClick={this.handleSignUpClick} onKeyDown={this.handleKeyEnterOnSignUpLink} role="link" tabIndex={0}>Sign up</span></p>
         <PasswordInfo showHintBox={Object.keys(errors).length} />
       </div>
     );

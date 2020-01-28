@@ -8,7 +8,16 @@ const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-penci
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
 
 class SelectUserType extends React.Component {
-  handleLogInClick = (e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
+  handleLogInClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
+    window.location.href = '/session/new'
+  }
+
+  handleKeyDownOnLogIn = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleLogInClick()
+  }
 
   setRoleOnSessionError = () => {
     alert('We had trouble setting your role. Please let us know if the problem persists.');
@@ -61,7 +70,7 @@ class SelectUserType extends React.Component {
         </div>
         <div className="agreements-and-link-to-login">
           <p className="return-to-login">Already have an account?
-            <a href="/session/new" onClick={this.handleLogInClick}>Log in</a></p>
+            <span className="inline-link" onClick={this.handleLogInClick} onKeyDown={this.handleKeyDownOnLogIn} role="link" tabIndex={0}>Log in</span></p>
         </div>
       </div>
     )

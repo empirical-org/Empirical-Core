@@ -13,7 +13,7 @@ interface InputProps {
   handleCancel?: (event: any) => void;
   helperText?: string;
   handleChange?: (event: any) => void;
-  onClick?: (event: any) => void;
+  onClick?: () => void;
   characterLimit?: number;
 }
 
@@ -21,6 +21,8 @@ interface InputState {
   inactive: boolean;
   errorAcknowledged: boolean;
 }
+
+const MOUSEDOWN = 'mousedown'
 
 export class Input extends React.Component<InputProps, InputState> {
   private input: any // eslint-disable-line react/sort-comp
@@ -33,38 +35,42 @@ export class Input extends React.Component<InputProps, InputState> {
       inactive: true,
       errorAcknowledged: false
     }
-
-    this.activateInput = this.activateInput.bind(this)
-    this.acknowledgeError = this.acknowledgeError.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleTabOrEnter = this.handleTabOrEnter.bind(this)
-    this.deactivateInput = this.deactivateInput.bind(this)
   }
 
-  componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false)
+  componentDidMount() {
+    document.addEventListener(MOUSEDOWN, this.handleClick, false)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.error !== this.props.error && this.state.errorAcknowledged) {
+    const { error, timesSubmitted, } = this.props
+    const { errorAcknowledged, } = this.state
+    if (nextProps.error !== error && errorAcknowledged) {
       this.setState({ errorAcknowledged: false, })
-    } else if (nextProps.timesSubmitted !== this.props.timesSubmitted && nextProps.error && this.state.errorAcknowledged) {
+    } else if (nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged) {
       this.setState({ errorAcknowledged: false, })
     }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false)
+    document.removeEventListener(MOUSEDOWN, this.handleClick, false)
   }
 
-  activateInput() {
-    if (!this.props.disabled) {
+  handleInputContainerClick = () => {
+    const { onClick, disabled, } = this.props
+    if (onClick) { onClick() }
+    if (!disabled) {
       this.setState({ inactive: false, }, () => this.input.focus())
     }
   }
 
-  deactivateInput() {
-    this.setState({ inactive: true, })
+  handleKeyDownOnInputContainer = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleInputContainerClick()
+  }
+
+  deactivateInput = () => {
+    this.setState({ inactive: true, }, () => this.input.blur())
   }
 
   handleClick(e) {
@@ -73,53 +79,52 @@ export class Input extends React.Component<InputProps, InputState> {
     }
   }
 
-  acknowledgeError() {
+  handleClickOnUnacknowledgedError = () => {
     this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input.focus())
   }
 
-  handleTabOrEnter(event) {
-    if (event.key === 'Tab') {
-      const form = event.target.form;
-      const index = Array.prototype.indexOf.call(form, event.target);
-      form.elements[index + 1].focus();
-      event.preventDefault();
-      this.deactivateInput()
-    }
-    if (event.key === 'Enter') {
+  handleKeyDownOnUnacknowledgedError = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleClickOnUnacknowledgedError()
+  }
+
+  handleTabOrEnter = (event) => {
+    if (event.key === 'Enter' || event.key === 'Tab') {
       this.deactivateInput()
     }
   }
 
-  renderHelperText() {
+  renderHelperText = () => {
     const { helperText } = this.props
     if (helperText) {
       return <span className="helper-text">{helperText}</span>
     }
   }
 
-  renderErrorText() {
+  renderErrorText = () => {
     const { error } = this.props
     if (error) {
       return <span className="error-text">{error}</span>
     }
   }
 
-  renderCancelSymbol() {
+  renderCancelSymbol = () => {
     const { inactive } = this.state
     const { handleCancel } = this.props
     if (!inactive && handleCancel) {
-      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times" /></div>
+      return <button aria-label="X" className="cancel" onClick={handleCancel} type="button"><i className="fas fa-times" /></button>
     }
   }
 
-  renderCharacterLimit() {
+  renderCharacterLimit = () => {
     const { characterLimit, value, } = this.props
     if (characterLimit) {
       return <div className="character-limit"><span>{value.length}/{characterLimit}</span></div>
     }
   }
 
-  renderInput() {
+  renderInput = () => {
     const { inactive, errorAcknowledged} = this.state
     const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit } = this.props
     const hasText = value ? 'has-text' : ''
@@ -140,10 +145,13 @@ export class Input extends React.Component<InputProps, InputState> {
       if (errorAcknowledged) {
         return (<div
           className={`${sharedClassNames} error`}
-          onClick={this.activateInput}
+          onClick={this.handleInputContainerClick}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
+          role="button"
+          tabIndex={-1}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <input {...commonProps} />
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
@@ -153,10 +161,13 @@ export class Input extends React.Component<InputProps, InputState> {
         return (
           <div
             className={`${sharedClassNames} error unacknowledged`}
-            onClick={this.acknowledgeError}
+            onClick={this.handleClickOnUnacknowledgedError}
+            onKeyDown={this.handleKeyDownOnUnacknowledgedError}
             ref={node => this.node = node}
+            role="button"
+            tabIndex={0}
           >
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <input {...commonProps} />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
@@ -166,11 +177,14 @@ export class Input extends React.Component<InputProps, InputState> {
       return (
         <div
           className={sharedClassNames}
-          onClick={this.activateInput}
+          onClick={this.handleInputContainerClick}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
+          role="button"
+          tabIndex={-1}
         >
-          <label>{label}</label>
-          <input {...commonProps} onFocus={this.activateInput} />
+          <label htmlFor={id}>{label}</label>
+          <input {...commonProps} onFocus={this.handleInputContainerClick} />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
         </div>)
@@ -180,7 +194,7 @@ export class Input extends React.Component<InputProps, InputState> {
           className={sharedClassNames}
           ref={node => this.node = node}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <input {...commonProps} onKeyDown={this.handleTabOrEnter} />
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
@@ -190,7 +204,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   render() {
-    return <div onClick={this.props.onClick}>{this.renderInput()}</div>
+    return this.renderInput()
   }
 
 }

@@ -1,3 +1,17 @@
+.inline-link {
+  color: #009a80;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    outline: none;
+  }
+}
+
 #user-type {
   align-items: center;
   flex-direction: column;
@@ -22,12 +36,6 @@
 .account-form.student-sign-up, .account-form.teacher-sign-up {
   h1 {
     margin-bottom: 4px !important;
-  }
-  .sub-header {
-    a {
-      color: #009a80;
-      font-weight: 600;
-    }
   }
   .name {
     display: flex;

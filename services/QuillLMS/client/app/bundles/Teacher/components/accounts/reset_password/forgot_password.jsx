@@ -23,7 +23,7 @@ export default class ForgotPassword extends React.Component {
 
   submitClass() {
     const { email, } = this.state
-    let buttonClass = "quill-button contained primary medium"
+    let buttonClass = "quill-button contained primary medium focus-on-light"
     if (!email.length) {
       buttonClass += ' disabled'
     }

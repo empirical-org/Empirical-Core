@@ -1,6 +1,6 @@
 import React from 'react'
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import getAuthToken from '../../modules/get_auth_token';
@@ -15,29 +15,26 @@ export default class ForgotPassword extends React.Component {
       errors: {},
       timesSubmitted: 0,
     };
-
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handlePasswordConfirmationChange = this.handlePasswordConfirmationChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handlePasswordChange(e) {
+  onPasswordChange = (e) => {
     this.setState({ password: e.target.value, });
   }
 
-  handlePasswordConfirmationChange(e) {
+  onPasswordConfirmationChange = (e) => {
     this.setState({ passwordConfirmation: e.target.value, });
   }
 
   submitClass() {
-    let buttonClass = "quill-button contained primary medium"
-    if (!this.state.password.length || !this.state.passwordConfirmation.length) {
+    const { password, passwordConfirmation, } = this.state
+    let buttonClass = "quill-button contained primary medium focus-on-light"
+    if (!password.length || !passwordConfirmation.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     const { timesSubmitted, password, passwordConfirmation, } = this.state
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_SAVE_NEW_PASSWORD, {source: 'passwordResetPage'});
@@ -82,12 +79,12 @@ export default class ForgotPassword extends React.Component {
 
         <div className="form-container">
           <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-            <input name="utf8" type="hidden" value="✓" />
-            <input name="authenticity_token" type="hidden" value={authToken} />
+            <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+            <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
             <Input
               className="password inspectletIgnore"
               error={errors.password}
-              handleChange={this.handlePasswordChange}
+              handleChange={this.onPasswordChange}
               label="New password"
               timesSubmitted={timesSubmitted}
               type="password"
@@ -96,13 +93,13 @@ export default class ForgotPassword extends React.Component {
             <Input
               className="password-confirmation inspectletIgnore"
               error={errors.password_confirmation}
-              handleChange={this.handlePasswordConfirmationChange}
+              handleChange={this.onPasswordConfirmationChange}
               label="Confirm password"
               timesSubmitted={timesSubmitted}
               type="password"
               value={passwordConfirmation}
             />
-            <input className={this.submitClass()} name="commit" type="submit" value="Save and log in" />
+            <input aria-label="Save and log in" className={this.submitClass()} name="commit" type="submit" value="Save and log in" />
           </form>
         </div>
 
