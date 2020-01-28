@@ -1,64 +1,65 @@
 'use strict';
 import $ from 'jquery'
 import React from 'react'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
-export default React.createClass({
-  getInitialState: function () {
-    return {
+export default class CleverSignUp extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       redirectUri: null,
       clientId: null,
       cleverScope: null,
       detailsLoaded: false,
       notAvailable: false
-    };
-  },
+    }
+  }
 
-  componentDidMount: function () {
-    var that = this;
-    $.get('/clever/auth_url_details')
-      .then(this.loadState, this.failure)
-  },
+  componentDidMount() {
+    $.get('/clever/auth_url_details').then(this.loadState, this.failure)
+  }
 
-  loadState: function (data) {
+  loadState = (data) => {
     this.setState({
       redirectUri: data.redirect_uri,
       clientId: data.client_id,
       cleverScope: data.clever_scope,
       detailsLoaded: true
     });
-  },
-
-  failure: function () {
-    this.setState({notAvailable: true});
-  },
-
-  buildLink: function () {
-    var link;
-    if (this.state.detailsLoaded) {
-      var base, scope, redirectUri, clientId;
-      base = "https://clever.com/oauth/authorize?response_type=code";
-      scope = "&scope=" + encodeURIComponent(this.state.cleverScope);
-      redirectUri = "&redirect_uri=" + encodeURIComponent(this.state.redirectUri);
-      clientId = "&client_id=" + encodeURIComponent(this.state.clientId);
-      link = base + scope + redirectUri + clientId;
-    } else {
-      link = "";
-    }
-    return link;
-  },
-
-  render: function () {
-    var result;
-    if (this.state.notAvailable) {
-      result = <span />;
-    } else {
-      result = (
-        <a className='clever-sign-up' href={this.buildLink()} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})}>
-          <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-          <span>Sign up with Clever</span>
-        </a>)
-    }
-    return result;
   }
-});
+
+  failure = () => {
+    this.setState({notAvailable: true});
+  }
+
+  buildLink = () => {
+    const { detailsLoaded, cleverScope, redirectUri, clientId, } = this.state
+    if (!detailsLoaded) { return '' }
+
+    const base = "https://clever.com/oauth/authorize?response_type=code";
+    const scope = "&scope=" + encodeURIComponent(cleverScope);
+    const redirectUri = "&redirect_uri=" + encodeURIComponent(redirectUri);
+    const clientId = "&client_id=" + encodeURIComponent(clientId);
+    return base + scope + redirectUri + clientId;
+  }
+
+  handleClick = (e) => {
+    SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})
+    window.location.href = this.buildLink
+  }
+
+  handleKeyDown = (e) => {
+    if (e.key !== 'Enter') { return }
+    this.handleClick(e)
+  }
+
+  render() {
+    const { notAvailable, } = this.state
+    if (notAvailable) { return <span /> }
+    return (<button className='clever-sign-up' onClick={this.handleClick} onKeyDown={this.handleKeyDown} type="button">
+      <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+      <span>Sign up with Clever</span>
+    </button>)
+  }
+}

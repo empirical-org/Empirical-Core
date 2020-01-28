@@ -16,7 +16,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       >
         <img
           alt="google icon"
-          src="/images/google_icon.svg"
+          src={`${process.env.CDN_URL}/images/shared/google_icon.svg`}
         />
         <span>
           Google is not linked
@@ -71,7 +71,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       >
         <img
           alt="google icon"
-          src="/images/google_icon.svg"
+          src={`${process.env.CDN_URL}/images/shared/google_icon.svg`}
         />
         <span>
           Google is not linked
@@ -126,7 +126,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       >
         <img
           alt="google icon"
-          src="/images/google_icon.svg"
+          src={`${process.env.CDN_URL}/images/shared/google_icon.svg`}
         />
         <span>
           Google is not linked
@@ -181,7 +181,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       >
         <img
           alt="google icon"
-          src="/images/google_icon.svg"
+          src={`${process.env.CDN_URL}/images/shared/google_icon.svg`}
         />
         <span>
           Google is not linked
@@ -236,7 +236,7 @@ exports[`TeacherLinkedAccounts component should render when the user is not link
       >
         <img
           alt="google icon"
-          src="/images/google_icon.svg"
+          src={`${process.env.CDN_URL}/images/shared/google_icon.svg`}
         />
         <span>
           Google is not linked

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import getAuthToken from '../../../components/modules/get_auth_token'
 import { Card } from 'quill-component-library/dist/componentLibrary'
 
@@ -8,31 +8,23 @@ const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-penci
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
 
 class SelectUserType extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    }
+  handleLogInClick = (e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
 
-    this.setTeacherRoleOnSession = this.setTeacherRoleOnSession.bind(this);
-    this.setStudentRoleOnSession = this.setStudentRoleOnSession.bind(this);
-    this.setRoleOnSession = this.setRoleOnSession.bind(this);
-    this.setRoleOnSessionError = this.setRoleOnSessionError.bind(this);
-  }
-  setRoleOnSessionError() {
+  setRoleOnSessionError = () => {
     alert('We had trouble setting your role. Please let us know if the problem persists.');
   }
 
-  setStudentRoleOnSession() {
+  handleClickStudent = () => {
     SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER);
     this.setRoleOnSession('student');
   }
 
-  setTeacherRoleOnSession() {
+  handleClickTeacher = () => {
     SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER);
     this.setRoleOnSession('teacher');
   }
 
-  setRoleOnSession(role) {
+  setRoleOnSession = (role) => {
     request.post(`${process.env.DEFAULT_URL}/account/role`, {
       json: {
         role,
@@ -50,26 +42,26 @@ class SelectUserType extends React.Component {
   render() {
     return (
       <div className="container account-form" id='user-type'>
-        <h1>Welcome! Let's create your account. Are you a student or a teacher?</h1>
+        <h1>Welcome! Let&#39;s create your account. Are you a student or a teacher?</h1>
         <div className="quill-cards">
           <Card
             header="Student"
-            imgAlt="pencil"
+            imgAlt="Pencil writing"
             imgSrc={studentPencilImg}
-            onClick={this.setStudentRoleOnSession}
+            onClick={this.handleClickStudent}
             text="Select this option to join your teacher’s class and complete assigned activities."
           />
           <Card
             header="Teacher"
-            imgAlt="chalkboard"
+            imgAlt="Chalkboard"
             imgSrc={teacherChalkboardImg}
-            onClick={this.setTeacherRoleOnSession}
+            onClick={this.handleClickTeacher}
             text="Select this option to create classes, assign activities, and view reports."
           />
         </div>
         <div className="agreements-and-link-to-login">
           <p className="return-to-login">Already have an account?
-            <a href="/session/new" onClick={(e) => SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})}>Log in</a></p>
+            <a href="/session/new" onClick={this.handleLogInClick}>Log in</a></p>
         </div>
       </div>
     )
