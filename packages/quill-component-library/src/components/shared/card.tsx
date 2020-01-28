@@ -8,17 +8,25 @@ interface CardProps {
   text: string;
 }
 
-const Card = (props: CardProps) => {
-  const img = props.imgSrc ? <img alt={props.imgAlt} src={props.imgSrc} /> : null
-  return (
-    <div className="quill-card" onClick={props.onClick}>
-      {img}
-      <div className="text">
-        <h3>{props.header}</h3>
-        <p>{props.text}</p>
-      </div>
-    </div>
-  )
-}
+export class Card extends React.Component<CardProps, {}> {
+  handleKeyDownOnCard = (e) => {
+    if (e.key !== 'Enter') { return }
 
-export { Card }
+    const { onClick, } = this.props
+    onClick(e)
+  }
+
+  render() {
+    const { imgSrc, imgAlt, onClick, header, text, } = this.props
+    const img = imgSrc ? <img alt={imgAlt} src={imgSrc} /> : null
+    return (
+      <div className="quill-card" onClick={onClick} onKeyDown={this.handleKeyDownOnCard} role="button" tabIndex={0}>
+        {img}
+        <div className="text">
+          <h3>{header}</h3>
+          <p>{text}</p>
+        </div>
+      </div>
+    )
+  }
+}
