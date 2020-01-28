@@ -122,9 +122,7 @@
 
   .return-to-login {
     color: #646464;
-    a {
-      color: #009a80;
-      font-weight: 600;
+    .inline-link {
       margin-left: 4px;
     }
   }
@@ -135,6 +133,10 @@
     a {
       color: #646464;
       text-decoration: underline;
+      &:focus {
+        outline: none;
+        text-decoration-style: dashed;
+      }
     }
   }
 }
