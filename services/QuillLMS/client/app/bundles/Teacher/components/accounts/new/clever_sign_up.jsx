@@ -38,10 +38,10 @@ export default class CleverSignUp extends React.Component {
     if (!detailsLoaded) { return '' }
 
     const base = "https://clever.com/oauth/authorize?response_type=code";
-    const scope = "&scope=" + encodeURIComponent(cleverScope);
-    const redirectUri = "&redirect_uri=" + encodeURIComponent(redirectUri);
-    const clientId = "&client_id=" + encodeURIComponent(clientId);
-    return base + scope + redirectUri + clientId;
+    const scopeQuery = "&scope=" + encodeURIComponent(cleverScope);
+    const redirectUriQuery = "&redirect_uri=" + encodeURIComponent(redirectUri);
+    const clientIdQuery = "&client_id=" + encodeURIComponent(clientId);
+    return base + scopeQuery + redirectUriQuery + clientIdQuery;
   }
 
   handleClick = (e) => {
