@@ -63,6 +63,16 @@ describe Cms::UsersController do
   #   end
   # end
 
+  describe 'show' do
+    let(:another_user) { create(:user) }
+
+    it 'should log when an admin visit the user admin page' do
+      get :show, id: another_user.id
+      expect(ChangeLog.last.action).to eq('Visited User Admin Page')
+      expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
+    end
+  end
+
   describe 'create' do
     let(:new_user) { build(:user) }
 
@@ -81,6 +91,8 @@ describe Cms::UsersController do
     it 'should set the user id in session' do
       put :sign_in, id: another_user.id
       expect(session[:staff_id]).to eq user.id
+      expect(ChangeLog.last.action).to eq('Ghosted User')
+      expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
   end
 
@@ -113,6 +125,15 @@ describe Cms::UsersController do
       put :remove_admin, user_id: admin.id, school_id: school.id
       expect{SchoolsAdmins.find(schools_admin.id)}.to raise_exception ActiveRecord::RecordNotFound
       expect(response).to redirect_to "http://example.com"
+    end
+  end
+
+  describe '#edit' do
+    let!(:another_user) { create(:user) }
+    it 'should log when admin visits the edit page' do
+      get :edit, id: another_user.id
+      expect(ChangeLog.last.action).to eq('Visited User Edit Page')
+      expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
   end
 
