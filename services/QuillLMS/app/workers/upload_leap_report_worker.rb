@@ -7,7 +7,7 @@ class UploadLeapReportWorker
 
   def perform(school_id)
     school = School.find(school_id)
-    csv_data = school.generate_leap_csv(activities_since: current_academic_year_start)
+    csv_data = school.generate_leap_csv(current_academic_year_start)
     upload_data_to_s3(csv_data)
   end
 
