@@ -10,41 +10,30 @@
     color: #464646;
   }
 
-  ul.lesson-multiple-choice {
-    list-style: none;
+  .lesson-multiple-choice {
     margin: 30px 0 0 0;
     width: 100%;
-    li {
+    .lesson-multiple-choice-button {
       display: block;
       width: 100%;
       margin-bottom: 18px;
       text-align: left;
-      a.button.lesson-multiple-choice-button {
-        border: solid 1px #bdbdbd;
-        border-radius: 2px;
-        background-color: #f7f7f7;
-        padding: 10px 15px;
-        font-family: $family-sans-serif;
-        min-height: 40px;
-        white-space: normal;
-        height: inherit;
-        font-size: 20px;
-        display: block;
-        width: 100%;
-        text-align: left;
-        color: #464646;
-
-        &:hover {
-          background-color: darken(#f7f7f7, 2%);
-        }
-
-        &.correctly-selected {
-          border: solid 1px $green;
-        }
-
-        &.incorrectly-selected {
-          border: solid 1px $red;
-        }
+      box-shadow: 0 0 0 1px #bdbdbd;
+      border-radius: 2px;
+      border: none;
+      background-color: #f7f7f7;
+      padding: 10px 15px;
+      font-family: $family-sans-serif;
+      min-height: 40px;
+      white-space: normal;
+      height: inherit;
+      font-size: 20px;
+      display: block;
+      width: 100%;
+      text-align: left;
+      color: #464646;
+      &:hover, &:focus {
+        box-shadow: 0 0 0 2px #06806b;
       }
     }
   }

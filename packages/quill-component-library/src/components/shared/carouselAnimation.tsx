@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-const CarouselAnimation = (props) => (
+
+const CarouselAnimation = ({ children, }) => (
   <ReactCSSTransitionGroup
     transitionEnterTimeout={300}
     transitionLeaveTimeout={300}
     transitionName="carousel"
   >
-    {props.children}
+    {children}
   </ReactCSSTransitionGroup>
 )
 
