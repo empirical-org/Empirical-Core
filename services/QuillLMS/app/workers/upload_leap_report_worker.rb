@@ -7,7 +7,7 @@ class UploadLeapReportWorker
 
   def perform(school_id)
     school = School.find(school_id)
-    csv_data = school.generate_leap_csv
+    csv_data = school.generate_leap_csv(activities_since: current_academic_year_start)
     upload_data_to_s3(csv_data)
   end
 
@@ -19,5 +19,12 @@ class UploadLeapReportWorker
     bucket = s3.bucket(LEAP_S3_BUCKET)
     obj = bucket.object("Data/#{Time.now.strftime('%Y-%m-%d_%H-%M-%S')}.csv")
     obj.put(body: csv_data, content_type: "text/csv")
+  end
+
+  private def current_academic_year_start
+    # We use August 1 as a weak proxy for "start of school year"
+    now = Date.today
+    year = now.month >= 8 ? now.year : now.year - 1
+    Date.parse("#{year}-08-01")
   end
 end
