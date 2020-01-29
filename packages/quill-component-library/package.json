@@ -1,6 +1,6 @@
 {
   "name": "quill-component-library",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "description": "A library for components shared between Quill apps.",
   "main": "componentLibrary.js",
   "module": "componentLibrary.module.js",
@@ -33,7 +33,7 @@
     "core-js": "^2.5.3",
     "expect": "^24.8.0",
     "mocha": "^6.1.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "node-sass-chokidar": "^0.0.3",
     "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-generate-package-json": "^1.0.0",

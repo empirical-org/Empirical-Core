@@ -38,7 +38,8 @@ Completa el espacio en blanco con una de estas palabras: a, an, the. Si no se ne
       <div
         style={
           Object {
-            "display": "block",
+            "maxWidth": 800,
+            "width": "100%",
           }
         }
       >

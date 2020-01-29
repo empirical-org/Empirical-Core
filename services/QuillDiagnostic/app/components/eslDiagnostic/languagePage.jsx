@@ -25,7 +25,7 @@ export default class LanguagePage extends React.Component {
     return (
       <div className="language-page">
         <div className="introductory-text">
-          <p>Hello there! You are about to start a 22 question placement activity. First, let’s set up your language preference.</p>
+          <p>Hello there! You are about to start a 21 question placement activity. First, let’s set up your language preference.</p>
           <p>All the directions are in:</p>
           <div className="default-language"><img src="https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png" /><span>English</span> (Default)</div>
           <p>and I want <span>additional</span> directions in:</p>

@@ -23,6 +23,7 @@ import {
   getMultipleChoiceResponseOptionsWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
+import EditCaretPositioning from '../../libs/EditCaretPositioning'
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;
@@ -207,10 +208,11 @@ export default class PlayLessonQuestion extends React.Component {
     return 'disabled';
   }
 
-  onChange = (e) => {
+  onChange = (e, element) => {
     const { response, } = this.state
     if (e !== response) {
-      this.setState({ editing: true, response: e, });
+      const caretPosition = EditCaretPositioning.saveSelection(element)
+      this.setState({ editing: true, response: e, }, () => EditCaretPositioning.restoreSelection(element, caretPosition))
     }
   }
 
