@@ -14,9 +14,10 @@ class TestMLFeedback(TestCase):
         self.default = MLFeedbackFactory(feedback='Default feedback',
                                          prompt=self.prompt)
 
-    def test_prompt_id_and_combined_labels_is_unique(self):
+    def test_prompt_id_and_combined_labels_and_order_is_unique(self):
         with self.assertRaises(ValidationError):
             combined_labels = self.feedback.combined_labels
             MLFeedback.objects.create(feedback='New feedback',
                                       combined_labels=combined_labels,
-                                      prompt=self.feedback.prompt)
+                                      prompt=self.feedback.prompt,
+                                      order=self.feedback.order)

@@ -6,8 +6,11 @@ from django.test import TestCase
 from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.ml_model import MLModelFactory
 from ..factories.prompt import PromptFactory
+from ..factories.rule_set import RuleSetFactory
+from ..factories.rule import RuleFactory
 from ...models.ml_model import MLModel
 from ...models.prompt import Prompt
+from ...models.rule_set import RuleSet
 
 
 class PromptModelTest(TestCase):
@@ -72,3 +75,102 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
         response = self.prompt.fetch_auto_ml_feedback(None)
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback, response)
+
+
+class PromptVariableAutoMLFeedbackTest(PromptModelTest):
+    def setUp(self):
+        super().setUp()
+        self.feedback2 = MLFeedbackFactory(
+            combined_labels=self.feedback.combined_labels,
+            prompt=self.prompt,
+            order=self.feedback.order + 1
+        )
+
+    @patch.object(MLModel, 'request_labels')
+    def test_variable_feedback(self, label_mock):
+        label_mock.return_value = ['Test1', 'Test2']
+        mock_previous_feedback = [{
+            'labels': self.feedback.combined_labels
+        }]
+        response = self.prompt.fetch_auto_ml_feedback(
+            None,
+            previous_feedback=mock_previous_feedback
+        )
+        self.assertTrue(label_mock.called)
+        self.assertEqual(self.feedback2, response)
+
+    @patch.object(MLModel, 'request_labels')
+    def test_variable_feedback_wrap_around(self, label_mock):
+        label_mock.return_value = ['Test1', 'Test2']
+        mock_previous_feedback = [{
+            'labels': self.feedback.combined_labels
+        }, {
+            'labels': self.feedback.combined_labels
+        }]
+        response = self.prompt.fetch_auto_ml_feedback(
+            None,
+            previous_feedback=mock_previous_feedback
+        )
+        self.assertTrue(label_mock.called)
+        self.assertEqual(self.feedback, response)
+
+
+class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
+    def test_first_pass(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt))
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('incorrect test correct',
+                                               RuleSet.PASS_ORDER.FIRST))
+        self.assertFalse(feedback['optimal'])
+        self.assertEqual(feedback['feedback'], 'Test feedback')
+
+    def test_second_pass(self):
+        rule_set = (RuleSetFactory(feedback='Test feedback',
+                                   pass_order=RuleSet.PASS_ORDER.SECOND,
+                                   prompt=self.prompt))
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('incorrect test correct',
+                                               RuleSet.PASS_ORDER.SECOND))
+        self.assertFalse(feedback['optimal'])
+        self.assertEqual(feedback['feedback'], 'Test feedback')
+
+    def test_does_not_contain_regex(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    test_for_contains=False))
+        RuleFactory(regex_text='does not contain', rule_set=rule_set)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('test does not contain',
+                                               RuleSet.PASS_ORDER.FIRST))
+        self.assertFalse(feedback['optimal'])
+        self.assertEqual(feedback['feedback'], 'Test feedback')
+
+    def test_two_rules_in_rule_set(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    test_for_contains=True))
+
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        RuleFactory(regex_text='^teeest', rule_set=rule_set)
+
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('teeest test correct',
+                                               RuleSet.PASS_ORDER.FIRST))
+        feedback_two = (self.prompt.
+                        fetch_rules_based_feedback('test test correct',
+                                                   RuleSet.PASS_ORDER.FIRST))
+        feedback_three = (self.prompt.
+                          fetch_rules_based_feedback('teest test incorrect',
+                                                     RuleSet.PASS_ORDER.FIRST))
+        self.assertTrue(feedback['optimal'])
+        self.assertTrue(feedback_two['optimal'])
+        self.assertFalse(feedback_three['optimal'])
