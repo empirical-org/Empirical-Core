@@ -18,8 +18,7 @@ class FillInBlankForm extends Component {
       newQuestionOptimalResponse: '',
       itemLevel: 'Select Item Level',
       flag: 'alpha',
-      cuesLabel: '',
-      caseSensitive: true
+      cuesLabel: ''
     };
     this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
     this.handlePromptChange = this.handlePromptChange.bind(this);
@@ -30,7 +29,6 @@ class FillInBlankForm extends Component {
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
     this.handleFlagChange = this.handleFlagChange.bind(this);
     this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
-    this.handleCaseSensitive = this.handleCaseSensitive.bind(this)
     this.submit = this.submit.bind(this);
   }
 
@@ -84,10 +82,6 @@ class FillInBlankForm extends Component {
     this.setState({blankAllowed: !this.state.blankAllowed});
   }
 
-  toggleQuestionCaseSensitive() {
-    this.setState({caseSensitive: !this.state.caseSensitive});
-  }
-
   submit() {
     const data = {
       prompt: this.state.prompt,
@@ -97,8 +91,7 @@ class FillInBlankForm extends Component {
       instructions: this.state.instructions,
       conceptID: this.state.conceptID,
       flag: this.state.flag ? this.state.flag : 'alpha',
-      cuesLabel: this.state.cuesLabel,
-      caseSensitive: this.state.caseSensitive ? this.state.caseSensitive : true
+      cuesLabel: this.state.cuesLabel
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
   }
@@ -112,8 +105,7 @@ class FillInBlankForm extends Component {
       itemLevel: 'Select Item Level',
       conceptID: null,
       flag: 'alpha',
-      cuesLabel: '',
-      caseSensitive: true
+      cuesLabel: ''
     });
   }
 
@@ -162,9 +154,6 @@ class FillInBlankForm extends Component {
         <label className="label" onClick={this.toggleQuestionBlankAllowed}>Blank Allowed?</label>
         <p className="control">
           <input checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed} type="checkbox" />
-        </p>
-        <p className="control">
-          <input checked={this.state.caseSensitive} onClick={this.toggleQuestionCaseSensitive} type="checkbox" />
         </p>
 
         <label className="label">Item level</label>
