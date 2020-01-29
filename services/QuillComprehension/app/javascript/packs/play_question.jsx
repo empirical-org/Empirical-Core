@@ -8,8 +8,7 @@ class PlayForm extends React.Component {
     this.state = {
       value: '',
       feedback: null,
-      correct: false,
-      label: null
+      optimal: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,7 +28,7 @@ class PlayForm extends React.Component {
       return
     }
 
-    this.setState({feedback: null, label: null})
+    this.setState({feedback: null, optimal: false})
 
     request.post({
       url: this.props.endpoint,
@@ -38,9 +37,9 @@ class PlayForm extends React.Component {
 
       if (response.statusCode === 200) {
         const json = JSON.parse(body)
-        this.setState({feedback: json.message, correct: json.correct, label: json.label})
+        this.setState({feedback: json.feedback, optimal: json.optimal})
       } else {
-        this.setState({feedback: "Something went wrong", correct: false})
+        this.setState({feedback: "Something went wrong", optimal: false})
       }
     }.bind(this))
   }
@@ -53,8 +52,7 @@ class PlayForm extends React.Component {
           <input className="entry" onChange={this.handleChange} type="text" value={this.state.value} />
         </label>
         <input className="right btn" type="submit" value="Submit" />
-        {this.state.feedback === null ? '' : (<div className={"feedback " + (this.state.correct ? 'correct' : '')}>{this.state.feedback}</div>)}
-        {this.state.label === null ? '' : (<div className="feedback_label">{this.state.label}</div> )}
+        {this.state.feedback === null ? '' : (<div className={"feedback " + (this.state.optimal ? 'optimal' : '')}>{this.state.feedback}</div>)}
       </form>
     );
   }

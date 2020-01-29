@@ -1,40 +1,70 @@
-from spellchecker import SpellChecker
+import pkg_resources
+from symspellpy import SymSpell
 from flask import jsonify
 from flask import make_response
 import string
-import re
+
+FEEDBACK_TYPE = 'spelling'
+POS_FEEDBACK = 'Correct spelling!'
+NEG_FEEDBACK = 'Try again. There may be a spelling mistake.'
+
 
 def response_endpoint(request):
     request_json = request.get_json()
 
-    entry = param_for('entry', request, request_json)
-    prompt_id = param_for('prompt_id', request, request_json)
+    entry = request_json.get('entry')
+    prompt_id = request_json.get('prompt_id')
 
-    if entry == None or prompt_id == None:
+    if entry is None or prompt_id is None:
         return make_response(jsonify(message="error"), 400)
-    
-    misspelled_flagged = get_misspelled_words_no_casing(entry)
-    
-    if not misspelled_flagged:
-        return make_response(jsonify(feedback="Correct spelling!", feedback_type="spelling", optimal=True, response_uid="q23123@3sdfASDF", highlight=[]), 200)
-    else:
-        return make_response(jsonify(feedback="Try again. There may be a spelling mistake.", feedback_type="spelling", optimal=False, response_uid="q23123@3sdfASDF", highlight=get_misspelled_highlight_list_with_casing(misspelled_flagged, entry)), 200)  
-    
-def get_misspelled_words_no_casing(entry):
-    spell = SpellChecker()
+
+    try:
+        misspellings = get_misspellings(entry)
+    except AssertionError as error:
+        return make_response(jsonify(message=error), 500)
+
+    response_data = {
+        'feedback_type': FEEDBACK_TYPE,
+        'response_uid': 'q23123@3sdfASDF',
+        'feedback': misspellings and NEG_FEEDBACK or POS_FEEDBACK,
+        'optimal': not misspellings,
+        'highlight': misspellings and get_highlight_list(misspellings) or [],
+    }
+
+    return make_response(jsonify(**response_data), 200)
+
+
+def get_misspellings(entry):
+    sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+    dict_file = "frequency_dictionary_en_82_765.txt"
+    dictionary_path = pkg_resources.resource_filename("symspellpy",
+                                                      dict_file)
+    bigram_file = "frequency_bigramdictionary_en_243_342.txt"
+    bigram_path = pkg_resources.resource_filename("symspellpy",
+                                                  bigram_file)
+
+    result = sym_spell.load_dictionary(dictionary_path,
+                                       term_index=0,
+                                       count_index=1)
+    assert result, "Could not load dictionary resource."
+    result = sym_spell.load_bigram_dictionary(bigram_path,
+                                              term_index=0,
+                                              count_index=2)
+    assert result, "Could not load bigram resource."
+
     entry = entry.strip(string.punctuation)
-    return spell.unknown(entry.split()) 
+    lookup = sym_spell.lookup_compound(entry,
+                                       max_edit_distance=2,
+                                       transfer_casing=True)
+    corrected_entry = lookup[0].term
+    wrong_words = list(set(entry.split()) - set(corrected_entry.split()))
 
-def get_misspelled_highlight_list_with_casing(flagged, entry):
-    highlight = []
-    misspelled_original = re.findall(r"(?=("+'|'.join(flagged)+r"))", entry, re.IGNORECASE)
-    for word in misspelled_original:
-        wordObj = {"type": "response","id": None,"text": word}
-        highlight.append(wordObj)
-    return highlight
+    return wrong_words
 
-def param_for(key, request, request_json):
-    if request.args and key in request.args:
-        return request.args.get(key)
-    else:
-        return (request_json or {}).get(key)
+
+def get_highlight_list(misspellings):
+    return list(map(lambda entry: {
+        'type': 'response',
+        'id': None,
+        'text': entry,
+    }, misspellings))

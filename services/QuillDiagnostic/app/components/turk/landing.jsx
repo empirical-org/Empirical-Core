@@ -1,56 +1,53 @@
 import React from 'react'
 const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg'
-export default React.createClass({
-  getInitialState: function () {
-    return {
+
+export default class TurkLanding extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
       showIntro: false,
-      name: ''
     }
-  },
+  }
 
-  handleNameChange: function (e) {
-    this.setState({name: e.target.value});
-  },
-
-  getLessonName: function () {
-    return this.props.lesson.name
-  },
-
-  startActivity: function () {
-    if (this.props.landingPageHtml) {
+  handleBeginClick = () => {
+    const { landingPageHtml, begin, } = this.props
+    if (landingPageHtml) {
       this.setState({showIntro: true})
     } else {
-      this.props.begin()
+      begin()
     }
-  },
+  }
 
-  leaveIntro: function () {
-    this.props.begin(this.state.name)
-  },
+  handleStartLessonClick = () => {
+    const { begin, } = this.props
+    begin()
+  }
 
-
-  render: function () {
-    if (this.state.showIntro) {
+  render() {
+    const { showIntro, } = this.state
+    const { landingPageHtml, } = this.props
+    if (showIntro) {
       return (
         <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: this.props.landingPageHtml}} />
-          <button className="button student-begin is-fullwidth" onClick={this.leaveIntro}>Start Lesson</button>
+          <div className="landing-page-html" dangerouslySetInnerHTML={{__html: landingPageHtml}} />
+          <button className="quill-button large primary contained" onClick={this.handleStartLessonClick} type="button">Start lesson</button>
         </div>
       )
     } else {
       return (
         <div className="landing-page">
-          <h1>You're testing new Quill Activities </h1>
+          <h1>You&#39;re testing new Quill Activities </h1>
           <p>
-            You're about to answer questions about writing sentences.
+            You&#39;re about to answer questions about writing sentences.
             Please answer to the best of your ability.
           </p>
-          <button className="button student-begin" onClick={this.startActivity}>
-            Begin <img className="begin-arrow" src={beginArrow} />
+          <button className="quill-button large primary contained" onClick={this.handleBeginClick} type="button">
+            Begin
           </button>
         </div>
       )
     }
-  },
+  }
 
-})
+}

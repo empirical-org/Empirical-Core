@@ -131,7 +131,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: {diagnosticStatus: diagnostic_status}
     end
 
-    private
+  private
     def create_or_update_selected_packs
         if params[:whole_class]
           $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)
