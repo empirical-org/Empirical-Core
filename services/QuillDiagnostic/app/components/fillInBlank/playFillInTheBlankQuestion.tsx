@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as _ from 'underscore';
-import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
+import { checkFillInTheBlankQuestion } from '../../../../../packages/quill-marking-logic/src/libs/graders/fill_in_the_blank'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import {
   hashToCollection,
@@ -213,7 +213,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const zippedAnswer = this.zipInputsAndText();
       const questionUID = question.key
       const responsesArray = hashToCollection(responses)
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray)}
+      //const caseSensitive = question.caseSensitive
+      const caseSensitive = false
+      console.log(caseSensitive)
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseSensitive)}
       this.setResponse(response);
       this.updateResponseResource(response);
       this.submitResponse(response);
