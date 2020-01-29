@@ -41,12 +41,12 @@ class EndState extends React.Component {
         diff.value.forEach((word) => {
           const regex = new RegExp(`(^|[^(a-zA-Z>)])${word }($|[^(<a-zA-Z)])`, 'i');
           if (styledString.match(regex)) {
-            styledString = styledString.replace(regex, `<span style="color: green;">${styledString.match(regex)[0]}</span>`);
+            styledString = styledString.replace(regex, `<span class="diffed-word">${styledString.match(regex)[0]}</span>`);
           }
-          const punctuationAtStartOfString = styledString.match(new RegExp('<span style="color: green;">[^(a-zA-Z>)]', 'g'));
+          const punctuationAtStartOfString = styledString.match(new RegExp('<span class="diffed-word">[^(a-zA-Z>)]', 'g'));
           if (punctuationAtStartOfString) {
             const charToMove = punctuationAtStartOfString[0][punctuationAtStartOfString[0].length - 1];
-            styledString = styledString.replace(new RegExp(`<span style="color: green;">[${charToMove}]`, 'g'), `${charToMove}<span style="color: green;">`);
+            styledString = styledString.replace(new RegExp(`<span class="diffed-word">[${charToMove}]`, 'g'), `${charToMove}<span class="diffed-word">`);
           }
           const punctuationAtEndOfString = styledString.match(new RegExp('[^(a-zA-Z)]</span>', 'g'));
           if (punctuationAtEndOfString) {
