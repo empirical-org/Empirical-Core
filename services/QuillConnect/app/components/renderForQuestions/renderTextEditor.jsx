@@ -108,7 +108,8 @@ export default class RenderTextEditor extends React.Component {
 
   handleKeyUp = () => {
     const { questionID, } = this.props
-    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: questionID, });
+    // commenting out 1/29/20 to see if it resolves a traffic issue we're having on the LMS
+    // sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: questionID, });
   }
 
   handleTextChange = (e) => {
