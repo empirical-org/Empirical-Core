@@ -26,7 +26,7 @@ describe('ChooseModel component', () => {
         const conceptExplanation = component.find(ConceptExplanation);
         expect(conceptSelector.length).toEqual(1);
         expect(conceptExplanation.length).toEqual(1);
-        expect(conceptSelector.props().currentConceptUID).toEqual('test123');
+        expect(conceptSelector.props().currentConceptUID).toEqual(mockProps.modelConceptUID);
         expect(conceptSelector.props().handleSelectorChange).toEqual(selectConcept);
         expect(conceptExplanation.props()).toEqual(mockProps.conceptsFeedback.data.test123);
     });
@@ -39,6 +39,6 @@ describe('ChooseModel component', () => {
             value: 'so spicy'
         }
         component.instance().selectConcept(e);
-        expect(mockProps.onUpdateModelConcept).toHaveBeenCalledWith('so spicy');
+        expect(mockProps.onUpdateModelConcept).toHaveBeenCalledWith(e.value);
     });
 });

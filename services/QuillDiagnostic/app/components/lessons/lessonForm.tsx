@@ -10,13 +10,18 @@ import { EditorState, ContentState } from 'draft-js'
 import ChooseModel from './chooseModel';
 import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
 import { ConceptsReducerState } from '../../reducers/concepts';
+import { ConceptsFeedbackReducerState } from '../../reducers/conceptsFeedback';
 import { FillInBlankReducerState } from '../../reducers/fillInBlank';
 import { QuestionsReducerState } from '../../reducers/questions';
 import { SentenceFragmentsReducerState } from '../../reducers/sentenceFragments';
+import { TitleCardsReducerState } from '../../reducers/titleCards';
 
 export interface LessonFormProps {
+  concepts: ConceptsReducerState,
+  conceptsFeedback: ConceptsFeedbackReducerState,
   currentValues: {
     flag: string,
+    introURL: string,
     isELL: boolean,
     landingPageHtml: string,
     modelConceptUID: string,
@@ -26,6 +31,8 @@ export interface LessonFormProps {
       questionType: string
     }[]
   },
+  dispatch(action: any): any,
+  fillInBlank: FillInBlankReducerState,
   lesson: {
     flag: string,
     isELL: boolean,
@@ -37,6 +44,9 @@ export interface LessonFormProps {
       questionType: string
     }[]
   },
+  questions: QuestionsReducerState,
+  sentenceFragments: SentenceFragmentsReducerState,
+  stateSpecificClass?: string
   submit(object: {
     name: string, 
     questions: Array<Object>, 
@@ -45,26 +55,7 @@ export interface LessonFormProps {
     modelConceptUID: string, 
     isELL: boolean
   }): void,
-  questions: QuestionsReducerState,
-  concepts: ConceptsReducerState,
-  sentenceFragments: SentenceFragmentsReducerState,
-  conceptsFeedback: {
-    data: any
-    hasreceivedata: boolean,
-    states:any,
-    submittingnew: boolean,
-  },
-  fillInBlank: FillInBlankReducerState,
-  titleCards: {
-    hasreceivedata: boolean,
-    data: {
-      [key: string]: {
-        title: string
-      }
-    }
-  },
-  dispatch(action: any): any,
-  stateSpecificClass?: string
+  titleCards: TitleCardsReducerState,
 }
 
 export interface LessonFormState {
@@ -89,14 +80,14 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     const { currentValues, } = props;
 
     this.state = {
-      name: currentValues ? currentValues.name : '',
-      introURL: currentValues ? currentValues.introURL || '' : '',
-      landingPageHtml: currentValues ? currentValues.landingPageHtml || '' : '',
-      selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : 'alpha',
-      questionType: 'questions',
+      introURL: currentValues ? currentValues.introURL || '' : '',
+      isELL: currentValues ? currentValues.isELL || false : false,
+      landingPageHtml: currentValues ? currentValues.landingPageHtml || '' : '',
       modelConceptUID: currentValues ? currentValues.modelConceptUID : null,
-      isELL: currentValues ? currentValues.isELL || false : false
+      name: currentValues ? currentValues.name : '',
+      questionType: 'questions',
+      selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
     }
   }
 
@@ -115,13 +106,13 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
 
   handleStateChange = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
     const changes = {};
-    changes[key] = event.target.value;
+    changes[key] = event.currentTarget.value;
     this.setState(changes);
   }
 
   handleChange = (value: string) => {
     const { selectedQuestions, questionType } = this.state;
-    let newSelectedQuestions;
+    let newSelectedQuestions: any;
     const changedQuestion = selectedQuestions.find(q => q.key === value);
     if (!changedQuestion) {
       newSelectedQuestions = selectedQuestions.concat([{ key: value, questionType: questionType, }]);
@@ -155,10 +146,10 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     const { selectedQuestions } = this.state;
     // select changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
     if (selectedQuestions && selectedQuestions.length) {
-      const questionsList = selectedQuestions.map((question: { key: string, questionType: string}) => {
-        const questionobj = this.props[question.questionType].data[question.key]; // eslint-disable-line react/destructuring-assignment
-        const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
-        const promptOrTitle = question.questionType === 'titleCards' ? questionobj.title : prompt
+      const questionsList = selectedQuestions.map((question: { key: string, questionType: string }) => {
+        const questionObject = this.props[question.questionType].data[question.key]; // eslint-disable-line react/destructuring-assignment
+        const prompt = questionObject ? questionObject.prompt : 'Question No Longer Exists';
+        const promptOrTitle = question.questionType === 'titleCards' ? questionObject.title : prompt
         return (<p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
           {promptOrTitle}
           {'\t\t'}
@@ -178,7 +169,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
     let options = hashToCollection(this.props[questionType].data); // eslint-disable-line react/destructuring-assignment
     const concepts = data[0];
-    let formatted;
+    let formatted: {}[];
     if (options.length > 0) {
       if (questionType !== 'titleCards') {
         options = options.filter((option: { conceptID: string, flag: string }) => {
@@ -205,12 +196,12 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     }
   }
 
-  handleSelectFlag = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ flag: e.target.value, });
+  handleSelectFlag = (e: React.FocusEvent<HTMLSelectElement>) => {
+    this.setState({ flag: e.currentTarget.value, });
   }
 
-  handleSelectQuestionType = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ questionType: e.target.value, });
+  handleSelectQuestionType = (e: React.FocusEvent<HTMLSelectElement>) => {
+    this.setState({ questionType: e.currentTarget.value, });
   }
 
   handleLPChange = (e: string) => {

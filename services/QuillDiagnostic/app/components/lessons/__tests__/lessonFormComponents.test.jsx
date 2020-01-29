@@ -10,7 +10,7 @@ describe('DeleteButton component', () => {
     const component = shallow(<DeleteButton {...mockProps} />);
     it('should call onHandleChange() prop function with questionId prop as argument when button is clicked', () => {
         component.find('button').simulate('click');
-        expect(mockProps.onHandleChange).toHaveBeenCalledWith('birds-arent-real');
+        expect(mockProps.onHandleChange).toHaveBeenCalledWith(mockProps.questionId);
     });
 });
 
@@ -21,7 +21,7 @@ describe('NameInput component', () => {
     };
     const component = shallow(<NameInput {...mockProps} />);
     it('should pass name prop to input element a value', () => {
-        expect(component.find('input').props().value).toEqual('Donna Summer');
+        expect(component.find('input').props().value).toEqual(mockProps.name);
     });
     it('should call onHandleChange() prop function with "name" and e arguments when input text changes', () => {
         const e = {

@@ -4,7 +4,7 @@ import ConceptSelector from '../shared/conceptSelector.jsx';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 
 export interface ChooseModelProps {
-  children: any,
+  children?: any,
   conceptsFeedback: { data: {} },
   modelConceptUID: string,
   onUpdateModelConcept(model: {} | null): void

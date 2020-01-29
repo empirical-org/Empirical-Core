@@ -6,7 +6,7 @@ import {
   TextEditor
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import ChooseModel from '../chooseModel.jsx'
+import ChooseModel from '../chooseModel.tsx'
 import _ from 'underscore';
 import { NameInput } from '../lessonFormComponents.tsx';
 
@@ -140,12 +140,12 @@ describe('LessonForm component', () => {
     });
     it('handleStateChange updates specific piece of state, using key and event arguments to build object to pass to setState', () => {
         const event = {
-            target: {
+            currentTarget: {
                 value: 'Even Moar Awesome Diagnostic'
             }
         };
         container.instance().handleStateChange('name', event);
-        expect(container.state().name).toEqual('Even Moar Awesome Diagnostic');
+        expect(container.state().name).toEqual(event.currentTarget.value);
     });
     it('handleChange updates selectedQuestions piece of state if question is added or deleted', () => {
         container.instance().handleChange('-KdChHgbE9212Jgzkoci');
@@ -158,7 +158,7 @@ describe('LessonForm component', () => {
         const handleChange = jest.spyOn(container.instance(), 'handleChange');
         const e = { value: 'saideira'};
         container.instance().handleSearchChange(e);
-        expect(handleChange).toHaveBeenCalledWith('saideira');
+        expect(handleChange).toHaveBeenCalledWith(e.value);
     });
     it('sortCallback sets selectedQuestion piece of state to reordered array of questions', () => {
         const sortInfo = {
@@ -172,7 +172,7 @@ describe('LessonForm component', () => {
                         ref: null,
                         props: {
                             className: 'sortable-list-item',
-                            questionType: 'fillInBlank',
+                            defaultValue: 'fillInBlank',
                             children: []
                         }
                     },
@@ -183,7 +183,7 @@ describe('LessonForm component', () => {
                         ref: null,
                         props: {
                             className: 'sortable-list-item',
-                            questionType: 'sentenceFragments',
+                            defaultValue: 'sentenceFragments',
                             children: []
                         }
                     },
@@ -194,7 +194,7 @@ describe('LessonForm component', () => {
                         ref: null,
                         props: {
                             className: 'sortable-list-item',
-                            questionType: 'fillInBlank',
+                            defaultValue: 'fillInBlank',
                             children: []
                         }
                     },
@@ -206,46 +206,49 @@ describe('LessonForm component', () => {
             { key: '-KOqLeXEvMjNuE6MGOop', questionType: 'sentenceFragments' },
             { key: '-KdChHgbE9377Jgzkoci', questionType: 'fillInBlank' }
         ];
+        container.setState({ selectedQuestions: mockQuestions });
         container.instance().sortCallback(sortInfo);
         expect(container.state().selectedQuestions).toEqual(newOrder);
     });
     it('renderQuestionSelect renders a SortableList component of selectedQuestions', () => {
+        const keys = ['-KdCgy8wt_rQiYpOURdW', '-KOqLeXEvMjNuE6MGOop', '-KdChHgbE9377Jgzkoci'];
         const sortableList = container.find(SortableList);
         const getQuestionKey = i => sortableList.props().data[i].key;
         container.instance().renderQuestionSelect();
         expect(sortableList.length).toEqual(1);
-        expect(getQuestionKey(0)).toEqual('-KdCgy8wt_rQiYpOURdW')
-        expect(getQuestionKey(1)).toEqual('-KOqLeXEvMjNuE6MGOop')
-        expect(getQuestionKey(2)).toEqual('-KdChHgbE9377Jgzkoci')
+        expect(getQuestionKey(0)).toEqual(keys[0])
+        expect(getQuestionKey(1)).toEqual(keys[1])
+        expect(getQuestionKey(2)).toEqual(keys[2])
     });
     it('renderSearchBox renders a QuestionSelector component with question options', () => {
+        const names = ['How much cheese is too much cheese?', 'What is the best way to cultivate mass?', 'Do jobs grow on jobbies?'];
         const handleSearchChange = container.instance().handleSearchChange;
         const questionSelector = container.find('OnClickOutside(SelectSearch)');
         const getQuestionName = i => questionSelector.props().options[i].name;
         container.instance().renderSearchBox();
         expect(questionSelector.length).toEqual(1);
         expect(questionSelector.props().onChange).toEqual(handleSearchChange);
-        expect(getQuestionName(0)).toEqual('How much cheese is too much cheese?');
-        expect(getQuestionName(1)).toEqual('What is the best way to cultivate mass?');
-        expect(getQuestionName(2)).toEqual('Do jobs grow on jobbies?');
+        expect(getQuestionName(0)).toEqual(names[0]);
+        expect(getQuestionName(1)).toEqual(names[1]);
+        expect(getQuestionName(2)).toEqual(names[2]);
     });
     it('handleSelectFlag updates the flag piece of state', () => {
         const e = {
-            target: {
+            currentTarget: {
                 value: 'alpha'
             }
         };
         container.instance().handleSelectFlag(e);
-        expect(container.state().flag).toEqual('alpha');
+        expect(container.state().flag).toEqual(e.currentTarget.value);
     });
     it('handleSelectQuestionType updates the questionType piece of state', () => {
         const e = {
-            target: {
+            currentTarget: {
                 value: 'fillInBlank'
             }
         };
         container.instance().handleSelectQuestionType(e);
-        expect(container.state().questionType).toEqual('fillInBlank');
+        expect(container.state().questionType).toEqual(e.currentTarget.value);
     });
     it('handleLPChange updates the landingPageHtml piece of state', () => {
         const e = '<p>Updated Content</p>'
@@ -257,7 +260,8 @@ describe('LessonForm component', () => {
         expect(container.state().isELL).toEqual(false);
     });
     it('handleUpdateModelConcept updates modelConceptUID piece of state', () => {
-        container.instance().handleUpdateModelConcept('new-id');
-        expect(container.state().modelConceptUID).toEqual('new-id');
+        const id = 'new-id';
+        container.instance().handleUpdateModelConcept(id);
+        expect(container.state().modelConceptUID).toEqual(id);
     });
 });

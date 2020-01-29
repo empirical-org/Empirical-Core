@@ -6,7 +6,7 @@ import classroomLessons from './classroomLessons'; // this is the admin one
 import classroomLessonsReviews from './classroomLessonsReviews'
 import classroomSessions from './classroomSessions';
 import concepts from './concepts.ts';
-import conceptsFeedback from './concepts-feedback';
+import conceptsFeedback from './conceptsFeedback.ts';
 import customize, * as FromCustomize from './customize'
 import diagnosticQuestions from './diagnosticQuestions';
 import display from './display';
@@ -26,7 +26,7 @@ import responses from './responsesReducer';
 import scoreAnalysis from './scoreAnalysis';
 import sentenceFragments from './sentenceFragments.ts';
 import sessions from './sessions';
-import titleCards from './titleCards';
+import titleCards from './titleCards.ts';
 import connectSentenceCombining from './connectSentenceCombining';
 import connectSentenceFragments from './connectSentenceFragments';
 import connectFillInBlank from './connectFillInBlank';
