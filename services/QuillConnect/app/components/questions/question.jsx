@@ -173,7 +173,7 @@ class Question extends React.Component {
               Optimal?
             </label>
           </p>
-          <button className="button is-primary" onClick={this.handleClickAddNewResponse} type="button">Add Response</button>
+          <button className="button is-primary" onClick={this.submitResponse} type="button">Add Response</button>
         </div>
       </Modal>
     );
