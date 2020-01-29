@@ -41,7 +41,7 @@ class LoginFormApp extends React.Component {
 
   submitClass = () => {
     const { password, email, } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
     if (!password.length || !email.length) {
       buttonClass += ' disabled';
     }
@@ -162,8 +162,8 @@ class LoginFormApp extends React.Component {
                   value={password}
                 />
                 <div className="forget-and-show-password">
-                  <a href="/password_reset">Forgot password?</a>
-                  <span onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
+                  <a className="inline-link" href="/password_reset">Forgot password?</a>
+                  <span className="inline-link" onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
                     {this.toggleButtonText()} password
                   </span>
                 </div>

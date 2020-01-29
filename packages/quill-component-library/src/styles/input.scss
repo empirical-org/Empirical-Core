@@ -209,6 +209,9 @@
   }
 
   &.inactive {
+    &:focus {
+      outline: none;
+    }
     &.textfield-container.has-text {
       label {
         margin-bottom: 4px;
