@@ -248,6 +248,7 @@ class TurkDiagnostic extends React.Component {
       answeredQuestionCount={displayedAnsweredQuestionCount}
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}
+      thingsCompleted='questions'
     />)
   }
 
