@@ -107,12 +107,14 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     elementToFocus ? elementToFocus.focus() : null
   }
 
+  handleBlur = () => this.deactivateInput()
+
   deactivateInput = () => {
     this.setState({ active: false, menuIsOpen: false, cursor: null })
   }
 
   handleClick = (e) => {
-    if (this.node && !this.node.contains(e.target)) {
+    if (!this.node || !this.node.contains(e.target)) {
       this.deactivateInput()
     }
   }
@@ -128,8 +130,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   onKeyDown = (event) => {
     if (event.key === 'Tab') {
       this.deactivateInput()
-    } else {
-      this.setState({ menuIsOpen: true })
     }
   }
 
@@ -138,9 +138,10 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
     if (!(this.node && this.node.contains(e.target))) { return }
 
+    e.preventDefault()
+
     switch (e.key) {
       case 'Enter':
-        e.preventDefault()
         if (!active || !menuIsOpen) {
           this.handleInputActivation()
         } else if (cursor !== null) {
@@ -247,6 +248,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         return (
           <div
             className={`error ${sharedClasses}`}
+            onBlur={this.handleBlur}
             onClick={this.handleInputActivation}
             onKeyDown={this.handleInputActivation}
             ref={node => this.node = node}
@@ -264,6 +266,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         return (
           <div
             className={`error unacknowledged ${sharedClasses}`}
+            onBlur={this.handleBlur}
             onClick={this.handleErrorAcknowledgement}
             onKeyDown={this.handleErrorAcknowledgement}
             ref={node => this.node = node}
@@ -282,6 +285,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     } else if (isMulti) {
       return (<div
         className={sharedClasses}
+        onBlur={this.handleBlur}
         onClick={this.handleInputActivation}
         onKeyDown={this.handleInputActivation}
         ref={node => this.node = node}
@@ -305,6 +309,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (
         <div
           className={sharedClasses}
+          onBlur={this.handleBlur}
           onClick={this.handleInputActivation}
           onKeyDown={this.handleInputActivation}
           ref={node => this.node = node}
@@ -324,6 +329,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (
         <div
           className={`${sharedClasses}`}
+          onBlur={this.handleBlur}
           onClick={this.handleInputActivation}
           onKeyDown={this.handleInputActivation}
           ref={node => this.node = node}
@@ -343,6 +349,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (
         <div
           className={`dropdown ${sharedClasses}`}
+          onBlur={this.handleBlur}
           onClick={this.handleInputActivation}
           onKeyDown={this.handleInputActivation}
           ref={node => this.node = node}

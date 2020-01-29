@@ -278,6 +278,9 @@
         border-style: none none solid;
         height: 25px;
       }
+      .dropdown__menu {
+        display: none;
+      }
     }
   }
   &.active {
