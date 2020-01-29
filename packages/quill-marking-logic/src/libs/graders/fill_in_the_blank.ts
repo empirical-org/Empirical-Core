@@ -34,8 +34,8 @@ export function checkFillInTheBlankQuestion(
 function* firstPassMatchers(data) {
   const {response, responses, caseSensitive} = data;
   const submission = response
-  yield exactMatch(submission, responses)
-  yield caseInsensitiveChecker(submission, responses, caseSensitive, true)
+  yield exactMatch(submission, responses, caseSensitive)
+  yield caseInsensitiveChecker(submission, responses, true)
 }
 
 function checkForMatches(data, matchingFunction: Function) {
