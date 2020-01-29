@@ -11,12 +11,12 @@ export function caseInsensitiveMatch(response: string, responses:Array<Response>
   );
 }
 
-export function caseInsensitiveChecker(responseString: string, responses:Array<Response>, caseSensitive:Boolean=true, passConceptResults:Boolean=false):PartialResponse|undefined {
+export function caseInsensitiveChecker(responseString: string, responses:Array<Response>, passConceptResults:Boolean=false):PartialResponse|undefined {
   const match = caseInsensitiveMatch(responseString, responses);
   if (match) {
     const parentID = match.id
     const conceptResults = passConceptResults ? match.concept_results : null
-    return caseSensitive ? caseInsensitiveResponseBuilder(responses, parentID, conceptResults) : match
+    return caseInsensitiveResponseBuilder(responses, parentID, conceptResults)
   }
 }
 
