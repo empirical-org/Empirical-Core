@@ -47,12 +47,6 @@ class Questions extends React.Component {
     this.renderSearchBox = this.renderSearchBox.bind(this)
   }
 
-  componentDidMount() {
-    if (Object.keys(this.state.questions).length === 0 && this.props.questions.hasreceiveddata) {
-      this.setState({questions: this.props.questions.data})
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     const { questions } = nextProps
     if (questions.hasreceiveddata) {

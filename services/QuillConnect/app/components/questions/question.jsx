@@ -7,97 +7,103 @@ import activeComponent from 'react-router-active-component';
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import Cues from '../renderForQuestions/cues.jsx';
+import questionActions from '../../actions/questions';
 import {
   submitResponse,
   submitOptimalResponses
 } from '../../actions/responses';
-import questionActions from '../../actions/questions';
 import C from '../../constants';
 
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
-
 const NavLink = activeComponent('li');
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
-const Question = React.createClass({
+class Question extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       selectedBoilerplateCategory: '',
       responses: [],
       loadedResponses: false,
       addingNewResponse: false,
       uploadingNewOptimalResponses: false
-    };
-  },
+    }
+  }
 
-  startEditingQuestion() {
-    this.props.dispatch(questionActions.startQuestionEdit(this.props.params.questionID));
-  },
+  handleClickStartEditingQuestion = () => {
+    const { dispatch, params, } = this.props
+    dispatch(questionActions.startQuestionEdit(params.questionID));
+  }
 
-  cancelEditingQuestion() {
-    this.props.dispatch(questionActions.cancelQuestionEdit(this.props.params.questionID));
-  },
+  cancelEditingQuestion = () => {
+    const { dispatch, params, } = this.props
+    dispatch(questionActions.cancelQuestionEdit(params.questionID));
+  }
 
   saveQuestionEdits(vals) {
-    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, vals));
-  },
+    const { dispatch, params, } = this.props
+    dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
+  }
 
   submitOptimalResponses(responseStrings) {
+    const { dispatch, params, } = this.props
     const conceptUID = this.getQuestion().conceptID
-    this.props.dispatch(
-      submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings)
+    dispatch(
+      submitOptimalResponses(params.questionID, conceptUID, responseStrings)
     )
     this.setState({ uploadingNewOptimalResponses: false, })
-  },
+  }
 
-  getQuestion() {
-    const { data, } = this.props.questions;
-    const { questionID, } = this.props.params;
+  getQuestion = () => {
+    const { dispatch, params, questions, } = this.props
+    const { data, } = questions;
+    const { questionID, } = params;
     return data[questionID];
-  },
+  }
 
-  startAddingNewResponse() {
+  handleClickAddNewResponse = () => {
     this.setState({ addingNewResponse: true, });
-  },
+  }
 
-  startUploadingNewOptimalResponses() {
+  handleClickUploadOptimalResponses = () => {
     this.setState({ uploadingNewOptimalResponses: true, });
-  },
+  }
 
-  submitResponse() {
+  submitResponse = () => {
+    const { params, dispatch, } = this.props
+
     const newResp = {
       vals: {
         text: this.refs.newResponseText.value,
         feedback: this.refs.newResponseFeedback.value,
         optimal: this.refs.newResponseOptimal.checked,
-        questionUID: this.props.params.questionID,
-        gradeIndex: `human${this.props.params.questionID}`,
+        questionUID: params.questionID,
+        gradeIndex: `human${params.questionID}`,
         count: 1,
-      },
+      }
     };
     this.refs.newResponseText.value = null;
     this.refs.newResponseFeedback.value = null;
     this.refs.newResponseOptimal.checked = false;
-    // this.refs.boilerplate.value = null;
-    this.props.dispatch(submitResponse(newResp.vals));
+    dispatch(submitResponse(newResp.vals));
     this.setState({ addingNewResponse: false, });
-  },
+  }
 
-  boilerplateCategoriesToOptions() {
+  boilerplateCategoriesToOptions = () => {
     return getBoilerplateFeedback().map(category => (
-      <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
-      ));
-  },
+      <option className="boilerplate-feedback-dropdown-option" key={category.description} >{category.description}</option>
+    ));
+  }
 
-  boilerplateSpecificFeedbackToOptions(selectedCategory) {
+  boilerplateSpecificFeedbackToOptions = (selectedCategory) =>{
     return selectedCategory.children.map(childFeedback => (
-      <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
-      ));
-  },
+      <option className="boilerplate-feedback-dropdown-option" key={childFeedback.description}>{childFeedback.description}</option>
+    ));
+  }
 
-  chooseBoilerplateCategory(e) {
+  chooseBoilerplateCategory = (e) => {
     this.setState({ selectedBoilerplateCategory: e.target.value, });
-  },
+  }
 
   chooseSpecificBoilerplateFeedback(e) {
     if (e.target.value === 'Select specific boilerplate feedback') {
@@ -105,7 +111,11 @@ const Question = React.createClass({
     } else {
       this.refs.newResponseFeedback.value = e.target.value;
     }
-  },
+  }
+
+  onCloseUploadOptimalResponsesModal = () => this.setState({ uploadingNewOptimalResponses: false })
+
+  onCloseNewResponseModal = () => this.setState({ addingNewResponse: false, })
 
   renderBoilerplateCategoryDropdown(onChangeEvent) {
     const style = { marginRight: '20px', };
@@ -117,7 +127,7 @@ const Question = React.createClass({
         </select>
       </span>
     );
-  },
+  }
 
   renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
     const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
@@ -133,78 +143,82 @@ const Question = React.createClass({
     } else {
       return (<span />);
     }
-  },
+  }
 
-  renderNewResponseForm() {
-    if (this.state.addingNewResponse) {
-      return (
-        <Modal close={() => { this.setState({ addingNewResponse: false, }); }}>
-          <div className="box">
-            <h6 className="control subtitle">Add a new response</h6>
-            <label className="label">Response text</label>
-            <p className="control">
-              <input className="input" ref="newResponseText" type="text" />
-            </p>
-            <label className="label">Feedback</label>
-            <p className="control">
-              <input className="input" ref="newResponseFeedback" type="text" />
-            </p>
-            <label className="label">Boilerplate feedback</label>
-            <div className="boilerplate-feedback-dropdown-container">
-              {this.renderBoilerplateCategoryDropdown(this.chooseBoilerplateCategory)}
-              {this.renderBoilerplateCategoryOptionsDropdown(this.chooseSpecificBoilerplateFeedback, this.state.selectedBoilerplateCategory)}
-            </div>
-            <br />
-            <p className="control">
-              <label className="checkbox">
-                <input ref="newResponseOptimal" type="checkbox" />
-                Optimal?
-              </label>
-            </p>
-            <button className="button is-primary" onClick={this.submitResponse}>Add Response</button>
+  renderNewResponseForm = () => {
+    const { addingNewResponse, selectedBoilerplateCategory, } = this.state
+    if (!addingNewResponse ) { return }
+
+    return (
+      <Modal close={this.onCloseNewResponseModal}>
+        <div className="box">
+          <h6 className="control subtitle">Add a new response</h6>
+          <label className="label">Response text</label>
+          <p className="control">
+            <input className="input" ref="newResponseText" type="text" />
+          </p>
+          <label className="label">Feedback</label>
+          <p className="control">
+            <input className="input" ref="newResponseFeedback" type="text" />
+          </p>
+          <label className="label">Boilerplate feedback</label>
+          <div className="boilerplate-feedback-dropdown-container">
+            {this.renderBoilerplateCategoryDropdown(this.chooseBoilerplateCategory)}
+            {this.renderBoilerplateCategoryOptionsDropdown(this.chooseSpecificBoilerplateFeedback, selectedBoilerplateCategory)}
           </div>
-        </Modal>
-      );
-    }
-  },
+          <br />
+          <p className="control">
+            <label className="checkbox">
+              <input ref="newResponseOptimal" type="checkbox" />
+              Optimal?
+            </label>
+          </p>
+          <button className="button is-primary" onClick={this.handleClickAddNewResponse} type="button">Add Response</button>
+        </div>
+      </Modal>
+    );
+  }
 
-  renderUploadNewOptimalResponsesForm() {
-    if (this.state.uploadingNewOptimalResponses) {
-      return (
-        <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
-          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
-        </Modal>
-      );
-    }
-  },
+  renderUploadNewOptimalResponsesForm = () => {
+    const { uploadingNewOptimalResponses, } = this.state
+    if (!uploadingNewOptimalResponses) { return }
 
-  renderEditForm() {
-    const { data, } = this.props.questions,
-      { questionID, } = this.props.params;
+    return (
+      <Modal close={this.onCloseUploadOptimalResponsesModal}>
+        <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
+      </Modal>
+    );
+  }
+
+  renderEditForm = () => {
+    const { questions, params, concepts, itemLevels, } = this.props
+    const { data, } = questions
+    const { questionID, } = params;
     const question = (data[questionID]);
-    if (this.props.questions.states[questionID] === C.EDITING_QUESTION) {
+    if (questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditForm concepts={this.props.concepts} itemLevels={this.props.itemLevels} question={question} submit={this.saveQuestionEdits} />
+          <EditForm concepts={concepts} itemLevels={itemLevels} question={question} submit={this.saveQuestionEdits} />
         </Modal>
       );
     }
-  },
+  }
 
-  isLoading() {
-    const loadingData = this.props.questions.hasreceiveddata === false;
-    return loadingData;
-  },
+  isLoading = () => {
+    const { questions, } = this.props
+    return !questions.hasreceiveddata;
+  }
 
   render() {
-    const { data, states, } = this.props.questions,
-      { questionID, } = this.props.params;
+    const { questions, params, massEdit, children, } = this.props
+    const { data, states, } = questions
+    const  { questionID, } = params;
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
-      const activeLink = this.props.massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
+      const activeLink = massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
 
       const { instructions, cues } = data[questionID]
       let instructionText = 'Combine the sentences into one sentence.'
@@ -231,14 +245,14 @@ const Question = React.createClass({
             getQuestion={this.getQuestion}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="Directions Icon" className="info" src={icon} />
             <p>{instructionText}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
 
-            <a className="button is-outlined is-primary" onClick={this.startEditingQuestion}>Edit Question</a>
-            <a className="button is-outlined is-primary" onClick={this.startAddingNewResponse}>Add New Response</a>
-            <a className="button is-outlined is-primary" onClick={this.startUploadingNewOptimalResponses}>Upload Optimal Responses</a>
+            <a className="button is-outlined is-primary" onClick={this.handleClickStartEditingQuestion}>Edit Question</a>
+            <a className="button is-outlined is-primary" onClick={this.handleClickAddNewResponse}>Add New Response</a>
+            <a className="button is-outlined is-primary" onClick={this.handleClickUploadOptimalResponses}>Upload Optimal Responses</a>
           </p>
           <div className="tabs">
             <ul>
@@ -250,7 +264,7 @@ const Question = React.createClass({
               {activeLink}
             </ul>
           </div>
-          {this.props.children}
+          {children}
         </div>
       );
     } else {
@@ -258,8 +272,8 @@ const Question = React.createClass({
         <p>404: No Question Found</p>
       );
     }
-  },
-});
+  }
+}
 
 function select(state) {
   return {

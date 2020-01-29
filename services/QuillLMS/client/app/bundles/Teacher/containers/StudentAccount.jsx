@@ -13,7 +13,7 @@ export default class StudentAccount extends Component {
     const { name, userName, email } = props;
     this.state = {
       firstName: name.split(' ')[0],
-      lastName: name.split(' ')[1],
+      lastName: name.split(' ').slice(1).join(' '),
       userName,
       email,
       snackbarCopy: '',
@@ -97,7 +97,7 @@ export default class StudentAccount extends Component {
         } = body.user;
         this.setState({
           firstName: name.split(' ')[0],
-          lastName: name.split(' ')[1],
+          lastName: name.split(' ').slice(1).join(' '),
           userName: username,
           email,
           snackbarCopy,
@@ -126,12 +126,12 @@ export default class StudentAccount extends Component {
           deactivateSection={() => this.deactivateSection('general')}
           email={email}
           errors={errors}
-          firstName={firstName} 
+          firstName={firstName}
           googleId={googleId}
-          lastName={lastName} 
+          lastName={lastName}
           timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
-          userName={userName} 
+          userName={userName}
         />
         <StudentPasswordAccountInfo
           activateSection={() => this.activateSection('password')}

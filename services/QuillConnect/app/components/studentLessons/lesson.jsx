@@ -6,7 +6,8 @@ import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
 import {
   PlayTitleCard,
   Register,
-  Spinner
+  Spinner,
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
@@ -16,10 +17,15 @@ import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../..
 import Finished from './finished.jsx';
 import { getParameterByName } from '../../libs/getParameterByName';
 import { permittedFlag } from '../../libs/flagArray'
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
 
 const request = require('request');
 
-class Lesson extends React.Component {
+export class Lesson extends React.Component {
   constructor(props) {
     super(props)
 
@@ -30,13 +36,15 @@ class Lesson extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(clearData());
+    const { dispatch, } = this.props
+    dispatch(clearData());
   }
 
   componentWillReceiveProps(nextProps) {
-    const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== this.props.playLesson.answeredQuestions.length
+    const { playLesson, } = this.props
+    const answeredQuestionsHasChanged = nextProps.playLesson.answeredQuestions.length !== playLesson.answeredQuestions.length
     const nextPropsAttemptsLength = nextProps.playLesson.currentQuestion && nextProps.playLesson.currentQuestion.question ? nextProps.playLesson.currentQuestion.question.attempts.length : 0
-    const thisPropsAttemptsLength = this.props.playLesson.currentQuestion && this.props.playLesson.currentQuestion.question ? this.props.playLesson.currentQuestion.question.attempts.length : 0
+    const thisPropsAttemptsLength = playLesson.currentQuestion && playLesson.currentQuestion.question ? playLesson.currentQuestion.question.attempts.length : 0
     const attemptsHasChanged = nextPropsAttemptsLength !== thisPropsAttemptsLength
     if (answeredQuestionsHasChanged || attemptsHasChanged) {
       this.saveSessionData(nextProps.playLesson);
@@ -44,38 +52,33 @@ class Lesson extends React.Component {
   }
 
   componentDidUpdate() {
+    const { sessionInitialized, } = this.state
+    const { questions, fillInBlank, sentenceFragments, titleCards, } = this.props
     // At mount time the component may still be waiting on questions
     // to be retrieved, so we need to do checks on component update
-    if (this.props.questions.hasreceiveddata &&
-        this.props.fillInBlank.hasreceiveddata &&
-        this.props.sentenceFragments.hasreceiveddata &&
-        this.props.titleCards.hasreceiveddata) {
+    if (questions.hasreceiveddata &&
+        fillInBlank.hasreceiveddata &&
+        sentenceFragments.hasreceiveddata &&
+        titleCards.hasreceiveddata) {
       // This function will bail early if it has already set question data
       // so it is safe to call repeatedly
-      SessionActions.populateQuestions("SC", this.props.questions.data);
-      SessionActions.populateQuestions("FB", this.props.fillInBlank.data);
-      SessionActions.populateQuestions("SF", this.props.sentenceFragments.data);
-      SessionActions.populateQuestions("TL", this.props.titleCards.data);
+      SessionActions.populateQuestions("SC", questions.data);
+      SessionActions.populateQuestions("FB", fillInBlank.data);
+      SessionActions.populateQuestions("SF", sentenceFragments.data);
+      SessionActions.populateQuestions("TL", titleCards.data);
       // This used to be an DidMount call, but we can't safely call it
       // until the Session module has received Question data, so now
       // we check if the value has been initalized, and if not we do so now
-      if (!this.state.sessionInitialized) {
+      if (!sessionInitialized) {
         this.saveSessionIdToState();
       }
     }
   }
 
-  doesNotHaveAndIsNotGettingResponses = () => {
-    return (!this.state.hasOrIsGettingResponses);
-  }
-
-  getPreviousSessionData = () => {
-    return this.state.session;
-  }
-
   resumeSession = (data) => {
+    const { dispatch, } = this.props
     if (data) {
-      this.props.dispatch(resumePreviousSession(data));
+      dispatch(resumePreviousSession(data));
     }
   }
 
@@ -91,7 +94,7 @@ class Lesson extends React.Component {
     }
     this.setState({ sessionID, sessionInitialized: true}, () => {
       if (sessionID) {
-        SessionActions.get(this.state.sessionID, (data) => {
+        SessionActions.get(sessionID, (data) => {
           this.setState({ session: data, });
         });
       }
@@ -99,17 +102,19 @@ class Lesson extends React.Component {
   }
 
   submitResponse = (response) => {
+    const { dispatch, } = this.props
     const action = submitResponse(response);
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   saveToLMS = () => {
+    const { playLesson, params, } = this.props
+    const { sessionID, } = this.state
     this.setState({ error: false, });
-    const relevantAnsweredQuestions = this.props.playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
+    const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
-    const { lessonID, } = this.props.params;
-    const sessionID = this.state.sessionID;
+    const { lessonID, } = params;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, score);
     } else {
@@ -129,10 +134,10 @@ class Lesson extends React.Component {
         }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(this.state.sessionID);
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${this.state.sessionID}`;
+          SessionActions.delete(sessionID);
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
           this.setState({ saved: true, });
         } else {
           this.setState({
@@ -145,8 +150,9 @@ class Lesson extends React.Component {
   }
 
   markIdentify = (bool) => {
+    const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   createAnonActivitySession = (lessonID, results, score) => {
@@ -162,7 +168,7 @@ class Lesson extends React.Component {
         }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
+        if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
@@ -172,10 +178,11 @@ class Lesson extends React.Component {
   }
 
   questionsForLesson = () => {
-    const { data, } = this.props.lessons
-    const { lessonID, } = this.props.params;
+    const { params, lessons, } = this.props
+    const { data, } = lessons
+    const { lessonID, } = params;
     const filteredQuestions = data[lessonID].questions.filter((ques) => {
-      const question = this.props[ques.questionType].data[ques.key]
+      const question = this.props[ques.questionType].data[ques.key] // eslint-disable-line react/destructuring-assignment
       return question && permittedFlag(data[lessonID].flag, question.flag)
     }
     );
@@ -185,7 +192,7 @@ class Lesson extends React.Component {
     return filteredQuestions.map((questionItem) => {
       const questionType = questionItem.questionType;
       const key = questionItem.key;
-      const question = this.props[questionType].data[key];
+      const question = this.props[questionType].data[key];  // eslint-disable-line react/destructuring-assignment
       question.key = key;
       let type
       switch (questionType) {
@@ -206,52 +213,59 @@ class Lesson extends React.Component {
     });
   }
 
-  startActivity = (name) => {
-    this.saveStudentName(name);
+  startActivity = () => {
+    const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   nextQuestion = () => {
+    const { dispatch, } = this.props
     const next = nextQuestion();
-    return this.props.dispatch(next);
+    return dispatch(next);
   }
 
   getLesson = () => {
-    return this.props.lessons.data[this.props.params.lessonID];
-  }
+    const { lessons, params, } = this.props
 
-  getLessonName = () => {
-    return this.props.lessons.data[this.props.params.lessonID].name;
-  }
-
-  saveStudentName(name) {
-    this.props.dispatch(updateName(name));
-  }
-
-  getProgressPercent = () => {
-    if (this.props.playLesson && this.props.playLesson.answeredQuestions && this.props.playLesson.questionSet) {
-      return this.props.playLesson.answeredQuestions.length / this.props.playLesson.questionSet.length * 100;
-    } else {
-      return 0;
-    }
+    return lessons.data[params.lessonID];
   }
 
   saveSessionData = (lessonData) => {
-    if (this.state.sessionID) {
-      SessionActions.update(this.state.sessionID, lessonData);
+    const { sessionID, } = this.state
+    if (sessionID) {
+      SessionActions.update(sessionID, lessonData);
     }
   }
 
+  renderProgressBar = () => {
+    const { playLesson, } = this.props
+    if (!playLesson.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playLesson)
+
+    const currentQuestionIsTitleCard = playLesson.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+
+    return (<ProgressBar
+      answeredQuestionCount={displayedAnsweredQuestionCount}
+      percent={getProgressPercent(playLesson)}
+      questionCount={questionCount(playLesson)}
+    />)
+  }
+
   render() {
+    const { sessionInitialized, error, sessionID, saved, session, } = this.state
     const { conceptsFeedback, playLesson, dispatch, lessons, params, } = this.props
     const { data, hasreceiveddata, } = lessons
     const { lessonID, } = params;
     let component;
-    
-    if (!(this.state.sessionInitialized && hasreceiveddata && data && data[lessonID])) {
+
+    if (!(sessionInitialized && hasreceiveddata && data && data[lessonID])) {
       return (<div className="student-container student-container-diagnostic"><Spinner /></div>);
     }
 
@@ -287,7 +301,7 @@ class Lesson extends React.Component {
         component = (
           <PlayTitleCard
             data={question}
-            nextQuestion={this.nextQuestion}
+            handleContinueClick={this.nextQuestion}
           />
         )
       } else {
@@ -302,27 +316,27 @@ class Lesson extends React.Component {
           />
         );
       }
-    } else if (this.props.playLesson.answeredQuestions.length > 0 && (this.props.playLesson.unansweredQuestions.length === 0 && this.props.playLesson.currentQuestion === undefined)) {
+    } else if (playLesson.answeredQuestions.length > 0 && (playLesson.unansweredQuestions.length === 0 && playLesson.currentQuestion === undefined)) {
       component = (
         <Finished
-          data={this.props.playLesson}
-          error={this.state.error}
-          lessonID={this.props.params.lessonID}
-          name={this.state.sessionID}
-          saved={this.state.saved}
+          data={playLesson}
+          error={error}
+          lessonID={params.lessonID}
+          name={sessionID}
+          saved={saved}
           saveToLMS={this.saveToLMS}
         />
       );
     } else {
       component = (
-        <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={this.state.session} startActivity={this.startActivity} />
+        <Register lesson={this.getLesson()} resumeActivity={this.resumeSession} session={session} startActivity={this.startActivity} />
       );
     }
 
     return (
       <div>
-        <progress className="progress diagnostic-progress" max="100" value={this.getProgressPercent()}>15%</progress>
         <section className="section is-fullheight minus-nav student">
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             {component}
           </div>

@@ -1,5 +1,4 @@
 # Function dependencies, for example:
 # package>=version
 flask>=1.1.1
-pyspellchecker>=0.5.2
-pytest>=5.2.2
+symspellpy>=6.5.2
