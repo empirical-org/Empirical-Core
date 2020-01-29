@@ -173,7 +173,7 @@ export default class Recommendations extends React.Component {
     return { selections: selectionsArr ,};
   }
 
-  assignToWholeClass(unitTemplateId) {
+  assignToWholeClass  = (unitTemplateId) => {
     const { params, } = this.props
     const that = this;
     requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: params.classroomId }, (data) => {
