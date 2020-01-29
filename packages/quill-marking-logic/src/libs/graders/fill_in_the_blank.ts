@@ -39,19 +39,13 @@ function* firstPassMatchers(data) {
 }
 
 function checkForMatches(data, matchingFunction: Function) {
-  console.log("checking for matches")
-  console.log(data)
   const gen = matchingFunction(data)
-  console.log(gen)
   let next = gen.next();
-  console.log(next)
   while (true) {
     if (next.value || next.done) {
       break
     }
-    console.log("going")
     next = gen.next()
-    console.log(next)
   }
   if (next.value) {
     return next.value
