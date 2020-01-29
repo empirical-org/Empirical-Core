@@ -53,7 +53,7 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
             {
                 type: 'SC',
                 data: {
-                    key: 'test=key'
+                    key: 'test-key'
                 }
             }
         ],
@@ -200,8 +200,9 @@ describe('StudentDiagnostic Container functions', () => {
         expect(mockProps.dispatch).toHaveBeenCalledWith(argument);
     });
     it("getPreviousSessionData returns sessions piece of state", () => {
-        container.setState({ session: 'test123' });
-        expect(container.instance().getPreviousSessionData()).toEqual('test123');
+        const mockSession = 'test123';
+        container.setState({ session: mockSession });
+        expect(container.instance().getPreviousSessionData()).toEqual(mockSession);
     });
     it("resumeSessionData calls dispatch() prop function, with resumePreviousDiagnosticSession(data) if data is present", () => {
         const argument = resumePreviousDiagnosticSession({});
@@ -216,9 +217,10 @@ describe('StudentDiagnostic Container functions', () => {
         expect(parameterHelper.getParameterByName).toHaveBeenCalledWith('student');
     });
     it("saveSessionData calls SessionActions.update, passing sessionId and lessonData if sessionId is present", () => {
-        container.setState({ sessionID: 'test-session-id' })
+        const mockSessionId = 'test-session-id';
+        container.setState({ sessionID: mockSessionId })
         container.instance().saveSessionData({});
-        expect(SessionActions.update).toHaveBeenCalledWith('test-session-id', {});
+        expect(SessionActions.update).toHaveBeenCalledWith(mockSessionId, {});
     });
     it("doesNotHaveAndIsNotGettingResponses returns true if hasOrIsGettingResponses piece of state is false, otherwise false", () => {
         container.setState({ hasOrIsGettingResponses: false });
