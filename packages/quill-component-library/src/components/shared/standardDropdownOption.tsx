@@ -7,14 +7,14 @@ const handleMouseEnter = (props) => {
   return () => {selectProps.updateCursor(index)}
 }
 
-export const HTMLDropdownOption = props => {
-  const { label, data, } = props
+export const StandardDropdownOption = props => {
+  const { data, } = props
   const passedProps = {...props}
   passedProps.innerProps.id = data.value
   return (
-    <div className="html-dropdown-option" onMouseOver={handleMouseEnter(props)}>
+    <div onMouseOver={handleMouseEnter(props)}>
       <components.Option {...passedProps}>
-        <div dangerouslySetInnerHTML={{ __html: label }} />
+        {data.label}
       </components.Option>
     </div>
   );
