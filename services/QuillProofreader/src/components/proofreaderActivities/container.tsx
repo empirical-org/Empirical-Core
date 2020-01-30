@@ -201,7 +201,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const score = this.calculateScoreForLesson();
         const activityUID = getParameterByName('uid', window.location.href)
         if (sessionID) {
-          this.finishActivitySession(sessionID, results, score);
+          this.handleCheckWorkClickSession(sessionID, results, score);
         } else if (activityUID) {
           this.createAnonActivitySession(activityUID, results, score, firebaseSessionID);
         }

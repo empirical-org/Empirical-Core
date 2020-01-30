@@ -255,6 +255,7 @@ export class Lesson extends React.Component {
       answeredQuestionCount={displayedAnsweredQuestionCount}
       percent={getProgressPercent(playLesson)}
       questionCount={questionCount(playLesson)}
+      thingsCompleted='sentences'
     />)
   }
 
