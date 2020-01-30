@@ -55,7 +55,7 @@ module TeacherFixes
     .where("users.id = ?", user_id)
     .where("classroom_units.classroom_id = ?", classroom1_id)
     .group("classroom_units.id")
-    if (classroom1.owner.id == classroom2.owner.id)
+    if classroom1.owner.id == classroom2.owner.id
       classroom_units.each do |ca|
         sibling_ca = ClassroomUnit.find_or_create_by(unit_id: ca.unit_id, classroom_id: classroom2_id)
         ActivitySession.where(classroom_unit_id: ca.id, user_id: user_id).each do |as|

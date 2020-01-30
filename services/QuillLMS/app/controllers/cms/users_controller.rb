@@ -126,7 +126,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
 
-protected
+  protected
 
   def set_flags
     @valid_flags = User::VALID_FLAGS

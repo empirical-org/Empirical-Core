@@ -15,7 +15,7 @@ namespace :leap do
       exit
     end
 
-    data = CSV.parse(pipe_data, headers:true)
+    data = CSV.parse(pipe_data, headers: true)
     process_data(data)
   end
 
@@ -42,7 +42,7 @@ namespace :leap do
       end
     end
 
-    data = CSV.new(file, headers:true)
+    data = CSV.new(file, headers: true)
     process_data(data)
   end
 
