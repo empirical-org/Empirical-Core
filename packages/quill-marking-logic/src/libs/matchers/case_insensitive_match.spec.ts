@@ -71,13 +71,8 @@ describe('The caseInsensitiveChecker', () => {
     assert.ok(_.isEqual(caseInsensitiveChecker(responseString, savedResponses, true).concept_results, caseInsensitiveMatch(responseString, savedResponses).concept_results));
   });
 
-  it('Should return the same concept results as the matched response if it is asked to', () => {
-    const responseString = "my dog took a nap.";
-    assert.ok(_.isEqual(caseInsensitiveChecker(responseString, savedResponses, true).concept_results, caseInsensitiveMatch(responseString, savedResponses).concept_results));
-  });
-
   it('Should return correct if the lowercased response string matches a lowercased partial response and caseInsensitive flag is on', () => {
-    const responseString = "My dog took a nap.";
+    const responseString = "My DOG took a nap.";
     const caseInsensitive = true
     assert.ok(caseInsensitiveChecker(responseString, savedResponses, false, caseInsensitive).feedback);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses, false, caseInsensitive).parent_id, savedResponses[0].parent_id);

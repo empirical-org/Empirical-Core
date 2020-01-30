@@ -8,7 +8,7 @@ describe('The checking a fill in the blank question', () => {
 
   describe('first matchers - original sentence', () => {
     it('should be able to find an exact match', () => {
-      const matchedResponse = checkFillInTheBlankQuestion(responses[0].question_uid, responses[0].text, responses, true, responses[0].question_uid);
+      const matchedResponse = checkFillInTheBlankQuestion(responses[0].question_uid, responses[0].text, responses, false, responses[0].question_uid);
       assert.equal(matchedResponse.id, responses[0].id);
     });
 
