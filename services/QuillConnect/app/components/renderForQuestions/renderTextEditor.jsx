@@ -116,8 +116,8 @@ export default class RenderTextEditor extends React.Component {
     const { disabled, onChange, } = this.props
     if (disabled) { return }
 
-    const stripBTags = e.target.value.replace(/<b>|<\/b>/g, '')
-    onChange(stripBTags, this.answerBox);
+    const stripBTagsAndBR = e.target.value.replace(/<b>|<\/b>|<br>|<br\/>/g, '')
+    onChange(stripBTagsAndBR, this.answerBox);
   }
 
   handleKeyDown = (e) => {
