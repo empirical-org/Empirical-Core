@@ -41,7 +41,7 @@ describe ChangeLog, type: :model do
     end
 
     it "should not save if its changed_record_type is not in the list of changed record types" do
-      change_log.update(changed_record_type: 'ActivitySession')
+      change_log.update(changed_record_type: 'Definitely not a real model')
       expect(change_log.save).not_to be
     end
   end

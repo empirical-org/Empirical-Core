@@ -6,6 +6,7 @@ class Cms::UsersController < Cms::CmsController
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
   before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
   before_action :log_attribute_change, only: [:update]
+  before_action :update_change_log, only: [:show, :edit, :index]
 
   USERS_PER_PAGE = 30.0
 
@@ -14,7 +15,6 @@ class Cms::UsersController < Cms::CmsController
     @user_search_query_results = []
     @user_flags = User::VALID_FLAGS
     @number_of_pages = 0
-    update_change_log('Visited User Directory')
   end
 
   def search
@@ -22,7 +22,7 @@ class Cms::UsersController < Cms::CmsController
     user_search_query_results = user_query(user_query_params)
     user_search_query_results ||= []
     number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
-    update_change_log('Searched Users')
+    update_change_log(user_query_params)
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
 
@@ -49,7 +49,6 @@ class Cms::UsersController < Cms::CmsController
 
   def show
     # everything is set as props from @user in the view
-    update_change_log('Visited User Admin Page')
   end
 
   def show_json
@@ -70,7 +69,7 @@ class Cms::UsersController < Cms::CmsController
   def sign_in
     session[:staff_id] = current_user.id
     super(User.find(params[:id]))
-    update_change_log('Ghosted User')
+    update_change_log
     redirect_to profile_path
   end
 
@@ -90,7 +89,6 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def edit
-    update_change_log('Visited User Edit Page')
   end
 
   def edit_subscription
@@ -303,61 +301,58 @@ class Cms::UsersController < Cms::CmsController
     difference = Hash[new_user_params.to_a - previous_user_params.to_a]
     difference.each_key do |field|
       new_value = field == 'password' ? nil : difference[field]
-      update_change_log('Edited User', field, previous_user_params[field], new_value)
+      update_change_log(nil, field, previous_user_params[field], new_value)
     end
   end
 
-  def update_change_log(logged_action, changed_attribute = nil, previous_value = nil, new_value = nil)
+  def update_change_log(query_params = nil, changed_attribute = nil, previous_value = nil, new_value = nil)
     change_log = {
-      action: logged_action,
       changed_record_type: 'User',
       user_id: current_user.id.to_s
     }
 
-    if logged_action == 'Visited User Directory'
-      change_log.update({
-                          explanation: 'User ' + current_user.id.to_s +
-                                      ' visited User Directory page'
-      })
-    elsif logged_action == 'Searched Users'
-      change_log.update({
-                          explanation: 'User ' + current_user.id.to_s +
-                                       ' searched User Directory for ' +
-                                       user_query_params.to_s
-      })
-    elsif logged_action == 'Visited User Admin Page'
-      change_log.update({
-                          explanation: 'User ' + current_user.id.to_s +
-                                        ' visited admin page for User ' +
-                                        @user.id.to_s,
-                          changed_record_id: @user.id.to_s
-      })
-    elsif logged_action == 'Visited User Edit Page'
-      change_log.update({
-                          explanation: 'User ' + current_user.id.to_s +
-                                      ' visited edit page for User ' +
-                                      @user.id.to_s,
-                          changed_record_id: @user.id.to_s
-      })
-    elsif logged_action == 'Edited User'
-      change_log.update({
-                          explanation: 'User ' + current_user.id.to_s +
-                                      ' changed ' + changed_attribute + ' of User ' +
-                                      @user.id.to_s,
-                          changed_record_id: @user.id.to_s,
-                          changed_attribute: changed_attribute,
-                          previous_value: previous_value,
-                          new_value: new_value
-       })
-    elsif logged_action == 'Ghosted User'
-      change_log.update({
-                          explanation: 'User ' + session[:staff_id].to_s +
-                                      ' signed in as User ' + params[:id],
-                          changed_record_id: params[:id],
-                          user_id: session[:staff_id].to_s
-      })
-    end
+    log_for_action = {
+      index: {
+        action: ChangeLog::USER_ACTIONS[:index],
+        explanation: 'User ' + current_user.id.to_s +
+                     ' visited User Directory page'
+      },
+      update: {
+        action: ChangeLog::USER_ACTIONS[:update],
+        explanation: "User #{current_user.id.to_s} changed #{changed_attribute} of User #{@user&.id&.to_s}",
+        changed_record_id: @user&.id&.to_s,
+        changed_attribute: changed_attribute,
+        previous_value: previous_value,
+        new_value: new_value
+      },
+      search: {
+        action: ChangeLog::USER_ACTIONS[:search],
+        explanation: 'User ' + current_user.id.to_s +
+                     ' searched User Directory for ' +
+                     query_params.to_s
+      },
+      show: {
+        action: ChangeLog::USER_ACTIONS[:show],
+        explanation: "User #{current_user.id.to_s} visited admin page for User #{@user&.id&.to_s}",
+        changed_record_id: @user&.id&.to_s
+      },
+      edit: {
+        action: ChangeLog::USER_ACTIONS[:edit],
+        explanation: "User #{current_user.id.to_s} visited edit page for User #{@user&.id&.to_s}",
+        changed_record_id: @user&.id&.to_s
+      },
+      sign_in: {
+        action: ChangeLog::USER_ACTIONS[:sign_in],
+        explanation: "User #{session[:staff_id]&.to_s} signed in as User #{params[:id]&.to_s}",
+        changed_record_id: params[:id]&.to_s,
+        user_id: session[:staff_id]&.to_s
+      }
+    }
 
+    current_action_key = params[:action].to_sym
+    return if !log_for_action.key?(current_action_key)
+
+    change_log.update(log_for_action[current_action_key])
     ChangeLog.create(change_log)
   end
 end
