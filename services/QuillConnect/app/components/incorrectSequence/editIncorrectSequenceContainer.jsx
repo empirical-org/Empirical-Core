@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 import request from 'request'
 
@@ -45,14 +45,14 @@ class EditIncorrectSequencesContainer extends Component {
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
+          item={Object.assign(this.getIncorrectSequence(), { id: params.incorrectSequenceID, })}
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
-          usedSequences={generatedIncorrectSequences.used[params.questionID]}
-          item={Object.assign(this.getIncorrectSequence(), { id: params.incorrectSequenceID, })}
-          questions={questions}
           questionID={params.questionID}
+          questions={questions}
           sentenceFragments={sentenceFragments}
           states
+          usedSequences={generatedIncorrectSequences.used[params.questionID]}
         />
         {this.props.children}
       </div>

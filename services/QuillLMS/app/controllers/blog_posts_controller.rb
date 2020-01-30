@@ -2,6 +2,8 @@ class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_role
 
+  skip_before_action :stick_to_leader_db, only: [:index, :show]
+
   def index
     topic_names = BlogPost::TOPICS
     @topics = []
@@ -48,7 +50,7 @@ class BlogPostsController < ApplicationController
       ORDER BY ts_rank(tsv, plainto_tsquery(#{ActiveRecord::Base.sanitize(@query)}))
     ").to_a
     @title = "Search: #{@query}"
-    return render 'index'
+    render 'index'
   end
 
   def show_topic
@@ -61,20 +63,20 @@ class BlogPostsController < ApplicationController
         redirect_to "/teacher-center/topic/#{new_topic}"
       end
     else
-      topic = CGI::unescape(params[:topic]).gsub('-', ' ').titleize
+      topic = CGI::unescape(params[:topic]).gsub('-', ' ').capitalize
       if !BlogPost::TOPICS.include?(topic) && !BlogPost::STUDENT_TOPICS.include?(topic)
-        raise ActionController::RoutingError.new('Topic Not Found')
+        raise ActionController::RoutingError, 'Topic Not Found'
       end
       @blog_posts = BlogPost.where(draft: false, topic: topic).order('order_number')
       # hide student part of topic name for display
-      @title = @role == 'student' ? topic.gsub('Student ', '') : topic
-      return render 'index'
+      @title = @role == 'student' ? topic.gsub('Student ', '').capitalize : topic
+      render 'index'
     end
   end
 
   private
   def set_announcement
-    @announcement = Announcement.get_current_webinar_announcement
+    @announcement = Announcement.current_webinar_announcement
   end
 
   def set_role

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
-import questionActions from '../../actions/questions.js';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import questionActions from '../../actions/questions';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 
 class EditFocusPointsContainer extends Component {
   constructor() {
@@ -33,13 +33,13 @@ class EditFocusPointsContainer extends Component {
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
+          item={this.getFocusPoint()}
           itemLabel="Focus Point"
           onSubmit={this.submitForm}
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
           states={true}
-          item={this.getFocusPoint()}
         />
         {this.props.children}
       </div>

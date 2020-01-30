@@ -9,7 +9,7 @@ interface CardProps {
 }
 
 const Card = (props: CardProps) => {
-  const img = props.imgSrc ? <img src={props.imgSrc} alt={props.imgAlt}/> : null
+  const img = props.imgSrc ? <img alt={props.imgAlt} src={props.imgSrc} /> : null
   return (
     <div className="quill-card" onClick={props.onClick}>
       {img}

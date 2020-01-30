@@ -21,15 +21,18 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const that = this;
+    this.getRealTimeData()
+    this.initializePusher();
+  }
+
+  getRealTimeData = () => {
     request.get({
       url: `${process.env.DEFAULT_URL}/api/v1/progress_reports/real_time_data`,
     }, (e, r, body) => {
       const data = JSON.parse(body).data;
       const studentsData = data;
-      that.setState({ loading: false, errors: body.errors, studentsData, });
+      this.setState({ loading: false, errors: body.errors, studentsData, });
     });
-    this.initializePusher();
   }
 
   clearStudentData() {
@@ -51,15 +54,14 @@ export default class extends React.Component {
       this.clearStudentData,
       maxIntervalWithoutInteractionBeforeClearing
     );
-    channel.bind('as-interaction-log-pushed', (pushedData) => {
+    channel.bind('as-interaction-log-pushed', () => {
       // reset clock on table
       clearTimeout(clearStudentDataAfterPause);
       clearStudentDataAfterPause = setTimeout(
         this.clearStudentData,
         maxIntervalWithoutInteractionBeforeClearing
       );
-      const studentsData = pushedData.data;
-      this.setState({ studentsData, });
+      this.getRealTimeData()
     });
   }
 
@@ -118,24 +120,24 @@ export default class extends React.Component {
     if (filteredStudentsData.length) {
       return (<div key={`${filteredStudentsData.length}-length-for-real-time`}>
         <ReactTable
-          data={filteredStudentsData}
+          className="progress-report"
           columns={this.columns()}
-          showPagination={false}
-          defaultSorted={[{ id: 'name', desc: true, }]}
-          showPaginationTop={false}
-          showPaginationBottom={false}
-          showPageSizeOptions={false}
+          data={filteredStudentsData}
           defaultPageSize={filteredStudentsData.length}
+          defaultSorted={[{ id: 'name', desc: true, }]}
           getTrProps={(state, rowInfo, column) => ({
             style: {
               background: rowInfo.row.timespent_question > 180 ? '#FEEDF0' : 'inherit',
             },
           })}
-          className="progress-report"
+          showPageSizeOptions={false}
+          showPagination={false}
+          showPaginationBottom={false}
+          showPaginationTop={false}
         />
       </div>);
     }
-    return <EmptyStateForReport title={'You have no students playing activities.'} body={'When students are online, you can use this report to see how long students are taking on each question.'} />;
+    return <EmptyStateForReport body={'When students are online, you can use this report to see how long students are taking on each question.'} title={'You have no students playing activities.'} />;
   }
 
   render() {

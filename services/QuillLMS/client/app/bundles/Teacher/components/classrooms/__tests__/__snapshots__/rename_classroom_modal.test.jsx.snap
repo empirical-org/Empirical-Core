@@ -8,7 +8,7 @@ exports[`RenameClassroomModal component should render RenameClassroomModal 1`] =
     className="modal-background"
   />
   <div
-    className="rename-class-modal modal modal-body"
+    className="rename-class-modal quill-modal modal-body"
   >
     <div>
       <h3

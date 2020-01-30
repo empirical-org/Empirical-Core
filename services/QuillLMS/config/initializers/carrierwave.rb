@@ -4,7 +4,7 @@ require 'carrierwave/storage/fog'
 
 CarrierWave.configure do |config|
   config.cache_dir = "#{Rails.root}/tmp/images"
-  config.permissions = 0666
+  config.permissions = 0o666
 
   config.storage = :fog
   config.fog_provider 'fog/aws'

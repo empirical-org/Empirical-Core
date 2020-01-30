@@ -1,6 +1,7 @@
-import React from 'react';
-import PreviewCard from '../shared/preview_card.jsx';
+import * as React from 'react';
 import request from 'request';
+
+import PreviewCard from '../shared/preview_card.jsx';
 import BlogPostContent from './blog_post_content'
 
 const RATING_MESSAGES = {
@@ -21,12 +22,12 @@ export default class BlogPost extends React.Component {
 
   renderMostRecentPosts() {
     return this.props.mostRecentPosts.map(post =>
-      <PreviewCard
-        key={post.title}
+      (<PreviewCard
         content={post.preview_card_content}
-        link={post.external_link ? post.external_link : `/teacher-center/${post.slug}`}
         externalLink={!!post.external_link}
-      />
+        key={post.title}
+        link={post.external_link ? post.external_link : `/teacher-center/${post.slug}`}
+      />)
     )
   }
 
@@ -64,12 +65,12 @@ export default class BlogPost extends React.Component {
       <div id='article-container'>
         <article>
           <BlogPostContent
-            updatedAt={this.props.blogPost.published_at ? this.props.blogPost.published_at : this.props.blogPost.updated_at}
-            title={this.props.blogPost.title}
-            body={this.props.blogPost.body}
             author={this.props.author}
-            displayPaywall={this.props.displayPaywall}
+            body={this.props.blogPost.body}
             centerImages={this.props.blogPost.center_images}
+            displayPaywall={this.props.displayPaywall}
+            title={this.props.blogPost.title}
+            updatedAt={this.props.blogPost.published_at ? this.props.blogPost.published_at : this.props.blogPost.updated_at}
           />
           <footer>
             <p>{this.state.ratingMessage}</p>

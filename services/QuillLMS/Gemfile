@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 ruby '2.5.1'
 
 # CORE DEPS
-gem 'rails', '=4.2.10'
-gem 'puma', '~> 3.10.0'
+gem 'rails', '=4.2.11.1'
+gem 'puma', '~> 3.12.2'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
@@ -15,13 +15,15 @@ gem 'ancestry'
 gem 'ransack'
 gem 'ranked-model'
 gem 'postgres_ext'
-gem 'rails_admin', '1.3.0'
+gem "rails_admin", ">= 1.3.0"
 gem 'bulk_insert'
 gem 'atomic_arrays'
+# Use Makara for read/write splitting on replica dbs
+gem 'makara', '0.4.1'
 
 # USER AUTH, ETC
 gem 'bcrypt'
-gem 'doorkeeper', '1.4.1'
+gem "doorkeeper", ">= 4.2.0"
 gem 'omniauth'
 gem 'omniauth-google-oauth2', '0.6.0'
 gem 'omniauth-clever'
@@ -33,7 +35,7 @@ gem 'rack-attack'
 gem 'premailer-rails'
 # if you have trouble installing nokogiri on a mac,
 # try uninstalling nokogiri, running `xcode-select --install`, and then `bundle install` once more
-gem 'nokogiri' # required for premailer
+gem "nokogiri", ">= 1.10.4"
 
 # VALIDATIONS
 gem 'validates_email_format_of'
@@ -42,6 +44,7 @@ gem 'validates_email_format_of'
 gem 'responders'
 
 # UPLOADS
+gem "aws-sdk-s3", "~> 1.48"
 gem 'carrierwave', '~> 1.0'
 gem 'fog-aws'
 

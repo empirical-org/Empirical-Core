@@ -12,88 +12,130 @@ const getLatestAttempt = (attempts = []) => {
   return attempts[lastIndex];
 };
 
-export default React.createClass({
+export default class RenderFormForAnswer extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return ({ modalOpen: false, });
-  },
+    this.state = { modalOpen: false, }
+  }
+
+  handleHintClick = () => {
+    this.setState({ modalOpen: true, })
+  }
+
+  onCloseModalClick = () => {
+    this.setState({ modalOpen: false, })
+  }
 
   getHelpModal() {
-    if (this.state.modalOpen) {
-      return (
-        <Modal close={() => { this.setState({ modalOpen: false, }); }}>
-          <div className="box">
-            <h4 className="title">Hint</h4>
-            <iframe
-              src={this.props.assetURL} frameBorder="0" width="960" height="569" allowFullScreen="true"
-              mozallowfullscreen="true" webkitallowfullscreen="true"
-            />
-          </div>
-        </Modal>
-      );
-    }
-  },
+    const { assetURL, } = this.props
+    const { modalOpen, } = this.state
+    if (!modalOpen) { return }
+
+    return (
+      <Modal close={this.onCloseModalClick}>
+        <div className="box">
+          <h4 className="title">Hint</h4>
+          <iframe
+            allowFullScreen="true"
+            frameBorder="0"
+            height="569"
+            mozallowfullscreen="true"
+            src={assetURL}
+            webkitallowfullscreen="true"
+            width="960"
+          />
+        </div>
+      </Modal>
+    );
+  }
 
   renderConceptExplanation() {
-    if (this.props.conceptExplanation) {
-      return this.props.conceptExplanation();
+    const { conceptExplanation, } = this.props
+    if (conceptExplanation) {
+      return conceptExplanation();
     }
-  },
+  }
 
   render() {
+    const {
+      feedback,
+      finished,
+      nextQuestionButton,
+      question,
+      attempts,
+      questionID,
+      toggleDisabled,
+      checkAnswer,
+      responses,
+      sentenceFragments,
+      cues,
+      multipleChoiceCorrect,
+      initialValue,
+      disabled,
+      getResponse,
+      handleChange,
+      spellCheck,
+      value,
+      assetURL
+    } = this.props
+    let renderedFeedback = feedback
     let content;
-    let button,
-      feedback = this.props.feedback;
-    if (this.props.finished) {
-      button = this.props.nextQuestionButton;
-      const answeredCorrectly = getAnswerState(getLatestAttempt(this.props.attempts))
-      feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredNonMultipleChoiceCorrectly={answeredCorrectly} multipleChoiceCorrect={this.props.multipleChoiceCorrect} key={`-${this.props.questionID}`} responses={this.props.responses} />;
-    } else if (this.props.nextQuestionButton) { // if you're going to next, it is the end state
-      button = this.props.nextQuestionButton;
+    let button
+    if (finished) {
+      button = nextQuestionButton;
+      const answeredCorrectly = getAnswerState(getLatestAttempt(attempts))
+      renderedFeedback = (<EndState
+        answeredNonMultipleChoiceCorrectly={answeredCorrectly}
+        key={`-${questionID}`}
+        multipleChoiceCorrect={multipleChoiceCorrect}
+        question={question}
+        questionID={questionID}
+        responses={responses}
+      />);
+    } else if (nextQuestionButton) { // if you're going to next, it is the end state
+      button = nextQuestionButton;
     } else {
       let message;
-      if (this.props.question.attempts.length) {
-        message = 'Recheck Your Answer';
+      if (question.attempts.length) {
+        message = 'Recheck work';
       } else {
-        message = 'Check Your Answer';
+        message = 'Check work';
       }
       button = (
-        <button
-          className={`button student-submit ${this.props.toggleDisabled}`} onClick={this.props.checkAnswer}
-        >
+        <button className={`quill-button focus-on-light large primary contained ${toggleDisabled}`} onClick={checkAnswer} type="button">
           {message}
         </button>
       );
-      if (!this.props.responses) {
-        <button
-          className={'button student-submit is-disabled'} onClick={() => {}}
-        >
+      if (!responses) {
+        <button className='quill-button focus-on-light large primary contained disabled' type="button">
           {message}
         </button>;
       }
     }
 
     let info;
-    if (this.props.assetURL) {
-      info = <button className={'button is-outlined is-success'} onClick={() => { this.setState({ modalOpen: true, }); }}>Hint</button>;
+    if (assetURL) {
+      info = <button className='button is-outlined is-success' onClick={this.handleHintClick} type="button">Hint</button>;
     }
 
     return (
       <div className="student-container">
-        {this.props.sentenceFragments}
+        {sentenceFragments}
         <div className="content">
-          {this.props.cues}
-          {feedback}
+          {cues}
+          {renderedFeedback}
           <TextEditor
-            disabled={this.props.disabled} defaultValue={this.props.initialValue}
-            key={this.props.questionID}
-            checkAnswer={this.props.checkAnswer}
-            handleChange={this.props.handleChange}
-            value={this.props.value}
-            latestAttempt={getLatestAttempt(this.props.question.attempts)}
-            getResponse={this.props.getResponse}
-            spellCheck={this.props.spellCheck}
+            defaultValue={initialValue}
+            disabled={disabled}
+            getResponse={getResponse}
+            key={questionID}
+            latestAttempt={getLatestAttempt(question.attempts)}
+            onChange={handleChange}
+            onSubmitResponse={checkAnswer}
             placeholder="Type your answer here."
+            spellCheck={spellCheck}
+            value={value}
           />
           <div className="question-button-group button-group">
             {this.getHelpModal()}
@@ -105,5 +147,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

@@ -3,12 +3,12 @@ module PublicProgressReports
 
     def last_completed_diagnostic
       diagnostic_activity_ids = Activity.diagnostic_activity_ids
-      current_user.classroom_units.
-                  joins(activity_sessions: :classroom_unit).
-                  where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids).
-                  order('created_at DESC').
-                  limit(1).
-                  first
+      current_user.classroom_units
+                  .joins(activity_sessions: :classroom_unit)
+                  .where('activity_sessions.state = ? AND activity_sessions.activity_id IN (?)', 'finished', diagnostic_activity_ids)
+                  .order('created_at DESC')
+                  .limit(1)
+                  .first
     end
 
     def activity_session_report(classroom_unit_id, user_id, activity_id)
@@ -34,9 +34,9 @@ module PublicProgressReports
       cu = last_completed_diagnostic
       if cu
         custom_url = "#u/#{cu.unit.id}/a/#{cu.activity_id}/c/#{cu.classroom_id}"
-        return "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
+        "/teachers/progress_reports/diagnostic_reports/#{custom_url}/students"
       else
-        return "/teachers/progress_reports/diagnostic_reports/#not_completed"
+        "/teachers/progress_reports/diagnostic_reports/#not_completed"
       end
     end
 
@@ -61,10 +61,9 @@ module PublicProgressReports
       # being converted to an array because that is what the diagnostic reports expect
       questions_arr = questions.map do |k,v|
         {question_id: k,
-         score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
+         score: ((v[:correct].to_f/v[:total]) * 100).round,
          prompt: v[:prompt],
-         instructions: v[:instructions]
-        }
+         instructions: v[:instructions]}
       end
       questions_arr
     end
@@ -165,22 +164,16 @@ module PublicProgressReports
         number_of_questions: formatted_concept_results.length,
         concept_results: formatted_concept_results,
         score: score,
-        average_score_on_quill: student.get_student_average_score
+        average_score_on_quill: student.student_average_score
       }
     end
 
 
     def get_time_in_minutes activity_session
-      if activity_session.started_at && activity_session.completed_at
-        time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
-        if time > 60
-          return '> 60'
-        else
-          return time
-        end
-      else
-        return 'Untracked'
-      end
+      return 'Untracked' if !(activity_session.started_at && activity_session.completed_at)
+
+      time = ((activity_session.completed_at - activity_session.started_at) / 60).round()
+      time > 60 ? '> 60' : time
     end
 
     def get_concept_results activity_session
@@ -215,7 +208,7 @@ module PublicProgressReports
     end
 
     def get_score_for_question concept_results
-      if concept_results.length > 0 && concept_results.first[:metadata]['questionScore']
+      if !concept_results.empty? && concept_results.first[:metadata]['questionScore']
         concept_results.first[:metadata]['questionScore'] * 100
       else
         concept_results.inject(0) {|sum, crs| sum + crs[:metadata]["correct"]} / concept_results.length * 100
@@ -223,14 +216,14 @@ module PublicProgressReports
     end
 
     def get_average_score formatted_results
-      if (formatted_results.length == 0)
-        return 100
+      if formatted_results.empty?
+        100
       else
-        return (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
+        (formatted_results.inject(0) {|sum, crs| sum + crs[:score]} / formatted_results.length).round()
       end
     end
 
-    def get_recommendations_for_classroom(unit_id, classroom_id, activity_id)
+    def generate_recommendations_for_classroom(unit_id, classroom_id, activity_id)
       classroom_unit = ClassroomUnit.find_by(classroom_id: classroom_id, unit_id: unit_id)
       classroom = Classroom.find(classroom_id)
       diagnostic = Activity.find(activity_id)

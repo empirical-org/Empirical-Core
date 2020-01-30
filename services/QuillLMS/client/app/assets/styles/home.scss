@@ -224,18 +224,24 @@ $list: (quillgreen: $quillgreen, quillred: $quillred, quillnavbar: $quillnavbar,
         line-height: 38px;
         text-align: center;
         width: 474px;
+        display: flex;
+        justify-content: center;
+        span {
+          display: flex;
+          align-items: center;
+        }
         @media (max-width: 1150px) {
           width: 285px;
           line-height: 24px;
+          flex-direction: column;
           span {
-            display: block;
+            justify-content: center;
           }
         }
         img {
           width: 16px;
           margin-left: 5px;
           margin-right: 3px;
-          margin-bottom: -3px;
         }
       }
       @media only screen and (max-width : 500px) {

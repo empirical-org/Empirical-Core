@@ -7,6 +7,8 @@ class Response < ApplicationRecord
   after_commit :clear_responses_route_cache
   before_destroy :destroy_index_in_elastic_search
 
+  validates :question_uid, uniqueness: { scope: :text }
+
   settings analysis: {
     analyzer: {
       custom_analyzer: {
@@ -15,18 +17,18 @@ class Response < ApplicationRecord
     }
   }, index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
-      indexes :text, type: 'string', analyzer: :custom_analyzer
+      indexes :text, type: 'text', analyzer: :custom_analyzer
       indexes :sortable_text, type: 'keyword'
       indexes :id, type: 'integer'
-      indexes :uid, type: 'string'
-      indexes :question_uid, type: 'string', index: "not_analyzed"
+      indexes :uid, type: 'text'
+      indexes :question_uid, type: 'keyword'
       indexes :parent_id, type: 'integer'
-      indexes :parent_uid, type: 'string'
+      indexes :parent_uid, type: 'text'
       indexes :feedback, type: 'text'
       indexes :count, type: 'integer'
       indexes :child_count, type: 'integer'
       indexes :first_attempt_count, type: 'integer'
-      indexes :author, type: 'string'
+      indexes :author, type: 'text'
       indexes :status, type: 'integer'
       indexes :created_at, type: 'integer'
       indexes :spelling_error, type: 'boolean'
@@ -55,7 +57,7 @@ class Response < ApplicationRecord
 
   def grade_status
     if optimal.nil? && parent_id.nil?
-      return 4
+      4
     elsif parent_uid || parent_id
       optimal ? 2 : 3
     else
@@ -64,19 +66,22 @@ class Response < ApplicationRecord
   end
 
   def create_index_in_elastic_search
-    self.__elasticsearch__.index_document
+    __elasticsearch__.index_document
   end
 
   def update_index_in_elastic_search
-    self.__elasticsearch__.update_document
+    __elasticsearch__.update_document
   end
 
   def destroy_index_in_elastic_search
-    self.__elasticsearch__.delete_document
+    __elasticsearch__.delete_document
   end
 
   def clear_responses_route_cache
-    Rails.cache.delete("questions/#{self.question_uid}/responses")
+    Rails.cache.delete("questions/#{question_uid}/responses")
   end
 
+  def self.find_by_id_or_uid(string)
+    find_by_id(string) || find_by_uid(string)
+  end
 end

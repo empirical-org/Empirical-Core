@@ -25,7 +25,6 @@ export function getChangeObjectsWithoutAdded(targetString, userString) {
 
 export function getErroneousWordLength(changeObjects, key) {
   const addedWord = _.filter(changeObjects, { [key]: true, })[0];
-  console.log('added: ', addedWord);
   if (addedWord && addedWord.value === ',') {
     const precedingObjects = _.takeWhile(changeObjects, changeObject => !changeObject[key]);
     const segmentBeforeComma = precedingObjects[precedingObjects.length - 1] ? precedingObjects[precedingObjects.length - 1].value : '';

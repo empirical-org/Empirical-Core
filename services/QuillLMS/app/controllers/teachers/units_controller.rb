@@ -21,13 +21,12 @@ class Teachers::UnitsController < ApplicationController
   end
 
   def prohibited_unit_names
-    unitNames = current_user.units.pluck(:name).map(&:downcase)
-    unit_template_names = UnitTemplate.pluck(:name).map(&:downcase)
-    render json: { prohibitedUnitNames: unitNames.concat(unit_template_names) }.to_json
+    unit_names = current_user.units.pluck(:name).map(&:downcase)
+    render json: { prohibitedUnitNames: unit_names }.to_json
   end
 
   def last_assigned_unit_id
-    response = {id: Unit.where(user: current_user).last.id}
+    response = { id: Unit.where(user: current_user).last&.id }
     response = response.merge({ referral_code: current_user.referral_code }) if current_user && current_user.teacher?
     render json: response.to_json
   end

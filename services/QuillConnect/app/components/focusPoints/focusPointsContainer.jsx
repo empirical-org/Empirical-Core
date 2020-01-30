@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import questionActions from '../../actions/questions.js';
+import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 import {
   hashToCollection,
@@ -45,16 +45,16 @@ export class FocusPointsContainer extends Component {
   }
 
   renderTagsForFocusPoint(focusPointString) {
-    return focusPointString.split('|||').map((fp, index) => (<span key={`fp${index}`} className="tag is-medium is-light" style={{ margin: '3px', }}>{fp}</span>));
+    return focusPointString.split('|||').map((fp, index) => (<span className="tag is-medium is-light" key={`fp${index}`} style={{ margin: '3px', }}>{fp}</span>));
   }
 
   renderConceptResults(concepts, focusPointKey) {
     if (concepts) {
       const components = _.mapObject(concepts, (val, key) => (
-        <p key={`${val.name}`}className="control sub-title is-6">{val.name}
+        <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
           : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
-          <span className="tag is-small is-warning" style={{ cursor: 'pointer', marginLeft: 5, }} onClick={() => this.deleteConceptResult(key, focusPointKey)}>Delete</span>
+          <span className="tag is-small is-warning" onClick={() => this.deleteConceptResult(key, focusPointKey)} style={{ cursor: 'pointer', marginLeft: 5, }}>Delete</span>
         </p>
         )
       );
@@ -75,7 +75,7 @@ export class FocusPointsContainer extends Component {
     const components = this.fPsortedByOrder().map((fp) => {
       if (fp.text) {
         return (
-          <div key={fp.key} className="card is-fullwidth has-bottom-margin">
+          <div className="card is-fullwidth has-bottom-margin" key={fp.key}>
             <header className="card-header">
               <p className="card-header-title" style={{ display: 'inline-block', }}>
                 {this.renderTagsForFocusPoint(fp.text)}
@@ -89,14 +89,14 @@ export class FocusPointsContainer extends Component {
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
-              <a href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/${fp.key}/edit`} className="card-footer-item">Edit</a>
-              <a onClick={() => this.deleteFocusPoint(fp.key)} className="card-footer-item">Delete</a>
+              <a className="card-footer-item" href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/${fp.key}/edit`}>Edit</a>
+              <a className="card-footer-item" onClick={() => this.deleteFocusPoint(fp.key)}>Delete</a>
             </footer>
           </div>
         );
       }
     });
-    return <SortableList key={_.values(components).length} sortCallback={this.sortCallback} data={_.values(components)} />;
+    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
   sortCallback(sortInfo) {
@@ -122,7 +122,7 @@ export class FocusPointsContainer extends Component {
 
   renderfPButton() {
     return (
-      this.state.fpOrderedIds ? <button className="button is-outlined is-primary" style={{ float: 'right', }} onClick={this.updatefpOrder}>Save FP Order</button> : null
+      this.state.fpOrderedIds ? <button className="button is-outlined is-primary" onClick={this.updatefpOrder} style={{ float: 'right', }}>Save FP Order</button> : null
     );
   }
 
@@ -131,7 +131,7 @@ export class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" style={{ float: 'right', }} href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/new`}>Add Focus Point</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/new`} style={{ float: 'right', }}>Add Focus Point</a>
           {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}

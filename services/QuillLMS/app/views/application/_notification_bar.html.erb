@@ -1,6 +1,8 @@
 <% current_path = request.env['PATH_INFO'] %>
-<div class="notification-bar google-issue">
-  <p>
-    Quill is currently experiencing issues with our Lessons tool. It will be back up and running as quickly as possible. We&nbsp;apologize&nbsp;for&nbsp;the&nbsp;inconvenience!
-  </p>
-</div>
+<% if ENV['NOTIFICATION_BAR_SHOWING'].to_s.downcase == "true" %>
+  <div class="notification-bar google-issue">
+    <p>
+      <%= ENV['NOTIFICATION_BAR_TEXT'] %>
+    </p>
+  </div>
+<% end %>

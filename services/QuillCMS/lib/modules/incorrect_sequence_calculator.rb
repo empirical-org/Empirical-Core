@@ -39,7 +39,7 @@ class ActiveRecord::Relation
     end
 
     loop do
-      items = self.where(table[primary_key].gteq(batch_start))
+      items = where(table[primary_key].gteq(batch_start))
                   .limit(batch_size)
                   .order(table[primary_key].asc)
                   .pluck(*select_columns)
@@ -64,7 +64,7 @@ end
 
 module IncorrectSequenceCalculator
 
-  def self.get_incorrect_sequences_for_question(uid)
+  def self.incorrect_sequences_for_question(uid)
     model = train_correct_sentences(Response.where(question_uid: uid, optimal: true).pluck(:text))
     counter = Hash.new(0)
     response_count = Response.where(question_uid: uid, optimal: [false, nil]).count > 250 ? 1 : 0
@@ -72,7 +72,7 @@ module IncorrectSequenceCalculator
       counter = train_incorrect_sentences(batch, model, counter)
     end
     amplify(counter, model)
-    return counter.sort_by {|k, v| v }.reverse.first(100).map do |k,v|
+    counter.sort_by {|k, v| v }.reverse.first(100).map do |k,v|
       if k[0] != ' '
         "^#{k}"
       elsif k[-1] != ' '

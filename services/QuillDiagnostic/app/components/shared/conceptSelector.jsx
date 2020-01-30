@@ -38,9 +38,9 @@ class ConceptSelector extends React.Component {
     return (
       <Select
         disabled={this.props.selectorDisabled}
+        onChange={this.props.handleSelectorChange}
         options={this.conceptsToOptions()}
         placeholder={this.placeholder()}
-        onChange={this.props.handleSelectorChange}
         style={{display: 'block'}}
       />
     )

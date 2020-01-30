@@ -46,22 +46,22 @@ class AdminContainer extends React.Component<AdminContainerProps> {
               General
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/lessons'} activeClassName="is-active">Grammar Activities</TabLink>
-              <TabLink to={'/admin/question_dashboard'} activeClassName="is-active">Question Dashboard</TabLink>
-              <TabLink to={'/admin/concept_dashboard'} activeClassName="is-active">Concept Dashboard</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Grammar Activities</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/question_dashboard'}>Question Dashboard</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concept_dashboard'}>Concept Dashboard</TabLink>
             </ul>
             <p className="menu-label">
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/questions'} activeClassName="is-active">Questions</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/questions'}>Questions</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink to={'/admin/concepts'} activeClassName="is-active">Concepts</TabLink>
-              <TabLink to={'/admin/concepts_feedback'} activeClassName="is-active">Concept Feedback</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concepts_feedback'}>Concept Feedback</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
@@ -69,16 +69,16 @@ class AdminContainer extends React.Component<AdminContainerProps> {
           </div>
         </section>
         <Switch>
-          <Route path={`/admin/lessons/:lessonID`} component={Lesson}/>
-          <Route path={`/admin/lessons`} component={Lessons}/>
-          <Route path={`/admin/questions/:questionID`} component={Question}/>
-          <Route path={`/admin/questions`} component={Questions}/>
-          <Route path={`/admin/concepts/:conceptID`} component={Concept}/>
-          <Route path={`/admin/concepts`} component={Concepts}/>
-          <Route path={`/admin/concepts_feedback/:conceptFeedbackID`} component={ConceptFeedback}/>
-          <Route path={`/admin/concepts_feedback`} component={ConceptsFeedback}/>
-          <Route path={`/admin/question_dashboard`} component={QuestionDashboard} />
-          <Route path={`/admin/concept_dashboard`} component={ConceptDashboard} />
+          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
+          <Route component={Lessons} path={`/admin/lessons`} />
+          <Route component={Question} path={`/admin/questions/:questionID`} />
+          <Route component={Questions} path={`/admin/questions`} />
+          <Route component={Concept} path={`/admin/concepts/:conceptID`} />
+          <Route component={Concepts} path={`/admin/concepts`} />
+          <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`} />
+          <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`} />
+          <Route component={QuestionDashboard} path={`/admin/question_dashboard`} />
+          <Route component={ConceptDashboard} path={`/admin/concept_dashboard`} />
         </Switch>
       </div>
     );

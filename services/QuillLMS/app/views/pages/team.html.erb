@@ -1,23 +1,54 @@
 <% @active_tab = 'Team' %>
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 
-<div class="container team">
-  <% team_info.each do |team_type| %>
-    <section>
-      <h3><%= team_type[:team] %></h3>
-      <div class='team-members'>
-        <% team_type[:members].each do |person| %>
-          <div class='team-member'>
-            <div class='meta-container'>
-              <img src=<%= "#{ENV['CDN_URL']}/images/headshots/#{person[:img]}" %> %>
+<% base_image_url = "#{ENV['CDN_URL']}/images/team/" %>
+
+<div class="white-background">
+  <div class="container pages-container team-page about-us-page">
+
+    <div class="header">
+      <h1>Meet our team</h1>
+      <p>Learn more about the dedicated educators, visionary designers, and innovative engineers behind Quill's tools.</p>
+      <a class="quill-button medium secondary outlined hide-mobile" href="https://angel.co/company/quill-org/jobs" target="_blank">Join our team</a>
+    </div>
+
+    <% team_info.each do |team_type| %>
+      <section>
+        <h2><%= team_type[:team] %></h2>
+        <div class='team-members'>
+          <% team_type[:members].each do |person| %>
+            <div class='team-member'>
+              <img class="square-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
               <h4> <%= person[:name] %> </h4>
               <h5> <%= person[:title] %> </h5>
             </div>
-            <p> <%= raw person[:desc] %> </p>
-          </div>
-        <% end %>
-      </div>
-    </section>
+          <% end %>
+        </div>
+      </section>
     <% end %>
+
+    <div class="hiring-blurb">
+      <h3>We're hiring. Join the team!</h3>
+      <a href="/careers" class="quill-button medium outlined secondary">See careers</a>
+    </div>
+
+    <% board_and_advisors_info.each do |team_type| %>
+      <section>
+        <h2><%= team_type[:team] %></h2>
+        <div class='board-and-advisory-members'>
+          <% team_type[:members].each do |person| %>
+            <div class='board-or-advisory-member'>
+              <img class="square-extra-small-img" src=<%= "#{base_image_url}#{person[:img]}" %> alt=<%= "#{person[:name]}"%> />
+              <div>
+                <h4> <%= person[:name] %> </h4>
+                <h5> <%= person[:title] %> </h5>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+
   </div>
 </div>

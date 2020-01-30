@@ -6,9 +6,9 @@ import React from 'react'
 // }
 
 const Prompt = (props: any) => (
-    <div style={props.style} >
-      {props.elements}
-    </div>
+  <div style={props.style} >
+    {props.elements}
+  </div>
 )
 
 export { Prompt }

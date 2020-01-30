@@ -62,7 +62,8 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     type = 'fillInBlankQuestions';
   }
 
-  fetch('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod', {
+  const rematchAllUrl = `${process.env.QUILL_CMS}/responses/rematch_all`;
+  fetch(rematchAllUrl, {
     method: 'POST',
     body: JSON.stringify({type, uid: questionID}),
     headers: {
@@ -75,10 +76,9 @@ export function rematchAll(mode: string, questionID: string, callback:Function) 
     }
     return response.json();
   }).then((response) => {
-    console.log('success');
     callback('done')
   }).catch((error) => {
-    console.log('error', error);
+    // to do - do something with this error
   });
 
 }
@@ -118,7 +118,7 @@ export function paginatedNonHumanResponses(matcher, matcherFields, qid, page, ca
     }
     callback({ progress: undefined, }, true);
   }).catch((err) => {
-    console.log(err);
+    // to do - do something with this error
   });
 }
 
@@ -140,7 +140,6 @@ function rematchResponse(matcher, matcherFields, response) {
   }
 
   const delta = determineDelta(response, newResponse);
-  // console.log(response.id, response.text, delta);
   switch (delta) {
     case 'tobeunmatched':
       return unmatchRematchedResponse(response);
@@ -177,7 +176,7 @@ function updateRematchedResponse(response, newResponse) {
 
 function deleteRematchedResponse(response) {
   // deleteResponse(rid);
-  console.log('Should be deleted');
+  // to do - do something with this method or delete it
 }
 
 function updateResponse(rid, content) {

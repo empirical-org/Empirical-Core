@@ -12,25 +12,26 @@ import {
 } from '../../actions/responses';
 import C from '../../constants';
 
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 const NavLink = activeComponent('li');
 
-const SentenceFragment = React.createClass({
+class SentenceFragment extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       selectedBoilerplateCategory: '',
       responses: [],
       loadedResponses: false,
       uploadingNewOptimalResponses: false
-    };
-  },
+    }
+  }
 
   componentWillMount() {
-    const questionID = this.props.params.questionID;
+    const { params, } = this.props
     listenToResponsesWithCallback(
-      questionID,
+      params.questionID,
       (data) => {
         this.setState({
           responses: data,
@@ -38,109 +39,124 @@ const SentenceFragment = React.createClass({
         });
       }
     );
-  },
+  }
 
-  getQuestion() {
-    const { data, } = this.props.sentenceFragments;
-    const { questionID, } = this.props.params;
-    return data[questionID];
-  },
+  getQuestion = () => {
+    const { sentenceFragments, params, } = this.props
+    return sentenceFragments.data[params.questionID];
+  }
 
-  getResponses() {
-    return this.state.responses;
-  },
+  getResponses = () => {
+    const { responses, } = this.state
+    return responses;
+  }
 
-  startUploadingNewOptimalResponses() {
+  handleUploadOptimalResponsesClick = () => {
     this.setState({ uploadingNewOptimalResponses: true, });
-  },
+  }
 
-  cancelEditingSentenceFragment() {
-    this.props.dispatch(fragmentActions.cancelSentenceFragmentEdit(this.props.params.questionID));
-  },
+  cancelEditingSentenceFragment = () => {
+    const { dispatch, params, } = this.props
+    dispatch(fragmentActions.cancelSentenceFragmentEdit(params.questionID));
+  }
 
-  startEditingSentenceFragment() {
-    this.props.dispatch(fragmentActions.startSentenceFragmentEdit(this.props.params.questionID));
-  },
+  handleEditFragmentClick = () => {
+    const { dispatch, params, } = this.props
+    dispatch(fragmentActions.startSentenceFragmentEdit(params.questionID));
+  }
 
   saveSentenceFragmentEdits(data) {
-    this.props.dispatch(fragmentActions.submitSentenceFragmentEdit(this.props.params.questionID, data));
-  },
+    const { dispatch, params, } = this.props
+    dispatch(fragmentActions.submitSentenceFragmentEdit(params.questionID, data));
+  }
 
   submitOptimalResponses(responseStrings) {
-    const conceptUID = this.getQuestion().conceptID
-    this.props.dispatch(submitOptimalResponses(this.props.params.questionID, conceptUID, responseStrings))
-    this.setState({ uploadingNewOptimalResponses: false, })
-  },
+    const { dispatch, params, } = this.props
 
-  renderEditForm() {
-    if (this.props.sentenceFragments.states[this.props.params.questionID] === C.EDITING_SENTENCE_FRAGMENT) {
+    const conceptUID = this.getQuestion().conceptID
+    dispatch(submitOptimalResponses(params.questionID, conceptUID, responseStrings))
+    this.setState({ uploadingNewOptimalResponses: false, })
+  }
+
+  closeModal = () => {
+    this.setState({ uploadingNewOptimalResponses: false, })
+  }
+
+  renderEditForm = () => {
+    const { sentenceFragments, params, concepts, } = this.props
+    if (sentenceFragments.states[params.questionID] === C.EDITING_SENTENCE_FRAGMENT) {
       return (
         <Modal close={this.cancelEditingSentenceFragment}>
           <div className="box">
             <h6 className="title is-h6">Edit Sentence Fragment</h6>
             <EditForm
-              mode="Edit" data={this.props.sentenceFragments.data[this.props.params.questionID]}
-              submit={this.saveSentenceFragmentEdits} concepts={this.props.concepts}
+              concepts={concepts}
+              data={sentenceFragments.data[params.questionID]}
+              mode="Edit"
+              submit={this.saveSentenceFragmentEdits}
             />
           </div>
         </Modal>
       );
     }
-  },
+  }
 
-  renderUploadNewOptimalResponsesForm() {
-    if (this.state.uploadingNewOptimalResponses) {
-      return (
-        <Modal close={() => { this.setState({ uploadingNewOptimalResponses: false, }); }}>
-          <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
-        </Modal>
-      );
-    }
-  },
+  renderUploadNewOptimalResponsesForm = () => {
+    const { uploadingNewOptimalResponses, } = this.state
+    if (!uploadingNewOptimalResponses) { return }
+
+    return (
+      <Modal close={this.closeModal}>
+        <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
+      </Modal>
+    );
+  }
 
   renderResponseComponent(data, states, questionID) {
+    const { dispatch, } = this.props
     if (this.getResponses()) {
       return (
         <ResponseComponent
-          question={data[questionID]}
-          responses={this.getResponses()}
-          questionID={questionID}
-          states={states}
-          dispatch={this.props.dispatch}
           admin
-          mode={'sentenceFragment'}
+          dispatch={dispatch}
+          mode='sentenceFragment'
+          question={data[questionID]}
+          questionID={questionID}
+          responses={this.getResponses()}
+          states={states}
         />
       );
     }
-  },
+  }
 
-  render() {
-    const { data, states, hasreceiveddata, } = this.props.sentenceFragments;
-    const { questionID, } = this.props.params;
+  render = () => {
+    const { sentenceFragments, params, massEdit, children, } = this.props
+    const { data, states, hasreceiveddata, } = sentenceFragments;
+    const { questionID, } = params;
     if (!hasreceiveddata) {
       return (
         <h1>Loading...</h1>
       );
     } else if (data[questionID]) {
-      // console.log("conceptID: ", this.props.sentenceFragments.data[this.props.params.questionID].conceptID)
-      const activeLink = this.props.massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/mass-edit`}>Mass Edit ({this.props.massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({this.props.massEdit.numSelectedResponses})</li>
+      // console.log("conceptID: ", sentenceFragments.data[params.questionID].conceptID)
+      const activeLink = massEdit.numSelectedResponses > 1
+      ? <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       return (
         <div>
           {this.renderEditForm()}
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }}/>
-            <h4 style={{color: '#00c2a2'}} className="title">Flag: {data[questionID].flag}</h4>
+            <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
+            <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
-            <img className="info" src={icon} />
+            <img alt="Directions Icon" className="info" src={icon} />
             <p>{data[questionID].instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <div className="button-group" style={{ marginTop: 10, }}>
-            <button className="button is-info" onClick={this.startEditingSentenceFragment}>Edit Fragment</button>
-            <button className="button is-info" onClick={this.startUploadingNewOptimalResponses}>Upload Optimal Responses</button>
+            <button className="button is-info" onClick={this.handleEditFragmentClick} type="button">Edit Fragment</button>
+            <button className="button is-info" onClick={this.handleUploadOptimalResponsesClick} type="button">Upload Optimal Responses</button>
           </div>
 
           <div className="tabs">
@@ -154,7 +170,7 @@ const SentenceFragment = React.createClass({
             </ul>
           </div>
           <br />
-          {this.props.children}
+          {children}
         </div>
       );
     } else {
@@ -162,16 +178,15 @@ const SentenceFragment = React.createClass({
         <h1>404</h1>
       );
     }
-  },
-});
+  }
+}
 
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
     concepts: state.concepts,
     routing: state.routing,
-    massEdit: state.massEdit,
-    // responses: state.responses
+    massEdit: state.massEdit
   };
 }
 

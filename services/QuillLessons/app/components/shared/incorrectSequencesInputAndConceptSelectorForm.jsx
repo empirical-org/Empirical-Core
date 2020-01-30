@@ -81,19 +81,19 @@ export default React.createClass({
 
   renderTextInputFields() {
     return this.state.itemText.split('|||').map(text => (
-      <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} onBlur={this.getNewAffectedCount} type="text" value={text || ''} />
+      <input className="input focus-point-text" onBlur={this.getNewAffectedCount} onChange={this.handleChange.bind(null, 'itemText')} style={{ marginBottom: 5, }} type="text" value={text || ''} />
     ));
   },
 
   renderConceptSelectorFields() {
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
-        handleSelectorChange={this.handleConceptChange}
-        currentConceptUID={key}
         checked={val.correct}
+        currentConceptUID={key}
+        deleteConceptResult={() => this.deleteConceptResult(key)}
+        handleSelectorChange={this.handleConceptChange}
         onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
         selectorDisabled={key === 'null' ? false : true}
-        deleteConceptResult={() => this.deleteConceptResult(key)}
       />
     ));
     return _.values(components);
@@ -157,62 +157,63 @@ export default React.createClass({
         const seqTag = this.renderSequenceTag(seq, color, i)
         covered && !added ? coveredSequences.push(seqTag) : suggestedSequences.push(seqTag)
       })
-      const suggestedSequencesDiv = suggestedSequences.length > 0 ? <div>
+      const suggestedSequencesDiv = suggestedSequences.length > 0 ? (<div>
         <label className="label">Suggested Sequences</label>
         <div>{suggestedSequences}</div>
-      </div> : null
-      const coveredSequencesDiv = coveredSequences.length > 0 ? <div>
+      </div>) : null
+      const coveredSequencesDiv = coveredSequences.length > 0 ? (<div>
         <label className="label">Covered by Selected Sequences</label>
         <div>{coveredSequences}</div>
-      </div> : null
-      return <div>
+      </div>) : null
+      return (<div>
         {suggestedSequencesDiv}
         {coveredSequencesDiv}
-      </div>
+      </div>)
     }
   },
 
   renderUsedIncorrectSequences() {
     if (this.props.usedSequences && this.props.usedSequences.length > 0) {
       const usedSequences = this.props.usedSequences.map((seq, i) => this.renderSequenceTag(seq, '#c0c0c0', i))
-        return <div>
+        return (<div>
           <label className="label">Previously Used Sequences</label>
           <div>
             {usedSequences}
           </div>
-        </div>
+        </div>)
     }
   },
 
   renderCoveredByUsedIncorrectSequences() {
     if (this.props.coveredSequences && this.props.coveredSequences.length > 0) {
       const coveredSequences = this.props.coveredSequences.map((seq, i) => this.renderSequenceTag(seq, '#969696', i))
-        return <div>
+        return (<div>
           <label className="label">Covered by Previously Used Sequences</label>
           <div>
             {coveredSequences}
           </div>
-        </div>
+        </div>)
     }
   },
 
   renderSequenceTag(seq, backgroundColor, i) {
-    return <span
-        className="tag"
-        style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
-        key={i}
-        onClick={() => this.toggleSuggestedSequence(seq)}>
+    return (<span
+      className="tag"
+      key={i}
+      onClick={() => this.toggleSuggestedSequence(seq)}
+      style={{margin: '5px', backgroundColor: backgroundColor, color: 'white'}}
+    >
       {seq}
-      </span>
+    </span>)
    },
 
   renderSuggestedIncorrectSequencesSection() {
     if (this.props.suggestedSequences && this.props.suggestedSequences.length > 0) {
-      return <div>
+      return (<div>
         {this.renderSuggestedIncorrectSequences()}
         {this.renderUsedIncorrectSequences()}
         {this.renderCoveredByUsedIncorrectSequences()}
-      </div>
+      </div>)
     }
   },
 
@@ -229,28 +230,28 @@ export default React.createClass({
             {this.renderSuggestedIncorrectSequencesSection()}
             <label className="label" style={{ marginTop: 10, }}>Feedback</label>
             <TextEditor
-              text={this.state.itemFeedback || ""}
+              ContentState={ContentState}
+              EditorState={EditorState}
               handleTextChange={this.handleFeedbackChange}
               key={"feedback"}
-              EditorState={EditorState}
-              ContentState={ContentState}
+              text={this.state.itemFeedback || ""}
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
           </div>
           <p className="control">
             <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-            <button className={'button is-outlined is-info'} style={{ marginLeft: 5, }} onClick={() => window.history.back()}>Cancel</button>
+            <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
           </p>
         </div>
         <div>
           <label className="label">{this.state.matchedCount} {this.state.matchedCount === 1 ? 'sequence' : 'sequences'} affected</label>
           <ResponseComponent
-            selectedIncorrectSequences={this.state.itemText.split('|||')}
-            question={dataset}
             mode={mode}
-            states={this.props.states}
+            question={dataset}
             questionID={this.props.questionID}
+            selectedIncorrectSequences={this.state.itemText.split('|||')}
+            states={this.props.states}
           />
         </div>
       </div>

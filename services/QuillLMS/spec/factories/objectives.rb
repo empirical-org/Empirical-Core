@@ -14,7 +14,7 @@ FactoryBot.define do
       name              { 'Create a Classroom' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369605' }
       section           'Getting Started'
-      action_url        { '/teachers/classrooms/new' }
+      action_url        { '/teachers/classrooms?modal=create-a-class' }
       section_placement { 1 }
     end
 
@@ -22,7 +22,7 @@ FactoryBot.define do
       name              { 'Add Students' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/369608' }
       section           'Getting Started'
-      action_url        { '/teachers/add_students' }
+      action_url        { '/teachers/classrooms' }
       section_placement { 2 }
     end
 
@@ -46,7 +46,7 @@ FactoryBot.define do
       name              { 'Assign Entry Diagnostic' }
       help_info         { 'http://support.quill.org/knowledgebase/articles/1144849' }
       section           'Getting Started'
-      action_url        { '/teachers/classrooms/activity_planner/assign-a-diagnostic' }
+      action_url        { '/teachers/classrooms/activity_planner/diagnostic' }
       section_placement { 4 }
     end
 

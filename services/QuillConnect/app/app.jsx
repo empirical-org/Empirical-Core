@@ -21,21 +21,22 @@ import levelActions from './actions/item-levels';
 import * as titleCardActions from './actions/titleCards.ts';
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
-import Raven from 'raven-js';
+// import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
 import SocketProvider from './components/socketProvider';
 
-if (process.env.NODE_ENV === 'production') {
-  console.log('App is running in production');
-  Raven
-  .config(
-    'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
-    {
-      environment: process.env.NODE_ENV,
-    }
-  )
-  .install();
-}
+// TO-DO: re-enable Sentry errors for QuillConnect when errors have been reduced
+
+// if (process.env.NODE_ENV === 'production') {
+//   Raven
+//   .config(
+//     'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
+//     {
+//       environment: process.env.NODE_ENV,
+//     }
+//   )
+//   .install();
+// }
 
 BackOff();
 const hashhistory = createHashHistory({ queryKey: false, });
@@ -61,15 +62,40 @@ render((
   root
 );
 
-setTimeout(() => {
-  store.dispatch(conceptActions.startListeningToConcepts());
-  store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
-  store.dispatch(questionActions.loadQuestions());
-  store.dispatch(fillInBlankActions.loadQuestions());
-  store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-  store.dispatch(levelActions.loadItemLevels());
-  store.dispatch(lessonActions.startListeningToLessons());
-  store.dispatch(titleCardActions.loadTitleCards());
-});
+// This is pretty hacky.
+// Ideally we should really be extracting the both UIDs from
+// the Router, but because we populate redux so early in the
+// code stack (i.e. right below) we need access to the UIDs
+// outside of the Router's scope, so we have this work-around
+// rather than shuffling the redux initialization around.
+// TODO: At some point we should figure out how to more strictly
+// separate the admin and lesson side of the apps so that we
+// don't have this unified store definition.
+function extractLessonUIDFromLocation() {
+  const playRegex = /^#\/play\/(lesson|turk)\/([^\?]+)/;
+  const matches = window.location.hash.match(playRegex);
+  return (matches) ? matches[2] : null;
+}
+
+const lessonUid = extractLessonUIDFromLocation();
+
+if (lessonUid) {
+  setTimeout(() => {
+    store.dispatch(conceptActions.startListeningToConcepts());
+    store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
+    store.dispatch(lessonActions.loadLessonWithQuestions(lessonUid));
+  });
+} else {
+  setTimeout(() => {
+    store.dispatch(conceptActions.startListeningToConcepts());
+    store.dispatch(conceptsFeedbackActions.loadConceptsFeedback());
+    store.dispatch(questionActions.loadQuestions());
+    store.dispatch(fillInBlankActions.loadQuestions());
+    store.dispatch(sentenceFragmentActions.loadSentenceFragments());
+    store.dispatch(levelActions.loadItemLevels());
+    store.dispatch(lessonActions.startListeningToLessons());
+    store.dispatch(titleCardActions.loadTitleCards());
+  });
+}
 
 String.prototype.quillNormalize = quillNormalizer;

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Pusher from 'pusher-js';
 import { Snackbar, defaultSnackbarTimeout } from 'quill-component-library/dist/componentLibrary'
 
 import CreateAClassModal from './create_a_class_modal'
@@ -32,7 +33,7 @@ interface ActiveClassroomsState {
   showModal?: string;
   googleClassroomsLoading?: boolean;
   attemptedImportGoogleClassrooms?: boolean;
-  selectedClassroomId?: number;
+  selectedClassroomId?: number|string;
   snackbarCopy?: string;
 }
 
@@ -65,31 +66,72 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
     this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
     this.getClassroomsAndCoteacherInvitations = this.getClassroomsAndCoteacherInvitations.bind(this)
     this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
+    this.setStateBasedOnParams = this.setStateBasedOnParams.bind(this)
   }
 
   componentDidMount() {
     this.getGoogleClassrooms()
+    this.setStateBasedOnParams()
+  }
+
+  setStateBasedOnParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const modal = urlParams.get('modal')
+    const classroom = urlParams.get('classroom')
+
+    let showModal
+    let selectedClassroomId = Number(classroom)
+    if (modal === 'create-a-class') {
+      showModal = createAClassModal
+    } else if (modal === 'google-classroom') {
+      this.clickImportGoogleClassrooms()
+    } else if (modal === 'invite-students') {
+      showModal = inviteStudentsModal
+    }
+
+    if (showModal || selectedClassroomId) {
+      this.setState({ showModal, selectedClassroomId })
+    }
+
   }
 
   getGoogleClassrooms() {
     if (this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
-          const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
-          const newStateObj: any = { googleClassrooms, googleClassroomsLoading: false }
-          if (this.state.attemptedImportGoogleClassrooms) {
-            newStateObj.attemptedImportGoogleClassrooms = false
-            this.setState(newStateObj, this.clickImportGoogleClassrooms)
+          if (body.quill_retrieval_processing) {
+            this.initializePusherForGoogleClassrooms(body.id)
           } else {
-            this.setState(newStateObj)
-          }
-        });
+            const googleClassrooms = body.classrooms.filter(classroom => !classroom.alreadyImported)
+            const newStateObj: any = { googleClassrooms, googleClassroomsLoading: false }
+            if (this.state.attemptedImportGoogleClassrooms) {
+              newStateObj.attemptedImportGoogleClassrooms = false
+              this.setState(newStateObj, this.clickImportGoogleClassrooms)
+            } else {
+              this.setState(newStateObj)
+            }
+          };
+        })
       })
     }
   }
 
+  initializePusherForGoogleClassrooms(id) {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('google-classrooms-retrieved', () => {
+      that.getGoogleClassrooms()
+      pusher.unsubscribe(channelName)
+    });
+  }
+
   getClassroomsAndCoteacherInvitations() {
-    requestGet('/teachers/classrooms/new_index', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
+    requestGet('/teachers/classrooms', (body) => this.setState({ classrooms: body.classrooms.filter(classroom => classroom.visible), coteacherInvitations: body.coteacher_invitations }));
   }
 
   onSuccess(snackbarCopy) {
@@ -152,141 +194,142 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       return c.visible && classroomOwner.id === user.id
     })
     if (classrooms.length === 0 && coteacherInvitations.length === 0) {
-      return <div className="no-active-classes">
+      return (<div className="no-active-classes">
         <img src={emptyClassSrc} />
         <p>Every teacher needs a class! Please select one of the buttons on the right to get started.</p>
-      </div>
+      </div>)
     } else {
       const coteacherInvitationCards = coteacherInvitations.map(coteacherInvitation => {
-        return <CoteacherInvitation
+        return (<CoteacherInvitation
+          coteacherInvitation={coteacherInvitation}
+          getClassroomsAndCoteacherInvitations={this.getClassroomsAndCoteacherInvitations}
           key={coteacherInvitation.id}
           showSnackbar={this.showSnackbar}
-          getClassroomsAndCoteacherInvitations={this.getClassroomsAndCoteacherInvitations}
-          coteacherInvitation={coteacherInvitation}
-        />
+        />)
       })
       const classroomCards = classrooms.map(classroom => {
         const isOwnedByCurrentUser = !!ownActiveClassrooms.find(c => c.id === classroom.id)
-        return <Classroom
-          key={classroom.id}
-          renameClass={() => this.openModal(renameClassModal)}
-          changeGrade={() => this.openModal(changeGradeModal)}
+        return (<Classroom
           archiveClass={() => this.openModal(archiveClassModal)}
-          inviteStudents={() => this.openModal(inviteStudentsModal)}
-          importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
+          changeGrade={() => this.openModal(changeGradeModal)}
           classroom={classroom}
           classrooms={ownActiveClassrooms}
-          selected={classroom.id === this.state.selectedClassroomId}
           clickClassroomHeader={this.clickClassroomHeader}
-          user={user}
+          importGoogleClassroomStudents={() => this.openModal(importGoogleClassroomStudentsModal)}
+          inviteStudents={() => this.openModal(inviteStudentsModal)}
           isOwnedByCurrentUser={isOwnedByCurrentUser}
+          key={classroom.id}
           onSuccess={this.onSuccess}
-        />
+          renameClass={() => this.openModal(renameClassModal)}
+          selected={classroom.id === this.state.selectedClassroomId}
+          user={user}
+        />)
       })
-      return <div className="active-classes">
+      return (<div className="active-classes">
         {coteacherInvitationCards}
         {classroomCards}
-      </div>
+      </div>)
     }
   }
 
   renderCreateAClassModal() {
     if (this.state.showModal === createAClassModal) {
-      return <CreateAClassModal
+      return (<CreateAClassModal
         close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
         showSnackbar={this.showSnackbar}
-      />
+      />)
     }
   }
 
   renderInviteStudentsModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
     const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-    if (showModal === inviteStudentsModal) {
-      return <InviteStudentsModal
+    if (showModal === inviteStudentsModal && selectedClassroom) {
+      return (<InviteStudentsModal
+        classroom={selectedClassroom}
         close={() => this.closeModal(this.getClassroomsAndCoteacherInvitations)}
         showSnackbar={this.showSnackbar}
-        classroom={selectedClassroom}
-      />
+      />)
     }
   }
 
   renderRenameClassModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === renameClassModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return <RenameClassModal
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === renameClassModal && selectedClassroom) {
+      return (<RenameClassModal
+        classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classroom={selectedClassroom}
-      />
+      />)
     }
   }
 
   renderChangeGradeModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === changeGradeModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return <ChangeGradeModal
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === changeGradeModal && selectedClassroom) {
+      return (<ChangeGradeModal
+        classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classroom={selectedClassroom}
-      />
+      />)
     }
   }
 
   renderArchiveClassModal() {
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === archiveClassModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return <ArchiveClassModal
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === archiveClassModal && selectedClassroom) {
+      return (<ArchiveClassModal
+        classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classroom={selectedClassroom}
-      />
+      />)
     }
   }
 
   renderImportGoogleClassroomStudentsModal() {
+    const { user, } = this.props
     const { showModal, classrooms, selectedClassroomId } = this.state
-    if (showModal === importGoogleClassroomStudentsModal) {
-      const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
-      return <ImportGoogleClassroomStudentsModal
+    const selectedClassroom = classrooms.find(c => c.id === selectedClassroomId)
+    if (showModal === importGoogleClassroomStudentsModal && selectedClassroom) {
+      return (<ImportGoogleClassroomStudentsModal
+        classroom={selectedClassroom}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classroom={selectedClassroom}
-      />
+      />)
     }
   }
 
   renderImportGoogleClassroomsModal() {
     const { googleClassrooms, showModal } = this.state
     if (showModal === importGoogleClassroomsModal) {
-      return <ImportGoogleClassroomsModal
+      return (<ImportGoogleClassroomsModal
+        classrooms={googleClassrooms}
         close={this.closeModal}
         onSuccess={this.onSuccess}
-        classrooms={googleClassrooms}
         user={this.props.user}
-      />
+      />)
     }
   }
 
   renderGoogleClassroomEmailModal() {
     const { showModal } = this.state
     if (showModal === googleClassroomEmailModal) {
-      return <GoogleClassroomEmailModal
+      return (<GoogleClassroomEmailModal
         close={this.closeModal}
         user={this.props.user}
-      />
+      />)
     }
   }
 
   renderGoogleClassroomsEmptyModal() {
     const { showModal } = this.state
     if (showModal === googleClassroomsEmptyModal) {
-      return <GoogleClassroomsEmptyModal
+      return (<GoogleClassroomsEmptyModal
         close={this.closeModal}
-      />
+      />)
     }
   }
 
@@ -299,15 +342,15 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
       buttonClassName += ' loading'
     }
     return (<button
-      onClick={this.clickImportGoogleClassrooms}
       className={buttonClassName}
+      onClick={this.clickImportGoogleClassrooms}
     >
       {buttonContent}
     </button>)
   }
 
   render() {
-    return <div className="active-classrooms classrooms-page">
+    return (<div className="active-classrooms classrooms-page">
       {this.renderCreateAClassModal()}
       {this.renderRenameClassModal()}
       {this.renderChangeGradeModal()}
@@ -322,10 +365,10 @@ export default class ActiveClassrooms extends React.Component<ActiveClassroomsPr
         <h1>Active Classes</h1>
         <div className="buttons">
           {this.renderImportGoogleClassroomsButton()}
-          <button onClick={() => this.openModal(createAClassModal)} className="quill-button medium primary contained create-a-class-button">Create a class</button>
+          <button className="quill-button medium primary contained create-a-class-button" onClick={() => this.openModal(createAClassModal)}>Create a class</button>
         </div>
       </div>
       {this.renderPageContent()}
-    </div>
+    </div>)
   }
 }

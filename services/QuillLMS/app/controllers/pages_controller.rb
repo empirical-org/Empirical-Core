@@ -3,6 +3,13 @@ class PagesController < ApplicationController
   before_filter :determine_js_file, :determine_flag
   layout :determine_layout
 
+  NUMBER_OF_SENTENCES = "NUMBER_OF_SENTENCES"
+  NUMBER_OF_STUDENTS = "NUMBER_OF_STUDENTS"
+  NUMBER_OF_CITIES = "NUMBER_OF_CITIES"
+  NUMBER_OF_TEACHERS = "NUMBER_OF_TEACHERS"
+  NUMBER_OF_SCHOOLS = "NUMBER_OF_SCHOOLS"
+  NUMBER_OF_LOW_INCOME_SCHOOLS = "NUMBER_OF_LOW_INCOME_SCHOOLS"
+
   def home
     if signed_in?
       redirect_to(profile_path) && return
@@ -19,8 +26,8 @@ class PagesController < ApplicationController
     @title = 'Quill.org — Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
     # default numbers are current as of 03/12/19
-    @number_of_sentences = $redis.get("NUMBER_OF_SENTENCES") || 180000000
-    @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
+    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
 
     if request.env['affiliate.tag']
       name = ReferrerUser.find_by(referral_code: request.env['affiliate.tag'])&.user&.name
@@ -29,6 +36,7 @@ class PagesController < ApplicationController
     if check_should_clear_segment_identity
       set_just_logged_out_flag
     end
+    self.formats = ['html']
   end
 
   def develop
@@ -45,6 +53,10 @@ class PagesController < ApplicationController
   end
 
   def mission
+    redirect_to('/about')
+  end
+
+  def careers
   end
 
   def beta
@@ -57,7 +69,6 @@ class PagesController < ApplicationController
   end
 
   def about
-    @body_class = 'full-width-page white-page'
   end
 
   def faq
@@ -85,7 +96,7 @@ class PagesController < ApplicationController
           },
           {
             question: "Who is using Quill?",
-            answer: "<p>As of January 2018, over 20,000 teachers and 750,000 students have used Quill. These students complete approximately 30,000 activities each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.</p>"
+            answer: "<p>As of June 2019, over 36,000 teachers and 1,710,000 students have used Quill. These students complete approximately 30,000 activities each day. From Rhode Island to Russia, and the Bay Area to Great Britain, these students live all over the world.</p>"
           },
           {
             question: "How can I integrate Quill into my classroom?",
@@ -108,7 +119,7 @@ class PagesController < ApplicationController
           },
           {
             question: "How many activities are on Quill?",
-            answer: "<p>As of September 2017, we have created over 300 activities with 1,309 practice questions, covering Common Core topics for grades 1-8. Each activity is approximately 10-15 minutes in length.</p>"
+            answer: "<p>As of June 2019, we have created over 500 activities with 5,000 practice questions, covering Common Core topics for grades K-12. Each activity is approximately 10-15 minutes in length.</p>"
           },
           {
             question: "I am a parent. Can I use Quill for my child?",
@@ -266,7 +277,7 @@ class PagesController < ApplicationController
             answer: "<p>All of our instructional materials are made available under a Creative Commons BY-SA-NC license. This means that you may reuse our materials for any non-commercial purpose.</p>"
           },
           {
-            question: "I have an idea or a suggestion for Quill. How an I share it?",
+            question: "I have an idea or a suggestion for Quill. How can I share it?",
             answer: "
               <p>We are always looking for suggestions and ideas from our teachers to improve and grow Quill so if you have an idea that you would like to see on Quill, please fill out <a href='https://docs.google.com/forms/d/e/1FAIpQLScwoB67VKZicMzukzpiK5ufDFSEjLXbUBjEGOl_UMsRl02aiw/viewform?usp=send_form'>this short form</a> and share it with us. We have so far turned many of our teachers' ideas to products such as Quill Diagnostic and Quill Lessons, so don't hesitate to reach out to us.</p>
             "
@@ -294,8 +305,11 @@ class PagesController < ApplicationController
   end
 
   def impact
-    @number_of_students = $redis.get("NUMBER_OF_STUDENTS") || 1500000
-    @number_of_cities = $redis.get("NUMBER_OF_CITIES") || 4200
+    @number_of_students = $redis.get(NUMBER_OF_STUDENTS) || 2100000
+    @number_of_schools = $redis.get(NUMBER_OF_SCHOOLS) || 14651
+    @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
+    @number_of_low_income_schools = $redis.get(NUMBER_OF_LOW_INCOME_SCHOOLS) || 8911
+    @number_of_teachers = $redis.get(NUMBER_OF_TEACHERS) || 44100
   end
 
   def team
@@ -342,7 +356,7 @@ class PagesController < ApplicationController
 
   def activities
     @body_class = 'full-width-page white-page'
-    @section = if params[:section_id].present? then Section.find(params[:section_id]) else Section.first end
+    @section = params[:section_id].present? ? Section.find(params[:section_id]) : Section.first
     @topics = @section.topics.map{ |topic| [topic, topic.activities.production] }.select{ |group| group.second.any? }
   end
 
@@ -360,17 +374,18 @@ class PagesController < ApplicationController
   end
 
   def press
-    @blog_posts = BlogPost.where(draft: false, topic: 'Press').order('order_number')
+    @in_the_news = BlogPost.where(draft: false, topic: BlogPost::IN_THE_NEWS).order(published_at: :desc)
+    @press_releases = BlogPost.where(draft: false, topic: BlogPost::PRESS_RELEASES).order(published_at: :desc)
   end
 
   def announcements
-    @blog_posts = BlogPost.where(draft: false, topic: 'Announcements').order('order_number')
+    @blog_posts = BlogPost.where(draft: false, topic: BlogPost::WHATS_NEW).order('order_number')
   end
 
   def referrals_toc
   end
 
-  def style_guide
+  def backpack
     @style_file = 'staff'
   end
 
@@ -389,22 +404,22 @@ class PagesController < ApplicationController
     case action_name
     when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
-    when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
+    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
-    when 'style_guide'
+    when 'backpack'
       @js_file = 'staff'
     end
   end
 
   def determine_flag
     case action_name
-    when 'grammar_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
+    when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @beta_flag = current_user && current_user&.testing_flag == 'beta'
     end
   end
 
   def add_cards(list_response)
-    list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list["id"]}/cards/?fields=name,url")}
+    list_response.each{|list| list["cards"] = HTTParty.get("https://api.trello.com/1/lists/#{list['id']}/cards/?fields=name,url")}
     list_response
   end
 

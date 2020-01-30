@@ -3,9 +3,12 @@ class ActivitiesController < ApplicationController
   before_filter :set_activity_by_lesson_id, only: [:preview_lesson]
   before_filter :set_activity, only: [:supporting_info, :customize_lesson, :name_and_id, :last_unit_template]
 
+  DIAGNOSTIC = 'diagnostic'
+
   def search
-    search_result = $redis.get("default_#{flag ? flag + '_' : nil}activity_search") || custom_search
-    render json: search_result
+    flag = params[:flag] || current_user&.testing_flag
+    search_result = Activity.search_results(flag)
+    render json: search_result.to_json
   end
 
   def count
@@ -14,6 +17,7 @@ class ActivitiesController < ApplicationController
   end
 
   def diagnostic
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
     render 'pages/diagnostic'
   end
 
@@ -38,7 +42,7 @@ class ActivitiesController < ApplicationController
 
   def preview_lesson
     if current_user && !user_completed_view_lessons_tutorial?
-      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(preview_url)}"
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(preview_url)}"
     else
       redirect_to preview_url
     end
@@ -54,7 +58,7 @@ class ActivitiesController < ApplicationController
     redirect_to "#{@activity.classification_form_url}customize/#{@activity.uid}"
   end
 
-protected
+  protected
 
   def set_activity
     @activity = Activity.find_by(uid: params[:id]) || Activity.find_by(id: params[:id])
@@ -72,31 +76,12 @@ protected
     @url ||= "#{@activity.classification_form_url}teach/class-lessons/#{@activity.uid}/preview"
   end
 
-  def custom_search
-    substring = flag ? flag + "_" : ""
-    activity_search_results = $redis.get("default_#{substring}activity_search")
-    unless activity_search_results
-      activity_search_results = JSON.parse(ActivitySearchWrapper.set_and_return_search_cache_data(flag))
-    end
-    activity_search_results
-  end
-
   def activity
     @activity ||= Activity.find_by_id_or_uid(params[:id])
   end
 
   def search_params
     params.require(:search).permit([:search_query, {sort: [:field, :asc_or_desc]},  {filters: [:field, :selected]}])
-  end
-
-  def flag
-    if current_user
-      if current_user.role == 'staff'
-        return 'private'
-      elsif current_user.testing_flag
-        return current_user.testing_flag
-      end
-    end
   end
 
 end

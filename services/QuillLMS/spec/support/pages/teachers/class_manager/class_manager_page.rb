@@ -1,7 +1,8 @@
 require_relative '../teachers'
+require_relative '../../page'
 
 module Teachers
-  class ClassManagerPage < Page
+  class ClassManagerPage < ::Page
     def self.path
       Teachers.classrooms_path
     end
@@ -20,8 +21,7 @@ module Teachers
 
     [['Activity Planner', :activity_planner],
      ['Classes',    :classes],
-     ['Student Reports',        :student_reports]
-    ].each do |pair|
+     ['Student Reports',        :student_reports]].each do |pair|
       text, sym = pair
 
       module_eval_str __LINE__, %{

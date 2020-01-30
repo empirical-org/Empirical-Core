@@ -78,7 +78,7 @@ export default React.createClass({
       } else if (r.statusCode === 200) {
         that.setState({ message: response.message, }, () => that.getData());
       } else {
-        console.log(response);
+        // to do, use Sentry to capture error
       }
     });
   },
@@ -90,14 +90,14 @@ export default React.createClass({
           <div className="sub-container">
             <PremiumFeatures />
             <AdminsTeachers
-              isValid={!!this.state.model.valid_subscription}
               data={this.state.model.teachers}
+              isValid={!!this.state.model.valid_subscription}
             />
             <CreateNewAccounts
-              schools={this.state.model.schools}
               addTeacherAccount={this.addTeacherAccount}
               error={this.state.error}
               message={this.state.message}
+              schools={this.state.model.schools}
             />
             <QuestionsAndAnswers
               questionsAndAnswersFile="admin"

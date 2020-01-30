@@ -13,10 +13,10 @@ class Teachers::UnitTemplatesController < ApplicationController
             @image_link = unit_template.image_link
           end
         end
-        redirect_to "/teachers/classrooms/assign_activities/featured-activity-packs/#{params[:id]}" if @is_teacher
+        redirect_to "/assign/featured-activity-packs/#{params[:id]}" if @is_teacher
       end
       format.json do
-        render json: get_cached_formatted_unit_templates
+        render json: cached_formatted_unit_templates
       end
     end
   end
@@ -33,7 +33,7 @@ class Teachers::UnitTemplatesController < ApplicationController
   def show
     @content = "Try out the #{@unit_template.name} Activity Pack I’m using at Quill.org"
     @unit_template_id = @unit_template.id
-    render 'public_show' if not @is_teacher
+    render 'public_show' if !@is_teacher
   end
 
   def count
@@ -43,7 +43,7 @@ class Teachers::UnitTemplatesController < ApplicationController
 
   def profile_info
     ut = UnitTemplate.find(params[:id])
-    response = {data: format_unit_template(ut.id), related_models: related_models(ut)}
+    response = {data: format_unit_template(ut.id)}
     response = response.merge({ referral_code: current_user.referral_code }) if current_user && current_user.teacher?
     render json: response
   end
@@ -76,15 +76,6 @@ class Teachers::UnitTemplatesController < ApplicationController
     formatted_unit_template
   end
 
-  def related_models(ut)
-    related_models = ut.related_models(related_models_flag)
-    formatted_related_models = []
-    related_models.each do |rm|
-      formatted_related_models << format_unit_template(rm)
-    end
-    formatted_related_models
-  end
-
   def current_user_testing_flag
     if current_user.present?
       current_user.testing_flag
@@ -95,26 +86,26 @@ class Teachers::UnitTemplatesController < ApplicationController
     current_user_testing_flag || "production"
   end
 
-  def get_unit_templats_by_user_testing_flag
+  def unit_templates_by_user_testing_flag
     UnitTemplate.user_scope(related_models_flag)
     .includes(:author, :unit_template_category)
     .order(:order_number)
     .map{ |ut| ut.get_cached_serialized_unit_template }
   end
 
-  def get_cached_formatted_unit_templates
+  def cached_formatted_unit_templates
     ut_cache_name = "#{related_models_flag}_unit_templates"
     cached = $redis.get(ut_cache_name)
     set_cache_if_necessary_and_return(cached, ut_cache_name)
   end
 
   def set_cache_if_necessary_and_return(cached, ut_cache_name)
-    ut_cache = cached.nil? || cached&.blank? ? nil : eval(cached)
+    ut_cache = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     if ut_cache
       ut_cache
     else
-      uts = get_unit_templats_by_user_testing_flag
-      $redis.set(ut_cache_name, uts)
+      uts = unit_templates_by_user_testing_flag
+      $redis.set(ut_cache_name, uts.to_json)
       uts
     end
   end

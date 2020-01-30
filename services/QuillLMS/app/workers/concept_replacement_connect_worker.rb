@@ -38,7 +38,7 @@ class ConceptReplacementConnectWorker
         end
       end
 
-      if data.length > 0
+      if !data.empty?
         HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v2/#{endpoint}/#{key}.json", body: data.to_json)
       end
 
@@ -66,9 +66,7 @@ class ConceptReplacementConnectWorker
       rescue => e
         NewRelic::Agent.notice_error(e)
       end
-      return new_fp_obj
-    else
-      return nil
+      new_fp_obj
     end
   end
 
@@ -93,9 +91,7 @@ class ConceptReplacementConnectWorker
       rescue => e
         NewRelic::Agent.notice_error(e)
       end
-      return new_is_array
-    else
-      return nil
+      new_is_array
     end
   end
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 
-describe ActivitySession, type: :model, redis: :true do
+describe ActivitySession, type: :model, redis: true do
 
   it { should belong_to(:classroom_unit) }
   it { should belong_to(:activity) }
@@ -149,7 +149,7 @@ describe ActivitySession, type: :model, redis: :true do
 
     context 'student_id' do
       let(:student) { create(:student) }
-      let(:classroom_unit_1) { create(:classroom_unit, user: student) }
+      let(:classroom_unit1) { create(:classroom_unit, user: student) }
 
       it 'should return the given query with the given student_id' do
         expect(ActivitySession.with_filters(ClassroomUnit, {student_id: student.id}))
@@ -534,7 +534,7 @@ end
       context "when completed_at is already set" do
         before { activity_session.completed_at = 5.minutes.ago }
 
-        it "should not change completed at "do
+        it "should not change completed at " do
           expect {
             activity_session.save!
           }.to_not change {
@@ -559,10 +559,10 @@ end
 
   context "when completed scope" do
   	describe ".completed" do
-  		before { create_list(:activity_session, 5) }
+  		before { create_list(:activity_session, 3) }
 
   		it "must locate all the completed items" do
-  			expect(ActivitySession.completed.count).to eq 5
+  			expect(ActivitySession.completed.count).to eq 3
   		end
 
   		it "completed_at must be present" do
@@ -585,10 +585,10 @@ end
 
   context "when incompleted scope" do
   	describe ".incomplete" do
-  		before { create_list(:activity_session, 3, :unstarted) }
+  		before { create_list(:activity_session, 2, :unstarted) }
 
   		it "must locate all the incompleted items" do
-  			expect(ActivitySession.incomplete.count).to eq 3
+  			expect(ActivitySession.incomplete.count).to eq 2
   		end
 
   		it "completed_at must be nil" do
@@ -600,22 +600,29 @@ end
   end
 
   describe '#determine_if_final_score' do
-    let!(:classroom) {create(:classroom)}
-    let!(:student) {create(:student)}
-    let!(:activity) {create(:activity)}
+    let(:classroom) {create(:classroom)}
+    let(:student) {create(:student)}
+    let(:activity) {create(:activity)}
 
-    let!(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
-    let!(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
+    let(:classroom_unit)   {create(:classroom_unit, classroom: classroom, assigned_student_ids: [student.id])}
+    let(:previous_final_score) {create(:activity_session, completed_at: Time.now, percentage: 0.9, is_final_score: true, user: student, classroom_unit: classroom_unit, activity: activity)}
 
     it 'updates when new activity session has higher percentage ' do
+      previous_final_score
       new_activity_session =  create(:activity_session, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       new_activity_session.update_attributes completed_at: Time.now, state: 'finished', percentage: 0.95
       expect([ActivitySession.find(previous_final_score.id).reload.is_final_score, ActivitySession.find(new_activity_session.id).reload.is_final_score]).to eq([false, true])
     end
 
     it 'doesnt update when new activity session has lower percentage' do
+      previous_final_score
       new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: student, classroom_unit: classroom_unit, activity: activity)
       expect([ActivitySession.find(previous_final_score.id).is_final_score, ActivitySession.find(new_activity_session.id).is_final_score]).to eq([true, false])
+    end
+
+    it 'mark finished anonymous sessions as final' do
+      new_activity_session =  create(:activity_session, completed_at: Time.now, state: 'finished', percentage: 0.5, is_final_score: false, user: nil, classroom_unit: nil, activity: activity)
+      expect(new_activity_session.is_final_score).to eq(true)
     end
   end
 
@@ -657,7 +664,6 @@ end
       expect(ConceptResult).to receive(:create).with({
         activity_session_id: activity_session.id,
         concept_id: concept.id,
-        activity_session_id: activity_session.id,
         metadata: '{}',
         question_type: 'lessons-slide'
       })
@@ -676,7 +682,6 @@ end
       expect{ ActivitySession.delete_activity_sessions_with_no_concept_results(classroom_unit.id, activity.id) }.to change(ActivitySession, :count).by(-1)
     end
   end
-  #
   describe '#has_a_completed_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "finished") }
@@ -694,7 +699,6 @@ end
       end
     end
   end
-  #
   describe '#mark_all_activity_sessions_complete' do
     let(:activity) { create(:activity) }
     let(:classroom_unit) { create(:classroom_unit) }
@@ -705,7 +709,6 @@ end
       expect(activity_session.reload.state).to eq('finished')
     end
   end
-  #
   describe '#has_a_started_session?' do
     context 'when session exists' do
       let(:activity_session) { create(:activity_session, state: "started") }
@@ -769,6 +772,24 @@ end
       returned_activity_session = ActivitySession.find_or_create_started_activity_session(student.id, classroom_unit.id, activity.id)
       expect(returned_activity_session.user_id).to eq(student.id)
       expect(returned_activity_session.state).to eq('started')
+    end
+  end
+
+  describe "#minutes_to_complete" do
+    it "should return minutes between completed_at and started_at" do
+      now = Time.now
+      activity_session = create(:activity_session, started_at: now, completed_at: now + (1 * 60))
+      expect(activity_session.minutes_to_complete).to eq(1)
+    end
+
+    it "should return nil if completed_at is nil" do
+      activity_session = create(:activity_session, completed_at: nil)
+      expect(activity_session.minutes_to_complete).to be_nil
+    end
+
+    it "should return nil if started_at is nil" do
+      activity_session = create(:activity_session, started_at: nil)
+      expect(activity_session.minutes_to_complete).to be_nil
     end
   end
 end

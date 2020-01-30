@@ -1,13 +1,15 @@
 module CleverIntegration::SignUp::Teacher
 
   def self.run(auth_hash)
-    parsed_data = self.parse_data(auth_hash)
+    parsed_data = parse_data(auth_hash)
 
-    if parsed_data[:district_id]
-      district = self.import_district(parsed_data[:district_id])
-      self.district_integration(parsed_data, district)
+    if !parsed_data
+      {type: 'user_failure', data: "Could not parse Clever data", redirect: '/'}
+    elsif parsed_data[:district_id]
+      district = import_district(parsed_data[:district_id])
+      district_integration(parsed_data, district)
     else
-      self.library_integration(auth_hash)
+      library_integration(auth_hash)
     end
   end
 
@@ -18,12 +20,12 @@ module CleverIntegration::SignUp::Teacher
   end
 
   def self.district_integration(auth_hash, district)
-    teacher = self.create_teacher(auth_hash)
+    teacher = create_teacher(auth_hash)
     if teacher.present?
-      self.associate_teacher_to_district(teacher, district)
-      school = self.import_school(teacher, district.token)
-      classrooms = self.import_classrooms(teacher, district.token)
-      students = self.import_students(classrooms, district.token)
+      associate_teacher_to_district(teacher, district)
+      school = import_school(teacher, district.token)
+      classrooms = import_classrooms(teacher, district.token)
+      students = import_students(classrooms, district.token)
       {type: 'user_success', data: teacher}
     else
       {type: 'user_failure', data: "No Teacher Present"}

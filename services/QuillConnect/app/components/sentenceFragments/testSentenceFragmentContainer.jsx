@@ -4,11 +4,9 @@ import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 
 class TestQuestion extends Component {
-  constructor() {
-    super();
-    this.reset = this.reset.bind(this);
-    this.markIdentify = this.markIdentify.bind(this);
-    this.submitResponse = this.submitResponse.bind(this);
+  constructor(props) {
+    super(props);
+
     this.state = {
       responsesForGrading: [],
       allResponses: [],
@@ -20,15 +18,17 @@ class TestQuestion extends Component {
     this.reset();
   }
 
-  reset() {
-    this.props.dispatch(clearData());
+  reset = () => {
+    const { dispatch, } = this.props
+    dispatch(clearData());
     this.startActivity();
-    this.setState({ key: this.state.key + 1, });
+    this.setState(prevState => ({ key: prevState.key + 1, }));
   }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
+    const { params, } = this.props
     const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    question.key = params.questionID;
     if (!question.attempts) {
       question.attempts = []
     }
@@ -40,40 +40,47 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  startActivity = () => {
+    const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
-  getQuestion() {
-    return this.props.sentenceFragments.data[this.props.params.questionID];
+  getQuestion = () => {
+    const { sentenceFragments, params, } = this.props
+    return sentenceFragments.data[params.questionID];
   }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
+    const { dispatch, } = this.props
     const action = updateCurrentQuestion({identified: bool})
-    this.props.dispatch(action)
+    dispatch(action)
   }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
     const action = submitResponse(response);
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   render() {
-    if (this.props.playLesson.currentQuestion) {
-      const question = this.props.playLesson.currentQuestion.question;
+    const { playLesson, conceptsFeedback, params, dispatch, } = this.props
+
+    if (playLesson.currentQuestion) {
+      const question = playLesson.currentQuestion.question;
       return (
         <div className="test-question-container">
           <PlaySentenceFragment
-            currentKey={this.props.params.questionID}
-            key={this.props.params.questionID}
-            question={question}
-            prefill={false}
-            nextQuestion={this.reset}
-            dispatch={this.props.dispatch}
+            conceptsFeedback={conceptsFeedback}
+            currentKey={params.questionID}
+            dispatch={dispatch}
+            key={params.questionID}
             markIdentify={this.markIdentify}
+            nextQuestion={this.reset}
+            prefill={false}
+            question={question}
             updateAttempts={this.submitResponse}
           />
         </div>
@@ -89,6 +96,7 @@ class TestQuestion extends Component {
 
 function select(props) {
   return {
+    conceptsFeedback: props.conceptsFeedback,
     sentenceFragments: props.sentenceFragments,
     playLesson: props.playLesson,
   };

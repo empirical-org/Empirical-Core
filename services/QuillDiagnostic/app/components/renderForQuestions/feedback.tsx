@@ -1,12 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import _ from 'underscore';
-const icon = 'https://assets.quill.org//images/icons/question_icon.svg';
-const revise = 'https://assets.quill.org//images/icons/revise_orange_icon.svg';
-const multiple = 'https://assets.quill.org//images/icons/multiple_choice_icon.svg';
-const success = 'https://assets.quill.org//images/icons/check-mark.svg';
 import getAnswerState from './answerState';
-import {Response} from 'quill-marking-logic';
 import { Feedback } from 'quill-component-library/dist/componentLibrary';
 
 class FeedbackComponent extends React.Component<any, any> {
@@ -22,7 +15,6 @@ class FeedbackComponent extends React.Component<any, any> {
           return "override"
         } else if (latestAttempt.response.feedback !== undefined) {
           const state = getAnswerState(latestAttempt);
-          console.log("state: ", state, latestAttempt);
           return state ? 'correct-matched' : 'revise-matched'
         } else {
           return "revise-unmatched"
@@ -77,13 +69,14 @@ class FeedbackComponent extends React.Component<any, any> {
   }
 
   render() {
-    const key:number = this.props && this.props.question ? this.props.question.attempts.length : 0;
-    if (this.props.question) {
+    const { question, } = this.props
+    const key:number = question ? question.attempts.length : 0;
+    if (question) {
       return (
         <Feedback
-          key={key}
-          feedbackType={this.getFeedbackType(this.props)}
           feedback={this.getFeedbackCopy(this.props)}
+          feedbackType={this.getFeedbackType(this.props)}
+          key={key}
         />
       )
     } else {

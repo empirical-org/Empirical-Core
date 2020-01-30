@@ -51,12 +51,19 @@ class TestQuestion extends Component {
   }
 
   render() {
-    if (this.props.playLesson.currentQuestion) {
-      const { question, } = this.props.playLesson.currentQuestion;
-      console.log(question);
+    const { playLesson, conceptsFeedback, dispatch, } = this.props
+    if (playLesson.currentQuestion) {
+      const { question, } = playLesson.currentQuestion;
       return (
         <div className="test-question-container">
-          <PlayLessonQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} />
+          <PlayLessonQuestion
+            conceptsFeedback={conceptsFeedback}
+            dispatch={dispatch}
+            key={this.state.key}
+            nextQuestion={this.reset}
+            prefill={false}
+            question={question}
+          />
         </div>
       );
     } else {
@@ -72,6 +79,7 @@ function select(props) {
   return {
     questions: props.questions,
     playLesson: props.playLesson,
+    conceptsFeedback: props.conceptsFeedback
   };
 }
 

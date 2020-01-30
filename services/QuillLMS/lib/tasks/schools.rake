@@ -4,27 +4,27 @@ require 'open-uri'
 # This code is taken from the Literacy Design Collaborative (ldc.org) and then modified.
 def nces_grade_level_mapping(nces_grade)
   case nces_grade
-    when 'PK'
+  when 'PK'
       0
-    when 'KG'
+  when 'KG'
       0
-    when 'M'
+  when 'M'
       nil
-    when 'N'
+  when 'N'
       nil
-    when 'UG'
+  when 'UG'
       nil
-    when 'AE'
+  when 'AE'
       nil
-    when '13'
+  when '13'
       12
-    else
+  else
       nces_grade
   end
 end
 
 def charter_value(value)
-  return value.first if value == 'No' || value == 'Yes'
+  return value.first if ['No', 'Yes'].include?(value)
 end
 
 namespace :schools do

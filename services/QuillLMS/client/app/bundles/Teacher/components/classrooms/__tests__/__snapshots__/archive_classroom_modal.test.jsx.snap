@@ -8,7 +8,7 @@ exports[`ArchiveClassroomModal component should render ArchiveClassroomModal 1`]
     className="modal-background"
   />
   <div
-    className="archive-class-modal modal modal-body"
+    className="archive-class-modal quill-modal modal-body"
   >
     <div>
       <h3
@@ -38,12 +38,14 @@ exports[`ArchiveClassroomModal component should render ArchiveClassroomModal 1`]
       <button
         className="quill-button outlined secondary medium"
         onClick={[Function]}
+        type="button"
       >
         Cancel
       </button>
       <button
         className="quill-button contained primary medium"
         onClick={[Function]}
+        type="button"
       >
         Archive
       </button>

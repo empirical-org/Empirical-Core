@@ -1,5 +1,7 @@
-<nav class="navbar" role="navigation">
-	<div class="container">
-		<%= render partial: 'sub_header' %>
-	</div>
-</nav>
+<% if !in_assignment_flow? %>
+  <nav class="navbar" role="navigation">
+  	<div class="container">
+  		<%= render partial: 'sub_header' %>
+  	</div>
+  </nav>
+<% end %>

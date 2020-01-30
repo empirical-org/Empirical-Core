@@ -8,7 +8,7 @@ exports[`RemoveCoteacherModal component should render RemoveCoteacherModal 1`] =
     className="modal-background"
   />
   <div
-    className="remove-coteacher-modal modal modal-body"
+    className="remove-coteacher-modal quill-modal modal-body"
   >
     <div>
       <h3

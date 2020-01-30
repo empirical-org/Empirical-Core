@@ -1,18 +1,21 @@
 import React from 'react';
 import Stripe from '../modules/stripe/charge.js';
 
-export default React.createClass({
+export default class PremiumPromo extends React.Component {
 
   charge() {
     new Stripe();
-  },
+  }
 
   freeMonths() {
     const d = new Date();
     return 5 - d.getMonth();
-  },
+  }
 
   miniBuilder() {
+    /* eslint-disable react/jsx-no-target-blank */
+    const supportLink = <a className="q-button text-white" href="https://support.quill.org/quill-premium" target="_blank">Learn More About Premium</a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (
       <div className="mini_content premium-promo">
         <div className="gray-underline" style={{ position: 'relative', }}>
@@ -28,22 +31,22 @@ export default React.createClass({
           </div>
           <div className="fake-border" />
           <div className="pricing">
-            <h2>$900*</h2>
+            <h2>$1800</h2>
             <span>per school</span>
             <br />
-            <span className="special-price">*special price</span>
+            <span className="special-price">50% off the first year</span>
           </div>
         </div>
-        <a href="https://support.quill.org/quill-premium" target="_blank" className="q-button text-white">Learn More About Premium</a>
+        {supportLink}
       </div>
     );
-  },
+  }
 
   render() {
     return (
-      <div className={'mini_container results-overview-mini-container col-md-4 col-sm-5 text-center'}>
+      <div className='mini_container results-overview-mini-container col-md-4 col-sm-5 text-center'>
         {this.miniBuilder()}
       </div>
     );
-  },
-});
+  }
+}

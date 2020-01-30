@@ -6,7 +6,7 @@ export default class extends React.Component {
     return (
       <div className="notification-box flex-row vertically-centered">
         <p>
-          <i className="fa fa-lightbulb-o" aria-hidden="true" />
+          <i aria-hidden="true" className="fas fa-lightbulb-o" />
           {this.props.children}
         </p>
       </div>

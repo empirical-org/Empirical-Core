@@ -1,34 +1,53 @@
-.unit-template-minis {
-  margin-bottom: 100px;
-  .list-filter-options-container {
-    // needed to get the centering to work
-    // http://stackoverflow.com/questions/283961/centering-a-div-block-without-the-width
-    text-align: center;
-    .list-filter-options {
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      margin-left: auto;
-      margin-right: auto;
-      display: inline-block;
-      margin-top: 40px;
-      margin-bottom: 10px;
+.unit-template-minis-container {
+  padding-bottom: 48px;
 
-      .list-filter-option {
-        padding: 5px;
-        clear:none;
-        float:left;
-        text-decoration: none;
-        margin-right: 45px;
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.33;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    margin-top: 48px;
+  }
+
+  .filter-options {
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    .dropdown-container {
+      width: 126px;
+      justify-content: flex-start;
+      min-height: min-content;
+      label {
+        display: none !important;
       }
-      .list-filter-option:last-child {
-        margin-right: 0px;
+      .dropdown__control {
+        background-color: #f7f5f5;
       }
-      .list-filter-option.selected,
-      .list-filter-option:hover {
-        border-bottom: 2px solid black;
+      &.active {
+        margin-bottom: 29px;
       }
     }
+  }
+
+  .type-options {
+    a {
+      line-height: 1;
+      font-size: 16px;
+      margin-right: 32px;
+      padding-bottom: 8px;
+      text-decoration: none !important;
+      &.active {
+        border-bottom: 2px solid #000;
+      }
+    }
+  }
+
+  .unit-template-minis {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
 }

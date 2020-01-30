@@ -45,14 +45,15 @@ export default React.createClass({
           <br /><br />
           <div className='row'>
             <div className='col-xs-12'>
-              <NewNestedResource data={this.props.data} actions={this.props.actions} />
+              <NewNestedResource actions={this.props.actions} data={this.props.data} />
             </div>
           </div>
           <div className='row'>
             <div className='col-xs-12'>
               <CmsIndexTable
+                actions={{delete: this.delete}}
                 data={{resources: this.props.data.resources, identifier: this.props.data.identifier}}
-                actions={{delete: this.delete}}/>
+              />
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 class Cms::UsersController < Cms::CmsController
   before_filter :signed_in!
-  before_action :set_flags, only: [:edit, :new, :new_with_school ]
+  before_action :set_flags
   before_action :set_user, only: [:show, :edit, :show_json, :update, :destroy, :edit_subscription, :new_subscription, :complete_sales_stage]
   before_action :set_search_inputs, only: [:index, :search]
-  before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
+  before_action :subscription_data, only: [:new_subscription, :edit_subscription]
   before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
 
   USERS_PER_PAGE = 30.0
@@ -18,7 +18,7 @@ class Cms::UsersController < Cms::CmsController
   def search
     user_search_query = user_query_params
     user_search_query_results = user_query(user_query_params)
-    user_search_query_results = user_search_query_results ? user_search_query_results : []
+    user_search_query_results ||= []
     number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
@@ -126,7 +126,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
 
-protected
+  protected
 
   def set_flags
     @valid_flags = User::VALID_FLAGS

@@ -6,7 +6,7 @@ shared_examples_for "flagged" do
 
 	describe "#flag" do 
 		it "must act as a push" do 
-			expect(flagged.flag :alpha).to eq [:alpha]
+			expect(flagged.flag(:alpha)).to eq [:alpha]
 		end
 	end
 
@@ -49,14 +49,14 @@ shared_examples_for "flagged" do
 
 		describe "#flag!" do 
 			it "must push the flag and save the instance" do
-				expect(flagged.flag! :alpha).to eq true
+				expect(flagged.flag!(:alpha)).to eq true
 			end
 		end
 
 
 		describe "#unflag!" do 
 			it "must pop the flag and save the instance" do
-				expect(flagged.unflag! :alpha).to eq true
+				expect(flagged.unflag!(:alpha)).to eq true
 			end
 		end
 		

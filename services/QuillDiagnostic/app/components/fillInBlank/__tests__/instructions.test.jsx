@@ -7,7 +7,7 @@ describe('Instructions component', () => {
 
   const html = '<p>Fill in each blank with a word above.</p>'
 
-  const wrapper = shallow(<Instructions html={html}/>)
+  const wrapper = shallow(<Instructions html={html} />)
   it('renders a div element with the class feedback-row', () => {
     expect(wrapper.find('div.feedback-row')).toHaveLength(1)
   })

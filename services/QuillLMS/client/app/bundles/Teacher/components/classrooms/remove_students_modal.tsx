@@ -61,7 +61,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }
@@ -79,9 +79,9 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
   render() {
     const { selectedStudentIds, close } = this.props
     const numberOfSelectedStudents = selectedStudentIds.length
-    return <div className="modal-container remove-students-modal-container">
+    return (<div className="modal-container remove-students-modal-container">
       <div className="modal-background" />
-      <div className="remove-students-modal modal modal-body">
+      <div className="remove-students-modal quill-modal modal-body">
         <div>
           <h3 className="title">Remove {numberOfSelectedStudents} {this.studentOrStudents()} from your class?</h3>
         </div>
@@ -92,6 +92,6 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
           <button className={this.submitButtonClass()} onClick={this.removeStudents}>Remove from class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

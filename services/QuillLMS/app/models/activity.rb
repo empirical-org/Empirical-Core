@@ -22,7 +22,7 @@ class Activity < ActiveRecord::Base
 
   delegate :form_url, to: :classification, prefix: true
 
-  scope :production, -> {
+  scope :production, lambda {
     where(<<-SQL, :production)
       activities.flags = '{}' OR ? = ANY (activities.flags)
     SQL
@@ -47,9 +47,7 @@ class Activity < ActiveRecord::Base
     rescue ActiveRecord::RecordNotFound
       find(arg)
     rescue ActiveRecord::RecordNotFound
-      raise ActiveRecord::RecordNotFound.new(
-        "Couldn't find Activity with 'id' or 'uid'=#{arg}"
-      )
+      raise ActiveRecord::RecordNotFound, "Couldn't find Activity with 'id' or 'uid'=#{arg}"
     end
   end
 
@@ -102,7 +100,7 @@ class Activity < ActiveRecord::Base
     module_url_helper(initial_params)
   end
 
-  # TODO cleanup
+  # TODO: cleanup
   def flag flag = nil
     return super(flag) unless flag.nil?
     flags.first
@@ -129,7 +127,14 @@ class Activity < ActiveRecord::Base
   end
 
   def is_lesson?
-    self.activity_classification_id == 6
+    activity_classification_id == 6
+  end
+
+  def self.search_results(flag)
+    substring = flag ? flag + "_" : ""
+    activity_search_results = $redis.get("default_#{substring}activity_search")
+    activity_search_results ||= ActivitySearchWrapper.search_cache_data=(flag)
+    JSON.parse(activity_search_results)
   end
 
   private
@@ -166,6 +171,6 @@ class Activity < ActiveRecord::Base
       @url.fragment = nil
     end
 
-    return @url
+    @url
   end
 end

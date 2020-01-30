@@ -1,2 +1,30 @@
-<script type="text/javascript" src="//use.typekit.net/plr0bzn.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+<!-- credit to https://blog.typekit.com/2011/05/25/loading-typekit-fonts-asynchronously/ -->
+
+<script>
+  (function() {
+    var config = {
+      kitId: 'plr0bzn',
+      scriptTimeout: 3000
+    };
+    var h = document.getElementsByTagName('html')[0];
+    h.className += ' wf-loading';
+    var t = setTimeout(function() {
+      h.className = h.className.replace(/(\s|^)wf-loading(\s|$)/g, ' ');
+      h.className += ' wf-inactive';
+    }, config.scriptTimeout);
+    var d = false;
+    var tk = document.createElement('script');
+    tk.src = '//use.typekit.net/' + config.kitId + '.js';
+    tk.type = 'text/javascript';
+    tk.async = 'true';
+    tk.onload = tk.onreadystatechange = function() {
+      var rs = this.readyState;
+      if (d || rs && rs != 'complete' && rs != 'loaded') return;
+      d = true;
+      clearTimeout(t);
+      try { Typekit.load(config); } catch (e) {}
+    };
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(tk, s);
+  })();
+</script>

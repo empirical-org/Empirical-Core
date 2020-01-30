@@ -12,7 +12,7 @@
 <% if current_path.include?('tools') %>
 	<% active_tab = 'Learning Tools' %>
 <% elsif ['announcements', 'mission', 'impact', 'press', 'team'].any? { |str| current_path.include?(str)} %>
-	<% active_tab = 'Our Story' %>
+	<% active_tab = 'About Us' %>
 <% elsif current_path.include?('activities') %>
 	<% active_tab = 'Explore Curriculum' %>
 <% elsif ['teacher-center', 'faq', 'premium'].any? { |str| current_path.include?(str)} %>
@@ -68,7 +68,7 @@
   			<div id="nav-user-dropdown" class="dropdown-closed hide-on-mobile nav-element <%= user_dropdown_class %>">
   				<span onclick="toggleDropdown()" class='user-dropdown-button'><img class='user-dropdown-button-img' src=<%="#{user_dropdown_img}"%>></img><%="#{current_user.name}"%></span>
   				<div>
-  					<i class="fa fa-caret-up"></i>
+  					<i class="fas fa-caret-up"></i>
   					<%= link_to raw(
   						"<span class='image-container'><img class='static' src='https://assets.quill.org/images/navbar/navbar-dashboard-gradient.svg'></img>
   						<img class='hover' src='https://assets.quill.org/images/navbar/navbar-dashboard-solid.svg'></img></span>
@@ -110,9 +110,9 @@
   				</div>
   			</div>
   		<%- elsif current_user.role == 'student' %>
-  			<%= link_to raw("<i class='fa fa-fw fa-question-circle' aria-hidden='true'></i> Student Center"), '/student-center', class: "text-white nav-element" %>
-  			<%= link_to raw("<i class='fa fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
-  			<%= link_to raw("<i class='fa fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
+  			<%= link_to raw("<i class='fas fa-fw fa-question-circle' aria-hidden='true'></i> Student Center"), '/student-center', class: "text-white nav-element" %>
+  			<%= link_to raw("<i class='fas fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
+  			<%= link_to raw("<i class='fas fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
   			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
   		<% else %>
   		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
@@ -136,7 +136,7 @@
 						<a href='/teacher-center' class="text-white">Teacher Center</a>
 					</li>
 		      <li>
-		        <a href="/mission" class="text-white">Our Story</a>
+		        <a href="/about" class="text-white">About Us</a>
 		      </li>
 		      <li>
                         <%= render layout: "tracked_link", locals: { href: "/session/new",

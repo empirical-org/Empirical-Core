@@ -493,8 +493,11 @@ export function setEditionId({
       r.table('classroom_lesson_sessions')
       .insert({ id: classroomSessionId, edition_id: editionId }, {conflict: 'update'})
       .run(connection)
+      .then(() => {
+        client.emit(`editionIdSet:${classroomSessionId}`);
+      })
+    } else {
+      client.emit(`editionIdSet:${classroomSessionId}`);
     }
   })
-
-  client.emit(`editionIdSet:${classroomSessionId}`)
 }

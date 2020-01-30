@@ -91,7 +91,7 @@ class LessonForm extends React.Component {
         </p>
         );
       });
-      return <SortableList key={this.state.selectedQuestions.length} sortCallback={this.sortCallback} data={questionsList} />;
+      return <SortableList data={questionsList} key={this.state.selectedQuestions.length} sortCallback={this.sortCallback} />;
     } else {
       return <div>No questions</div>;
     }
@@ -102,7 +102,6 @@ class LessonForm extends React.Component {
     const questionType = this.state.questionType;
     let options = hashToCollection(this.props[questionType].data);
     const concepts = this.props.concepts.data[0];
-    console.log('Options: ', options);
     let formatted
     if (options.length > 0) {
       if (questionType !== 'titleCards') {
@@ -112,8 +111,10 @@ class LessonForm extends React.Component {
         formatted = options.map((opt) => { return { name: opt.title, value: opt.key } })
       }
       return (<QuestionSelector
-        key={questionType} options={formatted} placeholder="Search for a question"
+        key={questionType}
         onChange={this.handleSearchChange}
+        options={formatted}
+        placeholder="Search for a question"
       />);
     }
   }
@@ -138,20 +139,20 @@ class LessonForm extends React.Component {
           <label className="label">Name</label>
           <input
             className="input"
-            type="text"
-            placeholder="Text input"
-            value={this.state.name}
             onChange={this.handleStateChange.bind(null, 'name')}
+            placeholder="Text input"
+            type="text"
+            value={this.state.name}
           />
         </p>
         <p className="control">
           <label className="label">Landing Page Content</label>
         </p>
         <TextEditor
-          text={this.state.landingPageHtml || ''}
-          handleTextChange={this.handleLPChange}
-          EditorState={EditorState}
           ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleLPChange}
+          text={this.state.landingPageHtml || ''}
         />
         <br />
         <p className="control">
@@ -184,9 +185,9 @@ class LessonForm extends React.Component {
         {this.renderSearchBox()}
         <br />
         <ChooseModelContainer
-          updateModelConcept={modelConceptUID => this.setState({ modelConceptUID })}
-          modelConceptUID={this.state.modelConceptUID}
           conceptsFeedback={this.props.conceptsFeedback}
+          modelConceptUID={this.state.modelConceptUID}
+          updateModelConcept={modelConceptUID => this.setState({ modelConceptUID })}
         />
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>

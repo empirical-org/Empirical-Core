@@ -22,12 +22,12 @@ export function firebaseAuth() {
           firebase.auth().signInWithCustomToken(response.token).then((firebaseResponse) => {
             const currentUser = firebase.auth().currentUser
             if (currentUser) {
-              currentUser.getToken().then((token) => {
-                console.log(jwt_decode(token));
+              currentUser.getIdToken().then((token) => {
+                // to do - something with this token
               });
             }
           }).catch((error) => {
-            console.log("Failed to create token", error.message)
+            // to do - something with this error
           })
         })
     }

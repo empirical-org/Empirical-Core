@@ -1,104 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import LanguageSelector from './languageSelector.jsx';
 
-const Navbar = React.createClass({
-  getInitialState() {
-    return {
-      expanded: false,
-    };
-  },
+const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
-  navStyles() {
-    if (this.state.expanded) {
-      return {
-        background: '#fff',
-        display: 'initial',
-      };
-    }
-  },
+const handleSaveAndExitClick = () => {
+  if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
+    window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
+  }
+}
 
-  toggle() {
-    this.setState({ expanded: !this.state.expanded, });
-  },
+const renderLinks = () => (
+  <div className="student-nav-section">
+    <a activeClassName="is-active" className="student-nav-item focus-on-dark" key="a-tag-student-navabar" onClick={handleSaveAndExitClick} tabIndex="0">Save and exit</a>
+  </div>
+);
 
-  reset() {
-    this.setState({ expanded: false, });
-  },
-
-  saveAndExitConfirm() {
-    if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
-      window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
-    }
-  },
-
-  diagnostic() {
-    return window.location.href.includes('play/diagnostic');
-  },
-
-  ellDiagnostic() {
-    return window.location.href.includes('play/diagnostic/ell');
-  },
-
-  renderLinks() {
-    const navMenu = this.ellDiagnostic() ? '' : 'nav-menu';
-    return (
-      <div className={`nav-right ${navMenu}`} style={this.navStyles()}>
-        {this.renderLessonSpecificContent()}
-        <a key="a-tag-student-navabar" onClick={this.saveAndExitConfirm} className="nav-item" activeClassName="is-active">Save & Exit</a>
+const Navbar = () => (
+  <header className='nav student-nav'>
+    <div className="container">
+      <div className="student-nav-section">
+        <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${process.env.EMPIRICAL_BASE_URL}`} tabIndex="0">
+          <img
+            alt="Quill.org logo"
+            src={quillLogoSrc}
+          />
+        </a>
       </div>
-    );
-  },
-
-  renderLessonSpecificContent() {
-    if (this.ellDiagnostic()) {
-      return (
-        <LanguageSelector key="language-selector" />
-      );
-    }
-  },
-
-  renderQuestionCounter() {
-    const { questionSet, answeredQuestions, currentQuestion, } = this.props.playDiagnostic
-    if (this.diagnostic() && questionSet && currentQuestion && currentQuestion.type !== 'TL') {
-      const numberOfQuestions = questionSet.filter(q => q.type !== 'TL').length
-      const currentQuestionNumber = answeredQuestions.length + 1
-      return <div className="question-counter"><span>{currentQuestionNumber}</span> of <span>{numberOfQuestions}</span> Questions</div>
-    }
-  },
-
-  render() {
-    const ellNavClassName = this.ellDiagnostic() ? 'ell-nav' : '';
-    return (
-      <header className={`nav student-nav ${ellNavClassName}`} style={{ height: '50px', }}>
-        <div className="container">
-          <div className="nav-left">
-            <a href={`${process.env.EMPIRICAL_BASE_URL}`} className="nav-item">
-              <img
-                src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png"
-                alt=""
-                style={{ height: '35px', }}
-              />
-            </a>
-          </div>
-          {this.renderQuestionCounter()}
-          {this.renderLinks()}
-          <span className="nav-toggle" onClick={this.toggle}>
-            <span />
-            <span />
-            <span />
-          </span>
-        </div>
-      </header>
-    );
-  },
-});
+      {renderLinks()}
+    </div>
+  </header>
+);
 
 function select(state) {
   return {
-    routing: state.routing,
-    playDiagnostic: state.playDiagnostic
+    routing: state.routing
   };
 }
 

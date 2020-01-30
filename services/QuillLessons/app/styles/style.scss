@@ -6,7 +6,6 @@
 @import "components/animations";
 @import "components/landing-page-html";
 @import "components/multiple-choice";
-@import "components/_language-choices";
 @import "components/_class_lessons";
 @import "components/_question_health";
 @import "components/_customize";
@@ -123,14 +122,10 @@ ul.is-unstyled {
   }
 }
 
-.register-container {
+.register-container, .register {
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-}
-
-h2.register {
-  text-align: center;
 }
 
 .is-question {
@@ -373,4 +368,8 @@ textarea.submission {
     .select {
       display: block !important;
     }
+}
+
+.wf-loading {
+  visibility: hidden;
 }

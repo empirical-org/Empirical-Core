@@ -47,7 +47,7 @@ class AddConcept extends React.Component<{}, AddConceptState> {
 
     this.selectConcept = this.selectConcept.bind(this)
     this.finishEditingOrCreatingConcept = this.finishEditingOrCreatingConcept.bind(this)
-    this.closeEditSuccessBanner = this.closeEditSuccessBanner.bind(this)
+    this.handleClickCloseEditSuccessBanner = this.handleClickCloseEditSuccessBanner.bind(this)
     this.closeConceptBox = this.closeConceptBox.bind(this)
   }
 
@@ -56,52 +56,55 @@ class AddConcept extends React.Component<{}, AddConceptState> {
     this.setState({ showSuccessBanner: true, selectedConcept: {} })
   }
 
-  closeEditSuccessBanner() {
+  handleClickCloseEditSuccessBanner() {
     this.setState({ showSuccessBanner: false })
   }
 
   selectConcept(conceptID, levelNumber) {
-    console.log('conceptSelected')
     this.setState({ selectedConcept: { conceptID, levelNumber }})
   }
 
   closeConceptBox() {
-    console.log('concept unselected')
     this.setState({ selectedConcept: {} })
   }
 
   renderContent() {
-    return <Query
+    return (<Query
       query={gql(allConceptsQuery)}
     >
-    {({ loading, error, data, refetch, networkStatus }) => {
+      {({ loading, error, data, refetch, networkStatus }) => {
         if (networkStatus === 4) return <p>Refetching!</p>;
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
+
+        const { selectedConcept, } = this.state
         const concepts:Array<Concept> = data.concepts.filter(c => c.visible);
-        return <div className="concept-levels-and-forms-container">
+        return (<div className="concept-levels-and-forms-container">
           <ConceptLevels
             concepts={concepts}
             selectConcept={this.selectConcept}
-            selectedConcept={this.state.selectedConcept}
+            selectedConcept={selectedConcept}
             unselectConcept={this.closeConceptBox}
           />
           {this.renderConceptForms(refetch, concepts)}
-        </div>
+        </div>)
       }}
-    </Query>
+    </Query>)
   }
 
+  // disabling the no-bind rule for the following two functions because we have to use the refetch that gets passed in on every render
+  /* eslint-disable react/jsx-no-bind */
   renderConceptForms(refetch, concepts) {
-    const { conceptID, levelNumber } = this.state.selectedConcept
+    const { selectedConcept, } = this.state
+    const { conceptID, levelNumber } = selectedConcept
     if (conceptID && (levelNumber || levelNumber === 0)) {
       return (<div>
         <ConceptBoxContainer
-          conceptID={conceptID}
-          levelNumber={levelNumber}
-          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
-          visible={true}
           closeConceptBox={this.closeConceptBox}
+          conceptID={conceptID}
+          finishEditingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+          levelNumber={levelNumber}
+          visible={true}
         />
         {this.renderAddNewConceptsForms(refetch, concepts)}
       </div>)
@@ -111,36 +114,37 @@ class AddConcept extends React.Component<{}, AddConceptState> {
   }
 
   renderAddNewConceptsForms(refetch, concepts) {
-    return <div className="new-concept-forms">
+    return (<div className="new-concept-forms">
       <div className="concept-guide-section">
-        <i className="fas fa-book-open"></i>
+        <i className="fas fa-book-open" />
         <div>
-          <a target="_blank" href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p">Concept Guide</a>
+          <a href="https://docs.google.com/document/d/1pWdDMGlqpoIjO75lIe6gfYMo3v4L7mAZjN2VBpwehhk/edit#heading=h.5sblht1hha9p" rel="noopener noreferrer" target="_blank">Concept Guide</a>
           <p>Are you an intern, or not sure how to create a Concept? Then please read our documentation.</p>
         </div>
       </div>
       <CreateConceptBox
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
         levelNumber={2}
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
       <CreateConceptBox
+        concepts={concepts}
+        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
         levelNumber={1}
-        concepts={concepts}
-        finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
       />
       <CreateConceptBox
-        levelNumber={0}
         concepts={concepts}
         finishEditingOrCreatingConcept={() => this.finishEditingOrCreatingConcept(refetch)}
+        levelNumber={0}
       />
-    </div>
+    </div>)
   }
+  /* eslint-enable react/jsx-no-bind */
 
   renderEditSuccessBanner() {
-    if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.closeEditSuccessBanner}><i className="fa fa-close"/></span></div>
-    }
+    const { showSuccessBanner, } = this.state
+    if (!showSuccessBanner) { return }
+    return <div className="success-banner"><span>You saved a concept.</span><span onClick={this.handleClickCloseEditSuccessBanner}><i className="fas fa-close" /></span></div>
   }
 
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
-import questionActions from '../../actions/questions.js';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import questionActions from '../../actions/questions';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 
 class NewFocusPointsContainer extends Component {
   constructor() {
@@ -24,7 +24,7 @@ class NewFocusPointsContainer extends Component {
   submitFocusPointForm(data) {
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
-    this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data);
+    this.props.dispatch(this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data));
     window.history.back();
   }
 
@@ -33,13 +33,13 @@ class NewFocusPointsContainer extends Component {
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
+          diagnosticQuestions={this.props.diagnosticQuestions}
+          fillInBlank={this.props.fillInBlank}
           itemLabel="Focus Point"
           onSubmit={this.submitFocusPointForm}
           questionID={this.props.params.questionID}
           questions={this.props.questions}
           sentenceFragments={this.props.sentenceFragments}
-          diagnosticQuestions={this.props.diagnosticQuestions}
-          fillInBlank={this.props.fillInBlank}
           states={states}
         />
         {this.props.children}

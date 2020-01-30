@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     @user = user || User.new # If there is no user here, then they are not logged in
-    self.send(@user.role.to_sym || :temporary) # If a role is unset, then the role should be temporary
+    send(@user.role.to_sym || :temporary) # If a role is unset, then the role should be temporary
   end
 
   def staff

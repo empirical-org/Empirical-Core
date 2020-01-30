@@ -8,7 +8,7 @@
 
     <section class='bg-connect-yellow tool-hero text-center'>
       <h1 class="q-h1">
-          <img class="tool-page-icon" src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
+          <img class="tool-page-icon lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/shared/quill_connect_white.svg"%>>Quill Connect
       </h1>
       <p class='description'>
         Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect. Using the evidence-based strategy of sentence combining, students combine multiple ideas into a single sentence. They then receive instant feedback designed to help them improve the clarity and precision of their sentences.
@@ -42,8 +42,8 @@
       </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-                <img class="arrow arrow-1" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
-                <img class="negative-left-margin" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
+                <img class="arrow arrow-1 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_1.png" %>>
+                <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_1.png" %> alt="connect image">
                 <div class="blurb blurb-attempt-1">
                     <h2><span>1st Attempt:</span> Write Concisely</h2>
                     <p>
@@ -54,20 +54,20 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png"%> alt="connect image">
+              <img class="negative-left-margin lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_2.png"%> alt="connect image">
                 <div class="blurb blurb-attempt-2">
                     <h2><span>2nd Attempt:</span> Show Relationships</h2>
                     <p>
                       While using <span>and</span> is grammatically correct, it is not the strongest way of conveying the relationship between the ideas. Students must express the causal relationship here, an important step towards conveying complex ideas.
                     </p>
                 </div>
-                <img class="arrow arrow-2" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
+                <img class="arrow arrow-2 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_2.png" %>>
             </div>
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="arrow arrow-3" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
-              <img class="negative-left-margin img-attempt-3" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
+              <img class="arrow arrow-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/arrow_3.png" %>>
+              <img class="negative-left-margin img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
                 <div class="blurb blurb-attempt-3">
                     <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                     <p>
@@ -78,7 +78,7 @@
         </div>
         <div class="walk-thru-step flex-row vertically-centered">
             <div class="content-wrapper flex-row space-between vertically-centered">
-              <img class="negative-left-margin img-attempt-4" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
+              <img class="negative-left-margin img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
                 <div class="blurb blurb-attempt-4">
                     <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                     <p>
@@ -135,7 +135,7 @@
         </div>
         <div class="walk-thru-step">
           <div class="content-wrapper">
-            <img class="img-attempt-3" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
+            <img class="img-attempt-3 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_3.png" %> alt="connect image">
               <div class="blurb">
                   <h2><span>3rd Attempt:</span> Use Punctuation</h2>
                   <p>
@@ -146,7 +146,7 @@
         </div>
         <div class="walk-thru-step">
           <div class="content-wrapper">
-            <img class="img-attempt-4" src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
+            <img class="img-attempt-4 lazyload" data-src=<%= "#{ENV['CDN_URL']}/images/tools/connect/attempt_4.png" %> alt="connect image">
               <div class="blurb">
                   <h2><span>4th Attempt:</span> Strong Sentence!</h2>
                   <p>
@@ -164,7 +164,7 @@
       <div id="diagnosticCarousel" class="carousel slide" data-ride="carousel">
 
           <a class="left carousel-control" href="#diagnosticCarousel" role="button" data-slide="prev">
-              <i class="fa fa-chevron-left" aria-hidden="true"></i>
+              <i class="fas fa-chevron-left"></i>
               <span class="sr-only">Previous</span>
           </a>
 
@@ -195,7 +195,7 @@
           <!-- Left and right controls -->
 
           <a class="right carousel-control" href="#diagnosticCarousel" role="button" data-slide="next">
-              <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
               <span class="sr-only">Next</span>
           </a>
 
@@ -246,7 +246,7 @@
         <h1 class='q-h1'>
             Get started now! Assign Quill Connect.
         </h1>
-        <a href='/teachers/classrooms/assign_activities/create-unit' class="q-button cta-button bg-quillgreen text-white">Assign</a>
+        <a href='/assign/create-activity-pack' class="q-button cta-button bg-quillgreen text-white">Assign</a>
     </section>
     <% end %>
 

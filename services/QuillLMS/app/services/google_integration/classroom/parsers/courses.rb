@@ -1,18 +1,16 @@
 module GoogleIntegration::Classroom::Parsers::Courses
 
 
-=begin
-example JSON.parse(response.body) :
-
-{"id"=>"5169992618", "name"=>"archive test", "descriptionHeading"=>"archive test", "ownerId"=>"112188393285935083024", "creationTime"=>"2017-03-16T19:09:15.524Z", "updateTime"=>"2017-03-16T19:10:21.493Z", "enrollmentCode"=>"csaous", "courseState"=>"ARCHIVED", "alternateLink"=>"http://classroom.google.com/c/NTE2OTk5MjYxOFpa", "teacherGroupEmail"=>"archive_test_teachers_d85e9a6a@quill.org", "courseGroupEmail"=>"archive_test_732f640d@quill.org", "teacherFolder"=>{"id"=>"0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg", "title"=>"archive test", "alternateLink"=>"https://drive.google.com/drive/folders/0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg"}, "guardiansEnabled"=>false}
-
-=end
+  # example JSON.parse(response.body) :
+  #
+  # {"id"=>"5169992618", "name"=>"archive test", "descriptionHeading"=>"archive test", "ownerId"=>"112188393285935083024", "creationTime"=>"2017-03-16T19:09:15.524Z", "updateTime"=>"2017-03-16T19:10:21.493Z", "enrollmentCode"=>"csaous", "courseState"=>"ARCHIVED", "alternateLink"=>"http://classroom.google.com/c/NTE2OTk5MjYxOFpa", "teacherGroupEmail"=>"archive_test_teachers_d85e9a6a@quill.org", "courseGroupEmail"=>"archive_test_732f640d@quill.org", "teacherFolder"=>{"id"=>"0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg", "title"=>"archive test", "alternateLink"=>"https://drive.google.com/drive/folders/0B42XhC1mwehmfkI2aDBsc2dxbS1RSGxmdXBJd3lmYU9OQU1ob2VwUTgtRkhPSGZzWmxCMTg"}, "guardiansEnabled"=>false}
+  #
 
   def self.run(user, course_response, student_requester)
     if user.role == 'teacher'
-      self.parse_courses_for_teacher(course_response, user, student_requester)
+      parse_courses_for_teacher(course_response, user, student_requester)
     else
-      self.parse_courses_for_student(course_response, user)
+      parse_courses_for_student(course_response, user)
     end
   end
 
@@ -23,18 +21,18 @@ example JSON.parse(response.body) :
     if course_response[:courses] && course_response[:courses].any?
       existing_google_classroom_ids = self.existing_google_classroom_ids(user)
       course_response[:courses].each do |course|
-        alreadyImported = self.already_imported?(course, existing_google_classroom_ids)
-        if alreadyImported
+        already_imported = already_imported?(course, existing_google_classroom_ids)
+        if already_imported
           grade = Classroom.unscoped.find_by(google_classroom_id: course[:id]).grade
         end
-        if self.valid?(course, user, existing_google_classroom_ids)
+        if valid?(course, user, existing_google_classroom_ids)
           students = student_requester.call(course[:id])
           name = course[:section] ? "#{course[:name]} #{course[:section]}" : course[:name]
           courses << {
             id: course[:id].to_i, name: name,
             ownerId: course[:ownerId],
             section: course[:section],
-            alreadyImported: alreadyImported,
+            alreadyImported: already_imported,
             grade: grade,
             creationTime: course[:creationTime],
             studentCount: students.count
@@ -49,7 +47,7 @@ example JSON.parse(response.body) :
     course_ids = []
     if course_response[:courses] && course_response[:courses].any?
       # checking to make sure student is not the owner (teacher) of the course
-      course_response[:courses].select{ |c| !own_course(c, user) }.each do |course|
+      course_response[:courses].reject{ |c| own_course(c, user) }.each do |course|
         course_ids << course[:id]
       end
     end
@@ -65,7 +63,7 @@ example JSON.parse(response.body) :
     # but we are using an outdated method of calling the api elsewhere
     # and need to do a more robust overhaul for this to make sense
     # self.own_course(course, user) && (self.not_archived(course) || course[:alreadyImported])
-    self.not_archived(course) || course[:alreadyImported]
+    not_archived(course) || course[:alreadyImported]
   end
 
   def self.own_course(course, user)

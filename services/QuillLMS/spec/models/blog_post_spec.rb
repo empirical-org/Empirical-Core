@@ -28,7 +28,7 @@ describe BlogPost, type: :model do
       # The blog_post factory will assign a random valid topic, but many of them
       # don't have spaces, so their slugs are just a an instance of downcasing.
       # We want to guarantee that we're testing the space replacement functionality.
-      blog_post.topic = "Writing Instruction Research"
+      blog_post.topic = BlogPost::WRITING_INSTRUCTION_RESEARCH
       expect(blog_post.topic_slug).to eq(blog_post.topic.downcase.gsub(' ', '-'))
     end
   end
@@ -81,7 +81,7 @@ describe BlogPost, type: :model do
 
   describe '#average_rating' do
     let(:blog_post) { create(:blog_post) }
-    let(:blog_post_ratings) { create_list(:blog_post_user_rating, 5, blog_post: blog_post) }
+    let(:blog_post_ratings) { create_list(:blog_post_user_rating, 3, blog_post: blog_post) }
 
     it 'should calculate the average' do
       expected_average = (blog_post_ratings.map(&:rating).sum / blog_post_ratings.size).round(2)

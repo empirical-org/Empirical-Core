@@ -1,46 +1,35 @@
 import React from 'react';
 
+const editSrc = `${process.env.CDN_URL}/images/icons/edit.svg`
+
 export default React.createClass({
 
   manageClassGear() {
     return (
-      <div className="class-mini-top">
-        {this.viewCoteachers()}
-        <a className="class-mini-edit-students" href={this.manageClassLink()}>
-          <p><img src="/images/person_icon.svg" alt="person-icon" /><span>Edit Students</span></p>
-        </a>
-      </div>
+      <a className="class-mini-edit-link" href={this.manageClassLink()}>
+        <img alt="pencil-icon" src={editSrc} />
+      </a>
     );
-  },
-
-  viewCoteachers() {
-    let link;
-    if (this.props.classObj.has_coteacher) {
-      link = this.props.classObj.teacher_role === 'owner' ? '/teachers/classrooms#my-coteachers' : '/teachers/classrooms#active-classes';
-      return <a href={link}>View Co-Teachers</a>;
-    }
-    link = '/teachers/classrooms#invite-coteachers';
-    return <a href={link}>Add Co-Teachers</a>;
   },
 
   manageClassLink() {
     const classId = this.props.classObj.id.toString();
-    return (`/teachers/classrooms/${classId}/students`);
+    return (`/teachers/classrooms?classroom=${classId}#${classId}`);
   },
 
   inviteStudentsLink() {
     const classId = this.props.classObj.id.toString();
-    return ('/teachers/classrooms/invite_students');
+    return (`/teachers/classrooms?modal=invite-students&classroom=${classId}#${classId}`);
   },
 
   studentCount() {
-    if (this.props.classObj.students !== 0) {
+    if (Number(this.props.classObj.student_count) !== 0) {
       return (`${this.props.classObj.student_count} Students`);
     }
   },
 
   activityCount() {
-    if (this.props.classObj.activities_completed !== 0) {
+    if (Number(this.props.classObj.activities_completed) !== 0) {
       return (`${this.props.classObj.activity_count} Activities Completed`);
     }
   },
@@ -95,7 +84,7 @@ export default React.createClass({
   render() {
     return (
       <div className={'mini_container col-md-4 col-sm-5 text-center'}>
-        <div className={'mini_content '}>
+        <div className={'mini_content class-mini'}>
           {this.classroomMini()}
         </div>
       </div>

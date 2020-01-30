@@ -14,12 +14,12 @@ const StudentsClassroomsDropdown = ({
   classroomList
 }) => {
   const carrotDirection = showDropdown ? 'down' : 'up';
-  const carrotClass = `fa fa-angle-${carrotDirection}`
+  const carrotClass = `fas fa-angle-${carrotDirection}`
   const dropdownButtonText = `${classroomList.length} More ${Pluralize('Class', classroomList.length)}`;
 
   if (classroomList.length > 0) {
     return (
-      <div className="classroom-box dropdown-tab" onClick={toggleDropdown} tabIndex="0" onBlur={hideDropdown}>
+      <div className="classroom-box dropdown-tab" onBlur={hideDropdown} onClick={toggleDropdown} tabIndex="0">
         <p>
           {dropdownButtonText}
           <i className={carrotClass} />

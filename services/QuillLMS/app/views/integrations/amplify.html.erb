@@ -20,21 +20,48 @@
   </div>
 </div>
 
-<div class="container pages-activities">
+<div class="container pages-activities amplify">
 
 <% if @active_tab == 'Featured Activities' %>
   <div>
     <h1>Quill.org for Amplify Students</h1>
     <p>
-    Choose your learning acticity by clicking on start acticity.  When you complete the activity, your score will be shared with your teacher in his or her Amplify gradebook.
+    Launch your practice activity by clicking on Start Activity.
     </p>
+    <br/>
   </div>
+  <% @partner_content.each_with_index do |partner_content, index| %>
+    <div class="topic">
+      <div>
+        <h4>Pack <%=index + 1%>. <%=partner_content.content.name%></h4>
+      </div>
+
+        <% partner_content.content.activities_unit_templates.order(:order_number).each_with_index do |activity_unit_template, act_index| %>
+          <div class="activity">
+            <div class="name-and-description">
+              <div class="name"><%= act_index + 1 %>. <%= activity_unit_template.activity.name %></div>
+              <div class="activity-description"><%= activity_unit_template.activity.description&.html_safe %></div>
+            </div>
+            <div class="activity-link"><%= link_to "Start Activity", anonymous_activity_sessions_path(activity_id: activity_unit_template.activity.id), class: 'green-link', target: '_blank' %></div>
+          </div>
+
+        <% end %>
+    </div>
+  <% end %>
 <% elsif @active_tab == 'Explore All Activities' %>
+  <div>
+    <h1>Quill.org Activities</h1>
+    <p>
+    Launch your practice activity by clicking on Start Activity.
+    </p>
+    <br/>
+  </div>
+
   <div class="dropdown-container">
     <div>
       <div class="button select-mixin select-gray button-select button-select-wrapper" type='button' data-toggle='dropdown'>
         <%= @section.name %>
-        <i class="fa fa-caret-down"></i>
+        <i class="fas fa-caret-down"></i>
       </div>
       <ul class="dropdown-menu" role='menu'>
         <% Section.all.sort_by(&:position).each do |section| %>
@@ -43,7 +70,7 @@
       </ul>
     </div>
   </div>
-<% end %>
+
 
   <% @topics.each do |topic, activities| %>
     <div class="topic">
@@ -51,16 +78,17 @@
         <h4><%=topic.name%></h4>
       </div>
 
-        <% activities.each do |activity| %>
+        <% activities.order('activities.name ASC').each do |activity| %>
           <div class="activity">
             <div class="name-and-description">
               <div class="name"><%= activity.name %></div>
               <div class="activity-description"><%= activity.description&.html_safe %></div>
             </div>
-            <div class="activity-link"><%= link_to "View Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link', target: '_blank' %></div>
+            <div class="activity-link"><%= link_to "Start Activity", anonymous_activity_sessions_path(activity_id: activity.id), class: 'green-link', target: '_blank' %></div>
           </div>
 
         <% end %>
     </div>
   <% end %>
+<% end %>
 </div>

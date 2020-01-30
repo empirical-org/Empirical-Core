@@ -1,19 +1,18 @@
 const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
-
-const assetsPluginInstance = new AssetsPlugin();
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 
-console.log('in prod: ', live);
+const assetsPluginInstance = new AssetsPlugin();
+
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: live ? 'production' : 'development',
   resolve: {
     modules: [
       path.resolve(__dirname, 'app'),
@@ -26,35 +25,63 @@ module.exports = {
       '.tsx'
     ],
   },
-  context: path.resolve(__dirname, 'app'),
+  context: `${__dirname}/app`,
   entry: {
     polyfills: ['babel-polyfill', 'whatwg-fetch'],
-    vendor: ['draft-js'],
+    vendor: ['pos', 'draft-js'],
     javascript: './app.jsx',
   },
   output: {
     filename: '[name].[hash].js',
     chunkFilename: '[name].[chunkhash].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: `${__dirname}/dist`,
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 8090,
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      automaticNameDelimiter: '~',
+      name: true,
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    },
+    minimizer: [new UglifyJsPlugin()]
+  },
   plugins: [
     assetsPluginInstance,
-    new webpack.EnvironmentPlugin({
-      EMPIRICAL_BASE_URL: 'http://localhost:3000',
-      LESSONS_WEBSOCKETS_URL: 'http://localhost:5100',
-      NODE_ENV: 'development',
-      QUILL_CMS: 'http://localhost:3100',
-    }),
+    new CompressionPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '[name].css',
       chunkFilename: '[id].css',
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+        EMPIRICAL_BASE_URL: JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
+        QUILL_CDN_URL: JSON.stringify(process.env.QUILL_CDN_URL || 'http://localhost:45537'),
+        QUILL_CMS: JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
+        LESSONS_WEBSOCKETS_URL: JSON.stringify(process.env.LESSONS_WEBSOCKETS_URL || "http://localhost:5100")
+      }
     }),
     new HtmlWebpackPlugin({
       template: './index.html.ejs',
@@ -62,8 +89,8 @@ module.exports = {
       chunks: ['polyfills', 'vendor', 'javascript'],
       chunksSortMode: (chunk1, chunk2) => {
         const orders = ['vendor', 'polyfills', 'javascript'];
-        const order1 = orders.indexOf(chunk1);
-        const order2 = orders.indexOf(chunk2);
+        const order1 = orders.indexOf(chunk1.names[0]);
+        const order2 = orders.indexOf(chunk2.names[0]);
         if (order1 > order2) {
           return 1;
         } else if (order1 < order2) {
@@ -71,13 +98,6 @@ module.exports = {
         }
         return 0;
       },
-    }),
-    new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$/,
-      threshold: 10240,
-      minRatio: 0.8,
     })
   ],
   module: {
@@ -87,16 +107,14 @@ module.exports = {
         test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
         use: [
-          'react-hot-loader',
+          'react-hot-loader/webpack',
           'babel-loader',
-          'ts-loader'
+          'awesome-typescript-loader?errorsAsWarnings=true'
         ],
       },
       {
         test: /\.d.ts$/,
-        use: [
-          'ts-loader'
-        ],
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
       },
       {
         test: /\.html$/,
@@ -105,38 +123,24 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          !live ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'
+          !live ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
         ],
       },
       {
         test: /\.svg$/,
+        loader: 'file-loader',
         include: /app\/img/,
-        use: [
-          'file-loader'
-        ],
       },
       {
         test: /\.(jpg|png)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 25000,
-            },
-          }
-        ],
+        loader: 'url-loader?limit=25000',
         include: /app\/img/,
       },
       {
         test: /\.(eot|woff|woff2|ttf|png|jpe?g|gif|svg)(\?\S*)?$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 25000,
-            },
-          }
-        ],
+        loader: 'url-loader?limit=25000',
         exclude: /app\/img/,
       }
     ],
@@ -147,6 +151,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
-  // addition - add source-map support
-  devtool: 'cheap-module-eval-source-map',
+  devtool: live ? false : 'eval',
 };

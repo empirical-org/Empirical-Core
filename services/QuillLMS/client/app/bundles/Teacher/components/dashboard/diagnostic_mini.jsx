@@ -16,7 +16,7 @@ export default class DiagnosticMini extends React.Component {
   getDiagnosticInfo() {
     const that = this;
     request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/get_diagnostic_info_for_dashboard_mini`,
+      url: `${process.env.DEFAULT_URL}/teachers/diagnostic_info_for_dashboard_mini`,
     },
     (e, r, response) => {
       const parsedResponse = JSON.parse(response)
@@ -37,7 +37,7 @@ export default class DiagnosticMini extends React.Component {
       </div>
       <img src={`${process.env.CDN_URL}/images/shared/diagnostics_completed.svg`} />
       <p>View our recommendations for each&nbsp;student.</p>
-      <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`} className="bg-quillgreen text-white">View Recommended Activities</a>
+      <a className="bg-quillgreen text-white" href={`/teachers/progress_reports/diagnostic_reports#/u/${unitInfo.unit_id}/a/${unitInfo.activity_id}/c/${unitInfo.classroom_id}/recommendations`}>View Recommended Activities</a>
     </div>);
   }
 
@@ -60,7 +60,7 @@ export default class DiagnosticMini extends React.Component {
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
       <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
-      <a href={'/teachers/classrooms/assign_activities/assign-a-diagnostic'} className="bg-quillgreen text-white">Assign Diagnostic</a>
+      <a className="bg-quillgreen text-white" href={'/assign/diagnostic'}>Assign Diagnostic</a>
     </div>);
   }
 

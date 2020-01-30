@@ -1,14 +1,13 @@
-
 require 'rails_helper'
 
 describe User, type: :model do
 
   it { is_expected.to callback(:capitalize_name).before(:save) }
-  it { is_expected.to callback(:generate_student_username_if_absent).before(:save) }
+  it { is_expected.to callback(:generate_student_username_if_absent).before(:validation) }
   it { is_expected.to callback(:prep_authentication_terms).before(:validation) }
   it { is_expected.to callback(:check_for_school).after(:save) }
 
-  #TODO the validation uses a proc, figure out how to stub that
+  #TODO: the validation uses a proc, figure out how to stub that
   #it { is_expected.to callback(:update_invitiee_email_address).after(:save).if(proc) }
 
   it { should have_many(:notifications) }
@@ -33,7 +32,7 @@ describe User, type: :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:password) }
 
-  #TODO matchers don't support if conditions
+  #TODO: matchers don't support if conditions
   #it { should validate_presence_of(:email).on(:create) }
   #it { should validate_uniqueness_of(:email).on(:create) }
   #it { should validate_presence_of(:username).on(:create) }
@@ -240,7 +239,7 @@ describe User, type: :model do
 
   describe 'constants' do
     it "should give the correct value for all the contstants" do
-      expect(User::ROLES).to eq(%w(student teacher staff))
+      expect(User::ROLES).to eq(%w(teacher student staff))
       expect(User::SAFE_ROLES).to eq(%w(student teacher))
       expect(User::VALID_EMAIL_REGEX).to eq(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
     end
@@ -927,13 +926,6 @@ describe User, type: :model do
       end
 
       context 'role is permanent' do
-        it 'is invalid without username and email' do
-          user.safe_role_assignment 'student'
-          user.email = nil
-          user.username = nil
-          expect(user).to_not be_valid
-        end
-
         it 'is valid with username' do
           user.safe_role_assignment 'student'
           user.email = nil
@@ -962,6 +954,13 @@ describe User, type: :model do
       it 'has a last name only' do
         user.first_name = nil
         expect(user.name).to eq(user.last_name)
+      end
+
+      it 'has multiple last names' do
+        user.first_name = 'Has'
+        user.last_name = 'Multiple Last Names'
+        user.save
+        expect(user.name).to eq(user.first_name + ' ' + user.last_name)
       end
     end
   end
@@ -1018,7 +1017,7 @@ describe User, type: :model do
 
     describe '#username' do
       subject { super().username }
-      it { is_expected.to eq('John.Doe@101') }
+      it { is_expected.to eq('john.doe@101') }
     end
 
     describe '#role' do
@@ -1178,6 +1177,40 @@ describe User, type: :model do
       expect(teacher.show_satismeter?).to be false
       expect(teacher.satismeter_feature_enabled?).to be true
       expect(teacher.satismeter_threshold_met?).to be false
+    end
+  end
+
+  describe 'clever_id validation' do
+    it 'should pass the validation if the user is new and the clever id is not currently in use' do
+      user = build(:student, clever_id: 'new_and_different')
+      expect(user.valid?).to be
+    end
+
+    it 'should not pass the validation if the user is new and the clever id is already in use' do
+      create(:student, clever_id: 'already_used')
+      new_user = build(:student, clever_id: 'already_used')
+      expect(new_user.valid?).not_to be
+    end
+
+    it 'should pass the validation if the user already exists and has not changed their clever id, even if another user already has it' do
+      create(:teacher, clever_id: 'already_used')
+      second_user = build(:teacher, clever_id: 'already_used')
+      second_user.save!(validate: false)
+      second_user.name = 'Clever User'
+      expect(second_user.valid?).to be
+    end
+
+    it 'should not pass the validation if the user already exists and is changing their clever id to a non-unique one' do
+      create(:student, clever_id: 'already_used')
+      second_user = create(:student, clever_id: 'different_clever_id')
+      second_user.clever_id = 'already_used'
+      expect(second_user.valid?).not_to be
+    end
+
+    it 'should pass the validation if the user already exists and changes their clever id to a unique one' do
+      user = create(:student)
+      user.clever_id = 'something'
+      expect(user.valid?).to be
     end
   end
 end

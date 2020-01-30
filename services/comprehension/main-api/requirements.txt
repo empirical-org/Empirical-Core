@@ -1,0 +1,6 @@
+Django==2.2.5
+django-cors-headers==3.2.1
+google-cloud-automl>=0.4.0
+gunicorn==19.9.0
+psycopg2==2.8.3
+wheel==0.33.6

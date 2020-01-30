@@ -1,10 +1,12 @@
 import * as React from 'react'
 import * as moment from 'moment'
+import Pusher from 'pusher-js';
 
 import { DropdownInput, DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import GradeOptions from './grade_options'
 
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import { requestPost, requestPut, requestGet } from '../../../../modules/request/index.js';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -19,6 +21,7 @@ interface ImportGoogleClassroomsModalProps {
 interface ImportGoogleClassroomsModalState {
   classrooms: Array<any>;
   postAssignments: boolean;
+  waiting: boolean;
 }
 
 const headers = [
@@ -48,7 +51,8 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
 
     this.state = {
       classrooms: props.classrooms,
-      postAssignments: !!props.user.post_google_classroom_assignments
+      postAssignments: !!props.user.post_google_classroom_assignments,
+      waiting: false
     }
 
     this.importClasses = this.importClasses.bind(this)
@@ -109,15 +113,30 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
   renderCheckbox() {
     const { postAssignments } = this.state
     if (postAssignments) {
-      return <div className="quill-checkbox selected" onClick={this.togglePostAssignments}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.togglePostAssignments}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.togglePostAssignments} />
     }
   }
 
+  initializePusherForGoogleStudentImport(id) {
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channelName = String(id)
+    const channel = pusher.subscribe(channelName);
+    const that = this;
+    channel.bind('google-classroom-students-imported', () => {
+      that.props.onSuccess('Classes imported')
+      pusher.unsubscribe(channelName)
+    });
+  }
+
   importClasses() {
-    const { onSuccess, close, } = this.props
     const { classrooms, postAssignments, } = this.state
+
+    this.setState({ waiting: true })
     const selectedClassrooms = classrooms.filter(classroom => classroom.checked)
     const dataForUserUpdate = {
       post_google_classroom_assignments: postAssignments,
@@ -129,8 +148,8 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
     requestPost('/teachers/classrooms/update_google_classrooms', { selected_classrooms: selectedClassrooms, }, (body) => {
       const newClassrooms = body.classrooms.filter(classroom => selectedClassrooms.find(sc => sc.id === classroom.google_classroom_id))
       const selectedClassroomIds = newClassrooms.map(classroom => classroom.id)
-      requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, () => {
-        onSuccess('Importing classes')
+      requestPut('/teachers/classrooms/import_google_students', { selected_classroom_ids: selectedClassroomIds }, (body) => {
+        this.initializePusherForGoogleStudentImport(body.id)
       })
     })
   }
@@ -143,13 +162,13 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         const { name, username, id, creationTime, studentCount, checked, grade } = classroom
         const year = moment(creationTime).format('YYYY')
         const gradeOption = GradeOptions.find(go => go.value === grade)
-        const gradeSelector = <DropdownInput
-          label="Select a grade"
+        const gradeSelector = (<DropdownInput
           className="grade"
-          value={gradeOption}
-          options={GradeOptions}
           handleChange={(g) => this.handleGradeChange(id, g)}
-        />
+          label="Select a grade"
+          options={GradeOptions}
+          value={gradeOption}
+        />)
         return {
           name,
           id,
@@ -161,23 +180,32 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
         }
       })
 
-      return <DataTable
+      return (<DataTable
+        checkAllRows={this.checkAllRows}
+        checkRow={this.toggleRowCheck}
         headers={headers}
         rows={rows}
         showCheckboxes={true}
-        checkRow={this.toggleRowCheck}
-        uncheckRow={this.toggleRowCheck}
         uncheckAllRows={this.uncheckAllRows}
-        checkAllRows={this.checkAllRows}
-      />
+        uncheckRow={this.toggleRowCheck}
+      />)
+    }
+  }
+
+  renderImportButton() {
+    const { waiting } = this.state
+    if (waiting) {
+      return <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
+    } else {
+      return <button className={this.footerButtonClass()} onClick={this.importClasses}>Import classes</button>
     }
   }
 
   render() {
     const { close } = this.props
-    return <div className="modal-container import-google-classrooms-modal-container">
+    return (<div className="modal-container import-google-classrooms-modal-container">
       <div className="modal-background" />
-      <div className="import-google-classrooms-modal modal">
+      <div className="import-google-classrooms-modal quill-modal">
 
         <div className="import-google-classrooms-modal-header">
           <h3 className="title">Import classes from Google Classroom</h3>
@@ -194,11 +222,11 @@ export default class ImportGoogleClassroomsModal extends React.Component<ImportG
           </div>
           <div className="buttons">
             <button className="quill-button outlined secondary medium" onClick={close}>Cancel</button>
-            <button className={this.footerButtonClass()} onClick={this.importClasses}>Import classes</button>
+            {this.renderImportButton()}
           </div>
         </div>
 
       </div>
-    </div>
+    </div>)
   }
 }

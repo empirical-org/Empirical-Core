@@ -10,7 +10,7 @@ describe('CleverSignUp component', () => {
 
   it('should render', () => {
     const wrapper = shallow(
-        <CleverSignUp />
+      <CleverSignUp />
     );
     expect(wrapper).toMatchSnapshot();
   });

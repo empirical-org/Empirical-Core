@@ -5,7 +5,7 @@ class UnitTemplatePseudoSerializer
     @unit_template = unit_template
   end
 
-  def get_data
+  def data
     ut = @unit_template
     {
       id: ut.id,
@@ -18,7 +18,8 @@ class UnitTemplatePseudoSerializer
       activity_info: ut.activity_info,
       author: author,
       unit_template_category: unit_template_category,
-      activities: activities
+      activities: activities,
+      type: type
     }
   end
 
@@ -70,12 +71,11 @@ class UnitTemplatePseudoSerializer
       INNER JOIN activity_category_activities ON activities.id = activity_category_activities.activity_id
       INNER JOIN activity_categories ON activity_categories.id = activity_category_activities.activity_category_id
       WHERE activities_unit_templates.unit_template_id = #{@unit_template.id}
-      ORDER BY activity_categories.order_number, activity_category_activities.order_number").to_a
-    activities.map do |act|
+      ORDER BY activities_unit_templates.order_number, activity_categories.order_number, activity_category_activities.order_number").to_a
+    activity_hashes = activities.map do |act|
       {
         id: act['id'],
         name: act['name'],
-        flags: act['flags'],
         description: act['description'],
         section_name: act['section_name'],
         topic: {
@@ -89,24 +89,27 @@ class UnitTemplatePseudoSerializer
         classification: {key: act['key'], id: act['activity_classification_id'], name: act['activity_classification_name']}
       }
     end
+    activity_hashes.uniq { |a| a[:id] }
   end
 
-  # def topic(act)
-  #     topic = act.topic
-  #     {
-  #       id: topic.id,
-  #       name: topic.name,
-  #       topic_category: topic_category(topic)
-  #     }
-  # end
-  #
-  # def topic_category(topic)
-  #   tc = topic.topic_category
-  #   {
-  #     id: tc.id,
-  #     name: tc.name
-  #   }
-  # end
-
+  def type
+    activities = @unit_template.activities
+    if activities.any? { |act| act&.classification&.key == ActivityClassification::LESSONS_KEY }
+      {
+        name: UnitTemplate::WHOLE_CLASS_AND_INDEPENDENT_PRACTICE,
+        primary_color: '#9c2bde'
+      }
+    elsif activities.any? { |act| act&.classification&.key == ActivityClassification::DIAGNOSTIC_KEY }
+      {
+        name: UnitTemplate::DIAGNOSTIC,
+        primary_color: '#ea9a1a'
+      }
+    else
+      {
+        name: UnitTemplate::INDEPENDENT_PRACTICE,
+        primary_color: '#348fdf'
+      }
+    end
+  end
 
 end

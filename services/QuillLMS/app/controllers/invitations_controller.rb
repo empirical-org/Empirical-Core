@@ -7,29 +7,30 @@ class InvitationsController < ApplicationController
     begin
       validate_email_and_classroom_ids
       @pending_invite = find_or_create_coteacher_invite_from_current_user
+      raise StandardError, @pending_invite.errors[:base].join(" ") unless @pending_invite.valid?
       assign_classrooms_to_invitee
       invoke_email_worker
-      return render json: { invite_id: @pending_invite.id }
+      render json: { invite_id: @pending_invite.id }
     rescue => e
-      return render json: { error: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 
   def destroy_pending_invitations_to_specific_invitee
     begin
       Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: current_user.id, invitee_email: params[:invitee_email], archived: false).destroy
-      return render json: {}
+      render json: {}
     rescue => e
-      return render json: { error: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 
   def destroy_pending_invitations_from_specific_inviter
     begin
       Invitation.find_by(invitation_type: params[:invitation_type], inviter_id: params[:inviter_id], invitee_email: current_user.email, archived: false).destroy
-      return render json: {}
+      render json: {}
     rescue => e
-      return render json: { error: e.message }, status: 422
+      render json: { error: e.message }, status: 422
     end
   end
 
@@ -52,13 +53,13 @@ class InvitationsController < ApplicationController
 
   def validate_empty_classroom_ids_or_email
     if @classroom_ids.empty? || @invitee_email.empty?
-      raise StandardError.new("Please make sure you've entered a valid email and selected at least one classroom.")
+      raise StandardError, "Please make sure you've entered a valid email and selected at least one classroom."
     end
   end
 
   def validate_email_format
     unless @invitee_email =~ /.+@.+\..+/i
-      raise StandardError.new("Please make sure you've entered a valid email.")
+      raise StandardError, "Please make sure you've entered a valid email."
     end
   end
 
@@ -76,7 +77,8 @@ class InvitationsController < ApplicationController
     extant_invitations_for_classrooms = @pending_invite.coteacher_classroom_invitations.pluck(:classroom_id)
     @classroom_ids.each do |id|
       if extant_invitations_for_classrooms.exclude?(id)
-        CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
+        invite = CoteacherClassroomInvitation.create(invitation_id: @pending_invite.id, classroom_id: id)
+        raise StandardError, invite.errors[:base].join(" ") unless invite.valid?
       end
     end
   end

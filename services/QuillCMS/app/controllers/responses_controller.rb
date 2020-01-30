@@ -4,6 +4,11 @@ require 'modules/incorrect_sequence_calculator'
 class ResponsesController < ApplicationController
   include ResponseSearch
   include ResponseAggregator
+
+  RESPONSE_LIMIT = 100
+  MULTIPLE_CHOICE_LIMIT = 2
+  CACHE_EXPIRY = 15.minutes.to_i
+
   before_action :set_response, only: [:show, :update, :destroy]
 
   # GET /responses
@@ -32,19 +37,9 @@ class ResponsesController < ApplicationController
 
   # POST /responses/create_or_increment
   def create_or_increment
-    response = Response.where(text: response_params[:text], question_uid: response_params[:question_uid])[0]
-    if !response
-      new_vals = transformed_new_vals(params_for_create)
-      response = Response.new(new_vals)
-      if !response.text.blank? && response.save
-        AdminUpdates.run(response.question_uid)
-        render json: response, status: :created, location: response
-      else
-        render json: response.errors, status: :unprocessable_entity
-      end
-    else
-      increment_counts(response)
-    end
+    transformed_response = transformed_new_vals(params_for_create).to_h
+    CreateOrIncrementResponseWorker.perform_async(transformed_response)
+    render json: {}
   end
 
   # PATCH/PUT /responses/1
@@ -52,7 +47,7 @@ class ResponsesController < ApplicationController
     new_vals = transformed_new_vals(response_params)
     updated_response = @response.update(new_vals)
     if updated_response
-      if @response.optimal != nil
+      if !@response.optimal.nil?
         Rails.cache.delete("questions/#{@response.question_uid}/responses")
       end
       render json: @response
@@ -68,44 +63,49 @@ class ResponsesController < ApplicationController
 
   # GET /questions/:question_uid/responses
   def responses_for_question
-    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => 900) do
+    @responses = Rails.cache.fetch("questions/#{params[:question_uid]}/responses", :expires_in => CACHE_EXPIRY) do
       Response.where(question_uid: params[:question_uid]).where.not(optimal: nil).where(parent_id: nil).to_a
     end
     render json: @responses
   end
 
+  # POST /questions/rematch_all
+  def rematch_all_responses_for_question
+    RematchResponsesForQuestionWorker.perform_async(params[:uid], params[:type])
+  end
+
   def multiple_choice_options
-    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => 900) do
-      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(2).to_a
-      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(2).to_a
+    multiple_choice_options = Rails.cache.fetch("questions/#{params[:question_uid]}/multiple_choice_options", :expires_in => CACHE_EXPIRY) do
+      optimal_responses = Response.where(question_uid: params[:question_uid], optimal: true).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
+      sub_optimal_responses = Response.where(question_uid: params[:question_uid], optimal: [false, nil]).order('count DESC').limit(MULTIPLE_CHOICE_LIMIT).to_a
       optimal_responses.concat(sub_optimal_responses)
     end
     render json: multiple_choice_options
   end
 
-  def get_health_of_question
-    render json: health_of_question(params[:question_uid])
+  def health_of_question
+    render json: health_of_question_obj(params[:question_uid])
   end
 
-  def get_grade_breakdown
+  def grade_breakdown
     render json: optimality_counts_of_question(params[:question_uid])
   end
 
-  def get_incorrect_sequences
-    render json: IncorrectSequenceCalculator.get_incorrect_sequences_for_question(params[:question_uid])
+  def incorrect_sequences
+    render json: IncorrectSequenceCalculator.incorrect_sequences_for_question(params[:question_uid])
   end
 
-  def get_count_affected_by_incorrect_sequences
-    used_sequences = params_for_get_count_affected_by_incorrect_sequences[:used_sequences] || []
-    selected_sequences = params_for_get_count_affected_by_incorrect_sequences[:selected_sequences]
+  def count_affected_by_incorrect_sequences
+    used_sequences = params_for_count_affected_by_incorrect_sequences[:used_sequences] || []
+    selected_sequences = params_for_count_affected_by_incorrect_sequences[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid], optimal: nil)
-    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
+    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
-      no_matching_used_sequences = used_sequences.none? { |us| us.length > 0 && Regexp.new(us).match(response.text) }
+      no_matching_used_sequences = used_sequences.none? { |us| !us.empty? && Regexp.new(us).match(response.text) }
       matching_selected_sequence = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp).match(response.text)}
+        sequence_particles.all? { |sp| !sp.empty? && Regexp.new(sp).match(response.text)}
       end
       if no_matching_used_sequences && matching_selected_sequence
         matched_responses_count += 1
@@ -114,28 +114,21 @@ class ResponsesController < ApplicationController
     render json: {matchedCount: matched_responses_count}
   end
 
-  def get_count_affected_by_focus_points
-    selected_sequences = params_for_get_count_affected_by_focus_points[:selected_sequences]
+  def count_affected_by_focus_points
+    selected_sequences = params_for_count_affected_by_focus_points[:selected_sequences]
     responses = Response.where(question_uid: params[:question_uid])
-    non_blank_selected_sequences = selected_sequences.select { |ss| ss.length > 0}
+    non_blank_selected_sequences = selected_sequences.reject { |ss| ss.empty?}
     matched_responses_count = 0
     responses.each do |response|
       match = non_blank_selected_sequences.any? do |ss|
         sequence_particles = ss.split('&&')
-        sequence_particles.all? { |sp| sp.length > 0 && Regexp.new(sp, 'i').match(response.text)}
+        sequence_particles.all? { |sp| !sp.empty? && Regexp.new(sp, 'i').match(response.text)}
       end
       if match
         matched_responses_count += 1
       end
     end
     render json: {matchedCount: matched_responses_count}
-  end
-
-  def increment_counts(response)
-    response.increment!(:count)
-    increment_first_attempt_count(response)
-    increment_child_count_of_parent(response)
-    response.update_index_in_elastic_search
   end
 
   def search
@@ -191,7 +184,7 @@ class ResponsesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
-      @response = find_by_id_or_uid(params[:id])
+      @response = Response.find_by_id_or_uid(params[:id])
     end
 
     def search_params
@@ -250,23 +243,12 @@ class ResponsesController < ApplicationController
       )
     end
 
-    def params_for_get_count_affected_by_incorrect_sequences
+    def params_for_count_affected_by_incorrect_sequences
       params.require(:data).permit!
     end
 
-    def params_for_get_count_affected_by_focus_points
+    def params_for_count_affected_by_focus_points
       params.require(:data).permit!
-    end
-
-    def find_by_id_or_uid(string)
-      Integer(string || '')
-      Response.find(string)
-    rescue ArgumentError
-      Response.find_by_uid(string)
-    end
-
-    def increment_first_attempt_count(response)
-      params[:response][:is_first_attempt] == "true" ? response.increment!(:first_attempt_count) : nil
     end
 
     def concept_results_to_boolean(concept_results)
@@ -275,23 +257,10 @@ class ResponsesController < ApplicationController
         if val.respond_to?(:keys)
           new_concept_results[val['conceptUID']] = val['correct'] == 'true' || val == true
         else
-          new_concept_results[key] = val == 'true' || val == true
+          new_concept_results[key] = ['true', true].include?(val)
         end
       end
       new_concept_results
-    end
-
-    def increment_child_count_of_parent(response)
-      parent_id = response.parent_id
-      parent_uid = response.parent_uid
-      id = parent_id || parent_uid
-      # id will be the first extant value or false. somehow 0 is being
-      # used as when it shouldn't (possible JS remnant) so we verify that
-      # id is truthy and not 0
-      if id && id != 0
-        parent = find_by_id_or_uid(id)
-        parent.increment!(:child_count) unless parent.nil?
-      end
     end
 
     def transformed_new_vals(response_params)
@@ -303,6 +272,6 @@ class ResponsesController < ApplicationController
           new_vals[:concept_results] = concept_results_to_boolean(new_vals[:concept_results])
         end
       end
-      return new_vals
+      new_vals
     end
 end

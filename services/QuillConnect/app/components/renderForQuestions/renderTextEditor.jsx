@@ -1,50 +1,34 @@
-import React from 'react';
+import * as React from 'react';
 import _ from 'underscore';
-import Textarea from 'react-textarea-autosize';
+import ContentEditable from 'react-contenteditable';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
-import { getParameterByName } from '../../libs/getParameterByName';
 import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
-
+import { getParameterByName } from '../../libs/getParameterByName';
 const C = require('../../constants').default;
 
 const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-const timeBetweenActivitySessionInteractionLogsInMS = 2000;
+export default class RenderTextEditor extends React.Component {
+  constructor(props) {
+    super(props)
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      text: this.props.value || '',
-    };
-  },
-
-  getErrorsForAttempt(attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES);
-  },
-
-  reportActivtySessionTextBoxInteraction() {
-    sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: this.props.questionID, });
-  },
-
-  componentWillMount() {
-    this.reportActivtySessionTextBoxInteraction = _.debounce(
-      this.reportActivtySessionTextBoxInteraction,
-      timeBetweenActivitySessionInteractionLogsInMS,
-      true
-    );
-  },
+    this.state = {
+      text: props.value || ''
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.latestAttempt !== this.props.latestAttempt) {
+    const { latestAttempt, getResponse, } = this.props
+    if (nextProps.latestAttempt !== latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
         const errorKeys = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt));
         const nErrors = errorKeys.length;
         let targetText;
         if (parentID) {
-          const parentResponse = this.props.getResponse(parentID);
+          const parentResponse = getResponse(parentID);
           targetText = parentResponse.text;
           const newStyle = this.getUnderliningFunctionFromAuthor(nextProps.latestAttempt.response.author, targetText, nextProps.latestAttempt.submitted);
           if (newStyle) {
@@ -63,7 +47,13 @@ export default React.createClass({
         }
       }
     }
-  },
+  }
+
+  setAnswerBoxRef = node => this.answerBox = node
+
+  getErrorsForAttempt(attempt) {
+    return _.pick(attempt, ...C.ERROR_TYPES);
+  }
 
   getUnderliningFunction(errorType, targetString, userString) {
     switch (errorType) {
@@ -81,7 +71,7 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  }
 
   getUnderliningFunctionFromAuthor(author, targetString, userString) {
     switch (author) {
@@ -98,7 +88,7 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  }
 
   applyNewStyle(newStyle) {
     if (newStyle.inlineStyleRanges[0]) {
@@ -108,52 +98,76 @@ export default React.createClass({
       input.selectionStart = offset;
       input.selectionEnd = end;
     }
-  },
+  }
 
   clearStyle() {
     const input = this.refs.answerBox;
     input.selectionStart = 0;
     input.selectionEnd = 0;
-  },
+  }
 
-  handleTextChange(e) {
-    if (!this.props.disabled) {
-      this.props.handleChange(e.target.value, this.props.editorIndex);
-    } else {
-      console.log("I'm disable RN");
+  handleKeyUp = () => {
+    const { questionID, } = this.props
+    // commenting out 1/29/20 to see if it resolves a traffic issue we're having on the LMS
+    // sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: questionID, });
+  }
+
+  handleTextChange = (e) => {
+    const { disabled, onChange, } = this.props
+    if (disabled) { return }
+
+    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')
+    onChange(stripHTML, this.answerBox);
+  }
+
+  handleKeyDown = (e) => {
+    const { disabled, onSubmitResponse, } = this.props
+    if (disabled || e.key !== 'Enter') { return }
+
+    e.preventDefault();
+    onSubmitResponse();
+  }
+
+  displayedHTML() {
+  const { value, latestAttempt, } = this.props
+    if (!(latestAttempt && latestAttempt.response && latestAttempt.response.misspelled_words)) {
+      return value
     }
-  },
-
-  handleKeyDown(e) {
-    if (!this.props.disabled) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        this.props.checkAnswer();
+    const wordArray = value.split(' ')
+    const newWordArray = wordArray.map(word => {
+      const punctuationStrippedWord = word.replace(/[^A-Za-z0-9\s]/g, '')
+      if (latestAttempt.response.misspelled_words.includes(punctuationStrippedWord)) {
+        return `<b>${word}</b>`
+      } else {
+        return word
       }
-    }
-  },
+    })
+
+    return newWordArray.join(' ')
+  }
 
   render() {
+    const { hasError, disabled, value, spellCheck, placeholder, } = this.props
+    const tabIndex = disabled ? -1 : 0
     return (
-      <div className={`student text-editor card is-fullwidth ${this.props.hasError ? 'red-outline' : ''} ${this.props.disabled ? 'disabled-editor' : ''}`}>
+      <div className={`student text-editor card is-fullwidth ${hasError ? 'error' : ''} ${disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
           <div className="content">
-            <Textarea
-              spellCheck={this.props.spellCheck || false}
-              autoCapitalize="off"
-              autoCorrect="off"
-              value={this.props.value}
-              onInput={this.handleTextChange}
-              onKeyDown={this.handleKeyDown}
-              onKeyUp={this.reportActivtySessionTextBoxInteraction}
-              placeholder={this.props.placeholder}
-              ref="answerBox"
+            <ContentEditable
               className="connect-text-area"
-              autoFocus
+              data-gramm={false}
+              disabled={disabled}
+              html={this.displayedHTML()}
+              innerRef={this.setAnswerBoxRef}
+              onChange={this.handleTextChange}
+              onKeyDown={this.handleKeyDown}
+              onKeyUp={this.handleKeyUp}
+              placeholder={placeholder}
+              spellCheck={false}
             />
           </div>
         </div>
       </div>
     );
-  },
-});
+  }
+}

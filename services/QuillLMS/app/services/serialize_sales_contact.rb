@@ -47,7 +47,7 @@ class SerializeSalesContact
   BASE_USER_URL = "https://www.quill.org/cms/users"
 
   def account_data_params
-    @account_data_params ||= Hash.new.tap do |hash|
+    @account_data_params ||= {}.tap do |hash|
       if teacher.sales_contact.present?
         teacher.sales_contact.stages.each do |stage|
           unless stage.completed_at.nil?
@@ -76,7 +76,7 @@ class SerializeSalesContact
 
   def activities_per_student
     if number_of_students > 0
-      (number_of_completed_activities.to_f / number_of_students.to_f).round(2)
+      (number_of_completed_activities.to_f / number_of_students).round(2)
     else
       0
     end
@@ -117,7 +117,7 @@ class SerializeSalesContact
     end
 
     if teacher.last_expired_subscription.present?
-      return teacher.last_expired_subscription
+      teacher.last_expired_subscription
     end
   end
 

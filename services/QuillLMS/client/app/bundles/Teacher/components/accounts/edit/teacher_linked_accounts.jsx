@@ -52,10 +52,20 @@ export default class TeacherLinkedAccounts extends React.Component {
     updateUser(data, '/teachers/update_my_account', 'Settings saved')
   }
 
+  isLinkedToGoogle = () => {
+    const { googleId } = this.props
+    return googleId && googleId.length
+  }
+
+  isLinkedToClever = () => {
+    const { cleverId } = this.props
+    return cleverId && cleverId.length
+  }
+
   renderCheckbox() {
     const { postGoogleClassroomAssignments, } = this.props
     if (postGoogleClassroomAssignments) {
-      return <div className="quill-checkbox selected" onClick={this.toggleGoogleClassroomAssignments}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={this.toggleGoogleClassroomAssignments}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={this.toggleGoogleClassroomAssignments} />
     }
@@ -63,8 +73,9 @@ export default class TeacherLinkedAccounts extends React.Component {
 
   renderGoogleSection() {
     let actionElement, copy, checkboxRow
-    const { googleId, } = this.props
-    if (!googleId || !googleId.length) {
+    if (this.isLinkedToClever() && !this.isLinkedToGoogle()) {
+      copy = 'Google is not linked. Unlink Clever to link your Google account.'
+    } else if (!this.isLinkedToGoogle()) {
       copy = 'Google is not linked'
       actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2?prompt=consent">Link your account</a>
     } else {
@@ -80,7 +91,7 @@ export default class TeacherLinkedAccounts extends React.Component {
       <div>
         <div className="google-row">
           <div className="first-half">
-            <img src="/images/google_icon.svg" alt="google icon" />
+            <img alt="google icon" src="/images/google_icon.svg" />
             <span>{copy}</span>
           </div>
           {actionElement}
@@ -91,8 +102,9 @@ export default class TeacherLinkedAccounts extends React.Component {
 
   renderCleverSection() {
     let actionElement, copy
-    const { cleverId, } = this.props
-    if (!cleverId || !cleverId.length) {
+    if (this.isLinkedToGoogle() && !this.isLinkedToClever()) {
+      copy = 'Clever is not linked. Unlink Google to link your Clever account.'
+    } else if (!this.isLinkedToClever()) {
       copy = 'Clever is not linked'
       actionElement = <a className="google-or-clever-action" href={this.props.cleverLink}>Link your account</a>
     } else {
@@ -101,7 +113,7 @@ export default class TeacherLinkedAccounts extends React.Component {
     }
     return (<div className="clever-row">
       <div className="first-half">
-        <img src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} alt="clever icon" />
+        <img alt="clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
         <span>{copy}</span>
       </div>
       {actionElement}
@@ -112,32 +124,32 @@ export default class TeacherLinkedAccounts extends React.Component {
     const { updateUser, email, timesSubmitted, errors, } = this.props
     if (this.state.showGoogleModal) {
       return (<UnlinkModal
-        googleOrClever="Google"
         cancel={this.hideGoogleModal}
-        updateUser={this.props.updateUser}
         email={email}
         errors={errors}
+        googleOrClever="Google"
         timesSubmitted={timesSubmitted}
+        updateUser={this.props.updateUser}
       />)
     } else if (this.state.showCleverModal) {
       return (<UnlinkModal
-        googleOrClever="Clever"
         cancel={this.hideCleverModal}
-        updateUser={this.props.updateUser}
         email={email}
         errors={errors}
+        googleOrClever="Clever"
         timesSubmitted={timesSubmitted}
+        updateUser={this.props.updateUser}
       />)
     }
   }
 
   render() {
-    return <div className="teacher-account-linked-accounts teacher-account-section">
+    return (<div className="user-linked-accounts user-account-section">
       {this.renderModal()}
       <h1>Linked accounts</h1>
       {this.renderGoogleSection()}
       <hr />
       {this.renderCleverSection()}
-    </div>
+    </div>)
   }
 }

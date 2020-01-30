@@ -1,20 +1,22 @@
 class Dashboard
+  SUFFICIENT_DATA_AMOUNT = 30
+  RESULT_LIMITS = 5
 
   def self.queries(user)
     get_redis_values(user)
     strug_stud = @@cached_strug_stud
     diff_con = @@cached_diff_con
     unless @@cached_strug_stud && @@cached_diff_con
-      completed_count = self.completed_activity_count(user.id)
+      completed_count = completed_activity_count(user.id)
       if !completed_count || completed_count == 0
         strug_stud = 'insufficient data'
         diff_con = 'insufficient data'
       end
-      if completed_count >= 30
+      if completed_count >= SUFFICIENT_DATA_AMOUNT
         user_id = user.id
-        diff_con ||= self.difficult_concepts(user_id)
-        strug_stud ||= self.lowest_performing_students(user_id)
-        if diff_con.length == 0
+        diff_con ||= difficult_concepts(user_id)
+        strug_stud ||= lowest_performing_students(user_id)
+        if diff_con.empty?
           diff_con = 'insufficient data'
         end
       else
@@ -25,23 +27,24 @@ class Dashboard
     set_cache_if_empty(strug_stud, diff_con, user)
     results = [
               {header: 'Lowest Performing Students', results: strug_stud},
-              {header: 'Difficult Concepts', results: diff_con}]
+              {header: 'Difficult Concepts', results: diff_con}
+]
   end
 
   private
 
   def self.completed_activity_count(user_id)
     ActiveRecord::Base.connection.execute("SELECT COUNT(DISTINCT acts.id) FROM activity_sessions as acts
-    #{self.body_of_sql_search(user_id)}").to_a.first["count"].to_i
+    #{body_of_sql_search(user_id)}").to_a.first["count"].to_i
   end
 
   def self.lowest_performing_students(user_id)
     ActiveRecord::Base.connection.execute(
         "SELECT students.name, (AVG(acts.percentage)*100) AS score FROM activity_sessions as acts
-        #{self.body_of_sql_search(user_id)}
+        #{body_of_sql_search(user_id)}
         GROUP BY students.id
         ORDER BY score
-        LIMIT 5").to_a
+        LIMIT #{RESULT_LIMITS}").to_a
   end
 
   def self.body_of_sql_search(user_id)
@@ -54,7 +57,7 @@ class Dashboard
      AND classrooms.visible = true
      AND acts.percentage IS NOT null
      AND acts.visible IS true
-     AND #{self.completed_since_sql}"
+     AND #{completed_since_sql}"
   end
 
   def self.completed_since_sql
@@ -69,19 +72,19 @@ class Dashboard
     JOIN concept_results ON acts.id = concept_results.activity_session_id
     JOIN concepts ON concepts.id = concept_results.concept_id
     JOIN classrooms_teachers ON classrooms_teachers.classroom_id = classroom_units.classroom_id
-    WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{self.completed_since_sql}
+    WHERE classrooms_teachers.user_id = #{user_id} AND acts.percentage IS NOT null AND acts.visible IS true AND #{completed_since_sql}
     GROUP BY concepts.id
     ORDER BY non_zero DESC, score
-    LIMIT 5").to_a
+    LIMIT #{RESULT_LIMITS}").to_a
   end
 
 
   def self.set_cache_if_empty(strug_stud, diff_con, user)
     unless @@cached_strug_stud || strug_stud == 'insufficient data'
-      $redis.set("user_id:#{user.id}_struggling_students", strug_stud, {ex: 16.hours})
+      $redis.set("user_id:#{user.id}_struggling_students", strug_stud.to_json, {ex: 16.hours})
     end
     unless @@cached_diff_con || diff_con == 'insufficient data'
-      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con, {ex: 16.hours})
+      $redis.set("user_id:#{user.id}_difficult_concepts", diff_con.to_json, {ex: 16.hours})
     end
   end
 
@@ -89,8 +92,8 @@ class Dashboard
     strug_stud = $redis.get("user_id:#{user.id}_struggling_students")
     diff_con = $redis.get("user_id:#{user.id}_difficult_concepts")
     # don't use cache if it doesn't exist or is blank
-    @@cached_strug_stud = strug_stud.nil? || strug_stud&.blank? ? nil : eval(strug_stud)
-    @@cached_diff_con = diff_con.nil? || diff_con&.blank? ? nil : eval(diff_con)
+    @@cached_strug_stud = strug_stud.nil? || strug_stud&.blank? ? nil : JSON.parse(strug_stud)
+    @@cached_diff_con = diff_con.nil? || diff_con&.blank? ? nil : JSON.parse(diff_con)
   end
 
 

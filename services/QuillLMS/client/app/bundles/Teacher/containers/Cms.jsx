@@ -83,12 +83,13 @@ export default React.createClass({
         </div>
         <div className='row'>
           <div className='col-xs-12'>
-            <CmsIndexTable data={{ resources, }}
-                              actions={{edit: this.edit, delete: this.delete}}
-                              isSortable={this.isSortable()}
-                              updateOrder={this.updateOrder}
-                              resourceNameSingular={this.props.resourceNameSingular}
-                            />
+            <CmsIndexTable
+              actions={{edit: this.edit, delete: this.delete}}
+              data={{ resources, }}
+              isSortable={this.isSortable()}
+              resourceNameSingular={this.props.resourceNameSingular}
+              updateOrder={this.updateOrder}
+            />
           </div>
         </div>
       </span>
@@ -143,7 +144,7 @@ export default React.createClass({
           authenticity_token: getAuthToken()
         }}, (e, r, response) => {
           if (e) {
-            console.log(e);
+            // to do, use Sentry to capture error
             alert(`We could not save the updated order. Here is the error: ${e}`);
           } else {
             that.setState({[resourceName]: response[resourceName]});
@@ -161,13 +162,13 @@ export default React.createClass({
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
       const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
-      return <div style={{ marginLeft: '10px', display: 'inline', }}>
+      return (<div style={{ marginLeft: '10px', display: 'inline', }}>
         <ItemDropdown
-          items={options}
           callback={this.switchFlag}
+          items={options}
           selectedItem={this.state.flag}
         />
-      </div>
+      </div>)
     }
   },
 

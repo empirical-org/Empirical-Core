@@ -133,31 +133,22 @@ class Questions extends React.Component {
       '-KPt3uD8hulWiYGp3Rm7-esp'
     ];
 
-    console.log('Rematching All Questions');
     const questLength = _.keys(this.props.questions.data).length;
     _.each(hashToCollection(this.props.questions.data), (question, index) => {
       const percentage = index / questLength * 100;
-      console.log(`Rematching: ${percentage}% complete`);
       if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
-        console.log('Rematching Question: ', question.key);
         this.rematchAllResponses(question);
-      } else {
-        console.log('Ignoring');
       }
     });
-    console.log('Finished Rematching All Questions');
   }
 
   rematchAllResponses(question) {
-    // console.log('Rematching All Responses', question);
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
       const percentage = index / weak.length * 100;
-      // console.log(`Rematching ${resp.key} | ${percentage}% complete`);
       this.rematchResponse(question, resp, responsesWithStat);
     });
-    // console.log('Finished Rematching All Responses');
   }
 
   rematchResponse(question, response, responses) {
@@ -171,9 +162,6 @@ class Questions extends React.Component {
     (newMatchedResponse.response.feedback !== response.feedback) ||
     (newMatchedResponse.response.conceptResults !== response.conceptResults);
     const unmatched = (newMatchedResponse.found === false);
-    // console.log('Rematched: t, u, o, n: ', changed, unmatched);
-    // console.log(response);
-    // console.log(newMatchedResponse.response);
     if (changed) {
       if (unmatched) {
         const newValues = {
@@ -183,7 +171,6 @@ class Questions extends React.Component {
           questionUID: response.questionUID,
           gradeIndex: `unmatched${response.questionUID}`,
         };
-        // console.log("Unmatched: ", response.key)
         sleep(150);
         this.props.dispatch(
           setUpdatedResponse(response.key, newValues)
@@ -203,7 +190,6 @@ class Questions extends React.Component {
         if (newMatchedResponse.response.conceptResults) {
           newValues.conceptResults = newMatchedResponse.response.conceptResults;
         }
-        // console.log("Rematched: ", response.key)
         sleep(150);
         this.updateRematchedResponse(response.key, newValues);
       }
@@ -221,9 +207,9 @@ class Questions extends React.Component {
               <label className="label">Name</label>
               <input
                 className="input"
-                type="text"
                 placeholder="Text input"
                 ref="newQuestionName"
+                type="text"
               />
             </p>
             <p className="control">
@@ -274,7 +260,7 @@ class Questions extends React.Component {
         }
         return { name, value: opt.key || 'key', };
       });
-      const searchBox = (<QuestionSelector options={formatted} placeholder="Search for a question" onChange={this.handleSearchChange} />);
+      const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
   }
@@ -290,18 +276,18 @@ class Questions extends React.Component {
             { this.renderSearchBox() }
             <br />
             <label className="checkbox">
-              <input type="checkbox" checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} />
+              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
               Display questions with no valid concept
             </label>
-            <ArchivedButton showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} lessons={false} />
+            <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
-              questions={this.state.questions}
+              basePath={'questions'}
               concepts={concepts}
               displayNoConceptQuestions={this.state.displayNoConceptQuestions}
+              questions={this.state.questions}
               showOnlyArchived={this.state.showOnlyArchived}
-              basePath={'questions'}
             />
 
           </div>

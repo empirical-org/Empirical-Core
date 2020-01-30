@@ -7,7 +7,7 @@ var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
 var json = require('rollup-plugin-json');
 var nodeGlobals = require('rollup-plugin-node-globals')
-var builtins = require('rollup-plugin-node-builtins');
+var builtins = require('rollup-plugin-node-builtins-brofs');
 var uglifyPlugin = require('rollup-plugin-uglify')
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
@@ -81,7 +81,6 @@ function write(dest, code) {
     return new Promise(function (resolve, reject) {
         fs.writeFile(dest, code, function (err) {
             if (err) return reject(err)
-            console.log(blue(dest) + ' ' + getSize(code))
             resolve()
         })
     })
@@ -92,7 +91,7 @@ function getSize(code) {
 };
 
 function logError(e) {
-    console.log(e)
+    // to do, use Sentry to capture error
 };
 
 function blue(str) {

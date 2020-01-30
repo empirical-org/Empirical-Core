@@ -19,12 +19,12 @@ describe("<PlayGrammarContainer />", () => {
   const shallowWrapper = shallow(<QuestionComponent
     activity={currentActivity}
     answeredQuestions={session.answeredQuestions}
-    unansweredQuestions={session.unansweredQuestions}
+    checkAnswer={() => {}}
+    concepts={{}}
+    conceptsFeedback={conceptsFeedback}
     currentQuestion={currentQuestion}
     goToNextQuestion={() => {}}
-    checkAnswer={() => {}}
-    conceptsFeedback={conceptsFeedback}
-    concepts={{}}
+    unansweredQuestions={session.unansweredQuestions}
   />)
 
     it("should render", () => {
@@ -60,12 +60,12 @@ describe("<PlayGrammarContainer />", () => {
         const unclickedWrapper = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
+          checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
-          checkAnswer={() => {}}
-          conceptsFeedback={conceptsFeedback}
-          concepts={{}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
 
         it ("renders with the text 'Hide Example'", () => {
@@ -85,12 +85,12 @@ describe("<PlayGrammarContainer />", () => {
         const clickedWrapper = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
-          currentQuestion={currentQuestion}
-          goToNextQuestion={() => {}}
           checkAnswer={() => {}}
           concepts={{}}
           conceptsFeedback={conceptsFeedback}
+          currentQuestion={currentQuestion}
+          goToNextQuestion={() => {}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
 
         clickedWrapper.find('.example-button').simulate('click')
@@ -115,12 +115,12 @@ describe("<PlayGrammarContainer />", () => {
         const untypedInWrapper = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
+          checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
           currentQuestion={currentQuestion}
           goToNextQuestion={() => {}}
-          checkAnswer={() => {}}
-          conceptsFeedback={conceptsFeedback}
-          concepts={{}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
         const textArea = untypedInWrapper.find('textarea')
         it ('should not have any text', () => {
@@ -136,12 +136,12 @@ describe("<PlayGrammarContainer />", () => {
         const typedInWrapper = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
-          currentQuestion={currentQuestion}
-          goToNextQuestion={() => {}}
           checkAnswer={() => {}}
           concepts={{}}
           conceptsFeedback={conceptsFeedback}
+          currentQuestion={currentQuestion}
+          goToNextQuestion={() => {}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
         const typedText = 'Hello'
         typedInWrapper.find('textarea').simulate('change', { target: { value: typedText } })
@@ -175,12 +175,12 @@ describe("<PlayGrammarContainer />", () => {
         const wrapperWithOneIncorrectAttempt = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
+          checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
           currentQuestion={currentQuestionWithOneIncorrectAttempt}
           goToNextQuestion={() => {}}
-          checkAnswer={() => {}}
-          conceptsFeedback={conceptsFeedback}
-          concepts={{}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
 
         wrapperWithOneIncorrectAttempt.setState({questionStatus: 'incorrectly answered', responses })
@@ -198,12 +198,12 @@ describe("<PlayGrammarContainer />", () => {
         const wrapperWithTwoIncorrectAttempts = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
+          checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
           currentQuestion={currentQuestionWithTwoIncorrectAttempts}
           goToNextQuestion={() => {}}
-          checkAnswer={() => {}}
-          conceptsFeedback={conceptsFeedback}
-          concepts={{}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
 
         wrapperWithTwoIncorrectAttempts.setState({questionStatus: 'final attempt', responses })
@@ -221,12 +221,12 @@ describe("<PlayGrammarContainer />", () => {
         const wrapperWithOneCorrectAttempt = shallow(<QuestionComponent
           activity={currentActivity}
           answeredQuestions={session.answeredQuestions}
-          unansweredQuestions={session.unansweredQuestions}
+          checkAnswer={() => {}}
+          concepts={{}}
+          conceptsFeedback={conceptsFeedback}
           currentQuestion={currentQuestionWithOneCorrectAttempt}
           goToNextQuestion={() => {}}
-          checkAnswer={() => {}}
-          conceptsFeedback={conceptsFeedback}
-          concepts={{}}
+          unansweredQuestions={session.unansweredQuestions}
         />)
 
         wrapperWithOneCorrectAttempt.setState({questionStatus: 'correctly answered', responses })

@@ -14,7 +14,6 @@ const {
 
 export default React.createClass({
   getInitialState: function () {
-    console.log(this.props.text)
     return {
       text: EditorState.createWithContent(convertFromHTML(this.props.text || ''))
     }
@@ -42,17 +41,17 @@ export default React.createClass({
       <div className="card is-fullwidth">
         <header className="card-header">
           <div className="myToolbar" style={{margin: '1em'}}>
-            <H3Button/>
-            <BoldButton/>
-            <ItalicButton/>
-            <UnderlineButton/>
-            <BlockquoteButton/>
-            <ULButton/>
+            <H3Button />
+            <BoldButton />
+            <ItalicButton />
+            <UnderlineButton />
+            <BlockquoteButton />
+            <ULButton />
           </div>
         </header>
         <div className="card-content">
           <div className="content landing-page-html-editor">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]}/>
+            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]} />
           </div>
         </div>
       </div>

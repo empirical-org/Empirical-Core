@@ -3,10 +3,6 @@ module NavigationHelper
     ['dashboard', 'my_account', 'teacher_guide', 'google_sync'].include?(action_name) || (controller_name == 'subscriptions' && action_name == 'index') || controller_name == 'referrals'
   end
 
-  def new_classes_page_should_be_active?
-    controller.class == Teachers::ClassroomsController && action_name == 'new_index'
-  end
-
   def classes_page_should_be_active?
     (controller.class == Teachers::ClassroomsController ||
     controller_name == 'students' ||
@@ -15,7 +11,7 @@ module NavigationHelper
   end
 
   def assign_activity_page_should_be_active?
-    controller.class == Teachers::ClassroomManagerController && action_name == 'assign_activities'
+    controller.class == Teachers::ClassroomManagerController && action_name == 'assign'
   end
 
   def my_activities_page_should_be_active?
@@ -41,16 +37,20 @@ module NavigationHelper
   def premium_tab_copy
     case current_user.premium_state
     when 'trial'
-      "Premium  <i class='fa fa-star'></i> #{current_user.trial_days_remaining} Days Left"
+      "Premium  <i class='fas fa-star'></i> #{current_user.trial_days_remaining} Days Left"
     when 'locked'
-      "Premium  <i class='fa fa-star'></i> Trial Expired"
+      "Premium  <i class='fas fa-star'></i> Trial Expired"
     when nil
-      "Try Premium <i class='fa fa-star'></i>"
+      "Try Premium <i class='fas fa-star'></i>"
     when 'none'
-      "Try Premium <i class='fa fa-star'></i>"
+      "Try Premium <i class='fas fa-star'></i>"
     end
   end
 
+  def in_assignment_flow?
+    current_uri = request.env['PATH_INFO']
+    current_uri&.match(%r{assign/.*}) != nil
+  end
 
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?

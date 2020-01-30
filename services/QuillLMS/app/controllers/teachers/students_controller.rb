@@ -18,10 +18,11 @@ class Teachers::StudentsController < ApplicationController
   end
 
   def edit
-    edit_page_variables
+    redirect_to teachers_classrooms_path
   end
 
   def index
+    redirect_to teachers_classrooms_path
   end
 
   def update
@@ -79,7 +80,7 @@ class Teachers::StudentsController < ApplicationController
     render json: {}
   end
 
-protected
+  protected
 
   # TODO: this is copied from Teachers::ClassroomsController#authorize!
   #       consider absracting using inheritance e.g. Teachers::BaseClassroomController

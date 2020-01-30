@@ -14,9 +14,10 @@ class SplitName
 
   def split_name
     if name.nil?
-      first_name, last_name = [nil, nil]
+      first_name = nil
+      last_name = nil
     else
-      first_name, last_name = name.lstrip.rstrip.try(:split, /\s+/)
+      first_name, last_name = name.strip.try(:split, /\s+/, 2)
     end
     [first_name, last_name]
   end

@@ -77,7 +77,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
           follow_up_unit_activity.activity_id
         )
       else
-        "#{ENV['DEFAULT_URL']}"
+        (ENV['DEFAULT_URL']).to_s
       end
     end
 
@@ -104,9 +104,9 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
     teacher_ids = classroom_unit.try(&:classroom).try(&:teacher_ids)
     if teacher_ids
-      teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] } ]
+      teacher_ids_h = Hash[teacher_ids.collect { |item| [item, true] }]
     end
-    render json: {teacher_ids: teacher_ids_h ? teacher_ids_h : {}}
+    render json: {teacher_ids: teacher_ids_h || {}}
   end
 
   private

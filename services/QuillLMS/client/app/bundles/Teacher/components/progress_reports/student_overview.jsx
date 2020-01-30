@@ -50,8 +50,8 @@ export default class extends React.Component {
       '/teachers/progress_reports/activities_scores_by_classroom';
 
     return (
-      <a href={previousLocation} className="navigate-back">
-        <img src={imageSrc} alt="" /> Back to Activity Scores
+      <a className="navigate-back" href={previousLocation}>
+        <img alt="" src={imageSrc} /> Back to Activity Scores
       </a>
     );
   }
@@ -176,9 +176,9 @@ export default class extends React.Component {
         {this.backButton()}
         {this.studentOverviewSection()}
         <StudentOveriewTable
+          calculateCountAndAverage={this.calculateCountAndAverage}
           reportData={this.state.reportData}
           studentId={this.state.studentData.id}
-          calculateCountAndAverage={this.calculateCountAndAverage}
         />
       </div>
     );

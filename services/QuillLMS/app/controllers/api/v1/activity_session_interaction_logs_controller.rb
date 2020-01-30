@@ -39,13 +39,9 @@ class Api::V1::ActivitySessionInteractionLogsController < Api::ApiController
       else
         teachers = teachers.split(',')
       end
-      PusherActivitySessionInteractionLogPosted.run(teachers,
-                                                    act_sess,
-                                                    interaction_log_creation_time,
-                                                    meta[:current_question],
-                                                   )
+      PusherActivitySessionInteractionLogPosted.run(teachers)
 			render :nothing => true, :status => 204
-		else
+	  else
 			render_error(400)
 		end
 

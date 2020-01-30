@@ -27,9 +27,9 @@ export default class LeaveClassModal extends React.Component<LeaveClassModalProp
   }
 
   render() {
-    return <div className="modal-container leave-class-modal-container">
+    return (<div className="modal-container leave-class-modal-container">
       <div className="modal-background" />
-      <div className="leave-class-modal modal modal-body">
+      <div className="leave-class-modal quill-modal modal-body">
         <div>
           <h3 className="title">Leave class?</h3>
         </div>
@@ -41,6 +41,6 @@ export default class LeaveClassModal extends React.Component<LeaveClassModalProp
           <button className="quill-button contained primary medium" onClick={this.leaveClass}>Leave class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

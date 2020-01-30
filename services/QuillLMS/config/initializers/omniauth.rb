@@ -11,11 +11,14 @@ Rails.application.config.middleware.use OmniAuth::Builder do
               'classroom.announcements',
               'classroom.rosters.readonly',
               'classroom.profile.emails'],
-      access_type: 'offline'
+      access_type: 'offline',
+      prompt: 'consent'
     }
 end
 
 OmniAuth.config.logger = Rails.logger
-OmniAuth.config.on_failure = Proc.new { |env|
-  OmniAuth::FailureEndpoint.new(env).redirect_to_failure
-} unless Rails.env.development?
+unless Rails.env.development?
+  OmniAuth.config.on_failure = proc { |env|
+    OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+  }
+end

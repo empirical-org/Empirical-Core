@@ -88,7 +88,7 @@ const Lesson = React.createClass({
     if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
       return (
         <Modal close={this.cancelEditingLesson}>
-          <EditLessonForm lesson={lesson} submit={this.saveLessonEdits} currentValues={lesson} />
+          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
         </Modal>
       );
     }

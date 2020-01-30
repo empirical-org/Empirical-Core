@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PlayLessonQuestion from '../studentLessons/question';
+import PlayLessonQuestion from '../diagnostics/sentenceCombining';
 import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 
 class TestQuestion extends Component {
-  constructor() {
-    super();
-    this.reset = this.reset.bind(this);
+  constructor(props) {
+    super(props);
+
     this.state = {
       responsesForGrading: [],
       allResponses: [],
@@ -18,15 +18,17 @@ class TestQuestion extends Component {
     this.reset();
   }
 
-  reset() {
-    this.props.dispatch(clearData());
+  reset = () => {
+    const { dispatch, } = this.props
+    dispatch(clearData());
     this.startActivity();
-    this.setState({ key: this.state.key + 1, });
+    this.setState(prevState => ({ key: prevState.key + 1, }));
   }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
+    const { params, } = this.props
     const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    question.key = params.questionID;
     return [
       {
         type: 'SC',
@@ -35,24 +37,28 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  startActivity = () => {
+    const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
-  getQuestion() {
-    return this.props.questions.data[this.props.params.questionID];
+  getQuestion = () => {
+    const { questions, params, } = this.props
+    return questions.data[params.questionID];
   }
 
   render() {
-    if (this.props.playLesson.currentQuestion) {
-      const { question, } = this.props.playLesson.currentQuestion;
-      console.log(question);
+    const { playLesson, dispatch, } = this.props
+    const { key, } = this.state
+
+    if (playLesson.currentQuestion) {
+      const { question, } = playLesson.currentQuestion;
       return (
         <div className="test-question-container">
-          <PlayLessonQuestion key={this.state.key} question={question} prefill={false} nextQuestion={this.reset} dispatch={this.props.dispatch} />
+          <PlayLessonQuestion dispatch={dispatch} key={key} nextQuestion={this.reset} prefill={false} question={question} />
         </div>
       );
     } else {

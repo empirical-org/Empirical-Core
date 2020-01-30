@@ -53,7 +53,7 @@ describe NavigationHelper do
   describe "#assign_activity_page_should_be_active?" do
     before do
       allow(helper).to receive(:controller) { double(:controller, class: Teachers::ClassroomManagerController) }
-      allow(helper).to receive(:action_name) { "assign_activities" }
+      allow(helper).to receive(:action_name) { "assign" }
     end
 
     it 'should return true when classroom manager controller and assign activities action' do
@@ -89,13 +89,13 @@ describe NavigationHelper do
   describe '#Premium_tab_copy' do
     it 'should return the correct values' do
       allow(helper).to receive(:current_user) { double(:user, premium_state: "trial", trial_days_remaining: 5) }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fa fa-star'></i> 5 Days Left"
+      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> 5 Days Left"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "locked") }
-      expect(helper.premium_tab_copy).to eq "Premium  <i class='fa fa-star'></i> Trial Expired"
+      expect(helper.premium_tab_copy).to eq "Premium  <i class='fas fa-star'></i> Trial Expired"
       allow(helper).to receive(:current_user) { double(:user, premium_state: nil) }
-      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fa fa-star'></i>"
+      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fas fa-star'></i>"
       allow(helper).to receive(:current_user) { double(:user, premium_state: "none") }
-      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fa fa-star'></i>"
+      expect(helper.premium_tab_copy).to eq "Try Premium <i class='fas fa-star'></i>"
     end
   end
 

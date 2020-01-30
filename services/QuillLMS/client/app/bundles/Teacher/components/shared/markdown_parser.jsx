@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-function LinkRenderer(props) {
-  return <a href={props.href} style={{ color: '#027360', }} target="_blank">{props.children}</a>;
+const LinkRenderer = ({ href, children, }) => {
+  return <a href={href} rel="noopener noreferrer" style={{ color: '#027360', }} target="_blank">{children}</a>;
 }
 
-export default class extends React.Component {
+const MarkdownParser = ({ className, markdownText}) => (
+  <ReactMarkdown
+    className={`markdown-text ${className}`}
+    renderers={{ Link: LinkRenderer, }}
+    source={markdownText}
+  />
+)
 
-  render() {
-    return (
-      <ReactMarkdown
-        className={`markdown-text ${this.props.className}`}
-        source={this.props.markdownText}
-        renderers={{ Link: LinkRenderer, }}
-      />
-  	);
-  }
-}
+export default MarkdownParser

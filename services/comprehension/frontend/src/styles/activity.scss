@@ -1,0 +1,119 @@
+.activity-container {
+  display: flex;
+  background-color: white;
+  color: #000;
+  height: 100%;
+
+  .step-number {
+    width: 100%;
+    max-width: 32px;
+    height: 32px;
+    background-color: #9e9e9e;
+    border-radius: 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 16px;
+    &.completed {
+      background-color: white;
+    }
+    &.active {
+      background-color: #009a80;
+    }
+  }
+
+  .read-passage-container {
+    padding: 48px 40px;
+    border-right: 1px solid #d8d8d8;
+    width: calc(100% - 680px);
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .steps-outer-container {
+    height: auto;
+    max-width: 680px;
+    width: 100%;
+  }
+
+  .steps-inner-container {
+    padding: 22px 24px;
+    position: sticky;
+    position: -webkit-sticky;/* required */
+    right: 0;
+    top: 0;
+    height: min-content;
+  }
+
+  .passage {
+    max-width: 680px;
+    white-space: pre-wrap;
+    font-size: 21px;
+    line-height: 1.52;
+  }
+
+  .directions {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.38;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.22;
+    margin-bottom: 32px;
+  }
+
+  .step-links {
+    display: flex;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 8px 0px 8px 16px;
+    position: sticky;
+    position: -webkit-sticky;/* required */
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    .step-link {
+      width: 32px;
+      margin-right: 16px;
+      padding: 0px;
+      border: none;
+      background-color: transparent;
+      line-height: 24px;
+    }
+  }
+
+  @media (max-width: 1099px) {
+    flex-direction: column;
+    height: auto;
+    .steps-outer-container, .steps-inner-container {
+      position: inherit;
+      max-width: 100%;
+      padding: 0px;
+      margin-top: 0px;
+      .step {
+        max-width: 100%;
+        margin-bottom: 12px;
+        border-left: none;
+        border-right: none;
+        border-radius: 0px;
+      }
+    }
+    .read-passage-container {
+      width: 100%;
+      padding: 24px 16px;
+      border-right: none;
+      .passage {
+        max-width: 100%;
+      }
+    }
+  }
+}

@@ -2,11 +2,11 @@ const env = process.env.NODE_ENV;
 const live = (env === 'production' || env === 'staging');
 const AssetsPlugin = require('assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const assetsPluginInstance = new AssetsPlugin();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-console.log('in prod: ', live);
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -67,6 +67,7 @@ module.exports = {
   },
   plugins: [
     assetsPluginInstance,
+    new CompressionPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
@@ -78,7 +79,8 @@ module.exports = {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
         EMPIRICAL_BASE_URL: JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
         QUILL_CMS: JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
-        PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce')
+        PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce'),
+        QUILL_CDN_URL: JSON.stringify(process.env.QUILL_CDN_URL || 'http://localhost:45537')
       }
     }),
     new HtmlWebpackPlugin({

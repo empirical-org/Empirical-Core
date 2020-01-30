@@ -5,7 +5,7 @@ import {
   hashToCollection,
   SmartSpinner,
   PlayTitleCard,
-  DiagnosticProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 import { clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion, resumePreviousDiagnosticSession } from '../../actions/diagnostics.js';
 import _ from 'underscore';
@@ -13,86 +13,101 @@ import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
-import TitleCard from '../studentLessons/titleCard.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
 import { getParameterByName } from '../../libs/getParameterByName';
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
 
 const request = require('request');
 
-const StudentDiagnostic = React.createClass({
+class StudentDiagnostic extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       saved: false,
       sessionID: this.getSessionId(),
       hasOrIsGettingResponses: false,
-    };
-  },
+    }
+  }
 
-  componentWillMount() {
-    this.props.dispatch(clearData());
-    if (this.state.sessionID) {
-      SessionActions.get(this.state.sessionID, (data) => {
+  componentWillMount = () => {
+    const { dispatch, } = this.props
+    const { sessionID, } = this.state
+    dispatch(clearData());
+    if (sessionID) {
+      SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
-  },
+  }
 
-  getPreviousSessionData() {
-    return this.state.session;
-  },
-
-  resumeSession(data) {
-    if (data) {
-      this.props.dispatch(resumePreviousDiagnosticSession(data));
+  componentWillReceiveProps(nextProps) {
+    const { playDiagnostic, } = this.props
+    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
+      this.saveSessionData(nextProps.playDiagnostic);
     }
-  },
+  }
 
-  getSessionId() {
+  getPreviousSessionData = () => {
+    const { session, } = this.state
+    return session;
+  }
+
+  resumeSession = (data) => {
+    const { dispatch, } = this.props
+    if (data) {
+      dispatch(resumePreviousDiagnosticSession(data));
+    }
+  }
+
+  getSessionId = () => {
     let sessionID = getParameterByName('student');
     if (sessionID === 'null') {
       sessionID = undefined;
     }
     return sessionID;
-  },
+  }
 
-  saveSessionData(lessonData) {
-    if (this.state.sessionID) {
-      SessionActions.update(this.state.sessionID, lessonData);
-    }
-  },
+  saveSessionData = (lessonData) => {
+    const { sessionID, } = this.state
+    if (!sessionID) { return }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
-      this.saveSessionData(nextProps.playDiagnostic);
-    }
-  },
+    SessionActions.update(sessionID, lessonData);
+  }
 
-  doesNotHaveAndIsNotGettingResponses() {
-    return (!this.state.hasOrIsGettingResponses);
-  },
+  doesNotHaveAndIsNotGettingResponses = () => {
+    const { hasOrIsGettingResponses, } = this.state
+    return (!hasOrIsGettingResponses);
+  }
 
-  hasQuestionsInQuestionSet(props) {
+  hasQuestionsInQuestionSet = (props) => {
     const pL = props.playDiagnostic;
     return (pL && pL.questionSet && pL.questionSet.length);
-  },
+  }
 
-  saveToLMS() {
+  saveToLMS = () => {
+    const { playDiagnostic, params, } = this.props
+    const { sessionID, } = this.state
+
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
 
-    const { diagnosticID, } = this.props.params;
-    const sessionID = this.state.sessionID;
+    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+    const { diagnosticID, } = params;
+
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
       this.createAnonActivitySession(diagnosticID, results, 1);
     }
-  },
+  }
 
-  finishActivitySession(sessionID, results, score) {
+  finishActivitySession = (sessionID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
@@ -101,13 +116,12 @@ const StudentDiagnostic = React.createClass({
           state: 'finished',
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
-          SessionActions.delete(this.state.sessionID);
+        if (httpResponse && httpResponse.statusCode === 200) {
+          // to do, use Sentry to capture error
+          SessionActions.delete(sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({ saved: true, });
         } else {
@@ -118,9 +132,9 @@ const StudentDiagnostic = React.createClass({
         }
       }
     );
-  },
+  }
 
-  createAnonActivitySession(lessonID, results, score) {
+  createAnonActivitySession = (lessonID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
@@ -130,80 +144,70 @@ const StudentDiagnostic = React.createClass({
           activity_uid: lessonID,
           concept_results: results,
           percentage: score,
-        },
+        }
       },
       (err, httpResponse, body) => {
-        if (httpResponse.statusCode === 200) {
-          console.log('Finished Saving');
-          console.log(err, httpResponse, body);
+        if (httpResponse && httpResponse.statusCode === 200) {
+          // to do, use Sentry to capture error
           document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
           this.setState({ saved: true, });
         }
       }
     );
-  },
+  }
 
-  submitResponse(response) {
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
     const action = submitResponse(response);
-    this.props.dispatch(action);
-  },
+    dispatch(action);
+  }
 
-  renderQuestionComponent() {
-    if (this.props.question.currentQuestion) {
-      return (<Question
-        question={this.props.question.currentQuestion}
-        submitResponse={this.submitResponse}
-        prefill={this.getLesson().prefill}
-      />);
-    }
-  },
-
-  questionsForDiagnostic() {
-    const questionsCollection = hashToCollection(this.props.questions.data);
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+  questionsForDiagnostic = () => {
+    const { questions, lessons, params, } = this.props
+    const questionsCollection = hashToCollection(questions.data);
+    const { data, } = lessons
+    const { lessonID, } = params
     return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
-  },
+  }
 
-  startActivity(name) {
-    // this.saveStudentName(name);
+  startActivity = () => {
+    const { dispatch, } = this.props
     const next = nextQuestion();
-    this.props.dispatch(next);
-  },
+    dispatch(next);
+  }
 
-  loadQuestionSet() {
+  handleSpinnerMount = () => {
+    const { dispatch, } = this.props
+
     const data = this.questionsForLesson();
     const action = loadData(data);
-    this.props.dispatch(action);
-  },
+    dispatch(action);
+  }
 
-  nextQuestion() {
+  nextQuestion = () => {
+    const { dispatch, } = this.props
+
     const next = nextQuestion();
-    this.props.dispatch(next);
-  },
+    dispatch(next);
+  }
 
-  nextQuestionWithoutSaving() {
+  nextQuestionWithoutSaving = () => {
+    const { dispatch, } = this.props
     const next = nextQuestionWithoutSaving();
-    this.props.dispatch(next);
-  },
+    dispatch(next);
+  }
 
-  getLesson() {
-    return this.props.lessons.data[this.props.params.diagnosticID];
-  },
+  getLesson = () => {
+    const { lessons, params, } = this.props
+    return lessons.data[params.diagnosticID];
+  }
 
-  getLessonName() {
-    return this.props.lessons.data[this.props.params.diagnosticID].name;
-  },
-
-  saveStudentName(name) {
-    this.props.dispatch(updateName(name));
-  },
-
-  questionsForLesson() {
-    const { data, } = this.props.lessons,
-      { diagnosticID, } = this.props.params;
+  questionsForLesson = () => {
+    const { lessons, params, } = this.props
+    const { data, } = lessons
+    const { diagnosticID, } = params
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
-      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
+      return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null  // eslint-disable-line react/destructuring-assignment
     }
     );
     // this is a quickfix for missing questions -- if we leave this in here
@@ -212,7 +216,7 @@ const StudentDiagnostic = React.createClass({
     return filteredQuestions.map((questionItem) => {
       const questionType = questionItem.questionType;
       const key = questionItem.key;
-      const question = this.props[questionType].data[key];
+      const question = this.props[questionType].data[key];  // eslint-disable-line react/destructuring-assignment
       question.key = key;
       question.attempts = question.attempts ? question.attempts : []
       let type
@@ -232,39 +236,23 @@ const StudentDiagnostic = React.createClass({
       }
       return { type, data: question, };
     });
-  },
+  }
 
-  getQuestionCount() {
-    const { diagnosticID, } = this.props.params;
-    if (diagnosticID == 'researchDiagnostic') {
+  getQuestionCount = () => {
+    const { params, } = this.props
+    if (params.diagnosticID == 'researchDiagnostic') {
       return '15';
     }
     return '22';
-  },
+  }
 
-  markIdentify(bool) {
+  markIdentify = (bool) => {
+    const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
-    this.props.dispatch(action);
-  },
+    dispatch(action);
+  }
 
-  getProgressPercent() {
-    let percent;
-    const playDiagnostic = this.props.playDiagnostic;
-    if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
-      const questionSetCount = playDiagnostic.questionSet.length;
-      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length;
-      if (this.props.playDiagnostic.currentQuestion) {
-        percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
-      } else {
-        percent = ((answeredQuestionCount) / questionSetCount) * 100;
-      }
-    } else {
-      percent = 0;
-    }
-    return percent;
-  },
-
-  getQuestionType(type) {
+  getQuestionType = (type) => {
     let questionType
     switch (type) {
       case 'questions':
@@ -281,98 +269,120 @@ const StudentDiagnostic = React.createClass({
         break
     }
     return questionType
-  },
+  }
 
-  landingPageHtml() {
-    const { data, } = this.props.lessons,
-      { diagnosticID, } = this.props.params;
+  landingPageHtml = () => {
+    const { lessons, params, } = this.props
+    const { data, } = lessons
+    const { diagnosticID, } = params;
     return data[diagnosticID].landingPageHtml
-  },
+  }
+
+  renderProgressBar = () => {
+    const { playDiagnostic, } = this.props
+    if (!playDiagnostic.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
+
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+
+    return (<ProgressBar
+      answeredQuestionCount={displayedAnsweredQuestionCount}
+      percent={getProgressPercent(playDiagnostic)}
+      questionCount={questionCount(playDiagnostic)}
+      thingsCompleted='questions'
+    />)
+  }
 
   render() {
-    const questionType = this.props.playDiagnostic.currentQuestion ? this.props.playDiagnostic.currentQuestion.type : ''
+    const { playDiagnostic, lessons, questions, sentenceFragments, dispatch, } = this.props
+    const { error, saved, } = this.state
+    const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
-    if (this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata) {
-      if (!this.props.playDiagnostic.questionSet) {
-        return (
-          <div>
-            <DiagnosticProgressBar percent={this.getProgressPercent()} />
-            <section className="section is-fullheight minus-nav student">
-              <div className="student-container student-container-diagnostic">
-                <SmartSpinner message={'Loading Your Lesson 50%'} onMount={this.loadQuestionSet} key="step2" />
-              </div>
-            </section>
-          </div>
-        );
-      } else if (this.props.playDiagnostic.currentQuestion) {
-        if (questionType === 'SC') {
-          component = (<PlayDiagnosticQuestion
-            question={this.props.playDiagnostic.currentQuestion.data}
-            nextQuestion={this.nextQuestion}
-            dispatch={this.props.dispatch}
-            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
-            marking="diagnostic"
-          />);
-        } else if (questionType === 'SF') {
-          component = (<PlaySentenceFragment
-            question={this.props.playDiagnostic.currentQuestion.data} currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
-            // responses={this.props.responses.data[this.props.playDiagnostic.currentQuestion.data.key]}
-            dispatch={this.props.dispatch}
-            nextQuestion={this.nextQuestion} markIdentify={this.markIdentify}
-            updateAttempts={this.submitResponse}
-          />);
-        } else if (questionType === 'FB') {
-          component = (<PlayFillInTheBlankQuestion
-            question={this.props.playDiagnostic.currentQuestion.data}
-            currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-            key={this.props.playDiagnostic.currentQuestion.data.key}
-            dispatch={this.props.dispatch}
-            nextQuestion={this.nextQuestion}
-          />)
-        } else if (questionType === 'TL') {
-          component = (
-            <PlayTitleCard
-              data={this.props.playDiagnostic.currentQuestion.data}
-              currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-              dispatch={this.props.dispatch}
-              nextQuestion={this.nextQuestionWithoutSaving}
-            />
-          );
-        }
-      } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
-        component = (<FinishedDiagnostic
-          saveToLMS={this.saveToLMS}
-          saved={this.state.saved}
-          error={this.state.error}
-        />);
-      } else {
-        component = (<LandingPage
-          begin={() => { this.startActivity('John'); }}
-          session={this.getPreviousSessionData()}
-          resumeActivity={this.resumeSession}
-          questionCount={this.getQuestionCount()}
-          landingPageHtml={this.landingPageHtml()}
-        />);
-      }
-    } else {
+
+    if (!(lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata)) {
       return (
         <div>
-          <DiagnosticProgressBar percent={this.getProgressPercent()} />
           <section className="section is-fullheight minus-nav student">
             <div className="student-container student-container-diagnostic">
-              <SmartSpinner message={'Loading Your Lesson 25%'} onMount={() => {}} key="step1" />
+              <SmartSpinner key="step1" message='Loading Your Lesson 25%' />
             </div>
           </section>
         </div>
       );
     }
-    // component = (<SmartSpinner message={'Loading Your Lesson 33%'} onMount={() => {}} />);
+
+    if (!playDiagnostic.questionSet) {
+      return (
+        <div>
+          <section className="section is-fullheight minus-nav student">
+            <div className="student-container student-container-diagnostic">
+              <SmartSpinner key="step2" message='Loading Your Lesson 50%' onMount={this.handleSpinnerMount} />
+            </div>
+          </section>
+        </div>
+      );
+    }
+
+    if (playDiagnostic.currentQuestion) {
+      if (questionType === 'SC') {
+        component = (<PlayDiagnosticQuestion
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
+          marking="diagnostic"
+          nextQuestion={this.nextQuestion}
+          question={playDiagnostic.currentQuestion.data}
+        />);
+      } else if (questionType === 'SF') {
+        component = (<PlaySentenceFragment
+          currentKey={playDiagnostic.currentQuestion.data.key}
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
+          markIdentify={this.markIdentify}
+          nextQuestion={this.nextQuestion}
+          question={playDiagnostic.currentQuestion.data}
+          updateAttempts={this.submitResponse}
+        />);
+      } else if (questionType === 'FB') {
+        component = (<PlayFillInTheBlankQuestion
+          currentKey={playDiagnostic.currentQuestion.data.key}
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
+          nextQuestion={this.nextQuestion}
+          question={playDiagnostic.currentQuestion.data}
+        />)
+      } else if (questionType === 'TL') {
+        component = (
+          <PlayTitleCard
+            currentKey={playDiagnostic.currentQuestion.data.key}
+            data={playDiagnostic.currentQuestion.data}
+            dispatch={dispatch}
+            handleContinueClick={this.nextQuestionWithoutSaving}
+          />
+        );
+      }
+    } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
+      component = (<FinishedDiagnostic
+        error={error}
+        saved={saved}
+        saveToLMS={this.saveToLMS}
+      />);
+    } else {
+      component = (<LandingPage
+        begin={this.startActivity}
+        landingPageHtml={this.landingPageHtml()}
+        questionCount={this.getQuestionCount()}
+        resumeActivity={this.resumeSession}
+        session={this.getPreviousSessionData()}
+      />);
+    }
     return (
       <div>
-        <DiagnosticProgressBar percent={this.getProgressPercent()} />
         <section className="section is-fullheight minus-nav student">
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
@@ -381,8 +391,8 @@ const StudentDiagnostic = React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {
@@ -391,7 +401,6 @@ function select(state) {
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
     fillInBlank: state.fillInBlank,
-    // responses: state.responses,
     sessions: state.sessions,
     lessons: state.lessons,
     titleCards: state.titleCards

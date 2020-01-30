@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe  Teachers::UnitTemplatesController, type: :controller do
+describe Teachers::UnitTemplatesController, type: :controller do
   it { should use_before_action :is_teacher? }
   it { should use_before_action :redirect_to_public_index_if_no_unit_template_found }
 
@@ -37,7 +37,7 @@ describe  Teachers::UnitTemplatesController, type: :controller do
   #   context 'when teacher' do
   #     it 'should set the content and unit template' do
   #       get :show, id: unit_template.id
-  #       expect(assigns(:content)).to eq "Try out the #{unit_template.name} Activity Pack I’m using at Quill.org"
+  #       expect(assigns(:content)).to eq "Try out the #{unit_template.name} Activity Pack I'm using at Quill.org"
   #       expect(assigns(:unit_template_id)).to eq unit_template.id
   #     end
   #
@@ -79,7 +79,6 @@ describe  Teachers::UnitTemplatesController, type: :controller do
         data: {
           non_authenticated: false
         },
-        related_models: [],
         referral_code: teacher.referral_code
       }.to_json)
     end

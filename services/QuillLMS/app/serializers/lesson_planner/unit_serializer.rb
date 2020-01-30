@@ -27,7 +27,7 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
 
   def unselectedClassroomData(classrooms)
     classrooms.map do |classroom|
-      students = classroom.students.map do|student|
+      students = classroom.students.map do |student|
         { id: student.id, name: student.name, isSelected: false }
       end
 
@@ -67,15 +67,14 @@ class LessonPlanner::UnitSerializer < ActiveModel::Serializer
 
   def select_certain_students(students, assigned_student_ids)
     students.map do |student|
-      isSelected = assigned_student_ids.include?(student.id)
-      {id: student.id, name: student.name, isSelected: isSelected}
+      is_selected = assigned_student_ids.include?(student.id)
+      {id: student.id, name: student.name, isSelected: is_selected}
     end
   end
 
   def dueDates
-    object.reload.unit_activities.uniq(&:activity).reduce({}) do |acc, unit_activity|
+    object.reload.unit_activities.uniq(&:activity).each_with_object({}) do |unit_activity, acc|
       acc[unit_activity.activity.id] = unit_activity.formatted_due_date
-      acc
     end
   end
 end

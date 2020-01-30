@@ -22,7 +22,7 @@ describe('EmptyProgressReport component', () => {
 
     it('should redirect appropriately on button click', () => {
       wrapper.find('button').simulate('click');
-      expect(window.location.assign).toBeCalledWith('/teachers/classrooms/assign_activities');
+      expect(window.location.assign).toBeCalledWith('/assign');
     });
   });
 
@@ -42,7 +42,7 @@ describe('EmptyProgressReport component', () => {
 
     it('should redirect appropriately on button click', () => {
       wrapper.find('button').simulate('click');
-      expect(window.location.assign).toBeCalledWith('/teachers/classrooms/invite_students');
+      expect(window.location.assign).toBeCalledWith('/teachers/classrooms');
     });
   });
 
@@ -62,7 +62,7 @@ describe('EmptyProgressReport component', () => {
 
     it('should redirect appropriately on button click', () => {
       wrapper.find('button').simulate('click');
-      expect(window.location.assign).toBeCalledWith('/teachers/classrooms/new');
+      expect(window.location.assign).toBeCalledWith('/teachers/classrooms?modal=create-a-class');
     });
   });
 

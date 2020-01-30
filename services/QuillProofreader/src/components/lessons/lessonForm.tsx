@@ -5,7 +5,6 @@ import ConceptSelector from '../shared/conceptSelector'
 import TextEditor from '../shared/textEditor'
 import { ProofreaderActivity, Concepts, Concept } from '../../interfaces/proofreaderActivities'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import PassageCreator from './passageCreator'
 import EditGenerator from './editGenerator'
 
 interface LessonFormState {
@@ -50,11 +49,13 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
   submit() {
     const { title, description, flag, passage, underlineErrorsInProofreader, readingLevel } = this.state
+    const formattedPassage = passage.replace(/\n/g, '<br/>')
+
     this.props.submit({
       title,
       description,
       flag,
-      passage,
+      passage: formattedPassage,
       underlineErrorsInProofreader,
       readingLevel
     });
@@ -78,8 +79,8 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.setState({ description: e, });
   }
 
-  handlePassageChange(e: string) {
-    this.setState({ passage: e, });
+  handlePassageChange(e) {
+    this.setState({ passage: e.target.value, });
   }
   //
   render() {
@@ -91,30 +92,30 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           <label className="label">Name</label>
           <input
             className="input"
-            type="text"
-            placeholder="Text input"
-            value={this.state.title}
             onChange={this.handleStateChange.bind(null, 'title')}
+            placeholder="Text input"
+            type="text"
+            value={this.state.title}
           />
         </p>
         <p className="control">
           <label className="label">Reading Level</label>
           <input
             className="input"
-            type="text"
-            placeholder="Text input"
-            value={this.state.readingLevel}
             onChange={this.handleStateChange.bind(null, 'readingLevel')}
+            placeholder="Text input"
+            type="text"
+            value={this.state.readingLevel}
           />
         </p>
         <p className="control">
           <label className="label">Description</label>
         </p>
         <TextEditor
-          text={this.state.description || ''}
-          handleTextChange={this.handleDescriptionChange}
-          EditorState={EditorState}
           ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleDescriptionChange}
+          text={this.state.description || ''}
         />
         <br />
         <p className="control">
@@ -131,16 +132,20 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         <p className="control">
           <label className="label">Show Underlines</label>
           <input
-            name="showUnderlines"
-            type="checkbox"
             checked={this.state.underlineErrorsInProofreader}
+            name="showUnderlines"
             onChange={this.toggleUnderline}
+            type="checkbox"
           />
         </p>
-        <EditGenerator/>
+        <EditGenerator />
         <p className="control">
           <label className="label">Passage</label>
-          <PassageCreator onChange={this.handlePassageChange} originalPassage={this.props.currentValues ? this.props.currentValues.passage : null}/>
+          <textarea
+            onChange={this.handlePassageChange}
+            style={{minHeight: '100px', border: '1px solid black', padding: '10px', width: '100%'}}
+            value={this.state.passage}
+          />
         </p>
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>

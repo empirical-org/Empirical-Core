@@ -38,7 +38,7 @@ class ConceptReplacementGrammarWorker
         end
       end
 
-      if data.length > 0
+      if !data.empty?
         HTTParty.put("#{ENV['FIREBASE_DATABASE_URL']}/v3/questions/#{key}.json", body: data.to_json)
       end
     end
@@ -65,9 +65,7 @@ class ConceptReplacementGrammarWorker
       rescue => e
         NewRelic::Agent.notice_error(e)
       end
-      return new_fp_or_is
-    else
-      return nil
+      new_fp_or_is
     end
   end
 

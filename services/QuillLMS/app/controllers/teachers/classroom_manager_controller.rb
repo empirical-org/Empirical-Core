@@ -1,4 +1,5 @@
 class Teachers::ClassroomManagerController < ApplicationController
+
   respond_to :json, :html
   before_filter :teacher_or_public_activity_packs
   # WARNING: these filter methods check against classroom_id, not id.
@@ -8,64 +9,35 @@ class Teachers::ClassroomManagerController < ApplicationController
   include ScorebookHelper
 
   MY_ACCOUNT = 'my_account'
+  ASSIGN = 'assign'
+  SERIALIZED_GOOGLE_CLASSROOMS_FOR_ = 'SERIALIZED_GOOGLE_CLASSROOMS_FOR_'
 
   def lesson_planner
-    if current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
-    else
-      set_classroom_variables
-    end
+    set_classroom_variables
   end
 
-  def assign_activities
-    if !current_user.staff? && current_user.classrooms_i_teach.empty?
-      redirect_to new_teachers_classroom_path
-    else
-      set_classroom_variables
-    end
+  def assign
+    session[GOOGLE_REDIRECT] = request.env['PATH_INFO']
+    set_classroom_variables
+    @number_of_activities_assigned = current_user.units.map(&:unit_activities).flatten.map(&:activity_id).uniq.size
   end
 
   def generic_add_students
-    if current_user && current_user.role == 'teacher'
-      @classroom = current_user.classrooms_i_teach.first
-      redirect_to invite_students_teachers_classrooms_path
-    else redirect_to profile_path
-    end
+    redirect_to teachers_classrooms_path
   end
 
-  def retrieve_classrooms_for_assigning_activities # in response to ajax request
+  # in response to ajax request
+  def retrieve_classrooms_for_assigning_activities
     render json: classroom_with_students_json(current_user.classrooms_i_own)
   end
 
-  def retrieve_classrooms_i_teach_for_custom_assigning_activities # in response to ajax request
+  # in response to ajax request
+  def retrieve_classrooms_i_teach_for_custom_assigning_activities
     render json: classroom_with_students_json(current_user.classrooms_i_teach)
   end
 
   def invite_students
-    @classrooms = current_user.classrooms_i_teach
-    @user = current_user
-  end
-
-  def manage_archived_classrooms
-    render "student_teacher_shared/archived_classroom_manager"
-  end
-
-  def archived_classroom_manager_data
-    begin
-      classrooms = active_and_inactive_classrooms_hash
-    rescue NoMethodError => exception
-      render json: {error: "No classrooms yet!"}, status: 400
-    else
-      classrooms_i_own_that_have_coteachers = current_user.classrooms_i_own_that_have_coteachers
-      render json: {
-        active: classrooms[:active],
-        active_classrooms_i_own: current_user.classrooms_i_own.map{|c| {label: c[:name], value: c[:id]}},
-        inactive: classrooms[:inactive],
-        coteachers: current_user.classrooms_i_own_that_have_coteachers,
-        pending_coteachers: current_user.classrooms_i_own_that_have_pending_coteacher_invitations,
-        my_name: current_user.name
-      }
-    end
+    redirect_to teachers_classrooms_path
   end
 
   def scorebook
@@ -81,17 +53,20 @@ class Teachers::ClassroomManagerController < ApplicationController
     if current_user.classrooms_i_teach.empty? && current_user.archived_classrooms.none? && !current_user.has_outstanding_coteacher_invitation?
       if current_user.schools_admins.any?
         redirect_to teachers_admin_dashboard_path
-      else
-        redirect_to new_teachers_classroom_path
       end
     end
+    explore_activities_milestone = Milestone.find_by_name(Milestone::TYPES[:see_explore_activities_modal])
+    @must_see_modal = !UserMilestone.find_by(milestone_id: explore_activities_milestone&.id, user_id: current_user&.id) && Unit.unscoped.find_by_user_id(current_user&.id).nil?
     @firewall_test = true
+    if @must_see_modal && current_user && explore_activities_milestone
+      UserMilestone.find_or_create_by(user_id: current_user.id, milestone_id: explore_activities_milestone.id)
+    end
   end
 
   def students_list
     @classroom = current_user.classrooms_i_teach.find {|classroom| classroom.id == params[:id]&.to_i}
     last_name = "substring(users.name, '(?=\s).*')"
-    render json: {students: @classroom.students.order("#{last_name} asc, users.name asc")}
+    render json: {students: @classroom&.students&.order("#{last_name} asc, users.name asc")}
   end
 
   def premium
@@ -104,7 +79,7 @@ class Teachers::ClassroomManagerController < ApplicationController
   end
 
   def classroom_mini
-    render json: { classes: current_user.get_classroom_minis_info}
+    render json: { classes: current_user.classroom_minis_info}
   end
 
   def dashboard_query
@@ -181,44 +156,31 @@ class Teachers::ClassroomManagerController < ApplicationController
     end
   end
 
-  def google_sync
-  end
-
   def retrieve_google_classrooms
-    google_response = GoogleIntegration::Classroom::Main.pull_data(current_user)
-    data = google_response === 'UNAUTHENTICATED' ? {errors: google_response} : {classrooms: google_response}
-    render json: data
+    serialized_google_classrooms = $redis.get("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
+    if serialized_google_classrooms
+      render json: JSON.parse(serialized_google_classrooms)
+    else
+      RetrieveGoogleClassroomsWorker.perform_async(current_user.id)
+      render json: { id: current_user.id, quill_retrieval_processing: true }
+    end
   end
 
   def update_google_classrooms
-    selected_classrooms = params[:selected_classrooms]
-    if selected_classrooms.is_a?(String)
-      selected_classrooms = JSON.parse(params[:selected_classrooms], {:symbolize_names => true})
-      if current_user.google_classrooms.any?
-        google_classroom_ids = JSON.parse(params[:selected_classrooms]).map{ |sc| sc["id"] }
-        current_user.google_classrooms.each do |classy|
-          if google_classroom_ids.exclude?(classy.google_classroom_id)
-            classy.update(visible: false)
-          end
-        end
-      end
-    end
-    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, selected_classrooms)
+    GoogleIntegration::Classroom::Creators::Classrooms.run(current_user, params[:selected_classrooms])
+    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
     render json: { classrooms: current_user.google_classrooms }.to_json
   end
 
   def import_google_students
-    if params[:classroom_id]
-      selected_classrooms = Classroom.where(id: params[:classroom_id])
-    elsif params[:selected_classroom_ids]
-      selected_classrooms = Classroom.where(id: params[:selected_classroom_ids])
-    end
+    selected_classroom_ids = Classroom.where(id: params[:classroom_id] || params[:selected_classroom_ids]).ids
+    $redis.del("#{SERIALIZED_GOOGLE_CLASSROOMS_FOR_}#{current_user.id}")
     GoogleStudentImporterWorker.perform_async(
       current_user.id,
       'Teachers::ClassroomManagerController',
-      selected_classrooms
+      selected_classroom_ids
     )
-    render json: {}
+    render json: { id: current_user.id }
   end
 
   private
@@ -299,11 +261,11 @@ class Teachers::ClassroomManagerController < ApplicationController
   def teacher_or_public_activity_packs
     if !current_user && request.path.include?('featured-activity-packs')
       if params[:category]
-        redirect_to "/activities/packs/category/#{params[:category]}"
+        redirect_to "/activities/packs?category=#{params[:category]}"
       elsif params[:activityPackId]
         redirect_to "/activities/packs/#{params[:activityPackId]}"
       elsif params[:grade]
-        redirect_to "/activities/packs/grade/#{params[:grade]}"
+        redirect_to "/activities/packs?grade=#{params[:grade]}"
       else
         redirect_to "/activities/packs"
       end

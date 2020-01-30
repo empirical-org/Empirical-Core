@@ -39,7 +39,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
         redirect_to :back
       end
     else
-      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.escape(launch_lesson_url)}" and return
+      redirect_to "#{ENV['DEFAULT_URL']}/tutorials/lessons?url=#{URI.encode_www_form_component(launch_lesson_url)}" and return
     end
   end
 
@@ -51,7 +51,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
 
   def lessons_units_and_activities
     render json: {
-      data: get_lessons_units_and_activities
+      data: lessons_units_and_activities_data
     }
   end
 
@@ -90,7 +90,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
   def lesson_url(lesson)
-    if (ActivitySession.find_by(classroom_unit_id: @classroom_unit.id, state: 'started'))
+    if ActivitySession.find_by(classroom_unit_id: @classroom_unit.id, state: 'started')
       "#{lesson.classification_form_url}teach/class-lessons/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
     else
       "#{lesson.classification_form_url}customize/#{lesson.uid}?&classroom_unit_id=#{@classroom_unit.id}"
@@ -118,7 +118,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
   end
 
 
-  def get_lessons_units_and_activities
+  def lessons_units_and_activities_data
     # collapses lessons cache into unique array of activity ids
     grouped_lessons_cache = lessons_cache.group_by{|ca| {activity_id: ca['activity_id'], name: ca['activity_name'], completed: ca['completed']}}
     grouped_lessons_cache.keys.select { |lesson| lesson[:completed] == false }

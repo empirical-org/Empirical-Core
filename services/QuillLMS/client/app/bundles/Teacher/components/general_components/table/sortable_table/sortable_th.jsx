@@ -12,7 +12,7 @@ export default React.createClass({
   },
 
   arrowClass: function() {
-    return this.props.sortDirection === 'desc' ? 'fa fa-caret-down table-header-arrow' : 'fa fa-caret-up table-header-arrow';
+    return this.props.sortDirection === 'desc' ? 'fas fa-caret-down table-header-arrow' : 'fas fa-caret-up table-header-arrow';
   },
 
   clickSort: function() {
@@ -35,7 +35,7 @@ export default React.createClass({
     var arrow,
         className = 'sorter';
     if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
-      arrow = <i className={this.arrowClass()}></i>;
+      arrow = <i className={this.arrowClass()} />;
     }
     if (this.props.displayClass) {
       className += ' ' + this.props.displayClass;

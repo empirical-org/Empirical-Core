@@ -14,11 +14,11 @@ export default React.createClass({
 	feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
 		if (directionsOrFeedback) {
 			return (
-				<tr className={classNameAndText}>
-					<td>{classNameAndText}</td>
-					<td />
-					<td>{directionsOrFeedback}</td>
-			</tr>)
+  <tr className={classNameAndText}>
+    <td>{classNameAndText}</td>
+    <td />
+    <td>{directionsOrFeedback}</td>
+  </tr>)
 		}
 	},
 
@@ -35,7 +35,7 @@ export default React.createClass({
 				// iterate until we find a next attempt with directions
 				while (!feedback && nextAttempt[index]) {
 					feedback = nextAttempt[index].directions
-					index++
+					index += 1;
 				}
 				// sometimes feedback is coming through as a react variable, I've been unable to find the source of it
 				if (typeof feedback === 'string') {
@@ -44,8 +44,8 @@ export default React.createClass({
 			}
 			let score = 0;
 			let concepts = currAttempt.map((concept)=>{
-				concept.correct ? score++ : null;
-				return [<ConceptResultTableRow key={concept.id + attemptNum} concept={concept}/>]
+				concept.correct ? score += 1 : null;
+				return [<ConceptResultTableRow concept={concept} key={concept.id + attemptNum} />]
 			});
 			let averageScore = (score/currAttempt.length * 100) || 0;
 			let scoreRow = this.scoreRow(conceptsByAttempt[attemptNum][0].answer, attemptNum, averageScore)
@@ -53,26 +53,26 @@ export default React.createClass({
 			if (conceptsByAttempt[attemptNum + 1]) {
 				results.push(this.emptyRow(attemptNum + averageScore))
 			}
-			attemptNum ++;
+			attemptNum += 1;
 		}
 		return results;
 	},
 
 	emptyRow: function(key){
 		return (<tr key={'empty-row'+key}>
-							<td/>
-							<td/>
-							<td/>
+  <td />
+  <td />
+  <td />
 						</tr>)
 	},
 
 	scoreRow: function(answer, attemptNum, averageScore) {
 		return (
-			<tr key={attemptNum + answer} className={ScoreColor(averageScore)}>
-				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
-				<td />
-				<td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
-			</tr>
+  <tr className={ScoreColor(averageScore)} key={attemptNum + answer}>
+    <td>{`${NumberSuffix(attemptNum)} Submission`}</td>
+    <td />
+    <td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
+  </tr>
 		)
 	},
 
@@ -90,11 +90,11 @@ export default React.createClass({
         score = 0
       }
 			return (
-						<tr>
-							<td>Score</td>
-							<td/>
-							<td>{score}%</td>
-						</tr>
+  <tr>
+    <td>Score</td>
+    <td />
+    <td>{score}%</td>
+  </tr>
 			);
 		}
 	},
@@ -102,26 +102,26 @@ export default React.createClass({
 	render: function() {
 		const data = this.props.questionData;
 		return (
-			<div className='individual-activity-report'>
-				<div className="student-report-box">
-					<div className='student-report-table-and-index'>
-							<div className='question-index'>{this.props.boxNumber}</div>
-								<table>
-									<tbody>
-										{this.feedbackOrDirections(data.directions, 'Directions')}
-										<tr>
-											<td>Prompt</td>
-											<td/>
-											<td>{data.prompt}</td>
-										</tr>
-										{this.questionScore()}
-										{this.emptyRow()}
-										{this.conceptsByAttempt()}
-	        				</tbody>
-								</table>
-				</div>
-				</div>
-			</div>
+  <div className='individual-activity-report'>
+    <div className="student-report-box">
+      <div className='student-report-table-and-index'>
+        <div className='question-index'>{this.props.boxNumber}</div>
+        <table>
+          <tbody>
+            {this.feedbackOrDirections(data.directions, 'Directions')}
+            <tr>
+              <td>Prompt</td>
+              <td />
+              <td>{data.prompt}</td>
+            </tr>
+            {this.questionScore()}
+            {this.emptyRow()}
+            {this.conceptsByAttempt()}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 		);
 	}
 

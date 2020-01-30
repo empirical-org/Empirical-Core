@@ -57,11 +57,11 @@ export default class extends React.Component {
   loadingOrButtons() {
     if (!this.state.lastFour) {
       const className = `enter-credit-card ${this.state.extantCardSelected ? 'selected' : ''}`;
-      return <button key="enter a card" onClick={this.toggleChangeCard} className={className}>Enter Credit Card</button>;
+      return <button className={className} key="enter a card" onClick={this.toggleChangeCard}>Enter Credit Card</button>;
     }
     return ([
-      <button key="extant" onClick={this.toggleExtantCard} className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`}>Credit Card ending with {this.state.lastFour}</button>,
-      <button key="change" onClick={this.toggleChangeCard} className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`}><i className="fa fa-credit-card" />Use a Different Card</button>
+      <button className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="extant" onClick={this.toggleExtantCard}>Credit Card ending with {this.state.lastFour}</button>,
+      <button className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fas fa-credit-card" />Use a Different Card</button>
     ]);
   }
 
@@ -80,9 +80,9 @@ export default class extends React.Component {
 
   render() {
     return (
-      <Modal {...this.props} show={this.props.show} onHide={this.props.hideModal} dialogClassName="select-credit-card-modal" restoreFocus>
+      <Modal {...this.props} dialogClassName="select-credit-card-modal" onHide={this.props.hideModal} restoreFocus show={this.props.show}>
         <Modal.Body>
-          <img className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} alt="close-modal" />
+          <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
           <div className="pricing-info text-center">
             <h1>Quill {capitalize(this.props.type)} Premium</h1>
             <span>${this.props.price} for one-year subscription</span>

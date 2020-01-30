@@ -6,10 +6,10 @@ class Cms::ActivitiesController < Cms::CmsController
     @flag = params[:flag].to_s.to_sym.presence || :production
     @flag = :archived if @flag == :archive
 
-    @activities = if @flag == :production
-      @activity_classification.activities.production
+    if @flag == :production
+      @activities = @activity_classification.activities.production
     else
-      @activity_classification.activities.flagged(@flag)
+      @activities = @activity_classification.activities.flagged(@flag)
     end
   end
 
@@ -47,7 +47,7 @@ class Cms::ActivitiesController < Cms::CmsController
     redirect_to cms_activities_path
   end
 
-protected
+  protected
 
   def set_activity
     @activity = @activity_classification.activities.find(params[:id])

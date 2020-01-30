@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { DataTable, Input } from 'quill-component-library/dist/componentLibrary'
 
+import ButtonLoadingIndicator from '../shared/button_loading_indicator'
+
 import { requestPost } from '../../../../modules/request/index.js';
 
 interface CreateStudentAccountsProps {
@@ -13,7 +15,8 @@ interface CreateStudentAccountsProps {
 interface CreateStudentAccountsState {
   firstName: string,
   lastName: string,
-  students: Array<{ name: string, username: string, password: string, id?: string|number }>
+  students: Array<{ name: string, username: string, password: string, id?: string|number }>,
+  waiting: boolean
 }
 
 const tableHeaders = [{
@@ -41,7 +44,8 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     this.state = {
       firstName: '',
       lastName: '',
-      students: []
+      students: [],
+      waiting: false
     }
 
     this.allStudents = this.allStudents.bind(this)
@@ -77,9 +81,8 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   footerButtonClass() {
-    const { students } = this.state
     let buttonClass = 'quill-button contained primary medium';
-    if (!students.length) {
+    if (!this.allStudents().length) {
       buttonClass += ' disabled';
     }
     return buttonClass;
@@ -95,6 +98,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
 
   createStudents() {
     const { classroom, next, setStudents, } = this.props
+    this.setState({ waiting: true })
     requestPost(`/teachers/classrooms/${classroom.id}/create_students`, { students: this.state.students }, (body) => {
       setStudents(body.students)
       next()
@@ -140,48 +144,53 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
           studentRows.push(newStudent)
         }
       })
-      return <DataTable
+      return (<DataTable
         headers={tableHeaders}
-        rows={studentRows}
         removeRow={this.removeStudent}
+        rows={studentRows}
         showRemoveIcon={true}
-      />
+      />)
     }
   }
 
   renderBody() {
     const { firstName, lastName, } = this.state
-    return <div className="create-a-class-modal-body modal-body create-students">
+    return (<div className="create-a-class-modal-body modal-body create-students">
       <h3 className="title">Create accounts for your students</h3>
       <form onSubmit={this.addStudent}>
         <Input
-          label="First name"
-          value={firstName}
-          handleChange={this.handleFirstNameChange}
-          type="text"
-          className="first-name"
           characterLimit={50}
+          className="first-name"
+          handleChange={this.handleFirstNameChange}
+          label="First name"
+          type="text"
+          value={firstName}
         />
         <Input
-          label="Last name"
-          value={lastName}
-          handleChange={this.handleLastNameChange}
-          type="text"
-          className="last-name"
           characterLimit={50}
+          className="last-name"
+          handleChange={this.handleLastNameChange}
+          label="Last name"
+          type="text"
+          value={lastName}
         />
-        <input type="submit" name="commit" value="Add" className={this.submitClass()} />
+        <input className={this.submitClass()} name="commit" type="submit" value="Add" />
       </form>
       {this.renderTable()}
-    </div>
+    </div>)
   }
 
   renderFooter() {
     const { back } = this.props
-    return <div className="create-a-class-modal-footer with-back-button">
+    const { waiting } = this.state
+    let nextButton = <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
+    if (waiting) {
+      nextButton = <button className={this.footerButtonClass()}><ButtonLoadingIndicator /></button>
+    }
+    return (<div className="create-a-class-modal-footer with-back-button">
       <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-      <button className={this.footerButtonClass()} onClick={this.createStudents}>Next</button>
-    </div>
+      {nextButton}
+    </div>)
   }
 
   render() {

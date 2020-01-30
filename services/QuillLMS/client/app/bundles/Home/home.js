@@ -1,14 +1,15 @@
-import Tabslet from 'tabslet';
 import $ from 'jquery';
+import 'lazysizes';
+// import a plugin
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 require('../../assets/styles/home.scss');
 require('./bootstrap_carousel.js');
+require('./tabslet.js')
 
-document.onreadystatechange = function () {
+document.onreadystatechange = () => {
   const state = document.readyState;
-  if (state == 'interactive') {
-    console.log('init');
-  } else if (state == 'complete') {
+  if (state === 'complete') {
     $('tabs-teacher-stories').tabslet({
       autorotate: true,
       delay: 10000,

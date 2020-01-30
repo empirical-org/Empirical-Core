@@ -176,7 +176,7 @@ class EgFormBuilder < CMS::FormBuilder
     end
 
     unless options[:placeholder].nil?
-      input_options[:placeholder] = if (placeholder = options.delete(:placeholder)) == true then name.to_s.humanize else placeholder end
+      input_options[:placeholder] = ((placeholder = options.delete(:placeholder)) == true ? name.to_s.humanize : placeholder)
     end
 
     unless options[:hidden].nil?
@@ -200,7 +200,7 @@ class EgFormBuilder < CMS::FormBuilder
 
     if options[:help_text]
       help_text = send("#{name}_help_text")
-      help_html = %Q(<a class="tipsy" title="#{help_text}" href="#">learn more</a>).html_safe
+      help_html = %(<a class="tipsy" title="#{help_text}" href="#">learn more</a>).html_safe
       out.concat help_html
     end
 
@@ -264,7 +264,7 @@ class EgFormBuilder < CMS::FormBuilder
       :hidden_field
     when :boolean, :radio
       :radio_button
-    when :boolean, :check
+    when :check
       :check_box
     when :choices
       :select
@@ -278,7 +278,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 end
 
-ActionView::Base.field_error_proc = Proc.new do |html, instance|
+ActionView::Base.field_error_proc = proc do |html, instance|
   if html =~ /<label/
     html
   else

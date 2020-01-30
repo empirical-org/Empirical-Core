@@ -1,5 +1,106 @@
-<% @active_tab = 'In the Press' %>
+<% @active_tab = 'Press' %>
+
+<% base_image_url = "#{ENV['CDN_URL']}/images/press" %>
+<% teacher_center_link = '/teacher-center' %>
+
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
-<div class="container">
-  <%= react_component('PressApp', props: {blogPosts: @blog_posts})%>
+<div class="white-background">
+  <div class="container press-page">
+    <div class="press-highlight-container">
+      <h1>Press highlights</h1>
+
+      <div class="press-highlights">
+        <div class="press-highlight">
+          <p>“Instead of teachers having to correct errors late at night with a red pen, the system does it automatically, suggesting corrections and concepts on its own.”</p>
+          <a target="_blank" href="https://www.fastcompany.com/40458272/this-machine-learning-powered-software-teaches-kids-to-be-better-writers">
+            <img src=<%="#{base_image_url}/press-fast-company.svg"%> alt="Fast Company logo" />
+          </a>
+        </div>
+        <div class="press-highlight">
+          <p>“Helps students measurably improve grammar and writing.”</p>
+          <a target="_blank" href="https://www.vox.com/2017/6/22/15855492/ai-artificial-intelligence-nonprofit-good-human-chatbots-machine-learning">
+            <img src=<%="#{base_image_url}/press-vox.svg"%> alt="Vox logo" />
+          </a>
+        </div>
+        <div class="press-highlight">
+          <p>“Platforms created to teach anyone to write well like Quill... These tech nonprofits will never measure success based on revenue or engagement. They exist to serve humanity.”</p>
+          <a target="_blank" href="https://techcrunch.com/2018/12/05/is-ethical-tech-a-farce/">
+            <img src=<%="#{base_image_url}/press-tech-crunch.svg"%> alt="Tech Crunch logo" />
+          </a>
+        </div>
+      </div>
+
+      <div class="also-featured-in-container">
+        <h2>Also featured in</h2>
+        <div class="also-featured-in-links">
+          <a target="_blank" href="https://learning.blogs.nytimes.com/2015/05/08/ideas-for-e-l-l-s-ideas-for-the-end-of-the-school-year/">
+            <img src=<%="#{base_image_url}/press-new-york-times.svg"%> alt="New York Times logo" />
+          </a>
+          <a target="_blank" href="https://www.edsurge.com/news/2016-01-24-s-cool-tools-of-the-week-quill-milwaukee-museum-of-art-tour-soundtrap-wolfie-turnitin-revision-assistant">
+            <img src=<%="#{base_image_url}/press-edsurge.svg"%> alt="EdSurge logo" />
+          </a>
+          <a target="_blank" href="https://blogs.edweek.org/edweek/curriculum/2016/10/teachers_review_digital_tools_for_english_language_arts.html">
+            <img src=<%="#{base_image_url}/press-education-week.svg"%> alt="Education Week logo" />
+          </a>
+          <a target="_blank" href="https://www.nbcmiami.com/news/local/Free-Programs-to-Prevent-Childrens-Summer-Slide-488147311.html?fbclid=IwAR1O-E49I4Gedtpe8UwmqvuBDrnHqzqu6d78G6eTZ8UV3mtrq0fZmrPj6Cs">
+            <img src=<%="#{base_image_url}/press-nbc-miami.svg"%> alt="NBC Miami logo" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="in-the-news">
+      <h1>In the news</h1>
+      <div class="in-the-news-content">
+        <div class="articles">
+          <% @in_the_news.each_with_index do |article, i| %>
+            <% hidden = i >= 5 ? 'hidden' : '' %>
+            <% class_name = "#{hidden} article" %>
+            <% link = article[:external_link] || "#{teacher_center_link}/#{article[:slug]}" %>
+            <% press_name = article[:press_name] ? "#{article[:press_name]} | " : '' %>
+            <% date = article[:published_at].strftime("%B %d, %Y") %>
+            <a class=<%="#{class_name}"%> href=<%="#{link}"%> target="_blank">
+              <h3><%="#{press_name}#{date}"%></h3>
+              <h2><%="#{article[:title]}"%></h2>
+            </a>
+          <% end %>
+          <button id="show-all-press-articles" onclick="showAllPressArticles()" class="quill-button medium outlined secondary">Show all press articles</button>
+        </div>
+
+        <div class="press-kit-container">
+          <p>Member of the press? We're happy to answer your questions.</p>
+          <div class="press-kit-links">
+            <a target="_blank" href="https://drive.google.com/a/quill.org/file/d/1LCo1T0rERUR98OU1rwIGVz3JapFhgeiO/view?usp=sharing">View our press kit</a>
+            <a href="mailto:hello@quill.org">hello@quill.org</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="press-releases">
+      <h1>Press releases</h1>
+      <div class="articles">
+        <% @press_releases.each do |article| %>
+          <% class_name = "article" %>
+          <% link = "#{teacher_center_link}/#{article[:slug]}/" %>
+          <% date = article[:published_at].strftime("%B %d, %Y") %>
+          <a href=<%="#{link}"%> class=<%="#{class_name}"%> target="_blank">
+            <h3><%="#{date}"%></h3>
+            <h2><%="#{article[:title]}"%></h2>
+          </a>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<script>
+	function showAllPressArticles() {
+    Array.from(document.getElementsByClassName('hidden')).forEach(elm => {
+      elm.classList.remove('hidden')
+      elm.classList.add('article')
+    })
+    document.getElementById('show-all-press-articles').classList.add('hidden')
+	}
+</script>

@@ -1,11 +1,12 @@
 require 'rails_helper'
 
-describe UnitTemplate, redis: :true, type: :model do
+describe UnitTemplate, redis: true, type: :model do
   let!(:unit_template) {create(:unit_template)}
 
   it { should belong_to(:unit_template_category) }
   it { should belong_to(:author) }
-  it { should have_and_belong_to_many(:activities) }
+  it { should have_many(:activities_unit_templates) }
+  it { should have_many(:activities).through(:activities_unit_templates) }
   it { should have_many(:units) }
   it { should serialize(:grades).as(Array) }
   it { should validate_inclusion_of(:flag).in_array([:alpha, :beta, :production])}
@@ -61,54 +62,49 @@ describe UnitTemplate, redis: :true, type: :model do
     let(:json) {
       {
         activities: [{
-          id: activity.id,
+          id: activity.id.to_s,
           name: activity.name,
-          flags: activity.flags,
           description: activity.description,
           section_name: activity.section.name,
           topic: {
-            id: activity.topic.id,
+            id: activity.topic.id.to_s,
             name: activity.topic.name,
             topic_category: {
-              id: activity.topic.topic_category.id,
+              id: activity.topic.topic_category.id.to_s,
               name: activity.topic.topic_category.name
             }
           },
-          classification: {key: activity.classification.key, id: activity.classification.id, name: activity.classification.name }
+          classification: {key: activity.classification.key, id: activity.classification.id.to_s, name: activity.classification.name }
         }],
         activity_info: nil,
         author: {
           name: author.name,
           avatar_url: author.avatar_url,
         },
-        created_at: unit_template1.created_at.to_s,
+        created_at: unit_template1.created_at.to_i,
         grades: [],
         id: unit_template1.id,
-        number_of_standards: 0,
+        name: unit_template1.name,
+        number_of_standards: 1,
         order_number: 999999999,
         time: nil,
         unit_template_category: {
           primary_color: category.primary_color,
           secondary_color: category.secondary_color,
+          name: category.name,
           id: category.id
         }
-      }
+      }.to_json
 
     }
 
-    before do
-      allow_any_instance_of(UnitTemplatePseudoSerializer).to receive(:get_data).and_return(json)
-    end
-
     it 'should save the serialized hash to the db and returns it' do
-      expect(UnitTemplatePseudoSerializer).to receive(:new).and_call_original
       unit_template1.get_cached_serialized_unit_template
-      serialized_template_from_db = $redis.get("unit_template_id:#{unit_template1.id}_serialized")
-      json.each do |k, v|
-        expect(serialized_template_from_db).to include(k.to_s)
-        expect(serialized_template_from_db).to include(v.to_s)
+      serialized_template_from_db = JSON.parse($redis.get("unit_template_id:#{unit_template1.id}_serialized"))
+      JSON.parse(json).each do |k, v|
+        expect(serialized_template_from_db).to include(k)
+        expect(serialized_template_from_db[k]).to eq(v)
       end
-      expect(unit_template1.get_cached_serialized_unit_template).to eq(json)
     end
   end
 
@@ -137,7 +133,7 @@ describe UnitTemplate, redis: :true, type: :model do
       flag_types.each do |flag|
         exist_count += $redis.exists(flag) ? 1 : 0
       end
-      return exist_count
+      exist_count
     end
 
     it "deletes the cache of the saved unit" do

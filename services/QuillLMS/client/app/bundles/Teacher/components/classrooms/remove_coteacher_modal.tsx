@@ -38,7 +38,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
     if (coteacher.invitation_id) {
       requestDelete(`/coteacher_classroom_invitations/${coteacher.id}`, {}, callback)
     } else {
-      requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher_from_class`, { classroom_id: classroom.id }, callback)
+      requestPost(`/classrooms_teachers/${coteacher.id}/remove_coteacher`, { classroom_id: classroom.id }, callback)
     }
   }
 
@@ -59,7 +59,7 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]
     if (checkbox) {
-      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img src={smallWhiteCheckSrc} alt="check" /></div>
+      return <div className="quill-checkbox selected" onClick={() => this.toggleCheckbox(checkboxNumber)}><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
       return <div className="quill-checkbox unselected" onClick={() => this.toggleCheckbox(checkboxNumber)} />
     }
@@ -80,9 +80,9 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
     if (coteacher.invitation_id) {
       coteacherName = "This co-teacher's"
     }
-    return <div className="modal-container remove-coteacher-modal-container">
+    return (<div className="modal-container remove-coteacher-modal-container">
       <div className="modal-background" />
-      <div className="remove-coteacher-modal modal modal-body">
+      <div className="remove-coteacher-modal quill-modal modal-body">
         <div>
           <h3 className="title">Remove co-teacher from your class?</h3>
         </div>
@@ -93,6 +93,6 @@ export default class RemoveCoteacherModal extends React.Component<RemoveCoteache
           <button className={this.submitButtonClass()} onClick={this.removeCoteacher}>Remove from class</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

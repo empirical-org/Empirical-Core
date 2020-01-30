@@ -4,7 +4,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
 
   def activities_scores_by_classroom_data
     classroom_ids = current_user.classrooms_i_teach.map(&:id)
-    if classroom_ids.length > 0
+    if !classroom_ids.empty?
       data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
       render json: { data: data }
     else
@@ -94,7 +94,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
       .where('schools_users.user_id = ?', teacher_ids)
       .where(id: current_user.id)
 
-    return teachers.count > 0
+    teachers.count > 0
   end
 
   def authorize_classroom_and_student_teacher_relationship!

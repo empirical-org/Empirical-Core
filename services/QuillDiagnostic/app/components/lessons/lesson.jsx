@@ -18,7 +18,6 @@ const Lesson = React.createClass({
       { lessonID, } = this.props.params;
     if (data[lessonID].questions) {
       return _.values(data[lessonID].questions).map((question) => {
-        console.log(question)
         const questions = this.props[question.questionType].data;
         const qFromDB = Object.assign({}, questions[question.key]);
         qFromDB.questionType = question.questionType;
@@ -67,7 +66,6 @@ const Lesson = React.createClass({
   editLesson() {
     const { lessonID, } = this.props.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-    // // console.log("Edit button clicked");
   },
 
   renderEditLessonForm() {
@@ -77,7 +75,7 @@ const Lesson = React.createClass({
     if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
       return (
         <Modal close={this.cancelEditingLesson}>
-          <EditLessonForm lesson={lesson} submit={this.saveLessonEdits} currentValues={lesson} />
+          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
         </Modal>
       );
     }

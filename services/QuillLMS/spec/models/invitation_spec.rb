@@ -11,5 +11,21 @@ RSpec.describe Invitation, type: :model do
       expect(invite.invitee_email).to eq(invitee_email.downcase) 
     end
 
+    it 'should error if the user has reached their daily limit of invitations' do
+      # Stub the limit to 1 so that we don't have to create 50 test records just to test this
+      stub_const("Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME", 1)
+      Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME.times { |i|
+        Invitation.create(invitee_email: "test#{i}@example.com", inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])
+      }
+      invite_over_limit = Invitation.create(invitee_email: 'error@example.com', inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])
+      expect(invite_over_limit.valid?).to eq(false)
+    end
+
+    it 'should validate if the user has not reached their daily invitation limit' do
+      stub_const("Invitation::MAX_COTEACHER_INVITATIONS_PER_TIME", 1)
+      invite_under_limit = Invitation.create(invitee_email: 'error@example.com', inviter: teacher, invitation_type: Invitation::TYPES[:coteacher])
+      expect(invite_under_limit.valid?).to eq(true)
+    end
+
   end
 end

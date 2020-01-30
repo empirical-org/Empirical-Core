@@ -68,7 +68,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'].includes(classroom.grade)) {
       return `${NumberSuffix(classroom.grade)} grade`
     } else {
-      return classroom.grade || 'Other'
+      return classroom.grade && classroom.grade !== 'Other' ? classroom.grade : 'Other grade'
     }
   }
 
@@ -81,7 +81,7 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
     const archivedDate = classroom.visible ? null : [<span className="bullet">•</span>, <span>Archived {updatedAt}</span>]
     const coteachers = numberOfTeachers > 1 ? [<span>{numberOfTeachers - 1} {numberOfTeachers === 2 ? 'co-teacher' : 'co-teachers'}</span>, <span className="bullet">•</span>] : null
 
-    return <div className="classroom-data">
+    return (<div className="classroom-data">
       <span>{numberOfStudents} {numberOfStudents === 1 ? 'student' : 'students'}</span>
       <span className="bullet">•</span>
       {coteachers}
@@ -91,18 +91,18 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       <span className="bullet">•</span>
       <span>Created {createdAt}</span>
       {archivedDate}
-    </div>
+    </div>)
   }
 
   renderClassroomHeader() {
     const { classroom, clickClassroomHeader } = this.props
-    return <div className="classroom-card-header" onClick={() => clickClassroomHeader(classroom.id)}>
+    return (<div className="classroom-card-header" onClick={() => clickClassroomHeader(classroom.id)}>
       <div className="classroom-info">
         <h2 className="classroom-name">{classroom.name}</h2>
         {this.renderClassroomData()}
       </div>
       <img className="expand-arrow" src={expandSrc} />
-    </div>
+    </div>)
   }
 
   renderClassSettings() {
@@ -132,13 +132,13 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
         <button className="quill-button secondary outlined small" onClick={unarchiveClass}>Un-archive</button>
       ]
     }
-    return <div className={classSettingsClassName}>
+    return (<div className={classSettingsClassName}>
       <h3>Class settings</h3>
       {coteacherNote}
       <div className="class-settings-buttons">
         {settings}
       </div>
-    </div>
+    </div>)
   }
 
   renderClassroomContent() {
@@ -158,39 +158,39 @@ export default class Classroom extends React.Component<ClassroomProps, Classroom
       isOwnedByCurrentUser,
       classrooms
     }
-    return <div>
+    return (<div>
       {this.renderClassSettings()}
       <ClassroomStudentSection
         {...sharedProps}
-        inviteStudents={inviteStudents}
         importGoogleClassroomStudents={importGoogleClassroomStudents}
+        inviteStudents={inviteStudents}
       />
       <ClassroomTeacherSection
         {...sharedProps}
         leaveClass={this.leaveClass}
       />
-    </div>
+    </div>)
   }
 
   renderLeaveClassModal() {
     const { classroom, onSuccess, } = this.props
     const { showModal } = this.state
     if (showModal === leaveClassModal) {
-      return <LeaveClassModal
-        close={this.closeModal}
+      return (<LeaveClassModal
         classroom={classroom}
+        close={this.closeModal}
         onSuccess={onSuccess}
-      />
+      />)
     }
   }
 
   renderClassroom() {
-    const { selected  } = this.props
-    return <div className={`classroom ${selected ? 'open' : 'closed'}`}>
+    const { selected, classroom, } = this.props
+    return (<div className={`classroom ${selected ? 'open' : 'closed'}`} id={classroom.id}>
       {this.renderLeaveClassModal()}
       {this.renderClassroomHeader()}
       {selected ? this.renderClassroomContent() : null}
-    </div>
+    </div>)
   }
 
   render() {

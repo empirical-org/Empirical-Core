@@ -29,7 +29,7 @@ export default class MoveStudent extends React.Component {
       } else if (r.statusCode === 200){
         window.alert('Student has been moved!')
       } else {
-        console.log(response)
+        // to do, use Sentry to capture error
       }
     })
   }
@@ -50,7 +50,7 @@ export default class MoveStudent extends React.Component {
   }
 
   render() {
-    return <div>
+    return (<div>
       <h1><a href="/teacher_fix">Teacher Fixes</a></h1>
       <h2>Move Student From One Class to Another</h2>
       <p>This method will transfer a student and their data from the class identified by class code 1 to the class identified by class code 2.</p>
@@ -59,20 +59,20 @@ export default class MoveStudent extends React.Component {
       <div>
         <div className="input-row">
           <label>Class Code 1:</label>
-          <input type="text" value={this.state.classCode1} onChange={(e) => this.updateClassCode(e, 1)}/>
+          <input onChange={(e) => this.updateClassCode(e, 1)} type="text" value={this.state.classCode1} />
         </div>
         <div className="input-row">
           <label>Class Code 2:</label>
-          <input type="text" value={this.state.classcode2} onChange={(e) => this.updateClassCode(e, 2)}/>
+          <input onChange={(e) => this.updateClassCode(e, 2)} type="text" value={this.state.classcode2} />
         </div>
         <div className="input-row">
           <label>Student Username or Email:</label>
-          <input type="text" value={this.state.studentIdentifier} onChange={this.updateStudentIdentifier}/>
+          <input onChange={this.updateStudentIdentifier} type="text" value={this.state.studentIdentifier} />
         </div>
         <button onClick={this.submitData}>Move Student</button>
         {this.renderError()}
       </div>
 
-    </div>
+    </div>)
   }
 }

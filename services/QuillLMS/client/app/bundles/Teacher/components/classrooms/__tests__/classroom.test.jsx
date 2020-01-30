@@ -13,17 +13,17 @@ describe('Classroom component', () => {
 
     const wrapper = shallow(
       <Classroom
-        classrooms={classroomProps}
+        archiveClass={() => {}}
+        changeGrade={() => {}}
         classroom={classroomWithStudents}
+        classrooms={classroomProps}
+        clickClassroomHeader={() => {}}
+        inviteStudents={() => {}}
+        isOwnedByCurrentUser
+        onSuccess={() => {}}
+        renameClass={() => {}}
         selected={false}
         user={userProps}
-        isOwnedByCurrentUser
-        clickClassroomHeader={() => {}}
-        renameClass={() => {}}
-        changeGrade={() => {}}
-        archiveClass={() => {}}
-        inviteStudents={() => {}}
-        onSuccess={() => {}}
       />
     );
 
@@ -48,16 +48,16 @@ describe('Classroom component', () => {
 
     const wrapper = shallow(
       <Classroom
-        classrooms={classroomProps}
-        classroom={classroomWithStudents}
-        selected
-        user={userProps}
-        clickClassroomHeader={() => {}}
-        renameClass={() => {}}
-        changeGrade={() => {}}
         archiveClass={() => {}}
+        changeGrade={() => {}}
+        classroom={classroomWithStudents}
+        classrooms={classroomProps}
+        clickClassroomHeader={() => {}}
         inviteStudents={() => {}}
         onSuccess={() => {}}
+        renameClass={() => {}}
+        selected
+        user={userProps}
       />
     );
 

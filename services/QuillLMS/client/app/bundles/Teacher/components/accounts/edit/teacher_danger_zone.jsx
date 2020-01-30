@@ -32,7 +32,7 @@ export default class TeacherDangerZone extends React.Component {
   }
 
   render() {
-    return (<div className="teacher-account-danger-zone teacher-account-section">
+    return (<div className="teacher-account-danger-zone user-account-section">
       {this.renderModal()}
       <h1>Danger Zone</h1>
       <div className="quill-button outlined secondary medium" onClick={this.showDeleteAccountModal}>Delete my account</div>

@@ -29,25 +29,25 @@ export default class ResetStudentPasswordModal extends React.Component<ResetStud
 
   render() {
     const { student } = this.props
-    return <div className="modal-container reset-student-password-modal-container">
+    return (<div className="modal-container reset-student-password-modal-container">
       <div className="modal-background" />
-      <div className="reset-student-password-modal modal modal-body">
+      <div className="reset-student-password-modal quill-modal modal-body">
         <div>
           <h3 className="title">Reset a student's password</h3>
         </div>
         <p>When you reset a student's password, the new password is the student's last name.</p>
         <Input
-          label="New password"
-          value={student.name.split(' ')[1]}
-          type="text"
-          disabled={true}
           className="password"
+          disabled={true}
+          label="New password"
+          type="text"
+          value={student.name.split(' ')[1]}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
           <button className="quill-button primary contained medium" onClick={this.resetPassword}>Reset Password</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

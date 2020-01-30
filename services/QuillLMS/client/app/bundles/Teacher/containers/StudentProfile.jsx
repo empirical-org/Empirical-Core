@@ -111,28 +111,28 @@ class StudentProfile extends React.Component {
 
     if (!loading) {
       const nextActivity = nextActivitySession ? (<NextActivity
-        loading={loading}
-        hasActivities={scores.length > 0}
-        name={nextActivitySession.name}
-        caId={nextActivitySession.ca_id}
-        activityId={nextActivitySession.activity_id}
         activityClassificationId={nextActivitySession.activity_classification_id}
+        activityId={nextActivitySession.activity_id}
+        caId={nextActivitySession.ca_id}
+        hasActivities={scores.length > 0}
+        loading={loading}
         maxPercentage={nextActivitySession.max_percentage}
+        name={nextActivitySession.name}
       />) : null;
       return (
         <div id="student-profile">
           <StudentsClassroomsHeader
             classrooms={classrooms}
-            numberOfClassroomTabs={numberOfClassroomTabs}
-            selectedClassroomId={selectedClassroomId || student.classroom.id}
             handleClick={this.handleClassroomTabClick}
             hideDropdown={hideDropdown}
-            toggleDropdown={toggleDropdown}
+            numberOfClassroomTabs={numberOfClassroomTabs}
+            selectedClassroomId={selectedClassroomId || student.classroom.id}
             showDropdown={showDropdown}
+            toggleDropdown={toggleDropdown}
           />
           <StudentProfileHeader
-            studentName={student.name}
             classroomName={student.classroom.name}
+            studentName={student.name}
             teacherName={student.classroom.teacher.name}
           />
           <NotificationFeed notifications={notifications} />

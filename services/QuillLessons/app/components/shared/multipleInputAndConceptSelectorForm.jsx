@@ -39,7 +39,6 @@ export default React.createClass({
 
   handleConceptChange(e) {
     const concepts = this.state.itemConcepts;
-    console.log(concepts);
     if (!concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = { correct: true, name: e.label, conceptUID: e.value, };
       this.setState({
@@ -63,19 +62,19 @@ export default React.createClass({
 
   renderTextInputFields() {
     return this.state.itemText.split('|||').map(text => (
-      <input className="input focus-point-text" style={{ marginBottom: 5, }} onChange={this.handleChange.bind(null, 'itemText')} type="text" value={text || ''} />
+      <input className="input focus-point-text" onChange={this.handleChange.bind(null, 'itemText')} style={{ marginBottom: 5, }} type="text" value={text || ''} />
     ));
   },
 
   renderConceptSelectorFields() {
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
-        handleSelectorChange={this.handleConceptChange}
-        currentConceptUID={key}
         checked={val.correct}
+        currentConceptUID={key}
+        deleteConceptResult={() => this.deleteConceptResult(key)}
+        handleSelectorChange={this.handleConceptChange}
         onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
         selectorDisabled={key === 'null' ? false : true}
-        deleteConceptResult={() => this.deleteConceptResult(key)}
       />
     ));
     return _.values(components);
@@ -102,18 +101,18 @@ export default React.createClass({
           {this.renderTextInputFields()}
           <label className="label" style={{ marginTop: 10, }}>Feedback</label>
           <TextEditor
-            text={this.state.itemFeedback || ""}
+            ContentState={ContentState}
+            EditorState={EditorState}
             handleTextChange={this.handleFeedbackChange}
             key={"feedback"}
-            EditorState={EditorState}
-            ContentState={ContentState}
+            text={this.state.itemFeedback || ""}
           />
           <label className="label" style={{ marginTop: 10, }}>Concepts</label>
           {this.renderConceptSelectorFields()}
         </div>
         <p className="control">
           <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
-          <button className={'button is-outlined is-info'} style={{ marginLeft: 5, }} onClick={() => window.history.back()}>Cancel</button>
+          <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
         </p>
       </div>
     );

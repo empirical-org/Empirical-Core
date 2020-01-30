@@ -22,7 +22,7 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
     super(props)
 
     this.state = {
-      grade: GradeOptions.find(grade => grade.value === Number(props.classroom.grade)),
+      grade: GradeOptions.find(grade => [Number(props.classroom.grade), props.classroom.grade].includes(grade.value)),
       errors: {},
       timesSubmitted: 0
     }
@@ -63,27 +63,27 @@ export default class ChangeGradeModal extends React.Component<ChangeGradeModalPr
   render() {
     const { classroom } = this.props
     const { grade, errors, timesSubmitted } = this.state
-    return <div className="modal-container change-grade-modal-container">
+    return (<div className="modal-container change-grade-modal-container">
       <div className="modal-background" />
-      <div className="change-grade-modal modal modal-body">
+      <div className="change-grade-modal quill-modal modal-body">
         <div>
           <h3 className="title">Change your grade level</h3>
         </div>
         <p>Update the grade level for {classroom.name}.</p>
         <DropdownInput
-          label="Grade"
           className="grade"
-          value={grade}
-          options={GradeOptions}
-          handleChange={this.handleGradeChange}
           error={errors.grade}
+          handleChange={this.handleGradeChange}
           helperText="This will not limit the activities you can access."
+          label="Grade"
+          options={GradeOptions}
+          value={grade}
         />
         <div className="form-buttons">
           <button className="quill-button outlined secondary medium" onClick={this.props.close}>Cancel</button>
           <button className={this.submitButtonClass()} onClick={this.changeGrade}>Save</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

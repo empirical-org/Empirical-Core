@@ -2,58 +2,64 @@ import React from 'react';
 import request from 'request'
 import { Input } from 'quill-component-library/dist/componentLibrary'
 import LoadingIndicator from './loading_indicator.jsx';
+import SchoolOption from './school_option'
 
 const mapSearchSrc = `${process.env.CDN_URL}/images/onboarding/map-search.svg`
 
-class SchoolSelector extends React.Component {
+export default class SchoolSelector extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       search: '',
       schools: [],
       errors: {},
       loading: true
     }
-
-    this.updateKeyValue = this.updateKeyValue.bind(this);
-    this.update = this.update.bind(this);
-    this.search = this.search.bind(this)
-    this.enableLocationAccess = this.enableLocationAccess.bind(this)
-    this.getLocation = this.getLocation.bind(this)
-    this.noLocation = this.noLocation.bind(this)
-    this.renderSchoolsList = this.renderSchoolsList.bind(this)
-    this.renderSchoolsListSection = this.renderSchoolsListSection.bind(this)
   }
 
   componentDidMount() {
     this.enableLocationAccess()
   }
 
-  getLocation(position) {
+  getLocation = (position) => {
     const { latitude, longitude, } = position.coords
     this.setState({ latitude, longitude, loading: true, }, this.search)
   }
 
-  noLocation() {
+  noLocation = () => {
     this.setState({ loading: false, })
   }
 
-  enableLocationAccess() {
+  enableLocationAccess = () => {
     navigator.geolocation.getCurrentPosition(this.getLocation, this.noLocation);
   }
 
-  updateKeyValue(key, value) {
+  handleSkipClick = () => {
+    const { selectSchool, } = this.props
+    selectSchool('not listed')
+  }
+
+  updateKeyValue = (key, value) => {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
     this.setState(newState, this.search);
   }
 
-  update(e) {
+  update = (e) => {
     this.updateKeyValue(e.target.id, e.target.value)
   }
 
-  search() {
+  search = () => {
     const { search, latitude, longitude } = this.state
+
+    const wholeSearchIsNumbersRegex = /^\d+$/
+
+    // if they're typing a zip code, don't search until the full zip code is entered
+    if (search.match(wholeSearchIsNumbersRegex) && search.length < 5) {
+      return null
+    }
+
     request({
       url: `${process.env.DEFAULT_URL}/schools`,
       qs: { search, lat: latitude, lng: longitude, },
@@ -64,7 +70,7 @@ class SchoolSelector extends React.Component {
         const schools = JSON.parse(body).data
         this.setState({ schools, loading: false})
       } else {
-        console.log('err', err)
+        // to do, use Sentry to capture error
       }
     });
   }
@@ -87,7 +93,8 @@ class SchoolSelector extends React.Component {
     }
   }
 
-  renderSchoolsList(schools) {
+  renderSchoolsList = (schools) => {
+    const { selectSchool, } = this.props
     const schoolItems = schools.map(school => {
       const { city, number_of_teachers, state, street, text, zipcode } = school.attributes
       const numberOfTeachers = number_of_teachers
@@ -108,40 +115,41 @@ class SchoolSelector extends React.Component {
       if (numberOfTeachers) {
         numberOfTeachersText = `${numberOfTeachers} Quill Teacher${numberOfTeachers === 1 ? '' : 's'}`
       }
-      return (<li onClick={() => this.props.selectSchool(school.id, school)}>
-        <span className="text">
-          <span className="primary-text">{text}</span>
-          <span className="secondary-text">{secondaryText}</span>
-        </span>
-        <span className="metadata">{numberOfTeachersText}</span>
-      </li>)
+      return (<SchoolOption
+        key={school.id}
+        numberOfTeachersText={numberOfTeachersText}
+        school={school}
+        secondaryText={secondaryText}
+        selectSchool={selectSchool}
+        text={text}
+      />)
     })
     return <ul className="list quill-list double-line">{schoolItems}</ul>
   }
 
   renderLoading() {
-    return <div className="loading">
-      <LoadingIndicator/>
-    </div>
+    return (<div className="loading">
+      <LoadingIndicator />
+    </div>)
   }
 
   renderNoSchoolFound() {
-    return <div className="no-school-found">
-      <img src={mapSearchSrc} alt="map search image"/>
-      <p className="message">We couldn't find your school</p>
+    return (<div className="no-school-found">
+      <img alt="map search image" src={mapSearchSrc} />
+      <p className="message">We couldn&#39;t find your school</p>
       <p className="sub-text">Try another search or click skip for now below.</p>
-    </div>
+    </div>)
   }
 
   renderNoLocationFound() {
-    return <div className="no-location-found">
-      <img src={mapSearchSrc} alt="map search image"/>
-      <p className="message">We couldn't find your location</p>
-      <p className="sub-text"><a target="_blank" href={this.locationServicesLink()}>Enable location access</a> or search for your school above.</p>
-    </div>
+    return (<div className="no-location-found">
+      <img alt="map search image" src={mapSearchSrc} />
+      <p className="message">We couldn&#39;t find your location</p>
+      <p className="sub-text"><a href={this.locationServicesLink()} rel="noopener noreferrer" target="_blank">Enable location access</a> or search for your school above.</p>
+    </div>)
   }
 
-  renderSchoolsListSection() {
+  renderSchoolsListSection = () => {
     const { schools, search, latitude, longitude, loading } = this.state
     let title
     let schoolsListOrEmptyState
@@ -159,27 +167,26 @@ class SchoolSelector extends React.Component {
     } else {
       title = 'Results'
     }
-    return <div className="schools-list-section">
+    return (<div className="schools-list-section">
       <div className="title">{title}</div>
       {schoolsListOrEmptyState}
-      <div className="school-not-listed">School not listed? <span onClick={() => this.props.selectSchool('not listed')}>Skip for now</span></div>
-    </div>
+      <div className="school-not-listed">School not listed? <span onClick={this.handleSkipClick}>Skip for now</span></div>
+    </div>)
   }
 
   render () {
-    return <div className="school-search-container">
+    const { errors, search, } = this.state
+    return (<div className="school-search-container">
       <Input
-        label="Search by school name or zip code"
-        value={this.state.search}
-        handleChange={this.update}
-        type="text"
         className="search"
-        error={this.state.errors.search}
+        error={errors.search}
+        handleChange={this.update}
         id="search"
+        label="Search by school name or zip code"
+        type="text"
+        value={search}
       />
       {this.renderSchoolsListSection()}
-    </div>
+    </div>)
   }
 }
-
-export default SchoolSelector

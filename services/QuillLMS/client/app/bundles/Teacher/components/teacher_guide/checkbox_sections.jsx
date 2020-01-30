@@ -15,18 +15,18 @@ export default React.createClass({
   },
 
   checkboxElement: function() {
-    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png'/></div>
+    return <div className='image-wrapper'><img src='/images/teacher-guide-check.png' /></div>
   },
 
   pageBasedActionIcon: function(url) {
     if (this.props.dashboard) {
-      return (<a href={url}><img src='/images/getting_started_arrow.png'/></a>);
+      return (<a href={url}><img src='/images/getting_started_arrow.png' /></a>);
     } else {
       return (<a className='btn btn-default' href={url}><div>
-           <div>Launch</div>
-           <div className='favicon-div'><i className="fa fa-long-arrow-right" aria-hidden="true"></i></div>
-         </div>
-       </a>);
+        <div>Launch</div>
+        <div className='favicon-div'><i aria-hidden="true" className="fas fa-long-arrow-alt-right" /></div>
+      </div>
+      </a>);
     }
   },
 
@@ -45,10 +45,10 @@ export default React.createClass({
   optionalInfo: function(box){
     var info = [];
     if (box.help_info) {
-      info.push(<td key={'help-info ' + box.action_url} className='text-right help-info'>{this.pageBasedHelpInfo(box.help_info)}</td>);
+      info.push(<td className='text-right help-info' key={'help-info ' + box.action_url}>{this.pageBasedHelpInfo(box.help_info)}</td>);
     }
     if (box.action_url){
-      info.push(<td key={'action ' + box.action_url} className='text-right url-action'>{this.actionButton(box.action_url)}</td>);
+      info.push(<td className='text-right url-action' key={'action ' + box.action_url}>{this.actionButton(box.action_url)}</td>);
     }
     return info;
   },
@@ -68,19 +68,19 @@ sortBoxes: function(){
   section: function(){
     var that = this;
     var boxes = this.sortBoxes().map(box =>
-      <tr key={box.id} className={'completed-' + box.completed}>
+      (<tr className={'completed-' + box.completed} key={box.id}>
         <td className='check-or-number'>{that.checkOrNumber(box)}</td>
         <td className='text-left'><a href={box.action_url}>{box.name}</a></td>
         {this.optionalInfo(box)}
-      </tr>
+      </tr>)
     );
     return (
       <div>
         {this.category()}
         <table className='table quill-table'>
-            <tbody>
-              {boxes}
-            </tbody>
+          <tbody>
+            {boxes}
+          </tbody>
         </table>
       </div>
       );

@@ -8,7 +8,7 @@ class Cms::SchoolsController < Cms::CmsController
     :show,
     :complete_sales_stage,
   ]
-  before_action :get_subscription_data, only: [:new_subscription, :edit_subscription]
+  before_action :subscription_data, only: [:new_subscription, :edit_subscription]
 
   SCHOOLS_PER_PAGE = 30.0
 
@@ -106,10 +106,10 @@ class Cms::SchoolsController < Cms::CmsController
       school = School.find(params[:id])
       SchoolsAdmins.create(user_id: user.id, school_id: school.id)
       flash[:success] = "Yay! It worked! 🎉"
-      return redirect_to cms_school_path(params[:id])
+      redirect_to cms_school_path(params[:id])
     rescue
       flash[:error] = "It did't work! 😭😭😭"
-      return redirect_to :back
+      redirect_to :back
     end
   end
 

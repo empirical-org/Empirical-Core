@@ -12,11 +12,11 @@ store.dispatch(initStore());
 class App extends React.Component<{}, {}> {
     public render(): JSX.Element {
         return (
-            <LocaleProvider locale={enUS}>
-                <Provider store={store}>
-                    <HashRouter basename="/" children={route} />
-                </Provider>
-            </LocaleProvider>
+          <LocaleProvider locale={enUS}>
+            <Provider store={store}>
+              <HashRouter basename="/">{route}</HashRouter>
+            </Provider>
+          </LocaleProvider>
         );
     }
 }

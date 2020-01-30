@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
-import ActivitySearchAndSelect from '../lesson_planner/create_unit/activity_search/activity_search_and_select.jsx';
+import ActivitySearchAndSelect from '../assignment_flow/create_unit/activity_search/activity_search_and_select.jsx';
 import Server from '../modules/server/server.jsx';
 import Fnl from '../modules/fnl.jsx';
 import TextInputGenerator from '../modules/componentGenerators/text_input_generator.jsx';
@@ -154,8 +154,8 @@ export default React.createClass({
 
   getGradeCheckBoxes() {
     return (<CheckBoxes
-      label={'Grades'}
       items={this.state.options.grades}
+      label={'Grades'}
       selectedItems={this.state.model.grades}
       toggleItem={this.modules.indicatorGenerator.stateItemToggler('grades')}
     />);
@@ -163,53 +163,53 @@ export default React.createClass({
 
   getUnitTemplateCategorySelect() {
     return (<DropdownSelector
-      select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
       defaultValue={this.state.model.unit_template_category_id}
-      options={this.state.options.unit_template_categories}
       label={'Select Activity Pack Category'}
+      options={this.state.options.unit_template_categories}
+      select={this.modules.indicatorGenerator.selector('unit_template_category_id')}
     />);
   },
 
   getStatusFlag() {
     // The label is a quick hack as it wasn't automatically turning to the correct one
     return (<DropdownSelector
-      select={this.modules.indicatorGenerator.selector('flag')}
       defaultValue={this.state.model.flag}
-      options={this.state.options.flag}
       label={'Select Flag'}
+      options={this.state.options.flag}
+      select={this.modules.indicatorGenerator.selector('flag')}
     />);
   },
 
   getAuthorSelect() {
     return (<DropdownSelector
-      select={this.modules.indicatorGenerator.selector('author_id')}
       defaultValue={this.state.model.author_id}
-      options={this.state.options.authors}
       label={'Select Author'}
+      options={this.state.options.authors}
+      select={this.modules.indicatorGenerator.selector('author_id')}
     />);
   },
 
   getTimeDropdownSelect() {
     return (<DropdownSelector
-      select={this.modules.indicatorGenerator.selector('time')}
       defaultValue={this.state.model.time}
-      options={this.state.options.times}
       label={'Select time in minutes'}
+      options={this.state.options.times}
+      select={this.modules.indicatorGenerator.selector('time')}
     />);
   },
 
   getActivitySearchAndSelect() {
     return (<ActivitySearchAndSelect
+      errorMessage={this.props.errorMessage}
       selectedActivities={this.state.model.activities}
       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
-      errorMessage={this.props.errorMessage}
     />);
   },
 
   getErrorMessageAndButton() {
     return (<div className="error-message-and-button">
       <div className={this.determineErrorMessageClass()}>{this.determineErrorMessage()}</div>
-      <button onClick={this.save} className={this.determineContinueButtonClass()} id="continue">Continue</button>
+      <button className={this.determineContinueButtonClass()} id="continue" onClick={this.save}>Continue</button>
     </div>);
   },
 

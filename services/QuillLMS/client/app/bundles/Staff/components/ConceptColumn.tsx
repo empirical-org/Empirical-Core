@@ -70,7 +70,7 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
       } else if (selectedConcept && selectedConcept.parent && (selectedConcept.parent.id === c.id || (selectedConcept.parent.parent && c.id === selectedConcept.parent.parent.id))) {
         selected = 'selected'
       }
-      return <div onClick={(e) => this.selectConcept(e, c.id, levelNumber)} className={`concept-list-item ${selected}`}>{c.name}{removeSelectionIcon}</div>
+      return <div className={`concept-list-item ${selected}`} key={c.id} onClick={(e) => this.selectConcept(e, c.id, levelNumber)}>{c.name}{removeSelectionIcon}</div>
     })
     return <div className="concept-list">{conceptItems}</div>
   }
@@ -78,23 +78,23 @@ export default class ConceptColumn extends React.Component<ConceptColumnProps, C
   renderSorter() {
     const options = [{ value: 'name', label: 'Sort by A-Z'}, { value: 'createdAt', label: 'Date Created'}]
     const value = options.find(o => o.value === this.state.sortField)
-    return <Select
-      onChange={this.changeSort}
-      value={value}
-      options={options}
+    return (<Select
+      className="sort-select"
       isClearable={false}
       isSearchable={false}
-      className="sort-select"
-    />
+      onChange={this.changeSort}
+      options={options}
+      value={value}
+    />)
   }
 
   render() {
-    return <div className="concept-column">
+    return (<div className="concept-column">
       <div className="concept-column-head">
         <p>Level {this.props.levelNumber}</p>
         {this.renderSorter()}
       </div>
       {this.renderConceptList()}
-    </div>
+    </div>)
   }
 }

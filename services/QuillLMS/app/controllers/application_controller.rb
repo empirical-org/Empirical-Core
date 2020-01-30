@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   # before_action :setup_visitor
   before_action :should_load_intercom
   before_action :set_raven_context
+  before_action :confirm_valid_session
+  # before_action :stick_to_leader_db
 
   def admin!
     return if current_user.try(:admin?)
@@ -102,6 +104,23 @@ class ApplicationController < ActionController::Base
     route&.include?(Teachers::ClassroomsController::INDEX)
   end
 
+  def route_redirects_to_assign?(route)
+    route&.include?(Teachers::ClassroomManagerController::ASSIGN)
+  end
+
+  def route_redirects_to_diagnostic?(route)
+    route&.include?(ActivitiesController::DIAGNOSTIC)
+  end
+
+  def non_standard_route_redirect?(route)
+    (
+      route_redirects_to_my_account?(route) ||
+      route_redirects_to_assign?(route) ||
+      route_redirects_to_classrooms_index?(route) ||
+      route_redirects_to_diagnostic?(route)
+    )
+  end
+
   protected
 
   def set_vary_header
@@ -119,4 +138,15 @@ class ApplicationController < ActionController::Base
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 
+  def stick_to_leader_db
+    ActiveRecord::Base.connection.stick_to_master!
+  end
+
+  def confirm_valid_session
+    # Don't do anything if there's no authorized user or session
+    return if !current_user || !session
+    # If the user is google authed, but doesn't have a valid refresh
+    # token, then we need to invalidate their session
+    return reset_session if current_user.google_id && !current_user.auth_credential&.refresh_token
+  end
 end

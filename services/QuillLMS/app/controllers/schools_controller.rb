@@ -6,7 +6,8 @@ class SchoolsController < ApplicationController
 
   def index
     @radius = params[:radius].presence || 5
-    @lat, @lng = params[:lat],params[:lng]
+    @lat = params[:lat]
+    @lng = params[:lng]
     @search = params[:search]
     @prefix,@zipcode = get_prefix_and_zipcode(@search)
     @limit = @prefix || @zipcode ? nil : params[:limit].presence || 10
@@ -14,11 +15,14 @@ class SchoolsController < ApplicationController
 
     school_ids = []
     if @lat.present? and @lng.present?
-      school_ids = JSON.load($redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}"))
+      stored_school_ids = $redis.get("LAT_LNG_RADIUS_TO_SCHOOL_#{@lat}_#{@lng}_#{@radius}")
+      school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
     elsif @zipcode.present?
-      school_ids = JSON.load($redis.get("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}"))
+      stored_school_ids = $redis.get("ZIPCODE_RADIUS_TO_SCHOOL_#{@zipcode}_#{@radius}")
+      school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
     else
-      school_ids = JSON.load($redis.get("PREFIX_TO_SCHOOL_#{@prefix}"))
+      stored_school_ids = $redis.get("PREFIX_TO_SCHOOL_#{@prefix}")
+      school_ids = stored_school_ids ? JSON.parse(stored_school_ids) : nil
       @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
       .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
       .where(id: school_ids)
@@ -50,7 +54,7 @@ class SchoolsController < ApplicationController
         @schools = School.select("schools.id, name, zipcode, mail_zipcode, street, mail_street, city, mail_city, state, mail_state, COUNT(schools_users.id) AS number_of_teachers")
         .joins('LEFT JOIN schools_users ON schools_users.school_id = schools.id')
         .where(
-          "zipcode in #{self.array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{self.array_to_postgres_array_helper(zip_arr)}"
+          "zipcode in #{array_to_postgres_array_helper(zip_arr)} OR mail_zipcode in #{array_to_postgres_array_helper(zip_arr)}"
          ).where(
          "lower(name) LIKE :prefix", prefix: "%#{@prefix.downcase}%"
          ).group("schools.id")
@@ -116,7 +120,8 @@ class SchoolsController < ApplicationController
   private
 
   def get_prefix_and_zipcode(search)
-    prefix, zipcode = '',nil
+    prefix = ''
+    zipcode = nil
     if search.present?
       zipcode = search.match(/\d{5}/).to_s
       prefix = search.gsub(/\d{5}/, "").strip()
@@ -124,7 +129,7 @@ class SchoolsController < ApplicationController
     unless zipcode.present?
       zipcode = nil
     end
-    return prefix,zipcode
+    [prefix, zipcode]
   end
 
   def school_params

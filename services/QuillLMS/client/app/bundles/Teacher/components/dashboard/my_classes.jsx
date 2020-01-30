@@ -10,7 +10,7 @@
   createMinis: function() {
     var classes = this.props.classList;
     var minis = _.map(classes, function(classObj) {
-      return <ClassMini classObj={classObj} key={classObj.code}/>;
+      return <ClassMini classObj={classObj} key={classObj.code} />;
     });
     return minis;
   },
@@ -22,7 +22,7 @@
         <h3 className='dashboard-header'>My Classes</h3>
         <div className='row'>
           {this.createMinis()}
-           <AddOrSyncClassroomsMini user={this.props.user}/>
+          <AddOrSyncClassroomsMini user={this.props.user} />
         </div>
       </div>
     );

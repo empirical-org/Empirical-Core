@@ -1,17 +1,21 @@
 const { rematchAllQuestionsOfAType, rematchIndividualQuestion } =  require('./rematch')
 
-exports.handler = (event, context, callback) => {
-  const { uid, type } = event
+exports.handler = async (event) => {
+  const body = JSON.parse(event.body);
+  const { response, type, question, referenceResponses } = body
 
-  function finishRematching() {
-    console.log('rematching succeeded')
-    const response = 'Rematching succeeded';
-    callback(null, JSON.stringify(response))
-  }
-
-  if (uid) {
-    rematchIndividualQuestion(uid, type, finishRematching)
-  } else {
-    rematchAllQuestionsOfAType(type, finishRematching)
+  try {
+    return await rematchIndividualQuestion(response, type, question, referenceResponses).
+      then((rematch) => {
+        return {
+          statusCode: 200,
+          body: JSON.stringify(rematch),
+        };
+      });
+  } catch(err) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify(err),
+    };
   }
 };

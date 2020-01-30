@@ -33,14 +33,14 @@ class ProfilesController < ApplicationController
         scores: student_profile_data_sql(params[:current_classroom_id]),
         next_activity_session: next_activity_session,
         student: student_data,
-        classroom_id: params[:current_classroom_id] ? params[:current_classroom_id] : current_user.classrooms.last.id
+        classroom_id: params[:current_classroom_id] || current_user.classrooms.last.id
       }
     else
       render json: {error: 'Current user has no classrooms'}
     end
   end
 
-  def get_mobile_profile_data
+  def mobile_profile_data
     if current_user.classrooms.any?
       grouped_scores = get_parsed_mobile_profile_data(params[:current_classroom_id])
       render json: {grouped_scores: grouped_scores}
@@ -54,12 +54,10 @@ class ProfilesController < ApplicationController
   end
 
   def teacher
-    if @user.classrooms_i_teach.any? || @user.archived_classrooms.any?
-      redirect_to dashboard_teachers_classrooms_path
-    elsif @user.schools_admins.any?
+    if @user.schools_admins.any?
       redirect_to teachers_admin_dashboard_path
     else
-      redirect_to new_teachers_classroom_path
+      redirect_to dashboard_teachers_classrooms_path
     end
   end
 
@@ -67,7 +65,7 @@ class ProfilesController < ApplicationController
     render :staff
   end
 
-protected
+  protected
   def user_params
     params.require(:user).permit(:classcode, :email, :name, :username, :password)
   end

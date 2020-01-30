@@ -39,25 +39,27 @@ export default React.createClass({
   columns: function() {
     return _.map(this.props.columns, function (column, i) {
       var isCurrentSort = (column.sortByField === this.props.currentSort.field);
-      return <SortableTh key={i}
-                            sortHandler={this.sortByColumn(column.sortByField)}
-                            displayName={column.name}
-                            displayClass={column.className}
-                            sortDirection={this.props.currentSort.direction || 'asc'}
-                            isCurrentSort={isCurrentSort} />
+      return (<SortableTh
+        displayClass={column.className}
+        displayName={column.name}
+        isCurrentSort={isCurrentSort}
+        key={i}
+        sortDirection={this.props.currentSort.direction || 'asc'}
+        sortHandler={this.sortByColumn(column.sortByField)}
+      />)
     }, this);
   },
 
   rows: function() {
     return _.map(this.props.rows, function(row, i) {
-      return <SortableTr key={row.id || i} row={row} columns={this.props.columns} colorByScoreKeys={this.props.colorByScoreKeys} />
+      return <SortableTr colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columns} key={row.id || i} row={row} />
     }, this);
   },
 
   loadingView: function () {
     return (
       <div className='sortable-table-spinner-container'>
-        <i className='fa fa-refresh fa-spin sortable-table-spinner' />
+        <i className='fas fa-refresh fa-spin sortable-table-spinner' />
       </div>
     );
   },
@@ -69,10 +71,12 @@ export default React.createClass({
       var tbody;
       if (this.shouldTransition()) {
         tbody = (
-          <ReactCSSTransitionGroup component='tbody'
-                                     transitionName={this.props.transitionName}
-                                     transitionEnterTimeout={2000}
-                                     transitionLeaveTimeout={2000}>
+          <ReactCSSTransitionGroup
+            component='tbody'
+            transitionEnterTimeout={2000}
+            transitionLeaveTimeout={2000}
+            transitionName={this.props.transitionName}
+          >
             {this.rows()}
           </ReactCSSTransitionGroup>
         );
@@ -87,7 +91,7 @@ export default React.createClass({
               {this.columns()}
             </tr>
           </thead>
-         {tbody}
+          {tbody}
         </table>
       );
     }

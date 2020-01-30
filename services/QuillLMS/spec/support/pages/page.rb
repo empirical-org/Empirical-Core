@@ -5,7 +5,7 @@ class Page
 
   # FIXME: I don't get why this is a class method [KK - 3/16/15]
   def self.path
-    fail "#{self.name} does not implement 'path'"
+    raise "#{name} does not implement 'path'"
   end
 
   def self.visit
@@ -68,7 +68,7 @@ class Page
   end
 
   # make :has_radiobutton an alias for :has_checkbutton
-  self.singleton_class.send(:alias_method, :has_radiobutton, :has_checkbutton)
+  singleton_class.send(:alias_method, :has_radiobutton, :has_checkbutton)
 
   def fill(field, value)
     field.set value if value.present?

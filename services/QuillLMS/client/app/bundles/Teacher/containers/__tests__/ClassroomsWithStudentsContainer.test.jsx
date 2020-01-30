@@ -35,10 +35,6 @@ const props = {
         'path': '/teachers/classrooms/activity_planner',
         'indexRoute': {},
         'childRoutes': [{
-            'path': 'featured-activity-packs(/category/:category)'
-        }, {
-            'path': 'featured-activity-packs(/grade/:grade)'
-        }, {
             'path': 'featured-activity-packs/:activityPackId'
         }, {
             'path': 'featured-activity-packs/:activityPackId/assigned'
@@ -56,7 +52,11 @@ const props = {
     }, {
         'path': 'units/:unitId/students/edit'
     }],
-    'children': null
+    'children': null,
+    'user': {
+      google_id: 'something',
+      id: 'something else'
+    }
 }
 
 const state = {
@@ -417,21 +417,21 @@ const state = {
 describe('ClassroomsWithStudentsContainer container', () => {
 
   it('should render', () => {
-      const wrapper = mount( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = mount( <ClassroomsWithStudentsContainer {...props} />);
           expect(wrapper.find(ClassroomsWithStudentsContainer).exists()).toBe(true);
       });
 
   describe('classroomUpdated', () => {
 
     it('returns false if the selected students are the same as the originally assigned students', () => {
-      const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow( <ClassroomsWithStudentsContainer {...props} />);
       wrapper.setState(_.cloneDeep(state))
       wrapper.instance().selectPreviouslyAssignedStudents();
       expect(wrapper.instance().classroomUpdated(wrapper.state().classrooms[0])).toBe(false)
     })
 
     it('returns true otherwise', () => {
-      const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow( <ClassroomsWithStudentsContainer {...props} />);
       const newState = _.cloneDeep(state)
       newState.classrooms[0].students[0].isSelected = true
       wrapper.setState(newState)
@@ -442,7 +442,7 @@ describe('ClassroomsWithStudentsContainer container', () => {
 
   describe('studentsChanged', () => {
     it('returns true if a classroom has been updated', () => {
-      const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow( <ClassroomsWithStudentsContainer {...props} />);
       const newState = _.cloneDeep(state)
       newState.classrooms[0].students[0].isSelected = true
       wrapper.setState(newState)
@@ -450,7 +450,7 @@ describe('ClassroomsWithStudentsContainer container', () => {
     })
 
     it('returns false if no classrooms have been updated', () => {
-      const wrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow( <ClassroomsWithStudentsContainer {...props} />);
       wrapper.setState(_.cloneDeep(state))
       wrapper.instance().selectPreviouslyAssignedStudents();
       expect(wrapper.instance().studentsChanged(wrapper.state('classrooms'))).toBe(undefined)
@@ -459,7 +459,7 @@ describe('ClassroomsWithStudentsContainer container', () => {
 
   describe('selectPreviouslyAssignedStudents', ()=> {
     it('selectPreviouslyAssignedStudents marks a student as selected if they are an assigned student', () => {
-      const wrapper = shallow(<ClassroomsWithStudentsContainer {...props}/>);
+      const wrapper = shallow(<ClassroomsWithStudentsContainer {...props} />);
         wrapper.setState(_.cloneDeep(state))
         let assignedStudents = wrapper.state().classrooms[0].classroom_unit.assigned_student_ids
         let students = wrapper.state().classrooms[0].students
@@ -473,7 +473,7 @@ describe('ClassroomsWithStudentsContainer container', () => {
         expect(assignedStudents.sort((a,b)=> a - b)).toEqual(selectedStudents.sort((a,b)=> a - b))
     })
     it('correctly marks when a missing student was assigned the activity', () => {
-      const newWrapper = shallow( < ClassroomsWithStudentsContainer {...props}/>);
+      const newWrapper = shallow( <ClassroomsWithStudentsContainer {...props} />);
       newWrapper.setState(_.cloneDeep(state))
         let assignedStudents = newWrapper.state().classrooms[0].classroom_unit.assigned_student_ids
         newWrapper.instance().selectPreviouslyAssignedStudents();

@@ -17,7 +17,7 @@ export default React.createClass({
         </div>
         <div className='col-md-3 col-xs-12 pull-right'>
           <div className='premium-button-box text-center'>
-            <a href='/teachers/progress_reports/concepts/students'><button type='button' className='button-green'>Check out Your Premium Student Results</button></a>
+            <a href='/teachers/progress_reports/concepts/students'><button className='button-green' type='button'>Check out Your Premium Student Results</button></a>
           </div>
         </div>
       </div>

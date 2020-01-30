@@ -19,9 +19,9 @@ RailsAdmin.config do |config|
   def current_user
     begin
       if session[:user_id]
-        return @current_user ||= User.find(session[:user_id])
+        @current_user ||= User.find(session[:user_id])
       elsif doorkeeper_token
-        return User.find_by_id(doorkeeper_token.resource_owner_id) if doorkeeper_token
+        User.find_by_id(doorkeeper_token.resource_owner_id)
       else
         authenticate_with_http_basic do |username, password|
           return @current_user ||= User.find_by_token!(username) if username.present?
@@ -66,7 +66,6 @@ RailsAdmin.config do |config|
 
     # rest of your ParentModel configuration
   end
-  #
   config.model User do
     list do
       field :password_digest do
@@ -113,7 +112,7 @@ RailsAdmin.config do |config|
   config.model SchoolSubscription do
     field :school do
       searchable [:name, :zipcode]
-        Proc.new { |scope|
+        proc { |scope|
           scope = scope.where(role: ['teacher','admin'])
         }
     end
@@ -126,15 +125,18 @@ RailsAdmin.config do |config|
     field :user do
       searchable [:email, :username]
       sortable :email
-        Proc.new { |scope|
+        proc { |scope|
           scope = scope.where(role: ['teacher','admin'])
         }
     end
     field :school do
       searchable [:name, :zipcode]
-        Proc.new { |scope|
+        proc { |scope|
           scope = scope.where(role: ['teacher','admin'])
         }
     end
   end
+
+  config.excluded_models << 'ActivitySession'
+  config.excluded_models << 'ConceptResult'
 end

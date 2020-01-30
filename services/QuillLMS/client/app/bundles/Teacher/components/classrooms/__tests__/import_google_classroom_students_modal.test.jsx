@@ -9,9 +9,9 @@ describe('ImportGoogleClassroomStudentsModal component', () => {
 
   const wrapper = shallow(
     <ImportGoogleClassroomStudentsModal
+      classroom={classroomWithStudents}
       close={() => {}}
       onSuccess={() => {}}
-      classroom={classroomWithStudents}
     />
   );
 

@@ -1,0 +1,125 @@
+.press-page {
+  padding: 121px 0px;
+
+  .hidden {
+    display: none;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 38px;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: 14px;
+    line-height: 1.57;
+    color: #646464;
+    margin-bottom: 4px;
+  }
+
+  .press-highlight-container {
+    padding-left: 16px;
+  }
+
+  .press-highlights {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 56px;
+    .press-highlight {
+      max-width: 295px;
+      width: 100%;
+      border-top: black 4px solid;
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        padding: 32px 0px 40px;
+      }
+    }
+  }
+
+  .also-featured-in-links {
+    margin-top: 32px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .in-the-news, .press-releases {
+    margin-top: 120px;
+    h1 {
+      padding-left: 16px;
+    }
+    .articles {
+      max-width: 640px;
+      .quill-button {
+        margin-top: 16px;
+        margin-left: 16px;
+      }
+    }
+    .article {
+      padding: 16px;
+      display: block;
+      &:hover {
+        background-color: #f2f2f2;
+        text-decoration: none;
+      }
+    }
+
+    .in-the-news-content {
+      display: flex;
+      .press-kit-container {
+        max-width: 295px;
+        width: 100%;
+        margin-left: 32px;
+        p {
+          font-size: 16px;
+          line-height: 1.5;
+        }
+        .press-kit-links {
+          margin-top: 16px;
+          font-size: 14px;
+          font-weight: 600;
+          a {
+            color: #027360;
+            &:first-of-type {
+              margin-right: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    padding: 48px 16px;
+    .press-highlights {
+      flex-direction: column;
+      .press-highlight {
+        margin-bottom: 32px;
+      }
+    }
+    .also-featured-in-links {
+      flex-direction: column;
+      a {
+        margin-bottom: 20px;
+      }
+    }
+    .in-the-news, .press-releases {
+      margin-top: 48px;
+    }
+    .in-the-news-content {
+      flex-direction: column;
+      .press-kit-container {
+        margin-left: 16px !important;
+        margin-top: 20px;
+      }
+    }
+  }
+}

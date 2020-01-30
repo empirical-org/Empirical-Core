@@ -2,7 +2,11 @@ var fs = require('fs');
 var zlib = require('zlib');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
+var commonjs = require('rollup-plugin-commonjs');
+var nodeResolve = require('rollup-plugin-node-resolve');
 var typescript = require('rollup-plugin-typescript2');
+var json = require('rollup-plugin-json');
+var nodeGlobals = require('rollup-plugin-node-globals')
 var version = process.env.VERSION || require('../package.json').version;
 var banner =
     '/*!\n' +
@@ -14,7 +18,27 @@ var banner =
 rollup.rollup({
     input: "./src/main.ts",
     plugins: [
-      typescript()
+      nodeResolve({
+            // pass custom options to the resolve plugin
+            jsnext: true,
+            main: true,
+            browser: true,
+            preferBuiltins: true
+          }),
+      json(),
+      commonjs({
+        include: 'node_modules/**',
+        exclude: 'node_modules/tough-cookie/package.json',
+        namedExports: {
+          'node_modules/underscore/underscore.js': ['sortBy', 'reject', 'isEqual', 'where', 'find', 'filter', 'any', 'map', 'intersection', 'contains', 'zip', 'min', 'max', 'mapObject', 'omit'],
+          'node_modules/diff/dist/diff.js': ['diffWords', '_params'],
+          'node_modules/process/index.js': ['nextTick'],
+          'node_modules/events/events.js': ['EventEmitter'],
+          'node_modules/buffer/index.js': ['isBuffer']
+        }
+      }),
+      nodeGlobals(),
+      typescript(),
     ]
 })
     .then(function (bundle) {
@@ -48,7 +72,6 @@ function write(dest, code) {
     return new Promise(function (resolve, reject) {
         fs.writeFile(dest, code, function (err) {
             if (err) return reject(err)
-            console.log(blue(dest) + ' ' + getSize(code))
             resolve()
         })
     })
@@ -59,7 +82,7 @@ function getSize(code) {
 };
 
 function logError(e) {
-    console.log(e)
+    // to do, use Sentry to capture error
 };
 
 function blue(str) {

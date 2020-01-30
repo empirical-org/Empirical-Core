@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UnitActivity, type: :model, redis: :true do
+describe UnitActivity, type: :model, redis: true do
 
   it { should belong_to(:activity) }
   it { should belong_to(:unit) }
@@ -18,7 +18,7 @@ describe UnitActivity, type: :model, redis: :true do
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
   let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom)}
-  let!(:classroom_2) { create(:classroom) }
+  let!(:classroom2) { create(:classroom) }
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit, name: 'Tapioca', user: teacher) }
   let!(:unit_activity) { create(:unit_activity, unit: unit, activity: activity) }

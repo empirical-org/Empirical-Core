@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ClassroomUnit, type: :model, redis: :true do
+describe ClassroomUnit, type: :model, redis: true do
 
   it { should belong_to(:classroom) }
   it { should belong_to(:unit) }
@@ -14,16 +14,16 @@ describe ClassroomUnit, type: :model, redis: :true do
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:student2) { create(:user, role: 'student', username: 'good', name: 'bye bye', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
-  let!(:classroom_2) { create(:classroom) }
+  let!(:classroom2) { create(:classroom) }
   let!(:teacher) {classroom.owner}
   let!(:unit) { create(:unit) }
-  let!(:unit_2) { create(:unit) }
+  let!(:unit2) { create(:unit) }
   let!(:unit_3) { create(:unit) }
   let!(:classroom_unit) { create(:classroom_unit, classroom: classroom, unit: unit, assigned_student_ids: [student.id]) }
   let!(:activity_session) {create(:activity_session, classroom_unit_id: classroom_unit.id, user_id: student.id, state: 'unstarted')}
 
   describe '#assigned_students' do
-    let(:classroom_unit_with_no_assigned_students) { create(:classroom_unit, unit: unit_2, classroom: classroom_2, assigned_student_ids: []) }
+    let(:classroom_unit_with_no_assigned_students) { create(:classroom_unit, unit: unit2, classroom: classroom2, assigned_student_ids: []) }
     it 'must be empty if none assigned' do
       expect(classroom_unit_with_no_assigned_students.assigned_students).to be_empty
     end

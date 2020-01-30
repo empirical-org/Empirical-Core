@@ -1,20 +1,22 @@
 import React from 'react';
-import $ from 'jquery';
 import NewSignUpBanner from './new_signup_banner.jsx';
+import { requestPost } from '../../../../../modules/request/index.js';
+
 
 export default React.createClass({
 
   getInitialState() {
-    return { trial_started: false, };
+    return { trialStarted: false, };
   },
 
   beginTrial() {
-    $.post('/subscriptions', { subscription: { account_type: 'trial', }, })
-    .success(this.setState({ trial_started: true, }));
+    requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
+      this.setState({ trialStarted: true, })
+    })
   },
 
   render() {
-    if (this.state.trial_started) {
+    if (this.state.trialStarted) {
       return (<NewSignUpBanner status={'trial'} />);
     }
     return (
@@ -27,7 +29,7 @@ export default React.createClass({
         </div>
         <div className="col-md-3 col-xs-12 pull-right">
           <div className="premium-button-box text-center">
-            <button type="button" onClick={this.beginTrial} className="btn-orange">Try it Free for 30 Days</button>
+            <button className="btn-orange" onClick={this.beginTrial} type="button">Try it Free for 30 Days</button>
             <br />
             <span>No credit card required</span>
           </div>

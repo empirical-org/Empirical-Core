@@ -1,12 +1,101 @@
 <% @active_tab = 'Impact' %>
 <%= render partial: 'pages/shared/our_story_navbar', active_tab: @active_tab %>
 
-<div class="container impact-page">
-  <h1>Quill has reached <%= number_with_delimiter(@number_of_cities) %> cities in the United States and has been used by <%= number_to_human(@number_of_students).downcase %> students.</h1>
+<% base_image_url = "#{ENV['CDN_URL']}/images/impact" %>
 
-  <iframe id="map-iframe" src="https://www.google.com/maps/d/u/0/embed?mid=1ddUc_gtX3ZVxW2SS5Z5VtpKfKfo&z=5&ll=39.05582,-95.68901" width=“100%” height=“700” scrolling="no"></iframe>
+<div class="white-background">
+  <div class="container about-us-page impact-page">
+    <div class="header">
+      <h1>No hype machine. Real data. Real impact.</h1>
+      <p class="hide-mobile">Humility, transparency, and education technology are concepts rarely found in the same sentence. We want to change that. We’re candid about who uses Quill and how much so everyone can gauge how we’re doing and what our users are learning. Our goal is to be helpful to teachers and the students they serve—and we can only do that by keeping it real.</p>
+    </div>
 
-  <iframe src="https://quill.geckoboard.com/dashboards/6545ABBE1D67B8A3" frameborder=0 height=1450 width="100%" scrolling=no>
-    <p>Your browser does not support iframes.</p>
-  </iframe>
+    <div class="impact-metrics">
+      <div class="impact-metric">
+        <h2><%= number_with_delimiter(@number_of_students, :delimiter => ',') %></h2>
+        <p>Students impacted</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= number_with_delimiter(@number_of_schools, :delimiter => ',') %></h2>
+        <p>Schools</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= number_with_delimiter(@number_of_sentences, :delimiter => ',') %></h2>
+        <p>Sentences written</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= number_with_delimiter(@number_of_low_income_schools, :delimiter => ',') %></h2>
+        <p>Low-income schools</p>
+      </div>
+      <div class="impact-metric">
+        <h2><%= number_with_delimiter(@number_of_teachers, :delimiter => ',') %></h2>
+        <p>Teachers</p>
+      </div>
+    </div>
+
+    <div class="student-usage-by-school-year hide-mobile">
+      <h2 class="student-usage-title">Student usage by school year</h2>
+      <div class="student-usage-rows">
+        <div class="student-usage-row eighteen-nineteen">
+          <div class="year-and-bar">
+            <p>2018 - 2019</p>
+            <div class="bar-and-count">
+              <div class="bar"></div>
+              <h2>1 million</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="student-usage-row seventeen-eighteen">
+          <div class="year-and-bar">
+            <p>2017 - 2018</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="student-usage-row sixteen-seventeen">
+          <div class="year-and-bar">
+            <p>2016 - 2017</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="student-usage-row fifteen-sixteen">
+          <div class="year-and-bar">
+            <p>2015 - 2016</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+        <div class="student-usage-row fourteen-fifteen">
+          <div class="year-and-bar">
+            <p>2014 - 2015</p>
+            <div class="bar"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="text-and-image">
+      <div>
+        <h2>Fleming County Schools use Quill for district-wide personalized learning.</h2>
+        <p>In 2019, Fleming County Schools in Flemingsburg, Kentucky, asked themselves, “How can we enable our teachers to provide even more personalized learning opportunities for our students?” In their search for the answer to this question, they found Quill. Using Quill’s Diagnostic assessments and differentiated learning plans, Fleming County’s 2,203 students completed over 120,000 sentences on Quill in the first month alone. That’s equivalent to receiving teacher-written personalized feedback on almost 5,000 essays! Fleming County teachers are now spending less time creating and grading grammar activities and are utilizing their time to do what really matters in the classroom: provide face-to-face, impactful guidance and instruction. Furthermore, they are seeing a direct positive impact on student college and career readiness on local standardized benchmarks.</p>
+      </div>
+      <div class="image-container">
+        <img class="square-large-img" src=<%= "#{base_image_url}/fleming-county-students@2x.png" %> alt="A photograph taken over a student's shoulder of them completing a Grammar activity on Quill.org. A white box in the corner contains the Fleming County Schools logo." />
+        <img class="logo" src=<%= "#{base_image_url}/school-fleming-county.svg" %> />
+      </div>
+    </div>
+
+    <div class="school-logos">
+      <img src=<%= "#{base_image_url}/school-achievement-first.svg" %> alt="Achievement First logo" />
+      <img src=<%= "#{base_image_url}/school-edina-hill.svg" %> alt="Edina Hill Middle School logo" />
+      <img src=<%= "#{base_image_url}/school-john-adams.svg" %> alt="John Adams High School logo" />
+      <img src=<%= "#{base_image_url}/school-o-callaghan.svg" %> alt="Mike O'Callaghan Middle School logo" />
+      <img src=<%= "#{base_image_url}/school-relay.svg" %> alt="Relay/GSE logo" />
+      <img src=<%= "#{base_image_url}/school-rome-city.svg" %> alt="Rome City Schools logo" />
+    </div>
+
+  </div>
 </div>

@@ -10,6 +10,10 @@ import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
+const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
+const classCodeLinksPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`
+const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
+const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
 const activeHeaders = [
   {
@@ -92,6 +96,16 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     this.closeModal = this.closeModal.bind(this)
   }
 
+  allGoogleStudents() {
+    const { classroom } = this.props
+    return classroom.students.every(student => student.google_id)
+  }
+
+  allCleverStudents() {
+    const { classroom } = this.props
+    return classroom.students.every(student => student.clever_id)
+  }
+
   individualStudentActions() {
     return {
       editAccount: {
@@ -142,7 +156,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  actionsForIndividualStudent() {
+  actionsForIndividualStudent(student) {
+    const { google_id, clever_id, } = student
     const { classrooms, isOwnedByCurrentUser, } = this.props
     const {
       editAccount,
@@ -151,7 +166,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       moveClass,
       removeFromClass
     } = this.individualStudentActions()
-    if (classrooms.length > 1 && isOwnedByCurrentUser) {
+    if (google_id || clever_id) {
+      return [ removeFromClass ]
+    } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
     } else if (isOwnedByCurrentUser) {
       return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
@@ -174,8 +191,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   checkAllRows() {
     const { classroom } = this.props
-    const newSelectedStudentIds = classroom.students.map(student => student.id)
-    this.setState({ selectedStudentIds: newSelectedStudentIds })
+    const selectedStudentIds = classroom.students.map(student => student.id)
+    this.setState({ selectedStudentIds })
   }
 
   uncheckAllRows() {
@@ -230,12 +247,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.editStudentAccountModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
-      return <EditStudentAccountModal
+      return (<EditStudentAccountModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         student={student}
-        classroom={classroom}
-      />
+      />)
     }
   }
 
@@ -244,12 +261,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.resetStudentPasswordModal && studentIdsForModal.length === 1) {
       const student = classroom.students.find(s => s.id === studentIdsForModal[0])
-      return <ResetStudentPasswordModal
+      return (<ResetStudentPasswordModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         student={student}
-        classroom={classroom}
-      />
+      />)
     }
   }
 
@@ -257,12 +274,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { classroom, onSuccess } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.mergeStudentAccountsModal) {
-      return <MergeStudentAccountsModal
+      return (<MergeStudentAccountsModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         selectedStudentIds={studentIdsForModal}
-        classroom={classroom}
-      />
+      />)
     }
   }
 
@@ -270,13 +287,13 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { classroom, onSuccess, classrooms, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.moveStudentsModal) {
-      return <MoveStudentsModal
+      return (<MoveStudentsModal
+        classroom={classroom}
+        classrooms={classrooms}
         close={this.closeModal}
         onSuccess={onSuccess}
         selectedStudentIds={studentIdsForModal}
-        classroom={classroom}
-        classrooms={classrooms}
-      />
+      />)
     }
   }
 
@@ -284,18 +301,23 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const { classroom, onSuccess, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.removeStudentsModal) {
-      return <RemoveStudentsModal
+      return (<RemoveStudentsModal
+        classroom={classroom}
         close={this.closeModal}
         onSuccess={onSuccess}
         selectedStudentIds={studentIdsForModal}
-        classroom={classroom}
-      />
+      />)
     }
   }
 
   optionsForStudentActions() {
-    const { classrooms, isOwnedByCurrentUser, } = this.props
+    const { classrooms, isOwnedByCurrentUser, classroom, } = this.props
     const { selectedStudentIds } = this.state
+
+    const anySelectedStudentsAreGoogleOrClever = selectedStudentIds.some(id => {
+      const student = classroom.students.find(s => s.id === id)
+      return student.google_id || student.clever_id
+    })
 
     const {
       editAccount,
@@ -305,7 +327,9 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       removeFromClass
     } = this.dropdownActions()
 
-    if (classrooms.length > 1 && isOwnedByCurrentUser) {
+    if (anySelectedStudentsAreGoogleOrClever) {
+      return [ removeFromClass ]
+    } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
         return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
       } else if (selectedStudentIds.length === 2) {
@@ -336,84 +360,118 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     if (!classroom.visible) {
       return null
     } else {
-      return <DropdownInput
-        disabled={selectedStudentIds.length === 0}
-        label="Actions"
+      return (<DropdownInput
         className="student-actions-dropdown"
-        options={this.optionsForStudentActions()}
+        disabled={selectedStudentIds.length === 0}
         handleChange={this.selectAction}
-      />
+        label="Actions"
+        options={this.optionsForStudentActions()}
+      />)
+    }
+  }
+
+  renderGoogleOrCleverNoteOfExplanation() {
+    const { classroom } = this.props
+    if (!classroom.visible) { return null }
+    const allGoogleStudents = this.allGoogleStudents()
+    const allCleverStudents = this.allCleverStudents()
+
+    if (allGoogleStudents || allCleverStudents) {
+      let copy
+      if (allGoogleStudents) {
+        copy = "Your students’ account information is linked to your Google Classroom account. Go to your Google Classroom account to edit your students."
+      } else if (allCleverStudents) {
+        copy = "Your students’ account information is auto-synced from your Clever account. You can modify your Quill class rosters from your Clever account."
+      }
+      return (<div className="google-or-clever-note-of-explanation">
+        <div className="google-or-clever-note-of-explanation-text">
+          <h4>Why can&#39;t I edit my students’ account information?</h4>
+          <p>{copy}</p>
+        </div>
+        <img alt="lightbulb" src={bulbSrc} />
+      </div>)
     }
   }
 
   renderStudentDataTable() {
     const { classroom, } = this.props
+    const { selectedStudentIds, } = this.state
 
     const rows = classroom.students.map(student => {
-      const { name, username, id } = student
-      const checked = !!this.state.selectedStudentIds.includes(id)
+      const { name, username, id, google_id, clever_id, } = student
+      const checked = !!selectedStudentIds.includes(id)
       let synced = ''
-      if (student.google_id) { synced = 'Google Classroom'}
-      if (student.clever_id) { synced = 'Clever' }
+      if (google_id) { synced = 'Google Classroom'}
+      if (clever_id) { synced = 'Clever' }
       return {
         synced,
         name,
         id,
         username,
         checked,
-        actions: classroom.visible ? this.actionsForIndividualStudent() : null
+        actions: classroom.visible ? this.actionsForIndividualStudent(student) : null
       }
     })
 
-    return <DataTable
+    return (<DataTable
+      checkAllRows={this.checkAllRows}
+      checkRow={this.checkRow}
       headers={classroom.visible ? activeHeaders : archivedHeaders}
       rows={rows}
-      showCheckboxes={classroom.visible}
       showActions={classroom.visible}
-      checkRow={this.checkRow}
-      uncheckRow={this.uncheckRow}
+      showCheckboxes={classroom.visible}
       uncheckAllRows={this.uncheckAllRows}
-      checkAllRows={this.checkAllRows}
-    />
+      uncheckRow={this.uncheckRow}
+    />)
   }
 
   renderStudentHeaderButtons() {
     const { classroom } = this.props
-    if (!classroom.visible) {
-      return null
-    } else {
-      return <div className="students-section-header-buttons">
-        <a href={`/teachers/classrooms/${this.props.classroom.id}/student_logins`} className="quill-button secondary outlined small">Download setup instructions</a>
-        {this.renderInviteStudents()}
-      </div>
+    const allGoogleStudents = this.allGoogleStudents()
+    const allCleverStudents = this.allCleverStudents()
+    if (!classroom.visible) { return null }
+    let loginPdfHref = `/teachers/classrooms/${classroom.id}/student_logins`
+    let download
+    if (allGoogleStudents) {
+      loginPdfHref = googleSetupInstructionsPdf
+      download = true
+    } else if (allCleverStudents) {
+      loginPdfHref = cleverSetupInstructionsPdf
+      download = true
+    } else if (classroom.students.length === 0) {
+      loginPdfHref = classCodeLinksPdf
+      download = true
     }
+    /* eslint-disable react/jsx-no-target-blank */
+    const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} target="_blank">Download setup instructions</a>
+    /* eslint-enable react/jsx-no-target-blank */
+
+    return (<div className="students-section-header-buttons">
+      {loginPdfLink}
+      {this.renderInviteStudents()}
+    </div>)
   }
 
   renderInviteStudents() {
     const { classroom, inviteStudents, importGoogleClassroomStudents, } = this.props
-    if (!classroom.visible) { return null }
+    if (!classroom.visible || classroom.clever_id) { return null }
     if (classroom.google_classroom_id) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
-      return <div className="invite-google-classroom-students">
-        <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents}>Import Google Classroom students</button>
+      return (<div className="invite-google-classroom-students">
+        <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents} type="button">Import Google Classroom students</button>
         <span>Last imported {lastUpdatedDate}</span>
-      </div>
-    } else if (classroom.clever_id) {
-      return <div className="invite-clever-students">
-        <p>Auto-synced from Clever</p>
-        <span>You can modify your Quill class rosters from your Clever account.</span>
-      </div>
+      </div>)
     } else {
-      return <div className="invite-quill-classroom-students">
-        <button className="quill-button primary outlined small" onClick={inviteStudents}>Invite students</button>
-      </div>
+      return (<div className="invite-quill-classroom-students">
+        <button className="quill-button primary outlined small" onClick={inviteStudents} type="button">Invite students</button>
+      </div>)
     }
   }
 
   renderStudentSection() {
     const { classroom, } = this.props
     if (classroom.students.length) {
-      return <div className="students-section">
+      return (<div className="students-section">
         {this.renderEditStudentAccountModal()}
         {this.renderResetStudentPasswordModal()}
         {this.renderMergeStudentAccountsModal()}
@@ -423,21 +481,33 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
           <h3>Students</h3>
           {this.renderStudentHeaderButtons()}
         </div>
+        {this.renderGoogleOrCleverNoteOfExplanation()}
         {this.renderStudentActions()}
         {this.renderStudentDataTable()}
-      </div>
-    }
-    else {
-      return <div className="students-section">
+      </div>)
+    } else if (classroom.visible) {
+      let copy = 'Click on the "Invite students" button to get started with your writing instruction!'
+      if (classroom.google_classroom_id) {
+        copy = 'Click on the "Import Google Classroom students" button to get started with your writing instruction!'
+      } else if (classroom.clever_id) {
+        copy = 'Add students to your class in Clever and they will automatically appear here.'
+      }
+      return (<div className="students-section">
         <div className="students-section-header">
           <h3>Students</h3>
           {this.renderInviteStudents()}
         </div>
         <div className="no-students">
           <img src={emptyDeskSrc} />
-          <p>Click on the "Invite students" button to get started with your writing instruction!</p>
+          <p>{copy}</p>
         </div>
-      </div>
+      </div>)
+    } else {
+      return (<div className="students-section empty">
+        <div className="students-section-header">
+          <h3>Students</h3>
+        </div>
+      </div>)
     }
   }
 

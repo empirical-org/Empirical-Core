@@ -9,8 +9,8 @@ module Setup
     def fetch_concepts
       uri = URI.parse("https://staging.quill.org/api/v1/concepts")
       response = Net::HTTP.get_response(uri)
-      self.concepts = self.string_to_json(response.body)["concepts"]
-      return response
+      self.concepts = string_to_json(response.body)["concepts"]
+      response
     end
 
     def string_to_json(response_string)

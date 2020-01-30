@@ -9,14 +9,16 @@ export default class extends React.Component {
     this.props.subscriptions.forEach((sub) => {
       const startD = moment(sub.start_date);
       const endD = moment(sub.expiration);
-      const duration = endD.diff(startD, 'months');
+      const calculatedDuration = endD.diff(startD, 'months');
+      // if duration is calculated as 0, make it 1
+      const duration = Math.max(calculatedDuration, 1);
       const matchingTransaction = this.props.premiumCredits.find(transaction => (transaction.source_id === sub.id && transaction.source_type === 'Subscription' && transaction.amount > 0));
       if (matchingTransaction) {
         const amountCredited = matchingTransaction.amount > 6
           ? Math.round(matchingTransaction.amount / 7)
           : 1;
         rows.push(
-          <tr key={`${matchingTransaction.id}-credit-subscription-table`} className="subscription-row text-center">
+          <tr className="subscription-row text-center" key={`${matchingTransaction.id}-credit-subscription-table`}>
             <td colSpan="5">
               Your school purchased School Premium during your subscription, so we credited your account with {`${amountCredited} ${pluralize('week', amountCredited)}`} of Teacher Premium.
             </td>

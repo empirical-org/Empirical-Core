@@ -4,18 +4,17 @@ import React from 'react'
 import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore'
 import _l from 'lodash'
-import UnitTemplatesAssigned from '../components/lesson_planner/unit_template_assigned'
-import CreateUnit from '../components/lesson_planner/create_unit/create_unit'
-import ManageUnits from '../components/lesson_planner/manage_units/manage_units'
-import UnitTemplatesManager from '../components/lesson_planner/unit_templates_manager/unit_templates_manager'
+import UnitTemplatesAssigned from '../components/assignment_flow/unit_template_assigned'
+import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
+import ManageUnits from '../components/assignment_flow/manage_units/manage_units'
+import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
 import fnl from '../components/modules/fnl'
 import updaterGenerator from '../components/modules/updater'
 import Server from '../components/modules/server/server'
 import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
-import AssignANewActivity from '../components/lesson_planner/create_unit/assign_a_new_activity.jsx'
-import AssignADiagnostic from '../components/lesson_planner/create_unit/assign_a_diagnostic.jsx'
-
+import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity.jsx'
+import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx'
 
 export default React.createClass({
 	propTypes: {
@@ -186,13 +185,13 @@ export default React.createClass({
 	},
 
 	componentDidMount: function() {
-		if (this.state.tab == 'exploreActivityPacks') {
+		if (this.state.tab === 'exploreActivityPacks') {
 			this.fetchUnitTemplateModels();
 		}
 	},
 
 	toggleTab: function(tab) {
-		if (tab == 'createUnit') {
+		if (tab === 'createUnit') {
 			this.analytics().track('click Create Unit', {});
 			this.updateCreateUnit({
 				stage: 1,
@@ -203,7 +202,7 @@ export default React.createClass({
 			});
 
 			this.setState({tab: tab});
-		} else if (tab == 'exploreActivityPacks') {
+		} else if (tab === 'exploreActivityPacks') {
 			this.deepExtendState({
 				tab: tab,
 				unitTemplatesManager: {
@@ -321,10 +320,11 @@ export default React.createClass({
 	},
 
 	manageUnit: function()  {
-		<ManageUnits actions={{
+  <ManageUnits actions={{
 		 toggleTab: this.toggleTab,
 		 editUnit: this.editUnit
-	 }}/>;
+	 }}
+		/>;
 	},
 
 	render: function() {
@@ -333,40 +333,46 @@ export default React.createClass({
 		// entirely to react-router for managing that, along with redux for
 		// the general state in this section
 		const tabParam = this.props.params.tab
-		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam == ('featured-activity-packs' || 'explore-activity-packs'))) {
+		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam === ('featured-activity-packs' || 'explore-activity-packs'))) {
 		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
 		// } else
-		if ((tabParam === 'create-unit' || (this.state.tab == 'createUnit' && !tabParam))) {
-			tabSpecificComponents = <CreateUnit data={{
-				createUnitData: this.state.createUnit,
-				assignSuccessData: this.state.unitTemplatesManager.model
-			}} actions={{
-				toggleStage: this.toggleStage,
-				toggleTab: this.toggleTab,
-				assignActivityDueDate: this.assignActivityDueDate,
-				update: this.updateCreateUnitModel,
+		if ((tabParam === 'create-activity-pack' || (this.state.tab === 'createUnit' && !tabParam))) {
+			tabSpecificComponents = (<CreateUnit
+  actions={{
+  				toggleStage: this.toggleStage,
+  				toggleTab: this.toggleTab,
+  				assignActivityDueDate: this.assignActivityDueDate,
+  				update: this.updateCreateUnitModel,
 					toggleActivitySelection: this.toggleActivitySelection,
 					assignSuccessActions: this.unitTemplatesAssignedActions()
-				}} analytics={this.analytics()}/>;
+  			}}
+  analytics={this.analytics()}
+  data={{
+  				createUnitData: this.state.createUnit,
+  				assignSuccessData: this.state.unitTemplatesManager.model
+  			}}
+			/>)
 		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
-			tabSpecificComponents = <AssignANewActivity toggleTab={this.toggleTab} flag={this.props.flag}/>;
-		} else if ((tabParam === 'assign-a-diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
-			tabSpecificComponents = <AssignADiagnostic/>;
-		} else if ((tabParam === 'manage-units') || (this.state.tab == 'manageUnits' && !tabParam)) {
-			tabSpecificComponents = <ManageUnits actions={{
-			 toggleTab: this.toggleTab,
-			 editUnit: this.editUnit
-		 }}/>;
- // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab == 'exploreActivityPacks') {
+			tabSpecificComponents = <AssignANewActivity flag={this.props.flag} toggleTab={this.toggleTab} />;
+		} else if ((tabParam === 'diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
+			tabSpecificComponents = <AssignADiagnostic />;
+		} else if ((tabParam === 'manage-units') || (this.state.tab === 'manageUnits' && !tabParam)) {
+			tabSpecificComponents = (<ManageUnits
+  actions={{
+  			 toggleTab: this.toggleTab,
+  			 editUnit: this.editUnit
+    		}}
+			/>)
+ // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab === 'exploreActivityPacks') {
 	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
 		}
 
 		return (
-			<span>
-				<div id="lesson_planner">
-					{tabSpecificComponents}
-				</div>
-			</span>
+  <span>
+    <div id="lesson_planner">
+      {tabSpecificComponents}
+    </div>
+  </span>
 		);
 
 	}

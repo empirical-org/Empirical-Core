@@ -12,61 +12,107 @@ const getLatestAttempt = (attempts = []) => {
   return attempts[lastIndex];
 };
 
-export default React.createClass({
+export default class RenderFormForAnswer extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return ({ modalOpen: false, });
-  },
+    this.state = { modalOpen: false, }
+  }
 
-  getHelpModal() {
-    if (this.state.modalOpen) {
+  closeHelpModal = () => this.setState({ modalOpen: false, })
+
+  handleHintClick = () => this.setState({ modalOpen: true, })
+
+  getHelpModal = () => {
+    const { modalOpen, } = this.state
+    const { assetURL, } = this.props
+    if (modalOpen) {
       return (
-        <Modal close={() => { this.setState({ modalOpen: false, }); }}>
+        <Modal close={this.closeHelpModal}>
           <div className="box">
             <h4 className="title">Hint</h4>
             <iframe
-              src={this.props.assetURL} frameBorder="0" width="960" height="569" allowFullScreen="true"
-              mozallowfullscreen="true" webkitallowfullscreen="true"
+              allowFullScreen="true"
+              frameBorder="0"
+              height="569"
+              mozallowfullscreen="true"
+              src={assetURL}
+              webkitallowfullscreen="true"
+              width="960"
             />
           </div>
         </Modal>
       );
     }
-  },
+  }
 
-  renderConceptExplanation() {
-    if (this.props.conceptExplanation) {
-      return this.props.conceptExplanation();
+  renderConceptExplanation = () => {
+    const { conceptExplanation, } = this.props
+    if (conceptExplanation) {
+      return conceptExplanation();
     }
-  },
+  }
 
   render() {
-    let content;
-    let button,
-      feedback = this.props.feedback;
-    if (this.props.finished) {
-      button = this.props.nextQuestionButton;
-      const answeredCorrectly = getAnswerState(getLatestAttempt(this.props.attempts))
-      feedback = <EndState questionID={this.props.questionID} question={this.props.question} answeredNonMultipleChoiceCorrectly={answeredCorrectly} multipleChoiceCorrect={this.props.multipleChoiceCorrect} key={`-${this.props.questionID}`} responses={this.props.responses} />;
-    } else if (this.props.nextQuestionButton) { // if you're going to next, it is the end state
-      button = this.props.nextQuestionButton;
+    const {
+      feedback,
+      finished,
+      nextQuestionButton,
+      attempts,
+      questionID,
+      multipleChoiceCorrect,
+      question,
+      responses,
+      toggleDisabled,
+      checkAnswer,
+      assetURL,
+      sentenceFragments,
+      cues,
+      initialValue,
+      disabled,
+      getResponse,
+      handleChange,
+      spellCheck,
+      value,
+    } = this.props
+    let content
+    let button
+    let renderedFeedback = feedback
+    if (finished) {
+      button = nextQuestionButton;
+      const answeredCorrectly = getAnswerState(getLatestAttempt(attempts))
+      renderedFeedback = (<EndState
+        answeredNonMultipleChoiceCorrectly={answeredCorrectly}
+        key={`-${questionID}`}
+        multipleChoiceCorrect={multipleChoiceCorrect}
+        question={question}
+        questionID={questionID}
+        responses={responses}
+      />)
+    } else if (nextQuestionButton) { // if you're going to next, it is the end state
+      button = nextQuestionButton;
     } else {
       let message;
-      if (this.props.question.attempts.length) {
-        message = 'Recheck Your Answer';
+      if (question.attempts.length) {
+        message = 'Recheck work';
       } else {
-        message = 'Check Your Answer';
+        message = 'Check work';
       }
       button = (
         <button
-          className={`button student-submit ${this.props.toggleDisabled}`} onClick={this.props.checkAnswer}
+          className={`quill-button focus-on-light large primary contained ${toggleDisabled}`}
+          onClick={checkAnswer}
+          tabIndex="0"
+          type="button"
         >
           {message}
         </button>
       );
-      if (!this.props.responses) {
+      if (!responses) {
         <button
-          className={'button student-submit is-disabled'} onClick={() => {}}
+          className='quill-button focus-on-light large primary contained disabled'
+          tabIndex="0"
+          type="button"
         >
           {message}
         </button>;
@@ -74,27 +120,28 @@ export default React.createClass({
     }
 
     let info;
-    if (this.props.assetURL) {
-      info = <button className={'button is-outlined is-success'} onClick={() => { this.setState({ modalOpen: true, }); }}>Hint</button>;
+    if (assetURL) {
+      info = <button className='button is-outlined is-success' onClick={this.handleHintClick} type="button">Hint</button>;
     }
 
     return (
       <div className="student-container">
-        {this.props.sentenceFragments}
+        {sentenceFragments}
         <div className="content">
-          {this.props.cues}
-          {feedback}
+          {cues}
+          {renderedFeedback}
           <TextEditor
-            disabled={this.props.disabled} defaultValue={this.props.initialValue}
-            key={this.props.questionID}
-            questionID={this.props.questionID}
-            checkAnswer={this.props.checkAnswer}
-            handleChange={this.props.handleChange}
-            value={this.props.value}
-            latestAttempt={getLatestAttempt(this.props.question.attempts)}
-            getResponse={this.props.getResponse}
-            spellCheck={this.props.spellCheck}
+            defaultValue={initialValue}
+            disabled={disabled}
+            getResponse={getResponse}
+            key={questionID}
+            latestAttempt={getLatestAttempt(question.attempts)}
+            onChange={handleChange}
+            onSubmitResponse={checkAnswer}
             placeholder="Type your answer here."
+            questionID={questionID}
+            spellCheck={spellCheck}
+            value={value}
           />
           <div className="question-button-group button-group">
             {this.getHelpModal()}
@@ -106,5 +153,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

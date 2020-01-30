@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import firebase from 'firebase';
 
 if (process.env.RAILS_ENV === 'development' || process.env.FIREBASE_API_KEY) {
@@ -32,7 +34,7 @@ if (process.env.RAILS_ENV === 'development' || process.env.FIREBASE_API_KEY) {
 
   setTimeout(() => {
     if (firebaseAccessedCount !== 2) {
-      $('body').prepend('<div class="flash error" onclick="$(this).slideUp(300)"><p>We\'ve detected that you may be experiencing firewall issues. If you\'re having trouble loading activities, please go <a href="/firewall_info">here</a> for more information.</p><i class="fa fa-times-circle" aria-hidden="true"></i></div>');
+      $('body').prepend('<div class="flash error" onclick="$(this).slideUp(300)"><p>We\'ve detected that you may be experiencing firewall issues. If you\'re having trouble loading activities, please go <a href="/firewall_info">here</a> for more information.</p><i class="fas fa-times-circle" aria-hidden="true"></i></div>');
     }
   }, 5000);
 }

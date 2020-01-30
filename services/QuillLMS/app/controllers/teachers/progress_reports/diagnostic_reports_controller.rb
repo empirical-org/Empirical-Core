@@ -24,7 +24,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
     end
 
     def recommendations_for_classroom
-        render json: get_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
+        render json: generate_recommendations_for_classroom(params[:unit_id], params[:classroom_id], params[:activity_id])
     end
 
     def lesson_recommendations_for_classroom
@@ -63,7 +63,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
         return render json: {}, status: 404
       end
       classroom_id = classroom_hash[0]['classroom_id']
-      return render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
+      render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
 
     def assign_selected_packs
@@ -131,7 +131,7 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       render json: {diagnosticStatus: diagnostic_status}
     end
 
-    private
+  private
     def create_or_update_selected_packs
         if params[:whole_class]
           $redis.set("user_id:#{current_user.id}_lesson_diagnostic_recommendations_start_time", Time.now)

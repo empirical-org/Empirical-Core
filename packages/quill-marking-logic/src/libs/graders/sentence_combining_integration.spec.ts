@@ -5,6 +5,7 @@ import {checkSentenceCombining} from './sentence_combining';
 import {Response} from '../../interfaces';
 import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
+import { conceptResultTemplate } from '../helpers/concept_result_template';
 
 describe('The checking a sentence combining question', () => {
 
@@ -87,6 +88,13 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, feedbackStrings.missingWordError);
     });
 
+    it('should add spelling concept result to concept results', () => {
+      const questionString = "Batss wings, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.spelling_error, true);
+      assert.include(matchedResponse.concept_results, conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
+    });
+
   })
 
   describe('first matchers - spell-checked sentence', () => {
@@ -145,6 +153,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
       assert.equal(matchedResponse.spelling_error, true);
+      assert.equal(matchedResponse.misspelled_words[0], 'zings')
     });
 
     it('should be able to find a flexible change match', () => {
@@ -152,6 +161,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.author, 'Modified Word Hint');
       assert.equal(matchedResponse.spelling_error, true);
+      assert.equal(matchedResponse.misspelled_words[0], 'shave')
     });
 
   })

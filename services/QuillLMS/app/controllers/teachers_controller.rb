@@ -99,7 +99,7 @@ class TeachersController < ApplicationController
     end
   end
 
-  def get_completed_diagnostic_unit_info
+  def completed_diagnostic_unit_info
     begin
       last_finished_diagnostic = current_user.finished_diagnostic_unit_ids_with_classroom_id_and_activity_id.first
       unit_info = { unit_id: last_finished_diagnostic.unit_id, classroom_id: last_finished_diagnostic.classroom_id, activity_id: last_finished_diagnostic.activity_id }
@@ -109,7 +109,7 @@ class TeachersController < ApplicationController
     render json: {unit_info: unit_info}
   end
 
-  def get_diagnostic_info_for_dashboard_mini
+  def diagnostic_info_for_dashboard_mini
     if current_user
       records = ActiveRecord::Base.connection.execute("SELECT cu.id AS classroom_unit_id,
         units.id AS unit_id,
@@ -124,8 +124,8 @@ class TeachersController < ApplicationController
                  WHERE units.user_id = #{current_user.id}
                  AND acts.activity_classification_id = 4
                  ORDER BY actsesh.completed_at DESC").to_a
-      if records.length > 0
-        most_recently_completed = records.find { |r| r['completed_at'] != nil }
+      if !records.empty?
+        most_recently_completed = records.find { |r| !r['completed_at'].nil? }
         # checks to see if the diagnostic was completed within a week
         if most_recently_completed && 1.week.ago < most_recently_completed['completed_at']
           number_of_finished_students = ActiveRecord::Base.connection.execute("SELECT COUNT(actsesh.user_id) FROM activity_sessions actsesh

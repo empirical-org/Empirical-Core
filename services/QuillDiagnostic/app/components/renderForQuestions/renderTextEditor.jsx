@@ -8,26 +8,25 @@ const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      text: this.props.value || '',
-    };
-  },
+export default class RenderTextEditor extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getErrorsForAttempt(attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+    this.state = {
+      text: props.value || ''
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.latestAttempt !== this.props.latestAttempt) {
+    const { latestAttempt, getResponse, } = this.props
+    if (nextProps.latestAttempt !== latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
         const errorKeys = _.keys(this.getErrorsForAttempt(nextProps.latestAttempt));
         const nErrors = errorKeys.length;
         let targetText;
         if (parentID) {
-          const parentResponse = this.props.getResponse(parentID);
+          const parentResponse = getResponse(parentID);
           targetText = parentResponse.text;
           const newStyle = this.getUnderliningFunctionFromAuthor(nextProps.latestAttempt.response.author, targetText, nextProps.latestAttempt.submitted);
           if (newStyle) {
@@ -46,7 +45,11 @@ export default React.createClass({
         }
       }
     }
-  },
+  }
+
+  getErrorsForAttempt(attempt) {
+    return _.pick(attempt, ...C.ERROR_TYPES);
+  }
 
   getUnderliningFunction(errorType, targetString, userString) {
     switch (errorType) {
@@ -64,7 +67,7 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  }
 
   getUnderliningFunctionFromAuthor(author, targetString, userString) {
     switch (author) {
@@ -81,7 +84,7 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  }
 
   applyNewStyle(newStyle) {
     if (newStyle.inlineStyleRanges[0]) {
@@ -91,51 +94,50 @@ export default React.createClass({
       input.selectionStart = offset;
       input.selectionEnd = end;
     }
-  },
+  }
 
   clearStyle() {
     const input = this.refs.answerBox;
     input.selectionStart = 0;
     input.selectionEnd = 0;
-  },
+  }
 
-  handleTextChange(e) {
-    if (!this.props.disabled) {
-      this.props.handleChange(e.target.value, this.props.editorIndex);
-    } else {
-      console.log("I'm disable RN");
-    }
-  },
+  handleTextChange = (e) => {
+    const { disabled, onChange, editorIndex, } = this.props
+    if (disabled) { return }
 
-  handleKeyDown(e) {
-    if (!this.props.disabled) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        this.props.checkAnswer();
-      }
-    }
-  },
+    onChange(e.target.value, editorIndex);
+  }
+
+  handleKeyDown = (e) => {
+    const { disabled, onSubmitResponse, } = this.props
+    if (disabled || e.key !== 'Enter') { return }
+
+    e.preventDefault();
+    onSubmitResponse();
+  }
 
   render() {
+    const { hasError, disabled, value, spellCheck, placeholder, } = this.props
     return (
-      <div className={`student text-editor card is-fullwidth ${this.props.hasError ? 'red-outline' : ''} ${this.props.disabled ? 'disabled-editor' : ''}`}>
+      <div className={`student text-editor card is-fullwidth ${hasError ? 'error' : ''} ${disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
           <div className="content">
             <Textarea
-              spellCheck={this.props.spellCheck || false}
               autoCapitalize="off"
               autoCorrect="off"
-              value={this.props.value}
+              autoFocus
+              className="connect-text-area"
               onInput={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
-              placeholder={this.props.placeholder}
+              placeholder={placeholder}
               ref="answerBox"
-              className="connect-text-area"
-              autoFocus
+              spellCheck={spellCheck || false}
+              value={value}
             />
           </div>
         </div>
       </div>
     );
-  },
-});
+  }
+}

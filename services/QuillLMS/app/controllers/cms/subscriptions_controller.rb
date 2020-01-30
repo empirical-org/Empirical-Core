@@ -1,6 +1,6 @@
 class Cms::SubscriptionsController < Cms::CmsController
   before_action :set_subscription, except: [:index, :create]
-  before_action :get_subscription_data, only: [:edit]
+  before_action :subscription_data, only: [:edit]
 
 
   def show
@@ -50,7 +50,8 @@ class Cms::SubscriptionsController < Cms::CmsController
      :recurring,
      :de_activated_date,
      :payment_method,
-     :payment_amount]
+     :payment_amount
+]
    )
   end
 end

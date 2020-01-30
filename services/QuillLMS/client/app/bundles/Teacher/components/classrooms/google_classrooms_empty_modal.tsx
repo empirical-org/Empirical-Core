@@ -7,9 +7,9 @@ interface GoogleClassroomsEmptyModalProps {
 
 export default class GoogleClassroomsEmptyModal extends React.Component<GoogleClassroomsEmptyModalProps, {}> {
   render() {
-    return <div className="modal-container google-classrooms-empty-modal-container">
+    return (<div className="modal-container google-classrooms-empty-modal-container">
       <div className="modal-background" />
-      <div className="google-classrooms-empty-modal modal modal-body">
+      <div className="google-classrooms-empty-modal quill-modal modal-body">
         <div>
           <h3 className="title">Create classes in Google Classroom</h3>
         </div>
@@ -21,6 +21,6 @@ export default class GoogleClassroomsEmptyModal extends React.Component<GoogleCl
           <button className="quill-button contained primary medium" onClick={this.props.close}>Close</button>
         </div>
       </div>
-    </div>
+    </div>)
   }
 }

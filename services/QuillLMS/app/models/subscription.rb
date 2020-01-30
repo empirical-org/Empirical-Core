@@ -16,31 +16,30 @@ class Subscription < ActiveRecord::Base
 
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
-    'School NYC Paid',
-    'School Strategic Paid',
-    'School Paid',
-    'Teacher Paid',
-    'Purchase Missing School',
-    'Premium Credit'
-  ]
+                         'School NYC Paid',
+                         'School Strategic Paid',
+                         'School Paid',
+                         'Teacher Paid',
+                         'Purchase Missing School',
+                         'Premium Credit']
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
-        'School Research',
-        'School Sponsored Free',
-        'School Strategic Free',
-        'Teacher Contributor Free',
-        'Teacher Sponsored Free',
-        'Teacher Trial']
+                         'School Research',
+                         'School Sponsored Free',
+                         'School Strategic Free',
+                         'Teacher Contributor Free',
+                         'Teacher Sponsored Free',
+                         'Teacher Trial']
 
   OFFICIAL_SCHOOL_TYPES = ['School District Paid',
-        'School NYC Paid',
-        'School Strategic Paid',
-        'School Paid',
-        'Purchase Missing School',
-        'School NYC Free',
-        'School Research',
-        'School Sponsored Free',
-        'School Strategic Free']
+                           'School NYC Paid',
+                           'School Strategic Paid',
+                           'School Paid',
+                           'Purchase Missing School',
+                           'School NYC Free',
+                           'School Research',
+                           'School Sponsored Free',
+                           'School Strategic Free']
 
   OFFICIAL_TEACHER_TYPES = [
         'Teacher Paid',
@@ -74,20 +73,20 @@ class Subscription < ActiveRecord::Base
 
 
   def is_trial?
-    self.account_type && TRIAL_TYPES.include?(self.account_type)
+    account_type && TRIAL_TYPES.include?(account_type)
   end
 
   def check_if_purchaser_email_is_in_database
-    if self.purchaser_email && !self.purchaser_id
-      purchaser_id = User.find_by_email(self.purchaser_email)&.id
+    if purchaser_email && !purchaser_id
+      purchaser_id = User.find_by_email(purchaser_email)&.id
       if purchaser_id
-        self.update(purchaser_id: purchaser_id)
+        update(purchaser_id: purchaser_id)
       end
     end
   end
 
   def renewal_price
-    if self.schools.any?
+    if schools.any?
       SCHOOL_RENEWAL_PRICE
     else
       TEACHER_PRICE
@@ -95,11 +94,11 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.create_with_user_join user_id, attributes
-    self.create_with_school_or_user_join user_id, 'User', attributes
+    create_with_school_or_user_join user_id, 'User', attributes
   end
 
   def school_subscription?
-    SchoolSubscription.where(subscription_id: self.id).limit(1).exists?
+    SchoolSubscription.where(subscription_id: id).limit(1).exists?
   end
 
   def self.account_types
@@ -108,26 +107,29 @@ class Subscription < ActiveRecord::Base
 
   def renew_subscription
     # creates a new sub based off the old ones
-    # dups last subscription
-    new_sub = self.dup
-    new_sub.expiration = self.expiration + 365
-    new_sub.start_date = self.expiration
-    self.update(de_activated_date: Date.today)
+    # dups last subscription, other than the dates
+    new_sub = dup
+    new_sub.expiration = expiration + 365
+    new_sub.start_date = expiration
+    new_sub.de_activated_date = nil
     new_sub.save!
+    update(de_activated_date: Date.today)
+    new_sub.users.push(users)
+    new_sub.schools.push(schools)
   end
 
   def credit_user_and_de_activate
-    if self.school_subscriptions.ids.any?
+    if school_subscriptions.ids.any?
       # we should not do this if the sub belongs to a school
-      report_to_new_relic("Sub credited and expired with school. Subscription: #{self.id}")
-    elsif self.user_subscriptions.ids.count > 1
-      report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{self.id}")
+      report_to_new_relic("Sub credited and expired with school. Subscription: #{id}")
+    elsif user_subscriptions.ids.count > 1
+      report_to_new_relic("Sub credited and expired with multiple users. Subscription: #{id}")
     else
-      self.update(de_activated_date: Date.today, recurring: false)
+      update(de_activated_date: Date.today, recurring: false)
       # subtract later of start date or today's date from expiration date to calculate amount to credit
       # amount_to_credit = self.expiration - [self.start_date, Date.today].max
-      amount_to_credit = self.expiration - self.start_date
-      CreditTransaction.create(user_id: self.user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
+      amount_to_credit = expiration - start_date
+      CreditTransaction.create(user_id: user_subscriptions.first.user_id, amount: amount_to_credit.to_i, source: self)
     end
   end
 
@@ -144,12 +146,12 @@ class Subscription < ActiveRecord::Base
 
   def self.new_teacher_premium_sub(user)
     expiration = school_or_user_has_ever_paid?(user) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    self.new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, purchaser_id: user.id)
+    new(expiration: expiration, start_date: Date.today, account_type: 'Teacher Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.new_school_premium_sub(school, user)
     expiration = school_or_user_has_ever_paid?(school) ? (Date.today + 1.year) : promotional_dates[:expiration]
-    self.new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
+    new(expiration: expiration, start_date: Date.today, account_type: 'School Paid', recurring: true, purchaser_id: user.id)
   end
 
   def self.give_teacher_premium_if_charge_succeeds(user)
@@ -177,7 +179,7 @@ class Subscription < ActiveRecord::Base
   def update_if_charge_succeeds
     charge = charge_user
     if charge[:status] == 'succeeded'
-      self.renew_subscription
+      renew_subscription
     end
   end
 
@@ -194,7 +196,7 @@ class Subscription < ActiveRecord::Base
     if charge[:status] == 'succeeded'
       self.payment_method = 'Credit Card'
       self.payment_amount = payment_amount
-      self.save!
+      save!
       self
     else
       nil
@@ -203,7 +205,7 @@ class Subscription < ActiveRecord::Base
 
 
   def self.update_todays_expired_recurring_subscriptions
-    self.expired_today_or_previously_and_recurring.each do |s|
+    expired_today_or_previously_and_recurring.each do |s|
       s.update_if_charge_succeeds
     end
   end
@@ -232,7 +234,11 @@ class Subscription < ActiveRecord::Base
 
   def charge_user
     if purchaser && purchaser.stripe_customer_id
-      Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
+      begin
+        Stripe::Charge.create(amount: renewal_price, currency: 'usd', customer: purchaser.stripe_customer_id)
+      rescue Stripe::CardError
+        UserMailer.declined_renewal_email(purchaser).deliver_now! if purchaser.email
+      end
     end
   end
 
@@ -256,16 +262,16 @@ class Subscription < ActiveRecord::Base
     {expiration: Date.today + 30, start_date: Date.today}
   end
 
-  def report_to_new_relic(e)
+  def report_to_new_relic(error)
     begin
-      raise e
+      raise error
     rescue => e
       NewRelic::Agent.notice_error(e)
     end
   end
 
   def set_null_start_date_to_today
-    if !self.start_date
+    if !start_date
       self.start_date = Date.today
     end
   end
