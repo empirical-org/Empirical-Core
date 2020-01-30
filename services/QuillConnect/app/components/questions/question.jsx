@@ -40,12 +40,12 @@ class Question extends React.Component {
     dispatch(questionActions.cancelQuestionEdit(params.questionID));
   }
 
-  saveQuestionEdits(vals) {
+  saveQuestionEdits = (vals) => {
     const { dispatch, params, } = this.props
     dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
   }
 
-  submitOptimalResponses(responseStrings) {
+  submitOptimalResponses = (responseStrings) => {
     const { dispatch, params, } = this.props
     const conceptUID = this.getQuestion().conceptID
     dispatch(
@@ -105,7 +105,7 @@ class Question extends React.Component {
     this.setState({ selectedBoilerplateCategory: e.target.value, });
   }
 
-  chooseSpecificBoilerplateFeedback(e) {
+  chooseSpecificBoilerplateFeedback = (e) => {
     if (e.target.value === 'Select specific boilerplate feedback') {
       this.refs.newResponseFeedback.value = '';
     } else {
@@ -117,7 +117,7 @@ class Question extends React.Component {
 
   onCloseNewResponseModal = () => this.setState({ addingNewResponse: false, })
 
-  renderBoilerplateCategoryDropdown(onChangeEvent) {
+  renderBoilerplateCategoryDropdown = (onChangeEvent) => {
     const style = { marginRight: '20px', };
     return (
       <span className="select" style={style}>
@@ -129,7 +129,7 @@ class Question extends React.Component {
     );
   }
 
-  renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
+  renderBoilerplateCategoryOptionsDropdown = (onChangeEvent, description) => {
     const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
     if (selectedCategory) {
       return (
@@ -173,7 +173,7 @@ class Question extends React.Component {
               Optimal?
             </label>
           </p>
-          <button className="button is-primary" onClick={this.handleClickAddNewResponse} type="button">Add Response</button>
+          <button className="button is-primary" onClick={this.submitResponse} type="button">Add Response</button>
         </div>
       </Modal>
     );

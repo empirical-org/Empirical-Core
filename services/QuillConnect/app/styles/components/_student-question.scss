@@ -96,14 +96,10 @@
   margin-top: 9px;
   display: inline-flex;
   align-items: center;
-  // margin-bottom: 1em;
   .cue {
     background-color: #fffed5;
     line-height: 28px;
     font-size: 20px;
-    font-family: $family-monospace;
-    // font-weight: bold;
-
     margin-right: 13px;
     padding: 0 5px;
   }
@@ -114,7 +110,6 @@
 
   .cue-explanation {
     font-size: 14px;
-    font-family: $family-monospace;
     line-height: 28px;
     color: #636363;
   }
@@ -149,6 +144,11 @@
       .top-answer-list-item {
         display: flex;
         justify-content: space-between;
+
+        .diffed-word {
+          color: #464646;
+          font-weight: bold;
+        }
 
         &.active  {
           .top-answer-list-item-index,
@@ -276,7 +276,7 @@
   &.success {
     background-color: #d3e7bd;
     padding: 13 17 16 20;
-    border-left: 3px solid #82bf3c;
+    border-left: 3px solid #498900;
 
     p {
       color: #457818;
@@ -300,7 +300,7 @@
   &.revise {
     background-color: #ffe4b7;
     padding: 13 17 16 20;
-    border-left: 3px solid #f5ba5b;
+    border-left: 3px solid #b17410;
     animation: revisepulse 0.8s 1;
 
     @keyframes revisepulse {
