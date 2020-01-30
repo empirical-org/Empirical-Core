@@ -14,13 +14,13 @@ describe('The checking a fill in the blank question', () => {
 
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have wings, so they can fly."
-      const matchedResponse = checkFillInTheBlankQuestion(responses[0].question_uid, questionString, responses, true, responses[0].question_uid);
+      const matchedResponse = checkFillInTheBlankQuestion(responses[0].question_uid, questionString, responses, false, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
     });
 
     it('should be able to find a case insensitive match even with trailing whitespace', () => {
       const questionString = "bats have wings, so they can fly. "
-      const matchedResponse = checkFillInTheBlankQuestion(responses[0].question_uid, questionString, responses, true, responses[0].question_uid);
+      const matchedResponse = checkFillInTheBlankQuestion(responses[0].question_uid, questionString, responses, false, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
     });
 
