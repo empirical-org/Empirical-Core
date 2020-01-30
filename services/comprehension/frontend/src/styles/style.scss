@@ -1,18 +1,37 @@
 @import './header.scss';
 @import './activity.scss';
 @import './spinner.scss';
+@import './step.scss';
+@import './editorContainer.scss';
+@import './fade.scss';
+@import './buttonLoadingSpinner.scss';
 @import "./node_modules/bulma/bulma.sass";
 
-.app-container {
-  height: 100vw;
-  background-color: #ededed;
-  font-family: adelle-sans,Helvetica,Arial,sans-serif;
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  background-color: white;
+}
+
+body, button, input, select, textarea {
+  font-family: adelle-sans,Helvetica,Arial,sans-serif !important;
+}
+
+#app, .app-container {
+  height: 100%;
 }
 
 button {
   cursor: pointer;
-  &:focus {
-    outline: none;
+}
+
+.hide-focus-outline {
+  button, div, .step {
+    &:focus {
+      outline: none;
+    }
   }
 }
 

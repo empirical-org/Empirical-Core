@@ -1,0 +1,27 @@
+.progress-bar-container {
+  max-width: 800px;
+  margin: auto;
+  padding-top: 24px;
+
+  progress[value]::-webkit-progress-bar {
+    background-color: rgba(6, 128, 107, 0.24);
+  }
+
+  progress[value]::-webkit-progress-value {
+    background-color: #06806b;
+    color: #06806b;
+  }
+
+  .progress.activity-progress {
+    margin-bottom: 0px;
+    border-radius: 4px;
+    height: 8px;
+  }
+
+  p {
+    margin-top: 8px;
+    text-align: right;
+    color: #636363;
+    font-size: 14px;
+  }
+}

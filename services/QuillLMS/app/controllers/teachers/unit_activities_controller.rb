@@ -27,7 +27,7 @@ class Teachers::UnitActivitiesController < ApplicationController
     render json: {}
   end
 
-private
+  private
 
   def set_activity_session
     activity_ids = @unit_activities.map(&:activity_id).flatten.uniq

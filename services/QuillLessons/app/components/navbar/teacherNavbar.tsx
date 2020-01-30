@@ -17,12 +17,23 @@ import {
   ClassroomSessionId,
   ClassroomUnitId
 } from '../classroomLessons/interfaces'
+
 const watchTeacherIcon = 'https://assets.quill.org/images/icons/watch_teacher_icon.svg'
 const exitIcon = 'https://assets.quill.org/images/icons/save_exit_icon.svg'
 const projectorIcon = 'https://assets.quill.org/images/icons/projector_icon.svg'
 const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
 const flagIcon = 'https://assets.quill.org/images/icons/list_flagged_students_icon.svg'
 const pdfIcon = 'https://assets.quill.org/images/icons/download_pdf_icon.svg'
+
+const CUSTOMIZE = 'customize'
+const FLAG = 'flag'
+const PROJECTOR = 'projector'
+const WATCH_TEACHER = 'watch_teacher'
+const EXIT = 'exit'
+const HELP = 'help'
+const PDF = 'pdf'
+
+const HOVER = HOVER
 
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {
@@ -41,37 +52,28 @@ class TeacherNavbar extends React.Component<any, any> {
     }
 
     this.presentStudentCount = this.presentStudentCount.bind(this)
-    this.showTooltip = this.showTooltip.bind(this)
-    this.hideTooltip = this.hideTooltip.bind(this)
     this.renderTooltip = this.renderTooltip.bind(this)
-    this.toggleHelpDropdown = this.toggleHelpDropdown.bind(this)
-    this.hideHelpDropdown = this.hideHelpDropdown.bind(this)
-    this.toggleWatchTeacherMode = this.toggleWatchTeacherMode.bind(this)
-    this.toggleFlagDropdown = this.toggleFlagDropdown.bind(this)
-    this.hideFlagDropdown = this.hideFlagDropdown.bind(this)
-    this.toggleCustomizeDropdown = this.toggleCustomizeDropdown.bind(this)
-    this.hideCustomizeDropdown = this.hideCustomizeDropdown.bind(this)
     this.flagDropdown = this.flagDropdown.bind(this)
-    this.launchProjector = this.launchProjector.bind(this)
     this.renderEditLink = this.renderEditLink.bind(this)
-    this.switchOnClick = this.switchOnClick.bind(this)
     this.redirectToEdit = this.redirectToEdit.bind(this)
     this.redirectToSwitchEdition = this.redirectToSwitchEdition.bind(this)
-    this.exitLesson = this.exitLesson.bind(this)
+    this.handleExitLessonClick = this.handleExitLessonClick.bind(this)
   }
 
   renderCustomizedEditionsTag() {
-    const {editions} = this.props.customize
+    const { params, customize, } = this.props
+    const { editions, } = customize
     const customEdition = Object.keys(editions).find(e => {
-      return editions[e].lesson_id === this.props.params.lessonID && editions[e].user_id !== 'quill-staff'
+      return editions[e].lesson_id === params.lessonID && editions[e].user_id !== 'quill-staff'
     })
     if (customEdition) {
-      return <div className="custom-editions-tag">Customized</div>
+      return (<div className="custom-editions-tag">Customized</div>)
     }
   }
 
   presentStudentCount() {
-    const presence = this.props.classroomSessions.data.presence
+    const { classroomSessions, } = this.props
+    const { presence } = classroomSessions.data
     const numPresent = presence === undefined ? 0 : Object.keys(presence).filter((id) => presence[id] === true ).length
     const circleClassname = numPresent === 0 ? 'offline' : 'online'
     return (
@@ -79,85 +81,86 @@ class TeacherNavbar extends React.Component<any, any> {
     )
   }
 
-  showTooltip(e, icon:string) {
-    this.setState({tooltip: icon})
-  }
+  showTooltip = (icon:string) => this.setState({tooltip: icon})
 
-  hideTooltip(e) {
-    this.setState({tooltip: ''})
-  }
+  handleMouseLeaveTooltip = () => this.setState({tooltip: ''})
 
-  toggleHelpDropdown() {
+  handleMouseEnterPDFIcon = () => this.showTooltip(PDF)
+
+  handleMouseEnterFlagIcon = () => this.showTooltip(FLAG)
+
+  handleMouseEnterProjectorIcon = () => this.showTooltip(PROJECTOR)
+
+  handleMouseEnterWatchTeacherIcon = () => this.showTooltip(WATCH_TEACHER)
+
+  handleMouseEnterExitIcon = () => this.showTooltip(EXIT)
+
+  handleMouseEnterHelpIcon = () => this.showTooltip(HELP)
+
+  handleMouseEnterCustomizeIcon = () => this.showTooltip(CUSTOMIZE)
+
+  handleHelpDropdownClick = () => {
+    const { classroomSessions, } = this.props
     // helpDropdown should not be toggled if watchTeacherState is true
-    if (!this.props.classroomSessions.data.watchTeacherState) {
-      this.setState({showHelpDropdown: !this.state.showHelpDropdown})
+    if (!classroomSessions.data.watchTeacherState) {
+      this.setState(prevState => ({showHelpDropdown: !prevState.showHelpDropdown}));
     }
   }
 
-  hideHelpDropdown() {
-    this.setState({showHelpDropdown: false})
-  }
+  handleHelpDropdownBlur = () => this.setState({showHelpDropdown: false})
 
-  toggleFlagDropdown() {
-    this.setState({showFlagDropdown: !this.state.showFlagDropdown})
-  }
+  handleFlagDropdownClick = () => this.setState(prevState => ({showFlagDropdown: !prevState.showFlagDropdown}));
 
-  hideFlagDropdown() {
-    this.setState({showFlagDropdown: false})
-  }
+  handleFlagDropdownBlur = () => this.setState({showFlagDropdown: false})
 
-  toggleCustomizeDropdown() {
-    this.setState({showCustomizeDropdown: !this.state.showCustomizeDropdown})
-  }
+  handleCustomizeDropdownClick = () => this.setState(prevState => ({showCustomizeDropdown: !prevState.showCustomizeDropdown}));
 
-  hideCustomizeDropdown() {
-    this.setState({showCustomizeDropdown: false})
-  }
+  handleCustomizeDropdownBlur = () => this.setState({showCustomizeDropdown: false})
 
-  launchProjector() {
-    window.open(window.location.href.replace('teach', 'play').concat('&projector=true'), 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
-  }
+  handleProjectorClick = () => window.open(window.location.href.replace('teach', 'play').concat('&projector=true'), 'newwindow', `width=${window.innerWidth},height=${window.innerHeight}`)
 
   renderTooltip(icon:string) {
-    const { watchTeacherState } = this.props.classroomSessions.data
+    const { tooltip, showHelpDropdown, showFlagDropdown, showCustomizeDropdown, } = this.state
+    const { classroomSessions, } = this.props
+    const { watchTeacherState } = classroomSessions.data
     // tooltips should not show if either watchTeacherState or showHelpDropdown is true
     if (watchTeacherState) {
-      if (icon === 'watchTeacher') {
+      if (icon === WATCH_TEACHER) {
         return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">On</strong>]} />)
       }
-    } else if (!this.state.showHelpDropdown && !this.state.showFlagDropdown && !this.state.showCustomizeDropdown) {
+    } else if (!showHelpDropdown && !showFlagDropdown && !showCustomizeDropdown) {
       switch (icon) {
-        case 'customize':
-          if (this.state.tooltip === 'customize') {
+        case CUSTOMIZE:
+          if (tooltip === CUSTOMIZE) {
             return (this.customizeDropdown())
           }
-        case 'flag':
-          if (this.state.tooltip === 'flag') {
+        case FLAG:
+          if (tooltip === FLAG) {
             return (this.flagDropdown())
           }
           break
-        case 'projector':
-          if (this.state.tooltip === 'projector') {
+        case PROJECTOR:
+          if (tooltip === PROJECTOR) {
             return (<Tooltip className={icon} text="Launch Projector" />)
           }
           break
-        case 'watchTeacher':
-          if (this.state.tooltip === 'watchTeacher') {
+        case WATCH_TEACHER:
+          if (tooltip === WATCH_TEACHER) {
             return (<Tooltip className={icon} text={["Watch Teacher - ", <strong key="watch-teacher-on">Off</strong>]} />)
           }
           break
-        case 'exit':
-          if (this.state.tooltip === 'exit') {
+        case EXIT:
+          if (tooltip === EXIT) {
             return (<Tooltip className={icon} text="Save and Exit Lesson" />)
           }
           break
-        case 'help':
-          if (this.state.tooltip === 'help') {
+        case HELP:
+          if (tooltip === HELP) {
             return this.helpDropdown()
           }
           break
-        case 'pdf':
-          if (this.state.tooltip === 'pdf') {
+        case PDF:
+          if (tooltip === PDF) {
             return <Tooltip className={icon} text="Download Lesson Plan" />
           }
         default:
@@ -167,27 +170,34 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderPDFLink() {
-    if (this.props.classroomSessions.data.supportingInfo) {
-      const className = this.state.tooltip === 'pdf' ? 'hover' : ''
+    const { classroomSessions, params, } = this.props
+    const { tooltip, } = this.state
+
+    if (classroomSessions.data.supportingInfo) {
+      const className = tooltip === PDF ? HOVER : ''
+      /* eslint-disable react/jsx-no-target-blank */
       return (<a
-        href={`${process.env.EMPIRICAL_BASE_URL}/activities/${this.props.params.lessonID}/supporting_info`}
-        onMouseEnter={(e) => this.showTooltip(e, 'pdf')}
-        onMouseLeave={(e) => this.hideTooltip(e)}
+        href={`${process.env.EMPIRICAL_BASE_URL}/activities/${params.lessonID}/supporting_info`}
+        onMouseEnter={this.handleMouseEnterPDFIcon}
+        onMouseLeave={this.handleMouseLeaveTooltip}
         target="_blank"
       >
         <img className={className} src={pdfIcon} />
-        {this.renderTooltip('pdf')}
+        {this.renderTooltip(PDF)}
       </a>)
+      /* eslint-enable react/jsx-no-target-blank */
     }
   }
 
   renderHelpDropdown() {
-    if (this.state.showHelpDropdown) {
-      return this.helpDropdown()
-    }
+    const { showHelpDropdown, } = this.state
+    if (!showHelpDropdown) { return}
+
+    return this.helpDropdown()
   }
 
   helpDropdown() {
+    /* eslint-disable react/jsx-no-target-blank */
     return (
       <div className='help-dropdown'>
         <i className="fa fa-caret-up" />
@@ -195,21 +205,25 @@ class TeacherNavbar extends React.Component<any, any> {
         <a href="https://support.quill.org/using-quill-tools#quill-lessons" target="_blank"><p>Quill Lessons - Q&A</p></a>
       </div>
     )
+    /* eslint-enable react/jsx-no-target-blank */
   }
 
   renderCustomizeDropdown() {
-    if (this.state.showCustomizeDropdown) {
-      return this.customizeDropdown()
-    }
+    const { showCustomizeDropdown, } = this.state
+    if (!showCustomizeDropdown) { return}
+
+    return this.customizeDropdown()
   }
 
   renderEditLink() {
+    const { customize, params, classroomSessions, dispatch, } = this.props
+
     let action, editText
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    if (this.props.customize.user_id && classroomUnitId) {
-      const lessonID:string = this.props.params.lessonID
-      const editionID:string = this.props.classroomSessions.data.edition_id
-      if (editionID && this.props.customize.editions[editionID] && this.props.customize.editions[editionID].user_id === this.props.customize.user_id) {
+    if (customize.user_id && classroomUnitId) {
+      const lessonID:string = params.lessonID
+      const editionID:string = classroomSessions.data.edition_id
+      if (editionID && customize.editions[editionID] && customize.editions[editionID].user_id === customize.user_id) {
         action = () => {this.redirectToEdit(lessonID, editionID, classroomUnitId)}
         editText = 'Edit This Edition'
       } else {
@@ -217,7 +231,7 @@ class TeacherNavbar extends React.Component<any, any> {
           createNewEdition(
             editionID,
             lessonID,
-            this.props.customize.user_id,
+            customize.user_id,
             classroomUnitId,
             this.redirectToEdit
           )
@@ -225,26 +239,29 @@ class TeacherNavbar extends React.Component<any, any> {
         editText = 'Make A Copy'
       }
     } else {
-      action = () => {this.props.dispatch(showSignupModal())}
+      action = () => dispatch(showSignupModal())
       editText = 'Make A Copy'
     }
     return <a onClick={action}><p>{editText}</p></a>
   }
 
-  switchOnClick() {
-    if (this.props.customize.user_id) {
-      const lessonID: string = this.props.params.lessonID
+  handleSwitchEditionClick = () => {
+    const { customize, params, dispatch, } = this.props
+
+    if (customize.user_id) {
+      const lessonID: string = params.lessonID
       const classroomUnitId = getParameterByName('classroom_unit_id')
       if (classroomUnitId) {
         this.redirectToSwitchEdition(lessonID, classroomUnitId)
       }
     } else {
-      this.props.dispatch(showSignupModal())
+      dispatch(showSignupModal())
     }
   }
 
   redirectToEdit(lessonID:string, editionID:string, classroomUnitId:string) {
-    window.location.href = `#/customize/${this.props.params.lessonID}/${editionID}?&classroom_unit_id=${classroomUnitId}`
+    const { params, } = this.props
+    window.location.href = `#/customize/${params.lessonID}/${editionID}?&classroom_unit_id=${classroomUnitId}`
   }
 
   redirectToSwitchEdition(lessonID:string, classroomUnitId:string) {
@@ -252,24 +269,24 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   customizeDropdown() {
-    const editText = this.props.classroomSessions.data.edition_id ? 'Edit This Edition' : 'Make A Copy'
     return (
       <div className='customize-dropdown'>
         <i className="fa fa-caret-up" />
         {this.renderEditLink()}
-        <a onClick={this.switchOnClick}><p>Switch Edition</p></a>
+        <a onClick={this.handleSwitchEditionClick}><p>Switch Edition</p></a>
       </div>
     )
   }
 
   renderFlagDropdown() {
-    if (this.state.showFlagDropdown) {
-      return this.flagDropdown()
-    }
+    const { showFlagDropdown, } = this.state
+    if (!showFlagDropdown) { return }
+    return this.flagDropdown()
   }
 
   flagDropdown() {
-    const {flaggedStudents, students} = this.props.classroomSessions.data
+    const { classroomSessions, } = this.props
+    const { flaggedStudents, students } = classroomSessions.data
     let content
     let oneRow
     if (flaggedStudents) {
@@ -297,20 +314,22 @@ class TeacherNavbar extends React.Component<any, any> {
     </div>)
   }
 
-  exitLesson() {
+  handleExitLessonClick = () => {
+    const { params, } = this.props
     const classroomUnitId = getParameterByName('classroom_unit_id') || '';
-    const activityId = this.props.params.lessonID;
     const shouldExit = window.confirm('Are you sure you want to exit the lesson?')
 
     if (shouldExit) {
-      unpinActivityOnSaveAndExit(activityId, classroomUnitId)
+      unpinActivityOnSaveAndExit(params.lessonID, classroomUnitId)
       document.location.href = process.env.EMPIRICAL_BASE_URL || 'https://www.quill.org';
     }
   }
 
-  toggleWatchTeacherMode() {
-    const { watchTeacherState } = this.props.classroomSessions.data
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+  handleWatchTeacherClick = () => {
+    const { classroomSessionId, } = this.state
+    const { classroomSessions, } = this.props
+    const { watchTeacherState } = classroomSessions.data
+
     if (watchTeacherState) {
       if (classroomSessionId) {
         removeWatchTeacherState(classroomSessionId);
@@ -321,113 +340,120 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   previewBar() {
-    const { preview } = this.props.classroomSessions.data
+    const { classroomSessions, } = this.props
+    const { preview } = classroomSessions.data
     if (preview === true) {
       const assignLink = `${process.env.EMPIRICAL_BASE_URL}/assign/create-activity-pack?tool=lessons`
       const studentLink = window.location.href.replace('teach', 'play').concat('&student=student')
+      /* eslint-disable react/jsx-no-target-blank */
       return (<div className="lessons-teacher-preview-bar">
-        <p><i className="fa fa-eye" />You are previewing the teacher's view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
+        <p><i className="fa fa-eye" />You are previewing the teacher&#39;s view of Quill Lessons. <a href={assignLink} target="_blank">Assign Quill Lessons</a> from your dashboard.</p>
         <a className="student-link" href={studentLink} target="_blank">Open Student View<i className="fa fa-external-link" /></a>
       </div>)
+      /* eslint-enable react/jsx-no-target-blank */
     }
   }
 
   render() {
-    const { watchTeacherState } = this.props.classroomSessions.data
+    const { showHelpDropdown, tooltip, showFlagDropdown, showCustomizeDropdown, } = this.state
+    const { classroomSessions, classroomLesson, } = this.props
+    const { watchTeacherState } = classroomSessions.data
     let projectorClass, exitClass;
-    let customizeClass = this.state.showCustomizeDropdown ? 'hover' : ''
-    let helpClass = this.state.showHelpDropdown ? 'hover' : ''
-    let flagClass = this.state.showFlagDropdown ? 'hover' : ''
-    let watchTeacherClass = watchTeacherState ? 'hover' : ''
-    if (!this.state.showHelpDropdown && !watchTeacherState && !this.state.showFlagDropdown)
-    switch (this.state.tooltip) {
-      case 'customize':
-        customizeClass = "hover"
-        break
-      case 'projector':
-        projectorClass = "hover"
-        break
-      case 'watchTeacher':
-        watchTeacherClass = "hover"
-        break
-      case 'exit':
-        exitClass = "hover"
-        break
-      case 'help':
-        helpClass = "hover"
-        break
-      case 'flag':
-        flagClass = "hover"
-        break
-      default:
-        break
+    let customizeClass = showCustomizeDropdown ? HOVER : ''
+    let helpClass = showHelpDropdown ? HOVER : ''
+    let flagClass = showFlagDropdown ? HOVER : ''
+    let watchTeacherClass = watchTeacherState ? HOVER : ''
+
+    if (!showHelpDropdown && !watchTeacherState && !showFlagDropdown) {
+      switch (tooltip) {
+        case CUSTOMIZE:
+          customizeClass = HOVER
+          break
+        case PROJECTOR:
+          projectorClass = HOVER
+          break
+        case WATCH_TEACHER:
+          watchTeacherClass = HOVER
+          break
+        case EXIT:
+          exitClass = HOVER
+          break
+        case HELP:
+          helpClass = HOVER
+          break
+        case FLAG:
+          flagClass = HOVER
+          break
+        default:
+          break
+      }
     }
 
     return (
       <div>
         {this.previewBar()}
         <div className="lessons-teacher-navbar">
-          <div className="lesson-title"><p><span>Lesson {this.props.classroomLesson.data.lesson}:</span> {this.props.classroomLesson.data.title}</p> {this.renderCustomizedEditionsTag()}</div>
+          <div className="lesson-title"><p><span>Lesson {classroomLesson.data.lesson}:</span> {classroomLesson.data.title}</p> {this.renderCustomizedEditionsTag()}</div>
           <span className="toolbar">
             {this.presentStudentCount()}
             <div
-              onBlur={this.hideCustomizeDropdown}
-              onClick={this.toggleCustomizeDropdown}
-              onMouseEnter={(e) => this.showTooltip(e, 'customize')}
-              onMouseLeave={(e) => this.hideTooltip(e)}
+              onBlur={this.handleCustomizeDropdownBlur}
+              onClick={this.handleCustomizeDropdownClick}
+              onMouseEnter={this.handleMouseEnterCustomizeIcon}
+              onMouseLeave={this.handleMouseLeaveTooltip}
               tabIndex={0}
             >
               <i className={`${customizeClass} fa fa-icon fa-magic`} />
               {this.renderCustomizeDropdown()}
-              {this.renderTooltip('customize')}
+              {this.renderTooltip(CUSTOMIZE)}
             </div>
             <div>
               {this.renderPDFLink()}
             </div>
             <div
-              onBlur={this.hideFlagDropdown}
-              onClick={this.toggleFlagDropdown}
-              onMouseEnter={(e) => this.showTooltip(e, 'flag')}
-              onMouseLeave={(e) => this.hideTooltip(e)}
+              onBlur={this.handleFlagDropdownBlur}
+              onClick={this.handleFlagDropdownClick}
+              onMouseEnter={this.handleMouseEnterFlagIcon}
+              onMouseLeave={this.handleMouseLeaveTooltip}
               tabIndex={0}
             >
               <img className={`flag-icon ${flagClass}`} src={flagIcon} />
-              {this.renderTooltip('flag')}
+              {this.renderTooltip(FLAG)}
               {this.renderFlagDropdown()}
             </div>
             <div
-              onClick={this.launchProjector}
-              onMouseEnter={(e) => this.showTooltip(e, 'projector')}
-              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.handleProjectorClick}
+              onMouseEnter={this.handleMouseEnterProjectorIcon}
+              onMouseLeave={this.handleMouseLeaveTooltip}
             >
               <img className={projectorClass} src={projectorIcon} />
-              {this.renderTooltip('projector')}
+              {this.renderTooltip(PROJECTOR)}
             </div>
             <div
-              onClick={this.toggleWatchTeacherMode}
-              onMouseEnter={(e) => this.showTooltip(e, 'watchTeacher')}
-              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.handleWatchTeacherClick}
+              onMouseEnter={this.handleMouseEnterWatchTeacherIcon}
+              onMouseLeave={this.handleMouseLeaveTooltip}
             >
               <img className={watchTeacherClass} src={watchTeacherIcon} />
-              {this.renderTooltip('watchTeacher')}
+              {this.renderTooltip(WATCH_TEACHER)}
             </div>
             <div
-              onClick={this.exitLesson}
-              onMouseEnter={(e) => this.showTooltip(e, 'exit')}
-              onMouseLeave={(e) => this.hideTooltip(e)}
+              onClick={this.handleExitLessonClick}
+              onMouseEnter={this.handleMouseEnterExitIcon}
+              onMouseLeave={this.handleMouseLeaveTooltip}
             >
               <img className={exitClass} src={exitIcon} />
-              {this.renderTooltip('exit')}
+              {this.renderTooltip(EXIT)}
             </div>
             <div
-              onBlur={this.hideHelpDropdown}
-              onClick={this.toggleHelpDropdown}
-              onMouseEnter={(e) => this.showTooltip(e, 'help')}
-              onMouseLeave={(e) => this.hideTooltip(e)}
+              onBlur={this.handleHelpDropdownBlur}
+              onClick={this.handleHelpDropdownClick}
+              onMouseEnter={this.handleMouseEnterHelpIcon}
+              onMouseLeave={this.handleMouseLeaveTooltip}
               tabIndex={0}
             >
               <img className={`help-icon ${helpClass}`} src={helpIcon} />
-              {this.renderTooltip('help')}
+              {this.renderTooltip(HELP)}
               {this.renderHelpDropdown()}
             </div>
           </span>

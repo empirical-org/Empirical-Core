@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe  Teachers::UnitTemplatesController, type: :controller do
+describe Teachers::UnitTemplatesController, type: :controller do
   it { should use_before_action :is_teacher? }
   it { should use_before_action :redirect_to_public_index_if_no_unit_template_found }
 
