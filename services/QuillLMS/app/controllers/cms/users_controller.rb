@@ -318,7 +318,7 @@ class Cms::UsersController < Cms::CmsController
       },
       update: {
         action: ChangeLog::USER_ACTIONS[:update],
-        explanation: "User #{current_user.id.to_s} changed #{changed_attribute} of User #{@user&.id&.to_s}",
+        explanation: "User #{current_user.id} changed #{changed_attribute} of User #{@user&.id}",
         changed_record_id: @user&.id&.to_s,
         changed_attribute: changed_attribute,
         previous_value: previous_value,
@@ -332,17 +332,17 @@ class Cms::UsersController < Cms::CmsController
       },
       show: {
         action: ChangeLog::USER_ACTIONS[:show],
-        explanation: "User #{current_user.id.to_s} visited admin page for User #{@user&.id&.to_s}",
+        explanation: "User #{current_user.id} visited admin page for User #{@user&.id}",
         changed_record_id: @user&.id&.to_s
       },
       edit: {
         action: ChangeLog::USER_ACTIONS[:edit],
-        explanation: "User #{current_user.id.to_s} visited edit page for User #{@user&.id&.to_s}",
+        explanation: "User #{current_user.id} visited edit page for User #{@user&.id}",
         changed_record_id: @user&.id&.to_s
       },
       sign_in: {
         action: ChangeLog::USER_ACTIONS[:sign_in],
-        explanation: "User #{current_user.id.to_s} signed in as User #{params[:id]&.to_s}",
+        explanation: "User #{current_user.id} signed in as User #{params[:id]}",
         changed_record_id: params[:id]&.to_s,
         user_id: current_user.id.to_s
       }
