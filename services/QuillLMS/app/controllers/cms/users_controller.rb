@@ -6,7 +6,7 @@ class Cms::UsersController < Cms::CmsController
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
   before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
   before_action :log_attribute_change, only: [:update]
-  before_action :update_change_log, only: [:show, :edit, :index]
+  before_action :update_change_log, only: [:show, :edit, :index, :sign_in]
 
   USERS_PER_PAGE = 30.0
 
@@ -69,7 +69,6 @@ class Cms::UsersController < Cms::CmsController
   def sign_in
     session[:staff_id] = current_user.id
     super(User.find(params[:id]))
-    update_change_log
     redirect_to profile_path
   end
 
@@ -343,9 +342,9 @@ class Cms::UsersController < Cms::CmsController
       },
       sign_in: {
         action: ChangeLog::USER_ACTIONS[:sign_in],
-        explanation: "User #{session[:staff_id]&.to_s} signed in as User #{params[:id]&.to_s}",
+        explanation: "User #{current_user.id.to_s} signed in as User #{params[:id]&.to_s}",
         changed_record_id: params[:id]&.to_s,
-        user_id: session[:staff_id]&.to_s
+        user_id: current_user.id.to_s
       }
     }
 
