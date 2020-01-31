@@ -227,7 +227,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const zippedAnswer = this.zipInputsAndText();
       const questionUID = question.key
       const responsesArray = hashToCollection(responses)
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray)}
+      const caseInsensitive = question.caseInsensitive
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive)}
       this.setResponse(response);
       this.updateResponseResource(response);
       this.submitResponse(response);
