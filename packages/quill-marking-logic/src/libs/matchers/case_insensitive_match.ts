@@ -5,18 +5,21 @@ import {Response, PartialResponse, ConceptResult} from '../../interfaces'
 import {feedbackStrings} from '../constants/feedback_strings'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function caseInsensitiveMatch(response: string, responses:Array<Response>):Response|undefined {
-  return _.find(getOptimalResponses(responses),
+export function caseInsensitiveMatch(response: string, responses:Array<Response>, caseInsensitive):Response|undefined {
+  // if caseInsensitive, match to all possible responses, else we only care about correct ones
+  const responsesToSearch = caseInsensitive ? responses : getOptimalResponses(responses)
+  return _.find(responsesToSearch,
     resp => stringNormalize(resp.text).toLowerCase() === stringNormalize(response).toLowerCase()
   );
 }
 
-export function caseInsensitiveChecker(responseString: string, responses:Array<Response>, passConceptResults:Boolean=false):PartialResponse|undefined {
-  const match = caseInsensitiveMatch(responseString, responses);
+export function caseInsensitiveChecker(responseString: string, responses:Array<Response>, passConceptResults:Boolean=false, caseInsensitive:Boolean=false):PartialResponse|undefined {
+  const match = caseInsensitiveMatch(responseString, responses, caseInsensitive);
   if (match) {
     const parentID = match.id
     const conceptResults = passConceptResults ? match.concept_results : null
-    return caseInsensitiveResponseBuilder(responses, parentID, conceptResults)
+    // if caseInsensitive, return the match as if it were an exact match
+    return caseInsensitive ? match : caseInsensitiveResponseBuilder(responses, parentID, conceptResults)
   }
 }
 
