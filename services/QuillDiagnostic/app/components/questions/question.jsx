@@ -40,12 +40,12 @@ class Question extends React.Component {
     dispatch(questionActions.cancelQuestionEdit(params.questionID));
   }
 
-  saveQuestionEdits(vals) {
+  saveQuestionEdits = (vals) => {
     const { dispatch, params, } = this.props
     dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
   }
 
-  submitOptimalResponses(responseStrings) {
+  submitOptimalResponses = (responseStrings) => {
     const { dispatch, params, } = this.props
     const conceptUID = this.getQuestion().conceptID
     dispatch(
@@ -95,17 +95,17 @@ class Question extends React.Component {
     ));
   }
 
-  boilerplateSpecificFeedbackToOptions(selectedCategory) {
+  boilerplateSpecificFeedbackToOptions = (selectedCategory) => {
     return selectedCategory.children.map(childFeedback => (
       <option className="boilerplate-feedback-dropdown-option" key={childFeedback.description}>{childFeedback.description}</option>
     ));
   }
 
-  chooseBoilerplateCategory(e) {
+  chooseBoilerplateCategory = (e) => {
     this.setState({ selectedBoilerplateCategory: e.target.value, });
   }
 
-  chooseSpecificBoilerplateFeedback(e) {
+  chooseSpecificBoilerplateFeedback = (e) => {
     if (e.target.value === 'Select specific boilerplate feedback') {
       this.refs.newResponseFeedback.value = '';
     } else {
@@ -117,7 +117,7 @@ class Question extends React.Component {
 
   onCloseNewResponseModal = () => this.setState({ addingNewResponse: false, })
 
-  renderBoilerplateCategoryDropdown(onChangeEvent) {
+  renderBoilerplateCategoryDropdown = (onChangeEvent) => {
     const style = { marginRight: '20px', };
     return (
       <span className="select" style={style}>
@@ -129,7 +129,7 @@ class Question extends React.Component {
     );
   }
 
-  renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
+  renderBoilerplateCategoryOptionsDropdown = (onChangeEvent, description) => {
     const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
     if (selectedCategory) {
       return (
