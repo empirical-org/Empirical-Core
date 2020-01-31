@@ -54,4 +54,34 @@ describe SalesmachineClient do
       subject.event("data")
     end
   end
+
+  describe '#make_request' do
+    it 'should reraise error if Faraday::ClientError response status is not TOO_MANY_REQUESTS' do
+      mock_client = double("salesmachine_client")
+      mock_error = Faraday::ClientError.new({
+        status: SalesmachineClient::TOO_MANY_REQUESTS + 50
+      })
+      expect(subject).to receive(:client).and_return(mock_client)
+      expect(mock_client).to receive(:post).and_raise(mock_error)
+      expect { subject.make_request('path', {}) }.to raise_error(mock_error)
+    end
+
+    it 'should raise SalesmachineRetryError if Faraday::ClientError response is nil' do
+      mock_client = double("salesmachine_client")
+      mock_error = Faraday::ClientError.new('dummy message')
+      expect(subject).to receive(:client).and_return(mock_client)
+      expect(mock_client).to receive(:post).and_raise(mock_error)
+      expect { subject.make_request('path', {}) }.to raise_error(SalesmachineRetryError)
+    end
+
+    it 'should raise SalesmachineRetryError if Faraday::ClientError response status is TOO_MANY_REQUESTS' do
+      mock_client = double("salesmachine_client")
+      mock_error = Faraday::ClientError.new({
+        status: SalesmachineClient::TOO_MANY_REQUESTS
+      })
+      expect(subject).to receive(:client).and_return(mock_client)
+      expect(mock_client).to receive(:post).and_raise(mock_error)
+      expect { subject.make_request('path', {}) }.to raise_error(SalesmachineRetryError)
+    end
+  end
 end
