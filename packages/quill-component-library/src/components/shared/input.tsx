@@ -87,7 +87,7 @@ export class Input extends React.Component<InputProps, InputState> {
     this.handleClickOnUnacknowledgedError()
   }
 
-  handleTabOrEnter = (event) => {
+  handleTab = (event) => {
     if (event.key === 'Tab') {
       this.deactivateInput()
     }
@@ -193,7 +193,7 @@ export class Input extends React.Component<InputProps, InputState> {
           ref={node => this.node = node}
         >
           <label htmlFor={id}>{label}</label>
-          <input {...commonProps} onKeyDown={this.handleTabOrEnter} />
+          <input {...commonProps} onKeyDown={this.handleTab} />
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
