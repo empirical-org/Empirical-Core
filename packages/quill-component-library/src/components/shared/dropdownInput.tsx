@@ -136,10 +136,9 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
 
     if (!(this.node && this.node.contains(e.target))) { return }
 
-    e.preventDefault()
-
     switch (e.key) {
       case 'Enter':
+        e.preventDefault()
         if (!active || !menuIsOpen) {
           this.handleInputActivation()
         } else if (cursor !== null) {
