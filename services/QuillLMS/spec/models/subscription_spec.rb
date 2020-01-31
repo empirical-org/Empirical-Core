@@ -375,6 +375,8 @@ describe Subscription, type: :model do
     end
 
     describe '#renew_subscription' do
+      let!(:school) { create(:school_with_three_teachers) }
+
       it "sets the date it was called as the de_activated_date" do
         subscription.renew_subscription
         expect(subscription.de_activated_date).to eq(Date.today)
@@ -390,6 +392,19 @@ describe Subscription, type: :model do
         subscription.renew_subscription
         expect(Subscription.last.expiration).to eq(subscription.expiration + 365)
       end
+
+      it "creates a new subscription with the same schools as the original subscription" do
+        subscription.schools.push(school)
+        subscription.renew_subscription
+        expect(Subscription.last.schools).to eq([school])
+      end
+
+      it "creates a new subscription with the same users as the original subscription" do
+        subscription.users.push(User.all)
+        subscription.renew_subscription
+        expect(Subscription.last.users).to eq(User.all)
+      end
+
     end
 
     describe '#renewal_price' do

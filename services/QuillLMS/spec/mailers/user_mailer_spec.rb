@@ -81,7 +81,7 @@ describe UserMailer do
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("Next Steps for the Lessons in Your New Activity Pack, #{unit.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["amr.thameen@quill.org"])
+      expect(mail.from).to eq(["hello@quill.org"])
     end
   end
 

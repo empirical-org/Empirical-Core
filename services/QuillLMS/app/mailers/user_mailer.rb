@@ -1,5 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: 'hello@quill.org'
+  include EmailApiHelper
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
@@ -43,7 +44,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @lessons = lessons
     @unit = unit
-    mail from: "Amr Thameen <amr.thameen@quill.org>", to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
   end
 
   def premium_user_subscription_email(user)
@@ -104,6 +105,9 @@ class UserMailer < ActionMailer::Base
     end_time = date_object.end_of_day
     subject_date = date_object.strftime('%m/%d/%Y')
 
+    teacher_count = User.where(role: "teacher").count
+    new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+
     @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
     @daily_active_students = User.where(role: "student").where(last_sign_in: start_time..end_time).size
@@ -115,6 +119,10 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
+    @teacher_conversion_rate = (new_premium_accounts/teacher_count.to_f).round(5)
+    @support_tickets_resolved = get_intercom_data(start_time, end_time)
+    @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
+    @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 

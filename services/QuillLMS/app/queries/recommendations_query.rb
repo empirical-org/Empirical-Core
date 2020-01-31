@@ -17,7 +17,7 @@ class RecommendationsQuery
 
   def activity
     @activity ||= relation
-      .includes(recommendations: [ { criteria: :concept }, :unit_template])
+      .includes(recommendations: [{ criteria: :concept }, :unit_template])
       .find(activity_id)
   end
 

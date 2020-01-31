@@ -5,12 +5,16 @@
 @import "components/student-question";
 @import "components/animations";
 @import "components/landing-page-html";
-@import "components/multiple-choice";
 @import "components/_language-choices";
 @import "components/_question_health";
 @import '../../node_modules/react-selectize/themes/index.css';
 @import '../../node_modules/react-select/dist/react-select.css';
 @import '../../node_modules/font-awesome/css/font-awesome.css';
+@import "../../node_modules/quill-component-library/src/styles/styles.scss";
+
+html {
+  overscroll-behavior: none;
+}
 
 body {
   color: #3D3D3D
@@ -121,14 +125,10 @@ ul.is-unstyled {
   }
 }
 
-.register-container {
+.register-container, .register {
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
-}
-
-h2.register {
-  text-align: center;
 }
 
 .is-question {
@@ -338,7 +338,12 @@ textarea.submission {
   &.is-fullheight{
     min-height: 100vh;
     &.minus-nav {
-      min-height: calc(100vh - 50px);
+      min-height: calc(100vh - 64px);
+    }
+    &.minus-nav-and-footer {
+      height: calc(100vh - 64px - 81px);
+      min-height: min-content;
+      flex: 1 1 auto;
     }
     .hero-body {
       align-items: center;
@@ -358,7 +363,6 @@ textarea.submission {
 }
 
 .student-container-inner-diagnostic {
-  position: absolute;
   width: 100%;
 }
 
