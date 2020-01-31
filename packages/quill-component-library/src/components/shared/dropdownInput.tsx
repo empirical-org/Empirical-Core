@@ -134,17 +134,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   handleKeyDown = (e) => {
     const { active, menuIsOpen, cursor, options, } = this.state
 
-    if (!(this.node && this.node.contains(e.target))) { return }
+    const inactiveNode = !(this.node && this.node.contains(e.target))
+    const keyWasNotTab = e.key !== 'Tab'
+
+    if (inactiveNode && keyWasNotTab) { return }
 
     switch (e.key) {
-      case 'Enter':
-        e.preventDefault()
-        if (!active || !menuIsOpen) {
-          this.handleInputActivation()
-        } else if (cursor !== null) {
-          this.handleEnterWithFocusedOption()
-        }
-        break
       case 'ArrowDown':
         if (cursor < options.length - 1) {
           this.setState(prevState => {
@@ -161,6 +156,15 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       case 'Tab':
         this.deactivateInput()
         break
+      case 'Enter':
+        e.preventDefault()
+        if (!active || !menuIsOpen) {
+          this.handleInputActivation()
+        } else if (cursor !== null) {
+          this.handleEnterWithFocusedOption()
+        }
+        break
+
       default:
         break
     }
@@ -215,6 +219,11 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     if (!isMulti) { this.deactivateInput() }
   }
 
+  handleKeyDownOnInputContainer = (e) => {
+    if (e.key === 'Tab') { return }
+    this.handleInputActivation()
+  }
+
   renderInput() {
     const { active, errorAcknowledged, menuIsOpen, cursor, options, } = this.state
     const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
@@ -238,7 +247,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       classNamePrefix: "dropdown",
       isSearchable,
       updateCursor: this.updateCursor,
-      components: { Option: StandardDropdownOption }
+      components: { Option: StandardDropdownOption },
     }
     if (error) {
       if (errorAcknowledged) {
@@ -246,7 +255,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           <div
             className={`error ${sharedClasses}`}
             onClick={this.handleInputActivation}
-            onKeyDown={this.handleInputActivation}
+            onKeyDown={this.handleKeyDownOnInputContainer}
             ref={node => this.node = node}
             role="button"
             tabIndex={0}
@@ -272,7 +281,6 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
             <Select
               {...sharedProps}
               menuIsOpen={false}
-              onFocus={this.handleInputActivation}
             />
             {this.renderErrorText()}
           </div>)
@@ -281,7 +289,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       return (<div
         className={sharedClasses}
         onClick={this.handleInputActivation}
-        onKeyDown={this.handleInputActivation}
+        onKeyDown={this.handleKeyDownOnInputContainer}
         ref={node => this.node = node}
         role="button"
         tabIndex={0}
@@ -304,7 +312,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         <div
           className={sharedClasses}
           onClick={this.handleInputActivation}
-          onKeyDown={this.handleInputActivation}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}
@@ -323,7 +331,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         <div
           className={`${sharedClasses}`}
           onClick={this.handleInputActivation}
-          onKeyDown={this.handleInputActivation}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}
@@ -341,7 +349,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
         <div
           className={`dropdown ${sharedClasses}`}
           onClick={this.handleInputActivation}
-          onKeyDown={this.handleInputActivation}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
           role="button"
           tabIndex={0}

@@ -51,7 +51,7 @@
     "isomorphic-fetch": "^2.2.1",
     "istanbul-lib-instrument": "^1.10.2",
     "lazysizes": "^5.2.0-beta1",
-    "quill-component-library": "0.7.8",
+    "quill-component-library": "0.7.9",
     "quill-marking-logic": "0.12.13",
     "react-csv": "^1.1.2",
     "react-dropdown": "^1.6.4",
