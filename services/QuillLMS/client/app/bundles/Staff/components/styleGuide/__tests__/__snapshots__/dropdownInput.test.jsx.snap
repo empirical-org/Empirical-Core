@@ -1,180 +1,181 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Dropdown input component should render when it is multi-option 1`] = `
-<div>
-  <div
-    className="dropdown-container input-container inactive has-text  undefined checkbox-dropdown"
-    onClick={[Function]}
-    tabIndex={0}
-  >
-    <label />
-    <StateManager
-      className="dropdown"
-      classNamePrefix="dropdown"
-      closeMenuOnSelect={false}
-      components={
+<div
+  className="dropdown-container input-container inactive has-text  undefined checkbox-dropdown"
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex={0}
+>
+  <label />
+  <StateManager
+    className="dropdown"
+    classNamePrefix="dropdown"
+    closeMenuOnSelect={false}
+    components={
+      Object {
+        "Option": [Function],
+        "ValueContainer": [Function],
+      }
+    }
+    cursor={null}
+    defaultInputValue=""
+    defaultMenuIsOpen={false}
+    defaultValue={null}
+    hideSelectedOptions={false}
+    isClearable={false}
+    isMulti={true}
+    isSearchable={false}
+    menuIsOpen={false}
+    onChange={[Function]}
+    onKeyDown={[Function]}
+    optionType="option"
+    options={
+      Array [
         Object {
-          "Option": [Function],
-          "ValueContainer": [Function],
-        }
-      }
-      defaultInputValue=""
-      defaultMenuIsOpen={false}
-      defaultValue={null}
-      hideSelectedOptions={false}
-      isClearable={false}
-      isMulti={true}
-      isSearchable={false}
-      menuIsOpen={false}
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      optionType="option"
-      options={
-        Array [
-          Object {
-            "label": "All options",
-            "value": "All",
-          },
-          Object {
-            "label": "One",
-            "value": 1,
-          },
-          Object {
-            "label": "Two",
-            "value": 2,
-          },
-          Object {
-            "label": "Three",
-            "value": 3,
-          },
-          Object {
-            "label": "Four",
-            "value": 4,
-          },
-        ]
-      }
-      placeholder=""
-      updateCursor={[Function]}
-      value={Array []}
-    />
-  </div>
+          "label": "All options",
+          "value": "All",
+        },
+        Object {
+          "label": "One",
+          "value": 1,
+        },
+        Object {
+          "label": "Two",
+          "value": 2,
+        },
+        Object {
+          "label": "Three",
+          "value": 3,
+        },
+        Object {
+          "label": "Four",
+          "value": 4,
+        },
+      ]
+    }
+    placeholder=""
+    updateCursor={[Function]}
+    value={Array []}
+  />
 </div>
 `;
 
 exports[`Dropdown input component should render when it is not searchable 1`] = `
-<div>
-  <div
-    className="dropdown-container input-container inactive has-text not-editable undefined "
-    onClick={[Function]}
-    tabIndex={0}
-  >
-    <label>
-      Label
-    </label>
-    <StateManager
-      className="dropdown"
-      classNamePrefix="dropdown"
-      components={
-        Object {
-          "Option": [Function],
-        }
+<div
+  className="dropdown-container input-container inactive has-text not-editable undefined "
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex={0}
+>
+  <label>
+    Label
+  </label>
+  <StateManager
+    className="dropdown"
+    classNamePrefix="dropdown"
+    components={
+      Object {
+        "Option": [Function],
       }
-      defaultInputValue=""
-      defaultMenuIsOpen={false}
-      defaultValue={null}
-      isClearable={false}
-      isSearchable={false}
-      menuIsOpen={false}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      options={
-        Array [
-          Object {
-            "label": "One",
-            "value": 1,
-          },
-          Object {
-            "label": "Two",
-            "value": 2,
-          },
-          Object {
-            "label": "Three",
-            "value": 3,
-          },
-          Object {
-            "label": "Four",
-            "value": 4,
-          },
-        ]
-      }
-      placeholder=""
-      updateCursor={[Function]}
-      value={
+    }
+    cursor={null}
+    defaultInputValue=""
+    defaultMenuIsOpen={false}
+    defaultValue={null}
+    isClearable={false}
+    isSearchable={false}
+    menuIsOpen={false}
+    onKeyDown={[Function]}
+    options={
+      Array [
         Object {
           "label": "One",
           "value": 1,
-        }
+        },
+        Object {
+          "label": "Two",
+          "value": 2,
+        },
+        Object {
+          "label": "Three",
+          "value": 3,
+        },
+        Object {
+          "label": "Four",
+          "value": 4,
+        },
+      ]
+    }
+    placeholder=""
+    updateCursor={[Function]}
+    value={
+      Object {
+        "label": "One",
+        "value": 1,
       }
-    />
-  </div>
+    }
+  />
 </div>
 `;
 
 exports[`Dropdown input component should render when it is searchable 1`] = `
-<div>
-  <div
-    className="dropdown-container input-container inactive has-text  undefined "
-    onClick={[Function]}
-    tabIndex={0}
-  >
-    <label>
-      Label
-    </label>
-    <StateManager
-      className="dropdown"
-      classNamePrefix="dropdown"
-      components={
+<div
+  className="dropdown-container input-container inactive has-text  undefined "
+  onClick={[Function]}
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex={0}
+>
+  <label>
+    Label
+  </label>
+  <StateManager
+    className="dropdown"
+    classNamePrefix="dropdown"
+    components={
+      Object {
+        "Option": [Function],
+      }
+    }
+    cursor={null}
+    defaultInputValue=""
+    defaultMenuIsOpen={false}
+    defaultValue={null}
+    isClearable={false}
+    isSearchable={true}
+    menuIsOpen={false}
+    onKeyDown={[Function]}
+    options={
+      Array [
         Object {
-          "Option": [Function],
-        }
-      }
-      defaultInputValue=""
-      defaultMenuIsOpen={false}
-      defaultValue={null}
-      isClearable={false}
-      isSearchable={true}
-      menuIsOpen={false}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      options={
-        Array [
-          Object {
-            "label": "One",
-            "value": 1,
-          },
-          Object {
-            "label": "Two",
-            "value": 2,
-          },
-          Object {
-            "label": "Three",
-            "value": 3,
-          },
-          Object {
-            "label": "Four",
-            "value": 4,
-          },
-        ]
-      }
-      placeholder="Value goes here"
-      updateCursor={[Function]}
-      value={
+          "label": "One",
+          "value": 1,
+        },
         Object {
           "label": "Two",
           "value": 2,
-        }
+        },
+        Object {
+          "label": "Three",
+          "value": 3,
+        },
+        Object {
+          "label": "Four",
+          "value": 4,
+        },
+      ]
+    }
+    placeholder="Value goes here"
+    updateCursor={[Function]}
+    value={
+      Object {
+        "label": "Two",
+        "value": 2,
       }
-    />
-  </div>
+    }
+  />
 </div>
 `;
