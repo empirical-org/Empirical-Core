@@ -139,3 +139,43 @@ def test_multi_label_response_second_passage(mock_automl, app):
                              "it was in financial trouble given that it "
                              "was spending too much money.")
         assert data['feedback'] == expected_feedback
+
+
+@patch('google.cloud.automl_v1beta1.PredictionServiceClient')
+def test_first_feedback(mock_automl, app):
+    request_json = {'entry': 'something', 'prompt_id': 105, 'attempt': 1}
+    with app.test_request_context(json=request_json):
+        label_json = {"Fin_Trouble": 0.97, "Miscellaneous": 0.51}
+        mock_response = mock_response_for(label_json)
+        mock_automl.return_value.predict.return_value = mock_response
+
+        response = main.response_endpoint(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data['optimal'] is False
+        expected_feedback = ("Make sure that your response uses information "
+                             "from the text.\n\nWhy did Eastern Michigan "
+                             "University decide to cut women's softball "
+                             "and tennis?")
+        assert data['feedback'] == expected_feedback
+
+
+@patch('google.cloud.automl_v1beta1.PredictionServiceClient')
+def test_secondary_feedback(mock_automl, app):
+    request_json = {'entry': 'something', 'prompt_id': 105, 'attempt': 2}
+    with app.test_request_context(json=request_json):
+        label_json = {"Fin_Trouble": 0.97, "Miscellaneous": 0.51}
+        mock_response = mock_response_for(label_json)
+        mock_automl.return_value.predict.return_value = mock_response
+
+        response = main.response_endpoint(flask.request)
+        data = json.loads(response.data)
+
+        assert response.status_code == 200
+        assert data['optimal'] is False
+        expected_feedback = ("Revise your work. Part of your response "
+                             "is not supported by the text.\n\nRe-read your "
+                             "response and delete any information "
+                             "from outside the text.")
+        assert data['feedback'] == expected_feedback

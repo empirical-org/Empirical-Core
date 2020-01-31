@@ -96,8 +96,8 @@ class PlaySentenceFragment extends React.Component {
   renderSentenceOrFragmentButtons = () => {
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
-        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete Sentence</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete Sentence</button>
       </div>
     );
   }
@@ -215,17 +215,17 @@ class PlaySentenceFragment extends React.Component {
     const { responses, editing} = this.state
     if (this.showNextQuestionButton()) {
       return (
-        <button className="quill-button large primary contained" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if (question.attempts.length > 0) {
-        const buttonClass = editing ? "quill-button large primary contained" : "quill-button large primary contained disabled" ;
+        const buttonClass = editing ? "quill-button focus-on-light large primary contained" : "quill-button focus-on-light large primary contained disabled" ;
         return <button className={buttonClass} onClick={this.handleSubmitResponse} type="button">Recheck work</button>;
       } else {
-        return <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+      <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
   }
 

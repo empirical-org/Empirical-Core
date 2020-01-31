@@ -235,15 +235,15 @@ class ELLSentenceCombining extends React.Component {
     const { language, questions, question, } = this.props
     const { responses, error, response, } = this.state
     let button;
-    const fullPageInstructions = language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
+    const fullPageInstructions = { maxWidth: 800, width: '100%', }
     if (responses && Object.keys(responses).length) {
       if (question.attempts.length > 0) {
-        button = <button className="quill-button large primary contained" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
+        button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
       } else {
-        button = <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
+        button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
       }
     } else {
-      button = <button className="quill-button large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
     }
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';

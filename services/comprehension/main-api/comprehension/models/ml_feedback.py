@@ -9,8 +9,9 @@ class MLFeedback(TimestampedModel):
     combined_labels = models.TextField(null=False)
     feedback = models.TextField(null=False)
     optimal = models.BooleanField(null=False, default=False)
+    order = models.PositiveIntegerField(default=1)
     prompt = models.ForeignKey('Prompt', on_delete=models.PROTECT,
                                related_name='ml_feedback')
 
     class Meta:
-        unique_together = ('combined_labels', 'prompt')
+        unique_together = ('prompt', 'combined_labels', 'order')

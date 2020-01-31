@@ -4,7 +4,7 @@ ruby '2.5.1'
 
 # CORE DEPS
 gem 'rails', '=4.2.11.1'
-gem 'puma', '~> 3.10.0'
+gem 'puma', '~> 3.12.2'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
