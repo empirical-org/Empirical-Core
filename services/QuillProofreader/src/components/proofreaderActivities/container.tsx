@@ -18,7 +18,7 @@ import {
   removeSession,
   setPassage
 } from "../../actions/session";
-// import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../helpers/conceptResultsGenerator'
+
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
 import { ConceptResultObject, WordObject } from '../../interfaces/proofreaderActivities'
@@ -27,6 +27,7 @@ import EarlySubmitModal from './earlySubmitModal'
 import Paragraph from './paragraph'
 import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
+import ProgressBar from './progressBar'
 import LoadingSpinner from '../shared/loading_spinner'
 
 interface PlayProofreaderContainerProps {
@@ -69,42 +70,24 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         resetting: false,
         firebaseSessionID: getParameterByName('student', window.location.href)
       }
-
-      this.saveToLMS = this.saveToLMS.bind(this)
-      this.finishActivitySession = this.finishActivitySession.bind(this)
-      this.finishReview = this.finishReview.bind(this)
-      this.createAnonActivitySession = this.createAnonActivitySession.bind(this)
-      this.handleParagraphChange = this.handleParagraphChange.bind(this)
-      this.finishActivity = this.finishActivity.bind(this)
-      this.renderShowEarlySubmitModal = this.renderShowEarlySubmitModal.bind(this)
-      this.closeEarlySubmitModal = this.closeEarlySubmitModal.bind(this)
-      this.renderShowReviewModal = this.renderShowReviewModal.bind(this)
-      this.closeReviewModal = this.closeReviewModal.bind(this)
-      this.checkWork = this.checkWork.bind(this)
-      this.calculateScoreForLesson = this.calculateScoreForLesson.bind(this)
-      this.openResetModal = this.openResetModal.bind(this)
-      this.closeResetModal = this.closeResetModal.bind(this)
-      this.reset = this.reset.bind(this)
-      this.finishReset = this.finishReset.bind(this)
-      this.saveEditedSessionToFirebase = this.saveEditedSessionToFirebase.bind(this)
-      this.saveCompletedSessionToFirebase = this.saveCompletedSessionToFirebase.bind(this)
     }
 
     componentWillMount() {
+      const { activityUID, dispatch, } = this.props
       const { firebaseSessionID, } = this.state
-      const activityUID = getParameterByName('uid', window.location.href) || this.props.activityUID
+      const activityUID = getParameterByName('uid', window.location.href) || activityUID
 
-      this.props.dispatch(startListeningToConcepts())
+      dispatch(startListeningToConcepts())
 
       if (firebaseSessionID) {
-        this.props.dispatch(setSessionReducerToSavedSession(firebaseSessionID))
+        dispatch(setSessionReducerToSavedSession(firebaseSessionID))
         this.interval = setInterval(() => {
           this.saveEditedSessionToFirebase(firebaseSessionID)
         }, FIREBASE_SAVE_INTERVAL)
       }
 
       if (activityUID) {
-        this.props.dispatch(getActivity(activityUID))
+        dispatch(getActivity(activityUID))
       }
     }
 
@@ -115,9 +98,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     componentWillReceiveProps(nextProps: PlayProofreaderContainerProps) {
+      const { proofreaderActivities, dispatch, } = this.props
       if (
         (nextProps.proofreaderActivities.currentActivity && !nextProps.session.passage)
-        || (!_.isEqual(nextProps.proofreaderActivities.currentActivity, this.props.proofreaderActivities.currentActivity))
+        || (!_.isEqual(nextProps.proofreaderActivities.currentActivity, proofreaderActivities.currentActivity))
       ) {
         const { passage } = nextProps.proofreaderActivities.currentActivity
         const initialPassageData = this.formatInitialPassage(passage)
@@ -130,29 +114,30 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           currentPassage = nextProps.session.passageFromFirebase
         }
         this.setState({ originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: this.editCount(currentPassage) })
-        this.props.dispatch(setPassage(currentPassage))
+        dispatch(setPassage(currentPassage))
       }
     }
 
-    saveEditedSessionToFirebase(sessionID: string) {
-      const { passageFromFirebase, passage, } = this.props.session
+    saveEditedSessionToFirebase = (sessionID: string) => {
+      const { dispatch, session, } = this.props
+      const { passageFromFirebase, passage, } = session
       if (!_.isEqual(passage, passageFromFirebase)) {
-        this.props.dispatch(updateSessionOnFirebase(sessionID, passage))
+        dispatch(updateSessionOnFirebase(sessionID, passage))
       }
     }
 
-    saveCompletedSessionToFirebase() {
+    saveCompletedSessionToFirebase = () => {
       const { firebaseSessionID, conceptResultsObjects, } = this.state
       const activityUID = getParameterByName('uid', window.location.href)
       const newOrSetFirebaseSessionID = updateConceptResultsOnFirebase(firebaseSessionID, activityUID, conceptResultsObjects)
       this.setState({ firebaseSessionID: newOrSetFirebaseSessionID })
     }
 
-    defaultInstructions() {
+    defaultInstructions = () => {
       return 'Find and correct the errors in the passage. To edit a word, click on it and re-type it.'
     }
 
-    formatInitialPassage(passage: string) {
+    formatInitialPassage = (passage: string) => {
       passage = passage.replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
       const necessaryEdits = passage.match(/{\+[^-]+-[^|]+\|[^}]*}/g)
       const necessaryEditRegex = /\+[^-]+-[^|]+\|[^}]*/
@@ -208,22 +193,22 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return {passage: passageArray.filter(Boolean), necessaryEdits}
     }
 
-    saveToLMS() {
-      const { firebaseSessionID } = this.state
+    saveToLMS = () => {
+      const { firebaseSessionID, conceptResultsObjects, } = this.state
       const sessionID = getParameterByName('student', window.location.href)
-      const results: ConceptResultObject[]|undefined = this.state.conceptResultsObjects;
+      const results: ConceptResultObject[]|undefined = conceptResultsObjects;
       if (results) {
         const score = this.calculateScoreForLesson();
         const activityUID = getParameterByName('uid', window.location.href)
         if (sessionID) {
-          this.finishActivitySession(sessionID, results, score);
+          this.handleCheckWorkClickSession(sessionID, results, score);
         } else if (activityUID) {
           this.createAnonActivitySession(activityUID, results, score, firebaseSessionID);
         }
       }
     }
 
-    calculateScoreForLesson() {
+    calculateScoreForLesson = () => {
       const { numberOfCorrectChanges, necessaryEdits } = this.state
       if (numberOfCorrectChanges && necessaryEdits && necessaryEdits.length) {
         return numberOfCorrectChanges / necessaryEdits.length
@@ -232,7 +217,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    finishActivitySession(sessionID: string, results: ConceptResultObject[], score: number) {
+    handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number) => {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
@@ -252,7 +237,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    createAnonActivitySession(lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null) {
+    createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null) => {
       request(
         { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
           method: 'POST',
@@ -273,9 +258,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       );
     }
 
-    checkWork(): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]} {
-      const { passage} = this.props.session
-      const { currentActivity } = this.props.proofreaderActivities
+    checkWork = (): { reviewablePassage: string, numberOfCorrectChanges: number, conceptResultsObjects: ConceptResultObject[]} => {
+      const { session, proofreaderActivities, } = this.props
+      const { passage} = session
+      const { currentActivity } = proofreaderActivities
       const { necessaryEdits, } = this.state
       let numberOfCorrectChanges = 0
       const conceptResultsObjects: ConceptResultObject[] = []
@@ -333,7 +319,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    finishActivity() {
+    handleCheckWorkClick = () => {
       const { edits, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (necessaryEdits && necessaryEdits.length && edits === 0 || edits < requiredEditCount) {
@@ -344,12 +330,12 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    finishReview() {
-      const { firebaseSessionID, } = this.state
+    finishReview = () => {
+      const { firebaseSessionID, originalPassage, conceptResultsObjects, necessaryEdits, numberOfCorrectChanges, } = this.state
+      const { admin, dispatch, } = this.props
       const activityUID = getParameterByName('uid', window.location.href)
-      const { conceptResultsObjects, necessaryEdits, numberOfCorrectChanges } = this.state
-      const newPassage = _.cloneDeep(this.state.originalPassage)
-      if (this.props.admin) {
+      const newPassage = _.cloneDeep(originalPassage)
+      if (admin) {
         this.setState({
           edits: 0,
           reviewing: false,
@@ -359,7 +345,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           reviewablePassage: undefined,
           conceptResultsObjects: undefined
         })
-        this.props.dispatch(setPassage(newPassage))
+        dispatch(setPassage(newPassage))
       } else if (conceptResultsObjects && activityUID) {
         if (necessaryEdits && (necessaryEdits.length === numberOfCorrectChanges)) {
           this.saveToLMS()
@@ -369,16 +355,17 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    handleParagraphChange(value: Array<any>, i: number) {
-      let newParagraphs = this.props.session.passage
+    onParagraphChange = (value: Array<any>, i: number) => {
+      const { session, dispatch, } = this.props
+      let newParagraphs = session.passage
       if (newParagraphs) {
         newParagraphs[i] = value
-        this.props.dispatch(setPassage(newParagraphs))
+        dispatch(setPassage(newParagraphs))
         this.setState({ edits: this.editCount(newParagraphs), })
       }
     }
 
-    editCount(paragraphs: Array<Array<any>>) {
+    editCount = (paragraphs: Array<Array<any>>) => {
       let editCount = 0
       paragraphs.forEach((p: Array<any>) => {
         const changedWords = p.filter(word => word.currentText !== word.originalText)
@@ -387,25 +374,27 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       return editCount
     }
 
-    openResetModal() {
+    handleResetClick = () => {
       this.setState({ showResetModal: true })
     }
 
-    closeResetModal() {
+    closeResetModal = () => {
       this.setState({ showResetModal: false })
     }
 
-    closeEarlySubmitModal() {
+    closeEarlySubmitModal = () => {
       this.setState({ showEarlySubmitModal: false })
     }
 
-    closeReviewModal() {
+    closeReviewModal = () => {
       this.setState({ showReviewModal: false, reviewing: true })
     }
 
-    reset() {
-      const newPassage = _.cloneDeep(this.state.originalPassage)
-      this.props.dispatch(setPassage(newPassage))
+    reset = () => {
+      const { dispatch, } = this.props
+      const { originalPassage, } = this.state
+      const newPassage = _.cloneDeep(originalPassage)
+      dispatch(setPassage(newPassage))
       this.setState({
         edits: 0,
         resetting: true,
@@ -413,11 +402,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       })
     }
 
-    finishReset() {
+    finishReset = () => {
       this.setState({ resetting: false} )
     }
 
-    renderShowEarlySubmitModal(): JSX.Element|void {
+    renderShowEarlySubmitModal = (): JSX.Element|void => {
       const { showEarlySubmitModal, necessaryEdits } = this.state
       const requiredEditCount = necessaryEdits && necessaryEdits.length ? Math.floor(necessaryEdits.length / 2) : 5
       if (showEarlySubmitModal) {
@@ -428,7 +417,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderShowResetModal(): JSX.Element|void {
+    renderShowResetModal = (): JSX.Element|void => {
       const { showResetModal, } = this.state
       if (showResetModal) {
         return (<ResetModal
@@ -438,7 +427,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderShowReviewModal(): JSX.Element|void {
+    renderShowReviewModal = (): JSX.Element|void => {
       const { showReviewModal, necessaryEdits, numberOfCorrectChanges } = this.state
       const numberOfErrors = necessaryEdits && necessaryEdits.length ? necessaryEdits.length : 0
       if (showReviewModal) {
@@ -450,14 +439,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderPassage(): JSX.Element|void {
-      const { passage } = this.props.session
+    renderPassage = (): JSX.Element|void => {
+      const { session, proofreaderActivities, concepts, } = this.props
+      const { passage } = session
       const { reviewing, reviewablePassage, resetting } = this.state
-      const { underlineErrorsInProofreader } = this.props.proofreaderActivities.currentActivity
+      const { underlineErrorsInProofreader } = proofreaderActivities.currentActivity
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
         return (<PassageReviewer
-          concepts={this.props.concepts.data[0]}
+          concepts={concepts.data[0]}
           finishReview={this.finishReview}
           text={text}
         />)
@@ -465,7 +455,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const paragraphs = passage.map((p, i) => {
           return (<Paragraph
             finishReset={this.finishReset}
-            handleParagraphChange={this.handleParagraphChange}
+            handleParagraphChange={this.onParagraphChange}
             index={i}
             key={i}
             resetting={resetting}
@@ -477,32 +467,34 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    renderCheckWorkButton(): JSX.Element|void {
-      if (!this.state.reviewing) {
-        return <button className="check-work" onClick={this.finishActivity}>Check Work</button>
+    renderCheckWorkButton = (): JSX.Element|void => {
+      const { reviewing, } = this.state
+      if (!reviewing) {
+        return <button className="check-work" onClick={this.handleCheckWorkClick} type="button">Check Work</button>
       }
     }
 
-    renderResetButton(): JSX.Element|void {
+    renderResetButton = (): JSX.Element|void => {
       const { reviewing, edits, } = this.state
       if (!reviewing) {
         if (edits) {
-          return <button className="reset-button" onClick={this.openResetModal}><img src={refreshIconSrc} /> Reset</button>
+          return <button className="reset-button" onClick={this.handleResetClick} type="button"><img src={refreshIconSrc} /> Reset</button>
         } else {
-          return <button className="reset-button disabled"><img src={refreshIconSrc} /> Reset</button>
+          return <button className="reset-button disabled" type="button"><img src={refreshIconSrc} /> Reset</button>
         }
       }
     }
 
     render(): JSX.Element {
+      const { proofreaderActivities, session, } = this.props
       const { edits, necessaryEdits} = this.state
-      const { currentActivity } = this.props.proofreaderActivities
-      const numberOfCorrectEdits = necessaryEdits ? necessaryEdits.length : 0
+      const { currentActivity } = proofreaderActivities
       if (currentActivity) {
         const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
         const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
         const meterWidth = edits / necessaryEditsLength * 100
         return (<div className="passage-container">
+          <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
           <div className="header-section">
             <div className="inner-header">
               <h1>{currentActivity.title}</h1>
@@ -510,15 +502,6 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 <div>
                   <img src={questionIconSrc} />
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
-                </div>
-                <div className="edits-made">
-                  <p>Edits Made: {edits} of {numberOfCorrectEdits}</p>
-                  <div className="progress-bar-indication">
-                    <span
-                      className="meter"
-                      style={{width: `${meterWidth}%`}}
-                    />
-                  </div>
                 </div>
               </div>
             </div>
@@ -534,9 +517,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             {this.renderCheckWorkButton()}
           </div>
         </div>)
-      } else if (this.props.session.error) {
+      } else if (session.error) {
         return (
-          <div>{this.props.session.error}</div>
+          <div>{session.error}</div>
         );
       } else {
         return <LoadingSpinner />

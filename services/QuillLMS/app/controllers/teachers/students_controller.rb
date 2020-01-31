@@ -80,7 +80,7 @@ class Teachers::StudentsController < ApplicationController
     render json: {}
   end
 
-protected
+  protected
 
   # TODO: this is copied from Teachers::ClassroomsController#authorize!
   #       consider absracting using inheritance e.g. Teachers::BaseClassroomController

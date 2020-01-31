@@ -38,12 +38,14 @@ exports[`SetupInstructions component if there are no students should render Setu
   >
     <button
       className="quill-button secondary outlined medium"
+      type="button"
     >
       Back
     </button>
     <button
       className="quill-button primary contained medium"
       onClick={[Function]}
+      type="button"
     >
       Done
     </button>
@@ -89,12 +91,14 @@ exports[`SetupInstructions component if there are students should render SetupIn
   >
     <button
       className="quill-button secondary outlined medium"
+      type="button"
     >
       Back
     </button>
     <button
       className="quill-button primary contained medium"
       onClick={[Function]}
+      type="button"
     >
       Done
     </button>

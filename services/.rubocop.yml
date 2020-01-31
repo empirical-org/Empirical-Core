@@ -301,11 +301,11 @@ Style/UnlessElse:
 Layout/EndAlignment:
   Enabled: false
 
-FloatDivision:
-  Enabled: false
+Style/FloatDivision:
+  Enabled: true
 
-RescuedExceptionsVariableName:
-  Enabled: false
+Naming/RescuedExceptionsVariableName:
+  Enabled: true
 
 Lint/SuppressedException:
   Enabled: true
@@ -383,4 +383,25 @@ Style/FormatStringToken:
     - 'QuillLMS/config/routes.rb'
 
 Style/Proc:
+  Enabled: true
+
+Layout/SpaceAfterColon:
+  Enabled: true
+
+Style/ParenthesesAroundCondition:
+  Enabled: true
+
+Style/RedundantInterpolation:
+  Enabled: true
+  Exclude:
+  - 'QuillLMS/config/routes.rb'
+  - 'QuillLMS/spec/cypress/app_commands/factory_bot.rb'
+
+Layout/AccessModifierIndentation:
+  Enabled: true
+
+Lint/Void:
+  Enabled: true
+
+Layout/SpaceInsideArrayLiteralBrackets:
   Enabled: true

@@ -355,9 +355,11 @@ jobs:
     docker:
       - image: circleci/python:3.7.4
         environment:
-          PG_DB: quill_comprehension_api_db
+          PG_HOST: "localhost"
+          PG_NAME: quill_comprehension_api_db
           PG_USER: ubuntu
           PG_PASS: ""
+          PG_PORT: "5432"
           DJANGO_SETTINGS_MODULE: "mysite.settings.circle"
       - image: postgres:10.5-alpine
         environment:
@@ -425,12 +427,10 @@ jobs:
       - run:
           name: Pip Install
           command: |
-            cd services/comprehension/main-api
             pip install --user flake8
       - run:
           name: Run Flake8
           command: |
-            cd services/comprehension/main-api
             flake8
 workflows:
   version: 2
