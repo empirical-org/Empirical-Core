@@ -11,7 +11,7 @@ import getResponse from '../renderForQuestions/checkAnswer';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
-import { Error, Response } from 'quill-component-library/dist/componentLibrary';
+import { Response } from 'quill-component-library/dist/componentLibrary';
 
 const C = require('../../constants').default;
 
@@ -194,18 +194,23 @@ class PlayDiagnosticQuestion extends React.Component {
     nextQuestion();
   }
 
-  renderNextQuestionButton(correct) {
-    if (correct) {
-      return (<button className="button is-outlined is-success" onClick={this.handleNextClick} type="button">Next</button>);
-    }
-    return (<button className="button is-outlined is-warning" onClick={this.handleNextClick} type="button">Next</button>);
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedback={<p>{error}</p>}
+        feedbackType="revise-unmatched"
+      />
+    </div>)
   }
 
   render() {
     const { question, } = this.props
     const { responses, error, response } = this.state
     const questionID = question.key;
-    const button = responses ? <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button> : <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">Submit</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (
@@ -231,11 +236,9 @@ class PlayDiagnosticQuestion extends React.Component {
               placeholder="Type your answer here."
               value={response}
             />
-            <div className="button-and-error-row">
-              <Error error={error} />
-              <div className="question-button-group button-group">
-                {button}
-              </div>
+            {this.renderError()}
+            <div className="question-button-group button-group">
+              {button}
             </div>
           </ReactTransition>
         </div>

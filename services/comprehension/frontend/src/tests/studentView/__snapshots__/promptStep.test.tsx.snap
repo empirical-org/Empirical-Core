@@ -25,6 +25,9 @@ exports[`PromptStep component active state before any responses have been submit
   <div
     className="step active"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"
@@ -57,13 +60,9 @@ exports[`PromptStep component active state before any responses have been submit
           handleTextChange={[Function]}
           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
           innerRef={[Function]}
+          promptText="Governments should make voting compulsory because"
           resetText={[Function]}
           stripHtml={[Function]}
-          unsubmittableResponses={
-            Array [
-              "Governments should make voting compulsory because",
-            ]
-          }
         >
           <div
             className="editor-container"
@@ -104,10 +103,13 @@ exports[`PromptStep component active state before any responses have been submit
           </div>
         </EditorContainer>
         <button
-          className="disabled"
+          className="quill-button disabled"
           onClick={[Function]}
+          type="button"
         >
-          Get feedback
+          <span>
+            Get feedback
+          </span>
         </button>
       </div>
     </div>
@@ -140,6 +142,9 @@ exports[`PromptStep component active state before any responses have been submit
   <div
     className="step active"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"
@@ -172,13 +177,9 @@ exports[`PromptStep component active state before any responses have been submit
           handleTextChange={[Function]}
           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
           innerRef={[Function]}
+          promptText="Governments should make voting compulsory because"
           resetText={[Function]}
           stripHtml={[Function]}
-          unsubmittableResponses={
-            Array [
-              "Governments should make voting compulsory because",
-            ]
-          }
         >
           <div
             className="editor-container"
@@ -219,10 +220,13 @@ exports[`PromptStep component active state before any responses have been submit
           </div>
         </EditorContainer>
         <button
-          className="disabled"
+          className="quill-button disabled"
           onClick={[Function]}
+          type="button"
         >
-          Get feedback
+          <span>
+            Get feedback
+          </span>
         </button>
       </div>
     </div>
@@ -265,6 +269,9 @@ exports[`PromptStep component active state when a suboptimal response has been s
   <div
     className="step active"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"
@@ -297,14 +304,9 @@ exports[`PromptStep component active state when a suboptimal response has been s
           handleTextChange={[Function]}
           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
           innerRef={[Function]}
+          promptText="Governments should make voting compulsory because"
           resetText={[Function]}
           stripHtml={[Function]}
-          unsubmittableResponses={
-            Array [
-              "Governments should make voting compulsory so that more voices are heard in elections.",
-              "Governments should make voting compulsory because",
-            ]
-          }
         >
           <div
             className="editor-container"
@@ -345,72 +347,119 @@ exports[`PromptStep component active state when a suboptimal response has been s
           </div>
         </EditorContainer>
         <button
-          className="disabled"
+          className="quill-button disabled"
           onClick={[Function]}
+          type="button"
         >
-          Get new feedback
-        </button>
-        <div
-          className="feedback-section"
-        >
-          <p
-            className="feedback-section-header"
-          >
-            Feedback
-            <span>
-              1
-               of 
-              5
-               attempts
-            </span>
-          </p>
-          <ReactCSSTransitionReplace
-            changeWidth={false}
-            childComponent="span"
-            component="div"
-            notifyLeaving={false}
-            overflowHidden={true}
-            transitionAppear={true}
-            transitionAppearTimeout={400}
-            transitionEnter={true}
-            transitionEnterTimeout={1000}
-            transitionLeave={true}
-            transitionLeaveTimeout={400}
-            transitionName="fade"
-          >
-            <div
-              style={Object {}}
+          <ButtonLoadingSpinner>
+            <span
+              className="button-loading-spinner-container"
             >
-              <span
-                key="1"
-                style={null}
-              >
-                <CSSTransitionGroupChild
-                  appear={true}
-                  appearTimeout={400}
-                  enter={true}
-                  enterTimeout={1000}
-                  leave={true}
-                  leaveTimeout={400}
-                  name="fade"
-                >
-                  <div
-                    className="feedback"
-                    key="1"
-                  >
-                    <img
-                      alt="Arrows pointing in opposite directions, making a loop"
-                      src="undefined/images/icons/loop.svg"
-                    />
-                    <p>
-                      Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?
-                    </p>
-                  </div>
-                </CSSTransitionGroupChild>
+              <img
+                alt="spinning circle to indicate loading"
+                className="button-loading-spinner"
+                src="undefined/images/shared/assigner_still_gray.png"
+              />
+            </span>
+          </ButtonLoadingSpinner>
+          <span>
+            Get new feedback
+          </span>
+        </button>
+        <Feedback
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+              "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "response_id": 1,
+            }
+          }
+          prompt={
+            Object {
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
+              Object {
+                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+                "response_id": 1,
+              },
+            ]
+          }
+        >
+          <div
+            className="feedback-section"
+          >
+            <p
+              className="feedback-section-header"
+            >
+              Feedback
+              <span>
+                1
+                 of 
+                5
+                 attempts
               </span>
-            </div>
-          </ReactCSSTransitionReplace>
-        </div>
+            </p>
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={true}
+              transitionAppearTimeout={400}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
+            >
+              <div
+                style={Object {}}
+              >
+                <span
+                  key="1"
+                  style={null}
+                >
+                  <CSSTransitionGroupChild
+                    appear={true}
+                    appearTimeout={400}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
+                  >
+                    <div
+                      className="feedback"
+                      key="1"
+                    >
+                      <img
+                        alt="Arrows pointing in opposite directions, making a loop"
+                        src="undefined/images/icons/loop.svg"
+                      />
+                      <p>
+                        Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?
+                      </p>
+                    </div>
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -452,6 +501,9 @@ exports[`PromptStep component active state when an optimal response has been sub
   <div
     className="step active"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"
@@ -484,14 +536,9 @@ exports[`PromptStep component active state when an optimal response has been sub
           handleTextChange={[Function]}
           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
           innerRef={[Function]}
+          promptText="Governments should make voting compulsory because"
           resetText={[Function]}
           stripHtml={[Function]}
-          unsubmittableResponses={
-            Array [
-              "Governments should make voting compulsory so that the elected government represents the majority of the population.",
-              "Governments should make voting compulsory because",
-            ]
-          }
         >
           <div
             className="editor-container"
@@ -526,72 +573,119 @@ exports[`PromptStep component active state when an optimal response has been sub
           </div>
         </EditorContainer>
         <button
-          className=""
+          className="quill-button"
           onClick={[Function]}
+          type="button"
         >
-          Start next sentence
-        </button>
-        <div
-          className="feedback-section"
-        >
-          <p
-            className="feedback-section-header"
-          >
-            Feedback
-            <span>
-              1
-               of 
-              5
-               attempts
-            </span>
-          </p>
-          <ReactCSSTransitionReplace
-            changeWidth={false}
-            childComponent="span"
-            component="div"
-            notifyLeaving={false}
-            overflowHidden={true}
-            transitionAppear={true}
-            transitionAppearTimeout={400}
-            transitionEnter={true}
-            transitionEnterTimeout={1000}
-            transitionLeave={true}
-            transitionLeaveTimeout={400}
-            transitionName="fade"
-          >
-            <div
-              style={Object {}}
+          <ButtonLoadingSpinner>
+            <span
+              className="button-loading-spinner-container"
             >
-              <span
-                key="1"
-                style={null}
-              >
-                <CSSTransitionGroupChild
-                  appear={true}
-                  appearTimeout={400}
-                  enter={true}
-                  enterTimeout={1000}
-                  leave={true}
-                  leaveTimeout={400}
-                  name="fade"
-                >
-                  <div
-                    className="feedback optimal"
-                    key="2"
-                  >
-                    <img
-                      alt="Small green circle with a check in it"
-                      src="undefined/images/icons/check-circle-small.svg"
-                    />
-                    <p>
-                      That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.
-                    </p>
-                  </div>
-                </CSSTransitionGroupChild>
+              <img
+                alt="spinning circle to indicate loading"
+                className="button-loading-spinner"
+                src="undefined/images/shared/assigner_still_gray.png"
+              />
+            </span>
+          </ButtonLoadingSpinner>
+          <span>
+            Start next sentence
+          </span>
+        </button>
+        <Feedback
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+              "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+              "feedback_type": "semantic",
+              "optimal": true,
+              "response_id": 2,
+            }
+          }
+          prompt={
+            Object {
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
+              Object {
+                "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                "feedback_type": "semantic",
+                "optimal": true,
+                "response_id": 2,
+              },
+            ]
+          }
+        >
+          <div
+            className="feedback-section"
+          >
+            <p
+              className="feedback-section-header"
+            >
+              Feedback
+              <span>
+                1
+                 of 
+                5
+                 attempts
               </span>
-            </div>
-          </ReactCSSTransitionReplace>
-        </div>
+            </p>
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={true}
+              transitionAppearTimeout={400}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
+            >
+              <div
+                style={Object {}}
+              >
+                <span
+                  key="1"
+                  style={null}
+                >
+                  <CSSTransitionGroupChild
+                    appear={true}
+                    appearTimeout={400}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
+                  >
+                    <div
+                      className="feedback optimal"
+                      key="1"
+                    >
+                      <img
+                        alt="Small green circle with a check in it"
+                        src="undefined/images/icons/check-circle-small.svg"
+                      />
+                      <p>
+                        That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.
+                      </p>
+                    </div>
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -661,6 +755,9 @@ exports[`PromptStep component active state when the max attempts have been reach
   <div
     className="step active"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"
@@ -693,18 +790,9 @@ exports[`PromptStep component active state when the max attempts have been reach
           handleTextChange={[Function]}
           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
           innerRef={[Function]}
+          promptText="Governments should make voting compulsory because"
           resetText={[Function]}
           stripHtml={[Function]}
-          unsubmittableResponses={
-            Array [
-              "Governments should make voting compulsory so that more voices are heard in elections.",
-              "Governments should make voting compulsory so that more voices are heard in elections.",
-              "Governments should make voting compulsory so that more voices are heard in elections.",
-              "Governments should make voting compulsory so that more voices are heard in elections.",
-              "Governments should make voting compulsory so that more voices are heard in elections.",
-              "Governments should make voting compulsory because",
-            ]
-          }
         >
           <div
             className="editor-container"
@@ -739,74 +827,149 @@ exports[`PromptStep component active state when the max attempts have been reach
           </div>
         </EditorContainer>
         <button
-          className=""
+          className="quill-button"
           onClick={[Function]}
+          type="button"
         >
-          Start next sentence
-        </button>
-        <div
-          className="feedback-section"
-        >
-          <p
-            className="feedback-section-header"
-          >
-            Feedback
-            <span>
-              5
-               of 
-              5
-               attempts
-            </span>
-          </p>
-          <ReactCSSTransitionReplace
-            changeWidth={false}
-            childComponent="span"
-            component="div"
-            notifyLeaving={false}
-            overflowHidden={true}
-            transitionAppear={true}
-            transitionAppearTimeout={400}
-            transitionEnter={true}
-            transitionEnterTimeout={1000}
-            transitionLeave={true}
-            transitionLeaveTimeout={400}
-            transitionName="fade"
-          >
-            <div
-              style={Object {}}
+          <ButtonLoadingSpinner>
+            <span
+              className="button-loading-spinner-container"
             >
-              <span
-                key="1"
-                style={null}
+              <img
+                alt="spinning circle to indicate loading"
+                className="button-loading-spinner"
+                src="undefined/images/shared/assigner_still_gray.png"
+              />
+            </span>
+          </ButtonLoadingSpinner>
+          <span>
+            Start next sentence
+          </span>
+        </button>
+        <Feedback
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+              "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+              "feedback_type": "semantic",
+              "optimal": false,
+              "response_id": 1,
+            }
+          }
+          prompt={
+            Object {
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
+              Object {
+                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+                "response_id": 1,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+                "response_id": 1,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+                "response_id": 1,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+                "response_id": 1,
+              },
+              Object {
+                "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
+                "feedback": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                "feedback_type": "semantic",
+                "optimal": false,
+                "response_id": 1,
+              },
+            ]
+          }
+        >
+          <div
+            className="feedback-section"
+          >
+            <p
+              className="feedback-section-header"
+            >
+              Feedback
+              <span>
+                5
+                 of 
+                5
+                 attempts
+              </span>
+            </p>
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={true}
+              transitionAppearTimeout={400}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
+            >
+              <div
+                style={Object {}}
               >
-                <CSSTransitionGroupChild
-                  appear={true}
-                  appearTimeout={400}
-                  enter={true}
-                  enterTimeout={1000}
-                  leave={true}
-                  leaveTimeout={400}
-                  name="fade"
+                <span
+                  key="1"
+                  style={null}
                 >
-                  <div
-                    className="feedback"
-                    key="1"
+                  <CSSTransitionGroupChild
+                    appear={true}
+                    appearTimeout={400}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
                   >
-                    <img
-                      alt="Arrows pointing in opposite directions, making a loop"
-                      src="undefined/images/icons/loop.svg"
-                    />
-                    <p>
-                      Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                    <div
+                      className="feedback"
+                      key="5"
+                    >
+                      <img
+                        alt="Arrows pointing in opposite directions, making a loop"
+                        src="undefined/images/icons/loop.svg"
+                      />
+                      <p>
+                        Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory because otherwise not everyone will vote.
-                    </p>
-                  </div>
-                </CSSTransitionGroupChild>
-              </span>
-            </div>
-          </ReactCSSTransitionReplace>
-        </div>
+                      </p>
+                    </div>
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -848,6 +1011,9 @@ exports[`PromptStep component active state when the max attempts have been reach
   <div
     className="step active"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"
@@ -880,14 +1046,9 @@ exports[`PromptStep component active state when the max attempts have been reach
           handleTextChange={[Function]}
           html="<p>Governments should make voting compulsory <u>because</u>&nbsp;</p>"
           innerRef={[Function]}
+          promptText="Governments should make voting compulsory because"
           resetText={[Function]}
           stripHtml={[Function]}
-          unsubmittableResponses={
-            Array [
-              "Governments should make voting compulsory so that the elected government represents the majority of the population.",
-              "Governments should make voting compulsory because",
-            ]
-          }
         >
           <div
             className="editor-container"
@@ -922,72 +1083,119 @@ exports[`PromptStep component active state when the max attempts have been reach
           </div>
         </EditorContainer>
         <button
-          className=""
+          className="quill-button"
           onClick={[Function]}
+          type="button"
         >
-          Done
-        </button>
-        <div
-          className="feedback-section"
-        >
-          <p
-            className="feedback-section-header"
-          >
-            Feedback
-            <span>
-              1
-               of 
-              5
-               attempts
-            </span>
-          </p>
-          <ReactCSSTransitionReplace
-            changeWidth={false}
-            childComponent="span"
-            component="div"
-            notifyLeaving={false}
-            overflowHidden={true}
-            transitionAppear={true}
-            transitionAppearTimeout={400}
-            transitionEnter={true}
-            transitionEnterTimeout={1000}
-            transitionLeave={true}
-            transitionLeaveTimeout={400}
-            transitionName="fade"
-          >
-            <div
-              style={Object {}}
+          <ButtonLoadingSpinner>
+            <span
+              className="button-loading-spinner-container"
             >
-              <span
-                key="1"
-                style={null}
-              >
-                <CSSTransitionGroupChild
-                  appear={true}
-                  appearTimeout={400}
-                  enter={true}
-                  enterTimeout={1000}
-                  leave={true}
-                  leaveTimeout={400}
-                  name="fade"
-                >
-                  <div
-                    className="feedback optimal"
-                    key="2"
-                  >
-                    <img
-                      alt="Small green circle with a check in it"
-                      src="undefined/images/icons/check-circle-small.svg"
-                    />
-                    <p>
-                      That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.
-                    </p>
-                  </div>
-                </CSSTransitionGroupChild>
+              <img
+                alt="spinning circle to indicate loading"
+                className="button-loading-spinner"
+                src="undefined/images/shared/assigner_still_gray.png"
+              />
+            </span>
+          </ButtonLoadingSpinner>
+          <span>
+            Done
+          </span>
+        </button>
+        <Feedback
+          lastSubmittedResponse={
+            Object {
+              "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+              "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+              "feedback_type": "semantic",
+              "optimal": true,
+              "response_id": 2,
+            }
+          }
+          prompt={
+            Object {
+              "max_attempts": 5,
+              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+              "prompt_id": 1,
+              "text": "Governments should make voting compulsory because",
+            }
+          }
+          submittedResponses={
+            Array [
+              Object {
+                "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
+                "feedback": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                "feedback_type": "semantic",
+                "optimal": true,
+                "response_id": 2,
+              },
+            ]
+          }
+        >
+          <div
+            className="feedback-section"
+          >
+            <p
+              className="feedback-section-header"
+            >
+              Feedback
+              <span>
+                1
+                 of 
+                5
+                 attempts
               </span>
-            </div>
-          </ReactCSSTransitionReplace>
-        </div>
+            </p>
+            <ReactCSSTransitionReplace
+              changeWidth={false}
+              childComponent="span"
+              component="div"
+              notifyLeaving={false}
+              overflowHidden={true}
+              transitionAppear={true}
+              transitionAppearTimeout={400}
+              transitionEnter={true}
+              transitionEnterTimeout={1000}
+              transitionLeave={true}
+              transitionLeaveTimeout={400}
+              transitionName="fade"
+            >
+              <div
+                style={Object {}}
+              >
+                <span
+                  key="1"
+                  style={null}
+                >
+                  <CSSTransitionGroupChild
+                    appear={true}
+                    appearTimeout={400}
+                    enter={true}
+                    enterTimeout={1000}
+                    leave={true}
+                    leaveTimeout={400}
+                    name="fade"
+                  >
+                    <div
+                      className="feedback optimal"
+                      key="1"
+                    >
+                      <img
+                        alt="Small green circle with a check in it"
+                        src="undefined/images/icons/check-circle-small.svg"
+                      />
+                      <p>
+                        That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.
+                      </p>
+                    </div>
+                  </CSSTransitionGroupChild>
+                </span>
+              </div>
+            </ReactCSSTransitionReplace>
+          </div>
+        </Feedback>
       </div>
     </div>
   </div>
@@ -1019,6 +1227,9 @@ exports[`PromptStep component inactive state renders 1`] = `
   <div
     className="step"
     onClick={[Function]}
+    onKeyDown={[Function]}
+    role="button"
+    tabIndex={0}
   >
     <div
       className="step-content"

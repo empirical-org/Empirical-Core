@@ -6,18 +6,20 @@ import os
 
 load_dotenv()
 
+
 def response_endpoint(request):
     request_json = request.get_json()
 
     entry = request_json.get('entry')
     prompt_id = request_json.get('prompt_id')
 
-    if entry == None or prompt_id == None:
+    if entry is None or prompt_id is None:
         return make_response(jsonify(message="error"), 400)
 
     bing_result = get_bing_api_response(entry)
     if bing_result.get('error'):
-        return make_response(jsonify(message=bing_result.get('error').get('message')), 400)
+        message = bing_result.get('error').get('message')
+        return make_response(jsonify(message=message), 400)
 
     response_data = {
         'feedback_type': 'spelling',
@@ -39,7 +41,9 @@ def response_endpoint(request):
 
 
 def get_bing_api_response(entry):
-    headers = {"Ocp-Apim-Subscription-Key": os.getenv('OCP-APIM-SUBSCRIPTION-KEY')}
+    headers = {
+        "Ocp-Apim-Subscription-Key": os.getenv('OCP-APIM-SUBSCRIPTION-KEY')
+    }
     params = {"text": entry, "mode": "proof"}
     response = requests.get(
       "https://api.cognitive.microsoft.com/bing/v7.0/SpellCheck",
@@ -47,10 +51,10 @@ def get_bing_api_response(entry):
       headers=headers)
     return response.json()
 
+
 def get_misspelled_highlight_list(misspelled_flagged):
     return list(map(lambda entry: {
         'type': 'response',
         'id': None,
         'text': entry.get('token'),
     }, misspelled_flagged))
-

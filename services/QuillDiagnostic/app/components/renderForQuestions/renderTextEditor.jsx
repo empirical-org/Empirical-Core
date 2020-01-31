@@ -120,7 +120,7 @@ export default class RenderTextEditor extends React.Component {
   render() {
     const { hasError, disabled, value, spellCheck, placeholder, } = this.props
     return (
-      <div className={`student text-editor card is-fullwidth ${hasError ? 'red-outline' : ''} ${disabled ? 'disabled-editor' : ''}`}>
+      <div className={`student text-editor card is-fullwidth ${hasError ? 'error' : ''} ${disabled ? 'disabled-editor' : ''}`}>
         <div className="card-content">
           <div className="content">
             <Textarea

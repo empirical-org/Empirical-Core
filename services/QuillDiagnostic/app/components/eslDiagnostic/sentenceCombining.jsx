@@ -219,19 +219,31 @@ class ELLSentenceCombining extends React.Component {
     return text;
   }
 
+  renderError = () => {
+    const { error, } = this.state
+    if (!error) { return }
+
+    return (<div className="error-container">
+      <Feedback
+        feedback={<p>{error}</p>}
+        feedbackType="revise-unmatched"
+      />
+    </div>)
+  }
+
   render = () => {
     const { language, questions, question, } = this.props
     const { responses, error, response, } = this.state
     let button;
-    const fullPageInstructions = language === 'arabic' ? { maxWidth: 800, width: '100%', } : { display: 'block', };
+    const fullPageInstructions = { maxWidth: 800, width: '100%', }
     if (responses && Object.keys(responses).length) {
       if (question.attempts.length > 0) {
-        button = <button className="quill-button large primary contained" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
+        button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
       } else {
-        button = <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
+        button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
       }
     } else {
-      button = <button className="quill-button large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
     }
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
@@ -261,11 +273,9 @@ class ELLSentenceCombining extends React.Component {
               placeholder="Type your answer here."
               value={response}
             />
-            <div className="button-and-error-row">
-              <Error error={error} />
-              <div className="question-button-group button-group">
-                {button}
-              </div>
+            {this.renderError()}
+            <div className="question-button-group button-group">
+              {button}
             </div>
           </ReactTransition>
         </div>

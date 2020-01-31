@@ -105,8 +105,8 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
-        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
       </div>
     );
   }
@@ -183,9 +183,9 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     let button
     if (responses) {
-      button = <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
     } else {
-      button = <button className="quill-button large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
     }
 
     if (!this.choosingSentenceOrFragment()) {

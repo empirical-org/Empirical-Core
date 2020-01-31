@@ -25,7 +25,7 @@ import {
 
 const request = require('request');
 
-class Lesson extends React.Component {
+export class Lesson extends React.Component {
   constructor(props) {
     super(props)
 
@@ -255,6 +255,7 @@ class Lesson extends React.Component {
       answeredQuestionCount={displayedAnsweredQuestionCount}
       percent={getProgressPercent(playLesson)}
       questionCount={questionCount(playLesson)}
+      thingsCompleted='sentences'
     />)
   }
 

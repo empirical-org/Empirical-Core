@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import LanguageSelector from './languageSelector.jsx';
 
 const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
@@ -12,16 +11,16 @@ const handleSaveAndExitClick = () => {
 }
 
 const renderLinks = () => (
-  <div className='nav-right'>
-    <a activeClassName="is-active" className="nav-item" key="a-tag-student-navabar" onClick={handleSaveAndExitClick}>Save and exit</a>
+  <div className="student-nav-section">
+    <a activeClassName="is-active" className="student-nav-item focus-on-dark" key="a-tag-student-navabar" onClick={handleSaveAndExitClick} tabIndex="0">Save and exit</a>
   </div>
-)
+);
 
 const Navbar = () => (
   <header className='nav student-nav'>
     <div className="container">
-      <div className="nav-left">
-        <a className="nav-item" href={`${process.env.EMPIRICAL_BASE_URL}`}>
+      <div className="student-nav-section">
+        <a aria-label="Quill" className="student-nav-item focus-on-dark" href={`${process.env.EMPIRICAL_BASE_URL}`} tabIndex="0">
           <img
             alt="Quill.org logo"
             src={quillLogoSrc}

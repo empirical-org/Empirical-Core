@@ -265,7 +265,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const zippedAnswer = this.zipInputsAndText();
       const questionUID = this.getQuestion().key
       const responsesArray = hashToCollection(responses)
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray)}
+      const caseInsensitive = this.getQuestion().caseInsensitive
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive)}
       this.updateResponseResource(response);
       submitResponse(response);
     }
@@ -317,16 +318,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses, } = this.state
     if (this.showNextQuestionButton()) {
       return (
-        <button className="quill-button large primary contained" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if (question && question.attempts ? question.attempts.length > 0 : false) {
-        return <button className="quill-button large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
       } else {
-        return <button className="quill-button large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+      <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
   }
 

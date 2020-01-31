@@ -9,7 +9,7 @@ from ..models.activity import Activity
 class ApiView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
-        super().dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 def index(request):
