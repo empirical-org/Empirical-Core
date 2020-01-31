@@ -5,7 +5,6 @@ import ConceptSelector from '../shared/conceptSelector'
 import TextEditor from '../shared/textEditor'
 import { ProofreaderActivity, Concepts, Concept } from '../../interfaces/proofreaderActivities'
 import { ConceptReducerState } from '../../reducers/conceptsReducer'
-import PassageCreator from './passageCreator'
 import EditGenerator from './editGenerator'
 
 interface LessonFormState {
@@ -50,11 +49,13 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
   submit() {
     const { title, description, flag, passage, underlineErrorsInProofreader, readingLevel } = this.state
+    const formattedPassage = passage.replace(/\n/g, '<br/>')
+
     this.props.submit({
       title,
       description,
       flag,
-      passage,
+      passage: formattedPassage,
       underlineErrorsInProofreader,
       readingLevel
     });
@@ -78,8 +79,8 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     this.setState({ description: e, });
   }
 
-  handlePassageChange(e: string) {
-    this.setState({ passage: e, });
+  handlePassageChange(e) {
+    this.setState({ passage: e.target.value, });
   }
   //
   render() {
@@ -140,7 +141,11 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         <EditGenerator />
         <p className="control">
           <label className="label">Passage</label>
-          <PassageCreator onChange={this.handlePassageChange} originalPassage={this.props.currentValues ? this.props.currentValues.passage : null} />
+          <textarea
+            onChange={this.handlePassageChange}
+            style={{minHeight: '100px', border: '1px solid black', padding: '10px', width: '100%'}}
+            value={this.state.passage}
+          />
         </p>
         <p className="control">
           <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
