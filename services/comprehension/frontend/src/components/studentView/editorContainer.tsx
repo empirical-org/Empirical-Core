@@ -5,7 +5,7 @@ const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
 
 interface EditorContainerProps {
   promptText: string;
-  stripHtml: (str: string) => string;
+  stripHtml: (input: string) => input;
   html: string;
   disabled: boolean;
   resetText: (event: any) => void;

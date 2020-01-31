@@ -9,8 +9,8 @@ from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.prompt import PromptFactory
 from ..mocks.google_auto_ml import generate_auto_ml_label_response_mock
 from ...models.ml_model import MLModel
-from ...views.feedback_ml_multi import MultiLabelMLFeedbackView
-from ...views.feedback_ml_single import SingleLabelMLFeedbackView
+from ...views.ml_feedback import MLFeedbackView
+from ...views.ml_feedback import FEEDBACK_TYPE
 from ...utils import construct_feedback_payload
 
 
@@ -44,13 +44,16 @@ class TestMLFeedbackView(TestCase):
                                     data=json.dumps(self.request_body),
                                     content_type='application/json')
 
-        response = SingleLabelMLFeedbackView().post(request)
+        response = MLFeedbackView(multi_label=False).post(request)
         json_body = json.loads(response.content)
 
         self.assertEqual(response.status_code, 200)
-        expected = construct_feedback_payload(self.fb_single.feedback,
-                                              'auto_ml_semantic',
-                                              self.fb_single.optimal)
+        expected = construct_feedback_payload(
+            self.fb_single.feedback,
+            FEEDBACK_TYPE,
+            self.fb_single.optimal,
+            labels=self.fb_single.combined_labels
+        )
 
         self.assertEqual(json_body, expected)
 
@@ -64,19 +67,22 @@ class TestMLFeedbackView(TestCase):
                                     content_type='application/json')
 
         with self.assertRaises(Http404):
-            SingleLabelMLFeedbackView.as_view()(request)
+            MLFeedbackView.as_view(multi_label=False)(request)
 
     def test_get_multi_label_ml_feedback(self):
         request = self.factory.post(reverse('get_multi_label_ml_feedback'),
                                     data=json.dumps(self.request_body),
                                     content_type='application/json')
 
-        response = MultiLabelMLFeedbackView().post(request)
+        response = MLFeedbackView(multi_label=True).post(request)
         json_body = json.loads(response.content)
 
-        expected = construct_feedback_payload(self.fb_multi.feedback,
-                                              'auto_ml_semantic',
-                                              self.fb_multi.optimal)
+        expected = construct_feedback_payload(
+            self.fb_multi.feedback,
+            FEEDBACK_TYPE,
+            self.fb_multi.optimal,
+            labels=self.fb_multi.combined_labels
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_body, expected)
@@ -91,4 +97,4 @@ class TestMLFeedbackView(TestCase):
                                     content_type='application/json')
 
         with self.assertRaises(Http404):
-            MultiLabelMLFeedbackView.as_view()(request)
+            MLFeedbackView.as_view(multi_label=True)(request)

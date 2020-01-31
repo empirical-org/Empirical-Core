@@ -93,11 +93,11 @@ describe('PromptStep component', () => {
         })
       })
 
-      describe('#handleTextChange', () => {
+      describe('#onTextChange', () => {
         describe('when the submission includes the prompt stem', () => {
           it('should update the state to match the new submission', () => {
             const submission = { target: { value: "<p>Governments should make voting compulsory <u>because</u>&nbsp;otherwise not everyone will vote.</p>" }}
-            wrapper.instance().handleTextChange(submission)
+            wrapper.instance().onTextChange(submission)
             expect(wrapper.state('html')).toBe(submission.target.value)
           })
         })
@@ -105,7 +105,7 @@ describe('PromptStep component', () => {
         describe('when the submission is <br> (e.g. the user deleted all the text)', () => {
           it('should update the state to be just the prompt stem', () => {
             const submission = { target: { value: "<br>" }}
-            wrapper.instance().handleTextChange(submission)
+            wrapper.instance().onTextChange(submission)
             expect(wrapper.state('html')).toBe(wrapper.instance().formattedPrompt())
           })
         })
@@ -114,7 +114,7 @@ describe('PromptStep component', () => {
           it('should not update the state', () => {
             const existingHtmlValue = wrapper.state('html')
             const submission = { target: { value: "<p>Governments should make voting c</p>" }}
-            wrapper.instance().handleTextChange(submission)
+            wrapper.instance().onTextChange(submission)
             expect(wrapper.state('html')).toBe(existingHtmlValue)
           })
         })

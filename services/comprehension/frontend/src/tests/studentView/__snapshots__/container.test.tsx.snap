@@ -61,55 +61,87 @@ But how can democracies have representative governments unless all or most of th
   }
 >
   <div
-    className="activity-container"
+    className="activity-container hide-focus-outline"
   >
     <div
       className="hide-on-desktop step-links"
     >
-      <div
-        className="step-link"
-        onClick={[Function]}
+      <StepLink
+        clickStepLink={[Function]}
+        index={1}
+        renderStepNumber={[Function]}
       >
-        <div
-          className="step-number active"
-          key="1"
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
         >
-          1
-        </div>
-      </div>
-      <div
-        className="step-link"
-        onClick={[Function]}
+          <div
+            className="step-number active"
+            key="1"
+          >
+            1
+          </div>
+        </button>
+      </StepLink>
+      <StepLink
+        clickStepLink={[Function]}
+        index={2}
+        renderStepNumber={[Function]}
       >
-        <div
-          className="step-number "
-          key="2"
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
         >
-          2
-        </div>
-      </div>
-      <div
-        className="step-link"
-        onClick={[Function]}
+          <div
+            className="step-number "
+            key="2"
+          >
+            2
+          </div>
+        </button>
+      </StepLink>
+      <StepLink
+        clickStepLink={[Function]}
+        index={3}
+        renderStepNumber={[Function]}
       >
-        <div
-          className="step-number "
-          key="3"
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
         >
-          3
-        </div>
-      </div>
-      <div
-        className="step-link"
-        onClick={[Function]}
+          <div
+            className="step-number "
+            key="3"
+          >
+            3
+          </div>
+        </button>
+      </StepLink>
+      <StepLink
+        clickStepLink={[Function]}
+        index={4}
+        renderStepNumber={[Function]}
       >
-        <div
-          className="step-number "
-          key="4"
+        <button
+          className="step-link"
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          type="button"
         >
-          4
-        </div>
-      </div>
+          <div
+            className="step-number "
+            key="4"
+          >
+            4
+          </div>
+        </button>
+      </StepLink>
     </div>
     <div
       className="read-passage-container"
@@ -148,6 +180,8 @@ But how can democracies have representative governments unless all or most of th
       >
         <div
           className="step active"
+          role="button"
+          tabIndex={0}
         >
           <div
             className="step-content"
@@ -173,20 +207,21 @@ But how can democracies have representative governments unless all or most of th
               Should Voting be Required?
             </p>
             <button
-              className="done-reading-button"
+              className="quill-button done-reading-button"
               onClick={[Function]}
+              type="button"
             >
               Done reading
             </button>
           </div>
         </div>
         <PromptStep
+          activateStep={[Function]}
           active={false}
           className="step "
           completeStep={[Function]}
           everyOtherStepCompleted={false}
           key="2"
-          onClick={[Function]}
           passedRef={[Function]}
           prompt={
             Object {
@@ -198,6 +233,7 @@ But how can democracies have representative governments unless all or most of th
               "text": "Governments should make voting compulsory because",
             }
           }
+          stepNumber={2}
           stepNumberComponent={
             <div
               className="step-number "
@@ -211,6 +247,9 @@ But how can democracies have representative governments unless all or most of th
           <div
             className="step "
             onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
           >
             <div
               className="step-content"
@@ -243,12 +282,12 @@ But how can democracies have representative governments unless all or most of th
           </div>
         </PromptStep>
         <PromptStep
+          activateStep={[Function]}
           active={false}
           className="step "
           completeStep={[Function]}
           everyOtherStepCompleted={false}
           key="3"
-          onClick={[Function]}
           passedRef={[Function]}
           prompt={
             Object {
@@ -260,6 +299,7 @@ But how can democracies have representative governments unless all or most of th
               "text": "Governments should make voting compulsory, but",
             }
           }
+          stepNumber={3}
           stepNumberComponent={
             <div
               className="step-number "
@@ -273,6 +313,9 @@ But how can democracies have representative governments unless all or most of th
           <div
             className="step "
             onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
           >
             <div
               className="step-content"
@@ -305,12 +348,12 @@ But how can democracies have representative governments unless all or most of th
           </div>
         </PromptStep>
         <PromptStep
+          activateStep={[Function]}
           active={false}
           className="step "
           completeStep={[Function]}
           everyOtherStepCompleted={false}
           key="4"
-          onClick={[Function]}
           passedRef={[Function]}
           prompt={
             Object {
@@ -322,6 +365,7 @@ But how can democracies have representative governments unless all or most of th
               "text": "Governments should make voting compulsory so",
             }
           }
+          stepNumber={4}
           stepNumberComponent={
             <div
               className="step-number "
@@ -335,6 +379,9 @@ But how can democracies have representative governments unless all or most of th
           <div
             className="step "
             onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
           >
             <div
               className="step-content"

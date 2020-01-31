@@ -12,3 +12,4 @@ class MLFeedbackFactory(factory.django.DjangoModelFactory):
     feedback = 'Example feedback'
     optimal = False
     prompt = factory.SubFactory(PromptFactory)
+    order = factory.Sequence(lambda x: x)

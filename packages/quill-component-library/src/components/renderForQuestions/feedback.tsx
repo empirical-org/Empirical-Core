@@ -109,7 +109,7 @@ function getCSSClasses(feedbackType: string): string {
 }
 
 const Feedback = ({ feedbackType, feedback, }: any) => (
-  <div className={getCSSClasses(feedbackType)}>
+  <div className={getCSSClasses(feedbackType)} role="status">
     <div className='feedback-row student-feedback-inner-container'>
       <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
       {feedback}
