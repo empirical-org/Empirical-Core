@@ -4,32 +4,32 @@ import { DeleteButton, NameInput } from '../lessonFormComponents.tsx';
 
 describe('DeleteButton component', () => {
     const mockProps = {
-        onHandleChange: jest.fn(),
+        onChange: jest.fn(),
         questionId: 'birds-arent-real'
     };
     const component = shallow(<DeleteButton {...mockProps} />);
-    it('should call onHandleChange() prop function with questionId prop as argument when button is clicked', () => {
+    it('should call onChange() prop function with questionId prop as argument when button is clicked', () => {
         component.find('button').simulate('click');
-        expect(mockProps.onHandleChange).toHaveBeenCalledWith(mockProps.questionId);
+        expect(mockProps.onChange).toHaveBeenCalledWith(mockProps.questionId);
     });
 });
 
 describe('NameInput component', () => {
     const mockProps = {
         name: 'Donna Summer',
-        onHandleChange: jest.fn()
+        onChange: jest.fn()
     };
     const component = shallow(<NameInput {...mockProps} />);
     it('should pass name prop to input element a value', () => {
         expect(component.find('input').props().value).toEqual(mockProps.name);
     });
-    it('should call onHandleChange() prop function with "name" and e arguments when input text changes', () => {
+    it('should call onChange() prop function with "name" and e arguments when input text changes', () => {
         const e = {
             target: {
                 value: 'Queen of Disco'
             }
         };
         component.find('input').simulate('change', e);
-        expect(mockProps.onHandleChange).toHaveBeenCalledWith('name', e);
+        expect(mockProps.onChange).toHaveBeenCalledWith('name', e);
     });
 });

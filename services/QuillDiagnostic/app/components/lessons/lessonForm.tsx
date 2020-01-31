@@ -12,6 +12,7 @@ import { DeleteButton, NameInput } from './lessonFormComponents.tsx';
 import { ConceptsReducerState } from '../../reducers/concepts';
 import { ConceptsFeedbackReducerState } from '../../reducers/conceptsFeedback';
 import { FillInBlankReducerState } from '../../reducers/fillInBlank';
+import { Lesson } from '../../interfaces/lesson';
 import { QuestionsReducerState } from '../../reducers/questions';
 import { SentenceFragmentsReducerState } from '../../reducers/sentenceFragments';
 import { TitleCardsReducerState } from '../../reducers/titleCards';
@@ -19,31 +20,10 @@ import { TitleCardsReducerState } from '../../reducers/titleCards';
 export interface LessonFormProps {
   concepts: ConceptsReducerState,
   conceptsFeedback: ConceptsFeedbackReducerState,
-  currentValues: {
-    flag: string,
-    introURL: string,
-    isELL: boolean,
-    landingPageHtml: string,
-    modelConceptUID: string,
-    name: string,
-    questions: {
-      key: string,
-      questionType: string
-    }[]
-  },
+  currentValues: Lesson,
   dispatch(action: any): any,
   fillInBlank: FillInBlankReducerState,
-  lesson: {
-    flag: string,
-    isELL: boolean,
-    landingPageHtml: string,
-    modelConceptUID: string,
-    name: string,
-    questions: {
-      key: string,
-      questionType: string
-    }[]
-  },
+  lesson: Lesson,
   questions: QuestionsReducerState,
   sentenceFragments: SentenceFragmentsReducerState,
   stateSpecificClass?: string
@@ -77,17 +57,17 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
   constructor(props) {
     super(props)
 
-    const { currentValues, } = props;
+    const { flag, introURL, isELL, landingPageHtml, modelConceptUID, name, questions } = props.currentValues; // eslint-disable-line react/destructuring-assignment
 
     this.state = {
-      flag: currentValues ? currentValues.flag : 'alpha',
-      introURL: currentValues ? currentValues.introURL || '' : '',
-      isELL: currentValues ? currentValues.isELL || false : false,
-      landingPageHtml: currentValues ? currentValues.landingPageHtml || '' : '',
-      modelConceptUID: currentValues ? currentValues.modelConceptUID : null,
-      name: currentValues ? currentValues.name : '',
+      flag: flag || 'alpha',
+      introURL: introURL || '',
+      isELL: isELL || false,
+      landingPageHtml: landingPageHtml || '',
+      modelConceptUID: modelConceptUID || null,
+      name: name || '',
       questionType: 'questions',
-      selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
+      selectedQuestions: questions || [],
     }
   }
 
@@ -110,7 +90,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     this.setState(changes);
   }
 
-  handleChange = (value: string) => {
+  handleQuestionChange = (value: string) => {
     const { selectedQuestions, questionType } = this.state;
     let newSelectedQuestions: any;
     const changedQuestion = selectedQuestions.find(q => q.key === value);
@@ -123,7 +103,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
   }
 
   handleSearchChange = (e: { value: string}) => {
-    this.handleChange(e.value);
+    this.handleQuestionChange(e.value);
   }
 
   sortCallback = (sortInfo: {
@@ -153,7 +133,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         return (<p className="sortable-list-item" defaultValue={question.questionType} key={question.key}>
           {promptOrTitle}
           {'\t\t'}
-          <DeleteButton onHandleChange={this.handleChange} questionId={question.key} />
+          <DeleteButton onChange={this.handleQuestionChange} questionId={question.key} />
         </p>
         );
       });
@@ -204,7 +184,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     this.setState({ questionType: e.currentTarget.value, });
   }
 
-  handleLPChange = (e: string) => {
+  onLandingPageChange = (e: string) => {
     this.setState({ landingPageHtml: e, });
   }
 
@@ -213,7 +193,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
     this.setState({ isELL: !isELL });
   }
 
-  handleUpdateModelConcept = (uid: string) => {
+  onUpdateModelConcept = (uid: string) => {
     this.setState({ modelConceptUID: uid });
   }
 
@@ -224,7 +204,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
       <div className="box">
         <h4 className="title">Add New Activity</h4>
         <p className="control">
-          <NameInput name={name} onHandleChange={this.handleStateChange} />
+          <NameInput name={name} onChange={this.handleStateChange} />
         </p>
         <div className="control">
           <label className="label" htmlFor="landing-page-content">
@@ -232,7 +212,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
             <TextEditor
               ContentState={ContentState}
               EditorState={EditorState}
-              handleTextChange={this.handleLPChange} // eslint-disable-line react/jsx-handler-names
+              handleTextChange={this.onLandingPageChange}
               id="landing-page-content"
               text={landingPageHtml || ''}
             />
@@ -292,7 +272,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         <ChooseModel
           conceptsFeedback={conceptsFeedback}
           modelConceptUID={modelConceptUID}
-          onUpdateModelConcept={this.handleUpdateModelConcept}
+          updateModelConcept={this.onUpdateModelConcept}
         />
         <p className="control">
           <button className={`button is-primary ${stateSpecificClass}`} onClick={this.handleSubmit} type="submit">Submit</button>

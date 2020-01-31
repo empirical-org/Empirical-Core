@@ -2,21 +2,21 @@ import * as React from 'react';
 
 export interface DeleteButtonProps {
   questionId: string,
-  onHandleChange(questionId: string): void
+  onChange(questionId: string): void
 }
 
 export interface NameInputProps {
   name: string,
-  onHandleChange(value: string, e: object): void
+  onChange(value: string, e: object): void
 }
 
-export const DeleteButton = ({ questionId, onHandleChange }: DeleteButtonProps) => {
-  function handleClick() { onHandleChange(questionId) }
+export const DeleteButton = ({ questionId, onChange }: DeleteButtonProps) => {
+  function handleClick() { onChange(questionId) }
   return <button onClick={handleClick} type="button">Delete</button>;
 }
 
-export const NameInput = ({ name, onHandleChange }: NameInputProps) => {
-  function handleChange(e: object) { onHandleChange('name', e) };
+export const NameInput = ({ name, onChange }: NameInputProps) => {
+  function handleChange(e: object) { onChange('name', e) };
   return(
     <label className="label" htmlFor="activity-name-input">
       Name

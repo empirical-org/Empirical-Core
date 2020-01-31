@@ -106,7 +106,7 @@ describe('LessonForm component', () => {
     const container = shallow(<LessonForm {...mockProps} />);
     it('renders NameInput, TextEditor and ChooseModel components, passing expected props', () => {
         const handleStateChange = container.instance().handleStateChange;
-        const handleLPChange = container.instance().handleLPChange;
+        const onLandingPageChange = container.instance().onLandingPageChange;
         const handleUpdateModelConcept = container.instance().handleUpdateModelConcept;
         const nameInput= container.find(NameInput);
         const textEditor = container.find(TextEditor);
@@ -116,10 +116,10 @@ describe('LessonForm component', () => {
         expect(TextEditor.length).toEqual(1);
         expect(chooseModel.length).toEqual(1);
         expect(nameInput.props().name).toEqual('Awesome Diagnostic');
-        expect(nameInput.props().onHandleChange).toEqual(handleStateChange);
+        expect(nameInput.props().onChange).toEqual(handleStateChange);
         expect(textEditor.props().ContentState).toEqual(ContentState);
         expect(textEditor.props().EditorState).toEqual(EditorState);
-        expect(textEditor.props().handleTextChange).toEqual(handleLPChange);
+        expect(textEditor.props().handleTextChange).toEqual(onLandingPageChange);
         expect(textEditor.props().text).toEqual('<p>Test content</p>');
         expect(chooseModel.props().conceptsFeedback).toEqual(mockProps.conceptsFeedback);
         expect(chooseModel.props().modelConceptUID).toEqual('QsC1lua0t41_J2em_c7kUA');
@@ -147,18 +147,18 @@ describe('LessonForm component', () => {
         container.instance().handleStateChange('name', event);
         expect(container.state().name).toEqual(event.currentTarget.value);
     });
-    it('handleChange updates selectedQuestions piece of state if question is added or deleted', () => {
-        container.instance().handleChange('-KdChHgbE9212Jgzkoci');
+    it('handleQuestionChange updates selectedQuestions piece of state if question is added or deleted', () => {
+        container.instance().handleQuestionChange('-KdChHgbE9212Jgzkoci');
         expect(container.state().selectedQuestions.length).toEqual(4);
         expect(container.state().selectedQuestions[3]).toEqual({ key: '-KdChHgbE9212Jgzkoci', questionType: 'questions'});
-        container.instance().handleChange('-KdChHgbE9212Jgzkoci');
+        container.instance().handleQuestionChange('-KdChHgbE9212Jgzkoci');
         expect(container.state().selectedQuestions.length).toEqual(3);
     });
-    it('handleSearchChange calls handleChange, passing e.value as an argument', () => {
-        const handleChange = jest.spyOn(container.instance(), 'handleChange');
+    it('handleSearchChange calls handleQuestionChange, passing e.value as an argument', () => {
+        const handleQuestionChange = jest.spyOn(container.instance(), 'handleQuestionChange');
         const e = { value: 'saideira'};
         container.instance().handleSearchChange(e);
-        expect(handleChange).toHaveBeenCalledWith(e.value);
+        expect(handleQuestionChange).toHaveBeenCalledWith(e.value);
     });
     it('sortCallback sets selectedQuestion piece of state to reordered array of questions', () => {
         const sortInfo = {
@@ -250,18 +250,18 @@ describe('LessonForm component', () => {
         container.instance().handleSelectQuestionType(e);
         expect(container.state().questionType).toEqual(e.currentTarget.value);
     });
-    it('handleLPChange updates the landingPageHtml piece of state', () => {
+    it('onLandingPageChange updates the landingPageHtml piece of state', () => {
         const e = '<p>Updated Content</p>'
-        container.instance().handleLPChange(e);
+        container.instance().onLandingPageChange(e);
         expect(container.state().landingPageHtml).toEqual(e);
     });
     it('handleELLChange updates isELL piece of state', () => {
         container.instance().handleELLChange();
         expect(container.state().isELL).toEqual(false);
     });
-    it('handleUpdateModelConcept updates modelConceptUID piece of state', () => {
+    it('onUpdateModelConcept updates modelConceptUID piece of state', () => {
         const id = 'new-id';
-        container.instance().handleUpdateModelConcept(id);
+        container.instance().onUpdateModelConcept(id);
         expect(container.state().modelConceptUID).toEqual(id);
     });
 });

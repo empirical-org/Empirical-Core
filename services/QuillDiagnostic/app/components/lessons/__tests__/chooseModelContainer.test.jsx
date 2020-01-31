@@ -17,7 +17,7 @@ describe('ChooseModel component', () => {
             }
         }, 
         modelConceptUID: 'test123', 
-        onUpdateModelConcept: jest.fn()
+        updateModelConcept: jest.fn()
     };
     const component = shallow(<ChooseModel {...mockProps} />);
     it('renders ConceptSelector and ConceptExplanation components, passing expected props', () => {
@@ -30,15 +30,15 @@ describe('ChooseModel component', () => {
         expect(conceptSelector.props().handleSelectorChange).toEqual(selectConcept);
         expect(conceptExplanation.props()).toEqual(mockProps.conceptsFeedback.data.test123);
     });
-    it('removeModelConcept calls onUpdateModelConcept prop function with null as argument', () => {
-        component.instance().removeModelConcept();
-        expect(mockProps.onUpdateModelConcept).toHaveBeenCalledWith(null);
+    it('handleRemoveModelConcept calls updateModelConcept prop function with null as argument', () => {
+        component.instance().handleRemoveModelConcept();
+        expect(mockProps.updateModelConcept).toHaveBeenCalledWith(null);
     });
-    it('selectConcept calls onUpdateModelConcept prop function with e.value as argument', () => {
+    it('selectConcept calls updateModelConcept prop function with e.value as argument', () => {
         const e = {
             value: 'so spicy'
         }
         component.instance().selectConcept(e);
-        expect(mockProps.onUpdateModelConcept).toHaveBeenCalledWith(e.value);
+        expect(mockProps.updateModelConcept).toHaveBeenCalledWith(e.value);
     });
 });

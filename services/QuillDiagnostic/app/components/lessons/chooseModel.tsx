@@ -7,24 +7,24 @@ export interface ChooseModelProps {
   children?: any,
   conceptsFeedback: { data: {} },
   modelConceptUID: string,
-  onUpdateModelConcept(model: {} | null): void
+  updateModelConcept(model: {} | null): void
 }
 
 export class ChooseModel extends React.Component<ChooseModelProps, {}> {
-  removeModelConcept = () => {
-    const { onUpdateModelConcept } = this.props;
-    onUpdateModelConcept(null);
+  handleRemoveModelConcept = () => {
+    const { updateModelConcept } = this.props;
+    updateModelConcept(null);
   };
   selectConcept = (e: { value: string }) => {
-    const { onUpdateModelConcept } = this.props;
-    onUpdateModelConcept(e.value);
+    const { updateModelConcept } = this.props;
+    updateModelConcept(e.value);
   }
   renderButtons = () => {
     return(
       <p className="control">
         <button
           className="button is-outlined is-danger"
-          onClick={this.removeModelConcept} // eslint-disable-line react/jsx-handler-names
+          onClick={this.handleRemoveModelConcept}
           style={{marginLeft: 5}}
           type="submit"
         >
