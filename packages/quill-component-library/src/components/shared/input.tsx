@@ -88,7 +88,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   handleTabOrEnter = (event) => {
-    if (event.key === 'Enter' || event.key === 'Tab') {
+    if (event.key === 'Tab') {
       this.deactivateInput()
     }
   }
