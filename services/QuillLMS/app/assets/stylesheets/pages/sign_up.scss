@@ -42,7 +42,11 @@
     justify-content: space-between;
     align-items: flex-end;
     .input-container {
-      width: 182px;
+      max-width: 182px;
+      width: 100%;
+      &.first-name {
+        margin-right: 20px;
+      }
     }
   }
 }

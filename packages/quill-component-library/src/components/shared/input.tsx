@@ -118,7 +118,7 @@ export class Input extends React.Component<InputProps, InputState> {
   renderCharacterLimit = () => {
     const { characterLimit, value, } = this.props
     if (characterLimit) {
-      return <div className="character-limit"><span>{value.length}/{characterLimit}</span></div>
+      return <div className="character-limit" role="alert"><span>{value.length}/{characterLimit}</span></div>
     }
   }
 
@@ -137,7 +137,8 @@ export class Input extends React.Component<InputProps, InputState> {
       type,
       placeholder,
       disabled,
-      maxLength: characterLimit ? characterLimit : 10000
+      maxLength: characterLimit ? characterLimit : 10000,
+      autoComplete: 'true'
     }
     if (error) {
       if (errorAcknowledged) {
