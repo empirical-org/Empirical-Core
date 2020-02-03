@@ -127,7 +127,7 @@ describe PagesController do
   describe '#diagnostic_tool' do
     it 'should set the title and description' do
       get :diagnostic_tool
-      expect(assigns(:title)).to eq 'Quill Diagnostic - Free Diagnostic and Adaptive Lesson Plan'
+      expect(assigns(:title)).to eq 'Quill Diagnostic | Free Diagnostic and Adaptive Lesson Plan'
       expect(assigns(:description)).to eq 'Quickly determine which skills your students need to work on with our 22 question diagnostic.'
     end
   end
@@ -135,7 +135,7 @@ describe PagesController do
   describe '#grammar_tool' do
     it 'should set the title and description' do
       get :grammar_tool
-      expect(assigns(:title)).to eq 'Quill Grammar - Free 10 Minute Activities for your Students'
+      expect(assigns(:title)).to eq 'Quill Grammar | Free 10 Minute Activities for your Students'
       expect(assigns(:description)).to eq 'Over 150 sentence writing activities to help your students practice basic grammar skills.'
     end
   end
@@ -143,7 +143,7 @@ describe PagesController do
   describe '#proofreader_tool' do
     it 'should set the title and description' do
       get :proofreader_tool
-      expect(assigns(:title)).to eq 'Quill Proofreader - Over 100 Expository Passages To Read And Edit'
+      expect(assigns(:title)).to eq 'Quill Proofreader | Over 100 Expository Passages To Read And Edit'
       expect(assigns(:description)).to eq 'Students edit passages and receive personalized exercises based on their results.'
     end
   end
@@ -151,7 +151,7 @@ describe PagesController do
   describe '#connect_tool' do
     it 'should set the title and description' do
       get :connect_tool
-      expect(assigns(:title)).to eq 'Quill Connect - Free Sentence Structure Activities'
+      expect(assigns(:title)).to eq 'Quill Connect | Free Sentence Structure Activities'
       expect(assigns(:description)).to eq 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
     end
   end
@@ -159,7 +159,7 @@ describe PagesController do
   describe '#lessons_tool' do
     it 'should set the title and description' do
       get :lessons_tool
-      expect(assigns(:title)).to eq 'Quill Lessons - Free Group Writing Activities'
+      expect(assigns(:title)).to eq 'Quill Lessons | Free Group Writing Activities'
       expect(assigns(:description)).to eq 'Lead whole-class and small group writing instruction with interactive writing prompts and discussion topics.'
     end
   end
