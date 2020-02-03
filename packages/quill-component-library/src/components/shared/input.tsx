@@ -15,6 +15,7 @@ interface InputProps {
   handleChange?: (event: any) => void;
   onClick?: () => void;
   characterLimit?: number;
+  autoComplete: string;
 }
 
 interface InputState {
@@ -27,6 +28,7 @@ const MOUSEDOWN = 'mousedown'
 export class Input extends React.Component<InputProps, InputState> {
   private input: any // eslint-disable-line react/sort-comp
   private node: any // eslint-disable-line react/sort-comp
+  static defaultProps: { autoComplete: string }  // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
@@ -124,7 +126,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
   renderInput = () => {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
@@ -138,7 +140,7 @@ export class Input extends React.Component<InputProps, InputState> {
       placeholder,
       disabled,
       maxLength: characterLimit ? characterLimit : 10000,
-      autoComplete: 'on'
+      autoComplete
     }
     if (error) {
       if (errorAcknowledged) {
@@ -205,5 +207,8 @@ export class Input extends React.Component<InputProps, InputState> {
   render() {
     return this.renderInput()
   }
+}
 
+Input.defaultProps = {
+  autoComplete: 'on'
 }

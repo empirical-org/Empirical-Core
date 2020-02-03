@@ -153,6 +153,7 @@ class LoginFormApp extends React.Component {
                   value={email}
                 />
                 <Input
+                  autoComplete="current-password"
                   className="password inspectletIgnore"
                   error={errors.password}
                   handleChange={this.onPasswordChange}

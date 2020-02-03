@@ -82,6 +82,7 @@ export default class ForgotPassword extends React.Component {
             <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
             <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
             <Input
+              autoComplete="new-password"
               className="password inspectletIgnore"
               error={errors.password}
               handleChange={this.onPasswordChange}
@@ -91,6 +92,7 @@ export default class ForgotPassword extends React.Component {
               value={password}
             />
             <Input
+              autoComplete="new-password"
               className="password-confirmation inspectletIgnore"
               error={errors.password_confirmation}
               handleChange={this.onPasswordConfirmationChange}
