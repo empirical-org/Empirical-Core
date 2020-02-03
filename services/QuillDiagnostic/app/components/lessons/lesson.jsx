@@ -5,7 +5,7 @@ import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
-import EditLessonForm from './lessonForm.jsx';
+import EditLessonForm from './lessonForm.tsx';
 
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
