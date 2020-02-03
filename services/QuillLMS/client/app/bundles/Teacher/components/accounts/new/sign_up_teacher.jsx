@@ -25,6 +25,11 @@ class SignUpTeacher extends React.Component {
     }
   }
 
+  componentDidMount() {
+    document.title = 'Quill.org | Teacher Sign Up'
+  }
+
+
   updateKeyValue = (key, value) => {
     const newState = Object.assign({}, this.state);
     newState[key] = value;

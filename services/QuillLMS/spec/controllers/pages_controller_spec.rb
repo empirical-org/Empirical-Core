@@ -49,7 +49,7 @@ describe PagesController do
     context 'when user is not signed in' do
       it 'should set the title and description' do
         get :home_new
-        expect(assigns(:title)).to eq 'Quill.org — Interactive Writing and Grammar'
+        expect(assigns(:title)).to eq 'Quill.org | Interactive Writing and Grammar'
         expect(assigns(:description)).to eq 'Quill provides free writing and grammar activities for middle and high school students.'
         expect(assigns(:logging_user_out)).to eq nil
       end

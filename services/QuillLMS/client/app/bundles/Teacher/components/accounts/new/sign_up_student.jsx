@@ -29,6 +29,10 @@ class SignUpStudent extends React.Component {
     this.submitClass = this.submitClass.bind(this)
   }
 
+  componentDidMount() {
+    document.title = 'Quill.org | Student Sign Up'
+  }
+
   updateKeyValue(key, value) {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
