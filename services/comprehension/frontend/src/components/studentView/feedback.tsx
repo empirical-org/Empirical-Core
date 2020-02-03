@@ -5,8 +5,8 @@ import ReactCSSTransitionReplace from 'react-css-transition-replace'
 const loopSrc = `${process.env.QUILL_CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`
 
-const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
-const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
+export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
+export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
 
 const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, tooShort, tooLong }: any) => {
   let className = 'feedback'
@@ -48,7 +48,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <div className={className} key={key}>
           <img alt={imageAlt} src={imageSrc} />
-          <p>{feedback}</p>
+          <p className="feedback-text">{feedback}</p>
         </div>
       </ReactCSSTransitionReplace>
     </div>
