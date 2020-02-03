@@ -300,6 +300,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
+    // console.log('props', this.props);
     const { playDiagnostic, lessons, questions, sentenceFragments, dispatch, } = this.props
     const { error, saved, } = this.state
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''

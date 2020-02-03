@@ -6,6 +6,7 @@ import { FillInBlank } from '../interfaces/fillInBlank';
 export interface FillInBlankReducerState {
   data: { [key:string]: FillInBlank },
   hasreceiveddata: boolean,
+  newConceptModelOpen?: boolean,
   states: { [key: string]: string },
   submittingnew: boolean,
 }
