@@ -5,7 +5,10 @@ import ReactCSSTransitionReplace from 'react-css-transition-replace'
 const loopSrc = `${process.env.QUILL_CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`
 
-const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses }: any) => {
+const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
+const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
+
+const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, tooShort, tooLong }: any) => {
   let className = 'feedback'
   let imageSrc = loopSrc
   let imageAlt = 'Arrows pointing in opposite directions, making a loop'
@@ -16,7 +19,21 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
   }
   const madeLastAttempt = submittedResponses.length === prompt.max_attempts
   const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
-  const feedback = madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
+
+  let feedback = ''
+  let key = submittedResponses.length
+  if (tooShort) {
+    feedback = TOO_SHORT_FEEDBACK
+    key = 'too-short'
+  } else if (tooLong) {
+    feedback = TOO_LONG_FEEDBACK
+    key = 'too-long'
+  } else if (madeLastAttemptAndItWasSuboptimal) {
+    feedback = prompt.max_attempts_feedback
+  } else {
+    feedback = lastSubmittedResponse.feedback
+  }
+
   return (
     <div className="feedback-section">
       <p className="feedback-section-header">
@@ -29,7 +46,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
         transitionLeaveTimeout={400}
         transitionName="fade"
       >
-        <div className={className} key={submittedResponses.length}>
+        <div className={className} key={key}>
           <img alt={imageAlt} src={imageSrc} />
           <p>{feedback}</p>
         </div>
