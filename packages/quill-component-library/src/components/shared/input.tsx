@@ -103,7 +103,7 @@ export class Input extends React.Component<InputProps, InputState> {
   renderErrorText = () => {
     const { error } = this.props
     if (error) {
-      return <span className="error-text">{error}</span>
+      return <span className="error-text" role="alert">{error}</span>
     }
   }
 
@@ -118,7 +118,7 @@ export class Input extends React.Component<InputProps, InputState> {
   renderCharacterLimit = () => {
     const { characterLimit, value, } = this.props
     if (characterLimit) {
-      return <div className="character-limit" role="alert"><span>{value.length}/{characterLimit}</span></div>
+      return <div className="character-limit"><span>{value.length}/{characterLimit}</span></div>
     }
   }
 
