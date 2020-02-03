@@ -90,7 +90,6 @@ exports[`Unit assignment followup component When there are students assigned on 
             className="referral-link-container"
           >
             <Input
-              autoComplete="on"
               disabled={true}
               id="referral-link"
               value="undefined/?referral_code=code"
