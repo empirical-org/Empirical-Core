@@ -138,7 +138,7 @@ export class Input extends React.Component<InputProps, InputState> {
       placeholder,
       disabled,
       maxLength: characterLimit ? characterLimit : 10000,
-      autoComplete: 'true'
+      autoComplete: 'on'
     }
     if (error) {
       if (errorAcknowledged) {
