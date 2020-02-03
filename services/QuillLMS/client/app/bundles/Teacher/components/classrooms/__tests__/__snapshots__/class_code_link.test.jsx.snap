@@ -16,6 +16,7 @@ exports[`ClassCodeLink component should render ClassCodeLink 1`] = `
       className="copy-class-code-container"
     >
       <Input
+        autoComplete="on"
         disabled={true}
         id="class-code"
         value="quill.org/join/happy-day"
