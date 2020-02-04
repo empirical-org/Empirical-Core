@@ -85,7 +85,7 @@ class FillInBlankForm extends Component {
   }
 
   toggleQuestionCaseInsensitive() {
-    this.setState({caseInsensitive: !this.state.caseInsensitive});
+    this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
   }
 
   submit() {
