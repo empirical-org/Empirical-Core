@@ -5,8 +5,10 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_search_inputs, only: [:index, :search]
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
   before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
+  before_action :log_non_user_action, only: [:index]
+  before_action :log_user_action, only: [:show, :edit, :sign_in]
+  before_action :log_search, only: [:search]
   before_action :log_attribute_change, only: [:update]
-  before_action :update_change_log, only: [:show, :edit, :index, :sign_in]
 
   USERS_PER_PAGE = 30.0
 
@@ -22,7 +24,6 @@ class Cms::UsersController < Cms::CmsController
     user_search_query_results = user_query(user_query_params)
     user_search_query_results ||= []
     number_of_pages = (number_of_users_matched / USERS_PER_PAGE).ceil
-    update_change_log(user_query_params)
     render json: {numberOfPages: number_of_pages, userSearchQueryResults: user_search_query_results, userSearchQuery: user_search_query}
   end
 
@@ -152,7 +153,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def user_query_params
-    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
+    params.permit((@text_search_inputs&.map(&:to_sym) || '') + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
   end
 
   def user_query(params)
@@ -287,7 +288,19 @@ class Cms::UsersController < Cms::CmsController
     params.permit([:id, :payment_method, :payment_amount, :purchaser_email, :premium_status, :start_date => [:day, :month, :year], :expiration_date => [:day, :month, :year]] + default_params)
   end
 
-  def log_attribute_change
+  private def log_user_action
+    log_change(params[:action].to_sym, @user&.id.to_s.presence || params[:id])
+  end
+
+  private def log_non_user_action
+    log_change(params[:action].to_sym, nil)
+  end
+
+  private def log_search
+    log_change(params[:action].to_sym, nil, "Search term: #{user_query_params}")
+  end
+
+  private def log_attribute_change
     previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json
 
     #omit password field if password not filled in
@@ -300,58 +313,22 @@ class Cms::UsersController < Cms::CmsController
     difference = Hash[new_user_params.to_a - previous_user_params.to_a]
     difference.each_key do |field|
       new_value = field == 'password' ? nil : difference[field]
-      update_change_log(nil, field, previous_user_params[field], new_value)
+      log_change(params[:action].to_sym, @user.id.to_s, nil, field, previous_user_params[field], new_value)
     end
   end
 
-  def update_change_log(query_params = nil, changed_attribute = nil, previous_value = nil, new_value = nil)
+  private def log_change(action, changed_user, explanation = nil, changed_attribute = nil, previous_value = nil, new_value = nil)
     change_log = {
+      user_id: current_user.id.to_s,
+      action: ChangeLog::USER_ACTIONS[action],
       changed_record_type: 'User',
-      user_id: current_user.id.to_s
+      changed_record_id: changed_user,
+      explanation: explanation,
+      changed_attribute: changed_attribute,
+      previous_value: previous_value,
+      new_value: new_value
     }
-
-    log_for_action = {
-      index: {
-        action: ChangeLog::USER_ACTIONS[:index],
-        explanation: 'User ' + current_user.id.to_s +
-                     ' visited User Directory page'
-      },
-      update: {
-        action: ChangeLog::USER_ACTIONS[:update],
-        explanation: "User #{current_user.id} changed #{changed_attribute} of User #{@user&.id}",
-        changed_record_id: @user&.id&.to_s,
-        changed_attribute: changed_attribute,
-        previous_value: previous_value,
-        new_value: new_value
-      },
-      search: {
-        action: ChangeLog::USER_ACTIONS[:search],
-        explanation: 'User ' + current_user.id.to_s +
-                     ' searched User Directory for ' +
-                     query_params.to_s
-      },
-      show: {
-        action: ChangeLog::USER_ACTIONS[:show],
-        explanation: "User #{current_user.id} visited admin page for User #{@user&.id}",
-        changed_record_id: @user&.id&.to_s
-      },
-      edit: {
-        action: ChangeLog::USER_ACTIONS[:edit],
-        explanation: "User #{current_user.id} visited edit page for User #{@user&.id}",
-        changed_record_id: @user&.id&.to_s
-      },
-      sign_in: {
-        action: ChangeLog::USER_ACTIONS[:sign_in],
-        explanation: "User #{current_user.id} signed in as User #{params[:id]}",
-        changed_record_id: params[:id]&.to_s,
-        user_id: current_user.id.to_s
-      }
-    }
-
-    current_action_key = params[:action].to_sym
-    return if !log_for_action.key?(current_action_key)
-
-    change_log.update(log_for_action[current_action_key])
     ChangeLog.create(change_log)
   end
+
 end

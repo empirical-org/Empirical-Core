@@ -923,7 +923,7 @@ ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 CREATE TABLE public.change_logs (
     id integer NOT NULL,
-    explanation text NOT NULL,
+    explanation text,
     action character varying NOT NULL,
     changed_record_id integer,
     changed_record_type character varying NOT NULL,
