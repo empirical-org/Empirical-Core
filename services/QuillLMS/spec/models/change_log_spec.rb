@@ -15,11 +15,6 @@ describe ChangeLog, type: :model do
       expect(change_log.save).not_to be
     end
 
-    it "should not save if it is missing an explanation" do
-      change_log.update(explanation: nil)
-      expect(change_log.save).not_to be
-    end
-
     it "should not save if it is missing a user_id" do
       change_log.update(user_id: nil)
       expect(change_log.save).not_to be
