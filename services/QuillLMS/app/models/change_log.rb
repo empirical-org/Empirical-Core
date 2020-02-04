@@ -14,12 +14,12 @@ class ChangeLog < ActiveRecord::Base
     'User'
   ]
   USER_ACTIONS = {
-    :index => 'Visited User Directory',
-    :search => 'Searched Users',
-    :sign_in => 'Impersonated User',
-    :show => 'Visited User Admin Page',
-    :edit => 'Visited User Edit Page',
-    :update => 'Edited User'
+    index: 'Visited User Directory',
+    search: 'Searched Users',
+    sign_in: 'Impersonated User',
+    show: 'Visited User Admin Page',
+    edit: 'Visited User Edit Page',
+    update: 'Edited User'
   }
   GENERIC_USER_ACTIONS = [
     'Visited User Directory',
@@ -29,7 +29,7 @@ class ChangeLog < ActiveRecord::Base
 
   belongs_to :changed_record, polymorphic: true
   belongs_to :user
-  validates_presence_of :changed_record_type, :user_id, :action, :explanation
+  validates_presence_of :changed_record_type, :user_id, :action
 
   validates :changed_record_id, presence: true, if: :applies_to_single_record?
   validates :action, inclusion: ALL_ACTIONS
