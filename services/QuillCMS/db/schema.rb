@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191007184348) do
+ActiveRecord::Schema.define(version: 20191218231905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20191007184348) do
     t.index ["optimal"], name: "index_responses_on_optimal"
     t.index ["parent_id"], name: "index_responses_on_parent_id"
     t.index ["parent_uid"], name: "index_responses_on_parent_uid"
+    t.index ["question_uid", "text"], name: "index_responses_on_question_uid_and_text", unique: true
     t.index ["question_uid"], name: "index_responses_on_question_uid"
     t.index ["text"], name: "index_responses_on_text"
     t.index ["uid"], name: "index_responses_on_uid"

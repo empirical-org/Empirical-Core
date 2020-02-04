@@ -18,7 +18,7 @@ class GradesController < ApplicationController
 
   def tooltip_query
     # TODO(upgrade) Use ActiveRecord::Sanitization.sanitize_sql_for_conditions
-    if (tooltip_params['completed'])
+    if tooltip_params['completed']
       ActiveRecord::Base.connection.execute(
         "SELECT concept_results.metadata,
         activities.description,

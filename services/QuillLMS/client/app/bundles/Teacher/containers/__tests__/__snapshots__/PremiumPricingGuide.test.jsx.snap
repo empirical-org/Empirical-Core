@@ -16,7 +16,7 @@ exports[`PremiumPricingGuide container should render 1`] = `
     </p>
   </div>
   <_default />
-  <_default />
+  <DistrictPricingBox />
   <_default />
   <teacher_testimonial />
   <subscriber_logos

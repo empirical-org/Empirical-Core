@@ -51,9 +51,14 @@ RSpec.describe Question, type: :model do
       expect(question.errors[:data]).to include('must be a hash')
     end
 
-    it 'should be invalid if the uid is not unique' do
-      new_question = Question.new(uid: question.uid, data: {foo: 'bar'})
+    it 'should be invalid if the uid is not unique and question type is the same' do
+      new_question = Question.new(uid: question.uid, data: {foo: 'bar'}, question_type: question.question_type)
       expect(new_question.valid?).to be false
+    end
+
+    it 'should be invalid if it has no question type' do
+      question.question_type = nil
+      expect(question.valid?).to be false
     end
   end
 
@@ -107,11 +112,19 @@ RSpec.describe Question, type: :model do
   end
 
   describe '#delete_incorrect_sequence' do
-    it 'should remove the specified incorrectSequence' do
+    it 'should remove the specified incorrectSequence if stored in a hash' do
       first_incorrect_sequence_key = question.data['incorrectSequences'].keys.first
       question.delete_incorrect_sequence(first_incorrect_sequence_key)
       question.reload
       expect(question.data['incorrectSequences'][first_incorrect_sequence_key]).to be_nil
+    end
+
+    it 'should remove the specified incorrectSequence if stored in an array' do
+      question.update_incorrect_sequences([1,2,3])
+      first_incorrect_sequence_key = 0
+      question.delete_incorrect_sequence(first_incorrect_sequence_key)
+      question.reload
+      expect(question.data['incorrectSequences']).to contain_exactly(2,3)
     end
   end
 
@@ -133,12 +146,40 @@ RSpec.describe Question, type: :model do
     end
   end
 
+  describe '#get_incorrect_sequence' do
+    it 'should retrieve the incorrect sequence if it is a hash' do
+      data = {"foo" => "bar"}
+      question.update_incorrect_sequences(data)
+      expect(question.get_incorrect_sequence("foo")).to eq("bar")
+    end
+
+    it 'should retrieve the incorrect sequence if it is an array' do
+      data = ["foo"]
+      question.update_incorrect_sequences(data)
+      expect(question.get_incorrect_sequence(0)).to eq("foo")
+    end
+
+    it 'should retrieve the incorrect sequence if it is an array even if the passed id is a string' do
+      data = ["foo"]
+      question.update_incorrect_sequences(data)
+      expect(question.get_incorrect_sequence("0")).to eq("foo")
+    end
+  end
+
   describe '#add_incorrect_sequence' do
     it 'should increase the number of incorrectSequences' do
       starting_length = question.data['incorrectSequences'].keys.length
       question.add_incorrect_sequence(new_incorrect_sequence)
       question.reload
       expect(question.data['incorrectSequences'].keys.length).to eq(starting_length + 1)
+    end
+
+    it 'should assign an "id" of array length if incorrectSequence is an array' do
+      original_incorrect_sequences = [1,2,3]
+      original_length = original_incorrect_sequences.length
+      question.update_incorrect_sequences(original_incorrect_sequences)
+      uid = question.add_incorrect_sequence(new_incorrect_sequence)
+      expect(uid).to eq(original_length)
     end
 
     it 'should put the new incorrectSequence in the data attribute' do
@@ -155,8 +196,16 @@ RSpec.describe Question, type: :model do
       expect(response).to eq(uid)
     end
 
-    it 'should set the value of the specified incorrectSequence' do
+    it 'should set the value of the specified incorrectSequence if in hash' do
       replace_uid = question.data['incorrectSequences'].keys.first
+      question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
+      question.reload
+      expect(question.data['incorrectSequences'][replace_uid]).to eq(new_incorrect_sequence)
+    end
+
+    it 'should set the value of the specified incorrectSequence if in array' do
+      question.update_incorrect_sequences([1,2,3])
+      replace_uid = 0
       question.set_incorrect_sequence(replace_uid, new_incorrect_sequence)
       question.reload
       expect(question.data['incorrectSequences'][replace_uid]).to eq(new_incorrect_sequence)
@@ -180,7 +229,15 @@ RSpec.describe Question, type: :model do
 
   describe '#after_save' do
     it 'should execute invalidate_all_questions_cache to invalidate the ALL_QUESTIONS cache' do
-      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY
+      key = Api::V1::QuestionsController::ALL_QUESTIONS_CACHE_KEY + "_#{question.question_type}"
+      $redis.set(key, 'Dummy data')
+      question.data = {foo: "bar"}
+      question.save
+      expect($redis.get(key)).to be_nil
+    end
+
+    it 'should execute invalidate_all_questions_cache to invalidate the specific QUESTION_* cache' do
+      key = Api::V1::QuestionsController::QUESTION_CACHE_KEY_PREFIX + "_#{question.uid}"
       $redis.set(key, 'Dummy data')
       question.data = {foo: "bar"}
       question.save

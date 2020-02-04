@@ -3,7 +3,7 @@ class Question < ApplicationRecord
   delegate :activity, :to => :question_set, :allow_nil => true
   has_many :responses
 
-  before_save :set_order, if: Proc.new {|q| q.order.nil?}
+  before_save :set_order, if: proc {|q| q.order.nil?}
 
   def set_order
     sibling_questions = question_set&.questions

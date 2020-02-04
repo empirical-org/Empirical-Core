@@ -31,6 +31,7 @@ import CmsSchoolIndexApp from './CmsSchoolIndexAppClient'
 import ForgotPasswordApp from './ForgotPasswordAppClient'
 import ResetPasswordApp from './ResetPasswordAppClient'
 import TeacherClassroomsApp from './TeacherClassroomsAppClient'
+import UnitTemplateCategoriesApp from './UnitTemplateCategoriesAppClient'
 
 require('../../../assets/styles/home.scss');
 
@@ -65,5 +66,6 @@ ReactOnRails.register({ TeacherGuideApp,
   CmsSchoolIndexApp,
   ResetPasswordApp,
   ForgotPasswordApp,
-  TeacherClassroomsApp
+  TeacherClassroomsApp,
+  UnitTemplateCategoriesApp
 });

@@ -18,27 +18,31 @@ export default class SetupInstructions extends React.Component<SetupInstructions
 
   renderBody() {
     const { classroom } = this.props
-    let downloadLink = classCodeLinksPdf
+    let downloadHref = classCodeLinksPdf
     let imageSrc = setupInstructionsGenericSrc
     let download = true
     if (classroom.students && classroom.students.length) {
-      downloadLink = `/teachers/classrooms/${classroom.id}/student_logins`
+      downloadHref = `/teachers/classrooms/${classroom.id}/student_logins`
       imageSrc = setupInstructionsSrc
       download = false
     }
+    /* eslint-disable react/jsx-no-target-blank */
+    const downloadImgLink = <a download={download} href={downloadHref} target="_blank"><img src={imageSrc} /></a>
+    const downloadLink = <a className="quill-button secondary outlined medium" download={download} href={downloadHref} target="_blank">Download PDF</a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (<div className="create-a-class-modal-body modal-body setup-instructions">
       <h3 className="title">Download student logins and setup instructions</h3>
       <p>This PDF includes usernames and passwords for each student and instructions for accessing their Quill accounts.</p>
-      <a download={download} href={downloadLink} target="_blank"><img src={imageSrc} /></a>
-      <a className="quill-button secondary outlined medium" download={download} href={downloadLink} target="_blank">Download PDF</a>
+      {downloadImgLink}
+      {downloadLink}
     </div>)
   }
 
   renderFooter() {
     const { back, close, } = this.props
     return (<div className="create-a-class-modal-footer with-back-button">
-      <button className="quill-button secondary outlined medium" onClick={back}>Back</button>
-      <button className="quill-button primary contained medium" onClick={close}>Done</button>
+      <button className="quill-button secondary outlined medium" onClick={back} type="button">Back</button>
+      <button className="quill-button primary contained medium" onClick={close} type="button">Done</button>
     </div>)
   }
 

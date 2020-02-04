@@ -10,18 +10,14 @@ import {
 import { formatDateTime } from '../customize/helpers'
 
 class CustomizeNavbar extends React.Component<any, any> {
-  constructor(props) {
-    super(props)
-
-    this.publish = this.publish.bind(this)
-  }
-
   editionMetadata() {
-    return this.props.customize.editions[this.props.params.editionID]
+    const { customize, params, } = this.props
+    return customize.editions[params.editionID]
   }
 
-  publish() {
-    const slides = this.props.customize.workingEditionQuestions.questions.slice(1)
+  handlePublishClick = () => {
+    const { customize, dispatch, params, goToSuccessPage, } = this.props
+    const slides = customize.workingEditionQuestions.questions.slice(1)
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {
       const q = s.data.play
@@ -31,10 +27,10 @@ class CustomizeNavbar extends React.Component<any, any> {
         incompleteQuestions.push(i)
       }
     })
-    if (incompleteQuestions.length === 0 && this.props.customize.workingEditionMetadata.name) {
-      this.props.dispatch(publishEdition(this.props.params.editionID, this.props.customize.workingEditionMetadata, this.props.customize.workingEditionQuestions, this.props.goToSuccessPage))
+    if (incompleteQuestions.length === 0 && customize.workingEditionMetadata.name) {
+      dispatch(publishEdition(params.editionID, customize.workingEditionMetadata, customize.workingEditionQuestions, goToSuccessPage))
     } else {
-      this.props.dispatch(setIncompleteQuestions(incompleteQuestions))
+      dispatch(setIncompleteQuestions(incompleteQuestions))
     }
   }
 
@@ -46,19 +42,22 @@ class CustomizeNavbar extends React.Component<any, any> {
   }
 
   renderPublishButton() {
-    return <div className="publish-button" onClick={this.publish}>Publish Edition</div>
+    return <div className="publish-button" onClick={this.handlePublishClick}>Publish Edition</div>
   }
 
   render() {
+    /* eslint-disable react/jsx-no-target-blank */
+    const supportLink = (<a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">
+      <img className="he)lp" src={helpIcon} />Help
+    </a>)
+    /* eslint-enable react/jsx-no-target-blank */
     return (<div className="customize-navbar-container">
       <div className="customize-navbar">
         <div className="left">
           <span>Create Customized Edition</span>
           <span className="vertical-line" />
           <span>
-            <a href="https://support.quill.org/using-quill-tools/quill-lessons/how-do-i-customize-a-quill-lesson" target="_blank">
-              <img className="help" src={helpIcon} />Help
-            </a>
+            {supportLink}
           </span>
         </div>
         <div className="right">

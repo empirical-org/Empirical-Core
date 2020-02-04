@@ -69,7 +69,7 @@ class AccountsController < ApplicationController
     @user = current_user
   end
 
-protected
+  protected
 
   def user_params
     params.require(:user).permit(

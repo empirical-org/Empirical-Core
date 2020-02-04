@@ -15,31 +15,30 @@ class CreateNewAccounts extends React.Component<any, any> {
       }
     }
 
-    this.updateField = this.updateField.bind(this)
-    this.updateSchool = this.updateSchool.bind(this)
-    this.schoolsList = this.schoolsList.bind(this)
-    this.schoolOptions = this.schoolOptions.bind(this)
-    this.addTeacherAccount = this.addTeacherAccount.bind(this)
     this.renderMessage = this.renderMessage.bind(this)
     this.renderError = this.renderError.bind(this)
   }
 
-  updateField(e, fieldName) {
-    this.setState({[fieldName]: e.target.value})
-  }
+  updateField = (e, fieldName) => this.setState({[fieldName]: e.target.value})
 
-  updateSchool(school) {
-    this.setState({school: school})
-  }
+  handleFirstNameChange = (e) => this.updateField(e, 'firstName')
 
-  schoolsList() {
-    return this.props.schools.map(school =>
+  handleLastNameChange = (e) => this.updateField(e, 'lastName')
+
+  handleEmailChange = (e) => this.updateField(e, 'email')
+
+  updateSchool = (school) => this.setState({ school })
+
+  schoolsList = () => {
+    const { schools, } = this.props
+    return schools.map(school =>
       <div className="school" key={school.id}><img src="https://assets.quill.org/images/icons/school_icon_admin.svg" />{school.name}</div>
     )
   }
 
-  schoolOptions() {
-    return this.props.schools.map(school => {
+  schoolOptions = () => {
+    const { schools, } = this.props
+    return schools.map(school => {
       return {
         name: school.name,
         value: school.id
@@ -47,58 +46,67 @@ class CreateNewAccounts extends React.Component<any, any> {
     })
   }
 
-  addTeacherAccount() {
+  handleAddTeacherAccountClick = () => {
+    const { firstName, lastName, email, school, } = this.state
+    const { addTeacherAccount, } = this.props
+
     const data = {
       teacher: {
-        first_name: this.state.firstName,
-        last_name: this.state.lastName,
-        email: this.state.email
+        first_name: firstName,
+        last_name: lastName,
+        email
       },
-      id: this.state.school.value
+      id: school.value
     }
-    this.props.addTeacherAccount(data)
+    addTeacherAccount(data)
   }
 
   renderError() {
-    if (this.props.error) {
-      return <div className="error">{this.props.error}</div>
-    }
+    const { error, } = this.props
+    if (!error) { return }
+
+    return <div className="error">{error}</div>
   }
 
   renderMessage() {
-    if (this.props.message) {
-      return <div className="message">{this.props.message}</div>
-    }
+    const { message, } = this.props
+    if (!message) { return }
+
+    return <div className="message">{message}</div>
   }
 
   render() {
+    const { firstName, lastName, email, school, } = this.state
+    /* eslint-disable react/jsx-no-target-blank */
+    const supportLink = <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here&#39;s the guide.</a>
+    /* eslint-enable react/jsx-no-target-blank */
     return (<div id="create_new_accounts">
       <div className="header">
         <h2>Create New Accounts and Link Existing Teachers</h2>
         <a className="green-link" href="mailto:becca@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
-          <button className="bg-white text-black">Upload Teachers via CSV</button>
+          <button className="bg-white text-black" type="button">Upload Teachers via CSV</button>
         </a>
       </div>
       <p><span>Teachers New to Quill?</span> Input their information to create new Quill accounts.</p>
       <p>
         <span>Teachers Have Quill Accounts?</span> When you submit their information, they will receive an email instructing them to link their accounts to your school. Teachers can link to their school from the My Account page.
-        <a className="green-link" href="http://support.quill.org/getting-started-for-teachers/manage-classes/how-can-i-connect-my-account-to-my-school" target="_blank"> Here's the guide.</a>
+        {supportLink}
       </p>
       <div className="form-and-schools-list">
         <div className="form">
           <div className="first-line">
-            <input className="first-name" onChange={(e) => this.updateField(e, 'firstName')} placeholder="First Name" type="text" value={this.state.firstName} />
-            <input className="last-name" onChange={(e) => this.updateField(e, 'lastName')} placeholder="Last Name" type="text" value={this.state.lastName} />
-            <input className="email" onChange={(e) => this.updateField(e, 'email')} placeholder="Email Address" type="text" value={this.state.email} />
+            <input className="first-name" onChange={this.handleFirstNameChange} placeholder="First Name" type="text" value={firstName} />
+            <input className="last-name" onChange={this.handleLastNameChange} placeholder="Last Name" type="text" value={lastName} />
+            <input className="email" onChange={this.handleEmailChange} placeholder="Email Address" type="text" value={email} />
           </div>
           <DropdownMenu
             className='second-line'
             options={this.schoolOptions()}
             placeholder='Select School for Teacher'
-            selectedOption={this.state.school}
+            selectedOption={school}
             selectOption={this.updateSchool}
           />
-          <button className="button-green pull-right" onClick={this.addTeacherAccount}>Add Teacher Account</button>
+          <button className="button-green pull-right" onClick={this.handleAddTeacherAccountClick} type="button">Add Teacher Account</button>
         </div>
         <div className="schools">
           <p>You have admin access to these schools:</p>

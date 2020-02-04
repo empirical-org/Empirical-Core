@@ -56,8 +56,8 @@ describe StudentsController do
   end
 
   describe '#update_account' do
-    let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username:"maya-angelou", role: "student") }
-    let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username:"harvey-milk", role: "student") }
+    let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student") }
+    let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username: "harvey-milk", role: "student") }
     it 'should update the name, email and username' do
       put :update_account, {email: "pablo@quill.org", username: "pabllo-vittar", name: "Pabllo Vittar"}
       expect(user.reload.email).to eq "pablo@quill.org"

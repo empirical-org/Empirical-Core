@@ -79,6 +79,7 @@ describe('ClassroomActivity component', () => {
     const wrapper = shallow(
       <ClassroomActivity
         data={{
+            activity: { anonymous_path: '' },
             activityId: 567,
             activityClassificationId: 6,
             name: 'I am a lesson',

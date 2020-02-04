@@ -8,7 +8,7 @@ class UnitActivity < ActiveRecord::Base
 
   # validates :unit, uniqueness: { scope: :activity }
 
-  after_save  :hide_appropriate_activity_sessions, :teacher_checkbox
+  after_save :hide_appropriate_activity_sessions, :teacher_checkbox
 
   def teacher_checkbox
     if unit && unit.user

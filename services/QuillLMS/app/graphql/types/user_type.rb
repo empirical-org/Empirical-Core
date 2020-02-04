@@ -15,6 +15,8 @@ class Types::UserType < Types::BaseObject
   field :completed_diagnostic, Boolean, null: false
 
   def notifications
+    return [] unless ENV['USER_NOTIFICATIONS_ENABLED']
+
     object.notifications.order("notifications.id DESC").limit(10)
   end
 

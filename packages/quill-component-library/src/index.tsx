@@ -21,7 +21,7 @@ export {
   Card,
   CarouselAnimation,
   DataTable,
-  DiagnosticProgressBar,
+  ProgressBar,
   DropdownInput,
   Error,
   FlagDropdown,

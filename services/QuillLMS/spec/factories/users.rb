@@ -102,21 +102,21 @@ FactoryBot.define do
                 unless UnitActivity.find_by(unit: unit1, activity: a)
                   create(:unit_activity, unit: unit1, activity: a)
                 end
-                unless (ClassroomUnit.find_by(unit: unit1, classroom: c))
+                unless ClassroomUnit.find_by(unit: unit1, classroom: c)
                   create(:classroom_unit, unit: unit1, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
                 end
               elsif i < 6
                 unless UnitActivity.find_by(unit: unit2, activity: a)
                   create(:unit_activity, unit: unit2, activity: a)
                 end
-                unless (ClassroomUnit.find_by(unit: unit2, classroom: c))
+                unless ClassroomUnit.find_by(unit: unit2, classroom: c)
                   create(:classroom_unit, unit: unit2, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
                 end
               else
                 unless UnitActivity.find_by(unit: unit3, activity: a)
                   create(:unit_activity, unit: unit3, activity: a)
                 end
-                unless (ClassroomUnit.find_by(unit: unit3, classroom: c))
+                unless ClassroomUnit.find_by(unit: unit3, classroom: c)
                   create(:classroom_unit, unit: unit3, classroom: c, assigned_student_ids: students.map { |s| s[:id]})
                 end
               end

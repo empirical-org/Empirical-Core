@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ClassroomUnitActivityState, type: :model, redis: :true do
+describe ClassroomUnitActivityState, type: :model, redis: true do
 
   it { should belong_to(:unit_activity) }
   it { should belong_to(:classroom_unit) }
@@ -54,8 +54,7 @@ describe ClassroomUnitActivityState, type: :model, redis: :true do
         "activity_id" => cua.unit_activity.activity.id,
         "activity_name" => cua.unit_activity.activity.name,
         "unit_id" => cua.classroom_unit.unit_id,
-        "completed" => cua.completed
-      }
+        "completed" => cua.completed}
       expect($redis.get("user_id:#{classroom_unit.classroom.owner.id}_lessons_array")).to eq([lesson_data].to_json)
     end
 
@@ -74,15 +73,13 @@ describe ClassroomUnitActivityState, type: :model, redis: :true do
         "activity_id" => cua.unit_activity.activity.id,
         "activity_name" => cua.unit_activity.activity.name,
         "unit_id" => cua.classroom_unit.unit_id,
-        "completed" => cua.completed
-      }
+        "completed" => cua.completed}
       lesson_2_data = {"classroom_unit_id" => cua2.classroom_unit.id,
         "classroom_unit_activity_state_id" => cua2.id,
         "activity_id" => cua2.unit_activity.activity.id,
         "activity_name" => cua2.unit_activity.activity.name,
         "unit_id" => cua2.classroom_unit.unit_id,
-        "completed" => cua2.completed
-      }
+        "completed" => cua2.completed}
       expect($redis.get("user_id:#{classroom_unit2.classroom.owner.id}_lessons_array")).to eq([lesson_data, lesson_2_data].to_json)
     end
   end

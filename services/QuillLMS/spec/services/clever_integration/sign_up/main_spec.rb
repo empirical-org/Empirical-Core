@@ -7,7 +7,6 @@ describe 'CleverIntegration::SignUp::Main' do
   let!(:district) {
     create(:district, clever_id: 'district_id_1', token: 'token1')
   }
-  #
   let!(:school) {
     create(:school, nces_id: 'fake_nces_id')
   }
@@ -60,7 +59,6 @@ describe 'CleverIntegration::SignUp::Main' do
 
     clever_school_response = Clever::SchoolResponse.new({ data: clever_school })
     allow_any_instance_of(Clever::DataApi).to receive(:get_schools_for_school_admin).and_return(Clever::SchoolsResponse.new({ data: [clever_school_response]}))
-    #
     allow(CleverIntegration::Importers::CleverDistrict).to receive(:run).and_return(district)
   end
 

@@ -50,7 +50,8 @@ class Cms::SubscriptionsController < Cms::CmsController
      :recurring,
      :de_activated_date,
      :payment_method,
-     :payment_amount]
+     :payment_amount
+]
    )
   end
 end

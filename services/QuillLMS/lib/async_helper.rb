@@ -9,6 +9,7 @@ def eventually(options = {})
     begin
       yield
     rescue *EXCEPTIONS => e
+      nil
     end
     return if e.nil?
     raise e if Time.now >= time_limit

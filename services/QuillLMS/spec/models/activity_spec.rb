@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Activity, type: :model, redis: :true do
+describe Activity, type: :model, redis: true do
   it { should have_and_belong_to_many(:unit_templates) }
   it { should belong_to(:classification).class_name("ActivityClassification") }
   it { should belong_to(:topic) }

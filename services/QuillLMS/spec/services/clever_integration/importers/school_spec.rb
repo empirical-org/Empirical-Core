@@ -13,7 +13,6 @@ describe 'CleverIntegration::Importers::School' do
   let!(:district) {
     create(:district, clever_id: 'district_id_1', token: 'token1')
   }
-  #
   let!(:school) {
     create(:school, nces_id: 'fake_nces_id')
   }
@@ -45,7 +44,6 @@ describe 'CleverIntegration::Importers::School' do
     clever_teacher = Clever::Teacher.new({ school: 'school_clever_id' })
     allow_any_instance_of(Clever::DataApi).to receive(:get_teacher).and_return(Clever::TeacherResponse.new({ data: clever_teacher }))
     allow_any_instance_of(Clever::DataApi).to receive(:get_school).and_return(clever_school_response)
-    #
   end
 
   def subject

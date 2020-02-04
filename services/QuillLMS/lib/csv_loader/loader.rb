@@ -58,8 +58,7 @@ class GoogleDriveLoader
             "ya29.1.AADtN_W0xsGWc-TkqxlxE8f_xyok7kl3oM0XxAnWvZ_7EPTeAeSJINIoU0Y8gg",
             "token_type"=>"Bearer",
             "expires_in"=>3600,
-            "refresh_token"=>"1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg"
-           }
+            "refresh_token"=>"1/e7iTzkgqVstNgpGjdvvk-hWDB9x_YgyUQe2PMKhO2Qg"}
 
     client.authorization.code = nil
     client.authorization.issued_at = Time.now

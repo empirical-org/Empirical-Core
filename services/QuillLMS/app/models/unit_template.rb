@@ -9,7 +9,7 @@ class UnitTemplate < ActiveRecord::Base
   serialize :grades, Array
 
   validates :flag,                  inclusion: { in: %w(archived alpha beta production private),
-                                    message: "%{value} is not a valid flag" }, :allow_nil => true
+                                    message: "%<value>s is not a valid flag" }, :allow_nil => true
 
 
   scope :production, -> {where("unit_templates.flag IN('production') OR unit_templates.flag IS null")}

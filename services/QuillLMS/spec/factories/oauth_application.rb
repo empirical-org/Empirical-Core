@@ -5,6 +5,6 @@ FactoryBot.define do
     sequence(:name) { |i| "oauth app #{i}" }
     sequence(:uid)  { |i| "oauth_app_#{i}" }
 
-    redirect_uri  "https://localhost:3000/oauth/callback"
+    redirect_uri "https://localhost:3000/oauth/callback"
   end
 end

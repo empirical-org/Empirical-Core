@@ -4,7 +4,7 @@ class StudentsClassrooms < ActiveRecord::Base
   belongs_to :classroom, class_name: "Classroom"
   # validates uniqueness of student/classroom on db
   after_save :checkbox, :run_associator
-  after_save :archive_student_associations_for_classroom, if: Proc.new { |sc| !sc.visible && sc.student && sc.classroom }
+  after_save :archive_student_associations_for_classroom, if: proc { |sc| !sc.visible && sc.student && sc.classroom }
   after_commit :invalidate_classroom_minis
 
   default_scope { where(visible: true)}

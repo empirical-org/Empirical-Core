@@ -21,8 +21,7 @@ class Subscription < ActiveRecord::Base
                          'School Paid',
                          'Teacher Paid',
                          'Purchase Missing School',
-                         'Premium Credit'
-  ]
+                         'Premium Credit']
 
   OFFICIAL_FREE_TYPES = ['School NYC Free',
                          'School Research',
@@ -108,12 +107,15 @@ class Subscription < ActiveRecord::Base
 
   def renew_subscription
     # creates a new sub based off the old ones
-    # dups last subscription
+    # dups last subscription, other than the dates
     new_sub = dup
     new_sub.expiration = expiration + 365
     new_sub.start_date = expiration
-    update(de_activated_date: Date.today)
+    new_sub.de_activated_date = nil
     new_sub.save!
+    update(de_activated_date: Date.today)
+    new_sub.users.push(users)
+    new_sub.schools.push(schools)
   end
 
   def credit_user_and_de_activate
