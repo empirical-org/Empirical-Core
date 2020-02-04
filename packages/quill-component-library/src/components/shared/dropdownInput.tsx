@@ -33,6 +33,7 @@ interface DropdownInputState {
   menuIsOpen: boolean;
   options: Array<any>;
   cursor: number|null;
+  inputValue: string;
 }
 
 const KEYDOWN = 'keydown'
@@ -60,7 +61,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       errorAcknowledged: false,
       menuIsOpen: false,
       options: passedOptions,
-      cursor: null
+      cursor: null,
+      inputValue: ''
     }
   }
 
@@ -113,12 +115,28 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   deactivateInput = () => {
-    this.setState({ active: false, menuIsOpen: false, cursor: null })
+    this.setState({ active: false, menuIsOpen: false, cursor: null, inputValue: '' })
+  }
+
+  filteredOptions = () => {
+    const { options, inputValue, } = this.state
+
+    if (!inputValue.length) { return options }
+
+    const inputValueRegex = new RegExp(inputValue, 'i')
+
+    return options.filter(opt => opt.label.match(inputValueRegex))
   }
 
   handleClick = (e) => {
     if (!this.node || !this.node.contains(e.target)) {
       this.deactivateInput()
+    }
+  }
+
+  handleInputChange = (inputValue, action) => {
+    if (action.action !== "input-blur" && action.action !== 'menu-close') {
+      this.setState({ inputValue });
     }
   }
 
@@ -136,13 +154,23 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     }
   }
 
+  updateFocusedOption = () => {
+    const { cursor, } = this.state
+    const options = this.filteredOptions()
+    const focusedOption = options[cursor]
+
+    document.getElementById(focusedOption.value).focus()
+  }
+
   handleKeyDown = (e) => {
-    const { active, menuIsOpen, cursor, options, } = this.state
+    const { active, menuIsOpen, cursor, } = this.state
 
     const inactiveNode = !(this.node && this.node.contains(e.target))
     const keyWasNotTab = e.key !== TAB
 
     if (inactiveNode && keyWasNotTab) { return }
+
+    const options = this.filteredOptions()
 
     switch (e.key) {
       case ARROWDOWN:
@@ -152,11 +180,15 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
               return { cursor: prevState.cursor + 1 }
             }
             return { cursor: 0 }
-          })
+          }, this.updateFocusedOption)
+        } else if (cursor === null && options.length === 1) {
+          this.setState({ cursor: 0 }, this.updateFocusedOption)
+        } else {
+          this.updateFocusedOption()
         }
         break
       case ARROWUP:
-        this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }))
+        this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }), this.updateFocusedOption)
         break
       case TAB:
         this.deactivateInput()
@@ -176,14 +208,15 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleEnterWithFocusedOption = () => {
-    const { cursor, options, } = this.state
+    const { cursor, } = this.state
     const { value, isMulti, } = this.props
 
+    const options = this.filteredOptions()
     const focusedOption = options[cursor]
 
     if (isMulti && Array.isArray(value)) {
       const valueWasPreviouslySelected = value.find(opt => opt.value === focusedOption.value)
-      const newArray = valueWasPreviouslySelected ? value.filter(opt => opt.value === focusedOption.value) : value.concat(focusedOption)
+      const newArray = valueWasPreviouslySelected ? value.filter(opt => opt.value !== focusedOption.value) : value.concat(focusedOption)
       this.handleOptionSelection(newArray)
     } else {
       this.handleOptionSelection(focusedOption)
@@ -205,8 +238,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleOptionSelection = (selection) => {
-    const { options, } = this.props
-    const { handleChange, value, isMulti, } = this.props
+    const { handleChange, value, isMulti, options, } = this.props
     const allWasClicked = Array.isArray(selection) && selection.find(opt => opt.value === 'All')
 
     if (allWasClicked) {
@@ -230,7 +262,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   renderInput() {
-    const { active, errorAcknowledged, menuIsOpen, cursor, options, } = this.state
+    const { active, errorAcknowledged, menuIsOpen, cursor, inputValue, options } = this.state
     const { className, label, value, placeholder, error, type, id, isSearchable, isMulti, optionType, usesCustomOption, } = this.props
     const passedValue = value || ''
     const hasText = value || isMulti ? 'has-text' : ''
@@ -253,6 +285,8 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
       isSearchable,
       updateCursor: this.updateCursor,
       components: { Option: StandardDropdownOption },
+      onInputChange: this.handleInputChange,
+      inputValue
     }
     if (error) {
       if (errorAcknowledged) {
