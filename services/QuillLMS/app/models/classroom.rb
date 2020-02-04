@@ -21,7 +21,7 @@ class Classroom < ActiveRecord::Base
   has_many :classrooms_teachers, foreign_key: 'classroom_id'
   has_many :teachers, through: :classrooms_teachers, source: :user
 
-  before_validation :set_code, if: Proc.new {|c| c.code.blank?}
+  before_validation :set_code, if: proc {|c| c.code.blank?}
 
 
   def validate_name

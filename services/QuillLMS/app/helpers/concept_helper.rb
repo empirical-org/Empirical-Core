@@ -23,10 +23,10 @@ module ConceptHelper
         incorrect_count += 1
       end
     end
-    "<div class='row'>" +
-      "<div class='col-xs-8 col-sm-8 col-xl-8'>#{concept.name}</div>" +
-      "<div class='col-xs-2 col-sm-2 col-xl-2 correct-answer'>#{correct_count}</div>" +
-      "<div class='col-xs-2 col-sm-2 col-xl-2 incorrect-answer'>#{incorrect_count}</div>" +
+    "<div class='row'>" \
+      "<div class='col-xs-8 col-sm-8 col-xl-8'>#{concept.name}</div>" \
+      "<div class='col-xs-2 col-sm-2 col-xl-2 correct-answer'>#{correct_count}</div>" \
+      "<div class='col-xs-2 col-sm-2 col-xl-2 incorrect-answer'>#{incorrect_count}</div>" \
     "</div>"
   end
 end

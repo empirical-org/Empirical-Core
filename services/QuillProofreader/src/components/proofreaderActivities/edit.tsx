@@ -50,7 +50,9 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
       }
       offset = remainingWidth < tooltipWidth ? 'offset' : ''
     }
-    this.setState({ offset })
+
+    // disabling normal rule about not setting state in componentDidMount because we have to have mounted the component for this to work
+    this.setState({ offset }) // eslint-disable-line react/no-did-mount-set-state
   }
 
   renderGrammaticalConcept():JSX.Element|void {

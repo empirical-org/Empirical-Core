@@ -385,7 +385,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       }
       return (<div className="google-or-clever-note-of-explanation">
         <div className="google-or-clever-note-of-explanation-text">
-          <h4>Why can't I edit my students’ account information?</h4>
+          <h4>Why can&#39;t I edit my students’ account information?</h4>
           <p>{copy}</p>
         </div>
         <img alt="lightbulb" src={bulbSrc} />
@@ -395,10 +395,11 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   renderStudentDataTable() {
     const { classroom, } = this.props
+    const { selectedStudentIds, } = this.state
 
     const rows = classroom.students.map(student => {
       const { name, username, id, google_id, clever_id, } = student
-      const checked = !!this.state.selectedStudentIds.includes(id)
+      const checked = !!selectedStudentIds.includes(id)
       let synced = ''
       if (google_id) { synced = 'Google Classroom'}
       if (clever_id) { synced = 'Clever' }
@@ -429,20 +430,24 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const allGoogleStudents = this.allGoogleStudents()
     const allCleverStudents = this.allCleverStudents()
     if (!classroom.visible) { return null }
-    let loginPdfLink = `/teachers/classrooms/${this.props.classroom.id}/student_logins`
+    let loginPdfHref = `/teachers/classrooms/${classroom.id}/student_logins`
     let download
     if (allGoogleStudents) {
-      loginPdfLink = googleSetupInstructionsPdf
+      loginPdfHref = googleSetupInstructionsPdf
       download = true
     } else if (allCleverStudents) {
-      loginPdfLink = cleverSetupInstructionsPdf
+      loginPdfHref = cleverSetupInstructionsPdf
       download = true
     } else if (classroom.students.length === 0) {
-      loginPdfLink = classCodeLinksPdf
+      loginPdfHref = classCodeLinksPdf
       download = true
     }
+    /* eslint-disable react/jsx-no-target-blank */
+    const loginPdfLink = <a className="quill-button secondary outlined small" download={download} href={loginPdfHref} target="_blank">Download setup instructions</a>
+    /* eslint-enable react/jsx-no-target-blank */
+
     return (<div className="students-section-header-buttons">
-      <a className="quill-button secondary outlined small" download={download} href={loginPdfLink} target="_blank">Download setup instructions</a>
+      {loginPdfLink}
       {this.renderInviteStudents()}
     </div>)
   }
@@ -453,12 +458,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     if (classroom.google_classroom_id) {
       const lastUpdatedDate = moment(classroom.updated_at).format('MMM D, YYYY')
       return (<div className="invite-google-classroom-students">
-        <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents}>Import Google Classroom students</button>
+        <button className="quill-button primary outlined small" onClick={importGoogleClassroomStudents} type="button">Import Google Classroom students</button>
         <span>Last imported {lastUpdatedDate}</span>
       </div>)
     } else {
       return (<div className="invite-quill-classroom-students">
-        <button className="quill-button primary outlined small" onClick={inviteStudents}>Invite students</button>
+        <button className="quill-button primary outlined small" onClick={inviteStudents} type="button">Invite students</button>
       </div>)
     }
   }

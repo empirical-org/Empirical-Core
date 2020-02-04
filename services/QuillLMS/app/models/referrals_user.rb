@@ -3,7 +3,7 @@ class ReferralsUser < ActiveRecord::Base
   has_one :referred_user, class_name: 'User', foreign_key: :id, primary_key: :referred_user_id
 
   after_create :trigger_invited_event
-  after_save :trigger_activated_event, if: Proc.new { activated_changed? && activated }
+  after_save :trigger_activated_event, if: proc { activated_changed? && activated }
 
   def referring_user
     user

@@ -42,8 +42,7 @@ include_context "Unit Assignments Variables"
                   {"id":unit_template2.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
                   {"id":unit_template3.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]},
                   {"id":unit_template4.id,"classrooms":[{"id":classroom.id,"student_ids":[]}]}
-                ]
-                }
+                ]}
         post "assign_selected_packs", (data)
         unit_template_ids = data[:selections].map{ |sel| sel[:id] }
         expect(unit_templates_have_a_corresponding_unit?(unit_template_ids)).to eq(true)

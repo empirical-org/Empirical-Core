@@ -94,7 +94,7 @@ RSpec.describe ResponsesController, type: :controller do
       # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
       # that have that question uid
       question_uids.each do |quid|
-        expect(get_ids(parsed_response["#{quid}"])).to eq(get_ids(hashify_nested_ar_objects(questions_with_responses[quid])))
+        expect(get_ids(parsed_response[quid.to_s])).to eq(get_ids(hashify_nested_ar_objects(questions_with_responses[quid])))
       end
 
     end
@@ -115,7 +115,7 @@ RSpec.describe ResponsesController, type: :controller do
     # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
     # that have that question uid
     question_uids.each do |quid|
-      expect(get_ids(parsed_response["#{quid}"])).to eq(filter_optimal_nil_responses(hashify_nested_ar_objects(questions_with_responses[quid])))
+      expect(get_ids(parsed_response[quid.to_s])).to eq(filter_optimal_nil_responses(hashify_nested_ar_objects(questions_with_responses[quid])))
     end
   end
 
@@ -136,7 +136,7 @@ RSpec.describe ResponsesController, type: :controller do
     # we are checking to see if each key in the returned json hash contains objects with the ids of the active record responses
     # that have that question uid
     question_uids.each do |quid|
-      expect(get_ids(parsed_response["#{quid}"])).to eq(filter_responses_with_parent_id(hashify_nested_ar_objects(questions_with_responses[quid])))
+      expect(get_ids(parsed_response[quid.to_s])).to eq(filter_responses_with_parent_id(hashify_nested_ar_objects(questions_with_responses[quid])))
     end
   end
 

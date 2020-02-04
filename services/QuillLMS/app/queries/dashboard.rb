@@ -27,7 +27,8 @@ class Dashboard
     set_cache_if_empty(strug_stud, diff_con, user)
     results = [
               {header: 'Lowest Performing Students', results: strug_stud},
-              {header: 'Difficult Concepts', results: diff_con}]
+              {header: 'Difficult Concepts', results: diff_con}
+]
   end
 
   private

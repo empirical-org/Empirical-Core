@@ -11,6 +11,6 @@ RSpec.describe Criterion, type: :model do
     it { should validate_presence_of(:recommendation) }
     it { should validate_presence_of(:concept) }
     it { should validate_presence_of(:count) }
-    it { should validate_inclusion_of(:no_incorrect).in?([ true, false ]) }
+    it { should validate_inclusion_of(:no_incorrect).in?([true, false]) }
   end
 end

@@ -278,7 +278,7 @@ class EgFormBuilder < CMS::FormBuilder
   end
 end
 
-ActionView::Base.field_error_proc = Proc.new do |html, instance|
+ActionView::Base.field_error_proc = proc do |html, instance|
   if html =~ /<label/
     html
   else

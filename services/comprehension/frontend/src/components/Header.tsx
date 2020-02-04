@@ -8,10 +8,6 @@ import getParameterByName from '../helpers/getParameterByName';
 const logoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 const mobileLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white-mobile.svg`
 
-import {
-  updateSessionOnFirebase,
-} from "../actions/session";
-
 class Header extends React.Component<any, any> {
   constructor(props: any) {
     super(props)

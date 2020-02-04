@@ -1,2 +1,2 @@
 [flake8]
-exclude = .git,env
+exclude = .git,env,**/migrations/**

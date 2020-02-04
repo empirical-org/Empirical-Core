@@ -1,6 +1,7 @@
 import * as React from 'react'
 import _ from 'underscore'
 import { AffectedResponse, isValidRegex } from 'quill-component-library/dist/componentLibrary'
+import { focusPointMatchHelper, incorrectSequenceMatchHelper } from "quill-marking-logic"
 
 import Response from './response'
 import massEdit from '../../actions/massEdit';
@@ -22,28 +23,6 @@ export default class ResponseList extends React.Component {
         this.props.massEdit.selectedResponses.includes(r.id)
       )
     })
-  }
-
-  incorrectSequenceMatchHelper(responseString, sequenceParticle) {
-    const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => {
-      if (isValidRegex(m)) {
-        return new RegExp(m).test(responseString)
-      } else {
-        return false
-      }
-    });
-  }
-
-  focusPointMatchHelper(responseString, sequenceParticle) {
-    const matchList = sequenceParticle.split('&&');
-    return _.every(matchList, m => {
-      if (isValidRegex(m)) {
-        return new RegExp(m).test(responseString)
-      } else {
-        return false
-      }
-    });
   }
 
   addAllResponsesToMassEdit() {
@@ -96,14 +75,14 @@ export default class ResponseList extends React.Component {
     const responseListItems = this.props.responses.map((resp) => {
       if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
         const incorrectSequences = this.props.selectedIncorrectSequences.filter(is => is.length > 0)
-        const anyMatches = incorrectSequences.some(inSeq => this.incorrectSequenceMatchHelper(resp.text, inSeq))
+        const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
         if (anyMatches) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
       }
       if (resp && this.props.selectedFocusPoints) {
         const focusPoints = this.props.selectedFocusPoints.filter(fp => fp.length > 0)
-        const matchAllFocusPoints = focusPoints.some(fp => this.focusPointMatchHelper(resp.text, fp))
+        const matchAllFocusPoints = focusPoints.some(fp => focusPointMatchHelper(resp.text, fp))
         if (matchAllFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }

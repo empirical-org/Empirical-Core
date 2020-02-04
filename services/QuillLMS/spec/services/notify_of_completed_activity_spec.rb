@@ -112,8 +112,8 @@ RSpec.describe NotifyOfCompletedActivity do
     activity_session.update(state: 'finished')
     NotifyOfCompletedActivity.new(activity_session).call
     notification = teacher.notifications.last
-    expected_path = "/teachers/progress_reports/diagnostic_reports#" +
-      "/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report" +
+    expected_path = "/teachers/progress_reports/diagnostic_reports#" \
+      "/u/#{unit.id}/a/#{activity.id}/c/#{classroom.id}/student_report" \
       "/#{activity_session.user_id}"
 
 

@@ -6,6 +6,6 @@ describe UserMilestone, type: :model do
   it { is_expected.to callback(:report_milestone_to_segment).after(:commit) }
 
 
-  #TODO spec for report milestone to segment maybe 
+  #TODO: spec for report milestone to segment maybe
   #the worker's name is wrong or the namespace is missing
 end

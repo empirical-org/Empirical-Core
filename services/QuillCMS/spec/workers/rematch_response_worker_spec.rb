@@ -123,8 +123,8 @@ describe RematchResponseWorker do
   describe '#perform' do
     let(:response) { Response.create(sample_payload['response']) }
     it 'should update the response based on the lambda payload' do
-      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/).
-        to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
+      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
+        .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
       reference_response_ids = reference_responses.map { |r| r.id }
 
@@ -136,8 +136,8 @@ describe RematchResponseWorker do
     end
 
     it 'should raise an Net::HTTPRetriableError on Gateway Timeout' do
-      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/).
-        to_return(status: [504, "Gateway timed out"])
+      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
+        .to_return(status: [504, "Gateway timed out"])
 
       expect{subject.rematch_response(response, sample_payload['type'], sample_payload['question'], sample_payload['reference_responses'])}.to raise_error(Net::HTTPRetriableError)
     end
@@ -161,8 +161,8 @@ describe RematchResponseWorker do
 
   describe "#call_http_lambda_endpoint" do
     it 'should make an HTTP request and return the response payload' do
-      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/).
-        to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
+      stub_request(:post, /#{ENV['REMATCH_LAMBDA_URL']}/)
+        .to_return(status: 200, body: sample_lambda_response.to_json, headers: {})
 
       result = subject.call_lambda_http_endpoint({})
       expect(result.stringify_keys).to eq(sample_lambda_response.stringify_keys)
@@ -171,8 +171,8 @@ describe RematchResponseWorker do
 
   describe "#retrieve_question_from_firebase" do
     it 'should make an http request and return the question payload' do
-      stub_request(:get, /#{ENV['FIREBASE_URL']}/).
-        to_return(status: 200, body: sample_payload["question"].to_json, headers: {})
+      stub_request(:get, /#{ENV['FIREBASE_URL']}/)
+        .to_return(status: 200, body: sample_payload["question"].to_json, headers: {})
 
       response = subject.retrieve_question_from_firebase(sample_payload["question"]["key"], sample_payload["type"])
       expect(response).to eq(sample_payload["question"])

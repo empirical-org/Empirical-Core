@@ -36,22 +36,19 @@ class ConceptsFindAndReplace extends React.Component<ConceptsFindAndReplaceProps
     super(props)
 
     this.state = { showSuccessBanner: false }
-
-    this.closeSuccessBanner = this.closeSuccessBanner.bind(this)
-    this.showSuccessBanner = this.showSuccessBanner.bind(this)
   }
 
   renderSuccessBanner() {
-    if (this.state.showSuccessBanner) {
-      return <div className="success-banner"><span>You replaced a concept.</span><i className="fas fa-close" onClick={this.closeSuccessBanner} /></div>
-    }
+    const { showSuccessBanner, } = this.state
+    if (!showSuccessBanner) return
+    return <div className="success-banner"><span>You replaced a concept.</span><i className="fas fa-close" onClick={this.handleCloseSuccessBanner} /></div>
   }
 
-  closeSuccessBanner() {
+  handleCloseSuccessBanner = () => {
     this.setState({ showSuccessBanner: false })
   }
 
-  showSuccessBanner() {
+  showSuccessBanner = () => {
     this.setState({ showSuccessBanner: true })
   }
 
@@ -68,7 +65,7 @@ class ConceptsFindAndReplace extends React.Component<ConceptsFindAndReplaceProps
             if (error) return <p>Error :(</p>;
 
             return (<div className="find-and-replace-container">
-              <a className="find-and-replace-guide" href="https://www.notion.so/quill/Concept-Manager-Guide-08b52d41f62f47e59856b14c91b4a95a" target="_blank">Guide For Find & Replace</a>
+              <a className="find-and-replace-guide" href="https://www.notion.so/quill/Concept-Manager-Guide-08b52d41f62f47e59856b14c91b4a95a" rel="noopener noreferrer" target="_blank">Guide For Find & Replace</a>
               <ConceptReplaceForm concepts={data.concepts} showSuccessBanner={this.showSuccessBanner} />
             </div>)
           }}

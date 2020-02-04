@@ -102,6 +102,7 @@ exports[`QuillLessonsAnnouncementMini component should render 1`] = `
     </p>
     <a
       href="https://medium.com/writing-with-quill/quill-launches-quill-lessons-fb983f2b8970"
+      rel="noopener noreferrer"
       target="_blank"
     >
       <button
@@ -114,6 +115,7 @@ exports[`QuillLessonsAnnouncementMini component should render 1`] = `
             "width": "100%",
           }
         }
+        type="button"
       >
         Learn More
       </button>

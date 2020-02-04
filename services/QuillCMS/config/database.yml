@@ -1,34 +1,102 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
-development:
-  <<: *default
+development_env: &development_env
   database: quill_cms_development
   host: localhost
   port: 5433
   user: root
   password: password
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
+test_env: &test_env
+  <<: *development_env
   database: quill_cms_test
-  host: localhost
 
-production:
-  <<: *default
+elastic_beanstalk_env: &elastic_beanstalk_env
   database: <%= ENV['RDS_DB_NAME'] %>
   user: <%= ENV['RDS_DB_USERNAME'] %>
   password: <%= ENV['RDS_DB_PASSWORD'] %>
   host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
+
+elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
+  database: <%= ENV['RDS_REPLICA_NAME'] %>
+  user: <%= ENV['RDS_REPLICA_USERNAME'] %>
+  password: <%= ENV['RDS_REPLICA_PASSWORD'] %>
+  host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
+  port: <%= ENV['RDS_REPLICA_PORT'] %>
+
+
+development: &development
+  <<: *default
+  adapter: postgresql_makara
+  makara:
+    id: postgres_development_db
+    disable_blacklist: true
+    sticky: true
+    master_ttl: 60
+    connections:
+      - role: master
+        name: leader
+        <<: *development_env
+      - role: slave
+        name: replica
+        <<: *development_env
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  adapter: postgresql_makara
+  makara:
+    id: postgres_development_db
+    disable_blacklist: true
+    sticky: true
+    master_ttl: 60
+    connections:
+      - role: master
+        name: leader
+        <<: *test_env
+      - role: slave
+        name: replica
+        <<: *test_env
+
+
+staging:
+  <<: *default
+  adapter: postgresql_makara
+  makara:
+    id: postgres_staging_db
+    disable_blacklist: true
+    sticky: true
+    master_ttl: 60
+    connections:
+      - role: master
+        name: leader
+        <<: *elastic_beanstalk_env
+      - role: slave
+        name: replica
+        <<: *elastic_beanstalk_replica_env
+
+production:
+  <<: *default
+  adapter: postgresql_makara
+  makara:
+    id: postgres_production_db
+    disable_blacklist: true
+    sticky: true
+    master_ttl: 60
+    connections:
+      - role: master
+        name: leader
+        <<: *elastic_beanstalk_env
+      - role: slave
+        name: dummy_replica
+        weight: <%= 100 - ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
+        <<: *elastic_beanstalk_env
+      - role: slave
+        name: replica
+        weight: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
+        <<: *elastic_beanstalk_replica_env

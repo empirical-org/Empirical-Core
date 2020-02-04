@@ -1,12 +1,10 @@
 import React from 'react';
-const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg';
 
-const PlayTitleCard = props => (
+const PlayTitleCard = ({ data, handleContinueClick, }) => (
   <div className="landing-page">
-    <div className="landing-page-html" dangerouslySetInnerHTML={{__html: props.data.content}} />
-    <button className="button student-begin" onClick={props.nextQuestion}>
+    <div className="landing-page-html" dangerouslySetInnerHTML={{__html: data.content}} />
+    <button className="quill-button focus-on-light large primary contained" onClick={handleContinueClick} type="button">
       Continue
-      <img className="begin-arrow" src={beginArrow} />
     </button>
   </div>
 )

@@ -82,7 +82,7 @@ class Teachers::ClassroomsController < ApplicationController
 
   def hide
     classroom = Classroom.find(params[:id])
-    classroom.visible = false #
+    classroom.visible = false
     classroom.save(validate: false)
     respond_to do |format|
       format.html{redirect_to teachers_classrooms_path}
@@ -142,7 +142,7 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
-private
+  private
 
   def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})
@@ -169,9 +169,17 @@ private
 
   def format_students_for_classroom(classroom)
     sorted_students = classroom.students.sort_by { |s| s.last_name }
+    # create a hash of the form {user_id: count}
+    activity_counts_by_student = ActivitySession
+      .select(:user_id, "count(activity_sessions.id) as total")
+      .where(user_id: sorted_students.map(&:id), state: 'finished')
+      .group(:user_id)
+      .map{|r| [r.user_id, r.total]}
+      .to_h
+
     sorted_students.map do |s|
       student = s.attributes
-      student[:number_of_completed_activities] = ActivitySession.where(user_id: s.id, state: 'finished').count
+      student[:number_of_completed_activities] = activity_counts_by_student[s.id] || 0
       student
     end
   end
