@@ -13,6 +13,9 @@ import { QuestionsReducerState } from '../../reducers/questions';
 import { SentenceFragmentsReducerState } from '../../reducers/sentenceFragments';
 import { TitleCardsReducerState } from '../../reducers/titleCards';
 
+// TODO: The StudentDiagnostic and ELLDiagnostic have the same state shape and share most of the same functions. Since they are receiving props from
+// here as well, we should extract those functions into this DiagnosticRouter component, pass them as props and convert them into functional components.
+
 interface DiagnosticRouterProps {
     children: any,
     dispatch(action: any): any,
@@ -37,23 +40,23 @@ interface DiagnosticRouterProps {
     titleCards: TitleCardsReducerState,
 }
 
-export const DiagnosticRouter: React.FC<DiagnosticRouterProps> = (props) => {
+export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: DiagnosticRouterProps) => {
     const { fillInBlank, lessons, params, questions, sentenceFragments } = props;
     const { diagnosticID } = params;
     const { data } = lessons;
     if(fillInBlank.hasreceiveddata && lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata) {
         if(data[diagnosticID].isELL) {
-            return <ELLStudentDiagnostic {...props}/>;
+            return <ELLStudentDiagnostic {...props} />;
         } else {
-            return <StudentDiagnostic {...props}/>;
+            return <StudentDiagnostic {...props} />;
         }
     } else {
         return(
-            <section className="section is-fullheight minus-nav student">
-                <div className="student-container student-container-diagnostic">
-                    <SmartSpinner key="step1" message='Loading Your Lesson 25%' />
-                </div>
-            </section>
+          <section className="section is-fullheight minus-nav student">
+            <div className="student-container student-container-diagnostic">
+              <SmartSpinner key="loading-diagnostic" message='Loading Your Lesson 25%' />
+            </div>
+          </section>
         );
     }
 };
