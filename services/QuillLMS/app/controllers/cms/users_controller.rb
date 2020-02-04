@@ -153,7 +153,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
   def user_query_params
-    params.permit((@text_search_inputs&.map(&:to_sym) || '') + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
+    params.permit(@text_search_inputs.map(&:to_sym) + default_params + [:page, :user_role, :user_flag, :sort, :sort_direction, :user_premium_status])
   end
 
   def user_query(params)
