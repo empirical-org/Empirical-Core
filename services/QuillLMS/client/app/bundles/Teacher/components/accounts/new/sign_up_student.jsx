@@ -1,7 +1,6 @@
 import React from 'react';
 import request from 'request'
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
-// import { Input } from '../../../../../../../../../packages/quill-component-library/src/components/shared/input'
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
@@ -27,6 +26,10 @@ class SignUpStudent extends React.Component {
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this)
     this.submitClass = this.submitClass.bind(this)
+  }
+
+  componentDidMount() {
+    document.title = 'Quill.org | Student Sign Up'
   }
 
   updateKeyValue(key, value) {
@@ -116,6 +119,7 @@ class SignUpStudent extends React.Component {
                 <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
                 <div className="name">
                   <Input
+                    autoComplete="given-name"
                     className="first-name"
                     error={errors.first_name}
                     handleChange={this.update}
@@ -126,6 +130,7 @@ class SignUpStudent extends React.Component {
                     value={firstName}
                   />
                   <Input
+                    autoComplete="family-name"
                     className="last-name"
                     error={errors.last_name}
                     handleChange={this.update}
@@ -137,6 +142,7 @@ class SignUpStudent extends React.Component {
                   />
                 </div>
                 <Input
+                  autocomplete="username"
                   className="username"
                   error={errors.username}
                   handleChange={this.update}
@@ -147,16 +153,18 @@ class SignUpStudent extends React.Component {
                   value={username}
                 />
                 <Input
+                  autocomplete="email"
                   className="email"
                   error={errors.email}
                   handleChange={this.update}
                   id="email"
                   label="Email (optional)"
                   timesSubmitted={timesSubmitted}
-                  type="text"
+                  type="email"
                   value={email}
                 />
                 <Input
+                  autocomplete="new-password"
                   className="password"
                   error={errors.password}
                   handleChange={this.update}
