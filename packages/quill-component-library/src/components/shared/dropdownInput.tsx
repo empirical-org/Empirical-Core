@@ -38,6 +38,11 @@ interface DropdownInputState {
 const KEYDOWN = 'keydown'
 const MOUSEDOWN = 'mousedown'
 
+const ARROWDOWN = 'ArrowDown'
+const ARROWUP = 'ArrowUp'
+const TAB = 'Tab'
+const ENTER = 'Enter'
+
 export class DropdownInput extends React.Component<DropdownInputProps, DropdownInputState> {
   private input: any // eslint-disable-line react/sort-comp
   private node: any // eslint-disable-line react/sort-comp
@@ -126,7 +131,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   onKeyDown = (event) => {
-    if (event.key === 'Tab') {
+    if (event.key === TAB) {
       this.deactivateInput()
     }
   }
@@ -135,12 +140,12 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     const { active, menuIsOpen, cursor, options, } = this.state
 
     const inactiveNode = !(this.node && this.node.contains(e.target))
-    const keyWasNotTab = e.key !== 'Tab'
+    const keyWasNotTab = e.key !== TAB
 
     if (inactiveNode && keyWasNotTab) { return }
 
     switch (e.key) {
-      case 'ArrowDown':
+      case ARROWDOWN:
         if (cursor < options.length - 1) {
           this.setState(prevState => {
             if (prevState.cursor !== null) {
@@ -150,13 +155,13 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
           })
         }
         break
-      case 'ArrowUp':
+      case ARROWUP:
         this.setState(prevState => ({ cursor: Math.max(prevState.cursor - 1, 0) }))
         break
-      case 'Tab':
+      case TAB:
         this.deactivateInput()
         break
-      case 'Enter':
+      case ENTER:
         e.preventDefault()
         if (!active || !menuIsOpen) {
           this.handleInputActivation()
@@ -220,7 +225,7 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   }
 
   handleKeyDownOnInputContainer = (e) => {
-    if (e.key === 'Tab') { return }
+    if (e.key === TAB) { return }
     this.handleInputActivation()
   }
 

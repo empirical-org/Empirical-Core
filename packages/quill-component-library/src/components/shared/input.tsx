@@ -24,6 +24,8 @@ interface InputState {
 }
 
 const MOUSEDOWN = 'mousedown'
+const ENTER = 'Enter'
+const TAB = 'Tab'
 
 export class Input extends React.Component<InputProps, InputState> {
   private input: any // eslint-disable-line react/sort-comp
@@ -46,11 +48,13 @@ export class Input extends React.Component<InputProps, InputState> {
   componentWillReceiveProps(nextProps) {
     const { error, timesSubmitted, } = this.props
     const { errorAcknowledged, } = this.state
-    if (nextProps.error !== error && errorAcknowledged) {
-      this.setState({ errorAcknowledged: false, })
-    } else if (nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged) {
-      this.setState({ errorAcknowledged: false, })
-    }
+
+    const newError = nextProps.error !== error && errorAcknowledged
+    const newSubmissionWithSameError = nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged
+
+    if (!newError && !newSubmissionWithSameError) { return }
+
+    this.setState({ errorAcknowledged: false, })
   }
 
   componentWillUnmount() {
@@ -66,7 +70,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   handleKeyDownOnInputContainer = (e) => {
-    if (e.key !== 'Enter') { return }
+    if (e.key !== ENTER) { return }
 
     this.handleInputContainerClick()
   }
@@ -90,7 +94,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   handleTab = (event) => {
-    if (event.key === 'Tab') {
+    if (event.key === TAB) {
       this.deactivateInput()
     }
   }
