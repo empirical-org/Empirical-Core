@@ -4,7 +4,7 @@ import { getParameterByName } from 'libs/getParameterByName';
 const diagnosticRoute = {
   path: ':diagnosticID',
   getComponent: (nextState, cb) => {
-    import(/* webpackChunkName: "student-diagnostic" */ 'components/shared/diagnosticRouter.jsx')
+    import(/* webpackChunkName: "student-diagnostic" */ 'components/shared/diagnosticRouter.tsx')
     .then((component) => {
       cb(null, component.default);
     });
