@@ -46,7 +46,7 @@ class SelectUSK12 extends React.Component {
         <h1>Let&#39;s find your school</h1>
         <SchoolSelector selectSchool={this.selectSchool} />
         <button
-          className="non-k12-link"
+          className="non-k12-link focus-on-light"
           onClick={this.handleNonK12LinkClick}
           type="button"
         >I don&#39;t teach at a U.S. K-12 school</button>
