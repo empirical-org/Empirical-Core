@@ -5,54 +5,66 @@ require 'open3'
 require 'csv'
 
 namespace :license_finder do
-  # NB: this takes ~30 minutes to run, it will log errors in this folder path
+  # NB: this takes ~30 minutes to run the first time, it will log errors in this folder path
   # To run acurately, it needs the dependencies installed locally,
   # so if there are issues within any of the npm/bundler/pip installs,
   # you'll need to debug those.
+  # Runs much faster subsequent times since the installs are the time consuming parts
   desc 'Create one license summary file for all of the apps listed in paths'
   task :all_apps do |t|
-    # NB: folder paths aren't relative
-    folder_paths = (LicenseFinder::JS_APPS + LicenseFinder::RUBY_JS_APPS + LicenseFinder::PYTHON_APPS)
-      .uniq
-      .map {|path| LicenseFinder::ROOT_DIR + path}
-      .join(' ')
+
+    folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::JS_APPS + LicenseFinder::RUBY_JS_APPS + LicenseFinder::PYTHON_APPS)
     columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
-    filename = ['summary-', Time.now.to_s.gsub(/:|\s/,"-"), '.csv'].join('')
+    filename = 'summary'
+
+    LicenseFinder.run(folder_paths, columns, filename)
+  end
+
+  task :js_apps do |t|
+    folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::JS_APPS)
+    columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
+    filename = 'js-summary'
+
+    LicenseFinder.run(folder_paths, columns, filename)
+  end
+  task :ruby_js_apps do |t|
+    folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::RUBY_JS_APPS)
+    columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
+    filename = 'ruby-js-summary'
+
+    LicenseFinder.run(folder_paths, columns, filename)
+  end
+
+  task :python_apps do |t|
+    folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::PYTHON_APPS)
+    columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
+    filename = 'ruby-js-summary'
+
+    LicenseFinder.run(folder_paths, columns, filename)
+  end
+end
+
+module LicenseFinder
+
+  def self.run(filepaths, columns, output_file_prefix)
+    output_file = [output_file_prefix,'-', Time.now.to_s.gsub(/:|\s/,"-"), '.csv'].join('')
 
     # This is the license_finder command
     # --prepare-no-fail runs 'npm install', 'bundle install', 'pip install' where appropriate, but continues even on failure.
     # --quiet removes some debug info (that isn't in csv format)
     # --aggregate-paths allows you to list multiple locations to run
     # --columns allows you to specify what the report outputs
-    # --save outputs files to destination
+    # --save outputs files to a destination
+    # --python-version specifies whether to use python 2 or 3
+    command = "license_finder report --prepare-no-fail --quiet --format csv --columns #{columns} --aggregate-paths #{filepaths} --save #{output_file} --python-version 3"
 
-    command = "license_finder report --prepare-no-fail --quiet --format csv --columns #{columns} --aggregate-paths #{folder_paths} --save #{filename}"
-
-    stdout, _, _ = Open3.capture3(command)
-
-    # filename = ['summary-', Time.now.to_s.gsub(/:|\s/,"-"), '.csv'].join('')
-    # output_destination = [LicenseFinder::OUTPUT_FOLDER, filename].join('')
-
-    # File.open(output_destination, "w+") do |f|
-    #   f.puts stdout
-    # end
+    Open3.capture3(command)
   end
 
-  task :only_js_apps do |t|
-    LicenseFinder::JS_APPS.each do |folder|
-      command = "cd #{LicenseFinder::ROOT_DIR}#{folder}; npm install; license_finder report --format csv"
-      stdout, _, _ = Open3.capture3(command)
-      name = folder.split("/").last
-      destination = [LicenseFinder::OUTPUT_FOLDER, name,'.csv'].join('')
-
-      File.open(destination, "w+") do |f|
-        f.puts stdout
-      end
-    end
+  # NB: folder paths aren't relative, need to be absolute
+  def self.absolute_paths_for(path_array)
+    path_array.uniq.map {|path| LicenseFinder::ROOT_DIR + path}.join(' ')
   end
-end
-
-module LicenseFinder
   # OUTPUT_FOLDER = '/Users/danieldrabik/code/license_finder/'
   ROOT_DIR = '~/code/Empirical-Core/'
   JS_APPS = [
@@ -78,13 +90,13 @@ module LicenseFinder
   ]
 
   PYTHON_APPS = [
-    'services/comprehensions/automl-api-prototype',
-    'services/comprehensions/bing-spelling-api',
-    'services/comprehensions/feedback-api-main',
-    'services/comprehensions/frontend',
-    'services/comprehensions/grammar-local-api',
-    'services/comprehensions/main-api',
-    'services/comprehensions/spelling-local-api'
+    'services/comprehension/automl-api-prototype',
+    'services/comprehension/bing-spelling-api',
+    'services/comprehension/feedback-api-main',
+    'services/comprehension/frontend',
+    'services/comprehension/grammar-local-api',
+    'services/comprehension/main-api',
+    'services/comprehension/spelling-local-api'
   ]
 
   # Sets the order and the columns for the generated csv file
