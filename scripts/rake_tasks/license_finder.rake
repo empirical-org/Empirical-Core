@@ -12,7 +12,6 @@ namespace :license_finder do
   # Runs much faster subsequent times since the installs are the time consuming parts
   desc 'Create one license summary file for all of the apps listed in paths'
   task :all_apps do |t|
-
     folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::JS_APPS + LicenseFinder::RUBY_JS_APPS + LicenseFinder::PYTHON_APPS)
     columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
     filename = 'summary'
@@ -20,6 +19,7 @@ namespace :license_finder do
     LicenseFinder.run(folder_paths, columns, filename)
   end
 
+  # Added seperate takes for each type of app, since these were easier to debug
   task :js_apps do |t|
     folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::JS_APPS)
     columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
@@ -38,7 +38,7 @@ namespace :license_finder do
   task :python_apps do |t|
     folder_paths = LicenseFinder.absolute_paths_for(LicenseFinder::PYTHON_APPS)
     columns = LicenseFinder::OUTPUT_COLUMNS.join(' ')
-    filename = 'ruby-js-summary'
+    filename = 'python-summary'
 
     LicenseFinder.run(folder_paths, columns, filename)
   end
