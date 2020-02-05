@@ -2,10 +2,6 @@
   display: flex;
   background-color: white;
   color: #000;
-  overflow: hidden;
-  height: 100vh;
-  margin-top: -60px;
-  padding-top: 60px;
 
   .step-number {
     width: 100%;
@@ -99,6 +95,11 @@
   }
 
   @media (min-width: 1100px) {
+    overflow: hidden;
+    height: 100vh;
+    margin-top: -60px;
+    padding-top: 60px;
+    
     .steps-outer-container {
       overflow: auto;
       -webkit-overflow-scrolling: touch;
@@ -106,7 +107,7 @@
       margin-right: 4px;
       border-left: 1px solid #d8d8d8;
     }
-    
+
     .read-passage-container {
       overflow: scroll;
       margin-right: 4px;

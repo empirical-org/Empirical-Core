@@ -118,13 +118,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     scrollContainer.scrollTo(0, el.offsetTop - 34)
   }
 
-  // scrollToStepFromStepLink = (ref: string) => {
-  //   this[ref].scrollIntoView(false)
-  // }
-  //
+  scrollToStepFromStepLink = (ref: string) => {
+    this[ref].scrollIntoView(false)
+  }
+
   clickStepLink = (stepNumber: number) => {
     this.activateStep(stepNumber)
-    this.scrollToStep(`step${stepNumber}`)
+    this.scrollToStepFromStepLink(`step${stepNumber}`)
   }
 
   renderStepLinks = () => {
