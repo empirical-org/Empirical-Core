@@ -8,7 +8,6 @@ from django.urls import reverse
 from ..factories.highlight import HighlightFactory
 from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.prompt import PromptFactory
-from ..mocks.google_auto_ml import generate_auto_ml_label_response_mock
 from ...models.prompt import Prompt
 from ...views.ml_feedback import MLFeedbackView
 from ...views.ml_feedback import FEEDBACK_TYPE

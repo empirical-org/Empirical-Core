@@ -9,7 +9,7 @@ class Highlight(TimestampedModel):
         PASSAGE = 'passage'
 
     feedback = models.ForeignKey(
-        'MLFeedback',
+        MLFeedback,
         on_delete=models.PROTECT,
         related_name='highlights'
     )
