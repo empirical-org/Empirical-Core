@@ -6,7 +6,8 @@ from .ml_model import MLModel
 from ..utils import combine_labels
 
 
-CORRECT_FEEDBACK = 'All rules-based checks passed!'
+CORRECT_FEEDBACK_OBJ = { 'feedback': 'All rules-based checks passed!', 'optimal': True }
+INCORRECT_FEEDBACK_OBJ = { 'feedback':'', 'optimal':False}
 
 
 class Prompt(TimestampedModel):
@@ -19,21 +20,38 @@ class Prompt(TimestampedModel):
     def fetch_rules_based_feedback(self, entry, pass_order):
         rule_sets = (self.rule_sets.filter(pass_order=pass_order).
                      order_by('priority').all())
-        feedback = {
-                     'feedback': None,
-                     'optimal': False
-                    }
 
         for rule_set in rule_sets:
-            for rule in rule_set.rules.all():
-                if rule.match(entry):
-                    break
+            if rule_set.is_focus_point:
+                is_passing = self._process_focus_point(rule_set, entry)
             else:
+                is_passing = self._process_incorrect_sequence(rule_set, entry)
+
+            if not is_passing:
+                feedback = INCORRECT_FEEDBACK_OBJ
                 feedback.update(feedback=rule_set.feedback)
                 return feedback
 
-        feedback.update(feedback=CORRECT_FEEDBACK, optimal=True)
-        return feedback
+        return CORRECT_FEEDBACK_OBJ
+
+    def _process_focus_point(self, rule_set, entry):
+        # focus points return CORRECT at the first match it finds
+        for rule in rule_set.rules.all():
+            if rule.match(entry):
+                break
+        else:
+            return False
+
+        return True
+
+    def _process_incorrect_sequence(self, rule_set, entry):
+        # incorrect sequences return CORRECT after checking the whole list
+        # and verifying all items are correct
+        for rule in rule_set.rules.all():
+            if not rule.match(entry):
+                return False
+
+        return True
 
     def fetch_auto_ml_feedback(self, entry, previous_feedback=[],
                                multi_label=True):
