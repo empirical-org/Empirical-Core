@@ -10,16 +10,11 @@ export default class TeacherLinkedAccounts extends React.Component {
       showGoogleModal: false,
       showCleverModal: false
     }
-
-    this.hideGoogleModal = this.hideGoogleModal.bind(this)
-    this.hideCleverModal = this.hideCleverModal.bind(this)
-    this.showGoogleModal = this.showGoogleModal.bind(this)
-    this.showCleverModal = this.showCleverModal.bind(this)
-    this.toggleGoogleClassroomAssignments = this.toggleGoogleClassroomAssignments.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.cleverId !== this.props.cleverId || nextProps.googleId !== this.props.googleId) {
+    const { cleverId, googleId, } = this.props
+    if (nextProps.cleverId !== cleverId || nextProps.googleId !== googleId) {
       this.setState({
         showGoogleModal: false,
         showCleverModal: false,
@@ -27,29 +22,35 @@ export default class TeacherLinkedAccounts extends React.Component {
     }
   }
 
-  hideGoogleModal() {
+  hideGoogleModal = () => {
     this.setState({ showGoogleModal: false, })
   }
 
-  hideCleverModal() {
+  hideCleverModal = () => {
     this.setState({ showCleverModal: false, })
   }
 
-  showGoogleModal() {
+  handleClickUnlinkGoogle = () => {
     this.setState({ showGoogleModal: true, })
   }
 
-  showCleverModal() {
+  handleClickUnlinkClever = () => {
     this.setState({ showCleverModal: true, })
   }
 
-  toggleGoogleClassroomAssignments() {
+  handleToggleGoogleClassroomAssignments = () => {
     const { updateUser, postGoogleClassroomAssignments, } = this.props
     const data = {
       post_google_classroom_assignments: !postGoogleClassroomAssignments,
       school_options_do_not_apply: true
     };
     updateUser(data, '/teachers/update_my_account', 'Settings saved')
+  }
+
+  handleKeyDownOnPostGoogleClassroomAssignments = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleToggleGoogleClassroomAssignments()
   }
 
   isLinkedToGoogle = () => {
@@ -62,16 +63,16 @@ export default class TeacherLinkedAccounts extends React.Component {
     return cleverId && cleverId.length
   }
 
-  renderCheckbox() {
+  renderCheckbox = () => {
     const { postGoogleClassroomAssignments, } = this.props
     if (postGoogleClassroomAssignments) {
-      return <div className="quill-checkbox selected" onClick={this.toggleGoogleClassroomAssignments}><img alt="check" src={smallWhiteCheckSrc} /></div>
+      return <div aria-checked={true} className="quill-checkbox selected" onClick={this.handleToggleGoogleClassroomAssignments} onKeyDown={this.handleKeyDownOnPostGoogleClassroomAssignments} role="checkbox" tabIndex={0} ><img alt="check" src={smallWhiteCheckSrc} /></div>
     } else {
-      return <div className="quill-checkbox unselected" onClick={this.toggleGoogleClassroomAssignments} />
+      return <div aria-checked={false} aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={this.handleToggleGoogleClassroomAssignments} onKeyDown={this.handleKeyDownOnPostGoogleClassroomAssignments} role="checkbox" tabIndex={0} />
     }
   }
 
-  renderGoogleSection() {
+  renderGoogleSection = () => {
     let actionElement, copy, checkboxRow
     if (this.isLinkedToClever() && !this.isLinkedToGoogle()) {
       copy = 'Google is not linked. Unlink Clever to link your Google account.'
@@ -80,7 +81,7 @@ export default class TeacherLinkedAccounts extends React.Component {
       actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2?prompt=consent">Link your account</a>
     } else {
       copy = 'Google account is linked'
-      actionElement = <span className="google-or-clever-action" onClick={this.showGoogleModal}>Unlink</span>
+      actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkGoogle} type="button">Unlink</button>
       checkboxRow = (<div className="checkbox-row post-assignments">
         {this.renderCheckbox()}
         <span>Post assignments as announcements in Google Classroom</span>
@@ -91,7 +92,7 @@ export default class TeacherLinkedAccounts extends React.Component {
       <div>
         <div className="google-row">
           <div className="first-half">
-            <img alt="google icon" src="/images/google_icon.svg" />
+            <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
             <span>{copy}</span>
           </div>
           {actionElement}
@@ -100,45 +101,47 @@ export default class TeacherLinkedAccounts extends React.Component {
       </div>);
   }
 
-  renderCleverSection() {
+  renderCleverSection = () => {
+    const { cleverLink, } = this.props
     let actionElement, copy
     if (this.isLinkedToGoogle() && !this.isLinkedToClever()) {
       copy = 'Clever is not linked. Unlink Google to link your Clever account.'
     } else if (!this.isLinkedToClever()) {
       copy = 'Clever is not linked'
-      actionElement = <a className="google-or-clever-action" href={this.props.cleverLink}>Link your account</a>
+      actionElement = <a className="google-or-clever-action" href={cleverLink}>Link your account</a>
     } else {
       copy = 'Clever account is linked'
-      actionElement = <span className="google-or-clever-action" onClick={this.showCleverModal}>Unlink</span>
+      actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkClever} type="button">Unlink</button>
     }
     return (<div className="clever-row">
       <div className="first-half">
-        <img alt="clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+        <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
         <span>{copy}</span>
       </div>
       {actionElement}
     </div>)
   }
 
-  renderModal() {
+  renderModal = () => {
+    const { showGoogleModal, showCleverModal, } = this.state
     const { updateUser, email, timesSubmitted, errors, } = this.props
-    if (this.state.showGoogleModal) {
+    if (showGoogleModal) {
       return (<UnlinkModal
         cancel={this.hideGoogleModal}
         email={email}
         errors={errors}
         googleOrClever="Google"
         timesSubmitted={timesSubmitted}
-        updateUser={this.props.updateUser}
+        updateUser={updateUser}
       />)
-    } else if (this.state.showCleverModal) {
+    } else if (showCleverModal) {
       return (<UnlinkModal
         cancel={this.hideCleverModal}
         email={email}
         errors={errors}
         googleOrClever="Clever"
         timesSubmitted={timesSubmitted}
-        updateUser={this.props.updateUser}
+        updateUser={updateUser}
       />)
     }
   }
