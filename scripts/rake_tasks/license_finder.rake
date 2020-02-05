@@ -51,6 +51,7 @@ module LicenseFinder
     output_file = [output_file_prefix,'-', Time.now.to_s.gsub(/:|\s/,"-"), '.csv'].join('')
 
     # This is the license_finder command
+    # https://github.com/pivotal/LicenseFinder
     # --prepare-no-fail runs 'npm install', 'bundle install', 'pip install' where appropriate, but continues even on failure.
     # --quiet removes some debug info (that isn't in csv format)
     # --aggregate-paths allows you to list multiple locations to run
@@ -66,7 +67,6 @@ module LicenseFinder
   def self.absolute_paths_for(path_array)
     path_array.uniq.map {|path| LicenseFinder::ROOT_DIR + path}.join(' ')
   end
-  # OUTPUT_FOLDER = '/Users/danieldrabik/code/license_finder/'
 
   RESULTS_DIR = 'license_finder_results'
   NO_RESULTS_DIR = "***No results directory! Create an '#{RESULTS_DIR}' folder in this directory and try again***"
