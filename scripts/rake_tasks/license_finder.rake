@@ -47,6 +47,7 @@ end
 module LicenseFinder
 
   def self.run(filepaths, columns, output_file_prefix)
+    raise  NO_RESULTS_DIR unless Dir.exist?(RESULTS_DIR)
     output_file = [output_file_prefix,'-', Time.now.to_s.gsub(/:|\s/,"-"), '.csv'].join('')
 
     # This is the license_finder command
@@ -56,7 +57,7 @@ module LicenseFinder
     # --columns allows you to specify what the report outputs
     # --save outputs files to a destination
     # --python-version specifies whether to use python 2 or 3
-    command = "license_finder report --prepare-no-fail --quiet --format csv --columns #{columns} --aggregate-paths #{filepaths} --save #{output_file} --python-version 3"
+    command = "license_finder report --prepare-no-fail --quiet --format csv --columns #{columns} --aggregate-paths #{filepaths} --save #{RESULTS_DIR}/#{output_file} --python-version 3"
 
     Open3.capture3(command)
   end
@@ -66,6 +67,9 @@ module LicenseFinder
     path_array.uniq.map {|path| LicenseFinder::ROOT_DIR + path}.join(' ')
   end
   # OUTPUT_FOLDER = '/Users/danieldrabik/code/license_finder/'
+
+  RESULTS_DIR = 'license_finder_results'
+  NO_RESULTS_DIR = "***No results directory! Create an '#{RESULTS_DIR}' folder in this directory and try again***"
   ROOT_DIR = '~/code/Empirical-Core/'
   JS_APPS = [
     'services/QuillLMS/client',
