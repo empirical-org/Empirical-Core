@@ -24,6 +24,7 @@ describe Cms::UsersController do
       expect(assigns(:user_search_query)).to eq({sort: 'last_sign_in', sort_direction: 'desc'})
       expect(assigns(:user_search_query_results)).to eq []
       expect(assigns(:user_flags)).to eq User::VALID_FLAGS
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:index])
     end
   end
 
@@ -35,6 +36,8 @@ describe Cms::UsersController do
     it 'should search for the users' do
       get :search, user_flag: "auditor"
       expect(response.body).to eq({numberOfPages: 0, userSearchQueryResults: ["results"], userSearchQuery: {user_flag: "auditor"}}.to_json)
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:search])
+      expect(ChangeLog.last.explanation).to include('auditor')
     end
   end
 
@@ -60,6 +63,16 @@ describe Cms::UsersController do
   #   end
   # end
 
+  describe 'show' do
+    let(:another_user) { create(:user) }
+
+    it 'should log when an admin visit the user admin page' do
+      get :show, id: another_user.id
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:show])
+      expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
+    end
+  end
+
   describe 'create' do
     let(:new_user) { build(:user) }
 
@@ -78,6 +91,8 @@ describe Cms::UsersController do
     it 'should set the user id in session' do
       put :sign_in, id: another_user.id
       expect(session[:staff_id]).to eq user.id
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:sign_in])
+      expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
     end
   end
 
@@ -113,6 +128,15 @@ describe Cms::UsersController do
     end
   end
 
+  describe '#edit' do
+    let!(:another_user) { create(:user) }
+    it 'should log when admin visits the edit page' do
+      get :edit, id: another_user.id
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:edit])
+      expect(ChangeLog.last.changed_record_id).to eq(another_user.id)
+    end
+  end
+
   describe '#edit_subscription' do
     let!(:another_user) { create(:user) }
 
@@ -125,10 +149,13 @@ describe Cms::UsersController do
   describe '#update' do
     let!(:another_user) { create(:user) }
 
-    it 'should update the attributes for the given user' do
+    it 'should update the attributes for the given user and update change_log' do
       post :update, id: another_user.id, user: { email: "new@test.com", flags: ["purchaser"] }
       expect(another_user.reload.email).to eq "new@test.com"
       expect(response).to redirect_to cms_users_path
+      expect(ChangeLog.last.action).to eq(ChangeLog::USER_ACTIONS[:update])
+      expect(ChangeLog.last.changed_attribute).to eq('flags')
+      expect(ChangeLog.last.new_value).to include('purchaser')
     end
   end
 

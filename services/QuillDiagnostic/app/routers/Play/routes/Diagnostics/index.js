@@ -4,18 +4,7 @@ import { getParameterByName } from 'libs/getParameterByName';
 const diagnosticRoute = {
   path: ':diagnosticID',
   getComponent: (nextState, cb) => {
-    import(/* webpackChunkName: "student-diagnostic" */ 'components/diagnostics/studentDiagnostic.jsx')
-    .then((component) => {
-      cb(null, component.default);
-    });
-  },
-};
-
-const ellRoute = {
-  // path: 'ell',
-  path: '-LyFRZvbHAmooTTIIVE2',
-  getComponent: (nextState, cb) => {
-    import(/* webpackChunkName: "student-ell-diagnostic" */ 'components/eslDiagnostic/studentDiagnostic.jsx')
+    import(/* webpackChunkName: "student-diagnostic" */ 'components/shared/diagnosticRouter.tsx')
     .then((component) => {
       cb(null, component.default);
     });
@@ -37,7 +26,6 @@ const route = {
   path: 'diagnostic',
   indexRoute,
   childRoutes: [
-    ellRoute,
     diagnosticRoute
   ],
   component: Passthrough,
