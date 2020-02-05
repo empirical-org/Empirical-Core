@@ -16,15 +16,15 @@ class Rule(BaseModel):
     case_sensitive = models.BooleanField(null=False,
                                          default=False)
 
-    def _match_for_contains(self, entry, flags):
+    def _focus_point_match(self, entry, flags):
         return re.search(self.regex_text, entry, flags)
 
-    def _match_for_does_not_contain(self, entry, flags):
+    def _incorrect_sequence_match(self, entry, flags):
         return not re.search(self.regex_text, entry, flags)
 
     def match(self, entry):
         flags = NO_REGEX_FLAGS if self.case_sensitive else re.IGNORECASE
-        if self.rule_set.test_for_contains:
-            return self._match_for_contains(entry, flags)
+        if self.rule_set.is_focus_point:
+            return self._focus_point_match(entry, flags)
         else:
-            return self._match_for_does_not_contain(entry, flags)
+            return self._incorrect_sequence_match(entry, flags)

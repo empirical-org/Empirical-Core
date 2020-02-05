@@ -144,7 +144,7 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    test_for_contains=False))
+                    is_focus_point=False))
         RuleFactory(regex_text='does not contain', rule_set=rule_set)
         feedback = (self.prompt.
                     fetch_rules_based_feedback('test does not contain',
@@ -157,7 +157,7 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    test_for_contains=True))
+                    is_focus_point=True))
 
         RuleFactory(regex_text='^test', rule_set=rule_set)
         RuleFactory(regex_text='^teeest', rule_set=rule_set)
