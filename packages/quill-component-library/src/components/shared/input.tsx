@@ -13,8 +13,9 @@ interface InputProps {
   handleCancel?: (event: any) => void;
   helperText?: string;
   handleChange?: (event: any) => void;
-  onClick?: (event: any) => void;
+  onClick?: () => void;
   characterLimit?: number;
+  autoComplete: string;
 }
 
 interface InputState {
@@ -22,9 +23,15 @@ interface InputState {
   errorAcknowledged: boolean;
 }
 
+const MOUSEDOWN = 'mousedown'
+const ENTER = 'Enter'
+const TAB = 'Tab'
+
 export class Input extends React.Component<InputProps, InputState> {
+  // disabling the react/sort-comp rule for the following lines because as of 2/5/20, the linter incorrectly insists that static and private instance variables be placed under the constructor, when in fact doing so causes errors in compilation
   private input: any // eslint-disable-line react/sort-comp
   private node: any // eslint-disable-line react/sort-comp
+  static defaultProps: { autoComplete: string }  // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
@@ -33,95 +40,98 @@ export class Input extends React.Component<InputProps, InputState> {
       inactive: true,
       errorAcknowledged: false
     }
-
-    this.activateInput = this.activateInput.bind(this)
-    this.acknowledgeError = this.acknowledgeError.bind(this)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleTabOrEnter = this.handleTabOrEnter.bind(this)
-    this.deactivateInput = this.deactivateInput.bind(this)
   }
 
-  componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false)
+  componentDidMount() {
+    document.addEventListener(MOUSEDOWN, this.handleClick, false)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.error !== this.props.error && this.state.errorAcknowledged) {
-      this.setState({ errorAcknowledged: false, })
-    } else if (nextProps.timesSubmitted !== this.props.timesSubmitted && nextProps.error && this.state.errorAcknowledged) {
-      this.setState({ errorAcknowledged: false, })
-    }
+    const { error, timesSubmitted, } = this.props
+    const { errorAcknowledged, } = this.state
+
+    const newError = nextProps.error !== error && errorAcknowledged
+    const newSubmissionWithSameError = nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged
+
+    if (!newError && !newSubmissionWithSameError) { return }
+
+    this.setState({ errorAcknowledged: false, })
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false)
+    document.removeEventListener(MOUSEDOWN, this.handleClick, false)
   }
 
-  activateInput() {
-    if (!this.props.disabled) {
+  handleInputContainerClick = () => {
+    const { onClick, disabled, } = this.props
+    if (onClick) { onClick() }
+    if (!disabled) {
       this.setState({ inactive: false, }, () => this.input.focus())
     }
   }
 
-  deactivateInput() {
-    this.setState({ inactive: true, })
+  handleKeyDownOnInputContainer = (e) => {
+    if (e.key !== ENTER) { return }
+
+    this.handleInputContainerClick()
   }
 
-  handleClick(e) {
-    if (!this.node.contains(e.target)) {
+  deactivateInput = () => {
+    this.setState({ inactive: true, }, () => this.input.blur())
+  }
+
+  handleClick = (e) => {
+    if (!this.node || !this.node.contains(e.target)) {
       this.deactivateInput()
     }
   }
 
-  acknowledgeError() {
+  handleClickOnUnacknowledgedError = () => {
     this.setState({ errorAcknowledged: true, inactive: false, }, () => this.input.focus())
   }
 
-  handleTabOrEnter(event) {
-    if (event.key === 'Tab') {
-      const form = event.target.form;
-      const index = Array.prototype.indexOf.call(form, event.target);
-      form.elements[index + 1].focus();
-      event.preventDefault();
-      this.deactivateInput()
-    }
-    if (event.key === 'Enter') {
+  handleKeyDownOnUnacknowledgedError = (e) => {
+    this.handleClickOnUnacknowledgedError()
+  }
+
+  handleTab = (event) => {
+    if (event.key === TAB) {
       this.deactivateInput()
     }
   }
 
-  renderHelperText() {
+  renderHelperText = () => {
     const { helperText } = this.props
     if (helperText) {
       return <span className="helper-text">{helperText}</span>
     }
   }
 
-  renderErrorText() {
+  renderErrorText = () => {
     const { error } = this.props
     if (error) {
-      return <span className="error-text">{error}</span>
+      return <span className="error-text" role="alert">{error}</span>
     }
   }
 
-  renderCancelSymbol() {
+  renderCancelSymbol = () => {
     const { inactive } = this.state
     const { handleCancel } = this.props
     if (!inactive && handleCancel) {
-      return <div className="cancel" onClick={handleCancel}><i className="fas fa-times" /></div>
+      return <button aria-label="X" className="cancel" onClick={handleCancel} type="button"><i className="fas fa-times" /></button>
     }
   }
 
-  renderCharacterLimit() {
+  renderCharacterLimit = () => {
     const { characterLimit, value, } = this.props
     if (characterLimit) {
       return <div className="character-limit"><span>{value.length}/{characterLimit}</span></div>
     }
   }
 
-  renderInput() {
+  renderInput = () => {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
@@ -134,16 +144,20 @@ export class Input extends React.Component<InputProps, InputState> {
       type,
       placeholder,
       disabled,
-      maxLength: characterLimit ? characterLimit : 10000
+      maxLength: characterLimit ? characterLimit : 10000,
+      autoComplete
     }
     if (error) {
       if (errorAcknowledged) {
         return (<div
           className={`${sharedClassNames} error`}
-          onClick={this.activateInput}
+          onClick={this.handleInputContainerClick}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
+          role="button"
+          tabIndex={-1}
         >
-          <label>{label}</label>
+          <label htmlFor={id}>{label}</label>
           <input {...commonProps} />
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
@@ -153,10 +167,13 @@ export class Input extends React.Component<InputProps, InputState> {
         return (
           <div
             className={`${sharedClassNames} error unacknowledged`}
-            onClick={this.acknowledgeError}
+            onClick={this.handleClickOnUnacknowledgedError}
+            onKeyDown={this.handleKeyDownOnUnacknowledgedError}
             ref={node => this.node = node}
+            role="button"
+            tabIndex={0}
           >
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <input {...commonProps} />
             {this.renderCancelSymbol()}
             {this.renderErrorText()}
@@ -166,11 +183,14 @@ export class Input extends React.Component<InputProps, InputState> {
       return (
         <div
           className={sharedClassNames}
-          onClick={this.activateInput}
+          onClick={this.handleInputContainerClick}
+          onKeyDown={this.handleKeyDownOnInputContainer}
           ref={node => this.node = node}
+          role="button"
+          tabIndex={-1}
         >
-          <label>{label}</label>
-          <input {...commonProps} onFocus={this.activateInput} />
+          <label htmlFor={id}>{label}</label>
+          <input {...commonProps} onFocus={this.handleInputContainerClick} />
           {this.renderHelperText()}
           {this.renderCharacterLimit()}
         </div>)
@@ -180,8 +200,8 @@ export class Input extends React.Component<InputProps, InputState> {
           className={sharedClassNames}
           ref={node => this.node = node}
         >
-          <label>{label}</label>
-          <input {...commonProps} onKeyDown={this.handleTabOrEnter} />
+          <label htmlFor={id}>{label}</label>
+          <input {...commonProps} onKeyDown={this.handleTab} />
           {this.renderHelperText()}
           {this.renderCancelSymbol()}
           {this.renderCharacterLimit()}
@@ -190,7 +210,10 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   render() {
-    return <div onClick={this.props.onClick}>{this.renderInput()}</div>
+    return this.renderInput()
   }
+}
 
+Input.defaultProps = {
+  autoComplete: 'on'
 }
