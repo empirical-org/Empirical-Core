@@ -22,6 +22,7 @@ exports[`NameTheUnit component should render 1`] = `
     className="assignment-section-body"
   >
     <Input
+      autoComplete="on"
       error={null}
       handleChange={[Function]}
       label="Activity pack name"

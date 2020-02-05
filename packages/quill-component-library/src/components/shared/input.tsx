@@ -15,6 +15,7 @@ interface InputProps {
   handleChange?: (event: any) => void;
   onClick?: () => void;
   characterLimit?: number;
+  autoComplete: string;
 }
 
 interface InputState {
@@ -23,10 +24,14 @@ interface InputState {
 }
 
 const MOUSEDOWN = 'mousedown'
+const ENTER = 'Enter'
+const TAB = 'Tab'
 
 export class Input extends React.Component<InputProps, InputState> {
+  // disabling the react/sort-comp rule for the following lines because as of 2/5/20, the linter incorrectly insists that static and private instance variables be placed under the constructor, when in fact doing so causes errors in compilation
   private input: any // eslint-disable-line react/sort-comp
   private node: any // eslint-disable-line react/sort-comp
+  static defaultProps: { autoComplete: string }  // eslint-disable-line react/sort-comp
 
   constructor(props) {
     super(props)
@@ -44,11 +49,13 @@ export class Input extends React.Component<InputProps, InputState> {
   componentWillReceiveProps(nextProps) {
     const { error, timesSubmitted, } = this.props
     const { errorAcknowledged, } = this.state
-    if (nextProps.error !== error && errorAcknowledged) {
-      this.setState({ errorAcknowledged: false, })
-    } else if (nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged) {
-      this.setState({ errorAcknowledged: false, })
-    }
+
+    const newError = nextProps.error !== error && errorAcknowledged
+    const newSubmissionWithSameError = nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged
+
+    if (!newError && !newSubmissionWithSameError) { return }
+
+    this.setState({ errorAcknowledged: false, })
   }
 
   componentWillUnmount() {
@@ -64,7 +71,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   handleKeyDownOnInputContainer = (e) => {
-    if (e.key !== 'Enter') { return }
+    if (e.key !== ENTER) { return }
 
     this.handleInputContainerClick()
   }
@@ -88,7 +95,7 @@ export class Input extends React.Component<InputProps, InputState> {
   }
 
   handleTab = (event) => {
-    if (event.key === 'Tab') {
+    if (event.key === TAB) {
       this.deactivateInput()
     }
   }
@@ -103,7 +110,7 @@ export class Input extends React.Component<InputProps, InputState> {
   renderErrorText = () => {
     const { error } = this.props
     if (error) {
-      return <span className="error-text">{error}</span>
+      return <span className="error-text" role="alert">{error}</span>
     }
   }
 
@@ -124,7 +131,7 @@ export class Input extends React.Component<InputProps, InputState> {
 
   renderInput = () => {
     const { inactive, errorAcknowledged} = this.state
-    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit } = this.props
+    const { className, label, handleChange, value, placeholder, error, type, id, disabled, characterLimit, autoComplete } = this.props
     const hasText = value ? 'has-text' : ''
     const inactiveOrActive = inactive ? 'inactive' : 'active'
     const hasCharacterLimit = characterLimit ? 'has-character-limit' : ''
@@ -137,7 +144,8 @@ export class Input extends React.Component<InputProps, InputState> {
       type,
       placeholder,
       disabled,
-      maxLength: characterLimit ? characterLimit : 10000
+      maxLength: characterLimit ? characterLimit : 10000,
+      autoComplete
     }
     if (error) {
       if (errorAcknowledged) {
@@ -204,5 +212,8 @@ export class Input extends React.Component<InputProps, InputState> {
   render() {
     return this.renderInput()
   }
+}
 
+Input.defaultProps = {
+  autoComplete: 'on'
 }

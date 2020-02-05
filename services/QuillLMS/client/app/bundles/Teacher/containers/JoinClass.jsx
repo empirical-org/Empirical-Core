@@ -20,6 +20,10 @@ export default class JoinClass extends React.Component {
     }
   }
 
+  componentDidMount() {
+    document.title = 'Quill.org | Join a Class'
+  }
+
   submitClass() {
     const { classCodeInput, } = this.state
     let buttonClass = "quill-button contained primary medium focus-on-light"

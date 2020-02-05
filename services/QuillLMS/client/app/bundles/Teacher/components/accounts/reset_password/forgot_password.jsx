@@ -77,6 +77,7 @@ export default class ForgotPassword extends React.Component {
             <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
             <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
             <Input
+              autoComplete="email"
               className="email"
               error={errors.email}
               handleChange={this.onEmailChange}

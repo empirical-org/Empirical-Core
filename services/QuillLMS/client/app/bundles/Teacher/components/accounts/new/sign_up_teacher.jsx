@@ -25,6 +25,11 @@ class SignUpTeacher extends React.Component {
     }
   }
 
+  componentDidMount() {
+    document.title = 'Quill.org | Teacher Sign Up'
+  }
+
+
   updateKeyValue = (key, value) => {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
@@ -143,6 +148,7 @@ class SignUpTeacher extends React.Component {
                   <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
                   <div className="name">
                     <Input
+                      autoComplete="given-name"
                       className="first-name"
                       error={errors.first_name}
                       handleChange={this.update}
@@ -153,6 +159,7 @@ class SignUpTeacher extends React.Component {
                       value={firstName}
                     />
                     <Input
+                      autoComplete="family-name"
                       className="last-name"
                       error={errors.last_name}
                       handleChange={this.update}
@@ -164,16 +171,18 @@ class SignUpTeacher extends React.Component {
                     />
                   </div>
                   <Input
+                    autoComplete="email"
                     className="email"
                     error={errors.email}
                     handleChange={this.update}
                     id="email"
                     label="Email"
                     timesSubmitted={timesSubmitted}
-                    type="text"
+                    type="email"
                     value={email}
                   />
                   <Input
+                    autoComplete="new-password"
                     className="password"
                     error={errors.password}
                     handleChange={this.update}
