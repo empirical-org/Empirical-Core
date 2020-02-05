@@ -208,6 +208,6 @@ gem 'sqreen'
 # temp for migrations
 gem 'paperclip'
 
-gem 'graphiql-rails', group: :development
-
 gem 'rb-readline'
+
+gem 'graphiql-rails', group: :development
