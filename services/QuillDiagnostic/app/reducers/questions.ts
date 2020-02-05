@@ -10,7 +10,7 @@ export interface QuestionsReducerState {
   submittingnew: boolean,
 }
 
-type QuestionReducerAction = Action & { data: Question, qid: string, rid: string, uid: string }
+type QuestionsReducerAction = Action & { data: Question, qid: string, rid: string, uid: string }
 
 const initialState = {
   data: {}, 
@@ -22,7 +22,7 @@ const initialState = {
 
 export default (
   currentState = initialState,
-  action: QuestionReducerAction,
+  action: QuestionsReducerAction,
 ) => {
   let newState: QuestionsReducerState;
   switch (action.type) {

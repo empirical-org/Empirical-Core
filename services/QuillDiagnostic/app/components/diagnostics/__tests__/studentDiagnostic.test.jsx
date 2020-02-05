@@ -65,10 +65,6 @@ describe('StudentDiagnostic Container prop-dependent component rendering', () =>
             }
         }
     };
-    it("renders a SmartSpinner with 25% load message if no props have been received", () => {
-        expect(container.find(SmartSpinner).length).toEqual(1);
-        expect(container.find(SmartSpinner).props().message).toEqual('Loading Your Lesson 25%');
-    });
     it("renders a SmartSpinner with 50% load message if playDiagnostic.questionSet props has not been received", () => {
         container.setProps({
             lessons: {
