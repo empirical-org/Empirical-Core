@@ -46,7 +46,7 @@ export default class CleverSignUp extends React.Component {
 
   handleClick = (e) => {
     SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})
-    window.location.href = this.buildLink
+    window.location.href = this.buildLink()
   }
 
   handleKeyDown = (e) => {
