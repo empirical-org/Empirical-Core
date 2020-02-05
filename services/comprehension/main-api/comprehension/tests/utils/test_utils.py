@@ -76,7 +76,7 @@ class TestConstructHighlightPayload(TestCase):
         character = 10
         result = construct_highlight_payload(self.highlight_type,
                                              self.highlight_text,
-                                             starting_index=character)
+                                             start_index=character)
         self.assertEqual(result, {
             'type': self.highlight_type,
             'id': None,

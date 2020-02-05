@@ -19,11 +19,11 @@ def construct_feedback_payload(feedback, feedback_type, optimal,
 
 
 def construct_highlight_payload(highlight_type, highlight_text,
-                                starting_index=0, highlight_id=None):
+                                start_index=0, highlight_id=None):
     return {
         'type': highlight_type,
         'id': highlight_id,
         'text': highlight_text,
         'category': None,
-        'character': starting_index,
+        'character': start_index,
     }

@@ -5,6 +5,7 @@ from django.http import Http404
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
+from ..factories.highlight import HighlightFactory
 from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.prompt import PromptFactory
 from ..mocks.google_auto_ml import generate_auto_ml_label_response_mock
@@ -12,6 +13,7 @@ from ...models.ml_model import MLModel
 from ...views.ml_feedback import MLFeedbackView
 from ...views.ml_feedback import FEEDBACK_TYPE
 from ...utils import construct_feedback_payload
+from ...utils import construct_highlight_payload
 
 
 def mock_google_auto_ml_response(*args, **kwargs):
@@ -98,3 +100,28 @@ class TestMLFeedbackView(TestCase):
 
         with self.assertRaises(Http404):
             MLFeedbackView.as_view(multi_label=True)(request)
+
+    def test_highlights_in_payload(self):
+        highlight = HighlightFactory(feedback=self.fb_multi)
+        request = self.factory.post(reverse('get_multi_label_ml_feedback'),
+                                    data=json.dumps(self.request_body),
+                                    content_type='application/json')
+
+        response = MLFeedbackView(multi_label=True).post(request)
+        json_body = json.loads(response.content)
+
+        highlight_payload = construct_highlight_payload(
+            highlight_type=highlight.highlight_type,
+            highlight_text=highlight.highlight_text,
+            highlight_id=highlight.id
+        )
+        expected = construct_feedback_payload(
+            self.fb_multi.feedback,
+            FEEDBACK_TYPE,
+            self.fb_multi.optimal,
+            labels=self.fb_multi.combined_labels,
+            highlight=[highlight_payload],
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json_body, expected)
