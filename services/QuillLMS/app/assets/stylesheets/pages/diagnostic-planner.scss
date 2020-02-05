@@ -172,7 +172,7 @@ $green: #00c2a2;
                 justify-content: space-between;
     }
     #assign-page {
-        a:not(.quill-button) {
+        a:not(.quill-button):not(.focus-on-light):not(.focus-on-dark) {
             color: #027360;
         }
         li a {
