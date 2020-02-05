@@ -1,1 +1,10 @@
-{}
+{
+    "buttons": {
+        "begin": "Begin / Bắt đầu",
+        "continue": "Continue / Tiếp tục"
+    },
+    "intro": {
+        "header": "Hoạt động Sắp xếp Quill",
+        "text": "Bạn sắp trả lời 22 câu hỏi về việc viết câu. Một số câu hỏi có thể là về những điều bạn chưa được học—không sao cả. Bạn chỉ cần trả lời tốt nhất có thể. Đừng quên đọc hướng dẫn cẩn thận cho mỗi câu hỏi nhé! Khi bạn đã hoàn thành, Quill sẽ tạo một kế hoạch học tập dành riêng cho bạn."
+    }
+}

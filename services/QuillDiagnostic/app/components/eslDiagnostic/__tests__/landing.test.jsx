@@ -1,13 +1,13 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Landing from '../landing';
+import LandingPage from '../landingPage';
 
-describe('Landing component', () => {
+describe('LandingPage component', () => {
   describe('with no session present', () => {
     it('should render begin button', () => {
       const wrapper = mount(
-        <Landing
+        <LandingPage
           language='spanish'
         />
       );
@@ -17,7 +17,7 @@ describe('Landing component', () => {
     it('should pass begin prop to onClick', () => {
       const mockBegin = jest.fn();
       const wrapper = mount(
-        <Landing
+        <LandingPage
           begin={mockBegin}
           language='spanish'
         />
@@ -30,7 +30,7 @@ describe('Landing component', () => {
   describe('with a session present', () => {
     it('should render continue button', () => {
       const wrapper = mount(
-        <Landing
+        <LandingPage
           language='spanish'
           session='anything'
         />
@@ -41,7 +41,7 @@ describe('Landing component', () => {
     it('should pass resumeActivity prop to onClick with session argument', () => {
       const mockResumeActivity = jest.fn();
       const wrapper = mount(
-        <Landing
+        <LandingPage
           language='spanish'
           resumeActivity={mockResumeActivity}
           session='anything'

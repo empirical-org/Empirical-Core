@@ -1,1 +1,10 @@
-{}
+{
+    "buttons": {
+        "begin": "Begin / Empezar",
+        "continue": "Continue / Seguir"
+    },
+    "intro": {
+        "header": "Actividad de emplazamiento de Quill",
+        "text": "Vas a responder 22 preguntas sobre cómo escribir oraciones. Algunas de las preguntas podrían ser sobre cosas que aún no has aprendido, ¡pero no pasa nada! Solo respóndelas lo mejor que puedas. ¡No olvides leer las instrucciones con cuidado para cada pregunta! Cuando hayas terminado, Quill creará un plan de aprendizaje solo para ti."
+    }
+}

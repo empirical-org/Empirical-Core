@@ -1,6 +1,10 @@
-export const languages = ['arabic', 'chinese', 'french', 'hindi', 'spanish', 'vietnamese'];
+export const languages = ['english', 'arabic', 'chinese', 'french', 'hindi', 'spanish', 'vietnamese'];
 
 export const languageData = {
+    'english': {
+        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png',
+        label: 'English'
+    },
     'arabic': {
         flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png',
         label: 'العربية'

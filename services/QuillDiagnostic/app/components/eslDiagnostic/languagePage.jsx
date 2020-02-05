@@ -1,5 +1,4 @@
 import React from 'react';
-import { withNamespaces } from 'react-i18next';
 import { languages, languageData } from '../../../public/locales/languagePageInfo';
 
 export class LanguagePage extends React.Component {
@@ -20,7 +19,7 @@ export class LanguagePage extends React.Component {
         </div>
         <div className="language-button-container english">
           <button className="language-button" onClick={this.handleClickLanguage} type="button" value="english">
-            <img alt="flag" className="language-button-img" src='https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png' />
+            <img alt="flag" className="language-button-img" src={languageData['english'].flag} />
             <p className="language-label">English</p>
           </button>
         </div>
@@ -34,12 +33,14 @@ export class LanguagePage extends React.Component {
         </div>
         <div className="language-button-container">
           {languages.map(language => {
-            return(
-              <button className="language-button" key={`${language}-button`} onClick={this.handleClickLanguage} type="button" value={language}>
-                <img alt="flag" className="language-button-img" src={languageData[language].flag} />
-                <p className="language-label">{languageData[language].label}</p>
-              </button>
-            );
+            if(language !== 'english') {
+              return(
+                <button className="language-button" key={`${language}-button`} onClick={this.handleClickLanguage} type="button" value={language}>
+                  <img alt="flag" className="language-button-img" src={languageData[language].flag} />
+                  <p className="language-label">{languageData[language].label}</p>
+                </button>
+              );
+            }
           })}
         </div>
       </div>
@@ -47,4 +48,4 @@ export class LanguagePage extends React.Component {
   }
 }
 
-export default withNamespaces()(LanguagePage);
+export default LanguagePage;

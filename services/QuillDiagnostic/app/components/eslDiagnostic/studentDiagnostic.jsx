@@ -23,7 +23,7 @@ import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import LandingPage from './landing.jsx';
+import LandingPage from './landingPage.jsx';
 import LanguagePage from './languagePage.jsx';
 import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
@@ -35,6 +35,8 @@ import {
   getProgressPercent
 } from '../../libs/calculateProgress'
 import { getParameterByName } from '../../libs/getParameterByName';
+import { withNamespaces } from 'react-i18next';
+import i18n from '../../i18n';
 
 const request = require('request');
 
@@ -244,9 +246,10 @@ class ELLStudentDiagnostic extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, } = this.props
+    const { lessons, params} = this.props
 
-    return lessons.data['ell'];
+    // return lessons.data['ell'];
+    return lessons.data['-LyFRZvbHAmooTTIIVE2'];
   }
 
   questionsForLesson = () => {
@@ -307,6 +310,7 @@ class ELLStudentDiagnostic extends React.Component {
   }
 
   updateLanguage = (language) => {
+    i18n.changeLanguage(language);
     const { dispatch, } = this.props
     dispatch(updateLanguage(language));
   }
@@ -353,7 +357,7 @@ class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { questions, sentenceFragments, playDiagnostic, fillInBlank, } = this.props
+    const { questions, sentenceFragments, playDiagnostic, fillInBlank, t } = this.props
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
@@ -379,6 +383,7 @@ class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         resumeActivity={this.resumeSession}
         session={this.getPreviousSessionData()}
+        translate={t}
 
       />);
     } else {
@@ -414,4 +419,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default connect(select)(ELLStudentDiagnostic);
+export default withNamespaces()(connect(select)(ELLStudentDiagnostic));

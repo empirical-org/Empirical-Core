@@ -1,1 +1,10 @@
-{}
+{
+    "buttons": {
+        "begin": "Begin / Commencer",
+        "continue": "Continue / Continuer"
+    },
+    "intro": {
+        "header": "Activité de placement Quill",
+        "text": "Vous allez répondre à 22 questions sur l’écriture des phrases. Certaines de ces questions peuvent concerner des choses que vous n’avez pas encore apprises. Ce n’est pas grave ! Répondez-y simplement le mieux possible. N’oubliez pas de lire attentivement les instructions pour chaque question ! Lorsque vous aurez terminé, Quill créera un programme d’apprentissage spécialement pour vous."
+    }
+}
