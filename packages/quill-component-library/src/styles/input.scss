@@ -209,6 +209,9 @@
   }
 
   &.inactive {
+    &:focus {
+      outline: none;
+    }
     &.textfield-container.has-text {
       label {
         margin-bottom: 4px;
@@ -275,6 +278,9 @@
         border-style: none none solid;
         height: 25px;
       }
+      .dropdown__menu {
+        display: none;
+      }
     }
   }
   &.active {
@@ -319,6 +325,7 @@
       color: #ff0000;
       display: flex;
       margin-bottom: 10px;
+      text-align: left;
     }
     &.active {
       label {
