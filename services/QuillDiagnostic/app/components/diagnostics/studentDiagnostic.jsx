@@ -25,7 +25,7 @@ import {
 
 const request = require('request');
 
-class StudentDiagnostic extends React.Component {
+export class StudentDiagnostic extends React.Component {
   constructor(props) {
     super(props)
 
@@ -109,7 +109,8 @@ class StudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+      {
+        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
@@ -136,7 +137,8 @@ class StudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+      {
+        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
@@ -302,18 +304,6 @@ class StudentDiagnostic extends React.Component {
     const { error, saved, } = this.state
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
-
-    if (!(lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata)) {
-      return (
-        <div>
-          <section className="section is-fullheight minus-nav student">
-            <div className="student-container student-container-diagnostic">
-              <SmartSpinner key="step1" message='Loading Your Lesson 25%' />
-            </div>
-          </section>
-        </div>
-      );
-    }
 
     if (!playDiagnostic.questionSet) {
       return (
