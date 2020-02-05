@@ -90,7 +90,7 @@ class FillInBlankForm extends Component {
     const data = {
       prompt: this.state.prompt,
       blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
-      caseInsensitive: this.state.caseInsensitive ? this.state.caseInsitive : false,
+      caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false,
       cues: this.state.cues.split(','),
       itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
       instructions: this.state.instructions,
