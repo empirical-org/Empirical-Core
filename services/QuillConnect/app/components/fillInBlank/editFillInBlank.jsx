@@ -24,6 +24,7 @@ class EditFillInBlank extends Component {
     return {
       prompt: fillInBlankQuestion.prompt,
       blankAllowed: fillInBlankQuestion.blankAllowed,
+      caseInsensitive: fillInBlankQuestion.caseInsensitive,
       instructions: fillInBlankQuestion.instructions,
       cues: fillInBlankQuestion.cues.join(','),
       itemLevel: fillInBlankQuestion.itemLevel,
