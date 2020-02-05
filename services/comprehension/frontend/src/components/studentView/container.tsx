@@ -72,19 +72,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   submitResponse = (entry: string, promptID: string, promptText: string, attempt: number) => {
-    const { dispatch, } = this.props
+    const { dispatch, session, } = this.props
     const activityUID = this.activityUID()
-    const previousFeedback = this.props.session.submittedResponses[promptID] || [];
+    const previousFeedback = session.submittedResponses[promptID] || [];
     if (activityUID) {
       dispatch(getFeedback(activityUID, entry, promptID, promptText, attempt, previousFeedback))
     }
   }
 
-  activateStep = (step?: number) => {
+  activateStep = (step?: number, callback?: Function) => {
     const { completedSteps, } = this.state
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
-    this.setState({ activeStep: step, })
+    this.setState({ activeStep: step, }, () => {
+      if (callback) { callback() }
+    })
   }
 
   completeStep = (stepNumber: number) => {
@@ -96,7 +98,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
         nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
       }
-      this.activateStep(nextStep)
+      this.activateStep(nextStep, () => this.scrollToStep(`step${nextStep}`))
     })
   }
 
@@ -111,9 +113,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   handleDoneReadingClick = () => this.completeStep(READ_PASSAGE_STEP)
 
   scrollToStep = (ref: string) => {
-    this[ref].scrollIntoView(false)
+    const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
+    const el = this[ref]
+    scrollContainer.scrollTo(0, el.offsetTop - 34)
   }
 
+  // scrollToStepFromStepLink = (ref: string) => {
+  //   this[ref].scrollIntoView(false)
+  // }
+  //
   clickStepLink = (stepNumber: number) => {
     this.activateStep(stepNumber)
     this.scrollToStep(`step${stepNumber}`)
