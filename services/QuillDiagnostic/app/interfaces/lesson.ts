@@ -1,9 +1,9 @@
 export interface Lesson {
     flag: string,
     introURL?: string,
-    isELL: boolean,
+    isELL?: boolean,
     landingPageHtml: string,
-    modelConceptUID: string,
+    modelConceptUID?: string,
     name: string,
     questions: {
       key: string,

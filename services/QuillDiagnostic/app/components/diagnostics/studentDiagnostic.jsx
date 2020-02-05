@@ -305,18 +305,6 @@ export class StudentDiagnostic extends React.Component {
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
 
-    if (!(lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata)) {
-      return (
-        <div>
-          <section className="section is-fullheight minus-nav student">
-            <div className="student-container student-container-diagnostic">
-              <SmartSpinner key="step1" message='Loading Your Lesson 25%' />
-            </div>
-          </section>
-        </div>
-      );
-    }
-
     if (!playDiagnostic.questionSet) {
       return (
         <div>

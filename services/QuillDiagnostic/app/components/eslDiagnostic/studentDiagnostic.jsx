@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   CarouselAnimation,
-  hashToCollection,
-  SmartSpinner,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
 
@@ -13,7 +11,6 @@ import {
   nextQuestion,
   nextQuestionWithoutSaving,
   submitResponse,
-  updateName,
   updateCurrentQuestion,
   resumePreviousDiagnosticSession,
   updateLanguage
@@ -38,7 +35,7 @@ import { getParameterByName } from '../../libs/getParameterByName';
 
 const request = require('request');
 
-class ELLStudentDiagnostic extends React.Component {
+export class ELLStudentDiagnostic extends React.Component {
   constructor(props) {
     super(props)
 
@@ -357,13 +354,7 @@ class ELLStudentDiagnostic extends React.Component {
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
-    const data = this.getFetchedData();
-    if (!(data && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata)) {
-      component = (<SmartSpinner
-        key="step1"
-        message='Loading Your Lesson 25%'
-      />)
-    } else if (playDiagnostic.currentQuestion) {
+    if (playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();
     } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
       component = (<FinishedDiagnostic
