@@ -51,24 +51,34 @@ class Prompt(TimestampedModel):
 
     def _get_feedback_for_labels(self, labels, previous_feedback=[]):
         combined_labels = combine_labels(labels)
+        feedback_options = self._fetch_feedback_options(combined_labels)
+        if not feedback_options:
+            feedback_options = self._get_default_feedback()
+        return self._choose_feedback(combined_labels,
+                                     previous_feedback,
+                                     feedback_options)
+
+    def _choose_feedback(self, combined_labels, previous_feedback,
+                         feedback_options):
         filtered_feedback = list(filter(self._filter_feedback(combined_labels),
                                         previous_feedback))
         label_match_count = len(filtered_feedback)
-        feedback_options = (self.ml_feedback
-                                .filter(combined_labels=combined_labels)
-                                .order_by('order')
-                                .all())
         available_feedback_count = len(feedback_options)
-
         if not available_feedback_count:
-            return self._get_default_feedback()
+            return None
 
         next_feedback_index = label_match_count % available_feedback_count
         return feedback_options[next_feedback_index]
 
     def _get_default_feedback(self):
         default_label = MLFeedback.DEFAULT_FEEDBACK_LABEL
-        return self.ml_feedback.get(combined_labels=default_label)
+        return self._fetch_feedback_options(default_label)
+
+    def _fetch_feedback_options(self, combined_labels):
+        return (self.ml_feedback
+                    .filter(combined_labels=combined_labels)
+                    .order_by('order')
+                    .all())
 
     @staticmethod
     def _filter_feedback(labels):

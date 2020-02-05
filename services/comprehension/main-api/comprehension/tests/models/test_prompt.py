@@ -11,12 +11,15 @@ from ..factories.rule import RuleFactory
 from ...models.ml_model import MLModel
 from ...models.prompt import Prompt
 from ...models.rule_set import RuleSet
+from ...utils import combine_labels
 
 
 class PromptModelTest(TestCase):
     def setUp(self):
         self.prompt = PromptFactory()
-        self.feedback = MLFeedbackFactory(combined_labels='Test1_Test2',
+        self.labels = ['Test1', 'Test2']
+        combined_labels = combine_labels(self.labels)
+        self.feedback = MLFeedbackFactory(combined_labels=combined_labels,
                                           prompt=self.prompt)
         self.default = MLFeedbackFactory(feedback='Default feedback',
                                          prompt=self.prompt)
@@ -46,8 +49,7 @@ class PromptFunctionTest(PromptModelTest):
         self.assertEqual(feedback, retrieved_feedback)
 
     def test_get_for_labels_muiltiple_labels(self):
-        retrieved_feedback = self.prompt._get_feedback_for_labels(['Test1',
-                                                                   'Test2'])
+        retrieved_feedback = self.prompt._get_feedback_for_labels(self.labels)
         self.assertEqual(self.feedback, retrieved_feedback)
 
     @patch.object(Prompt, '_get_default_feedback')
@@ -56,7 +58,8 @@ class PromptFunctionTest(PromptModelTest):
         self.assertTrue(get_default_mock.called)
 
     def test_get_default(self):
-        self.assertEqual(self.prompt._get_default_feedback(), self.default)
+        self.assertEqual(list(self.prompt._get_default_feedback()),
+                         [self.default])
 
 
 class PromptFetchAutoMLFeedbackTest(PromptModelTest):
