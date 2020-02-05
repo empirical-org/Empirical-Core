@@ -28,6 +28,7 @@ const ENTER = 'Enter'
 const TAB = 'Tab'
 
 export class Input extends React.Component<InputProps, InputState> {
+  // disabling the react/sort-comp rule for the following lines because as of 2/5/20, the linter incorrectly insists that static and private instance variables be placed under the constructor, when in fact doing so causes errors in compilation
   private input: any // eslint-disable-line react/sort-comp
   private node: any // eslint-disable-line react/sort-comp
   static defaultProps: { autoComplete: string }  // eslint-disable-line react/sort-comp
