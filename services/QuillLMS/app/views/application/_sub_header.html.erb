@@ -24,14 +24,14 @@
 <nav class="q-navbar-home">
   <% if on_sign_up_or_log_in %>
     <div class="logo-only">
-      <a href=<%= root_path %>>
-        <img src="/images/quill_header_logo.svg" alt="Quill Logo">
+			<a aria-label="Quill" class="student-nav-item focus-on-dark" href=<%= root_path %> >
+        <img src="https://assets.quill.org/images/logos/quill-logo-white.svg" alt="Quill.org logo">
       </a>
     </div>
   <% else %>
 	  <div class="navbar-header">
-  		<a class="navbar-brand" href=<%= root_path %>>
-  			<img src="/images/quill_header_logo.svg" alt="Quill Logo">
+			<a aria-label="Quill" class="focus-on-dark" href=<%= root_path %> >
+  			<img src="https://assets.quill.org/images/logos/quill-logo-white.svg" alt="Quill.org logo">
   		</a>
   	</div>
 
@@ -110,10 +110,9 @@
   				</div>
   			</div>
   		<%- elsif current_user.role == 'student' %>
-  			<%= link_to raw("<i class='fas fa-fw fa-question-circle' aria-hidden='true'></i> Student Center"), '/student-center', class: "text-white nav-element" %>
-  			<%= link_to raw("<i class='fas fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
-  			<%= link_to raw("<i class='fas fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
-  			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
+				<%= link_to "Classes", '/', class: "text-white student-navbar-item focus-on-dark" %>
+  			<%= link_to "Resources", '/student-center', class: "text-white student-navbar-item focus-on-dark" %>
+				<%= react_component('StudentNavbarDropdown', props: { name: current_user.name }) %>
   		<% else %>
   		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
     <% end %>
