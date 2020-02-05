@@ -1,5 +1,7 @@
 class PasswordResetController < ApplicationController
 
+  before_filter :set_title
+
   def index
     @user = User.new
   end
@@ -45,4 +47,9 @@ class PasswordResetController < ApplicationController
       render json: { message: "Those passwords didn't match. Try again.", type: 'password_confirmation' }, status: 401
     end
   end
+
+  private def set_title
+    @title = "Password Reset"
+  end
+
 end

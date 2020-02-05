@@ -19,6 +19,13 @@ export default class RenderTextEditor extends React.Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('paste', (e) => {
+      e.preventDefault()
+      return false
+    }, true);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { latestAttempt, getResponse, } = this.props
     if (nextProps.latestAttempt !== latestAttempt) {
@@ -116,8 +123,8 @@ export default class RenderTextEditor extends React.Component {
     const { disabled, onChange, } = this.props
     if (disabled) { return }
 
-    const stripBTags = e.target.value.replace(/<b>|<\/b>/g, '')
-    onChange(stripBTags, this.answerBox);
+    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
+    onChange(stripHTML, this.answerBox);
   }
 
   handleKeyDown = (e) => {

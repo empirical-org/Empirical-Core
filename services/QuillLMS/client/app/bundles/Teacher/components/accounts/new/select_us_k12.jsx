@@ -1,10 +1,14 @@
 import React from 'react';
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import getAuthToken from '../../modules/get_auth_token';
 import SchoolSelector from '../../shared/school_selector.jsx'
 
 class SelectUSK12 extends React.Component {
+  componentDidMount() {
+    document.title = 'Quill.org | Teacher Sign Up | Add School'
+  }
+
   selectSchool(idOrType) {
     // The "Skip this step" link in the school selection module trigger this function
     // with the argument 'non listed', while actually selecting a school triggers it
@@ -31,16 +35,21 @@ class SelectUSK12 extends React.Component {
     });
   }
 
+  handleNonK12LinkClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_NON_K12_SCHOOL)
+    window.location.href = "/sign-up/add-non-k12"
+  }
+
   render() {
     return (
       <div className="container account-form select-k12">
-        <h1>Let's find your school</h1>
+        <h1>Let&#39;s find your school</h1>
         <SchoolSelector selectSchool={this.selectSchool} />
-        <a
-          className="non-k12-link"
-          href="/sign-up/add-non-k12"
-          onClick={(e) => SegmentAnalytics.track(Events.CLICK_NON_K12_SCHOOL)}
-        >I don't teach at a U.S. K-12 school</a>
+        <button
+          className="non-k12-link focus-on-light"
+          onClick={this.handleNonK12LinkClick}
+          type="button"
+        >I don&#39;t teach at a U.S. K-12 school</button>
       </div>
     )
   }
