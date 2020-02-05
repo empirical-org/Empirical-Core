@@ -14,7 +14,7 @@ import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
 import itemLevels from './item-levels';
-import lessons from './lessons';
+import lessons from './lessons.ts';
 import massEdit from './massEdit';
 import pathways from './pathways';
 import playDiagnostic from './diagnostics';
