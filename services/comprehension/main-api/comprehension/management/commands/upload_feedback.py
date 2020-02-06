@@ -8,10 +8,10 @@ from ...models.ml_feedback import MLFeedback
 class Command(BaseCommand):
     help = 'Parses a CSV for feedback records'
 
-    COMBINED_LABELS_HEADER = 'Revised Shortened Single Label'
-    OPTIMAL_HEADER = None
-    FEEDBACK1_HEADER = 'Feedback #1 (Question)'
-    FEEDBACK2_HEADER = 'Feedback #2 (Imperative)'
+    COMBINED_LABELS_HEADER = 'Combined Labels'
+    OPTIMAL_HEADER = 'Optimal'
+    FEEDBACK_HEADER = 'Feedback'
+    FEEDBACK_ORDER_HEADER = 'Feedback Order'
 
 
     def add_arguments(self, parser):
@@ -36,28 +36,26 @@ class Command(BaseCommand):
         with open(csv_input) as csvfile:
             data = DictReader(csvfile)
             for row in data:
-                combined_labels = row[self.COMBINED_LABELS_HEADER]
-                optimal = False
-                feedback1 = row[self.FEEDBACK1_HEADER]
-                feedback2 = row[self.FEEDBACK2_HEADER]
-
-                if not combined_labels:
+                result = self._process_csv_row(row)
+                if not result:
                     continue
+                yield result
 
-                if feedback1:
-                    yield {
-                        'combined_labels': combined_labels,
-                        'optimal': optimal,
-                        'feedback': feedback1,
-                        'order': 1,
-                    }
-                if feedback2:
-                    yield {
-                        'combined_labels': combined_labels,
-                        'optimal': optimal,
-                        'feedback': feedback2,
-                        'order': 2,
-                    }
+    def _process_csv_row(self, row):
+        combined_labels = row[self.COMBINED_LABELS_HEADER]
+        optimal = 'y' in row[self.OPTIMAL_HEADER].lower()
+        feedback = row[self.FEEDBACK_HEADER]
+        feedback_order = row[self.FEEDBACK_ORDER_HEADER]
+
+        if not (combined_labels and feedback):
+            return None
+
+        return {
+            'combined_labels': combined_labels,
+            'optimal': optimal,
+            'feedback': feedback,
+            'order': feedback_order,
+        }
 
     def _drop_existing_feedback_records(self, prompt_id):
         MLFeedback.objects.filter(prompt_id=prompt_id).delete()
