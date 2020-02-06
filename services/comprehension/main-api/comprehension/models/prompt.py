@@ -3,6 +3,7 @@ from django.db import models
 from . import TimestampedModel
 from .ml_feedback import MLFeedback
 from .ml_model import MLModel
+from ..exceptions import ComprehensionException
 from ..utils import combine_labels
 
 
@@ -15,6 +16,12 @@ class Prompt(TimestampedModel):
     max_attempts_feedback = models.TextField(null=False)
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
                                  related_name='prompts', null=True)
+
+    class NoDefaultMLFeedbackError(ComprehensionException):
+        """
+        To flag cases where default feedback is needed but unavailable
+        """
+        pass
 
     def fetch_rules_based_feedback(self, entry, pass_order):
         rule_sets = (self.rule_sets.filter(pass_order=pass_order).
@@ -72,7 +79,10 @@ class Prompt(TimestampedModel):
 
     def _get_default_feedback(self):
         default_label = MLFeedback.DEFAULT_FEEDBACK_LABEL
-        return self._fetch_feedback_options(default_label)
+        feedback = self._fetch_feedback_options(default_label)
+        if not feedback:
+            raise self.NoDefaultMLFeedbackError(f'Prompt {self.id}')
+        return feedback
 
     def _fetch_feedback_options(self, combined_labels):
         return (self.ml_feedback
