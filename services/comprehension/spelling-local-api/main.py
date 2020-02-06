@@ -10,7 +10,6 @@ NEG_FEEDBACK = 'Try again. There may be a spelling mistake.'
 
 
 def response_endpoint(request):
-    request = {'entry':'mispel','prompt_id':0}
     request_json = request.get_json()
 
     entry = request_json.get('entry')
@@ -36,16 +35,15 @@ def response_endpoint(request):
 
 
 def get_misspellings(entry):
-    entry = 'mispeling'
     sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-    dict_file = "frequency_dictionary_en_82_765.txt"
-    bigram_file = "frequency_bigramdictionary_en_243_342.txt"
+    dict_filepath = "lib/frequency_dictionary_en_82_765.txt"
+    bigram_filepath = "lib/frequency_bigramdictionary_en_243_342.txt"
 
-    result = sym_spell.load_dictionary(dict_file,
+    result = sym_spell.load_dictionary(dict_filepath,
                                        term_index=0,
                                        count_index=1)
     assert result, "Could not load dictionary resource."
-    result = sym_spell.load_bigram_dictionary(bigram_file,
+    result = sym_spell.load_bigram_dictionary(bigram_filepath,
                                               term_index=0,
                                               count_index=2)
     assert result, "Could not load bigram resource."
