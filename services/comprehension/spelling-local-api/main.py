@@ -43,18 +43,14 @@ def get_misspellings(entry):
     bigram_path = pkg_resources.resource_filename("symspellpy",
                                                   bigram_file)
 
-    try:
-        result = sym_spell.load_pickle('symspell.pkl')
-    except FileNotFoundError:
-        result = sym_spell.load_dictionary(dictionary_path,
-                                        term_index=0,
-                                        count_index=1)
-        assert result, "Could not load dictionary resource."
-        result = sym_spell.load_bigram_dictionary(bigram_path,
-                                                term_index=0,
-                                                count_index=2)
-        assert result, "Could not load bigram resource."
-        sym_spell.save_pickle('symspell.pkl')
+    result = sym_spell.load_dictionary(dictionary_path,
+                                       term_index=0,
+                                       count_index=1)
+    assert result, "Could not load dictionary resource."
+    result = sym_spell.load_bigram_dictionary(bigram_path,
+                                              term_index=0,
+                                              count_index=2)
+    assert result, "Could not load bigram resource."
 
     entry = entry.strip(string.punctuation)
     lookup = sym_spell.lookup_compound(entry,
