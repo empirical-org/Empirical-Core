@@ -17,6 +17,10 @@ export function caseInsensitiveChecker(responseString: string, responses:Array<R
   const match = caseInsensitiveMatch(responseString, responses, caseInsensitive);
   if (match) {
     const parentID = match.id
+    // if the response is otherwise optimal, we want to override caseInsensitive and call out casing errors
+    if (match.optimal && responseString != match.text) {
+      caseInsensitive = false
+    }
     const conceptResults = passConceptResults ? match.concept_results : null
     // if caseInsensitive, return the match as if it were an exact match
     return caseInsensitive ? match : caseInsensitiveResponseBuilder(responses, parentID, conceptResults)
