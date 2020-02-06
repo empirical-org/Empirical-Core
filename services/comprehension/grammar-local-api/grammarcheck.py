@@ -1,6 +1,6 @@
 import re
 import spacy
-import pyinflect
+import pyinflect  # noqa: F401
 
 from typing import List
 from collections import namedtuple
