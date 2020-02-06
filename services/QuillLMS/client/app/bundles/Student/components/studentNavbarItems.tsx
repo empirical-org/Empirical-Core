@@ -2,17 +2,16 @@ import * as React from 'react'
 
 const avatarSrc = `${process.env.CDN_URL}/images/icons/avatar.svg`
 
-interface StudentNavbarDropdownProps {
+interface StudentNavbarItemsProps {
   name: string;
 }
 
-interface StudentNavbarDropdownState {
+interface StudentNavbarItemsState {
   isOpen: boolean;
   cursor: null|number;
 }
 
 const MAXIMUM_NAME_LENGTH = 27
-const ENTER = 'Enter'
 const TAB = 'Tab'
 const ARROWDOWN = 'ArrowDown'
 const ARROWUP = 'ArrowUp'
@@ -24,7 +23,7 @@ const links = [
   <a href="/session" id="logout-link" key="logout-link">Logout</a>
 ]
 
-export default class StudentNavbarDropdown extends React.Component<StudentNavbarDropdownProps, StudentNavbarDropdownState> {
+export default class StudentNavbarItems extends React.Component<StudentNavbarItemsProps, StudentNavbarItemsState> {
   private dropdownContainer: any // eslint-disable-line react/sort-comp
 
   constructor(props) {
@@ -115,13 +114,19 @@ export default class StudentNavbarDropdown extends React.Component<StudentNavbar
   render() {
     const { name, } = this.props
     const displayedName = name.length > MAXIMUM_NAME_LENGTH ? `${name.substring(0, MAXIMUM_NAME_LENGTH)}...`: name
-    return (<div className="student-navbar-dropdown student-navbar-item" ref={this.dropdownContainerRef}>
-      <button className="focus-on-dark" id="name-container" onClick={this.handleNameClick} type="button">
-        <img alt="Avatar icon" src={avatarSrc} />
-        <span>{displayedName}</span>
-        <div aria-label="Dropdown icon" className="dropdown-indicator" />
-      </button>
-      {this.renderDropdown()}
-    </div>)
+    return (
+      <div className="home-nav-right wide student-navbar-items">
+        <a className="text-white student-navbar-item focus-on-dark" href="/">Classes</a>
+        <a className="text-white student-navbar-item focus-on-dark" href="/student-center">Resources</a>
+        <div className="student-navbar-dropdown student-navbar-item" ref={this.dropdownContainerRef}>
+          <button className="focus-on-dark" id="name-container" onClick={this.handleNameClick} type="button">
+            <img alt="Avatar icon" src={avatarSrc} />
+            <span>{displayedName}</span>
+            <div aria-label="Dropdown icon" className="dropdown-indicator" />
+          </button>
+          {this.renderDropdown()}
+        </div>
+      </div>
+    )
   }
 }

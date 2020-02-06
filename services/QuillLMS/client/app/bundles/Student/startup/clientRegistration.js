@@ -5,12 +5,12 @@ import JoinClassApp from './JoinClassAppClient';
 import AccountSettingsApp from './AccountSettingsAppClient';
 import StudentProfileApp from './StudentProfileAppClient';
 import StudentProfileRouter from './StudentProfileRouter';
-import StudentNavbarDropdown from './StudentNavbarDropdownAppClient'
+import StudentNavbarItems from './StudentNavbarItemsAppClient'
 
 ReactOnRails.register({
   StudentProfileApp,
   JoinClassApp,
   AccountSettingsApp,
   StudentProfileRouter,
-  StudentNavbarDropdown
+  StudentNavbarItems
 });

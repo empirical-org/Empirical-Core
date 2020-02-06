@@ -170,6 +170,12 @@ nav.q-navbar-home {
   position:relative;
   margin: 0px auto;
 
+  .navbar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .logo-only {
     width: 100%;
     display: flex;
