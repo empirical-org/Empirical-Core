@@ -8,7 +8,6 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.jsx';
 import {
   SentenceFragments,
-  Error,
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import RenderFeedback from '../renderForQuestions/feedback';
@@ -61,15 +60,27 @@ class ELLSentenceCombining extends React.Component {
   }
 
   getInstructionText = () => {
-    const { language, } = this.props
-    const q = this.getQuestion()
-    const textKey = translationMap[q.key];
-    let text = q.instructions ? q.instructions : translations.english[textKey];
-    if (language && language !== 'english') {
+    const { diagnosticID, language, translate } = this.props;
+    const question = this.getQuestion();
+    const { instructions } = question;
+    const textKey = translationMap[question.key];
+    let text = instructions ? instructions : translations.english[textKey];
+    if(!language) {
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else if (language && diagnosticID === 'ell') {
       const textClass = language === 'arabic' ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else {
+      console.log('sentence-combining', question);
+      const text = `instructions^${instructions}`;
+      return(
+        <div>
+          <p>{instructions}</p>
+          {language !== 'english' && <p>{translate(text)}</p>}
+        </div>
+      );
     }
-    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   }
 
   getResponses = () => {
@@ -231,22 +242,27 @@ class ELLSentenceCombining extends React.Component {
     </div>)
   }
 
-  render = () => {
-    const { language, questions, question, } = this.props
-    const { responses, error, response, } = this.state
-    let button;
-    const fullPageInstructions = { maxWidth: 800, width: '100%', }
+  renderButton = () => {
+    const { language, question, translate } = this.props
+    const { responses } = this.state;
+    const buttonText = language ? translate('buttons^submit') : 'Submit';
     if (responses && Object.keys(responses).length) {
       if (question.attempts.length > 0) {
-        button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{this.getSubmitButtonText()}</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleNextQuestionClick} type="button">{buttonText}</button>;
       } else {
-        button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>;
       }
     } else {
-      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
     }
+  }
+
+  render = () => {
+    const { question } = this.props
+    const { error, response } = this.state
+    const fullPageInstructions = { maxWidth: 800, width: '100%', }
+
     if (question) {
-      const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence. Combinar las frases en una frase.';
       return (
         <div className="student-container-inner-diagnostic">
           <div style={{ display: 'flex', justifyContent: 'spaceBetween', }}>
@@ -275,13 +291,13 @@ class ELLSentenceCombining extends React.Component {
             />
             {this.renderError()}
             <div className="question-button-group button-group">
-              {button}
+              {this.renderButton()}
             </div>
           </ReactTransition>
         </div>
       );
     }
-    return (<p>Loading / Cargando...</p>);
+    return (<p>Loading...</p>);
   }
 }
 

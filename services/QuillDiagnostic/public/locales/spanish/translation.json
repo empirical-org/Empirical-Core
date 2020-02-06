@@ -1,7 +1,9 @@
 {
     "buttons": {
         "begin": "Begin / Empezar",
-        "continue": "Continue / Seguir"
+        "continue": "Continue / Seguir",
+        "resume": "Resume / Seguir",
+        "submit": "Submit / Enviar"
     },
     "intro": {
         "header": "Actividad de emplazamiento de Quill",
@@ -26,5 +28,16 @@
     "End: You Did it!": {
         "header": "¡Lo lograste!",
         "text": "¡Eso es! Acaba de terminar la actividad de emplazamiento de Quill. Los resultados se enviarán a tu maestro y empezaremos a crear tu plan de aprendizaje."
+    },
+    "completedDiagnostic": {
+        "header": "Has completado la actividad de emplazamiento de Quill",
+        "text": "Tus resultados se están guardando ahora. Serás redirigido automáticamente cuando se guarden."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "Rellena el espacio en blanco con una de las opciones.",
+        "Fill in each blank with one of the choices.": "Rellena cada espacio en blanco con una de las opciones.",
+        "Fill in the blanks with one word each.": "Rellena los espacios en blanco con una palabra en cada uno.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Rellena los espacios en blanco con una palabra en cada uno. Puedes dejar uno vacío.",
+        "Use the joining word to combine the sentences into one sentence.": "Utiliza la palabra de unión para combinar las oraciones en una sola oración."
     }
 }

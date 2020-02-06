@@ -174,12 +174,14 @@ export class ELLStudentDiagnostic extends React.Component {
     let component
     if (playDiagnostic.currentQuestion.type === 'SC') {
       component = (<PlayDiagnosticQuestion
+        diagnosticID={params.diagnosticID}
         dispatch={dispatch}
         key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         marking="diagnostic"
         nextQuestion={this.nextQuestion}
         question={playDiagnostic.currentQuestion.data}
+        translate={t}
       />);
     } else if (playDiagnostic.currentQuestion.type === 'SF') {
       component = (<PlaySentenceFragment
@@ -209,11 +211,13 @@ export class ELLStudentDiagnostic extends React.Component {
       component = (
         <PlayFillInTheBlankQuestion
           currentKey={playDiagnostic.currentQuestion.data.key}
+          diagnosticID={params.diagnosticID}
           dispatch={dispatch}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
           nextQuestion={this.nextQuestion}
           question={playDiagnostic.currentQuestion.data}
+          translate={t}
         />
       );
     }
@@ -248,7 +252,7 @@ export class ELLStudentDiagnostic extends React.Component {
     const { lessons, params} = this.props
 
     // return lessons.data['ell'];
-    return lessons.data['-LyFRZvbHAmooTTIIVE2'];
+    return lessons.data[params.diagnosticID];
   }
 
   questionsForLesson = () => {
@@ -321,9 +325,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { lessons, } = this.props
+    const { lessons, params } = this.props
     const { data, } = lessons
-    return data['ell'].landingPageHtml
+    return data[params.diagnosticID].landingPageHtml
   }
 
   renderFooter = () => {
@@ -355,8 +359,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   render() {
+    console.log('props', this.props);
     const { error, saved, } = this.state
-    const { questions, sentenceFragments, playDiagnostic, fillInBlank, t } = this.props
+    const { diagnosticID, questions, sentenceFragments, playDiagnostic, fillInBlank, t } = this.props
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
@@ -368,10 +373,12 @@ export class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         saved={saved}
         saveToLMS={this.saveToLMS}
+        translate={t}
       />);
     } else if (playDiagnostic.language) {
       component = (<LandingPage
         begin={this.startActivity}
+        diagnosticID={diagnosticID}
         landingPageHtml={this.landingPageHtml()}
         language={this.language()}
         resumeActivity={this.resumeSession}

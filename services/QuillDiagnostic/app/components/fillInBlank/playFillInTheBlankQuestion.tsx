@@ -90,15 +90,26 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   getInstructionText = () => {
-    const { language, } = this.props
-    const q = this.getQuestion()
-    const textKey = translationMap[q.key];
-    let text = q.instructions ? q.instructions : translations.english[textKey];
-    if (language && language !== 'english') {
+    const { diagnosticID, language, question, translate } = this.props;
+    const { instructions } = question;
+    const textKey = translationMap[question.key];
+    let text = instructions ? instructions : translations.english[textKey];
+    if(!language) {
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else if (language && diagnosticID === 'ell') {
       const textClass = language === 'arabic' ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else {
+      console.log('cueLabel', question);
+      const text = `instructions^${instructions}`;
+      return(
+        <div>
+          <p>{instructions}</p>
+          {language !== 'english' && <p>{translate(text)}</p>}
+        </div>
+      );
     }
-    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   }
 
   generateInputs(numberOfInputVals: number) {
@@ -283,15 +294,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  getSubmitButtonText = () => {
-    const { language, } = this.props
-    let text = translations.english['submit button text'];
-    if (language && language !== 'english') {
-      text += ` / ${translations[language]['submit button text']}`;
-    }
-    return text;
-  }
-
   renderFeedback = () => {
     const { question, } = this.props
     const { inputErrors, } = this.state
@@ -309,17 +311,22 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
   }
 
-  render() {
-    const { language, question, } = this.props
-    const { responses, } = this.state
-
-    let fullPageInstructions
-    if (question.mediaURL) {
-      fullPageInstructions = { display: 'block' }
+  renderButton = () => {
+    const { responses } = this.state;
+    const { language, translate } = this.props;
+    const buttonText = language ? translate('buttons^submit') : 'Submit';
+    
+    if(responses) {
+      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 
     } else {
-      fullPageInstructions = { maxWidth: 800, width: '100%' }
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>; 
     }
-    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+  }
+
+  render() {
+    const { question } = this.props;
+    const fullPageInstructions = question.mediaURL ? { display: 'block' } : { maxWidth: 800, width: '100%' };
+
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -337,7 +344,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           {this.renderMedia()}
         </div>
         <div className="question-button-group button-group" style={{marginTop: 20}}>
-          {button}
+          {this.renderButton()}
         </div>
       </div>
     );

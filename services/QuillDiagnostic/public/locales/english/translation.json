@@ -1,6 +1,8 @@
 {
     "buttons": {
         "begin": "Begin",
-        "continue": "Continue"
+        "continue": "Continue",
+        "resume": "Resume",
+        "submit": "Submit"
     }
 }

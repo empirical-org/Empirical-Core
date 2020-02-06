@@ -1,7 +1,9 @@
 {
     "buttons": {
         "begin": "Begin / Commencer",
-        "continue": "Continue / Continuer"
+        "continue": "Continue / Continuer",
+        "resume": "Resume / Continuer",
+        "submit": "Submit / Envoyer"
     },
     "intro": {
         "header": "Activité de placement Quill",
@@ -26,5 +28,16 @@
     "End: You Did it!": {
         "header": "Bien joué !",
         "text": "C’est fini ! Vous venez de terminer l’activité de placement Quill. Votre professeur recevra bientôt les résultats et nous créerons bientôt votre programme d’apprentissage."
+    },
+    "completedDiagnostic": {
+        "header": "Vous avez terminé l’activité de placement Quill",
+        "text": "Vos résultats sont en cours d’enregistrement. Vous serez automatiquement redirigé à la fin du processus de sauvegarde."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "Remplissez le trou avec l’un des mots proposés.",
+        "Fill in each blank with one of the choices.": "Remplissez les trous avec l’un des mots proposés.",
+        "Fill in the blanks with one word each.": "Remplissez les trous avec un mot.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Remplissez les trous avec un mot. Vous pouvez en laissez un vide ou tous les remplir.",
+        "Use the joining word to combine the sentences into one sentence.": "Utilisez le mot de liaison indiqué pour combiner les phrases et en former une seule."
     }
 }

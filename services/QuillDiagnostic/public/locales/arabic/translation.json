@@ -1,7 +1,9 @@
 {
     "buttons": {
         "begin": "Begin / ابدأ",
-        "continue": "Continue / استمر"
+        "continue": "Continue / استمر",
+        "resume": "Resume / استمر",
+        "submit": "Submit / إرسال"
     },
     "intro": {
         "header": "نشاط تحديد المستوى في Quill",
@@ -26,5 +28,16 @@
     "End: You Did it!": {
         "header": "لقد نجحت!",
         "text": "انتهى الأمر! لقد انتهيت للتو من نشاط تحديد المستوى الخاص ب Quill. سيتم إرسال النتائج إلى معلمك، وسنبدأ في إنشاء خطة التعلم الخاصة بك."
+    },
+    "completedDiagnostic": {
+        "header": "لقد أكملت نشاط تحديد المستوى الخاص ب Quill",
+        "text": "يتم حفظ نتائجك الآن. سيتم إعادة توجيهك تلقائيًا بمجرد حفظها."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "املأ الفراغ بأحد الخيارات.",
+        "Fill in each blank with one of the choices.": "املأ كل فراغ بأحد الخيارات.",
+        "Fill in the blanks with one word each.": "املأ الفراغات بكلمة واحدة لكل منها.",
+        "Fill in the blanks with one word each. You can leave one empty.": "املأ الفراغات بكلمة واحدة. يمكنك ترك أحد الفراغات دون ملء.",
+        "Use the joining word to combine the sentences into one sentence.": "استخدم كلمة الربط لدمج الجمل في جملة واحدة."
     }
 }

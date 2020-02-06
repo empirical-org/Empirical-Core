@@ -11,7 +11,7 @@ export class LandingPage extends React.Component {
   renderButton = () => {
     const { begin, session, translate } = this.props;
     const onClickFn = session ? this.resume : begin;
-    const text = session ? <span>{translate('buttons.continue')}</span> : <span>{translate('buttons.continue')}</span>;
+    const text = session ? <span>{translate('buttons^resume')}</span> : <span>{translate('buttons^continue')}</span>;
     return <ResumeOrBeginButton onClickFn={onClickFn} text={text} />
   }
 
@@ -26,8 +26,8 @@ export class LandingPage extends React.Component {
           <p>{"Some of the questions might be about things you haven't learned yet — that's okay! Just answer them as best as you can. Once you're finished, Quill will create a learning plan just for you!"}</p>
         </div>
         {language !== 'english' && <div>
-          <h1 className={className}>{translate('intro.header')}</h1>
-          <p className={className}>{translate('intro.text')}</p>
+          <h1 className={className}>{translate('intro^header')}</h1>
+          <p className={className}>{translate('intro^text')}</p>
         </div>}
         {this.renderButton()}
       </div>

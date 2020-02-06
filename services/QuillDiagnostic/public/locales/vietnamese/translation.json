@@ -1,7 +1,9 @@
 {
     "buttons": {
         "begin": "Begin / Bắt đầu",
-        "continue": "Continue / Tiếp tục"
+        "continue": "Continue / Tiếp tục",
+        "resume": "Resume / Tiếp tục",
+        "submit": "Submit / Gửi"
     },
     "intro": {
         "header": "Hoạt động Sắp xếp Quill",
@@ -26,5 +28,16 @@
     "End: You Did it!": {
         "header": "Bạn đã làm được!",
         "text": "Thật xuất sắc! Bạn vừa hoàn thành Hoạt động Sắp xếp Quill. Kết quả sẽ được gửi đến giáo viên của bạn và chúng tôi sẽ bắt đầu tạo kế hoạch học tập của bạn."
+    },
+    "completedDiagnostic": {
+        "header": "Bạn đã hoàn thành Quill Placement Activity",
+        "text": "Kết quả của bạn đang được lưu. Bạn sẽ được tự động chuyển hướng sau khi lưu xong kết quả."
+    },
+    "instructions": {
+        "Fill in the blank with one of the choices.": "Điền vào chỗ trống với một trong các lựa chọn.",
+        "Fill in each blank with one of the choices.": "Điền vào mỗi chỗ trống với một trong các lựa chọn.",
+        "Fill in the blanks with one word each.": "Điền mỗi chỗ trống một từ.",
+        "Fill in the blanks with one word each. You can leave one empty.": "Điền mỗi chỗ trống một từ. Bạn có thể để trống một chỗ.",
+        "Use the joining word to combine the sentences into one sentence.": "Sử dụng từ nối để kết hợp các câu thành một câu."
     }
 }

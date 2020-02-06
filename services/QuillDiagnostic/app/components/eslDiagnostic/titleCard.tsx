@@ -13,7 +13,7 @@ export interface ComponentProps {
 class TitleCard extends Component<ComponentProps, any> {
 
   getContentHTML = () => {
-    const { data, language, } = this.props
+    const { data, language, } = this.props;
     let html = data.content ? data.content : translations.english[data.key];
     if (language !== 'english') {
       const textClass = language === 'arabic' ? 'right-to-left arabic-title-div' : '';
@@ -22,22 +22,11 @@ class TitleCard extends Component<ComponentProps, any> {
     return html;
   }
 
-  getButtonText = () => {
-    const { language, } = this.props
-    let text = translations.english['continue button text']
-    if (language !== 'english') {
-      text += ` / ${translations[language]['continue button text']}`
-    }
-    return text
-  }
-
   renderContent = () => {
     const { data, diagnosticID, language, translate } = this.props;
     const { title } = data;
-    const header = `${title}.header`;
-    const text = `${title}.text`;
-    console.log('header', header)
-    console.log('text', text)
+    const header = `${title}^header`;
+    const text = `${title}^text`;
     
     if(diagnosticID === 'ell') {
       return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
@@ -59,12 +48,12 @@ class TitleCard extends Component<ComponentProps, any> {
 
   render() {
     const { handleContinueClick, translate} = this.props;
-    console.log('props', this.props);
+
     return (
       <div className="landing-page">
         {this.renderContent()}
         <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} type="button">
-          {translate('buttons.continue')}
+          {translate('buttons^continue')}
         </button>
       </div>
     );
