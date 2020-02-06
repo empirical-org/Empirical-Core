@@ -6,8 +6,14 @@ from .ml_model import MLModel
 from ..utils import combine_labels
 
 
-CORRECT_FEEDBACK_OBJ = { 'feedback': 'All rules-based checks passed!', 'optimal': True }
-INCORRECT_FEEDBACK_OBJ = { 'feedback':'', 'optimal':False}
+CORRECT_FEEDBACK_OBJ = {
+                          'feedback': 'All rules-based checks passed!',
+                          'optimal': True
+                       }
+INCORRECT_FEEDBACK_OBJ = {
+                            'feedback': '',
+                            'optimal': False
+                        }
 
 
 class Prompt(TimestampedModel):
@@ -22,10 +28,12 @@ class Prompt(TimestampedModel):
                      order_by('priority').all())
 
         for rule_set in rule_sets:
+            rules_list = rule_set.rules.all()
             if rule_set.is_focus_point:
-                is_passing = self._process_focus_point(rule_set, entry)
+                is_passing = self._process_focus_point(rules_list, entry)
             else:
-                is_passing = self._process_incorrect_sequence(rule_set, entry)
+                is_passing = self._process_incorrect_sequence(rules_list,
+                                                              entry)
 
             if not is_passing:
                 feedback = INCORRECT_FEEDBACK_OBJ
@@ -34,9 +42,12 @@ class Prompt(TimestampedModel):
 
         return CORRECT_FEEDBACK_OBJ
 
-    def _process_focus_point(self, rule_set, entry):
+    def _process_focus_point(self, rules_list, entry):
         # focus points return CORRECT at the first match it finds
-        for rule in rule_set.rules.all():
+        if not rules_list:
+            return True
+
+        for rule in rules_list:
             if rule.match(entry):
                 break
         else:
@@ -44,10 +55,10 @@ class Prompt(TimestampedModel):
 
         return True
 
-    def _process_incorrect_sequence(self, rule_set, entry):
+    def _process_incorrect_sequence(self, rules_list, entry):
         # incorrect sequences return CORRECT after checking the whole list
         # and verifying all items are correct
-        for rule in rule_set.rules.all():
+        for rule in rules_list:
             if not rule.match(entry):
                 return False
 

@@ -18,7 +18,7 @@ class RuleSet(BaseModel):
     pass_order = models.TextField(null=False,
                                   choices=PASS_ORDER.get_for_choices())
     is_focus_point = models.BooleanField(null=False,
-                                            default=True)
+                                         default=False)
 
     class Meta:
         unique_together = ('prompt', 'priority', 'pass_order', )

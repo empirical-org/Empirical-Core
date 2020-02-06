@@ -139,15 +139,42 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
-    def test_does_not_contain_regex(self):
+    def test_incorrect_sequences_regex(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
                     is_focus_point=False))
-        RuleFactory(regex_text='does not contain', rule_set=rule_set)
+        rule_set_two = (RuleSetFactory(
+                        feedback='Test feedback',
+                        pass_order=RuleSet.PASS_ORDER.FIRST,
+                        prompt=self.prompt,
+                        priority=2,
+                        is_focus_point=False))
+        RuleFactory(regex_text='incorrect sequence', rule_set=rule_set)
+        RuleFactory(regex_text='wrong sequence', rule_set=rule_set_two)
         feedback = (self.prompt.
-                    fetch_rules_based_feedback('test does not contain',
+                    fetch_rules_based_feedback('test wrong sequence',
+                                               RuleSet.PASS_ORDER.FIRST))
+        self.assertFalse(feedback['optimal'])
+        self.assertEqual(feedback['feedback'], 'Test feedback')
+
+    def test_focus_points_regex(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    is_focus_point=True))
+        rule_set_two = (RuleSetFactory(
+                        feedback='Test feedback',
+                        pass_order=RuleSet.PASS_ORDER.FIRST,
+                        prompt=self.prompt,
+                        priority=2,
+                        is_focus_point=True))
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        RuleFactory(regex_text='test$', rule_set=rule_set_two)
+        feedback = (self.prompt.
+                    fetch_rules_based_feedback('test wrong sequence',
                                                RuleSet.PASS_ORDER.FIRST))
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
