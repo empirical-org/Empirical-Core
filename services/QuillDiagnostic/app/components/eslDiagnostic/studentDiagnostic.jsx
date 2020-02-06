@@ -169,7 +169,7 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderQuestionComponent = () => {
-    const { playDiagnostic, dispatch, } = this.props
+    const { playDiagnostic, dispatch, params, t } = this.props
 
     let component
     if (playDiagnostic.currentQuestion.type === 'SC') {
@@ -197,10 +197,12 @@ export class ELLStudentDiagnostic extends React.Component {
         <PlayTitleCard
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
+          diagnosticID={params.diagnosticID}
           dispatch={dispatch}
           handleContinueClick={this.nextQuestionWithoutSaving}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
+          translate={t}
         />
       );
     } else if (playDiagnostic.currentQuestion.type === 'FB') {

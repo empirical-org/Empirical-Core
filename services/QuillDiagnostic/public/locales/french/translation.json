@@ -6,5 +6,9 @@
     "intro": {
         "header": "Activité de placement Quill",
         "text": "Vous allez répondre à 22 questions sur l’écriture des phrases. Certaines de ces questions peuvent concerner des choses que vous n’avez pas encore apprises. Ce n’est pas grave ! Répondez-y simplement le mieux possible. N’oubliez pas de lire attentivement les instructions pour chaque question ! Lorsque vous aurez terminé, Quill créera un programme d’apprentissage spécialement pour vous."
+    },
+    "ELL Starter Fill in the Blank": {
+        "header": "Remplissez les trous",
+        "text": "Dans cette section, chaque phrase comportera un, deux ou trois trous. Vous pouvez remplir chaque trou avec un des mots de la liste, mais il peut arriver que vous deviez le laisser vide. Saisissez les mots que vous avez choisis dans les cases. N’oubliez pas de vérifier votre orthographe ! C’est parti !"
     }
 }

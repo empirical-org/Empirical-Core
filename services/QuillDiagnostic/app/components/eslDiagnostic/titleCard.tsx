@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-
 import translations from '../../libs/translations/index.js';
+import { commonText } from '../../../public/locales/commonText';
 
 export interface ComponentProps {
-  data: any
-  language: string
-  handleContinueClick(): void
+  data: any,
+  diagnosticID: string,
+  language: string,
+  handleContinueClick(): void,
+  translate(input: string): any
 }
 
 class TitleCard extends Component<ComponentProps, any> {
@@ -29,13 +31,38 @@ class TitleCard extends Component<ComponentProps, any> {
     return text
   }
 
+  renderContent() {
+    const { data, diagnosticID, language, translate } = this.props;
+    const { title } = data;
+    const header = `${title}.header`;
+    const text = `${title}.text`;
+    
+    if(diagnosticID === 'ell') {
+      return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
+    } else {
+      return(
+        <div>
+          <div className="landing-page-html">
+            <h1>{commonText[title].header}</h1>
+            <p>{commonText[title].text}</p>
+          </div>
+          {language !== 'english' && <div className="landing-page-html">
+            <h1>{translate(header)}</h1>
+            <p>{translate(text)}</p>
+          </div>}
+        </div>
+      );
+    }
+  }
+
   render() {
-    const { handleContinueClick, } = this.props
+    const { handleContinueClick, translate} = this.props;
+    console.log('props', this.props);
     return (
       <div className="landing-page">
-        <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />
+        {this.renderContent()}
         <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} type="button">
-          {this.getButtonText()}
+          {translate('buttons.continue')}
         </button>
       </div>
     );
