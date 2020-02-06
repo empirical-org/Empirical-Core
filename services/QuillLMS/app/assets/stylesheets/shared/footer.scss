@@ -104,7 +104,7 @@
     color: #666666;
     font-size: 24px;
     display: flex;
-    max-width: 110px;
+    max-width: 121px;
     justify-content: space-between;
     width: 100%;
     i, svg {
@@ -175,8 +175,16 @@
   }
 
   &.student-footer {
+    overflow: show;
+    padding: 42px 0px;
     .footer-contacts {
-      max-width: 227px;
+      max-width: 195px;
+    }
+    .footer-contacts, .footer-social {
+      margin-bottom: 0px;
+    }
+    .bottom-half {
+      padding-top: 0px;
     }
   }
 }
