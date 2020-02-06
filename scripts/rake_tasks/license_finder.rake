@@ -79,6 +79,7 @@ module LicenseFinder
     'services/QuillLessons',
     'services/QuillLessonsServer',
     'services/QuillProofreader',
+    'services/comprehension/frontend',
     'lambdas/rematching',
     'packages/apply-feature',
     'packages/quill-cdn',
@@ -97,7 +98,6 @@ module LicenseFinder
     'services/comprehension/automl-api-prototype',
     'services/comprehension/bing-spelling-api',
     'services/comprehension/feedback-api-main',
-    'services/comprehension/frontend',
     'services/comprehension/grammar-local-api',
     'services/comprehension/main-api',
     'services/comprehension/spelling-local-api'
