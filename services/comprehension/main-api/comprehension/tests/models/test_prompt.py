@@ -54,6 +54,7 @@ class PromptFunctionTest(PromptModelTest):
 
     @patch.object(Prompt, '_get_default_feedback')
     def test_get_for_labels_fallback_to_default(self, get_default_mock):
+        get_default_mock.return_value = [self.default]
         self.prompt._get_feedback_for_labels(['Not', 'Used'])
         self.assertTrue(get_default_mock.called)
 
@@ -80,6 +81,7 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
         self.assertEqual(self.feedback, response)
 
 
+@patch.object(MLModel, 'request_labels')
 class PromptVariableAutoMLFeedbackTest(PromptModelTest):
     def setUp(self):
         super().setUp()
@@ -89,7 +91,6 @@ class PromptVariableAutoMLFeedbackTest(PromptModelTest):
             order=self.feedback.order + 1
         )
 
-    @patch.object(MLModel, 'request_labels')
     def test_variable_feedback(self, label_mock):
         label_mock.return_value = ['Test1', 'Test2']
         mock_previous_feedback = [{
@@ -102,7 +103,6 @@ class PromptVariableAutoMLFeedbackTest(PromptModelTest):
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback2, response)
 
-    @patch.object(MLModel, 'request_labels')
     def test_variable_feedback_wrap_around(self, label_mock):
         label_mock.return_value = ['Test1', 'Test2']
         mock_previous_feedback = [{
@@ -116,6 +116,14 @@ class PromptVariableAutoMLFeedbackTest(PromptModelTest):
         )
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback, response)
+
+    def test_exception_when_no_match_and_no_default(self, label_mock):
+        self.default.delete()
+        with self.assertRaises(Prompt.NoFeedbackOptionsToChooseFromError):
+            self.prompt._choose_feedback(
+                'combined_labels',
+                previous_feedback=[],
+                feedback_options=[])
 
 
 class PromptFetchRulesBasedFeedbackTest(PromptModelTest):

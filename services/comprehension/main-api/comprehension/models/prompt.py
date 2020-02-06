@@ -23,6 +23,13 @@ class Prompt(TimestampedModel):
         """
         pass
 
+    class NoFeedbackOptionsToChooseFromError(ComprehensionException):
+        """
+        Raised if the prompt is asked to select a Feedback instance but
+        is given no instances to select from
+        """
+        pass
+
     def fetch_rules_based_feedback(self, entry, pass_order):
         rule_sets = (self.rule_sets.filter(pass_order=pass_order).
                      order_by('priority').all())
@@ -71,10 +78,13 @@ class Prompt(TimestampedModel):
                                         previous_feedback))
         label_match_count = len(filtered_feedback)
         available_feedback_count = len(feedback_options)
-        if not available_feedback_count:
-            return None
 
-        next_feedback_index = label_match_count % available_feedback_count
+        try:
+            next_feedback_index = label_match_count % available_feedback_count
+        except ZeroDivisionError:
+            msg = (f'No feedback options found for Prompt {self.id} with '
+                   f'label combination {combined_labels}.')
+            raise self.NoFeedbackOptionsToChooseFromError(msg)
         return feedback_options[next_feedback_index]
 
     def _get_default_feedback(self):
