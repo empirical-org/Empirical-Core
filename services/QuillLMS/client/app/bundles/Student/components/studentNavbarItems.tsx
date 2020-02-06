@@ -51,10 +51,10 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
       <a href="/session" id="logout-link" key="logout-link">Logout</a>
     ]
     if (this.onMobile()) {
-      linkArray = linkArray.concat([
+      linkArray = [
         <a href="/" id="classes-link" key="classes-link">Classes</a>,
         <a href="/student-center" id="resources-link" key="resources-link">Resources</a>
-      ])
+      ].concat(linkArray)
     }
 
     return linkArray
