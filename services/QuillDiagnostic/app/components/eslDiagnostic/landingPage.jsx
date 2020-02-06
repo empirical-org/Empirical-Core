@@ -3,12 +3,12 @@ import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibra
 
 export class LandingPage extends React.Component {
 
-  resume() {
+  resume = () => {
     const { resumeActivity, session } = this.props;
     resumeActivity(session);
   }
 
-  renderButton() {
+  renderButton = () => {
     const { begin, session, translate } = this.props;
     const onClickFn = session ? this.resume : begin;
     const text = session ? <span>{translate('buttons.continue')}</span> : <span>{translate('buttons.continue')}</span>;

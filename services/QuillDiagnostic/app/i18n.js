@@ -27,7 +27,8 @@ i18n
     resources,
     lng: "english",
     defaultTransParent: 'div',
-
+    keySeparator: '.',
+    nsSeparator: '|',
     interpolation: {
       escapeValue: false
     }

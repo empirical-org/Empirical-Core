@@ -10,5 +10,21 @@
     "ELL Starter Fill in the Blank": {
         "header": "Điền vào chỗ trống",
         "text": "Trong phần này, mỗi câu sẽ có một, hai hoặc ba chỗ trống. Bạn sẽ điền vào mỗi chỗ trống bằng một trong những từ trong danh sách, hoặc bạn sẽ để trống nếu không cần từ nào. Nhập các từ bạn chọn vào các ô. Đừng quên kiểm tra chính tả nhé! Bắt đầu nào!"
+    },
+    "ELL Starter Halfway": {
+        "header": "Bạn đã đi được nửa chặng đường rồi!",
+        "text": "Cứ phát huy nhé!"
+    },
+    "ELL Starter Questions": {
+        "header": "Câu hỏi",
+        "text": "Trong phần này, bạn sẽ viết câu hỏi. Hãy nhớ rằng các câu hỏi có một dấu hỏi (?) ở cuối. Bạn có thể làm được!"
+    },
+    "ELL Starter Sentence Combining": {
+        "header": "Kết hợp câu",
+        "text": "Bạn sắp xong rồi! Chỉ còn 3 câu hỏi nữa thôi. Trong phần này, bạn sẽ kết hợp các câu thành một câu. Bạn sẽ được cung cấp một nối để sử dụng. Hãy nhớ rằng một câu chỉ có một dấu chấm câu. Bạn sẽ thành công!"
+    },
+    "End: You Did it!": {
+        "header": "Bạn đã làm được!",
+        "text": "Thật xuất sắc! Bạn vừa hoàn thành Hoạt động Sắp xếp Quill. Kết quả sẽ được gửi đến giáo viên của bạn và chúng tôi sẽ bắt đầu tạo kế hoạch học tập của bạn."
     }
 }

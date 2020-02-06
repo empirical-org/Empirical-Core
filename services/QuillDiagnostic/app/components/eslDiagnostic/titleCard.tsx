@@ -12,7 +12,7 @@ export interface ComponentProps {
 
 class TitleCard extends Component<ComponentProps, any> {
 
-  getContentHTML() {
+  getContentHTML = () => {
     const { data, language, } = this.props
     let html = data.content ? data.content : translations.english[data.key];
     if (language !== 'english') {
@@ -22,7 +22,7 @@ class TitleCard extends Component<ComponentProps, any> {
     return html;
   }
 
-  getButtonText() {
+  getButtonText = () => {
     const { language, } = this.props
     let text = translations.english['continue button text']
     if (language !== 'english') {
@@ -31,11 +31,13 @@ class TitleCard extends Component<ComponentProps, any> {
     return text
   }
 
-  renderContent() {
+  renderContent = () => {
     const { data, diagnosticID, language, translate } = this.props;
     const { title } = data;
     const header = `${title}.header`;
     const text = `${title}.text`;
+    console.log('header', header)
+    console.log('text', text)
     
     if(diagnosticID === 'ell') {
       return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
