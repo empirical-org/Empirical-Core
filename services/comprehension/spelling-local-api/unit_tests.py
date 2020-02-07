@@ -10,6 +10,7 @@ from flask import json
 def app():
     return flask.Flask(__name__)
 
+
 class TestDictionariesLoading(TestCase):
 
     def test_dictionary_file(self):
@@ -17,6 +18,7 @@ class TestDictionariesLoading(TestCase):
 
     def test_bigram_file(self):
         assert main.BIGRAM_DICTIONARY
+
 
 class TestParameterChecks(TestCase):
 
@@ -103,4 +105,3 @@ class TestApiSpellCheck(TestCase):
         assert 'Thissss' in misspelled
         assert 'spellllled' in misspelled
         assert 'incorrectlee' in misspelled
-
