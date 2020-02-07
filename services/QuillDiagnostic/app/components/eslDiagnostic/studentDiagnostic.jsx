@@ -98,7 +98,8 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playDiagnostic, } = this.props
+    const { params, playDiagnostic, } = this.props;
+    const { diagnosticID } = params;
 
     const { sessionID, } = this.state
 
@@ -108,7 +109,7 @@ export class ELLStudentDiagnostic extends React.Component {
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession('ell', results, 1);
+      this.createAnonActivitySession(diagnosticID, results, 1);
     }
   }
 
@@ -241,9 +242,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, } = this.props
-
-    return lessons.data['ell'];
+    const { lessons, params } = this.props;
+    const { diagnosticID } = params;
+    return lessons.data[diagnosticID];
   }
 
   questionsForLesson = () => {
@@ -315,9 +316,10 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { lessons, } = this.props
-    const { data, } = lessons
-    return data['ell'].landingPageHtml
+    const { lessons, params } = this.props;
+    const { data } = lessons;
+    const { diagnosticID } = params;
+    return data[diagnosticID].landingPageHtml
   }
 
   renderFooter = () => {
