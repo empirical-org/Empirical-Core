@@ -121,8 +121,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
       const el = this[ref]
 
-      el.scrollIntoView(true)
-      window.scrollBy(0, -34)
+      scrollContainer.scrollTo(0, el.offsetTop - 34)
     }
   }
 
@@ -131,8 +130,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!passageHighlights.length) { return }
 
     const el = passageHighlights[0].parentElement
-    el.scrollIntoView(true)
-    window.scrollBy(0, -84)
+
+    // we want to scroll 24px above the top of the paragraph, but we have to use 84 because of the 60px padding set at the top of the activity-container element
+
+    if (this.onMobile()) {
+      el.scrollIntoView(true)
+      window.scrollBy(0, -84)
+    } else {
+      const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
+      scrollContainer.scrollTo(0, el.offsetTop - 84)
+    }
   }
 
   scrollToStepOnMobile = (ref: string) => {
