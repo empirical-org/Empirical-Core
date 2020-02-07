@@ -1,5 +1,5 @@
 import React from 'react';
-import { languages, languageData } from '../../../public/locales/languagePageInfo';
+import { languages, languagesV2, languageData, languageDataV2 } from '../../../public/locales/languagePageInfo';
 
 export class LanguagePage extends React.Component {
 
@@ -10,6 +10,9 @@ export class LanguagePage extends React.Component {
   }
 
   render() {
+    const { diagnosticID } = this.props;
+    let langs = diagnosticID === 'ell' ? languages : languagesV2;
+    let langData = diagnosticID === 'ell' ? languageData : languageDataV2;
     return (
       <div className="language-page">
         <div className="introductory-text">
@@ -19,7 +22,7 @@ export class LanguagePage extends React.Component {
         </div>
         <div className="language-button-container english">
           <button className="language-button" onClick={this.handleClickLanguage} type="button" value="english">
-            <img alt="flag" className="language-button-img" src={languageData['english'].flag} />
+            <img alt="flag" className="language-button-img" src={langData['english'].flag} />
             <p className="language-label">English</p>
           </button>
         </div>
@@ -32,12 +35,12 @@ export class LanguagePage extends React.Component {
           <p>Show directions in English <span>and</span>:</p>
         </div>
         <div className="language-button-container">
-          {languages.map(language => {
+          {langs.map(language => {
             if(language !== 'english') {
               return(
                 <button className="language-button" key={`${language}-button`} onClick={this.handleClickLanguage} type="button" value={language}>
-                  <img alt="flag" className="language-button-img" src={languageData[language].flag} />
-                  <p className="language-label">{languageData[language].label}</p>
+                  <img alt="flag" className="language-button-img" src={langData[language].flag} />
+                  <p className="language-label">{langData[language].label}</p>
                 </button>
               );
             }

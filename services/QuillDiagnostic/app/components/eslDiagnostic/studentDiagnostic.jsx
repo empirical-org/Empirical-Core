@@ -360,7 +360,8 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { diagnosticID, questions, sentenceFragments, playDiagnostic, fillInBlank, t } = this.props
+    const { questions, sentenceFragments, params, playDiagnostic, fillInBlank, t } = this.props;
+    const { diagnosticID } = params;
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
@@ -377,7 +378,6 @@ export class ELLStudentDiagnostic extends React.Component {
     } else if (playDiagnostic.language) {
       component = (<LandingPage
         begin={this.startActivity}
-        diagnosticID={diagnosticID}
         landingPageHtml={this.landingPageHtml()}
         language={this.language()}
         resumeActivity={this.resumeSession}
@@ -387,6 +387,7 @@ export class ELLStudentDiagnostic extends React.Component {
       />);
     } else {
       component = (<LanguagePage
+        diagnosticID={diagnosticID}
         setLanguage={this.updateLanguage}
       />);
     }
