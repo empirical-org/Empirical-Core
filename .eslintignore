@@ -53,3 +53,4 @@ packages/quill-component-library/dist/**
 packages/quill-marking-logic/dist/**
 packages/quill-spellchecker/dist/**
 *.d.ts
+services/comprehension/main-api/static/*
