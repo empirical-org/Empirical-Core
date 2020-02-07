@@ -367,6 +367,8 @@ exports[`PromptStep component active state when a suboptimal response has been s
           </span>
         </button>
         <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
           lastSubmittedResponse={
             Object {
               "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
@@ -397,8 +399,6 @@ exports[`PromptStep component active state when a suboptimal response has been s
               },
             ]
           }
-          tooLong={false}
-          tooShort={false}
         >
           <div
             className="feedback-section"
@@ -582,6 +582,8 @@ exports[`PromptStep component active state when a too-long response has been sub
           </span>
         </button>
         <Feedback
+          customFeedback="Revise your work so it is shorter and more concise."
+          customFeedbackKey="too-long"
           lastSubmittedResponse={Object {}}
           prompt={
             Object {
@@ -594,8 +596,6 @@ exports[`PromptStep component active state when a too-long response has been sub
             }
           }
           submittedResponses={Array []}
-          tooLong={true}
-          tooShort={false}
         >
           <div
             className="feedback-section"
@@ -779,6 +779,8 @@ exports[`PromptStep component active state when a too-short response has been su
           </span>
         </button>
         <Feedback
+          customFeedback="Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
+          customFeedbackKey="too-short"
           lastSubmittedResponse={Object {}}
           prompt={
             Object {
@@ -791,8 +793,6 @@ exports[`PromptStep component active state when a too-short response has been su
             }
           }
           submittedResponses={Array []}
-          tooLong={false}
-          tooShort={true}
         >
           <div
             className="feedback-section"
@@ -991,6 +991,8 @@ exports[`PromptStep component active state when an optimal response has been sub
           </span>
         </button>
         <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
           lastSubmittedResponse={
             Object {
               "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
@@ -1021,8 +1023,6 @@ exports[`PromptStep component active state when an optimal response has been sub
               },
             ]
           }
-          tooLong={false}
-          tooShort={false}
         >
           <div
             className="feedback-section"
@@ -1249,6 +1249,8 @@ exports[`PromptStep component active state when the max attempts have been reach
           </span>
         </button>
         <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
           lastSubmittedResponse={
             Object {
               "entry": "Governments should make voting compulsory so that more voices are heard in elections.",
@@ -1307,8 +1309,6 @@ exports[`PromptStep component active state when the max attempts have been reach
               },
             ]
           }
-          tooLong={false}
-          tooShort={false}
         >
           <div
             className="feedback-section"
@@ -1509,6 +1509,8 @@ exports[`PromptStep component active state when the max attempts have been reach
           </span>
         </button>
         <Feedback
+          customFeedback={null}
+          customFeedbackKey={null}
           lastSubmittedResponse={
             Object {
               "entry": "Governments should make voting compulsory so that the elected government represents the majority of the population.",
@@ -1539,8 +1541,6 @@ exports[`PromptStep component active state when the max attempts have been reach
               },
             ]
           }
-          tooLong={false}
-          tooShort={false}
         >
           <div
             className="feedback-section"

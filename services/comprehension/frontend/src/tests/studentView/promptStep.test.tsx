@@ -2,9 +2,8 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import PromptStep from '../../components/studentView/promptStep'
+import PromptStep, { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, } from '../../components/studentView/promptStep'
 import EditorContainer from '../../components/studentView/editorContainer'
-import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, } from '../../components/studentView/feedback'
 
 import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
@@ -173,7 +172,7 @@ describe('PromptStep component', () => {
         className="step active"
       />)
 
-      wrapper.setState({ showTooShortFeedback: true })
+      wrapper.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short' })
 
       it('matches snapshot', () => {
         expect(toJson(wrapper)).toMatchSnapshot()
@@ -196,7 +195,7 @@ describe('PromptStep component', () => {
         className="step active"
       />)
 
-      wrapper.setState({ showTooLongFeedback: true })
+      wrapper.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
 
       it('matches snapshot', () => {
         expect(toJson(wrapper)).toMatchSnapshot()
