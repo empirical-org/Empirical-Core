@@ -5,8 +5,22 @@
   color: #646464;
   max-width: 432px;
   margin: auto;
-  a {
+  .inline-link {
     margin-left: 4px;
+  }
+}
+
+.inline-link {
+  color: #009a80;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    outline: none;
   }
 }
 
@@ -42,7 +56,7 @@
 
     .auth-section {
       padding-bottom: 29px;
-      a {
+      button, a {
         max-width: 380px;
         width: 100%;
         display: flex;
@@ -51,13 +65,16 @@
         margin: auto;
         justify-content: center;
         border-radius: 4px;
-        border: solid 1px #bdbdbd;
+        box-shadow: 0 0 0 1px #bdbdbd;
         background-color: #ffffff;
         font-size: 15px;
-        font-weight: 600;
+        font-weight: 600 !important;
         color: #000;
+        padding: 0px;
         &:hover, &:focus {
           text-decoration: none;
+          box-shadow: 0 0 0 2px #06806b;
+          outline: none;
         }
         img {
           margin-right: 8px;
@@ -105,9 +122,7 @@
 
   .return-to-login {
     color: #646464;
-    a {
-      color: #009a80;
-      font-weight: 600;
+    .inline-link {
       margin-left: 4px;
     }
   }
@@ -118,6 +133,10 @@
     a {
       color: #646464;
       text-decoration: underline;
+      &:focus {
+        outline: none;
+        text-decoration-style: dashed;
+      }
     }
   }
 }

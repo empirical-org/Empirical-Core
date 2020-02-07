@@ -95,6 +95,7 @@ class SessionsController < ApplicationController
   def new
     @js_file = 'login'
     @user = User.new
+    @title = 'Log In'
     session[:role] = nil
     if params[:redirect]
       session[:post_auth_redirect] = params[:redirect]
