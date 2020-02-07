@@ -22,9 +22,16 @@ interface PromptStepProps {
 interface PromptStepState {
   html: string;
   numberOfSubmissions: number;
+  customFeedback: string|null;
+  customFeedbackKey: string|null;
 }
 
 const RESPONSE = 'response'
+const MINIMUM_WORD_COUNT = 3
+const MAXIMUM_WORD_COUNT = 100
+
+export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
+export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
 
 export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -34,7 +41,9 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
     this.state = {
       html: this.formattedPrompt(),
-      numberOfSubmissions: 0
+      numberOfSubmissions: 0,
+      customFeedback: null,
+      customFeedbackKey: null
     };
 
     this.editor = React.createRef()
@@ -56,6 +65,12 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { prompt, } = this.props
     const { text, } = prompt
     return `<p>${this.allButLastWord(text)} <u>${this.lastWord(text)}</u>&nbsp;</p>`
+  }
+
+  textWithoutStem = (text: string) => {
+    const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
+    const regex = new RegExp(`^${formattedPrompt}`)
+    return text.replace(regex, '')
   }
 
   allButLastWord = (str: string) => str.substring(0, str.lastIndexOf(' '))
@@ -95,6 +110,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     } else {
       this.editor.innerHTML = html
     }
+
+    this.setState({ customFeedback: null, customFeedbackKey: null })
   }
 
   resetText = () => {
@@ -107,10 +124,18 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   handleGetFeedbackClick = (entry: string, promptId: string, promptText: string) => {
     const { submitResponse, } = this.props
 
-    this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
-      const { numberOfSubmissions, } = this.state
-      submitResponse(entry, promptId, promptText, numberOfSubmissions)
-    })
+    const textWithoutStemArray = entry.replace(promptText, '').split(' ')
+
+    if (textWithoutStemArray.length < MINIMUM_WORD_COUNT) {
+      this.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short', })
+    } else if (textWithoutStemArray.length > MAXIMUM_WORD_COUNT) {
+      this.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
+    } else {
+      this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
+        const { numberOfSubmissions, } = this.state
+        submitResponse(entry, promptId, promptText, numberOfSubmissions)
+      })
+    }
   }
 
   handleStepInteraction = () => {
@@ -145,10 +170,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderFeedbackSection = () => {
+    const { customFeedback, customFeedbackKey, } = this.state
     const { submittedResponses, prompt, } = this.props
-    if (submittedResponses.length === 0) { return }
+    if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
 
-    return <Feedback lastSubmittedResponse={this.lastSubmittedResponse()} prompt={prompt} submittedResponses={submittedResponses} />
+    return (<Feedback
+      customFeedback={customFeedback}
+      customFeedbackKey={customFeedbackKey}
+      lastSubmittedResponse={this.lastSubmittedResponse()}
+      prompt={prompt}
+      submittedResponses={submittedResponses}
+    />)
   }
 
   renderEditorContainer = () => {
