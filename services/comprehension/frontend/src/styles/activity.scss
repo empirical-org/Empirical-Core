@@ -32,6 +32,14 @@
     align-items: center;
     flex-direction: column;
     height: 100%;
+    .passage p {
+      margin-bottom: 40px;
+    }
+    .passage-highlight {
+      background-color: #fff6e4;
+      text-decoration: underline;
+      text-decoration-color: #ff9f00;
+    }
   }
 
   .steps-outer-container {
@@ -99,7 +107,7 @@
     height: 100vh;
     margin-top: -60px;
     padding-top: 60px;
-    
+
     .steps-outer-container {
       overflow: auto;
       -webkit-overflow-scrolling: touch;
