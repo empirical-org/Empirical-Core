@@ -13,7 +13,6 @@ class Command(BaseCommand):
     FEEDBACK_HEADER = 'Feedback'
     FEEDBACK_ORDER_HEADER = 'Feedback Order'
 
-
     def add_arguments(self, parser):
         parser.add_argument('prompt_id', metavar='PROMPT_ID',
                             help='The database ID of the prompt')
@@ -42,10 +41,10 @@ class Command(BaseCommand):
                 yield result
 
     def _process_csv_row(self, row):
-        combined_labels = row[self.COMBINED_LABELS_HEADER]
-        optimal = 'y' in row[self.OPTIMAL_HEADER].lower()
-        feedback = row[self.FEEDBACK_HEADER]
-        feedback_order = row[self.FEEDBACK_ORDER_HEADER]
+        combined_labels = row.get(self.COMBINED_LABELS_HEADER)
+        optimal = 'y' in row.get(self.OPTIMAL_HEADER, '').lower()
+        feedback = row.get(self.FEEDBACK_HEADER)
+        feedback_order = row.get(self.FEEDBACK_ORDER_HEADER, 1)
 
         if not (combined_labels and feedback):
             return None

@@ -33,7 +33,7 @@ class MLFeedbackView(ApiView):
                 previous_feedback,
                 multi_label=self.multi_label
             )
-        except Prompt.NoDefaultMLFeedbackError as err:
+        except Prompt.NoDefaultMLFeedbackError:
             message = f'No default feedback defined for Prompt {prompt.id}'
             return JsonResponse({'message': message}, status=500)
 
