@@ -39,5 +39,15 @@
         "Fill in the blanks with one word each.": "Remplissez les trous avec un mot.",
         "Fill in the blanks with one word each. You can leave one empty.": "Remplissez les trous avec un mot. Vous pouvez en laissez un vide ou tous les remplir.",
         "Use the joining word to combine the sentences into one sentence.": "Utilisez le mot de liaison indiqué pour combiner les phrases et en former une seule."
+    },
+    "cues": {
+        "choose one": "choose one / choisissez-en un",
+        "choose three": "choose three / choisissez-en trois",
+        "choose two or three" : "choose two or three / choisissez-en deux ou trois",
+        "joining word": "joining word / mot de liaison"
+    },
+    "feedback": {
+        "blank": "Utilisez l’une des options ci-dessous ou laissez vide.",
+        "no blank": "Utilisez l’une des options ci-dessous."
     }
 }

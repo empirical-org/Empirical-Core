@@ -39,5 +39,15 @@
         "Fill in the blanks with one word each.": "Rellena los espacios en blanco con una palabra en cada uno.",
         "Fill in the blanks with one word each. You can leave one empty.": "Rellena los espacios en blanco con una palabra en cada uno. Puedes dejar uno vacío.",
         "Use the joining word to combine the sentences into one sentence.": "Utiliza la palabra de unión para combinar las oraciones en una sola oración."
+    },
+    "cues": {
+        "choose one": "choose one / elige una",
+        "choose three": "choose three / elige tres",
+        "choose two or three" : "choose two or three / elige dos o tres",
+        "joining word": "joining word / palabra de unión"
+    },
+    "feedback": {
+        "blank": "Usa una de las opciones a continuación o déjalo en blanco.",
+        "no blank": "Usa una de las opciones a continuación."
     }
 }

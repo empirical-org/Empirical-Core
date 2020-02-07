@@ -101,7 +101,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
-      console.log('cueLabel', question);
       const text = `instructions^${instructions}`;
       return(
         <div>
@@ -295,13 +294,22 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   renderFeedback = () => {
-    const { question, } = this.props
+    const { diagnosticID, language, question, translate } = this.props
     const { inputErrors, } = this.state
 
     if (inputErrors && inputErrors.size) {
+      let feedback;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
+      const translationKey = question.blankAllowed ? 'feedback^blank' : 'feedback^no blank';
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
-      const feedback = <p>{feedbackText}</p>
+      if (language && diagnosticID !== 'ell') {
+        feedback = <div>
+          <p>{feedbackText}</p>
+          {language !== 'english' && <p>{translate(translationKey)}</p>}
+        </div>;
+      } else {
+        feedback = <p>{feedbackText}</p>
+      }
       return (<Feedback
         feedback={feedback}
         feedbackType="revise-unmatched"
@@ -324,7 +332,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   render() {
-    const { question } = this.props;
+    const { diagnosticID, language, question, translate } = this.props;
     const fullPageInstructions = question.mediaURL ? { display: 'block' } : { maxWidth: 800, width: '100%' };
 
     return (
@@ -335,8 +343,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
               <Prompt elements={this.getPromptElements()} style={styles.container} />
               <Cues
                 customText={this.customText()}
+                diagnosticID={diagnosticID}
                 displayArrowAndText={true}
                 getQuestion={this.getQuestion}
+                language={language}
+                translate={translate}
               />
               {this.renderFeedback()}
             </div>

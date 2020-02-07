@@ -39,5 +39,15 @@
         "Fill in the blanks with one word each.": "प्रत्येक शब्द के साथ रिक्त स्थान भरें।",
         "Fill in the blanks with one word each. You can leave one empty.": "प्रत्येक शब्द के साथ रिक्त स्थान भरें। आप एक रिक्त स्थान खाली छोड़ सकते हैं।",
         "Use the joining word to combine the sentences into one sentence.": "वाक्यों को मिलाकर एक वाक्य बनाने के लिए जोड़ने वाले शब्द का उपयोग करें।"
+    },
+    "cues": {
+        "choose one": "choose one / एक चुनो",
+        "choose three": "choose three / तीन चुनें",
+        "choose two or three" : "choose two or three / दो या तीन का चयन करें",
+        "joining word": "joining word / जोड़ने वाला शब्द"
+    },
+    "feedback": {
+        "blank": "नीचे दिए गए विकल्पों में से एक का उपयोग करें या खाली छोड़ दें।",
+        "no blank": "नीचे दिए गए विकल्पों में से एक का उपयोग करें।"
     }
 }

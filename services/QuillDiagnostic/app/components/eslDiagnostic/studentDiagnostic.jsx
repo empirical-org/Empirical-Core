@@ -359,7 +359,6 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   render() {
-    console.log('props', this.props);
     const { error, saved, } = this.state
     const { diagnosticID, questions, sentenceFragments, playDiagnostic, fillInBlank, t } = this.props
 

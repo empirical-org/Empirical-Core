@@ -27,6 +27,8 @@ i18n
     resources,
     lng: "english",
     defaultTransParent: 'div',
+    // we use the ^ and | as separators because many label strings contain a period or colon, 
+    // which will cause the translation to fail
     keySeparator: '^',
     nsSeparator: '|',
     interpolation: {

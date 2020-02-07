@@ -39,5 +39,15 @@
         "Fill in the blanks with one word each.": "每个空格填写一个词语。",
         "Fill in the blanks with one word each. You can leave one empty.": "每个空格填写一个词语。你可以留下一处空白",
         "Use the joining word to combine the sentences into one sentence.": "用连接词把几个句子组合成一个句子。"
+    },
+    "cues": {
+        "choose one": "choose one / 选择一个",
+        "choose three": "choose three / 选择三个",
+        "choose two or three" : "choose two or three / 选择两个或三个",
+        "joining word": "joining word / 连接词"
+    },
+    "feedback": {
+        "blank": "使用下面的其中一个选项，或者留空。",
+        "no blank": "使用下面的其中一个选项。"
     }
 }

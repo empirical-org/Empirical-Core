@@ -126,11 +126,13 @@ class ELLSentenceCombining extends React.Component {
   }
 
   renderCues = () => {
-    const { language, } = this.props
+    const { diagnosticID, language, translate } = this.props
     return (<RenderQuestionCues
+      diagnosticID={diagnosticID}
       displayArrowAndText
       getQuestion={this.getQuestion}
       language={language}
+      translate={translate}
     />);
   }
 

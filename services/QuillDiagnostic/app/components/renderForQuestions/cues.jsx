@@ -5,11 +5,15 @@ import translations from '../../libs/translations/index.js';
 
 export default class Cues extends React.Component {
 
-  getJoiningWordsText() {
-    const { getQuestion, language, } = this.props
-    if (getQuestion().cues && getQuestion().cuesLabel) {
-      return getQuestion().cuesLabel
-    } else if (getQuestion().cues && getQuestion().cues.length === 1) {
+  getJoiningWordsText = () => {
+    const { diagnosticID, getQuestion, language, translate } = this.props;
+    const question = getQuestion();
+
+    if(language && diagnosticID !== 'ell') {
+      return this.translateCueLabel(question, translate);
+    } else if (question.cues && question.cuesLabel) {
+      return question.cuesLabel
+    } else if (question.cues && question.cues.length === 1) {
       let text = translations.english['joining word cues single'];
       if (language && language !== 'english') {
         text += ` / ${translations[language]['joining word cues single']}`;
@@ -24,9 +28,28 @@ export default class Cues extends React.Component {
     }
   }
 
+  translateCueLabel = (question, translate) => {
+    if (question.cues && question.cuesLabel) {
+      const text = `cues^${question.cuesLabel}`;
+      return translate(text);
+    } else {
+      return translate('cues^joining word');
+    }
+  }
+
+  handleCustomText = () => {
+    const { customText, diagnosticID, language, getQuestion, translate } = this.props;
+    const question = getQuestion();
+    if (language && diagnosticID !== 'ell') {
+      return this.translateCueLabel(question, translate);
+    } else {
+      return customText;
+    }
+  }
+
   renderExplanation() {
-    const { customText, } = this.props
-    const text = customText ? customText : this.getJoiningWordsText();
+    const { customText, } = this.props;
+    const text = customText ? this.handleCustomText() : this.getJoiningWordsText();
     return (
       <CueExplanation text={text} />
     );

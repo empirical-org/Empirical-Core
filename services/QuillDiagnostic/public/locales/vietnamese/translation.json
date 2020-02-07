@@ -39,5 +39,15 @@
         "Fill in the blanks with one word each.": "Điền mỗi chỗ trống một từ.",
         "Fill in the blanks with one word each. You can leave one empty.": "Điền mỗi chỗ trống một từ. Bạn có thể để trống một chỗ.",
         "Use the joining word to combine the sentences into one sentence.": "Sử dụng từ nối để kết hợp các câu thành một câu."
+    },
+    "cues": {
+        "choose one": "choose one / chọn một",
+        "choose three": "choose three / chọn ba",
+        "choose two or three" : " choose two or three / chọn hai hoặc ba",
+        "joining word": "joinging word / từ nối"
+    },
+    "feedback": {
+        "blank": "Dùng một trong những lựa chọn bên dưới hoặc để trống.",
+        "no blank": "Chọn một trong những lựa chọn bên dưới."
     }
 }

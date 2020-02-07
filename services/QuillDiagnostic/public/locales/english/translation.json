@@ -4,5 +4,11 @@
         "continue": "Continue",
         "resume": "Resume",
         "submit": "Submit"
+    },
+    "cues": {
+        "choose one": "choose one",
+        "choose three": "choose three",
+        "choose two or three" : "choose two or three",
+        "joining word": "joining word"
     }
 }

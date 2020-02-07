@@ -39,5 +39,15 @@
         "Fill in the blanks with one word each.": "املأ الفراغات بكلمة واحدة لكل منها.",
         "Fill in the blanks with one word each. You can leave one empty.": "املأ الفراغات بكلمة واحدة. يمكنك ترك أحد الفراغات دون ملء.",
         "Use the joining word to combine the sentences into one sentence.": "استخدم كلمة الربط لدمج الجمل في جملة واحدة."
+    },
+    "cues": {
+        "choose one": "choose one / اختر واحدًا",
+        "choose three": "choose three / اختر ثلاثة",
+        "choose two or three" : "choose two or three / اختر اثنين أو ثلاثة",
+        "joining word": "joining word / كلمة الربط"
+    },
+    "feedback": {
+        "blank": "استخدم أحد الخيارات أدناه أو اتركه فارغًا.",
+        "no blank": "استخدم أحد الخيارات أدناه."
     }
 }
