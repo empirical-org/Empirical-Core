@@ -6,18 +6,13 @@ const loopSrc = `${process.env.QUILL_CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`
 
 const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
-  let feedback = lastSubmittedResponse.feedback
 
   const madeLastAttempt = submittedResponses.length === prompt.max_attempts
   const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
 
-  if (customFeedback) {
-    feedback = customFeedback
-  } else if (madeLastAttemptAndItWasSuboptimal) {
-    feedback = prompt.max_attempts_feedback
-  }
+  if (customFeedback) { return customFeedback }
 
-  return feedback
+  return madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
 }
 
 const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey }: any) => {
