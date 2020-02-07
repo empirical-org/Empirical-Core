@@ -46,9 +46,6 @@ def response_endpoint(request):
 
 
 def get_misspellings(entry):
-    assert DICTIONARY, "Could not load dictionary resource."
-    assert BIGRAM_DICTIONARY, "Could not load bigram resource."
-
     entry = entry.strip(string.punctuation)
     lookup = SYM_SPELL.lookup_compound(entry,
                                        max_edit_distance=2,
