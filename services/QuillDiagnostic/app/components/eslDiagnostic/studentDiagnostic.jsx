@@ -139,14 +139,14 @@ export class ELLStudentDiagnostic extends React.Component {
     );
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
+  createAnonActivitySession = (diagnosticID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
           state: 'finished',
-          activity_uid: 'ell',
+          activity_uid: diagnosticID,
           concept_results: results,
           percentage: score,
         },
