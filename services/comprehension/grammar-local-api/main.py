@@ -34,6 +34,7 @@ def check_grammar(request):
 
 
 def highlight_hash(error):
+
     return {
         'type': 'response',
         'id': None,
