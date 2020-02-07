@@ -5,10 +5,22 @@ import ReactCSSTransitionReplace from 'react-css-transition-replace'
 const loopSrc = `${process.env.QUILL_CDN_URL}/images/icons/loop.svg`
 const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`
 
-export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
-export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
+const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
+  let feedback = lastSubmittedResponse.feedback
 
-const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, tooShort, tooLong }: any) => {
+  const madeLastAttempt = submittedResponses.length === prompt.max_attempts
+  const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
+
+  if (customFeedback) {
+    feedback = customFeedback
+  } else if (madeLastAttemptAndItWasSuboptimal) {
+    feedback = prompt.max_attempts_feedback
+  }
+
+  return feedback
+}
+
+const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey }: any) => {
   let className = 'feedback'
   let imageSrc = loopSrc
   let imageAlt = 'Arrows pointing in opposite directions, making a loop'
@@ -17,22 +29,9 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
     imageSrc = smallCheckCircleSrc
     imageAlt = 'Small green circle with a check in it'
   }
-  const madeLastAttempt = submittedResponses.length === prompt.max_attempts
-  const madeLastAttemptAndItWasSuboptimal = madeLastAttempt && !lastSubmittedResponse.optimal
 
-  let feedback = ''
-  let key = submittedResponses.length
-  if (tooShort) {
-    feedback = TOO_SHORT_FEEDBACK
-    key = 'too-short'
-  } else if (tooLong) {
-    feedback = TOO_LONG_FEEDBACK
-    key = 'too-long'
-  } else if (madeLastAttemptAndItWasSuboptimal) {
-    feedback = prompt.max_attempts_feedback
-  } else {
-    feedback = lastSubmittedResponse.feedback
-  }
+  const key = customFeedbackKey || submittedResponses.length
+  const feedback = feedbackToShow(lastSubmittedResponse, submittedResponses, prompt, customFeedback)
 
   return (
     <div className="feedback-section">

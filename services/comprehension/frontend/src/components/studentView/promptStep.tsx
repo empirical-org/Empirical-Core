@@ -22,13 +22,16 @@ interface PromptStepProps {
 interface PromptStepState {
   html: string;
   numberOfSubmissions: number;
-  showTooLongFeedback: boolean;
-  showTooShortFeedback: boolean;
+  customFeedback: string|null;
+  customFeedbackKey: string|null;
 }
 
 const RESPONSE = 'response'
 const MINIMUM_WORD_COUNT = 3
 const MAXIMUM_WORD_COUNT = 100
+
+export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
+export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
 
 export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -39,8 +42,8 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     this.state = {
       html: this.formattedPrompt(),
       numberOfSubmissions: 0,
-      showTooLongFeedback: false,
-      showTooShortFeedback: false
+      customFeedback: null,
+      customFeedbackKey: null
     };
 
     this.editor = React.createRef()
@@ -108,7 +111,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       this.editor.innerHTML = html
     }
 
-    this.setState({ showTooLongFeedback: false, showTooShortFeedback: false })
+    this.setState({ customFeedback: null, customFeedbackKey: null })
   }
 
   resetText = () => {
@@ -124,9 +127,9 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const textWithoutStemArray = entry.replace(promptText, '').split(' ')
 
     if (textWithoutStemArray.length < MINIMUM_WORD_COUNT) {
-      this.setState({ showTooShortFeedback: true, })
+      this.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short', })
     } else if (textWithoutStemArray.length > MAXIMUM_WORD_COUNT) {
-      this.setState({ showTooLongFeedback: true })
+      this.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
     } else {
       this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
         const { numberOfSubmissions, } = this.state
@@ -167,11 +170,17 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderFeedbackSection = () => {
-    const { showTooShortFeedback, showTooLongFeedback, } = this.state
+    const { customFeedback, customFeedbackKey, } = this.state
     const { submittedResponses, prompt, } = this.props
-    if (submittedResponses.length === 0 && !showTooShortFeedback && !showTooLongFeedback) { return }
+    if (submittedResponses.length === 0 && !(customFeedback && customFeedbackKey)) { return }
 
-    return <Feedback lastSubmittedResponse={this.lastSubmittedResponse()} prompt={prompt} submittedResponses={submittedResponses} tooLong={showTooLongFeedback} tooShort={showTooShortFeedback} />
+    return (<Feedback
+      customFeedback={customFeedback}
+      customFeedbackKey={customFeedbackKey}
+      lastSubmittedResponse={this.lastSubmittedResponse()}
+      prompt={prompt}
+      submittedResponses={submittedResponses}
+    />)
   }
 
   renderEditorContainer = () => {
