@@ -31,13 +31,15 @@ class TitleCard extends Component<ComponentProps, any> {
     if(diagnosticID === 'ell') {
       return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
     } else {
+      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       return(
         <div>
           <div className="landing-page-html">
             <h1>{commonText[title].header}</h1>
             <p>{commonText[title].text}</p>
           </div>
-          {language !== 'english' && <div className="landing-page-html">
+          {language !== 'english' && <div className={`landing-page-html ${textClass}`}>
             <h1>{translate(header)}</h1>
             <p>{translate(text)}</p>
           </div>}

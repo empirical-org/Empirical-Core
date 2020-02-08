@@ -17,7 +17,8 @@ export class LandingPage extends React.Component {
 
   render() {
     const { language, translate } = this.props;
-    const className = language === 'arabic' ? 'right-to-left' : '';
+    const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+    const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
     return (
       <div className="landing-page">
         <div className="intro-container">
@@ -26,8 +27,8 @@ export class LandingPage extends React.Component {
           <p>{"Some of the questions might be about things you haven't learned yet — that's okay! Just answer them as best as you can. Once you're finished, Quill will create a learning plan just for you!"}</p>
         </div>
         {language !== 'english' && <div>
-          <h1 className={className}>{translate('intro^header')}</h1>
-          <p className={className}>{translate('intro^text')}</p>
+          <h1 className={textClass}>{translate('intro^header')}</h1>
+          <p className={textClass}>{translate('intro^text')}</p>
         </div>}
         {this.renderButton()}
       </div>

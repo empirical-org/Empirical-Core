@@ -61,13 +61,15 @@ export class FinishedDiagnostic extends React.Component {
     if(diagnosticID === 'ell') {
       return <div dangerouslySetInnerHTML={{ __html: this.getCompletedPageHTML() }} />;
     } else {
+      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       return(
         <div>
           <div className="landing-page-html">
             <h1>You've completed the Quill Placement Activity</h1>
             <p>Your results are being saved now. You'll be redirected automatically once they are saved.</p>
           </div>
-          {language !== 'english' && <div className="landing-page-html">
+          {language !== 'english' && <div className={`landing-page-html ${textClass}`}>
             <h1>{translate('completedDiagnostic^header')}</h1>
             <p>{translate('completedDiagnostic^text')}</p>
           </div>}

@@ -11,6 +11,7 @@ export class LanguagePage extends React.Component {
 
   render() {
     const { diagnosticID } = this.props;
+    // once we remove the original ELL Diagnostic, we can move to have only have the second versions
     let langs = diagnosticID === 'ell' ? languages : languagesV2;
     let langData = diagnosticID === 'ell' ? languageData : languageDataV2;
     return (

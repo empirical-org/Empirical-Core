@@ -102,10 +102,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
       const text = `instructions^${instructions}`;
+      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       return(
         <div>
           <p>{instructions}</p>
-          {language !== 'english' && <p>{translate(text)}</p>}
+          {language !== 'english' && <p className={textClass}>{translate(text)}</p>}
         </div>
       );
     }
@@ -303,9 +305,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       const translationKey = question.blankAllowed ? 'feedback^blank' : 'feedback^no blank';
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
       if (language && diagnosticID !== 'ell') {
+        const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+        const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
         feedback = <div>
           <p>{feedbackText}</p>
-          {language !== 'english' && <p>{translate(translationKey)}</p>}
+          {language !== 'english' && <p className={textClass}>{translate(translationKey)}</p>}
         </div>;
       } else {
         feedback = <p>{feedbackText}</p>

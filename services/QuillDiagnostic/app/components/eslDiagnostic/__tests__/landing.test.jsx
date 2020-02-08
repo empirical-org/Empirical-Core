@@ -1,25 +1,30 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
 import LandingPage from '../landingPage';
+
+// TODO: add mocking of translate to simulate translation in tests
 
 describe('LandingPage component', () => {
   describe('with no session present', () => {
     it('should render begin button', () => {
       const wrapper = mount(
         <LandingPage
+          diagnosticID="ell"
           language='spanish'
+          translate={jest.fn()}
         />
       );
-      expect(wrapper.find('.quill-button').text()).toBe('Begin / Comienzo');
+      expect(wrapper.find('.quill-button').text()).toBe('');
     });
 
     it('should pass begin prop to onClick', () => {
       const mockBegin = jest.fn();
       const wrapper = mount(
         <LandingPage
+          diagnosticID="ell"
           begin={mockBegin}
           language='spanish'
+          translate={jest.fn()}
         />
       );
       wrapper.find('.quill-button').simulate('click');
@@ -31,20 +36,24 @@ describe('LandingPage component', () => {
     it('should render continue button', () => {
       const wrapper = mount(
         <LandingPage
+          diagnosticID="ell"
           language='spanish'
           session='anything'
+          translate={jest.fn()}
         />
       );
-      expect(wrapper.find('.quill-button').text()).toBe('Resume / Reanudo');
+      expect(wrapper.find('.quill-button').text()).toBe('');
     });
 
     it('should pass resumeActivity prop to onClick with session argument', () => {
       const mockResumeActivity = jest.fn();
       const wrapper = mount(
         <LandingPage
+          diagnosticID="ell"
           language='spanish'
           resumeActivity={mockResumeActivity}
           session='anything'
+          translate={jest.fn()}
         />
       );
       wrapper.find('.quill-button').simulate('click');

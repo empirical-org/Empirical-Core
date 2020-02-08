@@ -72,12 +72,13 @@ class ELLSentenceCombining extends React.Component {
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
-      console.log('sentence-combining', question);
+      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       const text = `instructions^${instructions}`;
       return(
         <div>
           <p>{instructions}</p>
-          {language !== 'english' && <p>{translate(text)}</p>}
+          {language !== 'english' && <p className={textClass}>{translate(text)}</p>}
         </div>
       );
     }

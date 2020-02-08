@@ -1,16 +1,19 @@
 import * as React from 'react';
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary';
-import { languages, languageData } from '../../../public/locales/languagePageInfo';
+import { languages, languagesV2, languageData, languageDataV2 } from '../../../public/locales/languagePageInfo';
 
 interface FooterProps {
+  diagnosticID: string,
   language: string,
   updateLanguage(language: string): any
 }
 
-const options = (): Array<{value: string, label: string}> => {
-  return languages.map(language => ({
+const options = (diagnosticID: string): Array<{value: string, label: string}> => {
+  const langs = diagnosticID === 'ell' ? languages : languagesV2;
+  const langData = diagnosticID === 'ell' ? languageData : languageDataV2;
+  return langs.map(language => ({
     value: language,
-    label: (`<p><img alt={${languageData[language].label} flag} src=${languageData[language].flag} /><span>${languageData[language].label}</span></p>`)
+    label: (`<p><img alt={${langData[language].label} flag} src=${langData[language].flag} /><span>${langData[language].label}</span></p>`)
   }))
 }
 
@@ -23,15 +26,15 @@ class Footer extends React.Component<FooterProps> {
   }
 
   render() {
-    const { language, } = this.props;
-    const value = options().find(opt => language === opt.value)
+    const { diagnosticID, language } = this.props;
+    const value = options(diagnosticID).find(opt => language === opt.value)
     return (<div className="ell-footer">
       <div className="student-container">
         <DropdownInput
           className="ell-language-selector"
           handleChange={this.onChange}
           label="Directions language"
-          options={options()}
+          options={options(diagnosticID)}
           usesCustomOption
           value={value}
         />
