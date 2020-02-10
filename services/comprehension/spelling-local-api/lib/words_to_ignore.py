@@ -1,6 +1,6 @@
 PROMPT_SPECIFIC_IGNORE = {
   1: ["un", "jong", "eg"],
-  2: ["mayerova", "ariana", "ix", "womens", "mens"]
+  2: ["mayerova", "ariana", "ix", "women's", "men's", "michigan's", ]
 }
 
 ALWAYS_IGNORE = [
