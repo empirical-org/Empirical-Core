@@ -1,6 +1,7 @@
 export const languages = ['english', 'arabic', 'chinese', 'french', 'hindi', 'spanish', 'vietnamese'];
 export const languagesV2 = ['english', 'chinese', 'hindi', 'spanish', 'french', 'arabic', 'russian', 'portuguese', 'urdu', 'german', 'japanese', 'korean', 'vietnamese', 'thai', 'ukrainian', 'tagalog', 'dari'];
 export const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+export const english = 'english';
 
 export const languageData = {
     'english': {

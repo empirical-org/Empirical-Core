@@ -2,6 +2,7 @@ import React from 'react';
 import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 import translations from '../../libs/translations/index.js';
+import { english } from '../../../public/locales/languagePageInfo';
 
 export default class Cues extends React.Component {
 
@@ -15,13 +16,13 @@ export default class Cues extends React.Component {
       return question.cuesLabel
     } else if (question.cues && question.cues.length === 1) {
       let text = translations.english['joining word cues single'];
-      if (language && language !== 'english') {
+      if (language && language !== english) {
         text += ` / ${translations[language]['joining word cues single']}`;
       }
       return text;
     } else {
       let text = translations.english['joining word cues multiple'];
-      if (language && language !== 'english') {
+      if (language && language !== english) {
         text += ` / ${translations[language]['joining word cues multiple']}`;
       }
       return text;

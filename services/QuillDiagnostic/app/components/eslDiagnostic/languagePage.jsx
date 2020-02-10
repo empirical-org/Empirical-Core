@@ -1,5 +1,5 @@
 import React from 'react';
-import { languages, languagesV2, languageData, languageDataV2 } from '../../../public/locales/languagePageInfo';
+import { english, languages, languagesV2, languageData, languageDataV2 } from '../../../public/locales/languagePageInfo';
 
 export class LanguagePage extends React.Component {
 
@@ -23,7 +23,7 @@ export class LanguagePage extends React.Component {
         </div>
         <div className="language-button-container english">
           <button className="language-button" onClick={this.handleClickLanguage} type="button" value="english">
-            <img alt="flag" className="language-button-img" src={langData['english'].flag} />
+            <img alt="flag" className="language-button-img" src={langData[english].flag} />
             <p className="language-label">English</p>
           </button>
         </div>
@@ -37,7 +37,7 @@ export class LanguagePage extends React.Component {
         </div>
         <div className="language-button-container">
           {langs.map(language => {
-            if(language !== 'english') {
+            if(language !== english) {
               return(
                 <button className="language-button" key={`${language}-button`} onClick={this.handleClickLanguage} type="button" value={language}>
                   <img alt="flag" className="language-button-img" src={langData[language].flag} />

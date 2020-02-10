@@ -17,7 +17,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { english, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const C = require('../../constants').default;
 
@@ -75,7 +75,7 @@ class ELLSentenceCombining extends React.Component {
     } else {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       const text = `instructions^${instructions}`;
-      const translationPresent = language !== 'english';
+      const translationPresent = language !== english;
       return(
         <div>
           <p>{instructions}</p>
@@ -229,7 +229,7 @@ class ELLSentenceCombining extends React.Component {
   getSubmitButtonText = () => {
     const { language, } = this.props
     let text = translations.english['submit button text'];
-    if (language !== 'english') {
+    if (language !== english) {
       text += ` / ${translations[language]['submit button text']}`;
     }
     return text;
