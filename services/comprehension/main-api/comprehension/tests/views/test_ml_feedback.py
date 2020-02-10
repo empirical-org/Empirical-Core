@@ -55,6 +55,21 @@ class TestMLFeedbackView(TestCase):
         with self.assertRaises(Http404):
             MLFeedbackView.as_view(multi_label=True)(request)
 
+    def test_error_message_when_missing_default(self, fetch_feedback_mock):
+        fetch_feedback_mock.side_effect = Prompt.NoDefaultMLFeedbackError()
+        request = self.factory.post(reverse('get_multi_label_ml_feedback'),
+                                    data=json.dumps(self.request_body),
+                                    content_type='application/json')
+
+        response = MLFeedbackView(multi_label=True).post(request)
+        json_body = json.loads(response.content)
+
+        msg = f'No default feedback defined for Prompt {self.prompt.id}'
+        expected = {'message': msg}
+
+        self.assertEqual(response.status_code, 500)
+        self.assertEqual(json_body, expected)
+
     def test_get_single_label_ml_feedback(self, fetch_feedback_mock):
         fetch_feedback_mock.return_value = self.fb_single
         request = self.factory.post(reverse('get_single_label_ml_feedback'),
