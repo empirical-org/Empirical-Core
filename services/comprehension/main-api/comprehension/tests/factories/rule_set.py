@@ -12,4 +12,4 @@ class RuleSetFactory(factory.django.DjangoModelFactory):
     feedback = 'Test feedback'
     priority = 1
     pass_order = RuleSet.PASS_ORDER.FIRST
-    is_focus_point = True
+    match = 'any'

@@ -139,18 +139,18 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
-    def test_incorrect_sequences_regex(self):
+    def test_match_all_regex(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    is_focus_point=False))
+                    match='all'))
         rule_set_two = (RuleSetFactory(
                         feedback='Test feedback',
                         pass_order=RuleSet.PASS_ORDER.FIRST,
                         prompt=self.prompt,
                         priority=2,
-                        is_focus_point=False))
+                        match='all'))
         RuleFactory(regex_text='incorrect sequence', rule_set=rule_set)
         RuleFactory(regex_text='wrong sequence', rule_set=rule_set_two)
         feedback = (self.prompt.
@@ -159,18 +159,18 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
-    def test_focus_points_regex(self):
+    def test_match_any_regex(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    is_focus_point=True))
+                    match='any'))
         rule_set_two = (RuleSetFactory(
                         feedback='Test feedback',
                         pass_order=RuleSet.PASS_ORDER.FIRST,
                         prompt=self.prompt,
                         priority=2,
-                        is_focus_point=True))
+                        match='any'))
         RuleFactory(regex_text='^test', rule_set=rule_set)
         RuleFactory(regex_text='test$', rule_set=rule_set_two)
         feedback = (self.prompt.
@@ -184,7 +184,7 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    is_focus_point=True))
+                    match='any'))
 
         RuleFactory(regex_text='^test', rule_set=rule_set)
         RuleFactory(regex_text='^teeest', rule_set=rule_set)
