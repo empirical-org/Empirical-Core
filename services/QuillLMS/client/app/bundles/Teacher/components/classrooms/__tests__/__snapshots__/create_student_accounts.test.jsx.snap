@@ -16,7 +16,6 @@ exports[`CreateStudentAccounts component on initial load should render 1`] = `
       onSubmit={[Function]}
     >
       <Input
-        autoComplete="on"
         characterLimit={50}
         className="first-name"
         handleChange={[Function]}
@@ -25,7 +24,6 @@ exports[`CreateStudentAccounts component on initial load should render 1`] = `
         value=""
       />
       <Input
-        autoComplete="on"
         characterLimit={50}
         className="last-name"
         handleChange={[Function]}
