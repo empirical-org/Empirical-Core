@@ -17,6 +17,7 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import { rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const C = require('../../constants').default;
 
@@ -68,17 +69,18 @@ class ELLSentenceCombining extends React.Component {
     if(!language) {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else if (language && diagnosticID === 'ell') {
-      const textClass = language === 'arabic' ? 'right-to-left' : '';
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
-      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       const text = `instructions^${instructions}`;
+      const translationPresent = language !== 'english';
       return(
         <div>
           <p>{instructions}</p>
-          {language !== 'english' && <p className={textClass}>{translate(text)}</p>}
+          {translationPresent && <br />}
+          {translationPresent && <p className={textClass}>{translate(text)}</p>}
         </div>
       );
     }

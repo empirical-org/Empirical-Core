@@ -14,7 +14,8 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { stringNormalize } from 'quill-string-normalizer'
+import { stringNormalize } from 'quill-string-normalizer';
+import { rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const styles = {
   container: {
@@ -97,18 +98,18 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     if(!language) {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else if (language && diagnosticID === 'ell') {
-      const textClass = language === 'arabic' ? 'right-to-left' : '';
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
       const text = `instructions^${instructions}`;
-      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+      const translationPresent = language !== 'english';
       return(
         <div>
           <p>{instructions}</p>
-          <br/>
-          {language !== 'english' && <p className={textClass}>{translate(text)}</p>}
+          {translationPresent && <br />}
+          {translationPresent && <p className={textClass}>{translate(text)}</p>}
         </div>
       );
     }
@@ -309,10 +310,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       if (language && diagnosticID !== 'ell') {
         const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
         const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-        feedback = <div>
+        const translationPresent = language !== 'english';
+        feedback = (<div>
           <p>{feedbackText}</p>
-          {language !== 'english' && <p className={textClass}>{translate(translationKey)}</p>}
-        </div>;
+          {translationPresent && <br />}
+          {translationPresent && <p className={textClass}>{translate(translationKey)}</p>}
+        </div>);
       } else {
         feedback = <p>{feedbackText}</p>
       }
@@ -329,7 +332,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses } = this.state;
     const { language, translate } = this.props;
     const buttonText = language ? translate('buttons^submit') : 'Submit';
-    console.log('state', this.state);
     
     if(responses) {
       return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 

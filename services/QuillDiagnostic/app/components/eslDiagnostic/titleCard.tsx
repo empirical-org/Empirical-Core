@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import translations from '../../libs/translations/index.js';
 import { commonText } from '../../../public/locales/commonText';
+import { rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 export interface ComponentProps {
   data: any,
@@ -31,7 +32,6 @@ class TitleCard extends Component<ComponentProps, any> {
     if(diagnosticID === 'ell') {
       return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
     } else {
-      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       return(
         <div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
+import { rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 export class FinishedDiagnostic extends React.Component {
 
@@ -10,10 +11,11 @@ export class FinishedDiagnostic extends React.Component {
   }
 
   getCompletedPageHTML() {
+    const { language } = this.props;
     let html = translations.english['completion page'];
-    if (this.props.language !== 'english') {
-      const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
-      html += `<br/><div class="${textClass}">${translations[this.props.language]['completion page']}</div>`;
+    if (language !== 'english') {
+      const textClass = language === 'arabic' ? 'right-to-left arabic-title-div' : '';
+      html += `<br/><div class="${textClass}">${translations[language]['completion page']}</div>`;
     }
     return html;
   }
@@ -29,8 +31,8 @@ export class FinishedDiagnostic extends React.Component {
     if (error === "Activity Session Already Completed") {
       header = "This Activity Session Has Already Been Completed"
       message = (<p>
-        The activity session with this unique identifier has already been&nbsp;completed.<br />
-        In order to redo this activity, you must return to your dashboard and click "Replay Activity".<br />
+        The activity session with this unique identifier has already been completed.<br />
+        In order to redo this activity, you must return to your dashboard and click &quot;Replay Activity&quot;.<br />
         If you believe that you have received this message in error, ask your teacher to contact Quill.<br />
         Please provide the following URL to help us solve the problem.
       </p>)
@@ -50,7 +52,7 @@ export class FinishedDiagnostic extends React.Component {
         <p><code style={{ fontSize: 14, }}>
           {window.location.href}
         </code></p>
-        <button className="button is-info is-large" onClick={saveToLMS}>Retry</button>
+        <button className="button is-info is-large" onClick={saveToLMS} type="submit">Retry</button>
       </div>
     );
   }
@@ -61,7 +63,6 @@ export class FinishedDiagnostic extends React.Component {
     if(diagnosticID === 'ell') {
       return <div dangerouslySetInnerHTML={{ __html: this.getCompletedPageHTML() }} />;
     } else {
-      const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       return(
         <div>

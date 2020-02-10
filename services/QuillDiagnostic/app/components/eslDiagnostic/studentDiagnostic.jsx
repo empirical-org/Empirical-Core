@@ -94,11 +94,6 @@ export class ELLStudentDiagnostic extends React.Component {
     }
   }
 
-  hasQuestionsInQuestionSet = (props) => {
-    const pL = props.playDiagnostic;
-    return (pL && pL.questionSet && pL.questionSet.length);
-  }
-
   saveToLMS = () => {
     const { params, playDiagnostic, } = this.props;
     const { diagnosticID } = params;
@@ -255,22 +250,6 @@ export class ELLStudentDiagnostic extends React.Component {
     return lessons.data[diagnosticID];
   }
 
-  questionsForLesson = () => {
-    const { lessons, params, } = this.props
-
-    const { data, } = lessons,
-      { lessonID, } = params;
-    if (data[lessonID].questions) {
-      return _.values(data[lessonID].questions).map((question) => {
-        const questions = this.props[question.questionType].data; // eslint-disable-line react/destructuring-assignment
-        const qFromDB = Object.assign({}, questions[question.key]);
-        qFromDB.questionType = question.questionType;
-        qFromDB.key = question.key;
-        return qFromDB;
-      });
-    }
-  }
-
   markIdentify = (bool) => {
     const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
@@ -333,7 +312,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   renderFooter = () => {
     const { params } = this.props;
-    // if (!this.language()) { return }
+    if (!this.language()) { return }
 
     return (<Footer
       diagnosticID={params.diagnosticID}
@@ -363,7 +342,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { questions, sentenceFragments, params, playDiagnostic, fillInBlank, t } = this.props;
+    const { params, playDiagnostic, t } = this.props;
     const { diagnosticID } = params;
 
     let component;
