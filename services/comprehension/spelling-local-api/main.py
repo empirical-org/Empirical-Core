@@ -53,6 +53,7 @@ def response_endpoint(request):
 def get_misspellings(prompt_id, entry):
     entry = entry.translate(str.maketrans("", "", string.punctuation.replace("'", '')))
     entry = entry.translate(str.maketrans("", "", string.digits))
+    entry = entry.lower()
     lookup = SYM_SPELL.lookup_compound(entry,
                                        max_edit_distance=2,
                                        transfer_casing=True)
