@@ -3,7 +3,7 @@ from symspellpy import SymSpell
 from flask import jsonify
 from flask import make_response
 import string
-from lib.words_to_ignore import WORDS_TO_IGNORE
+from lib.words_to_ignore import PROMPT_SPECIFIC_IGNORE, ALWAYS_IGNORE
 
 FEEDBACK_TYPE = 'spelling'
 POS_FEEDBACK = 'Correct spelling!'
@@ -51,14 +51,13 @@ def response_endpoint(request):
 
 
 def get_misspellings(prompt_id, entry):
-    entry = entry.translate(str.maketrans("", "", string.punctuation))
+    entry = entry.translate(str.maketrans("", "", string.punctuation.replace("'", '')))
     entry = entry.translate(str.maketrans("", "", string.digits))
-    entry = entry.lower()
     lookup = SYM_SPELL.lookup_compound(entry,
                                        max_edit_distance=2,
                                        transfer_casing=True)
     corrected_entry = lookup[0].term
-    ignore_list = WORDS_TO_IGNORE[prompt_id]
+    ignore_list = PROMPT_SPECIFIC_IGNORE[prompt_id] + ALWAYS_IGNORE
     wrong_words = list(set(entry.split()) -
                        set(corrected_entry.split()) -
                        set(ignore_list))
