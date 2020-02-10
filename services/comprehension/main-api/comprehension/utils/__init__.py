@@ -1,5 +1,5 @@
 def combine_labels(labels):
-    return '_'.join(sorted(labels))
+    return '-'.join(sorted(labels))
 
 
 def construct_feedback_payload(feedback, feedback_type, optimal,
