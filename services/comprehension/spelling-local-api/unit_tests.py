@@ -14,10 +14,10 @@ def app():
 class TestDictionariesLoading(TestCase):
 
     def test_dictionary_file(self):
-        assert main.DICTIONARY
+        self.assertIsNotNone(main.DICTIONARY)
 
     def test_bigram_file(self):
-        assert main.BIGRAM_DICTIONARY
+        self.assertIsNotNone(main.BIGRAM_DICTIONARY)
 
 
 class TestParameterChecks(TestCase):

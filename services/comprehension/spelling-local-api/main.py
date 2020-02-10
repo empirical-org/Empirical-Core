@@ -8,12 +8,14 @@ FEEDBACK_TYPE = 'spelling'
 POS_FEEDBACK = 'Correct spelling!'
 NEG_FEEDBACK = 'Try again. There may be a spelling mistake.'
 SYM_SPELL = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-DICTIONARY_PATH = (pkg_resources
-                   .resource_filename("symspellpy",
-                                      "frequency_dictionary_en_82_765.txt"))
-BIGRAM_PATH = (pkg_resources
-               .resource_filename("symspellpy",
-                                  "frequency_bigramdictionary_en_243_342.txt"))
+DICTIONARY_PATH = pkg_resources.resource_filename(
+                           "symspellpy",
+                           "frequency_dictionary_en_82_765.txt"
+                  )
+BIGRAM_PATH = pkg_resources.resource_filename(
+                            "symspellpy",
+                            "frequency_bigramdictionary_en_243_342.txt"
+              )
 DICTIONARY = SYM_SPELL.load_dictionary(DICTIONARY_PATH,
                                        term_index=0,
                                        count_index=1)
