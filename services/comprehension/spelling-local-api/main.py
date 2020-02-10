@@ -3,20 +3,17 @@ from symspellpy import SymSpell
 from flask import jsonify
 from flask import make_response
 import string
+from lib.words_to_ignore import WORDS_TO_IGNORE
 
 FEEDBACK_TYPE = 'spelling'
 POS_FEEDBACK = 'Correct spelling!'
 NEG_FEEDBACK = 'Try again. There may be a spelling mistake.'
 SYM_SPELL = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-DICTIONARY_PATH = pkg_resources.resource_filename(
-                           "symspellpy",
-                           "frequency_dictionary_en_82_765.txt"
-                  )
 BIGRAM_PATH = pkg_resources.resource_filename(
                             "symspellpy",
                             "frequency_bigramdictionary_en_243_342.txt"
               )
-DICTIONARY = SYM_SPELL.load_dictionary(DICTIONARY_PATH,
+DICTIONARY = SYM_SPELL.load_dictionary("lib/frequency_dictionary_en_82_765.txt",
                                        term_index=0,
                                        count_index=1)
 BIGRAM_DICTIONARY = SYM_SPELL.load_bigram_dictionary(BIGRAM_PATH,
@@ -34,7 +31,7 @@ def response_endpoint(request):
         return make_response(jsonify(message="error"), 400)
 
     try:
-        misspellings = get_misspellings(entry)
+        misspellings = get_misspellings(prompt_id, entry)
     except AssertionError as error:
         return make_response(jsonify(message=error), 500)
 
@@ -49,7 +46,7 @@ def response_endpoint(request):
     return make_response(jsonify(**response_data), 200)
 
 
-def get_misspellings(entry):
+def get_misspellings(prompt_id, entry):
     entry = entry.translate(str.maketrans("", "", string.punctuation))
     entry = entry.translate(str.maketrans("", "", string.digits))
     entry = entry.lower()
@@ -57,7 +54,10 @@ def get_misspellings(entry):
                                        max_edit_distance=2,
                                        transfer_casing=True)
     corrected_entry = lookup[0].term
-    wrong_words = list(set(entry.split()) - set(corrected_entry.split()))
+    ignore_list = WORDS_TO_IGNORE[prompt_id]
+    wrong_words = list(set(entry.split()) -
+                       set(corrected_entry.split()) -
+                       set(ignore_list))
 
     return wrong_words
 
