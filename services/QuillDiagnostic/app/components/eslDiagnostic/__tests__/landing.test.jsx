@@ -21,8 +21,8 @@ describe('LandingPage component', () => {
       const mockBegin = jest.fn();
       const wrapper = mount(
         <LandingPage
-          diagnosticID="ell"
           begin={mockBegin}
+          diagnosticID="ell"
           language='spanish'
           translate={jest.fn()}
         />
