@@ -100,7 +100,8 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playDiagnostic, } = this.props
+    const { params, playDiagnostic, } = this.props;
+    const { diagnosticID } = params;
 
     const { sessionID, } = this.state
 
@@ -110,7 +111,7 @@ export class ELLStudentDiagnostic extends React.Component {
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession('ell', results, 1);
+      this.createAnonActivitySession(diagnosticID, results, 1);
     }
   }
 
@@ -140,14 +141,14 @@ export class ELLStudentDiagnostic extends React.Component {
     );
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
+  createAnonActivitySession = (diagnosticID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
           state: 'finished',
-          activity_uid: 'ell',
+          activity_uid: diagnosticID,
           concept_results: results,
           percentage: score,
         },
@@ -249,10 +250,9 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, params} = this.props
-
-    // return lessons.data['ell'];
-    return lessons.data[params.diagnosticID];
+    const { lessons, params } = this.props;
+    const { diagnosticID } = params;
+    return lessons.data[diagnosticID];
   }
 
   questionsForLesson = () => {
@@ -325,9 +325,10 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { lessons, params } = this.props
-    const { data, } = lessons
-    return data[params.diagnosticID].landingPageHtml
+    const { lessons, params } = this.props;
+    const { data } = lessons;
+    const { diagnosticID } = params;
+    return data[diagnosticID].landingPageHtml
   }
 
   renderFooter = () => {

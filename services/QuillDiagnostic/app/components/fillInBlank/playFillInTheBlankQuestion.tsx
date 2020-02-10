@@ -227,8 +227,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   handleSubmitResponse = () => {
-    const { inputErrors, responses, blankAllowed, inputVals, } = this.state
-    const { question, nextQuestion, } = this.props
+    const { inputErrors, responses, blankAllowed, inputVals, } = this.state;
+    const { question, nextQuestion, } = this.props;
+    const { caseInsensitive, conceptID, key } = question;
     if (!inputErrors.size && responses) {
       if (!blankAllowed) {
         if (inputVals.filter(Boolean).length !== inputVals.length) {
@@ -237,10 +238,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         }
       }
       const zippedAnswer = this.zipInputsAndText();
-      const questionUID = question.key
-      const responsesArray = hashToCollection(responses)
-      const caseInsensitive = question.caseInsensitive
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive)}
+      const questionUID = key;
+      const defaultConceptUID = conceptID;
+      const responsesArray = hashToCollection(responses);
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
       this.setResponse(response);
       this.updateResponseResource(response);
       this.submitResponse(response);
