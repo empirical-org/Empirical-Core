@@ -26,7 +26,7 @@ export default class GoogleClassroomEmailModal extends React.Component<GoogleCla
     const { checkboxOne, } = this.state
     let buttonClass = 'quill-button contained primary medium';
     if (checkboxOne) {
-      return <a className={buttonClass} href="/auth/google_oauth2?prompt=consent">Link account</a>
+      return <a className={buttonClass} href="/auth/google_oauth2">Link account</a>
     } else {
       buttonClass += ' disabled';
       return <button className={buttonClass}>Link account</button>

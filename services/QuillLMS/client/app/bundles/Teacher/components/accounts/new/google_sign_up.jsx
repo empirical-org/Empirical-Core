@@ -6,7 +6,7 @@ const handleClickSignUpWithGoogle = (e) => SegmentAnalytics.track(Events.SUBMIT_
 const GoogleSignUp = () => (
   <a
     className="google-sign-up"
-    href="/auth/google_oauth2?prompt=consent"
+    href="/auth/google_oauth2"
     onClick={handleClickSignUpWithGoogle}
   >
     <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`}  />

@@ -24,7 +24,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       </div>
       <a
         className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
+        href="/auth/google_oauth2"
       >
         Link your account
       </a>
@@ -79,7 +79,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       </div>
       <a
         className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
+        href="/auth/google_oauth2"
       >
         Link your account
       </a>
@@ -134,7 +134,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       </div>
       <a
         className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
+        href="/auth/google_oauth2"
       >
         Link your account
       </a>
@@ -189,7 +189,7 @@ exports[`TeacherLinkedAccounts component should render when the user is linked t
       </div>
       <a
         className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
+        href="/auth/google_oauth2"
       >
         Link your account
       </a>
@@ -244,7 +244,7 @@ exports[`TeacherLinkedAccounts component should render when the user is not link
       </div>
       <a
         className="google-or-clever-action"
-        href="/auth/google_oauth2?prompt=consent"
+        href="/auth/google_oauth2"
       >
         Link your account
       </a>

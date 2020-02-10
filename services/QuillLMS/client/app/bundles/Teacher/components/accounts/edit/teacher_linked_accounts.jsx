@@ -78,7 +78,7 @@ export default class TeacherLinkedAccounts extends React.Component {
       copy = 'Google is not linked. Unlink Clever to link your Google account.'
     } else if (!this.isLinkedToGoogle()) {
       copy = 'Google is not linked'
-      actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2?prompt=consent">Link your account</a>
+      actionElement = <a className="google-or-clever-action" href="/auth/google_oauth2">Link your account</a>
     } else {
       copy = 'Google account is linked'
       actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkGoogle} type="button">Unlink</button>
