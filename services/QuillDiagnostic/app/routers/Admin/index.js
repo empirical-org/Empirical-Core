@@ -1,6 +1,12 @@
+import request from 'request';
+
+const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
+
 export default {
   path: 'admin',
-  indexRoute: { onEnter: (nextState, replace) => replace('/admin/question-health'), },
+  /*indexRoute: { onEnter: (nextState, replace) => replace('/admin/question-health'), },*/
+  indexRoute: { onEnter: (nextState, replace) => request(usersEndpoint, (error, response, body) => { if (!error && response.statusCode === 200) { const json_body = JSON.parse(body);if (json_body.user === null || (json_body.user.hasOwnProperty('role') && json_body.user.role !== 'staff')){ window.location = newSessionEndpoint} else { replace('/admin/question-health') }}}, },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
       import(/* webpackChunkName: "admin-concept_feedback" */ './routes/ConceptFeedback/index.js'),
