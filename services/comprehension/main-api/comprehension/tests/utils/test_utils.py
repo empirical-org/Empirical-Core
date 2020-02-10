@@ -12,13 +12,13 @@ class TestCombineLabels(TestCase):
         self.result = combine_labels(self.labels)
 
     def test_underscore_join(self):
-        underscore_count = reduce(lambda x, y: x + int(y == '_'),
+        underscore_count = reduce(lambda x, y: x + int(y == '-'),
                                   self.result, 0)
 
         self.assertEqual(underscore_count, len(self.labels) - 1)
 
     def test_sort_labels(self):
-        re_split_labels = self.result.split('_')
+        re_split_labels = self.result.split('-')
 
         self.assertEqual(sorted(self.labels), re_split_labels)
 
