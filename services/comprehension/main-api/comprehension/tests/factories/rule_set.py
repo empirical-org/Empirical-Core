@@ -12,4 +12,4 @@ class RuleSetFactory(factory.django.DjangoModelFactory):
     feedback = 'Test feedback'
     priority = 1
     pass_order = RuleSet.PASS_ORDER.FIRST
-    match = 'any'
+    match = RuleSet.REGEX_MATCH_TYPES.ANY
