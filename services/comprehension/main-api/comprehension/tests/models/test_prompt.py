@@ -187,13 +187,13 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
                     match='any'))
 
         RuleFactory(regex_text='^test', rule_set=rule_set)
-        RuleFactory(regex_text='^teeest', rule_set=rule_set)
+        RuleFactory(regex_text='teeest$', rule_set=rule_set)
 
         feedback = (self.prompt.
-                    fetch_rules_based_feedback('teeest test correct',
+                    fetch_rules_based_feedback('test correct teeest',
                                                RuleSet.PASS_ORDER.FIRST))
         feedback_two = (self.prompt.
-                        fetch_rules_based_feedback('test test correct',
+                        fetch_rules_based_feedback('test teeest',
                                                    RuleSet.PASS_ORDER.FIRST))
         feedback_three = (self.prompt.
                           fetch_rules_based_feedback('teest test incorrect',
