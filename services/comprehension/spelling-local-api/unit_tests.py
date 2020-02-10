@@ -11,6 +11,15 @@ def app():
     return flask.Flask(__name__)
 
 
+class TestDictionariesLoading(TestCase):
+
+    def test_dictionary_file(self):
+        self.assertIsNotNone(main.DICTIONARY)
+
+    def test_bigram_file(self):
+        self.assertIsNotNone(main.BIGRAM_DICTIONARY)
+
+
 class TestParameterChecks(TestCase):
 
     def test_missing_prompt_id(self, app):
