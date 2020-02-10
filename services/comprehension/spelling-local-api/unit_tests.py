@@ -94,7 +94,9 @@ class TestApiSpellCheck(TestCase):
         assert 'incorrectlee' in misspelled
 
     def test_incorrect_spelling_single_error_beginning_of_sentence(self):
-        misspelled = main.get_misspellings(1, 'Thissss is spelled incorrectly.')
+        misspelled = main.get_misspellings(
+                            1,
+                            'Thissss is spelled incorrectly.')
         assert len(misspelled) == 1
         assert 'Thissss' in misspelled
 
