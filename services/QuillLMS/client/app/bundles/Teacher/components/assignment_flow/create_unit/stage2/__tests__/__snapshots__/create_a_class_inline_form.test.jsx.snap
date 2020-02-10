@@ -11,7 +11,6 @@ exports[`CreateAClassInlineForm component should render 1`] = `
       className="create-a-class-form"
     >
       <Input
-        autoComplete="on"
         characterLimit={50}
         className="name"
         handleChange={[Function]}
@@ -92,7 +91,6 @@ exports[`CreateAClassInlineForm component should render 1`] = `
         className="class-code-section"
       >
         <Input
-          autoComplete="on"
           className="code"
           disabled={true}
           label="Class code"

@@ -15,7 +15,6 @@ exports[`StudentGeneralAccountInfo component should render 1`] = `
       className="fields"
     >
       <Input
-        autoComplete="on"
         characterLimit={50}
         disabled={false}
         handleChange={[Function]}
@@ -25,7 +24,6 @@ exports[`StudentGeneralAccountInfo component should render 1`] = `
         type="text"
       />
       <Input
-        autoComplete="on"
         characterLimit={50}
         disabled={false}
         handleChange={[Function]}
@@ -35,7 +33,6 @@ exports[`StudentGeneralAccountInfo component should render 1`] = `
         type="text"
       />
       <Input
-        autoComplete="on"
         disabled={false}
         handleChange={[Function]}
         helperText=""
@@ -46,7 +43,6 @@ exports[`StudentGeneralAccountInfo component should render 1`] = `
         value="test-username"
       />
       <Input
-        autoComplete="on"
         disabled={false}
         handleChange={[Function]}
         id="email"

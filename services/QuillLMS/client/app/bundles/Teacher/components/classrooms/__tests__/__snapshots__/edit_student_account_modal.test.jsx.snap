@@ -18,7 +18,6 @@ exports[`EditStudentAccountModal component should render EditStudentAccountModal
       </h3>
     </div>
     <Input
-      autoComplete="on"
       characterLimit={50}
       className="firstName"
       handleChange={[Function]}
@@ -28,7 +27,6 @@ exports[`EditStudentAccountModal component should render EditStudentAccountModal
       value="Maya"
     />
     <Input
-      autoComplete="on"
       characterLimit={50}
       className="lastName"
       handleChange={[Function]}
@@ -38,7 +36,6 @@ exports[`EditStudentAccountModal component should render EditStudentAccountModal
       value="Angelou"
     />
     <Input
-      autoComplete="on"
       className="username"
       handleChange={[Function]}
       label="Username"
