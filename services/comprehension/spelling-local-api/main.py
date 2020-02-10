@@ -51,6 +51,7 @@ def response_endpoint(request):
 
 def get_misspellings(entry):
     entry = entry.translate(str.maketrans("", "", string.punctuation))
+    entry = entry.translate(str.maketrans("", "", string.digits))
     entry = entry.lower()
     lookup = SYM_SPELL.lookup_compound(entry,
                                        max_edit_distance=2,
