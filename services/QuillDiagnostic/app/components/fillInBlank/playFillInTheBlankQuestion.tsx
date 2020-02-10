@@ -15,7 +15,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
-import { rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { english, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const styles = {
   container: {
@@ -104,7 +104,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       const text = `instructions^${instructions}`;
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      const translationPresent = language !== 'english';
+      const translationPresent = language !== english;
       return(
         <div>
           <p>{instructions}</p>
@@ -291,7 +291,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       let text = translations.english['add word bank cue'];
       text = `${text}${blankAllowed ? ' or leave blank' : ''}`;
-      if (language && language !== 'english') {
+      if (language && language !== english) {
         text += ` / ${translations[language]['add word bank cue']}`;
       }
       return text;
@@ -310,7 +310,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       if (language && diagnosticID !== 'ell') {
         const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
         const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-        const translationPresent = language !== 'english';
+        const translationPresent = language !== english;
         feedback = (<div>
           <p>{feedbackText}</p>
           {translationPresent && <br />}
