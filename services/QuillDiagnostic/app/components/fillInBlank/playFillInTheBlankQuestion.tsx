@@ -107,6 +107,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       return(
         <div>
           <p>{instructions}</p>
+          <br/>
           {language !== 'english' && <p className={textClass}>{translate(text)}</p>}
         </div>
       );
@@ -328,6 +329,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses } = this.state;
     const { language, translate } = this.props;
     const buttonText = language ? translate('buttons^submit') : 'Submit';
+    console.log('state', this.state);
     
     if(responses) {
       return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 

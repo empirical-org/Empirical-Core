@@ -313,8 +313,8 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   updateLanguage = (language) => {
-    i18n.changeLanguage(language);
     const { dispatch, } = this.props
+    i18n.changeLanguage(language);
     dispatch(updateLanguage(language));
   }
 

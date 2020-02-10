@@ -3,102 +3,102 @@ export const languagesV2 = ['english', 'chinese', 'hindi', 'spanish', 'french', 
 
 export const languageData = {
     'english': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png',
+        flag: 'https://assets.quill.org/images/flags/usa.png',
         label: 'English'
     },
     'arabic': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png',
+        flag: 'https://assets.quill.org/images/flags/egypt.png',
         label: 'العربية'
     },
     'chinese': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png',
+        flag: 'https://assets.quill.org/images/flags/china.png',
         label: '中文'
     },
     'french': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png',
+        flag: 'https://assets.quill.org/images/flags/france.png',
         label: 'Français'
     },
     'hindi': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png',
+        flag: 'https://assets.quill.org/images/flags/india.png',
         label: 'हिंदी'
     },
     'spanish': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png',
+        flag: 'https://assets.quill.org/images/flags/spain.png',
         label: 'Español'
     },
     'vietnamese': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png',
+        flag: 'https://assets.quill.org/images/flags/vietnam.png',
         label: 'Tiếng Việt'
     }
 }
 
 export const languageDataV2 = {
     'english': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/U.S._Outlying_Islands.png',
+        flag: 'https://assets.quill.org/images/flags/usa.png',
         label: 'English'
     },
     'chinese': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/China.png',
+        flag: 'https://assets.quill.org/images/flags/china.png',
         label: '中文'
     },
     'hindi': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/India.png',
+        flag: 'https://assets.quill.org/images/flags/india.png',
         label: 'हिंदी'
     },
     'spanish': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Spain.png',
+        flag: 'https://assets.quill.org/images/flags/spain.png',
         label: 'Español'
     },
     'french': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/France.png',
+        flag: 'https://assets.quill.org/images/flags/france.png',
         label: 'Français'
     },
     'arabic': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Egypt.png',
+        flag: 'https://assets.quill.org/images/flags/egypt.png',
         label: 'العربية'
     },
     'russian': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/russia.png',
         label: 'Русский'
     },
     'portuguese': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/brazil.png',
         label: 'Português'
     },
     'urdu': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/pakistan.png',
         label: 'اردو'
     },
     'german': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/germany.png',
         label: 'Deutsche'
     },
     'japanese': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/japan.png',
         label: '日本語'
     },
     'korean': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/south_korea.png',
         label: '한국어'
     },
     'vietnamese': {
-        flag: 'https://s3.amazonaws.com/empirical-core-prod/assets/flags/Vietnam.png',
+        flag: 'https://assets.quill.org/images/flags/vietnam.png',
         label: 'Tiếng Việt'
     },
     'thai': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/thailand.png',
         label: 'ไทย'
     },
     'ukrainian': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/ukraine.png',
         label: 'Українська'
     },
     'tagalog': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/philippines.png',
         label: 'Tagalog'
     },
     'dari': {
-        flag: '',
+        flag: 'https://assets.quill.org/images/flags/afghanistan.png',
         label: 'درى'
     },
 }

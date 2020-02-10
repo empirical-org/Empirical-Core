@@ -1,9 +1,9 @@
 {
     "buttons": {
-        "begin": "Begin / 開始",
-        "continue": "Continue / 続行",
-        "resume": "Continue / 続行",
-        "submit": "Submit / 送信"
+        "begin": "Begin / 시작",
+        "continue": "Continue / 계속",
+        "resume": "Continue / 계속",
+        "submit": "Submit / 제출"
     },
     "intro": {
         "header": "Quill 배치 활동",
