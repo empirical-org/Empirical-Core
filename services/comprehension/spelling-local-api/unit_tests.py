@@ -110,3 +110,8 @@ class TestApiSpellCheck(TestCase):
         test_phrase = 'Title IX is correctly spelled.'
         misspelled = main.get_misspellings(2, test_phrase)
         assert len(misspelled) == 0
+
+    def test_apostrophe(self):
+        test_phrase = "they're the one i shouldn't want."
+        misspelled = main.get_misspellings(2, test_phrase)
+        assert len(misspelled) == 0
