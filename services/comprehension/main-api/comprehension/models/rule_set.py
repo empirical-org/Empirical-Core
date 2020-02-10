@@ -9,6 +9,10 @@ class RuleSet(BaseModel):
         FIRST = 'first'
         SECOND = 'second'
 
+    class REGEX_MATCH_TYPES(DjangoChoices):
+        ALL = 'all'
+        ANY = 'any'
+
     prompt = models.ForeignKey(Prompt,
                                on_delete=models.CASCADE,
                                related_name='rule_sets')
@@ -17,8 +21,9 @@ class RuleSet(BaseModel):
     priority = models.IntegerField(null=False, default=1)
     pass_order = models.TextField(null=False,
                                   choices=PASS_ORDER.get_for_choices())
-    is_focus_point = models.BooleanField(null=False,
-                                         default=False)
+    match = models.TextField(null=False,
+                             default=REGEX_MATCH_TYPES.ALL,
+                             choices=REGEX_MATCH_TYPES.get_for_choices())
 
     class Meta:
         unique_together = ('prompt', 'priority', 'pass_order', )

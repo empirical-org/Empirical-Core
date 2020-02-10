@@ -29,11 +29,13 @@ class Prompt(TimestampedModel):
 
         for rule_set in rule_sets:
             rules_list = rule_set.rules.all()
-            if rule_set.is_focus_point:
-                is_passing = self._process_focus_point(rules_list, entry)
+            if rule_set.match == 'any':
+                is_passing = self._process_match_all(rules_list, entry)
+            elif rule_set.match == 'all':
+                is_passing = self._process_match_any(rules_list,
+                                                     entry)
             else:
-                is_passing = self._process_incorrect_sequence(rules_list,
-                                                              entry)
+                is_passing = True
 
             if not is_passing:
                 feedback = INCORRECT_FEEDBACK_OBJ
@@ -42,8 +44,8 @@ class Prompt(TimestampedModel):
 
         return CORRECT_FEEDBACK_OBJ
 
-    def _process_focus_point(self, rules_list, entry):
-        # focus points return CORRECT at the first match it finds
+    def _process_match_any(self, rules_list, entry):
+        # match 'any' returns CORRECT at the first match it finds
         if not rules_list:
             return True
 
@@ -55,8 +57,8 @@ class Prompt(TimestampedModel):
 
         return True
 
-    def _process_incorrect_sequence(self, rules_list, entry):
-        # incorrect sequences return CORRECT after checking the whole list
+    def _process_match_all(self, rules_list, entry):
+        # match 'all' returns CORRECT after checking the whole list
         # and verifying all items are correct
         for rule in rules_list:
             if not rule.match(entry):
