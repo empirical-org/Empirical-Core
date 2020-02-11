@@ -150,38 +150,42 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
-    def test_does_not_contain_regex(self):
+    def test_match_all_regex(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    test_for_contains=False))
-        RuleFactory(regex_text='does not contain', rule_set=rule_set)
+                    match='all'))
+        rule_set_two = (RuleSetFactory(
+                        feedback='Test feedback',
+                        pass_order=RuleSet.PASS_ORDER.FIRST,
+                        prompt=self.prompt,
+                        priority=2,
+                        match='all'))
+        RuleFactory(regex_text='incorrect sequence', rule_set=rule_set)
+        RuleFactory(regex_text='wrong sequence', rule_set=rule_set_two)
         feedback = (self.prompt.
-                    fetch_rules_based_feedback('test does not contain',
+                    fetch_rules_based_feedback('test wrong sequence',
                                                RuleSet.PASS_ORDER.FIRST))
         self.assertFalse(feedback['optimal'])
         self.assertEqual(feedback['feedback'], 'Test feedback')
 
-    def test_two_rules_in_rule_set(self):
+    def test_match_any_regex(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
                     prompt=self.prompt,
-                    test_for_contains=True))
-
+                    match='any'))
+        rule_set_two = (RuleSetFactory(
+                        feedback='Test feedback',
+                        pass_order=RuleSet.PASS_ORDER.FIRST,
+                        prompt=self.prompt,
+                        priority=2,
+                        match='any'))
         RuleFactory(regex_text='^test', rule_set=rule_set)
-        RuleFactory(regex_text='^teeest', rule_set=rule_set)
-
+        RuleFactory(regex_text='test$', rule_set=rule_set_two)
         feedback = (self.prompt.
-                    fetch_rules_based_feedback('teeest test correct',
+                    fetch_rules_based_feedback('test wrong sequence',
                                                RuleSet.PASS_ORDER.FIRST))
-        feedback_two = (self.prompt.
-                        fetch_rules_based_feedback('test test correct',
-                                                   RuleSet.PASS_ORDER.FIRST))
-        feedback_three = (self.prompt.
-                          fetch_rules_based_feedback('teest test incorrect',
-                                                     RuleSet.PASS_ORDER.FIRST))
-        self.assertTrue(feedback['optimal'])
-        self.assertTrue(feedback_two['optimal'])
-        self.assertFalse(feedback_three['optimal'])
+        self.assertFalse(feedback['optimal'])
+        self.assertEqual(feedback['feedback'], 'Test feedback')

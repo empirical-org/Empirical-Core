@@ -231,7 +231,7 @@
     font-family: $family-sans-serif;
     color: #2f2f2f;
   }
-  p {
+  p, h1 {
     max-width: 600px;
     margin-top: 13px;
     color: #464646;
@@ -368,4 +368,8 @@
     border-image-source: none;
     padding-top: 4px;
   }
+}
+
+.intro-container {
+  margin-bottom: 30px;
 }

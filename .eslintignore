@@ -54,3 +54,4 @@ packages/quill-marking-logic/dist/**
 packages/quill-spellchecker/dist/**
 *.d.ts
 services/comprehension/main-api/static/*
+services/QuillDiagnostic/app/routers/Admin/index.js
