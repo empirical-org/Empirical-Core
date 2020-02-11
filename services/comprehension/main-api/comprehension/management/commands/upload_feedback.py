@@ -31,22 +31,22 @@ class Command(BaseCommand):
 
         self._drop_existing_feedback_records(prompt_id)
 
-        for extracted_kwargs in self._extract_create_feedback_kwargs(csv_input):
-            feedback_kwargs = extracted_kwargs[self.FEEDBACK_KEY]
-            highlight_kwargs = extracted_kwargs[self.HIGHLIGHT_KEY]
+        for result in self._extract_create_feedback_kwargs(csv_input):
+            feedback_kwargs = result[self.FEEDBACK_KEY]
+            highlight_kwargs = result[self.HIGHLIGHT_KEY]
             feedback_kwargs.update({
                 'prompt_id': prompt_id,
             })
             self._create_records(feedback_kwargs, highlight_kwargs)
 
     def _create_records(self, feedback_kwargs, highlight_kwargs):
-            fb = MLFeedback.objects.create(**feedback_kwargs)
-            if highlight_kwargs:
-                highlight_kwargs.update({
-                    'feedback_id': fb.id,
-                    'highlight_type': Highlight.TYPES.PASSAGE
-                })
-                Highlight.objects.create(**highlight_kwargs)
+        fb = MLFeedback.objects.create(**feedback_kwargs)
+        if highlight_kwargs:
+            highlight_kwargs.update({
+                'feedback_id': fb.id,
+                'highlight_type': Highlight.TYPES.PASSAGE
+            })
+            Highlight.objects.create(**highlight_kwargs)
 
     def _extract_create_feedback_kwargs(self, csv_input):
         with open(csv_input) as csvfile:
