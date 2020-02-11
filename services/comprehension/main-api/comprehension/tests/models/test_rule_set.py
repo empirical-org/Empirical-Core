@@ -1,15 +1,19 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from ..factories.rule import RuleFactory
+from ..factories.prompt import PromptFactory
 from ..factories.rule_set import RuleSetFactory
+from ..factories.rule import RuleFactory
 from ...models.rule_set import RuleSet
 
 
 class RuleSetModelTest(TestCase):
     def setUp(self):
         self.rule_set = RuleSetFactory()
+        self.prompt = PromptFactory()
 
+
+class RuleSetValidationTest(RuleSetModelTest):
     def test_name_not_nullable(self):
         self.rule_set.name = None
         with self.assertRaises(ValidationError):
@@ -35,26 +39,67 @@ class RuleSetModelTest(TestCase):
             self.rule_set.save()
 
 
-class RuleModelTest(TestCase):
-    def setUp(self):
-        self.rule = RuleFactory(regex_text='^test', case_sensitive=False)
+class RuleSetFunctionTest(RuleSetModelTest):
+    def test_first_pass(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt))
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        result = rule_set.process_rule_set('incorrect test correct')
+        self.assertFalse(result)
+        result = rule_set.process_rule_set('test correct')
+        self.assertTrue(result)
 
-    def test_regex_text_not_nullable(self):
-        self.rule.regex_text = None
-        with self.assertRaises(ValidationError):
-            self.rule.save()
+    def test_second_pass(self):
+        rule_set = (RuleSetFactory(feedback='Test feedback',
+                                   pass_order=RuleSet.PASS_ORDER.SECOND,
+                                   prompt=self.prompt))
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        result = rule_set.process_rule_set('incorrect test correct')
+        self.assertFalse(result)
+        result = rule_set.process_rule_set('test correct')
+        self.assertTrue(result)
 
-    def test_rule_set_not_nullable(self):
-        self.rule.rule_set = None
-        with self.assertRaises(ValidationError):
-            self.rule.save()
+    def test_match_all_regex(self):
+        prompt = PromptFactory()
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=prompt,
+                    match='all'))
+        RuleFactory(regex_text='incorrect sequence', rule_set=rule_set)
+        result = rule_set.process_rule_set('test incorrect sequence')
+        self.assertFalse(result)
+        result = rule_set.process_rule_set('this is a perfect test')
+        self.assertTrue(result)
 
-    def test_match_case_insensitive(self):
-        self.assertTrue(self.rule.match('test matches ^test'))
-        self.assertTrue(self.rule.match('TeSt matches ^test'))
-        self.assertFalse(self.rule.match('WRONG does not match ^test'))
+    def test_match_any_regex(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    match='any'))
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        result = rule_set.process_rule_set('wrong sequence test')
+        self.assertFalse(result)
+        result = rule_set.process_rule_set('test correct sequence test')
+        self.assertTrue(result)
 
-    def test_match_case_sensitive(self):
-        self.rule = RuleFactory(regex_text='^test', case_sensitive=True)
-        self.assertTrue(self.rule.match('test matches ^test'))
-        self.assertFalse(self.rule.match('TeSt matches ^test'))
+    def test_two_rules_in_rule_set(self):
+        rule_set = (RuleSetFactory(
+                    feedback='Test feedback',
+                    pass_order=RuleSet.PASS_ORDER.FIRST,
+                    prompt=self.prompt,
+                    match='any'))
+
+        RuleFactory(regex_text='^test', rule_set=rule_set)
+        RuleFactory(regex_text='teeest$', rule_set=rule_set)
+
+        result_one = rule_set.process_rule_set('test correct teest')
+        result_two = rule_set.process_rule_set('test teeest')
+        result_three = rule_set.process_rule_set('teest test incorrect')
+
+        self.assertTrue(result_one)
+        self.assertTrue(result_two)
+        self.assertFalse(result_three)

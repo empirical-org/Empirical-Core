@@ -20,7 +20,7 @@ import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import LandingPage from './landing.jsx';
+import LandingPage from './landingPage.jsx';
 import LanguagePage from './languagePage.jsx';
 import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
@@ -32,6 +32,8 @@ import {
   getProgressPercent
 } from '../../libs/calculateProgress'
 import { getParameterByName } from '../../libs/getParameterByName';
+import { withNamespaces } from 'react-i18next';
+import i18n from '../../i18n';
 
 const request = require('request');
 
@@ -90,11 +92,6 @@ export class ELLStudentDiagnostic extends React.Component {
     if (sessionID) {
       SessionActions.update(sessionID, lessonData);
     }
-  }
-
-  hasQuestionsInQuestionSet = (props) => {
-    const pL = props.playDiagnostic;
-    return (pL && pL.questionSet && pL.questionSet.length);
   }
 
   saveToLMS = () => {
@@ -168,17 +165,19 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderQuestionComponent = () => {
-    const { playDiagnostic, dispatch, } = this.props
+    const { playDiagnostic, dispatch, params, t } = this.props
 
     let component
     if (playDiagnostic.currentQuestion.type === 'SC') {
       component = (<PlayDiagnosticQuestion
+        diagnosticID={params.diagnosticID}
         dispatch={dispatch}
         key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         marking="diagnostic"
         nextQuestion={this.nextQuestion}
         question={playDiagnostic.currentQuestion.data}
+        translate={t}
       />);
     } else if (playDiagnostic.currentQuestion.type === 'SF') {
       component = (<PlaySentenceFragment
@@ -196,21 +195,25 @@ export class ELLStudentDiagnostic extends React.Component {
         <PlayTitleCard
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
+          diagnosticID={params.diagnosticID}
           dispatch={dispatch}
           handleContinueClick={this.nextQuestionWithoutSaving}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
+          translate={t}
         />
       );
     } else if (playDiagnostic.currentQuestion.type === 'FB') {
       component = (
         <PlayFillInTheBlankQuestion
           currentKey={playDiagnostic.currentQuestion.data.key}
+          diagnosticID={params.diagnosticID}
           dispatch={dispatch}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
           nextQuestion={this.nextQuestion}
           question={playDiagnostic.currentQuestion.data}
+          translate={t}
         />
       );
     }
@@ -245,22 +248,6 @@ export class ELLStudentDiagnostic extends React.Component {
     const { lessons, params } = this.props;
     const { diagnosticID } = params;
     return lessons.data[diagnosticID];
-  }
-
-  questionsForLesson = () => {
-    const { lessons, params, } = this.props
-
-    const { data, } = lessons,
-      { lessonID, } = params;
-    if (data[lessonID].questions) {
-      return _.values(data[lessonID].questions).map((question) => {
-        const questions = this.props[question.questionType].data; // eslint-disable-line react/destructuring-assignment
-        const qFromDB = Object.assign({}, questions[question.key]);
-        qFromDB.questionType = question.questionType;
-        qFromDB.key = question.key;
-        return qFromDB;
-      });
-    }
   }
 
   markIdentify = (bool) => {
@@ -306,6 +293,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   updateLanguage = (language) => {
     const { dispatch, } = this.props
+    i18n.changeLanguage(language);
     dispatch(updateLanguage(language));
   }
 
@@ -323,9 +311,11 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderFooter = () => {
+    const { params } = this.props;
     if (!this.language()) { return }
 
     return (<Footer
+      diagnosticID={params.diagnosticID}
       language={this.language()}
       updateLanguage={this.updateLanguage}
     />)
@@ -352,7 +342,8 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { questions, sentenceFragments, playDiagnostic, fillInBlank, } = this.props
+    const { params, playDiagnostic, t } = this.props;
+    const { diagnosticID } = params;
 
     let component;
     const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
@@ -364,6 +355,7 @@ export class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         saved={saved}
         saveToLMS={this.saveToLMS}
+        translate={t}
       />);
     } else if (playDiagnostic.language) {
       component = (<LandingPage
@@ -372,10 +364,12 @@ export class ELLStudentDiagnostic extends React.Component {
         language={this.language()}
         resumeActivity={this.resumeSession}
         session={this.getPreviousSessionData()}
+        translate={t}
 
       />);
     } else {
       component = (<LanguagePage
+        diagnosticID={diagnosticID}
         setLanguage={this.updateLanguage}
       />);
     }
@@ -407,4 +401,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default connect(select)(ELLStudentDiagnostic);
+export default withNamespaces()(connect(select)(ELLStudentDiagnostic));
