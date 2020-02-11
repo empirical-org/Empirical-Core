@@ -1,4 +1,10 @@
-PROMPT_SPECIFIC_IGNORE = {
+PROMPT_TO_ACTIVITY_ID_MAP = {
+  105: 2,
+  106: 2,
+  107: 2
+}
+
+ACTIVITY_SPECIFIC_IGNORE = {
   1: ["un", "jong", "eg"],
   2: ["mayerova", "ariana", "ix", "women's", "men's", "michigan's", ]
 }

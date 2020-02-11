@@ -79,30 +79,32 @@ class TestBranches(TestCase):
 
 class TestApiSpellCheck(TestCase):
 
+    prompt_id = 106
+
     def test_correct_spelling(self):
-        misspelled = main.get_misspellings(1, 'This is spelled correctly.')
+        misspelled = main.get_misspellings(prompt_id, 'This is spelled correctly.')
         assert len(misspelled) == 0
 
     def test_incorrect_spelling_single_error_middle_of_sentence(self):
-        misspelled = main.get_misspellings(1, 'This is spellllled correctly.')
+        misspelled = main.get_misspellings(prompt_id, 'This is spellllled correctly.')
         assert len(misspelled) == 1
         assert 'spellllled' in misspelled
 
     def test_incorrect_spelling_single_error_end_of_sentence(self):
-        misspelled = main.get_misspellings(1, 'This is spelled incorrectlee.')
+        misspelled = main.get_misspellings(prompt_id, 'This is spelled incorrectlee.')
         assert len(misspelled) == 1
         assert 'incorrectlee' in misspelled
 
     def test_incorrect_spelling_single_error_beginning_of_sentence(self):
         misspelled = main.get_misspellings(
-                            1,
+                            prompt_id,
                             'Thissss is spelled incorrectly.')
         assert len(misspelled) == 1
         assert 'Thissss' in misspelled
 
     def test_incorrect_spelling_multiple_errors(self):
         test_phrase = 'Thissss is spellllled incorrectlee.'
-        misspelled = main.get_misspellings(1, test_phrase)
+        misspelled = main.get_misspellings(prompt_id, test_phrase)
         assert len(misspelled) == 3
         assert 'Thissss' in misspelled
         assert 'spellllled' in misspelled
@@ -110,10 +112,10 @@ class TestApiSpellCheck(TestCase):
 
     def test_ignore_words(self):
         test_phrase = 'Title IX is correctly spelled.'
-        misspelled = main.get_misspellings(2, test_phrase)
+        misspelled = main.get_misspellings(prompt_id, test_phrase)
         assert len(misspelled) == 0
 
     def test_apostrophe(self):
         test_phrase = "they're the one i shouldn't want."
-        misspelled = main.get_misspellings(2, test_phrase)
+        misspelled = main.get_misspellings(prompt_id, test_phrase)
         assert len(misspelled) == 0
