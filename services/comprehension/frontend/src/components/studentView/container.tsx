@@ -178,6 +178,9 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithPTags }
 
     const lastSubmittedResponse = submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
+
+    if (!lastSubmittedResponse.highlight) { return passagesWithPTags }
+
     const passageHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
 
     passageHighlights.forEach(hl => {
