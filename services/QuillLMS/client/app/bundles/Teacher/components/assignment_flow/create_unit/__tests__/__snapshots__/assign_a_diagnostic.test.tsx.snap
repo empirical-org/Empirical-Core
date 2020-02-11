@@ -80,6 +80,26 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
+              "text": "Simple verb conjugation, articles, subject verb agreement, simple word order, singular vs plural nouns, and adjective placement",
+            },
+            Object {
+              "key": "When",
+              "text": "Built for beginning English Language Learners who are working on foundational grammar skills.",
+            },
+          ]
+        }
+        buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+        buttonText="Preview"
+        header="ELL Starter Diagnostic"
+        imgAlt="page with less writing that says ELL in the corner"
+        imgSrc="undefined/images/illustrations/diagnostics-ell-starter.svg"
+        selectCard={[Function]}
+      />
+      <AssignmentCard
+        bodyArray={
+          Array [
+            Object {
+              "key": "What",
               "text": "Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions",
             },
             Object {
