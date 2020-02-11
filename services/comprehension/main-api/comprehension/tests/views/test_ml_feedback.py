@@ -43,7 +43,6 @@ class TestMLFeedbackView(TestCase):
         with self.assertRaises(Http404):
             MLFeedbackView.as_view()(request)
 
-
     def test_error_message_when_missing_default(self, fetch_feedback_mock):
         fetch_feedback_mock.side_effect = Prompt.NoDefaultMLFeedbackError()
         request = self.factory.post(reverse('get_ml_feedback'),
