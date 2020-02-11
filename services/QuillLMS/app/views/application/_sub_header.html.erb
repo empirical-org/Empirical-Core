@@ -35,7 +35,7 @@
   		</a>
   	</div>
 
-		<% if current_user&.role === 'student' %>
+		<% if current_user&.student? %>
 			<%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
 		<% else %>
   		<div class='home-nav-right wide' >

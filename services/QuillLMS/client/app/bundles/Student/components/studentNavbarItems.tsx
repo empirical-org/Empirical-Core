@@ -46,18 +46,20 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
   onMobile = () => window.innerWidth <= MAX_VIEW_WIDTH_FOR_MOBILE
 
   links = () => {
-    let linkArray = [
+    const desktopLinks = [
       <a href="/account_settings" id="settings-link" key="settings-link">Settings</a>,
       <a href="/session" id="logout-link" key="logout-link">Logout</a>
     ]
+    const mobileLinks = [
+      <a href="/" id="classes-link" key="classes-link">Classes</a>,
+      <a href="/student-center" id="resources-link" key="resources-link">Resources</a>
+    ]
+
     if (this.onMobile()) {
-      linkArray = [
-        <a href="/" id="classes-link" key="classes-link">Classes</a>,
-        <a href="/student-center" id="resources-link" key="resources-link">Resources</a>
-      ].concat(linkArray)
+      return mobileLinks.concat(desktopLinks)
     }
 
-    return linkArray
+    return desktopLinks
   }
 
   updateFocusedLink = () => {
@@ -157,12 +159,8 @@ export default class StudentNavbarItems extends React.Component<StudentNavbarIte
 
   renderMobileNavbar = () => {
     const { isOpen, } = this.state
-    let img = <img alt="Menu icon" src={menuSrc} />
-    let text = 'Menu'
-    if (isOpen) {
-      img = <img alt="Close icon" src={closeSrc} />
-      text = 'Close'
-    }
+    const img = isOpen ? <img alt="Close icon" src={closeSrc} /> : <img alt="Menu icon" src={menuSrc} />
+    const text = isOpen ? 'Close' : 'Menu'
     return (
       <div className="mobile-nav-right">
         <button className="focus-on-dark" id="mobile-dropdown-container" onClick={this.handleOpenToggle} type="button">

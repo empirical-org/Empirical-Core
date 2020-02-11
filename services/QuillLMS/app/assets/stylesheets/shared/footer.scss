@@ -182,6 +182,13 @@
     }
     .footer-contacts, .footer-social {
       margin-bottom: 0px;
+      overflow: visible;
+      a {
+        display: inline-block;
+      }
+      li {
+        display: flex;
+      }
     }
     .bottom-half {
       padding-top: 0px;
