@@ -3,7 +3,7 @@ from symspellpy import SymSpell
 from flask import jsonify
 from flask import make_response
 import string
-from lib.words_to_ignore import PROMPT_SPECIFIC_IGNORE, ALWAYS_IGNORE
+from lib.words_to_ignore import ACTIVITY_SPECIFIC_IGNORE, ALWAYS_IGNORE, PROMPT_TO_ACTIVITY_ID_MAP
 
 FEEDBACK_TYPE = 'spelling'
 POS_FEEDBACK = 'Correct spelling!'
@@ -60,7 +60,8 @@ def get_misspellings(prompt_id, entry):
                                        max_edit_distance=2,
                                        transfer_casing=True)
     corrected_entry = lookup[0].term
-    ignore_list = PROMPT_SPECIFIC_IGNORE[prompt_id] + ALWAYS_IGNORE
+    activity_id = PROMPT_TO_ACTIVITY_ID_MAP[prompt_id]
+    ignore_list = ACTIVITY_SPECIFIC_IGNORE[activity_id] + ALWAYS_IGNORE
     wrong_words = list(set(entry.split()) -
                        set(corrected_entry.split()) -
                        set(ignore_list))
