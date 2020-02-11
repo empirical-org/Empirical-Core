@@ -13,12 +13,6 @@ FEEDBACK_TYPE = 'semantic'
 
 
 class MLFeedbackView(ApiView):
-    multi_label = True
-
-    def __init__(self, *args, **kwargs):
-        self.multi_label = kwargs.pop('multi_label', self.multi_label)
-        super().__init__(*args, **kwargs)
-
     def post(self, request):
         submission = json.loads(request.body)
 
@@ -30,8 +24,7 @@ class MLFeedbackView(ApiView):
         try:
             feedback = prompt.fetch_auto_ml_feedback(
                 entry,
-                previous_feedback,
-                multi_label=self.multi_label
+                previous_feedback
             )
         except Prompt.NoDefaultMLFeedbackError:
             message = f'No default feedback defined for Prompt {prompt.id}'

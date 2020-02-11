@@ -36,6 +36,12 @@ class PromptValidationTest(PromptModelTest):
                                        ml_model=MLModelFactory())
         self.assertEqual(prompt.max_attempts, 5)
 
+    def test_default_labeling_approach(self):
+        prompt = Prompt.objects.create(text='foo', max_attempts_feedback='bar',
+                                       ml_model=MLModelFactory())
+        self.assertEqual(prompt.labeling_approach,
+                         Prompt.LABELING_APPROACHES.MULTI)
+
 
 class PromptFunctionTest(PromptModelTest):
     def test_max_attempts_feedback_not_null(self):
@@ -69,13 +75,15 @@ class PromptFetchAutoMLFeedbackTest(PromptModelTest):
         feedback = MLFeedbackFactory(combined_labels='Test1',
                                      prompt=self.prompt)
         label_mock.return_value = ['Test1']
-        response = self.prompt.fetch_auto_ml_feedback(None, multi_label=False)
+        self.prompt.labeling_approach = Prompt.LABELING_APPROACHES.SINGLE
+        response = self.prompt.fetch_auto_ml_feedback(None)
         self.assertTrue(label_mock.called)
         self.assertEqual(feedback, response)
 
     @patch.object(MLModel, 'request_labels')
     def test_multi_label(self, label_mock):
         label_mock.return_value = ['Test1', 'Test2']
+        self.prompt.labeling_approach = Prompt.LABELING_APPROACHES.MULTI
         response = self.prompt.fetch_auto_ml_feedback(None)
         self.assertTrue(label_mock.called)
         self.assertEqual(self.feedback, response)
