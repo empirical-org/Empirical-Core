@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
-import { english, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 export class FinishedDiagnostic extends React.Component {
 
@@ -13,7 +13,7 @@ export class FinishedDiagnostic extends React.Component {
   getCompletedPageHTML() {
     const { language } = this.props;
     let html = translations.english['completion page'];
-    if (language !== english) {
+    if (language !== ENGLISH) {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left arabic-title-div' : '';
       html += `<br/><div class="${textClass}">${translations[language]['completion page']}</div>`;
     }
@@ -70,7 +70,7 @@ export class FinishedDiagnostic extends React.Component {
             <h1>You've completed the Quill Placement Activity</h1>
             <p>Your results are being saved now. You'll be redirected automatically once they are saved.</p>
           </div>
-          {language !== english && <div className={`landing-page-html ${textClass}`}>
+          {language !== ENGLISH && <div className={`landing-page-html ${textClass}`}>
             <h1>{translate('completedDiagnostic^header')}</h1>
             <p>{translate('completedDiagnostic^text')}</p>
           </div>}

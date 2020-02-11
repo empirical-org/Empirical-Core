@@ -21,7 +21,7 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { english, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -48,7 +48,7 @@ class PlaySentenceFragment extends React.Component {
     const { language, } = this.props
     const textKey = translationMap[this.getQuestion().key];
     let text = translations.english[textKey];
-    if (language && language !== english) {
+    if (language && language !== ENGLISH) {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
     }
@@ -58,7 +58,7 @@ class PlaySentenceFragment extends React.Component {
   getChoiceHTML = () => {
     const { language, } = this.props
     let text = translations.english['sentence-fragment-complete-vs-incomplete-button-choice-instructions'];
-    if (language !== english) {
+    if (language !== ENGLISH) {
       text += `<br/><br/>${translations[language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
     }
     return text;
@@ -173,7 +173,7 @@ class PlaySentenceFragment extends React.Component {
   getSubmitButtonText = () => {
     const { language, } = this.props
     let text = translations.english['submit button text'];
-    if (language && language !== english) {
+    if (language && language !== ENGLISH) {
       text += ` / ${translations[language]['submit button text']}`;
     }
     return text;

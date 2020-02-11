@@ -15,7 +15,7 @@ import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
-import { english, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const styles = {
   container: {
@@ -97,14 +97,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     let text = instructions ? instructions : translations.english[textKey];
     if(!language) {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else if (language && diagnosticID === 'ell') {
+    } else if (language !== ENGLISH && diagnosticID === 'ell') {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else if(diagnosticID === 'ell') {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
       const text = `instructions^${instructions}`;
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-      const translationPresent = language !== english;
+      const translationPresent = language !== ENGLISH;
       return(
         <div>
           <p>{instructions}</p>
@@ -291,7 +293,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       let text = translations.english['add word bank cue'];
       text = `${text}${blankAllowed ? ' or leave blank' : ''}`;
-      if (language && language !== english) {
+      if (language && language !== ENGLISH) {
         text += ` / ${translations[language]['add word bank cue']}`;
       }
       return text;
@@ -310,7 +312,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       if (language && diagnosticID !== 'ell') {
         const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
         const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
-        const translationPresent = language !== english;
+        const translationPresent = language !== ENGLISH;
         feedback = (<div>
           <p>{feedbackText}</p>
           {translationPresent && <br />}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ResumeOrBeginButton } from 'quill-component-library/dist/componentLibrary';
-import { english, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 export class LandingPage extends React.Component {
 
@@ -26,7 +26,7 @@ export class LandingPage extends React.Component {
           <p>You&apos;re about to answer 22 questions about writing sentences. Don&apos;t worry, it&apos;s not a test. It&apos;s just to figure out what you know.</p>
           <p>Some of the questions might be about things you haven&apos;t learned yet — that&apos;s okay! Just answer them as best as you can. Once you&apos;re finished, Quill will create a learning plan just for you!</p>
         </div>
-        {language !== english && <div>
+        {language !== ENGLISH && <div>
           <h1 className={textClass}>{translate('intro^header')}</h1>
           <p className={textClass}>{translate('intro^text')}</p>
         </div>}
