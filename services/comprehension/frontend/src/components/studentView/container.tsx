@@ -64,6 +64,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     window.removeEventListener('keydown', this.handleKeyDown)
   }
 
+  onMobile = () => window.innerWidth < 1100
+
   activityUID = () => {
     const { location, } = this.props
     const { search, } = location
@@ -76,7 +78,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const activityUID = this.activityUID()
     const previousFeedback = session.submittedResponses[promptID] || [];
     if (activityUID) {
-      dispatch(getFeedback(activityUID, entry, promptID, promptText, attempt, previousFeedback))
+      dispatch(getFeedback(activityUID, entry, promptID, promptText, attempt, previousFeedback, this.scrollToHighlight))
     }
   }
 
@@ -113,18 +115,85 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   handleDoneReadingClick = () => this.completeStep(READ_PASSAGE_STEP)
 
   scrollToStep = (ref: string) => {
-    const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
-    const el = this[ref]
-    scrollContainer.scrollTo(0, el.offsetTop - 34)
+    if (this.onMobile()) {
+      this.scrollToStepOnMobile(ref)
+    } else {
+      const scrollContainer = document.getElementsByClassName("steps-outer-container")[0]
+      const el = this[ref]
+
+      scrollContainer.scrollTo(0, el.offsetTop - 34)
+    }
   }
 
-  scrollToStepFromStepLink = (ref: string) => {
+  scrollToHighlight = () => {
+    const passageHighlights = document.getElementsByClassName('passage-highlight')
+    if (!passageHighlights.length) { return }
+
+    const el = passageHighlights[0].parentElement
+
+    // we want to scroll 24px above the top of the paragraph, but we have to use 84 because of the 60px padding set at the top of the activity-container element
+    const additionalTopOffset = 84
+
+    if (this.onMobile()) {
+      el.scrollIntoView(true)
+      window.scrollBy(0, -additionalTopOffset)
+    } else {
+      const scrollContainer = document.getElementsByClassName("read-passage-container")[0]
+      scrollContainer.scrollTo(0, el.offsetTop - additionalTopOffset)
+    }
+  }
+
+  scrollToStepOnMobile = (ref: string) => {
     this[ref].scrollIntoView(false)
   }
 
   clickStepLink = (stepNumber: number) => {
     this.activateStep(stepNumber)
-    this.scrollToStepFromStepLink(`step${stepNumber}`)
+    this.scrollToStepOnMobile(`step${stepNumber}`)
+  }
+
+  addPTagsToPassages = (passages) => {
+    return passages.map(passage => {
+      const paragraphArray = passage.match(/[^\r\n]+/g)
+      return paragraphArray.map(p => `<p>${p}</p>`).join('')
+    })
+  }
+
+  formatHtmlForPassage = () => {
+    const { activeStep, } = this.state
+    const { activities, session, } = this.props
+    const { currentActivity, } = activities
+
+    if (!currentActivity) { return }
+
+    let passages = currentActivity.passages
+    const passagesWithPTags = this.addPTagsToPassages(passages)
+
+    if (!activeStep || activeStep === READ_PASSAGE_STEP) { return passagesWithPTags }
+
+    const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
+    const activePromptId = currentActivity.prompts[promptIndex].prompt_id
+    const submittedResponsesForActivePrompt = session.submittedResponses[activePromptId]
+
+    if (!(submittedResponsesForActivePrompt && submittedResponsesForActivePrompt.length)) { return passagesWithPTags }
+
+    const lastSubmittedResponse = submittedResponsesForActivePrompt[submittedResponsesForActivePrompt.length - 1]
+
+    if (!lastSubmittedResponse.highlight) { return passagesWithPTags }
+
+    const passageHighlights = lastSubmittedResponse.highlight.filter(hl => hl.type === "passage")
+
+    passageHighlights.forEach(hl => {
+      const characterStart = hl.character || 0
+      passages = passages.map(passage => {
+        const passageBeforeCharacterStart = passage.substring(0, characterStart)
+        const passageAfterCharacterStart = passage.substring(characterStart)
+        const highlightedPassageAfterCharacterStart = passageAfterCharacterStart.replace(hl.text, `<span class="passage-highlight">${hl.text}</span>`)
+        return `${passageBeforeCharacterStart}${highlightedPassageAfterCharacterStart}`
+      })
+    })
+
+    return this.addPTagsToPassages(passages)
   }
 
   renderStepLinks = () => {
@@ -205,16 +274,16 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   renderReadPassageContainer = () => {
+    const { activeStep, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
     if (!currentActivity) return
+
     return (<div className="read-passage-container">
       <div>
         <p className="directions">Read the passage</p>
         <h1 className="title">{currentActivity.title}</h1>
-        <div className="passage">
-          {currentActivity.passages}
-        </div>
+        <div className="passage" dangerouslySetInnerHTML={{__html: this.formatHtmlForPassage()}} />
       </div>
     </div>)
   }
