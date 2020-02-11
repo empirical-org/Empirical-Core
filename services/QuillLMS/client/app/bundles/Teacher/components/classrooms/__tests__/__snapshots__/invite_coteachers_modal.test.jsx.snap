@@ -29,6 +29,7 @@ exports[`InviteCoteacherModal component if a coteacher does not get passed shoul
           Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.
         </p>
         <Input
+          autoComplete="on"
           className="email"
           handleChange={[Function]}
           label="Co-teacher email"
@@ -135,6 +136,7 @@ exports[`InviteCoteacherModal component if a coteacher gets passed should render
           Co-teachers can do everything you can except move or merge students, archive classes, edit activity packs, and access your Premium features.
         </p>
         <Input
+          autoComplete="on"
           className="email disabled"
           disabled={true}
           label="Co-teacher email"
