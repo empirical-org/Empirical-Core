@@ -34,7 +34,7 @@ class RuleSet(BaseModel):
             return self._process_match_all(rules_list, entry)
         elif self.match == self.REGEX_MATCH_TYPES.ANY:
             return self._process_match_any(rules_list,
-                                                    entry)
+                                           entry)
         else:
             return True
 
@@ -59,4 +59,3 @@ class RuleSet(BaseModel):
                 return False
 
         return True
-

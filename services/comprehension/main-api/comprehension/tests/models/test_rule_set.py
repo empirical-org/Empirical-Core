@@ -1,17 +1,10 @@
-from unittest.mock import patch
-
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from ..factories.ml_feedback import MLFeedbackFactory
-from ..factories.ml_model import MLModelFactory
 from ..factories.prompt import PromptFactory
 from ..factories.rule_set import RuleSetFactory
 from ..factories.rule import RuleFactory
-from ...models.ml_model import MLModel
-from ...models.prompt import Prompt
 from ...models.rule_set import RuleSet
-from ...utils import combine_labels
 
 
 class RuleSetModelTest(TestCase):
