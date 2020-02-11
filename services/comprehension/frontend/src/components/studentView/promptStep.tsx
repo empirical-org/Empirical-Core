@@ -159,7 +159,6 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     let buttonCopy = submittedResponses.length ? 'Get new feedback' : 'Get feedback'
     let className = 'quill-button'
     let onClick = () => this.handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
-    if (submittedResponses.length) { debugger; }
     if (submittedResponses.length === prompt.max_attempts || this.lastSubmittedResponse().optimal) {
       onClick = this.completeStep
       buttonCopy = everyOtherStepCompleted ? 'Done' : 'Start next sentence'
