@@ -35,19 +35,24 @@ class TestUploadFeedbackCommand(TestUploadFeedbackCommandBase):
             'prompt_id': 'MOCK_PROMPT_ID',
             'csv_input': 'MOCK_CSV_INPUT',
         }
-        mock_create_kwargs = {'foo': 'bar'}
+        feedback_kwargs = {'foo': 'bar'}
+        highlight_kwargs = {}
+        mock_create_kwargs = {
+            Command.FEEDBACK_KEY: feedback_kwargs,
+            Command.HIGHLIGHT_KEY: highlight_kwargs,
+        }
         mock_extract.return_value = [mock_create_kwargs]
 
         self.command.handle(**kwargs)
 
         mock_drop.assert_called()
         mock_extract.assert_called_with(kwargs['csv_input'])
-        mock_create_kwargs.update({
+        mock_create_kwargs[Command.FEEDBACK_KEY].update({
             'prompt_id': kwargs['prompt_id'],
         })
-        mock_create.assert_called_with(**mock_create_kwargs)
+        mock_create.assert_called_with(**feedback_kwargs)
 
-    @patch.object(Command, '_process_csv_row')
+    @patch.object(Command, '_process_csv_row_for_feedback')
     @patch(f'{upload_feedback.__name__}.open')
     def test_extract_create_feedback_kwargs(self, mock_open, mock_process):
         file_name = 'FAKE FILE NAME'
@@ -82,23 +87,23 @@ class TestUploadFeedbackProcessCsvRow(TestUploadFeedbackCommandBase):
             Command.FEEDBACK_ORDER_HEADER: 1,
         }
 
-    def test_process_csv_row(self):
-        self.assertEqual(self.command._process_csv_row(self.row), {
+    def test_process_csv_row_for_feedback(self):
+        self.assertEqual(self.command._process_csv_row_for_feedback(self.row), {
             'combined_labels': self.row[Command.COMBINED_LABELS_HEADER],
             'optimal': False,
             'feedback': self.row[Command.FEEDBACK_HEADER],
             'order': self.row[Command.FEEDBACK_ORDER_HEADER],
         })
 
-    def test_process_csv_row_optimal(self):
+    def test_process_csv_row_for_feedback_optimal(self):
         self.row[Command.OPTIMAL_HEADER] = 'Yes'
-        result = self.command._process_csv_row(self.row)
+        result = self.command._process_csv_row_for_feedback(self.row)
         self.assertTrue(result['optimal'])
 
-    def test_process_csv_row_no_labels(self):
+    def test_process_csv_row_for_feedback_no_labels(self):
         del self.row[Command.COMBINED_LABELS_HEADER]
-        self.assertIsNone(self.command._process_csv_row(self.row))
+        self.assertIsNone(self.command._process_csv_row_for_feedback(self.row))
 
-    def test_process_csv_row_no_feedback(self):
+    def test_process_csv_row_for_feedback_no_feedback(self):
         del self.row[Command.FEEDBACK_HEADER]
-        self.assertIsNone(self.command._process_csv_row(self.row))
+        self.assertIsNone(self.command._process_csv_row_for_feedback(self.row))
