@@ -72,8 +72,8 @@ describe('StudentViewContainer component', () => {
     })
 
     describe('when the user clicks on a stepLink', () => {
-      const scrollToStepFromStepLinkMock = jest.fn()
-      wrapper.instance().scrollToStepFromStepLink = scrollToStepFromStepLinkMock
+      const scrollToStepOnMobileMock = jest.fn()
+      wrapper.instance().scrollToStepOnMobile = scrollToStepOnMobileMock
 
       describe('when the read passage step has been completed', () => {
 
@@ -81,7 +81,7 @@ describe('StudentViewContainer component', () => {
           wrapper.setState({ completedSteps: [1], activeStep: 1 })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
           expect(wrapper.state('activeStep')).toBe(4)
-          expect(scrollToStepFromStepLinkMock).toHaveBeenCalled()
+          expect(scrollToStepOnMobileMock).toHaveBeenCalled()
         })
       })
 
@@ -91,7 +91,7 @@ describe('StudentViewContainer component', () => {
           wrapper.setState({ completedSteps: [], activeStep: 1 })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
           expect(wrapper.state('activeStep')).toBe(1)
-          expect(scrollToStepFromStepLinkMock).toHaveBeenCalled()
+          expect(scrollToStepOnMobileMock).toHaveBeenCalled()
         })
       })
     })
