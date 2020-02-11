@@ -59,7 +59,7 @@ describe('Diagnostic Router', () => {
     it("renders an ELLStudentDiagnostic if isELL is true, passing all props", () => {
         mockProps.lessons.data['test-id'].isELL = true;
         const container = shallow(<DiagnosticRouter {...mockProps} />);
-        expect(container.find('Connect(ELLStudentDiagnostic)').length).toEqual(1);
-        expect(container.find('Connect(ELLStudentDiagnostic)').props()).toEqual(mockProps);
+        expect(container.find('LoadNamespace(Connect(ELLStudentDiagnostic))').length).toEqual(1);
+        expect(container.find('LoadNamespace(Connect(ELLStudentDiagnostic))').props()).toEqual(mockProps);
     });
 });
