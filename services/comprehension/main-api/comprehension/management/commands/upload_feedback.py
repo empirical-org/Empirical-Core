@@ -52,41 +52,43 @@ class Command(BaseCommand):
         with open(csv_input) as csvfile:
             data = DictReader(csvfile)
             for row in data:
-                feedback_result = self._process_csv_row_for_feedback(row)
-                highlight_result = self._process_csv_row_for_highlight(row)
-                if not feedback_result:
-                    continue
-                yield {
-                    self.FEEDBACK_KEY: feedback_result,
-                    self.HIGHLIGHT_KEY: highlight_result,
-                }
+                result = self._process_csv_row(row)
+                feedback_result = result[self.FEEDBACK_KEY]
+                highlight_result = result[self.HIGHLIGHT_KEY]
+                if feedback_result:
+                    yield {
+                        self.FEEDBACK_KEY: feedback_result,
+                        self.HIGHLIGHT_KEY: highlight_result,
+                    }
 
-    def _process_csv_row_for_feedback(self, row):
+    def _process_csv_row(self, row):
         combined_labels = row.get(self.COMBINED_LABELS_HEADER)
         optimal = 'y' in row.get(self.OPTIMAL_HEADER, '').lower()
         feedback = row.get(self.FEEDBACK_HEADER)
         feedback_order = row.get(self.FEEDBACK_ORDER_HEADER, 1)
 
-        if not (combined_labels and feedback):
-            return None
-
-        return {
-            'combined_labels': combined_labels,
-            'optimal': optimal,
-            'feedback': feedback,
-            'order': feedback_order,
-        }
-
-    def _process_csv_row_for_highlight(self, row):
         highlight_text = row.get(self.HIGHLIGHT_TEXT_HEADER)
         highlight_skip = row.get(self.HIGHLIGHT_SKIP_HEADER, 0)
 
-        if not highlight_text:
-            return None
+        feedback_kwargs = None
+        if combined_labels and feedback:
+            feedback_kwargs = {
+                'combined_labels': combined_labels,
+                'optimal': optimal,
+                'feedback': feedback,
+                'order': feedback_order,
+            }
+
+        highlight_kwargs = None
+        if highlight_text:
+            highlight_kwargs = {
+                'highlight_text': highlight_text,
+                'start_index': highlight_skip,
+            }
 
         return {
-            'highlight_text': highlight_text,
-            'start_index': highlight_skip,
+          self.FEEDBACK_KEY: feedback_kwargs,
+          self.HIGHLIGHT_KEY: highlight_kwargs,
         }
 
     def _drop_existing_feedback_records(self, prompt_id):

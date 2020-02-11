@@ -73,7 +73,7 @@ class TestUploadFeedbackCommand(TestUploadFeedbackCommandBase):
         mock_feedback_create.assert_called()
         mock_highlight_create.assert_not_called()
 
-    @patch.object(Command, '_process_csv_row_for_feedback')
+    @patch.object(Command, '_process_csv_row')
     @patch(f'{upload_feedback.__name__}.open')
     def test_extract_create_feedback_kwargs(self, mock_open, mock_process):
         file_name = 'FAKE FILE NAME'
@@ -110,41 +110,43 @@ class TestUploadFeedbackProcessCsvRow(TestUploadFeedbackCommandBase):
             Command.HIGHLIGHT_SKIP_HEADER: '8',
         }
 
-    def test_process_csv_row_for_feedback(self):
-        result = self.command._process_csv_row_for_feedback(self.row)
-        self.assertEqual(result, {
+    def test_process_csv_row(self):
+        result = self.command._process_csv_row(self.row)
+        self.assertEqual(result[Command.FEEDBACK_KEY], {
             'combined_labels': self.row[Command.COMBINED_LABELS_HEADER],
             'optimal': False,
             'feedback': self.row[Command.FEEDBACK_HEADER],
             'order': self.row[Command.FEEDBACK_ORDER_HEADER],
         })
 
-    def test_process_csv_row_for_feedback_optimal(self):
+    def test_process_csv_row_optimal(self):
         self.row[Command.OPTIMAL_HEADER] = 'Yes'
-        result = self.command._process_csv_row_for_feedback(self.row)
-        self.assertTrue(result['optimal'])
+        result = self.command._process_csv_row(self.row)
+        self.assertTrue(result[Command.FEEDBACK_KEY]['optimal'])
 
-    def test_process_csv_row_for_feedback_no_labels(self):
+    def test_process_csv_row_no_labels(self):
         del self.row[Command.COMBINED_LABELS_HEADER]
-        self.assertIsNone(self.command._process_csv_row_for_feedback(self.row))
+        result = self.command._process_csv_row(self.row)
+        self.assertIsNone(result[Command.FEEDBACK_KEY])
 
-    def test_process_csv_row_for_feedback_no_feedback(self):
+    def test_process_csv_row_no_feedback(self):
         del self.row[Command.FEEDBACK_HEADER]
-        self.assertIsNone(self.command._process_csv_row_for_feedback(self.row))
+        result = self.command._process_csv_row(self.row)
+        self.assertIsNone(result[Command.FEEDBACK_KEY])
 
-    def test_process_csv_row_for_highlight(self):
-        result = self.command._process_csv_row_for_highlight(self.row)
-        self.assertEqual(result, {
+    def test_process_csv_row_highlight(self):
+        result = self.command._process_csv_row(self.row)
+        self.assertEqual(result[Command.HIGHLIGHT_KEY], {
             'highlight_text': self.row[Command.HIGHLIGHT_TEXT_HEADER],
             'start_index': self.row[Command.HIGHLIGHT_SKIP_HEADER],
         })
 
     def test_process_csv_row_for_highlight_no_text(self):
         self.row[Command.HIGHLIGHT_TEXT_HEADER] = ""
-        result = self.command._process_csv_row_for_highlight(self.row)
-        self.assertIsNone(result)
+        result = self.command._process_csv_row(self.row)
+        self.assertIsNone(result[Command.HIGHLIGHT_KEY])
 
     def test_process_csv_row_for_highlight_default_skip(self):
         del self.row[Command.HIGHLIGHT_SKIP_HEADER]
-        result = self.command._process_csv_row_for_highlight(self.row)
-        self.assertEqual(result['start_index'], 0)
+        result = self.command._process_csv_row(self.row)
+        self.assertEqual(result[Command.HIGHLIGHT_KEY]['start_index'], 0)
