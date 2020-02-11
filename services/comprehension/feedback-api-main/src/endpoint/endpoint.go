@@ -11,11 +11,11 @@ import (
 )
 
 const (
-	automl_api = "https://comprehension-247816.appspot.com/feedback/ml/multi"
-  regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
+	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
 	grammar_check = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
-  spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
+	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 
 )
 

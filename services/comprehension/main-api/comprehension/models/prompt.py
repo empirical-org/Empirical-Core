@@ -1,6 +1,6 @@
 from django.db import models
 
-from . import TimestampedModel
+from . import DjangoChoices, TimestampedModel
 from .ml_feedback import MLFeedback
 from .ml_model import MLModel
 from ..exceptions import ComprehensionException
@@ -17,7 +17,16 @@ INCORRECT_FEEDBACK_OBJ = {
 
 
 class Prompt(TimestampedModel):
+    class LABELING_APPROACHES(DjangoChoices):
+        SINGLE = 'single_label'
+        MULTI = 'multi_label'
+
     text = models.TextField(null=False)
+    labeling_approach = models.TextField(
+        null=False,
+        choices=LABELING_APPROACHES.get_for_choices(),
+        default=LABELING_APPROACHES.MULTI
+    )
     max_attempts = models.PositiveIntegerField(default=5)
     max_attempts_feedback = models.TextField(null=False)
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
@@ -49,9 +58,8 @@ class Prompt(TimestampedModel):
 
         return CORRECT_FEEDBACK_OBJ
 
-    def fetch_auto_ml_feedback(self, entry, previous_feedback=[],
-                               multi_label=True):
-        if multi_label:
+    def fetch_auto_ml_feedback(self, entry, previous_feedback=[]):
+        if self.labeling_approach == self.LABELING_APPROACHES.MULTI:
             labels = self._request_ml_labels(entry)
         else:
             labels = self._request_single_ml_label(entry)
