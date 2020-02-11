@@ -29,7 +29,6 @@ BIGRAM_DICTIONARY = SYM_SPELL.load_bigram_dictionary(BIGRAM_PATH,
 
 def response_endpoint(request):
     request_json = request.get_json()
-
     entry = request_json.get('entry')
     prompt_id = request_json.get('prompt_id')
 
