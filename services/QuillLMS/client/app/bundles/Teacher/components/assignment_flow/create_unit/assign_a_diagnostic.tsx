@@ -8,21 +8,24 @@ const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagno
 const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
 const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
 const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
+const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell-starter.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
+const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
 
-const selectCard = (router, unitTemplateName, activityIdsArray, unitTemplateId) => {
+const selectCard = (router: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
+  const unitTemplateIdString = unitTemplateId.toString();
   window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
   window.localStorage.setItem(UNIT_NAME, unitTemplateName)
   window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
-  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateId)
-  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateId}`)
+  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateIdString)
+  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
-const minis = (props) => [
+const minis = (props: any) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization', },
@@ -61,6 +64,18 @@ const minis = (props) => [
   />),
   (<AssignmentCard
     bodyArray={[
+      { key: 'What', text: 'Simple verb conjugation, articles, subject verb agreement, simple word order, singular vs plural nouns, and adjective placement', },
+      { key: 'When', text: 'Built for beginning English Language Learners who are working on foundational grammar skills.', }
+    ]}
+    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+    buttonText="Preview"
+    header={ELL_STARTER_DIAGNOSTIC}
+    imgAlt="page with less writing that says ELL in the corner"
+    imgSrc={ellStarterDiagnosticSrc}
+    selectCard={() => selectCard(props.router, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([1161].toString()), 154)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
       { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions', },
       { key: 'When', text: 'Built for English Language Learners at the developing, expanding or bridging stages of language proficiency (WIDA Levels 3-5).', }
     ]}
@@ -73,7 +88,7 @@ const minis = (props) => [
   />)
 ];
 
-const AssignADiagnostic = (props) => (
+const AssignADiagnostic = (props: any) => (
   <div className="assignment-flow-container">
     <AssignmentFlowNavigation />
     <ScrollToTop />
