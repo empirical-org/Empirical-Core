@@ -1,12 +1,15 @@
 PROMPT_TO_ACTIVITY_ID_MAP = {
   4: 2,
   5: 2,
-  6: 2
+  6: 2,
+  11: 11,
+  12: 12,
+  13: 13
 }
 
 ACTIVITY_SPECIFIC_IGNORE = {
-  1: ["un", "jong", "eg"],
-  2: ["mayerova", "ariana", "ix", "women's", "men's", "michigan's", ]
+  2: ["mayerova", "ariana", "ix", "women's", "men's", "michigan's", ],
+  11: ["earth's", "fastfood", "plantbased", "onethird", "world's", "impossible's", "meateaters"]
 }
 
 ALWAYS_IGNORE = [
