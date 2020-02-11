@@ -7,6 +7,21 @@ import string
 FEEDBACK_TYPE = 'spelling'
 POS_FEEDBACK = 'Correct spelling!'
 NEG_FEEDBACK = 'Try again. There may be a spelling mistake.'
+SYM_SPELL = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
+DICTIONARY_PATH = pkg_resources.resource_filename(
+                           "symspellpy",
+                           "frequency_dictionary_en_82_765.txt"
+                  )
+BIGRAM_PATH = pkg_resources.resource_filename(
+                            "symspellpy",
+                            "frequency_bigramdictionary_en_243_342.txt"
+              )
+DICTIONARY = SYM_SPELL.load_dictionary(DICTIONARY_PATH,
+                                       term_index=0,
+                                       count_index=1)
+BIGRAM_DICTIONARY = SYM_SPELL.load_bigram_dictionary(BIGRAM_PATH,
+                                                     term_index=0,
+                                                     count_index=2)
 
 
 def response_endpoint(request):
@@ -35,25 +50,8 @@ def response_endpoint(request):
 
 
 def get_misspellings(entry):
-    sym_spell = SymSpell(max_dictionary_edit_distance=2, prefix_length=7)
-    dict_file = "frequency_dictionary_en_82_765.txt"
-    dictionary_path = pkg_resources.resource_filename("symspellpy",
-                                                      dict_file)
-    bigram_file = "frequency_bigramdictionary_en_243_342.txt"
-    bigram_path = pkg_resources.resource_filename("symspellpy",
-                                                  bigram_file)
-
-    result = sym_spell.load_dictionary(dictionary_path,
-                                       term_index=0,
-                                       count_index=1)
-    assert result, "Could not load dictionary resource."
-    result = sym_spell.load_bigram_dictionary(bigram_path,
-                                              term_index=0,
-                                              count_index=2)
-    assert result, "Could not load bigram resource."
-
     entry = entry.strip(string.punctuation)
-    lookup = sym_spell.lookup_compound(entry,
+    lookup = SYM_SPELL.lookup_compound(entry,
                                        max_edit_distance=2,
                                        transfer_casing=True)
     corrected_entry = lookup[0].term
