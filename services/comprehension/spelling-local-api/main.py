@@ -3,9 +3,9 @@ from symspellpy import SymSpell
 from flask import jsonify
 from flask import make_response
 import string
-from lib.words_to_ignore import ACTIVITY_SPECIFIC_IGNORE,
-                                ALWAYS_IGNORE,
-                                PROMPT_TO_ACTIVITY_ID_MAP
+from lib.words_to_ignore import (ACTIVITY_SPECIFIC_IGNORE,
+                                 ALWAYS_IGNORE,
+                                 PROMPT_TO_ACTIVITY_ID_MAP)
 
 FEEDBACK_TYPE = 'spelling'
 POS_FEEDBACK = 'Correct spelling!'
