@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	automl_api = "https://us-east1-comprehension-247816.cloudfunctions.net/response-api-alpha"
+	automl_api = "https://comprehension-247816.appspot.com/feedback/ml/multi"
 	grammar_check = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 )
