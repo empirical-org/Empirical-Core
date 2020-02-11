@@ -79,19 +79,22 @@ class TestBranches(TestCase):
 
 class TestApiSpellCheck(TestCase):
 
-    prompt_id = 106
+    self.prompt_id = 106
 
     def test_correct_spelling(self):
-        misspelled = main.get_misspellings(prompt_id, 'This is spelled correctly.')
+        misspelled = main.get_misspellings(prompt_id,
+                                           'This is spelled correctly.')
         assert len(misspelled) == 0
 
     def test_incorrect_spelling_single_error_middle_of_sentence(self):
-        misspelled = main.get_misspellings(prompt_id, 'This is spellllled correctly.')
+        misspelled = main.get_misspellings(prompt_id,
+                                           'This is spellllled correctly.')
         assert len(misspelled) == 1
         assert 'spellllled' in misspelled
 
     def test_incorrect_spelling_single_error_end_of_sentence(self):
-        misspelled = main.get_misspellings(prompt_id, 'This is spelled incorrectlee.')
+        misspelled = main.get_misspellings(prompt_id,
+                                           'This is spelled incorrectlee.')
         assert len(misspelled) == 1
         assert 'incorrectlee' in misspelled
 
