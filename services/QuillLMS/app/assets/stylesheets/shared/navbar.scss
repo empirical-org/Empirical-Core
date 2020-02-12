@@ -21,6 +21,10 @@
   margin-bottom: 0px;
   &.non-standard-navbar {
     background-color: #06806B;
+    .navbar-brand {
+      padding: 0px;
+      height: inherit;
+    }
     @media only screen and (max-width: 1165px) and (min-width: 600px) {
       nav.q-navbar-home {
         width: 100%;
