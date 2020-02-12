@@ -29,9 +29,6 @@
         justify-content: space-between;
         text-align: left;
       }
-      &:nth-of-type(3n) {
-        margin-right: 0px;
-      }
       h2, h3 {
         line-height: normal;
         margin-top: 4px;
@@ -58,7 +55,18 @@
         outline: none;
       }
     }
-    @media (max-width: 740px) {
+    @media (min-width: 882px) {
+      .classroom-card:nth-of-type(3n) {
+        margin-right: 0px;
+      }
+    }
+
+    @media (max-width: 978px) {
+      .classroom-card {
+        width: 268px;
+      }
+    }
+    @media (max-width: 650px) {
       .classroom-cards {
         flex-direction: column;
         align-items: center;
