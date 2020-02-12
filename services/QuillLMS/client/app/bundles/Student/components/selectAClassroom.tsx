@@ -34,7 +34,6 @@ export default class SelectAClassroom extends React.Component<any, any> {
     return (<div className="classroom-cards">
       {joinAClassCard}
       {classroomCards}
-      {classroomCards}
     </div>)
   }
 
