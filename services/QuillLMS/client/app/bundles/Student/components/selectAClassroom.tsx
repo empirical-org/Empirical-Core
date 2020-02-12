@@ -39,9 +39,11 @@ export default class SelectAClassroom extends React.Component<any, any> {
   }
 
   render() {
-    return (<div className="select-a-classroom container">
-      <h1>Classes</h1>
-      {this.renderClassroomCards()}
+    return (<div className="container select-a-classroom-container">
+      <div className="select-a-classroom">
+        <h1>Classes</h1>
+        {this.renderClassroomCards()}
+      </div>
     </div>)
   }
 }
