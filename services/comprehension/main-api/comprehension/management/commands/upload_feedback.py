@@ -62,13 +62,13 @@ class Command(BaseCommand):
                     }
 
     def _process_csv_row(self, row):
-        combined_labels = row.get(self.COMBINED_LABELS_HEADER)
-        optimal = 'y' in row.get(self.OPTIMAL_HEADER, '').lower()
-        feedback = row.get(self.FEEDBACK_HEADER)
-        feedback_order = row.get(self.FEEDBACK_ORDER_HEADER, 1)
+        combined_labels = row.get(self.COMBINED_LABELS_HEADER).strip()
+        optimal = 'y' in row.get(self.OPTIMAL_HEADER, '').lower().strip()
+        feedback = row.get(self.FEEDBACK_HEADER).strip()
+        feedback_order = row.get(self.FEEDBACK_ORDER_HEADER, 1).strip()
 
-        highlight_text = row.get(self.HIGHLIGHT_TEXT_HEADER)
-        highlight_skip = row.get(self.HIGHLIGHT_SKIP_HEADER, 0)
+        highlight_text = row.get(self.HIGHLIGHT_TEXT_HEADER).strip()
+        highlight_skip = row.get(self.HIGHLIGHT_SKIP_HEADER, "0").strip()
 
         feedback_kwargs = None
         if combined_labels and feedback:
