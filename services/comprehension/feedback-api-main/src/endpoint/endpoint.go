@@ -127,7 +127,7 @@ type APIResponse struct {
 	Optimal bool `json:"optimal"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
-        Labels []string `json:"labels,omitempty"`
+        Labels string `json:"labels,omitempty"`
 }
 
 type Highlight struct {
