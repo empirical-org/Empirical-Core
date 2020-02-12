@@ -1,0 +1,30 @@
+.student-profile-header {
+  background-color: #fff;
+  .container {
+    display: flex;
+    height: 88px;
+    align-items: center;
+    .quill-button {
+      margin-right: 32px;
+      img {
+        margin-right: 8px;
+      }
+    }
+    div {
+      margin-right: 32px;
+      display: flex;
+      flex-direction: column;
+      p {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+        color: #5c5c5c;
+        margin-bottom: 4px;
+      }
+      h4 {
+        font-size: 16px;
+        line-height: normal;
+      }
+    }
+  }
+}

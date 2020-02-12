@@ -57,7 +57,7 @@ class StudentProfile extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { selectedClassroomId, router, } = this.props
-    if (nextProps.selectedClassroomId !== selectedClassroomId) {
+    if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
         router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
@@ -69,7 +69,7 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick(classroomId) {
-    const { loading, handleClassroomClick, fetchStudentProfile, history, router, } = this.props;
+    const { loading, handleClassroomClick, fetchStudentProfile, router, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
@@ -78,6 +78,13 @@ class StudentProfile extends React.Component {
       fetchStudentProfile(classroomId);
     }
   }
+
+  handleClickAllClasses = () => {
+    const { fetchStudentProfile, router, } = this.props;
+    router.push('/profile')
+    fetchStudentProfile()
+  }
+
 
   initializePusher() {
     const { student, fetchStudentProfile, } = this.props;
@@ -135,18 +142,20 @@ class StudentProfile extends React.Component {
     //   toggleDropdown={toggleDropdown}
     // />
 
-    return (<div id="student-profile">
+    return (<div className="student-profile-container">
       <StudentProfileHeader
         classroomName={student.classroom.name}
-        studentName={student.name}
+        onClickAllClasses={this.handleClickAllClasses}
         teacherName={student.classroom.teacher.name}
       />
-      <NotificationFeed notifications={notifications} />
-      {nextActivity}
-      <StudentProfileUnits
-        data={scores}
-        loading={loading}
-      />
+      <div id="student-profile">
+        <NotificationFeed notifications={notifications} />
+        {nextActivity}
+        <StudentProfileUnits
+          data={scores}
+          loading={loading}
+        />
+      </div>
     </div>);
   }
 }

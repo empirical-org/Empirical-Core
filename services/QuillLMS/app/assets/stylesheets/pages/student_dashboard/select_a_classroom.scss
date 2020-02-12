@@ -1,6 +1,7 @@
 .select-a-classroom-container {
   width: 100%;
   max-width: 980px;
+  padding-bottom: 80px;
   .select-a-classroom {
     padding: 40px 0px;
     margin: auto;
@@ -28,6 +29,9 @@
         justify-content: space-between;
         text-align: left;
       }
+      &:nth-of-type(3n) {
+        margin-right: 0px;
+      }
       h2, h3 {
         line-height: normal;
         margin-top: 4px;
@@ -49,14 +53,9 @@
         line-height: 1;
         color: #5c5c5c;
       }
-      &:hover, &:focus {
-        box-shadow: 0 0 0 2px #06806b;
+      &:hover, &:focus, &:active {
+        box-shadow: 0 0 0 2px #06806b !important;
         outline: none;
-      }
-    }
-    @media (min-width: 1166px) {
-      .classroom-card:nth-of-type(3n) {
-        margin-right: 0px;
       }
     }
     @media (max-width: 740px) {
@@ -71,10 +70,6 @@
           height: 100px;
         }
       }
-    }
-    @media only screen and (max-width: 1165px) and (min-width: 600px) {
-      width: calc(100% - 30px);
-      padding: 40px 15px;
     }
   }
 }
