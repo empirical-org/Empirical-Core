@@ -1,6 +1,32 @@
+import request from 'request';
+
+const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
+
 export default {
   path: 'admin',
-  indexRoute: { onEnter: (nextState, replace) => replace('/admin/question-health'), },
+  indexRoute: { onEnter: (nextState, replace) =>
+    fetch(usersEndpoint, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+        if (response.user === null || (response.user.hasOwnProperty('role') && response.user.role !== 'staff')){
+         window.location = newSessionEndpoint;
+        }
+        else {
+         if (response.user !== null && (response.user.hasOwnProperty('role') && response.user.role === 'staff')){
+          window.location = '/#/admin/question-health';
+          }
+        }
+    }).catch((error) => {
+      // to do, use Sentry to capture error
+    })},
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
       import(/* webpackChunkName: "admin-concept_feedback" */ './routes/ConceptFeedback/index.js'),
