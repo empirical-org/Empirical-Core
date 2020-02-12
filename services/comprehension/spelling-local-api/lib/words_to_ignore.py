@@ -3,8 +3,8 @@ PROMPT_TO_ACTIVITY_ID_MAP = {
   5: 2,
   6: 2,
   11: 11,
-  12: 12,
-  13: 13
+  12: 11,
+  13: 11
 }
 
 ACTIVITY_SPECIFIC_IGNORE = {
