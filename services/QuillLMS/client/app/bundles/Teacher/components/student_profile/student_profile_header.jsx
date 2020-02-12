@@ -15,7 +15,7 @@ const StudentProfileHeader = ({ classroomName, teacherName, onClickAllClasses, }
           <p>Class</p>
           <h4>{classroomName}</h4>
         </div>
-        <div>
+        <div className="teacher-section">
           <p>Teacher</p>
           <h4>{teacherName}</h4>
         </div>
