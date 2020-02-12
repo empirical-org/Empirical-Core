@@ -21,6 +21,11 @@
   margin-bottom: 0px;
   &.non-standard-navbar {
     background-color: #06806B;
+    .navbar-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .navbar-brand {
       padding: 0px;
       height: inherit;
@@ -179,12 +184,6 @@ nav.q-navbar-home {
   align-content: center;
   position:relative;
   margin: 0px auto;
-
-  .navbar-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
   .logo-only {
     width: 100%;
