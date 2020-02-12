@@ -65,10 +65,10 @@ class Command(BaseCommand):
         combined_labels = row.get(self.COMBINED_LABELS_HEADER).strip()
         optimal = 'y' in row.get(self.OPTIMAL_HEADER, '').lower().strip()
         feedback = row.get(self.FEEDBACK_HEADER).strip()
-        feedback_order = row.get(self.FEEDBACK_ORDER_HEADER, 1).strip()
+        feedback_order = row.get(self.FEEDBACK_ORDER_HEADER, "").strip() or 1
 
         highlight_text = row.get(self.HIGHLIGHT_TEXT_HEADER).strip()
-        highlight_skip = row.get(self.HIGHLIGHT_SKIP_HEADER, "0").strip()
+        highlight_skip = row.get(self.HIGHLIGHT_SKIP_HEADER, "").strip() or 0
 
         feedback_kwargs = None
         if combined_labels and feedback:
