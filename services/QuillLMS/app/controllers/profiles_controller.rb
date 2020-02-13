@@ -92,7 +92,7 @@ class ProfilesController < ApplicationController
       WHERE sc.student_id = #{current_user.id}
       AND classrooms.visible = true
       AND sc.visible = true
-      ORDER BY sc.created_at ASC").to_a
+      ORDER BY sc.created_at DESC").to_a
   end
 
   def student_profile_data_sql(classroom_id=nil)
