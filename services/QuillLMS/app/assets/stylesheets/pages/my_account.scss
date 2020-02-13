@@ -302,6 +302,7 @@
       cursor: pointer;
       background-color: transparent;
       border: none;
+      min-width: 128px;
     }
   }
   .school-search-container {
@@ -368,6 +369,18 @@
     }
     .current-password {
       margin-bottom: 5px;
+    }
+  }
+  @media (max-width: 370px) {
+    .button-section {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      .secondary {
+        margin-right: 0px;
+      }
+      .primary {
+        margin-bottom: 24px;
+      }
     }
   }
 }
