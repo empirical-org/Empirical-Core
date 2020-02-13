@@ -24,36 +24,37 @@
 <nav class="q-navbar-home">
   <% if on_sign_up_or_log_in %>
     <div class="logo-only">
-      <a class="focus-on-dark" href=<%= root_path %>>
-        <img src="/images/quill_header_logo.svg" alt="Quill Logo">
+      <a aria-label="Quill" class="focus-on-dark" href=<%= root_path %>>
+        <img src="/images/quill_header_logo.svg" alt="Quill logo">
       </a>
     </div>
   <% else %>
 	  <div class="navbar-header">
-  		<a class="navbar-brand" href=<%= root_path %>>
-  			<img src="/images/quill_header_logo.svg" alt="Quill Logo">
+			<a aria-label="Quill" class="focus-on-dark navbar-brand" href=<%= root_path %> >
+  			<img src="https://assets.quill.org/images/logos/quill-logo-white.svg" alt="Quill.org logo">
   		</a>
   	</div>
 
+		<% if current_user&.student? %>
+			<%= react_component('StudentNavbarItems', props: { name: current_user.name }) %>
+		<% else %>
   		<div class='home-nav-right wide' >
-
-  		<% if !current_user %>
-  	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
-  	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
-  	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
-  	    <%= render 'navbar/our_story', active_tab: active_tab %>
-  		<% elsif current_user.role != 'student' %>
-  			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
-  			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
-  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
-   		<% end %>
-
+	  		<% if !current_user %>
+	  	    <%= render 'navbar/learning_tools', active_tab: active_tab %>
+	  	    <%= render 'navbar/explore_curriculum', active_tab: active_tab %>
+	  	    <%= render 'navbar/teacher_center', active_tab: active_tab %>
+	  	    <%= render 'navbar/our_story', active_tab: active_tab %>
+	  		<% elsif current_user.role != 'student' %>
+	  			<%= render 'navbar/learning_tools', active_tab: active_tab  %>
+	  			<%= render 'navbar/teacher_center', active_tab: active_tab  %>
+	  			<%= render 'navbar/quill_support', active_tab: active_tab  %>
+	   		<% end %>
   		<%- if current_user.nil? %>
-                <%= render layout: "tracked_link", locals: { href: "/session/new",
-                                                             classes: "text-white nav-element",
-                                                             event: SegmentIo::Events::CLICK_LOG_IN,
-                                                             properties: { location: "header" }
-                                                            } do %>
+            <%= render layout: "tracked_link", locals: { href: "/session/new",
+                                                         classes: "text-white nav-element",
+                                                         event: SegmentIo::Events::CLICK_LOG_IN,
+                                                         properties: { location: "header" }
+                                                        } do %>
                   Log In
                 <% end %>
                 <%= render layout: "tracked_link", locals: { href: "/account/new",
@@ -109,18 +110,14 @@
   					%>
   				</div>
   			</div>
-  		<%- elsif current_user.role == 'student' %>
-  			<%= link_to raw("<i class='fas fa-fw fa-question-circle' aria-hidden='true'></i> Student Center"), '/student-center', class: "text-white nav-element" %>
-  			<%= link_to raw("<i class='fas fa-fw fa-plus-circle' aria-hidden='true'></i>  Join a Class"), '/add_classroom', class: "text-white nav-element" %>
-  			<%= link_to raw("<i class='fas fa-fw fa-cog' aria-hidden='true'></i>  Account Settings"), account_settings_path, class: "text-white nav-element" %>
-  			<%= link_to "Logout", '/session' , class: "text-white nav-element"%>
   		<% else %>
-  		<%= link_to "Logout", '/session', class: "text-white nav-element"%>
-    <% end %>
-  </div>
-  <% end %>
+  			<%= link_to "Logout", '/session', class: "text-white nav-element"%>
+			<% end %>
+	  </div>
+	  <% end %>
+	<% end %>
 
-	<% if !on_sign_up_or_log_in %>
+	<% if !on_sign_up_or_log_in && current_user&.role != 'student' %>
 	  <nav class="home-nav-dropdown" role="home-custom-dropdown">
 	    <input class="home-nav-checkbox" type="checkbox" id="button-nav">
 	    <label for="button-nav" onclick=""></label>
