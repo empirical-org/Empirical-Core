@@ -79,8 +79,8 @@ interface QuestionCollection {
 
 class QuestionApi {
   static getAll(): Promise<QuestionCollection> {
-    # Temporarily send this extra param for debugging purposes.
-    # We'll remove this once we hunt down whatever's going on.
+    // Temporarily send this extra param for debugging purposes.
+    // We'll remove this once we hunt down whatever's going on.
     return requestGet(`${questionApiBaseUrl}.json?question_type=connect_sentence_combining&location_hash=${location.hash.substring(1)}`);
     return requestGet(`${questionApiBaseUrl}.json?question_type=connect_sentence_combining`);
   }
