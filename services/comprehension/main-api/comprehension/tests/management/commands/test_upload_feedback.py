@@ -105,7 +105,7 @@ class TestUploadFeedbackProcessCsvRow(TestUploadFeedbackCommandBase):
             Command.COMBINED_LABELS_HEADER: 'Label1-Label2',
             Command.OPTIMAL_HEADER: 'no',
             Command.FEEDBACK_HEADER: 'Feedback goes here',
-            Command.FEEDBACK_ORDER_HEADER: 1,
+            Command.FEEDBACK_ORDER_HEADER: '1',
             Command.HIGHLIGHT_TEXT_HEADER: 'goes here',
             Command.HIGHLIGHT_SKIP_HEADER: '8',
         }
