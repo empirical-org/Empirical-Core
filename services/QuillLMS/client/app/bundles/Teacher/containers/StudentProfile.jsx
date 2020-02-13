@@ -132,16 +132,6 @@ class StudentProfile extends React.Component {
       name={nextActivitySession.name}
     />) : null;
 
-    // <StudentsClassroomsHeader
-    //   classrooms={classrooms}
-    //   handleClick={this.handleClassroomTabClick}
-    //   hideDropdown={hideDropdown}
-    //   numberOfClassroomTabs={numberOfClassroomTabs}
-    //   selectedClassroomId={selectedClassroomId}
-    //   showDropdown={showDropdown}
-    //   toggleDropdown={toggleDropdown}
-    // />
-
     return (<div className="student-profile-container">
       <StudentProfileHeader
         classroomName={student.classroom.name}
