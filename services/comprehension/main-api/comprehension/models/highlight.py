@@ -10,7 +10,7 @@ class Highlight(TimestampedModel):
 
     feedback = models.ForeignKey(
         MLFeedback,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='highlights'
     )
     highlight_text = models.TextField(null=False)

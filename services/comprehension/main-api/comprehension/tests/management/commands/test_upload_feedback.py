@@ -4,6 +4,7 @@ from unittest.mock import call, MagicMock, patch
 from django.test import TestCase
 
 from ....management.commands import upload_feedback
+from ....models.highlight import Highlight
 from ....models.ml_feedback import MLFeedback
 
 Command = upload_feedback.Command
@@ -27,7 +28,7 @@ class TestUploadFeedbackCommand(TestUploadFeedbackCommandBase):
                               help='The path to the input CSV file'),
         ])
 
-    @patch.object(MLFeedback.objects, 'create')
+    @patch.object(Command, '_create_records')
     @patch.object(Command, '_extract_create_feedback_kwargs')
     @patch.object(Command, '_drop_existing_feedback_records')
     def test_handle(self, mock_drop, mock_extract, mock_create):
@@ -35,17 +36,42 @@ class TestUploadFeedbackCommand(TestUploadFeedbackCommandBase):
             'prompt_id': 'MOCK_PROMPT_ID',
             'csv_input': 'MOCK_CSV_INPUT',
         }
-        mock_create_kwargs = {'foo': 'bar'}
+        feedback_kwargs = {'foo': 'bar'}
+        highlight_kwargs = {'baz': 'qux'}
+        mock_create_kwargs = {
+            Command.FEEDBACK_KEY: feedback_kwargs,
+            Command.HIGHLIGHT_KEY: highlight_kwargs,
+        }
         mock_extract.return_value = [mock_create_kwargs]
 
         self.command.handle(**kwargs)
 
         mock_drop.assert_called()
         mock_extract.assert_called_with(kwargs['csv_input'])
-        mock_create_kwargs.update({
+        mock_create_kwargs[Command.FEEDBACK_KEY].update({
             'prompt_id': kwargs['prompt_id'],
         })
-        mock_create.assert_called_with(**mock_create_kwargs)
+        mock_create.assert_called_with(feedback_kwargs, highlight_kwargs)
+
+    @patch.object(Highlight.objects, 'create')
+    @patch.object(MLFeedback.objects, 'create')
+    def test_create_records(self, mock_feedback_create,
+                            mock_highlight_create):
+        feedback_kwargs = {'foo': 'bar'}
+        highlight_kwargs = {'baz': 'qux'}
+        self.command._create_records(feedback_kwargs, highlight_kwargs)
+        mock_feedback_create.assert_called_with(**feedback_kwargs)
+        mock_highlight_create.assert_called_with(**highlight_kwargs)
+
+    @patch.object(Highlight.objects, 'create')
+    @patch.object(MLFeedback.objects, 'create')
+    def test_create_records_no_highlight(self, mock_feedback_create,
+                                         mock_highlight_create):
+        feedback_kwargs = {'foo': 'bar'}
+        highlight_kwargs = None
+        self.command._create_records(feedback_kwargs, highlight_kwargs)
+        mock_feedback_create.assert_called()
+        mock_highlight_create.assert_not_called()
 
     @patch.object(Command, '_process_csv_row')
     @patch(f'{upload_feedback.__name__}.open')
@@ -79,11 +105,14 @@ class TestUploadFeedbackProcessCsvRow(TestUploadFeedbackCommandBase):
             Command.COMBINED_LABELS_HEADER: 'Label1-Label2',
             Command.OPTIMAL_HEADER: 'no',
             Command.FEEDBACK_HEADER: 'Feedback goes here',
-            Command.FEEDBACK_ORDER_HEADER: 1,
+            Command.FEEDBACK_ORDER_HEADER: '1',
+            Command.HIGHLIGHT_TEXT_HEADER: 'goes here',
+            Command.HIGHLIGHT_SKIP_HEADER: '8',
         }
 
     def test_process_csv_row(self):
-        self.assertEqual(self.command._process_csv_row(self.row), {
+        result = self.command._process_csv_row(self.row)
+        self.assertEqual(result[Command.FEEDBACK_KEY], {
             'combined_labels': self.row[Command.COMBINED_LABELS_HEADER],
             'optimal': False,
             'feedback': self.row[Command.FEEDBACK_HEADER],
@@ -93,12 +122,31 @@ class TestUploadFeedbackProcessCsvRow(TestUploadFeedbackCommandBase):
     def test_process_csv_row_optimal(self):
         self.row[Command.OPTIMAL_HEADER] = 'Yes'
         result = self.command._process_csv_row(self.row)
-        self.assertTrue(result['optimal'])
+        self.assertTrue(result[Command.FEEDBACK_KEY]['optimal'])
 
     def test_process_csv_row_no_labels(self):
         del self.row[Command.COMBINED_LABELS_HEADER]
-        self.assertIsNone(self.command._process_csv_row(self.row))
+        result = self.command._process_csv_row(self.row)
+        self.assertIsNone(result[Command.FEEDBACK_KEY])
 
     def test_process_csv_row_no_feedback(self):
         del self.row[Command.FEEDBACK_HEADER]
-        self.assertIsNone(self.command._process_csv_row(self.row))
+        result = self.command._process_csv_row(self.row)
+        self.assertIsNone(result[Command.FEEDBACK_KEY])
+
+    def test_process_csv_row_highlight(self):
+        result = self.command._process_csv_row(self.row)
+        self.assertEqual(result[Command.HIGHLIGHT_KEY], {
+            'highlight_text': self.row[Command.HIGHLIGHT_TEXT_HEADER],
+            'start_index': self.row[Command.HIGHLIGHT_SKIP_HEADER],
+        })
+
+    def test_process_csv_row_for_highlight_no_text(self):
+        self.row[Command.HIGHLIGHT_TEXT_HEADER] = ""
+        result = self.command._process_csv_row(self.row)
+        self.assertIsNone(result[Command.HIGHLIGHT_KEY])
+
+    def test_process_csv_row_for_highlight_default_skip(self):
+        del self.row[Command.HIGHLIGHT_SKIP_HEADER]
+        result = self.command._process_csv_row(self.row)
+        self.assertEqual(result[Command.HIGHLIGHT_KEY]['start_index'], 0)
