@@ -4,6 +4,7 @@ import NextActivity from '../components/student_profile/next_activity.jsx';
 import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
+import SelectAClassroom from '../../Student/components/selectAClassroom'
 import Pusher from 'pusher-js';
 import { connect } from 'react-redux';
 import {
@@ -55,9 +56,10 @@ class StudentProfile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedClassroomId !== this.props.selectedClassroomId) {
+    const { selectedClassroomId, router, } = this.props
+    if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        this.props.router.push(`classrooms/${nextProps.selectedClassroomId}`);
+        router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
     }
   }
@@ -67,15 +69,22 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick(classroomId) {
-    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
+    const { loading, handleClassroomClick, fetchStudentProfile, router, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
-      this.props.router.push(newUrl);
+      router.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
     }
   }
+
+  handleClickAllClasses = () => {
+    const { fetchStudentProfile, router, } = this.props;
+    router.push('/profile')
+    fetchStudentProfile()
+  }
+
 
   initializePusher() {
     const { student, fetchStudentProfile, } = this.props;
@@ -109,41 +118,45 @@ class StudentProfile extends React.Component {
       scores,
     } = this.props;
 
-    if (!loading) {
-      const nextActivity = nextActivitySession ? (<NextActivity
-        activityClassificationId={nextActivitySession.activity_classification_id}
-        activityId={nextActivitySession.activity_id}
-        caId={nextActivitySession.ca_id}
-        hasActivities={scores.length > 0}
-        loading={loading}
-        maxPercentage={nextActivitySession.max_percentage}
-        name={nextActivitySession.name}
-      />) : null;
-      return (
-        <div id="student-profile">
-          <StudentsClassroomsHeader
-            classrooms={classrooms}
-            handleClick={this.handleClassroomTabClick}
-            hideDropdown={hideDropdown}
-            numberOfClassroomTabs={numberOfClassroomTabs}
-            selectedClassroomId={selectedClassroomId || student.classroom.id}
-            showDropdown={showDropdown}
-            toggleDropdown={toggleDropdown}
-          />
-          <StudentProfileHeader
-            classroomName={student.classroom.name}
-            studentName={student.name}
-            teacherName={student.classroom.teacher.name}
-          />
-          <NotificationFeed notifications={notifications} />
-          {nextActivity}
-          <StudentProfileUnits
-            data={scores}
-            loading={loading}
-          />
-        </div>
-      );
-    } return <span />;
+    if (loading) { return <span /> }
+
+    if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} onClickCard={this.handleClassroomTabClick} />)}
+
+    const nextActivity = nextActivitySession ? (<NextActivity
+      activityClassificationId={nextActivitySession.activity_classification_id}
+      activityId={nextActivitySession.activity_id}
+      caId={nextActivitySession.ca_id}
+      hasActivities={scores.length > 0}
+      loading={loading}
+      maxPercentage={nextActivitySession.max_percentage}
+      name={nextActivitySession.name}
+    />) : null;
+
+    // <StudentsClassroomsHeader
+    //   classrooms={classrooms}
+    //   handleClick={this.handleClassroomTabClick}
+    //   hideDropdown={hideDropdown}
+    //   numberOfClassroomTabs={numberOfClassroomTabs}
+    //   selectedClassroomId={selectedClassroomId}
+    //   showDropdown={showDropdown}
+    //   toggleDropdown={toggleDropdown}
+    // />
+
+    return (<div className="student-profile-container">
+      <StudentProfileHeader
+        classroomName={student.classroom.name}
+        onClickAllClasses={this.handleClickAllClasses}
+        teacherName={student.classroom.teacher.name}
+      />
+      <div id="student-profile">
+        <NotificationFeed notifications={notifications} />
+        {nextActivity}
+        <StudentProfileUnits
+          data={scores}
+          loading={loading}
+        />
+      </div>
+    </div>);
   }
 }
 
