@@ -19,8 +19,24 @@
   margin-top: 0px;
   border-radius: 0px;
   margin-bottom: 0px;
-  &.sign-up-or-login-navbar {
+  &.non-standard-navbar {
     background-color: #06806B;
+    .navbar-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .navbar-brand {
+      padding: 0px;
+      height: inherit;
+      margin-left: 0px !important;
+    }
+    @media only screen and (max-width: 1165px) and (min-width: 600px) {
+      nav.q-navbar-home {
+        width: 100%;
+        padding: 0px;
+      }
+    }
   }
   .container {
     width: 100%;
@@ -169,12 +185,6 @@ nav.q-navbar-home {
   align-content: center;
   position:relative;
   margin: 0px auto;
-
-  .navbar-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
   .logo-only {
     width: 100%;
