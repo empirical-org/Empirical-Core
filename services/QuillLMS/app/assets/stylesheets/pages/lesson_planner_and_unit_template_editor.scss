@@ -77,6 +77,9 @@
         }
         .app-buttons {
           display: flex;
+          .filter-button:focus {
+            outline: none;
+          }
         }
         &.diagnostic-section, &.whole-class-section {
           margin-right: 16px;

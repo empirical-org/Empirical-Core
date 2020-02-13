@@ -1,0 +1,110 @@
+.student-navbar-items {
+  display: flex;
+  height: 100%;
+  .student-navbar-dropdown {
+    position: relative;
+    #name-container {
+      background-color: transparent;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      padding: 0px;
+      display: flex;
+      align-items: center;
+      border: none;
+      .dropdown-indicator {
+        background: url(https://assets.quill.org/images/icons/dropdown.svg);
+        height: 15px;
+        width: 15px;
+        filter: brightness(0) invert(1.5);
+        margin-bottom: 2px;
+        margin-left: 4px;
+      }
+      img {
+        margin-right: 8px;
+      }
+    }
+    .dropdown-menu {
+      display: flex;
+      flex-direction: column;
+      width: 112px;
+      min-width: min-content;
+      right: 0px;
+      left: initial;
+      box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 6px 10px 0 rgba(0, 0, 0, 0.14);
+      border: none;
+      a {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1;
+        padding: 10px 16px;
+        &:focus, &:hover, &:active {
+          background-color: #f2f2f2;
+          text-decoration: none;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .student-navbar-item {
+    margin-left: 24px;
+  }
+
+
+  .mobile-nav-right {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+    #mobile-dropdown-container {
+      font-size: 16px;
+      display: flex;
+      font-weight: 600;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      color: white;
+      img {
+        margin-right: 4px;
+      }
+    }
+    .mobile-student-nav-menu {
+      position: absolute;
+      min-height: 1000vh;
+      top: 65px;
+      background-color: #fff;
+      z-index: 100;
+      overflow-y: hidden;
+      width: 100vw;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 32px 16px;
+      display: flex;
+      flex-direction: column;
+      a {
+        font-size: 16px;
+        margin-bottom: 32px;
+      }
+    }
+
+    @media (min-width: 650px) {
+      display: none;
+    }
+
+    @media (min-width: 600px) {
+      .mobile-student-nav-menu {
+        padding: 32px 48px;
+      }
+    }
+  }
+
+  @media (min-width: 650px) {
+    .home-nav-right.wide {
+      display: flex !important;
+    }
+  }
+}

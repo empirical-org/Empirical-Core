@@ -16,7 +16,7 @@ export default React.createClass({
     const { data, active, } = this.props
     const activeClassName = active ? 'active' : null;
     return (
-      <button className={`${activeClassName} ${data.key}`} onClick={() => this.handleClick()}>
+      <button className={`${activeClassName} ${data.key} filter-button`} onClick={this.handleClick}>
         <div className={`tool-${data.key}-gray`} />
         <div>
           <h4>{data.alias}</h4>
