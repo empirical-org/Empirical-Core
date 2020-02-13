@@ -104,10 +104,8 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	var result APIResponse
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
-		buf := new(bytes.Buffer)
-		buf.ReadFrom(response_json.Body)
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: buf.String(), Feedback_type: "There was an JSON error", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Optimal: false}}
 		return
 	}
 
@@ -127,7 +125,7 @@ type APIResponse struct {
 	Optimal bool `json:"optimal"`
 	Response_id string `json:"response_id"`
 	Highlight []Highlight `json:"highlight"`
-        Labels string `json:"labels,omitempty"`
+	Labels string `json:"labels,omitempty"`
 }
 
 type Highlight struct {
