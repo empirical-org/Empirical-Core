@@ -21,7 +21,6 @@ export default {
             window.location = newSessionEndpoint;
           }
           else {
-           if (response.user !== null && (response.user.hasOwnProperty('role') && response.user.role === 'staff')){
             Promise.all([
               import(/* webpackChunkName: "admin-concept_feedback" */ './routes/ConceptFeedback/index.js'),
               import(/* webpackChunkName: "admin-concepts" */ './routes/Concepts/index.js'),
@@ -38,7 +37,6 @@ export default {
             .then(modules => cb(null, modules.map(module => module.default)))
             // to do, use Sentry to capture error
             // .catch(err => console.error('Dynamic page loading failed', err));
-            }
           }
       }).catch((error) => {
         // to do, use Sentry to capture error
