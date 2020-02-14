@@ -14,7 +14,8 @@ import updateResponseResource from '../renderForQuestions/updateResponseResource
 import Cues from '../renderForQuestions/cues.jsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
-import { stringNormalize } from 'quill-string-normalizer'
+import { stringNormalize } from 'quill-string-normalizer';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const styles = {
   container: {
@@ -90,15 +91,30 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   getInstructionText = () => {
-    const { language, } = this.props
-    const q = this.getQuestion()
-    const textKey = translationMap[q.key];
-    let text = q.instructions ? q.instructions : translations.english[textKey];
-    if (language && language !== 'english') {
-      const textClass = language === 'arabic' ? 'right-to-left' : '';
+    const { diagnosticID, language, question, translate } = this.props;
+    const { instructions } = question;
+    const textKey = translationMap[question.key];
+    let text = instructions ? instructions : translations.english[textKey];
+    if(!language) {
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else if (language !== ENGLISH && diagnosticID === 'ell') {
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else if(diagnosticID === 'ell') {
+      return <p dangerouslySetInnerHTML={{ __html: text, }} />;
+    } else {
+      const text = `instructions^${instructions}`;
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+      const translationPresent = language !== ENGLISH;
+      return(
+        <div>
+          <p>{instructions}</p>
+          {translationPresent && <br />}
+          {translationPresent && <p className={textClass}>{translate(text)}</p>}
+        </div>
+      );
     }
-    return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
   }
 
   generateInputs(numberOfInputVals: number) {
@@ -215,8 +231,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   handleSubmitResponse = () => {
-    const { inputErrors, responses, blankAllowed, inputVals, } = this.state
-    const { question, nextQuestion, } = this.props
+    const { inputErrors, responses, blankAllowed, inputVals, } = this.state;
+    const { question, nextQuestion, } = this.props;
+    const { caseInsensitive, conceptID, key } = question;
     if (!inputErrors.size && responses) {
       if (!blankAllowed) {
         if (inputVals.filter(Boolean).length !== inputVals.length) {
@@ -225,9 +242,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         }
       }
       const zippedAnswer = this.zipInputsAndText();
-      const questionUID = question.key
-      const responsesArray = hashToCollection(responses)
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray)}
+      const questionUID = key;
+      const defaultConceptUID = conceptID;
+      const responsesArray = hashToCollection(responses);
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
       this.setResponse(response);
       this.updateResponseResource(response);
       this.submitResponse(response);
@@ -275,30 +293,34 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     } else {
       let text = translations.english['add word bank cue'];
       text = `${text}${blankAllowed ? ' or leave blank' : ''}`;
-      if (language && language !== 'english') {
+      if (language && language !== ENGLISH) {
         text += ` / ${translations[language]['add word bank cue']}`;
       }
       return text;
     }
   }
 
-  getSubmitButtonText = () => {
-    const { language, } = this.props
-    let text = translations.english['submit button text'];
-    if (language && language !== 'english') {
-      text += ` / ${translations[language]['submit button text']}`;
-    }
-    return text;
-  }
-
   renderFeedback = () => {
-    const { question, } = this.props
+    const { diagnosticID, language, question, translate } = this.props
     const { inputErrors, } = this.state
 
     if (inputErrors && inputErrors.size) {
+      let feedback;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
+      const translationKey = question.blankAllowed ? 'feedback^blank' : 'feedback^no blank';
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
-      const feedback = <p>{feedbackText}</p>
+      if (language && diagnosticID !== 'ell') {
+        const rightToLeftLanguages = ['arabic', 'urdu', 'dari'];
+        const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+        const translationPresent = language !== ENGLISH;
+        feedback = (<div>
+          <p>{feedbackText}</p>
+          {translationPresent && <br />}
+          {translationPresent && <p className={textClass}>{translate(translationKey)}</p>}
+        </div>);
+      } else {
+        feedback = <p>{feedbackText}</p>
+      }
       return (<Feedback
         feedback={feedback}
         feedbackType="revise-unmatched"
@@ -308,17 +330,22 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return <Feedback feedback={this.getInstructionText()} feedbackType="instructions" />
   }
 
-  render() {
-    const { language, question, } = this.props
-    const { responses, } = this.state
-
-    let fullPageInstructions
-    if (question.mediaURL) {
-      fullPageInstructions = { display: 'block' }
+  renderButton = () => {
+    const { responses } = this.state;
+    const { language, translate } = this.props;
+    const buttonText = language ? translate('buttons^submit') : 'Submit';
+    
+    if(responses) {
+      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 
     } else {
-      fullPageInstructions = { maxWidth: 800, width: '100%' }
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>; 
     }
-    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{this.getSubmitButtonText()}</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
+  }
+
+  render() {
+    const { diagnosticID, language, question, translate } = this.props;
+    const fullPageInstructions = question.mediaURL ? { display: 'block' } : { maxWidth: 800, width: '100%' };
+
     return (
       <div className="student-container-inner-diagnostic">
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -327,8 +354,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
               <Prompt elements={this.getPromptElements()} style={styles.container} />
               <Cues
                 customText={this.customText()}
+                diagnosticID={diagnosticID}
                 displayArrowAndText={true}
                 getQuestion={this.getQuestion}
+                language={language}
+                translate={translate}
               />
               {this.renderFeedback()}
             </div>
@@ -336,7 +366,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           {this.renderMedia()}
         </div>
         <div className="question-button-group button-group" style={{marginTop: 20}}>
-          {button}
+          {this.renderButton()}
         </div>
       </div>
     );

@@ -4,7 +4,8 @@ export interface FeedbackObject {
   optimal: boolean,
   response_id: string,
   entry: string,
-  highlight: Highlight[]
+  highlight: Highlight[],
+  labels?: string
 }
 
 export interface Highlight {

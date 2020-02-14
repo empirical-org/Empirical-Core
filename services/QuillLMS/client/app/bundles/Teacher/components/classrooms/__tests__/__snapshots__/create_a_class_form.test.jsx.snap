@@ -16,6 +16,7 @@ exports[`CreateAClassForm component on initial load should render 1`] = `
       className="create-a-class-form"
     >
       <Input
+        autoComplete="on"
         characterLimit={50}
         className="name"
         handleChange={[Function]}
@@ -96,6 +97,7 @@ exports[`CreateAClassForm component on initial load should render 1`] = `
         className="class-code-section"
       >
         <Input
+          autoComplete="on"
           className="code"
           disabled={true}
           helperText="Students use this to join your class."

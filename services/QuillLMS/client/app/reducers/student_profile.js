@@ -1,5 +1,5 @@
 const initialState = {
-  classrooms: null,
+  classrooms: [],
   selectedClassroomId: null,
   showDropdown: false,
   notifications: [],

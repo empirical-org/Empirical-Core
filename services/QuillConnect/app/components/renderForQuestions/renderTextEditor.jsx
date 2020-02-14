@@ -19,6 +19,13 @@ export default class RenderTextEditor extends React.Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('paste', (e) => {
+      e.preventDefault()
+      return false
+    }, true);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { latestAttempt, getResponse, } = this.props
     if (nextProps.latestAttempt !== latestAttempt) {
@@ -116,7 +123,7 @@ export default class RenderTextEditor extends React.Component {
     const { disabled, onChange, } = this.props
     if (disabled) { return }
 
-    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')
+    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
     onChange(stripHTML, this.answerBox);
   }
 
