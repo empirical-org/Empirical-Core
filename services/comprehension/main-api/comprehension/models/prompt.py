@@ -1,17 +1,32 @@
 from django.db import models
 
-from . import TimestampedModel
+from . import DjangoChoices, TimestampedModel
 from .ml_feedback import MLFeedback
 from .ml_model import MLModel
 from ..exceptions import ComprehensionException
 from ..utils import combine_labels
 
-
-CORRECT_FEEDBACK = 'All rules-based checks passed!'
+CORRECT_FEEDBACK_OBJ = {
+                          'feedback': 'All rules-based checks passed!',
+                          'optimal': True
+                       }
+INCORRECT_FEEDBACK_OBJ = {
+                            'feedback': '',
+                            'optimal': False
+                        }
 
 
 class Prompt(TimestampedModel):
+    class LABELING_APPROACHES(DjangoChoices):
+        SINGLE = 'single_label'
+        MULTI = 'multi_label'
+
     text = models.TextField(null=False)
+    labeling_approach = models.TextField(
+        null=False,
+        choices=LABELING_APPROACHES.get_for_choices(),
+        default=LABELING_APPROACHES.MULTI
+    )
     max_attempts = models.PositiveIntegerField(default=5)
     max_attempts_feedback = models.TextField(null=False)
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
@@ -33,25 +48,18 @@ class Prompt(TimestampedModel):
     def fetch_rules_based_feedback(self, entry, pass_order):
         rule_sets = (self.rule_sets.filter(pass_order=pass_order).
                      order_by('priority').all())
-        feedback = {
-                     'feedback': None,
-                     'optimal': False
-                    }
 
         for rule_set in rule_sets:
-            for rule in rule_set.rules.all():
-                if rule.match(entry):
-                    break
-            else:
+            is_passing = rule_set.process_rule_set(entry)
+            if not is_passing:
+                feedback = INCORRECT_FEEDBACK_OBJ
                 feedback.update(feedback=rule_set.feedback)
                 return feedback
 
-        feedback.update(feedback=CORRECT_FEEDBACK, optimal=True)
-        return feedback
+        return CORRECT_FEEDBACK_OBJ
 
-    def fetch_auto_ml_feedback(self, entry, previous_feedback=[],
-                               multi_label=True):
-        if multi_label:
+    def fetch_auto_ml_feedback(self, entry, previous_feedback=[]):
+        if self.labeling_approach == self.LABELING_APPROACHES.MULTI:
             labels = self._request_ml_labels(entry)
         else:
             labels = self._request_single_ml_label(entry)
