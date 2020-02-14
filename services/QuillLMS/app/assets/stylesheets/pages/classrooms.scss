@@ -317,6 +317,14 @@
         cursor: pointer;
       }
     }
+    .data-table-row {
+      .data-table-row-section {
+        button {
+          min-width: 30px;
+          background-color: white;
+        }
+      }
+    }
     .data-table-row:last-of-type {
       border-bottom: none;
     }
