@@ -1,7 +1,8 @@
 <% current_path = request.env['PATH_INFO'] %>
 <% on_sign_up_or_log_in = ['account/new', '/session', 'password_reset', 'sign-up'].any? { |str| current_path.include?(str)} %>
+<% current_user_is_student = current_user&.student? %>
 
-<% navbar_class_name = on_sign_up_or_log_in ? "sign-up-or-login-navbar navbar" : "navbar" %>
+<% navbar_class_name = on_sign_up_or_log_in || current_user_is_student ? "non-standard-navbar navbar" : "navbar" %>
 
 <% if !in_assignment_flow? %>
   <nav class="<%=navbar_class_name%>" role="navigation">
