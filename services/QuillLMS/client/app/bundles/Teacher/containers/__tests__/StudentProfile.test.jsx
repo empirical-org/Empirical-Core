@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import StudentProfile from '../StudentProfile.jsx';
 
 import $ from 'jquery'
-import StudentsClassroomsHeader from '../../components/student_profile/students_classrooms/students_classrooms_header.jsx'
 import NextActivity from '../../components/student_profile/next_activity.jsx'
 import StudentProfileUnits from '../../components/student_profile/student_profile_units.jsx'
 
