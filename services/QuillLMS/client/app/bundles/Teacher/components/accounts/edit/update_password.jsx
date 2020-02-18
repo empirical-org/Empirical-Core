@@ -10,14 +10,16 @@ export default class UpdatePassword extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.active && !nextProps.active) {
+    const { active, } = this.props
+    if (active && !nextProps.active) {
       this.reset();
     }
   }
 
-  activateSection = (e) => {
+  handleClickChangePassword = (e) => {
+    const { showButtonSection, } = this.state
     const { active, activateSection } = this.props;
-    if (!active || !this.state.showButtonSection) {
+    if (!active || !showButtonSection) {
       this.setState({ showButtonSection: true, });
       activateSection();
     }
@@ -45,29 +47,37 @@ export default class UpdatePassword extends Component {
     });
   }
 
+  onCurrentPasswordChange = (e) => this.handleChange('currentPassword', e)
+
+  onNewPasswordChange = (e) => this.handleChange('newPassword', e)
+
+  onConfirmedNewPasswordChange = (e) => this.handleChange('confirmedNewPassword', e)
+
   handleChange = (field, e) => {
     this.setState({ [field]: e.target.value, });
   }
 
   submitClass = () => {
     const { currentPassword, newPassword, confirmedNewPassword, } = this.state
-    let buttonClass = 'quill-button contained primary medium';
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
     if (!(currentPassword.length && newPassword.length && confirmedNewPassword.length)) {
       buttonClass += ' disabled';
     }
     return buttonClass;
   }
 
-  resetAndDeactivateSection = () => {
+  handleClickCancel = () => {
+    const { deactivateSection, } = this.props
     this.reset();
-    this.props.deactivateSection();
+    deactivateSection();
   }
 
   renderButtonSection = () => {
-    if (this.state.showButtonSection) {
+    const { showButtonSection, } = this.state
+    if (showButtonSection) {
       return (<div className="button-section">
-        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
-        <input className={this.submitClass()} name="commit" type="submit" value="Change password" />
+        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleClickCancel} type="button">Cancel</button>
+        <input aria-label="Change password" className={this.submitClass()} name="commit" type="submit" value="Change password" />
       </div>)
     }
   }
@@ -83,29 +93,32 @@ export default class UpdatePassword extends Component {
         <div className="fields">
           <div className="current-password-section">
             <Input
+              autoComplete="current-password"
               className="current-password inspectletIgnore"
               error={errors.current_password}
-              handleChange={(e) => this.handleChange('currentPassword', e)}
+              handleChange={this.onCurrentPasswordChange}
               label="Current password"
               timesSubmitted={timesSubmitted}
               type="password"
               value={currentPassword}
             />
-            <a className="forgot-password" href="/password_reset">Forgot password?</a>
+            <a className="forgot-password inline-link" href="/password_reset">Forgot password?</a>
           </div>
           <Input
+            autoComplete="new-password"
             className="new-password inspectletIgnore"
             error={errors.new_password}
-            handleChange={(e) => this.handleChange('newPassword', e)}
+            handleChange={this.onNewPasswordChange}
             label="New password"
             timesSubmitted={timesSubmitted}
             type="password"
             value={newPassword}
           />
           <Input
+            autoComplete="new-password"
             className="confirmed-new-password inspectletIgnore"
             error={errors.confirmed_new_password}
-            handleChange={(e) => this.handleChange('confirmedNewPassword', e)}
+            handleChange={this.onConfirmedNewPasswordChange}
             label="Confirm new password"
             timesSubmitted={timesSubmitted}
             type="password"
@@ -127,7 +140,7 @@ export default class UpdatePassword extends Component {
           type="password"
           value="notapassword"
         />
-        <div className="change-password" onClick={this.activateSection}>Change password</div>
+        <button className="change-password focus-on-light" onClick={this.handleClickChangePassword} type="button">Change password</button>
       </div>)
     }
   }
