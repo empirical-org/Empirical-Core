@@ -193,4 +193,17 @@
       }
     }
   }
+  .student-profile-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 96px;
+    img {
+      margin-bottom: 16px;
+    }
+    p {
+      font-size: 16px;
+      line-height: normal;
+    }
+  }
 }

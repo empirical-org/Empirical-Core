@@ -141,6 +141,7 @@ class StudentProfile extends React.Component {
       <div id="student-profile">
         <NotificationFeed notifications={notifications} />
         <StudentProfileUnits
+          activeClassworkTab={activeClassworkTab}
           data={scores}
           loading={loading}
         />
