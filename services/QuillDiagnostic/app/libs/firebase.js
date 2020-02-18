@@ -7,10 +7,13 @@ import 'firebase/performance';
 let config = {};
 if (prod) {
   config = {
-    apiKey: 'AIzaSyC6mYwIeRVh3B1d0fuvXH6oKekFtSCg-IE',
-    authDomain: 'quillconnect.firebaseapp.com',
-    databaseURL: 'https://quillconnect.firebaseio.com',
-    storageBucket: 'quillconnect.appspot.com',
+    apiKey: "AIzaSyC6mYwIeRVh3B1d0fuvXH6oKekFtSCg-IE",
+    authDomain: "quillconnect.firebaseapp.com",
+    databaseURL: "https://quillconnect.firebaseio.com",
+    projectId: "quillconnect",
+    storageBucket: "quillconnect.appspot.com",
+    messagingSenderId: "557046800359",
+    appId: "1:557046800359:web:737be906050197d5"
   };
 } else {
   config = {
