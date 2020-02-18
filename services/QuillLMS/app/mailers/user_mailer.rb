@@ -63,7 +63,7 @@ class UserMailer < ActionMailer::Base
   def new_admin_email(user, school)
     @user = user
     @school = school
-    mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+    mail from: "Quill Team <hello@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
   def activated_referral_email(referrer_hash, referral_hash)
@@ -79,7 +79,7 @@ class UserMailer < ActionMailer::Base
 
   def premium_missing_school_email(user)
     @user = user
-    mail to: ["Becca Garrison <becca@quill.org>", "Amr Thameen <amr@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
+    mail to: ["Quill Team <hello@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
   end
 
   def recommendations_assignment_report_email
@@ -96,7 +96,7 @@ class UserMailer < ActionMailer::Base
 
   def declined_renewal_email(user)
     @user = user
-    mail from: "Maddy Maher <maddy@quill.org>", to: user.email, subject: "Quill Premium Renewal"
+    mail from: "Quill Team <hello@quill.org>", to: user.email, subject: "Quill Premium Renewal"
   end
 
   def daily_stats_email(date_string)
