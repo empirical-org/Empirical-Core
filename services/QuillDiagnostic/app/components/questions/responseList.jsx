@@ -82,8 +82,8 @@ export default class ResponseList extends React.Component {
       }
       if (resp && this.props.selectedFocusPoints) {
         const focusPoints = this.props.selectedFocusPoints.filter(fp => fp.length > 0)
-        const matchAllFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
-        if (matchAllFocusPoints) {
+        const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
+        if (noMatchedFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
       }
