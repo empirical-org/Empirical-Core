@@ -1,0 +1,46 @@
+.student-profile-unit {
+  border-radius: 6px;
+  border: solid 1px #e0e0e0;
+  background-color: #ffffff;
+  margin-bottom: 24px;
+  .unit-name {
+    padding: 24px;
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: normal;
+    }
+  }
+  .activities-container {
+    padding: 32px 24px;
+    border-top: 1px solid #e0e0e0;
+    h3 {
+      font-size: 16px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      margin-bottom: 23px;
+    }
+    .data-table {
+      overflow: visible;
+      .data-table-headers {
+        position: inherit;
+      }
+      .data-table-row {
+        height: 72px;
+        &:hover {
+          background-color: transparent;
+        }
+      }
+      .data-table-headers, .data-table-row {
+        padding: 0px;
+      }
+    }
+    .action-button-section {
+      margin-right: 0px;
+      overflow: visible;
+    }
+  }
+}

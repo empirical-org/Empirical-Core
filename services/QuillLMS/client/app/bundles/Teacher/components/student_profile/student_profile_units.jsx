@@ -34,12 +34,29 @@ export default class StudentProfileUnits extends React.Component {
     return resultWithSortedUnits;
   }
 
+  displayedUnits = () => {
+    const { activeClassworkTab, } = this.props
+    const groupedUnits = this.groupUnits()
+
+    switch(activeClassworkTab) {
+      case TO_DO_ACTIVITIES:
+        const unitsWithIncompleteActivities = groupedUnits.filter(u => u.incomplete && u.incomplete.length)
+        return unitsWithIncompleteActivities.map(u => ({ incomplete: u.incomplete }))
+      case COMPLETED_ACTIVITIES:
+        const unitsWithCompletedActivities = groupedUnits.filter(u => u.complete && u.complete.length)
+        return unitsWithCompletedActivities.map(u => ({ complete: u.complete }))
+      case ALL_ACTIVITIES:
+      default:
+        return groupedUnits
+    }
+  }
+
   emptyStateText = () => {
     const { activeClassworkTab, } = this.props
 
     switch(activeClassworkTab) {
       case TO_DO_ACTIVITIES:
-        return resultWithSortedUnits.length ? 'Write on! You’re all finished with your activities.' : '"Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+        return this.groupedUnits().length ? 'Write on! You’re all finished with your activities.' : '"Nothing to see here yet! Once your teacher assigns activities they will show up here.'
       case COMPLETED_ACTIVITIES:
         return 'Nothing to see here yet! Once you complete an activity it will show up here.'
       case ALL_ACTIVITIES:
@@ -51,7 +68,7 @@ export default class StudentProfileUnits extends React.Component {
 
   renderEmptyState = () => (
     <div className="student-profile-empty-state">
-      <img alt="Clipboard" src={clipboardSrc} />
+      <img alt="Clipboard with notes written on it" src={clipboardSrc} />
       <p>{this.emptyStateText()}</p>
     </div>
   )
@@ -61,7 +78,10 @@ export default class StudentProfileUnits extends React.Component {
     let content = 'LOADING';
     if (!loading) {
       // give unit unit id key whether it is complete or incomplete
-      content = this.groupUnits().map(unit => <StudentProfileUnit data={unit} key={unit[Object.keys(unit)[0]][0].unit_id} />);
+      content = this.displayedUnits().map(unit => {
+        const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
+        return <StudentProfileUnit data={unit} key={unit_id} unitName={unit_name} />
+      });
     }
 
     if (!content.length) { content = this.renderEmptyState() }
