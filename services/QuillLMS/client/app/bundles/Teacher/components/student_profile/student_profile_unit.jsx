@@ -44,31 +44,51 @@ const completeHeaders = [
   }, {
     width: '144px',
     name: 'Score',
-    attribute: 'score'
+    attribute: 'score',
+    noTooltip: true
   }, {
     width: '24px',
     name: 'Tool',
-    attribute: 'tool'
+    attribute: 'tool',
+    noTooltip: true
   }, {
-    width: '80px',
+    width: '85px',
     name: 'Due date',
-    attribute: 'dueDate'
+    attribute: 'dueDate',
+    noTooltip: true
   }, {
     width: '88px',
     name: '',
-    attribute: 'actionButton'
+    attribute: 'actionButton',
+    noTooltip: true,
+    headerClassName: 'action-button-section',
+    rowSectionClassName: 'action-button-section'
   }
 ]
 
 export default class StudentProfileUnit extends React.Component {
+  score = (act) => {
+    const { activity_classification_id, max_percentage, } = act
+    const maxPercentage = Number(max_percentage)
+    if (activity_classification_id === "4" || activity_classification_id === "6") {
+      return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
+    } else if (maxPercentage > .8) {
+      return (<div className="score"><div className="proficient" /><span>Proficient</span></div>)
+    } else if (maxPercentage > .6) {
+      return (<div className="score"><div className="nearly-proficient" /><span>Nearly proficient</span></div>)
+    }
+
+    return (<div className="score"><div className="not-yet-proficient" /><span>Not yet proficient</span></div>)
+  }
+
   actionButton = (act, index) => {
     const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
     let linkText = 'Start'
 
     if (repeatable === 'f' && max_percentage) {
-      return null
+      return <span>Completed</span>
     } else if (max_percentage === null && marked_complete === 't'){
-      return null
+      return <span>Missed</span>
     } else if (locked === 't') {
       return <span className="needs-teacher">Needs teacher</span>
     } else if (max_percentage) {
@@ -124,10 +144,26 @@ export default class StudentProfileUnit extends React.Component {
 
   renderCompletedActivities = () => {
     const { data, } = this.props
-    if (!(data.completed && data.completed.length)) { return null}
+    if (!(data.complete && data.complete.length)) { return null}
+
+    const rows = data.complete.map((act, index) => {
+      const { name, activity_classification_id, max_percentage, ua_id, due_date, } = act
+      return {
+        name,
+        score: this.score(act),
+        tool: this.toolIcon(activity_classification_id),
+        actionButton: this.actionButton(act, index),
+        dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
+        id: ua_id
+      }
+    })
 
     return (<div className="activities-container completed-activities">
       <h3>Completed activities</h3>
+      <DataTable
+        headers={completeHeaders}
+        rows={rows}
+      />
     </div>)
   }
 

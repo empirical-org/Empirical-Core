@@ -41,6 +41,31 @@
     .action-button-section {
       margin-right: 0px;
       overflow: visible;
+      display: flex !important;
+      justify-content: flex-end;
+    }
+    .score {
+      display: flex;
+      align-items: center;
+      div {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 2px;
+        margin-right: 8px;
+        &.unscored {
+          background-color: #358fdf;
+        }
+        &.proficient {
+          background-color: #4ea500;
+        }
+        &.nearly-proficient {
+          background-color: #eb9911;
+        }
+        &.not-yet-proficient {
+          background-color: #e73030;
+        }
+      }
     }
   }
 }
