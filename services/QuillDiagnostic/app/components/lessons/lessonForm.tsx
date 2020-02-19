@@ -57,7 +57,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
   constructor(props) {
     super(props)
 
-    const { flag, introURL, isELL, landingPageHtml, modelConceptUID, name, questions } = props.currentValues; // eslint-disable-line react/destructuring-assignment
+    const { flag, introURL, isELL, landingPageHtml, modelConceptUID, name, questions } = props.currentValues || ''; // eslint-disable-line react/destructuring-assignment
 
     this.state = {
       flag: flag || 'alpha',
