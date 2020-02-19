@@ -71,6 +71,7 @@ class TestMLFeedbackView(TestCase):
             self.fb.feedback,
             FEEDBACK_TYPE,
             self.fb.optimal,
+            self.fb.id,
             labels=self.fb.combined_labels
         )
 
@@ -111,6 +112,7 @@ class TestMLFeedbackView(TestCase):
             self.fb.feedback,
             FEEDBACK_TYPE,
             self.fb.optimal,
+            self.fb.id,
             labels=self.fb.combined_labels,
             highlight=[highlight_payload],
         )
