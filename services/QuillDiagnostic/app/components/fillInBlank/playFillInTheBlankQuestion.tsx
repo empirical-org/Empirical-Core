@@ -140,12 +140,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     };
   }
 
-  getBlurHandler = index => {
-    return () => {
-      this.validateInput(index)
-    }
-  }
-
   renderText(text, i) {
     let style = {};
     if (text.length > 0) {
@@ -163,7 +157,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { inputErrors, inputVals, blankAllowed, cues, } = this.state
     const newErrors = new Set(inputErrors);
     const inputVal = inputVals[i] || '';
-    const inputSufficient = blankAllowed ? true : inputVal;
+    const inputSufficient = blankAllowed || inputVal;
     const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
     if (inputSufficient && cueMatch) {
       newErrors.delete(i);
@@ -196,7 +190,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           className={className}
           id={`input${i}`}
           key={i + 100}
-          onBlur={this.getBlurHandler(i)}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
@@ -230,30 +223,33 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return _.flatten(zipped).join('').trim();
   }
 
+  checkAllInputs = () => {
+    const { inputVals } = this.state;
+    return Promise.all(inputVals.map((val, i) => {
+      this.validateInput(i);
+    }));
+  }
+
   handleSubmitResponse = () => {
-    const { inputErrors, responses, blankAllowed, inputVals, } = this.state;
-    const { question, nextQuestion, } = this.props;
-    const { caseInsensitive, conceptID, key } = question;
-    if (!inputErrors.size && responses) {
-      if (!blankAllowed) {
-        if (inputVals.filter(Boolean).length !== inputVals.length) {
-          inputVals.forEach((val, i) => this.validateInput(i))
-          return
-        }
+    this.checkAllInputs().then(() => {
+      const { inputErrors, responses, } = this.state;
+      const { question, nextQuestion, } = this.props;
+      const { caseInsensitive, conceptID, key } = question;
+      if (!inputErrors.size && responses) {
+        const zippedAnswer = this.zipInputsAndText();
+        const questionUID = key;
+        const defaultConceptUID = conceptID;
+        const responsesArray = hashToCollection(responses);
+        const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
+        this.setResponse(response);
+        this.updateResponseResource(response);
+        this.submitResponse(response);
+        this.setState({
+          response: '',
+        });
+        nextQuestion();
       }
-      const zippedAnswer = this.zipInputsAndText();
-      const questionUID = key;
-      const defaultConceptUID = conceptID;
-      const responsesArray = hashToCollection(responses);
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
-      this.setResponse(response);
-      this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        response: '',
-      });
-      nextQuestion();
-    }
+    })
   }
 
   setResponse = (response) => {
@@ -334,7 +330,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses } = this.state;
     const { language, translate } = this.props;
     const buttonText = language ? translate('buttons^submit') : 'Submit';
-    
     if(responses) {
       return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 
     } else {
