@@ -17,6 +17,8 @@ const (
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 
+	feedback_history_url = "https://comprehension-247816.appspot.com/feedback/history"
+
 )
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
@@ -73,7 +75,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
-  json.NewEncoder(responseWriter).Encode(returnable_result)
+	json.NewEncoder(responseWriter).Encode(returnable_result)
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]APIResponse, length int) (int, bool) {
@@ -112,6 +114,11 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
 }
 
+func submitFeedbackHistory(url string, request APIRequest, response APIResponse) {
+	history_payload := FeedbackHistory{request, response}
+	response_json, err := http.Post(url, "application/json", bytes.NewReader(history_payload))
+}
+
 type APIRequest struct {
 	Entry string `json:"entry"`
 	Prompt_id int `json:"prompt_id"`
@@ -134,6 +141,11 @@ type Highlight struct {
 	Text string `json:"text"`
 	Category string `json:"category"`
 	Character int `json:"character,omitempty"`
+}
+
+type FeedbackHistory struct {
+	Request APIRequest `json:"request"`
+	Response APIResponse `json:"response"`
 }
 
 type InternalAPIResponse struct {
