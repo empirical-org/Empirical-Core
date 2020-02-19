@@ -1,7 +1,6 @@
 import * as React from 'react'
 import moment from 'moment'
 
-// import { DataTable } from '../../../../../../../../packages/quill-component-library/src/components/shared/dataTable'
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
