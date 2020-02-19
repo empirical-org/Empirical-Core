@@ -183,7 +183,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderOpenActions(row) {
-    const rowActions = row.actions.map(act => <button key={act.action} onClick={() => this.clickAction(act.action, row.id)} type="button">{act.name}</button>)
+    const rowActions = row.actions.map(act => <button className="action" key={act.action} onClick={() => this.clickAction(act.action, row.id)} type="button">{act.name}</button>)
 
     return (<div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
       <div className="actions-menu">
