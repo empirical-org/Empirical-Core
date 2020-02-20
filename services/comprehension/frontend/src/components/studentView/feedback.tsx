@@ -46,7 +46,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <div className={className} key={key}>
           <img alt={imageAlt} src={imageSrc} />
-          <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)}></p>
+          <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)} />
         </div>
       </ReactCSSTransitionReplace>
     </div>
