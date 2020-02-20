@@ -115,8 +115,8 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 }
 
 func submitFeedbackHistory(url string, request APIRequest, response APIResponse) {
-	history_payload := FeedbackHistory{request, response}
-	response_json, err := http.Post(url, "application/json", bytes.NewReader(history_payload))
+	history_payload, _ := json.Marshal(FeedbackHistory{request, response})
+	http.Post(url, "application/json", bytes.NewReader(history_payload))
 }
 
 type APIRequest struct {
