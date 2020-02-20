@@ -27,7 +27,6 @@ export default class StudentProfileClassworkTabs extends React.Component {
     return (
       <div className="student-profile-tab-container">
         <div className="container">
-          <h1>Classwork</h1>
           <div className="student-profile-tabs">
             <button className={allActivitiesTabClassName} onClick={this.handleAllActivitiesClick} type="button">{ALL_ACTIVITIES}</button>
             <button className={toDoActivitiesTabClassName} onClick={this.handleToDoActivitiesClick} type="button">{TO_DO_ACTIVITIES}</button>

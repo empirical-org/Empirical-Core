@@ -15,17 +15,23 @@ const incompleteHeaders = [
   {
     width: '633px',
     name: 'Activity',
-    attribute: 'name'
+    attribute: 'name',
+    headerClassName: 'name-section',
+    rowSectionClassName: 'name-section'
   }, {
     width: '24px',
     name: 'Tool',
     attribute: 'tool',
-    noTooltip: true
+    noTooltip: true,
+    headerClassName: 'tool-icon-section',
+    rowSectionClassName: 'tool-icon-section'
   }, {
     width: '85px',
     name: 'Due date',
     attribute: 'dueDate',
-    noTooltip: true
+    noTooltip: true,
+    headerClassName: 'due-date-section',
+    rowSectionClassName: 'due-date-section'
   }, {
     width: '88px',
     name: '',
@@ -40,22 +46,30 @@ const completeHeaders = [
   {
     width: '465px',
     name: 'Activity',
-    attribute: 'name'
+    attribute: 'name',
+    headerClassName: 'name-section',
+    rowSectionClassName: 'name-section'
   }, {
     width: '144px',
     name: 'Score',
     attribute: 'score',
-    noTooltip: true
+    noTooltip: true,
+    headerClassName: 'score-section',
+    rowSectionClassName: 'score-section'
   }, {
     width: '24px',
     name: 'Tool',
     attribute: 'tool',
-    noTooltip: true
+    noTooltip: true,
+    headerClassName: 'tool-icon-section',
+    rowSectionClassName: 'tool-icon-section'
   }, {
     width: '85px',
     name: 'Due date',
     attribute: 'dueDate',
-    noTooltip: true
+    noTooltip: true,
+    headerClassName: 'completed-due-date-section',
+    rowSectionClassName: 'completed-due-date-section'
   }, {
     width: '88px',
     name: '',

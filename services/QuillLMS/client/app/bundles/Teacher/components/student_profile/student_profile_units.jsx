@@ -56,7 +56,7 @@ export default class StudentProfileUnits extends React.Component {
 
     switch(activeClassworkTab) {
       case TO_DO_ACTIVITIES:
-        return this.groupedUnits().length ? 'Write on! You’re all finished with your activities.' : '"Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+        return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : '"Nothing to see here yet! Once your teacher assigns activities they will show up here.'
       case COMPLETED_ACTIVITIES:
         return 'Nothing to see here yet! Once you complete an activity it will show up here.'
       case ALL_ACTIVITIES:

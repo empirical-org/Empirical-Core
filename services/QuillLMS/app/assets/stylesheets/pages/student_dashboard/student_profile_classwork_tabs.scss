@@ -3,13 +3,9 @@
   border-bottom: 1px solid #e0e0e0;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   margin-bottom: 32px;
-
-  h1 {
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 1.33;
-    margin: 32px 0px 8px;
-  }
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   .quill-tab {
     font-size: 14px;
@@ -21,6 +17,7 @@
     background-color: transparent;
     border: none;
     border-bottom: 2px solid transparent;
+    cursor: pointer;
     &:hover, &:focus {
       background-color: rgba(6, 128, 107, 0.04);
       outline: none;

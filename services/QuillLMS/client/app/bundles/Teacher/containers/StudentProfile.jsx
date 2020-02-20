@@ -134,6 +134,11 @@ class StudentProfile extends React.Component {
         onClickAllClasses={this.handleClickAllClasses}
         teacherName={student.classroom.teacher.name}
       />
+      <div className="header-container">
+        <div className="container">
+          <h1>Classwork</h1>
+        </div>
+      </div>
       <StudentProfileClassworkTabs
         activeClassworkTab={activeClassworkTab}
         onClickTab={this.handleClickClassworkTab}
