@@ -3,7 +3,12 @@ import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../.
 
 const BREAKPOINT = 682
 
-export default class StudentProfileClassworkTabs extends React.Component {
+interface StudentProfileClassworkTabsProps {
+  onClickTab: (string: string) => void;
+  activeClassworkTab: string;
+}
+
+export default class StudentProfileClassworkTabs extends React.Component<StudentProfileClassworkTabsProps, {}> {
   text = (string) => {
     if (window.innerWidth > BREAKPOINT) { return string }
 

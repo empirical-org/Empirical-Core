@@ -10,11 +10,11 @@ describe('StudentProfileUnits component', () => {
   it('should render <StudentProfileUnit /> components with correct props', () => {
     const wrapper = shallow(
       <StudentProfileUnits
-        data={{
-          '0': {unit_id: 1, unit_name: 'Same ID'},
-          '1': {unit_id: 1, unit_name: 'Same ID'},
-          '2': {unit_id: 2, unit_name: 'Different'},
-        }}
+        data={[
+          {unit_id: 1, unit_name: 'Same ID'},
+          {unit_id: 1, unit_name: 'Same ID'},
+          {unit_id: 2, unit_name: 'Different'},
+        ]}
       />
     );
     expect(wrapper.find(StudentProfileUnit).length).toBe(2);
@@ -26,7 +26,7 @@ describe('StudentProfileUnits component', () => {
   it('should render LOADING if loading', () => {
     const wrapper = shallow(
       <StudentProfileUnits
-        data={{}}
+        data={[]}
         loading={true}
       />
     );
