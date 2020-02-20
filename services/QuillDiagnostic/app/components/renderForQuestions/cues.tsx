@@ -3,12 +3,21 @@ import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibra
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 import translations from '../../libs/translations/index.js';
 import { ENGLISH } from '../../../public/locales/languagePageInfo';
+import Question from '../../interfaces/Question.ts';
 
-export default class Cues extends React.Component {
+interface CuesProps {
+  customText: string,
+  diagnosticID: string,
+  displayArrowAndText: boolean,
+  question: Question,
+  language: string,
+  translate(key: any, opts?: any): any
+}
+
+export default class Cues extends React.Component<CuesProps> {
 
   getJoiningWordsText = () => {
-    const { diagnosticID, getQuestion, language, translate } = this.props;
-    const question = getQuestion();
+    const { diagnosticID, question, language, translate } = this.props;
 
     if(language && diagnosticID !== 'ell') {
       return this.translateCueLabel(question, translate);
@@ -29,9 +38,10 @@ export default class Cues extends React.Component {
     }
   }
 
-  translateCueLabel = (question, translate) => {
-    if (question.cues && question.cuesLabel) {
-      const text = `cues^${question.cuesLabel}`;
+  translateCueLabel = (question: Question, translate: CuesProps["translate"] ) => {
+    const { cues, cuesLabel } = question;
+    if (cues && cuesLabel) {
+      const text = `cues^${cuesLabel}`;
       return translate(text);
     } else {
       return translate('cues^joining word');
@@ -39,8 +49,7 @@ export default class Cues extends React.Component {
   }
 
   handleCustomText = () => {
-    const { customText, diagnosticID, language, getQuestion, translate } = this.props;
-    const question = getQuestion();
+    const { customText, diagnosticID, language, question, translate } = this.props;
     if (language && diagnosticID !== 'ell') {
       return this.translateCueLabel(question, translate);
     } else {
@@ -48,7 +57,7 @@ export default class Cues extends React.Component {
     }
   }
 
-  renderExplanation() {
+  renderExplanation = () => {
     const { customText, } = this.props;
     const text = customText ? this.handleCustomText() : this.getJoiningWordsText();
     return (
@@ -56,18 +65,19 @@ export default class Cues extends React.Component {
     );
   }
 
-  renderCues() {
-    const { displayArrowAndText, getQuestion, } = this.props
-    let arrowPicture, text
+  render() {
+    const { displayArrowAndText, question, } = this.props;
+    const { cues, cuesLabel } = question;
+    let arrowPicture: any, text: any;
     if (displayArrowAndText) {
-      arrowPicture = getQuestion().cuesLabel !== ' ' ? <img alt="Arrow Icon" src={arrow} /> : null
+      arrowPicture = cuesLabel !== ' ' ? <img alt="Arrow Icon" src={arrow} /> : null
       text = this.renderExplanation()
     } else {
       arrowPicture = <span />
       text = <span />
     }
-    if (getQuestion().cues && getQuestion().cues.length > 0 && getQuestion().cues[0] !== '') {
-      const cueDivs = getQuestion().cues.map((cue, i) => <Cue cue={cue} key={`${i}${cue}`} />)
+    if (cues && cues.length > 0 && cues[0] !== '') {
+      const cueDivs = cues.map((cue: string, i: number) => <Cue cue={cue} key={`${i}${cue}`} />)
       return (
         <div className="cues">
           {cueDivs}
@@ -79,9 +89,4 @@ export default class Cues extends React.Component {
       return <span />
     }
   }
-
-  render() {
-    return <div>{this.renderCues()}</div>;
-  }
-
 }

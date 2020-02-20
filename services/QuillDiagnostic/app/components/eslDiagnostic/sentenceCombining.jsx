@@ -5,7 +5,7 @@ import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import {
   SentenceFragments,
   Feedback

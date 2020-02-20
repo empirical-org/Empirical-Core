@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
@@ -9,13 +9,34 @@ import {
   Feedback
  } from 'quill-component-library/dist/componentLibrary';
 import { submitResponse, } from '../../actions/diagnostics.js';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import Cues from '../renderForQuestions/cues.jsx';
+import Cues from '../renderForQuestions/cues.tsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import Question from '../../interfaces/Question.ts';
+
+interface PlayFillInTheBlankQuestionProps {
+  currentKey: string,
+  diagnosticID: string,
+  dispatch(action: any): any,
+  language: string,
+  nextQuestion(): any,
+  question: Question,
+  setResponse(response: any): any,
+  translate(key: any, opts?: any): any
+}
+
+interface PlayFillInTheBlankQuestionState {
+  blankAllowed: boolean,
+  cues: Array<string>,
+  inputErrors: Set<number>,
+  inputVals: Array<string>,
+  responses?: any,
+  splitPrompt: Array<string>,
+}
 
 const styles = {
   container: {
@@ -31,11 +52,19 @@ const styles = {
   },
 };
 
-export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
-  constructor(props) {
+export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBlankQuestionProps, PlayFillInTheBlankQuestionState> {
+
+  constructor(props: any) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      blankAllowed: false,
+      cues: [],
+      inputErrors: new Set(),
+      inputVals: [],
+      responses: null,
+      splitPrompt: [],
+    };
   }
 
   componentDidMount() {
@@ -45,7 +74,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.setQuestionValues(question)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: any) {
     const { question, } = this.props
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)
@@ -56,38 +85,32 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     document.removeEventListener('keydown', this.handleKeyDown, true)
   }
 
-  handleKeyDown = (e) => {
+  handleKeyDown = (e: { key: string, preventDefault(): any }) => {
     if (e.key !== 'Enter') { return }
 
     e.preventDefault()
     this.handleSubmitResponse()
   }
 
-  setQuestionValues = (question) => {
-    const q = question;
-    const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
-    const numberOfInputVals = q.prompt.match(/___/g).length
+  setQuestionValues = (question: Question) => {
+    const splitPrompt = question.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
+    const numberOfInputVals = question.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
       inputVals: this.generateInputs(numberOfInputVals),
       inputErrors: new Set(),
-      cues: q.cues,
-      blankAllowed: q.blankAllowed,
+      cues: question.cues,
+      blankAllowed: question.blankAllowed,
     }, () => this.getGradedResponsesWithCallback(question));
   }
 
-  getGradedResponsesWithCallback = (question) => {
+  getGradedResponsesWithCallback = (question: Question) => {
     getGradedResponsesWithCallback(
       question.key,
-      (data) => {
+      (data: any) => {
         this.setState({ responses: data, });
       }
     );
-  }
-
-  getQuestion = () => {
-    const { question, } = this.props
-    return question
   }
 
   getInstructionText = () => {
@@ -125,7 +148,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return inputs;
   }
 
-  handleChange = (i, e) => {
+  handleChange = (i: number, e: { target: { value: string }}) => {
     const { inputVals, } = this.state
     const existing = [...inputVals];
     existing[i] = e.target.value;
@@ -134,13 +157,13 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     });
   }
 
-  getChangeHandler = (index) => {
-    return (e) => {
+  getChangeHandler = (index: number) => {
+    return (e: any) => {
       this.handleChange(index, e);
     };
   }
 
-  renderText(text, i) {
+  renderText(text: any, i: number) {
     let style = {};
     if (text.length > 0) {
       style = styles.text;
@@ -153,7 +176,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return spanArray;
   }
 
-  validateInput = (i) => {
+  validateInput = (i: number) => {
     const { inputErrors, inputVals, blankAllowed, cues, } = this.state
     const newErrors = new Set(inputErrors);
     const inputVal = inputVals[i] || '';
@@ -173,20 +196,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     }
   }
 
-  renderInput = (i) => {
+  renderInput = (i: number) => {
     const { inputErrors, cues, inputVals, } = this.state
     let className = 'fill-in-blank-input'
     if (inputErrors.has(i)) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
+    const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
     const styling = { width: `${width}px`}
-    const autofocus = i === 0
     return (
       <span key={`span${i}`}>
         <input
-          autoFocus={autofocus}
+          aria-label={`input${i}`}
           className={className}
           id={`input${i}`}
           key={i + 100}
@@ -244,46 +266,44 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         this.setResponse(response);
         this.updateResponseResource(response);
         this.submitResponse(response);
-        this.setState({
-          response: '',
-        });
         nextQuestion();
       }
     })
   }
 
-  setResponse = (response) => {
-    const { setResponse, } = this.props
-    if (!setResponse) { return }
-
-    setResponse(response)
+  setResponse = (response: any) => {
+    const { setResponse, } = this.props;
+    if(setResponse) {
+      setResponse(response)
+    }
   }
 
-  submitResponse = (response) => {
-    const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+  submitResponse = (response: any) => {
+    submitQuestionResponse(response, this.props, submitResponse);
   }
 
-  updateResponseResource = (response) => {
-    const { question, dispatch, } = this.props
-    updateResponseResource(response, question.key, question.attempts, dispatch);
+  updateResponseResource = (response: any) => {
+    const { question, dispatch, } = this.props;
+    const { attempts, key } = question;
+    updateResponseResource(response, key, attempts, dispatch);
   }
 
   renderMedia = () => {
-    const { question, } = this.props
-    if (question.mediaURL) {
+    const { question, } = this.props;
+    const { mediaAlt, mediaURL } = question;
+    if (mediaURL) {
       return (
         <div className='ell-illustration' style={{ marginTop: 15, minWidth: 200 }}>
-          <img alt={question.mediaAlt} src={question.mediaURL} />
+          <img alt={mediaAlt} src={mediaURL} />
         </div>
       );
     }
   }
 
   customText = () => {
-    const { language, } = this.props
+    const { language, question } = this.props
     const { blankAllowed, } = this.state
-    const cuesLabel = this.getQuestion().cuesLabel
+    const { cuesLabel } = question;
     if (cuesLabel) {
       return cuesLabel
     } else {
@@ -301,7 +321,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { inputErrors, } = this.state
 
     if (inputErrors && inputErrors.size) {
-      let feedback;
+      let feedback: any;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const translationKey = question.blankAllowed ? 'feedback^blank' : 'feedback^no blank';
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
@@ -351,8 +371,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
                 customText={this.customText()}
                 diagnosticID={diagnosticID}
                 displayArrowAndText={true}
-                getQuestion={this.getQuestion}
                 language={language}
+                question={question}
                 translate={translate}
               />
               {this.renderFeedback()}
@@ -366,12 +386,6 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
       </div>
     );
   }
-
 }
 
-function select(props) {
-  return {
-  };
-}
-
-export default connect(select)(PlayFillInTheBlankQuestion);
+export default PlayFillInTheBlankQuestion;
