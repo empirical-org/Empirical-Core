@@ -107,7 +107,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Feedback_type: err.Error(), Labels: url, Optimal: false}}
 		return
 	}
 
