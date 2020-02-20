@@ -120,11 +120,45 @@ describe Activity, type: :model, redis: true do
       expect(activity.module_url(student.activity_sessions.build()).to_s).to include "student"
     end
 
+    it "must use the connect_url_helper when the classification.key is 'connect'" do
+      classification = build(:activity_classification, key: 'connect')
+      classified_activity = build(:activity, classification: classification)
+      activity_session = build(:activity_session)
+      expect(classified_activity).to receive(:connect_url_helper).with({student: activity_session.uid}).and_call_original
+      result = classified_activity.module_url(activity_session)
+      expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?student=#{activity_session.uid}")
+    end
+
+    it "must use the connect_url_helper when the classification.key is 'diagnostic'" do
+      classification = build(:activity_classification, key: 'diagnostic')
+      classified_activity = build(:activity, classification: classification)
+      activity_session = build(:activity_session)
+      expect(classified_activity).to receive(:connect_url_helper).with({student: activity_session.uid}).and_call_original
+      result = classified_activity.module_url(activity_session)
+      expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?student=#{activity_session.uid}")
+    end
+
   end
 
   describe '#anonymous_module_url' do
     it 'must add anonymous param' do
       expect(activity.anonymous_module_url.to_s).to include "anonymous=true"
+    end
+
+    it "must use the connect_url_helper when the classification.key is 'connect'" do
+      classification = build(:activity_classification, key: 'connect')
+      classified_activity = build(:activity, classification: classification)
+      expect(classified_activity).to receive(:connect_url_helper).with({anonymous: true}).and_call_original
+      result = classified_activity.anonymous_module_url
+      expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?anonymous=true")
+    end
+
+    it "must use the connect_url_helper when the classification.key is 'diagnostic'" do
+      classification = build(:activity_classification, key: 'diagnostic')
+      classified_activity = build(:activity, classification: classification)
+      expect(classified_activity).to receive(:connect_url_helper).with({anonymous: true}).and_call_original
+      result = classified_activity.anonymous_module_url
+      expect(result.to_s).to eq("#{classification.module_url}#{classified_activity.uid}?anonymous=true")
     end
   end
 
