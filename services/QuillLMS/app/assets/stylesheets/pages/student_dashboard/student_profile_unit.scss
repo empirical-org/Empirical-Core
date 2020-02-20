@@ -98,6 +98,7 @@
     .data-table-row {
       padding: 16px 0px !important;
       min-height: 108px;
+      height: min-content !important;
     }
     .data-table-row-section.action-button-section {
       flex: 1 0 100%;
@@ -112,12 +113,15 @@
       flex: 1.5;
     }
     .score-section {
+      flex: 1;
       overflow: visible;
       .score {
         position: relative;
         span {
           position: absolute;
           top: 32px;
+          max-width: 80px;
+          white-space: normal
         }
       }
     }
