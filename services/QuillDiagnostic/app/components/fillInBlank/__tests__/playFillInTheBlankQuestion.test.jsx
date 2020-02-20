@@ -34,32 +34,10 @@ describe('PlayFillInTheBlankQuestion component', () => {
   });
 
   describe('handleSubmitResponse', () => {
-    it('should call nextQuestion if there are no inputErrors in state', () => {
-      const nextQuestion = jest.fn();
-      props.nextQuestion = nextQuestion;
-      const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
-      wrapper.setState({responses: []})
+    it('should call checkAllInputs', () => {
+      const checkAllInputs = jest.spyOn(wrapper.instance(), 'checkAllInputs');
       wrapper.instance().handleSubmitResponse();
-      expect(nextQuestion.mock.calls.length).toBe(1);
-    });
-
-    it('should not call nextQuestion if there are inputErrors in state', () => {
-      const nextQuestion = jest.fn();
-      props.nextQuestion = nextQuestion;
-      const inputErrors = new Set();
-      inputErrors.add(1);
-      wrapper.setState({ inputErrors, responses: []});
-      wrapper.instance().handleSubmitResponse();
-      expect(nextQuestion.mock.calls.length).toBe(0);
-    });
-
-    it('is triggered by clicking the submit button', () => {
-      const nextQuestion = jest.fn();
-      props.nextQuestion = nextQuestion;
-      const wrapper = mount(<PlayFillInTheBlankQuestion {...props} />);
-      wrapper.setState({responses: []})
-      wrapper.find('.quill-button').simulate('click');
-      expect(nextQuestion.mock.calls.length).toBe(1);
+      expect(checkAllInputs).toHaveBeenCalled();
     });
   });
 
@@ -75,41 +53,6 @@ describe('PlayFillInTheBlankQuestion component', () => {
       wrapper.find('#input1').simulate('change', { target: { value: 'bar', }, });
       wrapper.find('#input0').simulate('change', { target: { value: 'foo', }, });
       expect(wrapper.state().inputVals).toEqual(['foo', 'bar']);
-    });
-
-    describe('validateInput onBlur', () => {
-      describe('updates this.state.inputErrors', () => {
-        describe('by adding the index of the input if the input is', () => {
-          it('not in the cues list', () => {
-            wrapper.setState({ inputVals: ['', 'foo'], });
-            wrapper.find('#input1').simulate('blur');
-            expect(wrapper.state().inputErrors.has(1)).toBe(true);
-          });
-          it('empty and question.blankAllowed is false', () => {
-            const wrapper = mount(<PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />);
-            wrapper.setState({ inputVals: ['', 'foo'], });
-            wrapper.find('#input1').simulate('blur');
-            expect(wrapper.state().inputErrors.has(1)).toBe(true);
-          });
-        });
-        describe('by removing the index of the input if the input is', () => {
-          const inputErrorSet = new Set();
-          inputErrorSet.add(1);
-          const someState = { inputVals: ['', 'a'], };
-
-          it('in the cues list', () => {
-            wrapper.setState(someState);
-            wrapper.find('#input1').simulate('blur');
-            expect(wrapper.state().inputErrors.has(1)).toBe(false);
-          });
-
-          it('empty and state.blankAllowed is true', () => {
-            wrapper.setState({ inputVals: ['', 'a'], });
-            wrapper.find('#input1').simulate('blur');
-            expect(wrapper.state().inputErrors.has(1)).toBe(false);
-          });
-        });
-      });
     });
 
     describe('errored input fields', () => {

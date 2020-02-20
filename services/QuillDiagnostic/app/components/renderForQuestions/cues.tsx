@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 import translations from '../../libs/translations/index.js';
@@ -14,7 +14,7 @@ interface CuesProps {
   translate(key: any, opts?: any): any
 }
 
-export default class Cues extends React.Component<CuesProps> {
+export class Cues extends React.Component<CuesProps> {
 
   getJoiningWordsText = () => {
     const { diagnosticID, question, language, translate } = this.props;
@@ -90,3 +90,5 @@ export default class Cues extends React.Component<CuesProps> {
     }
   }
 }
+
+export default Cues;
