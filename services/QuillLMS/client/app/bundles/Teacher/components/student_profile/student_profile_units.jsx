@@ -1,11 +1,23 @@
 import React from 'react';
 import _ from 'underscore';
 import StudentProfileUnit from './student_profile_unit.jsx';
+import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
 const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
 
 export default class StudentProfileUnits extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      closedModal: false
+    }
+  }
+
+  handleCloseModalClick = () => {
+    this.setState({ closedModal: true, })
+  }
 
   groupUnits() {
     const { data, } = this.props
@@ -63,7 +75,6 @@ export default class StudentProfileUnits extends React.Component {
       default:
         return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
     }
-
   }
 
   renderEmptyState = () => (
@@ -72,6 +83,42 @@ export default class StudentProfileUnits extends React.Component {
       <p>{this.emptyStateText()}</p>
     </div>
   )
+
+  renderPinnedActivityBar = () => {
+    const { data, } = this.props
+    const pinnedActivity = data.find(act => act.pinned === 't')
+    if (!pinnedActivity) { return }
+
+    const { name, ca_id, activity_id, } = pinnedActivity
+    return (<div className="pinned-activity">
+      <span>{name}</span>
+      <a className="quill-button medium primary contained focus-on-dark" href={activityLaunchLink(ca_id, activity_id)}>Join</a>
+    </div>)
+  }
+
+  renderPinnedActivityModal = () => {
+    const { data, teacherName, } = this.props
+    const { closedModal, } = this.state
+    const pinnedActivity = data.find(act => act.pinned === 't')
+    if (!pinnedActivity || closedModal) { return }
+
+    const { name, ca_id, activity_id, } = pinnedActivity
+    return (<div className="modal-container pinned-activity-modal-container">
+      <div className="modal-background" />
+      <div className="pinned-activity-modal quill-modal modal-body">
+        <div>
+          <h3 className="title">New Lesson Available: {name}</h3>
+        </div>
+        <div className="pinned-activity-modal-text">
+          <p>Your teacher, {teacherName}, has launched a live Quill Lesson.</p>
+        </div>
+        <div className="form-buttons">
+          <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleCloseModalClick} type="button">Not now</button>
+          <a className="quill-button contained primary medium focus-on-light" href={activityLaunchLink(ca_id, activity_id)}>Join the lesson</a>
+        </div>
+      </div>
+    </div>)
+  }
 
   render() {
     const { loading, } = this.props
@@ -88,6 +135,8 @@ export default class StudentProfileUnits extends React.Component {
 
     return (
       <div className="container">
+        {this.renderPinnedActivityBar()}
+        {this.renderPinnedActivityModal()}
         {content}
       </div>
     );

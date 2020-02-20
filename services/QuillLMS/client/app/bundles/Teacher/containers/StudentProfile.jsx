@@ -48,11 +48,15 @@ class StudentProfile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selectedClassroomId, router, } = this.props
+    const { selectedClassroomId, router, student, } = this.props
     if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
         router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
+    }
+
+    if (student !== nextProps.student) {
+      this.initializePusher(nextProps)
     }
   }
 
@@ -83,9 +87,8 @@ class StudentProfile extends React.Component {
     updateActiveClassworkTab(classworkTab)
   }
 
-  initializePusher = () => {
-    const { student, fetchStudentProfile, } = this.props;
-
+  initializePusher = (nextProps) => {
+    const { student, fetchStudentProfile, } = nextProps;
     if (student) {
       const classroomId = student.classroom.id;
 
@@ -118,16 +121,6 @@ class StudentProfile extends React.Component {
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} onClickCard={this.handleClassroomTabClick} />)}
 
-    const nextActivity = nextActivitySession ? (<NextActivity
-      activityClassificationId={nextActivitySession.activity_classification_id}
-      activityId={nextActivitySession.activity_id}
-      caId={nextActivitySession.ca_id}
-      hasActivities={scores.length > 0}
-      loading={loading}
-      maxPercentage={nextActivitySession.max_percentage}
-      name={nextActivitySession.name}
-    />) : null;
-
     return (<div className="student-profile-container">
       <StudentProfileHeader
         classroomName={student.classroom.name}
@@ -144,11 +137,11 @@ class StudentProfile extends React.Component {
         onClickTab={this.handleClickClassworkTab}
       />
       <div id="student-profile">
-        <NotificationFeed notifications={notifications} />
         <StudentProfileUnits
           activeClassworkTab={activeClassworkTab}
           data={scores}
           loading={loading}
+          teacherName={student.classroom.teacher.name}
         />
       </div>
     </div>);

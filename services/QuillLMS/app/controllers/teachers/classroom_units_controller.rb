@@ -29,6 +29,7 @@ class Teachers::ClassroomUnitsController < ApplicationController
     if lesson_tutorial_completed?
       if cuas && cuas.update(locked: false, pinned: true)
         find_or_create_lesson_activity_sessions_for_classroom
+        binding.pry
         PusherLessonLaunched.run(@classroom_unit.classroom)
         # if @classroom_unit.is_valid_for_google_announcement_with_specific_user?(current_user)
         #   return post_to_google_classroom
