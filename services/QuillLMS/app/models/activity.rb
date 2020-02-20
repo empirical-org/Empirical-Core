@@ -152,17 +152,25 @@ class Activity < ActiveRecord::Base
     @url = Addressable::URI.parse(url)
   end
 
+  def connect_url_helper(initial_params)
+    base_url = "#{classification.module_url}#{uid}"
+    @url = Addressable::URI.parse(base_url)
+    params = (@url.query_values || {})
+    params.merge!(initial_params)
+    @url.query_values = params
+    fix_angular_fragment!
+  end
+
   def module_url_helper(initial_params)
-    if classification.key == 'lessons'
-      lesson_url_helper
-    else
-      @url = Addressable::URI.parse(classification.module_url)
-      params = (@url.query_values || {})
-      params.merge!(initial_params)
-      params[:uid] = uid if uid.present?
-      @url.query_values = params
-      fix_angular_fragment!
-    end
+    return connect_url_helper(initial_params) if ['diagnostic', 'connect'].include?(classification.key)
+    return lesson_url_helper if classification.key == 'lessons'
+
+    @url = Addressable::URI.parse(classification.module_url)
+    params = (@url.query_values || {})
+    params.merge!(initial_params)
+    params[:uid] = uid if uid.present?
+    @url.query_values = params
+    fix_angular_fragment!
   end
 
   def fix_angular_fragment!
