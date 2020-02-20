@@ -15,6 +15,10 @@ const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, custo
   return madeLastAttemptAndItWasSuboptimal ? prompt.max_attempts_feedback : lastSubmittedResponse.feedback
 }
 
+const feedbackForInnerHTML = (feedback) => {
+  return {__html: feedback}
+}
+
 const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses, customFeedback, customFeedbackKey }: any) => {
   let className = 'feedback'
   let imageSrc = loopSrc
@@ -42,7 +46,7 @@ const Feedback: React.SFC = ({ lastSubmittedResponse, prompt, submittedResponses
       >
         <div className={className} key={key}>
           <img alt={imageAlt} src={imageSrc} />
-          <p className="feedback-text">{feedback}</p>
+          <p className="feedback-text" dangerouslySetInnerHTML={feedbackForInnerHTML(feedback)}></p>
         </div>
       </ReactCSSTransitionReplace>
     </div>
