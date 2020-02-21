@@ -28,11 +28,11 @@ export interface LessonFormProps {
   sentenceFragments: SentenceFragmentsReducerState,
   stateSpecificClass?: string
   submit(object: {
-    name: string, 
-    questions: Array<Object>, 
-    landingPageHtml: string, 
-    flag: string, 
-    modelConceptUID: string, 
+    name: string,
+    questions: Array<Object>,
+    landingPageHtml: string,
+    flag: string,
+    modelConceptUID: string,
     isELL: boolean
   }): void,
   titleCards: TitleCardsReducerState,
@@ -57,7 +57,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
   constructor(props) {
     super(props)
 
-    const { flag, introURL, isELL, landingPageHtml, modelConceptUID, name, questions } = props.currentValues; // eslint-disable-line react/destructuring-assignment
+    const { flag, introURL, isELL, landingPageHtml, modelConceptUID, name, questions } = props.currentValues || {}; // eslint-disable-line react/destructuring-assignment
 
     this.state = {
       flag: flag || 'alpha',
@@ -162,8 +162,8 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           return ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, });
         });
       } else {
-        formatted = options.map((opt: { key: string, title: string }) => { 
-          return { name: opt.title, value: opt.key } 
+        formatted = options.map((opt: { key: string, title: string }) => {
+          return { name: opt.title, value: opt.key }
         });
       }
       return (<QuestionSelector
