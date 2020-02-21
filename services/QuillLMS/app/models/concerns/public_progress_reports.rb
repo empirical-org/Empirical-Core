@@ -61,7 +61,7 @@ module PublicProgressReports
       # being converted to an array because that is what the diagnostic reports expect
       questions_arr = questions.map do |k,v|
         {question_id: k,
-         score: ((v[:correct].to_f/v[:total].to_f) * 100).round,
+         score: ((v[:correct].to_f/v[:total]) * 100).round,
          prompt: v[:prompt],
          instructions: v[:instructions]}
       end

@@ -1,39 +1,61 @@
 import React, { Component } from 'react';
-const beginArrow = 'https://assets.quill.org/images/icons/begin_arrow.svg';
 import translations from '../../libs/translations/index.js';
+import { commonText } from '../../../public/locales/commonText';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 export interface ComponentProps {
-  data: any
-  language: string
-  nextQuestion(): void
+  data: any,
+  diagnosticID: string,
+  language: string,
+  handleContinueClick(): void,
+  translate(input: string): any
 }
 
 class TitleCard extends Component<ComponentProps, any> {
 
-  getContentHTML() {
-    let html = this.props.data.content ? this.props.data.content : translations.english[this.props.data.key];
-    if (this.props.language !== 'english') {
-      const textClass = this.props.language === 'arabic' ? 'right-to-left arabic-title-div' : '';
-      html += `<br/><div class="${textClass}">${translations[this.props.language][this.props.data.key]}</div>`;
+  getContentHTML = () => {
+    const { data, language, } = this.props;
+    let html = data.content ? data.content : translations.english[data.key];
+    if (language !== ENGLISH) {
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left arabic-title-div' : '';
+      html += `<br/><div class="${textClass}">${translations[language][data.key]}</div>`;
     }
     return html;
   }
 
-  getButtonText() {
-    let text = translations.english['continue button text']
-    if (this.props.language !== 'english') {
-      text += ` / ${translations[this.props.language]['continue button text']}`
+  renderContent = () => {
+    const { data, diagnosticID, language, translate } = this.props;
+    const { title } = data;
+    const header = `${title}^header`;
+    const text = `${title}^text`;
+    
+    if(diagnosticID === 'ell') {
+      return <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />;
+    } else {
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
+      return(
+        <div>
+          <div className="landing-page-html">
+            <h1>{commonText[title].header}</h1>
+            <p>{commonText[title].text}</p>
+          </div>
+          {language !== ENGLISH && <div className={`landing-page-html ${textClass}`}>
+            <h1>{translate(header)}</h1>
+            <p>{translate(text)}</p>
+          </div>}
+        </div>
+      );
     }
-    return text
   }
 
   render() {
+    const { handleContinueClick, translate} = this.props;
+
     return (
       <div className="landing-page">
-        <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: this.getContentHTML(), }} />
-        <button className="button student-begin" onClick={this.props.nextQuestion}>
-          {this.getButtonText()}
-          <img className="begin-arrow" src={beginArrow} />
+        {this.renderContent()}
+        <button className="quill-button focus-on-light large contained primary" onClick={handleContinueClick} type="button">
+          {translate('buttons^continue')}
         </button>
       </div>
     );

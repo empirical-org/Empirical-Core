@@ -1,3 +1,17 @@
+.inline-link {
+  color: #009a80;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    outline: none;
+  }
+}
+
 #user-type {
   align-items: center;
   flex-direction: column;
@@ -23,18 +37,16 @@
   h1 {
     margin-bottom: 4px !important;
   }
-  .sub-header {
-    a {
-      color: #009a80;
-      font-weight: 600;
-    }
-  }
   .name {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     .input-container {
-      width: 182px;
+      max-width: 182px;
+      width: 100%;
+      &.first-name {
+        margin-right: 20px;
+      }
     }
   }
 }
@@ -187,7 +199,9 @@
   font-weight: 600;
   text-align: center;
   color: #009a80;
-  margin-top: 32px;
+  border: none;
+  background: transparent;
+  margin: 32px auto;
   display: flex;
   justify-content: center;
 }

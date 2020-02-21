@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'request'
-import { SegmentAnalytics, Events } from '../../../../../modules/analytics'; 
+import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import AuthSignUp from './auth_sign_up'
@@ -28,6 +28,10 @@ class SignUpStudent extends React.Component {
     this.submitClass = this.submitClass.bind(this)
   }
 
+  componentDidMount() {
+    document.title = 'Quill.org | Student Sign Up'
+  }
+
   updateKeyValue(key, value) {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
@@ -40,16 +44,26 @@ class SignUpStudent extends React.Component {
 
   submitClass() {
     const { password, firstName, lastName, username } = this.state
-    let buttonClass = "quill-button contained primary medium"
+    let buttonClass = "quill-button contained primary medium focus-on-light"
     if (!password.length || !firstName.length || !lastName.length || !username.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
   }
 
+  handleClickSignUpAsTeacher = (e) => {
+    SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER)
+    window.location.href = '/sign-up/teacher'
+  }
+
+  handleKeyDownOnSignUpAsTeacher = (e) => {
+    if (e.key !== 'Enter') { return }
+    this.handleClickSignUpAsTeacher(e)
+  }
+
   handleSubmit(e) {
-    const { firstName, lastName, username, password, timesSubmitted, } = this.state
-    const email = this.state.email && this.state.email.length ? this.state.email : null
+    const { firstName, lastName, username, password, timesSubmitted, email, } = this.state
+    const emailToSubmit = email && email.length ? email : null
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.EMAIL});
     request({
@@ -60,7 +74,7 @@ class SignUpStudent extends React.Component {
           name: `${firstName} ${lastName}`,
           password,
           username,
-          email,
+          email: emailToSubmit,
           role: 'student',
           account_type: 'Student Created Account'
         },
@@ -93,7 +107,7 @@ class SignUpStudent extends React.Component {
       <div className="container account-form student-sign-up">
         <h1>Create a student account</h1>
         <p className="sub-header">Are you a teacher?
-          <a href="/sign-up/teacher" onClick={(e) => SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER)}>Sign up here</a>
+          <span className="inline-link" onClick={this.handleClickSignUpAsTeacher} onKeyDown={this.handleKeyDownOnSignUpAsTeacher} role="link" tabIndex={0}>Sign up here</span>
         </p>
         <div className="account-container text-center">
           <AuthSignUp />
@@ -101,10 +115,11 @@ class SignUpStudent extends React.Component {
           <div className="student-signup-form">
             <div>
               <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-                <input name="utf8" type="hidden" value="✓" />
-                <input name="authenticity_token" type="hidden" value={authToken} />
+                <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+                <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
                 <div className="name">
                   <Input
+                    autoComplete="given-name"
                     className="first-name"
                     error={errors.first_name}
                     handleChange={this.update}
@@ -115,6 +130,7 @@ class SignUpStudent extends React.Component {
                     value={firstName}
                   />
                   <Input
+                    autoComplete="family-name"
                     className="last-name"
                     error={errors.last_name}
                     handleChange={this.update}
@@ -126,6 +142,7 @@ class SignUpStudent extends React.Component {
                   />
                 </div>
                 <Input
+                  autocomplete="username"
                   className="username"
                   error={errors.username}
                   handleChange={this.update}
@@ -136,16 +153,18 @@ class SignUpStudent extends React.Component {
                   value={username}
                 />
                 <Input
+                  autocomplete="email"
                   className="email"
                   error={errors.email}
                   handleChange={this.update}
                   id="email"
                   label="Email (optional)"
                   timesSubmitted={timesSubmitted}
-                  type="text"
+                  type="email"
                   value={email}
                 />
                 <Input
+                  autocomplete="new-password"
                   className="password"
                   error={errors.password}
                   handleChange={this.update}
@@ -155,7 +174,7 @@ class SignUpStudent extends React.Component {
                   type='password'
                   value={password}
                 />
-                <input className={this.submitClass()} name="commit" type="submit" value="Sign up" />
+                <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />
               </form>
             </div>
           </div>

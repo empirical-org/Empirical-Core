@@ -10,16 +10,21 @@ import LoadingSpinner from '../../components/shared/loadingSpinner'
 import PromptStep from '../../components/studentView/promptStep'
 import { activityOne } from './data'
 
+const dispatch = () => {}
+
 describe('StudentViewContainer component', () => {
   describe('when the activity has loaded', () => {
     const activitiesReducer = { hasReceivedData: true, currentActivity: activityOne}
     const sessionReducer = { submittedResponses: [] }
     const wrapper = mount(<StudentViewContainer
       activities={activitiesReducer}
-      dispatch={() => {}}
+      dispatch={dispatch}
       location={{ search: "?uid=1" }}
       session={sessionReducer}
     />)
+
+    const scrollToStepMock = jest.fn()
+    wrapper.instance().scrollToStep = scrollToStepMock
 
     it('renders', () => {
       expect(toJson(wrapper)).toMatchSnapshot()
@@ -67,8 +72,8 @@ describe('StudentViewContainer component', () => {
     })
 
     describe('when the user clicks on a stepLink', () => {
-      const scrollToStepMock = jest.fn()
-      wrapper.instance().scrollToStep = scrollToStepMock
+      const scrollToStepOnMobileMock = jest.fn()
+      wrapper.instance().scrollToStepOnMobile = scrollToStepOnMobileMock
 
       describe('when the read passage step has been completed', () => {
 
@@ -76,7 +81,7 @@ describe('StudentViewContainer component', () => {
           wrapper.setState({ completedSteps: [1], activeStep: 1 })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
           expect(wrapper.state('activeStep')).toBe(4)
-          expect(scrollToStepMock).toHaveBeenCalled()
+          expect(scrollToStepOnMobileMock).toHaveBeenCalled()
         })
       })
 
@@ -86,7 +91,7 @@ describe('StudentViewContainer component', () => {
           wrapper.setState({ completedSteps: [], activeStep: 1 })
           wrapper.find('.step-links').find('.step-link').last().simulate('click')
           expect(wrapper.state('activeStep')).toBe(1)
-          expect(scrollToStepMock).toHaveBeenCalled()
+          expect(scrollToStepOnMobileMock).toHaveBeenCalled()
         })
       })
     })
@@ -98,7 +103,7 @@ describe('StudentViewContainer component', () => {
     const sessionReducer = { submittedResponses: {} }
     const wrapper = shallow(<StudentViewContainer
       activities={activitiesReducer}
-      dispatch={() => {}}
+      dispatch={dispatch}
       location={{ search: "?uid=1" }}
       session={sessionReducer}
     />)

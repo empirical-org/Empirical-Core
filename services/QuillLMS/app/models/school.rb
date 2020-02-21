@@ -55,7 +55,7 @@ class School < ActiveRecord::Base
     data[ulocal.to_s.to_sym]
   end
 
-  def generate_leap_csv(activities_since = Time.parse("2010-01-01"), options = {})
+  def generate_leap_csv(activities_since = Date.parse("2010-01-01"), options = {})
     CSV.generate(options) do |csv_file|
       csv_file << %w(QuillID DistrictID StudentName StudentEmail TeacherName ClassroomName SchoolName Percentage Date ActivityName StandardName MinutesSpent)
 
