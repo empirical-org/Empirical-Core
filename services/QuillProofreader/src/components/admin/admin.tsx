@@ -33,7 +33,6 @@ class AdminContainer extends React.Component<AdminContainerProps> {
     );
     this.props.dispatch(proofreaderActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
-    this.setState({ userData: '' });
   }
 
   async fetchUser() {
