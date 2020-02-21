@@ -36,7 +36,7 @@ module Demo::ConceptResults
     correct.map{ |c| update_metadata(c, :correct, 1) }
     incorrect.map{ |c| update_metadata(c, :correct, 0) }
 
-    new_percentage = num_correct.to_f / crs.count.to_f
+    new_percentage = num_correct.to_f / crs.count
     activity_session.update(percentage: new_percentage)
     crs
   end
