@@ -25,32 +25,32 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// need this for javascript cors requests
 	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
 	if request.Method == http.MethodOptions {
-	  responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-	  responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
-	  responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	  responseWriter.Header().Set("Access-Control-Max-Age", "3600")
-	  responseWriter.WriteHeader(http.StatusNoContent)
-	  return
+		responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
+		responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
+		responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		responseWriter.Header().Set("Access-Control-Max-Age", "3600")
+		responseWriter.WriteHeader(http.StatusNoContent)
+		return
 	}
 
 	requestDump, err := httputil.DumpRequest(request, true)
 	if err != nil {
-	  fmt.Println(err)
+		fmt.Println(err)
 	}
 	fmt.Println(string(requestDump))
 
 	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
 		//TODO make this response in the same format maybe?
-	  http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
-	  return
+		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
 		automl_api,
-                regex_rules_api,
-                spell_check_bing,
+		regex_rules_api,
+		spell_check_bing,
 	}
 
 	results := map[int]APIResponse{}
