@@ -22,7 +22,7 @@ class UserSubscription < ActiveRecord::Base
       if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
         PremiumUserSubscriptionEmailWorker.perform_async(user_id)
       elsif subscription.account_type.downcase != 'teacher trial'
-        logger.info("A premium school subscription email is being sent for Subscription #{subscription.id}")
+        logger.info("A premium school subscription email is being sent for Subscription #{subscription.id} and User #{user_id}")
         PremiumSchoolSubscriptionEmailWorker.perform_async(user_id)
       end
     end
