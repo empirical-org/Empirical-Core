@@ -35,13 +35,17 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   componentWillMount() {
-    this.fetchUser().then(userData => this.setState({ userData }));
+    this.fetchUser().then(userData => {
+        if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
+          window.location = newSessionEndpoint;
+        }
+      }
+    );
     this.props.dispatch(questionsActions.startListeningToQuestions());
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
     this.props.dispatch(questionAndConceptMapActions.startListeningToQuestionAndConceptMapData());
-    this.setState({ userData: '' });
   }
 
   async fetchUser() {
@@ -58,54 +62,50 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   render() {
-    if (this.state.userData.user === null || (this.state.userData.hasOwnProperty('role') && this.state.userData.user.role !== 'staff')) {
-      window.location = newSessionEndpoint;
-    } else {
-        return (
-          <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
-            <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
-              <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
-                <p className="menu-label">
-                  General
-                </p>
-                <ul className="menu-list">
-                  <TabLink activeClassName="is-active" to={'/admin/lessons'}>Grammar Activities</TabLink>
-                  <TabLink activeClassName="is-active" to={'/admin/question_dashboard'}>Question Dashboard</TabLink>
-                  <TabLink activeClassName="is-active" to={'/admin/concept_dashboard'}>Concept Dashboard</TabLink>
-                </ul>
-                <p className="menu-label">
-                  Questions
-                </p>
-                <ul className="menu-list">
-                  <TabLink activeClassName="is-active" to={'/admin/questions'}>Questions</TabLink>
-                </ul>
-                <p className="menu-label">
-                  Supporting
-                </p>
-                <ul className="menu-list">
-                  <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
-                  <TabLink activeClassName="is-active" to={'/admin/concepts_feedback'}>Concept Feedback</TabLink>
-                </ul>
-              </aside>
-              <div className="admin-container">
-                {this.props.children}
-              </div>
-            </section>
-            <Switch>
-              <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
-              <Route component={Lessons} path={`/admin/lessons`} />
-              <Route component={Question} path={`/admin/questions/:questionID`} />
-              <Route component={Questions} path={`/admin/questions`} />
-              <Route component={Concept} path={`/admin/concepts/:conceptID`} />
-              <Route component={Concepts} path={`/admin/concepts`} />
-              <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`} />
-              <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`} />
-              <Route component={QuestionDashboard} path={`/admin/question_dashboard`} />
-              <Route component={ConceptDashboard} path={`/admin/concept_dashboard`} />
-            </Switch>
+    return (
+      <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
+        <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
+          <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
+            <p className="menu-label">
+              General
+            </p>
+            <ul className="menu-list">
+              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Grammar Activities</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/question_dashboard'}>Question Dashboard</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concept_dashboard'}>Concept Dashboard</TabLink>
+            </ul>
+            <p className="menu-label">
+              Questions
+            </p>
+            <ul className="menu-list">
+              <TabLink activeClassName="is-active" to={'/admin/questions'}>Questions</TabLink>
+            </ul>
+            <p className="menu-label">
+              Supporting
+            </p>
+            <ul className="menu-list">
+              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concepts_feedback'}>Concept Feedback</TabLink>
+            </ul>
+          </aside>
+          <div className="admin-container">
+            {this.props.children}
           </div>
-        );
-    }
+        </section>
+        <Switch>
+          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
+          <Route component={Lessons} path={`/admin/lessons`} />
+          <Route component={Question} path={`/admin/questions/:questionID`} />
+          <Route component={Questions} path={`/admin/questions`} />
+          <Route component={Concept} path={`/admin/concepts/:conceptID`} />
+          <Route component={Concepts} path={`/admin/concepts`} />
+          <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`} />
+          <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`} />
+          <Route component={QuestionDashboard} path={`/admin/question_dashboard`} />
+          <Route component={ConceptDashboard} path={`/admin/concept_dashboard`} />
+        </Switch>
+      </div>
+    );
   }
 }
 
