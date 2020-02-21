@@ -33,7 +33,30 @@ exports[`Dropdown input component should render when it is multi-option 1`] = `
     onInputChange={[Function]}
     onKeyDown={[Function]}
     optionType="option"
-    options={Array []}
+    options={
+      Array [
+        Object {
+          "label": "All options",
+          "value": "All",
+        },
+        Object {
+          "label": "One",
+          "value": 1,
+        },
+        Object {
+          "label": "Two",
+          "value": 2,
+        },
+        Object {
+          "label": "Three",
+          "value": 3,
+        },
+        Object {
+          "label": "Four",
+          "value": 4,
+        },
+      ]
+    }
     placeholder=""
     updateCursor={[Function]}
     value={Array []}
@@ -70,7 +93,26 @@ exports[`Dropdown input component should render when it is not searchable 1`] = 
     menuIsOpen={false}
     onInputChange={[Function]}
     onKeyDown={[Function]}
-    options={Array []}
+    options={
+      Array [
+        Object {
+          "label": "One",
+          "value": 1,
+        },
+        Object {
+          "label": "Two",
+          "value": 2,
+        },
+        Object {
+          "label": "Three",
+          "value": 3,
+        },
+        Object {
+          "label": "Four",
+          "value": 4,
+        },
+      ]
+    }
     placeholder=""
     updateCursor={[Function]}
     value={
@@ -112,7 +154,26 @@ exports[`Dropdown input component should render when it is searchable 1`] = `
     menuIsOpen={false}
     onInputChange={[Function]}
     onKeyDown={[Function]}
-    options={Array []}
+    options={
+      Array [
+        Object {
+          "label": "One",
+          "value": 1,
+        },
+        Object {
+          "label": "Two",
+          "value": 2,
+        },
+        Object {
+          "label": "Three",
+          "value": 3,
+        },
+        Object {
+          "label": "Four",
+          "value": 4,
+        },
+      ]
+    }
     placeholder="Value goes here"
     updateCursor={[Function]}
     value={
