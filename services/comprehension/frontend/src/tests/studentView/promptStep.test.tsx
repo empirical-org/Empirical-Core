@@ -2,7 +2,7 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import PromptStep from '../../components/studentView/promptStep'
+import PromptStep, { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, } from '../../components/studentView/promptStep'
 import EditorContainer from '../../components/studentView/editorContainer'
 
 import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
@@ -93,11 +93,11 @@ describe('PromptStep component', () => {
         })
       })
 
-      describe('#handleTextChange', () => {
+      describe('#onTextChange', () => {
         describe('when the submission includes the prompt stem', () => {
           it('should update the state to match the new submission', () => {
             const submission = { target: { value: "<p>Governments should make voting compulsory <u>because</u>&nbsp;otherwise not everyone will vote.</p>" }}
-            wrapper.instance().handleTextChange(submission)
+            wrapper.instance().onTextChange(submission)
             expect(wrapper.state('html')).toBe(submission.target.value)
           })
         })
@@ -105,7 +105,7 @@ describe('PromptStep component', () => {
         describe('when the submission is <br> (e.g. the user deleted all the text)', () => {
           it('should update the state to be just the prompt stem', () => {
             const submission = { target: { value: "<br>" }}
-            wrapper.instance().handleTextChange(submission)
+            wrapper.instance().onTextChange(submission)
             expect(wrapper.state('html')).toBe(wrapper.instance().formattedPrompt())
           })
         })
@@ -114,7 +114,7 @@ describe('PromptStep component', () => {
           it('should not update the state', () => {
             const existingHtmlValue = wrapper.state('html')
             const submission = { target: { value: "<p>Governments should make voting c</p>" }}
-            wrapper.instance().handleTextChange(submission)
+            wrapper.instance().onTextChange(submission)
             expect(wrapper.state('html')).toBe(existingHtmlValue)
           })
         })
@@ -161,6 +161,52 @@ describe('PromptStep component', () => {
       it('has a button with a disabled class and the text "Get feedback"', () => {
         expect(wrapper.find('button.disabled')).toHaveLength(1)
         expect(wrapper.find('button.disabled').text()).toEqual("Get feedback")
+      })
+
+    })
+
+    describe('when a too-short response has been submitted', () => {
+      const wrapper = mount(<PromptStep
+        {...defaultProps}
+        active
+        className="step active"
+      />)
+
+      wrapper.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short' })
+
+      it('matches snapshot', () => {
+        expect(toJson(wrapper)).toMatchSnapshot()
+      })
+
+      it('renders an EditorContainer', () => {
+        expect(wrapper.find(EditorContainer)).toHaveLength(1)
+      })
+
+      it('has feedback with the too-short response text text"', () => {
+        expect(wrapper.find('.feedback-text').text()).toEqual(TOO_SHORT_FEEDBACK)
+      })
+
+    })
+
+    describe('when a too-long response has been submitted', () => {
+      const wrapper = mount(<PromptStep
+        {...defaultProps}
+        active
+        className="step active"
+      />)
+
+      wrapper.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
+
+      it('matches snapshot', () => {
+        expect(toJson(wrapper)).toMatchSnapshot()
+      })
+
+      it('renders an EditorContainer', () => {
+        expect(wrapper.find(EditorContainer)).toHaveLength(1)
+      })
+
+      it('has feedback with the too-long response text text"', () => {
+        expect(wrapper.find('.feedback-text').text()).toEqual(TOO_LONG_FEEDBACK)
       })
 
     })

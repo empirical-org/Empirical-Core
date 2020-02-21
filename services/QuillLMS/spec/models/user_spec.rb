@@ -955,6 +955,13 @@ describe User, type: :model do
         user.first_name = nil
         expect(user.name).to eq(user.last_name)
       end
+
+      it 'has multiple last names' do
+        user.first_name = 'Has'
+        user.last_name = 'Multiple Last Names'
+        user.save
+        expect(user.name).to eq(user.first_name + ' ' + user.last_name)
+      end
     end
   end
 

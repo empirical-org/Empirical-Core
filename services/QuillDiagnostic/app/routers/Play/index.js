@@ -2,7 +2,6 @@ export default {
   path: 'play/',
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      import(/* webpackChunkName: "play-lesson" */ './routes/Lessons/index.js'),
       import(/* webpackChunkName: "play-diagnostic" */ './routes/Diagnostics/index.js'),
       import(/* webpackChunkName: "play-turk" */ './routes/Turk/index.js')
     ])

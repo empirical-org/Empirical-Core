@@ -18,6 +18,7 @@ exports[`RenameClassroomModal component should render RenameClassroomModal 1`] =
       </h3>
     </div>
     <Input
+      autoComplete="on"
       characterLimit={50}
       className="name"
       handleChange={[Function]}

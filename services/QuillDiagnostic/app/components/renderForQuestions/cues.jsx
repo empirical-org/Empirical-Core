@@ -1,52 +1,73 @@
 import React from 'react';
 import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
-const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
+const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 import translations from '../../libs/translations/index.js';
+import { ENGLISH } from '../../../public/locales/languagePageInfo';
 
-export default React.createClass({
+export default class Cues extends React.Component {
 
-  getJoiningWordsText() {
-    if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
-      return this.props.getQuestion().cuesLabel
-    } else if (this.props.getQuestion().cues && this.props.getQuestion().cues.length === 1) {
+  getJoiningWordsText = () => {
+    const { diagnosticID, getQuestion, language, translate } = this.props;
+    const question = getQuestion();
+
+    if(language && diagnosticID !== 'ell') {
+      return this.translateCueLabel(question, translate);
+    } else if (question.cues && question.cuesLabel) {
+      return question.cuesLabel
+    } else if (question.cues && question.cues.length === 1) {
       let text = translations.english['joining word cues single'];
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['joining word cues single']}`;
+      if (language && language !== ENGLISH) {
+        text += ` / ${translations[language]['joining word cues single']}`;
       }
       return text;
     } else {
       let text = translations.english['joining word cues multiple'];
-      if (this.props.language && this.props.language !== 'english') {
-        text += ` / ${translations[this.props.language]['joining word cues multiple']}`;
+      if (language && language !== ENGLISH) {
+        text += ` / ${translations[language]['joining word cues multiple']}`;
       }
       return text;
     }
-  },
+  }
+
+  translateCueLabel = (question, translate) => {
+    if (question.cues && question.cuesLabel) {
+      const text = `cues^${question.cuesLabel}`;
+      return translate(text);
+    } else {
+      return translate('cues^joining word');
+    }
+  }
+
+  handleCustomText = () => {
+    const { customText, diagnosticID, language, getQuestion, translate } = this.props;
+    const question = getQuestion();
+    if (language && diagnosticID !== 'ell') {
+      return this.translateCueLabel(question, translate);
+    } else {
+      return customText;
+    }
+  }
 
   renderExplanation() {
-    let text;
-    if (this.props.customText) {
-      text = this.props.customText;
-    } else {
-      text = this.getJoiningWordsText();
-    }
+    const { customText, } = this.props;
+    const text = customText ? this.handleCustomText() : this.getJoiningWordsText();
     return (
       <CueExplanation text={text} />
     );
-  },
+  }
 
   renderCues() {
+    const { displayArrowAndText, getQuestion, } = this.props
     let arrowPicture, text
-    if (this.props.displayArrowAndText) {
-      arrowPicture = this.props.getQuestion().cuesLabel !== ' ' ? <img src={arrow} /> : null
+    if (displayArrowAndText) {
+      arrowPicture = getQuestion().cuesLabel !== ' ' ? <img alt="Arrow Icon" src={arrow} /> : null
       text = this.renderExplanation()
     } else {
       arrowPicture = <span />
       text = <span />
     }
-    //const arrow = this.props.displayArrowAndText ? (<div><img src={arrow} /> {this.renderExplanation()}</div>) : <span></span>
-    if (this.props.getQuestion().cues && this.props.getQuestion().cues.length > 0 && this.props.getQuestion().cues[0] !== '') {
-      const cueDivs = this.props.getQuestion().cues.map((cue, i) => <Cue cue={cue} key={`${i}${cue}`} />)
+    if (getQuestion().cues && getQuestion().cues.length > 0 && getQuestion().cues[0] !== '') {
+      const cueDivs = getQuestion().cues.map((cue, i) => <Cue cue={cue} key={`${i}${cue}`} />)
       return (
         <div className="cues">
           {cueDivs}
@@ -57,10 +78,10 @@ export default React.createClass({
     } else {
       return <span />
     }
-  },
+  }
 
   render() {
     return <div>{this.renderCues()}</div>;
-  },
+  }
 
-});
+}
