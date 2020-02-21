@@ -205,6 +205,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   renderHeader(header) {
     const { sortAscending, } = this.state
     let sortArrow, onClick
+    let tabIndex = -1
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     if (header.isSortable) {
@@ -212,11 +213,13 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       onClick = this.changeSortDirection
       sortArrow = <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
       className+= ' sortable'
+      tabIndex = 0
     }
     return (<button
       className={className}
       onClick={onClick}
       style={style as any}
+      tabIndex={tabIndex}
       type="button"
     >
       {sortArrow}

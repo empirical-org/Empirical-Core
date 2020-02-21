@@ -73,7 +73,7 @@ export default class StudentProfileUnits extends React.Component {
 
     switch(activeClassworkTab) {
       case TO_DO_ACTIVITIES:
-        return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : '"Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+        return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
       case COMPLETED_ACTIVITIES:
         return 'Nothing to see here yet! Once you complete an activity it will show up here.'
       case ALL_ACTIVITIES:
@@ -126,13 +126,13 @@ export default class StudentProfileUnits extends React.Component {
   }
 
   render() {
-    const { loading, } = this.props
+    const { loading, nextActivitySession, } = this.props
     let content = <LoadingIndicator />;
     if (!loading) {
       // give unit unit id key whether it is complete or incomplete
       content = this.displayedUnits().map(unit => {
         const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
-        return <StudentProfileUnit data={unit} key={unit_id} unitName={unit_name} />
+        return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
       });
     }
 

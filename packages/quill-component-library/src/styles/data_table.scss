@@ -35,6 +35,9 @@
     background-color: transparent;
     border: none;
     padding: 0px;
+    &:focus {
+      outline: none;
+    }
   }
 
   .data-table-row-section {

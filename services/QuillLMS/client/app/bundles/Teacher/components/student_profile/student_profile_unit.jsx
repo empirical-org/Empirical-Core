@@ -1,7 +1,8 @@
 import * as React from 'react'
 import moment from 'moment'
 
-import { DataTable } from 'quill-component-library/dist/componentLibrary'
+import { DataTable } from '../../../../../../../../packages/quill-component-library/src/components/shared/dataTable'
+// import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 
@@ -95,7 +96,7 @@ export default class StudentProfileUnit extends React.Component {
     return (<div className="score"><div className="not-yet-proficient" /><span>Not yet proficient</span></div>)
   }
 
-  actionButton = (act, index) => {
+  actionButton = (act, nextActivitySession) => {
     const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
     let linkText = 'Start'
 
@@ -111,7 +112,7 @@ export default class StudentProfileUnit extends React.Component {
       linkText = 'Resume';
     }
 
-    const buttonStyle = index === 0 && !max_percentage ? 'primary contained' : 'secondary outlined'
+    const buttonStyle = ca_id === nextActivitySession.ca_id && activity_id === nextActivitySession.activity_id ? 'primary contained' : 'secondary outlined'
     return <a className={`quill-button medium focus-on-light ${buttonStyle}`} href={activityLaunchLink(ca_id, activity_id)}>{linkText}</a>;
   }
 
@@ -133,16 +134,16 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   renderIncompleteActivities = () => {
-    const { data, } = this.props
+    const { data, nextActivitySession} = this.props
     if (!(data.incomplete && data.incomplete.length)) { return null}
 
-    const rows = data.incomplete.map((act, index) => {
+    const rows = data.incomplete.map(act => {
       const { name, activity_classification_id, due_date, ua_id, } = act
       return {
         name,
         tool: this.toolIcon(activity_classification_id),
         dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
-        actionButton: this.actionButton(act, index),
+        actionButton: this.actionButton(act, nextActivitySession),
         id: ua_id
       }
     })
@@ -157,16 +158,16 @@ export default class StudentProfileUnit extends React.Component {
   }
 
   renderCompletedActivities = () => {
-    const { data, } = this.props
+    const { data, nextActivitySession, } = this.props
     if (!(data.complete && data.complete.length)) { return null}
 
-    const rows = data.complete.map((act, index) => {
+    const rows = data.complete.map(act => {
       const { name, activity_classification_id, max_percentage, ua_id, due_date, } = act
       return {
         name,
         score: this.score(act),
         tool: this.toolIcon(activity_classification_id),
-        actionButton: this.actionButton(act, index),
+        actionButton: this.actionButton(act, nextActivitySession),
         dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
         id: ua_id
       }

@@ -141,6 +141,7 @@ class StudentProfile extends React.Component {
           activeClassworkTab={activeClassworkTab}
           data={scores}
           loading={loading}
+          nextActivitySession={nextActivitySession}
           teacherName={student.classroom.teacher.name}
         />
       </div>

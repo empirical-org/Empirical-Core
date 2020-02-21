@@ -6,6 +6,9 @@
       font-weight: bold;
       line-height: 1.33;
       margin: 32px 0px 8px;
+      @media (max-width: 650px) {
+        font-size: 20px;
+      }
     }
   }
 
@@ -16,6 +19,7 @@
     max-width: 980px;
     margin: auto;
     position: relative;
+    padding-bottom: 54px;
 
     .section-header {
       line-height: 63px;
