@@ -59,18 +59,13 @@ module PagesHelper
         members: [
           {
             name: 'Daniel Drabik',
-            title: 'Vice President of Engineering',
+            title: 'Chief Technology Officer',
             img: 'team-daniel-drabik@2x.png'
           },
           {
             name: 'Peter Gault',
             title: 'Executive Director, Cofounder',
             img: 'team-peter-gault@2x.png'
-          },
-          {
-            name: 'Sara Jeruss',
-            title: 'Chief Operating Officer',
-            img: 'team-sara-jeruss@2x.png'
           }
         ]
       },
@@ -155,7 +150,7 @@ module PagesHelper
           },
           {
             name: 'Emma Volk',
-            title: 'Curriculum Developer',
+            title: 'Lead Curriculum Developer',
             img: 'team-emma-volk@2x.png'
           },
           {

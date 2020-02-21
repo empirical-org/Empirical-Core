@@ -1,6 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: 'hello@quill.org'
   include EmailApiHelper
+  include ActionView::Helpers::NumberHelper
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
@@ -107,6 +108,7 @@ class UserMailer < ActionMailer::Base
 
     teacher_count = User.where(role: "teacher").count
     new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+    conversion_rate = new_premium_accounts/teacher_count.to_f
 
     @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
@@ -119,7 +121,7 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
-    @teacher_conversion_rate = (new_premium_accounts/teacher_count.to_f).round(5)
+    @teacher_conversion_rate = number_to_percentage(conversion_rate, precision: 5)
     @support_tickets_resolved = get_intercom_data(start_time, end_time)
     @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
     @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
