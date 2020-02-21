@@ -31,7 +31,7 @@ interface PlayFillInTheBlankQuestionProps {
 interface PlayFillInTheBlankQuestionState {
   blankAllowed: boolean,
   cues: Array<string>,
-  inputErrors: Set<number>,
+  inputErrors: {},
   inputVals: Array<string>,
   responses?: any,
   splitPrompt: Array<string>,
@@ -59,7 +59,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     this.state = {
       blankAllowed: false,
       cues: [],
-      inputErrors: new Set(),
+      inputErrors: {},
       inputVals: [],
       responses: null,
       splitPrompt: [],
@@ -73,7 +73,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     this.setQuestionValues(question)
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps: PlayFillInTheBlankQuestionProps) {
     const { question, } = this.props
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)
@@ -84,7 +84,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     document.removeEventListener('keydown', this.handleKeyDown, true)
   }
 
-  handleKeyDown = (e: { key: string, preventDefault(): any }) => {
+  handleKeyDown = (e: KeyboardEvent) => {
     if (e.key !== 'Enter') { return }
 
     e.preventDefault()
@@ -97,7 +97,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     this.setState({
       splitPrompt,
       inputVals: this.generateInputs(numberOfInputVals),
-      inputErrors: new Set(),
+      inputErrors: {},
       cues: question.cues,
       blankAllowed: question.blankAllowed,
     }, () => this.getGradedResponsesWithCallback(question));
@@ -157,7 +157,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   getChangeHandler = (index: number) => {
-    return (e: any) => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
       this.handleChange(index, e);
     };
   }
@@ -177,17 +177,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   validateInput = (i: number) => {
     const { inputErrors, inputVals, blankAllowed, cues, } = this.state
-    const newErrors = new Set(inputErrors);
+    const newErrors = inputErrors;
     const inputVal = inputVals[i] || '';
     const inputSufficient = blankAllowed || inputVal;
-    const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
+    const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || (inputVal === '' && blankAllowed);
+
     if (inputSufficient && cueMatch) {
-      newErrors.delete(i);
+      // newErrors.delete(i);
+      delete newErrors[i]
     } else {
-      newErrors.add(i);
+      newErrors[i] = true;
     }
     // following condition will return false if no new errors
-    if (newErrors.size) {
+    if (_.size(newErrors)) {
       const newInputVals = inputVals
       this.setState({ inputErrors: newErrors, inputVals: newInputVals })
     } else {
@@ -198,7 +200,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   renderInput = (i: number) => {
     const { inputErrors, cues, inputVals, } = this.state
     let className = 'fill-in-blank-input'
-    if (inputErrors.has(i)) {
+    if (inputErrors[i]) {
       className += ' error'
     }
     const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
@@ -256,7 +258,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       const { inputErrors, responses, } = this.state;
       const { question, nextQuestion, } = this.props;
       const { caseInsensitive, conceptID, key } = question;
-      if (!inputErrors.size && responses) {
+      const noErrors = _.size(inputErrors) === 0;
+      if (noErrors && responses) {
         const zippedAnswer = this.zipInputsAndText();
         const questionUID = key;
         const defaultConceptUID = conceptID;
@@ -318,8 +321,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   renderFeedback = () => {
     const { diagnosticID, language, question, translate } = this.props
     const { inputErrors, } = this.state
-
-    if (inputErrors && inputErrors.size) {
+    const errorsPresent = _.size(inputErrors) !== 0;
+    if (errorsPresent) {
       let feedback: any;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const translationKey = question.blankAllowed ? 'feedback^blank' : 'feedback^no blank';
