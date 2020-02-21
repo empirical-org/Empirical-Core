@@ -70,5 +70,64 @@
         }
       }
     }
+
+    @media (max-width: 991px) {
+      .tool-icon-section, .completed-due-date-section {
+        display: none;
+      }
+      .name-section {
+        flex: 3;
+      }
+      .due-date-section {
+        flex: 1;
+      }
+      .action-button-section {
+        flex: 1;
+      }
+      .score-section {
+        flex: 1.5;
+      }
+      .data-table-headers, .data-table-header, .data-table-row, .data-table-row-section {
+        min-width: auto !important;
+      }
+      .data-table-row {
+        flex-wrap: wrap;
+      }
+    }
+    @media (max-width: 682px) {
+      .name-section {
+        white-space: normal;
+      }
+      .data-table-row {
+        padding: 16px 0px !important;
+        min-height: 108px;
+        height: min-content !important;
+      }
+      .data-table-row-section.action-button-section {
+        flex: 1 0 100%;
+        justify-content: flex-start;
+        margin-top: 12px;
+      }
+      .data-table-header.action-button-section {
+        display: none !important;
+      }
+      .due-date-section {
+        margin-right: 0px;
+        flex: 1.5;
+      }
+      .score-section {
+        flex: 1;
+        overflow: visible;
+        .score {
+          position: relative;
+          span {
+            position: absolute;
+            top: 32px;
+            max-width: 80px;
+            white-space: normal
+          }
+        }
+      }
+    }
   }
 }
