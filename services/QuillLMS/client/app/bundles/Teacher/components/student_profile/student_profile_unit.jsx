@@ -111,7 +111,8 @@ export default class StudentProfileUnit extends React.Component {
       linkText = 'Resume';
     }
 
-    const buttonStyle = ca_id === nextActivitySession.ca_id && activity_id === nextActivitySession.activity_id ? 'primary contained' : 'secondary outlined'
+    const isNextActivity = nextActivitySession && ca_id === nextActivitySession.ca_id && activity_id === nextActivitySession.activity_id
+    const buttonStyle = isNextActivity ? 'primary contained' : 'secondary outlined'
     return <a className={`quill-button medium focus-on-light ${buttonStyle}`} href={activityLaunchLink(ca_id, activity_id)}>{linkText}</a>;
   }
 
