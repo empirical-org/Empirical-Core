@@ -1,6 +1,5 @@
 .pinned-activity-modal-container {
   .pinned-activity-modal {
-    padding: 32px 16px;
     height: min-content;
     transform: translate(-50%, -50%);
     bottom: inherit;
@@ -15,8 +14,10 @@
       margin-bottom: 48px;
     }
   }
-  @media (min-width: 650px) {
-    display: none;
+  @media (max-width: 650px) {
+    .pinned-activity-modal {
+      padding: 32px 16px;
+    }
   }
 }
 
@@ -33,7 +34,7 @@
     font-size: 16px;
     line-height: normal;
   }
-  @media (max-width: 649px) {
-    display: none;
+  .quill-button {
+    margin-left: 12px;
   }
 }
