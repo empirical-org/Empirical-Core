@@ -15,8 +15,8 @@ export {
 } from './dataTable'
 
 export {
-  DiagnosticProgressBar
-} from './diagnosticProgressBar'
+  ProgressBar
+} from './progressBar'
 
 export {
   DropdownInput

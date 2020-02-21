@@ -17,7 +17,7 @@ class SplitName
       first_name = nil
       last_name = nil
     else
-      first_name, last_name = name.strip.try(:split, /\s+/)
+      first_name, last_name = name.strip.try(:split, /\s+/, 2)
     end
     [first_name, last_name]
   end

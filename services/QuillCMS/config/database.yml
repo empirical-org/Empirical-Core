@@ -13,86 +13,37 @@ test_env: &test_env
   <<: *development_env
   database: quill_cms_test
 
-elastic_beanstalk_env: &elastic_beanstalk_env
+# While we don't actually connect to any follower DBs, they
+# do exist within our infrastructure, so naming conventions
+# here are intended to simplify later decision to use followers
+# as well as disambiguate similarly-named ENV variables.
+elastic_beanstalk_leader_env: &elastic_beanstalk_leader_env
   database: <%= ENV['RDS_DB_NAME'] %>
   user: <%= ENV['RDS_DB_USERNAME'] %>
   password: <%= ENV['RDS_DB_PASSWORD'] %>
   host: <%= ENV['RDS_HOSTNAME'] %>
   port: <%= ENV['RDS_PORT'] %>
 
-elastic_beanstalk_replica_env: &elastic_beanstalk_replica_env
-  database: <%= ENV['RDS_REPLICA_NAME'] %>
-  user: <%= ENV['RDS_REPLICA_USERNAME'] %>
-  password: <%= ENV['RDS_REPLICA_PASSWORD'] %>
-  host: <%= ENV['RDS_REPLICA_HOSTNAME'] %>
-  port: <%= ENV['RDS_REPLICA_PORT'] %>
-
 
 development: &development
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_development_db
-    disable_blacklist: true
-    sticky: true
-    connections:
-      - role: master
-        name: leader
-        <<: *development_env
-      - role: slave
-        name: replica
-        <<: *development_env
+  adapter: postgresql
+  <<: *development_env
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_development_db
-    disable_blacklist: true
-    sticky: true
-    connections:
-      - role: master
-        name: leader
-        <<: *test_env
-      - role: slave
-        name: replica
-        <<: *test_env
+  adapter: postgresql
+  <<: *test_env
 
-
-staging:
+staging: &staging
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_staging_db
-    disable_blacklist: true
-    sticky: true
-    connections:
-      - role: master
-        name: leader
-        <<: *elastic_beanstalk_env
-      - role: slave
-        name: replica
-        <<: *elastic_beanstalk_replica_env
+  adapter: postgresql
+  <<: *elastic_beanstalk_leader_env
 
 production:
   <<: *default
-  adapter: postgresql_makara
-  makara:
-    id: postgres_production_db
-    disable_blacklist: true
-    sticky: true
-    connections:
-      - role: master
-        name: leader
-        <<: *elastic_beanstalk_env
-      - role: slave
-        name: dummy_replica
-        weight: <%= 100 - ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *elastic_beanstalk_env
-      - role: slave
-        name: replica
-        weight: <%= ENV['MAKARA_REPLICA_READ_PERCENTAGE'].to_i %>
-        <<: *elastic_beanstalk_replica_env
+  adapter: postgresql
+  <<: *elastic_beanstalk_leader_env

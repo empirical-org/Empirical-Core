@@ -78,6 +78,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
         EMPIRICAL_BASE_URL: JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
+        QUILL_CDN_URL: JSON.stringify(process.env.QUILL_CDN_URL || 'http://localhost:45537'),
         QUILL_CMS: JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
         LESSONS_WEBSOCKETS_URL: JSON.stringify(process.env.LESSONS_WEBSOCKETS_URL || "http://localhost:5100")
       }

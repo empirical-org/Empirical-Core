@@ -8,6 +8,10 @@ import Lesson from '../lessons/lesson'
 import Concepts from '../concepts/concepts'
 // import Concept from '../concepts/concept'
 import TabLink from './tabLink'
+import request from 'request';
+
+const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 
 interface PathParamsType {
   [key: string]: string,
@@ -21,8 +25,27 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   componentWillMount() {
+    this.fetchUser().then(userData => {
+        if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
+          window.location = newSessionEndpoint;
+        }
+      }
+    );
     this.props.dispatch(proofreaderActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
+  }
+
+  async fetchUser() {
+    return fetch(usersEndpoint, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+    });
   }
 
   render() {

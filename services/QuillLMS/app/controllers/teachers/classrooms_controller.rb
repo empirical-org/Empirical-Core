@@ -142,7 +142,7 @@ class Teachers::ClassroomsController < ApplicationController
     render json: {}
   end
 
-private
+  private
 
   def format_coteacher_invitations_for_index
     coteacher_invitations = CoteacherClassroomInvitation.includes(invitation: :inviter).joins(:invitation, :classroom).where(invitations: {invitee_email: current_user.email}, classrooms: { visible: true})

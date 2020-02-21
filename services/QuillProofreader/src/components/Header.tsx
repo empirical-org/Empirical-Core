@@ -6,6 +6,8 @@ import '../styles/Header.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 
+const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
+
 import {
   updateSessionOnFirebase,
 } from "../actions/session";
@@ -23,11 +25,12 @@ class Header extends React.Component<any, any> {
     window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
   }
 
-  saveAndExit = () => {
+  handleSaveAndExitClick = () => {
+    const { session, dispatch, } = this.props
     const { firebaseSessionID, } = this.state
     if (firebaseSessionID) {
-      const { passage, } = this.props.session
-      this.props.dispatch(updateSessionOnFirebase(firebaseSessionID, passage, this.goToLMS))
+      const { passage, } = session
+      dispatch(updateSessionOnFirebase(firebaseSessionID, passage, this.goToLMS))
     } else {
       this.goToLMS()
     }
@@ -36,14 +39,14 @@ class Header extends React.Component<any, any> {
   render() {
     return (
       <Layout.Header style={{
-          height: '60px',
+          height: '64px',
           width: "100%",
-          backgroundColor: "#00c2a2",
+          backgroundColor: "#06806b",
           padding: "0 30px"}}
       >
-        <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '896px', margin: 'auto'}} type="flex">
-          <img src="https://d2t498vi8pate3.cloudfront.net/assets/home-header-logo-8d37f4195730352f0055d39f7e88df602e2d67bdab1000ac5886c5a492400c9d.png" style={{ height: '25px' }} />
-          <span onClick={this.saveAndExit} style={{ color: 'white', cursor: 'pointer' }}>Save & Exit</span>
+        <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
+          <img alt="Quill logo" src={quillLogoSrc} style={{ height: '32px' }} />
+          <span onClick={this.handleSaveAndExitClick} style={{ color: 'white', cursor: 'pointer', fontWeight: 600 }}>Save and exit</span>
         </Row>
       </Layout.Header>
     );

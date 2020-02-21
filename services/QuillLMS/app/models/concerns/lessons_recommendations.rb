@@ -55,7 +55,7 @@ module LessonsRecommendations
     def percentage_needing_instruction(fail_count)
       begin
         @total_count ||= @activity_sessions.length
-        ((fail_count.to_f/@total_count.to_f)*100).round
+        ((fail_count.to_f/@total_count)*100).round
       rescue FloatDomainError => e
         NewRelic::Agent.add_custom_attributes({
           classroom_id: @classroom_unit.classroom_id,

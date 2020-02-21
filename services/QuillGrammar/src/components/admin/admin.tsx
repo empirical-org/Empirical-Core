@@ -18,6 +18,11 @@ import QuestionDashboard from '../dashboards/questionDashboard'
 import ConceptDashboard from '../dashboards/conceptDashboard'
 import TabLink from './tabLink'
 
+import request from 'request';
+
+const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
+
 interface PathParamsType {
   [key: string]: string,
 }
@@ -30,11 +35,30 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   componentWillMount() {
+    this.fetchUser().then(userData => {
+        if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
+          window.location = newSessionEndpoint;
+        }
+      }
+    );
     this.props.dispatch(questionsActions.startListeningToQuestions());
     this.props.dispatch(grammarActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
     this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
-    this.props.dispatch(questionAndConceptMapActions.startListeningToQuestionAndConceptMapData())
+    this.props.dispatch(questionAndConceptMapActions.startListeningToQuestionAndConceptMapData());
+  }
+
+  async fetchUser() {
+    return fetch(usersEndpoint, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+    });
   }
 
   render() {

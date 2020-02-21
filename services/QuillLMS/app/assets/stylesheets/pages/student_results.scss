@@ -60,7 +60,7 @@
         margin-left: 5%;
       }
     }
-    button:not(.select-mixin):not(.quill-button) {
+    button:not(.select-mixin):not(.quill-button):not(.focus-on-light):not(.focus-on-dark) {
       padding: 13px 25px;}
     .circle {
         box-sizing: border-box;
