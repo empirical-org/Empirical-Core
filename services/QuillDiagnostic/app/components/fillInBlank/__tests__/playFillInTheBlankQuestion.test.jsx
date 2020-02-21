@@ -56,12 +56,12 @@ describe('PlayFillInTheBlankQuestion component', () => {
     });
 
     describe('errored input fields', () => {
-      const inputErrors = new Set();
+      const inputErrors = {};
       it('renders if there are input errors in state', () => {
         const wrapper = mount(
           <PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />
         );
-        inputErrors.add(1);
+        inputErrors[1] = true;
         wrapper.setState({ inputErrors, });
         expect(wrapper.find('.error')).toHaveLength(1);
       });
@@ -69,7 +69,7 @@ describe('PlayFillInTheBlankQuestion component', () => {
         const wrapper = mount(
           <PlayFillInTheBlankQuestion question={fillInBlankQuestionBlankNotAllowed} />
         );
-        inputErrors.delete(1);
+        delete inputErrors[1];
         wrapper.setState({ inputErrors, });
         expect(wrapper.find('.error')).toHaveLength(0);
       });
