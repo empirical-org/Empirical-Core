@@ -1292,7 +1292,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -1565,7 +1565,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -1580,7 +1580,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -1618,7 +1618,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -1628,7 +1628,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -4701,7 +4701,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -4974,7 +4974,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -4989,7 +4989,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -5027,7 +5027,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -5037,7 +5037,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -7332,7 +7332,7 @@ exports[`StudentProfileUnits component should render all activities and units if
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -7540,7 +7540,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -7555,7 +7555,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -7593,7 +7593,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -7603,7 +7603,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -8394,7 +8394,7 @@ exports[`StudentProfileUnits component should render all activities and units if
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -8667,7 +8667,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -8682,7 +8682,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -8720,7 +8720,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -8730,7 +8730,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -12018,7 +12018,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -12226,7 +12226,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -12241,7 +12241,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -12279,7 +12279,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -12289,7 +12289,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -13036,7 +13036,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -13309,7 +13309,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -13324,7 +13324,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -13362,7 +13362,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -13372,7 +13372,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -15105,7 +15105,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -15313,7 +15313,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -15328,7 +15328,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -15366,7 +15366,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -15376,7 +15376,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -16167,7 +16167,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -16440,7 +16440,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -16455,7 +16455,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -16493,7 +16493,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -16503,7 +16503,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -18798,7 +18798,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/10/activities/560"
                   >
                     Resume
@@ -19006,7 +19006,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -19021,7 +19021,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/10/activities/560"
                       >
                         Resume
@@ -19059,7 +19059,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -19069,7 +19069,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/10/activities/560"
                         >
                           Resume
@@ -19860,7 +19860,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               Array [
                 Object {
                   "actionButton": <a
-                    className="quill-button medium focus-on-light primary contained"
+                    className="quill-button medium focus-on-light secondary outlined"
                     href="/activity_sessions/classroom_units/1/activities/608"
                   >
                     Start
@@ -20133,7 +20133,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                   <Tooltip
                     tooltipText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -20148,7 +20148,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                     }
                     tooltipTriggerText={
                       <a
-                        className="quill-button medium focus-on-light primary contained"
+                        className="quill-button medium focus-on-light secondary outlined"
                         href="/activity_sessions/classroom_units/1/activities/608"
                       >
                         Start
@@ -20186,7 +20186,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         }
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
@@ -20196,7 +20196,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                         className="quill-tooltip"
                       >
                         <a
-                          className="quill-button medium focus-on-light primary contained"
+                          className="quill-button medium focus-on-light secondary outlined"
                           href="/activity_sessions/classroom_units/1/activities/608"
                         >
                           Start
