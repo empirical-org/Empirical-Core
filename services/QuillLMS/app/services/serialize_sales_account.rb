@@ -88,10 +88,6 @@ class SerializeSalesAccount
   end
 
   def subscription_expiration_date
-    if school.subscription
-      school.subscription.expiration
-    else
-      'NA'
-    end
+    school&.subscription&.expiration || 'NA'
   end
 end
