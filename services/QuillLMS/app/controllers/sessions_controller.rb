@@ -103,7 +103,6 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    logger.error("User failed to log in. Params: #{params}")
     login_failure_message
     # redirect_to signed_out_path
   end
