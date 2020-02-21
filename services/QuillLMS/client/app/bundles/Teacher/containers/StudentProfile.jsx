@@ -7,6 +7,7 @@ import StudentProfileUnits from '../components/student_profile/student_profile_u
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
 import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
 import SelectAClassroom from '../../Student/components/selectAClassroom'
+import LoadingIndicator from '../components/shared/loading_indicator'
 import {
   fetchNotifications,
   fetchStudentProfile,
@@ -77,7 +78,7 @@ class StudentProfile extends React.Component {
 
   handleClickAllClasses = () => {
     const { fetchStudentProfile, router, } = this.props;
-    router.push('/profile')
+    router.push('/classes')
     fetchStudentProfile()
   }
 
@@ -116,7 +117,7 @@ class StudentProfile extends React.Component {
       activeClassworkTab
     } = this.props;
 
-    if (loading) { return <span /> }
+    if (loading) { return <LoadingIndicator /> }
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} onClickCard={this.handleClassroomTabClick} />)}
 

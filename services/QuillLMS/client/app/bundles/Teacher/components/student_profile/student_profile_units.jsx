@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import StudentProfileUnit from './student_profile_unit.jsx';
+import LoadingIndicator from '../shared/loading_indicator'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
@@ -13,6 +14,10 @@ export default class StudentProfileUnits extends React.Component {
     this.state = {
       closedModal: false
     }
+  }
+
+  componentDidMount() {
+    document.title = 'Quill.org | Classwork'
   }
 
   handleCloseModalClick = () => {
@@ -122,7 +127,7 @@ export default class StudentProfileUnits extends React.Component {
 
   render() {
     const { loading, } = this.props
-    let content = 'LOADING';
+    let content = <LoadingIndicator />;
     if (!loading) {
       // give unit unit id key whether it is complete or incomplete
       content = this.displayedUnits().map(unit => {

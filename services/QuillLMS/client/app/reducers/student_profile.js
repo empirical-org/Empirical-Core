@@ -19,6 +19,7 @@ export default (state, action) => {
   switch(action.type) {
     case 'HANDLE_CLASSROOM_CLICK':
       return Object.assign({}, state, {
+        loading: true,
         selectedClassroomId: action.selectedClassroomId
       });
     case 'RECEIVE_NOTIFICATIONS':
