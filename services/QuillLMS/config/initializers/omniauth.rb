@@ -12,7 +12,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
               'classroom.rosters.readonly',
               'classroom.profile.emails'],
       access_type: 'offline',
-      prompt: 'consent',
+      prompt: 'consent'
     }.merge(options)
 end
 
