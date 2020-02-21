@@ -28,6 +28,9 @@
       .data-table-headers {
         position: inherit;
       }
+      .data-table-header {
+        cursor: text;
+      }
       .data-table-row {
         height: 72px;
         &:hover {
