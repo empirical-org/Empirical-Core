@@ -28,7 +28,7 @@ class AdminContainer extends React.Component<AdminContainerProps> {
     this.fetchUser().then(userData => this.setState({ userData }));
     this.props.dispatch(proofreaderActivitiesActions.startListeningToActivities());
     this.props.dispatch(conceptsActions.startListeningToConcepts());
-    this.state = { userData: '' }
+    this.setState({ userData: '' });
   }
 
   async fetchUser() {
@@ -45,10 +45,9 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   render() {
-    if (this.state.userData.user === null || (this.state.userData.hasOwnProperty('role') && this.state.userData.user.role !== 'staff')){
+    if (this.state.userData.user === null || (this.state.userData.hasOwnProperty('role') && this.state.userData.user.role !== 'staff')) {
       window.location = newSessionEndpoint;
-    }
-    else {
+    } else {
       return (
         <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
           <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
