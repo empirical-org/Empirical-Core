@@ -14,5 +14,8 @@ class FeedbackHistoryFactory(factory.django.DjangoModelFactory):
         'foo': 'bar',
         'baz': 'qux',
     }
+    feedback_optimal = False
+    feedback_text = 'Example feedback'
+    feedback_type = 'test'
     prompt = factory.SubFactory(PromptFactory)
     session_id = 'MOCK_SESSION_ID'

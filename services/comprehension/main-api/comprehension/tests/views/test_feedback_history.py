@@ -20,7 +20,9 @@ class TestFeedbackHistoryView(TestCase):
             'attempt': 1,
             'entry': 'Mock user-submitted entry',
             'feedback': {
-                'foo': 'bar',
+                'feedback': 'Mock feedback text',
+                'feedback_type': 'test',
+                'optimal': False,
             },
             'prompt_id': prompt.id,
             'session_id': 'MOCK_SESSION_IDENTIFIER',
@@ -38,4 +40,9 @@ class TestFeedbackHistoryView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_body, expected)
+        # We expect the view to pop() these three values off
+        feedback = request_body['feedback']
+        request_body['feedback_text'] = feedback.pop('feedback')
+        request_body['feedback_type'] = feedback.pop('feedback_type')
+        request_body['feedback_optimal'] = feedback.pop('optimal')
         mock_create.assert_called_with(**request_body)

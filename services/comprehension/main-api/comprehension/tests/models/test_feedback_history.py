@@ -21,3 +21,18 @@ class FeedbackHistoryModelTest(TestCase):
     def test_session_id_nullable(self):
         self.history.session_id = None
         self.history.save()
+
+    def test_feedback_optimal_not_nullable(self):
+        self.history.feedback_optimal = None
+        with self.assertRaises(ValidationError):
+            self.history.save()
+
+    def test_feedback_text_not_nullable(self):
+        self.history.feedback_text = None
+        with self.assertRaises(ValidationError):
+            self.history.save()
+
+    def test_feedback_type_not_nullable(self):
+        self.history.feedback_type = None
+        with self.assertRaises(ValidationError):
+            self.history.save()
