@@ -4,7 +4,6 @@ from unittest.mock import patch
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
-from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.prompt import PromptFactory
 from ...models.feedback_history import FeedbackHistory
 from ...views.feedback_history import FeedbackHistoryView
@@ -34,7 +33,7 @@ class TestFeedbackHistoryView(TestCase):
         json_body = json.loads(response.content)
 
         expected = {
-	    'message': 'Successfully recorded Feedback History.',
+            'message': 'Successfully recorded Feedback History.',
         }
 
         self.assertEqual(response.status_code, 200)
