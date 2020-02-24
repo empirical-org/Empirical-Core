@@ -19,6 +19,21 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
     }
   }
 
+  renderButtons = () => {
+    const { buttonText, buttonLink, selectCard } = this.props;
+    const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" href={buttonLink} target="_blank">{buttonText}</a> : null;
+    if (button) {
+      return (
+        <div className="button-container">
+          {button}
+          <a className="quill-button fun contained primary" onClick={selectCard} target="_blank">Select</a>
+        </div>
+      );
+    } else {
+      return button;
+    }
+  }
+
   render() {
     const { imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink, } = this.props
     /* eslint-disable react/jsx-no-target-blank */
@@ -37,7 +52,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
           <img alt={imgAlt} src={imgSrc} />
           <h2>{header}</h2>
         </div>
-        {button}
+        {this.renderButtons()}
       </div>
       <div className="body">
         {bodyElements}
