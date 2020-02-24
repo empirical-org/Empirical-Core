@@ -36,4 +36,4 @@ It includes links to lesson plans for each of the lessons in the unit, as well a
 
 The premium missing school email is sent when a teacher buys school premium for a school that either does not exist in the database or that their account is not linked to.
 
-This email is sent to Becca and Amr.
+This email is sent to Hello@quill.org.
