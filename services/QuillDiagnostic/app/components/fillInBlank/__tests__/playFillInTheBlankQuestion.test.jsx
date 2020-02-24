@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { PlayFillInTheBlankQuestion } from '../playFillInTheBlankQuestion';
 import { fillInBlankQuestionBlankAllowed, fillInBlankQuestionBlankNotAllowed }
-       from '../../../../test/data/test_data.js';
+  from '../../../../test/data/test_data.js';
 
 function setup() {
   const nextQuestion = jest.fn();
@@ -20,12 +20,14 @@ function setup() {
 describe('PlayFillInTheBlankQuestion component', () => {
   Object.defineProperty(document, 'getElementById', {
     writable: true,
-    value: () => ({ getBoundingClientRect() {
-      return {
-        left: 10,
-        right: 320,
-      };
-    }, }),
+    value: () => ({
+      getBoundingClientRect() {
+        return {
+          left: 10,
+          right: 320,
+        };
+      },
+    }),
   });
   const { wrapper, props, } = setup();
 
@@ -34,10 +36,10 @@ describe('PlayFillInTheBlankQuestion component', () => {
   });
 
   describe('handleSubmitResponse', () => {
-    it('should call checkAllInputs', () => {
-      const checkAllInputs = jest.spyOn(wrapper.instance(), 'checkAllInputs');
+    it('should call validateAllInputs', () => {
+      const validateAllInputs = jest.spyOn(wrapper.instance(), 'validateAllInputs');
       wrapper.instance().handleSubmitResponse();
-      expect(checkAllInputs).toHaveBeenCalled();
+      expect(validateAllInputs).toHaveBeenCalled();
     });
   });
 

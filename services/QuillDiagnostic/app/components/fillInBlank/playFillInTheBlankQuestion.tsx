@@ -6,7 +6,7 @@ import {
   hashToCollection,
   Prompt,
   Feedback
- } from 'quill-component-library/dist/componentLibrary';
+} from 'quill-component-library/dist/componentLibrary';
 import { submitResponse, } from '../../actions/diagnostics.js';
 import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
@@ -117,19 +117,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { instructions } = question;
     const textKey = translationMap[question.key];
     let text = instructions ? instructions : translations.english[textKey];
-    if(!language) {
+    if (!language) {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else if (language !== ENGLISH && diagnosticID === 'ell') {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else if(diagnosticID === 'ell') {
+    } else if (diagnosticID === 'ell') {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
       const text = `instructions^${instructions}`;
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       const translationPresent = language !== ENGLISH;
-      return(
+      return (
         <div>
           <p>{instructions}</p>
           {translationPresent && <br />}
@@ -140,14 +140,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
   }
 
   generateInputs(numberOfInputVals: number) {
-    const inputs:Array<string> = [];
-    for (let i = 0; i < numberOfInputVals; i+=1) {
+    const inputs: Array<string> = [];
+    for (let i = 0; i < numberOfInputVals; i += 1) {
       inputs.push('');
     }
     return inputs;
   }
 
-  handleChange = (i: number, e: { target: { value: string }}) => {
+  handleChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { inputVals, } = this.state
     const existing = [...inputVals];
     existing[i] = e.target.value;
@@ -168,33 +168,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       style = styles.text;
     }
     const textArray = text.split(' ')
-    const spanArray:Array<JSX.Element> = []
+    const spanArray: Array<JSX.Element> = []
     textArray.forEach((word, index) => {
       spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
     })
     return spanArray;
-  }
-
-  validateInput = (i: number) => {
-    const { inputErrors, inputVals, blankAllowed, cues, } = this.state
-    const newErrors = inputErrors;
-    const inputVal = inputVals[i] || '';
-    const inputSufficient = blankAllowed || inputVal;
-    const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || (inputVal === '' && blankAllowed);
-
-    if (inputSufficient && cueMatch) {
-      // newErrors.delete(i);
-      delete newErrors[i]
-    } else {
-      newErrors[i] = true;
-    }
-    // following condition will return false if no new errors
-    if (_.size(newErrors)) {
-      const newInputVals = inputVals
-      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
-    } else {
-      this.setState({ inputErrors: newErrors });
-    }
   }
 
   renderInput = (i: number) => {
@@ -205,7 +183,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     }
     const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px`}
+    const styling = { width: `${width}px` }
     return (
       <span key={`span${i}`}>
         <input
@@ -227,7 +205,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
     if (splitPrompt) {
       const l = splitPrompt.length;
-      const splitPromptWithInput:Array<JSX.Element|Array<JSX.Element>> = [];
+      const splitPromptWithInput: Array<JSX.Element | Array<JSX.Element>> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
@@ -246,15 +224,32 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     return _.flatten(zipped).join('').trim();
   }
 
-  checkAllInputs = () => {
-    const { inputVals } = this.state;
-    return Promise.all(inputVals.map((val, i) => {
-      this.validateInput(i);
-    }));
+  validateAllInputs = () => {
+    const { inputErrors, inputVals, blankAllowed, cues, } = this.state
+    const newErrors = inputErrors;
+    for (let i = 0; i < inputVals.length; i++) {
+      const inputVal = inputVals[i] || '';
+      const inputSufficient = blankAllowed || inputVal;
+      const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || (inputVal === '' && blankAllowed);
+
+      if (inputSufficient && cueMatch) {
+        delete newErrors[i]
+      } else {
+        newErrors[i] = true;
+      }
+    }
+    // following condition will return false if no new errors
+    if (_.size(newErrors)) {
+      const newInputVals = inputVals
+      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
+    } else {
+      this.setState({ inputErrors: newErrors });
+    }
+    return Promise.resolve(true);
   }
 
   handleSubmitResponse = () => {
-    this.checkAllInputs().then(() => {
+    this.validateAllInputs().then(() => {
       const { inputErrors, responses, } = this.state;
       const { question, nextQuestion, } = this.props;
       const { caseInsensitive, conceptID, key } = question;
@@ -264,7 +259,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         const questionUID = key;
         const defaultConceptUID = conceptID;
         const responsesArray = hashToCollection(responses);
-        const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
+        const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID) }
         this.setResponse(response);
         this.updateResponseResource(response);
         this.submitResponse(response);
@@ -275,7 +270,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
 
   setResponse = (response: any) => {
     const { setResponse, } = this.props;
-    if(setResponse) {
+    if (setResponse) {
       setResponse(response)
     }
   }
@@ -352,10 +347,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
     const { responses } = this.state;
     const { language, translate } = this.props;
     const buttonText = language ? translate('buttons^submit') : 'Submit';
-    if(responses) {
-      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 
+    if (responses) {
+      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>
     } else {
-      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>; 
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
     }
   }
 
@@ -382,7 +377,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
           </div>
           {this.renderMedia()}
         </div>
-        <div className="question-button-group button-group" style={{marginTop: 20}}>
+        <div className="question-button-group button-group" style={{ marginTop: 20 }}>
           {this.renderButton()}
         </div>
       </div>
