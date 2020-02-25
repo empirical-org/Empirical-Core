@@ -27,10 +27,10 @@ export default class ResultsIcon extends React.Component {
         img = 'tool-connect-white.svg'
         break;
       case 'sentence':
-        img = 'tool-grammar-white.png'
+        img = 'tool-grammar-white.svg'
         break;
       default:
-        img = 'tool-proofreader-white.png'
+        img = 'tool-proofreader-white.svg'
     }
     return `${process.env.CDN_URL}/images/tools/${img}`
   }

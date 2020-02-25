@@ -2,7 +2,6 @@ import React from 'react'
 import _ from 'lodash'
 import ScrollToTop from '../components/shared/scroll_to_top'
 import ResultsIcon from '../components/activities/results_page/results_icon.jsx'
-import StudentResultsTables from '../components/activities/results_page/student_results_tables.jsx'
 import activityLaunchLink from '../components/modules/generate_activity_launch_link'
 
 export default class ResultsPage extends React.Component {
@@ -71,7 +70,7 @@ export default class ResultsPage extends React.Component {
 
   replayButtonSection = () => {
     const { percentage, anonymous, integrationPartnerName, classroomUnitId, activityId, } = this.props
-    if (percentage > 0.8 || anonymous || integrationPartnerName) { return }
+    if (percentage >= 0.8 || anonymous || integrationPartnerName) { return }
 
     return (<div className="replay-button-container">
       <p>All writers revise their work. Try this activity again.</p>
