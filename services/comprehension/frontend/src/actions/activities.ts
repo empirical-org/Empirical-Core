@@ -1,7 +1,8 @@
 import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
-import { Events, TrackAnalyticsEvent } from './analytics'
+import { TrackAnalyticsEvent } from './analytics'
+import { Events } from '../modules/analytics'
 
 export const getActivity = (sessionID: string, activityUID: string) => {
   return (dispatch: Function) => {

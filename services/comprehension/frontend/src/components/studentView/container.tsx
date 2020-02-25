@@ -6,7 +6,8 @@ import PromptStep from './promptStep'
 import StepLink from './stepLink'
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
-import { Events, TrackAnalyticsEvent } from "../../actions/activities";
+import { TrackAnalyticsEvent } from "../../actions/analytics";
+import { Events } from '../../modules/analytics'
 import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -95,7 +96,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
 
     if (promptIndex < 0) return; // If we're on a step earlier than a prompt, there's nothing to track
 
-    const promptId = currentActivity.prompts[promptIndex].prompt_id
+    const promptID = currentActivity.prompts[promptIndex].prompt_id
 
     return {
       activityID,
@@ -104,7 +105,20 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     }
   }
 
+  trackPassageReadEvent = () => {
+    const { dispatch, } = this.props
+    const { session, } = this.props
+    const { sessionID, } = session
+    const activityUID = this.activityUID()
+
+    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
+      activityID: activityUID,
+      sessionID: sessionID
+    }));
+  }
+
   trackCurrentPromptStartedEvent = () => {
+    //console.log('current prompt started event')
     const { dispatch, } = this.props
 
     const trackingParams = this.getCurrentStepDataForEventTracking()
@@ -135,11 +149,13 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   activateStep = (step?: number, callback?: Function) => {
-    const { completedSteps, } = this.state
+    const { activeStep, completedSteps, } = this.state
+    // don't activate a step if it's already active
+    if (activeStep == step) return
     // don't activate steps before Done reading button has been clicked
     if (step && step > 1 && !completedSteps.includes(READ_PASSAGE_STEP)) return
     this.setState({ activeStep: step, }, () => {
-      this.trackStartCurrentPromptEvent();
+      this.trackCurrentPromptStartedEvent()
       if (callback) { callback() }
     })
   }
@@ -170,18 +186,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   handleDoneReadingClick = () => {
     this.completeStep(READ_PASSAGE_STEP);
     this.trackPassageReadEvent();
-  }
-
-  trackPassageReadEvent = () => {
-    const { dispatch, } = this.props
-    const { session, } = this.props
-    const { sessionID, } = session
-    const activityUID = this.activityUID()
-
-    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
-      activityID: activityUID,
-      sessionID: sessionID
-    }));
   }
 
   scrollToStep = (ref: string) => {

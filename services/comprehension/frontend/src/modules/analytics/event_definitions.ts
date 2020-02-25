@@ -45,17 +45,6 @@ const EventDefinitions = [
     'startingFeedback',
     'startingFeedbackID',
     'submittedEntry'])},
-  {COMPREHENSION_FEEDBACK_RECEIVED: new Event('comprehensionFeedbackReceived', [
-    'activityID',
-    'attemptNumber',
-    'promptID',
-    'promptStemText',
-    'returnedFeedback',
-    'returnedFeedbackID',
-    'sessionID',
-    'startingFeedback',
-    'startingFeedbackID',
-    'submittedEntry'])},
   {COMPREHENSION_PROMPT_COMPLETED: new Event('comprehensionPromptCompleted', [
     'activityID',
     'promptID',
