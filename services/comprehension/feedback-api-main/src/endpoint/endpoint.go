@@ -17,38 +17,40 @@ const (
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 
+	feedback_history_url = "https://comprehension-247816.appspot.com/feedback/history"
+
 )
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// need this for javascript cors requests
 	// https://cloud.google.com/functions/docs/writing/http#functions_http_cors-go
 	if request.Method == http.MethodOptions {
-	  responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-	  responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
-	  responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	  responseWriter.Header().Set("Access-Control-Max-Age", "3600")
-	  responseWriter.WriteHeader(http.StatusNoContent)
-	  return
+		responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
+		responseWriter.Header().Set("Access-Control-Allow-Methods", "POST")
+		responseWriter.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		responseWriter.Header().Set("Access-Control-Max-Age", "3600")
+		responseWriter.WriteHeader(http.StatusNoContent)
+		return
 	}
 
 	requestDump, err := httputil.DumpRequest(request, true)
 	if err != nil {
-	  fmt.Println(err)
+		fmt.Println(err)
 	}
 	fmt.Println(string(requestDump))
 
 	request_body, err := ioutil.ReadAll(request.Body)
 	if err != nil {
 		//TODO make this response in the same format maybe?
-	  http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
-	  return
+		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
 		automl_api,
-                regex_rules_api,
-                spell_check_bing,
+		regex_rules_api,
+		spell_check_bing,
 	}
 
 	results := map[int]APIResponse{}
@@ -73,7 +75,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
-  json.NewEncoder(responseWriter).Encode(returnable_result)
+	json.NewEncoder(responseWriter).Encode(returnable_result)
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]APIResponse, length int) (int, bool) {
@@ -105,11 +107,16 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 
 	if err := json.NewDecoder(response_json.Body).Decode(&result); err != nil {
 		// TODO might want to think about what this should be.
-		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Optimal: false}}
+		c <- InternalAPIResponse{Priority: priority, APIResponse: APIResponse{Feedback: "There was an JSON error", Feedback_type: err.Error(), Labels: url, Optimal: false}}
 		return
 	}
 
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
+}
+
+func submitFeedbackHistory(url string, request APIRequest, response APIResponse) {
+	history_payload, _ := json.Marshal(FeedbackHistory{request, response})
+	http.Post(url, "application/json", bytes.NewReader(history_payload))
 }
 
 type APIRequest struct {
@@ -134,6 +141,11 @@ type Highlight struct {
 	Text string `json:"text"`
 	Category string `json:"category"`
 	Character int `json:"character,omitempty"`
+}
+
+type FeedbackHistory struct {
+	Request APIRequest `json:"request"`
+	Response APIResponse `json:"response"`
 }
 
 type InternalAPIResponse struct {
