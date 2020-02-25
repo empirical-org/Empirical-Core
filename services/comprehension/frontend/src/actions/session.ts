@@ -1,14 +1,16 @@
 import * as request from 'request';
 
 import { ActionTypes } from './actionTypes'
+import { Events, TrackAnalyticsEvent } from './analytics'
 
 import { FeedbackObject } from '../interfaces/feedback'
 
-export const getFeedback = (activityUID: string, entry: string, promptID: string, promptText: string, attempt: number, previousFeedback: FeedbackObject[], callback: Function = () => {}) => {
+export const getFeedback = (sessionID: string, activityUID: string, entry: string, promptID: string, promptText: string, attempt: number, previousFeedback: FeedbackObject[], callback: Function = () => {}) => {
   return (dispatch: Function) => {
     const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
     const promptRegex = new RegExp(`^${promptText}`)
     const entryWithoutStem = entry.replace(promptRegex, "").trim()
+    const mostRecentFeedback = previousFeedback.slice(-1)[0] || {}
 
     const requestObject = {
       url: feedbackURL,
@@ -20,6 +22,17 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
       },
       json: true,
     }
+
+    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ENTRY_SUBMITTED, {
+      activityID: activityUID,
+      attemptNumber: attempt,
+      promptID,
+      promptStemText: promptText,
+      sessionID,
+      startingFeedback: mostRecentFeedback.feedback,
+      startingFeedbackID: mostRecentFeedback.response_id,
+      submittedEntry: entry
+    }));
 
     request.post(requestObject, (e, r, body) => {
       const { feedback, feedback_type, optimal, response_id, highlight, labels, } = body
@@ -33,6 +46,18 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
         labels
       }
       dispatch({ type: ActionTypes.RECORD_FEEDBACK, promptID, feedbackObj });
+      dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_FEEDBACK_RECEIVED, {
+        activityID: activityUID,
+        attemptNumber: attempt,
+        promptID,
+        promptStemText: promptText,
+        returnedFeedback: feedbackObj.feedback,
+        returnedFeedbackID: feedbackObj.response_id,
+        sessionID,
+        startingFeedback: mostRecentFeedback.feedback,
+        startingFeedbackID: mostRecentFeedback.response_id,
+        submittedEntry: entry
+      }));
       callback()
     })
   }
