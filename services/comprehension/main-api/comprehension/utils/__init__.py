@@ -3,12 +3,12 @@ def combine_labels(labels):
 
 
 def construct_feedback_payload(feedback, feedback_type, optimal,
-                               highlight=[], labels=None):
+                               response_id, highlight=[], labels=None):
     payload = {
         'feedback': feedback,
         'feedback_type': feedback_type,
         'optimal': optimal,
-        'response_id': 'PLACEHOLDER',
+        'response_id': response_id,
         'highlight': highlight,
     }
 
