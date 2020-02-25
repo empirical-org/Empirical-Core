@@ -53,7 +53,8 @@ class Prompt(TimestampedModel):
             is_passing = rule_set.process_rule_set(entry)
             if not is_passing:
                 feedback = INCORRECT_FEEDBACK_OBJ
-                feedback.update(feedback=rule_set.feedback)
+                feedback.update(feedback=rule_set.feedback,
+                                id=rule_set.id)
                 return feedback
 
         return CORRECT_FEEDBACK_OBJ
