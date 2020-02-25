@@ -94,7 +94,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { activeStep, } = this.state
     const promptIndex = activeStep - 2 // have to subtract 2 because the prompts array index starts at 0 but the prompt numbers in the state are 2..4
 
-    if (promptIndex < 0) return; // If we're on a step earlier than a prompt, there's nothing to track
+    if (promptIndex < 0 || !currentActivity.prompts[promptIndex]) return; // If we're on a step earlier than a prompt, or there's no prompt for this step then there's nothing to track
 
     const promptID = currentActivity.prompts[promptIndex].prompt_id
 
