@@ -6,6 +6,7 @@ import PromptStep from './promptStep'
 import StepLink from './stepLink'
 import LoadingSpinner from '../shared/loadingSpinner'
 import { getActivity } from "../../actions/activities";
+import { Events, TrackAnalyticsEvent } from "../../actions/activities";
 import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
@@ -50,8 +51,15 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
   }
 
   componentDidMount() {
-    const { dispatch, } = this.props
+    const { dispatch, session, } = this.props
     const activityUID = this.activityUID()
+    const { sessionID, } = session
+    const { dispatch, } = this.props
+
+    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_STARTED, {
+      activityID: activityUID,
+      sessionID: sessionID
+    }));
 
     if (activityUID) {
       dispatch(getActivity(activityUID))
@@ -112,7 +120,17 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     this.setState({ showFocusState: true })
   }
 
-  handleDoneReadingClick = () => this.completeStep(READ_PASSAGE_STEP)
+  handleDoneReadingClick = () => {
+    const { dispatch, } = this.props
+    const { session, } = this.props
+    const { sessionID, } = session
+    const activityUID = this.activityUID()
+    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_PASSAGE_READ, {
+      activityID: activityUID,
+      sessionID: sessionID
+    }));
+    this.completeStep(READ_PASSAGE_STEP);
+  }
 
   scrollToStep = (ref: string) => {
     if (this.onMobile()) {

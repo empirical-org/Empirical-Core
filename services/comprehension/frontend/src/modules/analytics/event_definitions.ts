@@ -16,55 +16,55 @@ class Event {
 // name collision (see validation in the 'events.ts' file).
 const EventDefinitions = [
   {COMPREHENSION_ACTIVITY_STARTED: new Event('comprehensionActivityStarted', [
-    'activityId',
+    'activityID',
     'sessionID'])},
   {COMPREHENSION_PASSAGE_READ: new Event('comprehensionPassageRead', [
-    'activityId',
+    'activityID',
     'sessionID'])},
   {COMPREHENSION_PROMPT_STARTED: new Event('comprehensionPromptStarted', [
-    'activityId',
+    'activityID',
     'promptID',
     'sessionID'])},
   {COMPREHENSION_ENTRY_SUBMITTED: new Event('comprehensionEntrySubmitted', [
-    'activityId',
+    'activityID',
     'attemptNumber',
     'promptID',
     'promptStemText',
     'sessionID',
     'startingFeedback',
-    'startingFeedbackId',
+    'startingFeedbackID',
     'submittedEntry'])},
   {COMPREHENSION_FEEDBACK_RECEIVED: new Event('comprehensionFeedbackReceived', [
-    'activityId',
+    'activityID',
     'attemptNumber',
     'promptID',
     'promptStemText',
     'returnedFeedback',
-    'returnedFeedbackId',
+    'returnedFeedbackID',
     'sessionID',
     'startingFeedback',
-    'startingFeedbackId',
+    'startingFeedbackID',
     'submittedEntry'])},
   {COMPREHENSION_FEEDBACK_RECEIVED: new Event('comprehensionFeedbackReceived', [
-    'activityId',
+    'activityID',
     'attemptNumber',
     'promptID',
     'promptStemText',
     'returnedFeedback',
-    'returnedFeedbackId',
+    'returnedFeedbackID',
     'sessionID',
     'startingFeedback',
-    'startingFeedbackId',
+    'startingFeedbackID',
     'submittedEntry'])},
   {COMPREHENSION_PROMPT_COMPLETED: new Event('comprehensionPromptCompleted', [
-    'activityId',
+    'activityID',
     'promptID',
     'sessionID'])},
   {COMPREHENSION_ACTIVITY_COMPLETED: new Event('comprehensionActivityCompleted', [
-    'activityId',
+    'activityID',
     'sessionID'])},
   {COMPREHENSION_ACTIVITY_SAVED: new Event('comprehensionActivitySaved', [
-    'activityId',
+    'activityID',
     'sessionID'])}
 ];
 
