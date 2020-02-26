@@ -74,8 +74,8 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     getCurrentQuestionStatus(currentQuestion) {
       if (currentQuestion.attempts && currentQuestion.attempts.length) {
-        if (currentQuestion.attempts[1]) {
-          if (currentQuestion.attempts[1].optimal) {
+        if (currentQuestion.attempts[4]) {
+          if (currentQuestion.attempts[4].optimal) {
             return 'correctly answered'
           } else {
             return 'final attempt'
