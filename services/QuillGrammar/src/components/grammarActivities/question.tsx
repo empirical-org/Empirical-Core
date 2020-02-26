@@ -285,9 +285,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         return <div className="feedback try-again"><div className="inner-container"><img src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}} /></div></div>
       } else if (question && question.attempts && question.attempts.length > 0) {
         let className: string, feedback: string|undefined|null, imgSrc: string
-        if (question.attempts[1]) {
-          if (question.attempts[1].optimal) {
-            feedback = question.attempts[1].feedback
+        if (question.attempts[4]) {
+          if (question.attempts[4].optimal) {
+            feedback = question.attempts[4].feedback
             className = 'correct'
             imgSrc = correctIconSrc
           } else {
