@@ -348,10 +348,6 @@ module Teacher
                    .where("completed_at >= ?", TRIAL_START_DATE)
   end
 
-  def eligible_for_trial?
-    premium_state == 'none'
-  end
-
   def trial_days_remaining
     valid_subscription =   subscription && subscription.expiration > Date.today
     if valid_subscription && (subscription.is_trial?)
