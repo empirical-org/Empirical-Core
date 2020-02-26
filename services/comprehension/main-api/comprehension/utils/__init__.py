@@ -9,17 +9,17 @@ def construct_feedback_payload(feedback, feedback_type, optimal,
         'feedback_type': str(feedback_type),
         'optimal': bool(optimal),
         'response_id': str(response_id),
-        'highlight': highlight,
+        'highlight': list(highlight),
     }
 
     if labels:
-        payload['labels'] = list(map(lambda x: str(x), labels))
+        payload['labels'] = str(labels)
 
     return payload
 
 
 def construct_highlight_payload(highlight_type, highlight_text,
-                                start_index=0, highlight_id=None):
+                                highlight_id, start_index=0):
     return {
         'type': str(highlight_type),
         'id': int(highlight_id),
