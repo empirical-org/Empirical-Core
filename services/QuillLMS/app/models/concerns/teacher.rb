@@ -528,7 +528,4 @@ module Teacher
     JOIN classrooms ON ct.classroom_id = classrooms.id #{only_visible_classrooms ? ' AND classrooms.visible = TRUE' : nil}
     WHERE ct.user_id = #{id}"
   end
-
-
-
 end
