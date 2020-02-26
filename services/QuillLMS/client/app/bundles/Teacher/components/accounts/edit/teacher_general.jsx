@@ -81,7 +81,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       email,
       time_zone: timeZone,
       school_id: school.id,
-      school_options_do_not_apply: changedSchools
+      school_options_do_not_apply: !changedSchools
     };
     this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
   }
