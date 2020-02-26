@@ -153,11 +153,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     if (!showCheckboxes) { return null }
 
-    if (row.checked) {
-      return <button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button>
-    } else if (row.checkDisabled) {
-      return <span className="quill-checkbox disabled data-table-row-section" />
-    }
+    if (row.checked) { return <button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button> }
+
+    if (row.checkDisabled) { return <span className="quill-checkbox disabled data-table-row-section" /> }
 
     return <button aria-label="Unchecked checkbox" className="quill-checkbox unselected data-table-row-section" onClick={() => checkRow(row.id)} type="button" />
   }

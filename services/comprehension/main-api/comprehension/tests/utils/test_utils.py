@@ -26,18 +26,20 @@ class TestCombineLabels(TestCase):
 class TestConstructFeedbackPayload(TestCase):
     def setUp(self):
         self.feedback = 'FEEDBACK'
+        self.feedback_id = 'FEEDBACK_ID'
         self.feedback_type = 'FEEDBACK_TYPE'
         self.optimal = 'OPTIMAL'
 
     def test_payload_format_default_highlight(self):
         result = construct_feedback_payload(self.feedback,
                                             self.feedback_type,
-                                            self.optimal)
+                                            self.optimal,
+                                            self.feedback_id)
         self.assertEqual(result, {
             'feedback': self.feedback,
             'feedback_type': self.feedback_type,
             'optimal': self.optimal,
-            'response_id': 'PLACEHOLDER',
+            'response_id': self.feedback_id,
             'highlight': [],
         })
 
@@ -46,12 +48,13 @@ class TestConstructFeedbackPayload(TestCase):
         result = construct_feedback_payload(self.feedback,
                                             self.feedback_type,
                                             self.optimal,
+                                            self.feedback_id,
                                             highlight=highlight)
         self.assertEqual(result, {
             'feedback': self.feedback,
             'feedback_type': self.feedback_type,
             'optimal': self.optimal,
-            'response_id': 'PLACEHOLDER',
+            'response_id': self.feedback_id,
             'highlight': highlight,
         })
 
