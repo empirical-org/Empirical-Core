@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models.activity import Activity, ActivityPassage, ActivityPrompt
+from .models.feedback_history import FeedbackHistory
 from .models.highlight import Highlight
 from .models.ml_feedback import MLFeedback
 from .models.ml_model import MLModel
@@ -13,6 +14,7 @@ from .models.rule_set import RuleSet
 admin.site.register(Activity)
 admin.site.register(ActivityPassage)
 admin.site.register(ActivityPrompt)
+admin.site.register(FeedbackHistory)
 admin.site.register(Highlight)
 admin.site.register(MLFeedback)
 admin.site.register(MLModel)
