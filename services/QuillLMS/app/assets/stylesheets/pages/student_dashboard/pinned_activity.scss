@@ -1,0 +1,40 @@
+.pinned-activity-modal-container {
+  .pinned-activity-modal {
+    height: min-content;
+    transform: translate(-50%, -50%);
+    bottom: inherit;
+    top: 50%;
+    .title {
+      margin-bottom: 8px;
+    }
+    .pinned-activity-modal-text {
+      font-size: 14px;
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 48px;
+    }
+  }
+  @media (max-width: 650px) {
+    .pinned-activity-modal {
+      padding: 32px 16px;
+    }
+  }
+}
+
+.pinned-activity {
+  border-radius: 6px;
+  border: solid 1px #06806b;
+  background-color: #e1f3f1;
+  display: flex;
+  justify-content: space-between;
+  padding: 17px 24px;
+  align-items: center;
+  margin-bottom: 24px;
+  span {
+    font-size: 16px;
+    line-height: normal;
+  }
+  .quill-button {
+    margin-left: 12px;
+  }
+}
