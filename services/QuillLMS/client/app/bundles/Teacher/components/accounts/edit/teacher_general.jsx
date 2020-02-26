@@ -26,7 +26,8 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       timeZone,
       schoolType,
       showSchoolSelector: false,
-      showButtonSection: false
+      showButtonSection: false,
+      changedSchools: false,
     }
 
     this.activateSection = this.activateSection.bind(this)
@@ -73,13 +74,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   handleSubmit(e) {
-    const { name, email, timeZone, school } = this.state
+    const { name, email, timeZone, school, changedSchools } = this.state
     e.preventDefault()
     const data = {
       name,
       email,
       time_zone: timeZone,
-      school_id: school.id
+      school_id: school.id,
+      school_options_do_not_apply: changedSchools
     };
     this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
   }
@@ -90,12 +92,16 @@ export default class TeacherGeneralAccountInfo extends React.Component {
   }
 
   handleSchoolChange(id, schoolObj) {
-    if (id === 'not listed') {
-      const notListedSchool = this.props.alternativeSchools.find(school => school.name === 'not listed')
-      this.setState({ school: notListedSchool, showSchoolSelector: false, })
-    } else {
-      const school = { name: schoolObj.attributes.text, id, }
-      this.setState({ school, showSchoolSelector: false, })
+    const { school } = this.state
+    if (id != school.id) {
+      this.setState({ changedSchools: true, })
+      if (id === 'not listed') {
+        const notListedSchool = this.props.alternativeSchools.find(school => school.name === 'not listed')
+        this.setState({ school: notListedSchool, showSchoolSelector: false, })
+      } else {
+        const school = { name: schoolObj.attributes.text, id, }
+        this.setState({ school, showSchoolSelector: false, })
+      }
     }
   }
 

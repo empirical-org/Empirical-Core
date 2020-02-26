@@ -302,17 +302,21 @@ module Teacher
   end
 
   def updated_school(school_id)
-    if subscription && subscription.school_subscriptions.any?
+    school = School.find(school_id)
+    if subscription && subscription.school_subscriptions.any? && !has_matching_subscription(id, school.subscription.id)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
     elsif self&.subscription&.account_type == "Purchase Missing School"
       SchoolSubscription.create(school_id: school_id, subscription_id: subscription.id)
     end
-    school = School.find(school_id)
     if school && school.subscription
       # then we let the user subscription handle everything else
       UserSubscription.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(id, school.subscription.id)
     end
+  end
+
+  def has_matching_subscription?(user_id, subscription_id)
+    UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
   end
 
   def is_premium?
