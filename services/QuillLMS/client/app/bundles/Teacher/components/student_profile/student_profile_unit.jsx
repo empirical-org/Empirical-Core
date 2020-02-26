@@ -12,6 +12,11 @@ const grammarSrc = `${process.env.CDN_URL}/images/icons/tool-grammar-gray.svg`
 const proofreaderSrc = `${process.env.CDN_URL}/images/icons/tool-proofreader-gray.svg`
 const lessonsSrc = `${process.env.CDN_URL}/images/icons/tool-lessons-gray.svg`
 
+const LESSONS_ACTIVITY_CLASSIFICATION_ID = "6"
+const DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID = "4"
+const PROFICIENT_CUTOFF = 0.8
+const NEARLY_PROFICIENT_CUTOFF = 0.6
+
 const incompleteHeaders = [
   {
     width: '633px',
@@ -85,11 +90,15 @@ export default class StudentProfileUnit extends React.Component {
   score = (act) => {
     const { activity_classification_id, max_percentage, } = act
     const maxPercentage = Number(max_percentage)
-    if (activity_classification_id === "4" || activity_classification_id === "6") {
+    if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
       return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
-    } else if (maxPercentage > .8) {
+    }
+
+    if (maxPercentage > PROFICIENT_CUTOFF) {
       return (<div className="score"><div className="proficient" /><span>Proficient</span></div>)
-    } else if (maxPercentage > .6) {
+    }
+
+    if (maxPercentage > NEARLY_PROFICIENT_CUTOFF) {
       return (<div className="score"><div className="nearly-proficient" /><span>Nearly proficient</span></div>)
     }
 
@@ -100,13 +109,13 @@ export default class StudentProfileUnit extends React.Component {
     const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
     let linkText = 'Start'
 
-    if (repeatable === 'f' && max_percentage) {
-      return <span>Completed</span>
-    } else if (max_percentage === null && marked_complete === 't'){
-      return <span>Missed</span>
-    } else if (locked === 't') {
-      return <span className="needs-teacher">Needs teacher</span>
-    } else if (max_percentage) {
+    if (repeatable === 'f' && max_percentage) { return <span>Completed</span> }
+
+    if (max_percentage === null && marked_complete === 't') { return <span>Missed</span> }
+
+    if (locked === 't') { return <span className="needs-teacher">Needs teacher</span> }
+
+    if (max_percentage) {
       linkText = 'Replay';
     } else if (resume_link === '1') {
       linkText = 'Resume';

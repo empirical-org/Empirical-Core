@@ -125,24 +125,24 @@ export default class StudentProfileUnits extends React.Component {
     </div>)
   }
 
-  render() {
+  renderContent = () => {
     const { loading, nextActivitySession, } = this.props
-    let content = <LoadingIndicator />;
-    if (!loading) {
-      // give unit unit id key whether it is complete or incomplete
-      content = this.displayedUnits().map(unit => {
-        const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
-        return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
-      });
-    }
+    if (loading) { return <LoadingIndicator /> }
+    
+    const content = this.displayedUnits().map(unit => {
+      const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
+      return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
+    })
 
-    if (!content.length) { content = this.renderEmptyState() }
+    return content.length ? content : this.renderEmptyState()
+  }
 
+  render() {
     return (
       <div className="container">
         {this.renderPinnedActivityBar()}
         {this.renderPinnedActivityModal()}
-        {content}
+        {this.renderContent()}
       </div>
     );
   }
