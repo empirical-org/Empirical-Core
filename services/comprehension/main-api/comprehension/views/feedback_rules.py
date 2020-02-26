@@ -28,4 +28,5 @@ class RulesBasedFeedbackView(ApiView):
 
         return JsonResponse(construct_feedback_payload(feedback['feedback'],
                                                        'rules-based',
-                                                       feedback['optimal']))
+                                                       feedback['optimal'],
+                                                       feedback.get('id')))
