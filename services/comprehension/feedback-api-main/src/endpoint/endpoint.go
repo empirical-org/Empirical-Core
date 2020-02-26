@@ -73,6 +73,8 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 	}
 
+	// TODO make this async. Calling a coroutine here doesn't finish
+	recordFeedback(request_body, returnable_result)
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(responseWriter).Encode(returnable_result)
@@ -114,9 +116,27 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 	c <- InternalAPIResponse{Priority: priority, APIResponse: result}
 }
 
-func submitFeedbackHistory(url string, request APIRequest, response APIResponse) {
-	history_payload, _ := json.Marshal(FeedbackHistory{request, response})
-	http.Post(url, "application/json", bytes.NewReader(history_payload))
+func recordFeedback(incoming_params [] byte, feedback APIResponse) {
+	var request_object APIRequest
+
+	// TODO make the 'feedback' bytes and combine
+	// instead of transforming from bytes to object, combining, and then converting back to bytes
+	if err := json.NewDecoder(bytes.NewReader(incoming_params)).Decode(&request_object); err != nil {
+		return
+	}
+
+	history := HistoryAPIRequest{
+		Entry: request_object.Entry,
+		Prompt_id: request_object.Prompt_id,
+		Session_id: request_object.Session_id,
+		Attempt: request_object.Attempt,
+		Feedback: feedback,
+	}
+
+	history_json, _ := json.Marshal(history)
+
+	// TODO For now, just swallow any errors from this, but we'd want to report errors.
+	http.Post(feedback_history_url, "application/json",  bytes.NewBuffer(history_json))
 }
 
 type APIRequest struct {
@@ -143,12 +163,15 @@ type Highlight struct {
 	Character int `json:"character,omitempty"`
 }
 
-type FeedbackHistory struct {
-	Request APIRequest `json:"request"`
-	Response APIResponse `json:"response"`
-}
-
 type InternalAPIResponse struct {
 	Priority int
 	APIResponse APIResponse
+}
+
+type HistoryAPIRequest struct {
+	Entry string `json:"entry"`
+	Prompt_id int `json:"prompt_id"`
+	Session_id string `json:"session_id"`
+	Attempt int `json:"attempt"`
+	Feedback APIResponse `json:"feedback"`
 }
