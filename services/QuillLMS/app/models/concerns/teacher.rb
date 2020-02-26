@@ -303,7 +303,7 @@ module Teacher
 
   def updated_school(school_id)
     school = School.find(school_id)
-    if subscription && subscription.school_subscriptions.any? && !has_matching_subscription(id, school&.subscription&.id)
+    if subscription && subscription.school_subscriptions.any? && !has_matching_subscription?(id, school&.subscription&.id)
       # then they were previously in a school with a subscription, so we destroy the relationship
       UserSubscription.find_by(user_id: id, subscription_id: subscription.id).destroy
     elsif self&.subscription&.account_type == "Purchase Missing School"
