@@ -7,10 +7,13 @@ export interface SessionReducerState {
   submittedResponses: { [key: string]: FeedbackObject[] }|{}
 }
 
+// TODO replace with better UID for the session
+const sessionID = String(Math.floor(Math.random() * 10000000000000))
+
 type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject }
 
 export default (
-    currentState: SessionReducerState = { submittedResponses: {} },
+    currentState: SessionReducerState = { submittedResponses: {}, sessionID},
     action: SessionAction
 ) => {
     switch (action.type) {

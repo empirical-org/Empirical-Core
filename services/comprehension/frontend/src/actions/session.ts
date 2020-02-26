@@ -4,7 +4,7 @@ import { ActionTypes } from './actionTypes'
 
 import { FeedbackObject } from '../interfaces/feedback'
 
-export const getFeedback = (activityUID: string, entry: string, promptID: string, promptText: string, attempt: number, previousFeedback: FeedbackObject[], callback: Function = () => {}) => {
+export const getFeedback = (activityUID: string, entry: string, promptID: string, promptText: string, attempt: number, previousFeedback: FeedbackObject[], sessionID: string, callback: Function = () => {}) => {
   return (dispatch: Function) => {
     const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
     const promptRegex = new RegExp(`^${promptText}`)
@@ -16,7 +16,8 @@ export const getFeedback = (activityUID: string, entry: string, promptID: string
         prompt_id: promptID,
         entry: entryWithoutStem,
         previous_feedback: previousFeedback,
-        attempt
+        attempt,
+        session_id: sessionID,
       },
       json: true,
     }
