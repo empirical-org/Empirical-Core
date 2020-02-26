@@ -126,7 +126,7 @@ func getAPIResponse(url string, priority int, json_params [] byte, c chan Intern
 func recordFeedback(incoming_params [] byte, feedback APIResponse) {
 	var request_object APIRequest
 
-	// TODO make the 'feedback' bytes and combine
+	// TODO convert the 'feedback' bytes and combine with incoming_params bytes
 	// instead of transforming from bytes to object, combining, and then converting back to bytes
 	if err := json.NewDecoder(bytes.NewReader(incoming_params)).Decode(&request_object); err != nil {
 		return
@@ -144,7 +144,7 @@ func recordFeedback(incoming_params [] byte, feedback APIResponse) {
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	http.Post(feedback_history_url, "application/json",  bytes.NewBuffer(history_json))
-	wg.Done()
+	wg.Done() // mark task as done in WaitGroup
 }
 
 type APIRequest struct {
