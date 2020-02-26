@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"fmt"
+	"sync"
 	"net/http/httputil"
 )
 
@@ -20,6 +21,8 @@ const (
 	feedback_history_url = "https://comprehension-247816.appspot.com/feedback/history"
 
 )
+
+var wg sync.WaitGroup
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// need this for javascript cors requests
@@ -73,11 +76,15 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		}
 	}
 
-	// TODO make this async. Calling a coroutine here doesn't finish
-	recordFeedback(request_body, returnable_result)
+	// TODO make this a purely async task instead of coroutine that waits to finish
+	wg.Add(1)
+	go recordFeedback(request_body, returnable_result)
+
 	responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
 	responseWriter.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(responseWriter).Encode(returnable_result)
+
+	wg.Wait()
 }
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]APIResponse, length int) (int, bool) {
@@ -137,6 +144,7 @@ func recordFeedback(incoming_params [] byte, feedback APIResponse) {
 
 	// TODO For now, just swallow any errors from this, but we'd want to report errors.
 	http.Post(feedback_history_url, "application/json",  bytes.NewBuffer(history_json))
+	wg.Done()
 }
 
 type APIRequest struct {
