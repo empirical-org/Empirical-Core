@@ -226,7 +226,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   zipInputsAndText = () => {
     const { splitPrompt, inputVals, } = this.state
-    const zipped = _.zip(splitPrompt, inputVals);
+    const trimmedInputVals = inputVals.map(iv => iv.trim())
+    const zipped = _.zip(splitPrompt, trimmedInputVals);
     return _.flatten(zipped).join('').trim();
   }
 
@@ -334,11 +335,11 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses } = this.state;
     const { language, translate } = this.props;
     const buttonText = language ? translate('buttons^submit') : 'Submit';
-    
+
     if(responses) {
-      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button> 
+      return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">{buttonText}</button>
     } else {
-      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>; 
+      return <button className="quill-button focus-on-light large primary contained disabled" type="button">{buttonText}</button>;
     }
   }
 
