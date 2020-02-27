@@ -247,9 +247,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   zipInputsAndText = () => {
     const { inputVals, splitPrompt, } = this.state
-
-    const zipped = _.zip(splitPrompt, inputVals);
-    return _.flatten(zipped).join('');
+    const trimmedInputVals = inputVals.map(iv => iv.trim())
+    const zipped = _.zip(splitPrompt, trimmedInputVals);
+    return _.flatten(zipped).join('').trim();
   }
 
   handleSubmitClick = () => {
