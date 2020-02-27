@@ -426,11 +426,48 @@ end
   end
 
   describe '#parse_for_results' do
-    let(:activity_session) { create(:activity_session) }
+    let!(:activity_session) { create(:activity_session) }
+    let!(:proficient_concept) { create(:concept)}
+    let!(:proficient_concept_result) { create(:concept_result_with_correct_answer, concept: proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept) { create(:concept)}
+    let!(:nearly_proficient_concept_result_positive_1) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_positive_2) { create(:concept_result_with_correct_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:nearly_proficient_concept_result_negative) { create(:concept_result_with_incorrect_answer, concept: nearly_proficient_concept, activity_session: activity_session)}
+    let!(:not_yet_proficient_concept) { create(:concept)}
+    let!(:not_yet_proficient_concept_result) { create(:concept_result_with_incorrect_answer, concept: not_yet_proficient_concept, activity_session: activity_session)}
+    let!(:ignored_concept) { create(:concept, uid: ActivitySession::CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT[0])}
+    let!(:ignored_concept_result) { create(:concept_result_with_incorrect_answer, concept: ignored_concept, activity_session: activity_session)}
 
-    it 'should call all_concept_stats' do
-      expect(activity_session).to receive(:all_concept_stats).with(activity_session)
-      activity_session.parse_for_results
+    it 'should return an object with concept results organized by category' do
+      expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).to be_present
+      expect(activity_session.parse_for_results[ActivitySession::NEARLY_PROFICIENT]).to be_present
+      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to be_present
+    end
+
+    it 'should return concept results that averaged 80% or higher in the PROFICIENT category' do
+      expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).to include(proficient_concept.name)
+    end
+
+    it 'should return concept results that averaged 60% or higher in the NEARLY PROFICIENT category' do
+      expect(activity_session.parse_for_results[ActivitySession::NEARLY_PROFICIENT]).to include(nearly_proficient_concept.name)
+    end
+
+    it 'should return concept results that averaged below 60 in the NOT YET PROFICIENT category' do
+      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(not_yet_proficient_concept.name)
+    end
+
+    it 'should not return the ignored concept result in any category if there are fewer than four concept results for it' do
+      expect(activity_session.parse_for_results[ActivitySession::PROFICIENT]).not_to include(ignored_concept.name)
+      expect(activity_session.parse_for_results[ActivitySession::NEARLY_PROFICIENT]).not_to include(ignored_concept.name)
+      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).not_to include(ignored_concept.name)
+    end
+
+    it 'should not return the ignored concept result if there are at least four concept results for it' do
+      3.times do |i|
+        ignored_concept_result.id = nil
+        ConceptResult.create(ignored_concept_result.attributes)
+      end
+      expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).to include(ignored_concept.name)
     end
   end
 
