@@ -12,6 +12,8 @@ const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_ic
 const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
 const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
 
+const ALLOWED_ATTEMPTS = 5
+
 interface QuestionProps {
   activity: GrammarActivity|null;
   answeredQuestions: Question[]|never;
@@ -74,14 +76,14 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
     getCurrentQuestionStatus(currentQuestion) {
       if (currentQuestion.attempts && currentQuestion.attempts.length) {
-        if (currentQuestion.attempts[4]) {
-          if (currentQuestion.attempts[4].optimal) {
+        if (currentQuestion.attempts.length === ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1]) {
+          if (currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
             return 'correctly answered'
           } else {
             return 'final attempt'
           }
         } else {
-          if (currentQuestion.attempts[0] && currentQuestion.attempts[0].optimal) {
+          if (currentQuestion.attempts.length < ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1] && currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
             return 'correctly answered'
           } else {
             return 'incorrectly answered'
@@ -244,7 +246,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         {this.renderExampleButton()}
         {this.renderExample()}
         <Row align="middle" justify="start" type="flex">
-          <img src={questionIconSrc} style={{ height: '22px', marginRight: '10px' }} />
+          <img alt="Question Icon" src={questionIconSrc} style={{ height: '22px', marginRight: '10px' }} />
           <div className="instructions" dangerouslySetInnerHTML={{__html: this.currentQuestion().instructions}} />
         </Row>
       </div>)
@@ -254,11 +256,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const { questionStatus, response } = this.state
       if (['correctly answered', 'final attempt'].includes(questionStatus)) {
         return (<Row align="middle" justify="start" type="flex">
-          <textarea className="input-field disabled" disabled value={response} />
+          <textarea aria-label="Disabled Text Area" className="input-field disabled" disabled value={response} />
         </Row>)
       } else {
         return (<Row align="middle" justify="start" type="flex">
-          <textarea className="input-field" onChange={this.handleResponseChange} onKeyDown={this.handleKeyDown} spellCheck="false" value={response} />
+          <textarea aria-label="Text Area" className="input-field" onChange={this.handleResponseChange} onKeyDown={this.handleKeyDown} spellCheck="false" value={response} />
         </Row>)
       }
     }
@@ -280,34 +282,38 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       const { submittedEmptyString, submittedSameResponseTwice, response, } = this.state
       const question = this.currentQuestion()
       if (submittedEmptyString) {
-        return <div className="feedback try-again"><div className="inner-container"><img src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}} /></div></div>
+        return <div className="feedback try-again"><div className="inner-container"><img alt="Try Again Icon" src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a sentence for us to check.'}} /></div></div>
       } else if (submittedSameResponseTwice) {
-        return <div className="feedback try-again"><div className="inner-container"><img src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}} /></div></div>
+        return <div className="feedback try-again"><div className="inner-container"><img alt="Try Again Icon" src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}} /></div></div>
       } else if (question && question.attempts && question.attempts.length > 0) {
-        let className: string, feedback: string|undefined|null, imgSrc: string
-        if (question.attempts[4]) {
-          if (question.attempts[4].optimal) {
-            feedback = question.attempts[4].feedback
+        let className: string, feedback: string|undefined|null, imgSrc: string, altText: string
+        if (question.attempts.length === ALLOWED_ATTEMPTS && question.attempts[question.attempts.length - 1]) {
+          if (question.attempts[question.attempts.length - 1].optimal) {
+            feedback = question.attempts[question.attempts.length - 1].feedback
             className = 'correct'
             imgSrc = correctIconSrc
+            altText = "Correct Icon"
           } else {
             feedback = `<b>Your Response:</b> ${response} <br/> <b>Correct Response:</b> ${this.correctResponse()}`
             className = 'incorrect'
             imgSrc = incorrectIconSrc
+            altText = "Try Again Icon"
           }
         } else {
-          if (question.attempts[0].optimal) {
-            feedback = question.attempts[0].feedback
+          if (question.attempts.length < ALLOWED_ATTEMPTS && question.attempts[question.attempts.length - 1].optimal) {
+            feedback = question.attempts[question.attempts.length - 1].feedback
             className = 'correct'
             imgSrc = correctIconSrc
+            altText = "Correct Icon"
           } else {
-            feedback = question.attempts[0].feedback
+            feedback = question.attempts[question.attempts.length - 1].feedback
             className = 'try-again'
             imgSrc = tryAgainIconSrc
+            altText = "Try Again Icon"
           }
         }
         if (typeof feedback === 'string') {
-          return <div className={`feedback ${className}`}><div className="inner-container"><img src={imgSrc} /><div dangerouslySetInnerHTML={{__html: feedback}} /></div></div>
+          return <div className={`feedback ${className}`}><div className="inner-container"><img alt={altText} src={imgSrc} /><div dangerouslySetInnerHTML={{__html: feedback}} /></div></div>
         }
       }
       return undefined
