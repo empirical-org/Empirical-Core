@@ -5,25 +5,25 @@ def combine_labels(labels):
 def construct_feedback_payload(feedback, feedback_type, optimal,
                                response_id, highlight=[], labels=None):
     payload = {
-        'feedback': feedback,
-        'feedback_type': feedback_type,
-        'optimal': optimal,
-        'response_id': response_id,
-        'highlight': highlight,
+        'feedback': str(feedback),
+        'feedback_type': str(feedback_type),
+        'optimal': bool(optimal),
+        'response_id': str(response_id),
+        'highlight': list(highlight),
     }
 
     if labels:
-        payload['labels'] = labels
+        payload['labels'] = str(labels)
 
     return payload
 
 
 def construct_highlight_payload(highlight_type, highlight_text,
-                                start_index=0, highlight_id=None):
+                                highlight_id, start_index=0):
     return {
-        'type': highlight_type,
-        'id': highlight_id,
-        'text': highlight_text,
-        'category': None,
-        'character': start_index,
+        'type': str(highlight_type),
+        'id': int(highlight_id),
+        'text': str(highlight_text),
+        'category': str(''),
+        'character': int(start_index),
     }
