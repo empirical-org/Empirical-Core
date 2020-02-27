@@ -45,7 +45,7 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
       <Layout className={className}>
         <Layout>
           <Layout.Content>
-            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to Main Content</button>
+            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
             {header}
             <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
           </Layout.Content>

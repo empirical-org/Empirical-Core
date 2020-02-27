@@ -38,7 +38,7 @@ export default class StudentRoot extends React.Component {
     const className = showFocusState ? '' : 'hide-focus-outline'
     return (
       <div className={className}>
-        <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to Main Content</button>
+        <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
         <NavBar />
         <div id="main-content" tabIndex={-1}>{children}</div>
       </div>
