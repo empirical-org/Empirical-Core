@@ -287,9 +287,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
         return <div className="feedback try-again"><div className="inner-container"><img alt="Try Again Icon" src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{__html: 'You must enter a different response.'}} /></div></div>
       } else if (question && question.attempts && question.attempts.length > 0) {
         let className: string, feedback: string|undefined|null, imgSrc: string, altText: string
-        if (question.attempts.length === ALLOWED_ATTEMPTS && question.attempts[question.attempts.length - 1]) {
-          if (question.attempts[question.attempts.length - 1].optimal) {
-            feedback = question.attempts[question.attempts.length - 1].feedback
+        const latestAttempt: Response|undefined = this.getLatestAttempt(question.attempts)
+
+        if (question.attempts.length === ALLOWED_ATTEMPTS && latestAttempt) {
+          if (latestAttempt.optimal) {
+            feedback = latestAttempt.feedback
             className = 'correct'
             imgSrc = correctIconSrc
             altText = "Correct Icon"
@@ -300,13 +302,13 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
             altText = "Try Again Icon"
           }
         } else {
-          if (question.attempts.length < ALLOWED_ATTEMPTS && question.attempts[question.attempts.length - 1].optimal) {
-            feedback = question.attempts[question.attempts.length - 1].feedback
+          if (question.attempts.length < ALLOWED_ATTEMPTS && latestAttempt.optimal) {
+            feedback = latestAttempt.feedback
             className = 'correct'
             imgSrc = correctIconSrc
             altText = "Correct Icon"
           } else {
-            feedback = question.attempts[question.attempts.length - 1].feedback
+            feedback = latestAttempt.feedback
             className = 'try-again'
             imgSrc = tryAgainIconSrc
             altText = "Try Again Icon"
