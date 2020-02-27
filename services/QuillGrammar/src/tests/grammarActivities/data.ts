@@ -41,7 +41,7 @@ const incorrectAttemptOne = {
   text: "The team stretch their legs, practice their drills, and then rehearse their set plays."
 }
 
-const incorrectAttemptTwo = {
+const incorrectAttemptFive = {
   author: "Spelling Hint",
   concept_results: [{
     conceptUID: "1ohLyApTz7lZ3JszrA98Xg",
@@ -71,9 +71,9 @@ export const currentQuestionWithOneIncorrectAttempt: Question = {
   attempts: [incorrectAttemptOne]
 }
 
-export const currentQuestionWithTwoIncorrectAttempts: Question = {
+export const currentQuestionWithFiveIncorrectAttempts: Question = {
   ...currentQuestion,
-  attempts: [incorrectAttemptOne, incorrectAttemptTwo]
+  attempts: [incorrectAttemptOne, incorrectAttemptOne, incorrectAttemptOne, incorrectAttemptOne, incorrectAttemptFive]
 }
 
 export const currentQuestionWithOneCorrectAttempt: Question = {
