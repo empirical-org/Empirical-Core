@@ -2,17 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   CarouselAnimation,
-  hashToCollection,
-  SmartSpinner,
-  DiagnosticProgressBar
+  ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
+
 import {
   clearData,
   loadData,
   nextQuestion,
   nextQuestionWithoutSaving,
   submitResponse,
-  updateName,
   updateCurrentQuestion,
   resumePreviousDiagnosticSession,
   updateLanguage
@@ -22,16 +20,24 @@ import SessionActions from '../../actions/sessions.js';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayDiagnosticQuestion from './sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion'
-import LandingPage from './landing.jsx';
+import LandingPage from './landingPage.jsx';
 import LanguagePage from './languagePage.jsx';
 import PlayTitleCard from './titleCard.tsx'
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import Footer from './footer'
 import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic';
+import {
+  questionCount,
+  answeredQuestionCount,
+  getProgressPercent
+} from '../../libs/calculateProgress'
 import { getParameterByName } from '../../libs/getParameterByName';
+import { withNamespaces } from 'react-i18next';
+import i18n from '../../i18n';
 
 const request = require('request');
 
-class ELLStudentDiagnostic extends React.Component {
+export class ELLStudentDiagnostic extends React.Component {
   constructor(props) {
     super(props)
 
@@ -43,27 +49,32 @@ class ELLStudentDiagnostic extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(clearData());
-    if (this.state.sessionID) {
-      SessionActions.get(this.state.sessionID, (data) => {
+    const { dispatch, } = this.props
+    const { sessionID, } = this.state
+    dispatch(clearData());
+    if (sessionID) {
+      SessionActions.get(sessionID, (data) => {
         this.setState({ session: data, });
       });
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.playDiagnostic.answeredQuestions.length !== this.props.playDiagnostic.answeredQuestions.length) {
+    const { playDiagnostic, } = this.props
+    if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
     }
   }
 
   getPreviousSessionData = () => {
-    return this.state.session;
+    const { session, } = this.state
+    return session;
   }
 
   resumeSession = (data) => {
+    const { dispatch, } = this.props
     if (data) {
-      this.props.dispatch(resumePreviousDiagnosticSession(data));
+      dispatch(resumePreviousDiagnosticSession(data));
     }
   }
 
@@ -76,29 +87,26 @@ class ELLStudentDiagnostic extends React.Component {
   }
 
   saveSessionData = (lessonData) => {
-    if (this.state.sessionID) {
-      SessionActions.update(this.state.sessionID, lessonData);
+    const { sessionID, } = this.state
+
+    if (sessionID) {
+      SessionActions.update(sessionID, lessonData);
     }
   }
 
-  doesNotHaveAndIsNotGettingResponses = () => {
-    return (!this.state.hasOrIsGettingResponses);
-  }
-
-  hasQuestionsInQuestionSet = (props) => {
-    const pL = props.playDiagnostic;
-    return (pL && pL.questionSet && pL.questionSet.length);
-  }
-
   saveToLMS = () => {
-    this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(this.props.playDiagnostic.answeredQuestions);
+    const { params, playDiagnostic, } = this.props;
+    const { diagnosticID } = params;
 
-    const sessionID = this.state.sessionID;
+    const { sessionID, } = this.state
+
+    this.setState({ error: false, });
+    const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
+
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession('ell', results, 1);
+      this.createAnonActivitySession(diagnosticID, results, 1);
     }
   }
 
@@ -115,7 +123,7 @@ class ELLStudentDiagnostic extends React.Component {
       }, (err, httpResponse, body) => {
         if (httpResponse && httpResponse.statusCode === 200) {
           // to do, use Sentry to capture error
-          SessionActions.delete(this.state.sessionID);
+          SessionActions.delete(sessionID);
           document.location.href = process.env.EMPIRICAL_BASE_URL
           this.setState({ saved: true, });
         } else {
@@ -128,14 +136,14 @@ class ELLStudentDiagnostic extends React.Component {
     );
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
+  createAnonActivitySession = (diagnosticID, results, score) => {
     request(
       { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
           state: 'finished',
-          activity_uid: 'ell',
+          activity_uid: diagnosticID,
           concept_results: results,
           percentage: score,
         },
@@ -150,136 +158,109 @@ class ELLStudentDiagnostic extends React.Component {
   }
 
   submitResponse = (response) => {
+    const { dispatch, } = this.props
+
     const action = submitResponse(response);
-    this.props.dispatch(action);
+    dispatch(action);
   }
 
   renderQuestionComponent = () => {
+    const { playDiagnostic, dispatch, params, t } = this.props
+
     let component
-    if (this.props.playDiagnostic.currentQuestion.type === 'SC') {
+    if (playDiagnostic.currentQuestion.type === 'SC') {
       component = (<PlayDiagnosticQuestion
-        dispatch={this.props.dispatch}
-        key={this.props.playDiagnostic.currentQuestion.data.key}
+        diagnosticID={params.diagnosticID}
+        dispatch={dispatch}
+        key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         marking="diagnostic"
         nextQuestion={this.nextQuestion}
-        question={this.props.playDiagnostic.currentQuestion.data}
+        question={playDiagnostic.currentQuestion.data}
+        translate={t}
       />);
-    } else if (this.props.playDiagnostic.currentQuestion.type === 'SF') {
+    } else if (playDiagnostic.currentQuestion.type === 'SF') {
       component = (<PlaySentenceFragment
-        currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-        dispatch={this.props.dispatch}
-        key={this.props.playDiagnostic.currentQuestion.data.key}
+        currentKey={playDiagnostic.currentQuestion.data.key}
+        dispatch={dispatch}
+        key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
         markIdentify={this.markIdentify}
         nextQuestion={this.nextQuestion}
-        question={this.props.playDiagnostic.currentQuestion.data}
+        question={playDiagnostic.currentQuestion.data}
         updateAttempts={this.submitResponse}
       />);
-    } else if (this.props.playDiagnostic.currentQuestion.type === 'TL') {
+    } else if (playDiagnostic.currentQuestion.type === 'TL') {
       component = (
         <PlayTitleCard
-          currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-          data={this.props.playDiagnostic.currentQuestion.data}
-          dispatch={this.props.dispatch}
-          key={this.props.playDiagnostic.currentQuestion.data.key}
+          currentKey={playDiagnostic.currentQuestion.data.key}
+          data={playDiagnostic.currentQuestion.data}
+          diagnosticID={params.diagnosticID}
+          dispatch={dispatch}
+          handleContinueClick={this.nextQuestionWithoutSaving}
+          key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
-          nextQuestion={this.nextQuestionWithoutSaving}
+          translate={t}
         />
       );
-    } else if (this.props.playDiagnostic.currentQuestion.type === 'FB') {
+    } else if (playDiagnostic.currentQuestion.type === 'FB') {
       component = (
         <PlayFillInTheBlankQuestion
-          currentKey={this.props.playDiagnostic.currentQuestion.data.key}
-          dispatch={this.props.dispatch}
-          key={this.props.playDiagnostic.currentQuestion.data.key}
+          currentKey={playDiagnostic.currentQuestion.data.key}
+          diagnosticID={params.diagnosticID}
+          dispatch={dispatch}
+          key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
           nextQuestion={this.nextQuestion}
-          question={this.props.playDiagnostic.currentQuestion.data}
+          question={playDiagnostic.currentQuestion.data}
+          translate={t}
         />
       );
     }
     return component
   }
 
-  startActivity = (data) => {
+  startActivity = () => {
+    const { dispatch, } = this.props
+
+    const data = this.getFetchedData()
     const action = loadData(data);
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   nextQuestion = () => {
+    const { dispatch, } = this.props
+
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   nextQuestionWithoutSaving = () => {
+    const { dispatch, } = this.props
+
     const next = nextQuestionWithoutSaving();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   getLesson = () => {
-    return this.props.lessons.data['ell'];
-  }
-
-  getLessonName = () => {
-    return this.props.lessons.data['ell'].name;
-  }
-
-  saveStudentName = (name) => {
-    this.props.dispatch(updateName(name));
-  }
-
-  questionsForLesson = () => {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    if (data[lessonID].questions) {
-      return _.values(data[lessonID].questions).map((question) => {
-        const questions = this.props[question.questionType].data;
-        const qFromDB = Object.assign({}, questions[question.key]);
-        qFromDB.questionType = question.questionType;
-        qFromDB.key = question.key;
-        return qFromDB;
-      });
-    }
-  }
-
-  getQuestionCount = () => {
-    const { diagnosticID, } = this.props.params;
-    if (diagnosticID == 'researchDiagnostic') {
-      return '15';
-    }
-    return '22';
+    const { lessons, params } = this.props;
+    const { diagnosticID } = params;
+    return lessons.data[diagnosticID];
   }
 
   markIdentify = (bool) => {
+    const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
-    this.props.dispatch(action);
-  }
-
-  getProgressPercent = () => {
-    let percent;
-    const playDiagnostic = this.props.playDiagnostic;
-    if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
-      const questionSetCount = playDiagnostic.questionSet.length;
-      const answeredQuestionCount = questionSetCount - this.props.playDiagnostic.unansweredQuestions.length;
-      if (this.props.playDiagnostic.currentQuestion) {
-        percent = ((answeredQuestionCount - 1) / questionSetCount) * 100;
-      } else {
-        percent = ((answeredQuestionCount) / questionSetCount) * 100;
-      }
-    } else {
-      percent = 0;
-    }
-    return percent;
+    dispatch(action);
   }
 
   getFetchedData = () => {
     const lesson = this.getLesson()
     if (lesson) {
       const filteredQuestions = lesson.questions.filter((ques) => {
-        return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null
+        return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null  // eslint-disable-line react/destructuring-assignment
       });
       // this is a quickfix for missing questions -- if we leave this in here
       // long term, we should return an array through a forloop to
@@ -287,7 +268,7 @@ class ELLStudentDiagnostic extends React.Component {
       return filteredQuestions.map((questionItem) => {
         const questionType = questionItem.questionType;
         const key = questionItem.key;
-        const question = this.props[questionType].data[key];
+        const question = this.props[questionType].data[key]; // eslint-disable-line react/destructuring-assignment
         question.key = key;
         question.attempts = question.attempts ? question.attempts : []
         let type
@@ -311,60 +292,98 @@ class ELLStudentDiagnostic extends React.Component {
   }
 
   updateLanguage = (language) => {
-    this.props.dispatch(updateLanguage(language));
+    const { dispatch, } = this.props
+    i18n.changeLanguage(language);
+    dispatch(updateLanguage(language));
   }
 
   language = () => {
-    return this.props.playDiagnostic.language;
+    const { playDiagnostic, } = this.props
+
+    return playDiagnostic.language;
   }
 
   landingPageHtml = () => {
-    const { data, } = this.props.lessons
-    return data['ell'].landingPageHtml
+    const { lessons, params } = this.props;
+    const { data } = lessons;
+    const { diagnosticID } = params;
+    return data[diagnosticID].landingPageHtml
+  }
+
+  renderFooter = () => {
+    const { params } = this.props;
+    if (!this.language()) { return }
+
+    return (<Footer
+      diagnosticID={params.diagnosticID}
+      language={this.language()}
+      updateLanguage={this.updateLanguage}
+    />)
+  }
+
+  renderProgressBar = () => {
+    const { playDiagnostic, } = this.props
+    if (!playDiagnostic.currentQuestion) { return }
+
+    const calculatedAnsweredQuestionCount = answeredQuestionCount(playDiagnostic)
+
+    const currentQuestionIsTitleCard = playDiagnostic.currentQuestion.type === 'TL'
+    const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
+
+    const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
+
+    return (<ProgressBar
+      answeredQuestionCount={displayedAnsweredQuestionCount}
+      percent={getProgressPercent(playDiagnostic)}
+      questionCount={questionCount(playDiagnostic)}
+      thingsCompleted='questions'
+    />)
   }
 
   render() {
+    const { error, saved, } = this.state
+    const { params, playDiagnostic, t } = this.props;
+    const { diagnosticID } = params;
+
     let component;
-    const data = this.getFetchedData();
-    if (!(data && this.props.questions.hasreceiveddata && this.props.sentenceFragments.hasreceiveddata && this.props.fillInBlank.hasreceiveddata)) {
-      component = (<SmartSpinner
-        key="step1"
-        message={'Loading Your Lesson 25%'}
-        onMount={() => {}}
-      />)
-    } else if (this.props.playDiagnostic.currentQuestion) {
+    const minusHowMuch = this.language() ? 'minus-nav-and-footer' : 'minus-nav'
+    if (playDiagnostic.currentQuestion) {
       component = this.renderQuestionComponent();
-    } else if (this.props.playDiagnostic.answeredQuestions.length > 0 && this.props.playDiagnostic.unansweredQuestions.length === 0) {
+    } else if (playDiagnostic.answeredQuestions.length > 0 && playDiagnostic.unansweredQuestions.length === 0) {
       component = (<FinishedDiagnostic
-        error={this.state.error}
+        error={error}
         language={this.language()}
-        saved={this.state.saved}
+        saved={saved}
         saveToLMS={this.saveToLMS}
+        translate={t}
       />);
-    } else if (this.props.playDiagnostic.language) {
+    } else if (playDiagnostic.language) {
       component = (<LandingPage
-        begin={() => { this.startActivity(data); }}
+        begin={this.startActivity}
         landingPageHtml={this.landingPageHtml()}
         language={this.language()}
         resumeActivity={this.resumeSession}
         session={this.getPreviousSessionData()}
+        translate={t}
 
       />);
     } else {
       component = (<LanguagePage
-        setLanguage={(language) => { this.updateLanguage(language); }}
+        diagnosticID={diagnosticID}
+        setLanguage={this.updateLanguage}
       />);
     }
     return (
-      <div>
-        <DiagnosticProgressBar percent={this.getProgressPercent()} />
-        <section className="section is-fullheight minus-nav student">
+      <div className="ell-diagnostic-container">
+        <section className={`section is-fullheight student ${minusHowMuch}`}>
+          {this.renderProgressBar()}
           <div className="student-container student-container-diagnostic">
             <CarouselAnimation>
               {component}
             </CarouselAnimation>
           </div>
         </section>
+        {this.renderFooter()}
       </div>
     );
   }
@@ -382,4 +401,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default connect(select)(ELLStudentDiagnostic);
+export default withNamespaces()(connect(select)(ELLStudentDiagnostic));

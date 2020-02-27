@@ -1,6 +1,6 @@
 {
   "name": "quill-spellchecker",
-  "version": "0.1.16",
+  "version": "0.1.19",
   "description": "Spellchecker for Quill.",
   "repository": "github:empirical-org/quill-spellchecker",
   "main": "dist/lib.js",
@@ -37,5 +37,8 @@
     "uglify-js": "^2.7.5",
     "webpack": "^4.41.2",
     "webpack-dev-server": "^2.11.5"
+  },
+  "dependencies": {
+    "quill-string-normalizer": "0.0.9"
   }
 }

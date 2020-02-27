@@ -1,31 +1,33 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import LandingPage from '../landingPage';
 
-import Landing from '../landing';
+// TODO: add mocking of translate to simulate translation in tests
 
-describe('Landing component', () => {
+describe('LandingPage component', () => {
   describe('with no session present', () => {
     it('should render begin button', () => {
       const wrapper = mount(
-        <Landing
-          begin={() => null}
+        <LandingPage
+          diagnosticID="ell"
           language='spanish'
-          resumeActivity={() => null}
+          translate={jest.fn()}
         />
       );
-      expect(wrapper.find('.student-begin').text()).toBe('Begin / Comienzo');
+      expect(wrapper.find('.quill-button').text()).toBe('');
     });
 
     it('should pass begin prop to onClick', () => {
       const mockBegin = jest.fn();
       const wrapper = mount(
-        <Landing
+        <LandingPage
           begin={mockBegin}
+          diagnosticID="ell"
           language='spanish'
-          resumeActivity={() => null}
+          translate={jest.fn()}
         />
       );
-      wrapper.find('.student-begin').simulate('click');
+      wrapper.find('.quill-button').simulate('click');
       expect(mockBegin.mock.calls.length).toBe(1);
     });
   });
@@ -33,27 +35,28 @@ describe('Landing component', () => {
   describe('with a session present', () => {
     it('should render continue button', () => {
       const wrapper = mount(
-        <Landing
-          begin={() => null}
+        <LandingPage
+          diagnosticID="ell"
           language='spanish'
-          resumeActivity={() => null}
-          session={'anything'}
+          session='anything'
+          translate={jest.fn()}
         />
       );
-      expect(wrapper.find('.student-begin').text()).toBe('Resume / Reanudo');
+      expect(wrapper.find('.quill-button').text()).toBe('');
     });
 
     it('should pass resumeActivity prop to onClick with session argument', () => {
       const mockResumeActivity = jest.fn();
       const wrapper = mount(
-        <Landing
-          begin={() => null}
+        <LandingPage
+          diagnosticID="ell"
           language='spanish'
           resumeActivity={mockResumeActivity}
-          session={'anything'}
+          session='anything'
+          translate={jest.fn()}
         />
       );
-      wrapper.find('.student-begin').simulate('click');
+      wrapper.find('.quill-button').simulate('click');
       expect(mockResumeActivity.mock.calls.length).toBe(1);
       expect(mockResumeActivity.mock.calls[0][0]).toBe('anything');
     });
