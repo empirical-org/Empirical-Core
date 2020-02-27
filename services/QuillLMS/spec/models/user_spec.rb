@@ -776,11 +776,17 @@ describe User, type: :model do
   end
 
   describe '#generate_password' do
-    let(:user) { build(:user, password: 'currentpassword', last_name: 'lastname') }
+    let(:user1) { build(:user, password: 'currentpassword', last_name: 'Last Name') }
+    let(:user2) { build(:user, password: 'currentpassword', last_name: 'lastName') }
 
-    it 'sets password to value of last_name' do
-      user.generate_password
-      expect(user.password).to eq(user.last_name)
+    it 'sets password to the value of the last name with any spaces replaced with hyphens' do
+      user1.generate_password
+      expect(user1.password).to eq('Last-Name')
+    end
+
+    it 'sets password to value of last name with a capitalized first letter' do
+      user2.generate_password
+      expect(user2.password).to eq('LastName')
     end
   end
 
@@ -954,6 +960,13 @@ describe User, type: :model do
       it 'has a last name only' do
         user.first_name = nil
         expect(user.name).to eq(user.last_name)
+      end
+
+      it 'has multiple last names' do
+        user.first_name = 'Has'
+        user.last_name = 'Multiple Last Names'
+        user.save
+        expect(user.name).to eq(user.first_name + ' ' + user.last_name)
       end
     end
   end

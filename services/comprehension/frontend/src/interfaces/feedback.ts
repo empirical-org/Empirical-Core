@@ -4,11 +4,14 @@ export interface FeedbackObject {
   optimal: boolean,
   response_id: string,
   entry: string,
-  highlight?: Array<Highlight>
+  highlight: Highlight[],
+  labels?: string
 }
 
 export interface Highlight {
   type: string;
   text: string
   id?: number;
+  category: string;
+  character?: number;
 }

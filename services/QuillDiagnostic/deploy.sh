@@ -26,3 +26,12 @@ esac
 
 # Upload build to S3 bucket
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws
+
+# Add slack message
+case $1 in
+  prod)
+    export SLACK_API_TOKEN=$(heroku config:get SLACK_API_TOKEN --app empirical-grammar)
+    export PROJECT_NAME="QuillDiagnostic"
+    python3 ../post_slack_message.py
+    ;;
+esac

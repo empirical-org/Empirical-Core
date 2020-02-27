@@ -58,7 +58,7 @@ class ActivitiesController < ApplicationController
     redirect_to "#{@activity.classification_form_url}customize/#{@activity.uid}"
   end
 
-protected
+  protected
 
   def set_activity
     @activity = Activity.find_by(uid: params[:id]) || Activity.find_by(id: params[:id])

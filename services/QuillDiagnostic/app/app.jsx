@@ -23,6 +23,7 @@ import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
+import './i18n';
 
 if (process.env.NODE_ENV === 'production') {
   Raven

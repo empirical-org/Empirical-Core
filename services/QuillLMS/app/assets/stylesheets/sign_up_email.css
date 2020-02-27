@@ -88,39 +88,3 @@
       float: left;
       clear: both;
     }
-
-    .table {
-      margin-bottom: 20px;
-      width: 100%;
-    }
-
-    .top-content {
-      margin-top: 30px;
-      width: 100%;
-    }
-
-    .left-cell {
-      border: 1px solid black;
-      border-radius: 3px;
-      padding-left: 20px;
-    }
-
-    .right-cell {
-      border: 1px solid black;
-      border-radius: 3px;
-      background-color: #00c2a2;
-      color: white;
-    }
-
-    .medium-text {
-      font-size: 16px;
-    }
-
-    .small-text {
-      font-size: 14px;
-      margin-left: 10px;
-    }
-
-    .date {
-      float: right;
-    }

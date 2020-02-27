@@ -131,14 +131,10 @@
   margin-top: 9px;
   display: inline-flex;
   align-items: center;
-  // margin-bottom: 1em;
   .cue {
     background-color: #fffed5;
     line-height: 28px;
     font-size: 20px;
-    font-family: $family-monospace;
-    // font-weight: bold;
-
     margin-right: 13px;
     padding: 0 5px;
   }
@@ -260,26 +256,6 @@
   }
 }
 
-.progress.diagnostic-progress {
-  margin-bottom: 0px;
-  border-radius: 0;
-  height: 13px;
-  color: #eee;
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.28);
-}
-
-progress[value]::-webkit-progress-bar {
-  background-color: $white;
-  box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.28);
-  // border-radius: 2px;
-  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-}
-
-progress[value]::-webkit-progress-value {
-  background-color: #027360;
-  color: #027360;
-}
-
 .landing-page {
   padding-top: 20px;
   h1 {
@@ -328,20 +304,20 @@ progress[value]::-webkit-progress-value {
   &.success {
     background-color: #d3e7bd;
     padding: 13 17 16 20;
-    border-left: 3px solid #82bf3c;
+    border-left: 3px solid #498900;
 
     p {
       color: #457818;
     }
 
-    animation: successpulse 0.8s 1; 
+    animation: successpulse 0.8s 1;
 
     @keyframes successpulse {
       0%  {
         background-color: #d3e7bd;
       }
       50% {
-        background-color: #c0e09c; 
+        background-color: #c0e09c;
       }
       100% {
         background-color: #d3e7bd;
@@ -352,15 +328,15 @@ progress[value]::-webkit-progress-value {
   &.revise {
     background-color: #ffe4b7;
     padding: 13 17 16 20;
-    border-left: 3px solid #f5ba5b;
-    animation: revisepulse 0.8s 1; 
+    border-left: 3px solid #b17410;
+    animation: revisepulse 0.8s 1;
 
     @keyframes revisepulse {
       0%  {
         background-color: #ffe4b7;
       }
       50% {
-        background-color: #f5ba5b; 
+        background-color: #f5ba5b;
       }
       100% {
         background-color: #ffe4b7;

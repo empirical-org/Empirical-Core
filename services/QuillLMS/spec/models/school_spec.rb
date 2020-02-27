@@ -43,7 +43,7 @@ describe School, type: :model do
       @school.lower_grade = -1
 
       expect(@school.valid?).to eq(false)
-      expect(@school.errors[:lower_grade]).to eq([ 'must be between 0 and 12' ])
+      expect(@school.errors[:lower_grade]).to eq(['must be between 0 and 12'])
     end
 
     it 'upper grade is within bounds' do
@@ -56,7 +56,7 @@ describe School, type: :model do
       @school.upper_grade = 14
 
       expect(@school.valid?).to eq(false)
-      expect(@school.errors[:upper_grade]).to eq([ 'must be between 0 and 12' ])
+      expect(@school.errors[:upper_grade]).to eq(['must be between 0 and 12'])
     end
 
     it 'lower grade is below upper grade' do
@@ -71,7 +71,7 @@ describe School, type: :model do
       @school.upper_grade = 3
 
       expect(@school.valid?).to eq(false)
-      expect(@school.errors[:lower_grade]).to eq([ 'must be less than or equal to upper grade' ])
+      expect(@school.errors[:lower_grade]).to eq(['must be less than or equal to upper grade'])
     end
 
   end
