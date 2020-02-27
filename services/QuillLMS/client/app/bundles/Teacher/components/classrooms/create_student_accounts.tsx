@@ -109,9 +109,11 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     e.preventDefault()
     const { firstName, lastName, students } = this.state
     if (firstName.length && lastName.length) {
+      const passwordifiedLastName = this.correctedNameString(lastName)
+      const password = passwordifiedLastName.charAt(0).toUpperCase() + passwordifiedLastName.substring(1)
       const newStudent = {
         name: `${firstName} ${lastName}`,
-        password: this.correctedNameString(lastName),
+        password,
         username: this.generateUsername()
       }
       const newStudentsArray = [newStudent].concat(students)
