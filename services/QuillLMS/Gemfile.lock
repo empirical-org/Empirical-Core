@@ -337,6 +337,7 @@ GEM
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     newrelic_rpm (6.0.0.351)
+    # update nokiri version to 1.10.8
     nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
