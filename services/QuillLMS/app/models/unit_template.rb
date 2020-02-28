@@ -36,13 +36,9 @@ class UnitTemplate < ActiveRecord::Base
     activities.ids
   end
 
-  # def activities
-  #   Activity.joins('INNER JOIN activity_category_activities AS aca ON aca.activity_id = activities.id')
-  #   .joins('INNER JOIN activity_categories AS ac ON ac.id = aca.activity_category_id')
-  #   .joins('INNER JOIN activities_unit_templates ON activities.id = activities_unit_templates.activity_id')
-  #   .where("activities_unit_templates.unit_template_id = #{self.id}")
-  #   .order('ac.order_number, aca.order_number')
-  # end
+  def activities
+    activities_unit_templates.map { |aut| aut.activity }
+  end
 
   def self.user_scope(user_flag)
     if user_flag == 'private'
