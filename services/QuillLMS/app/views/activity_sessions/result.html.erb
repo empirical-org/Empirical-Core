@@ -5,5 +5,8 @@
   anonymous: !@activity_session.user_id && current_user.nil?,
   classroomId: @classroom_id,
   integrationPartnerName: @partner_name,
-  integrationPartnerSessionId: @partner_session_id
+  integrationPartnerSessionId: @partner_session_id,
+  classroomUnitId: @activity_session.classroom_unit_id,
+  activityId: @activity_session.activity_id,
+  resultCategoryNames: @result_category_names
 }) %>

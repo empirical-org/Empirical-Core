@@ -28,6 +28,12 @@ class ActivitySessionsController < ApplicationController
     @activity = @activity_session
     @results  = @activity_session.parse_for_results
     @classroom_id = @activity_session&.classroom_unit&.classroom_id
+    @result_category_names = {
+      PROFICIENT: ActivitySession::PROFICIENT,
+      NEARLY_PROFICIENT: ActivitySession::NEARLY_PROFICIENT,
+      NOT_YET_PROFICIENT: ActivitySession::NOT_YET_PROFICIENT
+    }
+    @title = 'Classwork'
   end
 
   def anonymous
