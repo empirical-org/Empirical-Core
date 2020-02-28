@@ -25,3 +25,4 @@ TEMP_DEPLOY_BRANCH=temp-for-deploy
 git checkout ${STARTING_BRANCH}
 git branch -D ${TEMP_DEPLOY_BRANCH}
 open "https://rpm.newrelic.com/accounts/770600/applications/3825541"
+

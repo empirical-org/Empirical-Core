@@ -30,14 +30,6 @@ export const fetchStudentProfile = (classroomId) => {
   };
 };
 
-export const toggleDropdown = () => {
-  return { type: 'TOGGLE_DROPDOWN' };
-};
-
-export const hideDropdown = () => {
-  return { type: 'HIDE_DROPDOWN' };
-};
-
 export const receiveNotifications = (notifications) => {
   return {
     type: 'RECEIVE_NOTIFICATIONS',
@@ -59,10 +51,10 @@ export const handleClassroomClick = (selectedClassroomId) => {
   };
 };
 
-export const updateNumberOfClassroomTabs = (screenWidth) => {
+export const updateActiveClassworkTab = (activeClassworkTab) => {
   return {
-    type: 'UPDATE_NUMBER_OF_CLASSROOM_TABS',
-    screenWidth
+    type: 'UPDATE_ACTIVE_CLASSWORK_TAB',
+    activeClassworkTab
   };
 };
 

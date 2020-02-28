@@ -1,0 +1,36 @@
+.student-profile-tab-container {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  margin-bottom: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  .quill-tab {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: normal;
+    color: #5c5c5c;
+    padding: 14px 16px;
+    min-width: 90px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    &:hover, &:focus {
+      background-color: rgba(6, 128, 107, 0.04);
+      outline: none;
+    }
+    &.active {
+      border-bottom: 2px #06806b solid;
+      color: #06806b;
+    }
+  }
+}
+
+.hide-focus-outline {
+  .quill-tab:focus {
+    background-color: transparent;
+  }
+}
