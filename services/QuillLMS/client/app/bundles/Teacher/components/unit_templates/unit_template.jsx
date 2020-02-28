@@ -71,7 +71,6 @@ export default React.createClass({
       flag: this.props.unitTemplate.flag || null,
       author_id: null,
       order_number: this.props.unitTemplate.order_number || null,
-
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
@@ -152,6 +151,10 @@ export default React.createClass({
     return '';
   },
 
+  handleSort(sortOrder) {
+    debugger;
+  },
+
   getGradeCheckBoxes() {
     return (<CheckBoxes
       items={this.state.options.grades}
@@ -202,6 +205,8 @@ export default React.createClass({
     return (<ActivitySearchAndSelect
       errorMessage={this.props.errorMessage}
       selectedActivities={this.state.model.activities}
+      sortable={true}
+      sortCallback={this.handleSort}
       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
     />);
   },
