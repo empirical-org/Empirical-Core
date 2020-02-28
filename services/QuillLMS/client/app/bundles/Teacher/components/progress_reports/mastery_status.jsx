@@ -18,7 +18,7 @@ export default React.createClass({
     if (this.props.score > cutOff.proficient) {
       return 'Proficient';
     } else {
-      return 'Not Yet Proficient';
+      return 'Not yet proficient';
     }
   },
 
