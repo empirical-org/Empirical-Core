@@ -151,8 +151,15 @@ export default React.createClass({
     return '';
   },
 
-  handleSort(sortOrder) {
-    debugger;
+  handleSort(sortInfo) {
+    const { model, } = this.state
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedActivities = newOrder.map((key, i) => {
+      const activity = model.activities[key];
+      activity.order_number = i;
+      return activity;
+    });
+    this.setState({ model: model});
   },
 
   getGradeCheckBoxes() {
@@ -202,9 +209,10 @@ export default React.createClass({
   },
 
   getActivitySearchAndSelect() {
+    const sortedActivities = this.state.model.activities.sort((act1, act2) => act1.order_number - act2.order_number)
     return (<ActivitySearchAndSelect
       errorMessage={this.props.errorMessage}
-      selectedActivities={this.state.model.activities}
+      selectedActivities={sortedActivities}
       sortable={true}
       sortCallback={this.handleSort}
       toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
