@@ -1,7 +1,7 @@
 class UnitTemplate < ActiveRecord::Base
   belongs_to :unit_template_category
   belongs_to :author
-  has_many :activities_unit_templates
+  has_many :activities_unit_templates, -> { order('order_number ASC') }
   has_many :activities, through: :activities_unit_templates
   has_many :units
   has_many :partner_contents, dependent: :destroy, as: :content
@@ -33,11 +33,7 @@ class UnitTemplate < ActiveRecord::Base
   end
 
   def activity_ids
-    activities.map(&:id)
-  end
-
-  def activities
-    activities_unit_templates.map { |aut| aut.activity }
+    activities.ids
   end
 
   def self.user_scope(user_flag)
