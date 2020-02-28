@@ -4,8 +4,6 @@ import { shallow } from 'enzyme';
 import StudentProfile from '../StudentProfile.jsx';
 
 import $ from 'jquery'
-import StudentsClassroomsHeader from '../../components/student_profile/students_classrooms/students_classrooms_header.jsx'
-import NextActivity from '../../components/student_profile/next_activity.jsx'
 import StudentProfileUnits from '../../components/student_profile/student_profile_units.jsx'
 
 jest.mock('jquery', () => {
@@ -58,29 +56,6 @@ describe.skip('StudentProfile container', () => {
     });
   });
 
-  describe('NextActivity component', () => {
-    it('should render', () => {
-      expect(wrapper.find(NextActivity).exists()).toBe(true);
-    });
-
-    it('should have next activity session data in data prop', () => {
-      expect(wrapper.find(NextActivity).props().data.name).toBe('Next Activity');
-    });
-
-    it('should have loading prop based on state', () => {
-      wrapper.setState({loading: true});
-      expect(wrapper.find(NextActivity).props().loading).toBe(true);
-      wrapper.setState({loading: false});
-      expect(wrapper.find(NextActivity).props().loading).toBe(false);
-    });
-
-    it('should have hasActivities prop based on grouped scores', () => {
-      wrapper.setState({grouped_scores: {}});
-      expect(wrapper.find(NextActivity).props().hasActivities).toBe(false)
-      wrapper.setState({grouped_scores: {food: 'bars'}});
-      expect(wrapper.find(NextActivity).props().hasActivities).toBe(true)
-    });
-  });
 
   describe('StudentProfileUnits component', () => {
     it('should render', () => {

@@ -1,33 +1,30 @@
 import React from 'react';
-import StudentsClassroomsHeader from '../components/student_profile/students_classrooms/students_classrooms_header.jsx';
-import NextActivity from '../components/student_profile/next_activity.jsx';
+import Pusher from 'pusher-js';
+import { connect } from 'react-redux';
+
 import NotificationFeed  from '../components/student_profile/notification_feed';
 import StudentProfileUnits from '../components/student_profile/student_profile_units.jsx';
 import StudentProfileHeader from '../components/student_profile/student_profile_header';
+import StudentProfileClassworkTabs from '../components/student_profile/student_profile_classwork_tabs';
 import SelectAClassroom from '../../Student/components/selectAClassroom'
-import Pusher from 'pusher-js';
-import { connect } from 'react-redux';
+import LoadingIndicator from '../components/shared/loading_indicator'
 import {
   fetchNotifications,
   fetchStudentProfile,
   fetchStudentsClassrooms,
-  updateNumberOfClassroomTabs,
   handleClassroomClick,
-  hideDropdown,
-  toggleDropdown
+  updateActiveClassworkTab
 } from '../../../actions/student_profile';
+import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../constants/student_profile'
+
 
 class StudentProfile extends React.Component {
   constructor(props) {
     super(props);
-
-    this.handleClassroomTabClick = this.handleClassroomTabClick.bind(this);
-    this.initializePusher = this.initializePusher.bind(this);
   }
 
   componentDidMount() {
     const {
-      updateNumberOfClassroomTabs,
       fetchNotifications,
       fetchStudentProfile,
       fetchStudentsClassrooms,
@@ -48,19 +45,18 @@ class StudentProfile extends React.Component {
     if (displayFeature) {
       fetchNotifications();
     }
-
-    window.addEventListener('resize', () => {
-      updateNumberOfClassroomTabs(window.innerWidth);
-    });
-    updateNumberOfClassroomTabs(window.innerWidth);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selectedClassroomId, router, } = this.props
+    const { selectedClassroomId, router, student, } = this.props
     if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
         router.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
+    }
+
+    if (student !== nextProps.student) {
+      this.initializePusher(nextProps)
     }
   }
 
@@ -68,7 +64,7 @@ class StudentProfile extends React.Component {
     window.removeEventListener('resize');
   }
 
-  handleClassroomTabClick(classroomId) {
+  handleClassroomTabClick = (classroomId) => {
     const { loading, handleClassroomClick, fetchStudentProfile, router, } = this.props;
 
     if (!loading) {
@@ -76,19 +72,23 @@ class StudentProfile extends React.Component {
       router.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
+      updateActiveClassworkTab(ALL_ACTIVITIES)
     }
   }
 
   handleClickAllClasses = () => {
     const { fetchStudentProfile, router, } = this.props;
-    router.push('/profile')
+    router.push('/classes')
     fetchStudentProfile()
   }
 
+  handleClickClassworkTab = (classworkTab) => {
+    const { updateActiveClassworkTab, } = this.props
+    updateActiveClassworkTab(classworkTab)
+  }
 
-  initializePusher() {
-    const { student, fetchStudentProfile, } = this.props;
-
+  initializePusher = (nextProps) => {
+    const { student, fetchStudentProfile, } = nextProps;
     if (student) {
       const classroomId = student.classroom.id;
 
@@ -110,27 +110,16 @@ class StudentProfile extends React.Component {
       numberOfClassroomTabs,
       student,
       selectedClassroomId,
-      hideDropdown,
-      toggleDropdown,
       showDropdown,
       nextActivitySession,
       loading,
       scores,
+      activeClassworkTab
     } = this.props;
 
-    if (loading) { return <span /> }
+    if (loading) { return <LoadingIndicator /> }
 
     if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} onClickCard={this.handleClassroomTabClick} />)}
-
-    const nextActivity = nextActivitySession ? (<NextActivity
-      activityClassificationId={nextActivitySession.activity_classification_id}
-      activityId={nextActivitySession.activity_id}
-      caId={nextActivitySession.ca_id}
-      hasActivities={scores.length > 0}
-      loading={loading}
-      maxPercentage={nextActivitySession.max_percentage}
-      name={nextActivitySession.name}
-    />) : null;
 
     return (<div className="student-profile-container">
       <StudentProfileHeader
@@ -138,12 +127,22 @@ class StudentProfile extends React.Component {
         onClickAllClasses={this.handleClickAllClasses}
         teacherName={student.classroom.teacher.name}
       />
+      <div className="header-container">
+        <div className="container">
+          <h1>Classwork</h1>
+        </div>
+      </div>
+      <StudentProfileClassworkTabs
+        activeClassworkTab={activeClassworkTab}
+        onClickTab={this.handleClickClassworkTab}
+      />
       <div id="student-profile">
-        <NotificationFeed notifications={notifications} />
-        {nextActivity}
         <StudentProfileUnits
+          activeClassworkTab={activeClassworkTab}
           data={scores}
           loading={loading}
+          nextActivitySession={nextActivitySession}
+          teacherName={student.classroom.teacher.name}
         />
       </div>
     </div>);
@@ -154,11 +153,9 @@ const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => ({
   fetchNotifications: () => dispatch(fetchNotifications()),
   fetchStudentProfile: classroomId => dispatch(fetchStudentProfile(classroomId)),
-  updateNumberOfClassroomTabs: screenWidth => dispatch(updateNumberOfClassroomTabs(screenWidth)),
   fetchStudentsClassrooms: () => dispatch(fetchStudentsClassrooms()),
   handleClassroomClick: classroomId => dispatch(handleClassroomClick(classroomId)),
-  hideDropdown: () => dispatch(hideDropdown()),
-  toggleDropdown: () => dispatch(toggleDropdown()),
+  updateActiveClassworkTab: tab => dispatch(updateActiveClassworkTab(tab))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentProfile);
