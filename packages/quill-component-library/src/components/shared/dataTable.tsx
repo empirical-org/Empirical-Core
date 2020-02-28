@@ -66,9 +66,6 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
       sortAttribute: props.defaultSortAttribute || null,
       sortAscending: props.defaultSortDirection !== descending
     }
-
-    this.changeSortDirection = this.changeSortDirection.bind(this)
-    this.handleClick = this.handleClick.bind(this)
   }
 
   componentWillMount() {
@@ -79,19 +76,20 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     document.removeEventListener('mousedown', this.handleClick, false)
   }
 
-  handleClick(e) {
+  handleClick = (e) => {
     if (this.selectedStudentActions && !this.selectedStudentActions.contains(e.target)) {
       this.setState({ rowWithActionsOpen: null })
     }
   }
 
   attributeAlignment(attributeName): CSS.TextAlignProperty {
+    const { rows, } = this.props
     const numbersRegex = new RegExp(/^[\d#%\.\$]+$/)
-    return this.props.rows.every(row => numbersRegex.test(row[attributeName]) || !row[attributeName]) ? right : left
+    return rows.every(row => numbersRegex.test(row[attributeName]) || !row[attributeName]) ? right : left
   }
 
-  changeSortDirection() {
-    this.setState({ sortAscending: !this.state.sortAscending })
+  changeSortDirection = () => {
+    this.setState(prevState => ({ sortAscending: !prevState.sortAscending }))
   }
 
   sortRows() {
@@ -99,9 +97,9 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const { rows } = this.props
     if (sortAttribute) {
       return sortAscending ? rows.sort((a, b) => a[sortAttribute] - b[sortAttribute]) : rows.sort((a, b) => b[sortAttribute] - a[sortAttribute])
-    } else {
-      return rows
     }
+
+    return rows
   }
 
   clickAction(action, id) {
@@ -121,53 +119,54 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
 
     const allChecked = rows.every(row => row.checked)
     if (allChecked) {
-      return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-        <img alt="check" onClick={uncheckAllRows} src={smallWhiteCheckSrc} />
-      </span>)
+      return (<button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
+        <img alt="check" src={smallWhiteCheckSrc} />
+      </button>)
     }
 
     const anyChecked = rows.some(row => row.checked)
     if (anyChecked) {
-      return (<span className={`quill-checkbox selected ${dataTableHeaderClassName}`}>
-        <img alt="check" onClick={uncheckAllRows} src={indeterminateSrc} />
-      </span>)
+      return (<button className={`quill-checkbox selected ${dataTableHeaderClassName}`} onClick={uncheckAllRows} type="button">
+        <img alt="check" src={indeterminateSrc} />
+      </button>)
     }
 
-    return <span className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} />
+    return <button aria-label="Unchecked checkbox" className={`quill-checkbox unselected ${dataTableHeaderClassName}`} onClick={checkAllRows} type="button" />
   }
 
   renderHeaderForRemoval() {
     const { showRemoveIcon } = this.props
-    if (showRemoveIcon) {
-      return <span className={dataTableHeaderClassName} />
-    }
+    if (!showRemoveIcon) { return null }
+
+    return <span className={dataTableHeaderClassName} />
   }
 
   renderActionsHeader() {
     const { showActions } = this.props
-    if (showActions) {
-      return <span className={`${dataTableHeaderClassName} actions-header`}>Actions</span>
-    }
+    if (!showActions) { return null }
+
+    return <span className={`${dataTableHeaderClassName} actions-header`}>Actions</span>
   }
 
   renderRowCheckbox(row) {
-    if (this.props.showCheckboxes) {
-      if (row.checked) {
-        return <span className="quill-checkbox selected data-table-row-section" onClick={() => this.props.uncheckRow(row.id)}><img alt="check" src={smallWhiteCheckSrc} /></span>
-      } else if (row.checkDisabled) {
-        return <span className="quill-checkbox disabled data-table-row-section" />
-      } else {
-        return <span className="quill-checkbox unselected data-table-row-section" onClick={() => this.props.checkRow(row.id)} />
-      }
-    }
+    const { showCheckboxes, checkRow, uncheckRow} = this.props
+
+    if (!showCheckboxes) { return null }
+
+    if (row.checked) { return <button className="quill-checkbox selected data-table-row-section" onClick={() => uncheckRow(row.id)} type="button"><img alt="check" src={smallWhiteCheckSrc} /></button> }
+
+    if (row.checkDisabled) { return <span className="quill-checkbox disabled data-table-row-section" /> }
+
+    return <button aria-label="Unchecked checkbox" className="quill-checkbox unselected data-table-row-section" onClick={() => checkRow(row.id)} type="button" />
   }
 
   renderRowRemoveIcon(row) {
-    if (this.props.showRemoveIcon && row.removable) {
-      return <span className="removable data-table-row-section" onClick={() => this.props.removeRow(row.id)}><img alt="x" src={removeSrc} /></span>
-    } else {
-      return <span className='removable data-table-row-section' />
+    const { showRemoveIcon, removeRow, } = this.props
+    if (showRemoveIcon && row.removable) {
+      return <button className="removable data-table-row-section" onClick={() => removeRow(row.id)} type="button"><img alt="x" src={removeSrc} /></button>
     }
+
+    return <span className='removable data-table-row-section' />
   }
 
   renderActions(row) {
@@ -182,7 +181,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderOpenActions(row) {
-    const rowActions = row.actions.map(act => <span onClick={() => this.clickAction(act.action, row.id)}>{act.name}</span>)
+    const rowActions = row.actions.map(act => <button className="action" key={act.action} onClick={() => this.clickAction(act.action, row.id)} type="button">{act.name}</button>)
 
     return (<div className="actions-menu-container" ref={node => this.selectedStudentActions = node}>
       <div className="actions-menu">
@@ -195,34 +194,41 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     return (<button
       className="quill-button actions-button"
       onClick={() => this.setState({ rowWithActionsOpen: row.id })}
+      type="button"
     >
       <img alt="ellipses" src={moreHorizontalSrc} />
     </button>)
   }
 
   renderHeader(header) {
+    const { sortAscending, } = this.state
     let sortArrow, onClick
+    let tabIndex = -1
     let className = `${dataTableHeaderClassName} ${header.headerClassName}`
     let style: React.CSSProperties = { width: `${header.width}`, minWidth: `${header.width}`, textAlign: `${this.attributeAlignment(header.attribute)}` as CSS.TextAlignProperty }
     if (header.isSortable) {
-      const sortDirection = this.state.sortAscending ? ascending : descending
+      const sortDirection = sortAscending ? ascending : descending
       onClick = this.changeSortDirection
-      sortArrow = <img className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
+      sortArrow = <img alt="arrow" className={`sort-arrow ${sortDirection}`} src={arrowSrc} />
       className+= ' sortable'
+      tabIndex = 0
     }
-    return (<span
+    return (<button
       className={className}
       onClick={onClick}
       style={style as any}
+      tabIndex={tabIndex}
+      type="button"
     >
       {sortArrow}
       {header.name}
-    </span>)
+    </button>)
   }
 
   renderHeaders() {
-    const headers = this.props.headers.map(header => this.renderHeader(header))
-    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headers}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
+    const { headers, } = this.props
+    const headerItems = headers.map(header => this.renderHeader(header))
+    return <div className="data-table-headers">{this.renderHeaderCheckbox()}{headerItems}{this.renderHeaderForRemoval()}{this.renderActionsHeader()}</div>
   }
 
   renderRowSection(row, header) {
@@ -231,7 +237,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
     const sectionText = row[header.attribute]
     const headerWidthNumber = Number(header.width.slice(0, -2))
     const dataTableRowSectionClassName = `data-table-row-section ${header.rowSectionClassName}`
-    if ((String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
+    if (!header.noTooltip && (String(sectionText).length * averageFontWidth) >= headerWidthNumber) {
       return (<Tooltip
         tooltipText={sectionText}
         tooltipTriggerStyle={style}
@@ -250,7 +256,7 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   renderRow(row) {
-    const headers = this.props.headers
+    const { headers, } = this.props
     const rowClassName = `data-table-row ${row.checked ? 'checked' : ''}`
     const rowSections = headers.map(header => this.renderRowSection(row, header))
     return <div className={rowClassName} key={String(row.id)}>{this.renderRowCheckbox(row)}{rowSections}{this.renderRowRemoveIcon(row)}{this.renderActions(row)}</div>
@@ -262,7 +268,8 @@ export class DataTable extends React.Component<DataTableProps, DataTableState> {
   }
 
   render() {
-    return (<div className={`data-table ${this.props.className}`}>
+    const { className, } = this.props
+    return (<div className={`data-table ${className}`}>
       {this.renderHeaders()}
       {this.renderRows()}
     </div>)

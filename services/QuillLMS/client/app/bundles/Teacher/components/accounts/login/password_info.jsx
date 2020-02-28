@@ -20,7 +20,7 @@ export default class PasswordInfo extends React.Component {
 
     return (
       <div id="password-hint">
-        <h3><span>Having trouble signing in? Here&#39;s a hint:</span> <img alt="Lightbulb" src={bulbSrc} /></h3>
+        <h3><span>Having trouble signing in? Here&#39;s a hint:</span> <img alt="Lightbulb with rays shining" src={bulbSrc} /></h3>
         <div>
           <p>Example username:</p>
           <p className="example">jane.smith@magic-apple</p>

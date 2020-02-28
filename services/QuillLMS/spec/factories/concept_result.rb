@@ -38,6 +38,14 @@ FactoryBot.define do
       activity_session { FactoryBot.create(:diagnostic_activity_session) }
     end
 
+    factory :concept_result_with_correct_answer do
+      metadata { { "answer" => 'Arbitrary sample correct answer.', "correct" => 1 } }
+    end
+
+    factory :concept_result_with_incorrect_answer do
+      metadata { { "answer" => 'Arbitrary sample incorrect answer.', "correct" => 0 } }
+    end
+
     # factory :lessons_slide do
     #   question_type { 'lessons-slide' }
     #   activity_session { FactoryBot.create(:lesson_activity_session) }
