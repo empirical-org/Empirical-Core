@@ -49,7 +49,7 @@ export default  React.createClass({
         }
       },
       {
-        name: 'Not Yet Proficient',
+        name: 'Not yet proficient',
         field: 'not_proficient_student_count',
         sortByField: 'not_proficient_student_count',
         className: 'not-proficient-column',
