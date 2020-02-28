@@ -293,9 +293,9 @@ export class StudentDiagnostic extends React.Component {
 
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount}
+      label='questions'
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}
-      thingsCompleted='questions'
     />)
   }
 

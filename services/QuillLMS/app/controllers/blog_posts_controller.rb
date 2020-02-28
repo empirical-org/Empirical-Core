@@ -14,6 +14,7 @@ class BlogPostsController < ApplicationController
   end
 
   def student_center_index
+    @title = 'Resources'
     topic_names = BlogPost::STUDENT_TOPICS
     @topics = []
     topic_names.each do |name|
