@@ -6,7 +6,7 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
 import submitQuestionResponse from '../renderForQuestions/submitResponse.js';

@@ -3,6 +3,10 @@ import * as React from 'react'
 const addCircleSrc = `${process.env.CDN_URL}/images/icons/add-circle.svg`
 
 export default class SelectAClassroom extends React.Component<any, any> {
+  componentDidMount() {
+    document.title = 'Quill.org | Classes'
+  }
+  
   handleJoinClassClick = () => window.location.href = '/add_classroom'
 
   renderClassroomCards = () => {
