@@ -54,7 +54,7 @@ describe('ResultsPage container', () => {
       expect(wrapperNotAnonymous.find('a.primary.contained').text()).toMatch('Back to your dashboard');
     });
 
-    it('should render a replayButtonSection if the percentage is less than 80', () => {
+    it('should render a replayButtonSection if the percentage is less than 0.8', () => {
       expect(wrapperNotAnonymous.find('.replay-button-container').length).toBe(1)
     })
 

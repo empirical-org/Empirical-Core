@@ -462,7 +462,7 @@ end
       expect(activity_session.parse_for_results[ActivitySession::NOT_YET_PROFICIENT]).not_to include(ignored_concept.name)
     end
 
-    it 'should not return the ignored concept result if there are at least four concept results for it' do
+    it 'should return the ignored concept result if there are at least four concept results for it' do
       3.times do |i|
         ignored_concept_result.id = nil
         ConceptResult.create(ignored_concept_result.attributes)
