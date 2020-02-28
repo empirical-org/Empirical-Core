@@ -33,7 +33,7 @@ class UnitTemplate < ActiveRecord::Base
   end
 
   def activity_ids
-    activities.map(&.id)
+    activities.map(&:id)
   end
 
   def activities
