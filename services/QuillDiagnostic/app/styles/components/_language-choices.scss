@@ -58,6 +58,7 @@
     line-height: 1.17;
     color: #000000;
     margin-bottom: 20px;
+    border-radius: 6px;
 
     &:hover, &:focus {
       cursor: pointer;
@@ -82,8 +83,9 @@
 }
 
 .divider-container {
+  display: flex;
+  align-items: center;
   margin: 20 auto 0;
-  max-width: 550px;
 }
 
 .no-language-button {
@@ -144,11 +146,7 @@
   font-weight: bold;
 }
 
-.divider-container {
-  display: flex;
-  align-items: center;
-}
-
 .divider-label {
   margin: 0px 10px 0px 10px;
+  font-size: 20px;
 }
