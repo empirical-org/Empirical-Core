@@ -5,7 +5,7 @@ import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import {
   SentenceFragments,
   Feedback
@@ -147,13 +147,13 @@ class ELLSentenceCombining extends React.Component {
 
   handleSubmitResponse = (e) => {
     const { editing, responses, response, } = this.state
-    const { marking, } = this.props
+    const { marking, diagnosticID } = this.props
 
     if (editing && responses) {
       this.removePrefilledUnderscores();
       const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
       this.updateResponseResource(submittedResponse);
-      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint') {
+      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint' && diagnosticID !== 'ell') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',
