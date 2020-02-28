@@ -2430,7 +2430,7 @@ Notice that we do not use the technical term, “conjunction,” but instead use
 
 ## Mastery-Based Grading 
 
-Another important feature of Quill’s feedback is its mastery-based grading system. With the Activity Analysis report, teachers can see the answers students submitted, the feedback they received, and the concepts they either mastered or missed for each activity. Students earn Proficient (green) for scoring between 80-100%, Nearly Proficient (yellow) for scoring between 60%-79%, and Needs More Practice (red) for scoring between 0%-59%. Our grading system gives students the chance to submit multiple incorrect responses before they are prompted to move on. For each incorrect submission, students are given more feedback that guides them towards the correct answer. Students never see their numerical grade; rather, they can see their color code based on how well they have mastered the concept. 
+Another important feature of Quill’s feedback is its mastery-based grading system. With the Activity Analysis report, teachers can see the answers students submitted, the feedback they received, and the concepts they either mastered or missed for each activity. Students earn Proficient (green) for scoring between 80-100%, Nearly proficient (yellow) for scoring between 60%-79%, and Needs More Practice (red) for scoring between 0%-59%. Our grading system gives students the chance to submit multiple incorrect responses before they are prompted to move on. For each incorrect submission, students are given more feedback that guides them towards the correct answer. Students never see their numerical grade; rather, they can see their color code based on how well they have mastered the concept. 
 
 ## Advanced Error Detection
 

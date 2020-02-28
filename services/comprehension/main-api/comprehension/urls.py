@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from . import views
 from .views.activity import ActivityView
+from .views.feedback_history import FeedbackHistoryView
 from .views.feedback_rules import RulesBasedFeedbackView
 from .views.ml_feedback import MLFeedbackView
 from .views.rule import RuleView
@@ -13,10 +14,10 @@ urlpatterns = [
     url(r'^activities/(?P<id>.*)$', ActivityView.as_view(),
         name='show_activity'),
     url(r'^rules$', RuleView.count_rules, name='count_rules'),
-    url(r'^feedback/ml/single$', MLFeedbackView.as_view(multi_label=False),
-        name='get_single_label_ml_feedback'),
-    url(r'^feedback/ml/multi$', MLFeedbackView.as_view(multi_label=True),
-        name='get_multi_label_ml_feedback'),
+    url(r'^feedback/ml$', MLFeedbackView.as_view(),
+        name='get_ml_feedback'),
+    url(r'^feedback/history$', FeedbackHistoryView.as_view(),
+        name='save_feedback_history'),
     url(r'^feedback/rules/first_pass$',
         RulesBasedFeedbackView.as_view(pass_order=RuleSet.PASS_ORDER.FIRST),
         name='get_rules_based_feedback_first_pass'),

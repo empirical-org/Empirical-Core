@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
         # WHERE 1892827 = ANY(classroom_units.assigned_student_ids)
         # ORDER BY classroom_units.updated_at DESC
         # LIMIT 1
-        render 'students/index'
+        redirect_to classes_path
       else
         redirect_to '/add_classroom'
       end
@@ -33,7 +33,7 @@ class ProfilesController < ApplicationController
         scores: student_profile_data_sql(params[:current_classroom_id]),
         next_activity_session: next_activity_session,
         student: student_data,
-        classroom_id: params[:current_classroom_id] || current_user.classrooms.last.id
+        classroom_id: params[:current_classroom_id]
       }
     else
       render json: {error: 'Current user has no classrooms'}
@@ -92,7 +92,7 @@ class ProfilesController < ApplicationController
       WHERE sc.student_id = #{current_user.id}
       AND classrooms.visible = true
       AND sc.visible = true
-      ORDER BY sc.created_at ASC").to_a
+      ORDER BY sc.created_at DESC").to_a
   end
 
   def student_profile_data_sql(classroom_id=nil)

@@ -51,22 +51,18 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
   constructor(props) {
     super(props)
 
-    const { options, isMulti, optionType, } = props
-
-    const showAllOption = isMulti && optionType ? { label: `All ${optionType}s`, value: 'All' } : null
-    const passedOptions = showAllOption ? [showAllOption].concat(options) : options
-
     this.state = {
       active: false,
       errorAcknowledged: false,
       menuIsOpen: false,
-      options: passedOptions,
+      options: [],
       cursor: null,
       inputValue: ''
     }
   }
 
   componentDidMount() {
+    this.handleUpdatedOptions(null);
     document.addEventListener(MOUSEDOWN, this.handleClick, true)
     document.addEventListener(KEYDOWN, this.handleKeyDown, true)
   }
@@ -79,19 +75,30 @@ export class DropdownInput extends React.Component<DropdownInputProps, DropdownI
     this.setOptionFocus()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { error, timesSubmitted, } = this.props
+  componentWillReceiveProps(nextProps: any) {
+    const { error, timesSubmitted, options } = this.props
     const { errorAcknowledged, } = this.state
     if (nextProps.error !== error && errorAcknowledged) {
       this.setState({ errorAcknowledged: false, })
     } else if (nextProps.timesSubmitted !== timesSubmitted && nextProps.error && errorAcknowledged) {
       this.setState({ errorAcknowledged: false, })
+    } else if (nextProps.options !== options) {
+      this.handleUpdatedOptions(nextProps.options);
     }
   }
 
   componentWillUnmount() {
     document.removeEventListener(MOUSEDOWN, this.handleClick, true)
     document.removeEventListener(KEYDOWN, this.handleClick, true)
+  }
+
+  handleUpdatedOptions = (receivedOptions: any) => {
+    const { options, isMulti, optionType, } = this.props;
+    const opts = receivedOptions ? receivedOptions : options;
+    const showAllOption = isMulti && optionType ? { label: `All ${optionType}s`, value: 'All' } : null
+    const passedOptions = showAllOption ? [showAllOption].concat(opts) : opts
+
+    this.setState({ options: passedOptions });
   }
 
   handleInputActivation = () => {

@@ -252,7 +252,8 @@
 }
 
 .user-account-section {
-  width: 577px;
+  max-width: 577px;
+  width: 100%;
   border-radius: 6px;
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
@@ -289,7 +290,8 @@
       width: 400px;
     }
     .not-a-password input {
-      width: 300px;
+      max-width: 300px;
+      width: 100%;
     }
     .change-password, .change-school {
       font-size: 14px;
@@ -298,6 +300,9 @@
       color: #009a80;
       margin-bottom: 7px;
       cursor: pointer;
+      background-color: transparent;
+      border: none;
+      min-width: 128px;
     }
   }
   .school-search-container {
@@ -326,6 +331,10 @@
   .quill-checkbox {
     margin-top: 2px;
     margin-right: 24px;
+  }
+  @media (max-width: 580px) {
+    margin: 0px 15px 24px;
+    width: calc(100% - 30px);
   }
 }
 
@@ -360,6 +369,18 @@
     }
     .current-password {
       margin-bottom: 5px;
+    }
+  }
+  @media (max-width: 370px) {
+    .button-section {
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      .secondary {
+        margin-right: 0px;
+      }
+      .primary {
+        margin-bottom: 24px;
+      }
     }
   }
 }
@@ -495,7 +516,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    
+
     h4 {
       font-weight: bold;
     }

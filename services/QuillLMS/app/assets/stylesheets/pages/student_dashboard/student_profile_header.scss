@@ -1,0 +1,51 @@
+.student-profile-header {
+  background-color: #fff;
+  border-bottom: #e0e0e0 1px solid;
+  .container {
+    display: flex;
+    height: 88px;
+    align-items: center;
+    .quill-button {
+      margin-right: 32px;
+      min-width: 128px;
+      img {
+        margin-right: 8px;
+      }
+    }
+    div {
+      margin-right: 32px;
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      p {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1;
+        color: #5c5c5c;
+        margin-bottom: 4px;
+      }
+      h4 {
+        font-size: 16px;
+        line-height: normal;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+    }
+  }
+  @media (max-width: 650px) {
+    .container {
+      flex-direction: column;
+      align-items: flex-start;
+      height: 144px;
+      justify-content: center;
+      button {
+        margin-bottom: 24px;
+      }
+      .teacher-section {
+        display: none;
+      }
+    }
+  }
+}
