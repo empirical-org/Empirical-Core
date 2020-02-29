@@ -215,7 +215,7 @@ module PagesHelper
         members: [
           {
             name: 'Donald McKendrick',
-            title: 'Software Engineer at One Medical',
+            title: 'Curriculum at Chan Zuckerberg Initiative',
             img: 'advisor-donald-mckendrick@2x.png'
           },
           {
