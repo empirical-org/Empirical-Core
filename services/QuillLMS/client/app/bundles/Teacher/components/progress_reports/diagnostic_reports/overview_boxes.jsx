@@ -28,10 +28,10 @@ export default React.createClass({
 			proficiency
 		if (group === 'red-score-color') {
 			range = '0 - 59%';
-			proficiency = 'Not Yet Proficient'
+			proficiency = 'Not yet proficient'
 		} else if (group === 'yellow-score-color') {
 			range = '60 - 79%';
-			proficiency = 'Nearly Proficient'
+			proficiency = 'Nearly proficient'
 		} else {
 			range = '80 - 100%';
 			proficiency = 'Proficient'

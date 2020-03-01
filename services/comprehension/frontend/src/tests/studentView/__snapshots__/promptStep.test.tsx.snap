@@ -454,9 +454,12 @@ exports[`PromptStep component active state when a suboptimal response has been s
                       />
                       <p
                         className="feedback-text"
-                      >
-                        Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?
-                      </p>
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Good start! You stated that compulsory voting will ensure that more voices are heard. Now take it one step further—according to the passage, why is it important that more voices are heard?",
+                          }
+                        }
+                      />
                     </div>
                   </CSSTransitionGroupChild>
                 </span>
@@ -651,9 +654,12 @@ exports[`PromptStep component active state when a too-long response has been sub
                       />
                       <p
                         className="feedback-text"
-                      >
-                        Revise your work so it is shorter and more concise.
-                      </p>
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Revise your work so it is shorter and more concise.",
+                          }
+                        }
+                      />
                     </div>
                   </CSSTransitionGroupChild>
                 </span>
@@ -848,9 +854,12 @@ exports[`PromptStep component active state when a too-short response has been su
                       />
                       <p
                         className="feedback-text"
-                      >
-                        Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided.
-                      </p>
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided.",
+                          }
+                        }
+                      />
                     </div>
                   </CSSTransitionGroupChild>
                 </span>
@@ -1078,9 +1087,12 @@ exports[`PromptStep component active state when an optimal response has been sub
                       />
                       <p
                         className="feedback-text"
-                      >
-                        That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.
-                      </p>
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                          }
+                        }
+                      />
                     </div>
                   </CSSTransitionGroupChild>
                 </span>
@@ -1364,11 +1376,14 @@ exports[`PromptStep component active state when the max attempts have been reach
                       />
                       <p
                         className="feedback-text"
-                      >
-                        Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
- Governments should make voting compulsory because otherwise not everyone will vote.
-                      </p>
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+                          }
+                        }
+                      />
                     </div>
                   </CSSTransitionGroupChild>
                 </span>
@@ -1596,9 +1611,12 @@ exports[`PromptStep component active state when the max attempts have been reach
                       />
                       <p
                         className="feedback-text"
-                      >
-                        That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.
-                      </p>
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "That's a really strong sentence! You used evidence from the text to identify why governments should make voting compulsory.",
+                          }
+                        }
+                      />
                     </div>
                   </CSSTransitionGroupChild>
                 </span>

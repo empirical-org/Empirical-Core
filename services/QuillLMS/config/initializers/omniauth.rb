@@ -13,7 +13,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
               'classroom.profile.emails'],
       access_type: 'offline',
       prompt: 'consent'
-    }
+    }.merge(options)
 end
 
 OmniAuth.config.logger = Rails.logger

@@ -6,7 +6,7 @@ import {
   session,
   currentQuestion,
   currentQuestionWithOneIncorrectAttempt,
-  currentQuestionWithTwoIncorrectAttempts,
+  currentQuestionWithFiveIncorrectAttempts,
   currentQuestionWithOneCorrectAttempt,
   conceptsFeedback,
   responses
@@ -201,7 +201,7 @@ describe("<PlayGrammarContainer />", () => {
           checkAnswer={() => {}}
           concepts={{}}
           conceptsFeedback={conceptsFeedback}
-          currentQuestion={currentQuestionWithTwoIncorrectAttempts}
+          currentQuestion={currentQuestionWithFiveIncorrectAttempts}
           goToNextQuestion={() => {}}
           unansweredQuestions={session.unansweredQuestions}
         />)
