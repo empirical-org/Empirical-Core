@@ -8,7 +8,7 @@ const unansweredQuestionCount = (playLesson) => {
   return removeTitleCardQuestions(playLesson.unansweredQuestions).length
 }
 
-export const answeredQuestionCount = (playLesson) => questionCount(playLesson) - unansweredQuestionCount(playLesson) - 1
+export const answeredQuestionCount = (playLesson) => questionCount(playLesson) - unansweredQuestionCount(playLesson)
 
 export const getProgressPercent = (playLesson) => {
   let percent;

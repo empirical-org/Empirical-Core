@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
         # WHERE 1892827 = ANY(classroom_units.assigned_student_ids)
         # ORDER BY classroom_units.updated_at DESC
         # LIMIT 1
-        render 'students/index'
+        redirect_to classes_path
       else
         redirect_to '/add_classroom'
       end

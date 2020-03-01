@@ -4,13 +4,13 @@ interface ProgressBarProps {
   percent: number;
   answeredQuestionCount: number;
   questionCount: number;
-  thingsCompleted: string;
+  label: string;
 }
 
-const ProgressBar = ({ percent, answeredQuestionCount, questionCount, thingsCompleted, }: ProgressBarProps) => (
+const ProgressBar = ({ percent, answeredQuestionCount, questionCount, label, }: ProgressBarProps) => (
   <div className="progress-bar-container">
     <progress className="progress activity-progress" max="100" value={percent} />
-    <p>{answeredQuestionCount} of {questionCount} {thingsCompleted} completed</p>
+    <p>{answeredQuestionCount} of {questionCount} {label}</p>
   </div>)
 
 export { ProgressBar }
