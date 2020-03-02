@@ -227,7 +227,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   renderTopSection(): JSX.Element {
     const { answeredQuestions, unansweredQuestions, activity, } = this.props
     const answeredQuestionCount = answeredQuestions.length + 1;
-    const totalQuestionCount = answeredQuestionCount + unansweredQuestions.length + 1
+    const totalQuestionCount = answeredQuestionCount + unansweredQuestions.length;
     const meterWidth = answeredQuestionCount / totalQuestionCount * 100
     return (<div className="top-section">
       <ProgressBar
