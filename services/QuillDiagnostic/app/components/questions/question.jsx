@@ -213,6 +213,7 @@ class Question extends React.Component {
     const { questions, params, massEdit, children, } = this.props
     const { data, states, } = questions
     const { questionID, } = params;
+    const question = this.getQuestion();
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
@@ -231,7 +232,7 @@ class Question extends React.Component {
           </div>
           <Cues
             displayArrowAndText={true}
-            getQuestion={this.getQuestion}
+            question={question}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img alt="Directions Icon" className="info" src={icon} />
