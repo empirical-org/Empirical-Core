@@ -16,6 +16,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
       }
     >
       <img
+        alt=""
         className="mini-star-icon"
         src="https://assets.quill.org/images/icons/icon-star.svg"
         style={
@@ -30,6 +31,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
         }
       />
       <img
+        alt=""
         className="mini-star-icon"
         src="https://assets.quill.org/images/icons/icon-star.svg"
         style={
@@ -49,6 +51,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
     </div>
     <div>
       <img
+        alt=""
         src="https://assets.quill.org/images/illustrations/champion.png"
         style={
           Object {
@@ -88,6 +91,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
             "width": "100%",
           }
         }
+        type="button"
       >
         Earn Rewards
       </button>
