@@ -9,7 +9,7 @@ import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx
 import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
@@ -104,9 +104,10 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   renderCues = () => {
+    const { question } = this.props;
     return (<RenderQuestionCues
       displayArrowAndText={true}
-      getQuestion={this.getQuestion}
+      question={question}
     />);
   }
 
