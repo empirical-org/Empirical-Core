@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://gems.contribsys.com/
   specs:
     Ascii85 (1.0.3)
     actionmailer (4.2.11.1)
@@ -619,6 +620,9 @@ GEM
       rack (>= 1.5.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    sidekiq-pro (4.0.5)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.1)
     sidekiq-retries (0.4.0)
       sidekiq (>= 3.2.4)
     signet (0.11.0)
@@ -830,7 +834,7 @@ DEPENDENCIES
   sentry-raven (>= 0.12.2)
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 3.1.2)
-  sidekiq
+  sidekiq-pro!
   sidekiq-retries
   simplecov
   simplecov-json
