@@ -6,7 +6,7 @@ import activeComponent from 'react-router-active-component';
 
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
-import Cues from '../renderForQuestions/cues.jsx';
+import Cues from '../renderForQuestions/cues.tsx';
 import questionActions from '../../actions/questions';
 import {
   submitResponse,
@@ -69,7 +69,7 @@ class Question extends React.Component {
     this.setState({ uploadingNewOptimalResponses: true, });
   }
 
-  submitResponse = () => {
+  handleSubmitResponse = () => {
     const { params, dispatch, } = this.props
 
     const newResp = {
@@ -147,7 +147,7 @@ class Question extends React.Component {
 
   renderNewResponseForm = () => {
     const { addingNewResponse, selectedBoilerplateCategory, } = this.state
-    if (!addingNewResponse ) { return }
+    if (!addingNewResponse) { return }
 
     return (
       <Modal close={this.onCloseNewResponseModal}>
@@ -173,7 +173,7 @@ class Question extends React.Component {
               Optimal?
             </label>
           </p>
-          <button className="button is-primary" onClick={this.handleClickAddNewResponse} type="button">Add Response</button>
+          <button className="button is-primary" onClick={this.handleSubmitResponse} type="button">Add Response</button>
         </div>
       </Modal>
     );
@@ -212,22 +212,22 @@ class Question extends React.Component {
   render() {
     const { questions, params, massEdit, children, } = this.props
     const { data, states, } = questions
-    const  { questionID, } = params;
+    const { questionID, } = params;
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (data[questionID]) {
       const activeLink = massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
-      : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
+        ? <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+        : <li style={{ color: "#a2a1a1" }}>Mass Edit ({massEdit.numSelectedResponses})</li>
 
       return (
         <div>
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           {this.renderUploadNewOptimalResponsesForm()}
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
-            <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
+            <h4 className="title" style={{ color: '#00c2a2' }}>Flag: {data[questionID].flag}</h4>
           </div>
           <Cues
             displayArrowAndText={true}

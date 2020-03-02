@@ -51,8 +51,7 @@
     "isomorphic-fetch": "^2.2.1",
     "istanbul-lib-instrument": "^1.10.2",
     "lazysizes": "^5.2.0-beta1",
-    "quill-marking-logic": "0.12.14",
-    "quill-component-library": "0.7.17",
+    "quill-component-library": "0.7.24",
     "react-csv": "^1.1.2",
     "react-dropdown": "^1.6.4",
     "react-radio-buttons": "^1.2.1",
@@ -67,5 +66,49 @@
     "mime": "^2.4.4",
     "qs": "^6.9.0",
     "redux-test-utils": "^0.2.2"
+  },
+  "jest": {
+    "roots": [
+      "app"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "./app"
+    ],
+    "globals": {
+      "window": true,
+      "process.env.CDN_URL": "http://cdn.quill.org"
+    },
+    "coverageDirectory": "<rootDir>/coverage/",
+    "collectCoverage": false,
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx}"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test_data/"
+    ],
+    "testPathIgnorePatterns": [
+      "test_data.js"
+    ]
   }
 }

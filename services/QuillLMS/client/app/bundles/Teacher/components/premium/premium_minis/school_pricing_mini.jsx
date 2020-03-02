@@ -51,7 +51,7 @@ const SchoolPricingMini = ({
         </ul>
       </section>
       <button className="btn btn-default mini-btn purple" onClick={onClickEvent} type="button">Purchase</button>
-      <a href="https://quillpdemo.youcanbook.me/" rel="noopener noreferrer" target="_blank"><button className="btn btn-default mini-btn empty-purple" type="button">Schedule Demo</button></a>
+      <a href="https://quill-partnerships.youcanbook.me/" rel="noopener noreferrer" target="_blank"><button className="btn btn-default mini-btn empty-purple" type="button">Schedule Demo</button></a>
     </div>
   );
 }
