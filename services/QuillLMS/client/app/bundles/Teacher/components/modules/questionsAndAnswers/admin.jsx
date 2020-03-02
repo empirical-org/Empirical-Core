@@ -7,7 +7,7 @@ const admin = () => [
   },
   {
     question: 'How can I arrange the Professional Development session?',
-    answer: [<p>In order to set up that session, you will set up an initial 15-minute call between your PD coordinator and our School Partnerships team to discuss tailoring the session school goals and writing curriculum, which tools you’d like to highlight, and when you’d like the session to happen. You can do this by signing up at <a href="http://beccaquill.youcanbook.me">beccaquill.youcanbook.me</a>.</p>,
+    answer: [<p>In order to set up that session, you will set up an initial 15-minute call between your PD coordinator and our School Partnerships team to discuss tailoring the session school goals and writing curriculum, which tools you’d like to highlight, and when you’d like the session to happen. You can do this by signing up at <a href="https://quill-partnerships.youcanbook.me">beccaquill.youcanbook.me</a>.</p>,
       <p>Teachers will be asked to set up their Quill accounts prior to the session, so they can jump right into exploring Quill!</p>
     ]
   },
@@ -19,7 +19,7 @@ const admin = () => [
   },
   {
     question: 'How will I access the Professional Development session?',
-    answer: [<p>Sessions outside of New York City will be held remotely via Google Hangouts, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources and a link to the session recording.</p>]
+    answer: [<p>Sessions outside of New York City will be held remotely via Zoom, and will be recorded via Hangouts on Air to provide teachers with continued access to the information. Teachers will receive a follow up email with a reminder of resources and a link to the session recording.</p>]
   },
   {
     question: 'How does Premium Reporting Work?',
