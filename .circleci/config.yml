@@ -28,7 +28,6 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillLMS
-            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - run:
           name: NPM install, should be short-cutted if cache is present
