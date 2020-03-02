@@ -244,6 +244,15 @@ class Teachers::UnitsController < ApplicationController
         #{completed}
         ORDER BY ua.order_number, unit_activity_id
         ").to_a
+        units.map do |unit|
+          if unit['assigned_student_ids'] && unit['classroom_student_ids']
+            active_assigned_student_ids = JSON.parse(unit['assigned_student_ids']).select { |id| JSON.parse(unit['classroom_student_ids']).include?(id) }
+            unit['number_of_assigned_students'] = active_assigned_student_ids.length
+          else
+            unit['number_of_assigned_students'] = 0
+          end
+          unit
+        end
     else
       []
     end

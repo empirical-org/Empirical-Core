@@ -14,7 +14,9 @@ describe Teachers::UnitsController, type: :controller do
     classroom: classroom,
     assigned_student_ids: [student.id]
   )}
-  let!(:unit_activity) { create(:unit_activity, unit: unit)}
+  let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: 4)}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity)}
+  let!(:completed_activity_session) { create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)}
 
   before do
     session[:user_id] = teacher.id
@@ -92,29 +94,17 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#diagnostic_units' do
-    before do
-      # return unit on the first call and unit2 on the second call
-      allow(ActiveRecord::Base.connection).to receive(:execute).and_return([unit.attributes.merge({"activity_classification_id" => "4"})], [unit2.attributes.merge({"activity_classification_id" => '2'})])
-    end
 
     it 'should render the correct json' do
       get :diagnostic_units, report: true
-      expect(response.body).to eq([unit.attributes.merge({"activity_classification_id" => "4"})].to_json)
+
+      expect(JSON.parse(response.body)[0]["unit_name"]).to eq(unit.name)
     end
   end
 
-  # the find line is commented out
-  # describe '#destroy' do
-  #   it 'should make the unit invisible' do
-  #     expect(unit.visible).to eq true
-  #     delete :destroy, id: unit.id
-  #     expect(unit.reload.visible).to eq false
-  #   end
-  # end
-
   describe '#index' do
     let!(:activity) {create(:activity)}
-    let!(:classroom_unit) {create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id])}
+    let!(:classroom_unit) {create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id], assign_on_join: false)}
     let!(:unit_activity) {create(:unit_activity, due_date: Time.now, unit: unit, activity: activity)}
     let!(:activity_session) {create(:activity_session,
       activity: activity,
@@ -139,6 +129,15 @@ describe Teachers::UnitsController, type: :controller do
       expect(DateTime.parse(response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
       expect(response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
       expect(response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
+    end
+
+    it 'should only return a number of assigned students that are actually in the class' do
+      original_assigned_student_ids_length = classroom_unit.assigned_student_ids.length
+      extra_assigned_student_ids = classroom_unit.assigned_student_ids.push(300)
+      classroom_unit.update_attribute('assigned_student_ids', extra_assigned_student_ids)
+      response = get :index
+      response = JSON.parse(response.body)
+      expect(response[0]['number_of_assigned_students']).to eq(original_assigned_student_ids_length)
     end
 
     # TODO: write a VCR-like test to check when this request returns something other than what we expect.
