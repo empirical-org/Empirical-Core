@@ -5,7 +5,8 @@ describe Teachers::UnitsController, type: :controller do
   it { should use_before_filter :authorize! }
 
   let!(:student) {create(:student)}
-  let!(:classroom) { create(:classroom_with_students_and_activities, students: [student]) }
+  let!(:classroom) { create(:classroom) }
+  let!(:students_classrooms) { create(:students_classrooms, classroom: classroom, student: student)}
   let!(:teacher) { classroom.owner }
   let!(:unit) {create(:unit, user: teacher)}
   let!(:unit2) {create(:unit, user: teacher)}
@@ -15,7 +16,7 @@ describe Teachers::UnitsController, type: :controller do
     assigned_student_ids: [student.id]
   )}
   let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: 4)}
-  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity)}
+  let!(:unit_activity) { create(:unit_activity, unit: unit, activity: diagnostic_activity, due_date: Time.now )}
   let!(:completed_activity_session) { create(:activity_session, user: student, activity: diagnostic_activity, classroom_unit: classroom_unit)}
 
   before do
@@ -103,41 +104,32 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#index' do
-    let!(:activity) {create(:activity)}
-    let!(:classroom_unit) {create(:classroom_unit, unit: unit, classroom: classroom, assigned_student_ids: [student.id], assign_on_join: false)}
-    let!(:unit_activity) {create(:unit_activity, due_date: Time.now, unit: unit, activity: activity)}
-    let!(:activity_session) {create(:activity_session,
-      activity: activity,
-      user: student,
-      state: 'finished',
-      classroom_unit: classroom_unit
-    )}
-
     it 'should return json in the appropriate format' do
-      response = get :index
-      response = JSON.parse(response.body)
-      expect(response[0]['unit_name']).to eq(unit.name)
-      expect(response[0]['activity_name']).to eq(activity.name)
-      expect(response[0]['class_name']).to eq(classroom.name)
-      expect(response[0]['classroom_id']).to eq(classroom.id.to_s)
-      expect(response[0]['activity_classification_id']).to eq(activity.activity_classification_id.to_s)
-      expect(response[0]['classroom_unit_id']).to eq(classroom_unit.id.to_s)
-      expect(response[0]['unit_activity_id']).to eq(unit_activity.id.to_s)
-      expect(response[0]['unit_id']).to eq(unit.id.to_s)
-      expect(response[0]['class_size']).to eq(classroom.students.count.to_s)
-      expect(response[0]['activity_uid']).to eq(activity.uid)
-      expect(DateTime.parse(response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
-      expect(response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
-      expect(response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
+      response = get :index, report: false
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response[0]['unit_name']).to eq(unit.name)
+      expect(parsed_response[0]['activity_name']).to eq(diagnostic_activity.name)
+      expect(parsed_response[0]['class_name']).to eq(classroom.name)
+      expect(parsed_response[0]['classroom_id']).to eq(classroom.id.to_s)
+      expect(parsed_response[0]['activity_classification_id']).to eq(diagnostic_activity.activity_classification_id.to_s)
+      expect(parsed_response[0]['classroom_unit_id']).to eq(classroom_unit.id.to_s)
+      expect(parsed_response[0]['unit_activity_id']).to eq(unit_activity.id.to_s)
+      expect(parsed_response[0]['unit_id']).to eq(unit.id.to_s)
+      expect(parsed_response[0]['class_size']).to eq(classroom.students.count.to_s)
+      expect(parsed_response[0]['number_of_assigned_students']).to eq(classroom_unit.assigned_student_ids.length)
+      expect(parsed_response[0]['activity_uid']).to eq(diagnostic_activity.uid)
+      expect(DateTime.parse(parsed_response[0]['due_date']).to_i).to eq(unit_activity.due_date.to_i)
+      expect(parsed_response[0]['unit_created_at'].to_i).to eq(unit.created_at.to_i)
+      expect(parsed_response[0]['unit_activity_created_at'].to_i).to eq(unit_activity.created_at.to_i)
     end
 
     it 'should only return a number of assigned students that are actually in the class' do
       original_assigned_student_ids_length = classroom_unit.assigned_student_ids.length
       extra_assigned_student_ids = classroom_unit.assigned_student_ids.push(300)
-      classroom_unit.update_attribute('assigned_student_ids', extra_assigned_student_ids)
-      response = get :index
-      response = JSON.parse(response.body)
-      expect(response[0]['number_of_assigned_students']).to eq(original_assigned_student_ids_length)
+      classroom_unit.update(assigned_student_ids: extra_assigned_student_ids)
+      response = get :index, report: false
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response[0]['number_of_assigned_students']).to eq(original_assigned_student_ids_length)
     end
 
     # TODO: write a VCR-like test to check when this request returns something other than what we expect.
@@ -254,7 +246,7 @@ describe Teachers::UnitsController, type: :controller do
     it 'should redirect to a lessons index if there are multiple lessons' do
       unit = create(:unit)
       create_pair(:classroom_unit, unit: unit)
-      unit_activity = create(:unit_activity, unit: unit, activity: activity)
+      create(:unit_activity, unit: unit, activity: activity)
       get :select_lesson_with_activity_id, activity_id: activity.id
       expect(response).to redirect_to("/teachers/classrooms/activity_planner/lessons_for_activity/#{activity.id}")
     end
