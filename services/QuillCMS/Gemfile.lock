@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://gems.contribsys.com/
   specs:
     actioncable (5.1.7)
       actionpack (= 5.1.7)
@@ -223,6 +224,9 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.3, >= 3.3.3)
+    sidekiq-pro (4.0.5)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.1)
     sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -284,7 +288,7 @@ DEPENDENCIES
   redis-rails
   rspec-rails (~> 3.5)
   rubyzip
-  sidekiq
+  sidekiq-pro!
   sinatra
   spring
   spring-watcher-listen (~> 2.0.0)

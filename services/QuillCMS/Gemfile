@@ -30,7 +30,9 @@ gem 'redis-rails'
 gem 'redis-rack-cache'
 
 # Use Sidekiq for background jobs
-gem 'sidekiq'
+source "https://gems.contribsys.com/" do
+  gem 'sidekiq-pro'
+end
 gem 'sinatra', require: false # Used for the web-based queue management interface
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
