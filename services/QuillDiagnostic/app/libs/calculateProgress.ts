@@ -1,16 +1,19 @@
-const removeTitleCardQuestions = (questions) => questions.filter(q => q.type !== 'TL')
+import playDiagnostic from '../interfaces/playDiagnostic.ts';
+import Question from '../interfaces/question.ts';
 
-export const questionCount = (playDiagnostic) => {
+const removeTitleCardQuestions = (questions: Array<Question>) => questions.filter(q => q.type !== 'TL')
+
+export const questionCount = (playDiagnostic: playDiagnostic) => {
   return removeTitleCardQuestions(playDiagnostic.questionSet).length
 }
 
-const unansweredQuestionCount = (playDiagnostic) => {
+const unansweredQuestionCount = (playDiagnostic: playDiagnostic) => {
   return removeTitleCardQuestions(playDiagnostic.unansweredQuestions).length
 }
 
-export const answeredQuestionCount = (playDiagnostic) => questionCount(playDiagnostic) - unansweredQuestionCount(playDiagnostic) - 1
+export const answeredQuestionCount = (playDiagnostic: playDiagnostic) => questionCount(playDiagnostic) - unansweredQuestionCount(playDiagnostic);
 
-export const getProgressPercent = (playDiagnostic) => {
+export const getProgressPercent = (playDiagnostic: playDiagnostic) => {
   let percent;
   if (playDiagnostic && playDiagnostic.unansweredQuestions && playDiagnostic.questionSet) {
     percent = ((answeredQuestionCount(playDiagnostic)) / questionCount(playDiagnostic)) * 100

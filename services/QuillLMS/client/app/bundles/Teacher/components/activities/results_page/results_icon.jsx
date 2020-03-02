@@ -2,72 +2,60 @@
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 
-export default React.createClass({
+export default class ResultsIcon extends React.Component {
+  scoreColor = () => {
+    const { percentage, } = this.props
+    return ScoreColor(percentage * 100);
+  }
 
-    getInitialState: function() {
-        return {scoreColor: this.scoreColor()}
-    },
+  backgroundColor = () => {
+    const scoreColor = this.scoreColor();
+    let color = '#4ea500';
+    if (scoreColor === 'red-score-color') {
+      color = '#e73030';
+    } else if (scoreColor === 'yellow-score-color') {
+      color = '#eb9911';
+    }
+    return { backgroundColor: color };
+  }
 
-    scoreColor: function() {
-        var score = this.props.percentage * 100;
-        return ScoreColor(score);
-    },
+  imageSrc = () => {
+    const { activityType, } = this.props
+    let img;
+    switch (activityType) {
+      case 'connect':
+        img = 'tool-connect-white.svg'
+        break;
+      case 'sentence':
+        img = 'tool-grammar-white.svg'
+        break;
+      default:
+        img = 'tool-proofreader-white.svg'
+    }
+    return `${process.env.CDN_URL}/images/tools/${img}`
+  }
 
-    backgroundColor: function() {
-        var scoreColor = this.state.scoreColor;
-        var color;
-        if (scoreColor === 'red-score-color') {
-            color = '#E7522C';
-        } else if (scoreColor === 'yellow-score-color') {
-            color = '#F6A625';
-        } else {
-            color = '#5AAF46';
-        }
-        return {backgroundColor: color};
-    },
+  text = () => {
+    const { percentage, } = this.props
+    let text = 'Not yet proficient'
 
-    fontColor: function() {
-        var scoreColor = this.state.scoreColor;
-        var color;
-        if (scoreColor === 'red-score-color') {
-            color = '#82290D';
-        } else if (scoreColor === 'yellow-score-color') {
-            color = '#79500E';
-        } else {
-            color = '#305217';
-        }
-        return {color: color};
-    },
-
-    imageSrc: function() {
-        let img;
-        switch (this.props.activityType) {
-            case 'diagnostic':
-                img = 'diagnostic_results_icon.svg'
-                break
-            case 'connect':
-                img = 'connect_icon.svg'
-                break;
-            case 'sentence':
-                img = 'grammar_results_icon.png'
-                break;
-            default:
-                img = 'proofreader_results_icon.png'
-        }
-        return `/images/${img}`
-    },
-
-    render: function() {
-        // insert below line if we decide we want to reinclude score
-        // <h3 style={this.fontColor()}>{Math.round(this.props.percentage * 100) + '%'}</h3>
-        return (
-          <div className='icon' style={this.backgroundColor()}>
-            <div>
-              <img alt='activity-type' src={this.imageSrc()} />
-            </div>
-          </div>
-        )
-
+    if (percentage > 0.8) {
+      text = 'Proficient'
+    } else if (percentage > 0.6) {
+      text = 'Nearly proficient'
     }
 
-});
+    return text
+  }
+
+  render() {
+    return (
+      <div className="results-icon-container">
+        <div className='icon' style={this.backgroundColor()}>
+          <img alt='activity-type' src={this.imageSrc()} />
+        </div>
+        <span>{this.text()}</span>
+      </div>
+    )
+  }
+}
