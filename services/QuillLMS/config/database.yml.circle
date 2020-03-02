@@ -1,3 +1,7 @@
+default: &default
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
 test_env: &test_env
   encoding: unicode
   host:     localhost
@@ -5,16 +9,6 @@ test_env: &test_env
   user: <%= ENV.fetch("PG_USER") %>
 
 test:
-  adapter: postgresql_makara
-  makara:
-    id: postgres_test_db
-    disable_blacklist: true
-    sticky: true
-    master_ttl: 60
-    connections:
-      - role: master
-        name: leader
-        <<: *test_env
-      - role: slave
-        name: replica
-        <<: *test_env
+  <<: *default
+  adapter: postgresql
+  <<: *test_env
