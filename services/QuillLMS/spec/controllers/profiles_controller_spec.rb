@@ -62,9 +62,9 @@ describe ProfilesController, type: :controller do
       session[:user_id] = student.id
     end
 
-    it 'loads the student profile' do
+    it 'redirects to the student classes page' do
       get :show
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302)
     end
 
     context '#students_classrooms_json' do

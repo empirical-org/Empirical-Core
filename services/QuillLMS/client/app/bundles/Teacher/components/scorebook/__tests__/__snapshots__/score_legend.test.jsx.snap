@@ -19,7 +19,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          At Proficiency
+          Proficient
         </p>
         <p
           className="explanation"
@@ -40,7 +40,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          Nearly Proficient
+          Nearly proficient
         </p>
         <p
           className="explanation"
@@ -61,7 +61,7 @@ exports[`ScoreLegend component should render 1`] = `
         <p
           className="title"
         >
-          Not Yet Proficient
+          Not yet proficient
         </p>
         <p
           className="explanation"

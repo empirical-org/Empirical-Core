@@ -413,7 +413,10 @@ class User < ActiveRecord::Base
   end
 
   def generate_password
-    self.password = self.password_confirmation = last_name
+    # first we need to replace any existing spaces with hyphens
+    last_name_with_spaces_replaced_by_hyphens = last_name.split(' ').join('-')
+    # then we want to capitalize the first letter
+    self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0,1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
   end
 
   def generate_student(classroom_id)
