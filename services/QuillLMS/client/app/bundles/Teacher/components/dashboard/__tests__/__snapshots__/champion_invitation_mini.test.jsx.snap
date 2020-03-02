@@ -62,7 +62,7 @@ exports[`ChampionInvitationMini component should render 1`] = `
     <p
       style={
         Object {
-          "fontFamily": "lucida-grande, adelle-sans, helvetica",
+          "fontFamily": "lucida-grande, adelle-sans, Arial, sans-serif",
           "lineHeight": "1.57",
           "padding": "0px 15px",
         }

@@ -90,7 +90,7 @@ exports[`QuillLessonsAnnouncementMini component should render 1`] = `
     <p
       style={
         Object {
-          "fontFamily": "lucida-grande, adelle-sans, helvetica",
+          "fontFamily": "lucida-grande, adelle-sans, Arial, sans-serif",
           "lineHeight": "1.57",
           "marginTop": "16px",
           "minHeight": "86px",
