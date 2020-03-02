@@ -19,11 +19,25 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
     }
   }
 
-  render() {
-    const { imgSrc, imgAlt, header, bodyArray, buttonText, buttonLink, } = this.props
+  renderButtons = () => {
+    const { buttonText, buttonLink, selectCard } = this.props;
     /* eslint-disable react/jsx-no-target-blank */
-    const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" href={buttonLink} target="_blank">{buttonText}</a> : null
+    const button = buttonText && buttonLink ? <a className="quill-button fun outlined secondary" href={buttonLink} target="_blank">{buttonText}</a> : null;
     /* eslint-enable react/jsx-no-target-blank */
+    if (button) {
+      return (
+        <div className="button-container">
+          {button}
+          <a className="quill-button fun contained primary" onClick={selectCard} target="_blank">Select</a>
+        </div>
+      );
+    } else {
+      return button;
+    }
+  }
+
+  render() {
+    const { imgSrc, imgAlt, header, bodyArray, } = this.props
     const bodyElements = bodyArray.map(obj => (
       <div className="body-element" key={obj.key}>
         <p className="key">{obj.key}</p>
@@ -37,7 +51,7 @@ export default class AssignmentCard extends React.Component<AssignmentCardProps,
           <img alt={imgAlt} src={imgSrc} />
           <h2>{header}</h2>
         </div>
-        {button}
+        {this.renderButtons()}
       </div>
       <div className="body">
         {bodyElements}
