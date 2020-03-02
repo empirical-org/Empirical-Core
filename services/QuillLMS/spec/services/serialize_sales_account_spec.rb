@@ -51,6 +51,7 @@ describe 'SerializeSalesAccount' do
   it 'generates school premium status' do
     school_subscription = create(:subscription,
       account_type: 'SUPER SAVER PREMIUM',
+      expiration: Date.tomorrow,
     )
     create(:school_subscription,
       subscription_id: school_subscription.id,
@@ -61,6 +62,9 @@ describe 'SerializeSalesAccount' do
 
     expect(school_data[:params]).to include(
       school_subscription: 'SUPER SAVER PREMIUM',
+    )
+    expect(school_data[:params]).to include(
+      premium_expiry_date: Date.tomorrow,
     )
   end
 
