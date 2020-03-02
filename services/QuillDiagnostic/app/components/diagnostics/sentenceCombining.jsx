@@ -82,8 +82,7 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   submitResponse = (response) => {
-    const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+    submitQuestionResponse(response, this.props, submitResponse);
   }
 
   renderSentenceFragments = () => {
