@@ -74,6 +74,7 @@ export default class ReviewActivities extends React.Component {
         activity_category,
         description,
         id,
+        anonymous_path
       } = activity
       const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
       const focusedKey = `focused-${id}`
@@ -102,7 +103,7 @@ export default class ReviewActivities extends React.Component {
       const activityName = (<div>
         <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
           <ReactTooltip className="react-tooltip-custom" effect="solid" html id={nameTooltipId} multiline type="light" />
-          <span className="tooltip-trigger activity-name">{name}</span>
+          <a className="tooltip-trigger activity-name" href={anonymous_path} rel='noreferrer noopener' target="_blank">{name}</a>
         </div>
       </div>)
 
