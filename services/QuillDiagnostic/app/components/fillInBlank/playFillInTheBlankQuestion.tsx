@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import * as _ from 'underscore';
 import { checkFillInTheBlankQuestion } from 'quill-marking-logic'
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
@@ -7,15 +6,36 @@ import {
   hashToCollection,
   Prompt,
   Feedback
- } from 'quill-component-library/dist/componentLibrary';
+} from 'quill-component-library/dist/componentLibrary';
 import { submitResponse, } from '../../actions/diagnostics.js';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
-import Cues from '../renderForQuestions/cues.jsx';
+import Cues from '../renderForQuestions/cues.tsx';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
+import Question from '../../interfaces/Question.ts';
+
+interface PlayFillInTheBlankQuestionProps {
+  currentKey: string,
+  diagnosticID: string,
+  dispatch(action: any): any,
+  language: string,
+  nextQuestion(): any,
+  question: Question,
+  setResponse(response: any): any,
+  translate(key: any, opts?: any): any
+}
+
+interface PlayFillInTheBlankQuestionState {
+  blankAllowed: boolean,
+  cues: Array<string>,
+  inputErrors: {},
+  inputVals: Array<string>,
+  responses?: any,
+  splitPrompt: Array<string>,
+}
 
 const styles = {
   container: {
@@ -31,11 +51,19 @@ const styles = {
   },
 };
 
-export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
-  constructor(props) {
+export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBlankQuestionProps, PlayFillInTheBlankQuestionState> {
+
+  constructor(props: any) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      blankAllowed: false,
+      cues: [],
+      inputErrors: {},
+      inputVals: [],
+      responses: null,
+      splitPrompt: [],
+    };
   }
 
   componentDidMount() {
@@ -45,7 +73,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.setQuestionValues(question)
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: PlayFillInTheBlankQuestionProps) {
     const { question, } = this.props
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)
@@ -56,38 +84,32 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     document.removeEventListener('keydown', this.handleKeyDown, true)
   }
 
-  handleKeyDown = (e) => {
+  handleKeyDown = (e: KeyboardEvent) => {
     if (e.key !== 'Enter') { return }
 
     e.preventDefault()
     this.handleSubmitResponse()
   }
 
-  setQuestionValues = (question) => {
-    const q = question;
-    const splitPrompt = q.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
-    const numberOfInputVals = q.prompt.match(/___/g).length
+  setQuestionValues = (question: Question) => {
+    const splitPrompt = question.prompt.replace(/<p>/g, '').replace(/<\/p>/g, '').split('___');
+    const numberOfInputVals = question.prompt.match(/___/g).length
     this.setState({
       splitPrompt,
       inputVals: this.generateInputs(numberOfInputVals),
-      inputErrors: new Set(),
-      cues: q.cues,
-      blankAllowed: q.blankAllowed,
+      inputErrors: {},
+      cues: question.cues,
+      blankAllowed: question.blankAllowed,
     }, () => this.getGradedResponsesWithCallback(question));
   }
 
-  getGradedResponsesWithCallback = (question) => {
+  getGradedResponsesWithCallback = (question: Question) => {
     getGradedResponsesWithCallback(
       question.key,
-      (data) => {
+      (data: any) => {
         this.setState({ responses: data, });
       }
     );
-  }
-
-  getQuestion = () => {
-    const { question, } = this.props
-    return question
   }
 
   getInstructionText = () => {
@@ -95,19 +117,19 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { instructions } = question;
     const textKey = translationMap[question.key];
     let text = instructions ? instructions : translations.english[textKey];
-    if(!language) {
+    if (!language) {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else if (language !== ENGLISH && diagnosticID === 'ell') {
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
-    } else if(diagnosticID === 'ell') {
+    } else if (diagnosticID === 'ell') {
       return <p dangerouslySetInnerHTML={{ __html: text, }} />;
     } else {
       const text = `instructions^${instructions}`;
       const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       const translationPresent = language !== ENGLISH;
-      return(
+      return (
         <div>
           <p>{instructions}</p>
           {translationPresent && <br />}
@@ -118,14 +140,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   }
 
   generateInputs(numberOfInputVals: number) {
-    const inputs:Array<string> = [];
-    for (let i = 0; i < numberOfInputVals; i+=1) {
+    const inputs: Array<string> = [];
+    for (let i = 0; i < numberOfInputVals; i += 1) {
       inputs.push('');
     }
     return inputs;
   }
 
-  handleChange = (i, e) => {
+  handleChange = (i: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const { inputVals, } = this.state
     const existing = [...inputVals];
     existing[i] = e.target.value;
@@ -134,69 +156,41 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     });
   }
 
-  getChangeHandler = (index) => {
-    return (e) => {
+  getChangeHandler = (index: number) => {
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
       this.handleChange(index, e);
     };
   }
 
-  getBlurHandler = index => {
-    return () => {
-      this.validateInput(index)
-    }
-  }
-
-  renderText(text, i) {
+  renderText(text: any, i: number) {
     let style = {};
     if (text.length > 0) {
       style = styles.text;
     }
     const textArray = text.split(' ')
-    const spanArray:Array<JSX.Element> = []
+    const spanArray: Array<JSX.Element> = []
     textArray.forEach((word, index) => {
       spanArray.push(<span key={`${i}-${index}`} style={style}>{word}</span>)
     })
     return spanArray;
   }
 
-  validateInput = (i) => {
-    const { inputErrors, inputVals, blankAllowed, cues, } = this.state
-    const newErrors = new Set(inputErrors);
-    const inputVal = inputVals[i] || '';
-    const inputSufficient = blankAllowed ? true : inputVal;
-    const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || inputVal === ''
-    if (inputSufficient && cueMatch) {
-      newErrors.delete(i);
-    } else {
-      newErrors.add(i);
-    }
-    // following condition will return false if no new errors
-    if (newErrors.size) {
-      const newInputVals = inputVals
-      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
-    } else {
-      this.setState({ inputErrors: newErrors });
-    }
-  }
-
-  renderInput = (i) => {
+  renderInput = (i: number) => {
     const { inputErrors, cues, inputVals, } = this.state
     let className = 'fill-in-blank-input'
-    if (inputErrors.has(i)) {
+    if (inputErrors[i]) {
       className += ' error'
     }
-    const longestCue = cues && cues.length ? cues.sort((a, b) => b.length - a.length)[0] : null
+    const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
     const width = longestCue ? (longestCue.length * 15) + 10 : 50
-    const styling = { width: `${width}px`}
-    const autofocus = i === 0
+    const styling = { width: `${width}px` }
     return (
       <span key={`span${i}`}>
         <input
-          autoFocus={autofocus}
+          aria-label={`input${i}`}
           className={className}
           id={`input${i}`}
           key={i + 100}
-          onBlur={this.getBlurHandler(i)}
           onChange={this.getChangeHandler(i)}
           style={styling}
           type="text"
@@ -211,7 +205,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
     if (splitPrompt) {
       const l = splitPrompt.length;
-      const splitPromptWithInput:Array<JSX.Element|Array<JSX.Element>> = [];
+      const splitPromptWithInput: Array<JSX.Element | Array<JSX.Element>> = [];
       splitPrompt.forEach((section, i) => {
         if (i !== l - 1) {
           splitPromptWithInput.push(this.renderText(section, i));
@@ -231,64 +225,83 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     return _.flatten(zipped).join('').trim();
   }
 
-  handleSubmitResponse = () => {
-    const { inputErrors, responses, blankAllowed, inputVals, } = this.state;
-    const { question, nextQuestion, } = this.props;
-    const { caseInsensitive, conceptID, key } = question;
-    if (!inputErrors.size && responses) {
-      if (!blankAllowed) {
-        if (inputVals.filter(Boolean).length !== inputVals.length) {
-          inputVals.forEach((val, i) => this.validateInput(i))
-          return
-        }
+  validateAllInputs = () => {
+    const { inputErrors, inputVals, blankAllowed, cues, } = this.state
+    const newErrors = inputErrors;
+    for (let i = 0; i < inputVals.length; i++) {
+      const inputVal = inputVals[i] || '';
+      const inputSufficient = blankAllowed || inputVal;
+      const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || (inputVal === '' && blankAllowed);
+
+      if (inputSufficient && cueMatch) {
+        delete newErrors[i]
+      } else {
+        newErrors[i] = true;
       }
-      const zippedAnswer = this.zipInputsAndText();
-      const questionUID = key;
-      const defaultConceptUID = conceptID;
-      const responsesArray = hashToCollection(responses);
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)}
-      this.setResponse(response);
-      this.updateResponseResource(response);
-      this.submitResponse(response);
-      this.setState({
-        response: '',
-      });
-      nextQuestion();
+    }
+    // following condition will return false if no new errors
+    if (_.size(newErrors)) {
+      const newInputVals = inputVals
+      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
+    } else {
+      this.setState({ inputErrors: newErrors });
+    }
+    return Promise.resolve(true);
+  }
+
+  handleSubmitResponse = () => {
+    this.validateAllInputs().then(() => {
+      const { inputErrors, responses, } = this.state;
+      const { question, nextQuestion, } = this.props;
+      const { caseInsensitive, conceptID, key } = question;
+      const noErrors = _.size(inputErrors) === 0;
+      if (noErrors && responses) {
+        const zippedAnswer = this.zipInputsAndText();
+        const questionUID = key;
+        const defaultConceptUID = conceptID;
+        const responsesArray = hashToCollection(responses);
+        const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID) }
+        this.setResponse(response);
+        this.updateResponseResource(response);
+        this.submitResponse(response);
+        nextQuestion();
+      }
+    })
+  }
+
+  setResponse = (response: any) => {
+    const { setResponse, } = this.props;
+    if (setResponse) {
+      setResponse(response)
     }
   }
 
-  setResponse = (response) => {
-    const { setResponse, } = this.props
-    if (!setResponse) { return }
-
-    setResponse(response)
+  submitResponse = (response: any) => {
+    submitQuestionResponse(response, this.props, submitResponse);
   }
 
-  submitResponse = (response) => {
-    const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
-  }
-
-  updateResponseResource = (response) => {
-    const { question, dispatch, } = this.props
-    updateResponseResource(response, question.key, question.attempts, dispatch);
+  updateResponseResource = (response: any) => {
+    const { question, dispatch, } = this.props;
+    const { attempts, key } = question;
+    updateResponseResource(response, key, attempts, dispatch);
   }
 
   renderMedia = () => {
-    const { question, } = this.props
-    if (question.mediaURL) {
+    const { question, } = this.props;
+    const { mediaAlt, mediaURL } = question;
+    if (mediaURL) {
       return (
         <div className='ell-illustration' style={{ marginTop: 15, minWidth: 200 }}>
-          <img alt={question.mediaAlt} src={question.mediaURL} />
+          <img alt={mediaAlt} src={mediaURL} />
         </div>
       );
     }
   }
 
   customText = () => {
-    const { language, } = this.props
+    const { language, question } = this.props
     const { blankAllowed, } = this.state
-    const cuesLabel = this.getQuestion().cuesLabel
+    const { cuesLabel } = question;
     if (cuesLabel) {
       return cuesLabel
     } else {
@@ -304,9 +317,9 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
   renderFeedback = () => {
     const { diagnosticID, language, question, translate } = this.props
     const { inputErrors, } = this.state
-
-    if (inputErrors && inputErrors.size) {
-      let feedback;
+    const errorsPresent = _.size(inputErrors) !== 0;
+    if (errorsPresent) {
+      let feedback: any;
       const blankFeedback = question.blankAllowed ? ' or leave it blank' : ''
       const translationKey = question.blankAllowed ? 'feedback^blank' : 'feedback^no blank';
       const feedbackText = `Choose one of the options provided${blankFeedback}. Make sure it is spelled correctly.`
@@ -357,8 +370,8 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
                 customText={this.customText()}
                 diagnosticID={diagnosticID}
                 displayArrowAndText={true}
-                getQuestion={this.getQuestion}
                 language={language}
+                question={question}
                 translate={translate}
               />
               {this.renderFeedback()}
@@ -366,18 +379,12 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
           </div>
           {this.renderMedia()}
         </div>
-        <div className="question-button-group button-group" style={{marginTop: 20}}>
+        <div className="question-button-group button-group" style={{ marginTop: 20 }}>
           {this.renderButton()}
         </div>
       </div>
     );
   }
-
 }
 
-function select(props) {
-  return {
-  };
-}
-
-export default connect(select)(PlayFillInTheBlankQuestion);
+export default PlayFillInTheBlankQuestion;
