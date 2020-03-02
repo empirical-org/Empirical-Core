@@ -18,7 +18,7 @@ module ProficiencyEvaluator
     if score >= proficiency_cutoff
       "Proficient"
     else
-      "Not Yet Proficient"
+      "Not yet proficient"
     end
   end
 

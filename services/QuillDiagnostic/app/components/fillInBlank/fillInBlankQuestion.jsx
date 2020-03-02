@@ -3,7 +3,7 @@ import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import Cues from '../renderForQuestions/cues.jsx';
+import Cues from '../renderForQuestions/cues.tsx';
 import fillInTheBlankActions from '../../actions/fillInBlank';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`

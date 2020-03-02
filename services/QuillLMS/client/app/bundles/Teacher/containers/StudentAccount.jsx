@@ -82,7 +82,7 @@ export default class StudentAccount extends Component {
       <div className="user-account-section third-party-integration-explanation">
         <div className="third-party-integration-explanation header">
           <h4>Why can&#39;t I edit my account information?</h4>
-          <img alt="lightbulb" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
+          <img alt="Lightbulb with rays shining" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
         </div>
         <p className="third-party-integration-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
       </div>

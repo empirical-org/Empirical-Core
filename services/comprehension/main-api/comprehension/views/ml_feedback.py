@@ -40,6 +40,7 @@ class MLFeedbackView(ApiView):
         response = construct_feedback_payload(feedback.feedback,
                                               FEEDBACK_TYPE,
                                               feedback.optimal,
+                                              feedback.id,
                                               labels=feedback.combined_labels,
                                               highlight=highlights)
 

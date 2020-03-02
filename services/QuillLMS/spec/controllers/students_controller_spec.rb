@@ -41,7 +41,7 @@ describe StudentsController do
       it 'should sign in maya and redirect to profile' do
         get :student_demo
         expect(session[:user_id]).to eq maya.id
-        expect(response).to redirect_to '/profile'
+        expect(response).to redirect_to '/classes'
       end
     end
 
