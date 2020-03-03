@@ -71,7 +71,6 @@ export default React.createClass({
       flag: this.props.unitTemplate.flag || null,
       author_id: null,
       order_number: this.props.unitTemplate.order_number || null,
-
     };
     model = _.extend(model, this.props.unitTemplate);
     const options = this.modules.optionsLoader.initialOptions();
@@ -114,6 +113,7 @@ export default React.createClass({
 
   save() {
     const model = this.state.model;
+
     if (this.state.options.authors.length == 1) {
       model.author_id = this.state.options.authors[0].id;
     }
@@ -124,6 +124,19 @@ export default React.createClass({
     ];
 
     this.modules.server.save(model, { callback: (() => { window.location.href = `${process.env.DEFAULT_URL}/cms/unit_templates` }), fieldsToNormalize ,});
+  },
+
+  toggleActivitySelection(activity) {
+    const { model, } = this.state
+    if (model.activities.find(act => act.id === activity.id)) {
+      const activities = model.activities.filter(act => act.id !== activity.id)
+      this.updateModelState('activities', activities)
+    } else {
+      const newActivity = activity
+      newActivity.order_number = model.activities.length
+      const activities = model.activities.concat([newActivity])
+      this.updateModelState('activities', activities)
+    }
   },
 
   determineErrorMessage() {
@@ -150,6 +163,18 @@ export default React.createClass({
 
   determineErrorMessageClass() {
     return '';
+  },
+
+  handleSort(sortInfo) {
+    const { model, } = this.state
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedActivities = newOrder.map((key, i) => {
+      const activity = model.activities[key];
+      activity.order_number = i;
+      return activity;
+    }).sort((act1, act2) => act1.order_number - act2.order_number)
+    model.activities = newOrderedActivities
+    this.updateModelState('activities', newOrderedActivities)
   },
 
   getGradeCheckBoxes() {
@@ -202,7 +227,9 @@ export default React.createClass({
     return (<ActivitySearchAndSelect
       errorMessage={this.props.errorMessage}
       selectedActivities={this.state.model.activities}
-      toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
+      sortable={true}
+      sortCallback={this.handleSort}
+      toggleActivitySelection={this.toggleActivitySelection}
     />);
   },
 
