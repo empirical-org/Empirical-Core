@@ -254,13 +254,14 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
       const { inputErrors, responses, } = this.state;
       const { question, nextQuestion, } = this.props;
       const { caseInsensitive, conceptID, key } = question;
+      const isDiagnosticFIB = true;
       const noErrors = _.size(inputErrors) === 0;
       if (noErrors && responses) {
         const zippedAnswer = this.zipInputsAndText();
         const questionUID = key;
         const defaultConceptUID = conceptID;
         const responsesArray = hashToCollection(responses);
-        const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID, true) }
+        const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID, isDiagnosticFIB) }
         this.setResponse(response);
         this.updateResponseResource(response);
         this.submitResponse(response);
