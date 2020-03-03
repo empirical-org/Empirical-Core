@@ -273,7 +273,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   pry
-  puma (~> 3.12)
+  puma (~> 3.12.3)
   pusher
   rack-cors
   rails (~> 5.1.1)
