@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as request from 'request'
 import _ from 'underscore';
 import {
   hashToCollection,
@@ -16,7 +15,6 @@ import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import PlayTurkQuestion from './question.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
-import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic'
 import {
   questionCount,
   answeredQuestionCount,
@@ -37,64 +35,8 @@ export class TurkActivity extends React.Component {
     dispatch(clearData());
   }
 
-
   saveToLMS = () => {
-    const { sessionID, } = this.state
-    const { playTurk, params, } = this.props
-
-    this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(playTurk.answeredQuestions);
-
-    if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1);
-    } else {
-      this.createAnonActivitySession(params.lessonID, results, 1);
-    }
-  }
-
-  finishActivitySession = (sessionID, results, score) => {
-    request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
-        method: 'PUT',
-        json:
-        {
-          state: 'finished',
-          concept_results: results,
-          percentage: score,
-        }
-      },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          SessionActions.delete(sessionID);
-          this.setState({ saved: true, });
-        } else {
-          // to do, use Sentry to capture error
-          this.setState({ saved: false, error: true, });
-        }
-      }
-    );
-  }
-
-  createAnonActivitySession = (lessonID, results, score) => {
-    request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
-        method: 'POST',
-        json:
-        {
-          state: 'finished',
-          activity_uid: lessonID,
-          concept_results: results,
-          percentage: score,
-        }
-      },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          this.setState({ saved: true, });
-        }
-      }
-    );
+    this.setState({ saved: true, });
   }
 
   submitResponse = (response) => {

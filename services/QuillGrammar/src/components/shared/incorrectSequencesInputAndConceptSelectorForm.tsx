@@ -62,7 +62,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
   handleConceptChange(e) {
     const concepts = this.state.itemConcepts;
     if (!concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = { correct: false, name: e.label, conceptUID: e.value, };
+      concepts[e.value] = { correct: true, name: e.label, conceptUID: e.value, };
       this.setState({
         itemConcepts: concepts,
       });

@@ -58,7 +58,7 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   handleConceptChange(e) {
     const concepts = this.state.itemConcepts;
     if (!concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = { correct: false, name: e.label, conceptUID: e.value, };
+      concepts[e.value] = { correct: true, name: e.label, conceptUID: e.value, };
       this.setState({
         itemConcepts: concepts,
       });
@@ -91,8 +91,6 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   renderConceptSelectorFields() {
-    console.log("test")
-    console.log(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }))
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
         checked={val.correct}
