@@ -199,7 +199,7 @@ class Teachers::UnitsController < ApplicationController
         lessons = ''
       end
       teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
-      ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+      units = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
          activities.name AS activity_name,
          activities.supporting_info AS supporting_info,
          classrooms.name AS class_name,
@@ -208,7 +208,7 @@ class Teachers::UnitsController < ApplicationController
          ua.order_number,
          cu.id AS classroom_unit_id,
          cu.unit_id AS unit_id,
-         COALESCE(array_length(cu.assigned_student_ids, 1), 0) AS number_of_assigned_students,
+         array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
          COUNT(DISTINCT students_classrooms.id) AS class_size,
          ua.due_date,
          state.completed,
@@ -244,6 +244,16 @@ class Teachers::UnitsController < ApplicationController
         #{completed}
         ORDER BY ua.order_number, unit_activity_id
         ").to_a
+        units.map do |unit|
+          classroom_student_ids = Classroom.find(unit['classroom_id']).students.ids
+          if unit['assigned_student_ids'] && classroom_student_ids
+            active_assigned_student_ids = JSON.parse(unit['assigned_student_ids']) & classroom_student_ids
+            unit['number_of_assigned_students'] = active_assigned_student_ids.length
+          else
+            unit['number_of_assigned_students'] = 0
+          end
+          unit
+        end
     else
       []
     end
