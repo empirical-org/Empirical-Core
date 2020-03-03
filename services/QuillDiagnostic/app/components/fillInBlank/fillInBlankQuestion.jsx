@@ -29,7 +29,7 @@ class FillInBlankQuestion extends Component {
   render() {
     const { params, massEdit, fillInBlank, children, } = this.props
     const { questionID} = params;
-    const { question } = this.getQuestion();
+    const question = this.getQuestion();
     if (this.isLoading()) {
       return (<p>Loading...</p>);
     } else if (question) {
