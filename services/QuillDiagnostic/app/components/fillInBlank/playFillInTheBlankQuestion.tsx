@@ -260,7 +260,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<PlayFillInTheBla
         const questionUID = key;
         const defaultConceptUID = conceptID;
         const responsesArray = hashToCollection(responses);
-        const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID) }
+        const response = { response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID, true) }
         this.setResponse(response);
         this.updateResponseResource(response);
         this.submitResponse(response);
