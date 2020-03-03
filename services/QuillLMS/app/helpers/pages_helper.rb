@@ -218,6 +218,11 @@ module PagesHelper
       {
         team: 'Advisors',
         members: [
+	  {
+	    name: 'Donald McKendrick',
+            title: 'Software Engineer at One Medical',
+            img: 'advisor-donald-mckendrick@2x.png'
+          },
           {
             name: 'Donald McKendrick',
             title: 'Software Engineer at One Medical',
