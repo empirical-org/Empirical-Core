@@ -17,6 +17,7 @@ export const getFeedback = (sessionID: string, activityUID: string, entry: strin
       url: feedbackURL,
       body: {
         prompt_id: promptID,
+        session_id: sessionID,
         entry: entryWithoutStem,
         previous_feedback: previousFeedback,
         attempt
