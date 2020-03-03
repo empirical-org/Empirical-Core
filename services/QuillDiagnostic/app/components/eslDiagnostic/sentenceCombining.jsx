@@ -5,14 +5,14 @@ import { submitResponse, } from '../../actions/diagnostics.js';
 import ReactTransition from 'react-addons-css-transition-group';
 import { getGradedResponsesWithCallback } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import {
   SentenceFragments,
   Feedback
 } from 'quill-component-library/dist/componentLibrary';
 import RenderFeedback from '../renderForQuestions/feedback';
 import getResponse from '../renderForQuestions/checkAnswer';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import translations from '../../libs/translations/index.js';
@@ -97,7 +97,7 @@ class ELLSentenceCombining extends React.Component {
 
   submitResponse = (response) => {
     const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+    submitQuestionResponse(response, this.props, submitResponse);
   }
 
   renderSentenceFragments = () => {
@@ -130,11 +130,12 @@ class ELLSentenceCombining extends React.Component {
 
   renderCues = () => {
     const { diagnosticID, language, translate } = this.props
+    const question = this.getQuestion();
     return (<RenderQuestionCues
       diagnosticID={diagnosticID}
       displayArrowAndText
-      getQuestion={this.getQuestion}
       language={language}
+      question={question}
       translate={translate}
     />);
   }
@@ -147,13 +148,13 @@ class ELLSentenceCombining extends React.Component {
 
   handleSubmitResponse = (e) => {
     const { editing, responses, response, } = this.state
-    const { marking, } = this.props
+    const { marking, diagnosticID } = this.props
 
     if (editing && responses) {
       this.removePrefilledUnderscores();
       const submittedResponse = getResponse(this.getQuestion(), response, this.getResponses(), marking || 'diagnostic');
       this.updateResponseResource(submittedResponse);
-      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint') {
+      if (submittedResponse.response && submittedResponse.response.author === 'Missing Details Hint' && diagnosticID !== 'ell') {
         this.setState({
           editing: false,
           error: 'Your answer is too short. Please read the directions carefully and try again.',

@@ -7,6 +7,7 @@ import Study from './Study/index';
 const StudentProfileRouter = props =>
   (<Router history={browserHistory}>
     <Route component={StudentProfile} path="profile" />
+    <Route component={StudentProfile} path="classes" />
     <Route component={StudentProfile} path="classrooms/:classroomId" />
     <Route component={JoinClass} path="add_classroom" />
     <Route component={Study} path="study" />

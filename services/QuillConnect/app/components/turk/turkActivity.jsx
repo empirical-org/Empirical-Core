@@ -172,9 +172,9 @@ export class TurkActivity extends React.Component {
 
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount}
+      label='questions'
       percent={getProgressPercent(playTurk)}
       questionCount={questionCount(playTurk)}
-      thingsCompleted='sentences'
     />)
   }
 
