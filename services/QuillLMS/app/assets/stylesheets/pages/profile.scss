@@ -1,195 +1,224 @@
-#student-profile {
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  max-width: 980px;
-  margin: auto;
-  position: relative;
-
-  .section-header {
-    line-height: 63px;
-    padding-left: 16px;
-  }
-
-  section {
-    border-bottom: none;
-  }
-
-  .next-activity {
-    width: 951px;
-    height: 76px;
-    border-radius: 3px;
-    background-color: #ffffff;
-    box-shadow: 0 0 2px 1px #b7fff0;
-    border: solid 1px #3adfbb;
-    display: flex;
-    padding: 15px;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 15px;
-    @media (min-width: 768px) and (max-width: 991px) {
-      width: 715px;
-      margin: auto;
-    }
-    @media (min-width: 992px) {
-      width: 950px;
-    }
-    .next-activity-name {
-      display: flex;
-      align-items: center;
-      p {
-        font-size: 20px;
-        margin-left: 10px;
-        font-weight: 600;
-      }
-    }
-  }
-
-  .dropdown-classrooms {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: -1px;
-    top: 65px;
-    z-index: 1;
+.student-profile-container {
+  .header-container {
     background-color: white;
-    li {
-      padding: 0px;
-    }
-    .classroom-box {
-      border-left: solid 1px #cecece;
-      width: 162px;
-      border-bottom: solid 1px #cecece;
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.33;
+      margin: 32px 0px 8px;
+      @media (max-width: 650px) {
+        font-size: 20px;
+      }
     }
   }
 
-    .classroom-box {
-      cursor: pointer;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      height: 64px;
-      font-size: 14px;
-      line-height: 1.4;
-      width: 161px;
-      border-right: solid 1px #cecece;
-      text-overflow: ellipsis;
-      color: black;
-      &:first-of-type {
-        border-left: solid 1px #cecece;
-      }
-      &.active {
-        font-weight: 600;
-        margin-top: auto;
-        div:first-of-type {
-          margin-top: auto;
-        }
-        &:after {
-          display: block;
-          content: '';
-          width: 118px;
-          height: 3px;
-          margin: 0 auto;
-          margin-top: auto;
-          background-color: #027360;
-        }
-      }
-      &.dropdown-tab {
-        color: #00c2a2;
-        position: relative;
-        i, svg {
-          font-weight: bold;
-          font-size: 16px;
-          margin-left: 8px;
-        }
-        &:focus {
-          outline: none;
-        }
-      }
-      .classroom-box-classroom {
-        display: inline-block;
-        max-height: 40px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
-    }
-
-
-  .tab-subnavigation-wrapper {
-    padding: 0px;
+  #student-profile {
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    max-width: 980px;
+    margin: auto;
     position: relative;
-    width: 100vw;
-    left: calc(-50vw + 50%);
-    @media only screen and (max-width: 980px) {
-      left: 0;
-    }
-  }
+    padding-bottom: 54px;
 
-  .student-course-info {
-    .classroom,
-    .teacher {
-      position: relative;
-      display: inline-block;
-      float:left;
-      margin-right: 50px;
-      color: #999;
-    }
-    .teacher {
-      margin-right: 0;
-    }
-    .teacher-name {
-      margin-left: 40px;
-    }
-    div:first-of-type {
-      display: flex;
-      justify-content: center;
+    .section-header {
+      line-height: 63px;
+      padding-left: 16px;
     }
 
-    .classroom-name {
-      margin-left: 34px;
+    section {
+      border-bottom: none;
     }
 
-    .icon {
-      position: absolute;
-      top: 50%;
-    }
-    .icon-book-white {
-      margin-top: -9px;
-    }
-
-    .icon-hat-white {
-      margin-top: -8px;
-    }
-  }
-
-  .row-list-end {
-    position: relative;
-    .locked-tooltip, .missed-tooltip {
-      position: absolute;
-      font-size: 13px;
-      padding: 10px 13px;
-      bottom: 38px;
-      right: 13px;
-      width: 405px;
+    .next-activity {
+      width: 951px;
+      height: 76px;
       border-radius: 3px;
-      background-color: #348fdf;
-      z-index: 100;
-      color: white;
-      .tooltip-header {
-        font-weight: bold;
+      background-color: #ffffff;
+      box-shadow: 0 0 2px 1px #b7fff0;
+      border: solid 1px #3adfbb;
+      display: flex;
+      padding: 15px;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 15px;
+      @media (min-width: 768px) and (max-width: 991px) {
+        width: 715px;
+        margin: auto;
       }
-      i, svg {
+      @media (min-width: 992px) {
+        width: 950px;
+      }
+      .next-activity-name {
+        display: flex;
+        align-items: center;
+        p {
+          font-size: 20px;
+          margin-left: 10px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .dropdown-classrooms {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      right: -1px;
+      top: 65px;
+      z-index: 1;
+      background-color: white;
+      li {
+        padding: 0px;
+      }
+      .classroom-box {
+        border-left: solid 1px #cecece;
+        width: 162px;
+        border-bottom: solid 1px #cecece;
+      }
+    }
+
+      .classroom-box {
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 64px;
+        font-size: 14px;
+        line-height: 1.4;
+        width: 161px;
+        border-right: solid 1px #cecece;
+        text-overflow: ellipsis;
+        color: black;
+        &:first-of-type {
+          border-left: solid 1px #cecece;
+        }
+        &.active {
+          font-weight: 600;
+          margin-top: auto;
+          div:first-of-type {
+            margin-top: auto;
+          }
+          &:after {
+            display: block;
+            content: '';
+            width: 118px;
+            height: 3px;
+            margin: 0 auto;
+            margin-top: auto;
+            background-color: #027360;
+          }
+        }
+        &.dropdown-tab {
+          color: #00c2a2;
+          position: relative;
+          i, svg {
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 8px;
+          }
+          &:focus {
+            outline: none;
+          }
+        }
+        .classroom-box-classroom {
+          display: inline-block;
+          max-height: 40px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+
+
+    .tab-subnavigation-wrapper {
+      padding: 0px;
+      position: relative;
+      width: 100vw;
+      left: calc(-50vw + 50%);
+      @media only screen and (max-width: 980px) {
+        left: 0;
+      }
+    }
+
+    .student-course-info {
+      .classroom,
+      .teacher {
+        position: relative;
+        display: inline-block;
+        float:left;
+        margin-right: 50px;
+        color: #999;
+      }
+      .teacher {
+        margin-right: 0;
+      }
+      .teacher-name {
+        margin-left: 40px;
+      }
+      div:first-of-type {
+        display: flex;
+        justify-content: center;
+      }
+
+      .classroom-name {
+        margin-left: 34px;
+      }
+
+      .icon {
         position: absolute;
-        color: #348fdf;
-        top: 26px;
-        right: 6px;
-        font-size: 30px;
+        top: 50%;
+      }
+      .icon-book-white {
+        margin-top: -9px;
+      }
+
+      .icon-hat-white {
+        margin-top: -8px;
+      }
+    }
+
+    .row-list-end {
+      position: relative;
+      .locked-tooltip, .missed-tooltip {
+        position: absolute;
+        font-size: 13px;
+        padding: 10px 13px;
+        bottom: 38px;
+        right: 13px;
+        width: 405px;
+        border-radius: 3px;
+        background-color: #348fdf;
+        z-index: 100;
+        color: white;
+        .tooltip-header {
+          font-weight: bold;
+        }
+        i, svg {
+          position: absolute;
+          color: #348fdf;
+          top: 26px;
+          right: 6px;
+          font-size: 30px;
+        }
+        p {
+          font-size: 12px;
+          line-height: 1.33;
+          letter-spacing: 0.1px;
+        }
+      }
+    }
+    .student-profile-empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 96px 0px;
+      img {
+        margin-bottom: 16px;
       }
       p {
-        font-size: 12px;
-        line-height: 1.33;
-        letter-spacing: 0.1px;
+        font-size: 16px;
+        line-height: normal;
       }
     }
   }

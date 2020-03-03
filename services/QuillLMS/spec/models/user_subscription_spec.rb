@@ -7,7 +7,7 @@ describe UserSubscription, type: :model do
   it { should belong_to(:user) }
   it { should belong_to(:subscription) }
 
-  it { is_expected.to callback(:send_premium_emails).after(:commit) }
+  it { is_expected.to callback(:send_premium_emails).after(:create) }
 
   let!(:user_1) { create(:user) }
   let!(:user_2) { create(:user) }
@@ -30,7 +30,7 @@ describe UserSubscription, type: :model do
   describe '#send_premium_emails' do
     let(:user) { create(:user, email: 'test@quill.org') }
     let(:subscription) { create(:subscription) }
-    let(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
+    let!(:user_subscription) { create(:user_subscription, user: user, subscription: subscription) }
 
     context 'when account type is not teacher trial and the school subscriptions are not empty' do
       before do
