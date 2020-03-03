@@ -101,6 +101,19 @@ describe 'SerializeSalesContact' do
     )
   end
 
+  it 'does not present premium status when subscription expired' do
+    subscription = create(:subscription, account_type: 'SUPER DUPER SUB', expiration: Date.yesterday)
+    teacher = create(:user, role: 'teacher')
+    create(:user_subscription, subscription: subscription, user: teacher)
+
+    teacher_data = SerializeSalesContact.new(teacher.id).data
+
+    expect(teacher_data[:params]).to include(
+      premium_status: 'NA',
+      premium_expiry_date: 'NA',
+    )
+  end
+
   it 'presents student data' do
     teacher = create(:user, role: 'teacher')
     classroom = create(:classroom)
