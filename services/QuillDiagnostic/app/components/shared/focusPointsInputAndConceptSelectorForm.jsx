@@ -91,8 +91,6 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
   }
 
   renderConceptSelectorFields() {
-    console.log("test")
-    console.log(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }))
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
         checked={val.correct}
