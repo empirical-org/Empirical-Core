@@ -21,16 +21,16 @@ const PremiumFeatures = () =>
         <div className="dividing-line" />
         <p>Quill Premium provides provides a one-hour remote PD session and priority support.</p>
         <div className="contact">
-          <img alt="becca thumb" src="https://assets.quill.org/images/headshots/thumb-becca.jpg" />
+          <img alt="maddy thumb" src="https://assets.quill.org/images/headshots/thumb-maddy-2.jpg" />
           <div className="info">
             <p><a className="green-link" href="mailto:maddy@quill.org">maddy@quill.org</a></p>
-            <p>646-442-1095</p>
+            <p>510-671-0222</p>
           </div>
         </div>
       </div>
     </div>
-    <a className="pd-session" href="http://beccaquill.youcanbook.me" rel="noopener noreferrer" target="_blank">
-      <p><span>Have you set up your PD session?</span> <span>Schedule a call</span> with our school partnerships team to discuss your school’s needs and goals.</p>
+    <a className="pd-session" href="https://quill-partnerships.youcanbook.me" rel="noopener noreferrer" target="_blank">
+      <p><span>Have you set up your PD session?</span> <span>Schedule a PD Call</span> with our partnerships team to discuss your school's needs and goals.</p>
       <img src="https://assets.quill.org/images/icons/chevron_admin.svg" />
     </a>
   </div>)
