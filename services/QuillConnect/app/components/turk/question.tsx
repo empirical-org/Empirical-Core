@@ -144,7 +144,7 @@ class PlayDiagnosticQuestion extends React.Component {
           error: 'Your answer is too short. Please read the directions carefully and try again.',
         });
       } else {
-        this.submitResponse(response);
+        this.submitResponse(markedResponse);
         this.setState({
           editing: false,
           response: '',
