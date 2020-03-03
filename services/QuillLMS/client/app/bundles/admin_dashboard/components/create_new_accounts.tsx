@@ -113,7 +113,7 @@ class CreateNewAccounts extends React.Component<any, any> {
           <div className="schools-list">
             {this.schoolsList()}
           </div>
-          <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Hello</a></p>
+          <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
         </div>
       </div>
       {this.renderError()}
