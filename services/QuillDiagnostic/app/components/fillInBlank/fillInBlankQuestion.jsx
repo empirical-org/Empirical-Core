@@ -29,9 +29,10 @@ class FillInBlankQuestion extends Component {
   render() {
     const { params, massEdit, fillInBlank, children, } = this.props
     const { questionID} = params;
+    const question = this.getQuestion();
     if (this.isLoading()) {
       return (<p>Loading...</p>);
-    } else if (this.getQuestion()) {
+    } else if (question) {
       const activeLink = massEdit.numSelectedResponses > 1
       ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
@@ -44,11 +45,11 @@ class FillInBlankQuestion extends Component {
           </div>
           <Cues
             displayArrowAndText={true}
-            getQuestion={this.getQuestion}
+            question={question}
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img alt="Directions Icon" className="info" src={icon} />
-            <p>{this.getQuestion().instructions || 'Combine the sentences into one sentence.'}</p>
+            <p>{question.instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
             <Link className="button is-outlined is-primary" to={`admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>

@@ -204,6 +204,11 @@ module PagesHelper
             img: 'board-ben-sussman@2x.png'
           },
           {
+            name: 'Peg Tyre',
+            title: 'Director of Strategy at The Edwin Gould Foundation',
+            img: 'board-peg-tyre@2x.png'
+          },
+          {
             name: 'Paul Walker',
             title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
             img: 'board-paul-walker@2x.png'
@@ -227,21 +232,6 @@ module PagesHelper
             name: 'Alex Redmon',
             title: 'Senior Software Engineer at Cylera',
             img: 'advisor-alex-redmon@2x.png'
-          },
-          {
-            name: 'John Silberstein',
-            title: 'Board of Directors at  Snap Interactive',
-            img: 'advisor-board-avatar.svg'
-          },
-          {
-            name: 'Emily Dalton Smith',
-            title: 'Director of Social Impact  Product at Facebook',
-            img: 'advisor-emily-dalton-smith@2x.png'
-          },
-          {
-            name: 'Peg Tyre',
-            title: 'Director of Strategy at The Edwin Gould Foundation',
-            img: 'board-peg-tyre@2x.png'
           }
         ]
       }
