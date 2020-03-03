@@ -1,6 +1,6 @@
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
-import ConceptResultTableRow from './concept_result_table_row.jsx'
+import ConceptResultTableRow from './concept_result_table_row.tsx'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 
 export default React.createClass({
