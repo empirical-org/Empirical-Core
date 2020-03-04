@@ -6,7 +6,19 @@ import { Events } from '../modules/analytics'
 
 import { FeedbackObject } from '../interfaces/feedback'
 
-export const getFeedback = (sessionID: string, activityUID: string, entry: string, promptID: string, promptText: string, attempt: number, previousFeedback: FeedbackObject[], callback: Function = () => {}) => {
+interface GetFeedbackArguments {
+  sessionID: string,
+  activityUID: string,
+  entry: string,
+  promptID: string,
+  promptText: string,
+  attempt: number,
+  previousFeedback: FeedbackObject[],
+  callback: Function
+}
+
+export const getFeedback = (args: GetFeedbackArguments) => {
+  const { sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, callback, } = args
   return (dispatch: Function) => {
     const feedbackURL = 'https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go'
     const promptRegex = new RegExp(`^${promptText}`)
@@ -20,6 +32,7 @@ export const getFeedback = (sessionID: string, activityUID: string, entry: strin
         session_id: sessionID,
         entry: entryWithoutStem,
         previous_feedback: previousFeedback,
+        prompt_text: promptText,
         attempt
       },
       json: true,
