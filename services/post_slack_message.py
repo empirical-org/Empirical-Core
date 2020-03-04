@@ -1,5 +1,4 @@
 import os
-import sys
 import subprocess
 subprocess.check_call(['python3', '-m', 'pip', 'install', 'slackclient'])
 import slack
