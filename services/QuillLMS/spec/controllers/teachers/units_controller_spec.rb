@@ -24,7 +24,7 @@ describe Teachers::UnitsController, type: :controller do
   end
 
   describe '#create' do
-    it 'kicks off AssignActivityWorker background job' do
+    it 'kicks off a background job' do
       create(:auth_credential, user: teacher)
       expect {
         post(:create,
@@ -36,20 +36,6 @@ describe Teachers::UnitsController, type: :controller do
           }
         )
       }.to change(AssignActivityWorker.jobs, :size).by(1)
-      expect(response.status).to eq(200)
-    end
-    it 'kicks off ELLStarterDiagnosticEmailJob background job if activities include ELL Starter Diagnostic' do
-      create(:auth_credential, user: teacher)
-      expect {
-        post(:create,
-          classroom_id: classroom.id,
-          unit: {
-            name: 'A Cool Learning Experience',
-            classrooms: [],
-            activities: [{"id"=>1161}]
-          }
-        )
-      }.to change(ELLStarterDiagnosticEmailJob.jobs, :size).by(1)
       expect(response.status).to eq(200)
     end
   end
