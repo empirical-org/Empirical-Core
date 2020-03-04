@@ -82,7 +82,17 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const activityUID = this.activityUID()
     const previousFeedback = session.submittedResponses[promptID] || [];
     if (activityUID) {
-      dispatch(getFeedback(sessionID, activityUID, entry, promptID, promptText, attempt, previousFeedback, this.scrollToHighlight))
+      const args = {
+        sessionID,
+        activityUID,
+        entry,
+        promptID,
+        promptText,
+        attempt,
+        previousFeedback,
+        callback: this.scrollToHighlight
+      }
+      dispatch(getFeedback(args))
     }
   }
 
@@ -141,7 +151,7 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { session, } = this.props
     const { sessionID, } = session
     const activityID = this.activityUID()
-    
+
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_COMPLETED, {
       activityID,
       sessionID,
