@@ -1,10 +1,10 @@
 import os
 import subprocess
 try:
-  import slack
-except:
-  subprocess.check_call(['python3', '-m', 'pip', 'install', 'slackclient'])
-  import slack
+    import slack
+except ImportError:
+    subprocess.check_call(['python3', '-m', 'pip', 'install', 'slackclient'])
+    import slack
 
 client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
 username = os.environ['USER']
