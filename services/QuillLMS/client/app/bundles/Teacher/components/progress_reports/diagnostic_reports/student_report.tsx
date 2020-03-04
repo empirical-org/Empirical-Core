@@ -2,7 +2,6 @@ import * as React from 'react';
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 import StudentReportBox from './student_report_box'
 import ConnectStudentReportBox from './connect_student_report_box.jsx'
-import $ from 'jquery'
 import _ from 'underscore'
 import { RouteComponentProps } from 'react-router-dom';
 import Student from '../../../../interfaces/student';
@@ -55,25 +54,25 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
 			return <StudentReportBox boxNumber={index+1} key={index} questionData={question} />
 		})
 	}
-	
+
 	render() {
 		const { loading, students } = this.state;
 		if (loading) {
 			return <LoadingSpinner />
 		} else {
 			const student = this.selectedStudent(students);
-			const { name, score } = student;
-			return(
-				<div className='individual-student-activity-view'>
-					<h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{name}  <strong style={{paddingLeft: '20px'}}>{score}%</strong></h3>
-					{this.studentBoxes(students)}
-					<div className='how-we-grade'>
-					    <p className="title title-not-started pull-right">
-							<a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
-						</p>
-					</div>
-				</div>
-			);
+      const { name, score } = student;
+      return(
+        <div className='individual-student-activity-view'>
+          <h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{name}  <strong style={{paddingLeft: '20px'}}>{score}%</strong></h3>
+          {this.studentBoxes(students)}
+          <div className='how-we-grade'>
+            <p className="title title-not-started pull-right">
+              <a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
+            </p>
+          </div>
+        </div>
+      );
 		}
 	}
 }

@@ -13,16 +13,16 @@ export class DiagnosticReports extends React.Component<any, any> {
   render() {
     return(
       <Router history={hashHistory}>
-      <Route component={Index} path="/">
-        <Route component={StudentReport} path='u/:unitId/a/:activityId/c/:classroomId/student_report(/:studentId)' />
-        <Route component={Recommendations} path='u/:unitId/a/:activityId/c/:classroomId/recommendations' />
-        <Route component={QuestionReport} path='u/:unitId/a/:activityId/c/:classroomId/questions' />
-        <Route component={ClassReport} path='u/:unitId/a/:activityId/c/:classroomId/students' />
-        <Route component={ActivityPacks} path='activity_packs' />
-        <Route component={DiagnosticActivityPacks} path='diagnostics' />
-        <Route component={NotCompleted} path='not_completed' />
-      </Route>
-    </Router>
+        <Route component={Index} path="/">
+          <Route component={StudentReport} path='u/:unitId/a/:activityId/c/:classroomId/student_report(/:studentId)' />
+          <Route component={Recommendations} path='u/:unitId/a/:activityId/c/:classroomId/recommendations' />
+          <Route component={QuestionReport} path='u/:unitId/a/:activityId/c/:classroomId/questions' />
+          <Route component={ClassReport} path='u/:unitId/a/:activityId/c/:classroomId/students' />
+          <Route component={ActivityPacks} path='activity_packs' />
+          <Route component={DiagnosticActivityPacks} path='diagnostics' />
+          <Route component={NotCompleted} path='not_completed' />
+        </Route>
+      </Router>
     );
   }
 }
