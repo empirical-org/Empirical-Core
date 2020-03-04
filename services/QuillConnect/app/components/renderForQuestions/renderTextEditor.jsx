@@ -15,15 +15,19 @@ export default class RenderTextEditor extends React.Component {
     super(props)
 
     this.state = {
-      text: props.value || ''
+      text: props.value || '',
+      isAdmin: props.isAdmin || false
     }
   }
 
   componentDidMount() {
-    window.addEventListener('paste', (e) => {
-      e.preventDefault()
-      return false
-    }, true);
+    const { isAdmin } = this.state
+    if (!isAdmin) {
+      window.addEventListener('paste', (e) => {
+        e.preventDefault()
+        return false
+      }, true);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
