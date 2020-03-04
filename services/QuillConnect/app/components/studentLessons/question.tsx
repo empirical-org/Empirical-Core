@@ -318,13 +318,14 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   render() {
-    const { question, } = this.props
+    const { question, isAdmin, } = this.props
     const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, } = this.state
     const questionID = question.key;
     if (question) {
       const sharedProps = {
         value: response,
         question: question,
+        isAdmin: isAdmin,
         responses: this.getResponses(),
         getResponse: this.getResponse2,
         feedback: this.renderFeedback(),
