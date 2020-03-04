@@ -1,6 +1,6 @@
 body {
   background-color: #fafafa;
-  font-family: adelle-sans, Arial;
+  font-family: adelle-sans, Arial, sans-serif;
   color: #3b3b3b;
 }
 .container {
@@ -108,7 +108,7 @@ button:hover {
   font-weight: bold;
 }
 .four-oh-four p {
-  font-family: adelle-sans, Helvetica, Arial;
+  font-family: adelle-sans, Arial, sans-serif;
   font-size: 18px;
 }
 .four-oh-four .cta-links {
