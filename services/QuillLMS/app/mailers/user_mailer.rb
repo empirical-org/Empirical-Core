@@ -128,4 +128,9 @@ class UserMailer < ActionMailer::Base
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
   end
 
+  def ell_starter_diagnostic_info_email(name, email)
+    @name = name
+    mail from: "Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
+  end
+
 end
