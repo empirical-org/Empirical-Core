@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding-top: 26px;
   p {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 15px;
     span {
       font-weight: bold;
@@ -32,7 +32,7 @@
 .language-button-container {
 
   margin: 20 auto 0;
-  max-width: 550px;
+  max-width: 800px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -44,8 +44,8 @@
 
   .language-button {
     border: none;
-    width: 150px;
-    height: 72px;
+    width: 250px;
+    height: 118px;
     box-shadow: 0 0 0 1px #e0e0e0;
     background-color: white;
     padding: 0 32px;
@@ -58,6 +58,7 @@
     line-height: 1.17;
     color: #000000;
     margin-bottom: 20px;
+    border-radius: 6px;
 
     &:hover, &:focus {
       cursor: pointer;
@@ -82,8 +83,9 @@
 }
 
 .divider-container {
+  display: flex;
+  align-items: center;
   margin: 20 auto 0;
-  max-width: 550px;
 }
 
 .no-language-button {
@@ -99,7 +101,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: adelle-sans;
+  font-family: adelle-sans, "Arial", sans-serif;
   font-size: 24px;
   line-height: 1.29;
   color: #000000;
@@ -139,16 +141,12 @@
 }
 
 .language-label {
-  font-size: 14px;
+  font-size: 16px;
   margin: 10px 0px 5px 0px;
   font-weight: bold;
 }
 
-.divider-container {
-  display: flex;
-  align-items: center;
-}
-
 .divider-label {
   margin: 0px 10px 0px 10px;
+  font-size: 20px;
 }
