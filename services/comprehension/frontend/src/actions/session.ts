@@ -31,7 +31,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
         prompt_id: promptID,
         entry: entryWithoutStem,
         previous_feedback: previousFeedback,
-        stem: promptText,
+        prompt_text: promptText,
         attempt
       },
       json: true,
