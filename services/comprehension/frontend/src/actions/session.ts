@@ -29,6 +29,7 @@ export const getFeedback = (args: GetFeedbackArguments) => {
       url: feedbackURL,
       body: {
         prompt_id: promptID,
+        session_id: sessionID,
         entry: entryWithoutStem,
         previous_feedback: previousFeedback,
         prompt_text: promptText,
