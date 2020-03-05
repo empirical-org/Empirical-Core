@@ -9,8 +9,8 @@ class Analyzer
     analytics_identify(user)
     analytics_track(user, {user_id: user.id,
       event: event,
-      context: { ip: user.ip_address }
-    })
+      context: { ip: user.ip_address } }
+    )
   end
 
   def track_with_attributes(user, event, attributes)
