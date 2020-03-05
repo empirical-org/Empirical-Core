@@ -272,7 +272,7 @@ $lightgray: #cecece;
 
 .recommendations-explanation {
   margin-top: 35px;
-  font-family: 'adelle-sans';
+  font-family: 'adelle-sans', "Arial", sans-serif;
   font-size: 18px;
   line-height: 1.5em;
   color: #000000;
@@ -395,7 +395,7 @@ $lightgray: #cecece;
   cursor: pointer;
 
   span {
-    font-family: 'adelle-sans';
+    font-family: 'adelle-sans', "Arial", sans-serif;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -421,7 +421,7 @@ $lightgray: #cecece;
   .recommendations-table-header-name {
     width: 140px;
     padding: 12px;
-    font-family: 'adelle-sans';
+    font-family: 'adelle-sans', "Arial", sans-serif;
     font-size: 12px;
     font-weight: 600;
     line-height: 1.25;
@@ -434,7 +434,7 @@ $lightgray: #cecece;
     -ms-flex-preferred-size: 0;
         flex-basis: 0;
     padding: 12px;
-    font-family: 'adelle-sans';
+    font-family: 'adelle-sans', "Arial", sans-serif;
     font-size: 12px;
 
     .view-pack-link {
@@ -468,7 +468,7 @@ $lightgray: #cecece;
     .recommendations-table-row-name {
       width: 140px;
       padding: 12px;
-      font-family: 'adelle-sans';
+      font-family: 'adelle-sans', "Arial", sans-serif;
       font-size: 12px;
       line-height: 1.25;
       background-color: #ffffff;
@@ -511,7 +511,7 @@ $lightgray: #cecece;
       -ms-flex-preferred-size: 0;
           flex-basis: 0;
       padding: 12px;
-      font-family: 'adelle-sans';
+      font-family: 'adelle-sans', "Arial", sans-serif;
       font-size: 12px;
       line-height: 1.25;
       overflow: hidden;
