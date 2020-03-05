@@ -74,6 +74,10 @@ echo 'Install Bundler'
 # there are breaking changes in bundler 2.0, so pin to this version for now.
 gem install bundler -v 1.17.3
 
+# set bundle config, needed for sidekiq-pro
+export BUNDLE_GEMS__CONTRIBSYS__COM=$(heroku config:get BUNDLE_GEMS__CONTRIBSYS__COM -a empirical-grammar)
+bundle config --local gems.contribsys.com $BUNDLE_GEMS__CONTRIBSYS__COM
+
 echo 'Bundle install'
 echo 'If youre on Mac Mojave and hit an error with nokogiri, run:'
 echo 'cd  /Library/Developer/CommandLineTools/Packages/;'
