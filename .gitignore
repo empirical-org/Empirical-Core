@@ -60,9 +60,6 @@ public/webpack/*
 .byebug_history
 
 
-# Ignore NewRelic API keys
-/config/newrelic.yml
-
 # Ignore mock data so we're forced to regenerate it each time
 /client/__mockdata__/*
 
