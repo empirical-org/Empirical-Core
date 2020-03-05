@@ -97,8 +97,6 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         // handles case where proofreader has no follow-up questions
       } else if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion && nextProps.session.unansweredQuestions.length === 0 && nextProps.session.proofreaderSession) {
         this.saveToLMS(nextProps.session)
-      } else if (nextProps.session.hasreceiveddata && !nextProps.session.currentQuestion) {
-        dispatch(goToNextQuestion())
       }
 
       const sessionID = getParameterByName('student', window.location.href)

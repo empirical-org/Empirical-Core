@@ -1,0 +1,39 @@
+.intro-container {
+  padding: 0px 30px;
+}
+
+.intro {
+  max-width: 800px;
+  width: 100%;
+  margin: 48px auto 119px;
+  height: 100%;
+  h1, h3 {
+    font-size: 28px;
+    line-height: normal;
+    color: #3d3d3d;
+    margin-bottom: 24px;
+  }
+  p {
+    font-size: 22px;
+    color: #3d3d3d;
+    line-height: 32px;
+  }
+  br {
+    height: 32px;
+    display: block;
+    content: ' ';
+  }
+  .quill-button {
+    margin-top: 40px;
+  }
+  &.welcome-page {
+    .quill-button {
+      margin-top: 24px;
+    }
+  }
+  &.landing-page {
+    .quill-button {
+      margin-top: 40px;
+    }
+  }
+}

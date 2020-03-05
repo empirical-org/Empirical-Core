@@ -52,34 +52,30 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     const { showLandingPage, } = this.state
     if (showLandingPage) {
       return (
-        <div className="container">
-          <div className="landing-page-html" dangerouslySetInnerHTML={{ __html: activity.landingPageHtml, }} />
+        <div className="intro landing-page">
+          <div dangerouslySetInnerHTML={{ __html: activity.landingPageHtml, }} />
           <button className="quill-button focus-on-light large primary contained" onClick={this.handleStartLessonClick} type="button">Start activity</button>
         </div>
       );
     }
     return (
-      <div className="container">
-        <h2 className="title is-3 register">
-          Welcome to Quill Connect!
-        </h2>
-        <div className="register-container">
-          <ul className="register-list">
-            <li>Combine the sentences together into one sentence.</li>
-            <li>You may add or remove words.</li>
-            <li>There is often more than one correct answer.</li>
-            <li>Remember to use correct spelling, capitalization, and punctuation!</li>
-          </ul>
-          {this.renderButton()}
-          <br />
-        </div>
+      <div className="intro welcome-page">
+        <h1>Welcome to Quill Grammar!</h1>
+        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</p>
+        <br />
+        <p>Vestibulum id ligula porta felis euismod.</p>
+        <br />
+        <p>Cras sociis natoque penatibus et magnis dis parturient montes.</p>
+        <br />
+        <p>Donec ullamcorper nulla non metus auctor fringilla!</p>
+        {this.renderButton()}
       </div>
     );
   }
 
   render() {
     return (
-      <div className="intro">
+      <div className="intro-container">
         {this.renderIntro()}
       </div>
     );

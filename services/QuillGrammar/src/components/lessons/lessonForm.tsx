@@ -35,9 +35,9 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
     this.state = {
       title: currentValues ? currentValues.title : '',
-      description: currentValues ? currentValues.description || '' : '',
+      description: currentValues && currentValues.description ? currentValues.description : '',
       flag: currentValues ? currentValues.flag : 'alpha',
-      activityConcepts: currentValues ? currentValues.concepts : {},
+      activityConcepts: currentValues && currentValues.concepts ? currentValues.concepts : {},
       activityQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       landingPageHtml: currentValues && currentValues.landingPageHtml ? currentValues.landingPageHtml : ''
     }
@@ -72,6 +72,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     if (value) {
       const currentSelectedConcepts = activityConcepts;
       const newSelectedConcepts = currentSelectedConcepts;
+      debugger;
       newSelectedConcepts[value] = { quantity: 0 }
       this.setState({ activityConcepts: newSelectedConcepts, });
     }
@@ -190,7 +191,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
   render() {
     const { stateSpecificClass, } = this.props
-    const { title, description, landingPageHtml, flag, } = this.state
+    const { title, description, landingPageHtml, flag, activityQuestions, activityConcepts, } = this.state
     return (
       <div className="box">
         <h4 className="title">Add New Activity</h4>
