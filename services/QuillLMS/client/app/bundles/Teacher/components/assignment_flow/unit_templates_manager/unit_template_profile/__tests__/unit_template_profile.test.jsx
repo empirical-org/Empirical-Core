@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import $ from 'jquery'
 
 import response from '../../../../../../../test_data/unit_template_profile'
-import UnitTemplateProfile from '../unit_template_profile.jsx'
+import UnitTemplateProfile from '../unit_template_profile.tsx'
 import LoadingIndicator from '../../../../shared/loading_indicator'
 import UnitTemplateProfileDescription from '../unit_template_profile_description'
 
