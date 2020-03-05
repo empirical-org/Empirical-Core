@@ -107,7 +107,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
       let navigation: any;
       let container: HTMLMetaElement | null = document.querySelector("meta[name='og:description']");
       const { name, id, non_authenticated, flag } = data
-      const showSocials = flag !== 'private' && flag !== 'alpha' && flag !=='beta';
+      const showSocials = flag === 'production';
       if (!non_authenticated) {
         navigation = (<AssignmentFlowNavigation
           button={this.renderAssignButton()}
