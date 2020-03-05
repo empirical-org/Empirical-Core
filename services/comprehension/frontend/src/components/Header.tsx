@@ -10,7 +10,7 @@ import getParameterByName from '../helpers/getParameterByName';
 const logoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 const mobileLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white-mobile.svg`
 
-class Header extends React.Component<any, any> {
+export class Header extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
 
@@ -24,10 +24,11 @@ class Header extends React.Component<any, any> {
   }
 
   trackSaveAndExitEvent = () => {
-    const { dispatch, session, } = this.props
-    const { sessionID, } = session
+    const { dispatch, } = this.props
+    const { sessionID, } = this.state
+    const activityID = getParameterByName('uid', window.location.href)
     dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_SAVED, {
-      activityID: 0,
+      activityID: activityID,
       sessionID,
     }))
   }
@@ -42,7 +43,7 @@ class Header extends React.Component<any, any> {
   }
 
   handleOnClick = () => {
-    saveAndExit()
+    this.saveAndExit()
   }
 
   render() {
