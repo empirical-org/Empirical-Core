@@ -107,6 +107,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
       let navigation: any;
       let container: HTMLMetaElement | null = document.querySelector("meta[name='og:description']");
       const { name, id, non_authenticated, flag } = data
+      const showSocials = flag !== 'private' && flag !== 'alpha' && flag !=='beta';
       if (!non_authenticated) {
         navigation = (<AssignmentFlowNavigation
           button={this.renderAssignButton()}
@@ -131,7 +132,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
               <div className="assign-buttons-and-standards">
                 <UnitTemplateProfileAssignButton data={data}  />
                 <UnitTemplateProfileStandards data={data}  />
-                {flag !== 'private' && <UnitTemplateProfileShareButtons data={data} text={this.socialText(name, referralCode)} url={this.socialShareUrl(referralCode)} />}
+                {showSocials && <UnitTemplateProfileShareButtons data={data} text={this.socialText(name, referralCode)} url={this.socialShareUrl(referralCode)} />}
               </div>
             </div>
           </div>
