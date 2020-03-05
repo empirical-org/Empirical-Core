@@ -54,61 +54,6 @@ describe("<PlayGrammarContainer />", () => {
       expect(prompt.html()).toEqual(html)
     })
 
-    describe("the Hide Example button", () => {
-
-      describe("before it is clicked", () => {
-        const unclickedWrapper = shallow(<QuestionComponent
-          activity={currentActivity}
-          answeredQuestions={session.answeredQuestions}
-          checkAnswer={() => {}}
-          concepts={{}}
-          conceptsFeedback={conceptsFeedback}
-          currentQuestion={currentQuestion}
-          goToNextQuestion={() => {}}
-          unansweredQuestions={session.unansweredQuestions}
-        />)
-
-        it ("renders with the text 'Hide Example'", () => {
-          expect(unclickedWrapper.update().find('.example-button').children().first().text()).toEqual('Hide Example')
-        })
-
-        it ("the example is showing", () => {
-          expect(unclickedWrapper.update().find('.show')).toHaveLength(1)
-        })
-
-        it ("state.showExample is true", () => {
-          expect(unclickedWrapper.update().state('showExample')).toBe(true)
-        })
-      })
-
-      describe("after it is clicked", () => {
-        const clickedWrapper = shallow(<QuestionComponent
-          activity={currentActivity}
-          answeredQuestions={session.answeredQuestions}
-          checkAnswer={() => {}}
-          concepts={{}}
-          conceptsFeedback={conceptsFeedback}
-          currentQuestion={currentQuestion}
-          goToNextQuestion={() => {}}
-          unansweredQuestions={session.unansweredQuestions}
-        />)
-
-        clickedWrapper.find('.example-button').simulate('click')
-
-        it ("renders with the text 'Show Example'", () => {
-          expect(clickedWrapper.find('.example-button').children().first().text()).toEqual('Show Example')
-        })
-
-        it ("the example is showing", () => {
-          expect(clickedWrapper.find('.show')).toHaveLength(0)
-        })
-
-        it ("state.showExample is false", () => {
-          expect(clickedWrapper.state('showExample')).toBe(false)
-        })
-      })
-    })
-
     describe('the textarea', () => {
 
       describe('before it is typed in', () => {

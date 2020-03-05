@@ -1,4 +1,5 @@
 import * as React from "react";
+import ContentEditable from 'react-contenteditable';
 import { Row, Button } from "antd";
 import { Response, ConceptResult } from 'quill-marking-logic'
 import { hashToCollection, ConceptExplanation, ProgressBar } from 'quill-component-library/dist/componentLibrary'
@@ -9,7 +10,7 @@ import * as responseActions from '../../actions/responses'
 const tryAgainIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/try_again_icon.png`
 const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
 const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
-const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
+const directionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 const ALLOWED_ATTEMPTS = 5
 
@@ -202,15 +203,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
-  renderExampleButton(): JSX.Element | void {
-    const { showExample, } = this.state
-    if (this.example()) {
-      return (<Row align="middle" justify="start" type="flex">
-        <Button className="example-button" onClick={this.handleExampleButtonClick}>{showExample ? 'Hide Example' : 'Show Example'}</Button>
-      </Row>)
-    }
-  }
-
   renderCheckAnswerButton(): JSX.Element | void {
     const { questionStatus, responses } = this.state
     if (Object.keys(responses).length) {
@@ -243,26 +235,25 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       >
         <h1>{activity ? activity.title : null}</h1>
       </Row>
-      {this.renderExampleButton()}
       {this.renderExample()}
-      <Row align="middle" justify="start" type="flex">
-        <img alt="Question Icon" src={questionIconSrc} style={{ height: '22px', marginRight: '10px' }} />
-        <div className="instructions" dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />
-      </Row>
     </div>)
   }
 
   renderTextareaSection = () => {
     const { questionStatus, response } = this.state
-    if (['correctly answered', 'final attempt'].includes(questionStatus)) {
-      return (<Row align="middle" justify="start" type="flex">
-        <textarea aria-label="Disabled Text Area" className="input-field disabled" disabled value={response} />
-      </Row>)
-    } else {
-      return (<Row align="middle" justify="start" type="flex">
-        <textarea aria-label="Text Area" className="input-field" onChange={this.handleResponseChange} onKeyDown={this.handleKeyDown} spellCheck="false" value={response} />
-      </Row>)
-    }
+    const disabled = ['correctly answered', 'final attempt'].includes(questionStatus) ? 'disabled' : null
+    return (<Row align="middle" justify="start" type="flex">
+      <ContentEditable
+        className={`input-field ${disabled}`}
+        data-gramm={false}
+        disabled={!!disabled}
+        html={response}
+        onChange={this.handleResponseChange}
+        onKeyDown={this.handleKeyDown}
+        placeholder="Type your answer here."
+        spellCheck={false}
+      />
+    </Row>)
   }
 
   renderQuestionSection(): JSX.Element {
@@ -270,6 +261,10 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     return (<div className="question-section">
       <Row align="middle" justify="start" type="flex">
         <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
+      </Row>
+      <Row align="middle" className="instructions-container" justify="start" type="flex">
+        <img alt="Directions Icon" src={directionIconSrc} />
+        <div className="instructions" dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />
       </Row>
       {this.renderTextareaSection()}
       <Row align="middle" justify="end" type="flex">
