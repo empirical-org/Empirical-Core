@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import _ from 'underscore';
 import LoadingIndicator from '../../../shared/loading_indicator';
 import ScrollToTop from '../../../shared/scroll_to_top';
@@ -15,8 +15,8 @@ import {
   UNIT_NAME,
 } from '../../localStorageKeyConstants.ts'
 import { requestGet } from '../../../../../../modules/request/index.js';
-import Activity from '../../../../../interfaces/activity';
-import UnitTemplateProfile from '../../../../../interfaces/unitTemplateProfile';
+import Activity from '../../../../../../interfaces/activity';
+import UnitTemplateProfile from '../../../../../../interfaces/unitTemplateProfile';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface UnitTemplateProfileState {
@@ -25,7 +25,7 @@ interface UnitTemplateProfileState {
   referralCode: string
 }
 
-export default class UnitTemplateProfile extends React.Component<RouteComponentProps, UnitTemplateProfileState> {
+export class UnitTemplateProfile extends React.Component<RouteComponentProps, UnitTemplateProfileState> {
   state = {
     data: null,
     loading: true,
@@ -104,7 +104,8 @@ export default class UnitTemplateProfile extends React.Component<RouteComponentP
     if (loading) {
       return <LoadingIndicator />
     } else {     
-      let navigation: any
+      let navigation: any;
+      let container: HTMLMetaElement | null = document.querySelector("meta[name='og:description']");
       const { name, id, non_authenticated, flag } = data
       if (!non_authenticated) {
         navigation = (<AssignmentFlowNavigation
@@ -113,8 +114,8 @@ export default class UnitTemplateProfile extends React.Component<RouteComponentP
           unitTemplateName={name}
         />)
       }
-      if (document.querySelector("meta[name='og:description']")) {
-        document.querySelector("meta[name='og:description']").content = this.getMetaText(name);
+      if (container instanceof HTMLMetaElement ) {
+        container.content = this.getMetaText(name);
       }
       return (
         <div className="unit-template-profile">
@@ -139,3 +140,5 @@ export default class UnitTemplateProfile extends React.Component<RouteComponentP
     }
   }
 }
+
+export default UnitTemplateProfile
