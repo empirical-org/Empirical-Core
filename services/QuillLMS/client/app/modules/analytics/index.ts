@@ -43,8 +43,8 @@ class SegmentAnalytics {
 
     const eventProperties = Object.assign(this.formatCustomProperties(properties), this.getDefaultProperties());
     const integrations = {
-      Salesmachine:false,
-      Intercom:false
+      Salesmachine: false,
+      Intercom: false
     }
     const options = { integrations }
 
