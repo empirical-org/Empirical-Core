@@ -1,5 +1,4 @@
-
-<% unless Rails.env.development? || Rails.env.test? || Rails.env.cypress? %>
+<% unless Rails.env.test? || Rails.env.cypress? %>
   <!-- start Segment.io -->
   <script type="text/javascript">
 
@@ -16,7 +15,21 @@
     <% elsif @logging_user_out %>
       analytics.reset()
     <% end %>
-    analytics.page();
+    analytics.page(
+      <%#= We're using @should_load_intercom as a proxy for Salesmachine
+           since the conditions are basically the same (teachers only).
+           If we shouldn't load Intercom, then we shouldn't send our pageview
+           event to Salesmachine, either. %>
+      <% if !@should_load_intercom %>
+      {
+        integrations: {
+          all: true,
+          Intercom: false,
+          Salesmachine: false
+        }
+      }
+      <% end %>
+    );
     <% if @should_load_intercom %>
 
       setInterval(function() {
