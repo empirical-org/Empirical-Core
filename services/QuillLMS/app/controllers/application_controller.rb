@@ -157,7 +157,6 @@ class ApplicationController < ActionController::Base
           auth_credential.destroy!
         end
         return if !current_user || !session
-        #return reset_session
       end
     end    
     # If the user is google authed, but doesn't have a valid refresh
