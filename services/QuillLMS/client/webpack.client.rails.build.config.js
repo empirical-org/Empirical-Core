@@ -9,8 +9,7 @@ const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
@@ -46,13 +45,13 @@ module.exports = merge(config, {
       chunks: 'async',
       minSize: 30000,
       maxSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 6,
-      maxInitialRequests: 4,
+      minChunks: Infinity,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
       automaticNameDelimiter: '~',
       cacheGroups: {
         vendors: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          test: /[\\/]node_modules[\\/]/,
           priority: -10
         },
         default: {
@@ -64,10 +63,7 @@ module.exports = merge(config, {
     },
     minimize: true,
     minimizer: [
-      new TerserPlugin({
-        parallel: 4,
-        cache: 'webpack',
-      }),
+      new UglifyJsPlugin(),
     ],
   },
 

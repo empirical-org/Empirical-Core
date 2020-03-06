@@ -11,8 +11,7 @@
     "npm": "5.6.0"
   },
   "cacheDirectories": [
-    "client/node_modules",
-    "client/webpack"
+    "client/node_modules"
   ],
   "scripts": {
     "postinstall": "cd ./client && npm install",

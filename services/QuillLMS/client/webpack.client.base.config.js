@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const devBuild = process.env.RAILS_ENV === 'development';
 const railsEnv = process.env.RAILS_ENV || process.env.NODE_ENV
@@ -40,6 +41,7 @@ const basePlugins = [
     publicPath: output.publicPath,
     writeToFileEmit: true,
   }),
+  new CompressionPlugin()
 ];
 
 module.exports = {
@@ -108,7 +110,7 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
+        loader: 'awesome-typescript-loader?errorsAsWarnings=true',
         include: [
           path.resolve(__dirname, "app")
         ],
@@ -116,9 +118,6 @@ module.exports = {
           path.resolve(__dirname, "app/test_data"),
           path.resolve(__dirname, "app/assets")
         ],
-        options: {
-          transpileOnly: true,
-        },
       },
       {
         test: /\.jsx?$/,
