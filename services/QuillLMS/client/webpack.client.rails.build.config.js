@@ -46,10 +46,9 @@ module.exports = merge(config, {
       minSize: 30000,
       maxSize: 0,
       minChunks: Infinity,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
+      maxAsyncRequests: 6,
+      maxInitialRequests: 4,
       automaticNameDelimiter: '~',
-      name: true,
       cacheGroups: {
         vendors: {
           test: /[\\/]node_modules[\\/]/,
@@ -62,9 +61,7 @@ module.exports = merge(config, {
         }
       }
     },
-    minimizer: [
-      new UglifyJsPlugin(),
-    ]
+    minimize: true
   },
 
   // See webpack.client.base.config for adding modules common to both webpack dev server and rails
