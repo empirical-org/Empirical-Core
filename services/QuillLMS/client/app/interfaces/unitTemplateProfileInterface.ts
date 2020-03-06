@@ -1,6 +1,6 @@
 import Activity from './activity';
 
-export interface UnitTemplateProfile {
+export interface UnitTemplateProfileInterface {
   id: number,
   name: string
   time: number,

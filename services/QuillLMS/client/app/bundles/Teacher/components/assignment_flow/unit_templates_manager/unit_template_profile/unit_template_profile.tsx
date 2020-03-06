@@ -16,7 +16,7 @@ import {
 } from '../../localStorageKeyConstants.ts'
 import { requestGet } from '../../../../../../modules/request/index.js';
 import Activity from '../../../../../../interfaces/activity';
-import UnitTemplateProfile from '../../../../../../interfaces/unitTemplateProfile';
+import UnitTemplateProfileInterface from '../../../../../../interfaces/unitTemplateProfileInterface';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface UnitTemplateProfileState {
@@ -100,10 +100,10 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
   }
 
   render() {
-    const { data, loading, referralCode} = this.state
+    const { data, loading, referralCode } = this.state
     if (loading) {
       return <LoadingIndicator />
-    } else {     
+    } else {
       let navigation: any;
       let container: HTMLMetaElement | null = document.querySelector("meta[name='og:description']");
       const { name, id, non_authenticated, flag } = data
@@ -115,23 +115,23 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
           unitTemplateName={name}
         />)
       }
-      if (container instanceof HTMLMetaElement ) {
+      if (container instanceof HTMLMetaElement) {
         container.content = this.getMetaText(name);
       }
       return (
         <div className="unit-template-profile">
-          <ScrollToTop  />
+          <ScrollToTop />
           {navigation}
           <div className="unit-template-profile-container">
             <h1>Activity Pack: {name}</h1>
-            <UnitTemplateProfileActivityTable data={data}  />
+            <UnitTemplateProfileActivityTable data={data} />
             <div className="first-content-section flex-row space-between first-content-section">
               <div className="description">
-                <UnitTemplateProfileDescription data={data}  />
+                <UnitTemplateProfileDescription data={data} />
               </div>
               <div className="assign-buttons-and-standards">
-                <UnitTemplateProfileAssignButton data={data}  />
-                <UnitTemplateProfileStandards data={data}  />
+                <UnitTemplateProfileAssignButton data={data} />
+                <UnitTemplateProfileStandards data={data} />
                 {showSocials && <UnitTemplateProfileShareButtons data={data} text={this.socialText(name, referralCode)} url={this.socialShareUrl(referralCode)} />}
               </div>
             </div>
