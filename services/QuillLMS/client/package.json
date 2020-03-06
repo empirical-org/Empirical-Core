@@ -123,6 +123,7 @@
     "react-transform-hmr": "^1.0.4",
     "redux-test-utils": "^0.2.2",
     "ts-jest": "^24.0.2",
+    "ts-loader": "^6.2.1",
     "typescript": "^2.7.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.0"
