@@ -2,8 +2,9 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { Response, ConceptResult } from 'quill-marking-logic'
+import { ConceptExplanation } from '../../../../../packages/quill-component-library/src/components/feedback/conceptExplanation'
 import { Feedback } from '../../../../../packages/quill-component-library/src/components/renderForQuestions/feedback'
-import { hashToCollection, ConceptExplanation, ProgressBar } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection, ProgressBar } from 'quill-component-library/dist/componentLibrary'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
@@ -285,6 +286,9 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       <Row align="middle" justify="end" type="flex">
         {this.renderCheckAnswerButton()}
       </Row>
+      <Row align="middle" justify="start" type="flex">
+        {this.renderConceptExplanation()}
+      </Row>
     </div>)
   }
 
@@ -347,7 +351,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     return (<div className="question">
       {this.renderTopSection()}
       {this.renderQuestionSection()}
-      {this.renderConceptExplanation()}
     </div>)
   }
 }

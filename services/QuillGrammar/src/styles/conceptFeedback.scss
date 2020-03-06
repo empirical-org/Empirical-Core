@@ -1,45 +1,42 @@
 .concept-explanation {
-  font-family: $family-monospace;
   font-size: 20px;
-  margin: auto;
-  max-width: 49em;
-  padding: 20px 30px;
+  padding: 16px;
+  border-radius: 2px;
+  background-color: #e5e5e5;
   .concept-explanation-title {
     font-weight: bold;
-    padding-left: 15px;
-    padding-right: 15px;
-    // font-size: 20px;
-    // margin-bottom: 0.5em;
+    display: flex;
+    margin-bottom: 8px;
+    img {
+      margin-right: 8px;
+    }
   }
   .concept-explanation-description {
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 15px;
+    padding-left: 33px;
+    margin-bottom: 16px;
   }
 
   .concept-explanation-see-write {
     display: flex;
-    background-color: #fefefe;
-    padding: 15px 25px;
-    border: 1px dashed #cecece;
-    // border-radius: 5px;
-    margin-bottom: 0.5em;
     .concept-explanation-see {
-      flex-grow: 1;
-      flex-basis: 0;
+      margin-right: 16px;
     }
-    .concept-explanation-write {
+    .concept-explanation-see, .concept-explanation-write {
       flex-grow: 1;
       flex-basis: 0;
+      padding: 16px 24px 16px 32px;
+      border-radius: 2px;
+      background-color: #fff;
+      border-left: 2px solid #a5a5a5;
     }
   }
-  .concept-explanation-remember {
-    padding-left: 15px;
-    padding-right: 15px;
-    margin-bottom: 0.5em;
-    ul {
-      margin: 10px 30px;
-      list-style: circle;
+  @media (max-width: 650px) {
+    .concept-explanation-see-write {
+      flex-direction: column;
+      .concept-explanation-see {
+        margin-right: 0px;
+        margin-bottom: 16px;
+      }
     }
   }
 }
