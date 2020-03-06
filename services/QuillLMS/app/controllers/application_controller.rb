@@ -151,13 +151,13 @@ class ApplicationController < ActionController::Base
       time_diff = time_diff.round.abs
       hours = time_diff / 3600
       if hours > 4
-        #user_id = current_user.id
-        #auth_credential = AuthCredential.where(user_id: user_id).first
-        #if auth_credential.present?
-        #  auth_credential.destroy!
-        #end
-        #return if !current_user || !session
-        return reset_session
+        user_id = current_user.id
+        auth_credential = AuthCredential.where(user_id: user_id).first
+        if auth_credential.present?
+          auth_credential.destroy!
+        end
+        return if !current_user || !session
+        #return reset_session
       end
     end    
     # If the user is google authed, but doesn't have a valid refresh
