@@ -28,8 +28,7 @@
     <% elsif @logging_user_out %>
       analytics.reset()
     <% end %>
-    analytics.page(
-    );
+    analytics.page();
     <% if @should_load_intercom %>
 
       setInterval(function() {
