@@ -143,6 +143,22 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_valid_session
+    # if user is staff, logout if last_sign_in was more than 4 hours ago
+    if current_user && current_user.role == 'staff'
+      time_diff = Time.now - current_user.last_sign_in
+      time_diff = time_diff.round.abs
+      hours = time_diff / 3600
+      puts "HOURS SINCE LAST SIGN IN"
+      puts hours
+      if hours > 4
+        user_id = current_user.id
+        auth_credential = AuthCredential.where(user_id:user_id).first()
+        if auth_credential.present?
+          auth_credential.destroy!
+        end
+        return if !current_user || !session
+      end
+    end
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
     # If the user is google authed, but doesn't have a valid refresh
