@@ -1,2 +1,2 @@
-web: bundle exec puma -C ./config/puma.rb
+web: bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM} || bundle exec puma -C ./config/puma.rb
 log: tail -f log/development.log

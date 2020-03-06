@@ -13,13 +13,13 @@ export function caseInsensitiveMatch(response: string, responses:Array<Response>
   );
 }
 
-export function caseInsensitiveChecker(responseString: string, responses:Array<Response>, passConceptResults:Boolean=false, caseInsensitive:Boolean=false):PartialResponse|undefined {
+export function caseInsensitiveChecker(responseString: string, responses:Array<Response>, passConceptResults:Boolean=false, caseInsensitive:Boolean=false, isDiagnosticFIB:Boolean=false):PartialResponse|undefined {
   const match = caseInsensitiveMatch(responseString, responses, caseInsensitive);
   let lenientCasing = caseInsensitive
   if (match) {
     const parentID = match.id
-    // if the response is otherwise optimal, we want to override caseInsensitive and call out casing errors
-    if (match.optimal && responseString != match.text) {
+    // if the response is otherwise optimal and NOT a diagnostic fill in the blank response, we want to override caseInsensitive and call out casing errors
+    if (match.optimal && responseString != match.text && !isDiagnosticFIB) {
       lenientCasing = false
     }
     const conceptResults = passConceptResults ? match.concept_results : null
