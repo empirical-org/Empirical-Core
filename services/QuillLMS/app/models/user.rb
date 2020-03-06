@@ -103,14 +103,6 @@ class User < ActiveRecord::Base
   attr_accessor :newsletter
 
   def testing_flag
-    if role == STAFF
-      time_diff = Time.now - last_sign_in
-      time_diff = time_diff = time_diff.round.abs
-      hours = time_diff / 3600
-      if hours > 4
-        auth_credential.destroy!
-      end
-    end
     role == STAFF ? PRIVATE : flags.detect{|f| TESTING_FLAGS.include?(f)}
   end
 
