@@ -43,12 +43,12 @@ describe('The caseInsensitiveMatch function', () => {
 
   it('Should return true if the lowercased response string matches a lowercased partial response', () => {
       const responseString = "my dog took a nap.";
-      assert.ok(caseInsensitiveMatch(responseString, savedResponses));
+      assert.ok(caseInsensitiveMatch(responseString, savedResponses, false));
   });
 
   it('Should return false if the lowercased response string does not match a lowercased partial response', () => {
       const responseString = "my cat took a nap.";
-      assert.notOk(caseInsensitiveMatch(responseString, savedResponses));
+      assert.notOk(caseInsensitiveMatch(responseString, savedResponses, false));
   });
 
 });
@@ -60,7 +60,7 @@ describe('The caseInsensitiveChecker', () => {
     const partialResponse =  {
         feedback: feedbackStrings.caseError,
         author: 'Capitalization Hint',
-        parent_id: caseInsensitiveMatch(responseString, savedResponses).id,
+        parent_id: caseInsensitiveMatch(responseString, savedResponses, false).id,
         concept_results: [
           conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
         ],
@@ -78,7 +78,7 @@ describe('The caseInsensitiveChecker', () => {
 
   it('Should return the same concept results as the matched response if it is asked to', () => {
     const responseString = "my dog took a nap.";
-    assert.ok(_.isEqual(caseInsensitiveChecker(responseString, savedResponses, true).concept_results, caseInsensitiveMatch(responseString, savedResponses).concept_results));
+    assert.ok(_.isEqual(caseInsensitiveChecker(responseString, savedResponses, true).concept_results, caseInsensitiveMatch(responseString, savedResponses, false).concept_results));
   });
 
   it('Should return a partialResponse object if the lowercased response string matches a lowercased optimal response and caseInsensitive flag is on', () => {
@@ -87,7 +87,7 @@ describe('The caseInsensitiveChecker', () => {
     const partialResponse =  {
       feedback: feedbackStrings.caseError,
       author: 'Capitalization Hint',
-      parent_id: caseInsensitiveMatch(responseString, savedResponses).id,
+      parent_id: caseInsensitiveMatch(responseString, savedResponses, false).id,
       concept_results: [
         conceptResultTemplate('S76ceOpAWR-5m-k47nu6KQ')
       ],
@@ -97,6 +97,14 @@ describe('The caseInsensitiveChecker', () => {
     assert.equal(caseInsensitiveChecker(responseString, savedResponses, false, caseInsensitive).author, partialResponse.author);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses, false, caseInsensitive).parent_id, partialResponse.parent_id);
     assert.equal(caseInsensitiveChecker(responseString, savedResponses, false, caseInsensitive).concept_results.length, partialResponse.concept_results.length);
+  });
+
+  it('Should return the exact matched response if the lowercased response string matches a lowercased optimal response and caseInsensitive flag is on but it is a diagnostic question', () => {
+    const responseString = "My DOG took a nap.";
+    const caseInsensitive = true
+    const isDiagnosticFIB = true
+
+    assert.ok(caseInsensitiveChecker(responseString, savedResponses, false, caseInsensitive, isDiagnosticFIB).optimal);
   });
 
   it('Should return the exact matched response if the lowercased response string matches a lowercased partial response and caseInsensitive flag is on', () => {
