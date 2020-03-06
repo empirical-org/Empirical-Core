@@ -46,17 +46,17 @@ module.exports = merge(config, {
       chunks: 'async',
       minSize: 30000,
       maxSize: 0,
-      minChunks: Infinity,
+      minChunks: 1,
       maxAsyncRequests: 6,
       maxInitialRequests: 4,
       automaticNameDelimiter: '~',
       cacheGroups: {
         vendors: {
-          test: /[\\/]node_modules[\\/]/,
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
           priority: -10
         },
         default: {
-          minChunks: Infinity,
+          minChunks: 2,
           priority: -20,
           reuseExistingChunk: true
         }
@@ -65,7 +65,7 @@ module.exports = merge(config, {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        parallel: true,
+        parallel: 4,
         cache: 'webpack',
       }),
     ],
