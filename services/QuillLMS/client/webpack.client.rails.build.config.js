@@ -66,6 +66,7 @@ module.exports = merge(config, {
     minimizer: [
       new TerserPlugin({
         parallel: 4,
+        cache: 'tmp/cache/webpack',
       }),
     ],
   },
