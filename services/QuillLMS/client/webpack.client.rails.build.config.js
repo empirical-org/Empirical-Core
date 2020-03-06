@@ -9,7 +9,8 @@ const merge = require('webpack-merge');
 const config = require('./webpack.client.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
@@ -61,7 +62,12 @@ module.exports = merge(config, {
         }
       }
     },
-    minimize: true
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: 4,
+      }),
+    ],
   },
 
   // See webpack.client.base.config for adding modules common to both webpack dev server and rails
