@@ -152,7 +152,7 @@ class ApplicationController < ActionController::Base
       puts hours
       if hours > 4
         user_id = current_user.id
-        auth_credential = AuthCredential.where(user_id:user_id).first()
+        auth_credential = AuthCredential.where(user_id: user_id).first
         if auth_credential.present?
           auth_credential.destroy!
         end
