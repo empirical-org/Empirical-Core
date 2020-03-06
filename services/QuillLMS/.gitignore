@@ -49,6 +49,7 @@ node_modules
 # Generated js bundles
 /app/assets/webpack/*
 client/node_modules/*
+client/webpack/*
 app/assets/webpack/app-bundle.js
 app/assets/webpack/server-bundle.js
 app/assets/webpack/vendor-bundle.js
