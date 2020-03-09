@@ -3,7 +3,7 @@ import { Cue, CueExplanation, } from 'quill-component-library/dist/componentLibr
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 
 const Cues = ({ cues, cuesLabel, }) => {
-  if (!cues.length) { return <span /> }
+  if (!cues || !cues.length) { return <span /> }
 
   const arrowPicture = cuesLabel !== ' ' ? <img alt="Arrow Icon" src={arrow} /> : null
   const cueExplanation = cuesLabel !== ' ' ? <CueExplanation text={cuesLabel || 'choose one'} /> : null

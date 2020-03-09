@@ -1,6 +1,8 @@
 .cues {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: -6px;
   .cue {
     background-color: #fffed5;
     line-height: 28px;
@@ -18,5 +20,9 @@
     font-size: 14px;
     line-height: 28px;
     color: #636363;
+  }
+
+  img, .cue-explanation, .cue {
+    margin-bottom: 6px;
   }
 }
