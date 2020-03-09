@@ -291,7 +291,9 @@ export default class PlayLessonQuestion extends React.Component {
               return <ConceptExplanation {...data} />;
             }
           }
-      } else if (latestAttempt.response.concept_results) {
+      }
+
+      if (latestAttempt.response.concept_results) {
         const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
         if (conceptID) {
           const data = conceptsFeedback.data[conceptID.conceptUID];
@@ -299,12 +301,16 @@ export default class PlayLessonQuestion extends React.Component {
             return <ConceptExplanation {...data} />;
           }
         }
-      } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+      }
+
+      if (this.getQuestion() && this.getQuestion().modelConceptUID) {
         const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
         if (dataF) {
           return <ConceptExplanation {...dataF} />;
         }
-      } else if (this.getQuestion().conceptID) {
+      }
+
+      if (this.getQuestion().conceptID) {
         const data = conceptsFeedback.data[this.getQuestion().conceptID];
         if (data) {
           return <ConceptExplanation {...data} />;
