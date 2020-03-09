@@ -176,7 +176,10 @@
     ],
     "globals": {
       "window": true,
-      "process.env.CDN_URL": "http://cdn.quill.org"
+      "process.env.CDN_URL": "http://cdn.quill.org",
+      "ts-jest": {
+        "diagnostics": false
+      }
     },
     "coverageDirectory": "<rootDir>/coverage/",
     "collectCoverage": false,
