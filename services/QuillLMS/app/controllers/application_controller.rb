@@ -146,7 +146,7 @@ class ApplicationController < ActionController::Base
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
     # if user is staff, logout if last_sign_in was more than 4 hours ago
-    if current_user && current_user.role == 'staff'
+    if current_user && current_user.role == 'staff' && current_user.last_sign_in
       time_diff = Time.now - current_user.last_sign_in
       time_diff = time_diff.round.abs
       hours = time_diff / 3600
