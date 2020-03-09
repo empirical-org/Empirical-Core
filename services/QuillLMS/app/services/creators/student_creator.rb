@@ -1,5 +1,7 @@
 module Creators::StudentCreator
 
+  USERNAME_TAKEN = 'Validation failed: Username That username is taken. Try another.'
+
   def self.check_names(params)
     name_validator = ValidateFullName.new(params[:user]).call
     if name_validator[:status] == 'failure'
@@ -13,7 +15,17 @@ module Creators::StudentCreator
   def self.create_student(user_params, classroom_id)
     @student = User.new(user_params)
     @student.generate_student(classroom_id)
-    @student.save!
+    counter = 0
+    begin
+      counter += 1
+      @student.save!
+    rescue ActiveRecord::RecordInvalid => e
+      if e.message == USERNAME_TAKEN
+        @student.generate_username(classroom_id)
+        retry if counter <= 3
+      end
+      raise e
+    end
     build_classroom_relation(classroom_id)
     @student
   end
