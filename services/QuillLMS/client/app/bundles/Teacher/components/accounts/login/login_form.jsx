@@ -130,7 +130,13 @@ class LoginFormApp extends React.Component {
           window.location.href = '/auth/google_oauth2?prompt=consent';
         }
         else {
-          window.location.href = '/';
+          var now = new Date().toISOString();
+          if (userData.user.refresh_token_expires_at > now) {
+            window.location.href = '/auth/google_oauth2?prompt=consent';
+          }
+          else {
+            window.location.href = '/';
+          }
         }
       }
     );

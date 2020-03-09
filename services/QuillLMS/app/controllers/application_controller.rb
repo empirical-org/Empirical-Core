@@ -143,11 +143,12 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_valid_session
+    now = Time.now().in_time_zone.utc
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
-    # if user is staff, logout if last_sign_in was more than 4 hours ago
-    if current_user && current_user.role == 'staff' && current_user.last_sign_in
-      time_diff = Time.now - current_user.last_sign_in
+    # if user is staff, logout if auth_credential.created_at was more than 4 hours ago
+    if current_user && current_user.role == 'staff' && current_user.auth_credential
+      time_diff = now - current_user.auth_credential.created_at
       time_diff = time_diff.round.abs
       hours = time_diff / 3600
       if hours > 4
@@ -158,7 +159,18 @@ class ApplicationController < ActionController::Base
         end
         return if !current_user || !session
       end
-    end    
+    end
+    # if refresh_token has expired, logout user
+    if current_user
+      auth_credential = AuthCredential.where(user_id: user_id).first
+      if auth_credential.present?
+        # AuthCredential has expired
+        if now > auth_credential.expires_at
+          auth_credential.destroy!
+        end
+      end
+      return if !current_user || !session
+    end
     # If the user is google authed, but doesn't have a valid refresh
     # token, then we need to invalidate their session
     return reset_session if current_user.google_id && !current_user.auth_credential&.refresh_token
