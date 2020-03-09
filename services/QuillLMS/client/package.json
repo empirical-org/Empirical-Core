@@ -139,7 +139,7 @@
     "jscs:fix": "jscs --verbose -x . --silent",
     "test": "npm run build:test && rspec",
     "build:test": "npm run build:client && npm run build:server",
-    "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js --display verbose --display-cached",
+    "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js --optimize-minimize --display verbose --display-cached --progress",
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
     "build:client": "webpack --config webpack.client.rails.build.config.js",
     "build:dev:client": "RAILS_ENV=development webpack -w --config webpack.client.rails.build.config.js",
