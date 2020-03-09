@@ -30,36 +30,6 @@ describe Teachers::UnitTemplatesController, type: :controller do
     end
   end
 
-  # no route for this action
-  # describe '#show' do
-  #   let!(:unit_template) { create(:unit_template) }
-  #
-  #   context 'when teacher' do
-  #     it 'should set the content and unit template' do
-  #       get :show, id: unit_template.id
-  #       expect(assigns(:content)).to eq "Try out the #{unit_template.name} Activity Pack I'm using at Quill.org"
-  #       expect(assigns(:unit_template_id)).to eq unit_template.id
-  #     end
-  #
-  #     it 'should render show' do
-  #       expect(response).to render_template :show
-  #     end
-  #   end
-  #
-  #   context 'when not teacher' do
-  #     let(:student) { create(:student) }
-  #
-  #     before do
-  #       allow(controller).to receive(:current_user) { student }
-  #     end
-  #
-  #     it 'should render public show' do
-  #       get :show, id: unit_template.id
-  #       expect(response).to render_template "public_show"
-  #     end
-  #   end
-  # end
-
   describe '#count' do
     it 'should set the count' do
       get :count, format: :json
@@ -77,7 +47,8 @@ describe Teachers::UnitTemplatesController, type: :controller do
       get :profile_info, id: unit_template1.id
       expect(response.body).to eq({
         data: {
-          non_authenticated: false
+          non_authenticated: false,
+          flag: nil
         },
         referral_code: teacher.referral_code
       }.to_json)
