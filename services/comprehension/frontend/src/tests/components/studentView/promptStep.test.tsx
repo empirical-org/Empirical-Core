@@ -2,8 +2,8 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import PromptStep, { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, } from '../../components/studentView/promptStep'
-import EditorContainer from '../../components/studentView/editorContainer'
+import PromptStep, { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, } from '../../../components/studentView/promptStep'
+import EditorContainer from '../../../components/studentView/editorContainer'
 
 import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
@@ -54,7 +54,8 @@ describe('PromptStep component', () => {
       describe('#lastSubmittedResponse', () => {
         it('should return the last submitted response', () => {
           const lastSubmittedResponse = wrapper.instance().lastSubmittedResponse()
-          expect(lastSubmittedResponse).toEqual(submittedResponses[3])
+          const lastSubmittedResponseIndex = submittedResponses.length - 1
+          expect(lastSubmittedResponse).toEqual(submittedResponses[lastSubmittedResponseIndex])
         })
       })
 
