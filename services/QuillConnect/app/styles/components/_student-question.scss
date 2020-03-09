@@ -55,25 +55,6 @@
 
 .cues {
   margin-top: 9px;
-  display: inline-flex;
-  align-items: center;
-  .cue {
-    background-color: #fffed5;
-    line-height: 28px;
-    font-size: 20px;
-    margin-right: 13px;
-    padding: 0 5px;
-  }
-
-  img {
-    margin-right: 7px;
-  }
-
-  .cue-explanation {
-    font-size: 14px;
-    line-height: 28px;
-    color: #636363;
-  }
 }
 
 .end-state-container {

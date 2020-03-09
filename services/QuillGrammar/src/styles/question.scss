@@ -1,3 +1,27 @@
+.cues {
+  display: inline-flex;
+  align-items: center;
+  .cue {
+    background-color: #fffed5;
+    line-height: 28px;
+    font-size: 20px;
+    margin-right: 13px;
+    padding: 0 5px;
+    color: #3f3f3f;
+  }
+
+  img {
+    margin-right: 7px;
+  }
+
+  .cue-explanation {
+    font-size: 14px;
+    line-height: 28px;
+    color: #636363;
+  }
+}
+
+
 .feedback-row {
   display: flex;
   align-items: flex-start;
@@ -120,6 +144,10 @@
     font-size: 30px;
     line-height: 1.27;
     color: #2f2f2f;
+  }
+
+  .cues {
+    margin-top: 20px;
   }
 
   .input-field {

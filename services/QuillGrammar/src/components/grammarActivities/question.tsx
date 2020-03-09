@@ -5,6 +5,8 @@ import { Response, ConceptResult } from 'quill-marking-logic'
 import { ConceptExplanation } from '../../../../../packages/quill-component-library/src/components/feedback/conceptExplanation'
 import { Feedback } from '../../../../../packages/quill-component-library/src/components/renderForQuestions/feedback'
 import { hashToCollection, ProgressBar } from 'quill-component-library/dist/componentLibrary'
+
+import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
@@ -272,12 +274,15 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   renderQuestionSection(): JSX.Element {
     const question = this.currentQuestion()
-    const { prompt, attempts, } = question
+    const { prompt, attempts, cues, cues_label, } = question
     const latestAttempt = this.getLatestAttempt(attempts)
     const feedbackKey = latestAttempt ? latestAttempt.text : 'instructions'
     return (<div className="question-section">
       <Row align="middle" justify="start" type="flex">
         <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
+      </Row>
+      <Row align="middle" justify="start" type="flex">
+        <Cues cues={cues} cuesLabel={cues_label} />
       </Row>
       <Row align="middle" justify="start" key={feedbackKey} type="flex">
         {this.renderFeedbackSection()}

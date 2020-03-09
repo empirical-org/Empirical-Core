@@ -11,67 +11,74 @@ export default class QuestionForm extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      prompt: this.props.question,
-      concept_uid: this.props.question.concept_uid,
-      instructions: this.props.question.instructions ? this.props.question.instructions : "",
-      flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      rule_description: this.props.question.rule_description ? this.props.question.rule_description : '',
-      answers: this.props.question.answers ? this.props.question.answers : []
-    }
+    const { question, } = props
 
-    this.submit = this.submit.bind(this)
-    this.handlePromptChange = this.handlePromptChange.bind(this)
-    this.handleInstructionsChange = this.handleInstructionsChange.bind(this)
-    this.handleRuleDescriptionChange = this.handleRuleDescriptionChange.bind(this)
-    this.handleSelectorChange = this.handleSelectorChange.bind(this)
-    this.handleConceptChange = this.handleConceptChange.bind(this)
-    this.handleFlagChange = this.handleFlagChange.bind(this)
-    this.handleAnswersChange = this.handleAnswersChange.bind(this)
+    const { prompt, concept_uid, instructions, flag, rule_description, answers, cues, cues_label, } = question
+
+    this.state = {
+      prompt,
+      concept_uid,
+      instructions: instructions || '',
+      flag: flag || "alpha",
+      rule_description: rule_description || '',
+      answers: answers || [],
+      cues: cues ? cues.join(',') : '',
+      cues_label: cues_label || ''
+    }
   }
 
-  submit() {
-    this.props.submit({
-      prompt: this.state.prompt,
-      concept_uid: this.state.concept_uid,
-      instructions: this.state.instructions,
-      flag: this.state.flag,
-      rule_description: this.state.rule_description,
-      answers: this.state.answers
+  submit = () => {
+    const { submit, } = this.props
+    const { prompt, concept_uid, instructions, flag, rule_description, answers, cues, cues_label, } = this.state
+    submit({
+      prompt,
+      concept_uid,
+      instructions,
+      flag,
+      rule_description,
+      answers,
+      cues: cues.split(','),
+      cues_label
     })
   }
 
-  handlePromptChange(e) {
+  handlePromptChange = (e) => {
     this.setState({prompt: e})
   }
 
-  handleInstructionsChange(e) {
+  handleInstructionsChange = (e) => {
     this.setState({instructions: e.target.value})
   }
 
-  handleRuleDescriptionChange(e) {
+  handleRuleDescriptionChange = (e) => {
     this.setState({rule_description: e})
   }
 
-  handleSelectorChange(e) {
+  handleSelectorChange = (e) => {
     this.setState({concept_uid: e.value})
   }
 
-  handleConceptChange() {
-    this.setState({concept_uid: this.refs.concept.value})
-  }
-
-  handleFlagChange(e) {
+  handleFlagChange = (e) => {
     this.setState({ flag: e.target.value, });
   }
 
-  handleAnswersChange(e) {
+  handleCuesChange = (e) => {
+    this.setState({ cues: e.target.value, });
+  }
+
+  handleCuesLabelChange = (e) => {
+    this.setState({ cues_label: e.target.value, });
+  }
+
+  handleAnswersChange = (e) => {
     this.setState({ answers: [{ text: e.target.value }], });
   }
 
   render() {
-    if (this.props.concepts.hasreceiveddata) {
-      const optimalAnswer = this.props.question.answers[0] ? this.props.question.answers[0].text : ''
+    const { concepts, } = this.props
+    const { answers, prompt, instructions, flag, concept_uid, rule_description, cues, cues_label, } = this.state
+    if (concepts.hasreceiveddata) {
+      const optimalAnswer = answers[0] ? answers[0].text : ''
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -80,27 +87,35 @@ export default class QuestionForm extends React.Component {
             ContentState={ContentState}
             EditorState={EditorState}
             handleTextChange={this.handlePromptChange}
-            text={this.props.question.prompt || ""}
+            text={prompt || ""}
           />
           <label className="label">Instructions for student</label>
           <p className="control">
-            <textarea className="input" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} ref="instructions" type="text" />
+            <textarea className="input" defaultValue={instructions} onChange={this.handleInstructionsChange} ref="instructions" type="text" />
           </p>
-          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
+          <FlagDropdown flag={flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           <label className="label">Concept</label>
           <div>
             <ConceptSelector
-              currentConceptUID={this.state.concept_uid}
+              currentConceptUID={concept_uid}
               handleSelectorChange={this.handleSelectorChange}
             />
           </div>
+          <label className="label">Cues Label (default is "choose one", enter a space to have no label)</label>
+          <p className="control">
+            <input className="input" defaultValue={cues_label} onChange={this.handleCuesLabelChange} type="text" />
+          </p>
+          <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
+          <p className="control">
+            <input className="input" defaultValue={cues} onChange={this.handleCuesChange} type="text" />
+          </p>
           <label className="label">Rule description (optional, will overwrite the concept's description for this question if set)</label>
           <p className="control">
             <TextEditor
               ContentState={ContentState}
               EditorState={EditorState}
               handleTextChange={this.handleRuleDescriptionChange}
-              text={this.props.question.rule_description || ""}
+              text={rule_description}
             />
           </p>
           <label className="label">Optimal answer (you can add more later)</label>
