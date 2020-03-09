@@ -13,7 +13,8 @@ describe Api::V1::UsersController do
       expect(response.body).to eq({
         user: user,
         text: "Hi",
-        has_refresh_token: false
+        has_refresh_token: false,
+        refresh_token_expires_at: nil
       }.to_json)
     end
   end
