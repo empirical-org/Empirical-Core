@@ -570,6 +570,14 @@ class User < ActiveRecord::Base
     role == 'teacher' && !school && previous_changes["id"]
   end
 
+  def generate_username(classroom_id=nil)
+    self.username = GenerateUsername.new(
+      first_name,
+      last_name,
+      get_class_code(classroom_id)
+    ).call
+  end
+
   private
   def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
@@ -630,14 +638,6 @@ class User < ActiveRecord::Base
   def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
     Classroom.find(classroom_id).code
-  end
-
-  def generate_username(classroom_id=nil)
-    self.username = GenerateUsername.new(
-      first_name,
-      last_name,
-      get_class_code(classroom_id)
-    ).call
   end
 
   def update_invitee_email_address
