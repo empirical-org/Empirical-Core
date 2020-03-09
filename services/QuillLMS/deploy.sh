@@ -26,7 +26,7 @@ read -r -p "Deploy branch '$CURRENT_BRANCH' to '$1' environment? [Y/n]" response
 if [[ "$response" =~ ^([Y])$ ]]
 then
     git push ${DEPLOY_GIT_REMOTE} ${CURRENT_BRANCH}:master -v
-    open "https://rpm.newrelic.com/accounts/770600/applications/3825541"
+    open "https://rpm.newrelic.com/accounts/2639113/applications/548856875"
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi
