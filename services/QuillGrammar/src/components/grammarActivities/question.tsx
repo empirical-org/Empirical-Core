@@ -2,9 +2,7 @@ import * as React from "react";
 import ContentEditable from 'react-contenteditable';
 import { Row } from "antd";
 import { Response, ConceptResult } from 'quill-marking-logic'
-import { ConceptExplanation } from '../../../../../packages/quill-component-library/src/components/feedback/conceptExplanation'
-import { Feedback } from '../../../../../packages/quill-component-library/src/components/renderForQuestions/feedback'
-import { hashToCollection, ProgressBar } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection, ProgressBar, ConceptExplanation, Feedback, } from 'quill-component-library/dist/componentLibrary'
 
 import Cues from './cues'
 import { Question } from '../../interfaces/questions'

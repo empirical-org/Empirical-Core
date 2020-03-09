@@ -68,27 +68,19 @@
 
   .top-answer-text {
     width: 100%;
-    font-family: $family-monospace;
     margin-top: 15px;
     padding-left: 15px;
+    color: #3f3f3f;
 
-    .top-answer-title {
-      color: #464646;
-      font-family: $family-monospace;
-      // margin-bottom:
-    }
     ul.top-answer-list {
-      font-family: $family-monospace;
       list-style-type: none;
       margin: 0;
-      color: #464646;
 
       .top-answer-list-item {
         display: flex;
         justify-content: space-between;
 
         .diffed-word {
-          color: #464646;
           font-weight: bold;
         }
 
