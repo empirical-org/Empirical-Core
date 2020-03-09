@@ -131,7 +131,7 @@ class LoginFormApp extends React.Component {
         }
         else {
           var now = new Date().toISOString();
-          if (userData.user.refresh_token_expires_at > now) {
+          if (now > userData.user.refresh_token_expires_at) {
             window.location.href = '/auth/google_oauth2?prompt=consent';
           }
           else {
