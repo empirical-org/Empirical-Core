@@ -3,7 +3,7 @@ import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-route
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx'
 import UnitTemplateAssigned from '../components/assignment_flow/unit_template_assigned'
 import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
-import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile'
+import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx'
 import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity'
 import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx'
 import CreateUnit from '../components/assignment_flow/create_unit/create_unit'
