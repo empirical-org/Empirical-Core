@@ -43,7 +43,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
 
   renderButton = () => {
     return (
-      <button className="quill-button focus-on-light primary contained large" onClick={this.handleNextClick} type="button">Next</button>
+      <button className="quill-button focus-on-light primary contained large" onClick={this.handleNextClick} type="button">Begin</button>
     );
   }
 
@@ -61,13 +61,13 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
     return (
       <div className="intro welcome-page">
         <h1>Welcome to Quill Grammar!</h1>
-        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</p>
+        <p>Follow the instructions for each prompt.</p>
         <br />
-        <p>Vestibulum id ligula porta felis euismod.</p>
+        <p>Use the example as a guide.</p>
         <br />
-        <p>Cras sociis natoque penatibus et magnis dis parturient montes.</p>
+        <p>Type your sentence into the box.</p>
         <br />
-        <p>Donec ullamcorper nulla non metus auctor fringilla!</p>
+        <p>Remember to use correct spelling, capitalization, and punctuation!</p>
         {this.renderButton()}
       </div>
     );

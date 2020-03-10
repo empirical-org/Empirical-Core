@@ -8,7 +8,7 @@
   p {
     margin-bottom: 0;
     font-size: 20px;
-    color: #5a5a5a;
+    color: #3f3f3f;
     line-height: 1.45;
   }
   &.admin-feedback-row {
@@ -42,10 +42,9 @@
 
   &.success {
     background-color: #d3e7bd;
-    padding: 13 17 16 20;
     border-left: 3px solid #498900;
 
-    p {
+    p, strong, em {
       color: #457818;
     }
 
@@ -66,7 +65,6 @@
 
   &.revise {
     background-color: #ffe4b7;
-    padding: 13 17 16 20;
     border-left: 3px solid #b17410;
     animation: revisepulse 0.8s 1;
 
@@ -82,7 +80,7 @@
       }
     }
 
-    p {
+    p, strong, em {
       color: #875a12;
     }
   }

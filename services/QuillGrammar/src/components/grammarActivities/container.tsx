@@ -34,6 +34,7 @@ interface PlayGrammarContainerState {
   showTurkCode: boolean;
   saved: boolean;
   error: boolean;
+  saving: boolean;
 }
 
 interface PlayGrammarContainerProps {
@@ -49,6 +50,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
       this.state = {
         showTurkCode: false,
+        saving: false,
         saved: false,
         error: false
       }
@@ -114,6 +116,9 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
       let results
+
+      this.setState({ saving: true, })
+
       if (window.location.href.includes('turk')) {
         this.setState({showTurkCode: true})
       }
@@ -220,7 +225,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     render(): JSX.Element {
       const proofreaderSessionId = getParameterByName('proofreaderSessionId', window.location.href)
 
-      const { showTurkCode, } = this.state
+      const { showTurkCode, saving, } = this.state
       const { grammarActivities, session, concepts, conceptsFeedback, } = this.props
 
       if (showTurkCode) {
@@ -241,6 +246,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
             unansweredQuestions={session.unansweredQuestions}
           />)
         }
+        if (saving) { return <LoadingSpinner /> }
         return <Intro activity={grammarActivities ? grammarActivities.currentActivity : null} session={session} startActivity={this.goToNextQuestion} />
       }
 

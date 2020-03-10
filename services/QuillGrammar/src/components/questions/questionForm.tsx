@@ -37,7 +37,7 @@ export default class QuestionForm extends React.Component {
       flag,
       rule_description,
       answers,
-      cues: cues.split(','),
+      cues: cues.split(',').filter(cue => cue.length),
       cues_label
     })
   }
