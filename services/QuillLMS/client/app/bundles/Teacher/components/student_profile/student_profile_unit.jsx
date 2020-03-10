@@ -94,11 +94,11 @@ export default class StudentProfileUnit extends React.Component {
       return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
     }
 
-    if (maxPercentage > PROFICIENT_CUTOFF) {
+    if (maxPercentage >= PROFICIENT_CUTOFF) {
       return (<div className="score"><div className="proficient" /><span>Proficient</span></div>)
     }
 
-    if (maxPercentage > NEARLY_PROFICIENT_CUTOFF) {
+    if (maxPercentage >= NEARLY_PROFICIENT_CUTOFF) {
       return (<div className="score"><div className="nearly-proficient" /><span>Nearly proficient</span></div>)
     }
 
