@@ -72,7 +72,7 @@
     "lodash": "^4.17.15",
     "pos": "^0.4.2",
     "quill-component-library": "0.7.24",
-    "quill-spellchecker": "^0.1.19",
+    "quill-spellchecker": "^0.1.20",
     "quill-string-normalizer": "0.0.9",
     "request-promise": "^4.2.5",
     "rollup-plugin-commonjs": "^8.3.0",
