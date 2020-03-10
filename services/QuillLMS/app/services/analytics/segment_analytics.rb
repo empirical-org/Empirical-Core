@@ -21,35 +21,39 @@ class SegmentAnalytics
     # make sure that event name is written as a string in the pattern of
     # those in app/services/analytics/segment_io.rb
     # i.e. "BUILD_YOUR_OWN_ACTIVITY_PACK"
-    track({
+    user = User.find(user_id)
+    track(user, {
        user_id: user_id,
        event: "SegmentIo::BackgroundEvents::#{event_name}".constantize
       })
   end
 
   def track_activity_assignment(teacher_id)
-    track({
+    user = User.find(teacher_id)
+    track(user, {
       user_id: teacher_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_ASSIGNMENT
     })
   end
 
   def track_classroom_creation(classroom)
-    track({
+    user = User.find(classroom&.owner&.id)
+    track(user, {
       user_id: classroom&.owner&.id,
       event: SegmentIo::BackgroundEvents::CLASSROOM_CREATION
     })
   end
 
   def track_click_sign_up
-    track({
+    track(nil, {
       user_id: anonymous_uid,
       event: SegmentIo::BackgroundEvents::CLICK_SIGN_UP
     })
   end
 
   def track_activity_search(user_id, search_query)
-    track({
+    user = User.find(user_id)
+    track(user, {
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::ACTIVITY_SEARCH,
       properties: {
@@ -59,7 +63,8 @@ class SegmentAnalytics
   end
 
   def track_student_login_pdf_download(user_id, classroom_id)
-    track({
+    user = User.find(user_id)
+    track(user, {
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::STUDENT_LOGIN_PDF_DOWNLOAD,
       properties: {
@@ -68,8 +73,9 @@ class SegmentAnalytics
     })
   end
 
-  def track(options)
+  def track(user, options)
     if backend.present?
+      options[:integrations] = integration_rules(user)
       backend.track(options)
     end
   end
@@ -88,7 +94,7 @@ class SegmentAnalytics
   end
 
   def integration_rules(user)
-    should_send_data = (user.role == 'teacher')
+    should_send_data = (user&.role == 'teacher')
     integrations = {
      all: true,
      Intercom: should_send_data,

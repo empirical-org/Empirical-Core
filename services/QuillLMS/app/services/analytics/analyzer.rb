@@ -7,32 +7,32 @@ class Analyzer
 
   def track(user, event)
     analytics_identify(user)
-    analytics_track(user_id: user.id,
+    analytics_track(user, {user_id: user.id,
       event: event,
-      context: { ip: user.ip_address }
+      context: { ip: user.ip_address } }
     )
   end
 
   def track_with_attributes(user, event, attributes)
     analytics_identify(user)
-    analytics_track({user_id: user.id, event: event}.merge(attributes))
+    analytics_track(user, {user_id: user.id, event: event}.merge(attributes))
   end
 
   def track_chain(user, events)
     analytics_identify(user)
     events.each do |event|
-      analytics_track(
+      analytics_track(user, {
         user_id: user.id,
         event: event,
         context: { ip: user.ip_address }
-      )
+      })
     end
   end
 
   private
 
-  def analytics_track(hash)
-    analytics.track(hash)
+  def analytics_track(user, hash)
+    analytics.track(user, hash)
   end
 
   def analytics_identify(user)

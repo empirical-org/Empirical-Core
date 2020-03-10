@@ -71,11 +71,14 @@ exports[`ReviewActivities component should render 1`] = `
                   type="light"
                   wrapper="div"
                 />
-                <span
+                <a
                   className="tooltip-trigger activity-name"
+                  href="/activity_sessions/anonymous?activity_id=413"
+                  rel="noreferrer noopener"
+                  target="_blank"
                 >
                   Sentence Structure Diagnostic
-                </span>
+                </a>
               </div>
             </div>,
             "concept": "Diagnostics",
@@ -204,11 +207,14 @@ exports[`ReviewActivities component should render 1`] = `
                   type="light"
                   wrapper="div"
                 />
-                <span
+                <a
                   className="tooltip-trigger activity-name"
+                  href="/activity_sessions/anonymous?activity_id=654"
+                  rel="noreferrer noopener"
+                  target="_blank"
                 >
                   Lesson 1: Using In, At, and On to Show Time
-                </span>
+                </a>
               </div>
             </div>,
             "concept": "Prepositions",
