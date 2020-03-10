@@ -11,12 +11,13 @@ namespace :firebase do
     end
   end
 
-  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
+  task :import_as_blob, [:firebase_url, :model, :question_type] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
 
     for_each_firebase_key do |obj, data|
+      obj.question_type = @QUESTION_TYPE
       obj.data = data
       begin
         obj.save!
@@ -60,10 +61,11 @@ namespace :firebase do
     def set_arg_values(args)
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
-      if !@FIREBASE_URL || !@RAILS_MODEL
+      @QUESTION_TYPE = args[:question_type]
+      if !@FIREBASE_URL || !@RAILS_MODEL || !@QUESTION_TYPE
         puts('You must provide Firebase URL and Rails model args to run this task.')
         puts('Example usage:')
-        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question]')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,connect_sentence_combining]')
         exit
       end
     end
