@@ -278,9 +278,7 @@ export default class PlayLessonQuestion extends React.Component {
     const latestAttempt:{response: Response}|undefined = getLatestAttempt(question.attempts);
 
     // we do not want to show concept feedback if a response is optimal
-    if (!latestAttempt) { return }
-    if (!latestAttempt.response) { return }
-    if (latestAttempt.response.optimal) { return }
+    if (!latestAttempt || !latestAttempt.response || latestAttempt.response.optimal) { return }
 
     if (latestAttempt.response.author) {
       // we only want to show response-specific (ie, concept-result-specific) concept feedback if the response is matched
