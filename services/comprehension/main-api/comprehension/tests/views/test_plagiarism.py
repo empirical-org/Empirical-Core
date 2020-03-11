@@ -13,7 +13,8 @@ from ...views.plagiarism import (FEEDBACK_TYPE, FEEDBACK_ID, CORRECT_FEEDBACK)
 from ...utils import construct_feedback_payload
 
 
-PASSAGE_TEXT = "This is a test passage. \n\nPlease do not plagiarize this, students!"
+PASSAGE_TEXT = ("This is a test passage. \n\nPlease do not plagiarize this,"
+                "students!")
 
 
 class TestPlagiarismFeedbackView(TestCase):
@@ -66,20 +67,25 @@ class TestPlagiarismFeedbackView(TestCase):
 
     def test_is_not_plagiarized(self):
         entry = 'This is a totally original sentence, not plagiarized.'
-        self.assertFalse(self.plagView._check_is_plagiarism(entry, self.passage))
+        self.assertFalse(self.plagView._check_is_plagiarism(entry,
+                         self.passage))
 
     def test_is_plagiarized(self):
         entry = 'Please do not plagiarize this'
-        self.assertTrue(self.plagView._check_is_plagiarism(entry, self.passage))
+        self.assertTrue(self.plagView._check_is_plagiarism(entry,
+                        self.passage))
 
     def test_is_plagiarized_with_punctuation(self):
         entry = 'Please, do not!! plagiarize this? students'
-        self.assertTrue(self.plagView._check_is_plagiarism(entry, self.passage))
+        self.assertTrue(self.plagView._check_is_plagiarism(entry,
+                        self.passage))
 
     def test_is_plagiarized_with_capitalization(self):
         entry = 'please DO NOT plagiariZE THis'
-        self.assertTrue(self.plagView._check_is_plagiarism(entry, self.passage))
+        self.assertTrue(self.plagView._check_is_plagiarism(entry,
+                        self.passage))
 
     def test_is_plagiarized_across_paragraphs(self):
         entry = 'test passage please DO NOT yada yada'
-        self.assertTrue(self.plagView._check_is_plagiarism(entry, self.passage))
+        self.assertTrue(self.plagView._check_is_plagiarism(entry,
+                        self.passage))
