@@ -13,3 +13,14 @@
   background-color: #ededed;
   font-family: adelle-sans, "Arial", sans-serif;
 }
+
+button.card-footer-item {
+  color: #3273dc;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+button.card-footer-item:hover {
+  color: black;
+}
