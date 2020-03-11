@@ -2,7 +2,12 @@ import * as React from 'react';
 import { Cue, CueExplanation, } from 'quill-component-library/dist/componentLibrary'
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 
-const Cues = ({ cues, cuesLabel, }) => {
+interface CuesProps {
+  cuesLabel?: string;
+  cues?: string[];
+}
+
+const Cues = ({ cues, cuesLabel, }: CuesProps) => {
   if (!cues || !cues.length) { return <span /> }
 
   const arrowPicture = cuesLabel !== ' ' ? <img alt="Arrow Icon" src={arrow} /> : null
