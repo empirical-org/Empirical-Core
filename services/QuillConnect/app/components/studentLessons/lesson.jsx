@@ -310,6 +310,7 @@ export class Lesson extends React.Component {
           <PlayLessonQuestion
             conceptsFeedback={conceptsFeedback}
             dispatch={dispatch}
+            isAdmin={false}
             key={question.key}
             nextQuestion={this.nextQuestion}
             prefill={this.getLesson().prefill}
