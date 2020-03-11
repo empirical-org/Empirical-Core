@@ -74,6 +74,7 @@ export default class RenderFormForAnswer extends React.Component {
       handleChange,
       spellCheck,
       value,
+      isAdmin
     } = this.props
     let content
     let button
@@ -134,6 +135,7 @@ export default class RenderFormForAnswer extends React.Component {
             defaultValue={initialValue}
             disabled={disabled}
             getResponse={getResponse}
+            isAdmin={isAdmin}
             key={questionID}
             latestAttempt={getLatestAttempt(question.attempts)}
             onChange={handleChange}
