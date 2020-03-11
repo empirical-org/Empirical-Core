@@ -18,6 +18,9 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
+export const FRAGMENTS_QUESTION_TYPE = 'diagnostic_sentence_fragments'
+export const COMBINING_QUESTION_TYPE = 'diagnostic_sentence_combining'
+
 /*
   There are a LOT of non-required properties in these interfaces.
   These are, as best I can tell, the current expected properties
@@ -76,9 +79,9 @@ interface QuestionCollection {
   [key: string]: Question;
 }
 
-class QuestionApi {
-  static getAll(): Promise<QuestionCollection> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`);
+export class QuestionApi {
+  static getAll(questionType: string): Promise<QuestionCollection> {
+    return requestGet(`${ApiConstants.questionApiBaseUrl}.json?question_type=${questionType}`);
   }
 
   static get(uid: string): Promise<Question> {
@@ -110,7 +113,7 @@ class QuestionApi {
   }
 }
 
-class FocusPointApi {
+export class FocusPointApi {
   static getAll(questionId: string): Promise<FocusPointCollection> {
     return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points.json`);
   }
@@ -136,7 +139,7 @@ class FocusPointApi {
   }
 }
 
-class IncorrectSequenceApi {
+export class IncorrectSequenceApi {
   static getAll(questionId: string): Promise<IncorrectSequenceCollection> {
     return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences.json`);
   }
@@ -172,7 +175,7 @@ function startListeningToQuestions() {
 
 function loadQuestions() {
   return (dispatch, getState) => {
-    QuestionApi.getAll().then((questions) => {
+    QuestionApi.getAll(COMBINING_QUESTION_TYPE).then((questions) => {
       dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questions, });
     });
   };
