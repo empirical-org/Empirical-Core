@@ -28,7 +28,7 @@ class PlagiarismFeedbackView(ApiView):
         activity = prompt.activityprompt_set.first().activity
         passage = activity.activitypassage_set.first().passage
 
-        if self._check_is_plagiarism(entry, passage):
+        if self._check_is_plagiarism(entry, passage.text):
             feedback = INCORRECT_FEEDBACK
             optimal = False
         else:
@@ -49,7 +49,7 @@ class PlagiarismFeedbackView(ApiView):
         entry_words = (entry.translate(remove_punctuation)
                        .lower().split())
 
-        passage_words = (passage.text.translate(remove_punctuation)
+        passage_words = (passage.translate(remove_punctuation)
                          .lower().split())
 
         match = ((SequenceMatcher(lambda x: x in "\t\n", passage_words,
