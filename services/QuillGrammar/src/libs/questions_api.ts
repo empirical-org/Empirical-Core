@@ -95,5 +95,6 @@ export {
   QuestionApi,
   FocusPointApi,
   IncorrectSequenceApi,
-  GRAMMAR_QUESTION_TYPE
+  GRAMMAR_QUESTION_TYPE,
+  questionApiBaseUrl
 }
