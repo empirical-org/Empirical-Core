@@ -7,7 +7,7 @@ export function train(text: string, existingDictionary?: Dictionary): Dictionary
   }
   const dictionary: Dictionary = existingDictionary ? Object.assign({}, existingDictionary) : {};
   let word, m;
-  const r = /[a-z0-9%\-'$]+/gi;
+  const r = /[a-z0-9%\-'$,]+/gi;
   text = text;
   while (m = r.exec(text)) {  // eslint-disable-line no-cond-assign
     word = m[0];
