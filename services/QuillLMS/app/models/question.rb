@@ -1,7 +1,11 @@
 class Question < ActiveRecord::Base
   TYPES = [
     TYPE_CONNECT_SENTENCE_COMBINING = 'connect_sentence_combining',
-    TYPE_DIAGNOSTIC_SENTENCE_COMBINING = 'diagnostic_sentence_combining'
+    TYPE_CONNECT_SENTENCE_FRAGMENTS = 'connect_sentence_fragments',
+    TYPE_CONNECT_FILL_IN_BLANKS = 'connect_fill_in_blanks',
+    TYPE_DIAGNOSTIC_SENTENCE_COMBINING = 'diagnostic_sentence_combining',
+    TYPE_DIAGNOSTIC_SENTENCE_FRAGMENTS = 'diagnostic_sentence_fragments',
+    TYPE_DIAGNOSTIC_FILL_IN_BLANKS = 'diagnostic_fill_in_blanks'
   ]
   validates :data, presence: true
   validates :question_type, presence: true, inclusion: {in: TYPES}
