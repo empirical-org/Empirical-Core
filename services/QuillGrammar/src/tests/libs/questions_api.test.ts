@@ -3,7 +3,7 @@ import {
   mockRequestGet,
   mockRequestPost,
   mockRequestPut,
-} from '../__mocks__/request'
+} from '../__mocks__/request_wrapper'
 jest.mock('../../libs/request', () => ({
   requestDelete: mockRequestDelete,
   requestGet: mockRequestGet,
