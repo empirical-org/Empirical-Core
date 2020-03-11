@@ -24,7 +24,7 @@ class PlagiarismFeedbackView(ApiView):
     def post(self, request):
         submission = json.loads(request.body)
 
-        punctuation = ',.;|'
+        punctuation = ',.;|!?:'"-()[]/'
         remove_punctuation = str.maketrans(punctuation, ' ' * len(punctuation))
 
         entry_words = (submission['entry'].translate(remove_punctuation)
