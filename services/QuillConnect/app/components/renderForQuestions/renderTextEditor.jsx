@@ -20,10 +20,13 @@ export default class RenderTextEditor extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('paste', (e) => {
-      e.preventDefault()
-      return false
-    }, true);
+    const { isAdmin } = this.props
+    if (!isAdmin) {
+      window.addEventListener('paste', (e) => {
+        e.preventDefault()
+        return false
+      }, true);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
