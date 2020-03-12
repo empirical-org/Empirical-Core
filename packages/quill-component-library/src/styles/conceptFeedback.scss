@@ -1,0 +1,42 @@
+.concept-explanation {
+  font-size: 20px;
+  padding: 16px;
+  border-radius: 2px;
+  background-color: #e5e5e5;
+  .concept-explanation-title {
+    font-weight: bold;
+    display: flex;
+    margin-bottom: 8px;
+    img {
+      margin-right: 8px;
+    }
+  }
+  .concept-explanation-description {
+    padding-left: 33px;
+    margin-bottom: 16px;
+  }
+
+  .concept-explanation-see-write {
+    display: flex;
+    .concept-explanation-see {
+      margin-right: 16px;
+    }
+    .concept-explanation-see, .concept-explanation-write {
+      flex-grow: 1;
+      flex-basis: 0;
+      padding: 16px 24px 16px 32px;
+      border-radius: 2px;
+      background-color: #fff;
+      border-left: 2px solid #a5a5a5;
+    }
+  }
+  @media (max-width: 650px) {
+    .concept-explanation-see-write {
+      flex-direction: column;
+      .concept-explanation-see {
+        margin-right: 0px;
+        margin-bottom: 16px;
+      }
+    }
+  }
+}

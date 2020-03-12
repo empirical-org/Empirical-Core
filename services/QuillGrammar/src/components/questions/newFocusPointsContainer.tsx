@@ -8,38 +8,42 @@ class NewFocusPointsContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.submitFocusPointForm = this.submitFocusPointForm.bind(this);
+    this.handleSubmitFocusPointForm = this.handleSubmitFocusPointForm.bind(this);
   }
 
   getFocusPoints() {
-    return this.props.questions.data[this.props.match.params.questionID].focusPoints;
+    const { questions, match, } = this.props
+    return questions.data[match.params.questionID].focusPoints;
   }
 
-  submitFocusPointForm(data) {
+  handleSubmitFocusPointForm(data) {
+    const { dispatch, match, } = this.props
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
-    questionActions.submitNewFocusPoint(this.props.match.params.questionID, data);
+    dispatch(questionActions.submitNewFocusPoint(match.params.questionID, data));
     window.history.back();
   }
 
   render() {
+    const { children, match, questions, } = this.props
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
           itemLabel="Focus Point"
-          onSubmit={this.submitFocusPointForm}
-          questionID={this.props.match.params.questionID}
-          questions={this.props.questions}
+          onSubmit={this.handleSubmitFocusPointForm}
+          questionID={match.params.questionID}
+          questions={questions}
         />
-        {this.props.children}
+        {children}
       </div>
     );
   }
 }
 
 function select(props) {
+  const { questions, } = props
   return {
-    questions: props.questions,
+    questions: questions,
   }
 }
 
