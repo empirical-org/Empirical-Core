@@ -16,8 +16,12 @@ import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 
-import {QuestionApi,FocusPointApi,
-IncorrectSequenceApi,SENTENCE_COMBINING_TYPE} from '../libs/questions_api'
+import {
+  QuestionApi,
+  FocusPointApi,
+  IncorrectSequenceApi,
+  SENTENCE_COMBINING_TYPE
+} from '../libs/questions_api'
 
 const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
 
