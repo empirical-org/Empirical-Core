@@ -9,16 +9,20 @@ class IncorrectSequencesContainer extends React.Component {
     super();
 
     this.deleteSequence = this.deleteSequence.bind(this);
+    this.handleDeleteConceptResult = this.handleDeleteConceptResult.bind(this);
+    this.handleDeleteSequence = this.handleDeleteSequence.bind(this);
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
   }
 
   componentWillMount() {
-    this.props.dispatch(questionActions.getUsedSequences(this.props.match.params.questionID))
+    const { dispatch, match, } = this.props
+    dispatch(questionActions.getUsedSequences(match.params.questionID))
   }
 
   getQuestion() {
-    return this.props.questions.data[this.props.match.params.questionID];
+    const { match, questions, } = this.props
+    return questions.data[match.params.questionID];
   }
 
   getSequences() {
@@ -26,25 +30,28 @@ class IncorrectSequencesContainer extends React.Component {
   }
 
   submitSequenceForm(data, sequence) {
+    const { dispatch, match, } = this.props
     delete data.conceptResults.null;
     if (sequence) {
-      this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.match.params.questionID, data, sequence));
+      dispatch(questionActions.submitEditedIncorrectSequence(match.params.questionID, data, sequence));
     } else {
-      this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.match.params.questionID, data));
+      dispatch(questionActions.submitNewIncorrectSequence(match.params.questionID, data));
     }
   }
 
   deleteSequence(sequenceID: string) {
+    const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      this.props.dispatch(questionActions.deleteIncorrectSequence(this.props.match.params.questionID, sequenceID));
+      dispatch(questionActions.deleteIncorrectSequence(match.params.questionID, sequenceID));
     }
   }
 
   deleteConceptResult(conceptResultKey: string, sequenceKey: string) {
+    const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getSequences()[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.match.params.questionID, data, sequenceKey));
+      dispatch(questionActions.submitEditedIncorrectSequence(match.params.questionID, data, sequenceKey));
     }
   }
 
@@ -58,7 +65,7 @@ class IncorrectSequencesContainer extends React.Component {
         <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
           : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
-          <span className="tag is-small is-warning" onClick={() => this.deleteConceptResult(key, sequenceKey)} style={{ cursor: 'pointer', marginLeft: 5, }}>Delete</span>
+          <button className="tag is-small is-warning" onClick={this.handleDeleteConceptResult(key, sequenceKey)} style={{ cursor: 'pointer', marginLeft: 5, }} type="button">Delete</button>
         </p>
         )
       );
@@ -66,9 +73,20 @@ class IncorrectSequencesContainer extends React.Component {
     }
   }
 
+  handleDeleteConceptResult(key, sequenceKey) {
+    alert('clicked delete');
+    this.deleteConceptResult(key, sequenceKey)
+  }
+
+  handleDeleteSequence(key) {
+    this.deleteSequence(key)
+  }
+
   renderSequenceList() {
-    const components = _.mapObject(this.getSequences(), (val, key) => (
-      <div className="card is-fullwidth has-bottom-margin" key={key}>
+    const { match, } = this.props
+    const components = _.mapObject(this.getSequences(), (val, key) => {
+      const onClickDelete = () => { this.handleDeleteSequence(key) }
+      return (<div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
           <p className="card-header-title" style={{ display: 'inline-block', }}>
             {this.renderTagsForSequence(val.text)}
@@ -82,30 +100,32 @@ class IncorrectSequencesContainer extends React.Component {
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">
-          <a className="card-footer-item" href={`/#/admin/questions/${this.props.match.params.questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
-          <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
+          <a className="card-footer-item" href={`/#/admin/questions/${match.params.questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <button className="card-footer-item" onClick={onClickDelete} type="button">Delete</button>
         </footer>
       </div>
-    ));
+    )});
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
   sortCallback(sortInfo) {
+    const { dispatch, match, } = this.props
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    questionActions.updateIncorrectSequences(this.props.match.params.questionID, newIncorrectSequences)
+    dispatch(questionActions.updateIncorrectSequences(match.params.questionID, newIncorrectSequences))
   }
 
   render() {
+    const { children, match, } = this.props
     return (
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/questions/${this.props.match.params.questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/questions/${match.params.questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
-        {this.props.children}
+        {children}
       </div>
     );
   }

@@ -1,23 +1,34 @@
 import * as request from 'request'
 import Pusher from 'pusher-js';
 import { push } from 'react-router-redux';
-import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
-const questionsRef = rootRef.child('questions')
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import * as responseActions from './responses'
 import { Response, ConceptResult } from 'quill-marking-logic'
+import {
+  FocusPointApi,
+  IncorrectSequenceApi,
+  QuestionApi,
+  GRAMMAR_QUESTION_TYPE
+} from '../libs/questions_api'
 
 export const startListeningToQuestions = () => {
   return (dispatch: Function) => {
-    questionsRef.on('value', (snapshot: any) => {
-      const questions: Questions = snapshot.val()
+    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions: Questions) => {
       if (questions) {
         dispatch({ type: ActionTypes.RECEIVE_QUESTIONS_DATA, data: questions, });
       } else {
         dispatch({ type: ActionTypes.NO_QUESTIONS_FOUND })
       }
     });
+  }
+}
+
+export const getQuestion = (questionID: string) => {
+  return (dispatch: Function) => {
+    QuestionApi.get(questionID).then((question: Question) => {
+      dispatch({ type: ActionTypes.RECEIVE_SINGLE_QUESTION_DATA, uid: questionID, data: question })
+    })
   }
 }
 
@@ -51,10 +62,10 @@ export const getGradedResponsesWithCallback = (questionID: string, callback: Fun
 
 export const updateFlag = (qid: string, flag: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/flag/`).set(flag, (error: string) => {
-      if (error) {
-        alert(`Flag update failed! ${error}`);
-      }
+    QuestionApi.updateFlag(qid, flag).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error: string) => {
+      alert(`Flag update failed! ${error}`);
     });
   }
 }
@@ -132,15 +143,16 @@ export const removeSubscription = (qid: string) => {
 export const submitNewQuestion = (content: Question) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_QUESTION_RESPONSE, });
-    const newRef = questionsRef.push(content, (error: string) => {
+    QuestionApi.create(GRAMMAR_QUESTION_TYPE, content).then((question) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_QUESTION_RESPONSE, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        const action = push(`/admin/questions/${newRef.key}`);
-        dispatch(action);
-      }
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+      const question_uid = Object.keys(question)[0]
+      dispatch(getQuestion(question_uid))
+      const action = push(`/admin/questions/${question.uid}`);
+      dispatch(action);
+    }).catch((error: string) => {
+      dispatch({ type: ActionTypes.RECEIVE_NEW_QUESTION_RESPONSE, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
     });
     content.answers.forEach(a => dispatch(saveOptimalResponse(newRef.key, content.concept_uid, a)))
   };
@@ -158,13 +170,14 @@ export const submitQuestionEdit = (qid: string, content: Question) => {
   return (dispatch: Function, getState: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_QUESTION_EDIT, qid, });
     content.answers.forEach(a => dispatch(saveOptimalResponse(qid, content.concept_uid, a)))
-    questionsRef.child(qid).update(content, (error: string) => {
+    QuestionApi.update(qid, content).then(() => {
+      dispatch(getQuestion(qid))
       dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+
+    }).catch((error: string) => {
+      dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
   };
 }
@@ -188,76 +201,80 @@ export const saveOptimalResponse = (qid: string, conceptUid: string, answer: {te
 
 export const submitNewIncorrectSequence = (qid: string, data: IncorrectSequence) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/incorrectSequences`).push(data, (error: string) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
-    });
+    IncorrectSequenceApi.create(qid, data).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error: string) => {
+      alert(`Submission failed! ${error}`);
+    })
   };
 }
 
 export const submitEditedIncorrectSequence = (qid: string, data: IncorrectSequence, seqid: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).update(data, (error: string) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
-    });
+    IncorrectSequenceApi.update(qid, seqid, data).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error: string) => {
+      alert(`Submission failed! ${error}`);
+    })
   };
 }
 
 export const deleteIncorrectSequence = (qid: string, seqid: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/incorrectSequences/${seqid}`).remove((error: string) => {
-      if (error) {
-        alert(`Delete failed! ${error}`);
-      }
+    IncorrectSequenceApi.remove(qid, seqid).then(() => {
+      dispatch(getQuestion(qid));
+    }).catch((error) => {
+      alert(`Delete failed! ${error}`);
     });
   };
 }
 
 export const updateIncorrectSequences = (qid: string, data: Array<IncorrectSequence>) => {
-  questionsRef.child(`${qid}/incorrectSequences`).set(data, (error: string) => {
-    if (error) {
+  return (dispatch: Function) => {
+    IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error: string) => {
       alert(`Order update failed! ${error}`);
-    }
-  });
+    });
+  }
 }
 
 export const submitNewFocusPoint = (qid:string, data: FocusPoint) => {
-  questionsRef.child(`${qid}/focusPoints`).push(data, (error: string) => {
-    if (error) {
+  return (dispatch: Function) => {
+    FocusPointApi.create(qid, data).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error: string) => {
       alert(`Submission failed! ${error}`);
-    }
-  });
+    });
+  }
 }
 
 export const submitEditedFocusPoint = (qid:string, data: FocusPoint, fpid: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/focusPoints/${fpid}`).update(data, (error: string) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
+    FocusPointApi.update(qid, fpid, data).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error) => {
+      alert(`Submission failed! ${error}`);
     });
   };
 }
 
 export const submitBatchEditedFocusPoint = (qid:string, data: Array<FocusPoint>) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/focusPoints/`).set(data, (error: string) => {
-      if (error) {
-        alert(`Submission failed! ${error}`);
-      }
+    FocusPointApi.updateAllForQuestion(qid, data).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error) => {
+      alert(`Submission failed! ${error}`);
     });
   };
 }
 
 export const deleteFocusPoint = (qid:string, fpid: string) => {
   return (dispatch: Function) => {
-    questionsRef.child(`${qid}/focusPoints/${fpid}`).remove((error: string) => {
-      if (error) {
-        alert(`Delete failed! ${error}`);
-      }
+    FocusPointApi.remove(qid, fpid).then(() => {
+      dispatch(getQuestion(qid))
+    }).catch((error) => {
+      alert(`Delete failed! ${error}`);
     });
   };
 }
