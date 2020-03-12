@@ -63,7 +63,7 @@ namespace :firebase do
       @RAILS_MODEL = args[:model]
       @QUESTION_TYPE = args[:question_type]
       if !@FIREBASE_URL || !@RAILS_MODEL || !@QUESTION_TYPE
-        puts('You must provide Firebase URL and Rails model args to run this task.')
+        puts('You must provide Firebase URL, Rails model args, and Question Type to run this task.')
         puts('Example usage:')
         puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,connect_sentence_combining]')
         exit
