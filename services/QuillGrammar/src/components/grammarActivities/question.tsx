@@ -255,7 +255,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const question = this.currentQuestion()
     const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
 
-    if (question.attempts.length === ALLOWED_ATTEMPTS && !latestAttempt.optimal) { return }
+    if ((question.attempts && question.attempts.length === ALLOWED_ATTEMPTS) && (latestAttempt && !latestAttempt.optimal)) { return }
     const disabled = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) ? 'disabled' : null
     return (<Row align="middle" justify="start" type="flex">
       <ContentEditable
