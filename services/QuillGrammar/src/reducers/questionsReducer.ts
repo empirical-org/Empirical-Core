@@ -21,6 +21,12 @@ export default (
       switch (action.type) {
         case ActionTypes.RECEIVE_QUESTIONS_DATA:
           return Object.assign({}, currentState, { data: action.data}, {hasreceiveddata: true})
+        case ActionTypes.RECEIVE_SINGLE_QUESTION_DATA:
+          const updatedQuestions = Object.assign({}, currentState.data, {[action.uid]: action.data})
+          return Object.assign({}, currentState, {data: updatedQuestions})
+        case ActionTypes.REMOVE_QUESTION_DATA:
+          delete currentState[action.uid]
+          return Object.assign({}, currentState)
         case ActionTypes.AWAIT_NEW_QUESTION_RESPONSE:
           return Object.assign({}, currentState, {
             submittingnew: true,
