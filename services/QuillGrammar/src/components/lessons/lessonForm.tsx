@@ -13,9 +13,10 @@ import { ConceptReducerState } from '../../reducers/conceptsReducer'
 interface LessonFormState {
   title: string;
   description: string;
+  landingPageHtml?: string;
   flag?: string;
-  concepts?: Concepts;
-  questions?: Array<Question>;
+  activityConcepts?: Concepts;
+  activityQuestions?: Array<Question>;
 }
 
 interface LessonFormProps {
@@ -32,104 +33,103 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
 
     const { currentValues, } = props
 
-    this.state = {
-      title: currentValues ? currentValues.title : '',
-      description: currentValues ? currentValues.description || '' : '',
-      flag: currentValues ? currentValues.flag : 'alpha',
-      concepts: currentValues ? currentValues.concepts : {},
-      questions: currentValues && currentValues.questions ? currentValues.questions : [],
-    }
+    const { title, description, flag, concepts, questions, landingPageHtml, } = currentValues || {}
 
-    this.submit = this.submit.bind(this)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this)
-    this.handleFlagSelect = this.handleFlagSelect.bind(this)
-    this.addConcept = this.addConcept.bind(this)
-    this.renderConceptRows = this.renderConceptRows.bind(this)
-    this.removeConcept = this.removeConcept.bind(this)
-    this.changeConceptQuantity = this.changeConceptQuantity.bind(this)
-    this.renderQuestionSelect = this.renderQuestionSelect.bind(this)
-    this.sortCallback = this.sortCallback.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.handleQuestionChange = this.handleQuestionChange.bind(this)
+    this.state = {
+      title: title || '',
+      description: description || '',
+      flag: flag || 'alpha',
+      activityConcepts: concepts || {},
+      activityQuestions: questions || [],
+      landingPageHtml: landingPageHtml || ''
+    }
   }
 
-  submit() {
-    const { title, concepts, description, flag, questions, } = this.state
-    this.props.submit({
+  submit = () => {
+    const { submit, } = this.props
+    const { title, activityConcepts, description, flag, activityQuestions, landingPageHtml, } = this.state
+    submit({
       title,
-      concepts,
+      concepts: activityConcepts,
       description,
       flag,
-      questions
+      questions: activityQuestions,
+      landingPageHtml
     });
   }
 
-  handleStateChange(key: string, event: React.ChangeEvent<{value: string}>) {
+  handleStateChange = (key: string, event: React.ChangeEvent<{value: string}>) => {
     const changes: LessonFormState = {};
     changes[key] = event.target.value;
     this.setState(changes);
   }
 
-  handleSearchChange(e) {
+  handleSearchChange = (e) => {
     this.handleQuestionChange(e.value);
   }
 
-  addConcept(concept: { value: string }) {
+  addConcept = (concept: { value: string }) => {
+    const { activityConcepts, } = this.state
     const { value } = concept
     if (value) {
-      const currentSelectedConcepts = this.state.concepts;
+      const currentSelectedConcepts = activityConcepts;
       const newSelectedConcepts = currentSelectedConcepts;
       newSelectedConcepts[value] = { quantity: 0 }
-      this.setState({ concepts: newSelectedConcepts, });
+      this.setState({ activityConcepts: newSelectedConcepts, });
     }
   }
 
-  changeConceptQuantity(conceptUid: string, e: React.ChangeEvent<{value: string}>) {
+  changeConceptQuantity = (conceptUid: string, e: React.ChangeEvent<{value: string}>) => {
+    const { activityConcepts, } = this.state
     const quantity = e.target.value ? Number(e.target.value) : 0
-    const newSelectedConcepts = this.state.concepts;
+    const newSelectedConcepts = activityConcepts;
     newSelectedConcepts[conceptUid] = { quantity }
-    this.setState({ concepts: newSelectedConcepts, });
+    this.setState({ activityConcepts: newSelectedConcepts, });
   }
 
-  removeConcept(conceptUid: string) {
-    const newSelectedConcepts = this.state.concepts;
+  removeConcept = (conceptUid: string) => {
+    const { activityConcepts, } = this.state
+    const newSelectedConcepts = activityConcepts;
     delete newSelectedConcepts[conceptUid]
-    this.setState({ concepts: newSelectedConcepts, });
+    this.setState({ activityConcepts: newSelectedConcepts, });
   }
 
-  handleFlagSelect(e: React.ChangeEvent<{value: string}>) {
+  handleFlagSelect = (e: React.ChangeEvent<{value: string}>) => {
     this.setState({ flag: e.target.value, });
   }
 
-  handleDescriptionChange(e: string) {
+  handleDescriptionChange = (e: string) => {
     this.setState({ description: e, });
   }
 
-  handleQuestionChange(value) {
-    const currentQuestions = this.state.questions;
+  handleLandingPageHTMLChange = (e: string) => {
+    this.setState({ landingPageHtml: e, });
+  }
+
+  handleQuestionChange = (value) => {
+    const { activityQuestions, } = this.state;
     let newQuestions;
-    const changedQuestion = currentQuestions.find(q => q.key === value);
+    const changedQuestion = activityQuestions.find(q => q.key === value);
     if (!changedQuestion) {
-      newQuestions = currentQuestions.concat([{ key: value }]);
+      newQuestions = activityQuestions.concat([{ key: value }]);
     } else {
-      newQuestions = _.without(currentQuestions, changedQuestion);
+      newQuestions = _.without(activityQuestions, changedQuestion);
     }
-    this.setState({ questions: newQuestions, });
+    this.setState({ activityQuestions: newQuestions, });
   }
 
-  sortCallback(sortInfo) {
+  sortCallback = (sortInfo) => {
     const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key}));
-    this.setState({ questions: newOrder, });
+    this.setState({ activityQuestions: newOrder, });
   }
 
-  renderQuestionSelect() {
-    let questions;
+  renderQuestionSelect = () => {
+    const { activityQuestions, } = this.state
+    const { questions, } = this.props
     // select changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
-    if (this.state.questions && this.state.questions.length) {
-      const questionsList = this.state.questions.map((question) => {
-        const questionobj = this.props.questions.data[question.key];
+    if (activityQuestions && activityQuestions.length) {
+      const questionsList = activityQuestions.map((question) => {
+        const questionobj = questions.data[question.key];
         const prompt = questionobj ? questionobj.prompt : 'Question No Longer Exists';
         const promptOrTitle = questionobj.title || questionobj.prompt
         return (<p className="sortable-list-item" key={question.key}>
@@ -139,15 +139,15 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         </p>
         );
       });
-      return <SortableList data={questionsList} key={Object.keys(this.state.questions).length} sortCallback={this.sortCallback} />;
+      return <SortableList data={questionsList} key={Object.keys(activityQuestions).length} sortCallback={this.sortCallback} />;
     } else {
       return <div>No questions</div>;
     }
   }
 
-  renderSearchBox() {
-    // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
-    let options = hashToCollection(this.props.questions.data);
+  renderSearchBox = () => {
+    const { questions, } = this.props
+    let options = hashToCollection(questions.data);
     let formatted
     if (options.length > 0) {
         options = _.filter(options, option => option.flag !== "archived" && option.prompt); // filter out questions with no valid concept
@@ -160,12 +160,14 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
     }
   }
 
-  renderConceptRows(): Array<JSX.Element|undefined>|void {
-    const conceptUids = this.state.concepts ? Object.keys(this.state.concepts) : []
+  renderConceptRows = (): Array<JSX.Element|undefined>|void => {
+    const { activityConcepts, } = this.state
+    const { concepts, } = this.props
+    const conceptUids = activityConcepts ? Object.keys(activityConcepts) : []
     if (conceptUids.length > 0) {
       return conceptUids.map(c => {
-        const conceptVal = this.state.concepts[c]
-        const conceptAttributes = this.props.concepts.data['0'].find((concept: Concept) => concept.uid === c)
+        const conceptVal = activityConcepts[c]
+        const conceptAttributes = concepts.data['0'].find((concept: Concept) => concept.uid === c)
         if (conceptVal && conceptAttributes) {
           return (<div key={c} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <span>{conceptAttributes.displayName}</span>
@@ -187,8 +189,10 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
       })
     }
   }
-  //
+
   render() {
+    const { stateSpecificClass, } = this.props
+    const { title, description, landingPageHtml, flag, activityQuestions, activityConcepts, } = this.state
     return (
       <div className="box">
         <h4 className="title">Add New Activity</h4>
@@ -199,7 +203,7 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
             onChange={this.handleStateChange.bind(null, 'title')}
             placeholder="Text input"
             type="text"
-            value={this.state.title}
+            value={title}
           />
         </p>
         <p className="control">
@@ -209,13 +213,23 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handleDescriptionChange}
-          text={this.state.description || ''}
+          text={description || ''}
+        />
+        <br />
+        <p className="control">
+          <label className="label">Landing Page HTML</label>
+        </p>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={this.handleLandingPageHTMLChange}
+          text={landingPageHtml || ''}
         />
         <br />
         <p className="control">
           <label className="label">Flag</label>
           <span className="select">
-            <select defaultValue={this.state.flag} onChange={this.handleFlagSelect}>
+            <select defaultValue={flag} onChange={this.handleFlagSelect}>
               <option value="alpha">alpha</option>
               <option value="beta">beta</option>
               <option value="production">production</option>
@@ -229,14 +243,14 @@ class LessonForm extends React.Component<LessonFormProps, LessonFormState> {
         </p>
         {this.renderConceptRows()}
         <div className="control">
-          <label className="label">Currently Selected Questions -- {`Total: ${this.state.questions.length}`}</label>
+          <label className="label">Currently Selected Questions -- {`Total: ${activityQuestions.length}`}</label>
           {this.renderQuestionSelect()}
         </div>
         <label className="label">All Questions</label>
         {this.renderSearchBox()}
         <br />
         <p className="control">
-          <button className={`button is-primary ${this.props.stateSpecificClass}`} onClick={this.submit}>Submit</button>
+          <button className={`button is-primary ${stateSpecificClass}`} onClick={this.submit}>Submit</button>
         </p>
       </div>
     );

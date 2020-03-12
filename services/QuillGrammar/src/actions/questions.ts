@@ -146,7 +146,8 @@ export const submitNewQuestion = (content: Question) => {
     QuestionApi.create(GRAMMAR_QUESTION_TYPE, content).then((question) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_QUESTION_RESPONSE, });
       dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      dispatch(getQuestion(question.uid))
+      const question_uid = Object.keys(question)[0]
+      dispatch(getQuestion(question_uid))
       const action = push(`/admin/questions/${question.uid}`);
       dispatch(action);
     }).catch((error: string) => {
