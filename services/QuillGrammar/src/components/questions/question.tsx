@@ -23,6 +23,7 @@ import IncorrectSequenceContainer from './incorrectSequenceContainer'
 import EditFocusPointsContainer from './editFocusPointsContainer'
 import NewFocusPointsContainer from './newFocusPointsContainer'
 import FocusPointsContainer from './focusPointsContainer'
+import Cues from '../grammarActivities/cues'
 import { Match } from '../../interfaces/match'
 import { QuestionsReducerState } from '../../reducers/questionsReducer'
 
@@ -230,6 +231,7 @@ class AdminQuestion extends React.Component<AdminQuestionProps, AdminQuestionSta
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
             <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
           </div>
+          <Cues cues={data[questionID].cues} cuesLabel={data[questionID].cues_label} />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img className="info" src={icon} />
             <p>{data[questionID].instructions || 'Correct the underlined error in the sentence.'}</p>
