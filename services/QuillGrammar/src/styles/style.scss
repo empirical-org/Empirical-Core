@@ -2,14 +2,22 @@
 @import './spinner.scss';
 @import "./node_modules/bulma/bulma.sass";
 @import './admin.scss';
-@import './conceptFeedback.scss';
 @import './selectSearch.scss';
 @import './dashboards.scss';
+@import './intro.scss';
+@import './Header.scss';
 @import '~react-table/react-table.css';
 @import "~quill-component-library/src/styles/styles.scss";
 
+
+body, #app {
+  height: 100%;
+  color: #3f3f3f;
+}
+
 .ant-layout {
-  height: 100vw;
+  height: min-content;
+  min-height: 100%;
   background-color: #ededed;
   font-family: adelle-sans, "Arial", sans-serif;
 }

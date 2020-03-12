@@ -19,6 +19,8 @@ export interface Question {
   incorrectSequences?: Array<IncorrectSequence>;
   key?: string;
   flag?: string;
+  cues?: Array<string>;
+  cuesLabel?: string;
 }
 
 export interface Answer {
