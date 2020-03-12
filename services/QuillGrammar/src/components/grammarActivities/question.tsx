@@ -1,17 +1,19 @@
 import * as React from "react";
-import { Row, Button } from "antd";
+import ContentEditable from 'react-contenteditable';
+import { Row } from "antd";
 import { Response, ConceptResult } from 'quill-marking-logic'
-import { hashToCollection, ConceptExplanation, ProgressBar } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection, ProgressBar, ConceptExplanation, Feedback, } from 'quill-component-library/dist/componentLibrary'
+
+import Cues from './cues'
 import { Question } from '../../interfaces/questions'
 import { GrammarActivity } from '../../interfaces/grammarActivities'
 import * as responseActions from '../../actions/responses'
 
-const tryAgainIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/try_again_icon.png`
-const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
-const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
-const questionIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
-
 const ALLOWED_ATTEMPTS = 5
+const UNANSWERED = 'unanswered'
+const CORRECTLY_ANSWERED = 'correctly answered'
+const FINAL_ATTEMPT = 'final attempt'
+const INCORRECTLY_ANSWERED = 'incorrectly answered'
 
 interface QuestionProps {
   activity: GrammarActivity | null;
@@ -73,23 +75,28 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
+  previousResponses = () => {
+    const question = this.currentQuestion()
+    return question.attempts.map(a => a.text)
+  }
+
   getCurrentQuestionStatus(currentQuestion) {
     if (currentQuestion.attempts && currentQuestion.attempts.length) {
       if (currentQuestion.attempts.length === ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1]) {
         if (currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
-          return 'correctly answered'
+          return CORRECTLY_ANSWERED
         } else {
-          return 'final attempt'
+          return FINAL_ATTEMPT
         }
       } else {
         if (currentQuestion.attempts.length < ALLOWED_ATTEMPTS && currentQuestion.attempts[currentQuestion.attempts.length - 1] && currentQuestion.attempts[currentQuestion.attempts.length - 1].optimal) {
-          return 'correctly answered'
+          return CORRECTLY_ANSWERED
         } else {
-          return 'incorrectly answered'
+          return INCORRECTLY_ANSWERED
         }
       }
     } else {
-      return 'unanswered'
+      return UNANSWERED
     }
   }
 
@@ -122,10 +129,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const isFirstAttempt = !question.attempts || question.attempts.length === 0
     if (Object.keys(responses).length) {
       if (response !== '') {
+        const trimmedResponse = response.replace(/&nbsp;/g, ' ')
         if (!isFirstAttempt && response === question.attempts[0].text) {
           this.setState({ submittedSameResponseTwice: true })
         } else {
-          checkAnswer(response, question, responses, isFirstAttempt)
+          checkAnswer(trimmedResponse, question, responses, isFirstAttempt)
           this.setState({ submittedEmptyString: false, submittedSameResponseTwice: false })
         }
       } else {
@@ -137,7 +145,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
   handleNextProblemClick = () => {
     const { goToNextQuestion, } = this.props
     goToNextQuestion()
-    this.setState({ response: '', questionStatus: 'unanswered', responses: {} })
+    this.setState({ response: '', questionStatus: UNANSWERED, responses: {} })
   }
 
   handleExampleButtonClick = () => this.setState(prevState => ({ showExample: !prevState.showExample }))
@@ -169,7 +177,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     if (e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
       const { questionStatus } = this.state
-      if (questionStatus === 'unanswered' || questionStatus === 'incorrectly answered') {
+      if (questionStatus === UNANSWERED || questionStatus === INCORRECTLY_ANSWERED) {
         this.handleCheckWorkClick()
       } else {
         this.handleNextProblemClick()
@@ -202,26 +210,21 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     }
   }
 
-  renderExampleButton(): JSX.Element | void {
-    const { showExample, } = this.state
-    if (this.example()) {
-      return (<Row align="middle" justify="start" type="flex">
-        <Button className="example-button" onClick={this.handleExampleButtonClick}>{showExample ? 'Hide Example' : 'Show Example'}</Button>
-      </Row>)
-    }
-  }
-
   renderCheckAnswerButton(): JSX.Element | void {
-    const { questionStatus, responses } = this.state
-    if (Object.keys(responses).length) {
-      if (questionStatus === 'unanswered') {
-        return <Button className="check-answer-button" onClick={this.handleCheckWorkClick}>Check Work</Button>
-      } else if (questionStatus === 'incorrectly answered') {
-        return <Button className="check-answer-button" onClick={this.handleCheckWorkClick}>Recheck Work</Button>
-      } else {
-        return <Button className="check-answer-button" onClick={this.handleNextProblemClick}>Next Problem</Button>
-      }
+    const { questionStatus, responses, response, } = this.state
+    if (!Object.keys(responses).length) { return }
+
+    const buttonClassName = "quill-button primary contained large focus-on-light"
+
+    if ([CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus)) {
+      return <button className={buttonClassName} onClick={this.handleNextProblemClick} type="submit">Next question</button>
     }
+
+    if (!response.length || this.previousResponses().includes(response)) {
+      return <button className={`${buttonClassName} disabled`} type="submit">Get feedback</button>
+    }
+
+    return <button className={buttonClassName} onClick={this.handleCheckWorkClick} type="submit">Get feedback</button>
   }
 
   renderTopSection(): JSX.Element {
@@ -243,82 +246,73 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       >
         <h1>{activity ? activity.title : null}</h1>
       </Row>
-      {this.renderExampleButton()}
       {this.renderExample()}
-      <Row align="middle" justify="start" type="flex">
-        <img alt="Question Icon" src={questionIconSrc} style={{ height: '22px', marginRight: '10px' }} />
-        <div className="instructions" dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />
-      </Row>
     </div>)
   }
 
   renderTextareaSection = () => {
     const { questionStatus, response } = this.state
-    if (['correctly answered', 'final attempt'].includes(questionStatus)) {
-      return (<Row align="middle" justify="start" type="flex">
-        <textarea aria-label="Disabled Text Area" className="input-field disabled" disabled value={response} />
-      </Row>)
-    } else {
-      return (<Row align="middle" justify="start" type="flex">
-        <textarea aria-label="Text Area" className="input-field" onChange={this.handleResponseChange} onKeyDown={this.handleKeyDown} spellCheck="false" value={response} />
-      </Row>)
-    }
+    const question = this.currentQuestion()
+    const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
+
+    if (question.attempts.length === ALLOWED_ATTEMPTS && !latestAttempt.optimal) { return }
+    const disabled = [CORRECTLY_ANSWERED, FINAL_ATTEMPT].includes(questionStatus) ? 'disabled' : null
+    return (<Row align="middle" justify="start" type="flex">
+      <ContentEditable
+        className={`input-field ${disabled}`}
+        data-gramm={false}
+        disabled={!!disabled}
+        html={response}
+        onChange={this.handleResponseChange}
+        onKeyDown={this.handleKeyDown}
+        placeholder="Type your answer here."
+        spellCheck={false}
+      />
+    </Row>)
   }
 
   renderQuestionSection(): JSX.Element {
-    const prompt = this.currentQuestion().prompt
+    const question = this.currentQuestion()
+    const { prompt, attempts, cues, cues_label, } = question
+    const latestAttempt = this.getLatestAttempt(attempts)
+    const feedbackKey = latestAttempt ? latestAttempt.text : 'instructions'
     return (<div className="question-section">
       <Row align="middle" justify="start" type="flex">
         <div className="prompt" dangerouslySetInnerHTML={{ __html: prompt }} />
+      </Row>
+      <Row align="middle" justify="start" type="flex">
+        <Cues cues={cues} cuesLabel={cues_label} />
+      </Row>
+      <Row align="middle" justify="start" key={feedbackKey} type="flex">
+        {this.renderFeedbackSection()}
       </Row>
       {this.renderTextareaSection()}
       <Row align="middle" justify="end" type="flex">
         {this.renderCheckAnswerButton()}
       </Row>
+      <Row align="middle" justify="start" type="flex">
+        {this.renderConceptExplanation()}
+      </Row>
     </div>)
   }
 
   renderFeedbackSection(): JSX.Element | undefined {
-    const { submittedEmptyString, submittedSameResponseTwice, response, } = this.state
+    const { response, } = this.state
     const question = this.currentQuestion()
-    if (submittedEmptyString) {
-      return <div className="feedback try-again"><div className="inner-container"><img alt="Try Again Icon" src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{ __html: 'You must enter a sentence for us to check.' }} /></div></div>
-    } else if (submittedSameResponseTwice) {
-      return <div className="feedback try-again"><div className="inner-container"><img alt="Try Again Icon" src={tryAgainIconSrc} /><div dangerouslySetInnerHTML={{ __html: 'You must enter a different response.' }} /></div></div>
-    } else if (question && question.attempts && question.attempts.length > 0) {
-      let className: string, feedback: string | undefined | null, imgSrc: string, altText: string
-      const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
+    const latestAttempt: Response | undefined = this.getLatestAttempt(question.attempts)
 
-      if (question.attempts.length === ALLOWED_ATTEMPTS && latestAttempt) {
-        if (latestAttempt.optimal) {
-          feedback = latestAttempt.feedback
-          className = 'correct'
-          imgSrc = correctIconSrc
-          altText = "Correct Icon"
-        } else {
-          feedback = `<b>Your Response:</b> ${response} <br/> <b>Correct Response:</b> ${this.correctResponse()}`
-          className = 'incorrect'
-          imgSrc = incorrectIconSrc
-          altText = "Try Again Icon"
-        }
-      } else {
-        if (question.attempts.length < ALLOWED_ATTEMPTS && latestAttempt.optimal) {
-          feedback = latestAttempt.feedback
-          className = 'correct'
-          imgSrc = correctIconSrc
-          altText = "Correct Icon"
-        } else {
-          feedback = latestAttempt.feedback
-          className = 'try-again'
-          imgSrc = tryAgainIconSrc
-          altText = "Try Again Icon"
-        }
-      }
-      if (typeof feedback === 'string') {
-        return <div className={`feedback ${className}`}><div className="inner-container"><img alt={altText} src={imgSrc} /><div dangerouslySetInnerHTML={{ __html: feedback }} /></div></div>
-      }
+    if (!latestAttempt) { return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: this.currentQuestion().instructions }} />} feedbackType="instructions" />}
+
+    if (latestAttempt.optimal) {
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="correct-matched" />
     }
-    return undefined
+
+    if (question.attempts.length === ALLOWED_ATTEMPTS) {
+      const finalAttemptFeedback = `<b>Good try!</b> Compare your response to the strong response, and then go on to the next question.<br><br><b>Your response</b><br>${response}<br><br><b>A strong response</b><br>${this.correctResponse()}`
+      return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: finalAttemptFeedback }} />} feedbackType="incorrect-continue" />
+    }
+
+    return <Feedback feedback={<p dangerouslySetInnerHTML={{ __html: latestAttempt.feedback }} />} feedbackType="revise-matched" />
   }
 
   renderConceptExplanation = (): JSX.Element | void => {
@@ -361,8 +355,6 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     return (<div className="question">
       {this.renderTopSection()}
       {this.renderQuestionSection()}
-      {this.renderFeedbackSection()}
-      {this.renderConceptExplanation()}
     </div>)
   }
 }
