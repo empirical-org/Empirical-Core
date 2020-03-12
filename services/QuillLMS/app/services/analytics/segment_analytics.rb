@@ -98,7 +98,7 @@ class SegmentAnalytics
     integrations = {
      all: true,
      Intercom: should_send_data,
-     Salesmachine: should_send_data
+     Salesmachine: false
     }
     integrations
   end
