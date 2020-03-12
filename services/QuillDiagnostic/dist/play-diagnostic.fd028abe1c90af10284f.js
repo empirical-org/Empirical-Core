@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[22],{1305:function(n,t,e){"use strict";e.r(t);var o=e(446),i={path:"diagnostic",childRoutes:[{path:":diagnosticID",getComponent:function(n,t){Promise.all([e.e(3),e.e(2),e.e(5),e.e(4),e.e(25)]).then(e.bind(null,1432)).then(function(n){t(null,n.default)})}}],component:o.Passthrough};t.default=i}}]);
