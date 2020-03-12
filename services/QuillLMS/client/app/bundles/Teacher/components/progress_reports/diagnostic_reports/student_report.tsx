@@ -9,7 +9,7 @@ import QuestionData from '../../../../interfaces/questionData';
 import { requestGet } from '../../../../../modules/request/index.js';
 
 export interface StudentReportState {
-	loading: boolean, 
+	loading: boolean,
 	students: Student[],
 }
 
@@ -27,7 +27,7 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
 
 	componentWillReceiveProps(nextProps: RouteComponentProps) {
 		const { params } = nextProps;
-		this.setState({loading: true});
+		this.setState({ loading: true });
 		this.getStudentData(params);
 	}
 
@@ -38,9 +38,9 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
 	}
 
 	getStudentData = (params: RouteComponentProps['params']) => {
-		requestGet(`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`, (data: { students: Student[]}) => {
+		requestGet(`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`, (data: { students: Student[] }) => {
 			const { students } = data;
-			this.setState({students, loading: false});
+			this.setState({ students, loading: false });
 		});
 	}
 
@@ -49,9 +49,9 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
 		const concept_results = _.sortBy(studentData.concept_results, 'question_number')
 		return concept_results.map((question: QuestionData, index: number) => {
 			if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence') {
-				return <ConnectStudentReportBox boxNumber={index+1} key={index} questionData={question} />
+				return <ConnectStudentReportBox boxNumber={index + 1} key={index} questionData={question} />
 			}
-			return <StudentReportBox boxNumber={index+1} key={index} questionData={question} />
+			return <StudentReportBox boxNumber={index + 1} key={index} questionData={question} />
 		})
 	}
 
@@ -61,18 +61,18 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
 			return <LoadingSpinner />
 		} else {
 			const student = this.selectedStudent(students);
-      const { name, score } = student;
-      return(
-        <div className='individual-student-activity-view'>
-          <h3 style={{marginBottom: '30px', paddingLeft: '20px'}}>{name}  <strong style={{paddingLeft: '20px'}}>{score}%</strong></h3>
-          {this.studentBoxes(students)}
-          <div className='how-we-grade'>
-            <p className="title title-not-started pull-right">
-              <a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
-            </p>
-          </div>
-        </div>
-      );
+			const { name, score } = student;
+			return (
+				<div className='individual-student-activity-view'>
+					<h3 className='activity-view-header'>{name}  <strong className='activity-view-score'>{score}%</strong></h3>
+					{this.studentBoxes(students)}
+					<div className='how-we-grade'>
+						<p className="title title-not-started pull-right">
+							<a href="https://support.quill.org/activities-implementation/how-does-grading-work" rel='noreferrer noopener' target="_blank" >How We Grade <i className="fas fa-long-arrow-alt-right" /></a>
+						</p>
+					</div>
+				</div>
+			);
 		}
 	}
 }
