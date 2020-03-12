@@ -126,17 +126,13 @@ class LoginFormApp extends React.Component {
   handleGoogleClick = (e) => {
     SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE});
     this.fetchUser().then(userData => {
-        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token)) {
+        var now = new Date().toISOString();
+        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
+            now > userData.user.refresh_token_expires_at) {
           window.location.href = '/auth/google_oauth2?prompt=consent';
         }
         else {
-          var now = new Date().toISOString();
-          if (now > userData.user.refresh_token_expires_at) {
-            window.location.href = '/auth/google_oauth2?prompt=consent';
-          }
-          else {
-            window.location.href = '/';
-          }
+            window.location.href = '/auth/google_oauth2';
         }
       }
     );
