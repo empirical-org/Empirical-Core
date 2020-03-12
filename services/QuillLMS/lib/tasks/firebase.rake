@@ -79,11 +79,12 @@ namespace :firebase do
         if @QUESTION_TYPE.present?
           old_question = Question.find_by_uid(key)
           if old_question.present? && old_question.question_type != @QUESTION_TYPE
+            # we can delete any questions with blank prompts, and we can delete connect_sentence_fragments that are duplicates
             if old_question.data['prompt'].empty? || old_question.question_type == 'connect_sentence_fragments'
               old_question.destroy
+            # if a diagnostic_fib question conflicts with an existing question, don't copy the diagnostic version over
             elsif @QUESTION_TYPE == 'diagnostic_fill_in_blanks'
               obj = old_question
-              puts "deleting Diagnostic question #{key}"
               next
             end
           end
