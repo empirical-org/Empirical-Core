@@ -88,4 +88,3 @@ export default function(currentstate,action){
         default: return currentstate || initialState.sentenceFragments;
     }
 };
-//test

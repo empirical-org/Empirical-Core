@@ -218,5 +218,3 @@ export default {
   startToResponseView,
   cancelToResponseView
 };
-
-//test
