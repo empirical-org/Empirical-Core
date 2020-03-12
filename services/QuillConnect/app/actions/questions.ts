@@ -23,8 +23,6 @@ import {
   SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api'
 
-const questionApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/questions`;
-
 
 function startListeningToQuestions() {
   return (dispatch, getState) => {
@@ -94,7 +92,7 @@ function toggleNewQuestionModal() {
 function submitNewQuestion(content, response) {
   return (dispatch, getState) => {
     dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
-    QuestionApi.create(content).then((question) => {
+    QuestionApi.create(SENTENCE_COMBINING_TYPE, content).then((question) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       response.questionUID = Object.keys(question)[0];
       response.gradeIndex = `human${response.questionUID}`;
