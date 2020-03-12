@@ -59,6 +59,7 @@ class TestQuestion extends Component {
           <PlayLessonQuestion
             conceptsFeedback={conceptsFeedback}
             dispatch={dispatch}
+            isAdmin={true}
             key={this.state.key}
             nextQuestion={this.reset}
             prefill={false}

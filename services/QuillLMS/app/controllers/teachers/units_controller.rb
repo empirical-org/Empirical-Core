@@ -12,10 +12,14 @@ class Teachers::UnitsController < ApplicationController
       params[:unit][:activities] = JSON.parse(params[:unit][:activities])
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
+    includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
     if units_with_same_name.any?
       Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms], current_user.id)
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id], current_user.id)
+    end
+    if includes_ell_starter_diagnostic
+      ELLStarterDiagnosticEmailJob.perform_async(current_user.first_name, current_user.email)
     end
     render json: {id: Unit.where(user: current_user).last.id}
   end

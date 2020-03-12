@@ -273,36 +273,38 @@ export default class PlayLessonQuestion extends React.Component {
     return hashToCollection(conceptResults).filter(cr => !cr.correct);
   }
 
-  getNegativeConceptResultForResponse(conceptResults) {
-    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
-    return negCRs.length > 0 ? negCRs[0] : undefined;
-  }
-
   renderConceptExplanation = () => {
     const { question, conceptsFeedback, } = this.props
-
     const latestAttempt:{response: Response}|undefined = getLatestAttempt(question.attempts);
-    if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
-      if (latestAttempt.response.conceptResults) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-          if (conceptID) {
-            const data = conceptsFeedback.data[conceptID.conceptUID];
-            if (data) {
-              return <ConceptExplanation {...data} />;
-            }
-          }
-      }
 
-      if (latestAttempt.response.concept_results) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
+    // we do not want to show concept feedback if a response is optimal
+    if (!latestAttempt || !latestAttempt.response || latestAttempt.response.optimal) { return }
+
+    if (latestAttempt.response.author) {
+      // we only want to show response-specific (ie, concept-result-specific) concept feedback if the response is matched
+
+      if (latestAttempt.response.conceptResults) {
+        const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.conceptResults);
+        const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
+          return conceptsFeedback.data[c.conceptUID]
+        })
+        if (negativeConceptWithConceptFeedback) {
+          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
         }
       }
 
+      if (latestAttempt.response.concept_results) {
+        const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
+        const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
+          return conceptsFeedback.data[c.conceptUID]
+        })
+        if (negativeConceptWithConceptFeedback) {
+          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
+        }
+      }
+
+    } else {
+      // we only want to show question-level concept feedback if the response is unmatched
       if (this.getQuestion() && this.getQuestion().modelConceptUID) {
         const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
         if (dataF) {
@@ -316,6 +318,7 @@ export default class PlayLessonQuestion extends React.Component {
           return <ConceptExplanation {...data} />;
         }
       }
+
     }
   }
 
@@ -324,13 +327,14 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   render() {
-    const { question, } = this.props
+    const { question, isAdmin, } = this.props
     const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, } = this.state
     const questionID = question.key;
     if (question) {
       const sharedProps = {
         value: response,
         question: question,
+        isAdmin: isAdmin,
         responses: this.getResponses(),
         getResponse: this.getResponse2,
         feedback: this.renderFeedback(),

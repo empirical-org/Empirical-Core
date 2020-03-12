@@ -141,6 +141,7 @@ function getSpellingFeedback(spellingMatch: Response|PartialResponse): PartialRe
     match.parent_id  = match.id;
     delete match.id;
   }
+  match.feedback = match.feedback ? match.feedback : spellingMatch.feedback
   return match;
 }
 

@@ -111,12 +111,24 @@ module.exports = {
       {
         test: /\.tsx?$/,
         loader: 'awesome-typescript-loader?errorsAsWarnings=true',
-        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, "app")
+        ],
+        exclude: [
+          path.resolve(__dirname, "app/test_data"),
+          path.resolve(__dirname, "app/assets")
+        ],
       },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, "app")
+        ],
+        exclude: [
+          path.resolve(__dirname, "app/test_data"),
+          path.resolve(__dirname, "app/assets")
+        ],
       },
       {
         test: require.resolve('jquery'),
