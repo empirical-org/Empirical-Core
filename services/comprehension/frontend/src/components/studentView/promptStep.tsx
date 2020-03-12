@@ -101,14 +101,40 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
     const regex = new RegExp(`^${formattedPrompt}`)
+    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
     if (text.match(regex)) {
-      const caretPosition = EditCaretPositioning.saveSelection(this.editor)
       this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
     } else {
-      this.editor.innerHTML = html
+      const formattedPromptWordArray = formattedPrompt.split(' ')
+      const textWordArray = text.split(' ')
+      // const wordWhereNewSubmissionDiffers = textWordArray.find((word: string) => !formattedPromptWordArray.includes(word))
+      // const indexOfDiffWord = textWordArray.findIndex((word: string) => word === wordWhereNewSubmissionDiffers)
+      // const partOfSubmissionToKeep = textWordArray.splice(indexOfDiffWord).join(' ')
+      // const newValue = `${formattedPrompt}${partOfSubmissionToKeep}`
+      // debugger;
+      // this.setState({ html: newValue}, () => {
+      //   this.editor.innerHTML = newValue
+      // })
+
+      // handle case where the student deleted everything they'd written
+      debugger;
+      if (formattedPromptWordArray.length >= textWordArray.length) {
+        this.resetText()
+      } else {
+        const splitSubmission = text.split('&nbsp;')
+        // handles case where the only thing deleted was the space between the stem and the student's submission
+        if (!splitSubmission[1]) {
+          this.editor.innerHTML = html
+        } else {
+          const newValue = `${formattedPrompt}${splitSubmission[1]}`
+          this.setState({ html: newValue}, () => {
+            this.editor.innerHTML = newValue
+          })
+        }
+      }
     }
 
     this.setState({ customFeedback: null, customFeedbackKey: null })
