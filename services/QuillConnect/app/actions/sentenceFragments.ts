@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 let	sentenceFragmentsRef = rootRef.child('sentenceFragments'),
 moment = require('moment');
 import _ from 'lodash';
-
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
   FocusPointApi,
@@ -30,7 +30,7 @@ function loadSentenceFragments() {
 
 function loadSentenceFragment(uid) {
   return (dispatch, getState) => {
-    QuestionApi.get(uid).then((question) => {
+    QuestionApi.get(uid).then((question: Question) => {
       dispatch({ type: C.RECEIVE_SENTENCE_FRAGMENT_DATA, uid: uid, data: question, });
     });
   }
@@ -60,23 +60,33 @@ function cancelSentenceFragmentEdit(sfid) {
   return { type: C.FINISH_SENTENCE_FRAGMENT_EDIT, sfid, };
 }
 
-function submitSentenceFragmentEdit(qid, content) {
+function submitSentenceFragmentEdit(sfid, content) {
   return (dispatch, getState) => {
-    dispatch({ type: C.SUBMIT_SENTENCE_FRAGMENT_EDIT, qid, });
-    QuestionApi.update(qid, content).then( () => {
-      dispatch({ type: C.FINISH_SENTENCE_FRAGMENT_EDIT, qid, });
-      dispatch(loadSentenceFragment(qid));
+    dispatch({ type: C.SUBMIT_SENTENCE_FRAGMENT_EDIT, sfid, });
+    QuestionApi.update(sfid, content).then( () => {
+      dispatch({ type: C.FINISH_SENTENCE_FRAGMENT_EDIT, sfid, });
+      dispatch(loadSentenceFragment(sfid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
     }, (error) => {
-      dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
+      dispatch({ type: C.FINISH_QUESTION_EDIT, sfid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
   };
 }
 
-function submitNewIncorrectSequence(qid, data) {
+function submitNewIncorrectSequence(sfid, data) {
   return (dispatch, getState) => {
-    IncorrectSequenceApi.create(qid, data).then(() => {
+    IncorrectSequenceApi.create(sfid, data).then(() => {
+      dispatch(loadSentenceFragment(sfid));
+    }, (error) => {
+      alert(`Submission failed! ${error}`);
+    });
+  };
+}
+
+function submitEditedIncorrectSequence(qid, data, sesfid) {
+  return (dispatch, getState) => {
+    IncorrectSequenceApi.update(qid, sesfid, data).then(() => {
       dispatch(loadSentenceFragment(qid));
     }, (error) => {
       alert(`Submission failed! ${error}`);
@@ -84,20 +94,10 @@ function submitNewIncorrectSequence(qid, data) {
   };
 }
 
-function submitEditedIncorrectSequence(qid, data, seqid) {
+function deleteIncorrectSequence(sfid, sesfid) {
   return (dispatch, getState) => {
-    IncorrectSequenceApi.update(qid, seqid, data).then(() => {
-      dispatch(loadSentenceFragment(qid));
-    }, (error) => {
-      alert(`Submission failed! ${error}`);
-    });
-  };
-}
-
-function deleteIncorrectSequence(qid, seqid) {
-  return (dispatch, getState) => {
-    IncorrectSequenceApi.remove(qid, seqid).then(() => {
-      dispatch(loadSentenceFragment(qid));
+    IncorrectSequenceApi.remove(sfid, sesfid).then(() => {
+      dispatch(loadSentenceFragment(sfid));
     }, (error) => {
       alert(`Delete failed! ${error}`);
     });
@@ -127,40 +127,40 @@ function submitNewSentenceFragment(content, response) {
   };
 }
 
-function submitNewFocusPoint(qid, data) {
+function submitNewFocusPoint(sfid, data) {
   return (dispatch, getState) => {
-    FocusPointApi.create(qid, data).then(() => {
-      dispatch(loadSentenceFragment(qid));
+    FocusPointApi.create(sfid, data).then(() => {
+      dispatch(loadSentenceFragment(sfid));
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   }
 }
 
-function submitEditedFocusPoint(qid, data, fpid) {
+function submitEditedFocusPoint(sfid, data, fpid) {
   return (dispatch, getState) => {
-    FocusPointApi.update(qid, fpid, data).then(() => {
-      dispatch(loadSentenceFragment(qid));
+    FocusPointApi.update(sfid, fpid, data).then(() => {
+      dispatch(loadSentenceFragment(sfid));
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
 }
 
-function submitBatchEditedFocusPoint(qid, data) {
+function submitBatchEditedFocusPoint(sfid, data) {
   return (dispatch, getState) => {
-    FocusPointApi.updateAllForQuestion(qid, data).then(() => {
-      dispatch(loadSentenceFragment(qid));
+    FocusPointApi.updateAllForQuestion(sfid, data).then(() => {
+      dispatch(loadSentenceFragment(sfid));
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
 }
 
-function deleteFocusPoint(qid, fpid) {
+function deleteFocusPoint(sfid, fpid) {
   return (dispatch, getState) => {
-    FocusPointApi.remove(qid, fpid).then(() => {
-      dispatch(loadSentenceFragment(qid));
+    FocusPointApi.remove(sfid, fpid).then(() => {
+      dispatch(loadSentenceFragment(sfid));
     }, (error) => {
       alert(`Delete failed! ${error}`);
     });

@@ -15,13 +15,14 @@ import _ from 'underscore';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
-
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
   FocusPointApi,
   IncorrectSequenceApi,
   SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api'
+
 
 
 function startListeningToQuestions() {
@@ -40,7 +41,7 @@ function loadQuestions() {
 
 function loadQuestion(uid) {
   return (dispatch, getState) => {
-    QuestionApi.get(uid).then((question) => {
+    QuestionApi.get(uid).then((question: Question) => {
       dispatch({ type: C.RECEIVE_QUESTION_DATA, uid: uid, data: question, });
     });
   }
@@ -73,11 +74,11 @@ function cancelQuestionEdit(qid) {
 
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
-    dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
+    // dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
     QuestionApi.update(qid, content).then( () => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-      dispatch(loadQuestion(qid));
-      dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      // dispatch(loadQuestion(qid));
+      // dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
     }, (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
