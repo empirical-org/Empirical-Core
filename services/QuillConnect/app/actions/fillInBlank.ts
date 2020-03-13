@@ -26,9 +26,7 @@ import {
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
 function startListeningToQuestions() {
-  return (dispatch, getState) => {
-    return loadQuestions();
-  };
+  return loadQuestions();
 }
 
 function loadQuestions() {

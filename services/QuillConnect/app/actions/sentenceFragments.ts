@@ -15,9 +15,7 @@ import {
 } from '../libs/questions_api'
 
 function startListeningToSentenceFragments() {
-  return (dispatch, getState) => {
-    return loadSentenceFragments();
-  };
+  return loadSentenceFragments();
 }
 
 function loadSentenceFragments() {
@@ -84,10 +82,10 @@ function submitNewIncorrectSequence(sfid, data) {
   };
 }
 
-function submitEditedIncorrectSequence(qid, data, sesfid) {
+function submitEditedIncorrectSequence(sfid, data, sesfid) {
   return (dispatch, getState) => {
-    IncorrectSequenceApi.update(qid, sesfid, data).then(() => {
-      dispatch(loadSentenceFragment(qid));
+    IncorrectSequenceApi.update(sfid, sesfid, data).then(() => {
+      dispatch(loadSentenceFragment(sfid));
     }, (error) => {
       alert(`Submission failed! ${error}`);
     });

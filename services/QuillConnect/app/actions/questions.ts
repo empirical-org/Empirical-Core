@@ -26,9 +26,7 @@ import {
 
 
 function startListeningToQuestions() {
-  return (dispatch, getState) => {
-    return loadQuestions();
-  };
+  return loadQuestions();
 }
 
 function loadQuestions() {
