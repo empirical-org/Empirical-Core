@@ -77,7 +77,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
 
   previousResponses = () => {
     const question = this.currentQuestion()
-    return question.attempts.map(a => a.text)
+    return question.attempts ? question.attempts.map(a => a.text) : []
   }
 
   getCurrentQuestionStatus(currentQuestion) {
