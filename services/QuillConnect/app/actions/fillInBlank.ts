@@ -15,7 +15,7 @@ import _ from 'underscore';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
-
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
   QuestionApi,
   FocusPointApi,
@@ -41,7 +41,7 @@ function loadQuestions() {
 
 function loadQuestion(uid) {
   return (dispatch, getState) => {
-    QuestionApi.get(uid).then((question) => {
+    QuestionApi.get(uid).then((question: Question) => {
       dispatch({ type: C.RECEIVE_FILL_IN_BLANK_QUESTION_DATA, uid: uid, data: question, });
     });
   }
@@ -80,8 +80,6 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      const action = push(`/admin/fill-in-the-blanks/${qid}`);
-      dispatch(action);
     }, (error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });

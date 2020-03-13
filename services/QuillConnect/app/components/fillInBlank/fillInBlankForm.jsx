@@ -99,6 +99,7 @@ class FillInBlankForm extends Component {
       cuesLabel: this.state.cuesLabel
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
+    window.history.back()
   }
 
   clearForm() {
