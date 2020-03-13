@@ -62,7 +62,6 @@ module.exports = merge(config, {
         }
       }
     },
-    minimize: true,
     minimizer: [
       new UglifyJsPlugin(),
     ],
