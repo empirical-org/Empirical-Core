@@ -9,4 +9,9 @@ describe GenerateUsername do
     create(:student, { username: 'john.smith@student' })
     expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq 'john.smith2@student'
   end
+
+  it 'doesnt insert a number if not an exact match at start of username' do
+    create(:student, { username: 'ajohn.smith@student' })
+    expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq 'john.smith@student'
+  end
 end
