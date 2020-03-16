@@ -134,10 +134,11 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
           const diffWordEquivalent = formattedPromptWordArray[originalIndex]
           newTextWordArray.push(diffWordEquivalent)
           if (indexInDiffIndices === diffIndices.length - 1) {
-            const diffWord = textWordArray[originalIndex]
-            if (diffWord) {
-              const indexOfLettersToKeepFromDiffWord = diffWord.split('').findIndex((letter: string, i: number) => letter !== diffWordEquivalent.split('')[i])
-              const partOfDiffWordToKeep = diffWord.split('').slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
+            const diffWordWithoutHtmlLettersArray = textWordArray[originalIndex] ? this.stripHtml(textWordArray[originalIndex]).split('') : null
+            if (diffWordWithoutHtmlLettersArray) {
+              const diffWordEquivalentWithoutHtmlLettersArray = this.stripHtml(diffWordEquivalent)
+              const indexOfLettersToKeepFromDiffWord = diffWordWithoutHtmlLettersArray.findIndex((letter: string, i: number) => letter !== diffWordEquivalentWithoutHtmlLettersArray[i])
+              const partOfDiffWordToKeep = diffWordWithoutHtmlLettersArray.slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
               newTextWordArray.push(partOfDiffWordToKeep)
             }
             newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1))
