@@ -108,39 +108,50 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     } else if (!text.length) {
       this.resetText()
     } else {
-      // if the user has tried to edit part of the original prompt, we find the first word that is different from the original prompt
-      const formattedPromptWordArray = formattedPrompt.split(' ')
-      const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
+      const splitSubmission = text.split('&nbsp;')
 
-      const diffIndices: number[] = []
-      formattedPromptWordArray.forEach((word: string, i: number) => {
-        if ((textWordArray[i] !== word)) {
-          diffIndices.push(i)
-        }
-      })
+      // handles case where change is only in the formatted prompt part
+      if (splitSubmission[1]) {
+        const newValue = `${formattedPrompt}${splitSubmission[1]}`
+        this.setState({ html: newValue}, () => {
+          this.editor.innerHTML = newValue
+        })
+      // student overwrote or deleted both part of their submission and the formatted prompt and the solution is much more complicated
+      } else {
+        // if the user has tried to edit part of the original prompt, we find the first word that is different from the original prompt
+        const formattedPromptWordArray = formattedPrompt.split(' ')
+        const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
 
-      let newTextWordArray = textWordArray.slice(0, diffIndices[0])
-      diffIndices.forEach((originalIndex: number, indexInDiffIndices: number) => {
-        const diffWordEquivalent = formattedPromptWordArray[originalIndex]
-        newTextWordArray.push(diffWordEquivalent)
-        if (indexInDiffIndices === diffIndices.length - 1) {
-          const diffWord = textWordArray[originalIndex]
-          if (diffWord) {
-            const indexOfLettersToKeepFromDiffWord = diffWord.split('').findIndex((letter: string, i: number) => letter !== diffWordEquivalent.split('')[i])
-            const partOfDiffWordToKeep = diffWord.split('').slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
-            newTextWordArray.push(partOfDiffWordToKeep)
+        const diffIndices: number[] = []
+        formattedPromptWordArray.forEach((word: string, i: number) => {
+          if ((textWordArray[i] !== word)) {
+            diffIndices.push(i)
           }
-          newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1))
-        } else {
-          newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1, diffIndices[indexInDiffIndices] - 1))
-        }
-      })
+        })
 
-      const newValue = newTextWordArray.join(' ').replace(/&nbsp;\s/g, '&nbsp;')
+        let newTextWordArray = textWordArray.slice(0, diffIndices[0])
+        diffIndices.forEach((originalIndex: number, indexInDiffIndices: number) => {
+          const diffWordEquivalent = formattedPromptWordArray[originalIndex]
+          newTextWordArray.push(diffWordEquivalent)
+          if (indexInDiffIndices === diffIndices.length - 1) {
+            const diffWord = textWordArray[originalIndex]
+            if (diffWord) {
+              const indexOfLettersToKeepFromDiffWord = diffWord.split('').findIndex((letter: string, i: number) => letter !== diffWordEquivalent.split('')[i])
+              const partOfDiffWordToKeep = diffWord.split('').slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
+              newTextWordArray.push(partOfDiffWordToKeep)
+            }
+            newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1))
+          } else {
+            newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1, diffIndices[indexInDiffIndices] - 1))
+          }
+        })
 
-      this.setState({ html: newValue}, () => {
-        this.editor.innerHTML = newValue
-      })
+        const newValue = newTextWordArray.join(' ').replace(/&nbsp;\s/g, '&nbsp;')
+
+        this.setState({ html: newValue}, () => {
+          this.editor.innerHTML = newValue
+        })
+      }
     }
 
     this.setState({ customFeedback: null, customFeedbackKey: null })
