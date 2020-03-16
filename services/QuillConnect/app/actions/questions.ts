@@ -72,11 +72,11 @@ function cancelQuestionEdit(qid) {
 
 function submitQuestionEdit(qid, content) {
   return (dispatch, getState) => {
-    // dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
+    dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
     QuestionApi.update(qid, content).then( () => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
-      // dispatch(loadQuestion(qid));
-      // dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      dispatch(loadQuestion(qid));
+      dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
     }, (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
