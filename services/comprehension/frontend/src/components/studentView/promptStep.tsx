@@ -110,16 +110,34 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     } else {
       // if the user has tried to edit part of the original prompt, we find the first word that is different from the original prompt
       const formattedPromptWordArray = formattedPrompt.split(' ')
-      const textWordArray = text.split(' ')
-      const diffWord = textWordArray.find((word: string) => !formattedPromptWordArray.includes(word))
-      const indexOfDiffWord = textWordArray.findIndex((word: string) => word === diffWord)
-      // then we find the characters in that word that are not part of the original word
-      const diffWordEquivalent = formattedPromptWordArray[indexOfDiffWord]
-      const indexOfLettersToKeepFromDiffWord = diffWord.split('').findIndex((letter: string, i: number) => letter !== diffWordEquivalent.split('')[i])
-      const partOfDiffWordToKeep = diffWord.split('').splice(indexOfLettersToKeepFromDiffWord).join('')
-      const partOfSubmissionToKeep = textWordArray.splice(indexOfDiffWord + 1).join(' ')
-      // then we join the formatted prompt, the non-original characters with a space after them if there are any, and the rest of the submission
-      const newValue = `${formattedPrompt}${partOfDiffWordToKeep}${partOfDiffWordToKeep ? ' ' : ''}${partOfSubmissionToKeep}`
+      const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
+
+      const diffIndices: number[] = []
+      formattedPromptWordArray.forEach((word: string, i: number) => {
+        if ((textWordArray[i] !== word)) {
+          diffIndices.push(i)
+        }
+      })
+
+      let newTextWordArray = textWordArray.slice(0, diffIndices[0])
+      diffIndices.forEach((originalIndex: number, indexInDiffIndices: number) => {
+        const diffWordEquivalent = formattedPromptWordArray[originalIndex]
+        newTextWordArray.push(diffWordEquivalent)
+        if (indexInDiffIndices === diffIndices.length - 1) {
+          const diffWord = textWordArray[originalIndex]
+          if (diffWord) {
+            const indexOfLettersToKeepFromDiffWord = diffWord.split('').findIndex((letter: string, i: number) => letter !== diffWordEquivalent.split('')[i])
+            const partOfDiffWordToKeep = diffWord.split('').slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
+            newTextWordArray.push(partOfDiffWordToKeep)
+          }
+          newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1))
+        } else {
+          newTextWordArray = newTextWordArray.concat(textWordArray.slice(originalIndex + 1, diffIndices[indexInDiffIndices] - 1))
+        }
+      })
+
+      const newValue = newTextWordArray.join(' ').replace(/&nbsp;\s/g, '&nbsp;')
+
       this.setState({ html: newValue}, () => {
         this.editor.innerHTML = newValue
       })
