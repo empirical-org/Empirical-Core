@@ -108,33 +108,21 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     } else if (!text.length) {
       this.resetText()
     } else {
+      // if the user has tried to edit part of the original prompt, we find the first word that is different from the original prompt
       const formattedPromptWordArray = formattedPrompt.split(' ')
       const textWordArray = text.split(' ')
-      // const wordWhereNewSubmissionDiffers = textWordArray.find((word: string) => !formattedPromptWordArray.includes(word))
-      // const indexOfDiffWord = textWordArray.findIndex((word: string) => word === wordWhereNewSubmissionDiffers)
-      // const partOfSubmissionToKeep = textWordArray.splice(indexOfDiffWord).join(' ')
-      // const newValue = `${formattedPrompt}${partOfSubmissionToKeep}`
-      // debugger;
-      // this.setState({ html: newValue}, () => {
-      //   this.editor.innerHTML = newValue
-      // })
-
-      // handle case where the student deleted everything they'd written
-      debugger;
-      if (formattedPromptWordArray.length >= textWordArray.length) {
-        this.resetText()
-      } else {
-        const splitSubmission = text.split('&nbsp;')
-        // handles case where the only thing deleted was the space between the stem and the student's submission
-        if (!splitSubmission[1]) {
-          this.editor.innerHTML = html
-        } else {
-          const newValue = `${formattedPrompt}${splitSubmission[1]}`
-          this.setState({ html: newValue}, () => {
-            this.editor.innerHTML = newValue
-          })
-        }
-      }
+      const diffWord = textWordArray.find((word: string) => !formattedPromptWordArray.includes(word))
+      const indexOfDiffWord = textWordArray.findIndex((word: string) => word === diffWord)
+      // then we find the characters in that word that are not part of the original word
+      const diffWordEquivalent = formattedPromptWordArray[indexOfDiffWord]
+      const indexOfLettersToKeepFromDiffWord = diffWord.split('').findIndex((letter: string, i: number) => letter !== diffWordEquivalent.split('')[i])
+      const partOfDiffWordToKeep = diffWord.split('').splice(indexOfLettersToKeepFromDiffWord).join('')
+      const partOfSubmissionToKeep = textWordArray.splice(indexOfDiffWord + 1).join(' ')
+      // then we join the formatted prompt, the non-original characters with a space after them if there are any, and the rest of the submission
+      const newValue = `${formattedPrompt}${partOfDiffWordToKeep}${partOfDiffWordToKeep ? ' ' : ''}${partOfSubmissionToKeep}`
+      this.setState({ html: newValue}, () => {
+        this.editor.innerHTML = newValue
+      })
     }
 
     this.setState({ customFeedback: null, customFeedbackKey: null })
