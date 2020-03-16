@@ -16,7 +16,7 @@ class GenerateUsername
 
   def generate
     part1         = "#{first_name}.#{last_name}".downcase
-    part1_pattern = "%#{part1}%"
+    part1_pattern = "#{part1}%"
     at_classcode  = at_classcode(classcode)
     extant_count  = User.where("username LIKE ?", part1_pattern).count(:id)
 
