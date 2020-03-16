@@ -29,7 +29,7 @@ export default class Intro extends React.Component<IntroProps, IntroState> {
 
   handleNextClick = () => {
     const { activity, startActivity, } = this.props
-    if (activity.landingPageHtml && this.landingPageHtmlHasText()) {
+    if (activity && activity.landingPageHtml && this.landingPageHtmlHasText()) {
       this.setState({ showLandingPage: true, });
     } else {
       startActivity();
