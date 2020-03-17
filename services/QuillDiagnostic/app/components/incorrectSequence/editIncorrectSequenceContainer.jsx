@@ -62,24 +62,6 @@ class EditIncorrectSequencesContainer extends Component {
       </div>
     );
   }
-  // render() {
-  //   const { generatedIncorrectSequences, params, questions, sentenceFragments, states, } = this.props
-  //   return (
-  //     <div>
-  //       <IncorrectSequencesInputAndConceptSelectorForm
-  //         item={Object.assign(this.getIncorrectSequence(), { id: params.incorrectSequenceID, })}
-  //         itemLabel='Incorrect Sequence'
-  //         onSubmit={this.submitForm}
-  //         questionID={params.questionID}
-  //         questions={questions}
-  //         sentenceFragments={sentenceFragments}
-  //         states
-  //         usedSequences={generatedIncorrectSequences.used[params.questionID]}
-  //       />
-  //       {this.props.children}
-  //     </div>
-  //   );
-  // }
 }
 
 function select(props) {
@@ -92,15 +74,5 @@ function select(props) {
     states: props.states
   };
 }
-
-// export default connect(select)(EditIncorrectSequencesContainer);
-// function select(props) {
-//   return {
-//     questions: props.questions,
-//     generatedIncorrectSequences: props.generatedIncorrectSequences,
-//     sentenceFragments: props.sentenceFragments,
-//     states: props.states
-//   };
-// }
 
 export default connect(select)(EditIncorrectSequencesContainer);
