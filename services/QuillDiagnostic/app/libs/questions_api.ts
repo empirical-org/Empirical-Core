@@ -25,7 +25,7 @@ class QuestionApi {
   }
 
   static create(questionType: string, data: Question): Promise<QuestionCollection> {
-    return requestPost(`${ApiConstants.questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`, {question: data});
+    return requestPost(`${ApiConstants.questionApiBaseUrl}.json?question_type=${questionType}`, {question: data});
   }
 
   static update(uid: string, data: Question): Promise<Question> {

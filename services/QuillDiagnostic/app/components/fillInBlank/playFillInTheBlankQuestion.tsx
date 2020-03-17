@@ -15,7 +15,7 @@ import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
 import { stringNormalize } from 'quill-string-normalizer';
 import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
-import { Question } from '../../interfaces/Question';
+import Question from '../../interfaces/Question.ts';
 
 interface PlayFillInTheBlankQuestionProps {
   currentKey: string,
