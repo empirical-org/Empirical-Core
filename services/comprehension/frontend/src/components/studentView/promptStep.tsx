@@ -101,14 +101,62 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const text = value.replace(/<b>|<\/b>|<p>|<\/p>|<br>/g, '')
     const formattedPrompt = this.formattedPrompt().replace(/<p>|<\/p>|<br>/g, '')
     const regex = new RegExp(`^${formattedPrompt}`)
+    const caretPosition = EditCaretPositioning.saveSelection(this.editor)
     if (text.match(regex)) {
-      const caretPosition = EditCaretPositioning.saveSelection(this.editor)
       this.setState({ html: value, }, () => EditCaretPositioning.restoreSelection(this.editor, caretPosition))
       // if the student has deleted everything, we want to remove everything but the prompt stem
     } else if (!text.length) {
       this.resetText()
     } else {
-      this.editor.innerHTML = html
+      const splitSubmission = text.split('&nbsp;')
+
+      // handles case where change is only in the formatted prompt part
+      if (splitSubmission[1]) {
+        const newValue = `${formattedPrompt}${splitSubmission[1]}`
+        this.setState({ html: newValue}, () => {
+          this.editor.innerHTML = newValue
+        })
+      // student overwrote or deleted both part of their submission and the formatted prompt and the solution is much more complicated
+      } else {
+        const formattedPromptWordArray = formattedPrompt.split(' ')
+        const textWordArray = text.replace(/&nbsp;/g, ' ').split(' ')
+
+        // if the user has tried to edit part of the original prompt, we find the words in their submission that are different from the original prompt
+        const diffIndices: number[] = []
+        formattedPromptWordArray.forEach((word: string, i: number) => {
+          if ((textWordArray[i] !== word)) {
+            diffIndices.push(i)
+          }
+        })
+
+        let newTextWordArray = textWordArray.slice(0, diffIndices[0])
+        const textToAddAfterPromptText: string[] = []
+
+        // then we add each of the words from the original prompt that they modified or removed back in
+        diffIndices.forEach((originalIndex: number) => {
+          const diffWordEquivalent = formattedPromptWordArray[originalIndex]
+          newTextWordArray.push(diffWordEquivalent)
+          const diffWordWithoutHtmlLettersArray = textWordArray[originalIndex] ? this.stripHtml(textWordArray[originalIndex]).split('') : null
+          if (diffWordWithoutHtmlLettersArray) {
+            const diffWordEquivalentWithoutHtmlLettersArray = this.stripHtml(diffWordEquivalent)
+            const indexOfLettersToKeepFromDiffWord = diffWordWithoutHtmlLettersArray.findIndex((letter: string, i: number) => letter !== diffWordEquivalentWithoutHtmlLettersArray[i])
+            const partOfDiffWordToKeep = diffWordWithoutHtmlLettersArray.slice(indexOfLettersToKeepFromDiffWord).join('').replace(/(&nbsp;)|(<u>)|(<\/u>)/g, '')
+            // keeping track of what they'd modified it to be, so we don't lose those changes
+            textToAddAfterPromptText.push(partOfDiffWordToKeep)
+          }
+        })
+
+        const restOfSubmission = textWordArray.slice(diffIndices[diffIndices.length - 1] + 1)
+
+        // then we concatenate the original text, however they had changed their submission, and the rest of the submission
+        newTextWordArray = newTextWordArray.concat(textToAddAfterPromptText).concat(restOfSubmission)
+
+        const newValue = newTextWordArray.join(' ').replace(/&nbsp;\s/g, '&nbsp;')
+
+        this.setState({ html: newValue}, () => {
+          this.editor.innerHTML = newValue
+        })
+      }
     }
 
     this.setState({ customFeedback: null, customFeedbackKey: null })

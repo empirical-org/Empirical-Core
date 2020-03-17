@@ -17,6 +17,9 @@
       <%= f.label :flag %>
       <%= f.select :flag, Activity::FLAGS %>
       <br>
+      <%= f.label :repeatable %>
+      <%= f.check_box :repeatable %>
+      <br>
       <%= f.label :topic_category %>
       <%= f.collection_select :topic_id, Topic.all, :id, :name %>
       <br>
