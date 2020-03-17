@@ -106,6 +106,8 @@ class SerializeSalesContact
   def subscription_expiration_date
     if subscription.present?
       subscription.expiration
+    elsif teacher.last_expired_subscription.present?
+      teacher.last_expired_subscription.expiration
     else
       'NA'
     end
