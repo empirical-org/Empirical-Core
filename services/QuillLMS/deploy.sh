@@ -22,7 +22,7 @@ case $1 in
     exit 1
 esac
 
-read -r -p "Deploy branch '$CURRENT_BRANCH' to '$1' environment? [Y/n]" response
+read -r -p "Deploy branch '$CURRENT_BRANCH' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([Y])$ ]]
 then
     git push -f ${DEPLOY_GIT_REMOTE} ${CURRENT_BRANCH}:master -v
