@@ -421,10 +421,9 @@ function updatePageNumber(pageNumber, qid) {
   };
 }
 
-function updateStringFilter(stringFilter, qid) {
+function updateStringFilter(stringFilter) {
   return (dispatch) => {
     dispatch(setStringFilter(stringFilter));
-    dispatch(searchResponses(qid));
   };
 }
 
