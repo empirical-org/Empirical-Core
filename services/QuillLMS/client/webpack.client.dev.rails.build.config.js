@@ -6,10 +6,9 @@
 // Note that Foreman (Procfile.dev) has also been configured to take care of this.
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
-const config = require('./webpack.client.base.config');
+const config = require('./webpack.client.dev.base.config');
 const { resolve } = require('path');
 const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const configPath = resolve('..', 'config');
 const { output } = webpackConfigLoader(configPath);
@@ -38,33 +37,14 @@ module.exports = merge(config, {
     filename: '[name]-bundle-[chunkhash].js',
     publicPath: output.publicPath,
     path: output.path,
+    pathinfo: false
   },
 
   optimization: {
-    splitChunks: {
-      chunks: 'async',
-      minSize: 30000,
-      maxSize: 0,
-      minChunks: Infinity,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: '~',
-      name: true,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: Infinity,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    },
-    minimizer: [
-      new UglifyJsPlugin(),
-    ],
+    splitChunks: false,
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    minimize: false,
   },
 
   // See webpack.client.base.config for adding modules common to both webpack dev server and rails

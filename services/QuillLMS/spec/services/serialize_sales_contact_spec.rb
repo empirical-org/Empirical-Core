@@ -101,7 +101,7 @@ describe 'SerializeSalesContact' do
     )
   end
 
-  it 'does not present premium status when subscription expired' do
+  it 'presents expiration date but not premium status when subscription expired' do
     subscription = create(:subscription, account_type: 'SUPER DUPER SUB', expiration: Date.yesterday)
     teacher = create(:user, role: 'teacher')
     create(:user_subscription, subscription: subscription, user: teacher)
@@ -110,7 +110,7 @@ describe 'SerializeSalesContact' do
 
     expect(teacher_data[:params]).to include(
       premium_status: 'NA',
-      premium_expiry_date: 'NA',
+      premium_expiry_date: Date.yesterday,
     )
   end
 
