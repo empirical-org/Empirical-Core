@@ -12,7 +12,9 @@ describe Api::V1::UsersController do
       get :index, format: :json
       expect(response.body).to eq({
         user: user,
-        text: "Hi"
+        text: "Hi",
+        has_refresh_token: false,
+        refresh_token_expires_at: nil
       }.to_json)
     end
   end

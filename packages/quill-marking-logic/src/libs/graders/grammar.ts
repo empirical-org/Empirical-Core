@@ -65,8 +65,11 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   const { response, spellCorrectedResponse, responses, focusPoints, incorrectSequences, } = data;
   const submission = spellCorrected ? spellCorrectedResponse : response;
   yield exactMatch(submission, responses);
-  yield focusPointChecker(submission, focusPoints, responses);
-  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+  if (!spellCorrected) {
+    // we don't want to run the focus point checker and the incorrect sequence checker on spell-checked strings because our spellcheck library strips out a lot of punctuation that is sometimes included in those regexes
+    yield focusPointChecker(submission, focusPoints, responses);
+    yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+  }
   yield caseInsensitiveChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
