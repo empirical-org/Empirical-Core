@@ -24,20 +24,18 @@ import {
   SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api'
 
-// called when the app starts. this means we immediately download all questions, and
-// then receive all questions again as soon as anyone changes anything.
-function startListeningToQuestions() {
-  return (dispatch, getState) => {
-    return loadQuestions();
-  };
-}
-
 function loadQuestions() {
   return (dispatch, getState) => {
     QuestionApi.getAll(SENTENCE_COMBINING_TYPE).then((questions) => {
       dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questions, });
     });
   };
+}
+
+// called when the app starts. this means we immediately download all questions, and
+// then receive all questions again as soon as anyone changes anything.
+function startListeningToQuestions() {
+  return loadQuestions();
 }
 
 function loadQuestion(uid) {
