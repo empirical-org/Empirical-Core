@@ -171,7 +171,7 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   }
 
-  searchResponses() {
+  searchResponses = () => {
     const { dispatch, questionID } = this.props;
     dispatch(questionActions.incrementRequestCount())
     dispatch(questionActions.searchResponses(questionID));
