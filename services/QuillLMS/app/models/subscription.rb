@@ -221,6 +221,10 @@ class Subscription < ActiveRecord::Base
     start_date: Date.today}
   end
 
+  def covid19?
+    account_type == COVID_19_SUBSCRIPTION_TYPE
+  end
+
   protected
 
   def charge_user_for_teacher_premium
@@ -318,10 +322,6 @@ class Subscription < ActiveRecord::Base
       time_to_add = [COVID_19_EXPIRATION - Date.today, 0].max
       existing_sub.update(expiration: existing_sub.expiration + time_to_add)
     end
-  end
-
-  def covid19?
-    account_type == COVID_19_SUBSCRIPTION_TYPE
   end
 
 end
