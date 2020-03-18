@@ -513,10 +513,10 @@ class ResponseComponent extends React.Component {
   }
 
   handleStringFiltering = () => {
-    const { dispatch } = this.props;
+    const { dispatch, questionID } = this.props;
     const { stringFilter } = this.refs;
     const { value } = stringFilter;
-    dispatch(questionActions.updateStringFilter(value));
+    dispatch(questionActions.updateStringFilter(value, questionID));
   }
 
   handleSearchEnter = (e) => {
