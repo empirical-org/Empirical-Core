@@ -14,7 +14,7 @@ class Subscription < ActiveRecord::Base
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
-  COVID_19_EXPIRATION = Date.parse('2020-07-30')
+  COVID_19_EXPIRATION = Date.parse('2020-07-31')
 
   COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for Covid'
 
