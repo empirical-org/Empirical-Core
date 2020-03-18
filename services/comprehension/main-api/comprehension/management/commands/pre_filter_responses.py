@@ -26,10 +26,13 @@ class Command(BaseCommand):
             writer = csv.writer(csv_out)
             for row in reader:
                 entry = row[0]
+                word_count = len(entry.split(' '))
                 if PlagiarismFeedbackView._check_is_plagiarism(
                     passage_text,
                     entry
                 ):
+                    continue
+                if word_count < 3 or word_count > 100:
                     continue
                 writer.writerow(row)
 
