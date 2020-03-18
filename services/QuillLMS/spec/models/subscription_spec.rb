@@ -305,8 +305,7 @@ describe Subscription, type: :model do
 
       it 'creates a new Covid-19 subscription and updates the extant subscription with the appropriate amount of time for a user with an existing subscription' do
         attributes = { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE }
-        time_to_add = Subscription::COVID_19_EXPIRATION - Date.today
-        new_expiration_date_for_extant_subscription = extant_subscription.expiration + time_to_add
+        new_expiration_date_for_extant_subscription = Subscription::COVID_19_EXPIRATION + 365
         new_sub = Subscription.create_with_user_join(user_with_extant_subscription.id, attributes)
         expect(new_sub.expiration).to eq(Subscription::COVID_19_EXPIRATION)
         expect(extant_subscription.reload.expiration).to eq(new_expiration_date_for_extant_subscription)
