@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <th>Session</th>
+    <th>Start Time</th>
+  </tr>
+  {% for s in sessions %}
+  <tr>
+    <td><a href="{% url 'get_session_feedback_history_detail' session_id=s.session_id %}">{{ s.session_id }}</a></td>
+    <td>{{ s.created_at }}</td>
+  </tr>
+  {% endfor %} 
+</table>
