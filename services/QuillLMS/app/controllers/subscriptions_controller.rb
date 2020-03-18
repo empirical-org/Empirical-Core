@@ -42,7 +42,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def activate_covid_subscription
-    if current_user.subscriptions.empty? || current_user.subscriptions.none? { |sub| sub.account_type == Subscription::COVID_19_SUBSCRIPTION_TYPE }
+    if current_user.subscriptions.none?(&:covid19?)
       Subscription.create_with_user_join(current_user.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE })
     end
     redirect_to subscriptions_path

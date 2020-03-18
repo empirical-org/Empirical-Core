@@ -294,7 +294,7 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
-      elsif attributes[:account_type] === COVID_19_SUBSCRIPTION_TYPE
+      elsif attributes[:account_type] == COVID_19_SUBSCRIPTION_TYPE
         attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
         extend_current_subscription_for_covid_19(school_or_user)
       else
@@ -315,9 +315,13 @@ class Subscription < ActiveRecord::Base
   def self.extend_current_subscription_for_covid_19(user)
     existing_sub = user.subscription
     if existing_sub&.expiration && existing_sub.expiration > Date.today
-      time_to_add = COVID_19_EXPIRATION - Date.today
+      time_to_add = [COVID_19_EXPIRATION - Date.today, 0].max
       existing_sub.update(expiration: existing_sub.expiration + time_to_add)
     end
+  end
+
+  def covid19?
+    account_type == COVID_19_SUBSCRIPTION_TYPE
   end
 
 end
