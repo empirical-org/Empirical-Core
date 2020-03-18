@@ -17,9 +17,7 @@
     document.getElementById('close-remote-learning-banner').addEventListener('click', function(e) {
         e.preventDefault();
         document.getElementById('remote-learning-banner').style.display = 'none';
-        let date = new Date();
-        date.setTime(date.getTime()+(24*60*60*1000));
-        document.cookie = `remote_learning_banner_closed=1; expires=${date.toGMTString()}`;
+        document.cookie = "remote_learning_banner_closed=1";
     }, false);
 
   </script>
