@@ -1,9 +1,10 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
 <% current_hour = current_time_on_east_coast.hour %>
-<% between_nine_and_ten = true %>
+<% between_nine_and_ten = current_hour >= 9 && current_hour < 10 %>
 <% between_twelve_and_one = current_hour >= 12 && current_hour < 13 %>
+<% not_a_weekend = !current_time_on_east_coast.saturday? && !current_time_on_east_coast.sunday? %>
 
-<% if (!current_user || current_user.teacher?) && (between_nine_and_ten || between_twelve_and_one) %>
+<% if (!current_user || current_user.teacher?) && (between_nine_and_ten || between_twelve_and_one) && not_a_weekend %>
   <div class="covid-banner" id="webinar-banner">
     <div class="content-container">
       <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
