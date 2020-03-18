@@ -1,0 +1,32 @@
+<% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
+<% current_hour = current_time_on_east_coast.hour %>
+<% between_nine_and_ten = current_hour == 9 %>
+<% between_twelve_and_one = current_hour == 12 %>
+<% not_a_weekend = !current_time_on_east_coast.saturday? && !current_time_on_east_coast.sunday? %>
+
+<% if (!current_user || current_user.teacher?) && (between_nine_and_ten || between_twelve_and_one) && not_a_weekend %>
+  <div class="covid-banner" id="webinar-banner">
+    <div class="content-container">
+      <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+      <p><a href="https://zoom.us/j/178949041">Join our live question and answer session</a> with Quill experts to ask questions about using Quill remotely with students.</p>
+      <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', function(e) {
+      if (document.cookie.indexOf('webinar_banner_closed=1') === -1) {
+        document.getElementById('webinar-banner').style.display = 'block';
+      }
+    });
+
+    document.getElementById('close-webinar-banner').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('webinar-banner').style.display = 'none';
+        let date = new Date();
+        date.setTime(date.getTime()+(24*60*60*1000));
+        document.cookie = `webinar_banner_closed=1; expires=${date.toGMTString()}`;
+    }, false);
+
+  </script>
+<% end %>
