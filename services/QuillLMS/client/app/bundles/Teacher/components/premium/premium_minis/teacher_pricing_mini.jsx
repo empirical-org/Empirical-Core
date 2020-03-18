@@ -40,10 +40,13 @@ export default React.createClass({
   },
 
   purchaseButton() {
-    if (this.props.userIsSignedIn === true) {
-      return <a className="premium-button blue" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn" type="button">Activate Free Teacher Premium</a>;
+    const { userIsSignedIn, userHasCovid19Subscription, } = this.props
+    if (!userIsSignedIn) {
+      return <button className="premium-button blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate Free Teacher Premium</button>;
     }
-    return <button className="premium-button blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate Free Teacher Premium</button>;
+    if (!userHasCovid19Subscription) {
+      return <a className="premium-button blue" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate Free Teacher Premium</a>;
+    }
   },
 
   render() {
