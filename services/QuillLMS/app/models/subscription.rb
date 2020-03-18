@@ -317,9 +317,9 @@ class Subscription < ActiveRecord::Base
 
   def self.extend_current_subscription_for_covid_19(user)
     existing_sub = user.subscription
-    if existing_sub&.expiration && existing_sub&.expiration > Date.today
+    if existing_sub&.expiration && existing_sub.expiration > Date.today
       time_to_add = COVID_19_EXPIRATION - Date.today
-      existing_sub.update(expiration: existing_sub&.expiration + time_to_add)
+      existing_sub.update(expiration: existing_sub.expiration + time_to_add)
     end
   end
 
