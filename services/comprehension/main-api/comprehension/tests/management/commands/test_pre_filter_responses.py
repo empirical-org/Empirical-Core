@@ -42,7 +42,6 @@ class TestPreFilterResponsesCommand(TestCommandBase):
             'passage_source': 'MOCK_PASSAGE_SOURCE',
             'csv_input': mock_csv_input,
         }
-        file_name = 'FAKE FILE NAME'
         mock_handler = mock_open.return_value
         mock_file_content = StringIO('HEADER\nVALUE')
         mock_handler.__enter__.return_value = mock_file_content
