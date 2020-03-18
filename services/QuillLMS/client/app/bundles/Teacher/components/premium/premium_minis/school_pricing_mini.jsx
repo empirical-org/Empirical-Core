@@ -42,7 +42,7 @@ const SchoolPricingMini = ({
           </li>
         </ul>
       </section>
-      <button className="premium-button purple" onClick={onClickEvent} type="button">Request Free School Premium</button>
+      <a className='premium-button purple' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request Free School Premium</a>
     </div>
   );
 }
