@@ -41,6 +41,7 @@ describe SubscriptionsController do
 
         it 'should call the create with user join on the subscription model' do
           expect(Subscription).to receive(:create_with_user_join).with(user_with_no_subscriptions.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE})
+          get :activate_covid_subscription
         end
       end
 
@@ -54,6 +55,7 @@ describe SubscriptionsController do
 
         it 'should call the create with user join on the subscription model' do
           expect(Subscription).to receive(:create_with_user_join).with(user_with_non_covid_subscription.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE})
+          get :activate_covid_subscription
         end
       end
 
@@ -67,6 +69,7 @@ describe SubscriptionsController do
 
         it 'should call the create with user join on the subscription model' do
           expect(Subscription).not_to receive(:create_with_user_join).with(user_with_covid_subscription.id, { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE})
+          get :activate_covid_subscription
         end
       end
     end
