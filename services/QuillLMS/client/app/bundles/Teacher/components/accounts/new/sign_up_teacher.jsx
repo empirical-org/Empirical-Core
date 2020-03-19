@@ -127,7 +127,7 @@ class SignUpTeacher extends React.Component {
     const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
       <div className="container account-form teacher-sign-up">
-        <h1>Create a teacher account</h1>
+        <h1>Create an account</h1>
         <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
         <div className="info-and-form-container">
           <div className="info">
@@ -135,7 +135,7 @@ class SignUpTeacher extends React.Component {
             <ul>
               <li>Quill provides free access to 400 writing and grammar&nbsp;activities</li>
               <li>Students receive immediate feedback on their&nbsp;work</li>
-              <li>Teachers identify student needs and measure growth with diagnostics and&nbsp;reports</li>
+              <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
             </ul>
           </div>
           <div className="account-container text-center">
