@@ -4,25 +4,6 @@
 
 #first-preview-section
   = react_component('PremiumPricingGuideApp', props: {lastFour: @last_four, userHasSchool: @user_has_school, userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription, userIsEligibleForTrial: @user_is_eligible_for_trial, userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid})
-.preview-section#second-preview-section
-  .title Save Time Grading
-  .copy
-    | With Quill Premium, you'll get reports showing detailed views of student progress
-    br
-    | across activities and concepts, Common Core coverage, and more.
-    br
-    br
-    | Teachers, use our interface to dive into the data. You can also download
-    br
-    | reports as a spreadsheet and import them into your gradebook.
-  - unless current_user 
-    .preview-btns
-      a href="/demo" target='_new'
-        .btn.try-the-demo
-          | Try the Demo
-  .preview-image
-    = image_tag 'premium_preview/premium_screenshot.png'
-
 
 .preview-section#fourth-preview-section
   .super-title
@@ -58,13 +39,13 @@
           | For districts, we provide custom pricing, on-site training, and district dashboards. &nbsp;
           = link_to 'Contact us', 'https://quillpremium.wufoo.com/forms/quill-premium-quote/', target: '_blank'
           | &nbsp;to receive a demo.
-          
+
       .preview-question-and-answer.preview-question-and-answer-with-margin
         .preview-question
           | Do you accept purchase orders?
         .preview-answer
-          | Yes, we accept purchase orders. You may email a purchase order to sales@quill.org. You can access our W-9 by 
-          = link_to 'clicking this link', 'http://bit.ly/quill-w9-2018', target: '_new' 
+          | Yes, we accept purchase orders. You may email a purchase order to sales@quill.org. You can access our W-9 by
+          = link_to 'clicking this link', 'http://bit.ly/quill-w9-2018', target: '_new'
           | &nbsp; and you can reach out with questions at <a href="tel:510-671-0222">510-671-0222</a>. &nbsp;
 
       .preview-question-and-answer.preview-question-and-answer-with-margin
