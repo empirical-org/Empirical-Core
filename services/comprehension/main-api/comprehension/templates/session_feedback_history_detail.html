@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}">
+
 <h3><a href="{% url 'get_session_feedback_history' %}">Back to all sessions</a></h3>
 <table>
   <tr>
