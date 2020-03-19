@@ -42,7 +42,8 @@ class PlagiarismFeedbackView(ApiView):
 
         return JsonResponse(response)
 
-    def _check_is_plagiarism(self, entry, passage):
+    @classmethod
+    def _check_is_plagiarism(cls, entry, passage):
         punctuation = ",.;|!?:\'\"-()[]/"
         remove_punctuation = str.maketrans(punctuation, ' ' * len(punctuation))
 

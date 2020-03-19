@@ -23,7 +23,7 @@ describe Subscription, type: :model do
   describe 'the subscription type consts' do
     it "the official school and offical teacher types contain the same values as all offical types" do
       types_by_role = Subscription::OFFICIAL_SCHOOL_TYPES.dup.concat(Subscription::OFFICIAL_TEACHER_TYPES)
-      expect(types_by_role).to match_array(Subscription::ALL_OFFICIAL_TYPES)
+      expect(types_by_role.uniq).to match_array(Subscription::ALL_OFFICIAL_TYPES)
     end
   end
 
@@ -287,6 +287,35 @@ describe Subscription, type: :model do
         attributes = { account_type: 'Teacher Paid' }
         new_sub = Subscription.create_with_user_join(user.id, attributes)
         expect(new_sub.expiration).to be >= (Date.today + 365)
+      end
+    end
+
+    context 'when the subscription type is COVID_19_SUBSCRIPTION_TYPE' do
+      let!(:user_with_extant_subscription) { create(:user) }
+      let!(:extant_subscription ) { Subscription.create_with_user_join(user_with_extant_subscription.id, expiration: Date.today + 365, account_type: 'Teacher Paid') }
+      let!(:user_with_no_extant_subscription) { create(:user) }
+      let!(:user_with_expired_extant_subscription) { create(:user) }
+      let!(:extant_expired_subscription ) { Subscription.create_with_user_join(user_with_expired_extant_subscription.id, expiration: Date.today - 1, account_type: 'Teacher Paid') }
+
+      it 'creates a new Covid-19 subscription for a user with no existing subscription' do
+        attributes = { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE }
+        new_sub = Subscription.create_with_user_join(user_with_no_extant_subscription.id, attributes)
+        expect(new_sub.expiration).to eq(Subscription::COVID_19_EXPIRATION)
+      end
+
+      it 'creates a new Covid-19 subscription and updates the extant subscription with the appropriate amount of time for a user with an existing subscription' do
+        attributes = { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE }
+        new_expiration_date_for_extant_subscription = Subscription::COVID_19_EXPIRATION + 365
+        new_sub = Subscription.create_with_user_join(user_with_extant_subscription.id, attributes)
+        expect(new_sub.expiration).to eq(Subscription::COVID_19_EXPIRATION)
+        expect(extant_subscription.reload.expiration).to eq(new_expiration_date_for_extant_subscription)
+      end
+
+      it 'creates a new Covid-19 subscription and does not update the extant one for a user with an existing expired subscription' do
+        attributes = { account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE }
+        new_sub = Subscription.create_with_user_join(user_with_expired_extant_subscription.id, attributes)
+        expect(new_sub.expiration).to eq(Subscription::COVID_19_EXPIRATION)
+        expect(extant_expired_subscription.reload.expiration).to eq(Date.today - 1)
       end
     end
 
