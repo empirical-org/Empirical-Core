@@ -48,8 +48,7 @@ def check_for_errors(entry, prompt_text=''):
     # text + 1 because we add a space
     offset_adjusted_errors = [Error(text=e.text,
                                     index=e.index - len(prompt_text) - 1,
-                                    type=e.type
-                              ) for e in entry_errors]
+                                    type=e.type) for e in entry_errors]
 
     return offset_adjusted_errors
 
