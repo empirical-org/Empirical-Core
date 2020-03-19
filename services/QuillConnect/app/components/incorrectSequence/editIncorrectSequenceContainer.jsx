@@ -24,9 +24,10 @@ class EditIncorrectSequencesContainer extends Component {
   }
 
   componentWillMount() {
+    const { actionFile } = this.state
     const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid] && this.state.actionFile.getUsedSequences) {
-      this.props.dispatch(this.state.actionFile.getUsedSequences(this.props.params.questionID))
+    if (!this.props.generatedIncorrectSequences.used[qid] && actionFile.getUsedSequences) {
+      this.props.dispatch(actionFile.getUsedSequences(this.props.params.questionID))
     }
   }
 
@@ -35,8 +36,9 @@ class EditIncorrectSequencesContainer extends Component {
   }
 
   submitForm(data, incorrectSequenceID) {
+    const { actionFile } = this.state
     delete data.conceptResults.null;
-    this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, incorrectSequenceID));
+    this.props.dispatch(actionFile.submitEditedIncorrectSequence(this.props.params.questionID, data, incorrectSequenceID));
     window.history.back();
   }
 
