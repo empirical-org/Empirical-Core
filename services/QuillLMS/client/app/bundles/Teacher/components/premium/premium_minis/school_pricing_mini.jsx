@@ -22,10 +22,6 @@ const SchoolPricingMini = ({
   }
   return (
     <div className="pricing-mini">
-      <div className="promo-tab">{savingsCopy}</div>
-      <div className="placeholder-div">
-        <div className="promo-tab">{savingsCopy}</div>
-      </div>
       <header className="pricing-mini-header purple">
         <div className="img-holder">
           <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/school_premium_icon.png`} />
@@ -34,12 +30,8 @@ const SchoolPricingMini = ({
       </header>
       <section className="pricing-info">
         <div className="premium-rates">
-          <h3>
-            <span>
-              $1800
-            </span>
-          </h3>
-          <h4>per year</h4>
+          <h3 className="strikethrough">$1,800 per year</h3>
+          <h4>Free for the rest of the 2019/2020 school year</h4>
         </div>
         <ul>
           <li>Everything in Teacher Premium</li>
@@ -50,8 +42,7 @@ const SchoolPricingMini = ({
           </li>
         </ul>
       </section>
-      <button className="btn btn-default mini-btn purple" onClick={onClickEvent} type="button">Purchase</button>
-      <a href="https://quill-partnerships.youcanbook.me/" rel="noopener noreferrer" target="_blank"><button className="btn btn-default mini-btn empty-purple" type="button">Schedule Demo</button></a>
+      <a className='premium-button purple' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request Free School Premium</a>
     </div>
   );
 }
