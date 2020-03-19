@@ -34,7 +34,7 @@ export default React.createClass({
       <div className="container" id="premium-pricing-guide">
         <div className="overview text-center">
           <h1>Pricing Guide</h1>
-          <p>Save time grading and gain actionable insights with Quill Premium.</p>
+          <p>We’re here to support anyone impacted by school closures by providing every single teacher with free Premium.</p>
         </div>
         <PremiumPricingMinisRow {...this.props} />
         <DistrictPricingBox />

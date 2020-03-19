@@ -1,3 +1,15 @@
+.district-premium-button {
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: normal;
+  padding: 10px 24px;
+  text-align: center;
+  color: #00c2a2;
+  border: 1px solid #00c2a2;
+}
+
+
 .premium-tab {
   a {
     background-color: #EA9A1A !important;
@@ -105,10 +117,12 @@ li.premium-tab > a:hover {
     margin: auto auto 70px;
     h1 {
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     p {
-      font-size: 21px;
+      font-size: 18px;
+      letter-spacing: 0.05px;
+      color: #333333;
     }
   }
   .pricing-mini {
@@ -179,7 +193,7 @@ li.premium-tab > a:hover {
       }
       .premium-rates {
         position: relative;
-        min-height: 74px;
+        min-height: 100px;
         .red-line {
           position: absolute;
           top: 4px;
@@ -188,9 +202,25 @@ li.premium-tab > a:hover {
           margin-right: 10px;
         }
         h3 {
-          font-size: 24px;
-          font-weight: 800;
-          margin-bottom: 7px;
+          font-size: 18px;
+          font-weight: normal;
+          line-height: normal;
+          text-align: center;
+          color: #333333;
+          margin-bottom: 8px;
+          &.strikethrough {
+            text-decoration: line-through;
+            color: #707070;
+          }
+        }
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: normal;
+          text-align: center;
+          color: #333333;
+          margin-bottom: 24px;
+          padding: 0px 20px;
         }
         &.all-h4 {
           h4 {
@@ -199,6 +229,16 @@ li.premium-tab > a:hover {
           }
         }
       }
+    }
+    .premium-button {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: normal;
+      border-radius: 6px;
+      text-align: center;
+      color: white;
+      display: inline-block;
     }
     .mini-btn {
       height: 40px;

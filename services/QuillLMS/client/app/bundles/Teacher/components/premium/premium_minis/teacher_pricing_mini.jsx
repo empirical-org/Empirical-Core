@@ -40,10 +40,13 @@ export default React.createClass({
   },
 
   purchaseButton() {
-    if (this.props.userIsSignedIn === true) {
-      return <button className="btn btn-default mini-btn blue" data-toggle="modal" id="purchase-btn" onClick={this.charge} type="button">Buy Now</button>;
+    const { userIsSignedIn, userHasCovid19Subscription, } = this.props
+    if (!userIsSignedIn) {
+      return <button className="premium-button blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate Free Teacher Premium</button>;
     }
-    return <button className="btn btn-default mini-btn blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Buy Now</button>;
+    if (!userHasCovid19Subscription) {
+      return <a className="premium-button blue" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate Free Teacher Premium</a>;
+    }
   },
 
   render() {
@@ -58,8 +61,8 @@ export default React.createClass({
         </header>
         <section className="pricing-info">
           <div className="premium-rates">
-            <h3>$80</h3>
-            <h4>per year</h4>
+            <h3 className="strikethrough">$80 per year</h3>
+            <h4>Free for the rest of the 2019/2020 school year</h4>
           </div>
           <ul className="text-left">
             <li>Everything in Basic</li>
@@ -70,7 +73,6 @@ export default React.createClass({
         </section>
         <div className="row">
           {this.purchaseButton()}
-          {this.beginTrialButton()}
           <PleaseLoginModal ref="pleaseLoginModal" />
         </div>
       </div>

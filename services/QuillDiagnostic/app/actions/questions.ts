@@ -427,7 +427,7 @@ function updatePageNumber(pageNumber, qid) {
 function updateStringFilter(stringFilter, qid) {
   return (dispatch) => {
     dispatch(setStringFilter(stringFilter));
-    dispatch(searchResponses(qid));
+    stringFilter === '' && dispatch(searchResponses(qid));
   };
 }
 
