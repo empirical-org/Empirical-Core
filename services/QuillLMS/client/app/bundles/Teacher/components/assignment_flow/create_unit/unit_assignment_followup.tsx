@@ -158,7 +158,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <div className="referral-card">
         <img alt="gift" src={giftSrc} />
         <h1>Share Quill and earn a month of free Quill Premium for Teachers.</h1>
-        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word. </p>
+        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word.</p>
         <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
         <div className='share-box'>
           <div className="referral-link-container">

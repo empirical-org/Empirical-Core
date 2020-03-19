@@ -1,3 +1,3 @@
 export default function(str) {
-  return str.replace(/(<\/?[^>]+(>)|(&nbsp;)|$)/g, "")
+  return str.replace(/(<\/?[^>]+(>)|(&nbsp;)|$)/g, "");
 }
