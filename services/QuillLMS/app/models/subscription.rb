@@ -17,6 +17,7 @@ class Subscription < ActiveRecord::Base
   COVID_19_EXPIRATION = Date.parse('2020-07-31')
 
   COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
+  COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
                          'School NYC Paid',
@@ -33,7 +34,8 @@ class Subscription < ActiveRecord::Base
                          'Teacher Contributor Free',
                          'Teacher Sponsored Free',
                          'Teacher Trial',
-                         COVID_19_SUBSCRIPTION_TYPE]
+                         COVID_19_SUBSCRIPTION_TYPE,
+                         COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
 
   OFFICIAL_SCHOOL_TYPES = ['School District Paid',
                            'School NYC Paid',
@@ -44,7 +46,7 @@ class Subscription < ActiveRecord::Base
                            'School Research',
                            'School Sponsored Free',
                            'School Strategic Free',
-                           COVID_19_SUBSCRIPTION_TYPE]
+                           COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
 
   OFFICIAL_TEACHER_TYPES = ['Teacher Paid',
                             'Premium Credit',
