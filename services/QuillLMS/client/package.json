@@ -124,7 +124,7 @@
     "terser-webpack-plugin": "^2.3.5",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.2.1",
-    "typescript": "^2.7.2",
+    "typescript": "^3.8.3",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.0"
   },
