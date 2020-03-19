@@ -172,8 +172,8 @@ jobs:
           name: Run QuillConnect Tests
           command: |
             cd services/QuillConnect
-            FORCE_COLOR=true npm run jest --colors --runInBand app/
-            FORCE_COLOR=true npm run jest --colors --runInBand test/
+            FORCE_COLOR=true npm run jest --colors --runInBand app/ -w 1
+            FORCE_COLOR=true npm run jest --colors --runInBand test/ -w 1
   lessons_node_build:
     working_directory: ~/Empirical-Core
     docker:
