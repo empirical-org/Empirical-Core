@@ -94,7 +94,8 @@ export default class ForgotPassword extends React.Component {
           <h3><span>Need your teacher to reset your password? Share these instructions:</span> <img alt="Lightbulb" src={bulbSrc} /></h3>
           <ol>
             <li>Sign in to your teacher account</li>
-            <li>Click on the &#34;Classes&#34; tab, and then click on  &#34;Edit Students&#34;</li>
+            <li>Click on the &#34;Classes&#34; tab, and then click on
+ &#34;Edit Students&#34;</li>
             <li>Find the student, and click on &#34;Edit Account&#34;</li>
             <li>Click on &#34;Reset password to last name&#34;</li>
           </ol>
