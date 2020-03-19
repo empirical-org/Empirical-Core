@@ -106,7 +106,7 @@ class SignUpStudent extends React.Component {
     return (
       <div className="container account-form student-sign-up">
         <h1>Create a student account</h1>
-        <p className="sub-header">Are you a teacher?
+        <p className="sub-header">Are you a teacher or guardian?
           <span className="inline-link" onClick={this.handleClickSignUpAsTeacher} onKeyDown={this.handleKeyDownOnSignUpAsTeacher} role="link" tabIndex={0}>Sign up here</span>
         </p>
         <div className="account-container text-center">
