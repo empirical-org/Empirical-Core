@@ -11,7 +11,7 @@ export interface FillInBlankReducerState {
   submittingnew: boolean,
 }
 
-type FillInBlankReducerAction = Action & { data: FillInBlank, qid: string }
+type FillInBlankReducerAction = Action & { data: FillInBlank, qid: string, uid: string }
 
 const initialState = {
   data: {},
@@ -31,6 +31,12 @@ export default (
       return Object.assign({}, currentState, {
         hasreceiveddata: true,
         data: action.data,
+      });
+    case ActionTypes.RECEIVE_FILL_IN_BLANK_QUESTION_DATA:
+      return Object.assign({},currentState,{
+        data: Object.assign({}, currentState.data, {
+        [action.uid]: action.data
+        })
       });
     case ActionTypes.AWAIT_NEW_FILL_IN_BLANK_QUESTION_RESPONSE:
       return Object.assign({}, currentState, {
