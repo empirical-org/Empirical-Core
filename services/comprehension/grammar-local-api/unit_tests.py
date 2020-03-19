@@ -137,3 +137,19 @@ def test_grammar_errors(app):
                 assert data.get('feedback_type') == 'grammar'
                 assert data.get('optimal') is True
                 assert len(data.get('highlight')) == 0
+
+
+def test_error_filtering(app):
+    errors_in_prompt_only = main.check_for_errors(entry='a book.',
+                                                  prompt_text='He readed')
+    assert len(errors_in_prompt_only) == 0
+
+    errors_in_entry_only = main.check_for_errors(entry='readed a book.',
+                                                 prompt_text='He')
+    assert len(errors_in_entry_only) == 1
+    assert errors_in_entry_only[0].index == 0
+
+    errors_in_both = main.check_for_errors(entry='and writed a book.',
+                                           prompt_text='He readed')
+    assert len(errors_in_both) == 1
+    assert errors_in_both[0].index == 4
