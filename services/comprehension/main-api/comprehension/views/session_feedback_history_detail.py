@@ -1,10 +1,13 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views import View
 
 from ..models.feedback_history import FeedbackHistory
 
 
 class SessionFeedbackHistoryDetailView(View):
+    @method_decorator(staff_member_required)
     def get(self, request, session_id):
         feedback_histories = (FeedbackHistory.objects
                                              .filter(session_id=session_id)
