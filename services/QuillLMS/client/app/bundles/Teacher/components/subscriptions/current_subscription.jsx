@@ -6,7 +6,6 @@ import ChangePlan from './change_plan';
 import TitleAndContent from './current_subscription_title_and_content';
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,11 +13,6 @@ export default class extends React.Component {
       lastFour: this.props.lastFour,
       recurring: _.get(this.props.subscriptionStatus, 'recurring'),
     };
-    this.showChangePlan = this.showChangePlan.bind(this);
-    this.updateRecurring = this.updateRecurring.bind(this);
-    this.editCreditCard = this.editCreditCard.bind(this);
-    this.updateLastFour = this.updateLastFour.bind(this);
-    this.changeRecurringStatus = this.changeRecurringStatus.bind(this);
   }
 
   editCreditCardElement() {
@@ -53,24 +47,24 @@ export default class extends React.Component {
     return <span>No Payment Method on File</span>;
   }
 
-  editCreditCard() {
+  editCreditCard = () => {
     new EnterOrUpdateStripeCard(this.updateLastFour, 'Update');
-  }
+  };
 
-  updateLastFour(newLastFour) {
+  updateLastFour = newLastFour => {
     this.setState({ lastFour: newLastFour, });
-  }
+  };
 
-  showChangePlan() {
+  showChangePlan = () => {
     this.setState({
       showChangePlan: true,
     });
-  }
+  };
 
-  updateRecurring(recurring) {
+  updateRecurring = recurring => {
     this.props.updateSubscription(
       { recurring: this.state.recurring, }, _.get(this.props.subscriptionStatus, 'id'));
-  }
+  };
 
   changePlan() {
     if (this.state.showChangePlan) {
@@ -78,9 +72,9 @@ export default class extends React.Component {
     }
   }
 
-  changeRecurringStatus(status) {
+  changeRecurringStatus = status => {
     this.setState({ recurring: status, });
-  }
+  };
 
   paymentMethod() {
     return (

@@ -8,13 +8,6 @@ import l from 'lodash'
 import $ from 'jquery';
 
 export default class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.students = this.students.bind(this)
-    this.studentDropdown = this.studentDropdown.bind(this)
-  }
-
   componentWillMount() {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/diagnostic_activity_ids`, {
       method: 'GET',
@@ -40,7 +33,7 @@ export default class Navbar extends React.Component {
     })
   }
 
-  students() {
+  students = () => {
     const selectedClassroomId = parseInt(this.props.params.classroomId);
     let students
     if (this.props.students) {
@@ -61,9 +54,9 @@ export default class Navbar extends React.Component {
         return 0
       }
     })
-  }
+  };
 
-  studentDropdown() {
+  studentDropdown = () => {
     let selectedStudent;
     const studentId = this.props.params.studentId;
     if (studentId) {
@@ -77,7 +70,7 @@ export default class Navbar extends React.Component {
         students={this.students()}
       />);
     }
-  }
+  };
 
   render() {
     let appName, image, previewLink

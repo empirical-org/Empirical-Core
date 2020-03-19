@@ -11,18 +11,13 @@ export default class extends React.Component{
       email: this.props.email || null,
       updated: false,
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.setErrorOrSubmit = this.setErrorOrSubmit.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.showEmailErrors = this.showEmailErrors.bind(this)
   }
 
-  handleChange(val) {
+  handleChange = val => {
     this.setState({email: val.target.value, updated: false})
-  }
+  };
 
-  setErrorOrSubmit(){
+  setErrorOrSubmit = () => {
     // this should use a more restful route ---
     // right now all of the teacher's self updating is carried out
     // through the classroom manager controller
@@ -48,20 +43,20 @@ export default class extends React.Component{
     } else {
       this.setState({error: 'Invalid email address! Please re-type your email address.'})
     }
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault()
     this.setState({error: null}, this.setErrorOrSubmit)
-  }
+  };
 
-  showEmailErrors() {
+  showEmailErrors = () => {
     let content
     if (this.state.error) {
       content = <span><i aria-hidden="true" className="fas fa-exclamation-triangle" />{this.state.error}</span>
     }
     return <div className="error">{content}</div>
-  }
+  };
 
   render(){
     const inputBorderColor = this.state.error ? { 'border': '1px solid #ff4542'} : {'display': 'inherit'}

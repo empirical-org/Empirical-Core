@@ -7,18 +7,12 @@ import gradeColor from '../modules/grade_color.js';
 import activityFromClassificationId from '../modules/activity_from_classification_id.js';
 
 export default class ActivityIconWithTooltip extends React.Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
       showTooltip: false
     }
-
-    this.checkForStudentReport = this.checkForStudentReport.bind(this)
-    this.showToolTipAndGetConceptResultInfo = this.showToolTipAndGetConceptResultInfo.bind(this)
-    this.hideTooltip = this.hideTooltip.bind(this)
-    this.activityId = this.activityId.bind(this)
   }
 
   getConceptResultInfo() {
@@ -60,17 +54,17 @@ export default class ActivityIconWithTooltip extends React.Component {
     return null;
   }
 
-  activityId() {
+  activityId = () => {
     const d = this.props.data;
     return d.activityId
-  }
+  };
 
-  showToolTipAndGetConceptResultInfo() {
+  showToolTipAndGetConceptResultInfo = () => {
     this.showToolTip();
     if (!this.state.tooltipData) {
       this.getConceptResultInfo();
     }
-  }
+  };
 
   showToolTip() {
     this.setState({ showToolTip: true, });
@@ -98,17 +92,17 @@ export default class ActivityIconWithTooltip extends React.Component {
 
 
 
-  checkForStudentReport() {
+  checkForStudentReport = () => {
     if (this.props.data.percentage) {
       this.goToReport();
     } else {
       alert('This activity has not been completed, so there is no report yet.');
     }
-  }
+  };
 
-  hideTooltip() {
+  hideTooltip = () => {
     this.setState({ showToolTip: false, });
-  }
+  };
 
   statusIndicator() {
     const {started, completed_attempts} = this.props.data

@@ -15,13 +15,9 @@ export default class UnlinkModal extends React.Component {
       checkboxTwo: false,
       checkboxThree: false
     }
-
-    this.toggleCheckbox = this.toggleCheckbox.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     const { updateUser, googleOrClever, } = this.props
     const { email, password, } = this.state
     e.preventDefault()
@@ -38,11 +34,11 @@ export default class UnlinkModal extends React.Component {
       data.clever_id = null
     }
     updateUser(data, '/teachers/update_my_account', `${googleOrClever} unlinked`)
-  }
+  };
 
-  handleChange(field, e) {
+  handleChange = (field, e) => {
     this.setState({ [field]: e.target.value, })
-  }
+  };
 
   submitClass() {
     const { googleOrClever, } = this.props
@@ -55,9 +51,9 @@ export default class UnlinkModal extends React.Component {
     return buttonClass;
   }
 
-  toggleCheckbox(checkboxNumber) {
+  toggleCheckbox = checkboxNumber => {
     this.setState({ [checkboxNumber]: !this.state[checkboxNumber], })
-  }
+  };
 
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]

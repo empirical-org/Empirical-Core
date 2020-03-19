@@ -14,7 +14,6 @@ import _ from 'underscore'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class extends React.Component {
-
   constructor() {
     super()
     this.state = {
@@ -22,7 +21,6 @@ export default class extends React.Component {
       errors: false,
       selectedClassroom: showAllClassroomKey
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -93,9 +91,9 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
+  switchClassrooms = classroom => {
     this.setState({selectedClassroom: classroom})
-  }
+  };
 
   filteredClassroomsData() {
     if (this.state.selectedClassroom === showAllClassroomKey) {

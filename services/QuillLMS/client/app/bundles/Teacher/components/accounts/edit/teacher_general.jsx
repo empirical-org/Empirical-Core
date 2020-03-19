@@ -29,18 +29,6 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       showButtonSection: false,
       changedSchools: false,
     }
-
-    this.activateSection = this.activateSection.bind(this)
-    this.showSchoolSelector = this.showSchoolSelector.bind(this)
-    this.handleSchoolChange = this.handleSchoolChange.bind(this)
-    this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.handleNameChange = this.handleNameChange.bind(this)
-    this.handleTimezoneChange = this.handleTimezoneChange.bind(this)
-    this.handleSchoolTypeChange = this.handleSchoolTypeChange.bind(this)
-    this.resetAndDeactivateSection = this.resetAndDeactivateSection.bind(this)
-    this.schoolTypeOptions = this.schoolTypeOptions.bind(this)
-    this.reset = this.reset.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -66,14 +54,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   }
 
-  activateSection() {
+  activateSection = () => {
     if (!this.props.active || !this.state.showButtonSection) {
       this.setState({ showButtonSection: true, })
       this.props.activateSection()
     }
-  }
+  };
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     const { name, email, timeZone, school, changedSchools } = this.state
     e.preventDefault()
     const data = {
@@ -84,14 +72,14 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       school_options_do_not_apply: !changedSchools
     };
     this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
-  }
+  };
 
-  showSchoolSelector() {
+  showSchoolSelector = () => {
     this.activateSection()
     this.setState({ showSchoolSelector: true, })
-  }
+  };
 
-  handleSchoolChange(id, schoolObj) {
+  handleSchoolChange = (id, schoolObj) => {
     const { school } = this.state
     if (id != school.id) {
       this.setState({ changedSchools: true, })
@@ -103,28 +91,28 @@ export default class TeacherGeneralAccountInfo extends React.Component {
         this.setState({ school, showSchoolSelector: false, })
       }
     }
-  }
+  };
 
-  handleEmailChange(e) {
+  handleEmailChange = e => {
     this.setState({ email: e.target.value, });
-  }
+  };
 
-  handleNameChange(e) {
+  handleNameChange = e => {
     this.setState({ name: e.target.value, });
-  }
+  };
 
-  handleTimezoneChange(timeZone) {
+  handleTimezoneChange = timeZone => {
     this.setState({ timeZone: timeZone.name, });
-  }
+  };
 
-  handleSchoolTypeChange(schoolType) {
+  handleSchoolTypeChange = schoolType => {
     // we don't want teachers to set their school as "not-listed" if they already have a school selected
     if (schoolType.value !== 'U.S. K-12 school' || this.state.schoolType !== 'U.S. K-12 school') {
       this.setState({ schoolType: schoolType.value, school: schoolType, });
     }
-  }
+  };
 
-  reset() {
+  reset = () => {
     const { email, name, timeZone, school, schoolType, } = this.props
     this.setState({
       name,
@@ -135,9 +123,9 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       showSchoolSelector: false,
       showButtonSection: false
     })
-  }
+  };
 
-  schoolTypeOptions() {
+  schoolTypeOptions = () => {
     const { alternativeSchools, alternativeSchoolsNameMap, } = this.props
     return alternativeSchools.map((school) => {
       const schoolOption = school
@@ -145,7 +133,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       schoolOption.value = alternativeSchoolsNameMap[school.name]
       return schoolOption
     })
-  }
+  };
 
   submitClass() {
     let buttonClass = 'quill-button contained primary medium';
@@ -219,10 +207,10 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   }
 
-  resetAndDeactivateSection() {
+  resetAndDeactivateSection = () => {
     this.reset()
     this.props.deactivateSection()
-  }
+  };
 
   renderButtonSection() {
     if (this.state.showButtonSection) {

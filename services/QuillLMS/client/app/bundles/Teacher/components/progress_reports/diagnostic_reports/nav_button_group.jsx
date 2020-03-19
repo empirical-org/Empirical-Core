@@ -5,45 +5,40 @@ import React from 'react'
 require('../../../../../assets/styles/app-variables.scss')
 
 export default class NavButtonGroup extends React.Component {
+    constructor(props) {
+        super(props)
 
-	constructor(props) {
-    super(props)
+        this.state = { activityWithRecommendationsIds: [] };
+    }
 
-		this.state = { activityWithRecommendationsIds: [] };
+    componentDidMount() {
+      fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'include'
+      }).then((response) => {
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        return response.json();
+      }).then((response) => {
+        this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds })
+      }).catch((error) => {
+        // to do, use Sentry to capture error
+      })
+    }
 
-    this.buttonBuilder = this.buttonBuilder.bind(this)
-    this.doesNotHaveRecommendations = this.doesNotHaveRecommendations.bind(this)
-    this.buttons = this.buttons.bind(this)
-	}
-
-  componentDidMount() {
-    fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include'
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    }).then((response) => {
-      this.setState({ activityWithRecommendationsIds: response.activityWithRecommendationsIds })
-    }).catch((error) => {
-      // to do, use Sentry to capture error
-    })
-  }
-
-	buttonBuilder (name) {
+    buttonBuilder = name => {
 		return () => {
 			this.props.clickCallback(name.toLowerCase())
 		}
-	}
+	};
 
-	doesNotHaveRecommendations() {
+    doesNotHaveRecommendations = () => {
 		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
-	}
+	};
 
-	buttons() {
+    buttons = () => {
 		const contents = [
 			{name: 'Students', words: ['student_report', 'students'], exceptions: []},
 			{name: 'Questions', words:['questions']},
@@ -73,9 +68,9 @@ export default class NavButtonGroup extends React.Component {
 				return <button className={`btn btn-secondary ${activeState}`} key={name} onClick={this.buttonBuilder(name)} type="button">{name}</button>
 			}
 		})
-	}
+	};
 
-	render() {
+    render() {
 		return (
   <div aria-label="Basic example" className="btn-group" id='report-button-group' role="group">
     {this.buttons()}

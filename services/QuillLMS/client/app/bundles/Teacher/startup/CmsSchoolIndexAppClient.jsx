@@ -14,13 +14,6 @@ export default class CmsSchoolIndex extends React.Component {
       query: props.query,
       loading: false
     }
-
-    this.setSort = this.setSort.bind(this)
-    this.search = this.search.bind(this)
-    this.updatePage = this.updatePage.bind(this)
-    this.updateCheckbox = this.updateCheckbox.bind(this)
-    this.submitPageForm = this.submitPageForm.bind(this)
-    this.updatePremiumStatus = this.updatePremiumStatus.bind(this)
   }
 
   getColumns() {
@@ -91,7 +84,7 @@ export default class CmsSchoolIndex extends React.Component {
       ];
   }
 
-  setSort(newSorted) {
+  setSort = newSorted => {
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
     if (sort !== this.state.query.sort || sort_direction !== this.state.query.sort_direction) {
@@ -100,7 +93,7 @@ export default class CmsSchoolIndex extends React.Component {
       newState.query.sort_direction = sort_direction
       this.setState(newState, this.search)
     }
-  }
+  };
 
   updateField(e, key) {
     const value = e.target.value
@@ -109,23 +102,23 @@ export default class CmsSchoolIndex extends React.Component {
     this.setState(newState)
   }
 
-  updateCheckbox() {
+  updateCheckbox = () => {
     const newState = { ...this.state}
     newState.query.search_schools_with_zero_teachers = !this.state.query.search_schools_with_zero_teachers
     this.setState(newState)
-  }
+  };
 
-  updatePage(i) {
+  updatePage = i => {
     const newState = { ...this.state}
     newState.query.page = i
     this.setState(newState, this.search)
-  }
+  };
 
-  submitPageForm(e) {
+  submitPageForm = e => {
     this.updatePage(e.target.page.value)
-  }
+  };
 
-  updatePremiumStatus(e) {
+  updatePremiumStatus = e => {
     const selectedOptions = []
     Array.from(e.target.options).forEach(o => {
       if (o.selected) {
@@ -135,7 +128,7 @@ export default class CmsSchoolIndex extends React.Component {
     const newState = { ...this.state }
     newState.query.premium_status = selectedOptions
     this.setState(newState)
-  }
+  };
 
   renderPremiumStatusSelect() {
     const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
@@ -156,7 +149,7 @@ export default class CmsSchoolIndex extends React.Component {
     </div>)
   }
 
-  search() {
+  search = () => {
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/schools/search`
     const data = new FormData();
@@ -181,7 +174,7 @@ export default class CmsSchoolIndex extends React.Component {
     }).catch((error) => {
       // to do, use Sentry to capture error
     })
-  }
+  };
 
   renderTableOrLoading() {
     if (this.state.loading) {

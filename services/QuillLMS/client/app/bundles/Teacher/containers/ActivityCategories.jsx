@@ -10,12 +10,9 @@ export default class ActivityCategories extends React.Component {
     this.state = {
       activity_categories: props.activity_categories
     }
-
-    this.updateActivityCategoryOrder = this.updateActivityCategoryOrder.bind(this)
-    this.saveActivityCategories = this.saveActivityCategories.bind(this)
   }
 
-  updateActivityCategoryOrder(sortInfo) {
+  updateActivityCategoryOrder = sortInfo => {
     const originalOrderedActivityCategories = this.state.activity_categories
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newOrderedActivityCategories = newOrder.map((key, i) => {
@@ -24,9 +21,9 @@ export default class ActivityCategories extends React.Component {
       return newActivityCategory
     })
     this.setState({activity_categories: newOrderedActivityCategories})
-  }
+  };
 
-  saveActivityCategories() {
+  saveActivityCategories = () => {
     const that = this
     request.put(`${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`, {
       json: {
@@ -42,7 +39,7 @@ export default class ActivityCategories extends React.Component {
 
         }
     })
-  }
+  };
 
   deleteActivityCategory(key) {
     const activityCategoryToDelete = this.state.activity_categories[key]

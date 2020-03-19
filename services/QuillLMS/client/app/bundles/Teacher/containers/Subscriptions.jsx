@@ -12,7 +12,6 @@ import PremiumCreditsTable from '../components/subscriptions/premium_credits_tab
 import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
@@ -26,15 +25,6 @@ export default class extends React.Component {
       purchaserNameOrEmail: this.purchaserNameOrEmail(),
       authorityLevel: this.props.userAuthorityLevel,
     };
-    this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
-    this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
-    this.showPurchaseModal = this.showPurchaseModal.bind(this);
-    this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
-    this.hidePurchaseModal = this.hidePurchaseModal.bind(this);
-    this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
-    this.updateCard = this.updateCard.bind(this);
-    this.updateSubscription = this.updateSubscription.bind(this);
-    // this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
   }
 
   availableAndEarnedCredits() {
@@ -75,9 +65,9 @@ export default class extends React.Component {
     });
   }
 
-  updateSubscriptionStatus(subscription) {
+  updateSubscriptionStatus = subscription => {
     this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
-  }
+  };
 
   purchasePremiumButton() {
     return <button className="q-button button cta-button bg-orange text-white" data-toggle="modal" id="purchase-btn" onClick={this.purchasePremium} type="button">Update Card</button>;
@@ -90,7 +80,7 @@ export default class extends React.Component {
     return this.state.subscriptionStatus;
   }
 
-  redeemPremiumCredits() {
+  redeemPremiumCredits = () => {
     request.put({
       url: `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
       json: {
@@ -108,9 +98,9 @@ export default class extends React.Component {
         });
       }
     });
-  }
+  };
 
-  updateSubscription(params, subscriptionId) {
+  updateSubscription = (params, subscriptionId) => {
     request.put({
       url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
       json: { subscription: params, authenticity_token: getAuthToken(), },
@@ -121,7 +111,7 @@ export default class extends React.Component {
         alert('There was an error updating your subscription. Please try again or contact hello@quill.org.');
       }
     });
-  }
+  };
 
   userIsContact() {
     if (this.props.subscriptionStatus) {
@@ -146,25 +136,25 @@ export default class extends React.Component {
     return 'Teacher';
   }
 
-  updateCard() {
+  updateCard = () => {
     this.showPurchaseModal();
-  }
+  };
 
-  showPremiumConfirmationModal() {
+  showPremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: true, });
-  }
+  };
 
-  hidePremiumConfirmationModal() {
+  hidePremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: false, });
-  }
+  };
 
-  showPurchaseModal() {
+  showPurchaseModal = () => {
     this.setState({ showPurchaseModal: true, });
-  }
+  };
 
-  hidePurchaseModal() {
+  hidePurchaseModal = () => {
     this.setState({ showPurchaseModal: false, });
-  }
+  };
 
   render() {
     const userHasValidSub = this.state.subscriptionStatus && !this.state.subscriptionStatus.expired;

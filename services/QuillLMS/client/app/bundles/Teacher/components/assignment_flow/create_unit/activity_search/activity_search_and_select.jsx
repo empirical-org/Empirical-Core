@@ -28,11 +28,6 @@ export default class ActivitySearchAndSelect extends React.Component {
       activeFilterOn: !!getParameterByName('tool'),
       error: null,
     }
-
-    this.selectFilterOption = this.selectFilterOption.bind(this)
-    this.clearFilters = this.clearFilters.bind(this)
-    this.updateSearchQuery = this.updateSearchQuery.bind(this)
-    this.selectPageNumber = this.selectPageNumber.bind(this)
   }
 
   componentDidMount() {
@@ -71,13 +66,13 @@ export default class ActivitySearchAndSelect extends React.Component {
     this.setState({ error, });
   }
 
-  clearFilters() {
+  clearFilters = () => {
     this.setState({
       filters: ActivitySearchFilterConfig(),
       activeFilterOn: false,
       searchQuery: '',
     }, this.changeViewableActivities);
-  }
+  };
 
   searchRequestSuccess(data) {
     const hash = {
@@ -131,11 +126,11 @@ export default class ActivitySearchAndSelect extends React.Component {
     return availableOptions;
   }
 
-  updateSearchQuery(e) {
+  updateSearchQuery = e => {
     this.setState({ searchQuery: e.target.value, }, this.changeViewableActivities);
-  }
+  };
 
-  selectFilterOption(field, optionId) {
+  selectFilterOption = (field, optionId) => {
     let activeFilterOn = true;
     const filters = _.map(this.state.filters, (filter) => {
       if (filter.field == field) {
@@ -150,7 +145,7 @@ export default class ActivitySearchAndSelect extends React.Component {
       return filter;
     }, this);
     this.setState({ filters, activeFilterOn, }, this.changeViewableActivities);
-  }
+  };
 
   activityContainsSearchTerm(activity) {
     const stringActivity = Object.values(activity).join(' ').toLowerCase();
@@ -209,9 +204,9 @@ export default class ActivitySearchAndSelect extends React.Component {
     this.setState({ viewableActivities: visActs, });
   }
 
-  selectPageNumber(number) {
+  selectPageNumber = number => {
     this.setState({ currentPage: number, });
-  }
+  };
 
   currentPageResults() {
     const lowerBound = (this.state.currentPage - 1) * resultsPerPage;

@@ -13,7 +13,6 @@ import userIsPremium from '../modules/user_is_premium'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class IndividualStandardsReport extends React.Component {
-
   constructor(props) {
     super()
     this.state = {
@@ -21,8 +20,6 @@ export default class IndividualStandardsReport extends React.Component {
       errors: false,
       userIsPremium: userIsPremium()
     }
-
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -120,10 +117,10 @@ export default class IndividualStandardsReport extends React.Component {
     ])
   }
 
-  switchClassrooms(classroomName) {
+  switchClassrooms = classroomName => {
     const classroom = this.state.classrooms.find(c => c.name === classroomName)
     this.setState({ selectedClassroom: classroom }, this.getData)
-  }
+  };
 
   render() {
     if (this.state.loading || !this.state.studentData) {
@@ -164,5 +161,4 @@ export default class IndividualStandardsReport extends React.Component {
       </div>
     )
   }
-
 };

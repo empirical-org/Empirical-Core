@@ -12,9 +12,6 @@ export default class extends React.Component {
       completedDiagnosticUnitInfo: null,
       loading: true
     };
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -48,13 +45,13 @@ export default class extends React.Component {
     }
   }
 
-  openModal(activityID) {
+  openModal = activityID => {
     this.setState({ showModal: activityID, });
-  }
+  };
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ showModal: false, });
-  }
+  };
 
   renderAssignedLessons() {
     const lessons = this.state.lessons;

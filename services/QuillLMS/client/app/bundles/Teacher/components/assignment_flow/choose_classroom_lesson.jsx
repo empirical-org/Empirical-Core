@@ -12,8 +12,6 @@ export default class ChooseClassroomLesson extends React.Component {
     }
 
     this.getClassroomLessonInfo()
-
-    this.goBack = this.goBack.bind(this)
   }
 
   getClassroomLessonInfo() {
@@ -67,9 +65,9 @@ export default class ChooseClassroomLesson extends React.Component {
     return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 
-  goBack() {
+  goBack = () => {
     this.props.history.goBack()
-  }
+  };
 
   render() {
     const buttonClass = this.state.classroomUnitId ? 'bg-quillgreen' : ''

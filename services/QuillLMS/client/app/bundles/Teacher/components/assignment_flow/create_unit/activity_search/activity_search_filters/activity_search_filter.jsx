@@ -12,9 +12,6 @@ export default class ActivitySearchFilter extends React.Component {
     this.state = {
       activeFilterId: null
     }
-
-    this.handleFilterButtonClick = this.handleFilterButtonClick.bind(this)
-    this.renderButton = this.renderButton.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,24 +29,24 @@ export default class ActivitySearchFilter extends React.Component {
     }
   }
 
-  handleFilterButtonClick(optionId) {
+  handleFilterButtonClick = optionId => {
     this.props.selectFilterOption(this.props.data.field, optionId);
     this.setState({ activeFilterId: optionId, });
-  }
+  };
 
   clearFilterOptionSelection() {
     this.props.selectFilterOption(this.props.data.field, null);
     this.setState({ activeFilterId: null, });
   }
 
-  renderButton(opt) {
+  renderButton = opt => {
     return (<FilterButton
       active={this.state.activeFilterId === opt.id}
       data={opt}
       handleFilterButtonClick={this.handleFilterButtonClick}
       key={`${opt.id}-activity`}
     />);
-  }
+  };
 
   renderAppOptions() {
     const options = _.uniqWith(this.props.data.options, _.isEqual);

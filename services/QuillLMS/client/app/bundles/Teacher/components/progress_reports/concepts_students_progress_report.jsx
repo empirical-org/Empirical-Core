@@ -14,7 +14,6 @@ import EmptyStateForReport from './empty_state_for_report'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class extends React.Component {
-
   constructor(props) {
     super()
     this.state = {
@@ -23,7 +22,6 @@ export default class extends React.Component {
       selectedClassroom: showAllClassroomKey,
       userIsPremium: userIsPremium()
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -49,9 +47,9 @@ export default class extends React.Component {
     return {dropdownClassrooms, classroomsWithStudentIds }
   }
 
-  switchClassrooms(classroom){
+  switchClassrooms = classroom => {
     this.setState({selectedClassroom: classroom, updatingReportData: true, }, this.filterReportData)
-  }
+  };
 
   filterReportData(){
     let filteredReportData;
@@ -176,5 +174,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 };

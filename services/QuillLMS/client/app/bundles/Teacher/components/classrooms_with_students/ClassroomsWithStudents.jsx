@@ -4,18 +4,16 @@ import EditStudentsButton from './EditStudentsButton.jsx';
 import getParameterByName from '../modules/get_parameter_by_name.js';
 
 export default class ClassroomsWithStudents extends React.Component {
-
   constructor() {
     super();
     this.ajaxData = this.ajaxData.bind(this);
-    this.classroomUpdates = this.classroomUpdates.bind(this);
   }
 
   resetPage() {
     window.location = '/teachers/classrooms/lesson_planner';
   }
 
-  classroomUpdates() {
+  classroomUpdates = () => {
     const classrooms_data = [];
     let classroomsWithNoAssignedStudents = 0;
     this.props.classrooms.forEach((classy) => {
@@ -46,7 +44,7 @@ export default class ClassroomsWithStudents extends React.Component {
     }
 	);
     return classrooms_data;
-  }
+  };
 
   ajaxData = () => {
     const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
@@ -122,5 +120,4 @@ export default class ClassroomsWithStudents extends React.Component {
       </div>
     );
   }
-
 }

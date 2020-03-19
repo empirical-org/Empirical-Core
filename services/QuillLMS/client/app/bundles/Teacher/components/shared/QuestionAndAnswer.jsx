@@ -7,7 +7,6 @@ export default class QuestionAndAnswer extends React.Component {
     this.state = {
       expanded: false
     }
-    this.toggleExpansion = this.toggleExpansion.bind(this)
   }
 
   answer() {
@@ -21,9 +20,9 @@ export default class QuestionAndAnswer extends React.Component {
     return <p className="expand-or-collapse" onClick={this.toggleExpansion}>{buttonText}</p>
   }
 
-  toggleExpansion() {
+  toggleExpansion = () => {
     this.setState({expanded: !this.state.expanded})
-  }
+  };
 
   render() {
     return (

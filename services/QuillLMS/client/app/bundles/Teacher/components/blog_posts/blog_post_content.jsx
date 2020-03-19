@@ -3,13 +3,6 @@ import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 
 export default class BlogPostContent extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.renderAvatar = this.renderAvatar.bind(this)
-    this.renderName = this.renderName.bind(this)
-  }
-
   renderBodyOrPaywall() {
     if(this.props.displayPaywall) {
       return (
@@ -25,13 +18,13 @@ export default class BlogPostContent extends React.Component {
     }
   }
 
-  renderAvatar() {
+  renderAvatar = () => {
     return this.props.author ? <img src={this.props.author.avatar} /> : null
-  }
+  };
 
-  renderName() {
+  renderName = () => {
     return this.props.author ? <p className='author'>{this.props.author.name}</p> : null
-  }
+  };
 
   render() {
     const className = this.props.centerImages ? 'center-images' : ''

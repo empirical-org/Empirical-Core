@@ -21,35 +21,30 @@ class SignUpStudent extends React.Component {
       analytics: new AnalyticsWrapper(),
       timesSubmitted: 0
     }
-
-    this.updateKeyValue = this.updateKeyValue.bind(this);
-    this.update = this.update.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.submitClass = this.submitClass.bind(this)
   }
 
   componentDidMount() {
     document.title = 'Quill.org | Student Sign Up'
   }
 
-  updateKeyValue(key, value) {
+  updateKeyValue = (key, value) => {
     const newState = Object.assign({}, this.state);
     newState[key] = value;
     this.setState(newState);
-  }
+  };
 
-  update(e) {
+  update = e => {
     this.updateKeyValue(e.target.id, e.target.value)
-  }
+  };
 
-  submitClass() {
+  submitClass = () => {
     const { password, firstName, lastName, username } = this.state
     let buttonClass = "quill-button contained primary medium focus-on-light"
     if (!password.length || !firstName.length || !lastName.length || !username.length) {
       buttonClass += ' disabled'
     }
     return buttonClass
-  }
+  };
 
   handleClickSignUpAsTeacher = (e) => {
     SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER)
@@ -61,7 +56,7 @@ class SignUpStudent extends React.Component {
     this.handleClickSignUpAsTeacher(e)
   }
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     const { firstName, lastName, username, password, timesSubmitted, email, } = this.state
     const emailToSubmit = email && email.length ? email : null
     e.preventDefault();
@@ -99,7 +94,7 @@ class SignUpStudent extends React.Component {
         this.setState(state)
       }
     });
-  }
+  };
 
   render () {
     const { authToken, firstName, lastName, username, timesSubmitted, email, errors, password, } = this.state

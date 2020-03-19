@@ -8,12 +8,6 @@ import UnitTemplateMini from './unit_template_mini'
 import AssignmentFlowNavigation from '../assignment_flow_navigation.tsx'
 
 export default class UnitTemplateMinis extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.generateUnitTemplateView = this.generateUnitTemplateView.bind(this)
-  }
-
   generateUnitTemplateViews() {
     const { grade, } = this.props.data;
     let models;
@@ -38,7 +32,7 @@ export default class UnitTemplateMinis extends React.Component {
     return _l.uniqBy(models, 'id');
   }
 
-  generateUnitTemplateView(model, index) {
+  generateUnitTemplateView = (model, index) => {
     return (<UnitTemplateMini
       actions={this.props.actions}
       data={model}
@@ -46,7 +40,7 @@ export default class UnitTemplateMinis extends React.Component {
       key={model.id}
       signedInTeacher={this.props.signedInTeacher}
     />)
-  }
+  };
 
   getIndexLink() {
     return this.props.signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'

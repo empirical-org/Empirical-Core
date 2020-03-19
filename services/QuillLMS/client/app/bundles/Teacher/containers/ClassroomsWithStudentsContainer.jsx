@@ -28,14 +28,6 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       newUnit: !!this.props.params.activityIdsArray,
       showModal: false
     };
-
-    this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
-    this.onSuccess = this.onSuccess.bind(this)
-    this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
-    this.showSnackbar = this.showSnackbar.bind(this)
-    this.getClassroomsAndStudentsData = this.getClassroomsAndStudentsData.bind(this)
   }
 
   componentDidMount() {
@@ -43,19 +35,19 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     this.getGoogleClassrooms()
   }
 
-  openModal(modalName) {
+  openModal = modalName => {
     this.setState({ showModal: modalName })
-  }
+  };
 
-  closeModal(callback=null) {
+  closeModal = (callback=null) => {
     this.setState({ showModal: null}, () => {
       if (callback && typeof(callback) === 'function') {
         callback()
       }
     })
-  }
+  };
 
-  getGoogleClassrooms() {
+  getGoogleClassrooms = () => {
     if (this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
@@ -70,14 +62,14 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         });
       })
     }
-  }
+  };
 
-  onSuccess(snackbarCopy) {
+  onSuccess = snackbarCopy => {
     this.getClassroomsAndStudentsData()
     this.getGoogleClassrooms()
     this.showSnackbar(snackbarCopy)
     this.closeModal()
-  }
+  };
 
   findTargetClassIndex(classroomId) {
     return this.state.classrooms.findIndex(classy => classy.id === classroomId);
@@ -88,31 +80,31 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
 			stud => stud.id === studentId);
   }
 
-	// Emilia and Ryan discussed that it may make more sense for the AJAX
-	// call to return a data structure like:
-	// {
-	//   classrooms: [{
-	//     id: 23,
-	//     name: 'English 2',
-	//     students: {
-	//       12323: {
-	//         'Ryan'
-	//       }
-	//     }
-	//   }]
-	// ]
-	// units: [
-	//   id: 1232,
-	//   name: 'Adjectives',
-	//   classroom_activities: [{
-	//     classroom: 23,
-	//     assigned_student_ids: [23]
-	//   }]
-	// ]
-	// }
-	// this would allow us to iterate over the assigned_student_ids
-	// and then change the students to selected/not selected based off of the results
-	//
+  // Emilia and Ryan discussed that it may make more sense for the AJAX
+  // call to return a data structure like:
+  // {
+  //   classrooms: [{
+  //     id: 23,
+  //     name: 'English 2',
+  //     students: {
+  //       12323: {
+  //         'Ryan'
+  //       }
+  //     }
+  //   }]
+  // ]
+  // units: [
+  //   id: 1232,
+  //   name: 'Adjectives',
+  //   classroom_activities: [{
+  //     classroom: 23,
+  //     assigned_student_ids: [23]
+  //   }]
+  // ]
+  // }
+  // this would allow us to iterate over the assigned_student_ids
+  // and then change the students to selected/not selected based off of the results
+  //
   toggleStudentSelection = (studentIndex, classIndex) => {
     const newState = Object.assign({}, this.state);
     const classy = newState.classrooms[classIndex];
@@ -239,7 +231,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     return changed;
   }
 
-  getClassroomsAndStudentsData() {
+  getClassroomsAndStudentsData = () => {
     const that = this;
     let url,
       unitName;
@@ -257,9 +249,9 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
         that.setState({ errors: body ? body.errors : undefined, loading: false, });
       }
     );
-  }
+  };
 
-  clickImportGoogleClassrooms() {
+  clickImportGoogleClassrooms = () => {
     const { user, } = this.props
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!user.google_id) {
@@ -271,13 +263,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
     } else {
       this.openModal(googleClassroomsEmptyModal)
     }
-  }
+  };
 
-  showSnackbar(snackbarCopy) {
+  showSnackbar = snackbarCopy => {
     this.setState({ showSnackbar: true, snackbarCopy }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
     })
-  }
+  };
 
   renderCreateAClassModal() {
     if (this.state.showModal === createAClassModal) {
@@ -386,5 +378,4 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       {this.renderContent()}
     </div>)
   }
-
 }

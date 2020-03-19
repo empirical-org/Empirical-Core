@@ -3,23 +3,20 @@ import SelectCreditCardModal from '../components/subscriptions/select_credit_car
 import SchoolPremiumModal from '../components/subscriptions/school_premium_modal';
 
 export default class PurchaseModal extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       schoolPremiumCreditCard: false,
     };
-    this.purchaseSchoolPremium = this.purchaseSchoolPremium.bind(this);
-    this.setCreditCardToFalse = this.setCreditCardToFalse.bind(this);
   }
 
-  setCreditCardToFalse() {
+  setCreditCardToFalse = () => {
     this.setState({ readyForSchoolPremiumPurchase: false, });
-  }
+  };
 
-  purchaseSchoolPremium() {
+  purchaseSchoolPremium = () => {
     this.setState({ readyForSchoolPremiumPurchase: true, });
-  }
+  };
 
   render() {
     if (this.state.readyForSchoolPremiumPurchase) {
@@ -29,5 +26,4 @@ export default class PurchaseModal extends React.Component {
     }
     return <SelectCreditCardModal price={80} type={'teacher'} {...this.props} />;
   }
-
 }

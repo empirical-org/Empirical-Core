@@ -40,15 +40,13 @@ export default class ReviewActivities extends React.Component {
     })
 
     this.state = state
-
-    this.removeRow = this.removeRow.bind(this)
   }
 
-  removeRow(id) {
+  removeRow = id => {
     const { activities, toggleActivitySelection } = this.props
     const activity = activities.find(act => act.id === id)
     toggleActivitySelection(activity, false)
-  }
+  };
 
   handleDueDateChange(id, date) {
     const { activities, assignActivityDueDate, dueDates, } = this.props

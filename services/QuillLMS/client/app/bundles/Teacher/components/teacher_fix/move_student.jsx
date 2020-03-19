@@ -11,13 +11,9 @@ export default class MoveStudent extends React.Component {
       classCode1: '',
       classCode2: ''
     }
-
-    this.submitData = this.submitData.bind(this)
-    this.updateClassCode = this.updateClassCode.bind(this)
-    this.updateStudentIdentifier = this.updateStudentIdentifier.bind(this)
   }
 
-  submitData() {
+  submitData = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/move_student_from_one_class_to_another`,
@@ -32,16 +28,16 @@ export default class MoveStudent extends React.Component {
         // to do, use Sentry to capture error
       }
     })
-  }
+  };
 
-  updateClassCode(e, classCodeNumber) {
+  updateClassCode = (e, classCodeNumber) => {
     const key = `classCode${classCodeNumber}`
     this.setState({[key]: e.target.value})
-  }
+  };
 
-  updateStudentIdentifier(e) {
+  updateStudentIdentifier = e => {
     this.setState({studentIdentifier: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {

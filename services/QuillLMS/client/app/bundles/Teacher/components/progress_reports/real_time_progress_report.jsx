@@ -9,15 +9,12 @@ import moment from 'moment';
 import EmptyStateForReport from './empty_state_for_report';
 
 export default class extends React.Component {
-
   constructor() {
     super();
     this.state = {
       loading: true,
       errors: false,
     };
-    this.initializePusher = this.initializePusher.bind(this);
-    this.clearStudentData = this.clearStudentData.bind(this);
   }
 
   componentDidMount() {
@@ -35,12 +32,12 @@ export default class extends React.Component {
     });
   }
 
-  clearStudentData() {
+  clearStudentData = () => {
     const studentsData = { data: {}, };
     this.setState({ studentsData, });
-  }
+  };
 
-  initializePusher() {
+  initializePusher = () => {
     /* TODO */
     const { currentUser, } = this.props;
     const teacherId = currentUser.id;
@@ -63,7 +60,7 @@ export default class extends React.Component {
       );
       this.getRealTimeData()
     });
-  }
+  };
 
   humanTime(timeInSeconds) {
     let result = '';

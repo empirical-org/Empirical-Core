@@ -12,7 +12,6 @@ import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
 import _ from 'underscore'
 
 export default class extends React.Component {
-
   constructor() {
     super()
     this.state = {
@@ -20,7 +19,6 @@ export default class extends React.Component {
       errors: false,
       userIsPremium: userIsPremium()
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -121,9 +119,9 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
+  switchClassrooms = classroom => {
     this.setState({selectedClassroom: classroom}, () => this.getData())
-  }
+  };
 
   filteredData() {
     return this.state.standardsData
@@ -164,5 +162,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 }

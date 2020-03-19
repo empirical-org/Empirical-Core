@@ -18,7 +18,6 @@ const showAllStudentsKey = 'All Students'
 
 
 export default class extends React.Component {
-
   constructor() {
     super()
     this.state = {
@@ -29,8 +28,6 @@ export default class extends React.Component {
       classrooms: [],
       userIsPremium: userIsPremium()
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
-    this.goToStudentPage = this.goToStudentPage.bind(this)
   }
 
   componentDidMount() {
@@ -152,16 +149,16 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
+  switchClassrooms = classroom => {
     this.setState({selectedClassroom: classroom, updatingData: true}, () => this.getData())
-  }
+  };
 
-  goToStudentPage(studentName) {
+  goToStudentPage = studentName => {
     const student = this.state.students.find(s => s.name === studentName)
     if (student) {
       window.location.href = `/teachers/progress_reports/standards/classrooms/0/students/${student.id}/topics`
     }
-  }
+  };
 
   tableOrEmptyMessage(){
       const data = this.state.standardsData
@@ -213,5 +210,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 }

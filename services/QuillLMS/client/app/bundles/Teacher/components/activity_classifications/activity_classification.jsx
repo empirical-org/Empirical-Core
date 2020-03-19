@@ -33,7 +33,6 @@ export default class ActivityClassification extends React.Component {
     this.state = { model: model };
 
     this.updateModelState = this.updateModelState.bind(this);
-    this.save = this.save.bind(this);
   }
 
   initializeModules() {
@@ -56,10 +55,10 @@ export default class ActivityClassification extends React.Component {
     this.setState(newState);
   }
 
-  save() {
+  save = () => {
     const model = this.state.model;
     this.modules.server.save(model, {callback: this.props.returnToIndex});
-  }
+  };
 
   render() {
     let inputs;

@@ -55,9 +55,6 @@ export default class UnitTemplatesManager extends React.Component {
 
     this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
     this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
-    this.updateUnitTemplateModels = this.updateUnitTemplateModels.bind(this)
-    this.selectCategory = this.selectCategory.bind(this)
-    this.filterModels = this.filterModels.bind(this)
   }
 
   componentDidMount() {
@@ -85,7 +82,7 @@ export default class UnitTemplatesManager extends React.Component {
     });
   }
 
-  updateUnitTemplateModels(models) {
+  updateUnitTemplateModels = models => {
     const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
     const newHash = {
       models,
@@ -103,7 +100,7 @@ export default class UnitTemplatesManager extends React.Component {
     if (category || grade || type) {
       this.filterModels(category, grade, type)
     }
-  }
+  };
 
   returnToIndex() {
     this.updateUnitTemplatesManager({ stage: 'index' })
@@ -115,7 +112,7 @@ export default class UnitTemplatesManager extends React.Component {
     window.scrollTo(0, 0);
   }
 
-  filterModels(category, grade, typeId) {
+  filterModels = (category, grade, typeId) => {
     const { unitTemplatesManager, } = this.state
     let displayedModels = unitTemplatesManager.models
     let selectedCategoryId
@@ -134,7 +131,7 @@ export default class UnitTemplatesManager extends React.Component {
       displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
     }
     return displayedModels
-  }
+  };
 
   fetchClassrooms() {
     requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities', (data) => {
@@ -181,7 +178,7 @@ export default class UnitTemplatesManager extends React.Component {
     }
   }
 
-  selectCategory(category) {
+  selectCategory = category => {
     const { unitTemplatesManager, } = this.state
     const newUnitTemplatesManager = unitTemplatesManager
     newUnitTemplatesManager.selectedCategoryId = category.value
@@ -197,7 +194,7 @@ export default class UnitTemplatesManager extends React.Component {
       url = url.concat(`?category=${category.label}`)
     }
     this.props.router.push(url)
-  }
+  };
 
   showUnitTemplates() {
     if (this.state.unitTemplatesManager.models.length < 1) {

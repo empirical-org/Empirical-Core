@@ -25,32 +25,25 @@ export default class AssignStudents extends React.Component {
     this.state = {
       showFormOrModal: false
     }
-
-    this.getGoogleClassrooms = this.getGoogleClassrooms.bind(this)
-    this.onSuccess = this.onSuccess.bind(this)
-    this.clickImportGoogleClassrooms = this.clickImportGoogleClassrooms.bind(this)
-    this.openFormOrModal = this.openFormOrModal.bind(this)
-    this.closeFormOrModal = this.closeFormOrModal.bind(this)
-    this.showSnackbar = this.showSnackbar.bind(this)
   }
 
   componentDidMount() {
     this.getGoogleClassrooms()
   }
 
-  openFormOrModal(modalName) {
+  openFormOrModal = modalName => {
     this.setState({ showFormOrModal: modalName })
-  }
+  };
 
-  closeFormOrModal(callback=null) {
+  closeFormOrModal = (callback=null) => {
     this.setState({ showFormOrModal: null}, () => {
       if (callback && typeof(callback) === 'function') {
         callback()
       }
     })
-  }
+  };
 
-  getGoogleClassrooms() {
+  getGoogleClassrooms = () => {
     if (this.props.user && this.props.user.google_id) {
       this.setState({ googleClassroomsLoading: true}, () => {
         requestGet('/teachers/classrooms/retrieve_google_classrooms', (body) => {
@@ -65,16 +58,16 @@ export default class AssignStudents extends React.Component {
         });
       })
     }
-  }
+  };
 
-  onSuccess(snackbarCopy) {
+  onSuccess = snackbarCopy => {
     this.props.fetchClassrooms()
     this.getGoogleClassrooms()
     this.showSnackbar(snackbarCopy)
     this.closeFormOrModal()
-  }
+  };
 
-  clickImportGoogleClassrooms() {
+  clickImportGoogleClassrooms = () => {
     const { googleClassrooms, googleClassroomsLoading, } = this.state
     if (!this.props.user.google_id) {
       this.openFormOrModal(googleClassroomEmailModal)
@@ -85,13 +78,13 @@ export default class AssignStudents extends React.Component {
     } else {
       this.openFormOrModal(googleClassroomsEmptyModal)
     }
-  }
+  };
 
-  showSnackbar(snackbarCopy) {
+  showSnackbar = snackbarCopy => {
     this.setState({ showSnackbar: true, snackbarCopy }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
     })
-  }
+  };
 
   renderCreateAClassInlineForm() {
     if (this.state.showFormOrModal === createAClassForm) {
@@ -230,5 +223,4 @@ export default class AssignStudents extends React.Component {
       {this.renderClassroomsSection()}
     </div>)
   }
-
 }

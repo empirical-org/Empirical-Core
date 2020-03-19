@@ -12,20 +12,13 @@ export default class UnarchiveUnits extends React.Component {
       changedNames: {},
       teacherIdentifier: ''
     }
-
-    this.updateTeacherIdentifier = this.updateTeacherIdentifier.bind(this)
-    this.getArchivedUnits = this.getArchivedUnits.bind(this)
-    this.toggleSelected = this.toggleSelected.bind(this)
-    this.unarchiveUnits = this.unarchiveUnits.bind(this)
-    this.updateName = this.updateName.bind(this)
-    this.toggleSelectAllUnits = this.toggleSelectAllUnits.bind(this)
   }
 
-  updateTeacherIdentifier(e) {
+  updateTeacherIdentifier = e => {
     this.setState({teacherIdentifier: e.target.value})
-  }
+  };
 
-  toggleSelected(e) {
+  toggleSelected = e => {
     const newSelectedUnitIds = this.state.selectedUnitIds
     const selectedIndex = newSelectedUnitIds.findIndex(unitId => unitId == e.target.id)
     if (selectedIndex === -1) {
@@ -34,15 +27,15 @@ export default class UnarchiveUnits extends React.Component {
       newSelectedUnitIds.splice(selectedIndex, 1)
     }
     this.setState({selectedUnitIds: newSelectedUnitIds})
-  }
+  };
 
-  updateName(e, id) {
+  updateName = (e, id) => {
     const newChangedNames = this.state.changedNames
     newChangedNames[id] = e.target.value
     this.setState({changedNames: newChangedNames})
-  }
+  };
 
-  getArchivedUnits() {
+  getArchivedUnits = () => {
     const that = this
     that.setState({archivedUnits: [], selectedUnitIds: [], error: ''})
     request.get({
@@ -56,9 +49,9 @@ export default class UnarchiveUnits extends React.Component {
       } else if (parsedResponse.archived_units)
         that.setState({ archivedUnits: parsedResponse.archived_units, selectedUnitIds: parsedResponse.archived_units.map(u => u.id)});
     });
-  }
+  };
 
-  unarchiveUnits() {
+  unarchiveUnits = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/unarchive_units`,
@@ -70,15 +63,15 @@ export default class UnarchiveUnits extends React.Component {
         window.alert('These units have been unarchived.')
       }
     })
-  }
+  };
 
-  toggleSelectAllUnits() {
+  toggleSelectAllUnits = () => {
     if (this.state.archivedUnits.length === this.state.selectedUnitIds.length) {
       this.setState({selectedUnitIds: []})
     } else {
       this.setState({selectedUnitIds: this.state.archivedUnits.map(u => u.id)})
     }
-  }
+  };
 
   renderTeacherForm() {
     return (<div className="input-row">

@@ -5,7 +5,6 @@ import _ from 'underscore'
 import _l from 'lodash'
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -14,8 +13,6 @@ export default class extends React.Component {
     }
 
     document.addEventListener('click', this.closeDropdownIfOpen.bind(this))
-
-    this.toggleDropdown = this.toggleDropdown.bind(this)
   }
 
 
@@ -74,11 +71,11 @@ export default class extends React.Component {
     alert('Downloadable reports are a Premium feature. Visit Quill.org/premium to upgrade now!')
   }
 
-  toggleDropdown() {
+  toggleDropdown = () => {
     this.setState({
       showDropdown: !this.state.showDropdown
     })
-  }
+  };
 
   closeDropdownIfOpen(e) {
     if (this.state.showDropdown && e.target.classList.value !== 'btn button-green' && e.target.classList.value !== 'print-button' && e.target.classList.value !== 'print-img') {
@@ -135,5 +132,4 @@ export default class extends React.Component {
       >{this.props.buttonCopy || "Download Report"}</button>)
     }
   }
-
 }

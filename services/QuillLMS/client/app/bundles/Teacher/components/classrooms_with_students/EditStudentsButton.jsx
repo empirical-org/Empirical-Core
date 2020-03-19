@@ -4,18 +4,12 @@ import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import getAuthToken from '../modules/get_auth_token'
 
 class UpdateUnitButton extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this)
-  }
-
   state = {
     loading: false,
     errors: ''
   }
 
-  handleClick() {
+  handleClick = () => {
     this.setState({errors: []})
     const { requestType, url, dataFunc, successCallback, } = this.props;
     const data = dataFunc()
@@ -38,27 +32,26 @@ class UpdateUnitButton extends React.Component {
         }
       })
     }
+  };
+
+  render() {
+  let text, color, clickHandler;
+  if (this.props.enabled && !this.state.loading) {
+    text = this.props.buttonText;
+    color = 'quillgreen';
+    clickHandler = this.handleClick
+  } else {
+    text = this.state.loading ? <span>Saving <ButtonLoadingIndicator /></span>: this.props.disabledText;
+    color = 'lightgray';
+    clickHandler = null
   }
-
-	render() {
-    let text, color, clickHandler;
-    if (this.props.enabled && !this.state.loading) {
-      text = this.props.buttonText;
-      color = 'quillgreen';
-      clickHandler = this.handleClick
-    } else {
-      text = this.state.loading ? <span>Saving <ButtonLoadingIndicator /></span>: this.props.disabledText;
-      color = 'lightgray';
-      clickHandler = null
-    }
-    return (
-      <div>
-        <a className={`q-button cta-button bg-${color} text-white`} onClick={clickHandler}>{text}</a>
-        <span className="errors">{this.state.errors}</span>
-      </div>
-    )
-	}
-
+  return (
+    <div>
+      <a className={`q-button cta-button bg-${color} text-white`} onClick={clickHandler}>{text}</a>
+      <span className="errors">{this.state.errors}</span>
+    </div>
+  )
+  }
 }
 
 UpdateUnitButton.propTypes = {

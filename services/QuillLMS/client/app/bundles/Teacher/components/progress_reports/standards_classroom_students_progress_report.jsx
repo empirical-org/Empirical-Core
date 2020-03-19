@@ -13,7 +13,6 @@ import userIsPremium from '../modules/user_is_premium'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class extends React.Component {
-
   constructor(props) {
     super()
     this.state = {
@@ -22,7 +21,6 @@ export default class extends React.Component {
       selectedClassroom: showAllClassroomKey,
       userIsPremium: userIsPremium()
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -48,9 +46,9 @@ export default class extends React.Component {
     return {dropdownClassrooms, classroomsWithStudentIds }
   }
 
-  switchClassrooms(classroom){
+  switchClassrooms = classroom => {
     this.setState({selectedClassroom: classroom}, this.filterReportData)
-  }
+  };
 
   filterReportData(){
     if (this.state.selectedClassroom.id === showAllClassroomKey) {
@@ -142,5 +140,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 };

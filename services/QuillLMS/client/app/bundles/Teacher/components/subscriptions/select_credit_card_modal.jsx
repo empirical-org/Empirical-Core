@@ -6,7 +6,6 @@ import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,18 +13,13 @@ export default class extends React.Component {
       changeCardSelected: false,
       lastFour: this.props.lastFour,
     };
-    this.toggleChangeCard = this.toggleChangeCard.bind(this);
-    this.toggleExtantCard = this.toggleExtantCard.bind(this);
-    this.updateLastFour = this.updateLastFour.bind(this);
-    this.stripeCharge = this.stripeCharge.bind(this);
-    this.hideModal = this.hideModal.bind(this);
   }
 
-  updateLastFour(newLastFour) {
+  updateLastFour = newLastFour => {
     this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
-  }
+  };
 
-  toggleChangeCard() {
+  toggleChangeCard = () => {
     this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
         () => {
           if (this.state.changeCardSelected) {
@@ -33,11 +27,11 @@ export default class extends React.Component {
           }
         }
     );
-  }
+  };
 
-  toggleExtantCard() {
+  toggleExtantCard = () => {
     this.setState({ extantCardSelected: !this.state.extantCardSelected, changeCardSelected: false, });
-  }
+  };
 
   showBuyNowIfChargeSelection() {
     if (this.state.extantCardSelected) {
@@ -45,14 +39,14 @@ export default class extends React.Component {
     }
   }
 
-  stripeCharge() {
+  stripeCharge = () => {
     const that = this;
     request.post({ url: `${process.env.DEFAULT_URL}/charges/new_${this.props.type}_premium`, form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
         that.props.updateSubscriptionStatus(JSON.parse(body).new_subscription);
       }
     });
-  }
+  };
 
   loadingOrButtons() {
     if (!this.state.lastFour) {
@@ -65,12 +59,12 @@ export default class extends React.Component {
     ]);
   }
 
-  hideModal() {
+  hideModal = () => {
     if (this.props.setCreditCardToFalse) {
       this.props.setCreditCardToFalse();
     }
     this.props.hideModal();
-  }
+  };
 
   h2IfPaymentInfo() {
     if (this.state.lastFour) {

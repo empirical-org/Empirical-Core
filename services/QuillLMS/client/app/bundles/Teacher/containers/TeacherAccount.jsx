@@ -40,13 +40,6 @@ export default class TeacherAccount extends React.Component {
       errors: {},
       timesSubmitted: 0
     }
-
-    this.activateSection = this.activateSection.bind(this)
-    this.deactivateSection = this.deactivateSection.bind(this)
-    this.deleteAccount = this.deleteAccount.bind(this)
-    this.updateUser = this.updateUser.bind(this)
-    this.showSnackbar = this.showSnackbar.bind(this)
-    this.renderSnackbar = this.renderSnackbar.bind(this)
   }
 
   componentWillMount() {
@@ -63,23 +56,23 @@ export default class TeacherAccount extends React.Component {
     }
   }
 
-  activateSection(section) {
+  activateSection = section => {
     this.setState({ activeSection: section, })
-  }
+  };
 
-  deactivateSection(section) {
+  deactivateSection = section => {
     if (this.state.activeSection === section) {
       this.setState({ activeSection: null, errors: {}, })
     }
-  }
+  };
 
-  showSnackbar() {
+  showSnackbar = () => {
     this.setState({ showSnackbar: true, }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
     })
-  }
+  };
 
-  updateUser(data, url, snackbarCopy) {
+  updateUser = (data, url, snackbarCopy) => {
     const { timesSubmitted, } = this.state
     request.put({
       url: `${process.env.DEFAULT_URL}${url}`,
@@ -117,9 +110,9 @@ export default class TeacherAccount extends React.Component {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
       }
     });
-  }
+  };
 
-  deleteAccount() {
+  deleteAccount = () => {
     const { id, } = this.props.accountInfo
     request.post({
       url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
@@ -127,12 +120,12 @@ export default class TeacherAccount extends React.Component {
     }, () => {
       window.location.href = window.location.origin;
     })
-  }
+  };
 
-  renderSnackbar() {
+  renderSnackbar = () => {
     const { showSnackbar, snackbarCopy, } = this.state
     return <Snackbar text={snackbarCopy} visible={showSnackbar} />
-  }
+  };
 
   render() {
     const {
