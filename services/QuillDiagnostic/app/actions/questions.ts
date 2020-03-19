@@ -1,7 +1,6 @@
 const C = require('../constants').default;
 
 import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
-import { ApiConstants } from '../utils/api';
 
 const moment = require('moment');
 
@@ -17,165 +16,26 @@ import _l from 'lodash';
 import { push } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
+import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import {
+  QuestionApi,
+  FocusPointApi,
+  IncorrectSequenceApi,
+  SENTENCE_COMBINING_TYPE
+} from '../libs/questions_api'
 
-/*
-  There are a LOT of non-required properties in these interfaces.
-  These are, as best I can tell, the current expected properties
-  for each type, but because Firebase has a bunch of historical
-  data, I can't guarantee that these properties are actually
-  present on any given instance from the database, so we're playing
-  it safe.
-*/
-
-interface ConceptResult {
-  conceptUID?: string,
-  correct?: boolean,
-  name?: string,
-}
-
-interface ConceptResultCollection {
-  [key: string]: ConceptResult,
-}
-
-interface FocusPoint {
-  conceptResults: ConceptResultCollection,
-  feedback?: string,
-  order?: string,
-  text?: string,
-}
-
-interface FocusPointCollection {
-  [key: string]: FocusPoint;
-}
-
-interface IncorrectSequence {
-  conceptResults?: ConceptResultCollection;
-  feedback?: string;
-  text?: string;
-}
-
-interface IncorrectSequenceCollection {
-  [key: string]: IncorrectSequence;
-}
-
-interface Question {
-  conceptUID?: string;
-  cues?: string[];
-  cuesLabel?: string;
-  flag?: string;
-  focusPoints?: FocusPointCollection;
-  incorrectSequences?: IncorrectSequenceCollection;
-  instructions?: string;
-  itemLevel?: string;
-  modelConceptUID?: string;
-  prefilledText?: string;
-  prompt?: string;
-}
-
-interface QuestionCollection {
-  [key: string]: Question;
-}
-
-class QuestionApi {
-  static getAll(): Promise<QuestionCollection> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`);
-  }
-
-  static get(uid: string): Promise<Question> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}/${uid}.json`);
-  }
-
-  static create(data: Question): Promise<QuestionCollection> {
-    return requestPost(`${ApiConstants.questionApiBaseUrl}.json?question_type=diagnostic_sentence_combining`, {question: data});
-  }
-
-  static update(uid: string, data: Question): Promise<Question> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}.json`, {question: data});
-  }
-
-  static updateFlag(uid: string, flag: string): Promise<Question> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}/update_flag.json`, {
-      question: {
-        flag: flag
-      }
+function loadQuestions() {
+  return (dispatch, getState) => {
+    QuestionApi.getAll(SENTENCE_COMBINING_TYPE).then((questions) => {
+      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questions, });
     });
-  }
-
-  static updateModelConcept(uid: string, modelConceptUid: string): Promise<Question> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${uid}/update_model_concept.json`, {
-      question: {
-        modelConcept: modelConceptUid
-      }
-    });
-  }
-}
-
-class FocusPointApi {
-  static getAll(questionId: string): Promise<FocusPointCollection> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points.json`);
-  }
-
-  static get(questionId: string, focusPointId: string): Promise<FocusPoint> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
-  }
-
-  static create(questionId: string, data: FocusPoint): Promise<FocusPointCollection> {
-    return requestPost(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points.json`, {focus_point: data});
-  }
-
-  static update(questionId: string, focusPointId: string, data: FocusPoint): Promise<FocusPoint> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`, {focus_point: data});
-  }
-
-  static updateAllForQuestion(questionId: string, data: FocusPointCollection): Promise<FocusPointCollection> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/update_all.json`, {focus_point: data});
-  }
-
-  static remove(questionId: string, focusPointId: string): Promise<string> {
-    return requestDelete(`${ApiConstants.questionApiBaseUrl}/${questionId}/focus_points/${focusPointId}.json`);
-  }
-}
-
-class IncorrectSequenceApi {
-  static getAll(questionId: string): Promise<IncorrectSequenceCollection> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences.json`);
-  }
-
-  static get(questionId: string, incorrectSequenceId: string): Promise<IncorrectSequence> {
-    return requestGet(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
-  }
-
-  static create(questionId: string, data: IncorrectSequence): Promise<IncorrectSequenceCollection> {
-    return requestPost(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences.json`, {incorrect_sequence: data});
-  }
-
-  static update(questionId: string, incorrectSequenceId: string, data: IncorrectSequence): Promise<IncorrectSequence> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`, {incorrect_sequence: data});
-  }
-
-  static updateAllForQuestion(questionId: string, data: IncorrectSequenceCollection): Promise<IncorrectSequenceCollection> {
-    return requestPut(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/update_all.json`, {incorrect_sequence: data});
-  }
-
-  static remove(questionId: string, incorrectSequenceId: string): Promise<string> {
-    return requestDelete(`${ApiConstants.questionApiBaseUrl}/${questionId}/incorrect_sequences/${incorrectSequenceId}.json`);
-  }
+  };
 }
 
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
 function startListeningToQuestions() {
-  return (dispatch, getState) => {
-    return loadQuestions();
-  };
-}
-
-function loadQuestions() {
-  return (dispatch, getState) => {
-    QuestionApi.getAll().then((questions) => {
-      dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questions, });
-    });
-  };
+  return loadQuestions();
 }
 
 function loadQuestion(uid) {
@@ -218,7 +78,7 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-    }, (error) => {
+    }).catch((error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
@@ -232,7 +92,7 @@ function toggleNewQuestionModal() {
 function submitNewQuestion(content, response) {
   return (dispatch, getState) => {
     dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
-    QuestionApi.create(content).then((question) => {
+    QuestionApi.create(SENTENCE_COMBINING_TYPE, content).then((question) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       response.questionUID = Object.keys(question)[0];
       response.gradeIndex = `human${response.questionUID}`;
@@ -262,7 +122,7 @@ function submitEditedFocusPoint(qid, data, fpid) {
   return (dispatch, getState) => {
     FocusPointApi.update(qid, fpid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -292,7 +152,7 @@ function updateFlag(qid, flag) {
   return dispatch => {
     QuestionApi.updateFlag(qid, flag).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch((error) => {
       alert(`Flag update failed! ${error}`);
     });
   }
@@ -304,7 +164,7 @@ function updateModelConceptUID(qid, modelConceptUID) {
       if (!question.modelConceptUID) {
         QuestionApi.updateModelConcept(qid, modelConceptUID).then(() => {
           dispatch(loadQuestion(qid));
-        }, (error) => {
+        }).catch((error) => {
           alert(`Model concept update failed! ${error}`);
         });
       }
@@ -326,7 +186,7 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.update(qid, seqid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -346,7 +206,7 @@ function updateIncorrectSequences(qid, data) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch((error) => {
       alert(`Order update failed! ${error}`);
     });
   }
