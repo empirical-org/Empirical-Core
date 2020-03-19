@@ -24,7 +24,7 @@ var renderRightComponentHack = function(currentUser) {
   let shouldHaveBanner = !path.includes('/landing_page') && !path.includes('diagnostic_report');
 
   if (ele.length > 0 && shouldHaveBanner) {
-    ReactDOM.render(React.createElement(PremiumBannerBuilder), $(ele[0]).next()[0]);
+    ReactDOM.render(<PremiumBannerBuilder />, $(ele[0]).next()[0]);
   }
 
   var progressReportMapping = {
@@ -57,16 +57,16 @@ var renderRightComponentHack = function(currentUser) {
   });
 };
 
-export default React.createClass({
+export default class ProgressReportIndex extends React.Component {
 
-  componentDidMount: function(){
-   renderRightComponentHack(this.props.current_user);
-  },
+  componentDidMount() {
+    const { current_user, } = this.props
+    renderRightComponentHack(current_user);
+  }
 
-
-  render: function() {
+  render() {
     return (
       <span />
     );
    }
- });
+ }
