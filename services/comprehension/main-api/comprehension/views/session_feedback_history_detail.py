@@ -15,11 +15,13 @@ class SessionFeedbackHistoryDetailView(View):
         context = {
             'session_id': session_id,
             'feedback': [{
+                'prompt_id': fh.prompt.id,
                 'prompt_text': fh.prompt.text,
                 'attempt': fh.attempt,
                 'entry': fh.entry,
                 'feedback_text': fh.feedback_text,
                 'feedback_type': fh.feedback_type,
+                'feedback_details': fh.feedback,
             } for fh in feedback_histories]
         }
 
