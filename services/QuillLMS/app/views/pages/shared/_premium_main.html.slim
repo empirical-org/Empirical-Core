@@ -3,7 +3,26 @@
 | ">
 
 #first-preview-section
-  = react_component('PremiumPricingGuideApp', props: {lastFour: @last_four, userHasSchool: @user_has_school, userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription, userIsEligibleForTrial: @user_is_eligible_for_trial, userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid})
+  = react_component('PremiumPricingGuideApp', props: {lastFour: @last_four, userHasSchool: @user_has_school, userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription, userIsEligibleForTrial: @user_is_eligible_for_trial, userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid, userHasCovid19Subscription: @user_has_covid_19_subscription})
+.preview-section#second-preview-section
+  .title Save Time Grading
+  .copy
+    | With Quill Premium, you'll get reports showing detailed views of student progress
+    br
+    | across activities and concepts, Common Core coverage, and more.
+    br
+    br
+    | Teachers, use our interface to dive into the data. You can also download
+    br
+    | reports as a spreadsheet and import them into your gradebook.
+  - unless current_user
+    .preview-btns
+      a href="/demo" target='_new'
+        .btn.try-the-demo
+          | Try the Demo
+  .preview-image
+    = image_tag 'premium_preview/premium_screenshot.png'
+
 
 .preview-section#fourth-preview-section
   .super-title
