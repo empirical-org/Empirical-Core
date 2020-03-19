@@ -8,7 +8,7 @@ export default React.createClass({
       // then the user is logged in and we should not show sign up
       signupButtonOrNothing = null;
     } else {
-      signupButtonOrNothing = <a href="/account/new"><button className="btn btn-default mini-btn green" type="button">Sign Up</button></a>;
+      signupButtonOrNothing = <a href="/account/new"><button className="premium-button green" type="button">Sign Up</button></a>;
     }
     return (
       <div className="pricing-mini first">
@@ -20,8 +20,7 @@ export default React.createClass({
         </header>
         <section className="pricing-info">
           <div className="premium-rates">
-            <h3>Free</h3>
-            <h4>forever</h4>
+            <h3>Free forever</h3>
           </div>
           <ul className="text-left">
             <li>All five of our writing tools</li>
