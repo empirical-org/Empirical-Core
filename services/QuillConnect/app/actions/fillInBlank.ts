@@ -78,10 +78,10 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-    }, (error) => {
+    }).catch( (error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-    });
+    })
   };
 }
 function toggleNewQuestionModal() {
@@ -121,7 +121,7 @@ function submitEditedFocusPoint(qid, data, fpid) {
   return (dispatch, getState) => {
     FocusPointApi.update(qid, fpid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch((error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -131,7 +131,7 @@ function submitBatchEditedFocusPoint(qid, data) {
   return (dispatch, getState) => {
     FocusPointApi.updateAllForQuestion(qid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch( (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -161,7 +161,7 @@ function submitEditedIncorrectSequence(qid, data, seqid) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.update(qid, seqid, data).then(() => {
       dispatch(loadQuestion(qid));
-    }, (error) => {
+    }).catch( (error) => {
       alert(`Submission failed! ${error}`);
     });
   };

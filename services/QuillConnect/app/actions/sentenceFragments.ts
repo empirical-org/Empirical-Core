@@ -65,7 +65,7 @@ function submitSentenceFragmentEdit(sfid, content) {
       dispatch({ type: C.FINISH_SENTENCE_FRAGMENT_EDIT, sfid, });
       dispatch(loadSentenceFragment(sfid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-    }, (error) => {
+    }).catch( (error) => {
       dispatch({ type: C.FINISH_QUESTION_EDIT, sfid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
@@ -86,7 +86,7 @@ function submitEditedIncorrectSequence(sfid, data, sesfid) {
   return (dispatch, getState) => {
     IncorrectSequenceApi.update(sfid, sesfid, data).then(() => {
       dispatch(loadSentenceFragment(sfid));
-    }, (error) => {
+    }).catch( (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -139,7 +139,7 @@ function submitEditedFocusPoint(sfid, data, fpid) {
   return (dispatch, getState) => {
     FocusPointApi.update(sfid, fpid, data).then(() => {
       dispatch(loadSentenceFragment(sfid));
-    }, (error) => {
+    }).catch( (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
@@ -149,7 +149,7 @@ function submitBatchEditedFocusPoint(sfid, data) {
   return (dispatch, getState) => {
     FocusPointApi.updateAllForQuestion(sfid, data).then(() => {
       dispatch(loadSentenceFragment(sfid));
-    }, (error) => {
+    }).catch( (error) => {
       alert(`Submission failed! ${error}`);
     });
   };
