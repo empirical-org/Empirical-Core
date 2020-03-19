@@ -31,9 +31,10 @@ class TestSessionFeedbackHistoryDetailView(TestCase):
             feedback_history3,
         ]
         expected_context = {
+            'session_id': mock_session_id,
             'feedback': [{
-                'session_id': fh.session_id,
                 'prompt_text': fh.prompt.text,
+                'attempt': fh.attempt,
                 'entry': fh.entry,
                 'feedback_text': fh.feedback_text,
                 'feedback_type': fh.feedback_type,

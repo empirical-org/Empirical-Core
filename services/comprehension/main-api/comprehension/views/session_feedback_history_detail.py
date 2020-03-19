@@ -13,9 +13,10 @@ class SessionFeedbackHistoryDetailView(View):
                                              .filter(session_id=session_id)
                                              .order_by('created_at'))
         context = {
+            'session_id': session_id,
             'feedback': [{
-                'session_id': fh.session_id,
                 'prompt_text': fh.prompt.text,
+                'attempt': fh.attempt,
                 'entry': fh.entry,
                 'feedback_text': fh.feedback_text,
                 'feedback_type': fh.feedback_type,

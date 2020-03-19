@@ -14,18 +14,20 @@ class TestSessionFeedbackHistoryView(TestCase):
 
     @patch('comprehension.views.session_feedback_history.render')
     def test_get_feedback_history(self, mock_render):
-        feedback_history1 = FeedbackHistoryFactory()
+        fb1 = FeedbackHistoryFactory(attempt=1)
         # Create a second FeedbackHistory record with the same session_id
         # to confirm that aggregation works as expected and only the earliest
         # one gets put into context
-        FeedbackHistoryFactory(session_id=feedback_history1.session_id)
+        fb2 = FeedbackHistoryFactory(session_id=fb1.session_id,
+                                     attempt=2)
         request = self.factory.get(reverse('get_session_feedback_history'))
         request.user = UserFactory(is_staff=True)
 
         expected_context = {
             'sessions': [{
-                'session_id': feedback_history1.session_id,
-                'created_at': feedback_history1.created_at,
+                'session_id': fb1.session_id,
+                'created_at': fb1.created_at,
+                'attempts': fb2.attempt,
             }]
         }
 
