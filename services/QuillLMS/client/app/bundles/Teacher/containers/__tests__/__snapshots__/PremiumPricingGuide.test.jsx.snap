@@ -18,8 +18,8 @@ exports[`PremiumPricingGuide container should render 1`] = `
   <_default />
   <DistrictPricingBox />
   <_default />
-  <teacher_testimonial />
-  <subscriber_logos
+  <_default />
+  <_default
     subscribers={
       Array [
         Object {

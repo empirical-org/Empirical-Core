@@ -60,7 +60,7 @@
     "pusher": "^2.2.2",
     "pusher-js": "^5.0.1",
     "quill-component-library": "0.7.28",
-    "react": "^16.3.0",
+    "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-addons-update": "^15.2.1",
@@ -70,7 +70,7 @@
     "react-csv": "^1.0.8",
     "react-datepicker": "^2.14.0",
     "react-dates": "21.8.0",
-    "react-dom": "^16.3.3",
+    "react-dom": "^16.13.1",
     "react-dropzone": "^4.2.8",
     "react-markdown": "^2.4.6",
     "react-on-rails": "^11.3.0",
@@ -107,7 +107,8 @@
     "body-parser": "^1.15.0",
     "compression-webpack-plugin": "^3.1.0",
     "enzyme": "^3.11.0",
-    "enzyme-to-json": "^1.5.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -198,6 +199,9 @@
     ],
     "testPathIgnorePatterns": [
       "test_data.js"
+    ],
+    "setupFiles": [
+      "<rootDir>/setupTests.ts"
     ]
   }
 }

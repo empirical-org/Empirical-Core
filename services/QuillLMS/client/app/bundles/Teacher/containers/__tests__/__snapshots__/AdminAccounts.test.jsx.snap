@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AdminAccounts container should render 1`] = `
-<Cms
+<_default
   resourceComponentGenerator={[Function]}
   resourceNamePlural="admin_accounts"
   resourceNameSingular="admin_account"

@@ -40,7 +40,7 @@ exports[`ActivitySearchAndSelect component should render 1`] = `
     className="table activity-table search-and-select green-rows-on-hover"
   >
     <thead>
-      <activity_search_sorts
+      <_default
         sorts={
           Array [
             Object {
@@ -75,8 +75,8 @@ exports[`ActivitySearchAndSelect component should render 1`] = `
       />
     </thead>
   </table>
-  <loading_indicator />
-  <selected_activities
+  <_default />
+  <_default
     errorMessage=""
   />
 </section>
