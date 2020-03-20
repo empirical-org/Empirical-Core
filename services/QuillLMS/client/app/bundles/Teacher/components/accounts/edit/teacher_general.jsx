@@ -31,7 +31,7 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { active, email, name, school, timeZone, schoolType, } = nextProps
 
     if (this.props.active && !active) {

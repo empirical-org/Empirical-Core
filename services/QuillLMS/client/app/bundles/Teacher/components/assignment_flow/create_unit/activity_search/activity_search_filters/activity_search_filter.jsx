@@ -14,7 +14,7 @@ export default class ActivitySearchFilter extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.activeFilterOn) {
       this.setState({ activeFilterId: null, });
     } else if (nextProps.data.field === 'activity_classification' && nextProps.data.options.length > 0) {

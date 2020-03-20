@@ -73,7 +73,7 @@ export default  React.createClass({
     this.fetchData(true);
   },
 
-  componentWillUpdate: function(nextProps, nextState) {
+  UNSAFE_componentWillUpdate: function(nextProps, nextState) {
     if (this.state.loading !== nextState.loading && this.props.showInProgressAndUnstartedStudents) {
       this.props.showInProgressAndUnstartedStudents(!nextState.loading)
     }

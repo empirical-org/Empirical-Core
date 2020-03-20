@@ -12,7 +12,7 @@
     this.determineState(this.props);
   },
 
-  componentWillReceiveProps: function(nextProps){
+  UNSAFE_componentWillReceiveProps: function(nextProps){
     this.determineState(nextProps);
   },
 

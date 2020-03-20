@@ -30,7 +30,7 @@ export default class Recommendations extends React.Component {
     this.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId, false);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       loading: true,
       assigning: false,

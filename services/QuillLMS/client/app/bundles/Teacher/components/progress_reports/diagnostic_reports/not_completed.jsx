@@ -3,7 +3,7 @@ import $ from 'jquery'
 
 export default React.createClass({
 
-  componentWillMount: function(){
+  UNSAFE_componentWillMount: function(){
     $('.diagnostic-tab').addClass('active');
     $('.activity-analysis-tab').removeClass('active');
   },

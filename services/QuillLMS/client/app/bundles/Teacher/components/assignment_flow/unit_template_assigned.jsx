@@ -22,7 +22,7 @@ export default class UnitTemplateAssigned extends React.Component {
     return {actions: {getInviteStudentsUrl(){'placeholder function'}}}
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // const that = this;
     // const activityId = this.props.data.id;
     request.get({

@@ -27,7 +27,7 @@ const DiagnosticReports = React.createClass({
 		}
 	},
 
-	componentWillReceiveProps: function(nextProps) {
+	UNSAFE_componentWillReceiveProps: function(nextProps) {
 		if (nextProps.params && nextProps.params.studentId) {
 			this.setStudentId(nextProps.params.studentId);
 		}

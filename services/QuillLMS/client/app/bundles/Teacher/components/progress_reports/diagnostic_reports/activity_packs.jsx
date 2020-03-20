@@ -20,7 +20,7 @@ export default class ActivityPacks extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
     document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
   }

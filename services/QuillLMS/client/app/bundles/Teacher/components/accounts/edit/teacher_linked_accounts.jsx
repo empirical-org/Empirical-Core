@@ -12,7 +12,7 @@ export default class TeacherLinkedAccounts extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { cleverId, googleId, } = this.props
     if (nextProps.cleverId !== cleverId || nextProps.googleId !== googleId) {
       this.setState({

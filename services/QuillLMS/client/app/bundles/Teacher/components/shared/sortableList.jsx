@@ -16,7 +16,7 @@ export default class SortableList extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.state.data.items) {
       this.setState({data: {items: nextProps.data}})
     }

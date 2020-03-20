@@ -4,7 +4,7 @@
 
  export default React.createClass({
 
-  componentWillMount(){
+  UNSAFE_componentWillMount(){
     $('.diagnostic-tab').removeClass('active');
     $('.activity-analysis-tab').addClass('active');
   },

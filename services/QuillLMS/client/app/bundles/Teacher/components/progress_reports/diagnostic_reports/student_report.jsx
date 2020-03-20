@@ -16,7 +16,7 @@ export default React.createClass({
     this.getStudentData(this.props.params)
   },
 
-	componentWillReceiveProps(nextProps) {
+	UNSAFE_componentWillReceiveProps(nextProps) {
 		this.setState({loading: true});
 		this.getStudentData(nextProps.params);
 	},

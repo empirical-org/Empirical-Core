@@ -8,7 +8,7 @@ import l from 'lodash'
 import $ from 'jquery';
 
 export default class Navbar extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/diagnostic_activity_ids`, {
       method: 'GET',
       mode: 'cors',

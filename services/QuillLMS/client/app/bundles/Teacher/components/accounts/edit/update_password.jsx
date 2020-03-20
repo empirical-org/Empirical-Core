@@ -9,7 +9,7 @@ export default class UpdatePassword extends Component {
     showButtonSection: false
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { active, } = this.props
     if (active && !nextProps.active) {
       this.reset();

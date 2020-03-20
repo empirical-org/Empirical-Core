@@ -26,7 +26,7 @@ export default class ActivitiesUnit extends React.Component {
     }
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     if (nextProps.data.classroomActivities && (nextProps.data.classroomActivities.length === this.state.classroomActivities.length)) {
       this.setState({ classroomActivities: nextProps.data.classroomActivities, });
     } else if (nextProps.data.classroom_activities && (nextProps.data.classroom_activities.length === this.state.classroomActivities.length)) {

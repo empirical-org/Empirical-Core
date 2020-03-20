@@ -24,7 +24,7 @@ export default React.createClass({
 		}
 	},
 
-	componentWillReceiveProps: function(nextProps){
+	UNSAFE_componentWillReceiveProps: function(nextProps){
 		this.setState(this.checkStudents(nextProps))
 	},
 

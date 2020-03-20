@@ -24,7 +24,7 @@ export default class TutorialIndex extends React.Component {
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (Number(nextProps.params.slideNumber) === this.state.slides.length) {
       this.finishTutorial();
     }

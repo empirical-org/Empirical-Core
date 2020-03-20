@@ -42,7 +42,7 @@ export default class TeacherAccount extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     let snackbarCopy
     const { googleOrCleverJustSet, accountInfo, } = this.props
     if (googleOrCleverJustSet) {
