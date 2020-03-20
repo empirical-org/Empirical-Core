@@ -301,7 +301,7 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
-      elsif attributes[:account_type] == COVID_19_SUBSCRIPTION_TYPE
+      elsif [COVID_19_SUBSCRIPTION_TYPE, COVID_19_SCHOOL_SUBSCRIPTION_TYPE].include?(attributes[:account_type])
         attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
         extend_current_subscription_for_covid_19(school_or_user)
       else
