@@ -6,7 +6,7 @@ const DistrictPricingBox = () => (
       <span className='bold-segment'>Multiple schools or a district?</span>
 		  Free for the rest of the 2019/2020 school year.
     </span>
-    <a className='district-premium-button' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request Free District Premium</a>
+    <a className='premium-button dark-green' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request Free Access</a>
   </div>
 )
 

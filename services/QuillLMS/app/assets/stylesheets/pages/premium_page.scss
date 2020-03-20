@@ -1,14 +1,30 @@
 .district-premium-button {
-  border-radius: 6px;
+  width: 171px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #06806b;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 10px 24px;
+  text-align: center;
+  color: white;
+}
+
+.premium-button {
+  padding: 10px 24px;
   font-size: 14px;
   font-weight: bold;
   line-height: normal;
-  padding: 10px 24px;
+  border-radius: 6px;
   text-align: center;
-  color: #00c2a2;
-  border: 1px solid #00c2a2;
+  color: white;
+  display: inline-block;
+  margin: 40px;
+  &.dark-green {
+    background-color: #06806b;
+  }
 }
-
 
 .premium-tab {
   a {
@@ -115,6 +131,7 @@ li.premium-tab > a:hover {
   }
   .overview {
     margin: auto auto 70px;
+    width: 656px;
     h1 {
       font-weight: 700;
       margin-bottom: 16px;
@@ -126,10 +143,13 @@ li.premium-tab > a:hover {
     }
   }
   .pricing-mini {
-    background: white;
-    border: 1px solid #cecece;
     font-size: 15px;
     min-height: 513px;
+    width: 300px;
+    height: 597px;
+    border-radius: 4px;
+    border: solid 1px #e0e0e0;
+    background-color: white;
     @media (max-width: 990px) {
       max-width: 383px;
       margin: auto;
@@ -170,7 +190,9 @@ li.premium-tab > a:hover {
       margin-bottom: 6px;
     }
     .pricing-mini-header {
-      height: 95px;
+      width: 300px;
+      height: 104px;
+      border-radius: 4px;
       color: white;
       .img-holder {
         height: 57px;
@@ -183,7 +205,7 @@ li.premium-tab > a:hover {
     }
     .pricing-info {
       color: #333333;
-      min-height: 350px;
+      height: 435px;
       @media (max-width: 990px) {
         min-height: 0;
         ul {
@@ -191,9 +213,12 @@ li.premium-tab > a:hover {
           display: inline-block;
         }
       }
+      .semibold {
+        font-weight: 600;
+      }
       .premium-rates {
         position: relative;
-        min-height: 100px;
+        min-height: 130px;
         .red-line {
           position: absolute;
           top: 4px;
@@ -211,6 +236,9 @@ li.premium-tab > a:hover {
           &.strikethrough {
             text-decoration: line-through;
             color: #707070;
+          }
+          &.bold {
+            font-weight: bold;
           }
         }
         h4 {
@@ -230,16 +258,6 @@ li.premium-tab > a:hover {
         }
       }
     }
-    .premium-button {
-      padding: 10px 24px;
-      font-size: 14px;
-      font-weight: bold;
-      line-height: normal;
-      border-radius: 6px;
-      text-align: center;
-      color: white;
-      display: inline-block;
-    }
     .mini-btn {
       height: 40px;
       padding-top: 6.5px;
@@ -249,7 +267,7 @@ li.premium-tab > a:hover {
       margin-bottom: 26px;
       width: 140px;
       &.empty-blue,
-      &.blue, &.purple, &.empty-purple {
+      &.squash, &.blue, &.empty-purple {
         width: 122px;
         margin-left: 6px;
         margin-right: 6px;
@@ -258,8 +276,8 @@ li.premium-tab > a:hover {
         padding-left: 9px;
       }
     }
-    .blue {
-      background-color: $quillblue;
+    .squash {
+      background-color: #ea9a1a
     }
     .empty-blue {
       border: 2px solid $quillblue;
@@ -269,15 +287,30 @@ li.premium-tab > a:hover {
       border: 2px solid #9c2bde;
       color: #9c2bde;
     }
-    .green {
-      background-color: $quillgreen;
+    .gray {
+      background-color: #b2b2b2;
     }
-    .purple {
-      background-color: #9c2bde;
+    .blue {
+      background-color: #2a88da;
     }
     .button-container {
       padding-left: 22px;
       padding-right: 22px;
+    }
+    .learn-more {
+      color: #06806b;
+      border-radius: 4px;
+      border-top: solid 1px #e0e0e0;
+      width: 252px;
+      display: inline-block;
+      padding: 15px;
+      a {
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+        color: #06806b;
+        line-height: 1.57;
+      }
     }
   }
   @media (max-width: 500px) {

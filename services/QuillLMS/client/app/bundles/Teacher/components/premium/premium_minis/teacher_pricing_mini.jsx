@@ -42,39 +42,42 @@ export default React.createClass({
   purchaseButton() {
     const { userIsSignedIn, userHasCovid19Subscription, } = this.props
     if (!userIsSignedIn) {
-      return <button className="premium-button blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate Free Teacher Premium</button>;
+      return <button className="premium-button dark-green" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate for free</button>;
     }
     if (!userHasCovid19Subscription) {
-      return <a className="premium-button blue" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate Free Teacher Premium</a>;
+      return <a className="premium-button dark-green" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate for free</a>;
     }
   },
 
   render() {
     return (
       <div className="pricing-mini">
-        <header className="pricing-mini-header blue">
+        <header className="pricing-mini-header squash">
           <div className="img-holder">
-            <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/teacher_premium_icon.png`} />
+            <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/presentation-board.png`} />
           </div>
 
-          <h4>Teacher Premium</h4>
         </header>
         <section className="pricing-info">
           <div className="premium-rates">
+            <h3 className="bold">Teacher Premium</h3>
             <h3 className="strikethrough">$80 per year</h3>
             <h4>Free for the rest of the 2019/2020 school year</h4>
           </div>
+          <div className="row">
+            {this.purchaseButton()}
+            <PleaseLoginModal ref="pleaseLoginModal" />
+          </div>
           <ul className="text-left">
-            <li>Everything in Basic</li>
+            <li className="semibold">Everything in Basic</li>
             <li>Reports on concept mastery and Common Core Standards</li>
             <li>Download and print reports</li>
             <li>Priority Support</li>
           </ul>
         </section>
-        <div className="row">
-          {this.purchaseButton()}
-          <PleaseLoginModal ref="pleaseLoginModal" />
-        </div>
+        <section className="learn-more">
+          <a href="">Learn more</a>
+        </section>
       </div>
     );
   },
