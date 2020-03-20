@@ -9,7 +9,7 @@ export class LanguagePage extends React.Component {
     const language = e.currentTarget.value;
     const { dispatch, setLanguage, } = this.props;
     if(language !== ENGLISH) {
-      dispatch(TrackAnalyticsEvent(Events.LANGUAGE_SELECTED, { language }));
+      dispatch(TrackAnalyticsEvent(Events.DIAGNOSTIC_LANGUAGE_SELECTED, { language }));
     }
     setLanguage(language);
   }
