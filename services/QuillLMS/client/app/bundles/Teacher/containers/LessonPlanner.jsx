@@ -1,5 +1,7 @@
 'use strict'
 
+import PropTypes from 'prop-types';
+
 import React from 'react'
 import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore'
@@ -18,11 +20,11 @@ import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_
 
 export default React.createClass({
 	propTypes: {
-		grade: React.PropTypes.string,
-		tab: React.PropTypes.string,
-		classroomName: React.PropTypes.string,
-		classroomId: React.PropTypes.string,
-		students: React.PropTypes.string
+		grade: PropTypes.string,
+		tab: PropTypes.string,
+		classroomName: PropTypes.string,
+		classroomId: PropTypes.string,
+		students: PropTypes.string
 	},
 
 	analytics: function() {

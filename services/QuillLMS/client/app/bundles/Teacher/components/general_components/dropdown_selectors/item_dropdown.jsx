@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
@@ -5,8 +6,8 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 export default React.createClass({
 
   propTypes: {
-    items: React.PropTypes.array.isRequired,
-    callback: React.PropTypes.func,
+    items: PropTypes.array.isRequired,
+    callback: PropTypes.func,
   },
 
   getInitialState() {

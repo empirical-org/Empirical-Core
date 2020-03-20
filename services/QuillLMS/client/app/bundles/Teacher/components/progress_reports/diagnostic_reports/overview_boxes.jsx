@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 import Pluralize from 'pluralize'
@@ -5,7 +6,7 @@ import Pluralize from 'pluralize'
 export default React.createClass({
 
 	propTypes: {
-		data: React.PropTypes.array.isRequired
+		data: PropTypes.array.isRequired
 	},
 
 	componentDidMount: function() {

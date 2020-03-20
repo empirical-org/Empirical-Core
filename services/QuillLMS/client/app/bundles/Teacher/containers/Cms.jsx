@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import request from 'request'
 import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx'
@@ -9,8 +10,8 @@ import getAuthToken from '../components/modules/get_auth_token'
 export default React.createClass({
 
   propTypes: {
-    resourceNameSingular: React.PropTypes.string.isRequired,
-    resourceNamePlural: React.PropTypes.string.isRequired
+    resourceNameSingular: PropTypes.string.isRequired,
+    resourceNamePlural: PropTypes.string.isRequired
   },
 
   initializeModules: function () {

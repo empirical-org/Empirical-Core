@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
 
 export default React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
   },
 
   getInitialState() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 import SortableTh from './sortable_th.jsx'
@@ -7,14 +8,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export default React.createClass({
   propTypes: {
-    currentSort: React.PropTypes.object.isRequired,
-    columns: React.PropTypes.array.isRequired,
-    rows: React.PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
-    sortHandler: React.PropTypes.func.isRequired, // Handle sorting of columns
-    shouldTransition: React.PropTypes.bool,
-    loading: React.PropTypes.bool,
-    colorByScoreKeys: React.PropTypes.array,
-    onNonPremiumStudentPage: React.PropTypes.string
+    currentSort: PropTypes.object.isRequired,
+    columns: PropTypes.array.isRequired,
+    rows: PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
+    sortHandler: PropTypes.func.isRequired, // Handle sorting of columns
+    shouldTransition: PropTypes.bool,
+    loading: PropTypes.bool,
+    colorByScoreKeys: PropTypes.array,
+    onNonPremiumStudentPage: PropTypes.string
   },
 
   shouldTransition: function () {

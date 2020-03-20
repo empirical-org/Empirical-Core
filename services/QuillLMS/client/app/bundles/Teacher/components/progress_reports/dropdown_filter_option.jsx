@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 export default React.createClass({
   propTypes: {
-    name: React.PropTypes.string.isRequired,
-    value: React.PropTypes.any.isRequired,
-    selectOption: React.PropTypes.func.isRequired,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.any.isRequired,
+    selectOption: PropTypes.func.isRequired,
   },
 
   clickOption() {

@@ -56,6 +56,7 @@
     "node-sass": "^4.13.1",
     "pluralize": "^3.0.0",
     "postcss-loader": "^0.8.2",
+    "prop-types": "^15.7.2",
     "pusher": "^2.2.2",
     "pusher-js": "^5.0.1",
     "quill-component-library": "0.7.28",

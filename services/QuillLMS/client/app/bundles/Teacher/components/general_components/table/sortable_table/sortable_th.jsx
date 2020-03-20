@@ -1,14 +1,17 @@
+import _ from 'underscore';
+
 // Ported from EC.ActivitySearchSort
-import _ from 'underscore'
+import PropTypes from 'prop-types';
+
 import React from 'react'
 
 export default React.createClass({
   propTypes: {
-    isCurrentSort: React.PropTypes.bool.isRequired,
-    displayName: React.PropTypes.string.isRequired,
-    displayClass: React.PropTypes.string,
-    sortDirection: React.PropTypes.string.isRequired,
-    sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
+    isCurrentSort: PropTypes.bool.isRequired,
+    displayName: PropTypes.string.isRequired,
+    displayClass: PropTypes.string,
+    sortDirection: PropTypes.string.isRequired,
+    sortHandler: PropTypes.func.isRequired // Handle sorting of columns
   },
 
   arrowClass: function() {

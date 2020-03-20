@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
@@ -18,16 +19,16 @@ export default  React.createClass({
   ],
 
   propTypes: {
-    columnDefinitions: React.PropTypes.func.isRequired,
-    filterTypes: React.PropTypes.array.isRequired,
-    pagination: React.PropTypes.bool.isRequired,
-    sourceUrl: React.PropTypes.string.isRequired,
-    sortDefinitions: React.PropTypes.func.isRequired,
-    jsonResultsKey: React.PropTypes.string.isRequired,
-    onFetchSuccess: React.PropTypes.func, // Optional
-    exportCsv: React.PropTypes.string,
-    premiumStatus: React.PropTypes.string,
-    colorByScoreKeys: React.PropTypes.array
+    columnDefinitions: PropTypes.func.isRequired,
+    filterTypes: PropTypes.array.isRequired,
+    pagination: PropTypes.bool.isRequired,
+    sourceUrl: PropTypes.string.isRequired,
+    sortDefinitions: PropTypes.func.isRequired,
+    jsonResultsKey: PropTypes.string.isRequired,
+    onFetchSuccess: PropTypes.func, // Optional
+    exportCsv: PropTypes.string,
+    premiumStatus: PropTypes.string,
+    colorByScoreKeys: PropTypes.array
   },
 
   getDefaultProps: function() {

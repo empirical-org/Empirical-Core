@@ -1,11 +1,12 @@
 import _ from 'underscore'
+import PropTypes from 'prop-types';
 import React from 'react'
 
 
 export default React.createClass({
   propTypes: {
-    data: React.PropTypes.object.isRequired,
-    actions: React.PropTypes.object.isRequired
+    data: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
   },
 
   edit: function () {

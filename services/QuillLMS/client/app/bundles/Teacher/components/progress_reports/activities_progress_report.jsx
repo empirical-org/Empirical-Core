@@ -1,4 +1,5 @@
 "use strict";
+import PropTypes from 'prop-types';
 import React from 'react'
 import request from 'request'
 import ReactTable from 'react-table'
@@ -13,8 +14,8 @@ export default React.createClass({
   mixins: [TableFilterMixin],
 
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired,
-    premiumStatus: React.PropTypes.string.isRequired
+    sourceUrl: PropTypes.string.isRequired,
+    premiumStatus: PropTypes.string.isRequired
   },
 
   getInitialState: function() {

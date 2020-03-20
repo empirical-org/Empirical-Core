@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 import NotificationFeed from './notifications/container';
@@ -12,7 +13,7 @@ import DiagnosticMini from './diagnostic_mini.jsx';
 
 export default React.createClass({
   propTypes: {
-    data: React.PropTypes.any,
+    data: PropTypes.any,
   },
 
   getInitialState() {

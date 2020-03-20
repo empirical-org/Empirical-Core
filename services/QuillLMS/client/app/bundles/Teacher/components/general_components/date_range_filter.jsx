@@ -1,4 +1,5 @@
 'use strict';
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
@@ -6,7 +7,7 @@ import DateRangeFilterOption from './date_range_filter_option.jsx'
 
 export default React.createClass({
   propTypes: {
-    selectDates: React.PropTypes.func.isRequired
+    selectDates: PropTypes.func.isRequired
   },
 
   getInitialState: function () {

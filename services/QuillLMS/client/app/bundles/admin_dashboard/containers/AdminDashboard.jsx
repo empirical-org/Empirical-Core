@@ -5,14 +5,15 @@ import PremiumFeatures from '../components/premium_features.tsx';
 import CreateNewAccounts from '../components/create_new_accounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
+import PropTypes from 'prop-types';
 import Pusher from 'pusher-js';
 
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 
 export default React.createClass({
   propTypes: {
-    route: React.PropTypes.shape({
-      adminId: React.PropTypes.number.isRequired,
+    route: PropTypes.shape({
+      adminId: PropTypes.number.isRequired,
     }),
   },
 

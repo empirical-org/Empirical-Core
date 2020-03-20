@@ -1,11 +1,12 @@
 'use strict';
+import PropTypes from 'prop-types';
 import React from 'react'
 
 export default React.createClass({
   propTypes: {
-    checked: React.PropTypes.bool.isRequired,
-    toggleItem: React.PropTypes.func.isRequired,
-    item: React.PropTypes.string.isRequired
+    checked: PropTypes.bool.isRequired,
+    toggleItem: PropTypes.func.isRequired,
+    item: PropTypes.string.isRequired
   },
 
   handleChange: function () {

@@ -1,11 +1,12 @@
 'use strict';
+import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 
 export default React.createClass({
   propTypes : {
-    date: React.PropTypes.string.isRequired,
-    updateDate: React.PropTypes.func.isRequired
+    date: PropTypes.string.isRequired,
+    updateDate: PropTypes.func.isRequired
   },
   getDateParts: function () {
     var dateParts, year, month, day;

@@ -1,11 +1,12 @@
 "use strict";
+import PropTypes from 'prop-types';
 import React from 'react'
 import ProgressReport from './progress_report.jsx'
 
 
 export default  React.createClass({
   propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
+    sourceUrl: PropTypes.string.isRequired
   },
 
   getInitialState: function() {

@@ -1,39 +1,41 @@
 'use strict'
 
- import React from 'react'
+import PropTypes from 'prop-types';
 
- export default  React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-    select: React.PropTypes.func.isRequired,
-    isSelected: React.PropTypes.bool.isRequired,
-  },
+import React from 'react'
 
-  getName: function () {
-    return this.props.data.name;
-  },
+export default  React.createClass({
+ propTypes: {
+   data: PropTypes.object.isRequired,
+   select: PropTypes.func.isRequired,
+   isSelected: PropTypes.bool.isRequired,
+ },
 
-  getId: function () {
-    return this.props.data.id;
-  },
+ getName: function () {
+   return this.props.data.name;
+ },
 
-  select: function () {
-    this.props.select(this.getId());
-  },
+ getId: function () {
+   return this.props.data.id;
+ },
 
-  getClassName: function () {
-    var name;
-    if (this.props.isSelected) {
-      name = 'list-filter-option selected'
-    } else {
-      name = 'list-filter-option'
-    }
-    return name;
-  },
+ select: function () {
+   this.props.select(this.getId());
+ },
 
-  render: function () {
-    return (
-      <a className={this.getClassName()} onClick={this.select}>{this.getName()}</a>
-    )
-  }
+ getClassName: function () {
+   var name;
+   if (this.props.isSelected) {
+     name = 'list-filter-option selected'
+   } else {
+     name = 'list-filter-option'
+   }
+   return name;
+ },
+
+ render: function () {
+   return (
+     <a className={this.getClassName()} onClick={this.select}>{this.getName()}</a>
+   )
+ }
 })

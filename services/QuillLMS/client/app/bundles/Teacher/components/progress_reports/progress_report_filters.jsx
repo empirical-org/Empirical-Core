@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import DropdownFilter from './dropdown_filter.jsx'
 import _ from 'underscore'
@@ -5,13 +6,13 @@ import _ from 'underscore'
 export default React.createClass({
 
   propTypes: {
-    filterTypes: React.PropTypes.array.isRequired,
-    classroomFilters: React.PropTypes.array.isRequired,
-    studentFilters: React.PropTypes.array.isRequired,
-    unitFilters: React.PropTypes.array.isRequired,
-    selectUnit: React.PropTypes.func.isRequired,
-    selectClassroom: React.PropTypes.func.isRequired,
-    selectStudent: React.PropTypes.func.isRequired
+    filterTypes: PropTypes.array.isRequired,
+    classroomFilters: PropTypes.array.isRequired,
+    studentFilters: PropTypes.array.isRequired,
+    unitFilters: PropTypes.array.isRequired,
+    selectUnit: PropTypes.func.isRequired,
+    selectClassroom: PropTypes.func.isRequired,
+    selectStudent: PropTypes.func.isRequired
   },
 
   activeFilter: function(selected, options) {

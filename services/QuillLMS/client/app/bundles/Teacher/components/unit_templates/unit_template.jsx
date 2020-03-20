@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
@@ -13,8 +14,8 @@ import _ from 'underscore';
 
 export default React.createClass({
   propTypes: {
-    unitTemplate: React.PropTypes.object.isRequired,
-    returnToIndex: React.PropTypes.func.isRequired,
+    unitTemplate: PropTypes.object.isRequired,
+    returnToIndex: PropTypes.func.isRequired,
   },
 
   resourceNameSingular: 'unit_template',

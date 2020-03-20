@@ -1,9 +1,10 @@
 'use strict'
+import PropTypes from 'prop-types';
 import React from 'react'
 
 export default React.createClass({
   propTypes: {
-    percentage: React.PropTypes.number.isRequired
+    percentage: PropTypes.number.isRequired
   },
   goToTeacherGuide: function(){
     window.location="/teachers/teacher_guide";

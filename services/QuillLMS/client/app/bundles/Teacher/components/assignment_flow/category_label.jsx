@@ -1,38 +1,40 @@
 'use strict'
 
- import React from 'react'
- import {Link} from 'react-router'
+import PropTypes from 'prop-types';
 
- export default  React.createClass({
+import React from 'react'
+import {Link} from 'react-router'
 
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-    extraClassName: React.PropTypes.string,
-    isLink: React.PropTypes.bool
-  },
+export default  React.createClass({
 
-  generateClassName: function () {
-    return `category-label img-rounded ${this.props.extraClassName}`
-  },
+ propTypes: {
+   data: PropTypes.object.isRequired,
+   extraClassName: PropTypes.string,
+   isLink: PropTypes.bool
+ },
 
-  getLink: function () {
-    return this.props.nonAuthenticated
-    ? `/activities/packs?category=${this.props.data.name.toLowerCase()}`
-    : `/teachers/classrooms/assign_activities/featured-activity-packs?category=${this.props.data.name.toLowerCase()}`
-  },
+ generateClassName: function () {
+   return `category-label img-rounded ${this.props.extraClassName}`
+ },
 
-  render: function () {
-    if (this.props.data.name) {
-      const label = <div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
-      if (this.props.isLink) {
-        return (
-          <Link to={this.getLink()}>{label}</Link>
-        )
-      } else {
-        return label
-      }
-    } else {
-      return null
-    }
-  }
+ getLink: function () {
+   return this.props.nonAuthenticated
+   ? `/activities/packs?category=${this.props.data.name.toLowerCase()}`
+   : `/teachers/classrooms/assign_activities/featured-activity-packs?category=${this.props.data.name.toLowerCase()}`
+ },
+
+ render: function () {
+   if (this.props.data.name) {
+     const label = <div className={this.generateClassName()}>{this.props.data.name.toUpperCase()}</div>
+     if (this.props.isLink) {
+       return (
+         <Link to={this.getLink()}>{label}</Link>
+       )
+     } else {
+       return label
+     }
+   } else {
+     return null
+   }
+ }
 });

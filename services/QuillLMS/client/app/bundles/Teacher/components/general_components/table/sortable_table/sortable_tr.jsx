@@ -1,12 +1,13 @@
 import _ from 'underscore'
+import PropTypes from 'prop-types';
 import React from 'react'
 import ScoreColor from '../../../modules/score_color.js'
 
 export default React.createClass({
   propTypes: {
-    row: React.PropTypes.object.isRequired,
-    columns: React.PropTypes.array.isRequired,
-    colorByScoreKeys: React.PropTypes.array
+    row: PropTypes.object.isRequired,
+    columns: PropTypes.array.isRequired,
+    colorByScoreKeys: PropTypes.array
   },
 
   contentForColumn: function(column) {

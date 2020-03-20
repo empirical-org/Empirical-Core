@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore';
 
 export default React.createClass({
   propTypes: {
-    options: React.PropTypes.array.isRequired,
-    select: React.PropTypes.func.isRequired,
-    label: React.PropTypes.string.isRequired
+    options: PropTypes.array.isRequired,
+    select: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired
   },
 
   select: function () {

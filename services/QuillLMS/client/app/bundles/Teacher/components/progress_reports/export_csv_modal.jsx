@@ -1,10 +1,12 @@
 "use strict";
 
+import PropTypes from 'prop-types';
+
 import React from 'react'
 
 export default React.createClass({
   propTypes: {
-    email: React.PropTypes.string
+    email: PropTypes.string
   },
 
   render: function() {

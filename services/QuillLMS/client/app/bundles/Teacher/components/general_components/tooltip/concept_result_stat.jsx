@@ -1,11 +1,12 @@
 'use strict';
+import PropTypes from 'prop-types';
 import React from 'react'
 
 export default React.createClass({
   propTypes: {
-    name: React.PropTypes.string.isRequired,
-    correct: React.PropTypes.number.isRequired,
-    incorrect: React.PropTypes.number.isRequired
+    name: PropTypes.string.isRequired,
+    correct: PropTypes.number.isRequired,
+    incorrect: PropTypes.number.isRequired
   },
 
   render: function () {
