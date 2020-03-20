@@ -8,7 +8,7 @@ export default class AdminSubnav extends React.Component<any, any> {
     this.state = this.getStateFromProps(props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState(this.getStateFromProps(nextProps))
   }
 

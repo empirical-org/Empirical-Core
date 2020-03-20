@@ -38,7 +38,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     this.getProfileInfo(activityPackId);
   }
 
-  componentWillReceiveProps(nextProps: RouteComponentProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: RouteComponentProps) {
     const { location } = this.props;
     const { params } = nextProps;
     const { activityPackId } = params;
