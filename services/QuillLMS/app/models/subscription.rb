@@ -17,6 +17,7 @@ class Subscription < ActiveRecord::Base
   COVID_19_EXPIRATION = Date.parse('2020-07-31')
 
   COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
+  COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
                          'School NYC Paid',
@@ -33,7 +34,8 @@ class Subscription < ActiveRecord::Base
                          'Teacher Contributor Free',
                          'Teacher Sponsored Free',
                          'Teacher Trial',
-                         COVID_19_SUBSCRIPTION_TYPE]
+                         COVID_19_SUBSCRIPTION_TYPE,
+                         COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
 
   OFFICIAL_SCHOOL_TYPES = ['School District Paid',
                            'School NYC Paid',
@@ -44,7 +46,7 @@ class Subscription < ActiveRecord::Base
                            'School Research',
                            'School Sponsored Free',
                            'School Strategic Free',
-                           COVID_19_SUBSCRIPTION_TYPE]
+                           COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
 
   OFFICIAL_TEACHER_TYPES = ['Teacher Paid',
                             'Premium Credit',
@@ -299,7 +301,7 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
-      elsif attributes[:account_type] == COVID_19_SUBSCRIPTION_TYPE
+      elsif [COVID_19_SUBSCRIPTION_TYPE, COVID_19_SCHOOL_SUBSCRIPTION_TYPE].include?(attributes[:account_type])
         attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
         extend_current_subscription_for_covid_19(school_or_user)
       else
