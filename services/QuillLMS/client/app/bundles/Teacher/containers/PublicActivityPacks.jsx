@@ -12,9 +12,9 @@ import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 
 
-export default React.createClass({
-
-  getInitialState: function () {
+export default class extends React.Component {
+  constructor(props, context) {
+    super(props, context);
     this.modules = {
 			fnl: new fnl,
 			updaterGenerator: new updaterGenerator(this),
@@ -57,25 +57,24 @@ export default React.createClass({
       state.tab = 'exploreActivityPacks';
       state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
     }
-    return state;
-  },
+    this.state = state;
+  }
 
-
-  selectModel: function (ut) {
+  selectModel = (ut) => {
     var relatedModels = this._modelsInCategory(ut.unit_template_category.id)
     this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
     this.modules.windowPosition.reset();
-  },
+  };
 
-  _modelsInCategory: function (categoryId) {
+  _modelsInCategory = (categoryId) => {
       return this.state.unitTemplatesManager.models.filter(ut => {
       if (ut.unit_template_category && ut.unit_template_category.id === categoryId) {
         return ut
       }
     })
-  },
+  };
 
-  updateUnitTemplateModels: function (models) {
+  updateUnitTemplateModels = (models) => {
     var categories =  _.chain(models)
                         .pluck('unit_template_category')
                         .uniq(_.property('id'))
@@ -92,44 +91,44 @@ export default React.createClass({
       newHash.stage = 'profile'
     }
     this.updateUnitTemplatesManager(newHash)
-  },
+  };
 
-  returnToIndex: function () {
+  returnToIndex = () => {
     this.updateUnitTemplatesManager({stage: 'index'})
     window.scrollTo(0, 0);
-  },
+  };
 
-  filterByCategory: function (categoryId) {
+  filterByCategory = (categoryId) => {
     if (categoryId) {
       var uts = this._modelsInCategory(categoryId)
     } else {
       var uts = this.state.unitTemplatesManager.models;
     }
     this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts, selectedCategoryId: categoryId});
-  },
+  };
 
-  fetchUnitTemplateModels: function () {
+  fetchUnitTemplateModels = () => {
     this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
-  },
+  };
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.fetchUnitTemplateModels();
-  },
+  }
 
-  fetchClassrooms: function() {
+  fetchClassrooms = () => {
     var that = this;
     requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
                (data) => {
                  that.updateCreateUnit({options: {classrooms: data.classrooms_and_their_students}})
                }
     );
-  },
+  };
 
-  getSelectedActivities: function () {
+  getSelectedActivities = () => {
     return this.state.createUnit.model.selectedActivities;
-  },
+  };
 
-  assign: function () {
+  assign = () => {
     this.fetchClassrooms()
     var unitTemplate = this.state.unitTemplatesManager.model;
     var state = this.state;
@@ -144,13 +143,13 @@ export default React.createClass({
       }
     }
     this.deepExtendState(hash);
-  },
+  };
 
-  signUp: function () {
+  signUp = () => {
     window.location.href = '/account/new';
-  },
+  };
 
-  unitTemplatesManagerActions: function () {
+  unitTemplatesManagerActions = () => {
     return {
       assign: this.assign,
       returnToIndex: this.returnToIndex,
@@ -158,9 +157,9 @@ export default React.createClass({
       selectModel: this.selectModel,
       signUp: this.signUp
     }
-  },
+  };
 
-  render: function () {
+  render() {
     var tabSpecificComponents;
 
     tabSpecificComponents = (<UnitTemplatesManager
@@ -177,4 +176,4 @@ export default React.createClass({
     );
 
   }
-});
+}

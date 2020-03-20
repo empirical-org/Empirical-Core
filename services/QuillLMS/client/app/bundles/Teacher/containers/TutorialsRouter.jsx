@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import TutorialIndex from '../components/tutorials/TutorialIndex';
 
-export default React.createClass({
+export default class extends React.Component {
   render() {
     return (
       <Router history={browserHistory}>
@@ -14,5 +14,5 @@ export default React.createClass({
         </Route>
       </Router>
     );
-  },
-});
+  }
+}

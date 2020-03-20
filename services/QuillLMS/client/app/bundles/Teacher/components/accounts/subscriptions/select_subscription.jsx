@@ -4,30 +4,33 @@ import _ from 'underscore';
 import $ from 'jquery';
 import DropdownDateSelector from '../../general_components/dropdown_date_selector.jsx';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     subscription: PropTypes.object,
     updateSubscriptionState: PropTypes.func.isRequired,
     updateSubscriptionType: PropTypes.func.isRequired,
-  },
-  updateSubscriptionType() {
+  };
+
+  updateSubscriptionType = () => {
     const value = $(this.refs.select).val();
     this.props.updateSubscriptionType(value);
-  },
+  };
 
-  updateExpiration(newDate) {
+  updateExpiration = (newDate) => {
     //  YYYY-MM-DD
     let subscription;
     subscription = this.props.subscription;
     subscription.expiration = newDate;
     this.props.updateSubscriptionState(subscription);
-  },
-  getErrors(type) {
+  };
+
+  getErrors = (type) => {
     if (this.props.subscription.errors != null) {
       return this.props.subscription.errors[type];
     }
     return null;
-  },
+  };
+
   render() {
     const optionStrings = ['none', 'paid', 'trial', 'free low-income', 'free contributor', 'missing school'];
     const options = _.map(optionStrings, optionString => <option key={optionString} value={optionString}>{optionString}</option>);
@@ -53,5 +56,5 @@ export default React.createClass({
         </div>
       </span>
     );
-  },
-});
+  }
+}

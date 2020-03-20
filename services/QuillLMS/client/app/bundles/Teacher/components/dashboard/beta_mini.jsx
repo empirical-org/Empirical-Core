@@ -1,8 +1,7 @@
 import React from 'react'
 
-export default React.createClass({
-
-  render: function() {
+export default class extends React.Component {
+  render() {
     return (
       <div className="mini_container results-overview-mini-container col-md-4 col-sm-5 text-center">
         <div className="mini_content">
@@ -15,4 +14,4 @@ export default React.createClass({
       </div>
     );
    }
- });
+}

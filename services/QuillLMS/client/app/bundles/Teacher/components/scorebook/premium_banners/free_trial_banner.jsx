@@ -3,17 +3,14 @@ import NewSignUpBanner from './new_signup_banner.jsx';
 import { requestPost } from '../../../../../modules/request/index.js';
 
 
-export default React.createClass({
+export default class extends React.Component {
+  state = { trialStarted: false, };
 
-  getInitialState() {
-    return { trialStarted: false, };
-  },
-
-  beginTrial() {
+  beginTrial = () => {
     requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
       this.setState({ trialStarted: true, })
     })
-  },
+  };
 
   render() {
     if (this.state.trialStarted) {
@@ -36,6 +33,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-
-});
+  }
+}

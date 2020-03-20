@@ -3,8 +3,7 @@ import DropdownFilter from '../progress_reports/dropdown_filter.jsx';
 import DateRangeFilter from '../general_components/date_range_filter.jsx';
 import moment from 'moment';
 
-export default React.createClass({
-
+export default class extends React.Component {
   render() {
     const datepickerDropdownStyle = {
       'position': 'relative',
@@ -47,5 +46,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

@@ -6,8 +6,8 @@ import SortableTr from './sortable_tr.jsx'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     currentSort: PropTypes.object.isRequired,
     columns: PropTypes.array.isRequired,
     rows: PropTypes.array.isRequired, // [{classification_name: 'foobar', ...}]
@@ -16,28 +16,28 @@ export default React.createClass({
     loading: PropTypes.bool,
     colorByScoreKeys: PropTypes.array,
     onNonPremiumStudentPage: PropTypes.string
-  },
+  };
 
-  shouldTransition: function () {
+  shouldTransition = () => {
     return !!this.props.shouldTransition
-  },
+  };
 
-  loading: function () {
+  loading = () => {
     if (this.props.loading === true) {
       return true;
     } else {
       return false;
     }
-  },
+  };
 
   // Return a handler function that includes the field name as the 1st arg.
-  sortByColumn: function(fieldName) {
+  sortByColumn = (fieldName) => {
     return _.bind(function sortHandler(sortDirection) {
       return this.props.sortHandler(fieldName, sortDirection);
     }, this);
-  },
+  };
 
-  columns: function() {
+  columns = () => {
     return _.map(this.props.columns, function (column, i) {
       var isCurrentSort = (column.sortByField === this.props.currentSort.field);
       return (<SortableTh
@@ -49,23 +49,23 @@ export default React.createClass({
         sortHandler={this.sortByColumn(column.sortByField)}
       />)
     }, this);
-  },
+  };
 
-  rows: function() {
+  rows = () => {
     return _.map(this.props.rows, function(row, i) {
       return <SortableTr colorByScoreKeys={this.props.colorByScoreKeys} columns={this.props.columns} key={row.id || i} row={row} />
     }, this);
-  },
+  };
 
-  loadingView: function () {
+  loadingView = () => {
     return (
       <div className='sortable-table-spinner-container'>
         <i className='fas fa-refresh fa-spin sortable-table-spinner' />
       </div>
     );
-  },
+  };
 
-  render: function() {
+  render() {
     if (this.loading()) {
       return this.loadingView();
     } else {
@@ -97,4 +97,4 @@ export default React.createClass({
       );
     }
   }
-});
+}

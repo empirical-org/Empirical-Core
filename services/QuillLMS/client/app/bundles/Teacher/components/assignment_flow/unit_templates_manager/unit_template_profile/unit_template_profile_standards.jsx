@@ -2,29 +2,29 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     data: PropTypes.object.isRequired,
-  },
+  };
 
-  getStandards() {
+  getStandards = () => {
     return _.chain(this.props.data.activities)
             .map(_.property('topic'))
             .uniq(_.property('name'))
             .value();
-  },
+  };
 
-  getConcepts() {
+  getConcepts = () => {
     return _.uniq(_.map(this.getStandards(), standard => standard.topic_category.name));
-  },
+  };
 
-  renderStandards(standards) {
+  renderStandards = (standards) => {
     return _.map(standards, standard => <dd key={standard.name}>{standard.name}</dd>);
-  },
+  };
 
-  renderConcepts(concepts) {
+  renderConcepts = (concepts) => {
     return _.map(concepts, concept => <dd className="concept" key={concept}>{concept}</dd>);
-  },
+  };
 
   render() {
     return (
@@ -38,5 +38,5 @@ export default React.createClass({
         </dl>
       </div>
     );
-  },
-});
+  }
+}

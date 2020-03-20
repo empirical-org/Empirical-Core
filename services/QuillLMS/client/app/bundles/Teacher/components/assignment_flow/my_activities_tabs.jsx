@@ -1,15 +1,17 @@
 import React from 'react';
 
-export default React.createClass({
-
-  getInitialState() {
+export default class extends React.Component {
+  constructor(props) {
+    super(props);
     if ((window.location.pathname === '/teachers/classrooms/activity_planner')) {
-      return { allActivityPacks: 'active', };
+      this.state = { allActivityPacks: 'active', };
+      return;
     } else if (window.location.pathname.includes('/lessons')) {
-      return { lessons: 'active', };
+      this.state = { lessons: 'active', };
+      return;
     }
-    return {};
-  },
+    this.state = {};
+  }
 
   render() {
     return (
@@ -22,6 +24,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-
-});
+  }
+}

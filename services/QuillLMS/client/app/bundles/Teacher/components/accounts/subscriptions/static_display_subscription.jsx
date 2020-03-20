@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     subscription: PropTypes.object,
-  },
+  };
 
-  renderExpirationDate() {
+  renderExpirationDate = () => {
     if (this.props.subscription.expiration) {
       return `Expires: ${this.transformDate(this.props.subscription.expiration)}`;
     }
     return 'No expiration date set.';
-  },
+  };
 
-  transformDate(dateString) {
+  transformDate = (dateString) => {
     if (dateString) {
       let year,
         month,
@@ -26,18 +26,18 @@ export default React.createClass({
       return newString;
     }
     return '';
-  },
+  };
 
-  subscriptionType() {
+  subscriptionType = () => {
     return this.props.subscription.subscriptionType;
-  },
+  };
 
-  subscriptionTypeInUserLanguage() {
+  subscriptionTypeInUserLanguage = () => {
     if (['none', 'locked'].includes(this.subscriptionType())) {
       return ('basic');
     }
     return (this.props.subscription.subscriptionType);
-  },
+  };
 
   render() {
     let getPremium,
@@ -73,5 +73,5 @@ export default React.createClass({
         {subscriptionDetails}
       </span>
     );
-  },
-});
+  }
+}

@@ -5,18 +5,16 @@ import moment from 'moment';
 
 
 
- export default React.createClass({
-    // displayName: 'Example',
+ export default class extends React.Component {
+     // displayName: 'Example',
 
-    getInitialState: function() {
-        return {startDate: moment()};
-    },
+     state = {startDate: moment()};
 
-    handleChange: function(date) {
-        this.setState({startDate: date});
-    },
+     handleChange = (date) => {
+         this.setState({startDate: date});
+     };
 
-    render: function() {
-        return <DatePicker onChange={this.handleChange} selected={this.state.startDate} />;
-    }
-});
+     render() {
+         return <DatePicker onChange={this.handleChange} selected={this.state.startDate} />;
+     }
+ }

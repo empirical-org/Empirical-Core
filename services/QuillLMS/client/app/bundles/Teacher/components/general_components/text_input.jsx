@@ -6,8 +6,8 @@ import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     update: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     default: PropTypes.string,
@@ -17,13 +17,13 @@ export default React.createClass({
     errorKey: PropTypes.string,
     size: PropTypes.string,
     noLabel: PropTypes.bool
-  },
+  };
 
-  update: function (event) {
+  update = (event) => {
     this.props.update(this.props.name, event.target.value);
-  },
+  };
 
-  titleCase: function (string) {
+  titleCase = (string) => {
     var words = string.split(' ')
     var TitleCaseWords = _.map(words, function (word) {
       return this.titleCaseHelper(word)
@@ -33,17 +33,17 @@ export default React.createClass({
     }, '')
 
     return result;
-  },
+  };
 
-  titleCaseHelper: function (word) {
+  titleCaseHelper = (word) => {
     return word[0].toUpperCase() + word.substring(1);
-  },
+  };
 
-  determine: function (desired, fallback) {
+  determine = (desired, fallback) => {
     return this.props[desired] ? this.props[desired] : fallback;
-  },
+  };
 
-  determineType: function () {
+  determineType = () => {
     var type = null;
     if (this.props.type != undefined) {
       type = this.props.type
@@ -51,29 +51,29 @@ export default React.createClass({
       type = 'password';
     }
     return type;
-  },
+  };
 
-  determineLabel: function () {
+  determineLabel = () => {
     return this.determine('label', this.titleCase(this.removeUnderscore(this.props.name)));
-  },
+  };
 
-  removeUnderscore: function (string) {
+  removeUnderscore = (string) => {
     return string.replace(/_/g, ' ');
-  },
+  };
 
-  determinePlaceholder: function () {
+  determinePlaceholder = () => {
     return this.determineLabel();
-  },
+  };
 
-  determineErrorLabel: function () {
+  determineErrorLabel = () => {
     return this.determine('errorLabel', this.determineLabel());
-  },
+  };
 
-  determineErrorKey: function () {
+  determineErrorKey = () => {
     return this.determine('errorKey', this.props.name);
-  },
+  };
 
-  determineError: function () {
+  determineError = () => {
     var errorKey, error;
     errorKey = this.determineErrorKey();
     if ((this.props.errors) && (this.props.errors[errorKey])) {
@@ -82,9 +82,9 @@ export default React.createClass({
       error = null;
     }
     return error;
-  },
+  };
 
-  displayErrors: function () {
+  displayErrors = () => {
     var error, result;
     error = this.determineError();
 
@@ -94,21 +94,21 @@ export default React.createClass({
       result = null;
     }
     return result;
-  },
+  };
 
-  getId: function () {
+  getId = () => {
     return this.props.name;
-  },
+  };
 
-  getUpdateFn: function () {
+  getUpdateFn = () => {
     var fn = null
     if (this.determineType() !== 'file') {
       fn = this.update;
     }
     return fn;
-  },
+  };
 
-  determineInputTag: function () {
+  determineInputTag = () => {
     var result;
     if (this.props.size == 'medium') {
       result = (<textarea
@@ -130,9 +130,9 @@ export default React.createClass({
       />);
     }
     return result;
-  },
+  };
 
-  componentDidMount: function () {
+  componentDidMount() {
     var that = this;
     if (this.determineType() == 'file') {
       $('#' + this.getId()).fileupload({
@@ -143,9 +143,9 @@ export default React.createClass({
         }
       });
     }
-  },
+  }
 
-  labelOrNot: function () {
+  labelOrNot = () => {
     if (this.props.noLabel) {
       return null;
     } else {
@@ -159,9 +159,9 @@ export default React.createClass({
         </div>
       );
     }
-  },
+  };
 
-  render: function () {
+  render() {
     var result;
     if (this.props.isSingleRow) {
       result = this.determineInputTag();
@@ -184,4 +184,4 @@ export default React.createClass({
     }
     return result;
   }
-});
+}

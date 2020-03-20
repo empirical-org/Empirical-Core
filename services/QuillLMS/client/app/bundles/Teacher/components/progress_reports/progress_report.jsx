@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 
+import createReactClass from 'create-react-class';
+
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin'
 import Pagination from '../assignment_flow/create_unit/activity_search/pagination/pagination'
@@ -13,7 +15,9 @@ import getParameterByName from '../modules/get_parameter_by_name';
 import stripHtml from '../modules/strip_html'
 import $ from 'jquery'
 
-export default  React.createClass({
+export default createReactClass({
+  displayName: 'progress_report',
+
   mixins: [
     TableFilterMixin, TableSortingMixin
   ],
@@ -251,5 +255,5 @@ export default  React.createClass({
         {pagination}
       </div>
     );
-  }
+  },
 });

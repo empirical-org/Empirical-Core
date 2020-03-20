@@ -6,16 +6,18 @@ import React from 'react';
 import _ from 'underscore';
 import $ from 'jquery';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     role: PropTypes.string.isRequired,
     updateRole: PropTypes.func.isRequired
-  },
-  updateRole: function () {
+  };
+
+  updateRole = () => {
     var x = $(this.refs.select).val();
     this.props.updateRole(x);
-  },
-  render: function () {
+  };
+
+  render() {
     var options = _.map(['teacher', 'student', 'admin', 'staff'], function (role) {
       return <option key={role} value={role}>{role}</option>;
     });
@@ -35,4 +37,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip'
 
-export default React.createClass({
-  callToggleActivitySelection(e) {
+export default class extends React.Component {
+  callToggleActivitySelection = (e) => {
     const true_or_false = ($(e.target).attr('checked') == 'checked');
     this.props.toggleActivitySelection(this.props.data, true_or_false);
-  },
+  };
+
   render() {
     const selectedClass = this.props.selected ? 'selected' : '';
     const toolTip = this.props.data.activity_classification
@@ -35,6 +36,5 @@ export default React.createClass({
         </td>
       </tr>
     );
-  },
-
-});
+  }
+}

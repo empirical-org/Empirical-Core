@@ -3,8 +3,8 @@ import React from 'react'
 import GoogleSignUp from './google_sign_up'
 import CleverSignUp from './clever_sign_up'
 
-export default React.createClass({
-  render: function () {
+export default class extends React.Component {
+  render() {
     return (
       <div className='text-center auth-section'>
         <GoogleSignUp />
@@ -12,4 +12,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

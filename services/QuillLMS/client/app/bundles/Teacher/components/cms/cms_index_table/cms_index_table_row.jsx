@@ -3,38 +3,38 @@ import PropTypes from 'prop-types';
 import React from 'react'
 
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     data: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
-  },
+  };
 
-  edit: function () {
+  edit = () => {
     this.props.actions.edit(this.props.data.resource);
-  },
+  };
 
-  delete: function () {
+  delete = () => {
     var confirm = window.confirm('are you sure you want to delete ' + this.props.data.resource[this.identifier()] + '?');
     if (confirm) {
       this.props.actions.delete(this.props.data.resource);
     }
-  },
+  };
 
-  identifier: function () {
+  identifier = () => {
     return this.props.data.identifier || 'name'
-  },
+  };
 
-  activitiesLink: function() {
+  activitiesLink = () => {
     if (this.props.resourceNameSingular === 'activity_classification') {
       return <div className='col-xs-4' key={'activities'} onClick={this.goToActivities}>activities</div>
     }
-  },
+  };
 
-  goToActivities: function() {
+  goToActivities = () => {
     window.location = `/cms/activity_classifications/${this.props.data.resource.id}/activities`
-  },
+  };
 
-  render: function () {
+  render() {
     var edit_and_delete;
     edit_and_delete = _.reduce(['edit', 'delete'], function (acc, ele) {
       if (this.props.actions[ele]) {
@@ -59,4 +59,4 @@ export default React.createClass({
       </tr>
     );
   }
-})
+}

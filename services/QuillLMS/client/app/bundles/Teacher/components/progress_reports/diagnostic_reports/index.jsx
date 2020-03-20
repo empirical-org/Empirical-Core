@@ -7,17 +7,14 @@ import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
 require('../../../../../assets/styles/app-variables.scss')
 
-const DiagnosticReports = React.createClass({
+class DiagnosticReports extends React.Component {
+    state = {
+        loading: true,
+        classrooms: null,
+        selectedStudent: null,
+        selectedActivity: {}};
 
-	getInitialState: function() {
-		return ({
-			loading: true,
-			classrooms: null,
-			selectedStudent: null,
-			selectedActivity: {}});
-	},
-
-	componentDidMount: function() {
+    componentDidMount() {
 		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData();
@@ -25,27 +22,27 @@ const DiagnosticReports = React.createClass({
 		if (this.props.params.studentId) {
 			this.setStudentId(this.props.params.studentId);
 		}
-	},
+	}
 
-	UNSAFE_componentWillReceiveProps: function(nextProps) {
+    UNSAFE_componentWillReceiveProps = (nextProps) => {
 		if (nextProps.params && nextProps.params.studentId) {
 			this.setStudentId(nextProps.params.studentId);
 		}
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData(nextProps.params);
 		}
-	},
+	};
 
-	componentWillUnmount: function() {
+    componentWillUnmount() {
 		let ajax = this.ajax;
 		for (var call in ajax) {
 			if (ajax.hasOwnProperty(call)) {
 				call.abort();
 			}
 		}
-	},
+	}
 
-	getActivityData: function (params) {
+    getActivityData = (params) => {
 		let that = this;
 		const p = params || this.props.params;
 		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
@@ -55,9 +52,9 @@ const DiagnosticReports = React.createClass({
         });
       }
 		});
-	},
+	};
 
-	getClassroomsWithStudents: function(params) {
+    getClassroomsWithStudents = (params) => {
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
@@ -68,19 +65,18 @@ const DiagnosticReports = React.createClass({
 				loading: false
 			});
 		});
-	},
+	};
 
-
-	getStudentAndActivityData: function(params) {
+    getStudentAndActivityData = (params) => {
 		this.getClassroomsWithStudents(params);
 		this.getActivityData(params);
-	},
+	};
 
-	setStudentId: function(studentId){
+    setStudentId = (studentId) => {
 		this.setState({selectedStudentId: Number(studentId)});
-	},
+	};
 
-	changeClassroom: function(classroom) {
+    changeClassroom = (classroom) => {
 			this.setState({
 				selectedStudentId: null,
 				students: classroom.students
@@ -96,34 +92,32 @@ const DiagnosticReports = React.createClass({
 				report = window.location.hash.substring(reportBeginningIndex + 1).split('?').shift()
 			}
 			this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
-	},
+	};
 
-	changeReport: function(reportName) {
+    changeReport = (reportName) => {
 		const p = this.props.params;
 		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
-	},
+	};
 
-
-
-	changeStudent: function(student) {
+    changeStudent = (student) => {
 		this.setState({selectedStudentId: student})
 		const p = this.props.params;
 		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
-	},
+	};
 
-	findClassroomById: function(id) {
+    findClassroomById = (id) => {
 		return this.props.classrooms
 			? this.props.classrooms.find((c) => c.id === id)
 			: null
-	},
+	};
 
-	showStudentDropdown: function(){
+    showStudentDropdown = () => {
 		const currPath = this.props.location.pathname;
 		// we only want to show the student dropdown if the route includes student report
 		return currPath.includes('student_report')
-	},
+	};
 
-	render: function() {
+    render() {
 		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
 			return (
@@ -151,7 +145,6 @@ const DiagnosticReports = React.createClass({
 			);
 		}
 	}
-
-});
+}
 
 export default withRouter(DiagnosticReports)

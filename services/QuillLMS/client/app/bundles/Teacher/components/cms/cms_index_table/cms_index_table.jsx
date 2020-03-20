@@ -4,31 +4,31 @@ import _ from 'underscore'
 import SortableList from '../../../components/shared/sortableList'
 import CmsIndexTableRow from './cms_index_table_row.jsx'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     data: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
-  },
+  };
 
-  furnishRows: function () {
+  furnishRows = () => {
     var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
     return rows;
-  },
+  };
 
-  furnishRow: function (resource, index) {
+  furnishRow = (resource, index) => {
     return (<CmsIndexTableRow
       actions={this.props.actions}
       data={{resource: resource, identifier: this.props.data.identifier}}
       key={index}
       resourceNameSingular={this.props.resourceNameSingular}
     />);
-  },
+  };
 
-  identifier: function () {
+  identifier = () => {
     return this.props.data.identifier || 'Name'
-  },
+  };
 
-  renderRows: function () {
+  renderRows = () => {
     if(this.props.isSortable) {
       return (<div className="sortable-table">
         <div className="header"><span>Name</span><span>Actions</span></div>
@@ -47,10 +47,9 @@ export default React.createClass({
         </tbody>
       </table>)
     }
-  },
+  };
 
-  render: function () {
+  render() {
     return this.renderRows();
   }
-
-});
+}

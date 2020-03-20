@@ -3,19 +3,19 @@ import React from 'react';
 import moment from 'moment';
 import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     data: PropTypes.object.isRequired,
-  },
+  };
 
-  getClassName() {
+  getClassName = () => {
     if (this.props.data.concept_results && this.props.data.concept_results.length) {
       return 'activity-details';
     }
     return 'activity-details no-concept-results';
-  },
+  };
 
-  detailOrNot() {
+  detailOrNot = () => {
     let dateTitle,
     dateBody;
     if (!this.props.data.concept_results || !this.props.data.concept_results.length) {
@@ -43,7 +43,7 @@ export default React.createClass({
         {dateSection}
       </div>
     );
-  },
+  };
 
   render() {
     return (
@@ -55,5 +55,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

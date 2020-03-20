@@ -2,15 +2,16 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     percentage: PropTypes.number.isRequired
-  },
-  goToTeacherGuide: function(){
-    window.location="/teachers/teacher_guide";
-  },
+  };
 
-  render: function() {
+  goToTeacherGuide = () => {
+    window.location="/teachers/teacher_guide";
+  };
+
+  render() {
     return (
       <div className='circle-graph'>
         <div className={"c100 p" + this.props.percentage}>
@@ -22,7 +23,4 @@ export default React.createClass({
         </div>
       </div>)
   }
-
-
-
-});
+}

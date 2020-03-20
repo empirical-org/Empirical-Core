@@ -3,9 +3,8 @@ import React from 'react'
 import NewNestedResource from './newNestedResource.jsx'
 import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
 
-export default React.createClass({
-
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     data: PropTypes.object.isRequired,
     /*
     data: {
@@ -24,13 +23,13 @@ export default React.createClass({
       delete: fn
     }
     */
-  },
+  };
 
-  delete: function (resource) {
+  delete = (resource) => {
     this.props.actions.delete(this.props.data.name, resource)
-  },
+  };
 
-  render: function () {
+  render() {
 
     return (
       <div className='row'>
@@ -61,4 +60,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

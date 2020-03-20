@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.any.isRequired,
     selectOption: PropTypes.func.isRequired,
-  },
+  };
 
-  clickOption() {
+  clickOption = () => {
     this.props.selectOption(this.props.value);
-  },
+  };
 
   render() {
     return (
@@ -19,5 +19,5 @@ export default React.createClass({
         </span>
       </li>
     );
-  },
-});
+  }
+}

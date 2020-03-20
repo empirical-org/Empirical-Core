@@ -1,25 +1,25 @@
 'use strict'
 import PropTypes from 'prop-types';
 import React from 'react'
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     checkboxes: PropTypes.array.isRequired,
     dashboard: PropTypes.bool.isRequired
-  },
+  };
 
-  checkOrNumber: function(box){
+  checkOrNumber = (box) => {
     return box.completed ? this.checkboxElement() : this.placementNum(box);
-  },
+  };
 
-  placementNum: function(box) {
+  placementNum = (box) => {
     return <div className='placement-number'><span>{box.section_placement}</span></div>
-  },
+  };
 
-  checkboxElement: function() {
+  checkboxElement = () => {
     return <div className='image-wrapper'><img src='/images/teacher-guide-check.png' /></div>
-  },
+  };
 
-  pageBasedActionIcon: function(url) {
+  pageBasedActionIcon = (url) => {
     if (this.props.dashboard) {
       return (<a href={url}><img src='/images/getting_started_arrow.png' /></a>);
     } else {
@@ -29,21 +29,18 @@ export default React.createClass({
       </div>
       </a>);
     }
-  },
+  };
 
-  pageBasedHelpInfo: function(url) {
+  pageBasedHelpInfo = (url) => {
     var text = this.props.dashboard ? 'Guide' : 'View the Guide'
     return <a href={url}>{text}</a>
-  },
+  };
 
-
-
-  actionButton: function(url){
+  actionButton = (url) => {
     return this.pageBasedActionIcon(url);
-  },
+  };
 
-
-  optionalInfo: function(box){
+  optionalInfo = (box) => {
     var info = [];
     if (box.help_info) {
       info.push(<td className='text-right help-info' key={'help-info ' + box.action_url}>{this.pageBasedHelpInfo(box.help_info)}</td>);
@@ -52,21 +49,19 @@ export default React.createClass({
       info.push(<td className='text-right url-action' key={'action ' + box.action_url}>{this.actionButton(box.action_url)}</td>);
     }
     return info;
-  },
+  };
 
-  category: function(){
+  category = () => {
     if (!this.props.dashboard){
       return <h3>{this.props.checkboxes[0].section || 'Miscellaneous'}</h3>
   }
-},
+};
 
-sortBoxes: function(){
-  return this.props.checkboxes.sort((a,b) => a.section_placement - b.section_placement);
-},
+  sortBoxes = () => {
+    return this.props.checkboxes.sort((a,b) => a.section_placement - b.section_placement);
+  };
 
-
-
-  section: function(){
+  section = () => {
     var that = this;
     var boxes = this.sortBoxes().map(box =>
       (<tr className={'completed-' + box.completed} key={box.id}>
@@ -85,10 +80,9 @@ sortBoxes: function(){
         </table>
       </div>
       );
-  },
+  };
 
-  render: function() {
+  render() {
     return this.section();
   }
-
-});
+}

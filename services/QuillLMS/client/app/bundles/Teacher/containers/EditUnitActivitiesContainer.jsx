@@ -3,13 +3,10 @@ import UnitStage1 from '../components/assignment_flow/create_unit/select_activit
 import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token';
 
-export default React.createClass({
+export default class extends React.Component {
+  state = {selectedActivities: new Set()};
 
-  getInitialState() {
-    return {selectedActivities: new Set()}
-  },
-
-  toggleActivitySelection(activity) {
+  toggleActivitySelection = (activity) => {
     // TODO: this should just take an id as a param -- the reason that it is not
     // is because the original toggleActivitySelection fn is expecting an entire activity
     // object and we don't want to break the original yet
@@ -17,15 +14,15 @@ export default React.createClass({
     const activities = newState.selectedActivities
     activities.has(activity) ? activities.delete(activity) : activities.add(activity)
     this.setState(newState)
-  },
+  };
 
-  getActivityIds(){
+  getActivityIds = () => {
     const ids = [];
     this.state.selectedActivities.forEach((act)=>ids.push({id: act.id, due_date: null}));
     return ids
-  },
+  };
 
-  updateActivities() {
+  updateActivities = () => {
     const that = this;
     request.put({
       url: `${process.env.DEFAULT_URL}/teachers/units/${that.props.params.unitId}/update_activities`,
@@ -40,7 +37,7 @@ export default React.createClass({
         window.location = '/teachers/classrooms/lesson_planner'
       }
     })
-  },
+  };
 
   render() {
     return (
@@ -59,4 +56,4 @@ export default React.createClass({
       </div>
       )
   }
-})
+}

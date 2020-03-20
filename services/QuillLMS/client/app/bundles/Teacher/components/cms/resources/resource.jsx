@@ -4,8 +4,8 @@ import TextInputGenerator from '../../modules/componentGenerators/text_input_gen
 import Server from '../../modules/server/server.jsx';
 import NestedResource from '../../modules/nested_resource.jsx'
 import CmsNestedResource from './nestedResource.jsx'
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     resourceNameSingular: PropTypes.string.isRequired,
     resourceNamePlural: PropTypes.string.isRequired,
     initialModel: PropTypes.object.isRequired,
@@ -15,19 +15,20 @@ export default React.createClass({
     savingKeys: PropTypes.array.isRequired,
     nestedResources: PropTypes.array,
     fieldsToNormalize: PropTypes.array.isRequired
-  },
+  };
 
-  getInitialState: function () {
+  constructor(props, context) {
+    super(props, context);
     this.initializeModules();
-    var model1 = _.extend(this.props.initialModel, this.props.resource);
+    var model1 = _.extend(props.initialModel, props.resource);
 
     var hash = {
       model: model1
     };
-    return hash;
-  },
+    this.state = hash;
+  }
 
-  initializeModules: function () {
+  initializeModules = () => {
     this.modules = {
       textInputGenerator: new TextInputGenerator(this, this.updateModelState),
       server: new Server(this.props.resourceNameSingular, this.props.resourceNamePlural, '/cms'),
@@ -42,25 +43,25 @@ export default React.createClass({
       });
     }
 
-  },
+  };
 
-  updateModelState: function (key, value) {
+  updateModelState = (key, value) => {
     var newState = this.state;
     newState.model[key] = value;
     this.setState(newState);
-  },
+  };
 
-  addNestedResource: function (kind, resource) {
+  addNestedResource = (kind, resource) => {
     var newModel = this.modules.nestedResources[kind].add(resource)
     this.nestedResourceSaveHelper(newModel)
-  },
+  };
 
-  removeNestedResourceAndSave: function (kind, resource) {
+  removeNestedResourceAndSave = (kind, resource) => {
     var newModel = this.modules.nestedResources[kind].remove(resource)
     this.nestedResourceSaveHelper(newModel)
-  },
+  };
 
-  nestedResourceSaveHelper: function (newModel) {
+  nestedResourceSaveHelper = (newModel) => {
     var data = _.pick(newModel, this.props.savingKeys)
     var options = {
       callback: this.updateModelSaveCallback,
@@ -68,13 +69,13 @@ export default React.createClass({
       fieldsToNormalize: this.props.fieldsToNormalize
     }
     this.modules.server.save(data, options)
-  },
+  };
 
-  updateModelSaveCallback: function (data) {
+  updateModelSaveCallback = (data) => {
     this.setState({model: data[this.props.resourceNameSingular]})
-  },
+  };
 
-  save: function () {
+  save = () => {
     var data = _.pick(this.state.model, this.props.savingKeys);
     var options = {
       callback: this.props.returnToIndex,
@@ -82,10 +83,9 @@ export default React.createClass({
       fieldsToNormalize: this.props.fieldsToNormalize
     }
     this.modules.server.save(data, options);
-  },
+  };
 
-
-  render: function () {
+  render() {
     var inputs = this.modules.textInputGenerator.generate(this.props.formFields);
     let nestedResources
     if (this.props.nestedResources) {
@@ -123,5 +123,4 @@ export default React.createClass({
       </div>
     );
   }
-
-});
+}

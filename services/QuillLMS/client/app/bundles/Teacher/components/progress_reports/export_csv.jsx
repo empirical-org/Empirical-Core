@@ -8,24 +8,19 @@ import PropTypes from 'prop-types';
 import Pusher from 'pusher-js';
 import ButtonLoadingIndicator from '../shared/button_loading_indicator.jsx';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
       exportType: PropTypes.string.isRequired,
       filters: PropTypes.object.isRequired,
       reportUrl: PropTypes.string.isRequired,
       teacher: PropTypes.object.isRequired,
       disabled: PropTypes.bool,
-    },
+    };
 
-  getDefaultProps() {
-      return {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`}
-    },
+  static defaultProps = {requestUrl: `${process.env.DEFAULT_URL}/teachers/progress_reports/csv_exports`};
+  state = {csvUrl: undefined, waitingForCsv: false};
 
-  getInitialState() {
-      return {csvUrl: undefined, waitingForCsv: false}
-    },
-
-  createExport() {
+  createExport = () => {
         if (this.props.disabled) {
             alert('CSV Exports are a Quill Premium Feature! Upgrade to Premium for reports, diagnostics, and more.')
         } else {
@@ -51,9 +46,9 @@ export default React.createClass({
                     }
                 })
             }
-        },
+        };
 
-  initializePusher() {
+  initializePusher = () => {
           this.setState({waitingForCsv: true})
           if (process.env.RAILS_ENV === 'development') {
             Pusher.logToConsole = true;
@@ -66,11 +61,11 @@ export default React.createClass({
             that.csvReceived(data)
             pusher.unsubscribe(teacherId.toString())
           });
-        },
+        };
 
-  csvReceived(data, teacherId) {
+  csvReceived = (data, teacherId) => {
           this.setState({waitingForCsv: false, csvUrl: data.message})
-        },
+        };
 
   render() {
           let content
@@ -96,5 +91,5 @@ export default React.createClass({
                 >{content}</a>
               </div>
             );
-        },
-});
+        }
+}

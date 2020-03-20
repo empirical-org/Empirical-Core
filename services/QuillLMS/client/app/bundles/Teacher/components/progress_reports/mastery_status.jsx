@@ -2,28 +2,28 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 import cutOff from '../../../../modules/proficiency_cutoffs.js'
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     score: PropTypes.number.isRequired
-  },
+  };
 
-  circleClass: function() {
+  circleClass = () => {
     if (this.props.score > cutOff.proficient) {
       return 'circle proficient';
     } else {
       return 'circle not-proficient';
     }
-  },
+  };
 
-  text: function() {
+  text = () => {
     if (this.props.score > cutOff.proficient) {
       return 'Proficient';
     } else {
       return 'Not yet proficient';
     }
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div>
         <div className={this.circleClass()} />
@@ -31,4 +31,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

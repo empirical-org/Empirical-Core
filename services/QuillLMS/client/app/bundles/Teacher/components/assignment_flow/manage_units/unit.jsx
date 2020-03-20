@@ -7,24 +7,22 @@ import getAuthToken from '../../modules/get_auth_token'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      edit: false,
-      unitName: (this.props.data.unitName || this.props.data.unit.name),
-      savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
-      error: false,
-    };
-  },
+export default class extends React.Component {
+  state = {
+    edit: false,
+    unitName: (this.props.data.unitName || this.props.data.unit.name),
+    savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
+    error: false,
+  };
 
-  hideUnit() {
+  hideUnit = () => {
     const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
     if (x) {
       this.props.hideUnit(this.getUnitId());
     }
-  },
+  };
 
-  assignedToText() {
+  assignedToText = () => {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
@@ -32,13 +30,13 @@ export default React.createClass({
     const studentCount = this.props.data.num_students_assigned || this.props.data.studentCount;
     return (<div className="assigned-to">{`Assigned to ${studentCount} ${Pluralize('Student', studentCount)} in
     ${classrooms.length} ${Pluralize('class', classrooms.length)} (${classrooms.join(', ')}).`}</div>);
-  },
+  };
 
-  editUnit() {
+  editUnit = () => {
     this.props.editUnit(this.getUnitId());
-  },
+  };
 
-  deleteOrLockedInfo() {
+  deleteOrLockedInfo = () => {
     const firstCa = this.props.data.classroomActivities.values().next().value;
     const ownedByCurrentUser = firstCa.ownedByCurrentUser;
     if (!this.props.report && !this.props.lesson && ownedByCurrentUser) {
@@ -46,9 +44,9 @@ export default React.createClass({
     } else if (!ownedByCurrentUser) {
       return <span className="locked-unit">   <img src="https://assets.quill.org/images/icons/lock-activity-pack-icon.svg"  />Created By {firstCa.ownerName}</span>;
     }
-  },
+  };
 
-  editName() {
+  editName = () => {
     if (this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
       let text,
         classy,
@@ -63,39 +61,39 @@ export default React.createClass({
       }
       return <span className={classy} onClick={this.changeToEdit} style={inlineStyle}>{text}</span>;
     }
-  },
+  };
 
-  submitName() {
+  submitName = () => {
     return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
-  },
+  };
 
-  onSubmit() {
+  onSubmit = () => {
     request.put('/teachers/units', { name: this.state.unitName, });
-  },
+  };
 
-  dueDate() {
+  dueDate = () => {
     if (!this.props.report && !this.props.lesson) {
       return <span className="due-date-header">Due Date</span>;
     }
-  },
+  };
 
-  changeToEdit() {
+  changeToEdit = () => {
     this.setState({ edit: true, });
-  },
+  };
 
-  handleNameChange(e) {
+  handleNameChange = (e) => {
     this.setState({ unitName: e.target.value, });
-  },
+  };
 
-  editUnitName() {
+  editUnitName = () => {
     return <input onChange={this.handleNameChange} type="text" value={this.state.unitName} />;
-  },
+  };
 
-  editStudentsLink() {
+  editStudentsLink = () => {
     return this.props.report || this.props.lesson ? null : <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.getUnitId()}/students/edit`}>Edit Classes & Students</a>;
-  },
+  };
 
-  handleSubmit() {
+  handleSubmit = () => {
     request.put({
       url: `${process.env.DEFAULT_URL}/teachers/units/${this.props.data.unitId}`,
       json: {
@@ -118,17 +116,17 @@ export default React.createClass({
         });
       }
     });
-  },
+  };
 
-  showUnitName() {
+  showUnitName = () => {
     return <span className="h-pointer">{this.state.unitName}</span>;
-  },
+  };
 
-  showOrEditName() {
+  showOrEditName = () => {
     return this.state.edit ? this.editUnitName() : this.showUnitName();
-  },
+  };
 
-  nameActionLink() {
+  nameActionLink = () => {
     if (this.state.edit) {
       return this.submitName();
     } else if (this.props.report || this.props.lesson) {
@@ -137,19 +135,19 @@ export default React.createClass({
     return this.editName();
 
     // return this.state.edit ? this.submitName() : this.editName()
-  },
+  };
 
-  getUnitId() {
+  getUnitId = () => {
     return this.props.data.unitId || this.props.data.unit.id;
-  },
+  };
 
-  addClassroomActivityRow() {
+  addClassroomActivityRow = () => {
     if (this.props.data.classroomActivities.values().next().value.ownedByCurrentUser) {
       return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
     }
-  },
+  };
 
-  renderClassroomActivities() {
+  renderClassroomActivities = () => {
     const classroomActivitiesArr = [];
     if (this.props.data.classroom_activities) {
       this.props.data.classroom_activities.forEach((ca) => {
@@ -183,7 +181,7 @@ export default React.createClass({
       }
     }
     return classroomActivitiesArr;
-  },
+  };
 
   render() {
     if (this.props.data.classroomActivities.size === 0) {
@@ -210,5 +208,5 @@ export default React.createClass({
         </div>
       </section>
     );
-  },
-});
+  }
+}

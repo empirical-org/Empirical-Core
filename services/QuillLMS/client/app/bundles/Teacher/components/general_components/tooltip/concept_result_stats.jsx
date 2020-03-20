@@ -3,19 +3,19 @@ import React from 'react';
 import ConceptResultStat from './concept_result_stat.jsx';
 import $ from 'jquery';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     results: PropTypes.array.isRequired,
-  },
+  };
 
-  addTotalAndPercentageToConRes(conResArr) {
+  addTotalAndPercentageToConRes = (conResArr) => {
     conResArr.forEach((conRes) => {
       conRes.total = conRes.incorrect + conRes.correct;
       conRes.percentage = conRes.correct / conRes.total;
     });
-  },
+  };
 
-  sortedStats(statsAsArr) {
+  sortedStats = (statsAsArr) => {
     return statsAsArr.sort((conRes1, conRes2) => {
       this.addTotalAndPercentageToConRes([conRes1, conRes2]);
       if (conRes1.total !== conRes2.total) {
@@ -28,9 +28,9 @@ export default React.createClass({
       // finally, sort alphabetically
       return conRes2.name < conRes1.name;
     });
-  },
+  };
 
-  statsRows() {
+  statsRows = () => {
     const statsRows = [];
     const stats = this.calculateStats();
     // loop through to the end of the array or 9. which ever is less
@@ -46,9 +46,9 @@ export default React.createClass({
     }
     const additionalInfoRow = this.additionalInfoRow(statsRows.length, stats.length);
     return statsRows.concat(additionalInfoRow);
-  },
+  };
 
-  additionalInfoRow(statsRowsLen, statsLen) {
+  additionalInfoRow = (statsRowsLen, statsLen) => {
     let message;
     const lengthDiff = statsLen - statsRowsLen;
     if (lengthDiff > 0) {
@@ -61,13 +61,13 @@ export default React.createClass({
         <div className="tooltip-message">{message}</div>
       </div>
     );
-  },
+  };
 
-  objectToArray(calculatedStats) {
+  objectToArray = (calculatedStats) => {
     return $.map(calculatedStats, (value, index) => [value]);
-  },
+  };
 
-  calculateStats() {
+  calculateStats = () => {
     const stats = this.props.results.reduce((memo, conceptResult) => {
       if (conceptResult.metadata) {
         const statsRow = memo[conceptResult.name] || {
@@ -88,7 +88,7 @@ export default React.createClass({
     const statsAsArr = this.objectToArray(stats);
     const sortedStats = this.sortedStats(statsAsArr);
     return sortedStats;
-  },
+  };
 
   render() {
     return (
@@ -96,5 +96,5 @@ export default React.createClass({
         {this.statsRows()}
       </div>
     );
-  },
-});
+  }
+}

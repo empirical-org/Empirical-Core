@@ -5,18 +5,16 @@ import ScoreColor from '../../modules/score_color.js'
 
 
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     premiumStatus: PropTypes.string
-  },
+  };
 
-  getInitialState: function() {
-    return {
-      students: {}
-    }
-  },
+  state = {
+    students: {}
+  };
 
-  columnDefinitions: function() {
+  columnDefinitions = () => {
     return [
       {
         name: 'Score',
@@ -42,9 +40,9 @@ export default React.createClass({
         sortByField: 'prompt'
       }
     ];
-  },
+  };
 
-  sortDefinitions: function() {
+  sortDefinitions = () => {
     return {
       config: {
         question_id: 'natural',
@@ -57,20 +55,19 @@ export default React.createClass({
         direction: 'asc'
       }
     };
-  },
+  };
 
-  onFetchSuccess: function(responseData) {
+  onFetchSuccess = (responseData) => {
     this.setState({
       students: responseData.students
     });
-  },
+  };
 
-  colorByScore: function(grade){
+  colorByScore = (grade) => {
     return ScoreColor(grade)
-  },
+  };
 
-
-  render: function() {
+  render() {
     const p = this.props.params;
     const unitActivityClassroom = `/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`;
     return (
@@ -91,4 +88,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

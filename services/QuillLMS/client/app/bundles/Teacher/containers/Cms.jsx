@@ -7,51 +7,51 @@ import Server from '../components/modules/server/server'
 import getAuthToken from '../components/modules/get_auth_token'
 
 
-export default React.createClass({
-
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     resourceNameSingular: PropTypes.string.isRequired,
     resourceNamePlural: PropTypes.string.isRequired
-  },
+  };
 
-  initializeModules: function () {
-    var server = new Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
-    this.modules = {
-      server: server
-    }
-  },
-
-  // TODO: abstract out below method
-  updateState: function (key, value) {
-    var newState = this.state;
-    newState[key] = value;
-    this.setState(newState);
-  },
-
-  getInitialState: function () {
+  constructor(props, context) {
+    super(props, context);
     this.initializeModules()
     var hash1 = {
       crudState: 'index',
       resourceToEdit: null,
       flag: 'All'
     };
-    hash1[this.props.resourceNamePlural] = [];
-    return hash1;
-  },
+    hash1[props.resourceNamePlural] = [];
+    this.state = hash1;
+  }
 
-  indexUrl: function () {
+  initializeModules = () => {
+    var server = new Server(this.props.resourceNameSingular, this.props.resourceNamePlural);
+    this.modules = {
+      server: server
+    }
+  };
+
+  // TODO: abstract out below method
+  updateState = (key, value) => {
+    var newState = this.state;
+    newState[key] = value;
+    this.setState(newState);
+  };
+
+  indexUrl = () => {
     return ['/cms/', this.props.resourceNamePlural].join('');
-  },
+  };
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.getIndexFromServer();
-  },
+  }
 
-  getIndexFromServer: function () {
+  getIndexFromServer = () => {
     this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl(), this.populateResources);
-  },
+  };
 
-  populateResources: function (resource) {
+  populateResources = (resource) => {
     // FIXME this fn does not have to be so complicated, need to change server module
     let that = this;
     return function (data) {
@@ -59,9 +59,9 @@ export default React.createClass({
       newState[that.props.resourceNamePlural] = data[that.props.resourceNamePlural];
       that.setState(newState);
     }
-  },
+  };
 
-  indexTable: function () {
+  indexTable = () => {
     const resourceName = this.props.resourceNamePlural
     let resources
     if (resourceName === 'unit_templates' && this.state.flag !== 'All') {
@@ -95,31 +95,31 @@ export default React.createClass({
         </div>
       </span>
     );
-  },
+  };
 
-  returnToIndex: function () {
+  returnToIndex = () => {
     this.getIndexFromServer();
     this.setState({crudState: 'index'});
-  },
+  };
 
-  individualResourceMode: function () {
+  individualResourceMode = () => {
     return (this.props.resourceComponentGenerator(this));
-  },
+  };
 
-  edit: function (resource) {
+  edit = (resource) => {
     this.setState({crudState: 'edit', resourceToEdit: resource});
-  },
+  };
 
-  delete: function (resource) {
+  delete = (resource) => {
     this.modules.server.cmsDestroy(resource.id);
     this.getIndexFromServer();
-  },
+  };
 
-  crudNew: function () {
+  crudNew = () => {
     this.setState({crudState: 'new', resourceToEdit: {}});
-  },
+  };
 
-  updateOrder: function (sortInfo) {
+  updateOrder = (sortInfo) => {
     if(this.isSortable()) {
       let originalOrder = this.state[this.props.resourceNamePlural]
       if (this.state.flag === 'Not Archived') {
@@ -133,9 +133,9 @@ export default React.createClass({
       });
       this.setState({[this.props.resourceNamePlural]: newOrderedResources});
     }
-  },
+  };
 
-  saveOrder: function () {
+  saveOrder = () => {
     if(this.isSortable()) {
       const resourceName = this.props.resourceNamePlural;
       const that = this;
@@ -153,13 +153,13 @@ export default React.createClass({
           }
       })
     }
-  },
+  };
 
-  renderSaveButton: function () {
+  renderSaveButton = () => {
     return this.isSortable() ? <button className='button-green button-top save-button' onClick={this.saveOrder}>Save Order</button> : null
-  },
+  };
 
-  renderFlagDropdown: function () {
+  renderFlagDropdown = () => {
     const resourceName = this.props.resourceNamePlural;
     if (resourceName === 'unit_templates') {
       const options = ['All', 'Not Archived', 'Archived', 'Alpha', 'Beta', 'Production']
@@ -171,19 +171,19 @@ export default React.createClass({
         />
       </div>)
     }
-  },
+  };
 
-  switchFlag: function(flag) {
+  switchFlag = (flag) => {
     this.setState({flag: flag})
-  },
+  };
 
-  isSortable: function () {
+  isSortable = () => {
     if(this.state[this.props.resourceNamePlural].length == 0 || (this.state.flag && !['All', 'Not Archived'].includes(this.state.flag))) { return false }
     const sortableResources = ['activity_classifications', 'unit_templates'];
     return sortableResources.includes(this.props.resourceNamePlural);
-  },
+  };
 
-  render: function () {
+  render() {
     var result;
     switch (this.state.crudState) {
       case 'index':
@@ -199,4 +199,4 @@ export default React.createClass({
 
     return result || null;
   }
-});
+}

@@ -14,8 +14,8 @@ import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
 import MergeTwoClassrooms from '../components/teacher_fix/merge_two_classrooms'
 import DeleteLastActivitySession from '../components/teacher_fix/delete_last_activity_session'
 
-export default React.createClass({
-	render: function() {
+export default class extends React.Component {
+    render() {
 		return (
   <Router history={browserHistory} Router>
     <Route component={TeacherFixIndex} path="/teacher_fix" />
@@ -33,4 +33,4 @@ export default React.createClass({
   </Router>
 		);
 	}
-});
+}

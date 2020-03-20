@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default React.createClass({
-
+export default class extends React.Component {
   render() {
     let signupButtonOrNothing;
     if (Number(document.getElementById('current-user-id').getAttribute('content'))) {
@@ -32,5 +31,5 @@ export default React.createClass({
         {signupButtonOrNothing}
       </div>
     );
-  },
-});
+  }
+}

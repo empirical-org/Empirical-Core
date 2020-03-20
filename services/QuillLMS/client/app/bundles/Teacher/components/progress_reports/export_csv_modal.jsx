@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     email: PropTypes.string
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div className="modal fade">
         <div className="modal-dialog">
@@ -31,4 +31,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

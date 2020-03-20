@@ -2,8 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import ActivitySearchSort from './activity_search_sort';
 
-export default React.createClass({
-
+export default class extends React.Component {
   render() {
     const sorts = _.map(this.props.sorts, function (sort) {
       // only pass update sort if the object has a sort path -- otherwise it should not be sortable
@@ -15,5 +14,5 @@ export default React.createClass({
         {sorts}
       </tr>
     );
-  },
-});
+  }
+}

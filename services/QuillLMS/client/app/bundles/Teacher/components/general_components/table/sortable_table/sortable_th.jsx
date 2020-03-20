@@ -5,20 +5,20 @@ import PropTypes from 'prop-types';
 
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     isCurrentSort: PropTypes.bool.isRequired,
     displayName: PropTypes.string.isRequired,
     displayClass: PropTypes.string,
     sortDirection: PropTypes.string.isRequired,
     sortHandler: PropTypes.func.isRequired // Handle sorting of columns
-  },
+  };
 
-  arrowClass: function() {
+  arrowClass = () => {
     return this.props.sortDirection === 'desc' ? 'fas fa-caret-down table-header-arrow' : 'fas fa-caret-up table-header-arrow';
-  },
+  };
 
-  clickSort: function() {
+  clickSort = () => {
     if (_.isEmpty(this.props.displayName)) {
       return;
     }
@@ -32,9 +32,9 @@ export default React.createClass({
     }
 
     this.props.sortHandler(newDirection);
-  },
+  };
 
-  render: function() {
+  render() {
     var arrow,
         className = 'sorter';
     if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
@@ -53,4 +53,4 @@ export default React.createClass({
       </th>
     );
   }
-});
+}

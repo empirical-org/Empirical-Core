@@ -2,18 +2,17 @@
 
  import React from 'react'
 
- export default React.createClass({
+ export default class extends React.Component {
+   UNSAFE_componentWillMount = () => {
+     $('.diagnostic-tab').removeClass('active');
+     $('.activity-analysis-tab').addClass('active');
+   };
 
-  UNSAFE_componentWillMount(){
-    $('.diagnostic-tab').removeClass('active');
-    $('.activity-analysis-tab').addClass('active');
-  },
+   handleClick = () => {
+     window.location = '/assign'
+   };
 
-  handleClick() {
-    window.location = '/assign'
-  },
-
-   render: function () {
+   render() {
  		return (
    <div className="container">
      <div className="row empty-state-manager">
@@ -27,4 +26,4 @@
      </div>
    </div>
     )}
-})
+ }

@@ -5,21 +5,19 @@ import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 import DateRangeFilterOption from './date_range_filter_option.jsx'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     selectDates: PropTypes.func.isRequired
-  },
+  };
 
-  getInitialState: function () {
-    return {};
-  },
+  state = {};
 
-  setDateFromFilter: function(filter) {
+  setDateFromFilter = (filter) => {
     this.setState({focusedInput: null});
     this.props.selectDates(filter.beginDate, null, filter.title);
-  },
+  };
 
-  renderFilterOptions: function () {
+  renderFilterOptions = () => {
     return (
       <div className='calendar-prefill-options'>
         {this.props.filterOptions.map(filter => {
@@ -34,9 +32,9 @@ export default React.createClass({
         )}
       </div>
     );
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <DateRangePicker
         customInputIcon={<i className="fas fa-icon fa-calendar" />}
@@ -54,4 +52,4 @@ export default React.createClass({
       />
     );
   }
-});
+}

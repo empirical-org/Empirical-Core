@@ -10,10 +10,10 @@ const styles = {
   },
 };
 
-export default React.createClass({
-  unitNameURIString() {
+export default class extends React.Component {
+  unitNameURIString = () => {
     return this.props.unitName ? `/${encodeURIComponent(this.props.unitName)}` : '';
-  },
+  };
 
   render() {
     return (
@@ -23,5 +23,5 @@ export default React.createClass({
         </a>
       </div>
     );
-  },
-});
+  }
+}

@@ -6,9 +6,8 @@ import DistrictPricingBox from '../components/premium/district_pricing_box.jsx';
 import PremiumFlyer from '../components/premium/premium_flyer';
 import NotificationBox from '../components/shared/notification_box.jsx';
 
-export default React.createClass({
-
-  subscribers() {
+export default class extends React.Component {
+  subscribers = () => {
     return (
     [{ source: '/images/subscribers/1_achievement.png', },
        { source: '/images/subscribers/2_kipp_sf.png', },
@@ -27,7 +26,7 @@ export default React.createClass({
        { source: '/images/subscribers/15_jodan.png', },
        { source: '/images/subscribers/16_princeton.png', }]
     );
-  },
+  };
 
   render() {
     return (
@@ -45,5 +44,5 @@ export default React.createClass({
       </div>
 
     );
-  },
-});
+  }
+}

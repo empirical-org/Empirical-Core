@@ -1,8 +1,7 @@
 import React from 'react';
 
-export default React.createClass({
-
-  clickSort() {
+export default class extends React.Component {
+  clickSort = () => {
     let new_asc_or_desc;
     if (this.props.data.asc_or_desc == 'desc') {
       new_asc_or_desc = 'asc';
@@ -10,7 +9,7 @@ export default React.createClass({
       new_asc_or_desc = 'desc';
     }
     this.props.updateSort(this.props.data.field, new_asc_or_desc);
-  },
+  };
 
   render() {
     let arrowIfSortable, arrowDirection;
@@ -30,5 +29,5 @@ export default React.createClass({
         </div>
       </th>
     );
-  },
-});
+  }
+}

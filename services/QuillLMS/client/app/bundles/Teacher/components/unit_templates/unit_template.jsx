@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import createReactClass from 'create-react-class';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import ActivitySearchAndSelect from '../assignment_flow/create_unit/activity_search/activity_search_and_select.jsx';
@@ -12,7 +13,9 @@ import MarkdownParser from '../shared/markdown_parser.jsx';
 import $ from 'jquery';
 import _ from 'underscore';
 
-export default React.createClass({
+export default createReactClass({
+  displayName: 'unit_template',
+
   propTypes: {
     unitTemplate: PropTypes.object.isRequired,
     returnToIndex: PropTypes.func.isRequired,

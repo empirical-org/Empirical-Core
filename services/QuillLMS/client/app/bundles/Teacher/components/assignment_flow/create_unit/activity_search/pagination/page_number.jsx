@@ -2,39 +2,36 @@
 
  import React from 'react'
 
- export default React.createClass({
+ export default class extends React.Component {
+   state = {isCurrentPage: null, classy: null};
 
-  getInitialState: function(){
-    return {isCurrentPage: null, classy: null};
-  },
+   componentDidMount() {
+     this.determineState(this.props);
+   }
 
-  componentDidMount: function(){
-    this.determineState(this.props);
-  },
+   UNSAFE_componentWillReceiveProps = (nextProps) => {
+     this.determineState(nextProps);
+   };
 
-  UNSAFE_componentWillReceiveProps: function(nextProps){
-    this.determineState(nextProps);
-  },
+   determineState = (props) => {
+     if (props.number === props.currentPage ) {
+       this.setState({isCurrentPage: true, classy: 'page_number active'});
+     } else {
+       this.setState({isCurrentPage: false, classy: 'page_number'});
+     }
+   };
 
-  determineState: function(props){
-    if (props.number === props.currentPage ) {
-      this.setState({isCurrentPage: true, classy: 'page_number active'});
-    } else {
-      this.setState({isCurrentPage: false, classy: 'page_number'});
-    }
-  },
+   clickNumber = () => {
+       if (this.state.isCurrentPage === false) {
+           this.props.selectPageNumber(this.props.number);
+       }
+   };
 
-	clickNumber: function () {
-		if (this.state.isCurrentPage === false) {
-			this.props.selectPageNumber(this.props.number);
-		}
-	},
-
-	render: function () {
-		return (
-  <li className={this.state.classy} onClick={this.clickNumber}>
-    <span>{this.props.number}</span>
-  </li>
-		);
-	}
-});
+   render() {
+       return (
+ <li className={this.state.classy} onClick={this.clickNumber}>
+   <span>{this.props.number}</span>
+ </li>
+       );
+   }
+ }

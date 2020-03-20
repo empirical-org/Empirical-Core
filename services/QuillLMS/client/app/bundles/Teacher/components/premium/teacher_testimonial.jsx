@@ -1,7 +1,6 @@
 import React from 'react'
-export default React.createClass({
-
-  render: function(){
+export default class extends React.Component {
+  render() {
     return(
       <div className='premium-testimonial text-center'>
         <img alt="daniel_image" className='img-circle' src={`${process.env.CDN_URL}/images/shared/daniel_90.png`} />
@@ -10,4 +9,4 @@ export default React.createClass({
       </div>
     );
 }
-});
+}

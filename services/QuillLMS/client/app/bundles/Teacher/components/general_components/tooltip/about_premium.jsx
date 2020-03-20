@@ -1,8 +1,9 @@
 'use strict';
 import React from 'react'
-export default React.createClass({
-  propTypes: {},
-  render: function () {
+export default class extends React.Component {
+  static propTypes = {};
+
+  render() {
     return (
       <div className='advert'>
         <div className='advert-icon' />
@@ -12,4 +13,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

@@ -2,22 +2,22 @@
 import PropTypes from 'prop-types';
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     checked: PropTypes.bool.isRequired,
     toggleItem: PropTypes.func.isRequired,
     item: PropTypes.string.isRequired
-  },
+  };
 
-  handleChange: function () {
+  handleChange = () => {
     this.props.toggleItem(this.props.item)
-  },
+  };
 
-  determineCheckedText: function () {
+  determineCheckedText = () => {
     return (this.props.checked ? 'checked' : '');
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <div className='checkbox-and-label'>
         <input
@@ -30,4 +30,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

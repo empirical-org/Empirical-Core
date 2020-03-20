@@ -2,27 +2,27 @@ import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore';
 
-export default React.createClass({
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     options: PropTypes.array.isRequired,
     select: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired
-  },
+  };
 
-  select: function () {
+  select = () => {
     var id = $(this.refs.select).val();
     this.props.select(id);
-  },
+  };
 
-  generateOption: function (option) {
+  generateOption = (option) => {
     var id = (option.id ? option.id : option)
     var name = (option.name ? option.name : option)
     return (
       <option key={id} value={id}>{name}</option>
     );
-  },
+  };
 
-  render: function () {
+  render() {
     // makes shallow copy of array
     var opt = this.props.options.slice(0);
     opt.unshift('Select');
@@ -36,5 +36,4 @@ export default React.createClass({
       </div>
     );
   }
-
-});
+}
