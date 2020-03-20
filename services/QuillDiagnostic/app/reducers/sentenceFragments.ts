@@ -10,13 +10,13 @@ export interface SentenceFragmentsReducerState {
     submittingnew: boolean,
 }
 
-type SentenceFragmentsReducerAction = Action & { data: SentenceFragment, sfid: string, rid: string }
+type SentenceFragmentsReducerAction = Action & { data: SentenceFragment, sfid: string, rid: string, uid: string }
 
 const initialState = {
-    data: {}, 
+    data: {},
     hasreceiveddata: false,
     newSentenceFragmentModalOpen: false,
-    states: {}, 
+    states: {},
     submittingnew: false,
 };
 
@@ -30,6 +30,12 @@ export default (
             return Object.assign({},currentState,{
                 hasreceiveddata: true,
                 data: action.data
+            });
+        case ActionTypes.RECEIVE_SENTENCE_FRAGMENT_DATA:
+            return Object.assign({},currentState,{
+                data: Object.assign({}, currentState.data, {
+                [action.uid]: action.data
+                })
             });
         case ActionTypes.AWAIT_NEW_SENTENCE_FRAGMENT_RESPONSE:
             return Object.assign({},currentState,{
