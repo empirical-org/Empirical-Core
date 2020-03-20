@@ -31,27 +31,6 @@ export default class extends React.Component {
     });
   }
 
-  grayAndYellowStat(grayContent, yellowContent, optionalClassName) {
-    return (
-      <td className={optionalClassName}>
-        <div className="gray-text">{grayContent}</div>
-        <div className="yellow-text">{yellowContent}</div>
-      </td>
-    );
-  }
-
-  defaultBackButton = () => {
-    const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
-    const previousLocation = this.props.previousLocation ||
-      '/teachers/progress_reports/activities_scores_by_classroom';
-
-    return (
-      <a className="navigate-back" href={previousLocation}>
-        <img alt="" src={imageSrc} /> Back to Activity Scores
-      </a>
-    );
-  };
-
   backButton = () => {
     const { children, } = this.props;
 
@@ -81,6 +60,27 @@ export default class extends React.Component {
     }
     return { count, average, };
   };
+
+  defaultBackButton = () => {
+    const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
+    const previousLocation = this.props.previousLocation ||
+      '/teachers/progress_reports/activities_scores_by_classroom';
+
+    return (
+      <a className="navigate-back" href={previousLocation}>
+        <img alt="" src={imageSrc} /> Back to Activity Scores
+      </a>
+    );
+  };
+
+  grayAndYellowStat(grayContent, yellowContent, optionalClassName) {
+    return (
+      <td className={optionalClassName}>
+        <div className="gray-text">{grayContent}</div>
+        <div className="yellow-text">{yellowContent}</div>
+      </td>
+    );
+  }
 
   studentOverviewSection() {
     let countAndAverage,

@@ -37,32 +37,6 @@ export default class extends React.Component {
     });
   }
 
-  parseClassrooms(classrooms){
-    const classroomsWithStudentIds = {}
-    const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
-    classrooms.forEach((c)=>{
-      classroomsWithStudentIds[c.id] = c.student_ids;
-      dropdownClassrooms.push({id: c.id, name: c.name})
-    })
-    return {dropdownClassrooms, classroomsWithStudentIds }
-  }
-
-  switchClassrooms = classroom => {
-    this.setState({selectedClassroom: classroom, updatingReportData: true, }, this.filterReportData)
-  };
-
-  filterReportData(){
-    let filteredReportData;
-    if (this.state.selectedClassroom.id === showAllClassroomKey) {
-      // because we are showing all classrooms, we show all data
-      filteredReportData = this.state.reportData;
-    } else {
-      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
-      filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
-    }
-    this.setState({ filteredReportData, updatingReportData: false})
-  }
-
   columns() {
     const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
@@ -120,6 +94,36 @@ export default class extends React.Component {
     ])
   }
 
+  filterReportData(){
+    let filteredReportData;
+    if (this.state.selectedClassroom.id === showAllClassroomKey) {
+      // because we are showing all classrooms, we show all data
+      filteredReportData = this.state.reportData;
+    } else {
+      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
+      filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
+    }
+    this.setState({ filteredReportData, updatingReportData: false})
+  }
+
+  keysToOmit(){
+    return ['concepts_href']
+  }
+
+  parseClassrooms(classrooms){
+    const classroomsWithStudentIds = {}
+    const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
+    classrooms.forEach((c)=>{
+      classroomsWithStudentIds[c.id] = c.student_ids;
+      dropdownClassrooms.push({id: c.id, name: c.name})
+    })
+    return {dropdownClassrooms, classroomsWithStudentIds }
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom, updatingReportData: true, }, this.filterReportData)
+  };
+
   tableOrEmptyMessage(){
     if (this.state.filteredReportData.length) {
       return (
@@ -144,10 +148,6 @@ export default class extends React.Component {
     } else {
       return <EmptyStateForReport />
     }
-  }
-
-  keysToOmit(){
-    return ['concepts_href']
   }
 
   render() {

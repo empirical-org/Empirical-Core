@@ -5,7 +5,7 @@ import EmptyDiagnosticProgressReport from './empty_diagnostic_progress_report.js
 import $ from 'jquery'
 
 export default class DiagnosticActivityPacks extends React.Component {
-	constructor(props) {
+    constructor(props) {
 		super(props)
 
 		this.state = {
@@ -15,7 +15,7 @@ export default class DiagnosticActivityPacks extends React.Component {
 		}
 	}
 
-	componentDidMount(){
+    componentDidMount(){
 		$('.diagnostic-tab').addClass('active');
 		$('.activity-analysis-tab').removeClass('active');
 
@@ -23,34 +23,27 @@ export default class DiagnosticActivityPacks extends React.Component {
 		this.getDiagnosticStatus()
 	}
 
-  getDiagnosticUnits() {
-    $.ajax({
-      url: '/teachers/diagnostic_units',
-      data: {report: true},
-      success: this.displayUnits,
-      error() {alert('Unable to download your reports at this time.')}
-    });
-  }
-
-	getDiagnosticStatus = () => {
+    getDiagnosticStatus = () => {
 		$.ajax({
 			url: '/teachers/progress_reports/diagnostic_status',
 			success: data => { this.setState({diagnosticStatus: data.diagnosticStatus })},
 		});
 	}
 
-	displayUnits = (data) => {
+    getDiagnosticUnits() {
+      $.ajax({
+        url: '/teachers/diagnostic_units',
+        data: {report: true},
+        success: this.displayUnits,
+        error() {alert('Unable to download your reports at this time.')}
+      });
+    }
+
+    displayUnits = (data) => {
 		this.setState({units: this.parseUnits(data), loaded: true});
 	}
 
-	goToDiagnosticReport() {
-		const { units, } = this.state
-		const unit = units.values().next().value;
-		const ca = units.values().next().value.classroomActivities.values().next().value;
-		window.location = `/teachers/progress_reports/diagnostic_reports#/u/${unit.unitId}/a/${ca.activityId}/c/${ca.classroomId}/students`
-	}
-
-	generateNewCaUnit(u) {
+    generateNewCaUnit(u) {
 		const caObj = {
 			studentCount: Number(u.array_length ? u.array_length : u.class_size),
 			classrooms: new Set([u.class_name]),
@@ -73,7 +66,20 @@ export default class DiagnosticActivityPacks extends React.Component {
 		return caObj;
 	}
 
-	parseUnits(data) {
+    goToDiagnosticReport() {
+		const { units, } = this.state
+		const unit = units.values().next().value;
+		const ca = units.values().next().value.classroomActivities.values().next().value;
+		window.location = `/teachers/progress_reports/diagnostic_reports#/u/${unit.unitId}/a/${ca.activityId}/c/${ca.classroomId}/students`
+	}
+
+    orderUnits(units) {
+		const unitsArr = [];
+		Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
+		return unitsArr;
+	}
+
+    parseUnits(data) {
 		const parsedUnits = {};
 		data.forEach((u) => {
 			if (!parsedUnits[u.unit_id]) {
@@ -106,13 +112,7 @@ export default class DiagnosticActivityPacks extends React.Component {
 		return this.orderUnits(parsedUnits);
 	}
 
-	orderUnits(units) {
-		const unitsArr = [];
-		Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
-		return unitsArr;
-	}
-
-	stateBasedComponent() {
+    stateBasedComponent() {
 		const { loaded, units, diagnosticStatus, } = this.state
 
 		if (loaded) {
@@ -134,7 +134,7 @@ export default class DiagnosticActivityPacks extends React.Component {
 		return (<LoadingSpinner />)
 	}
 
-	render() {
+    render() {
 		return (
   <div className="container manage-units">
     {this.stateBasedComponent()}
@@ -142,5 +142,4 @@ export default class DiagnosticActivityPacks extends React.Component {
   </div>
 		)
 	}
-
 }

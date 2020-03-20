@@ -38,19 +38,6 @@ export default class extends React.Component {
     });
   }
 
-  formatDataForCSV(data) {
-    const csvData = [
-      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
-        row['activity_count']
-      ])
-    })
-    return csvData
-  }
-
   columns() {
     return ([
       {
@@ -112,16 +99,29 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms = classroom => {
-    this.setState({selectedClassroom: classroom})
-  };
-
   filteredClassroomsData() {
     if (this.state.selectedClassroom === showAllClassroomKey) {
       return this.state.classroomsData
     }
     return this.state.classroomsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
   }
+
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
+        row['activity_count']
+      ])
+    })
+    return csvData
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom})
+  };
 
   tableOrEmptyMessage(filteredClassroomsData){
     if (filteredClassroomsData.length) {

@@ -29,46 +29,6 @@ export default class ActivitySearchFilter extends React.Component {
     }
   }
 
-  handleFilterButtonClick = optionId => {
-    this.props.selectFilterOption(this.props.data.field, optionId);
-    this.setState({ activeFilterId: optionId, });
-  };
-
-  clearFilterOptionSelection() {
-    this.props.selectFilterOption(this.props.data.field, null);
-    this.setState({ activeFilterId: null, });
-  }
-
-  renderButton = opt => {
-    return (<FilterButton
-      active={this.state.activeFilterId === opt.id}
-      data={opt}
-      handleFilterButtonClick={this.handleFilterButtonClick}
-      key={`${opt.id}-activity`}
-    />);
-  };
-
-  renderAppOptions() {
-    const options = _.uniqWith(this.props.data.options, _.isEqual);
-    const diagnosticButtons = options.filter(opt => opt.key === 'diagnostic').map(this.renderButton)
-    const wholeClassButtons = options.filter(opt => opt.key === 'lessons').map(this.renderButton)
-    const independentPracticeButtons = options.filter(opt => ['connect', 'sentence', 'passage'].includes(opt.key)).map(this.renderButton)
-    return (<div className="app-button-container">
-      <div className="diagnostic-section activity-type-section">
-        <h3>Diagnostic</h3>
-        <div className="app-buttons">{diagnosticButtons}</div>
-      </div>
-      <div className="whole-class-section activity-type-section">
-        <h3>Whole class instruction</h3>
-        <div className="app-buttons">{wholeClassButtons}</div>
-      </div>
-      <div className="independent-practice-section activity-type-section">
-        <h3>Independent practice</h3>
-        <div className="app-buttons">{independentPracticeButtons}</div>
-      </div>
-    </div>)
-  }
-
   getDisplayedFilterOptions() {
     // unique options
     const options = _.uniqWith(this.props.data.options, _.isEqual);
@@ -101,6 +61,46 @@ export default class ActivitySearchFilter extends React.Component {
   getSelectedOption() {
     return _.find(this.props.data.options, { id: this.props.data.selected, }, this);
   }
+
+  clearFilterOptionSelection() {
+    this.props.selectFilterOption(this.props.data.field, null);
+    this.setState({ activeFilterId: null, });
+  }
+
+  handleFilterButtonClick = optionId => {
+    this.props.selectFilterOption(this.props.data.field, optionId);
+    this.setState({ activeFilterId: optionId, });
+  };
+
+  renderAppOptions() {
+    const options = _.uniqWith(this.props.data.options, _.isEqual);
+    const diagnosticButtons = options.filter(opt => opt.key === 'diagnostic').map(this.renderButton)
+    const wholeClassButtons = options.filter(opt => opt.key === 'lessons').map(this.renderButton)
+    const independentPracticeButtons = options.filter(opt => ['connect', 'sentence', 'passage'].includes(opt.key)).map(this.renderButton)
+    return (<div className="app-button-container">
+      <div className="diagnostic-section activity-type-section">
+        <h3>Diagnostic</h3>
+        <div className="app-buttons">{diagnosticButtons}</div>
+      </div>
+      <div className="whole-class-section activity-type-section">
+        <h3>Whole class instruction</h3>
+        <div className="app-buttons">{wholeClassButtons}</div>
+      </div>
+      <div className="independent-practice-section activity-type-section">
+        <h3>Independent practice</h3>
+        <div className="app-buttons">{independentPracticeButtons}</div>
+      </div>
+    </div>)
+  }
+
+  renderButton = opt => {
+    return (<FilterButton
+      active={this.state.activeFilterId === opt.id}
+      data={opt}
+      handleFilterButtonClick={this.handleFilterButtonClick}
+      key={`${opt.id}-activity`}
+    />);
+  };
 
   render() {
 		// Nothing is selected. 'Filter by X' displays. All other options can be selected.

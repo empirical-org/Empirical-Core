@@ -62,54 +62,36 @@ export default class UnitTemplatesManager extends React.Component {
     this.fetchTeacher();
   }
 
+  setTeacher(data) {
+    this.setState({
+      signedInTeacher: !_l.isEmpty(data)
+    })
+  }
+
   analytics() {
     return new AnalyticsWrapper();
   }
 
-  unitTemplatesManagerActions() {
-    return {
-      toggleTab: this.toggleTab,
-      clickAssignButton: this.clickAssignButton,
-      returnToIndex: this.returnToIndex,
-      selectModel: this.selectModel,
-      showAllGrades: this.showAllGrades
-    };
+  fetchClassrooms() {
+    requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities', (data) => {
+      this.updateCreateUnit({
+        options: {
+          classrooms: data.classrooms_and_their_students
+        }
+      })
+    })
   }
 
-  modelsInGrade(grade) {
-    return _.reject(this.state.unitTemplatesManager.models, (m) => {
-      return _.indexOf(m.grades, grade)
-    });
+  fetchTeacher() {
+    requestGet('/current_user_json', (data) => {
+      this.setTeacher(data)
+    })
   }
 
-  updateUnitTemplateModels = models => {
-    const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
-    const newHash = {
-      models,
-      displayedModels: models,
-      categories
-    }
-    const modelId = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
-    if (modelId) {
-      newHash.model = _.findWhere(models, {id: model_id});
-      newHash.stage = 'profile'
-    }
-    this.updateUnitTemplatesManager(newHash)
-
-    const { category, grade, type, } = this.props.location.query
-    if (category || grade || type) {
-      this.filterModels(category, grade, type)
-    }
-  };
-
-  returnToIndex() {
-    this.updateUnitTemplatesManager({ stage: 'index' })
-    window.scrollTo(0, 0);
-  }
-
-  showAllGrades() {
-    this.updateUnitTemplatesManager({grade: null});
-    window.scrollTo(0, 0);
+  fetchUnitTemplateModels() {
+    requestGet('/teachers/unit_templates', (data) => {
+      this.updateUnitTemplateModels(data.unit_templates)
+    })
   }
 
   filterModels = (category, grade, typeId) => {
@@ -133,49 +115,15 @@ export default class UnitTemplatesManager extends React.Component {
     return displayedModels
   };
 
-  fetchClassrooms() {
-    requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities', (data) => {
-      this.updateCreateUnit({
-        options: {
-          classrooms: data.classrooms_and_their_students
-        }
-      })
-    })
+  modelsInGrade(grade) {
+    return _.reject(this.state.unitTemplatesManager.models, (m) => {
+      return _.indexOf(m.grades, grade)
+    });
   }
 
-  fetchTeacher() {
-    requestGet('/current_user_json', (data) => {
-      this.setTeacher(data)
-    })
-  }
-
-  setTeacher(data) {
-    this.setState({
-      signedInTeacher: !_l.isEmpty(data)
-    })
-  }
-
-  fetchUnitTemplateModels() {
-    requestGet('/teachers/unit_templates', (data) => {
-      this.updateUnitTemplateModels(data.unit_templates)
-    })
-  }
-
-  toggleTab(tab) {
-    if (tab === 'createUnit') {
-      this.analytics().track('click Create Unit', {});
-      this.updateCreateUnit({
-        stage: 1,
-        model: {
-          name: null,
-          selectedActivities: []
-        }
-      });
-
-      this.setState({tab: tab});
-    } else {
-      this.setState({tab: tab});
-    }
+  returnToIndex() {
+    this.updateUnitTemplatesManager({ stage: 'index' })
+    window.scrollTo(0, 0);
   }
 
   selectCategory = category => {
@@ -196,6 +144,11 @@ export default class UnitTemplatesManager extends React.Component {
     this.props.router.push(url)
   };
 
+  showAllGrades() {
+    this.updateUnitTemplatesManager({grade: null});
+    window.scrollTo(0, 0);
+  }
+
   showUnitTemplates() {
     if (this.state.unitTemplatesManager.models.length < 1) {
       return <LoadingIndicator />
@@ -213,6 +166,53 @@ export default class UnitTemplatesManager extends React.Component {
       types={types}
     />)
   }
+
+  toggleTab(tab) {
+    if (tab === 'createUnit') {
+      this.analytics().track('click Create Unit', {});
+      this.updateCreateUnit({
+        stage: 1,
+        model: {
+          name: null,
+          selectedActivities: []
+        }
+      });
+
+      this.setState({tab: tab});
+    } else {
+      this.setState({tab: tab});
+    }
+  }
+
+  unitTemplatesManagerActions() {
+    return {
+      toggleTab: this.toggleTab,
+      clickAssignButton: this.clickAssignButton,
+      returnToIndex: this.returnToIndex,
+      selectModel: this.selectModel,
+      showAllGrades: this.showAllGrades
+    };
+  }
+
+  updateUnitTemplateModels = models => {
+    const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
+    const newHash = {
+      models,
+      displayedModels: models,
+      categories
+    }
+    const modelId = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
+    if (modelId) {
+      newHash.model = _.findWhere(models, {id: model_id});
+      newHash.stage = 'profile'
+    }
+    this.updateUnitTemplatesManager(newHash)
+
+    const { category, grade, type, } = this.props.location.query
+    if (category || grade || type) {
+      this.filterModels(category, grade, type)
+    }
+  };
 
   render() {
     return (

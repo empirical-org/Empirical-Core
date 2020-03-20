@@ -13,10 +13,6 @@ export default class extends React.Component{
     }
   }
 
-  handleChange = val => {
-    this.setState({email: val.target.value, updated: false})
-  };
-
   setErrorOrSubmit = () => {
     // this should use a more restful route ---
     // right now all of the teacher's self updating is carried out
@@ -43,6 +39,10 @@ export default class extends React.Component{
     } else {
       this.setState({error: 'Invalid email address! Please re-type your email address.'})
     }
+  };
+
+  handleChange = val => {
+    this.setState({email: val.target.value, updated: false})
   };
 
   handleSubmit = event => {

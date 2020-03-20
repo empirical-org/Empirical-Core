@@ -33,6 +33,22 @@ export default class Navbar extends React.Component {
     })
   }
 
+  studentDropdown = () => {
+    let selectedStudent;
+    const studentId = this.props.params.studentId;
+    if (studentId) {
+      selectedStudent = this.students().find(student => student.id === Number(studentId));
+    }
+    if (this.props.showStudentDropdown) {
+      return (<StudentDropdown
+        callback={this.props.studentDropdownCallback}
+        key={studentId}
+        selectedStudent={selectedStudent || (this.students()[0] || null)}
+        students={this.students()}
+      />);
+    }
+  };
+
   students = () => {
     const selectedClassroomId = parseInt(this.props.params.classroomId);
     let students
@@ -54,22 +70,6 @@ export default class Navbar extends React.Component {
         return 0
       }
     })
-  };
-
-  studentDropdown = () => {
-    let selectedStudent;
-    const studentId = this.props.params.studentId;
-    if (studentId) {
-      selectedStudent = this.students().find(student => student.id === Number(studentId));
-    }
-    if (this.props.showStudentDropdown) {
-      return (<StudentDropdown
-        callback={this.props.studentDropdownCallback}
-        key={studentId}
-        selectedStudent={selectedStudent || (this.students()[0] || null)}
-        students={this.students()}
-      />);
-    }
   };
 
   render() {

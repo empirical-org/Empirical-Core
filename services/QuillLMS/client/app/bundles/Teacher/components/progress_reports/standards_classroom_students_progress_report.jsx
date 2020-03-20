@@ -36,30 +36,6 @@ export default class extends React.Component {
     });
   }
 
-  parseClassrooms(classrooms){
-    const classroomsWithStudentIds = {}
-    const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
-    classrooms.forEach((c)=>{
-      classroomsWithStudentIds[c.id] = c.student_ids;
-      dropdownClassrooms.push({id: c.id, name: c.name})
-    })
-    return {dropdownClassrooms, classroomsWithStudentIds }
-  }
-
-  switchClassrooms = classroom => {
-    this.setState({selectedClassroom: classroom}, this.filterReportData)
-  };
-
-  filterReportData(){
-    if (this.state.selectedClassroom.id === showAllClassroomKey) {
-      this.setState({filteredReportData: this.state.reportData})
-    } else {
-      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
-      const filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
-      this.setState({filteredReportData})
-    }
-  }
-
   columns() {
     const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
@@ -99,6 +75,30 @@ export default class extends React.Component {
       }
     ])
   }
+
+  filterReportData(){
+    if (this.state.selectedClassroom.id === showAllClassroomKey) {
+      this.setState({filteredReportData: this.state.reportData})
+    } else {
+      const validStudentIds = this.state.classroomsWithStudentIds[this.state.selectedClassroom.id]
+      const filteredReportData = this.state.reportData.filter((student)=> validStudentIds.includes(student.id))
+      this.setState({filteredReportData})
+    }
+  }
+
+  parseClassrooms(classrooms){
+    const classroomsWithStudentIds = {}
+    const dropdownClassrooms = [{id: showAllClassroomKey, name: showAllClassroomKey}];
+    classrooms.forEach((c)=>{
+      classroomsWithStudentIds[c.id] = c.student_ids;
+      dropdownClassrooms.push({id: c.id, name: c.name})
+    })
+    return {dropdownClassrooms, classroomsWithStudentIds }
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom}, this.filterReportData)
+  };
 
   render() {
     if (this.state.loading || !this.state.reportData) {

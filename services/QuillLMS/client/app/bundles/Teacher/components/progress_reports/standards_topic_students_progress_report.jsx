@@ -48,33 +48,6 @@ export default class IndividualStandardsReport extends React.Component {
     })
   }
 
-  formattedStudentData(data) {
-    return data.map((row) => {
-      row.name = row.name
-      row.total_activity_count = Number(row.total_activity_count)
-      row.average_score = Number(row.average_score * 100)
-      row.proficiency_status = row.proficiency_status
-      row.green_arrow = (
-        <a className='green-arrow' href={row.student_topics_href}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-        </a>
-      )
-      return row
-    })
-  }
-
-  formatDataForCSV(data) {
-    const csvData = [
-      ['Student', 'Activities', 'Average', 'Proficiency Status']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
-      ])
-    })
-    return csvData
-  }
-
   columns() {
     const blurIfNotPremium = this.state.userIsPremium ? null : 'non-premium-blur'
     return ([
@@ -115,6 +88,33 @@ export default class IndividualStandardsReport extends React.Component {
         width: 80
       }
     ])
+  }
+
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Student', 'Activities', 'Average', 'Proficiency Status']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
+      ])
+    })
+    return csvData
+  }
+
+  formattedStudentData(data) {
+    return data.map((row) => {
+      row.name = row.name
+      row.total_activity_count = Number(row.total_activity_count)
+      row.average_score = Number(row.average_score * 100)
+      row.proficiency_status = row.proficiency_status
+      row.green_arrow = (
+        <a className='green-arrow' href={row.student_topics_href}>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        </a>
+      )
+      return row
+    })
   }
 
   switchClassrooms = classroomName => {

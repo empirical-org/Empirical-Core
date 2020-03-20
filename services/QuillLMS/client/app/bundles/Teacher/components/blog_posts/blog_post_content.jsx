@@ -3,6 +3,10 @@ import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 
 export default class BlogPostContent extends React.Component {
+  renderAvatar = () => {
+    return this.props.author ? <img src={this.props.author.avatar} /> : null
+  };
+
   renderBodyOrPaywall() {
     if(this.props.displayPaywall) {
       return (
@@ -17,10 +21,6 @@ export default class BlogPostContent extends React.Component {
       return <ReactMarkdown escapeHtml={false} source={this.props.body.replace(/\n/g, '<br/>').replace(/><br\/>/g, '>\n').replace(/<br\/></g, '\n<')} />;
     }
   }
-
-  renderAvatar = () => {
-    return this.props.author ? <img src={this.props.author.avatar} /> : null
-  };
 
   renderName = () => {
     return this.props.author ? <p className='author'>{this.props.author.name}</p> : null

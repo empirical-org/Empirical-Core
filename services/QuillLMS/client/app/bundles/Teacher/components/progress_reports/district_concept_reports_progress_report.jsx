@@ -38,19 +38,6 @@ export default class extends React.Component {
     });
   }
 
-  formatDataForCSV(data) {
-    const csvData = [
-      ['Student', 'Teacher', 'Classroom', 'School', 'Correct', 'Incorrect', 'Success Rate']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['student_name'], row['teacher_name'], row['classroom_name'], row['school_name'],
-        row['correct'], row['incorrect'], row['percentage']
-      ])
-    })
-    return csvData
-  }
-
   columns() {
     return ([
     {
@@ -93,16 +80,29 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms = classroom => {
-    this.setState({selectedClassroom: classroom})
-  };
-
   filteredConceptReportsData() {
     if (this.state.selectedClassroom === showAllClassroomKey) {
       return this.state.conceptReportsData
     }
     return this.state.conceptReportsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
   }
+
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Student', 'Teacher', 'Classroom', 'School', 'Correct', 'Incorrect', 'Success Rate']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['student_name'], row['teacher_name'], row['classroom_name'], row['school_name'],
+        row['correct'], row['incorrect'], row['percentage']
+      ])
+    })
+    return csvData
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom})
+  };
 
   tableOrEmptyMessage(filteredClassroomsData){
     if (filteredClassroomsData.length) {

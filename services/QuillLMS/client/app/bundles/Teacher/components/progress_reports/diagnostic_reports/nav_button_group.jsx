@@ -34,10 +34,6 @@ export default class NavButtonGroup extends React.Component {
 		}
 	};
 
-    doesNotHaveRecommendations = () => {
-		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
-	};
-
     buttons = () => {
 		const contents = [
 			{name: 'Students', words: ['student_report', 'students'], exceptions: []},
@@ -68,6 +64,10 @@ export default class NavButtonGroup extends React.Component {
 				return <button className={`btn btn-secondary ${activeState}`} key={name} onClick={this.buttonBuilder(name)} type="button">{name}</button>
 			}
 		})
+	};
+
+    doesNotHaveRecommendations = () => {
+		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
 	};
 
     render() {

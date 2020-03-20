@@ -95,60 +95,6 @@ export default class CmsSchoolIndex extends React.Component {
     }
   };
 
-  updateField(e, key) {
-    const value = e.target.value
-    const newState = { ...this.state}
-    newState.query[key] = value
-    this.setState(newState)
-  }
-
-  updateCheckbox = () => {
-    const newState = { ...this.state}
-    newState.query.search_schools_with_zero_teachers = !this.state.query.search_schools_with_zero_teachers
-    this.setState(newState)
-  };
-
-  updatePage = i => {
-    const newState = { ...this.state}
-    newState.query.page = i
-    this.setState(newState, this.search)
-  };
-
-  submitPageForm = e => {
-    this.updatePage(e.target.page.value)
-  };
-
-  updatePremiumStatus = e => {
-    const selectedOptions = []
-    Array.from(e.target.options).forEach(o => {
-      if (o.selected) {
-        selectedOptions.push(o.value)
-      }
-    })
-    const newState = { ...this.state }
-    newState.query.premium_status = selectedOptions
-    this.setState(newState)
-  };
-
-  renderPremiumStatusSelect() {
-    const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return (<select multiple={true} onChange={this.updatePremiumStatus}>
-      {options}
-    </select>)
-  }
-
-  renderPageSelector() {
-    const currentPage = this.state.query.page || 1
-    const totalPages = this.state.numberOfPages || 1
-    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <a onClick={() => this.updatePage(1)}>First</a>
-      <form onSubmit={this.submitPageForm}>
-        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
-      </form>
-      <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>)
-  }
-
   search = () => {
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/schools/search`
@@ -175,6 +121,60 @@ export default class CmsSchoolIndex extends React.Component {
       // to do, use Sentry to capture error
     })
   };
+
+  submitPageForm = e => {
+    this.updatePage(e.target.page.value)
+  };
+
+  updateCheckbox = () => {
+    const newState = { ...this.state}
+    newState.query.search_schools_with_zero_teachers = !this.state.query.search_schools_with_zero_teachers
+    this.setState(newState)
+  };
+
+  updateField(e, key) {
+    const value = e.target.value
+    const newState = { ...this.state}
+    newState.query[key] = value
+    this.setState(newState)
+  }
+
+  updatePage = i => {
+    const newState = { ...this.state}
+    newState.query.page = i
+    this.setState(newState, this.search)
+  };
+
+  updatePremiumStatus = e => {
+    const selectedOptions = []
+    Array.from(e.target.options).forEach(o => {
+      if (o.selected) {
+        selectedOptions.push(o.value)
+      }
+    })
+    const newState = { ...this.state }
+    newState.query.premium_status = selectedOptions
+    this.setState(newState)
+  };
+
+  renderPageSelector() {
+    const currentPage = this.state.query.page || 1
+    const totalPages = this.state.numberOfPages || 1
+    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <a onClick={() => this.updatePage(1)}>First</a>
+      <form onSubmit={this.submitPageForm}>
+        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
+      </form>
+      <a onClick={() => this.updatePage(totalPages)}>Last</a>
+    </div>)
+  }
+
+  renderPremiumStatusSelect() {
+    const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
+    return (<select multiple={true} onChange={this.updatePremiumStatus}>
+      {options}
+    </select>)
+  }
 
   renderTableOrLoading() {
     if (this.state.loading) {

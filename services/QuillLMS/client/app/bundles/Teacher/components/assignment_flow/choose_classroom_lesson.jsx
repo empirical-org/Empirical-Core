@@ -25,6 +25,20 @@ export default class ChooseClassroomLesson extends React.Component {
     })
   }
 
+  setSelectedClassroomUnitId(id) {
+    this.setState({ classroomUnitId: id })
+  }
+
+  goBack = () => {
+    this.props.history.goBack()
+  };
+
+  launchLessonLink() {
+    const classroomUnitId = this.state.classroomUnitId
+    const lessonId = this.props.routeParams.activityId
+    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
+  }
+
   renderClasses() {
     const classrooms = this.state.classroomUnits.map((ca, i) =>
       this.renderClassroomRow(ca, i)
@@ -54,20 +68,6 @@ export default class ChooseClassroomLesson extends React.Component {
       {completionText}
     </div>)
   }
-
-  setSelectedClassroomUnitId(id) {
-    this.setState({ classroomUnitId: id })
-  }
-
-  launchLessonLink() {
-    const classroomUnitId = this.state.classroomUnitId
-    const lessonId = this.props.routeParams.activityId
-    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
-  }
-
-  goBack = () => {
-    this.props.history.goBack()
-  };
 
   render() {
     const buttonClass = this.state.classroomUnitId ? 'bg-quillgreen' : ''

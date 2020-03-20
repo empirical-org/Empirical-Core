@@ -61,22 +61,12 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   };
 
-  handleSubmit = e => {
-    const { name, email, timeZone, school, changedSchools } = this.state
-    e.preventDefault()
-    const data = {
-      name,
-      email,
-      time_zone: timeZone,
-      school_id: school.id,
-      school_options_do_not_apply: !changedSchools
-    };
-    this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
+  handleEmailChange = e => {
+    this.setState({ email: e.target.value, });
   };
 
-  showSchoolSelector = () => {
-    this.activateSection()
-    this.setState({ showSchoolSelector: true, })
+  handleNameChange = e => {
+    this.setState({ name: e.target.value, });
   };
 
   handleSchoolChange = (id, schoolObj) => {
@@ -93,23 +83,28 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     }
   };
 
-  handleEmailChange = e => {
-    this.setState({ email: e.target.value, });
-  };
-
-  handleNameChange = e => {
-    this.setState({ name: e.target.value, });
-  };
-
-  handleTimezoneChange = timeZone => {
-    this.setState({ timeZone: timeZone.name, });
-  };
-
   handleSchoolTypeChange = schoolType => {
     // we don't want teachers to set their school as "not-listed" if they already have a school selected
     if (schoolType.value !== 'U.S. K-12 school' || this.state.schoolType !== 'U.S. K-12 school') {
       this.setState({ schoolType: schoolType.value, school: schoolType, });
     }
+  };
+
+  handleSubmit = e => {
+    const { name, email, timeZone, school, changedSchools } = this.state
+    e.preventDefault()
+    const data = {
+      name,
+      email,
+      time_zone: timeZone,
+      school_id: school.id,
+      school_options_do_not_apply: !changedSchools
+    };
+    this.props.updateUser(data, '/teachers/update_my_account', 'Settings saved')
+  };
+
+  handleTimezoneChange = timeZone => {
+    this.setState({ timeZone: timeZone.name, });
   };
 
   reset = () => {
@@ -125,6 +120,11 @@ export default class TeacherGeneralAccountInfo extends React.Component {
     })
   };
 
+  resetAndDeactivateSection = () => {
+    this.reset()
+    this.props.deactivateSection()
+  };
+
   schoolTypeOptions = () => {
     const { alternativeSchools, alternativeSchoolsNameMap, } = this.props
     return alternativeSchools.map((school) => {
@@ -133,6 +133,11 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       schoolOption.value = alternativeSchoolsNameMap[school.name]
       return schoolOption
     })
+  };
+
+  showSchoolSelector = () => {
+    this.activateSection()
+    this.setState({ showSchoolSelector: true, })
   };
 
   submitClass() {
@@ -146,6 +151,15 @@ export default class TeacherGeneralAccountInfo extends React.Component {
       buttonClass += ' disabled';
     }
     return buttonClass;
+  }
+
+  renderButtonSection() {
+    if (this.state.showButtonSection) {
+      return (<div className="button-section">
+        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
+        <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
+      </div>)
+    }
   }
 
   renderEmail() {
@@ -204,20 +218,6 @@ export default class TeacherGeneralAccountInfo extends React.Component {
           </div>
         )
       }
-    }
-  }
-
-  resetAndDeactivateSection = () => {
-    this.reset()
-    this.props.deactivateSection()
-  };
-
-  renderButtonSection() {
-    if (this.state.showButtonSection) {
-      return (<div className="button-section">
-        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
-        <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
-      </div>)
     }
   }
 

@@ -27,25 +27,6 @@ class SignUpStudent extends React.Component {
     document.title = 'Quill.org | Student Sign Up'
   }
 
-  updateKeyValue = (key, value) => {
-    const newState = Object.assign({}, this.state);
-    newState[key] = value;
-    this.setState(newState);
-  };
-
-  update = e => {
-    this.updateKeyValue(e.target.id, e.target.value)
-  };
-
-  submitClass = () => {
-    const { password, firstName, lastName, username } = this.state
-    let buttonClass = "quill-button contained primary medium focus-on-light"
-    if (!password.length || !firstName.length || !lastName.length || !username.length) {
-      buttonClass += ' disabled'
-    }
-    return buttonClass
-  };
-
   handleClickSignUpAsTeacher = (e) => {
     SegmentAnalytics.track(Events.CLICK_CREATE_TEACHER_USER)
     window.location.href = '/sign-up/teacher'
@@ -94,6 +75,25 @@ class SignUpStudent extends React.Component {
         this.setState(state)
       }
     });
+  };
+
+  submitClass = () => {
+    const { password, firstName, lastName, username } = this.state
+    let buttonClass = "quill-button contained primary medium focus-on-light"
+    if (!password.length || !firstName.length || !lastName.length || !username.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
+  };
+
+  update = e => {
+    this.updateKeyValue(e.target.id, e.target.value)
+  };
+
+  updateKeyValue = (key, value) => {
+    const newState = Object.assign({}, this.state);
+    newState[key] = value;
+    this.setState(newState);
   };
 
   render () {

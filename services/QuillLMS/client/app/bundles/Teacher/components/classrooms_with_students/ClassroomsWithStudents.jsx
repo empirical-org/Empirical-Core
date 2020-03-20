@@ -9,8 +9,15 @@ export default class ClassroomsWithStudents extends React.Component {
     this.ajaxData = this.ajaxData.bind(this);
   }
 
-  resetPage() {
-    window.location = '/teachers/classrooms/lesson_planner';
+  ajaxData = () => {
+    const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
+    if (this.props.createOrEdit === 'create') {
+      data.create = true,
+      data.unit_template_id = getParameterByName('unit_template_id');
+      data.name = this.props.unitName,
+			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
+    }
+    return data;
   }
 
   classroomUpdates = () => {
@@ -46,17 +53,6 @@ export default class ClassroomsWithStudents extends React.Component {
     return classrooms_data;
   };
 
-  ajaxData = () => {
-    const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
-    if (this.props.createOrEdit === 'create') {
-      data.create = true,
-      data.unit_template_id = getParameterByName('unit_template_id');
-      data.name = this.props.unitName,
-			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
-    }
-    return data;
-  }
-
   createButton() {
     if (!this.props.isSaveButtonEnabled) { return null }
     return (
@@ -72,6 +68,14 @@ export default class ClassroomsWithStudents extends React.Component {
     );
   }
 
+  createOrUpdateButton() {
+	 	return this.props.createOrEdit === 'create' ? this.createButton() : this.updateButton();
+  }
+
+  resetPage() {
+    window.location = '/teachers/classrooms/lesson_planner';
+  }
+
   updateButton() {
     return (
       <EditStudentsButton
@@ -84,10 +88,6 @@ export default class ClassroomsWithStudents extends React.Component {
         url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
       />
     );
-  }
-
-  createOrUpdateButton() {
-	 	return this.props.createOrEdit === 'create' ? this.createButton() : this.updateButton();
   }
 
   render() {

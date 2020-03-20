@@ -56,24 +56,20 @@ export default class UnitTemplateAssigned extends React.Component {
     return ('/teachers/classrooms');
   }
 
-  unitTemplatesAssignedActions() {
-    return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl};
+  activityName() {
+    return this.state.data ? this.state.data.name : '';
   }
 
   anyClassroomsWithStudents(classrooms) {
     return !!classrooms.find((e) => e.students.length > 0)
   }
 
-  activityName() {
-    return this.state.data ? this.state.data.name : '';
+  socialShareCopy() {
+    return `I’m using the ${this.activityName()} Activity Pack from Quill.org to teach writing & grammar. ${this.socialShareUrl()}`;
   }
 
   socialShareUrl() {
     return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}${this.state.referralCode ? '?referral_code=' + this.state.referralCode : ''}`;
-  }
-
-  socialShareCopy() {
-    return `I’m using the ${this.activityName()} Activity Pack from Quill.org to teach writing & grammar. ${this.socialShareUrl()}`;
   }
 
   teacherSpecificComponents() {
@@ -97,6 +93,10 @@ export default class UnitTemplateAssigned extends React.Component {
         </a>
       </span>
     )
+  }
+
+  unitTemplatesAssignedActions() {
+    return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl};
   }
 
   renderSharingContainer() {

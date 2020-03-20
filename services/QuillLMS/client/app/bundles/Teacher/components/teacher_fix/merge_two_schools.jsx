@@ -9,10 +9,6 @@ class MergeTwoSchools extends React.Component {
     this.state = {};
   }
 
-  updateState = e => {
-    this.setState({ [`${e.target.id}SchoolId`]: e.target.value, });
-  };
-
   submit = () => {
     const that = this;
     request.post({
@@ -35,6 +31,10 @@ class MergeTwoSchools extends React.Component {
         });
       }
     });
+  };
+
+  updateState = e => {
+    this.setState({ [`${e.target.id}SchoolId`]: e.target.value, });
   };
 
   renderErrorOrSuccess = () => {

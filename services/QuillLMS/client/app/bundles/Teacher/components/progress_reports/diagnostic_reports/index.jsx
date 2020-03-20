@@ -45,15 +45,17 @@ const DiagnosticReports = React.createClass({
 		}
 	},
 
-	setStudentId: function(studentId){
-		this.setState({selectedStudentId: Number(studentId)});
+	getActivityData: function (params) {
+		let that = this;
+		const p = params || this.props.params;
+		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
+      if (data) {
+        that.setState({
+          selectedActivity: data['activity']
+        });
+      }
+		});
 	},
-
-	getStudentAndActivityData: function(params) {
-		this.getClassroomsWithStudents(params);
-		this.getActivityData(params);
-	},
-
 
 	getClassroomsWithStudents: function(params) {
 		this.ajax = {};
@@ -68,31 +70,15 @@ const DiagnosticReports = React.createClass({
 		});
 	},
 
-	getActivityData: function (params) {
-		let that = this;
-		const p = params || this.props.params;
-		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
-      if (data) {
-        that.setState({
-          selectedActivity: data['activity']
-        });
-      }
-		});
+
+	getStudentAndActivityData: function(params) {
+		this.getClassroomsWithStudents(params);
+		this.getActivityData(params);
 	},
 
-	changeStudent: function(student) {
-		this.setState({selectedStudentId: student})
-		const p = this.props.params;
-		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
+	setStudentId: function(studentId){
+		this.setState({selectedStudentId: Number(studentId)});
 	},
-
-	findClassroomById: function(id) {
-		return this.props.classrooms
-			? this.props.classrooms.find((c) => c.id === id)
-			: null
-	},
-
-
 
 	changeClassroom: function(classroom) {
 			this.setState({
@@ -115,6 +101,20 @@ const DiagnosticReports = React.createClass({
 	changeReport: function(reportName) {
 		const p = this.props.params;
 		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
+	},
+
+
+
+	changeStudent: function(student) {
+		this.setState({selectedStudentId: student})
+		const p = this.props.params;
+		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
+	},
+
+	findClassroomById: function(id) {
+		return this.props.classrooms
+			? this.props.classrooms.find((c) => c.id === id)
+			: null
 	},
 
 	showStudentDropdown: function(){

@@ -38,115 +38,6 @@ export default class ActivitySearchAndSelect extends React.Component {
     }
   }
 
-  searchRequest() {
-    this.setState({ loading: true, });
-    request.get({
-      url: `${process.env.DEFAULT_URL}/activities/search`
-    },
-    (e, r, body) => {
-      const parsedBody = JSON.parse(body)
-      if (r.statusCode === 200) {
-        this.searchRequestSuccess(parsedBody)
-      } else {
-        this.errorState('This search could not be completed')
-      }
-    });
-  }
-
-  selectedFiltersAndFields() {
-    return this.state.filters.reduce((selected, filter) => {
-      if (filter.selected && filter.selected !== showAllId) {
-        selected.push({ field: filter.field, selected: filter.selected, });
-      }
-      return selected;
-    }, []);
-  }
-
-  errorState(error) {
-    this.setState({ error, });
-  }
-
-  clearFilters = () => {
-    this.setState({
-      filters: ActivitySearchFilterConfig(),
-      activeFilterOn: false,
-      searchQuery: '',
-    }, this.changeViewableActivities);
-  };
-
-  searchRequestSuccess(data) {
-    const hash = {
-      activitySearchResults: data.activities,
-      viewableActivities: data.activities,
-      numberOfPages: Math.ceil(data.activities.length / resultsPerPage),
-      maxPageNumber: Math.ceil(data.activities.length / resultsPerPage),
-      currentPage: 1,
-      loading: false,
-    };
-    this.setState(hash, this.updateFilterOptionsAfterChange);
-  }
-
-  updateFilterOptionsAfterChange() {
-    // Go through all the filters, and only display the options that are available based on the viewableActivity array
-    const availableOptions = this.findFilterOptionsBasedOnActivities();
-    const activityClassificationOptions = this.findFilterOptionsBasedOnActivities(this.state.activitySearchResults)
-    const newFilters = [...this.state.filters];
-    newFilters.forEach((filter) => {
-      if (filter.field === 'activity_classification') {
-        filter.options = activityClassificationOptions[filter.field]
-      } else {
-        filter.options = availableOptions[filter.field];
-      }
-    });
-    this.setState({ filters: newFilters, });
-  }
-
-  findFilterOptionsBasedOnActivities(activities = null) {
-    const viewableActivities = activities ? activities : this.state.viewableActivities
-    const filterFields = this.state.filters.map(filter => filter.field);
-    const availableOptions = {};
-    // get all filter keys and then map them onto availableOptions as empty arrs
-    filterFields.forEach((field) => {
-      availableOptions[field] = [];
-    });
-    viewableActivities.forEach((activity) => {
-      filterFields.forEach((field) => {
-        if (activity[field].name || activity[field].alias) {
-          availableOptions[field].push(activity[field]);
-        }
-      });
-    });
-    filterFields.forEach((field) => {
-      if (field === 'activity_category') {
-        availableOptions[field].unshift({ name: 'All concepts', id: showAllId, });
-      } else if (field === 'section') {
-        availableOptions[field].unshift({ name: 'All levels', id: showAllId, });
-      }
-    });
-    return availableOptions;
-  }
-
-  updateSearchQuery = e => {
-    this.setState({ searchQuery: e.target.value, }, this.changeViewableActivities);
-  };
-
-  selectFilterOption = (field, optionId) => {
-    let activeFilterOn = true;
-    const filters = _.map(this.state.filters, (filter) => {
-      if (filter.field == field) {
-        // Is this an already selected activity_classification field? Deselect it!
-        if (field === 'activity_classification' && filter.selected == optionId) {
-          filter.selected = null;
-          activeFilterOn = false;
-        } else {
-          filter.selected = optionId;
-        }
-      }
-      return filter;
-    }, this);
-    this.setState({ filters, activeFilterOn, }, this.changeViewableActivities);
-  };
-
   activityContainsSearchTerm(activity) {
     const stringActivity = Object.values(activity).join(' ').toLowerCase();
     return stringActivity.includes(this.state.searchQuery.toLowerCase());
@@ -175,18 +66,104 @@ export default class ActivitySearchAndSelect extends React.Component {
     }, this.updateFilterOptionsAfterChange);
   }
 
-  updateSort = (field, asc_or_desc) => {
-    const sorts = _.map(this.state.sorts, (sort) => {
-      if (sort.field == field) {
-        sort.selected = true;
-        sort.asc_or_desc = asc_or_desc;
-      } else {
-        sort.selected = false;
-        sort.asc_or_desc = 'asc';
+  clearFilters = () => {
+    this.setState({
+      filters: ActivitySearchFilterConfig(),
+      activeFilterOn: false,
+      searchQuery: '',
+    }, this.changeViewableActivities);
+  };
+
+  currentPageResults() {
+    const lowerBound = (this.state.currentPage - 1) * resultsPerPage;
+    const upperBound = (this.state.currentPage) * resultsPerPage;
+    return this.state.viewableActivities.slice(lowerBound, upperBound);
+  }
+
+  errorState(error) {
+    this.setState({ error, });
+  }
+
+  findFilterOptionsBasedOnActivities(activities = null) {
+    const viewableActivities = activities ? activities : this.state.viewableActivities
+    const filterFields = this.state.filters.map(filter => filter.field);
+    const availableOptions = {};
+    // get all filter keys and then map them onto availableOptions as empty arrs
+    filterFields.forEach((field) => {
+      availableOptions[field] = [];
+    });
+    viewableActivities.forEach((activity) => {
+      filterFields.forEach((field) => {
+        if (activity[field].name || activity[field].alias) {
+          availableOptions[field].push(activity[field]);
+        }
+      });
+    });
+    filterFields.forEach((field) => {
+      if (field === 'activity_category') {
+        availableOptions[field].unshift({ name: 'All concepts', id: showAllId, });
+      } else if (field === 'section') {
+        availableOptions[field].unshift({ name: 'All levels', id: showAllId, });
       }
-      return sort;
+    });
+    return availableOptions;
+  }
+
+  searchRequest() {
+    this.setState({ loading: true, });
+    request.get({
+      url: `${process.env.DEFAULT_URL}/activities/search`
+    },
+    (e, r, body) => {
+      const parsedBody = JSON.parse(body)
+      if (r.statusCode === 200) {
+        this.searchRequestSuccess(parsedBody)
+      } else {
+        this.errorState('This search could not be completed')
+      }
+    });
+  }
+
+  searchRequestSuccess(data) {
+    const hash = {
+      activitySearchResults: data.activities,
+      viewableActivities: data.activities,
+      numberOfPages: Math.ceil(data.activities.length / resultsPerPage),
+      maxPageNumber: Math.ceil(data.activities.length / resultsPerPage),
+      currentPage: 1,
+      loading: false,
+    };
+    this.setState(hash, this.updateFilterOptionsAfterChange);
+  }
+
+  selectFilterOption = (field, optionId) => {
+    let activeFilterOn = true;
+    const filters = _.map(this.state.filters, (filter) => {
+      if (filter.field == field) {
+        // Is this an already selected activity_classification field? Deselect it!
+        if (field === 'activity_classification' && filter.selected == optionId) {
+          filter.selected = null;
+          activeFilterOn = false;
+        } else {
+          filter.selected = optionId;
+        }
+      }
+      return filter;
     }, this);
-    this.setState({ sorts, }, this.sort);
+    this.setState({ filters, activeFilterOn, }, this.changeViewableActivities);
+  };
+
+  selectPageNumber = number => {
+    this.setState({ currentPage: number, });
+  };
+
+  selectedFiltersAndFields() {
+    return this.state.filters.reduce((selected, filter) => {
+      if (filter.selected && filter.selected !== showAllId) {
+        selected.push({ field: filter.field, selected: filter.selected, });
+      }
+      return selected;
+    }, []);
   }
 
   sort() {
@@ -204,14 +181,37 @@ export default class ActivitySearchAndSelect extends React.Component {
     this.setState({ viewableActivities: visActs, });
   }
 
-  selectPageNumber = number => {
-    this.setState({ currentPage: number, });
+  updateFilterOptionsAfterChange() {
+    // Go through all the filters, and only display the options that are available based on the viewableActivity array
+    const availableOptions = this.findFilterOptionsBasedOnActivities();
+    const activityClassificationOptions = this.findFilterOptionsBasedOnActivities(this.state.activitySearchResults)
+    const newFilters = [...this.state.filters];
+    newFilters.forEach((filter) => {
+      if (filter.field === 'activity_classification') {
+        filter.options = activityClassificationOptions[filter.field]
+      } else {
+        filter.options = availableOptions[filter.field];
+      }
+    });
+    this.setState({ filters: newFilters, });
+  }
+
+  updateSearchQuery = e => {
+    this.setState({ searchQuery: e.target.value, }, this.changeViewableActivities);
   };
 
-  currentPageResults() {
-    const lowerBound = (this.state.currentPage - 1) * resultsPerPage;
-    const upperBound = (this.state.currentPage) * resultsPerPage;
-    return this.state.viewableActivities.slice(lowerBound, upperBound);
+  updateSort = (field, asc_or_desc) => {
+    const sorts = _.map(this.state.sorts, (sort) => {
+      if (sort.field == field) {
+        sort.selected = true;
+        sort.asc_or_desc = asc_or_desc;
+      } else {
+        sort.selected = false;
+        sort.asc_or_desc = 'asc';
+      }
+      return sort;
+    }, this);
+    this.setState({ sorts, }, this.sort);
   }
 
   render() {

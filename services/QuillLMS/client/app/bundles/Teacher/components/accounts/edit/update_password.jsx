@@ -16,6 +16,23 @@ export default class UpdatePassword extends Component {
     }
   }
 
+  onConfirmedNewPasswordChange = (e) => this.handleChange('confirmedNewPassword', e)
+
+  onCurrentPasswordChange = (e) => this.handleChange('currentPassword', e)
+
+
+  onNewPasswordChange = (e) => this.handleChange('newPassword', e)
+
+  handleChange = (field, e) => {
+    this.setState({ [field]: e.target.value, });
+  }
+
+  handleClickCancel = () => {
+    const { deactivateSection, } = this.props
+    this.reset();
+    deactivateSection();
+  }
+
   handleClickChangePassword = (e) => {
     const { showButtonSection, } = this.state
     const { active, activateSection } = this.props;
@@ -38,23 +55,12 @@ export default class UpdatePassword extends Component {
     updateUser(data, url, 'Settings saved');
   }
 
-
   reset = () => {
     this.setState({
       currentPassword: '',
       newPassword: '',
       confirmedNewPassword: ''
     });
-  }
-
-  onCurrentPasswordChange = (e) => this.handleChange('currentPassword', e)
-
-  onNewPasswordChange = (e) => this.handleChange('newPassword', e)
-
-  onConfirmedNewPasswordChange = (e) => this.handleChange('confirmedNewPassword', e)
-
-  handleChange = (field, e) => {
-    this.setState({ [field]: e.target.value, });
   }
 
   submitClass = () => {
@@ -64,12 +70,6 @@ export default class UpdatePassword extends Component {
       buttonClass += ' disabled';
     }
     return buttonClass;
-  }
-
-  handleClickCancel = () => {
-    const { deactivateSection, } = this.props
-    this.reset();
-    deactivateSection();
   }
 
   renderButtonSection = () => {

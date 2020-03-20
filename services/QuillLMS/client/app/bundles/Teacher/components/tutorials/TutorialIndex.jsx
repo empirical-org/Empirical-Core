@@ -34,6 +34,15 @@ export default class TutorialIndex extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
+  circles() {
+    const circles = this.state.slides.map((el, index) => {
+      const currSlide = this.state.slideNumber - 1;
+      const current = index === currSlide ? 'current' : null;
+      return (<div className={`${current} circle`} key={index} onClick={() => this.goToSlide(index + 1)} />);
+    });
+    return <div className="circles">{circles}</div>;
+  }
+
   finishTutorial() {
     if (this.props.params.tool === 'lessons') {
       request.post(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`, {
@@ -42,13 +51,17 @@ export default class TutorialIndex extends React.Component {
     }
   }
 
-  circles() {
-    const circles = this.state.slides.map((el, index) => {
-      const currSlide = this.state.slideNumber - 1;
-      const current = index === currSlide ? 'current' : null;
-      return (<div className={`${current} circle`} key={index} onClick={() => this.goToSlide(index + 1)} />);
-    });
-    return <div className="circles">{circles}</div>;
+  goToSlide(slideNumber) {
+    this.props.router.push(`/tutorials/${this.props.params.tool}/${slideNumber}${this.qs()}`);
+    this.setState({ slideNumber ,  });
+  }
+
+  handleKeyDown(event) {
+    if (event.keyCode === 39 && this.state.slideNumber !== this.state.slides.length) {
+      this.goToSlide(this.state.slideNumber + 1);
+    } else if (event.keyCode === 37 && this.state.slideNumber !== 1) {
+      this.goToSlide(this.state.slideNumber - 1);
+    }
   }
 
   nextButton() {
@@ -64,24 +77,11 @@ export default class TutorialIndex extends React.Component {
     return <button className="text-white bg-quillgreen try-button" onClick={() => { window.location = `${lessonsUrl}/#/teach/class-lessons/-KsKpXAoaEIY5jvWMIzJ/preview`; }}>Try Sample Activity</button>;
   }
 
-  handleKeyDown(event) {
-    if (event.keyCode === 39 && this.state.slideNumber !== this.state.slides.length) {
-      this.goToSlide(this.state.slideNumber + 1);
-    } else if (event.keyCode === 37 && this.state.slideNumber !== 1) {
-      this.goToSlide(this.state.slideNumber - 1);
-    }
-  }
-
   previousButton() {
     if (this.state.slideNumber !== 1) {
       return <p className="text-quillgreen previous-button" onClick={() => this.goToSlide(this.state.slideNumber - 1)}>Back</p>;
     }
     return <div className="text-quillgreen previous-button" style={{ height: '22px', }} />;
-  }
-
-  goToSlide(slideNumber) {
-    this.props.router.push(`/tutorials/${this.props.params.tool}/${slideNumber}${this.qs()}`);
-    this.setState({ slideNumber ,  });
   }
 
   qs() {

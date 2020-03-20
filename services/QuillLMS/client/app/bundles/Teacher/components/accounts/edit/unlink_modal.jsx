@@ -17,6 +17,10 @@ export default class UnlinkModal extends React.Component {
     }
   }
 
+  handleChange = (field, e) => {
+    this.setState({ [field]: e.target.value, })
+  };
+
   handleSubmit = e => {
     const { updateUser, googleOrClever, } = this.props
     const { email, password, } = this.state
@@ -34,10 +38,6 @@ export default class UnlinkModal extends React.Component {
       data.clever_id = null
     }
     updateUser(data, '/teachers/update_my_account', `${googleOrClever} unlinked`)
-  };
-
-  handleChange = (field, e) => {
-    this.setState({ [field]: e.target.value, })
   };
 
   submitClass() {

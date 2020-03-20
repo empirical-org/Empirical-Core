@@ -35,6 +35,10 @@ export default class ActivityClassification extends React.Component {
     this.updateModelState = this.updateModelState.bind(this);
   }
 
+  getModelState(key) {
+    return this.state.model[key];
+  }
+
   initializeModules() {
     var fnl = new Fnl();
     var server = new Server(this.resourceNameSingular, this.resourceNamePlural, '/cms');
@@ -45,20 +49,16 @@ export default class ActivityClassification extends React.Component {
     };
   }
 
-  getModelState(key) {
-    return this.state.model[key];
-  }
+  save = () => {
+    const model = this.state.model;
+    this.modules.server.save(model, {callback: this.props.returnToIndex});
+  };
 
   updateModelState = (key, value, context) => {
     let newState = this.state;
     newState.model[key] = value;
     this.setState(newState);
   }
-
-  save = () => {
-    const model = this.state.model;
-    this.modules.server.save(model, {callback: this.props.returnToIndex});
-  };
 
   render() {
     let inputs;

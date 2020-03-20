@@ -99,68 +99,6 @@ export default class CmsUserIndex extends React.Component {
     }
   };
 
-  updateField(e, key) {
-    const value = e.target.value
-    const newState = { ...this.state}
-    newState.query[key] = value
-    this.setState(newState)
-  }
-
-  updatePremiumStatus = e => {
-    const selectedOptions = []
-    Array.from(e.target.options).forEach(o => {
-      if (o.selected) {
-        selectedOptions.push(o.value)
-      }
-    })
-    const newState = { ...this.state }
-    newState.query.user_premium_status = selectedOptions
-    this.setState(newState)
-  };
-
-  updatePage = i => {
-    const newState = { ...this.state}
-    newState.query.page = i
-    this.setState(newState, this.search)
-  };
-
-  renderPremiumStatusSelect() {
-    const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
-    return (<select multiple={true} onChange={this.updatePremiumStatus}>
-      {options}
-    </select>)
-  }
-
-  renderUserRoleSelect() {
-    const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
-    return (<select onChange={e => this.updateField(e, 'user_role')}>
-      {options}
-    </select>)
-  }
-
-  renderUserFlagSelect() {
-    const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
-    return (<select onChange={e => this.updateField(e, 'user_flag')}>
-      {options}
-    </select>)
-  }
-
-  submitPageForm = e => {
-    this.updatePage(e.target.page.value)
-  };
-
-  renderPageSelector() {
-    const currentPage = this.state.query.page || 1
-    const totalPages = this.state.numberOfPages || 1
-    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-      <a onClick={() => this.updatePage(1)}>First</a>
-      <form onSubmit={this.submitPageForm}>
-        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
-      </form>
-      <a onClick={() => this.updatePage(totalPages)}>Last</a>
-    </div>)
-  }
-
   search = () => {
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/users/search`
@@ -187,6 +125,54 @@ export default class CmsUserIndex extends React.Component {
       // to do, use Sentry to capture error
     })
   };
+
+  submitPageForm = e => {
+    this.updatePage(e.target.page.value)
+  };
+
+  updateField(e, key) {
+    const value = e.target.value
+    const newState = { ...this.state}
+    newState.query[key] = value
+    this.setState(newState)
+  }
+
+  updatePage = i => {
+    const newState = { ...this.state}
+    newState.query.page = i
+    this.setState(newState, this.search)
+  };
+
+  updatePremiumStatus = e => {
+    const selectedOptions = []
+    Array.from(e.target.options).forEach(o => {
+      if (o.selected) {
+        selectedOptions.push(o.value)
+      }
+    })
+    const newState = { ...this.state }
+    newState.query.user_premium_status = selectedOptions
+    this.setState(newState)
+  };
+
+  renderPageSelector() {
+    const currentPage = this.state.query.page || 1
+    const totalPages = this.state.numberOfPages || 1
+    return (<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <a onClick={() => this.updatePage(1)}>First</a>
+      <form onSubmit={this.submitPageForm}>
+        <input defaultValue={currentPage} name='page' /><span>of {totalPages}</span>
+      </form>
+      <a onClick={() => this.updatePage(totalPages)}>Last</a>
+    </div>)
+  }
+
+  renderPremiumStatusSelect() {
+    const options = this.props.schoolPremiumTypes.map(o => <option value={o}>{o}</option>)
+    return (<select multiple={true} onChange={this.updatePremiumStatus}>
+      {options}
+    </select>)
+  }
 
   renderTableOrLoading() {
     if (this.state.loading) {
@@ -216,6 +202,20 @@ export default class CmsUserIndex extends React.Component {
       return <p>No records found.</p>
     }
 
+  }
+
+  renderUserFlagSelect() {
+    const options = [<option value />].concat(this.props.userFlags.map(o => <option value={o}>{o}</option>))
+    return (<select onChange={e => this.updateField(e, 'user_flag')}>
+      {options}
+    </select>)
+  }
+
+  renderUserRoleSelect() {
+    const options = [<option value />].concat(this.props.userRoleTypes.map(o => <option value={o}>{o}</option>))
+    return (<select onChange={e => this.updateField(e, 'user_role')}>
+      {options}
+    </select>)
   }
 
   render() {

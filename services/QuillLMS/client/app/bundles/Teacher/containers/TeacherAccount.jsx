@@ -66,6 +66,16 @@ export default class TeacherAccount extends React.Component {
     }
   };
 
+  deleteAccount = () => {
+    const { id, } = this.props.accountInfo
+    request.post({
+      url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
+      json: { authenticity_token: getAuthToken(), },
+    }, () => {
+      window.location.href = window.location.origin;
+    })
+  };
+
   showSnackbar = () => {
     this.setState({ showSnackbar: true, }, () => {
       setTimeout(() => this.setState({ showSnackbar: false, }), defaultSnackbarTimeout)
@@ -110,16 +120,6 @@ export default class TeacherAccount extends React.Component {
         this.setState({ errors: body.errors, timesSubmitted: timesSubmitted + 1, })
       }
     });
-  };
-
-  deleteAccount = () => {
-    const { id, } = this.props.accountInfo
-    request.post({
-      url: `${process.env.DEFAULT_URL}/teachers/clear_data/${id}`,
-      json: { authenticity_token: getAuthToken(), },
-    }, () => {
-      window.location.href = window.location.origin;
-    })
   };
 
   renderSnackbar = () => {

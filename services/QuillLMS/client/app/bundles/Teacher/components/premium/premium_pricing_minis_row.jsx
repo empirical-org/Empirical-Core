@@ -17,20 +17,20 @@ export default class extends React.Component {
     };
   }
 
-  showPremiumConfirmationModal = () => {
-    this.setState({ showPremiumConfirmationModal: true, });
-  };
-
   hidePremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: false, });
   };
 
-  showPurchaseModal = () => {
-    this.setState({ showPurchaseModal: true, });
-  };
-
   hidePurchaseModal = () => {
     this.setState({ showPurchaseModal: false, subscriptionType: null, });
+  };
+
+  showPremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: true, });
+  };
+
+  showPurchaseModal = () => {
+    this.setState({ showPurchaseModal: true, });
   };
 
   showPurchaseModalForSchoolPurchase = () => {

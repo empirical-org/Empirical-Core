@@ -12,16 +12,23 @@ export default class ActivityCategories extends React.Component {
     }
   }
 
-  updateActivityCategoryOrder = sortInfo => {
-    const originalOrderedActivityCategories = this.state.activity_categories
-    const newOrder = sortInfo.data.items.map(item => item.key);
-    const newOrderedActivityCategories = newOrder.map((key, i) => {
-      const newActivityCategory = originalOrderedActivityCategories[key]
-      newActivityCategory.order_number = i
-      return newActivityCategory
+  deleteActivityCategory(key) {
+    const activityCategoryToDelete = this.state.activity_categories[key]
+    request.del(`${process.env.DEFAULT_URL}/cms/activity_categories/${activityCategoryToDelete.id}`, {
+      json: {
+        authenticity_token: getAuthToken()
+      }}, (e, r, response) => {
+      if (r.statusCode === 400) {
+        // to do, use Sentry to capture error
+        alert(`We could not delete this activity category. Here is the response: ${response}`)
+      } else {
+        const newActivityCategories = this.state.activity_categories
+        newActivityCategories.splice(key, 1)
+        this.setState({activity_categories: newActivityCategories})
+        alert('Your activity category has been deleted.')
+      }
     })
-    this.setState({activity_categories: newOrderedActivityCategories})
-  };
+  }
 
   saveActivityCategories = () => {
     const that = this
@@ -41,23 +48,16 @@ export default class ActivityCategories extends React.Component {
     })
   };
 
-  deleteActivityCategory(key) {
-    const activityCategoryToDelete = this.state.activity_categories[key]
-    request.del(`${process.env.DEFAULT_URL}/cms/activity_categories/${activityCategoryToDelete.id}`, {
-      json: {
-        authenticity_token: getAuthToken()
-      }}, (e, r, response) => {
-      if (r.statusCode === 400) {
-        // to do, use Sentry to capture error
-        alert(`We could not delete this activity category. Here is the response: ${response}`)
-      } else {
-        const newActivityCategories = this.state.activity_categories
-        newActivityCategories.splice(key, 1)
-        this.setState({activity_categories: newActivityCategories})
-        alert('Your activity category has been deleted.')
-      }
+  updateActivityCategoryOrder = sortInfo => {
+    const originalOrderedActivityCategories = this.state.activity_categories
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedActivityCategories = newOrder.map((key, i) => {
+      const newActivityCategory = originalOrderedActivityCategories[key]
+      newActivityCategory.order_number = i
+      return newActivityCategory
     })
-  }
+    this.setState({activity_categories: newOrderedActivityCategories})
+  };
 
   renderActivityCategory(name, key, id) {
     return (<div className="activity-category" key={key}>

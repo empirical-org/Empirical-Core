@@ -63,6 +63,25 @@ export default class ClassReport extends React.Component {
     ];
   }
 
+  handleFetchSuccess = (responseData) => {
+    this.setState({
+      students: responseData.students,
+      startedNames: this.sortByLastName(responseData.started_names),
+      unstartedNames: this.sortByLastName(responseData.unstarted_names),
+      missedNames: this.sortByLastName(responseData.missed_names)
+    });
+  }
+
+  showInProgressAndUnstartedStudents = (bool) => this.setState({ showInProgressAndUnstartedStudents: bool })
+
+  sortByLastName(names) {
+    return names.sort((a, b) => {
+      const aLast = a.split(' ')[1]
+      const bLast = b.split(' ')[1]
+      return aLast.localeCompare(bLast)
+    })
+  }
+
   sortDefinitions() {
     return {
       config: {
@@ -78,23 +97,6 @@ export default class ClassReport extends React.Component {
         direction: 'asc'
       }
     };
-  }
-
-  sortByLastName(names) {
-    return names.sort((a, b) => {
-      const aLast = a.split(' ')[1]
-      const bLast = b.split(' ')[1]
-      return aLast.localeCompare(bLast)
-    })
-  }
-
-  handleFetchSuccess = (responseData) => {
-    this.setState({
-      students: responseData.students,
-      startedNames: this.sortByLastName(responseData.started_names),
-      unstartedNames: this.sortByLastName(responseData.unstarted_names),
-      missedNames: this.sortByLastName(responseData.missed_names)
-    });
   }
 
   startedAndUnstartedStudents() {
@@ -114,8 +116,6 @@ export default class ClassReport extends React.Component {
       </table>
     )
   }
-
-  showInProgressAndUnstartedStudents = (bool) => this.setState({ showInProgressAndUnstartedStudents: bool })
 
   render() {
     const { students, } = this.state

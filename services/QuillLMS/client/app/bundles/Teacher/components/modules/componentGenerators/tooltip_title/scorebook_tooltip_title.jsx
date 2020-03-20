@@ -16,6 +16,14 @@ export default class ScorebookTooltip extends React.Component {
     }
   };
 
+  activityOverview() {
+    const data = this.props.data
+    return (<div className="activity-overview">
+      <ActivityDetails data={data} />
+      {this.totalScoreOrNot()}
+    </div>)
+  }
+
   conceptResultsOrLoadingOrNotCompleted = () => {
     const data = this.props.data
     if (data.marked_complete === 't' && data.completed_attempts === 0) {
@@ -28,30 +36,6 @@ export default class ScorebookTooltip extends React.Component {
       return <LoadingDots loadingMessage={'Loading concept results'} />;
     }
   };
-
-  totalScoreOrNot = () => {
-    let totalScoreOrNot
-    const data = this.props.data
-    const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
-     if (Number(actClassId) === 4 && data.percentage) {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance.</p>;
-    } else if (Number(actClassId) === 6 && data.percentage) {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</p>;
-    } else if (data.percentage && data.scores && data.scores.length > 0) {
-      totalScoreOrNot = this.displayScores()
-    } else {
-      totalScoreOrNot = <span />
-    }
-    return totalScoreOrNot
-  };
-
-  activityOverview() {
-    const data = this.props.data
-    return (<div className="activity-overview">
-      <ActivityDetails data={data} />
-      {this.totalScoreOrNot()}
-    </div>)
-  }
 
   displayScores = () => {
     const data = this.props.data
@@ -69,6 +53,22 @@ export default class ScorebookTooltip extends React.Component {
       }
       return <p key={i} style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>{ordinalNumber} Score:</strong> <span className="percentage">{percentage}</span> {attemptText}</p>
     })
+  };
+
+  totalScoreOrNot = () => {
+    let totalScoreOrNot
+    const data = this.props.data
+    const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
+     if (Number(actClassId) === 4 && data.percentage) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance.</p>;
+    } else if (Number(actClassId) === 6 && data.percentage) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</p>;
+    } else if (data.percentage && data.scores && data.scores.length > 0) {
+      totalScoreOrNot = this.displayScores()
+    } else {
+      totalScoreOrNot = <span />
+    }
+    return totalScoreOrNot
   };
 
   render() {

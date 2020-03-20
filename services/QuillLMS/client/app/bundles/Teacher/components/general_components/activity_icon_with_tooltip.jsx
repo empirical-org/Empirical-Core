@@ -15,33 +15,6 @@ export default class ActivityIconWithTooltip extends React.Component {
     }
   }
 
-  getConceptResultInfo() {
-    const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.percentage}`,
-    }, (error, httpStatus, body) => {
-      const parsedBody = JSON.parse(body);
-      that.loadTooltipTitle(parsedBody);
-    });
-  }
-
-  goToReport() {
-      window.location = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
-  }
-
-  loadTooltipTitle(crData) {
-    let data;
-    data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
-    data.concept_results = crData.concept_results.map(cr => {
-      if (cr.metadata) {
-        cr.metadata = JSON.parse(cr.metadata)
-      }
-      return cr
-    })
-    data.scores = crData.scores;
-    setTimeout(() => {this.setState({tooltipData: data})}, 200);
-  }
-
   getActClassId() {
     const d = this.props.data;
     if (d.activity_classification_id) {
@@ -54,21 +27,38 @@ export default class ActivityIconWithTooltip extends React.Component {
     return null;
   }
 
+  getConceptResultInfo() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/grades/tooltip/classroom_unit_id/${this.props.data.cuId}/user_id/${this.props.data.userId}/activity_id/${this.activityId()}/completed/${!!this.props.data.percentage}`,
+    }, (error, httpStatus, body) => {
+      const parsedBody = JSON.parse(body);
+      that.loadTooltipTitle(parsedBody);
+    });
+  }
+
   activityId = () => {
     const d = this.props.data;
     return d.activityId
   };
 
-  showToolTipAndGetConceptResultInfo = () => {
-    this.showToolTip();
-    if (!this.state.tooltipData) {
-      this.getConceptResultInfo();
+
+
+  checkForStudentReport = () => {
+    if (this.props.data.percentage) {
+      this.goToReport();
+    } else {
+      alert('This activity has not been completed, so there is no report yet.');
     }
   };
 
-  showToolTip() {
-    this.setState({ showToolTip: true, });
+  goToReport() {
+      window.location = `/teachers/progress_reports/report_from_classroom_unit_activity_and_user/cu/${this.props.data.cuId}/user/${this.props.data.userId}/a/${this.activityId()}`
   }
+
+  hideTooltip = () => {
+    this.setState({ showToolTip: false, });
+  };
 
   iconClass() {
     if (this.props.data.completed_attempts > 0 || this.props.data.percentage) {
@@ -86,22 +76,35 @@ export default class ActivityIconWithTooltip extends React.Component {
     }
   }
 
-  tooltipClasses() {
-    return `activate-tooltip icon-link icon-wrapper ${this.iconClass()}`;
+  loadTooltipTitle(crData) {
+    let data;
+    data = _.merge(this.props.data, { premium_state: this.props.premium_state, });
+    data.concept_results = crData.concept_results.map(cr => {
+      if (cr.metadata) {
+        cr.metadata = JSON.parse(cr.metadata)
+      }
+      return cr
+    })
+    data.scores = crData.scores;
+    setTimeout(() => {this.setState({tooltipData: data})}, 200);
   }
 
-
-
-  checkForStudentReport = () => {
-    if (this.props.data.percentage) {
-      this.goToReport();
-    } else {
-      alert('This activity has not been completed, so there is no report yet.');
+  missedIndicator() {
+    const {marked_complete, completed_attempts} = this.props.data
+    if (marked_complete === 't' && completed_attempts === 0) {
+      return <img className="missed-indicator" src={`${process.env.CDN_URL}/images/scorebook/missed-lessons-cross.svg`} />
     }
-  };
+  }
 
-  hideTooltip = () => {
-    this.setState({ showToolTip: false, });
+  showToolTip() {
+    this.setState({ showToolTip: true, });
+  }
+
+  showToolTipAndGetConceptResultInfo = () => {
+    this.showToolTip();
+    if (!this.state.tooltipData) {
+      this.getConceptResultInfo();
+    }
   };
 
   statusIndicator() {
@@ -117,12 +120,11 @@ export default class ActivityIconWithTooltip extends React.Component {
     }
   }
 
-  missedIndicator() {
-    const {marked_complete, completed_attempts} = this.props.data
-    if (marked_complete === 't' && completed_attempts === 0) {
-      return <img className="missed-indicator" src={`${process.env.CDN_URL}/images/scorebook/missed-lessons-cross.svg`} />
-    }
+  tooltipClasses() {
+    return `activate-tooltip icon-link icon-wrapper ${this.iconClass()}`;
   }
+
+
 
   render(){
     const cursorType = this.props.context === 'scorebook' ? 'pointer' : 'default';

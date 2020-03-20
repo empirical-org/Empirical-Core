@@ -20,19 +20,6 @@ export default class CleverSignUp extends React.Component {
     $.get('/clever/auth_url_details').then(this.loadState, this.failure)
   }
 
-  loadState = (data) => {
-    this.setState({
-      redirectUri: data.redirect_uri,
-      clientId: data.client_id,
-      cleverScope: data.clever_scope,
-      detailsLoaded: true
-    });
-  }
-
-  failure = () => {
-    this.setState({notAvailable: true});
-  }
-
   buildLink = () => {
     const { detailsLoaded, cleverScope, redirectUri, clientId, } = this.state
     if (!detailsLoaded) { return '' }
@@ -44,6 +31,10 @@ export default class CleverSignUp extends React.Component {
     return base + scopeQuery + redirectUriQuery + clientIdQuery;
   }
 
+  failure = () => {
+    this.setState({notAvailable: true});
+  }
+
   handleClick = (e) => {
     SegmentAnalytics.track(Events.SUBMIT_SIGN_UP, {provider: Events.providers.CLEVER})
     window.location.href = this.buildLink()
@@ -52,6 +43,15 @@ export default class CleverSignUp extends React.Component {
   handleKeyDown = (e) => {
     if (e.key !== 'Enter') { return }
     this.handleClick(e)
+  }
+
+  loadState = (data) => {
+    this.setState({
+      redirectUri: data.redirect_uri,
+      clientId: data.client_id,
+      cleverScope: data.clever_scope,
+      detailsLoaded: true
+    });
   }
 
   render() {

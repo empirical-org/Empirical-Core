@@ -11,18 +11,6 @@ export default class UnitTemplateMini extends React.Component {
     this.modules = { string: new String() }
   }
 
-  avatarUrl() {
-    return this.props.data.author ? this.props.data.author.avatar_url : null
-  }
-
-  displayPicture() {
-    return (
-      <div className='author-picture'>
-        <img src={this.avatarUrl()} />
-      </div>
-    );
-  }
-
   getLink() {
     let link
     if (this.props.data.id == 'createYourOwn') {
@@ -39,6 +27,18 @@ export default class UnitTemplateMini extends React.Component {
       }
     }
     return link
+  }
+
+  avatarUrl() {
+    return this.props.data.author ? this.props.data.author.avatar_url : null
+  }
+
+  displayPicture() {
+    return (
+      <div className='author-picture'>
+        <img src={this.avatarUrl()} />
+      </div>
+    );
   }
 
   miniSpecificComponents() {

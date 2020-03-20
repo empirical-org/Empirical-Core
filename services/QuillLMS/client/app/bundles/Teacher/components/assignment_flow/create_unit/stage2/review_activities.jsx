@@ -42,12 +42,6 @@ export default class ReviewActivities extends React.Component {
     this.state = state
   }
 
-  removeRow = id => {
-    const { activities, toggleActivitySelection } = this.props
-    const activity = activities.find(act => act.id === id)
-    toggleActivitySelection(activity, false)
-  };
-
   handleDueDateChange(id, date) {
     const { activities, assignActivityDueDate, dueDates, } = this.props
     const activity = activities.find(act => act.id === id)
@@ -60,6 +54,12 @@ export default class ReviewActivities extends React.Component {
       assignActivityDueDate(activity, formattedDate);
     }
   }
+
+  removeRow = id => {
+    const { activities, toggleActivitySelection } = this.props
+    const activity = activities.find(act => act.id === id)
+    toggleActivitySelection(activity, false)
+  };
 
   rows() {
     const { activities, dueDates, } = this.props

@@ -15,23 +15,29 @@ export default class extends React.Component {
     };
   }
 
-  updateLastFour = newLastFour => {
-    this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
+  h2IfPaymentInfo() {
+    if (this.state.lastFour) {
+      return (<h2 className="q-h2">Which credit card would you like to pay with?</h2>);
+    }
+  }
+
+  hideModal = () => {
+    if (this.props.setCreditCardToFalse) {
+      this.props.setCreditCardToFalse();
+    }
+    this.props.hideModal();
   };
 
-  toggleChangeCard = () => {
-    this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
-        () => {
-          if (this.state.changeCardSelected) {
-            new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
-          }
-        }
-    );
-  };
-
-  toggleExtantCard = () => {
-    this.setState({ extantCardSelected: !this.state.extantCardSelected, changeCardSelected: false, });
-  };
+  loadingOrButtons() {
+    if (!this.state.lastFour) {
+      const className = `enter-credit-card ${this.state.extantCardSelected ? 'selected' : ''}`;
+      return <button className={className} key="enter a card" onClick={this.toggleChangeCard}>Enter Credit Card</button>;
+    }
+    return ([
+      <button className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="extant" onClick={this.toggleExtantCard}>Credit Card ending with {this.state.lastFour}</button>,
+      <button className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fas fa-credit-card" />Use a Different Card</button>
+    ]);
+  }
 
   showBuyNowIfChargeSelection() {
     if (this.state.extantCardSelected) {
@@ -48,29 +54,23 @@ export default class extends React.Component {
     });
   };
 
-  loadingOrButtons() {
-    if (!this.state.lastFour) {
-      const className = `enter-credit-card ${this.state.extantCardSelected ? 'selected' : ''}`;
-      return <button className={className} key="enter a card" onClick={this.toggleChangeCard}>Enter Credit Card</button>;
-    }
-    return ([
-      <button className={`extant-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="extant" onClick={this.toggleExtantCard}>Credit Card ending with {this.state.lastFour}</button>,
-      <button className={`different-card ${this.state.extantCardSelected ? 'selected' : ''}`} key="change" onClick={this.toggleChangeCard}><i className="fas fa-credit-card" />Use a Different Card</button>
-    ]);
-  }
-
-  hideModal = () => {
-    if (this.props.setCreditCardToFalse) {
-      this.props.setCreditCardToFalse();
-    }
-    this.props.hideModal();
+  toggleChangeCard = () => {
+    this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
+        () => {
+          if (this.state.changeCardSelected) {
+            new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
+          }
+        }
+    );
   };
 
-  h2IfPaymentInfo() {
-    if (this.state.lastFour) {
-      return (<h2 className="q-h2">Which credit card would you like to pay with?</h2>);
-    }
-  }
+  toggleExtantCard = () => {
+    this.setState({ extantCardSelected: !this.state.extantCardSelected, changeCardSelected: false, });
+  };
+
+  updateLastFour = newLastFour => {
+    this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
+  };
 
   render() {
     return (
