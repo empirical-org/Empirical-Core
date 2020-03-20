@@ -129,7 +129,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     const isFirstAttempt = !question.attempts || question.attempts.length === 0
     if (Object.keys(responses).length) {
       if (response !== '') {
-        const trimmedResponse = response.replace(/&nbsp;/g, ' ')
+        const trimmedResponse = response.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
         if (!isFirstAttempt && response === question.attempts[0].text) {
           this.setState({ submittedSameResponseTwice: true })
         } else {
