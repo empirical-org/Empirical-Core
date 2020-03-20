@@ -19,32 +19,24 @@ class Lessons extends React.Component {
       lessonFlags: 'production',
       showOnlyArchived: false,
     }
-
-    this.createNew = this.createNew.bind(this)
-    this.submitNewLesson = this.submitNewLesson.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderLessons = this.renderLessons.bind(this)
-    this.renderModal = this.renderModal.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-
   }
 
-  createNew() {
+  createNew = () => {
     this.props.dispatch(actions.toggleNewLessonModal());
-  }
+  };
 
-  submitNewLesson(data) {
+  submitNewLesson = data => {
     this.props.dispatch(actions.submitNewLesson(data));
     // this.props.dispatch(actions.toggleNewLessonModal())
-  }
+  };
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
-  renderLessons() {
+  renderLessons = () => {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
@@ -62,9 +54,9 @@ class Lessons extends React.Component {
         text={data[key].name || 'No name'}
       />
     ));
-  }
+  };
 
-  renderModal() {
+  renderModal = () => {
     const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
     if (this.props.lessons.newLessonModalOpen) {
       return (
@@ -73,11 +65,11 @@ class Lessons extends React.Component {
         </Modal>
       );
     }
-  }
+  };
 
-  handleSelect(e) {
+  handleSelect = e => {
     this.setState({ lessonFlags: e.target.value, });
-  }
+  };
 
   render() {
     return (

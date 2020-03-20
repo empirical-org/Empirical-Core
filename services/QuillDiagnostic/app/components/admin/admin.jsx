@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import NavBar from '../navbar/navbar.jsx';
 import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
@@ -21,25 +20,25 @@ const TabLink = props => (
   </li>
 );
 
-// activeComponent('li');
-
-const adminContainer = React.createClass({
+class adminContainer extends React.Component {
   componentWillMount() {
-    this.props.dispatch(userActions.firebaseAuth());
-    this.props.dispatch(conceptActions.startListeningToConcepts());
-    this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
-    this.props.dispatch(questionActions.loadQuestions());
-    this.props.dispatch(fillInBlankActions.startListeningToQuestions());
-    this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
-    this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
-    this.props.dispatch(levelActions.startListeningToItemLevels());
-    this.props.dispatch(titleCardActions.startListeningToTitleCards());
-    this.props.dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
-    this.props.dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
-    this.props.dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
-  },
+    const { dispatch } = this.props;
+    dispatch(userActions.firebaseAuth());
+    dispatch(conceptActions.startListeningToConcepts());
+    dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
+    dispatch(questionActions.loadQuestions());
+    dispatch(fillInBlankActions.startListeningToQuestions());
+    dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
+    dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
+    dispatch(levelActions.startListeningToItemLevels());
+    dispatch(titleCardActions.startListeningToTitleCards());
+    dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
+    dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
+    dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
+  }
 
   render() {
+    const { children } = this.props;
     return (
       <div>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
@@ -77,13 +76,13 @@ const adminContainer = React.createClass({
             </ul>
           </aside>
           <div className="admin-container">
-            {this.props.children}
+            {children}
           </div>
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {

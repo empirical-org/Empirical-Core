@@ -31,14 +31,6 @@ class ScoreAnalysis extends Component {
       questionData: [],
       flag: 'production'
     };
-
-    this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
-    this.updateStatusFilter = this.updateStatusFilter.bind(this)
-    this.formatDataForTable = this.formatDataForTable.bind(this)
-    this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
-    this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
-    this.formatDataForQuestionType = this.formatDataForQuestionType.bind(this)
-    this.updateFlag = this.updateFlag.bind(this)
   }
 
   componentWillMount() {
@@ -81,7 +73,7 @@ class ScoreAnalysis extends Component {
     this.setState({questionData: _.compact(formatted)})
   }
 
-  formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
+  formatDataForQuestionType = (questionData, scoreAnalysis, typeName, pathName) => {
     const diagnosticQuestions = questionData
     return _.map(hashToCollection(diagnosticQuestions), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
@@ -104,9 +96,9 @@ class ScoreAnalysis extends Component {
         };
       }
     });
-  }
+  };
 
-  formatDataForTable() {
+  formatDataForTable = () => {
     let filteredData = this.state.questionData
     if (this.state.questionType) {
       filteredData = filteredData.filter((q) => q && q.questionType === this.state.questionType)
@@ -120,7 +112,7 @@ class ScoreAnalysis extends Component {
       }
     }
     return _.compact(filteredData);
-  }
+  };
 
   getStatusFromPercentage(percentage) {
     if (percentage > 5) {
@@ -134,17 +126,17 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  updateQuestionTypeFilter(e) {
+  updateQuestionTypeFilter = e => {
     this.setState({questionType: this.getQuestionTypeFromAbbreviation(e.target.value)}, this.updateUrl)
-  }
+  };
 
-  updateStatusFilter(e) {
+  updateStatusFilter = e => {
     this.setState({status: this.getStatusFromAbbreviation(e.target.value)}, this.updateUrl)
-  }
+  };
 
-  updateFlag(e) {
+  updateFlag = e => {
     this.setState({flag: e.target.value})
-  }
+  };
 
   updateUrl() {
     let newUrl
@@ -175,7 +167,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getAbbreviationFromQuestionType(questionType) {
+  getAbbreviationFromQuestionType = questionType => {
     switch (questionType) {
       case 'Sentence Combining':
         return 'sc'
@@ -186,7 +178,7 @@ class ScoreAnalysis extends Component {
       default:
         return 'all'
     }
-  }
+  };
 
   getStatusFromAbbreviation(abbrev) {
     switch (abbrev) {
@@ -203,7 +195,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getAbbreviationFromStatus(status) {
+  getAbbreviationFromStatus = status => {
     switch (status) {
       case 'Very Weak':
         return 'vw'
@@ -216,7 +208,7 @@ class ScoreAnalysis extends Component {
       default:
         return 'all'
     }
-  }
+  };
 
   sortData(data) {
     switch (this.state.sort) {
@@ -339,7 +331,6 @@ class ScoreAnalysis extends Component {
     }
     return (<Spinner />);
   }
-
 }
 
 function select(state) {

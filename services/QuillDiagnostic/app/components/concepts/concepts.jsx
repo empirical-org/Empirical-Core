@@ -7,37 +7,44 @@ import {
   LinkListItem
 } from 'quill-component-library/dist/componentLibrary'
 
-const Concepts = React.createClass({
-  createNew: function () {
-    this.props.dispatch(actions.toggleNewConceptModal())
-  },
+class Concepts extends React.Component {
+  createNew = () => {
+    const { dispatch } = this.props;
+    dispatch(actions.toggleNewConceptModal())
+  };
 
-  submitNewConcept: function () {
-    var newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConcept(newConcept))
+  submitNewConcept = () => {
+    const { dispatch } = this.props;
+    const { newConceptName } = this.refs;
+    const { value } = newConceptName;
+    const newConcept = {name: value}
+    dispatch(actions.submitNewConcept(newConcept))
     this.refs.newConceptName.value = ""
-    // this.props.dispatch(actions.toggleNewConceptModal())
-  },
+  };
 
-  renderConcepts: function () {
-    const data = this.props.concepts.data["0"];
-    // const keys = _.keys(data["0"]);
-    if (data) {
-      return data.map((concept) => {
+  renderConcepts = () => {
+    const { concepts } = this.props;
+    const { data } = concepts;
+    const dataRow = data["0"];
+    if (dataRow) {
+      return dataRow.map((concept) => {
+        const { uid, displayName } = concept;
         return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts'
-          itemKey={concept.uid}
-          key={concept.uid}
-          text={concept.displayName}
+          itemKey={uid}
+          key={uid}
+          text={displayName}
         />)
       })
     }
-  },
+  };
 
-  renderModal: function () {
-    var stateSpecificClass = this.props.concepts.submittingnew ? 'is-loading' : '';
-    if (this.props.concepts.newConceptModalOpen) {
+  renderModal = () => {
+    const { concepts } = this.props;
+    const { submittingnew, newConceptModalOpen } = concepts;
+    const stateSpecificClass = submittingnew ? 'is-loading' : '';
+    if (newConceptModalOpen) {
         return (
           <Modal close={this.createNew}>
             <div className="box">
@@ -58,10 +65,9 @@ const Concepts = React.createClass({
           </Modal>
         )
       }
-  },
+  };
 
-  render: function (){
-    // // console.log("this.props.concepts", this.props.concepts)
+  render() {
     return (
       <section className="section">
         <div className="container">
@@ -79,7 +85,7 @@ const Concepts = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {

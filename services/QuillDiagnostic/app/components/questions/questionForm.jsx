@@ -8,19 +8,17 @@ import { EditorState, ContentState } from 'draft-js'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
 
-export default React.createClass({
-  getInitialState: function () {
-    return {
-      prompt: "",
-      itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
-      concept: this.props.question.conceptID,
-      instructions: this.props.question.instructions ? this.props.question.instructions : "",
-      flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : ''
-    }
-  },
+export default class extends React.Component {
+  state = {
+    prompt: "",
+    itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
+    concept: this.props.question.conceptID,
+    instructions: this.props.question.instructions ? this.props.question.instructions : "",
+    flag: this.props.question.flag ? this.props.question.flag : "alpha",
+    cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : ''
+  };
 
-  submit: function () {
+  submit = () => {
     const questionObj = {
       conceptUID: this.props.question.conceptUID,
       cuesLabel: this.props.question.cuesLabel,
@@ -42,33 +40,33 @@ export default React.createClass({
       questionObj.conceptID = this.state.concept
       this.props.submit(questionObj)
     }
-  },
+  };
 
-  copyAnswerToPrefill: function () {
+  copyAnswerToPrefill = () => {
     this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
-  },
+  };
 
-  handlePromptChange: function (e) {
+  handlePromptChange = (e) => {
     this.setState({prompt: e})
-  },
+  };
 
-  handleLevelChange: function(e) {
+  handleLevelChange = (e) => {
     this.setState({itemLevel: this.refs.itemLevel.value})
-  },
+  };
 
-  handleInstructionsChange: function(e) {
+  handleInstructionsChange = (e) => {
     this.setState({instructions: e.target.value})
-  },
+  };
 
-  itemLevelToOptions: function() {
+  itemLevelToOptions = () => {
     return hashToCollection(this.props.itemLevels.data).map((level) => {
       return (
         <option>{level.name}</option>
       )
     })
-  },
+  };
 
-  renderConceptSelector: function() {
+  renderConceptSelector = () => {
     if (!this.props.new) {
       return (<div>
         <label className="label">Concept</label>
@@ -80,9 +78,9 @@ export default React.createClass({
         </div>
       </div>)
     }
-  },
+  };
 
-  renderOptimalResponse: function() {
+  renderOptimalResponse = () => {
     if (this.props.new) {
       return (<div>
         <label className="label">Optimal Response</label>
@@ -91,25 +89,25 @@ export default React.createClass({
         </p>
       </div>)
     }
-  },
+  };
 
-  handleSelectorChange: function(e) {
+  handleSelectorChange = (e) => {
     this.setState({concept: e.value})
-  },
+  };
 
-  handleConceptChange: function() {
+  handleConceptChange = () => {
     this.setState({concept: this.refs.concept.value})
-  },
+  };
 
-  handleFlagChange: function(e) {
+  handleFlagChange = (e) => {
     this.setState({ flag: e.target.value, });
-  },
+  };
 
-  handleCuesLabelChange: function(e) {
+  handleCuesLabelChange = (e) => {
     this.setState({ cuesLabel: e.target.value, });
-  },
+  };
 
-  render: function () {
+  render() {
     if(this.props.new || this.props.concepts.hasreceiveddata) {
       return (
         <div className="box">
@@ -158,4 +156,4 @@ export default React.createClass({
       return (<div>Loading...</div>)
     }
   }
-})
+}

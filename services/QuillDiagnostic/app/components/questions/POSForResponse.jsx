@@ -13,21 +13,18 @@ const C = require('../../constants').default;
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-export default React.createClass({
+export default class extends React.Component {
+  state = {
+    isExpanded: false,
+  };
 
-  getInitialState() {
-    return {
-      isExpanded: false,
-    };
-  },
-
-  toggleExpandSinglePOS() {
+  toggleExpandSinglePOS = () => {
     this.setState({
       isExpanded: !this.state.isExpanded,
     });
-  },
+  };
 
-  renderExpandedPOSListText() {
+  renderExpandedPOSListText = () => {
     if (this.state.isExpanded) {
       const tag = this.props.tag;
       const additionalResponses = tag.responses.slice(1); // first response has already been rendered in unexpanded view
@@ -38,9 +35,9 @@ export default React.createClass({
         <p>{response.text}</p>
         ));
     }
-  },
+  };
 
-  renderExpandedPOSListCount() {
+  renderExpandedPOSListCount = () => {
     if (this.state.isExpanded) {
       const tag = this.props.tag;
       const additionalResponses = tag.responses.slice(1); // first response has already been rendered in unexpanded view
@@ -48,7 +45,7 @@ export default React.createClass({
         <p>{response.count}</p>
         ));
     }
-  },
+  };
 
   render() {
     const { headerStyle, } = this.props;
@@ -79,5 +76,5 @@ export default React.createClass({
         </div>
       </header>
     );
-  },
-});
+  }
+}

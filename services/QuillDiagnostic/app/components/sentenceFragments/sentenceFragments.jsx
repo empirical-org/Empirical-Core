@@ -16,8 +16,6 @@ class SentenceFragments extends React.Component {
       showOnlyArchived: false,
       diagnosticQuestions: {}
     }
-
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,11 +27,11 @@ class SentenceFragments extends React.Component {
     }
   }
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
   render() {
     const sentenceFragments = hashToCollection(this.state.diagnosticQuestions)

@@ -7,32 +7,24 @@ import {
   ConceptExplanation
 } from 'quill-component-library/dist/componentLibrary'
 import { EditorState, ContentState } from 'draft-js'
-export default React.createClass ({
+export default class extends React.Component {
 
-  // propTypes: {
-  //   // feedbackText: React.PropTypes.string.isRequired,
-  //   // feedbackID: React.PropTypes.string.isRequired,
-  //   // submitNewFeedback: React.PropTypes.func.isRequired,
-  //   // cancelEdit: React.PropTypes.func.isRequired
-  // },
+  state = {
+    description: this.props.description,
+    leftBox: this.props.leftBox,
+    rightBox: this.props.rightBox,
+    editing: "title"
+  };
 
-  getInitialState: function() {
-    return {
-      description: this.props.description,
-      leftBox: this.props.leftBox,
-      rightBox: this.props.rightBox,
-      editing: "title"
-    };
-  },
-
-  handleChange: function (key, e) {
+  handleChange = (key, e) => {
     const newState = {}
     newState[key] = e;
     this.setState(newState)
-  },
+  };
 
-  submit: function(e){
+  submit = (e) => {
     e.preventDefault();
+    const { feedbackID, submitNewFeedback } = this.props;
     const {
       description,
       leftBox,
@@ -43,18 +35,19 @@ export default React.createClass ({
       leftBox,
       rightBox
     }
-    this.props.submitNewFeedback(this.props.feedbackID, data)
-  },
+    submitNewFeedback(feedbackID, data)
+  };
 
-  cancel: function() {
-    this.props.cancelEdit(this.props.feedbackID)
-  },
+  cancel = () => {
+    const { cancelEdit, feedbackID } = this.props;
+    cancelEdit(feedbackID)
+  };
 
-  setEditor: function (part) {
+  setEditor = (part) => {
     this.setState({editing: part})
-  },
+  };
 
-  renderEditor: function () {
+  renderEditor = () => {
     const parts = ["description", "leftBox", "rightBox"];
     return parts.map((part) => {
       if (part === this.state.editing) {
@@ -77,23 +70,13 @@ export default React.createClass ({
       }
 
     })
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <div>
         <form className="box" onSubmit={this.submit}>
           {this.renderEditor()}
-          {/*<label className="label">Title</label>
-          <TextEditor text={this.state.title} handleTextChange={this.handleChange.bind(null, "title")} key="title"/>
-          <label className="label">Description</label>
-          <TextEditor text={this.state.description} handleTextChange={this.handleChange.bind(null, "description")} key="description"/>
-          <label className="label">Left Box</label>
-          <TextEditor text={this.state.leftBox} handleTextChange={this.handleChange.bind(null, "leftBox")} key="leftBox"/>
-          <label className="label">Right Box</label>
-          <TextEditor text={this.state.rightBox} handleTextChange={this.handleChange.bind(null, "rightBox")} key="rightBox"/>
-          <label className="label">Remember To</label>
-          <TextEditor text={this.state.rememberTo} handleTextChange={this.handleChange.bind(null, "rememberTo")} key="rememberTo"/>*/}
           <br />
           <button className="button is-primary" type="submit">Submit</button>
           <button className="button is-danger" onClick={this.cancel}>Cancel</button>
@@ -103,5 +86,4 @@ export default React.createClass ({
 
     )
   }
-
-})
+}

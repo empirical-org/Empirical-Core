@@ -21,87 +21,83 @@ class FillInBlankForm extends Component {
       flag: 'alpha',
       cuesLabel: ''
     };
-    this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
-    this.toggleQuestionCaseInsensitive = this.toggleQuestionCaseInsensitive.bind(this)
-    this.handlePromptChange = this.handlePromptChange.bind(this);
-    this.handleInstructionsChange = this.handleInstructionsChange.bind(this);
-    this.handleCuesChange = this.handleCuesChange.bind(this);
-    this.handleNewQuestionOptimalResponseChange = this.handleNewQuestionOptimalResponseChange.bind(this);
-    this.handleItemLevelChange = this.handleItemLevelChange.bind(this);
-    this.handleSelectorChange = this.handleSelectorChange.bind(this);
-    this.handleFlagChange = this.handleFlagChange.bind(this);
-    this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
-    this.submit = this.submit.bind(this);
   }
 
   componentWillMount() {
-    if(this.props.state) {
-      this.setState(this.props.state);
+    const { state } = this.props;
+    if(state) {
+      this.setState(state);
     }
   }
 
-  handlePromptChange(prompt) {
+  handlePromptChange = prompt => {
     this.setState({ prompt });
-  }
+  };
 
-  handleInstructionsChange(e) {
+  handleInstructionsChange = e => {
     this.setState({instructions: e.target.value});
-  }
+  };
 
-  handleCuesChange(e) {
+  handleCuesChange = e => {
     this.setState({cues: e.target.value});
-  }
+  };
 
-  handleNewQuestionOptimalResponseChange(e) {
+  handleNewQuestionOptimalResponseChange = e => {
     this.setState({newQuestionOptimalResponse: e.target.value});
-  }
+  };
 
-  handleItemLevelChange(e) {
+  handleItemLevelChange = e => {
     this.setState({itemLevel: e.target.value});
-  }
+  };
 
-  handleSelectorChange(e) {
+  handleSelectorChange = e => {
     this.setState({conceptID: e.value});
-  }
+  };
 
-  handleFlagChange(e) {
+  handleFlagChange = e => {
     this.setState({ flag: e.target.value, });
-  }
+  };
 
-  handleCuesLabelChange(e) {
+  handleCuesLabelChange = e => {
     this.setState({ cuesLabel: e.target.value, });
-  }
+  };
 
   itemLevelToOptions() {
-    return hashToCollection(this.props.itemLevels.data).map((level) => {
+    const { itemLevels } = this.props;
+    const { data } = itemLevels;
+    return hashToCollection(data).map((level) => {
+      const { key, name } = level;
       return (
-        <option key={level.key}>{level.name}</option>
+        <option key={key}>{name}</option>
       )
     });
   }
 
-  toggleQuestionBlankAllowed() {
-    this.setState({blankAllowed: !this.state.blankAllowed});
-  }
+  toggleQuestionBlankAllowed = () => {
+    const { blankAllowed } = this.state;
+    this.setState({blankAllowed: !blankAllowed});
+  };
 
-  toggleQuestionCaseInsensitive() {
+  toggleQuestionCaseInsensitive = () => {
     this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
-  }
+  };
 
-  submit() {
+  submit = () => {
+    const { action } = this.props;
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, itemLevel, newQuestionOptimalResponse, prompt } = this.state;
     const data = {
-      prompt: this.state.prompt,
-      blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
-      caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false,
-      cues: this.state.cues.split(','),
-      itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
-      instructions: this.state.instructions,
-      conceptID: this.state.conceptID,
-      flag: this.state.flag ? this.state.flag : 'alpha',
-      cuesLabel: this.state.cuesLabel
+      prompt,
+      blankAllowed: blankAllowed ? blankAllowed : false,
+      caseInsensitive: caseInsensitive ? caseInsensitive : false,
+      cues: cues.split(','),
+      itemLevel: itemLevel === "Select Item Level" ? "" : itemLevel,
+      instructions,
+      conceptID,
+      flag: flag ? flag : 'alpha',
+      cuesLabel
     };
-    this.props.action(data, this.state.newQuestionOptimalResponse);
-  }
+    action(data, newQuestionOptimalResponse);
+  };
 
   clearForm() {
     this.setState({
@@ -118,12 +114,14 @@ class FillInBlankForm extends Component {
   }
 
   renderOptimalField() {
-    if(!this.props.editing) {
+    const { editing } = this.props;
+    const { newQuestionOptimalResponse } = this.state;
+    if(!editing) {
       return(
         <div>
           <label className="label">Optimal Response</label>
           <p className="control">
-            <input className="input" onChange={this.handleNewQuestionOptimalResponseChange} type="text" value={this.state.newQuestionOptimalResponse} />
+            <input className="input" onChange={this.handleNewQuestionOptimalResponseChange} type="text" value={newQuestionOptimalResponse} />
           </p>
         </div>
       );
@@ -131,10 +129,12 @@ class FillInBlankForm extends Component {
   }
 
   renderButtonText() {
-    return this.props.editing ? 'Submit Edit' : 'Add Question';
+    const { editing } = this.props;
+    return editing ? 'Submit Edit' : 'Add Question';
   }
 
   render() {
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, itemLevel, prompt } = this.state;
     return(
       <form className="box" onSubmit={this.submit}>
         <h6 className="control subtitle">Create a new question</h6>
@@ -143,43 +143,43 @@ class FillInBlankForm extends Component {
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handlePromptChange}
-          text={this.state.prompt}
+          text={prompt}
         />
         <br />
         <label className="label">Instructions for student</label>
         <p className="control">
-          <textarea className="input" onChange={this.handleInstructionsChange} type="text" value={this.state.instructions} />
+          <textarea className="input" onChange={this.handleInstructionsChange} type="text" value={instructions} />
         </p>
         <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
         <p className="control">
-          <input className="input" onChange={this.handleCuesLabelChange} type="text" value={this.state.cuesLabel} />
+          <input className="input" onChange={this.handleCuesLabelChange} type="text" value={cuesLabel} />
         </p>
         <label className="label">Cues (separated by commas, no spaces eg "however,therefore,hence")</label>
         <p className="control">
-          <input className="input" onChange={this.handleCuesChange} type="text" value={this.state.cues} />
+          <input className="input" onChange={this.handleCuesChange} type="text" value={cues} />
         </p>
         {this.renderOptimalField()}
         <label className="label" onClick={this.toggleQuestionBlankAllowed}>Blank Allowed?</label>
         <p className="control">
-          <input checked={this.state.blankAllowed} onClick={this.toggleQuestionBlankAllowed} type="checkbox" />
+          <input checked={blankAllowed} onClick={this.toggleQuestionBlankAllowed} type="checkbox" />
         </p>
         <label className="label" onClick={this.toggleQuestionBlankAllowed}>Case Insensitive?</label>
         <p className="control">
-          <input checked={this.state.caseInsensitive} onClick={this.toggleQuestionCaseInsensitive} type="checkbox" />
+          <input checked={caseInsensitive} onClick={this.toggleQuestionCaseInsensitive} type="checkbox" />
         </p>
 
         <label className="label">Item level</label>
         <p className="control">
           <span className="select">
-            <select onChange={this.handleItemLevelChange} value={this.state.itemLevel}>
+            <select onChange={this.handleItemLevelChange} value={itemLevel}>
               <option value="Select Item Level">Select Item Level</option>
               {this.itemLevelToOptions()}
             </select>
           </span>
         </p>
-        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
+        <FlagDropdown flag={flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
         <label className="label">Concept</label>
-        <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
+        <ConceptSelector currentConceptUID={conceptID} handleSelectorChange={this.handleSelectorChange} />
         <br />
         <button className="button is-primary" type="submit">{this.renderButtonText()}</button>
       </form>

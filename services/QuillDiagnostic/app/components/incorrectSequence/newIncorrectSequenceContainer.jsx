@@ -5,27 +5,27 @@ import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSe
 import questionActions from '../../actions/questions';
 
 class NewIncorrectSequencesContainer extends Component {
-  constructor() {
-    super();
-
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
-  }
-
   componentWillMount() {
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid]) {
-      this.props.dispatch(questionActions.getUsedSequences(qid))
+    const { dispatch, generatedIncorrectSequences, params } = this.props;
+    const { used } = generatedIncorrectSequences;
+    const { questionID } = params;
+    if (!used[questionID]) {
+      dispatch(questionActions.getUsedSequences(questionID))
     }
   }
 
-  submitSequenceForm(data) {
+  submitSequenceForm = data => {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
     delete data.conceptResults.null;
-    this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.params.questionID, data));
+    dispatch(questionActions.submitNewIncorrectSequence(questionID, data));
     window.history.back();
-  }
+  };
 
   render() {
-    const {generatedIncorrectSequences, params, questions, fillInBlank, sentenceFragments, diagnosticQuestions, states} = this.props
+    const { children, generatedIncorrectSequences, params, questions } = this.props;
+    const { used } = generatedIncorrectSequences;
+    const { questionID } = params;
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
@@ -33,13 +33,13 @@ class NewIncorrectSequencesContainer extends Component {
           fillInBlank
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          questionID={this.props.params.questionID}
-          questions={this.props.questions}
+          questionID={questionID}
+          questions={questions}
           sentenceFragments
           states
-          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
+          usedSequences={used[questionID]}
         />
-        {this.props.children}
+        {children}
       </div>
     );
   }

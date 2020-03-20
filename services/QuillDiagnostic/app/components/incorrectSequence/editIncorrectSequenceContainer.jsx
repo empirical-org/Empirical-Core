@@ -6,45 +6,49 @@ import questionActions from '../../actions/questions';
 import request from 'request'
 
 class EditIncorrectSequencesContainer extends Component {
-  constructor() {
-    super();
-    this.submitForm = this.submitForm.bind(this);
-  }
-
   componentWillMount() {
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid]) {
-      this.props.dispatch(questionActions.getUsedSequences(qid))
+    const { dispatch, generatedIncorrectSequences, params } = this.props;
+    const { used } = generatedIncorrectSequences;
+    const { questionID } = params;
+    if (!used[questionID]) {
+      dispatch(questionActions.getUsedSequences(questionID))
     }
   }
 
   getIncorrectSequence() {
-    return this.props.questions.data[this.props.params.questionID].incorrectSequences[this.props.params.incorrectSequenceID];
+    const { questions, params } = this.props;
+    const { data } = questions;
+    const { incorrectSequenceID, questionID } = params;
+    return data[questionID].incorrectSequences[incorrectSequenceID];
   }
 
-  submitForm(data, incorrectSequenceID) {
+  submitForm = (data, incorrectSequenceID) => {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
     delete data.conceptResults.null;
-    this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, incorrectSequenceID));
+    dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, incorrectSequenceID));
     window.history.back();
-  }
+  };
 
   render() {
-    const {generatedIncorrectSequences, params, questions, fillInBlank, sentenceFragments, diagnosticQuestions, states} = this.props
+    const {children, generatedIncorrectSequences, params, questions } = this.props;
+    const { used } = generatedIncorrectSequences;
+    const { incorrectSequenceID, questionID } = params;
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
           diagnosticQuestions
           fillInBlank
-          item={Object.assign(this.getIncorrectSequence(), { id: params.incorrectSequenceID, })}
+          item={Object.assign(this.getIncorrectSequence(), { id: incorrectSequenceID, })}
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitForm}
-          questionID={params.questionID}
+          questionID={questionID}
           questions={questions}
           sentenceFragments
           states
-          usedSequences={generatedIncorrectSequences.used[params.questionID]}
+          usedSequences={used[questionID]}
         />
-        {this.props.children}
+        {children}
       </div>
     );
   }

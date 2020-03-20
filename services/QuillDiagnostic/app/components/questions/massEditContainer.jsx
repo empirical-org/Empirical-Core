@@ -32,9 +32,6 @@ class MassEditContainer extends React.Component {
       massEditSummaryListDisplay: 'none',
       massEditSummaryListButtonText: 'Expand List',
     };
-
-    this.handleMassEditFeedbackTextChange = this.handleMassEditFeedbackTextChange.bind(this);
-    this.updateConceptResults = this.updateConceptResults.bind(this);
   }
 
   componentWillMount() {
@@ -118,9 +115,9 @@ class MassEditContainer extends React.Component {
     }
   }
 
-  updateConceptResults(conceptResults) {
+  updateConceptResults = conceptResults => {
     this.setState({ conceptResults, });
-  }
+  };
 
   updateResponseConceptResultInMassEditArray() {
     const selectedResponses = this.props.massEdit.selectedResponses;
@@ -138,9 +135,9 @@ class MassEditContainer extends React.Component {
     }
   }
 
-  handleMassEditFeedbackTextChange(value) {
+  handleMassEditFeedbackTextChange = value => {
     this.setState({ massEditFeedback: value, });
-  }
+  };
 
   toggleMassEditSummaryList() {
     let display = 'none';

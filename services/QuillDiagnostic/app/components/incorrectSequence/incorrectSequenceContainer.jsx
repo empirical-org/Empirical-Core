@@ -9,46 +9,49 @@ import {
 import request from 'request'
 
 class IncorrectSequencesContainer extends Component {
-  constructor() {
-    super();
-
-    this.deleteSequence = this.deleteSequence.bind(this);
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
-    this.sortCallback = this.sortCallback.bind(this);
-  }
-
   componentWillMount() {
-    this.props.dispatch(questionActions.getUsedSequences(this.props.params.questionID))
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
+    dispatch(questionActions.getUsedSequences(questionID))
   }
 
   getQuestion() {
-    return this.props.questions.data[this.props.params.questionID];
+    const { params, questions } = this.props;
+    const { data } = questions;
+    const { questionID } = params;
+    return data[questionID];
   }
 
   getSequences() {
     return this.getQuestion().incorrectSequences;
   }
 
-  submitSequenceForm(data, sequence) {
+  submitSequenceForm = (data, sequence) => {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
     delete data.conceptResults.null;
     if (sequence) {
-      this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, sequence));
+      dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, sequence));
     } else {
-      this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.params.questionID, data));
+      dispatch(questionActions.submitNewIncorrectSequence(questionID, data));
     }
-  }
+  };
 
-  deleteSequence(sequenceID) {
+  deleteSequence = sequenceID => {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      this.props.dispatch(questionActions.deleteIncorrectSequence(this.props.params.questionID, sequenceID));
+      dispatch(questionActions.deleteIncorrectSequence(questionID, sequenceID));
     }
-  }
+  };
 
   deleteConceptResult(conceptResultKey, sequenceKey) {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getSequences()[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, sequenceKey));
+      dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, sequenceKey));
     }
   }
 
@@ -71,6 +74,8 @@ class IncorrectSequencesContainer extends Component {
   }
 
   renderSequenceList() {
+    const { params } = this.props;
+    const { questionID } = params;
     const components = _.mapObject(this.getSequences(), (val, key) => (
       <div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
@@ -86,7 +91,7 @@ class IncorrectSequencesContainer extends Component {
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">
-          <a className="card-footer-item" href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <a className="card-footer-item" href={`/#/admin/questions/${questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
           <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
         </footer>
       </div>
@@ -94,22 +99,26 @@ class IncorrectSequencesContainer extends Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  sortCallback(sortInfo) {
+  sortCallback = sortInfo => {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    this.props.dispatch(questionActions.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences));
-  }
+    dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences));
+  };
 
   render() {
+    const { children, params } = this.props;
+    const { questionID } = params;
     return (
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/questions/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
-        {this.props.children}
+        {children}
       </div>
     );
   }

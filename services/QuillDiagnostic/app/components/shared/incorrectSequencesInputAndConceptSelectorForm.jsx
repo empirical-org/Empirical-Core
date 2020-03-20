@@ -7,28 +7,29 @@ import { TextEditor, isValidRegex } from 'quill-component-library/dist/component
 import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
 
-export default React.createClass({
-
-  propTypes: {
+export default class extends React.Component {
+  static propTypes = {
     item: React.PropTypes.obj,
     onSubmit: React.PropTypes.func.isRequired,
-  },
+  };
 
-  getInitialState() {
-    const item = this.props.item;
-    return ({
+  constructor(props) {
+    super(props);
+    const item = props.item;
+
+    this.state = {
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
       matchedCount: 0
-    });
-  },
+    };
+  }
 
-  addOrEditItemLabel() {
+  addOrEditItemLabel = () => {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
-  },
+  };
 
-  getNewAffectedCount() {
+  getNewAffectedCount = () => {
     const qid = this.props.questionID
     const usedSeqs = this.props.usedSequences
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
@@ -42,9 +43,9 @@ export default React.createClass({
         this.setState({matchedCount: data.matchedCount})
         }
       );
-    },
+    };
 
-  handleChange(stateKey, e) {
+  handleChange = (stateKey, e) => {
     const obj = {};
     let value = e.target.value;
     if (stateKey === 'itemText') {
@@ -52,9 +53,9 @@ export default React.createClass({
     }
     obj[stateKey] = value;
     this.setState(obj);
-  },
+  };
 
-  handleConceptChange(e) {
+  handleConceptChange = (e) => {
     const concepts = this.state.itemConcepts;
     if (!concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = { correct: false, name: e.label, conceptUID: e.value, };
@@ -62,13 +63,13 @@ export default React.createClass({
         itemConcepts: concepts,
       });
     }
-  },
+  };
 
-  handleFeedbackChange(e) {
+  handleFeedbackChange = (e) => {
     this.setState({itemFeedback: e})
-  },
+  };
 
-  submit(incorrectSequence) {
+  submit = (incorrectSequence) => {
     const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
     if (incorrectSequences.every(is => isValidRegex(is))) {
       const incorrectSequenceString = incorrectSequences.join('|||')
@@ -81,15 +82,15 @@ export default React.createClass({
     } else {
       window.alert('Your regex syntax is invalid. Try again!')
     }
-  },
+  };
 
-  renderTextInputFields() {
+  renderTextInputFields = () => {
     return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
       <input className="input focus-point-text" onBlur={this.getNewAffectedCount} onChange={this.handleChange.bind(null, 'itemText')} style={{ marginBottom: 5, }} type="text" value={text || ''} />
     ));
-  },
+  };
 
-  renderConceptSelectorFields() {
+  renderConceptSelectorFields = () => {
     const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
       <ConceptSelectorWithCheckbox
         checked={val.correct}
@@ -101,21 +102,21 @@ export default React.createClass({
       />
     ));
     return _.values(components);
-  },
+  };
 
-  deleteConceptResult(key) {
+  deleteConceptResult = (key) => {
     const newConceptResults = Object.assign({}, this.state.itemConcepts)
     delete newConceptResults[key]
     this.setState({itemConcepts: newConceptResults})
-  },
+  };
 
-  toggleCheckboxCorrect(key) {
+  toggleCheckboxCorrect = (key) => {
     const data = this.state;
     data.itemConcepts[key].correct = !data.itemConcepts[key].correct;
     this.setState(data);
-  },
+  };
 
-  returnAppropriateDataset() {
+  returnAppropriateDataset = () => {
     const questionID = this.props.questionID
     const datasets = ['fillInBlank', 'sentenceFragments', 'diagnosticQuestions'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
@@ -127,15 +128,15 @@ export default React.createClass({
       }
     });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
-  },
+  };
 
-  renderExplanatoryNote() {
+  renderExplanatoryNote = () => {
     return (<div style={{ marginBottom: '10px' }}>
       <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
       <br />
       <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
     </div>)
-  },
+  };
 
   render() {
     const appropriateData = this.returnAppropriateDataset();
@@ -176,6 +177,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-
-});
+  }
+}

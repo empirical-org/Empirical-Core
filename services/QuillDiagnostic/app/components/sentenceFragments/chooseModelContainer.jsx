@@ -10,9 +10,6 @@ class ChooseModelContainer extends Component {
     super();
     this.state = {}
     this.setState = this.setState.bind(this);
-    this.selectConcept = this.selectConcept.bind(this);
-    this.saveModelConcept = this.saveModelConcept.bind(this);
-    this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
   componentWillMount() {
@@ -25,20 +22,20 @@ class ChooseModelContainer extends Component {
     return this.state.modelConceptUID || this.props.sentenceFragments.data[this.props.params.questionID].modelConceptUID;
   }
 
-  saveModelConcept() {
+  saveModelConcept = () => {
     this.props.dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(this.props.params.questionID,
       Object.assign({}, this.props.sentenceFragments.data[this.props.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
     window.history.back();
-  }
+  };
 
-  removeModelConcept() {
+  removeModelConcept = () => {
     let questionData = Object.assign({}, this.props.sentenceFragments.data[this.props.params.questionID], {modelConceptUID: null});
     this.props.dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(this.props.params.questionID, questionData));
-  }
+  };
 
-  selectConcept(e) {
+  selectConcept = e => {
     this.setState({modelConceptUID: e.value});
-  }
+  };
 
   renderButtons() {
     return(
@@ -81,7 +78,6 @@ class ChooseModelContainer extends Component {
       </div>
     )
   }
-
 }
 
 function select(props) {

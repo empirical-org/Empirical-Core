@@ -20,30 +20,27 @@ class ChooseModelContainer extends Component {
       lessonModelConceptUID
     }
     this.setState = this.setState.bind(this);
-    this.selectConcept = this.selectConcept.bind(this);
-    this.saveModelConcept = this.saveModelConcept.bind(this);
-    this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
   getModelConceptUID() {
     return this.state.modelConceptUID || this.props.questions.data[this.props.params.questionID].modelConceptUID;
   }
 
-  saveModelConcept() {
+  saveModelConcept = () => {
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID,
       Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
     window.history.back();
-  }
+  };
 
-  removeModelConcept() {
+  removeModelConcept = () => {
     let questionData = Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: null});
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, questionData));
     this.setState({modelConceptUID: null});
-  }
+  };
 
-  selectConcept(e) {
+  selectConcept = e => {
     this.setState({ modelConceptUID: e.value });
-  }
+  };
 
   renderButtons() {
     return(
@@ -99,7 +96,6 @@ class ChooseModelContainer extends Component {
       </div>
     )
   }
-
 }
 
 function select(props) {

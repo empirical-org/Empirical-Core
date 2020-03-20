@@ -5,18 +5,23 @@ import QuestionSelect from '../questionSelect/questionSelect.jsx'
 import { submitDiagnostic } from '../../actions/diagnostics'
 import C from '../../constants'
 
-const Diagnostics = React.createClass({
-  changeTitle(event) {
-    this.props.dispatch({
+class Diagnostics extends React.Component {
+  changeTitle = (event) => {
+    const { dispatch } = this.props;
+    dispatch({
       type: C.QUESTION_SELECT_UPDATE_TITLE,
       title: event.target.value,
     })
-  },
-  saveDiagnostic() {
-    this.props.dispatch(submitDiagnostic())
-  },
+  };
+
+  saveDiagnostic = () => {
+    const { dispatch } = this.props;
+    dispatch(submitDiagnostic())
+  };
+
   render() {
-    if (!this.props.concepts.hasreceiveddata || !this.props.questions.hasreceiveddata) {
+    const { concepts, questions, title } = this.props;
+    if (!concepts.hasreceiveddata || !questions.hasreceiveddata) {
       return (<p>Loading...</p>)
     }
     return (
@@ -58,7 +63,7 @@ const Diagnostics = React.createClass({
                 className="input"
                 onChange={this.changeTitle}
                 placeholder="Diagnostic title"
-                value={this.props.title}
+                value={title}
               />
             </div>
             <div className="column">
@@ -75,7 +80,7 @@ const Diagnostics = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {

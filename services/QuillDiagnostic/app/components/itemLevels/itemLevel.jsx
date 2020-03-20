@@ -5,9 +5,8 @@ import levelActions from '../../actions/item-levels'
 import questionActions from '../../actions/questions'
 import _ from 'lodash'
 
-const ItemLevel = React.createClass({
-
-  deleteItemLevel: function (levelID) {
+class ItemLevel extends React.Component {
+  deleteItemLevel = (levelID) => {
     this.props.dispatch(levelActions.deleteItemLevel(levelID))
     //must delete the itemLevel field from each question that has this level
     var questionKeys = _.keys(this.props.questions.data)
@@ -16,23 +15,23 @@ const ItemLevel = React.createClass({
         this.props.dispatch(questionActions.submitQuestionEdit(key, {itemLevel: ""}))
       }
     })
-  },
+  };
 
-  toggleEdit: function () {
+  toggleEdit = () => {
     this.props.dispatch(levelActions.startItemLevelEdit(this.props.params.levelID))
-  },
+  };
 
-  submitNewItemLevel: function (newItemLevel, levelID) {
+  submitNewItemLevel = (newItemLevel, levelID) => {
     if(newItemLevel) {
       this.props.dispatch(levelActions.submitItemLevelEdit(levelID, newItemLevel))
     }
-  },
+  };
 
-  cancelEdit: function(levelID) {
+  cancelEdit = (levelID) => {
       this.props.dispatch(levelActions.cancelItemLevelEdit(levelID))
-  },
+  };
 
-  render: function() {
+  render() {
     // this.props.params has the ID of the current itemLevel. this.props.itemLevels.data has all the itemLevels
     let data = this.props.itemLevels.data[this.props.params.itemLevelID]
     return (
@@ -46,7 +45,7 @@ const ItemLevel = React.createClass({
       />
     )
   }
-})
+}
 
 function select(state) {
   return {

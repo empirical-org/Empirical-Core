@@ -12,14 +12,12 @@ const {
   BlockquoteButton, ULButton, H3Button
 } = richButtonsPlugin;
 
-export default React.createClass({
-  getInitialState: function () {
-    return {
-      text: EditorState.createWithContent(convertFromHTML(this.props.text || ''))
-    }
-  },
+export default class extends React.Component {
+  state = {
+    text: EditorState.createWithContent(convertFromHTML(this.props.text || ''))
+  };
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.boilerplate !== this.props.boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate)))},
       () => {
@@ -27,15 +25,15 @@ export default React.createClass({
       }
     )
     }
-  },
+  }
 
-  handleTextChange: function (e) {
+  handleTextChange = (e) => {
     this.setState({text: e}, () => {
       this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'))
     });
-  },
+  };
 
-  render: function () {
+  render() {
 
     return (
       <div className="card is-fullwidth">
@@ -57,5 +55,4 @@ export default React.createClass({
       </div>
     )
   }
-
-})
+}

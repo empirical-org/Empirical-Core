@@ -3,31 +3,29 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router'
 import {getParameterByName} from '../../libs/getParameterByName'
 
-const Navbar = React.createClass({
-  getInitialState: function () {
-    return {
-      expanded: false
-    }
-  },
+class Navbar extends React.Component {
+  state = {
+    expanded: false
+  };
 
-  navStyles: function () {
+  navStyles = () => {
     if (this.state.expanded) {
       return {
         background: '#fff',
         display: 'initial'
       }
     }
-  },
+  };
 
-  toggle: function () {
+  toggle = () => {
     this.setState({expanded: !this.state.expanded})
-  },
+  };
 
-  reset: function () {
+  reset = () => {
     this.setState({expanded: false})
-  },
+  };
 
-  renderLinks: function () {
+  renderLinks = () => {
     return (
       <div className="nav-right nav-menu" style={this.navStyles()}>
         <a className="nav-item" href="http://www.connect.quill.org/dwqa-questions/">FAQ</a>
@@ -36,9 +34,9 @@ const Navbar = React.createClass({
         <Link activeClassName="is-active" className="nav-item" onClick={this.reset} to={'/lessons'}>Activities</Link>
       </div>
     )
-  },
+  };
 
-  render: function () {
+  render() {
       return (
         <header className="nav" style={{height: '65px'}}>
           <div className="container">
@@ -61,7 +59,7 @@ const Navbar = React.createClass({
         </header>
     )
   }
-})
+}
 
 function select(state) {
   return {

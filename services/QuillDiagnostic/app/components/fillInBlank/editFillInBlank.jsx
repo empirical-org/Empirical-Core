@@ -7,32 +7,36 @@ class EditFillInBlank extends Component {
   constructor() {
     super();
     this.state = {};
-    this.editQuestion = this.editQuestion.bind(this);
-    this.returnQuestionState = this.returnQuestionState.bind(this);
   }
 
-  editQuestion(data) {
-    const fillInBlankQuestionID = this.props.params.questionID;
-    const questionData = data
+  editQuestion = data => {
+    const { dispatch, params } = this.props;
+    const { questionID } = params;
+    const { fillInBlankQuestionID } = questionID;
+    const questionData = data;
     questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
-    this.props.dispatch(fillInBlankActions.submitQuestionEdit(fillInBlankQuestionID, data));
-  }
+    dispatch(fillInBlankActions.submitQuestionEdit(fillInBlankQuestionID, data));
+  };
 
-  returnQuestionState() {
-    const fillInBlankQuestionID = this.props.params.questionID;
-    const fillInBlankQuestion = this.props.fillInBlank.data[fillInBlankQuestionID];
+  returnQuestionState = () => {
+    const { fillInBlank, params } = this.props;
+    const { questionID } = params;
+    const { data } = fillInBlank;
+    const fillInBlankQuestionID = questionID;
+    const fillInBlankQuestion = data[fillInBlankQuestionID];
+    const { prompt, blankAllowed, caseInsensitive, instructions, cues, itemLevel, conceptID, flag, cuesLabel } = fillInBlankQuestion;
     return {
-      prompt: fillInBlankQuestion.prompt,
-      blankAllowed: fillInBlankQuestion.blankAllowed,
-      caseInsensitive: fillInBlankQuestion.caseInsensitive,
-      instructions: fillInBlankQuestion.instructions,
-      cues: fillInBlankQuestion.cues.join(','),
-      itemLevel: fillInBlankQuestion.itemLevel,
-      conceptID: fillInBlankQuestion.conceptID,
-      flag: fillInBlankQuestion.flag,
-      cuesLabel: fillInBlankQuestion.cuesLabel
+      prompt,
+      blankAllowed,
+      caseInsensitive,
+      instructions,
+      cues: cues.join(','),
+      itemLevel,
+      conceptID,
+      flag,
+      cuesLabel
     };
-  }
+  };
 
   render() {
     return <FillInBlankForm action={this.editQuestion} editing={true} state={this.returnQuestionState()} />;

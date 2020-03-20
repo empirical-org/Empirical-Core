@@ -19,18 +19,13 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       itemConcepts: item && item.conceptResults ? item.conceptResults : {},
       matchedCount: 0
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
-    this.handleConceptChange = this.handleConceptChange.bind(this)
-    this.getNewAffectedCount = this.getNewAffectedCount.bind(this)
   }
 
   addOrEditItemLabel() {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
   }
 
-  getNewAffectedCount() {
+  getNewAffectedCount = () => {
     const qid = this.props.questionID
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
     request(
@@ -43,9 +38,9 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         this.setState({matchedCount: data.matchedCount})
         }
       );
-    }
+    };
 
-  handleChange(stateKey, e) {
+  handleChange = (stateKey, e) => {
     const obj = {};
     let value = e.target.value;
     if (stateKey === 'itemText') {
@@ -53,9 +48,9 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     }
     obj[stateKey] = value;
     this.setState(obj);
-  }
+  };
 
-  handleConceptChange(e) {
+  handleConceptChange = e => {
     const concepts = this.state.itemConcepts;
     if (!concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = { correct: false, name: e.label, conceptUID: e.value, };
@@ -63,11 +58,11 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         itemConcepts: concepts,
       });
     }
-  }
+  };
 
-  handleFeedbackChange(e) {
+  handleFeedbackChange = e => {
     this.setState({itemFeedback: e})
-  }
+  };
 
   submit(focusPoint) {
     const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
@@ -154,13 +149,13 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     </span>)
    }
 
-   renderExplanatoryNote() {
-     return (<div style={{ marginBottom: '10px' }}>
-       <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-       <br />
-       <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-     </div>)
-   }
+  renderExplanatoryNote() {
+    return (<div style={{ marginBottom: '10px' }}>
+      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+      <br />
+      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+    </div>)
+  }
 
   render() {
     const appropriateData = this.returnAppropriateDataset();
@@ -202,5 +197,4 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
       </div>
     );
   }
-
 };

@@ -8,19 +8,22 @@ import levelActions from '../../actions/item-levels.js'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
-const ItemLevels = React.createClass({
+class ItemLevels extends React.Component {
+  createNew = () => {
+    const { dispatch } = this.props;
+    dispatch(levelActions.toggleNewItemLevelModal())
+  };
 
-  createNew: function() {
-    this.props.dispatch(levelActions.toggleNewItemLevelModal())
-  },
+  submitNewItemLevel = (newItemLevel) => {
+    const { dispatch } = this.props;
+    dispatch(levelActions.submitNewItemLevel(newItemLevel))
+    dispatch(levelActions.toggleNewItemLevelModal())
+  };
 
-  submitNewItemLevel: function (newItemLevel) {
-    this.props.dispatch(levelActions.submitNewItemLevel(newItemLevel))
-    this.props.dispatch(levelActions.toggleNewItemLevelModal())
-  },
-
-  renderModal: function() {
-    if(this.props.itemLevels.newConceptModalOpen)
+  renderModal = () => {
+    const { itemLevels } = this.props;
+    const { newConceptModalOpen } = itemLevels;
+    if(newConceptModalOpen)
       return (
         <Modal close={this.createNew}>
           <div className="box">
@@ -28,11 +31,12 @@ const ItemLevels = React.createClass({
           </div>
         </Modal>
       )
-  },
+  };
 
-  renderItemLevels: function() {
-    const levels = this.props.itemLevels.data
-    const levelKeys = _.keys(levels)
+  renderItemLevels = () => {
+    const { itemLevels } = this.props;
+    const { data } = itemLevels;
+    const levelKeys = _.keys(data)
 
 
     return levelKeys.map((key) => {
@@ -42,14 +46,16 @@ const ItemLevels = React.createClass({
           basePath='item-levels'
           itemKey={key}
           key={key}
-          text={levels[key].name}
+          text={data[key].name}
         />
       )
     })
-  },
+  };
 
-  render: function() {
-    if(this.props.itemLevels.hasreceiveddata) {
+  render() {
+    const { itemLevels } = this.props;
+    const { hasreceiveddata } = itemLevels;
+    if(hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
@@ -74,7 +80,7 @@ const ItemLevels = React.createClass({
       )
     }
   }
-})
+}
 
 function select(state) {
   return {

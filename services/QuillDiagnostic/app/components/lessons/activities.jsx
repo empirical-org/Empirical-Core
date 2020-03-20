@@ -6,18 +6,17 @@ import { Link } from 'react-router';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import EditLessonForm from './lessonForm.tsx';
 
-const Lessons = React.createClass({
-
-  createNew() {
+class Lessons extends React.Component {
+  createNew = () => {
     this.props.dispatch(actions.toggleNewLessonModal());
-  },
+  };
 
-  submitNewLesson(data) {
+  submitNewLesson = (data) => {
     this.props.dispatch(actions.submitNewLesson(data));
     // this.props.dispatch(actions.toggleNewLessonModal())
-  },
+  };
 
-  renderLessons() {
+  renderLessons = () => {
     const { data, } = this.props.lessons;
 
     const l = this.props.lessons.data;
@@ -50,9 +49,9 @@ const Lessons = React.createClass({
         <ul>{questionsToDisplay}</ul>
       </li>);
     });
-  },
+  };
 
-  renderModal() {
+  renderModal = () => {
     const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
     if (this.props.lessons.newLessonModalOpen) {
       return (
@@ -61,7 +60,7 @@ const Lessons = React.createClass({
         </Modal>
       );
     }
-  },
+  };
 
   render() {
     return (
@@ -89,9 +88,8 @@ const Lessons = React.createClass({
       </section>
 
     );
-  },
-
-});
+  }
+}
 
 function select(state) {
   return {

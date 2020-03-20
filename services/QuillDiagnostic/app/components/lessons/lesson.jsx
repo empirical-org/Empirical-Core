@@ -11,9 +11,8 @@ String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
-const Lesson = React.createClass({
-
-  questionsForLesson() {
+class Lesson extends React.Component {
+  questionsForLesson = () => {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
     if (data[lessonID].questions) {
@@ -25,9 +24,9 @@ const Lesson = React.createClass({
         return qFromDB;
       });
     }
-  },
+  };
 
-  renderQuestionsForLesson() {
+  renderQuestionsForLesson = () => {
     const questionsForLesson = this.questionsForLesson();
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question) => {
@@ -43,32 +42,32 @@ const Lesson = React.createClass({
     return (
       <ul>No questions</ul>
     );
-  },
+  };
 
-  deleteLesson() {
+  deleteLesson = () => {
     const { lessonID, } = this.props.params;
     if (confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
-  },
+  };
 
-  cancelEditingLesson() {
+  cancelEditingLesson = () => {
     this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
-  },
+  };
 
-  saveLessonEdits(vals) {
+  saveLessonEdits = (vals) => {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
-  },
+  };
 
-  editLesson() {
+  editLesson = () => {
     const { lessonID, } = this.props.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-  },
+  };
 
-  renderEditLessonForm() {
+  renderEditLessonForm = () => {
     const { data, } = this.props.lessons,
       { lessonID, } = this.props.params;
     const lesson = (data[lessonID]);
@@ -79,7 +78,7 @@ const Lesson = React.createClass({
         </Modal>
       );
     }
-  },
+  };
 
   render() {
     const { data, } = this.props.lessons,
@@ -109,9 +108,8 @@ const Lesson = React.createClass({
     return (
       <p>404: No Concept Found</p>
     );
-  },
-
-});
+  }
+}
 
 function select(state) {
   return {

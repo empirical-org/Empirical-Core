@@ -19,10 +19,6 @@ class questionHealth extends Component {
       fib: {},
       flag: 'production'
     }
-
-    this.updateFlag = this.updateFlag.bind(this)
-    this.filterByFlag = this.filterByFlag.bind(this)
-    this.filterQuestions = this.filterQuestions.bind(this)
   }
 
   componentWillMount() {
@@ -60,22 +56,17 @@ class questionHealth extends Component {
     }
   }
 
-  updateFlag(e) {
+  updateFlag = e => {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
     const flag = e.target.value === 'all' ? null : e.target.value
     this.setState({flag: flag}, () => this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank))
-  }
+  };
 
-  filterByFlag(q) {
+  filterByFlag = q => {
     return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
-  }
+  };
 
-  filterQuestions(
-    scoreAnalysis,
-    questions,
-    sentenceFragments,
-    fillInBlank
-  ) {
+  filterQuestions = (scoreAnalysis, questions, sentenceFragments, fillInBlank) => {
     const questionData = questions.data
     const sentenceFragmentData = sentenceFragments.data
     const fillInBlankData = fillInBlank.data
@@ -92,7 +83,7 @@ class questionHealth extends Component {
     this.setSentenceCombiningQuestions(scoreAnalysis.data, filteredQuestionData)
     this.setSentenceFragments(scoreAnalysis.data, filteredSentenceFragmentData)
     this.setFillInBlankQuestions(scoreAnalysis.data, filteredFillInBlankQuestionData)
-  }
+  };
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
     const sc = []

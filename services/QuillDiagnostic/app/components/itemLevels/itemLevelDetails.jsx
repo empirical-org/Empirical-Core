@@ -3,15 +3,16 @@ import {connect} from 'react-redux'
 import levelActions from '../../actions/item-levels.js'
 import {Link} from 'react-router'
 import _ from 'lodash'
+import ItemLevels from '../../routers/Admin/routes/ItemLevels/index.js'
 
-const ItemLevelDetails = React.createClass({
-
-  render: function() {
-    if(this.props.itemLevels.hasreceiveddata) {
-      const levelID = this.props.params.itemLevelID, itemLevels = this.props.itemLevels.data
-
-      const questions = this.props.questions.data
-      const questionKeys = _.keys(questions).filter((key)=> {
+class ItemLevelDetails extends React.Component {
+  render() {
+    const { itemLevels, params, questions } = this.props;
+    const { hasreceiveddata, data  } = itemLevels;
+    const { itemLevelID } = params;
+    if(hasreceiveddata) {
+      const levelID = itemLevelID, itemLevels = data
+      const questionKeys = _.keys(questions.data).filter((key)=> {
         return questions[key].itemLevel===itemLevels[levelID].name
       })
       const questionsToRender = questionKeys.map((key) => {
@@ -37,7 +38,7 @@ const ItemLevelDetails = React.createClass({
       return (<div>Loading...</div>)
     }
   }
-})
+}
 
 function select(state) {
   return {

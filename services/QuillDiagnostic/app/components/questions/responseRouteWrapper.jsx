@@ -5,23 +5,21 @@ import {
 } from '../../actions/responses';
 import ResponseComponent from './responseComponent.jsx';
 
-const ResponseComponentWrapper = React.createClass({
-  getInitialState() {
-    return {
-      responses: {},
-      loadedResponses: false,
-    };
-  },
+class ResponseComponentWrapper extends React.Component {
+  state = {
+    responses: {},
+    loadedResponses: false,
+  };
 
   componentWillMount() {
     const { questionID, } = this.props.params;
-  },
+  }
 
-  getResponses() {
+  getResponses = () => {
     return this.state.responses;
-  },
+  };
 
-  returnAppropriateDataset() {
+  returnAppropriateDataset = () => {
     const { questionID, } = this.props.params;
     const datasets = ['fillInBlank', 'sentenceFragments'];
     let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
@@ -33,7 +31,7 @@ const ResponseComponentWrapper = React.createClass({
       }
     });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
-  },
+  };
 
   render() {
     const appropriateData = this.returnAppropriateDataset();
@@ -51,8 +49,8 @@ const ResponseComponentWrapper = React.createClass({
         states={states}
       />
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {
