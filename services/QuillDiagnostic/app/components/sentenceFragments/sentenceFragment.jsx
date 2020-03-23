@@ -28,7 +28,7 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { params, } = this.props
     listenToResponsesWithCallback(
       params.questionID,
@@ -42,8 +42,10 @@ class SentenceFragment extends React.Component {
   }
 
   getQuestion = () => {
-    const { sentenceFragments, params, } = this.props
-    return sentenceFragments.data[params.questionID];
+    const { sentenceFragments, params, } = this.props;
+    const { data } = sentenceFragments;
+    const { questionID } = params;
+    return data[questionID];
   }
 
   getResponses = () => {
@@ -57,24 +59,28 @@ class SentenceFragment extends React.Component {
 
   cancelEditingSentenceFragment = () => {
     const { dispatch, params, } = this.props
-    dispatch(fragmentActions.cancelSentenceFragmentEdit(params.questionID));
+    const { questionID } = params;
+    dispatch(fragmentActions.cancelSentenceFragmentEdit(questionID));
   }
 
   handleEditFragmentClick = () => {
-    const { dispatch, params, } = this.props
-    dispatch(fragmentActions.startSentenceFragmentEdit(params.questionID));
+    const { dispatch, params, } = this.props;
+    const { questionID } = params;
+    dispatch(fragmentActions.startSentenceFragmentEdit(questionID));
   }
 
   saveSentenceFragmentEdits(data) {
-    const { dispatch, params, } = this.props
-    dispatch(fragmentActions.submitSentenceFragmentEdit(params.questionID, data));
+    const { dispatch, params, } = this.props;
+    const { questionID } = params;
+    dispatch(fragmentActions.submitSentenceFragmentEdit(questionID, data));
   }
 
   submitOptimalResponses(responseStrings) {
-    const { dispatch, params, } = this.props
+    const { dispatch, params, } = this.props;
+    const { questionID } = params;
 
     const conceptUID = this.getQuestion().conceptID
-    dispatch(submitOptimalResponses(params.questionID, conceptUID, responseStrings))
+    dispatch(submitOptimalResponses(questionID, conceptUID, responseStrings))
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
@@ -83,15 +89,17 @@ class SentenceFragment extends React.Component {
   }
 
   renderEditForm = () => {
-    const { sentenceFragments, params, concepts, } = this.props
-    if (sentenceFragments.states[params.questionID] === C.EDITING_SENTENCE_FRAGMENT) {
+    const { sentenceFragments, params, concepts, } = this.props;
+    const { data, states } = sentenceFragments;
+    const { questionID } = params;
+    if (states[questionID] === C.EDITING_SENTENCE_FRAGMENT) {
       return (
         <Modal close={this.cancelEditingSentenceFragment}>
           <div className="box">
             <h6 className="title is-h6">Edit Sentence Fragment</h6>
             <EditForm
               concepts={concepts}
-              data={sentenceFragments.data[params.questionID]}
+              data={data[questionID]}
               mode="Edit"
               submit={this.saveSentenceFragmentEdits}
             />
@@ -112,7 +120,7 @@ class SentenceFragment extends React.Component {
     );
   }
 
-  renderResponseComponent(data, states, questionID) {
+  renderResponseComponent = (data, states, questionID) => {
     const { dispatch, } = this.props
     if (this.getResponses()) {
       return (
@@ -129,9 +137,9 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  render = () => {
+  render(){
     const { sentenceFragments, params, massEdit, children, } = this.props
-    const { data, states, hasreceiveddata, } = sentenceFragments;
+    const { data, hasreceiveddata, } = sentenceFragments;
     const { questionID, } = params;
     if (!hasreceiveddata) {
       return (

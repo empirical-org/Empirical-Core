@@ -17,24 +17,28 @@ export default class extends React.Component {
     text: EditorState.createWithContent(convertFromHTML(this.props.text || ''))
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.boilerplate !== this.props.boilerplate) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { boilerplate, handleTextChange } = this.props
+    const { text } = this.state;
+    if (nextProps.boilerplate !== boilerplate) {
       this.setState({text: EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(nextProps.boilerplate)))},
       () => {
-        this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()))
+        handleTextChange(convertToHTML(text.getCurrentContent()))
       }
     )
     }
   }
 
   handleTextChange = (e) => {
+    const { handleTextChange } = this.props;
+    const { text } = this.state;
     this.setState({text: e}, () => {
-      this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'))
+      handleTextChange(convertToHTML(text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'))
     });
   };
 
   render() {
-
+    const { text } = this.state;
     return (
       <div className="card is-fullwidth">
         <header className="card-header">
@@ -49,7 +53,7 @@ export default class extends React.Component {
         </header>
         <div className="card-content">
           <div className="content landing-page-html-editor">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]} />
+            <Editor editorState={text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]} />
           </div>
         </div>
       </div>

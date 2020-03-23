@@ -21,31 +21,19 @@ class questionHealth extends Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     checkTimeout();
     this.props.dispatch(loadScoreData());
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank)
-      // if (nextProps.questions.hasreceiveddata) {
-      //   this.setSentenceCombiningQuestions(nextProps.scoreAnalysis.data, nextProps.questions.data)
-      // }
-      // if (nextProps.diagnosticQuestions.hasreceiveddata) {
-      //   this.setDiagnosticQuestions(nextProps.scoreAnalysis.data, nextProps.diagnosticQuestions.data)
-      // }
-      // if (nextProps.sentenceFragments.hasreceiveddata) {
-      //   this.setSentenceFragments(nextProps.scoreAnalysis.data, nextProps.sentenceFragments.data)
-      // }
-      // if (nextProps.fillInBlank.hasreceiveddata) {
-      //   this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
-      // }
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     if (nextState.loading) {
       const sc = Object.keys(nextState.sc)
       const sf = Object.keys(nextState.sf)
@@ -63,7 +51,8 @@ class questionHealth extends Component {
   };
 
   filterByFlag = q => {
-    return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
+    const { flag } = this.state;
+    return q.flag === flag || q.flag === oldFlagToNew[flag]
   };
 
   filterQuestions = (scoreAnalysis, questions, sentenceFragments, fillInBlank) => {
@@ -200,7 +189,8 @@ class questionHealth extends Component {
   }
 
   renderFlagDropdown() {
-    const selectedValue = this.state.flag ? this.state.flag : 'all'
+    const { flag } = this.state;
+    const selectedValue = flag ? flag : 'all'
     const labelStyle = {marginRight: '10px'}
     return (<div style={{marginTop: '5px', }}>
       <label style={labelStyle}>Question Flag:</label>
@@ -268,7 +258,8 @@ class questionHealth extends Component {
   }
 
   render() {
-    if (this.state.loading) {
+    const { loading } = this.state;
+    if (loading) {
       return <Spinner />
     } else {
       return (<div className="question-health">

@@ -62,14 +62,16 @@ export default class extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(nextProps.response, this.props.response)) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { response } = nextProps;
+    const { concept_results, } = response;
+    if (!_.isEqual(response, this.props.response)) {
       let conceptResults = {}
-      if (nextProps.response.concept_results) {
-        if (typeof nextProps.response.concept_results === 'string') {
-          conceptResults = JSON.parse(nextProps.response.concept_results)
+      if (concept_results) {
+        if (typeof concept_results === 'string') {
+          conceptResults = JSON.parse(concept_results)
         } else {
-          conceptResults = nextProps.response.concept_results
+          conceptResults = concept_results
         }
       }
       this.setState({conceptResults})
@@ -77,58 +79,78 @@ export default class extends React.Component {
   }
 
   deleteResponse = (rid) => {
+    const { dispatch, questionID } = this.props;
     if (window.confirm('Are you sure?')) {
-      this.props.dispatch(deleteResponse(this.props.questionID, rid));
-      this.props.dispatch(massEdit.removeResponseFromMassEditArray(rid));
+      dispatch(deleteResponse(questionID, rid));
+      dispatch(massEdit.removeResponseFromMassEditArray(rid));
     }
   };
 
   editResponse = (rid) => {
-    this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.startResponseEdit(questionID, rid));
   };
 
   cancelResponseEdit = (rid) => {
-    this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.cancelResponseEdit(questionID, rid));
   };
 
   viewChildResponses = (rid) => {
-    this.props.dispatch(this.state.actions.startChildResponseView(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.startChildResponseView(questionID, rid));
   };
 
   cancelChildResponseView = (rid) => {
-    this.props.dispatch(this.state.actions.cancelChildResponseView(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.cancelChildResponseView(questionID, rid));
   };
 
   viewFromResponses = (rid) => {
-    this.props.dispatch(this.state.actions.startFromResponseView(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.startFromResponseView(questionID, rid));
   };
 
   cancelFromResponseView = (rid) => {
-    this.props.dispatch(this.state.actions.cancelFromResponseView(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.cancelFromResponseView(questionID, rid));
   };
 
   viewToResponses = (rid) => {
-    this.props.dispatch(this.state.actions.startToResponseView(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.startToResponseView(questionID, rid));
   };
 
   cancelToResponseView = (rid) => {
-    this.props.dispatch(this.state.actions.cancelToResponseView(this.props.questionID, rid));
+    const { dispatch, questionID } = this.props;
+    const { actions } = this.state;
+    dispatch(actions.cancelToResponseView(questionID, rid));
   };
 
   updateResponse = (rid) => {
+    const { conceptResults, feedback } = this.state;
+    const { dispatch, questionID } = this.props;
     const newResp = {
       weak: false,
-      feedback: this.state.feedback,
+      feedback,
       optimal: this.refs.newResponseOptimal.checked,
       author: null,
       parent_id: null,
-      concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
+      concept_results: Object.keys(conceptResults) && Object.keys(conceptResults).length ? conceptResults : null
     };
-    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+    dispatch(submitResponseEdit(rid, newResp, questionID));
   };
 
   unmatchResponse = (rid) => {
-    const { modelConceptUID, conceptID, } = this.props.question
+    const { dispatch, question, questionID } = this.props;
+    const { modelConceptUID, conceptID, } = question
     const defaultConceptUID = modelConceptUID || conceptID
     const newResp = {
       weak: false,
@@ -138,7 +160,7 @@ export default class extends React.Component {
       parent_id: null,
       concept_results: { [defaultConceptUID]: false, },
     }
-    this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
+    dispatch(submitResponseEdit(rid, newResp, questionID));
   };
 
   getErrorsForAttempt = (attempt) => {
@@ -146,30 +168,34 @@ export default class extends React.Component {
   };
 
   markAsWeak = (rid) => {
+    const { dispatch, questionID } = this.props;
     const vals = { weak: true, };
-    this.props.dispatch(
-      submitResponseEdit(rid, vals, this.props.questionID)
+    dispatch(
+      submitResponseEdit(rid, vals, questionID)
     );
   };
 
   unmarkAsWeak = (rid) => {
+    const { dispatch, questionID } = this.props;
     const vals = { weak: false, };
-    this.props.dispatch(
-      submitResponseEdit(rid, vals, this.props.questionID)
+    dispatch(
+      submitResponseEdit(rid, vals, questionID)
     );
   };
 
   rematchResponse = (rid) => {
-    this.props.getMatchingResponse(rid);
+    const { getMatchingResponse } = this.props;
+    getMatchingResponse(rid);
   };
 
   incrementResponse = (rid) => {
-    const qid = this.props.questionID;
-    this.props.dispatch(incrementResponseCount(qid, rid));
+    const { dispatch, questionID } = this.props;
+    dispatch(incrementResponseCount(questionID, rid));
   };
 
   removeLinkToParentID = (rid) => {
-    this.props.dispatch(submitResponseEdit(rid, { optimal: false, author: null, parent_id: null }, this.props.questionID));
+    const { dispatch, questionID } = this.props;
+    dispatch(submitResponseEdit(rid, { optimal: false, author: null, parent_id: null }, questionID));
   };
 
   applyDiff = (answer = '', response = '') => {
@@ -223,19 +249,24 @@ export default class extends React.Component {
   };
 
   addResponseToMassEditArray = (responseKey) => {
-    this.props.dispatch(massEdit.addResponseToMassEditArray(responseKey));
+    const { dispatch } = this.props;
+    dispatch(massEdit.addResponseToMassEditArray(responseKey));
   };
 
   removeResponseFromMassEditArray = (responseKey) => {
-    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
+    const { dispatch } = this.props;
+    dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
   };
 
   clearResponsesFromMassEditArray = () => {
-    this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
+    const { dispatch } = this.props;
+    dispatch(massEdit.clearResponsesFromMassEditArray());
   };
 
   onMassSelectCheckboxToggle = (responseKey) => {
-    if (this.props.massEdit.selectedResponses.includes(responseKey)) {
+    const { massEdit } = this.props;
+    const { selectedResponses } = massEdit;
+    if (selectedResponses.includes(responseKey)) {
       this.removeResponseFromMassEditArray(responseKey);
     } else {
       this.addResponseToMassEditArray(responseKey);
@@ -249,9 +280,12 @@ export default class extends React.Component {
   };
 
   handleConceptChange = (e) => {
-    const concepts = this.state.conceptResults;
+    const { conceptResults } = this.state;
+    const { response } = this.props;
+    const { optimal } = response;
+    const concepts = conceptResults;
     if (Object.keys(concepts).length === 0 || !concepts.hasOwnProperty(e.value)) {
-      concepts[e.value] = this.props.response.optimal;
+      concepts[e.value] = optimal;
       this.setState({conceptResults: concepts});
     }
   };

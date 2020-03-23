@@ -9,7 +9,7 @@ import {
 import request from 'request'
 
 class IncorrectSequencesContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, params } = this.props;
     const { questionID } = params;
     dispatch(questionActions.getUsedSequences(questionID))

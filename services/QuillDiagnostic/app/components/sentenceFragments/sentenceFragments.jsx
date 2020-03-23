@@ -18,23 +18,26 @@ class SentenceFragments extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { diagnosticQuestions } = this.state;
     const { sentenceFragments, lessons } = nextProps
     if (sentenceFragments.hasreceiveddata && lessons.hasreceiveddata) {
-      if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
+      if (Object.keys(diagnosticQuestions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
         this.setState({ diagnosticQuestions: sentenceFragments.data })
       }
     }
   }
 
   toggleShowArchived = () => {
+    const { showOnlyArchived } = this.state;
     this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
+      showOnlyArchived: !showOnlyArchived,
     });
   };
 
   render() {
-    const sentenceFragments = hashToCollection(this.state.diagnosticQuestions)
+    const { diagnosticQuestions, showOnlyArchived } = this.state;
+    const sentenceFragments = hashToCollection(diagnosticQuestions)
     return (
       <section className="section">
         <div className="container">
@@ -43,14 +46,14 @@ class SentenceFragments extends React.Component {
           </Link>
           <ArchivedButton
             lessons={false}
-            showOnlyArchived={this.state.showOnlyArchived}
+            showOnlyArchived={showOnlyArchived}
             toggleShowArchived={this.toggleShowArchived}
           />
           <p className="menu-label">Sentence Fragments</p>
           <QuestionList
             basePath={'sentence-fragments'}
             questions={sentenceFragments || []}
-            showOnlyArchived={this.state.showOnlyArchived}
+            showOnlyArchived={showOnlyArchived}
           />
         </div>
       </section>

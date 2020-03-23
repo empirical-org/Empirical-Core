@@ -33,7 +33,7 @@ class ScoreAnalysis extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     checkTimeout();
     this.props.dispatch(loadScoreData());
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
@@ -44,7 +44,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData.length === 0) {

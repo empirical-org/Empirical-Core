@@ -5,7 +5,7 @@ import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSe
 import questionActions from '../../actions/questions';
 
 class NewIncorrectSequencesContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, generatedIncorrectSequences, params } = this.props;
     const { used } = generatedIncorrectSequences;
     const { questionID } = params;

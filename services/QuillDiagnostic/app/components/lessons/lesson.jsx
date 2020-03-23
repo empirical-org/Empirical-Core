@@ -13,8 +13,9 @@ String.prototype.toKebab = function () {
 
 class Lesson extends React.Component {
   questionsForLesson = () => {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+    const { lessons, params } = this.props;
+    const { data } = lessons;
+    const { lessonID } = params;
     if (data[lessonID].questions) {
       return _.values(data[lessonID].questions).map((question) => {
         const questions = this.props[question.questionType].data;
@@ -33,7 +34,7 @@ class Lesson extends React.Component {
         const { questionType, title, prompt, key, } = question
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
-        return (<li key={question.key}><Link to={`/admin/${questionTypeLink || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>);
+        return <li key={question.key}><Link to={`/admin/${questionTypeLink || 'questions'}/${question.key}`}>{displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}</Link></li>;
       });
       return (
         <ul>{listItems}</ul>
@@ -45,33 +46,39 @@ class Lesson extends React.Component {
   };
 
   deleteLesson = () => {
-    const { lessonID, } = this.props.params;
+    const { dispatch, params } = this.props;
+    const { lessonID, } = params;
     if (confirm('do you want to do this?')) {
-      this.props.dispatch(lessonActions.deleteLesson(lessonID));
+      dispatch(lessonActions.deleteLesson(lessonID));
     }
   };
 
   cancelEditingLesson = () => {
-    this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
+    const { dispatch, params } = this.props;
+    const { lessonID } = params;
+    dispatch(lessonActions.cancelLessonEdit(lessonID));
   };
 
   saveLessonEdits = (vals) => {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
-    const qids = vals.questions ? vals.questions.map(q => q.key) : []
-    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
+    const { dispatch, params } = this.props;
+    const { lessonID } = params;
+    const { questions } = vals;
+    const qids = questions ? questions.map(q => q.key) : []
+    dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
   editLesson = () => {
-    const { lessonID, } = this.props.params;
-    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
+    const { dispatch, params } = this.props;
+    const { lessonID } = params;
+    dispatch(lessonActions.startLessonEdit(lessonID));
   };
 
   renderEditLessonForm = () => {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+    const { lessons, params } = this.props;
+    const { lessonID } = params;
+    const { data, states } = lessons;
     const lesson = (data[lessonID]);
-    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
+    if (states[lessonID] === C.EDITING_LESSON) {
       return (
         <Modal close={this.cancelEditingLesson}>
           <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
@@ -81,8 +88,9 @@ class Lesson extends React.Component {
   };
 
   render() {
-    const { data, } = this.props.lessons,
-      { lessonID, } = this.props.params;
+    const { lessons, params } = this.props;
+    const { lessonID } = params;
+    const { data, hasreceiveddata } = lessons;
     if (data[lessonID]) {
       const numberOfQuestions = data[lessonID].questions ? data[lessonID].questions.length : 0;
       return (
@@ -102,7 +110,7 @@ class Lesson extends React.Component {
           {this.renderQuestionsForLesson()}
         </div>
       );
-    } else if (this.props.lessons.hasreceiveddata === false) {
+    } else if (hasreceiveddata === false) {
       return (<p>Loading...</p>);
     }
     return (

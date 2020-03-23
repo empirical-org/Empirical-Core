@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions/questions';
 import _ from 'underscore';
-import { Link } from 'react-router';
 import {
   Modal,
   hashToCollection,
@@ -35,28 +34,31 @@ class Questions extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { questions, lessons } = nextProps
+    const { diagnosticQuestions } = this.state;
     if (questions.hasreceiveddata && lessons.hasreceiveddata) {
-      if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.questions.data, questions.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
+      if (Object.keys(diagnosticQuestions).length === 0 || !_.isEqual(this.props.questions.data, questions.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
         this.setState({ diagnosticQuestions: questions.data })
       }
     }
   }
 
   createNew = () => {
-    this.props.dispatch(actions.toggleNewQuestionModal());
+    const { dispatch } = this.props;
+    dispatch(actions.toggleNewQuestionModal());
   };
 
   submitNewQuestion = () => {
+    const { dispatch } = this.props;
     const newQuestion = { name: this.refs.newQuestionName.value, };
-    this.props.dispatch(actions.submitNewQuestion(newQuestion));
+    dispatch(actions.submitNewQuestion(newQuestion));
     this.refs.newQuestionName.value = '';
-    // this.props.dispatch(actions.toggleNewQuestionModal())
   };
 
   updateRematchedResponse = (rid, vals) => {
-    this.props.dispatch(submitResponseEdit(rid, vals));
+    const { dispatch } = this.props;
+    dispatch(submitResponseEdit(rid, vals));
   };
 
   getErrorsForAttempt(attempt) {
@@ -80,14 +82,17 @@ class Questions extends React.Component {
 
   // functions for rematching all Responses
   mapConceptsToList = () => {
-    const concepts = hashToCollection(this.props.concepts.data['0']);
-    const questions = hashToCollection(this.props.questions.data);
+    const { concepts, questions } = this.props;
+    const concepts = hashToCollection(concepts.data['0']);
+    const questions = hashToCollection(questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
   };
 
   responsesWithStatusForQuestion = questionUID => {
-    const responses = this.props.responses.data[questionUID];
+    const { responses } = this.props;
+    const { data } = responses;
+    const responses = data[questionUID];
     return hashToCollection(respWithStatus(responses));
   };
 
@@ -183,8 +188,10 @@ class Questions extends React.Component {
   };
 
   renderModal = () => {
-    const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
-    if (this.props.questions.newQuestionModalOpen) {
+    const { questions } = this.props;
+    const { newQuestionModalOpen, submittingnew } = questions;
+    const stateSpecificClass = submittingnew ? 'is-loading' : '';
+    if (newQuestionModalOpen) {
       return (
         <Modal close={this.createNew}>
           <div className="box">
@@ -217,24 +224,29 @@ class Questions extends React.Component {
   };
 
   handleSearchChange = e => {
+    const { dispatch } = this.props;
     const action = push(`/admin/questions/${e.value}`);
-    this.props.dispatch(action);
+    dispatch(action);
   };
 
   toggleNoConceptQuestions = () => {
+    const { displayNoConceptQuestions } = this.state;
     this.setState({
-      displayNoConceptQuestions: !this.state.displayNoConceptQuestions,
+      displayNoConceptQuestions: !displayNoConceptQuestions,
     });
   };
 
   toggleShowArchived = () => {
+    const { showOnlyArchived } = this.state;
     this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
+      showOnlyArchived: !showOnlyArchived,
     });
   };
 
   renderSearchBox = () => {
-    const options = hashToCollection(this.props.questions.data);
+    const { questions } = this.props;
+    const { data } = questions;
+    const options = hashToCollection(data);
     if (options.length > 0) {
       const formatted = options.map((opt) => {
         let name;
@@ -252,6 +264,7 @@ class Questions extends React.Component {
 
   render() {
     const { questions, concepts, } = this.props;
+    const { diagnosticQuestions, displayNoConceptQuestions, showOnlyArchived } = this.state;
     if (questions.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <section className="section">
@@ -261,18 +274,18 @@ class Questions extends React.Component {
             { this.renderSearchBox() }
             <br />
             <label className="checkbox">
-              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
+              <input checked={displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
               Display questions with no valid concept
             </label>
-            <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
+            <ArchivedButton lessons={false} showOnlyArchived={showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              displayNoConceptQuestions={this.state.displayNoConceptQuestions}
-              questions={this.state.diagnosticQuestions}
-              showOnlyArchived={this.state.showOnlyArchived}
+              displayNoConceptQuestions={displayNoConceptQuestions}
+              questions={diagnosticQuestions}
+              showOnlyArchived={showOnlyArchived}
             />
 
           </div>

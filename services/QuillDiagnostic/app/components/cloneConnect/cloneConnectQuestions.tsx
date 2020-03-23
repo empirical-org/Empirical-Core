@@ -16,7 +16,7 @@ class CloneConnectQuestions extends React.Component<any, any> {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { connectSentenceFragments, connectFillInBlank, connectSentenceCombining } = nextProps
     if (connectSentenceFragments.error !== this.props.connectSentenceFragments.error) {
       window.alert(connectSentenceFragments.error)

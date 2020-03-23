@@ -21,7 +21,7 @@ const TabLink = props => (
 );
 
 class adminContainer extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch } = this.props;
     dispatch(userActions.firebaseAuth());
     dispatch(conceptActions.startListeningToConcepts());

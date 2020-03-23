@@ -1,8 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  listenToResponsesWithCallback
-} from '../../actions/responses';
 import ResponseComponent from './responseComponent.jsx';
 
 class ResponseComponentWrapper extends React.Component {
@@ -11,18 +8,16 @@ class ResponseComponentWrapper extends React.Component {
     loadedResponses: false,
   };
 
-  componentWillMount() {
-    const { questionID, } = this.props.params;
-  }
-
   getResponses = () => {
-    return this.state.responses;
+    const { responses } = this.state;
+    return responses;
   };
 
   returnAppropriateDataset = () => {
-    const { questionID, } = this.props.params;
+    const { params, questions } = this.props;
+    const { questionID, } = params;
     const datasets = ['fillInBlank', 'sentenceFragments'];
-    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
+    let theDatasetYouAreLookingFor = questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {
       if (this.props[dataset].data[questionID]) {
@@ -36,8 +31,9 @@ class ResponseComponentWrapper extends React.Component {
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
-    const { states, } = this.props.questions;
-    const { questionID, } = this.props.params;
+    const { params, questions } = this.props;
+    const { states, } = questions;
+    const { questionID, } = params;
     return (
       <ResponseComponent
         admin

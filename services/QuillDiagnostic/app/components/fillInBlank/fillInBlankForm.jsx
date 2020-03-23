@@ -23,7 +23,7 @@ class FillInBlankForm extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { state } = this.props;
     if(state) {
       this.setState(state);

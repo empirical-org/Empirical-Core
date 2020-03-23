@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  TextEditor,
-  hashToCollection
+  TextEditor
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import {
@@ -42,14 +41,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
         content: ''
       }
     }
-
-    this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.handleContentChange = this.handleContentChange.bind(this)
-    this.submit = this.submit.bind(this)
-    this.renderHeaderText = this.renderHeaderText.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.titleCards.hasreceiveddata && !this.props.titleCards.hasreceiveddata) {
       if (nextProps.routeParams.titleCardID && nextProps.titleCards.hasreceiveddata) {
         const {titleCardID} = nextProps.routeParams
@@ -63,7 +57,7 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
-  submit() {
+  submit = () => {
     const { titleCardID } = this.props.routeParams
     if (titleCardID) {
       this.props.dispatch(submitTitleCardEdit(titleCardID, this.state))
@@ -72,16 +66,16 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
-  handleTitleChange(e) {
+  handleTitleChange = (e) => {
     this.setState({title: e.target.value})
   }
 
-  handleContentChange(e) {
+  handleContentChange = (e) => {
     const formattedContent = e.replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>')
     this.setState({content: formattedContent})
   }
 
-  renderHeaderText() {
+  renderHeaderText = () => {
     const { titleCardID } = this.props.routeParams
     if (titleCardID) {
       return 'Edit this title card'

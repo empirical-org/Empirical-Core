@@ -48,7 +48,7 @@ export class ELLStudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, } = this.props
     const { sessionID, } = this.state
     dispatch(clearData());
@@ -59,7 +59,7 @@ export class ELLStudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { playDiagnostic, } = this.props
     if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);

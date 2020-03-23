@@ -159,7 +159,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           }
         });
         formatted = options.map((opt: { key: string, prompt: string } )=> {
-          return ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, });
+          return { name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, };
         });
       } else {
         formatted = options.map((opt: { key: string, title: string }) => {

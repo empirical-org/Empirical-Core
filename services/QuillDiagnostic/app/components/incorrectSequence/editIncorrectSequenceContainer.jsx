@@ -6,7 +6,7 @@ import questionActions from '../../actions/questions';
 import request from 'request'
 
 class EditIncorrectSequencesContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, generatedIncorrectSequences, params } = this.props;
     const { used } = generatedIncorrectSequences;
     const { questionID } = params;

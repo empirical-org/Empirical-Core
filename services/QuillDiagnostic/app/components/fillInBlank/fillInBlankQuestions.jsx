@@ -16,7 +16,7 @@ class FillInBlankQuestions extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { fillInBlank, lessons } = nextProps
     const { diagnosticQuestions } = this.state;
     if (fillInBlank.hasreceiveddata && lessons.hasreceiveddata) {
