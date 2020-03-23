@@ -59,6 +59,8 @@ function loadSpecifiedQuestions(uids) {
         questionData[uids[index]] = result;
       });
       dispatch({ type: C.RECEIVE_QUESTIONS_DATA, data: questionData, });
+    }).catch((error) => {
+      throw error;
     });
   }
 }
