@@ -154,7 +154,7 @@ jobs:
   connect_node_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: circleci/node:8.11.3
+      - image: circleci/node:7.7.4
     steps:
       - checkout
       - restore_cache:
