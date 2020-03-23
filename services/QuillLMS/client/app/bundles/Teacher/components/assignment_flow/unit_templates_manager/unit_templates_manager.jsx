@@ -1,6 +1,7 @@
 import React from 'react'
 import _l from 'lodash'
 import _ from 'underscore'
+import qs from 'qs'
 import UnitTemplateMinis from './unit_template_minis'
 import ScrollToTop from '../../shared/scroll_to_top'
 import fnl from '../../modules/fnl'
@@ -60,6 +61,11 @@ export default class UnitTemplatesManager extends React.Component {
   componentDidMount() {
     this.fetchUnitTemplateModels();
     this.fetchTeacher();
+  }
+
+  parsedQueryParams = () => {
+    const { location, } = this.props
+    return qs.parse(location.search.replace('?', ''))
   }
 
   setTeacher(data) {
@@ -141,7 +147,7 @@ export default class UnitTemplatesManager extends React.Component {
     } else if (category.value) {
       url = url.concat(`?category=${category.label}`)
     }
-    this.props.router.push(url)
+    this.props.history.push(url)
   };
 
   showAllGrades() {
@@ -154,7 +160,7 @@ export default class UnitTemplatesManager extends React.Component {
       return <LoadingIndicator />
     }
 
-    const { category, grade, type, } = this.props.location.query
+    const { category, grade, type, } = this.parsedQueryParams()
     const displayedModels = this.filterModels(category, grade, type)
     return (<UnitTemplateMinis
       actions={this.unitTemplatesManagerActions()}
@@ -208,7 +214,8 @@ export default class UnitTemplatesManager extends React.Component {
     }
     this.updateUnitTemplatesManager(newHash)
 
-    const { category, grade, type, } = this.props.location.query
+    const { category, grade, type, } = this.parsedQueryParams()
+
     if (category || grade || type) {
       this.filterModels(category, grade, type)
     }

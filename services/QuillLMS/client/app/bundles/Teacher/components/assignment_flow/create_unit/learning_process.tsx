@@ -6,7 +6,7 @@ import AssignmentCard from './assignment_card'
 const allDiagnosticsSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-all.svg`
 const librarySrc = `${process.env.CDN_URL}/images/illustrations/library.svg`
 
-const selectCard = (router, link) => router.push(link)
+const selectCard = (history, link) => history.push(link)
 
 const minis = (props) => [
   (<AssignmentCard
@@ -15,9 +15,10 @@ const minis = (props) => [
       { key: 'When', text: 'You’re working with a new group of students and need data on what each student needs to practice.', }
     ]}
     header="Assess student writing with a diagnostic"
+    key="diagnostic"
     imgAlt="page with writing and a magnifying glass over it"
     imgSrc={allDiagnosticsSrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/diagnostic`)}
+    selectCard={() => selectCard(props.history, `/assign/diagnostic`)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -25,9 +26,10 @@ const minis = (props) => [
       { key: 'When', text: 'You know which skills you want your students to practice, or you want to browse our materials before assigning the diagnostic.', }
     ]}
     header="Choose activities from our library"
+    key="activity-type"
     imgAlt="open book"
     imgSrc={librarySrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/activity-type`)}
+    selectCard={() => selectCard(props.history, `/assign/activity-type`)}
   />)
 ];
 

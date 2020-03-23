@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import "react-dates/initialize";
 
 import { SingleDatePicker } from 'react-dates'
 import { DataTable } from 'quill-component-library/dist/componentLibrary'

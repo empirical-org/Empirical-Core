@@ -52,7 +52,7 @@ export default class TutorialIndex extends React.Component {
   }
 
   goToSlide(slideNumber) {
-    this.props.router.push(`/tutorials/${this.props.params.tool}/${slideNumber}${this.qs()}`);
+    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${this.qs()}`);
     this.setState({ slideNumber ,  });
   }
 

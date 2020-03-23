@@ -16,13 +16,13 @@ const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
 const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
 
-const selectCard = (router: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
+const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
   window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
   window.localStorage.setItem(UNIT_NAME, unitTemplateName)
   window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
   window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateIdString)
-  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
+  history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
 const minis = (props: any) => [
@@ -36,7 +36,7 @@ const minis = (props: any) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(props.router, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
+    selectCard={() => selectCard(props.history, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
   />),
   (<AssignmentCard
     bodyArray={[

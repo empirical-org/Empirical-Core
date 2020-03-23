@@ -1,4 +1,5 @@
 import React from 'react';
+import qs from 'qs'
 
 import Stage1 from './select_activities_container';
 import Stage2 from './stage2/Stage2';
@@ -22,13 +23,15 @@ export default class CreateUnit extends React.Component {
     let name = ''
     let assignSuccess = false
     let classrooms = []
-    const previouslyStoredName = props.params.unitName || window.localStorage.getItem(UNIT_NAME) || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
+    const pathArray = props.location.pathname.split('/')
+    const path = pathArray[pathArray.length - 1]
+    const previouslyStoredName = props.match.params.unitName || window.localStorage.getItem(UNIT_NAME) || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
     const previouslyStoredClassrooms = window.localStorage.getItem(CLASSROOMS) ? JSON.parse(window.localStorage.getItem(CLASSROOMS)) : []
-    if (props.location.query.unit_template_id || props.location.query.diagnostic_unit_template_id || props.route.path === 'select-classes') {
+    if (this.parsedQueryParams().unit_template_id || this.parsedQueryParams().diagnostic_unit_template_id || path === 'select-classes') {
       stage = 2
       name = previouslyStoredName
       classrooms = previouslyStoredClassrooms
-    } else if (['next', 'referral', 'add-students'].includes(props.route.path)) {
+    } else if (['next', 'referral', 'add-students'].includes(path)) {
       stage = 3;
       name = previouslyStoredName
       assignSuccess = true
@@ -68,6 +71,11 @@ export default class CreateUnit extends React.Component {
     }
   }
 
+  parsedQueryParams = () => {
+    const { location, } = this.props
+    return qs.parse(location.search.replace('?', ''))
+  }
+
   onCreateSuccess = (response) => {
     const { classrooms, name, } = this.state
     this.setState({ newUnitId: response.id, assignSuccess: true, }, () => {
@@ -75,9 +83,9 @@ export default class CreateUnit extends React.Component {
       window.localStorage.setItem(UNIT_ID, response.id)
       const assignedClassrooms = classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
       if (assignedClassrooms.every(c => c.classroom.emptyClassroomSelected)) {
-        this.props.router.push('/assign/add-students')
+        this.props.history.push('/assign/add-students')
       } else {
-        this.props.router.push('/assign/referral')
+        this.props.history.push('/assign/referral')
       }
       this.setStage(3);
     });
@@ -86,7 +94,7 @@ export default class CreateUnit extends React.Component {
   getActivities = () => {
     requestGet('/activities/search?flag=private', (body) => {
       const { activities, } = body
-      const activityIdsArray = this.props.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
+      const activityIdsArray = this.props.match.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
       const activityIdsArrayAsArray = activityIdsArray.split(',')
       const selectedActivities = activityIdsArrayAsArray.map(id => activities.find(act => String(act.id) === id)).filter(Boolean)
       this.setState({ activities: activities, selectedActivities: selectedActivities, })
@@ -140,7 +148,7 @@ export default class CreateUnit extends React.Component {
 
   clickContinue = () => {
     this.analytics().track('click Continue in lesson planner');
-    this.props.router.push('/assign/select-classes')
+    this.props.history.push('/assign/select-classes')
     this.setStage(2);
     this.resetWindowPosition();
   }
@@ -260,7 +268,7 @@ export default class CreateUnit extends React.Component {
   }
 
   stage2SpecificComponents = () => {
-    const { location, user, } = this.props
+    const { user, } = this.props
     return (<Stage2
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
       areAnyStudentsSelected={this.areAnyStudentsSelected()}
@@ -274,7 +282,7 @@ export default class CreateUnit extends React.Component {
       fetchClassrooms={this.fetchClassrooms}
       fetchClassrooms={this.fetchClassrooms}
       finish={this.finish}
-      isFromDiagnosticPath={!!location.query.diagnostic_unit_template_id}
+      isFromDiagnosticPath={!!this.parsedQueryParams().diagnostic_unit_template_id}
       selectedActivities={this.getSelectedActivities()}
       toggleActivitySelection={this.toggleActivitySelection}
       toggleClassroomSelection={this.toggleClassroomSelection}
@@ -288,14 +296,15 @@ export default class CreateUnit extends React.Component {
   }
 
   stage3specificComponents = () => {
-    const { referralCode, router, } = this.props
+    const { referralCode, location, history, } = this.props
     const { classrooms, selectedActivities, name, } = this.state
     if ((this.state.assignSuccess)) {
       return (<UnitAssignmentFollowup
         classrooms={classrooms}
+        history={history}
+        location={location}
         referralCode={referralCode}
         referralCode={referralCode}
-        router={router}
         selectedActivities={selectedActivities}
         unitName={name}
       />);
@@ -372,9 +381,9 @@ export default class CreateUnit extends React.Component {
     this.setState({ classrooms: updated, }, () => window.localStorage.setItem(CLASSROOMS, JSON.stringify(updated)));
   }
 
-  unitTemplateId = () => this.props.location.query.unit_template_id || this.props.location.query.diagnostic_unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
+  unitTemplateId = () => this.parsedQueryParams().unit_template_id || this.parsedQueryParams().diagnostic_unit_template_id || window.localStorage.getItem(UNIT_TEMPLATE_ID)
 
-  unitTemplateName = () => this.props.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
+  unitTemplateName = () => this.props.match.params.unitName || window.localStorage.getItem(UNIT_TEMPLATE_NAME)
 
   updateUnitName = (e) => {
     this.isUnitNameValid();

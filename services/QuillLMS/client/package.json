@@ -119,7 +119,7 @@
     "jest": "^24.8.0",
     "memory-fs": "^0.4.1",
     "mime": "^2.2.0",
-    "qs": "^6.5.1",
+    "qs": "^6.9.2",
     "react-test-renderer": "^16.13.0",
     "react-transform-hmr": "^1.0.4",
     "redux-test-utils": "^0.2.2",

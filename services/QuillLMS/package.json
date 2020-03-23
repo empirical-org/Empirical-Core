@@ -53,6 +53,7 @@
     "lazysizes": "^5.2.0-beta1",
     "quill-component-library": "0.7.28",
     "react-csv": "^1.1.2",
+    "react-dates": "^21.8.0",
     "react-dropdown": "^1.6.4",
     "react-radio-buttons": "^1.2.1",
     "react-select": "^1.1.0",

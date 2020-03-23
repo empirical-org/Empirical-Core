@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'underscore'
 import _l from 'lodash'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 import UnitTemplateMini from './unit_template_mini'

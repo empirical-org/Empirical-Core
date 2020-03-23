@@ -421,8 +421,18 @@ $chevroncolor: #027360;
 .transition-container--vertical {
   width: 100%; }
 
+.DayPickerNavigation__horizontal {
+	display: flex;
+	justify-content: space-between;
+}
+
+.SingleDatePickerInput_calendarIcon {
+	padding: 0px !important;
+}
+
 .DayPickerNavigation__prev,
-.DayPickerNavigation__next {
+.DayPickerNavigation__next,
+.DayPickerNavigation_button__horizontal {
 	background: none;
 	color: $chevroncolor;
   cursor: pointer;
@@ -430,6 +440,7 @@ $chevroncolor: #027360;
 	font-family: 'Open Sans', $family-sans-serif;
 	font-size: 28px !important;
 	font-weight: 400 !important;
+	padding: 30px;
   -webkit-user-select: none;
   /* Chrome/Safari */
   -moz-user-select: none;
@@ -700,7 +711,10 @@ $chevroncolor: #027360;
   left: 0;
   border: 0;
   height: 100%;
-  width: 100%; }
+  width: 100%;
+	font-size: 14px;
+	height: min-content;
+}
   .DateInput__input[readonly] {
     -moz-user-select: none;
     -webkit-user-select: none;

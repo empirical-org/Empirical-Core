@@ -91,18 +91,18 @@ class DiagnosticReports extends React.Component {
 				// get report name without hash history junk
 				report = window.location.hash.substring(reportBeginningIndex + 1).split('?').shift()
 			}
-			this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
+			this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
 	};
 
     changeReport = (reportName) => {
 		const p = this.props.params;
-		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
+		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
 	};
 
     changeStudent = (student) => {
 		this.setState({selectedStudentId: student})
 		const p = this.props.params;
-		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
+		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
 	};
 
     findClassroomById = (id) => {

@@ -48,10 +48,10 @@ class StudentProfile extends React.Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { selectedClassroomId, router, student, } = this.props
+    const { selectedClassroomId, history, student, } = this.props
     if (nextProps.selectedClassroomId && nextProps.selectedClassroomId !== selectedClassroomId) {
       if (!window.location.href.includes(nextProps.selectedClassroomId)) {
-        router.push(`classrooms/${nextProps.selectedClassroomId}`);
+        history.push(`classrooms/${nextProps.selectedClassroomId}`);
       }
     }
 
@@ -65,11 +65,11 @@ class StudentProfile extends React.Component {
   }
 
   handleClassroomTabClick = (classroomId) => {
-    const { loading, handleClassroomClick, fetchStudentProfile, router, } = this.props;
+    const { loading, handleClassroomClick, fetchStudentProfile, history, } = this.props;
 
     if (!loading) {
       const newUrl = `/classrooms/${classroomId}`;
-      router.push(newUrl);
+      history.push(newUrl);
       handleClassroomClick(classroomId);
       fetchStudentProfile(classroomId);
       updateActiveClassworkTab(ALL_ACTIVITIES)
@@ -77,8 +77,8 @@ class StudentProfile extends React.Component {
   }
 
   handleClickAllClasses = () => {
-    const { fetchStudentProfile, router, } = this.props;
-    router.push('/classes')
+    const { fetchStudentProfile, history, } = this.props;
+    history.push('/classes')
     fetchStudentProfile()
   }
 

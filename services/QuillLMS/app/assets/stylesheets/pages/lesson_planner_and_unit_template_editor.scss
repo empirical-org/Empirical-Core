@@ -314,6 +314,27 @@
               background-color: inherit;
               border: none;
             }
+            .DateInput {
+              background-color: transparent;
+            }
+            .CalendarDay__blocked_out_of_range, .CalendarDay__blocked_out_of_range:active, .CalendarDay__blocked_out_of_range:hover {
+              background: #fff;
+              border: 1px solid #e4e7e7;
+              color: #cacccd;
+            }
+            .CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+              background: #00a699;
+              border: 1px double #00a699;
+              color: #fff;
+            }
+            .DateInput_input {
+              font-size: 14px;
+              height: min-content;
+              background-color: transparent;
+              &:focus {
+                border: none;
+              }
+            }
             .DateInput__display-text--focused {
               background: inherit;
               border-color: inherit;
