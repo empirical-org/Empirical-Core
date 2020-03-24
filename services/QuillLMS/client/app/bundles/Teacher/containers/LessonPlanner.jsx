@@ -1,7 +1,3 @@
-'use strict'
-
-import PropTypes from 'prop-types';
-
 import React from 'react'
 import { requestGet, requestPost } from '../../../modules/request';
 import _ from 'underscore'
@@ -18,364 +14,322 @@ import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 import AssignANewActivity from '../components/assignment_flow/create_unit/assign_a_new_activity.jsx'
 import AssignADiagnostic from '../components/assignment_flow/create_unit/assign_a_diagnostic.tsx'
 
-export default class extends React.Component {
-    static propTypes = {
-		grade: PropTypes.string,
-		tab: PropTypes.string,
-		classroomName: PropTypes.string,
-		classroomId: PropTypes.string,
-		students: PropTypes.string
-	};
+export default class LessonPlanner extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.modules = {
+      fnl: new fnl,
+      updaterGenerator: new updaterGenerator(this),
+      unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
+      windowPosition: new WindowPosition()
+    };
 
-    constructor(props, context) {
-        super(props, context);
-        this.modules = {
-			fnl: new fnl,
-			updaterGenerator: new updaterGenerator(this),
-			unitTemplatesServer: new Server('unit_template', 'unit_templates', '/teachers'),
-			windowPosition: new WindowPosition()
-		};
+    this.deepExtendState = this.modules.updaterGenerator.updater(null)
+    this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
+    this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
+    this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
 
-        this.deepExtendState = this.modules.updaterGenerator.updater(null)
-        this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
-        this.updateCreateUnitModel = this.modules.updaterGenerator.updater('createUnit.model');
-        this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
+    const state = this.blankState();
 
-        var state = this.blankState();
-
-        var grade = props.grade;
-        if (grade) {
-			state.unitTemplatesManager.grade = grade;
-		}
-
-        var tab = ($('#activity-planner').data('tab'));
-        if (tab) {
-			state.tab = tab;
-		}
-        //FIXME: this concern should be handled with a react-router
-        var individualUnitTemplate = $('.teachers-unit-template')[0]
-        if (individualUnitTemplate) {
-			state.tab = 'exploreActivityPacks';
-			state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
-		}
-        this.state = state;
+    const { grade, } = this.props;
+    if (grade) {
+      state.unitTemplatesManager.grade = grade;
     }
 
-    analytics = () => {
-		return new AnalyticsWrapper();
-	};
+    const tab = ($('#activity-planner').data('tab'));
+    if (tab) {
+      state.tab = tab;
+    }
+    //FIXME: this concern should be handled with a react-router
+    const individualUnitTemplate = $('.teachers-unit-template')[0]
+    if (individualUnitTemplate) {
+      state.tab = 'exploreActivityPacks';
+      state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
+    }
 
-    blankState = () => {
-		return {
-			tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
-			createUnit: {
-				stage: 1,
-				options: {
-					classrooms: []
-				},
-				model: {
-					id: null,
-					name: null,
-					selectedActivities: [],
-					dueDates: {}
-				}
-			},
-			unitTemplatesManager: {
-				firstAssignButtonClicked: false,
-				assignSuccess: false,
-				models: [],
-				categories: [],
-				stage: 'index', // index, profile,
-				model: null,
-				model_id: null,
-				relatedModels: [],
-				displayedModels: [],
-				selectedCategoryId: null,
-				lastActivityAssigned: null,
-				grade: null
-			}
-		}
-	};
+    this.state = state;
+  }
 
-    editUnit = (unitId) => {
-                requestGet(`/teachers/units/${unitId}/edit`, this.editUnitRequestSuccess);
-	};
+  analytics = () => new AnalyticsWrapper();
 
-    editUnitRequestSuccess = (data) => {
-		this.updateCreateUnitModel({id: data.id, name: data.name, dueDates: data.dueDates, selectedActivities: data.selectedActivities})
-		this.updateCreateUnit({
-			options: {
-				classrooms: data.classrooms
-			}
-		})
-		this.setState({tab: 'createUnit'})
-	};
+  blankState = () => {
+    return {
+      tab: 'manageUnits', // 'createUnit', 'exploreActivityPacks'
+      createUnit: {
+        stage: 1,
+        options: {
+          classrooms: []
+        },
+        model: {
+          id: null,
+          name: null,
+          selectedActivities: [],
+          dueDates: {}
+        }
+      },
+      unitTemplatesManager: {
+        firstAssignButtonClicked: false,
+        assignSuccess: false,
+        models: [],
+        categories: [],
+        stage: 'index', // index, profile,
+        model: null,
+        model_id: null,
+        relatedModels: [],
+        displayedModels: [],
+        selectedCategoryId: null,
+        lastActivityAssigned: null,
+        grade: null
+      }
+    }
+  };
 
-    assignActivityDueDate = (activity, dueDate) => {
-		var dueDates = this.state.createUnit.model.dueDates || {}
-		dueDates[activity.id] = dueDate;
-		this.updateCreateUnitModel({dueDates: dueDates})
-	};
+  editUnit = (unitId) => requestGet(`/teachers/units/${unitId}/edit`, this.editUnitRequestSuccess);
 
-    selectModel = (ut) => {
-		var relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
-			unit_template_category: {
-				id: ut.unit_template_category.id
-			}
-		})
-		this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
-		this.modules.windowPosition.reset();
-	};
+  editUnitRequestSuccess = (data) => {
+    this.updateCreateUnitModel({id: data.id, name: data.name, dueDates: data.dueDates, selectedActivities: data.selectedActivities})
+    this.updateCreateUnit({
+      options: {
+        classrooms: data.classrooms
+      }
+    })
+    this.setState({tab: 'createUnit'})
+  };
 
-    _modelsInGrade = (grade) => {
-		return _.reject(this.state.unitTemplatesManager.models, function(m) {
-			return _.indexOf(m.grades, grade)
-		});
-	};
+  assignActivityDueDate = (activity, dueDate) => {
+    const dueDates = this.state.createUnit.model.dueDates || {}
+    dueDates[activity.id] = dueDate;
+    this.updateCreateUnitModel({dueDates: dueDates})
+  };
 
-    updateUnitTemplateModels = (models) => {
-		var categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
-		var newHash = {
-			models: models,
-			displayedModels: models,
-			categories: categories
-		}
-		var model_id = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
-		if (model_id) {
-			newHash.model = _.findWhere(models, {id: model_id});
-			newHash.stage = 'profile'
-		}
-		this.updateUnitTemplatesManager(newHash)
-	};
+  selectModel = (ut) => {
+    const relatedModels = _l.filter(this.state.unitTemplatesManager.models, {
+      unit_template_category: {
+      id: ut.unit_template_category.id
+      }
+    })
+    this.updateUnitTemplatesManager({stage: 'profile', model: ut, relatedModels: relatedModels})
+    this.modules.windowPosition.reset();
+  };
 
-    returnToIndex = () => {
-		this.updateUnitTemplatesManager({stage: 'index'})
-		window.scrollTo(0, 0);
-	};
+  _modelsInGrade = (grade) => {
+    return _.reject(this.state.unitTemplatesManager.models, function(m) {
+      return _.indexOf(m.grades, grade)
+    });
+  };
 
-    showAllGrades = () => {
-		this.updateUnitTemplatesManager({grade: null});
-		window.scrollTo(0, 0);
-	};
+  updateUnitTemplateModels = (models) => {
+    const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
+    const newHash = {
+      models,
+      displayedModels: models,
+      categories
+    }
+    const model_id = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
+    if (model_id) {
+      newHash.model = _.findWhere(models, {id: model_id});
+      newHash.stage = 'profile'
+    }
+    this.updateUnitTemplatesManager(newHash)
+  };
 
-    filterByGrade = () => {
-		var grade = this.state.unitTemplatesManager.grade;
+  returnToIndex = () => {
+    this.updateUnitTemplatesManager({stage: 'index'})
+    window.scrollTo(0, 0);
+  };
+
+  showAllGrades = () => {
+    this.updateUnitTemplatesManager({grade: null});
+    window.scrollTo(0, 0);
+  };
+
+  filterByGrade = () => {
+    const { grade, models, } = this.state.unitTemplatesManager;
     var uts;
-		if (grade) {
-			uts = this._modelsInGrade(grade)
-		} else {
-			uts = this.state.unitTemplatesManager.models;
-		}
-		this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts});
-	};
+    if (grade) {
+      uts = this._modelsInGrade(grade)
+    } else {
+      uts = models;
+    }
+    this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts});
+  };
 
-    filterByCategory = (categoryId) => {
-    var uts;
-		if (categoryId) {
-			uts = _l.filter(this.state.unitTemplatesManager.models, {
-				unit_template_category: {
-					id: categoryId
-				}
-			})
-		} else {
-			uts = this.state.unitTemplatesManager.models;
-		}
-		this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts, selectedCategoryId: categoryId});
-	};
+  filterByCategory = (categoryId) => {
+  const uts;
+    if (categoryId) {
+      uts = _l.filter(this.state.unitTemplatesManager.models, {
+        unit_template_category: {
+          id: categoryId
+        }
+      })
+    } else {
+      uts = this.state.unitTemplatesManager.models;
+    }
+    this.updateUnitTemplatesManager({stage: 'index', displayedModels: uts, selectedCategoryId: categoryId});
+  };
 
-    fetchUnitTemplateModels = () => {
-		this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
-	};
+  fetchUnitTemplateModels = () => this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
 
-    componentDidMount() {
-		if (this.state.tab === 'exploreActivityPacks') {
-			this.fetchUnitTemplateModels();
-		}
-	}
+  componentDidMount() {
+    if (this.state.tab === 'exploreActivityPacks') {
+      this.fetchUnitTemplateModels();
+    }
+  }
 
-    toggleTab = (tab) => {
-		if (tab === 'createUnit') {
-			this.analytics().track('click Create Unit', {});
-			this.updateCreateUnit({
-				stage: 1,
-				model: {
-					name: null,
-					selectedActivities: []
-				}
-			});
+  toggleTab = (tab) => {
+    if (tab === 'createUnit') {
+      this.analytics().track('click Create Unit', {});
+      this.updateCreateUnit({
+        stage: 1,
+        model: {
+          name: null,
+          selectedActivities: []
+        }
+      });
 
-			this.setState({tab: tab});
-		} else if (tab === 'exploreActivityPacks') {
-			this.deepExtendState({
-				tab: tab,
-				unitTemplatesManager: {
-					stage: 'index',
-					firstAssignButtonClicked: false,
-					model_id: null,
-					model: null
-				}
-			});
-			this.fetchUnitTemplateModels();
-		} else {
-			this.setState({tab: tab});
-		}
-	};
+      this.setState({tab: tab});
+    } else if (tab === 'exploreActivityPacks') {
+      this.deepExtendState({
+      tab: tab,
+      unitTemplatesManager: {
+        stage: 'index',
+        firstAssignButtonClicked: false,
+        model_id: null,
+        model: null
+        }
+      });
+      this.fetchUnitTemplateModels();
+    } else {
+      this.setState({tab: tab});
+    }
+  };
 
-    toggleStage = (stage) => {
-		this.updateCreateUnit({stage: stage})
-		if (!this.state.createUnit.options.classrooms.length) {
-			this.fetchClassrooms();
-		}
-	};
+  toggleStage = (stage) => {
+    this.updateCreateUnit({stage: stage})
+    if (!this.state.createUnit.options.classrooms.length) {
+      this.fetchClassrooms();
+    }
+  };
 
-    fetchClassrooms = () => {
-		var that = this;
-                requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities',
-                            (data) => {
-				that.updateCreateUnit({
-					options: {
-						classrooms: data.classrooms_and_their_students
-					}
-				})
-			    }
-		);
-	};
+  fetchClassrooms = () => {
+    requestGet('/teachers/classrooms/retrieve_classrooms_for_assigning_activities', (data) => {
+      that.updateCreateUnit({
+        options: {
+          classrooms: data.classrooms_and_their_students
+        }
+      })
+    });
+  };
 
-    getInviteStudentsUrl = () => {
-		return ('/teachers/classrooms/invite_students');
-	};
+  getInviteStudentsUrl = () =>  ('/teachers/classrooms/invite_students');
 
-    getSelectedActivities = () => {
-		return this.state.createUnit.model.selectedActivities;
-	};
+  getSelectedActivities = () => this.state.createUnit.model.selectedActivities;
 
-    toggleActivitySelection = (activity, true_or_false) => {
-		if (true_or_false) {
-			this.analytics().track('select activity in lesson planner', {
-				name: activity.name,
-				id: activity.id
-			});
-		}
-		var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
-		this.updateCreateUnitModel({selectedActivities: sas});
-	};
+  toggleActivitySelection = (activity, true_or_false) => {
+    if (true_or_false) {
+    this.analytics().track('select activity in lesson planner', {
+        name: activity.name,
+        id: activity.id
+      });
+    }
+    var sas = this.modules.fnl.toggleById(this.getSelectedActivities(), activity);
+    this.updateCreateUnitModel({selectedActivities: sas});
+  };
 
-    clickAssignButton = () => {
-		this.updateUnitTemplatesManager({firstAssignButtonClicked: true});
-	};
+  clickAssignButton = () => this.updateUnitTemplatesManager({firstAssignButtonClicked: true});
 
-    onFastAssignSuccess = () => {
-		var lastActivity = this.state.unitTemplatesManager.model;
-		this.analytics().track('click Create Unit', {});
-		this.deepExtendState(this.blankState());
-		this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
-		this.fetchClassrooms();
-		this.updateUnitTemplatesManager({assignSuccess: true});
-	};
+  onFastAssignSuccess = () => {
+    var lastActivity = this.state.unitTemplatesManager.model;
+    this.analytics().track('click Create Unit', {});
+    this.deepExtendState(this.blankState());
+    this.updateUnitTemplatesManager({lastActivityAssigned: lastActivity});
+    this.fetchClassrooms();
+    this.updateUnitTemplatesManager({assignSuccess: true});
+  };
 
-    fastAssign = () => {
-                requestPost('/teachers/unit_templates/fast_assign',
-                            {id: this.state.unitTemplatesManager.model.id},
-                            this.onFastAssignSuccess,
-                            (response) => {
-				window.alert(response.error_message);
-			    }
-                );
-	};
+  fastAssign = () => {
+    requestPost('/teachers/unit_templates/fast_assign',
+      {id: this.state.unitTemplatesManager.model.id},
+      this.onFastAssignSuccess,
+      (response) => {
+        window.alert(response.error_message);
+      }
+    );
+  };
 
-    unitTemplatesAssignedActions = () => {
-		return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl, getLastClassroomName: this.props.classroomName, unitTemplatesManagerActions: this.unitTemplatesManagerActions};
-	};
+  unitTemplatesAssignedActions = () => {
+    return {studentsPresent: this.props.students, getInviteStudentsUrl: this.getInviteStudentsUrl, getLastClassroomName: this.props.classroomName, unitTemplatesManagerActions: this.unitTemplatesManagerActions};
+  };
 
-    customAssign = () => {
-		this.fastAssign()
-		// this.fetchClassrooms();
-		// var unitTemplate = this.state.unitTemplatesManager.model;
-		// var hash = {
-		// 	tab: 'createUnit',
-		// 	unitTemplatesManager: {
-		// 		firstAssignButtonClicked: false
-		// 	},
-		// 	createUnit: {
-		// 		stage: 2,
-		// 		model: {
-		// 			name: unitTemplate.name,
-		// 			selectedActivities: unitTemplate.activities
-		// 		}
-		// 	}
-		// };
-		// this.deepExtendState(hash);
-	};
+  unitTemplatesManagerActions = () => {
+    return {
+      toggleTab: this.toggleTab,
+      customAssign: this.fastAssign,
+      fastAssign: this.fastAssign,
+      clickAssignButton: this.clickAssignButton,
+      returnToIndex: this.returnToIndex,
+      filterByCategory: this.filterByCategory,
+      filterByGrade: this.filterByGrade,
+      selectModel: this.selectModel,
+      showAllGrades: this.showAllGrades
+    };
+  };
 
-    unitTemplatesManagerActions = () => {
-		return {
-			toggleTab: this.toggleTab,
-			customAssign: this.customAssign,
-			fastAssign: this.fastAssign,
-			clickAssignButton: this.clickAssignButton,
-			returnToIndex: this.returnToIndex,
-			filterByCategory: this.filterByCategory,
-			filterByGrade: this.filterByGrade,
-			selectModel: this.selectModel,
-			showAllGrades: this.showAllGrades
-		};
-	};
+  manageUnit = () => {
+    <ManageUnits actions={{
+        toggleTab: this.toggleTab,
+        editUnit: this.editUnit
+      }}
+    />;
+  };
 
-    manageUnit = () => {
-  <ManageUnits actions={{
-		 toggleTab: this.toggleTab,
-		 editUnit: this.editUnit
-	 }}
-		/>;
-	};
+  render() {
+    var tabSpecificComponents;
+    // Ultimately, none of the tab state should exist, and we should transfer
+    // entirely to react-router for managing that, along with redux for
+    // the general state in this section
+    const tabParam = this.props.match.params.tab
+    // if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam === ('featured-activity-packs' || 'explore-activity-packs'))) {
+    // 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
+    // } else
+    if ((tabParam === 'create-activity-pack' || (this.state.tab === 'createUnit' && !tabParam))) {
+      tabSpecificComponents = (<CreateUnit
+        actions={{
+          toggleStage: this.toggleStage,
+          toggleTab: this.toggleTab,
+          assignActivityDueDate: this.assignActivityDueDate,
+          update: this.updateCreateUnitModel,
+          toggleActivitySelection: this.toggleActivitySelection,
+          assignSuccessActions: this.unitTemplatesAssignedActions()
+        }}
+        analytics={this.analytics()}
+        data={{
+          createUnitData: this.state.createUnit,
+          assignSuccessData: this.state.unitTemplatesManager.model
+        }}
+      />)
+    } else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
+      tabSpecificComponents = <AssignANewActivity flag={this.props.flag} toggleTab={this.toggleTab} />;
+    } else if ((tabParam === 'diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
+      tabSpecificComponents = <AssignADiagnostic />;
+    } else if ((tabParam === 'manage-units') || (this.state.tab === 'manageUnits' && !tabParam)) {
+      tabSpecificComponents = (<ManageUnits
+        actions={{
+          toggleTab: this.toggleTab,
+          editUnit: this.editUnit
+        }}
+      />)
+    // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab === 'exploreActivityPacks') {
+    // 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
+    }
 
-    render() {
-		var tabSpecificComponents;
-		// Ultimately, none of the tab state should exist, and we should transfer
-		// entirely to react-router for managing that, along with redux for
-		// the general state in this section
-		const tabParam = this.props.params.tab
-		// if (this.state.unitTemplatesManager.assignSuccess === true && (!tabParam || tabParam === ('featured-activity-packs' || 'explore-activity-packs'))) {
-		// 	tabSpecificComponents = <UnitTemplatesAssigned data={this.state.unitTemplatesManager.lastActivityAssigned} actions={this.unitTemplatesAssignedActions()}/>;
-		// } else
-		if ((tabParam === 'create-activity-pack' || (this.state.tab === 'createUnit' && !tabParam))) {
-			tabSpecificComponents = (<CreateUnit
-  actions={{
-  				toggleStage: this.toggleStage,
-  				toggleTab: this.toggleTab,
-  				assignActivityDueDate: this.assignActivityDueDate,
-  				update: this.updateCreateUnitModel,
-					toggleActivitySelection: this.toggleActivitySelection,
-					assignSuccessActions: this.unitTemplatesAssignedActions()
-  			}}
-  analytics={this.analytics()}
-  data={{
-  				createUnitData: this.state.createUnit,
-  				assignSuccessData: this.state.unitTemplatesManager.model
-  			}}
-			/>)
-		} else if ((tabParam === 'assign-new-activity') || (this.state.tab === 'assignANewActivity' && !tabParam)) {
-			tabSpecificComponents = <AssignANewActivity flag={this.props.flag} toggleTab={this.toggleTab} />;
-		} else if ((tabParam === 'diagnostic') || (this.state.tab === 'assignADiagnostic' && !tabParam)) {
-			tabSpecificComponents = <AssignADiagnostic />;
-		} else if ((tabParam === 'manage-units') || (this.state.tab === 'manageUnits' && !tabParam)) {
-			tabSpecificComponents = (<ManageUnits
-  actions={{
-  			 toggleTab: this.toggleTab,
-  			 editUnit: this.editUnit
-    		}}
-			/>)
- // 	} else if (tabParam === 'explore-activity-packs' || this.state.tab === 'exploreActivityPacks') {
-	// 		tabSpecificComponents = <UnitTemplatesManager data={this.state.unitTemplatesManager} actions={this.unitTemplatesManagerActions()}/>;
-		}
+    return (
+      <span>
+        <div id="lesson_planner">
+          {tabSpecificComponents}
+        </div>
+      </span>
+    );
 
-		return (
-  <span>
-    <div id="lesson_planner">
-      {tabSpecificComponents}
-    </div>
-  </span>
-		);
-
-	}
+  }
 }

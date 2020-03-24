@@ -16,7 +16,7 @@ const AssignActivitiesRouter = props => (
       <Switch>
         <Route component={routerProps => <LearningProcess {...props} {...routerProps} />} path="/assign/learning-process" />
         <Route component={routerProps => <ActivityType {...props} {...routerProps} />} path="/assign/activity-type" />
-        <Route component={AssignADiagnostic} path="/assign/diagnostic" />
+        <Route component={routerProps => <AssignADiagnostic {...props} {...routerProps} />} path="/assign/diagnostic" />
         <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/create-activity-pack" />
         <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/select-classes" />
         <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/referral" />

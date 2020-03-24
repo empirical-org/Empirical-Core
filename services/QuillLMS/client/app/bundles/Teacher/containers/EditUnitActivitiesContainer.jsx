@@ -4,16 +4,16 @@ import request from 'request'
 import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {
-  state = {selectedActivities: new Set()};
+  constructor(props) {
+    super(props)
+
+    this.state = { selectedActivities: [] }
+  }
 
   toggleActivitySelection = (activity) => {
-    // TODO: this should just take an id as a param -- the reason that it is not
-    // is because the original toggleActivitySelection fn is expecting an entire activity
-    // object and we don't want to break the original yet
-    const newState = Object.assign({},this.state);
-    const activities = newState.selectedActivities
-    activities.has(activity) ? activities.delete(activity) : activities.add(activity)
-    this.setState(newState)
+    const activities = this.state.selectedActivities
+    const newActivities = activities.find(act => act.id === activity.id) ? activities.filter(act => act.id !== activity.id) : activities.concat([activity])
+    this.setState({ selectedActivities: newActivities, })
   };
 
   getActivityIds = () => {
@@ -25,7 +25,7 @@ export default class extends React.Component {
   updateActivities = () => {
     const that = this;
     request.put({
-      url: `${process.env.DEFAULT_URL}/teachers/units/${that.props.params.unitId}/update_activities`,
+      url: `${process.env.DEFAULT_URL}/teachers/units/${that.props.match.params.unitId}/update_activities`,
       json: {
         authenticity_token: getAuthToken(),
         data: { activities_data: that.getActivityIds(), }
@@ -47,9 +47,9 @@ export default class extends React.Component {
             editing={Boolean(true)}
             errorMessage={this.state.errors}
             hideNameTheUnit={Boolean(true)}
-            selectedActivities={[...this.state.selectedActivities]}
+            selectedActivities={this.state.selectedActivities}
             toggleActivitySelection={this.toggleActivitySelection}
-            unitName={this.props.params.unitName}
+            unitName={this.props.match.params.unitName}
             updateActivities={this.updateActivities}
           />
         </div>

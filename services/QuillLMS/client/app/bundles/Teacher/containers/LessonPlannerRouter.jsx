@@ -1,6 +1,5 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory, Redirect } from 'react-router'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import LessonPlanner from './LessonPlanner.jsx'
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 import ClassroomsWithStudentsContainer from './ClassroomsWithStudentsContainer.jsx'
@@ -32,18 +31,20 @@ export default class LessonPlannerRouter extends React.Component{
 
 	render() {
 		return (
-  <Router history={browserHistory} Router>
-    <Route component={LessonPlannerContainer} path="/teachers/classrooms/activity_planner">
-      <IndexRoute component={LessonPlanner} />
-      <Route component={ClassroomLessonsPlanner} path="lessons" />
-      <Route component={ClassroomLessonsPlanner} path="lessons/:classroomId" />
-      <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" />
-      <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
-      <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="units/:unitId/students/edit" />
-      <Route component={EditUnitActivitiesContainer} path="units/:unitId/activities/edit(/:unitName)" />
-      <Route component={EmptyAssignedUnits} path="no_units" />
-    </Route>
-  </Router>
+		  <Router>
+		    <Route component={LessonPlannerContainer} path="/teachers/classrooms/activity_planner">
+					<Switch>
+			      <Route component={ClassroomLessonsPlanner} path="lessons" />
+			      <Route component={ClassroomLessonsPlanner} path="lessons/:classroomId" />
+			      <Route component={ChooseClassroomLesson} path="lessons_for_activity/:activityId" />
+			      <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
+			      <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="units/:unitId/students/edit" />
+			      <Route component={EditUnitActivitiesContainer} path="/teachers/classrooms/activity_planner/units/:unitId/activities/edit" />
+			      <Route component={EmptyAssignedUnits} path="no_units" />
+						<Route component={LessonPlanner} exact path="/teachers/classrooms/activity_planner" />
+					</Switch>
+		    </Route>
+		  </Router>
 		);
 	}
 };

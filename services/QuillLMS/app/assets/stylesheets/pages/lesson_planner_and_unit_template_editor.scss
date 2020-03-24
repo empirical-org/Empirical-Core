@@ -314,8 +314,13 @@
               background-color: inherit;
               border: none;
             }
+            .DayPicker {
+              margin-top: -1px;
+            }
             .DateInput {
               background-color: transparent;
+              padding: 0px;
+              width: 80px;
             }
             .CalendarDay__blocked_out_of_range, .CalendarDay__blocked_out_of_range:active, .CalendarDay__blocked_out_of_range:hover {
               background: #fff;
@@ -331,9 +336,8 @@
               font-size: 14px;
               height: min-content;
               background-color: transparent;
-              &:focus {
-                border: none;
-              }
+              padding-left: 0px;
+              padding-right: 0px;
             }
             .DateInput__display-text--focused {
               background: inherit;

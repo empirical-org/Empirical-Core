@@ -40,7 +40,7 @@ export default class ClassroomActivity extends React.Component {
     super(props)
 
     this.state = {
-      startDate: this.dueDate() ? moment(this.dueDate()) : undefined,
+      startDate: this.dueDate() ? new Date(this.dueDate()) : null,
       showModal: false,
       showCustomizeTooltip: false,
       showLessonPlanTooltip: false,
@@ -50,7 +50,7 @@ export default class ClassroomActivity extends React.Component {
   UNSAFE_componentWillReceiveProps = (nextProps) => {
     const { startDate, } = this.state
     const newDueDate = nextProps.data ? nextProps.data.dueDate : null
-    const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined;
+    const formattedNewDueDate = newDueDate ? new Date(newDueDate) : undefined;
     if (formattedNewDueDate !== startDate) {
       this.setState({ startDate: formattedNewDueDate, });
     }
@@ -142,16 +142,16 @@ export default class ClassroomActivity extends React.Component {
     }
     if (data.ownedByCurrentUser) {
       return (<span className="due-date-field">
-        <DatePicker className="due-date-input" onChange={this.handleChange} placeholderText={startDate ? startDate.format('l') : 'Due Date (Optional)'} selected={startDate} />
+        <DatePicker className="due-date-input" onChange={this.handleChange} placeholderText={startDate ? startDate : 'Due Date (Optional)'} selected={startDate} />
         {startDate && isFirst ? <ApplyToAll startDate={startDate} updateAllDueDates={updateAllDueDates} /> : null}
       </span>);
     }
-    return startDate ? <div className="due-date-input">{startDate.format('l')}</div> : null;
+    return startDate ? <div className="due-date-input">{startDate}</div> : null;
   }
 
   handleChange = (date) => {
     const { updateDueDate, } = this.props
-    const formattedDate = date ? date.format() : null
+    const formattedDate = date ? date : null
     this.setState({ startDate: date, });
     updateDueDate(this.uaId(), formattedDate);
   }
