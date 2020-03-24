@@ -1,4 +1,5 @@
 const C = require('../constants').default;
+import { pickBy } from 'lodash';
 import { LessonApi } from '../libs/lessons_api';
 import { push } from 'react-router-redux';
 import questionActions from './questions'
@@ -81,7 +82,7 @@ import * as titleCardActions from './titleCards.ts';
   const submitLessonEdit = (cid, content, qids) => {
     return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
-      const cleanedContent = _.pickBy(content)
+      const cleanedContent = pickBy(content)
       dispatch(updateQuestions(cleanedContent, qids))
       LessonApi.update(cid, cleanedContent).then((lesson) => {
         dispatch(loadLesson(cid))
@@ -114,7 +115,7 @@ import * as titleCardActions from './titleCards.ts';
   }
 
   const submitNewLesson = (content) => {
-    const cleanedContent = _.pickBy(content)
+    const cleanedContent = pickBy(content)
     return (dispatch, getState) => {
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
       LessonApi.create(cleanedContent).then((lesson) => {
