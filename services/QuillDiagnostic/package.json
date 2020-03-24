@@ -140,7 +140,7 @@
     "react-router-active-component": "^4.0.0",
     "react-router-redux": "^4.0.8",
     "react-select": "^1.0.0-rc.5",
-    "react-select-search": "^0.5.5",
+    "react-select-search": "^1.0.2",
     "react-selectize": "^2.1.0",
     "react-simple-pie-chart": "^0.4.1",
     "react-sortable": "^2.0.0",

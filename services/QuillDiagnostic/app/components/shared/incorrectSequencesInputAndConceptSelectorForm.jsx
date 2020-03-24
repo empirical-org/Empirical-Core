@@ -8,10 +8,6 @@ import ConceptSelectorWithCheckbox from './conceptSelectorWithCheckbox.jsx';
 import ResponseComponent from '../questions/responseComponent'
 
 export default class extends React.Component {
-  static propTypes = {
-    item: React.PropTypes.obj,
-    onSubmit: React.PropTypes.func.isRequired,
-  };
 
   constructor(props) {
     super(props);

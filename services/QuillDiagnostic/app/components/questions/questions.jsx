@@ -82,17 +82,17 @@ class Questions extends React.Component {
 
   // functions for rematching all Responses
   mapConceptsToList = () => {
-    const { concepts, questions } = this.props;
-    const concepts = hashToCollection(concepts.data['0']);
-    const questions = hashToCollection(questions.data);
+    let { concepts, questions } = this.props;
+    concepts = hashToCollection(concepts.data['0']);
+    questions = hashToCollection(questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
   };
 
   responsesWithStatusForQuestion = questionUID => {
-    const { responses } = this.props;
+    let { responses } = this.props;
     const { data } = responses;
-    const responses = data[questionUID];
+    responses = data[questionUID];
     return hashToCollection(respWithStatus(responses));
   };
 

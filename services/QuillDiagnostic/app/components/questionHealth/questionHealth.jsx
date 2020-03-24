@@ -22,8 +22,9 @@ class questionHealth extends Component {
   }
 
   UNSAFE_componentWillMount() {
+    const { dispatch } = this.props;
     checkTimeout();
-    this.props.dispatch(loadScoreData());
+    dispatch(loadScoreData());
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {

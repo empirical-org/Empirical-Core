@@ -589,6 +589,7 @@ class ResponseComponent extends React.Component {
   };
 
   render() {
+    console.log('props', this.props);
     const { filters } = this.props;
     const { responses, stringFilter } = filters;
     const questionBar = responses && Object.keys(responses).length > 0
