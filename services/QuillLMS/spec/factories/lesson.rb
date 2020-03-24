@@ -3,7 +3,7 @@ FactoryBot.define do
     flag: "archived",
     introURL: "",
     name: "Mr. Scibienski 1",
-    questions: [ {
+    questions: [{
       key: "-KDvcYlMzXMGe2pZFkoe",
       questionType: "questions"
     }, {
@@ -21,7 +21,7 @@ FactoryBot.define do
     }, {
       key: "-KDxw6oGJ9eYDVt-onRb",
       questionType: "questions"
-    } ]
+    }]
   }
 
   factory :lesson do

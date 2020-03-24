@@ -1,5 +1,5 @@
 class Api::V1::LessonsController < Api::ApiController
-  before_action :get_lesson_by_uid, except: [:index, :create, :show]
+  before_action :lesson_by_uid, except: [:index, :create, :show]
 
   def index
     all_lessons = Lesson.all.reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
@@ -18,7 +18,7 @@ class Api::V1::LessonsController < Api::ApiController
   end
 
   def update
-    @lesson.update!({data:valid_params})
+    @lesson.update!({data: valid_params})
     render(json: @lesson.as_json)
   end
 
@@ -27,7 +27,7 @@ class Api::V1::LessonsController < Api::ApiController
     render(plain: 'OK')
   end
 
-  private def get_lesson_by_uid
+  private def lesson_by_uid
     @lesson = Lesson.find_by!(uid: params[:id])
   end
 
