@@ -14,7 +14,7 @@
     "build:staging": "npm install && rm -r dist/; QUILL_CMS=https://cms.quill.org EMPIRICAL_BASE_URL=https://staging.quill.org QUILL_CDN_URL=https://assets.quill.org NODE_ENV=staging webpack --optimize-minimize",
     "build:prod": "npm install && rm -r dist/; QUILL_CMS=https://cms.quill.org EMPIRICAL_BASE_URL=https://www.quill.org QUILL_CDN_URL=https://assets.quill.org NODE_ENV=production webpack --optimize-minimize",
     "cypress:open": "cypress open",
-    "jest": "jest",
+    "jest": "node --expose-gc ./node_modules/.bin/jest --maxWorkers=1 --logHeapUsage",
     "jest:u": "jest --updateSnapshot",
     "jest:watch": "jest:watch",
     "jest:coverage": "jest:coverage"
