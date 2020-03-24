@@ -21,6 +21,23 @@ describe('Questions actions', () => {
     })
   })
 
+  describe('loadQuestions', () => {
+    it('should call QuestionApi.getAll()', () => {
+      dispatch(questionActions.loadQuestions())
+      expect(mockQuestionApi.getAll).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE)
+    })
+  })
+
+  describe('loadSpecifiedQuestions', () => {
+    it('should call QuestionApi.get()', () => {
+      const MOCK_ID1 = '1'
+      const MOCK_ID2 = '2'
+      const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
+      dispatch(questionActions.loadSpecifiedQuestions(MOCK_IDS))
+      expect(mockQuestionApi.get.calls).toEqual([[MOCK_ID1], [MOCK_ID2]])
+    })
+  })
+
   describe('updateFlag', () => {
     it('should call QuestionApi.updateFlag()', () => {
       const MOCK_ID = 'id'
@@ -31,7 +48,7 @@ describe('Questions actions', () => {
   })
 
   describe('submitNewQuestion', () => {
-    it('should call QuestionApi.getAll()', () => {
+    it('should call QuestionApi.create()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, ""))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE, MOCK_CONTENT)
