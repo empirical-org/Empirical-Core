@@ -32,6 +32,6 @@ class Api::V1::LessonsController < Api::ApiController
   end
 
   private def valid_params
-    params.require(:question).except(:uid)
+    params.require(:lesson).except(:uid)
   end
 end
