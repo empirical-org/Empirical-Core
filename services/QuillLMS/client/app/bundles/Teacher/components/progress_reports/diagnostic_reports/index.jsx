@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 import {Router, Route, Link, hashHistory, withRouter} from 'react-router'
 import NavBar from './nav_bar.jsx'
@@ -8,19 +6,24 @@ import LoadingSpinner from '../../shared/loading_indicator.jsx'
 require('../../../../../assets/styles/app-variables.scss')
 
 class DiagnosticReports extends React.Component {
-    state = {
-        loading: true,
-        classrooms: null,
-        selectedStudent: null,
-        selectedActivity: {}};
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      loading: true,
+      classrooms: null,
+      selectedStudent: null,
+      selectedActivity: {}
+    };
+  }
 
     componentDidMount() {
 		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData();
 		}
-		if (this.props.params.studentId) {
-			this.setStudentId(this.props.params.studentId);
+		if (this.props.match.params.studentId) {
+			this.setStudentId(this.props.match.params.studentId);
 		}
 	}
 
@@ -44,7 +47,7 @@ class DiagnosticReports extends React.Component {
 
     getActivityData = (params) => {
 		let that = this;
-		const p = params || this.props.params;
+		const p = params || this.props.match.params;
 		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
       if (data) {
         that.setState({
@@ -58,7 +61,7 @@ class DiagnosticReports extends React.Component {
 		this.ajax = {};
 		let ajax = this.ajax;
 		let that = this;
-		const p = params || this.props.params;
+		const p = params || this.props.match.params;
 		ajax.getClassroomsWithStudents = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
 			that.setState({
 				classrooms: data,
@@ -81,7 +84,7 @@ class DiagnosticReports extends React.Component {
 				selectedStudentId: null,
 				students: classroom.students
 			});
-			const p = this.props.params;
+			const p = this.props.match.params;
 			let report;
 			if (this.props.location.pathname.includes('student_report')) {
 				report = 'student_report';
@@ -95,13 +98,13 @@ class DiagnosticReports extends React.Component {
 	};
 
     changeReport = (reportName) => {
-		const p = this.props.params;
+		const p = this.props.match.params;
 		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
 	};
 
     changeStudent = (student) => {
 		this.setState({selectedStudentId: student})
-		const p = this.props.params;
+		const p = this.props.match.params;
 		this.props.history.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
 	};
 
@@ -133,9 +136,9 @@ class DiagnosticReports extends React.Component {
       classrooms={this.state.classrooms}
       dropdownCallback={this.changeClassroom}
       key={'key'}
-      params={this.props.params}
+      params={this.props.match.params}
       selectedActivity={this.state.selectedActivity}
-      selectedStudentId={this.props.params.studentId}
+      selectedStudentId={this.props.match.params.studentId}
       showStudentDropdown={this.showStudentDropdown()}
       studentDropdownCallback={this.changeStudent}
       students={this.state.students}

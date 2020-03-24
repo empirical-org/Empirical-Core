@@ -44,7 +44,7 @@ export default class UnitTemplateAssigned extends React.Component {
 
     request.get({
       url: `${process.env.DEFAULT_URL}/teachers/unit_templates/assigned_info`,
-      qs: { id: this.props.params.activityPackId, }
+      qs: { id: this.props.match.params.activityPackId, }
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
@@ -69,7 +69,7 @@ export default class UnitTemplateAssigned extends React.Component {
   }
 
   socialShareUrl() {
-    return `${window.location.origin}/activities/packs/${this.props.params.activityPackId}${this.state.referralCode ? '?referral_code=' + this.state.referralCode : ''}`;
+    return `${window.location.origin}/activities/packs/${this.props.match.params.activityPackId}${this.state.referralCode ? '?referral_code=' + this.state.referralCode : ''}`;
   }
 
   teacherSpecificComponents() {

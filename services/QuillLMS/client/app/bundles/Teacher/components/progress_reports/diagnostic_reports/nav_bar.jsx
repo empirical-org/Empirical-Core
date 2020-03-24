@@ -20,7 +20,7 @@ export default class Navbar extends React.Component {
       return response.json();
     }).then((response) => {
       const diagnosticActivityIds = response.diagnosticActivityIds
-      const activityId = Number(this.props.params.activityId)
+      const activityId = Number(this.props.match.params.activityId)
       if (diagnosticActivityIds.includes(activityId)) {
         $('.activity-analysis-tab').removeClass('active');
         $('.diagnostic-tab').addClass('active');
@@ -35,7 +35,7 @@ export default class Navbar extends React.Component {
 
   studentDropdown = () => {
     let selectedStudent;
-    const studentId = this.props.params.studentId;
+    const studentId = this.props.match.params.studentId;
     if (studentId) {
       selectedStudent = this.students().find(student => student.id === Number(studentId));
     }
@@ -50,7 +50,7 @@ export default class Navbar extends React.Component {
   };
 
   students = () => {
-    const selectedClassroomId = parseInt(this.props.params.classroomId);
+    const selectedClassroomId = parseInt(this.props.match.params.classroomId);
     let students
     if (this.props.students) {
       students = this.props.students;
@@ -102,11 +102,11 @@ export default class Navbar extends React.Component {
             <ItemDropdown
               callback={this.props.dropdownCallback}
               items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
-              selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
+              selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.match.params.classroomId))}
             />
             <NavButtonGroup
               clickCallback={this.props.buttonGroupCallback}
-              params={this.props.params}
+              params={this.props.match.params}
             />
             {this.studentDropdown()}
           </div>

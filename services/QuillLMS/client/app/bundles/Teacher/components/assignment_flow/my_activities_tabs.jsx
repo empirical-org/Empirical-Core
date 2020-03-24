@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class extends React.Component {
+export default class MyActivitiesTabs extends React.Component {
   constructor(props) {
     super(props);
     if ((window.location.pathname === '/teachers/classrooms/activity_planner')) {

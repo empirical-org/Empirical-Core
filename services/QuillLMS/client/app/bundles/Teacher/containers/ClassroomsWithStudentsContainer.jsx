@@ -25,7 +25,7 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       loading: true,
       studentsChanged: false,
       classroomsChanged: false,
-      newUnit: !!this.props.params.activityIdsArray,
+      newUnit: !!this.props.match.params.activityIdsArray,
       showModal: false
     };
   }
@@ -50,9 +50,9 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       unitName;
     if (this.state.newUnit) {
       url = '/teachers/classrooms_i_teach_with_students';
-      unitName = () => this.props.params.unitName;
+      unitName = () => this.props.match.params.unitName;
     } else {
-      url = `/teachers/units/${that.props.params.unitId}/classrooms_with_students_and_classroom_units`;
+      url = `/teachers/units/${that.props.match.params.unitId}/classrooms_with_students_and_classroom_units`;
       unitName = data => data.unit_name;
     }
     requestGet(url, (body) => {
@@ -287,13 +287,13 @@ export default class ClassroomsWithStudentsContainer extends React.Component {
       return (
         <div className="edit-assigned-students-container">
           <ClassroomsWithStudents
-            activityIds={this.props.params.activityIdsArray}
+            activityIds={this.props.match.params.activityIdsArray}
             classrooms={this.state.classrooms}
             createOrEdit={this.state.newUnit ? 'create' : 'edit'}
             handleStudentCheckboxClick={this.handleStudentCheckboxClick.bind(this)}
             isSaveButtonEnabled={this.state.studentsChanged || this.state.classroomsChanged}
             toggleClassroomSelection={this.toggleClassroomSelection}
-            unitId={this.props.params.unitId}
+            unitId={this.props.match.params.unitId}
             unitName={this.state.unitName}
           />
         </div>);

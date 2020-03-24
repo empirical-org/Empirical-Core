@@ -1,17 +1,16 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import TutorialIndex from '../components/tutorials/TutorialIndex';
 
-export default class extends React.Component {
+export default class TutorialsRouter extends React.Component {
   render() {
     return (
-      <Router history={browserHistory}>
-        <Route component={TutorialIndex} path="/tutorials">
-          <IndexRoute component={TutorialIndex} />
-          <Route component={TutorialIndex} path=":tool" />
-          <Route component={TutorialIndex} path=":tool/:slideNumber" />
-        </Route>
+      <Router>
+        <Switch>
+          <Route component={TutorialIndex} path="/tutorials/:tool/:slideNumber" />
+          <Route component={TutorialIndex} path="/tutorials/:tool" />
+          <Route component={TutorialIndex} path="/tutorials" />
+        </Switch>
       </Router>
     );
   }

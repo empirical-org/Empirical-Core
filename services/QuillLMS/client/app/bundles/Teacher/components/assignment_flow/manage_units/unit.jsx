@@ -7,13 +7,18 @@ import getAuthToken from '../../modules/get_auth_token'
 import ClassroomActivity from './classroom_activity';
 import AddClassroomActivityRow from './add_classroom_activity_row.jsx';
 
-export default class extends React.Component {
-  state = {
-    edit: false,
-    unitName: (this.props.data.unitName || this.props.data.unit.name),
-    savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
-    error: false,
-  };
+export default class Unit extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      edit: false,
+      unitName: (this.props.data.unitName || this.props.data.unit.name),
+      savedUnitName: (this.props.data.unitName || this.props.data.unit.name),
+      error: false,
+    };
+
+  }
 
   hideUnit = () => {
     const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
@@ -26,7 +31,7 @@ export default class extends React.Component {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
-    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
+    const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     const studentCount = this.props.data.num_students_assigned || this.props.data.studentCount;
     return (<div className="assigned-to">{`Assigned to ${studentCount} ${Pluralize('Student', studentCount)} in
     ${classrooms.length} ${Pluralize('class', classrooms.length)} (${classrooms.join(', ')}).`}</div>);
@@ -165,7 +170,7 @@ export default class extends React.Component {
         );
       });
     } else if (this.props.data.classroomActivities) {
-      for (const [key, ca] of this.props.data.classroomActivities) {
+      this.props.data.classroomActivities.forEach((ca, key) => {
         classroomActivitiesArr.push(
           <ClassroomActivity
             activityWithRecommendationsIds={this.state.activityWithRecommendationsIds}
@@ -178,7 +183,7 @@ export default class extends React.Component {
             updateDueDate={this.props.updateDueDate}
           />
         );
-      }
+      })
     }
     return classroomActivitiesArr;
   };

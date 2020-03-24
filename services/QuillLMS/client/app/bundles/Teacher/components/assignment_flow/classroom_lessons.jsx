@@ -8,7 +8,7 @@ export default class ClassroomLessons extends React.Component {
   constructor(props) {
     super(props);
 
-    const { classroomId, } = props.routeParams
+    const { classroomId, } = props.match.params
 
     this.state = {
       allLessons: [],

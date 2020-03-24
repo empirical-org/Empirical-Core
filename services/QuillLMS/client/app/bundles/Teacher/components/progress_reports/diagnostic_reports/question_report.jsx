@@ -68,7 +68,7 @@ export default class extends React.Component {
   };
 
   render() {
-    const p = this.props.params;
+    const p = this.props.match.params;
     const unitActivityClassroom = `/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`;
     return (
       <div id='individual-activity-classroom-view'>

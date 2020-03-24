@@ -9,7 +9,7 @@ export default class TutorialIndex extends React.Component {
     super(props);
 
     let slides;
-    switch (props.params.tool) {
+    switch (props.match.params.tool) {
       case 'lessons':
       default:
         slides = LessonsSlides;
@@ -18,14 +18,14 @@ export default class TutorialIndex extends React.Component {
 
     this.state = {
       slides,
-      slideNumber: props.params.slideNumber ? Number(props.params.slideNumber) : 1,
+      slideNumber: props.match.params.slideNumber ? Number(props.match.params.slideNumber) : 1,
     };
 
     document.addEventListener('keydown', this.handleKeyDown.bind(this));
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (Number(nextProps.params.slideNumber) === this.state.slides.length) {
+    if (Number(nextProps.match.params.slideNumber) === this.state.slides.length) {
       this.finishTutorial();
     }
   }
@@ -44,7 +44,7 @@ export default class TutorialIndex extends React.Component {
   }
 
   finishTutorial() {
-    if (this.props.params.tool === 'lessons') {
+    if (this.props.match.params.tool === 'lessons') {
       request.post(`${process.env.DEFAULT_URL}/milestones/complete_view_lesson_tutorial`, {
         json: { authenticity_token: $('meta[name=csrf-token]').attr('content'), },
       });
@@ -52,7 +52,7 @@ export default class TutorialIndex extends React.Component {
   }
 
   goToSlide(slideNumber) {
-    this.props.history.push(`/tutorials/${this.props.params.tool}/${slideNumber}${this.qs()}`);
+    this.props.history.push(`/tutorials/${this.props.match.params.tool}/${slideNumber}${this.qs()}`);
     this.setState({ slideNumber ,  });
   }
 

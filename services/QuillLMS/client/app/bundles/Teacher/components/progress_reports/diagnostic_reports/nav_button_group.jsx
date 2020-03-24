@@ -67,7 +67,7 @@ export default class NavButtonGroup extends React.Component {
 	};
 
     doesNotHaveRecommendations = () => {
-		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
+		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.match.params.activityId)) === -1;
 	};
 
     render() {
