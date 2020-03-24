@@ -403,7 +403,7 @@ class PagesController < ApplicationController
 
   def determine_js_file
     case action_name
-    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher-center', 'news', 'stats', 'activities'
+    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'

@@ -24,7 +24,7 @@ const SchoolPricingMini = ({
     <div className="pricing-mini">
       <header className="pricing-mini-header blue">
         <div className="img-holder">
-          <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/blue-school.png`} />
+          <img alt="School" src={`${process.env.CDN_URL}/images/shared/blue-school@3x.png`} />
         </div>
       </header>
       <section className="pricing-info">
@@ -44,7 +44,7 @@ const SchoolPricingMini = ({
         </ul>
       </section>
       <section className="learn-more">
-        <a href="">Learn more</a>
+        <a href="#school-premium">Learn more</a>
       </section>
     </div>
   );

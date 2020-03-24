@@ -2,6 +2,7 @@ import React from 'react'
 import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
 import admin from '../components/modules/questionsAndAnswers/admin'
+import premium from '../components/modules/questionsAndAnswers/premium'
 
 export default class QuestionsAndAnswers extends React.Component {
   constructor(props) {
@@ -15,6 +16,9 @@ export default class QuestionsAndAnswers extends React.Component {
       case 'lessons':
         questionsAndAnswers = lessons
         break
+      case 'premium':
+        questionsAndAnswers = premium
+        break
       default:
         questionsAndAnswers = []
         break
@@ -26,7 +30,8 @@ export default class QuestionsAndAnswers extends React.Component {
   }
 
   renderQuestionsAndAnswers() {
-    return this.state.questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa} />)
+    const { questionsAndAnswersFile } = this.props
+    return this.state.questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa} questionsAndAnswersFile={questionsAndAnswersFile} />)
   }
 
   render() {
