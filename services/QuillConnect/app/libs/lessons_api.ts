@@ -12,8 +12,8 @@ class LessonApi {
     return requestGet(`${lessonApiBaseUrl}/${uid}.json`);
   }
 
-  static create(questionType: string, data: Lesson): Promise<Lesson> {
-    return requestPost(`${lessonApiBaseUrl}`, {lesson: data});
+  static create(data: Lesson): Promise<Lesson> {
+    return requestPost(`${lessonApiBaseUrl}.json`, {lesson: data});
   }
 
   static update(uid: string, data: Lesson): Promise<Lesson> {

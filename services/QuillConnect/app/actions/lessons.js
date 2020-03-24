@@ -83,7 +83,8 @@ import * as titleCardActions from './titleCards.ts';
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
       const cleanedContent = _.pickBy(content)
       dispatch(updateQuestions(cleanedContent, qids))
-      LessonApi.update(cid, cleanedContent).then(() => {
+      LessonApi.update(cid, cleanedContent).then((lesson) => {
+        dispatch(loadLesson(cid))
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       }).catch((error) => {
@@ -118,6 +119,7 @@ import * as titleCardActions from './titleCards.ts';
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
       LessonApi.create(cleanedContent).then((lesson) => {
         const lessonUid = Object.keys(lesson)[0];
+        dispatch(loadLesson(lessonUid))
         dispatch({ type: C.RECEIVE_NEW_LESSON_RESPONSE, });
         const qids = cleanedContent.questions ? cleanedContent.questions.map(q => q.key) : []
         dispatch(updateQuestions(cleanedContent, qids))

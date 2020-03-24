@@ -2,7 +2,6 @@ const C = require('../constants').default;
 import pathwaysActions from './pathways.js';
 import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
-moment = require('moment');
 import _ from 'lodash';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
 import {
