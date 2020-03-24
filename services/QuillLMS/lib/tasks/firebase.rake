@@ -11,7 +11,23 @@ namespace :firebase do
     end
   end
 
-  task :import_as_blob, [:firebase_url, :model, :question_type] => :environment do |_, args|
+  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
+    include FirebaseTaskHelpers
+
+    set_arg_values(args)
+
+    for_each_firebase_key do |obj, data|
+      obj.data = data
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        puts obj.uid
+      end
+    end
+  end
+
+  task :import_as_blob_with_type, [:firebase_url, :model, :question_type] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
@@ -62,7 +78,7 @@ namespace :firebase do
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
       @QUESTION_TYPE = args[:question_type]
-      if !@FIREBASE_URL || !@RAILS_MODEL || !@QUESTION_TYPE
+      if !@FIREBASE_URL || !@RAILS_MODEL
         puts('You must provide Firebase URL, Rails model args, and Question Type to run this task.')
         puts('Example usage:')
         puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,connect_sentence_combining]')
