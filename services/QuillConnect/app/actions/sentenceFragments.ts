@@ -1,9 +1,7 @@
 const C = require('../constants').default;
 import pathwaysActions from './pathways.js';
-import rootRef from '../libs/firebase';
 import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
-let	sentenceFragmentsRef = rootRef.child('sentenceFragments'),
 moment = require('moment');
 import _ from 'lodash';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
