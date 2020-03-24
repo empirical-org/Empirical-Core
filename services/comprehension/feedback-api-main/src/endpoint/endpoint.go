@@ -13,8 +13,9 @@ import (
 
 const (
 	automl_api = "https://comprehension-247816.appspot.com/feedback/ml"
+	grammar_check_api = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
+	plagiarism_api = "https://comprehension-247816.appspot.com/feedback/plagiarism"
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
-	grammar_check = "https://us-central1-comprehension-247816.cloudfunctions.net/topic-grammar-API"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
 
@@ -51,8 +52,10 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
 	urls := [...]string{
+		plagiarism_api,
 		automl_api,
 		regex_rules_api,
+		grammar_check_api,
 		spell_check_bing,
 	}
 
