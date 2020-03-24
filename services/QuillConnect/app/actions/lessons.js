@@ -1,6 +1,5 @@
 const C = require('../constants').default;
-import rootRef from '../libs/firebase';
-const	lessonsRef = rootRef.child('lessons');
+import { LessonApi } from '../libs/lessons_api';
 import { push } from 'react-router-redux';
 import questionActions from './questions'
 import fillInBlankActions from './fillInBlank';
@@ -10,34 +9,30 @@ import * as titleCardActions from './titleCards.ts';
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
 
-  function startListeningToLessons() {
-    return function (dispatch, getState) {
-      lessonsRef.on('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_LESSONS_DATA, data: snapshot.val(), });
+  const startListeningToLessons = () => {
+    return loadLessons()
+  }
+
+  const loadLessons = () => {
+    return (dispatch, getState) => {
+      LessonApi.getAll().then((data) => {
+        dispatch({ type: C.RECEIVE_LESSONS_DATA, data: data, });
       });
     };
   }
 
-  function loadLessons() {
-    return function (dispatch, getState) {
-      lessonsRef.once('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_LESSONS_DATA, data: snapshot.val(), });
-      });
-    };
-  }
-
-  function loadLesson(uid) {
+  const loadLesson = (uid) => {
     return (dispatch, getState) => {
       return new Promise((resolve, reject) => {
-        lessonsRef.child(uid).once('value', (snapshot) => {
-          dispatch({ type: C.RECEIVE_LESSONS_DATA, data: { [uid]: snapshot.val(), } });
+        LessonApi.get(uid).then((data) => {
+          dispatch({ type: C.RECEIVE_LESSONS_DATA, data: { [uid]: data, } });
           resolve();
         });
       })
     }
   }
 
-  function loadLessonWithQuestions(uid) {
+  const loadLessonWithQuestions = (uid) => {
     return (dispatch, getState) => {
       dispatch(loadLesson(uid)).then(() => {
         const fetchedLesson = getState().lessons.data[uid];
@@ -62,46 +57,44 @@ import * as titleCardActions from './titleCards.ts';
     }
   }
 
-  function startLessonEdit(cid) {
+  const startLessonEdit = (cid) => {
     return { type: C.START_LESSON_EDIT, cid, };
   }
 
-  function cancelLessonEdit(cid) {
+  const cancelLessonEdit = (cid) => {
     return { type: C.FINISH_LESSON_EDIT, cid, };
   }
 
-  function deleteLesson(cid) {
-    return function (dispatch, getState) {
+  const deleteLesson = (cid) => {
+    return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
-      lessonsRef.child(cid).remove((error) => {
+      LessonApi.remove(cid).then(() => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
-        }
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
+      }).catch((error) => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
       });
     };
   }
 
-  function submitLessonEdit(cid, content, qids) {
-    return function (dispatch, getState) {
+  const submitLessonEdit = (cid, content, qids) => {
+    return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
       const cleanedContent = _.pickBy(content)
       dispatch(updateQuestions(cleanedContent, qids))
-      lessonsRef.child(cid).set(cleanedContent, (error) => {
+      LessonApi.update(cid, cleanedContent).then(() => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-        }
-      });
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      }).catch((error) => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+      })
     };
   }
 
-  function updateQuestions(content, qids) {
-    return function (dispatch) {
+  const updateQuestions = (content, qids) => {
+    return (dispatch) => {
       if (content.flag) {
         qids.forEach(qid => {
           dispatch(questionActions.updateFlag(qid, content.flag))
@@ -115,25 +108,25 @@ import * as titleCardActions from './titleCards.ts';
     };
   }
 
-  function toggleNewLessonModal() {
+  const toggleNewLessonModal = () => {
     return { type: C.TOGGLE_NEW_LESSON_MODAL, };
   }
 
-  function submitNewLesson(content) {
+  const submitNewLesson = (content) => {
     const cleanedContent = _.pickBy(content)
-    return function (dispatch, getState) {
+    return (dispatch, getState) => {
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
-      var newRef = lessonsRef.push(cleanedContent, (error) => {
+      LessonApi.create(cleanedContent).then((lesson) => {
+        const lessonUid = Object.keys(lesson)[0];
         dispatch({ type: C.RECEIVE_NEW_LESSON_RESPONSE, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else {
-          const qids = cleanedContent.questions ? cleanedContent.questions.map(q => q.key) : []
-          dispatch(updateQuestions(cleanedContent, qids))
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/lessons/${newRef.key}`);
-          dispatch(action);
-        }
+        const qids = cleanedContent.questions ? cleanedContent.questions.map(q => q.key) : []
+        dispatch(updateQuestions(cleanedContent, qids))
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        const action = push(`/admin/lessons/${lessonUid}`);
+        dispatch(action);
+      }).catch((error) => {
+        dispatch({ type: C.RECEIVE_NEW_LESSON_RESPONSE, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
       });
     };
   }
