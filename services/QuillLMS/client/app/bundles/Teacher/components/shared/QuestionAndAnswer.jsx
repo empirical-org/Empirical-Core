@@ -3,9 +3,11 @@ import React from 'react'
 export default class QuestionAndAnswer extends React.Component {
   constructor(props) {
     super(props)
+    const { questionsAndAnswersFile } = this.props
 
     this.state = {
-      expanded: false
+      expanded: false,
+      questionsAndAnswersFile: questionsAndAnswersFile
     }
     this.toggleExpansion = this.toggleExpansion.bind(this)
   }
@@ -17,7 +19,14 @@ export default class QuestionAndAnswer extends React.Component {
   }
 
   expandOrCollapseButton() {
-    const buttonText = this.state.expanded ? 'Collapse' : 'Expand'
+    const buttonText
+    const { questionsAndAnswersFile, expanded } = this.state
+    if (questionsAndAnswersFile == 'premium') {
+      const imageLink = expanded ? 'collapse@3x.png' : 'expand@3x.png'
+      buttonText = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
+    } else {
+      buttonText = expanded ? 'Collapse' : 'Expand'
+    }
     return <p className="expand-or-collapse" onClick={this.toggleExpansion}>{buttonText}</p>
   }
 
