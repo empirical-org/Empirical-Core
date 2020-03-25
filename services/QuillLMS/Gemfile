@@ -4,7 +4,7 @@ ruby '2.5.1'
 
 # CORE DEPS
 gem 'rails', '=4.2.11.1'
-gem 'puma', '~> 3.10.0'
+gem 'puma', '~> 3.12'
 
 # EARLY TO APPLY TO OTHER GEMS
 gem 'dotenv-rails'
@@ -78,7 +78,9 @@ gem 'redcarpet'
 gem 'addressable'
 
 # QUEUE/CACHE
-gem 'sidekiq'
+source "https://gems.contribsys.com/" do
+  gem 'sidekiq-pro'
+end
 gem 'sidekiq-retries', require: false
 gem 'redis', '3.3.5'
 gem 'redis-namespace'
@@ -206,6 +208,6 @@ gem 'sqreen'
 # temp for migrations
 gem 'paperclip'
 
-gem 'graphiql-rails', group: :development
-
 gem 'rb-readline'
+
+gem 'graphiql-rails', group: :development

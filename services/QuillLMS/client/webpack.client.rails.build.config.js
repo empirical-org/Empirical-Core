@@ -64,7 +64,7 @@ module.exports = merge(config, {
     },
     minimizer: [
       new UglifyJsPlugin(),
-    ]
+    ],
   },
 
   // See webpack.client.base.config for adding modules common to both webpack dev server and rails

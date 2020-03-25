@@ -14,6 +14,10 @@ class Subscription < ActiveRecord::Base
   after_commit :check_if_purchaser_email_is_in_database
   after_initialize :set_null_start_date_to_today
 
+  COVID_19_EXPIRATION = Date.parse('2020-07-31')
+
+  COVID_19_SUBSCRIPTION_TYPE = 'Quill Premium for School Closures'
+  COVID_19_SCHOOL_SUBSCRIPTION_TYPE = 'Quill School Premium for School Closures'
 
   OFFICIAL_PAID_TYPES = ['School District Paid',
                          'School NYC Paid',
@@ -29,7 +33,9 @@ class Subscription < ActiveRecord::Base
                          'School Strategic Free',
                          'Teacher Contributor Free',
                          'Teacher Sponsored Free',
-                         'Teacher Trial']
+                         'Teacher Trial',
+                         COVID_19_SUBSCRIPTION_TYPE,
+                         COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
 
   OFFICIAL_SCHOOL_TYPES = ['School District Paid',
                            'School NYC Paid',
@@ -39,15 +45,15 @@ class Subscription < ActiveRecord::Base
                            'School NYC Free',
                            'School Research',
                            'School Sponsored Free',
-                           'School Strategic Free']
+                           'School Strategic Free',
+                           COVID_19_SCHOOL_SUBSCRIPTION_TYPE]
 
-  OFFICIAL_TEACHER_TYPES = [
-        'Teacher Paid',
-        'Premium Credit',
-        'Teacher Contributor Free',
-        'Teacher Sponsored Free',
-        'Teacher Trial'
-  ]
+  OFFICIAL_TEACHER_TYPES = ['Teacher Paid',
+                            'Premium Credit',
+                            'Teacher Contributor Free',
+                            'Teacher Sponsored Free',
+                            'Teacher Trial',
+                            COVID_19_SUBSCRIPTION_TYPE]
 
   # TODO: ultimately these should be cleaned up so we just have OFFICIAL_TYPES but until then, we keep them here
   GRANDFATHERED_PAID_TYPES = ['paid', 'school', 'premium', 'school', 'School']
@@ -107,12 +113,15 @@ class Subscription < ActiveRecord::Base
 
   def renew_subscription
     # creates a new sub based off the old ones
-    # dups last subscription
+    # dups last subscription, other than the dates
     new_sub = dup
     new_sub.expiration = expiration + 365
     new_sub.start_date = expiration
-    update(de_activated_date: Date.today)
+    new_sub.de_activated_date = nil
     new_sub.save!
+    update(de_activated_date: Date.today)
+    new_sub.users.push(users)
+    new_sub.schools.push(schools)
   end
 
   def credit_user_and_de_activate
@@ -215,6 +224,10 @@ class Subscription < ActiveRecord::Base
     start_date: Date.today}
   end
 
+  def covid19?
+    account_type == COVID_19_SUBSCRIPTION_TYPE
+  end
+
   protected
 
   def charge_user_for_teacher_premium
@@ -259,6 +272,10 @@ class Subscription < ActiveRecord::Base
     {expiration: Date.today + 30, start_date: Date.today}
   end
 
+  def self.set_covid_expiration_and_start_date
+    {expiration: COVID_19_EXPIRATION, start_date: Date.today}
+  end
+
   def report_to_new_relic(error)
     begin
       raise error
@@ -284,6 +301,9 @@ class Subscription < ActiveRecord::Base
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
         attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
+      elsif [COVID_19_SUBSCRIPTION_TYPE, COVID_19_SCHOOL_SUBSCRIPTION_TYPE].include?(attributes[:account_type])
+        attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
+        extend_current_subscription_for_covid_19(school_or_user)
       else
         attributes = attributes.merge(Subscription.set_premium_expiration_and_start_date(school_or_user))
       end
@@ -298,5 +318,13 @@ class Subscription < ActiveRecord::Base
     subscription
   end
 
+
+  def self.extend_current_subscription_for_covid_19(user)
+    existing_sub = user.subscription
+    if existing_sub&.expiration && existing_sub.expiration > Date.today
+      time_to_add = [COVID_19_EXPIRATION - Date.today, 0].max
+      existing_sub.update(expiration: existing_sub.expiration + time_to_add)
+    end
+  end
 
 end

@@ -7,13 +7,16 @@ import { requestPut } from '../../../modules/request/index.js';
 import request from 'request';
 import _ from 'lodash';
 
+const GENERAL = 'general'
+const PASSWORD = 'password'
+
 export default class StudentAccount extends Component {
   constructor(props) {
     super(props);
     const { name, userName, email } = props;
     this.state = {
       firstName: name.split(' ')[0],
-      lastName: name.split(' ')[1],
+      lastName: name.split(' ').slice(1).join(' '),
       userName,
       email,
       snackbarCopy: '',
@@ -23,12 +26,21 @@ export default class StudentAccount extends Component {
     };
   }
 
+  activateGeneralSection = () => this.activateSection(GENERAL)
+
+  activatePasswordSection = () => this.activateSection(PASSWORD)
+
   activateSection = (section) => {
     this.setState({ activeSection: section, })
   }
 
+  deactivateGeneralSection = () => this.deactivateSection(GENERAL)
+
+  deactivatePasswordSection = () => this.deactivateSection(PASSWORD)
+
   deactivateSection = (section) => {
-    if (this.state.activeSection === section) {
+    const { activeSection, } = this.state
+    if (activeSection === section) {
       this.setState({ activeSection: null, errors: {} });
     }
   }
@@ -48,7 +60,7 @@ export default class StudentAccount extends Component {
     const { cleverId, googleId } = this.props;
     if(cleverId || googleId ) {
       const label = cleverId ? 'clever' : 'google';
-      const path = cleverId ? `${process.env.CDN_URL}/images/shared/clever_icon.svg` : '/images/google_icon.svg';
+      const path = `${process.env.CDN_URL}/images/shared/${label}_icon.svg`
       return(
         <div className="user-linked-accounts user-account-section">
           <h1>Linked accounts</h1>
@@ -64,12 +76,13 @@ export default class StudentAccount extends Component {
   }
 
   renderExplanation = () => {
-    const accountType = this.props.cleverId ? 'Clever' : 'Google';
+    const { cleverId, } = this.props
+    const accountType = cleverId ? 'Clever' : 'Google';
     return(
       <div className="user-account-section third-party-integration-explanation">
         <div className="third-party-integration-explanation header">
-          <h4>Why can't I edit my account information?</h4>
-          <img alt="lightbulb" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
+          <h4>Why can&#39;t I edit my account information?</h4>
+          <img alt="Lightbulb with rays shining" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
         </div>
         <p className="third-party-integration-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
       </div>
@@ -79,12 +92,14 @@ export default class StudentAccount extends Component {
   updateUser = (data, url, snackbarCopy, errors) => {
     if(!_.isEmpty(errors)) {
       // combine front and backend errors if any lingering backend errors remain
-      const { firstName, lastName, username } = errors;
-      let errorsObject = this.state.errors;
-      errorsObject.firstName = firstName;
-      errorsObject.lastName = lastName;
-      errorsObject.username = username ? username : errorsObject.username;
-      this.setState({ errors: errorsObject });
+      this.setState(prevState => {
+        const errorsObject = {...prevState.errors}
+        const { firstName, lastName, username } = errors;
+        errorsObject.firstName = firstName;
+        errorsObject.lastName = lastName;
+        errorsObject.username = username ? username : errorsObject.username;
+        return { errors: errorsObject }
+      });
     } else {
       const { timesSubmitted } = this.state;
       let dataObject = data;
@@ -97,7 +112,7 @@ export default class StudentAccount extends Component {
         } = body.user;
         this.setState({
           firstName: name.split(' ')[0],
-          lastName: name.split(' ')[1],
+          lastName: name.split(' ').slice(1).join(' '),
           userName: username,
           email,
           snackbarCopy,
@@ -120,24 +135,24 @@ export default class StudentAccount extends Component {
         {(cleverId || googleId) && this.renderExplanation()}
         <StudentGeneralAccountInfo
           accountType={accountType}
-          activateSection={() => this.activateSection('general')}
-          active={activeSection === 'general'}
+          activateSection={this.activateGeneralSection}
+          active={activeSection === GENERAL}
           cleverId={cleverId}
-          deactivateSection={() => this.deactivateSection('general')}
+          deactivateSection={this.deactivateGeneralSection}
           email={email}
           errors={errors}
-          firstName={firstName} 
+          firstName={firstName}
           googleId={googleId}
-          lastName={lastName} 
+          lastName={lastName}
           timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
-          userName={userName} 
+          userName={userName}
         />
         <StudentPasswordAccountInfo
-          activateSection={() => this.activateSection('password')}
-          active={activeSection === 'password'}
+          activateSection={this.activatePasswordSection}
+          active={activeSection === PASSWORD}
           cleverId={cleverId}
-          deactivateSection={() => this.deactivateSection('password')}
+          deactivateSection={this.deactivatePasswordSection}
           errors={errors}
           googleId={googleId}
           role={role}

@@ -9,7 +9,7 @@ import {
   ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
-import EditLessonForm from './lessonForm.jsx';
+import EditLessonForm from './lessonForm.tsx';
 
 class Lessons extends React.Component {
   constructor(props) {

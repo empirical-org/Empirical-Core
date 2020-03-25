@@ -9,7 +9,7 @@
 
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: <%= ENV['NEW_RELIC_RPM'] %>
+  license_key: <%= ENV['NEW_RELIC_LICENSE_KEY'] %>
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
@@ -39,7 +39,7 @@ test:
 
 staging:
   <<: *default_settings
-  app_name: My Application (Staging)
+  app_name: Quill LMS (Staging)
 
 production:
   <<: *default_settings

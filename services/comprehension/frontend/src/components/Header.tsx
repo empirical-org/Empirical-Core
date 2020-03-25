@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as Redux from "redux";
 import { connect } from "react-redux";
+import { TrackAnalyticsEvent } from '../actions/analytics';
+import { Events } from '../modules/analytics';
 import '../styles/Header.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
@@ -8,7 +10,7 @@ import getParameterByName from '../helpers/getParameterByName';
 const logoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 const mobileLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white-mobile.svg`
 
-class Header extends React.Component<any, any> {
+export class Header extends React.Component<any, any> {
   constructor(props: any) {
     super(props)
 
@@ -21,21 +23,36 @@ class Header extends React.Component<any, any> {
     window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
   }
 
+  trackSaveAndExitEvent = () => {
+    const { dispatch, } = this.props
+    const { sessionID, } = this.state
+    const activityID = getParameterByName('uid', window.location.href)
+    dispatch(TrackAnalyticsEvent(Events.COMPREHENSION_ACTIVITY_SAVED, {
+      activityID: activityID,
+      sessionID,
+    }))
+  }
+
   saveAndExit = () => {
     const { sessionID, } = this.state
+    this.trackSaveAndExitEvent()
     if (sessionID) {
     } else {
       this.goToLMS()
     }
   }
 
+  handleOnClick = () => {
+    this.saveAndExit()
+  }
+
   render() {
     return (
       <div className="header">
         <div>
-          <img className="hide-on-desktop" src={mobileLogoSrc} />
-          <img className="hide-on-mobile" src={logoSrc} />
-          <span className="save-and-exit" onClick={this.saveAndExit}>Save and exit</span>
+          <img alt="Quill.org logo" className="hide-on-desktop" src={mobileLogoSrc} />
+          <img alt="Quill.org logo" className="hide-on-mobile" src={logoSrc} />
+          <button className="save-and-exit" onClick={this.handleOnClick} type="button"><span>Save and exit</span></button>
         </div>
       </div>
     );

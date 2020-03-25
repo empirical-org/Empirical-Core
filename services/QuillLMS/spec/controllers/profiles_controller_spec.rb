@@ -62,9 +62,9 @@ describe ProfilesController, type: :controller do
       session[:user_id] = student.id
     end
 
-    it 'loads the student profile' do
+    it 'redirects to the student classes page' do
       get :show
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302)
     end
 
     context '#students_classrooms_json' do
@@ -80,9 +80,11 @@ describe ProfilesController, type: :controller do
             id: classroom.id
           }
         end
-        expected_response = JSON.parse(response.body)['classrooms'].sort_by { |c| c[:id] }
-        sql_response = sanitize_hash_array_for_comparison_with_sql(student_classrooms).sort_by { |c| c['id'] }
-        expect(expected_response).to eq(sql_response)
+        expected_response = JSON.parse(response.body)['classrooms']
+        sql_response = sanitize_hash_array_for_comparison_with_sql(student_classrooms)
+        expected_response.each do |response|
+          expect(sql_response).to include(response)
+        end
       end
     end
 

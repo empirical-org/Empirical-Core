@@ -54,9 +54,22 @@ export function checkSentenceCombining(
   const spellingPass = checkForMatches(spellCheckedData, firstPassMatchers, true); // check for a match w the spelling corrected
   const misspelledWords = getMisspelledWords(data.response, spellCheckedData.spellCorrectedResponse)
   if (spellingPass) {
-    // Update the feedback to indicate spelling is also needed.
+    let foundConcepts = spellingPass.concept_results
+    //convert concept_results to an array if it's not already
+    if (typeof foundConcepts === 'object' && foundConcepts.constructor === Object) {
+      spellingPass.concept_results =
+        Object.keys(foundConcepts).map((k) => foundConcepts[k])
+    }
+    if (Array.isArray(spellingPass.concept_results)) {
+      spellingPass.concept_results.push(conceptResultTemplate('H-2lrblngQAQ8_s-ctye4g'));
+    }
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
-    return Object.assign(responseTemplate, spellingAwareFeedback, { text: data.response, spelling_error: true, misspelled_words: misspelledWords });
+    const spellingFeedbackObj = {
+      text: data.response,
+      spelling_error: true,
+      misspelled_words: misspelledWords
+    }
+    return Object.assign(responseTemplate, spellingAwareFeedback, spellingFeedbackObj);
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
@@ -71,8 +84,11 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   const {response, spellCorrectedResponse, responses, focusPoints, incorrectSequences} = data;
   const submission = spellCorrected ? spellCorrectedResponse : response;
   yield exactMatch(submission, responses);
-  yield focusPointChecker(submission, focusPoints, responses);
-  yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+  if (!spellCorrected) {
+    // we don't want to run the focus point checker and the incorrect sequence checker on spell-checked strings because our spellcheck library strips out a lot of punctuation that is sometimes included in those regexes
+    yield focusPointChecker(submission, focusPoints, responses);
+    yield incorrectSequenceChecker(submission, incorrectSequences, responses);
+  }
   yield caseInsensitiveChecker(submission, responses);
   yield punctuationInsensitiveChecker(submission, responses);
   yield punctuationAndCaseInsensitiveChecker(submission, responses);
@@ -128,6 +144,7 @@ function getSpellingFeedback(spellingMatch: Response|PartialResponse): PartialRe
     match.parent_id  = match.id;
     delete match.id;
   }
+  match.feedback = match.feedback ? match.feedback : spellingMatch.feedback
   return match;
 }
 

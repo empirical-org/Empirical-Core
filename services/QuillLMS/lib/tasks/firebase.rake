@@ -11,12 +11,13 @@ namespace :firebase do
     end
   end
 
-  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
+  task :import_as_blob, [:firebase_url, :model, :question_type] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
 
     for_each_firebase_key do |obj, data|
+      obj.question_type = @QUESTION_TYPE
       obj.data = data
       begin
         obj.save!
@@ -60,10 +61,11 @@ namespace :firebase do
     def set_arg_values(args)
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
-      if !@FIREBASE_URL || !@RAILS_MODEL
-        puts('You must provide Firebase URL and Rails model args to run this task.')
+      @QUESTION_TYPE = args[:question_type]
+      if !@FIREBASE_URL || !@RAILS_MODEL || !@QUESTION_TYPE
+        puts('You must provide Firebase URL, Rails model args, and Question Type to run this task.')
         puts('Example usage:')
-        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question]')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,connect_sentence_combining]')
         exit
       end
     end
@@ -74,7 +76,22 @@ namespace :firebase do
       firebase_keys = firebase_shallow.keys
       firebase_keys.each do |key|
         data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
-        obj = klass.find_or_create_by(uid: key)
+        if @QUESTION_TYPE.present?
+          old_question = Question.find_by_uid(key)
+          if old_question.present? && old_question.question_type != @QUESTION_TYPE
+            # we can delete any questions with blank prompts, and we can delete connect_sentence_fragments that are duplicates
+            if old_question.data['prompt'].blank? || old_question.question_type == 'connect_sentence_fragments'
+              old_question.destroy
+            # if a diagnostic_fib question conflicts with an existing question, don't copy the diagnostic version over
+            elsif @QUESTION_TYPE == 'diagnostic_fill_in_blanks'
+              obj = old_question
+              next
+            end
+          end
+          obj = Question.find_or_create_by(uid: key, question_type: @QUESTION_TYPE)
+        else
+          obj = klass.find_or_create_by(uid: key)
+        end
         if obj.valid?
           puts("updating #{@RAILS_MODEL} with uid '#{key}'")
         else

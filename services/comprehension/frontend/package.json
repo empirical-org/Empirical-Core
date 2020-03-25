@@ -41,7 +41,7 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "fs": "0.0.2",
     "net": "^1.0.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "query-string": "^6.9.0",
     "react": "^16.12.0",
     "react-contenteditable": "^3.3.2",
@@ -58,7 +58,8 @@
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
-    "tls": "0.0.1"
+    "tls": "0.0.1",
+    "uuid": "^7.0.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
@@ -106,6 +107,9 @@
       "js",
       "json"
     ],
+    "moduleNameMapper": {
+      "\\.(scss)$": "<rootDir>/__mocks__/styleMock.js"
+    },
     "testURL": "http://localhost:8010"
   }
 }

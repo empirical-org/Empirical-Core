@@ -12,10 +12,14 @@ class Teachers::UnitsController < ApplicationController
       params[:unit][:activities] = JSON.parse(params[:unit][:activities])
     end
     units_with_same_name = units_with_same_name_by_current_user(params[:unit][:name], current_user.id)
+    includes_ell_starter_diagnostic = params[:unit][:activities].include?({"id"=>1161})
     if units_with_same_name.any?
       Units::Updater.run(units_with_same_name.first.id, params[:unit][:activities], params[:unit][:classrooms], current_user.id)
     else
       Units::Creator.run(current_user, params[:unit][:name], params[:unit][:activities], params[:unit][:classrooms], params[:unit][:unit_template_id], current_user.id)
+    end
+    if includes_ell_starter_diagnostic
+      ELLStarterDiagnosticEmailJob.perform_async(current_user.first_name, current_user.email)
     end
     render json: {id: Unit.where(user: current_user).last.id}
   end
@@ -199,7 +203,7 @@ class Teachers::UnitsController < ApplicationController
         lessons = ''
       end
       teach_own_or_coteach_string = "(#{teach_own_or_coteach_classrooms_array.join(', ')})"
-      ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
+      units = ActiveRecord::Base.connection.execute("SELECT units.name AS unit_name,
          activities.name AS activity_name,
          activities.supporting_info AS supporting_info,
          classrooms.name AS class_name,
@@ -208,7 +212,7 @@ class Teachers::UnitsController < ApplicationController
          ua.order_number,
          cu.id AS classroom_unit_id,
          cu.unit_id AS unit_id,
-         COALESCE(array_length(cu.assigned_student_ids, 1), 0) AS number_of_assigned_students,
+         array_to_json(cu.assigned_student_ids) AS assigned_student_ids,
          COUNT(DISTINCT students_classrooms.id) AS class_size,
          ua.due_date,
          state.completed,
@@ -244,6 +248,16 @@ class Teachers::UnitsController < ApplicationController
         #{completed}
         ORDER BY ua.order_number, unit_activity_id
         ").to_a
+        units.map do |unit|
+          classroom_student_ids = Classroom.find(unit['classroom_id']).students.ids
+          if unit['assigned_student_ids'] && classroom_student_ids
+            active_assigned_student_ids = JSON.parse(unit['assigned_student_ids']) & classroom_student_ids
+            unit['number_of_assigned_students'] = active_assigned_student_ids.length
+          else
+            unit['number_of_assigned_students'] = 0
+          end
+          unit
+        end
     else
       []
     end

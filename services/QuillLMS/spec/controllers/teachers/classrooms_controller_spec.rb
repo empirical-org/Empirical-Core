@@ -39,6 +39,18 @@ describe Teachers::ClassroomsController, type: :controller do
       post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
     end
 
+    it 'student creator catches duplicate usernames' do
+      student1 = { name: 'Good Kid', password: 'Kid', username: "good.kid@#{classroom.code}"}
+      student2 = { name: 'Good Kid', password: 'Kid', username: "good.kid@#{classroom.code}"}
+      student1_with_account_type = student1.dup
+      student1_with_account_type[:account_type] = 'Teacher Created Account'
+      student2_with_account_type = student2.dup
+      student2_with_account_type[:account_type] = 'Teacher Created Account'
+      post :create_students, classroom_id: classroom.id, students: [student1, student2], classroom: {}
+      expect(User.find_by_username_or_email("good.kid@#{classroom.code}")).to be
+      expect(User.find_by_username_or_email("good.kid2@#{classroom.code}")).to be
+    end
+
 
   end
 

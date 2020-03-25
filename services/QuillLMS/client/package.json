@@ -36,7 +36,7 @@
     "es5-shim": "^4.5.7",
     "expose-loader": "^0.7.1",
     "file-loader": "^4.0.0",
-    "firebase": "^6.1.0",
+    "firebase": "^7.6.1",
     "fuse.js": "^3.2.1",
     "fuzzyset.js": "0.0.7",
     "graphql": "^0.13.2",
@@ -58,7 +58,7 @@
     "postcss-loader": "^0.8.2",
     "pusher": "^2.2.2",
     "pusher-js": "^5.0.1",
-    "quill-component-library": "0.3.29",
+    "quill-component-library": "0.7.28",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",
@@ -122,7 +122,9 @@
     "react-test-renderer": "^15.4.2",
     "react-transform-hmr": "^1.0.4",
     "redux-test-utils": "^0.2.2",
+    "terser-webpack-plugin": "^2.3.5",
     "ts-jest": "^24.0.2",
+    "ts-loader": "^6.2.1",
     "typescript": "^2.7.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.0"
@@ -137,10 +139,10 @@
     "jscs:fix": "jscs --verbose -x . --silent",
     "test": "npm run build:test && rspec",
     "build:test": "npm run build:client && npm run build:server",
-    "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js  --optimize-minimize",
+    "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js --optimize-minimize --display verbose --display-cached",
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
     "build:client": "webpack --config webpack.client.rails.build.config.js",
-    "build:dev:client": "RAILS_ENV=development webpack -w --config webpack.client.rails.build.config.js",
+    "build:dev:client": "RAILS_ENV=development webpack -w --config webpack.client.dev.rails.build.config.js",
     "build:dev:server": "webpack -w --config webpack.server.rails.build.config.js",
     "build:server": "webpack --config webpack.server.rails.build.config.js",
     "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",
@@ -176,7 +178,10 @@
     ],
     "globals": {
       "window": true,
-      "process.env.CDN_URL": "http://cdn.quill.org"
+      "process.env.CDN_URL": "http://cdn.quill.org",
+      "ts-jest": {
+        "diagnostics": false
+      }
     },
     "coverageDirectory": "<rootDir>/coverage/",
     "collectCoverage": false,

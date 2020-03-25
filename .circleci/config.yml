@@ -28,6 +28,8 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillLMS
+            # BUNDLE_GEMS__CONTRIBSYS__COM defined in https://circleci.com/gh/empirical-org/Empirical-Core/edit#env-vars
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - run:
           name: NPM install, should be short-cutted if cache is present
@@ -126,6 +128,7 @@ jobs:
           name: Bundle Install if cache isn't present.
           command: |
             cd services/QuillCMS
+            bundle config --local gems.contribsys.com ${BUNDLE_GEMS__CONTRIBSYS__COM}
             bundle check || bundle install --path vendor/bundle
       - save_cache:
           key: bundle-cache-cms{{ checksum "services/QuillCMS/Gemfile.lock" }}
@@ -169,8 +172,7 @@ jobs:
           name: Run QuillConnect Tests
           command: |
             cd services/QuillConnect
-            FORCE_COLOR=true npm run jest --colors --runInBand app/
-            FORCE_COLOR=true npm run jest --colors --runInBand test/
+            npm run jest
   lessons_node_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -427,12 +429,10 @@ jobs:
       - run:
           name: Pip Install
           command: |
-            cd services/comprehension/main-api
             pip install --user flake8
       - run:
           name: Run Flake8
           command: |
-            cd services/comprehension/main-api
             flake8
 workflows:
   version: 2

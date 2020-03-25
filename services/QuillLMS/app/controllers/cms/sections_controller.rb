@@ -38,7 +38,7 @@ class Cms::SectionsController < Cms::CmsController
     head :ok
   end
 
-private
+  private
 
   def set_section
     @section = Section.find(params[:id])

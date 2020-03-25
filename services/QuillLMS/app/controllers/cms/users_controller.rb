@@ -5,6 +5,10 @@ class Cms::UsersController < Cms::CmsController
   before_action :set_search_inputs, only: [:index, :search]
   before_action :subscription_data, only: [:new_subscription, :edit_subscription]
   before_action :filter_zeroes_from_checkboxes, only: [:update, :create, :create_with_school]
+  before_action :log_non_user_action, only: [:index]
+  before_action :log_user_action, only: [:show, :edit, :sign_in]
+  before_action :log_search, only: [:search]
+  before_action :log_attribute_change, only: [:update]
 
   USERS_PER_PAGE = 30.0
 
@@ -126,7 +130,7 @@ class Cms::UsersController < Cms::CmsController
   end
 
 
-protected
+  protected
 
   def set_flags
     @valid_flags = User::VALID_FLAGS
@@ -283,4 +287,48 @@ protected
   def subscription_params
     params.permit([:id, :payment_method, :payment_amount, :purchaser_email, :premium_status, :start_date => [:day, :month, :year], :expiration_date => [:day, :month, :year]] + default_params)
   end
+
+  private def log_user_action
+    log_change(params[:action].to_sym, @user&.id.to_s.presence || params[:id])
+  end
+
+  private def log_non_user_action
+    log_change(params[:action].to_sym, nil)
+  end
+
+  private def log_search
+    log_change(params[:action].to_sym, nil, "Search term: #{user_query_params}")
+  end
+
+  private def log_attribute_change
+    previous_user_params = User.where(:id => @user.id).select(:name, :email, :username, :title, :role, :classcode, :flags).first.as_json
+
+    #omit password field if password not filled in
+    if user_params[:password].blank?
+      new_user_params = user_params.except("password", "password_confirmation")
+    else
+      new_user_params = user_params.except("password_confirmation")
+    end
+
+    difference = Hash[new_user_params.to_a - previous_user_params.to_a]
+    difference.each_key do |field|
+      new_value = field == 'password' ? nil : difference[field]
+      log_change(params[:action].to_sym, @user.id.to_s, nil, field, previous_user_params[field], new_value)
+    end
+  end
+
+  private def log_change(action, changed_user, explanation = nil, changed_attribute = nil, previous_value = nil, new_value = nil)
+    change_log = {
+      user_id: current_user.id.to_s,
+      action: ChangeLog::USER_ACTIONS[action],
+      changed_record_type: 'User',
+      changed_record_id: changed_user,
+      explanation: explanation,
+      changed_attribute: changed_attribute,
+      previous_value: previous_value,
+      new_value: new_value
+    }
+    ChangeLog.create(change_log)
+  end
+
 end

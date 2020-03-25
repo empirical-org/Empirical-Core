@@ -1,0 +1,85 @@
+.header {
+  background-color: #06806b;
+  padding-top: 50px;
+  padding-bottom: 35px;
+  width: 80%;
+}
+
+.main-width {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.content-section {
+  float: left;
+  clear:both;
+}
+
+.table {
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.top-content {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.left-cell {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding-left: 40px;
+}
+
+.right-cell {
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: #06806b;
+  color: white;
+  padding: 0px 10px 0px 10px;
+}
+
+.comment-cell {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 30px;
+}
+
+.medium-text {
+  font-size: 22px;
+}
+
+.small-text {
+  font-size: 18px;
+}
+
+.email-body {
+  font-family: Tahoma;
+}
+
+.vertical-align {
+  vertical-align: middle;
+}
+
+.sub-header {
+  padding: 30px 0px 30px 0px;
+}
+
+.green, #rating-10, #rating-9 {
+  background-color: #3aeb34;
+}
+
+.yellow, #rating-8, #rating-7 {
+  background-color: #e6d81c;
+}
+
+.red, #rating-6, #rating-5, #rating-4, #rating-3, #rating-2, #rating-1, #rating-0 {
+  background-color: #e81e1e;
+}
+
+.body-text {
+  margin-top: 30px;
+  width: 80%;
+}

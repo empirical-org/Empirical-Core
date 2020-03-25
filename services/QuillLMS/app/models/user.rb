@@ -265,9 +265,9 @@ class User < ActiveRecord::Base
   def capitalize_name
     result = name
     if name.present?
-      f,l = name.split(/\s+/)
+      f,l = name.split(/\s+/, 2)
       if f.present? and l.present?
-        result = "#{f.capitalize} #{l.capitalize}"
+        result = "#{f.capitalize} #{l.gsub(/\S+/, &:capitalize)}"
       else
         result = name.capitalize
       end
@@ -333,7 +333,7 @@ class User < ActiveRecord::Base
   end
 
   ## Satismeter settings
-  SATISMETER_PERCENT_PER_DAY = 1.0
+  SATISMETER_PERCENT_PER_DAY = ENV['SATISMETER_PERCENT_PER_DAY'] || 10.0
   SATISMETER_ACTIVITIES_PER_STUDENT_THRESHOLD = 3.0
   SATISMETER_NEW_USER_THRESHOLD = 60.days
 
@@ -413,7 +413,10 @@ class User < ActiveRecord::Base
   end
 
   def generate_password
-    self.password = self.password_confirmation = last_name
+    # first we need to replace any existing spaces with hyphens
+    last_name_with_spaces_replaced_by_hyphens = last_name.split(' ').join('-')
+    # then we want to capitalize the first letter
+    self.password = self.password_confirmation = last_name_with_spaces_replaced_by_hyphens.slice(0,1).capitalize + last_name_with_spaces_replaced_by_hyphens.slice(1..-1)
   end
 
   def generate_student(classroom_id)
@@ -567,7 +570,15 @@ class User < ActiveRecord::Base
     role == 'teacher' && !school && previous_changes["id"]
   end
 
-private
+  def generate_username(classroom_id=nil)
+    self.username = GenerateUsername.new(
+      first_name,
+      last_name,
+      get_class_code(classroom_id)
+    ).call
+  end
+
+  private
   def validate_flags
     # ensures there are no items in the flags array that are not in the VALID_FLAGS const
     invalid_flags = flags - VALID_FLAGS
@@ -627,14 +638,6 @@ private
   def get_class_code(classroom_id)
     return 'student' if classroom_id.nil?
     Classroom.find(classroom_id).code
-  end
-
-  def generate_username(classroom_id=nil)
-    self.username = GenerateUsername.new(
-      first_name,
-      last_name,
-      get_class_code(classroom_id)
-    ).call
   end
 
   def update_invitee_email_address

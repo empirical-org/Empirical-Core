@@ -44,7 +44,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -85,8 +85,11 @@ Rails.application.configure do
   # Allow cross site origin in the following contexts
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins 'https://connect.quill.org', 'https://quillconnect.firebaseapp.com', 'localhost:8080'
-      resource '*', :headers => :any, :methods => [:get, :post, :put, :options, :delete]
+      origins '*'
+
+      resource '*',
+        headers: :any,
+        methods: [:get, :post, :put, :patch, :delete, :options, :head]
     end
   end
 

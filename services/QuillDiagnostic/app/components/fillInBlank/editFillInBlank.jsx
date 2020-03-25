@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fillInBlankActions from '../../actions/fillInBlank.js';
+import fillInBlankActions from '../../actions/fillInBlank';
 import FillInBlankForm from './fillInBlankForm.jsx';
 
 class EditFillInBlank extends Component {
@@ -24,6 +24,7 @@ class EditFillInBlank extends Component {
     return {
       prompt: fillInBlankQuestion.prompt,
       blankAllowed: fillInBlankQuestion.blankAllowed,
+      caseInsensitive: fillInBlankQuestion.caseInsensitive,
       instructions: fillInBlankQuestion.instructions,
       cues: fillInBlankQuestion.cues.join(','),
       itemLevel: fillInBlankQuestion.itemLevel,

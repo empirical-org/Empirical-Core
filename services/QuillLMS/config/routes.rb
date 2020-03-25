@@ -17,6 +17,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
   get '/study', to: "students#index"
+  get '/classes', to: "students#index"
 
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
@@ -72,6 +73,9 @@ EmpiricalGrammar::Application.routes.draw do
   resources :subscriptions do
     member do
       get :purchaser_name
+    end
+    collection do
+      get :activate_covid_subscription
     end
   end
   resources :assessments
@@ -610,9 +614,9 @@ EmpiricalGrammar::Application.routes.draw do
 
   get 'lessons' => 'pages#activities' # so that old links still work
   get 'about' => 'pages#activities' # so that old links still work
-  get 'diagnostic/:activityId' =>'activities#diagnostic' # placeholder til we find where this goes
-  get 'diagnostic/:activityId/stage/:stage' => 'activities#diagnostic'
-  get 'diagnostic/:activityId/success' => 'activities#diagnostic'
+  get 'diagnostic/:activityId' => redirect('/assign/diagnostic')
+  get 'diagnostic/:activityId/stage/:stage' => redirect('/assign/diagnostic')
+  get 'diagnostic/:activityId/success' => redirect('/assign/diagnostic')
   get 'customize/:id' => 'activities#customize_lesson'
   get 'preview_lesson/:lesson_id' => 'activities#preview_lesson'
   get 'activities/:id/supporting_info' => 'activities#supporting_info'
@@ -622,7 +626,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :redis_cache, :redis_queue, :firebase
+      get :index, :database, :database_follower, :redis_cache, :redis_queue, :firebase
     end
   end
 

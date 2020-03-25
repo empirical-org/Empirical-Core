@@ -26,7 +26,7 @@ export default class EditStudentAccountModal extends React.Component<EditStudent
     const splitName = props.student.name.split(' ')
     this.state = {
       firstName: splitName[0],
-      lastName: splitName[1],
+      lastName: splitName.slice(1).join(' '),
       username: props.student.username,
       errors: {},
       timesSubmitted: 0

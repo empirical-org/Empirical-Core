@@ -321,6 +321,14 @@ describe User, type: :model do
           end
         end
 
+        describe 'and the teacher already has that school subscription' do
+          it 'the user does not get a new subscription' do
+            prev_subscription = queens_teacher_2.subscription
+            queens_teacher_2.updated_school(queens_school.id)
+            expect(queens_teacher_2.reload.subscription).to eq(prev_subscription)
+          end
+        end
+
         describe 'and the user does not have a subscription' do
           it 'the user gets the school subscription' do
             queens_teacher_2.user_subscriptions.destroy

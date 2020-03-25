@@ -84,7 +84,7 @@ export default class CreateUnit extends React.Component {
       const { activities, } = body
       const activityIdsArray = this.props.params.activityIdsArray || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)
       const activityIdsArrayAsArray = activityIdsArray.split(',')
-      const selectedActivities = activities.filter(act => activityIdsArrayAsArray.includes(String(act.id)))
+      const selectedActivities = activityIdsArrayAsArray.map(id => activities.find(act => String(act.id) === id)).filter(Boolean)
       this.setState({ activities: activities, selectedActivities: selectedActivities, })
     })
   }

@@ -27,6 +27,7 @@ class SerializeSalesAccount
         activities_finished: activities_finished,
         activities_per_student: activities_per_student,
         school_link: school_link,
+        premium_expiry_date: subscription_expiration_date,
       }
     }
   end
@@ -35,7 +36,7 @@ class SerializeSalesAccount
 
   def activities_per_student
     if active_students > 0
-      (activities_finished.to_f / active_students.to_f).round(2)
+      (activities_finished.to_f / active_students).round(2)
     else
       0
     end
@@ -84,5 +85,9 @@ class SerializeSalesAccount
 
   def school_link
     "https://www.quill.org/cms/schools/#{school.id}"
+  end
+
+  def subscription_expiration_date
+    school&.subscription&.expiration || 'NA'
   end
 end

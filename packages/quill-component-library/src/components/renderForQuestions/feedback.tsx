@@ -1,9 +1,10 @@
 import React from 'react';
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg';
-const revise = 'https://assets.quill.org/images/icons/revise_orange_icon.svg';
-const multiple = 'https://assets.quill.org/images/icons/multiple_choice_icon.svg';
-const success  = 'https://assets.quill.org/images/icons/check-mark.svg';
-const arrow = 'https://assets.quill.org/images/icons/correct_icon.svg';
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const revise = `${process.env.QUILL_CDN_URL}/images/icons/revise.svg`
+const multiple = `${process.env.QUILL_CDN_URL}/images/icons/multiple-choice.svg`
+const success  = `${process.env.QUILL_CDN_URL}/images/icons/correct.svg`
+const arrow = `${process.env.QUILL_CDN_URL}/images/icons/continue.svg`
+const brownArrow = `${process.env.QUILL_CDN_URL}/images/icons/continue-brown.svg`
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;
@@ -46,6 +47,9 @@ function getFeedbackIcon(feedbackType: string): string {
     case "override":
       returnVal = multiple;
       break;
+    case "incorrect-continue":
+      returnVal = brownArrow;
+      break;
     case "continue":
       returnVal = arrow;
       break;
@@ -53,10 +57,35 @@ function getFeedbackIcon(feedbackType: string): string {
     case "getQuestion-instructions":
     case "default-with-cues":
     case "default":
-      returnVal = icon;
-      break;
     default:
       returnVal = icon;
+  }
+  return returnVal;
+}
+
+function getIconAlt(feedbackType: string): string {
+  let returnVal;
+  switch (feedbackType) {
+    case "revise-unmatched":
+    case "revise-matched":
+      returnVal = 'Retry Icon';
+      break;
+    case "correct-matched":
+      returnVal = 'Check Icon';
+      break;
+    case "override":
+      returnVal = 'Choice Icon';
+      break;
+    case "incorrect-continue":
+    case "continue":
+      returnVal = 'Next Icon';
+      break;
+    case "instructions":
+    case "getQuestion-instructions":
+    case "default-with-cues":
+    case "default":
+    default:
+      returnVal = 'Directions Icon';
   }
   return returnVal;
 }
@@ -66,6 +95,7 @@ function getCSSClasses(feedbackType: string): string {
   switch (feedbackType) {
     case "revise-unmatched":
     case "revise-matched":
+    case "incorrect-continue":
       returnVal = "revise"
       break;
     case "correct-matched":
@@ -85,9 +115,9 @@ function getCSSClasses(feedbackType: string): string {
 }
 
 const Feedback = ({ feedbackType, feedback, }: any) => (
-  <div className={getCSSClasses(feedbackType)}>
-    <div className={'feedback-row student-feedback-inner-container'}>
-      <img className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
+  <div className={getCSSClasses(feedbackType)} role="status">
+    <div className='feedback-row student-feedback-inner-container'>
+      <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
       {feedback}
     </div>
   </div>

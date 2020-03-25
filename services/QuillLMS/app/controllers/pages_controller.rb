@@ -23,7 +23,7 @@ class PagesController < ApplicationController
     if signed_in?
       redirect_to(profile_path) && return
     end
-    @title = 'Quill.org — Interactive Writing and Grammar'
+    @title = 'Quill.org | Interactive Writing and Grammar'
     @description = 'Quill provides free writing and grammar activities for middle and high school students.'
     # default numbers are current as of 03/12/19
     @number_of_sentences = $redis.get(NUMBER_OF_SENTENCES) || 252000000
@@ -330,27 +330,27 @@ class PagesController < ApplicationController
   end
 
   def diagnostic_tool
-    @title = 'Quill Diagnostic - Free Diagnostic and Adaptive Lesson Plan'
+    @title = 'Quill Diagnostic | Free Diagnostic and Adaptive Lesson Plan'
     @description = 'Quickly determine which skills your students need to work on with our 22 question diagnostic.'
   end
 
   def grammar_tool
-    @title = 'Quill Grammar - Free 10 Minute Activities for your Students'
+    @title = 'Quill Grammar | Free 10 Minute Activities for your Students'
     @description = 'Over 150 sentence writing activities to help your students practice basic grammar skills.'
   end
 
   def proofreader_tool
-    @title = 'Quill Proofreader - Over 100 Expository Passages To Read And Edit'
+    @title = 'Quill Proofreader | Over 100 Expository Passages To Read And Edit'
     @description = 'Students edit passages and receive personalized exercises based on their results.'
   end
 
   def connect_tool
-    @title = 'Quill Connect - Free Sentence Structure Activities'
+    @title = 'Quill Connect | Free Sentence Structure Activities'
     @description = 'Help your students advance from fragmented and run-on sentences to complex and well-structured sentences with Quill Connect.'
   end
 
   def lessons_tool
-    @title = 'Quill Lessons - Free Group Writing Activities'
+    @title = 'Quill Lessons | Free Group Writing Activities'
     @description = 'Lead whole-class and small group writing instruction with interactive writing prompts and discussion topics.'
   end
 
@@ -368,6 +368,7 @@ class PagesController < ApplicationController
     @user_has_school = !!current_user&.school && ['home school', 'us higher ed', 'international', 'other', 'not listed'].exclude?(current_user&.school&.name)
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
+    @user_has_covid_19_subscription = current_user&.subscriptions&.any?(&:covid19?)
   end
 
   def tutorials

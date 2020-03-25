@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://gems.contribsys.com/
   specs:
     Ascii85 (1.0.3)
     actionmailer (4.2.11.1)
@@ -152,7 +153,7 @@ GEM
       railties (>= 3.1)
     ethon (0.12.0)
       ffi (>= 1.3.0)
-    excon (0.62.0)
+    excon (0.71.0)
     execjs (2.7.0)
     extlib (0.9.16)
     factory_bot (4.8.2)
@@ -337,7 +338,7 @@ GEM
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
     newrelic_rpm (6.0.0.351)
-    nokogiri (1.10.5)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -423,7 +424,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.0.3)
-    puma (3.10.0)
+    puma (3.12)
     puma_worker_killer (0.1.0)
       get_process_mem (~> 0.2)
       puma (>= 2.7, < 4)
@@ -434,7 +435,7 @@ GEM
     pusher-signature (0.1.8)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-affiliates (0.4.0)
       rack
     rack-attack (5.4.2)
@@ -619,6 +620,9 @@ GEM
       rack (>= 1.5.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    sidekiq-pro (4.0.5)
+      concurrent-ruby (>= 1.0.5)
+      sidekiq (>= 5.2.1)
     sidekiq-retries (0.4.0)
       sidekiq (>= 3.2.4)
     signet (0.11.0)
@@ -794,7 +798,7 @@ DEPENDENCIES
   pry-remote
   pry-rescue
   pry-stack_explorer
-  puma (~> 3.10.0)
+  puma (~> 3.12)
   puma_worker_killer
   pusher
   quiet_assets
@@ -830,7 +834,7 @@ DEPENDENCIES
   sentry-raven (>= 0.12.2)
   shoulda-callback-matchers (~> 1.1.1)
   shoulda-matchers (~> 3.1.2)
-  sidekiq
+  sidekiq-pro!
   sidekiq-retries
   simplecov
   simplecov-json

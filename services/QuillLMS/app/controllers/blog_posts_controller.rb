@@ -2,6 +2,8 @@ class BlogPostsController < ApplicationController
   before_action :set_announcement, only: [:index, :show, :show_topic]
   before_action :set_role
 
+  skip_before_action :stick_to_leader_db, only: [:index, :show]
+
   def index
     topic_names = BlogPost::TOPICS
     @topics = []
@@ -12,6 +14,7 @@ class BlogPostsController < ApplicationController
   end
 
   def student_center_index
+    @title = 'Resources'
     topic_names = BlogPost::STUDENT_TOPICS
     @topics = []
     topic_names.each do |name|

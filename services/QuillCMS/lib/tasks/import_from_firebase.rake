@@ -45,8 +45,8 @@ namespace :responses do
 
   def import_from_firebase_json
     file_name = "lib/data/responses.json"
-    file = File.read(file_name);0
-    data_hash = JSON.parse(file);0
+    file = File.read(file_name)
+    data_hash = JSON.parse(file)
 
     val_array = []
     count = 0
@@ -82,8 +82,8 @@ namespace :responses do
 
   def import_columns_from_firebase_json
     file_name = "lib/data/responses.json"
-    file = File.read(file_name);0
-    data_hash = JSON.parse(file);0
+    file = File.read(file_name)
+    data_hash = JSON.parse(file)
 
     columns = ["uid", "parent_uid", "question_uid", "text", "feedback", "optimal", "author", "count", "first_attempt_count", "child_count", "concept_results"]
     val_array = []
@@ -122,8 +122,8 @@ namespace :responses do
 
   def stats
     file_name = "lib/data/responses.json"
-    file = File.read(file_name);0
-    data_hash = JSON.parse(file);0
+    file = File.read(file_name)
+    data_hash = JSON.parse(file)
 
     val_array = []
     count = 0
@@ -149,8 +149,8 @@ namespace :responses do
 
   def dupes
     file_name = "lib/data/responses.json"
-    file = File.read(file_name);0
-    data_hash = JSON.parse(file);0
+    file = File.read(file_name)
+    data_hash = JSON.parse(file)
 
     val_array = []
     count = 0
@@ -174,11 +174,11 @@ namespace :responses do
 
   def convert_to_csv
     graded_file_name = "tmp/data/gradedResponses.json"
-    graded_file = File.read(graded_file_name);0
-    graded_data_hash = JSON.parse(graded_file);0
+    graded_file = File.read(graded_file_name)
+    graded_data_hash = JSON.parse(graded_file)
     file_name = "tmp/data/responses.json"
-    file = File.read(file_name);0
-    data_hash = JSON.parse(file);0
+    file = File.read(file_name)
+    data_hash = JSON.parse(file)
     dupes_hash = Hash.new(0)
 
     rows = []
@@ -204,7 +204,7 @@ namespace :responses do
         end
       end
       dupes_hash["#{val['questionUID']}#{text}"] += 1
-    end;0
+    end
     data_hash.each do |key, val|
       text = val["text"] || ""
       if dupes_hash["#{val['questionUID']}#{text}"] == 0
@@ -226,7 +226,7 @@ namespace :responses do
         end
       end
       dupes_hash["#{val['questionUID']}#{text}"] += 1
-    end;0
+    end
 
     CSV.open('respforpostgres.csv', 'wb') do |csv|
       rows.each do |row|

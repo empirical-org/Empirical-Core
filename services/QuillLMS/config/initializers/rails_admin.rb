@@ -136,4 +136,7 @@ RailsAdmin.config do |config|
         }
     end
   end
+
+  config.excluded_models << 'ActivitySession'
+  config.excluded_models << 'ConceptResult'
 end

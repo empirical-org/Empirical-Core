@@ -1,0 +1,2 @@
+Dir['*.rake'].each {|file| import file }
+

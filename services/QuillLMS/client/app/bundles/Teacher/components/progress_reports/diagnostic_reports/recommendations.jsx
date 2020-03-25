@@ -5,7 +5,6 @@ import { requestGet, requestPost } from '../../../../../modules/request';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
-import RecommendationOverview from './recommendation_overview';
 
 export default class Recommendations extends React.Component {
 
@@ -173,7 +172,7 @@ export default class Recommendations extends React.Component {
     return { selections: selectionsArr ,};
   }
 
-  assignToWholeClass(unitTemplateId) {
+  assignToWholeClass  = (unitTemplateId) => {
     const { params, } = this.props
     const that = this;
     requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: params.classroomId }, (data) => {
@@ -219,9 +218,19 @@ export default class Recommendations extends React.Component {
     const { selections, } = this.state
     const hasSelectedActivities = selections.find(sel => _.compact(sel.students).length > 0)
     if (hasSelectedActivities) {
-      return <p className="uncheck-recommendations" onClick={this.handleUnselectAllRecommendationsClick}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg" /><span>Uncheck All</span></p>
+      return(
+        <button className="quill-button focus-on-light uncheck-recommendations" onClick={this.handleUnselectAllRecommendationsClick} type="reset">
+          <img alt="uncheck-all-logo" src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg" />
+          <span>Uncheck All</span>
+        </button>
+      );
     } else {
-      return <p className="check-recommendations" onClick={this.handleSelectAllRecommendationsClick}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg" /><span>Check All</span></p>
+      return(
+        <button className="quill-button focus-on-light check-recommendations" onClick={this.handleSelectAllRecommendationsClick} type="submit">
+          <img alt="check-all-logo" src="https://assets.quill.org/images/icons/checkall-diagnostic.svg" />
+          <span>Check All</span>
+        </button>
+      );
     }
   }
 
@@ -261,9 +270,9 @@ export default class Recommendations extends React.Component {
       );
     }
     return (
-      <div className="recommendations-assign-button" onClick={this.handleAssignClick}>
+      <button className="quill-button focus-on-light    recommendations-assign-button" onClick={this.handleAssignClick} type="submit">
         <span>Assign Activity Packs</span>
-      </div>
+      </button>
     );
   }
 
@@ -280,7 +289,7 @@ export default class Recommendations extends React.Component {
     const { recommendations, } = this.state
     return recommendations.map(recommendation => {
       /* eslint-disable react/jsx-no-target-blank */
-      const link = <a href={`/activities/packs/${recommendation.activity_pack_id}`} target="_blank">View Pack</a>
+      const link = <a className="focus-on-light view-pack-link" href={`/activities/packs/${recommendation.activity_pack_id}`} target="_blank">View Pack</a>
       /* eslint-enable react/jsx-no-target-blank */
       return (<div className="recommendations-table-header-item" key={recommendation.activity_pack_id}>
         <p>{recommendation.name}</p>
@@ -345,19 +354,12 @@ export default class Recommendations extends React.Component {
     if (!recommendations.length) { return }
 
     return (
-      <div>
-        <h3
-          id="recommendations-scroll-to"
-          style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
-        >
+      <div className="independent-practice-container">
+        <h3 className="independent-practice-header" id="recommendations-scroll-to" >
           <img
             alt="independent practice logo"
+            className="independent-practice-logo"
             src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
-            style={{
-              position: 'relative',
-              top: '-3px',
-              marginRight: '15px',
-            }}
           />
           Independent Activity Recommendations
         </h3>
@@ -397,7 +399,7 @@ export default class Recommendations extends React.Component {
       );
     } else {
       return (<div className="recommendations-container">
-        <p style={{ fontSize: '24px', }}>We do not yet have recommendations for this diagnostic. Please check back soon.</p>
+        <p className="no-recommendations">We do not yet have recommendations for this diagnostic. Please check back soon.</p>
       </div>)
     }
   }
@@ -411,7 +413,6 @@ export default class Recommendations extends React.Component {
 
     return (
       <div>
-        <RecommendationOverview />
         {this.renderRecommendations()}
       </div>
     );
