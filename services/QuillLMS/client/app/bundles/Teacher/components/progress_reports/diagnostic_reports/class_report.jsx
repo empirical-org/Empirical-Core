@@ -15,8 +15,8 @@ export default class ClassReport extends React.Component {
   }
 
   columnDefinitions = () => {
-    const { params, } = this.props
-    const { unitId, activityId, classroomId, } = params
+    const { match, } = this.props
+    const { unitId, activityId, classroomId, } = match.params
     return [
       {
         name: 'Name',
@@ -119,7 +119,7 @@ export default class ClassReport extends React.Component {
 
   render() {
     const { students, } = this.state
-    const { params, premiumStatus, } = this.props
+    const { match, premiumStatus, } = this.props
     const overviewBoxes = students ? <OverviewBoxes data={students} /> : null
 
     return (
@@ -132,13 +132,13 @@ export default class ClassReport extends React.Component {
             filterTypes={[]}
             hideFaqLink={Boolean(true)}
             jsonResultsKey='students'
-            key={params.classroomId}
+            key={match.params.classroomId}
             onFetchSuccess={this.handleFetchSuccess}
             pagination={false}
             premiumStatus={premiumStatus}
             showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
             sortDefinitions={this.sortDefinitions}
-            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`}
+            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${match.params.unitId}/a/${match.params.activityId}/c/${match.params.classroomId}`}
           />
           {this.startedAndUnstartedStudents()}
         </div>

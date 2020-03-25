@@ -34,19 +34,18 @@ export default class NavButtonGroup extends React.Component {
 		}
 	};
 
-    buttons = () => {
+  buttons = () => {
 		const contents = [
 			{name: 'Students', words: ['student_report', 'students'], exceptions: []},
 			{name: 'Questions', words:['questions']},
 			{name: 'Recommendations', words: ['recommendations']}
 		];
 		let hash = window.location.hash
-		let that = this;
 		return contents.map((navButton)=>	{
 			let activeState;
 			// If there is a <student_></student_>id, then the student button will visible/highlighted
 			// If there is not a student_id, then we can determine our view from the block below
-			if (!that.props.params.studentId) {
+			if (!this.props.match.params.studentId) {
 				let words = navButton.words;
 				// if the url has button in it, we mark it as active
 				for (var i = 0; i < words.length; i++) {
@@ -66,7 +65,7 @@ export default class NavButtonGroup extends React.Component {
 		})
 	};
 
-    doesNotHaveRecommendations = () => {
+  doesNotHaveRecommendations = () => {
 		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.match.params.activityId)) === -1;
 	};
 

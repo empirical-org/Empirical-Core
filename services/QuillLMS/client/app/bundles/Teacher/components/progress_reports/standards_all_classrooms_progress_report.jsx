@@ -17,9 +17,9 @@ const showAllClassroomKey = 'All Classrooms'
 const showAllStudentsKey = 'All Students'
 
 
-export default class extends React.Component {
-  constructor() {
-    super()
+export default class StandardsAllClassroomsProgressReport extends React.Component {
+  constructor(props) {
+    super(props)
     this.state = {
       loading: true,
       errors: false,
@@ -47,7 +47,7 @@ export default class extends React.Component {
       const standardsData = this.formatStandardsData(JSON.parse(body).data)
       // gets unique classroom names
       const classrooms = JSON.parse(body).classrooms
-      const students = [...new Set(JSON.parse(body).students)]
+      const students = Array.from(new Set(JSON.parse(body).students))
       classrooms.unshift({name: showAllClassroomKey})
       students.unshift({name: showAllStudentsKey})
       that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});

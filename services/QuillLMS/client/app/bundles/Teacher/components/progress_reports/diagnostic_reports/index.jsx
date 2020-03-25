@@ -1,9 +1,15 @@
 import React from 'react'
-import {Router, Route, Link, hashHistory, withRouter} from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import NavBar from './nav_bar.jsx'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-require('../../../../../assets/styles/app-variables.scss')
+import StudentReport from './student_report.jsx'
+import ClassReport from './class_report.jsx'
+import QuestionReport from './question_report.jsx'
+import Recommendations from './recommendations.jsx'
+import ActivityPacks from './activity_packs.jsx'
+import DiagnosticActivityPacks from './diagnostic_activity_packs.jsx'
+import NotCompleted from './not_completed.jsx'
 
 class DiagnosticReports extends React.Component {
   constructor(props) {
@@ -136,7 +142,7 @@ class DiagnosticReports extends React.Component {
       classrooms={this.state.classrooms}
       dropdownCallback={this.changeClassroom}
       key={'key'}
-      params={this.props.match.params}
+      match={this.props.match}
       selectedActivity={this.state.selectedActivity}
       selectedStudentId={this.props.match.params.studentId}
       showStudentDropdown={this.showStudentDropdown()}
@@ -144,10 +150,19 @@ class DiagnosticReports extends React.Component {
       students={this.state.students}
     />
     {this.props.children}
+    <Switch>
+      <Route component={StudentReport} path='/u/:unitId/a/:activityId/c/:classroomId/student_report(/:studentId)' />
+      <Route component={Recommendations} path='/u/:unitId/a/:activityId/c/:classroomId/recommendations' />
+      <Route component={QuestionReport} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
+      <Route component={ClassReport} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
+      <Route component={ActivityPacks} path='/activity_packs' />
+      <Route component={DiagnosticActivityPacks} path='/diagnostics' />
+      <Route component={NotCompleted} path='/not_completed' />
+    </Switch>
   </div>
 			);
 		}
 	}
 }
 
-export default withRouter(DiagnosticReports)
+export default DiagnosticReports

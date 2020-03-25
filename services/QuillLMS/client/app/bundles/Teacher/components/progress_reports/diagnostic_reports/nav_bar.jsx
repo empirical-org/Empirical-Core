@@ -8,6 +8,10 @@ import l from 'lodash'
 import $ from 'jquery';
 
 export default class Navbar extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   UNSAFE_componentWillMount() {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/diagnostic_activity_ids`, {
       method: 'GET',
@@ -106,7 +110,7 @@ export default class Navbar extends React.Component {
             />
             <NavButtonGroup
               clickCallback={this.props.buttonGroupCallback}
-              params={this.props.match.params}
+              match={this.props.match}
             />
             {this.studentDropdown()}
           </div>

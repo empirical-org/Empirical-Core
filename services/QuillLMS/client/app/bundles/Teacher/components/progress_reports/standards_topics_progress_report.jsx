@@ -143,7 +143,7 @@ export default class extends React.Component {
             <h1><span>Standards Report:</span> {this.state.student.name}</h1>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport className="download-report-button" data={this.state.csvData} />
+            <CSVDownloadForProgressReport className="button-green" data={this.state.csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>

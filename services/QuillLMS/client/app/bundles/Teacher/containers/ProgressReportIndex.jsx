@@ -18,24 +18,30 @@ import { requestGet } from '../../../modules/request';
 export default class ProgressReportIndex extends React.Component {
 
   renderContent = () => {
-    const { currentUser, } = this.props
+    const { currentUser, premiumStatus, } = this.props
 
     const path = window.location.pathname;
     const shouldHaveBanner = !path.includes('/landing_page') && !path.includes('diagnostic_report');
 
+    const props = {
+      sourceUrl: `${path}.json`,
+      premiumStatus,
+      currentUser,
+    };
+
     const progressReportMapping = {
-      'progress-reports-activities': ActivitiesProgressReport,
-      'progress-reports-standards-classrooms': StandardsAllClassroomsProgressReport,
-      'progress-reports-standards-classroom-students': StandardsClassroomStudentsProgressReport,
-      'progress-reports-standards-topics': StandardsTopicsProgressReport,
-      'progress-reports-standards-classroom-topics': StandardsClassroomTopicsProgressReport,
-      'progress-reports-standards-topic-students': StandardsTopicStudentsProgressReport,
-      'progress-reports-concepts-students': ConceptsStudentsProgressReport,
-      'progress-reports-concepts-concepts': ConceptsConceptsProgressReport,
-      'progress-reports-landing-page-container': LandingPageContainer,
-      'progress-reports-activities-scores-by-classroom': ActivitiesScoresByClassroomProgressReport,
-      'progress-reports-real-time': RealTimeProgressReport,
-      'progress-reports-student-overview': StudentOverview,
+      'progress-reports-activities': <ActivitiesProgressReport {...props} />,
+      'progress-reports-standards-classrooms': <StandardsAllClassroomsProgressReport {...props} />,
+      'progress-reports-standards-classroom-students': <StandardsClassroomStudentsProgressReport {...props} />,
+      'progress-reports-standards-topics': <StandardsTopicsProgressReport {...props} />,
+      'progress-reports-standards-classroom-topics': <StandardsClassroomTopicsProgressReport {...props} />,
+      'progress-reports-standards-topic-students': <StandardsTopicStudentsProgressReport {...props} />,
+      'progress-reports-concepts-students': <ConceptsStudentsProgressReport {...props} />,
+      'progress-reports-concepts-concepts': <ConceptsConceptsProgressReport {...props} />,
+      'progress-reports-landing-page-container': <LandingPageContainer {...props} />,
+      'progress-reports-activities-scores-by-classroom': <ActivitiesScoresByClassroomProgressReport {...props} />,
+      'progress-reports-real-time': <RealTimeProgressReport {...props} />,
+      'progress-reports-student-overview': <StudentOverview {...props} />,
     };
 
     let component
@@ -43,15 +49,7 @@ export default class ProgressReportIndex extends React.Component {
     Object.keys(progressReportMapping).forEach(className => {
       const el = document.getElementsByClassName(className)[0]
       if (el) {
-        requestGet('/teachers/classrooms/premium.json', (data) => {
-          const props = {
-            sourceUrl: path,
-            premiumStatus: data.hasPremium,
-            currentUser,
-          };
-          const componentName = progressReportMapping[el]
-          component = <componentName {...props} />
-        });
+        component = progressReportMapping[className]
       }
     });
 

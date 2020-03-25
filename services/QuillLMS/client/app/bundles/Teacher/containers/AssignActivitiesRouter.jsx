@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import AssignActivitiesContainer from './AssignActivitiesContainer.jsx'
 import UnitTemplateAssigned from '../components/assignment_flow/unit_template_assigned'
 import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
@@ -11,7 +11,7 @@ import LearningProcess from '../components/assignment_flow/create_unit/learning_
 import ActivityType from '../components/assignment_flow/create_unit/activity_type.tsx'
 
 const AssignActivitiesRouter = props => (
-  <Router>
+  <BrowserRouter>
     <Route component={AssignActivitiesContainer} path="/assign" />
       <Switch>
         <Route component={routerProps => <LearningProcess {...props} {...routerProps} />} path="/assign/learning-process" />
@@ -30,7 +30,7 @@ const AssignActivitiesRouter = props => (
         <Route component={routerProps => <CreateUnit {...props} {...routerProps} />} path="/assign/new_unit/students/edit/name/:unitName/activity_ids/:activityIdsArray" />
         <Route component={routerProps => <AssignANewActivity {...props} {...routerProps} />} path="/assign" />
       </Switch>
-  </Router>
+  </BrowserRouter>
 );
 
 export default AssignActivitiesRouter

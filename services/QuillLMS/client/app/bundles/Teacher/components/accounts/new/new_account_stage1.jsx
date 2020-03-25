@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  BrowserRoute,
   Route,
   Link
 } from 'react-router-dom'
@@ -13,7 +13,7 @@ import SelectNonUSK12 from './select_non_us_k12';
 
 const App = () => {
   return (
-    <Router>
+    <BrowserRouter>
       <div id='sign-up'>
         <Route component={SelectUserType} exact path="/account/new" />
 
@@ -23,7 +23,7 @@ const App = () => {
         <Route component={SelectUSK12} path="/sign-up/add-k12" />
         <Route component={SelectNonUSK12} path="/sign-up/add-non-k12" />
       </div>
-    </Router>
+    </BrowserRouter>
   )
 };
 

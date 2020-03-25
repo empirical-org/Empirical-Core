@@ -3,13 +3,12 @@ import React from 'react';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-export default class extends React.Component {
-  static propTypes = {
-    items: PropTypes.array.isRequired,
-    callback: PropTypes.func,
-  };
+export default class ItemDropdown extends React.Component {
+  constructor(props) {
+    super(props)
 
-  state = { selectedItem: this.props.selectedItem || this.props.items[0], };
+    this.state = { selectedItem: props.selectedItem || props.items[0], }
+  }
 
   items = () => {
     return this.props.items.map((item) => {
@@ -40,7 +39,8 @@ export default class extends React.Component {
   };
 
   render() {
-    const title = this.state.selectedItem.name || this.state.selectedItem;
+    const { selectedItem, } = this.state
+    const title = selectedItem && selectedItem.name ? selectedItem.name : selectedItem;
     return (
       <DropdownButton bsStyle="default" class="select-item-dropdown" disabled={!this.props.items.length} onSelect={this.handleSelect} title={title}>
         {this.items()}

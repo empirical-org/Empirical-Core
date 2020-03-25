@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LessonPlannerContainer from './LessonPlannerContainer.jsx'
 
 export default class LessonPlannerRouter extends React.Component{
@@ -25,9 +25,9 @@ export default class LessonPlannerRouter extends React.Component{
 
 	render() {
 		return (
-		  <Router>
+		  <BrowserRouter>
 		    <Route component={LessonPlannerContainer} path="/teachers/classrooms/activity_planner" />
-		  </Router>
+		  </BrowserRouter>
 		);
 	}
 };
