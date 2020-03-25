@@ -33,10 +33,10 @@ function requestPost(url: string, data: Object): Promise<any> {
     fetch(url, { method: 'POST',
                  headers: {'Sec-Fetch-Site': 'same-site',
                            'Sec-Fetch-Mode': 'cors',
-                            credentials: 'include',
-                            body: JSON.stringify(data)
-                          }
-                }
+                          },
+                 credentials: 'include',
+                 body: JSON.stringify(data)
+               }
           ).then(response => response.json())
            .then(result => buildRequestCallback(resolve, reject));
   });
