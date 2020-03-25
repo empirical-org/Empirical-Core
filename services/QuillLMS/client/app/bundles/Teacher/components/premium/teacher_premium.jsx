@@ -25,10 +25,10 @@ export default class TeacherPremium extends React.Component {
             </section>
             <section>
               <div className="row">
-                <div className="col left">
+                <div className="col left switch-to-right">
                   <img alt="Example concepts report showing a table of concepts scored" src={`${process.env.CDN_URL}/images/shared/concept-report@3x.png`} />
                 </div>
-                <div className="col right right-side-text">
+                <div className="col right switch-to-left">
                   <h3>Concept Report</h3>
                   <p>Get insight into which concepts are areas of strength for students, and which are areas for growth. Use this information to build a personalized curriculum.</p>
                 </div>

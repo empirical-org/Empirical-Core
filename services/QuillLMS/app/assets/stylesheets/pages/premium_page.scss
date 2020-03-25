@@ -33,6 +33,11 @@
     color: white;
     text-decoration: none;
   }
+  @media only screen and (max-width: 600px) {
+    &.dark-green {
+      margin: 15px;
+    }
+  }
 }
 
 .premium-tab {
@@ -445,23 +450,35 @@ li.premium-tab > a:hover {
         width: 447px;
         height: 224px;
       }
+      .switch-to-right {
+        order: 1;
+      }
+      .switch-to-left {
+        order: 2;
+      }
     }
     @media only screen and (max-width: 600px) {
       .row {
-        display: block;
+        flex-direction: column;
         padding: 0px;
       }
       .col {
         &.right {
           padding-left: 0px;
         }
-        &.right-side-text {
-          order: 1;
-        }
         img {
           width: 100%;
           height: auto;
         }
+        p {
+          padding-bottom: 15px;
+        }
+      }
+      .switch-to-right {
+        order: 2;
+      }
+      .switch-to-left {
+        order: 1;
       }
     }
   }
@@ -521,7 +538,7 @@ li.premium-tab > a:hover {
       border-radius: 4px;
       text-align: center;
       color: black;
-      display: inline-block;
+      display: block;
       border: solid 1px #bdbdbd;
     }
     @media (max-width: 990px) {
@@ -608,6 +625,12 @@ li.premium-tab > a:hover {
       p:hover {
         cursor: pointer;
       }
+      button:active {
+        border: 1px solid #e0e0e0;
+      }
+      button {
+        background-color: white;
+      }
     }
     .q-and-a-inner-wrapper:last-child div {
       border-bottom: 1px solid #e0e0e0
@@ -623,7 +646,7 @@ li.premium-tab > a:hover {
       font-size: 15px;
       font-weight: 600;
       text-decoration: none;
-      padding: 10px;
+      padding: 10px 0px;
     }
   }
   @media only screen and (max-width: 600px) {

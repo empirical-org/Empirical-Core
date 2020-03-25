@@ -18,16 +18,16 @@ export default class SchoolPremium extends React.Component {
                 <p>Access each classroom’s Quill Premium reports. Print and download progress reports on concepts and standards mastered.</p>
               </div>
               <div className="col right">
-                <img alt="Example dashboard showing multiple teacher reports" src={`${process.env.CDN_URL}/images/shared/teacher-reports.png`} />
+                <img alt="Example dashboard showing multiple teacher reports" src={`${process.env.CDN_URL}/images/shared/teacher-reports@3x.png`} />
               </div>
             </div>
           </section>
           <section>
             <div className="row">
-              <div className="col left">
-                <img alt="Example school dashboard showing multiple teacher dashboards with student results" src={`${process.env.CDN_URL}/images/shared/school-dashboard.png`} />
+              <div className="col left switch-to-right">
+                <img alt="Example school dashboard showing multiple teacher dashboards with student results" src={`${process.env.CDN_URL}/images/shared/school-dashboard@3x.png`} />
               </div>
-              <div className="col right">
+              <div className="col right switch-to-left">
                 <h3>School Administrator Dashboard</h3>
                 <p>Access each teacher’s Premium account to assign activities, manage rosters and view data. Access school-level reports to see rolled up data at the school level.</p>
               </div>
@@ -40,7 +40,7 @@ export default class SchoolPremium extends React.Component {
                 <p>Access customized training and professional development webinars, instructional coaching sessions, and individualized reporting, all provided by our dedicated School Partnerships team.</p>
               </div>
               <div className="col right">
-                <img alt="A school with a person giving a presentation and another person teaching" src={`${process.env.CDN_URL}/images/shared/school-support.png`} />
+                <img alt="A school with a person giving a presentation and another person teaching" src={`${process.env.CDN_URL}/images/shared/school-support@3x.png`} />
               </div>
             </div>
           </section>
