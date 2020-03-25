@@ -23,7 +23,7 @@ const premium = () => [
   },
   {
     question: 'Do you offer financial aid?',
-    answer: <p>Yes, we provide Quill Premium for free to schools that have a demonstrated financial need. This funding is provided to select partners thanks to the support of our funders. <a href="https://quillpremium.wufoo.com/forms/quill-premium-quote/">Apply for financial aid.</a></p>
+    answer: <p>Yes, we provide Quill Premium for free to schools that have a demonstrated financial need. This funding is provided to select partners thanks to the support of our funders. <a href="https://docs.google.com/forms/d/1wiETnlf22j7JZin4vLogEt6DqsPsTKlD31bRgRU_7s0/viewform?ts=5db33f5f&edit_requested=true">Apply for financial aid.</a></p>
   },
   {
     question: 'Have more questions?',
