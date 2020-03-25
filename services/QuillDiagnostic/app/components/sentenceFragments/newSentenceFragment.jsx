@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fragmentActions from '../../actions/sentenceFragments.js';
+import fragmentActions from '../../actions/sentenceFragments';
 import Form from './sentenceFragmentForm.jsx';
 
 const newSentenceFragment = React.createClass({

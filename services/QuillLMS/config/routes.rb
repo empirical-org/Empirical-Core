@@ -74,6 +74,9 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :purchaser_name
     end
+    collection do
+      get :activate_covid_subscription
+    end
   end
   resources :assessments
   resources :assignments
