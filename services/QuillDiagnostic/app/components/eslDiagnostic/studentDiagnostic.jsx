@@ -342,7 +342,7 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { params, playDiagnostic, t } = this.props;
+    const { dispatch, params, playDiagnostic, t } = this.props;
     const { diagnosticID } = params;
 
     let component;
@@ -370,6 +370,7 @@ export class ELLStudentDiagnostic extends React.Component {
     } else {
       component = (<LanguagePage
         diagnosticID={diagnosticID}
+        dispatch={dispatch}
         setLanguage={this.updateLanguage}
       />);
     }
