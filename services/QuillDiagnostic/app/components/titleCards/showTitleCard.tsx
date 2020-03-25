@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import {
   TitleCard
 } from 'quill-component-library/dist/componentLibrary'
@@ -8,22 +8,19 @@ import {
 export interface ComponentProps {
   titleCards: any
   routing: any
-  routeParams: any 
+  match: any 
 }
 class ShowTitleCard extends React.Component<ComponentProps, any> {
-  constructor(props) {
-    super(props)
 
-    this.getTitleCard = this.getTitleCard.bind(this)
-    this.renderTitleCard = this.renderTitleCard.bind(this)
+  getTitleCard = () => {
+    const { match, titleCards } = this.props;
+    const { data } = titleCards;
+    const { params } = match;
+    const { titleCardID } = params;
+    return data[titleCardID]
   }
 
-  getTitleCard() {
-    const {titleCardID} = this.props.routeParams
-    return this.props.titleCards.data[titleCardID]
-  }
-
-  renderTitleCard() {
+  renderTitleCard = () => {
     const titleCard = this.getTitleCard()
     if (titleCard) {
       return <div><TitleCard html={this.getTitleCard().content} /></div>
@@ -31,8 +28,11 @@ class ShowTitleCard extends React.Component<ComponentProps, any> {
   }
 
   render() {
+    console.log('title-card-props', this.props);
     const titleCard = this.getTitleCard()
-    const {titleCardID} = this.props.routeParams
+    const { match } = this.props;
+    const { params } = match;
+    const { titleCardID } = params;
     return (
       <section className="section">
         <div className="container">

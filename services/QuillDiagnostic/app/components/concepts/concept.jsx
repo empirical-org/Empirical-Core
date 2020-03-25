@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
@@ -13,13 +13,16 @@ class Concept extends React.Component {
   };
 
   getConcept = () => {
-    const { concepts, params } = this.props;
-    const {data} = concepts, {conceptID} = params;
+    const { match, concepts } = this.props;
+    const { data } = concepts;
+    const { params } = match;
+    const { conceptID } = params;
     return _.find(data['0'], {uid: conceptID})
   };
 
   deleteConcept = () => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { conceptID } = params;
     if(confirm("Are you sure?")) {
       dispatch(actions.deleteConcept(conceptID))
@@ -27,15 +30,17 @@ class Concept extends React.Component {
   };
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { conceptID } = params;
     const questionObjWithConceptID = { ...questionObj, conceptID: conceptID }
     dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
   };
 
   questionsForConcept = () => {
-    const { questions, params } = this.props;
+    const {  match, questions } = this.props;
     const { data } = questions;
+    const { params } = match;
     const { conceptID } = params;
     const questionsCollection = hashToCollection(data)
     return questionsCollection.filter(q => q.conceptID === conceptID && q.flag !== 'archived')
@@ -58,6 +63,7 @@ class Concept extends React.Component {
   };
 
   render() {
+    console.log('props', this.props);
     const { concepts } = this.props;
     const { hasreceiveddata } = concepts;
     if (this.getConcept()) {

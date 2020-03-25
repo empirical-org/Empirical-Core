@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 

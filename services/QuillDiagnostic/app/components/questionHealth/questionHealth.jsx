@@ -259,18 +259,23 @@ class questionHealth extends Component {
   }
 
   render() {
+    console.log('questionHealth-props', this.props);
     const { loading } = this.state;
     if (loading) {
       return <Spinner />
     } else {
-      return (<div className="question-health">
-        <h1>Data Dashboard - Health of Questions</h1>
-        {this.renderFlagDropdown()}
-        {this.renderQuestionTypeStatusTable()}
-        {this.renderQuestionTypeTable('sc')}
-        {this.renderQuestionTypeTable('sf')}
-        {this.renderQuestionTypeTable('fib')}
-      </div>)
+      return (
+        <div className="admin-container">
+          <div className="question-health">
+            <h1>Data Dashboard - Health of Questions</h1>
+            {this.renderFlagDropdown()}
+            {this.renderQuestionTypeStatusTable()}
+            {this.renderQuestionTypeTable('sc')}
+            {this.renderQuestionTypeTable('sf')}
+            {this.renderQuestionTypeTable('fib')}
+          </div>
+        </div>
+      )
     }
   }
 }

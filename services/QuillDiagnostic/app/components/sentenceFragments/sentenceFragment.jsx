@@ -1,5 +1,5 @@
 import React from 'react';
-import activeComponent from 'react-router-active-component';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 
@@ -14,7 +14,6 @@ import C from '../../constants';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
-const NavLink = activeComponent('li');
 
 class SentenceFragment extends React.Component {
   constructor(props) {

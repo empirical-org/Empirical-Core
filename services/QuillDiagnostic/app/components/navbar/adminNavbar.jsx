@@ -1,9 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import {getParameterByName} from '../../libs/getParameterByName'
 
-class Navbar extends React.Component {
+class AdminNavbar extends React.Component {
   state = {
     expanded: false
   };
@@ -67,4 +67,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Navbar)
+export default connect(select)(AdminNavbar)

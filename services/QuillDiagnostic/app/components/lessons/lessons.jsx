@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions/lessons';
 import _ from 'underscore';
-import { Link } from 'react-router';
 import {
   Modal,
-  LinkListItem,
   ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
+import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.tsx';
 
 class Lessons extends React.Component {
@@ -72,6 +71,7 @@ class Lessons extends React.Component {
   };
 
   render() {
+    console.log('lessons-props', this.props);
     return (
       <section className="section">
         <div className="container">

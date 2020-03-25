@@ -9,8 +9,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+import { syncHistoryWithStore} from 'react-router-redux';
 import conceptActions from './actions/concepts';
 import conceptsFeedbackActions from './actions/concepts-feedback';
 import questionActions from './actions/questions';
@@ -24,6 +24,7 @@ import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
+import Home from './components/home.jsx'
 
 if (process.env.NODE_ENV === 'production') {
   Raven
@@ -37,28 +38,28 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 BackOff();
-const hashhistory = createHashHistory({ queryKey: false, });
+// const hashhistory = createHashHistory({ queryKey: false, });
 const store = createStore();
 
 // create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(hashhistory, store);
-const root = document.getElementById('root');
-const rootRoute = {
-  childRoutes: [{
-    path: '/',
-    childRoutes: [
-      require('./routers/Admin/index').default,
-      require('./routers/Play/index').default
-    ],
-  }],
-};
+// const history = syncHistoryWithStore(hashhistory, store);
+// const root = document.getElementById('root');
+// const rootRoute = {
+//   childRoutes: [{
+//     path: '/',
+//     childRoutes: [
+//       require('./routers/Admin/index').default,
+//       require('./routers/Play/index').default
+//     ],
+//   }],
+// };
 
-render((
-  <Provider store={store}>
-    <Router history={history} routes={rootRoute} />
-  </Provider>),
-  root
-);
+// render((
+//   <Provider store={store}>
+//     <HashRouter basename="/">{route}</HashRouter>
+//   </Provider>),
+//   root
+// );
 
 // This is pretty hacky.
 // Ideally we should really be extracting the both UIDs from
@@ -97,3 +98,21 @@ if (lessonUid) {
 }
 
 String.prototype.quillNormalize = quillNormalizer;
+
+const route = (
+  <Switch>
+    <Route component={Home} path="/" />
+  </Switch>
+);
+
+class App extends React.Component<{}, {}> {
+  public render(): JSX.Element {
+    return (
+        <Provider store={store}>
+          <HashRouter basename="/">{route}</HashRouter>
+        </Provider>
+    );
+  }
+}
+
+export default App;

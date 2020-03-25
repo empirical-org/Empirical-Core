@@ -1,7 +1,7 @@
 import React from 'react'
 import C from '../../constants'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import _ from 'underscore'

@@ -1,7 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { QuestionList, hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import { Link } from 'react-router-dom'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import { QuestionList } from '../shared/questionList';
 export interface ComponentProps {
   titleCards: any
   routing: any
@@ -17,9 +18,11 @@ class TitleCards extends React.Component<ComponentProps, any> {
   }
 
   renderQuestionsList() {
-    const titleCards = hashToCollection(this.props.titleCards.data)
-    if (this.props.titleCards.hasreceiveddata && titleCards) {
-      return <QuestionList basePath='title-cards' questions={titleCards || []} />
+    const { titleCards } = this.props;
+    const { data, hasreceiveddata } = titleCards;
+    const transformedTitleCards = hashToCollection(data)
+    if (hasreceiveddata && transformedTitleCards) {
+      return <QuestionList basePath='title-cards' questions={transformedTitleCards || []} />
     } else if (!this.props.titleCards.hasreceiveddata) {
       return <p>Loading...</p>
     } else {
@@ -31,7 +34,7 @@ class TitleCards extends React.Component<ComponentProps, any> {
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/title-cards/new'}>
+          <Link to={'/admin/title-cards/new'}>
             <button className="button is-primary">Create a New Title Card</button>
           </Link>
           <p className="menu-label">Title Cards</p>

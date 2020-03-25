@@ -265,6 +265,7 @@ class Questions extends React.Component {
   render() {
     const { questions, concepts, } = this.props;
     const { diagnosticQuestions, displayNoConceptQuestions, showOnlyArchived } = this.state;
+    console.log('diagnosticQuestions', diagnosticQuestions);
     if (questions.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <section className="section">

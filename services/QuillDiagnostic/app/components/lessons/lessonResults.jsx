@@ -4,7 +4,7 @@ import {
   hashToCollection
 } from 'quill-component-library/dist/componentLibrary'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import _ from 'underscore'
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')

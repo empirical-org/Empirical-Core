@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
@@ -13,8 +13,9 @@ String.prototype.toKebab = function () {
 
 class Lesson extends React.Component {
   questionsForLesson = () => {
-    const { lessons, params } = this.props;
+    const {  lessons, match } = this.props;
     const { data } = lessons;
+    const { params } = match;
     const { lessonID } = params;
     if (data[lessonID].questions) {
       return _.values(data[lessonID].questions).map((question) => {
@@ -46,35 +47,39 @@ class Lesson extends React.Component {
   };
 
   deleteLesson = () => {
-    const { dispatch, params } = this.props;
-    const { lessonID, } = params;
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { lessonID } = params;
     if (confirm('do you want to do this?')) {
       dispatch(lessonActions.deleteLesson(lessonID));
     }
   };
 
   cancelEditingLesson = () => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { lessonID } = params;
     dispatch(lessonActions.cancelLessonEdit(lessonID));
   };
 
   saveLessonEdits = (vals) => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { lessonID } = params;
-    const { questions } = vals;
     const qids = questions ? questions.map(q => q.key) : []
     dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
   editLesson = () => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { lessonID } = params;
     dispatch(lessonActions.startLessonEdit(lessonID));
   };
 
   renderEditLessonForm = () => {
-    const { lessons, params } = this.props;
+    const { lessons, match} = this.props;
+    const { params } = match;
     const { lessonID } = params;
     const { data, states } = lessons;
     const lesson = (data[lessonID]);
@@ -88,7 +93,8 @@ class Lesson extends React.Component {
   };
 
   render() {
-    const { lessons, params } = this.props;
+    const { lessons, match } = this.props;
+    const { params } = match;
     const { lessonID } = params;
     const { data, hasreceiveddata } = lessons;
     if (data[lessonID]) {

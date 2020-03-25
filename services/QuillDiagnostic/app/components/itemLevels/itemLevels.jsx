@@ -6,7 +6,7 @@ import {
 import ItemLevelForm from './itemLevelForm.jsx'
 import levelActions from '../../actions/item-levels.js'
 import {connect} from 'react-redux'
-import {Link} from 'react-router'
+import {Link} from 'react-router-dom'
 
 class ItemLevels extends React.Component {
   createNew = () => {

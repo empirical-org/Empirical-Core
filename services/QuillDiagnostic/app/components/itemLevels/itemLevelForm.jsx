@@ -1,10 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 
 class ItemLevelForm extends React.Component {
   constructor(props) {
+    console.log('item-level-form-props', props);
     super(props);
     const { data, mode } = props;
     const { integerValue, name } = data;
@@ -61,6 +62,8 @@ class ItemLevelForm extends React.Component {
   };
 
   render() {
+    console.log('refs', this.refs);
+    console.log('item-level-form-props', this.props);
     const { concepts, data, mode } = this.props;
     const { hasreceiveddata } = concepts;
     if(hasreceiveddata === true) {

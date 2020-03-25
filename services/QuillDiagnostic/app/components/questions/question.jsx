@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
-import activeComponent from 'react-router-active-component';
+import { NavLink } from 'react-router-dom';
 
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
@@ -14,7 +14,6 @@ import {
 } from '../../actions/responses';
 import C from '../../constants';
 
-const NavLink = activeComponent('li');
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 class Question extends React.Component {
@@ -31,31 +30,40 @@ class Question extends React.Component {
   }
 
   handleClickStartEditingQuestion = () => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.startQuestionEdit(params.questionID));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params;
+    dispatch(questionActions.startQuestionEdit(questionID));
   }
 
   cancelEditingQuestion = () => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.cancelQuestionEdit(params.questionID));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params;
+    dispatch(questionActions.cancelQuestionEdit(questionID));
   }
 
   saveQuestionEdits = (vals) => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params;
+    dispatch(questionActions.submitQuestionEdit(questionID, vals));
   }
 
   submitOptimalResponses = (responseStrings) => {
-    const { dispatch, params, } = this.props
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params;
     const conceptUID = this.getQuestion().conceptID
     dispatch(
-      submitOptimalResponses(params.questionID, conceptUID, responseStrings)
+      submitOptimalResponses(questionID, conceptUID, responseStrings)
     )
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
   getQuestion = () => {
-    const { dispatch, params, questions, } = this.props
+    const { match, questions, } = this.props
+    const { params } = match
     const { data, } = questions;
     const { questionID, } = params;
     return data[questionID];
@@ -70,15 +78,17 @@ class Question extends React.Component {
   }
 
   handleSubmitResponse = () => {
-    const { params, dispatch, } = this.props
+    const { match, dispatch, } = this.props
+    const { params } = match
+    const { questionID } = params
 
     const newResp = {
       vals: {
         text: this.refs.newResponseText.value,
         feedback: this.refs.newResponseFeedback.value,
         optimal: this.refs.newResponseOptimal.checked,
-        questionUID: params.questionID,
-        gradeIndex: `human${params.questionID}`,
+        questionUID: questionID,
+        gradeIndex: `human${questionID}`,
         count: 1,
       }
     };
@@ -180,8 +190,9 @@ class Question extends React.Component {
   }
 
   renderEditForm = () => {
-    const { questions, params, concepts, itemLevels, } = this.props
-    const { data, } = questions
+    const { questions, match, concepts, itemLevels, } = this.props
+    const { params } = match
+    const { data } = questions
     const { questionID, } = params;
     const question = (data[questionID]);
     if (questions.states[questionID] === C.EDITING_QUESTION) {
@@ -210,8 +221,9 @@ class Question extends React.Component {
   }
 
   render() {
-    const { questions, params, massEdit, children, } = this.props
-    const { data, states, } = questions
+    const { questions, match, massEdit, children, } = this.props
+    const { params } = match;
+    const { data } = questions
     const { questionID, } = params;
     const question = this.getQuestion();
     if (this.isLoading()) {

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import activeComponent from 'react-router-active-component';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Cues from '../renderForQuestions/cues.tsx';
 import fillInTheBlankActions from '../../actions/fillInBlank';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
-const NavLink = activeComponent('li');
 
 class FillInBlankQuestion extends Component {
   constructor(props) {
