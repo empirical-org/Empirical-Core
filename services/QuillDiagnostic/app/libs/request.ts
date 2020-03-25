@@ -37,8 +37,7 @@ function requestPost(url: string, data: Object): Promise<any> {
                  credentials: 'include',
                  body: JSON.stringify(data)
                }
-          ).then(response => response.json())
-           .then(result => buildRequestCallback(resolve, reject));
+          ).then(result => buildRequestCallback(resolve, reject));
   });
 }
 
