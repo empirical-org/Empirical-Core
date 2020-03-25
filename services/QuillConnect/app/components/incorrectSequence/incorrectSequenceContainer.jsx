@@ -4,7 +4,7 @@ import _ from 'underscore';
 import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 
 class IncorrectSequencesContainer extends Component {
   constructor() {
