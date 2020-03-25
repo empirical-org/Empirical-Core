@@ -33,6 +33,9 @@ function requestPost(url: string, data: Object): Promise<any> {
     fetch(url, { method: 'POST',
                  headers: {'Sec-Fetch-Site': 'same-site',
                            'Sec-Fetch-Mode': 'cors',
+                           'Accept': 'application/json',
+                           'Content-Type': 'application/json',
+                           'Sec-Fetch-Dest': 'empty'
                           },
                  credentials: 'include',
                  body: JSON.stringify(data)
