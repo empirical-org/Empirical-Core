@@ -34,7 +34,8 @@ describe('Questions actions', () => {
       const MOCK_ID2 = '2'
       const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
       dispatch(questionActions.loadSpecifiedQuestions(MOCK_IDS))
-      expect(mockQuestionApi.get.calls).toEqual([[MOCK_ID1], [MOCK_ID2]])
+      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID1)
+      expect(mockQuestionApi.get).toHaveBeenCalledWith(MOCK_ID2)
     })
   })
 
