@@ -7,6 +7,10 @@ from .views.feedback_rules import RulesBasedFeedbackView
 from .views.ml_feedback import MLFeedbackView
 from .views.rule import RuleView
 from .views.plagiarism import PlagiarismFeedbackView
+from .views.session_feedback_history import SessionFeedbackHistoryView
+from .views.session_feedback_history_detail import (
+    SessionFeedbackHistoryDetailView
+)
 from .models.rule_set import RuleSet
 
 urlpatterns = [
@@ -26,5 +30,11 @@ urlpatterns = [
         RulesBasedFeedbackView.as_view(pass_order=RuleSet.PASS_ORDER.SECOND),
         name='get_rules_based_feedback_second_pass'),
     url(r'^feedback/plagiarism$', PlagiarismFeedbackView.as_view(),
-        name='get_plagiarism_feedback')
+        name='get_plagiarism_feedback'),
+    url(r'^session_history$',
+        SessionFeedbackHistoryView.as_view(),
+        name='get_session_feedback_history'),
+    url(r'^session_history/(?P<session_id>.*)$',
+        SessionFeedbackHistoryDetailView.as_view(),
+        name='get_session_feedback_history_detail'),
 ]
