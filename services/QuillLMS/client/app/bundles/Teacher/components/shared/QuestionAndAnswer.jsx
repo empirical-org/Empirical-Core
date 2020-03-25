@@ -20,7 +20,7 @@ export default class QuestionAndAnswer extends React.Component {
 
   expandOrCollapseButton() {
     const { questionsAndAnswersFile, expanded } = this.state
-    const buttonText = ''
+    let buttonText = ''
 
     if (questionsAndAnswersFile == 'premium') {
       const imageLink = expanded ? 'collapse@3x.png' : 'expand@3x.png'
