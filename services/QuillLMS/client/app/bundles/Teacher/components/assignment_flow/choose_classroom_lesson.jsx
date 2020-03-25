@@ -35,7 +35,7 @@ export default class ChooseClassroomLesson extends React.Component {
 
   launchLessonLink() {
     const classroomUnitId = this.state.classroomUnitId
-    const lessonId = this.props.routeParams.activityId
+    const lessonId = this.props.match.params.activityId
     return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 

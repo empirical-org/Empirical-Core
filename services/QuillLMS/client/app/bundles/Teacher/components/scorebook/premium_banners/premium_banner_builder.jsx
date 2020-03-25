@@ -4,11 +4,16 @@ import FreeTrialBanner from './free_trial_banner.jsx'
 import NewSignUpBanner from './new_signup_banner.jsx'
 import FreeTrialStatus from './free_trial_status.jsx'
 
-export default class extends React.Component {
-  state = {has_premium: null,
-          trial_days_remaining: null,
-          first_day_of_premium_or_trial: null
-  };
+export default class PremiumBannerBuilder extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      has_premium: null,
+      trial_days_remaining: null,
+      first_day_of_premium_or_trial: null
+    };
+  }
 
   fetchData = () => {
     var that = this;

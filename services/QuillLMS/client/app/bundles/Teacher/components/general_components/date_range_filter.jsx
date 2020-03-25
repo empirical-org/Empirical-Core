@@ -1,16 +1,16 @@
-'use strict';
-import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
+import "react-dates/initialize";
+
 import { DateRangePicker } from 'react-dates';
 import DateRangeFilterOption from './date_range_filter_option.jsx'
 
-export default class extends React.Component {
-  static propTypes = {
-    selectDates: PropTypes.func.isRequired
-  };
+export default class  DateRangeFilter extends React.Component {
+  constructor(props) {
+    super(props)
 
-  state = {};
+    this.state = {}
+  }
 
   setDateFromFilter = (filter) => {
     this.setState({focusedInput: null});

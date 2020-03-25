@@ -49,7 +49,7 @@ export default class ActivitiesUnit extends React.Component {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
-    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
+    const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     const classroomList = this.classroomList(classrooms);
     return (<div className="assigned-to">
       <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
@@ -171,7 +171,7 @@ export default class ActivitiesUnit extends React.Component {
   numberOfStudentsAssignedToUnit = () => {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed as a set
-    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
+    const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     let numberOfStudentsAssignedToUnit = 0;
     classrooms.forEach((c) => {
       numberOfStudentsAssignedToUnit += Number(c.assignedStudentCount);
