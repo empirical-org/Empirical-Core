@@ -167,9 +167,9 @@ export default React.createClass({
             {this.renderConceptSelectorFields()}
           </div>
           <p className="control checkbox-wrapper">
-              <input checked={caseInsensitive} className="checkbox" id="case-insensitive" onClick={this.handleToggleQuestionCaseInsensitive} type="checkbox" />
-              <label className="label checkbox-label" htmlFor="case-insensitive">Case Insensitive?</label>
-            </p>
+            <input checked={caseInsensitive} className="checkbox" id="case-insensitive" onClick={this.handleToggleQuestionCaseInsensitive} type="checkbox" />
+            <label className="label checkbox-label" htmlFor="case-insensitive">Case Insensitive?</label>
+          </p>
           <p className="control">
             <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
             <button className={'button is-outlined is-info'} onClick={() => window.history.back()} style={{ marginLeft: 5, }}>Cancel</button>
