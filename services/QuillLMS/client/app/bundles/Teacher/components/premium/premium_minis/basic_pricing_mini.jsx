@@ -7,7 +7,7 @@ export default React.createClass({
       <div className="pricing-mini first">
         <header className="pricing-mini-header gray">
           <div className="img-holder basic">
-            <img className="open-book" alt="Open book" src={`${process.env.CDN_URL}/images/shared/open-book.svg`} />
+            <img alt="Open book" className="open-book" src={`${process.env.CDN_URL}/images/shared/open-book.svg`} />
           </div>
         </header>
         <section className="pricing-info">
