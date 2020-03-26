@@ -1,7 +1,7 @@
 class TitleCard < ActiveRecord::Base
   TYPES = [
     TYPE_CONNECT = 'connect_title_card',
-    TYPE_DIAGNOSTIC = 'connect_title_card'
+    TYPE_DIAGNOSTIC = 'diagnostic_title_card'
   ]
   validates :uid, presence: true, uniqueness: true
   validates :content, presence: true

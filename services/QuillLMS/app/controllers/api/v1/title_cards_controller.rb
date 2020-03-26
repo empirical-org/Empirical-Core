@@ -30,7 +30,7 @@ class Api::V1::TitleCardsController < Api::ApiController
   end
 
   private def title_card_by_uid
-    @title_card = TitleCard.find_by!(uid: params[:id])
+    @title_card = TitleCard.find_by!(uid: params[:id], title_card_type: params[:title_card_type])
   end
 
   private def retrieve_title_card_type
