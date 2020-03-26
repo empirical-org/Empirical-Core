@@ -24,7 +24,7 @@ function loadSpecifiedTitleCards(uids) {
   return (dispatch, getState) => {
     const requestPromises: Promise<TitleCardProps>[] = [];
     uids.forEach((uid) => {
-      requestPromises.push(TitleCardApi.get(uid));
+      requestPromises.push(TitleCardApi.get(CONNECT_TITLE_CARD_TYPE, uid));
     });
     const allPromises: Promise<TitleCardProps[]> = Promise.all(requestPromises);
     const questionData = {};
@@ -52,7 +52,7 @@ function submitNewTitleCard(content) {
 
 function submitTitleCardEdit(uid, content) {
   return (dispatch, getState) => {
-    TitleCardApi.update(uid, content).then((body) => {
+    TitleCardApi.update(CONNECT_TITLE_CARD_TYPE, uid, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       const action = push(`/admin/title-cards/${uid}`);

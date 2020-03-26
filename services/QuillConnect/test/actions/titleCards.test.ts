@@ -30,8 +30,8 @@ describe('TitleCards actions', () => {
       const MOCK_ID2 = '2'
       const MOCK_IDS = [MOCK_ID1, MOCK_ID2]
       dispatch(titleCardActions.loadSpecifiedTitleCards(MOCK_IDS))
-      expect(mockTitleCardApi.get).toHaveBeenCalledWith(MOCK_ID1)
-      expect(mockTitleCardApi.get).toHaveBeenCalledWith(MOCK_ID2)
+      expect(mockTitleCardApi.get).toHaveBeenCalledWith(CONNECT_TITLE_CARD_TYPE, MOCK_ID1)
+      expect(mockTitleCardApi.get).toHaveBeenCalledWith(CONNECT_TITLE_CARD_TYPE, MOCK_ID2)
     })
   })
 
@@ -48,7 +48,7 @@ describe('TitleCards actions', () => {
       const MOCK_ID = 1
       const MOCK_CONTENT = { mock: 'content' }
       dispatch(titleCardActions.submitTitleCardEdit(MOCK_ID, MOCK_CONTENT))
-      expect(mockTitleCardApi.update).toHaveBeenLastCalledWith(MOCK_ID, MOCK_CONTENT)
+      expect(mockTitleCardApi.update).toHaveBeenLastCalledWith(CONNECT_TITLE_CARD_TYPE, MOCK_ID, MOCK_CONTENT)
     })
   })
 })

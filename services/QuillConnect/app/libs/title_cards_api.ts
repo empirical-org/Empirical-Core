@@ -10,16 +10,16 @@ class TitleCardApi {
     return requestGet(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`);
   }
 
-  static get(uid: string): Promise<TitleCard> {
-    return requestGet(`${titleCardApiBaseUrl}/${uid}.json`);
+  static get(titleCardType: string, uid: string): Promise<TitleCard> {
+    return requestGet(`${titleCardApiBaseUrl}/${uid}.json?title_card_type=${titleCardType}`);
   }
 
   static create(titleCardType: string, data: TitleCard): Promise<TitleCard> {
     return requestPost(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`, {title_card: data});
   }
 
-  static update(uid: string, data: TitleCard): Promise<TitleCard> {
-    return requestPut(`${titleCardApiBaseUrl}/${uid}.json`, {title_card: data});
+  static update(titleCardType: string, uid: string, data: TitleCard): Promise<TitleCard> {
+    return requestPut(`${titleCardApiBaseUrl}/${uid}.json?title_card_type=${titleCardType}`, {title_card: data});
   }
 }
 
