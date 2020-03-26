@@ -30,9 +30,10 @@ describe('TitleCardApi calls', () => {
 
   describe('get', () => {
     it('should call requestGet', () => {
+      const MOCK_TYPE = 'TYPE'
       const MOCK_ID = 'id'
-      const url = `${titleCardApiBaseUrl}/${MOCK_ID}.json`
-      TitleCardApi.get(MOCK_ID)
+      const url = `${titleCardApiBaseUrl}/${MOCK_ID}.json?title_card_type=${MOCK_TYPE}`
+      TitleCardApi.get(MOCK_TYPE, MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
   })
@@ -53,14 +54,15 @@ describe('TitleCardApi calls', () => {
 
   describe('update', () => {
     it('should call requestPut', () => {
+      const MOCK_TYPE = 'TYPE'
       const MOCK_ID = 'id'
       const MOCK_CONTENT : TitleCard = {
         content: 'test',
         title: 'test',
         uid: 'test'
       }
-      const url = `${titleCardApiBaseUrl}/${MOCK_ID}.json`
-      TitleCardApi.update(MOCK_ID, MOCK_CONTENT)
+      const url = `${titleCardApiBaseUrl}/${MOCK_ID}.json?title_card_type=${MOCK_TYPE}`
+      TitleCardApi.update(MOCK_TYPE, MOCK_ID, MOCK_CONTENT)
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {title_card: MOCK_CONTENT})
     })
   })
