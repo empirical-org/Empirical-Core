@@ -4,15 +4,17 @@ import {Response, IncorrectSequence, PartialResponse} from '../../interfaces'
 import {stringNormalize} from 'quill-string-normalizer'
 import {conceptResultTemplate} from '../helpers/concept_result_template'
 
-export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string):boolean {
+export function incorrectSequenceMatchHelper(responseString:string, incorrectSequenceParticle:string, caseInsensitive:boolean):boolean {
   const matchList = incorrectSequenceParticle.split('&&');
-  return matchList.every(m => new RegExp(m).test(responseString));
+  const flags = caseInsensitive ? 'i' : ''
+  return matchList.every(m => new RegExp(m, flags).test(responseString));
 }
 
 export function incorrectSequenceMatch(responseString: string, incorrectSequences:Array<IncorrectSequence>):IncorrectSequence {
   return _.find(incorrectSequences, (incSeq) => {
     const options = incSeq.text.split('|||');
-    const anyMatches = _.any(options, particle => incorrectSequenceMatchHelper(responseString, particle));
+    const caseInsensitive = incSeq.caseInsensitive ? incSeq.caseInsensitive : false
+    const anyMatches = _.any(options, particle => incorrectSequenceMatchHelper(responseString, particle, caseInsensitive));
     return anyMatches;
   });
 }

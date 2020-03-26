@@ -12,7 +12,7 @@ import request from 'request'
 export default React.createClass({
 
   propTypes: {
-    item: React.PropTypes.obj,
+    item: React.PropTypes.object,
     onSubmit: React.PropTypes.func.isRequired,
   },
 
@@ -22,7 +22,8 @@ export default React.createClass({
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
-      matchedCount: 0
+      caseInsensitive: item ? (item.caseInsensitive ? item.caseInsensitive : false) : false,
+      matchedCount: 0,
     });
   },
 
@@ -78,6 +79,7 @@ export default React.createClass({
         text: incorrectSequenceString,
         feedback: this.state.itemFeedback,
         conceptResults: this.state.itemConcepts,
+        caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false,
       };
       this.props.onSubmit(data, incorrectSequence);
     } else {
@@ -131,6 +133,10 @@ export default React.createClass({
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   },
 
+  handleToggleQuestionCaseInsensitive() {
+    this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
+  },
+
   renderExplanatoryNote() {
     return (<div style={{ marginBottom: '10px' }}>
       <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
@@ -142,6 +148,7 @@ export default React.createClass({
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
+    const { caseInsensitive } = this.state;
     return (
       <div>
         <div className="box add-incorrect-sequence">
@@ -160,6 +167,10 @@ export default React.createClass({
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
+            <p className="control checkbox-wrapper">
+              <input checked={caseInsensitive} className="checkbox" id="case-insensitive" onClick={this.handleToggleQuestionCaseInsensitive} type="checkbox" />
+              <label className="label checkbox-label" htmlFor="case-insensitive">Case Insensitive?</label>
+            </p>
           </div>
           <p className="control">
             <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>
