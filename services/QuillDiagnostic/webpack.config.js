@@ -77,8 +77,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
-        EMPIRICAL_BASE_URL: JSON.stringify(process.env.EMPIRICAL_BASE_URL || 'http://localhost:3000'),
-        QUILL_CMS: JSON.stringify(process.env.QUILL_CMS || 'http://localhost:3100'),
+        EMPIRICAL_BASE_URL: JSON.stringify('https://www.quill.org'),
+        QUILL_CMS: JSON.stringify('https://cms.quill.org'),
         PUSHER_KEY: JSON.stringify('a253169073ce7474f0ce'),
         QUILL_CDN_URL: JSON.stringify(process.env.QUILL_CDN_URL || 'http://localhost:45537')
       }
