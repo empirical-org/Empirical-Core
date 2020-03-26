@@ -9,7 +9,6 @@ import request from 'request'
 class EditIncorrectSequencesContainer extends Component {
   constructor() {
     super();
-    //console.log(this.props[this.state.questionType].data[this.props.params.questionID].incorrectSequences[this.props.params.incorrectSequenceID])
 
     const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
     const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'

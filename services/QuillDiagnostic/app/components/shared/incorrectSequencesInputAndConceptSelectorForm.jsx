@@ -10,7 +10,7 @@ import ResponseComponent from '../questions/responseComponent'
 export default React.createClass({
 
   propTypes: {
-    item: React.PropTypes.obj,
+    item: React.PropTypes.object,
     onSubmit: React.PropTypes.func.isRequired,
   },
 
