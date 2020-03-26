@@ -1,9 +1,0 @@
-head
-  title Quill.org | Premium
-body
-  |  <span id='user-logged-in' data-signed-in= "
-  = !!current_user
-  | ">
-
-  #first-preview-section
-    = react_component('PremiumPricingGuideApp', props: {lastFour: @last_four, userHasSchool: @user_has_school, userIsEligibleForNewSubscription: @user_is_eligible_for_new_subscription, userIsEligibleForTrial: @user_is_eligible_for_trial, userBelongsToSchoolThatHasPaid: @user_belongs_to_school_that_has_paid, userHasCovid19Subscription: @user_has_covid_19_subscription})
