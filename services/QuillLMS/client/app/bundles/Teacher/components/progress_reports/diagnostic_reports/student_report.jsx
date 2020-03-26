@@ -14,7 +14,7 @@ export default class StudentReport extends React.Component {
   }
 
   componentDidMount() {
-    this.getStudentData(this.props.match.params)
+    this.getStudentData(this.props.params)
   }
 
   UNSAFE_componentWillReceiveProps = (nextProps) => {
@@ -23,7 +23,7 @@ export default class StudentReport extends React.Component {
 	};
 
   selectedStudent = (students) => {
-	let studentId = this.props.match.params.studentId;
+	let studentId = this.props.params.studentId;
 	if (studentId) {
 		return students.find(s => s.id === parseInt(studentId))
 	} else {
