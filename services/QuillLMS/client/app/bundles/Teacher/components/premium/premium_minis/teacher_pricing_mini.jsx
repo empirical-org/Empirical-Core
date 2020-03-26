@@ -42,10 +42,10 @@ export default React.createClass({
   purchaseButton() {
     const { userIsSignedIn, userHasCovid19Subscription, } = this.props
     if (!userIsSignedIn) {
-      return <button className="premium-button dark-green" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate for free</button>;
+      return <button className="premium-button dark-green" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Activate for Free</button>;
     }
     if (!userHasCovid19Subscription) {
-      return <a className="premium-button dark-green" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate for free</a>;
+      return <a className="premium-button dark-green" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate for Free</a>;
     }
   },
 
@@ -54,7 +54,7 @@ export default React.createClass({
       <div className="pricing-mini">
         <header className="pricing-mini-header squash">
           <div className="img-holder">
-            <img alt="Presentation board" src={`${process.env.CDN_URL}/images/shared/presentation-board@3x.png`} />
+            <img alt="Presentation board" className="presentation-board" src={`${process.env.CDN_URL}/images/shared/presentation-board.svg`} />
           </div>
 
         </header>

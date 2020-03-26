@@ -23,7 +23,7 @@ export default class QuestionAndAnswer extends React.Component {
     let buttonText = ''
 
     if (questionsAndAnswersFile == 'premium') {
-      const imageLink = expanded ? 'collapse@3x.png' : 'expand@3x.png'
+      const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
       buttonText = <button type="button"><img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} /></button>
     } else {
       buttonText = expanded ? 'Collapse' : 'Expand'

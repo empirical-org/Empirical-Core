@@ -219,25 +219,33 @@ li.premium-tab > a:hover {
     }
     ul {
       text-align: left;
+      margin-right: 20px;
     }
     li {
       margin-bottom: 6px;
     }
     .pricing-mini-header {
-      width: 300px;
+      width: 299px;
       height: 104px;
-      border-radius: 4px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
       color: white;
       .img-holder {
-        height: 57px;
-        padding-top: 14px;
-        margin-bottom: 9px;
-        &.basic {
-          padding-top: 17px;
-        }
-        img {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img.open-book {
           height: 55px;
           width: 60px;
+        }
+        img.presentation-board {
+          height: 64px;
+          width: 64px;
+        }
+        img.blue-school {
+          height: 64px;
+          width: 58px;
         }
       }
     }
@@ -439,7 +447,6 @@ li.premium-tab > a:hover {
         padding-left: 30px;
       }
       h3 {
-        padding-top: 40px;
         font-weight: bold;
         padding-bottom: 10px;
       }
@@ -448,6 +455,11 @@ li.premium-tab > a:hover {
       }
       img {
         width: 447px;
+        height: 224px;
+      }
+      .premium-features-text {
+        display: table-cell;
+        vertical-align: middle;
         height: 224px;
       }
       .switch-to-right {
@@ -558,7 +570,10 @@ li.premium-tab > a:hover {
       max-width: 90%;
       text-align: left;
       display: block;
-      height: 152px;
+      height: 166px;
+      .pdf-button {
+        margin: 10px 0px;
+      }
     }
   }
 }
@@ -625,11 +640,16 @@ li.premium-tab > a:hover {
       p:hover {
         cursor: pointer;
       }
-      button:active {
-        border: 1px solid #e0e0e0;
+      button:focus {
+        border: 2px solid #e0e0e0;
       }
       button {
         background-color: white;
+      }
+      .expand-or-collapse {
+        display: flex;
+        align-items: center;
+        margin: 0px;
       }
     }
     .q-and-a-inner-wrapper:last-child div {
@@ -676,7 +696,7 @@ li.premium-tab > a:hover {
 .district-pricing-box {
 	max-width: 980px;
   width: 100%;
-	min-height: 81px;
+	height:88px;
   padding-left: 18px;
   padding-right: 20px;
 	background-color: #ffffff;
@@ -698,6 +718,9 @@ li.premium-tab > a:hover {
     font-weight: bold;
     height: 40px;
   }
+  .premium-button {
+    margin: 0px;
+  }
   @media (max-width: 990px) {
     padding: 30px;
     max-width: 75%;
@@ -715,6 +738,7 @@ li.premium-tab > a:hover {
   @media (max-width: 600px) {
     max-width: 90%;
     padding: 20px;
+    height: auto;
     .premium-button {
       margin: 20px 0px;
     }

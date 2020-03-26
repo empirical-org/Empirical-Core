@@ -24,7 +24,7 @@ const SchoolPricingMini = ({
     <div className="pricing-mini">
       <header className="pricing-mini-header blue">
         <div className="img-holder">
-          <img alt="School" src={`${process.env.CDN_URL}/images/shared/blue-school@3x.png`} />
+          <img alt="School" className="blue-school" src={`${process.env.CDN_URL}/images/shared/blue-school.svg`} />
         </div>
       </header>
       <section className="pricing-info">
@@ -36,11 +36,9 @@ const SchoolPricingMini = ({
         <a className='premium-button dark-green' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request Free Access</a>
         <ul>
           <li className="semibold">Everything in Teacher Premium</li>
-          <li>Dedicated representative to ensure a successful onboarding experience</li>
-          <li>Professional Development Sessions</li>
-          <li>Administrator dashboard for school-<br />
-        wide reports
-          </li>
+          <li>Dedicated representative to ensure successful implementation</li>
+          <li>Professional development sessions</li>
+          <li>Administrator dashboard for school-wide reports</li>
         </ul>
       </section>
       <section className="learn-more">
