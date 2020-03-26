@@ -32,7 +32,7 @@ export default class extends React.Component {
       const data = JSON.parse(body).data
       const classroomsData = data;
       // gets unique classroom names
-      const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
+      const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
       classroomNames.unshift(showAllClassroomKey)
       that.setState({loading: false, errors: body.errors, classroomsData, classroomNames});
     });

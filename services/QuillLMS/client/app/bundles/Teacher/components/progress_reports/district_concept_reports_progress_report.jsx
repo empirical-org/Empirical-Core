@@ -32,7 +32,7 @@ export default class extends React.Component {
       const csvData = this.formatDataForCSV(data)
       const conceptReportsData = data;
       // gets unique classroom names
-      const classroomNames = [...new Set(conceptReportsData.map(row => row.classroom_name))]
+      const classroomNames = Array.from(new Set(conceptReportsData.map(row => row.classroom_name)))
       classroomNames.unshift(showAllClassroomKey)
       that.setState({loading: false, errors: body.errors, conceptReportsData, csvData, classroomNames});
     });

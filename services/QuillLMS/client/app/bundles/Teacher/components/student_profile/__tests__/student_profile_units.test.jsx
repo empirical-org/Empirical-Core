@@ -56,7 +56,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should render only completed activities if the active tab is completed activities', () => {
     const completeActivities = activities.filter(act => act.max_percentage)
-    const uniqueUnitIds = [...new Set(completeActivities.map(act => act.unit_id))]
+    const uniqueUnitIds = Array.from(new Set(completeActivities.map(act => act.unit_id)))
 
     const wrapper = mount(<StudentProfileUnits
       activeClassworkTab={COMPLETED_ACTIVITIES}
