@@ -2,10 +2,11 @@ import { requestGet, requestPost, requestPut } from './request';
 import { TitleCard, TitleCards } from '../interfaces/title_cards';
 
 const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/title_cards`;
-const titleCardType = 'connect_title_card';
+const CONNECT_TITLE_CARD_TYPE = 'connect_title_card';
+const DIAGNOSTIC_TITLE_CARD_TYPE = 'diagnostic_title_card';
 
 class TitleCardApi {
-  static getAll(): Promise<TitleCards> {
+  static getAll(titleCardType: string): Promise<TitleCards> {
     return requestGet(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`);
   }
 
@@ -13,11 +14,18 @@ class TitleCardApi {
     return requestGet(`${titleCardApiBaseUrl}/${uid}.json`);
   }
 
-  static create(data: TitleCard): Promise<TitleCard> {
-    return requestPost(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`, data);
+  static create(titleCardType: string, data: TitleCard): Promise<TitleCard> {
+    return requestPost(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`, {title_card: data});
   }
 
   static update(uid: string, data: TitleCard): Promise<TitleCard> {
-    return requestPut(`${titleCardApiBaseUrl}/${uid}.json`, data);
+    return requestPut(`${titleCardApiBaseUrl}/${uid}.json`, {title_card: data});
   }
+}
+
+export {
+  TitleCardApi,
+  CONNECT_TITLE_CARD_TYPE,
+  DIAGNOSTIC_TITLE_CARD_TYPE,
+  titleCardApiBaseUrl
 }

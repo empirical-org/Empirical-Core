@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
-import { TitleCardApi } from '../libs/title_cards_api'
+import { TitleCardApi, CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api'
 
 const C = require('../constants').default;
 
@@ -11,7 +11,7 @@ function startListeningToTitleCards() {
 
 function loadTitleCards(): (any) => void {
   return (dispatch) => {
-    TitleCardApi.getAll().then((body) => {
+    TitleCardApi.getAll(CONNECT_TITLE_CARD_TYPE).then((body) => {
       const titleCards = body.title_cards.reduce((obj, item) => {
         return Object.assign(obj, {[item.uid]: item});
       }, {});
@@ -39,7 +39,7 @@ function loadSpecifiedTitleCards(uids) {
 
 function submitNewTitleCard(content) {
   return (dispatch) => {
-    TitleCardApi.create(content).then((body) => {
+    TitleCardApi.create(CONNECT_TITLE_CARD_TYPE, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       const action = push(`/admin/title-cards/${body.uid}`);
       dispatch(action);
