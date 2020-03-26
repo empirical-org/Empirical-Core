@@ -66,8 +66,9 @@ export interface FocusPoint {
 export interface IncorrectSequence {
   text: string,
   feedback: string,
-  concept_results?: Array<ConceptResult>
-  conceptResults?: Array<ConceptResult>
+  concept_results?: Array<ConceptResult>,
+  conceptResults?: Array<ConceptResult>,
+  caseInsensitive?: boolean|null
 }
 
 export interface FeedbackObject {
