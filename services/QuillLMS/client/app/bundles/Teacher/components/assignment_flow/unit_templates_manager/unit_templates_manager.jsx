@@ -133,13 +133,13 @@ export default class UnitTemplatesManager extends React.Component {
   }
 
   selectCategory = category => {
-    const { unitTemplatesManager, } = this.state
+    const { unitTemplatesManager, signedInTeacher, } = this.state
     const newUnitTemplatesManager = unitTemplatesManager
     newUnitTemplatesManager.selectedCategoryId = category.value
     this.setState({ unitTemplatesManager: newUnitTemplatesManager })
 
-    const { type, } = this.props.location.query
-    let url = '/assign/featured-activity-packs'
+    const { type, } = this.parsedQueryParams()
+    let url = signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
     if (type && category.value) {
       url = url.concat(`?type=${type}&category=${category.label}`)
     } else if (type) {

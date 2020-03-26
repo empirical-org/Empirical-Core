@@ -7,6 +7,8 @@ import EmptyAssignedUnits from '../components/assignment_flow/manage_units/Empty
 import ClassroomLessonsPlanner from '../components/assignment_flow/classroom_lessons'
 import ChooseClassroomLesson from '../components/assignment_flow/choose_classroom_lesson'
 import MyActivitiesTabs from '../components/assignment_flow/my_activities_tabs.jsx'
+import UnitTemplatesManager from '../components/assignment_flow/unit_templates_manager/unit_templates_manager'
+import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx'
 
 export default class LessonPlannerContainer extends React.Component {
   render() {
@@ -23,6 +25,10 @@ export default class LessonPlannerContainer extends React.Component {
           <Route component={EditUnitActivitiesContainer} path="/teachers/classrooms/activity_planner/units/:unitId/activities/edit" />
           <Route component={EmptyAssignedUnits} path="/teachers/classrooms/activity_planner/no_units" />
           <Route component={LessonPlanner} exact path="/teachers/classrooms/activity_planner" />
+          <Route component={UnitTemplateProfile} path="/activities/packs/:activityPackId" />
+          <Route component={UnitTemplatesManager} path="/activities/packs" />
+          <Route component={UnitTemplatesManager} path="/activities/packs/category/:category" />
+          <Route component={UnitTemplatesManager} path="/activities/packs/grade/:grade" />
         </Switch>
       </div>)
    }

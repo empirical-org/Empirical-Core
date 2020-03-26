@@ -44,7 +44,7 @@ export default class UnitTemplateMini extends React.Component {
   miniSpecificComponents() {
     if (this.props.data.id == 'createYourOwn') {
       return (
-        <Link to={this.getLink()}>
+        <a href={this.getLink()}>
           <div className='text-center create-your-own'>
             <div className='content-wrapper'>
               <img className='plus_icon' src='/add_class.png' />
