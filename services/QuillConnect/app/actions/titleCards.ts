@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
-import { requestGet, requestPost, requestPut } from '../utils/request';
+import { requestGet, requestPost, requestPut } from '../libs/request';
 
 const C = require('../constants').default;
 
