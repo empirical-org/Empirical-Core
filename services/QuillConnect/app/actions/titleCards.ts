@@ -5,6 +5,7 @@ import { requestGet, requestPost, requestPut } from '../utils/request';
 const C = require('../constants').default;
 
 const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/title_cards`;
+const titleCardType = 'connect_title_card';
 
 interface TitleCardProps {
   uid: string;
@@ -18,7 +19,7 @@ interface TitleCardBatchProps {
 
 class TitleCardApi {
   static getAll(): Promise<TitleCardBatchProps> {
-    return requestGet(`${titleCardApiBaseUrl}.json`);
+    return requestGet(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`);
   }
 
   static get(uid: string): Promise<TitleCardProps> {
@@ -26,7 +27,7 @@ class TitleCardApi {
   }
 
   static create(data: TitleCardProps): Promise<TitleCardProps> {
-    return requestPost(`${titleCardApiBaseUrl}.json`, data);
+    return requestPost(`${titleCardApiBaseUrl}.json?title_card_type=${titleCardType}`, data);
   }
 
   static update(uid: string, data: TitleCardProps): Promise<TitleCardProps> {

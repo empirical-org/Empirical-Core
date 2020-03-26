@@ -1,9 +1,10 @@
 class Api::V1::TitleCardsController < Api::ApiController
   wrap_parameters format: [:json]
+  before_action :retrieve_title_card_type, only: [:index, :create]
   before_filter :title_card_by_uid, only: [:show, :update, :destroy]
 
   def index
-    render(json: TitleCard.all.as_json || {title_cards:[]})
+    render(json: TitleCard.where(title_card_type: @title_card_type.to_s).as_json || {title_cards:[]})
   end
 
   def show
@@ -13,6 +14,7 @@ class Api::V1::TitleCardsController < Api::ApiController
   def create
     valid_params = validate_params
     valid_params[:uid] ||= SecureRandom.uuid
+    valid_params[:title_card_type] ||= @title_card_type
     @title_card = TitleCard.create!(valid_params)
     render(json: @title_card.as_json)
   end
@@ -29,6 +31,10 @@ class Api::V1::TitleCardsController < Api::ApiController
 
   private def title_card_by_uid
     @title_card = TitleCard.find_by!(uid: params[:id])
+  end
+
+  private def retrieve_title_card_type
+    @title_card_type = params[:title_card_type]
   end
 
   private def validate_params
