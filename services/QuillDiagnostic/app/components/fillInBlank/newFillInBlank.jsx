@@ -22,6 +22,7 @@ class NewFillInBlank extends Component {
   };
 
   render() {
+    console.log('newFillInBlank-props', this.props);
     return <FillInBlankForm action={this.submitNewQuestion} />;
   }
 }

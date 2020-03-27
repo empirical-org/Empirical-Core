@@ -4,18 +4,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Cues from '../renderForQuestions/cues.tsx';
-import fillInTheBlankActions from '../../actions/fillInBlank';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 class FillInBlankQuestion extends Component {
-  constructor(props) {
-    super(props);
-    this.getQuestion = this.getQuestion.bind(this);
-  }
 
   getQuestion = () => {
-    const { params, fillInBlank, } = this.props
+    const { match, fillInBlank, } = this.props
+    const { params } = match
     const { questionID, } = params;
     return fillInBlank ? fillInBlank.data[questionID] : null;
   }
@@ -26,7 +22,8 @@ class FillInBlankQuestion extends Component {
   }
 
   render() {
-    const { params, massEdit, fillInBlank, children, } = this.props
+    const { match, massEdit, fillInBlank, children, } = this.props
+    const { params } = match
     const { questionID} = params;
     const question = this.getQuestion();
     if (this.isLoading()) {
@@ -51,12 +48,12 @@ class FillInBlankQuestion extends Component {
             <p>{question.instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-            <Link className="button is-outlined is-primary" to={`admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>
+            <Link className="button is-outlined is-primary" to={`/admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>
           </p>
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
               {activeLink}
             </ul>
           </div>

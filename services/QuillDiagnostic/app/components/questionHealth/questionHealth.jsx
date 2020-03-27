@@ -259,7 +259,6 @@ class questionHealth extends Component {
   }
 
   render() {
-    console.log('questionHealth-props', this.props);
     const { loading } = this.state;
     if (loading) {
       return <Spinner />

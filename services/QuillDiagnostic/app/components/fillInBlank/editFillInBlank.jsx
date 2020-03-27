@@ -10,7 +10,8 @@ class EditFillInBlank extends Component {
   }
 
   editQuestion = data => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const { fillInBlankQuestionID } = questionID;
     const questionData = data;
@@ -19,7 +20,8 @@ class EditFillInBlank extends Component {
   };
 
   returnQuestionState = () => {
-    const { fillInBlank, params } = this.props;
+    const { fillInBlank, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const { data } = fillInBlank;
     const fillInBlankQuestionID = questionID;

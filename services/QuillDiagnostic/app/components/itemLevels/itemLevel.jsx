@@ -4,42 +4,57 @@ import ItemLevelForm from './itemLevelForm.jsx'
 import levelActions from '../../actions/item-levels'
 import questionActions from '../../actions/questions'
 import _ from 'lodash'
+import { Spinner } from 'quill-component-library/dist/componentLibrary'
 
 class ItemLevel extends React.Component {
+
+  componentDidMount() {
+    console.log('componentDidMount item-level-props', this.props);
+  }
   deleteItemLevel = (levelID) => {
-    this.props.dispatch(levelActions.deleteItemLevel(levelID))
+    const { dispatch, itemLevels, questions } = this.props;
+    dispatch(levelActions.deleteItemLevel(levelID))
     //must delete the itemLevel field from each question that has this level
-    var questionKeys = _.keys(this.props.questions.data)
+    var questionKeys = _.keys(questions.data)
     questionKeys.forEach((key) => {
-      if(this.props.itemLevels.data[levelID].name===this.props.questions.data[key].itemLevel) {
-        this.props.dispatch(questionActions.submitQuestionEdit(key, {itemLevel: ""}))
+      if(itemLevels.data[levelID].name === questions.data[key].itemLevel) {
+        dispatch(questionActions.submitQuestionEdit(key, {itemLevel: ""}))
       }
     })
   };
 
   toggleEdit = () => {
-    this.props.dispatch(levelActions.startItemLevelEdit(this.props.params.levelID))
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { levelID } = params
+    dispatch(levelActions.startItemLevelEdit(levelID))
   };
 
   submitNewItemLevel = (newItemLevel, levelID) => {
+    const { dispatch } = this.props;
     if(newItemLevel) {
-      this.props.dispatch(levelActions.submitItemLevelEdit(levelID, newItemLevel))
+      dispatch(levelActions.submitItemLevelEdit(levelID, newItemLevel))
     }
   };
 
   cancelEdit = (levelID) => {
-      this.props.dispatch(levelActions.cancelItemLevelEdit(levelID))
+    const { dispatch } = this.props;
+      dispatch(levelActions.cancelItemLevelEdit(levelID))
   };
 
   render() {
-    // this.props.params has the ID of the current itemLevel. this.props.itemLevels.data has all the itemLevels
-    let data = this.props.itemLevels.data[this.props.params.itemLevelID]
+    const { itemLevels, match } = this.props
+    const { data } = itemLevels
+    const { params } = match
+    const { itemLevelID } = params
+    console.log('item-level-props', this.props);
+    console.log('data', data[itemLevelID]);
     return (
       <ItemLevelForm
         cancelEdit={this.cancelEdit}
-        data={data}
+        data={data[itemLevelID]}
         deleteItemLevel={this.deleteItemLevel}
-        levelID={this.props.params.itemLevelID}
+        levelID={itemLevelID}
         mode="Edit"
         submitNewItemLevel={this.submitNewItemLevel}
       />

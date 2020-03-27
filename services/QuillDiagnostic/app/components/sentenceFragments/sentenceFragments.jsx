@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 
 import {
   hashToCollection,
-  ArchivedButton,
-  QuestionList
+  ArchivedButton
 } from 'quill-component-library/dist/componentLibrary'
+import { QuestionList } from '../shared/questionList'
 
 class SentenceFragments extends React.Component {
   constructor(props) {
@@ -15,6 +15,14 @@ class SentenceFragments extends React.Component {
     this.state = {
       showOnlyArchived: false,
       diagnosticQuestions: {}
+    }
+  }
+
+  componentDidMount() {
+    const { sentenceFragments } = this.props
+    const { data } = sentenceFragments
+    if(data) {
+      this.setState({ diagnosticQuestions: data})
     }
   }
 
@@ -38,10 +46,12 @@ class SentenceFragments extends React.Component {
   render() {
     const { diagnosticQuestions, showOnlyArchived } = this.state;
     const sentenceFragments = hashToCollection(diagnosticQuestions)
+    console.log('sentence-fragments-props', this.props);
+    console.log('sentenceFragments', sentenceFragments);
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/sentence-fragments/new'}>
+          <Link to={'/admin/sentence-fragments/new'}>
             <button className="button is-primary">Create a New Sentence Fragment</button>
           </Link>
           <ArchivedButton

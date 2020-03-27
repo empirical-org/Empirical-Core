@@ -36,7 +36,7 @@ class Concepts extends React.Component {
   render() {
     return (
       <section className="section">
-        <div className="container">
+        <div className="admin-container">
           <aside className="menu">
             <p className="menu-label">
                   Concepts

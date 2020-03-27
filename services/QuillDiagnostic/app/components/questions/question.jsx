@@ -2,8 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import { connect } from 'react-redux';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
-import { NavLink } from 'react-router-dom';
-
+import { Route, Switch, withRouter, NavLink } from 'react-router-dom';
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import Cues from '../renderForQuestions/cues.tsx';
@@ -13,6 +12,15 @@ import {
   submitOptimalResponses
 } from '../../actions/responses';
 import C from '../../constants';
+import EditFillInBlank from '../fillInBlank/editFillInBlank.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import MassEditContainer from '../questions/massEditContainer.jsx';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
+import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -222,6 +230,7 @@ class Question extends React.Component {
 
   render() {
     const { questions, match, massEdit, children, } = this.props
+    console.log('question-children', children);
     const { params } = match;
     const { data } = questions
     const { questionID, } = params;
@@ -234,7 +243,7 @@ class Question extends React.Component {
         : <li style={{ color: "#a2a1a1" }}>Mass Edit ({massEdit.numSelectedResponses})</li>
 
       return (
-        <div>
+        <div className="admin-container">
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           {this.renderUploadNewOptimalResponsesForm()}
@@ -257,15 +266,30 @@ class Question extends React.Component {
           </p>
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`admin/questions/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`admin/questions/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/test`}>Play Question</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
               {activeLink}
             </ul>
           </div>
-          {children}
+          {/* {children} */}
+          <Switch>
+            <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
+            <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
+            <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
+            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
+            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/edit`} />
+            <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
+            <Route component={MassEditContainer} path={`/admin/questions/:questionID/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/questions/:questionID/responses`} />
+            <Route component={MassEditContainer} path={`/admin/sentence-fragments/:questionID/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/sentence-fragments/:questionID/responses`} />
+            <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
+            <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />
+          </Switch>
         </div>
       );
     } else {
@@ -286,4 +310,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Question);
+export default withRouter(connect(select)(Question));

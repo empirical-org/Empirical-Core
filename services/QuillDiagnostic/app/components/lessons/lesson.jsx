@@ -66,7 +66,7 @@ class Lesson extends React.Component {
     const { dispatch, match } = this.props;
     const { params } = match;
     const { lessonID } = params;
-    const qids = questions ? questions.map(q => q.key) : []
+    const qids = vals.questions ? vals.questions.map(q => q.key) : []
     dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
@@ -101,7 +101,7 @@ class Lesson extends React.Component {
       const numberOfQuestions = data[lessonID].questions ? data[lessonID].questions.length : 0;
       return (
         <div>
-          <Link to={'admin/lessons'}>Return to All Activities</Link>
+          <Link to={'/admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
           <h4 className="title">{data[lessonID].name}</h4>
@@ -109,7 +109,7 @@ class Lesson extends React.Component {
           <h6 className="subtitle">{data[lessonID].flag}</h6>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
           <h6 className="subtitle"><Link to={`play/diagnostic/${lessonID}`}>Play Diagnostic</Link></h6>
-          <h6 className="subtitle"><Link to={`admin/lessons/${lessonID}/results`}>View Results</Link></h6>
+          <h6 className="subtitle"><Link to={`/admin/lessons/${lessonID}/results`}>View Results</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>

@@ -237,6 +237,7 @@ class ResponseComponent extends React.Component {
   };
 
   renderResponses = () => {
+    console.log('props', this.props);
     if (this.state.viewingResponses) {
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const responsesWStatus = this.responsesWithStatus();

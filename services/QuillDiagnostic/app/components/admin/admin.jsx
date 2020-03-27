@@ -27,6 +27,7 @@ import LessonResults from '../lessons/lessonResults.jsx';
 import QuestionHealth from '../questionHealth/questionHealth.jsx';
 import Questions from '../questions/questions.jsx';
 import Question from '../questions/question';
+import ChooseModelContainer from '../questions/chooseModelContainer.jsx';
 import TitleCards from '../titleCards/titleCards.tsx';
 import TitleCardForm from '../titleCards/titleCardForm.tsx';
 import ShowTitleCard from '../titleCards/showTitleCard.tsx';
@@ -34,7 +35,26 @@ import ItemLevel from '../itemLevels/itemLevel.jsx';
 import ItemLevels from '../itemLevels/itemLevels.jsx';
 import ItemLevelDetails from '../itemLevels/itemLevelDetails.jsx';
 import ItemLevelForm from '../itemLevels/itemLevelForm.jsx';
-
+import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
+import TestFillInBlankQuestionContainer from '../fillInBlank/testFillInBlankQuestionContainer.jsx';
+import EditFillInBlank from '../fillInBlank/editFillInBlank.jsx';
+import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import MassEditContainer from '../questions/massEditContainer.jsx';
+import TestQuestionContainer from '../questions/testQuestion';
+import AnswerVisualizer from 'components/misc/answerVisualizer.jsx';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
+import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import NewFillInBlank from '../fillInBlank/newFillInBlank';
+import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
+import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
+import SentenceFragment from 'components/sentenceFragments/sentenceFragment.jsx';
+import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
+import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
 
 const TabLink = props => (
   <li>
@@ -60,11 +80,10 @@ class Admin extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
     return (
-      <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
+      <div style={{ display: 'flex', backgroundColor: "white"}}>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
-          <aside className="menu" style={{ minWidth: 220, borderRight: '1px solid #e3e3e3', padding: 15, paddingLeft: 0, }}>
+          <aside className="admin-menu">
             <p className="menu-label">
               General
             </p>
@@ -87,7 +106,7 @@ class Admin extends React.Component {
             </p>
             <ul className="menu-list">
               <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to={'admin/concepts-feedback'}>Concept Feedback</TabLink>
+              <TabLink activeClassName="is-active" to={'/admin/concepts-feedback'}>Concept Feedback</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/item-levels'}>Item Levels</TabLink>
             </ul>
             <p className="menu-label">
@@ -97,16 +116,13 @@ class Admin extends React.Component {
               <TabLink activeClassName="is-active" to={'/admin/title-cards'}>Title Cards</TabLink>
             </ul>
           </aside>
-          {/* <div className="admin-container">
-            {children}
-          </div> */}
         </section>
         <Switch>
-          <Route component={CloneConnectQuestions} path={`/admin/clone_questions`} />
+          <Route component={ConceptFeedback} path={`/admin/concepts-feedback/:conceptFeedbackID`} />
+          <Route component={ConceptsFeedback} path={`/admin/concepts-feedback`} />
           <Route component={Concept} path={`/admin/concepts/:conceptID`} />
           <Route component={Concepts} path={`/admin/concepts`} />
-          <Route component={ConceptFeedback} path={`/admin/concepts_feedback/:conceptFeedbackID`} />
-          <Route component={ConceptsFeedback} path={`/admin/concepts_feedback`} />
+          <Route component={CloneConnectQuestions} path={`/admin/clone_questions`} />
           <Route component={ScoreAnalysis} path={`/admin/datadash`} />
           <Route component={NewDiagnostic} path={`/admin/diagnostics/new`} />
           <Route component={Diagnostics} path={`/admin/diagnostics`} />
@@ -115,15 +131,27 @@ class Admin extends React.Component {
           <Route component={Lessons} path={`/admin/lessons`} />
           <Route component={QuestionHealth} path={`/admin/question-health`} />
           <Route component={Question} path={`/admin/questions/:questionID`} />
+          <Route component={AnswerVisualizer} path={`/admin/questions/visualize`} />
+          <Route component={TestQuestionContainer} path={`/admin/questions/test`} />
+          <Route component={ChooseModelContainer} path={`/admin/questions/choose-model`} />
           <Route component={Questions} path={`/admin/questions`} />
+          <Route component={TitleCardForm} path={`/admin/title-cards/new`} />
           <Route component={TitleCardForm} path={`/admin/title-cards/:titleCardID/edit`} />
           <Route component={ShowTitleCard} path={`/admin/title-cards/:titleCardID`} />
-          <Route component={TitleCardForm} path={`/admin/title-cards/new`} />
           <Route component={TitleCards} path={`/admin/title-cards`} />
           <Route component={ItemLevelForm} path={`/admin/item-levels/:itemLevelID/new`} />
           <Route component={ItemLevel} path={`/admin/item-levels/:itemLevelID/edit`} />
           <Route component={ItemLevelDetails} path={`/admin/item-levels/:itemLevelID`} />
           <Route component={ItemLevels} path={`/admin/item-levels`} />
+          <Route component={NewFillInBlank} path={`/admin/fill-in-the-blanks/new`} />
+          <Route component={FillInBlankQuestion} path={`/admin/fill-in-the-blanks/:questionID`} />
+          <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/test`} />
+          <Route component={FillInBlankQuestions} path={`/admin/fill-in-the-blanks`} />
+          <Route component={NewSentenceFragment} path={`/admin/sentence-fragments/new`} />
+          <Route component={SentenceFragment} path={`/admin/sentence-fragments/:questionID`} />
+          <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/choose-model`} />
+          <Route component={TestSentenceFragmentContainer} path={`/admin/sentence-fragments/test`} />
+          <Route component={SentenceFragments} path={`/admin/sentence-fragments`} />
         </Switch>
       </div>
     );

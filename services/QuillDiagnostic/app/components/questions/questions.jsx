@@ -5,11 +5,12 @@ import _ from 'underscore';
 import {
   Modal,
   hashToCollection,
-  QuestionListByConcept,
   ArchivedButton
 } from 'quill-component-library/dist/componentLibrary';
+import { QuestionListByConcept } from '../shared/questionListByConcept'
 import Question from '../../libs/question';
-import QuestionSelector from 'react-select-search';
+// import SelectSearch from 'react-select-search';
+import Select from 'react-select'
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
@@ -24,13 +25,18 @@ function sleep(milliseconds) {
 }
 
 class Questions extends React.Component {
-  constructor(props) {
-    super(props)
+  
+  state = {
+    displayNoConceptQuestions: false,
+    showOnlyArchived: false,
+    diagnosticQuestions: {}
+  }
 
-    this.state = {
-      displayNoConceptQuestions: false,
-      showOnlyArchived: false,
-      diagnosticQuestions: {}
+  componentDidMount() {
+    const { questions } = this.props
+    const { data } = questions
+    if (data) {
+      this.setState({ diagnosticQuestions: data })
     }
   }
 
@@ -90,6 +96,7 @@ class Questions extends React.Component {
   };
 
   responsesWithStatusForQuestion = questionUID => {
+    console.log('responses', responses);
     let { responses } = this.props;
     const { data } = responses;
     responses = data[questionUID];
@@ -257,7 +264,7 @@ class Questions extends React.Component {
         }
         return { name, value: opt.key || 'key', };
       });
-      const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
+      const searchBox = (<Select onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
   };
@@ -265,12 +272,10 @@ class Questions extends React.Component {
   render() {
     const { questions, concepts, } = this.props;
     const { diagnosticQuestions, displayNoConceptQuestions, showOnlyArchived } = this.state;
-    console.log('diagnosticQuestions', diagnosticQuestions);
     if (questions.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
-            <button onClick={this.rematchAllQuestions}>Rematch all Questions</button>
             { this.renderModal() }
             { this.renderSearchBox() }
             <br />

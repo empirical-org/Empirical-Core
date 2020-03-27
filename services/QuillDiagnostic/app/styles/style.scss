@@ -14,6 +14,7 @@
 
 html {
   overscroll-behavior: none;
+  overflow: hidden;
 }
 
 body {
@@ -192,11 +193,11 @@ textarea.submission {
 }
 
 /** The option list should not be visible by default */
-.select-search-box__select {
+.select-search__select {
   display: none;
 }
 
-.select-search-box__search {
+.select-search__input {
   display: block;
   width: 74%;
   height: 32px;
@@ -222,17 +223,17 @@ textarea.submission {
 }
 
 /** If it's a multiple select, you can style it with this selector */
-.select-search-box--multiple .select-search-box__select {
+.select-search--multiple .select-search__select {
   display: block;
 }
 
 /** The list receives the modifier class "display" when the select has focus */
-.select-search-box__select--display {
+.select-search__select--display {
   display: block;
 }
 
 /** UL with the options */
-.select-search-box__options {
+.select-search__options {
   max-height: 200px;
   overflow: scroll;
   background-color: white;
@@ -240,7 +241,7 @@ textarea.submission {
 }
 
 /** The option (LI), look at the state classes below */
-.select-search-box__option {
+.select-search__option {
   font-size: 14px;
   font-weight: 400;
   color: #616b74;
@@ -253,12 +254,12 @@ textarea.submission {
 }
 
 /** When the option has been selected */
-.select-search-box__option--selected {
+.select-search__option--selected {
 
 }
 
 /** When the option is selected (when navigation with the arrow keys, up/down) */
-.select-search-box__option--hover, .select-search-box__option:hover {
+.select-search__option--hover, .select-search__option:hover {
   background-color: #a3e8dc;
 }
 
@@ -387,4 +388,32 @@ textarea.submission {
 
 .search {
   margin-left: 20px;
+}
+
+.concepts-container {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.questions-search-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.rematch-questions-button {
+
+}
+
+.admin-menu {
+  min-width: 220; 
+  border-right: '1px solid #e3e3e3'; 
+  padding: 30px 15px 15px 0px;
+}
+
+.concept-feedback-button-container {
+  margin-top: 20px;
+}
+
+.concept-feedback-edit {
+  margin-right: 20px;
 }

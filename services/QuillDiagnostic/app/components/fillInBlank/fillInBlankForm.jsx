@@ -31,6 +31,7 @@ class FillInBlankForm extends Component {
   }
 
   handlePromptChange = prompt => {
+    console.log('prompt', prompt);
     this.setState({ prompt });
   };
 

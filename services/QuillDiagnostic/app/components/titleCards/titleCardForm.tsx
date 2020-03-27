@@ -18,51 +18,53 @@ interface TitleCardFormState {
 export interface TitleCardFormProps {
   titleCards: any
   routing: any
-  routeParams: any
+  match: any
   dispatch(any): void 
 }
 
 
 class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
-  constructor(props) {
-    super(props)
 
-    if (props.routeParams.titleCardID && props.titleCards.hasreceiveddata) {
-      const {titleCardID} = props.routeParams
-      const titleCard = props.titleCards.data[titleCardID]
+  state = {
+    title: '',
+    content: ''
+  }
+
+  componentDidMount() {
+    const { match, titleCards } = this.props
+    const { data, hasreceiveddata } = titleCards
+    const { params } = match
+    const { titleCardID } = params
+    if(titleCardID && hasreceiveddata) {
+      const titleCard = data[titleCardID]
       const {title, content} = titleCard
-      this.state = {
-        content: content ? content : '',
-        title: title ? title : ''
-      }
-    } else {
-      this.state = {
-        title: '',
-        content: ''
-      }
+      this.setState({ title: title ? title : '', content: content ? content : '' })
     }
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.titleCards.hasreceiveddata && !this.props.titleCards.hasreceiveddata) {
-      if (nextProps.routeParams.titleCardID && nextProps.titleCards.hasreceiveddata) {
-        const {titleCardID} = nextProps.routeParams
-        const titleCard = nextProps.titleCards.data[titleCardID]
-        const {title, content} = titleCard
-        this.setState({
-          content: content ? content : this.state.content,
-          title: title ? title : this.state.title
-        })
-      }
+  UNSAFE_componentWillReceiveProps(nextProps: TitleCardFormProps) {
+    const { titleCards, match } = nextProps
+    const { data, hasreceiveddata } = titleCards
+    const { params } = match
+    const { titleCardID } = params
+    if (hasreceiveddata && titleCardID && !this.props.titleCards.hasreceiveddata) {
+      const titleCard = data[titleCardID]
+      const { title, content } = titleCard
+      this.setState({
+        content: content ? content : this.state.content,
+        title: title ? title : this.state.title
+      })
     }
   }
 
   submit = () => {
-    const { titleCardID } = this.props.routeParams
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { titleCardID } = params
     if (titleCardID) {
-      this.props.dispatch(submitTitleCardEdit(titleCardID, this.state))
+      dispatch(submitTitleCardEdit(titleCardID, this.state))
     } else {
-      this.props.dispatch(submitNewTitleCard(this.state))
+      dispatch(submitNewTitleCard(this.state))
     }
   }
 
@@ -75,32 +77,29 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     this.setState({content: formattedContent})
   }
 
-  renderHeaderText = () => {
-    const { titleCardID } = this.props.routeParams
-    if (titleCardID) {
-      return 'Edit this title card'
-    } else {
-      return 'Create a new title card'
-    }
-  }
-
   render() {
+    const { content, title } = this.state
+    const { match } = this.props
+    const { params } = match
+    const { titleCardID } = params
     return (
-      <div className="box">
-        <h6 className="control subtitle">{this.renderHeaderText()}</h6>
-        <br />
-        <label className="label">Title</label>
-        <textarea className="input" onChange={this.handleTitleChange} value={this.state.title || ""} />
-        <br />
-        <label className="label">Content</label>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={this.handleContentChange}
-          text={this.state.content || ""}
-        />
-        <br />
-        <button className="button is-primary" onClick={this.submit}>Save Question</button>
+      <div className="admin-container">
+        <div className="box">
+          <h6 className="control subtitle">{titleCardID ? 'Edit this title card' : 'Create a new title card'}</h6>
+          <br />
+          <label className="label">Title</label>
+          <textarea className="input" onChange={this.handleTitleChange} value={title} />
+          <br />
+          <label className="label">Content</label>
+          <TextEditor
+            ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={this.handleContentChange}
+            text={content}
+          />
+          <br />
+          <button className="button is-primary" onClick={this.submit}>Save Question</button>
+        </div>
       </div>
     )
   }

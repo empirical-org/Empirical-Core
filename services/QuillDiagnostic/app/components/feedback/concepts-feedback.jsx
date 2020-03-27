@@ -2,10 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
-import {
-  Modal,
-  LinkListItem
-} from 'quill-component-library/dist/componentLibrary'
+import { Modal } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from '../shared/linkListItem'
 
 class ConceptsFeedback extends React.Component {
   createNew = () => {
@@ -15,9 +13,7 @@ class ConceptsFeedback extends React.Component {
 
   submitNewConcept = () => {
     const { dispatch } = this.props;
-    const { newConceptName } = this.refs;
-    const { value } = newConceptName;
-    const newConcept = {name: value}
+    const newConcept = { name: this.refs.newConceptName.value }
     dispatch(actions.submitNewConceptsFeedback(newConcept))
     this.refs.newConceptName.value = ""
     dispatch(actions.toggleNewConceptsFeedbackModal())
@@ -72,7 +68,7 @@ class ConceptsFeedback extends React.Component {
     const { children } = this.props;
     return (
       <section className="section">
-        <div className="container">
+        <div className="admin-container">
           <div className="columns">
             <div className="column">
               <aside className="menu">

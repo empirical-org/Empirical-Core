@@ -1,7 +1,4 @@
-import React from 'react'
-import actions from '../../actions/concepts-feedback'
-import feedbackActions from '../../actions/concepts-feedback'
-import { connect } from 'react-redux'
+import * as React from 'react'
 import {
   TextEditor,
   ConceptExplanation
@@ -10,11 +7,16 @@ import { EditorState, ContentState } from 'draft-js'
 export default class extends React.Component {
 
   state = {
-    description: this.props.description,
-    leftBox: this.props.leftBox,
-    rightBox: this.props.rightBox,
+    description: '',
+    leftBox: '',
+    rightBox: '',
     editing: "title"
   };
+
+  componentDidMount() {
+    const { description, leftBox, rightBox } = this.props
+    this.setState({ description, leftBox, rightBox });
+  }
 
   handleChange = (key, e) => {
     const newState = {}
@@ -48,27 +50,31 @@ export default class extends React.Component {
   };
 
   renderEditor = () => {
+    const { editing } = this.state
     const parts = ["description", "leftBox", "rightBox"];
     return parts.map((part) => {
-      if (part === this.state.editing) {
-        return [
-          (<label className="label">{part}</label>),
-          (<TextEditor
-            ContentState={ContentState}
-            EditorState={EditorState}
-            handleTextChange={this.handleChange.bind(null, part)}
-            key={part}
-            text={this.state[part]}
-          />)
-        ]
+      if (part === editing) {
+        return(
+          <React.Fragment>
+            <label className="label">{part}</label>
+            <TextEditor
+              ContentState={ContentState}
+              EditorState={EditorState}
+              handleTextChange={(e) => this.handleChange(part, e)}
+              key={part}
+              text={this.state[part]}
+            />)
+          </React.Fragment>
+        )
       } else {
-        return [
-          (<label className="label">{part}</label>),
-          (<div>{this.state[part]}</div>),
-          (<a onClick={this.setEditor.bind(null, part)}>Edit</a>)
-        ]
+        return(
+          <React.Fragment>
+            <label className="label">{part}</label>
+            <div>{this.state[part]}</div>
+            <a onClick={() => this.setEditor(part)}>Edit</a>
+          </React.Fragment>
+        )
       }
-
     })
   };
 

@@ -28,9 +28,11 @@ class SentenceFragment extends React.Component {
   }
 
   UNSAFE_componentWillMount() {
-    const { params, } = this.props
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
     listenToResponsesWithCallback(
-      params.questionID,
+      questionID,
       (data) => {
         this.setState({
           responses: data,
@@ -41,7 +43,8 @@ class SentenceFragment extends React.Component {
   }
 
   getQuestion = () => {
-    const { sentenceFragments, params, } = this.props;
+    const { sentenceFragments, match, } = this.props;
+    const { params } = match
     const { data } = sentenceFragments;
     const { questionID } = params;
     return data[questionID];
@@ -57,25 +60,30 @@ class SentenceFragment extends React.Component {
   }
 
   cancelEditingSentenceFragment = () => {
-    const { dispatch, params, } = this.props
+    const { dispatch, match, } = this.props
+    const { params } = match
     const { questionID } = params;
     dispatch(fragmentActions.cancelSentenceFragmentEdit(questionID));
   }
 
   handleEditFragmentClick = () => {
-    const { dispatch, params, } = this.props;
+    const { dispatch, match, } = this.props;
+    const { params } = match
     const { questionID } = params;
     dispatch(fragmentActions.startSentenceFragmentEdit(questionID));
   }
 
   saveSentenceFragmentEdits(data) {
-    const { dispatch, params, } = this.props;
+    console.log('sentenceFragments-props', this.props);
+    const { dispatch, match, } = this.props;
+    const { params } = match
     const { questionID } = params;
     dispatch(fragmentActions.submitSentenceFragmentEdit(questionID, data));
   }
 
   submitOptimalResponses(responseStrings) {
-    const { dispatch, params, } = this.props;
+    const { dispatch, match, } = this.props;
+    const { params } = match
     const { questionID } = params;
 
     const conceptUID = this.getQuestion().conceptID
@@ -88,8 +96,9 @@ class SentenceFragment extends React.Component {
   }
 
   renderEditForm = () => {
-    const { sentenceFragments, params, concepts, } = this.props;
+    const { sentenceFragments, match, concepts, } = this.props;
     const { data, states } = sentenceFragments;
+    const { params } = match
     const { questionID } = params;
     if (states[questionID] === C.EDITING_SENTENCE_FRAGMENT) {
       return (
@@ -137,8 +146,9 @@ class SentenceFragment extends React.Component {
   }
 
   render(){
-    const { sentenceFragments, params, massEdit, children, } = this.props
+    const { sentenceFragments, match, massEdit, children, } = this.props
     const { data, hasreceiveddata, } = sentenceFragments;
+    const { params } = match
     const { questionID, } = params;
     if (!hasreceiveddata) {
       return (
@@ -168,8 +178,8 @@ class SentenceFragment extends React.Component {
 
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`admin/sentence-fragments/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`admin/sentence-fragments/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/test`}>Play Question</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>

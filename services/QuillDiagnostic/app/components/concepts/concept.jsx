@@ -63,13 +63,12 @@ class Concept extends React.Component {
   };
 
   render() {
-    console.log('props', this.props);
     const { concepts } = this.props;
     const { hasreceiveddata } = concepts;
     if (this.getConcept()) {
       return (
-        <div>
-          <Link to={'admin/concepts'}>Return to All Concepts</Link>
+        <div className="admin-container">
+          <Link to={'/admin/concepts'}>Return to All Concepts</Link>
           <h4 className="title">{this.getConcept().displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           {this.renderNewQuestionForm()}

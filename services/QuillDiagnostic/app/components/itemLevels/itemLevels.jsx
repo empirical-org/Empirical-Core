@@ -1,12 +1,11 @@
 import React from 'react'
 import {
-  LinkListItem,
   Modal
 } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from '../shared/linkListItem'
 import ItemLevelForm from './itemLevelForm.jsx'
 import levelActions from '../../actions/item-levels.js'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class ItemLevels extends React.Component {
   createNew = () => {
@@ -23,6 +22,7 @@ class ItemLevels extends React.Component {
   renderModal = () => {
     const { itemLevels } = this.props;
     const { newConceptModalOpen } = itemLevels;
+    console.log('item-levels-props', this.props);
     if(newConceptModalOpen)
       return (
         <Modal close={this.createNew}>
