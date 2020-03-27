@@ -69,3 +69,12 @@
   padding: .5em;
   margin: .5em;
 }
+
+.concept-explanation {
+  margin: 16px 0px;
+  border-radius: 4px;
+}
+
+.concept-explanation.empty {
+  background-color: #ffcccc;
+}
