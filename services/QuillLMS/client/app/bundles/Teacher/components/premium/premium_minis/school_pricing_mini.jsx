@@ -33,7 +33,7 @@ const SchoolPricingMini = ({
           <h3 className="strikethrough">$1,800 per year</h3>
           <h4>Free for the rest of the 2019/2020 school year</h4>
         </div>
-        <a className='premium-button dark-green' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request Free Access</a>
+        <a className='premium-button dark-green' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request free access</a>
         <ul>
           <li className="semibold">Everything in Teacher Premium</li>
           <li>Dedicated representative to ensure successful implementation</li>
