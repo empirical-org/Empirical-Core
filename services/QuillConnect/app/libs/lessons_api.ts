@@ -3,29 +3,34 @@ import { Lesson, Lessons } from '../interfaces/lessons';
 
 const lessonApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons`;
 
+const TYPE_CONNECT_LESSON = 'connect_lesson'
+const TYPE_DIAGNOSTIC_LESSON = 'diagnostic_lesson'
+
 class LessonApi {
-  static getAll(): Promise<Lessons> {
-    return requestGet(`${lessonApiBaseUrl}.json`);
+  static getAll(lesson_type: string): Promise<Lessons> {
+    return requestGet(`${lessonApiBaseUrl}.json?lesson_type=${lesson_type}`);
   }
 
-  static get(uid: string): Promise<Lesson> {
-    return requestGet(`${lessonApiBaseUrl}/${uid}.json`);
+  static get(lesson_type: string, uid: string): Promise<Lesson> {
+    return requestGet(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`);
   }
 
-  static create(data: Lesson): Promise<Lesson> {
-    return requestPost(`${lessonApiBaseUrl}.json`, {lesson: data});
+  static create(lesson_type: string, data: Lesson): Promise<Lesson> {
+    return requestPost(`${lessonApiBaseUrl}.json?lesson_type=${lesson_type}`, {lesson: data});
   }
 
-  static update(uid: string, data: Lesson): Promise<Lesson> {
-    return requestPut(`${lessonApiBaseUrl}/${uid}.json`, {lesson: data});
+  static update(lesson_type: string, uid: string, data: Lesson): Promise<Lesson> {
+    return requestPut(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`, {lesson: data});
   }
 
-  static remove(uid: string): Promise<string> {
-    return requestDelete(`${lessonApiBaseUrl}/${uid}.json`);
+  static remove(lesson_type: string, uid: string): Promise<string> {
+    return requestDelete(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`);
   }
 }
 
 export {
   LessonApi,
-  lessonApiBaseUrl
+  lessonApiBaseUrl,
+  TYPE_CONNECT_LESSON,
+  TYPE_DIAGNOSTIC_LESSON
 }

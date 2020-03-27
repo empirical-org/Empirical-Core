@@ -23,49 +23,54 @@ import {
 describe('LessonApi calls', () => {
   describe('getAll', () => {
     it('should call requestGet', () => {
-      const url = `${lessonApiBaseUrl}.json`
-      LessonApi.getAll()
+      const MOCK_LESSON_TYPE = 'TYPE';
+      const url = `${lessonApiBaseUrl}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      LessonApi.getAll(MOCK_LESSON_TYPE)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
   })
 
   describe('get', () => {
     it('should call requestGet', () => {
+      const MOCK_LESSON_TYPE = 'TYPE';
       const MOCK_ID = 'id'
-      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
-      LessonApi.get(MOCK_ID)
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      LessonApi.get(MOCK_LESSON_TYPE, MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
   })
 
   describe('create', () => {
     it('should call requestPost', () => {
+      const MOCK_LESSON_TYPE = 'TYPE';
       const MOCK_CONTENT : Lesson = {
         name: 'test',
       }
-      const url = `${lessonApiBaseUrl}.json`
-      LessonApi.create(MOCK_CONTENT)
+      const url = `${lessonApiBaseUrl}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      LessonApi.create(MOCK_LESSON_TYPE, MOCK_CONTENT)
       expect(mockRequestPost).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
     })
   })
 
   describe('update', () => {
     it('should call requestPut', () => {
+      const MOCK_LESSON_TYPE = 'TYPE';
       const MOCK_ID = 'id'
       const MOCK_CONTENT : Lesson = {
         name: 'test',
       }
-      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
-      LessonApi.update(MOCK_ID, MOCK_CONTENT)
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      LessonApi.update(MOCK_LESSON_TYPE, MOCK_ID, MOCK_CONTENT)
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
     })
   })
 
   describe('remove', () => {
     it('should call requestDelete', () => {
+      const MOCK_LESSON_TYPE = 'TYPE';
       const MOCK_QUESTION_ID = 'id'
-      const url = `${lessonApiBaseUrl}/${MOCK_QUESTION_ID}.json`
-      LessonApi.remove(MOCK_QUESTION_ID)
+      const url = `${lessonApiBaseUrl}/${MOCK_QUESTION_ID}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      LessonApi.remove(MOCK_LESSON_TYPE, MOCK_QUESTION_ID)
       expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
     })
   })
