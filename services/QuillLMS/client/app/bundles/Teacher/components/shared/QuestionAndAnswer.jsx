@@ -3,7 +3,7 @@ import React from 'react'
 export default class QuestionAndAnswer extends React.Component {
   constructor(props) {
     super(props)
-
+    
     this.state = { expanded: false }
   }
 
@@ -18,7 +18,7 @@ export default class QuestionAndAnswer extends React.Component {
     const { expanded } = this.state
     let buttonText = ''
 
-    if (this.questionsAndAnswersFile == 'premium') {
+    if (questionsAndAnswersFile == 'premium') {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
       buttonText = <button className="expand-collapse-button" type="button"><img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} /></button>
     } else {
