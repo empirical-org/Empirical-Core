@@ -24,19 +24,6 @@ export default class PremiumPromo extends React.Component {
         <p>
           Upgrade now and cover all of the students in your classes or school.
         </p>
-        <div className="flex-row space-around">
-          <div className="pricing">
-            <h2>$80</h2>
-            <span>per teacher</span>
-          </div>
-          <div className="fake-border" />
-          <div className="pricing">
-            <h2>$1800</h2>
-            <span>per school</span>
-            <br />
-            <span className="special-price">50% off the first year</span>
-          </div>
-        </div>
         {supportLink}
       </div>
     );
