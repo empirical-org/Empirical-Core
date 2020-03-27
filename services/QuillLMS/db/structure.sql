@@ -2463,7 +2463,8 @@ CREATE TABLE public.title_cards (
     content character varying,
     title character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    title_card_type character varying NOT NULL
 );
 
 
@@ -4735,6 +4736,13 @@ CREATE INDEX index_third_party_user_ids_on_user_id ON public.third_party_user_id
 
 
 --
+-- Name: index_title_cards_on_title_card_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_title_cards_on_title_card_type ON public.title_cards USING btree (title_card_type);
+
+
+--
 -- Name: index_title_cards_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5914,3 +5922,4 @@ INSERT INTO schema_migrations (version) VALUES ('20200123170454');
 
 INSERT INTO schema_migrations (version) VALUES ('20200324192053');
 
+INSERT INTO schema_migrations (version) VALUES ('20200326152208');
