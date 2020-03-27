@@ -28,7 +28,8 @@ const incorrectSequences = [
   {
     text: 'early stage companies|||high potential companies',
     feedback: 'Inc 1',
-    concept_results: [{correct: true, conceptUID: 'a'}]
+    concept_results: [{correct: true, conceptUID: 'a'}],
+    caseInsensitive: true
   },
   {
     text: 'because|||however',
@@ -103,6 +104,20 @@ describe('The incorrectSequenceChecker', () => {
 
   it('Should return a partialResponse object if the response string matches an incorrect sequence', () => {
     const responseString = "Jared likes early stage companies.";
+    const partialResponse =  {
+        feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
+        author: 'Incorrect Sequence Hint',
+        parent_id: getTopOptimalResponse(savedResponses).id,
+        concept_results: incorrectSequenceMatch(responseString, incorrectSequences).concept_results
+      }
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).author, partialResponse.author);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).parent_id, partialResponse.parent_id);
+    assert.equal(incorrectSequenceChecker(responseString, incorrectSequences, savedResponses).concept_results, partialResponse.concept_results);
+  });
+
+  it('Should return a partialResponse object if the response string matches an incorrect sequence case insensitively', () => {
+    const responseString = "Jared likes EARLY STAGE COMPANIES.";
     const partialResponse =  {
         feedback: incorrectSequenceMatch(responseString, incorrectSequences).feedback,
         author: 'Incorrect Sequence Hint',
