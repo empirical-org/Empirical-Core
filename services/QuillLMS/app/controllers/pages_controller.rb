@@ -369,6 +369,8 @@ class PagesController < ApplicationController
     @user_belongs_to_school_that_has_paid = current_user&.school ? Subscription.school_or_user_has_ever_paid?(current_user&.school) : false
     @last_four = current_user&.last_four
     @user_has_covid_19_subscription = current_user&.subscriptions&.any?(&:covid19?)
+
+    @title = 'Premium'
   end
 
   def tutorials
@@ -403,7 +405,7 @@ class PagesController < ApplicationController
 
   def determine_js_file
     case action_name
-    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'premium', 'map', 'teacher-center', 'news', 'stats', 'activities'
+    when 'partners', 'mission', 'faq', 'impact', 'team', 'tos', 'media_kit', 'media', 'faq', 'privacy', 'map', 'teacher-center', 'news', 'stats', 'activities'
       @js_file = 'public'
     when 'grammar_tool', 'connect_tool', 'diagnostic_tool', 'proofreader_tool', 'lessons_tool'
       @js_file = 'tools'
