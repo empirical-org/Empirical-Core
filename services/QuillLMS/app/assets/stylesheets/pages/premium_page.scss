@@ -640,14 +640,12 @@ li.premium-tab > a:hover {
       p:hover {
         cursor: pointer;
       }
-      button:focus {
-        border: 2px solid #e0e0e0;
-      }
       button {
+        border: none;
+        margin-top: 14px;
         background-color: white;
       }
       .expand-or-collapse {
-        display: flex;
         align-items: center;
         margin: 0px;
       }
@@ -745,3 +743,17 @@ li.premium-tab > a:hover {
   }
 }
 
+body:not(.show-focus) button.expand-collapse-button:focus {
+  outline: none;
+  border: none;
+}
+
+body:not(.show-focus) [tabindex]:focus {
+  outline: none;
+}
+
+body.show-focus {
+  .expand-collapse-button:focus {
+    border: 2px solid #e0e0e0 !important;
+  }
+}

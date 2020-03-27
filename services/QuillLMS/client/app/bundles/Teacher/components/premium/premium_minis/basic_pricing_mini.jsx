@@ -15,7 +15,7 @@ export default React.createClass({
             <h3 className="bold">Basic</h3>
             <h3>Free forever</h3>
           </div>
-          <a className='premium-button dark-green' href="/account/new" rel="noopener noreferrer" target="_blank">Get Started</a>
+          <a className='premium-button dark-green' href="/account/new" rel="noopener noreferrer" target="_blank">Get started</a>
           <ul className="text-left">
             <li>All five of our writing tools</li>
             <li>Our entire library of activities</li>
