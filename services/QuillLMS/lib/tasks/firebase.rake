@@ -11,7 +11,23 @@ namespace :firebase do
     end
   end
 
-  task :import_as_blob, [:firebase_url, :model, :question_type] => :environment do |_, args|
+  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
+    include FirebaseTaskHelpers
+
+    set_arg_values(args)
+
+    for_each_firebase_key do |obj, data|
+      obj.data = data
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        puts obj.uid
+      end
+    end
+  end
+
+  task :import_as_blob_with_type, [:firebase_url, :model, :question_type] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
