@@ -11,7 +11,7 @@ describe UnitActivity, type: :model, redis: true do
 
   let!(:activity_classification_3) { create(:activity_classification, id: 3)}
   let!(:activity_classification_2) { create(:grammar)}
-  let!(:activity_classification_6) { create(:lesson)}
+  let!(:activity_classification_6) { create(:lesson_classification)}
   let!(:diagnostic_activity_classification ) { create(:diagnostic) }
   let!(:activity) { create(:activity) }
   let!(:diagnostic_activity) { create(:diagnostic_activity, activity_classification_id: diagnostic_activity_classification.id) }
