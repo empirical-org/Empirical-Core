@@ -9,7 +9,7 @@ describe Teachers::ClassroomUnitsController, type: :controller do
   let(:classroom_unit) { create(:classroom_unit, classroom_id: classroom.id)}
   let(:classroom_unit2) { create(:classroom_unit, classroom_id: classroom.id, unit_id: classroom_unit.unit.id)}
   let(:classroom_unit3) { create(:classroom_unit, classroom_id: classroom.id, unit_id: classroom_unit.unit.id)}
-  let!(:activity_classification) { create(:lesson) }
+  let!(:activity_classification) { create(:lesson_classification) }
   let!(:activity) { create(:activity, activity_classification_id: activity_classification.id ) }
 
   context "with teacher" do
