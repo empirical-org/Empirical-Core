@@ -1,41 +1,36 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
-import rootRef from '../libs/firebase';
+import { TitleCardApi, DIAGNOSTIC_TITLE_CARD_TYPE } from '../libs/title_cards_api'
 
-const	titleCardsRef = rootRef.child('diagnostic_titleCards')
-// const moment = require('moment');
 const C = require('../constants').default;
 
+
 function startListeningToTitleCards() {
-  return (dispatch) => {
-    titleCardsRef.on('value', (snapshot) => {
-      if (snapshot) {
-        dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
-      }
-    });
-  };
+  return loadTitleCards();
 }
 
-function loadTitleCards() {
+function loadTitleCards(): (any) => void {
   return (dispatch) => {
-    titleCardsRef.once('value', (snapshot) => {
-      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: snapshot.val(), });
+    TitleCardApi.getAll(DIAGNOSTIC_TITLE_CARD_TYPE).then((body) => {
+      const titleCards = body.title_cards.reduce((obj, item) => {
+        return Object.assign(obj, {[item.uid]: item});
+      }, {});
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: titleCards, });
     });
   };
 }
 
 function loadSpecifiedTitleCards(uids) {
   return (dispatch, getState) => {
-    const requestPromises: Promise<any>[]= [];
+    const requestPromises: Promise<TitleCardProps>[] = [];
     uids.forEach((uid) => {
-      requestPromises.push(titleCardsRef.child(uid).once('value'));
+      requestPromises.push(TitleCardApi.get(DIAGNOSTIC_TITLE_CARD_TYPE, uid));
     });
-    const allPromises = Promise.all(requestPromises);
+    const allPromises: Promise<TitleCardProps[]> = Promise.all(requestPromises);
     const questionData = {};
     allPromises.then((results) => {
-      results.forEach((snapshot, index) => {
-        const val = snapshot.val();
-        questionData[uids[index]] = snapshot.val();
+      results.forEach((result) => {
+        questionData[result.uid] = result;
       });
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA, data: questionData, });
     });
@@ -44,29 +39,34 @@ function loadSpecifiedTitleCards(uids) {
 
 function submitNewTitleCard(content) {
   return (dispatch) => {
-    const newRef = titleCardsRef.push(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        const action = push(`/admin/title-cards/${newRef.key}`);
-        dispatch(action);
-      }
+    TitleCardApi.create(DIAGNOSTIC_TITLE_CARD_TYPE, content).then((body) => {
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
+      const action = push(`/admin/title-cards/${body.uid}`);
+      dispatch(action);
+    })
+    .catch((body) => {
+      dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
     });
   };
 }
 
-function submitTitleCardEdit(qid, content) {
+function submitTitleCardEdit(uid, content) {
   return (dispatch, getState) => {
-    titleCardsRef.child(qid).update(content, (error) => {
-      if (error) {
-        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-        const action = push(`/admin/title-cards/${qid}`);
-        dispatch(action);
-      }
+    TitleCardApi.update(DIAGNOSTIC_TITLE_CARD_TYPE, uid, content).then((body) => {
+      dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
+      dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      const action = push(`/admin/title-cards/${uid}`);
+      dispatch(action);
+    }).catch((body) => {
+      dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${body}`, });
     });
   };
 }
 
-export { submitNewTitleCard, loadTitleCards, loadSpecifiedTitleCards, startListeningToTitleCards, submitTitleCardEdit }
+export {
+  submitNewTitleCard,
+  loadTitleCards,
+  loadSpecifiedTitleCards,
+  startListeningToTitleCards,
+  submitTitleCardEdit,
+}
