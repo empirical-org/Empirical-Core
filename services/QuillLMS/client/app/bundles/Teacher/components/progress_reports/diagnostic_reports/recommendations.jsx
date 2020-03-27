@@ -365,8 +365,8 @@ export default class Recommendations extends React.Component {
   }
 
   renderTableRow(student) {
-    const { routeParams, } = this.props
-    const { activityId, classroomId, unitId } = routeParams
+    const { params, } = this.props
+    const { activityId, classroomId, unitId } = params
     /* eslint-disable react/jsx-no-target-blank */
     const studentReportLink = <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a>
     /* eslint-enable react/jsx-no-target-blank */

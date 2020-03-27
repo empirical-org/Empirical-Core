@@ -41,16 +41,6 @@ class DiagnosticReports extends React.Component {
 		}
 	};
 
-  componentWillUnmount() {
-		let ajax = this.ajax;
-		for (var call in ajax) {
-			if (ajax.hasOwnProperty(call)) {
-        debugger;
-				call.abort();
-			}
-		}
-	}
-
   parseParams = (pathname) => {
     const activityId = (pathname.match(/(?<=\/a\/)[^\/]*/) || [])[0]
     const unitId = (pathname.match(/(?<=\/u\/)[^\/]*/) || [])[0]
