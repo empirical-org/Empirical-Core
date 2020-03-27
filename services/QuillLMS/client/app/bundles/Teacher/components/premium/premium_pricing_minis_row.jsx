@@ -52,7 +52,7 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div className="row text-center">
+      <div className="premium-pricing-row row text-center">
         <div className="col-md-4">
           <BasicPricingMini />
         </div>

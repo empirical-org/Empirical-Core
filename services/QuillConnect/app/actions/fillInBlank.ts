@@ -1,7 +1,5 @@
 const C = require('../constants').default;
 
-import { requestDelete, requestGet, requestPost, requestPut } from '../utils/request';
-
 const moment = require('moment');
 
 import Pusher from 'pusher-js';
