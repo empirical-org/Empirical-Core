@@ -10,7 +10,7 @@ import Pusher from 'pusher-js';
 
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 
-export default class extends React.Component {
+export default class AdminDashboard extends React.Component {
   static propTypes = {
     route: PropTypes.shape({
       adminId: PropTypes.number.isRequired,
@@ -35,7 +35,7 @@ export default class extends React.Component {
 
   getData = () => {
     request.get({
-      url: `${process.env.DEFAULT_URL}/admins/${this.props.route.adminId}`,
+      url: `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
