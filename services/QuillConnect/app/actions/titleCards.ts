@@ -1,38 +1,9 @@
 import _ from 'lodash';
 import { push } from 'react-router-redux';
-import { requestGet, requestPost, requestPut } from '../utils/request';
+import { TitleCardApi, CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api'
 
 const C = require('../constants').default;
 
-const titleCardApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/title_cards`;
-
-interface TitleCardProps {
-  uid: string;
-  content: string;
-  title: string;
-}
-
-interface TitleCardBatchProps {
-  title_cards: TitleCardProps[];
-}
-
-class TitleCardApi {
-  static getAll(): Promise<TitleCardBatchProps> {
-    return requestGet(`${titleCardApiBaseUrl}.json`);
-  }
-
-  static get(uid: string): Promise<TitleCardProps> {
-    return requestGet(`${titleCardApiBaseUrl}/${uid}.json`);
-  }
-
-  static create(data: TitleCardProps): Promise<TitleCardProps> {
-    return requestPost(`${titleCardApiBaseUrl}.json`, data);
-  }
-
-  static update(uid: string, data: TitleCardProps): Promise<TitleCardProps> {
-    return requestPut(`${titleCardApiBaseUrl}/${uid}.json`, data);
-  }
-}
 
 function startListeningToTitleCards() {
   return loadTitleCards();
@@ -40,7 +11,7 @@ function startListeningToTitleCards() {
 
 function loadTitleCards(): (any) => void {
   return (dispatch) => {
-    TitleCardApi.getAll().then((body) => {
+    TitleCardApi.getAll(CONNECT_TITLE_CARD_TYPE).then((body) => {
       const titleCards = body.title_cards.reduce((obj, item) => {
         return Object.assign(obj, {[item.uid]: item});
       }, {});
@@ -53,7 +24,7 @@ function loadSpecifiedTitleCards(uids) {
   return (dispatch, getState) => {
     const requestPromises: Promise<TitleCardProps>[] = [];
     uids.forEach((uid) => {
-      requestPromises.push(TitleCardApi.get(uid));
+      requestPromises.push(TitleCardApi.get(CONNECT_TITLE_CARD_TYPE, uid));
     });
     const allPromises: Promise<TitleCardProps[]> = Promise.all(requestPromises);
     const questionData = {};
@@ -68,7 +39,7 @@ function loadSpecifiedTitleCards(uids) {
 
 function submitNewTitleCard(content) {
   return (dispatch) => {
-    TitleCardApi.create(content).then((body) => {
+    TitleCardApi.create(CONNECT_TITLE_CARD_TYPE, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       const action = push(`/admin/title-cards/${body.uid}`);
       dispatch(action);
@@ -81,7 +52,7 @@ function submitNewTitleCard(content) {
 
 function submitTitleCardEdit(uid, content) {
   return (dispatch, getState) => {
-    TitleCardApi.update(uid, content).then((body) => {
+    TitleCardApi.update(CONNECT_TITLE_CARD_TYPE, uid, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       const action = push(`/admin/title-cards/${uid}`);
