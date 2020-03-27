@@ -5,11 +5,7 @@ export default class QuestionAndAnswer extends React.Component {
     super(props)
     const { questionsAndAnswersFile } = this.props
 
-    this.state = {
-      expanded: false,
-      questionsAndAnswersFile: questionsAndAnswersFile
-    }
-    this.toggleExpansion = this.toggleExpansion.bind(this)
+    this.state = { expanded: false }
   }
 
   answer() {
@@ -19,10 +15,10 @@ export default class QuestionAndAnswer extends React.Component {
   }
 
   expandOrCollapseButton() {
-    const { questionsAndAnswersFile, expanded } = this.state
+    const { expanded } = this.state
     let buttonText = ''
 
-    if (questionsAndAnswersFile == 'premium') {
+    if (this.questionsAndAnswersFile == 'premium') {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
       buttonText = <button className="expand-collapse-button" type="button"><img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} /></button>
     } else {
@@ -31,7 +27,7 @@ export default class QuestionAndAnswer extends React.Component {
     return <p className="expand-or-collapse" onClick={this.toggleExpansion}>{buttonText}</p>
   }
 
-  toggleExpansion() {
+  toggleExpansion = () => {
     this.setState({expanded: !this.state.expanded})
   }
 
