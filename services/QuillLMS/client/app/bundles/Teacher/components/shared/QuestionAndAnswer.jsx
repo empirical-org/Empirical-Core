@@ -3,7 +3,6 @@ import React from 'react'
 export default class QuestionAndAnswer extends React.Component {
   constructor(props) {
     super(props)
-    const { questionsAndAnswersFile } = this.props
 
     this.state = { expanded: false }
   }
@@ -15,6 +14,7 @@ export default class QuestionAndAnswer extends React.Component {
   }
 
   expandOrCollapseButton() {
+    const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
     let buttonText = ''
 
