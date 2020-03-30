@@ -155,7 +155,7 @@ export default class LessonPlanner extends React.Component {
   };
 
   filterByCategory = (categoryId) => {
-  const uts;
+    let uts
     if (categoryId) {
       uts = _l.filter(this.state.unitTemplatesManager.models, {
         unit_template_category: {
