@@ -1,4 +1,5 @@
 class Classroom < ActiveRecord::Base
+  CODE_DISALLOWED_TERMS = %w(nut)
   GRADES = %w(1 2 3 4 5 6 7 8 9 10 11 12 University)
   validates_uniqueness_of :code
   validates_presence_of :name
@@ -106,11 +107,9 @@ class Classroom < ActiveRecord::Base
 
   def self.generate_unique_code
     code = NameGenerator.generate
-    if Classroom.unscoped.find_by_code(code)
-       generate_unique_code
-    else
-      code
-    end
+    return generate_unique_code if Classroom.unscoped.find_by_code(code)
+    return generate_unique_code if !(code.split('-') & CODE_DISALLOWED_TERMS).empty?
+    code
   end
 
   def hide_appropriate_classroom_units

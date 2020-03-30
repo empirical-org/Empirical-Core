@@ -190,6 +190,23 @@ describe Classroom, type: :model do
       classroom.update_attributes(name: 'Testy Westy')
       expect(classroom.code).to eq(old_code)
     end
+
+    it "checks to make sure the generated code is not already in use" do
+      used_code = NameGenerator.generate
+      new_code = NameGenerator.generate
+      create(:classroom, code: used_code)
+      expect(NameGenerator).to receive(:generate).and_return(used_code, new_code)
+      classroom.set_code
+      expect(classroom.code).to eq(new_code)
+    end
+
+    it "ensures that generated codes do not include disallowed terms" do
+      disallowed_term = Classroom::CODE_DISALLOWED_TERMS.first
+      allowed_term = 'allowed'
+      expect(NameGenerator).to receive(:generate).and_return(disallowed_term, allowed_term)
+      classroom.set_code
+      expect(classroom.code).to eq(allowed_term)
+    end
   end
 
 end
