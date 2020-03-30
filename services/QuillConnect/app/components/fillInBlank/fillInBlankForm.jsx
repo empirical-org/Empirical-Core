@@ -181,7 +181,7 @@ class FillInBlankForm extends Component {
         <label className="label">Concept</label>
         <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
         <br />
-        <button className="button is-primary" onClick={this.submit}>{this.renderButtonText()}</button>
+        <button className="button is-primary" type="submit">{this.renderButtonText()}</button>
       </form>
     );
   }
