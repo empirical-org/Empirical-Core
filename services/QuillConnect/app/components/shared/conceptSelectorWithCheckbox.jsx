@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import ConceptSelector from './conceptSelector.jsx'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
+import ConceptSelector from './conceptSelector.jsx'
 
 class ConceptSelectorWithCheckbox extends React.Component {
 
   currentConcept () {
     const { concepts, currentConceptUID } = this.props
-    return _.find(concepts.data["0"], {uid: currentConceptUID})
+    //return _.find(concepts.data["0"], {uid: currentConceptUID})
+    return concepts.data["0"].find(concept => concept.uid = currentConceptUID)
   }
 
   renderConceptFeedback() {
@@ -20,21 +21,22 @@ class ConceptSelectorWithCheckbox extends React.Component {
   }
 
   render() {
+    const { currentConceptUID, handleSelectorChange, selectorDisabled, checked, onCheckboxChange, deleteConceptResult } = this.props
     return(
       <div style={{marginBottom: 5, width: '80%'}}>
         <div style={{display: 'flex'}}>
           <div style={{flexGrow: 1}}>
             <ConceptSelector
-              currentConceptUID={this.props.currentConceptUID}
-              handleSelectorChange={this.props.handleSelectorChange}
-              selectorDisabled={this.props.selectorDisabled}
+              currentConceptUID={currentConceptUID}
+              handleSelectorChange={handleSelectorChange}
+              selectorDisabled={selectorDisabled}
             />
           </div>
           <label className="checkbox" style={{lineHeight: '32px', marginLeft: '5px'}}>
-            <h3><input checked={this.props.checked} onClick={this.props.onCheckboxChange} type="checkbox" /> Correct?</h3>
+            <h3><input checked={checked} onClick={onCheckboxChange} type="checkbox" /> Correct?</h3>
           </label>
 
-          <p onClick={this.props.deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor:'pointer'}}>X</p>
+          <p onClick={deleteConceptResult} style={{paddingLeft: '10px', paddingTop: '6px', cursor:'pointer'}}>X</p>
         </div>
         {this.renderConceptFeedback()}
       </div>
