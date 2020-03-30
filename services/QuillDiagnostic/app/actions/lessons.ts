@@ -1,6 +1,6 @@
 const C = require('../constants').default;
 import { pickBy } from 'lodash';
-import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api';
+import { LessonApi, TYPE_DIAGNOSTIC_LESSON } from '../libs/lessons_api';
 import { push } from 'react-router-redux';
 import questionActions from './questions'
 import fillInBlankActions from './fillInBlank';
@@ -16,7 +16,7 @@ import * as titleCardActions from './titleCards.ts';
 
   const loadLessons = () => {
     return (dispatch, getState) => {
-      LessonApi.getAll(TYPE_CONNECT_LESSON).then((data) => {
+      LessonApi.getAll(TYPE_DIAGNOSTIC_LESSON).then((data) => {
         dispatch({ type: C.RECEIVE_LESSONS_DATA, data: data, });
       });
     };
@@ -25,7 +25,7 @@ import * as titleCardActions from './titleCards.ts';
   const loadLesson = (uid) => {
     return (dispatch, getState) => {
       return new Promise((resolve, reject) => {
-        LessonApi.get(TYPE_CONNECT_LESSON, uid).then((data) => {
+        LessonApi.get(TYPE_DIAGNOSTIC_LESSON, uid).then((data) => {
           dispatch({ type: C.RECEIVE_LESSONS_DATA, data: { [uid]: data, } });
           resolve();
         });
@@ -69,7 +69,7 @@ import * as titleCardActions from './titleCards.ts';
   const deleteLesson = (cid) => {
     return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
-      LessonApi.remove(TYPE_CONNECT_LESSON, cid).then(() => {
+      LessonApi.remove(TYPE_DIAGNOSTIC_LESSON, cid).then(() => {
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
       }).catch((error) => {
@@ -84,7 +84,7 @@ import * as titleCardActions from './titleCards.ts';
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
       const cleanedContent = pickBy(content)
       dispatch(updateQuestions(cleanedContent, qids))
-      LessonApi.update(TYPE_CONNECT_LESSON, cid, cleanedContent).then((lesson) => {
+      LessonApi.update(TYPE_DIAGNOSTIC_LESSON, cid, cleanedContent).then((lesson) => {
         dispatch(loadLesson(cid))
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
@@ -118,7 +118,7 @@ import * as titleCardActions from './titleCards.ts';
     const cleanedContent = pickBy(content)
     return (dispatch, getState) => {
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
-      LessonApi.create(TYPE_CONNECT_LESSON, cleanedContent).then((lesson) => {
+      LessonApi.create(TYPE_DIAGNOSTIC_LESSON, cleanedContent).then((lesson) => {
         const lessonUid = Object.keys(lesson)[0];
         dispatch(loadLesson(lessonUid))
         dispatch({ type: C.RECEIVE_NEW_LESSON_RESPONSE, });

@@ -18,6 +18,16 @@ RSpec.describe Lesson, type: :model do
       expect(lesson.valid?).to be false
     end
 
+    it 'should be invalid without lesson_type' do
+      lesson.lesson_type = nil
+      expect(lesson.valid?).to be false
+    end
+
+    it 'should be invalid if lesson_type is not an allowed value' do
+      lesson.lesson_type = 'some_totally_invalid_type'
+      expect(lesson.valid?).to be false
+    end
+
     it 'should be invalid if data is not a hash' do
       lesson.data = 1
       expect(lesson.valid?).to be false
@@ -25,7 +35,7 @@ RSpec.describe Lesson, type: :model do
     end
 
     it 'should be invalid if the uid is not unique and lesson type is the same' do
-      new_lesson = Lesson.new(uid: lesson.uid, data: {foo: 'bar'})
+      new_lesson = Lesson.new(uid: lesson.uid, lesson_type: lesson.lesson_type, data: {foo: 'bar'})
       expect(new_lesson.valid?).to be false
     end
   end
