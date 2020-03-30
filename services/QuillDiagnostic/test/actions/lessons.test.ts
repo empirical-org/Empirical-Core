@@ -2,7 +2,7 @@ import { mockLessonApi, } from '../__mocks__/lesson_api'
 const MOCK_LESSON_TYPE = 'TYPE'
 jest.mock('../../app/libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
-  TYPE_CONNECT_LESSON: MOCK_LESSON_TYPE,
+  TYPE_DIAGNOSTIC_LESSON: MOCK_LESSON_TYPE,
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
