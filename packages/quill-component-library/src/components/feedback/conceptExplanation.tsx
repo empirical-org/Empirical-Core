@@ -4,9 +4,7 @@ function getClassName(description, leftBox, rightBox) {
   if (description && leftBox && rightBox) {
     return "concept-explanation"
   }
-  else {
-    return "concept-explanation empty"
-  }
+  return "concept-explanation empty"
 }
 
 const ConceptExplanation = ({ description, leftBox, rightBox, }) => (
