@@ -20,7 +20,7 @@ class ConceptSelectorWithCheckbox extends React.Component {
 
   currentConcept = () => {
     const { concepts, currentConceptUID } = this.props
-    return concepts.data["0"].find(concept => concept.uid = currentConceptUID)
+    return concepts.data["0"].find(concept => concept.uid === currentConceptUID)
   }
 
   renderConceptFeedback = () => {
@@ -28,7 +28,6 @@ class ConceptSelectorWithCheckbox extends React.Component {
     if (currentConceptUID && currentConceptUID.length > 0 && this.currentConcept()) {
       return (<ConceptExplanation {...conceptsFeedback.data[currentConceptUID]} />)
     }
-    return;
   }
 
   render() {
