@@ -1,5 +1,5 @@
 class Api::V1::LessonsController < Api::ApiController
-  before_action :get_lesson_type
+  before_action :lesson_type
   before_action :lesson_by_uid, except: [:index, :create, :show]
 
   def index
@@ -28,7 +28,7 @@ class Api::V1::LessonsController < Api::ApiController
     render(plain: 'OK')
   end
 
-  private def get_lesson_type
+  private def lesson_type
     @lesson_type = params[:lesson_type]
   end
 
