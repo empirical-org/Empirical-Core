@@ -64,7 +64,7 @@ FactoryBot.define do
       module_url 'https://connect.quill.org/#/play/lesson/'
     end
 
-    factory :lesson do
+    factory :lesson_classification do
       id 6
       name 'Quill Lessons'
       key 'lessons'

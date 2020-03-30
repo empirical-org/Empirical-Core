@@ -8,7 +8,7 @@ describe ClassroomUnitActivityState, type: :model, redis: true do
   it { is_expected.to callback(:update_lessons_cache_with_data).after(:save) }
   it { is_expected.to callback(:lock_if_lesson).after(:create) }
 
-  let!(:activity_classification_6) { create(:lesson)}
+  let!(:activity_classification_6) { create(:lesson_classification)}
   let!(:activity) { create(:activity, activity_classification_id: 6) }
   let!(:student) { create(:user, role: 'student', username: 'great', name: 'hi hi', password: 'pwd') }
   let!(:classroom) { create(:classroom, students: [student]) }
