@@ -112,7 +112,7 @@ namespace :firebase do
       firebase_keys = firebase_shallow.keys
       firebase_keys.each do |key|
         data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
-        if @QUESTION_TYPE.present?
+        if klass == Question
           old_question = Question.find_by_uid(key)
           if old_question.present? && old_question.question_type != @QUESTION_TYPE
             # we can delete any questions with blank prompts, and we can delete connect_sentence_fragments that are duplicates
