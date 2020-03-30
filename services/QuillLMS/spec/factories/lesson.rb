@@ -27,5 +27,6 @@ FactoryBot.define do
   factory :lesson do
     uid                   SecureRandom.uuid
     data                  data
+    lesson_type           'connect_lesson'
   end
 end
