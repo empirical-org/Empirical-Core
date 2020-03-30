@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import moment from 'moment';
+import request from 'request'
 
 import Scorebook from '../Scorebook.jsx';
 import EmptyProgressReport from '../../components/shared/EmptyProgressReport';
@@ -12,7 +13,9 @@ import ScoreLegend from '../../components/scorebook/score_legend';
 import AppLegend from '../../components/scorebook/app_legend.jsx';
 
 import localStorageMock from '../../../../../__mocks__/localStorageMock.js';
+import requestMock from '../../../../../__mocks__/request.js';
 window.localStorage = localStorageMock;
+jest.mock('request')
 
 const resolvedScores = new Map();
 resolvedScores.set('441555', { name: 'blah blah', scores: [{ cuId: '341930', userId: '441555', updated: '2016-09-16 15:39:00.775325', name: 'America Used to be a Different Place', percentage: '1', activity_classification_id: '1', completed_attempts: 0, started_at: '2016-09-16 15:39:00.775325', marked_complete: 'false', activityId: '1', started: 0}], }, );
@@ -30,7 +33,7 @@ const data = {
 
 describe('Scorebook component', () => {
   describe('if state.missing has a value', () => {
-    const wrapper = shallow(<Scorebook />);
+    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
     wrapper.setState({ missing: 'activities', });
 
     describe('EmptyProgressReport', () => {
@@ -39,25 +42,25 @@ describe('Scorebook component', () => {
       });
 
       it('receives classrooms as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook />);
+        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
         wrapper.setState({ classroomFilters: [] });
         expect(wrapper.instance().checkMissing(new Map())).toBe('classrooms');
       });
 
       it('receives activities as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook />);
+        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
         wrapper.setState({ anyScoresHaveLoadedPreviously: 'true', classroomFilters: [''] });
         expect(wrapper.instance().checkMissing(new Map())).toBe('activitiesWithinDateRange');
       });
 
       it('receives students as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook />);
+        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
         wrapper.setState({ unitFilters: [''], classroomFilters: [''], anyScoresHaveLoadedPreviously: 'false' });
         expect(wrapper.instance().checkMissing(new Map())).toBe('students');
       });
 
       it('receives activitiesWithinDateRange as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook />);
+        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
         wrapper.setState({ classroomFilters: [''], anyScoresHaveLoadedPreviously: 'false' });
         expect(wrapper.instance().checkMissing(new Map())).toBe('activities');
       });
@@ -85,7 +88,7 @@ describe('Scorebook component', () => {
   });
 
   describe('if state.loading is true', () => {
-    const wrapper = shallow(<Scorebook />);
+    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
     wrapper.setState({ loading: true, });
 
     it('renders LoadingIndicator', () => {
@@ -110,7 +113,7 @@ describe('Scorebook component', () => {
   });
 
   describe('if it gets data when it had none', () => {
-    const wrapper = shallow(<Scorebook />);
+    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
     wrapper.setState({ currentPage: 1, scores: new Map(), selectedClassroom: { id: 6 }});
     wrapper.instance().displayData(data);
 
@@ -172,7 +175,7 @@ describe('Scorebook component', () => {
   });
 
   describe('selectDates function', () => {
-    const wrapper = shallow(<Scorebook />);
+    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
     const beginDate = moment();
     const endDate = moment();
     const dateFilterName = 'All Time'
@@ -202,7 +205,7 @@ describe('Scorebook component', () => {
   });
 
   describe('convertStoredDateToMoment function', () => {
-    const wrapper = shallow(<Scorebook />);
+    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
     const beginDate = moment().toString();
     const endDate = moment().toString();
 

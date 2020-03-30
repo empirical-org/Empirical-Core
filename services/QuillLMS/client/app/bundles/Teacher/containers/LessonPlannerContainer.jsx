@@ -11,17 +11,22 @@ import UnitTemplatesManager from '../components/assignment_flow/unit_templates_m
 import UnitTemplateProfile from '../components/assignment_flow/unit_templates_manager/unit_template_profile/unit_template_profile.tsx'
 
 export default class LessonPlannerContainer extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
-    const tabs = this.props.location.pathname.includes('teachers') ? <MyActivitiesTabs pathname={this.props.location.pathname} /> : <span />
+    const { user, location, children, } = this.props
+    const tabs = location.pathname.includes('teachers') ? <MyActivitiesTabs pathname={location.pathname} /> : <span />
     return (
       <div>
         {tabs}
-        {this.props.children}
+        {children}
         <Switch>
           <Route component={ClassroomLessonsPlanner} path="/teachers/classrooms/activity_planner/lessons" />
           <Route component={ClassroomLessonsPlanner} path="/teachers/classrooms/activity_planner/lessons/:classroomId" />
           <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" />
-          <Route component={routerProps => <ClassroomsWithStudentsContainer {...this.props} {...routerProps} />} path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" />
+          <Route render={routerProps => <ClassroomsWithStudentsContainer user={user} {...routerProps} />} path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" />
           <Route component={EditUnitActivitiesContainer} path="/teachers/classrooms/activity_planner/units/:unitId/activities/edit" />
           <Route component={EmptyAssignedUnits} path="/teachers/classrooms/activity_planner/no_units" />
           <Route component={LessonPlanner} exact path="/teachers/classrooms/activity_planner" />
