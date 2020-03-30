@@ -11,28 +11,24 @@ interface ConceptSelectorWithCheckboxProps {
   onCheckboxChange: Function;
   deleteConceptResult: Function;
 }
-//tets
+
 class ConceptSelectorWithCheckbox extends React.Component {
 
   constructor(props: ConceptSelectorWithCheckboxProps) {
     super(props)
-
-    this.currentConcept = this.currentConcept.bind(this)
-    this.renderConceptFeedback = this.renderConceptFeedback.bind(this)
   }
 
-  currentConcept () {
+  currentConcept = () => {
     const { concepts, currentConceptUID } = this.props
-    return _.find(concepts.data["0"], {uid: currentConceptUID})
+    return concepts.data["0"].find(concept => concept.uid = currentConceptUID)
   }
 
-  renderConceptFeedback() {
+  renderConceptFeedback = () => {
     const { currentConceptUID, conceptsFeedback } = this.props
     if (currentConceptUID && currentConceptUID.length > 0 && this.currentConcept()) {
       return (<ConceptExplanation {...conceptsFeedback.data[currentConceptUID]} />)
-    } else {
-      return;
     }
+    return;
   }
 
   render() {
