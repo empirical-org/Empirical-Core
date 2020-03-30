@@ -87,6 +87,7 @@ class FillInBlankForm extends Component {
   }
 
   submit() {
+    const { questionID } = this.state
     const data = {
       prompt: this.state.prompt,
       blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
@@ -99,7 +100,7 @@ class FillInBlankForm extends Component {
       cuesLabel: this.state.cuesLabel
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
-    window.history.back()
+    window.location.href = window.location.origin + '/#/admin/fill-in-the-blanks/' + questionID;
   }
 
   clearForm() {
@@ -180,7 +181,7 @@ class FillInBlankForm extends Component {
         <label className="label">Concept</label>
         <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
         <br />
-        <button className="button is-primary" type="submit">{this.renderButtonText()}</button>
+        <button className="button is-primary" onClick={this.submit}>{this.renderButtonText()}</button>
       </form>
     );
   }
