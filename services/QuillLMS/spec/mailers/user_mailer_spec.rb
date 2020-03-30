@@ -74,7 +74,7 @@ describe UserMailer do
 
   describe 'lesson_plan_email' do
     let(:user) { build(:user) }
-    let(:lesson) { build(:lesson) }
+    let(:lesson) { build(:lesson_classification) }
     let(:unit) { build(:unit) }
     let(:mail) { described_class.lesson_plan_email(user, [lesson], unit) }
 

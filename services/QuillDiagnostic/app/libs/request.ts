@@ -30,10 +30,17 @@ function requestGet(url: string): Promise<any> {
 
 function requestPost(url: string, data: Object): Promise<any> {
   return new Promise((resolve, reject) => {
-    return request.post({
-      url: url,
-      json: data,
-    }, buildRequestCallback(resolve, reject));
+    fetch(url, { method: 'POST',
+                 headers: {'Sec-Fetch-Site': 'same-site',
+                           'Sec-Fetch-Mode': 'cors',
+                           'Accept': 'application/json',
+                           'Content-Type': 'application/json',
+                           'Sec-Fetch-Dest': 'empty'
+                          },
+                 credentials: 'include',
+                 body: JSON.stringify(data)
+               }
+          ).then(result => buildRequestCallback(resolve, reject));
   });
 }
 
