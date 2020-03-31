@@ -380,6 +380,17 @@ textarea.submission {
   margin-left: 20px;
 }
 
+.add-incorrect-sequence {
+  .concept-explanation {
+    margin: 16px 0px;
+    border-radius: 4px;
+  }
+
+  .concept-explanation.empty {
+    background-color: #ffcccc;
+  }
+}
+
 .control.checkbox-wrapper {
   display: inline-block;
 }
