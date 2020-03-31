@@ -5,15 +5,15 @@ import ActivityPacks from '../components/progress_reports/diagnostic_reports/act
 import DiagnosticActivityPacks from '../components/progress_reports/diagnostic_reports/diagnostic_activity_packs.jsx'
 import NotCompleted from '../components/progress_reports/diagnostic_reports/not_completed.jsx'
 
-export default class DiagnosticReports extends React.Component {
-  render() {
-      return (
-        <HashRouter>
-          <Route component={ActivityPacks} path='/activity_packs' />
-          <Route component={DiagnosticActivityPacks} path='/diagnostics' />
-          <Route component={NotCompleted} path='/not_completed' />
-          <Route component={Index} path="/" />
-        </HashRouter>
-      );
-  }
-}
+const DiagnosticReports = () => {
+    return (
+      <HashRouter>
+        <Route component={ActivityPacks} path='/activity_packs' />
+        <Route component={DiagnosticActivityPacks} path='/diagnostics' />
+        <Route component={NotCompleted} path='/not_completed' />
+        <Route component={Index} path="/" />
+      </HashRouter>
+    );
+};
+
+export default DiagnosticReports;

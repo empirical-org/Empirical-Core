@@ -2,25 +2,27 @@ import React from 'react';
 import _ from 'underscore';
 import Unit from './activities_unit';
 
-export default class ActivitiesUnits extends React.Component {
-  render() {
-    const units = _.map(this.props.data, function (data) {
-      return (<Unit
-        activityReport={this.props.activityReport}
-        activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
-        allowSorting={this.props.allowSorting}
-        data={data}
-        hideUnit={this.props.hideUnit}
-        hideUnitActivity={this.props.hideUnitActivity}
-        key={data.unitId}
-        lesson={this.props.lesson}
-        report={this.props.report}
-        updateDueDate={this.props.updateDueDate}
-        updateMultipleDueDates={this.props.updateMultipleDueDates}
-      />);
-    }, this);
+const ActivitiesUnits = props => {
+  const units = _.map(props.data, function (data) {
     return (
-      <span>{units}</span>
+      <Unit
+        activityReport={props.activityReport}
+        activityWithRecommendationsIds={props.activityWithRecommendationsIds}
+        allowSorting={props.allowSorting}
+        data={data}
+        hideUnit={props.hideUnit}
+        hideUnitActivity={props.hideUnitActivity}
+        key={data.unitId}
+        lesson={props.lesson}
+        report={props.report}
+        updateDueDate={props.updateDueDate}
+        updateMultipleDueDates={props.updateMultipleDueDates}
+      />
     );
-  }
-}
+  }, this);
+  return (
+    <span>{units}</span>
+  );
+};
+
+export default ActivitiesUnits;
