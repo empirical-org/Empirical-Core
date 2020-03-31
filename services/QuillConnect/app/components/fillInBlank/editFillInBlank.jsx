@@ -22,6 +22,7 @@ class EditFillInBlank extends Component {
     const fillInBlankQuestionID = this.props.params.questionID;
     const fillInBlankQuestion = this.props.fillInBlank.data[fillInBlankQuestionID];
     return {
+      questionID: fillInBlankQuestionID,
       prompt: fillInBlankQuestion.prompt,
       blankAllowed: fillInBlankQuestion.blankAllowed,
       caseInsensitive: fillInBlankQuestion.caseInsensitive,
