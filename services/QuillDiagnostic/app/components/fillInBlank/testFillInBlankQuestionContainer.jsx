@@ -25,8 +25,9 @@ class TestQuestion extends Component {
     this.setState({ key: key + 1, });
   };
 
-  questionsForLesson() {
-    const { params } = this.props;
+  questionsForLesson = () => {
+    const { match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const question = this.getQuestion();
     question.key = questionID;
@@ -38,7 +39,7 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  startActivity = (name = 'Triangle') => {
     const { dispatch } = this.props;
     const action = loadData(this.questionsForLesson());
     dispatch(action);
@@ -46,18 +47,19 @@ class TestQuestion extends Component {
     dispatch(next);
   }
 
-  getQuestion() {
-    const { fillInBlank, params } = this.props;
+  getQuestion = () => {
+    const { fillInBlank, match } = this.props;
     const { data } = fillInBlank;
+    const { params } = match;
     const { questionID } = params;
     return data[questionID];
   }
 
-  renderGrading() {
+  renderGrading = () => {
     const { gradedResponse } = this.state;
-    const { response } = gradedResponse;
-    const { author, feedback } = response;
     if (gradedResponse) {
+      const { response } = gradedResponse;
+      const { author, feedback } = response;
       return (<div style={{marginTop: '30px'}}>
         <p>Author: {author}</p>
         <p>Feedback: {feedback}</p>
@@ -70,12 +72,11 @@ class TestQuestion extends Component {
   };
 
   render() {
-    const { dispatch, playDiagnostic } = this.props;
-    const { key } = this.state;
-    const { currentQuestion } = playDiagnostic;
-    const { data } = currentQuestion;
+    const { key } = this.state
+    const { dispatch, playDiagnostic } = this.props
+    const { currentQuestion } = playDiagnostic
     if (currentQuestion) {
-      const question = data;
+      const question = currentQuestion.data;
       return (
         <div>
           <div className="test-question-container">

@@ -7,23 +7,27 @@ import request from 'request'
 
 class EditIncorrectSequencesContainer extends Component {
   UNSAFE_componentWillMount() {
-    const { dispatch, generatedIncorrectSequences, params } = this.props;
+    const { dispatch, generatedIncorrectSequences, match } = this.props;
     const { used } = generatedIncorrectSequences;
+    const { params } = match;
     const { questionID } = params;
+    const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
     if (!used[questionID]) {
-      dispatch(questionActions.getUsedSequences(questionID))
+      dispatch(questionActions.getUsedSequences(questionID, type))
     }
   }
 
   getIncorrectSequence() {
-    const { questions, params } = this.props;
+    const { questions, match } = this.props;
     const { data } = questions;
+    const { params } = match;
     const { incorrectSequenceID, questionID } = params;
     return data[questionID].incorrectSequences[incorrectSequenceID];
   }
 
   submitForm = (data, incorrectSequenceID) => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
     dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, incorrectSequenceID));
@@ -31,8 +35,9 @@ class EditIncorrectSequencesContainer extends Component {
   };
 
   render() {
-    const {children, generatedIncorrectSequences, params, questions } = this.props;
+    const {children, generatedIncorrectSequences, match, questions } = this.props;
     const { used } = generatedIncorrectSequences;
+    const { params } = match;
     const { incorrectSequenceID, questionID } = params;
     return (
       <div>

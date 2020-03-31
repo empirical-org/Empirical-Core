@@ -235,7 +235,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         <p className="control">
           <label className="label" htmlFor="ell-check-input">
             Is ELL?
-            <span className="select">
+            <span>
               <input
                 aria-label="ell-check-input"
                 checked={isELL}

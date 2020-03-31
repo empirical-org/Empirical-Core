@@ -22,7 +22,6 @@ class ItemLevels extends React.Component {
   renderModal = () => {
     const { itemLevels } = this.props;
     const { newConceptModalOpen } = itemLevels;
-    console.log('item-levels-props', this.props);
     if(newConceptModalOpen)
       return (
         <Modal close={this.createNew}>

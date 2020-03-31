@@ -37,24 +37,16 @@ import ItemLevelDetails from '../itemLevels/itemLevelDetails.jsx';
 import ItemLevelForm from '../itemLevels/itemLevelForm.jsx';
 import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
 import TestFillInBlankQuestionContainer from '../fillInBlank/testFillInBlankQuestionContainer.jsx';
-import EditFillInBlank from '../fillInBlank/editFillInBlank.jsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
-import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
-import MassEditContainer from '../questions/massEditContainer.jsx';
-import TestQuestionContainer from '../questions/testQuestion';
 import AnswerVisualizer from 'components/misc/answerVisualizer.jsx';
-import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
-import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
-import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
-import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
-import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
-import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
 import NewFillInBlank from '../fillInBlank/newFillInBlank';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
 import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
 import SentenceFragment from 'components/sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
 import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
+const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
+const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 
 const TabLink = props => (
   <li>
@@ -77,6 +69,29 @@ class Admin extends React.Component {
     dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
     dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
     dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
+  }
+
+  componentDidMount() {
+    this.handleAuthCheck();
+  }
+
+  handleAuthCheck = () => {
+    fetch(usersEndpoint, {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+        if (response.user.hasOwnProperty('role') && response.user.role !== 'staff'){
+          window.location = newSessionEndpoint;
+        }
+    }).catch((error) => {
+      // to do, use Sentry to capture error
+    })
   }
 
   render() {
@@ -132,8 +147,6 @@ class Admin extends React.Component {
           <Route component={QuestionHealth} path={`/admin/question-health`} />
           <Route component={Question} path={`/admin/questions/:questionID`} />
           <Route component={AnswerVisualizer} path={`/admin/questions/visualize`} />
-          <Route component={TestQuestionContainer} path={`/admin/questions/test`} />
-          <Route component={ChooseModelContainer} path={`/admin/questions/choose-model`} />
           <Route component={Questions} path={`/admin/questions`} />
           <Route component={TitleCardForm} path={`/admin/title-cards/new`} />
           <Route component={TitleCardForm} path={`/admin/title-cards/:titleCardID/edit`} />

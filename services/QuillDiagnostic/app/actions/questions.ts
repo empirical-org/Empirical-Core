@@ -293,7 +293,7 @@ function updateFlag(qid, flag) {
     QuestionApi.updateFlag(qid, flag).then(() => {
       dispatch(loadQuestion(qid));
     }, (error) => {
-      alert(`Flag update failed! ${error}`);
+      console.error(`Flag update failed! ${error}`);
     });
   }
 }
@@ -428,9 +428,14 @@ function updateStringFilter(stringFilter, qid) {
   };
 }
 
-function getUsedSequences(qid) {
+function getUsedSequences(qid, type) {
   return (dispatch, getState) => {
-    const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
+    let existingIncorrectSeqs = null
+    if(type === 'sentence-combining') {
+      existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
+    } else {
+      existingIncorrectSeqs = getState().sentenceFragments.data[qid].incorrectSequences
+    }
     const usedSeqs: string[] = []
     if (existingIncorrectSeqs) {
       Object.values(existingIncorrectSeqs).forEach((inSeq: any) => {

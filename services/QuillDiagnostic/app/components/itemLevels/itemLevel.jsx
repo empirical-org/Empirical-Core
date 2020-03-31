@@ -7,10 +7,6 @@ import _ from 'lodash'
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
 
 class ItemLevel extends React.Component {
-
-  componentDidMount() {
-    console.log('componentDidMount item-level-props', this.props);
-  }
   deleteItemLevel = (levelID) => {
     const { dispatch, itemLevels, questions } = this.props;
     dispatch(levelActions.deleteItemLevel(levelID))
@@ -47,8 +43,6 @@ class ItemLevel extends React.Component {
     const { data } = itemLevels
     const { params } = match
     const { itemLevelID } = params
-    console.log('item-level-props', this.props);
-    console.log('data', data[itemLevelID]);
     return (
       <ItemLevelForm
         cancelEdit={this.cancelEdit}

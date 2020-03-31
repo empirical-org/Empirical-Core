@@ -12,15 +12,16 @@ import {
   submitOptimalResponses
 } from '../../actions/responses';
 import C from '../../constants';
-import EditFillInBlank from '../fillInBlank/editFillInBlank.jsx';
-import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
-import MassEditContainer from '../questions/massEditContainer.jsx';
 import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
 import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
 import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
 import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
 import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
 import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import ResponseComponentWrapper from './responseRouteWrapper.jsx';
+import MassEditContainer from './massEditContainer.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import TestQuestionContainer from './testQuestion';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -230,7 +231,6 @@ class Question extends React.Component {
 
   render() {
     const { questions, match, massEdit, children, } = this.props
-    console.log('question-children', children);
     const { params } = match;
     const { data } = questions
     const { questionID, } = params;
@@ -274,21 +274,17 @@ class Question extends React.Component {
               {activeLink}
             </ul>
           </div>
-          {/* {children} */}
           <Switch>
             <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
             <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
             <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
-            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
             <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/edit`} />
+            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
             <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
+            <Route component={TestQuestionContainer} path={`/admin/questions/:questionID/test`} />
+            <Route component={ChooseModelContainer} path={`/admin/questions/:questionID/choose-model`} />
             <Route component={MassEditContainer} path={`/admin/questions/:questionID/mass-edit`} />
             <Route component={ResponseComponentWrapper} path={`/admin/questions/:questionID/responses`} />
-            <Route component={MassEditContainer} path={`/admin/sentence-fragments/:questionID/mass-edit`} />
-            <Route component={ResponseComponentWrapper} path={`/admin/sentence-fragments/:questionID/responses`} />
-            <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
-            <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
-            <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />
           </Switch>
         </div>
       );

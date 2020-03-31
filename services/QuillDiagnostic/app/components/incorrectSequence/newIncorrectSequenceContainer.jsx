@@ -6,16 +6,19 @@ import questionActions from '../../actions/questions';
 
 class NewIncorrectSequencesContainer extends Component {
   UNSAFE_componentWillMount() {
-    const { dispatch, generatedIncorrectSequences, params } = this.props;
+    const { dispatch, generatedIncorrectSequences, match } = this.props;
     const { used } = generatedIncorrectSequences;
+    const { params, url } = match;
     const { questionID } = params;
+    const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
     if (!used[questionID]) {
-      dispatch(questionActions.getUsedSequences(questionID))
+      dispatch(questionActions.getUsedSequences(questionID, type))
     }
   }
 
   submitSequenceForm = data => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
     dispatch(questionActions.submitNewIncorrectSequence(questionID, data));
@@ -23,8 +26,9 @@ class NewIncorrectSequencesContainer extends Component {
   };
 
   render() {
-    const { children, generatedIncorrectSequences, params, questions } = this.props;
+    const { children, generatedIncorrectSequences, match, questions } = this.props;
     const { used } = generatedIncorrectSequences;
+    const { params } = match;
     const { questionID } = params;
     return (
       <div>
@@ -45,14 +49,17 @@ class NewIncorrectSequencesContainer extends Component {
   }
 }
 
-function select(props) {
+function select(state, props) {
+  const { match } = props
+  const { url } = match
+  const questions = url.includes('sentence-fragments') ? state.sentenceFragments : state.questions
   return {
-    questions: props.questions,
-    generatedIncorrectSequences: props.generatedIncorrectSequences,
-    fillInBlank: props.fillInBlank,
-    sentenceFragments: props.sentenceFragments,
-    diagnosticQuestions: props.diagnosticQuestions,
-    states: props.states
+    questions,
+    generatedIncorrectSequences: state.generatedIncorrectSequences,
+    fillInBlank: state.fillInBlank,
+    sentenceFragments: state.sentenceFragments,
+    diagnosticQuestions: state.diagnosticQuestions,
+    states: state.states
   };
 }
 

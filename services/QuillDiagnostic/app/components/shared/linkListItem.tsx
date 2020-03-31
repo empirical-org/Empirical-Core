@@ -6,7 +6,7 @@ const LinkListItem = (props:any) => (
     <NavLink
       activeClassName={props.activeClassName}
       className={props.className}
-      to={'/admin/' + props.basePath + '/' + props.itemKey}
+      to={'/admin/' + props.basePath + '/' + props.itemKey + '/responses'}
     >
       {props.text}
     </NavLink>

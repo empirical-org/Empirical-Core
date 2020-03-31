@@ -63,7 +63,7 @@ export default class extends React.Component {
               handleTextChange={(e) => this.handleChange(part, e)}
               key={part}
               text={this.state[part]}
-            />)
+            />
           </React.Fragment>
         )
       } else {

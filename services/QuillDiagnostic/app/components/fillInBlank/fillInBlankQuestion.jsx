@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import Cues from '../renderForQuestions/cues.tsx';
+import EditFillInBlank from './editFillInBlank.jsx';
+import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import MassEditContainer from '../questions/massEditContainer.jsx';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -34,7 +37,7 @@ class FillInBlankQuestion extends Component {
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       const data = fillInBlank.data
       return (
-        <div>
+        <div className="admin-container">
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
             <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
@@ -57,7 +60,12 @@ class FillInBlankQuestion extends Component {
               {activeLink}
             </ul>
           </div>
-          {children}
+          <Switch>
+          <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
+            <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
+            <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/:questionID/test`} />
+            <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />
+          </Switch>
         </div>
       );
     } else {
@@ -75,4 +83,4 @@ function select(props) {
   };
 }
 
-export default connect(select)(FillInBlankQuestion);
+export default withRouter(connect(select)(FillInBlankQuestion));

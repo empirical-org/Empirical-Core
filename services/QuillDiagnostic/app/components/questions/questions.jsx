@@ -9,8 +9,7 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import { QuestionListByConcept } from '../shared/questionListByConcept'
 import Question from '../../libs/question';
-// import SelectSearch from 'react-select-search';
-import Select from 'react-select'
+import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
 import respWithStatus from '../../libs/responseTools.js';
 import { submitResponseEdit, setUpdatedResponse, deleteResponse } from '../../actions/responses';
@@ -96,7 +95,6 @@ class Questions extends React.Component {
   };
 
   responsesWithStatusForQuestion = questionUID => {
-    console.log('responses', responses);
     let { responses } = this.props;
     const { data } = responses;
     responses = data[questionUID];
@@ -264,7 +262,7 @@ class Questions extends React.Component {
         }
         return { name, value: opt.key || 'key', };
       });
-      const searchBox = (<Select onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
+      const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
   };
@@ -277,7 +275,9 @@ class Questions extends React.Component {
         <section className="section">
           <div className="container">
             { this.renderModal() }
-            { this.renderSearchBox() }
+            <div>
+              { this.renderSearchBox() }
+            </div>
             <br />
             <label className="checkbox">
               <input checked={displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />

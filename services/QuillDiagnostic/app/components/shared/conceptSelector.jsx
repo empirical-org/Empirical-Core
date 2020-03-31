@@ -34,7 +34,6 @@ class ConceptSelector extends React.Component {
   }
 
   render() {
-    console.log('props', this.props);
     return (
       <Select
         className="concepts-container"

@@ -15,15 +15,17 @@ class NewFocusPointsContainer extends Component {
     this.state = { questionType, questionTypeLink, actionFile }
   }
 
-  getFocusPoints() {
+  getFocusPoints = () => {
     const { questionType } = this.state;
-    const { params } = this.props;
+    const { match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     return this.props[questionType].data[questionID].focusPoints;
   }
 
   submitFocusPointForm = data => {
-    const { params } = this.props;
+    const { match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
@@ -32,7 +34,8 @@ class NewFocusPointsContainer extends Component {
   };
 
   render() {
-    const { children, diagnosticQuestions, fillInBlank, params, questions, sentenceFragments } = this.props;
+    const { children, diagnosticQuestions, fillInBlank, match, questions, sentenceFragments } = this.props;
+    const { params } = match;
     const { questionID } = params;
     return (
       <div>

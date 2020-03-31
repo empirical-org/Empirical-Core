@@ -13,10 +13,9 @@ class EditFillInBlank extends Component {
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
-    const { fillInBlankQuestionID } = questionID;
     const questionData = data;
     questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
-    dispatch(fillInBlankActions.submitQuestionEdit(fillInBlankQuestionID, data));
+    dispatch(fillInBlankActions.submitQuestionEdit(questionID, data));
   };
 
   returnQuestionState = () => {
@@ -47,7 +46,8 @@ class EditFillInBlank extends Component {
 
 function select(state) {
   return {
-    fillInBlank: state.fillInBlank
+    fillInBlank: state.fillInBlank,
+    // match: state.match
   };
 }
 

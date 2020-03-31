@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 
@@ -11,6 +11,16 @@ import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
 import C from '../../constants';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
+import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import TestQuestionContainer from './testSentenceFragmentContainer';
+import MassEditContainer from '../questions/massEditContainer.jsx';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -73,15 +83,14 @@ class SentenceFragment extends React.Component {
     dispatch(fragmentActions.startSentenceFragmentEdit(questionID));
   }
 
-  saveSentenceFragmentEdits(data) {
-    console.log('sentenceFragments-props', this.props);
+  saveSentenceFragmentEdits = (data) =>  {
     const { dispatch, match, } = this.props;
     const { params } = match
     const { questionID } = params;
     dispatch(fragmentActions.submitSentenceFragmentEdit(questionID, data));
   }
 
-  submitOptimalResponses(responseStrings) {
+  submitOptimalResponses = (responseStrings) => {
     const { dispatch, match, } = this.props;
     const { params } = match
     const { questionID } = params;
@@ -145,8 +154,8 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  render(){
-    const { sentenceFragments, match, massEdit, children, } = this.props
+  render() {
+    const { sentenceFragments, match, massEdit } = this.props
     const { data, hasreceiveddata, } = sentenceFragments;
     const { params } = match
     const { questionID, } = params;
@@ -155,12 +164,11 @@ class SentenceFragment extends React.Component {
         <h1>Loading...</h1>
       );
     } else if (data[questionID]) {
-      // console.log("conceptID: ", sentenceFragments.data[params.questionID].conceptID)
       const activeLink = massEdit.numSelectedResponses > 1
       ? <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       return (
-        <div>
+        <div className="admin-container">
           {this.renderEditForm()}
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -187,7 +195,18 @@ class SentenceFragment extends React.Component {
             </ul>
           </div>
           <br />
-          {children}
+          <Switch>
+            <Route component={EditIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
+            <Route component={NewIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/new`} />
+            <Route component={IncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences`} />
+            <Route component={EditFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/edit`} />
+            <Route component={NewFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/new`} />
+            <Route component={FocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points`} />
+            <Route component={TestQuestionContainer} path={`/admin/sentence-fragments/:questionID/test`} />
+            <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/:questionID/choose-model`} />
+            <Route component={MassEditContainer} path={`/admin/sentence-fragments/:questionID/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/sentence-fragments/:questionID/responses`} />
+          </Switch>
         </div>
       );
     } else {
@@ -201,10 +220,11 @@ class SentenceFragment extends React.Component {
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
+    questions: state.questions,
     concepts: state.concepts,
     routing: state.routing,
     massEdit: state.massEdit
   };
 }
 
-export default connect(select)(SentenceFragment);
+export default withRouter(connect(select)(SentenceFragment));

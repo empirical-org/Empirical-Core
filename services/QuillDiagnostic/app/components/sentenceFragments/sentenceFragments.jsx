@@ -46,8 +46,6 @@ class SentenceFragments extends React.Component {
   render() {
     const { diagnosticQuestions, showOnlyArchived } = this.state;
     const sentenceFragments = hashToCollection(diagnosticQuestions)
-    console.log('sentence-fragments-props', this.props);
-    console.log('sentenceFragments', sentenceFragments);
     return (
       <section className="section">
         <div className="container">
@@ -74,6 +72,7 @@ class SentenceFragments extends React.Component {
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
+    questions: state.questions,
     routing: state.routing,
     lessons: state.lessons,
   }

@@ -5,7 +5,6 @@ import Form from './sentenceFragmentForm.jsx';
 
 class newSentenceFragment extends React.Component {
   createNewSentenceFragment = (newSentenceFragment) => {
-    console.log('newSentenceFragment-props', this.props);
     if (!newSentenceFragment.isFragment && !newSentenceFragment.needsIdentification) {
       alert('If the prompt is a sentence, the student must identify whether it is a sentence or fragment. Please try again.');
       return;

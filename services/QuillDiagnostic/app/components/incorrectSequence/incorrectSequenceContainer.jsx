@@ -10,13 +10,16 @@ import request from 'request'
 
 class IncorrectSequencesContainer extends Component {
   UNSAFE_componentWillMount() {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params, url } = match;
     const { questionID } = params;
-    dispatch(questionActions.getUsedSequences(questionID))
+    const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
+    dispatch(questionActions.getUsedSequences(questionID, type))
   }
 
   getQuestion() {
-    const { params, questions } = this.props;
+    const { match, questions } = this.props;
+    const { params } = match;
     const { data } = questions;
     const { questionID } = params;
     return data[questionID];
@@ -27,7 +30,8 @@ class IncorrectSequencesContainer extends Component {
   }
 
   submitSequenceForm = (data, sequence) => {
-    const { dispatch, params } = this.props;
+    const { match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
     if (sequence) {
@@ -38,7 +42,8 @@ class IncorrectSequencesContainer extends Component {
   };
 
   deleteSequence = sequenceID => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(questionActions.deleteIncorrectSequence(questionID, sequenceID));
@@ -46,7 +51,8 @@ class IncorrectSequencesContainer extends Component {
   };
 
   deleteConceptResult(conceptResultKey, sequenceKey) {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getSequences()[sequenceKey];
@@ -74,7 +80,8 @@ class IncorrectSequencesContainer extends Component {
   }
 
   renderSequenceList() {
-    const { params } = this.props;
+    const { match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const components = _.mapObject(this.getSequences(), (val, key) => (
       <div className="card is-fullwidth has-bottom-margin" key={key}>
@@ -100,7 +107,8 @@ class IncorrectSequencesContainer extends Component {
   }
 
   sortCallback = sortInfo => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
@@ -109,26 +117,32 @@ class IncorrectSequencesContainer extends Component {
   };
 
   render() {
-    const { children, params } = this.props;
+    const { match } = this.props;
+    const { params, url } = match;
     const { questionID } = params;
+    const path = url.includes('sentence-fragments') ? 'sentence-fragments' : 'questions'
     return (
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/questions/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/${path}/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
-        {children}
       </div>
     );
   }
 }
 
-function select(props) {
-  return {
-    questions: props.questions,
-    generatedIncorrectSequences: props.generatedIncorrectSequences
-  };
-}
+function select(state, props) {
+  const { match } = props
+  const { url } = match
+  let mappedState
+  if(url.includes('sentence-fragments')) {
+    mappedState = { questions: state.sentenceFragments }
+  } else {
+    mappedState = { questions: state.questions }
+  }
+  return mappedState
+};
 
 export default connect(select)(IncorrectSequencesContainer);

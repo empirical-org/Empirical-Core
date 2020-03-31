@@ -140,6 +140,7 @@ class ScoreAnalysis extends Component {
   };
 
   updateUrl = () => {
+    const { history } = this.props
     let newUrl
     const questionTypeAbbrev = this.state.questionType ? this.getAbbreviationFromQuestionType(this.state.questionType) : null
     const statusAbbrev = this.state.status ? this.getAbbreviationFromStatus(this.state.status) : null
@@ -152,7 +153,7 @@ class ScoreAnalysis extends Component {
     } else {
       newUrl = `/admin/datadash`
     }
-    this.props.router.push(newUrl)
+    history.push(newUrl)
   }
 
   getQuestionTypeFromAbbreviation = (abbrev) => {

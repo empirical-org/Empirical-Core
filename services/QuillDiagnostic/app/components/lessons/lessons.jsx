@@ -71,7 +71,6 @@ class Lessons extends React.Component {
   };
 
   render() {
-    console.log('lessons-props', this.props);
     return (
       <section className="section">
         <div className="container">

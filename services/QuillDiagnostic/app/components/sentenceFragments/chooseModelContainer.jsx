@@ -6,15 +6,13 @@ import { ConceptExplanation } from 'quill-component-library/dist/componentLibrar
 import sentenceFragmentActions from '../../actions/sentenceFragments.js';
 
 class ChooseModelContainer extends Component {
-  constructor() {
-    super();
-    this.state = {}
-    this.setState = this.setState.bind(this);
-  }
+  
+  state = { modelConceptUID: null }
 
   UNSAFE_componentWillMount() {
-    const { params, sentenceFragments } = this.props;
+    const { match, sentenceFragments } = this.props;
     const { data } = sentenceFragments;
+    const { params } = match;
     const { questionID } = params;
     this.setState({
       modelConceptUID: data[questionID].modelConceptUID
@@ -23,15 +21,17 @@ class ChooseModelContainer extends Component {
 
   getModelConceptUID() {
     const { modelConceptUID } = this.state;
-    const { params, sentenceFragments } = this.props;
+    const { match, sentenceFragments } = this.props;
     const { data } = sentenceFragments;
+    const { params } = match;
     const { questionID } = params;
     return modelConceptUID || data[questionID].modelConceptUID;
   }
 
   saveModelConcept = () => {
     const { modelConceptUID } = this.state;
-    const { dispatch, params, sentenceFragments } = this.props;
+    const { dispatch, match, sentenceFragments } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const { data } = sentenceFragments;
     dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(questionID,
@@ -40,11 +40,13 @@ class ChooseModelContainer extends Component {
   };
 
   removeModelConcept = () => {
-    const { dispatch, params, sentenceFragments } = this.props;
+    const { dispatch, match, sentenceFragments } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const { data } = sentenceFragments;
     let questionData = Object.assign({}, data[questionID], {modelConceptUID: null});
     dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(questionID, questionData));
+    this.setState({modelConceptUID: null});
   };
 
   selectConcept = e => {
@@ -53,7 +55,8 @@ class ChooseModelContainer extends Component {
 
   renderButtons() {
     const { modelConceptUID } = this.state;
-    const { params, sentenceFragments } = this.props;
+    const { match, sentenceFragments } = this.props;
+    const { params } = match;
     const { questionID } = params;
     const { data } = sentenceFragments;
     return(
@@ -84,7 +87,7 @@ class ChooseModelContainer extends Component {
   }
 
   render() {
-    const { children, conceptsFeedback } = this.props;
+    const { conceptsFeedback } = this.props;
     const { data } = conceptsFeedback;
     return(
       <div className="box">
@@ -92,7 +95,6 @@ class ChooseModelContainer extends Component {
         <div className="control">
           <ConceptSelector currentConceptUID={this.getModelConceptUID()} handleSelectorChange={this.selectConcept} onlyShowConceptsWithConceptFeedback />
           <ConceptExplanation {...data[this.getModelConceptUID()]} />
-          {children}
         </div>
         {this.renderButtons()}
       </div>

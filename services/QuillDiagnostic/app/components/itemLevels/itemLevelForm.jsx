@@ -21,7 +21,7 @@ class ItemLevelForm extends React.Component {
   submit = () => {
     const { levelID, submitNewItemLevel } = this.props;
     if(this.refs.newItemLevelName.value === "" || this.refs.integerValue.value === "") { //has not chosen an associated concept
-      alert("You must choose a name for this item level")
+      alert("You must choose a name and value for this item level")
       return
     }
     const newItemLevel = {
@@ -68,8 +68,6 @@ class ItemLevelForm extends React.Component {
   }
 
   render() {
-    console.log('refs', this.refs);
-    console.log('item-level-form-props', this.props);
     const { concepts } = this.props;
     const { hasreceiveddata } = concepts;
     if(hasreceiveddata === true) {

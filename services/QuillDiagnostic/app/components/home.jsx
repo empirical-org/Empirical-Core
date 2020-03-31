@@ -1,9 +1,6 @@
 import React from 'react';
-import AdminNavBar from './navbar/adminNavbar';
 import StudentNavBar from './navbar/studentNavbar';
 import { Layout } from "antd";
-const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
-// const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 import { renderRoutes } from "react-router-config";
 import { routes } from "../routes";
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
@@ -22,28 +19,6 @@ export default class Home extends React.Component {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown)
   }
-
-  // handleAuthCheck = () => {
-  //   fetch(usersEndpoint, {
-  //     method: 'GET',
-  //     mode: 'cors',
-  //     credentials: 'include',
-  //   }).then((response) => {
-  //     if (!response.ok) {
-  //       throw Error(response.statusText);
-  //     }
-  //     return response.json();
-  //   }).then((response) => {
-  //       if (response.user.hasOwnProperty('role') && response.user.role === 'staff'){
-  //         this.setState({ isAdmin: true, loading: false });
-  //       }
-  //       else {
-  //         this.setState({ loading: false });
-  //       }
-  //   }).catch((error) => {
-  //     // to do, use Sentry to capture error
-  //   })
-  // }
 
   handleKeyDown = (e) => {
     if (e.key !== 'Tab') { return }
