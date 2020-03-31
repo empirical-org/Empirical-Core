@@ -33,7 +33,7 @@ const data = {
 
 describe('Scorebook component', () => {
   describe('if state.missing has a value', () => {
-    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+    const wrapper = shallow(<Scorebook allClassrooms={[]} />);
     wrapper.setState({ missing: 'activities', });
 
     describe('EmptyProgressReport', () => {
@@ -42,25 +42,25 @@ describe('Scorebook component', () => {
       });
 
       it('receives classrooms as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+        const wrapper = shallow(<Scorebook allClassrooms={[]} />);
         wrapper.setState({ classroomFilters: [] });
         expect(wrapper.instance().checkMissing(new Map())).toBe('classrooms');
       });
 
       it('receives activities as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+        const wrapper = shallow(<Scorebook allClassrooms={[]} />);
         wrapper.setState({ anyScoresHaveLoadedPreviously: 'true', classroomFilters: [''] });
         expect(wrapper.instance().checkMissing(new Map())).toBe('activitiesWithinDateRange');
       });
 
       it('receives students as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+        const wrapper = shallow(<Scorebook allClassrooms={[]} />);
         wrapper.setState({ unitFilters: [''], classroomFilters: [''], anyScoresHaveLoadedPreviously: 'false' });
         expect(wrapper.instance().checkMissing(new Map())).toBe('students');
       });
 
       it('receives activitiesWithinDateRange as the missing prop value when appropriate', () => {
-        const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+        const wrapper = shallow(<Scorebook allClassrooms={[]} />);
         wrapper.setState({ classroomFilters: [''], anyScoresHaveLoadedPreviously: 'false' });
         expect(wrapper.instance().checkMissing(new Map())).toBe('activities');
       });
@@ -88,7 +88,7 @@ describe('Scorebook component', () => {
   });
 
   describe('if state.loading is true', () => {
-    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+    const wrapper = shallow(<Scorebook allClassrooms={[]} />);
     wrapper.setState({ loading: true, });
 
     it('renders LoadingIndicator', () => {
@@ -113,7 +113,7 @@ describe('Scorebook component', () => {
   });
 
   describe('if it gets data when it had none', () => {
-    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+    const wrapper = shallow(<Scorebook allClassrooms={[]} />);
     wrapper.setState({ currentPage: 1, scores: new Map(), selectedClassroom: { id: 6 }});
     wrapper.instance().displayData(data);
 
@@ -175,7 +175,7 @@ describe('Scorebook component', () => {
   });
 
   describe('selectDates function', () => {
-    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+    const wrapper = shallow(<Scorebook allClassrooms={[]} />);
     const beginDate = moment();
     const endDate = moment();
     const dateFilterName = 'All Time'
@@ -205,7 +205,7 @@ describe('Scorebook component', () => {
   });
 
   describe('convertStoredDateToMoment function', () => {
-    const wrapper = shallow(<Scorebook allClassrooms={[]}/>);
+    const wrapper = shallow(<Scorebook allClassrooms={[]} />);
     const beginDate = moment().toString();
     const endDate = moment().toString();
 

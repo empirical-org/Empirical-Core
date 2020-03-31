@@ -6,8 +6,7 @@ import ItemDropdown from '../components/general_components/dropdown_selectors/it
 import Server from '../components/modules/server/server'
 import getAuthToken from '../components/modules/get_auth_token'
 
-
-export default class extends React.Component {
+export default class Cms extends React.Component {
   static propTypes = {
     resourceNameSingular: PropTypes.string.isRequired,
     resourceNamePlural: PropTypes.string.isRequired
@@ -23,6 +22,10 @@ export default class extends React.Component {
     };
     hash1[props.resourceNamePlural] = [];
     this.state = hash1;
+  }
+
+  componentDidMount() {
+    this.getIndexFromServer();
   }
 
   initializeModules = () => {
@@ -42,10 +45,6 @@ export default class extends React.Component {
   indexUrl = () => {
     return ['/cms/', this.props.resourceNamePlural].join('');
   };
-
-  componentDidMount() {
-    this.getIndexFromServer();
-  }
 
   getIndexFromServer = () => {
     this.modules.server.getStateFromServer(this.props.resourceNamePlural, this.indexUrl(), this.populateResources);

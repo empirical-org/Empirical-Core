@@ -31,9 +31,9 @@ export default class PageNumber extends React.Component {
 
  render() {
      return (
-        <li className={this.state.classy} onClick={this.clickNumber}>
-          <span>{this.props.number}</span>
-        </li>
+       <li className={this.state.classy} onClick={this.clickNumber}>
+         <span>{this.props.number}</span>
+       </li>
      );
  }
 }

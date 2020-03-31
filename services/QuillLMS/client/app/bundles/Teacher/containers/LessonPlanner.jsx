@@ -50,6 +50,12 @@ export default class LessonPlanner extends React.Component {
     this.state = state;
   }
 
+  componentDidMount() {
+    if (this.state.tab === 'exploreActivityPacks') {
+      this.fetchUnitTemplateModels();
+    }
+  }
+
   analytics = () => new AnalyticsWrapper();
 
   blankState = () => {
@@ -169,12 +175,6 @@ export default class LessonPlanner extends React.Component {
   };
 
   fetchUnitTemplateModels = () => this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
-
-  componentDidMount() {
-    if (this.state.tab === 'exploreActivityPacks') {
-      this.fetchUnitTemplateModels();
-    }
-  }
 
   toggleTab = (tab) => {
     if (tab === 'createUnit') {

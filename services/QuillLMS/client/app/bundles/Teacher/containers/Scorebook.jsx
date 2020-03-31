@@ -16,33 +16,6 @@ import moment from 'moment';
 export default createReactClass({
   displayName: 'Scorebook',
 
-  DATE_RANGE_FILTER_OPTIONS: [
-    {
-      title: 'Today',
-      beginDate: moment(),
-    },
-    {
-      title: 'This Week',
-      beginDate: moment().startOf('week'),
-    },
-    {
-      title: 'This Month',
-      beginDate: moment().startOf('month'),
-    },
-    {
-      title: 'Last 7 days',
-      beginDate: moment().subtract(7, 'days'),
-    },
-    {
-      title: 'Last 30 days',
-      beginDate: moment().subtract(1, 'months'),
-    },
-    {
-      title: 'All Time',
-      beginDate: null,
-    }
-  ],
-
   mixins: [TableFilterMixin],
 
   getInitialState() {
@@ -80,6 +53,33 @@ export default createReactClass({
     }
     this.modules.scrollify.scrollify('#page-content-wrapper', this);
   },
+
+  DATE_RANGE_FILTER_OPTIONS: [
+    {
+      title: 'Today',
+      beginDate: moment(),
+    },
+    {
+      title: 'This Week',
+      beginDate: moment().startOf('week'),
+    },
+    {
+      title: 'This Month',
+      beginDate: moment().startOf('month'),
+    },
+    {
+      title: 'Last 7 days',
+      beginDate: moment().subtract(7, 'days'),
+    },
+    {
+      title: 'Last 30 days',
+      beginDate: moment().subtract(1, 'months'),
+    },
+    {
+      title: 'All Time',
+      beginDate: null,
+    }
+  ],
 
   formatDate(date) {
     if (date) {

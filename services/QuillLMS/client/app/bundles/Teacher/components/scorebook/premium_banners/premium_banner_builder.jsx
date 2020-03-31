@@ -15,6 +15,10 @@ export default class PremiumBannerBuilder extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.fetchData();
+  }
+
   fetchData = () => {
     var that = this;
     $.get('/teachers/classrooms/premium')
@@ -82,10 +86,6 @@ export default class PremiumBannerBuilder extends React.Component {
     );
   }
   };
-
-  componentDidMount() {
-    this.fetchData();
-  }
 
   render() {
     return (this.hasPremium());

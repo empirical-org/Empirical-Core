@@ -18,10 +18,6 @@ import $ from 'jquery'
 export default createReactClass({
   displayName: 'progress_report',
 
-  mixins: [
-    TableFilterMixin, TableSortingMixin
-  ],
-
   propTypes: {
     columnDefinitions: PropTypes.func.isRequired,
     filterTypes: PropTypes.array.isRequired,
@@ -34,6 +30,10 @@ export default createReactClass({
     premiumStatus: PropTypes.string,
     colorByScoreKeys: PropTypes.array
   },
+
+  mixins: [
+    TableFilterMixin, TableSortingMixin
+  ],
 
   getDefaultProps: function() {
     return {maxPageNumber: 4};
@@ -66,10 +66,6 @@ export default createReactClass({
     };
   },
 
-  disabled: function(){
-    return this.props.premiumStatus === 'locked' || this.props.premiumStatus === 'none';
-  },
-
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
@@ -81,6 +77,10 @@ export default createReactClass({
     if (this.state.loading !== nextState.loading && this.props.showInProgressAndUnstartedStudents) {
       this.props.showInProgressAndUnstartedStudents(!nextState.loading)
     }
+  },
+
+  disabled: function(){
+    return this.props.premiumStatus === 'locked' || this.props.premiumStatus === 'none';
   },
 
   strippedResults: function(results) {

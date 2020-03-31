@@ -6,7 +6,7 @@ import stripHtml from '../../modules/strip_html'
 export default class extends React.Component {
   concepts = () => {
       return this.props.questionData.concepts.map((concept) => (
-<ConceptResultTableRow concept={concept} key={concept.id} />
+        <ConceptResultTableRow concept={concept} key={concept.id} />
       ));
   };
 
@@ -14,11 +14,11 @@ export default class extends React.Component {
       const directions = this.props.questionData.directions;
       if (directions) {
           return (
-<tr className='directions'>
-  <td>Directions</td>
-  <td />
-  <td><span>{directions}</span></td>
-</tr>
+            <tr className='directions'>
+              <td>Directions</td>
+              <td />
+              <td><span>{directions}</span></td>
+            </tr>
           )
       }
   };
@@ -27,11 +27,11 @@ export default class extends React.Component {
       const prompt = this.props.questionData.prompt ? stripHtml(this.props.questionData.prompt) : '';
       if (prompt) {
           return (
-<tr>
-  <td>Prompt</td>
-  <td />
-  <td><span>{prompt}</span></td>
-</tr>
+            <tr>
+              <td>Prompt</td>
+              <td />
+              <td><span>{prompt}</span></td>
+            </tr>
           )
       }
   };
@@ -43,25 +43,25 @@ export default class extends React.Component {
   render() {
       const data = this.props.questionData;
       return (
-<div className='individual-activity-report'>
-  <div className="student-report-box">
-    <div className='student-report-table-and-index'>
-      <div className='question-index'>{this.props.boxNumber}</div>
-      <table>
-        <tbody>
-          {this.directions()}
-          {this.prompt()}
-          <tr className={ScoreColor(data.score)}>
-            <td>Submission</td>
-            <td />
-            <td><span style={{ whiteSpace: 'pre-wrap' }}>{this.answer()}</span></td>
-          </tr>
-          {this.concepts()}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+        <div className='individual-activity-report'>
+          <div className="student-report-box">
+            <div className='student-report-table-and-index'>
+              <div className='question-index'>{this.props.boxNumber}</div>
+              <table>
+                <tbody>
+                  {this.directions()}
+                  {this.prompt()}
+                  <tr className={ScoreColor(data.score)}>
+                    <td>Submission</td>
+                    <td />
+                    <td><span style={{ whiteSpace: 'pre-wrap' }}>{this.answer()}</span></td>
+                  </tr>
+                  {this.concepts()}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       );
   }
 }

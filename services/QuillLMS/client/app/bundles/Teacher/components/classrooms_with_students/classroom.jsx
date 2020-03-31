@@ -86,12 +86,12 @@ export default class Classroom extends React.Component {
    if (!open) { return }
 
    const studentList = this.props.students.map((student) => (<Student
-       classroom={this.props.classroom}
-       handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
-       key={`c${this.props.classroom.id}s${student.id}`}
-       student={student}
-       toggleStudentSelection={this.props.toggleStudentSelection}
-     />)
+     classroom={this.props.classroom}
+     handleStudentCheckboxClick={this.props.handleStudentCheckboxClick}
+     key={`c${this.props.classroom.id}s${student.id}`}
+     student={student}
+     toggleStudentSelection={this.props.toggleStudentSelection}
+   />)
    )
 
    return (<Panel collapsible expanded={this.state.open} ref='studentList'>

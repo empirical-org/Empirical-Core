@@ -13,7 +13,7 @@ export default () => (
       <Route component={ConceptsNew} path="/new" />
       <Route component={ConceptsFindAndReplace} path="/find_and_replace" />
       <Route component={ConceptsChangeLogIndex} path="/change_log" />
-      <Route component={ConceptsIndex} exact path="/"/>
+      <Route component={ConceptsIndex} exact path="/" />
     </HashRouter>
   </ApolloProvider>
 );

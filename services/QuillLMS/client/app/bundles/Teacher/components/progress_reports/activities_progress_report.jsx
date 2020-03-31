@@ -13,12 +13,13 @@ import EmptyStateForReport from './empty_state_for_report.jsx'
 
 export default createReactClass({
   displayName: 'activities_progress_report',
-  mixins: [TableFilterMixin],
 
   propTypes: {
     sourceUrl: PropTypes.string.isRequired,
     premiumStatus: PropTypes.string.isRequired
   },
+
+  mixins: [TableFilterMixin],
 
   getInitialState: function() {
     return {

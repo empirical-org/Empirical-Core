@@ -12,7 +12,7 @@ import WindowPosition from '../components/modules/windowPosition'
 import AnalyticsWrapper from '../components/shared/analytics_wrapper'
 
 
-export default class extends React.Component {
+export default class PublicActivityPacks extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.modules = {
@@ -58,6 +58,10 @@ export default class extends React.Component {
       state.unitTemplatesManager.model_id = $('.teachers-unit-template').data('id');
     }
     this.state = state;
+  }
+
+  componentDidMount() {
+    this.fetchUnitTemplateModels();
   }
 
   selectModel = (ut) => {
@@ -110,10 +114,6 @@ export default class extends React.Component {
   fetchUnitTemplateModels = () => {
     this.modules.unitTemplatesServer.getModels(this.updateUnitTemplateModels);
   };
-
-  componentDidMount() {
-    this.fetchUnitTemplateModels();
-  }
 
   fetchClassrooms = () => {
     var that = this;

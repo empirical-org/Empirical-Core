@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
 
@@ -10,10 +9,6 @@ export default class UnitTemplateProfileAssignButton extends React.Component {
       fastAssignDisabled: false,
     };
   }
-
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-  };
 
   analytics = () => {
     return new AnalyticsWrapper();

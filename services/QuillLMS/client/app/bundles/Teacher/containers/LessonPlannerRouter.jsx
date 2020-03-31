@@ -25,9 +25,9 @@ export default class LessonPlannerRouter extends React.Component{
 
 	render() {
 		return (
-		  <BrowserRouter>
-		    <Route render={routerProps => <LessonPlannerContainer {...routerProps} {...this.props} />} path="/teachers/classrooms/activity_planner" />
-		  </BrowserRouter>
+  <BrowserRouter>
+    <Route path="/teachers/classrooms/activity_planner" render={routerProps => <LessonPlannerContainer {...routerProps} {...this.props} />} />
+  </BrowserRouter>
 		);
 	}
 };

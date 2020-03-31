@@ -10,23 +10,18 @@ export default class StudentDropdown extends React.Component {
     this.state = this.checkStudents(this.props.students);
   }
 
-  static propTypes = {
-		students: PropTypes.array.isRequired,
-    callback: PropTypes.func
-	};
-
-  checkStudents = (studentsProps) => {
-		let studentProps = studentProps || this.props
-		if (!studentProps.students || !studentProps.students.length) {
-			return {selectedStudent: {name: 'No Students'}, disabled: true}
-		} else {
-			return {selectedStudent: studentProps.selectedStudent || studentProps.students[0]}
-		}
-	};
-
   UNSAFE_componentWillReceiveProps = (nextProps) => {
 		this.setState(this.checkStudents(nextProps))
 	};
+
+  checkStudents = (studentsProps) => {
+    let studentProps = studentProps || this.props
+    if (!studentProps.students || !studentProps.students.length) {
+      return {selectedStudent: {name: 'No Students'}, disabled: true}
+    } else {
+      return {selectedStudent: studentProps.selectedStudent || studentProps.students[0]}
+    }
+  };
 
   students = () => {
 		if (!this.state.disabled) {
@@ -49,9 +44,9 @@ export default class StudentDropdown extends React.Component {
 
   render() {
 		return (
-      <DropdownButton bsStyle='default' disabled={this.state.disabled} id='select-student-dropdown' onSelect={this.handleSelect} title={this.state.selectedStudent.name}>
-        {this.students()}
-      </DropdownButton>
+  <DropdownButton bsStyle='default' disabled={this.state.disabled} id='select-student-dropdown' onSelect={this.handleSelect} title={this.state.selectedStudent.name}>
+    {this.students()}
+  </DropdownButton>
 		);
 	}
 }

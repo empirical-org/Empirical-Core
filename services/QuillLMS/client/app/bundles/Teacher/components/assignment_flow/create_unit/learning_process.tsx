@@ -15,9 +15,9 @@ const minis = (props) => [
       { key: 'When', text: 'You’re working with a new group of students and need data on what each student needs to practice.', }
     ]}
     header="Assess student writing with a diagnostic"
-    key="diagnostic"
     imgAlt="page with writing and a magnifying glass over it"
     imgSrc={allDiagnosticsSrc}
+    key="diagnostic"
     selectCard={() => selectCard(props.history, `/assign/diagnostic`)}
   />),
   (<AssignmentCard
@@ -26,9 +26,9 @@ const minis = (props) => [
       { key: 'When', text: 'You know which skills you want your students to practice, or you want to browse our materials before assigning the diagnostic.', }
     ]}
     header="Choose activities from our library"
-    key="activity-type"
     imgAlt="open book"
     imgSrc={librarySrc}
+    key="activity-type"
     selectCard={() => selectCard(props.history, `/assign/activity-type`)}
   />)
 ];

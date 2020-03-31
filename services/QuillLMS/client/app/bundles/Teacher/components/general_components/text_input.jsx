@@ -1,12 +1,10 @@
-'use strict';
-
 import PropTypes from 'prop-types';
 
 import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
 
-export default class extends React.Component {
+export default class TextInput extends React.Component {
   static propTypes = {
     update: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
@@ -18,6 +16,19 @@ export default class extends React.Component {
     size: PropTypes.string,
     noLabel: PropTypes.bool
   };
+
+  componentDidMount() {
+    var that = this;
+    if (this.determineType() == 'file') {
+      $('#' + this.getId()).fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+          var file = data.files[0]
+          that.props.update(that.props.name, file);
+        }
+      });
+    }
+  }
 
   update = (event) => {
     this.props.update(this.props.name, event.target.value);
@@ -131,19 +142,6 @@ export default class extends React.Component {
     }
     return result;
   };
-
-  componentDidMount() {
-    var that = this;
-    if (this.determineType() == 'file') {
-      $('#' + this.getId()).fileupload({
-        dataType: 'json',
-        add: function (e, data) {
-          var file = data.files[0]
-          that.props.update(that.props.name, file);
-        }
-      });
-    }
-  }
 
   labelOrNot = () => {
     if (this.props.noLabel) {

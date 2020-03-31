@@ -26,7 +26,7 @@ export default class LessonPlannerContainer extends React.Component {
           <Route component={ClassroomLessonsPlanner} path="/teachers/classrooms/activity_planner/lessons" />
           <Route component={ClassroomLessonsPlanner} path="/teachers/classrooms/activity_planner/lessons/:classroomId" />
           <Route component={ChooseClassroomLesson} path="/teachers/classrooms/activity_planner/lessons_for_activity/:activityId" />
-          <Route render={routerProps => <ClassroomsWithStudentsContainer user={user} {...routerProps} />} path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" />
+          <Route path="/teachers/classrooms/activity_planner/units/:unitId/students/edit" render={routerProps => <ClassroomsWithStudentsContainer user={user} {...routerProps} />} />
           <Route component={EditUnitActivitiesContainer} path="/teachers/classrooms/activity_planner/units/:unitId/activities/edit" />
           <Route component={EmptyAssignedUnits} path="/teachers/classrooms/activity_planner/no_units" />
           <Route component={LessonPlanner} exact path="/teachers/classrooms/activity_planner" />

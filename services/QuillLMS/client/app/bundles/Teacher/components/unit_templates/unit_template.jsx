@@ -21,6 +21,31 @@ export default createReactClass({
     returnToIndex: PropTypes.func.isRequired,
   },
 
+  getInitialState() {
+    this.initializeModules();
+
+    let model = {
+      name: null,
+      activity_info: null,
+      time: null,
+      grades: [],
+      activities: [],
+      unit_template_category_id: null,
+      flag: this.props.unitTemplate.flag || null,
+      author_id: null,
+      order_number: this.props.unitTemplate.order_number || null,
+    };
+    model = _.extend(model, this.props.unitTemplate);
+    const options = this.modules.optionsLoader.initialOptions();
+
+    const hash = { model, options, };
+    return hash;
+  },
+
+  componentDidMount() {
+    this.modules.optionsLoader.get();
+  },
+
   resourceNameSingular: 'unit_template',
   resourceNamePlural: 'unit_templates',
 
@@ -60,31 +85,6 @@ export default createReactClass({
       { name: 'order_number', value: _.range(1, 30), fromServer: false, }
     ];
     return this.modelOptions;
-  },
-
-  getInitialState() {
-    this.initializeModules();
-
-    let model = {
-      name: null,
-      activity_info: null,
-      time: null,
-      grades: [],
-      activities: [],
-      unit_template_category_id: null,
-      flag: this.props.unitTemplate.flag || null,
-      author_id: null,
-      order_number: this.props.unitTemplate.order_number || null,
-    };
-    model = _.extend(model, this.props.unitTemplate);
-    const options = this.modules.optionsLoader.initialOptions();
-
-    const hash = { model, options, };
-    return hash;
-  },
-
-  componentDidMount() {
-    this.modules.optionsLoader.get();
   },
 
   // TODO: abstract out the below 3 methods

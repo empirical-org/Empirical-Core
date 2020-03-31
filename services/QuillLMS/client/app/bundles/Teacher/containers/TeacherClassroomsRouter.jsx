@@ -7,7 +7,7 @@ const TeacherClassroomsRouter = props => (
   <BrowserRouter>
     <Switch>
       <Route component={() => <ArchivedClassrooms {...props} />} path="/teachers/classrooms/archived" />
-      <Route exact path="/teachers/classrooms" component={() => <ActiveClassrooms {...props} />} />
+      <Route component={() => <ActiveClassrooms {...props} />} exact path="/teachers/classrooms" />
     </Switch>
   </BrowserRouter>
 )
