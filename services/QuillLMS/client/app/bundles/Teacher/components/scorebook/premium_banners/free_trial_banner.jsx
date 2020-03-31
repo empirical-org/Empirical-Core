@@ -15,7 +15,7 @@ export default React.createClass({
   //   })
   // },
 
-  activateSubscription() {
+  handleActivateSubscription() {
     window.location.href = '/subscriptions/activate_covid_subscription'
   },
 
@@ -33,7 +33,7 @@ export default React.createClass({
         </div>
         <div className="col-md-3 col-xs-12 pull-right">
           <div className="premium-button-box text-center">
-            <button className="btn-orange" onClick={this.activateSubscription} type="button">Get Premium Free</button>
+            <button className="btn-orange" onClick={this.handleActivateSubscription} type="button">Get Premium Free</button>
             <br />
             <span>No credit card required</span>
           </div>

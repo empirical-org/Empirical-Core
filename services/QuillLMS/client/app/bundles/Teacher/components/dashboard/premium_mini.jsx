@@ -18,7 +18,7 @@ export default class PremiumMini extends React.Component {
         <h4>Activate free Quill Premium</h4>
         <button className="btn btn-orange" onClick={this.handleBeginTrialClick} type="button">Get Premium Free until 7/31/2020</button>
         <p className="credit-card">No credit card required.</p>
-        <p>Due to school closures, we're offering Quill Premium free for the rest of the school year.</p>
+        <p>Due to school closures, we&apos;re offering Quill Premium free for the rest of the school year.</p>
         {supportLink}
       </div>
     );
