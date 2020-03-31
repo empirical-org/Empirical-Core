@@ -3,7 +3,7 @@ import React from 'react';
 import _ from 'underscore';
 import PageNumber from './page_number';
 
-export default class extends React.Component {
+export default class Pagination extends React.Component {
   static propTypes = {
     currentPage: PropTypes.number.isRequired,
     numberOfPages: PropTypes.number.isRequired,

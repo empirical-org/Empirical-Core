@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class extends React.Component {
+export default class FirewallWarning extends React.Component {
   render() {
     return (
       <div className='container text-center firewall-warning'>

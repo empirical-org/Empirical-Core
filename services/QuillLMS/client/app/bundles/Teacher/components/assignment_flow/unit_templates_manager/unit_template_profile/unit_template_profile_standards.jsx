@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 
-export default class extends React.Component {
+export default class UnitTemplateProfileStandards extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
   };

@@ -4,7 +4,7 @@ import _ from 'underscore';
 import $ from 'jquery';
 import DropdownDateSelector from '../../general_components/dropdown_date_selector.jsx';
 
-export default class extends React.Component {
+export default class SelectSubscription extends React.Component {
   static propTypes = {
     subscription: PropTypes.object,
     updateSubscriptionState: PropTypes.func.isRequired,

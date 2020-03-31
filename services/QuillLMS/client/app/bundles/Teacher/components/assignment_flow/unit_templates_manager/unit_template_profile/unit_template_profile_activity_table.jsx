@@ -6,7 +6,7 @@ import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import ReactTable from 'react-table'
 
-export default class extends React.Component {
+export default class extends UnitTemplateProfileActivityTable React.Component {
   static propTypes = {
     data: PropTypes.object,
     actions: PropTypes.object

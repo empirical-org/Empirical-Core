@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-export default class extends React.Component {
+export default class AddClassroomActivityRow extends React.Component {
   unitNameURIString = () => {
     return this.props.unitName ? `/${encodeURIComponent(this.props.unitName)}` : '';
   };

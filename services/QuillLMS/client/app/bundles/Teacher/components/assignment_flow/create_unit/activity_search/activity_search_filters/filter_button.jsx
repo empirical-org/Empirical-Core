@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class extends React.Component {
+export default class FilterButton extends React.Component {
   static propTypes = {
     handleFilterButtonClick: PropTypes.func.isRequired,
     data: PropTypes.object.isRequired,

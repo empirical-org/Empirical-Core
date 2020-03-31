@@ -2,13 +2,17 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
 
-export default class extends React.Component {
+export default class UnitTemplateProfileAssignButton extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      fastAssignDisabled: false,
+    };
+  }
+
   static propTypes = {
     data: PropTypes.object.isRequired,
-  };
-
-  state = {
-    fastAssignDisabled: false,
   };
 
   analytics = () => {

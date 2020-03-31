@@ -6,7 +6,7 @@ import React from 'react';
 import _ from 'underscore';
 import $ from 'jquery';
 
-export default class extends React.Component {
+export default class SelectRole extends React.Component {
   static propTypes = {
     role: PropTypes.string.isRequired,
     updateRole: PropTypes.func.isRequired
@@ -18,9 +18,10 @@ export default class extends React.Component {
   };
 
   render() {
-    var options = _.map(['teacher', 'student', 'admin', 'staff'], function (role) {
+    const options = _.map(['teacher', 'student', 'admin', 'staff'], function (role) {
       return <option key={role} value={role}>{role}</option>;
     });
+    
     return (
       <div className='row'>
         <div className='col-xs-2 form-label'>

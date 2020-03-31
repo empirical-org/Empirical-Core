@@ -11,15 +11,19 @@ import _ from 'underscore';
 
 const allClassroomKey = 'All Classrooms';
 
-export default class extends React.Component {
-  state = {
-    allUnits: [],
-    units: [],
-    loaded: false,
-    classrooms: [],
-    selectedClassroomId: getParameterByName('classroom_id'),
-    activityWithRecommendationsIds: [],
-  };
+export default class ManageUnits extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      allUnits: [],
+      units: [],
+      loaded: false,
+      classrooms: [],
+      selectedClassroomId: getParameterByName('classroom_id'),
+      activityWithRecommendationsIds: [],
+    };
+  }
 
   componentDidMount() {
     this.getClassrooms()

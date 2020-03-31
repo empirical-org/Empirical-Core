@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class extends React.Component {
+export default class ActivitySearchSort extends React.Component {
   clickSort = () => {
     let new_asc_or_desc;
     if (this.props.data.asc_or_desc == 'desc') {

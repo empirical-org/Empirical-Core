@@ -13,9 +13,10 @@ import _ from 'underscore'
 
 const showAllClassroomKey = 'All Classrooms'
 
-export default class extends React.Component {
-  constructor() {
-    super()
+export default class DistrictStandardsReports extends React.Component {
+  constructor(props) {
+    super(props)
+
     this.state = {
       loading: true,
       errors: false,
@@ -69,7 +70,7 @@ export default class extends React.Component {
     ])
   }
 
-  filteredStandardsReportsData() {
+  filteredStandardsReportsData = () => {
     if (this.state.selectedClassroom === showAllClassroomKey) {
       return this.state.standardsReportsData
     }

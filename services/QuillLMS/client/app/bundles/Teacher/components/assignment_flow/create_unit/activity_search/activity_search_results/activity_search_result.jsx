@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip'
 
-export default class extends React.Component {
+export default class ActivitySearchResult extends React.Component {
   callToggleActivitySelection = (e) => {
     const true_or_false = ($(e.target).attr('checked') == 'checked');
     this.props.toggleActivitySelection(this.props.data, true_or_false);

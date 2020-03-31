@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import Unit from './activities_unit';
 
-export default class extends React.Component {
+export default class ActivitiesUnits extends React.Component {
   render() {
     const units = _.map(this.props.data, function (data) {
       return (<Unit
