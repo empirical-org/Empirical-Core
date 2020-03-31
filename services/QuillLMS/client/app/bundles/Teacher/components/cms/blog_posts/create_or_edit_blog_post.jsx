@@ -1,6 +1,5 @@
 import React from 'react';
 import request from 'request';
-import moment from 'moment'
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
 import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
@@ -304,7 +303,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           preview_card_content: preview_card_content,
           draft: !shouldPublish,
           premium: premium,
-          published_at: publishedAt ? moment(publishedAt).format() : null,
+          published_at: publishedAt ? new Date(publishedAt) : null,
           external_link: externalLink,
           center_images: centerImages,
           press_name: pressName
@@ -436,7 +435,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${new Date(publishedAt)}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -465,7 +464,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${new Date(publishedAt)}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -490,7 +489,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${new Date(publishedAt)}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -515,7 +514,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     } else if (postToEdit) {
       dateDisplayed = postToEdit.updated_at
     } else {
-      dateDisplayed = moment()
+      dateDisplayed = new Date()
     }
     if (showArticlePreview) {
       toolbarLeft = <div />
@@ -570,7 +569,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     const { publishedAt, } = this.state
     return (<div>
       <label>Published At Date:</label>
-      <DatePicker onChange={this.handlePublishedAtChange} selected={publishedAt ? moment(publishedAt) : null} />
+      <DatePicker onChange={this.handlePublishedAtChange} selected={publishedAt ? new Date(publishedAt) : null} />
     </div>)
   }
 

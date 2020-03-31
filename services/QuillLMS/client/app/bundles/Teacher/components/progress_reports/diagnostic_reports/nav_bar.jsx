@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Router, Route, Link, hashHistory } from 'react-router'
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
 import NavButtonGroup from './nav_button_group.jsx';
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx';

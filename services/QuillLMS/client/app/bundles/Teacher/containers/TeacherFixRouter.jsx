@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { BrowserRouter, Route, Switch, } from 'react-router-dom'
 import TeacherFixIndex from '../components/teacher_fix/index.jsx'
 import UnarchiveUnits from '../components/teacher_fix/unarchive_units.jsx'
 import RecoverClassroomUnits from '../components/teacher_fix/recover_classroom_units.jsx'
@@ -14,23 +14,25 @@ import MergeTwoSchools from '../components/teacher_fix/merge_two_schools'
 import MergeTwoClassrooms from '../components/teacher_fix/merge_two_classrooms'
 import DeleteLastActivitySession from '../components/teacher_fix/delete_last_activity_session'
 
-export default class extends React.Component {
-    render() {
+export default class TeacherFixRouter extends React.Component {
+  render() {
 		return (
-  <Router history={browserHistory} Router>
-    <Route component={TeacherFixIndex} path="/teacher_fix" />
-    <Route component={UnarchiveUnits} path="/teacher_fix/unarchive_units" />
-    <Route component={RecoverClassroomUnits} path="/teacher_fix/recover_classroom_units" />
-    <Route component={RecoverUnitActivities} path="/teacher_fix/recover_unit_activities" />
-    <Route component={RecoverActivitySessions} path="/teacher_fix/recover_activity_sessions" />
-    <Route component={MergeStudentAccounts} path="/teacher_fix/merge_student_accounts" />
-    <Route component={MergeTeacherAccounts} path="/teacher_fix/merge_teacher_accounts" />
-    <Route component={MoveStudent} path="/teacher_fix/move_student" />
-    <Route component={GoogleUnsync} path="/teacher_fix/google_unsync" />
-    <Route component={MergeTwoSchools} path="/teacher_fix/merge_two_schools" />
-    <Route component={MergeTwoClassrooms} path="/teacher_fix/merge_two_classrooms" />
-    <Route component={DeleteLastActivitySession} path="/teacher_fix/delete_last_activity_session" />
-  </Router>
+      <BrowserRouter>
+        <Switch>
+          <Route component={UnarchiveUnits} path="/teacher_fix/unarchive_units" />
+          <Route component={RecoverClassroomUnits} path="/teacher_fix/recover_classroom_units" />
+          <Route component={RecoverUnitActivities} path="/teacher_fix/recover_unit_activities" />
+          <Route component={RecoverActivitySessions} path="/teacher_fix/recover_activity_sessions" />
+          <Route component={MergeStudentAccounts} path="/teacher_fix/merge_student_accounts" />
+          <Route component={MergeTeacherAccounts} path="/teacher_fix/merge_teacher_accounts" />
+          <Route component={MoveStudent} path="/teacher_fix/move_student" />
+          <Route component={GoogleUnsync} path="/teacher_fix/google_unsync" />
+          <Route component={MergeTwoSchools} path="/teacher_fix/merge_two_schools" />
+          <Route component={MergeTwoClassrooms} path="/teacher_fix/merge_two_classrooms" />
+          <Route component={DeleteLastActivitySession} path="/teacher_fix/delete_last_activity_session" />
+          <Route component={TeacherFixIndex} exact path="/teacher_fix" />
+        </Switch>
+      </BrowserRouter>
 		);
 	}
 }

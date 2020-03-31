@@ -1,6 +1,5 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import _ from 'lodash';
 import request from 'request';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
@@ -236,12 +235,12 @@ export default class EditOrCreateSubscription extends React.Component {
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.
         </p>
-        <DatePicker onChange={this.handleStartDateChange} selected={subscription.start_date ? moment(subscription.start_date) : null} />
+        <DatePicker onChange={this.handleStartDateChange} selected={subscription.start_date ? new Date(subscription.start_date) : null} />
         <label htmlFor="">End Date</label>
         <p>
           If this a school or users first paid subscription, the default end date is {promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
-        <DatePicker onChange={this.handleExpirationDateChange} selected={subscription.expiration ? moment(subscription.expiration) : null} />
+        <DatePicker onChange={this.handleExpirationDateChange} selected={subscription.expiration ? new Date(subscription.expiration) : null} />
         <div>
           <button className="q-button cta-button bg-quillgreen text-white" onClick={submitAction} type="submit">
             {view === 'new' ? 'New' : 'Update'} Subscription

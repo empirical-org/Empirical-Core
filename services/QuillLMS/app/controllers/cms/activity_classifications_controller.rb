@@ -50,6 +50,9 @@ class Cms::ActivityClassificationsController < Cms::CmsController
                                                     :order_number,
                                                     :instructor_mode,
                                                     :locked_by_default,
-                                                    :scored)
+                                                    :scored,
+                                                    :id,
+                                                    :created_at,
+                                                    :updated_at)
   end
 end

@@ -3,9 +3,9 @@
 import PropTypes from 'prop-types';
 
 import React from 'react'
-import {Link} from 'react-router'
+import {Link} from 'react-router-dom'
 
-export default class extends React.Component {
+export default class CategoryLabel extends React.Component {
   static propTypes = {
     data: PropTypes.object.isRequired,
     extraClassName: PropTypes.string,
