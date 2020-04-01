@@ -108,7 +108,7 @@ class Lesson extends React.Component {
 
           <h6 className="subtitle">{data[lessonID].flag}</h6>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
-          <h6 className="subtitle"><Link to={`play/diagnostic/${lessonID}`}>Play Diagnostic</Link></h6>
+          <h6 className="subtitle"><Link to={`/play/diagnostic/${lessonID}`}>Play Diagnostic</Link></h6>
           <h6 className="subtitle"><Link to={`/admin/lessons/${lessonID}/results`}>View Results</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>

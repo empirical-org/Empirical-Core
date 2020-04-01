@@ -1,16 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateName, updateCurrentQuestion} from '../../actions/diagnostics.js'
+import { withRouter } from 'react-router-dom';
+import {clearData, loadData, nextQuestion, nextQuestionWithoutSaving, submitResponse, updateCurrentQuestion} from '../../actions/diagnostics.js'
 import _ from 'underscore'
 import {
   CarouselAnimation,
-  hashToCollection,
   SmartSpinner,
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import diagnosticQuestions from './diagnosticQuestions.jsx'
 import PlaySentenceFragment from '../diagnostics/sentenceFragment.jsx'
 import PlayDiagnosticQuestion from '../diagnostics/sentenceCombining.jsx';
 import PlayFillInTheBlankQuestion from '../fillInBlank/playFillInTheBlankQuestion';
@@ -75,7 +73,9 @@ class TurkDiagnostic extends React.Component {
 
   saveToLMS = () => {
     const { sessionID, } = this.state
-    const { playDiagnostic, params, } = this.props
+    const { playDiagnostic, match, } = this.props
+    const { params } = match
+    const { diagnosticID } = params
 
     this.setState({ error: false, });
     const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
@@ -83,7 +83,7 @@ class TurkDiagnostic extends React.Component {
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession(params.diagnosticID, results, 1);
+      this.createAnonActivitySession(diagnosticID, results, 1);
     }
   }
 
@@ -160,8 +160,9 @@ class TurkDiagnostic extends React.Component {
   }
 
   questionsForLesson = () => {
-    const { lessons, params, } = this.props
+    const { lessons, match, } = this.props
     const { data, } = lessons
+    const { params } = match
     const { diagnosticID, } = params
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
       return this.props[ques.questionType] ? this.props[ques.questionType].data[ques.key] : null  // eslint-disable-line react/destructuring-assignment
@@ -195,7 +196,8 @@ class TurkDiagnostic extends React.Component {
   }
 
   getQuestionCount = () => {
-    const { params, } = this.props
+    const { match } = this.props
+    const { params } = match
     const { diagnosticID, } = params;
     if (diagnosticID == 'researchDiagnostic') {
       return '15';
@@ -229,8 +231,11 @@ class TurkDiagnostic extends React.Component {
   }
 
   landingPageHtml() {
-    const { lessons, params, } = this.props
-    return lessons.data[params.diagnosticID].landingPageHtml
+    const { lessons, match, } = this.props
+    const { data } = lessons
+    const { params } = match
+    const { diagnosticID } = params
+    return data[diagnosticID].landingPageHtml
   }
 
   renderProgressBar = () => {
@@ -327,9 +332,10 @@ class TurkDiagnostic extends React.Component {
   }
 }
 
-function select(state) {
+function select(state, props) {
   return {
     routing: state.routing,
+    match: props.match,
     questions: state.questions,
     playDiagnostic: state.playDiagnostic,
     sentenceFragments: state.sentenceFragments,
@@ -339,4 +345,4 @@ function select(state) {
     titleCards: state.titleCards
   };
 }
-export default connect(select)(TurkDiagnostic);
+export default withRouter(connect(select)(TurkDiagnostic));

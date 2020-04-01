@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter, Route, withRouter } from 'react-router-dom';
 import StudentDiagnostic from '../diagnostics/studentDiagnostic';
 import ELLStudentDiagnostic from '../eslDiagnostic/studentDiagnostic';
 import { SmartSpinner } from 'quill-component-library/dist/componentLibrary';
 import { Location } from '../../interfaces/location';
 import { PlayDiagnostic } from '../../interfaces/playDiagnostic';
-import { Route } from '../../interfaces/route';
+import { RouteInterace } from '../../interfaces/routeInterfaces';
 import { Router } from '../../interfaces/router';
 import { FillInBlankReducerState } from '../../reducers/fillInBlank';
 import { LessonsReducerState } from '../../reducers/lessons';
@@ -22,12 +23,14 @@ interface DiagnosticRouterProps {
     fillInBlank: FillInBlankReducerState,
     lessons: LessonsReducerState,
     location: Location,
-    params: {
-        diagnosticID: string
+    match: {
+        params: {
+            diagnosticID: string
+        }
     },
     playDiagnostic: PlayDiagnostic,
     questions: QuestionsReducerState,
-    route: Route,
+    route: RouteInterace,
     routeParams: {
         diagnosticID: string
     },
@@ -41,14 +44,29 @@ interface DiagnosticRouterProps {
 }
 
 export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: DiagnosticRouterProps) => {
-    const { fillInBlank, lessons, params, questions, sentenceFragments } = props;
+    const { fillInBlank, lessons, match, questions, sentenceFragments } = props;
+    const { params } = match;
     const { diagnosticID } = params;
     const { data } = lessons;
     if(fillInBlank.hasreceiveddata && lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata) {
         if(data[diagnosticID].isELL) {
-            return <ELLStudentDiagnostic {...props} />;
+            return(
+                <div>
+                    <ELLStudentDiagnostic {...props} />
+                    <BrowserRouter>
+                        <Route component={ELLStudentDiagnostic} path={`/play/diagnostic/:diagnosticID`}/>
+                    </BrowserRouter>
+                </div>
+            )
         } else {
-            return <StudentDiagnostic {...props} />;
+            return(
+                <div>
+                    <StudentDiagnostic {...props} />
+                    <BrowserRouter>
+                        <Route component={StudentDiagnostic} path={`/play/diagnostic/:diagnosticID`}/>
+                    </BrowserRouter>
+                </div>
+            )
         }
     } else {
         return(
@@ -61,9 +79,10 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
     }
 };
 
-const select = (state: any) => {
+const select = (state: any, props: any) => {
     return {
         routing: state.routing,
+        match: props.match,
         questions: state.questions,
         playDiagnostic: state.playDiagnostic,
         sentenceFragments: state.sentenceFragments,
@@ -73,4 +92,4 @@ const select = (state: any) => {
         titleCards: state.titleCards
     };
 }
-export default connect(select)(DiagnosticRouter);
+export default withRouter(connect(select)(DiagnosticRouter));

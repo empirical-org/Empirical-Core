@@ -45,6 +45,7 @@ import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
 import SentenceFragment from 'components/sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
 import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
+import DiagnosticRouter from '../shared/diagnosticRouter.tsx';
 const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 
@@ -165,6 +166,7 @@ class Admin extends React.Component {
           <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/choose-model`} />
           <Route component={TestSentenceFragmentContainer} path={`/admin/sentence-fragments/test`} />
           <Route component={SentenceFragments} path={`/admin/sentence-fragments`} />
+          <Route component={DiagnosticRouter} path={`/play/diagnostic/:diagnosticID`} />
         </Switch>
       </div>
     );

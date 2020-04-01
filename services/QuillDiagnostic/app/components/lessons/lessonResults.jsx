@@ -42,7 +42,7 @@ class Lesson extends React.Component {
   };
 
   UNSAFE_componentWillMount() {
-    sessionsRef.orderByChild("lessonID").startAt(this.props.params.lessonID).endAt(this.props.params.lessonID).once('value').then((snapshot) => {
+    sessionsRef.orderByChild("lessonID").startAt(this.props.match.params.lessonID).endAt(this.props.match.params.lessonID).once('value').then((snapshot) => {
       this.setState({sessions: snapshot.val()})
     })
   }
@@ -108,8 +108,8 @@ class Lesson extends React.Component {
 
   renderModal = () => {
     const { modalSession } = this.state;
-    const { name } = modalSession;
     if (modalSession) {
+      const { name } = modalSession;
       return (
         <Modal close={this.closeModal}>
           <div className="box">

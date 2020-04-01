@@ -6,11 +6,9 @@ if (!window.Promise) {
 }
 import BackOff from './utils/backOff';
 import React from 'react';
-import { render } from 'react-dom';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
-import { syncHistoryWithStore} from 'react-router-redux';
 import conceptActions from './actions/concepts';
 import conceptsFeedbackActions from './actions/concepts-feedback';
 import questionActions from './actions/questions';
@@ -19,7 +17,6 @@ import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import levelActions from './actions/item-levels';
 import * as titleCardActions from './actions/titleCards.ts';
-import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
@@ -38,28 +35,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 BackOff();
-// const hashhistory = createHashHistory({ queryKey: false, });
 const store = createStore();
-
-// create an enhanced history that syncs navigation events with the store
-// const history = syncHistoryWithStore(hashhistory, store);
-// const root = document.getElementById('root');
-// const rootRoute = {
-//   childRoutes: [{
-//     path: '/',
-//     childRoutes: [
-//       require('./routers/Admin/index').default,
-//       require('./routers/Play/index').default
-//     ],
-//   }],
-// };
-
-// render((
-//   <Provider store={store}>
-//     <HashRouter basename="/">{route}</HashRouter>
-//   </Provider>),
-//   root
-// );
 
 // This is pretty hacky.
 // Ideally we should really be extracting the both UIDs from

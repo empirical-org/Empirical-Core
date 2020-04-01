@@ -1,15 +1,20 @@
 import * as React from "react";
 import { RouteConfig } from "react-router-config";
 import Admin from "./components/admin/admin"
-// import CloneConnectQuestions from './components/cloneConnect/cloneConnectQuestions.tsx';
-// import ConceptsFeedback from 'components/feedback/concepts-feedback.jsx';
-// import ConceptFeedback from 'components/feedback/concept-feedback.jsx';
-// import Concepts from 'components/concepts/concepts.jsx';
-// import Concept from 'components/concepts/concept.jsx';
+import DiagnosticRouter from "./components/shared/diagnosticRouter"
+import Turk from './components/turk/turkDiagnostic.jsx';
 
 export const routes: RouteConfig[] = [
   {
     path: "/admin",
     component: () => (<Admin />)
+  },
+  {
+    path: "/play/diagnostic/:diagnosticID",
+    component: () => (<DiagnosticRouter />)
+  },
+  {
+    path: "/turk/:diagnosticID",
+    component: () => (<Turk />)
   }
 ];
