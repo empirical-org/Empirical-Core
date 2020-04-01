@@ -4,11 +4,6 @@ import EditStudentsButton from './EditStudentsButton.jsx';
 import getParameterByName from '../modules/get_parameter_by_name.js';
 
 export default class ClassroomsWithStudents extends React.Component {
-  constructor() {
-    super();
-    this.ajaxData = this.ajaxData.bind(this);
-  }
-
   ajaxData = () => {
     const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
     if (this.props.createOrEdit === 'create') {
