@@ -9,7 +9,7 @@ const ArchivedButton = (props) => {
   const text = props.lessons ? "Activities With Archived Questions" : "Archived Questions";
 
   return (
-    <div style={{display: 'inline-block', paddingLeft: '50px'}}>
+    <div style={{display: 'inline-block'}}>
       <label className="panel-checkbox toggle">
         <span className={tagClass} onClick={props.toggleShowArchived}>{text}</span>
       </label>
