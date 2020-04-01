@@ -12,7 +12,7 @@ const ActivitySearchResults = (
   const rows = _.map(currentPageSearchResults, function (ele) {
       const selectedIds = _.pluck(selectedActivities, 'id')
       const selected = _.include(selectedIds, ele.id)
-      return <ActivitySearchResult data={ele} key={ele.id} selected={selected} toggleActivitySelection={toggleActivitySelection} />;
+      return <ActivitySearchResult data={ele} key={`${ele.id}-${ele.activity_category_id}`} selected={selected} toggleActivitySelection={toggleActivitySelection} />;
   }, this);
   return (
     <tbody>
