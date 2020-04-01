@@ -49,6 +49,9 @@ module SegmentIo
     # New events that may overlap with those defined in a front-end React module
     CLICK_SIGN_UP = 'ClickSignUp'
     CLICK_LOG_IN = 'ClickLogIn'
+    CLICK_SIGN_UP_STUDENT = 'Click Sign Up - Student'
+    CLICK_SIGN_UP_TEACHER = 'Click Sign Up - Teacher'
+    CLICK_SIGN_UP_GUARDIAN = 'Click Sign Up - Guardian'
   end
 
 end

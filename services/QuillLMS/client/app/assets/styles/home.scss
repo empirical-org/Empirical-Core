@@ -107,6 +107,11 @@ a.q-button {
     font-weight: bold;
     padding: 8px 33px;
   }
+  &.cta-home {
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: 600;
+  }
   &:hover.text-white {
     color: white;
   }
