@@ -654,7 +654,7 @@ class ResponseComponent extends React.Component {
     const questionBar = responses && Object.keys(responses).length > 0
     ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
     : <span />;
-    const showPosOrUniqueButton = mode === 'questions' ? <span/> : this.renderViewResponsesOrPOSButton()
+    const showPosOrUniqueButton = mode === 'questions' ? <span /> : this.renderViewResponsesOrPOSButton()
 
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
