@@ -6,11 +6,19 @@ import { requestPost } from '../../../../../modules/request/index.js';
 export default class extends React.Component {
   state = { trialStarted: false, };
 
-  beginTrial = () => {
-    requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
-      this.setState({ trialStarted: true, })
-    })
-  };
+  getInitialState() {
+    return { trialStarted: false, };
+  },
+
+  // beginTrial() {
+  //   requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
+  //     this.setState({ trialStarted: true, })
+  //   })
+  // },
+
+  handleActivateSubscription() {
+    window.location.href = '/subscriptions/activate_covid_subscription'
+  },
 
   render() {
     if (this.state.trialStarted) {
@@ -19,14 +27,14 @@ export default class extends React.Component {
     return (
       <div className="row free-trial-promo">
         <div className="col-md-9 col-xs-12 pull-left">
-          <h4>Try Premium for Free</h4>
-          <span>Unlock your Premium trial to save time grading and gain actionable insights.</span>
+          <h4>Activate free Quill Premium</h4>
+          <span>You can activate Quill Premium through the end of the 2019/2020 school year.</span>
           <br />
           <a href="/premium">Learn more about Premium</a>
         </div>
         <div className="col-md-3 col-xs-12 pull-right">
           <div className="premium-button-box text-center">
-            <button className="btn-orange" onClick={this.beginTrial} type="button">Try it Free for 30 Days</button>
+            <button className="btn-orange" onClick={this.handleActivateSubscription} type="button">Get Premium Free</button>
             <br />
             <span>No credit card required</span>
           </div>
