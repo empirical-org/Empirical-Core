@@ -1,5 +1,4 @@
 import React from 'react'
-import _ from 'lodash'
 import { hashToCollection } from '../../libs/hashToCollection'
 import { LinkListItem } from './linkListItem'
 
@@ -67,19 +66,7 @@ class QuestionListByConcept extends React.Component<any, any> {
   }
 
   renderQuestionsWithoutValidKey() {
-    if(!this.props.displayNoConceptQuestions) {
-      return (<div />)
-    } else {
-      const concepts = hashToCollection(this.props.concepts.data['0']);
-      const questions = hashToCollection(this.props.questions.data);
-      const questionsToRender = _.reject(questions, (question) => {
-        return !!_.find(concepts, {uid: question.conceptID})
-      })
-      const label = (<p className="menu-label">
-      No valid concept
-      </p>)
-      return this.renderConceptWithQuestions(questionsToRender, label);
-    }
+    return (<div />)
   }
 
   render() {

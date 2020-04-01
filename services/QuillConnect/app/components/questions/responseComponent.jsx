@@ -352,12 +352,17 @@ class ResponseComponent extends React.Component {
   }
 
   renderStatusToggleMenu() {
+    let usedQualityLabels = qualityLabels
+    const { mode } = this.props
+    if (mode === 'questions') {
+      usedQualityLabels = _.without(qualityLabels, 'Algorithm Optimal')
+    }
     return (
       <ResponseToggleFields
         deselectFields={this.deselectFields}
         excludeMisspellings={this.props.filters.formattedFilterData.filters.excludeMisspellings}
         labels={labels}
-        qualityLabels={qualityLabels}
+        qualityLabels={usedQualityLabels}
         resetFields={this.resetFields}
         resetPageNumber={this.resetPageNumber}
         toggleExcludeMisspellings={this.toggleExcludeMisspellings}
@@ -644,11 +649,12 @@ class ResponseComponent extends React.Component {
   }
 
   render() {
-    const { filters } = this.props;
+    const { filters, mode } = this.props;
     const { responses, stringFilter } = filters;
     const questionBar = responses && Object.keys(responses).length > 0
     ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
     : <span />;
+    const showPosOrUniqueButton = mode === 'questions' ? <span/> : this.renderViewResponsesOrPOSButton()
 
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
@@ -673,19 +679,19 @@ class ResponseComponent extends React.Component {
               </div>
               {this.renderResetAllFiltersButton()}
               {this.renderDeselectAllFiltersButton()}
-              {this.renderViewResponsesOrPOSButton()}
+              {showPosOrUniqueButton}
             </div>
           </div>
         </div>
         <div className="search-container">
-          <input 
-            className="input" 
-            onChange={this.handleStringFiltering} 
-            onKeyPress={this.handleSearchEnter} 
-            placeholder="Enter a search term or /regular expression/" 
-            ref="stringFilter" 
-            type="text" 
-            value={stringFilter} 
+          <input
+            className="input"
+            onChange={this.handleStringFiltering}
+            onKeyPress={this.handleSearchEnter}
+            placeholder="Enter a search term or /regular expression/"
+            ref="stringFilter"
+            type="text"
+            value={stringFilter}
           />
           <button className="button is-outlined is-primary search" onClick={this.searchResponses} type="submit">Search</button>
         </div>

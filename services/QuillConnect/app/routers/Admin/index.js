@@ -30,8 +30,7 @@ export default {
               import(/* webpackChunkName: "admin-lessons" */ './routes/Lessons/index.js'),
               import(/* webpackChunkName: "admin-questions" */ './routes/Questions/index.js'),
               import(/* webpackChunkName: "admin-fill-in-the-blanks" */ './routes/FillInTheBlanks/index.js'),
-              import(/* webpackChunkName: "admin-sentence-fragments" */ './routes/SentenceFragments/index.js'),
-              import(/* webpackChunkName: "admin-item-levels" */ './routes/ItemLevels/index.js')
+              import(/* webpackChunkName: "admin-sentence-fragments" */ './routes/SentenceFragments/index.js')
             ])
             .then(modules => cb(null, modules.map(module => module.default)))
             // to do, use Sentry to capture error
