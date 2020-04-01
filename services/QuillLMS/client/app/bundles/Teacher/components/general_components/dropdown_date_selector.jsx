@@ -1,14 +1,7 @@
-'use strict';
-import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 
-export default class extends React.Component {
-  static propTypes = {
-    date: PropTypes.string.isRequired,
-    updateDate: PropTypes.func.isRequired
-  };
-
+export default class DropdownDateSelector extends React.Component {
   getDateParts = () => {
     var dateParts, year, month, day;
     if (this.props.date != null) {

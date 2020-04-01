@@ -1,13 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import request from 'request'
 import ButtonLoadingIndicator from '../shared/button_loading_indicator'
 import getAuthToken from '../modules/get_auth_token'
 
-class UpdateUnitButton extends React.Component {
-  state = {
-    loading: false,
-    errors: ''
+export default class UpdateUnitButton extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      loading: false,
+      errors: ''
+    }
   }
 
   handleClick = () => {
@@ -54,14 +57,3 @@ class UpdateUnitButton extends React.Component {
   )
   }
 }
-
-UpdateUnitButton.propTypes = {
-  url: PropTypes.string.isRequired,
-  successCallback: PropTypes.func.isRequired,
-  buttonText: PropTypes.string.isRequired,
-  dataFunc: PropTypes.func.isRequired,
-  showButton: PropTypes.bool.isRequired,
-}
-
-
-export default UpdateUnitButton

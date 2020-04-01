@@ -1,17 +1,14 @@
-"use strict";
-import PropTypes from 'prop-types';
 import React from 'react'
 import ProgressReport from './progress_report.jsx'
 
-
 export default class extends React.Component {
-  static propTypes = {
-    sourceUrl: PropTypes.string.isRequired
-  };
+  constructor(props) {
+    super(props)
 
-  state = {
-    classroom: {}
-  };
+    this.state = {
+      classroom: {}
+    };
+  }
 
   columnDefinitions = () => {
     return [

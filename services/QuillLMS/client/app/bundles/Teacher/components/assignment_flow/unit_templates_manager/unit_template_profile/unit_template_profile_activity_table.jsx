@@ -1,17 +1,8 @@
-'use strict'
-
-import PropTypes from 'prop-types';
-
 import React from 'react'
 import ReactTooltip from 'react-tooltip'
 import ReactTable from 'react-table'
 
 export default class UnitTemplateProfileActivityTable extends React.Component {
-  static propTypes = {
-    data: PropTypes.object,
-    actions: PropTypes.object
-  };
-
   redirectToActivity = (activityId) => {
     window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
   };

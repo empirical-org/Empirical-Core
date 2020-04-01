@@ -1,15 +1,8 @@
 import _ from 'underscore'
-import PropTypes from 'prop-types';
 import React from 'react'
 import ScoreColor from '../../../modules/score_color.js'
 
-export default class extends React.Component {
-  static propTypes = {
-    row: PropTypes.object.isRequired,
-    columns: PropTypes.array.isRequired,
-    colorByScoreKeys: PropTypes.array
-  };
-
+export default class SortableTr extends React.Component {
   contentForColumn = (column) => {
     if (typeof column.customCell === 'function') {
       return column.customCell(this.props.row);

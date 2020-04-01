@@ -1,17 +1,10 @@
 'use strict'
 
-import PropTypes from 'prop-types';
-
 import React from 'react'
 import SelectedActivity from './selected_activity'
 import SortableList from '../../../../shared/sortableList'
 
 export default class SelectedActivities extends React.Component {
-  static propTypes = {
-      selectedActivities: PropTypes.array.isRequired,
-      toggleActivitySelection: PropTypes.func.isRequired
-  };
-
   render() {
     let rows, buttonClassName, content
     rows = this.props.selectedActivities.map((ele, i) => <SelectedActivity data={ele} key={i} toggleActivitySelection={this.props.toggleActivitySelection} />);

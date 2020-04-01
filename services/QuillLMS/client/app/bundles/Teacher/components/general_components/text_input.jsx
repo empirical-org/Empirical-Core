@@ -1,22 +1,8 @@
-import PropTypes from 'prop-types';
-
 import React from 'react'
 import $ from 'jquery'
 import _ from 'underscore'
 
 export default class TextInput extends React.Component {
-  static propTypes = {
-    update: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
-    default: PropTypes.string,
-    errors: PropTypes.array,
-    label: PropTypes.string,
-    errorLabel: PropTypes.string,
-    errorKey: PropTypes.string,
-    size: PropTypes.string,
-    noLabel: PropTypes.bool
-  };
-
   componentDidMount() {
     var that = this;
     if (this.determineType() == 'file') {

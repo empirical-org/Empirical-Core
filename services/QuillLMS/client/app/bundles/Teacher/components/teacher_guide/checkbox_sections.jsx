@@ -1,12 +1,6 @@
-'use strict'
-import PropTypes from 'prop-types';
 import React from 'react'
-export default class extends React.Component {
-  static propTypes = {
-    checkboxes: PropTypes.array.isRequired,
-    dashboard: PropTypes.bool.isRequired
-  };
 
+export default class CheckboxSections extends React.Component {
   checkOrNumber = (box) => {
     return box.completed ? this.checkboxElement() : this.placementNum(box);
   };

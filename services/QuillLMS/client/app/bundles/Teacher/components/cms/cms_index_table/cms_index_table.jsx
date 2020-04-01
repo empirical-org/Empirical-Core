@@ -1,15 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore'
 import SortableList from '../../../components/shared/sortableList'
 import CmsIndexTableRow from './cms_index_table_row.jsx'
 
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-
+export default class CmsIndexTable extends React.Component {
   furnishRows = () => {
     var rows = this.props.data.resources.map((resource, index) => this.furnishRow(resource, index) );
     return rows;

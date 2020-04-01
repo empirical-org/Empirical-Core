@@ -1,12 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 
 export default class UnitTemplateProfileStandards extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-  };
-
   getStandards = () => {
     return _.chain(this.props.data.activities)
             .map(_.property('topic'))

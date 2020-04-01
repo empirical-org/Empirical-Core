@@ -1,13 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import activityTypeFromClassificationId from '../../modules/activity_type_from_classification_id.js';
 
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-  };
-
+export default class ActivityDetails extends React.Component {
   getClassName = () => {
     if (this.props.data.concept_results && this.props.data.concept_results.length) {
       return 'activity-details';

@@ -1,14 +1,7 @@
 import _ from 'underscore'
-import PropTypes from 'prop-types';
 import React from 'react'
 
-
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-
+export default class CmsIndexTableRow extends React.Component {
   edit = () => {
     this.props.actions.edit(this.props.data.resource);
   };

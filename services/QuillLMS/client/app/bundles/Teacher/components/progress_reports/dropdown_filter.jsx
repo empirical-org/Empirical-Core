@@ -1,16 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import DropdownFilterOption from './dropdown_filter_option.jsx';
 import _ from 'underscore';
 import $ from 'jquery';
 
-export default class extends React.Component {
-  static propTypes = {
-    selectedOption: PropTypes.object.isRequired,
-    options: PropTypes.array.isRequired,
-    selectOption: PropTypes.func.isRequired,
-  };
-
+export default class DropdownFilter extends React.Component {
   getFilterOptions = () => {
     return (
       <ul className="dropdown-menu" role="menu">

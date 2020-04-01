@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 import NotificationFeed from './notifications/container';
@@ -11,12 +10,12 @@ import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
 import DiagnosticMini from './diagnostic_mini.jsx';
 
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.any,
-  };
+export default class ClassOverview extends React.Component {
+  constructor(props) {
+    super(props)
 
-  state = { displayTeacherGuide: true, };
+    this.state = { displayTeacherGuide: true, };
+  }
 
   hideTeacherGuide = () => {
     this.setState({ displayTeacherGuide: false, });

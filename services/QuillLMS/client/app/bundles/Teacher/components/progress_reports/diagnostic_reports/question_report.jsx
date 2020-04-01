@@ -1,18 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import ProgressReport from '../progress_report.jsx'
 import ScoreColor from '../../modules/score_color.js'
 
+export default class QuestionReport extends React.Component {
+  constructor(props) {
+    super(props)
 
-
-export default class extends React.Component {
-  static propTypes = {
-    premiumStatus: PropTypes.string
-  };
-
-  state = {
-    students: {}
-  };
+    this.state = {
+      students: {}
+    };
+  }
 
   columnDefinitions = () => {
     return [

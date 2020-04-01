@@ -1,13 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import ConceptResultStat from './concept_result_stat.jsx';
 import $ from 'jquery';
 
-export default class extends React.Component {
-  static propTypes = {
-    results: PropTypes.array.isRequired,
-  };
-
+export default class ConceptResultStats extends React.Component {
   addTotalAndPercentageToConRes = (conResArr) => {
     conResArr.forEach((conRes) => {
       conRes.total = conRes.incorrect + conRes.correct;

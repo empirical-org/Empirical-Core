@@ -5,29 +5,26 @@ import PremiumFeatures from '../components/premium_features.tsx';
 import CreateNewAccounts from '../components/create_new_accounts.tsx';
 import LoadingSpinner from '../../Teacher/components/shared/loading_indicator';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers';
-import PropTypes from 'prop-types';
 import Pusher from 'pusher-js';
 
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 
 export default class AdminDashboard extends React.Component {
-  static propTypes = {
-    route: PropTypes.shape({
-      adminId: PropTypes.number.isRequired,
-    }),
-  };
+  constructor(props) {
+    super(props)
 
-  state = {
-    loading: true,
-    model: {
-      teachers: [],
-    },
-    newTeacher: {
-      first_name: null,
-      last_name: null,
-      email: null,
-    },
-  };
+    this.state = {
+      loading: true,
+      model: {
+        teachers: [],
+      },
+      newTeacher: {
+        first_name: null,
+        last_name: null,
+        email: null,
+      },
+    };
+  }
 
   componentDidMount() {
     this.getData();

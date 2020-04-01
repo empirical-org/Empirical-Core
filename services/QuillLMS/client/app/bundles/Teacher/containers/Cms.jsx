@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import request from 'request'
 import CmsIndexTable from '../components/cms/cms_index_table/cms_index_table.jsx'
@@ -7,10 +6,6 @@ import Server from '../components/modules/server/server'
 import getAuthToken from '../components/modules/get_auth_token'
 
 export default class Cms extends React.Component {
-  static propTypes = {
-    resourceNameSingular: PropTypes.string.isRequired,
-    resourceNamePlural: PropTypes.string.isRequired
-  };
 
   constructor(props, context) {
     super(props, context);

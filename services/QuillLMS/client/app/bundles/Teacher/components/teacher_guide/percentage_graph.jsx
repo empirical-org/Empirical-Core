@@ -1,12 +1,6 @@
-'use strict'
-import PropTypes from 'prop-types';
 import React from 'react'
 
-export default class extends React.Component {
-  static propTypes = {
-    percentage: PropTypes.number.isRequired
-  };
-
+export default class PercentageGraph extends React.Component {
   goToTeacherGuide = () => {
     window.location="/teachers/teacher_guide";
   };

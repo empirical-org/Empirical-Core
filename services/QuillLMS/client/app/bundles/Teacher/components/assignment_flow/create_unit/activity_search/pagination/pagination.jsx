@@ -1,16 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 import PageNumber from './page_number';
 
 export default class Pagination extends React.Component {
-  static propTypes = {
-    currentPage: PropTypes.number.isRequired,
-    numberOfPages: PropTypes.number.isRequired,
-    selectPageNumber: PropTypes.func.isRequired,
-    maxPageNumber: PropTypes.number.isRequired,
-  };
-
   leftArrow = () => {
     if (this.props.currentPage > 1) {
       this.props.selectPageNumber(this.props.currentPage - 1);

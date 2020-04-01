@@ -1,14 +1,6 @@
-'use strict'
-
-import PropTypes from 'prop-types';
-
 import React from 'react'
 
 export default class UnitTemplateSecondRow extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-  };
-
   authorName = () => {
     var name;
     if (this.props.data.author) {

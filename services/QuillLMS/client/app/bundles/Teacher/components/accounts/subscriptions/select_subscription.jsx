@@ -1,16 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import _ from 'underscore';
 import $ from 'jquery';
 import DropdownDateSelector from '../../general_components/dropdown_date_selector.jsx';
 
 export default class SelectSubscription extends React.Component {
-  static propTypes = {
-    subscription: PropTypes.object,
-    updateSubscriptionState: PropTypes.func.isRequired,
-    updateSubscriptionType: PropTypes.func.isRequired,
-  };
-
   updateSubscriptionType = () => {
     const value = $(this.refs.select).val();
     this.props.updateSubscriptionType(value);

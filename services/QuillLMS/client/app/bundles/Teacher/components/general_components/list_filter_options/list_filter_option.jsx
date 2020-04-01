@@ -1,14 +1,6 @@
-import PropTypes from 'prop-types';
-
 import React from 'react'
 
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-    select: PropTypes.func.isRequired,
-    isSelected: PropTypes.bool.isRequired,
-  };
-
+export default class ListFilterOption extends React.Component {
   getName = () => {
     return this.props.data.name;
   };

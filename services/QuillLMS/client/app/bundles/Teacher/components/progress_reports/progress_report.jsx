@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 
 import createReactClass from 'create-react-class';
@@ -17,19 +16,6 @@ import $ from 'jquery'
 
 export default createReactClass({
   displayName: 'progress_report',
-
-  propTypes: {
-    columnDefinitions: PropTypes.func.isRequired,
-    filterTypes: PropTypes.array.isRequired,
-    pagination: PropTypes.bool.isRequired,
-    sourceUrl: PropTypes.string.isRequired,
-    sortDefinitions: PropTypes.func.isRequired,
-    jsonResultsKey: PropTypes.string.isRequired,
-    onFetchSuccess: PropTypes.func, // Optional
-    exportCsv: PropTypes.string,
-    premiumStatus: PropTypes.string,
-    colorByScoreKeys: PropTypes.array
-  },
 
   mixins: [
     TableFilterMixin, TableSortingMixin

@@ -1,14 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import _ from 'underscore';
 
-export default class extends React.Component {
-  static propTypes = {
-    options: PropTypes.array.isRequired,
-    select: PropTypes.func.isRequired,
-    label: PropTypes.string.isRequired
-  };
-
+export default class DropdownSeletor extends React.Component {
   select = () => {
     var id = $(this.refs.select).val();
     this.props.select(id);

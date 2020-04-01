@@ -1,29 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import NewNestedResource from './newNestedResource.jsx'
 import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
 
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-    /*
-    data: {
-      name: 'admins',
-      formFields: [{name: 'email'}],
-      identifier: ['email']
-      resources: [{id: 1, email: 'hello@gmail.com'}],
-      findOrCreate: 'find'
-    }
-
-    */
-    actions: PropTypes.object.isRequired
-    /*
-    actions: {
-      save: fn,
-      delete: fn
-    }
-    */
-  };
+export default class NestedResource extends React.Component {
 
   delete = (resource) => {
     this.props.actions.delete(this.props.data.name, resource)

@@ -1,19 +1,7 @@
 import _ from 'underscore';
-
-// Ported from EC.ActivitySearchSort
-import PropTypes from 'prop-types';
-
 import React from 'react'
 
-export default class extends React.Component {
-  static propTypes = {
-    isCurrentSort: PropTypes.bool.isRequired,
-    displayName: PropTypes.string.isRequired,
-    displayClass: PropTypes.string,
-    sortDirection: PropTypes.string.isRequired,
-    sortHandler: PropTypes.func.isRequired // Handle sorting of columns
-  };
-
+export default class SortableTh extends React.Component {
   arrowClass = () => {
     return this.props.sortDirection === 'desc' ? 'fas fa-caret-down table-header-arrow' : 'fas fa-caret-up table-header-arrow';
   };

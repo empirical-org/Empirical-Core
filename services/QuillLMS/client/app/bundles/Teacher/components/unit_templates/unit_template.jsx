@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
@@ -15,11 +14,6 @@ import _ from 'underscore';
 
 export default createReactClass({
   displayName: 'unit_template',
-
-  propTypes: {
-    unitTemplate: PropTypes.object.isRequired,
-    returnToIndex: PropTypes.func.isRequired,
-  },
 
   getInitialState() {
     this.initializeModules();

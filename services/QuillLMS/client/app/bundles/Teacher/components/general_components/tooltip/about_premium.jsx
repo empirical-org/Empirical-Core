@@ -1,7 +1,5 @@
-'use strict';
 import React from 'react'
-export default class extends React.Component {
-  static propTypes = {};
+export default class AboutPremium extends React.Component {
 
   render() {
     return (

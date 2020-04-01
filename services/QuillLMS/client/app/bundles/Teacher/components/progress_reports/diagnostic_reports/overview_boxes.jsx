@@ -1,18 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 import Pluralize from 'pluralize'
 
-export default class extends React.Component {
-    static propTypes = {
-		data: PropTypes.array.isRequired
-	};
-
-    componentDidMount() {
+export default class OverviewBoxes extends React.Component {
+  componentDidMount() {
 		this.countBoxType();
 	}
 
-    countBoxType = () => {
+  countBoxType = () => {
 		let count = {};
 		let scoreColor;
 		this.props.data.forEach(student => {
@@ -23,7 +18,7 @@ export default class extends React.Component {
 		return count;
 	};
 
-    boxCreator = (group, count) => {
+  boxCreator = (group, count) => {
 		let range,
 			proficiency
 		if (group === 'red-score-color') {
@@ -44,7 +39,7 @@ export default class extends React.Component {
 		)
 	};
 
-    groupingBoxes = () => {
+  groupingBoxes = () => {
 		// need to list the keys in an array instead of just using a for in
 		// loop as we want them in this particular order
 		let groupCounts = this.countBoxType();
@@ -55,7 +50,7 @@ export default class extends React.Component {
 		})
 	};
 
-    render() {
+  render() {
 		return <div id='student-groupings-wrapper'>{this.groupingBoxes()}</div>
 	}
 }

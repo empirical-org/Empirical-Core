@@ -1,13 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class FilterButton extends React.Component {
-  static propTypes = {
-    handleFilterButtonClick: PropTypes.func.isRequired,
-    data: PropTypes.object.isRequired,
-    active: PropTypes.bool,
-  };
-
   handleClick = () => {
     this.props.handleFilterButtonClick(this.props.data.id);
   };

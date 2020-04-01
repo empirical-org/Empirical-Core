@@ -1,11 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class StaticDisplaySubscription extends React.Component {
-  static propTypes = {
-    subscription: PropTypes.object,
-  };
-
   renderExpirationDate = () => {
     if (this.props.subscription.expiration) {
       return `Expires: ${this.transformDate(this.props.subscription.expiration)}`;

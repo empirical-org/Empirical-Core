@@ -1,14 +1,7 @@
-'use strict';
 import PropTypes from 'prop-types';
 import React from 'react'
 
-export default class extends React.Component {
-  static propTypes = {
-    checked: PropTypes.bool.isRequired,
-    toggleItem: PropTypes.func.isRequired,
-    item: PropTypes.string.isRequired
-  };
-
+export default class CheckBox extends React.Component {
   handleChange = () => {
     this.props.toggleItem(this.props.item)
   };

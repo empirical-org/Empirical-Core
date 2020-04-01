@@ -1,13 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import TextInputGenerator from '../../modules/componentGenerators/text_input_generator.jsx'
 
-export default class extends React.Component {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
-  };
-
+export default class NewNestedResource extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.modules = {

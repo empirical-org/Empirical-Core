@@ -1,12 +1,7 @@
-'use strict';
-import PropTypes from 'prop-types';
 import React from 'react'
 import cutOff from '../../../../modules/proficiency_cutoffs.js'
-export default class extends React.Component {
-  static propTypes = {
-    score: PropTypes.number.isRequired
-  };
 
+export default class MasteryStatus extends React.Component {
   circleClass = () => {
     if (this.props.score > cutOff.proficient) {
       return 'circle proficient';

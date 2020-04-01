@@ -1,5 +1,3 @@
-"use strict";
-import PropTypes from 'prop-types';
 import React from 'react'
 import createReactClass from 'create-react-class';
 import request from 'request'
@@ -13,11 +11,6 @@ import EmptyStateForReport from './empty_state_for_report.jsx'
 
 export default createReactClass({
   displayName: 'activities_progress_report',
-
-  propTypes: {
-    sourceUrl: PropTypes.string.isRequired,
-    premiumStatus: PropTypes.string.isRequired
-  },
 
   mixins: [TableFilterMixin],
 

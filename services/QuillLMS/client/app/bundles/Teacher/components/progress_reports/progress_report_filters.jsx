@@ -1,19 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react'
 import DropdownFilter from './dropdown_filter.jsx'
 import _ from 'underscore'
 
-export default class extends React.Component {
-  static propTypes = {
-    filterTypes: PropTypes.array.isRequired,
-    classroomFilters: PropTypes.array.isRequired,
-    studentFilters: PropTypes.array.isRequired,
-    unitFilters: PropTypes.array.isRequired,
-    selectUnit: PropTypes.func.isRequired,
-    selectClassroom: PropTypes.func.isRequired,
-    selectStudent: PropTypes.func.isRequired
-  };
-
+export default class ProgressReportFilters extends React.Component {
   activeFilter = (selected, options) => {
     if(!selected || !options) { return ''; }
     if(selected.value != options[0].value) {

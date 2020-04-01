@@ -3,22 +3,22 @@ import NewSignUpBanner from './new_signup_banner.jsx';
 import { requestPost } from '../../../../../modules/request/index.js';
 
 
-export default class extends React.Component {
-  state = { trialStarted: false, };
+export default class FreeTrialBanner extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return { trialStarted: false, };
-  },
+    this.state = { trialStarted: false, };
+  }
 
-  // beginTrial() {
+  // beginTrial = () => {
   //   requestPost('/subscriptions', { subscription: { account_type: 'Teacher Trial', }, }, () => {
   //     this.setState({ trialStarted: true, })
   //   })
-  // },
+  // }
 
-  handleActivateSubscription() {
+  handleActivateSubscription = () => {
     window.location.href = '/subscriptions/activate_covid_subscription'
-  },
+  }
 
   render() {
     if (this.state.trialStarted) {
