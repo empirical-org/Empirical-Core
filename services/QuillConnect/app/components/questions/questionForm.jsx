@@ -10,7 +10,6 @@ import ConceptSelector from '../shared/conceptSelector.jsx'
 
 export default React.createClass({
   getInitialState: function () {
-    console.log(this.props)
     return {
       prompt: "",
       concept: this.props.question.conceptID,
@@ -101,7 +100,7 @@ export default React.createClass({
       <div>
         <label className="label" htmlFor="prefilledText">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
         <p className="control">
-          <input className="input" defaultValue={this.props.question.prefilledText} id="prefilledText" ref="prefilledText" type="text"></input>
+          <input className="input" defaultValue={this.props.question.prefilledText} id="prefilledText" ref="prefilledText" type="text" />
         </p>
       </div>
     );
