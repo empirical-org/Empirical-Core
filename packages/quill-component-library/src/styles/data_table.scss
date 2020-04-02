@@ -46,6 +46,8 @@
     overflow: hidden;
     &.removable {
       margin-right: 0px;
+      padding: 0px !important;
+      background-color: transparent;
       img {
         cursor: pointer;
       }

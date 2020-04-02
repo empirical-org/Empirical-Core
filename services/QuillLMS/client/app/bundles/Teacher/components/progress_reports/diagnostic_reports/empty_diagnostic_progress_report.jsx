@@ -2,9 +2,8 @@
 
  import React from 'react'
 
- export default React.createClass({
-
-   render: function () {
+ export default class extends React.Component {
+   render() {
      let linkOne, linkTwo, buttonTextOne, buttonTextTwo, content, image
      if (this.props.status === 'assigned') {
        linkOne = '/tools/diagnostic'
@@ -42,4 +41,4 @@
      </div>
    </div>
     )}
-})
+ }

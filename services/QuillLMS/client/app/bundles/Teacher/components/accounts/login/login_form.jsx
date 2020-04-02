@@ -19,41 +19,63 @@ class LoginFormApp extends React.Component {
     };
   }
 
-  handleTogglePassClick = () => {
-    this.setState(prevState => ({
-      showPass: !prevState.showPass,
-    }), () => {
-      const { showPass, } = this.state
-      let setState = showPass ? 'showPassword' : 'hidePassword';
-      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
-    });
-  }
-
-  togglePass = () => {
-    const { showPass, } = this.state
-    return !showPass ? 'password' : 'text';
-  }
-
-  toggleButtonText = () => {
-    const { showPass, } = this.state
-    return !showPass ? 'Show' : 'Hide';
-  }
-
-  submitClass = () => {
-    const { password, email, } = this.state
-    let buttonClass = 'quill-button contained primary medium focus-on-light';
-    if (!password.length || !email.length) {
-      buttonClass += ' disabled';
-    }
-    return buttonClass;
-  }
-
   onEmailChange = (e) => {
     this.setState({ email: e.target.value, });
   }
 
   onPasswordChange = (e) => {
     this.setState({ password: e.target.value, });
+  }
+
+  async fetchUser() {
+    return fetch('/api/v1/users.json', {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+    });
+  }
+
+  handleCleverClick = (e) => {
+    const { cleverLink, } = this.props
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})
+    window.location.href = cleverLink
+  }
+
+  handleGoogleClick = (e) => {
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE});
+    this.fetchUser().then(userData => {
+        var now = new Date().toISOString();
+        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
+            now > userData.user.refresh_token_expires_at) {
+          window.location.href = '/auth/google_oauth2?prompt=consent';
+        }
+        else {
+            window.location.href = '/auth/google_oauth2';
+        }
+      }
+    );
+  }
+
+  handleKeyEnterOnSignUpLink = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleSignUpClick(e)
+  }
+
+  handleKeyEnterOnTogglePassword = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleTogglePassClick(e)
+  }
+
+  handleSignUpClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})
+    window.location.href = '/account/new'
   }
 
   handleSubmit = (e) => {
@@ -93,55 +115,33 @@ class LoginFormApp extends React.Component {
     });
   }
 
-  handleSignUpClick = (e) => {
-    SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})
-    window.location.href = '/account/new'
-  }
-
-  handleKeyEnterOnSignUpLink = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleSignUpClick(e)
-  }
-
-  handleKeyEnterOnTogglePassword = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleTogglePassClick(e)
-  }
-
-  async fetchUser() {
-    return fetch('/api/v1/users.json', {
-      method: 'GET',
-      mode: 'cors',
-      credentials: 'include',
-    }).then((response) => {
-    if (!response.ok) {
-      throw Error(response.statusText);
-    }
-    return response.json();
+  handleTogglePassClick = () => {
+    this.setState(prevState => ({
+      showPass: !prevState.showPass,
+    }), () => {
+      const { showPass, } = this.state
+      let setState = showPass ? 'showPassword' : 'hidePassword';
+      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
     });
   }
 
-  handleGoogleClick = (e) => {
-    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE});
-    this.fetchUser().then(userData => {
-        var now = new Date().toISOString();
-        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
-            now > userData.user.refresh_token_expires_at) {
-          window.location.href = '/auth/google_oauth2?prompt=consent';
-        }
-        else {
-            window.location.href = '/auth/google_oauth2';
-        }
-      }
-    );
+  submitClass = () => {
+    const { password, email, } = this.state
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
+    if (!password.length || !email.length) {
+      buttonClass += ' disabled';
+    }
+    return buttonClass;
   }
 
-  handleCleverClick = (e) => {
-    const { cleverLink, } = this.props
-    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})
-    window.location.href = cleverLink
+  toggleButtonText = () => {
+    const { showPass, } = this.state
+    return !showPass ? 'Show' : 'Hide';
+  }
+
+  togglePass = () => {
+    const { showPass, } = this.state
+    return !showPass ? 'password' : 'text';
   }
 
   render() {

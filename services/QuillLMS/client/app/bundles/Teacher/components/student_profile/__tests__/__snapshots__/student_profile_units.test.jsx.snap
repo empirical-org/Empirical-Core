@@ -355,6 +355,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      key="16"
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -523,6 +524,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               >
                 <div
                   className="data-table-row "
+                  key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -583,6 +585,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -643,6 +646,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -926,6 +930,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -1172,6 +1177,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               >
                 <div
                   className="data-table-row "
+                  key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1235,6 +1241,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1298,6 +1305,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1361,6 +1369,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1424,6 +1433,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1487,6 +1497,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1550,6 +1561,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1613,6 +1625,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1864,6 +1877,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               >
                 <div
                   className="data-table-row "
+                  key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -1948,6 +1962,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -2395,6 +2410,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      key="16"
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -2563,6 +2579,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               >
                 <div
                   className="data-table-row "
+                  key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -2623,6 +2640,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -2683,6 +2701,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -2966,6 +2985,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -3212,6 +3232,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               >
                 <div
                   className="data-table-row "
+                  key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3275,6 +3296,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3338,6 +3360,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3401,6 +3424,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3464,6 +3488,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3527,6 +3552,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3590,6 +3616,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3653,6 +3680,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3904,6 +3932,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
               >
                 <div
                   className="data-table-row "
+                  key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -3988,6 +4017,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
                 </div>
                 <div
                   className="data-table-row "
+                  key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -4535,6 +4565,7 @@ exports[`StudentProfileUnits component should render all activities and units if
           ],
         }
       }
+      key="16"
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -4718,6 +4749,7 @@ exports[`StudentProfileUnits component should render all activities and units if
               >
                 <div
                   className="data-table-row "
+                  key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -4779,6 +4811,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -4839,6 +4872,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -4899,6 +4933,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5182,6 +5217,7 @@ exports[`StudentProfileUnits component should render all activities and units if
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -5428,6 +5464,7 @@ exports[`StudentProfileUnits component should render all activities and units if
               >
                 <div
                   className="data-table-row "
+                  key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5491,6 +5528,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5554,6 +5592,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5617,6 +5656,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5680,6 +5720,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5743,6 +5784,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5806,6 +5848,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -5869,6 +5912,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -6120,6 +6164,7 @@ exports[`StudentProfileUnits component should render all activities and units if
               >
                 <div
                   className="data-table-row "
+                  key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -6204,6 +6249,7 @@ exports[`StudentProfileUnits component should render all activities and units if
                 </div>
                 <div
                   className="data-table-row "
+                  key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -6709,6 +6755,7 @@ exports[`StudentProfileUnits component should render only completed activities i
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -6907,6 +6954,7 @@ exports[`StudentProfileUnits component should render only completed activities i
               >
                 <div
                   className="data-table-row "
+                  key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -6991,6 +7039,7 @@ exports[`StudentProfileUnits component should render only completed activities i
                 </div>
                 <div
                   className="data-table-row "
+                  key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -7538,6 +7587,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           ],
         }
       }
+      key="16"
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -7721,6 +7771,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               >
                 <div
                   className="data-table-row "
+                  key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -7782,6 +7833,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -7842,6 +7894,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -7902,6 +7955,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8141,6 +8195,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -8387,6 +8442,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
               >
                 <div
                   className="data-table-row "
+                  key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8450,6 +8506,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8513,6 +8570,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8576,6 +8634,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8639,6 +8698,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8702,6 +8762,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8765,6 +8826,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -8828,6 +8890,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
                 </div>
                 <div
                   className="data-table-row "
+                  key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -9354,6 +9417,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           ],
         }
       }
+      key="16"
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -9537,6 +9601,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               >
                 <div
                   className="data-table-row "
+                  key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -9598,6 +9663,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -9658,6 +9724,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -9718,6 +9785,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10001,6 +10069,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -10247,6 +10316,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               >
                 <div
                   className="data-table-row "
+                  key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10310,6 +10380,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10373,6 +10444,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10436,6 +10508,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10499,6 +10572,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10562,6 +10636,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10625,6 +10700,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10688,6 +10764,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -10939,6 +11016,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
               >
                 <div
                   className="data-table-row "
+                  key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -11023,6 +11101,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
                 </div>
                 <div
                   className="data-table-row "
+                  key="5"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -11570,6 +11649,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           ],
         }
       }
+      key="16"
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -11753,6 +11833,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               >
                 <div
                   className="data-table-row "
+                  key="40"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -11814,6 +11895,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="41"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -11874,6 +11956,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="42"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -11934,6 +12017,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="43"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12217,6 +12301,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           ],
         }
       }
+      key="7"
       unitName="History: Age of Exploration"
     >
       <div
@@ -12463,6 +12548,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               >
                 <div
                   className="data-table-row "
+                  key="1"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12526,6 +12612,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="2"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12589,6 +12676,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="10"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12652,6 +12740,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="3"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12715,6 +12804,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="4"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12778,6 +12868,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="6"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12841,6 +12932,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="7"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -12904,6 +12996,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="8"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -13155,6 +13248,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
               >
                 <div
                   className="data-table-row "
+                  key="9"
                 >
                   <span
                     className="data-table-row-section name-section"
@@ -13239,6 +13333,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
                 </div>
                 <div
                   className="data-table-row "
+                  key="5"
                 >
                   <span
                     className="data-table-row-section name-section"

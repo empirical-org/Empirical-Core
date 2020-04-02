@@ -1,14 +1,9 @@
 import React from 'react';
-export default React.createClass({
-  propTypes: {
-    name: React.PropTypes.string.isRequired,
-    value: React.PropTypes.any.isRequired,
-    selectOption: React.PropTypes.func.isRequired,
-  },
 
-  clickOption() {
+export default class DropdownFilterOption extends React.Component {
+  clickOption = () => {
     this.props.selectOption(this.props.value);
-  },
+  };
 
   render() {
     return (
@@ -18,5 +13,5 @@ export default React.createClass({
         </span>
       </li>
     );
-  },
-});
+  }
+}

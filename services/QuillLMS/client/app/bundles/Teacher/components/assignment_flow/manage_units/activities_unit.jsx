@@ -26,7 +26,7 @@ export default class ActivitiesUnit extends React.Component {
     }
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
     if (nextProps.data.classroomActivities && (nextProps.data.classroomActivities.length === this.state.classroomActivities.length)) {
       this.setState({ classroomActivities: nextProps.data.classroomActivities, });
     } else if (nextProps.data.classroom_activities && (nextProps.data.classroom_activities.length === this.state.classroomActivities.length)) {
@@ -34,16 +34,14 @@ export default class ActivitiesUnit extends React.Component {
     }
   }
 
-  ownedByCurrentUser = () => {
-    const firstCa = this.state.classroomActivities.values().next().value;
-    return firstCa.ownedByCurrentUser;
+  getUnitId = () => {
+    return this.props.data.unitId || this.props.data.unit.id;
   }
 
 
-  hideUnit = () => {
-    const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
-    if (x) {
-      this.props.hideUnit(this.getUnitId());
+  addClassroomActivityRow = () => {
+    if (this.state.classroomActivities.values().next().value.ownedByCurrentUser) {
+      return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
     }
   }
 
@@ -51,7 +49,7 @@ export default class ActivitiesUnit extends React.Component {
     const dclassy = this.props.data.classrooms;
     // ensure classrooms is always an array as sometimes it is passed a set
     // and we need to do a number of things with it that are better with an array
-    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
+    const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
     const classroomList = this.classroomList(classrooms);
     return (<div className="assigned-to">
       <span className="heading">Assigned to {classrooms.length} {Pluralize('class', classrooms.length)}:</span>
@@ -59,6 +57,10 @@ export default class ActivitiesUnit extends React.Component {
         {classroomList}
       </ul>
     </div>);
+  }
+
+  changeToEdit = () => {
+    this.setState({ edit: true, });
   }
 
   classroomList = (classrooms) => {
@@ -69,10 +71,6 @@ export default class ActivitiesUnit extends React.Component {
     }
       return classrooms.map((c, i) => <li key={i}>{c.name} <span>({c.assignedStudentCount}/{c.totalStudentCount} {Pluralize('student', c.totalStudentCount)})</span></li>)
 
-  }
-
-  editUnit = () => {
-    this.props.editUnit(this.getUnitId());
   }
 
   deleteOrLockedInfo = () => {
@@ -93,6 +91,15 @@ export default class ActivitiesUnit extends React.Component {
     }
   }
 
+  displaySaveSnackbar = () => {
+    if (this.state.snackbarFadeTimer) {
+      clearTimeout(this.state.snackbarFadeTimer);
+    }
+    this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
+      this.setState({snackbarVisible: false});
+    }, defaultSnackbarTimeout)});
+  }
+
   editName = () => {
     if (this.ownedByCurrentUser()) {
       let text,
@@ -110,36 +117,6 @@ export default class ActivitiesUnit extends React.Component {
     }
   }
 
-  submitName = () => {
-    return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
-  }
-
-  toggleTooltip = () => {
-    this.setState({ showTooltip: !this.state.showTooltip ,});
-  }
-
-  renderTooltip = () => {
-    const visible = this.state.showTooltip ? 'visible' : 'invisible';
-    const ownerName = this.state.classroomActivities.values().next().value.ownerName;
-    return (<div className={`tooltip ${visible}`}>
-      <i className="fas fa-caret-up" />
-      <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
-      <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
-    </div>);
-  }
-
-  changeToEdit = () => {
-    this.setState({ edit: true, });
-  }
-
-  handleNameChange = (e) => {
-    this.setState({ unitName: e.target.value, });
-  }
-
-  editUnitName = () => {
-    return <input onChange={this.handleNameChange} type="text" value={this.state.unitName} />;
-  }
-
   editStudentsLink = () => {
     const ownedByCurrentUser = this.ownedByCurrentUser()
     const { report, lesson, } = this.props
@@ -148,6 +125,18 @@ export default class ActivitiesUnit extends React.Component {
     } else {
       return <a className="edit-unit edit-students" href={`/teachers/classrooms/activity_planner/units/${this.getUnitId()}/students/edit`}>Edit Classes & Students</a>
     }
+  }
+
+  editUnit = () => {
+    this.props.editUnit(this.getUnitId());
+  }
+
+  editUnitName = () => {
+    return <input onChange={this.handleNameChange} type="text" value={this.state.unitName} />;
+  }
+
+  handleNameChange = (e) => {
+    this.setState({ unitName: e.target.value, });
   }
 
   handleSubmit = () => {
@@ -161,12 +150,11 @@ export default class ActivitiesUnit extends React.Component {
                                                             unitName: that.state.savedUnitName}));
   }
 
-  showUnitName = () => {
-    return <span className="h-pointer">{this.state.unitName}</span>;
-  }
-
-  showOrEditName = () => {
-    return this.state.edit ? this.editUnitName() : this.showUnitName();
+  hideUnit = () => {
+    const x = confirm('Are you sure you want to delete this Activity Pack? \n \nIt will delete all assignments given to students associated with this pack, even if those assignments have already been completed.');
+    if (x) {
+      this.props.hideUnit(this.getUnitId());
+    }
   }
 
   nameActionLink = () => {
@@ -180,27 +168,40 @@ export default class ActivitiesUnit extends React.Component {
     // return this.state.edit ? this.submitName() : this.editName()
   }
 
-  getUnitId = () => {
-    return this.props.data.unitId || this.props.data.unit.id;
+  numberOfStudentsAssignedToUnit = () => {
+    const dclassy = this.props.data.classrooms;
+    // ensure classrooms is always an array as sometimes it is passed as a set
+    const classrooms = Array.isArray(dclassy) ? dclassy : Array.from(dclassy);
+    let numberOfStudentsAssignedToUnit = 0;
+    classrooms.forEach((c) => {
+      numberOfStudentsAssignedToUnit += Number(c.assignedStudentCount);
+    });
+    return numberOfStudentsAssignedToUnit;
   }
 
-  addClassroomActivityRow = () => {
-    if (this.state.classroomActivities.values().next().value.ownedByCurrentUser) {
-      return this.props.report || this.props.lesson ? null : <AddClassroomActivityRow unitId={this.getUnitId()} unitName={this.props.data.unitName || this.props.data.unit.name} />;
-    }
+  ownedByCurrentUser = () => {
+    const firstCa = this.state.classroomActivities.values().next().value;
+    return firstCa.ownedByCurrentUser;
   }
 
   saveSortOrder = () => {
     this.updateActivitiesApi(this.props.data.unitId, this.state.activityOrder, this.displaySaveSnackbar);
   }
 
-  displaySaveSnackbar = () => {
-    if (this.state.snackbarFadeTimer) {
-      clearTimeout(this.state.snackbarFadeTimer);
-    }
-    this.setState({snackbarVisible: true, snackbarFadeTimer: setTimeout(() => {
-      this.setState({snackbarVisible: false});
-    }, defaultSnackbarTimeout)});
+  showOrEditName = () => {
+    return this.state.edit ? this.editUnitName() : this.showUnitName();
+  }
+
+  showUnitName = () => {
+    return <span className="h-pointer">{this.state.unitName}</span>;
+  }
+
+  submitName = () => {
+    return <span className="edit-unit" onClick={this.handleSubmit}>Submit</span>;
+  }
+
+  toggleTooltip = () => {
+    this.setState({ showTooltip: !this.state.showTooltip ,});
   }
 
   updateActivitiesApi = (unitId, activityIds, successHandler, errorHandler) => {
@@ -218,17 +219,6 @@ export default class ActivitiesUnit extends React.Component {
     });
     this.setState({ classroomActivities: newClassroomActivities, });
     this.props.updateMultipleDueDates(uaIds, date);
-  }
-
-  numberOfStudentsAssignedToUnit = () => {
-    const dclassy = this.props.data.classrooms;
-    // ensure classrooms is always an array as sometimes it is passed as a set
-    const classrooms = Array.isArray(dclassy) ? dclassy : [...dclassy];
-    let numberOfStudentsAssignedToUnit = 0;
-    classrooms.forEach((c) => {
-      numberOfStudentsAssignedToUnit += Number(c.assignedStudentCount);
-    });
-    return numberOfStudentsAssignedToUnit;
   }
 
   updateSortOrder = (sortableListState) => {
@@ -277,6 +267,16 @@ export default class ActivitiesUnit extends React.Component {
     } else {
       return classroomActivitiesArr;
     }
+  }
+
+  renderTooltip = () => {
+    const visible = this.state.showTooltip ? 'visible' : 'invisible';
+    const ownerName = this.state.classroomActivities.values().next().value.ownerName;
+    return (<div className={`tooltip ${visible}`}>
+      <i className="fas fa-caret-up" />
+      <p>Since {ownerName} created this activity pack, you are unable to edit this activity pack. You can ask the creator to edit it.</p>
+      <p>If you would like to assign additional practice activities, you can create a new pack for your students.</p>
+    </div>);
   }
 
   render = () => {

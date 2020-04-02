@@ -1,9 +1,8 @@
 import React from 'react';
 import GenericMini from '../shared/generic_mini.jsx';
 
-export default React.createClass({
-
-  miniList() {
+export default class extends React.Component {
+  miniList = () => {
     return [
       // {
       //   title: 'Real-time',
@@ -64,9 +63,9 @@ export default React.createClass({
         pStyle: { marginTop: '-17px', },
       }
     ];
-  },
+  };
 
-  miniBuilder(mini) {
+  miniBuilder = (mini) => {
     const premium = mini.premium ? <h4 className="premium">Premium<i aria-hidden="true" className="fas fa-star" /></h4> : null;
     return (
       <GenericMini key={mini.title}>
@@ -80,9 +79,9 @@ export default React.createClass({
         </a>
       </GenericMini>
     );
-  },
+  };
 
-  minis() {
+  minis = () => {
     const minisArr = [];
     this.miniList().forEach((mini) => {
 			// if the flag isn't mini or beta we always want to display it
@@ -97,7 +96,7 @@ export default React.createClass({
       }
     });
     return minisArr;
-  },
+  };
 
   render() {
     return (
@@ -108,5 +107,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

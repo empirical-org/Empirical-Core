@@ -15,8 +15,12 @@
 .toggle-button {
   font-weight: inherit;
   background-color: inherit;
+  border: none;
   span {
     font-weight: normal;
+  }
+  &:focus {
+    outline: none;
   }
 }
 

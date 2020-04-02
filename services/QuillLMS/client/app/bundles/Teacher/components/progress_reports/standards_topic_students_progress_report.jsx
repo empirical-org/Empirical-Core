@@ -13,7 +13,6 @@ import userIsPremium from '../modules/user_is_premium'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class IndividualStandardsReport extends React.Component {
-
   constructor(props) {
     super()
     this.state = {
@@ -21,8 +20,6 @@ export default class IndividualStandardsReport extends React.Component {
       errors: false,
       userIsPremium: userIsPremium()
     }
-
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -49,33 +46,6 @@ export default class IndividualStandardsReport extends React.Component {
         that.setState({loading: false, errors: body.errors, studentData, csvData, topic, classrooms, selectedClassroom});
       });
     })
-  }
-
-  formattedStudentData(data) {
-    return data.map((row) => {
-      row.name = row.name
-      row.total_activity_count = Number(row.total_activity_count)
-      row.average_score = Number(row.average_score * 100)
-      row.proficiency_status = row.proficiency_status
-      row.green_arrow = (
-        <a className='green-arrow' href={row.student_topics_href}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-        </a>
-      )
-      return row
-    })
-  }
-
-  formatDataForCSV(data) {
-    const csvData = [
-      ['Student', 'Activities', 'Average', 'Proficiency Status']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
-      ])
-    })
-    return csvData
   }
 
   columns() {
@@ -120,10 +90,37 @@ export default class IndividualStandardsReport extends React.Component {
     ])
   }
 
-  switchClassrooms(classroomName) {
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Student', 'Activities', 'Average', 'Proficiency Status']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['name'], row['total_activity_count'], `${row['average_score']}%`, row['mastery_status']
+      ])
+    })
+    return csvData
+  }
+
+  formattedStudentData(data) {
+    return data.map((row) => {
+      row.name = row.name
+      row.total_activity_count = Number(row.total_activity_count)
+      row.average_score = Number(row.average_score * 100)
+      row.proficiency_status = row.proficiency_status
+      row.green_arrow = (
+        <a className='green-arrow' href={row.student_topics_href}>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        </a>
+      )
+      return row
+    })
+  }
+
+  switchClassrooms = classroomName => {
     const classroom = this.state.classrooms.find(c => c.name === classroomName)
     this.setState({ selectedClassroom: classroom }, this.getData)
-  }
+  };
 
   render() {
     if (this.state.loading || !this.state.studentData) {
@@ -164,5 +161,4 @@ export default class IndividualStandardsReport extends React.Component {
       </div>
     )
   }
-
 };

@@ -10,38 +10,6 @@ export default class ActivityCategories extends React.Component {
     this.state = {
       activity_categories: props.activity_categories
     }
-
-    this.updateActivityCategoryOrder = this.updateActivityCategoryOrder.bind(this)
-    this.saveActivityCategories = this.saveActivityCategories.bind(this)
-  }
-
-  updateActivityCategoryOrder(sortInfo) {
-    const originalOrderedActivityCategories = this.state.activity_categories
-    const newOrder = sortInfo.data.items.map(item => item.key);
-    const newOrderedActivityCategories = newOrder.map((key, i) => {
-      const newActivityCategory = originalOrderedActivityCategories[key]
-      newActivityCategory.order_number = i
-      return newActivityCategory
-    })
-    this.setState({activity_categories: newOrderedActivityCategories})
-  }
-
-  saveActivityCategories() {
-    const that = this
-    request.put(`${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`, {
-      json: {
-        activity_categories: this.state.activity_categories,
-        authenticity_token: getAuthToken()
-      }}, (e, r, response) => {
-        if (e) {
-          // to do, use Sentry to capture error
-          alert(`We could not save the updated activity category order. Here is the error: ${e}`)
-        } else {
-          this.setState({activity_categories: response.activity_categories})
-          alert('The updated classroom order has been saved.')
-
-        }
-    })
   }
 
   deleteActivityCategory(key) {
@@ -61,6 +29,35 @@ export default class ActivityCategories extends React.Component {
       }
     })
   }
+
+  saveActivityCategories = () => {
+    const that = this
+    request.put(`${process.env.DEFAULT_URL}/cms/activity_categories/update_order_numbers`, {
+      json: {
+        activity_categories: this.state.activity_categories,
+        authenticity_token: getAuthToken()
+      }}, (e, r, response) => {
+        if (e) {
+          // to do, use Sentry to capture error
+          alert(`We could not save the updated activity category order. Here is the error: ${e}`)
+        } else {
+          this.setState({activity_categories: response.activity_categories})
+          alert('The updated classroom order has been saved.')
+
+        }
+    })
+  };
+
+  updateActivityCategoryOrder = sortInfo => {
+    const originalOrderedActivityCategories = this.state.activity_categories
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedActivityCategories = newOrder.map((key, i) => {
+      const newActivityCategory = originalOrderedActivityCategories[key]
+      newActivityCategory.order_number = i
+      return newActivityCategory
+    })
+    this.setState({activity_categories: newOrderedActivityCategories})
+  };
 
   renderActivityCategory(name, key, id) {
     return (<div className="activity-category" key={key}>

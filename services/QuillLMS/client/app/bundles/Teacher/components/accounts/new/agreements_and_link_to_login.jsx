@@ -3,15 +3,15 @@ import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 
 export default class AgreementsAndLinkToLogin extends React.Component {
 
-  handleLogInClick = () => {
-    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
-    window.location.href = '/session/new'
-  }
-
   handleKeyDownOnLogIn = (e) => {
     if (e.key !== 'Enter') { return }
 
     this.handleLogInClick()
+  }
+
+  handleLogInClick = () => {
+    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
+    window.location.href = '/session/new'
   }
 
   render() {

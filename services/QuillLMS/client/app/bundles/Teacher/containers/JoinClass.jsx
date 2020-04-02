@@ -8,7 +8,6 @@ import LoadingIndicator from '../components/shared/loading_indicator'
 const bulbSrc = `${process.env.CDN_URL}/images/onboarding/bulb.svg`
 
 export default class JoinClass extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -22,15 +21,6 @@ export default class JoinClass extends React.Component {
 
   componentDidMount() {
     document.title = 'Quill.org | Join a Class'
-  }
-
-  submitClass() {
-    const { classCodeInput, } = this.state
-    let buttonClass = "quill-button contained primary medium focus-on-light"
-    if (!classCodeInput.length) {
-      buttonClass += ' disabled'
-    }
-    return buttonClass
   }
 
   handleFormSubmission = (e) => {
@@ -72,6 +62,15 @@ export default class JoinClass extends React.Component {
     })
   }
 
+  submitClass() {
+    const { classCodeInput, } = this.state
+    let buttonClass = "quill-button contained primary medium focus-on-light"
+    if (!classCodeInput.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
+  }
+
   updateClassCode = (e) => {
     this.setState({ classCodeInput: e.target.value, })
   }
@@ -111,5 +110,4 @@ export default class JoinClass extends React.Component {
       </div>
     );
   }
-
 }

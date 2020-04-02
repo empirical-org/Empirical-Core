@@ -83,6 +83,7 @@ exports[`ResultsPage container anonymous should render 1`] = `
       >
         <div
           className="result-section"
+          key="Nearly proficient"
         >
           <div
             className="result-section-header"
@@ -98,13 +99,16 @@ exports[`ResultsPage container anonymous should render 1`] = `
             Concepts you have almost mastered. Keep practicing!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Parallel Structure"
+            >
               Parallel Structure
             </li>
           </ul>
         </div>
         <div
           className="result-section"
+          key="Not yet proficient"
         >
           <div
             className="result-section-header"
@@ -120,13 +124,16 @@ exports[`ResultsPage container anonymous should render 1`] = `
             Concepts you have not mastered yet. Try again!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Punctuation"
+            >
               Punctuation
             </li>
           </ul>
         </div>
         <div
           className="result-section"
+          key="Proficient"
         >
           <div
             className="result-section-header"
@@ -142,13 +149,19 @@ exports[`ResultsPage container anonymous should render 1`] = `
             Concepts you have mastered. Good work!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Regular Past Participles"
+            >
               Regular Past Participles
             </li>
-            <li>
+            <li
+              key="Commas in Lists"
+            >
               Commas in Lists
             </li>
-            <li>
+            <li
+              key="Capitalize Geographic Names"
+            >
               Capitalize Geographic Names
             </li>
           </ul>
@@ -243,6 +256,7 @@ exports[`ResultsPage container integration should render 1`] = `
       >
         <div
           className="result-section"
+          key="Nearly proficient"
         >
           <div
             className="result-section-header"
@@ -258,13 +272,16 @@ exports[`ResultsPage container integration should render 1`] = `
             Concepts you have almost mastered. Keep practicing!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Parallel Structure"
+            >
               Parallel Structure
             </li>
           </ul>
         </div>
         <div
           className="result-section"
+          key="Not yet proficient"
         >
           <div
             className="result-section-header"
@@ -280,13 +297,16 @@ exports[`ResultsPage container integration should render 1`] = `
             Concepts you have not mastered yet. Try again!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Punctuation"
+            >
               Punctuation
             </li>
           </ul>
         </div>
         <div
           className="result-section"
+          key="Proficient"
         >
           <div
             className="result-section-header"
@@ -302,13 +322,19 @@ exports[`ResultsPage container integration should render 1`] = `
             Concepts you have mastered. Good work!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Regular Past Participles"
+            >
               Regular Past Participles
             </li>
-            <li>
+            <li
+              key="Commas in Lists"
+            >
               Commas in Lists
             </li>
-            <li>
+            <li
+              key="Capitalize Geographic Names"
+            >
               Capitalize Geographic Names
             </li>
           </ul>
@@ -401,6 +427,7 @@ exports[`ResultsPage container not anonymous should render 1`] = `
       >
         <div
           className="result-section"
+          key="Nearly proficient"
         >
           <div
             className="result-section-header"
@@ -416,13 +443,16 @@ exports[`ResultsPage container not anonymous should render 1`] = `
             Concepts you have almost mastered. Keep practicing!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Parallel Structure"
+            >
               Parallel Structure
             </li>
           </ul>
         </div>
         <div
           className="result-section"
+          key="Not yet proficient"
         >
           <div
             className="result-section-header"
@@ -438,13 +468,16 @@ exports[`ResultsPage container not anonymous should render 1`] = `
             Concepts you have not mastered yet. Try again!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Punctuation"
+            >
               Punctuation
             </li>
           </ul>
         </div>
         <div
           className="result-section"
+          key="Proficient"
         >
           <div
             className="result-section-header"
@@ -460,13 +493,19 @@ exports[`ResultsPage container not anonymous should render 1`] = `
             Concepts you have mastered. Good work!
           </h2>
           <ul>
-            <li>
+            <li
+              key="Regular Past Participles"
+            >
               Regular Past Participles
             </li>
-            <li>
+            <li
+              key="Commas in Lists"
+            >
               Commas in Lists
             </li>
-            <li>
+            <li
+              key="Capitalize Geographic Names"
+            >
               Capitalize Geographic Names
             </li>
           </ul>

@@ -9,23 +9,22 @@ import PercentageDisplayer from '../../percentage_displayer.jsx';
 const percentageDisplayer = new PercentageDisplayer()
 
 export default class ScorebookTooltip extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.aboutPremiumOrNot = this.aboutPremiumOrNot.bind(this)
-    this.totalScoreOrNot = this.totalScoreOrNot.bind(this)
-    this.conceptResultsOrLoadingOrNotCompleted = this.conceptResultsOrLoadingOrNotCompleted.bind(this)
-    this.displayScores = this.displayScores.bind(this)
-  }
-
-  aboutPremiumOrNot() {
+  aboutPremiumOrNot = () => {
     const data = this.props.data
     if (data.concept_results && data.concept_results.length && !['trial', 'school', 'paid'].includes(data.premium_state)) {
       return <AboutPremium />;
     }
+  };
+
+  activityOverview() {
+    const data = this.props.data
+    return (<div className="activity-overview">
+      <ActivityDetails data={data} />
+      {this.totalScoreOrNot()}
+    </div>)
   }
 
-  conceptResultsOrLoadingOrNotCompleted() {
+  conceptResultsOrLoadingOrNotCompleted = () => {
     const data = this.props.data
     if (data.marked_complete === 't' && data.completed_attempts === 0) {
       return <span>This student has missed this lesson. To make up this material, you can assign this lesson again to the students who missed it.</span>
@@ -36,33 +35,9 @@ export default class ScorebookTooltip extends React.Component {
     } else {
       return <LoadingDots loadingMessage={'Loading concept results'} />;
     }
-  }
+  };
 
-  totalScoreOrNot() {
-    let totalScoreOrNot
-    const data = this.props.data
-    const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
-     if (Number(actClassId) === 4 && data.percentage) {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance.</p>;
-    } else if (Number(actClassId) === 6 && data.percentage) {
-      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</p>;
-    } else if (data.percentage && data.scores && data.scores.length > 0) {
-      totalScoreOrNot = this.displayScores()
-    } else {
-      totalScoreOrNot = <span />
-    }
-    return totalScoreOrNot
-  }
-
-  activityOverview() {
-    const data = this.props.data
-    return (<div className="activity-overview">
-      <ActivityDetails data={data} />
-      {this.totalScoreOrNot()}
-    </div>)
-  }
-
-  displayScores() {
+  displayScores = () => {
     const data = this.props.data
     const attemptInProgress = data.started > 0
     return data.scores.map((score, i) => {
@@ -78,7 +53,23 @@ export default class ScorebookTooltip extends React.Component {
       }
       return <p key={i} style={{ fontSize: '13px', color: '#3b3b3b', }}><strong>{ordinalNumber} Score:</strong> <span className="percentage">{percentage}</span> {attemptText}</p>
     })
-  }
+  };
+
+  totalScoreOrNot = () => {
+    let totalScoreOrNot
+    const data = this.props.data
+    const actClassId = data.activity ? data.activity.classification.id : data.activity_classification_id;
+     if (Number(actClassId) === 4 && data.percentage) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Diagnostic does not provide a score. You can click to view recommended activities based on the student's performance.</p>;
+    } else if (Number(actClassId) === 6 && data.percentage) {
+      totalScoreOrNot = <p style={{ fontSize: '13px', color: '#3b3b3b', }}>Quill Lessons are facilitated by the teachers and not graded. You can click to view your student’s’ answers from this lesson.</p>;
+    } else if (data.percentage && data.scores && data.scores.length > 0) {
+      totalScoreOrNot = this.displayScores()
+    } else {
+      totalScoreOrNot = <span />
+    }
+    return totalScoreOrNot
+  };
 
   render() {
     const data = this.props.data
@@ -100,5 +91,4 @@ export default class ScorebookTooltip extends React.Component {
       </div>
     )
   }
-
-  };
+};

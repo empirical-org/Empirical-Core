@@ -4,6 +4,38 @@ import pluralize from 'pluralize';
 
 export default class extends React.Component {
 
+  content() {
+    const subscriptionHistoryRows = this.subscriptionHistoryRows();
+    if (subscriptionHistoryRows.length > 0) {
+      return (
+        <table>
+          <tbody>
+            <tr>
+              {this.tableHeaders()}
+            </tr>
+            {subscriptionHistoryRows}
+          </tbody>
+        </table>);
+    }
+    return (
+      <div className="empty-state flex-row justify-content">
+        <h3>You have not yet started a Quill Premium Subscription</h3>
+        <p>Purchase Quill Premium or apply credits to get access to Premium reports.</p>
+      </div>
+    );
+  }
+
+  paymentContent(subscription) {
+    if (this.props.authorityLevel) {
+      if (subscription.payment_amount) {
+        return `$${subscription.payment_amount / 100}`;
+      } else if (subscription.payment_method === 'Premium Credit') {
+        return subscription.payment_method;
+      }
+    }
+    return '--';
+  }
+
   subscriptionHistoryRows() {
     const rows = [];
     this.props.subscriptions.forEach((sub) => {
@@ -42,44 +74,12 @@ export default class extends React.Component {
     return rows;
   }
 
-  paymentContent(subscription) {
-    if (this.props.authorityLevel) {
-      if (subscription.payment_amount) {
-        return `$${subscription.payment_amount / 100}`;
-      } else if (subscription.payment_method === 'Premium Credit') {
-        return subscription.payment_method;
-      }
-    }
-    return '--';
-  }
-
   tableHeaders() {
     const tableHeaders = ['Purchase Date', 'Subscription', 'Payment', 'Length', 'Start & End Date'];
     if (this.props.view === 'subscriptionHistory') {
       tableHeaders.push('Edit Link');
     }
     return tableHeaders.map((content, i) => <th key={`${i}-table-header`}>{content}</th>);
-  }
-
-  content() {
-    const subscriptionHistoryRows = this.subscriptionHistoryRows();
-    if (subscriptionHistoryRows.length > 0) {
-      return (
-        <table>
-          <tbody>
-            <tr>
-              {this.tableHeaders()}
-            </tr>
-            {subscriptionHistoryRows}
-          </tbody>
-        </table>);
-    }
-    return (
-      <div className="empty-state flex-row justify-content">
-        <h3>You have not yet started a Quill Premium Subscription</h3>
-        <p>Purchase Quill Premium or apply credits to get access to Premium reports.</p>
-      </div>
-    );
   }
 
   render() {
