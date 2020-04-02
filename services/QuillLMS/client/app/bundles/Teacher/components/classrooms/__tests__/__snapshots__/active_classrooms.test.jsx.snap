@@ -47,6 +47,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73330"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -63,6 +64,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73329"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -79,6 +81,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73328"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -95,6 +98,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73327"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -111,6 +115,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73326"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -127,6 +132,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73325"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -143,6 +149,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73324"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -159,6 +166,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73323"
       showSnackbar={[Function]}
     />
     <CoteacherInvitation
@@ -175,6 +183,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
         }
       }
       getClassroomsAndCoteacherInvitations={[Function]}
+      key="73322"
       showSnackbar={[Function]}
     />
     <Classroom
@@ -495,6 +504,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       importGoogleClassroomStudents={[Function]}
       inviteStudents={[Function]}
       isOwnedByCurrentUser={true}
+      key="285401"
       onSuccess={[Function]}
       renameClass={[Function]}
       selected={false}
@@ -849,6 +859,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       importGoogleClassroomStudents={[Function]}
       inviteStudents={[Function]}
       isOwnedByCurrentUser={true}
+      key="285400"
       onSuccess={[Function]}
       renameClass={[Function]}
       selected={false}
@@ -1260,6 +1271,7 @@ exports[`ActiveClassrooms component with classrooms should render with classroom
       importGoogleClassroomStudents={[Function]}
       inviteStudents={[Function]}
       isOwnedByCurrentUser={true}
+      key="285383"
       onSuccess={[Function]}
       renameClass={[Function]}
       selected={false}

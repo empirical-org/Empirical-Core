@@ -1,13 +1,7 @@
-'use strict'
+import React from 'react'
 
- import React from 'react'
-
- export default  React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-  },
-
-  authorName: function () {
+export default class UnitTemplateSecondRow extends React.Component {
+  authorName = () => {
     var name;
     if (this.props.data.author) {
       name = this.props.data.author.name;
@@ -15,26 +9,25 @@
       name = null;
     }
     return name;
-  },
+  };
 
-  sayAttribution: function () {
+  sayAttribution = () => {
     return ['by', this.authorName()].join(' ');
-  },
+  };
 
-  numberOfActivities: function () {
+  numberOfActivities = () => {
     return this.props.data.activities ? this.props.data.activities.length : 0;
-  },
+  };
 
-  sayActivitiesCount: function () {
+  sayActivitiesCount = () => {
     return this.props.modules.string.sayNumberOfThings(this.numberOfActivities(), 'Activity', 'Activities')
-  },
+  };
 
-
-  sayTime: function () {
+  sayTime = () => {
     return [this.props.data.time, 'mins'].join(' ');
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <div className='white-row'>
         <div className='row info-row'>
@@ -59,4 +52,4 @@
       </div>
     );
   }
-});
+}

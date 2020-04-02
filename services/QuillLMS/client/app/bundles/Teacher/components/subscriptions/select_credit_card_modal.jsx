@@ -6,7 +6,6 @@ import EnterOrUpdateStripeCard from '../modules/stripe/enter_or_update_card.js';
 import getAuthToken from '../modules/get_auth_token';
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,45 +13,20 @@ export default class extends React.Component {
       changeCardSelected: false,
       lastFour: this.props.lastFour,
     };
-    this.toggleChangeCard = this.toggleChangeCard.bind(this);
-    this.toggleExtantCard = this.toggleExtantCard.bind(this);
-    this.updateLastFour = this.updateLastFour.bind(this);
-    this.stripeCharge = this.stripeCharge.bind(this);
-    this.hideModal = this.hideModal.bind(this);
   }
 
-  updateLastFour(newLastFour) {
-    this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
-  }
-
-  toggleChangeCard() {
-    this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
-        () => {
-          if (this.state.changeCardSelected) {
-            new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
-          }
-        }
-    );
-  }
-
-  toggleExtantCard() {
-    this.setState({ extantCardSelected: !this.state.extantCardSelected, changeCardSelected: false, });
-  }
-
-  showBuyNowIfChargeSelection() {
-    if (this.state.extantCardSelected) {
-      return <button className="button q-button button-green cta-button" onClick={this.stripeCharge}>Buy Now</button>;
+  h2IfPaymentInfo() {
+    if (this.state.lastFour) {
+      return (<h2 className="q-h2">Which credit card would you like to pay with?</h2>);
     }
   }
 
-  stripeCharge() {
-    const that = this;
-    request.post({ url: `${process.env.DEFAULT_URL}/charges/new_${this.props.type}_premium`, form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
-      if (httpResponse.statusCode === 200) {
-        that.props.updateSubscriptionStatus(JSON.parse(body).new_subscription);
-      }
-    });
-  }
+  hideModal = () => {
+    if (this.props.setCreditCardToFalse) {
+      this.props.setCreditCardToFalse();
+    }
+    this.props.hideModal();
+  };
 
   loadingOrButtons() {
     if (!this.state.lastFour) {
@@ -65,18 +39,38 @@ export default class extends React.Component {
     ]);
   }
 
-  hideModal() {
-    if (this.props.setCreditCardToFalse) {
-      this.props.setCreditCardToFalse();
+  showBuyNowIfChargeSelection() {
+    if (this.state.extantCardSelected) {
+      return <button className="button q-button button-green cta-button" onClick={this.stripeCharge}>Buy Now</button>;
     }
-    this.props.hideModal();
   }
 
-  h2IfPaymentInfo() {
-    if (this.state.lastFour) {
-      return (<h2 className="q-h2">Which credit card would you like to pay with?</h2>);
-    }
-  }
+  stripeCharge = () => {
+    const that = this;
+    request.post({ url: `${process.env.DEFAULT_URL}/charges/new_${this.props.type}_premium`, form: { authenticity_token: getAuthToken(), }, }, (err, httpResponse, body) => {
+      if (httpResponse.statusCode === 200) {
+        that.props.updateSubscriptionStatus(JSON.parse(body).new_subscription);
+      }
+    });
+  };
+
+  toggleChangeCard = () => {
+    this.setState({ extantCardSelected: false, changeCardSelected: !this.state.changeCardSelected, },
+        () => {
+          if (this.state.changeCardSelected) {
+            new EnterOrUpdateStripeCard(this.updateLastFour, this.state.lastFour ? 'Update' : 'Enter');
+          }
+        }
+    );
+  };
+
+  toggleExtantCard = () => {
+    this.setState({ extantCardSelected: !this.state.extantCardSelected, changeCardSelected: false, });
+  };
+
+  updateLastFour = newLastFour => {
+    this.setState({ lastFour: newLastFour, extantCardSelected: true, changeCardSelected: false, });
+  };
 
   render() {
     return (

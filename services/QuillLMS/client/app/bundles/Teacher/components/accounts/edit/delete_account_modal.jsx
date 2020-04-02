@@ -10,8 +10,6 @@ export default class DeleteAccountModal extends React.Component {
       checkboxTwo: false,
       checkboxThree: false
     }
-
-    this.toggleCheckbox = this.toggleCheckbox.bind(this)
   }
 
   submitClass() {
@@ -23,9 +21,9 @@ export default class DeleteAccountModal extends React.Component {
     return buttonClass;
   }
 
-  toggleCheckbox(checkboxNumber) {
+  toggleCheckbox = checkboxNumber => {
     this.setState({ [checkboxNumber]: !this.state[checkboxNumber], })
-  }
+  };
 
   renderCheckbox(checkboxNumber) {
     const checkbox = this.state[checkboxNumber]

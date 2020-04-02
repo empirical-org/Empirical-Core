@@ -4,7 +4,7 @@ exports[`the AddOrSyncClassroomsMini component should render 1`] = `
 <div
   className="mini_container add-or-import col-md-4 col-sm-5 text-center"
 >
-  <add_class_section />
+  <_default />
   <span>
     or
   </span>

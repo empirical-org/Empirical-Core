@@ -16,13 +16,13 @@ const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
 const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
 
-const selectCard = (router: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
+const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
   const unitTemplateIdString = unitTemplateId.toString();
   window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
   window.localStorage.setItem(UNIT_NAME, unitTemplateName)
   window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
   window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateIdString)
-  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
+  history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
 const minis = (props: any) => [
@@ -36,7 +36,7 @@ const minis = (props: any) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(props.router, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
+    selectCard={() => selectCard(props.history, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -48,7 +48,7 @@ const minis = (props: any) => [
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
     imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(props.router, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
+    selectCard={() => selectCard(props.history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -60,7 +60,7 @@ const minis = (props: any) => [
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
     imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(props.router, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
+    selectCard={() => selectCard(props.history, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -72,7 +72,7 @@ const minis = (props: any) => [
     header={ELL_STARTER_DIAGNOSTIC}
     imgAlt="page with less writing that says ELL in the corner"
     imgSrc={ellStarterDiagnosticSrc}
-    selectCard={() => selectCard(props.router, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([1161].toString()), 154)}
+    selectCard={() => selectCard(props.history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([1161].toString()), 154)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -84,7 +84,7 @@ const minis = (props: any) => [
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(props.router, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
+    selectCard={() => selectCard(props.history, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
   />)
 ];
 

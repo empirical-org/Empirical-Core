@@ -1,13 +1,8 @@
-'use strict';
 import React from 'react'
 import _ from 'underscore'
 
-export default React.createClass({
-  propTypes : {
-    date: React.PropTypes.string.isRequired,
-    updateDate: React.PropTypes.func.isRequired
-  },
-  getDateParts: function () {
+export default class DropdownDateSelector extends React.Component {
+  getDateParts = () => {
     var dateParts, year, month, day;
     if (this.props.date != null) {
       year = this.props.date.slice(0,4);
@@ -27,29 +22,35 @@ export default React.createClass({
     }
     return dateParts;
 
-  },
-  createDateString: function (dateParts) {
+  };
+
+  createDateString = (dateParts) => {
     var str = dateParts.year + "-" + dateParts.month + "-"  + dateParts.day
     return str;
-  },
-  updateDatePart: function (part) {
+  };
+
+  updateDatePart = (part) => {
     var value, dateParts, str;
     value = $(this.refs[part]).val();
     dateParts = this.getDateParts();
     dateParts[part] = value;
     str = this.createDateString(dateParts);
     this.props.updateDate(str);
-  },
-  updateYear: function () {
+  };
+
+  updateYear = () => {
     this.updateDatePart('year');
-  },
-  updateMonth: function () {
+  };
+
+  updateMonth = () => {
     this.updateDatePart('month');
-  },
-  updateDay: function () {
+  };
+
+  updateDay = () => {
     this.updateDatePart('day');
-  },
-  getYearOptions: function () {
+  };
+
+  getYearOptions = () => {
     var years, yearOptions;
     years = [];
     _.times(20, function (i) {
@@ -60,8 +61,9 @@ export default React.createClass({
       return <option key={year} value={year}>{year}</option>;
     });
     return yearOptions;
-  },
-  getMonthOptions: function () {
+  };
+
+  getMonthOptions = () => {
     var monthNames, monthNumbers, months, monthOptions;
     monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     monthNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
@@ -75,8 +77,9 @@ export default React.createClass({
       return <option key={hash.number} value={hash.number}>{hash.name}</option>;
     });
     return monthOptions;
-  },
-  getDayOptions: function (month) {
+  };
+
+  getDayOptions = (month) => {
     var numDays, days, shortMonths, dayOptions;
     shortMonths = ['04', '06', '09', '11'];
     if (month == '02') {
@@ -103,8 +106,9 @@ export default React.createClass({
       return <option key={day.number} value={day.number}>{day.name}</option>;
     });
     return dayOptions;
-  },
-  render: function () {
+  };
+
+  render() {
     var dateParts, yearOptions, monthOptions, dayOptions;
     dateParts = this.getDateParts();
     yearOptions = this.getYearOptions();
@@ -131,4 +135,4 @@ export default React.createClass({
       </span>
     );
   }
-});
+}

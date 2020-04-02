@@ -4,7 +4,7 @@ import EmptyStateForReport from '../../Teacher/components/progress_reports/empty
 import * as moment from 'moment';
 import 'react-table/react-table.css';
 import { sortByLastName, sortFromSQLTimeStamp } from '../../../modules/sortingMethods';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface ActivityScoresTableProps {
   data: Array<Object>;

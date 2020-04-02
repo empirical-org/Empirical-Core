@@ -8,8 +8,8 @@ const packsWholeSrc = `${process.env.CDN_URL}/images/illustrations/packs-whole.s
 const packsIndependentSrc = `${process.env.CDN_URL}/images/illustrations/packs-independent.svg`
 const packsCustomSrc = `${process.env.CDN_URL}/images/illustrations/packs-custom.svg`
 
-const selectCard = (router, link) => {
-  router.push(link)
+const selectCard = (history, link) => {
+  history.push(link)
 }
 
 const minis = (props) => [
@@ -22,7 +22,7 @@ const minis = (props) => [
     header="Browse packs with whole-class and independent practice"
     imgAlt="teacher pointing at board"
     imgSrc={packsWholeSrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=whole-class`)}
+    selectCard={() => selectCard(props.history, `/assign/featured-activity-packs?type=whole-class`)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -32,7 +32,7 @@ const minis = (props) => [
     header="Browse packs with just independent practice"
     imgAlt="student with open laptop"
     imgSrc={packsIndependentSrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/featured-activity-packs?type=independent-practice`)}
+    selectCard={() => selectCard(props.history, `/assign/featured-activity-packs?type=independent-practice`)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -42,7 +42,7 @@ const minis = (props) => [
     header="Create your own activity pack"
     imgAlt="sheets of paper overlaid"
     imgSrc={packsCustomSrc}
-    selectCard={() => selectCard(props.router, `${process.env.DEFAULT_URL}/assign/create-activity-pack`)}
+    selectCard={() => selectCard(props.history, `/assign/create-activity-pack`)}
   />)
 ]
 

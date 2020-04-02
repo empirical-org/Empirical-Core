@@ -2,43 +2,42 @@ import React from 'react';
 
 const editSrc = `${process.env.CDN_URL}/images/icons/edit.svg`
 
-export default React.createClass({
-
-  manageClassGear() {
+export default class extends React.Component {
+  manageClassGear = () => {
     return (
       <a className="class-mini-edit-link" href={this.manageClassLink()}>
         <img alt="pencil-icon" src={editSrc} />
       </a>
     );
-  },
+  };
 
-  manageClassLink() {
+  manageClassLink = () => {
     const classId = this.props.classObj.id.toString();
     return (`/teachers/classrooms?classroom=${classId}#${classId}`);
-  },
+  };
 
-  inviteStudentsLink() {
+  inviteStudentsLink = () => {
     const classId = this.props.classObj.id.toString();
     return (`/teachers/classrooms?modal=invite-students&classroom=${classId}#${classId}`);
-  },
+  };
 
-  studentCount() {
+  studentCount = () => {
     if (Number(this.props.classObj.student_count) !== 0) {
       return (`${this.props.classObj.student_count} Students`);
     }
-  },
+  };
 
-  activityCount() {
+  activityCount = () => {
     if (Number(this.props.classObj.activities_completed) !== 0) {
       return (`${this.props.classObj.activity_count} Activities Completed`);
     }
-  },
+  };
 
-  classroomSpecificReportLink() {
+  classroomSpecificReportLink = () => {
     return `/teachers/classrooms/scorebook?classroom_id=${this.props.classObj.id}`;
-  },
+  };
 
-  classroomSpecificButton() {
+  classroomSpecificButton = () => {
     if (!this.studentCount()) {
       return (
         <a href={this.inviteStudentsLink()}>
@@ -57,9 +56,9 @@ export default React.createClass({
         <button className="button-white class-mini-btn">View Results</button>
       </a>
     );
-  },
+  };
 
-  classroomMini() {
+  classroomMini = () => {
     return (
       <div>
         {this.manageClassGear()}
@@ -79,7 +78,7 @@ export default React.createClass({
         {this.classroomSpecificButton()}
       </div>
     );
-  },
+  };
 
   render() {
     return (
@@ -89,5 +88,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

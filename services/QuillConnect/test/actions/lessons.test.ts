@@ -1,6 +1,8 @@
 import { mockLessonApi, } from '../__mocks__/lesson_api'
+const MOCK_LESSON_TYPE = 'TYPE'
 jest.mock('../../app/libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
+  TYPE_CONNECT_LESSON: MOCK_LESSON_TYPE,
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
@@ -11,7 +13,7 @@ describe('Lessons actions', () => {
   describe('startListeningToLessons', () => {
     it('should call LessonsApi.getAll()', () => {
       dispatch(lessonActions.startListeningToLessons())
-      expect(mockLessonApi.getAll).toHaveBeenCalled()
+      expect(mockLessonApi.getAll).toHaveBeenCalledWith(MOCK_LESSON_TYPE)
     })
   })
 
@@ -19,7 +21,7 @@ describe('Lessons actions', () => {
     it('should call LessonApi.create()', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       dispatch(lessonActions.submitNewLesson(MOCK_CONTENT))
-      expect(mockLessonApi.create).toHaveBeenLastCalledWith(MOCK_CONTENT)
+      expect(mockLessonApi.create).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_CONTENT)
     })
   })
 
@@ -28,7 +30,7 @@ describe('Lessons actions', () => {
       const MOCK_ID = 1
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       dispatch(lessonActions.submitLessonEdit(MOCK_ID, MOCK_CONTENT))
-      expect(mockLessonApi.update).toHaveBeenLastCalledWith(MOCK_ID, MOCK_CONTENT)
+      expect(mockLessonApi.update).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_ID, MOCK_CONTENT)
     })
   })
 
@@ -36,7 +38,7 @@ describe('Lessons actions', () => {
     it('should call LessonApi.remove()', () => {
       const MOCK_ID = '1'
       dispatch(lessonActions.deleteLesson(MOCK_ID))
-      expect(mockLessonApi.remove).toHaveBeenLastCalledWith(MOCK_ID)
+      expect(mockLessonApi.remove).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_ID)
     })
   })
 
@@ -44,14 +46,14 @@ describe('Lessons actions', () => {
     it('should call LessonApi.get()', () => {
       const MOCK_ID = '1'
       dispatch(lessonActions.loadLesson(MOCK_ID))
-      expect(mockLessonApi.get).toHaveBeenLastCalledWith(MOCK_ID)
+      expect(mockLessonApi.get).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_ID)
     })
   })
 
   describe('loadLessons', () => {
     it('should call LessonsApi.getAll()', () => {
       dispatch(lessonActions.loadLessons())
-      expect(mockLessonApi.getAll).toHaveBeenCalled()
+      expect(mockLessonApi.getAll).toHaveBeenCalledWith(MOCK_LESSON_TYPE)
     })
   })
 
@@ -59,7 +61,7 @@ describe('Lessons actions', () => {
     it('should call LessonApi.get()', () => {
       const MOCK_ID = '1'
       dispatch(lessonActions.loadLesson(MOCK_ID))
-      expect(mockLessonApi.get).toHaveBeenLastCalledWith(MOCK_ID)
+      expect(mockLessonApi.get).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_ID)
     })
   })
 })

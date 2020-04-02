@@ -10,12 +10,9 @@ export default class MergeStudentAccounts extends React.Component {
       student1Identifier: '',
       student2Identifier: ''
     }
-
-    this.submitStudents = this.submitStudents.bind(this)
-    this.updateStudentIdentifier = this.updateStudentIdentifier.bind(this)
   }
 
-  submitStudents() {
+  submitStudents = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/merge_student_accounts`,
@@ -30,12 +27,12 @@ export default class MergeStudentAccounts extends React.Component {
         // to do, use Sentry to capture error
       }
     })
-  }
+  };
 
-  updateStudentIdentifier(e, studentNumber) {
+  updateStudentIdentifier = (e, studentNumber) => {
     const key = `student${studentNumber}Identifier`
     this.setState({[key]: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {

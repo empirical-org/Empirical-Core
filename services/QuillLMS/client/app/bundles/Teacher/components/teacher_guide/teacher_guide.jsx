@@ -50,15 +50,6 @@ export default class TeacherGuide extends React.Component {
     return grouping;
   }
 
-  sectionPart() {
-    const display = [];
-    const sections = this.groupBySectionAndCompleted();
-    for (const sect in sections) {
-      display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false} key={sect} />);
-    }
-    return display;
-  }
-
   introCopy() {
     return (
       <div className='summary intro-copy'>
@@ -66,6 +57,15 @@ export default class TeacherGuide extends React.Component {
         <p>Quill is very simple on the surface. Find activities and assign them to your students. But underneath, there are all kinds of power features that help you create custom activity packs, view in-depth reports, and assign activities faster. Let’s take a look!</p>
       </div>
     )
+  }
+
+  sectionPart() {
+    const display = [];
+    const sections = this.groupBySectionAndCompleted();
+    for (const sect in sections) {
+      display.push(<CheckboxSection checkboxes={sections[sect]} dashboard={false} key={sect} />);
+    }
+    return display;
   }
 
   stateSpecificComponents() {
