@@ -9,16 +9,9 @@ import ResponseComponent from '../questions/responseComponent'
 
 export default class extends React.Component {
 
-<<<<<<< HEAD
   constructor(props) {
     super(props);
-    const item = props.item;
-=======
-  propTypes: {
-    item: React.PropTypes.object,
-    onSubmit: React.PropTypes.func.isRequired,
-  },
->>>>>>> d5007d4181716c14da5d60b3f28521f012e356ab
+    const { item } = props;
 
     this.state = {
       itemText: item ? `${item.text}|||` : '',
