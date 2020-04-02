@@ -13,22 +13,22 @@
     </p>
     <%= render layout: "tracked_link", locals: { href: "/sign-up/student",
                                                  classes: "q-button cta-button cta-home  bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP_STUDENT,
-                                                 properties: { location: "mainCTA" }
+                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                 properties: { location: "mainCTA", button: "student" }
                                                 } do %>
       Student
     <% end %>
     <%= render layout: "tracked_link", locals: { href: "/sign-up/teacher",
                                                  classes: "q-button cta-button cta-home bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP_TEACHER,
-                                                 properties: { location: "mainCTA" }
+                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                 properties: { location: "mainCTA", button: "teacher" }
                                                 } do %>
       Teacher
     <% end %>
     <%= render layout: "tracked_link", locals: { href: "/sign-up/teacher",
                                                  classes: "q-button cta-button cta-home  bg-white",
-                                                 event: SegmentIo::Events::CLICK_SIGN_UP_GUARDIAN,
-                                                 properties: { location: "mainCTA" }
+                                                 event: SegmentIo::Events::CLICK_SIGN_UP,
+                                                 properties: { location: "mainCTA", button: "guardian" }
                                                 } do %>
       Guardian
     <% end %>
