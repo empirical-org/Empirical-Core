@@ -18,14 +18,6 @@ class ItemLevelForm extends React.Component {
     }
   }
 
-  componentDidMount() {
-    const { data, mode } = this.props;
-    if(data && mode === "Edit") {
-      const { integerValue, name } = data;
-      this.setState({ integerValue: integerValue, name: name });
-    }
-  }
-
   submit = () => {
     const { levelID, submitNewItemLevel } = this.props;
     if(this.refs.newItemLevelName.value === "" || this.refs.integerValue.value === "") { //has not chosen an associated concept

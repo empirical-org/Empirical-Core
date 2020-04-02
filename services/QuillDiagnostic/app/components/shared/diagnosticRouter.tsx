@@ -54,7 +54,7 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
         <div>
           <ELLStudentDiagnostic {...props} />
           <BrowserRouter>
-            <Route component={ELLStudentDiagnostic} path={`/play/diagnostic/:diagnosticID`}/>
+            <Route component={ELLStudentDiagnostic} path={`/play/diagnostic/:diagnosticID`} />
           </BrowserRouter>
         </div>
       )
@@ -63,7 +63,7 @@ export const DiagnosticRouter: React.SFC<DiagnosticRouterProps> = (props: Diagno
         <div>
           <StudentDiagnostic {...props} />
           <BrowserRouter>
-            <Route component={StudentDiagnostic} path={`/play/diagnostic/:diagnosticID`}/>
+            <Route component={StudentDiagnostic} path={`/play/diagnostic/:diagnosticID`} />
           </BrowserRouter>
         </div>
       )

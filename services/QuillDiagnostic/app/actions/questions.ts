@@ -293,7 +293,7 @@ function updateFlag(qid, flag) {
     QuestionApi.updateFlag(qid, flag).then(() => {
       dispatch(loadQuestion(qid));
     }, (error) => {
-      console.error(`Flag update failed! ${error}`);
+      alert(`Flag update failed! ${error}`);
     });
   }
 }

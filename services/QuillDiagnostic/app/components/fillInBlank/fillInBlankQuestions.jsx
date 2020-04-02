@@ -17,12 +17,6 @@ class FillInBlankQuestions extends Component {
       diagnosticQuestions: fillInBlank.data ? fillInBlank.data : null
     }
   }
-  
-  componentDidMount() {
-    const { fillInBlank } = this.props
-    const { data } = fillInBlank
-    this.setState({ diagnosticQuestions: data })
-  }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { fillInBlank, lessons } = nextProps
