@@ -15,6 +15,14 @@ export default class QuoteRequestModal extends React.Component {
     new Stripe(90000, '$900 per Year - School Premium');
   }
 
+  creditCardNotice = () => {
+    const { userHasSchool, } = this.props
+    if (userHasSchool) {
+      return (<p>To pay now with a credit card, please <span data-toggle="modal" onClick={this.handlePayNowClick}>click here</span>.</p>);
+    }
+    return (<p>To pay now via credit card, please visit your <a href="/teachers/my_account">account page</a> and add a school.</p>);
+  }
+
   handlePayNowClick = () => {
     const { isUserSignedIn, } = this.state
     if (isUserSignedIn) {
@@ -22,14 +30,6 @@ export default class QuoteRequestModal extends React.Component {
     } else {
       alert('You must be logged in to activate Quill Premium.');
     }
-  }
-
-  creditCardNotice = () => {
-    const { userHasSchool, } = this.props
-    if (userHasSchool) {
-      return (<p>To pay now with a credit card, please <span data-toggle="modal" onClick={this.handlePayNowClick}>click here</span>.</p>);
-    }
-    return (<p>To pay now via credit card, please visit your <a href="/teachers/my_account">account page</a> and add a school.</p>);
   }
 
   render() {

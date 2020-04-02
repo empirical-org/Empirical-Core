@@ -2,20 +2,16 @@ import React from 'react'
 import ProgressReport from '../progress_report.jsx'
 import ScoreColor from '../../modules/score_color.js'
 
+export default class QuestionReport extends React.Component {
+  constructor(props) {
+    super(props)
 
-
-export default React.createClass({
-  propTypes: {
-    premiumStatus: React.PropTypes.string
-  },
-
-  getInitialState: function() {
-    return {
+    this.state = {
       students: {}
-    }
-  },
+    };
+  }
 
-  columnDefinitions: function() {
+  columnDefinitions = () => {
     return [
       {
         name: 'Score',
@@ -41,9 +37,9 @@ export default React.createClass({
         sortByField: 'prompt'
       }
     ];
-  },
+  };
 
-  sortDefinitions: function() {
+  sortDefinitions = () => {
     return {
       config: {
         question_id: 'natural',
@@ -56,21 +52,20 @@ export default React.createClass({
         direction: 'asc'
       }
     };
-  },
+  };
 
-  onFetchSuccess: function(responseData) {
+  onFetchSuccess = (responseData) => {
     this.setState({
       students: responseData.students
     });
-  },
+  };
 
-  colorByScore: function(grade){
+  colorByScore = (grade) => {
     return ScoreColor(grade)
-  },
+  };
 
-
-  render: function() {
-    const p = this.props.params;
+  render() {
+    const p = this.props.match.params;
     const unitActivityClassroom = `/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`;
     return (
       <div id='individual-activity-classroom-view'>
@@ -90,4 +85,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

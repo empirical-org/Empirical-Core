@@ -149,21 +149,9 @@ section {
   border-bottom: 1px solid #cecece;
 }
 
-button:not(.select-mixin):not(.quill-button):not(.focus-on-light):not(.focus-on-dark):not(.filter-button):not(.quill-tab):not(.action):not(.data-table-header):not(.quill-checkbox):not(.dropdown-toggle) {
-  padding: 10px 25px;
-  font-size: 14px;
-  border-radius: 5px;
-  transition: 0.1s ease-out;
-  -moz-transition: 0.1s ease-out;
-  -webkit-transition: 0.1s ease-out;
-  border: 0;
-  font-weight: bold;
-  &:focus {
-    outline: none;
-  }
-  &:active {
-    box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
-  }
+button {
+  outline: none;
+  border: none;
 }
 
 .button-select {
@@ -199,6 +187,20 @@ button:not(.select-mixin):not(.quill-button):not(.focus-on-light):not(.focus-on-
   height: 40px;
   background-color: #eda41b;
   color: white;
+}
+
+.button-green, .btn-orange {
+  padding: 10px 25px;
+  font-size: 14px;
+  border-radius: 5px;
+  transition: 0.1s ease-out;
+  -moz-transition: 0.1s ease-out;
+  -webkit-transition: 0.1s ease-out;
+  border: 0;
+  font-weight: bold;
+  &:active {
+    box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
+  }
 }
 
 .button-green {
@@ -326,14 +328,6 @@ label.css-label {
   &:hover, &:focus {
     text-decoration: none;
     color: #fff;
-  }
-}
-
-button:not(.select-mixin):not(.quill-button):not(.focus-on-light):not(.focus-on-dark):not(.filter-button):not(.quill-tab):not(.action):not(.data-table-header):not(.quill-checkbox):not(.dropdown-toggle) {
-  padding: 10px 25px;
-  font-size: 14px;
-  &:active {
-    box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.7);
   }
 }
 

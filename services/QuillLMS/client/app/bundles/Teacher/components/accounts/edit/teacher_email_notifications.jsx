@@ -2,20 +2,14 @@ import React from 'react';
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
 
 export default class TeacherEmailNotifications extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.toggleSendNewsletter = this.toggleSendNewsletter.bind(this)
-  }
-
-  toggleSendNewsletter() {
+  toggleSendNewsletter = () => {
     const { sendNewsletter, updateUser, } = this.props
     const data = {
       send_newsletter: !sendNewsletter,
       school_options_do_not_apply: true
     };
     updateUser(data, '/teachers/update_my_account', 'Settings saved')
-  }
+  };
 
   renderCheckbox() {
     const { sendNewsletter, } = this.props

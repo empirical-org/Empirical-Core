@@ -8,19 +8,15 @@ export default class TeacherDangerZone extends React.Component {
     this.state = {
       showDeleteAccountModal: false,
     }
-
-    this.hideDeleteAccountModal = this.hideDeleteAccountModal.bind(this)
-    this.showDeleteAccountModal = this.showDeleteAccountModal.bind(this)
-    this.renderModal = this.renderModal.bind(this)
   }
 
-  hideDeleteAccountModal() {
+  hideDeleteAccountModal = () => {
     this.setState({ showDeleteAccountModal: false, })
-  }
+  };
 
-  showDeleteAccountModal() {
+  showDeleteAccountModal = () => {
     this.setState({ showDeleteAccountModal: true, })
-  }
+  };
 
   renderModal() {
     if (this.state.showDeleteAccountModal) {
@@ -29,7 +25,7 @@ export default class TeacherDangerZone extends React.Component {
         deleteAccount={this.props.deleteAccount}
       />)
     }
-  }
+  };
 
   render() {
     return (<div className="teacher-account-danger-zone user-account-section">

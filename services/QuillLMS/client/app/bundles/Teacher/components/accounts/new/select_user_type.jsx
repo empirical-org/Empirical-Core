@@ -8,15 +8,19 @@ const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-penci
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
 
 class SelectUserType extends React.Component {
-  handleLogInClick = (e) => {
-    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
-    window.location.href = '/session/new'
-  }
-
-  handleKeyDownOnLogIn = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleLogInClick()
+  setRoleOnSession = (role) => {
+    request.post(`${process.env.DEFAULT_URL}/account/role`, {
+      json: {
+        role,
+        authenticity_token: getAuthToken(),
+      }, }, (e) => {
+        if (e) {
+          this.setRoleOnSessionError()
+        } else {
+          window.location = `/sign-up/${role}`;
+        }
+      }
+    )
   }
 
   setRoleOnSessionError = () => {
@@ -33,19 +37,15 @@ class SelectUserType extends React.Component {
     this.setRoleOnSession('teacher');
   }
 
-  setRoleOnSession = (role) => {
-    request.post(`${process.env.DEFAULT_URL}/account/role`, {
-      json: {
-        role,
-        authenticity_token: getAuthToken(),
-      }, }, (e) => {
-        if (e) {
-          this.setRoleOnSessionError()
-        } else {
-          window.location = `/sign-up/${role}`;
-        }
-      }
-    )
+  handleKeyDownOnLogIn = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleLogInClick()
+  }
+
+  handleLogInClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
+    window.location.href = '/session/new'
   }
 
   render() {

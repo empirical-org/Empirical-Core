@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react'
 
-export default React.createClass({
-  render: function() {
+export default class extends React.Component {
+  render() {
     return (
       <div className="how-we-grade">
         <p className="title title-not-started">
@@ -12,4 +12,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

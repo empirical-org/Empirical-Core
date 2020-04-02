@@ -14,6 +14,13 @@ export default class extends React.Component {
     }
   }
 
+  activityImage(activity_classification_id, color) {
+    if (color === 'unstarted') {
+      return <div className={`icon-${color} icon-${activity_classification_id}-lightgray`} />
+    }
+    return <div className={`icon-${color} icon-${activity_classification_id}`} />
+  }
+
   activityTableRowsAndAverageScore(unit) {
     const rows = [];
     let cumulativeScore = 0;
@@ -30,13 +37,6 @@ export default class extends React.Component {
       averageScore = cumulativeScore / applicableScoreRowCount
     }
     return {averageScore, rows}
-  }
-
-  activityImage(activity_classification_id, color) {
-    if (color === 'unstarted') {
-      return <div className={`icon-${color} icon-${activity_classification_id}-lightgray`} />
-    }
-    return <div className={`icon-${color} icon-${activity_classification_id}`} />
   }
 
   completedStatus(row) {

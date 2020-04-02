@@ -10,37 +10,9 @@ export default class ActivityCategory extends React.Component {
     this.state = {
       selectedActivities: props.activities
     }
-
-    this.toggleActivitySelection = this.toggleActivitySelection.bind(this)
-    this.updateActivityOrder = this.updateActivityOrder.bind(this)
-    this.destroyAndRecreateOrderNumbers = this.destroyAndRecreateOrderNumbers.bind(this)
   }
 
-  toggleActivitySelection(activity) {
-    const newSelectedActivities = this.state.selectedActivities
-    const activityIndex = newSelectedActivities.findIndex(a => a.id === activity.id)
-    if (activityIndex === -1) {
-      const activityWithOrderNumber = Object.assign({}, activity)
-      activityWithOrderNumber.order_number = newSelectedActivities.length
-      newSelectedActivities.push(activityWithOrderNumber)
-    } else {
-      newSelectedActivities.splice(activityIndex, 1)
-    }
-    this.setState({selectedActivities: newSelectedActivities})
-  }
-
-  updateActivityOrder(sortInfo) {
-    const originalOrderedActivities = this.state.selectedActivities
-    const newOrder = sortInfo.data.items.map(item => item.key);
-    const newOrderedActivities = newOrder.map((key, i) => {
-      const newActivity = originalOrderedActivities[key]
-      newActivity.order_number = i
-      return newActivity
-    })
-    this.setState({selectedActivities: newOrderedActivities})
-  }
-
-  destroyAndRecreateOrderNumbers() {
+  destroyAndRecreateOrderNumbers = () => {
     const that = this
     const activities = this.state.selectedActivities;
     request.post(`${process.env.DEFAULT_URL}/cms/activity_categories/destroy_and_recreate_acas`, {
@@ -57,7 +29,31 @@ export default class ActivityCategory extends React.Component {
         }
       }
     )
-  }
+  };
+
+  toggleActivitySelection = activity => {
+    const newSelectedActivities = this.state.selectedActivities
+    const activityIndex = newSelectedActivities.findIndex(a => a.id === activity.id)
+    if (activityIndex === -1) {
+      const activityWithOrderNumber = Object.assign({}, activity)
+      activityWithOrderNumber.order_number = newSelectedActivities.length
+      newSelectedActivities.push(activityWithOrderNumber)
+    } else {
+      newSelectedActivities.splice(activityIndex, 1)
+    }
+    this.setState({selectedActivities: newSelectedActivities})
+  };
+
+  updateActivityOrder = sortInfo => {
+    const originalOrderedActivities = this.state.selectedActivities
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedActivities = newOrder.map((key, i) => {
+      const newActivity = originalOrderedActivities[key]
+      newActivity.order_number = i
+      return newActivity
+    })
+    this.setState({selectedActivities: newOrderedActivities})
+  };
 
   render() {
     return(<div>

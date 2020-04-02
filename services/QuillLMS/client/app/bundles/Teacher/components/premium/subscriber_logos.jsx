@@ -1,7 +1,6 @@
 import React from 'react'
-export default React.createClass({
-
-  mapLogos: function() {
+export default class extends React.Component {
+  mapLogos = () => {
     var logos = this.props.subscribers.map(function(subscriber, index) {
       return (
         <div className='logo-wrapper' id={subscriber.id} key={index}>
@@ -10,9 +9,9 @@ export default React.createClass({
       );
     });
     return logos;
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div className='logo-group'>.
         <h2>Trusted by Some of the Best Schools</h2>
@@ -22,4 +21,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

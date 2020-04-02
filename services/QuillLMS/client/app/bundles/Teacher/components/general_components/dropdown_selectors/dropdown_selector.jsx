@@ -1,27 +1,21 @@
 import React from 'react'
 import _ from 'underscore';
 
-export default React.createClass({
-  propTypes: {
-    options: React.PropTypes.array.isRequired,
-    select: React.PropTypes.func.isRequired,
-    label: React.PropTypes.string.isRequired
-  },
-
-  select: function () {
+export default class DropdownSeletor extends React.Component {
+  select = () => {
     var id = $(this.refs.select).val();
     this.props.select(id);
-  },
+  };
 
-  generateOption: function (option) {
+  generateOption = (option) => {
     var id = (option.id ? option.id : option)
     var name = (option.name ? option.name : option)
     return (
       <option key={id} value={id}>{name}</option>
     );
-  },
+  };
 
-  render: function () {
+  render() {
     // makes shallow copy of array
     var opt = this.props.options.slice(0);
     opt.unshift('Select');
@@ -35,5 +29,4 @@ export default React.createClass({
       </div>
     );
   }
-
-});
+}

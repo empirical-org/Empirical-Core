@@ -2,14 +2,9 @@ import React from 'react';
 import { RadioGroup, ReversedRadioButton } from 'react-radio-buttons';
 
 export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(val) {
+  handleChange = val => {
     this.props.changeRecurringStatus(val);
-  }
+  };
 
   render() {
     return (

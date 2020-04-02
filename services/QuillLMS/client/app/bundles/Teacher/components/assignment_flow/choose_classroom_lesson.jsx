@@ -12,12 +12,10 @@ export default class ChooseClassroomLesson extends React.Component {
     }
 
     this.getClassroomLessonInfo()
-
-    this.goBack = this.goBack.bind(this)
   }
 
   getClassroomLessonInfo() {
-    request.get(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.params.activityId}`, (error, httpStatus, body) => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/units/lesson_info_for_activity/${this.props.match.params.activityId}`, (error, httpStatus, body) => {
       const data = JSON.parse(body)
       this.setState({
         classroomUnits: data.classroom_units,
@@ -25,6 +23,20 @@ export default class ChooseClassroomLesson extends React.Component {
         loading: false
       })
     })
+  }
+
+  setSelectedClassroomUnitId(id) {
+    this.setState({ classroomUnitId: id })
+  }
+
+  goBack = () => {
+    this.props.history.goBack()
+  };
+
+  launchLessonLink() {
+    const classroomUnitId = this.state.classroomUnitId
+    const lessonId = this.props.match.params.activityId
+    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
   }
 
   renderClasses() {
@@ -55,20 +67,6 @@ export default class ChooseClassroomLesson extends React.Component {
       </div>
       {completionText}
     </div>)
-  }
-
-  setSelectedClassroomUnitId(id) {
-    this.setState({ classroomUnitId: id })
-  }
-
-  launchLessonLink() {
-    const classroomUnitId = this.state.classroomUnitId
-    const lessonId = this.props.routeParams.activityId
-    return `${process.env.DEFAULT_URL}/teachers/classroom_units/${classroomUnitId}/launch_lesson/${lessonId}`
-  }
-
-  goBack() {
-    this.props.history.goBack()
   }
 
   render() {

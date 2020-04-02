@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default React.createClass({
-
+export default class extends React.Component {
   render() {
     let onButtonClick,
       buttonText,
@@ -42,5 +41,5 @@ export default React.createClass({
      <a href="/teacher-center">Teacher Center</a>
    </div>
  );
-  },
-});
+  }
+}

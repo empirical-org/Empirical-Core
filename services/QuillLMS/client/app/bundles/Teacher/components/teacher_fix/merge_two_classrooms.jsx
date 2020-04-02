@@ -10,12 +10,9 @@ export default class MergeTwoClassrooms extends React.Component {
       classCode1: '',
       classCode2: ''
     }
-
-    this.submitData = this.submitData.bind(this)
-    this.updateClassCode = this.updateClassCode.bind(this)
   }
 
-  submitData() {
+  submitData = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/merge_two_classrooms`,
@@ -30,12 +27,12 @@ export default class MergeTwoClassrooms extends React.Component {
         // to do, use Sentry to capture error
       }
     })
-  }
+  };
 
-  updateClassCode(e, classCodeNumber) {
+  updateClassCode = (e, classCodeNumber) => {
     const key = `classCode${classCodeNumber}`
     this.setState({[key]: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {

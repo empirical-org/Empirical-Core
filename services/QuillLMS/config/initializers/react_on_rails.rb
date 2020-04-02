@@ -1,6 +1,6 @@
 # Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
-  config.generated_assets_dir = File.join(%w[public webpack])
+  config.generated_assets_dir = Rails.env.test? ? File.join(%w[public webpack-test]) : File.join(%w[public webpack])
   config.build_test_command = "npm run build:test"
   config.server_bundle_js_file = ""
   config.server_renderer_pool_size = 1

@@ -3,9 +3,8 @@ import React from 'react'
 import Resource from '../components/cms/resources/resource.jsx'
 import Cms from './Cms.jsx'
 
-export default React.createClass({
-
-  resourceComponentGenerator: function (cmsComponent) {
+export default class extends React.Component {
+  resourceComponentGenerator = (cmsComponent) => {
 
     var initialModel = {
       id: null,
@@ -42,9 +41,9 @@ export default React.createClass({
         </div>
       </div>
            );
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <Cms
         resourceComponentGenerator={this.resourceComponentGenerator}
@@ -54,4 +53,4 @@ export default React.createClass({
 
     );
   }
-});
+}

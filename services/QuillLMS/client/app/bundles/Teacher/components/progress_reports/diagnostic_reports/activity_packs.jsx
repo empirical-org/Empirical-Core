@@ -20,7 +20,7 @@ export default class ActivityPacks extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     document.getElementsByClassName('diagnostic-tab')[0].classList.remove('active');
     document.getElementsByClassName('activity-analysis-tab')[0].classList.add('active');
   }
@@ -32,6 +32,17 @@ export default class ActivityPacks extends React.Component {
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
       this.getUnitsForCurrentClass();
     };
+  }
+
+  getClassrooms = () => {
+    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
+      const classrooms = JSON.parse(body).classrooms;
+      if (classrooms.length > 0) {
+        this.setState({ classrooms, }, () => this.getUnits());
+      } else {
+        this.setState({ empty: true, loaded: true, });
+      }
+  	});
   }
 
   getRecommendationIds = () => {
@@ -49,34 +60,6 @@ export default class ActivityPacks extends React.Component {
     }).catch((error) => {
       // to do, use Sentry to capture error
     });
-  }
-
-  getClassrooms = () => {
-    request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
-      const classrooms = JSON.parse(body).classrooms;
-      if (classrooms.length > 0) {
-        this.setState({ classrooms, }, () => this.getUnits());
-      } else {
-        this.setState({ empty: true, loaded: true, });
-      }
-  	});
-  }
-
-  populateCompletionAndAverageScore = (data) => {
-    const requests = data.map((u) => {
-      return new Promise(resolve => {
-        request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
-          this.state.allUnits.forEach((stateUnit) => {
-            if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
-              stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
-              stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
-            }
-          })
-          resolve()
-        })
-      })
-    });
-    Promise.all(requests).then(() => this.setState({ loaded: true }));
   }
 
   getUnits = () => {
@@ -102,6 +85,29 @@ export default class ActivityPacks extends React.Component {
 
   addMissingInfo = (data) => {
     alert('adding missing information');
+  }
+
+  assignedStudentCount(u) {
+    return u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size;
+  }
+
+  classroomActivityData = (u, assignedStudentCount, completedCount, cumulativeScore) => {
+    return {
+      name: u.activity_name,
+      uaId: u.unit_activity_id,
+      cuId: u.classroom_unit_id,
+      activityId: u.activity_id,
+      created_at: u.unit_activity_created_at,
+      activityClassificationId: u.activity_classification_id,
+      classroomId: u.classroom_id,
+      ownedByCurrentUser: u.owned_by_current_user === 't',
+      ownerName: u.owner_name,
+      createdAt: u.ca_created_at,
+      dueDate: u.due_date,
+      numberOfAssignedStudents: assignedStudentCount,
+      cumulativeScore,
+      completedCount,
+    };
   }
 
   generateNewCaUnit = (u) => {
@@ -130,6 +136,12 @@ export default class ActivityPacks extends React.Component {
       cumulativeScore: u.classroom_cumulative_score,
     });
     return caObj;
+  }
+
+  orderUnits(units) {
+    const unitsArr = [];
+    Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
+    return unitsArr;
   }
 
   parseUnits = (data) => {
@@ -165,39 +177,21 @@ export default class ActivityPacks extends React.Component {
     return this.orderUnits(parsedUnits);
   }
 
-  classroomActivityData = (u, assignedStudentCount, completedCount, cumulativeScore) => {
-    return {
-      name: u.activity_name,
-      uaId: u.unit_activity_id,
-      cuId: u.classroom_unit_id,
-      activityId: u.activity_id,
-      created_at: u.unit_activity_created_at,
-      activityClassificationId: u.activity_classification_id,
-      classroomId: u.classroom_id,
-      ownedByCurrentUser: u.owned_by_current_user === 't',
-      ownerName: u.owner_name,
-      createdAt: u.ca_created_at,
-      dueDate: u.due_date,
-      numberOfAssignedStudents: assignedStudentCount,
-      cumulativeScore,
-      completedCount,
-    };
-  }
-
-  assignedStudentCount(u) {
-    return u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size;
-  }
-
-  orderUnits(units) {
-    const unitsArr = [];
-    Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
-    return unitsArr;
-  }
-
-  switchClassrooms = (classroom) => {
-    const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
-   	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
- 		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
+  populateCompletionAndAverageScore = (data) => {
+    const requests = data.map((u) => {
+      return new Promise(resolve => {
+        request.get(`${process.env.DEFAULT_URL}/teachers/units/score_info_for_activity/${u.activity_id}?classroom_unit_id=${u.classroom_unit_id}`, (error, httpStatus, body) => {
+          this.state.allUnits.forEach((stateUnit) => {
+            if (typeof stateUnit.classroomActivities.get(u.activity_id) != 'undefined' ) {
+              stateUnit.classroomActivities.get(u.activity_id).cumulativeScore = JSON.parse(body).cumulative_score;
+              stateUnit.classroomActivities.get(u.activity_id).completedCount = JSON.parse(body).completed_count;
+            }
+          })
+          resolve()
+        })
+      })
+    });
+    Promise.all(requests).then(() => this.setState({ loaded: true }));
   }
 
   stateBasedComponent = () => {
@@ -252,6 +246,12 @@ export default class ActivityPacks extends React.Component {
     );
   }
 
+  switchClassrooms = (classroom) => {
+    const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
+   	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
+ 		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
+  }
+
   render() {
     return (
       <div className="container manage-units">
@@ -259,5 +259,4 @@ export default class ActivityPacks extends React.Component {
       </div>
     );
   }
-
 }
