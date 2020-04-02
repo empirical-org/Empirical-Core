@@ -112,6 +112,10 @@ a.q-button {
     margin-left: 10px;
     font-weight: 600;
   }
+  &.cta-home:hover {
+    color: #ffffff;
+    background-color: #00DFB1;
+  }
   &:hover.text-white {
     color: white;
   }
