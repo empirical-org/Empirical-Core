@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'underscore';
-import lessonActions from '../../actions/lessons';
+import lessonActions from '../../actions/lessons.ts';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.tsx';

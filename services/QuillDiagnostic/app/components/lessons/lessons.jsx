@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons';
+import actions from '../../actions/lessons.ts';
 import _ from 'underscore';
 import {
   Modal,

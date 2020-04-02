@@ -3,17 +3,32 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions';
-import request from 'request'
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
 class EditIncorrectSequencesContainer extends Component {
+  constructor() {
+    super();
+
+    const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
+    const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
+    const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
+
+    this.state = {
+      questionType,
+      questionTypeLink,
+      actionFile
+    }
+  }
+
   UNSAFE_componentWillMount() {
+    const { actionFile } = this.state;
     const { dispatch, generatedIncorrectSequences, match } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { questionID } = params;
-    const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
+    const type = window.location.href.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
     if (!used[questionID]) {
-      dispatch(questionActions.getUsedSequences(questionID, type))
+      dispatch(actionFile.getUsedSequences(questionID, type))
     }
   }
 
@@ -25,17 +40,18 @@ class EditIncorrectSequencesContainer extends Component {
     return data[questionID].incorrectSequences[incorrectSequenceID];
   }
 
-  submitForm = (data, incorrectSequenceID) => {
+  submitForm(data, incorrectSequenceID) {
+    const { actionFile } = this.state;
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
-    dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, incorrectSequenceID));
+    dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, incorrectSequenceID));
     window.history.back();
   };
 
   render() {
-    const {children, generatedIncorrectSequences, match, questions } = this.props;
+    const {children, generatedIncorrectSequences, match, questions, sentenceFragments } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { incorrectSequenceID, questionID } = params;
@@ -49,7 +65,7 @@ class EditIncorrectSequencesContainer extends Component {
           onSubmit={this.submitForm}
           questionID={questionID}
           questions={questions}
-          sentenceFragments
+          sentenceFragments={sentenceFragments}
           states
           usedSequences={used[questionID]}
         />

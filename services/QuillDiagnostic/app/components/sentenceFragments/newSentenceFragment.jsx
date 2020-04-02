@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fragmentActions from '../../actions/sentenceFragments.js';
+import fragmentActions from '../../actions/sentenceFragments.ts';
 import Form from './sentenceFragmentForm.jsx';
 
 class newSentenceFragment extends React.Component {

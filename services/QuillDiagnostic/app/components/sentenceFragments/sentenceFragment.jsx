@@ -5,7 +5,7 @@ import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/comp
 
 import EditForm from './sentenceFragmentForm.jsx';
 import ResponseComponent from '../questions/responseComponent.jsx';
-import fragmentActions from '../../actions/sentenceFragments.js';
+import fragmentActions from '../../actions/sentenceFragments.ts';
 import {
   submitOptimalResponses,
   listenToResponsesWithCallback

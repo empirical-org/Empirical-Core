@@ -2,19 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
-import {
-  hashToCollection,
-  SortableList
-} from 'quill-component-library/dist/componentLibrary';
-import request from 'request'
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 class IncorrectSequencesContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
+    const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
+    const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
+    const { sentenceFragments } = props
+
+    this.state = {
+      questionType: questionType,
+      actionFile: actionFile,
+      questionTypeLink: questionTypeLink,
+      sentenceFragments: sentenceFragments
+    };
+  }
+
   UNSAFE_componentWillMount() {
+    const { actionFile } = this.state;
     const { dispatch, match } = this.props;
-    const { params, url } = match;
+    const { params } = match;
     const { questionID } = params;
-    const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
-    dispatch(questionActions.getUsedSequences(questionID, type))
+    const type = window.location.href.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
+    dispatch(actionFile.getUsedSequences(questionID, type))
   }
 
   getQuestion() {
@@ -34,30 +48,33 @@ class IncorrectSequencesContainer extends Component {
     const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
+    const { actionFile } = this.state;
     if (sequence) {
-      dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, sequence));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, sequence));
     } else {
-      dispatch(questionActions.submitNewIncorrectSequence(questionID, data));
+      dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
     }
   };
 
   deleteSequence = sequenceID => {
+    const { actionFile } = this.state
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      dispatch(questionActions.deleteIncorrectSequence(questionID, sequenceID));
+      dispatch(actionFile.deleteIncorrectSequence(questionID, sequenceID));
     }
   };
 
   deleteConceptResult(conceptResultKey, sequenceKey) {
+    const { actionFile } = this.state
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getSequences()[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      dispatch(questionActions.submitEditedIncorrectSequence(questionID, data, sequenceKey));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, sequenceKey));
     }
   }
 
@@ -107,13 +124,14 @@ class IncorrectSequencesContainer extends Component {
   }
 
   sortCallback = sortInfo => {
+    const { actionFile } = this.state
     const { dispatch, match } = this.props;
     const { params } = match;
     const { questionID } = params;
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    dispatch(questionActions.updateIncorrectSequences(questionID, newIncorrectSequences));
+    dispatch(actionFile.updateIncorrectSequences(questionID, newIncorrectSequences));
   };
 
   render() {
@@ -133,16 +151,18 @@ class IncorrectSequencesContainer extends Component {
   }
 }
 
-function select(state, props) {
-  const { match } = props
-  const { url } = match
-  let mappedState
-  if(url.includes('sentence-fragments')) {
-    mappedState = { questions: state.sentenceFragments }
+function select(props) {
+  let mapState
+  if (window.location.href.includes('sentence-fragments')) {
+    mapState = {
+      sentenceFragments: props.sentenceFragments
+    };
   } else {
-    mappedState = { questions: state.questions }
+    mapState = {
+      questions: props.questions
+    };
   }
-  return mappedState
+  return Object.assign(mapState, { generatedIncorrectSequences: props.generatedIncorrectSequences })
 };
 
 export default connect(select)(IncorrectSequencesContainer);

@@ -84,7 +84,7 @@ class FillInBlankForm extends Component {
 
   submit = () => {
     const { action } = this.props;
-    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, itemLevel, newQuestionOptimalResponse, prompt } = this.state;
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, history, instructions, itemLevel, newQuestionOptimalResponse, prompt } = this.state;
     const data = {
       prompt,
       blankAllowed: blankAllowed ? blankAllowed : false,
@@ -97,6 +97,7 @@ class FillInBlankForm extends Component {
       cuesLabel
     };
     action(data, newQuestionOptimalResponse);
+    history.push(`${process.env.EMPIRICAL_BASE_URL}/#/admin/fill-in-the-blanks/${questionID}/responses`)
   };
 
   clearForm() {

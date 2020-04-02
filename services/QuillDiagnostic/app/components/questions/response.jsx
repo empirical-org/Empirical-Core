@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import {
   Modal,

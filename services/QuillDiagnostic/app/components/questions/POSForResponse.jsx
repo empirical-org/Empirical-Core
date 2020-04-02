@@ -1,6 +1,6 @@
 import React from 'react';
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import Question from '../../libs/question';
 const jsDiff = require('diff');
 import ResponseList from './responseList.jsx';

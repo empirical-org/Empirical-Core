@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
 class ChooseModelContainer extends Component {
   

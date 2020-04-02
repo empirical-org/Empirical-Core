@@ -378,6 +378,7 @@ export class ELLStudentDiagnostic extends React.Component {
     } else {
       component = (<LanguagePage
         diagnosticID={diagnosticID}
+        dispatch={dispatch}
         setLanguage={this.updateLanguage}
       />);
     }

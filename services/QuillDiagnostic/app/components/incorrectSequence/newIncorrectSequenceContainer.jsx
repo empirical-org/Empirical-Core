@@ -3,30 +3,43 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
 class NewIncorrectSequencesContainer extends Component {
+  constructor() {
+    super();
+
+    const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
+    const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
+    const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
+
+    this.state = { questionType, actionFile, questionTypeLink };
+  }
+
   UNSAFE_componentWillMount() {
+    const { actionFile } = this.state;
     const { dispatch, generatedIncorrectSequences, match } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params, url } = match;
     const { questionID } = params;
     const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
     if (!used[questionID]) {
-      dispatch(questionActions.getUsedSequences(questionID, type))
+      dispatch(actionFile.getUsedSequences(questionID, type))
     }
   }
 
   submitSequenceForm = data => {
-    const { dispatch, match } = this.props;
+    const { actionFile, questionTypeLink } = this.state;
+    const { dispatch, history, match } = this.props;
     const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
-    dispatch(questionActions.submitNewIncorrectSequence(questionID, data));
-    window.history.back();
-  };
+    dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
+    history.push(`/admin/${questionTypeLink}/${questionID}/incorrect-sequences`)
+  }
 
   render() {
-    const { children, generatedIncorrectSequences, match, questions } = this.props;
+    const { generatedIncorrectSequences, match, questions } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { questionID } = params;
@@ -43,23 +56,17 @@ class NewIncorrectSequencesContainer extends Component {
           states
           usedSequences={used[questionID]}
         />
-        {children}
       </div>
     );
   }
 }
 
-function select(state, props) {
-  const { match } = props
-  const { url } = match
-  const questions = url.includes('sentence-fragments') ? state.sentenceFragments : state.questions
+function select(props) {
   return {
-    questions,
-    generatedIncorrectSequences: state.generatedIncorrectSequences,
-    fillInBlank: state.fillInBlank,
-    sentenceFragments: state.sentenceFragments,
-    diagnosticQuestions: state.diagnosticQuestions,
-    states: state.states
+    questions: props.questions,
+    generatedIncorrectSequences: props.generatedIncorrectSequences,
+    sentenceFragments: props.sentenceFragments,
+    states: props.states
   };
 }
 

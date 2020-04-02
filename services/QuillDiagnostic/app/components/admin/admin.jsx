@@ -7,7 +7,7 @@ import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
 import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining.ts';

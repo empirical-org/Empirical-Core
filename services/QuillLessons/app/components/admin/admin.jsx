@@ -10,7 +10,7 @@ import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import lessonActions from '../../actions/lessons';
+import lessonActions from '../../actions/lessons.ts';
 import levelActions from '../../actions/item-levels';
 
 const TabLink = props => (

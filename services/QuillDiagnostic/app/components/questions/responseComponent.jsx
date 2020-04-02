@@ -11,7 +11,7 @@ import {
 import ResponseList from './responseList.jsx';
 import QuestionMatcher from '../../libs/question';
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import { getPartsOfSpeechTags } from '../../libs/partsOfSpeechTagging.js';
 import POSForResponsesList from './POSForResponsesList.jsx';
