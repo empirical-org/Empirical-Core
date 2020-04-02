@@ -8,7 +8,6 @@ class QuestionListByConcept extends React.Component<any, any> {
 
     this.renderQuestionLinks = this.renderQuestionLinks.bind(this)
     this.mapConceptsToList = this.mapConceptsToList.bind(this)
-    this.renderQuestionsWithoutValidKey = this.renderQuestionsWithoutValidKey.bind(this)
   }
 
   renderLabel(concept) {
@@ -65,15 +64,10 @@ class QuestionListByConcept extends React.Component<any, any> {
     })
   }
 
-  renderQuestionsWithoutValidKey() {
-    return (<div />)
-  }
-
   render() {
     return (
       <aside className="menu">
         {this.mapConceptsToList()}
-        {this.renderQuestionsWithoutValidKey()}
       </aside>
     );
   }
