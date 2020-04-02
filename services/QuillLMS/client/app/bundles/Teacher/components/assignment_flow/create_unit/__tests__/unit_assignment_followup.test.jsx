@@ -5,7 +5,6 @@ import UnitAssignmentFollowup from '../unit_assignment_followup'
 
 import { classroomProps, activities } from '../stage2/__tests__/test_data/test_data'
 
-const routerProps = { location: {} }
 
 describe('Unit assignment followup component', () => {
 
@@ -15,8 +14,8 @@ describe('Unit assignment followup component', () => {
       const wrapper = shallow(
         <UnitAssignmentFollowup
           classrooms={classroomProps}
+          location={{}}
           referralCode="code"
-          router={routerProps}
         />
       )
 
@@ -34,8 +33,8 @@ describe('Unit assignment followup component', () => {
       const wrapper = shallow(
         <UnitAssignmentFollowup
           classrooms={classroomProps}
+          location={{}}
           referralCode="code"
-          router={routerProps}
         />
       )
 
@@ -62,8 +61,8 @@ describe('Unit assignment followup component', () => {
     const wrapper = shallow(
       <UnitAssignmentFollowup
         classrooms={classroomsWithNoStudents}
+        location={{}}
         referralCode="code"
-        router={routerProps}
       />
     )
 

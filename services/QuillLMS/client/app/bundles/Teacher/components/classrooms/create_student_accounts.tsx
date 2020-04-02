@@ -63,7 +63,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
   }
 
   correctedNameString(string) {
-    return string.replace(/\W|\s/g, '-')
+    return string.replace(/\W|\s/g, '-');
   }
 
   handleFirstNameChange(e) {

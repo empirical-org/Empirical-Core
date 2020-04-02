@@ -27,10 +27,6 @@ export default class SchoolSelector extends React.Component {
     this.setState({ latitude, longitude, loading: true, }, this.search)
   }
 
-  noLocation = () => {
-    this.setState({ loading: false, })
-  }
-
   enableLocationAccess = () => {
     navigator.geolocation.getCurrentPosition(this.getLocation, this.noLocation);
   }
@@ -40,14 +36,26 @@ export default class SchoolSelector extends React.Component {
     selectSchool('not listed')
   }
 
-  updateKeyValue = (key, value) => {
-    const newState = Object.assign({}, this.state);
-    newState[key] = value;
-    this.setState(newState, this.search);
+  locationServicesLink() {
+    const { userAgent, } = navigator
+    if (userAgent.indexOf('OPR') !== -1) {
+      return 'https://help.opera.com/en/geolocation/'
+    } else if (userAgent.indexOf('Chrom') !== -1) {
+      return 'https://support.google.com/chrome/answer/114662?visit_id=636771351335585730-3894756667&rd=1'
+    } else if (userAgent.indexOf('Firefox') !== -1) {
+      return 'https://yandex.com/support/common/browsers-settings/geo-firefox.html'
+    } else if (userAgent.indexOf('Seamonkey') !== -1) {
+      return 'https://www.seamonkey-project.org/doc/2.0/geolocation'
+    } else if (userAgent.indexOf('Safari') !== -1) {
+      return 'https://support.apple.com/en-us/HT204690'
+      // internet explorer
+    } else if (userAgent.indexOf('MSIE') !== -1) {
+      return 'https://support.microsoft.com/en-us/help/17479/windows-internet-explorer-11-change-security-privacy-settings'
+    }
   }
 
-  update = (e) => {
-    this.updateKeyValue(e.target.id, e.target.value)
+  noLocation = () => {
+    this.setState({ loading: false, })
   }
 
   search = () => {
@@ -75,22 +83,36 @@ export default class SchoolSelector extends React.Component {
     });
   }
 
-  locationServicesLink() {
-    const { userAgent, } = navigator
-    if (userAgent.indexOf('OPR') !== -1) {
-      return 'https://help.opera.com/en/geolocation/'
-    } else if (userAgent.indexOf('Chrom') !== -1) {
-      return 'https://support.google.com/chrome/answer/114662?visit_id=636771351335585730-3894756667&rd=1'
-    } else if (userAgent.indexOf('Firefox') !== -1) {
-      return 'https://yandex.com/support/common/browsers-settings/geo-firefox.html'
-    } else if (userAgent.indexOf('Seamonkey') !== -1) {
-      return 'https://www.seamonkey-project.org/doc/2.0/geolocation'
-    } else if (userAgent.indexOf('Safari') !== -1) {
-      return 'https://support.apple.com/en-us/HT204690'
-      // internet explorer
-    } else if (userAgent.indexOf('MSIE') !== -1) {
-      return 'https://support.microsoft.com/en-us/help/17479/windows-internet-explorer-11-change-security-privacy-settings'
-    }
+  update = (e) => {
+    this.updateKeyValue(e.target.id, e.target.value)
+  }
+
+  updateKeyValue = (key, value) => {
+    const newState = Object.assign({}, this.state);
+    newState[key] = value;
+    this.setState(newState, this.search);
+  }
+
+  renderLoading() {
+    return (<div className="loading">
+      <LoadingIndicator />
+    </div>)
+  }
+
+  renderNoLocationFound() {
+    return (<div className="no-location-found">
+      <img alt="map search image" src={mapSearchSrc} />
+      <p className="message">We couldn&#39;t find your location</p>
+      <p className="sub-text"><a href={this.locationServicesLink()} rel="noopener noreferrer" target="_blank">Enable location access</a> or search for your school above.</p>
+    </div>)
+  }
+
+  renderNoSchoolFound() {
+    return (<div className="no-school-found">
+      <img alt="map search image" src={mapSearchSrc} />
+      <p className="message">We couldn&#39;t find your school</p>
+      <p className="sub-text">Try another search or click skip for now below.</p>
+    </div>)
   }
 
   renderSchoolsList = (schools) => {
@@ -125,28 +147,6 @@ export default class SchoolSelector extends React.Component {
       />)
     })
     return <ul className="list quill-list double-line">{schoolItems}</ul>
-  }
-
-  renderLoading() {
-    return (<div className="loading">
-      <LoadingIndicator />
-    </div>)
-  }
-
-  renderNoSchoolFound() {
-    return (<div className="no-school-found">
-      <img alt="map search image" src={mapSearchSrc} />
-      <p className="message">We couldn&#39;t find your school</p>
-      <p className="sub-text">Try another search or click skip for now below.</p>
-    </div>)
-  }
-
-  renderNoLocationFound() {
-    return (<div className="no-location-found">
-      <img alt="map search image" src={mapSearchSrc} />
-      <p className="message">We couldn&#39;t find your location</p>
-      <p className="sub-text"><a href={this.locationServicesLink()} rel="noopener noreferrer" target="_blank">Enable location access</a> or search for your school above.</p>
-    </div>)
   }
 
   renderSchoolsListSection = () => {

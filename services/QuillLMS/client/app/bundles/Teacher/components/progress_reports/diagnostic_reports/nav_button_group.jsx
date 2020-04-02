@@ -5,16 +5,11 @@ import React from 'react'
 require('../../../../../assets/styles/app-variables.scss')
 
 export default class NavButtonGroup extends React.Component {
+  constructor(props) {
+      super(props)
 
-	constructor(props) {
-    super(props)
-
-		this.state = { activityWithRecommendationsIds: [] };
-
-    this.buttonBuilder = this.buttonBuilder.bind(this)
-    this.doesNotHaveRecommendations = this.doesNotHaveRecommendations.bind(this)
-    this.buttons = this.buttons.bind(this)
-	}
+      this.state = { activityWithRecommendationsIds: [] };
+  }
 
   componentDidMount() {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
@@ -33,29 +28,24 @@ export default class NavButtonGroup extends React.Component {
     })
   }
 
-	buttonBuilder (name) {
+  buttonBuilder = name => {
 		return () => {
 			this.props.clickCallback(name.toLowerCase())
 		}
-	}
+	};
 
-	doesNotHaveRecommendations() {
-		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
-	}
-
-	buttons() {
+  buttons = () => {
 		const contents = [
 			{name: 'Students', words: ['student_report', 'students'], exceptions: []},
 			{name: 'Questions', words:['questions']},
 			{name: 'Recommendations', words: ['recommendations']}
 		];
 		let hash = window.location.hash
-		let that = this;
 		return contents.map((navButton)=>	{
 			let activeState;
 			// If there is a <student_></student_>id, then the student button will visible/highlighted
 			// If there is not a student_id, then we can determine our view from the block below
-			if (!that.props.params.studentId) {
+			if (!this.props.params.studentId) {
 				let words = navButton.words;
 				// if the url has button in it, we mark it as active
 				for (var i = 0; i < words.length; i++) {
@@ -73,9 +63,13 @@ export default class NavButtonGroup extends React.Component {
 				return <button className={`btn btn-secondary ${activeState}`} key={name} onClick={this.buttonBuilder(name)} type="button">{name}</button>
 			}
 		})
-	}
+	};
 
-	render() {
+  doesNotHaveRecommendations = () => {
+		return this.state.activityWithRecommendationsIds.indexOf(Number(this.props.params.activityId)) === -1;
+	};
+
+    render() {
 		return (
   <div aria-label="Basic example" className="btn-group" id='report-button-group' role="group">
     {this.buttons()}

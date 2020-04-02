@@ -1,16 +1,9 @@
 import React from 'react';
 
-export default React.createClass({
-
-  propTypes: {
-    handleFilterButtonClick: React.PropTypes.func.isRequired,
-    data: React.PropTypes.object.isRequired,
-    active: React.PropTypes.bool,
-  },
-
-  handleClick() {
+export default class FilterButton extends React.Component {
+  handleClick = () => {
     this.props.handleFilterButtonClick(this.props.data.id);
-  },
+  };
 
   render() {
     const { data, active, } = this.props
@@ -24,6 +17,5 @@ export default React.createClass({
         </div>
       </button>
     );
-  },
-
-});
+  }
+}

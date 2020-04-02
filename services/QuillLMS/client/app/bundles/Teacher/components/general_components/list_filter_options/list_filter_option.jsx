@@ -1,27 +1,19 @@
-'use strict'
+import React from 'react'
 
- import React from 'react'
-
- export default  React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-    select: React.PropTypes.func.isRequired,
-    isSelected: React.PropTypes.bool.isRequired,
-  },
-
-  getName: function () {
+export default class ListFilterOption extends React.Component {
+  getName = () => {
     return this.props.data.name;
-  },
+  };
 
-  getId: function () {
+  getId = () => {
     return this.props.data.id;
-  },
+  };
 
-  select: function () {
+  select = () => {
     this.props.select(this.getId());
-  },
+  };
 
-  getClassName: function () {
+  getClassName = () => {
     var name;
     if (this.props.isSelected) {
       name = 'list-filter-option selected'
@@ -29,11 +21,11 @@
       name = 'list-filter-option'
     }
     return name;
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <a className={this.getClassName()} onClick={this.select}>{this.getName()}</a>
     )
   }
-})
+}

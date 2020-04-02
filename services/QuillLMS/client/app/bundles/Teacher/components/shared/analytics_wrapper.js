@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function () {
   let segmentAnalyticsPresent;
   if (typeof analytics === 'undefined') {

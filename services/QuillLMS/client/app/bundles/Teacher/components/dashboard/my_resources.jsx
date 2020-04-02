@@ -3,9 +3,8 @@ import TeacherResourcesMini from './teacher_resources_mini';
 import TeacherBestPracticesMini from './teacher_best_practices_mini';
 import ChampionInvitationMini from './champion_invitation_mini';
 
-export default React.createClass({
-
-  createMinis() {
+export default class extends React.Component {
+  createMinis = () => {
     return (
       <div>
         <TeacherResourcesMini />
@@ -13,7 +12,7 @@ export default React.createClass({
         <ChampionInvitationMini />
       </div>
     );
-  },
+  };
 
   render() {
     return (
@@ -24,6 +23,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-
-});
+  }
+}

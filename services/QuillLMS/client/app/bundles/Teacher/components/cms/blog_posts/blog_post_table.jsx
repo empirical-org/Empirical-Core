@@ -9,22 +9,15 @@ export default class BlogPostTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {blogPosts: props.blogPosts.sort((bp1, bp2) => bp1.order_number - bp2.order_number)}
-    this.updateOrder = this.updateOrder.bind(this)
-    this.saveOrder = this.saveOrder.bind(this)
   }
 
-  updateOrder(sortInfo) {
-    const originalOrder = this.state.blogPosts;
-    const newOrder = sortInfo.data.items.map(item => item.key);
-    const newOrderedBlogPosts = newOrder.map((key, i) => {
-      const newBlogPost = originalOrder[key];
-      newBlogPost.order_number = i;
-      return newBlogPost;
-    });
-    this.setState({blogPosts: newOrderedBlogPosts});
+  confirmDelete(e) {
+    if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
+      e.preventDefault();
+    }
   }
 
-  saveOrder() {
+  saveOrder = () => {
     const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_order_numbers`
     const data = new FormData();
     data.append( "blog_posts", JSON.stringify(this.state.blogPosts) );
@@ -46,13 +39,18 @@ export default class BlogPostTable extends React.Component {
     }).catch((error) => {
       // to do, use Sentry to capture error
     })
-  }
+  };
 
-  confirmDelete(e) {
-    if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
-      e.preventDefault();
-    }
-  }
+  updateOrder = sortInfo => {
+    const originalOrder = this.state.blogPosts;
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedBlogPosts = newOrder.map((key, i) => {
+      const newBlogPost = originalOrder[key];
+      newBlogPost.order_number = i;
+      return newBlogPost;
+    });
+    this.setState({blogPosts: newOrderedBlogPosts});
+  };
 
   renderTableHeader() {
     return (<tr>
@@ -97,5 +95,4 @@ export default class BlogPostTable extends React.Component {
       </div>
     </div>)
   }
-
 };

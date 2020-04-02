@@ -28,6 +28,18 @@ export default class DiagnosticMini extends React.Component {
     });
   }
 
+  assignDiagnosticMini() {
+    return (<div className="mini_content diagnostic-mini assign-diagnostic">
+      <div className="gray-underline">
+        <h3>Assign a Diagnostic</h3>
+      </div>
+
+      <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
+      <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
+      <a className="bg-quillgreen text-white" href={'/assign/diagnostic'}>Assign Diagnostic</a>
+    </div>);
+  }
+
   assignRecommendationsMini() {
     const { unitInfo, numberOfFinishedDiagnostics, } = this.state;
 
@@ -49,18 +61,6 @@ export default class DiagnosticMini extends React.Component {
 
       <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
       <p>The diagnostic is waiting for students on their dashboards. Have students log in to complete it so you can assign their recommended&nbsp;activities.</p>
-    </div>);
-  }
-
-  assignDiagnosticMini() {
-    return (<div className="mini_content diagnostic-mini assign-diagnostic">
-      <div className="gray-underline">
-        <h3>Assign a Diagnostic</h3>
-      </div>
-
-      <img alt="" src={`${process.env.CDN_URL}/images/shared/new_diagnostic.svg`} />
-      <p>See which skills students need to work on and get recommended learning&nbsp;plans.</p>
-      <a className="bg-quillgreen text-white" href={'/assign/diagnostic'}>Assign Diagnostic</a>
     </div>);
   }
 

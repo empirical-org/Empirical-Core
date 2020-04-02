@@ -25,16 +25,6 @@ export default class TopicSection extends React.Component {
     return this.props.role === STUDENT ? STUDENT_CENTER_SLUG : TEACHER_CENTER_SLUG
   }
 
-  renderArticleCards() {
-    return this.props.articles.slice(0, 3).map(article =>
-      (<PreviewCard
-        content={article.preview_card_content}
-        externalLink={!!article.external_link}
-        link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
-      />)
-    )
-  }
-
   topicIcon() {
     switch (this.props.title) {
       case GETTING_STARTED:
@@ -50,6 +40,16 @@ export default class TopicSection extends React.Component {
       default:
         return ''
     }
+  }
+
+  renderArticleCards() {
+    return this.props.articles.slice(0, 3).map(article =>
+      (<PreviewCard
+        content={article.preview_card_content}
+        externalLink={!!article.external_link}
+        link={article.external_link ? article.external_link : `/${this.sectionLink()}/${article.slug}`}
+      />)
+    )
   }
 
   render() {
