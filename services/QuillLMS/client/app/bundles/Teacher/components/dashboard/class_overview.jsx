@@ -4,7 +4,6 @@ import NotificationFeed from './notifications/container';
 import OverviewMini from './overview_mini';
 import PremiumMini from './premium_mini';
 import TeacherGuide from '../teacher_guide/teacher_guide';
-import BetaMini from './beta_mini.jsx';
 import NewTools from './new_tools_mini.jsx';
 import PremiumPromo from './premium_promo.jsx';
 import LessonsList from './lessons_list.jsx';
@@ -32,12 +31,6 @@ export default class ClassOverview extends React.Component {
       }
     });
     return _.compact(minis);
-  };
-
-  betaMini = () => {
-    if (this.props.flag === 'beta') {
-      // return <BetaMini key="beta-mini" />;
-    }
   };
 
   teacherGuide = () => {
@@ -70,7 +63,6 @@ export default class ClassOverview extends React.Component {
         {this.lessonsList()}
         {this.hasPremium()}
         {this.overviewMinis()}
-        {this.betaMini()}
         <NotificationFeed notifications={this.props.notifications} />
       </div>
     );

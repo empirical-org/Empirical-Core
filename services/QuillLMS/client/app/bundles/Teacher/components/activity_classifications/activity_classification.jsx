@@ -30,9 +30,7 @@ export default class ActivityClassification extends React.Component {
       order_number: this.props.activityClassification.order_number || null
     }
     model = _.extend(model, this.props.activityClassification);
-    this.state = { model: model };
-
-    this.updateModelState = this.updateModelState.bind(this);
+    this.state = { model };
   }
 
   getModelState(key) {

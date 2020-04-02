@@ -11,7 +11,7 @@ export default class UnitTemplateMini extends React.Component {
     this.modules = { string: new String() }
   }
 
-  isSignedIn = () => {
+  isSignedIn() {
     const { signedInTeacher, non_authenticated, } = this.props
     return signedInTeacher || (non_authenticated === false)
   }

@@ -435,7 +435,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${new Date(publishedAt)}</p>`
+      footerContent = `<p class='published'>${this.formatDate(new Date(publishedAt))}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -464,7 +464,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${new Date(publishedAt)}</p>`
+      footerContent = `<p class='published'>${this.formatDate(new Date(publishedAt))}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -489,7 +489,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${new Date(publishedAt)}</p>`
+      footerContent = `<p class='published'>${this.formatDate(new Date(publishedAt))}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -503,6 +503,12 @@ export default class CreateOrEditBlogPost extends React.Component {
       ${footerContent}
     </div>`;
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
+  }
+
+  formatDate(date) {
+    const options = { year: 'numeric', month: 'long', day: '2-digit' };
+    const dateTimeFormat = new Intl.DateTimeFormat('en-US', options);
+    return dateTimeFormat.format(date)
   }
 
   renderArticleMarkdownOrPreview = () => {

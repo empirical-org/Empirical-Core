@@ -9,7 +9,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
   end
 
   def create
-    activity_classification = ActivityClassification.new(activity_classification_params)
+    activity_classification = ActivityClassification.new(filtered_activity_classification_params)
     if activity_classification.save!
       render json: activity_classification
     else
@@ -19,7 +19,7 @@ class Cms::ActivityClassificationsController < Cms::CmsController
 
   def update
     activity_classification = ActivityClassification.find(params[:id])
-    if activity_classification.update_attributes(activity_classification_params)
+    if activity_classification.update_attributes(filtered_activity_classification_params)
       render json: activity_classification
     else
       render json: {errors: activity_classification.errors}, status: 422
@@ -54,5 +54,9 @@ class Cms::ActivityClassificationsController < Cms::CmsController
                                                     :id,
                                                     :created_at,
                                                     :updated_at)
+  end
+
+  def filtered_activity_classification_params
+    activity_classification_params.except(:id, :created_at, :updated_at)
   end
 end

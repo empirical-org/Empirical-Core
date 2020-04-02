@@ -18,7 +18,7 @@ export default class TeacherDangerZone extends React.Component {
     this.setState({ showDeleteAccountModal: true, })
   };
 
-  renderModal = () => {
+  renderModal() {
     if (this.state.showDeleteAccountModal) {
       return (<DeleteAccountModal
         cancel={this.hideDeleteAccountModal}

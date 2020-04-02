@@ -34,7 +34,6 @@ export default class Stage2 extends React.Component {
   }
 
   determineErrorMessageClass() {
-    // && !this.props.unitName || this.props.errorMessage
     if (this.state.prematureAssignAttempted) {
       return 'error-message visible-error-message';
     }
@@ -44,7 +43,6 @@ export default class Stage2 extends React.Component {
   finish = () => {
     const { buttonDisabled, timesSubmitted, } = this.props
     if (!this.state.buttonDisabled && !this.props.errorMessage) {
-      // this.setState({buttonDisabled: true});
       this.setState({ loading: true, });
       this.props.finish();
     } else {
