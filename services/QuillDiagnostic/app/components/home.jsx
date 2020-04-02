@@ -46,7 +46,7 @@ export default class Home extends React.Component {
         <Layout>
           <Layout.Content>
             {studentPlaying && <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>}
-            {studentPlaying && <StudentNavBar/>}
+            {studentPlaying && <StudentNavBar />}
             <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
           </Layout.Content>
         </Layout>

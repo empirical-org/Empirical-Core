@@ -34,7 +34,6 @@ const ItemLevelDetails = props => {
     return (<div>Loading...</div>)
   }
 }
-};
 
 function select(state) {
   return {

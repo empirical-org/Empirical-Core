@@ -61,7 +61,7 @@ class FillInBlankQuestion extends Component {
             </ul>
           </div>
           <Switch>
-          <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
             <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
             <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/:questionID/test`} />
             <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />

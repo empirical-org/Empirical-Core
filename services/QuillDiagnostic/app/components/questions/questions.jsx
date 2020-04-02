@@ -24,18 +24,13 @@ function sleep(milliseconds) {
 }
 
 class Questions extends React.Component {
-  
-  state = {
-    displayNoConceptQuestions: false,
-    showOnlyArchived: false,
-    diagnosticQuestions: {}
-  }
+  constructor(props) {
+    super(props)
 
-  componentDidMount() {
-    const { questions } = this.props
-    const { data } = questions
-    if (data) {
-      this.setState({ diagnosticQuestions: data })
+    const { questions } = props
+
+    this.state = {
+      diagnosticQuestions: questions.data ? questions.data : null
     }
   }
 

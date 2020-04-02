@@ -84,9 +84,9 @@ const route = (
 class App extends React.Component<{}, {}> {
   public render(): JSX.Element {
     return (
-        <Provider store={store}>
-          <HashRouter basename="/">{route}</HashRouter>
-        </Provider>
+      <Provider store={store}>
+        <HashRouter basename="/">{route}</HashRouter>
+      </Provider>
     );
   }
 }

@@ -12,20 +12,14 @@ class SentenceFragments extends React.Component {
   constructor(props) {
     super(props)
 
+    const { sentenceFragments } = props
+
     this.state = {
       showOnlyArchived: false,
-      diagnosticQuestions: {}
+      diagnosticQuestions: sentenceFragments.data ? sentenceFragments.data : null
     }
   }
-
-  componentDidMount() {
-    const { sentenceFragments } = this.props
-    const { data } = sentenceFragments
-    if(data) {
-      this.setState({ diagnosticQuestions: data})
-    }
-  }
-
+  
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { diagnosticQuestions } = this.state;
     const { sentenceFragments, lessons } = nextProps

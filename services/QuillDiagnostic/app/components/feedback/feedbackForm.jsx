@@ -5,17 +5,17 @@ import {
 } from 'quill-component-library/dist/componentLibrary'
 import { EditorState, ContentState } from 'draft-js'
 export default class extends React.Component {
+  constructor(props) {
+    super(props)
 
-  state = {
-    description: '',
-    leftBox: '',
-    rightBox: '',
-    editing: "title"
-  };
+    const { description, leftBox, rightBox } = props
 
-  componentDidMount() {
-    const { description, leftBox, rightBox } = this.props
-    this.setState({ description, leftBox, rightBox });
+    this.state = {
+      description: description || '',
+      leftBox: leftBox || '',
+      rightBox: rightBox || '',
+      editing: "title"
+    }
   }
 
   handleChange = (key, e) => {

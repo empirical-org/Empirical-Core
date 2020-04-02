@@ -5,10 +5,18 @@ import _ from 'lodash'
 
 class ItemLevelForm extends React.Component {
 
-  state = {
-    name: "",
-    integerValue: "",
-  };
+  constructor(props) {
+    super(props)
+
+    const { data, mode } = props
+
+    const editState = data && mode === 'edit'
+
+    this.state = {
+      integerValue: editState ? data.integerValue : '',
+      name: editState ? data.name : ''
+    }
+  }
 
   componentDidMount() {
     const { data, mode } = this.props;
@@ -56,13 +64,13 @@ class ItemLevelForm extends React.Component {
     if(mode === "Edit") {
       return(
         <div className="button-group">
-            <Link to={'/admin/item-levels'}>
-              <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
-            </Link>
-            <Link to={'/admin/item-levels'}>
-              <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
-            </Link>
-          </div>
+          <Link to={'/admin/item-levels'}>
+            <button className={"button is-danger"} onClick={this.deleteItemLevel}>Delete</button>
+          </Link>
+          <Link to={'/admin/item-levels'}>
+            <button className={"button is-info"} onClick={this.cancelEdit}>Cancel</button>
+          </Link>
+        </div>
       )
     }
   }

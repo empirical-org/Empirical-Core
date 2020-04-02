@@ -8,9 +8,14 @@ import {
 import { QuestionList } from '../shared/questionList.tsx'
 
 class FillInBlankQuestions extends Component {
-  state = {
-    showOnlyArchived: false,
-    diagnosticQuestions: {}
+  constructor(props) {
+    super(props)
+
+    const { fillInBlank } = props
+
+    this.state = {
+      diagnosticQuestions: fillInBlank.data ? fillInBlank.data : null
+    }
   }
   
   componentDidMount() {
