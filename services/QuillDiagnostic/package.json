@@ -53,8 +53,9 @@
     "bulma": "0.2.3",
     "compression-webpack-plugin": "^0.3.2",
     "css-loader": "^2.1.1",
-    "enzyme": "^2.7.1",
-    "enzyme-to-json": "^1.5.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -110,7 +111,7 @@
     "es6-promise": "^4.1.1",
     "eslint-plugin-jsx-a11y": "^3.0.1",
     "fetch-ie8": "^1.5.0",
-    "firebase": "^7.6.1",
+    "firebase": "^7.13.1",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.0.5",
     "fuzzyset.js": "0.0.3",
@@ -184,7 +185,7 @@
       }
     },
     "setupFiles": [
-      "./jest.setup.js"
+      "<rootDir>/app/setupTests.ts"
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
