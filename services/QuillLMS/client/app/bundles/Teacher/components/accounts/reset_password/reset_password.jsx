@@ -25,15 +25,6 @@ export default class ForgotPassword extends React.Component {
     this.setState({ passwordConfirmation: e.target.value, });
   }
 
-  submitClass() {
-    const { password, passwordConfirmation, } = this.state
-    let buttonClass = "quill-button contained primary medium focus-on-light"
-    if (!password.length || !passwordConfirmation.length) {
-      buttonClass += ' disabled'
-    }
-    return buttonClass
-  }
-
   handleSubmit = (e) => {
     const { timesSubmitted, password, passwordConfirmation, } = this.state
     e.preventDefault();
@@ -69,6 +60,15 @@ export default class ForgotPassword extends React.Component {
         this.setState(state)
       }
     });
+  }
+
+  submitClass() {
+    const { password, passwordConfirmation, } = this.state
+    let buttonClass = "quill-button contained primary medium focus-on-light"
+    if (!password.length || !passwordConfirmation.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
   }
 
   render() {

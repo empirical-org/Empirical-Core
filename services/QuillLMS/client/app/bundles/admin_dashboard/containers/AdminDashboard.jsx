@@ -9,15 +9,11 @@ import Pusher from 'pusher-js';
 
 import getAuthToken from '../../Teacher/components/modules/get_auth_token';
 
-export default React.createClass({
-  propTypes: {
-    route: React.PropTypes.shape({
-      adminId: React.PropTypes.number.isRequired,
-    }),
-  },
+export default class AdminDashboard extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       loading: true,
       model: {
         teachers: [],
@@ -28,31 +24,31 @@ export default React.createClass({
         email: null,
       },
     };
-  },
+  }
 
   componentDidMount() {
     this.getData();
-  },
+  }
 
-  getData() {
+  getData = () => {
     request.get({
-      url: `${process.env.DEFAULT_URL}/admins/${this.props.route.adminId}`,
+      url: `${process.env.DEFAULT_URL}/admins/${this.props.adminId}`,
     },
     (e, r, body) => {
       const parsedBody = JSON.parse(body)
       this.receiveData(parsedBody)
     });
-  },
+  };
 
-  receiveData(data) {
+  receiveData = (data) => {
     if (Object.keys(data).length > 1) {
       this.setState({ model: data, loading: false, });
     } else {
       this.setState({ model: data}, this.initializePusher)
     }
-  },
+  };
 
-  initializePusher() {
+  initializePusher = () => {
     if (process.env.RAILS_ENV === 'development') {
       Pusher.logToConsole = true;
     }
@@ -63,9 +59,9 @@ export default React.createClass({
     channel.bind('admin-users-found', () => {
       that.getData()
     });
-  },
+  };
 
-  addTeacherAccount(data) {
+  addTeacherAccount = (data) => {
     const that = this;
     that.setState({ message: '', error: '', });
     data.authenticity_token = getAuthToken();
@@ -81,7 +77,7 @@ export default React.createClass({
         // to do, use Sentry to capture error
       }
     });
-  },
+  };
 
   render() {
     if (!this.state.loading) {
@@ -108,5 +104,5 @@ export default React.createClass({
       );
     }
     return <LoadingSpinner />;
-  },
-});
+  }
+}

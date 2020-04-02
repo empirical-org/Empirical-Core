@@ -1,22 +1,19 @@
-'use strict';
-
 import React from 'react';
 import _ from 'underscore';
 import $ from 'jquery';
 
-export default React.createClass({
-  propTypes: {
-    role: React.PropTypes.string.isRequired,
-    updateRole: React.PropTypes.func.isRequired
-  },
-  updateRole: function () {
+export default class SelectRole extends React.Component {
+
+  updateRole = () => {
     var x = $(this.refs.select).val();
     this.props.updateRole(x);
-  },
-  render: function () {
-    var options = _.map(['teacher', 'student', 'admin', 'staff'], function (role) {
+  };
+
+  render() {
+    const options = _.map(['teacher', 'student', 'admin', 'staff'], function (role) {
       return <option key={role} value={role}>{role}</option>;
     });
+
     return (
       <div className='row'>
         <div className='col-xs-2 form-label'>
@@ -33,4 +30,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

@@ -12,24 +12,11 @@ export default class extends React.Component {
       completedDiagnosticUnitInfo: null,
       loading: true
     };
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
     this.getListOfAssignedLessons();
     this.getCompletedDiagnosticInfo();
-  }
-
-  getListOfAssignedLessons() {
-    const that = this;
-    request.get({
-      url: `${process.env.DEFAULT_URL}/teachers/classroom_units/lessons_units_and_activities`,
-    },
-    (e, r, lessons) => {
-      that.setState({ lessons: JSON.parse(lessons).data, }, this.checkIfStillLoading);
-    });
   }
 
   getCompletedDiagnosticInfo() {
@@ -42,19 +29,29 @@ export default class extends React.Component {
     });
   }
 
+  getListOfAssignedLessons() {
+    const that = this;
+    request.get({
+      url: `${process.env.DEFAULT_URL}/teachers/classroom_units/lessons_units_and_activities`,
+    },
+    (e, r, lessons) => {
+      that.setState({ lessons: JSON.parse(lessons).data, }, this.checkIfStillLoading);
+    });
+  }
+
   checkIfStillLoading() {
     if (this.state.lessons && this.state.completedDiagnosticUnitInfo) {
       this.setState({loading: false})
     }
   }
 
-  openModal(activityID) {
-    this.setState({ showModal: activityID, });
-  }
-
-  closeModal() {
+  closeModal = () => {
     this.setState({ showModal: false, });
-  }
+  };
+
+  openModal = activityID => {
+    this.setState({ showModal: activityID, });
+  };
 
   renderAssignedLessons() {
     const lessons = this.state.lessons;

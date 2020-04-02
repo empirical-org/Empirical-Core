@@ -209,6 +209,9 @@
     .due_date_input::placeholder {
       color: #c0c0c0;
     }
+    .react-datepicker-popper {
+      z-index: 100;
+    }
     .apply-to-all {
       font-size: 12px;
       font-weight: 600;

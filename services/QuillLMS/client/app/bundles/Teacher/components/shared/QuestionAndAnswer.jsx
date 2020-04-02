@@ -3,8 +3,10 @@ import React from 'react'
 export default class QuestionAndAnswer extends React.Component {
   constructor(props) {
     super(props)
-    
-    this.state = { expanded: false }
+
+    this.state = {
+      expanded: false
+    }
   }
 
   answer() {
@@ -29,7 +31,7 @@ export default class QuestionAndAnswer extends React.Component {
 
   toggleExpansion = () => {
     this.setState({expanded: !this.state.expanded})
-  }
+  };
 
   render() {
     return (
