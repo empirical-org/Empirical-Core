@@ -10,6 +10,7 @@ import ConceptSelector from '../shared/conceptSelector.jsx'
 
 export default React.createClass({
   getInitialState: function () {
+    console.log(this.props)
     return {
       prompt: "",
       concept: this.props.question.conceptID,
@@ -26,6 +27,7 @@ export default React.createClass({
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,
+      prefilledText: this.refs.prefilledText.value,
       prompt: this.state.prompt,
       cues: this.refs.cues.value.split(','),
       instructions: this.state.instructions,
@@ -39,6 +41,10 @@ export default React.createClass({
       questionObj.conceptID = this.state.concept
       this.props.submit(questionObj)
     }
+  },
+
+  handleCopyAnswerToPrefill: function(e) {
+    this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
   },
 
   handlePromptChange: function (e) {
@@ -68,7 +74,7 @@ export default React.createClass({
       return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" ref="newQuestionOptimalResponse" type="text" />
+          <input className="input" onBlur={this.handleCopyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
         </p>
       </div>)
     }
@@ -90,8 +96,20 @@ export default React.createClass({
     this.setState({ cuesLabel: e.target.value, });
   },
 
+  renderPreFillSection: function() {
+    return (
+      <div>
+        <label className="label" htmlFor="prefilledText">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
+        <p className="control">
+          <input className="input" defaultValue={this.props.question.prefilledText} id="prefilledText" ref="prefilledText" type="text"></input>
+        </p>
+      </div>
+    );
+  },
+
   render: function () {
     if(this.props.new || this.props.concepts.hasreceiveddata) {
+      const preFillSection = this.props.new ? <span /> : this.renderPreFillSection()
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -115,6 +133,7 @@ export default React.createClass({
             <input className="input" defaultValue={this.props.question.cues} ref="cues" type="text" />
           </p>
           {this.renderOptimalResponse()}
+          {preFillSection}
 
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           {this.renderConceptSelector()}
