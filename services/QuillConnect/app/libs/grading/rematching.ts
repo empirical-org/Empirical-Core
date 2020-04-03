@@ -55,11 +55,11 @@ interface ConceptResults {
 export function rematchAll(mode: string, questionID: string, callback:Function) {
   let type
   if (mode === 'sentenceFragments') {
-    type = 'connect_sentence_fragments';
+    type = 'sentenceFragments';
   } else if (mode === 'questions') {
-    type = 'connect_sentence_combining';
+    type = 'questions';
   } else if (mode === 'fillInBlank') {
-    type = 'connect_fill_in_blanks';
+    type = 'fillInBlankQuestions';
   }
 
   const rematchAllUrl = `${process.env.QUILL_CMS}/responses/rematch_all`;

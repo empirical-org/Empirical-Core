@@ -7,15 +7,21 @@ class RematchResponseWorker
   include Sidekiq::Worker
   sidekiq_options retry: 3
 
-  ALLOWED_PARAMS = [
-    "parent_id",
-    "author",
-    "feedback",
-    "optimal",
-    "weak",
-    "concept_results",
-    "spelling_error",
-  ].freeze
+  DEFAULT_PARAMS_HASH = {
+    "parent_id" => nil,
+    "author" => nil,
+    "feedback" => nil,
+    "optimal" => nil,
+    "weak" => false,
+    "concept_results" => {},
+    "spelling_error" => false
+  }.freeze
+
+  LMS_TYPES = {
+    sentenceFragments: 'connect_sentence_fragments',
+    questions: 'connect_sentence_combining',
+    fillInBlankQuestions: 'connect_fill_in_blanks'
+  }
 
   def perform(response_id, question_type, question_uid, reference_response_ids)
     response = Response.find_by(id: response_id)
@@ -29,12 +35,15 @@ class RematchResponseWorker
   def rematch_response(response, question_type, question, reference_responses)
     lambda_payload = construct_lambda_payload(response, question_type, question, reference_responses)
     updated_response = call_lambda_http_endpoint(lambda_payload)
-    sanitized_response = sanitize_update_params(updated_response)
-    response.update_attributes(sanitized_response)
+    if updated_response.present?
+      sanitized_response = sanitize_update_params(updated_response)
+      response.update_attributes(sanitized_response)
+    end
   end
 
   def sanitize_update_params(params)
-    params.slice(*ALLOWED_PARAMS)
+    params.slice!(*DEFAULT_PARAMS_HASH.keys)
+    ready_params = DEFAULT_PARAMS_HASH.merge(params)
   end
 
   def construct_lambda_payload(response, question_type, question, reference_responses)
@@ -47,7 +56,7 @@ class RematchResponseWorker
   end
 
   def call_lambda_http_endpoint(lambda_payload)
-    uri = URI(ENV['REMATCH_LAMBDA_URL'])
+    uri = URI('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod/rematch_lambda')
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     resp = http.post uri,
@@ -59,32 +68,11 @@ class RematchResponseWorker
   end
 
   def retrieve_question(question_uid, question_type)
-    response = HTTParty.post(
-      "#{ENV['LMS_URL']}/api/v1/questions.json?question_type=#{question_type}"
-      )
+    lms_type = LMS_TYPES[question_type.to_sym]
+    response = HTTParty.get("http://localhost:3000/api/v1/questions.json?question_type=#{lms_type}")
     puts response.code
     question = response[question_uid]
     question[:key] = question_uid
     question.stringify_keys
   end
-
-  # def retrieve_question_from_firebase(question_uid, question_type)
-  #   uri = URI(ENV['FIREBASE_URL'])
-  #   path = get_firebase_path(question_uid, question_type)
-  #   http = Net::HTTP.new(uri.host, uri.port)
-  #   http.use_ssl = true
-  #   resp = http.get path
-  #   question = JSON.parse(resp.body)
-  #   return unless question
-  #   question[:key] = question_uid
-  #   question.stringify_keys
-  # end
-
-  # def get_firebase_path(question_uid, question_type)
-  #   if question_type == 'grammar_questions'
-  #     "/v3/questions/#{question_uid}.json"
-  #   else
-  #     "/v2/#{question_type}/#{question_uid}.json"
-  #   end
-  # end
 end
