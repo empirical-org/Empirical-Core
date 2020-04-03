@@ -4,7 +4,7 @@
   "description": "Locally hosts Quill assets and Deploys to Cloudfront",
   "main": "index.js",
   "scripts": {
-    "start": "http-server ./assets -p 45537",
+    "start": "cd ./assets && ws -p 45537",
     "deploy": "./production.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/empirical-org/Quill-CDN#readme",
   "devDependencies": {
-    "http-server": "^0.10.0"
+    "local-web-server": "^4.0.0"
   }
 }

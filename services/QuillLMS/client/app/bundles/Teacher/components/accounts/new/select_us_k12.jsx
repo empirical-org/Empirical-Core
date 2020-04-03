@@ -9,6 +9,11 @@ class SelectUSK12 extends React.Component {
     document.title = 'Quill.org | Teacher Sign Up | Add School'
   }
 
+  handleNonK12LinkClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_NON_K12_SCHOOL)
+    window.location.href = "/sign-up/add-non-k12"
+  }
+
   selectSchool(idOrType) {
     // The "Skip this step" link in the school selection module trigger this function
     // with the argument 'non listed', while actually selecting a school triggers it
@@ -33,11 +38,6 @@ class SelectUSK12 extends React.Component {
         // to do, use Sentry to capture error
       }
     });
-  }
-
-  handleNonK12LinkClick = (e) => {
-    SegmentAnalytics.track(Events.CLICK_NON_K12_SCHOOL)
-    window.location.href = "/sign-up/add-non-k12"
   }
 
   render() {

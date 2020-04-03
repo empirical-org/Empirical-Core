@@ -12,7 +12,6 @@ export default React.createClass({
   getInitialState: function () {
     return {
       prompt: "",
-      itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
       concept: this.props.question.conceptID,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
       flag: this.props.question.flag ? this.props.question.flag : "alpha",
@@ -27,10 +26,9 @@ export default React.createClass({
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,
-      prompt: this.state.prompt,
       prefilledText: this.refs.prefilledText.value,
+      prompt: this.state.prompt,
       cues: this.refs.cues.value.split(','),
-      itemLevel: this.state.itemLevel,
       instructions: this.state.instructions,
       flag: this.state.flag,
       cuesLabel: this.state.cuesLabel
@@ -44,7 +42,7 @@ export default React.createClass({
     }
   },
 
-  copyAnswerToPrefill: function () {
+  handleCopyAnswerToPrefill: function(e) {
     this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
   },
 
@@ -52,20 +50,8 @@ export default React.createClass({
     this.setState({prompt: e})
   },
 
-  handleLevelChange: function(e) {
-    this.setState({itemLevel: this.refs.itemLevel.value})
-  },
-
   handleInstructionsChange: function(e) {
     this.setState({instructions: e.target.value})
-  },
-
-  itemLevelToOptions: function() {
-    return hashToCollection(this.props.itemLevels.data).map((level) => {
-      return (
-        <option>{level.name}</option>
-      )
-    })
   },
 
   renderConceptSelector: function() {
@@ -87,7 +73,7 @@ export default React.createClass({
       return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" onBlur={this.copyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
+          <input className="input" onBlur={this.handleCopyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
         </p>
       </div>)
     }
@@ -109,8 +95,20 @@ export default React.createClass({
     this.setState({ cuesLabel: e.target.value, });
   },
 
+  renderPreFillSection: function() {
+    return (
+      <div>
+        <label className="label" htmlFor="prefilledText">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
+        <p className="control">
+          <input className="input" defaultValue={this.props.question.prefilledText} id="prefilledText" ref="prefilledText" type="text" />
+        </p>
+      </div>
+    );
+  },
+
   render: function () {
     if(this.props.new || this.props.concepts.hasreceiveddata) {
+      const preFillSection = this.props.new ? <span /> : this.renderPreFillSection()
       return (
         <div className="box">
           <h6 className="control subtitle">Create a new question</h6>
@@ -134,20 +132,8 @@ export default React.createClass({
             <input className="input" defaultValue={this.props.question.cues} ref="cues" type="text" />
           </p>
           {this.renderOptimalResponse()}
-          <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
-          <p className="control">
-            <input className="input" defaultValue={this.props.question.prefilledText} ref="prefilledText" type="text" />
-          </p>
+          {preFillSection}
 
-          <label className="label">Item level</label>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.handleLevelChange} ref="itemLevel" value={this.state.itemLevel}>
-                <option>Select Item Level</option>
-                {this.itemLevelToOptions()}
-              </select>
-            </span>
-          </p>
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           {this.renderConceptSelector()}
           <br />

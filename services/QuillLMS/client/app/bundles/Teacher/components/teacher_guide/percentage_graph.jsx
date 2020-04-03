@@ -1,15 +1,11 @@
-'use strict'
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
-    percentage: React.PropTypes.number.isRequired
-  },
-  goToTeacherGuide: function(){
+export default class PercentageGraph extends React.Component {
+  goToTeacherGuide = () => {
     window.location="/teachers/teacher_guide";
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div className='circle-graph'>
         <div className={"c100 p" + this.props.percentage}>
@@ -21,7 +17,4 @@ export default React.createClass({
         </div>
       </div>)
   }
-
-
-
-});
+}

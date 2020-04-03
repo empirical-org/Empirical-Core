@@ -58,7 +58,6 @@ const ConceptFeedback = React.createClass({
     } else {
       return (
         <div className="container" key={this.props.params.feedbackID}>
-          <p>404: No Concept Feedback Found... So lets make one! 🙌 🖋 🇬🇧 🇮🇳</p>
           <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={this.props.params.feedbackID} submitNewFeedback={this.submitNewFeedback} />
         </div>
       )

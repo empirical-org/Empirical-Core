@@ -87,24 +87,6 @@ const completeHeaders = [
 ]
 
 export default class StudentProfileUnit extends React.Component {
-  score = (act) => {
-    const { activity_classification_id, max_percentage, } = act
-    const maxPercentage = Number(max_percentage)
-    if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
-      return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
-    }
-
-    if (maxPercentage >= PROFICIENT_CUTOFF) {
-      return (<div className="score"><div className="proficient" /><span>Proficient</span></div>)
-    }
-
-    if (maxPercentage >= NEARLY_PROFICIENT_CUTOFF) {
-      return (<div className="score"><div className="nearly-proficient" /><span>Nearly proficient</span></div>)
-    }
-
-    return (<div className="score"><div className="not-yet-proficient" /><span>Not yet proficient</span></div>)
-  }
-
   actionButton = (act, nextActivitySession) => {
     const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
     let linkText = 'Start'
@@ -126,6 +108,24 @@ export default class StudentProfileUnit extends React.Component {
     return <a className={`quill-button medium focus-on-light ${buttonStyle}`} href={activityLaunchLink(ca_id, activity_id)}>{linkText}</a>;
   }
 
+  score = (act) => {
+    const { activity_classification_id, max_percentage, } = act
+    const maxPercentage = Number(max_percentage)
+    if (activity_classification_id === DIAGNOSTIC_ACTIVITY_CLASSIFICATION_ID || activity_classification_id === LESSONS_ACTIVITY_CLASSIFICATION_ID) {
+      return (<div className="score"><div className="unscored" /><span>Unscored</span></div>)
+    }
+
+    if (maxPercentage >= PROFICIENT_CUTOFF) {
+      return (<div className="score"><div className="proficient" /><span>Proficient</span></div>)
+    }
+
+    if (maxPercentage >= NEARLY_PROFICIENT_CUTOFF) {
+      return (<div className="score"><div className="nearly-proficient" /><span>Nearly proficient</span></div>)
+    }
+
+    return (<div className="score"><div className="not-yet-proficient" /><span>Not yet proficient</span></div>)
+  }
+
   toolIcon = (id) => {
     switch(id) {
       case "1":
@@ -141,30 +141,6 @@ export default class StudentProfileUnit extends React.Component {
       default:
         return
     }
-  }
-
-  renderIncompleteActivities = () => {
-    const { data, nextActivitySession} = this.props
-    if (!(data.incomplete && data.incomplete.length)) { return null}
-
-    const rows = data.incomplete.map(act => {
-      const { name, activity_classification_id, due_date, ua_id, } = act
-      return {
-        name,
-        tool: this.toolIcon(activity_classification_id),
-        dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
-        actionButton: this.actionButton(act, nextActivitySession),
-        id: ua_id
-      }
-    })
-
-    return (<div className="activities-container incomplete-activities">
-      <h3>To-do activities</h3>
-      <DataTable
-        headers={incompleteHeaders}
-        rows={rows}
-      />
-    </div>)
   }
 
   renderCompletedActivities = () => {
@@ -187,6 +163,30 @@ export default class StudentProfileUnit extends React.Component {
       <h3>Completed activities</h3>
       <DataTable
         headers={completeHeaders}
+        rows={rows}
+      />
+    </div>)
+  }
+
+  renderIncompleteActivities = () => {
+    const { data, nextActivitySession} = this.props
+    if (!(data.incomplete && data.incomplete.length)) { return null}
+
+    const rows = data.incomplete.map(act => {
+      const { name, activity_classification_id, due_date, ua_id, } = act
+      return {
+        name,
+        tool: this.toolIcon(activity_classification_id),
+        dueDate: due_date ? moment(due_date).format('MMM D, YYYY') : null,
+        actionButton: this.actionButton(act, nextActivitySession),
+        id: ua_id
+      }
+    })
+
+    return (<div className="activities-container incomplete-activities">
+      <h3>To-do activities</h3>
+      <DataTable
+        headers={incompleteHeaders}
         rows={rows}
       />
     </div>)

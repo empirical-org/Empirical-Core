@@ -3,11 +3,6 @@ import React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 
 export default class ResultsIcon extends React.Component {
-  scoreColor = () => {
-    const { percentage, } = this.props
-    return ScoreColor(percentage * 100);
-  }
-
   backgroundColor = () => {
     const scoreColor = this.scoreColor();
     let color = '#4ea500';
@@ -33,6 +28,11 @@ export default class ResultsIcon extends React.Component {
         img = 'tool-proofreader-white.svg'
     }
     return `${process.env.CDN_URL}/images/tools/${img}`
+  }
+
+  scoreColor = () => {
+    const { percentage, } = this.props
+    return ScoreColor(percentage * 100);
   }
 
   text = () => {

@@ -34,18 +34,6 @@ export default class BlogPostIndex extends React.Component {
     this.setState({ articleFilter: filter });
   }
 
-  pageTitle() {
-    const { role, title, } = this.props
-    if (window.location.pathname.includes(TOPIC)) {
-      const topicTitle = this.props.title
-      return role === STUDENT ? topicTitle.replace('Student ', '') : topicTitle
-    } else if (role === STUDENT) {
-      return STUDENT_CENTER
-    } else {
-      return TEACHER_CENTER
-    }
-  }
-
   pageSubtitle() {
     if (this.props.role === STUDENT) {
       return 'Everything you need to know about using Quill'
@@ -65,6 +53,87 @@ export default class BlogPostIndex extends React.Component {
       case TEACHER_CENTER:
       default:
         return 'Everything you need to know about Quill’s pedagogy and use in the classroom'
+    }
+  }
+
+  pageTitle() {
+    const { role, title, } = this.props
+    if (window.location.pathname.includes(TOPIC)) {
+      const topicTitle = this.props.title
+      return role === STUDENT ? topicTitle.replace('Student ', '') : topicTitle
+    } else if (role === STUDENT) {
+      return STUDENT_CENTER
+    } else {
+      return TEACHER_CENTER
+    }
+  }
+
+  renderAnnouncement() {
+    const announcement = this.props.announcement;
+    if(announcement) {
+      return (
+        <a className='announcement' href={announcement.link}>
+          <div className='circle' />
+          <p>{announcement.text}</p>
+          <i className='fas fa-chevron-right' />
+        </a>
+      )
+    }
+  }
+
+  renderBasedOnArticleFilter() {
+    let response;
+    if (this.props.blogPosts.length === 0) {
+      response = <h1 className='no-results'>No results found.</h1>
+    } else if (this.state.articleFilter === TOPIC) {
+      response = this.renderPreviewCardsByTopic();
+    } else if (this.state.articleFilter === 'popularity') {
+      response = (
+        <div id="preview-card-container">
+          {this.renderPreviewCardsByPopularity()}
+        </div>
+      )
+    } else {
+      response = (
+        <div id="preview-card-container">
+          {this.renderPreviewCards()}
+        </div>
+      )
+    }
+    return <main>{response}</main>
+  }
+
+  renderMostReadPost() {
+    const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
+    if (window.location.pathname.includes(SEARCH)) { return null; }
+    const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher-center/${mostReadArticle.slug}`
+    return (
+      <h3>
+        <a href={link}>{mostReadArticle.title}</a>
+      </h3>
+    )
+  }
+
+  renderNavAndSectionHeader() {
+    const currentPageIsSearchPage = window.location.pathname.includes(SEARCH);
+    if (!currentPageIsSearchPage) {
+      return (
+        <span />
+      )
+    // } else if (currentPageIsTopicPage) {
+    //   return (
+    //     <div className='topic-header'>
+    //       <h2>{window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
+    //     </div>
+    //   )
+    } else {
+      return (
+        <nav>
+          <ul>
+            <li>Search Results</li>
+          </ul>
+        </nav>
+      )
     }
   }
 
@@ -91,6 +160,7 @@ export default class BlogPostIndex extends React.Component {
     )
   }
 
+
   renderPreviewCardsByTopic() {
     let sections = [];
     const articlesByTopic = _.groupBy(this.props.blogPosts, TOPIC);
@@ -109,76 +179,6 @@ export default class BlogPostIndex extends React.Component {
       }
     })
     return sections;
-  }
-
-  renderBasedOnArticleFilter() {
-    let response;
-    if (this.props.blogPosts.length === 0) {
-      response = <h1 className='no-results'>No results found.</h1>
-    } else if (this.state.articleFilter === TOPIC) {
-      response = this.renderPreviewCardsByTopic();
-    } else if (this.state.articleFilter === 'popularity') {
-      response = (
-        <div id="preview-card-container">
-          {this.renderPreviewCardsByPopularity()}
-        </div>
-      )
-    } else {
-      response = (
-        <div id="preview-card-container">
-          {this.renderPreviewCards()}
-        </div>
-      )
-    }
-    return <main>{response}</main>
-  }
-
-  renderAnnouncement() {
-    const announcement = this.props.announcement;
-    if(announcement) {
-      return (
-        <a className='announcement' href={announcement.link}>
-          <div className='circle' />
-          <p>{announcement.text}</p>
-          <i className='fas fa-chevron-right' />
-        </a>
-      )
-    }
-  }
-
-  renderNavAndSectionHeader() {
-    const currentPageIsSearchPage = window.location.pathname.includes(SEARCH);
-    if (!currentPageIsSearchPage) {
-      return (
-        <span />
-      )
-    // } else if (currentPageIsTopicPage) {
-    //   return (
-    //     <div className='topic-header'>
-    //       <h2>{window.location.pathname.split('/')[3].split('-').map(topic => topic.charAt(0).toUpperCase() + topic.slice(1)).join(' ')}</h2>
-    //     </div>
-    //   )
-    } else {
-      return (
-        <nav>
-          <ul>
-            <li>Search Results</li>
-          </ul>
-        </nav>
-      )
-    }
-  }
-
-
-  renderMostReadPost() {
-    const mostReadArticle = this.state.blogPostsSortedByMostRead[0];
-    if (window.location.pathname.includes(SEARCH)) { return null; }
-    const link = mostReadArticle.external_link ? mostReadArticle.external_link : `/teacher-center/${mostReadArticle.slug}`
-    return (
-      <h3>
-        <a href={link}>{mostReadArticle.title}</a>
-      </h3>
-    )
   }
 
   render() {

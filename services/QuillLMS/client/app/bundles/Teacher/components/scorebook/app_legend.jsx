@@ -1,8 +1,8 @@
 "use strict";
 import React from 'react'
 
-export default React.createClass({
-  render: function () {
+export default class extends React.Component {
+  render() {
     return (
       <div className="icons-wrapper icon-legend app-legend">
         <div className="icons">
@@ -45,4 +45,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

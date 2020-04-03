@@ -30,23 +30,21 @@ class SignUpTeacher extends React.Component {
   }
 
 
-  updateKeyValue = (key, value) => {
-    const newState = Object.assign({}, this.state);
-    newState[key] = value;
-    this.setState(newState);
+  handleClickSignUpAsStudent = (e) => {
+    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)
+    window.location.href = '/sign-up/student'
   }
 
-  update = (e) => {
-    this.updateKeyValue(e.target.id, e.target.value)
+  handleKeyDownOnSignUpAsStudent = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleClickSignUpAsStudent(e)
   }
 
-  submitClass = () => {
-    const { password, firstName, lastName, email, } = this.state
-    let buttonClass = "quill-button contained primary medium focus-on-light"
-    if (!password.length || !firstName.length || !lastName.length || !email.length) {
-      buttonClass += ' disabled'
-    }
-    return buttonClass
+  handleKeyDownOnToggleNewsletter = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleToggleNewsletter()
   }
 
   handleSubmit = (e) => {
@@ -95,21 +93,23 @@ class SignUpTeacher extends React.Component {
     });
   }
 
-  handleKeyDownOnToggleNewsletter = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleToggleNewsletter()
+  submitClass = () => {
+    const { password, firstName, lastName, email, } = this.state
+    let buttonClass = "quill-button contained primary medium focus-on-light"
+    if (!password.length || !firstName.length || !lastName.length || !email.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
   }
 
-  handleClickSignUpAsStudent = (e) => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)
-    window.location.href = '/sign-up/student'
+  update = (e) => {
+    this.updateKeyValue(e.target.id, e.target.value)
   }
 
-  handleKeyDownOnSignUpAsStudent = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleClickSignUpAsStudent(e)
+  updateKeyValue = (key, value) => {
+    const newState = Object.assign({}, this.state);
+    newState[key] = value;
+    this.setState(newState);
   }
 
   renderNewsletterRow = () => {

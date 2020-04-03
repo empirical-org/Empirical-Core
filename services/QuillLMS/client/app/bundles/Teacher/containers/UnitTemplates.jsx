@@ -3,17 +3,16 @@ import UnitTemplate from '../components/unit_templates/unit_template.jsx'
 import Cms from './Cms.jsx'
 
 
-export default React.createClass({
-
-  resourceComponentGenerator: function (cmsComponent) {
+export default class extends React.Component {
+  resourceComponentGenerator = (cmsComponent) => {
     // FIXME : replace below with more general EC.Resource and the appropriate props
     return (<UnitTemplate
       returnToIndex={cmsComponent.returnToIndex}
       unitTemplate={cmsComponent.state.resourceToEdit}
     />);
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <div className="cms-unit-templates">
         <Cms
@@ -25,5 +24,4 @@ export default React.createClass({
 
     )
   }
-
-});
+}

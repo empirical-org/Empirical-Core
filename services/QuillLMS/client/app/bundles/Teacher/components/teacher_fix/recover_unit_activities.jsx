@@ -9,12 +9,9 @@ export default class RecoverUnitActivities extends React.Component {
     this.state = {
       email: '',
     }
-
-    this.updateEmail = this.updateEmail.bind(this)
-    this.submit = this.submit.bind(this)
   }
 
-  submit() {
+  submit = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/recover_unit_activities`,
@@ -30,11 +27,11 @@ export default class RecoverUnitActivities extends React.Component {
       }
     })
 
-  }
+  };
 
-  updateEmail(e) {
+  updateEmail = e => {
     this.setState({email: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {

@@ -20,6 +20,23 @@ export default class BlogPost extends React.Component {
     }
   }
 
+  selectRatingEmoji(rating) {
+    request.post({
+      url: `${process.env.DEFAULT_URL}/rate_blog_post`,
+      json: {
+        authenticity_token: ReactOnRails.authenticityToken(),
+        rating: rating,
+        blog_post_id: this.props.blogPost.id
+      }
+    }, (error, httpStatus, body) => {
+      if(httpStatus.statusCode === 200) {
+        this.setState({ ratingMessage: RATING_MESSAGES['success'] })
+      } else {
+        this.setState({ ratingMessage: RATING_MESSAGES['sign_up'] })
+      }
+    });
+  }
+
   renderMostRecentPosts() {
     return this.props.mostRecentPosts.map(post =>
       (<PreviewCard
@@ -41,23 +58,6 @@ export default class BlogPost extends React.Component {
         </ul>
       )
     }
-  }
-
-  selectRatingEmoji(rating) {
-    request.post({
-      url: `${process.env.DEFAULT_URL}/rate_blog_post`,
-      json: {
-        authenticity_token: ReactOnRails.authenticityToken(),
-        rating: rating,
-        blog_post_id: this.props.blogPost.id
-      }
-    }, (error, httpStatus, body) => {
-      if(httpStatus.statusCode === 200) {
-        this.setState({ ratingMessage: RATING_MESSAGES['success'] })
-      } else {
-        this.setState({ ratingMessage: RATING_MESSAGES['sign_up'] })
-      }
-    });
   }
 
   render() {

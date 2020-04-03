@@ -29,18 +29,18 @@ function getClassroomNames(classrooms, selectedSchool, selectTeacher) {
   let filtered = filterBySchool(classrooms, selectedSchool);
   filtered = filterByTeacher(filtered, selectTeacher);
   const names = filtered.map(row => row.classroom_name);
-  return ['All Classrooms', ...new Set(names)];
+  return ['All Classrooms', ...Array.from(new Set(names))];
 }
 
 function getSchoolNames(classrooms) {
   const names = classrooms.map(row => row.schools_name);
-  return ['All Schools', ...new Set(names)];
+  return ['All Schools', ...Array.from(new Set(names))];
 }
 
 function getTeacherNames(classrooms, selectedSchool) {
   const filtered = filterBySchool(classrooms, selectedSchool);
   const names = filtered.map(row => row.teachers_name);
-  return ['All Teachers', ...new Set(names)];
+  return ['All Teachers', ...Array.from(new Set(names))];
 }
 
 function formatDataForCSV(data) {

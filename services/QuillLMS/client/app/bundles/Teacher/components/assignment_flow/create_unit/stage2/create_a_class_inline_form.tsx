@@ -38,7 +38,7 @@ export default class CreateAClassInlineForm extends React.Component<CreateAClass
     this.createClass = this.createClass.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getClassCode()
   }
 
