@@ -3,19 +3,13 @@ import moment from 'moment';
 import pluralize from 'pluralize';
 
 export default class extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.redeemIfNoCurrentSub = this.redeemIfNoCurrentSub.bind(this);
-  }
-
-  redeemIfNoCurrentSub() {
+  redeemIfNoCurrentSub = () => {
     if (this.props.userHasValidSub) {
       alert('You cannot redeem credits while you have a valid subscription. You must wait until your current subscription has expired to redeem them.');
     } else {
       this.props.redeemPremiumCredits();
     }
-  }
+  };
 
   render() {
     let button;
@@ -35,5 +29,4 @@ export default class extends React.Component {
       </div>
     );
   }
-
 }

@@ -68,7 +68,6 @@ class ConceptFeedback extends React.Component {
     } else {
       return (
         <div className="admin-container" key={conceptFeedbackID}>
-          <p>404: No Concept Feedback Found... So lets make one! 🙌 🖋 🇬🇧 🇮🇳</p>
           <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
         </div>
       )

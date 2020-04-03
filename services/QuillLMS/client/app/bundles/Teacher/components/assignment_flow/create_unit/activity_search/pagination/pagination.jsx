@@ -2,25 +2,18 @@ import React from 'react';
 import _ from 'underscore';
 import PageNumber from './page_number';
 
-export default React.createClass({
-
-  propTypes: {
-    currentPage: React.PropTypes.number.isRequired,
-    numberOfPages: React.PropTypes.number.isRequired,
-    selectPageNumber: React.PropTypes.func.isRequired,
-    maxPageNumber: React.PropTypes.number.isRequired,
-  },
-
-  leftArrow() {
+export default class Pagination extends React.Component {
+  leftArrow = () => {
     if (this.props.currentPage > 1) {
       this.props.selectPageNumber(this.props.currentPage - 1);
     }
-  },
-  rightArrow() {
+  };
+
+  rightArrow = () => {
     if (this.props.currentPage < this.props.numberOfPages) {
       this.props.selectPageNumber(this.props.currentPage + 1);
     }
-  },
+  };
 
   render() {
     let result;
@@ -65,6 +58,5 @@ export default React.createClass({
     }
 
     return result;
-  },
-
-});
+  }
+}

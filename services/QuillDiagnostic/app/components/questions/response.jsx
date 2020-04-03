@@ -17,8 +17,6 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.j
 import {
   deleteResponse,
   submitResponseEdit,
-  incrementResponseCount,
-  removeLinkToParentID,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -84,59 +82,39 @@ export default class extends React.Component {
       dispatch(deleteResponse(questionID, rid));
       dispatch(massEdit.removeResponseFromMassEditArray(rid));
     }
-  };
+  }
 
-  editResponse = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
+  editResponse(rid) {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
     dispatch(actions.startResponseEdit(questionID, rid));
-  };
+  }
 
-  cancelResponseEdit = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
+  cancelResponseEdit(rid) {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
     dispatch(actions.cancelResponseEdit(questionID, rid));
-  };
+  }
 
-  viewChildResponses = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
-    dispatch(actions.startChildResponseView(questionID, rid));
-  };
-
-  cancelChildResponseView = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
+  cancelChildResponseView(rid) {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
     dispatch(actions.cancelChildResponseView(questionID, rid));
-  };
+  }
 
-  viewFromResponses = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
-    dispatch(actions.startFromResponseView(questionID, rid));
-  };
-
-  cancelFromResponseView = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
+  cancelFromResponseView(rid) {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
     dispatch(actions.cancelFromResponseView(questionID, rid));
-  };
+  }
 
-  viewToResponses = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
-    dispatch(actions.startToResponseView(questionID, rid));
-  };
-
-  cancelToResponseView = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const { actions } = this.state;
+  cancelToResponseView(rid) {
+    const { dispatch, questionID } = this.props
+    const { actions } = this.state
     dispatch(actions.cancelToResponseView(questionID, rid));
-  };
+  }
 
-  updateResponse = (rid) => {
-    const { conceptResults, feedback } = this.state;
-    const { dispatch, questionID } = this.props;
+  updateResponse(rid) {
     const newResp = {
       weak: false,
       feedback,
@@ -167,38 +145,12 @@ export default class extends React.Component {
     return _.pick(attempt, ...C.ERROR_TYPES);
   };
 
-  markAsWeak = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const vals = { weak: true, };
-    dispatch(
-      submitResponseEdit(rid, vals, questionID)
-    );
-  };
-
-  unmarkAsWeak = (rid) => {
-    const { dispatch, questionID } = this.props;
-    const vals = { weak: false, };
-    dispatch(
-      submitResponseEdit(rid, vals, questionID)
-    );
-  };
-
-  rematchResponse = (rid) => {
-    const { getMatchingResponse } = this.props;
+  rematchResponse(rid) {
+    const { getMatchingResponse } = this.props
     getMatchingResponse(rid);
-  };
+  }
 
-  incrementResponse = (rid) => {
-    const { dispatch, questionID } = this.props;
-    dispatch(incrementResponseCount(questionID, rid));
-  };
-
-  removeLinkToParentID = (rid) => {
-    const { dispatch, questionID } = this.props;
-    dispatch(submitResponseEdit(rid, { optimal: false, author: null, parent_id: null }, questionID));
-  };
-
-  applyDiff = (answer = '', response = '') => {
+  applyDiff(answer = '', response = '') {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
       const fontWeight = part.added ? 'bold' : 'normal';
@@ -299,33 +251,6 @@ export default class extends React.Component {
     return getGradedResponsesWithCallback(this.props.questionID, callback);
   };
 
-  renderBoilerplateCategoryDropdown = () => {
-    const style = { marginRight: '20px', };
-    return (
-      <span className="select" style={style}>
-        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory} ref="boilerplate">
-          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
-          {this.boilerplateCategoriesToOptions()}
-        </select>
-      </span>
-    );
-  };
-
-  renderBoilerplateCategoryOptionsDropdown = () => {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description: this.state.selectedBoilerplateCategory, });
-    if (selectedCategory) {
-      return (
-        <span className="select">
-          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
-            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
-            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
-          </select>
-        </span>
-      );
-    }
-    return (<span />);
-  };
-
   renderConceptResults = (mode) => {
     const conceptResults = Object.assign({}, this.state.conceptResults)
     let components
@@ -369,11 +294,6 @@ export default class extends React.Component {
     if (!this.props.expanded) {
       return;
     }
-    if (!response.parentID && !response.parent_id) {
-      childDetails = (
-        <a className="button is-outlined has-top-margin" key="view" onClick={this.viewChildResponses.bind(null, response.key)} >View Children</a>
-      );
-    }
     if (response.parentID || response.parent_id) {
       const parent = this.state.parent;
       if (!parent) {
@@ -389,29 +309,11 @@ export default class extends React.Component {
           (<br />),
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
-          (<button className="button is-danger" onClick={this.removeLinkToParentID.bind(null, response.key)}>Remove Link to Parent </button>),
-          (<br />),
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />),
           (<br />)
           ];
       }
-    }
-
-    if (this.props.showPathways) {
-      pathwayDetails = (<span> <a
-        className="button is-outlined has-top-margin"
-        key="from"
-        onClick={this.printResponsePathways.bind(null, this.props.key)}
-      >
-                         From Pathways
-      </a> <a
-        className="button is-outlined has-top-margin"
-        key="to"
-        onClick={this.toResponsePathways}
-      >
-                            To Pathways
-      </a></span>);
     }
 
     if (isEditing) {
@@ -428,11 +330,6 @@ export default class extends React.Component {
           />
 
           <br />
-          <label className="label">Boilerplate feedback</label>
-          <div className="boilerplate-feedback-dropdown-container">
-            {this.renderBoilerplateCategoryDropdown()}
-            {this.renderBoilerplateCategoryOptionsDropdown()}
-          </div>
 
           <div className="box">
             <label className="label">Concept Results</label>
@@ -480,7 +377,6 @@ export default class extends React.Component {
       buttons = [
         (<a className="card-footer-item" key="cancel" onClick={this.cancelResponseEdit.bind(null, response.key)} >Cancel</a>),
         (<a className="card-footer-item" key="unmatch" onClick={this.unmatchResponse.bind(null, response.key)} >Unmatch</a>),
-        (<a className="card-footer-item" key="increment" onClick={this.incrementResponse.bind(null, response.key)} >Increment</a>),
         (<a className="card-footer-item" key="update" onClick={this.updateResponse.bind(null, response.key)} >Update</a>)
       ];
     } else {
@@ -488,13 +384,6 @@ export default class extends React.Component {
         (<a className="card-footer-item" key="edit" onClick={this.editResponse.bind(null, response.key)} >Edit</a>),
         (<a className="card-footer-item" key="delete" onClick={this.deleteResponse.bind(null, response.key)} >Delete</a>)
       ];
-    }
-    if (this.props.response.statusCode === 3) {
-      if (this.props.response.weak) {
-        buttons = buttons.concat([(<a className="card-footer-item" key="weak" onClick={this.unmarkAsWeak.bind(null, response.key)} >Unmark as weak</a>)]);
-      } else {
-        buttons = buttons.concat([(<a className="card-footer-item" key="weak" onClick={this.markAsWeak.bind(null, response.key)} >Mark as weak</a>)]);
-      }
     }
     if (this.props.response.statusCode > 1) {
       buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={this.rematchResponse.bind(null, response.key)} >Rematch</a>)]);
@@ -580,17 +469,7 @@ export default class extends React.Component {
     }
   };
 
-  printResponsePathways = () => {
-    this.viewFromResponses(this.props.response.key);
-    // this.props.printPathways(this.props.response.key);
-  };
-
-  toResponsePathways = () => {
-    this.viewToResponses(this.props.response.key);
-    // this.props.printPathways(this.props.response.key);
-  };
-
-  renderToResponsePathways = (isViewingToResponses, key) => {
+  renderToResponsePathways(isViewingToResponses, key) {
     if (isViewingToResponses) {
       return (
         <Modal close={this.cancelToResponseView.bind(null, key)}>

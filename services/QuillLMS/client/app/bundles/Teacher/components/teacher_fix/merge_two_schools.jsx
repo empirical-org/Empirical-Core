@@ -7,17 +7,9 @@ class MergeTwoSchools extends React.Component {
     super(props);
 
     this.state = {};
-
-    this.updateState = this.updateState.bind(this);
-    this.submit = this.submit.bind(this);
-    this.renderErrorOrSuccess = this.renderErrorOrSuccess.bind(this);
   }
 
-  updateState(e) {
-    this.setState({ [`${e.target.id}SchoolId`]: e.target.value, });
-  }
-
-  submit() {
+  submit = () => {
     const that = this;
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/merge_two_schools`,
@@ -39,15 +31,19 @@ class MergeTwoSchools extends React.Component {
         });
       }
     });
-  }
+  };
 
-  renderErrorOrSuccess() {
+  updateState = e => {
+    this.setState({ [`${e.target.id}SchoolId`]: e.target.value, });
+  };
+
+  renderErrorOrSuccess = () => {
     if (this.state.error) {
       return <p className="error">{this.state.error}</p>;
     } else if (this.state.success) {
       return <p>{this.state.success}</p>;
     }
-  }
+  };
 
   render() {
     return (

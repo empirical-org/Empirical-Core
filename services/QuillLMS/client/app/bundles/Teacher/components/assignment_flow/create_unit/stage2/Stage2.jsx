@@ -17,19 +17,12 @@ export default class Stage2 extends React.Component {
       loading: false,
       timesSubmitted: 0
     }
-
-    this.finish = this.finish.bind(this)
   }
 
-  finish() {
-    const { buttonDisabled, timesSubmitted, } = this.props
-    if (!this.state.buttonDisabled && !this.props.errorMessage) {
-      // this.setState({buttonDisabled: true});
-      this.setState({ loading: true, });
-      this.props.finish();
-    } else {
-      this.setState({ prematureAssignAttempted: true, timesSubmitted: timesSubmitted + 1 });
-    }
+  assignButton() {
+    return this.state.loading
+      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign">Assigning... <ButtonLoadingIndicator /></button>
+      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.finish}>Assign pack to classes</button>;
   }
 
   determineAssignButtonClass() {
@@ -41,39 +34,21 @@ export default class Stage2 extends React.Component {
   }
 
   determineErrorMessageClass() {
-    // && !this.props.unitName || this.props.errorMessage
     if (this.state.prematureAssignAttempted) {
       return 'error-message visible-error-message';
     }
     return 'error-message hidden-error-message';
   }
 
-  renderReviewActivitiesSection() {
-    const {
-      selectedActivities,
-      toggleActivitySelection,
-      assignActivityDueDate,
-      dueDates,
-    } = this.props
-    return (<ReviewActivities
-      activities={selectedActivities}
-      assignActivityDueDate={assignActivityDueDate}
-      dueDates={dueDates}
-      toggleActivitySelection={toggleActivitySelection}
-    />)
-  }
-
-  renderNameSection() {
-    const { timesSubmitted, } = this.state
-    const { errorMessage, unitName, updateUnitName, } = this.props
-    return (<NameTheUnit
-      nameError={errorMessage ? errorMessage.name : null}
-      nameError={errorMessage ? errorMessage.name : null}
-      timesSubmitted={timesSubmitted}
-      unitName={unitName}
-      updateUnitName={updateUnitName}
-    />)
-  }
+  finish = () => {
+    const { buttonDisabled, timesSubmitted, } = this.props
+    if (!this.state.buttonDisabled && !this.props.errorMessage) {
+      this.setState({ loading: true, });
+      this.props.finish();
+    } else {
+      this.setState({ prematureAssignAttempted: true, timesSubmitted: timesSubmitted + 1 });
+    }
+  };
 
   renderAssignStudentsSection() {
     const {
@@ -92,10 +67,31 @@ export default class Stage2 extends React.Component {
     />)
   }
 
-  assignButton() {
-    return this.state.loading
-      ? <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign">Assigning... <ButtonLoadingIndicator /></button>
-      : <button className={`${this.determineAssignButtonClass()} pull-right`} id="assign" onClick={this.finish}>Assign pack to classes</button>;
+  renderNameSection() {
+    const { timesSubmitted, } = this.state
+    const { errorMessage, unitName, updateUnitName, } = this.props
+    return (<NameTheUnit
+      nameError={errorMessage ? errorMessage.name : null}
+      nameError={errorMessage ? errorMessage.name : null}
+      timesSubmitted={timesSubmitted}
+      unitName={unitName}
+      updateUnitName={updateUnitName}
+    />)
+  }
+
+  renderReviewActivitiesSection() {
+    const {
+      selectedActivities,
+      toggleActivitySelection,
+      assignActivityDueDate,
+      dueDates,
+    } = this.props
+    return (<ReviewActivities
+      activities={selectedActivities}
+      assignActivityDueDate={assignActivityDueDate}
+      dueDates={dueDates}
+      toggleActivitySelection={toggleActivitySelection}
+    />)
   }
 
   render() {

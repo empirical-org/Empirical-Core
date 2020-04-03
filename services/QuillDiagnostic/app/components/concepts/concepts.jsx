@@ -6,14 +6,14 @@ import { LinkListItem } from '../shared/linkListItem';
 
 class Concepts extends React.Component {
 
-  // submitNewConcept = () => {
-  //   const { dispatch } = this.props;
-  //   const { newConceptName } = this.refs;
-  //   const { value } = newConceptName;
-  //   const newConcept = {name: value}
-  //   dispatch(actions.submitNewConcept(newConcept))
-  //   this.refs.newConceptName.value = ""
-  // };
+  submitNewConcept = () => {
+    const { dispatch } = this.props;
+    const { newConceptName } = this.refs;
+    const { value } = newConceptName;
+    const newConcept = {name: value}
+    dispatch(actions.submitNewConcept(newConcept))
+    this.refs.newConceptName.value = ""
+  };
 
   renderConcepts = () => {
     const { concepts } = this.props;

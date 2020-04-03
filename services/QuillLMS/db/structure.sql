@@ -5932,5 +5932,8 @@ INSERT INTO schema_migrations (version) VALUES ('20200324192053');
 
 INSERT INTO schema_migrations (version) VALUES ('20200326152208');
 
+<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 
+=======
+>>>>>>> 8fdfeba7c693909f5fbb5310a427dd261385149e

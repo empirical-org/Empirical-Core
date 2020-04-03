@@ -1,26 +1,24 @@
 import React from 'react';
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
 
-export default React.createClass({
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-  },
+export default class UnitTemplateProfileAssignButton extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       fastAssignDisabled: false,
     };
-  },
+  }
 
-  analytics() {
+  analytics = () => {
     return new AnalyticsWrapper();
-  },
+  };
 
-  propsSpecificComponent() {
+  propsSpecificComponent = () => {
     if (this.props.data.non_authenticated) {
       return <a href="/account/new"><button className="button-green full-width">Sign Up to Assign This Activity Pack</button></a>;
     }
-  },
+  };
 
   render() {
     return (
@@ -29,5 +27,5 @@ export default React.createClass({
         <p className="time"><i className="far fa-clock" />Estimated Time: {this.props.data.time} mins</p>
       </div>
     );
-  },
-});
+  }
+}

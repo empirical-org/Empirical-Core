@@ -58,6 +58,14 @@ describe GoogleIntegration::RefreshAccessToken do
       expect(response_dbl).to receive(:parsed_response).and_return({'error'=>'error'})
       expect { subject.send(:handle_response, response_dbl) }.to raise_error(GoogleIntegration::RefreshAccessToken::FailedToRefreshTokenError)
     end
+
+    it 'should return false if the refresh request returns a non-200' do
+      response_dbl = double
+      expect(response_dbl).to receive(:code).and_return(400)
+      expect(response_dbl).to receive(:parsed_response).and_return({'error'=>'error'})
+      expect { subject.send(:handle_response, response_dbl) }.to raise_error(GoogleIntegration::RefreshAccessToken::FailedToRefreshTokenError)
+      expect(subject.send(:should_refresh?)).to be false
+    end
   end
 
   describe '#store_credentials' do

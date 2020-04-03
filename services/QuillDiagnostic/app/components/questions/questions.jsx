@@ -30,7 +30,8 @@ class Questions extends React.Component {
     const { questions } = props
 
     this.state = {
-      diagnosticQuestions: questions.data ? questions.data : null
+      diagnosticQuestions: questions.data ? questions.data : null,
+      showOnlyArchived: false
     }
   }
 
@@ -96,44 +97,7 @@ class Questions extends React.Component {
     return hashToCollection(respWithStatus(responses));
   };
 
-  rematchAllQuestions = () => {
-    const ignoreList = [
-      '-KP-LIzVyeL6a38yW0im',
-      '-KPt1wiz5zY1JgNSLbQZ',
-      '-KPt6EDsKbaXVrIf9dJY',
-      '-KPt2OD4fkKen27eyiry',
-      '-KPt2ZzZAIVsrQ-asGEY',
-      '-KP-M1Crf2pvqO4QH6zI',
-      '-KP-M7WtUdYK6vd6S57X',
-      '-KP-MEpdOxjU7OyzL6ss',
-      '-KPt2jWGaZbGEaUKj-da',
-      '-KPt2vzVYs2QAWkeo7QT',
-      '-KPt3I_hR_Xlv5Cr1mvB',
-      '-KP-Mv5jsZKhraQH2DOt',
-      '-KPt3fnhAJ_vQF_dD4Oj',
-      '-KPt3uD8hulWiYGp3Rm7',
-      '-KP-Nc414z5N_TKwnvms',
-      '-KP-M1Crf2pvqO4QH6zI-esp',
-      '-KP-LIzVyeL6a38yW0im-esp',
-      '-KP-M7WtUdYK6vd6S57X-esp',
-      '-KPt2OD4fkKen27eyiry-esp',
-      '-KP-MEpdOxjU7OyzL6ss-esp',
-      '-KPt3I_hR_Xlv5Cr1mvB-esp',
-      '-KP-Mv5jsZKhraQH2DOt-esp',
-      '-KPt3fnhAJ_vQF_dD4Oj-esp',
-      '-KPt3uD8hulWiYGp3Rm7-esp'
-    ];
-
-    const questLength = _.keys(this.props.questions.data).length;
-    _.each(hashToCollection(this.props.questions.data), (question, index) => {
-      const percentage = index / questLength * 100;
-      if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
-        this.rematchAllResponses(question);
-      }
-    });
-  };
-
-  rematchAllResponses = question => {
+  rematchAllResponses = (question) => {
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
@@ -229,15 +193,7 @@ class Questions extends React.Component {
     dispatch(action);
   };
 
-  toggleNoConceptQuestions = () => {
-    const { displayNoConceptQuestions } = this.state;
-    this.setState({
-      displayNoConceptQuestions: !displayNoConceptQuestions,
-    });
-  };
-
   toggleShowArchived = () => {
-    const { showOnlyArchived } = this.state;
     this.setState({
       showOnlyArchived: !showOnlyArchived,
     });
@@ -264,7 +220,7 @@ class Questions extends React.Component {
 
   render() {
     const { questions, concepts, } = this.props;
-    const { diagnosticQuestions, displayNoConceptQuestions, showOnlyArchived } = this.state;
+    const { diagnosticQuestions, showOnlyArchived } = this.state;
     if (questions.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <section className="section">
@@ -274,17 +230,12 @@ class Questions extends React.Component {
               { this.renderSearchBox() }
             </div>
             <br />
-            <label className="checkbox">
-              <input checked={displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
-              Display questions with no valid concept
-            </label>
             <ArchivedButton lessons={false} showOnlyArchived={showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              displayNoConceptQuestions={displayNoConceptQuestions}
               questions={diagnosticQuestions}
               showOnlyArchived={showOnlyArchived}
             />

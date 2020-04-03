@@ -8,7 +8,6 @@ import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
 import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining.ts';
 import * as connectFillInBlankActions from '../../actions/connectFillInBlank.ts';
@@ -31,10 +30,6 @@ import ChooseModelContainer from '../questions/chooseModelContainer.jsx';
 import TitleCards from '../titleCards/titleCards.tsx';
 import TitleCardForm from '../titleCards/titleCardForm.tsx';
 import ShowTitleCard from '../titleCards/showTitleCard.tsx';
-import ItemLevel from '../itemLevels/itemLevel.jsx';
-import ItemLevels from '../itemLevels/itemLevels.jsx';
-import ItemLevelDetails from '../itemLevels/itemLevelDetails.jsx';
-import ItemLevelForm from '../itemLevels/itemLevelForm.jsx';
 import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
 import TestFillInBlankQuestionContainer from '../fillInBlank/testFillInBlankQuestionContainer.jsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
@@ -65,7 +60,6 @@ class Admin extends React.Component {
     dispatch(fillInBlankActions.startListeningToQuestions());
     dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
-    dispatch(levelActions.startListeningToItemLevels());
     dispatch(titleCardActions.startListeningToTitleCards());
     dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
     dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
@@ -112,7 +106,6 @@ class Admin extends React.Component {
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/clone_questions'}>Clone Connect Questions</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/questions'}>Diagnostic Sentence Combining</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/sentence-fragments'}>Diagnostic Sentence Fragments</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/fill-in-the-blanks'}>Diagnostic Fill In The Blanks</TabLink>
@@ -123,7 +116,6 @@ class Admin extends React.Component {
             <ul className="menu-list">
               <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/concepts-feedback'}>Concept Feedback</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/item-levels'}>Item Levels</TabLink>
             </ul>
             <p className="menu-label">
               Title Cards
@@ -153,10 +145,6 @@ class Admin extends React.Component {
           <Route component={TitleCardForm} path={`/admin/title-cards/:titleCardID/edit`} />
           <Route component={ShowTitleCard} path={`/admin/title-cards/:titleCardID`} />
           <Route component={TitleCards} path={`/admin/title-cards`} />
-          <Route component={ItemLevelForm} path={`/admin/item-levels/:itemLevelID/new`} />
-          <Route component={ItemLevel} path={`/admin/item-levels/:itemLevelID/edit`} />
-          <Route component={ItemLevelDetails} path={`/admin/item-levels/:itemLevelID`} />
-          <Route component={ItemLevels} path={`/admin/item-levels`} />
           <Route component={NewFillInBlank} path={`/admin/fill-in-the-blanks/new`} />
           <Route component={FillInBlankQuestion} path={`/admin/fill-in-the-blanks/:questionID`} />
           <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/test`} />

@@ -1,22 +1,15 @@
-'use strict';
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
-    checked: React.PropTypes.bool.isRequired,
-    toggleItem: React.PropTypes.func.isRequired,
-    item: React.PropTypes.string.isRequired
-  },
-
-  handleChange: function () {
+export default class CheckBox extends React.Component {
+  handleChange = () => {
     this.props.toggleItem(this.props.item)
-  },
+  };
 
-  determineCheckedText: function () {
+  determineCheckedText = () => {
     return (this.props.checked ? 'checked' : '');
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <div className='checkbox-and-label'>
         <input
@@ -29,4 +22,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

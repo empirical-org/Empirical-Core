@@ -15,7 +15,6 @@ import questionActions from './actions/questions';
 import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments.ts';
 import lessonActions from './actions/lessons.ts';
-import levelActions from './actions/item-levels';
 import * as titleCardActions from './actions/titleCards.ts';
 import 'styles/style.scss';
 import Raven from 'raven-js';
@@ -68,7 +67,6 @@ if (lessonUid) {
     store.dispatch(questionActions.loadQuestions());
     store.dispatch(fillInBlankActions.loadQuestions());
     store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-    store.dispatch(levelActions.loadItemLevels());
     store.dispatch(lessonActions.startListeningToLessons());
   });
 }

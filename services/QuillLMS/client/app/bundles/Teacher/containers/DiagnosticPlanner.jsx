@@ -4,9 +4,8 @@ import App from '../components/diagnostic/diagnostic_questionnaire/index.jsx'
 import Stages from '../components/diagnostic/diagnostic_questionnaire/Stages.jsx'
 import SuccessView from '../components/diagnostic/diagnostic_questionnaire/SuccessView.jsx'
 
-export default React.createClass({
-
-  render: function () {
+export default class extends React.Component {
+  render() {
 
       return (
         <Router history={browserHistory}>
@@ -17,4 +16,4 @@ export default React.createClass({
         </Router>
       );
   }
-});
+}
