@@ -12,7 +12,6 @@ import PremiumCreditsTable from '../components/subscriptions/premium_credits_tab
 import getAuthToken from '../components/modules/get_auth_token';
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props);
     const availableAndEarnedCredits = this.availableAndEarnedCredits();
@@ -26,15 +25,18 @@ export default class extends React.Component {
       purchaserNameOrEmail: this.purchaserNameOrEmail(),
       authorityLevel: this.props.userAuthorityLevel,
     };
-    this.redeemPremiumCredits = this.redeemPremiumCredits.bind(this);
-    this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
-    this.showPurchaseModal = this.showPurchaseModal.bind(this);
-    this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
-    this.hidePurchaseModal = this.hidePurchaseModal.bind(this);
-    this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
-    this.updateCard = this.updateCard.bind(this);
-    this.updateSubscription = this.updateSubscription.bind(this);
-    // this.currentUserIsPurchaser = this.currentUserIsPurchaser.bind(this);
+  }
+
+  getPurchaserName() {
+    const that = this;
+    const idPath = 'subscriptionStatus.id';
+    const subId = _.get(that.state, idPath) || _.get(that.props, idPath);
+    request.get({
+      url: `${process.env.DEFAULT_URL}/subscriptions/${subId}/purchaser_name`,
+    },
+    (e, r, body) => {
+      that.setState({ purchaserNameOrEmail: JSON.parse(body).name, });
+    });
   }
 
   availableAndEarnedCredits() {
@@ -50,6 +52,25 @@ export default class extends React.Component {
     return { earned, available: earned - spent, };
   }
 
+  currentSubscription(newSub) {
+    if (!this.state.subscriptionStatus || this.state.subscriptionStatus.expired) {
+      return newSub;
+    }
+    return this.state.subscriptionStatus;
+  }
+
+  hidePremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: false, });
+  };
+
+  hidePurchaseModal = () => {
+    this.setState({ showPurchaseModal: false, });
+  };
+
+  purchasePremiumButton() {
+    return <button className="q-button button cta-button bg-orange text-white" data-toggle="modal" id="purchase-btn" onClick={this.purchasePremium} type="button">Update Card</button>;
+  }
+
   purchaserNameOrEmail() {
     const sub = (this.state && this.state.subscriptionStatus) || this.props.subscriptionStatus;
     if (sub) {
@@ -63,34 +84,7 @@ export default class extends React.Component {
     }
   }
 
-  getPurchaserName() {
-    const that = this;
-    const idPath = 'subscriptionStatus.id';
-    const subId = _.get(that.state, idPath) || _.get(that.props, idPath);
-    request.get({
-      url: `${process.env.DEFAULT_URL}/subscriptions/${subId}/purchaser_name`,
-    },
-    (e, r, body) => {
-      that.setState({ purchaserNameOrEmail: JSON.parse(body).name, });
-    });
-  }
-
-  updateSubscriptionStatus(subscription) {
-    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
-  }
-
-  purchasePremiumButton() {
-    return <button className="q-button button cta-button bg-orange text-white" data-toggle="modal" id="purchase-btn" onClick={this.purchasePremium} type="button">Update Card</button>;
-  }
-
-  currentSubscription(newSub) {
-    if (!this.state.subscriptionStatus || this.state.subscriptionStatus.expired) {
-      return newSub;
-    }
-    return this.state.subscriptionStatus;
-  }
-
-  redeemPremiumCredits() {
+  redeemPremiumCredits = () => {
     request.put({
       url: `${process.env.DEFAULT_URL}/credit_transactions/redeem_credits_for_premium`,
       json: {
@@ -108,27 +102,15 @@ export default class extends React.Component {
         });
       }
     });
-  }
+  };
 
-  updateSubscription(params, subscriptionId) {
-    request.put({
-      url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
-      json: { subscription: params, authenticity_token: getAuthToken(), },
-    }, (error, httpStatus, body) => {
-      if (httpStatus.statusCode === 200) {
-        location.reload();
-      } else {
-        alert('There was an error updating your subscription. Please try again or contact hello@quill.org.');
-      }
-    });
-  }
+  showPremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: true, });
+  };
 
-  userIsContact() {
-    if (this.props.subscriptionStatus) {
-      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
-    }
-    return false;
-  }
+  showPurchaseModal = () => {
+    this.setState({ showPurchaseModal: true, });
+  };
 
   subscriptionType() {
     if (!this.props.subscriptionStatus) {
@@ -146,24 +128,32 @@ export default class extends React.Component {
     return 'Teacher';
   }
 
-  updateCard() {
+  updateCard = () => {
     this.showPurchaseModal();
-  }
+  };
 
-  showPremiumConfirmationModal() {
-    this.setState({ showPremiumConfirmationModal: true, });
-  }
+  updateSubscription = (params, subscriptionId) => {
+    request.put({
+      url: `${process.env.DEFAULT_URL}/subscriptions/${subscriptionId}`,
+      json: { subscription: params, authenticity_token: getAuthToken(), },
+    }, (error, httpStatus, body) => {
+      if (httpStatus.statusCode === 200) {
+        location.reload();
+      } else {
+        alert('There was an error updating your subscription. Please try again or contact hello@quill.org.');
+      }
+    });
+  };
 
-  hidePremiumConfirmationModal() {
-    this.setState({ showPremiumConfirmationModal: false, });
-  }
+  updateSubscriptionStatus = subscription => {
+    this.setState({ subscriptionStatus: subscription, showPremiumConfirmationModal: true, showPurchaseModal: false, });
+  };
 
-  showPurchaseModal() {
-    this.setState({ showPurchaseModal: true, });
-  }
-
-  hidePurchaseModal() {
-    this.setState({ showPurchaseModal: false, });
+  userIsContact() {
+    if (this.props.subscriptionStatus) {
+      return Number(document.getElementById('current-user-id').getAttribute('content')) === this.props.subscriptionStatus.purchaser_id;
+    }
+    return false;
   }
 
   render() {

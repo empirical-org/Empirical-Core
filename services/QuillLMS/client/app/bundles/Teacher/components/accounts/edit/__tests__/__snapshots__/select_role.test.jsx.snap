@@ -17,21 +17,25 @@ exports[`SelectRole component should render 1`] = `
       value="teacher"
     >
       <option
+        key="teacher"
         value="teacher"
       >
         teacher
       </option>
       <option
+        key="student"
         value="student"
       >
         student
       </option>
       <option
+        key="admin"
         value="admin"
       >
         admin
       </option>
       <option
+        key="staff"
         value="staff"
       >
         staff

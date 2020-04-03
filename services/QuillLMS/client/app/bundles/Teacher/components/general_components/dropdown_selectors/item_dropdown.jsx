@@ -2,18 +2,14 @@ import React from 'react';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-export default React.createClass({
+export default class ItemDropdown extends React.Component {
+  constructor(props) {
+    super(props)
 
-  propTypes: {
-    items: React.PropTypes.array.isRequired,
-    callback: React.PropTypes.func,
-  },
+    this.state = { selectedItem: props.selectedItem || props.items[0], }
+  }
 
-  getInitialState() {
-    return ({ selectedItem: this.props.selectedItem || this.props.items[0], });
-  },
-
-  items() {
+  items = () => {
     return this.props.items.map((item) => {
       if (!item.id) {
         // then we don't need ids
@@ -21,9 +17,9 @@ export default React.createClass({
       }
       return <MenuItem eventKey={item.id} key={item.id}>{item.name}</MenuItem>;
     });
-  },
+  };
 
-  findItemByIdOrName(idOrName) {
+  findItemByIdOrName = (idOrName) => {
     return this.props.items.find((c) => {
       if (!c.id) {
         // then we're matching on name
@@ -31,23 +27,23 @@ export default React.createClass({
       }
       return c.id === idOrName;
     });
-  },
+  };
 
-  handleSelect(itemId) {
+  handleSelect = (itemId) => {
     const item = this.findItemByIdOrName(itemId);
     this.setState({ selectedItem: item, });
     if (this.props.callback) {
       this.props.callback(item);
     }
-  },
+  };
 
   render() {
-    const title = this.state.selectedItem.name || this.state.selectedItem;
+    const { selectedItem, } = this.state
+    const title = selectedItem && selectedItem.name ? selectedItem.name : selectedItem;
     return (
       <DropdownButton bsStyle="default" class="select-item-dropdown" disabled={!this.props.items.length} onSelect={this.handleSelect} title={title}>
         {this.items()}
       </DropdownButton>
     );
-  },
-
-});
+  }
+}

@@ -19,8 +19,9 @@
   .footer-white,
   #premium-banner-container,
   .breadcrumb,
+  .covid-banner,
   nav {
-    display: none;
+    display: none !important;
   }
   .activity-image:first-child {
     border: none !important;

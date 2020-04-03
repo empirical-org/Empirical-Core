@@ -51,44 +51,6 @@ export default class StudentAccount extends Component {
     })
   }
 
-  renderSnackbar = () => {
-    const { showSnackbar, snackbarCopy, } = this.state
-    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
-  }
-
-  renderLinkedAccount = () => {
-    const { cleverId, googleId } = this.props;
-    if(cleverId || googleId ) {
-      const label = cleverId ? 'clever' : 'google';
-      const path = `${process.env.CDN_URL}/images/shared/${label}_icon.svg`
-      return(
-        <div className="user-linked-accounts user-account-section">
-          <h1>Linked accounts</h1>
-          <div className={`${label}-row`}>
-            <div className="first-half">
-              <img alt={`${label} icon`} src={path} />
-              <span>{`${label[0].toUpperCase()}${label.slice(1)} account is linked`}</span>
-            </div>
-          </div>
-        </div>
-      );
-    }
-  }
-
-  renderExplanation = () => {
-    const { cleverId, } = this.props
-    const accountType = cleverId ? 'Clever' : 'Google';
-    return(
-      <div className="user-account-section third-party-integration-explanation">
-        <div className="third-party-integration-explanation header">
-          <h4>Why can&#39;t I edit my account information?</h4>
-          <img alt="Lightbulb with rays shining" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
-        </div>
-        <p className="third-party-integration-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
-      </div>
-    );
-  }
-
   updateUser = (data, url, snackbarCopy, errors) => {
     if(!_.isEmpty(errors)) {
       // combine front and backend errors if any lingering backend errors remain
@@ -125,6 +87,44 @@ export default class StudentAccount extends Component {
         this.setState({ errors: error.errors, timesSubmitted: timesSubmitted + 1, });
       });
     }
+  }
+
+  renderExplanation = () => {
+    const { cleverId, } = this.props
+    const accountType = cleverId ? 'Clever' : 'Google';
+    return(
+      <div className="user-account-section third-party-integration-explanation">
+        <div className="third-party-integration-explanation header">
+          <h4>Why can&#39;t I edit my account information?</h4>
+          <img alt="Lightbulb with rays shining" src={`${process.env.CDN_URL}/images/illustrations/bulb.svg`} />
+        </div>
+        <p className="third-party-integration-explanation text">{`Your information is linked to your ${accountType} account. Go to your ${accountType} account settings to change your name, username, email or password.`}</p>
+      </div>
+    );
+  }
+
+  renderLinkedAccount = () => {
+    const { cleverId, googleId } = this.props;
+    if(cleverId || googleId ) {
+      const label = cleverId ? 'clever' : 'google';
+      const path = `${process.env.CDN_URL}/images/shared/${label}_icon.svg`
+      return(
+        <div className="user-linked-accounts user-account-section">
+          <h1>Linked accounts</h1>
+          <div className={`${label}-row`}>
+            <div className="first-half">
+              <img alt={`${label} icon`} src={path} />
+              <span>{`${label[0].toUpperCase()}${label.slice(1)} account is linked`}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  renderSnackbar = () => {
+    const { showSnackbar, snackbarCopy, } = this.state
+    return <Snackbar text={snackbarCopy} visible={showSnackbar} />
   }
 
   render() {

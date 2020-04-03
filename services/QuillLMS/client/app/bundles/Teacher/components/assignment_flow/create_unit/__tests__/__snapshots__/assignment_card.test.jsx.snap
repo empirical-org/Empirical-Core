@@ -42,6 +42,7 @@ exports[`AssignmentCard component should render 1`] = `
   >
     <div
       className="body-element"
+      key="What"
     >
       <p
         className="key"
@@ -56,6 +57,7 @@ exports[`AssignmentCard component should render 1`] = `
     </div>
     <div
       className="body-element"
+      key="When"
     >
       <p
         className="key"

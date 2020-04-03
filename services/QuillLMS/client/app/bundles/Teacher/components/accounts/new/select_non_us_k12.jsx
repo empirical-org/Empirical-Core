@@ -16,11 +16,11 @@ class SelectUSNonK12 extends React.Component {
 
   handleClickHomeSchool = () => this.selectSchool('home school')
 
-  handleClickUSHigherEd = () => this.selectSchool('us higher ed')
-
   handleClickInternational = () => this.selectSchool('international')
 
   handleClickOther = () => this.selectSchool('other')
+
+  handleClickUSHigherEd = () => this.selectSchool('us higher ed')
 
   selectSchool(idOrType) {
     SegmentAnalytics.track(Events.CLICK_CHOOSE_SCHOOL_TYPE, {schoolType: idOrType});

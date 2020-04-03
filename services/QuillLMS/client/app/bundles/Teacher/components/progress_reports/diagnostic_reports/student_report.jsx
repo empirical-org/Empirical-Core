@@ -5,51 +5,52 @@ import StudentReportBox from './student_report_box.jsx'
 import ConnectStudentReportBox from './connect_student_report_box.jsx'
 import $ from 'jquery'
 import _ from 'underscore'
-export default React.createClass({
 
-	getInitialState: function() {
-		return {loading: true, questions: null}
-	},
+export default class StudentReport extends React.Component {
+  constructor(props) {
+    super(props)
 
+    this.state = {loading: true, questions: null};
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.getStudentData(this.props.params)
-  },
+  }
 
-	componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
 		this.setState({loading: true});
 		this.getStudentData(nextProps.params);
-	},
+	};
 
-	selectedStudent: function(students){
-		let studentId = this.props.params.studentId;
-		if (studentId) {
-			return students.find(s => s.id === parseInt(studentId))
-		} else {
-			return students[0]
-		}
-	},
+  selectedStudent = (students) => {
+	let studentId = this.props.params.studentId;
+	if (studentId) {
+		return students.find(s => s.id === parseInt(studentId))
+	} else {
+		return students[0]
+	}
+};
 
-  getStudentData: function(params){
+  getStudentData = (params) => {
     const that = this;
-		const p = params;
+        const p = params;
     $.get(`/teachers/progress_reports/students_by_classroom/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, (data) => {
       that.setState({students: data.students, loading: false})
     })
-  },
+  };
 
-  studentBoxes: function(){
-		const studentData = this.selectedStudent(this.state.students);
-		let concept_results = _.sortBy(studentData.concept_results, 'question_number')
+  studentBoxes = () => {
+    const studentData = this.selectedStudent(this.state.students);
+    let concept_results = _.sortBy(studentData.concept_results, 'question_number')
     return concept_results.map((question, index) => {
-			if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence') {
-				return <ConnectStudentReportBox boxNumber={index+1} key={index} questionData={question} />
-			}
-			return <StudentReportBox boxNumber={index+1} key={index} questionData={question} />
-		})
-  },
+      if (studentData.activity_classification === 'connect' || studentData.activity_classification === 'sentence') {
+        return <ConnectStudentReportBox boxNumber={index+1} key={index} questionData={question} />
+      }
+      return <StudentReportBox boxNumber={index+1} key={index} questionData={question} />
+    })
+  };
 
-	render: function() {
+  render() {
 		let content;
 		if (this.state.loading) {
 			content = <LoadingSpinner />
@@ -70,4 +71,4 @@ export default React.createClass({
 		}
 		return content
 	}
-});
+}

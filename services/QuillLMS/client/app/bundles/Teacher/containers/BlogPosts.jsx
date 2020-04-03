@@ -8,19 +8,13 @@ import request from 'request';
 import moment from 'moment';
 
 export default class BlogPosts extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.renderBlogPostsByTopic = this.renderBlogPostsByTopic.bind(this)
-  }
-
   confirmDelete(e) {
     if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
       e.preventDefault();
     }
   }
 
-  renderBlogPostsByTopic() {
+  renderBlogPostsByTopic = () => {
     const allTopics = this.props.topics.concat(this.props.studentTopics)
     const tables = allTopics.map(t => {
       const filteredBlogPosts = this.props.blogPosts.filter(bp => bp.topic === t)
@@ -33,7 +27,7 @@ export default class BlogPosts extends React.Component {
     }
     )
     return tables
-  }
+  };
 
   render() {
     if (['new', 'edit'].includes(this.props.action)) {
@@ -51,5 +45,4 @@ export default class BlogPosts extends React.Component {
       </div>
     );
   }
-
 };

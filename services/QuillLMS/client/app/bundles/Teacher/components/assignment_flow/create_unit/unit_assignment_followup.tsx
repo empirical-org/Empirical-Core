@@ -30,7 +30,8 @@ interface UnitAssignmentFollowupProps {
   selectedActivities: Array<any>;
   unitName: string;
   referralCode: string;
-  router: any;
+  location: any;
+  history: any;
 }
 
 interface UnitAssignmentFollowupState {
@@ -48,7 +49,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const assignedClassrooms = props.classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
 
     this.state = {
-      showNextOptions: props.router.location.pathname === '/assign/next',
+      showNextOptions: props.location.pathname === '/assign/next',
       assignedClassrooms,
       showSnackbar: false,
       snackbarCopy: '',
@@ -81,8 +82,8 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   handleCopyLink = () => this.showSnackbar('Link copied')
 
   handleClickNext = () => {
-    const { router, } = this.props
-    router.push('/assign/next')
+    const { history, } = this.props
+    history.push('/assign/next')
     this.setState({ showNextOptions: true })
   }
 
@@ -158,7 +159,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <div className="referral-card">
         <img alt="gift" src={giftSrc} />
         <h1>Share Quill and earn a month of free Quill Premium for Teachers.</h1>
-        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word. </p>
+        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word.</p>
         <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
         <div className='share-box'>
           <div className="referral-link-container">

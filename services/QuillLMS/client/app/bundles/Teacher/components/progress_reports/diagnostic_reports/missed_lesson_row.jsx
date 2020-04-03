@@ -7,18 +7,15 @@ export default class MissedLessonRow extends React.Component {
     this.state = {
       showTooltip: false
     }
-
-    this.hideTooltip = this.hideTooltip.bind(this)
-    this.showTooltip = this.showTooltip.bind(this)
   }
 
-  hideTooltip() {
+  hideTooltip = () => {
     this.setState({ showTooltip: false, });
-  }
+  };
 
-  showTooltip() {
+  showTooltip = () => {
     this.setState({ showTooltip: true, });
-  }
+  };
 
   tooltip() {
     const tooltipStyle = {

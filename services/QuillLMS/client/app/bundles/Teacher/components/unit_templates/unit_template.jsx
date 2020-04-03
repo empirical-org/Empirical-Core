@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import ActivitySearchAndSelect from '../assignment_flow/create_unit/activity_search/activity_search_and_select.jsx';
@@ -11,10 +12,32 @@ import MarkdownParser from '../shared/markdown_parser.jsx';
 import $ from 'jquery';
 import _ from 'underscore';
 
-export default React.createClass({
-  propTypes: {
-    unitTemplate: React.PropTypes.object.isRequired,
-    returnToIndex: React.PropTypes.func.isRequired,
+export default createReactClass({
+  displayName: 'unit_template',
+
+  getInitialState() {
+    this.initializeModules();
+
+    let model = {
+      name: null,
+      activity_info: null,
+      time: null,
+      grades: [],
+      activities: [],
+      unit_template_category_id: null,
+      flag: this.props.unitTemplate.flag || null,
+      author_id: null,
+      order_number: this.props.unitTemplate.order_number || null,
+    };
+    model = _.extend(model, this.props.unitTemplate);
+    const options = this.modules.optionsLoader.initialOptions();
+
+    const hash = { model, options, };
+    return hash;
+  },
+
+  componentDidMount() {
+    this.modules.optionsLoader.get();
   },
 
   resourceNameSingular: 'unit_template',
@@ -56,31 +79,6 @@ export default React.createClass({
       { name: 'order_number', value: _.range(1, 30), fromServer: false, }
     ];
     return this.modelOptions;
-  },
-
-  getInitialState() {
-    this.initializeModules();
-
-    let model = {
-      name: null,
-      activity_info: null,
-      time: null,
-      grades: [],
-      activities: [],
-      unit_template_category_id: null,
-      flag: this.props.unitTemplate.flag || null,
-      author_id: null,
-      order_number: this.props.unitTemplate.order_number || null,
-    };
-    model = _.extend(model, this.props.unitTemplate);
-    const options = this.modules.optionsLoader.initialOptions();
-
-    const hash = { model, options, };
-    return hash;
-  },
-
-  componentDidMount() {
-    this.modules.optionsLoader.get();
   },
 
   // TODO: abstract out the below 3 methods

@@ -9,15 +9,12 @@ import moment from 'moment';
 import EmptyStateForReport from './empty_state_for_report';
 
 export default class extends React.Component {
-
   constructor() {
     super();
     this.state = {
       loading: true,
       errors: false,
     };
-    this.initializePusher = this.initializePusher.bind(this);
-    this.clearStudentData = this.clearStudentData.bind(this);
   }
 
   componentDidMount() {
@@ -35,44 +32,10 @@ export default class extends React.Component {
     });
   }
 
-  clearStudentData() {
+  clearStudentData = () => {
     const studentsData = { data: {}, };
     this.setState({ studentsData, });
-  }
-
-  initializePusher() {
-    /* TODO */
-    const { currentUser, } = this.props;
-    const teacherId = currentUser.id;
-    if (process.env.RAILS_ENV === 'development') {
-      Pusher.logToConsole = true;
-    }
-    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
-    const channel = pusher.subscribe(teacherId.toString());
-    const maxIntervalWithoutInteractionBeforeClearing = 60000;
-    let clearStudentDataAfterPause = setTimeout(
-      this.clearStudentData,
-      maxIntervalWithoutInteractionBeforeClearing
-    );
-    channel.bind('as-interaction-log-pushed', () => {
-      // reset clock on table
-      clearTimeout(clearStudentDataAfterPause);
-      clearStudentDataAfterPause = setTimeout(
-        this.clearStudentData,
-        maxIntervalWithoutInteractionBeforeClearing
-      );
-      this.getRealTimeData()
-    });
-  }
-
-  humanTime(timeInSeconds) {
-    let result = '';
-    if (timeInSeconds / 60 >= 1) {
-      result += `${moment.duration(timeInSeconds / 60, 'minutes').humanize()} and `;
-    }
-    result += `${timeInSeconds % 60} seconds`;
-    return result;
-  }
+  };
 
   columns() {
     return ([
@@ -115,6 +78,40 @@ export default class extends React.Component {
   filteredStudentsData() {
     return this.state.studentsData;
   }
+
+  humanTime(timeInSeconds) {
+    let result = '';
+    if (timeInSeconds / 60 >= 1) {
+      result += `${moment.duration(timeInSeconds / 60, 'minutes').humanize()} and `;
+    }
+    result += `${timeInSeconds % 60} seconds`;
+    return result;
+  }
+
+  initializePusher = () => {
+    /* TODO */
+    const { currentUser, } = this.props;
+    const teacherId = currentUser.id;
+    if (process.env.RAILS_ENV === 'development') {
+      Pusher.logToConsole = true;
+    }
+    const pusher = new Pusher(process.env.PUSHER_KEY, { encrypted: true, });
+    const channel = pusher.subscribe(teacherId.toString());
+    const maxIntervalWithoutInteractionBeforeClearing = 60000;
+    let clearStudentDataAfterPause = setTimeout(
+      this.clearStudentData,
+      maxIntervalWithoutInteractionBeforeClearing
+    );
+    channel.bind('as-interaction-log-pushed', () => {
+      // reset clock on table
+      clearTimeout(clearStudentDataAfterPause);
+      clearStudentDataAfterPause = setTimeout(
+        this.clearStudentData,
+        maxIntervalWithoutInteractionBeforeClearing
+      );
+      this.getRealTimeData()
+    });
+  };
 
   tableOrEmptyMessage(filteredStudentsData) {
     if (filteredStudentsData.length) {

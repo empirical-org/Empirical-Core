@@ -10,13 +10,9 @@ export default class DeleteLastActivitySession extends React.Component {
       studentIdentifier: '',
       activityName: ''
     }
-
-    this.submitData = this.submitData.bind(this)
-    this.updateActivityName = this.updateActivityName.bind(this)
-    this.updateStudentIdentifier = this.updateStudentIdentifier.bind(this)
   }
 
-  submitData() {
+  submitData = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/delete_last_activity_session`,
@@ -31,15 +27,15 @@ export default class DeleteLastActivitySession extends React.Component {
         // to do, use Sentry to capture error
       }
     })
-  }
+  };
 
-  updateActivityName(e, activityName) {
+  updateActivityName = (e, activityName) => {
     this.setState({activityName: e.target.value})
-  }
+  };
 
-  updateStudentIdentifier(e) {
+  updateStudentIdentifier = e => {
     this.setState({studentIdentifier: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {
