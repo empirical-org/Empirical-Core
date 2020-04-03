@@ -221,7 +221,7 @@ GEM
     safe_yaml (1.0.5)
     sidekiq (5.2.8)
       connection_pool (~> 2.2, >= 2.2.2)
-      rack (< 2.1.0)
+      rack (~> 2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
     sidekiq-pro (4.0.5)
