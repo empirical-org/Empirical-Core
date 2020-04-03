@@ -33,12 +33,12 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
   }
 
   componentDidMount() {
-    const { params } = this.props;
-    const { activityPackId } = params;
+    const { match } = this.props;
+    const { activityPackId } = match.params;
     this.getProfileInfo(activityPackId);
   }
 
-  componentWillReceiveProps(nextProps: RouteComponentProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: RouteComponentProps) {
     const { location } = this.props;
     const { params } = nextProps;
     const { activityPackId } = params;
@@ -84,7 +84,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
   }
 
   handleGoToEditStudents = () => {
-    const { router } = this.props;
+    const { history } = this.props;
     const { data } = this.state;
     const { name, id, activities, } = data
     const activityIdsArray = activities.map((act: Activity) => act.id).toString()
@@ -92,7 +92,7 @@ export class UnitTemplateProfile extends React.Component<RouteComponentProps, Un
     window.localStorage.setItem(UNIT_NAME, name)
     window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
     window.localStorage.setItem(UNIT_TEMPLATE_ID, id)
-    router.push(`/assign/select-classes?unit_template_id=${id}`)
+    history.push(`/assign/select-classes?unit_template_id=${id}`)
   }
 
   renderAssignButton = () => {

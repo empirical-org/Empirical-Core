@@ -1,6 +1,5 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import _ from 'lodash';
 import request from 'request';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
@@ -23,27 +22,12 @@ export default class EditOrCreateSubscription extends React.Component {
     };
   }
 
-  handleChangePurchaserInfoToTeacherInfo = () => {
-    const { user, } = this.props
-    const { subscription, } = this.state
-    const newSub = Object.assign({}, subscription);
-    newSub.purchaser_id = user.id;
-    newSub.purchaser_email = user.email;
-    this.setState({ subscription: newSub, });
-  }
-
-  changePaymentMethod = (e) => {
-    const { subscription, } = this.state
-    const newSub = Object.assign({}, subscription);
-    newSub.payment_method = e;
-    this.setState({ subscription: newSub, });
-  }
-
-  handlePaymentAmountChange = (e) => {
-    const { subscription, } = this.state
-    const newSub = Object.assign({}, subscription);
-    newSub.payment_amount = e.target.value * 100;
-    this.setState({ subscription: newSub, });
+  getMatchingUserFromSchoolsUsersByEmail = (newSub, e) => {
+    const { schoolsUsers, } = this.props
+    const matchingSchoolUser = schoolsUsers && schoolsUsers.find(u => u.email === e.target.value);
+    if (matchingSchoolUser) {
+      newSub.purchaser_id = matchingSchoolUser.id;
+    }
   }
 
   getMatchingUserFromSchoolsUsersById = (newSub, e) => {
@@ -54,18 +38,56 @@ export default class EditOrCreateSubscription extends React.Component {
     }
   }
 
-  getMatchingUserFromSchoolsUsersByEmail = (newSub, e) => {
-    const { schoolsUsers, } = this.props
-    const matchingSchoolUser = schoolsUsers && schoolsUsers.find(u => u.email === e.target.value);
-    if (matchingSchoolUser) {
-      newSub.purchaser_id = matchingSchoolUser.id;
-    }
-  }
-
   changeAccountType = (e) => {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
     newSub.account_type = e;
+    this.setState({ subscription: newSub, });
+  }
+
+  changePaymentMethod = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.payment_method = e;
+    this.setState({ subscription: newSub, });
+  }
+
+  changePurchaserId = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    this.getMatchingUserFromSchoolsUsersById(newSub, e.id);
+
+    newSub.purchaser_id = e.id;
+    this.setState({ subscription: newSub, });
+  }
+
+  changeToPurchaserInfo = () => {
+    const { user, } = this.props
+    if (user) {
+      return <span className="green-text text-green" onClick={this.handleChangePurchaserInfoToTeacherInfo}>Same As Teacher Info</span>;
+    }
+  }
+
+  handleChangePurchaserInfoToTeacherInfo = () => {
+    const { user, } = this.props
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.purchaser_id = user.id;
+    newSub.purchaser_email = user.email;
+    this.setState({ subscription: newSub, });
+  }
+
+  handleExpirationDateChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.expiration = e;
+    this.setState({ subscription: newSub, });
+  }
+
+  handlePaymentAmountChange = (e) => {
+    const { subscription, } = this.state
+    const newSub = Object.assign({}, subscription);
+    newSub.payment_amount = e.target.value * 100;
     this.setState({ subscription: newSub, });
   }
 
@@ -77,10 +99,10 @@ export default class EditOrCreateSubscription extends React.Component {
     this.setState({ subscription: newSub, });
   }
 
-  handleExpirationDateChange = (e) => {
+  handleRecurringChange = () => {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
-    newSub.expiration = e;
+    newSub.recurring = !newSub.recurring;
     this.setState({ subscription: newSub, });
   }
 
@@ -88,15 +110,6 @@ export default class EditOrCreateSubscription extends React.Component {
     const { subscription, } = this.state
     const newSub = Object.assign({}, subscription);
     newSub.start_date = e;
-    this.setState({ subscription: newSub, });
-  }
-
-  changePurchaserId = (e) => {
-    const { subscription, } = this.state
-    const newSub = Object.assign({}, subscription);
-    this.getMatchingUserFromSchoolsUsersById(newSub, e.id);
-
-    newSub.purchaser_id = e.id;
     this.setState({ subscription: newSub, });
   }
 
@@ -117,38 +130,19 @@ export default class EditOrCreateSubscription extends React.Component {
     }
   }
 
-  handleRecurringChange = () => {
+  recurringIfCreditCard = () => {
     const { subscription, } = this.state
-    const newSub = Object.assign({}, subscription);
-    newSub.recurring = !newSub.recurring;
-    this.setState({ subscription: newSub, });
-  }
 
-  submitVars = () => {
-    const { subscription, } = this.state
-    const { view, schoolOrUser, user, school } = this.props
-
-    const varsObj = { data: { subscription: subscription, authenticity_token: getAuthToken(), }, urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`, };
-    if (view === 'edit') {
-      varsObj.httpVerb = 'put';
-      varsObj.urlString += `/${subscription.id}`;
-    } else {
-      // we are creating
-      varsObj.data.school_or_user = schoolOrUser;
-      varsObj.data.school_or_user_id = schoolOrUser === 'school' ? school.id : user.id
-      varsObj.httpVerb = 'post';
-    }
-    return varsObj;
-  }
-
-  submitConfirmation = () => {
-    const { school, } = this.props
-    if (school) {
-      if (confirm("You know you are about to add/edit an entire school's subscription, right?")) {
-        this.submit();
-      } else {
-        alert('submission canceled');
-      }
+    if (subscription.payment_method === 'Credit Card') {
+      return (
+        <label>
+                Recurring:
+          <input
+            checked={subscription.recurring}
+            onChange={this.handleRecurringChange}
+            type="checkbox"
+          />
+        </label>);
     }
   }
 
@@ -173,27 +167,32 @@ export default class EditOrCreateSubscription extends React.Component {
     });
   }
 
-  recurringIfCreditCard = () => {
-    const { subscription, } = this.state
-
-    if (subscription.payment_method === 'Credit Card') {
-      return (
-        <label>
-                Recurring:
-          <input
-            checked={subscription.recurring}
-            onChange={this.handleRecurringChange}
-            type="checkbox"
-          />
-        </label>);
+  submitConfirmation = () => {
+    const { school, } = this.props
+    if (school) {
+      if (confirm("You know you are about to add/edit an entire school's subscription, right?")) {
+        this.submit();
+      } else {
+        alert('submission canceled');
+      }
     }
   }
 
-  changeToPurchaserInfo = () => {
-    const { user, } = this.props
-    if (user) {
-      return <span className="green-text text-green" onClick={this.handleChangePurchaserInfoToTeacherInfo}>Same As Teacher Info</span>;
+  submitVars = () => {
+    const { subscription, } = this.state
+    const { view, schoolOrUser, user, school } = this.props
+
+    const varsObj = { data: { subscription: subscription, authenticity_token: getAuthToken(), }, urlString: `${process.env.DEFAULT_URL}/cms/subscriptions`, };
+    if (view === 'edit') {
+      varsObj.httpVerb = 'put';
+      varsObj.urlString += `/${subscription.id}`;
+    } else {
+      // we are creating
+      varsObj.data.school_or_user = schoolOrUser;
+      varsObj.data.school_or_user_id = schoolOrUser === 'school' ? school.id : user.id
+      varsObj.httpVerb = 'post';
     }
+    return varsObj;
   }
 
   render() {
@@ -236,12 +235,12 @@ export default class EditOrCreateSubscription extends React.Component {
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.
         </p>
-        <DatePicker onChange={this.handleStartDateChange} selected={subscription.start_date ? moment(subscription.start_date) : null} />
+        <DatePicker onChange={this.handleStartDateChange} selected={subscription.start_date ? new Date(subscription.start_date) : null} />
         <label htmlFor="">End Date</label>
         <p>
           If this a school or users first paid subscription, the default end date is {promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
-        <DatePicker onChange={this.handleExpirationDateChange} selected={subscription.expiration ? moment(subscription.expiration) : null} />
+        <DatePicker onChange={this.handleExpirationDateChange} selected={subscription.expiration ? new Date(subscription.expiration) : null} />
         <div>
           <button className="q-button cta-button bg-quillgreen text-white" onClick={submitAction} type="submit">
             {view === 'new' ? 'New' : 'Update'} Subscription

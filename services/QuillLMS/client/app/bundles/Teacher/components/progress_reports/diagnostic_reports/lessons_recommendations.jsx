@@ -7,12 +7,12 @@ export default class LessonsRecommendations extends React.Component {
     super();
   }
 
-  sortByPercentage() {
-    return this.props.recommendations.sort((a, b) => b.percentage_needing_instruction - a.percentage_needing_instruction);
-  }
-
   recommendationRows() {
     return this.sortByPercentage().map(r => <LessonRecommendationRow activityPackId={r.activity_pack_id} assignToWholeClass={this.props.assignToWholeClass} key={r.activity_pack_id} recommendation={r} status={r.status} />);
+  }
+
+  sortByPercentage() {
+    return this.props.recommendations.sort((a, b) => b.percentage_needing_instruction - a.percentage_needing_instruction);
   }
 
   render() {

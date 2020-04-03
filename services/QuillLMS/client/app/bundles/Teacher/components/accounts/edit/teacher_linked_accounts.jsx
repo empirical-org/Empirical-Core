@@ -12,7 +12,7 @@ export default class TeacherLinkedAccounts extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { cleverId, googleId, } = this.props
     if (nextProps.cleverId !== cleverId || nextProps.googleId !== googleId) {
       this.setState({
@@ -22,20 +22,18 @@ export default class TeacherLinkedAccounts extends React.Component {
     }
   }
 
-  hideGoogleModal = () => {
-    this.setState({ showGoogleModal: false, })
-  }
-
-  hideCleverModal = () => {
-    this.setState({ showCleverModal: false, })
+  handleClickUnlinkClever = () => {
+    this.setState({ showCleverModal: true, })
   }
 
   handleClickUnlinkGoogle = () => {
     this.setState({ showGoogleModal: true, })
   }
 
-  handleClickUnlinkClever = () => {
-    this.setState({ showCleverModal: true, })
+  handleKeyDownOnPostGoogleClassroomAssignments = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleToggleGoogleClassroomAssignments()
   }
 
   handleToggleGoogleClassroomAssignments = () => {
@@ -47,20 +45,22 @@ export default class TeacherLinkedAccounts extends React.Component {
     updateUser(data, '/teachers/update_my_account', 'Settings saved')
   }
 
-  handleKeyDownOnPostGoogleClassroomAssignments = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleToggleGoogleClassroomAssignments()
+  hideCleverModal = () => {
+    this.setState({ showCleverModal: false, })
   }
 
-  isLinkedToGoogle = () => {
-    const { googleId } = this.props
-    return googleId && googleId.length
+  hideGoogleModal = () => {
+    this.setState({ showGoogleModal: false, })
   }
 
   isLinkedToClever = () => {
     const { cleverId } = this.props
     return cleverId && cleverId.length
+  }
+
+  isLinkedToGoogle = () => {
+    const { googleId } = this.props
+    return googleId && googleId.length
   }
 
   renderCheckbox = () => {
@@ -70,6 +70,27 @@ export default class TeacherLinkedAccounts extends React.Component {
     } else {
       return <div aria-checked={false} aria-label="Unchecked checkbox" className="quill-checkbox unselected" onClick={this.handleToggleGoogleClassroomAssignments} onKeyDown={this.handleKeyDownOnPostGoogleClassroomAssignments} role="checkbox" tabIndex={0} />
     }
+  }
+
+  renderCleverSection = () => {
+    const { cleverLink, } = this.props
+    let actionElement, copy
+    if (this.isLinkedToGoogle() && !this.isLinkedToClever()) {
+      copy = 'Clever is not linked. Unlink Google to link your Clever account.'
+    } else if (!this.isLinkedToClever()) {
+      copy = 'Clever is not linked'
+      actionElement = <a className="google-or-clever-action" href={cleverLink}>Link your account</a>
+    } else {
+      copy = 'Clever account is linked'
+      actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkClever} type="button">Unlink</button>
+    }
+    return (<div className="clever-row">
+      <div className="first-half">
+        <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+        <span>{copy}</span>
+      </div>
+      {actionElement}
+    </div>)
   }
 
   renderGoogleSection = () => {
@@ -99,27 +120,6 @@ export default class TeacherLinkedAccounts extends React.Component {
         </div>
         {checkboxRow}
       </div>);
-  }
-
-  renderCleverSection = () => {
-    const { cleverLink, } = this.props
-    let actionElement, copy
-    if (this.isLinkedToGoogle() && !this.isLinkedToClever()) {
-      copy = 'Clever is not linked. Unlink Google to link your Clever account.'
-    } else if (!this.isLinkedToClever()) {
-      copy = 'Clever is not linked'
-      actionElement = <a className="google-or-clever-action" href={cleverLink}>Link your account</a>
-    } else {
-      copy = 'Clever account is linked'
-      actionElement = <button className="google-or-clever-action" onClick={this.handleClickUnlinkClever} type="button">Unlink</button>
-    }
-    return (<div className="clever-row">
-      <div className="first-half">
-        <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-        <span>{copy}</span>
-      </div>
-      {actionElement}
-    </div>)
   }
 
   renderModal = () => {

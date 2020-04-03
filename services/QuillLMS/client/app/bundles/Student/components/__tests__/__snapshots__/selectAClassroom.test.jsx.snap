@@ -28,6 +28,7 @@ exports[`SelectAClassroom component should render SelectAClassroom 1`] = `
       </button>
       <button
         className="classroom-card"
+        key="13"
         onClick={[Function]}
         type="button"
       >

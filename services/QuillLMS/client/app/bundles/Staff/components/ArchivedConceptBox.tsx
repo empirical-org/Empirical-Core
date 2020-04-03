@@ -86,7 +86,7 @@ class ArchivedConceptBox extends React.Component<ArchivedConceptBoxProps, Archiv
     this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.props.concept, nextProps.concept)) {
       this.setState({ concept: nextProps.concept, })
     }

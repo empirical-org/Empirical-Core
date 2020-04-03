@@ -4,11 +4,6 @@ import shouldCountForScoring from '../../../../modules/activity_classifications.
 
 export default class StudentScores extends React.Component {
 
-  handleScores() {
-    const { data, premium_state, } = this.props
-    return data.scores.map((score, index) => <ActivityIconWithTooltip context='scorebook' data={score} key={`${data.name} ${index} ${score.cuId}`} premium_state={premium_state} />);
-  }
-
   calculateAverageScore() {
     const { data, } = this.props
 
@@ -24,6 +19,11 @@ export default class StudentScores extends React.Component {
     if(averageScore) {
       return `${Math.round(averageScore * 100)}% Avg. Score`;
     }
+  }
+
+  handleScores() {
+    const { data, premium_state, } = this.props
+    return data.scores.map((score, index) => <ActivityIconWithTooltip context='scorebook' data={score} key={`${data.name} ${index} ${score.cuId}`} premium_state={premium_state} />);
   }
 
   render() {

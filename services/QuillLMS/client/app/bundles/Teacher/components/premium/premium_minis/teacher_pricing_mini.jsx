@@ -2,25 +2,24 @@ import React from 'react';
 import PleaseLoginModal from '../please_login_modal.jsx';
 import Stripe from '../../modules/stripe/charge.js';
 
-export default React.createClass({
+export default class extends React.Component {
+  // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
-    // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
-
-  charge() {
+  charge = () => {
     if (this.props.userIsEligibleForNewSubscription) {
       this.props.showPurchaseModal();
     } else {
       alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
     }
-  },
+  };
 
-  beginTrialButton() {
+  beginTrialButton = () => {
     if (this.props.userIsEligibleForTrial || !this.props.userIsSignedIn) {
       return <button className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial} type="button">Free Trial</button>;
     }
-  },
+  };
 
-  beginTrial() {
+  beginTrial = () => {
     if (!this.props.userIsSignedIn === true) {
       alert('You must be logged in to activate Premium.');
     } else {
@@ -33,13 +32,13 @@ export default React.createClass({
         window.location.assign('/teachers/progress_reports/activities_scores_by_classroom');
       });
     }
-  },
+  };
 
-  pleaseLoginModal() {
+  pleaseLoginModal = () => {
     $(this.refs.pleaseLoginModal).modal();
-  },
+  };
 
-  purchaseButton() {
+  purchaseButton = () => {
     const { userIsSignedIn, userHasCovid19Subscription, } = this.props
     if (!userIsSignedIn) {
       return <a className="premium-button dark-green" href="" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')}>Activate for free</a>;
@@ -47,7 +46,7 @@ export default React.createClass({
     if (!userHasCovid19Subscription) {
       return <a className="premium-button dark-green" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate for free</a>;
     }
-  },
+  };
 
   render() {
     return (
@@ -80,5 +79,5 @@ export default React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}

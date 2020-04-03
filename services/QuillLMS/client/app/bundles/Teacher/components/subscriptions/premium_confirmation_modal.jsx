@@ -3,9 +3,8 @@ import Modal from 'react-bootstrap/lib/Modal';
 import moment from 'moment';
 import pluralize from 'pluralize';
 
-export default React.createClass({
-
-  getModalContent() {
+export default class extends React.Component {
+  getModalContent = () => {
     const startD = moment(this.props.subscription.start_date);
     const endD = moment(this.props.subscription.expiration);
     const duration = endD.diff(startD, 'days');
@@ -13,15 +12,15 @@ export default React.createClass({
       return <p key="subscription-p">You have redeemed your {duration} {pluralize('day', duration)} of Quill Premium Credit. Your Teacher Premium is valid until <strong>{moment(endD).format('MMMM Do, YYYY')}</strong>. You can view your subscription information or purchase a Teacher or a School Premium at any point on your subscription page.</p>;
     }
     return this.paymentCopy(startD, endD, duration);
-  },
+  };
 
-  paymentCopy(startD, endD) {
+  paymentCopy = (startD, endD) => {
     return (
       <span>
         We have received your payment. You will receive an email shortly with your receipt. Your {this.props.subscriptionType} Premium is valid until <strong>{moment(endD).format('MMMM Do, YYYY')}</strong>. Your subscription will auto-renew {moment(endD).format('MMMM Do, YYYY')}. You can review your subscription information and modify your renewal settings on the subscription page.
       </span>
     );
-  },
+  };
 
   render() {
     if (!this.props.subscription) {
@@ -40,6 +39,5 @@ export default React.createClass({
         </Modal.Body>
       </Modal>
     );
-  },
-
-});
+  }
+}

@@ -48,6 +48,7 @@
   height: 16px;
   border-radius: 1px;
   cursor: pointer;
+  padding: 0px;
 }
 
 .quill-checkbox.selected {
@@ -57,6 +58,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  border: 2px solid transparent;
 }
 
 .quill-checkbox.unselected {

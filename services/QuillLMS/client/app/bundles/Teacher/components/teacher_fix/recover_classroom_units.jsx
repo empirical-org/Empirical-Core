@@ -9,12 +9,9 @@ export default class RecoverClassroomActivities extends React.Component {
     this.state = {
       classCode: ''
     }
-
-    this.submitClassCode = this.submitClassCode.bind(this)
-    this.updateClassCode = this.updateClassCode.bind(this)
   }
 
-  submitClassCode() {
+  submitClassCode = () => {
     const that = this
     request.post({
       url: `${process.env.DEFAULT_URL}/teacher_fix/recover_classroom_units`,
@@ -30,11 +27,11 @@ export default class RecoverClassroomActivities extends React.Component {
       }
     })
 
-  }
+  };
 
-  updateClassCode(e) {
+  updateClassCode = e => {
     this.setState({classCode: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {

@@ -12,7 +12,6 @@ import {sortByStandardLevel} from '../../../../modules/sortingMethods.js'
 import _ from 'underscore'
 
 export default class extends React.Component {
-
   constructor() {
     super()
     this.state = {
@@ -20,7 +19,6 @@ export default class extends React.Component {
       errors: false,
       userIsPremium: userIsPremium()
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -40,34 +38,6 @@ export default class extends React.Component {
       // gets unique classroom names
       that.setState({loading: false, errors: body.errors, standardsData, csvData, student});
     });
-  }
-
-  formatStandardsData(data) {
-    return data.map((row) => {
-      row.standard_level = row.section_name
-      row.standard_name = row.name
-      row.activities = Number(row.total_activity_count)
-      row.average_score = Number(row.average_score * 100)
-      row.mastery_status = row.mastery_status
-      row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-        </a>
-      )
-      return row
-    })
-  }
-
-  formatDataForCSV(data, studentName) {
-    const csvData = [
-      ['Standard Level', 'Standard Name', 'Activities', 'Average', 'Proficiency Status', 'Student Name']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['section_name'], row['name'], row['total_activity_count'], `${row['average_score'] * 100}%`, row['mastery_status'], studentName,
-      ])
-    })
-    return csvData
   }
 
   columns() {
@@ -121,13 +91,41 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
-    this.setState({selectedClassroom: classroom}, () => this.getData())
-  }
-
   filteredData() {
     return this.state.standardsData
   }
+
+  formatDataForCSV(data, studentName) {
+    const csvData = [
+      ['Standard Level', 'Standard Name', 'Activities', 'Average', 'Proficiency Status', 'Student Name']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['section_name'], row['name'], row['total_activity_count'], `${row['average_score'] * 100}%`, row['mastery_status'], studentName,
+      ])
+    })
+    return csvData
+  }
+
+  formatStandardsData(data) {
+    return data.map((row) => {
+      row.standard_level = row.section_name
+      row.standard_name = row.name
+      row.activities = Number(row.total_activity_count)
+      row.average_score = Number(row.average_score * 100)
+      row.mastery_status = row.mastery_status
+      row.green_arrow = (
+        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/0/topics/${row.id}/students`}>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        </a>
+      )
+      return row
+    })
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom}, () => this.getData())
+  };
 
   render() {
     let errors
@@ -145,7 +143,7 @@ export default class extends React.Component {
             <h1><span>Standards Report:</span> {this.state.student.name}</h1>
           </div>
           <div className='csv-and-how-we-grade'>
-            <CSVDownloadForProgressReport className="download-report-button" data={this.state.csvData} />
+            <CSVDownloadForProgressReport className="button-green" data={this.state.csvData} />
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
@@ -164,5 +162,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 }

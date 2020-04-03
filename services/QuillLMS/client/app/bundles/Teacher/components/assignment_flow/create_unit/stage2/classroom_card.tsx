@@ -27,7 +27,7 @@ export default class ClassroomCard extends React.Component<ClassroomCardProps, C
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     document.addEventListener('mousedown', this.handleClick, false)
   }
 
