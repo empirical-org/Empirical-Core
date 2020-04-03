@@ -42,10 +42,14 @@ class DiagnosticReports extends React.Component {
 	};
 
   parseParams = (pathname) => {
-    const activityId = (pathname.match(/(?<=\/a\/)[^\/]*/) || [])[0]
-    const unitId = (pathname.match(/(?<=\/u\/)[^\/]*/) || [])[0]
-    const classroomId = (pathname.match(/(?<=\/c\/)[^\/]*/) || [])[0]
-    const studentId = (pathname.match(/(?<=\/student_report\/)[^\/]*/) || [])[0]
+    const activityIdChunk = (pathname.match(/\/a\/[^\/]*/) || [])[0]
+    const activityId = activityIdChunk ? activityIdChunk.replace('/a/', '') : null
+    const unitIdChunk = (pathname.match(/\/u\/[^\/]*/) || [])[0]
+    const unitId = unitIdChunk ? unitIdChunk.replace('/u/', '') : null
+    const classroomIdChunk = (pathname.match(/\/c\/[^\/]*/) || [])[0]
+    const classroomId = classroomIdChunk ? classroomIdChunk.replace('/c/', '') : null
+    const studentIdChunk = (pathname.match(/\/student_report\/[^\/]*/) || [])[0]
+    const studentId = studentIdChunk ? studentIdChunk.replace('/student_report/', '') : null
     return { activityId, unitId, classroomId, studentId, }
   }
 
@@ -129,33 +133,33 @@ class DiagnosticReports extends React.Component {
 		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
 			return (
-  <div>{this.props.children}</div>
+        <div>{this.props.children}</div>
 			)
 		} else if (this.state.loading) {
 			return <LoadingSpinner />
 		} else {
 			return (
-  <div className='individual-activity-reports'>
-    <NavBar
-      buttonGroupCallback={this.changeReport}
-      classrooms={this.state.classrooms}
-      dropdownCallback={this.changeClassroom}
-      key={'key'}
-      params={params}
-      selectedActivity={this.state.selectedActivity}
-      selectedStudentId={params.studentId}
-      showStudentDropdown={this.showStudentDropdown()}
-      studentDropdownCallback={this.changeStudent}
-      students={this.state.students}
-    />
-    {this.props.children}
-    <Switch>
-      <Route component={routerProps => <StudentReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
-      <Route component={routerProps => <Recommendations params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/recommendations' />
-      <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
-      <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
-    </Switch>
-  </div>
+        <div className='individual-activity-reports'>
+          <NavBar
+            buttonGroupCallback={this.changeReport}
+            classrooms={this.state.classrooms}
+            dropdownCallback={this.changeClassroom}
+            key={'key'}
+            params={params}
+            selectedActivity={this.state.selectedActivity}
+            selectedStudentId={params.studentId}
+            showStudentDropdown={this.showStudentDropdown()}
+            studentDropdownCallback={this.changeStudent}
+            students={this.state.students}
+          />
+          {this.props.children}
+          <Switch>
+            <Route component={routerProps => <StudentReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
+            <Route component={routerProps => <Recommendations params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/recommendations' />
+            <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
+            <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
+          </Switch>
+        </div>
 			);
 		}
 	}
