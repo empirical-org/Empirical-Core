@@ -29,7 +29,6 @@ class Questions extends React.Component {
     super(props)
 
     this.state = {
-      displayNoConceptQuestions: false,
       showOnlyArchived: false,
       diagnosticQuestions: {}
     }
@@ -39,12 +38,10 @@ class Questions extends React.Component {
     this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
     this.mapConceptsToList = this.mapConceptsToList.bind(this)
     this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
-    this.rematchAllQuestions = this.rematchAllQuestions.bind(this)
     this.rematchAllResponses = this.rematchAllResponses.bind(this)
     this.rematchResponse = this.rematchResponse.bind(this)
     this.renderModal = this.renderModal.bind(this)
     this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.toggleNoConceptQuestions = this.toggleNoConceptQuestions.bind(this)
     this.toggleShowArchived = this.toggleShowArchived.bind(this)
     this.renderSearchBox = this.renderSearchBox.bind(this)
   }
@@ -103,43 +100,6 @@ class Questions extends React.Component {
   responsesWithStatusForQuestion(questionUID) {
     const responses = this.props.responses.data[questionUID];
     return hashToCollection(respWithStatus(responses));
-  }
-
-  rematchAllQuestions() {
-    const ignoreList = [
-      '-KP-LIzVyeL6a38yW0im',
-      '-KPt1wiz5zY1JgNSLbQZ',
-      '-KPt6EDsKbaXVrIf9dJY',
-      '-KPt2OD4fkKen27eyiry',
-      '-KPt2ZzZAIVsrQ-asGEY',
-      '-KP-M1Crf2pvqO4QH6zI',
-      '-KP-M7WtUdYK6vd6S57X',
-      '-KP-MEpdOxjU7OyzL6ss',
-      '-KPt2jWGaZbGEaUKj-da',
-      '-KPt2vzVYs2QAWkeo7QT',
-      '-KPt3I_hR_Xlv5Cr1mvB',
-      '-KP-Mv5jsZKhraQH2DOt',
-      '-KPt3fnhAJ_vQF_dD4Oj',
-      '-KPt3uD8hulWiYGp3Rm7',
-      '-KP-Nc414z5N_TKwnvms',
-      '-KP-M1Crf2pvqO4QH6zI-esp',
-      '-KP-LIzVyeL6a38yW0im-esp',
-      '-KP-M7WtUdYK6vd6S57X-esp',
-      '-KPt2OD4fkKen27eyiry-esp',
-      '-KP-MEpdOxjU7OyzL6ss-esp',
-      '-KPt3I_hR_Xlv5Cr1mvB-esp',
-      '-KP-Mv5jsZKhraQH2DOt-esp',
-      '-KPt3fnhAJ_vQF_dD4Oj-esp',
-      '-KPt3uD8hulWiYGp3Rm7-esp'
-    ];
-
-    const questLength = _.keys(this.props.questions.data).length;
-    _.each(hashToCollection(this.props.questions.data), (question, index) => {
-      const percentage = index / questLength * 100;
-      if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
-        this.rematchAllResponses(question);
-      }
-    });
   }
 
   rematchAllResponses(question) {
@@ -235,12 +195,6 @@ class Questions extends React.Component {
     this.props.dispatch(action);
   }
 
-  toggleNoConceptQuestions() {
-    this.setState({
-      displayNoConceptQuestions: !this.state.displayNoConceptQuestions,
-    });
-  }
-
   toggleShowArchived() {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
@@ -271,21 +225,15 @@ class Questions extends React.Component {
       return (
         <section className="section">
           <div className="container">
-            <button onClick={this.rematchAllQuestions}>Rematch all Questions</button>
             { this.renderModal() }
             { this.renderSearchBox() }
             <br />
-            <label className="checkbox">
-              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
-              Display questions with no valid concept
-            </label>
             <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              displayNoConceptQuestions={this.state.displayNoConceptQuestions}
               questions={this.state.diagnosticQuestions}
               showOnlyArchived={this.state.showOnlyArchived}
             />
