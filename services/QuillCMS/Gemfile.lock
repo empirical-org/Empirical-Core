@@ -101,7 +101,7 @@ GEM
       kaminari-activerecord (= 1.2.0)
       kaminari-core (= 1.2.0)
     kaminari-actionview (1.2.0)
-      actionview (5.2.4.2)
+      actionview (>= 0)
       kaminari-core (= 1.2.0)
     kaminari-activerecord (1.2.0)
       activerecord
