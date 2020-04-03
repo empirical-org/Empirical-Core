@@ -8,9 +8,6 @@ import {
 } from 'quill-component-library/dist/componentLibrary'
 
 const Concepts = React.createClass({
-  createNew: function () {
-    this.props.dispatch(actions.toggleNewConceptModal())
-  },
 
   submitNewConcept: function () {
     var newConcept = {name: this.refs.newConceptName.value}
@@ -35,38 +32,10 @@ const Concepts = React.createClass({
     }
   },
 
-  renderModal: function () {
-    var stateSpecificClass = this.props.concepts.submittingnew ? 'is-loading' : '';
-    if (this.props.concepts.newConceptModalOpen) {
-        return (
-          <Modal close={this.createNew}>
-            <div className="box">
-              <h4 className="title">Add New Concept</h4>
-              <p className="control">
-                <label className="label">Name</label>
-                <input
-                  className="input"
-                  placeholder="Text input"
-                  ref="newConceptName"
-                  type="text"
-                />
-              </p>
-              <p className="control">
-                <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>
-              </p>
-            </div>
-          </Modal>
-        )
-      }
-  },
-
   render: function (){
-    // // console.log("this.props.concepts", this.props.concepts)
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
-          { this.renderModal() }
           <aside className="menu">
             <p className="menu-label">
                   Concepts

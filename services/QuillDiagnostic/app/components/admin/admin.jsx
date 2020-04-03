@@ -9,7 +9,6 @@ import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import levelActions from '../../actions/item-levels';
 import * as titleCardActions from '../../actions/titleCards.ts';
 import * as connectSentenceCombiningActions from '../../actions/connectSentenceCombining.ts';
 import * as connectFillInBlankActions from '../../actions/connectFillInBlank.ts';
@@ -32,7 +31,6 @@ const adminContainer = React.createClass({
     this.props.dispatch(fillInBlankActions.startListeningToQuestions());
     this.props.dispatch(diagnosticQuestionActions.startListeningToDiagnosticQuestions());
     this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
-    this.props.dispatch(levelActions.startListeningToItemLevels());
     this.props.dispatch(titleCardActions.startListeningToTitleCards());
     this.props.dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
     this.props.dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
@@ -56,7 +54,6 @@ const adminContainer = React.createClass({
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/clone_questions'}>Clone Connect Questions</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/questions'}>Diagnostic Sentence Combining</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/sentence-fragments'}>Diagnostic Sentence Fragments</TabLink>
               <TabLink activeClassName="is-active" to={'/admin/fill-in-the-blanks'}>Diagnostic Fill In The Blanks</TabLink>
@@ -67,7 +64,6 @@ const adminContainer = React.createClass({
             <ul className="menu-list">
               <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
               <TabLink activeClassName="is-active" to={'admin/concepts-feedback'}>Concept Feedback</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/item-levels'}>Item Levels</TabLink>
             </ul>
             <p className="menu-label">
               Title Cards
