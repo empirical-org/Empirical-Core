@@ -19,19 +19,6 @@ import { MassEditReducerState } from '../../reducers/massEditReducer'
 
 import { clearDisplayMessageAndError } from '../../actions/display';
 
-interface Feedback {
-  key: string;
-  description: string;
-  name: string;
-}
-
-interface BoilerplateCategory {
-  key: string;
-  description: string;
-  name: string;
-  children: Feedback[]
-}
-
 interface MassEditState {
   responses: {[key: string]: Response},
   selectedMassEditBoilerplateCategory: string,
@@ -68,9 +55,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     this.updateConceptResults = this.updateConceptResults.bind(this);
     this.toggleMassEditSummaryList = this.toggleMassEditSummaryList.bind(this)
     this.getResponses = this.getResponses.bind(this)
-    this.chooseMassEditBoilerplateCategory = this.chooseMassEditBoilerplateCategory.bind(this)
     this.updateConceptResults = this.updateConceptResults.bind(this)
-    this.chooseMassEditSpecificBoilerplateFeedback = this.chooseMassEditSpecificBoilerplateFeedback.bind(this)
   }
 
   componentWillMount() {
@@ -97,18 +82,6 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
           });
         }
       );
-  }
-
-  chooseMassEditBoilerplateCategory(e: React.ChangeEvent<HTMLSelectElement>) {
-    this.setState({ selectedMassEditBoilerplateCategory: e.target.value, });
-  }
-
-  chooseMassEditSpecificBoilerplateFeedback(e: React.ChangeEvent<HTMLSelectElement>) {
-    if (e.target.value === 'Select specific boilerplate feedback') {
-      this.setState({ selectedMassEditBoilerplate: '', });
-    } else {
-      this.setState({ selectedMassEditBoilerplate: e.target.value, });
-    }
   }
 
   clearResponsesFromMassEditArray() {
@@ -209,33 +182,6 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
         ));
   }
 
-  renderBoilerplateCategoryDropdown(onChangeEvent: ((event: React.ChangeEvent<HTMLSelectElement>) => void)) {
-    const style = { marginRight: '20px', };
-    return (
-      <span className="select" style={style}>
-        <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent}>
-          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
-          {this.boilerplateCategoriesToOptions()}
-        </select>
-      </span>
-    );
-  }
-
-  renderBoilerplateCategoryOptionsDropdown(onChangeEvent: ((event: React.ChangeEvent<HTMLSelectElement>) => void), description: string) {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
-    if (selectedCategory) {
-      return (
-        <span className="select">
-          <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent} ref="boilerplate">
-            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
-            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
-          </select>
-        </span>
-      );
-    }
-    return (<span />);
-  }
-
   renderMassEditForm() {
     const selectedResponses = this.props.massEdit.selectedResponses;
     return (
@@ -261,7 +207,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
           </header>
           <div className="card-content">
             <div className="content">
-              <h3>FEEDBACK <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
+              <h3>FEEDBACK</h3>
               <TextEditor
                 boilerplate={this.state.selectedMassEditBoilerplate || ''}
                 ContentState={ContentState}
@@ -271,15 +217,8 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
               />
             </div>
             <div className="content">
-              <h4>Boilerplate Feedback</h4>
-              <div className="boilerplate-feedback-dropdown-container">
-                {this.renderBoilerplateCategoryDropdown(this.chooseMassEditBoilerplateCategory)}
-                {this.renderBoilerplateCategoryOptionsDropdown(this.chooseMassEditSpecificBoilerplateFeedback, this.state.selectedMassEditBoilerplateCategory)}
-              </div>
-            </div>
-            <div className="content">
               <label className="checkbox">
-                <h3><input defaultChecked={false} ref="massEditOptimal" type="checkbox" /> OPTIMAL <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
+                <h3><input defaultChecked={false} ref="massEditOptimal" type="checkbox" /> OPTIMAL</h3>
               </label>
             </div>
           </div>

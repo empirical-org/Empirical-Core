@@ -15,8 +15,6 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.j
 import {
   deleteResponse,
   submitResponseEdit,
-  incrementResponseCount,
-  removeLinkToParentID,
   deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
@@ -94,10 +92,6 @@ export default React.createClass({
     this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
   },
 
-  viewChildResponses(rid) {
-    this.props.dispatch(this.state.actions.startChildResponseView(this.props.questionID, rid));
-  },
-
   cancelChildResponseView(rid) {
     this.props.dispatch(this.state.actions.cancelChildResponseView(this.props.questionID, rid));
   },
@@ -148,31 +142,8 @@ export default React.createClass({
     return _.pick(attempt, ...C.ERROR_TYPES);
   },
 
-  markAsWeak(rid) {
-    const vals = { weak: true, };
-    this.props.dispatch(
-      submitResponseEdit(rid, vals, this.props.questionID)
-    );
-  },
-
-  unmarkAsWeak(rid) {
-    const vals = { weak: false, };
-    this.props.dispatch(
-      submitResponseEdit(rid, vals, this.props.questionID)
-    );
-  },
-
   rematchResponse(rid) {
     this.props.getMatchingResponse(rid);
-  },
-
-  incrementResponse(rid) {
-    const qid = this.props.questionID;
-    this.props.dispatch(incrementResponseCount(qid, rid));
-  },
-
-  removeLinkToParentID(rid) {
-    this.props.dispatch(submitResponseEdit(rid, { optimal: false, author: null, parent_id: null }, this.props.questionID));
   },
 
   applyDiff(answer = '', response = '') {
@@ -268,33 +239,6 @@ export default React.createClass({
     return getGradedResponsesWithCallback(this.props.questionID, callback);
   },
 
-  renderBoilerplateCategoryDropdown() {
-    const style = { marginRight: '20px', };
-    return (
-      <span className="select" style={style}>
-        <select className="boilerplate-feedback-dropdown" onChange={this.chooseBoilerplateCategory} ref="boilerplate">
-          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
-          {this.boilerplateCategoriesToOptions()}
-        </select>
-      </span>
-    );
-  },
-
-  renderBoilerplateCategoryOptionsDropdown() {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description: this.state.selectedBoilerplateCategory, });
-    if (selectedCategory) {
-      return (
-        <span className="select">
-          <select className="boilerplate-feedback-dropdown" onChange={this.chooseSpecificBoilerplateFeedback} ref="boilerplate">
-            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
-            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
-          </select>
-        </span>
-      );
-    }
-    return (<span />);
-  },
-
   renderConceptResults(mode) {
     const conceptResults = Object.assign({}, this.state.conceptResults)
     let components
@@ -338,11 +282,6 @@ export default React.createClass({
     if (!this.props.expanded) {
       return;
     }
-    if (!response.parentID && !response.parent_id) {
-      childDetails = (
-        <a className="button is-outlined has-top-margin" key="view" onClick={this.viewChildResponses.bind(null, response.key)} >View Children</a>
-      );
-    }
     if (response.parentID || response.parent_id) {
       const parent = this.state.parent;
       if (!parent) {
@@ -358,32 +297,11 @@ export default React.createClass({
           (<br />),
           (<span><strong>Parent Feedback:</strong> {parent.feedback}</span>),
           (<br />),
-          (<button className="button is-danger" onClick={this.removeLinkToParentID.bind(null, response.key)}>Remove Link to Parent </button>),
-          (<br />),
           (<span><strong>Differences:</strong> {diffText}</span>),
           (<br />),
           (<br />)
           ];
       }
-    }
-
-    if (this.props.showPathways) {
-      pathwayDetails = (<span>
-        <a
-          className="button is-outlined has-top-margin"
-          key="from"
-          onClick={this.printResponsePathways.bind(null, this.props.key)}
-        >
-          From Pathways
-        </a>
-        <a
-          className="button is-outlined has-top-margin"
-          key="to"
-          onClick={this.toResponsePathways}
-        >
-          To Pathways
-        </a>
-      </span>);
     }
 
     if (isEditing) {
@@ -400,11 +318,6 @@ export default React.createClass({
           />
 
           <br />
-          <label className="label">Boilerplate feedback</label>
-          <div className="boilerplate-feedback-dropdown-container">
-            {this.renderBoilerplateCategoryDropdown()}
-            {this.renderBoilerplateCategoryOptionsDropdown()}
-          </div>
 
           <div className="box">
             <label className="label">Concept Results</label>
@@ -452,7 +365,6 @@ export default React.createClass({
       buttons = [
         (<a className="card-footer-item" key="cancel" onClick={this.cancelResponseEdit.bind(null, response.key)} >Cancel</a>),
         (<a className="card-footer-item" key="unmatch" onClick={this.unmatchResponse.bind(null, response.key)} >Unmatch</a>),
-        (<a className="card-footer-item" key="increment" onClick={this.incrementResponse.bind(null, response.key)} >Increment</a>),
         (<a className="card-footer-item" key="update" onClick={this.updateResponse.bind(null, response.key)} >Update</a>)
       ];
     } else {
@@ -460,13 +372,6 @@ export default React.createClass({
         (<a className="card-footer-item" key="edit" onClick={this.editResponse.bind(null, response.key)} >Edit</a>),
         (<a className="card-footer-item" key="delete" onClick={this.deleteResponse.bind(null, response.key)} >Delete</a>)
       ];
-    }
-    if (this.props.response.statusCode === 3) {
-      if (this.props.response.weak) {
-        buttons = buttons.concat([(<a className="card-footer-item" key="weak" onClick={this.unmarkAsWeak.bind(null, response.key)} >Unmark as weak</a>)]);
-      } else {
-        buttons = buttons.concat([(<a className="card-footer-item" key="weak" onClick={this.markAsWeak.bind(null, response.key)} >Mark as weak</a>)]);
-      }
     }
     if (this.props.response.statusCode > 1) {
       buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={this.rematchResponse.bind(null, response.key)} >Rematch</a>)]);
@@ -550,16 +455,6 @@ export default React.createClass({
         </Modal>
       );
     }
-  },
-
-  printResponsePathways() {
-    this.viewFromResponses(this.props.response.key);
-    // this.props.printPathways(this.props.response.key);
-  },
-
-  toResponsePathways() {
-    this.viewToResponses(this.props.response.key);
-    // this.props.printPathways(this.props.response.key);
   },
 
   renderToResponsePathways(isViewingToResponses, key) {

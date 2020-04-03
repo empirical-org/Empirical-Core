@@ -42,10 +42,14 @@ class DiagnosticReports extends React.Component {
 	};
 
   parseParams = (pathname) => {
-    const activityId = (pathname.match(/(?<=\/a\/)[^\/]*/) || [])[0]
-    const unitId = (pathname.match(/(?<=\/u\/)[^\/]*/) || [])[0]
-    const classroomId = (pathname.match(/(?<=\/c\/)[^\/]*/) || [])[0]
-    const studentId = (pathname.match(/(?<=\/student_report\/)[^\/]*/) || [])[0]
+    const activityIdChunk = (pathname.match(/\/a\/[^\/]*/) || [])[0]
+    const activityId = activityIdChunk ? activityIdChunk.replace('/a/', '') : null
+    const unitIdChunk = (pathname.match(/\/u\/[^\/]*/) || [])[0]
+    const unitId = unitIdChunk ? unitIdChunk.replace('/u/', '') : null
+    const classroomIdChunk = (pathname.match(/\/c\/[^\/]*/) || [])[0]
+    const classroomId = classroomIdChunk ? classroomIdChunk.replace('/c/', '') : null
+    const studentIdChunk = (pathname.match(/\/student_report\/[^\/]*/) || [])[0]
+    const studentId = studentIdChunk ? studentIdChunk.replace('/student_report/', '') : null
     return { activityId, unitId, classroomId, studentId, }
   }
 

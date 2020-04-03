@@ -27,7 +27,6 @@ class Questions extends React.Component {
     super(props)
 
     this.state = {
-      displayNoConceptQuestions: false,
       showOnlyArchived: false,
       questions: props.questions.hasreceiveddata ? props.questions.data : {}
     }
@@ -37,12 +36,10 @@ class Questions extends React.Component {
     this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
     this.mapConceptsToList = this.mapConceptsToList.bind(this)
     this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
-    this.rematchAllQuestions = this.rematchAllQuestions.bind(this)
     this.rematchAllResponses = this.rematchAllResponses.bind(this)
     this.rematchResponse = this.rematchResponse.bind(this)
     this.renderModal = this.renderModal.bind(this)
     this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.toggleNoConceptQuestions = this.toggleNoConceptQuestions.bind(this)
     this.toggleShowArchived = this.toggleShowArchived.bind(this)
     this.renderSearchBox = this.renderSearchBox.bind(this)
   }
@@ -90,14 +87,6 @@ class Questions extends React.Component {
   responsesWithStatusForQuestion(questionUID) {
     const responses = this.props.responses.data[questionUID];
     return hashToCollection(respWithStatus(responses));
-  }
-
-  rematchAllQuestions() {
-    const questLength = _.keys(this.props.questions.data).length;
-    _.each(hashToCollection(this.props.questions.data), (question, index) => {
-      const percentage = index / questLength * 100;
-      this.rematchAllResponses(question);
-    });
   }
 
   rematchAllResponses(question) {
@@ -193,12 +182,6 @@ class Questions extends React.Component {
     this.props.dispatch(action);
   }
 
-  toggleNoConceptQuestions() {
-    this.setState({
-      displayNoConceptQuestions: !this.state.displayNoConceptQuestions,
-    });
-  }
-
   toggleShowArchived() {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
@@ -229,21 +212,15 @@ class Questions extends React.Component {
       return (
         <section className="section">
           <div className="container">
-            <button onClick={this.rematchAllQuestions}>Rematch all Questions</button>
             { this.renderModal() }
             { this.renderSearchBox() }
             <br />
-            <label className="checkbox">
-              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
-              Display questions with no valid concept
-            </label>
             <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              displayNoConceptQuestions={this.state.displayNoConceptQuestions}
               questions={this.state.questions}
               showOnlyArchived={this.state.showOnlyArchived}
             />
