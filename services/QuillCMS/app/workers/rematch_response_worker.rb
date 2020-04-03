@@ -56,7 +56,7 @@ class RematchResponseWorker
   end
 
   def call_lambda_http_endpoint(lambda_payload)
-    uri = URI('https://p8147zy7qj.execute-api.us-east-1.amazonaws.com/prod/rematch_lambda')
+    uri = URI(ENV['REMATCH_LAMBDA_URL'])
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     resp = http.post uri,
@@ -69,7 +69,7 @@ class RematchResponseWorker
 
   def retrieve_question(question_uid, question_type)
     lms_type = LMS_TYPES[question_type.to_sym]
-    response = HTTParty.get("http://localhost:3000/api/v1/questions.json?question_type=#{lms_type}")
+    response = HTTParty.get("#{ENV['LMS_URL']}/api/v1/questions.json?question_type=#{lms_type}")
     puts response.code
     question = response[question_uid]
     question[:key] = question_uid
