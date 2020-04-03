@@ -5,7 +5,6 @@ import _ from 'underscore'
 import _l from 'lodash'
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -14,8 +13,6 @@ export default class extends React.Component {
     }
 
     document.addEventListener('click', this.closeDropdownIfOpen.bind(this))
-
-    this.toggleDropdown = this.toggleDropdown.bind(this)
   }
 
 
@@ -25,6 +22,21 @@ export default class extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('click', this.closeDropdownIfOpen.bind(this));
+  }
+
+  getRidOfCamelCase(row){
+    const keys = Object.keys(row)
+    keys.forEach(oldKey=>{
+      const newKey = _l.startCase(oldKey)
+      row[newKey] = row[oldKey];
+      delete row[oldKey];
+    })
+  }
+
+  changeValues(row) {
+    this.props.valuesToChange.forEach(keyFunction => {
+      row[keyFunction.key] = keyFunction.function(row[keyFunction.key])
+    })
   }
 
   cleanData(data) {
@@ -51,40 +63,25 @@ export default class extends React.Component {
     this.setState({data: finalValue})
   }
 
-  getRidOfCamelCase(row){
-    const keys = Object.keys(row)
-    keys.forEach(oldKey=>{
-      const newKey = _l.startCase(oldKey)
-      row[newKey] = row[oldKey];
-      delete row[oldKey];
-    })
-  }
-
-  omitKeys(row) {
-    return _.omit(row, this.props.keysToOmit)
-  }
-
-  changeValues(row) {
-    this.props.valuesToChange.forEach(keyFunction => {
-      row[keyFunction.key] = keyFunction.function(row[keyFunction.key])
-    })
+  closeDropdownIfOpen(e) {
+    if (this.state.showDropdown && e.target.classList.value !== 'btn button-green' && e.target.classList.value !== 'print-button' && e.target.classList.value !== 'print-img') {
+      this.setState({ showDropdown: false})
+    }
   }
 
   handleClick() {
     alert('Downloadable reports are a Premium feature. Visit Quill.org/premium to upgrade now!')
   }
 
-  toggleDropdown() {
+  omitKeys(row) {
+    return _.omit(row, this.props.keysToOmit)
+  }
+
+  toggleDropdown = () => {
     this.setState({
       showDropdown: !this.state.showDropdown
     })
-  }
-
-  closeDropdownIfOpen(e) {
-    if (this.state.showDropdown && e.target.classList.value !== 'btn button-green' && e.target.classList.value !== 'print-button' && e.target.classList.value !== 'print-img') {
-      this.setState({ showDropdown: false})
-    }
-  }
+  };
 
   render() {
     if (this.state.userIsPremium && this.props.data) {
@@ -135,5 +132,4 @@ export default class extends React.Component {
       >{this.props.buttonCopy || "Download Report"}</button>)
     }
   }
-
 }

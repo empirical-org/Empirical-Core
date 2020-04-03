@@ -2,34 +2,13 @@ import React from 'react'
 import NewNestedResource from './newNestedResource.jsx'
 import CmsIndexTable from '../cms_index_table/cms_index_table.jsx'
 
-export default React.createClass({
+export default class NestedResource extends React.Component {
 
-  propTypes: {
-    data: React.PropTypes.object.isRequired,
-    /*
-    data: {
-      name: 'admins',
-      formFields: [{name: 'email'}],
-      identifier: ['email']
-      resources: [{id: 1, email: 'hello@gmail.com'}],
-      findOrCreate: 'find'
-    }
-
-    */
-    actions: React.PropTypes.object.isRequired
-    /*
-    actions: {
-      save: fn,
-      delete: fn
-    }
-    */
-  },
-
-  delete: function (resource) {
+  delete = (resource) => {
     this.props.actions.delete(this.props.data.name, resource)
-  },
+  };
 
-  render: function () {
+  render() {
 
     return (
       <div className='row'>
@@ -60,4 +39,4 @@ export default React.createClass({
       </div>
     );
   }
-});
+}

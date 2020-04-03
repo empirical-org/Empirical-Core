@@ -6,7 +6,6 @@ import PremiumConfirmationModal from '../subscriptions/premium_confirmation_moda
 import PurchaseModal from '../../containers/PurchaseModal';
 
 export default class extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -16,39 +15,33 @@ export default class extends React.Component {
       subscriptionStatus: null,
       userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
     };
-    this.showPremiumConfirmationModal = this.showPremiumConfirmationModal.bind(this);
-    this.showPurchaseModal = this.showPurchaseModal.bind(this);
-    this.hidePremiumConfirmationModal = this.hidePremiumConfirmationModal.bind(this);
-    this.hidePurchaseModal = this.hidePurchaseModal.bind(this);
-    this.updateSubscriptionStatus = this.updateSubscriptionStatus.bind(this);
-    this.showPurchaseModalForSchoolPurchase = this.showPurchaseModalForSchoolPurchase.bind(this);
   }
 
-  showPremiumConfirmationModal() {
-    this.setState({ showPremiumConfirmationModal: true, });
-  }
-
-  hidePremiumConfirmationModal() {
+  hidePremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: false, });
-  }
+  };
 
-  showPurchaseModal() {
-    this.setState({ showPurchaseModal: true, });
-  }
-
-  hidePurchaseModal() {
+  hidePurchaseModal = () => {
     this.setState({ showPurchaseModal: false, subscriptionType: null, });
-  }
+  };
 
-  showPurchaseModalForSchoolPurchase() {
+  showPremiumConfirmationModal = () => {
+    this.setState({ showPremiumConfirmationModal: true, });
+  };
+
+  showPurchaseModal = () => {
+    this.setState({ showPurchaseModal: true, });
+  };
+
+  showPurchaseModalForSchoolPurchase = () => {
     this.setState({ subscriptionType: 'School', }, () => this.setState({ showPurchaseModal: true, }));
-  }
+  };
 
-  updateSubscriptionStatus(subscription) {
+  updateSubscriptionStatus = subscription => {
     this.setState({ subscriptionStatus: subscription,
       showPremiumConfirmationModal: true,
       showPurchaseModal: false, });
-  }
+  };
 
   render() {
     return (

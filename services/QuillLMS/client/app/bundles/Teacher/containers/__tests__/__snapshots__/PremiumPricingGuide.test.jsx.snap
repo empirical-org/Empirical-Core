@@ -27,7 +27,7 @@ exports[`PremiumPricingGuide container should render 1`] = `
     <TeacherPremium />
     <SchoolPremium />
   </div>
-  <subscriber_logos
+  <_default
     subscribers={
       Array [
         Object {
@@ -113,7 +113,7 @@ exports[`PremiumPricingGuide container should render 1`] = `
       ]
     }
   />
-  <teacher_testimonial />
+  <_default />
   <QuestionsAndAnswers
     questionsAndAnswersFile="premium"
     supportLink="https://support.quill.org/quill-premium"

@@ -7,9 +7,8 @@ import TeacherPremium from '../components/premium/teacher_premium.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
 import QuestionsAndAnswers from './QuestionsAndAnswers.jsx'
 
-export default React.createClass({
-
-  subscribers() {
+export default class extends React.Component {
+  subscribers = () => {
     return (
     [{ name: 'Achievement first school logo', source: '/images/subscribers/1_achievement.png', id: 'achievement-first'},
        { name: 'KIPP: SF school logo', source: '/images/subscribers/2_kipp_sf.png', id: 'kipp-sf'},
@@ -28,7 +27,7 @@ export default React.createClass({
        { name: 'Jordan School District logo', source: '/images/subscribers/15_jodan.png', id: 'jordan'},
        { name: 'Princeton Public Schools logo', source: '/images/subscribers/16_princeton.png', id: 'princeton'}]
     );
-  },
+  };
 
   render() {
     return (
@@ -57,5 +56,5 @@ export default React.createClass({
       </div>
 
     );
-  },
-});
+  }
+}

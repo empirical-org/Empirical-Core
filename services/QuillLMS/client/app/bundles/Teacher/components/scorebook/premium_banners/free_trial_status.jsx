@@ -1,8 +1,7 @@
 import React from 'react'
 
-export default React.createClass({
-
-  stateSpecificComponents: function() {
+export default class extends React.Component {
+  stateSpecificComponents = () => {
     if (this.props.status == 'trial') {
       return (
         <h4>You have {this.props.data} days left in your trial.</h4>
@@ -12,9 +11,9 @@ export default React.createClass({
         <h4>Your Premium Trial Has Expired</h4>
       );
     }
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div className='row'>
         <div className='col-md-9 col-xs-12 pull-left'>
@@ -31,5 +30,4 @@ export default React.createClass({
       </div>
     );
   }
-
-});
+}

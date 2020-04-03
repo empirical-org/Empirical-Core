@@ -17,10 +17,9 @@ const showAllClassroomKey = 'All Classrooms'
 const showAllStudentsKey = 'All Students'
 
 
-export default class extends React.Component {
-
-  constructor() {
-    super()
+export default class StandardsAllClassroomsProgressReport extends React.Component {
+  constructor(props) {
+    super(props)
     this.state = {
       loading: true,
       errors: false,
@@ -29,8 +28,6 @@ export default class extends React.Component {
       classrooms: [],
       userIsPremium: userIsPremium()
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
-    this.goToStudentPage = this.goToStudentPage.bind(this)
   }
 
   componentDidMount() {
@@ -50,41 +47,11 @@ export default class extends React.Component {
       const standardsData = this.formatStandardsData(JSON.parse(body).data)
       // gets unique classroom names
       const classrooms = JSON.parse(body).classrooms
-      const students = [...new Set(JSON.parse(body).students)]
+      const students = Array.from(new Set(JSON.parse(body).students))
       classrooms.unshift({name: showAllClassroomKey})
       students.unshift({name: showAllStudentsKey})
       that.setState({loading: false, updatingData: false, errors: body.errors, standardsData, classrooms, students});
     });
-  }
-
-  formatStandardsData(data) {
-    const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
-    return data.map((row) => {
-      row.standard_level = row.section_name
-      row.standard_name = row.name
-      row.number_of_students = Number(row.total_student_count)
-      row.proficient = `${row.proficient_count} of ${row.total_student_count}`
-      row.activities = Number(row.total_activity_count)
-      row.green_arrow = (
-        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`}>
-          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
-        </a>
-      )
-      row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`
-      return row
-    })
-  }
-
-  formatDataForCSV() {
-    const csvData = [
-      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
-    ]
-    this.state.standardsData.forEach((row) => {
-      csvData.push([
-        row['section_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
-      ])
-    })
-    return csvData
   }
 
   columns() {
@@ -152,16 +119,46 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
-    this.setState({selectedClassroom: classroom, updatingData: true}, () => this.getData())
+  formatDataForCSV() {
+    const csvData = [
+      ['Standard Level', 'Standard Name', 'Students', 'Proficient', 'Activities']
+    ]
+    this.state.standardsData.forEach((row) => {
+      csvData.push([
+        row['section_name'], row['name'], row['total_student_count'], `${row['proficient_count']} of ${row['total_student_count']}`, row['total_activity_count']
+      ])
+    })
+    return csvData
   }
 
-  goToStudentPage(studentName) {
+  formatStandardsData(data) {
+    const selectedClassroomId = this.state.selectedClassroom !== showAllClassroomKey ? this.state.classrooms.find(c => c.name === this.state.selectedClassroom).id : 0
+    return data.map((row) => {
+      row.standard_level = row.section_name
+      row.standard_name = row.name
+      row.number_of_students = Number(row.total_student_count)
+      row.proficient = `${row.proficient_count} of ${row.total_student_count}`
+      row.activities = Number(row.total_activity_count)
+      row.green_arrow = (
+        <a className='green-arrow' href={`/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`}>
+          <img alt="" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" />
+        </a>
+      )
+      row.link = `/teachers/progress_reports/standards/classrooms/${selectedClassroomId}/topics/${row.id}/students`
+      return row
+    })
+  }
+
+  goToStudentPage = studentName => {
     const student = this.state.students.find(s => s.name === studentName)
     if (student) {
       window.location.href = `/teachers/progress_reports/standards/classrooms/0/students/${student.id}/topics`
     }
-  }
+  };
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom, updatingData: true}, () => this.getData())
+  };
 
   tableOrEmptyMessage(){
       const data = this.state.standardsData
@@ -213,5 +210,4 @@ export default class extends React.Component {
       </div>
     )
   }
-
 }

@@ -1,21 +1,12 @@
-// Ported from EC.ActivitySearchSort
-import _ from 'underscore'
+import _ from 'underscore';
 import React from 'react'
 
-export default React.createClass({
-  propTypes: {
-    isCurrentSort: React.PropTypes.bool.isRequired,
-    displayName: React.PropTypes.string.isRequired,
-    displayClass: React.PropTypes.string,
-    sortDirection: React.PropTypes.string.isRequired,
-    sortHandler: React.PropTypes.func.isRequired // Handle sorting of columns
-  },
-
-  arrowClass: function() {
+export default class SortableTh extends React.Component {
+  arrowClass = () => {
     return this.props.sortDirection === 'desc' ? 'fas fa-caret-down table-header-arrow' : 'fas fa-caret-up table-header-arrow';
-  },
+  };
 
-  clickSort: function() {
+  clickSort = () => {
     if (_.isEmpty(this.props.displayName)) {
       return;
     }
@@ -29,9 +20,9 @@ export default React.createClass({
     }
 
     this.props.sortHandler(newDirection);
-  },
+  };
 
-  render: function() {
+  render() {
     var arrow,
         className = 'sorter';
     if (this.props.isCurrentSort && !_.isEmpty(this.props.displayName)) {
@@ -50,4 +41,4 @@ export default React.createClass({
       </th>
     );
   }
-});
+}
