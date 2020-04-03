@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.11
--- Dumped by pg_dump version 10.11
+-- Dumped from database version 10.10
+-- Dumped by pg_dump version 10.10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1566,8 +1566,7 @@ CREATE TABLE public.lessons (
     uid character varying,
     data jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    lesson_type character varying NOT NULL
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -4408,13 +4407,6 @@ CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 
 
 --
--- Name: index_lessons_on_lesson_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_lessons_on_lesson_type ON public.lessons USING btree (lesson_type);
-
-
---
 -- Name: index_lessons_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5932,8 +5924,3 @@ INSERT INTO schema_migrations (version) VALUES ('20200324192053');
 
 INSERT INTO schema_migrations (version) VALUES ('20200326152208');
 
-<<<<<<< HEAD
-INSERT INTO schema_migrations (version) VALUES ('20200326220320');
-
-=======
->>>>>>> 8fdfeba7c693909f5fbb5310a427dd261385149e
