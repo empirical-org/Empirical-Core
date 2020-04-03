@@ -17,7 +17,6 @@ import questionActions from './actions/questions';
 import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
-import levelActions from './actions/item-levels';
 import * as titleCardActions from './actions/titleCards.ts';
 import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
@@ -92,7 +91,6 @@ if (lessonUid) {
     store.dispatch(questionActions.loadQuestions());
     store.dispatch(fillInBlankActions.loadQuestions());
     store.dispatch(sentenceFragmentActions.loadSentenceFragments());
-    store.dispatch(levelActions.loadItemLevels());
     store.dispatch(lessonActions.startListeningToLessons());
     store.dispatch(titleCardActions.loadTitleCards());
   });
