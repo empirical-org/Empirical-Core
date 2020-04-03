@@ -19,7 +19,7 @@ class RematchResponseWorker
 
   def perform(response_id, question_type, question_uid, reference_response_ids)
     response = Response.find_by(id: response_id)
-    question = retrieve_question_from_firebase(question_uid, question_type)
+    question = retrieve_question(question_uid, question_type)
     return unless question
 
     reference_responses = Response.where(id: reference_response_ids).to_a
@@ -58,23 +58,33 @@ class RematchResponseWorker
     JSON.parse(resp.body)
   end
 
-  def retrieve_question_from_firebase(question_uid, question_type)
-    uri = URI(ENV['FIREBASE_URL'])
-    path = get_firebase_path(question_uid, question_type)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    resp = http.get path
-    question = JSON.parse(resp.body)
-    return unless question
+  def retrieve_question(question_uid, question_type)
+    response = HTTParty.post(
+      "#{ENV['LMS_URL']}/api/v1/questions.json?question_type=#{question_type}"
+      )
+    puts response.code
+    question = response[question_uid]
     question[:key] = question_uid
     question.stringify_keys
   end
 
-  def get_firebase_path(question_uid, question_type)
-    if question_type == 'grammar_questions'
-      "/v3/questions/#{question_uid}.json"
-    else
-      "/v2/#{question_type}/#{question_uid}.json"
-    end
-  end
+  # def retrieve_question_from_firebase(question_uid, question_type)
+  #   uri = URI(ENV['FIREBASE_URL'])
+  #   path = get_firebase_path(question_uid, question_type)
+  #   http = Net::HTTP.new(uri.host, uri.port)
+  #   http.use_ssl = true
+  #   resp = http.get path
+  #   question = JSON.parse(resp.body)
+  #   return unless question
+  #   question[:key] = question_uid
+  #   question.stringify_keys
+  # end
+
+  # def get_firebase_path(question_uid, question_type)
+  #   if question_type == 'grammar_questions'
+  #     "/v3/questions/#{question_uid}.json"
+  #   else
+  #     "/v2/#{question_type}/#{question_uid}.json"
+  #   end
+  # end
 end
