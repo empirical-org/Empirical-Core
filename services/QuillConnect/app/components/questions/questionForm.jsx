@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   TextEditor,
-  hashToCollection,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
@@ -15,7 +14,8 @@ export default React.createClass({
       concept: this.props.question.conceptID,
       instructions: this.props.question.instructions ? this.props.question.instructions : "",
       flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : ''
+      cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
+      prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
     }
   },
 
@@ -26,7 +26,7 @@ export default React.createClass({
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,
-      prefilledText: this.refs.prefilledText.value,
+      prefilledText: this.state.prefilledText,
       prompt: this.state.prompt,
       cues: this.refs.cues.value.split(','),
       instructions: this.state.instructions,
@@ -34,7 +34,7 @@ export default React.createClass({
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
+      const optimalResponseObj = {text: this.state.prefilledText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept
@@ -42,8 +42,8 @@ export default React.createClass({
     }
   },
 
-  handleCopyAnswerToPrefill: function(e) {
-    this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
+  handlePrefilledText: function(e) {
+    this.setState({ prefilledText: e.target.value });
   },
 
   handlePromptChange: function (e) {
@@ -73,7 +73,7 @@ export default React.createClass({
       return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" onBlur={this.handleCopyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
+          <input className="input" onChange={this.handlePrefilledText} type="text" />
         </p>
       </div>)
     }
@@ -100,7 +100,7 @@ export default React.createClass({
       <div>
         <label className="label" htmlFor="prefilledText">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
         <p className="control">
-          <input className="input" defaultValue={this.props.question.prefilledText} id="prefilledText" ref="prefilledText" type="text" />
+          <input className="input" defaultValue={this.props.question.prefilledText} id="prefilledText" onChange={this.handlePrefilledText} type="text" />
         </p>
       </div>
     );
