@@ -123,29 +123,46 @@ module PublicProgressReports
         unstarted_names: [],
         missed_names: []
       }
-      classroom_unit.assigned_student_ids.each do |student_id|
-        student = User.find_by(id: student_id)
-        if student && student.classroom_ids.include?(classroom.id)
-          final_activity_session = ActivitySession.find_by(user_id: student_id, is_final_score: true, classroom_unit_id: cu_id, activity_id: activity_id)
-          if final_activity_session
-            scores[:students].push(formatted_score_obj(final_activity_session, activity, student))
-          else
-            if ActivitySession.find_by(
-                user_id: student_id,
-                state: 'started',
-                classroom_unit_id: cu_id,
-                activity_id: activity_id
-              )
-              scores[:started_names].push(student.name)
-            elsif state && state.completed
-              scores[:missed_names].push(student.name)
-            else
-              scores[:unstarted_names].push(student.name)
-            end
-          end
+
+      students = User.includes(:students_classrooms).where(id: classroom_unit.assigned_student_ids)
+
+      started_sessions = ActivitySession.where(
+        user_id: students.map(&:id),
+        state: 'started',
+        classroom_unit_id: classroom_unit.id,
+        activity_id: activity_id
+      ).group_by(&:user_id)
+
+      finished_sessions = ActivitySession.where(
+        user_id: students.map(&:id),
+        is_final_score: true,
+        classroom_unit_id: classroom_unit.id,
+        activity_id: activity_id
+      ).group_by(&:user_id)
+
+      students.each do |student|
+        next if !student.students_classrooms.map(&:classroom_id).include?(classroom.id)
+
+        finished_session = finished_sessions[student.id]&.first
+        if finished_session.present?
+          scores[:students].push(formatted_score_obj(finished_session, activity, student))
+          next
         end
+
+        session = started_sessions[student.id]&.first
+        key = unfinished_key(session, state)
+
+        scores[key].push(student.name)
       end
+
       scores
+    end
+
+    private def unfinished_key(session, state)
+      return :started_names if session
+      return :missed_names if state&.completed
+
+      :unstarted_names
     end
 
     def formatted_score_obj(final_activity_session, activity, student)
