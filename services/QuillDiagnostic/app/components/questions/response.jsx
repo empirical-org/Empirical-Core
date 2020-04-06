@@ -80,7 +80,6 @@ export default class extends React.Component {
   }
 
   editResponse = (rid) => {
-    console.log('props', this.props);
     const { dispatch, questionID } = this.props
     const { actions } = this.state
     dispatch(actions.startResponseEdit(questionID, rid));

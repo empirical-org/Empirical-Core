@@ -126,7 +126,7 @@ class Admin extends React.Component {
           </aside>
         </section>
         <Switch>
-          <Redirect from={`/admin`} component={QuestionHealth} to={`/admin/question-health`} exact/>
+          <Redirect component={QuestionHealth} exact from={`/admin`} to={`/admin/question-health`} />
           <Route component={QuestionHealth} path={`/admin/question-health`} />
           <Route component={ConceptFeedback} path={`/admin/concepts-feedback/:conceptFeedbackID`} />
           <Route component={ConceptsFeedback} path={`/admin/concepts-feedback`} />
