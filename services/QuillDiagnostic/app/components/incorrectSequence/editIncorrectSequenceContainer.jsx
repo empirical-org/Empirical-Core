@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
-import questionActions from '../../actions/questions';
+import questionActions from '../../actions/questions.ts';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
 class EditIncorrectSequencesContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
     const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = {
-      questionType,
-      questionTypeLink,
-      actionFile
+      questionType: questionType,
+      questionTypeLink: questionTypeLink,
+      actionFile: actionFile
     }
   }
 
@@ -32,7 +32,7 @@ class EditIncorrectSequencesContainer extends Component {
     }
   }
 
-  getIncorrectSequence() {
+  getIncorrectSequence = () => {
     const { questions, match } = this.props;
     const { data } = questions;
     const { params } = match;
@@ -40,7 +40,7 @@ class EditIncorrectSequencesContainer extends Component {
     return data[questionID].incorrectSequences[incorrectSequenceID];
   }
 
-  submitForm(data, incorrectSequenceID) {
+  submitForm = (data, incorrectSequenceID) => {
     const { actionFile } = this.state;
     const { dispatch, match } = this.props;
     const { params } = match;

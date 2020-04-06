@@ -11,18 +11,21 @@ export interface ComponentProps {
 }
 
 class TitleCards extends React.Component<ComponentProps, any> {
-  constructor(props) {
-    super(props)
 
-    this.renderQuestionsList = this.renderQuestionsList.bind(this)
-  }
+  state = { titleCards: null }
 
-  renderQuestionsList() {
-    const { titleCards } = this.props;
+  static getDerivedStateFromProps(props, state) {
+    const { titleCards } = props;
     const { data, hasreceiveddata } = titleCards;
     const transformedTitleCards = hashToCollection(data)
-    if (hasreceiveddata && transformedTitleCards) {
-      return <QuestionList basePath='title-cards' questions={transformedTitleCards || []} />
+    if(hasreceiveddata && transformedTitleCards && transformedTitleCards !== state.titleCards) {
+      return { titleCards: transformedTitleCards }
+    }
+  }
+  renderQuestionsList = () => {
+    const { titleCards } = this.state;
+    if (titleCards) {
+      return <QuestionList basePath='title-cards' questions={titleCards || []} />
     } else if (!this.props.titleCards.hasreceiveddata) {
       return <p>Loading...</p>
     } else {

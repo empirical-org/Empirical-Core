@@ -1,9 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
-import diagnosticQuestionActions from '../../actions/diagnosticQuestions';
 import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
-import ConceptSelector from '../shared/conceptSelector.jsx';
 import {
   Modal,
   TextEditor,
@@ -17,14 +15,11 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.j
 import {
   deleteResponse,
   submitResponseEdit,
-  deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
 
 const jsDiff = require('diff');
 const C = require('../../constants').default;
-
-const feedbackStrings = C.FEEDBACK_STRINGS;
 
 export default class extends React.Component {
   constructor(props) {
@@ -84,37 +79,38 @@ export default class extends React.Component {
     }
   }
 
-  editResponse(rid) {
+  editResponse = (rid) => {
+    console.log('props', this.props);
     const { dispatch, questionID } = this.props
     const { actions } = this.state
     dispatch(actions.startResponseEdit(questionID, rid));
   }
 
-  cancelResponseEdit(rid) {
+  cancelResponseEdit = (rid) => {
     const { dispatch, questionID } = this.props
     const { actions } = this.state
     dispatch(actions.cancelResponseEdit(questionID, rid));
   }
 
-  cancelChildResponseView(rid) {
+  cancelChildResponseView = (rid) => {
     const { dispatch, questionID } = this.props
     const { actions } = this.state
     dispatch(actions.cancelChildResponseView(questionID, rid));
   }
 
-  cancelFromResponseView(rid) {
+  cancelFromResponseView = (rid) => {
     const { dispatch, questionID } = this.props
     const { actions } = this.state
     dispatch(actions.cancelFromResponseView(questionID, rid));
   }
 
-  cancelToResponseView(rid) {
+  cancelToResponseView = (rid) => {
     const { dispatch, questionID } = this.props
     const { actions } = this.state
     dispatch(actions.cancelToResponseView(questionID, rid));
   }
 
-  updateResponse(rid) {
+  updateResponse = (rid) => {
     const newResp = {
       weak: false,
       feedback,
@@ -145,12 +141,12 @@ export default class extends React.Component {
     return _.pick(attempt, ...C.ERROR_TYPES);
   };
 
-  rematchResponse(rid) {
+  rematchResponse = (rid) => {
     const { getMatchingResponse } = this.props
     getMatchingResponse(rid);
   }
 
-  applyDiff(answer = '', response = '') {
+  applyDiff = (answer = '', response = '') => {
     const diff = jsDiff.diffWords(response, answer);
     const spans = diff.map((part) => {
       const fontWeight = part.added ? 'bold' : 'normal';
@@ -375,18 +371,18 @@ export default class extends React.Component {
 
     if (isEditing) {
       buttons = [
-        (<a className="card-footer-item" key="cancel" onClick={this.cancelResponseEdit.bind(null, response.key)} >Cancel</a>),
-        (<a className="card-footer-item" key="unmatch" onClick={this.unmatchResponse.bind(null, response.key)} >Unmatch</a>),
-        (<a className="card-footer-item" key="update" onClick={this.updateResponse.bind(null, response.key)} >Update</a>)
+        (<a className="card-footer-item" key="cancel" onClick={() => this.cancelResponseEdit(response.key)} >Cancel</a>),
+        (<a className="card-footer-item" key="unmatch" onClick={() => this.unmatchResponse(response.key)} >Unmatch</a>),
+        (<a className="card-footer-item" key="update" onClick={() => this.updateResponse(response.key)} >Update</a>)
       ];
     } else {
       buttons = [
-        (<a className="card-footer-item" key="edit" onClick={this.editResponse.bind(null, response.key)} >Edit</a>),
-        (<a className="card-footer-item" key="delete" onClick={this.deleteResponse.bind(null, response.key)} >Delete</a>)
+        (<a className="card-footer-item" key="edit" onClick={() => this.editResponse(response.key)} >Edit</a>),
+        (<a className="card-footer-item" key="delete" onClick={() => this.deleteResponse(response.key)} >Delete</a>)
       ];
     }
     if (this.props.response.statusCode > 1) {
-      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={this.rematchResponse.bind(null, response.key)} >Rematch</a>)]);
+      buttons = buttons.concat([(<a className="card-footer-item" key="rematch" onClick={() => this.rematchResponse(response.key)} >Rematch</a>)]);
     }
     return (
       <footer className="card-footer">
@@ -450,7 +446,7 @@ export default class extends React.Component {
   renderChildResponses = (isViewingChildResponses, key) => {
     if (isViewingChildResponses) {
       return (
-        <Modal close={this.cancelChildResponseView.bind(null, key)}>
+        <Modal close={() => this.cancelChildResponseView(key)}>
           <ResponseList
             admin={false}
             ascending={this.props.ascending}
@@ -469,10 +465,10 @@ export default class extends React.Component {
     }
   };
 
-  renderToResponsePathways(isViewingToResponses, key) {
+  renderToResponsePathways = (isViewingToResponses, key) => {
     if (isViewingToResponses) {
       return (
-        <Modal close={this.cancelToResponseView.bind(null, key)}>
+        <Modal close={() => this.cancelToResponseView(key)}>
           <ResponseList
             admin={false}
             ascending={this.props.ascending}
@@ -502,7 +498,7 @@ export default class extends React.Component {
         );
       }
       return (
-        <Modal close={this.cancelFromResponseView.bind(null, key)}>
+        <Modal close={() => this.cancelFromResponseView(key)}>
           {initialCount}
           <br />
           <ResponseList

@@ -189,11 +189,12 @@ class Questions extends React.Component {
 
   handleSearchChange = e => {
     const { dispatch } = this.props;
-    const action = push(`/admin/questions/${e.value}`);
+    const action = push(`/admin/questions/${e.value}/responses`);
     dispatch(action);
   };
 
   toggleShowArchived = () => {
+    const { showOnlyArchived } = this.state
     this.setState({
       showOnlyArchived: !showOnlyArchived,
     });

@@ -8,7 +8,7 @@ import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
   submitTitleCardEdit
-} from '../../actions/titleCards'
+} from '../../actions/titleCards.ts'
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -59,12 +59,15 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   }
 
   submit = () => {
-    const { titleCardID } = this.props.match.params
+    const { dispatch, history, match } = this.props
+    const { params } = match
+    const { titleCardID } = params
     if (titleCardID) {
-      this.props.dispatch(submitTitleCardEdit(titleCardID, this.state))
+      dispatch(submitTitleCardEdit(titleCardID, this.state))
     } else {
-      this.props.dispatch(submitNewTitleCard(this.state))
+      dispatch(submitNewTitleCard(this.state))
     }
+    history.push(`/admin/title-cards`)
   }
 
   handleTitleChange = (e) => {
