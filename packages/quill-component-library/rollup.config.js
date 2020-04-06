@@ -1,6 +1,6 @@
 import path from 'path';
 
-import commonjs from '@rollup/plugin-commonjs';
+import commonjs from 'rollup-plugin-commonjs';
 import packageJson from 'rollup-plugin-generate-package-json';
 import postcss from 'rollup-plugin-postcss';
 import resolve from 'rollup-plugin-node-resolve';
