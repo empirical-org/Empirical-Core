@@ -5,6 +5,7 @@ import Form from './sentenceFragmentForm.jsx';
 
 class newSentenceFragment extends React.Component {
   createNewSentenceFragment = (newSentenceFragment) => {
+    const { dispatch, history } = this.props
     if (!newSentenceFragment.isFragment && !newSentenceFragment.needsIdentification) {
       alert('If the prompt is a sentence, the student must identify whether it is a sentence or fragment. Please try again.');
       return;
@@ -30,7 +31,8 @@ class newSentenceFragment extends React.Component {
       }];
     }
 
-    this.props.dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]));
+    dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]));
+    history.push('/admin/sentence-fragments')
   };
 
   render() {
