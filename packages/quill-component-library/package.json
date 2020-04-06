@@ -16,13 +16,13 @@
     "url": "https://github.com/empirical-org/quill-component-library/issues"
   },
   "scripts": {
-    "build": "yarn build:clean; rollup -c",
+    "build": "npm run build:clean; rollup -c",
     "build:clean": "rm -rf ./dist; mkdir ./dist",
-    "dev": "yarn build; yarn watch",
-    "dist": "yarn build; cd ./dist; yarn publish --access=public",
+    "dev": "npm run build; npm run watch",
+    "dist": "npm run build; cd ./dist; npm run publish --access=public",
     "serve": "http-server ./dist",
     "test": "mocha test/**/*.test.ts",
-    "watch": "chokidar 'src/**/*.ts' 'src/**/*.tsx' -c \"yarn build\""
+    "watch": "chokidar 'src/**/*.ts' 'src/**/*.tsx' -c \"npm run build\""
   },
   "devDependencies": {
     "@types/expect": "^1.20.4",
