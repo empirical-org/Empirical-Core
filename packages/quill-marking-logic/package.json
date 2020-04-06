@@ -1,6 +1,6 @@
 {
   "name": "quill-marking-logic",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "Shared Quill logic for grading and contextualizing student writing.",
   "main": "./dist/lib",
   "module": "./dist/lib",
@@ -11,6 +11,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "build:rollup": "node config/rollup.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "preinstall": "npx npm-force-resolutions",
     "test": "karma start"
   },
   "repository": {
@@ -54,11 +55,10 @@
     "rollup-plugin-uglify": "^3.0.0",
     "style-loader": "^0.16.1",
     "ts-loader": "^2.0.3",
-    "tslint": "^4.3.1",
-    "typescript": "^3.8.3",
+    "typescript": "^2.9.2",
     "uglify-js": "^2.7.5",
     "watchify": "^3.11.1",
-    "webpack": "^2.7.0",
+    "webpack": "^4.0.0",
     "webpack-dev-server": "^3.1.11"
   },
   "dependencies": {
@@ -68,7 +68,9 @@
     "babel-preset-react": "^6.24.1",
     "diff": "^3.2.0",
     "extract-zip": "^2.0.0",
+    "has-values": "^2.0.1",
     "immutable": "^3.8.2",
+    "is-number": "^7.0.0",
     "kind-of": "^6.0.3",
     "levenshtein": "^1.0.5",
     "lodash": "^4.17.15",
@@ -94,5 +96,8 @@
         "test"
       ]
     }
+  },
+  "resolutions": {
+    "kind-of": "6.0.3"
   }
 }
