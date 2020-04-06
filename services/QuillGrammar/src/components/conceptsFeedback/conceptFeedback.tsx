@@ -87,7 +87,6 @@ class ConceptFeedbackComponent extends React.Component<ConceptFeedbackComponentP
       return (
         <div className="container" key={conceptFeedbackID}>
           {conceptName}
-          <p>404: No Concept Feedback Found... So let's make one! 🙌 🖋 🇬🇧 🇮🇳</p>
           <FeedbackForm
             cancelEdit={this.cancelEdit}
             conceptFeedbackID={conceptFeedbackID}
