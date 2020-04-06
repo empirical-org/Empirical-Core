@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import { QuestionList } from '../shared/questionList';
+
 export interface ComponentProps {
   titleCards: any
   routing: any
@@ -12,20 +13,10 @@ export interface ComponentProps {
 
 class TitleCards extends React.Component<ComponentProps, any> {
 
-  state = { titleCards: null }
-
-  static getDerivedStateFromProps(props, state) {
-    const { titleCards } = props;
-    const { data, hasreceiveddata } = titleCards;
-    const transformedTitleCards = hashToCollection(data)
-    if(hasreceiveddata && transformedTitleCards && transformedTitleCards !== state.titleCards) {
-      return { titleCards: transformedTitleCards }
-    }
-  }
   renderQuestionsList = () => {
-    const { titleCards } = this.state;
-    if (titleCards) {
-      return <QuestionList basePath='title-cards' questions={titleCards || []} />
+    const formattedTitleCards = hashToCollection(this.props.titleCards.data);
+    if (formattedTitleCards) {
+      return <QuestionList basePath='title-cards' questions={formattedTitleCards || []} />
     } else if (!this.props.titleCards.hasreceiveddata) {
       return <p>Loading...</p>
     } else {

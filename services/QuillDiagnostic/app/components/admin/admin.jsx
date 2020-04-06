@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
@@ -126,6 +126,8 @@ class Admin extends React.Component {
           </aside>
         </section>
         <Switch>
+          <Redirect from={`/admin`} component={QuestionHealth} to={`/admin/question-health`} exact/>
+          <Route component={QuestionHealth} path={`/admin/question-health`} />
           <Route component={ConceptFeedback} path={`/admin/concepts-feedback/:conceptFeedbackID`} />
           <Route component={ConceptsFeedback} path={`/admin/concepts-feedback`} />
           <Route component={Concept} path={`/admin/concepts/:conceptID`} />
@@ -137,7 +139,6 @@ class Admin extends React.Component {
           <Route component={LessonResults} path={`/admin/lessons/:lessonID/results`} />
           <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
           <Route component={Lessons} path={`/admin/lessons`} />
-          <Route component={QuestionHealth} path={`/admin/question-health`} />
           <Route component={Question} path={`/admin/questions/:questionID`} />
           <Route component={AnswerVisualizer} path={`/admin/questions/visualize`} />
           <Route component={Questions} path={`/admin/questions`} />
