@@ -15,6 +15,10 @@ class GenerateUsername
 
   attr_reader :first_name, :last_name, :classcode
 
+
+  # NB, This will produce and invalid username if there are
+  # more than 1,000 (MAX_LOOPS) students in a class
+  # with the same first and last names. Putting in place to prevent a never-ending loop
   def generate
     name_string = "#{first_name}.#{last_name}".downcase
     at_classcode = at_classcode(classcode)
