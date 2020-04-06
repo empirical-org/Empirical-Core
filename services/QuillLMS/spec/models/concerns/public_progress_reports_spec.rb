@@ -18,7 +18,7 @@ describe PublicProgressReports, type: :model do
     end
 
     it 'fill report' do
-      report = FakeReports.new.results_for_classroom(classroom_unit.id, activity.id, classroom.id)
+      report = FakeReports.new.results_for_classroom(classroom_unit.unit_id, activity.id, classroom.id)
 
       expect(report[:students].count).to be 1
       expect(report[:name]).to eq(classroom.name)
@@ -34,7 +34,7 @@ describe PublicProgressReports, type: :model do
       end
 
       it 'should fill report and mark names as missing' do
-        report = FakeReports.new.results_for_classroom(classroom_unit.id, activity.id, classroom.id)
+        report = FakeReports.new.results_for_classroom(classroom_unit.unit_id, activity.id, classroom.id)
 
         expect(report[:students].count).to be 1
         expect(report[:name]).to eq(classroom.name)
