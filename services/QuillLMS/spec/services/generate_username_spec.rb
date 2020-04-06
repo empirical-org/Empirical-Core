@@ -5,6 +5,11 @@ describe GenerateUsername do
     expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq 'john.smith@student'
   end
 
+  it 'doesnt increment count if a different class code' do
+    create(:student, { username: 'john.smith@teacher' })
+    expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq 'john.smith@student'
+  end
+
   it 'inserts a number after the last name if there is already a student in the database with that username' do
     create(:student, { username: 'john.smith@student' })
     expect(GenerateUsername.new('John', 'Smith', 'student').call).to eq 'john.smith1@student'
