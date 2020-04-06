@@ -52,7 +52,7 @@
 }
 
 .quill-checkbox.selected {
-  background-color: #06806b;
+  background-color: #06806b !important;
   color: white;
   display: flex;
   align-items: center;
@@ -62,7 +62,7 @@
 }
 
 .quill-checkbox.unselected {
-  border: solid 2px #646464;
+  border: solid 2px #646464 !important;
   cursor: pointer;
 }
 
