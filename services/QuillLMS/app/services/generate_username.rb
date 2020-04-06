@@ -1,4 +1,5 @@
 class GenerateUsername
+  MAX_LOOPS = 1_000
 
   def initialize(first_name, last_name, classcode)
     @first_name = first_name
@@ -15,16 +16,18 @@ class GenerateUsername
   attr_reader :first_name, :last_name, :classcode
 
   def generate
-    part1         = "#{first_name}.#{last_name}".downcase
-    part1_pattern = "#{part1}%"
-    at_classcode  = at_classcode(classcode)
-    extant_count  = User.where("username LIKE ?", part1_pattern).count(:id)
+    name_string = "#{first_name}.#{last_name}".downcase
+    at_classcode = at_classcode(classcode)
 
-    if extant_count != 0
-      return "#{part1}#{extant_count + 1}#{at_classcode}"
+    username = "#{name_string}#{at_classcode}"
+    count = 1
+
+    while User.where(username: username).exists? && count < MAX_LOOPS
+      username = "#{name_string}#{count}#{at_classcode}"
+      count += 1
     end
 
-    return "#{part1}#{at_classcode}"
+    username
   end
 
   def at_classcode(classcode)
