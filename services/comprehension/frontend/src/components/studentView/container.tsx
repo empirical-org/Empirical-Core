@@ -180,7 +180,6 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       let nextStep: number|undefined = stepNumber + 1
       if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
         nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
-        if (!nextStep) this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
       }
       nextStep ? this.activateStep(nextStep, () => this.scrollToStep(`step${nextStep}`)) : this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
     })
