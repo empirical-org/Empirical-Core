@@ -156,15 +156,15 @@ class PagesController < ApplicationController
             answer: "<p>Quill currently offers 5 tools. The 5 tools are designed to work together seamlessly—activities from any tool can be assigned from the same place, in the same way, and you can mix and match activities from the different tools to build your own activity packs.</p>
             <br />
             <p><strong>Quill Proofreader</strong></p>
-            <P>In Quill Proofreader, students proofread a passage to find and correct the errors. Some passages focus on a specific grammar concept, but many cover a wide range of skills to mirror a real-life proofreading and editing process.</p>
+            <p>In Quill Proofreader, students proofread a passage to find and correct the errors. Some passages focus on a specific grammar concept, but many cover a wide range of skills to mirror a real-life proofreading and editing process.</p>
              <br />
              <p>Once students have made all their edits to the passage, we'll highlight for the student which edits are correct, which are unnecessary, and which are incorrect or not found. Then, students are automatically assigned a follow-up activity from Quill Grammar that addresses one of the skills the student needs to practice based on their proofreading.</p>
              <br />
              <p><strong>Quill Grammar</strong></p>
-             <P>In Quill Grammar, students practice the basics of sentence mechanics. Here is where you'll find activities to practice skills like using proper capitalization, recognizing the difference between pronouns, and much more. As students practice these skills, they are given five chances to revise each response. After each revision, students receive feedback to help them improve their sentence.</p>
+             <p>In Quill Grammar, students practice the basics of sentence mechanics. Here is where you'll find activities to practice skills like using proper capitalization, recognizing the difference between pronouns, and much more. As students practice these skills, they are given five chances to revise each response. After each revision, students receive feedback to help them improve their sentence.</p>
              <br />
              <p><strong>Quill Connect</strong></p>
-             <P>Quill Connect is our sentence combining tool, and our most popular. In Quill Connect, students develop their sentence construction skills by combining multiple short sentences into a more sophisticated single sentence. Students are given up to five opportunities to revise their work, receiving immediate targeted feedback after each revision that guides them toward a stronger response.</p>
+             <p>Quill Connect is our sentence combining tool, and our most popular. In Quill Connect, students develop their sentence construction skills by combining multiple short sentences into a more sophisticated single sentence. Students are given up to five opportunities to revise their work, receiving immediate targeted feedback after each revision that guides them toward a stronger response.</p>
           <br />
           <p><strong>Quill Diagnostic</strong></p>
           <p>Quill offers four diagnostics that can be used to evaluate your students' writing. The goal of the diagnostics is to provide you with enough information about your students' needs that you can assign the most appropriate activities for your students. Because diagnostic activities are evaluative, students will not receive any feedback on their responses and will only have one attempt per question. </p>
