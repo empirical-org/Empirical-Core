@@ -4,7 +4,7 @@ import pluralize from 'pluralize';
 
 const quillBasicCopy = (
   <span>
-    Quill Basic provides access to all of Quill's content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. Teachers can earn free credits for Teacher Premium by sharing Quill and creating content.
+    Quill Basic provides access to all of Quill&apos;s content. To access Quill Premium, you can purchase an individual teacher subscription or a school subscription. We are currently offering Quill Premium for free for the rest of the 2019/20 school year. Activate <a href="/subscriptions/activate_covid_subscription">here</a>.
   </span>);
 
 const schoolPremiumCopy = (
@@ -22,19 +22,6 @@ const teacherPremiumCopy = (
 );
 
 export default class extends React.Component {
-
-  handleExpired(content, remainingDays) {
-    if (remainingDays < 1) {
-      content.boxColor = '#ff4542';
-      content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
-      content.pCopy = (
-        <span>
-          <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
-          {quillBasicCopy}
-        </span>);
-      content.buttonOrDate = <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>;
-    }
-  }
 
   getContent() {
     const content = {};
@@ -89,6 +76,19 @@ export default class extends React.Component {
       </span>);
     content.status = content.status || <h2>{`You have a ${subscriptionType} Premium subscription`}<img alt={`${subscriptionType}`} src={`https://assets.quill.org/images/shared/${image}`} /></h2>;
     return content;
+  }
+
+  handleExpired(content, remainingDays) {
+    if (remainingDays < 1) {
+      content.boxColor = '#ff4542';
+      content.status = <h2><i className="fas fa-exclamation-triangle" />{`Your ${this.props.subscriptionType} Premium subscription has expired`}</h2>;
+      content.pCopy = (
+        <span>
+          <strong>Your {this.props.subscriptionType} Premium subscription has expired and you are back to Quill Basic.</strong>
+          {quillBasicCopy}
+        </span>);
+      content.buttonOrDate = <button className="renew-subscription q-button bg-orange text-white cta-button" onClick={this.props.showPurchaseModal}>Renew Subscription</button>;
+    }
   }
 
   render() {

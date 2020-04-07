@@ -14,7 +14,6 @@ import _ from 'underscore'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class extends React.Component {
-
   constructor() {
     super()
     this.state = {
@@ -22,7 +21,6 @@ export default class extends React.Component {
       errors: false,
       selectedClassroom: showAllClassroomKey
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -34,23 +32,10 @@ export default class extends React.Component {
       const csvData = this.formatDataForCSV(data)
       const conceptReportsData = data;
       // gets unique classroom names
-      const classroomNames = [...new Set(conceptReportsData.map(row => row.classroom_name))]
+      const classroomNames = Array.from(new Set(conceptReportsData.map(row => row.classroom_name)))
       classroomNames.unshift(showAllClassroomKey)
       that.setState({loading: false, errors: body.errors, conceptReportsData, csvData, classroomNames});
     });
-  }
-
-  formatDataForCSV(data) {
-    const csvData = [
-      ['Student', 'Teacher', 'Classroom', 'School', 'Correct', 'Incorrect', 'Success Rate']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['student_name'], row['teacher_name'], row['classroom_name'], row['school_name'],
-        row['correct'], row['incorrect'], row['percentage']
-      ])
-    })
-    return csvData
   }
 
   columns() {
@@ -95,16 +80,29 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
-    this.setState({selectedClassroom: classroom})
-  }
-
   filteredConceptReportsData() {
     if (this.state.selectedClassroom === showAllClassroomKey) {
       return this.state.conceptReportsData
     }
     return this.state.conceptReportsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
   }
+
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Student', 'Teacher', 'Classroom', 'School', 'Correct', 'Incorrect', 'Success Rate']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['student_name'], row['teacher_name'], row['classroom_name'], row['school_name'],
+        row['correct'], row['incorrect'], row['percentage']
+      ])
+    })
+    return csvData
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom})
+  };
 
   tableOrEmptyMessage(filteredClassroomsData){
     if (filteredClassroomsData.length) {

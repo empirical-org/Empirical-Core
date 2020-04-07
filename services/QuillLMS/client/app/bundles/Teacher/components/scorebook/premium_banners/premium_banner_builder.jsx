@@ -4,17 +4,22 @@ import FreeTrialBanner from './free_trial_banner.jsx'
 import NewSignUpBanner from './new_signup_banner.jsx'
 import FreeTrialStatus from './free_trial_status.jsx'
 
-export default React.createClass({
+export default class PremiumBannerBuilder extends React.Component {
+  constructor(props) {
+    super(props)
 
-
-  getInitialState: function() {
-    return {has_premium: null,
-            trial_days_remaining: null,
-            first_day_of_premium_or_trial: null
+    this.state = {
+      has_premium: null,
+      trial_days_remaining: null,
+      first_day_of_premium_or_trial: null
     };
-  },
+  }
 
-  fetchData: function() {
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData = () => {
     var that = this;
     $.get('/teachers/classrooms/premium')
     .done(function(data) {
@@ -22,9 +27,9 @@ export default React.createClass({
         has_premium: data['hasPremium'],
         trial_days_remaining: data['trial_days_remaining'],
         first_day_of_premium_or_trial: data['first_day_of_premium_or_trial']});});
-  },
+  };
 
-  stateSpecificComponents: function() {
+  stateSpecificComponents = () => {
     // //////  if loading this banner becomes slow, uncomment this.
     // if (this.state.has_premium === null){
     //   return <EC.LoadingIndicator/>;
@@ -43,25 +48,25 @@ export default React.createClass({
     else if ((this.state.has_premium === 'school') || ((this.state.has_premium === 'paid') && (this.state.first_day_of_premium_or_trial === false))) {
         return (<span />);
       }
-  },
+  };
 
-  stateSpecificBackGroundColor: function() {
+  stateSpecificBackGroundColor = () => {
     if (this.props.daysLeft == 30){
       return('#d0ffc6');
     } else {
       return('#ffe7c0');
     }
-  },
+  };
 
-  stateSpecificBackGroundImage: function() {
+  stateSpecificBackGroundImage = () => {
     if (this.props.daysLeft == 30){
       return('none');
     } else {
       return('url(/images/star_pattern_5.png)');
     }
-  },
+  };
 
-  hasPremium: function() {
+  hasPremium = () => {
     var color = this.stateSpecificBackGroundColor();
     var img = this.stateSpecificBackGroundImage();
     var divStyle = {
@@ -80,16 +85,10 @@ export default React.createClass({
           </div>
     );
   }
-  },
+  };
 
-  componentDidMount: function() {
-    this.fetchData();
-  },
-
-
-  render: function() {
+  render() {
     return (this.hasPremium());
 
   }
-
-});
+}

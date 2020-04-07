@@ -22,36 +22,28 @@ const SchoolPricingMini = ({
   }
   return (
     <div className="pricing-mini">
-      <div className="promo-tab">{savingsCopy}</div>
-      <div className="placeholder-div">
-        <div className="promo-tab">{savingsCopy}</div>
-      </div>
-      <header className="pricing-mini-header purple">
+      <header className="pricing-mini-header blue">
         <div className="img-holder">
-          <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/school_premium_icon.png`} />
+          <img alt="School" className="blue-school" src={`${process.env.CDN_URL}/images/shared/blue-school.svg`} />
         </div>
-        <h4>School Premium</h4>
       </header>
       <section className="pricing-info">
         <div className="premium-rates">
-          <h3>
-            <span>
-              $1800
-            </span>
-          </h3>
-          <h4>per year</h4>
+          <h3 className="bold">School Premium</h3>
+          <h3 className="strikethrough">$1,800 per year</h3>
+          <h4>Free for the rest of the 2019/2020 school year</h4>
         </div>
+        <a className='premium-button dark-green' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request free access</a>
         <ul>
-          <li>Everything in Teacher Premium</li>
-          <li>Dedicated representative to ensure a successful onboarding experience</li>
-          <li>Professional Development Sessions</li>
-          <li>Administrator dashboard for school-<br />
-        wide reports
-          </li>
+          <li className="semibold">Everything in Teacher Premium</li>
+          <li>Dedicated representative to ensure successful implementation</li>
+          <li>Professional development sessions</li>
+          <li>Administrator dashboard for school-wide reports</li>
         </ul>
       </section>
-      <button className="btn btn-default mini-btn purple" onClick={onClickEvent} type="button">Purchase</button>
-      <a href="https://quill-partnerships.youcanbook.me/" rel="noopener noreferrer" target="_blank"><button className="btn btn-default mini-btn empty-purple" type="button">Schedule Demo</button></a>
+      <section className="learn-more">
+        <a href="#school-premium">Learn more</a>
+      </section>
     </div>
   );
 }

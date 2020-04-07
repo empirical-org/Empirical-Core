@@ -13,10 +13,12 @@ describe('ClassReport component', () => {
 
   const wrapper = shallow(
     <ClassReport
-      params={{
-        classroomId: CLASSROOM_ID,
-        unitId: UNIT_ID,
-        activityId: ACTIVITY_ID
+      match={{
+        params: {
+          classroomId: CLASSROOM_ID,
+          unitId: UNIT_ID,
+          activityId: ACTIVITY_ID
+        }
       }}
       premiumStatus={false}
     />

@@ -71,7 +71,7 @@ export default class RemoveStudentsModal extends React.Component<RemoveStudentsM
     return (<div className="checkboxes">
       <div className="checkbox-row">
         {this.renderCheckbox('checkboxOne')}
-        <span>I understand that I will no longer have access to the students’ work  or data.</span>
+        <span>I understand that I will no longer have access to the students’ work or data.</span>
       </div>
     </div>)
   }

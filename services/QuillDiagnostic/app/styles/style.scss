@@ -380,3 +380,20 @@ textarea.submission {
 .wf-loading {
   visibility: hidden;
 }
+
+.search-container {
+  display: flex;
+}
+
+.search {
+  margin-left: 20px;
+}
+
+.control.checkbox-wrapper {
+  display: inline-block;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin: 8px;
+}

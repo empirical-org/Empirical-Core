@@ -5,7 +5,6 @@ import ListItem from './listItem.jsx'
 const SortableListItem = sortable(ListItem);
 
 export default class SortableList extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -15,19 +14,17 @@ export default class SortableList extends React.Component {
         items: this.props.data
       }
     }
-
-    this.updateState = this.updateState.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.data !== this.state.data.items) {
       this.setState({data: {items: nextProps.data}})
     }
   }
 
-  updateState(obj) {
+  updateState = obj => {
     this.setState(obj, this.props.sortCallback(this.state));
-  }
+  };
 
   render() {
     const listItems = this.state.data.items.map(function(item, i) {

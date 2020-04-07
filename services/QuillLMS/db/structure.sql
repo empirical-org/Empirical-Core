@@ -1558,6 +1558,39 @@ ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
 
 
 --
+-- Name: lessons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lessons (
+    id integer NOT NULL,
+    uid character varying,
+    data jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: lessons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lessons_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lessons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lessons_id_seq OWNED BY public.lessons.id;
+
+
+--
 -- Name: milestones; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2430,7 +2463,8 @@ CREATE TABLE public.title_cards (
     content character varying,
     title character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    title_card_type character varying NOT NULL
 );
 
 
@@ -3070,6 +3104,13 @@ ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: lessons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lessons ALTER COLUMN id SET DEFAULT nextval('public.lessons_id_seq'::regclass);
+
+
+--
 -- Name: milestones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3592,6 +3633,14 @@ ALTER TABLE ONLY public.invitations
 
 ALTER TABLE ONLY public.ip_locations
     ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lessons lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lessons
+    ADD CONSTRAINT lessons_pkey PRIMARY KEY (id);
 
 
 --
@@ -4358,6 +4407,13 @@ CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
 
 
 --
+-- Name: index_lessons_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_lessons_on_uid ON public.lessons USING btree (uid);
+
+
+--
 -- Name: index_milestones_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4677,6 +4733,13 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 --
 
 CREATE INDEX index_third_party_user_ids_on_user_id ON public.third_party_user_ids USING btree (user_id);
+
+
+--
+-- Name: index_title_cards_on_title_card_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_title_cards_on_title_card_type ON public.title_cards USING btree (title_card_type);
 
 
 --
@@ -5856,4 +5919,8 @@ INSERT INTO schema_migrations (version) VALUES ('20191122181105');
 INSERT INTO schema_migrations (version) VALUES ('20191218174724');
 
 INSERT INTO schema_migrations (version) VALUES ('20200123170454');
+
+INSERT INTO schema_migrations (version) VALUES ('20200324192053');
+
+INSERT INTO schema_migrations (version) VALUES ('20200326152208');
 

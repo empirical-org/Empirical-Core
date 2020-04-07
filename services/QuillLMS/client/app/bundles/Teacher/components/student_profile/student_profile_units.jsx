@@ -20,37 +20,6 @@ export default class StudentProfileUnits extends React.Component {
     document.title = 'Quill.org | Classwork'
   }
 
-  handleCloseModalClick = () => {
-    this.setState({ closedModal: true, })
-  }
-
-  groupUnits() {
-    const { data, } = this.props
-    const groupedUnits = _.groupBy(data, 'unit_id');
-    const unitsWithGroupedActivities = {};
-    for (const unit in groupedUnits) {
-      const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.max_percentage != null));
-      unitsWithGroupedActivities[unit] = {};
-      if (partitionedActivities[0].length) {
-        unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'unit_activity_created_at');
-      }
-      if (partitionedActivities[1].length) {
-        unitsWithGroupedActivities[unit].incomplete = partitionedActivities[1];
-      }
-    }
-    const unitsGroupedByCompletion = _.partition(unitsWithGroupedActivities, unit => (!!unit.incomplete));
-    const finalArrangement = (unitsGroupedByCompletion[0].sort((a, b) => a.incomplete[0].unit_created_at - b.incomplete[0].unit_created_at));
-    const resultWithUnsortedUnits = finalArrangement.concat(unitsGroupedByCompletion[1].sort((a, b) => a.complete[0].unit_created_at - b.complete[0].unit_created_at));
-    const resultWithSortedUnits = resultWithUnsortedUnits.sort(function(first, second) {
-      if (first.incomplete != undefined && second.incomplete != undefined) {
-        return new Date(first.incomplete[0].due_date) - new Date(second.incomplete[0].due_date);
-      } else {
-        return -1
-      }
-    });
-    return resultWithSortedUnits;
-  }
-
   displayedUnits = () => {
     const { activeClassworkTab, } = this.props
     const groupedUnits = this.groupUnits()
@@ -80,6 +49,49 @@ export default class StudentProfileUnits extends React.Component {
       default:
         return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
     }
+  }
+
+  groupUnits() {
+    const { data, } = this.props
+    const groupedUnits = _.groupBy(data, 'unit_id');
+    const unitsWithGroupedActivities = {};
+    for (const unit in groupedUnits) {
+      const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.max_percentage != null));
+      unitsWithGroupedActivities[unit] = {};
+      if (partitionedActivities[0].length) {
+        unitsWithGroupedActivities[unit].complete = _.sortBy(partitionedActivities[0], 'unit_activity_created_at');
+      }
+      if (partitionedActivities[1].length) {
+        unitsWithGroupedActivities[unit].incomplete = partitionedActivities[1];
+      }
+    }
+    const unitsGroupedByCompletion = _.partition(unitsWithGroupedActivities, unit => (!!unit.incomplete));
+    const finalArrangement = (unitsGroupedByCompletion[0].sort((a, b) => a.incomplete[0].unit_created_at - b.incomplete[0].unit_created_at));
+    const resultWithUnsortedUnits = finalArrangement.concat(unitsGroupedByCompletion[1].sort((a, b) => a.complete[0].unit_created_at - b.complete[0].unit_created_at));
+    const resultWithSortedUnits = resultWithUnsortedUnits.sort(function(first, second) {
+      if (first.incomplete != undefined && second.incomplete != undefined) {
+        return new Date(first.incomplete[0].due_date) - new Date(second.incomplete[0].due_date);
+      } else {
+        return -1
+      }
+    });
+    return resultWithSortedUnits;
+  }
+
+  handleCloseModalClick = () => {
+    this.setState({ closedModal: true, })
+  }
+
+  renderContent = () => {
+    const { loading, nextActivitySession, } = this.props
+    if (loading) { return <LoadingIndicator /> }
+    
+    const content = this.displayedUnits().map(unit => {
+      const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
+      return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
+    })
+
+    return content.length ? content : this.renderEmptyState()
   }
 
   renderEmptyState = () => (
@@ -123,18 +135,6 @@ export default class StudentProfileUnits extends React.Component {
         </div>
       </div>
     </div>)
-  }
-
-  renderContent = () => {
-    const { loading, nextActivitySession, } = this.props
-    if (loading) { return <LoadingIndicator /> }
-    
-    const content = this.displayedUnits().map(unit => {
-      const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
-      return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
-    })
-
-    return content.length ? content : this.renderEmptyState()
   }
 
   render() {

@@ -1,18 +1,19 @@
 import React from 'react'
 
+const ConceptResultTableRow = (
+  {
+    concept,
+  },
+) => {
+  return (
+    <tr>
+      <td>Concept</td>
+      <td>
+        <img alt={concept.correct ? "Green check" : "Red x"} src={'/images/' + (concept.correct ? 'green_check' : 'red_x') + '.svg'} />
+      </td>
+      <td>{concept.name}</td>
+    </tr>
+  );
+};
 
-export default class ConceptResultTableRow extends React.Component {
-
-  render() {
-    return (
-      <tr>
-        <td>Concept</td>
-        <td>{<img src={'/images/' + (this.props.concept.correct ? 'green_check' : 'red_x') + '.svg'} />}
-        </td>
-        <td>{this.props.concept.name}</td>
-      </tr>
-    );
-  }
-
-
-}
+export default ConceptResultTableRow;

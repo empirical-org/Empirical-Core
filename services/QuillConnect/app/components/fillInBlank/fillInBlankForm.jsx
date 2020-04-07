@@ -15,7 +15,6 @@ class FillInBlankForm extends Component {
       instructions: '',
       cues: '',
       newQuestionOptimalResponse: '',
-      itemLevel: 'Select Item Level',
       flag: 'alpha',
       cuesLabel: ''
     };
@@ -25,7 +24,6 @@ class FillInBlankForm extends Component {
     this.handleInstructionsChange = this.handleInstructionsChange.bind(this);
     this.handleCuesChange = this.handleCuesChange.bind(this);
     this.handleNewQuestionOptimalResponseChange = this.handleNewQuestionOptimalResponseChange.bind(this);
-    this.handleItemLevelChange = this.handleItemLevelChange.bind(this);
     this.handleSelectorChange = this.handleSelectorChange.bind(this);
     this.handleFlagChange = this.handleFlagChange.bind(this);
     this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
@@ -54,10 +52,6 @@ class FillInBlankForm extends Component {
     this.setState({newQuestionOptimalResponse: e.target.value});
   }
 
-  handleItemLevelChange(e) {
-    this.setState({itemLevel: e.target.value});
-  }
-
   handleSelectorChange(e) {
     this.setState({conceptID: e.value});
   }
@@ -70,14 +64,6 @@ class FillInBlankForm extends Component {
     this.setState({ cuesLabel: e.target.value, });
   }
 
-  itemLevelToOptions() {
-    return hashToCollection(this.props.itemLevels.data).map((level) => {
-      return (
-        <option key={level.key}>{level.name}</option>
-      )
-    });
-  }
-
   toggleQuestionBlankAllowed() {
     this.setState({blankAllowed: !this.state.blankAllowed});
   }
@@ -87,18 +73,19 @@ class FillInBlankForm extends Component {
   }
 
   submit() {
+    const { questionID } = this.state
     const data = {
       prompt: this.state.prompt,
       blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
       caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false,
       cues: this.state.cues.split(','),
-      itemLevel: this.state.itemLevel === "Select Item Level" ? "" : this.state.itemLevel,
       instructions: this.state.instructions,
       conceptID: this.state.conceptID,
       flag: this.state.flag ? this.state.flag : 'alpha',
       cuesLabel: this.state.cuesLabel
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
+    window.location.href = window.location.origin + '/#/admin/fill-in-the-blanks/' + questionID;
   }
 
   clearForm() {
@@ -108,7 +95,6 @@ class FillInBlankForm extends Component {
       newQuestionPrompt: '',
       newQuestionOptimalResponse: '',
       instructions: '',
-      itemLevel: 'Select Item Level',
       conceptID: null,
       flag: 'alpha',
       cuesLabel: ''
@@ -166,15 +152,6 @@ class FillInBlankForm extends Component {
           <input checked={this.state.caseInsensitive} onClick={this.toggleQuestionCaseInsensitive} type="checkbox" />
         </p>
 
-        <label className="label">Item level</label>
-        <p className="control">
-          <span className="select">
-            <select onChange={this.handleItemLevelChange} value={this.state.itemLevel}>
-              <option value="Select Item Level">Select Item Level</option>
-              {this.itemLevelToOptions()}
-            </select>
-          </span>
-        </p>
         <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
         <label className="label">Concept</label>
         <ConceptSelector currentConceptUID={this.state.conceptID} handleSelectorChange={this.handleSelectorChange} />
@@ -185,10 +162,5 @@ class FillInBlankForm extends Component {
   }
 }
 
-function select(state) {
-  return {
-    itemLevels: state.itemLevels
-  };
-}
 
-export default connect(select)(FillInBlankForm);
+export default FillInBlankForm;

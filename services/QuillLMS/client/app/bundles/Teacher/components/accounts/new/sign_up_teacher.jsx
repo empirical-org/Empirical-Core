@@ -30,23 +30,21 @@ class SignUpTeacher extends React.Component {
   }
 
 
-  updateKeyValue = (key, value) => {
-    const newState = Object.assign({}, this.state);
-    newState[key] = value;
-    this.setState(newState);
+  handleClickSignUpAsStudent = (e) => {
+    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)
+    window.location.href = '/sign-up/student'
   }
 
-  update = (e) => {
-    this.updateKeyValue(e.target.id, e.target.value)
+  handleKeyDownOnSignUpAsStudent = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleClickSignUpAsStudent(e)
   }
 
-  submitClass = () => {
-    const { password, firstName, lastName, email, } = this.state
-    let buttonClass = "quill-button contained primary medium focus-on-light"
-    if (!password.length || !firstName.length || !lastName.length || !email.length) {
-      buttonClass += ' disabled'
-    }
-    return buttonClass
+  handleKeyDownOnToggleNewsletter = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleToggleNewsletter()
   }
 
   handleSubmit = (e) => {
@@ -95,21 +93,23 @@ class SignUpTeacher extends React.Component {
     });
   }
 
-  handleKeyDownOnToggleNewsletter = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleToggleNewsletter()
+  submitClass = () => {
+    const { password, firstName, lastName, email, } = this.state
+    let buttonClass = "quill-button contained primary medium focus-on-light"
+    if (!password.length || !firstName.length || !lastName.length || !email.length) {
+      buttonClass += ' disabled'
+    }
+    return buttonClass
   }
 
-  handleClickSignUpAsStudent = (e) => {
-    SegmentAnalytics.track(Events.CLICK_CREATE_STUDENT_USER)
-    window.location.href = '/sign-up/student'
+  update = (e) => {
+    this.updateKeyValue(e.target.id, e.target.value)
   }
 
-  handleKeyDownOnSignUpAsStudent = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleClickSignUpAsStudent(e)
+  updateKeyValue = (key, value) => {
+    const newState = Object.assign({}, this.state);
+    newState[key] = value;
+    this.setState(newState);
   }
 
   renderNewsletterRow = () => {
@@ -127,7 +127,7 @@ class SignUpTeacher extends React.Component {
     const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
       <div className="container account-form teacher-sign-up">
-        <h1>Create a teacher account</h1>
+        <h1>Create an account</h1>
         <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
         <div className="info-and-form-container">
           <div className="info">
@@ -135,7 +135,7 @@ class SignUpTeacher extends React.Component {
             <ul>
               <li>Quill provides free access to 400 writing and grammar&nbsp;activities</li>
               <li>Students receive immediate feedback on their&nbsp;work</li>
-              <li>Teachers identify student needs and measure growth with diagnostics and&nbsp;reports</li>
+              <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
             </ul>
           </div>
           <div className="account-container text-center">

@@ -74,6 +74,9 @@ EmpiricalGrammar::Application.routes.draw do
     member do
       get :purchaser_name
     end
+    collection do
+      get :activate_covid_subscription
+    end
   end
   resources :assessments
   resources :assignments
@@ -385,6 +388,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
+      resources :lessons, except: [:destroy]
       resources :questions, except: [:destroy] do
         resources :focus_points do
           put :update_all, on: :collection

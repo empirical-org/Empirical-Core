@@ -23,16 +23,8 @@ import {
 } from '../../libs/grading/rematching.ts';
 import DiagnosticQuestionMatcher from '../../libs/diagnosticQuestion.js';
 import massEdit from '../../actions/massEdit';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import request from 'request';
-import {
-  deleteResponse,
-  incrementResponseCount,
-  submitResponseEdit,
-  removeLinkToParentID,
-  setUpdatedResponse,
-  getGradedResponsesWithCallback
-} from '../../actions/responses';
+import { submitResponseEdit } from '../../actions/responses';
 
 const C = require('../../constants').default;
 
@@ -73,7 +65,6 @@ class ResponseComponent extends React.Component {
     this.getHealth = this.getHealth.bind(this)
     this.getGradeBreakdown = this.getGradeBreakdown.bind(this)
     this.clearResponses = this.clearResponses.bind(this)
-    this.searchResponses = this.searchResponses.bind(this)
     this.getTotalAttempts = this.getTotalAttempts.bind(this)
     this.getResponseCount = this.getResponseCount.bind(this)
     this.removeResponseFromMassEditArray = this.removeResponseFromMassEditArray.bind(this)
@@ -116,7 +107,6 @@ class ResponseComponent extends React.Component {
     this.getFromPathwaysForResponse = this.getFromPathwaysForResponse.bind(this)
     this.getUniqAndCountedResponsePathways = this.getUniqAndCountedResponsePathways.bind(this)
     this.getPOSTagsList = this.getPOSTagsList.bind(this)
-    this.handleStringFiltering = this.handleStringFiltering.bind(this)
     this.getFilteredResponses = this.getFilteredResponses.bind(this)
     this.mapCountToResponse = this.mapCountToResponse.bind(this)
     this.updatePageNumber = this.updatePageNumber.bind(this)
@@ -181,9 +171,10 @@ class ResponseComponent extends React.Component {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
   }
 
-  searchResponses() {
-    this.props.dispatch(questionActions.incrementRequestCount())
-    this.props.dispatch(questionActions.searchResponses(this.props.questionID));
+  searchResponses = () => {
+    const { dispatch, questionID } = this.props;
+    dispatch(questionActions.incrementRequestCount())
+    dispatch(questionActions.searchResponses(questionID));
   }
 
   getTotalAttempts() {
@@ -521,9 +512,17 @@ class ResponseComponent extends React.Component {
     return posTagsList;
   }
 
-  handleStringFiltering() {
-    this.props.dispatch(questionActions.updateStringFilter(this.refs.stringFilter.value, this.props.questionID));
-    // this.setState({ stringFilter: this.refs.stringFilter.value, responsePageNumber: 1, }, () => this.searchResponses());
+  handleStringFiltering = () => {
+    const { dispatch, questionID } = this.props;
+    const { stringFilter } = this.refs;
+    const { value } = stringFilter;
+    dispatch(questionActions.updateStringFilter(value, questionID));
+  }
+
+  handleSearchEnter = (e) => {
+    if(e.key === "Enter") {
+      this.searchResponses();
+    }
   }
 
   getFilteredResponses(responses) {
@@ -645,9 +644,12 @@ class ResponseComponent extends React.Component {
   }
 
   render() {
-    const questionBar = this.props.filters.responses && Object.keys(this.props.filters.responses).length > 0
+    const { filters, mode } = this.props;
+    const { responses, stringFilter } = filters;
+    const questionBar = responses && Object.keys(responses).length > 0
     ? <QuestionBar data={_.values(this.formatForQuestionBar())} />
     : <span />;
+    const showPosOrUniqueButton = mode === 'questions' ? <span /> : this.renderViewResponsesOrPOSButton()
 
     return (
       <div style={{ marginTop: 0, paddingTop: 0, }}>
@@ -672,11 +674,22 @@ class ResponseComponent extends React.Component {
               </div>
               {this.renderResetAllFiltersButton()}
               {this.renderDeselectAllFiltersButton()}
-              {this.renderViewResponsesOrPOSButton()}
+              {showPosOrUniqueButton}
             </div>
           </div>
         </div>
-        <input className="input" onChange={this.handleStringFiltering} placeholder="Enter a search term or /regular expression/" ref="stringFilter" type="text" value={this.props.filters.stringFilter} />
+        <div className="search-container">
+          <input
+            className="input"
+            onChange={this.handleStringFiltering}
+            onKeyPress={this.handleSearchEnter}
+            placeholder="Enter a search term or /regular expression/"
+            ref="stringFilter"
+            type="text"
+            value={stringFilter}
+          />
+          <button className="button is-outlined is-primary search" onClick={this.searchResponses} type="submit">Search</button>
+        </div>
         {this.renderDisplayingMessage()}
         {this.renderPageNumbers()}
         {this.renderResponses()}

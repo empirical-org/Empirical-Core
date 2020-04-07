@@ -8,15 +8,19 @@ const studentPencilImg = `${process.env.CDN_URL}/images/onboarding/student-penci
 const teacherChalkboardImg = `${process.env.CDN_URL}/images/onboarding/teacher-chalkboard.svg`
 
 class SelectUserType extends React.Component {
-  handleLogInClick = (e) => {
-    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
-    window.location.href = '/session/new'
-  }
-
-  handleKeyDownOnLogIn = (e) => {
-    if (e.key !== 'Enter') { return }
-
-    this.handleLogInClick()
+  setRoleOnSession = (role) => {
+    request.post(`${process.env.DEFAULT_URL}/account/role`, {
+      json: {
+        role,
+        authenticity_token: getAuthToken(),
+      }, }, (e) => {
+        if (e) {
+          this.setRoleOnSessionError()
+        } else {
+          window.location = `/sign-up/${role}`;
+        }
+      }
+    )
   }
 
   setRoleOnSessionError = () => {
@@ -33,25 +37,21 @@ class SelectUserType extends React.Component {
     this.setRoleOnSession('teacher');
   }
 
-  setRoleOnSession = (role) => {
-    request.post(`${process.env.DEFAULT_URL}/account/role`, {
-      json: {
-        role,
-        authenticity_token: getAuthToken(),
-      }, }, (e) => {
-        if (e) {
-          this.setRoleOnSessionError()
-        } else {
-          window.location = `/sign-up/${role}`;
-        }
-      }
-    )
+  handleKeyDownOnLogIn = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleLogInClick()
+  }
+
+  handleLogInClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_LOG_IN, {location: 'alreadyHaveAccount'})
+    window.location.href = '/session/new'
   }
 
   render() {
     return (
       <div className="container account-form" id='user-type'>
-        <h1>Welcome! Let&#39;s create your account. Are you a student or a teacher?</h1>
+        <h1>Welcome! Let&#39;s create your account. Choose one.</h1>
         <div className="quill-cards">
           <Card
             header="Student"
@@ -61,7 +61,7 @@ class SelectUserType extends React.Component {
             text="Select this option to join your teacher’s class and complete assigned activities."
           />
           <Card
-            header="Teacher"
+            header="Teacher or Guardian"
             imgAlt="Chalkboard"
             imgSrc={teacherChalkboardImg}
             onClick={this.handleClickTeacher}

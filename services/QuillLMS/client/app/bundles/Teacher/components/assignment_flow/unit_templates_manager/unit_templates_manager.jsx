@@ -1,6 +1,7 @@
 import React from 'react'
 import _l from 'lodash'
 import _ from 'underscore'
+import qs from 'qs'
 import UnitTemplateMinis from './unit_template_minis'
 import ScrollToTop from '../../shared/scroll_to_top'
 import fnl from '../../modules/fnl'
@@ -55,9 +56,6 @@ export default class UnitTemplatesManager extends React.Component {
 
     this.updateCreateUnit = this.modules.updaterGenerator.updater('createUnit');
     this.updateUnitTemplatesManager = this.modules.updaterGenerator.updater('unitTemplatesManager');
-    this.updateUnitTemplateModels = this.updateUnitTemplateModels.bind(this)
-    this.selectCategory = this.selectCategory.bind(this)
-    this.filterModels = this.filterModels.bind(this)
   }
 
   componentDidMount() {
@@ -65,75 +63,19 @@ export default class UnitTemplatesManager extends React.Component {
     this.fetchTeacher();
   }
 
+  parsedQueryParams = () => {
+    const { location, } = this.props
+    return qs.parse(location.search.replace('?', ''))
+  }
+
+  setTeacher(data) {
+    this.setState({
+      signedInTeacher: !_l.isEmpty(data)
+    })
+  }
+
   analytics() {
     return new AnalyticsWrapper();
-  }
-
-  unitTemplatesManagerActions() {
-    return {
-      toggleTab: this.toggleTab,
-      clickAssignButton: this.clickAssignButton,
-      returnToIndex: this.returnToIndex,
-      selectModel: this.selectModel,
-      showAllGrades: this.showAllGrades
-    };
-  }
-
-  modelsInGrade(grade) {
-    return _.reject(this.state.unitTemplatesManager.models, (m) => {
-      return _.indexOf(m.grades, grade)
-    });
-  }
-
-  updateUnitTemplateModels(models) {
-    const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
-    const newHash = {
-      models,
-      displayedModels: models,
-      categories
-    }
-    const modelId = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
-    if (modelId) {
-      newHash.model = _.findWhere(models, {id: model_id});
-      newHash.stage = 'profile'
-    }
-    this.updateUnitTemplatesManager(newHash)
-
-    const { category, grade, type, } = this.props.location.query
-    if (category || grade || type) {
-      this.filterModels(category, grade, type)
-    }
-  }
-
-  returnToIndex() {
-    this.updateUnitTemplatesManager({ stage: 'index' })
-    window.scrollTo(0, 0);
-  }
-
-  showAllGrades() {
-    this.updateUnitTemplatesManager({grade: null});
-    window.scrollTo(0, 0);
-  }
-
-  filterModels(category, grade, typeId) {
-    const { unitTemplatesManager, } = this.state
-    let displayedModels = unitTemplatesManager.models
-    let selectedCategoryId
-    if (grade) {
-      displayedModels = this.modelsInGrade(grade)
-    }
-    if (category) {
-      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : _l.capitalize(category)
-      selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
-      displayedModels = displayedModels.filter(ut =>
-        ut.unit_template_category.name === categoryName
-      )
-    }
-    if (typeId) {
-      const selectedTypeName = types.find(t => t.id === typeId).name
-      displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
-    }
-    return displayedModels
   }
 
   fetchClassrooms() {
@@ -152,16 +94,83 @@ export default class UnitTemplatesManager extends React.Component {
     })
   }
 
-  setTeacher(data) {
-    this.setState({
-      signedInTeacher: !_l.isEmpty(data)
-    })
-  }
-
   fetchUnitTemplateModels() {
     requestGet('/teachers/unit_templates', (data) => {
       this.updateUnitTemplateModels(data.unit_templates)
     })
+  }
+
+  filterModels = (category, grade, typeId) => {
+    const { unitTemplatesManager, } = this.state
+    let displayedModels = unitTemplatesManager.models
+    let selectedCategoryId
+    if (grade) {
+      displayedModels = this.modelsInGrade(grade)
+    }
+    if (category) {
+      const categoryName = category.toUpperCase() === 'ELL' ? category.toUpperCase() : _l.capitalize(category)
+      selectedCategoryId = unitTemplatesManager.categories.find(cat => cat.name === categoryName).id
+      displayedModels = displayedModels.filter(ut =>
+        ut.unit_template_category.name === categoryName
+      )
+    }
+    if (typeId) {
+      const selectedTypeName = types.find(t => t.id === typeId).name
+      displayedModels = displayedModels.filter(ut => ut.type.name === selectedTypeName)
+    }
+    return displayedModels
+  };
+
+  modelsInGrade(grade) {
+    return _.reject(this.state.unitTemplatesManager.models, (m) => {
+      return _.indexOf(m.grades, grade)
+    });
+  }
+
+  returnToIndex() {
+    this.updateUnitTemplatesManager({ stage: 'index' })
+    window.scrollTo(0, 0);
+  }
+
+  selectCategory = category => {
+    const { unitTemplatesManager, signedInTeacher, } = this.state
+    const newUnitTemplatesManager = unitTemplatesManager
+    newUnitTemplatesManager.selectedCategoryId = category.value
+    this.setState({ unitTemplatesManager: newUnitTemplatesManager })
+
+    const { type, } = this.parsedQueryParams()
+    let url = signedInTeacher ? '/assign/featured-activity-packs' : '/activities/packs'
+    if (type && category.value) {
+      url = url.concat(`?type=${type}&category=${category.label}`)
+    } else if (type) {
+      url = url.concat(`?type=${type}`)
+    } else if (category.value) {
+      url = url.concat(`?category=${category.label}`)
+    }
+    this.props.history.push(url)
+  };
+
+  showAllGrades() {
+    this.updateUnitTemplatesManager({grade: null});
+    window.scrollTo(0, 0);
+  }
+
+  showUnitTemplates() {
+    if (this.state.unitTemplatesManager.models.length < 1) {
+      return <LoadingIndicator />
+    }
+
+    const { category, grade, type, } = this.parsedQueryParams()
+    const displayedModels = this.filterModels(category, grade, type)
+    return (<UnitTemplateMinis
+      actions={this.unitTemplatesManagerActions()}
+      data={this.state.unitTemplatesManager}
+      displayedModels={displayedModels}
+      selectCategory={this.selectCategory}
+      selectedTypeId={type}
+      signedInTeacher={this.state.signedInTeacher}
+      types={types}
+    />)
   }
 
   toggleTab(tab) {
@@ -181,41 +190,36 @@ export default class UnitTemplatesManager extends React.Component {
     }
   }
 
-  selectCategory(category) {
-    const { unitTemplatesManager, } = this.state
-    const newUnitTemplatesManager = unitTemplatesManager
-    newUnitTemplatesManager.selectedCategoryId = category.value
-    this.setState({ unitTemplatesManager: newUnitTemplatesManager })
-
-    const { type, } = this.props.location.query
-    let url = '/assign/featured-activity-packs'
-    if (type && category.value) {
-      url = url.concat(`?type=${type}&category=${category.label}`)
-    } else if (type) {
-      url = url.concat(`?type=${type}`)
-    } else if (category.value) {
-      url = url.concat(`?category=${category.label}`)
-    }
-    this.props.router.push(url)
+  unitTemplatesManagerActions() {
+    return {
+      toggleTab: this.toggleTab,
+      clickAssignButton: this.clickAssignButton,
+      returnToIndex: this.returnToIndex,
+      selectModel: this.selectModel,
+      showAllGrades: this.showAllGrades
+    };
   }
 
-  showUnitTemplates() {
-    if (this.state.unitTemplatesManager.models.length < 1) {
-      return <LoadingIndicator />
+  updateUnitTemplateModels = models => {
+    const categories = _.chain(models).pluck('unit_template_category').uniq(_.property('id')).value();
+    const newHash = {
+      models,
+      displayedModels: models,
+      categories
     }
+    const modelId = this.state.unitTemplatesManager.model_id // would be set if we arrived here from a deep link
+    if (modelId) {
+      newHash.model = _.findWhere(models, {id: model_id});
+      newHash.stage = 'profile'
+    }
+    this.updateUnitTemplatesManager(newHash)
 
-    const { category, grade, type, } = this.props.location.query
-    const displayedModels = this.filterModels(category, grade, type)
-    return (<UnitTemplateMinis
-      actions={this.unitTemplatesManagerActions()}
-      data={this.state.unitTemplatesManager}
-      displayedModels={displayedModels}
-      selectCategory={this.selectCategory}
-      selectedTypeId={type}
-      signedInTeacher={this.state.signedInTeacher}
-      types={types}
-    />)
-  }
+    const { category, grade, type, } = this.parsedQueryParams()
+
+    if (category || grade || type) {
+      this.filterModels(category, grade, type)
+    }
+  };
 
   render() {
     return (

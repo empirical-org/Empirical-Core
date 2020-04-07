@@ -11,7 +11,7 @@ export default props => (
   <Provider store={store}>
     <StudentProfile
       classroomId={props && props.params ? props.params.classroomId : null}
-      router={props.router}
+      history={props.history}
     />
   </Provider>
 );

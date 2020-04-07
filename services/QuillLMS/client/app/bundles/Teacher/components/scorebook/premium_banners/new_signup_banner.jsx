@@ -1,14 +1,14 @@
 import React from 'react'
-export default React.createClass({
-  stateSpecificComponents: function() {
+export default class extends React.Component {
+  stateSpecificComponents = () => {
     if (this.props.status == 'trial') {
     return <h4>Success! You started your 30 day trial</h4>
     } else {
       return <h4>Success! You now have Premium</h4>
     }
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div className='row new-sign-up-banner'>
         <div className='col-md-9 col-xs-12 pull-left'>
@@ -23,5 +23,4 @@ export default React.createClass({
       </div>
     );
   }
-
-});
+}
