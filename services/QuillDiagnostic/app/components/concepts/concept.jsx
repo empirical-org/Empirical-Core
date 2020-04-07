@@ -30,11 +30,12 @@ class Concept extends React.Component {
   };
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
-    const { dispatch, match } = this.props;
+    const { dispatch, history, match } = this.props;
     const { params } = match;
     const { conceptID } = params;
     const questionObjWithConceptID = { ...questionObj, conceptID: conceptID }
     dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
+    history.push(`/admin/concepts/${conceptID}`)
   };
 
   questionsForConcept = () => {
@@ -49,7 +50,7 @@ class Concept extends React.Component {
   renderQuestionsForConcept = () => {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question) => {
-      return <li key={question.key}><Link to={'/admin/questions/' + question.key}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>;
+      return <li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>;
     })
     return (
       <ul>{listItems}</ul>
