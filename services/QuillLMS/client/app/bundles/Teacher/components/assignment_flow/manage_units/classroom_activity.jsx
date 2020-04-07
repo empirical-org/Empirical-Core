@@ -146,7 +146,7 @@ export default class ClassroomActivity extends React.Component {
         {startDate && isFirst ? <ApplyToAll startDate={startDate} updateAllDueDates={updateAllDueDates} /> : null}
       </span>);
     }
-    return startDate ? <div className="due-date-input">{startDate}</div> : null;
+    return startDate ? <div className="due-date-input">{new Intl.DateTimeFormat('en-US').format(startDate)}</div> : null;
   }
 
   handleChange = (date) => {
