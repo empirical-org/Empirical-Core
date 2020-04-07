@@ -398,7 +398,7 @@ class ResponseComponent extends React.Component {
 
   renderRematchAllButton() {
     const { filters } = this.props
-    let disabled = filters.numberOfResponses > 1000 ? true : false
+    let disabled = filters.numberOfResponses > 1000
     if (this.props.admin) {
       const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
 
