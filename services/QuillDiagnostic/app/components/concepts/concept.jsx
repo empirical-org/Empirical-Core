@@ -35,7 +35,6 @@ class Concept extends React.Component {
     const { conceptID } = params;
     const questionObjWithConceptID = { ...questionObj, conceptID: conceptID }
     dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
-    history.push(`/admin/concepts/${conceptID}`)
   };
 
   questionsForConcept = () => {
