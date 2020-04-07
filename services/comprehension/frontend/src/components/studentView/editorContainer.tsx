@@ -2,6 +2,8 @@ import * as React from 'react'
 import ContentEditable from 'react-contenteditable'
 
 const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
+const disabledClearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear-disabled.svg`
+
 
 interface EditorContainerProps {
   promptText: string;
@@ -24,7 +26,13 @@ export default class EditorContainer extends React.Component<EditorContainerProp
 
   renderClear = () => {
     const { disabled, resetText, } = this.props
-    if (disabled) { return }
+    if (disabled) {
+      return (<img
+        alt="circle with an x in it"
+        className="clear"
+        src={disabledClearSrc}
+      />)
+    }
     return (<img
       alt="circle with an x in it"
       className="clear"
