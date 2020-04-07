@@ -51,7 +51,7 @@ export default class ReviewActivities extends React.Component {
     if (date && existingDate && existingDate.dayOfYear() === date.dayOfYear()) {
       assignActivityDueDate(activity, null)
     } else {
-      const formattedDate = date ? `${date.year()}-${date.month() + 1}-${date.date()}` : null
+      const formattedDate = date ? `${date.year()}/${date.month() + 1}/${date.date()}` : null
       assignActivityDueDate(activity, formattedDate);
     }
   }
