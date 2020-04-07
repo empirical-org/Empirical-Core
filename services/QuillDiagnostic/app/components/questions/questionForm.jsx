@@ -100,7 +100,7 @@ export default class extends React.Component {
       <div>
         <label className="label" htmlFor="prefilledText" >Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
         <p className="control">
-          <input className="input" defaultValue={question.prefilledText} id="prefilledText" onChange={this.handlePrefilledText}  type="text" />
+          <input className="input" defaultValue={question.prefilledText} id="prefilledText" onChange={this.handlePrefilledText} type="text" />
         </p>
       </div>
     );
