@@ -268,27 +268,36 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderActiveContent = () => {
-    const { active, } = this.props
-    if (!active) { return }
+    const { active, prompt, stepNumberComponent, } = this.props
+    const { text, } = prompt
 
-    return (<div className="active-content-container">
-      {this.renderEditorContainer()}
-      {this.renderButton()}
-      {this.renderFeedbackSection()}
+    if (!active) {
+      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+      return (
+        <div className="step-header">
+          {stepNumberComponent}
+          {promptTextComponent}
+        </div>
+      )
+    }
+
+    return (<div>
+      <div className="step-header">
+        {stepNumberComponent}
+        <p className="directions">Use information from the text to finish the sentence:</p>
+      </div>
+      <div className="active-content-container">
+        {this.renderEditorContainer()}
+        {this.renderButton()}
+        {this.renderFeedbackSection()}
+      </div>
     </div>)
   }
 
   render() {
-    const { prompt, className, passedRef, stepNumberComponent, } = this.props
-    const { text, } = prompt
-    const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+    const { className, passedRef, } = this.props
     return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
       <div className="step-content">
-        <div className="step-header">
-          {stepNumberComponent}
-          <p className="directions">Use information from the text to finish the sentence:</p>
-        </div>
-        {promptTextComponent}
         {this.renderActiveContent()}
       </div>
     </div>)

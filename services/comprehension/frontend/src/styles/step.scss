@@ -1,12 +1,12 @@
 .step {
-  padding: 16px 24px 24px 16px;
+  padding: 16px 24px 16px 16px;
   border-radius: 4px;
   border: solid 1px #d8d8d8;
   max-width: 631px;
   margin-bottom: 10px;
   display: flex;
   cursor: pointer;
-  .passage-title, .prompt-text, button, .feedback-section {
+  .passage-title, button, .feedback-section {
     margin-left: 48px;
   }
   .step-header {
@@ -27,6 +27,7 @@
   .prompt-text {
     span {
       text-decoration: underline;
+      font-weight: bold;
     }
   }
   .quill-button {
