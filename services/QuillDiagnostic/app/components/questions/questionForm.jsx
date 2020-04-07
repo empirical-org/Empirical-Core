@@ -14,7 +14,8 @@ export default class extends React.Component {
     concept: this.props.question.conceptID,
     instructions: this.props.question.instructions ? this.props.question.instructions : "",
     flag: this.props.question.flag ? this.props.question.flag : "alpha",
-    cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : ''
+    cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
+    prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
   };
 
   submit = () => {
@@ -24,7 +25,7 @@ export default class extends React.Component {
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,
-      prefilledText: this.refs.prefilledText.value,
+      prefilledText: this.state.prefilledText,
       prompt: this.state.prompt,
       cues: this.refs.cues.value.split(','),
       instructions: this.state.instructions,
@@ -32,7 +33,7 @@ export default class extends React.Component {
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
+      const optimalResponseObj = {text: this.state.prefilledText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept
@@ -40,8 +41,8 @@ export default class extends React.Component {
     }
   };
 
-  handleCopyAnswerToPrefill = () => {
-    this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
+  handlePrefilledText = (e) => {
+    this.setState({ prefilledText: e.target.value });
   };
 
   handlePromptChange = (e) => {
@@ -71,7 +72,7 @@ export default class extends React.Component {
       return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" onBlur={this.handleCopyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
+          <input className="input" onChange={this.handlePrefilledText} type="text" />
         </p>
       </div>)
     }
@@ -99,7 +100,7 @@ export default class extends React.Component {
       <div>
         <label className="label" htmlFor="prefilledText" >Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
         <p className="control">
-          <input className="input" defaultValue={question.prefilledText} id="prefilledText" ref="prefilledText" type="text" />
+          <input className="input" defaultValue={question.prefilledText} id="prefilledText" onChange={this.handlePrefilledText}  type="text" />
         </p>
       </div>
     );
