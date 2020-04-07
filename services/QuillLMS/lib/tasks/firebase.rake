@@ -71,7 +71,12 @@ namespace :firebase do
 
     for_each_firebase_diagnostic_key do |obj, data|
       obj.data = data
-      obj.save!
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        puts obj.uid
+      end
     end
   end
 
