@@ -386,17 +386,18 @@ export function findResponseByText(text, questionUID, cb) {
   });
 }
 
-export function submitOptimalResponses(qid, conceptUID, responseStrings) {
+export function submitOptimalResponses(qid, conceptUID, responses) {
   return (dispatch) => {
-    responseStrings.forEach((str) => {
+    const defaultConcept = [{ conceptUID, correct: true}]
+    responses.forEach((obj) => {
       const response = {
-        text: str,
+        text: obj.text,
         feedback: "That's a strong sentence!",
         optimal: true,
         questionUID: qid,
         gradeIndex: `human${qid}`,
         count: 1,
-        conceptResults: [{ conceptUID, correct: true, }],
+        conceptResults: _.isEmpty(obj.concepts) ? defaultConcept : obj.concepts,
       }
       dispatch(submitResponse(response))
     })

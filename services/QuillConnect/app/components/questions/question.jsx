@@ -45,11 +45,34 @@ class Question extends React.Component {
     dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
   }
 
-  submitOptimalResponses = (responseStrings) => {
+  convertConceptNamesToIds = (responses) => {
+    const { concepts } = this.props
+    let conceptData = concepts.data["0"];
+    let convertedResponses = []
+    _.each(responses, function(response) {
+      let responseObj = {}
+      let concepts = []
+      _.each(response.concepts, (c) => {
+        let concept = _.find(conceptData, (cd) => { return cd.displayName === c })
+        if (!concept) {
+          alert(`The concept ${c} doesn't exist! Check your spelling.`)
+          throw new Error("Concept not found.")
+        }
+        concepts.push({ conceptUID: concept.uid, correct: true, })
+      })
+      responseObj.text = response.text
+      responseObj.concepts = concepts
+      convertedResponses.push(responseObj)
+    })
+    return convertedResponses
+  }
+
+  submitOptimalResponses = (responses) => {
     const { dispatch, params, } = this.props
     const conceptUID = this.getQuestion().conceptID
+    const convertedResponses = this.convertConceptNamesToIds(responses)
     dispatch(
-      submitOptimalResponses(params.questionID, conceptUID, responseStrings)
+      submitOptimalResponses(params.questionID, conceptUID, convertedResponses)
     )
     this.setState({ uploadingNewOptimalResponses: false, })
   }
