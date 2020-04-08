@@ -803,7 +803,7 @@ describe User, type: :model do
       user1.generate_student(classroom.id)
       user1.save
       user2 = build(:user, first_name: 'first', last_name: 'last', classrooms: [classroom])
-      expect(user2.send(:generate_username, classroom.id)).to eq('first.last2@cc')
+      expect(user2.send(:generate_username, classroom.id)).to eq('first.last1@cc')
     end
   end
 
