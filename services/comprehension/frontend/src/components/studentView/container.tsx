@@ -13,6 +13,7 @@ import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 
 const bigCheckSrc =  `${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`
+const tadaSrc =  `${process.env.QUILL_CDN_URL}/images/illustrations/tada.svg`
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -179,9 +180,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       let nextStep: number|undefined = stepNumber + 1
       if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
         nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
-        if (!nextStep) this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
       }
-      this.activateStep(nextStep, () => this.scrollToStep(`step${nextStep}`))
+      nextStep ? this.activateStep(nextStep, () => this.scrollToStep(`step${nextStep}`)) : this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
     })
   }
 
@@ -381,11 +381,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  render() {
-    const { activities,} = this.props
-    const { showFocusState, } = this.state
+  renderCompletedView() {
+    return (<div className="activity-completed">
+      <img alt="Party hat with confetti coming out" src={tadaSrc} />
+      <h1>Activity Complete!</h1>
+      <p>Thank you for taking the time to try our newest tool, Quill Comprehension.</p>
+    </div>)
+  }
 
-    if (!activities.hasReceivedData) return <LoadingSpinner />
+  render() {
+    const { activities, } = this.props
+    const { showFocusState, completedSteps, } = this.state
+
+    if (!activities.hasReceivedData) { return <LoadingSpinner /> }
+
+    if (completedSteps.length === ALL_STEPS.length) { return this.renderCompletedView() }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 
