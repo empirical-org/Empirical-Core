@@ -17,12 +17,6 @@ class RematchResponseWorker
     "spelling_error" => false
   }.freeze
 
-  LMS_TYPES = {
-    sentenceFragments: 'connect_sentence_fragments',
-    questions: 'connect_sentence_combining',
-    fillInBlankQuestions: 'connect_fill_in_blanks'
-  }
-
   def perform(response_id, question_type, question_uid, reference_response_ids)
     response = Response.find_by(id: response_id)
     question = retrieve_question(question_uid, question_type)
@@ -43,7 +37,7 @@ class RematchResponseWorker
 
   def sanitize_update_params(params)
     params.slice!(*DEFAULT_PARAMS_HASH.keys)
-    ready_params = DEFAULT_PARAMS_HASH.merge(params)
+    DEFAULT_PARAMS_HASH.merge(params)
   end
 
   def construct_lambda_payload(response, question_type, question, reference_responses)
@@ -68,11 +62,9 @@ class RematchResponseWorker
   end
 
   def retrieve_question(question_uid, question_type)
-    lms_type = LMS_TYPES[question_type.to_sym]
-    response = HTTParty.get("#{ENV['LMS_URL']}/api/v1/questions.json?question_type=#{lms_type}")
+    response = HTTParty.get("#{ENV['LMS_URL']}/api/v1/questions/#{question_uid}.json")
     puts response.code
-    question = response[question_uid]
-    question[:key] = question_uid
-    question.stringify_keys
+    response[:key] = question_uid
+    response.stringify_keys
   end
 end
