@@ -4,7 +4,7 @@ require 'webmock/rspec'
 
 describe RematchResponseWorker do
   ENV['REMATCH_LAMBDA_URL'] = 'https://fake.url'
-  ENV['FIREBASE_URL'] = 'https://fake.url'
+  ENV['LMS_URL'] = 'https://fake.url'
   WebMock.disable_net_connect!(allow_localhost: true)
 
   sample_lambda_response = {
@@ -26,6 +26,10 @@ describe RematchResponseWorker do
     }.stringify_keys,
     "created_at": "2019-07-09T01:36:54.360Z",
     "updated_at": "2019-07-09T01:36:54.360Z",
+    "spelling_error": false
+  }
+  sample_partial_lambda_response = {
+    "feedback": "Revise your work.",
     "spelling_error": false
   }
   let(:subject) { described_class.new }
@@ -128,7 +132,7 @@ describe RematchResponseWorker do
 
       reference_response_ids = reference_responses.map { |r| r.id }
 
-      expect(subject).to receive(:retrieve_question_from_firebase).with(sample_payload['question']['key'], sample_payload['type']).and_return(sample_payload['question'])
+      expect(subject).to receive(:retrieve_question).with(sample_payload['question']['key'], sample_payload['type']).and_return(sample_payload['question'])
       expect(subject).to receive(:rematch_response).with(response, sample_payload['type'], sample_payload['question'], reference_responses).and_call_original
       subject.perform(response.id, sample_payload['type'], sample_payload['question']['key'], reference_response_ids)
       response.reload
@@ -169,21 +173,18 @@ describe RematchResponseWorker do
     end
   end
 
-  describe "#retrieve_question_from_firebase" do
-    it 'should make an http request and return the question payload' do
-      stub_request(:get, /#{ENV['FIREBASE_URL']}/)
-        .to_return(status: 200, body: sample_payload["question"].to_json, headers: {})
-
-      response = subject.retrieve_question_from_firebase(sample_payload["question"]["key"], sample_payload["type"])
-      expect(response).to eq(sample_payload["question"])
-    end
-  end
-
   describe "#sanitize_update_params" do
     it 'should strip out non-permitted params' do
       sanitized_response = subject.sanitize_update_params(sample_lambda_response)
       sanitized_response.keys.each do |k|
-        expect(RematchResponseWorker::ALLOWED_PARAMS).to include(k)
+        expect(RematchResponseWorker::DEFAULT_PARAMS_HASH.keys).to include(k)
+      end
+    end
+
+    it 'should contain default values for params not included in argument object' do
+      sanitized_response = subject.sanitize_update_params(sample_partial_lambda_response)
+      RematchResponseWorker::DEFAULT_PARAMS_HASH.keys.each do |k|
+        expect(sanitized_response.keys).to include(k)
       end
     end
   end
