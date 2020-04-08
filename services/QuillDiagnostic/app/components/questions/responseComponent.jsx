@@ -347,11 +347,13 @@ class ResponseComponent extends React.Component {
     return <a className="button is-fullwidth" onClick={handleClick}>{text}</a>;
   };
 
-  renderRematchAllButton = () => {
+  renderRematchAllButton() {
+    const { filters } = this.props
+    let disabled = filters.numberOfResponses > 1000
     if (this.props.admin) {
       const text = this.state.progress ? `${this.state.progress}%` : 'Rematch Responses';
 
-      return (<button className="button is-outlined is-danger" disabled={!!this.state.progress} onClick={this.rematchAllResponses} style={{ float: 'right', }}>{text}</button>);
+      return (<button className="button is-outlined is-danger" disabled={disabled} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
     }
   };
 
