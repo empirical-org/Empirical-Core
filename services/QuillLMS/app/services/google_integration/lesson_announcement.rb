@@ -3,9 +3,7 @@ require 'google/api_client'
 class GoogleIntegration::LessonAnnouncement
   attr_reader :classroom_unit, :unit_activity
 
-  class GoogleLessonAnnouncementError < StandardError; end
-
-  class GoogleApiError < GoogleLessonAnnouncementError; end
+  class GoogleApiError < StandardError; end
 
   def initialize(classroom_unit, unit_activity, client = nil)
     @classroom_unit = classroom_unit
@@ -14,10 +12,10 @@ class GoogleIntegration::LessonAnnouncement
   end
 
   def post
-    begin
-      if can_post_to_google_classroom?
-        handle_response { request }
-      end
+    return unless can_post_to_google_classroom?
+
+    handle_response { request }
+
     rescue GoogleApiError => e
       NewRelic::Agent.add_custom_attributes({
         classroom_unit_id: @classroom_unit.id,
@@ -26,7 +24,6 @@ class GoogleIntegration::LessonAnnouncement
       NewRelic::Agent.notice_error(e)
       # If we get an error, report it to New Relic and bail
       nil
-    end
   end
 
   private
@@ -45,7 +42,7 @@ class GoogleIntegration::LessonAnnouncement
   def handle_response(&request)
     response = request.call
     body = JSON.parse(response.body, symbolize_names: true)
-    raise GoogleApiError(body) if response.status != 200
+    raise GoogleApiError.new(body) if response.status != 200
     if body.dig(:error, :status) == 'UNAUTHENTICATED'
       'UNAUTHENTICATED'
     else

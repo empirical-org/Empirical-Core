@@ -4,9 +4,7 @@ class GoogleIntegration::UnitAnnouncement
   include Rails.application.routes.url_helpers
   attr_reader :classroom_unit
 
-  class GoogleUnitAnnouncementError < StandardError; end
-
-  class GoogleApiError < GoogleUnitAnnouncementError; end
+  class GoogleApiError < StandardError; end
 
   def initialize(classroom_unit, client = nil)
     @classroom_unit = classroom_unit
@@ -25,10 +23,10 @@ class GoogleIntegration::UnitAnnouncement
   private
 
   def make_request(recipients)
-    begin
-      if can_post_to_google_classroom?
-        handle_response { request(recipients) }
-      end
+    return unless can_post_to_google_classroom?
+
+    handle_response { request(recipients) }
+
     rescue GoogleApiError => e
       NewRelic::Agent.add_custom_attributes({
         classroom_unit_id: @classroom_unit.id
@@ -36,7 +34,6 @@ class GoogleIntegration::UnitAnnouncement
       NewRelic::Agent.notice_error(e)
       # If we get an error, report it to New Relic and bail
       nil
-    end
   end
 
   def request(recipient_ids)
@@ -53,7 +50,7 @@ class GoogleIntegration::UnitAnnouncement
   def handle_response(&request)
     response = request.call
     body = JSON.parse(response.body, symbolize_names: true)
-    raise GoogleApiError(body) if response.status != 200
+    raise GoogleApiError.new(body) if response.status != 200
     if body.dig(:error, :status) == 'UNAUTHENTICATED'
       'UNAUTHENTICATED'
     else
