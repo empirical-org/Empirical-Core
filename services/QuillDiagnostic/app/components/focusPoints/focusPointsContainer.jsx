@@ -7,6 +7,7 @@ import {
   hashToCollection,
   SortableList
 } from 'quill-component-library/dist/componentLibrary';
+import { NavLink } from 'react-router-dom';
 
 export class FocusPointsContainer extends Component {
   constructor() {
@@ -102,7 +103,7 @@ export class FocusPointsContainer extends Component {
               {this.renderConceptResults(conceptResults, key)}
             </div>
             <footer className="card-footer">
-              <a className="card-footer-item" href={`/#/admin/${questionTypeLink}/${questionID}/focus-points/${key}/edit`}>Edit</a>
+              <NavLink className="card-footer-item" to={`/admin/${questionTypeLink}/${questionID}/focus-points/${key}/edit`}>Edit</NavLink>
               <a className="card-footer-item" onClick={() => this.deleteFocusPoint(key)}>Delete</a>
             </footer>
           </div>

@@ -54,8 +54,6 @@ class sentenceFragmentForm extends React.Component {
       case 'needsIdentification':
         this.setState({ needsIdentification: e.target.checked, });
         break;
-      case 'concept':
-        this.setState({ conceptID: e.value, });
       case 'maxWordCountChange':
         let newWordCountChange = { ...wordCountChange }
         newWordCountChange.max = e.target ? e.target.value : '';
@@ -72,6 +70,10 @@ class sentenceFragmentForm extends React.Component {
       default:
     }
   };
+
+  handleSelectorChange = (e) => {
+    this.setState({ conceptID: e.value, });
+  }
 
   submitSentenceFragment = () => {
     const data = this.state;
@@ -143,7 +145,7 @@ class sentenceFragmentForm extends React.Component {
           <label className="label">Associated Concept</label>
           <ConceptSelector
             currentConceptUID={conceptID}
-            handleSelectorChange={this.handleChange}
+            handleSelectorChange={this.handleSelectorChange}
           />
         </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>

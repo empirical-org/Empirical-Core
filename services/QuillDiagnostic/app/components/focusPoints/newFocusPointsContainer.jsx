@@ -29,6 +29,7 @@ class NewFocusPointsContainer extends Component {
     const { questionID } = params;
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
+    // TODO: fix add focus point action to show new focus point without refreshing
     this.props.dispatch(this.state.actionFile.submitNewFocusPoint(questionID, data));
     window.history.back();
   };

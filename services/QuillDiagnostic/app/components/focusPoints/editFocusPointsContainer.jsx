@@ -18,15 +18,17 @@ class EditFocusPointsContainer extends Component {
 
   getFocusPoint() {
     const { questionType } = this.state;
-    const { params } = this.props;
+    const { match } = this.props;
+    const { params } = match;
     const { focusPointID, questionID } = params;
     const focusPoint = this.props[questionType].data[questionID].focusPoints[focusPointID]
     return Object.assign(focusPoint, { id: focusPointID, });
   }
 
   submitForm = (data, focusPointID) => {
-    const { dispatch, params } = this.props;
+    const { dispatch, match } = this.props;
     const { actionFile } = this.state;
+    const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
     dispatch(actionFile.submitEditedFocusPoint(questionID, data, focusPointID));
@@ -34,7 +36,8 @@ class EditFocusPointsContainer extends Component {
   };
 
   render() {
-    const { children, params, questions, sentenceFragments } = this.props;
+    const { children, match, questions, sentenceFragments } = this.props;
+    const { params } = match;;
     const { questionID } = params;
     return (
       <div>

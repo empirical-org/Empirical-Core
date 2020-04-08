@@ -110,6 +110,8 @@ export default class extends React.Component {
   }
 
   updateResponse = (rid) => {
+    const { dispatch, questionID } = this.props 
+    const { conceptResults, feedback } = this.state
     const newResp = {
       weak: false,
       feedback,

@@ -80,7 +80,6 @@ class FillInBlankForm extends Component {
       cuesLabel
     };
     action(data, newQuestionOptimalResponse);
-    history.push(`${process.env.EMPIRICAL_BASE_URL}/#/admin/fill-in-the-blanks/${questionID}/responses`)
   };
 
   clearForm() {

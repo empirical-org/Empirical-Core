@@ -30,7 +30,7 @@ class newSentenceFragment extends React.Component {
         feedback: "That's a strong sentence!",
       }];
     }
-
+    // TODO: fix add sentence fragment action to show new sentence fragment without refreshing
     dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]));
     history.push('/admin/sentence-fragments')
   };

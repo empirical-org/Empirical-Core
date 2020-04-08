@@ -62,6 +62,7 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     const { dispatch, history, match } = this.props
     const { params } = match
     const { titleCardID } = params
+    // TODO: fix add/edit title card action to show new/updated title card without refreshing
     if (titleCardID) {
       dispatch(submitTitleCardEdit(titleCardID, this.state))
     } else {

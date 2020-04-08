@@ -25,6 +25,7 @@ class Lessons extends React.Component {
   };
 
   submitNewLesson = data => {
+    // TODO: fix add new lesson action to show new lessons without refreshing
     this.props.dispatch(actions.submitNewLesson(data));
     this.props.dispatch(actions.toggleNewLessonModal())
   };

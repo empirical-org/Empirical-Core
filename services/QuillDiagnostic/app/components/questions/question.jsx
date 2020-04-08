@@ -278,7 +278,7 @@ class Question extends React.Component {
             <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
             <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
             <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
-            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/edit`} />
+            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} />
             <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
             <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
             <Route component={TestQuestionContainer} path={`/admin/questions/:questionID/test`} />

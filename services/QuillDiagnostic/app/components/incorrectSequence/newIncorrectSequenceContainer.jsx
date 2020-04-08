@@ -34,6 +34,7 @@ class NewIncorrectSequencesContainer extends Component {
     const { params } = match;
     const { questionID } = params;
     delete data.conceptResults.null;
+    // TODO: fix add new incorrect sequence action to show new incorrect sequence without refreshing
     dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
     history.push(`/admin/${questionTypeLink}/${questionID}/incorrect-sequences`)
   }
