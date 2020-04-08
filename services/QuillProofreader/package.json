@@ -49,7 +49,7 @@
     "lodash": "^4.17.15",
     "net": "^1.0.2",
     "node-sass": "^4.12.0",
-    "quill-component-library": "0.7.28",
+    "quill-component-library": "0.7.31",
     "quill-marking-logic": "0.13.0",
     "quill-string-normalizer": "0.0.9",
     "react": "^16.4.2",
