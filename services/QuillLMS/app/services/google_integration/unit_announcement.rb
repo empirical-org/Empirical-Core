@@ -26,14 +26,13 @@ class GoogleIntegration::UnitAnnouncement
     return unless can_post_to_google_classroom?
 
     handle_response { request(recipients) }
-
-    rescue GoogleApiError => e
-      NewRelic::Agent.add_custom_attributes({
-        classroom_unit_id: @classroom_unit.id
-      })
-      NewRelic::Agent.notice_error(e)
-      # If we get an error, report it to New Relic and bail
-      nil
+  rescue GoogleApiError => e
+    NewRelic::Agent.add_custom_attributes({
+      classroom_unit_id: @classroom_unit.id
+    })
+    NewRelic::Agent.notice_error(e)
+    # If we get an error, report it to New Relic and bail
+    nil
   end
 
   def request(recipient_ids)
@@ -50,7 +49,7 @@ class GoogleIntegration::UnitAnnouncement
   def handle_response(&request)
     response = request.call
     body = JSON.parse(response.body, symbolize_names: true)
-    raise GoogleApiError.new(body) if response.status != 200
+    raise(GoogleApiError, body) if response.status != 200
     if body.dig(:error, :status) == 'UNAUTHENTICATED'
       'UNAUTHENTICATED'
     else
