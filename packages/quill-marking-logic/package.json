@@ -11,7 +11,6 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "build:rollup": "node config/rollup.js",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "preinstall": "npx npm-force-resolutions",
     "test": "karma start"
   },
   "repository": {
@@ -36,7 +35,7 @@
     "browserify-cipher": "^1.0.0",
     "chai": "^3.5.0",
     "cross-env": "^4.0.0",
-    "css-loader": "^3.3.0",
+    "css-loader": "^3.5.1",
     "expect": "^1.13.4",
     "karma": "^4.4.1",
     "karma-browserify": "^6.1.0",
@@ -54,10 +53,10 @@
     "rollup-plugin-typescript2": "^0.10.0",
     "rollup-plugin-uglify": "^3.0.0",
     "style-loader": "^0.16.1",
+    "ts-loader": "^6.2.2",
     "tslint": "^4.3.1",
-    "ts-loader": "^4.1.0",
     "typescript": "^2.9.2",
-    "uglify-js": "^2.7.5",
+    "uglify-js": "^3.8.1",
     "watchify": "^3.11.1",
     "webpack": "^4.0.0",
     "webpack-dev-server": "^3.1.11"
@@ -97,8 +96,5 @@
         "test"
       ]
     }
-  },
-  "resolutions": {
-    "kind-of": "6.0.3"
   }
 }
