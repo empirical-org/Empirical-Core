@@ -3,23 +3,8 @@ import Events from './events';
 
 
 class SegmentAnalytics {
-  analytics: Object;
-
-  constructor() {
-    try {
-      this.analytics = (<any>window).analytics;
-    } catch(e) {
-      this.reportError(e);
-      this.analytics = null;
-    }
-  }
-
-  attachAnalytis() {
-    try {
-      this.analytics = window['analytics'];
-    } catch(e) {
-      this.reportError(e);
-    }
+  analytics(): object {
+    return window.analytics
   }
 
   track(event: Event, properties?: object): boolean {
@@ -33,7 +18,7 @@ class SegmentAnalytics {
       this.validateEvent(event, properties);
 
       // Check to make sure that we have access to the analytics global
-      if (!this.analytics) {
+      if (!this.analytics()) {
         throw new Error(`Error sending event '${event.name}'.  SegmentAnalytics was instantiated before an instance of window.analytics could be found to connect to.`);
       }
     } catch(e) {
@@ -43,7 +28,7 @@ class SegmentAnalytics {
 
     const eventProperties = Object.assign(this.formatCustomProperties(properties), this.getDefaultProperties());
 
-    this.analytics['track'](event.name, eventProperties);
+    this.analytics().track(event.name, eventProperties);
     return true;
   }
 
