@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ContentEditable from 'react-contenteditable'
 
-const clearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear.svg`
+const enabledClearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear-enabled.svg`
 const disabledClearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear-disabled.svg`
 
 
@@ -14,6 +14,7 @@ interface EditorContainerProps {
   innerRef: Function;
   handleTextChange: (event: any) => void;
   className: string;
+  isResettable: boolean;
 }
 
 export default class EditorContainer extends React.Component<EditorContainerProps, any> {
@@ -25,20 +26,28 @@ export default class EditorContainer extends React.Component<EditorContainerProp
   }
 
   renderClear = () => {
-    const { disabled, resetText, } = this.props
-    if (disabled) {
-      return (<img
+    const { disabled, resetText, isResettable, } = this.props
+    if (disabled) { return }
+
+    if (isResettable) {
+      return (<button className="clear-button" onClick={resetText}>
+        <img
+          alt="circle with an x in it"
+          className="clear"
+          src={enabledClearSrc}
+        />
+        Clear response
+      </button>)
+    }
+
+    return (<button className="disabled clear-button">
+      <img
         alt="circle with an x in it"
         className="clear"
         src={disabledClearSrc}
-      />)
-    }
-    return (<img
-      alt="circle with an x in it"
-      className="clear"
-      onClick={resetText}
-      src={clearSrc}
-    />)
+      />
+      Clear response
+    </button>)
   }
 
   render() {

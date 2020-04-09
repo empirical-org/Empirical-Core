@@ -233,7 +233,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   renderEditorContainer = () => {
     const { html, } = this.state
-    const { submittedResponses, prompt, } = this.props
+    const { submittedResponses, prompt, active, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
     let disabled = false
@@ -253,7 +253,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const regex = new RegExp(`^${formattedPrompt}`)
     const textWithoutStem = text.replace(regex, '')
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>`
+    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
 
     return (<EditorContainer
       className={className}
@@ -261,6 +261,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       handleTextChange={this.onTextChange}
       html={htmlWithBolding}
       innerRef={this.setEditorRef}
+      isResettable={!!textWithoutStem.length}
       promptText={prompt.text}
       resetText={this.resetText}
       stripHtml={this.stripHtml}
@@ -268,15 +269,23 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderActiveContent = () => {
-    const { active, prompt, stepNumberComponent, } = this.props
+    const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
     const { text, } = prompt
 
     if (!active) {
       const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+      const lastSubmittedResponse = this.lastSubmittedResponse()
+      const outOfAttempts = submittedResponses.length === prompt.max_attempts
+      const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
+
       return (
-        <div className="step-header">
-          {stepNumberComponent}
-          {promptTextComponent}
+        <div>
+          <div className="step-header">
+            {stepNumberComponent}
+            {promptTextComponent}
+          </div>
+          {editor}
+          <div className="faded-rectangle" />
         </div>
       )
     }
