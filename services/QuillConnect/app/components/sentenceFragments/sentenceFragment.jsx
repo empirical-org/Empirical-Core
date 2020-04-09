@@ -93,10 +93,9 @@ class SentenceFragment extends React.Component {
   }
 
   submitOptimalResponses(responses) {
-    const { dispatch, params, } = this.props
-    const convertedResponses = this.convertConceptNamesToIds(responses)
+    const { dispatch, params, concepts, } = this.props
     const conceptUID = this.getQuestion().conceptID
-    dispatch(submitOptimalResponses(params.questionID, conceptUID, convertedResponses))
+    dispatch(submitOptimalResponses(params.questionID, conceptUID, responses, concepts))
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
