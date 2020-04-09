@@ -20,7 +20,7 @@ import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
-import Home from './components/home.jsx'\
+import Home from './components/home.jsx';
 
 if (process.env.NODE_ENV === 'production') {
   Raven
