@@ -1,4 +1,4 @@
-export interface Route {
+export interface RouteInterface {
     childRoutes?: {
         childRoutes?: any,
         getChildRoutes?(partialNextState: any, cb: Function): any,

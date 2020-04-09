@@ -2,40 +2,41 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts'
 import _ from 'underscore'
-import {
-  Modal,
-  LinkListItem
-} from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from '../shared/linkListItem';
 
-const Concepts = React.createClass({
+class Concepts extends React.Component {
 
-  submitNewConcept: function () {
-    var newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConcept(newConcept))
+  submitNewConcept = () => {
+    const { dispatch } = this.props;
+    const { newConceptName } = this.refs;
+    const { value } = newConceptName;
+    const newConcept = {name: value}
+    dispatch(actions.submitNewConcept(newConcept))
     this.refs.newConceptName.value = ""
-    // this.props.dispatch(actions.toggleNewConceptModal())
-  },
+  };
 
-  renderConcepts: function () {
-    const data = this.props.concepts.data["0"];
-    // const keys = _.keys(data["0"]);
-    if (data) {
-      return data.map((concept) => {
+  renderConcepts = () => {
+    const { concepts } = this.props;
+    const { data } = concepts;
+    const dataRow = data["0"];
+    if (dataRow) {
+      return dataRow.map((concept) => {
+        const { uid, displayName } = concept;
         return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts'
-          itemKey={concept.uid}
-          key={concept.uid}
-          text={concept.displayName}
+          itemKey={uid}
+          key={uid}
+          text={displayName}
         />)
       })
     }
-  },
+  };
 
-  render: function (){
+  render() {
     return (
       <section className="section">
-        <div className="container">
+        <div className="admin-container">
           <aside className="menu">
             <p className="menu-label">
                   Concepts
@@ -48,7 +49,7 @@ const Concepts = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {

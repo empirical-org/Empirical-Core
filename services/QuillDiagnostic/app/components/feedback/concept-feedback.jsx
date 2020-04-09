@@ -1,70 +1,80 @@
 import React from 'react'
 import C from '../../constants'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary'
 import FeedbackForm from './feedbackForm.jsx'
 
-const ConceptFeedback = React.createClass({
+class ConceptFeedback extends React.Component {
+  deleteConceptsFeedback = () => {
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { conceptFeedbackID } = params;
+    dispatch(actions.deleteConceptsFeedback(conceptFeedbackID))
+  };
 
-  deleteConceptsFeedback: function () {
-    this.props.dispatch(actions.deleteConceptsFeedback(this.props.params.feedbackID))
-  },
+  toggleEdit = () => {
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { conceptFeedbackID } = params;
+    dispatch(actions.startConceptsFeedbackEdit(conceptFeedbackID))
+  };
 
-  toggleEdit: function () {
-    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
-  },
-
-  submitNewFeedback: function (feedbackID, data) {
+  submitNewFeedback = (feedbackID, data) => {
+    const { dispatch } = this.props;
     if(true) {
-      this.props.dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, data)
+      dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, data)
       )
     }
-  },
+  };
 
-  cancelEdit: function(feedbackID) {
-      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
-  },
+  cancelEdit = (feedbackID) => {
+    const { dispatch } = this.props;
+      dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
+  };
 
-  render: function (){
-    const {data, states} = this.props.conceptsFeedback;
-    const {feedbackID} = this.props.params;
+  render() {
+    const { concepts, conceptsFeedback, match } = this.props;
+    const { hasreceiveddata } = concepts;
+    const { data, states } = conceptsFeedback;
+    const { params } = match;
+    const { conceptFeedbackID } = params;
 
-    if (data && data[feedbackID]) {
-      const isEditing = (states[feedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
+    if (data && data[conceptFeedbackID]) {
+      const isEditing = (states[conceptFeedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
       if (isEditing) {
         return (
-          <div key={this.props.params.feedbackID}>
-            <h4 className="title">{data[feedbackID].name}</h4>
-            <FeedbackForm {...data[feedbackID]} cancelEdit={this.cancelEdit} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback} />
+          <div className="admin-container" key={conceptFeedbackID}>
+            <h4 className="title">{data[conceptFeedbackID].name}</h4>
+            <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
           </div>
         )
       } else {
         return (
-          <div key={this.props.params.feedbackID}>
-            <ConceptExplanation {...data[feedbackID]} />
-            <p className="control">
-              <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
-            </p>
+          <div className="admin-container" key={conceptFeedbackID}>
+            <ConceptExplanation {...data[conceptFeedbackID]} />
+            <div className="concept-feedback-button-container">
+              <button className="concept-feedback-edit button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
+            </div>
           </div>
         )
       }
 
-    } else if (this.props.concepts.hasreceiveddata === false){
+    } else if (hasreceiveddata === false){
       return (<p>Loading...</p>)
     } else {
       return (
-        <div className="container" key={this.props.params.feedbackID}>
-          <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={this.props.params.feedbackID} submitNewFeedback={this.submitNewFeedback} />
+        <div className="admin-container" key={conceptFeedbackID}>
+          <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
         </div>
       )
     }
 
   }
-})
+}
 
 function select(state) {
   return {

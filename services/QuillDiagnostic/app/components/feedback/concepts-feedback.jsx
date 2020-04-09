@@ -2,28 +2,29 @@ import React from 'react'
 import { connect } from 'react-redux'
 import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
-import {
-  Modal,
-  LinkListItem
-} from 'quill-component-library/dist/componentLibrary'
+import { Modal } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from '../shared/linkListItem'
 
-const ConceptsFeedback = React.createClass({
-  createNew: function () {
-    this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
-  },
+class ConceptsFeedback extends React.Component {
+  createNew = () => {
+    const { dispatch } = this.props;
+    dispatch(actions.toggleNewConceptsFeedbackModal())
+  };
 
-  submitNewConcept: function () {
-    var newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConceptsFeedback(newConcept))
+  submitNewConcept = () => {
+    const { dispatch } = this.props;
+    const newConcept = { name: this.refs.newConceptName.value }
+    dispatch(actions.submitNewConceptsFeedback(newConcept))
     this.refs.newConceptName.value = ""
-    this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
-  },
+    dispatch(actions.toggleNewConceptsFeedbackModal())
+  };
 
-  renderConceptsFeedback: function () {
-    const data = this.props.concepts.data;
+  renderConceptsFeedback = () => {
+    const { concepts, conceptsFeedback } = this.props;
+    const { data } = concepts;
     if (data && data["0"]) {
       return data["0"].map((concept) => {
-        const hasFeedback = !!this.props.conceptsFeedback.data[concept.uid];
+        const hasFeedback = !!conceptsFeedback.data[concept.uid];
         return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts-feedback'
@@ -34,12 +35,13 @@ const ConceptsFeedback = React.createClass({
         />)
       })
     }
-  },
+  };
 
-  renderModal: function () {
-    const {data, submittingnew} = this.props.conceptsFeedback;
-    var stateSpecificClass = submittingnew ? 'is-loading' : '';
-    if (this.props.conceptsFeedback.newConceptModalOpen) {
+  renderModal = () => {
+    const { conceptsFeedback } = this.props;
+    const { newConceptModalOpen, submittingnew } = conceptsFeedback;
+    const stateSpecificClass = submittingnew ? 'is-loading' : '';
+    if (newConceptModalOpen) {
         return (
           <Modal close={this.createNew}>
             <div className="box">
@@ -60,13 +62,13 @@ const ConceptsFeedback = React.createClass({
           </Modal>
         )
       }
-  },
+  };
 
-  render: function (){
-    //// console.log("Inside render for left panel, all concepts, this:\n ", this)
+  render() {
+    const { children } = this.props;
     return (
       <section className="section">
-        <div className="container">
+        <div className="admin-container">
           <div className="columns">
             <div className="column">
               <aside className="menu">
@@ -79,14 +81,14 @@ const ConceptsFeedback = React.createClass({
               </aside>
             </div>
             <div className="column">
-              {this.props.children}
+              {children}
             </div>
           </div>
         </div>
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {
