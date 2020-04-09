@@ -8,19 +8,19 @@ class ConceptFeedbackApi {
     return requestGet(`${conceptFeedbackApiBaseUrl}.json`);
   }
 
-  static get(lesson_type: string, uid: string): Promise<ConceptFeedback> {
+  static get(uid: string): Promise<ConceptFeedback> {
     return requestGet(`${conceptFeedbackApiBaseUrl}/${uid}.json`);
   }
 
-  static create(lesson_type: string, data: ConceptFeedback): Promise<ConceptFeedback> {
-    return requestPost(`${conceptFeedbackApiBaseUrl}.json`, {lesson: data});
+  static create(data: ConceptFeedback): Promise<ConceptFeedback> {
+    return requestPost(`${conceptFeedbackApiBaseUrl}.json`, {concept_feedback: data});
   }
 
-  static update(lesson_type: string, uid: string, data: ConceptFeedback): Promise<ConceptFeedback> {
-    return requestPut(`${conceptFeedbackApiBaseUrl}/${uid}.json`, {lesson: data});
+  static update(uid: string, data: ConceptFeedback): Promise<ConceptFeedback> {
+    return requestPut(`${conceptFeedbackApiBaseUrl}/${uid}.json`, {concept_feedback: data});
   }
 
-  static remove(lesson_type: string, uid: string): Promise<string> {
+  static remove(uid: string): Promise<string> {
     return requestDelete(`${conceptFeedbackApiBaseUrl}/${uid}.json`);
   }
 }
