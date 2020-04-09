@@ -11,24 +11,26 @@ class TestQuestion extends Component {
       allResponses: [],
       key: 0,
     };
-
-    this.setResponse = this.setResponse.bind(this)
-    this.reset = this.reset.bind(this);
   }
 
   componentDidMount() {
     this.reset();
   }
 
-  reset() {
-    this.props.dispatch(clearData());
+  reset = () => {
+    const { dispatch } = this.props;
+    const { key } = this.state;
+    dispatch(clearData());
     this.startActivity();
-    this.setState({ key: this.state.key + 1, });
-  }
+    this.setState({ key: key + 1, });
+  };
 
-  questionsForLesson() {
+  questionsForLesson = () => {
+    const { match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    question.key = questionID;
     return [
       {
         type: 'FB',
@@ -37,20 +39,27 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  startActivity = (name = 'Triangle') => {
+    const { dispatch } = this.props;
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
-  getQuestion() {
-    return this.props.fillInBlank.data[this.props.params.questionID];
+  getQuestion = () => {
+    const { fillInBlank, match } = this.props;
+    const { data } = fillInBlank;
+    const { params } = match;
+    const { questionID } = params;
+    return data[questionID];
   }
 
-  renderGrading() {
-    if (this.state.gradedResponse) {
-      const {author, feedback} = this.state.gradedResponse.response
+  renderGrading = () => {
+    const { gradedResponse } = this.state;
+    if (gradedResponse) {
+      const { response } = gradedResponse;
+      const { author, feedback } = response;
       return (<div style={{marginTop: '30px'}}>
         <p>Author: {author}</p>
         <p>Feedback: {feedback}</p>
@@ -58,17 +67,20 @@ class TestQuestion extends Component {
     }
   }
 
-  setResponse(response) {
+  setResponse = response => {
     this.setState({gradedResponse: response})
-  }
+  };
 
   render() {
-    if (this.props.playDiagnostic.currentQuestion) {
-      const question = this.props.playDiagnostic.currentQuestion.data;
+    const { key } = this.state
+    const { dispatch, playDiagnostic } = this.props
+    const { currentQuestion } = playDiagnostic
+    if (currentQuestion) {
+      const question = currentQuestion.data;
       return (
         <div>
           <div className="test-question-container">
-            <PlayFillInTheBlankQuestion dispatch={this.props.dispatch} key={this.state.key} nextQuestion={this.reset} prefill={false} question={question} setResponse={this.setResponse} />
+            <PlayFillInTheBlankQuestion dispatch={dispatch} key={key} nextQuestion={this.reset} prefill={false} question={question} setResponse={this.setResponse} />
           </div>
           {this.renderGrading()}
         </div>
@@ -79,7 +91,6 @@ class TestQuestion extends Component {
       );
     }
   }
-
 }
 
 function select(props) {

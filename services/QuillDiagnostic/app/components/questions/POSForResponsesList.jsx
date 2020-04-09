@@ -4,8 +4,7 @@ import _ from 'underscore'
 import keysForPOS from './POSIndex.jsx'
 import POSForResponse from './POSForResponse.jsx'
 
-export default React.createClass({
-
+export default class extends React.Component {
   // getPOSTagsList: function() {
   //   const responses = this.props.responses;
   //   var posTagsList = {}, posTagsAsString = ""
@@ -27,16 +26,16 @@ export default React.createClass({
   //   return posTagsList
   // },
 
-  sortResponses: function(posTagsList) {
+  sortResponses = (posTagsList) => {
     _.each(posTagsList, (tag) => {
       tag.responses.sort((a,b) => {
         return b.count-a.count
       })
     })
     return posTagsList
-  },
+  };
 
-  renderPOSTagsList: function() {
+  renderPOSTagsList = () => {
     var posTagsList = this.sortResponses(this.props.posTagsList)
 
     return _.map(posTagsList, (tag, index) => {
@@ -77,9 +76,9 @@ export default React.createClass({
         />
       )
     })
-  },
+  };
 
-  render: function () {
+  render() {
     const style = {
       "borderTop": "0.2px solid #e6e6e6",
       "borderLeft": "0.2px solid #e6e6e6",
@@ -91,4 +90,4 @@ export default React.createClass({
       </div>
     )
   }
-})
+}
