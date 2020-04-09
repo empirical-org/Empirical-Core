@@ -26,7 +26,8 @@ class TestQuestion extends Component {
   }
 
   questionsForLesson = () => {
-    const { params, } = this.props
+    const { match } = this.props
+    const { params } = match
     const question = this.getQuestion();
     question.key = params.questionID;
     return [
@@ -46,8 +47,11 @@ class TestQuestion extends Component {
   }
 
   getQuestion = () => {
-    const { questions, params, } = this.props
-    return questions.data[params.questionID];
+    const { questions, match } = this.props
+    const { data } = questions
+    const { params } = match
+    const { questionID } = params
+    return data[questionID];
   }
 
   render() {
