@@ -50,7 +50,6 @@ export interface Question {
   focusPoints?: FocusPointCollection;
   incorrectSequences?: IncorrectSequenceCollection;
   instructions?: string;
-  itemLevel?: string;
   modelConceptUID?: string;
   prefilledText?: string;
   prompt?: string;

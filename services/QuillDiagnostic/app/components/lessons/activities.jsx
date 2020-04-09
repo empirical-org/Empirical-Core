@@ -13,7 +13,6 @@ class Lessons extends React.Component {
 
   submitNewLesson = (data) => {
     this.props.dispatch(actions.submitNewLesson(data));
-    // this.props.dispatch(actions.toggleNewLessonModal())
   };
 
   renderLessons = () => {

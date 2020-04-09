@@ -98,8 +98,9 @@ class IncorrectSequencesContainer extends Component {
 
   renderSequenceList() {
     const { match } = this.props;
-    const { params } = match;
+    const { params, url } = match;
     const { questionID } = params;
+    const path = url.includes('sentence-fragments') ? 'sentence-fragments' : 'questions'
     const components = _.mapObject(this.getSequences(), (val, key) => (
       <div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
@@ -115,7 +116,7 @@ class IncorrectSequencesContainer extends Component {
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">
-          <a className="card-footer-item" href={`/#/admin/questions/${questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <a className="card-footer-item" href={`/#/admin/${path}/${questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
           <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
         </footer>
       </div>
@@ -155,7 +156,7 @@ function select(props) {
   let mapState
   if (window.location.href.includes('sentence-fragments')) {
     mapState = {
-      sentenceFragments: props.sentenceFragments
+      questions: props.sentenceFragments
     };
   } else {
     mapState = {

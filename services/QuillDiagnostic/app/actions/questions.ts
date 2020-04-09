@@ -292,12 +292,6 @@ function updateStringFilter(stringFilter, qid) {
 
 function getUsedSequences(qid) {
   return (dispatch, getState) => {
-    // let existingIncorrectSeqs = null
-    // if(type === 'sentence-combining') {
-    //   const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
-    // } else {
-    //   existingIncorrectSeqs = getState().sentenceFragments.data[qid].incorrectSequences
-    // }
     const existingIncorrectSeqs = getState().questions.data[qid].incorrectSequences
     const usedSeqs: string[] = []
     if (existingIncorrectSeqs) {

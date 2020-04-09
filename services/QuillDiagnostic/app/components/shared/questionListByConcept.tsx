@@ -4,15 +4,8 @@ import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import { LinkListItem } from './linkListItem'
 
 export class QuestionListByConcept extends React.Component<any, any> {
-  constructor(props) {
-    super(props)
 
-    this.renderQuestionLinks = this.renderQuestionLinks.bind(this)
-    this.mapConceptsToList = this.mapConceptsToList.bind(this)
-    this.renderQuestionsWithoutValidKey = this.renderQuestionsWithoutValidKey.bind(this)
-  }
-
-  renderLabel(concept) {
+  renderLabel = (concept) => {
     return (
       <p className="menu-label">
         {concept.name}
@@ -20,7 +13,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
     );
   }
 
-  renderQuestionLinks(questions) {
+  renderQuestionLinks = (questions) => {
     let filtered;
     if (!this.props.showOnlyArchived) {
       filtered = questions.filter((question) => question.flag !== "archived" )
@@ -42,7 +35,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
     });
   }
 
-  renderConceptWithQuestions(questions, label) {
+  renderConceptWithQuestions = (questions, label) => {
     if (questions.length === 0) {
       return;
     }
@@ -56,7 +49,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
     ];
   }
 
-  mapConceptsToList() {
+  mapConceptsToList = () => {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions);
     return concepts.map((concept) => {
@@ -66,7 +59,7 @@ export class QuestionListByConcept extends React.Component<any, any> {
     })
   }
 
-  renderQuestionsWithoutValidKey() {
+  renderQuestionsWithoutValidKey = () => {
     if(!this.props.displayNoConceptQuestions) {
       return (<div />)
     } else {

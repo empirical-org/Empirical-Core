@@ -199,7 +199,7 @@ class Question extends React.Component {
   }
 
   renderEditForm = () => {
-    const { questions, match, concepts, itemLevels, } = this.props
+    const { questions, match, concepts } = this.props
     const { params } = match
     const { data } = questions
     const { questionID, } = params;
@@ -207,7 +207,7 @@ class Question extends React.Component {
     if (questions.states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <EditForm concepts={concepts} itemLevels={itemLevels} question={question} submit={this.saveQuestionEdits} />
+          <EditForm concepts={concepts} question={question} submit={this.saveQuestionEdits} />
         </Modal>
       );
     }
@@ -300,7 +300,6 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    itemLevels: state.itemLevels,
     routing: state.routing,
     massEdit: state.massEdit
   };

@@ -46,7 +46,7 @@ export class AnswerVisualizer extends Component {
     const { responses } = this.state;
     return this.sortResponsesByCount(_.reject(_.values(_.mapObject(responses, (r) => {
       const { count, statusCode, text } = r;
-      return statusCode == 0 ? {text: text, count: count}: null;
+      return statusCode === 0 ? { text, count } : null;
     })), (r) => { return !r }));
   }
 
@@ -54,7 +54,7 @@ export class AnswerVisualizer extends Component {
     const { responses } = this.state;
     return this.sortResponsesByCount(_.reject(_.values(_.mapObject(responses, (r) => {
       const { count, statusCode, text } = r;
-      return statusCode == 1 ? {text: text, count: count} : null;
+      return statusCode === 0 ? { text, count } : null;
     })), (r) => { return !r }));
   }
 

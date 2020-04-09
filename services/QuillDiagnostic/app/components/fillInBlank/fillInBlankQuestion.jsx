@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
+import { Link, NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Cues from '../renderForQuestions/cues.tsx';
 import EditFillInBlank from './editFillInBlank.jsx';
 import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
@@ -25,7 +24,7 @@ class FillInBlankQuestion extends Component {
   }
 
   render() {
-    const { match, massEdit, fillInBlank, children, } = this.props
+    const { match, massEdit, fillInBlank } = this.props
     const { params } = match
     const { questionID} = params;
     const question = this.getQuestion();

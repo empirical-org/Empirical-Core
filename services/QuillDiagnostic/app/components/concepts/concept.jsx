@@ -58,8 +58,7 @@ class Concept extends React.Component {
   };
 
   renderNewQuestionForm = () => {
-    const { itemLevels } = this.props;
-    return <QuestionForm itemLevels={itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
+    return <QuestionForm new={true} question={{}} submit={this.submitNewQuestion} />
   };
 
   render() {
@@ -90,7 +89,6 @@ function select(state) {
   return {
     concepts: state.concepts,
     questions: state.questions,
-    itemLevels: state.itemLevels,
     routing: state.routing
   }
 }

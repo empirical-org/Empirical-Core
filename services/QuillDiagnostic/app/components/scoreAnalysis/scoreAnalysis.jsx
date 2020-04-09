@@ -303,6 +303,46 @@ class ScoreAnalysis extends Component {
     </div>)
   }
 
+  handleQuestionTypes = () => {
+    this.clickSort('questionType')
+  }
+
+  handlePrompts = () => {
+    this.clickSort('prompt')
+  }
+
+  handleResponses = () => {
+    this.clickSort('responses')
+  }
+
+  handleWeakResponses = () => {
+    this.clickSort('weakResponses')
+  }
+
+  handleStatuses = () => {
+    this.clickSort('status')
+  }
+
+  handleFocusPoints = () => {
+    this.clickSort('focusPoints')
+  }
+
+  handleIncorrectSequences = () => {
+    this.clickSort('incorrectSequences')
+  }
+
+  handleModels = () => {
+    this.clickSort('hasModelConcept')
+  }
+
+  handleFlags = () => {
+    this.clickSort('flag')
+  }
+
+  handleActivities = () => {
+    this.clickSort('activities')
+  }
+
   render() {
     const { questionData } = this.state;
     if (questionData.length > 0) {
@@ -312,16 +352,16 @@ class ScoreAnalysis extends Component {
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
-                <th onClick={() => this.clickSort('questionType')}>Type</th>
-                <th onClick={() => this.clickSort('prompt')} width="600px">Prompt</th>
-                <th onClick={() => this.clickSort('responses')}>Responses</th>
-                <th onClick={() => this.clickSort('weakResponses')}>Weak Responses</th>
-                <th onClick={() => this.clickSort('status')}>Status</th>
-                <th onClick={() => this.clickSort('focusPoints')}>Required #</th>
-                <th onClick={() => this.clickSort('incorrectSequences')}>Incorrect #</th>
-                <th onClick={() => this.clickSort('hasModelConcept')}>Model</th>
-                <th onClick={() => this.clickSort('flag')}>Flag</th>
-                <th onClick={() => this.clickSort('activities')}>Activity</th>
+                <th onClick={this.handleQuestionTypes}>Type</th>
+                <th onClick={this.handlePrompts} width="600px">Prompt</th>
+                <th onClick={this.handleResponses}>Responses</th>
+                <th onClick={this.handleWeakResponses}>Weak Responses</th>
+                <th onClick={this.handleStatuses}>Status</th>
+                <th onClick={this.handleFocusPoints}>Required #</th>
+                <th onClick={this.handleIncorrectSequences}>Incorrect #</th>
+                <th onClick={this.handleModels}>Model</th>
+                <th onClick={this.handleFlags}>Flag</th>
+                <th onClick={this.handleActivities}>Activity</th>
               </tr>
             </thead>
             <tbody>

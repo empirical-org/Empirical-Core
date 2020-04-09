@@ -40,20 +40,20 @@ class NewIncorrectSequencesContainer extends Component {
   }
 
   render() {
-    const { generatedIncorrectSequences, match, questions } = this.props;
+    const { diagnosticQuestions, fillInBlank, generatedIncorrectSequences, match, sentenceFragments, questions } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { questionID } = params;
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
-          diagnosticQuestions
-          fillInBlank
+          diagnosticQuestions={diagnosticQuestions}
+          fillInBlank={fillInBlank}
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
           questionID={questionID}
           questions={questions}
-          sentenceFragments
+          sentenceFragments={sentenceFragments}
           states
           usedSequences={used[questionID]}
         />
@@ -64,6 +64,8 @@ class NewIncorrectSequencesContainer extends Component {
 
 function select(props) {
   return {
+    diagnosticQuestions: props.diagnosticQuestions,
+    fillInBlank: props.fillInBlank,
     questions: props.questions,
     generatedIncorrectSequences: props.generatedIncorrectSequences,
     sentenceFragments: props.sentenceFragments,

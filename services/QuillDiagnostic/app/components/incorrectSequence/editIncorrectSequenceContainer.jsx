@@ -14,9 +14,9 @@ class EditIncorrectSequencesContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = {
-      questionType: questionType,
-      questionTypeLink: questionTypeLink,
-      actionFile: actionFile
+      questionType,
+      questionTypeLink,
+      actionFile
     }
   }
 
@@ -26,18 +26,17 @@ class EditIncorrectSequencesContainer extends Component {
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { questionID } = params;
-    const type = window.location.href.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
     if (!used[questionID]) {
-      dispatch(actionFile.getUsedSequences(questionID, type))
+      dispatch(actionFile.getUsedSequences(questionID))
     }
   }
 
   getIncorrectSequence = () => {
-    const { questions, match } = this.props;
-    const { data } = questions;
+    const { questionType } = this.state;
+    const { match } = this.props;
     const { params } = match;
     const { incorrectSequenceID, questionID } = params;
-    return data[questionID].incorrectSequences[incorrectSequenceID];
+    return this.props[questionType].data[questionID].incorrectSequences[incorrectSequenceID];
   }
 
   submitForm = (data, incorrectSequenceID) => {
@@ -51,7 +50,7 @@ class EditIncorrectSequencesContainer extends Component {
   };
 
   render() {
-    const {children, generatedIncorrectSequences, match, questions, sentenceFragments } = this.props;
+    const { generatedIncorrectSequences, match, questions, sentenceFragments } = this.props;
     const { used } = generatedIncorrectSequences;
     const { params } = match;
     const { incorrectSequenceID, questionID } = params;
@@ -69,7 +68,6 @@ class EditIncorrectSequencesContainer extends Component {
           states
           usedSequences={used[questionID]}
         />
-        {children}
       </div>
     );
   }

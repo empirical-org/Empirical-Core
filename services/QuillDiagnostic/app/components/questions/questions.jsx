@@ -194,10 +194,7 @@ class Questions extends React.Component {
   };
 
   toggleShowArchived = () => {
-    const { showOnlyArchived } = this.state
-    this.setState({
-      showOnlyArchived: !showOnlyArchived,
-    });
+    this.setState(prevState => ({ showOnlyArchived: !prevState.showOnlyArchived }))
   };
 
   renderSearchBox = () => {

@@ -14,7 +14,7 @@ class FillInBlankQuestions extends Component {
     const { fillInBlank } = props
 
     this.state = {
-      diagnosticQuestions: fillInBlank.data ? fillInBlank.data : null
+      diagnosticQuestions: fillInBlank.data || null
     }
   }
 

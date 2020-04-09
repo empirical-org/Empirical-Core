@@ -68,11 +68,11 @@ class FillInBlankForm extends Component {
   
   submit = () => {
     const { action } = this.props;
-    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, history, instructions, newQuestionOptimalResponse, prompt } = this.state;
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, newQuestionOptimalResponse, prompt } = this.state;
     const data = {
       prompt,
-      blankAllowed: blankAllowed ? blankAllowed : false,
-      caseInsensitive: caseInsensitive ? caseInsensitive : false,
+      blankAllowed: blankAllowed || false,
+      caseInsensitive: caseInsensitive || false,
       cues: cues.split(','),
       instructions,
       conceptID,
@@ -116,7 +116,7 @@ class FillInBlankForm extends Component {
   }
 
   render() {
-    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, itemLevel, prompt } = this.state;
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, prompt } = this.state;
     return(
       <form className="box" onSubmit={this.submit}>
         <h6 className="control subtitle">Create a new question</h6>

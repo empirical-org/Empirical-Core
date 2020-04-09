@@ -51,8 +51,9 @@ const TabLink = props => (
 );
 
 class Admin extends React.Component {
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     const { dispatch } = this.props;
+    this.handleAuthCheck();
     dispatch(userActions.firebaseAuth());
     dispatch(conceptActions.startListeningToConcepts());
     dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
@@ -64,10 +65,6 @@ class Admin extends React.Component {
     dispatch(connectSentenceCombiningActions.startListeningToConnectQuestions())
     dispatch(connectFillInBlankActions.startListeningToConnectFillInBlankQuestions())
     dispatch(connectSentenceFragmentActions.startListeningToConnectSentenceFragments())
-  }
-
-  componentDidMount() {
-    this.handleAuthCheck();
   }
 
   handleAuthCheck = () => {
@@ -91,8 +88,8 @@ class Admin extends React.Component {
 
   render() {
     return (
-      <div style={{ display: 'flex', backgroundColor: "white"}}>
-        <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
+      <div className="main-admin-container">
+        <section className="main-admin-section section is-fullheight">
           <aside className="admin-menu">
             <p className="menu-label">
               General

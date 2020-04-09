@@ -4,10 +4,6 @@ import fillInBlankActions from '../../actions/fillInBlank';
 import FillInBlankForm from './fillInBlankForm.jsx';
 
 class EditFillInBlank extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
 
   editQuestion = data => {
     const { dispatch, match } = this.props;
@@ -25,14 +21,13 @@ class EditFillInBlank extends Component {
     const { data } = fillInBlank;
     const fillInBlankQuestionID = questionID;
     const fillInBlankQuestion = data[fillInBlankQuestionID];
-    const { prompt, blankAllowed, caseInsensitive, instructions, cues, itemLevel, conceptID, flag, cuesLabel } = fillInBlankQuestion;
+    const { prompt, blankAllowed, caseInsensitive, instructions, cues, conceptID, flag, cuesLabel } = fillInBlankQuestion;
     return {
       prompt,
       blankAllowed,
       caseInsensitive,
       instructions,
       cues: cues.join(','),
-      itemLevel,
       conceptID,
       flag,
       cuesLabel
@@ -46,8 +41,7 @@ class EditFillInBlank extends Component {
 
 function select(state) {
   return {
-    fillInBlank: state.fillInBlank,
-    // match: state.match
+    fillInBlank: state.fillInBlank
   };
 }
 

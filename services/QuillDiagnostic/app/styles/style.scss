@@ -457,3 +457,15 @@ textarea.submission {
   display: inline-block;
   margin: 8px;
 }
+
+.main-admin-container {
+  display: flex;
+  background-color: white;
+}
+
+.main-admin-section {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0;
+  padding-bottom: 0;
+}

@@ -20,7 +20,7 @@ import 'styles/style.scss';
 import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
-import Home from './components/home.jsx'
+import Home from './components/home.jsx'\
 
 if (process.env.NODE_ENV === 'production') {
   Raven
@@ -79,14 +79,12 @@ const route = (
   </Switch>
 );
 
-class App extends React.Component<{}, {}> {
-  public render(): JSX.Element {
-    return (
-      <Provider store={store}>
-        <HashRouter basename="/">{route}</HashRouter>
-      </Provider>
-    );
-  }
+const App = () => {
+  return (
+    <Provider store={store}>
+      <HashRouter basename="/">{route}</HashRouter>
+    </Provider>
+  );
 }
 
 export default App;
