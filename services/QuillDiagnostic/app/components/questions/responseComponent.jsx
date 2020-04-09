@@ -71,7 +71,6 @@ class ResponseComponent extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('props', this.props)
     if (!_.isEqual(this.props.filters.formattedFilterData, prevProps.filters.formattedFilterData)) {
       this.searchResponses();
     } else if (this.props.states[this.props.questionID] === C.SHOULD_RELOAD_RESPONSES && prevProps.states[prevProps.questionID] !== C.SHOULD_RELOAD_RESPONSES) {
@@ -649,7 +648,6 @@ class ResponseComponent extends React.Component {
 }
 
 function select(state) {
-  console.log('responseComponent-state', state)
   return {
     filters: state.filters,
     pathways: state.pathways,
