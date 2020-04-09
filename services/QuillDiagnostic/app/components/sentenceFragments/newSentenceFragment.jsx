@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fragmentActions from '../../actions/sentenceFragments';
+import fragmentActions from '../../actions/sentenceFragments.ts';
 import Form from './sentenceFragmentForm.jsx';
 
-const newSentenceFragment = React.createClass({
-
-  createNewSentenceFragment(newSentenceFragment) {
+class newSentenceFragment extends React.Component {
+  createNewSentenceFragment = (newSentenceFragment) => {
+    const { dispatch, history } = this.props
     if (!newSentenceFragment.isFragment && !newSentenceFragment.needsIdentification) {
       alert('If the prompt is a sentence, the student must identify whether it is a sentence or fragment. Please try again.');
       return;
@@ -30,9 +30,10 @@ const newSentenceFragment = React.createClass({
         feedback: "That's a strong sentence!",
       }];
     }
-
-    this.props.dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]));
-  },
+    // TODO: fix add sentence fragment action to show new sentence fragment without refreshing
+    dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]));
+    history.push('/admin/sentence-fragments')
+  };
 
   render() {
     return (
@@ -43,9 +44,8 @@ const newSentenceFragment = React.createClass({
         </div>
       </section>
     );
-  },
-
-});
+  }
+}
 
 function select(state) {
   return {

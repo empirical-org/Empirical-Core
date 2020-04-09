@@ -1,56 +1,59 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
-  QuestionList,
   hashToCollection,
   ArchivedButton
 } from 'quill-component-library/dist/componentLibrary';
+import { QuestionList } from '../shared/questionList.tsx'
 
 class FillInBlankQuestions extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
+
+    const { fillInBlank } = props
+
     this.state = {
-      showOnlyArchived: false,
-      diagnosticQuestions: {}
+      diagnosticQuestions: fillInBlank.data || null
     }
-    this.toggleShowArchived = this.toggleShowArchived.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { fillInBlank, lessons } = nextProps
+    const { diagnosticQuestions } = this.state;
     if (fillInBlank.hasreceiveddata && lessons.hasreceiveddata) {
-      if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
+      if (Object.keys(diagnosticQuestions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
         this.setState({ diagnosticQuestions: fillInBlank.data })
       }
     }
   }
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
+    const { showOnlyArchived } = this.state;
     this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
+      showOnlyArchived: !showOnlyArchived,
     });
-  }
+  };
 
   render() {
+    const { diagnosticQuestions, showOnlyArchived } = this.state;
     return (
       <section className="section">
-        <div className="container">
-          <Link to={'admin/fill-in-the-blanks/new'}>
+        <div className="admin-container">
+          <Link to={'/admin/fill-in-the-blanks/new'}>
             <button className="button is-primary">Create a New Fill In The Blank</button>
           </Link>
-          <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
+          <ArchivedButton lessons={false} showOnlyArchived={showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
           <p className="menu-label">Fill In The Blank</p>
           <QuestionList
             basePath="fill-in-the-blanks"
-            questions={hashToCollection(this.state.diagnosticQuestions) || []}
-            showOnlyArchived={this.state.showOnlyArchived}
+            questions={hashToCollection(diagnosticQuestions) || []}
+            showOnlyArchived={showOnlyArchived}
           />
         </div>
       </section>
     );
   }
-
 }
 
 function select(props) {

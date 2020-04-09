@@ -1,6 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import { mount } from 'enzyme'
-import { QuestionRow } from 'quill-component-library/dist/componentLibrary'
+import { QuestionRow } from '../../shared/questionRow'
+import { MemoryRouter } from 'react-router-dom';
 
 const question = {
   key: 'question',
@@ -19,7 +20,11 @@ const question = {
 }
 
 describe('QuestionRow component', () => {
-  const wrapper = mount(<QuestionRow question={question} />)
+  const wrapper = mount(
+    <MemoryRouter>
+      <QuestionRow question={question} />
+    </MemoryRouter>
+  )
 
   it('renders a tr', () => {
     expect(wrapper.find('tr')).toHaveLength(1)

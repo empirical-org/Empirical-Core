@@ -29,7 +29,7 @@ module.exports = {
   entry: {
     polyfills: ['babel-polyfill', 'whatwg-fetch'],
     vendor: ['pos', 'draft-js'],
-    javascript: './app.jsx',
+    javascript: './entry.tsx',
   },
   output: {
     filename: '[name].[hash].js',
