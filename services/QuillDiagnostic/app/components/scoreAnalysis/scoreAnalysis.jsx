@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import {
   loadScoreData,
@@ -6,9 +7,9 @@ import {
 } from '../../actions/scoreAnalysis.js';
 import {
   Spinner,
-  QuestionRow,
   hashToCollection
 } from 'quill-component-library/dist/componentLibrary'
+import { QuestionRow } from '../shared/questionRow'
 import { getParameterByName } from '../../libs/getParameterByName'
 import _ from 'underscore';
 import {oldFlagToNew} from '../../libs/flagMap'
@@ -31,17 +32,9 @@ class ScoreAnalysis extends Component {
       questionData: [],
       flag: 'production'
     };
-
-    this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
-    this.updateStatusFilter = this.updateStatusFilter.bind(this)
-    this.formatDataForTable = this.formatDataForTable.bind(this)
-    this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
-    this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
-    this.formatDataForQuestionType = this.formatDataForQuestionType.bind(this)
-    this.updateFlag = this.updateFlag.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     checkTimeout();
     this.props.dispatch(loadScoreData());
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
@@ -52,7 +45,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       if (!_.isEqual(nextProps.scoreAnalysis.data, this.props.scoreAnalysis.data) || this.state.questionData.length === 0) {
@@ -61,7 +54,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  clickSort(sort) {
+  clickSort = (sort) => {
     let direction = 'dsc';
     if (this.state.sort === sort) {
       direction = this.state.direction === 'dsc' ? 'asc' : 'dsc';
@@ -71,7 +64,7 @@ class ScoreAnalysis extends Component {
     });
   }
 
-  formatData(props) {
+  formatData = (props) => {
     const { questions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
     // const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, 'Sentence Combining', 'questions')
@@ -81,7 +74,7 @@ class ScoreAnalysis extends Component {
     this.setState({questionData: _.compact(formatted)})
   }
 
-  formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
+  formatDataForQuestionType = (questionData, scoreAnalysis, typeName, pathName) => {
     const diagnosticQuestions = questionData
     return _.map(hashToCollection(diagnosticQuestions), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
@@ -104,9 +97,9 @@ class ScoreAnalysis extends Component {
         };
       }
     });
-  }
+  };
 
-  formatDataForTable() {
+  formatDataForTable = () => {
     let filteredData = this.state.questionData
     if (this.state.questionType) {
       filteredData = filteredData.filter((q) => q && q.questionType === this.state.questionType)
@@ -120,9 +113,9 @@ class ScoreAnalysis extends Component {
       }
     }
     return _.compact(filteredData);
-  }
+  };
 
-  getStatusFromPercentage(percentage) {
+  getStatusFromPercentage = (percentage) => {
     if (percentage > 5) {
       return 'Very Weak'
     } else if (percentage > 2) {
@@ -134,19 +127,20 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  updateQuestionTypeFilter(e) {
+  updateQuestionTypeFilter = e => {
     this.setState({questionType: this.getQuestionTypeFromAbbreviation(e.target.value)}, this.updateUrl)
-  }
+  };
 
-  updateStatusFilter(e) {
+  updateStatusFilter = e => {
     this.setState({status: this.getStatusFromAbbreviation(e.target.value)}, this.updateUrl)
-  }
+  };
 
-  updateFlag(e) {
+  updateFlag = e => {
     this.setState({flag: e.target.value})
-  }
+  };
 
-  updateUrl() {
+  updateUrl = () => {
+    const { history } = this.props
     let newUrl
     const questionTypeAbbrev = this.state.questionType ? this.getAbbreviationFromQuestionType(this.state.questionType) : null
     const statusAbbrev = this.state.status ? this.getAbbreviationFromStatus(this.state.status) : null
@@ -159,10 +153,10 @@ class ScoreAnalysis extends Component {
     } else {
       newUrl = `/admin/datadash`
     }
-    this.props.router.push(newUrl)
+    history.push(newUrl)
   }
 
-  getQuestionTypeFromAbbreviation(abbrev) {
+  getQuestionTypeFromAbbreviation = (abbrev) => {
     switch (abbrev) {
       case 'all':
         return null
@@ -175,7 +169,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getAbbreviationFromQuestionType(questionType) {
+  getAbbreviationFromQuestionType = questionType => {
     switch (questionType) {
       case 'Sentence Combining':
         return 'sc'
@@ -186,9 +180,9 @@ class ScoreAnalysis extends Component {
       default:
         return 'all'
     }
-  }
+  };
 
-  getStatusFromAbbreviation(abbrev) {
+  getStatusFromAbbreviation = (abbrev) => {
     switch (abbrev) {
       case 'all':
         return null
@@ -203,7 +197,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getAbbreviationFromStatus(status) {
+  getAbbreviationFromStatus = status => {
     switch (status) {
       case 'Very Weak':
         return 'vw'
@@ -216,9 +210,9 @@ class ScoreAnalysis extends Component {
       default:
         return 'all'
     }
-  }
+  };
 
-  sortData(data) {
+  sortData = (data) => {
     switch (this.state.sort) {
       case 'responses':
       case 'weakResponses':
@@ -238,11 +232,11 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  sortNumerically(data) {
+  sortNumerically = (data) => {
     return data.sort((a, b) => a[this.state.sort] - b[this.state.sort])
   }
 
-  sortAlphabetically(data) {
+  sortAlphabetically = (data) => {
     return data.sort((a, b) => {
       const aSort = a[this.state.sort] ? a[this.state.sort] : ''
       const bSort = b[this.state.sort] ? b[this.state.sort] : ''
@@ -250,12 +244,12 @@ class ScoreAnalysis extends Component {
     })
   }
 
-  sortByStatus(data) {
+  sortByStatus = (data) => {
     const statusOrder = ['Very Weak', 'Weak', 'Okay', 'Strong']
     return data.sort((a, b) => statusOrder.indexOf(a[this.state.sort]) - statusOrder.indexOf(b[this.state.sort]))
   }
 
-  sortByActivity(data) {
+  sortByActivity = (data) => {
     return data.sort((a, b) => {
       const aSort = a[this.state.sort] && a[this.state.sort][0] ? a[this.state.sort][0].name : ''
       const bSort = b[this.state.sort] && b[this.state.sort][0] ? b[this.state.sort][0].name : ''
@@ -263,7 +257,7 @@ class ScoreAnalysis extends Component {
     })
   }
 
-  renderRows() {
+  renderRows = () => {
     const data = this.formatDataForTable()
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
@@ -272,7 +266,7 @@ class ScoreAnalysis extends Component {
     ));
   }
 
-  renderOptions() {
+  renderOptions = () => {
     const innerDivStyle = {display: 'flex', alignItems: 'center', marginRight: '10px'}
     const labelStyle = {marginRight: '10px'}
     const flagValue = this.state.flag ? this.state.flag : 'all'
@@ -309,25 +303,65 @@ class ScoreAnalysis extends Component {
     </div>)
   }
 
+  handleQuestionTypes = () => {
+    this.clickSort('questionType')
+  }
+
+  handlePrompts = () => {
+    this.clickSort('prompt')
+  }
+
+  handleResponses = () => {
+    this.clickSort('responses')
+  }
+
+  handleWeakResponses = () => {
+    this.clickSort('weakResponses')
+  }
+
+  handleStatuses = () => {
+    this.clickSort('status')
+  }
+
+  handleFocusPoints = () => {
+    this.clickSort('focusPoints')
+  }
+
+  handleIncorrectSequences = () => {
+    this.clickSort('incorrectSequences')
+  }
+
+  handleModels = () => {
+    this.clickSort('hasModelConcept')
+  }
+
+  handleFlags = () => {
+    this.clickSort('flag')
+  }
+
+  handleActivities = () => {
+    this.clickSort('activities')
+  }
+
   render() {
-    const { questions, scoreAnalysis, concepts, } = this.props;
-    if (this.state.questionData.length > 0) {
+    const { questionData } = this.state;
+    if (questionData.length > 0) {
       return (
-        <div>
+        <div className="admin-container">
           {this.renderOptions()}
           <table className="table is-striped is-bordered">
             <thead>
               <tr>
-                <th onClick={this.clickSort.bind(this, 'questionType')}>Type</th>
-                <th onClick={this.clickSort.bind(this, 'prompt')} width="600px">Prompt</th>
-                <th onClick={this.clickSort.bind(this, 'responses')}>Responses</th>
-                <th onClick={this.clickSort.bind(this, 'weakResponses')}>Weak Responses</th>
-                <th onClick={this.clickSort.bind(this, 'status')}>Status</th>
-                <th onClick={this.clickSort.bind(this, 'focusPoints')}>Required #</th>
-                <th onClick={this.clickSort.bind(this, 'incorrectSequences')}>Incorrect #</th>
-                <th onClick={this.clickSort.bind(this, 'hasModelConcept')}>Model</th>
-                <th onClick={this.clickSort.bind(this, 'flag')}>Flag</th>
-                <th onClick={this.clickSort.bind(this, 'activities')}>Activity</th>
+                <th onClick={this.handleQuestionTypes}>Type</th>
+                <th onClick={this.handlePrompts} width="600px">Prompt</th>
+                <th onClick={this.handleResponses}>Responses</th>
+                <th onClick={this.handleWeakResponses}>Weak Responses</th>
+                <th onClick={this.handleStatuses}>Status</th>
+                <th onClick={this.handleFocusPoints}>Required #</th>
+                <th onClick={this.handleIncorrectSequences}>Incorrect #</th>
+                <th onClick={this.handleModels}>Model</th>
+                <th onClick={this.handleFlags}>Flag</th>
+                <th onClick={this.handleActivities}>Activity</th>
               </tr>
             </thead>
             <tbody>
@@ -339,7 +373,6 @@ class ScoreAnalysis extends Component {
     }
     return (<Spinner />);
   }
-
 }
 
 function select(state) {

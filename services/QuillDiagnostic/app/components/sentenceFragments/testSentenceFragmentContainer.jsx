@@ -26,10 +26,12 @@ class TestQuestion extends Component {
   }
 
   questionsForLesson = () => {
-    const { params, } = this.props
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
 
     const question = this.getQuestion();
-    question.key = params.questionID;
+    question.key = questionID;
     return [
       {
         type: 'SF',
@@ -38,7 +40,7 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  startActivity = (name = 'Triangle') => {
     const { dispatch, } = this.props
 
     const action = loadData(this.questionsForLesson());
@@ -48,9 +50,12 @@ class TestQuestion extends Component {
   }
 
   getQuestion = () => {
-    const { sentenceFragments, params, } = this.props
+    const { sentenceFragments, match } = this.props
+    const { data } = sentenceFragments
+    const { params } = match
+    const { questionID } = params
 
-    return sentenceFragments.data[params.questionID];
+    return data[questionID];
   }
 
   markIdentify = (bool) => {
@@ -68,20 +73,23 @@ class TestQuestion extends Component {
   }
 
   render() {
-    const { playDiagnostic, params, dispatch, } = this.props
-
-    if (playDiagnostic.currentQuestion) {
-      const question = playDiagnostic.currentQuestion.data;
+    const { playDiagnostic, match, dispatch, } = this.props
+    const { currentQuestion } = playDiagnostic
+    const { params } = match
+    const { questionID } = params
+    
+    if (currentQuestion) {
+      const { data } = currentQuestion
       return (
         <div className="test-question-container">
           <PlaySentenceFragment
-            currentKey={params.questionID}
+            currentKey={questionID}
             dispatch={dispatch}
-            key={params.questionID}
+            key={questionID}
             markIdentify={this.markIdentify}
             nextQuestion={this.reset}
             prefill={false}
-            question={question}
+            question={data}
             updateAttempts={this.submitResponse}
           />
         </div>
