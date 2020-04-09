@@ -152,62 +152,107 @@ class PagesController < ApplicationController
         title: 'Pedagogical Questions',
         faqs: [
           {
-            question: "How do you build your activities?",
-            answer: "<p>We take each standard from the Common Core language section, and then we consult with a team of educators to find the best ways of teaching the topic. Finally, we collaborate with a group of teachers that creates the content. If you’re interested in helping us create content, please email us at <a href='mailto:hello@quill.org'>hello@quill.org</a>.</p>"
+            question: "How do Quill's tools work?",
+            answer: "<p>Quill currently offers 5 tools. The 5 tools are designed to work together seamlessly—activities from any tool can be assigned from the same place, in the same way, and you can mix and match activities from the different tools to build your own activity packs.</p>
+            <br />
+            <p><strong>Quill Proofreader</strong></p>
+            <p>In Quill Proofreader, students proofread a passage to find and correct the errors. Some passages focus on a specific grammar concept, but many cover a wide range of skills to mirror a real-life proofreading and editing process.</p>
+             <br />
+             <p>Once students have made all their edits to the passage, we'll highlight for the student which edits are correct, which are unnecessary, and which are incorrect or not found. Then, students are automatically assigned a follow-up activity from Quill Grammar that addresses one of the skills the student needs to practice based on their proofreading.</p>
+             <br />
+             <p><strong>Quill Grammar</strong></p>
+             <p>In Quill Grammar, students practice the basics of sentence mechanics. Here is where you'll find activities to practice skills like using proper capitalization, recognizing the difference between pronouns, and much more. As students practice these skills, they are given five chances to revise each response. After each revision, students receive feedback to help them improve their sentence.</p>
+             <br />
+             <p><strong>Quill Connect</strong></p>
+             <p>Quill Connect is our sentence combining tool, and our most popular. In Quill Connect, students develop their sentence construction skills by combining multiple short sentences into a more sophisticated single sentence. Students are given up to five opportunities to revise their work, receiving immediate targeted feedback after each revision that guides them toward a stronger response.</p>
+          <br />
+          <p><strong>Quill Diagnostic</strong></p>
+          <p>Quill offers four diagnostics that can be used to evaluate your students' writing. The goal of the diagnostics is to provide you with enough information about your students' needs that you can assign the most appropriate activities for your students. Because diagnostic activities are evaluative, students will not receive any feedback on their responses and will only have one attempt per question. </p>
+              <br />
+              <p>Once students complete a diagnostic, you'll get a report that details the results and that includes a series of recommended activities for each individual student based on their diagnostic performance. Although the detailed report shows a numerical score to help you group students into tiers, it is graded for completion elsewhere on your and your students' dashboards.</p>
+              <br />
+              <p><strong>Quill Lessons</strong></p>
+              <p>Quill Lessons is our first tool designed to provide direct, whole-class instruction rather than independent practice. Each Quill Lesson activity includes a lesson plan with step by step instructions and explanations, and a slide-style presentation that can be projected to the class. Each student connects to the lesson using their own devices and can participate in real-time, answering questions and writing responses that can be displayed to the whole class for teacher-led discussion.</p>"
           },
           {
-            question: "How does Quill provide personalized instruction?",
-            answer: "<p>Once your students complete the diagnostic, Quill will generate a 10 week personalized learning plan for each student that targets needed skills. Quill also provides a diagnostic for ELLs.</p>"
+            question: "How does Quill provide personalized instruction and opportunities for differentiation?",
+            answer: "<p>Quill offers four diagnostics, each covering different sentence construction skills. Once your students complete a diagnostic, we'll create a set of recommended activities tailored for each student based on their diagnostic results. As the teacher, you can review these recommendations and assign them all or pick and choose the ones you'd like students to complete based on your own evaluation of their needs.</p>
+              <br />
+              <p>You can also personalize instruction for your students by building your own activity packs. Search our entire library of content and build custom packs that can be assigned to your whole class, small groups, or individual students, giving you the freedom to assign activities that are specific to your students.</p>"
           },
+          {
+            question: "What approach does Quill take to giving students feedback on their writing?",
+            answer: "<p>After each revision, students receive feedback on their writing. In consultation with teachers and based on current research on how to provide grammar instruction for students, we have made a few very intentional style decisions that we follow as we write this feedback. Here's an overview of some of the guidelines that our student-facing feedback follows:</p>
+                <br />
+              <ul>
+                <li>We try to avoid using technical grammar terms and jargon; whenever possible, we try to talk about grammar concepts in terms of their function rather than their technical name.</li>
+                <li>We try to use language that encourages revision as a natural part of the writing process rather than focusing on whether the student's writing is right or wrong.</li>
+                <li>We try to find the right balance between guiding students with clear directives and explanation and encouraging students to think critically about their writing and discover the necessary revisions themselves.</li>
+              </ul>"
+          },
+          {
+            question: "How are Quill's activities linked to Common Core Standards?",
+            answer: "
+              <p>Each activity is assigned a Common Core State Standard that aligns with the grammar target of the activity. Because we recognize that the Common Core State Standards do not always map to the needs of students, we recommend deciding what's right for your students based on the grammar concept of the activity rather than the grade level indicated by the activity's CCSS. For example, we have found that many of our 4th grade CCSS activities, such as those that explore relative pronouns and clauses, are actually more appropriate for middle or high school students.</p>"
+            },
+          {
+            question: "How are Quill activities named?",
+            answer: "<p>We have a lot of activities in our library! Most of these activities are named based on the specific grammar concept they cover.</p>
+              <br />
+              <p>You'll notice that some activities also include words like \"Starter\" or \"Intermediate\" in the name. These words indicate the general level of the activity. Because intermediate activities build on the skills practiced in starter activities, we typically recommend having students complete a starter activity for a given skill before moving on to that skill's intermediate activities.</p>
+             <br />
+             <p>Some activities also include a number. If an activity includes a number, that means there are other activities that cover the same grammar concept at the same level. For example, if your students complete Parallel Structure 1 but you feel they need additional practice at that level, you can assign Parallel Structure 2.</p>"
+            },
+          {
+            question: "What does it mean if an activity is labeled as \"Advanced Combining\"?",
+            answer: "<p>Many of our activities cover a specific grammar concept, but some of our activities are categorized as \"Advanced Combining\" instead. These activities are ones that allow students to combine sentences using any grammatically correct method. Students will receive feedback based on the structure they chose to use. Advanced combining activities are a great way to give your students opportunities to problem solve and be creative in their sentence construction. Because they provide little direction for students, we recommend having students complete a few activities with a clear grammar target before doing advanced combining activities, especially if they are new to sentence combining.</p>"
+            },
           {
             question: "What happens if a student answers a question incorrectly?",
-            answer: "<p>Students can retry each question once per sentence writing activity. If they answer incorrectly twice they move on to the next question.</p>"
-          },
+            answer: "<p>Our goal is to build strong writers who have made revising an essential part of their writing process. For that reason, we provide students with the opportunity to revise each response up to five times until they have written a strong, grammatically correct sentence. After each revision, students receive feedback that guides them towards a stronger response. If after five revisions the response is still not considered strong, we'll show a few sample responses and ask the student to choose the strongest one before moving on to the next question.</p>"
+            },
           {
-            question: "What happens if a student wants to retry an activity?",
-            answer: "
-              <p>As of January 2017, Quill provides four tools to help students improve their writing, grammar, and proofreading skills. Each tool provides a different level of feedback for students.</p>
-              <br />
-              <p><strong>Quill Proofreader: One Attempt</strong></p>
-              <p>In Quill Proofreader, students proofread a passage to find and correct the errors. Students are given one attempt to find the errors, and if they do not find them, they see the error highlighted in red.</p>
-              <br />
-              <p><strong>Quill Grammar: Two Attempts</strong></p>
-              <p>Students are able to attempt each Quill Grammar question twice. If they get it right on the second attempt, students receive full credit for the question. If they answer incorrectly twice they move on to the next question.</p>
-              <br />
-              <p><strong>Quill Connect: Five Attempts</strong></p>
-              <p>In Quill Connect, Quill's sentence combining tool, students are provided with up to five opportunities to revise their work. Students receive instant feedback after each attempt. If a student receives writes a strong answer on the first attempt, the student receives full credit. If the student writes a strong sentence after receiving feedback, the student receives partial credit. Quill Connect exercises are graded on the following logic:</p>
-              <br />
-              <ul>
-                <li>1st Attempt: 1 Point</li>
-                <li>2nd Attempt: 3/4's of a Point</li>
-                <li>3rd Attempt: 1/2 of a Point </li>
-                <li>4th Attempt: 1/4 of a Point</li>
-                <li>5th Attempt: 0 Points</li>
-              </ul>
-              <br />
-              <p><strong>Quill Diagnostic: One Attempt</strong></p>
-              <p>Students are not provided with any feedback on the diagnostic. Since we are using it to gauge the student's skills, we show some questions that are intentionally difficult to assess their needs. Students do not see their scores at the end, and every student earns a 100% score for a Quill Diagnostic exercise on the dashboard.</p>
-            "
+            question: "Can students retry an activity?",
+            answer: "<p>Students can retry an activity as many times as they want. Once a student has completed an activity, it remains on their dashboard, available to retry at any time.</p>"
           },
           {
             question: "How do the colored scores work?",
             answer: "<p>Quill utilizes a stoplight system of green, yellow, and red scores. A green square indicates that the student scored 76-100%. A yellow square indicates the student scored 50-75%. A red square indicates that the student scored under 50%. A grey square indicates an uncompleted lesson.</p>"
           },
           {
-            question: "Why are the Common Core lessons arranged into stages?",
-            answer: "<p>The Common Core State Standards do not always map onto the development stages of students. For example, we have found that our 2nd grade CCSS materials are popular among middle schools. Relative pronouns, a 4th grade CCSS concept, are often taught in high schools. Using the word stage, instead of grade level, reinforces the concept that each student will learn grammar at her or his own pace.</p>"
-          },
-          {
             question: "How does Quill decide which grammar rules to teach?",
-            answer: "<p>Quill follows the guidelines for grammar and style published in the Chicago Manual of Style. While other style guides are geared towards specific audiences and genres of writing, the Chicago Manual of Style is designed to support writers of all types. It’s also one of the most comprehensive and detailed style guides available, which is perfect for grammar lovers like us!</p>"
+            answer: "<p>Quill follows the guidelines for grammar and style published in the Chicago Manual of Style. While other style guides are geared towards specific audiences and genres of writing, the Chicago Manual of Style is designed to support writers of all types.</p>"
           },
           {
             question: "How does Quill address learning for English Language Learners?",
-            answer: "<p>Quill provides a special diagnostic for ELL students. Our activities begin with the Common Core grade one concepts. We cover all of the basic grammatical concepts, such as subject-verb agreement and articles. We also feature a variety of activities focused on commonly confused words. All of our activities may be viewed at <a href='https://www.quill.org/activities'>https://www.quill.org/activities</a>.</p>"
+            answer: "<p>Quill provides two diagnostics specifically for ELL students. The ELL Starter Diagnostic covers the basics of sentence writing in English, including how to use \"to be,\" \"to have,\" and \"to want\" in simple sentences and questions. It is most appropriate for students who are still building their English vocabulary and beginning to work on sentence structure and verb conjugation.</p>
+          <br />
+          <p>The ELL Diagnostic covers a wider range of skills and includes more advanced vocabulary and skills than the starter diagnostic.</p>
+          <br />
+          <p>Both diagnostics for ELL students include the option to see instructions in a language other than English.</p>"
           },
           {
-            question: "How can Quill be used with tools for accessibility?",
-            answer: "<p>Quill fully integrates with many extensions such as <a href='https://chrome.google.com/webstore/detail/read-aloud-a-text-to-spee/hdhinadidafjejdhmfkjgnolgimiaplp?hl=en'>ReadAloud</a> and <a href='https://chrome.google.com/webstore/detail/opendyslexic/cdnapgfjopgaggbmfgbiinmmbdcglnam?hl=en'>Open Dyslexic</a>. You can view a list of all the extensions that Quill works with <a href='https://support.quill.org/research-and-pedagogy/differentiation/free-extensions-for-students-with-modifications-iep-ell'>here</a>.</p>"
+            question: "Does Quill comply with accessibility standards, and how can Quill be used with tools for accessibility?",
+            answer: "<p>We aim to meet level AA standards from the Web Content Accessibility Guidelines (WCAG) 2.1. As of now, only part of our website is compliant with the AA standards. We are actively working to make the remaining parts of our website compliant.</p>
+          <br />
+            <p><strong>Where we're compliant:</strong></p>
+            <p>Quill Connect, Quill Diagnostic, Quill Grammar, and the student dashboard</p>
+          <br />
+            <p><strong>Where we're working on becoming compliant:</strong></p>
+            <p>Quill Proofreader, Quill Lessons, the teacher dashboard, and public-facing pages</p>
+          <br />
+            <p><strong>Accessibility features:</strong></p>
+            <br />
+              <ul>
+                <li>Each page lets you \"Skip to main content\" by pressing the tab key</li>
+                <li>Each page lets you navigate with only your keyboard</li>
+                <li>Each page is designed to be used with major screen readers</li>
+                <li>Each page works for almost all major screen sizes and device types</li>
+                <li>Each page can zoom up to 300% without any major issues</li>
+                <li>Each of our interface elements meets color contrast standards</li>
+              </ul>
+              <br />
+              <p>Quill also fully integrates with many extensions such as <a href='https://chrome.google.com/webstore/detail/read-aloud-a-text-to-spee/hdhinadidafjejdhmfkjgnolgimiaplp?hl=en'>ReadAloud</a> and <a href='https://chrome.google.com/webstore/detail/opendyslexic/cdnapgfjopgaggbmfgbiinmmbdcglnam?hl=en'>Open Dyslexic</a>. See a list of <a href='https://support.quill.org/research-and-pedagogy/differentiation/free-extensions-for-students-with-modifications-iep-ell'>other extensions work with Quill</a>.</p>"
           }
         ]
       },
