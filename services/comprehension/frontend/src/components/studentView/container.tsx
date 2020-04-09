@@ -292,7 +292,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const links = []
     const numberOfLinks = ALL_STEPS.length
 
-    for (let i=1; i <= numberOfLinks; i++ ) {
+    // starting at 2 because we don't want to include the read passage step
+    for (let i=2; i <= numberOfLinks; i++ ) {
       links.push(<StepLink clickStepLink={this.clickStepLink} index={i} renderStepNumber={this.renderStepNumber} />)
     }
 
