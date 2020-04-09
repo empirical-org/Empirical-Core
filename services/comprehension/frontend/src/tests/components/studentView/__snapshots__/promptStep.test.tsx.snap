@@ -1649,9 +1649,6 @@ exports[`PromptStep component inactive state renders 1`] = `
             </span>
           </p>
         </div>
-        <div
-          className="faded-rectangle"
-        />
       </div>
     </div>
   </div>

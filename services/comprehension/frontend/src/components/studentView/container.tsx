@@ -181,7 +181,11 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
         nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
       }
-      nextStep ? this.activateStep(nextStep, () => this.scrollToStep(`step${nextStep}`)) : this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
+      if (nextStep) {
+        this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
+      } else {
+        this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
+      }
     })
   }
 

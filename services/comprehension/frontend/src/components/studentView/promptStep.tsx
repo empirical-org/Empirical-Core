@@ -277,7 +277,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       const lastSubmittedResponse = this.lastSubmittedResponse()
       const outOfAttempts = submittedResponses.length === prompt.max_attempts
       const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
-
+      const fadedRectangle = editor ? <div className="faded-rectangle" /> : null
       return (
         <div>
           <div className="step-header">
@@ -285,7 +285,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
             {promptTextComponent}
           </div>
           {editor}
-          <div className="faded-rectangle" />
+          {fadedRectangle}
         </div>
       )
     }
