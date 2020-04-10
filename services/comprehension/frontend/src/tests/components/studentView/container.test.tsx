@@ -136,8 +136,7 @@ describe('StudentViewContainer component', () => {
           wrapper.instance().completeStep(4)
         })
 
-        it('sets "undefined" as the active step', () => {
-          expect(wrapper.state('activeStep')).toBe(undefined)
+        it('adds the last step to the completed steps array', () => {
           expect(wrapper.state('completedSteps')).toEqual([1, 2, 3, 4])
         })
 
