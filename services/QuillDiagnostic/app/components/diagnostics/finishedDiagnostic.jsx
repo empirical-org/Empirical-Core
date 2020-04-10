@@ -1,13 +1,14 @@
 import React from 'react';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
-export default React.createClass({
-
+export default class extends React.Component {
   componentDidMount() {
-    this.props.saveToLMS();
-  },
+    const { saveToLMS } = this.props;
+    saveToLMS();
+  }
 
-  renderSavedIndicator() {
-    if (this.props.saved) {
+  renderSavedIndicator = () => {
+    const { saved } = this.props;
+    if (saved) {
       return (
         <div>
           Saved Diagnostic
@@ -20,12 +21,13 @@ export default React.createClass({
         </div>
       );
     }
-  },
+  };
 
-  renderErrorState() {
+  renderErrorState = () => {
+    const { error, saveToLMS } = this.props;
     let header
     let message
-    if (this.props.error === "Activity Session Already Completed") {
+    if (error === "Activity Session Already Completed") {
       header = "This Activity Session Has Already Been Completed"
       message = (<p>
         The activity session with this unique identifier has already been&nbsp;completed.<br />
@@ -49,13 +51,14 @@ export default React.createClass({
         <p><code style={{ fontSize: 14, }}>
           {window.location.href}
         </code></p>
-        <button className="button is-info is-large" onClick={this.props.saveToLMS}>Retry</button>
+        <button className="button is-info is-large" onClick={saveToLMS}>Retry</button>
       </div>
     );
-  },
+  };
 
   render() {
-    if (this.props.error) {
+    const { error } = this.props;
+    if (error) {
       return this.renderErrorState()
     } else {
       return (
@@ -69,6 +72,5 @@ export default React.createClass({
         </div>
       );
     }
-  },
-
-});
+  }
+}

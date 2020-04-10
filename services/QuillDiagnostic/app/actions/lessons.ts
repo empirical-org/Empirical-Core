@@ -4,7 +4,7 @@ import { LessonApi, TYPE_DIAGNOSTIC_LESSON } from '../libs/lessons_api';
 import { push } from 'react-router-redux';
 import questionActions from './questions'
 import fillInBlankActions from './fillInBlank';
-import sentenceFragmentActions from './sentenceFragments';
+import sentenceFragmentActions from './sentenceFragments.ts';
 import * as titleCardActions from './titleCards.ts';
 
 	// called when the app starts. this means we immediately download all quotes, and

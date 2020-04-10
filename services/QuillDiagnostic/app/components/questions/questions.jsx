@@ -2,13 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import actions from '../../actions/questions';
 import _ from 'underscore';
-import { Link } from 'react-router';
 import {
   Modal,
   hashToCollection,
-  QuestionListByConcept,
   ArchivedButton
 } from 'quill-component-library/dist/componentLibrary';
+import { QuestionListByConcept } from '../shared/questionListByConcept'
 import Question from '../../libs/question';
 import QuestionSelector from 'react-select-search';
 import { push } from 'react-router-redux';
@@ -28,47 +27,40 @@ class Questions extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      showOnlyArchived: false,
-      diagnosticQuestions: {}
-    }
+    const { questions } = props
 
-    this.createNew = this.createNew.bind(this)
-    this.submitNewQuestion = this.submitNewQuestion.bind(this)
-    this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
-    this.mapConceptsToList = this.mapConceptsToList.bind(this)
-    this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
-    this.rematchAllResponses = this.rematchAllResponses.bind(this)
-    this.rematchResponse = this.rematchResponse.bind(this)
-    this.renderModal = this.renderModal.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
+    this.state = {
+      diagnosticQuestions: questions.data ? questions.data : null,
+      showOnlyArchived: false
+    }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { questions, lessons } = nextProps
+    const { diagnosticQuestions } = this.state;
     if (questions.hasreceiveddata && lessons.hasreceiveddata) {
-      if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.questions.data, questions.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
+      if (Object.keys(diagnosticQuestions).length === 0 || !_.isEqual(this.props.questions.data, questions.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
         this.setState({ diagnosticQuestions: questions.data })
       }
     }
   }
 
-  createNew() {
-    this.props.dispatch(actions.toggleNewQuestionModal());
-  }
+  createNew = () => {
+    const { dispatch } = this.props;
+    dispatch(actions.toggleNewQuestionModal());
+  };
 
-  submitNewQuestion() {
+  submitNewQuestion = () => {
+    const { dispatch } = this.props;
     const newQuestion = { name: this.refs.newQuestionName.value, };
-    this.props.dispatch(actions.submitNewQuestion(newQuestion));
+    dispatch(actions.submitNewQuestion(newQuestion));
     this.refs.newQuestionName.value = '';
-    // this.props.dispatch(actions.toggleNewQuestionModal())
-  }
+  };
 
-  updateRematchedResponse(rid, vals) {
-    this.props.dispatch(submitResponseEdit(rid, vals));
-  }
+  updateRematchedResponse = (rid, vals) => {
+    const { dispatch } = this.props;
+    dispatch(submitResponseEdit(rid, vals));
+  };
 
   getErrorsForAttempt(attempt) {
     return attempt.feedback;
@@ -90,28 +82,31 @@ class Questions extends React.Component {
   }
 
   // functions for rematching all Responses
-  mapConceptsToList() {
-    const concepts = hashToCollection(this.props.concepts.data['0']);
-    const questions = hashToCollection(this.props.questions.data);
+  mapConceptsToList = () => {
+    let { concepts, questions } = this.props;
+    concepts = hashToCollection(concepts.data['0']);
+    questions = hashToCollection(questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
-  }
+  };
 
-  responsesWithStatusForQuestion(questionUID) {
-    const responses = this.props.responses.data[questionUID];
+  responsesWithStatusForQuestion = questionUID => {
+    let { responses } = this.props;
+    const { data } = responses;
+    responses = data[questionUID];
     return hashToCollection(respWithStatus(responses));
-  }
+  };
 
-  rematchAllResponses(question) {
+  rematchAllResponses = (question) => {
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
       const percentage = index / weak.length * 100;
       this.rematchResponse(question, resp, responsesWithStat);
     });
-  }
+  };
 
-  rematchResponse(question, response, responses) {
+  rematchResponse = (question, response, responses) => {
     if (!response.questionUID || !response.text) {
       return;
     }
@@ -154,11 +149,13 @@ class Questions extends React.Component {
         this.updateRematchedResponse(response.key, newValues);
       }
     }
-  }
+  };
 
-  renderModal() {
-    const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
-    if (this.props.questions.newQuestionModalOpen) {
+  renderModal = () => {
+    const { questions } = this.props;
+    const { newQuestionModalOpen, submittingnew } = questions;
+    const stateSpecificClass = submittingnew ? 'is-loading' : '';
+    if (newQuestionModalOpen) {
       return (
         <Modal close={this.createNew}>
           <div className="box">
@@ -188,22 +185,22 @@ class Questions extends React.Component {
         </Modal>
       );
     }
-  }
+  };
 
-  handleSearchChange(e) {
-    const action = push(`/admin/questions/${e.value}`);
-    this.props.dispatch(action);
-  }
+  handleSearchChange = e => {
+    const { dispatch } = this.props;
+    const action = push(`/admin/questions/${e.value}/responses`);
+    dispatch(action);
+  };
 
-  toggleShowArchived() {
-    this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
-    });
-  }
+  toggleShowArchived = () => {
+    this.setState(prevState => ({ showOnlyArchived: !prevState.showOnlyArchived }))
+  };
 
-
-  renderSearchBox() {
-    const options = hashToCollection(this.props.questions.data);
+  renderSearchBox = () => {
+    const { questions } = this.props;
+    const { data } = questions;
+    const options = hashToCollection(data);
     if (options.length > 0) {
       const formatted = options.map((opt) => {
         let name;
@@ -217,25 +214,28 @@ class Questions extends React.Component {
       const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
-  }
+  };
 
   render() {
     const { questions, concepts, } = this.props;
+    const { diagnosticQuestions, showOnlyArchived } = this.state;
     if (questions.hasreceiveddata && concepts.hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
             { this.renderModal() }
-            { this.renderSearchBox() }
+            <div>
+              { this.renderSearchBox() }
+            </div>
             <br />
-            <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
+            <ArchivedButton lessons={false} showOnlyArchived={showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              questions={this.state.diagnosticQuestions}
-              showOnlyArchived={this.state.showOnlyArchived}
+              questions={diagnosticQuestions}
+              showOnlyArchived={showOnlyArchived}
             />
 
           </div>
@@ -247,7 +247,6 @@ class Questions extends React.Component {
       );
     }
   }
-
 }
 
 function select(state) {
