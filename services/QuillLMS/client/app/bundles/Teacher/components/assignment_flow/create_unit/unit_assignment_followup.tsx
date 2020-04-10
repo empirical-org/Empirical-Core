@@ -11,7 +11,8 @@ import {
   UNIT_NAME,
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
-  UNIT_ID
+  UNIT_ID,
+  ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID
 } from '../localStorageKeyConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
@@ -65,6 +66,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
       window.localStorage.removeItem(CLASSROOMS)
       window.localStorage.removeItem(UNIT_ID)
+      window.localStorage.removeItem(ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID)
     })
   }
 

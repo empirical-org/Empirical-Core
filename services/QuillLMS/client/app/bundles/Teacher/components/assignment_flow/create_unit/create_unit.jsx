@@ -11,7 +11,8 @@ import {
   UNIT_TEMPLATE_NAME,
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
-  UNIT_ID
+  UNIT_ID,
+  ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID
 } from '../localStorageKeyConstants.ts'
 import { requestGet, requestPost, } from '../../../../../modules/request';
 
@@ -64,6 +65,7 @@ export default class CreateUnit extends React.Component {
       window.localStorage.removeItem(UNIT_NAME)
       window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
       window.localStorage.removeItem(CLASSROOMS)
+      window.localStorage.removeItem(ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID)
     }
 
     if (stage === 2 || window.localStorage.getItem(ACTIVITY_IDS_ARRAY)) {
