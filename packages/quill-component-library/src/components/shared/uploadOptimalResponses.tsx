@@ -31,7 +31,7 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
       const sheet = workbook.Sheets[workbook.SheetNames[0]]
       const sheet_array = XLSX.utils.sheet_to_json(sheet, {header:1})
       const responses = []
-      _.forEach(sheet_array, (row: Array<String>) => {
+      sheet_array.forEach((row: Array<String>) => {
         let responseObject = {}
         let concepts = []
         _.forEach(row.slice(1), (cell) => {
@@ -54,7 +54,7 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
     return (<div className="box">
       <h6 className="control subtitle">Upload optimal responses</h6>
       <p>Upload an xlsx file with the prompt in the first row, followed by optimal responses with their associated concepts.</p>
-      <a href="https://docs.google.com/spreadsheets/d/1C9t_Ue2N_YBltoxB7MhSgE4XOpfgGCg3JJZeyUg6lSA/edit#gid=0">See example</a>
+      <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895">See example</a>
       <label className="label">File</label>
       <p className="control">
         <input

@@ -389,10 +389,10 @@ export function findResponseByText(text, questionUID, cb) {
 export function convertConceptNamesToIds(responses, concepts) {
   let conceptData = concepts.data["0"];
   let convertedResponses = []
-  _.each(responses, function(response) {
+  responses.forEach((response) => {
     let responseObj = {}
     let concepts = []
-    _.each(response.concepts, (c) => {
+    response.concepts.forEach((c) => {
       let concept = _.find(conceptData, (cd) => { return cd.displayName === c })
       if (!concept) {
         alert(`The concept ${c} doesn't exist! Check your spelling.`)
