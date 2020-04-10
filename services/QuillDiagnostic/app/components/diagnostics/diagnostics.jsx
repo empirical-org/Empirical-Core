@@ -1,14 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
-const Diagnostics = React.createClass({
-  renderList: function() {
+class Diagnostics extends React.Component {
+  renderList = () => {
     return (
       <div className="list" />
     )
-  },
-  render: function() {
+  };
+
+  render() {
+    const { children } = this.props;
     return (
       <section className="section">
         <div className="container">
@@ -33,7 +35,7 @@ const Diagnostics = React.createClass({
               </aside>
             </div>
             <div className="column">
-              {this.props.children}
+              {children}
             </div>
           </div>
         </div>
@@ -41,7 +43,7 @@ const Diagnostics = React.createClass({
 
     )
   }
-})
+}
 
 function select(state) {
   return {

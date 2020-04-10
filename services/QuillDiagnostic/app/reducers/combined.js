@@ -13,7 +13,6 @@ import display from './display';
 import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
-import itemLevels from './item-levels';
 import lessons from './lessons.ts';
 import massEdit from './massEdit';
 import pathways from './pathways';
@@ -44,7 +43,6 @@ const combinedReducers = combineReducers({
   fillInBlank,
   filters,
   generatedIncorrectSequences,
-  itemLevels,
   lessons,
   massEdit,
   pathways,

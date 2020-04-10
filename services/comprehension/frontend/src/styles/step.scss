@@ -1,12 +1,13 @@
 .step {
-  padding: 16px 24px 24px 16px;
+  padding: 16px 24px 16px 16px;
   border-radius: 4px;
   border: solid 1px #d8d8d8;
   max-width: 631px;
   margin-bottom: 10px;
   display: flex;
   cursor: pointer;
-  .passage-title, .prompt-text, button, .feedback-section {
+  overflow: hidden;
+  .passage-title, button, .feedback-section {
     margin-left: 48px;
   }
   .step-header {
@@ -27,6 +28,7 @@
   .prompt-text {
     span {
       text-decoration: underline;
+      font-weight: bold;
     }
   }
   .quill-button {
@@ -86,6 +88,27 @@
   }
   &.active {
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 3px -2px rgba(0, 0, 0, 0.12), 0 3px 4px 0 rgba(0, 0, 0, 0.14);
+  }
+
+  &:not(.active) {
+    .step-content {
+      max-height: 130px;
+      position: relative;
+      @media (max-width: 600px) {
+        max-height: 146px;
+      }
+    }
+    .faded-rectangle {
+      width: 100%;
+      height: 28px;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+      position: absolute;
+      bottom: -16px;
+    }
+    .editor {
+      cursor: pointer !important;
+      margin-top: 8px !important;
+    }
   }
 
   @media (max-width: 1099px) {

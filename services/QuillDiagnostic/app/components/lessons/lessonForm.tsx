@@ -159,7 +159,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
           }
         });
         formatted = options.map((opt: { key: string, prompt: string } )=> {
-          return ({ name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, });
+          return { name: opt.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''), value: opt.key, };
         });
       } else {
         formatted = options.map((opt: { key: string, title: string }) => {
@@ -235,7 +235,7 @@ export class LessonForm extends React.Component<LessonFormProps, LessonFormState
         <p className="control">
           <label className="label" htmlFor="ell-check-input">
             Is ELL?
-            <span className="select">
+            <span>
               <input
                 aria-label="ell-check-input"
                 checked={isELL}
