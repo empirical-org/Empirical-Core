@@ -233,7 +233,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
   renderEditorContainer = () => {
     const { html, } = this.state
-    const { submittedResponses, prompt, } = this.props
+    const { submittedResponses, prompt, active, } = this.props
     const lastSubmittedResponse = this.lastSubmittedResponse()
     let className = 'editor'
     let disabled = false
@@ -253,7 +253,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const regex = new RegExp(`^${formattedPrompt}`)
     const textWithoutStem = text.replace(regex, '')
     const spaceAtEnd = text.match(/\s$/m) ? '&nbsp;' : ''
-    const htmlWithBolding = `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>`
+    const htmlWithBolding = active ? `<p>${formattedPrompt}${this.boldMisspellings(textWithoutStem)}${spaceAtEnd}</p>` : `<p>${textWithoutStem}</p>`
 
     return (<EditorContainer
       className={className}
@@ -261,6 +261,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
       handleTextChange={this.onTextChange}
       html={htmlWithBolding}
       innerRef={this.setEditorRef}
+      isResettable={!!textWithoutStem.length}
       promptText={prompt.text}
       resetText={this.resetText}
       stripHtml={this.stripHtml}
@@ -268,27 +269,44 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
   }
 
   renderActiveContent = () => {
-    const { active, } = this.props
-    if (!active) { return }
+    const { active, prompt, stepNumberComponent, submittedResponses, } = this.props
+    const { text, } = prompt
 
-    return (<div className="active-content-container">
-      {this.renderEditorContainer()}
-      {this.renderButton()}
-      {this.renderFeedbackSection()}
+    if (!active) {
+      const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+      const lastSubmittedResponse = this.lastSubmittedResponse()
+      const outOfAttempts = submittedResponses.length === prompt.max_attempts
+      const editor = lastSubmittedResponse.optimal || outOfAttempts ? this.renderEditorContainer() : null
+      const fadedRectangle = editor ? <div className="faded-rectangle" /> : null
+      return (
+        <div>
+          <div className="step-header">
+            {stepNumberComponent}
+            {promptTextComponent}
+          </div>
+          {editor}
+          {fadedRectangle}
+        </div>
+      )
+    }
+
+    return (<div>
+      <div className="step-header">
+        {stepNumberComponent}
+        <p className="directions">Use information from the text to finish the sentence:</p>
+      </div>
+      <div className="active-content-container">
+        {this.renderEditorContainer()}
+        {this.renderButton()}
+        {this.renderFeedbackSection()}
+      </div>
     </div>)
   }
 
   render() {
-    const { prompt, className, passedRef, stepNumberComponent, } = this.props
-    const { text, } = prompt
-    const promptTextComponent = <p className="prompt-text">{this.allButLastWord(text)} <span>{this.lastWord(text)}</span></p>
+    const { className, passedRef, } = this.props
     return (<div className={className} onClick={this.handleStepInteraction} onKeyDown={this.handleStepInteraction} ref={passedRef} role="button" tabIndex={0}>
       <div className="step-content">
-        <div className="step-header">
-          {stepNumberComponent}
-          <p className="directions">Use information from the text to finish the sentence:</p>
-        </div>
-        {promptTextComponent}
         {this.renderActiveContent()}
       </div>
     </div>)
