@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.11
--- Dumped by pg_dump version 10.11
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1132,6 +1132,39 @@ CREATE SEQUENCE public.classrooms_teachers_id_seq
 --
 
 ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teachers.id;
+
+
+--
+-- Name: concept_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_feedbacks (
+    id integer NOT NULL,
+    uid character varying,
+    data jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_feedbacks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_feedbacks_id_seq OWNED BY public.concept_feedbacks.id;
 
 
 --
@@ -3021,6 +3054,13 @@ ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: concept_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.concept_feedbacks_id_seq'::regclass);
+
+
+--
 -- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3538,6 +3578,14 @@ ALTER TABLE ONLY public.classrooms
 
 ALTER TABLE ONLY public.classrooms_teachers
     ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: concept_feedbacks concept_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_feedbacks
+    ADD CONSTRAINT concept_feedbacks_pkey PRIMARY KEY (id);
 
 
 --
@@ -4286,6 +4334,13 @@ CREATE INDEX index_classrooms_teachers_on_role ON public.classrooms_teachers USI
 --
 
 CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers USING btree (user_id);
+
+
+--
+-- Name: index_concept_feedbacks_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_feedbacks_on_uid ON public.concept_feedbacks USING btree (uid);
 
 
 --
@@ -5934,3 +5989,4 @@ INSERT INTO schema_migrations (version) VALUES ('20200326152208');
 
 INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 
+INSERT INTO schema_migrations (version) VALUES ('20200409151835');
