@@ -388,21 +388,16 @@ export function findResponseByText(text, questionUID, cb) {
 
 export function convertConceptNamesToIds(responses, concepts) {
   let conceptData = concepts.data["0"];
-  let convertedResponses = []
-  responses.forEach((response) => {
-    let responseObj = {}
-    let concepts = []
-    response.concepts.forEach((c) => {
-      let concept = _.find(conceptData, (cd) => { return cd.displayName === c })
+  const convertedResponses = responses.map((response) => {
+    let concepts = response.concepts.map((c) => {
+      let concept = conceptData.find((cd) => { return cd.displayName === c })
       if (!concept) {
         alert(`The concept ${c} doesn't exist! Check your spelling.`)
         throw new Error("Concept not found.")
       }
-      concepts.push({ conceptUID: concept.uid, correct: true, })
+      return { conceptUID: concept.uid, correct: true, }
     })
-    responseObj.text = response.text
-    responseObj.concepts = concepts
-    convertedResponses.push(responseObj)
+    return { "text": response.text, "concepts": concepts }
   })
   return convertedResponses
 }
