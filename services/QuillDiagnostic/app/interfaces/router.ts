@@ -1,5 +1,5 @@
 import { Location } from './location';
-import { Route } from './route';
+import { RouteInterface } from './routeInterface';
 
 export interface Router {
     getCurrentLocation: Function
@@ -22,5 +22,5 @@ export interface Router {
     params: {
         diagnosticID: string
     }
-    routes: Route[],
+    routes: RouteInterface[],
 }

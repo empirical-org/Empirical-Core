@@ -8,7 +8,7 @@ import { EditorState, ContentState } from 'draft-js'
 import {
   submitNewTitleCard,
   submitTitleCardEdit
-} from '../../actions/titleCards'
+} from '../../actions/titleCards.ts'
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -19,7 +19,7 @@ interface TitleCardFormState {
 export interface TitleCardFormProps {
   titleCards: any
   routing: any
-  routeParams: any
+  match: any
   dispatch(any): void 
 }
 
@@ -28,8 +28,8 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   constructor(props) {
     super(props)
 
-    if (props.routeParams.titleCardID && props.titleCards.hasreceiveddata) {
-      const {titleCardID} = props.routeParams
+    if (props.match.params.titleCardID && props.titleCards.hasreceiveddata) {
+      const {titleCardID} = props.match.params
       const titleCard = props.titleCards.data[titleCardID]
       const {title, content} = titleCard
       this.state = {
@@ -42,18 +42,13 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
         content: ''
       }
     }
-
-    this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.handleContentChange = this.handleContentChange.bind(this)
-    this.submit = this.submit.bind(this)
-    this.renderHeaderText = this.renderHeaderText.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.titleCards.hasreceiveddata && !this.props.titleCards.hasreceiveddata) {
-      if (nextProps.routeParams.titleCardID && nextProps.titleCards.hasreceiveddata) {
-        const {titleCardID} = nextProps.routeParams
-        const titleCard = nextProps.titleCards.data[titleCardID]
+  componentDidUpdate(prevProps) {
+    if (this.props.titleCards.hasreceiveddata && !prevProps.titleCards.hasreceiveddata) {
+      if (this.props.match.params.titleCardID && this.props.titleCards.hasreceiveddata) {
+        const {titleCardID} = this.props.match.params
+        const titleCard = this.props.titleCards.data[titleCardID]
         const {title, content} = titleCard
         this.setState({
           content: content ? content : this.state.content,
@@ -63,26 +58,30 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
-  submit() {
-    const { titleCardID } = this.props.routeParams
+  submit = () => {
+    const { dispatch, history, match } = this.props
+    const { params } = match
+    const { titleCardID } = params
+    // TODO: fix add/edit title card action to show new/updated title card without refreshing
     if (titleCardID) {
-      this.props.dispatch(submitTitleCardEdit(titleCardID, this.state))
+      dispatch(submitTitleCardEdit(titleCardID, this.state))
     } else {
-      this.props.dispatch(submitNewTitleCard(this.state))
+      dispatch(submitNewTitleCard(this.state))
     }
+    history.push(`/admin/title-cards`)
   }
 
-  handleTitleChange(e) {
+  handleTitleChange = (e) => {
     this.setState({title: e.target.value})
   }
 
-  handleContentChange(e) {
+  handleContentChange = (e) => {
     const formattedContent = e.replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>')
     this.setState({content: formattedContent})
   }
 
-  renderHeaderText() {
-    const { titleCardID } = this.props.routeParams
+  renderHeaderText = () => {
+    const { titleCardID } = this.props.match.params
     if (titleCardID) {
       return 'Edit this title card'
     } else {

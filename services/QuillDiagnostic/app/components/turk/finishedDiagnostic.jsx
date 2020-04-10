@@ -1,12 +1,11 @@
 import React from 'react'
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
-export default React.createClass({
-
-  componentDidMount: function () {
+export default class extends React.Component {
+  componentDidMount() {
     this.props.saveToLMS()
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <div className="landing-page">
         <h1>You've completed the Quill Placement Activity </h1>
@@ -15,6 +14,5 @@ export default React.createClass({
         </p>
       </div>
     )
-  },
-
-})
+  }
+}

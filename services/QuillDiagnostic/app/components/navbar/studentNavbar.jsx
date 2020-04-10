@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
@@ -16,7 +16,7 @@ const renderLinks = () => (
   </div>
 );
 
-const Navbar = () => (
+const StudentNavbar = () => (
   <header className='nav student-nav'>
     <div className="container">
       <div className="student-nav-section">
@@ -38,4 +38,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Navbar);
+export default connect(select)(StudentNavbar);
