@@ -1,11 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 
-import { LinkListItem } from 'quill-component-library/dist/componentLibrary';;
+import { LinkListItem } from '../linkListItem';;
 
 describe('LinkListItem component', () => {
   const text = 'Fix this sentence.'
-  const wrapper = mount(<LinkListItem text={text} /> )
+  const wrapper = mount(
+    <MemoryRouter>
+      <LinkListItem text={text} />
+    </MemoryRouter>
+  )
 
   it('renders an li element', () => {
     expect(wrapper.find('li')).toHaveLength(1)

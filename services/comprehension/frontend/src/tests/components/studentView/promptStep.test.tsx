@@ -112,11 +112,10 @@ describe('PromptStep component', () => {
         })
 
         describe('when the submission is not <br> or an empty string and does not include the prompt stem', () => {
-          it('should not update the state', () => {
-            const existingHtmlValue = wrapper.state('html')
+          it('should update the state to reconcile the change', () => {
             const submission = { target: { value: "<p>Governments should make voting c</p>" }}
             wrapper.instance().onTextChange(submission)
-            expect(wrapper.state('html')).toBe(existingHtmlValue)
+            expect(wrapper.state('html')).toBe("Governments should make voting compulsory <u>because</u>&nbsp;c")
           })
         })
       })
@@ -138,8 +137,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a button with a disabled class and the text "Get feedback"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(1)
-        expect(wrapper.find('button.disabled').text()).toEqual("Get feedback")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
       })
 
     })
@@ -160,8 +159,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a button with a disabled class and the text "Get feedback"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(1)
-        expect(wrapper.find('button.disabled').text()).toEqual("Get feedback")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
       })
 
     })
@@ -230,8 +229,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Start next sentence"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
       })
 
     })
@@ -254,8 +253,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a disabled button with the text "Get new feedback"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(1)
-        expect(wrapper.find('button.disabled').text()).toEqual("Get new feedback")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get new feedback")
       })
     })
 
@@ -277,8 +276,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Start next sentence"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
       })
     })
 
@@ -301,8 +300,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Done"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button').text()).toEqual("Done")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button').text()).toEqual("Done")
       })
     })
   })
