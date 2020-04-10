@@ -1,33 +1,35 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import SentenceFragmentTemplate from '../sentenceFragments/sentenceFragmentTemplateComponent';
 
 class PlaySentenceFragment extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       submitted: false,
     };
-    this.handleAttemptSubmission = this.handleAttemptSubmission.bind(this);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.question.key !== nextProps.question.key) {
+    const { question } = this.props;
+    const { identified, key }  = question;
+    if (key !== nextProps.question.key) {
       return true;
-    } else if (this.props.question.identified !== nextProps.question.identified) {
+    } else if (identified !== nextProps.question.identified) {
       return true;
     }
     return false;
   }
 
-  handleAttemptSubmission() {
-    if (this.state.submitted === false) {
+  handleAttemptSubmission = () => {
+    const { submitted } = this.state;
+    const { nextQuestion } = this.props;
+    if (submitted === false) {
       this.setState(
         { submitted: true, },
-        this.props.nextQuestion()
+        nextQuestion()
       );
     }
-  }
+  };
 
   render() {
     return (

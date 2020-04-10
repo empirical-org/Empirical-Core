@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
 class NewFocusPointsContainer extends Component {
   constructor() {
@@ -13,36 +13,44 @@ class NewFocusPointsContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, questionTypeLink, actionFile }
-
-    this.submitFocusPointForm = this.submitFocusPointForm.bind(this);
   }
 
-  getFocusPoints() {
-    return this.props[this.state.questionType].data[this.props.params.questionID].focusPoints;
+  getFocusPoints = () => {
+    const { questionType } = this.state;
+    const { match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
+    return this.props[questionType].data[questionID].focusPoints;
   }
 
-  submitFocusPointForm(data) {
+  submitFocusPointForm = data => {
+    const { match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
-    this.props.dispatch(this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data));
+    // TODO: fix add focus point action to show new focus point without refreshing
+    this.props.dispatch(this.state.actionFile.submitNewFocusPoint(questionID, data));
     window.history.back();
-  }
+  };
 
   render() {
-    const states = true
+    const { children, diagnosticQuestions, fillInBlank, match, questions, sentenceFragments } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
-          diagnosticQuestions={this.props.diagnosticQuestions}
-          fillInBlank={this.props.fillInBlank}
+          diagnosticQuestions={diagnosticQuestions}
+          fillInBlank={fillInBlank}
           itemLabel="Focus Point"
           onSubmit={this.submitFocusPointForm}
-          questionID={this.props.params.questionID}
-          questions={this.props.questions}
-          sentenceFragments={this.props.sentenceFragments}
-          states={states}
+          questionID={questionID}
+          questions={questions}
+          sentenceFragments={sentenceFragments}
+          states={true}
         />
-        {this.props.children}
+        {children}
       </div>
     );
   }

@@ -19,37 +19,22 @@ class questionHealth extends Component {
       fib: {},
       flag: 'production'
     }
-
-    this.updateFlag = this.updateFlag.bind(this)
-    this.filterByFlag = this.filterByFlag.bind(this)
-    this.filterQuestions = this.filterQuestions.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
+    const { dispatch } = this.props;
     checkTimeout();
-    this.props.dispatch(loadScoreData());
+    dispatch(loadScoreData());
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = nextProps
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
       this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank)
-      // if (nextProps.questions.hasreceiveddata) {
-      //   this.setSentenceCombiningQuestions(nextProps.scoreAnalysis.data, nextProps.questions.data)
-      // }
-      // if (nextProps.diagnosticQuestions.hasreceiveddata) {
-      //   this.setDiagnosticQuestions(nextProps.scoreAnalysis.data, nextProps.diagnosticQuestions.data)
-      // }
-      // if (nextProps.sentenceFragments.hasreceiveddata) {
-      //   this.setSentenceFragments(nextProps.scoreAnalysis.data, nextProps.sentenceFragments.data)
-      // }
-      // if (nextProps.fillInBlank.hasreceiveddata) {
-      //   this.setFillInBlankQuestions(nextProps.scoreAnalysis.data, nextProps.fillInBlank.data)
-      // }
     }
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     if (nextState.loading) {
       const sc = Object.keys(nextState.sc)
       const sf = Object.keys(nextState.sf)
@@ -60,22 +45,18 @@ class questionHealth extends Component {
     }
   }
 
-  updateFlag(e) {
+  updateFlag = e => {
     const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
     const flag = e.target.value === 'all' ? null : e.target.value
     this.setState({flag: flag}, () => this.filterQuestions(scoreAnalysis, questions, sentenceFragments, fillInBlank))
-  }
+  };
 
-  filterByFlag(q) {
-    return q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag]
-  }
+  filterByFlag = q => {
+    const { flag } = this.state;
+    return q.flag === flag || q.flag === oldFlagToNew[flag]
+  };
 
-  filterQuestions(
-    scoreAnalysis,
-    questions,
-    sentenceFragments,
-    fillInBlank
-  ) {
+  filterQuestions = (scoreAnalysis, questions, sentenceFragments, fillInBlank) => {
     const questionData = questions.data
     const sentenceFragmentData = sentenceFragments.data
     const fillInBlankData = fillInBlank.data
@@ -92,7 +73,7 @@ class questionHealth extends Component {
     this.setSentenceCombiningQuestions(scoreAnalysis.data, filteredQuestionData)
     this.setSentenceFragments(scoreAnalysis.data, filteredSentenceFragmentData)
     this.setFillInBlankQuestions(scoreAnalysis.data, filteredFillInBlankQuestionData)
-  }
+  };
 
   setSentenceCombiningQuestions(analyzedQuestions, sentenceCombiningQuestions) {
     const sc = []
@@ -209,7 +190,8 @@ class questionHealth extends Component {
   }
 
   renderFlagDropdown() {
-    const selectedValue = this.state.flag ? this.state.flag : 'all'
+    const { flag } = this.state;
+    const selectedValue = flag ? flag : 'all'
     const labelStyle = {marginRight: '10px'}
     return (<div style={{marginTop: '5px', }}>
       <label style={labelStyle}>Question Flag:</label>
@@ -277,17 +259,22 @@ class questionHealth extends Component {
   }
 
   render() {
-    if (this.state.loading) {
+    const { loading } = this.state;
+    if (loading) {
       return <Spinner />
     } else {
-      return (<div className="question-health">
-        <h1>Data Dashboard - Health of Questions</h1>
-        {this.renderFlagDropdown()}
-        {this.renderQuestionTypeStatusTable()}
-        {this.renderQuestionTypeTable('sc')}
-        {this.renderQuestionTypeTable('sf')}
-        {this.renderQuestionTypeTable('fib')}
-      </div>)
+      return (
+        <div className="admin-container">
+          <div className="question-health">
+            <h1>Data Dashboard - Health of Questions</h1>
+            {this.renderFlagDropdown()}
+            {this.renderQuestionTypeStatusTable()}
+            {this.renderQuestionTypeTable('sc')}
+            {this.renderQuestionTypeTable('sf')}
+            {this.renderQuestionTypeTable('fib')}
+          </div>
+        </div>
+      )
     }
   }
 }
