@@ -92,10 +92,10 @@
 
   &:not(.active) {
     .step-content {
-      max-height: 138px;
+      max-height: 130px;
       position: relative;
-      @media (max-width: 650px) {
-        max-height: 184px;
+      @media (max-width: 600px) {
+        max-height: 146px;
       }
     }
     .faded-rectangle {
@@ -104,6 +104,10 @@
       background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
       position: absolute;
       bottom: -16px;
+    }
+    .editor {
+      cursor: pointer !important;
+      margin-top: 8px !important;
     }
   }
 
