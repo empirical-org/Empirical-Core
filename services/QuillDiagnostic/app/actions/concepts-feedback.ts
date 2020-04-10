@@ -1,6 +1,5 @@
 const C = require('../constants').default;
-import rootRef from '../libs/firebase';
-const	feedbackRef = rootRef.child('concept-feedback');
+import { ConceptFeedbackApi, } from '../libs/concept_feedback_api.ts';
 import { push } from 'react-router-redux';
 
 const actions = {
@@ -8,15 +7,13 @@ const actions = {
 	// then receive all quotes again as soon as anyone changes anything.
   startListeningToConceptsFeedback() {
     return function (dispatch, getState) {
-      feedbackRef.on('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: snapshot.val(), });
-      });
+      dispatch(actions.loadConceptsFeedback())
     };
   },
   loadConceptsFeedback() {
     return function (dispatch, getState) {
-      feedbackRef.once('value', (snapshot) => {
-        dispatch({ type: C.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: snapshot.val(), });
+      ConceptFeedbackApi.getAll().then((data) => {
+        dispatch({ type: C.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: data, });
       });
     };
   },
@@ -29,27 +26,25 @@ const actions = {
   deleteConceptsFeedback(cid) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_CONCEPTS_FEEDBACK_EDIT, cid, });
-      feedbackRef.child(cid).remove((error) => {
+      ConceptFeedbackApi.remove(cid).then(() => {
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'ConceptsFeedback successfully deleted!', });
-        }
-      });
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'ConceptsFeedback successfully deleted!', });
+      }).catch((error) => {
+        dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+      })
     };
   },
   submitConceptsFeedbackEdit(cid, content) {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_CONCEPTS_FEEDBACK_EDIT, cid, });
-      feedbackRef.child(cid).update(content, (error) => {
+      ConceptFeedbackApi.update(cid, content).then(() => {
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-        }
-      });
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      }).catch((error) => {
+        dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+      })
     };
   },
   toggleNewConceptsFeedbackModal() {
@@ -60,16 +55,16 @@ const actions = {
   submitNewConceptsFeedback(content) {
     return function (dispatch, getState) {
       dispatch({ type: C.AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
-      var newRef = feedbackRef.push(content, (error) => {
+      ConceptFeedbackApi.create(content).then((conceptFeedback) => {
         dispatch({ type: C.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
-        if (error) {
-          dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-        } else {
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-          const action = push(`/admin/concepts-feedback/${newRef.key}`);
-          dispatch(action);
-        }
-      });
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+        const uid = Object.keys(conceptFeedback)[0]
+        const action = push(`/admin/concepts-feedback/${uid}`);
+        dispatch(action);
+      }).catch((error) => {
+        dispatch({ type: C.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+      })
     };
   },
 };
