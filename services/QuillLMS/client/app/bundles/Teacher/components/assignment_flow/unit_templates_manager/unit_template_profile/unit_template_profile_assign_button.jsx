@@ -26,13 +26,13 @@ export default class UnitTemplateProfileAssignButton extends React.Component {
   propsSpecificComponent = () => {
     if (!this.props.data.non_authenticated) { return }
 
-    return <div className="login-or-signup-container light-gray-bordered-box">
+    return (<div className="login-or-signup-container light-gray-bordered-box">
       <strong>Log in or sign-up to assign</strong>
       <div className="login-or-signup-buttons">
         <button className="quill-button medium secondary outlined" onClick={this.handleClickLogIn}>Log in</button>
         <button className="quill-button medium primary contained" onClick={this.handleClickSignUp}>Sign up</button>
       </div>
-    </div>
+    </div>)
   };
 
   render() {
