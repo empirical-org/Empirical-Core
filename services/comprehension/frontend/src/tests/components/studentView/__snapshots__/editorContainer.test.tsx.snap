@@ -41,12 +41,16 @@ exports[`EditorContainer component when the activity has loaded renders 1`] = `
         spellCheck={false}
       />
     </ContentEditable>
-    <img
-      alt="circle with an x in it"
-      className="clear"
-      onClick={[Function]}
-      src="undefined/images/icons/clear.svg"
-    />
+    <button
+      className="disabled clear-button"
+    >
+      <img
+        alt="circle with an x in it"
+        className="clear"
+        src="undefined/images/icons/clear-disabled.svg"
+      />
+      Clear response
+    </button>
   </div>
 </EditorContainer>
 `;
