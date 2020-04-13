@@ -362,40 +362,17 @@ export function findResponseByText(text, questionUID, cb) {
   });
 }
 
-export function convertConceptNamesToIds(responses, concepts) {
-  let conceptData = concepts.data["0"];
-  let convertedResponses = []
-  responses.forEach((response) => {
-    let responseObj = {}
-    let concepts = []
-    response.concepts.forEach((c) => {
-      let concept = _.find(conceptData, (cd) => { return cd.displayName === c })
-      if (!concept) {
-        alert(`The concept ${c} doesn't exist! Check your spelling.`)
-        throw new Error("Concept not found.")
-      }
-      concepts.push({ conceptUID: concept.uid, correct: true, })
-    })
-    responseObj.text = response.text
-    responseObj.concepts = concepts
-    convertedResponses.push(responseObj)
-  })
-  return convertedResponses
-}
-
-export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
-  convertedResponses = convertConceptNamesToIds(responses, concepts)
+export function submitOptimalResponses(qid, conceptUID, responseStrings) {
   return (dispatch) => {
-    convertedResponses.forEach((str) => {
-      const defaultConcept = [{ conceptUID, correct: true}]
+    responseStrings.forEach((str) => {
       const response = {
-        text: obj.text,
+        text: str,
         feedback: "That's a strong sentence!",
         optimal: true,
         questionUID: qid,
         gradeIndex: `human${qid}`,
         count: 1,
-        conceptResults: _.isEmpty(obj.concepts) ? defaultConcept : obj.concepts,
+        conceptResults: [{ conceptUID, correct: true, }],
       }
       dispatch(submitResponse(response))
     })

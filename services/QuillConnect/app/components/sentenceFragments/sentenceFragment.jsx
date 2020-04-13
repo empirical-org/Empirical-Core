@@ -70,10 +70,11 @@ class SentenceFragment extends React.Component {
     dispatch(fragmentActions.submitSentenceFragmentEdit(params.questionID, data));
   }
 
-  submitOptimalResponses(responses) {
-    const { dispatch, params, concepts, } = this.props
+  submitOptimalResponses(responseStrings) {
+    const { dispatch, params, } = this.props
+
     const conceptUID = this.getQuestion().conceptID
-    dispatch(submitOptimalResponses(params.questionID, conceptUID, responses, concepts))
+    dispatch(submitOptimalResponses(params.questionID, conceptUID, responseStrings))
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 

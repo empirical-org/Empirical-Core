@@ -45,11 +45,11 @@ class Question extends React.Component {
     dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
   }
 
-  submitOptimalResponses = (responses) => {
-    const { dispatch, params, concepts, } = this.props
+  submitOptimalResponses = (responseStrings) => {
+    const { dispatch, params, } = this.props
     const conceptUID = this.getQuestion().conceptID
     dispatch(
-      submitOptimalResponses(params.questionID, conceptUID, responses, concepts)
+      submitOptimalResponses(params.questionID, conceptUID, responseStrings)
     )
     this.setState({ uploadingNewOptimalResponses: false, })
   }

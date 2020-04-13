@@ -29,19 +29,9 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
       const workbook = XLSX.read(data, { type: 'array', });
       // get the first sheet of the excel workbook
       const sheet = workbook.Sheets[workbook.SheetNames[0]]
-      const sheet_array = XLSX.utils.sheet_to_json(sheet, {header:1})
-      const responses = []
-      sheet_array.forEach((row: Array<String>) => {
-        let responseObject = {}
-        let concepts = []
-        _.forEach(row.slice(1), (cell) => {
-          concepts.push(cell)
-        })
-        responseObject["text"] = row[0]
-        responseObject["concepts"] = concepts
-        responses.push(responseObject)
-      });
-      this.setState({ responses: responses, })
+      const responses = _.values(sheet).map((value: any) => value.v).filter(Boolean)
+      // get every line after the first one, which should contain the prompt
+      this.setState({ responses: responses.slice(1), })
     };
     fileReader.readAsArrayBuffer(file);
   }
@@ -53,8 +43,7 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
   render() {
     return (<div className="box">
       <h6 className="control subtitle">Upload optimal responses</h6>
-      <p>Upload an xlsx file with the prompt in the first row, followed by optimal responses with their associated concepts.</p>
-      <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895">See example</a>
+      <p>Upload an xlsx file with one sheet, with the prompt as the top line and the optimal responses to create on each line after that.</p>
       <label className="label">File</label>
       <p className="control">
         <input
