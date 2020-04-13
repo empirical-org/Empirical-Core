@@ -1,58 +1,61 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import {
   hashToCollection,
-  ArchivedButton,
-  QuestionList
+  ArchivedButton
 } from 'quill-component-library/dist/componentLibrary'
+import { QuestionList } from '../shared/questionList'
 
 class SentenceFragments extends React.Component {
   constructor(props) {
     super(props)
 
+    const { sentenceFragments } = props
+
     this.state = {
       showOnlyArchived: false,
-      diagnosticQuestions: {}
+      diagnosticQuestions: sentenceFragments.data ? sentenceFragments.data : null
     }
-
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
   }
-
-  componentWillReceiveProps(nextProps) {
+  
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { diagnosticQuestions } = this.state;
     const { sentenceFragments, lessons } = nextProps
     if (sentenceFragments.hasreceiveddata && lessons.hasreceiveddata) {
-      if (Object.keys(this.state.diagnosticQuestions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
+      if (Object.keys(diagnosticQuestions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data) || (!_.isEqual(this.props.lessons.data, lessons.data))) {
         this.setState({ diagnosticQuestions: sentenceFragments.data })
       }
     }
   }
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
+    const { showOnlyArchived } = this.state;
     this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
+      showOnlyArchived: !showOnlyArchived,
     });
-  }
+  };
 
   render() {
-    const sentenceFragments = hashToCollection(this.state.diagnosticQuestions)
+    const { diagnosticQuestions, showOnlyArchived } = this.state;
+    const sentenceFragments = hashToCollection(diagnosticQuestions)
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/sentence-fragments/new'}>
+          <Link to={'/admin/sentence-fragments/new'}>
             <button className="button is-primary">Create a New Sentence Fragment</button>
           </Link>
           <ArchivedButton
             lessons={false}
-            showOnlyArchived={this.state.showOnlyArchived}
+            showOnlyArchived={showOnlyArchived}
             toggleShowArchived={this.toggleShowArchived}
           />
           <p className="menu-label">Sentence Fragments</p>
           <QuestionList
             basePath={'sentence-fragments'}
             questions={sentenceFragments || []}
-            showOnlyArchived={this.state.showOnlyArchived}
+            showOnlyArchived={showOnlyArchived}
           />
         </div>
       </section>
@@ -63,6 +66,7 @@ class SentenceFragments extends React.Component {
 function select(state) {
   return {
     sentenceFragments: state.sentenceFragments,
+    questions: state.questions,
     routing: state.routing,
     lessons: state.lessons,
   }

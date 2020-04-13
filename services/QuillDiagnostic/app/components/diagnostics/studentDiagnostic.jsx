@@ -36,7 +36,7 @@ export class StudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillMount = () => {
+  UNSAFE_componentWillMount = () => {
     const { dispatch, } = this.props
     const { sessionID, } = this.state
     dispatch(clearData());
@@ -47,7 +47,7 @@ export class StudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { playDiagnostic, } = this.props
     if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
@@ -92,13 +92,14 @@ export class StudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playDiagnostic, params, } = this.props
     const { sessionID, } = this.state
+    const { playDiagnostic, match } = this.props
+    const { params } = match
+    const { diagnosticID } = params
 
     this.setState({ error: false, });
 
     const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
-    const { diagnosticID, } = params;
 
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
@@ -165,9 +166,10 @@ export class StudentDiagnostic extends React.Component {
   }
 
   questionsForDiagnostic = () => {
-    const { questions, lessons, params, } = this.props
+    const { questions, lessons, match, } = this.props
     const questionsCollection = hashToCollection(questions.data);
     const { data, } = lessons
+    const { params } = match
     const { lessonID, } = params
     return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
   }
@@ -200,12 +202,16 @@ export class StudentDiagnostic extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, params, } = this.props
-    return lessons.data[params.diagnosticID];
+    const { lessons, match } = this.props
+    const { data } = lessons
+    const { params } = match
+    const { diagnosticID } = params
+    return data[diagnosticID];
   }
 
   questionsForLesson = () => {
-    const { lessons, params, } = this.props
+    const { lessons, match } = this.props
+    const { params } = match
     const { data, } = lessons
     const { diagnosticID, } = params
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
@@ -241,8 +247,10 @@ export class StudentDiagnostic extends React.Component {
   }
 
   getQuestionCount = () => {
-    const { params, } = this.props
-    if (params.diagnosticID == 'researchDiagnostic') {
+    const { match } = this.props
+    const { params } = match
+    const { diagnosticID } = params
+    if (diagnosticID == 'researchDiagnostic') {
       return '15';
     }
     return '22';
@@ -274,8 +282,9 @@ export class StudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { lessons, params, } = this.props
-    const { data, } = lessons
+    const { lessons, match } = this.props
+    const { params } = match
+    const { data } = lessons
     const { diagnosticID, } = params;
     return data[diagnosticID].landingPageHtml
   }
@@ -300,7 +309,7 @@ export class StudentDiagnostic extends React.Component {
   }
 
   render() {
-    const { playDiagnostic, lessons, questions, sentenceFragments, dispatch, } = this.props
+    const { playDiagnostic, dispatch } = this.props
     const { error, saved, } = this.state
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;

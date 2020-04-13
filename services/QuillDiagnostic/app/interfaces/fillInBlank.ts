@@ -5,7 +5,6 @@ export interface FillInBlank {
     cuesLabel: string,
     flag?: string,
     instructions: string,
-    itemLevel: string,
     prefilledText: string,
     prompt: string
 }
