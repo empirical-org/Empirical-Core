@@ -45,7 +45,7 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
     return (<div className="box">
       <h6 className="control subtitle">Upload optimal responses</h6>
       <p>Upload an xlsx file with the prompt in the first row, followed by optimal responses with their associated concepts.</p>
-      <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895" target="_blank" rel="noopener noreferrer">See example</a>
+      <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895" rel="noopener noreferrer" target="_blank">See example</a>
       <label className="label">File</label>
       <p className="control">
         <input
