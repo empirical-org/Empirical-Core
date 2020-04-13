@@ -25,9 +25,10 @@ class questionHealth extends Component {
     this.filterQuestions = this.filterQuestions.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    const { dispatch } = this.props
     checkTimeout();
-    this.props.dispatch(loadScoreData());
+    dispatch(loadScoreData());
   }
 
   componentWillReceiveProps(nextProps) {

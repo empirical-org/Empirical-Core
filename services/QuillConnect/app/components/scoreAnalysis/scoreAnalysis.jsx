@@ -41,12 +41,13 @@ class ScoreAnalysis extends Component {
     this.updateFlag = this.updateFlag.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     checkTimeout();
-    this.props.dispatch(loadScoreData());
-    const { scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
+    const { questionData } = this.state
+    const { dispatch, scoreAnalysis, questions, sentenceFragments, fillInBlank } = this.props
+    dispatch(loadScoreData());
     if (scoreAnalysis.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata && fillInBlank.hasreceiveddata) {
-      if (this.state.questionData.length === 0) {
+      if (questionData.length === 0) {
         this.formatData(this.props)
       }
     }

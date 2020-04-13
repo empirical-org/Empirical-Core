@@ -23,11 +23,14 @@ class EditIncorrectSequencesContainer extends Component {
     this.submitForm = this.submitForm.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { actionFile } = this.state
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid] && actionFile.getUsedSequences) {
-      this.props.dispatch(actionFile.getUsedSequences(this.props.params.questionID))
+    const { getUsedSequences } = actionFile
+    const { dispatch, generatedIncorrectSequences, params } = this.props
+    const { used } = generatedIncorrectSequences
+    const { questionID } = params
+    if (!used[questionID] && getUsedSequences) {
+      dispatch(actionFile.getUsedSequences(questionID))
     }
   }
 

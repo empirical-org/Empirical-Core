@@ -21,9 +21,13 @@ class IncorrectSequencesContainer extends Component {
     this.sortCallback = this.sortCallback.bind(this);
   }
 
-  componentWillMount() {
-    if (this.state.actionFile.getUsedSequences) {
-      this.props.dispatch(this.state.actionFile.getUsedSequences(this.props.params.questionID))
+  componentDidMount() {
+    const { actionFile } = this.state
+    const { getUsedSequences } = actionFile
+    const { dispatch, params } = this.props
+    const { questionID } = params
+    if (getUsedSequences) {
+      dispatch(getUsedSequences(questionID))
     }
   }
 

@@ -37,7 +37,7 @@ class MassEditContainer extends React.Component {
     this.updateConceptResults = this.updateConceptResults.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getResponses();
   }
 

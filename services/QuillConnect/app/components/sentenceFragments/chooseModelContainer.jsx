@@ -15,9 +15,12 @@ class ChooseModelContainer extends Component {
     this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    const { params, sentenceFragments } = this.props
+    const { data } = sentenceFragments
+    const { questionID } = params
     this.setState({
-      modelConceptUID: this.props.sentenceFragments.data[this.props.params.questionID].modelConceptUID
+      modelConceptUID: data[questionID].modelConceptUID
     })
   }
 

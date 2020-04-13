@@ -30,9 +30,10 @@ class FillInBlankForm extends Component {
     this.submit = this.submit.bind(this);
   }
 
-  componentWillMount() {
-    if(this.props.state) {
-      this.setState(this.props.state);
+  componentDidMount() {
+    const { state } = this.props
+    if(state) {
+      this.setState(state);
     }
   }
 

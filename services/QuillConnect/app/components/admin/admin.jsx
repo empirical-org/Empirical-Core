@@ -22,15 +22,16 @@ const TabLink = props => (
 // activeComponent('li');
 
 const adminContainer = React.createClass({
-  componentWillMount() {
-    this.props.dispatch(userActions.firebaseAuth());
-    this.props.dispatch(conceptActions.startListeningToConcepts());
-    this.props.dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
-    this.props.dispatch(questionActions.startListeningToQuestions());
-    this.props.dispatch(fillInBlankActions.startListeningToQuestions());
-    this.props.dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
-    this.props.dispatch(titleCardActions.startListeningToTitleCards())
-    this.props.dispatch(diagnosticLessonActions.loadDiagnosticLessons())
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(userActions.firebaseAuth());
+    dispatch(conceptActions.startListeningToConcepts());
+    dispatch(conceptsFeedbackActions.startListeningToConceptsFeedback());
+    dispatch(questionActions.startListeningToQuestions());
+    dispatch(fillInBlankActions.startListeningToQuestions());
+    dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
+    dispatch(titleCardActions.startListeningToTitleCards())
+    dispatch(diagnosticLessonActions.loadDiagnosticLessons())
   },
 
   render() {
