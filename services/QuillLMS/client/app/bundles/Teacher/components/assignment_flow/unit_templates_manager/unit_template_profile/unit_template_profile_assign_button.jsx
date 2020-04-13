@@ -1,27 +1,26 @@
 import React from 'react';
+import { requestPost, } from '../../../../../../../app/modules/request'
 import AnalyticsWrapper from '../../../shared/analytics_wrapper';
-import { UNIT_TEMPLATE_NAME, ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID, } from '../../localStorageKeyConstants'
+import { UNIT_TEMPLATE_NAME, } from '../../localStorageKeyConstants'
 
 export default class UnitTemplateProfileAssignButton extends React.Component {
   analytics = () => {
     return new AnalyticsWrapper();
   };
 
-  setLocalStorageValues = () => {
+  saveAnonymousAssignmentValues = (redirect) => {
     const { data, } = this.props
     window.localStorage.setItem(UNIT_TEMPLATE_NAME, data.name)
-    window.localStorage.setItem(ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID, data.id)
+    requestPost(
+      '/session/set_post_auth_redirect',
+      { post_auth_redirect: window.location.href },
+      () => window.location.href = redirect
+    );
   }
 
-  handleClickLogIn = () => {
-    this.setLocalStorageValues()
-    window.location.href = '/session/new'
-  }
+  handleClickLogIn = () => this.saveAnonymousAssignmentValues('/session/new')
 
-  handleClickSignUp = () => {
-    this.setLocalStorageValues()
-    window.location.href = '/account/new'
-  }
+  handleClickSignUp = () => this.saveAnonymousAssignmentValues('/account/new')
 
   propsSpecificComponent = () => {
     if (!this.props.data.non_authenticated) { return }

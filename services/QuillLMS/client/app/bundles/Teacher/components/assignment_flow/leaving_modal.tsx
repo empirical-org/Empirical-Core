@@ -6,7 +6,6 @@ import {
   UNIT_NAME,
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
-  ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID
 } from './localStorageKeyConstants'
 
 interface LeavingModalProps {
@@ -27,7 +26,6 @@ export default class LeavingModal extends React.Component<LeavingModalProps, Lea
     window.localStorage.removeItem(UNIT_NAME)
     window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
     window.localStorage.removeItem(CLASSROOMS)
-    window.localStorage.removeItem(ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID)
     window.location.href = '/'
   }
 

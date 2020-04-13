@@ -21,8 +21,8 @@ class SessionsController < ApplicationController
       login_failure 'Login failed. Did you sign up with Google? If so, please log in with Google using the link above.'
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
-      if session[:post_auth_redirect].present?
-        redirect_to URI.parse(session.delete(:post_auth_redirect)).path
+      if session[ApplicationController::POST_AUTH_REDIRECT].present?
+        redirect_to URI.parse(session.delete(ApplicationController::POST_AUTH_REDIRECT)).path
       elsif params[:redirect].present?
         redirect_to URI.parse(params[:redirect]).path
       elsif session[:attempted_path]
@@ -48,9 +48,9 @@ class SessionsController < ApplicationController
       render json: {message: 'Did you sign up with Google? If so, please log in with Google using the link above.', type: 'email'}, status: 401
     elsif @user.authenticate(params[:user][:password])
       sign_in(@user)
-      if session[:post_auth_redirect].present?
-        url = session[:post_auth_redirect]
-        session.delete(:post_auth_redirect)
+      if session[ApplicationController::POST_AUTH_REDIRECT].present?
+        url = session[ApplicationController::POST_AUTH_REDIRECT]
+        session.delete(ApplicationController::POST_AUTH_REDIRECT)
         render json: {redirect: url}
       elsif params[:redirect].present?
         render json: {redirect: URI.parse(params[:redirect]).path}
@@ -100,13 +100,26 @@ class SessionsController < ApplicationController
     @title = 'Log In'
     session[:role] = nil
     if params[:redirect]
-      session[:post_auth_redirect] = params[:redirect]
+      session[ApplicationController::POST_AUTH_REDIRECT] = params[:redirect]
     end
   end
 
   def failure
     login_failure_message
     # redirect_to signed_out_path
+  end
+
+
+  def set_post_auth_redirect
+    session[ApplicationController::POST_AUTH_REDIRECT] = params[ApplicationController::POST_AUTH_REDIRECT]
+    render json: {}
+  end
+
+  def finish_sign_up
+    if session[ApplicationController::POST_AUTH_REDIRECT]
+      return redirect_to session.delete(session[ApplicationController::POST_AUTH_REDIRECT])
+    end
+    redirect_to profile_path
   end
 
   private

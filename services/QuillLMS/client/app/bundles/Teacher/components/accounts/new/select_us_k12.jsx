@@ -35,7 +35,7 @@ class SelectUSK12 extends React.Component {
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
-        window.location = '/profile'
+        window.location = '/finish_sign_up'
       } else {
         // to do, use Sentry to capture error
       }

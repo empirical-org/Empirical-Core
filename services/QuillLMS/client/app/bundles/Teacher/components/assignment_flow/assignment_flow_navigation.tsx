@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 
 import LeavingModal from './leaving_modal'
 
-import { ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID } from './localStorageKeyConstants'
-
 const quillLogoGreenSrc =  `${process.env.CDN_URL}/images/logos/quill-logo-green.svg`
 
 interface AssignmentFlowNavigationProps {
@@ -90,11 +88,6 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
     this.state = {
       showLeavingModal: false
     }
-  }
-
-  componentDidMount() {
-    // we want to remove the anonymous assign unit template id every time we enter the assignment flow because otherwise we could end up in a loop where the user keeps getting directed back here from the home page
-    window.localStorage.removeItem(ANONYMOUS_ASSIGN_UNIT_TEMPLATE_ID)
   }
 
   toggleLeavingModal = () => {

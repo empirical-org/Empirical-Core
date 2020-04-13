@@ -104,13 +104,13 @@ describe SessionsController, type: :controller do
     context 'when user is authenticated' do
       context 'when session post auth redirect present' do
         before do
-          session[:post_auth_redirect] = root_path
+          session[ApplicationController::POST_AUTH_REDIRECT] = root_path
         end
 
         it 'should redirect to the value' do
           post :login_through_ajax, user: { email: user.email, password: "test123" }, format: :json
           expect(response.body).to eq({redirect: root_path}.to_json)
-          expect(session[:post_auth_redirect]).to eq nil
+          expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq nil
         end
       end
 
@@ -194,11 +194,11 @@ describe SessionsController, type: :controller do
   describe '#new' do
     it 'should set the js file, role in session  and post auth redirect in session' do
       session[:role] = "something"
-      session[:post_auth_redirect] = "something else"
+      session[ApplicationController::POST_AUTH_REDIRECT] = "something else"
       get :new, redirect: root_path
       expect(assigns(:js_file)).to eq "login"
       expect(session[:role]).to eq nil
-      expect(session[:post_auth_redirect]).to eq root_path
+      expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq root_path
     end
   end
 end
