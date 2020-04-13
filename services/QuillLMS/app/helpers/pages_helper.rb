@@ -79,6 +79,11 @@ module PagesHelper
             img: 'team-eric-adams@2x.png'
           },
           {
+            name: 'Devin Kawailani Barricklow',
+            title: 'Curriculum Associate',
+            img: 'team-devin-barricklow@2x.png'
+          },
+          {
             name: 'Shannon Browne',
             title: 'Senior Instructional Coach',
             img: 'team-shannon-browne@2x.png'
@@ -112,6 +117,11 @@ module PagesHelper
             name: 'Emilia Friedberg',
             title: 'Software Developer',
             img: 'team-emilia-friedberg@2x.png'
+          },
+          {
+            name: 'Daniel Giovanniello',
+            title: 'Partnerships Associate',
+            img: 'team-daniel-giovanniello@2x.png'
           },
           {
             name: 'Jeremy Hertz',
