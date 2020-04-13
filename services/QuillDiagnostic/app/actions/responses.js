@@ -379,9 +379,9 @@ export function convertConceptNamesToIds(responses, concepts) {
 }
 
 export function submitOptimalResponses(qid, conceptUID, responses, concepts) {
-  convertedResponses = convertConceptNamesToIds(responses, concepts)
+  const convertedResponses = convertConceptNamesToIds(responses, concepts)
   return (dispatch) => {
-    convertedResponses.forEach((str) => {
+    convertedResponses.forEach((obj) => {
       const defaultConcept = [{ conceptUID, correct: true}]
       const response = {
         text: obj.text,
