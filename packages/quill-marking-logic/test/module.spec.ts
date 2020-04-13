@@ -1,7 +1,7 @@
 const questionPrompt: string = "Bats have wings. They can fly.";
 import {responses, focusPoints, incorrectSequences} from './data/batswings';
 import { assert } from 'chai';
-import {checkSentenceCombining} from '../dist/lib';
+import {checkSentenceCombining} from '../src/libs/graders/sentence_combining';
 import {Response} from '../src/interfaces';
 import { feedbackStrings } from '../src/libs/constants/feedback_strings';
 import {spacingBeforePunctuation} from '../src/libs/algorithms/spacingBeforePunctuation';

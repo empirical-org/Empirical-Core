@@ -82,7 +82,7 @@ But how can democracies have representative governments unless all or most of th
             className="step-number active"
             key="1"
           >
-            1
+            0
           </div>
         </button>
       </StepLink>
@@ -101,7 +101,7 @@ But how can democracies have representative governments unless all or most of th
             className="step-number "
             key="2"
           >
-            2
+            1
           </div>
         </button>
       </StepLink>
@@ -120,7 +120,7 @@ But how can democracies have representative governments unless all or most of th
             className="step-number "
             key="3"
           >
-            3
+            2
           </div>
         </button>
       </StepLink>
@@ -139,7 +139,7 @@ But how can democracies have representative governments unless all or most of th
             className="step-number "
             key="4"
           >
-            4
+            3
           </div>
         </button>
       </StepLink>
@@ -151,7 +151,7 @@ But how can democracies have representative governments unless all or most of th
         <p
           className="directions"
         >
-          Read the passage
+          Read the passage.
         </p>
         <h1
           className="title"
@@ -177,240 +177,213 @@ But how can democracies have representative governments unless all or most of th
         className="steps-inner-container"
       >
         <div
-          className="step active"
-          role="button"
-          tabIndex={0}
+          className="read-passage-step-container"
         >
-          <div
-            className="step-content"
+          <h2>
+            Read the passage
+          </h2>
+          <button
+            className="quill-button large primary contained done-reading-button"
+            onClick={[Function]}
+            type="button"
           >
-            <div
-              className="step-header"
-            >
+            Done reading
+          </button>
+        </div>
+        <div>
+          <h2>
+            Then, complete these sentences
+          </h2>
+          <PromptStep
+            activateStep={[Function]}
+            active={false}
+            className="step "
+            completeStep={[Function]}
+            everyOtherStepCompleted={false}
+            key="2"
+            passedRef={[Function]}
+            prompt={
+              Object {
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+
+ Governments should make voting compulsory because otherwise not everyone will vote.",
+                "prompt_id": 1,
+                "text": "Governments should make voting compulsory because",
+              }
+            }
+            stepNumber={2}
+            stepNumberComponent={
               <div
-                className="step-number active"
-                key="1"
+                className="step-number "
               >
                 1
               </div>
-              <p
-                className="directions"
-              >
-                Read the passage:
-              </p>
-            </div>
-            <p
-              className="passage-title"
-            >
-              Should Voting be Required?
-            </p>
-            <button
-              className="quill-button done-reading-button"
-              onClick={[Function]}
-              type="button"
-            >
-              Done reading
-            </button>
-          </div>
-        </div>
-        <PromptStep
-          activateStep={[Function]}
-          active={false}
-          className="step "
-          completeStep={[Function]}
-          everyOtherStepCompleted={false}
-          key="2"
-          passedRef={[Function]}
-          prompt={
-            Object {
-              "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
-
- Governments should make voting compulsory because otherwise not everyone will vote.",
-              "prompt_id": 1,
-              "text": "Governments should make voting compulsory because",
             }
-          }
-          stepNumber={2}
-          stepNumberComponent={
-            <div
-              className="step-number "
-            >
-              2
-            </div>
-          }
-          submitResponse={[Function]}
-          submittedResponses={Array []}
-        >
-          <div
-            className="step "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={0}
+            submitResponse={[Function]}
+            submittedResponses={Array []}
           >
             <div
-              className="step-content"
+              className="step "
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <div
-                className="step-header"
+                className="step-content"
               >
-                <div
-                  className="step-number "
-                  key="2"
-                >
-                  2
+                <div>
+                  <div
+                    className="step-header"
+                  >
+                    <div
+                      className="step-number "
+                      key="2"
+                    >
+                      1
+                    </div>
+                    <p
+                      className="prompt-text"
+                    >
+                      Governments should make voting compulsory
+                       
+                      <span>
+                        because
+                      </span>
+                    </p>
+                  </div>
                 </div>
-                <p
-                  className="directions"
-                >
-                  Use information from the text to finish the sentence:
-                </p>
               </div>
-              <p
-                className="prompt-text"
-              >
-                Governments should make voting compulsory
-                 
-                <span>
-                  because
-                </span>
-              </p>
             </div>
-          </div>
-        </PromptStep>
-        <PromptStep
-          activateStep={[Function]}
-          active={false}
-          className="step "
-          completeStep={[Function]}
-          everyOtherStepCompleted={false}
-          key="3"
-          passedRef={[Function]}
-          prompt={
-            Object {
-              "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+          </PromptStep>
+          <PromptStep
+            activateStep={[Function]}
+            active={false}
+            className="step "
+            completeStep={[Function]}
+            everyOtherStepCompleted={false}
+            key="3"
+            passedRef={[Function]}
+            prompt={
+              Object {
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory, but with exceptions for people who have good reasons for not being able to vote.",
-              "prompt_id": 2,
-              "text": "Governments should make voting compulsory, but",
+                "prompt_id": 2,
+                "text": "Governments should make voting compulsory, but",
+              }
             }
-          }
-          stepNumber={3}
-          stepNumberComponent={
-            <div
-              className="step-number "
-            >
-              3
-            </div>
-          }
-          submitResponse={[Function]}
-          submittedResponses={Array []}
-        >
-          <div
-            className="step "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={0}
+            stepNumber={3}
+            stepNumberComponent={
+              <div
+                className="step-number "
+              >
+                2
+              </div>
+            }
+            submitResponse={[Function]}
+            submittedResponses={Array []}
           >
             <div
-              className="step-content"
+              className="step "
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <div
-                className="step-header"
+                className="step-content"
               >
-                <div
-                  className="step-number "
-                  key="3"
-                >
-                  3
+                <div>
+                  <div
+                    className="step-header"
+                  >
+                    <div
+                      className="step-number "
+                      key="3"
+                    >
+                      2
+                    </div>
+                    <p
+                      className="prompt-text"
+                    >
+                      Governments should make voting compulsory,
+                       
+                      <span>
+                        but
+                      </span>
+                    </p>
+                  </div>
                 </div>
-                <p
-                  className="directions"
-                >
-                  Use information from the text to finish the sentence:
-                </p>
               </div>
-              <p
-                className="prompt-text"
-              >
-                Governments should make voting compulsory,
-                 
-                <span>
-                  but
-                </span>
-              </p>
             </div>
-          </div>
-        </PromptStep>
-        <PromptStep
-          activateStep={[Function]}
-          active={false}
-          className="step "
-          completeStep={[Function]}
-          everyOtherStepCompleted={false}
-          key="4"
-          passedRef={[Function]}
-          prompt={
-            Object {
-              "max_attempts": 5,
-              "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
+          </PromptStep>
+          <PromptStep
+            activateStep={[Function]}
+            active={false}
+            className="step "
+            completeStep={[Function]}
+            everyOtherStepCompleted={false}
+            key="4"
+            passedRef={[Function]}
+            prompt={
+              Object {
+                "max_attempts": 5,
+                "max_attempts_feedback": "Nice effort! You made some strong revisions. Here is an example of a strong response. What is similar or different about your response? 
 
  Governments should make voting compulsory so that the elected government represents the majority of the population.",
-              "prompt_id": 3,
-              "text": "Governments should make voting compulsory so",
+                "prompt_id": 3,
+                "text": "Governments should make voting compulsory so",
+              }
             }
-          }
-          stepNumber={4}
-          stepNumberComponent={
-            <div
-              className="step-number "
-            >
-              4
-            </div>
-          }
-          submitResponse={[Function]}
-          submittedResponses={Array []}
-        >
-          <div
-            className="step "
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="button"
-            tabIndex={0}
+            stepNumber={4}
+            stepNumberComponent={
+              <div
+                className="step-number "
+              >
+                3
+              </div>
+            }
+            submitResponse={[Function]}
+            submittedResponses={Array []}
           >
             <div
-              className="step-content"
+              className="step "
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex={0}
             >
               <div
-                className="step-header"
+                className="step-content"
               >
-                <div
-                  className="step-number "
-                  key="4"
-                >
-                  4
+                <div>
+                  <div
+                    className="step-header"
+                  >
+                    <div
+                      className="step-number "
+                      key="4"
+                    >
+                      3
+                    </div>
+                    <p
+                      className="prompt-text"
+                    >
+                      Governments should make voting compulsory
+                       
+                      <span>
+                        so
+                      </span>
+                    </p>
+                  </div>
                 </div>
-                <p
-                  className="directions"
-                >
-                  Use information from the text to finish the sentence:
-                </p>
               </div>
-              <p
-                className="prompt-text"
-              >
-                Governments should make voting compulsory
-                 
-                <span>
-                  so
-                </span>
-              </p>
             </div>
-          </div>
-        </PromptStep>
+          </PromptStep>
+        </div>
       </div>
     </div>
   </div>
