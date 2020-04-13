@@ -1,9 +1,9 @@
 from flask import jsonify, make_response
-from grammarcheck import GrammarChecker
+from grammarcheck import SpaCyGrammarChecker
 
 
 GRAMMAR_MODEL_PATH = "model/grammar/"
-checker = GrammarChecker(GRAMMAR_MODEL_PATH)
+checker = SpaCyGrammarChecker(GRAMMAR_MODEL_PATH)
 
 FEEDBACK_TYPE = 'grammar'
 POS_FEEDBACK = 'Correct grammar!'
