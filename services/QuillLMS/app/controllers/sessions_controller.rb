@@ -117,7 +117,9 @@ class SessionsController < ApplicationController
 
   def finish_sign_up
     if session[ApplicationController::POST_AUTH_REDIRECT]
-      return redirect_to session.delete(session[ApplicationController::POST_AUTH_REDIRECT])
+      url = session[ApplicationController::POST_AUTH_REDIRECT]
+      session.delete(ApplicationController::POST_AUTH_REDIRECT)
+      return redirect_to url
     end
     redirect_to profile_path
   end

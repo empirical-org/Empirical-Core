@@ -201,4 +201,32 @@ describe SessionsController, type: :controller do
       expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq root_path
     end
   end
+
+  describe '#set post_auth_redirect' do
+    it 'should save the post_auth_redirect param to the session' do
+      url = "/blah"
+      get :set_post_auth_redirect, post_auth_redirect: url
+      expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq url
+    end
+  end
+
+  describe '#finish_sign_up' do
+    context 'when there is a post auth redirect saved' do
+      it 'should redirect to the post auth redirect and remove it from the session' do
+        url = "/blah"
+        session[ApplicationController::POST_AUTH_REDIRECT] = url
+        get :finish_sign_up
+        expect(response).to redirect_to url
+        expect(session[ApplicationController::POST_AUTH_REDIRECT]).to be nil
+      end
+    end
+
+    context 'when there is no post auth redirect' do
+      it 'should redirect to the profile path' do
+        get :finish_sign_up
+        expect(response).to redirect_to profile_path
+      end
+    end
+
+  end
 end
