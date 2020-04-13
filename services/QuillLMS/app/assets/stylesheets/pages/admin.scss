@@ -1,3 +1,46 @@
-#staff_panel article {
+#staff_console_panel article {
   margin: 0;
+}
+
+.staff_panel {
+  font-family: "adelle-sans", "Arial", sans-serif;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  .panel_row {
+    flex: 1 0 100%;
+    .header_text {
+      padding: 40 0 0 40;
+    }
+  }
+  button {
+    transition: box-shadow .3s;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 200px;
+    width: 225px;
+    margin: 40px;
+    box-sizing: border-box;
+    img {
+      padding: 20px;
+      height: 105px;
+    }
+    #quill-img {
+      border-radius: 50%;
+    }
+    h2 {
+      color: #989898;
+      font-weight: 600;
+    }
+  }
+  button:hover {
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow:         3px 3px 5px 6px #ccc;
+    h2 {
+      color: #1C4607;
+      font-weight: 600;
+    }
+  }
 }

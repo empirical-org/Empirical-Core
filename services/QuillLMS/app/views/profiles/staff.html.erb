@@ -1,60 +1,43 @@
 <div class="container">
-  <div id="staff_panel">
-    <article class="simple-rounded-box">
-      <table class="table">
-      <thead><tr><th>Staff Console</th></tr></thead>
-      <tbody>
-      <tr><td><%= link_to 'Rails Admin - Master CMS (Beta)', '/staff/activity' %></td></tr>
-      <tr><td><%= link_to 'User Manager', cms_users_path %></td></tr>
-      <tr><td><%= link_to 'School Manager', cms_schools_path %></td></tr>
-      </tbody>
-      </table>
-    </article>
+  <div id="staff_container">
+    <div class="staff_panel">
+      <div class="panel_row">
+        <h2 class="header_text">Apps</h2>
+      </div>
+      <div class="panel_row">
+        <a href= <%= "#{ENV['QUILL_CONNECT_URL']}/#/admin" %>>
+          <button class="link_box" type="button">
+            <img src="https://assets.quill.org/images/shared/open-book.svg">
+            <h2>Connect</h2>
+          </button>
+        </a>
+        <a href="https://diagnostic.quill.org/#/admin">
+          <button class="link_box">
+            <img src="https://assets.quill.org/images/shared/presentation-board.svg">
+            <h2>Diagnostic</h2>
+          </button>
+        </a>
+        <a href="https://beta-grammar.quill.org/#/admin">
+          <button class="link_box">
+            <img src="https://assets.quill.org/images/shared/blue-school.svg">
+            <h2>Grammar</h2>
+          </button>
+        </a>
+      </div>
+    </div>
 
-    <article class="simple-rounded-box">
-      <table class="table">
-      <thead><tr><th>Teacher Fixes</th></tr></thead>
-      <tbody>
-      <tr><td><%= link_to "Index", 'teacher_fix' %></td></tr>
-      </tbody>
-      </table>
-    </article>
-
-    <article class="simple-rounded-box">
-      <table class="table">
-      <thead><tr><th>Teacher Resources</th></tr></thead>
-      <tbody>
-      <tr><td><%= link_to 'All Posts', cms_blog_posts_path %></td></tr>
-      <tr><td><%= link_to 'Manage Announcements', cms_announcements_path %></td></tr>
-      <tr><td><%= link_to 'Manage Uploaded Images', cms_images_path %></td></tr>
-    </tbody>
-      </table>
-    </article>
-
-    <article class="simple-rounded-box">
-      <table class="table">
-      <thead><tr><th>Activity Management System</th></tr></thead>
-      <tbody>
-      <tr><td><%= link_to 'Activities Editor', cms_activity_classifications_path %></td></tr>
-      <tr><td><%= link_to "Activity Packs Editor", cms_unit_templates_path %></td></tr>
-      <tr><td><%= link_to "Activity Packs Categories Editor", cms_unit_template_categories_path %></td></tr>
-      <tr><td><%= link_to "Authors Editor", cms_authors_path %></td></tr>
-    </tbody>
-      </table>
-    </article>
-
-    <article class="simple-rounded-box">
-      <table class="table">
-      <thead><tr><th>Concept Management System</th></tr></thead>
-      <tbody>
-      <tr><td><%= link_to 'Sections Manager (Standard Level)', cms_sections_path %></td></tr>
-      <tr><td><%= link_to "Topic Categories Manager", cms_topic_categories_path %></td></tr>
-      <tr><td><%= link_to 'Topics Manager (Standard)', cms_topics_path %></td></tr>
-      <tr><td><%= link_to "Concepts Manager", cms_concepts_path %></td></tr>
-      <tr><td><%= link_to "Activity Category Manager", cms_activity_categories_path %></td></tr>
-    </tbody>
-      </table>
-    </article>
-
+    <div class="staff_panel">
+      <div class="panel_row">
+        <h2 class="header_text">Staff</h2>
+      </div>
+      <div class="panel_row">
+        <a href="/profile/console">
+          <button class="link_box">
+            <img id="quill-img"src="https://assets.quill.org/images/authors/quill-staff.png">
+            <h2>Console</h2>
+          </button>
+        </a>
+      </div>
+    </div>
   </div>
 </div>

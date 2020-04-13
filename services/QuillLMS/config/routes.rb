@@ -81,7 +81,9 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assessments
   resources :assignments
   resources :notifications, only: :index, format: :json
-  resource :profile
+  resource :profile do
+    get :console, to: 'profiles#staff_console'
+  end
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
@@ -443,6 +445,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/select_school', to: 'schools#select_school'
 
   namespace :cms do
+    get '/staff_console', to: 'cms#console'
     resources :images, only: [:index, :destroy, :create]
     put '/activity_categories/update_order_numbers', to: 'activity_categories#update_order_numbers'
     post '/activity_categories/destroy_and_recreate_acas', to: 'activity_categories#destroy_and_recreate_acas'
