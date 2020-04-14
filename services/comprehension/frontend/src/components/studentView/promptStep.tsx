@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Filter from 'bad-words'
+import * as Filter from 'bad-words'
 
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
