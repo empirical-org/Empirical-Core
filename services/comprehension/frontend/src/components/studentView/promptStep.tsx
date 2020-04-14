@@ -29,6 +29,8 @@ interface PromptStepState {
 
 const filter = new Filter()
 
+const KNOWN_ABBREVIATIONS = ['e.g.', 'i.e.', 'etc.', 'U.S.A.', 'U.S.', 'Mr.', 'Mrs.', 'Dr.', 'St.', 'Ave.', 'Rd.', 'Esq.', 'Inc.', 'Sr.', 'Jr.']
+
 const RESPONSE = 'response'
 const MINIMUM_WORD_COUNT = 3
 const MAXIMUM_WORD_COUNT = 100
@@ -179,12 +181,13 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
     const textWithoutStem = entry.replace(promptText, '')
     const textWithoutStemArray = textWithoutStem.split(' ').filter(s => s.length)
+    const knownAbbreviationsRegex = new RegExp(KNOWN_ABBREVIATIONS.join('|').replace('.', '\.'), 'ig')
 
     if (filter.isProfane(textWithoutStem)) {
       this.setState({ customFeedback: PROFANITY_FEEDBACK, customFeedbackKey: 'profanity' })
     } else if (textWithoutStemArray.length < MINIMUM_WORD_COUNT) {
       this.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short', })
-    } else if (textWithoutStem.match(/\.(.)+/)) {
+    } else if (textWithoutStem.replace(knownAbbreviationsRegex, '').match(/\.\s/)) {
       this.setState({ customFeedback: MULTIPLE_SENTENCES_FEEDBACK, customFeedbackKey: 'multiple-sentences', })
     } else if (textWithoutStemArray.length > MAXIMUM_WORD_COUNT) {
       this.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
