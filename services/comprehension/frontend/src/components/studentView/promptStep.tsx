@@ -178,7 +178,7 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { submitResponse, } = this.props
 
     const textWithoutStem = entry.replace(promptText, '')
-    const textWithoutStemArray = textWithoutStem.split(' ')
+    const textWithoutStemArray = textWithoutStem.split(' ').filter(s => s.length)
 
     if (filter.isProfane(textWithoutStem)) {
       this.setState({ customFeedback: PROFANITY_FEEDBACK, customFeedbackKey: 'profanity' })
