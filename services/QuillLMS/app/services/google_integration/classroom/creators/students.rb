@@ -46,6 +46,14 @@ module GoogleIntegration::Classroom::Creators::Students
     if counter > 2
       return nil
     end
+
+    if data[:google_id]
+      student = User.find_or_initialize_by(google_id: data[:google_id])
+      unless student.nil?
+        return nil
+      end
+    end
+
     if data[:email]
       student = User.find_or_initialize_by(email: data[:email].downcase)
       if student.new_record?
