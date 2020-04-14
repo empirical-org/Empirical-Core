@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import Select from 'react-select-search'
 import _ from 'underscore'
 import Select from 'react-select';
 
@@ -37,6 +36,7 @@ class ConceptSelector extends React.Component {
   render() {
     return (
       <Select
+        className="concepts-container"
         disabled={this.props.selectorDisabled}
         onChange={this.props.handleSelectorChange}
         options={this.conceptsToOptions()}

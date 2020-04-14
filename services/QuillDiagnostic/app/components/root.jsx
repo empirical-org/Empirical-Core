@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './navbar/navbar';
+import NavBar from './navbar/adminNavbar';
 
 const Root = ({ params, children }) => {
   return (

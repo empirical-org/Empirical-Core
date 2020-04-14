@@ -6,12 +6,9 @@ export default class UploadOptimalResponses extends React.Component {
     super(props)
 
     this.state = { responses: [], }
-
-    this.handleChangeFile = this.handleChangeFile.bind(this)
-    this.submitResponses = this.submitResponses.bind(this)
   }
 
-  handleChangeFile(file) {
+  handleChangeFile = file => {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
       const data = new Uint8Array(e.target.result);
@@ -21,11 +18,11 @@ export default class UploadOptimalResponses extends React.Component {
       this.setState({ responses: responses.slice(1), })
     };
     fileReader.readAsArrayBuffer(file);
-  }
+  };
 
-  submitResponses() {
+  submitResponses = () => {
     this.props.submitOptimalResponses(this.state.responses)
-  }
+  };
 
   render() {
     return (<div className="box">
@@ -42,5 +39,4 @@ export default class UploadOptimalResponses extends React.Component {
       <button className="button is-primary" onClick={this.submitResponses}>Upload Optimal Responses</button>
     </div>)
   }
-
 }

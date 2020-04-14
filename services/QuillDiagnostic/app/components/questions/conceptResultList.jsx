@@ -8,15 +8,13 @@ export default class conceptResultList extends React.Component {
     this.state = {
       conceptResults: {}
     }
-
-    this.handleConceptChange = this.handleConceptChange.bind(this)
   }
 
-  handleConceptChange(e) {
+  handleConceptChange = e => {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
     newConceptResults[e.value] ? null : newConceptResults[e.value] = false
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
-  }
+  };
 
   toggleConceptResultCorrect(key) {
     const newConceptResults = Object.assign({}, this.state.conceptResults)

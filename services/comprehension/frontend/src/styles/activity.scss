@@ -62,6 +62,21 @@
     right: 0;
     top: 0;
     height: min-content;
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+  }
+
+  .read-passage-step-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #d8d8d8;
+    margin-bottom: 32px;
   }
 
   .passage {
@@ -80,9 +95,10 @@
 
   .title {
     font-size: 36px;
-    font-weight: 600;
+    font-weight: bold;
     line-height: 1.22;
     margin-bottom: 32px;
+    max-width: 680px;
   }
 
   .step-links {

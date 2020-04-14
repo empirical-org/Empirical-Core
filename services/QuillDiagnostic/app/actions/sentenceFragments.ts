@@ -1,12 +1,8 @@
 const C = require('../constants').default;
-import pathwaysActions from './pathways.js';
-import rootRef from '../libs/firebase';
 import { submitResponse } from './responses';
 import { push } from 'react-router-redux';
-let	sentenceFragmentsRef = rootRef.child('diagnostic_sentenceFragments'),
-moment = require('moment');
 import _ from 'lodash';
-import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
+import { Question } from '../interfaces/questions'
 import {
   QuestionApi,
   FocusPointApi,
@@ -70,6 +66,22 @@ function submitSentenceFragmentEdit(sfid, content) {
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
   };
+}
+
+function getUsedSequences(qid) {
+  return (dispatch, getState) => {
+    const existingIncorrectSeqs = getState().sentenceFragments.data[qid].incorrectSequences
+    const usedSeqs: string[] = []
+    if (existingIncorrectSeqs) {
+      Object.values(existingIncorrectSeqs).forEach((inSeq: any) => {
+        const phrases = inSeq.text.split('|||')
+        phrases.forEach((p) => {
+          usedSeqs.push(p)
+        })
+      })
+    }
+    dispatch(setUsedSequences(qid, usedSeqs));
+  }
 }
 
 function submitNewIncorrectSequence(sfid, data) {
@@ -165,6 +177,9 @@ function deleteFocusPoint(sfid, fpid) {
   };
 }
 
+function setUsedSequences(qid, seq) {
+  return {type: C.SET_USED_SEQUENCES, qid, seq}
+}
 function startResponseEdit(sfid, rid) {
   return { type: C.START_RESPONSE_EDIT, sfid, rid, };
 }
@@ -201,6 +216,7 @@ export default {
   submitNewIncorrectSequence,
   submitEditedIncorrectSequence,
   deleteIncorrectSequence,
+  getUsedSequences,
   toggleNewSentenceFeedbackModal,
   submitNewSentenceFragment,
   submitNewFocusPoint,
