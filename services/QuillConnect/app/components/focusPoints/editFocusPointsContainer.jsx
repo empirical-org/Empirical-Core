@@ -14,20 +14,18 @@ class EditFocusPointsContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, questionTypeLink, actionFile }
-
-    this.submitForm = this.submitForm.bind(this);
   }
 
-  getFocusPoint() {
+  getFocusPoint = () => {
     const focusPoint = this.props[this.state.questionType].data[this.props.params.questionID].focusPoints[this.props.params.focusPointID]
     return Object.assign(focusPoint, { id: this.props.params.focusPointID, });
   }
 
-  submitForm(data, focusPointID) {
+  submitForm = (data, focusPointID) => {
     delete data.conceptResults.null;
     this.props.dispatch(this.state.actionFile.submitEditedFocusPoint(this.props.params.questionID, data, focusPointID));
     window.history.back();
-  }
+  };
 
   render() {
     return (

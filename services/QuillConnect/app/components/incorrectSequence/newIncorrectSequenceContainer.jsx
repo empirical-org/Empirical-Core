@@ -14,8 +14,6 @@ class NewIncorrectSequencesContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, actionFile, questionTypeLink };
-
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
   }
 
   componentDidMount() {
@@ -29,11 +27,11 @@ class NewIncorrectSequencesContainer extends Component {
     }
   }
 
-  submitSequenceForm(data) {
+  submitSequenceForm = data => {
     delete data.conceptResults.null;
     this.props.dispatch(this.state.actionFile.submitNewIncorrectSequence(this.props.params.questionID, data));
     window.history.back();
-  }
+  };
 
   render() {
     const { generatedIncorrectSequences, params, questions, sentenceFragments, } = this.props

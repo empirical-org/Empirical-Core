@@ -14,31 +14,28 @@ class ChooseModelContainer extends Component {
     this.state = {
       modelConceptUID: data[questionID].modelConceptUID
     }
-    this.selectConcept = this.selectConcept.bind(this);
-    this.saveModelConcept = this.saveModelConcept.bind(this);
-    this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
-  getModelConceptUID() {
+  getModelConceptUID = () => {
     return this.state.modelConceptUID || this.props.sentenceFragments.data[this.props.params.questionID].modelConceptUID;
   }
 
-  saveModelConcept() {
+  saveModelConcept = () => {
     this.props.dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(this.props.params.questionID,
       Object.assign({}, this.props.sentenceFragments.data[this.props.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
     window.history.back();
-  }
+  };
 
-  removeModelConcept() {
+  removeModelConcept = () => {
     let questionData = Object.assign({}, this.props.sentenceFragments.data[this.props.params.questionID], {modelConceptUID: null});
     this.props.dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(this.props.params.questionID, questionData));
-  }
+  };
 
-  selectConcept(e) {
+  selectConcept = e => {
     this.setState({modelConceptUID: e.value});
-  }
+  };
 
-  renderButtons() {
+  renderButtons = () => {
     return(
       <p className="control">
         <button
@@ -79,7 +76,6 @@ class ChooseModelContainer extends Component {
       </div>
     )
   }
-
 }
 
 function select(props) {

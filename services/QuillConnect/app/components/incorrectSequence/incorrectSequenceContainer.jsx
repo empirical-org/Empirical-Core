@@ -15,10 +15,6 @@ class IncorrectSequencesContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, actionFile, questionTypeLink };
-
-    this.deleteSequence = this.deleteSequence.bind(this);
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
-    this.sortCallback = this.sortCallback.bind(this);
   }
 
   componentDidMount() {
@@ -31,30 +27,30 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
-  getQuestion() {
+  getQuestion = () => {
     return this.props[this.state.questionType].data[this.props.params.questionID];
   }
 
-  getSequences() {
+  getSequences = () => {
     return this.getQuestion().incorrectSequences;
   }
 
-  submitSequenceForm(data, sequence) {
+  submitSequenceForm = (data, sequence) => {
     delete data.conceptResults.null;
     if (sequence) {
       this.props.dispatch(this.state.actionFile.submitEditedIncorrectSequence(this.props.params.questionID, data, sequence));
     } else {
       this.props.dispatch(this.state.actionFile.submitNewIncorrectSequence(this.props.params.questionID, data));
     }
-  }
+  };
 
-  deleteSequence(sequenceID) {
+  deleteSequence = sequenceID => {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       this.props.dispatch(this.state.actionFile.deleteIncorrectSequence(this.props.params.questionID, sequenceID));
     }
-  }
+  };
 
-  deleteConceptResult(conceptResultKey, sequenceKey) {
+  deleteConceptResult = (conceptResultKey, sequenceKey) => {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getSequences()[sequenceKey];
       delete data.conceptResults[conceptResultKey];
@@ -62,11 +58,11 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
-  renderTagsForSequence(sequenceString) {
+  renderTagsForSequence = (sequenceString) => {
     return sequenceString.split('|||').map((seq, index) => (<span className="tag is-medium is-light" key={`seq${index}`} style={{ margin: '3px', }}>{seq}</span>));
   }
 
-  renderConceptResults(concepts, sequenceKey) {
+  renderConceptResults = (concepts, sequenceKey) => {
     if (concepts) {
       const components = _.mapObject(concepts, (val, key) => (
         <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
@@ -80,7 +76,7 @@ class IncorrectSequencesContainer extends Component {
     }
   }
 
-  renderSequenceList() {
+  renderSequenceList = () => {
     const components = _.mapObject(this.getSequences(), (val, key) => (
       <div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
@@ -104,12 +100,12 @@ class IncorrectSequencesContainer extends Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  sortCallback(sortInfo) {
+  sortCallback = sortInfo => {
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     this.props.dispatch(this.state.actionFile.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences));
-  }
+  };
 
   render() {
     return (

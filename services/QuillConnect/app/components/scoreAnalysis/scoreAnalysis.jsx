@@ -31,14 +31,6 @@ class ScoreAnalysis extends Component {
       questionData: [],
       flag: 'production'
     };
-
-    this.updateQuestionTypeFilter = this.updateQuestionTypeFilter.bind(this)
-    this.updateStatusFilter = this.updateStatusFilter.bind(this)
-    this.formatDataForTable = this.formatDataForTable.bind(this)
-    this.getAbbreviationFromQuestionType = this.getAbbreviationFromQuestionType.bind(this)
-    this.getAbbreviationFromStatus = this.getAbbreviationFromStatus.bind(this)
-    this.formatDataForQuestionType = this.formatDataForQuestionType.bind(this)
-    this.updateFlag = this.updateFlag.bind(this)
   }
 
   componentDidMount() {
@@ -62,7 +54,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  clickSort(sort) {
+  clickSort = (sort) => {
     let direction = 'dsc';
     if (this.state.sort === sort) {
       direction = this.state.direction === 'dsc' ? 'asc' : 'dsc';
@@ -72,7 +64,7 @@ class ScoreAnalysis extends Component {
     });
   }
 
-  formatData(props) {
+  formatData = (props) => {
     const { questions, sentenceFragments, fillInBlank, concepts, scoreAnalysis, } = props;
     // const validConcepts = _.map(concepts.data[0], con => con.uid);
     const formattedQuestions = this.formatDataForQuestionType(questions.data, scoreAnalysis, 'Sentence Combining', 'questions')
@@ -82,7 +74,7 @@ class ScoreAnalysis extends Component {
     this.setState({questionData: _.compact(formatted)})
   }
 
-  formatDataForQuestionType(questionData, scoreAnalysis, typeName, pathName) {
+  formatDataForQuestionType = (questionData, scoreAnalysis, typeName, pathName) => {
     return _.map(hashToCollection(questionData), (question) => {
       const scoreData = scoreAnalysis.data[question.key];
       if (scoreData) {
@@ -104,9 +96,9 @@ class ScoreAnalysis extends Component {
         };
       }
     });
-  }
+  };
 
-  formatDataForTable() {
+  formatDataForTable = () => {
     let filteredData = this.state.questionData
     if (this.state.questionType) {
       filteredData = filteredData.filter((q) => q && q.questionType === this.state.questionType)
@@ -118,7 +110,7 @@ class ScoreAnalysis extends Component {
       filteredData = filteredData.filter((q) => q && q.flag === this.state.flag || q.flag === oldFlagToNew[this.state.flag])
     }
     return _.compact(filteredData);
-  }
+  };
 
   getStatusFromPercentage(percentage) {
     if (percentage > 5) {
@@ -132,19 +124,19 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  updateQuestionTypeFilter(e) {
+  updateQuestionTypeFilter = e => {
     this.setState({questionType: this.getQuestionTypeFromAbbreviation(e.target.value)}, this.updateUrl)
-  }
+  };
 
-  updateStatusFilter(e) {
+  updateStatusFilter = e => {
     this.setState({status: this.getStatusFromAbbreviation(e.target.value)}, this.updateUrl)
-  }
+  };
 
-  updateFlag(e) {
+  updateFlag = e => {
     this.setState({flag: e.target.value})
-  }
+  };
 
-  updateUrl() {
+  updateUrl = () => {
     let newUrl
     const questionTypeAbbrev = this.state.questionType ? this.getAbbreviationFromQuestionType(this.state.questionType) : null
     const statusAbbrev = this.state.status ? this.getAbbreviationFromStatus(this.state.status) : null
@@ -160,7 +152,7 @@ class ScoreAnalysis extends Component {
     this.props.router.push(newUrl)
   }
 
-  getQuestionTypeFromAbbreviation(abbrev) {
+  getQuestionTypeFromAbbreviation = (abbrev) => {
     switch (abbrev) {
       case 'all':
         return null
@@ -173,7 +165,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getAbbreviationFromQuestionType(questionType) {
+  getAbbreviationFromQuestionType = questionType => {
     switch (questionType) {
       case 'Sentence Combining':
         return 'sc'
@@ -184,7 +176,7 @@ class ScoreAnalysis extends Component {
       default:
         return 'all'
     }
-  }
+  };
 
   getStatusFromAbbreviation(abbrev) {
     switch (abbrev) {
@@ -201,7 +193,7 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  getAbbreviationFromStatus(status) {
+  getAbbreviationFromStatus = status => {
     switch (status) {
       case 'Very Weak':
         return 'vw'
@@ -214,9 +206,9 @@ class ScoreAnalysis extends Component {
       default:
         return 'all'
     }
-  }
+  };
 
-  sortData(data) {
+  sortData = (data) => {
     switch (this.state.sort) {
       case 'responses':
       case 'weakResponses':
@@ -236,11 +228,11 @@ class ScoreAnalysis extends Component {
     }
   }
 
-  sortNumerically(data) {
+  sortNumerically = (data) => {
     return data.sort((a, b) => a[this.state.sort] - b[this.state.sort])
   }
 
-  sortAlphabetically(data) {
+  sortAlphabetically = (data) => {
     return data.sort((a, b) => {
       const aSort = a[this.state.sort] ? a[this.state.sort] : ''
       const bSort = b[this.state.sort] ? b[this.state.sort] : ''
@@ -248,12 +240,12 @@ class ScoreAnalysis extends Component {
     })
   }
 
-  sortByStatus(data) {
+  sortByStatus = (data) => {
     const statusOrder = ['Very Weak', 'Weak', 'Okay', 'Strong']
     return data.sort((a, b) => statusOrder.indexOf(a[this.state.sort]) - statusOrder.indexOf(b[this.state.sort]))
   }
 
-  sortByActivity(data) {
+  sortByActivity = (data) => {
     return data.sort((a, b) => {
       const aSort = a[this.state.sort] && a[this.state.sort][0] ? a[this.state.sort][0].name : ''
       const bSort = b[this.state.sort] && b[this.state.sort][0] ? b[this.state.sort][0].name : ''
@@ -261,7 +253,7 @@ class ScoreAnalysis extends Component {
     })
   }
 
-  renderRows() {
+  renderRows = () => {
     const data = this.formatDataForTable()
     const sorted = this.sortData(data)
     const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
@@ -270,7 +262,7 @@ class ScoreAnalysis extends Component {
     ));
   }
 
-  renderOptions() {
+  renderOptions = () => {
     const innerDivStyle = {display: 'flex', alignItems: 'center', marginRight: '10px'}
     const labelStyle = {marginRight: '10px'}
     const flagValue = this.state.flag ? this.state.flag : 'all'
@@ -337,7 +329,6 @@ class ScoreAnalysis extends Component {
     }
     return (<Spinner />);
   }
-
 }
 
 function select(state) {
