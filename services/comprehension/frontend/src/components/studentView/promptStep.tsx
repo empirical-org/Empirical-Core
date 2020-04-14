@@ -35,8 +35,8 @@ const MAXIMUM_WORD_COUNT = 100
 
 export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
 export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
-export const PROFANITY_FEEDBACK = "Please remove profanity from your response and try again."
-export const MULTIPLE_SENTENCES_FEEDBACK = "Revise your work so your response is only one sentence."
+export const PROFANITY_FEEDBACK = "Revise your work. When writing your response, make sure to use appropriate language."
+export const MULTIPLE_SENTENCES_FEEDBACK = "Revise your work. Your response should be only one sentence long."
 
 export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -182,10 +182,10 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
 
     if (filter.isProfane(textWithoutStem)) {
       this.setState({ customFeedback: PROFANITY_FEEDBACK, customFeedbackKey: 'profanity' })
-    } else if (textWithoutStem.match(/\.(.)+/)) {
-      this.setState({ customFeedback: MULTIPLE_SENTENCES_FEEDBACK, customFeedbackKey: 'multiple-sentences', })
     } else if (textWithoutStemArray.length < MINIMUM_WORD_COUNT) {
       this.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short', })
+    } else if (textWithoutStem.match(/\.(.)+/)) {
+      this.setState({ customFeedback: MULTIPLE_SENTENCES_FEEDBACK, customFeedbackKey: 'multiple-sentences', })
     } else if (textWithoutStemArray.length > MAXIMUM_WORD_COUNT) {
       this.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
     } else {
