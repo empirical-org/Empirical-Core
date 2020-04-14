@@ -25,6 +25,11 @@
     }
   }
 
+  button.student-nav-item {
+    background-color: transparent;
+    border: 0;
+  }
+
   @media (max-width: 850px) {
     .container {
       padding: 0 4% 0 4%;
