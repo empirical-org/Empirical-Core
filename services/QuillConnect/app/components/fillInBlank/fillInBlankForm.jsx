@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { hashToCollection, TextEditor, FlagDropdown } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor, FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector.jsx';
 
 
 class FillInBlankForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, prompt} = props
     this.state = {
-      prompt: '',
-      blankAllowed: false,
-      caseInsensitive: false,
-      instructions: '',
-      cues: '',
+      blankAllowed: blankAllowed || false,
+      caseInsensitive: caseInsensitive || false,
+      conceptID: conceptID || '',
+      cues: cues || '',
+      cuesLabel: cuesLabel || '',
+      flag: flag || 'alpha',
+      instructions: instructions || '',
       newQuestionOptimalResponse: '',
-      flag: 'alpha',
-      cuesLabel: ''
+      prompt: prompt || '',
     };
     this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
     this.toggleQuestionCaseInsensitive = this.toggleQuestionCaseInsensitive.bind(this);
@@ -28,13 +29,6 @@ class FillInBlankForm extends Component {
     this.handleFlagChange = this.handleFlagChange.bind(this);
     this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
     this.submit = this.submit.bind(this);
-  }
-
-  componentDidMount() {
-    const { state } = this.props
-    if(state) {
-      this.setState(state);
-    }
   }
 
   handlePromptChange(prompt) {

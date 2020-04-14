@@ -6,22 +6,17 @@ import { ConceptExplanation } from 'quill-component-library/dist/componentLibrar
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 
 class ChooseModelContainer extends Component {
-  constructor() {
-    super();
-    this.state = {}
-    this.setState = this.setState.bind(this);
+  constructor(props) {
+    super(props);
+    const { params, sentenceFragments } = props
+    const { data } = sentenceFragments
+    const { questionID } = params
+    this.state = {
+      modelConceptUID: data[questionID].modelConceptUID
+    }
     this.selectConcept = this.selectConcept.bind(this);
     this.saveModelConcept = this.saveModelConcept.bind(this);
     this.removeModelConcept = this.removeModelConcept.bind(this);
-  }
-
-  componentDidMount() {
-    const { params, sentenceFragments } = this.props
-    const { data } = sentenceFragments
-    const { questionID } = params
-    this.setState({
-      modelConceptUID: data[questionID].modelConceptUID
-    })
   }
 
   getModelConceptUID() {

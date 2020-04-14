@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fillInBlankActions from '../../actions/fillInBlank';
 import FillInBlankForm from './fillInBlankForm.jsx';
+import question from '../../reducers/questionReducer';
 
 class EditFillInBlank extends Component {
   constructor() {
@@ -36,7 +37,21 @@ class EditFillInBlank extends Component {
   }
 
   render() {
-    return <FillInBlankForm action={this.editQuestion} editing={true} state={this.returnQuestionState()} />;
+    const questionData = this.returnQuestionState()
+    const { prompt, blankAllowed, caseInsensitive, instructions, cues, conceptID, flag, cuesLabel, questionID } = questionData
+    return <FillInBlankForm
+      action={this.editQuestion} 
+      blankAllowed={blankAllowed}
+      caseInsensitive={caseInsensitive}
+      conceptID={conceptID}
+      cues={cues}
+      cuesLabel={cuesLabel}
+      editing={true}  
+      flag={flag}
+      instructions={instructions}
+      prompt={prompt}
+      questionID={questionID}
+      />;
   }
 }
 
