@@ -1,14 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import actions from '../../actions/lessons';
+import actions from '../../actions/lessons.ts';
 import _ from 'underscore';
-import { Link } from 'react-router';
 import {
   Modal,
-  LinkListItem,
   ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
+import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.tsx';
 
 class Lessons extends React.Component {
@@ -19,32 +18,25 @@ class Lessons extends React.Component {
       lessonFlags: 'production',
       showOnlyArchived: false,
     }
-
-    this.createNew = this.createNew.bind(this)
-    this.submitNewLesson = this.submitNewLesson.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderLessons = this.renderLessons.bind(this)
-    this.renderModal = this.renderModal.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-
   }
 
-  createNew() {
+  createNew = () => {
     this.props.dispatch(actions.toggleNewLessonModal());
-  }
+  };
 
-  submitNewLesson(data) {
+  submitNewLesson = data => {
+    // TODO: fix add new lesson action to show new lessons without refreshing
     this.props.dispatch(actions.submitNewLesson(data));
-    // this.props.dispatch(actions.toggleNewLessonModal())
-  }
+    this.props.dispatch(actions.toggleNewLessonModal())
+  };
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
-  renderLessons() {
+  renderLessons = () => {
     const { data, } = this.props.lessons;
     let keys = _.keys(data);
     if (this.state.lessonFlags !== 'All Flags') {
@@ -62,9 +54,9 @@ class Lessons extends React.Component {
         text={data[key].name || 'No name'}
       />
     ));
-  }
+  };
 
-  renderModal() {
+  renderModal = () => {
     const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
     if (this.props.lessons.newLessonModalOpen) {
       return (
@@ -73,11 +65,11 @@ class Lessons extends React.Component {
         </Modal>
       );
     }
-  }
+  };
 
-  handleSelect(e) {
+  handleSelect = e => {
     this.setState({ lessonFlags: e.target.value, });
-  }
+  };
 
   render() {
     return (

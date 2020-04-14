@@ -15,9 +15,11 @@ export class AnswerVisualizer extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
+    const { params } = this.props;
+    const { questionID } = params;
     listenToResponsesWithCallback(
-      this.props.params.questionID,
+      questionID,
       (data) => {
         this.setState({
           responses: respWithStatus(data),
@@ -29,7 +31,7 @@ export class AnswerVisualizer extends Component {
 
   sortResponsesByCount(responseObj) {
     let sortable = [];
-    for(var response in responseObj) {
+    for(const response in responseObj) {
       sortable.push([responseObj[response].text, responseObj[response].count]);
     }
     sortable.sort((a, b) => {
@@ -41,14 +43,18 @@ export class AnswerVisualizer extends Component {
   }
 
   getHumanCorrectResponses() {
-    return this.sortResponsesByCount(_.reject(_.values(_.mapObject(this.state.responses, (r) => {
-      return r.statusCode == 0 ? {text: r.text, count: r.count}: null;
+    const { responses } = this.state;
+    return this.sortResponsesByCount(_.reject(_.values(_.mapObject(responses, (r) => {
+      const { count, statusCode, text } = r;
+      return statusCode === 0 ? { text, count } : null;
     })), (r) => { return !r }));
   }
 
   getHumanIncorrectResponses() {
-    return this.sortResponsesByCount(_.reject(_.values(_.mapObject(this.state.responses, (r) => {
-      return r.statusCode == 1 ? {text: r.text, count: r.count} : null;
+    const { responses } = this.state;
+    return this.sortResponsesByCount(_.reject(_.values(_.mapObject(responses, (r) => {
+      const { count, statusCode, text } = r;
+      return statusCode === 0 ? { text, count } : null;
     })), (r) => { return !r }));
   }
 
@@ -68,10 +74,12 @@ export class AnswerVisualizer extends Component {
   }
 
   renderDiffsBetweenCorrectResponsesAndPrompt() {
+    const { params } = this.props;
+    const { questionID } = params;
     return this.getHumanCorrectResponses().map((response) => {
-      return(
+      return (
         <DiffedResponse
-          firstResponse={this.props.questions.data[this.props.params.questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
+          firstResponse={this.props.questions.data[questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
           newResponse={response}
         />
       );
@@ -79,10 +87,13 @@ export class AnswerVisualizer extends Component {
   }
 
   renderDiffsBetweenIncorrectResponsesAndPrompt() {
+    const { params, questions } = this.props;
+    const { questionID } = params;
+    const { data } = questions;
     return this.getHumanIncorrectResponses().map((response) => {
-      return(
+      return (
         <DiffedResponse
-          firstResponse={this.props.questions.data[this.props.params.questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
+          firstResponse={data[questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
           newResponse={response}
         />
       );
@@ -90,7 +101,9 @@ export class AnswerVisualizer extends Component {
   }
 
   render() {
-    if(this.state.loadedResponses) {
+    const { loadedResponses } = this.state;
+    const { children } = this.props;
+    if(loadedResponses) {
       return (
         <div>
           <div className="card is-fullwidth has-bottom-margin">
@@ -111,7 +124,7 @@ export class AnswerVisualizer extends Component {
               {this.renderDiffsBetweenIncorrectResponsesAndPrompt()}
             </div>
           </div>
-          {this.props.children}
+          {children}
         </div>
       )
     } else {
