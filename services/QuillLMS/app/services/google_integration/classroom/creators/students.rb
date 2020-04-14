@@ -50,7 +50,7 @@ module GoogleIntegration::Classroom::Creators::Students
     if data[:google_id]
       student = User.find_or_initialize_by(google_id: data[:google_id])
       unless student.nil?
-        return nil
+        return student
       end
     end
 
