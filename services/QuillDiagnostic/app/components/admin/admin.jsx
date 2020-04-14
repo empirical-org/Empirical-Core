@@ -17,13 +17,11 @@ import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
 import Concept from '../concepts/concept.jsx';
-import ScoreAnalysis from '../scoreAnalysis/scoreAnalysis.jsx';
 import Diagnostics from '../diagnostics/diagnostics.jsx';
 import NewDiagnostic from '../diagnostics/new.jsx';
 import Lessons from '../lessons/lessons.jsx';
 import Lesson from '../lessons/lesson.jsx';
 import LessonResults from '../lessons/lessonResults.jsx';
-import QuestionHealth from '../questionHealth/questionHealth.jsx';
 import Questions from '../questions/questions.jsx';
 import Question from '../questions/question';
 import ChooseModelContainer from '../questions/chooseModelContainer.jsx';
@@ -44,11 +42,14 @@ import DiagnosticRouter from '../shared/diagnosticRouter.tsx';
 const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 
-const TabLink = props => (
-  <li>
-    <Link activeClassName="is-active" to={props.to}>{props.children}</Link>
-  </li>
-);
+const TabLink = props => {
+  const { children, to, } = props
+  return (
+    <li>
+      <Link activeClassName="is-active" to={to}>{children}</Link>
+    </li>
+  )
+}
 
 class Admin extends React.Component {
   componentDidMount() {
@@ -95,64 +96,60 @@ class Admin extends React.Component {
               General
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/datadash'}>Score analysis</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/question-health'}>Question Health</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Diagnostics</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/lessons'>Diagnostics</TabLink>
             </ul>
             <p className="menu-label">
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/questions'}>Diagnostic Sentence Combining</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/sentence-fragments'}>Diagnostic Sentence Fragments</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/fill-in-the-blanks'}>Diagnostic Fill In The Blanks</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/questions'>Diagnostic Sentence Combining</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/sentence-fragments'>Diagnostic Sentence Fragments</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/fill-in-the-blanks'>Diagnostic Fill In The Blanks</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/concepts-feedback'}>Concept Feedback</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/concepts-feedback'>Concept Feedback</TabLink>
             </ul>
             <p className="menu-label">
               Title Cards
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/title-cards'}>Title Cards</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/title-cards'>Title Cards</TabLink>
             </ul>
           </aside>
         </section>
         <Switch>
-          <Redirect component={QuestionHealth} exact from={`/admin`} to={`/admin/question-health`} />
-          <Route component={QuestionHealth} path={`/admin/question-health`} />
-          <Route component={ConceptFeedback} path={`/admin/concepts-feedback/:conceptFeedbackID`} />
-          <Route component={ConceptsFeedback} path={`/admin/concepts-feedback`} />
-          <Route component={Concept} path={`/admin/concepts/:conceptID`} />
-          <Route component={Concepts} path={`/admin/concepts`} />
-          <Route component={CloneConnectQuestions} path={`/admin/clone_questions`} />
-          <Route component={ScoreAnalysis} path={`/admin/datadash`} />
-          <Route component={NewDiagnostic} path={`/admin/diagnostics/new`} />
-          <Route component={Diagnostics} path={`/admin/diagnostics`} />
-          <Route component={LessonResults} path={`/admin/lessons/:lessonID/results`} />
-          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
-          <Route component={Lessons} path={`/admin/lessons`} />
-          <Route component={Question} path={`/admin/questions/:questionID`} />
-          <Route component={AnswerVisualizer} path={`/admin/questions/visualize`} />
-          <Route component={Questions} path={`/admin/questions`} />
-          <Route component={TitleCardForm} path={`/admin/title-cards/new`} />
-          <Route component={TitleCardForm} path={`/admin/title-cards/:titleCardID/edit`} />
-          <Route component={ShowTitleCard} path={`/admin/title-cards/:titleCardID`} />
-          <Route component={TitleCards} path={`/admin/title-cards`} />
-          <Route component={NewFillInBlank} path={`/admin/fill-in-the-blanks/new`} />
-          <Route component={FillInBlankQuestion} path={`/admin/fill-in-the-blanks/:questionID`} />
-          <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/test`} />
-          <Route component={FillInBlankQuestions} path={`/admin/fill-in-the-blanks`} />
-          <Route component={NewSentenceFragment} path={`/admin/sentence-fragments/new`} />
-          <Route component={SentenceFragment} path={`/admin/sentence-fragments/:questionID`} />
-          <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/choose-model`} />
-          <Route component={TestSentenceFragmentContainer} path={`/admin/sentence-fragments/test`} />
-          <Route component={SentenceFragments} path={`/admin/sentence-fragments`} />
-          <Route component={DiagnosticRouter} path={`/play/diagnostic/:diagnosticID`} />
+          <Redirect component={Lessons} exact from='/admin' to='/admin/lessons' />
+          <Route component={ConceptFeedback} path='/admin/concepts-feedback/:conceptFeedbackID' />
+          <Route component={ConceptsFeedback} path='/admin/concepts-feedback' />
+          <Route component={Concept} path='/admin/concepts/:conceptID' />
+          <Route component={Concepts} path='/admin/concepts' />
+          <Route component={CloneConnectQuestions} path='/admin/clone_questions' />
+          <Route component={NewDiagnostic} path='/admin/diagnostics/new' />
+          <Route component={Diagnostics} path='/admin/diagnostics' />
+          <Route component={LessonResults} path='/admin/lessons/:lessonID/results' />
+          <Route component={Lesson} path='/admin/lessons/:lessonID' />
+          <Route component={Lessons} path='/admin/lessons' />
+          <Route component={Question} path='/admin/questions/:questionID' />
+          <Route component={AnswerVisualizer} path='/admin/questions/visualize' />
+          <Route component={Questions} path='/admin/questions' />
+          <Route component={TitleCardForm} path='/admin/title-cards/new' />
+          <Route component={TitleCardForm} path='/admin/title-cards/:titleCardID/edit' />
+          <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
+          <Route component={TitleCards} path='/admin/title-cards' />
+          <Route component={NewFillInBlank} path='/admin/fill-in-the-blanks/new' />
+          <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
+          <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
+          <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
+          <Route component={NewSentenceFragment} path='/admin/sentence-fragments/new' />
+          <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
+          <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
+          <Route component={TestSentenceFragmentContainer} path='/admin/sentence-fragments/test' />
+          <Route component={SentenceFragments} path='/admin/sentence-fragments' />
+          <Route component={DiagnosticRouter} path='/play/diagnostic/:diagnosticID' />
         </Switch>
       </div>
     );
