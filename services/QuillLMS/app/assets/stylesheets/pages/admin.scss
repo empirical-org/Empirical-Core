@@ -4,7 +4,6 @@
 
 .staff_panel {
   font-family: "adelle-sans", "Arial", sans-serif;
-  height: 300px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -19,7 +18,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     height: 200px;
-    width: 225px;
+    width: 230px;
     margin: 40px;
     box-sizing: border-box;
     img {
@@ -28,6 +27,9 @@
     }
     #quill-img {
       border-radius: 50%;
+    }
+    #comprehension-text {
+      font-size: 25px;
     }
     h2 {
       color: #989898;
