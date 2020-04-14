@@ -13,11 +13,12 @@ import lessonActions from '../../actions/lessons';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import * as titleCardActions from '../../actions/titleCards.ts';
 
-const TabLink = props => (
-  <li>
-    <Link activeClassName="is-active" to={props.to}>{props.children}</Link>
-  </li>
-);
+const TabLink = props => {
+  const { children, to } = props
+  return (<li>
+    <Link activeClassName="is-active" to={to}>{children}</Link>
+  </li>)
+};
 
 // activeComponent('li');
 
@@ -34,6 +35,7 @@ const adminContainer = React.createClass({
   },
 
   render() {
+    const { children, } = this.props
     return (
       <div>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
@@ -42,34 +44,32 @@ const adminContainer = React.createClass({
               General
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/datadash'}>Score Analysis</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/question-health'}>Question Health</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Activities</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/lessons'>Activities</TabLink>
             </ul>
             <p className="menu-label">
               Questions
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/questions'}>Sentence Combining</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/sentence-fragments'}>Sentence Fragments</TabLink>
-              <TabLink activeClassName="is-active" to={'/admin/fill-in-the-blanks'}>Fill In The Blanks</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/questions'>Sentence Combining</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/sentence-fragments'>Sentence Fragments</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/fill-in-the-blanks'>Fill In The Blanks</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to={'admin/concepts-feedback'}>Concept Feedback</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
+              <TabLink activeClassName="is-active" to='admin/concepts-feedback'>Concept Feedback</TabLink>
             </ul>
             <p className="menu-label">
               Title Cards
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/title-cards'}>Title Cards</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/title-cards'>Title Cards</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
-            {this.props.children}
+            {children}
           </div>
         </section>
       </div>
