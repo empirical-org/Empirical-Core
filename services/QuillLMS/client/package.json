@@ -69,7 +69,6 @@
     "react-bootstrap": "^0.33.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-csv": "^1.0.8",
-    "react-datepicker": "^2.14.0",
     "react-dates": "21.8.0",
     "react-dom": "^16.13.1",
     "react-dropzone": "^4.2.8",

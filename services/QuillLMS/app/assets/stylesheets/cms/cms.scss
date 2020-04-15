@@ -109,13 +109,10 @@
   width: 80px;
 }
 
-.SingleDatePickerInput, .SingleDatePickerInput_1, .SingleDatePickerInput__withBorder, .SingleDatePickerInput__withBorder_2 {
-  background-color: #f7f5f5 !important;
-  border: none !important;
+.SingleDatePicker, .SingleDatePickerInput, .DateInput {
+  border-radius: 6px;
 }
-.DateInput, .DateInput_1 {
-  background-color: #f7f5f5  !important;
-}
+
 .DateInput_input:hover {
   cursor: pointer;
 }
@@ -129,7 +126,7 @@
       display: block;
     }
 
-    input, textarea {
+    input:not(#date-picker), textarea {
       border-radius: 5px;
       border: 1px solid #cecece;
       display: block;
@@ -145,7 +142,7 @@
       }
     }
 
-    input {
+    input:not(#date-picker) {
       margin-bottom: 20px;
     }
 
@@ -264,7 +261,7 @@
       div {
         flex: 1
       }
-      input {
+      input:not(#date-picker) {
         width: 214px;
       }
     }

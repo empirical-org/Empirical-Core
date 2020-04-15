@@ -574,10 +574,11 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   renderDatepicker = () => {
     const { focused, publishedAt, } = this.state
+    const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
     return (<div>
       <label>Published At Date:</label>
       <SingleDatePicker
-        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" />}
+        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
         date={publishedAt ? moment(publishedAt) : null}
         focused={focused}
         id={`date-picker`}
