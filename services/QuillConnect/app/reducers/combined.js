@@ -21,7 +21,6 @@ import question from './questionReducerV2';
 import questions from './questions';
 import questionSelect from './questionSelect';
 import responses from './responsesReducer';
-import scoreAnalysis from './scoreAnalysis';
 import sentenceFragments from './sentenceFragments';
 import sessions from './sessions';
 import titleCards from './titleCards';
@@ -50,7 +49,6 @@ const combinedReducers = combineReducers({
   questionSelect,
   responses,
   routing: routerReducer,
-  scoreAnalysis,
   sentenceFragments,
   sessions,
   titleCards,
