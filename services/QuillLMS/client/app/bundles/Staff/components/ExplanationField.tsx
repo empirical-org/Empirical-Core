@@ -38,8 +38,8 @@ export default class ExplanationField extends React.Component<any, any> {
         </div>
         <p className="concept-attribute-field-editor-subheader">Displays in Proofreader</p>
         <textarea
-          onChange={handleChange}
           key="concept-explanation"
+          onChange={handleChange}
           value={explanation}
         />
         {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}

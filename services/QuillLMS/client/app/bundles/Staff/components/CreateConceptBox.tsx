@@ -216,7 +216,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
           />
         </div>
         <RuleDescriptionField handleChange={this.changeDescription} isNew={true} ruleDescription={concept.ruleDescription} />
-        <ExplanationField handleChange={this.changeExplanation} isNew={true} explanation={concept.explanation} />
+        <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} isNew={true} />
       </div>)
     }
   }

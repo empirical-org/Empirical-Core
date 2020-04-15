@@ -306,7 +306,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           {this.renderRenameAndArchiveSection()}
         </div>
         <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
-        <ExplanationField handleChange={this.changeExplanation} explanation={concept.explanation} />
+        <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} />
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>)
     }
