@@ -54,7 +54,13 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
     this.removeStudent = this.removeStudent.bind(this)
     this.addStudent = this.addStudent.bind(this)
     this.createStudents = this.createStudents.bind(this)
+
+    this.firstNameInput = React.createRef()
+    this.lastNameInput = React.createRef()
   }
+
+  firstNameInput: React.RefObject<Input>;
+  lastNameInput: React.RefObject<Input>;
 
   allStudents() {
     const { students } = this.state
@@ -118,6 +124,8 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
       }
       const newStudentsArray = [newStudent].concat(students)
       this.setState({ firstName: '', lastName: '', students: newStudentsArray })
+      this.firstNameInput.current.node.children[1].focus()
+      this.lastNameInput.current.deactivateInput()
     }
   }
 
@@ -164,7 +172,9 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
           characterLimit={50}
           className="first-name"
           handleChange={this.handleFirstNameChange}
+          id="first-name"
           label="First name"
+          ref={this.firstNameInput}
           type="text"
           value={firstName}
         />
@@ -173,6 +183,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
           className="last-name"
           handleChange={this.handleLastNameChange}
           label="Last name"
+          ref={this.lastNameInput}
           type="text"
           value={lastName}
         />
