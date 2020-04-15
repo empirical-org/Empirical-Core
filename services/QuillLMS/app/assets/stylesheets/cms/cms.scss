@@ -109,6 +109,17 @@
   width: 80px;
 }
 
+.SingleDatePickerInput, .SingleDatePickerInput_1, .SingleDatePickerInput__withBorder, .SingleDatePickerInput__withBorder_2 {
+  background-color: #f7f5f5 !important;
+  border: none !important;
+}
+.DateInput, .DateInput_1 {
+  background-color: #f7f5f5  !important;
+}
+.DateInput_input:hover {
+  cursor: pointer;
+}
+
 .cms-container#blog-post {
   form {
     max-width: 725px;
