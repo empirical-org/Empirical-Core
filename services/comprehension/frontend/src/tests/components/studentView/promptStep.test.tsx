@@ -132,16 +132,6 @@ describe('PromptStep component', () => {
         })
 
         describe('when a prompt with multiple sentences is submitted', () => {
-          it('should set the state to have the profanity feedback', () => {
-            const entry = "Governments should make voting compulsory because of some shit"
-            wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
-            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
-            expect(wrapper.state('customFeedback')).toBe(PROFANITY_FEEDBACK)
-            expect(wrapper.state('customFeedbackKey')).toBe('profanity')
-          })
-        })
-
-        describe('when a prompt with multiple sentences is submitted', () => {
           it('should set the state to have the multiple sentences feedback', () => {
             const entry = "Governments should make voting compulsory because I want them to. I think politicans I like will get elected if everyone votes."
             wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
