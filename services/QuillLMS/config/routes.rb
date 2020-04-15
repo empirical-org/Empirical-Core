@@ -81,9 +81,7 @@ EmpiricalGrammar::Application.routes.draw do
   resources :assessments
   resources :assignments
   resources :notifications, only: :index, format: :json
-  resource :profile do
-    get :console, to: 'profiles#staff_console'
-  end
+  resource :profile
   resources :password_reset
   resources :schools, only: [:index], format: 'json'
   resources :students_classrooms, only: :create do
