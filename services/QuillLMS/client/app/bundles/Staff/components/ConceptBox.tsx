@@ -6,6 +6,7 @@ import { Input, DropdownInput } from 'quill-component-library/dist/componentLibr
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
+import ExplanationField from './ExplanationField'
 import ConceptChangeLogs from './ConceptChangeLogs'
 import ChangeLogModal from './ChangeLogModal'
 
@@ -39,13 +40,14 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $changeLogs: [ChangeLogInput!]!){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, changeLogs: $changeLogs}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $explanation: String, $changeLogs: [ChangeLogInput!]!){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, explanation: $explanation, changeLogs: $changeLogs}){
       concept {
         id
         uid
         name
         description
+        explanation
         parentId
         visible
       }
@@ -75,15 +77,6 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
       originalConcept: props.concept,
       showChangeLogModal: false
     }
-
-    this.changeLevel1 = this.changeLevel1.bind(this)
-    this.changeLevel2 = this.changeLevel2.bind(this)
-    this.toggleVisiblity = this.toggleVisiblity.bind(this)
-    this.renameConcept = this.renameConcept.bind(this)
-    this.cancelRename = this.cancelRename.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.changeDescription = this.changeDescription.bind(this)
-    this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -92,12 +85,12 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     }
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault()
     this.setState({ showChangeLogModal: true })
   }
 
-  closeChangeLogModal() {
+  closeChangeLogModal = () => {
     this.setState({ showChangeLogModal: false })
   }
 
@@ -128,7 +121,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     }
   }
 
-  save(editConcept, changeLogs) {
+  save = (editConcept, changeLogs) => {
     const { concept } = this.state
     editConcept({ variables: {
       id: concept.id,
@@ -136,11 +129,12 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
       parentId: concept.parent.id,
       visible: concept.visible,
       description: concept.description && concept.description.length && concept.description !== '<br/>' ? concept.description : null,
+      explanation: concept.explanation && concept.explanation.length && concept.explanation !== '<br/>' ? concept.explanation : null,
       changeLogs
     }})
   }
 
-  changeLevel1(level1Concept) {
+  changeLevel1 = (level1Concept) => {
     const newParent = {
       id: level1Concept.value,
       name: level1Concept.label,
@@ -153,7 +147,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     this.setState({ concept: newConcept })
   }
 
-  changeLevel2(level2Concept) {
+  changeLevel2 = (level2Concept) => {
     const newParent = {
       id: level2Concept.value,
       name: level2Concept.label,
@@ -162,35 +156,46 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     this.setState({ concept: newConcept })
   }
 
-  toggleVisiblity() {
+  toggleVisiblity = () => {
     const { concept, } = this.state
-    const newConcept = Object.assign({}, this.state.concept, { visible: !concept.visible })
+    const newConcept = Object.assign({}, concept, { visible: !concept.visible })
     this.setState({ concept: newConcept })
   }
 
-  renameConcept(e) {
-    const newConcept = Object.assign({}, this.state.concept, { name: e.target.value })
+  renameConcept = (e) => {
+    const { concept, } = this.state
+    const newConcept = Object.assign({}, concept, { name: e.target.value })
     this.setState({ concept: newConcept })
   }
 
-  changeDescription(description) {
-    if (description !== this.state.concept.description) {
-      const newConcept = Object.assign({}, this.state.concept, { description })
+  changeDescription = (description) => {
+    const { concept, } = this.state
+    if (description !== concept.description) {
+      const newConcept = Object.assign({}, concept, { description })
       this.setState({ concept: newConcept })
     }
   }
 
-  cancelRename(e) {
+  changeExplanation = (e) => {
+    const { concept, } = this.state
+    const explanation = e.target.value
+    if (explanation !== concept.explanation) {
+      const newConcept = Object.assign({}, concept, { explanation })
+      this.setState({ concept: newConcept })
+    }
+  }
+
+  cancelRename = (e) => {
     const { originalConcept, concept } = this.state
     const newConcept = Object.assign({}, concept, { name: originalConcept.name })
     this.setState({ concept: newConcept })
   }
 
-  activateConceptInput() {
+  activateConceptInput = () => {
     document.getElementById('concept-name').focus()
   }
 
-  renderDropdownInput() {
+  renderDropdownInput = () => {
     const { concept } = this.state
     if (this.props.levelNumber === 0) {
       return (<Query
@@ -232,7 +237,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     }
   }
 
-  renderRenameAndArchiveSection() {
+  renderRenameAndArchiveSection = () => {
     const { concept, } = this.state
     return (<div className="rename-and-archive">
       <span className="rename" onClick={this.activateConceptInput}>
@@ -246,7 +251,7 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
     </div>)
   }
 
-  renderLevels() {
+  renderLevels = () => {
     const { concept, } = this.state
     const { levelNumber, } = this.props
     if (levelNumber === 2) {
@@ -301,12 +306,13 @@ class ConceptBox extends React.Component<ConceptBoxProps, ConceptBoxState> {
           {this.renderRenameAndArchiveSection()}
         </div>
         <RuleDescriptionField handleChange={this.changeDescription} ruleDescription={concept.description} />
+        <ExplanationField handleChange={this.changeExplanation} explanation={concept.explanation} />
         <ConceptChangeLogs changeLogs={concept.changeLogs} />
       </div>)
     }
   }
 
-  renderSaveButton() {
+  renderSaveButton = () => {
     const { concept, originalConcept } = this.state
     if (!_.isEqual(concept, originalConcept)) {
       return (<input
