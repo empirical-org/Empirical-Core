@@ -1,8 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import DatePicker from 'react-datepicker';
+import { SingleDatePicker } from 'react-dates'
 import Pluralize from 'pluralize';
-
 import ApplyToAll from './apply_to_all'
 import activityFromClassificationId from '../../modules/activity_from_classification_id.js';
 
@@ -40,17 +39,18 @@ export default class ClassroomActivity extends React.Component {
     super(props)
 
     this.state = {
-      startDate: this.dueDate() ? new Date(this.dueDate()) : null,
+      startDate: this.dueDate() ? moment(this.dueDate()) : null,
       showModal: false,
       showCustomizeTooltip: false,
       showLessonPlanTooltip: false,
+      focused: false
     }
   }
 
   UNSAFE_componentWillReceiveProps = (nextProps) => {
     const { startDate, } = this.state
     const newDueDate = nextProps.data ? nextProps.data.dueDate : null
-    const formattedNewDueDate = newDueDate ? new Date(newDueDate) : undefined;
+    const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined;
     if (formattedNewDueDate !== startDate) {
       this.setState({ startDate: formattedNewDueDate, });
     }
@@ -126,7 +126,8 @@ export default class ClassroomActivity extends React.Component {
 
   finalCell = () => {
     const { activityReport, data, report, numberOfStudentsAssignedToUnit, isFirst, updateAllDueDates, } = this.props
-    const { startDate, } = this.state
+    const { focused, startDate, } = this.state
+    const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
     if (activityReport) {
       return [
         <span className="number-of-students" key="number-of-students">{this.renderPieChart()} {data.completedCount} of {numberOfStudentsAssignedToUnit} {Pluralize('student', numberOfStudentsAssignedToUnit)}</span>,
@@ -142,11 +143,22 @@ export default class ClassroomActivity extends React.Component {
     }
     if (data.ownedByCurrentUser) {
       return (<span className="due-date-field">
-        <DatePicker className="due-date-input" onChange={this.handleChange} placeholderText={startDate ? startDate : 'Due Date (Optional)'} selected={startDate} />
-        {startDate && isFirst ? <ApplyToAll startDate={startDate} updateAllDueDates={updateAllDueDates} /> : null}
+        <SingleDatePicker
+          customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
+          date={startDate}
+          focused={focused}
+          id={`${this.classroomUnitId()}-date-picker`}
+          inputIconPosition="after"
+          navNext={'›'}
+          navPrev={'‹'}
+          numberOfMonths={1}
+          onDateChange={this.handleChange}
+          onFocusChange={({ focused }) => this.setState({ focused })}
+          placeholder={startDate ? startDate.toString() : 'Due Date (Optional)'}
+        />
+        {startDate && isFirst ? <ApplyToAll id="classroom-activity-apply-all" startDate={startDate} updateAllDueDates={updateAllDueDates} /> : null}
       </span>);
     }
-    return startDate ? <div className="due-date-input">{new Intl.DateTimeFormat('en-US').format(startDate)}</div> : null;
   }
 
   handleChange = (date) => {
