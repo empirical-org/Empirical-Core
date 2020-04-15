@@ -97,4 +97,5 @@ namespace :merge_duplicates do
       puts 'NOT_FIXED_STUDENT_ROWS'
       puts not_fixed_student_rows
     end
+  end    
 end
