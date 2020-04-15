@@ -5,7 +5,7 @@ const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 
 export default {
   path: 'admin',
-  indexRoute: { onEnter: (nextState, replace) => replace('/admin/question-health'), },
+  indexRoute: { onEnter: (nextState, replace) => replace('/admin/lessons'), },
   getChildRoutes: (partialNextState, cb) => {
     fetch(usersEndpoint, {
         method: 'GET',
@@ -24,8 +24,6 @@ export default {
             Promise.all([
               import(/* webpackChunkName: "admin-concept-feedback" */ './routes/ConceptFeedback/index.js'),
               import(/* webpackChunkName: "admin-concepts" */ './routes/Concepts/index.js'),
-              import(/* webpackChunkName: "admin-dashboard" */ './routes/DataDash/index.js'),
-              import(/* webpackChunkName: "admin-question-health" */ './routes/QuestionHealth/index.js'),
               import(/* webpackChunkName: "admin-title-cards" */ './routes/TitleCards/index.js'),
               import(/* webpackChunkName: "admin-lessons" */ './routes/Lessons/index.js'),
               import(/* webpackChunkName: "admin-questions" */ './routes/Questions/index.js'),
