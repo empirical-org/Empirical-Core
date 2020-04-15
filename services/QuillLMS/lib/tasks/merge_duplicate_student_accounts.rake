@@ -1,12 +1,12 @@
 namespace :merge_duplicates do
-  task google_students: :environment
+  task :google_students => :environment do
     include MergeHelpers
-    merge_students(duplicate_google_sql)
+    merge_students duplicate_google_sql
   end
 
-  task clever_students: :environment
+  task :clever_students => :environment do
     include MergeHelpers
-    merge_students(duplicate_clever_sql)
+    merge_students duplicate_clever_sql
   end
 
   module MergeHelpers
