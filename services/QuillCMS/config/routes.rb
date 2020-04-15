@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   post 'responses/clone_responses' => 'responses#clone_responses'
   post 'responses/rematch_all' => 'responses#rematch_all_responses_for_question'
   # Stats controller
-  get 'stats/question_health_index' => 'stats#question_health_index'
-  get 'stats/diagnostic_question_health_index' => 'stats#diagnostic_question_health_index'
 
   # Uptime status
   resource :status, only: [] do
