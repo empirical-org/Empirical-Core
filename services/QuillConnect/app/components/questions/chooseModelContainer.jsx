@@ -19,7 +19,6 @@ class ChooseModelContainer extends Component {
       modelConceptUID,
       lessonModelConceptUID
     }
-    this.setState = this.setState.bind(this);
   }
 
   getModelConceptUID = () => {

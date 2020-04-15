@@ -51,7 +51,6 @@ class Questions extends React.Component {
     const newQuestion = { name: this.refs.newQuestionName.value, };
     this.props.dispatch(actions.submitNewQuestion(newQuestion));
     this.refs.newQuestionName.value = '';
-    // this.props.dispatch(actions.toggleNewQuestionModal())
   };
 
   updateRematchedResponse = (rid, vals) => {

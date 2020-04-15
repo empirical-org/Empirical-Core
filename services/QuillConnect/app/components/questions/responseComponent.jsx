@@ -116,7 +116,6 @@ class ResponseComponent extends React.Component {
 
   getTotalAttempts = () => {
     return this.state.health.total_number_of_attempts;
-    // return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
   };
 
   getResponseCount = () => {
