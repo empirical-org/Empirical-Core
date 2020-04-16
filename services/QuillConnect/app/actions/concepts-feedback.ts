@@ -17,6 +17,13 @@ const actions = {
       });
     };
   },
+  loadConceptFeedback(uid) {
+    return function (dispatch, getState) {
+      ConceptFeedbackApi.get(uid).then((data) => {
+        dispatch({ type: C.RECEIVE_CONCEPT_FEEDBACK_DATA, uid: uid, data: data, });
+      });
+    };
+  },
   startConceptsFeedbackEdit(cid) {
     return { type: C.START_CONCEPTS_FEEDBACK_EDIT, cid, };
   },
@@ -39,6 +46,7 @@ const actions = {
     return function (dispatch, getState) {
       dispatch({ type: C.SUBMIT_CONCEPTS_FEEDBACK_EDIT, cid, });
       ConceptFeedbackApi.update(cid, content).then(() => {
+        dispatch(actions.loadConceptFeedback(cid))
         dispatch({ type: C.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
       }).catch((error) => {
