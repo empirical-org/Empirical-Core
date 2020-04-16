@@ -13,8 +13,8 @@ jest.mock('../../actions/analytics', () => ({
 import { getFeedback } from '../../actions/session'
 import { Events } from '../../modules/analytics'
 
-describe('Activities actions', () => {
-  describe('when the getActivity action is dispatched', () => {
+describe('Session actions', () => {
+  describe('when the getFeedback action is dispatched', () => {
     const mockSessionID = 'SESSION_ID'
     const mockActivityID = 'ACTIVITY_ID'
     const mockEntry = 'Student entry'
@@ -29,7 +29,18 @@ describe('Activities actions', () => {
     }]
     const mockCallback = jest.fn()
 
-    dispatch(getFeedback(mockSessionID, mockActivityID, mockEntry, mockPromptID, mockPromptText, mockAttempt, mockPreviousFeedback, mockCallback))
+    const mockArgs = {
+      sessionID: mockSessionID,
+      activityUID: mockActivityID,
+      entry: mockEntry,
+      promptID: mockPromptID,
+      promptText: mockPromptText,
+      attempt: mockAttempt,
+      previousFeedback: mockPreviousFeedback,
+      callback: mockCallback
+    }
+
+    dispatch(getFeedback(mockArgs))
 
     it('sends a COMPREHENSION_ENTRY_SUBMITTED analytics event', () => {
       expect(mockTrackAnalyticsEvent).toBeCalledWith(Events.COMPREHENSION_ENTRY_SUBMITTED, {
@@ -49,6 +60,8 @@ describe('Activities actions', () => {
         url: `https://us-central1-comprehension-247816.cloudfunctions.net/comprehension-endpoint-go`,
         body: {
           prompt_id: mockPromptID,
+          prompt_text: mockPromptText,
+          session_id: mockSessionID,
           entry: mockEntry,
           previous_feedback: mockPreviousFeedback,
           attempt: mockAttempt
