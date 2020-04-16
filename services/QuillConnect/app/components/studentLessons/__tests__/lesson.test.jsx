@@ -153,9 +153,6 @@ describe('Lesson Container functions', () => {
   ];
   let container = shallow(<Lesson {...mockProps} />);
 
-  it("will call dispatch() props function on mount, passing clearData() action as a callback", () => {
-    expect(mockProps.dispatch).toHaveBeenCalledWith(clearData());
-  });
   it("resumeSession calls dispatch() props function passing resumePreviousSession(data) action as a callback if data prop is present", () => {
     let data = null;
     expect(container.instance().resumeSession(data)).toEqual(undefined);
