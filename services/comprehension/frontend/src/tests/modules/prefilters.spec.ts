@@ -45,14 +45,22 @@ describe("#multipleSentences", () => {
     expect(multipleSentences('something Dr. Something once told me.').matched).toEqual(false)
   })
 
-  describe("#tooLong", () => {
-    it('returns matched: true if the string passed in is greater than the MAXIMUM_WORD_COUNT', () => {
-      const str = "something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something"
-      expect(tooLong(str).matched).toEqual(true)
-    })
+  it('returns matched: false if the string passed in includes multiple known and original abbreviations', () => {
+    expect(multipleSentences('something Mr. Something and Mrs. Someone once told me.').matched).toEqual(false)
+  })
 
-    it('returns matched: false if the string passed in is less than or equal to the the MAXIMUM_WORD_COUNT', () => {
-      expect(tooLong('something something something something.').matched).toEqual(false)
-    })
+  it('returns matched: false if the string passed in includes an abbreviation at the end of the sentence', () => {
+    expect(multipleSentences('because we should follow Martin Luther King Jr.').matched).toEqual(false)
+  })
+})
+
+describe("#tooLong", () => {
+  it('returns matched: true if the string passed in is greater than the MAXIMUM_WORD_COUNT', () => {
+    const str = "something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something something"
+    expect(tooLong(str).matched).toEqual(true)
+  })
+
+  it('returns matched: false if the string passed in is less than or equal to the the MAXIMUM_WORD_COUNT', () => {
+    expect(tooLong('something something something something.').matched).toEqual(false)
   })
 })
