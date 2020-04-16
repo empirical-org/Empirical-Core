@@ -1,10 +1,11 @@
 import * as React from 'react'
-import * as Filter from 'bad-words'
 
 import EditorContainer from './editorContainer'
 import Feedback from './feedback'
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import ButtonLoadingSpinner from '../shared/buttonLoadingSpinner'
+
+import preFilters from '../../modules/prefilters'
 
 interface PromptStepProps {
   active: Boolean;
@@ -27,18 +28,7 @@ interface PromptStepState {
   customFeedbackKey: string|null;
 }
 
-const filter = new Filter()
-
-const KNOWN_ABBREVIATIONS = ['e.g.', 'i.e.', 'etc.', 'U.S.A.', 'U.S.', 'Mr.', 'Mrs.', 'Dr.', 'St.', 'Ave.', 'Rd.', 'Esq.', 'Inc.', 'Sr.', 'Jr.']
-
 const RESPONSE = 'response'
-const MINIMUM_WORD_COUNT = 3
-const MAXIMUM_WORD_COUNT = 100
-
-export const TOO_SHORT_FEEDBACK = "Whoops, it looks like you submitted your response before it was ready! Re-read what you wrote and finish the sentence provided."
-export const TOO_LONG_FEEDBACK = "Revise your work so it is shorter and more concise."
-export const PROFANITY_FEEDBACK = "Revise your work. When writing your response, make sure to use appropriate language."
-export const MULTIPLE_SENTENCES_FEEDBACK = "Revise your work. Your response should be only one sentence long."
 
 export default class PromptStep extends React.Component<PromptStepProps, PromptStepState> {
   private editor: any // eslint-disable-line react/sort-comp
@@ -180,17 +170,11 @@ export default class PromptStep extends React.Component<PromptStepProps, PromptS
     const { submitResponse, } = this.props
 
     const textWithoutStem = entry.replace(promptText, '')
-    const textWithoutStemArray = textWithoutStem.split(' ').filter(s => s.length)
-    const knownAbbreviationsRegex = new RegExp(KNOWN_ABBREVIATIONS.join('|').replace('.', '\.'), 'ig')
 
-    if (filter.isProfane(textWithoutStem)) {
-      this.setState({ customFeedback: PROFANITY_FEEDBACK, customFeedbackKey: 'profanity' })
-    } else if (textWithoutStemArray.length < MINIMUM_WORD_COUNT) {
-      this.setState({ customFeedback: TOO_SHORT_FEEDBACK, customFeedbackKey: 'too-short', })
-    } else if (textWithoutStem.replace(knownAbbreviationsRegex, '').match(/\.\s/)) {
-      this.setState({ customFeedback: MULTIPLE_SENTENCES_FEEDBACK, customFeedbackKey: 'multiple-sentences', })
-    } else if (textWithoutStemArray.length > MAXIMUM_WORD_COUNT) {
-      this.setState({ customFeedback: TOO_LONG_FEEDBACK, customFeedbackKey: 'too-long' })
+    const prefilter = preFilters(textWithoutStem)
+
+    if (prefilter) {
+      this.setState({ customFeedback: prefilter.feedback, customFeedbackKey: prefilter.feedbackKey, })
     } else {
       this.setState(prevState => ({numberOfSubmissions: prevState.numberOfSubmissions + 1}), () => {
         const { numberOfSubmissions, } = this.state
