@@ -13,10 +13,6 @@ const ResponseComponentWrapper = React.createClass({
     };
   },
 
-  componentWillMount() {
-    const { questionID, } = this.props.params;
-  },
-
   getResponses() {
     return this.state.responses;
   },

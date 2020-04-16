@@ -32,18 +32,6 @@ class Questions extends React.Component {
       showOnlyArchived: false,
       questions: {}
     }
-
-    this.createNew = this.createNew.bind(this)
-    this.submitNewQuestion = this.submitNewQuestion.bind(this)
-    this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
-    this.mapConceptsToList = this.mapConceptsToList.bind(this)
-    this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
-    this.rematchAllResponses = this.rematchAllResponses.bind(this)
-    this.rematchResponse = this.rematchResponse.bind(this)
-    this.renderModal = this.renderModal.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,31 +43,30 @@ class Questions extends React.Component {
     }
   }
 
-  createNew() {
+  createNew = () => {
     this.props.dispatch(actions.toggleNewQuestionModal());
-  }
+  };
 
-  submitNewQuestion() {
+  submitNewQuestion = () => {
     const newQuestion = { name: this.refs.newQuestionName.value, };
     this.props.dispatch(actions.submitNewQuestion(newQuestion));
     this.refs.newQuestionName.value = '';
-    // this.props.dispatch(actions.toggleNewQuestionModal())
-  }
+  };
 
-  updateRematchedResponse(rid, vals) {
+  updateRematchedResponse = (rid, vals) => {
     this.props.dispatch(submitResponseEdit(rid, vals));
-  }
+  };
 
-  getErrorsForAttempt(attempt) {
+  getErrorsForAttempt = (attempt) => {
     return attempt.feedback;
   }
 
-  generateFeedbackString(attempt) {
+  generateFeedbackString = (attempt) => {
     const errors = this.getErrorsForAttempt(attempt);
     return errors;
   }
 
-  getMatchingResponse(quest, response, responses) {
+  getMatchingResponse = (quest, response, responses) => {
     const fields = {
       questionUID: quest.key,
       responses: _.filter(responses, resp => resp.statusCode < 2),
@@ -90,28 +77,28 @@ class Questions extends React.Component {
   }
 
   // functions for rematching all Responses
-  mapConceptsToList() {
+  mapConceptsToList = () => {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
-  }
+  };
 
-  responsesWithStatusForQuestion(questionUID) {
+  responsesWithStatusForQuestion = questionUID => {
     const responses = this.props.responses.data[questionUID];
     return hashToCollection(respWithStatus(responses));
-  }
+  };
 
-  rematchAllResponses(question) {
+  rematchAllResponses = question => {
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
       const percentage = index / weak.length * 100;
       this.rematchResponse(question, resp, responsesWithStat);
     });
-  }
+  };
 
-  rematchResponse(question, response, responses) {
+  rematchResponse = (question, response, responses) => {
     if (!response.questionUID || !response.text) {
       return;
     }
@@ -154,9 +141,9 @@ class Questions extends React.Component {
         this.updateRematchedResponse(response.key, newValues);
       }
     }
-  }
+  };
 
-  renderModal() {
+  renderModal = () => {
     const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
     if (this.props.questions.newQuestionModalOpen) {
       return (
@@ -188,21 +175,20 @@ class Questions extends React.Component {
         </Modal>
       );
     }
-  }
+  };
 
-  handleSearchChange(e) {
+  handleSearchChange = e => {
     const action = push(`/admin/questions/${e.value}`);
     this.props.dispatch(action);
-  }
+  };
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
-
-  renderSearchBox() {
+  renderSearchBox = () => {
     const options = hashToCollection(this.props.questions.data);
     if (options.length > 0) {
       const formatted = options.map((opt) => {
@@ -217,7 +203,7 @@ class Questions extends React.Component {
       const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
-  }
+  };
 
   render() {
     const { questions, concepts, } = this.props;
@@ -247,7 +233,6 @@ class Questions extends React.Component {
       );
     }
   }
-
 }
 
 function select(state) {

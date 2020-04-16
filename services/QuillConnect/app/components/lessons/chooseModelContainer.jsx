@@ -4,21 +4,15 @@ import ConceptSelector from '../shared/conceptSelector.jsx';
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 
 class ChooseModelContainer extends Component {
-  constructor() {
-    super();
-    this.selectConcept = this.selectConcept.bind(this);
-    this.removeModelConcept = this.removeModelConcept.bind(this);
-  }
-
-  removeModelConcept() {
+  removeModelConcept = () => {
     this.props.updateModelConcept(null)
-  }
+  };
 
-  selectConcept(e) {
+  selectConcept = e => {
     this.props.updateModelConcept(e.value)
-  }
+  };
 
-  renderButtons() {
+  renderButtons = () => {
     return (
       <p className="control">
         <button
@@ -45,7 +39,6 @@ class ChooseModelContainer extends Component {
       </div>
     )
   }
-
 }
 
 export default ChooseModelContainer;
