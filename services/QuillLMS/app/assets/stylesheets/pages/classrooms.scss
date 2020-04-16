@@ -325,6 +325,9 @@
           min-width: 30px;
           background-color: white;
         }
+        button:hover {
+          background-color: #f2f2f2;
+        }
       }
     }
     .data-table-row:last-of-type {
