@@ -23,6 +23,7 @@ type PreFilter = (s: string) => FilterResponse;
 const filters: PreFilter[] = [
   profanity,
   tooShort,
+  multipleSentences,
   tooLong,
 ];
 
