@@ -124,7 +124,7 @@ export default class CreateStudentAccounts extends React.Component<CreateStudent
       }
       const newStudentsArray = [newStudent].concat(students)
       this.setState({ firstName: '', lastName: '', students: newStudentsArray })
-      this.firstNameInput.current.node.children[1].focus()
+      this.firstNameInput.current.handleInputContainerClick()
       this.lastNameInput.current.deactivateInput()
     }
   }
