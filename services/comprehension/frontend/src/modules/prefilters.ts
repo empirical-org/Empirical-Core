@@ -1,8 +1,8 @@
 import * as Filter from 'bad-words'
+import { sentences } from 'sbd'
 
 const filter = new Filter()
 
-const KNOWN_ABBREVIATIONS = ['e.g.', 'i.e.', 'etc.', 'U.S.A.', 'U.S.', 'Mr.', 'Mrs.', 'Dr.', 'St.', 'Ave.', 'Rd.', 'Esq.', 'Inc.', 'Sr.', 'Jr.', 'Ms.', 'Ph.D.', 'D.C.', 'a.m.', 'p.m.']
 
 const MINIMUM_WORD_COUNT = 3
 const MAXIMUM_WORD_COUNT = 100
@@ -49,8 +49,7 @@ export function tooShort(str: string): FilterResponse {
 }
 
 export function multipleSentences(str: string): FilterResponse {
-  const knownAbbreviationsRegex = new RegExp(KNOWN_ABBREVIATIONS.join('|').replace(/\./g, '\\.'), 'ig')
-  const matched = !!(str.replace(knownAbbreviationsRegex, '').match(/\.\s/))
+  const matched = sentences(str, {}).length > 1
   return { matched, feedback: MULTIPLE_SENTENCES_FEEDBACK, feedbackKey: 'multiple-sentences' }
 }
 
