@@ -15,9 +15,11 @@ export class AnswerVisualizer extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    const { params } = this.props
+    const { questionID } = params
     listenToResponsesWithCallback(
-      this.props.params.questionID,
+      questionID,
       (data) => {
         this.setState({
           responses: respWithStatus(data),

@@ -21,16 +21,8 @@ import {
   rematchOne
 } from '../../libs/grading/rematching.ts';
 import massEdit from '../../actions/massEdit';
-import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import request from 'request';
-import {
-  deleteResponse,
-  incrementResponseCount,
-  submitResponseEdit,
-  removeLinkToParentID,
-  setUpdatedResponse,
-  getGradedResponsesWithCallback
-} from '../../actions/responses';
+import { submitResponseEdit } from '../../actions/responses';
 
 const C = require('../../constants').default;
 
@@ -61,61 +53,6 @@ class ResponseComponent extends React.Component {
       health: {},
       gradeBreakdown: {},
     };
-
-    this.getHealth = this.getHealth.bind(this)
-    this.getGradeBreakdown = this.getGradeBreakdown.bind(this)
-    this.clearResponses = this.clearResponses.bind(this)
-    this.getTotalAttempts = this.getTotalAttempts.bind(this)
-    this.getResponseCount = this.getResponseCount.bind(this)
-    this.removeResponseFromMassEditArray = this.removeResponseFromMassEditArray.bind(this)
-    this.expand = this.expand.bind(this)
-    this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
-    this.getPercentageWeakResponses = this.getPercentageWeakResponses.bind(this)
-    this.getErrorsForAttempt = this.getErrorsForAttempt.bind(this)
-    this.generateFeedbackString = this.generateFeedbackString.bind(this)
-    this.rematchResponse = this.rematchResponse.bind(this)
-    this.rematchAllResponses = this.rematchAllResponses.bind(this)
-    this.responsesWithStatus = this.responsesWithStatus.bind(this)
-    this.responsesGroupedByStatus = this.responsesGroupedByStatus.bind(this)
-    this.responsesByStatusCodeAndResponseCount = this.responsesByStatusCodeAndResponseCount.bind(this)
-    this.formatForQuestionBar = this.formatForQuestionBar.bind(this)
-    this.gatherVisibleResponses = this.gatherVisibleResponses.bind(this)
-    this.getResponse = this.getResponse.bind(this)
-    this.getChildResponses = this.getChildResponses.bind(this)
-    this.getResponsesForCurrentPage = this.getResponsesForCurrentPage.bind(this)
-    this.getBoundsForCurrentPage = this.getBoundsForCurrentPage.bind(this)
-    this.renderResponses = this.renderResponses.bind(this)
-    this.toggleResponseSort = this.toggleResponseSort.bind(this)
-    this.renderSortingFields = this.renderSortingFields.bind(this)
-    this.toggleField = this.toggleField.bind(this)
-    this.toggleExcludeMisspellings = this.toggleExcludeMisspellings.bind(this)
-    this.resetFields = this.resetFields.bind(this)
-    this.deselectFields = this.deselectFields.bind(this)
-    this.renderStatusToggleMenu = this.renderStatusToggleMenu.bind(this)
-    this.collapseAllResponses = this.collapseAllResponses.bind(this)
-    this.expandAllResponses = this.expandAllResponses.bind(this)
-    this.allClosed = this.allClosed.bind(this)
-    this.renderExpandCollapseAll = this.renderExpandCollapseAll.bind(this)
-    this.renderRematchAllButton = this.renderRematchAllButton.bind(this)
-    this.renderPOSStrings = this.renderPOSStrings.bind(this)
-    this.renderViewResponsesOrPOSButton = this.renderViewResponsesOrPOSButton.bind(this)
-    this.renderResetAllFiltersButton = this.renderResetAllFiltersButton.bind(this)
-    this.renderDeselectAllFiltersButton = this.renderDeselectAllFiltersButton.bind(this)
-    this.getToPathwaysForResponse = this.getToPathwaysForResponse.bind(this)
-    this.getUniqAndCountedToResponsePathways = this.getUniqAndCountedToResponsePathways.bind(this)
-    this.mapCountToToResponse = this.mapCountToToResponse.bind(this)
-    this.getFromPathwaysForResponse = this.getFromPathwaysForResponse.bind(this)
-    this.getUniqAndCountedResponsePathways = this.getUniqAndCountedResponsePathways.bind(this)
-    this.getPOSTagsList = this.getPOSTagsList.bind(this)
-    this.getFilteredResponses = this.getFilteredResponses.bind(this)
-    this.mapCountToResponse = this.mapCountToResponse.bind(this)
-    this.updatePageNumber = this.updatePageNumber.bind(this)
-    this.incrementPageNumber = this.incrementPageNumber.bind(this)
-    this.decrementPageNumber = this.decrementPageNumber.bind(this)
-    this.getNumberOfPages = this.getNumberOfPages.bind(this)
-    this.resetPageNumber = this.resetPageNumber.bind(this)
-    this.renderDisplayingMessage = this.renderDisplayingMessage.bind(this)
-    this.renderPageNumbers = this.renderPageNumbers.bind(this)
   }
 
   componentDidMount() {
@@ -139,7 +76,7 @@ class ResponseComponent extends React.Component {
     this.clearResponses();
   }
 
-  getHealth() {
+  getHealth = () => {
     request(
       {
         url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/health`,
@@ -151,9 +88,9 @@ class ResponseComponent extends React.Component {
           });
         }
       );
-  }
+  };
 
-  getGradeBreakdown() {
+  getGradeBreakdown = () => {
     request(
       {
         url: `${process.env.QUILL_CMS}/questions/${this.props.questionID}/grade_breakdown`,
@@ -165,11 +102,11 @@ class ResponseComponent extends React.Component {
           });
         }
       );
-  }
+  };
 
-  clearResponses() {
+  clearResponses = () => {
     this.props.dispatch(questionActions.updateResponses({ responses: [], numberOfResponses: 0, numberOfPages: 1, responsePageNumber: 1, }));
-  }
+  };
 
   searchResponses = () => {
     const { dispatch, questionID } = this.props;
@@ -177,54 +114,46 @@ class ResponseComponent extends React.Component {
     dispatch(questionActions.searchResponses(questionID));
   }
 
-  getTotalAttempts() {
+  getTotalAttempts = () => {
     return this.state.health.total_number_of_attempts;
-    // return _.reduce(this.props.responses, (memo, item) => memo + item.count, 0);
-  }
+  };
 
-  getResponseCount() {
+  getResponseCount = () => {
     return this.state.health.total_number_of_responses;
-  }
+  };
 
-  removeResponseFromMassEditArray(responseKey) {
+  removeResponseFromMassEditArray = responseKey => {
     this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
-  }
+  };
 
-  expand(responseKey) {
+  expand = responseKey => {
     this.props.dispatch(filterActions.toggleExpandSingleResponse(responseKey));
-  }
+  };
 
-  updateRematchedResponse(rid, vals) {
+  updateRematchedResponse = (rid, vals) => {
     this.props.dispatch(submitResponseEdit(rid, vals, this.props.questionID));
-  }
+  };
 
-  getPercentageWeakResponses() {
+  getPercentageWeakResponses = () => {
     const { common_unmatched_responses, total_number_of_responses } = this.state.health
     return common_unmatched_responses > 0 ? (common_unmatched_responses/total_number_of_responses * 100).toFixed(2) : 0.0
-  }
+  };
 
-  getErrorsForAttempt(attempt) {
+  getErrorsForAttempt = attempt => {
     return attempt.feedback;
-  }
+  };
 
-  generateFeedbackString(attempt) {
-    const errors = this.getErrorsForAttempt(attempt);
-    // // add keys for react list elements
-    // var errorComponents = _.values(_.mapObject(errors, (val, key) => {
-    //   if (val) {
-    //     return feedbackStrings[key]
-    //   }
-    // }))
-    return errors;
-  }
+  generateFeedbackString = attempt => {
+    return this.getErrorsForAttempt(attempt);
+  };
 
-  rematchResponse(rid) {
+  rematchResponse = rid => {
     const response = this.props.filters.responses[rid];
     const callback = this.searchResponses;
     rematchOne(response, this.props.mode, this.props.question, this.props.questionID, callback);
-  }
+  };
 
-  rematchAllResponses() {
+  rematchAllResponses = () => {
     const pageNumber = 1;
     const callback = (done) => {
       if (done) {
@@ -234,27 +163,21 @@ class ResponseComponent extends React.Component {
       }
     };
     const weak = rematchAll(this.props.mode, this.props.questionID, callback);
-    // weak.forEach((resp, index) => {
-    //   const percentage = index / weak.length * 100;
-    //   console.log('Rematching: ', resp.key, percentage, '% complete');
-    //   this.rematchResponse(resp.key);
-    // });
-  }
+  };
 
-  responsesWithStatus() {
+  responsesWithStatus = () => {
     return hashToCollection(respWithStatus(this.props.filters.responses));
-  }
+  };
 
-  responsesGroupedByStatus() {
+  responsesGroupedByStatus = () => {
     return _.groupBy(this.responsesWithStatus(), 'statusCode');
-  }
+  };
 
-  responsesByStatusCodeAndResponseCount() {
+  responsesByStatusCodeAndResponseCount = () => {
     return _.mapObject(this.responsesGroupedByStatus(), (val, key) => _.reduce(val, (memo, resp) => memo + (resp.count || 0), 0));
-  }
+  };
 
-  formatForQuestionBar() {
-    // {"human_optimal":153,"human_suboptimal":140,"algo_optimal":0,"algo_suboptimal":8780,"unmatched":28820}
+  formatForQuestionBar = () => {
     const totalResponseCount = this.state.health.total_number_of_attempts;
     if (totalResponseCount == 0) {
       return [{
@@ -266,32 +189,32 @@ class ResponseComponent extends React.Component {
       value: val / totalResponseCount * 100,
       color: colors[qualityLabels.indexOf(key)],
     }));
-  }
+  };
 
-  gatherVisibleResponses() {
+  gatherVisibleResponses = () => {
     return this.responsesWithStatus();
-  }
+  };
 
-  getResponse(responseID) {
+  getResponse = responseID => {
     return this.props.filters.responses[responseID];
-  }
+  };
 
-  getChildResponses(responseID) {
+  getChildResponses = responseID => {
     const responses = hashToCollection(this.props.responses);
     return _.where(responses, { parentID: responseID, });
-  }
+  };
 
-  getResponsesForCurrentPage(responses) {
+  getResponsesForCurrentPage = responses => {
     return responses;
-  }
+  };
 
-  getBoundsForCurrentPage(length) {
+  getBoundsForCurrentPage = length => {
     const startIndex = (this.props.filters.responsePageNumber - 1) * responsesPerPage;
     const endIndex = startIndex + responsesPerPage > length ? length : startIndex + responsesPerPage;
     return [startIndex, endIndex];
-  }
+  };
 
-  renderResponses() {
+  renderResponses = () => {
     if (this.state.viewingResponses) {
       const { questionID, selectedIncorrectSequences, selectedFocusPoints } = this.props;
       const responsesWStatus = this.responsesWithStatus();
@@ -321,37 +244,37 @@ class ResponseComponent extends React.Component {
         toPathways={this.mapCountToToResponse}
       />);
     }
-  }
+  };
 
-  toggleResponseSort(field) {
+  toggleResponseSort = field => {
     this.props.dispatch(filterActions.toggleResponseSort(field));
-  }
+  };
 
-  renderSortingFields() {
+  renderSortingFields = () => {
     return (<ResponseSortFields
       ascending={this.props.filters.ascending}
       sorting={this.props.filters.sorting}
       toggleResponseSort={this.toggleResponseSort}
     />);
-  }
+  };
 
-  toggleField(status) {
+  toggleField = status => {
     this.props.dispatch(filterActions.toggleStatusField(status));
-  }
+  };
 
-  toggleExcludeMisspellings() {
+  toggleExcludeMisspellings = () => {
     this.props.dispatch(filterActions.toggleExcludeMisspellings());
-  }
+  };
 
-  resetFields() {
+  resetFields = () => {
     this.props.dispatch(filterActions.resetAllFields());
-  }
+  };
 
-  deselectFields() {
+  deselectFields = () => {
     this.props.dispatch(filterActions.deselectAllFields());
-  }
+  };
 
-  renderStatusToggleMenu() {
+  renderStatusToggleMenu = () => {
     let usedQualityLabels = qualityLabels
     const { mode } = this.props
     if (mode === 'questions') {
@@ -370,30 +293,30 @@ class ResponseComponent extends React.Component {
         visibleStatuses={this.props.filters.visibleStatuses}
       />
     );
-  }
+  };
 
-  collapseAllResponses() {
+  collapseAllResponses = () => {
     this.props.dispatch(filterActions.collapseAllResponses());
-  }
+  };
 
-  expandAllResponses() {
+  expandAllResponses = () => {
     const responses = this.responsesWithStatus();
     const newExpandedState = this.props.filters.expanded;
     for (let i = 0; i < responses.length; i++) {
       newExpandedState[responses[i].key] = true;
     }
     this.props.dispatch(filterActions.expandAllResponses(newExpandedState));
-  }
+  };
 
-  allClosed() {
+  allClosed = () => {
     const expanded = this.props.filters.expanded;
     for (const i in expanded) {
       if (expanded[i] === true) return false;
     }
     return true;
-  }
+  };
 
-  renderExpandCollapseAll() {
+  renderExpandCollapseAll = () => {
     let text,
       handleClick;
 
@@ -405,9 +328,9 @@ class ResponseComponent extends React.Component {
       text = 'Close';
     }
     return <a className="button is-fullwidth" onClick={handleClick}>{text}</a>;
-  }
+  };
 
-  renderRematchAllButton() {
+  renderRematchAllButton = () => {
     const { filters } = this.props
     let disabled = filters.numberOfResponses > 1000
     if (this.props.admin) {
@@ -415,9 +338,9 @@ class ResponseComponent extends React.Component {
 
       return (<button className="button is-outlined is-danger" disabled={disabled} onClick={this.rematchAllResponses} style={{ float: 'right', }} type="button">{text}</button>);
     }
-  }
+  };
 
-  renderPOSStrings() {
+  renderPOSStrings = () => {
     if (!this.state.viewingResponses) {
       const posTagsList = this.getResponsesForCurrentPage(hashToCollection(this.getPOSTagsList()));
       return (
@@ -426,9 +349,9 @@ class ResponseComponent extends React.Component {
         </div>
       );
     }
-  }
+  };
 
-  renderViewResponsesOrPOSButton() {
+  renderViewResponsesOrPOSButton = () => {
     return (
       <div className="column">
         <button
@@ -441,58 +364,57 @@ class ResponseComponent extends React.Component {
         >Show {this.state.viewingResponses ? 'POS' : 'Uniques'}</button>
       </div>
     );
-  }
+  };
 
-  renderResetAllFiltersButton() {
+  renderResetAllFiltersButton = () => {
     return (
       <div className="column">
         <button className="button is-fullwidth is-outlined" onClick={this.resetFields}>Select All Filters</button>
       </div>
     );
-  }
+  };
 
-  renderDeselectAllFiltersButton() {
+  renderDeselectAllFiltersButton = () => {
     return (
       <div className="column">
         <button className="button is-fullwidth is-outlined" onClick={this.deselectFields}>Deselect All Filters</button>
       </div>
     );
-  }
+  };
 
-  getToPathwaysForResponse(rid) {
+  getToPathwaysForResponse = rid => {
     const responseCollection = hashToCollection(this.props.pathways.data);
     const responsePathways = _.where(responseCollection, { fromResponseID: rid, });
     return responsePathways;
-  }
+  };
 
-  getUniqAndCountedToResponsePathways(rid) {
+  getUniqAndCountedToResponsePathways = rid => {
     const counted = _.countBy(this.getToPathwaysForResponse(rid), path => path.toResponseID);
     return counted;
-  }
+  };
 
-  mapCountToToResponse(rid) {
+  mapCountToToResponse = rid => {
     const mapped = _.mapObject(this.getUniqAndCountedToResponsePathways(rid), (value, key) => {
       const response = this.props.responses[key];
-      // response.pathCount = value
       return response;
     });
     return _.values(mapped);
-  }
+  };
 
   // from pathways
 
-  getFromPathwaysForResponse(rid) {
+  getFromPathwaysForResponse = rid => {
     const responseCollection = hashToCollection(this.props.pathways.data);
     const responsePathways = _.where(responseCollection, { toResponseID: rid, });
     return responsePathways;
-  }
+  };
 
-  getUniqAndCountedResponsePathways(rid) {
+  getUniqAndCountedResponsePathways = rid => {
     const counted = _.countBy(this.getFromPathwaysForResponse(rid), path => path.fromResponseID);
     return counted;
-  }
+  };
 
-  getPOSTagsList() {
+  getPOSTagsList = () => {
     const responses = this.gatherVisibleResponses();
     const responsesWithPOSTags = responses.map((response) => {
       response.posTags = getPartsOfSpeechTags(response.text.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')); // some text has html tags
@@ -517,7 +439,7 @@ class ResponseComponent extends React.Component {
       }
     });
     return posTagsList;
-  }
+  };
 
   handleStringFiltering = () => {
     const { dispatch, questionID } = this.props;
@@ -532,15 +454,15 @@ class ResponseComponent extends React.Component {
     }
   }
 
-  getFilteredResponses(responses) {
+  getFilteredResponses = responses => {
     if (this.props.filters.stringFilter == '') {
       return responses;
     }
     const that = this;
     return _.filter(responses, response => response.text.indexOf(that.props.filters.stringFilter) >= 0);
-  }
+  };
 
-  mapCountToResponse(rid) {
+  mapCountToResponse = rid => {
     const mapped = _.mapObject(this.getUniqAndCountedResponsePathways(rid), (value, key) => {
       let response = this.props.responses[key];
       if (response) {
@@ -555,33 +477,33 @@ class ResponseComponent extends React.Component {
       return response;
     });
     return _.values(mapped);
-  }
+  };
 
-  updatePageNumber(pageNumber) {
+  updatePageNumber = pageNumber => {
     this.props.dispatch(questionActions.updatePageNumber(pageNumber, this.props.questionID));
-  }
+  };
 
-  incrementPageNumber() {
+  incrementPageNumber = () => {
     if (this.props.filters.responsePageNumber < this.getNumberOfPages()) {
       this.updatePageNumber(this.props.filters.responsePageNumber + 1);
     }
-  }
+  };
 
-  decrementPageNumber() {
+  decrementPageNumber = () => {
     if (this.props.filters.responsePageNumber !== 1) {
       this.updatePageNumber(this.props.filters.responsePageNumber - 1);
     }
-  }
+  };
 
-  getNumberOfPages() {
+  getNumberOfPages = () => {
     return this.props.filters.numberOfPages;
-  }
+  };
 
-  resetPageNumber() {
+  resetPageNumber = () => {
     this.updatePageNumber(1);
-  }
+  };
 
-  renderDisplayingMessage() {
+  renderDisplayingMessage = () => {
     let endWord,
       length;
     if (this.state.viewingResponses) {
@@ -594,15 +516,9 @@ class ResponseComponent extends React.Component {
     const bounds = this.getBoundsForCurrentPage(length);
     const message = `Displaying ${bounds[0] + 1}-${bounds[1]} of ${length}${endWord}`;
     return <p className="label">{message}</p>;
-  }
+  };
 
-  renderPageNumbers() {
-    // var array
-    // if(this.state.viewingResponses) {
-    //   array = this.gatherVisibleResponses()
-    // } else {
-    //   array = this.getPOSTagsList()
-    // }
+  renderPageNumbers = () => {
     const numberOfPages = this.props.filters.numberOfPages || 0
     const pageNumbers = _.range(1, numberOfPages + 1);
 
@@ -618,7 +534,6 @@ class ResponseComponent extends React.Component {
       return (
         <li key={i}>
           <a className="button" onClick={() => this.updatePageNumber(pageNumber)} style={pageNumberStyle}>{pageNumber}</a>
-          {/* <a className="button" style={pageNumberStyle} onClick={() => { this.setState({ responsePageNumber: pageNumber, }); }}>{pageNumber}</a> */}
         </li>
       );
     });
@@ -648,7 +563,7 @@ class ResponseComponent extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     const { filters, mode } = this.props;
