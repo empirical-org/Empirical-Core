@@ -1,38 +1,43 @@
 .passage-container {
   .header-section {
     background-color: #ededed;
-    min-height: 130px;
     align-items: center;
     justify-content: center;
     display: flex;
   }
   .inner-header {
-    margin: 15px 30px;
     display: flex;
     flex-direction: column;
     max-width: 800px;
     width: 100%;
   }
   h1 {
-    line-height: 1.25;
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.27;
+    color: #2f2f2f;
+    margin-top: 4px;
   }
   .instructions {
     justify-content: space-between;
     align-items: center;
     display: flex;
-    margin-top: 10px;
+    margin-top: 20px;
+    border-radius: 2px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #e5e5e5;
     img {
       height: 22px;
       margin-right: 10px;
     }
     p {
-      margin: 0px;
+      font-size: 20px;
+      line-height: 1.45;
+      color: #3f3f3f;
     }
     div {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
     }
     .edits-made {
       flex-direction: column;
@@ -79,10 +84,8 @@
     margin: auto;
     line-height: 2.0;
     font-size: 16px;
-    font-family: courier new;
     color: #333;
     font-weight: 400;
-    // padding: 0px 50px;
     strong {
       color: #333;
     }
@@ -97,11 +100,17 @@
       line-height: 23px;
     }
     .paragraph {
+      .hidden {
+        position: absolute;
+        height: 0;
+        overflow: hidden;
+      }
       .edit-input {
-        font-family: courier new;
         border: none;
-        margin-right: 3px;
+        margin-right: 2px;
         padding: 0px;
+        font-size: 21px;
+        line-height: 1.52;
         &:focus {
           outline: none;
         }
@@ -130,7 +139,7 @@
 
   .passage {
     background-color: white;
-    padding: 30px 60px;
+    padding: 40px 60px;
     u {
       text-decoration: none;
     }

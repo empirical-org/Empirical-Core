@@ -8,13 +8,27 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
   constructor(props: EditInputProps) {
     super(props)
 
-    this.handleWordChange = this.handleWordChange.bind(this)
+    this.input = React.createRef()
+    this.hidden = React.createRef()
+
   }
 
-  handleWordChange(e: any) {
+  handleWordChange = (e: any) => {
     const { wordIndex, handleWordChange } = this.props
     handleWordChange(e.target.value, wordIndex)
   }
+
+  getStyleOfInput(key) {
+    const el = document.getElementById(key)
+    if (el) {
+      el.textContent = this.input.value;
+      const width = el.offsetWidth + 3 + "px"
+      return { width, };
+    } else {
+      return { display: 'none' }
+    }
+  }
+
 
   render() {
     const { currentText, originalText, underlined, wordIndex, paragraphIndex } = this.props
@@ -25,14 +39,19 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     if (currentText !== originalText) {
       className += ' bolded'
     }
-    const width = (currentText.length * 10) + 3
-    return (<input
-      className={className}
-      key={`${paragraphIndex}-${wordIndex}`}
-      onChange={this.handleWordChange}
-      spellCheck={false}
-      style={{width: `${width}px`}}
-      value={currentText}
-    />)
+    const key = `${paragraphIndex}-${wordIndex}`
+    const style = this.getStyleOfInput(key)
+    return (<React.Fragment>
+      <span className={`hidden ${className}`} id={key} ref={(node) => this.hidden = node} />
+      <input
+        className={className}
+        key={key}
+        onChange={this.handleWordChange}
+        ref={(node) => this.input = node}
+        spellCheck={false}
+        style={style}
+        value={currentText}
+      />
+    </React.Fragment>)
   }
 }
