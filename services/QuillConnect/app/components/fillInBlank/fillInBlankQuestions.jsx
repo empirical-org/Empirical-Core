@@ -14,7 +14,6 @@ class FillInBlankQuestions extends Component {
       showOnlyArchived: false,
       questions: {}
     }
-    this.toggleShowArchived = this.toggleShowArchived.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -26,11 +25,11 @@ class FillInBlankQuestions extends Component {
     }
   }
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
   render() {
     return (
@@ -50,7 +49,6 @@ class FillInBlankQuestions extends Component {
       </section>
     );
   }
-
 }
 
 function select(props) {

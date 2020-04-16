@@ -7,43 +7,34 @@ import Response from './response.jsx'
 import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.allResponsesChecked = this.allResponsesChecked.bind(this)
-    this.addAllResponsesToMassEdit = this.addAllResponsesToMassEdit.bind(this)
-    this.removeAllResponsesFromMassEdit = this.removeAllResponsesFromMassEdit.bind(this)
-    this.addOrRemoveAllResponsesFromMassEdit = this.addOrRemoveAllResponsesFromMassEdit.bind(this)
-  }
-
-  allResponsesChecked() {
+  allResponsesChecked = () => {
     return !this.props.responses.some((r) => {
       return !(
         this.props.massEdit.selectedResponses.includes(r.key) ||
         this.props.massEdit.selectedResponses.includes(r.id)
       )
     })
-  }
+  };
 
-  addAllResponsesToMassEdit() {
+  addAllResponsesToMassEdit = () => {
     const keys = this.props.responses.map(r => r.id)
     this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
-  }
+  };
 
-  removeAllResponsesFromMassEdit() {
+  removeAllResponsesFromMassEdit = () => {
     const keys = this.props.responses.map(r => r.id)
     this.props.dispatch(massEdit.removeResponsesFromMassEditArray(keys))
-  }
+  };
 
-  addOrRemoveAllResponsesFromMassEdit() {
+  addOrRemoveAllResponsesFromMassEdit = () => {
     if (this.allResponsesChecked()) {
       this.removeAllResponsesFromMassEdit()
     } else {
       this.addAllResponsesToMassEdit()
     }
-  }
+  };
 
-  renderResponse(resp) {
+  renderResponse = (resp) => {
     return (<Response
       allExpanded={this.props.expanded}
       conceptID={this.props.conceptID}
