@@ -12,33 +12,30 @@ String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
-const Lesson = React.createClass({
-
-  cancelEditingLesson() {
-    const { lessonID, } = this.props.params;
+class Lesson extends React.Component {
+  cancelEditingLesson = () => {
     this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
-  },
+  };
 
-  deleteLesson() {
+  deleteLesson = () => {
     const { lessonID, } = this.props.params;
     if (confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
-  },
+  };
 
-  editLesson() {
+  editLesson = () => {
     const { lessonID, } = this.props.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-    // // console.log("Edit button clicked");
-  },
+  };
 
-  lesson() {
+  lesson = () => {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.params;
     return data[lessonID]
-  },
+  };
 
-  questionsForLesson() {
+  questionsForLesson = () => {
     if (this.lesson().questions) {
       return this.lesson().questions.map((question) => {
         const questions = this.props[question.questionType].data;
@@ -48,15 +45,15 @@ const Lesson = React.createClass({
         return qFromDB;
       });
     }
-  },
+  };
 
-  saveLessonEdits(vals) {
+  saveLessonEdits = (vals) => {
     const { lessonID, } = this.props.params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
-  },
+  };
 
-  renderEditLessonForm() {
+  renderEditLessonForm = () => {
     const { lessonID, } = this.props.params;
     const lesson = this.lesson();
     if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
@@ -66,9 +63,9 @@ const Lesson = React.createClass({
         </Modal>
       );
     }
-  },
+  };
 
-  renderQuestionsForLesson() {
+  renderQuestionsForLesson = () => {
     const questionsForLesson = this.questionsForLesson();
     const lessonFlag = this.lesson().flag
     if (questionsForLesson) {
@@ -92,7 +89,7 @@ const Lesson = React.createClass({
     return (
       <ul>No questions</ul>
     );
-  },
+  };
 
   render() {
     const { lessonID, } = this.props.params;
@@ -120,9 +117,8 @@ const Lesson = React.createClass({
     return (
       <p>404: No Concept Found</p>
     );
-  },
-
-});
+  }
+}
 
 function select(state) {
   return {

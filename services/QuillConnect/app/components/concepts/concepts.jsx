@@ -1,21 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import { Modal, LinkListItem } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from 'quill-component-library/dist/componentLibrary'
 import actions from '../../actions/concepts'
 
-const Concepts = React.createClass({
-
-  submitNewConcept: function () {
+class Concepts extends React.Component {
+  submitNewConcept = () => {
     var newConcept = {name: this.refs.newConceptName.value}
     this.props.dispatch(actions.submitNewConcept(newConcept))
     this.refs.newConceptName.value = ""
-    // this.props.dispatch(actions.toggleNewConceptModal())
-  },
+  };
 
-  renderConcepts: function () {
+  renderConcepts = () => {
     const data = this.props.concepts.data["0"];
-    // const keys = _.keys(data["0"]);
     if (data) {
       return data.map((concept) => {
         return (<LinkListItem
@@ -27,9 +24,9 @@ const Concepts = React.createClass({
         />)
       })
     }
-  },
+  };
 
-  render: function (){
+  render() {
     return (
       <section className="section">
         <div className="container">
@@ -45,7 +42,7 @@ const Concepts = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {

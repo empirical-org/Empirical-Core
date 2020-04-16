@@ -1,7 +1,6 @@
 import React from 'react'
-import { Modal, hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import { Modal } from 'quill-component-library/dist/componentLibrary'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import _ from 'underscore'
 import rootRef from "../../libs/firebase"
 const sessionsRef = rootRef.child('sessions')
@@ -32,28 +31,26 @@ const styles = {
 
 };
 
-const Lesson = React.createClass({
-  getInitialState: function () {
-    return {
-      sessions: [],
-      modalSession: null
-    }
-  },
+class Lesson extends React.Component {
+  state = {
+    sessions: [],
+    modalSession: null
+  };
 
-  componentDidMount: function () {
+  componentDidMount() {
     sessionsRef.orderByChild("lessonID").startAt(this.props.params.lessonID).endAt(this.props.params.lessonID).once('value').then((snapshot) => {
       this.setState({sessions: snapshot.val()})
     })
-  },
+  }
 
-  getPercentageScore: function (answerArray) {
+  getPercentageScore = (answerArray) => {
     return _.reduce(answerArray, (memo, answer) => {
       const score = this.answeredCorrectly(answer) ? 1 : 0;
       return memo + score
     }, 0) + "/" + answerArray.length;
-  },
+  };
 
-  answeredCorrectly: function (answer) {
+  answeredCorrectly = (answer) => {
     const lastAttempt = _.last(answer.attempts)
     if (lastAttempt.found) {
       return lastAttempt.response.optimal || false
@@ -61,17 +58,17 @@ const Lesson = React.createClass({
       return false
     }
 
-  },
+  };
 
-  closeModal: function () {
+  closeModal = () => {
     this.setState({modalSession: null})
-  },
+  };
 
-  showModal: function (session) {
+  showModal = (session) => {
     this.setState({modalSession: session})
-  },
+  };
 
-  renderModal: function () {
+  renderModal = () => {
     if (this.state.modalSession) {
       return (
         <Modal close={this.closeModal}>
@@ -84,9 +81,9 @@ const Lesson = React.createClass({
         </Modal>
       )
     }
-  },
+  };
 
-  renderSessionList: function () {
+  renderSessionList = () => {
     return _.map(this.state.sessions, (session) => {
       return (
         <li key={session.key} onClick={this.showModal.bind(null, session)} style={styles.container}>
@@ -95,15 +92,15 @@ const Lesson = React.createClass({
         </li>
       )
     })
-  },
+  };
 
-  renderStudentAttempts: function (attempts) {
+  renderStudentAttempts = (attempts) => {
     return _.map(attempts, (attempt) => {
       return <div style={styles.response}>{attempt.submitted}</div>
     })
-  },
+  };
 
-  renderStudentResponses: function (session) {
+  renderStudentResponses = (session) => {
     return _.map(session.questions, (question) => {
       return (
         <li style={styles.container}>
@@ -112,9 +109,9 @@ const Lesson = React.createClass({
         </li>
       )
     })
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       <div>
         <ul>
@@ -124,7 +121,7 @@ const Lesson = React.createClass({
       </div>
     )
   }
-})
+}
 
 function select(state) {
   return {

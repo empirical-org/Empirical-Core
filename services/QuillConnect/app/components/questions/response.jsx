@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
@@ -15,16 +16,14 @@ import ConceptSelectorWithCheckbox from '../shared/conceptSelectorWithCheckbox.j
 import {
   deleteResponse,
   submitResponseEdit,
-  deleteConceptResult,
   getGradedResponsesWithCallback,
 } from '../../actions/responses';
 
 const jsDiff = require('diff');
 const C = require('../../constants').default;
 
-const feedbackStrings = C.FEEDBACK_STRINGS;
-
-export default React.createClass({
+export default createReactClass({
+  displayName: 'response',
 
   getInitialState() {
     const response = this.props.response

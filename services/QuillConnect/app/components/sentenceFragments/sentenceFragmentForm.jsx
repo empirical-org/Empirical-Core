@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 
-const sentenceFragmentForm = React.createClass({
-
-  getInitialState() {
-    const fragment = this.props.data;
-    if (fragment === undefined) { // creating new fragment
-      return {
+class sentenceFragmentForm extends React.Component {
+  constructor(props) {
+    super(props);
+    const fragment = props.data;
+    if (fragment === undefined) {
+      this.state = {
         prompt: '',
         isFragment: false,
         optimalResponseText: '',
@@ -18,8 +17,10 @@ const sentenceFragmentForm = React.createClass({
         wordCountChange: {},
         flag: 'alpha'
       };
+
+      return;
     } else {
-      return {
+      this.state = {
         prompt: fragment.prompt,
         isFragment: fragment.isFragment,
         optimalResponseText: fragment.optimalResponseText !== undefined ? fragment.optimalResponseText : '',
@@ -29,16 +30,18 @@ const sentenceFragmentForm = React.createClass({
         wordCountChange: fragment.wordCountChange || {},
         flag: fragment.flag ? fragment.flag : 'alpha',
       };
-    }
-  },
 
-  conceptsToOptions() {
+      return;
+    }
+  }
+
+  conceptsToOptions = () => {
     return _.map(this.props.concepts.data['0'], concept => (
         { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
       ));
-  },
+  };
 
-  handleChange(key, e) {
+  handleChange = (key, e) => {
     switch (key) {
       case 'prompt':
         this.setState({ prompt: e.target.value, });
@@ -72,20 +75,20 @@ const sentenceFragmentForm = React.createClass({
         break;
       default:
     }
-  },
+  };
 
-  submitSentenceFragment() {
+  submitSentenceFragment = () => {
     const data = this.state;
     this.props.submit(data);
-  },
+  };
 
-  wordCountInfo(minOrMax) {
+  wordCountInfo = (minOrMax) => {
     if (this.state.wordCountChange && this.state.wordCountChange[minOrMax]) {
       return this.state.wordCountChange[minOrMax];
     }
-  },
+  };
 
-  renderOptimalResponseTextInput() {
+  renderOptimalResponseTextInput = () => {
     return (
     [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
@@ -94,14 +97,9 @@ const sentenceFragmentForm = React.createClass({
         </p>)
     ]
     );
-  },
+  };
 
   render() {
-    // console.log("State: ", this.state)
-    const fuse = {
-      keys: ['shortenedName', 'name'], // first search by specific concept, then by parent and grandparent
-      threshold: 0.4,
-    };
     return (
       <div>
         <label className="label">Sentence / Fragment Prompt</label>
@@ -148,7 +146,7 @@ const sentenceFragmentForm = React.createClass({
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
       </div>
     );
-  },
-});
+  }
+}
 
 export default sentenceFragmentForm;
