@@ -34,7 +34,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.state = {}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { question, } = this.props
     this.setQuestionValues(question)
   }

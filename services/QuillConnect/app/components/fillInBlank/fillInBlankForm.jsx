@@ -1,78 +1,63 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { hashToCollection, TextEditor, FlagDropdown } from 'quill-component-library/dist/componentLibrary';
+import { TextEditor, FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector.jsx';
 
 
 class FillInBlankForm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { blankAllowed, caseInsensitive, conceptID, cues, cuesLabel, flag, instructions, prompt} = props
     this.state = {
-      prompt: '',
-      blankAllowed: false,
-      caseInsensitive: false,
-      instructions: '',
-      cues: '',
+      blankAllowed: blankAllowed || false,
+      caseInsensitive: caseInsensitive || false,
+      conceptID: conceptID || '',
+      cues: cues || '',
+      cuesLabel: cuesLabel || '',
+      flag: flag || 'alpha',
+      instructions: instructions || '',
       newQuestionOptimalResponse: '',
-      flag: 'alpha',
-      cuesLabel: ''
+      prompt: prompt || '',
     };
-    this.toggleQuestionBlankAllowed = this.toggleQuestionBlankAllowed.bind(this);
-    this.toggleQuestionCaseInsensitive = this.toggleQuestionCaseInsensitive.bind(this);
-    this.handlePromptChange = this.handlePromptChange.bind(this);
-    this.handleInstructionsChange = this.handleInstructionsChange.bind(this);
-    this.handleCuesChange = this.handleCuesChange.bind(this);
-    this.handleNewQuestionOptimalResponseChange = this.handleNewQuestionOptimalResponseChange.bind(this);
-    this.handleSelectorChange = this.handleSelectorChange.bind(this);
-    this.handleFlagChange = this.handleFlagChange.bind(this);
-    this.handleCuesLabelChange = this.handleCuesLabelChange.bind(this);
-    this.submit = this.submit.bind(this);
   }
 
-  componentWillMount() {
-    if(this.props.state) {
-      this.setState(this.props.state);
-    }
-  }
-
-  handlePromptChange(prompt) {
+  handlePromptChange = prompt => {
     this.setState({ prompt });
-  }
+  };
 
-  handleInstructionsChange(e) {
+  handleInstructionsChange = e => {
     this.setState({instructions: e.target.value});
-  }
+  };
 
-  handleCuesChange(e) {
+  handleCuesChange = e => {
     this.setState({cues: e.target.value});
-  }
+  };
 
-  handleNewQuestionOptimalResponseChange(e) {
+  handleNewQuestionOptimalResponseChange = e => {
     this.setState({newQuestionOptimalResponse: e.target.value});
-  }
+  };
 
-  handleSelectorChange(e) {
+  handleSelectorChange = e => {
     this.setState({conceptID: e.value});
-  }
+  };
 
-  handleFlagChange(e) {
+  handleFlagChange = e => {
     this.setState({ flag: e.target.value, });
-  }
+  };
 
-  handleCuesLabelChange(e) {
+  handleCuesLabelChange = e => {
     this.setState({ cuesLabel: e.target.value, });
-  }
+  };
 
-  toggleQuestionBlankAllowed() {
+  toggleQuestionBlankAllowed = () => {
     this.setState({blankAllowed: !this.state.blankAllowed});
-  }
+  };
 
-  toggleQuestionCaseInsensitive() {
+  toggleQuestionCaseInsensitive = () => {
     this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
-  }
+  };
 
-  submit() {
+  submit = () => {
     const { questionID } = this.state
     const data = {
       prompt: this.state.prompt,
@@ -86,9 +71,9 @@ class FillInBlankForm extends Component {
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
     window.location.href = window.location.origin + '/#/admin/fill-in-the-blanks/' + questionID;
-  }
+  };
 
-  clearForm() {
+  clearForm = () => {
     this.setState({
       blankAllowed: false,
       caseInsensitive: false,
@@ -101,7 +86,7 @@ class FillInBlankForm extends Component {
     });
   }
 
-  renderOptimalField() {
+  renderOptimalField = () => {
     if(!this.props.editing) {
       return(
         <div>
@@ -114,7 +99,7 @@ class FillInBlankForm extends Component {
     }
   }
 
-  renderButtonText() {
+  renderButtonText = () => {
     return this.props.editing ? 'Submit Edit' : 'Add Question';
   }
 
