@@ -50,7 +50,7 @@ export default class ClassroomActivity extends React.Component {
   UNSAFE_componentWillReceiveProps = (nextProps) => {
     const { startDate, } = this.state
     const newDueDate = nextProps.data ? nextProps.data.dueDate : null
-    const formattedNewDueDate = newDueDate ? moment(newDueDate) : undefined;
+    const formattedNewDueDate = newDueDate ? moment(newDueDate) : null;
     if (formattedNewDueDate !== startDate) {
       this.setState({ startDate: formattedNewDueDate, });
     }
