@@ -32,6 +32,12 @@ const sentenceFragmentForm = React.createClass({
     }
   },
 
+  conceptsToOptions() {
+    return _.map(this.props.concepts.data['0'], concept => (
+        { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
+      ));
+  },
+
   handleChange(key, e) {
     switch (key) {
       case 'prompt':
@@ -73,10 +79,10 @@ const sentenceFragmentForm = React.createClass({
     this.props.submit(data);
   },
 
-  conceptsToOptions() {
-    return _.map(this.props.concepts.data['0'], concept => (
-        { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
-      ));
+  wordCountInfo(minOrMax) {
+    if (this.state.wordCountChange && this.state.wordCountChange[minOrMax]) {
+      return this.state.wordCountChange[minOrMax];
+    }
   },
 
   renderOptimalResponseTextInput() {
@@ -88,12 +94,6 @@ const sentenceFragmentForm = React.createClass({
         </p>)
     ]
     );
-  },
-
-  wordCountInfo(minOrMax) {
-    if (this.state.wordCountChange && this.state.wordCountChange[minOrMax]) {
-      return this.state.wordCountChange[minOrMax];
-    }
   },
 
   render() {

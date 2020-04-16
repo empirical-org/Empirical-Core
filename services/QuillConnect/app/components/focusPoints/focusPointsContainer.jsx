@@ -19,19 +19,13 @@ export class FocusPointsContainer extends Component {
     this.state = { fpOrderedIds: null, questionType, actionFile, questionTypeLink };
   }
 
-  getQuestion = () => {
-    return this.props[this.state.questionType].data[this.props.params.questionID];
-  }
-
   getFocusPoints = () => {
     return this.getQuestion().focusPoints;
   }
 
-  deleteFocusPoint = focusPointID => {
-    if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      this.props.dispatch(this.state.actionFile.deleteFocusPoint(this.props.params.questionID, focusPointID));
-    }
-  };
+  getQuestion = () => {
+    return this.props[this.state.questionType].data[this.props.params.questionID];
+  }
 
   deleteConceptResult = (conceptResultKey, focusPointKey) => {
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
@@ -41,9 +35,41 @@ export class FocusPointsContainer extends Component {
     }
   }
 
-  renderTagsForFocusPoint = (focusPointString) => {
-    return focusPointString.split('|||').map((fp, index) => (<span className="tag is-medium is-light" key={`fp${index}`} style={{ margin: '3px', }}>{fp}</span>));
+  deleteFocusPoint = focusPointID => {
+    if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
+      this.props.dispatch(this.state.actionFile.deleteFocusPoint(this.props.params.questionID, focusPointID));
+    }
+  };
+
+  fPsortedByOrder = () => {
+    if (this.state.fpOrderedIds) {
+      const focusPoints = hashToCollection(this.getFocusPoints())
+      return this.state.fpOrderedIds.map(id => focusPoints.find(fp => fp.key === id))
+    } else {
+      return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
+    }
   }
+
+  sortCallback = sortInfo => {
+    const fpOrderedIds = sortInfo.data.items.map(item => item.key);
+    this.setState({ fpOrderedIds, });
+  };
+
+  updatefpOrder = () => {
+    if (this.state.fpOrderedIds) {
+      const focusPoints = this.getFocusPoints();
+      const newFp = {};
+      this.state.fpOrderedIds.forEach((id, index) => {
+        const fp = Object.assign({}, focusPoints[id]);
+        fp.order = index + 1;
+        newFp[id] = fp;
+      });
+      this.props.dispatch(this.state.actionFile.submitBatchEditedFocusPoint(this.props.params.questionID, newFp));
+      alert('saved!');
+    } else {
+      alert('no changes to focus points have been made');
+    }
+  };
 
   renderConceptResults = (concepts, focusPointKey) => {
     if (concepts) {
@@ -56,15 +82,6 @@ export class FocusPointsContainer extends Component {
         )
       );
       return _.values(components);
-    }
-  }
-
-  fPsortedByOrder = () => {
-    if (this.state.fpOrderedIds) {
-      const focusPoints = hashToCollection(this.getFocusPoints())
-      return this.state.fpOrderedIds.map(id => focusPoints.find(fp => fp.key === id))
-    } else {
-      return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
     }
   }
 
@@ -96,26 +113,9 @@ export class FocusPointsContainer extends Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  sortCallback = sortInfo => {
-    const fpOrderedIds = sortInfo.data.items.map(item => item.key);
-    this.setState({ fpOrderedIds, });
-  };
-
-  updatefpOrder = () => {
-    if (this.state.fpOrderedIds) {
-      const focusPoints = this.getFocusPoints();
-      const newFp = {};
-      this.state.fpOrderedIds.forEach((id, index) => {
-        const fp = Object.assign({}, focusPoints[id]);
-        fp.order = index + 1;
-        newFp[id] = fp;
-      });
-      this.props.dispatch(this.state.actionFile.submitBatchEditedFocusPoint(this.props.params.questionID, newFp));
-      alert('saved!');
-    } else {
-      alert('no changes to focus points have been made');
-    }
-  };
+  renderTagsForFocusPoint = (focusPointString) => {
+    return focusPointString.split('|||').map((fp, index) => (<span className="tag is-medium is-light" key={`fp${index}`} style={{ margin: '3px', }}>{fp}</span>));
+  }
 
   renderfPButton = () => {
     return (

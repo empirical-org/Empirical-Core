@@ -14,6 +14,24 @@ String.prototype.toKebab = function () {
 
 const Lesson = React.createClass({
 
+  cancelEditingLesson() {
+    const { lessonID, } = this.props.params;
+    this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
+  },
+
+  deleteLesson() {
+    const { lessonID, } = this.props.params;
+    if (confirm('do you want to do this?')) {
+      this.props.dispatch(lessonActions.deleteLesson(lessonID));
+    }
+  },
+
+  editLesson() {
+    const { lessonID, } = this.props.params;
+    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
+    // // console.log("Edit button clicked");
+  },
+
   lesson() {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.params;
@@ -29,6 +47,24 @@ const Lesson = React.createClass({
         qFromDB.key = question.key;
         return qFromDB;
       });
+    }
+  },
+
+  saveLessonEdits(vals) {
+    const { lessonID, } = this.props.params;
+    const qids = vals.questions ? vals.questions.map(q => q.key) : []
+    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
+  },
+
+  renderEditLessonForm() {
+    const { lessonID, } = this.props.params;
+    const lesson = this.lesson();
+    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
+      return (
+        <Modal close={this.cancelEditingLesson}>
+          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
+        </Modal>
+      );
     }
   },
 
@@ -56,42 +92,6 @@ const Lesson = React.createClass({
     return (
       <ul>No questions</ul>
     );
-  },
-
-  deleteLesson() {
-    const { lessonID, } = this.props.params;
-    if (confirm('do you want to do this?')) {
-      this.props.dispatch(lessonActions.deleteLesson(lessonID));
-    }
-  },
-
-  cancelEditingLesson() {
-    const { lessonID, } = this.props.params;
-    this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
-  },
-
-  saveLessonEdits(vals) {
-    const { lessonID, } = this.props.params;
-    const qids = vals.questions ? vals.questions.map(q => q.key) : []
-    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
-  },
-
-  editLesson() {
-    const { lessonID, } = this.props.params;
-    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-    // // console.log("Edit button clicked");
-  },
-
-  renderEditLessonForm() {
-    const { lessonID, } = this.props.params;
-    const lesson = this.lesson();
-    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
-      return (
-        <Modal close={this.cancelEditingLesson}>
-          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
-        </Modal>
-      );
-    }
   },
 
   render() {

@@ -11,11 +11,6 @@ import request from 'request'
 
 export default React.createClass({
 
-  propTypes: {
-    item: React.PropTypes.object,
-    onSubmit: React.PropTypes.func.isRequired,
-  },
-
   getInitialState() {
     const item = this.props.item;
     return ({

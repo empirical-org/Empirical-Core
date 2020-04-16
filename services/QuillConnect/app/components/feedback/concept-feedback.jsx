@@ -10,12 +10,12 @@ import { ConceptExplanation } from 'quill-component-library/dist/componentLibrar
 
 const ConceptFeedback = React.createClass({
 
-  deleteConceptsFeedback: function () {
-    this.props.dispatch(actions.deleteConceptsFeedback(this.props.params.feedbackID))
+  cancelEdit: function(feedbackID) {
+      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
   },
 
-  toggleEdit: function () {
-    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
+  deleteConceptsFeedback: function () {
+    this.props.dispatch(actions.deleteConceptsFeedback(this.props.params.feedbackID))
   },
 
   submitNewFeedback: function (feedbackID, data) {
@@ -25,8 +25,8 @@ const ConceptFeedback = React.createClass({
     }
   },
 
-  cancelEdit: function(feedbackID) {
-      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
+  toggleEdit: function () {
+    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
   },
 
   render: function (){

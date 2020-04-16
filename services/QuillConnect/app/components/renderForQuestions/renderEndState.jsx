@@ -8,28 +8,6 @@ import { connect } from 'react-redux';
 const jsDiff = require('diff');
 
 class EndState extends React.Component {
-
-  renderStaticText = () => {
-    const { answeredNonMultipleChoiceCorrectly, multipleChoiceCorrect, } = this.props
-    let message = '';
-    if (answeredNonMultipleChoiceCorrectly || multipleChoiceCorrect) {
-      message = 'Good work! Here are the most popular strong answers:';
-    } else {
-      message = 'Keep going! Here are the most popular strong answers:';
-    }
-    return (
-      <Feedback
-        feedback={(<p>{message}</p>)}
-        feedbackType="continue"
-        key="end-state"
-      />
-    );
-  }
-
-  returnSanitizedArray(str) {
-    return str.toLowerCase().replace(/\n/g, ' ').replace(/(<([^>]+)>)/ig, ' ').replace(/&nbsp;/g, '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g, '').split(' ').sort().join(' ').trim().split(' ');
-  }
-
   findDiffs(answer) {
     const { question, } = this.props
     let styledString = answer;
@@ -57,6 +35,27 @@ class EndState extends React.Component {
       }
     });
     return styledString;
+  }
+
+  returnSanitizedArray(str) {
+    return str.toLowerCase().replace(/\n/g, ' ').replace(/(<([^>]+)>)/ig, ' ').replace(/&nbsp;/g, '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g, '').split(' ').sort().join(' ').trim().split(' ');
+  }
+
+  renderStaticText = () => {
+    const { answeredNonMultipleChoiceCorrectly, multipleChoiceCorrect, } = this.props
+    let message = '';
+    if (answeredNonMultipleChoiceCorrectly || multipleChoiceCorrect) {
+      message = 'Good work! Here are the most popular strong answers:';
+    } else {
+      message = 'Keep going! Here are the most popular strong answers:';
+    }
+    return (
+      <Feedback
+        feedback={(<p>{message}</p>)}
+        feedbackType="continue"
+        key="end-state"
+      />
+    );
   }
 
   renderTopThreeResponses = () => {

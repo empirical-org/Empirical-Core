@@ -29,17 +29,8 @@ export class AnswerVisualizer extends Component {
     );
   }
 
-  sortResponsesByCount(responseObj) {
-    let sortable = [];
-    for(var response in responseObj) {
-      sortable.push([responseObj[response].text, responseObj[response].count]);
-    }
-    sortable.sort((a, b) => {
-      return b[1] - a[1];
-    });
-    return sortable.map((response) => {
-      return response[0];
-    });
+  getClosestCorrectResponse(response) {
+    return fuzzy(this.getHumanCorrectResponses()).get(response)[0][1];
   }
 
   getHumanCorrectResponses() {
@@ -54,18 +45,16 @@ export class AnswerVisualizer extends Component {
     })), (r) => { return !r }));
   }
 
-  getClosestCorrectResponse(response) {
-    return fuzzy(this.getHumanCorrectResponses()).get(response)[0][1];
-  }
-
-  renderDiffsBetweenIncorrectResponsesAndNearestCorrectResponse() {
-    return this.getHumanIncorrectResponses().map((response) => {
-      return(
-        <DiffedResponse
-          firstResponse={this.getClosestCorrectResponse(response)}
-          newResponse={response}
-        />
-      );
+  sortResponsesByCount(responseObj) {
+    let sortable = [];
+    for(var response in responseObj) {
+      sortable.push([responseObj[response].text, responseObj[response].count]);
+    }
+    sortable.sort((a, b) => {
+      return b[1] - a[1];
+    });
+    return sortable.map((response) => {
+      return response[0];
     });
   }
 
@@ -74,6 +63,17 @@ export class AnswerVisualizer extends Component {
       return(
         <DiffedResponse
           firstResponse={this.props.questions.data[this.props.params.questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
+          newResponse={response}
+        />
+      );
+    });
+  }
+
+  renderDiffsBetweenIncorrectResponsesAndNearestCorrectResponse() {
+    return this.getHumanIncorrectResponses().map((response) => {
+      return(
+        <DiffedResponse
+          firstResponse={this.getClosestCorrectResponse(response)}
           newResponse={response}
         />
       );

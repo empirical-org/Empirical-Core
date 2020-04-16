@@ -25,14 +25,18 @@ const Concept = React.createClass({
     }
   },
 
+  questionsForConcept: function () {
+    const questionsCollection = hashToCollection(this.props.questions.data)
+    return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
+  },
+
   submitNewQuestion: function (questionObj, optimalResponseObj) {
     const questionObjWithConceptID = { ...questionObj, conceptID: this.props.params.conceptID }
     this.props.dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
   },
 
-  questionsForConcept: function () {
-    const questionsCollection = hashToCollection(this.props.questions.data)
-    return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
+  renderNewQuestionForm: function () {
+    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
   },
 
   renderQuestionsForConcept: function () {
@@ -45,10 +49,6 @@ const Concept = React.createClass({
       <ul>{listItems}</ul>
     )
 
-  },
-
-  renderNewQuestionForm: function () {
-    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
   },
 
   render: function (){

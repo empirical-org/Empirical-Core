@@ -19,6 +19,23 @@ const ItemLevelForm = React.createClass({
       }
   },
 
+  cancelEdit: function() {
+    this.props.cancelEdit(this.props.levelID)
+  },
+
+  deleteItemLevel: function() {
+    if(confirm("Are you sure you want to delete this item level?")) {
+      this.props.deleteItemLevel(this.props.levelID)
+    }
+  },
+
+  handleChange: function() {
+    this.setState({
+      name: this.refs.newItemLevelName.value,
+      integerValue: this.refs.integerValue.value,
+    })
+  },
+
   submit: function() {
     if(this.refs.newItemLevelName.value==="" || this.refs.integerValue.value==="") { //has not chosen an associated concept
       alert("You must choose a name for this item level")
@@ -30,23 +47,6 @@ const ItemLevelForm = React.createClass({
     }
     this.props.submitNewItemLevel(newItemLevel, this.props.levelID) //id will be undefined if creating a new level
     this.setState(newItemLevel)
-  },
-
-  deleteItemLevel: function() {
-    if(confirm("Are you sure you want to delete this item level?")) {
-      this.props.deleteItemLevel(this.props.levelID)
-    }
-  },
-
-  cancelEdit: function() {
-    this.props.cancelEdit(this.props.levelID)
-  },
-
-  handleChange: function() {
-    this.setState({
-      name: this.refs.newItemLevelName.value,
-      integerValue: this.refs.integerValue.value,
-    })
   },
 
   render: function() {

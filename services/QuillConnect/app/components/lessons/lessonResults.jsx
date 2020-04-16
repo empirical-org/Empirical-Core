@@ -33,17 +33,24 @@ const styles = {
 };
 
 const Lesson = React.createClass({
+  getInitialState: function () {
+    return {
+      sessions: [],
+      modalSession: null
+    }
+  },
+
   componentDidMount: function () {
     sessionsRef.orderByChild("lessonID").startAt(this.props.params.lessonID).endAt(this.props.params.lessonID).once('value').then((snapshot) => {
       this.setState({sessions: snapshot.val()})
     })
   },
 
-  getInitialState: function () {
-    return {
-      sessions: [],
-      modalSession: null
-    }
+  getPercentageScore: function (answerArray) {
+    return _.reduce(answerArray, (memo, answer) => {
+      const score = this.answeredCorrectly(answer) ? 1 : 0;
+      return memo + score
+    }, 0) + "/" + answerArray.length;
   },
 
   answeredCorrectly: function (answer) {
@@ -56,19 +63,27 @@ const Lesson = React.createClass({
 
   },
 
-  getPercentageScore: function (answerArray) {
-    return _.reduce(answerArray, (memo, answer) => {
-      const score = this.answeredCorrectly(answer) ? 1 : 0;
-      return memo + score
-    }, 0) + "/" + answerArray.length;
+  closeModal: function () {
+    this.setState({modalSession: null})
   },
 
   showModal: function (session) {
     this.setState({modalSession: session})
   },
 
-  closeModal: function () {
-    this.setState({modalSession: null})
+  renderModal: function () {
+    if (this.state.modalSession) {
+      return (
+        <Modal close={this.closeModal}>
+          <div className="box">
+            <h4 className="title">{this.state.modalSession.name}</h4>
+            <ul>
+              {this.renderStudentResponses(this.state.modalSession)}
+            </ul>
+          </div>
+        </Modal>
+      )
+    }
   },
 
   renderSessionList: function () {
@@ -97,21 +112,6 @@ const Lesson = React.createClass({
         </li>
       )
     })
-  },
-
-  renderModal: function () {
-    if (this.state.modalSession) {
-      return (
-        <Modal close={this.closeModal}>
-          <div className="box">
-            <h4 className="title">{this.state.modalSession.name}</h4>
-            <ul>
-              {this.renderStudentResponses(this.state.modalSession)}
-            </ul>
-          </div>
-        </Modal>
-      )
-    }
   },
 
   render: function () {

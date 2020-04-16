@@ -10,6 +10,10 @@ const Navbar = React.createClass({
     }
   },
 
+  inLesson: function () {
+    return (window.location.href.indexOf('play/lesson') !== -1);
+  },
+
   navStyles: function () {
     if (this.state.expanded) {
       return {
@@ -19,16 +23,12 @@ const Navbar = React.createClass({
     }
   },
 
-  toggle: function () {
-    this.setState({expanded: !this.state.expanded})
-  },
-
   reset: function () {
     this.setState({expanded: false})
   },
 
-  inLesson: function () {
-    return (window.location.href.indexOf('play/lesson') !== -1);
+  toggle: function () {
+    this.setState({expanded: !this.state.expanded})
   },
 
   renderLinks: function () {
