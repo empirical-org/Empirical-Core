@@ -19,28 +19,29 @@ class EditIncorrectSequencesContainer extends Component {
       questionTypeLink,
       actionFile
     }
-
-    this.submitForm = this.submitForm.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { actionFile } = this.state
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid] && actionFile.getUsedSequences) {
-      this.props.dispatch(actionFile.getUsedSequences(this.props.params.questionID))
+    const { getUsedSequences } = actionFile
+    const { dispatch, generatedIncorrectSequences, params } = this.props
+    const { used } = generatedIncorrectSequences
+    const { questionID } = params
+    if (!used[questionID] && getUsedSequences) {
+      dispatch(actionFile.getUsedSequences(questionID))
     }
   }
 
-  getIncorrectSequence() {
+  getIncorrectSequence = () => {
     return this.props[this.state.questionType].data[this.props.params.questionID].incorrectSequences[this.props.params.incorrectSequenceID];
   }
 
-  submitForm(data, incorrectSequenceID) {
+  submitForm = (data, incorrectSequenceID) => {
     const { actionFile } = this.state
     delete data.conceptResults.null;
     this.props.dispatch(actionFile.submitEditedIncorrectSequence(this.props.params.questionID, data, incorrectSequenceID));
     window.history.back();
-  }
+  };
 
   render() {
     const { generatedIncorrectSequences, params, questions, sentenceFragments, states, } = this.props

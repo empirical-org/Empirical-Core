@@ -32,7 +32,7 @@ export class TurkActivity extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, } = this.props
     dispatch(clearData());
   }

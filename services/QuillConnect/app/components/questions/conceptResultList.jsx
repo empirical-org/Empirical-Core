@@ -8,29 +8,27 @@ export default class conceptResultList extends React.Component {
     this.state = {
       conceptResults: {}
     }
-
-    this.handleConceptChange = this.handleConceptChange.bind(this)
   }
 
-  handleConceptChange(e) {
+  handleConceptChange = e => {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
     newConceptResults[e.value] ? null : newConceptResults[e.value] = false
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
-  }
+  };
 
-  toggleConceptResultCorrect(key) {
+  toggleConceptResultCorrect = (key) => {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
     newConceptResults[key] = !newConceptResults[key]
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
   }
 
-  deleteConceptResult(key) {
+  deleteConceptResult = (key) => {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
     delete newConceptResults[key]
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
   }
 
-  renderConceptResults() {
+  renderConceptResults = () => {
     const mapped = Object.assign({}, this.state.conceptResults, { null: false })
     const components = _.mapObject(mapped, (val, key) => (
       <ConceptSelectorWithCheckbox
