@@ -258,7 +258,7 @@
     .short-fields {
       display: flex;
       margin-bottom: 20px;
-      div {
+      div:not(.DayPickerNavigation_button) {
         flex: 1
       }
       input:not(#date-picker) {
