@@ -21,6 +21,7 @@ class Api::V1::ConceptFeedbackController < Api::ApiController
     # "updates" that are really creates with a specified UID
     begin
       @concept_feedback = ConceptFeedback.find_by!(uid: params[:id])
+      @concept_feedback.update!(data: valid_params)
     rescue ActiveRecord::RecordNotFound
       @concept_feedback = ConceptFeedback.create!({uid: params[:id], data: valid_params})
     end
