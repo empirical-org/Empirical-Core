@@ -9,11 +9,12 @@ describe('UnitTemplateProfileAssignButton component', () => {
     const wrapper = shallow(<UnitTemplateProfileAssignButton
       data={{non_authenticated: true}}
     />)
-    it('renders one button', () => {
-      expect(wrapper.find('button')).toHaveLength(1)
+    it('renders two buttons', () => {
+      expect(wrapper.find('button')).toHaveLength(2)
     })
-    it('renders the text "Sign Up to Assign This Activity Pack"', () => {
-      expect(wrapper.find('button').text()).toEqual("Sign Up to Assign This Activity Pack")
+    it('renders one that says sign up and one that says log in"', () => {
+      expect(wrapper.find('.quill-button.primary').text()).toEqual("Sign up")
+      expect(wrapper.find('.quill-button.secondary').text()).toEqual("Log in")
     })
   })
 
