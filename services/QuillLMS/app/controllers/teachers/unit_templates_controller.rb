@@ -102,12 +102,13 @@ class Teachers::UnitTemplatesController < ApplicationController
   end
 
   def set_cache_if_necessary_and_return(cached, ut_cache_name)
+    CACHE_EXPIRATION_TIME = 600
     ut_cache = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     if ut_cache
       ut_cache
     else
       uts = unit_templates_by_user_testing_flag
-      $redis.set(ut_cache_name, uts.to_json)
+      $redis.set(ut_cache_name, uts.to_json, {ex: CACHE_EXPIRATION_TIME})
       uts
     end
   end

@@ -49,12 +49,13 @@ class UnitTemplate < ActiveRecord::Base
   end
 
   def get_cached_serialized_unit_template(flag=nil)
+    CACHE_EXPIRATION_TIME = 600
     cached = $redis.get("unit_template_id:#{id}_serialized")
     serialized_unit_template = cached.nil? || cached&.blank? ? nil : JSON.parse(cached)
     unless serialized_unit_template
       serializable_unit_template = UnitTemplatePseudoSerializer.new(self, flag)
       serialized_unit_template = serializable_unit_template.data
-      $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json)
+      $redis.set("unit_template_id:#{id}_serialized", serialized_unit_template.to_json, {ex: CACHE_EXPIRATION_TIME})
     end
     serialized_unit_template
   end
