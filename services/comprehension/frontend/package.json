@@ -7,7 +7,7 @@
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}'",
     "lint:fix": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --exclude 'src/tests/*.{ts,tsx}' --fix",
     "start": "EMPIRICAL_BASE_URL=localhost:3000 webpack-dev-server",
-    "test": "jest",
+    "test": "mocha --require ts-node/register src/tests/**/*.spec.ts",
     "jest:u": "jest --updateSnapshot",
     "jest": "jest",
     "build:jenkins": "tsc && webpack --optimize-minimize",
@@ -36,10 +36,13 @@
     "@types/react-router-dom": "^5.1.3",
     "@types/request": "^2.48.3",
     "babel-jest": "^24.9.0",
+    "bad-words": "^3.0.3",
     "bulma": "^0.8.0",
     "css-hot-loader": "^1.4.4",
     "enzyme-adapter-react-16": "^1.15.1",
+    "expect": "^25.3.0",
     "fs": "0.0.2",
+    "mocha": "^7.1.1",
     "net": "^1.0.2",
     "node-sass": "^4.13.1",
     "query-string": "^6.9.0",
@@ -58,6 +61,7 @@
     "request": "^2.88.0",
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
+    "sbd": "^1.0.18",
     "style-loader": "^1.0.1",
     "tls": "0.0.1",
     "uuid": "^7.0.0"
@@ -79,6 +83,7 @@
     "ts-import-plugin": "^1.6.1",
     "ts-jest": "^24.2.0",
     "ts-loader": "^6.2.1",
+    "ts-node": "^8.8.2",
     "tslint": "^5.20.1",
     "tslint-loader": "^3.5.4",
     "typescript": "^3.7.2",
@@ -98,7 +103,7 @@
         "diagnostics": false
       }
     },
-    "testRegex": "\\.(test|spec)\\.(ts|tsx|js)$",
+    "testRegex": "\\.(test)\\.(ts|tsx|js)$",
     "setupFiles": [
       "<rootDir>/src/setupTests.ts"
     ],

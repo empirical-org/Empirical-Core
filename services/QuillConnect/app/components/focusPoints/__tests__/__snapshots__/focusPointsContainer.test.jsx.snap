@@ -676,7 +676,11 @@ ShallowWrapper {
       "_instance": FocusPointsContainer {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "deleteConceptResult": [Function],
         "deleteFocusPoint": [Function],
+        "fPsortedByOrder": [Function],
+        "getFocusPoints": [Function],
+        "getQuestion": [Function],
         "props": Object {
           "params": Object {
             "questionID": 100,
@@ -738,6 +742,10 @@ ShallowWrapper {
           },
         },
         "refs": Object {},
+        "renderConceptResults": [Function],
+        "renderFocusPointsList": [Function],
+        "renderTagsForFocusPoint": [Function],
+        "renderfPButton": [Function],
         "sortCallback": [Function],
         "state": Object {
           "actionFile": Object {

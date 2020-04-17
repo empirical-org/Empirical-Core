@@ -35,7 +35,7 @@ export class Lesson extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, } = this.props
     dispatch(clearData());
   }

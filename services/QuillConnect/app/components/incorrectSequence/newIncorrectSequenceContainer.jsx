@@ -14,22 +14,24 @@ class NewIncorrectSequencesContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, actionFile, questionTypeLink };
-
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
   }
 
-  componentWillMount() {
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid] && this.state.actionFile.getUsedSequences) {
-      this.props.dispatch(this.state.actionFile.getUsedSequences(this.props.params.questionID))
+  componentDidMount() {
+    const { actionFile } = this.state
+    const { getUsedSequences } = actionFile
+    const { dispatch, generatedIncorrectSequences, params } = this.props
+    const { used } = generatedIncorrectSequences
+    const { questionID } = params
+    if (!used[questionID] && getUsedSequences) {
+      dispatch(getUsedSequences(questionID))
     }
   }
 
-  submitSequenceForm(data) {
+  submitSequenceForm = data => {
     delete data.conceptResults.null;
     this.props.dispatch(this.state.actionFile.submitNewIncorrectSequence(this.props.params.questionID, data));
     window.history.back();
-  }
+  };
 
   render() {
     const { generatedIncorrectSequences, params, questions, sentenceFragments, } = this.props
