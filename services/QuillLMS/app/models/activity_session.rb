@@ -290,14 +290,18 @@ class ActivitySession < ActiveRecord::Base
     ).select(:id, :uid)
 
     concept_results.each do |concept_result|
-      activity_session_id = activity_sessions.find do |activity_session|
-        activity_session[:uid] == concept_result[:activity_session_uid]
-      end[:id]
-      concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
-      concept_result[:metadata] = concept_result[:metadata].to_json
-      concept_result[:concept_id] = concept.id
-      concept_result[:activity_session_id] = activity_session_id
-      concept_result.delete(:activity_session_uid)
+      if activity_sessions
+        activity_session_id = activity_sessions.find do |activity_session|
+          if activity_session && concept_result
+            activity_session[:uid] == concept_result[:activity_session_uid]
+          end
+        end[:id]
+        concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
+        concept_result[:metadata] = concept_result[:metadata].to_json
+        concept_result[:concept_id] = concept.id
+        concept_result[:activity_session_id] = activity_session_id
+        concept_result.delete(:activity_session_uid)
+      end
     end
 
     concept_results.each do |concept_result|

@@ -113,7 +113,7 @@ class Api::V1::ClassroomUnitsController < Api::ApiController
 
   def authorize!
     classroom_unit = ClassroomUnit.find(params[:classroom_unit_id])
-    classroom_teacher!(classroom_unit.classroom.id)
+    classroom_teacher!(classroom_unit&.classroom&.id)
   end
 
   def assigned_students(activity_sessions)
