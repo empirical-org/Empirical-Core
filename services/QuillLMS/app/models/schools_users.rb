@@ -6,6 +6,6 @@ class SchoolsUsers < ActiveRecord::Base
   before_save :update_subscriptions
 
   def update_subscriptions
-    user.updated_school(school_id)
+    user&.updated_school(school_id)
   end
 end
