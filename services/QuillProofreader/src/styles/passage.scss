@@ -153,48 +153,10 @@
 
   .bottom-section {
     max-width: 800px;
-    margin: auto;
+    margin: 40px auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    .check-work {
-      background-color: #00c2a2;
-      color: white;
-      border: none;
-      box-shadow: none;
-      margin-top: 37px;
-      font-size: 15px;
-      border-radius: 6px;
-      height: 40px;
-      width: 135px;
-      font-weight: 700;
-      cursor: pointer;
-      -webkit-appearance: none;
-      &:focus {
-        outline: none;
-      }
-    }
-    .reset-button {
-      width: 104px;
-      height: 40px;
-      border-radius: 4px;
-      background-color: #ffffff;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 8px 16px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      color: #000000;
-      &.disabled {
-        border: solid 1px #bdbdbd;
-        color: #878787;
-        cursor: default;
-        img {
-          filter: invert(.5);
-        }
-      }
-    }
     @media (max-width: 1000px) {
       padding: 0px 60px 300px;
     }

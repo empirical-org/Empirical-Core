@@ -6,7 +6,6 @@ import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 
 const directionSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
-const refreshIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/refresh.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
 import { getActivity } from "../../actions/proofreaderActivities";
@@ -412,21 +411,29 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     }
 
     renderCheckWorkButton = (): JSX.Element|void => {
-      const { reviewing, } = this.state
-      if (!reviewing) {
-        return <button className="check-work" onClick={this.handleCheckWorkClick} type="button">Check Work</button>
+      const { reviewing, edits, } = this.state
+      if (reviewing) { return }
+
+      let className = "quill-button large primary contained focus-on-dark"
+      if (edits) {
+        return <button className={className} onClick={this.handleCheckWorkClick} type="button">Get feedback</button>
       }
+
+      className += ' disabled'
+      return <button className={className} type="button">Get feedback</button>
     }
 
     renderResetButton = (): JSX.Element|void => {
       const { reviewing, edits, } = this.state
-      if (!reviewing) {
-        if (edits) {
-          return <button className="reset-button" onClick={this.handleResetClick} type="button"><img src={refreshIconSrc} /> Reset</button>
-        } else {
-          return <button className="reset-button disabled" type="button"><img src={refreshIconSrc} /> Reset</button>
-        }
+      if (reviewing) { return }
+
+      let className = "quill-button large secondary outlined focus-on-dark"
+      if (edits) {
+        return <button className={className} onClick={this.handleResetClick} type="button">Reset edits</button>
       }
+
+      className += ' disabled'
+      return <button className={className} type="button">Reset edits</button>
     }
 
     render(): JSX.Element {
