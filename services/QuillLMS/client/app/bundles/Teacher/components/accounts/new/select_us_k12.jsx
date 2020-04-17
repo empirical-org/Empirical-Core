@@ -1,5 +1,7 @@
 import React from 'react';
 import request from 'request'
+
+import AssignActivityPackBanner from '../assignActivityPackBanner'
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import getAuthToken from '../../modules/get_auth_token';
 import SchoolSelector from '../../shared/school_selector.jsx'
@@ -33,7 +35,7 @@ class SelectUSK12 extends React.Component {
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
-        window.location = '/profile'
+        window.location = '/finish_sign_up'
       } else {
         // to do, use Sentry to capture error
       }
@@ -42,14 +44,17 @@ class SelectUSK12 extends React.Component {
 
   render() {
     return (
-      <div className="container account-form select-k12">
-        <h1>Let&#39;s find your school</h1>
-        <SchoolSelector selectSchool={this.selectSchool} />
-        <button
-          className="non-k12-link focus-on-light"
-          onClick={this.handleNonK12LinkClick}
-          type="button"
-        >I don&#39;t teach at a U.S. K-12 school</button>
+      <div>
+        <AssignActivityPackBanner />
+        <div className="container account-form select-k12">
+          <h1>Let&#39;s find your school</h1>
+          <SchoolSelector selectSchool={this.selectSchool} />
+          <button
+            className="non-k12-link focus-on-light"
+            onClick={this.handleNonK12LinkClick}
+            type="button"
+          >I don&#39;t teach at a U.S. K-12 school</button>
+        </div>
       </div>
     )
   }
