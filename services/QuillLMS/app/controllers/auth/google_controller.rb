@@ -15,6 +15,13 @@ class Auth::GoogleController < ApplicationController
     end
 
     sign_in(@user)
+
+    if session[ApplicationController::POST_AUTH_REDIRECT].present?
+      url = session[ApplicationController::POST_AUTH_REDIRECT]
+      session.delete(ApplicationController::POST_AUTH_REDIRECT)
+      return redirect_to url
+    end
+
     redirect_to profile_path
   end
 

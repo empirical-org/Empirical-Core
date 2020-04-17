@@ -29,7 +29,7 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
       // get the first sheet of the excel workbook
       const sheet = workbook.Sheets[workbook.SheetNames[0]]
       const sheet_array = XLSX.utils.sheet_to_json(sheet, {header:1})
-      const responses = sheet_array.map((row: Array<String>) => {
+      const responses = sheet_array.slice(1).map((row: Array<String>) => {
         return { "text": row[0], "concepts": row.slice(1)}
       });
       this.setState({ responses: responses, })
