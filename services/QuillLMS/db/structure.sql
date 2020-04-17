@@ -4937,6 +4937,12 @@ CREATE INDEX index_users_on_classcode ON public.users USING btree (classcode);
 
 CREATE INDEX index_users_on_clever_id ON public.users USING btree (clever_id);
 
+--
+-- Name: index_users_on_google_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_google_id ON public.users USING btree (google_id);
+
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
@@ -5990,3 +5996,5 @@ INSERT INTO schema_migrations (version) VALUES ('20200326152208');
 INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 
 INSERT INTO schema_migrations (version) VALUES ('20200409151835');
+
+INSERT INTO schema_migrations (version) VALUES ('20200417172506');
