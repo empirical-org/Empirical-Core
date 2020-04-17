@@ -16,7 +16,7 @@ class SignUpTeacher extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      email: null,
+      email: '',
       password: '',
       sendNewsletter: true,
       errors: {},
