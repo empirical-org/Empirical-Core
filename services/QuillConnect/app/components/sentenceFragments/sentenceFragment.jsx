@@ -28,10 +28,11 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { params, } = this.props
+    const { questionID } = params
     listenToResponsesWithCallback(
-      params.questionID,
+      questionID,
       (data) => {
         this.setState({
           responses: data,

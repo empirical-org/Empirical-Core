@@ -39,7 +39,7 @@ export default class UnitTemplateMini extends React.Component {
       return (<Link to={this.getLink()}>{innerContent}</Link>)
     }
 
-    return <a href={this.getLink}>{innerContent}</a>
+    return <a href={this.getLink()}>{innerContent}</a>
   }
 
   avatarUrl() {

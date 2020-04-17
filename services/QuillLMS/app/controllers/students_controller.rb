@@ -81,7 +81,7 @@ class StudentsController < ApplicationController
         redirect_to classes_path
       end
     else
-      session[:post_auth_redirect] = request.env['PATH_INFO']
+      session[ApplicationController::POST_AUTH_REDIRECT] = request.env['PATH_INFO']
       session[:post_sign_up_redirect] = request.env['PATH_INFO']
       redirect_to(new_session_path, status: :see_other)
     end

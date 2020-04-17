@@ -4,6 +4,7 @@ import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import PasswordInfo from './password_info.jsx';
+import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 
 class LoginFormApp extends React.Component {
@@ -96,7 +97,7 @@ class LoginFormApp extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         // console.log(body);
-        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
+        window.location = body.redirect;
       } else {
         let state;
         if (body.type && body.message) {
@@ -147,57 +148,60 @@ class LoginFormApp extends React.Component {
   render() {
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
     return (
-      <div className="container account-form">
-        <h1>Good to see you again!</h1>
-        <div className="account-container text-center">
-          <div className="auth-section">
-            <button onClick={this.handleGoogleClick} type="button">
-              <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
-              <span>Log in with Google</span>
-            </button>
-            <button onClick={this.handleCleverClick} type="button">
-              <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-              <span>Log in with Clever</span>
-            </button>
-          </div>
-          <div className="break"><span  />or<span  /></div>
-          <div className="login-form">
-            <div>
-              <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-                <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
-                <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
-                <Input
-                  className="email"
-                  error={errors.email}
-                  handleChange={this.onEmailChange}
-                  label="Email or username"
-                  timesSubmitted={timesSubmitted}
-                  type="text"
-                  value={email}
-                />
-                <Input
-                  autoComplete="current-password"
-                  className="password inspectletIgnore"
-                  error={errors.password}
-                  handleChange={this.onPasswordChange}
-                  label="Password"
-                  timesSubmitted={timesSubmitted}
-                  type={this.togglePass()}
-                  value={password}
-                />
-                <div className="forget-and-show-password">
-                  <a className="inline-link" href="/password_reset">Forgot password?</a>
-                  <span className="inline-link" onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
-                    {this.toggleButtonText()} password
-                  </span>
-                </div>
-                <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
-              </form>
+      <div>
+        <AssignActivityPackBanner login={true} />
+        <div className="container account-form">
+          <h1>Good to see you again!</h1>
+          <div className="account-container text-center">
+            <div className="auth-section">
+              <button onClick={this.handleGoogleClick} type="button">
+                <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
+                <span>Log in with Google</span>
+              </button>
+              <button onClick={this.handleCleverClick} type="button">
+                <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+                <span>Log in with Clever</span>
+              </button>
+            </div>
+            <div className="break"><span  />or<span  /></div>
+            <div className="login-form">
+              <div>
+                <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+                  <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+                  <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
+                  <Input
+                    className="email"
+                    error={errors.email}
+                    handleChange={this.onEmailChange}
+                    label="Email or username"
+                    timesSubmitted={timesSubmitted}
+                    type="text"
+                    value={email}
+                  />
+                  <Input
+                    autoComplete="current-password"
+                    className="password inspectletIgnore"
+                    error={errors.password}
+                    handleChange={this.onPasswordChange}
+                    label="Password"
+                    timesSubmitted={timesSubmitted}
+                    type={this.togglePass()}
+                    value={password}
+                  />
+                  <div className="forget-and-show-password">
+                    <a className="inline-link" href="/password_reset">Forgot password?</a>
+                    <span className="inline-link" onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
+                      {this.toggleButtonText()} password
+                    </span>
+                  </div>
+                  <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
+                </form>
+              </div>
             </div>
           </div>
+          <p className="sign-up-link">Don&#39;t have an account?&nbsp;<span className="inline-link" onClick={this.handleSignUpClick} onKeyDown={this.handleKeyEnterOnSignUpLink} role="link" tabIndex={0}>Sign up</span></p>
+          <PasswordInfo showHintBox={Object.keys(errors).length} />
         </div>
-        <p className="sign-up-link">Don&#39;t have an account?&nbsp;<span className="inline-link" onClick={this.handleSignUpClick} onKeyDown={this.handleKeyEnterOnSignUpLink} role="link" tabIndex={0}>Sign up</span></p>
-        <PasswordInfo showHintBox={Object.keys(errors).length} />
       </div>
     );
   }

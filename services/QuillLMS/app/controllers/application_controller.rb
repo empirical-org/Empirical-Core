@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   CLEVER_REDIRECT = :clever_redirect
   GOOGLE_REDIRECT = :google_redirect
+  POST_AUTH_REDIRECT = :post_auth_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   #helper CMS::Helper
