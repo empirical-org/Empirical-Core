@@ -1252,4 +1252,5 @@ describe User, type: :model do
       user.google_id = 'something'
       expect(user.valid?).to be
     end
+  end
 end
