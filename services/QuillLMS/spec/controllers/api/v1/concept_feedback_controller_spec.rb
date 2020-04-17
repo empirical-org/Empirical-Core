@@ -48,10 +48,12 @@ describe Api::V1::ConceptFeedbackController, type: :controller do
       expect(concept_feedback.data).to eq(data)
     end
 
-    it "should return a 404 if the requested ConceptFeedback is not found" do
-      get :update, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+    it "should create a new record with the specified UID if one doesn't exit" do
+      data = {"foo" => "bar"}
+      uid = SecureRandom.uuid
+      expect(ConceptFeedback.find_by(uid: uid)).to be_nil
+      put :update, id: uid, concept_feedback: data
+      expect(ConceptFeedback.find_by(uid: uid)).to be
     end
   end
 end

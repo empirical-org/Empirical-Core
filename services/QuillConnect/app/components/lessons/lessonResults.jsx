@@ -33,7 +33,7 @@ const styles = {
 };
 
 const Lesson = React.createClass({
-  componentWillMount: function () {
+  componentDidMount: function () {
     sessionsRef.orderByChild("lessonID").startAt(this.props.params.lessonID).endAt(this.props.params.lessonID).once('value').then((snapshot) => {
       this.setState({sessions: snapshot.val()})
     })
