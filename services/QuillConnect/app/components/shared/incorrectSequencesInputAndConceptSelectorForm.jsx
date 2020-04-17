@@ -22,7 +22,7 @@ export default React.createClass({
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
-      caseInsensitive: item ? (item.caseInsensitive ? item.caseInsensitive : false) : false,
+      caseInsensitive: item ? (item.caseInsensitive ? item.caseInsensitive : false) : true,
       matchedCount: 0,
     });
   },
