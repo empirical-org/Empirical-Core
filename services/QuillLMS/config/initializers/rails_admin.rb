@@ -140,6 +140,10 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model Activity do
+    exclude_fields :classroom_units :classroom
+  end
+
   # Limit pagination for models with large datasets (~1M+) because of performance
   config.model ClassroomActivity do
     list { limited_pagination true }
