@@ -11,15 +11,11 @@ class ItemLevelForm extends React.Component {
         name: props.data.name,
         integerValue: props.data.integerValue,
       };
-
-      return;
     } else {
       this.state = {
         name: "",
         integerValue: "",
       };
-
-      return;
     }
   }
 

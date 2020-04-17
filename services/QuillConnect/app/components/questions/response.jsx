@@ -1,5 +1,4 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
@@ -22,30 +21,30 @@ import {
 const jsDiff = require('diff');
 const C = require('../../constants').default;
 
-export default createReactClass({
-  displayName: 'response',
-
-  getInitialState() {
-    const response = this.props.response
+export default class extends React.Component {
+  constructor(props) {
+    super(props)
+    const { mode, response } = props
+    const { concept, concept_results, feedback, selectedBoilerplateCategory } = response
     let actions;
-    if (this.props.mode === 'sentenceFragment') {
+    if (mode === 'sentenceFragment') {
       actions = sentenceFragmentActions;
     } else {
       actions = questionActions;
     }
     let conceptResults = {}
-    if (response.concept_results) {
-      if (typeof response.concept_results === 'string') {
-        conceptResults = JSON.parse(response.concept_results)
+    if (concept_results) {
+      if (typeof concept_results === 'string') {
+        conceptResults = JSON.parse(concept_results)
       } else {
-        conceptResults = response.concept_results
+        conceptResults = concept_results
       }
     }
-    return {
-      feedback: response.feedback || '',
+    this.state = {
+      feedback: feedback || '',
       selectedBoilerplate: '',
-      selectedBoilerplateCategory: response.selectedBoilerplateCategory || '',
-      selectedConcept: response.concept || '',
+      selectedBoilerplateCategory: selectedBoilerplateCategory || '',
+      selectedConcept: concept || '',
       actions,
       parent: null,
       newConceptResult: {
@@ -53,8 +52,8 @@ export default createReactClass({
         correct: true,
       },
       conceptResults
-    };
-  },
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.response, this.props.response)) {
@@ -69,47 +68,47 @@ export default createReactClass({
       }
       this.setState({ conceptResults, feedback, })
     }
-  },
+  }
 
   deleteResponse(rid) {
     if (window.confirm('Are you sure?')) {
       this.props.dispatch(deleteResponse(this.props.questionID, rid));
       this.props.dispatch(massEdit.removeResponseFromMassEditArray(rid));
     }
-  },
+  }
 
   isSelectedForMassEdit() {
     return this.props.massEdit.selectedResponses.includes(this.props.response.id) || this.props.massEdit.selectedResponses.includes(this.props.response.key)
-  },
+  }
 
   editResponse(rid) {
     this.props.dispatch(this.state.actions.startResponseEdit(this.props.questionID, rid));
-  },
+  }
 
   cancelResponseEdit(rid) {
     this.setState(this.getInitialState())
     this.props.dispatch(this.state.actions.cancelResponseEdit(this.props.questionID, rid));
-  },
+  }
 
   cancelChildResponseView(rid) {
     this.props.dispatch(this.state.actions.cancelChildResponseView(this.props.questionID, rid));
-  },
+  }
 
   viewFromResponses(rid) {
     this.props.dispatch(this.state.actions.startFromResponseView(this.props.questionID, rid));
-  },
+  }
 
   cancelFromResponseView(rid) {
     this.props.dispatch(this.state.actions.cancelFromResponseView(this.props.questionID, rid));
-  },
+  }
 
   viewToResponses(rid) {
     this.props.dispatch(this.state.actions.startToResponseView(this.props.questionID, rid));
-  },
+  }
 
   cancelToResponseView(rid) {
     this.props.dispatch(this.state.actions.cancelToResponseView(this.props.questionID, rid));
-  },
+  }
 
   updateResponse(rid) {
     const newResp = {
@@ -121,7 +120,7 @@ export default createReactClass({
       concept_results: Object.keys(this.state.conceptResults) && Object.keys(this.state.conceptResults).length ? this.state.conceptResults : null
     };
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
-  },
+  }
 
   unmatchResponse(rid) {
     const { modelConceptUID, conceptID, } = this.props.question
@@ -135,15 +134,15 @@ export default createReactClass({
       concept_results: { [defaultConceptUID]: false, },
     }
     this.props.dispatch(submitResponseEdit(rid, newResp, this.props.questionID));
-  },
+  }
 
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+  }
 
   rematchResponse(rid) {
     this.props.getMatchingResponse(rid);
-  },
+  }
 
   applyDiff(answer = '', response = '') {
     const diff = jsDiff.diffWords(response, answer);
@@ -157,7 +156,7 @@ export default createReactClass({
       return <span style={divStyle}>{part.value}</span>;
     });
     return spans;
-  },
+  }
 
   handleFeedbackChange(e) {
     if (e === 'Select specific boilerplate feedback') {
@@ -165,7 +164,7 @@ export default createReactClass({
     } else {
       this.setState({ feedback: e, });
     }
-  },
+  }
 
   deleteConceptResult(crid) {
     if (confirm('Are you sure?')) {
@@ -173,39 +172,39 @@ export default createReactClass({
       delete conceptResults[crid];
       this.setState({ conceptResults }, (() => {}))
     }
-  },
+  }
 
   chooseBoilerplateCategory(e) {
     this.setState({ selectedBoilerplateCategory: e.target.value, });
-  },
+  }
 
   chooseSpecificBoilerplateFeedback(e) {
     this.setState({ selectedBoilerplate: e.target.value, });
-  },
+  }
 
   boilerplateCategoriesToOptions() {
     return getBoilerplateFeedback().map(category => (
       <option className="boilerplate-feedback-dropdown-option">{category.description}</option>
       ));
-  },
+  }
 
   boilerplateSpecificFeedbackToOptions(selectedCategory) {
     return selectedCategory.children.map(childFeedback => (
       <option className="boilerplate-feedback-dropdown-option">{childFeedback.description}</option>
       ));
-  },
+  }
 
   addResponseToMassEditArray(responseKey) {
     this.props.dispatch(massEdit.addResponseToMassEditArray(responseKey));
-  },
+  }
 
   removeResponseFromMassEditArray(responseKey) {
     this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
-  },
+  }
 
   clearResponsesFromMassEditArray() {
     this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
-  },
+  }
 
   onMassSelectCheckboxToggle(responseKey) {
     if (this.isSelectedForMassEdit()) {
@@ -213,13 +212,13 @@ export default createReactClass({
     } else {
       this.addResponseToMassEditArray(responseKey);
     }
-  },
+  }
 
   toggleCheckboxCorrect(key) {
     const data = this.state;
     data.conceptResults[key] = !data.conceptResults[key]
     this.setState(data);
-  },
+  }
 
   handleConceptChange(e){
     const concepts = this.state.conceptResults;
@@ -227,7 +226,7 @@ export default createReactClass({
       concepts[e.value] = this.props.response.optimal;
       this.setState({conceptResults: concepts});
     }
-  },
+  }
 
   getParentResponse(parent_id) {
     const callback = (responses) => {
@@ -236,7 +235,7 @@ export default createReactClass({
       })
     }
     return getGradedResponsesWithCallback(this.props.questionID, callback);
-  },
+  }
 
   renderConceptResults(mode) {
     const conceptResults = Object.assign({}, this.state.conceptResults)
@@ -270,7 +269,7 @@ export default createReactClass({
     }
       return _.values(components);
     }
-  },
+  }
 
   renderResponseContent(isEditing, response) {
     let content;
@@ -352,7 +351,7 @@ export default createReactClass({
         {content}
       </div>
     );
-  },
+  }
 
   renderResponseFooter(isEditing, response) {
     if (!this.props.readOnly || !this.props.expanded) {
@@ -381,7 +380,7 @@ export default createReactClass({
 
       </footer>
     );
-  },
+  }
 
   renderResponseHeader(response) {
     let bgColor;
@@ -419,20 +418,20 @@ export default createReactClass({
         </header>
       </div>
     );
-  },
+  }
 
   cardClasses() {
     if (this.props.expanded) {
       return 'has-bottom-margin has-top-margin';
     }
-  },
+  }
 
   headerClasses() {
     if (!this.props.expanded) {
       return 'unexpanded';
     }
     return 'expanded';
-  },
+  }
 
   renderChildResponses(isViewingChildResponses, key) {
     if (isViewingChildResponses) {
@@ -454,7 +453,7 @@ export default createReactClass({
         </Modal>
       );
     }
-  },
+  }
 
   renderToResponsePathways(isViewingToResponses, key) {
     if (isViewingToResponses) {
@@ -476,7 +475,7 @@ export default createReactClass({
         </Modal>
       );
     }
-  },
+  }
 
   renderFromResponsePathways(isViewingFromResponses, key) {
     if (isViewingFromResponses) {
@@ -508,7 +507,7 @@ export default createReactClass({
         </Modal>
       );
     }
-  },
+  }
 
   render() {
     const { response, state, } = this.props;
@@ -526,5 +525,5 @@ export default createReactClass({
         {this.renderToResponsePathways(isViewingToResponses, response.key)}
       </div>
     );
-  },
-});
+  }
+}

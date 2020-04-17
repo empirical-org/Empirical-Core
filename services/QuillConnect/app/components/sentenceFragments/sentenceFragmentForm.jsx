@@ -17,8 +17,6 @@ class sentenceFragmentForm extends React.Component {
         wordCountChange: {},
         flag: 'alpha'
       };
-
-      return;
     } else {
       this.state = {
         prompt: fragment.prompt,
@@ -30,8 +28,6 @@ class sentenceFragmentForm extends React.Component {
         wordCountChange: fragment.wordCountChange || {},
         flag: fragment.flag ? fragment.flag : 'alpha',
       };
-
-      return;
     }
   }
 
