@@ -11,7 +11,7 @@ import {
   UNIT_NAME,
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
-  UNIT_ID
+  UNIT_ID,
 } from '../localStorageKeyConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
@@ -57,14 +57,17 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     }
   }
 
-  componentWillUnmount() {
-    this.setState({ leaving: true, }, () => {
-      window.localStorage.removeItem(UNIT_TEMPLATE_ID)
-      window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
-      window.localStorage.removeItem(UNIT_NAME)
-      window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
-      window.localStorage.removeItem(CLASSROOMS)
-      window.localStorage.removeItem(UNIT_ID)
+  async prepareToLeavePage = () => {
+    return new Promise((resolve) => {
+      return this.setState({ leaving: true, }, () => {
+        window.localStorage.removeItem(UNIT_TEMPLATE_ID)
+        window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
+        window.localStorage.removeItem(UNIT_NAME)
+        window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
+        window.localStorage.removeItem(CLASSROOMS)
+        window.localStorage.removeItem(UNIT_ID)
+        resolve()
+      })
     })
   }
 
@@ -97,14 +100,16 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return `${numberOfClassrooms} ${numberOfClassrooms === 1 ? 'class' : 'classes'}`
   }
 
-  handleGoToClassroomIndex = () => window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`
+  handleClickToDashboard = () => this.prepareToLeavePage().then(() => window.location.href = process.env.DEFAULT_URL)
+
+  handleGoToClassroomIndex = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`)
 
   handleGoToAssignedActivity = () => {
     const unitId = window.localStorage.getItem(UNIT_ID)
-    window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`
+    this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`)
   }
 
-  handleGoToAssignMoreActivities = () => window.location.href = `${process.env.DEFAULT_URL}/assign`
+  handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/assign`)
 
   renderInviteStudents = () => {
     const { assignedClassrooms, } = this.state
@@ -199,7 +204,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   render() {
     const { showNextOptions, } = this.state
-    let button = <a className="quill-button medium contained primary" href="/">Take me to my dashboard</a>
+    let button = <button className="quill-button medium contained primary" onClick={this.handleClickToDashboard}>Take me to my dashboard</button>
     if (!(showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.handleClickNext} type="button">Next</button>
     }

@@ -6,6 +6,7 @@ import { Input } from 'quill-component-library/dist/componentLibrary'
 import AuthSignUp from './auth_sign_up'
 import AnalyticsWrapper from '../../shared/analytics_wrapper'
 import AgreementsAndLinkToLogin from './agreements_and_link_to_login'
+import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 
 const smallWhiteCheckSrc = `${process.env.CDN_URL}/images/shared/check-small-white.svg`
@@ -126,80 +127,83 @@ class SignUpTeacher extends React.Component {
   render() {
     const { authToken, timesSubmitted, firstName, errors, lastName, email, password, } = this.state
     return (
-      <div className="container account-form teacher-sign-up">
-        <h1>Create an account</h1>
-        <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
-        <div className="info-and-form-container">
-          <div className="info">
-            <h2>More than 5,000 schools use Quill&#39;s free online tools to help their students become strong&nbsp;writers.</h2>
-            <ul>
-              <li>Quill provides free access to 400 writing and grammar&nbsp;activities</li>
-              <li>Students receive immediate feedback on their&nbsp;work</li>
-              <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
-            </ul>
-          </div>
-          <div className="account-container text-center">
-            <AuthSignUp />
-            <div className='break'><span />or<span /></div>
-            <div className="teacher-signup-form">
-              <div>
-                <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-                  <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
-                  <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
-                  <div className="name">
+      <div>
+        <AssignActivityPackBanner />
+        <div className="container account-form teacher-sign-up">
+          <h1>Create an account</h1>
+          <p className="sub-header">Are you a student? <span className="inline-link" onClick={this.handleClickSignUpAsStudent} onKeyDown={this.handleKeyDownOnSignUpAsStudent} role="link" tabIndex={0}>Sign up here</span></p>
+          <div className="info-and-form-container">
+            <div className="info">
+              <h2>More than 5,000 schools use Quill&#39;s free online tools to help their students become strong&nbsp;writers.</h2>
+              <ul>
+                <li>Quill provides free access to 400 writing and grammar&nbsp;activities</li>
+                <li>Students receive immediate feedback on their&nbsp;work</li>
+                <li>Teachers or guardians identify student needs and measure growth with diagnostics and&nbsp;reports</li>
+              </ul>
+            </div>
+            <div className="account-container text-center">
+              <AuthSignUp />
+              <div className='break'><span />or<span /></div>
+              <div className="teacher-signup-form">
+                <div>
+                  <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+                    <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+                    <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
+                    <div className="name">
+                      <Input
+                        autoComplete="given-name"
+                        className="first-name"
+                        error={errors.first_name}
+                        handleChange={this.update}
+                        id="firstName"
+                        label="First name"
+                        timesSubmitted={timesSubmitted}
+                        type="text"
+                        value={firstName}
+                      />
+                      <Input
+                        autoComplete="family-name"
+                        className="last-name"
+                        error={errors.last_name}
+                        handleChange={this.update}
+                        id="lastName"
+                        label="Last name"
+                        timesSubmitted={timesSubmitted}
+                        type="text"
+                        value={lastName}
+                      />
+                    </div>
                     <Input
-                      autoComplete="given-name"
-                      className="first-name"
-                      error={errors.first_name}
+                      autoComplete="email"
+                      className="email"
+                      error={errors.email}
                       handleChange={this.update}
-                      id="firstName"
-                      label="First name"
+                      id="email"
+                      label="Email"
                       timesSubmitted={timesSubmitted}
-                      type="text"
-                      value={firstName}
+                      type="email"
+                      value={email}
                     />
                     <Input
-                      autoComplete="family-name"
-                      className="last-name"
-                      error={errors.last_name}
+                      autoComplete="new-password"
+                      className="password"
+                      error={errors.password}
                       handleChange={this.update}
-                      id="lastName"
-                      label="Last name"
+                      id="password"
+                      label="Password"
                       timesSubmitted={timesSubmitted}
-                      type="text"
-                      value={lastName}
+                      type='password'
+                      value={password}
                     />
-                  </div>
-                  <Input
-                    autoComplete="email"
-                    className="email"
-                    error={errors.email}
-                    handleChange={this.update}
-                    id="email"
-                    label="Email"
-                    timesSubmitted={timesSubmitted}
-                    type="email"
-                    value={email}
-                  />
-                  <Input
-                    autoComplete="new-password"
-                    className="password"
-                    error={errors.password}
-                    handleChange={this.update}
-                    id="password"
-                    label="Password"
-                    timesSubmitted={timesSubmitted}
-                    type='password'
-                    value={password}
-                  />
-                  {this.renderNewsletterRow()}
-                  <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />
-                </form>
+                    {this.renderNewsletterRow()}
+                    <input aria-label="Sign up" className={this.submitClass()} name="commit" type="submit" value="Sign up" />
+                  </form>
+                </div>
               </div>
             </div>
           </div>
+          <AgreementsAndLinkToLogin />
         </div>
-        <AgreementsAndLinkToLogin />
       </div>
     )
   }

@@ -1,8 +1,10 @@
 import React from 'react';
 import request from 'request'
+import { Card } from 'quill-component-library/dist/componentLibrary'
+
+import AssignActivityPackBanner from '../assignActivityPackBanner'
 import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import getAuthToken from '../../modules/get_auth_token';
-import { Card } from 'quill-component-library/dist/componentLibrary'
 
 const homeSchoolSrc = `${process.env.CDN_URL}/images/onboarding/home-building.svg`
 const internationalSrc = `${process.env.CDN_URL}/images/onboarding/globe.svg`
@@ -34,7 +36,7 @@ class SelectUSNonK12 extends React.Component {
     },
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200) {
-        window.location = '/profile'
+        window.location = '/finish_sign_up'
       } else {
         // to do, use Sentry to capture error
       }
@@ -43,37 +45,40 @@ class SelectUSNonK12 extends React.Component {
 
   render() {
     return (
-      <div className="container account-form select-non-k12">
-        <h1>Where do you teach?</h1>
-        <div className="quill-cards">
-          <Card
-            header="Home school"
-            imgAlt="home"
-            imgSrc={homeSchoolSrc}
-            onClick={this.handleClickHomeSchool}
-            text="Tip: many home school teachers begin by assigning our Starter&nbsp;Diagnostic."
-          />
-          <Card
-            header="International institution"
-            imgAlt="globe"
-            imgSrc={internationalSrc}
-            onClick={this.handleClickInternational}
-            text="Tip: many international teachers begin by assigning our ELL&nbsp;Diagnostic."
-          />
-          <Card
-            header="U.S. higher education institution"
-            imgAlt="college campus"
-            imgSrc={higherEdSrc}
-            onClick={this.handleClickUSHigherEd}
-            text="Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities."
-          />
-          <Card
-            header="Other"
-            imgAlt="office building"
-            imgSrc={otherSrc}
-            onClick={this.handleClickOther}
-            text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
-          />
+      <div>
+        <AssignActivityPackBanner />
+        <div className="container account-form select-non-k12">
+          <h1>Where do you teach?</h1>
+          <div className="quill-cards">
+            <Card
+              header="Home school"
+              imgAlt="home"
+              imgSrc={homeSchoolSrc}
+              onClick={this.handleClickHomeSchool}
+              text="Tip: many home school teachers begin by assigning our Starter&nbsp;Diagnostic."
+            />
+            <Card
+              header="International institution"
+              imgAlt="globe"
+              imgSrc={internationalSrc}
+              onClick={this.handleClickInternational}
+              text="Tip: many international teachers begin by assigning our ELL&nbsp;Diagnostic."
+            />
+            <Card
+              header="U.S. higher education institution"
+              imgAlt="college campus"
+              imgSrc={higherEdSrc}
+              onClick={this.handleClickUSHigherEd}
+              text="Tip: many of our higher education educators begin by assigning our Quill Connect sentence combining&nbsp;activities."
+            />
+            <Card
+              header="Other"
+              imgAlt="office building"
+              imgSrc={otherSrc}
+              onClick={this.handleClickOther}
+              text="Tip: many non-traditional educators and learners begin by assigning our featured activity packs."
+            />
+          </div>
         </div>
       </div>
     )

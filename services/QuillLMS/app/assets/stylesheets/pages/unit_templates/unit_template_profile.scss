@@ -81,6 +81,20 @@
       }
     }
 
+    .login-or-signup-container {
+      background-color: white;
+      margin-bottom: 24px;
+      .login-or-signup-buttons {
+        display: flex;
+        margin-top: 16px;
+      }
+      .quill-button {
+        font-size: 15px;
+        margin-right: 16px;
+        margin-bottom: 0px;
+      }
+    }
+
     .standards-and-concepts {
       margin: 1.9em 0em;
       background-color: white;
