@@ -82,7 +82,7 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
-    parallelism: 3
+    parallelism: 2
     docker:
       - image: circleci/node:8.11.3
     steps:
@@ -428,17 +428,17 @@ workflows:
       - lms_rails_build
       - connect_node_build
       - lms_node_build
-  #     - marking_logic_node_build
-  #     - diagnostic_node_build
-  #     - grammar_node_build
-  #     - cms_rails_build
-  #     - lessons_node_build
-  #     - proofreader_node_build
-  #     - spellchecker_node_build
-  #     - comprehension_rails_build
-  #     - comprehension_python_build
-  # lint-code:
-  #   jobs:
-  #     - node_lint
-  #     - rubocop_lint
-  #     - flake8_lint
+      - marking_logic_node_build
+      - diagnostic_node_build
+      - grammar_node_build
+      - cms_rails_build
+      - lessons_node_build
+      - proofreader_node_build
+      - spellchecker_node_build
+      - comprehension_rails_build
+      - comprehension_python_build
+  lint-code:
+    jobs:
+      - node_lint
+      - rubocop_lint
+      - flake8_lint
