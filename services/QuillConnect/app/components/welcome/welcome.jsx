@@ -1,7 +1,7 @@
 import React from "react";
 
-export default React.createClass({
-  render: function () {
+export default class extends React.Component {
+  render() {
     return (
       <section className="hero is-fullheight minus-nav is-primary is-bold">
         <div className="hero-content">
@@ -18,4 +18,4 @@ export default React.createClass({
 
     )
   }
-});
+}

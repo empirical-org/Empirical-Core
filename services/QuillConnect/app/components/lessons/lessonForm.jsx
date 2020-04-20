@@ -27,23 +27,6 @@ class LessonForm extends React.Component {
     }
   }
 
-  submit = () => {
-    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
-    this.props.submit({
-      name,
-      questions: selectedQuestions,
-      landingPageHtml,
-      flag,
-      modelConceptUID
-    });
-  };
-
-  handleStateChange = (key, event) => {
-    const changes = {};
-    changes[key] = event.target.value;
-    this.setState(changes);
-  };
-
   handleChange = value => {
     const currentSelectedQuestions = this.state.selectedQuestions;
     let newSelectedQuestions;
@@ -56,13 +39,42 @@ class LessonForm extends React.Component {
     this.setState({ selectedQuestions: newSelectedQuestions, });
   };
 
+  handleLPChange = e => {
+    this.setState({ landingPageHtml: e, });
+  };
+
   handleSearchChange = e => {
     this.handleChange(e.value);
+  };
+
+  handleSelect = e => {
+    this.setState({ flag: e.target.value, });
+  };
+
+  handleSelectQuestionType = e => {
+    this.setState({ questionType: e.target.value, });
+  };
+
+  handleStateChange = (key, event) => {
+    const changes = {};
+    changes[key] = event.target.value;
+    this.setState(changes);
   };
 
   sortCallback = sortInfo => {
     const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key, questionType: item.props.questionType}));
     this.setState({ selectedQuestions: newOrder, });
+  };
+
+  submit = () => {
+    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
+    this.props.submit({
+      name,
+      questions: selectedQuestions,
+      landingPageHtml,
+      flag,
+      modelConceptUID
+    });
   };
 
   renderQuestionSelect = () => {
@@ -106,18 +118,6 @@ class LessonForm extends React.Component {
         placeholder="Search for a question"
       />);
     }
-  };
-
-  handleSelect = e => {
-    this.setState({ flag: e.target.value, });
-  };
-
-  handleSelectQuestionType = e => {
-    this.setState({ questionType: e.target.value, });
-  };
-
-  handleLPChange = e => {
-    this.setState({ landingPageHtml: e, });
   };
 
   render() {

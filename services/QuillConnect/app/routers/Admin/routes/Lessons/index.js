@@ -7,8 +7,7 @@ export default {
   },
   getChildRoutes: (partialNextState, cb) => {
     Promise.all([
-      import('./lesson.js'),
-      import('./lessonResults.js')
+      import('./lesson.js')
     ])
     .then(modules => cb(null, modules.map(module => module.default)))
     // to do, use Sentry to capture error
