@@ -9,6 +9,9 @@ module CleverIntegration::Importers::CleverDistrict
     end
     client = CleverLibrary::Api::Client.new(district_oauth_token)
     clever_district_data = client.get_district(district_id: district_id)
+    if district_oauth_token.nil?
+      raise "district_oauth_token cannot be nil"
+    end
     CleverIntegration::Creators::CleverDistrict.run(clever_id: district_id, name: clever_district_data["name"], token: district_oauth_token)
   end
 end
