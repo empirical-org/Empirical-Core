@@ -2,6 +2,7 @@ class CleverLibrary::Api::Client
   include HTTParty
   base_uri 'https://api.clever.com/v2.0'
 
+  # initialize
   def initialize(bearer_token)
     @options = {
       headers: {
