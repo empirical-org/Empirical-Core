@@ -20,6 +20,7 @@ exports[`CreateStudentAccounts component on initial load should render 1`] = `
         characterLimit={50}
         className="first-name"
         handleChange={[Function]}
+        id="first-name"
         label="First name"
         type="text"
         value=""
