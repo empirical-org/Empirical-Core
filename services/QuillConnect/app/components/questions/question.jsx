@@ -30,14 +30,62 @@ class Question extends React.Component {
     }
   }
 
-  handleClickStartEditingQuestion = () => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.startQuestionEdit(params.questionID));
+  onCloseNewResponseModal = () => this.setState({ addingNewResponse: false, })
+
+  onCloseUploadOptimalResponsesModal = () => this.setState({ uploadingNewOptimalResponses: false })
+
+  getQuestion = () => {
+    const { dispatch, params, questions, } = this.props
+    const { data, } = questions;
+    const { questionID, } = params;
+    return data[questionID];
+  }
+
+  boilerplateCategoriesToOptions = () => {
+    return getBoilerplateFeedback().map(category => (
+      <option className="boilerplate-feedback-dropdown-option" key={category.description} >{category.description}</option>
+    ));
+  }
+
+  boilerplateSpecificFeedbackToOptions = (selectedCategory) =>{
+    return selectedCategory.children.map(childFeedback => (
+      <option className="boilerplate-feedback-dropdown-option" key={childFeedback.description}>{childFeedback.description}</option>
+    ));
   }
 
   cancelEditingQuestion = () => {
     const { dispatch, params, } = this.props
     dispatch(questionActions.cancelQuestionEdit(params.questionID));
+  }
+
+  chooseBoilerplateCategory = (e) => {
+    this.setState({ selectedBoilerplateCategory: e.target.value, });
+  }
+
+  chooseSpecificBoilerplateFeedback = (e) => {
+    if (e.target.value === 'Select specific boilerplate feedback') {
+      this.refs.newResponseFeedback.value = '';
+    } else {
+      this.refs.newResponseFeedback.value = e.target.value;
+    }
+  }
+
+  handleClickAddNewResponse = () => {
+    this.setState({ addingNewResponse: true, });
+  }
+
+  handleClickStartEditingQuestion = () => {
+    const { dispatch, params, } = this.props
+    dispatch(questionActions.startQuestionEdit(params.questionID));
+  }
+
+  handleClickUploadOptimalResponses = () => {
+    this.setState({ uploadingNewOptimalResponses: true, });
+  }
+
+  isLoading = () => {
+    const { questions, } = this.props
+    return !questions.hasreceiveddata;
   }
 
   saveQuestionEdits = (vals) => {
@@ -52,21 +100,6 @@ class Question extends React.Component {
       submitOptimalResponses(params.questionID, conceptUID, responses, concepts)
     )
     this.setState({ uploadingNewOptimalResponses: false, })
-  }
-
-  getQuestion = () => {
-    const { dispatch, params, questions, } = this.props
-    const { data, } = questions;
-    const { questionID, } = params;
-    return data[questionID];
-  }
-
-  handleClickAddNewResponse = () => {
-    this.setState({ addingNewResponse: true, });
-  }
-
-  handleClickUploadOptimalResponses = () => {
-    this.setState({ uploadingNewOptimalResponses: true, });
   }
 
   submitResponse = () => {
@@ -88,34 +121,6 @@ class Question extends React.Component {
     dispatch(submitResponse(newResp.vals));
     this.setState({ addingNewResponse: false, });
   }
-
-  boilerplateCategoriesToOptions = () => {
-    return getBoilerplateFeedback().map(category => (
-      <option className="boilerplate-feedback-dropdown-option" key={category.description} >{category.description}</option>
-    ));
-  }
-
-  boilerplateSpecificFeedbackToOptions = (selectedCategory) =>{
-    return selectedCategory.children.map(childFeedback => (
-      <option className="boilerplate-feedback-dropdown-option" key={childFeedback.description}>{childFeedback.description}</option>
-    ));
-  }
-
-  chooseBoilerplateCategory = (e) => {
-    this.setState({ selectedBoilerplateCategory: e.target.value, });
-  }
-
-  chooseSpecificBoilerplateFeedback = (e) => {
-    if (e.target.value === 'Select specific boilerplate feedback') {
-      this.refs.newResponseFeedback.value = '';
-    } else {
-      this.refs.newResponseFeedback.value = e.target.value;
-    }
-  }
-
-  onCloseUploadOptimalResponsesModal = () => this.setState({ uploadingNewOptimalResponses: false })
-
-  onCloseNewResponseModal = () => this.setState({ addingNewResponse: false, })
 
   renderBoilerplateCategoryDropdown = (onChangeEvent) => {
     const style = { marginRight: '20px', };
@@ -142,6 +147,20 @@ class Question extends React.Component {
       );
     } else {
       return (<span />);
+    }
+  }
+
+  renderEditForm = () => {
+    const { questions, params, concepts, itemLevels, } = this.props
+    const { data, } = questions
+    const { questionID, } = params;
+    const question = (data[questionID]);
+    if (questions.states[questionID] === C.EDITING_QUESTION) {
+      return (
+        <Modal close={this.cancelEditingQuestion}>
+          <EditForm concepts={concepts} itemLevels={itemLevels} question={question} submit={this.saveQuestionEdits} />
+        </Modal>
+      );
     }
   }
 
@@ -188,25 +207,6 @@ class Question extends React.Component {
         <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
       </Modal>
     );
-  }
-
-  renderEditForm = () => {
-    const { questions, params, concepts, itemLevels, } = this.props
-    const { data, } = questions
-    const { questionID, } = params;
-    const question = (data[questionID]);
-    if (questions.states[questionID] === C.EDITING_QUESTION) {
-      return (
-        <Modal close={this.cancelEditingQuestion}>
-          <EditForm concepts={concepts} itemLevels={itemLevels} question={question} submit={this.saveQuestionEdits} />
-        </Modal>
-      );
-    }
-  }
-
-  isLoading = () => {
-    const { questions, } = this.props
-    return !questions.hasreceiveddata;
   }
 
   render() {
