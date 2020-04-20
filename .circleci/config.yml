@@ -77,16 +77,18 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          keys:
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-v3-
       - run:
           name: Install NPM dependencies
           command: |
-            cd services/QuillLMS
+            cd services/QuillLMS/client
             npm install
       - save_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
-            - services/QuillLMS/node_modules
             - services/QuillLMS/client/node_modules
       - run:
           name: Run LMS Frontend Tests
