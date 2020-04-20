@@ -24,6 +24,10 @@ class Lessons extends React.Component {
     this.props.dispatch(actions.toggleNewLessonModal());
   };
 
+  handleSelect = e => {
+    this.setState({ lessonFlags: e.target.value, });
+  };
+
   submitNewLesson = data => {
     this.props.dispatch(actions.submitNewLesson(data));
   };
@@ -69,10 +73,6 @@ class Lessons extends React.Component {
         </Modal>
       );
     }
-  };
-
-  handleSelect = e => {
-    this.setState({ lessonFlags: e.target.value, });
   };
 
   render() {
