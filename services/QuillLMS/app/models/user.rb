@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
 
   validates :clever_id,             uniqueness:   { if: :clever_id_present_and_has_changed? }
 
-  validates :google_id,             uniqueness:   { if: :google_id_present_and_has_changed? }
+  validates :google_id,             uniqueness:   { if: :google_id_present? }
 
   # gem validates_email_format_of
   validates_email_format_of :email, if: :email_required_or_present?, message: :invalid
