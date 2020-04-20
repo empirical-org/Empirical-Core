@@ -113,7 +113,7 @@ function submitNewSentenceFragment(content, response) {
       dispatch(submitResponse(response));
       dispatch(loadSentenceFragment(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const action = push(`/admin/questions/${response.questionUID}`);
+      const action = push(`/admin/sentence-fragments/${response.questionUID}`);
       dispatch(action);
     }, (error) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
