@@ -2,7 +2,7 @@ version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 8
+    parallelism: 4
     docker:
       - image: circleci/ruby:2.5.1-node
         environment:
@@ -23,8 +23,9 @@ jobs:
             - bundle-cache-lms-v2
       - restore_cache:
           keys:
-            - npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
-            - npm-cache-lms-v2-
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-v3-
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -35,16 +36,16 @@ jobs:
       - run:
           name: NPM install, should be short-cutted if cache is present
           command: |
-            cd services/QuillLMS
+            cd services/QuillLMS/client
             npm install
       - save_cache:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
             - services/QuillLMS/vendor/bundle
       - save_cache:
-          key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
+          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
           paths:
-            - services/QuillLMS/node_modules
+            - services/QuillLMS/client/node_modules
       - run:
           name: Install postgres dependencies
           command: |
@@ -73,7 +74,7 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
-    parallelism: 2
+    parallelism: 3
     docker:
       - image: circleci/node:8.11.3
     steps:
@@ -441,19 +442,19 @@ workflows:
   build-test:
     jobs:
       - lms_rails_build
-      - connect_node_build
+      # - connect_node_build
       - lms_node_build
-      - marking_logic_node_build
-      - diagnostic_node_build
-      - grammar_node_build
-      - cms_rails_build
-      - lessons_node_build
-      - proofreader_node_build
-      - spellchecker_node_build
-      - comprehension_rails_build
-      - comprehension_python_build
-  lint-code:
-    jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+  #     - marking_logic_node_build
+  #     - diagnostic_node_build
+  #     - grammar_node_build
+  #     - cms_rails_build
+  #     - lessons_node_build
+  #     - proofreader_node_build
+  #     - spellchecker_node_build
+  #     - comprehension_rails_build
+  #     - comprehension_python_build
+  # lint-code:
+  #   jobs:
+  #     - node_lint
+  #     - rubocop_lint
+  #     - flake8_lint
