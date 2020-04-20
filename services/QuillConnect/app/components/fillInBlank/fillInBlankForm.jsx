@@ -21,40 +21,45 @@ class FillInBlankForm extends Component {
     };
   }
 
-  handlePromptChange = prompt => {
-    this.setState({ prompt });
-  };
-
-  handleInstructionsChange = e => {
-    this.setState({instructions: e.target.value});
-  };
+  clearForm = () => {
+    this.setState({
+      blankAllowed: false,
+      caseInsensitive: false,
+      newQuestionPrompt: '',
+      newQuestionOptimalResponse: '',
+      instructions: '',
+      conceptID: null,
+      flag: 'alpha',
+      cuesLabel: ''
+    });
+  }
 
   handleCuesChange = e => {
     this.setState({cues: e.target.value});
-  };
-
-  handleNewQuestionOptimalResponseChange = e => {
-    this.setState({newQuestionOptimalResponse: e.target.value});
-  };
-
-  handleSelectorChange = e => {
-    this.setState({conceptID: e.value});
-  };
-
-  handleFlagChange = e => {
-    this.setState({ flag: e.target.value, });
   };
 
   handleCuesLabelChange = e => {
     this.setState({ cuesLabel: e.target.value, });
   };
 
-  toggleQuestionBlankAllowed = () => {
-    this.setState({blankAllowed: !this.state.blankAllowed});
+  handleFlagChange = e => {
+    this.setState({ flag: e.target.value, });
   };
 
-  toggleQuestionCaseInsensitive = () => {
-    this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
+  handleInstructionsChange = e => {
+    this.setState({instructions: e.target.value});
+  };
+
+  handleNewQuestionOptimalResponseChange = e => {
+    this.setState({newQuestionOptimalResponse: e.target.value});
+  };
+
+  handlePromptChange = prompt => {
+    this.setState({ prompt });
+  };
+
+  handleSelectorChange = e => {
+    this.setState({conceptID: e.value});
   };
 
   submit = () => {
@@ -73,17 +78,16 @@ class FillInBlankForm extends Component {
     window.location.href = window.location.origin + '/#/admin/fill-in-the-blanks/' + questionID;
   };
 
-  clearForm = () => {
-    this.setState({
-      blankAllowed: false,
-      caseInsensitive: false,
-      newQuestionPrompt: '',
-      newQuestionOptimalResponse: '',
-      instructions: '',
-      conceptID: null,
-      flag: 'alpha',
-      cuesLabel: ''
-    });
+  toggleQuestionBlankAllowed = () => {
+    this.setState({blankAllowed: !this.state.blankAllowed});
+  };
+
+  toggleQuestionCaseInsensitive = () => {
+    this.setState(prevState => ({caseInsensitive: !prevState.caseInsensitive}));
+  };
+
+  renderButtonText = () => {
+    return this.props.editing ? 'Submit Edit' : 'Add Question';
   }
 
   renderOptimalField = () => {
@@ -97,10 +101,6 @@ class FillInBlankForm extends Component {
         </div>
       );
     }
-  }
-
-  renderButtonText = () => {
-    return this.props.editing ? 'Submit Edit' : 'Add Question';
   }
 
   render() {
