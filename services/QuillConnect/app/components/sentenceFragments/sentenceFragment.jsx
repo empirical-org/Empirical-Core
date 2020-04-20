@@ -5,7 +5,7 @@ import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/comp
 
 import EditForm from './sentenceFragmentForm.jsx';
 import ResponseComponent from '../questions/responseComponent.jsx';
-import fragmentActions from '../../actions/sentenceFragments.js';
+import fragmentActions from '../../actions/sentenceFragments';
 import {
   submitOptimalResponses,
   listenToResponsesWithCallback
@@ -28,10 +28,11 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { params, } = this.props
+    const { questionID } = params
     listenToResponsesWithCallback(
-      params.questionID,
+      questionID,
       (data) => {
         this.setState({
           responses: data,
@@ -51,13 +52,13 @@ class SentenceFragment extends React.Component {
     return responses;
   }
 
-  handleUploadOptimalResponsesClick = () => {
-    this.setState({ uploadingNewOptimalResponses: true, });
-  }
-
   cancelEditingSentenceFragment = () => {
     const { dispatch, params, } = this.props
     dispatch(fragmentActions.cancelSentenceFragmentEdit(params.questionID));
+  }
+
+  closeModal = () => {
+    this.setState({ uploadingNewOptimalResponses: false, })
   }
 
   handleEditFragmentClick = () => {
@@ -65,20 +66,19 @@ class SentenceFragment extends React.Component {
     dispatch(fragmentActions.startSentenceFragmentEdit(params.questionID));
   }
 
-  saveSentenceFragmentEdits(data) {
+  handleUploadOptimalResponsesClick = () => {
+    this.setState({ uploadingNewOptimalResponses: true, });
+  }
+
+  saveSentenceFragmentEdits = (data) => {
     const { dispatch, params, } = this.props
     dispatch(fragmentActions.submitSentenceFragmentEdit(params.questionID, data));
   }
 
-  submitOptimalResponses(responseStrings) {
-    const { dispatch, params, } = this.props
-
+  submitOptimalResponses(responses) {
+    const { dispatch, params, concepts, } = this.props
     const conceptUID = this.getQuestion().conceptID
-    dispatch(submitOptimalResponses(params.questionID, conceptUID, responseStrings))
-    this.setState({ uploadingNewOptimalResponses: false, })
-  }
-
-  closeModal = () => {
+    dispatch(submitOptimalResponses(params.questionID, conceptUID, responses, concepts))
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
@@ -101,17 +101,6 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  renderUploadNewOptimalResponsesForm = () => {
-    const { uploadingNewOptimalResponses, } = this.state
-    if (!uploadingNewOptimalResponses) { return }
-
-    return (
-      <Modal close={this.closeModal}>
-        <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
-      </Modal>
-    );
-  }
-
   renderResponseComponent(data, states, questionID) {
     const { dispatch, } = this.props
     if (this.getResponses()) {
@@ -127,6 +116,17 @@ class SentenceFragment extends React.Component {
         />
       );
     }
+  }
+
+  renderUploadNewOptimalResponsesForm = () => {
+    const { uploadingNewOptimalResponses, } = this.state
+    if (!uploadingNewOptimalResponses) { return }
+
+    return (
+      <Modal close={this.closeModal}>
+        <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
+      </Modal>
+    );
   }
 
   render = () => {

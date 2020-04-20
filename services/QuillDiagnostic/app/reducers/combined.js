@@ -13,7 +13,6 @@ import display from './display';
 import fillInBlank from './fillInBlank.ts';
 import filters from './filtersReducer';
 import generatedIncorrectSequences from './generatedIncorrectSequences';
-import itemLevels from './item-levels';
 import lessons from './lessons.ts';
 import massEdit from './massEdit';
 import pathways from './pathways';
@@ -23,7 +22,6 @@ import question from './questionReducerV2';
 import questions from './questions.ts';
 import questionSelect from './questionSelect';
 import responses from './responsesReducer';
-import scoreAnalysis from './scoreAnalysis';
 import sentenceFragments from './sentenceFragments.ts';
 import sessions from './sessions';
 import titleCards from './titleCards.ts';
@@ -44,7 +42,6 @@ const combinedReducers = combineReducers({
   fillInBlank,
   filters,
   generatedIncorrectSequences,
-  itemLevels,
   lessons,
   massEdit,
   pathways,
@@ -55,7 +52,6 @@ const combinedReducers = combineReducers({
   questionSelect,
   responses,
   routing: routerReducer,
-  scoreAnalysis,
   sentenceFragments,
   sessions,
   titleCards,

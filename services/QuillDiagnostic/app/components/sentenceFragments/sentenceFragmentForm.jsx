@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 
-const sentenceFragmentForm = React.createClass({
-
-  getInitialState() {
-    const fragment = this.props.data;
-    if (fragment === undefined) { // creating new fragment
-      return {
+class sentenceFragmentForm extends React.Component {
+  constructor(props) {
+    super(props);
+    const fragment = props.data;
+    if (fragment === undefined) {
+      this.state = {
         prompt: '',
         isFragment: false,
         optimalResponseText: '',
@@ -18,8 +18,10 @@ const sentenceFragmentForm = React.createClass({
         wordCountChange: {},
         flag: 'alpha'
       };
+
+      return;
     } else {
-      return {
+      this.state = {
         prompt: fragment.prompt,
         isFragment: fragment.isFragment,
         optimalResponseText: fragment.optimalResponseText !== undefined ? fragment.optimalResponseText : '',
@@ -29,10 +31,13 @@ const sentenceFragmentForm = React.createClass({
         wordCountChange: fragment.wordCountChange || {},
         flag: fragment.flag ? fragment.flag : 'alpha',
       };
-    }
-  },
 
-  handleChange(key, e) {
+      return;
+    }
+  }
+
+  handleChange = (key, e) => {
+    const { wordCountChange } = this.state
     switch (key) {
       case 'prompt':
         this.setState({ prompt: e.target.value, });
@@ -49,16 +54,14 @@ const sentenceFragmentForm = React.createClass({
       case 'needsIdentification':
         this.setState({ needsIdentification: e.target.checked, });
         break;
-      case 'concept':
-        this.setState({ conceptID: e.value, });
       case 'maxWordCountChange':
-        let newWordCountChange = Object.assign({}, this.state.wordCountChange);
-        newWordCountChange.max = e.target.valueAsNumber;
+        let newWordCountChange = { ...wordCountChange }
+        newWordCountChange.max = e.target ? e.target.value : '';
         this.setState({ wordCountChange: newWordCountChange, });
         break;
       case 'minWordCountChange':
-        newWordCountChange = Object.assign({}, this.state.wordCountChange);
-        newWordCountChange.min = e.target.valueAsNumber;
+        newWordCountChange = { ...wordCountChange }
+        newWordCountChange.min = e.target ? e.target.value : '';
         this.setState({ wordCountChange: newWordCountChange, });
         break;
       case 'flag':
@@ -66,89 +69,89 @@ const sentenceFragmentForm = React.createClass({
         break;
       default:
     }
-  },
+  };
 
-  submitSentenceFragment() {
+  handleSelectorChange = (e) => {
+    this.setState({ conceptID: e.value, });
+  }
+
+  submitSentenceFragment = () => {
     const data = this.state;
     this.props.submit(data);
-  },
+  };
 
-  conceptsToOptions() {
+  conceptsToOptions = () => {
     return _.map(this.props.concepts.data['0'], concept => (
         { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
       ));
-  },
+  };
 
-  renderOptimalResponseTextInput() {
+  renderOptimalResponseTextInput = () => {
     return (
     [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
         (<p className="control">
-          <input className="input" onChange={this.handleChange.bind(null, 'optimalResponseText')} type="text" value={this.state.optimalResponseText} />
+          <input className="input" onChange={(e) => this.handleChange('optimalResponseText', e)} type="text" value={this.state.optimalResponseText} />
         </p>)
     ]
     );
-  },
+  };
 
-  wordCountInfo(minOrMax) {
+  wordCountInfo = (minOrMax) => {
     if (this.state.wordCountChange && this.state.wordCountChange[minOrMax]) {
       return this.state.wordCountChange[minOrMax];
     }
-  },
+  };
 
   render() {
-    // console.log("State: ", this.state)
-    const fuse = {
-      keys: ['shortenedName', 'name'], // first search by specific concept, then by parent and grandparent
-      threshold: 0.4,
-    };
+    const { conceptID, flag, isFragment, instructions, needsIdentification, prompt } = this.state
     return (
       <div>
         <label className="label">Sentence / Fragment Prompt</label>
         <p className="control">
-          <input className="input" onChange={this.handleChange.bind(null, 'prompt')} type="text" value={this.state.prompt} />
+          <input className="input" onChange={(e) => this.handleChange('prompt', e)} type="text" value={prompt} />
         </p>
         <label className="label">Instructions</label>
         <p className="control">
-          <textarea className="input" onChange={this.handleChange.bind(null, 'instructions')} value={this.state.instructions} />
+          <textarea className="input" onChange={(e) => this.handleChange('instructions', e)} value={instructions} />
         </p>
 
         <p className="control">
           <label className="checkbox">
-            <input checked={this.state.isFragment} onClick={this.handleChange.bind(null, 'isFragment')} type="checkbox" />
+            <input checked={isFragment} onClick={(e) => this.handleChange('isFragment', e)} type="checkbox" />
             This is a fragment.
           </label>
         </p>
         <p className="control">
           <label className="max_word_count_change">
             Max Word Count Change
-            <input onChange={this.handleChange.bind(null, 'maxWordCountChange')} type="number" value={this.wordCountInfo('max')} />
+            <input onChange={(e) => this.handleChange('maxWordCountChange', e)} pattern="^-?[0-9]\d*\.?\d*$" type="tel" value={this.wordCountInfo('max')} />
           </label>
           <br />
           <label className="min_word_count_change">
             Min Word Count Change
-            <input onChange={this.handleChange.bind(null, 'minWordCountChange')} type="number" value={this.wordCountInfo('min')} />
+            <input onChange={(e) => this.handleChange('minWordCountChange', e)} pattern="^-?[0-9]\d*\.?\d*$" type="tel" value={this.wordCountInfo('min')} />
           </label>
         </p>
         <p className="control">
           <label className="checkbox">
-            <input checked={this.state.needsIdentification} onClick={this.handleChange.bind(null, 'needsIdentification')} type="checkbox" />
+            <input checked={needsIdentification} onClick={(e) => this.handleChange('needsIdentification', e)} type="checkbox" />
             Show a multiple choice question to identify sentence or fragment.
           </label>
         </p>
         {this.renderOptimalResponseTextInput()}
-        <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleChange.bind(null, 'flag')} isLessons={false} />
+        <FlagDropdown flag={flag} handleFlagChange={(e) => this.handleChange('flag', e)} isLessons={false} />
         <p className="control">
           <label className="label">Associated Concept</label>
           <ConceptSelector
-            currentConceptUID={this.state.conceptID}
-            handleSelectorChange={this.handleChange.bind(null, 'concept')}
+            currentConceptUID={conceptID}
+            handleSelectorChange={this.handleSelectorChange}
           />
         </p>
         <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
       </div>
     );
-  },
-});
+  }
+}
 
 export default sentenceFragmentForm;

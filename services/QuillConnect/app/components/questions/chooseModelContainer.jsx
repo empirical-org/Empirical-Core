@@ -19,32 +19,28 @@ class ChooseModelContainer extends Component {
       modelConceptUID,
       lessonModelConceptUID
     }
-    this.setState = this.setState.bind(this);
-    this.selectConcept = this.selectConcept.bind(this);
-    this.saveModelConcept = this.saveModelConcept.bind(this);
-    this.removeModelConcept = this.removeModelConcept.bind(this);
   }
 
-  getModelConceptUID() {
+  getModelConceptUID = () => {
     return this.state.modelConceptUID || this.props.questions.data[this.props.params.questionID].modelConceptUID;
   }
 
-  saveModelConcept() {
+  removeModelConcept = () => {
+    let questionData = Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: null});
+    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, questionData));
+  };
+
+  saveModelConcept = () => {
     this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID,
       Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
     window.history.back();
-  }
+  };
 
-  removeModelConcept() {
-    let questionData = Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: null});
-    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, questionData));
-  }
-
-  selectConcept(e) {
+  selectConcept = e => {
     this.setState({ modelConceptUID: e.value });
-  }
+  };
 
-  renderButtons() {
+  renderButtons = () => {
     return(
       <p className="control">
         <button
@@ -72,7 +68,7 @@ class ChooseModelContainer extends Component {
     )
   }
 
-  renderLessonModelNote() {
+  renderLessonModelNote = () => {
     if (this.state.lessonModelConceptUID && this.state.lessonModelConceptUID !== this.state.modelConceptUID) {
       const concept = this.props.concepts.data['0'].find(c => c.uid === this.state.lessonModelConceptUID)
       if (concept) {
@@ -98,7 +94,6 @@ class ChooseModelContainer extends Component {
       </div>
     )
   }
-
 }
 
 function select(props) {

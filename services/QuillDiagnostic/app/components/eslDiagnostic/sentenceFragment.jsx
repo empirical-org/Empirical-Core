@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragment.js';
-import fragmentActions from '../../actions/sentenceFragments.js';
 import {
-  submitResponse,
-  incrementChildResponseCount,
-  incrementResponseCount,
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`

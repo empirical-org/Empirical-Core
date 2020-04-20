@@ -32,7 +32,7 @@ describe('StudentProfileUnits component', () => {
       teacherName="Emilia F"
     />)
 
-    const uniqueUnitIds = [...new Set(activities.map(act => act.unit_id))]
+    const uniqueUnitIds = Array.from(new Set(activities.map(act => act.unit_id)))
 
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.find(StudentProfileUnit).length).toBe(uniqueUnitIds.length)
@@ -41,7 +41,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should render only incomplete activities if the active tab is to-do activities', () => {
     const incompleteActivities = activities.filter(act => !act.max_percentage)
-    const uniqueUnitIds = [...new Set(incompleteActivities.map(act => act.unit_id))]
+    const uniqueUnitIds = Array.from(new Set(incompleteActivities.map(act => act.unit_id)))
 
     const wrapper = mount(<StudentProfileUnits
       activeClassworkTab={TO_DO_ACTIVITIES}
@@ -56,7 +56,7 @@ describe('StudentProfileUnits component', () => {
 
   it('should render only completed activities if the active tab is completed activities', () => {
     const completeActivities = activities.filter(act => act.max_percentage)
-    const uniqueUnitIds = [...new Set(completeActivities.map(act => act.unit_id))]
+    const uniqueUnitIds = Array.from(new Set(completeActivities.map(act => act.unit_id)))
 
     const wrapper = mount(<StudentProfileUnits
       activeClassworkTab={COMPLETED_ACTIVITIES}

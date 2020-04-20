@@ -36,31 +36,6 @@ export default class StudentGeneralAccountInfo extends Component {
     }
   }
 
-  activateSection = () => {
-    const { active, activateSection } = this.props;
-    const { showButtonSection, } = this.state
-    if (!active || !showButtonSection) {
-      this.setState({ showButtonSection: true }, activateSection);
-    }
-  }
-
-  reset = () => {
-    const { email, firstName, lastName, userName } = this.props
-    this.setState({
-      email,
-      firstName,
-      lastName,
-      userName,
-      showButtonSection: false
-    });
-  }
-
-  handleCancel = () => {
-    const { deactivateSection, } = this.props
-    this.reset();
-    deactivateSection();
-  }
-
   onEmailChange = e => this.updateField(e, 'email')
 
   onFirstNameChange = e => this.updateField(e, 'firstName')
@@ -69,34 +44,18 @@ export default class StudentGeneralAccountInfo extends Component {
 
   onUsernameChange = e => this.updateField(e, 'userName')
 
-  updateField = (e, field) => {
-    this.setState({[field]: e.target.value });
-  }
-
-  submitClass = () => {
-    const { email, firstName, lastName, userName } = this.state;
-    let buttonClass = 'quill-button contained primary medium focus-on-light';
-    // disabling destructuring because destructuring would cause a namespace collision
-    /* eslint-disable react/destructuring-assignment */
-    if (firstName === this.props.firstName
-      && lastName === this.props.lastName
-      && email === this.props.email
-      && userName === this.props.userName
-    ) {
-      /* eslint-enable react/destructuring-assignment */
-      buttonClass += ' disabled';
-    }
-    return buttonClass;
-  }
-
-  renderButtonSection() {
+  activateSection = () => {
+    const { active, activateSection } = this.props;
     const { showButtonSection, } = this.state
-    if (showButtonSection) {
-      return (<div className="button-section">
-        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleCancel} type="button">Cancel</button>
-        <input aria-label="Save changes" className={this.submitClass()} name="commit" type="submit" value="Save changes" />
-      </div>)
+    if (!active || !showButtonSection) {
+      this.setState({ showButtonSection: true }, activateSection);
     }
+  }
+
+  handleCancel = () => {
+    const { deactivateSection, } = this.props
+    this.reset();
+    deactivateSection();
   }
 
   handleSubmit = (e) => {
@@ -124,6 +83,47 @@ export default class StudentGeneralAccountInfo extends Component {
       username: userName
     };
     updateUser(data, '/students/update_account', 'Settings saved', errors);
+  }
+
+  reset = () => {
+    const { email, firstName, lastName, userName } = this.props
+    this.setState({
+      email,
+      firstName,
+      lastName,
+      userName,
+      showButtonSection: false
+    });
+  }
+
+  submitClass = () => {
+    const { email, firstName, lastName, userName } = this.state;
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
+    // disabling destructuring because destructuring would cause a namespace collision
+    /* eslint-disable react/destructuring-assignment */
+    if (firstName === this.props.firstName
+      && lastName === this.props.lastName
+      && email === this.props.email
+      && userName === this.props.userName
+    ) {
+      /* eslint-enable react/destructuring-assignment */
+      buttonClass += ' disabled';
+    }
+    return buttonClass;
+  }
+
+  updateField = (e, field) => {
+    this.setState({[field]: e.target.value });
+  }
+
+  renderButtonSection() {
+    const { showButtonSection, } = this.state
+    if (showButtonSection) {
+      return (<div className="button-section">
+        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleCancel} type="button">Cancel</button>
+        <input aria-label="Save changes" className={this.submitClass()} name="commit" type="submit" value="Save changes" />
+      </div>)
+    }
   }
 
   render() {

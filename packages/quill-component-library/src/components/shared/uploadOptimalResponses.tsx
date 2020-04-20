@@ -1,5 +1,4 @@
 import * as React from 'react'
-import _ from 'lodash'
 import XLSX from 'xlsx'
 
 interface UploadOptimalResponsesProps {
@@ -7,7 +6,7 @@ interface UploadOptimalResponsesProps {
 }
 
 interface UploadOptimalResponsesState {
-  responses: Array<string>
+  responses: Array<object>
 }
 
 export class UploadOptimalResponses extends React.Component<UploadOptimalResponsesProps, UploadOptimalResponsesState> {
@@ -29,9 +28,11 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
       const workbook = XLSX.read(data, { type: 'array', });
       // get the first sheet of the excel workbook
       const sheet = workbook.Sheets[workbook.SheetNames[0]]
-      const responses = _.values(sheet).map((value: any) => value.v).filter(Boolean)
-      // get every line after the first one, which should contain the prompt
-      this.setState({ responses: responses.slice(1), })
+      const sheet_array = XLSX.utils.sheet_to_json(sheet, {header:1})
+      const responses = sheet_array.slice(1).map((row: Array<String>) => {
+        return { "text": row[0], "concepts": row.slice(1)}
+      });
+      this.setState({ responses: responses, })
     };
     fileReader.readAsArrayBuffer(file);
   }
@@ -43,7 +44,8 @@ export class UploadOptimalResponses extends React.Component<UploadOptimalRespons
   render() {
     return (<div className="box">
       <h6 className="control subtitle">Upload optimal responses</h6>
-      <p>Upload an xlsx file with one sheet, with the prompt as the top line and the optimal responses to create on each line after that.</p>
+      <p>Upload an xlsx file with the prompt in the first row, followed by optimal responses with their associated concepts.</p>
+      <a href="https://docs.google.com/spreadsheets/d/1zciamOQ8dtpLLUp4_hdiOkmVlylqNMmeRgyyHrtqtZ8/edit#gid=537498895" rel="noopener noreferrer" target="_blank">See example</a>
       <label className="label">File</label>
       <p className="control">
         <input

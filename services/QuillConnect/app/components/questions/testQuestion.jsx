@@ -6,7 +6,6 @@ import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCu
 class TestQuestion extends Component {
   constructor() {
     super();
-    this.reset = this.reset.bind(this);
     this.state = {
       responsesForGrading: [],
       allResponses: [],
@@ -22,13 +21,11 @@ class TestQuestion extends Component {
     this.props.dispatch(clearData());
   }
 
-  reset() {
-    this.props.dispatch(clearData());
-    this.startActivity();
-    this.setState({ key: this.state.key + 1, });
+  getQuestion = () => {
+    return this.props.questions.data[this.props.params.questionID];
   }
 
-  questionsForLesson() {
+  questionsForLesson = () => {
     const question = this.getQuestion();
     question.key = this.props.params.questionID;
     return [
@@ -39,15 +36,17 @@ class TestQuestion extends Component {
     ];
   }
 
-  startActivity(name = 'Triangle') {
+  reset = () => {
+    this.props.dispatch(clearData());
+    this.startActivity();
+    this.setState({ key: this.state.key + 1, });
+  };
+
+  startActivity = (name = 'Triangle') => {
     const action = loadData(this.questionsForLesson());
     this.props.dispatch(action);
     const next = nextQuestion();
     this.props.dispatch(next);
-  }
-
-  getQuestion() {
-    return this.props.questions.data[this.props.params.questionID];
   }
 
   render() {
@@ -73,7 +72,6 @@ class TestQuestion extends Component {
       );
     }
   }
-
 }
 
 function select(props) {

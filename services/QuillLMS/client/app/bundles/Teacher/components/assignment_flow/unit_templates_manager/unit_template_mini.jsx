@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import UnitTemplateFirstRow from './unit_template_first_row'
 import UnitTemplateSecondRow from './unit_template_second_row'
 import String from '../../modules/string.jsx'
@@ -9,6 +9,37 @@ export default class UnitTemplateMini extends React.Component {
     super(props)
 
     this.modules = { string: new String() }
+  }
+
+  isSignedIn() {
+    const { signedInTeacher, non_authenticated, } = this.props
+    return signedInTeacher || (non_authenticated === false)
+  }
+
+  getLink() {
+    let link
+    if (this.props.data.id == 'createYourOwn') {
+      if (this.isSignedIn()) {
+        link = '/assign/create-activity-pack'
+      } else {
+        link = '/account/new'
+      }
+    } else {
+      if (this.isSignedIn()) {
+        link = `/assign/featured-activity-packs/${this.props.data.id}`;
+      } else {
+        link = `/activities/packs/${this.props.data.id}`
+      }
+    }
+    return link
+  }
+
+  renderMini(innerContent) {
+    if (this.isSignedIn()) {
+      return (<Link to={this.getLink()}>{innerContent}</Link>)
+    }
+
+    return <a href={this.getLink()}>{innerContent}</a>
   }
 
   avatarUrl() {
@@ -23,28 +54,10 @@ export default class UnitTemplateMini extends React.Component {
     );
   }
 
-  getLink() {
-    let link
-    if (this.props.data.id == 'createYourOwn') {
-      if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = '/assign/create-activity-pack'
-      } else {
-        link = '/account/new'
-      }
-    } else {
-      if (this.props.signedInTeacher || (this.props.non_authenticated === false)) {
-        link = `/assign/featured-activity-packs/${this.props.data.id}`;
-      } else {
-        link = `/activities/packs/${this.props.data.id}`
-      }
-    }
-    return link
-  }
-
   miniSpecificComponents() {
     if (this.props.data.id == 'createYourOwn') {
       return (
-        <Link to={this.getLink()}>
+        <a href={this.getLink()}>
           <div className='text-center create-your-own'>
             <div className='content-wrapper'>
               <img className='plus_icon' src='/add_class.png' />
@@ -52,24 +65,22 @@ export default class UnitTemplateMini extends React.Component {
               <h5 style={{paddingTop: '5px'}}>Select from over 150 grammar exercises.</h5>
             </div>
           </div>
-        </Link>
+        </a>
       );
     }
     // else it is a normal mini
     else {
-      return(
-        <Link to={this.getLink()}>
-          <div>
-            <UnitTemplateFirstRow
-              data={this.props.data}
-              modules={{string: this.modules.string}}
-            />
-            <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
-            {this.displayPicture()}
-          </div>
-        </Link>
-        );
-      }
+      const innerContent = (<div>
+        <UnitTemplateFirstRow
+          data={this.props.data}
+          modules={{string: this.modules.string}}
+        />
+        <UnitTemplateSecondRow data={this.props.data} modules={{string: this.modules.string}} />
+        {this.displayPicture()}
+      </div>)
+
+      return this.renderMini(innerContent)
+    }
   }
 
   render() {

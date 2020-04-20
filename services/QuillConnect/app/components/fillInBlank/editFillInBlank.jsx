@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fillInBlankActions from '../../actions/fillInBlank.js';
+import fillInBlankActions from '../../actions/fillInBlank';
 import FillInBlankForm from './fillInBlankForm.jsx';
 
 class EditFillInBlank extends Component {
   constructor() {
     super();
     this.state = {};
-    this.editQuestion = this.editQuestion.bind(this);
-    this.returnQuestionState = this.returnQuestionState.bind(this);
   }
 
-  editQuestion(data) {
+  editQuestion = data => {
     const fillInBlankQuestionID = this.props.params.questionID;
     const questionData = data
     questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
     this.props.dispatch(fillInBlankActions.submitQuestionEdit(fillInBlankQuestionID, data));
-  }
+  };
 
-  returnQuestionState() {
+  returnQuestionState = () => {
     const fillInBlankQuestionID = this.props.params.questionID;
     const fillInBlankQuestion = this.props.fillInBlank.data[fillInBlankQuestionID];
     return {
+      questionID: fillInBlankQuestionID,
       prompt: fillInBlankQuestion.prompt,
       blankAllowed: fillInBlankQuestion.blankAllowed,
       caseInsensitive: fillInBlankQuestion.caseInsensitive,
@@ -32,10 +31,26 @@ class EditFillInBlank extends Component {
       flag: fillInBlankQuestion.flag,
       cuesLabel: fillInBlankQuestion.cuesLabel
     };
-  }
+  };
 
   render() {
-    return <FillInBlankForm action={this.editQuestion} editing={true} state={this.returnQuestionState()} />;
+    const questionData = this.returnQuestionState()
+    const { prompt, blankAllowed, caseInsensitive, instructions, cues, conceptID, flag, cuesLabel, questionID } = questionData
+    return(
+      <FillInBlankForm
+        action={this.editQuestion} 
+        blankAllowed={blankAllowed}
+        caseInsensitive={caseInsensitive}
+        conceptID={conceptID}
+        cues={cues}
+        cuesLabel={cuesLabel}
+        editing={true}  
+        flag={flag}
+        instructions={instructions}
+        prompt={prompt}
+        questionID={questionID}
+      />
+    );
   }
 }
 

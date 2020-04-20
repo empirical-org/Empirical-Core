@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import fragmentActions from '../../actions/sentenceFragments.js';
+import fragmentActions from '../../actions/sentenceFragments';
 import Form from './sentenceFragmentForm.jsx';
 
-const newSentenceFragment = React.createClass({
-
-  createNewSentenceFragment(newSentenceFragment) {
+class newSentenceFragment extends React.Component {
+  createNewSentenceFragment = (newSentenceFragment) => {
     if (!newSentenceFragment.isFragment && !newSentenceFragment.needsIdentification) {
       alert('If the prompt is a sentence, the student must identify whether it is a sentence or fragment. Please try again.');
       return;
@@ -32,7 +31,7 @@ const newSentenceFragment = React.createClass({
     }
 
     this.props.dispatch(fragmentActions.submitNewSentenceFragment(data, data.responses[0]));
-  },
+  };
 
   render() {
     return (
@@ -43,9 +42,8 @@ const newSentenceFragment = React.createClass({
         </div>
       </section>
     );
-  },
-
-});
+  }
+}
 
 function select(state) {
   return {

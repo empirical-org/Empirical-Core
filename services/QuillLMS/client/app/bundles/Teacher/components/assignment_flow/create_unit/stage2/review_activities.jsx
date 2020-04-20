@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import "react-dates/initialize";
 
 import { SingleDatePicker } from 'react-dates'
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
@@ -40,14 +41,6 @@ export default class ReviewActivities extends React.Component {
     })
 
     this.state = state
-
-    this.removeRow = this.removeRow.bind(this)
-  }
-
-  removeRow(id) {
-    const { activities, toggleActivitySelection } = this.props
-    const activity = activities.find(act => act.id === id)
-    toggleActivitySelection(activity, false)
   }
 
   handleDueDateChange(id, date) {
@@ -58,10 +51,16 @@ export default class ReviewActivities extends React.Component {
     if (date && existingDate && existingDate.dayOfYear() === date.dayOfYear()) {
       assignActivityDueDate(activity, null)
     } else {
-      const formattedDate = date ? `${date.year()}-${date.month() + 1}-${date.date()}` : null
+      const formattedDate = date ? `${date.year()}/${date.month() + 1}/${date.date()}` : null
       assignActivityDueDate(activity, formattedDate);
     }
   }
+
+  removeRow = id => {
+    const { activities, toggleActivitySelection } = this.props
+    const activity = activities.find(act => act.id === id)
+    toggleActivitySelection(activity, false)
+  };
 
   rows() {
     const { activities, dueDates, } = this.props

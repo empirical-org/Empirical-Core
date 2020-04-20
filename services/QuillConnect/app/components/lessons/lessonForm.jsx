@@ -25,37 +25,9 @@ class LessonForm extends React.Component {
       questionType: 'questions',
       modelConceptUID: currentValues ? currentValues.modelConceptUID : null
     }
-
-    this.submit = this.submit.bind(this)
-    this.handleStateChange = this.handleStateChange.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.sortCallback = this.sortCallback.bind(this)
-    this.renderQuestionSelect = this.renderQuestionSelect.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-    this.handleSelectQuestionType = this.handleSelectQuestionType.bind(this)
-    this.handleLPChange = this.handleLPChange.bind(this)
   }
 
-  submit() {
-    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
-    this.props.submit({
-      name,
-      questions: selectedQuestions,
-      landingPageHtml,
-      flag,
-      modelConceptUID
-    });
-  }
-
-  handleStateChange(key, event) {
-    const changes = {};
-    changes[key] = event.target.value;
-    this.setState(changes);
-  }
-
-  handleChange(value) {
+  handleChange = value => {
     const currentSelectedQuestions = this.state.selectedQuestions;
     let newSelectedQuestions;
     const changedQuestion = currentSelectedQuestions.find(q => q.key === value);
@@ -65,18 +37,47 @@ class LessonForm extends React.Component {
       newSelectedQuestions = _.without(currentSelectedQuestions, changedQuestion);
     }
     this.setState({ selectedQuestions: newSelectedQuestions, });
-  }
+  };
 
-  handleSearchChange(e) {
+  handleLPChange = e => {
+    this.setState({ landingPageHtml: e, });
+  };
+
+  handleSearchChange = e => {
     this.handleChange(e.value);
-  }
+  };
 
-  sortCallback(sortInfo) {
+  handleSelect = e => {
+    this.setState({ flag: e.target.value, });
+  };
+
+  handleSelectQuestionType = e => {
+    this.setState({ questionType: e.target.value, });
+  };
+
+  handleStateChange = (key, event) => {
+    const changes = {};
+    changes[key] = event.target.value;
+    this.setState(changes);
+  };
+
+  sortCallback = sortInfo => {
     const newOrder = sortInfo.data.items.map(item => Object.assign({key: item.key, questionType: item.props.questionType}));
     this.setState({ selectedQuestions: newOrder, });
-  }
+  };
 
-  renderQuestionSelect() {
+  submit = () => {
+    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
+    this.props.submit({
+      name,
+      questions: selectedQuestions,
+      landingPageHtml,
+      flag,
+      modelConceptUID
+    });
+  };
+
+  renderQuestionSelect = () => {
     let questions;
     // select changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
     if (this.state.selectedQuestions && this.state.selectedQuestions.length) {
@@ -95,9 +96,9 @@ class LessonForm extends React.Component {
     } else {
       return <div>No questions</div>;
     }
-  }
+  };
 
-  renderSearchBox() {
+  renderSearchBox = () => {
     // options changes based on whether we are looking at 'questions' (should be refactored to sentenceCombining) or sentenceFragments
     const questionType = this.state.questionType;
     let options = hashToCollection(this.props[questionType].data);
@@ -117,19 +118,7 @@ class LessonForm extends React.Component {
         placeholder="Search for a question"
       />);
     }
-  }
-
-  handleSelect(e) {
-    this.setState({ flag: e.target.value, });
-  }
-
-  handleSelectQuestionType(e) {
-    this.setState({ questionType: e.target.value, });
-  }
-
-  handleLPChange(e) {
-    this.setState({ landingPageHtml: e, });
-  }
+  };
 
   render() {
     return (

@@ -13,6 +13,7 @@ import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 
 const bigCheckSrc =  `${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`
+const tadaSrc =  `${process.env.QUILL_CDN_URL}/images/illustrations/tada.svg`
 
 interface StudentViewContainerProps {
   dispatch: Function;
@@ -179,9 +180,12 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
       let nextStep: number|undefined = stepNumber + 1
       if (nextStep > ALL_STEPS.length || uniqueCompletedSteps.includes(nextStep)) {
         nextStep = ALL_STEPS.find(s => !uniqueCompletedSteps.includes(s))
-        if (!nextStep) this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
       }
-      this.activateStep(nextStep, () => this.scrollToStep(`step${nextStep}`))
+      if (nextStep) {
+        this.activateStep(nextStep, () => stepNumber !== READ_PASSAGE_STEP ? this.scrollToStep(`step${nextStep}`) : null)
+      } else {
+        this.trackActivityCompletedEvent(); // If there is no next step, the activity is done
+      }
     })
   }
 
@@ -288,7 +292,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const links = []
     const numberOfLinks = ALL_STEPS.length
 
-    for (let i=1; i <= numberOfLinks; i++ ) {
+    // starting at 2 because we don't want to include the read passage step
+    for (let i=2; i <= numberOfLinks; i++ ) {
       links.push(<StepLink clickStepLink={this.clickStepLink} index={i} renderStepNumber={this.renderStepNumber} />)
     }
 
@@ -304,29 +309,19 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     if (completed) {
       return <img alt="white check in green circle" className="step-number completed" key={number} src={bigCheckSrc} />
     }
-    return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number}</div>
+    // we have to remove one step for display because there are actually four steps including read passage, but it's displayed differently
+    return <div className={`step-number ${active ? 'active' : ''}`} key={number}>{number - 1}</div>
   }
 
   renderReadPassageStep = () => {
     const { activeStep, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
-    if (!currentActivity) return
-    let className = 'step'
-    let button
-    if (activeStep === READ_PASSAGE_STEP) {
-      className += ' active'
-      button = <button className='quill-button done-reading-button' onClick={this.handleDoneReadingClick} type="button">Done reading</button>
-    }
-    return (<div className={className} role="button" tabIndex={0}>
-      <div className="step-content" ref={(node) => this.step1 = node}>
-        <div className="step-header">
-          {this.renderStepNumber(READ_PASSAGE_STEP)}
-          <p className="directions">Read the passage:</p>
-        </div>
-        <p className="passage-title">{currentActivity.title}</p>
-        {button}
-      </div>
+    if (!currentActivity || activeStep !== READ_PASSAGE_STEP) { return }
+
+    return (<div className='read-passage-step-container'>
+      <h2>Read the passage</h2>
+      <button className='quill-button large primary contained done-reading-button' onClick={this.handleDoneReadingClick} type="button">Done reading</button>
     </div>)
   }
 
@@ -336,7 +331,8 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     const { currentActivity, } = activities
     const { submittedResponses, } = session
     if (!currentActivity) return
-    return currentActivity.prompts.map((prompt, i) => {
+
+    const steps =  currentActivity.prompts.map((prompt, i) => {
       // using i + 2 because the READ_PASSAGE_STEP is 1, so the first item in the set of prompts will always be 2
       const stepNumber = i + 2
       const everyOtherStepCompleted = completedSteps.filter(s => s !== stepNumber).length === 3
@@ -355,17 +351,23 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
         submittedResponses={submittedResponses[prompt.prompt_id] || []}
       />)
     })
+
+    const headerCopy = activeStep === READ_PASSAGE_STEP ? 'Then, complete these sentences' : 'Complete these sentences'
+
+    return (<div>
+      <h2>{headerCopy}</h2>
+      {steps}
+    </div>)
   }
 
   renderReadPassageContainer = () => {
-    const { activeStep, } = this.state
     const { activities, } = this.props
     const { currentActivity, } = activities
-    if (!currentActivity) return
+    if (!currentActivity) { return }
 
     return (<div className="read-passage-container">
       <div>
-        <p className="directions">Read the passage</p>
+        <p className="directions">Read the passage.</p>
         <h1 className="title">{currentActivity.title}</h1>
         <div className="passage" dangerouslySetInnerHTML={{__html: this.formatHtmlForPassage()}} />
       </div>
@@ -381,11 +383,21 @@ export class StudentViewContainer extends React.Component<StudentViewContainerPr
     </div>)
   }
 
-  render() {
-    const { activities,} = this.props
-    const { showFocusState, } = this.state
+  renderCompletedView() {
+    return (<div className="activity-completed">
+      <img alt="Party hat with confetti coming out" src={tadaSrc} />
+      <h1>Activity Complete!</h1>
+      <p>Thank you for taking the time to try our newest tool, Quill Comprehension.</p>
+    </div>)
+  }
 
-    if (!activities.hasReceivedData) return <LoadingSpinner />
+  render() {
+    const { activities, } = this.props
+    const { showFocusState, completedSteps, } = this.state
+
+    if (!activities.hasReceivedData) { return <LoadingSpinner /> }
+
+    if (completedSteps.length === ALL_STEPS.length) { return this.renderCompletedView() }
 
     const className = `activity-container ${showFocusState ? '' : 'hide-focus-outline'}`
 

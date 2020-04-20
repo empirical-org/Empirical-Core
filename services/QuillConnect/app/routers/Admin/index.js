@@ -5,7 +5,7 @@ const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 
 export default {
   path: 'admin',
-  indexRoute: { onEnter: (nextState, replace) => replace('/admin/question-health'), },
+  indexRoute: { onEnter: (nextState, replace) => replace('/admin/lessons'), },
   getChildRoutes: (partialNextState, cb) => {
     fetch(usersEndpoint, {
         method: 'GET',
@@ -24,14 +24,11 @@ export default {
             Promise.all([
               import(/* webpackChunkName: "admin-concept-feedback" */ './routes/ConceptFeedback/index.js'),
               import(/* webpackChunkName: "admin-concepts" */ './routes/Concepts/index.js'),
-              import(/* webpackChunkName: "admin-dashboard" */ './routes/DataDash/index.js'),
-              import(/* webpackChunkName: "admin-question-health" */ './routes/QuestionHealth/index.js'),
               import(/* webpackChunkName: "admin-title-cards" */ './routes/TitleCards/index.js'),
               import(/* webpackChunkName: "admin-lessons" */ './routes/Lessons/index.js'),
               import(/* webpackChunkName: "admin-questions" */ './routes/Questions/index.js'),
               import(/* webpackChunkName: "admin-fill-in-the-blanks" */ './routes/FillInTheBlanks/index.js'),
-              import(/* webpackChunkName: "admin-sentence-fragments" */ './routes/SentenceFragments/index.js'),
-              import(/* webpackChunkName: "admin-item-levels" */ './routes/ItemLevels/index.js')
+              import(/* webpackChunkName: "admin-sentence-fragments" */ './routes/SentenceFragments/index.js')
             ])
             .then(modules => cb(null, modules.map(module => module.default)))
             // to do, use Sentry to capture error

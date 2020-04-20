@@ -11,14 +11,50 @@ namespace :firebase do
     end
   end
 
-  task :import_as_blob, [:firebase_url, :model, :question_type] => :environment do |_, args|
+  task :import_as_blob, [:firebase_url, :model] => :environment do |_, args|
     include FirebaseTaskHelpers
 
     set_arg_values(args)
 
     for_each_firebase_key do |obj, data|
-      obj.question_type = @QUESTION_TYPE
       obj.data = data
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        puts obj.uid
+      end
+    end
+  end
+
+  task :import_as_blob_with_type, [:firebase_url, :model, :type_name, :question_type] => :environment do |_, args|
+    include FirebaseTaskHelpers
+
+    set_arg_values(args)
+    @TYPE_NAME = args[:type_name]
+
+    for_each_firebase_key do |obj, data|
+      obj.send("#{@TYPE_NAME}=", @QUESTION_TYPE)
+      obj.data = data
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        puts obj.uid
+      end
+    end
+  end
+
+  task :import_title_cards, [:firebase_url, :model, :type_value] => :environment do |_, args|
+    include FirebaseTaskHelpers
+
+    set_arg_values(args)
+    type_value = args[:type_value]
+
+    for_each_firebase_key do |obj, data|
+      obj.title_card_type = type_value
+      obj.content = data["content"]
+      obj.title = data["title"]
       begin
         obj.save!
       rescue ActiveRecord::RecordInvalid => e
@@ -35,7 +71,12 @@ namespace :firebase do
 
     for_each_firebase_diagnostic_key do |obj, data|
       obj.data = data
-      obj.save!
+      begin
+        obj.save!
+      rescue ActiveRecord::RecordInvalid => e
+        puts e
+        puts obj.uid
+      end
     end
   end
 
@@ -62,10 +103,10 @@ namespace :firebase do
       @FIREBASE_URL = args[:firebase_url]
       @RAILS_MODEL = args[:model]
       @QUESTION_TYPE = args[:question_type]
-      if !@FIREBASE_URL || !@RAILS_MODEL || !@QUESTION_TYPE
+      if !@FIREBASE_URL || !@RAILS_MODEL
         puts('You must provide Firebase URL and Rails model args to run this task.')
         puts('Example usage:')
-        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,connect_sentence_combining]')
+        puts('  rake firebase:import_data[https://quillconnect.firebaseio.com/v2/diagnostic_questions,Question,question_type,connect_sentence_combining]')
         exit
       end
     end
@@ -76,7 +117,22 @@ namespace :firebase do
       firebase_keys = firebase_shallow.keys
       firebase_keys.each do |key|
         data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
-        obj = klass.find_or_create_by(uid: key)
+        if klass == Question
+          old_question = Question.find_by_uid(key)
+          if old_question.present? && old_question.question_type != @QUESTION_TYPE
+            # we can delete any questions with blank prompts, and we can delete connect_sentence_fragments that are duplicates
+            if old_question.data['prompt'].blank? || old_question.question_type == 'connect_sentence_fragments'
+              old_question.destroy
+            # if a diagnostic_fib question conflicts with an existing question, don't copy the diagnostic version over
+            elsif @QUESTION_TYPE == 'diagnostic_fill_in_blanks'
+              obj = old_question
+              next
+            end
+          end
+          obj = Question.find_or_create_by(uid: key, question_type: @QUESTION_TYPE)
+        else
+          obj = klass.find_or_create_by(uid: key)
+        end
         if obj.valid?
           puts("updating #{@RAILS_MODEL} with uid '#{key}'")
         else

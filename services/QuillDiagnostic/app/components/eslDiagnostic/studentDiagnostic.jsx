@@ -48,7 +48,7 @@ export class ELLStudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, } = this.props
     const { sessionID, } = this.state
     dispatch(clearData());
@@ -59,7 +59,7 @@ export class ELLStudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { playDiagnostic, } = this.props
     if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
@@ -95,7 +95,8 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    const { params, playDiagnostic, } = this.props;
+    const { match, playDiagnostic, } = this.props;
+    const { params } = match;
     const { diagnosticID } = params;
 
     const { sessionID, } = this.state
@@ -165,12 +166,14 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   renderQuestionComponent = () => {
-    const { playDiagnostic, dispatch, params, t } = this.props
+    const { playDiagnostic, dispatch, match, t } = this.props
+    const { params } = match;
+    const { diagnosticID } = params;
 
     let component
     if (playDiagnostic.currentQuestion.type === 'SC') {
       component = (<PlayDiagnosticQuestion
-        diagnosticID={params.diagnosticID}
+        diagnosticID={diagnosticID}
         dispatch={dispatch}
         key={playDiagnostic.currentQuestion.data.key}
         language={this.language()}
@@ -195,7 +198,7 @@ export class ELLStudentDiagnostic extends React.Component {
         <PlayTitleCard
           currentKey={playDiagnostic.currentQuestion.data.key}
           data={playDiagnostic.currentQuestion.data}
-          diagnosticID={params.diagnosticID}
+          diagnosticID={diagnosticID}
           dispatch={dispatch}
           handleContinueClick={this.nextQuestionWithoutSaving}
           key={playDiagnostic.currentQuestion.data.key}
@@ -207,7 +210,7 @@ export class ELLStudentDiagnostic extends React.Component {
       component = (
         <PlayFillInTheBlankQuestion
           currentKey={playDiagnostic.currentQuestion.data.key}
-          diagnosticID={params.diagnosticID}
+          diagnosticID={diagnosticID}
           dispatch={dispatch}
           key={playDiagnostic.currentQuestion.data.key}
           language={this.language()}
@@ -245,7 +248,8 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, params } = this.props;
+    const { lessons, match } = this.props;
+    const { params } = match;
     const { diagnosticID } = params;
     return lessons.data[diagnosticID];
   }
@@ -304,18 +308,21 @@ export class ELLStudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { lessons, params } = this.props;
+    const { lessons, match } = this.props;
     const { data } = lessons;
+    const { params } = match;
     const { diagnosticID } = params;
     return data[diagnosticID].landingPageHtml
   }
 
   renderFooter = () => {
-    const { params } = this.props;
+    const { match } = this.props;
+    const { params } = match;
+    const { diagnosticID } = params;
     if (!this.language()) { return }
 
     return (<Footer
-      diagnosticID={params.diagnosticID}
+      diagnosticID={diagnosticID}
       language={this.language()}
       updateLanguage={this.updateLanguage}
     />)
@@ -342,7 +349,8 @@ export class ELLStudentDiagnostic extends React.Component {
 
   render() {
     const { error, saved, } = this.state
-    const { params, playDiagnostic, t } = this.props;
+    const { dispatch, match, playDiagnostic, t } = this.props;
+    const { params } = match;
     const { diagnosticID } = params;
 
     let component;
@@ -370,6 +378,7 @@ export class ELLStudentDiagnostic extends React.Component {
     } else {
       component = (<LanguagePage
         diagnosticID={diagnosticID}
+        dispatch={dispatch}
         setLanguage={this.updateLanguage}
       />);
     }

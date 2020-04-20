@@ -30,6 +30,7 @@ exports[`LearningProcess component should render 1`] = `
         header="Assess student writing with a diagnostic"
         imgAlt="page with writing and a magnifying glass over it"
         imgSrc="undefined/images/illustrations/diagnostics-all.svg"
+        key="diagnostic"
         selectCard={[Function]}
       />
       <AssignmentCard
@@ -48,6 +49,7 @@ exports[`LearningProcess component should render 1`] = `
         header="Choose activities from our library"
         imgAlt="open book"
         imgSrc="undefined/images/illustrations/library.svg"
+        key="activity-type"
         selectCard={[Function]}
       />
     </div>

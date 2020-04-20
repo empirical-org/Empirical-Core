@@ -22,6 +22,15 @@ export default class SelectActivitiesContainer extends React.Component {
     }
   }
 
+  ctaButton = () => {
+    if (this.props.editing) {
+      const clickHandler = this.state.loading ? null : this.handleClick;
+      const color = this.state.loading ? 'lightgray' : 'quillgreen';
+      const text = this.state.loading ? <span>Saving <AssigningIndicator /></span> : 'Update Activities';
+      return <button className={`q-button cta-button bg-${color} text-white pull-right`} id="continue" onClick={clickHandler}>{text}</button>;
+    }
+  }
+
   determineErrorMessageClass = () => {
     if (this.state.prematureContinueAttempted) {
       return 'error-message visible-error-message';
@@ -32,15 +41,6 @@ export default class SelectActivitiesContainer extends React.Component {
   handleClick = () => {
     this.props.updateActivities();
     this.setState({ loading: true, });
-  }
-
-  ctaButton = () => {
-    if (this.props.editing) {
-      const clickHandler = this.state.loading ? null : this.handleClick;
-      const color = this.state.loading ? 'lightgray' : 'quillgreen';
-      const text = this.state.loading ? <span>Saving <AssigningIndicator /></span> : 'Update Activities';
-      return <button className={`q-button cta-button bg-${color} text-white pull-right`} id="continue" onClick={clickHandler}>{text}</button>;
-    }
   }
 
   renderSelectActivitiesButton = () => {

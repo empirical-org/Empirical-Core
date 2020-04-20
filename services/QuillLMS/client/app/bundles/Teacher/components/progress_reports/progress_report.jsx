@@ -1,5 +1,7 @@
 import React from 'react'
 
+import createReactClass from 'create-react-class';
+
 import TableFilterMixin from '../general_components/table/sortable_table/table_filter_mixin'
 import TableSortingMixin from '../general_components/table/sortable_table/table_sorting_mixin'
 import Pagination from '../assignment_flow/create_unit/activity_search/pagination/pagination'
@@ -12,23 +14,12 @@ import getParameterByName from '../modules/get_parameter_by_name';
 import stripHtml from "string-strip-html";
 import $ from 'jquery'
 
-export default  React.createClass({
+export default createReactClass({
+  displayName: 'progress_report',
+
   mixins: [
     TableFilterMixin, TableSortingMixin
   ],
-
-  propTypes: {
-    columnDefinitions: React.PropTypes.func.isRequired,
-    filterTypes: React.PropTypes.array.isRequired,
-    pagination: React.PropTypes.bool.isRequired,
-    sourceUrl: React.PropTypes.string.isRequired,
-    sortDefinitions: React.PropTypes.func.isRequired,
-    jsonResultsKey: React.PropTypes.string.isRequired,
-    onFetchSuccess: React.PropTypes.func, // Optional
-    exportCsv: React.PropTypes.string,
-    premiumStatus: React.PropTypes.string,
-    colorByScoreKeys: React.PropTypes.array
-  },
 
   getDefaultProps: function() {
     return {maxPageNumber: 4};
@@ -61,10 +52,6 @@ export default  React.createClass({
     };
   },
 
-  disabled: function(){
-    return this.props.premiumStatus === 'locked' || this.props.premiumStatus === 'none';
-  },
-
   componentDidMount: function() {
     var sortDefinitions = this.props.sortDefinitions();
     this.defineSorting(sortDefinitions.config, sortDefinitions.default);
@@ -72,10 +59,14 @@ export default  React.createClass({
     this.fetchData(true);
   },
 
-  componentWillUpdate: function(nextProps, nextState) {
+  UNSAFE_componentWillUpdate: function(nextProps, nextState) {
     if (this.state.loading !== nextState.loading && this.props.showInProgressAndUnstartedStudents) {
       this.props.showInProgressAndUnstartedStudents(!nextState.loading)
     }
+  },
+
+  disabled: function(){
+    return this.props.premiumStatus === 'locked' || this.props.premiumStatus === 'none';
   },
 
   strippedResults: function(results) {
@@ -250,5 +241,5 @@ export default  React.createClass({
         {pagination}
       </div>
     );
-  }
+  },
 });

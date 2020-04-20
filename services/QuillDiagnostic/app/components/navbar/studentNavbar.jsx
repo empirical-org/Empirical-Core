@@ -1,22 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const quillLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
 
 const handleSaveAndExitClick = () => {
-  if (window.confirm('To access your saved progress, you will need to resume the activity on this device with this browser.')) {
-    window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
-  }
+  window.location.assign(`${process.env.EMPIRICAL_BASE_URL}/profile`);
 }
 
 const renderLinks = () => (
   <div className="student-nav-section">
-    <a activeClassName="is-active" className="student-nav-item focus-on-dark" key="a-tag-student-navabar" onClick={handleSaveAndExitClick} tabIndex="0">Save and exit</a>
+    <button activeClassName="is-active" className="student-nav-item focus-on-dark" key="a-tag-student-navabar" onClick={handleSaveAndExitClick} tabIndex="0" type="button">Save and exit</button>
   </div>
 );
 
-const Navbar = () => (
+const StudentNavbar = () => (
   <header className='nav student-nav'>
     <div className="container">
       <div className="student-nav-section">
@@ -38,4 +36,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Navbar);
+export default connect(select)(StudentNavbar);

@@ -15,6 +15,16 @@ export default class LessonsRecommendationRow extends React.Component {
 
   handleExpandOrCollapseClick = () => this.setState(prevState => ({ expanded: !prevState.expanded }));
 
+  statusSpecificComponent() {
+    const { status, recommendation, } = this.props
+    if (status === 'loading') {
+      return (<LoadingIndicator />);
+    } else if (recommendation.previously_assigned || status === 'assigned') {
+      return <span className="assigned-lesson-pack vertically-centered centered"><i className="fas fa-check-circle" />Pack Assigned</span>;
+    }
+    return (<a className="assign q-button bg-quillgreen text-white" onClick={this.handleAssignPackClick}>Assign Pack</a>);
+  }
+
   renderExpandedSection() {
     const { recommendation, } = this.props
     const activities = recommendation.activities.map((act, index) => {
@@ -29,16 +39,6 @@ export default class LessonsRecommendationRow extends React.Component {
         {activities}
       </div>
     );
-  }
-
-  statusSpecificComponent() {
-    const { status, recommendation, } = this.props
-    if (status === 'loading') {
-      return (<LoadingIndicator />);
-    } else if (recommendation.previously_assigned || status === 'assigned') {
-      return <span className="assigned-lesson-pack vertically-centered centered"><i className="fas fa-check-circle" />Pack Assigned</span>;
-    }
-    return (<a className="assign q-button bg-quillgreen text-white" onClick={this.handleAssignPackClick}>Assign Pack</a>);
   }
 
   render() {

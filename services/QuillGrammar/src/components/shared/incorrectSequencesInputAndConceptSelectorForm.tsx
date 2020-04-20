@@ -18,6 +18,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
       itemText: item ? `${item.text}|||` : '',
       itemFeedback: item ? item.feedback : '',
       itemConcepts: item ? (item.conceptResults ? item.conceptResults : {}) : {},
+      caseInsensitive: item ? (item.caseInsensitive ? item.caseInsensitive : false) : true,
       matchedCount: 0
     }
 
@@ -27,6 +28,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
     this.deleteConceptResult = this.deleteConceptResult.bind(this)
     this.toggleCheckboxCorrect = this.toggleCheckboxCorrect.bind(this)
+    this.handleToggleQuestionCaseInsensitive = this.handleToggleQuestionCaseInsensitive.bind(this)
   }
 
   addOrEditItemLabel() {
@@ -74,13 +76,16 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
   }
 
   submit(incorrectSequence) {
-    const incorrectSequences = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+    const { itemFeedback, itemConcepts, caseInsensitive, itemText } = this.state
+    const incorrectSequences = itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
+
     if (incorrectSequences.every(is => isValidRegex(is))) {
       const incorrectSequenceString = incorrectSequences.join('|||')
       const data = {
         text: incorrectSequenceString,
-        feedback: this.state.itemFeedback,
-        conceptResults: this.state.itemConcepts,
+        feedback: itemFeedback,
+        conceptResults: itemConcepts,
+        caseInsensitive: caseInsensitive ? caseInsensitive : false,
       };
       this.props.onSubmit(data, incorrectSequence);
     } else {
@@ -127,6 +132,12 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   }
 
+  handleToggleQuestionCaseInsensitive() {
+    const data = this.state;
+    data.caseInsensitive = !data.caseInsensitive;
+    this.setState(data);
+  }
+
   renderExplanatoryNote() {
     return (<div style={{ marginBottom: '10px' }}>
       <p>Incorrect sequences can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
@@ -138,6 +149,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
+    const { caseInsensitive } = this.state;
     return (
       <div>
         <div className="box add-incorrect-sequence">
@@ -156,6 +168,10 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
             />
             <label className="label" style={{ marginTop: 10, }}>Concepts</label>
             {this.renderConceptSelectorFields()}
+            <p className="control checkbox-wrapper">
+              <input checked={caseInsensitive} className="checkbox" id="case-insensitive" onClick={this.handleToggleQuestionCaseInsensitive} type="checkbox" />
+              <label className="label checkbox-label" htmlFor="case-insensitive">Case Insensitive?</label>
+            </p>
           </div>
           <p className="control">
             <button className={'button is-primary '} onClick={() => this.submit(this.props.item ? this.props.item.id : null)}>Submit</button>

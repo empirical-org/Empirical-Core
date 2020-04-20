@@ -313,6 +313,8 @@
     padding-right: 0px;
     .removable {
       margin-right: 0px;
+      padding: 0px !important;
+      background-color: transparent;
       img {
         cursor: pointer;
       }
@@ -322,6 +324,9 @@
         button {
           min-width: 30px;
           background-color: white;
+        }
+        button:hover {
+          background-color: #f2f2f2;
         }
       }
     }

@@ -41,7 +41,7 @@ class PlaySentenceFragment extends React.Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { question, } = this.props
     if (nextProps.question.attempts.length !== question.attempts.length) {
       this.setState({editing: false})

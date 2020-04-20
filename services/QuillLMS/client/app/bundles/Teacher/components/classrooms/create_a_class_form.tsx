@@ -36,7 +36,7 @@ export default class CreateAClassForm extends React.Component<CreateAClassFormPr
     this.createClass = this.createClass.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getClassCode()
   }
 

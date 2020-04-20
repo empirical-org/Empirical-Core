@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 import request from 'request'
 
 class EditIncorrectSequencesContainer extends Component {
@@ -19,26 +19,29 @@ class EditIncorrectSequencesContainer extends Component {
       questionTypeLink,
       actionFile
     }
-
-    this.submitForm = this.submitForm.bind(this);
   }
 
-  componentWillMount() {
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid] && this.state.actionFile.getUsedSequences) {
-      this.props.dispatch(this.state.actionFile.getUsedSequences(this.props.params.questionID))
+  componentDidMount() {
+    const { actionFile } = this.state
+    const { getUsedSequences } = actionFile
+    const { dispatch, generatedIncorrectSequences, params } = this.props
+    const { used } = generatedIncorrectSequences
+    const { questionID } = params
+    if (!used[questionID] && getUsedSequences) {
+      dispatch(actionFile.getUsedSequences(questionID))
     }
   }
 
-  getIncorrectSequence() {
+  getIncorrectSequence = () => {
     return this.props[this.state.questionType].data[this.props.params.questionID].incorrectSequences[this.props.params.incorrectSequenceID];
   }
 
-  submitForm(data, incorrectSequenceID) {
+  submitForm = (data, incorrectSequenceID) => {
+    const { actionFile } = this.state
     delete data.conceptResults.null;
-    this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, incorrectSequenceID));
+    this.props.dispatch(actionFile.submitEditedIncorrectSequence(this.props.params.questionID, data, incorrectSequenceID));
     window.history.back();
-  }
+  };
 
   render() {
     const { generatedIncorrectSequences, params, questions, sentenceFragments, states, } = this.props

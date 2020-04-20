@@ -18,11 +18,13 @@ class TestQuestion extends Component {
     this.reset();
   }
 
-  reset = () => {
-    const { dispatch, } = this.props
-    dispatch(clearData());
-    this.startActivity();
-    this.setState(prevState => ({ key: prevState.key + 1, }));
+  getQuestion = () => {
+    const { fillInBlank, params, } = this.props
+    return fillInBlank.data[params.questionID];
+  }
+
+  setResponse = (response) => {
+    this.setState({ gradedResponse: response })
   }
 
   questionsForLesson = () => {
@@ -41,6 +43,13 @@ class TestQuestion extends Component {
     ];
   }
 
+  reset = () => {
+    const { dispatch, } = this.props
+    dispatch(clearData());
+    this.startActivity();
+    this.setState(prevState => ({ key: prevState.key + 1, }));
+  }
+
   startActivity = () => {
     const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
@@ -49,9 +58,9 @@ class TestQuestion extends Component {
     dispatch(next);
   }
 
-  getQuestion = () => {
-    const { fillInBlank, params, } = this.props
-    return fillInBlank.data[params.questionID];
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
+    dispatch(submitResponse(response))
   }
 
   renderGrading = () => {
@@ -63,15 +72,6 @@ class TestQuestion extends Component {
         <p>Feedback: {feedback}</p>
       </div>)
     }
-  }
-
-  setResponse = (response) => {
-    this.setState({ gradedResponse: response })
-  }
-
-  submitResponse = (response) => {
-    const { dispatch, } = this.props
-    dispatch(submitResponse(response))
   }
 
   render() {

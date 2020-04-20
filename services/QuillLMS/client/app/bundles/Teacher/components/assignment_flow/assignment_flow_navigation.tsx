@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import LeavingModal from './leaving_modal'
 
@@ -19,49 +19,49 @@ const createActivityPackSlug = 'create-activity-pack'
 const selectClassesSlug = 'select-classes'
 const featuredActivityPacksSlug = 'featured-activity-packs'
 
-const slash = () => <span className="slash">/</span>
-const learningProcess = () => <Link to={`/assign/${learningProcessSlug}`}>Learning process</Link>
-const diagnostic = () => <Link to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
-const activityType = () => <Link to={`/assign/${activityTypeSlug}`}>Activity type</Link>
-const createActivityPack = () => <Link to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
-const selectClasses = () => <Link to={`/assign/${selectClassesSlug}`}>Assign</Link>
-const activityPack = () => <Link to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
-const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => <Link to={`/assign/${featuredActivityPacksSlug}/${unitTemplateId}`}>{unitTemplateName}</Link>
+const slash = (index: number) => <span className="slash" key={index}>/</span>
+const learningProcess = () => <Link key="learning-process" to={`/assign/${learningProcessSlug}`}>Learning process</Link>
+const diagnostic = () => <Link key="diagnostic" to={`/assign/${diagnosticSlug}`}>Diagnostic</Link>
+const activityType = () => <Link key="activity-type" to={`/assign/${activityTypeSlug}`}>Activity type</Link>
+const createActivityPack = () => <Link key="custom-activity-pack" to={`/assign/${createActivityPackSlug}`}>Custom activity pack</Link>
+const selectClasses = () => <Link key="assign-" to={`/assign/${selectClassesSlug}`}>Assign</Link>
+const activityPack = () => <Link key="activity-pack" to={`/assign/${featuredActivityPacksSlug}`}>Activity pack</Link>
+const individualFeaturedActivityPack = (unitTemplateId, unitTemplateName) => <Link key="featured-activity-pack" to={`/assign/${featuredActivityPacksSlug}/${unitTemplateId}`}>{unitTemplateName}</Link>
 
 const routeLinks = {
-  [learningProcessSlug]: () => [slash(), learningProcess()],
-  [diagnosticSlug]: () => [slash(), learningProcess(), slash(), diagnostic()],
-  [activityTypeSlug]: () => [slash(), learningProcess(), slash(), activityType()],
-  [createActivityPackSlug]: () => [slash(), learningProcess(), slash(), activityType(), slash(), createActivityPack()],
+  [learningProcessSlug]: () => [slash(1), learningProcess()],
+  [diagnosticSlug]: () => [slash(1), learningProcess(), slash(2), diagnostic()],
+  [activityTypeSlug]: () => [slash(1), learningProcess(), slash(2), activityType()],
+  [createActivityPackSlug]: () => [slash(1), learningProcess(), slash(2), activityType(), slash(3), createActivityPack()],
   [selectClassesSlug]: (unitTemplateId, unitTemplateName, isFromDiagnosticPath) => {
     if (isFromDiagnosticPath) {
       return [
-        slash(),
+        slash(1),
         learningProcess(),
-        slash(),
+        slash(2),
         diagnostic(),
-        slash(),
+        slash(3),
         selectClasses()
       ]
     }
 
-    const base = [slash(), learningProcess(), slash(), activityType(), slash()]
+    const base = [slash(1), learningProcess(), slash(2), activityType(), slash(3)]
     if (unitTemplateId && unitTemplateName) {
       return base.concat(
         [activityPack(),
-          slash(),
+          slash(4),
           individualFeaturedActivityPack(unitTemplateId, unitTemplateName),
-          slash(),
+          slash(5),
           selectClasses()
         ]
       )
     }
-    return base.concat([createActivityPack(), slash(), selectClasses()])
+    return base.concat([createActivityPack(), slash(4), selectClasses()])
   },
   [featuredActivityPacksSlug]: (unitTemplateId, unitTemplateName) => {
-    const base = [slash(), learningProcess(), slash(), activityType(), slash(), activityPack()]
+    const base = [slash(1), learningProcess(), slash(2), activityType(), slash(3), activityPack()]
     if (unitTemplateId && unitTemplateName) {
-      return base.concat([slash(), individualFeaturedActivityPack(unitTemplateId, unitTemplateName)])
+      return base.concat([slash(4), individualFeaturedActivityPack(unitTemplateId, unitTemplateName)])
     }
     return base
   }
@@ -111,7 +111,7 @@ export default class AssignmentFlowNavigation extends React.Component<Assignment
     try {
       elements = routeLinks[this.getSlug()](unitTemplateId, unitTemplateName, isFromDiagnosticPath)
     } catch {
-      elements = null
+      elements = []
     }
     return <div className="links">{elements}</div>
   }

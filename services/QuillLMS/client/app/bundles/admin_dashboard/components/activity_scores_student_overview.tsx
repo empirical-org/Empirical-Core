@@ -1,6 +1,6 @@
 import * as React from 'react';
 import StudentOverview from '../../Teacher/components/progress_reports/student_overview';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 const ActivityScoresStudentOverview = ({ location }) => {

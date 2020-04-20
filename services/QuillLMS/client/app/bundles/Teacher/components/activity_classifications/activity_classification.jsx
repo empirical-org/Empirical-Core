@@ -30,10 +30,11 @@ export default class ActivityClassification extends React.Component {
       order_number: this.props.activityClassification.order_number || null
     }
     model = _.extend(model, this.props.activityClassification);
-    this.state = { model: model };
+    this.state = { model };
+  }
 
-    this.updateModelState = this.updateModelState.bind(this);
-    this.save = this.save.bind(this);
+  getModelState(key) {
+    return this.state.model[key];
   }
 
   initializeModules() {
@@ -46,19 +47,15 @@ export default class ActivityClassification extends React.Component {
     };
   }
 
-  getModelState(key) {
-    return this.state.model[key];
-  }
+  save = () => {
+    const model = this.state.model;
+    this.modules.server.save(model, {callback: this.props.returnToIndex});
+  };
 
   updateModelState = (key, value, context) => {
     let newState = this.state;
     newState.model[key] = value;
     this.setState(newState);
-  }
-
-  save() {
-    const model = this.state.model;
-    this.modules.server.save(model, {callback: this.props.returnToIndex});
   }
 
   render() {

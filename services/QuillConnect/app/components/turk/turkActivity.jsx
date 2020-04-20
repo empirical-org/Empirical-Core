@@ -32,24 +32,44 @@ export class TurkActivity extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, } = this.props
     dispatch(clearData());
   }
 
 
-  saveToLMS = () => {
-    const { sessionID, } = this.state
-    const { playTurk, params, } = this.props
-
-    this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(playTurk.answeredQuestions);
-
-    if (sessionID) {
-      this.finishActivitySession(sessionID, results, 1);
-    } else {
-      this.createAnonActivitySession(params.lessonID, results, 1);
+  getData = () => {
+    const { params, } = this.props
+    if (params.lessonID) {
+      return this.questionsForLesson();
     }
+    return diagnosticQuestions();
+  }
+
+  getLesson = () => {
+    const { lessons, params, } = this.props
+    return lessons.data[params.lessonID];
+  }
+
+  createAnonActivitySession = (lessonID, results, score) => {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+        }
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse && httpResponse.statusCode === 200) {
+          // to do, use Sentry to capture error
+          this.setState({ saved: true, });
+        }
+      }
+    );
   }
 
   finishActivitySession = (sessionID, results, score) => {
@@ -76,50 +96,16 @@ export class TurkActivity extends React.Component {
     );
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
-    request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
-        method: 'POST',
-        json:
-        {
-          state: 'finished',
-          activity_uid: lessonID,
-          concept_results: results,
-          percentage: score,
-        }
-      },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          this.setState({ saved: true, });
-        }
-      }
-    );
-  }
-
-  submitResponse = (response) => {
+  markIdentify = (bool) => {
     const { dispatch, } = this.props
-    const action = submitResponse(response);
+    const action = updateCurrentQuestion({ identified: bool, });
     dispatch(action);
-  }
-
-  startActivity = () => {
-    const { dispatch, } = this.props
-    const action = loadData(this.questionsForLesson());
-    dispatch(action);
-    const next = nextQuestion();
-    dispatch(next);
   }
 
   nextQuestion = () => {
     const { dispatch, } = this.props
     const next = nextQuestion();
     dispatch(next);
-  }
-
-  getLesson = () => {
-    const { lessons, params, } = this.props
-    return lessons.data[params.lessonID];
   }
 
   questionsForLesson = () => {
@@ -143,17 +129,31 @@ export class TurkActivity extends React.Component {
     });
   }
 
-  getData = () => {
-    const { params, } = this.props
-    if (params.lessonID) {
-      return this.questionsForLesson();
+  saveToLMS = () => {
+    const { sessionID, } = this.state
+    const { playTurk, params, } = this.props
+
+    this.setState({ error: false, });
+    const results = getConceptResultsForAllQuestions(playTurk.answeredQuestions);
+
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, 1);
+    } else {
+      this.createAnonActivitySession(params.lessonID, results, 1);
     }
-    return diagnosticQuestions();
   }
 
-  markIdentify = (bool) => {
+  startActivity = () => {
     const { dispatch, } = this.props
-    const action = updateCurrentQuestion({ identified: bool, });
+    const action = loadData(this.questionsForLesson());
+    dispatch(action);
+    const next = nextQuestion();
+    dispatch(next);
+  }
+
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
+    const action = submitResponse(response);
     dispatch(action);
   }
 

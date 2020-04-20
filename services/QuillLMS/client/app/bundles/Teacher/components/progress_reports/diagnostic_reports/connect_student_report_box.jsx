@@ -1,17 +1,19 @@
 import React from 'react'
+import createReactClass from 'create-react-class';
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 
-export default React.createClass({
+export default createReactClass({
+    displayName: 'connect_student_report_box',
 
-	groupByAttempt: function(){
+    groupByAttempt: function(){
 		return _.groupBy(this.props.questionData.concepts,
 			(conc)=>conc.attempt
 		);
 	},
 
-	feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
+    feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
 		if (directionsOrFeedback) {
 			return (
   <tr className={classNameAndText}>
@@ -22,7 +24,7 @@ export default React.createClass({
 		}
 	},
 
-	conceptsByAttempt: function() {
+    conceptsByAttempt: function() {
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
@@ -58,7 +60,7 @@ export default React.createClass({
 		return results;
 	},
 
-	emptyRow: function(key){
+    emptyRow: function(key){
 		return (<tr key={'empty-row'+key}>
   <td />
   <td />
@@ -66,7 +68,7 @@ export default React.createClass({
 						</tr>)
 	},
 
-	scoreRow: function(answer, attemptNum, averageScore) {
+    scoreRow: function(answer, attemptNum, averageScore) {
 		return (
   <tr className={ScoreColor(averageScore)} key={attemptNum + answer}>
     <td>{`${NumberSuffix(attemptNum)} Submission`}</td>
@@ -76,7 +78,7 @@ export default React.createClass({
 		)
 	},
 
-	questionScore: function() {
+    questionScore: function() {
 		// occassionally there is no questionScore
 		// don't just do ...questionData && ...questionData.questionScore because
 		// if it questionScore is zero it will evaluate to false
@@ -99,7 +101,7 @@ export default React.createClass({
 		}
 	},
 
-	render: function() {
+    render: function() {
 		const data = this.props.questionData;
 		return (
   <div className='individual-activity-report'>
@@ -123,6 +125,5 @@ export default React.createClass({
     </div>
   </div>
 		);
-	}
-
-})
+	},
+});

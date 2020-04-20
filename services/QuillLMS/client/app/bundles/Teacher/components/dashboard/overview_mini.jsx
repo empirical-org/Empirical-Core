@@ -2,9 +2,8 @@ import React from 'react';
 import _ from 'underscore';
 import LoadingIndicator from '../shared/loading_indicator';
 
-export default React.createClass({
-
-  overviewMiniBuilder() {
+export default class extends React.Component {
+  overviewMiniBuilder = () => {
     this.stateSpecificComponents();
     return (
       <div>
@@ -12,9 +11,9 @@ export default React.createClass({
         {this.stateSpecificComponents()}
       </div>
     );
-  },
+  };
 
-  stateSpecificComponents() {
+  stateSpecificComponents = () => {
     const results = this.props.overviewObj.results;
       const button = this.miniSpecificButton();
       const leftColumn = Object.keys(results);
@@ -35,9 +34,9 @@ export default React.createClass({
           {button}
         </div>
       );
-  },
+  };
 
-  miniSpecificButton() {
+  miniSpecificButton = () => {
     const header = this.props.overviewObj.header.toLowerCase();
     // this just searches for mention of student, concept, etc, in the header
     // so we can use the queries with minimal meta-data
@@ -57,16 +56,16 @@ export default React.createClass({
       }
     };
     return buttonLink();
-  },
+  };
 
-  header() {
+  header = () => {
     return (
       <div className="header">
         <h4>{this.props.overviewObj.header}</h4>
         <p>Last 30 Days</p>
       </div>
     );
-  },
+  };
 
   render() {
     return (
@@ -76,5 +75,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

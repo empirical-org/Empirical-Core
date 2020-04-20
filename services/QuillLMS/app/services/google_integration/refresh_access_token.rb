@@ -49,6 +49,8 @@ class GoogleIntegration::RefreshAccessToken
       store_credentials(response)
     else
       msg = "Non-200 response when attempting to refresh access token: '#{response.parsed_response['error']}'"
+      # delete current_credentials so that user is forced to login again
+      current_credentials.destroy!
       raise FailedToRefreshTokenError, msg
     end
   end

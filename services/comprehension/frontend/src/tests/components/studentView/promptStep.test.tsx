@@ -2,8 +2,10 @@ import * as React from 'react'
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import PromptStep, { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, } from '../../../components/studentView/promptStep'
+import PromptStep from '../../../components/studentView/promptStep'
 import EditorContainer from '../../../components/studentView/editorContainer'
+import { TOO_LONG_FEEDBACK, TOO_SHORT_FEEDBACK, MULTIPLE_SENTENCES_FEEDBACK, PROFANITY_FEEDBACK } from '../../../modules/prefilters'
+
 
 import { activityOne, optimalSubmittedResponse, suboptimalSubmittedResponse, } from './data'
 
@@ -112,11 +114,42 @@ describe('PromptStep component', () => {
         })
 
         describe('when the submission is not <br> or an empty string and does not include the prompt stem', () => {
-          it('should not update the state', () => {
-            const existingHtmlValue = wrapper.state('html')
+          it('should update the state to reconcile the change', () => {
             const submission = { target: { value: "<p>Governments should make voting c</p>" }}
             wrapper.instance().onTextChange(submission)
-            expect(wrapper.state('html')).toBe(existingHtmlValue)
+            expect(wrapper.state('html')).toBe("Governments should make voting compulsory <u>because</u>&nbsp;c")
+          })
+        })
+      })
+
+      describe('#handleGetFeedbackClick', () => {
+        describe('when a profane response is submitted', () => {
+          it('should set the state to have the profanity feedback', () => {
+            const entry = "Governments should make voting compulsory because of some shit"
+            wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
+            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
+            expect(wrapper.state('customFeedback')).toBe(PROFANITY_FEEDBACK)
+            expect(wrapper.state('customFeedbackKey')).toBe('profanity')
+          })
+        })
+
+        describe('when a prompt with multiple sentences is submitted', () => {
+          it('should set the state to have the multiple sentences feedback', () => {
+            const entry = "Governments should make voting compulsory because I want them to. I think politicans I like will get elected if everyone votes."
+            wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
+            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
+            expect(wrapper.state('customFeedback')).toBe(MULTIPLE_SENTENCES_FEEDBACK)
+            expect(wrapper.state('customFeedbackKey')).toBe('multiple-sentences')
+          })
+        })
+
+        describe('when a prompt with only one sentence, but containing a known abbreviation is submitted', () => {
+          it('should not set custom feedback or a custom feedback key', () => {
+            const entry = "Governments should make voting compulsory because the U.S.A. is a democracy."
+            wrapper.setState({ customFeedback: null, customFeedbackKey: null, })
+            wrapper.instance().handleGetFeedbackClick(entry, prompt.prompt_id, prompt.text)
+            expect(wrapper.state('customFeedback')).toBe(null)
+            expect(wrapper.state('customFeedbackKey')).toBe(null)
           })
         })
       })
@@ -138,30 +171,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a button with a disabled class and the text "Get feedback"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(1)
-        expect(wrapper.find('button.disabled').text()).toEqual("Get feedback")
-      })
-
-    })
-
-    describe('before any responses have been submitted', () => {
-      const wrapper = mount(<PromptStep
-        {...defaultProps}
-        active
-        className="step active"
-      />)
-
-      it('matches snapshot', () => {
-        expect(toJson(wrapper)).toMatchSnapshot()
-      })
-
-      it('renders an EditorContainer', () => {
-        expect(wrapper.find(EditorContainer)).toHaveLength(1)
-      })
-
-      it('has a button with a disabled class and the text "Get feedback"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(1)
-        expect(wrapper.find('button.disabled').text()).toEqual("Get feedback")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get feedback")
       })
 
     })
@@ -185,6 +196,52 @@ describe('PromptStep component', () => {
 
       it('has feedback with the too-short response text text"', () => {
         expect(wrapper.find('.feedback-text').text()).toEqual(TOO_SHORT_FEEDBACK)
+      })
+
+    })
+
+    describe('when a profane response has been submitted', () => {
+      const wrapper = mount(<PromptStep
+        {...defaultProps}
+        active
+        className="step active"
+      />)
+
+      wrapper.setState({ customFeedback: PROFANITY_FEEDBACK, customFeedbackKey: 'profanity' })
+
+      it('matches snapshot', () => {
+        expect(toJson(wrapper)).toMatchSnapshot()
+      })
+
+      it('renders an EditorContainer', () => {
+        expect(wrapper.find(EditorContainer)).toHaveLength(1)
+      })
+
+      it('has feedback with the too-short response text text"', () => {
+        expect(wrapper.find('.feedback-text').text()).toEqual(PROFANITY_FEEDBACK)
+      })
+
+    })
+
+    describe('when a response with multiple sentences has been submitted', () => {
+      const wrapper = mount(<PromptStep
+        {...defaultProps}
+        active
+        className="step active"
+      />)
+
+      wrapper.setState({ customFeedback: MULTIPLE_SENTENCES_FEEDBACK, customFeedbackKey: 'multiple-sentences' })
+
+      it('matches snapshot', () => {
+        expect(toJson(wrapper)).toMatchSnapshot()
+      })
+
+      it('renders an EditorContainer', () => {
+        expect(wrapper.find(EditorContainer)).toHaveLength(1)
+      })
+
+      it('has feedback with the too-short response text text"', () => {
+        expect(wrapper.find('.feedback-text').text()).toEqual(MULTIPLE_SENTENCES_FEEDBACK)
       })
 
     })
@@ -230,8 +287,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Start next sentence"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
       })
 
     })
@@ -254,8 +311,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a disabled button with the text "Get new feedback"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(1)
-        expect(wrapper.find('button.disabled').text()).toEqual("Get new feedback")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(1)
+        expect(wrapper.find('.quill-button.disabled').text()).toEqual("Get new feedback")
       })
     })
 
@@ -277,8 +334,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Start next sentence"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button').text()).toEqual("Start next sentence")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button').text()).toEqual("Start next sentence")
       })
     })
 
@@ -301,8 +358,8 @@ describe('PromptStep component', () => {
       })
 
       it('has a non-disabled button with the text "Done"', () => {
-        expect(wrapper.find('button.disabled')).toHaveLength(0)
-        expect(wrapper.find('button').text()).toEqual("Done")
+        expect(wrapper.find('.quill-button.disabled')).toHaveLength(0)
+        expect(wrapper.find('.quill-button').text()).toEqual("Done")
       })
     })
   })

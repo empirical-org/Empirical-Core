@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10
--- Dumped by pg_dump version 10.10
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1135,6 +1135,39 @@ ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teac
 
 
 --
+-- Name: concept_feedbacks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.concept_feedbacks (
+    id integer NOT NULL,
+    uid character varying,
+    data jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: concept_feedbacks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.concept_feedbacks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: concept_feedbacks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.concept_feedbacks_id_seq OWNED BY public.concept_feedbacks.id;
+
+
+--
 -- Name: concept_results; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1555,6 +1588,40 @@ CREATE SEQUENCE public.ip_locations_id_seq
 --
 
 ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
+
+
+--
+-- Name: lessons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.lessons (
+    id integer NOT NULL,
+    uid character varying,
+    data jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    lesson_type character varying NOT NULL
+);
+
+
+--
+-- Name: lessons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.lessons_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lessons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.lessons_id_seq OWNED BY public.lessons.id;
 
 
 --
@@ -2430,7 +2497,8 @@ CREATE TABLE public.title_cards (
     content character varying,
     title character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    title_card_type character varying NOT NULL
 );
 
 
@@ -2986,6 +3054,13 @@ ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: concept_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_feedbacks ALTER COLUMN id SET DEFAULT nextval('public.concept_feedbacks_id_seq'::regclass);
+
+
+--
 -- Name: concept_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3067,6 +3142,13 @@ ALTER TABLE ONLY public.invitations ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public.ip_locations_id_seq'::regclass);
+
+
+--
+-- Name: lessons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lessons ALTER COLUMN id SET DEFAULT nextval('public.lessons_id_seq'::regclass);
 
 
 --
@@ -3499,6 +3581,14 @@ ALTER TABLE ONLY public.classrooms_teachers
 
 
 --
+-- Name: concept_feedbacks concept_feedbacks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.concept_feedbacks
+    ADD CONSTRAINT concept_feedbacks_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: concept_results concept_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3592,6 +3682,14 @@ ALTER TABLE ONLY public.invitations
 
 ALTER TABLE ONLY public.ip_locations
     ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lessons lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.lessons
+    ADD CONSTRAINT lessons_pkey PRIMARY KEY (id);
 
 
 --
@@ -4239,6 +4337,13 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 
 
 --
+-- Name: index_concept_feedbacks_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_feedbacks_on_uid ON public.concept_feedbacks USING btree (uid);
+
+
+--
 -- Name: index_concept_results_on_activity_classification_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4355,6 +4460,20 @@ CREATE INDEX index_ip_locations_on_user_id ON public.ip_locations USING btree (u
 --
 
 CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
+
+
+--
+-- Name: index_lessons_on_lesson_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_lessons_on_lesson_type ON public.lessons USING btree (lesson_type);
+
+
+--
+-- Name: index_lessons_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_lessons_on_uid ON public.lessons USING btree (uid);
 
 
 --
@@ -4677,6 +4796,13 @@ CREATE INDEX index_subscriptions_on_start_date ON public.subscriptions USING btr
 --
 
 CREATE INDEX index_third_party_user_ids_on_user_id ON public.third_party_user_ids USING btree (user_id);
+
+
+--
+-- Name: index_title_cards_on_title_card_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_title_cards_on_title_card_type ON public.title_cards USING btree (title_card_type);
 
 
 --
@@ -5857,3 +5983,10 @@ INSERT INTO schema_migrations (version) VALUES ('20191218174724');
 
 INSERT INTO schema_migrations (version) VALUES ('20200123170454');
 
+INSERT INTO schema_migrations (version) VALUES ('20200324192053');
+
+INSERT INTO schema_migrations (version) VALUES ('20200326152208');
+
+INSERT INTO schema_migrations (version) VALUES ('20200326220320');
+
+INSERT INTO schema_migrations (version) VALUES ('20200409151835');

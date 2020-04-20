@@ -29,24 +29,9 @@ class Questions extends React.Component {
     super(props)
 
     this.state = {
-      displayNoConceptQuestions: false,
       showOnlyArchived: false,
       questions: {}
     }
-
-    this.createNew = this.createNew.bind(this)
-    this.submitNewQuestion = this.submitNewQuestion.bind(this)
-    this.updateRematchedResponse = this.updateRematchedResponse.bind(this)
-    this.mapConceptsToList = this.mapConceptsToList.bind(this)
-    this.responsesWithStatusForQuestion = this.responsesWithStatusForQuestion.bind(this)
-    this.rematchAllQuestions = this.rematchAllQuestions.bind(this)
-    this.rematchAllResponses = this.rematchAllResponses.bind(this)
-    this.rematchResponse = this.rematchResponse.bind(this)
-    this.renderModal = this.renderModal.bind(this)
-    this.handleSearchChange = this.handleSearchChange.bind(this)
-    this.toggleNoConceptQuestions = this.toggleNoConceptQuestions.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderSearchBox = this.renderSearchBox.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,31 +43,11 @@ class Questions extends React.Component {
     }
   }
 
-  createNew() {
-    this.props.dispatch(actions.toggleNewQuestionModal());
-  }
-
-  submitNewQuestion() {
-    const newQuestion = { name: this.refs.newQuestionName.value, };
-    this.props.dispatch(actions.submitNewQuestion(newQuestion));
-    this.refs.newQuestionName.value = '';
-    // this.props.dispatch(actions.toggleNewQuestionModal())
-  }
-
-  updateRematchedResponse(rid, vals) {
-    this.props.dispatch(submitResponseEdit(rid, vals));
-  }
-
-  getErrorsForAttempt(attempt) {
+  getErrorsForAttempt = (attempt) => {
     return attempt.feedback;
   }
 
-  generateFeedbackString(attempt) {
-    const errors = this.getErrorsForAttempt(attempt);
-    return errors;
-  }
-
-  getMatchingResponse(quest, response, responses) {
+  getMatchingResponse = (quest, response, responses) => {
     const fields = {
       questionUID: quest.key,
       responses: _.filter(responses, resp => resp.statusCode < 2),
@@ -92,66 +57,38 @@ class Questions extends React.Component {
     return question.checkMatch(response.text);
   }
 
+  createNew = () => {
+    this.props.dispatch(actions.toggleNewQuestionModal());
+  };
+
+  generateFeedbackString = (attempt) => {
+    const errors = this.getErrorsForAttempt(attempt);
+    return errors;
+  }
+
+  handleSearchChange = e => {
+    const action = push(`/admin/questions/${e.value}`);
+    this.props.dispatch(action);
+  };
+
   // functions for rematching all Responses
-  mapConceptsToList() {
+  mapConceptsToList = () => {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
-  }
+  };
 
-  responsesWithStatusForQuestion(questionUID) {
-    const responses = this.props.responses.data[questionUID];
-    return hashToCollection(respWithStatus(responses));
-  }
-
-  rematchAllQuestions() {
-    const ignoreList = [
-      '-KP-LIzVyeL6a38yW0im',
-      '-KPt1wiz5zY1JgNSLbQZ',
-      '-KPt6EDsKbaXVrIf9dJY',
-      '-KPt2OD4fkKen27eyiry',
-      '-KPt2ZzZAIVsrQ-asGEY',
-      '-KP-M1Crf2pvqO4QH6zI',
-      '-KP-M7WtUdYK6vd6S57X',
-      '-KP-MEpdOxjU7OyzL6ss',
-      '-KPt2jWGaZbGEaUKj-da',
-      '-KPt2vzVYs2QAWkeo7QT',
-      '-KPt3I_hR_Xlv5Cr1mvB',
-      '-KP-Mv5jsZKhraQH2DOt',
-      '-KPt3fnhAJ_vQF_dD4Oj',
-      '-KPt3uD8hulWiYGp3Rm7',
-      '-KP-Nc414z5N_TKwnvms',
-      '-KP-M1Crf2pvqO4QH6zI-esp',
-      '-KP-LIzVyeL6a38yW0im-esp',
-      '-KP-M7WtUdYK6vd6S57X-esp',
-      '-KPt2OD4fkKen27eyiry-esp',
-      '-KP-MEpdOxjU7OyzL6ss-esp',
-      '-KPt3I_hR_Xlv5Cr1mvB-esp',
-      '-KP-Mv5jsZKhraQH2DOt-esp',
-      '-KPt3fnhAJ_vQF_dD4Oj-esp',
-      '-KPt3uD8hulWiYGp3Rm7-esp'
-    ];
-
-    const questLength = _.keys(this.props.questions.data).length;
-    _.each(hashToCollection(this.props.questions.data), (question, index) => {
-      const percentage = index / questLength * 100;
-      if (ignoreList.indexOf(question.key) === -1 && question.conceptID) {
-        this.rematchAllResponses(question);
-      }
-    });
-  }
-
-  rematchAllResponses(question) {
+  rematchAllResponses = question => {
     const responsesWithStat = this.responsesWithStatusForQuestion(question.key);
     const weak = _.filter(responsesWithStat, resp => resp.statusCode > 1);
     weak.forEach((resp, index) => {
       const percentage = index / weak.length * 100;
       this.rematchResponse(question, resp, responsesWithStat);
     });
-  }
+  };
 
-  rematchResponse(question, response, responses) {
+  rematchResponse = (question, response, responses) => {
     if (!response.questionUID || !response.text) {
       return;
     }
@@ -194,9 +131,30 @@ class Questions extends React.Component {
         this.updateRematchedResponse(response.key, newValues);
       }
     }
-  }
+  };
 
-  renderModal() {
+  responsesWithStatusForQuestion = questionUID => {
+    const responses = this.props.responses.data[questionUID];
+    return hashToCollection(respWithStatus(responses));
+  };
+
+  submitNewQuestion = () => {
+    const newQuestion = { name: this.refs.newQuestionName.value, };
+    this.props.dispatch(actions.submitNewQuestion(newQuestion));
+    this.refs.newQuestionName.value = '';
+  };
+
+  toggleShowArchived = () => {
+    this.setState({
+      showOnlyArchived: !this.state.showOnlyArchived,
+    });
+  };
+
+  updateRematchedResponse = (rid, vals) => {
+    this.props.dispatch(submitResponseEdit(rid, vals));
+  };
+
+  renderModal = () => {
     const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
     if (this.props.questions.newQuestionModalOpen) {
       return (
@@ -228,27 +186,9 @@ class Questions extends React.Component {
         </Modal>
       );
     }
-  }
+  };
 
-  handleSearchChange(e) {
-    const action = push(`/admin/questions/${e.value}`);
-    this.props.dispatch(action);
-  }
-
-  toggleNoConceptQuestions() {
-    this.setState({
-      displayNoConceptQuestions: !this.state.displayNoConceptQuestions,
-    });
-  }
-
-  toggleShowArchived() {
-    this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
-    });
-  }
-
-
-  renderSearchBox() {
+  renderSearchBox = () => {
     const options = hashToCollection(this.props.questions.data);
     if (options.length > 0) {
       const formatted = options.map((opt) => {
@@ -263,7 +203,7 @@ class Questions extends React.Component {
       const searchBox = (<QuestionSelector onChange={this.handleSearchChange} options={formatted} placeholder="Search for a question" />);
       return searchBox;
     }
-  }
+  };
 
   render() {
     const { questions, concepts, } = this.props;
@@ -271,21 +211,15 @@ class Questions extends React.Component {
       return (
         <section className="section">
           <div className="container">
-            <button onClick={this.rematchAllQuestions}>Rematch all Questions</button>
             { this.renderModal() }
             { this.renderSearchBox() }
             <br />
-            <label className="checkbox">
-              <input checked={this.state.displayNoConceptQuestions} onClick={this.toggleNoConceptQuestions} type="checkbox" />
-              Display questions with no valid concept
-            </label>
             <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
             <br />
             <br />
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              displayNoConceptQuestions={this.state.displayNoConceptQuestions}
               questions={this.state.questions}
               showOnlyArchived={this.state.showOnlyArchived}
             />
@@ -299,7 +233,6 @@ class Questions extends React.Component {
       );
     }
   }
-
 }
 
 function select(state) {

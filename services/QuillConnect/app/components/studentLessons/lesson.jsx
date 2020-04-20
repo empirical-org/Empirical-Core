@@ -35,7 +35,7 @@ export class Lesson extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, } = this.props
     dispatch(clearData());
   }
@@ -75,51 +75,32 @@ export class Lesson extends React.Component {
     }
   }
 
-  resumeSession = (data) => {
-    const { dispatch, } = this.props
-    if (data) {
-      dispatch(resumePreviousSession(data));
-    }
+  getLesson = () => {
+    const { lessons, params, } = this.props
+
+    return lessons.data[params.lessonID];
   }
 
-  hasQuestionsInQuestionSet = (props) => {
-    const pL = props.playLesson;
-    return (pL && pL.questionSet && pL.questionSet.length);
-  }
-
-  saveSessionIdToState = () => {
-    let sessionID = getParameterByName('student');
-    if (sessionID === 'null') {
-      sessionID = undefined;
-    }
-    this.setState({ sessionID, sessionInitialized: true}, () => {
-      if (sessionID) {
-        SessionActions.get(sessionID, (data) => {
-          this.setState({ session: data, });
-        });
+  createAnonActivitySession = (lessonID, results, score) => {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+        }
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse && httpResponse.statusCode === 200) {
+          // to do, use Sentry to capture error
+          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+          this.setState({ saved: true, });
+        }
       }
-    });
-  }
-
-  submitResponse = (response) => {
-    const { dispatch, } = this.props
-    const action = submitResponse(response);
-    dispatch(action);
-  }
-
-  saveToLMS = () => {
-    const { playLesson, params, } = this.props
-    const { sessionID, } = this.state
-    this.setState({ error: false, });
-    const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
-    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
-    const score = calculateScoreForLesson(relevantAnsweredQuestions);
-    const { lessonID, } = params;
-    if (sessionID) {
-      this.finishActivitySession(sessionID, results, score);
-    } else {
-      this.createAnonActivitySession(lessonID, results, score);
-    }
+    );
   }
 
   finishActivitySession = (sessionID, results, score) => {
@@ -149,32 +130,21 @@ export class Lesson extends React.Component {
     );
   }
 
+  hasQuestionsInQuestionSet = (props) => {
+    const pL = props.playLesson;
+    return (pL && pL.questionSet && pL.questionSet.length);
+  }
+
   markIdentify = (bool) => {
     const { dispatch, } = this.props
     const action = updateCurrentQuestion({ identified: bool, });
     dispatch(action);
   }
 
-  createAnonActivitySession = (lessonID, results, score) => {
-    request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
-        method: 'POST',
-        json:
-        {
-          state: 'finished',
-          activity_uid: lessonID,
-          concept_results: results,
-          percentage: score,
-        }
-      },
-      (err, httpResponse, body) => {
-        if (httpResponse && httpResponse.statusCode === 200) {
-          // to do, use Sentry to capture error
-          document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
-          this.setState({ saved: true, });
-        }
-      }
-    );
+  nextQuestion = () => {
+    const { dispatch, } = this.props
+    const next = nextQuestion();
+    return dispatch(next);
   }
 
   questionsForLesson = () => {
@@ -213,6 +183,49 @@ export class Lesson extends React.Component {
     });
   }
 
+  resumeSession = (data) => {
+    const { dispatch, } = this.props
+    if (data) {
+      dispatch(resumePreviousSession(data));
+    }
+  }
+
+  saveSessionData = (lessonData) => {
+    const { sessionID, } = this.state
+    if (sessionID) {
+      SessionActions.update(sessionID, lessonData);
+    }
+  }
+
+  saveSessionIdToState = () => {
+    let sessionID = getParameterByName('student');
+    if (sessionID === 'null') {
+      sessionID = undefined;
+    }
+    this.setState({ sessionID, sessionInitialized: true}, () => {
+      if (sessionID) {
+        SessionActions.get(sessionID, (data) => {
+          this.setState({ session: data, });
+        });
+      }
+    });
+  }
+
+  saveToLMS = () => {
+    const { playLesson, params, } = this.props
+    const { sessionID, } = this.state
+    this.setState({ error: false, });
+    const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
+    const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
+    const score = calculateScoreForLesson(relevantAnsweredQuestions);
+    const { lessonID, } = params;
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, score);
+    } else {
+      this.createAnonActivitySession(lessonID, results, score);
+    }
+  }
+
   startActivity = () => {
     const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
@@ -221,23 +234,10 @@ export class Lesson extends React.Component {
     dispatch(next);
   }
 
-  nextQuestion = () => {
+  submitResponse = (response) => {
     const { dispatch, } = this.props
-    const next = nextQuestion();
-    return dispatch(next);
-  }
-
-  getLesson = () => {
-    const { lessons, params, } = this.props
-
-    return lessons.data[params.lessonID];
-  }
-
-  saveSessionData = (lessonData) => {
-    const { sessionID, } = this.state
-    if (sessionID) {
-      SessionActions.update(sessionID, lessonData);
-    }
+    const action = submitResponse(response);
+    dispatch(action);
   }
 
   renderProgressBar = () => {

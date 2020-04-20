@@ -2,25 +2,24 @@ import React from 'react';
 import PleaseLoginModal from '../please_login_modal.jsx';
 import Stripe from '../../modules/stripe/charge.js';
 
-export default React.createClass({
+export default class extends React.Component {
+  // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
-    // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
-
-  charge() {
+  charge = () => {
     if (this.props.userIsEligibleForNewSubscription) {
       this.props.showPurchaseModal();
     } else {
       alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
     }
-  },
+  };
 
-  beginTrialButton() {
+  beginTrialButton = () => {
     if (this.props.userIsEligibleForTrial || !this.props.userIsSignedIn) {
       return <button className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial} type="button">Free Trial</button>;
     }
-  },
+  };
 
-  beginTrial() {
+  beginTrial = () => {
     if (!this.props.userIsSignedIn === true) {
       alert('You must be logged in to activate Premium.');
     } else {
@@ -33,47 +32,52 @@ export default React.createClass({
         window.location.assign('/teachers/progress_reports/activities_scores_by_classroom');
       });
     }
-  },
+  };
 
-  pleaseLoginModal() {
+  pleaseLoginModal = () => {
     $(this.refs.pleaseLoginModal).modal();
-  },
+  };
 
-  purchaseButton() {
-    if (this.props.userIsSignedIn === true) {
-      return <button className="btn btn-default mini-btn blue" data-toggle="modal" id="purchase-btn" onClick={this.charge} type="button">Buy Now</button>;
+  purchaseButton = () => {
+    const { userIsSignedIn, userHasCovid19Subscription, } = this.props
+    if (!userIsSignedIn) {
+      return <a className="premium-button dark-green" href="" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')}>Activate for free</a>;
     }
-    return <button className="btn btn-default mini-btn blue" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')} type="button">Buy Now</button>;
-  },
+    if (!userHasCovid19Subscription) {
+      return <a className="premium-button dark-green" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate for free</a>;
+    }
+  };
 
   render() {
     return (
       <div className="pricing-mini">
-        <header className="pricing-mini-header blue">
+        <header className="pricing-mini-header squash">
           <div className="img-holder">
-            <img alt="teacher_premium_icon" src={`${process.env.CDN_URL}/images/shared/teacher_premium_icon.png`} />
+            <img alt="Presentation board" className="presentation-board" src={`${process.env.CDN_URL}/images/shared/presentation-board.svg`} />
           </div>
 
-          <h4>Teacher Premium</h4>
         </header>
         <section className="pricing-info">
           <div className="premium-rates">
-            <h3>$80</h3>
-            <h4>per year</h4>
+            <h3 className="bold">Teacher Premium</h3>
+            <h3 className="strikethrough">$80 per year</h3>
+            <h4>Free for the rest of the 2019/2020 school year</h4>
+          </div>
+          <div className="row">
+            {this.purchaseButton()}
+            <PleaseLoginModal ref="pleaseLoginModal" />
           </div>
           <ul className="text-left">
-            <li>Everything in Basic</li>
+            <li className="semibold">Everything in Basic</li>
             <li>Reports on concept mastery and Common Core Standards</li>
             <li>Download and print reports</li>
             <li>Priority Support</li>
           </ul>
         </section>
-        <div className="row">
-          {this.purchaseButton()}
-          {this.beginTrialButton()}
-          <PleaseLoginModal ref="pleaseLoginModal" />
-        </div>
+        <section className="learn-more">
+          <a href="#teacher-premium">Learn more</a>
+        </section>
       </div>
     );
-  },
-});
+  }
+}

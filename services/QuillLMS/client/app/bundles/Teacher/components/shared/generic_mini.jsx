@@ -2,13 +2,12 @@
 
 import React from 'react'
 
-export default React.createClass({
-
-	render: function() {
+export default class extends React.Component {
+    render() {
 		return (
   <div className='generic-mini' key={this.props.title} onClick={this.changeView}>
     {this.props.children}
   </div>
 		)
 	}
-})
+}
