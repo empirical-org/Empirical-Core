@@ -6,7 +6,7 @@ class PremiumSchoolSubscriptionEmailWorker
     school = @user.school
     admin = school&.schools_admins&.first&.try(:user)
     if admin
-		@user.send_premium_school_subscription_email(school, admin)
+      @user.send_premium_school_subscription_email(school, admin)
     end
   end
 
