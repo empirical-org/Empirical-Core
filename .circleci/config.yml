@@ -95,8 +95,8 @@ jobs:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            TESTFILES=$(circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings)
-            npm run jest $TESTFILES
+            TESTFILES=$(circleci tests glob "app/**/*.test.js" | circleci tests split)
+            node --expose-gc ./node_modules/.bin/jest $TESTFILES--maxWorkers=1 --logHeapUsage
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
