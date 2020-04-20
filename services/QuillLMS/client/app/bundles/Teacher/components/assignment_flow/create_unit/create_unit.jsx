@@ -11,7 +11,7 @@ import {
   UNIT_TEMPLATE_NAME,
   UNIT_TEMPLATE_ID,
   ACTIVITY_IDS_ARRAY,
-  UNIT_ID
+  UNIT_ID,
 } from '../localStorageKeyConstants.ts'
 import { requestGet, requestPost, } from '../../../../../modules/request';
 

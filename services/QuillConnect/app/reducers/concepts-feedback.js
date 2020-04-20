@@ -18,6 +18,12 @@ export default function(currentstate,action){
                 hasreceiveddata: true,
                 data: action.data
             });
+        case C.RECEIVE_CONCEPT_FEEDBACK_DATA:
+            return Object.assign({}, currentstate, {
+              data: Object.assign({}, currentstate.data, {
+                [action.uid]: action.data,
+              })
+            });
         case C.AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE:
             return Object.assign({},currentstate,{
                 submittingnew: true

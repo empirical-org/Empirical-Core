@@ -20,10 +20,6 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     }
   }
 
-  addOrEditItemLabel = () => {
-    return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
-  }
-
   getNewAffectedCount = () => {
     const qid = this.props.questionID
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
@@ -39,6 +35,16 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
         }
       });
     };
+
+  addOrEditItemLabel = () => {
+    return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
+  }
+
+  deleteConceptResult = (key) => {
+    const newConceptResults = Object.assign({}, this.state.itemConcepts)
+    delete newConceptResults[key]
+    this.setState({itemConcepts: newConceptResults})
+  }
 
   handleChange = (stateKey, e) => {
     const obj = {};
@@ -64,6 +70,20 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     this.setState({itemFeedback: e})
   };
 
+  returnAppropriateDataset = () => {
+    const questionID = this.props.questionID
+    const datasets = ['sentenceFragments'];
+    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
+    let mode = 'questions';
+    datasets.forEach((dataset) => {
+      if (this.props[dataset].data && this.props[dataset].data[questionID]) {
+        theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
+        mode = dataset;
+      }
+    });
+    return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
+  }
+
   submit = (focusPoint) => {
     const focusPoints = this.state.itemText.split(/\|{3}(?!\|)/).filter(val => val !== '')
     if (focusPoints.every(fp => isValidRegex(fp))) {
@@ -77,32 +97,6 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     } else {
       window.alert('Your regex syntax is invalid. Try again!')
     }
-  }
-
-  renderTextInputFields = () => {
-    return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
-      <input className="input focus-point-text" onBlur={this.getNewAffectedCount} onChange={this.handleChange.bind(null, 'itemText')} style={{ marginBottom: 5, }} type="text" value={text || ''} />
-    ));
-  }
-
-  renderConceptSelectorFields = () => {
-    const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
-      <ConceptSelectorWithCheckbox
-        checked={val.correct}
-        currentConceptUID={key}
-        deleteConceptResult={() => this.deleteConceptResult(key)}
-        handleSelectorChange={this.handleConceptChange}
-        onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
-        selectorDisabled={key === 'null' ? false : true}
-      />
-    ));
-    return _.values(components);
-  }
-
-  deleteConceptResult = (key) => {
-    const newConceptResults = Object.assign({}, this.state.itemConcepts)
-    delete newConceptResults[key]
-    this.setState({itemConcepts: newConceptResults})
   }
 
   toggleCheckboxCorrect = (key) => {
@@ -124,18 +118,26 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     this.setState({itemText: newFocusPoints}, this.getNewAffectedCount)
   }
 
-  returnAppropriateDataset = () => {
-    const questionID = this.props.questionID
-    const datasets = ['sentenceFragments'];
-    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
-    let mode = 'questions';
-    datasets.forEach((dataset) => {
-      if (this.props[dataset].data && this.props[dataset].data[questionID]) {
-        theDatasetYouAreLookingFor = this.props[dataset].data[questionID];
-        mode = dataset;
-      }
-    });
-    return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
+  renderConceptSelectorFields = () => {
+    const components = _.mapObject(Object.assign({}, this.state.itemConcepts, { null: { correct: false, text: 'This is a placeholder', }, }), (val, key) => (
+      <ConceptSelectorWithCheckbox
+        checked={val.correct}
+        currentConceptUID={key}
+        deleteConceptResult={() => this.deleteConceptResult(key)}
+        handleSelectorChange={this.handleConceptChange}
+        onCheckboxChange={() => this.toggleCheckboxCorrect(key)}
+        selectorDisabled={key === 'null' ? false : true}
+      />
+    ));
+    return _.values(components);
+  }
+
+  renderExplanatoryNote = () => {
+    return (<div style={{ marginBottom: '10px' }}>
+      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
+      <br />
+      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
+    </div>)
   }
 
   renderSequenceTag = (seq, backgroundColor, i) => {
@@ -149,12 +151,10 @@ export default class FocusPointsInputAndConceptResultSelectorForm extends React.
     </span>)
    }
 
-  renderExplanatoryNote = () => {
-    return (<div style={{ marginBottom: '10px' }}>
-      <p>Focus points can contain regular expressions. See <a href="https://www.regextester.com/">this page</a> to test regular expressions, and access the cheat sheet on the right. <b>Note:</b> any periods need to be prefaced with a backslash ("\") in order to be evaluated correctly. Example: "walked\."</p>
-      <br />
-      <p>In order to indicate that two or more words or phrases must appear in the response together, you can separate them using "&&". Example: "running&&dancing&&swimming", "run&&dance&&swim".</p>
-    </div>)
+  renderTextInputFields = () => {
+    return this.state.itemText.split(/\|{3}(?!\|)/).map(text => (
+      <input className="input focus-point-text" onBlur={this.getNewAffectedCount} onChange={this.handleChange.bind(null, 'itemText')} style={{ marginBottom: 5, }} type="text" value={text || ''} />
+    ));
   }
 
   render() {

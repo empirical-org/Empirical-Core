@@ -69,25 +69,6 @@ But how can democracies have representative governments unless all or most of th
     >
       <StepLink
         clickStepLink={[Function]}
-        index={1}
-        renderStepNumber={[Function]}
-      >
-        <button
-          className="step-link"
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          type="button"
-        >
-          <div
-            className="step-number active"
-            key="1"
-          >
-            0
-          </div>
-        </button>
-      </StepLink>
-      <StepLink
-        clickStepLink={[Function]}
         index={2}
         renderStepNumber={[Function]}
       >
