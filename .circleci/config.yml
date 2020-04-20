@@ -72,6 +72,7 @@ jobs:
             bundle exec rspec -- ${TESTFILES}
   lms_node_build:
     working_directory: ~/Empirical-Core
+    parallelism: 2
     docker:
       - image: circleci/node:8.11.3
     steps:
@@ -94,7 +95,8 @@ jobs:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            npm run jest
+            TESTFILES=$(circleci tests glob "test/**/*.test.js" | circleci tests split --split-by=timings)
+            npm run jest $TESTFILES
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
