@@ -2,7 +2,7 @@ version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 2
+    parallelism: 4
     docker:
       - image: circleci/ruby:2.5.1-node
         environment:
@@ -106,7 +106,7 @@ jobs:
           command: |
             cd services/QuillLMS/client
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
-            node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=1 --logHeapUsage
+            node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
