@@ -2,7 +2,7 @@ version: 2
 jobs:
   lms_rails_build:
     working_directory: ~/Empirical-Core
-    parallelism: 4
+    parallelism: 2
     docker:
       - image: circleci/ruby:2.5.1-node
         environment:
@@ -25,6 +25,11 @@ jobs:
           keys:
             - npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
             - npm-cache-lms-v2-
+      - restore_cache:
+          keys:
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+            - npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package.json" }}-
+            - npm-cache-lms-v3-
       - run:
           name: Bundle Install if cache isn't present.
           command: |
@@ -36,7 +41,7 @@ jobs:
           name: NPM install, should be short-cutted if cache is present
           command: |
             cd services/QuillLMS
-            npm install --ignore-scripts
+            npm install
       - save_cache:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
@@ -45,6 +50,10 @@ jobs:
           key: npm-cache-lms-v2-{{ checksum "services/QuillLMS/package.json" }}
           paths:
             - services/QuillLMS/node_modules
+      - save_cache:
+          key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
+          paths:
+            - services/QuillLMS/client/node_modules
       - run:
           name: Install postgres dependencies
           command: |
