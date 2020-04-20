@@ -105,27 +105,6 @@
       line-height: 23px;
     }
     .paragraph {
-      .hidden {
-        position: absolute;
-        height: 0;
-        overflow: hidden;
-      }
-      .edit-input {
-        border: none;
-        margin-right: 2px;
-        padding: 0px;
-        font-size: 21px;
-        line-height: 1.52;
-        &:focus {
-          outline: none;
-        }
-        &.underlined {
-          text-decoration: underline;
-        }
-        &.bolded {
-          font-weight: 700;
-        }
-      }
       &.no-underline {
         .underlined {
           text-decoration: none !important;
@@ -169,5 +148,28 @@
     @media (max-width: 800px) {
       padding-top: 24px;
     }
+  }
+}
+
+.hidden {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+}
+
+.edit-input {
+  border: none;
+  margin-right: 2px;
+  padding: 0px;
+  font-size: 21px;
+  line-height: 1.52;
+  &:focus {
+    outline: none;
+  }
+  &.underlined {
+    text-decoration: underline;
+  }
+  &.bolded {
+    font-weight: 700;
   }
 }

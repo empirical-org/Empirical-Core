@@ -2,35 +2,34 @@ import * as React from 'react'
 
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
-type EditInputProps = WordObject & { handleWordChange: Function }
+type EditInputProps = WordObject & { handleWordChange: Function, numberOfResets: number }
 
 export default class EditInput extends React.Component<EditInputProps, {}> {
-  constructor(props: EditInputProps) {
-    super(props)
-
-    this.input = React.createRef()
-
-  }
-
   handleWordChange = (e: any) => {
     const { wordIndex, handleWordChange } = this.props
     handleWordChange(e.target.value, wordIndex)
   }
 
-  getStyleOfInput(key) {
+  getStyleOfInput(key: string, className: string, currentText: string) {
+    const node = document.createElement("span");
+    const textnode = document.createTextNode(currentText);
+    node.className = `hidden ${className}`
+    node.id = key
+    node.appendChild(textnode);
+    document.body.appendChild(node)
     const el = document.getElementById(key)
     if (el) {
-      el.textContent = this.input.value;
       const width = el.offsetWidth + 3 + "px"
+      el.remove()
       return { width, };
     } else {
-      return { display: 'none' }
+      return {}
     }
   }
 
 
   render() {
-    const { currentText, originalText, underlined, wordIndex, paragraphIndex } = this.props
+    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, } = this.props
     let className = 'edit-input'
     if (underlined ) {
       className += ' underlined'
@@ -38,15 +37,13 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     if (currentText !== originalText) {
       className += ' bolded'
     }
-    const key = `${paragraphIndex}-${wordIndex}`
-    const style = this.getStyleOfInput(key)
+    const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
+    const style = this.getStyleOfInput(key, className, currentText)
     return (<React.Fragment>
-      <span className={`hidden ${className}`} id={key} />
       <input
         className={className}
         key={key}
         onChange={this.handleWordChange}
-        ref={(node) => this.input = node}
         spellCheck={false}
         style={style}
         value={currentText}

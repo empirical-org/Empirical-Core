@@ -41,7 +41,7 @@ interface PlayProofreaderContainerProps {
 interface PlayProofreaderContainerState {
   edits: number;
   reviewing: boolean;
-  resetting: boolean;
+  numberOfResets: number;
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
   showResetModal: boolean;
@@ -95,7 +95,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showEarlySubmitModal: false,
         showReviewModal: false,
         showResetModal: false,
-        resetting: false,
+        numberOfResets: 0,
         firebaseSessionID: getParameterByName('student', window.location.href),
         currentActivity
       }
@@ -338,15 +338,11 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { originalPassage, } = this.state
       const newPassage = _.cloneDeep(originalPassage)
       dispatch(setPassage(newPassage))
-      this.setState({
+      this.setState(prevState => ({
         edits: 0,
-        resetting: true,
+        numberOfResets: prevState.numberOfResets + 1,
         showResetModal: false
-      })
-    }
-
-    finishReset = () => {
-      this.setState({ resetting: false} )
+      }))
     }
 
     renderShowEarlySubmitModal = (): JSX.Element|void => {
@@ -385,7 +381,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     renderPassage = (): JSX.Element|void => {
       const { session, proofreaderActivities, concepts, } = this.props
       const { passage } = session
-      const { reviewing, reviewablePassage, resetting } = this.state
+      const { reviewing, reviewablePassage, numberOfResets, } = this.state
       const { underlineErrorsInProofreader } = proofreaderActivities.currentActivity
       if (reviewing) {
         const text = reviewablePassage ? reviewablePassage : ''
@@ -397,11 +393,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       } else if (passage) {
         const paragraphs = passage.map((p, i) => {
           return (<Paragraph
-            finishReset={this.finishReset}
             handleParagraphChange={this.onParagraphChange}
             index={i}
             key={i}
-            resetting={resetting}
+            numberOfResets={numberOfResets}
             underlineErrors={underlineErrorsInProofreader}
             words={p}
           />)

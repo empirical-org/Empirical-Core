@@ -7,8 +7,7 @@ import { WordObject } from '../../interfaces/proofreaderActivities'
 interface ParagraphProps {
   words: Array<WordObject>;
   handleParagraphChange: Function;
-  resetting: Boolean;
-  finishReset: Function;
+  numberOfResets: number;
   underlineErrors: Boolean;
   index: number;
 }
@@ -29,7 +28,7 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
   }
 
   renderInputFields() {
-    const { words, underlineErrors, } = this.props
+    const { words, underlineErrors, numberOfResets, } = this.props
     let className = 'paragraph'
     if (!underlineErrors) {
       className += ' no-underline'
@@ -39,6 +38,7 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
         key={word.wordIndex}
         {...word}
         handleWordChange={this.handleWordChange}
+        numberOfResets={numberOfResets}
       />
     ))
     return <div className={className}>{inputs}</div>
