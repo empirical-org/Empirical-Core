@@ -7,6 +7,19 @@ import Response from './response.jsx'
 import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {
+  addAllResponsesToMassEdit = () => {
+    const keys = this.props.responses.map(r => r.id)
+    this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
+  };
+
+  addOrRemoveAllResponsesFromMassEdit = () => {
+    if (this.allResponsesChecked()) {
+      this.removeAllResponsesFromMassEdit()
+    } else {
+      this.addAllResponsesToMassEdit()
+    }
+  };
+
   allResponsesChecked = () => {
     return !this.props.responses.some((r) => {
       return !(
@@ -16,22 +29,9 @@ export default class ResponseList extends React.Component {
     })
   };
 
-  addAllResponsesToMassEdit = () => {
-    const keys = this.props.responses.map(r => r.id)
-    this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
-  };
-
   removeAllResponsesFromMassEdit = () => {
     const keys = this.props.responses.map(r => r.id)
     this.props.dispatch(massEdit.removeResponsesFromMassEditArray(keys))
-  };
-
-  addOrRemoveAllResponsesFromMassEdit = () => {
-    if (this.allResponsesChecked()) {
-      this.removeAllResponsesFromMassEdit()
-    } else {
-      this.addAllResponsesToMassEdit()
-    }
   };
 
   renderResponse = (resp) => {
