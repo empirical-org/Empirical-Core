@@ -21,11 +21,9 @@ class TestQuestion extends Component {
     this.props.dispatch(clearData());
   }
 
-  reset = () => {
-    this.props.dispatch(clearData());
-    this.startActivity();
-    this.setState({ key: this.state.key + 1, });
-  };
+  getQuestion = () => {
+    return this.props.questions.data[this.props.params.questionID];
+  }
 
   questionsForLesson = () => {
     const question = this.getQuestion();
@@ -38,15 +36,17 @@ class TestQuestion extends Component {
     ];
   }
 
+  reset = () => {
+    this.props.dispatch(clearData());
+    this.startActivity();
+    this.setState({ key: this.state.key + 1, });
+  };
+
   startActivity = (name = 'Triangle') => {
     const action = loadData(this.questionsForLesson());
     this.props.dispatch(action);
     const next = nextQuestion();
     this.props.dispatch(next);
-  }
-
-  getQuestion = () => {
-    return this.props.questions.data[this.props.params.questionID];
   }
 
   render() {

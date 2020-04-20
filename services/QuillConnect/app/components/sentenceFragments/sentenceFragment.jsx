@@ -52,18 +52,22 @@ class SentenceFragment extends React.Component {
     return responses;
   }
 
-  handleUploadOptimalResponsesClick = () => {
-    this.setState({ uploadingNewOptimalResponses: true, });
-  }
-
   cancelEditingSentenceFragment = () => {
     const { dispatch, params, } = this.props
     dispatch(fragmentActions.cancelSentenceFragmentEdit(params.questionID));
   }
 
+  closeModal = () => {
+    this.setState({ uploadingNewOptimalResponses: false, })
+  }
+
   handleEditFragmentClick = () => {
     const { dispatch, params, } = this.props
     dispatch(fragmentActions.startSentenceFragmentEdit(params.questionID));
+  }
+
+  handleUploadOptimalResponsesClick = () => {
+    this.setState({ uploadingNewOptimalResponses: true, });
   }
 
   saveSentenceFragmentEdits = (data) => {
@@ -75,10 +79,6 @@ class SentenceFragment extends React.Component {
     const { dispatch, params, concepts, } = this.props
     const conceptUID = this.getQuestion().conceptID
     dispatch(submitOptimalResponses(params.questionID, conceptUID, responses, concepts))
-    this.setState({ uploadingNewOptimalResponses: false, })
-  }
-
-  closeModal = () => {
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
@@ -101,17 +101,6 @@ class SentenceFragment extends React.Component {
     }
   }
 
-  renderUploadNewOptimalResponsesForm = () => {
-    const { uploadingNewOptimalResponses, } = this.state
-    if (!uploadingNewOptimalResponses) { return }
-
-    return (
-      <Modal close={this.closeModal}>
-        <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
-      </Modal>
-    );
-  }
-
   renderResponseComponent(data, states, questionID) {
     const { dispatch, } = this.props
     if (this.getResponses()) {
@@ -127,6 +116,17 @@ class SentenceFragment extends React.Component {
         />
       );
     }
+  }
+
+  renderUploadNewOptimalResponsesForm = () => {
+    const { uploadingNewOptimalResponses, } = this.state
+    if (!uploadingNewOptimalResponses) { return }
+
+    return (
+      <Modal close={this.closeModal}>
+        <UploadOptimalResponses submitOptimalResponses={this.submitOptimalResponses} />
+      </Modal>
+    );
   }
 
   render = () => {
