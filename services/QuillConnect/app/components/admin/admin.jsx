@@ -1,15 +1,12 @@
 import React from 'react';
-import activeComponent from 'react-router-active-component';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import NavBar from '../navbar/navbar.jsx';
 import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
 import conceptsFeedbackActions from '../../actions/concepts-feedback';
 import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
-import lessonActions from '../../actions/lessons';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import * as titleCardActions from '../../actions/titleCards.ts';
 
@@ -20,9 +17,7 @@ const TabLink = props => {
   </li>)
 };
 
-// activeComponent('li');
-
-const adminContainer = React.createClass({
+class adminContainer extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props
     dispatch(userActions.firebaseAuth());
@@ -33,7 +28,7 @@ const adminContainer = React.createClass({
     dispatch(sentenceFragmentActions.startListeningToSentenceFragments());
     dispatch(titleCardActions.startListeningToTitleCards())
     dispatch(diagnosticLessonActions.loadDiagnosticLessons())
-  },
+  }
 
   render() {
     const { children, } = this.props
@@ -75,8 +70,8 @@ const adminContainer = React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {

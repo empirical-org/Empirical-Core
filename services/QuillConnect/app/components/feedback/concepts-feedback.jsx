@@ -4,19 +4,19 @@ import actions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import { Modal, LinkListItem } from 'quill-component-library/dist/componentLibrary'
 
-const ConceptsFeedback = React.createClass({
-  createNew: function () {
+class ConceptsFeedback extends React.Component {
+  createNew = () => {
     this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
-  },
+  };
 
-  submitNewConcept: function () {
+  submitNewConcept = () => {
     var newConcept = {name: this.refs.newConceptName.value}
     this.props.dispatch(actions.submitNewConceptsFeedback(newConcept))
     this.refs.newConceptName.value = ""
     this.props.dispatch(actions.toggleNewConceptsFeedbackModal())
-  },
+  };
 
-  renderConceptsFeedback: function () {
+  renderConceptsFeedback = () => {
     const data = this.props.concepts.data;
     if (data && data["0"]) {
       return data["0"].map((concept) => {
@@ -31,10 +31,10 @@ const ConceptsFeedback = React.createClass({
         />)
       })
     }
-  },
+  };
 
-  renderModal: function () {
-    const {data, submittingnew} = this.props.conceptsFeedback;
+  renderModal = () => {
+    const { submittingnew} = this.props.conceptsFeedback;
     var stateSpecificClass = submittingnew ? 'is-loading' : '';
     if (this.props.conceptsFeedback.newConceptModalOpen) {
         return (
@@ -57,10 +57,9 @@ const ConceptsFeedback = React.createClass({
           </Modal>
         )
       }
-  },
+  };
 
-  render: function (){
-    //// console.log("Inside render for left panel, all concepts, this:\n ", this)
+  render() {
     return (
       <section className="section">
         <div className="container">
@@ -83,7 +82,7 @@ const ConceptsFeedback = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {
