@@ -6,11 +6,9 @@ if (!window.Promise) {
 }
 import BackOff from './utils/backOff';
 import React from 'react';
-import { render } from 'react-dom';
 import createStore from './utils/configureStore';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import conceptActions from './actions/concepts';
 import conceptsFeedbackActions from './actions/concepts-feedback';
 import questionActions from './actions/questions';
@@ -18,11 +16,10 @@ import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import * as titleCardActions from './actions/titleCards.ts';
-import createHashHistory from 'history/lib/createHashHistory';
 import 'styles/style.scss';
 // import Raven from 'raven-js';
 import quillNormalizer from './libs/quillNormalizer';
-import SocketProvider from './components/socketProvider';
+import Home from './components/home.tsx';
 
 // TO-DO: re-enable Sentry errors for QuillConnect when errors have been reduced
 
@@ -38,28 +35,7 @@ import SocketProvider from './components/socketProvider';
 // }
 
 BackOff();
-const hashhistory = createHashHistory({ queryKey: false, });
 const store = createStore();
-
-// create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(hashhistory, store);
-const root = document.getElementById('root');
-const rootRoute = {
-  childRoutes: [{
-    path: '/',
-    childRoutes: [
-      require('./routers/Admin/index').default,
-      require('./routers/Play/index').default
-    ],
-  }],
-};
-
-render((
-  <Provider store={store}>
-    <Router history={history} routes={rootRoute} />
-  </Provider>),
-  root
-);
 
 // This is pretty hacky.
 // Ideally we should really be extracting the both UIDs from
@@ -97,3 +73,19 @@ if (lessonUid) {
 }
 
 String.prototype.quillNormalize = quillNormalizer;
+
+const route = (
+  <Switch>
+    <Route component={Home} path="/" />
+  </Switch>
+);
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <HashRouter basename="/">{route}</HashRouter>
+    </Provider>
+  );
+}
+
+export default App;

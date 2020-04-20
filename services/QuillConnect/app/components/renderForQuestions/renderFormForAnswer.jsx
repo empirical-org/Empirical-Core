@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
 import { Modal } from 'quill-component-library/dist/componentLibrary';

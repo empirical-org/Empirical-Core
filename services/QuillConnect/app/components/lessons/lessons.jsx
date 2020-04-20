@@ -4,10 +4,10 @@ import actions from '../../actions/lessons';
 import _ from 'underscore';
 import {
   Modal,
-  LinkListItem,
   ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
+import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.jsx';
 
 class Lessons extends React.Component {
@@ -99,7 +99,6 @@ class Lessons extends React.Component {
           </div>
         </div>
       </section>
-
     );
   }
 }

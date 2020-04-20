@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Cues from '../renderForQuestions/cues.jsx';
 import fillInTheBlankActions from '../../actions/fillInBlank';
