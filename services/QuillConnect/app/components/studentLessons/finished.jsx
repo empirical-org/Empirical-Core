@@ -1,16 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router';
-const C = require('../../constants').default;
 import rootRef from '../../libs/firebase';
 const sessionsRef = rootRef.child('sessions');
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      sessionKey: '',
-    };
-  },
+export default class extends React.Component {
+  state = {
+    sessionKey: '',
+  };
 
   componentDidMount() {
     const values = {
@@ -22,17 +18,17 @@ export default React.createClass({
       this.setState({ sessionKey: sessionRef.key, });
     });
     this.props.saveToLMS();
-  },
+  }
 
-  getLessonName() {
+  getLessonName = () => {
     return this.props.lesson.name;
-  },
+  };
 
-  endActivity() {
+  endActivity = () => {
     this.props.endActivity();
-  },
+  };
 
-  renderErrorState() {
+  renderErrorState = () => {
     let header
     let message
     if (this.props.error === "Activity Session Already Completed") {
@@ -62,7 +58,7 @@ export default React.createClass({
         <button className="button is-info is-large" onClick={this.props.saveToLMS}>Retry</button>
       </div>
     );
-  },
+  };
 
   render() {
     if (this.props.error) {
@@ -79,5 +75,5 @@ export default React.createClass({
         </div>
       );
     }
-  },
-});
+  }
+}

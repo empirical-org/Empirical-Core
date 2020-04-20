@@ -1,37 +1,34 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
-import {getParameterByName} from '../../libs/getParameterByName'
 
-const Navbar = React.createClass({
-  getInitialState: function () {
-    return {
-      expanded: false
-    }
-  },
+class Navbar extends React.Component {
+  state = {
+    expanded: false
+  };
 
-  navStyles: function () {
+  inLesson = () => {
+    return (window.location.href.indexOf('play/lesson') !== -1);
+  };
+
+  navStyles = () => {
     if (this.state.expanded) {
       return {
         background: '#fff',
         display: 'initial'
       }
     }
-  },
+  };
 
-  toggle: function () {
-    this.setState({expanded: !this.state.expanded})
-  },
-
-  reset: function () {
+  reset = () => {
     this.setState({expanded: false})
-  },
+  };
 
-  inLesson: function () {
-    return (window.location.href.indexOf('play/lesson') !== -1);
-  },
+  toggle = () => {
+    this.setState({expanded: !this.state.expanded})
+  };
 
-  renderLinks: function () {
+  renderLinks = () => {
     if (this.inLesson()) {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()} />
@@ -46,9 +43,9 @@ const Navbar = React.createClass({
         </div>
       )
     }
-  },
+  };
 
-  render: function () {
+  render() {
       return (
         <header className="nav" style={{height: '65px'}}>
           <div className="container">
@@ -71,7 +68,7 @@ const Navbar = React.createClass({
         </header>
     )
   }
-})
+}
 
 function select(state) {
   return {
