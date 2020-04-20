@@ -1,12 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import levelActions from '../../actions/item-levels.js'
 import {Link} from 'react-router'
 import _ from 'lodash'
 
-const ItemLevelDetails = React.createClass({
-
-  render: function() {
+class ItemLevelDetails extends React.Component {
+  render() {
     if(this.props.itemLevels.hasreceiveddata) {
       const levelID = this.props.params.itemLevelID, itemLevels = this.props.itemLevels.data
 
@@ -37,7 +35,7 @@ const ItemLevelDetails = React.createClass({
       return (<div>Loading...</div>)
     }
   }
-})
+}
 
 function select(state) {
   return {

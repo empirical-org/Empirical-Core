@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import { QuestionListByConcept } from 'quill-component-library/dist/componentLibrary'
 import _ from 'underscore'
 
-const Results = React.createClass({
-  render: function () {
+class Results extends React.Component {
+  render() {
     const {questions, concepts} = this.props
     return (
       <section className="section is-fullheight minus-nav">
@@ -21,7 +20,7 @@ const Results = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {

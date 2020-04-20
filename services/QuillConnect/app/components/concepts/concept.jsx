@@ -7,35 +7,37 @@ import _ from 'underscore'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import QuestionForm from '../questions/questionForm'
 
-const Concept = React.createClass({
-  getInitialState: function (){
-    return {
-      prompt: ''
-    }
-  },
+class Concept extends React.Component {
+  state = {
+    prompt: ''
+  };
 
-  getConcept: function () {
+  getConcept = () => {
     const {data} = this.props.concepts, {conceptID} = this.props.params;
     return _.find(data['0'], {uid: conceptID})
-  },
+  };
 
-  deleteConcept: function () {
+  deleteConcept = () => {
     if(confirm("Are you sure?")) {
       this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
     }
-  },
+  };
 
-  submitNewQuestion: function (questionObj, optimalResponseObj) {
-    const questionObjWithConceptID = { ...questionObj, conceptID: this.props.params.conceptID }
-    this.props.dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
-  },
-
-  questionsForConcept: function () {
+  questionsForConcept = () => {
     const questionsCollection = hashToCollection(this.props.questions.data)
     return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
-  },
+  };
 
-  renderQuestionsForConcept: function () {
+  submitNewQuestion = (questionObj, optimalResponseObj) => {
+    const questionObjWithConceptID = { ...questionObj, conceptID: this.props.params.conceptID }
+    this.props.dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
+  };
+
+  renderNewQuestionForm = () => {
+    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
+  };
+
+  renderQuestionsForConcept = () => {
     var questionsForConcept = this.questionsForConcept()
     var listItems = questionsForConcept.map((question) => {
       const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
@@ -45,14 +47,9 @@ const Concept = React.createClass({
       <ul>{listItems}</ul>
     )
 
-  },
+  };
 
-  renderNewQuestionForm: function () {
-    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
-  },
-
-  render: function (){
-    const {data} = this.props.concepts, {conceptID} = this.props.params;
+  render() {
     if (this.getConcept()) {
       return (
         <div>
@@ -72,7 +69,7 @@ const Concept = React.createClass({
     }
 
   }
-})
+}
 
 function select(state) {
   return {

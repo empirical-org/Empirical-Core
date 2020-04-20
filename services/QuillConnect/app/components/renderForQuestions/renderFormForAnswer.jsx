@@ -19,10 +19,6 @@ export default class RenderFormForAnswer extends React.Component {
     this.state = { modalOpen: false, }
   }
 
-  closeHelpModal = () => this.setState({ modalOpen: false, })
-
-  handleHintClick = () => this.setState({ modalOpen: true, })
-
   getHelpModal = () => {
     const { modalOpen, } = this.state
     const { assetURL, } = this.props
@@ -45,6 +41,10 @@ export default class RenderFormForAnswer extends React.Component {
       );
     }
   }
+
+  closeHelpModal = () => this.setState({ modalOpen: false, })
+
+  handleHintClick = () => this.setState({ modalOpen: true, })
 
   renderConceptExplanation = () => {
     const { conceptExplanation, } = this.props
