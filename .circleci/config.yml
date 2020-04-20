@@ -235,17 +235,11 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
-      # - restore_cache:
-      #     key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillDiagnostic
             npm install
-      # - save_cache:
-      #     key: npm-cache-diagnostic-v1-{{ checksum "services/QuillDiagnostic/package-lock.json" }}
-      #     paths:
-      #       - services/QuillDiagnostic/node_modules
       - run:
           name: Run QuillDiagnostic Tests
           command: |
@@ -257,17 +251,11 @@ jobs:
       - image: circleci/node:8.11.2
     steps:
       - checkout
-      # - restore_cache:
-      #     key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillProofreader
             npm install
-      # - save_cache:
-      #     key: npm-cache-proofreader-v1-{{ checksum "services/QuillProofreader/package-lock.json" }}
-      #     paths:
-      #       - services/QuillProofreader/node_modules
       - run:
           name: Run QuillProofreader Tests
           command: |
@@ -279,17 +267,11 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
-      # - restore_cache:
-      #     key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
       - run:
           name: Install NPM dependencies
           command: |
             cd packages/quill-spellchecker
             npm install
-      # - save_cache:
-      #     key: npm-cache-spellchecker-v1-{{ checksum "packages/quill-spellchecker/package-lock.json" }}
-      #     paths:
-      #       - packages/quill-spellchecker/node_modules
       - run:
           name: Run Spellchecker Tests
           command: |
@@ -301,17 +283,11 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
       - checkout
-      # - restore_cache:
-      #     key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
       - run:
           name: Install NPM dependencies
           command: |
             cd packages/quill-marking-logic
             npm install
-      # - save_cache:
-      #     key: npm-cache-marking-logic-v1-{{ checksum "packages/quill-marking-logic/package-lock.json" }}
-      #     paths:
-      #       - packages/quill-marking-logic/node_modules
       - run:
           name: Run Marking Logic Tests
           command: |
