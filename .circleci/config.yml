@@ -96,7 +96,7 @@ jobs:
           command: |
             cd services/QuillLMS/client
             TESTFILES=$(circleci tests glob "app/**/*.test.js" | circleci tests split)
-            node --expose-gc ./node_modules/.bin/jest $TESTFILES--maxWorkers=1 --logHeapUsage
+            node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=1 --logHeapUsage
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
@@ -449,8 +449,8 @@ workflows:
       # - spellchecker_node_build
       # - comprehension_rails_build
       # - comprehension_python_build
-  lint-code:
-    jobs:
-      - node_lint
-      - rubocop_lint
-      - flake8_lint
+  # lint-code:
+  #   jobs:
+  #     - node_lint
+  #     - rubocop_lint
+  #     - flake8_lint
