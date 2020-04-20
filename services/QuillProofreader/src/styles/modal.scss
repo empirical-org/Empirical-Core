@@ -12,19 +12,17 @@
   }
 
   .early-submit-modal {
-    width: 385px;
+    max-width: 560px;
+    width: 100%;
+    min-height: 184px;
+    .quill-button {
+      margin-top: 48px;
+      float: right;
+    }
   }
 
   .review-modal {
     max-width: 800px;
-  }
-
-  .reset-modal {
-    width: 560px;
-    height: 214px;
-    @media (max-width: 600px) {
-      width: 90%;
-    }
   }
 
   .reset-modal, .early-submit-modal, .review-modal {
@@ -39,46 +37,43 @@
     flex-direction: column;
   }
 
-  .reset-modal {
+  .reset-modal, .early-submit-modal {
     padding: 32px;
-    justify-content: space-between;
     h1 {
       font-size: 24px;
       font-weight: bold;
       line-height: 1.33;
     }
+    @media (max-width: 800px) {
+      padding: 16px;
+    }
+    @media (max-width: 600px) {
+      width: 90% !important;
+    }
+  }
+
+  .reset-modal {
+    max-width: 560px;
+    width: 100%;
+    min-height: 230px;
+    justify-content: space-between;
     p {
       font-size: 14px;
       font-weight: normal;
       line-height: 1.57;
       color: #646464;
-      margin-top: 8px;
+      margin: 24px 0px 48px;
     }
     .button-section {
       display: flex;
       justify-content: flex-end;
-      .cancel {
-        width: 80px;
-        height: 40px;
-        border-radius: 4px;
-        font-size: 15px;
-        font-weight: 600;
-        margin-right: 24px;
-      }
-      .reset {
-        width: 72px;
-        height: 40px;
-        border-radius: 4px;
-        background-color: #01c2a2;
-        font-size: 15px;
-        font-weight: bold;
-        color: #ffffff;
-        border: none;
+      .quill-button {
+        margin-left: 24px;
       }
     }
   }
 
-  .early-submit-modal, .review-modal {
+  .review-modal {
     align-items: center;
     line-height: 1.56;
     .top-section {
@@ -129,13 +124,8 @@
     }
   }
 
-  .early-submit-modal button {
-    width: 147px;
-  }
-
   .review-modal button {
     width: 165px;
     min-width: 154px;
   }
-
 }

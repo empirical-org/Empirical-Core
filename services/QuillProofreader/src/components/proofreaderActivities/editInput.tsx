@@ -9,7 +9,6 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     super(props)
 
     this.input = React.createRef()
-    this.hidden = React.createRef()
 
   }
 
@@ -42,7 +41,7 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     const key = `${paragraphIndex}-${wordIndex}`
     const style = this.getStyleOfInput(key)
     return (<React.Fragment>
-      <span className={`hidden ${className}`} id={key} ref={(node) => this.hidden = node} />
+      <span className={`hidden ${className}`} id={key} />
       <input
         className={className}
         key={key}

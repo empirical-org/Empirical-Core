@@ -4,6 +4,11 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    padding: 0px 16px;
+    flex-direction: column;
+    .progress-bar-container {
+      width: 100%;
+    }
   }
   .inner-header {
     display: flex;
@@ -139,7 +144,7 @@
 
   .passage {
     background-color: white;
-    padding: 40px 60px;
+    padding: 40px 16px;
     u {
       text-decoration: none;
     }
@@ -152,13 +157,17 @@
   }
 
   .bottom-section {
-    max-width: 800px;
-    margin: 40px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    @media (max-width: 1000px) {
-      padding: 0px 60px 300px;
+    padding: 40px 16px;
+    background-color: #ededed;
+    .button-container {
+      max-width: 800px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    @media (max-width: 800px) {
+      padding-top: 24px;
     }
   }
 }

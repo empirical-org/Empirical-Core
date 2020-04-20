@@ -414,7 +414,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { reviewing, edits, } = this.state
       if (reviewing) { return }
 
-      let className = "quill-button large primary contained focus-on-dark"
+      let className = "quill-button large primary contained focus-on-light"
       if (edits) {
         return <button className={className} onClick={this.handleCheckWorkClick} type="button">Get feedback</button>
       }
@@ -427,13 +427,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       const { reviewing, edits, } = this.state
       if (reviewing) { return }
 
-      let className = "quill-button large secondary outlined focus-on-dark"
+      let className = "quill-button large secondary outlined focus-on-light"
       if (edits) {
-        return <button className={className} onClick={this.handleResetClick} type="button">Reset edits</button>
+        return <button className={className} onClick={this.handleResetClick} type="button">Undo edits</button>
       }
 
       className += ' disabled'
-      return <button className={className} type="button">Reset edits</button>
+      return <button className={className} type="button">Undo edits</button>
     }
 
     render(): JSX.Element {
@@ -445,8 +445,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
         const meterWidth = edits / necessaryEditsLength * 100
         return (<div className="passage-container">
-          <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
           <div className="header-section">
+            <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
             <div className="inner-header">
               <h1>{currentActivity.title}</h1>
               <div className="instructions">
@@ -464,8 +464,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             {this.renderPassage()}
           </div>
           <div className="bottom-section">
-            {this.renderResetButton()}
-            {this.renderCheckWorkButton()}
+            <div className="button-container">
+              {this.renderResetButton()}
+              {this.renderCheckWorkButton()}
+            </div>
           </div>
         </div>)
       } else if (session.error) {
