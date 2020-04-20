@@ -171,14 +171,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-lessons-v1-{{ checksum "services/QuillLessons/package-lock.json" }}
+          keys:
+            - npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}-{{ checksum "services/QuillLessons/package-lock.json" }}
+            - npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}
+            - npm-cache-lessons-v2
       - run:
           name: Install NPM dependencies
           command: |
             cd services/QuillLessons
             npm install
       - save_cache:
-          key: npm-cache-lessons-v1-{{ checksum "services/QuillLessons/package-lock.json" }}
+          key: npm-cache-lessons-v2-{{ checksum "services/QuillLessons/package.json" }}-{{ checksum "services/QuillLessons/package-lock.json" }}
           paths:
             - services/QuillLessons/node_modules
       - run:
@@ -437,7 +440,7 @@ workflows:
       # - lms_rails_build
       # - grammar_node_build
       # - cms_rails_build
-      # - lessons_node_build
+      - lessons_node_build
       # - proofreader_node_build
       # - spellchecker_node_build
       # - comprehension_rails_build
