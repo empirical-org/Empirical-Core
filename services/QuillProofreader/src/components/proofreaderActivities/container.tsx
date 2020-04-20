@@ -17,6 +17,12 @@ import {
   removeSession,
   setPassage
 } from "../../actions/session";
+import determineUnnecessaryEditType, {
+  UNNECESSARY_SPACE,
+  UNNECESSARY_DELETION,
+  UNNECESSARY_ADDITION,
+  UNNECESSARY_CHANGE
+} from '../../helpers/determineUnnecessaryEditType'
 
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
@@ -257,8 +263,8 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 })
                 words.push(`{+${correctText}-${stringNormalizedCurrentText}|${conceptUID}}`)
               }
-            } else if (stringNormalizedOriginalText !== stringNormalizedCurrentText) {
-              words.push(`{+${stringNormalizedOriginalText}-${stringNormalizedCurrentText}|unnecessary}`)
+            } else if (determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)) {
+              words.push(`{+${stringNormalizedOriginalText}-${stringNormalizedCurrentText}|${determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)}}`)
             } else {
               words.push(stringNormalizedCurrentText)
             }
