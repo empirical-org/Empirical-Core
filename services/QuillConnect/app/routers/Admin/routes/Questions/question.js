@@ -5,7 +5,6 @@ import FocusPointsRoute from 'routers/Admin/routes/Shared/focusPoints';
 import IncorrectSequenceRoute from 'routers/Admin/routes/Shared/incorrectSequences';
 import ChooseModelContainer from 'components/questions/chooseModelContainer.jsx';
 import TestQuestionContainer from 'components/questions/testQuestion';
-import AnswerVisualizer from 'components/misc/answerVisualizer.jsx';
 
 const chooseModel = {
   path: 'choose-model',
@@ -15,11 +14,6 @@ const chooseModel = {
 const testQuestion = {
   path: 'test',
   component: TestQuestionContainer,
-};
-
-const visualizeRoute = {
-  path: 'visualize',
-  component: AnswerVisualizer,
 };
 
 export default {
@@ -34,7 +28,6 @@ export default {
     FocusPointsRoute,
     IncorrectSequenceRoute,
     chooseModel,
-    testQuestion,
-    visualizeRoute
+    testQuestion
   ],
 };

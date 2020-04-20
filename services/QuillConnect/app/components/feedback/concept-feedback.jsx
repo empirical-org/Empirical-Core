@@ -1,35 +1,33 @@
 import React from 'react'
 import C from '../../constants'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import actions from '../../actions/concepts-feedback'
 import feedbackActions from '../../actions/concepts-feedback'
 import _ from 'underscore'
 import FeedbackForm from './feedbackForm.jsx'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 
-const ConceptFeedback = React.createClass({
+class ConceptFeedback extends React.Component {
+  cancelEdit = (feedbackID) => {
+      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
+  };
 
-  deleteConceptsFeedback: function () {
+  deleteConceptsFeedback = () => {
     this.props.dispatch(actions.deleteConceptsFeedback(this.props.params.feedbackID))
-  },
+  };
 
-  toggleEdit: function () {
-    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
-  },
-
-  submitNewFeedback: function (feedbackID, data) {
+  submitNewFeedback = (feedbackID, data) => {
     if(true) {
       this.props.dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, data)
       )
     }
-  },
+  };
 
-  cancelEdit: function(feedbackID) {
-      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
-  },
+  toggleEdit = () => {
+    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
+  };
 
-  render: function (){
+  render() {
     const {data, states} = this.props.conceptsFeedback;
     const {feedbackID} = this.props.params;
 
@@ -64,7 +62,7 @@ const ConceptFeedback = React.createClass({
     }
 
   }
-})
+}
 
 function select(state) {
   return {
