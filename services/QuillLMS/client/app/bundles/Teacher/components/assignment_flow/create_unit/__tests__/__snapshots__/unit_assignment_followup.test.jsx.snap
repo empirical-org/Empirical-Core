@@ -4,12 +4,12 @@ exports[`Unit assignment followup component When there are only empty classes as
 <div>
   <AssignmentFlowNavigation
     button={
-      <a
+      <button
         className="quill-button medium contained primary"
-        href="/"
+        onClick={[Function]}
       >
         Take me to my dashboard
-      </a>
+      </button>
     }
   />
   <ScrollToTop />
@@ -167,12 +167,12 @@ exports[`Unit assignment followup component When there are students assigned on 
 <div>
   <AssignmentFlowNavigation
     button={
-      <a
+      <button
         className="quill-button medium contained primary"
-        href="/"
+        onClick={[Function]}
       >
         Take me to my dashboard
-      </a>
+      </button>
     }
   />
   <ScrollToTop />
