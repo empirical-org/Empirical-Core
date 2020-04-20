@@ -30,7 +30,9 @@ export default function determineUnnecessaryEditType(originalText: string, edite
 
 export function unnecessarySpaceMatch(originalText: string, editedText: string): UnnecessaryEditTypeResponse {
   const response = { unnecessaryEditType: UNNECESSARY_SPACE, matched: false }
-  response.matched = removeSpaces(originalText) === removeSpaces(editedText)
+  const spaceRemovedOriginalText = removeSpaces(originalText)
+  const spaceRemovedEditedText = removeSpaces(editedText)
+  response.matched = ((spaceRemovedOriginalText === spaceRemovedEditedText) && (editedText.length > originalText.length))
   return response
 }
 
@@ -38,8 +40,9 @@ export function unnecessaryAdditionMatch(originalText: string, editedText: strin
   const response = { unnecessaryEditType: SINGLE_UNNECESSARY_ADDITION, matched: false }
   const editedTextWords = editedText.split(' ')
   const originalTextWords = originalText.split(' ')
-  response.matched = editedTextWords.length > originalTextWords.length
-  if (editedTextWords.length > originalTextWords.length) {
+  const editedTextContainsMoreWords = editedTextWords.length > originalTextWords.length
+  const editedTextContainsAllOriginalWords = originalTextWords.every(word => editedTextWords.includes(word))
+  if (editedTextContainsMoreWords && editedTextContainsAllOriginalWords) {
     response.matched = true
     response.unnecessaryEditType = editedTextWords.length - originalTextWords.length > 1 ? MULTIPLE_UNNECESSARY_ADDITION : SINGLE_UNNECESSARY_ADDITION
   }
@@ -50,7 +53,9 @@ export function unnecessaryDeletionMatch(originalText: string, editedText: strin
   const response = { matched: false, unnecessaryEditType: SINGLE_UNNECESSARY_DELETION }
   const editedTextWords = editedText.split(' ')
   const originalTextWords = originalText.split(' ')
-  if (originalTextWords.length > editedTextWords.length) {
+  const originalTextContainsMoreWords = editedTextWords.length < originalTextWords.length
+  const originalTextContainsAllEditedWords = editedTextWords.every(word => originalTextWords.includes(word))
+  if (originalTextContainsMoreWords && originalTextContainsAllEditedWords) {
     response.matched = true
     response.unnecessaryEditType = originalTextWords.length - editedTextWords.length > 1 ? MULTIPLE_UNNECESSARY_DELETION : SINGLE_UNNECESSARY_DELETION
   }
