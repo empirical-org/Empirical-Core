@@ -92,16 +92,7 @@ jobs:
           name: Run LMS Frontend Tests
           command: |
             cd services/QuillLMS/client
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/reducers
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/admin_dashboard
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/containers
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/accounts
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/d*
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/g*
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/lesson_planner
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/progress_reports
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/s*
-            FORCE_COLOR=true npm run jest --colors --maxWorkers=2 --logHeapUsage --detectLeaks app/bundles/Teacher/components/unit_templates
+            npm run jest
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
