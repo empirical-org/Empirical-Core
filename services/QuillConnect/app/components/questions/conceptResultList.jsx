@@ -10,6 +10,12 @@ export default class conceptResultList extends React.Component {
     }
   }
 
+  deleteConceptResult = (key) => {
+    const newConceptResults = Object.assign({}, this.state.conceptResults)
+    delete newConceptResults[key]
+    this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
+  }
+
   handleConceptChange = e => {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
     newConceptResults[e.value] ? null : newConceptResults[e.value] = false
@@ -19,12 +25,6 @@ export default class conceptResultList extends React.Component {
   toggleConceptResultCorrect = (key) => {
     const newConceptResults = Object.assign({}, this.state.conceptResults)
     newConceptResults[key] = !newConceptResults[key]
-    this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
-  }
-
-  deleteConceptResult = (key) => {
-    const newConceptResults = Object.assign({}, this.state.conceptResults)
-    delete newConceptResults[key]
     this.setState({conceptResults: newConceptResults}, () => this.props.updateConceptResults(this.state.conceptResults))
   }
 

@@ -43,27 +43,8 @@ class Questions extends React.Component {
     }
   }
 
-  createNew = () => {
-    this.props.dispatch(actions.toggleNewQuestionModal());
-  };
-
-  submitNewQuestion = () => {
-    const newQuestion = { name: this.refs.newQuestionName.value, };
-    this.props.dispatch(actions.submitNewQuestion(newQuestion));
-    this.refs.newQuestionName.value = '';
-  };
-
-  updateRematchedResponse = (rid, vals) => {
-    this.props.dispatch(submitResponseEdit(rid, vals));
-  };
-
   getErrorsForAttempt = (attempt) => {
     return attempt.feedback;
-  }
-
-  generateFeedbackString = (attempt) => {
-    const errors = this.getErrorsForAttempt(attempt);
-    return errors;
   }
 
   getMatchingResponse = (quest, response, responses) => {
@@ -76,17 +57,26 @@ class Questions extends React.Component {
     return question.checkMatch(response.text);
   }
 
+  createNew = () => {
+    this.props.dispatch(actions.toggleNewQuestionModal());
+  };
+
+  generateFeedbackString = (attempt) => {
+    const errors = this.getErrorsForAttempt(attempt);
+    return errors;
+  }
+
+  handleSearchChange = e => {
+    const action = push(`/admin/questions/${e.value}`);
+    this.props.dispatch(action);
+  };
+
   // functions for rematching all Responses
   mapConceptsToList = () => {
     const concepts = hashToCollection(this.props.concepts.data['0']);
     const questions = hashToCollection(this.props.questions.data);
     const conceptsWithQuestions = concepts.map(concept => _.where(questions, { conceptID: concept.uid, }));
     return _.flatten(conceptsWithQuestions);
-  };
-
-  responsesWithStatusForQuestion = questionUID => {
-    const responses = this.props.responses.data[questionUID];
-    return hashToCollection(respWithStatus(responses));
   };
 
   rematchAllResponses = question => {
@@ -143,6 +133,27 @@ class Questions extends React.Component {
     }
   };
 
+  responsesWithStatusForQuestion = questionUID => {
+    const responses = this.props.responses.data[questionUID];
+    return hashToCollection(respWithStatus(responses));
+  };
+
+  submitNewQuestion = () => {
+    const newQuestion = { name: this.refs.newQuestionName.value, };
+    this.props.dispatch(actions.submitNewQuestion(newQuestion));
+    this.refs.newQuestionName.value = '';
+  };
+
+  toggleShowArchived = () => {
+    this.setState({
+      showOnlyArchived: !this.state.showOnlyArchived,
+    });
+  };
+
+  updateRematchedResponse = (rid, vals) => {
+    this.props.dispatch(submitResponseEdit(rid, vals));
+  };
+
   renderModal = () => {
     const stateSpecificClass = this.props.questions.submittingnew ? 'is-loading' : '';
     if (this.props.questions.newQuestionModalOpen) {
@@ -175,17 +186,6 @@ class Questions extends React.Component {
         </Modal>
       );
     }
-  };
-
-  handleSearchChange = e => {
-    const action = push(`/admin/questions/${e.value}`);
-    this.props.dispatch(action);
-  };
-
-  toggleShowArchived = () => {
-    this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
-    });
   };
 
   renderSearchBox = () => {

@@ -59,8 +59,6 @@ export default class RenderTextEditor extends React.Component {
     }
   }
 
-  setAnswerBoxRef = node => this.answerBox = node
-
   getErrorsForAttempt(attempt) {
     return _.pick(attempt, ...C.ERROR_TYPES);
   }
@@ -100,6 +98,8 @@ export default class RenderTextEditor extends React.Component {
     }
   }
 
+  setAnswerBoxRef = node => this.answerBox = node
+
   applyNewStyle(newStyle) {
     if (newStyle.inlineStyleRanges[0]) {
       const offset = newStyle.inlineStyleRanges[0].offset;
@@ -114,28 +114,6 @@ export default class RenderTextEditor extends React.Component {
     const input = this.refs.answerBox;
     input.selectionStart = 0;
     input.selectionEnd = 0;
-  }
-
-  handleKeyUp = () => {
-    const { questionID, } = this.props
-    // commenting out 1/29/20 to see if it resolves a traffic issue we're having on the LMS
-    // sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: questionID, });
-  }
-
-  handleTextChange = (e) => {
-    const { disabled, onChange, } = this.props
-    if (disabled) { return }
-
-    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
-    onChange(stripHTML, this.answerBox);
-  }
-
-  handleKeyDown = (e) => {
-    const { disabled, onSubmitResponse, } = this.props
-    if (disabled || e.key !== 'Enter') { return }
-
-    e.preventDefault();
-    onSubmitResponse();
   }
 
   displayedHTML() {
@@ -154,6 +132,28 @@ export default class RenderTextEditor extends React.Component {
     })
 
     return newWordArray.join(' ')
+  }
+
+  handleKeyDown = (e) => {
+    const { disabled, onSubmitResponse, } = this.props
+    if (disabled || e.key !== 'Enter') { return }
+
+    e.preventDefault();
+    onSubmitResponse();
+  }
+
+  handleKeyUp = () => {
+    const { questionID, } = this.props
+    // commenting out 1/29/20 to see if it resolves a traffic issue we're having on the LMS
+    // sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: questionID, });
+  }
+
+  handleTextChange = (e) => {
+    const { disabled, onChange, } = this.props
+    if (disabled) { return }
+
+    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
+    onChange(stripHTML, this.answerBox);
   }
 
   render() {
