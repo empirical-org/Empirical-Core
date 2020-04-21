@@ -34,7 +34,6 @@ class ConceptFeedback extends React.Component {
   }
 
   render() {
-    console.log('concept-feedback-props', this.props)
     const { concepts, conceptsFeedback, match } = this.props
     const { data, states } = conceptsFeedback
     const { hasreceiveddata } = concepts

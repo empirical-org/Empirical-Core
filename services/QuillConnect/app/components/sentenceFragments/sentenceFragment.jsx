@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 import EditForm from './sentenceFragmentForm.jsx';
@@ -10,6 +10,16 @@ import {
   listenToResponsesWithCallback
 } from '../../actions/responses';
 import C from '../../constants';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
+import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import TestQuestionContainer from './testSentenceFragmentContainer';
+import MassEditContainer from '../questions/massEditContainer.jsx';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -26,7 +36,8 @@ class SentenceFragment extends React.Component {
   }
 
   componentDidMount() {
-    const { params, } = this.props
+    const { match } = this.props
+    const { params } = match
     const { questionID } = params
     listenToResponsesWithCallback(
       questionID,
@@ -40,18 +51,18 @@ class SentenceFragment extends React.Component {
   }
 
   getQuestion = () => {
-    const { sentenceFragments, params, } = this.props
-    return sentenceFragments.data[params.questionID];
-  }
-
-  getResponses = () => {
-    const { responses, } = this.state
-    return responses;
+    const { sentenceFragments, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    const { data } = sentenceFragments
+    return data[questionID];
   }
 
   cancelEditingSentenceFragment = () => {
-    const { dispatch, params, } = this.props
-    dispatch(fragmentActions.cancelSentenceFragmentEdit(params.questionID));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    dispatch(fragmentActions.cancelSentenceFragmentEdit(questionID));
   }
 
   closeModal = () => {
@@ -59,8 +70,10 @@ class SentenceFragment extends React.Component {
   }
 
   handleEditFragmentClick = () => {
-    const { dispatch, params, } = this.props
-    dispatch(fragmentActions.startSentenceFragmentEdit(params.questionID));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    dispatch(fragmentActions.startSentenceFragmentEdit(questionID));
   }
 
   handleUploadOptimalResponsesClick = () => {
@@ -68,27 +81,34 @@ class SentenceFragment extends React.Component {
   }
 
   saveSentenceFragmentEdits = (data) => {
-    const { dispatch, params, } = this.props
-    dispatch(fragmentActions.submitSentenceFragmentEdit(params.questionID, data));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    dispatch(fragmentActions.submitSentenceFragmentEdit(questionID, data));
   }
 
   submitOptimalResponses(responses) {
-    const { dispatch, params, concepts, } = this.props
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     const conceptUID = this.getQuestion().conceptID
-    dispatch(submitOptimalResponses(params.questionID, conceptUID, responses, concepts))
+    dispatch(submitOptimalResponses(questionID, conceptUID, responses, concepts))
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
   renderEditForm = () => {
-    const { sentenceFragments, params, concepts, } = this.props
-    if (sentenceFragments.states[params.questionID] === C.EDITING_SENTENCE_FRAGMENT) {
+    const { sentenceFragments, match, concepts, } = this.props
+    const { data, states } = sentenceFragments
+    const { params } = match
+    const { questionID } = params
+    if (states[questionID] === C.EDITING_SENTENCE_FRAGMENT) {
       return (
         <Modal close={this.cancelEditingSentenceFragment}>
           <div className="box">
             <h6 className="title is-h6">Edit Sentence Fragment</h6>
             <EditForm
               concepts={concepts}
-              data={sentenceFragments.data[params.questionID]}
+              data={data[questionID]}
               mode="Edit"
               submit={this.saveSentenceFragmentEdits}
             />
@@ -100,7 +120,8 @@ class SentenceFragment extends React.Component {
 
   renderResponseComponent(data, states, questionID) {
     const { dispatch, } = this.props
-    if (this.getResponses()) {
+    const { responses } = this.state
+    if (responses) {
       return (
         <ResponseComponent
           admin
@@ -108,7 +129,7 @@ class SentenceFragment extends React.Component {
           mode='sentenceFragment'
           question={data[questionID]}
           questionID={questionID}
-          responses={this.getResponses()}
+          responses={responses}
           states={states}
         />
       );
@@ -127,20 +148,20 @@ class SentenceFragment extends React.Component {
   }
 
   render = () => {
-    const { sentenceFragments, params, massEdit, children, } = this.props
-    const { data, states, hasreceiveddata, } = sentenceFragments;
-    const { questionID, } = params;
+    const { sentenceFragments, match, massEdit } = this.props
+    const { data, hasreceiveddata, } = sentenceFragments;
+    const { params } = match
+    const { questionID } = params;
     if (!hasreceiveddata) {
       return (
         <h1>Loading...</h1>
       );
     } else if (data[questionID]) {
-      // console.log("conceptID: ", sentenceFragments.data[params.questionID].conceptID)
       const activeLink = massEdit.numSelectedResponses > 1
       ? <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       return (
-        <div>
+        <div className="admin-container">
           {this.renderEditForm()}
           {this.renderUploadNewOptimalResponsesForm()}
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -158,16 +179,26 @@ class SentenceFragment extends React.Component {
 
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`admin/sentence-fragments/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`admin/sentence-fragments/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/test`}>Play Question</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
               {activeLink}
             </ul>
           </div>
-          <br />
-          {children}
+          <Switch>
+            <Route component={EditIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
+            <Route component={NewIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/new`} />
+            <Route component={IncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences`} />
+            <Route component={EditFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/edit`} />
+            <Route component={NewFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/new`} />
+            <Route component={FocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points`} />
+            <Route component={TestQuestionContainer} path={`/admin/sentence-fragments/:questionID/test`} />
+            <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/:questionID/choose-model`} />
+            <Route component={MassEditContainer} path={`/admin/sentence-fragments/:questionID/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/sentence-fragments/:questionID/responses`} />
+          </Switch>
         </div>
       );
     } else {
@@ -187,4 +218,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(SentenceFragment);
+export default withRouter(connect(select)(SentenceFragment));

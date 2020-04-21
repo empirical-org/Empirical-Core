@@ -35,7 +35,6 @@ class FillInBlankQuestions extends Component {
   };
 
   render() {
-    console.log('fill-in-blank-props', this.props)
     return (
       <section className="section">
         <div className="container">

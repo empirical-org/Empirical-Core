@@ -126,11 +126,11 @@ class adminContainer extends React.Component {
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
-          {/* <Route component={NewSentenceFragment} path='/admin/sentence-fragments/new' />
+          <Route component={NewSentenceFragment} path='/admin/sentence-fragments/new' />
           <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
           <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
           <Route component={TestSentenceFragmentContainer} path='/admin/sentence-fragments/test' />
-          <Route component={SentenceFragments} path='/admin/sentence-fragments' /> */}
+          <Route component={SentenceFragments} path='/admin/sentence-fragments' />
         </Switch>
       </div>
     );
