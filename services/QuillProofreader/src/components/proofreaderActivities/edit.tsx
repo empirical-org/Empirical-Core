@@ -28,8 +28,8 @@ interface EditProps {
   id: string;
 }
 
-export default class Edit extends React.Component<EditProps, {offset: string}> {
-  constructor(props) {
+export default class Edit extends React.Component<EditProps, {mounting: boolean}> {
+  constructor(props: EditProps) {
     super(props)
 
     this.state = { mounting: true, }
