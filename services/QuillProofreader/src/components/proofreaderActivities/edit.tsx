@@ -29,6 +29,16 @@ interface EditProps {
 }
 
 export default class Edit extends React.Component<EditProps, {offset: string}> {
+  constructor(props) {
+    super(props)
+
+    this.state = { mounting: true, }
+  }
+
+  componentDidMount() {
+    this.setState({ mounting: false, })
+  }
+
   renderConceptExplanation(): JSX.Element {
     const { concept } = this.props
     if (!(concept && concept.explanation)) { return <span /> }
@@ -85,8 +95,10 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
   }
 
   renderTooltip() {
+    const { mounting, } = this.state
     const { activeIndex, index, state, numberOfEdits, next, back, id, } = this.props
-    const visible = activeIndex === index ? 'visible' : 'invisible'
+    if (mounting || activeIndex !== index) { return }
+
     let src, headerText, altText
     switch (state) {
       case 'correct':
@@ -114,7 +126,7 @@ export default class Edit extends React.Component<EditProps, {offset: string}> {
     const style = parentElement ? { top: `${parentElement.offsetTop}px` } : {}
     const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back}>Back</button> : <div className="placeholder" />
     const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next}>{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
-    return (<div className={`edit-tooltip ${visible}`} style={style}>
+    return (<div className="edit-tooltip" style={style}>
       <div className="top-section">
         <img alt={altText} src={src} />
         <h2>{headerText}</h2>

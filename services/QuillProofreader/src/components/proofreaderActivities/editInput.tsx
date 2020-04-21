@@ -27,7 +27,6 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     }
   }
 
-
   render() {
     const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, } = this.props
     let className = 'edit-input'
@@ -39,15 +38,13 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     }
     const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
     const style = this.getStyleOfInput(key, className, currentText)
-    return (<React.Fragment>
-      <input
-        className={className}
-        key={key}
-        onChange={this.handleWordChange}
-        spellCheck={false}
-        style={style}
-        value={currentText}
-      />
-    </React.Fragment>)
+    return (<input
+      className={className}
+      key={key}
+      onChange={this.handleWordChange}
+      spellCheck={false}
+      style={style}
+      value={currentText}
+    />)
   }
 }
