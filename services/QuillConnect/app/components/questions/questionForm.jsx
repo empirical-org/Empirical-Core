@@ -7,19 +7,17 @@ import { EditorState, ContentState } from 'draft-js'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
 
-export default React.createClass({
-  getInitialState: function () {
-    return {
-      prompt: "",
-      concept: this.props.question.conceptID,
-      instructions: this.props.question.instructions ? this.props.question.instructions : "",
-      flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
-      prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
-    }
-  },
+export default class extends React.Component {
+  state = {
+    prompt: "",
+    concept: this.props.question.conceptID,
+    instructions: this.props.question.instructions ? this.props.question.instructions : "",
+    flag: this.props.question.flag ? this.props.question.flag : "alpha",
+    cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
+    prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
+  };
 
-  submit: function () {
+  submit = () => {
     const questionObj = {
       conceptUID: this.props.question.conceptUID,
       cuesLabel: this.props.question.cuesLabel,
@@ -40,21 +38,21 @@ export default React.createClass({
       questionObj.conceptID = this.state.concept
       this.props.submit(questionObj)
     }
-  },
+  };
 
-  handlePrefilledText: function(e) {
+  handlePrefilledText = (e) => {
     this.setState({ prefilledText: e.target.value });
-  },
+  };
 
-  handlePromptChange: function (e) {
+  handlePromptChange = (e) => {
     this.setState({prompt: e})
-  },
+  };
 
-  handleInstructionsChange: function(e) {
+  handleInstructionsChange = (e) => {
     this.setState({instructions: e.target.value})
-  },
+  };
 
-  renderConceptSelector: function() {
+  renderConceptSelector = () => {
     if (!this.props.new) {
       return (<div>
         <label className="label">Concept</label>
@@ -66,9 +64,9 @@ export default React.createClass({
         </div>
       </div>)
     }
-  },
+  };
 
-  renderOptimalResponse: function() {
+  renderOptimalResponse = () => {
     if (this.props.new) {
       return (<div>
         <label className="label">Optimal Response</label>
@@ -77,25 +75,25 @@ export default React.createClass({
         </p>
       </div>)
     }
-  },
+  };
 
-  handleSelectorChange: function(e) {
+  handleSelectorChange = (e) => {
     this.setState({concept: e.value})
-  },
+  };
 
-  handleConceptChange: function() {
+  handleConceptChange = () => {
     this.setState({concept: this.refs.concept.value})
-  },
+  };
 
-  handleFlagChange: function(e) {
+  handleFlagChange = (e) => {
     this.setState({ flag: e.target.value, });
-  },
+  };
 
-  handleCuesLabelChange: function(e) {
+  handleCuesLabelChange = (e) => {
     this.setState({ cuesLabel: e.target.value, });
-  },
+  };
 
-  renderPreFillSection: function() {
+  renderPreFillSection = () => {
     return (
       <div>
         <label className="label" htmlFor="prefilledText">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
@@ -104,9 +102,9 @@ export default React.createClass({
         </p>
       </div>
     );
-  },
+  };
 
-  render: function () {
+  render() {
     if(this.props.new || this.props.concepts.hasreceiveddata) {
       const preFillSection = this.props.new ? <span /> : this.renderPreFillSection()
       return (
@@ -144,4 +142,4 @@ export default React.createClass({
       return (<div>Loading...</div>)
     }
   }
-})
+}
