@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
-import activeComponent from 'react-router-active-component';
-
 import EditForm from './questionForm.jsx';
 import getBoilerplateFeedback from './boilerplateFeedback.jsx';
 import Cues from '../renderForQuestions/cues.jsx';
@@ -14,7 +13,6 @@ import {
 } from '../../actions/responses';
 import C from '../../constants';
 
-const NavLink = activeComponent('li');
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 class Question extends React.Component {

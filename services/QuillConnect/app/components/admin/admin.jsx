@@ -98,7 +98,7 @@ class adminContainer extends React.Component {
             </p>
             <ul className="menu-list">
               <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to='admin/concepts-feedback'>Concept Feedback</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/concepts-feedback'>Concept Feedback</TabLink>
             </ul>
             <p className="menu-label">
               Title Cards
@@ -110,14 +110,14 @@ class adminContainer extends React.Component {
         </section>
         <Switch>
           <Redirect component={Lessons} exact from='/admin' to='/admin/lessons' />
-          {/* <Route component={ConceptFeedback} path='/admin/concepts-feedback/:conceptFeedbackID' />
+          <Route component={ConceptFeedback} path='/admin/concepts-feedback/:conceptFeedbackID' />
           <Route component={ConceptsFeedback} path='/admin/concepts-feedback' />
           <Route component={Concept} path='/admin/concepts/:conceptID' />
-          <Route component={Concepts} path='/admin/concepts' /> */}
+          <Route component={Concepts} path='/admin/concepts' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />
           <Route component={Lessons} path='/admin/lessons' />
           {/* <Route component={Question} path='/admin/questions/:questionID' />
-          <Route component={Questions} path='/admin/questions' />
+          <Route component={Questions} path='/admin/questions' /> */}
           <Route component={TitleCardForm} path='/admin/title-cards/new' />
           <Route component={TitleCardForm} path='/admin/title-cards/:titleCardID/edit' />
           <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
@@ -126,7 +126,7 @@ class adminContainer extends React.Component {
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
-          <Route component={NewSentenceFragment} path='/admin/sentence-fragments/new' />
+          {/* <Route component={NewSentenceFragment} path='/admin/sentence-fragments/new' />
           <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
           <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
           <Route component={TestSentenceFragmentContainer} path='/admin/sentence-fragments/test' />

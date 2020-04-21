@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import { Link } from 'react-router-dom'
-import { QuestionList, hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
+import { QuestionList } from '../shared/questionList'
 
 
 export interface ComponentProps {
@@ -12,17 +13,15 @@ export interface ComponentProps {
 }
 
 class TitleCards extends React.Component<ComponentProps, any> {
-  constructor(props) {
-    super(props)
 
-    this.renderQuestionsList = this.renderQuestionsList.bind(this)
-  }
+  renderQuestionsList = () => {
+    const { titleCards } = this.props
+    const { data, hasreceiveddata } = titleCards
 
-  renderQuestionsList() {
-    const titleCards = hashToCollection(this.props.titleCards.data)
-    if (this.props.titleCards.hasreceiveddata && titleCards) {
-      return <QuestionList basePath='title-cards' questions={titleCards || []} />
-    } else if (!this.props.titleCards.hasreceiveddata) {
+    const hashedTitleCards = hashToCollection(data)
+    if (hasreceiveddata && hashedTitleCards) {
+      return <QuestionList basePath='title-cards' questions={hashedTitleCards || []} />
+    } else if (!hasreceiveddata) {
       return <p>Loading...</p>
     } else {
       return <p>No title cards yet</p>
@@ -33,7 +32,7 @@ class TitleCards extends React.Component<ComponentProps, any> {
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/title-cards/new'}>
+          <Link to={'/admin/title-cards/new'}>
             <button className="button is-primary">Create a New Title Card</button>
           </Link>
           <p className="menu-label">Title Cards</p>

@@ -41,14 +41,14 @@ export default class Home extends React.Component<any, any> {
     const studentPlaying = !!window.location.href.includes('play')
     return(
       <Layout className={className}>
-      <Layout>
-        <Layout.Content>
-          {studentPlaying && <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>}
-          {studentPlaying && <NavBar />}
-          <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
-        </Layout.Content>
+        <Layout>
+          <Layout.Content>
+            {studentPlaying && <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>}
+            {studentPlaying && <NavBar />}
+            <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
+          </Layout.Content>
+        </Layout>
       </Layout>
-    </Layout>
     );
   }
 };

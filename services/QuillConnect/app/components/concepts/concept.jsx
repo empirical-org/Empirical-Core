@@ -13,33 +13,47 @@ class Concept extends React.Component {
   };
 
   getConcept = () => {
-    const {data} = this.props.concepts, {conceptID} = this.props.params;
+    const { concepts, match } = this.props
+    const { data } = concepts
+    const { params } = match
+    const { conceptID } = params
     return _.find(data['0'], {uid: conceptID})
   };
 
   deleteConcept = () => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { conceptID } = params
     if(confirm("Are you sure?")) {
-      this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+      dispatch(actions.deleteConcept(conceptID))
     }
   };
 
   questionsForConcept = () => {
-    const questionsCollection = hashToCollection(this.props.questions.data)
-    return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
+    const { match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { conceptID } = params
+    const questionsCollection = hashToCollection(data)
+    return questionsCollection.filter(q => q.conceptID === conceptID && q.flag !== 'archived')
   };
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
-    const questionObjWithConceptID = { ...questionObj, conceptID: this.props.params.conceptID }
-    this.props.dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { conceptID } = params
+    const questionObjWithConceptID = { ...questionObj, conceptID: conceptID }
+    dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
   };
 
   renderNewQuestionForm = () => {
-    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
+    const { itemLevels } = this.props
+    return <QuestionForm itemLevels={itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
   };
 
   renderQuestionsForConcept = () => {
-    var questionsForConcept = this.questionsForConcept()
-    var listItems = questionsForConcept.map((question) => {
+    const questionsForConcept = this.questionsForConcept()
+    const listItems = questionsForConcept.map((question) => {
       const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
       return (<li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
@@ -50,17 +64,20 @@ class Concept extends React.Component {
   };
 
   render() {
-    if (this.getConcept()) {
+    const { concepts } = this.props
+    const { hasreceiveddata } = concepts
+    const concept = this.getConcept()
+    if (concept) {
       return (
         <div>
           <Link to={'admin/concepts'}>Return to All Concepts</Link>
-          <h4 className="title">{this.getConcept().displayName}</h4>
+          <h4 className="title">{concept.displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           {this.renderNewQuestionForm()}
           {this.renderQuestionsForConcept()}
         </div>
       )
-    } else if (this.props.concepts.hasreceiveddata === false){
+    } else if (hasreceiveddata === false){
       return (<p>Loading...</p>)
     } else {
       return (

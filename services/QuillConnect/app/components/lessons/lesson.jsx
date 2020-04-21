@@ -114,7 +114,7 @@ class Lesson extends React.Component {
       const numberOfQuestions = lesson.questions ? lesson.questions.length : 0;
       return (
         <div>
-          <Link to={'admin/lessons'}>Return to All Activities</Link>
+          <Link to={'/admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
           <h4 className="title">{lesson.name}</h4>

@@ -18,18 +18,21 @@ interface TitleCardFormState {
 export interface TitleCardFormProps {
   titleCards: any
   routing: any
-  routeParams: any
+  match: any
   dispatch(any): void 
 }
 
 class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
-  constructor(props) {
+  constructor(props: TitleCardFormProps) {
     super(props)
 
-    if (props.routeParams.titleCardID && props.titleCards.hasreceiveddata) {
-      const {titleCardID} = props.routeParams
-      const titleCard = props.titleCards.data[titleCardID]
-      const {title, content} = titleCard
+    const { match, titleCards } = props
+    const { params } = match
+    const { titleCardID } = params
+    const { data, hasreceiveddata } = titleCards
+    if (titleCardID && hasreceiveddata) {
+      const titleCard = data[titleCardID]
+      const { title, content } = titleCard
       this.state = {
         content: content ? content : '',
         title: title ? title : ''
@@ -40,19 +43,17 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
         content: ''
       }
     }
-
-    this.handleTitleChange = this.handleTitleChange.bind(this)
-    this.handleContentChange = this.handleContentChange.bind(this)
-    this.submit = this.submit.bind(this)
-    this.renderHeaderText = this.renderHeaderText.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.titleCards.hasreceiveddata && !this.props.titleCards.hasreceiveddata) {
-      if (nextProps.routeParams.titleCardID && nextProps.titleCards.hasreceiveddata) {
-        const {titleCardID} = nextProps.routeParams
-        const titleCard = nextProps.titleCards.data[titleCardID]
-        const {title, content} = titleCard
+  componentDidUpdate(prevProps: TitleCardFormProps) {
+    const { match, titleCards } = this.props
+    const { params } = match
+    const { titleCardID } = params
+    const { data, hasreceiveddata } = titleCards
+    if (hasreceiveddata && !prevProps.titleCards.hasreceiveddata) {
+      if (titleCardID && hasreceiveddata) {
+        const titleCard = data[titleCardID]
+        const { title, content } = titleCard
         this.setState({
           content: content ? content : this.state.content,
           title: title ? title : this.state.title
@@ -61,26 +62,30 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     }
   }
 
-  submit() {
-    const { titleCardID } = this.props.routeParams
+  submit = () => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { titleCardID } = params
     if (titleCardID) {
-      this.props.dispatch(submitTitleCardEdit(titleCardID, this.state))
+      dispatch(submitTitleCardEdit(titleCardID, this.state))
     } else {
-      this.props.dispatch(submitNewTitleCard(this.state))
+      dispatch(submitNewTitleCard(this.state))
     }
   }
 
-  handleTitleChange(e) {
+  handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     this.setState({title: e.target.value})
   }
 
-  handleContentChange(e) {
+  handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const formattedContent = e.replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>')
     this.setState({content: formattedContent})
   }
 
-  renderHeaderText() {
-    const { titleCardID } = this.props.routeParams
+  renderHeaderText = () => {
+    const { match } = this.props
+    const { params } = match
+    const { titleCardID } = params
     if (titleCardID) {
       return 'Edit this title card'
     } else {
@@ -89,19 +94,20 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   }
 
   render() {
+    const { content, title } = this.state
     return (
       <div className="box">
         <h6 className="control subtitle">{this.renderHeaderText()}</h6>
         <br />
         <label className="label">Title</label>
-        <textarea className="input" onChange={this.handleTitleChange} value={this.state.title || ""} />
+        <textarea className="input" onChange={this.handleTitleChange} value={title || ""} />
         <br />
         <label className="label">Content</label>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
           handleTextChange={this.handleContentChange}
-          text={this.state.content || ""}
+          text={content || ""}
         />
         <br />
         <button className="button is-primary" onClick={this.submit}>Save Question</button>
@@ -110,7 +116,7 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   }
 }
 
-function select(state) {
+function select(state: any) {
   return {
     titleCards: state.titleCards,
     routing: state.routing
