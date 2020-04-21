@@ -75,7 +75,6 @@ class FillInBlankForm extends Component {
       cuesLabel: this.state.cuesLabel
     };
     this.props.action(data, this.state.newQuestionOptimalResponse);
-    window.location.href = window.location.origin + '/#/admin/fill-in-the-blanks/' + questionID;
   };
 
   toggleQuestionBlankAllowed = () => {
