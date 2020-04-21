@@ -148,7 +148,7 @@
     "build:server": "webpack --config webpack.server.rails.build.config.js",
     "hot-assets": "NODE_ENV=development babel-node server-rails-hot.js",
     "install-react-on-rails": "npm install 'react-on-rails'",
-    "jest": "jest --passWithNoTests",
+    "jest": "node --expose-gc ./node_modules/.bin/jest --maxWorkers=1 --logHeapUsage",
     "jest:watch": "jest --watch",
     "jest:coverage": "jest --coverage",
     "jest:silent": "jest --silent",
