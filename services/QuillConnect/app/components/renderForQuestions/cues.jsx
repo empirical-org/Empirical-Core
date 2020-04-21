@@ -2,9 +2,8 @@ import React from 'react';
 import { Cue, CueExplanation } from 'quill-component-library/dist/componentLibrary'
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 
-export default React.createClass({
-
-  getJoiningWordsText() {
+export default class extends React.Component {
+  getJoiningWordsText = () => {
     let text
     if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
       return this.props.getQuestion().cuesLabel
@@ -17,16 +16,16 @@ export default React.createClass({
       text = 'joining words';
       return text;
     }
-  },
+  };
 
-  renderExplanation() {
+  renderExplanation = () => {
     const text = this.getJoiningWordsText()
     return (
       <CueExplanation text={text} />
     );
-  },
+  };
 
-  renderCues() {
+  renderCues = () => {
     let arrowPicture, text
     if (this.props.displayArrowAndText) {
       arrowPicture = this.props.getQuestion().cuesLabel !== ' ' ? <img alt="Arrow Icon" src={arrow} /> : null
@@ -45,10 +44,9 @@ export default React.createClass({
         </div>
       );
     }
-  },
+  };
 
   render() {
     return <div>{this.renderCues()}</div>;
-  },
-
-});
+  }
+}

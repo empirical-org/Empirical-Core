@@ -96,7 +96,7 @@ function submitNewQuestion(content, response) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const action = push(`/admin/questions/${response.questionUID}`);
+      const action = push(`/admin/fill-in-the-blanks/${response.questionUID}`);
       dispatch(action);
     }, (error) => {
       dispatch({ type: C.RECEIVE_NEW_FILL_IN_BLANK_QUESTION_RESPONSE, });

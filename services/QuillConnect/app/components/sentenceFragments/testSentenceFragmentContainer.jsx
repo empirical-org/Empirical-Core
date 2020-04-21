@@ -18,11 +18,15 @@ class TestQuestion extends Component {
     this.reset();
   }
 
-  reset = () => {
+  getQuestion = () => {
+    const { sentenceFragments, params, } = this.props
+    return sentenceFragments.data[params.questionID];
+  }
+
+  markIdentify = (bool) => {
     const { dispatch, } = this.props
-    dispatch(clearData());
-    this.startActivity();
-    this.setState(prevState => ({ key: prevState.key + 1, }));
+    const action = updateCurrentQuestion({identified: bool})
+    dispatch(action)
   }
 
   questionsForLesson = () => {
@@ -40,23 +44,19 @@ class TestQuestion extends Component {
     ];
   }
 
+  reset = () => {
+    const { dispatch, } = this.props
+    dispatch(clearData());
+    this.startActivity();
+    this.setState(prevState => ({ key: prevState.key + 1, }));
+  }
+
   startActivity = () => {
     const { dispatch, } = this.props
     const action = loadData(this.questionsForLesson());
     dispatch(action);
     const next = nextQuestion();
     dispatch(next);
-  }
-
-  getQuestion = () => {
-    const { sentenceFragments, params, } = this.props
-    return sentenceFragments.data[params.questionID];
-  }
-
-  markIdentify = (bool) => {
-    const { dispatch, } = this.props
-    const action = updateCurrentQuestion({identified: bool})
-    dispatch(action)
   }
 
   submitResponse = (response) => {

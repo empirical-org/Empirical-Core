@@ -21,7 +21,6 @@ import Diagnostics from '../diagnostics/diagnostics.jsx';
 import NewDiagnostic from '../diagnostics/new.jsx';
 import Lessons from '../lessons/lessons.jsx';
 import Lesson from '../lessons/lesson.jsx';
-import LessonResults from '../lessons/lessonResults.jsx';
 import Questions from '../questions/questions.jsx';
 import Question from '../questions/question';
 import ChooseModelContainer from '../questions/chooseModelContainer.jsx';
@@ -130,7 +129,6 @@ class Admin extends React.Component {
           <Route component={CloneConnectQuestions} path='/admin/clone_questions' />
           <Route component={NewDiagnostic} path='/admin/diagnostics/new' />
           <Route component={Diagnostics} path='/admin/diagnostics' />
-          <Route component={LessonResults} path='/admin/lessons/:lessonID/results' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />
           <Route component={Lessons} path='/admin/lessons' />
           <Route component={Question} path='/admin/questions/:questionID' />
