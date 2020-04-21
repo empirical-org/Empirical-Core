@@ -20,7 +20,7 @@ class UserSubscription < ActiveRecord::Base
   def send_premium_emails
     if Rails.env.production? || User.find(user_id).email.match('quill.org')
       if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
-      #if subscription&.account_type&.downcase != 'teacher trial' && subscription&.school_subscriptions&.empty?
+        #if subscription&.account_type&.downcase != 'teacher trial' && subscription&.school_subscriptions&.empty?
         PremiumUserSubscriptionEmailWorker.perform_async(user_id)
       elsif subscription.account_type.downcase != 'teacher trial'
         logger.info("A premium school subscription email is being sent for Subscription #{subscription.id} and User #{user_id}")
