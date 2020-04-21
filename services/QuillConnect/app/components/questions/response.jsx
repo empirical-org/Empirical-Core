@@ -509,7 +509,7 @@ export default class extends React.Component {
     }
   }
 
-  render = () => {
+  render() {
     const { response, state, } = this.props;
     const isEditing = (state === (`${C.START_RESPONSE_EDIT}_${response.key}`));
     const isViewingChildResponses = (state === (`${C.START_CHILD_RESPONSE_VIEW}_${response.key}`));
