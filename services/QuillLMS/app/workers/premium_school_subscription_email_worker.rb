@@ -4,7 +4,8 @@ class PremiumSchoolSubscriptionEmailWorker
   def perform(user_id)
     @user = User.find(user_id)
     school = @user.school
-    admin = school&.schools_admins&.first&.try(:user)
+    #admin = school&.schools_admins&.first&.try(:user)
+    admin = school.schools_admins.first.try(:user)
     if admin.nil?
       raise "admin is nil"
     else
