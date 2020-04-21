@@ -1,9 +1,19 @@
 import * as React from 'react'
 
 import { Concept } from '../../interfaces/concepts'
-const notNecessaryIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/not_necessary_icon.png`
-const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/incorrect_icon.png`
-const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/correct_icon.png`
+
+import {
+  UNNECESSARY_SPACE,
+  MULTIPLE_UNNECESSARY_DELETION,
+  SINGLE_UNNECESSARY_DELETION,
+  MULTIPLE_UNNECESSARY_ADDITION,
+  SINGLE_UNNECESSARY_ADDITION,
+  UNNECESSARY_CHANGE
+} from '../../helpers/determineUnnecessaryEditType'
+
+const notNecessaryIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/review-not-necessary.svg`
+const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/review-incorrect.svg`
+const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/review-correct.svg`
 
 interface EditProps {
   displayText: string;
@@ -13,126 +23,142 @@ interface EditProps {
   index: number;
   numberOfEdits: number;
   next: any;
+  back?: Function;
   incorrectText: string|null;
   id: string;
 }
 
 export default class Edit extends React.Component<EditProps, {offset: string}> {
-  constructor(props: EditProps) {
-    super(props)
-
-    this.state = { offset: ''}
-
-    this.renderTooltip = this.renderTooltip.bind(this)
-    this.renderGrammaticalConcept = this.renderGrammaticalConcept.bind(this)
-    this.renderCorrectAnswers = this.renderCorrectAnswers.bind(this)
-  }
-
-  componentDidMount() {
-    const { id } = this.props
-    const element = document.getElementById(id)
-    let tooltipWidth = 340
-    if (window.innerWidth <= 900) {
-      tooltipWidth = 230
-    } else if (window.innerWidth <= 400) {
-      tooltipWidth = 185
-    }
-    let remainingWidth
-    let offset = ''
-    if (element) {
-      // the following line handles the case where the element is split across two lines, because its offsetWidth will be roughly the width of the entire text area
-      if (window.innerWidth - 200 < element.offsetWidth) {
-        // if that's the case, we want to calculate the remaining width without reference to the element itself
-        remainingWidth = window.innerWidth - element.offsetLeft - tooltipWidth
-      } else {
-        // otherwise, since the tooltip begins where the element does, we can include the element's width as part of the space needed for the tooltip
-        remainingWidth = (window.innerWidth - element.offsetLeft - tooltipWidth) + element.offsetWidth
-      }
-      offset = remainingWidth < tooltipWidth ? 'offset' : ''
-    }
-
-    // disabling normal rule about not setting state in componentDidMount because we have to have mounted the component for this to work
-    this.setState({ offset }) // eslint-disable-line react/no-did-mount-set-state
-  }
-
-  renderGrammaticalConcept():JSX.Element|void {
+  renderConceptExplanation(): JSX.Element {
     const { concept } = this.props
-    if (concept) {
-      return (<div>
-        <p className="label">Grammatical Concept:</p>
-        <p>{concept.name}</p>
-      </div>)
-    }
+    if (!(concept && concept.explanation)) { return <span /> }
+    return (<div className="explanation">
+      <p className="label">Explanation</p>
+      <p>{concept.explanation}</p>
+    </div>)
   }
 
   renderCorrectAnswers() {
     const { displayText } = this.props
-    if (displayText) {
-      const correctAnswerArray = displayText ? displayText.split('~') : []
-      let correctAnswers
-      let correctAnswerHTML
-      let labelText
-      if (correctAnswerArray.length > 1) {
-        correctAnswers = correctAnswerArray.map(ca => <li>{ca}</li>)
-        correctAnswerHTML = <ul>{correctAnswers}</ul>
-        labelText = 'Correct Edits:'
-      } else {
-        correctAnswers = correctAnswerArray[0]
-        correctAnswerHTML = <p>{correctAnswers}</p>
-        labelText = 'Correct Edit:'
-      }
-      return (<div>
-        <p className="label">{labelText}</p>
-        {correctAnswerHTML}
-      </div>)
-    } else {
-      return <span />
+    if (!displayText) { return }
+
+    const correctAnswerArray = displayText ? displayText.split('~') : []
+    const correctAnswers = correctAnswerArray.map(ca => <span className="correct-answer">{ca}</span>)
+    const correctAnswerHTML = <p>{correctAnswers}</p>
+    return (<div>
+      <p className="label">Correct</p>
+      {correctAnswerHTML}
+    </div>)
+  }
+
+  renderNotNecessaryExplanation() {
+    const { state, } = this.props
+    const unnecessaryArray = [UNNECESSARY_SPACE, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_DELETION, MULTIPLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_ADDITION, UNNECESSARY_CHANGE]
+    if (!unnecessaryArray.includes(state)) { return }
+    let explanation
+
+    switch (state) {
+      case UNNECESSARY_SPACE:
+        explanation = 'You added an unnecessary space.'
+        break
+      case MULTIPLE_UNNECESSARY_DELETION:
+        explanation = "You took out words that weren't part of an error."
+        break
+      case SINGLE_UNNECESSARY_DELETION:
+        explanation = "You took out a word that wasn't part of an error."
+        break
+      case MULTIPLE_UNNECESSARY_ADDITION:
+        explanation = "You added unnecessary words."
+        break
+      case SINGLE_UNNECESSARY_ADDITION:
+        explanation = "You added an unnecessary word."
+        break
+      case SINGLE_UNNECESSARY_ADDITION:
+        explanation = "You added an unnecessary word."
+        break
+      case UNNECESSARY_CHANGE:
+        explanation = 'You made an unnecessary change.'
+        break
     }
+
+    return <p className="unnecessary-explanation">{explanation}</p>
   }
 
   renderTooltip() {
-    const { activeIndex, index, state, numberOfEdits, next } = this.props
-    const { offset } = this.state
+    const { activeIndex, index, state, numberOfEdits, next, back, id, } = this.props
     const visible = activeIndex === index ? 'visible' : 'invisible'
-    let src, headerText
+    let src, headerText, altText
     switch (state) {
       case 'correct':
-        src = correctIconSrc;
-        headerText = 'Correct'
+        src = correctIconSrc
+        altText = "Correct icon"
+        headerText = "Correct"
         break
       case 'incorrect':
-        src = incorrectIconSrc;
-        headerText = 'Incorrect'
+        src = incorrectIconSrc
+        altText = "Incorrect icon"
+        headerText = "Incorrect"
         break
-      case 'unnecessary':
+      case UNNECESSARY_SPACE:
+      case MULTIPLE_UNNECESSARY_DELETION:
+      case SINGLE_UNNECESSARY_DELETION:
+      case MULTIPLE_UNNECESSARY_ADDITION:
+      case SINGLE_UNNECESSARY_ADDITION:
+      case UNNECESSARY_CHANGE:
         src = notNecessaryIconSrc
-        headerText = 'Not Necessary'
+        altText = "Not necessary icon"
+        headerText = "Not necessary"
         break
     }
-    return (<div className={`edit-tooltip ${visible} ${offset}`}>
+    const parentElement = document.getElementById(id)
+    const style = parentElement ? { top: `${parentElement.offsetTop}px` } : {}
+    const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back}>Back</button> : <div className="placeholder" />
+    const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next}>{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
+    return (<div className={`edit-tooltip ${visible}`} style={style}>
       <div className="top-section">
-        <div className="header">
-          <img src={src} />
-          <h1>{headerText}</h1>
-        </div>
-        <p>Edit {index + 1} of {numberOfEdits}</p>
+        <img alt={altText} src={src} />
+        <h2>{headerText}</h2>
       </div>
       <div className="middle-section">
+        {this.renderNotNecessaryExplanation()}
         {this.renderCorrectAnswers()}
-        {this.renderGrammaticalConcept()}
+        {this.renderConceptExplanation()}
       </div>
       <div className="button-section">
-        <button onClick={next}>Next Edit ➞</button>
+        {backButton}
+        <div className="counter">{index + 1} of {numberOfEdits}</div>
+        {nextButton}
       </div>
     </div>)
   }
 
+  editClassName() {
+    const { activeIndex, index, state, } = this.props
+    let className = activeIndex === index ? 'active' : ''
+    switch (state) {
+      case 'correct':
+        className += ' correct'
+        break
+      case 'incorrect':
+        className += ' incorrect'
+        break
+      case UNNECESSARY_SPACE:
+      case MULTIPLE_UNNECESSARY_DELETION:
+      case SINGLE_UNNECESSARY_DELETION:
+      case MULTIPLE_UNNECESSARY_ADDITION:
+      case SINGLE_UNNECESSARY_ADDITION:
+      case UNNECESSARY_CHANGE:
+        className += ' unnecessary'
+        break
+    }
+    return className
+  }
+
   render() {
-    const { activeIndex, index, state, id } = this.props
-    const className = activeIndex === index ? 'active' : ''
+    const { id, incorrectText, displayText, } = this.props
     const tooltip = this.renderTooltip()
-    return (<div className={`edit ${className} ${state}`} id={id}>
-      <strong>{this.props.incorrectText || this.props.displayText}</strong>
+    return (<div className={`edit ${this.editClassName()}`} id={id}>
+      <span className="displayed-text">{incorrectText || displayText}</span>
       {tooltip}
     </div>)
   }

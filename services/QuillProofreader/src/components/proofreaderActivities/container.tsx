@@ -17,12 +17,7 @@ import {
   removeSession,
   setPassage
 } from "../../actions/session";
-import determineUnnecessaryEditType, {
-  UNNECESSARY_SPACE,
-  UNNECESSARY_DELETION,
-  UNNECESSARY_ADDITION,
-  UNNECESSARY_CHANGE
-} from '../../helpers/determineUnnecessaryEditType'
+import determineUnnecessaryEditType from '../../helpers/determineUnnecessaryEditType'
 
 import { SessionState } from '../../reducers/sessionReducer'
 import { ProofreaderActivityState } from '../../reducers/proofreaderActivitiesReducer'
@@ -234,7 +229,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
             const stringNormalizedOriginalText = stringNormalize(originalText)
             if (necessaryEditIndex || necessaryEditIndex === 0) {
               if (stringNormalizedCorrectText.split('~').includes(stringNormalizedCurrentText)) {
-                numberOfCorrectChanges+=1
+                numberOfCorrectChanges +=1
                 conceptResultsObjects.push({
                   metadata: {
                     answer: stringNormalizedCurrentText,
@@ -263,7 +258,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 })
                 words.push(`{+${correctText}-${stringNormalizedCurrentText}|${conceptUID}}`)
               }
-            } else if (determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)) {
+            } else if (stringNormalizedOriginalText !== stringNormalizedCurrentText) {
               words.push(`{+${stringNormalizedOriginalText}-${stringNormalizedCurrentText}|${determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)}}`)
             } else {
               words.push(stringNormalizedCurrentText)

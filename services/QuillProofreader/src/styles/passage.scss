@@ -113,8 +113,17 @@
     }
   }
 
+  .reviewer-container {
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+  }
+
   .reviewer {
-    padding-bottom: 300px;
+    font-size: 21px;
+    max-width: 448px;
+    line-height: 1.52;
+    margin: 0px;
   }
 
   .ql-editor:focus {

@@ -3,8 +3,16 @@ import * as React from 'react';
 import { Concept } from '../../interfaces/concepts'
 import Edit from './edit'
 
-// import * as jsdiff from 'diff'
-// import * as _ from 'underscore'
+import {
+  UNNECESSARY_SPACE,
+  MULTIPLE_UNNECESSARY_DELETION,
+  SINGLE_UNNECESSARY_DELETION,
+  MULTIPLE_UNNECESSARY_ADDITION,
+  SINGLE_UNNECESSARY_ADDITION,
+  UNNECESSARY_CHANGE
+} from '../../helpers/determineUnnecessaryEditType'
+
+const unnecessaryArray = [UNNECESSARY_SPACE, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_DELETION, MULTIPLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_ADDITION, UNNECESSARY_CHANGE]
 
 interface PassageReviewerProps {
   text: string;
@@ -28,27 +36,33 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
       activeIndex: 0,
       numberOfEdits
     }
-
-    this.next = this.next.bind(this)
-    this.renderFormattedText = this.renderFormattedText.bind(this)
   }
 
   componentDidMount() {
     window.scrollTo(0, 0)
   }
 
-  next() {
+  next = () => {
     const { activeIndex, numberOfEdits } = this.state
     if (activeIndex + 1 === numberOfEdits) {
       this.props.finishReview()
     } else {
-      this.setState({
-        activeIndex: activeIndex + 1
-      })
-      const el = document.getElementById(String(activeIndex + 1))
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }
+      this.setState(prevState => ({ activeIndex: prevState.activeIndex + 1}), this.scrollToActiveIndex)
+    }
+  }
+
+  back = () => {
+    const { activeIndex, } = this.state
+    if (activeIndex === 0) { return }
+
+    this.setState(prevState => ({ activeIndex: prevState.activeIndex - 1}), this.scrollToActiveIndex)
+  }
+
+  scrollToActiveIndex() {
+    const { activeIndex, } = this.state
+    const el = document.getElementById(String(activeIndex))
+    if (el) {
+      el.scrollIntoView()
     }
   }
 
@@ -71,14 +85,15 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           const concept = this.props.concepts.find(c => c.uid === conceptUID)
           const indexToPass = index
           let state = 'correct'
-          if (conceptUID === 'unnecessary') {
-            state = 'unnecessary'
+          if (unnecessaryArray.includes(conceptUID)) {
+            state = conceptUID
           } else if (negative) {
             state = 'incorrect'
           }
           index+=1
           parts[i] = (<Edit
             activeIndex={activeIndex}
+            back={indexToPass ? this.back : null}
             concept={concept}
             displayText={plus}
             id={`${index}`}
@@ -101,8 +116,10 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
 
   render() {
     if (this.props.text) {
-      return (<div className="reviewer" >
-        {this.renderFormattedText()}
+      return (<div className="reviewer-container">
+        <div className="reviewer" >
+          {this.renderFormattedText()}
+        </div>
       </div>)
     } else {
       return <p>No passage</p>
