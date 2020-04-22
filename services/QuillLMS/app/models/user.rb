@@ -628,6 +628,10 @@ class User < ActiveRecord::Base
 
   def google_id_present?
     return false if !google_id
+    return true if !id
+
+    extant_user = User.find_by_id(id)
+    extant_user.google_id != google_id
   end
 
   def requires_password?
