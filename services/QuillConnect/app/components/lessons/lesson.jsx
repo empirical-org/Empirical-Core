@@ -121,7 +121,7 @@ class Lesson extends React.Component {
 
           <h6 className="subtitle">{lesson.flag}</h6>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
-          <h6 className="subtitle"><Link to={`play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
+          <h6 className="subtitle"><Link to={`/play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>

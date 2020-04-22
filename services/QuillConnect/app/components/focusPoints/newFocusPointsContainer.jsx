@@ -35,7 +35,6 @@ class NewFocusPointsContainer extends Component {
   };
 
   render() {
-    console.log('newFocusPoints-props', this.props)
     const { match, questions, sentenceFragments } = this.props
     const { params } = match
     const { questionID } = params

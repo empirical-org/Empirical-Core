@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import PlayLessonQuestion from './question';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx'
@@ -9,8 +10,7 @@ import {
   Spinner,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
 import SessionActions from '../../actions/sessions.js';
 import _ from 'underscore';
 import { getConceptResultsForAllQuestions, calculateScoreForLesson } from '../../libs/conceptResults/lesson';
@@ -76,9 +76,11 @@ export class Lesson extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, params, } = this.props
-
-    return lessons.data[params.lessonID];
+    const { lessons, match } = this.props
+    const { data } = lessons
+    const { params } = match
+    const { lessonID } = params
+    return data[lessonID];
   }
 
   createAnonActivitySession = (lessonID, results, score) => {
@@ -148,8 +150,9 @@ export class Lesson extends React.Component {
   }
 
   questionsForLesson = () => {
-    const { params, lessons, } = this.props
+    const { match, lessons } = this.props
     const { data, } = lessons
+    const { params, } = match
     const { lessonID, } = params;
     const filteredQuestions = data[lessonID].questions.filter((ques) => {
       const question = this.props[ques.questionType].data[ques.key] // eslint-disable-line react/destructuring-assignment
@@ -212,13 +215,14 @@ export class Lesson extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playLesson, params, } = this.props
+    const { playLesson, match } = this.props
+    const { params } = match
     const { sessionID, } = this.state
+    const { lessonID, } = params;
     this.setState({ error: false, });
     const relevantAnsweredQuestions = playLesson.answeredQuestions.filter(q => q.questionType !== 'TL')
     const results = getConceptResultsForAllQuestions(relevantAnsweredQuestions);
     const score = calculateScoreForLesson(relevantAnsweredQuestions);
-    const { lessonID, } = params;
     if (sessionID) {
       this.finishActivitySession(sessionID, results, score);
     } else {
@@ -261,8 +265,9 @@ export class Lesson extends React.Component {
 
   render() {
     const { sessionInitialized, error, sessionID, saved, session, } = this.state
-    const { conceptsFeedback, playLesson, dispatch, lessons, params, } = this.props
+    const { conceptsFeedback, playLesson, dispatch, lessons, match } = this.props
     const { data, hasreceiveddata, } = lessons
+    const { params } = match
     const { lessonID, } = params;
     let component;
 
@@ -361,4 +366,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Lesson);
+export default withRouter(connect(select)(Lesson));

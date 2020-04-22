@@ -31,7 +31,7 @@ class Questions extends React.Component {
 
     this.state = {
       showOnlyArchived: false,
-      questions: questions || {}
+      questions: questions.data ? questions.data : {}
     }
   }
 
@@ -217,9 +217,12 @@ class Questions extends React.Component {
   };
 
   render() {
-    const { showOnlyArchived } = this.state
-    const { questions, concepts, } = this.props;
-    if (questions.hasreceiveddata && concepts.hasreceiveddata) {
+    const { questions, showOnlyArchived } = this.state
+    const { concepts } = this.props;
+    const { hasreceiveddata } = concepts
+    const questionsLoaded = Object.keys(questions) !== 0
+
+    if (questionsLoaded && hasreceiveddata) {
       return (
         <section className="section">
           <div className="container">
@@ -232,7 +235,7 @@ class Questions extends React.Component {
             <QuestionListByConcept
               basePath={'questions'}
               concepts={concepts}
-              questions={this.state.questions}
+              questions={questions}
               showOnlyArchived={showOnlyArchived}
             />
 

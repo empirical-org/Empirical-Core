@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as request from 'request'
 import _ from 'underscore';
 import {
-  hashToCollection,
   Spinner,
   CarouselAnimation,
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
@@ -39,16 +39,21 @@ export class TurkActivity extends React.Component {
 
 
   getData = () => {
-    const { params, } = this.props
-    if (params.lessonID) {
+    const { match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    if (lessonID) {
       return this.questionsForLesson();
     }
     return diagnosticQuestions();
   }
 
   getLesson = () => {
-    const { lessons, params, } = this.props
-    return lessons.data[params.lessonID];
+    const { lessons, match } = this.props
+    const { data } = lessons
+    const { params } = match
+    const { lessonID } = params
+    return data[lessonID];
   }
 
   createAnonActivitySession = (lessonID, results, score) => {
@@ -109,7 +114,8 @@ export class TurkActivity extends React.Component {
   }
 
   questionsForLesson = () => {
-    const { lessons, params, } = this.props
+    const { lessons, match } = this.props
+    const { params } = match
     const { data, } = lessons
     const { lessonID, } = params
 
@@ -131,15 +137,18 @@ export class TurkActivity extends React.Component {
 
   saveToLMS = () => {
     const { sessionID, } = this.state
-    const { playTurk, params, } = this.props
+    const { playTurk, match } = this.props
+    const { answeredQuestions } = playTurk
+    const { params } = match
+    const { lessonID } = params
 
     this.setState({ error: false, });
-    const results = getConceptResultsForAllQuestions(playTurk.answeredQuestions);
+    const results = getConceptResultsForAllQuestions(answeredQuestions);
 
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
     } else {
-      this.createAnonActivitySession(params.lessonID, results, 1);
+      this.createAnonActivitySession(lessonID, results, 1);
     }
   }
 
@@ -159,15 +168,12 @@ export class TurkActivity extends React.Component {
 
   renderProgressBar = () => {
     const { playTurk, } = this.props
-    if (!playTurk.currentQuestion) { return }
 
     if (!playTurk.currentQuestion) { return }
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playTurk)
-
     const currentQuestionIsTitleCard = playTurk.currentQuestion.type === 'TL'
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
-
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
     return (<ProgressBar
@@ -181,8 +187,9 @@ export class TurkActivity extends React.Component {
 
   render() {
     const { saved, } = this.state
-    const { lessons, params, playTurk, questions, sentenceFragments, dispatch, conceptsFeedback, } = this.props
+    const { lessons, match, playTurk, questions, sentenceFragments, dispatch, conceptsFeedback, } = this.props
     const { data, } = lessons
+    const { params } = match
     const { lessonID, } = params
     const questionType = playTurk.currentQuestion ? playTurk.currentQuestion.type : ''
     let component;
@@ -264,4 +271,4 @@ function select(state) {
     fillInBlank: state.fillInBlank
   };
 }
-export default connect(select)(TurkActivity);
+export default withRouter(connect(select)(TurkActivity));
