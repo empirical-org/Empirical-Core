@@ -11,13 +11,35 @@ if defined?(Sprockets)
       puts "***** Start #{npm_build}"
       time = Benchmark.realtime do
         # Use open3 so an error aborts the build (backticks `` swallow the error)
-        Open3.popen3(npm_build) do |stdin, stdout, stderr, wait_thr|
-          while line = stdout.gets
-            puts line
-          end
+        stdout, stderr, status = Open3.capture3(npm_build)
+
+        if status.success?
+          puts stdout
+        else
+          abort 'error: could not execute command'
         end
       end
       puts "***** End #{npm_build}"
       puts "Time elapsed: #{time} seconds"
     end
+end
+
+namespace :asset_test do
+
+  task task: :environment do
+    # output = `erroing command`
+    # if $?.success?
+    #   puts 'success'
+    # else
+    #   abort 'eror'
+    # end
+
+    stdout, stderr, status = Open3.capture3('ls -l')
+
+    if status.success?
+      puts stdout
+    else
+      abort 'error: could not execute command'
+    end
+  end
 end
