@@ -51,8 +51,8 @@ export function unnecessaryAdditionMatch(originalText: string, editedText: strin
 
 export function unnecessaryDeletionMatch(originalText: string, editedText: string): UnnecessaryEditTypeResponse {
   const response = { matched: false, unnecessaryEditType: SINGLE_UNNECESSARY_DELETION }
-  const editedTextWords = editedText.split(' ')
-  const originalTextWords = originalText.split(' ')
+  const editedTextWords = editedText.split(' ').filter(word => word.length)
+  const originalTextWords = originalText.split(' ').filter(word => word.length)
   const originalTextContainsMoreWords = editedTextWords.length < originalTextWords.length
   const originalTextContainsAllEditedWords = editedTextWords.every(word => originalTextWords.includes(word))
   if (originalTextContainsMoreWords && originalTextContainsAllEditedWords) {

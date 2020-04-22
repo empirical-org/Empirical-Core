@@ -1,6 +1,6 @@
-.early-submit-modal-container, .review-modal-container, .reset-modal-container {
+.early-submit-modal-container, .review-modal-container, .reset-modal-container, .followup-modal-container {
 
-  .early-submit-modal-background, .review-modal-background, .reset-modal-background {
+  .early-submit-modal-background, .review-modal-background, .reset-modal-background, .followup-modal-background {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -21,7 +21,7 @@
     }
   }
 
-  .reset-modal, .early-submit-modal, .review-modal {
+  .reset-modal, .early-submit-modal, .review-modal, .followup-modal {
     border-radius: 6px;
     background-color: #ffffff;
     position: fixed;
@@ -45,7 +45,7 @@
     }
   }
 
-  .reset-modal {
+  .reset-modal, .followup-modal {
     max-width: 560px;
     width: 100%;
     min-height: 230px;

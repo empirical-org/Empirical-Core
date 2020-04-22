@@ -124,6 +124,10 @@
     max-width: 448px;
     line-height: 1.52;
     margin: 0px;
+    white-space: pre-wrap;
+    @media (max-width: 800px) {
+      max-width: 100%;
+    }
   }
 
   .ql-editor:focus {

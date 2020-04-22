@@ -27,6 +27,7 @@ import EarlySubmitModal from './earlySubmitModal'
 import Paragraph from './paragraph'
 import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
+import FollowupModal from './followupModal'
 import ProgressBar from './progressBar'
 import formatInitialPassage from './formatInitialPassage'
 import LoadingSpinner from '../shared/loading_spinner'
@@ -46,6 +47,7 @@ interface PlayProofreaderContainerState {
   showEarlySubmitModal: boolean;
   showReviewModal: boolean;
   showResetModal: boolean;
+  showFollowupModal: boolean;
   firebaseSessionID: string|null;
   currentActivity: any;
   necessaryEdits?: RegExpMatchArray|null;
@@ -96,6 +98,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showEarlySubmitModal: false,
         showReviewModal: false,
         showResetModal: false,
+        showFollowupModal: false,
         numberOfResets: 0,
         firebaseSessionID: getParameterByName('student', window.location.href),
         currentActivity
@@ -259,12 +262,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                 words.push(`{+${correctText}-${stringNormalizedCurrentText}|${conceptUID}}`)
               }
             } else if (stringNormalizedOriginalText !== stringNormalizedCurrentText) {
-              words.push(`{+${stringNormalizedOriginalText}-${stringNormalizedCurrentText}|${determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)}}`)
+              const displayedCurrentText = stringNormalizedCurrentText.length ? stringNormalizedCurrentText : ' '
+              words.push(`{+${stringNormalizedOriginalText}-${displayedCurrentText}|${determineUnnecessaryEditType(stringNormalizedOriginalText, stringNormalizedCurrentText)}}`)
             } else {
               words.push(stringNormalizedCurrentText)
             }
           })
-          reviewablePassage = reviewablePassage.concat('<p>').concat(words.join(' ')).concat('</p>')
+          reviewablePassage = reviewablePassage.concat('<p>').concat(words.filter(word => word.length).join(' ')).concat('</p>')
         })
         return { reviewablePassage, numberOfCorrectChanges, conceptResultsObjects }
       } else {
@@ -282,6 +286,13 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         this.setState( { reviewablePassage, showReviewModal: true, numberOfCorrectChanges, conceptResultsObjects }, this.saveCompletedSessionToFirebase)
       }
     }
+
+    goToFollowupPractice = () => {
+      const { firebaseSessionID,  } = this.state
+      window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
+    }
+
+    goToLMS = () =>  window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
 
     finishReview = () => {
       const { firebaseSessionID, originalPassage, conceptResultsObjects, necessaryEdits, numberOfCorrectChanges, } = this.state
@@ -303,7 +314,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         if (necessaryEdits && (necessaryEdits.length === numberOfCorrectChanges)) {
           this.saveToLMS()
         } else if (firebaseSessionID) {
-          window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
+          this.setState({ showFollowupModal: true, })
         }
       }
     }
@@ -365,6 +376,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           reset={this.reset}
         />)
       }
+    }
+
+    renderFollowupModal = (): JSX.Element|void => {
+      const { showFollowupModal, } = this.state
+      if (!showFollowupModal) { return }
+      return (<FollowupModal
+        goToFollowupPractice={this.goToFollowupPractice}
+        goToLMS={this.goToLMS}
+      />)
     }
 
     renderShowReviewModal = (): JSX.Element|void => {
@@ -447,7 +467,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
               <h1>{currentActivity.title}</h1>
               <div className="instructions">
                 <div>
-                  <img src={directionSrc} />
+                  <img alt="Directions icon" src={directionSrc} />
                   <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
                 </div>
               </div>
@@ -456,6 +476,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
           {this.renderShowEarlySubmitModal()}
           {this.renderShowResetModal()}
           {this.renderShowReviewModal()}
+          {this.renderFollowupModal()}
           <div className={`passage ${className}`}>
             {this.renderPassage()}
           </div>
