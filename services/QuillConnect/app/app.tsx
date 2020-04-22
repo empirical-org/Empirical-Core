@@ -17,21 +17,14 @@ import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
 import * as titleCardActions from './actions/titleCards.ts';
 import 'styles/style.scss';
-// import Raven from 'raven-js';
+//import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import Home from './components/home.tsx';
 
 // TO-DO: re-enable Sentry errors for QuillConnect when errors have been reduced
 
 // if (process.env.NODE_ENV === 'production') {
-//   Raven
-//   .config(
-//     'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
-//     {
-//       environment: process.env.NODE_ENV,
-//     }
-//   )
-//   .install();
+//   Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
 // }
 
 BackOff();
