@@ -5,7 +5,6 @@ import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 class sentenceFragmentForm extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props', props)
     const { data } = props
 
     if (!data) {

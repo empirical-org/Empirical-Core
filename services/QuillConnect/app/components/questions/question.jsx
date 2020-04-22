@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Route, Switch, withRouter, NavLink } from 'react-router-dom';
 import _ from 'underscore';
 import { Modal, UploadOptimalResponses } from 'quill-component-library/dist/componentLibrary';
 import EditForm from './questionForm.jsx';
@@ -12,6 +12,16 @@ import {
   submitOptimalResponses
 } from '../../actions/responses';
 import C from '../../constants';
+import FocusPointsContainer from '../focusPoints/focusPointsContainer.jsx';
+import EditFocusPointsContainer from '../focusPoints/editFocusPointsContainer.jsx';
+import NewFocusPointsContainer from '../focusPoints/newFocusPointsContainer.jsx';
+import IncorrectSequenceContainer from '../incorrectSequence/incorrectSequenceContainer.jsx';
+import EditIncorrectSequenceContainer from '../incorrectSequence/editIncorrectSequenceContainer.jsx';
+import NewIncorrectSequenceContainer from '../incorrectSequence/newIncorrectSequenceContainer.jsx';
+import ResponseComponentWrapper from './responseRouteWrapper.jsx';
+import MassEditContainer from './massEditContainer.jsx';
+import ChooseModelContainer from './chooseModelContainer.jsx';
+import TestQuestionContainer from './testQuestion';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -33,7 +43,8 @@ class Question extends React.Component {
   onCloseUploadOptimalResponsesModal = () => this.setState({ uploadingNewOptimalResponses: false })
 
   getQuestion = () => {
-    const { dispatch, params, questions, } = this.props
+    const { match, questions, } = this.props
+    const { params } = match
     const { data, } = questions;
     const { questionID, } = params;
     return data[questionID];
@@ -52,8 +63,10 @@ class Question extends React.Component {
   }
 
   cancelEditingQuestion = () => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.cancelQuestionEdit(params.questionID));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    dispatch(questionActions.cancelQuestionEdit(questionID));
   }
 
   chooseBoilerplateCategory = (e) => {
@@ -73,8 +86,10 @@ class Question extends React.Component {
   }
 
   handleClickStartEditingQuestion = () => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.startQuestionEdit(params.questionID));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    dispatch(questionActions.startQuestionEdit(questionID));
   }
 
   handleClickUploadOptimalResponses = () => {
@@ -82,34 +97,41 @@ class Question extends React.Component {
   }
 
   isLoading = () => {
-    const { questions, } = this.props
-    return !questions.hasreceiveddata;
+    const { questions } = this.props
+    const { hasreceiveddata } = questions
+    return !hasreceiveddata;
   }
 
   saveQuestionEdits = (vals) => {
-    const { dispatch, params, } = this.props
-    dispatch(questionActions.submitQuestionEdit(params.questionID, vals));
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    dispatch(questionActions.submitQuestionEdit(questionID, vals));
   }
 
   submitOptimalResponses = (responses) => {
-    const { dispatch, params, concepts, } = this.props
+    const { dispatch, match, concepts } = this.props
+    const { params } = match
+    const { questionID } = params
     const conceptUID = this.getQuestion().conceptID
     dispatch(
-      submitOptimalResponses(params.questionID, conceptUID, responses, concepts)
+      submitOptimalResponses(questionID, conceptUID, responses, concepts)
     )
     this.setState({ uploadingNewOptimalResponses: false, })
   }
 
   submitResponse = () => {
-    const { params, dispatch, } = this.props
+    const { match, dispatch, } = this.props
+    const { params } = match
+    const { questionID } = params
 
     const newResp = {
       vals: {
         text: this.refs.newResponseText.value,
         feedback: this.refs.newResponseFeedback.value,
         optimal: this.refs.newResponseOptimal.checked,
-        questionUID: params.questionID,
-        gradeIndex: `human${params.questionID}`,
+        questionUID: questionID,
+        gradeIndex: `human${questionID}`,
         count: 1,
       }
     };
@@ -149,11 +171,12 @@ class Question extends React.Component {
   }
 
   renderEditForm = () => {
-    const { questions, params, concepts, itemLevels, } = this.props
-    const { data, } = questions
+    const { questions, match, concepts, itemLevels, } = this.props
+    const { data, states } = questions
+    const { params } = match
     const { questionID, } = params;
     const question = (data[questionID]);
-    if (questions.states[questionID] === C.EDITING_QUESTION) {
+    if (states[questionID] === C.EDITING_QUESTION) {
       return (
         <Modal close={this.cancelEditingQuestion}>
           <EditForm concepts={concepts} itemLevels={itemLevels} question={question} submit={this.saveQuestionEdits} />
@@ -208,8 +231,9 @@ class Question extends React.Component {
   }
 
   render() {
-    const { questions, params, massEdit, children, } = this.props
-    const { data, states, } = questions
+    const { questions, match, massEdit } = this.props
+    const { data } = questions
+    const { params } = match
     const  { questionID, } = params;
     if (this.isLoading()) {
       return (<p>Loading...</p>);
@@ -230,7 +254,7 @@ class Question extends React.Component {
         }
       }
       return (
-        <div>
+        <div className="admin-container">
           {this.renderEditForm()}
           {this.renderNewResponseForm()}
           {this.renderUploadNewOptimalResponsesForm()}
@@ -247,22 +271,32 @@ class Question extends React.Component {
             <p>{instructionText}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-
             <a className="button is-outlined is-primary" onClick={this.handleClickStartEditingQuestion}>Edit Question</a>
             <a className="button is-outlined is-primary" onClick={this.handleClickAddNewResponse}>Add New Response</a>
             <a className="button is-outlined is-primary" onClick={this.handleClickUploadOptimalResponses}>Upload Optimal Responses</a>
           </p>
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`admin/questions/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`admin/questions/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/test`}>Play Question</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
               <NavLink activeClassName="is-active" to={`/admin/questions/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
               {activeLink}
             </ul>
           </div>
-          {children}
+          <Switch>
+            <Route component={EditIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
+            <Route component={NewIncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences/new`} />
+            <Route component={IncorrectSequenceContainer} path={`/admin/questions/:questionID/incorrect-sequences`} />
+            <Route component={EditFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/:focusPointID/edit`} />
+            <Route component={NewFocusPointsContainer} path={`/admin/questions/:questionID/focus-points/new`} />
+            <Route component={FocusPointsContainer} path={`/admin/questions/:questionID/focus-points`} />
+            <Route component={TestQuestionContainer} path={`/admin/questions/:questionID/test`} />
+            <Route component={ChooseModelContainer} path={`/admin/questions/:questionID/choose-model`} />
+            <Route component={MassEditContainer} path={`/admin/questions/:questionID/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`/admin/questions/:questionID/responses`} />
+          </Switch>
         </div>
       );
     } else {
@@ -283,4 +317,4 @@ function select(state) {
   };
 }
 
-export default connect(select)(Question);
+export default withRouter(connect(select)(Question));
