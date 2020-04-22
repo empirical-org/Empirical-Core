@@ -1240,13 +1240,6 @@ describe User, type: :model do
       expect(second_user.valid?).to be
     end
 
-    it 'should not pass the validation if the user already exists and is changing their google id to a non-unique one' do
-      create(:student, google_id: 'already_used')
-      second_user = create(:student, google_id: 'different_google_id')
-      second_user.google_id = 'already_used'
-      expect(second_user.valid?).not_to be
-    end
-
     it 'should pass the validation if the user already exists and changes their google id to a unique one' do
       user = create(:student)
       user.google_id = 'something'
