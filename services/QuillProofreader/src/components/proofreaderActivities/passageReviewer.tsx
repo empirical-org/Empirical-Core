@@ -39,7 +39,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    this.scrollToActiveIndex()
   }
 
   next = () => {
@@ -96,7 +96,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             back={indexToPass ? this.back : null}
             concept={concept}
             displayText={plus}
-            id={`${index}`}
+            id={`${indexToPass}`}
             incorrectText={negative}
             index={indexToPass}
             next={this.next}
