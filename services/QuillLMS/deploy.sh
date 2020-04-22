@@ -5,8 +5,8 @@ CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 case $1 in
   prod)
     DEPLOY_GIT_REMOTE=quill-lms-prod
-    URL = "https://www.quill.org/"
-    NR_URL = "https://rpm.newrelic.com/accounts/2639113/applications/548856875"
+    URL="https://www.quill.org/"
+    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
     if [ ${CURRENT_BRANCH} != "master" ]
     then
       echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
@@ -15,13 +15,13 @@ case $1 in
     ;;
   staging)
     DEPLOY_GIT_REMOTE=quill-lms-staging
-    URL = "https://staging.quill.org/"
-    NR_URL = "https://rpm.newrelic.com/accounts/2639113/applications/551848140"
+    URL="https://staging.quill.org/"
+    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   sprint)
     DEPLOY_GIT_REMOTE=quill-lms-sprint
-    URL = "https://sprint.quill.org/"
-    NR_URL = "https://rpm.newrelic.com/accounts/2639113/applications/551848140"
+    URL="https://sprint.quill.org/"
+    NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/551848140"
     ;;
   *)
     echo "You must provide an environment argument of 'sprint', 'staging', or 'prod'."
