@@ -163,14 +163,20 @@
     "xlsx": "^0.14.5"
   },
   "jest": {
+    "roots": [
+      "app"
+    ],
     "transform": {
-      ".*": "./test/jest.preprocessor.js"
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
     },
     "moduleFileExtensions": [
       "js",
       "jsx",
       "ts",
-      "tsx"
+      "tsx",
+      "json",
+      "node"
     ],
     "globals": {
       "ts-jest": {
