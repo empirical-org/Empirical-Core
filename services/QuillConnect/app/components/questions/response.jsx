@@ -27,7 +27,7 @@ export default class extends React.Component {
     this.setInitialState()
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(nextProps.response, this.props.response)) {
       let conceptResults = {}
       let feedback = nextProps.response.feedback

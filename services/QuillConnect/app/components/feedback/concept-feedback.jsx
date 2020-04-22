@@ -44,14 +44,14 @@ class ConceptFeedback extends React.Component {
       const isEditing = (states[conceptFeedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
       if (isEditing) {
         return (
-          <div key={conceptFeedbackID}>
+          <div className="admin-container" key={conceptFeedbackID}>
             <h4 className="title">{data[conceptFeedbackID].name}</h4>
             <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
           </div>
         )
       } else {
         return (
-          <div key={conceptFeedbackID}>
+          <div className="admin-container" key={conceptFeedbackID}>
             <ConceptExplanation {...data[conceptFeedbackID]} />
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
@@ -64,7 +64,7 @@ class ConceptFeedback extends React.Component {
       return (<p>Loading...</p>)
     } else {
       return (
-        <div className="container" key={conceptFeedbackID}>
+        <div className="admin-container" key={conceptFeedbackID}>
           <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
         </div>
       )

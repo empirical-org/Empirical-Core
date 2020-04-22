@@ -41,6 +41,7 @@ class ChooseModelContainer extends Component {
     const { questionID } = params
     let questionData = Object.assign({}, data[questionID], {modelConceptUID: null});
     dispatch(questionActions.submitQuestionEdit(questionID, questionData));
+    window.history.back();
   };
 
   saveModelConcept = () => {
