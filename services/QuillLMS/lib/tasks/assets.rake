@@ -13,9 +13,7 @@ if defined?(Sprockets)
         # Use open3 so an error aborts the build (backticks `` swallow the error)
         stdout, stderr, status = Open3.capture3(npm_build)
 
-        if status.success?
-          puts stdout
-        else
+        if !status.success?
           abort 'error: could not execute command'
         end
       end
