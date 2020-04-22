@@ -32,8 +32,8 @@ read -r -p "Deploy branch '$CURRENT_BRANCH' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
     git push -f ${DEPLOY_GIT_REMOTE} ${CURRENT_BRANCH}:master -v
-    open URL
-    open NR_URL
+    open $URL
+    open $NR_URL
 else
     echo "Ok, we won't deploy. Have a good day!"
 fi
