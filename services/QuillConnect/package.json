@@ -94,6 +94,7 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@sentry/browser": "^5.15.4",
     "actioncable": "^5.2.4",
     "animejs": "^2.2.0",
     "apply-feature": "^1.0.1",
@@ -125,7 +126,6 @@
     "pusher-js": "^4.4.0",
     "quill-component-library": "0.7.34",
     "quill-marking-logic": "0.13.1",
-    "raven-js": "^3.27.2",
     "react": "^15.6.2",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",

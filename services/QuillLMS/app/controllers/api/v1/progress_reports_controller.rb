@@ -3,7 +3,7 @@ class Api::V1::ProgressReportsController < Api::ApiController
   before_action :authorize!, only: :student_overview_data
 
   def activities_scores_by_classroom_data
-    classroom_ids = current_user.classrooms_i_teach.map(&:id)
+    classroom_ids = current_user&.classrooms_i_teach&.map(&:id)
     if !classroom_ids.empty?
       data = ProgressReports::ActivitiesScoresByClassroom.results(classroom_ids)
       render json: { data: data }

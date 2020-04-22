@@ -9,12 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.12",
     "pg": "^7.7.1",
-    "quill-marking-logic": "0.13.1",
+    "quill-marking-logic": "0.13.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "sequelize": "^4.42.0",
+    "sequelize": "^4.44.3",
     "underscore": "^1.9.1"
   }
 }
