@@ -291,8 +291,10 @@ class ActivitySession < ActiveRecord::Base
 
     concept_results.each do |concept_result|
       activity_session_id = activity_sessions.find do |activity_session|
-        activity_session[:uid] == concept_result[:activity_session_uid]
-      end[:id]
+        if activity_session && concept_result
+          activity_session[:uid] == concept_result[:activity_session_uid]
+        end
+      end&.id
       concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
       concept_result[:metadata] = concept_result[:metadata].to_json
       concept_result[:concept_id] = concept.id
