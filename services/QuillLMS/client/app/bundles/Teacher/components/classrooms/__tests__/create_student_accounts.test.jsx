@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
 
@@ -41,11 +41,12 @@ describe('CreateStudentAccounts component', () => {
   })
 
   describe('after adding a student', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <CreateStudentAccounts classroom={classroom} next={() => {}} />
     );
 
-    wrapper.setState({ students: [{ name: 'Happy Kid', password: 'Kid', username: 'happy.kid@happy-day'}] })
+    wrapper.setState({ firstName: 'Hello', lastName: 'Kid', students: [{ name: 'Happy Kid', password: 'Kid', username: 'happy.kid@happy-day'}] })
+    wrapper.instance().addStudent({ preventDefault() {} })
 
     it('should not have a disabled footer button', () => {
       expect(wrapper.find('.quill-button.primary').hasClass('disabled')).toBe(false)
@@ -54,6 +55,12 @@ describe('CreateStudentAccounts component', () => {
     it('should render a datatable', () => {
       expect(wrapper.find(DataTable).exists()).toBe(true)
     })
+
+    it('should focus on the first name input box', () => {
+      expect(wrapper.find('input#first-name').is(':focus')).toBe(true)
+      expect(wrapper.find('.input-container.last-name').hasClass('active')).toBe(false)
+    })
+
   })
 
 })
