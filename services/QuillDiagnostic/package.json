@@ -95,6 +95,7 @@
     "webpack-merge": "^4.1.3"
   },
   "dependencies": {
+    "@sentry/browser": "^5.15.4",
     "actioncable": "^5.1.1",
     "animejs": "^2.2.0",
     "antd": "^4.0.4",
@@ -129,7 +130,6 @@
     "pusher-js": "^4.1.0",
     "quill-component-library": "0.7.34",
     "quill-marking-logic": "0.13.1",
-    "raven-js": "^3.27.2",
     "react": "^16.13.0",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
