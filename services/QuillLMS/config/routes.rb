@@ -8,6 +8,7 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   # temporary setup for AP landing page
+  get '/AP' => redirect('activities/packs/193')
   get '/ap' => redirect('activities/packs/193')
 
   post "/graphql", to: "graphql#execute"
