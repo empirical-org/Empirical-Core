@@ -152,6 +152,9 @@
   border-radius: 6px;
   width: 500px;
   margin-bottom: 10px;
+  .fas {
+    margin-right: 5px;
+  }
   &:not(.create-concept-box) {
     position: -webkit-sticky; /* Safari */
     position: sticky;
@@ -459,15 +462,21 @@
 
 }
 
-.rule-description {
+.concept-attribute-field {
   border-top: 1px solid #ebebeb;
   border-bottom: 1px solid #ebebeb;
   width: 498px;
   position: relative;
   right: 35px;
   padding: 15px 35px;
-  margin: 20px 0px;;
-  .add-rule-description {
+  &.rule-description-field {
+    margin-top: 20px;
+  }
+  &.concept-explanation-field {
+    margin-bottom: 20px;
+    border-top: none;
+  }
+  .add-concept-attribute-field {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -477,26 +486,40 @@
       color: #000;
     }
   }
-  .cancel-rule-description {
+  .cancel-concept-attribute-field {
     color: #2AA276;
     display: flex;
     justify-content: flex-end;
     margin-top: 10px;
     cursor: pointer;
   }
-  .rule-description-editor {
+  .concept-attribute-field-editor {
     p {
       font-weight: 600;
     }
-    .rule-description-editor-header {
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      resize: none;
+      border: 1px solid #ebebeb;
+      padding: 6px 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+    .concept-attribute-field-editor-subheader {
+      color: #7f7f7f;
+      font-size: 12px;
+    }
+    .concept-attribute-field-editor-header {
       display: flex;
       justify-content: space-between;
-      .remove-rule-description {
+      p {
+        margin-bottom: 5px;
+      }
+      .remove-concept-attribute-field {
         color: #A7A7A7;
         cursor: pointer;
-        svg {
-          margin-right: 5px;
-        }
       }
     }
   }
