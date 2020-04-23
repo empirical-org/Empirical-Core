@@ -9,7 +9,7 @@ module Associators::StudentsToClassrooms
         sc.visible = true
         if sc.save!
           update_classroom_units(sc)
-          StudentJoinedClassroomWorker.perform_async(@@classroom.owner.id, student.id)
+          StudentJoinedClassroomWorker.perform_async(@@classroom&.owner&.id, student&.id)
         end
       end
       if !sc.visible
