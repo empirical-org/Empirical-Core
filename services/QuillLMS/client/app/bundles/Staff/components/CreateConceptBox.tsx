@@ -5,11 +5,12 @@ import { Input, DropdownInput } from 'quill-component-library/dist/componentLibr
 
 import { Concept } from '../interfaces/interfaces'
 import RuleDescriptionField from './RuleDescriptionField'
+import ExplanationField from './ExplanationField'
 import ChangeLogModal from './ChangeLogModal'
 
 const CREATE_CONCEPT = gql`
-  mutation createConcept($name: String!, $parentId: ID, $description: String, $changeLogs: [ChangeLogInput!]!){
-    createConcept(input: {name: $name, parentId: $parentId, description: $description, changeLogs: $changeLogs}){
+  mutation createConcept($name: String!, $parentId: ID, $description: String, $explanation: String, $changeLogs: [ChangeLogInput!]!){
+    createConcept(input: {name: $name, parentId: $parentId, description: $description, explanation: $explanation, changeLogs: $changeLogs}){
       concept {
         id
         uid
@@ -28,7 +29,7 @@ interface CreateConceptBoxProps {
 }
 
 interface CreateConceptBoxState {
-  concept: { parent: Concept, name: string, description: string }
+  concept: { parent: Concept, name: string, description: string, explanation: string }
   level1Concepts: Array<Concept>,
   level2Concepts: Array<Concept>,
   showChangeLogModal: boolean
@@ -41,18 +42,11 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     const { level2Concepts, level1Concepts } = this.sortConcepts(props)
 
     this.state = {
-      concept: { name: '', parent: {}, description: '' },
+      concept: { name: '', parent: {}, description: '', explanation: '' },
       level2Concepts,
       level1Concepts,
       showChangeLogModal: false
     }
-
-    this.changeLevel1 = this.changeLevel1.bind(this)
-    this.changeLevel2 = this.changeLevel2.bind(this)
-    this.renameConcept = this.renameConcept.bind(this)
-    this.changeDescription = this.changeDescription.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.closeChangeLogModal = this.closeChangeLogModal.bind(this)
   }
 
   sortConcepts(props):{level2Concepts: Array<Concept>, level1Concepts: Array<Concept>} {
@@ -68,39 +62,51 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     return { level2Concepts, level1Concepts }
   }
 
-  renameConcept(e) {
-    const newConcept = Object.assign({}, this.state.concept, { name: e.target.value })
+  renameConcept = (e) => {
+    const { concept, } = this.state
+    const newConcept = Object.assign({}, concept, { name: e.target.value })
     this.setState({ concept: newConcept })
   }
 
-  changeDescription(description) {
-    if (description !== this.state.concept.description) {
-      const newConcept = Object.assign({}, this.state.concept, { description })
+  changeDescription = (description) => {
+    const { concept, } = this.state
+    if (description !== concept.description) {
+      const newConcept = Object.assign({}, concept, { description })
       this.setState({ concept: newConcept })
     }
   }
 
-  handleSubmit(e) {
+  changeExplanation = (e) => {
+    const { concept, } = this.state
+    const explanation = e.target.value
+    if (explanation !== concept.explanation) {
+      const newConcept = Object.assign({}, concept, { explanation })
+      this.setState({ concept: newConcept })
+    }
+  }
+
+  handleSubmit = (e) => {
     e.preventDefault()
     this.setState({ showChangeLogModal: true })
   }
 
-  save(createConcept, changeLogs) {
+  save = (createConcept, changeLogs) => {
     const { concept } = this.state
     createConcept({ variables: {
       name: concept.name,
       parentId: concept.parent.id,
       description: concept.description.length && concept.description !== '<br/>' ? concept.description : null,
+      explanation: concept.explanation.length && concept.explanation !== '<br/>' ? concept.explanation : null,
       changeLogs
     }})
     this.setState({ concept: { name: '', parent: {}, description: '' }})
   }
 
-  closeChangeLogModal() {
+  closeChangeLogModal = () => {
     this.setState({ showChangeLogModal: false })
   }
 
-  changeLevel1(level1Concept) {
+  changeLevel1 = (level1Concept) => {
     const { concept, level1Concepts, } = this.state
     const savedLevel1Concept = level1Concepts.find(c => c.id === level1Concept.value)
     const newParent = {
@@ -115,7 +121,7 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
     this.setState({ concept: newConcept })
   }
 
-  changeLevel2(level2Concept) {
+  changeLevel2 = (level2Concept) => {
     const newParent = {
       id: level2Concept.value,
       name: level2Concept.label,
@@ -209,7 +215,8 @@ class CreateConceptBox extends React.Component<CreateConceptBoxProps, CreateConc
             value={concept.name}
           />
         </div>
-        <RuleDescriptionField handleChange={this.changeDescription} new={true} ruleDescription='' />
+        <RuleDescriptionField handleChange={this.changeDescription} isNew={true} ruleDescription={concept.ruleDescription} />
+        <ExplanationField explanation={concept.explanation} handleChange={this.changeExplanation} isNew={true} />
       </div>)
     }
   }
