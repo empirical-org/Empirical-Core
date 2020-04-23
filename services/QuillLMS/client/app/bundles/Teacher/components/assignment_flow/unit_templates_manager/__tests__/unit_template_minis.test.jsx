@@ -73,13 +73,13 @@ const sharedProps = {
 describe('UnitTemplateMinis component', () => {
 
   it('should render without createYourOwn mini when teacher not signed in', () => {
-    const wrapper = shallow(<UnitTemplateMinis {...sharedProps} signedInTeacher={false}/>)
+    const wrapper = shallow(<UnitTemplateMinis {...sharedProps} signedInTeacher={false} />)
     expect(wrapper).toMatchSnapshot()
     expect(wrapper.find('UnitTemplateMini').findWhere(n => n.prop('data').id === 'createYourOwn')).toHaveLength(0)
   });
 
   it('should show createYourOwn mini when teacher is signed in', () => {
-    const wrapper = shallow(<UnitTemplateMinis {...sharedProps} signedInTeacher={true}/>)
+    const wrapper = shallow(<UnitTemplateMinis {...sharedProps} signedInTeacher={true} />)
     expect(wrapper.find('UnitTemplateMini').findWhere(n => n.prop('data').id === 'createYourOwn')).toHaveLength(1)
   })
 
