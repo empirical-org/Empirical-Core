@@ -6,6 +6,7 @@ class ChangeLog < ActiveRecord::Base
     'Unarchived',
     'Archived',
     'Rule description updated',
+    'Explanation updated',
     'Created',
     'Replaced'
   ]
