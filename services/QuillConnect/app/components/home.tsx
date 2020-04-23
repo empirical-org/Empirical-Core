@@ -38,13 +38,13 @@ export default class Home extends React.Component<any, any> {
   render() {
     const { showFocusState, } = this.state
     const className = showFocusState ? '' : 'hide-focus-outline'
-    const studentPlaying = !!window.location.href.includes('play')
+    const studentOrTurk = window.location.href.includes('play') || window.location.href.includes('turk')
     return(
       <Layout className={className}>
         <Layout>
           <Layout.Content>
-            {studentPlaying && <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>}
-            {studentPlaying && <NavBar />}
+            {studentOrTurk && <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>}
+            {studentOrTurk && <NavBar />}
             <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
           </Layout.Content>
         </Layout>

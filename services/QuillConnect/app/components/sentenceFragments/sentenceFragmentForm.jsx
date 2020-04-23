@@ -61,16 +61,16 @@ class sentenceFragmentForm extends React.Component {
         break;
       case 'concept':
         this.setState({ conceptID: e.value, });
-        case 'maxWordCountChange':
-          let newWordCountChange = { ...wordCountChange }
-          newWordCountChange.max = e.target ? e.target.value : '';
-          this.setState({ wordCountChange: newWordCountChange, });
-          break;
-        case 'minWordCountChange':
-          newWordCountChange = { ...wordCountChange }
-          newWordCountChange.min = e.target ? e.target.value : '';
-          this.setState({ wordCountChange: newWordCountChange, });
-          break;
+      case 'maxWordCountChange':
+        let newWordCountChange = { ...wordCountChange }
+        newWordCountChange.max = e.target ? e.target.value : '';
+        this.setState({ wordCountChange: newWordCountChange, });
+        break;
+      case 'minWordCountChange':
+        newWordCountChange = { ...wordCountChange }
+        newWordCountChange.min = e.target ? e.target.value : '';
+        this.setState({ wordCountChange: newWordCountChange, });
+        break;
       case 'flag':
         this.setState({ flag: e.target.value, });
         break;
