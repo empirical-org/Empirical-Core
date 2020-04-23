@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::ApiController
       if auth_credential.present?
         if auth_credential.refresh_token
           has_refresh_token = true
-          refresh_token_expires_at = auth_credential.expires_at.in_time_zone.utc.to_s.sub(' ','T')
+          refresh_token_expires_at = auth_credential&.expires_at&.in_time_zone&.utc&.to_s&.sub(' ','T')
         end
       end
     end

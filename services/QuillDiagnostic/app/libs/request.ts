@@ -1,7 +1,6 @@
 // A lightweight convenience wrapper for the `request` module.
 // This is just to centralize some of the common boilerplate for reuse.
 
-import Raven from 'raven-js';
 import request from 'request';
 
 interface HttpStatusProps {
