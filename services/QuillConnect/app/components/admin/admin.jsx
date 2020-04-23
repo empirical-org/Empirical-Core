@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
@@ -36,7 +36,7 @@ const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 const TabLink = props => {
   const { children, to } = props
   return (<li>
-    <Link activeClassName="is-active" to={to}>{children}</Link>
+    <NavLink activeClassName="is-active" to={to}>{children}</NavLink>
   </li>)
 };
 

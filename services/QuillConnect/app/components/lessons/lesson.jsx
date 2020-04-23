@@ -90,7 +90,7 @@ class Lesson extends React.Component {
         const flagTag = permittedFlag(lessonFlag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
         return (
           <li key={key}>
-            <Link to={`/admin/${questionTypeLink || 'questions'}/${key}`}>
+            <Link to={`/admin/${questionTypeLink || 'questions'}/${key}/responses`}>
               {flagTag}
               {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
             </Link>
@@ -113,7 +113,7 @@ class Lesson extends React.Component {
     if (lesson) {
       const numberOfQuestions = lesson.questions ? lesson.questions.length : 0;
       return (
-        <div>
+        <div className="admin-container">
           <Link to={'/admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}

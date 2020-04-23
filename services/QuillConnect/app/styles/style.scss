@@ -362,7 +362,7 @@ textarea.submission {
   width: 100%;
   padding: 15;
   height: calc(100vh - 30px);
-  overflow-y: scroll;
+  overflow-y: auto;
     .select {
       display: block !important;
     }
@@ -432,6 +432,7 @@ textarea.submission {
   flex-direction: row;
   padding-top: 0;
   padding-bottom: 0;
+  border-right: 1px solid rgb(227, 227, 227);
 }
 
 .concepts-container {

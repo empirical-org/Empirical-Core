@@ -22,6 +22,7 @@ class Concepts extends React.Component {
         return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts'
+          excludeResponses={true}
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}

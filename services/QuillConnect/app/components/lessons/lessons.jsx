@@ -57,6 +57,7 @@ class Lessons extends React.Component {
       <LinkListItem
         activeClassName='is-active'
         basePath='lessons'
+        excludeResponses={true}
         itemKey={key}
         key={key}
         text={data[key].name || 'No name'}

@@ -96,21 +96,23 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   render() {
     const { content, title } = this.state
     return (
-      <div className="box">
-        <h6 className="control subtitle">{this.renderHeaderText()}</h6>
-        <br />
-        <label className="label">Title</label>
-        <textarea className="input" onChange={this.handleTitleChange} value={title || ""} />
-        <br />
-        <label className="label">Content</label>
-        <TextEditor
-          ContentState={ContentState}
-          EditorState={EditorState}
-          handleTextChange={this.handleContentChange}
-          text={content || ""}
-        />
-        <br />
-        <button className="button is-primary" onClick={this.submit}>Save Question</button>
+      <div className="admin-container">
+        <div className="box">
+          <h6 className="control subtitle">{this.renderHeaderText()}</h6>
+          <br />
+          <label className="label">Title</label>
+          <textarea className="input" onChange={this.handleTitleChange} value={title || ""} />
+          <br />
+          <label className="label">Content</label>
+          <TextEditor
+            ContentState={ContentState}
+            EditorState={EditorState}
+            handleTextChange={this.handleContentChange}
+            text={content || ""}
+          />
+          <br />
+          <button className="button is-primary" onClick={this.submit}>Save Question</button>
+        </div>
       </div>
     )
   }

@@ -30,6 +30,7 @@ class ConceptsFeedback extends React.Component {
           activeClassName='is-active'
           basePath='concepts-feedback'
           className={hasFeedback ? "" : "no-feedback"}
+          excludeResponses={true}
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}
