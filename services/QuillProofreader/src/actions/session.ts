@@ -28,12 +28,16 @@ export const updateConceptResultsOnFirebase = (sessionID: string|null, activityU
   }
 }
 
-export const setSessionReducerToSavedSession = (sessionID: string) => {
+export const setSessionReducerToSavedSession = (sessionID: string, initialLoad?: boolean) => {
   return (dispatch: Function) => {
     sessionsRef.child(sessionID).once('value', (snapshot: any) => {
       const session = snapshot.val()
       if (session && !session.error) {
-        dispatch(setSessionReducer(session.passage))
+        if (session.conceptResults && initialLoad) {
+          window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${sessionID}`
+        } else {
+          dispatch(setSessionReducer(session.passage))
+        }
       }
     })
   }

@@ -49,6 +49,7 @@ interface PlayProofreaderContainerState {
   showResetModal: boolean;
   showFollowupModal: boolean;
   firebaseSessionID: string|null;
+  loadingFirebaseSession: boolean;
   currentActivity: any;
   necessaryEdits?: RegExpMatchArray|null;
   numberOfCorrectChanges?: number;
@@ -82,7 +83,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         currentPassage = session.passageFromFirebase
       }
       dispatch(setPassage(currentPassage))
-      return { originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: editCount(currentPassage), currentActivity: proofreaderActivities.currentActivity }
+      return { originalPassage: _.cloneDeep(formattedPassage), necessaryEdits: initialPassageData.necessaryEdits, edits: editCount(currentPassage), currentActivity: proofreaderActivities.currentActivity, loadingFirebaseSession: false }
     }
 
     private interval: any // eslint-disable-line react/sort-comp
@@ -92,6 +93,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
       const { currentActivity, } = props.proofreaderActivities
 
+      const firebaseSessionID = getParameterByName('student', window.location.href)
+
+      if (firebaseSessionID) {
+        props.dispatch(setSessionReducerToSavedSession(firebaseSessionID, true))
+        this.interval = setInterval(() => {
+          this.saveEditedSessionToFirebase(firebaseSessionID)
+        }, FIREBASE_SAVE_INTERVAL)
+      }
+
       this.state = {
         edits: 0,
         reviewing: false,
@@ -100,24 +110,17 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showResetModal: false,
         showFollowupModal: false,
         numberOfResets: 0,
-        firebaseSessionID: getParameterByName('student', window.location.href),
+        loadingFirebaseSession: !!firebaseSessionID,
+        firebaseSessionID,
         currentActivity
       }
     }
 
     componentDidMount() {
       const { activityUID, dispatch, } = this.props
-      const { firebaseSessionID, } = this.state
       const activityUIDToUse = getParameterByName('uid', window.location.href) || activityUID
 
       dispatch(startListeningToConcepts())
-
-      if (firebaseSessionID) {
-        dispatch(setSessionReducerToSavedSession(firebaseSessionID))
-        this.interval = setInterval(() => {
-          this.saveEditedSessionToFirebase(firebaseSessionID)
-        }, FIREBASE_SAVE_INTERVAL)
-      }
 
       if (activityUIDToUse) {
         dispatch(getActivity(activityUIDToUse))
@@ -454,46 +457,43 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     render(): JSX.Element {
       const { proofreaderActivities, session, } = this.props
-      const { edits, necessaryEdits} = this.state
+      const { edits, necessaryEdits, loadingFirebaseSession, } = this.state
       const { currentActivity } = proofreaderActivities
-      if (currentActivity) {
-        const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
-        const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
-        const meterWidth = edits / necessaryEditsLength * 100
-        return (<div className="passage-container">
-          <div className="header-section">
-            <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
-            <div className="inner-header">
-              <h1>{currentActivity.title}</h1>
-              <div className="instructions">
-                <div>
-                  <img alt="Directions icon" src={directionSrc} />
-                  <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
-                </div>
+
+      if (session.error) { return <div>{session.error}</div> }
+
+      if (loadingFirebaseSession || !currentActivity) { return <LoadingSpinner />}
+
+      const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
+      const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
+      const meterWidth = edits / necessaryEditsLength * 100
+      return (<div className="passage-container">
+        <div className="header-section">
+          <ProgressBar answeredQuestionCount={edits} percent={meterWidth} questionCount={necessaryEditsLength} />
+          <div className="inner-header">
+            <h1>{currentActivity.title}</h1>
+            <div className="instructions">
+              <div>
+                <img alt="Directions icon" src={directionSrc} />
+                <p dangerouslySetInnerHTML={{__html: currentActivity.description || this.defaultInstructions()}} />
               </div>
             </div>
           </div>
-          {this.renderShowEarlySubmitModal()}
-          {this.renderShowResetModal()}
-          {this.renderShowReviewModal()}
-          {this.renderFollowupModal()}
-          <div className={`passage ${className}`}>
-            {this.renderPassage()}
+        </div>
+        {this.renderShowEarlySubmitModal()}
+        {this.renderShowResetModal()}
+        {this.renderShowReviewModal()}
+        {this.renderFollowupModal()}
+        <div className={`passage ${className}`}>
+          {this.renderPassage()}
+        </div>
+        <div className="bottom-section">
+          <div className="button-container">
+            {this.renderResetButton()}
+            {this.renderCheckWorkButton()}
           </div>
-          <div className="bottom-section">
-            <div className="button-container">
-              {this.renderResetButton()}
-              {this.renderCheckWorkButton()}
-            </div>
-          </div>
-        </div>)
-      } else if (session.error) {
-        return (
-          <div>{session.error}</div>
-        );
-      } else {
-        return <LoadingSpinner />
-      }
+        </div>
+      </div>)
     }
 }
 

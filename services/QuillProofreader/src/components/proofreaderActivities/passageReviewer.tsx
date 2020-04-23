@@ -44,8 +44,9 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
 
   next = () => {
     const { activeIndex, numberOfEdits } = this.state
+    const { finishReview, } = this.props
     if (activeIndex + 1 === numberOfEdits) {
-      this.props.finishReview()
+      finishReview()
     } else {
       this.setState(prevState => ({ activeIndex: prevState.activeIndex + 1}), this.scrollToActiveIndex)
     }
@@ -62,7 +63,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     const { activeIndex, } = this.state
     const el = document.getElementById(String(activeIndex))
     if (el) {
-      el.scrollIntoView()
+      window.scrollTo(0, window.pageYOffset + el.getBoundingClientRect().top - 34)
     }
   }
 
@@ -72,7 +73,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
     const punctuationRegex = /^[.,:;]/
     const { activeIndex, numberOfEdits } = this.state
     let index = 0
-    return paragraphs.map((paragraph: string) => {
+    return paragraphs.map((paragraph: string, paragraphIndex: number) => {
       const parts: Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
       for (let i = 0; i < parts.length; i +=1) {
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
@@ -82,7 +83,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           const conceptUID = conceptUIDMatch ? conceptUIDMatch[1] : ''
           const negativeMatch = parts[i].match(/\-([^-]+)\|/m)
           const negative = negativeMatch ? negativeMatch[1] : null
-          const concept = this.props.concepts.find(c => c.uid === conceptUID)
+          const concept = concepts.find(c => c.uid === conceptUID)
           const indexToPass = index
           let state = 'correct'
           if (unnecessaryArray.includes(conceptUID)) {
@@ -110,12 +111,14 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           }
         }
       }
-      return <p>{parts}</p>
+      return <p key={paragraphIndex}>{parts}</p>
     })
   }
 
   render() {
-    if (this.props.text) {
+    const { text, } = this.props
+
+    if (text) {
       return (<div className="reviewer-container">
         <div className="reviewer" >
           {this.renderFormattedText()}

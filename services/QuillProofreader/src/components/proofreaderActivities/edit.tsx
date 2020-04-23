@@ -28,11 +28,11 @@ interface EditProps {
   id: string;
 }
 
-export default class Edit extends React.Component<EditProps, {mounting: boolean}> {
+export default class Edit extends React.Component<EditProps, {mounting: boolean, randomNumber: number}> {
   constructor(props: EditProps) {
     super(props)
 
-    this.state = { mounting: true, }
+    this.state = { mounting: true, randomNumber: Math.random() * 10 }
   }
 
   componentDidMount() {
@@ -41,10 +41,17 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean}
 
   renderConceptExplanation(): JSX.Element {
     const { concept } = this.props
-    if (!(concept && concept.explanation)) { return <span /> }
+    const { randomNumber, } = this.state
+    let explanation = "Nullam quis risus eget urna mollis ornare vel eu leo. Tristique sociis natoque penatibus et magnis dis parturient montes."
+
+    if (randomNumber > 8) { return <span /> }
+    if (randomNumber > 3) {
+      explanation = "Nullam quis risus eget urna mollis ornare vel eu leo. Tristique sociis natoque penatibus et magnis dis parturient montes. Nullam quis risus eget urna mollis ornare vel eu leo. Tristique sociis natoque penatibus et magnis dis parturient montes."
+    }
+    // if (!(concept && concept.explanation)) { return <span /> }
     return (<div className="explanation">
       <p className="label">Explanation</p>
-      <p>{concept.explanation}</p>
+      <p>{explanation}</p>
     </div>)
   }
 
@@ -53,7 +60,7 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean}
     if (!displayText) { return }
 
     const correctAnswerArray = displayText ? displayText.split('~') : []
-    const correctAnswers = correctAnswerArray.map(ca => <span className="correct-answer">{ca}</span>)
+    const correctAnswers = correctAnswerArray.map(ca => <span className="correct-answer" key={ca}>{ca}</span>)
     const correctAnswerHTML = <p>{correctAnswers}</p>
     return (<div>
       <p className="label">Correct</p>
@@ -124,8 +131,8 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean}
     }
     const parentElement = document.getElementById(id)
     const style = parentElement ? { top: `${parentElement.offsetTop}px` } : {}
-    const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back}>Back</button> : <div className="placeholder" />
-    const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next}>{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
+    const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back} type="button">Back</button> : <div className="placeholder" />
+    const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next} type="button">{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
     return (<div className="edit-tooltip" style={style}>
       <div className="top-section">
         <img alt={altText} src={src} />
