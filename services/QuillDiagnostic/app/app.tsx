@@ -17,20 +17,13 @@ import sentenceFragmentActions from './actions/sentenceFragments.ts';
 import lessonActions from './actions/lessons.ts';
 import * as titleCardActions from './actions/titleCards.ts';
 import 'styles/style.scss';
-import Raven from 'raven-js';
+import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
 import './i18n';
 import Home from './components/home.jsx';
 
 if (process.env.NODE_ENV === 'production') {
-  Raven
-  .config(
-    'https://528794315c61463db7d5181ebc1d51b9@sentry.io/210579',
-    {
-      environment: process.env.NODE_ENV,
-    }
-  )
-  .install();
+  Sentry.init({ dsn: 'https://528794315c61463db7d5181ebc1d51b9@o95148.ingest.sentry.io/210579' })
 }
 
 BackOff();
