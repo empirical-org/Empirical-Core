@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 const formatInitialPassage = (passage: string) => {
   passage = passage.replace(/&#x27;/g, "'").replace(/&quot;/g, '"')
   const necessaryEdits = passage.match(/{\+[^-]+-[^|]+\|[^}]*}/g)

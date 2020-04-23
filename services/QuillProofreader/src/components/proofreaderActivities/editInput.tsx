@@ -13,7 +13,7 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
   getStyleOfInput(key: string, className: string, currentText: string) {
     const node = document.createElement("span");
     const textnode = document.createTextNode(currentText);
-    node.className = `hidden ${className}`
+    node.className = `hidden-element ${className}`
     node.id = key
     node.appendChild(textnode);
     document.body.appendChild(node)
