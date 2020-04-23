@@ -88,7 +88,7 @@
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "sass-resources-loader": "^2.0.1",
-    "string-strip-html": "^4.3.16",
+    "string-strip-html": "^4.3.22",
     "style-loader": "^0.23.1",
     "underscore": "^1.8.3",
     "underscore.string": "^3.3.5",
