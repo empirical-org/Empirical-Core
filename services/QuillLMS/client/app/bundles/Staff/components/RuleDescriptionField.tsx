@@ -24,8 +24,8 @@ export default class RuleDescriptionField extends React.Component<any, any> {
   }
 
   renderAddRuleDescription() {
-    return (<div className="rule-description">
-      <div className="add-rule-description" onClick={this.showEditor}>
+    return (<div className="concept-attribute-field rule-description-field">
+      <div className="add-concept-attribute-field" onClick={this.showEditor}>
         <i className="fas fa-plus" />
         <p>Add a Grammar rule description (optional)</p>
       </div>
@@ -33,20 +33,21 @@ export default class RuleDescriptionField extends React.Component<any, any> {
   }
 
   renderRuleDescriptionEditor() {
-    return (<div className="rule-description">
-      <div className="rule-description-editor">
-        <div className="rule-description-editor-header">
+    const { handleChange, ruleDescription, isNew, } = this.props
+    return (<div className="concept-attribute-field rule-description">
+      <div className="concept-attribute-field-editor">
+        <div className="concept-attribute-field-editor-header">
           <p>Grammar rule description (optional)</p>
-          {this.props.new ? '' : <p className="remove-rule-description" onClick={this.cancel}><i className="fas fa-archive" /><span>Remove</span></p>}
+          {isNew ? '' : <p className="remove-concept-attribute-field" onClick={this.cancel}><i className="fas fa-archive" /><span>Remove</span></p>}
         </div>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
-          handleTextChange={this.props.handleChange}
+          handleTextChange={handleChange}
           key="rule-description"
-          text={this.props.ruleDescription}
+          text={ruleDescription}
         />
-        {this.props.new ? <p className="cancel-rule-description" onClick={this.cancel}>Cancel</p> : ''}
+        {isNew ? <p className="cancel-concept-attribute-field" onClick={this.cancel}>Cancel</p> : ''}
       </div>
     </div>)
   }

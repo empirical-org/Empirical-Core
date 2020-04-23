@@ -15,6 +15,7 @@ function conceptQuery(id){
       uid
       name
       description
+      explanation
       visible
       updatedAt
       replacement {
