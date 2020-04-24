@@ -7,7 +7,8 @@ EmpiricalGrammar::Application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
-  # temporary setup for AP landing page
+  # temporary setup for AP landing pages
+  get '/AP' => redirect('activities/packs/193')
   get '/ap' => redirect('activities/packs/193')
 
   post "/graphql", to: "graphql#execute"

@@ -1,9 +1,10 @@
 import React from 'react';
-import DatePicker from 'react-datepicker';
+import { SingleDatePicker } from 'react-dates'
 import _ from 'lodash';
 import request from 'request';
 import ItemDropdown from '../components/general_components/dropdown_selectors/item_dropdown.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
+import moment from 'moment';
 
 export default class EditOrCreateSubscription extends React.Component {
   constructor(props) {
@@ -19,6 +20,8 @@ export default class EditOrCreateSubscription extends React.Component {
 
     this.state = {
       subscription: defaultSubscription,
+      firstFocused: false,
+      secondFocused: false
     };
   }
 
@@ -196,9 +199,8 @@ export default class EditOrCreateSubscription extends React.Component {
   }
 
   render() {
-    const { subscription, } = this.state
+    const { firstFocused, secondFocused, subscription, } = this.state
     const { user, school, view, premiumTypes, subscriptionPaymentMethods, promoExpiration, } = this.props
-
     const schoolOrUser = school || user || null;
     const submitAction = school ? this.submitConfirmation : this.submit;
     return (
@@ -235,12 +237,32 @@ export default class EditOrCreateSubscription extends React.Component {
         <p>
           If this is a Teacher Subscription and no subscription already exists, the start date is set to today. If the subscription is being renewed, the start date is the day the old subscription ends.
         </p>
-        <DatePicker onChange={this.handleStartDateChange} selected={subscription.start_date ? new Date(subscription.start_date) : null} />
+        <SingleDatePicker
+          date={subscription.start_date ? moment(subscription.start_date) : null}
+          focused={firstFocused}
+          id={`date-picker`}
+          inputIconPosition="after"
+          navNext={'›'}
+          navPrev={'‹'}
+          numberOfMonths={1}
+          onDateChange={this.handleStartDateChange}
+          onFocusChange={() => this.setState({ firstFocused: !firstFocused })}
+        />
         <label htmlFor="">End Date</label>
         <p>
           If this a school or users first paid subscription, the default end date is {promoExpiration}. This value just stated will update automatically depending on the time of year.
         </p>
-        <DatePicker onChange={this.handleExpirationDateChange} selected={subscription.expiration ? new Date(subscription.expiration) : null} />
+        <SingleDatePicker
+          date={subscription.expiration ? moment(subscription.expiration) : null}
+          focused={secondFocused}
+          id={`date-picker`}
+          inputIconPosition="after"
+          navNext={'›'}
+          navPrev={'‹'}
+          numberOfMonths={1}
+          onDateChange={this.handleExpirationDateChange}
+          onFocusChange={() => this.setState({ secondFocused: !secondFocused })}
+        />
         <div>
           <button className="q-button cta-button bg-quillgreen text-white" onClick={submitAction} type="submit">
             {view === 'new' ? 'New' : 'Update'} Subscription

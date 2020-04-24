@@ -199,18 +199,12 @@
   }
   .due-date-field {
     position: relative;
-    .due-date-input {
-      text-align: left;
-      width: 180px;
-      margin-right: 30px;
-      padding: 9px 10px;
-      border: 1px solid #c0c0c0;
-    }
-    .due_date_input::placeholder {
-      color: #c0c0c0;
-    }
-    .react-datepicker-popper {
-      z-index: 100;
+    .SingleDatePicker_1 {
+      margin-right: 5px;
+
+      .DateInput_1 {
+        width: 160px;
+      }
     }
     .apply-to-all {
       font-size: 12px;
@@ -218,8 +212,8 @@
       color: #027360;
       position: absolute;
       cursor: pointer;
-      top: 11px;
-      right: 40px;
+      top: 10px;
+      right: 35px;
     }
   }
 

@@ -9,6 +9,7 @@ export interface Concept {
   parent?:Concept;
   replacement?: Concept;
   description?: string;
+  explanation?: string;
   changeLogs?: Array<ChangeLog>;
 }
 
