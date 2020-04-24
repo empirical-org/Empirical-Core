@@ -129,6 +129,11 @@ module PagesHelper
             img: 'team-jeremy-hertz@2x.png'
           },
           {
+            name: 'Sherry Lewkowicz',
+            title: 'Senior Instructional Coach',
+            img: 'team-sherry-lewkowicz@2x.png'
+          },
+          {
             name: 'Maddy Maher',
             title: 'Partnerships Specialist',
             img: 'team-maddy-maher@2x.png'
