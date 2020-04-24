@@ -29,7 +29,7 @@ export default class RenderTextEditor extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { latestAttempt, getResponse, } = this.props
     if (nextProps.latestAttempt !== latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
