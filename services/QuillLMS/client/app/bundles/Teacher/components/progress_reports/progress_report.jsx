@@ -11,7 +11,7 @@ import SortableTable from '../general_components/table/sortable_table/sortable_t
 import FaqLink from './faq_link.jsx'
 import ProgressReportFilters from './progress_report_filters.jsx'
 import getParameterByName from '../modules/get_parameter_by_name';
-import stripHtml from '../modules/strip_html'
+import stripHtml from "string-strip-html";
 import $ from 'jquery'
 
 export default createReactClass({
