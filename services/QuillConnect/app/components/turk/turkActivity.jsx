@@ -130,7 +130,21 @@ export class TurkActivity extends React.Component {
       const key = questionItem.key;
       const data = this.props[questionType].data[key]; // eslint-disable-line react/destructuring-assignment
       data.key = key;
-      const type = questionType === 'questions' ? 'SC' : 'SF';
+      let type
+      switch (questionType) {
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'titleCards':
+          type = 'TL'
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
+      }
       return { type, data, };
     });
   }
