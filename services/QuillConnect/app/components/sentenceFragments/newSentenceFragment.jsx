@@ -11,7 +11,7 @@ class newSentenceFragment extends React.Component {
       alert('If the prompt is a sentence, the student must identify whether it is a sentence or fragment. Please try again.');
       return;
     }
-    let data = {
+    const data = {
       prompt,
       isFragment,
       needsIdentification,

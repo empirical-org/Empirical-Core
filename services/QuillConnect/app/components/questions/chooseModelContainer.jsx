@@ -69,7 +69,7 @@ class ChooseModelContainer extends Component {
       <p className="control">
         <button
           className={'button is-primary'}
-          disabled={modelConceptUID === data[questionID].modelConceptUID ? 'true' : null}
+          disabled={modelConceptUID === data[questionID].modelConceptUID}
           onClick={this.saveModelConcept}
         >
           Save Model Concept
