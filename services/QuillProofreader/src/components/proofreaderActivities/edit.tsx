@@ -130,7 +130,7 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
         break
     }
     const parentElement = document.getElementById(id)
-    const style = parentElement ? { top: `${parentElement.offsetTop}px` } : {}
+    const style = parentElement ? { top: `${parentElement.offsetTop + 5}px` } : {}
     const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back} type="button">Back</button> : <div className="placeholder" />
     const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next} type="button">{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
     return (<div className="edit-tooltip" style={style}>

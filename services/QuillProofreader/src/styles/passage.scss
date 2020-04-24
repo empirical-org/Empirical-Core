@@ -39,10 +39,11 @@
       font-size: 20px;
       line-height: 1.45;
       color: #3f3f3f;
+      margin-top: -3px;
     }
     div {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
     }
     .edits-made {
       flex-direction: column;
@@ -89,7 +90,7 @@
     margin: auto;
     line-height: 2.0;
     font-size: 16px;
-    color: #333;
+    color: #000;
     font-weight: 400;
     strong {
       color: #333;
@@ -151,7 +152,7 @@
   .bottom-section {
     padding: 40px 16px;
     background-color: #ededed;
-    min-height: 400px;
+    min-height: 100vh;
     .button-container {
       max-width: 800px;
       margin: auto;

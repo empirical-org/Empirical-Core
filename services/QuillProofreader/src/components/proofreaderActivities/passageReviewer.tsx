@@ -70,7 +70,6 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
   renderFormattedText() {
     const { text, concepts } = this.props
     const paragraphs = text.split('</p><p>')
-    const punctuationRegex = /^[.,:;]/
     const { activeIndex, numberOfEdits } = this.state
     let index = 0
     return paragraphs.map((paragraph: string, paragraphIndex: number) => {
@@ -104,11 +103,7 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
             numberOfEdits={numberOfEdits}
             state={state}
           />)
-          if (punctuationRegex.test(parts[i + 1])) {
-            parts[i + 1] = `${parts[i + 1]}`
-          } else {
-            parts[i + 1] = ` ${parts[i + 1]}`
-          }
+          parts[i + 1] = `${parts[i + 1]}`
         }
       }
       return <p key={paragraphIndex}>{parts}</p>
