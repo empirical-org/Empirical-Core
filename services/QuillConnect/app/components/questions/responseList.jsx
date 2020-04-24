@@ -62,24 +62,21 @@ export default class ResponseList extends React.Component {
     />)
   }
 
-  filterInvalidFocusPointsOrIncorrectSequences = (fpOrIs) => {
-    if(!fpOrIs.length || !isValidRegex(fpOrIs)) {
-      return false
-    }
-    return true
+  isValidAndNotEmptyRegex = (string) => {
+    return string.length && isValidRegex(string)
   }
 
   render() {
     const responseListItems = this.props.responses.map((resp) => {
       if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
-        const incorrectSequences = this.props.selectedIncorrectSequences.filter((is) => this.filterInvalidFocusPointsOrIncorrectSequences(is))
+        const incorrectSequences = this.props.selectedIncorrectSequences.filter(this.isValidAndNotEmptyRegex)
         const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
         if (anyMatches) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
       }
       if (resp && this.props.selectedFocusPoints) {
-        const focusPoints = this.props.selectedFocusPoints.filter((fp) => this.filterInvalidFocusPointsOrIncorrectSequences(fp))
+        const focusPoints = this.props.selectedFocusPoints.filter(this.isValidAndNotEmptyRegex)
         const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
         if (noMatchedFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
