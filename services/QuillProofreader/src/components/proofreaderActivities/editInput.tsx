@@ -1,31 +1,18 @@
 import * as React from 'react'
+import ContentEditable from 'react-contenteditable';
 
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
-type EditInputProps = WordObject & { handleWordChange: Function, numberOfResets: number }
+type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number }
 
 export default class EditInput extends React.Component<EditInputProps, {}> {
   handleWordChange = (e: any) => {
-    const { wordIndex, handleWordChange } = this.props
-    handleWordChange(e.target.value, wordIndex)
+    const { wordIndex, onWordChange } = this.props
+    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
+    onWordChange(stripHTML, wordIndex, this.editInput)
   }
 
-  getStyleOfInput(key: string, className: string, currentText: string) {
-    const node = document.createElement("span");
-    const textnode = document.createTextNode(currentText);
-    node.className = `hidden-element ${className}`
-    node.id = key
-    node.appendChild(textnode);
-    document.body.appendChild(node)
-    const el = document.getElementById(key)
-    if (el) {
-      const width = el.offsetWidth + 3 + "px"
-      el.remove()
-      return { width, };
-    } else {
-      return {}
-    }
-  }
+  setEditInputRef = node => this.editInput = node
 
   render() {
     const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, } = this.props
@@ -37,14 +24,15 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
       className += ' bolded'
     }
     const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
-    const style = this.getStyleOfInput(key, className, currentText)
-    return (<input
+    return (<ContentEditable
       className={className}
+      data-gramm={false}
+      html={currentText}
+      innerRef={this.setEditInputRef}
       key={key}
       onChange={this.handleWordChange}
       spellCheck={false}
-      style={style}
-      value={currentText}
+      tagName="span"
     />)
   }
 }

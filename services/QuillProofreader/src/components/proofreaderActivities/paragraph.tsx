@@ -20,11 +20,11 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
     this.renderInputFields = this.renderInputFields.bind(this)
   }
 
-  handleWordChange(text: string, i: number) {
+  handleWordChange(text: string, i: number, editInput: any) {
     const { words, handleParagraphChange, index } = this.props
     const newWords = _.cloneDeep(words)
     newWords[i]['currentText'] = text
-    handleParagraphChange(newWords, index)
+    handleParagraphChange(newWords, index, editInput)
   }
 
   renderInputFields() {
@@ -37,7 +37,7 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
       <EditInput
         key={word.wordIndex}
         {...word}
-        handleWordChange={this.handleWordChange}
+        onWordChange={this.handleWordChange}
         numberOfResets={numberOfResets}
       />
     ))

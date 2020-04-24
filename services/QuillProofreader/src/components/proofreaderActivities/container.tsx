@@ -8,6 +8,7 @@ import { stringNormalize } from 'quill-string-normalizer'
 const directionSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
+import EditCaretPositioning from '../../helpers/EditCaretPositioning'
 import { getActivity } from "../../actions/proofreaderActivities";
 import { startListeningToConcepts } from "../../actions/concepts";
 import {
@@ -322,13 +323,14 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
-    onParagraphChange = (value: Array<any>, i: number) => {
+    onParagraphChange = (value: Array<any>, i: number, editInput: JSX.Element) => {
       const { session, dispatch, } = this.props
       let newParagraphs = session.passage
       if (newParagraphs) {
         newParagraphs[i] = value
+        const caretPosition = EditCaretPositioning.saveSelection(editInput)
         dispatch(setPassage(newParagraphs))
-        this.setState({ edits: editCount(newParagraphs), })
+        this.setState({ edits: editCount(newParagraphs), }, () => EditCaretPositioning.restoreSelection(editInput, caretPosition))
       }
     }
 

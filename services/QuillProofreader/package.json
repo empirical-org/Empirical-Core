@@ -53,6 +53,7 @@
     "quill-marking-logic": "0.13.0",
     "quill-string-normalizer": "0.0.9",
     "react": "^16.4.2",
+    "react-contenteditable": "^3.3.4",
     "react-dom": "^16.4.2",
     "react-input-autosize": "^2.2.2",
     "react-redux": "^5.0.7",
