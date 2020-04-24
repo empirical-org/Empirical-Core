@@ -287,9 +287,9 @@ module PublicProgressReports
       diagnostic = Activity.find(activity_id)
       assigned_recommendations = RecommendationsQuery.new(diagnostic.id).activity_recommendations.map do |rec|
         # one unit per teacher with this name.
-        unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId])
+        unit = Unit.find_by(user_id: teacher_id, unit_template_id: rec[:activityPackId], visible: true)
         if !unit
-          unit = Unit.find_by(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name)
+          unit = Unit.find_by(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name, visible: true)
         end
         student_ids = ClassroomUnit.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids) || []
         return_value_for_recommendation(student_ids, rec)

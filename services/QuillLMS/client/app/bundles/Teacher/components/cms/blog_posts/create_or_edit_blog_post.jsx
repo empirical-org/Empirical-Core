@@ -1,12 +1,12 @@
 import React from 'react';
 import request from 'request';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
-import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
-import DatePicker from 'react-datepicker'
+import { SingleDatePicker } from 'react-dates'
 import Dropzone from 'react-dropzone'
 import getAuthToken from '../../modules/get_auth_token'
+import moment from 'moment'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -68,7 +68,8 @@ export default class CreateOrEditBlogPost extends React.Component {
       pressName: press_name,
       publishedAt: published_at,
       externalLink: external_link,
-      centerImages: center_images
+      centerImages: center_images,
+      focused: false
     };
   }
 
@@ -572,10 +573,22 @@ export default class CreateOrEditBlogPost extends React.Component {
   }
 
   renderDatepicker = () => {
-    const { publishedAt, } = this.state
+    const { focused, publishedAt, } = this.state
+    const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
     return (<div>
       <label>Published At Date:</label>
-      <DatePicker onChange={this.handlePublishedAtChange} selected={publishedAt ? new Date(publishedAt) : null} />
+      <SingleDatePicker
+        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
+        date={publishedAt ? moment(publishedAt) : null}
+        focused={focused}
+        id={`date-picker`}
+        inputIconPosition="after"
+        navNext={'›'}
+        navPrev={'‹'}
+        numberOfMonths={1}
+        onDateChange={this.handlePublishedAtChange}
+        onFocusChange={({ focused }) => this.setState({ focused })}
+      />
     </div>)
   }
 
