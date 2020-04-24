@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PlaySentenceFragment from '../studentLessons/sentenceFragment.jsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions.js';
 
 class TestQuestion extends Component {
   constructor(props) {
@@ -19,8 +19,11 @@ class TestQuestion extends Component {
   }
 
   getQuestion = () => {
-    const { sentenceFragments, params, } = this.props
-    return sentenceFragments.data[params.questionID];
+    const { sentenceFragments, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    const { data } = sentenceFragments
+    return data[questionID];
   }
 
   markIdentify = (bool) => {
@@ -30,9 +33,11 @@ class TestQuestion extends Component {
   }
 
   questionsForLesson = () => {
-    const { params, } = this.props
-    const question = this.getQuestion();
-    question.key = params.questionID;
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
+    let question = this.getQuestion();
+    question.key = questionID;
     if (!question.attempts) {
       question.attempts = []
     }
@@ -66,17 +71,20 @@ class TestQuestion extends Component {
   }
 
   render() {
-    const { playLesson, conceptsFeedback, params, dispatch, } = this.props
+    const { playLesson, conceptsFeedback, match, dispatch } = this.props
+    const { currentQuestion } = playLesson
+    const { params } = match
+    const { questionID } = params
 
-    if (playLesson.currentQuestion) {
-      const question = playLesson.currentQuestion.question;
+    if (currentQuestion) {
+      const { question } = currentQuestion
       return (
         <div className="test-question-container">
           <PlaySentenceFragment
             conceptsFeedback={conceptsFeedback}
-            currentKey={params.questionID}
+            currentKey={questionID}
             dispatch={dispatch}
-            key={params.questionID}
+            key={questionID}
             markIdentify={this.markIdentify}
             nextQuestion={this.reset}
             prefill={false}
