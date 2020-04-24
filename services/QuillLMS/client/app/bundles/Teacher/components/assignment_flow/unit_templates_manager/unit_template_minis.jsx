@@ -61,6 +61,7 @@ export default class UnitTemplateMinis extends React.Component {
 
   generateUnitTemplateViews() {
     const { grade, } = this.props.data;
+    const { signedInTeacher, } = this.props;
     let models;
     if (grade) {
       models = _.filter(this.props.displayedModels, (m) => {
@@ -70,7 +71,9 @@ export default class UnitTemplateMinis extends React.Component {
       models = this.props.displayedModels;
     }
     models = _.sortBy(models, 'order_number');
-    models = this.addCreateYourOwnModel(models);
+    if (signedInTeacher) {
+      models = this.addCreateYourOwnModel(models);
+    }
     const modelCards = models.map(this.generateUnitTemplateView);
     return modelCards;
   }
