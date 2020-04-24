@@ -64,9 +64,10 @@
       font-size: 18px;
       padding: 16px;
       color: #000000;
-      max-height: 270px;
+      // max-height: 270px;
       height: 100%;
       overflow: scroll;
+      flex: 1;
 
       .label {
         font-size: 16px;
@@ -129,9 +130,9 @@
       right: -15px;
       margin-top: 34px;
       height: calc(100vh - 68px);
-      .middle-section {
-        max-height: calc(100vh - 226px);
-      }
+      // .middle-section {
+      //   max-height: calc(100vh - 226px);
+      // }
     }
 
   }
