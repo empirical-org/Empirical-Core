@@ -8,13 +8,17 @@ import questionActions from '../../actions/questions';
 class ChooseModelContainer extends Component {
   constructor(props) {
     super(props);
-    const modelConceptUID = props.questions.data[props.params.questionID].modelConceptUID
-    const lessonUID = Object.keys(props.lessons.data).find((uid) => {
-      const lesson = props.lessons.data[uid]
+
+    const { lessons, match, questions } = props
+    const { params } = match
+    const { questionID } = params
+    const modelConceptUID = questions.data[questionID].modelConceptUID
+    const lessonUID = Object.keys(lessons.data).find((uid) => {
+      const lesson = lessons.data[uid]
       if (!lesson.questions) return false;
-      return lesson.questions.find(q => q.key === props.params.questionID)
+      return lesson.questions.find(q => q.key === questionID)
     })
-    const lessonModelConceptUID = lessonUID && props.lessons.data[lessonUID] ? props.lessons.data[lessonUID].modelConceptUID : null
+    const lessonModelConceptUID = lessonUID && lessons.data[lessonUID] ? lessons.data[lessonUID].modelConceptUID : null
     this.state = {
       modelConceptUID,
       lessonModelConceptUID
@@ -22,17 +26,32 @@ class ChooseModelContainer extends Component {
   }
 
   getModelConceptUID = () => {
-    return this.state.modelConceptUID || this.props.questions.data[this.props.params.questionID].modelConceptUID;
+    const { modelConceptUID } = this.state
+    const { match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { questionID } = params
+    return modelConceptUID || data[questionID].modelConceptUID;
   }
 
   removeModelConcept = () => {
-    let questionData = Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: null});
-    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID, questionData));
+    const { dispatch, match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { questionID } = params
+    let questionData = Object.assign({}, data[questionID], {modelConceptUID: null});
+    dispatch(questionActions.submitQuestionEdit(questionID, questionData));
+    window.history.back();
   };
 
   saveModelConcept = () => {
-    this.props.dispatch(questionActions.submitQuestionEdit(this.props.params.questionID,
-      Object.assign({}, this.props.questions.data[this.props.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
+    const { modelConceptUID } = this.state
+    const { dispatch, match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { questionID } = params
+    dispatch(questionActions.submitQuestionEdit(questionID,
+      Object.assign({}, data[questionID], {modelConceptUID: modelConceptUID})));
     window.history.back();
   };
 
@@ -41,11 +60,16 @@ class ChooseModelContainer extends Component {
   };
 
   renderButtons = () => {
+    const { modelConceptUID } = this.state
+    const { match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { questionID } = params
     return(
       <p className="control">
         <button
           className={'button is-primary'}
-          disabled={this.state.modelConceptUID == this.props.questions.data[this.props.params.questionID].modelConceptUID ? 'true' : null}
+          disabled={modelConceptUID === data[questionID].modelConceptUID}
           onClick={this.saveModelConcept}
         >
           Save Model Concept
@@ -69,8 +93,11 @@ class ChooseModelContainer extends Component {
   }
 
   renderLessonModelNote = () => {
-    if (this.state.lessonModelConceptUID && this.state.lessonModelConceptUID !== this.state.modelConceptUID) {
-      const concept = this.props.concepts.data['0'].find(c => c.uid === this.state.lessonModelConceptUID)
+    const { lessonModelConceptUID, modelConceptUID } = this.state
+    const { concepts } = this.props
+    const { data } = concepts
+    if (lessonModelConceptUID && lessonModelConceptUID !== modelConceptUID) {
+      const concept = data['0'].find(c => c.uid === lessonModelConceptUID)
       if (concept) {
         return (<div style={{ marginBottom: '10px' }}>
           <p>The activity that this question belongs to has the following Model Concept:</p>
@@ -81,14 +108,15 @@ class ChooseModelContainer extends Component {
   }
 
   render() {
+    const { conceptsFeedback } = this.props
+    const { data } = conceptsFeedback
     return(
       <div className="box">
         <h4 className="title">Choose Model</h4>
         {this.renderLessonModelNote()}
         <div className="control">
           <ConceptSelector currentConceptUID={this.getModelConceptUID()} handleSelectorChange={this.selectConcept} onlyShowConceptsWithConceptFeedback />
-          <ConceptExplanation {...this.props.conceptsFeedback.data[this.getModelConceptUID()]} />
-          {this.props.children}
+          <ConceptExplanation {...data[this.getModelConceptUID()]} />
         </div>
         {this.renderButtons()}
       </div>

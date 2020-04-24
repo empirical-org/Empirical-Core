@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
@@ -24,27 +25,42 @@ export class FocusPointsContainer extends Component {
   }
 
   getQuestion = () => {
-    return this.props[this.state.questionType].data[this.props.params.questionID];
+    const { questionType } = this.state
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
+    return this.props[questionType].data[questionID];
   }
 
   deleteConceptResult = (conceptResultKey, focusPointKey) => {
+    const { actionFile } = this.state
+    const { submitEditedFocusPoint } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getFocusPoints()[focusPointKey];
       delete data.conceptResults[conceptResultKey];
-      this.props.dispatch(this.state.actionFile.submitEditedFocusPoint(this.props.params.questionID, data, focusPointKey));
+      dispatch(submitEditedFocusPoint(questionID, data, focusPointKey));
     }
   }
 
   deleteFocusPoint = focusPointID => {
+    const { actionFile } = this.state
+    const { deleteFocusPoint } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      this.props.dispatch(this.state.actionFile.deleteFocusPoint(this.props.params.questionID, focusPointID));
+      dispatch(deleteFocusPoint(questionID, focusPointID));
     }
   };
 
   fPsortedByOrder = () => {
-    if (this.state.fpOrderedIds) {
+    const { fpOrderedIds } = this.state
+    if (fpOrderedIds) {
       const focusPoints = hashToCollection(this.getFocusPoints())
-      return this.state.fpOrderedIds.map(id => focusPoints.find(fp => fp.key === id))
+      return fpOrderedIds.map(id => focusPoints.find(fp => fp.key === id))
     } else {
       return hashToCollection(this.getFocusPoints()).sort((a, b) => a.order - b.order);
     }
@@ -56,15 +72,20 @@ export class FocusPointsContainer extends Component {
   };
 
   updatefpOrder = () => {
-    if (this.state.fpOrderedIds) {
+    const { actionFile, fpOrderedIds } = this.state
+    const { submitBatchEditedFocusPoint } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
+    if (fpOrderedIds) {
       const focusPoints = this.getFocusPoints();
       const newFp = {};
-      this.state.fpOrderedIds.forEach((id, index) => {
+      fpOrderedIds.forEach((id, index) => {
         const fp = Object.assign({}, focusPoints[id]);
         fp.order = index + 1;
         newFp[id] = fp;
       });
-      this.props.dispatch(this.state.actionFile.submitBatchEditedFocusPoint(this.props.params.questionID, newFp));
+      dispatch(submitBatchEditedFocusPoint(questionID, newFp));
       alert('saved!');
     } else {
       alert('no changes to focus points have been made');
@@ -86,6 +107,10 @@ export class FocusPointsContainer extends Component {
   }
 
   renderFocusPointsList = () => {
+    const { questionTypeLink } = this.state
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
     const components = this.fPsortedByOrder().map((fp) => {
       if (fp.text) {
         return (
@@ -103,7 +128,7 @@ export class FocusPointsContainer extends Component {
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
-              <a className="card-footer-item" href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/${fp.key}/edit`}>Edit</a>
+              <NavLink className="card-footer-item" to={`/admin/${questionTypeLink}/${questionID}/focus-points/${fp.key}/edit`}>Edit</NavLink>
               <a className="card-footer-item" onClick={() => this.deleteFocusPoint(fp.key)}>Delete</a>
             </footer>
           </div>
@@ -118,21 +143,25 @@ export class FocusPointsContainer extends Component {
   }
 
   renderfPButton = () => {
+    const { fpOrderedIds } = this.state
     return (
-      this.state.fpOrderedIds ? <button className="button is-outlined is-primary" onClick={this.updatefpOrder} style={{ float: 'right', }}>Save FP Order</button> : null
+      fpOrderedIds ? <button className="button is-outlined is-primary" onClick={this.updatefpOrder} style={{ float: 'right', }}>Save FP Order</button> : null
     );
   }
 
   render() {
+    const { questionTypeLink } = this.state
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
     return (
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/${this.state.questionTypeLink}/${this.props.params.questionID}/focus-points/new`} style={{ float: 'right', }}>Add Focus Point</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/${questionTypeLink}/${questionID}/focus-points/new`} style={{ float: 'right', }}>Add Focus Point</a>
           {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}
-        {this.props.children}
       </div>
     );
   }

@@ -17,29 +17,39 @@ class EditFocusPointsContainer extends Component {
   }
 
   getFocusPoint = () => {
-    const focusPoint = this.props[this.state.questionType].data[this.props.params.questionID].focusPoints[this.props.params.focusPointID]
-    return Object.assign(focusPoint, { id: this.props.params.focusPointID, });
+    const { questionType } = this.state
+    const { match } = this.props
+    const { params } = match
+    const { focusPointID, questionID } = params
+    const focusPoint = this.props[questionType].data[questionID].focusPoints[focusPointID]
+    return Object.assign(focusPoint, { id: focusPointID, });
   }
 
   submitForm = (data, focusPointID) => {
+    const { actionFile } = this.state
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     delete data.conceptResults.null;
-    this.props.dispatch(this.state.actionFile.submitEditedFocusPoint(this.props.params.questionID, data, focusPointID));
+    dispatch(actionFile.submitEditedFocusPoint(questionID, data, focusPointID));
     window.history.back();
   };
 
   render() {
+    const { match, questions, sentenceFragments } = this.props
+    const { params } = match
+    const { questionID } = params
     return (
       <div>
         <FocusPointsInputAndConceptResultSelectorForm
           item={this.getFocusPoint()}
           itemLabel="Focus Point"
           onSubmit={this.submitForm}
-          questionID={this.props.params.questionID}
-          questions={this.props.questions}
-          sentenceFragments={this.props.sentenceFragments}
+          questionID={questionID}
+          questions={questions}
+          sentenceFragments={sentenceFragments}
           states={true}
         />
-        {this.props.children}
       </div>
     );
   }
