@@ -28,11 +28,11 @@ interface EditProps {
   id: string;
 }
 
-export default class Edit extends React.Component<EditProps, {mounting: boolean, randomNumber: number}> {
+export default class Edit extends React.Component<EditProps, {mounting: boolean}> {
   constructor(props: EditProps) {
     super(props)
 
-    this.state = { mounting: true, randomNumber: Math.random() * 10 }
+    this.state = { mounting: true }
   }
 
   componentDidMount() {
@@ -41,17 +41,10 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
 
   renderConceptExplanation(): JSX.Element {
     const { concept } = this.props
-    const { randomNumber, } = this.state
-    let explanation = "Nullam quis risus eget urna mollis ornare vel eu leo. Tristique sociis natoque penatibus et magnis dis parturient montes."
-
-    if (randomNumber > 8) { return <span /> }
-    if (randomNumber > 3) {
-      explanation = "Nullam quis risus eget urna mollis ornare vel eu leo. Tristique sociis natoque penatibus et magnis dis parturient montes. Nullam quis risus eget urna mollis ornare vel eu leo. Tristique sociis natoque penatibus et magnis dis parturient montes."
-    }
-    // if (!(concept && concept.explanation)) { return <span /> }
+    if (!(concept && concept.explanation)) { return <span /> }
     return (<div className="explanation">
       <p className="label">Explanation</p>
-      <p>{explanation}</p>
+      <p>{concept.explanation}</p>
     </div>)
   }
 
