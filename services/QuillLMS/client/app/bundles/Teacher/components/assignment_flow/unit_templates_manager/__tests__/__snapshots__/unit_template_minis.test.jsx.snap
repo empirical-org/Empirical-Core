@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnitTemplateMinis component should render without createYourOwn mini when teacher not signed in 1`] = `
+<div
+  className="unit-template-minis-container"
+  key="always-display"
+>
+  <div
+    className="container"
+  >
+    <div>
+      <h1>
+        Select an activity pack for your students
+      </h1>
+      <div>
+        <div
+          className="filter-options"
+        >
+          <div
+            className="type-options"
+          >
+            <Link
+              className="active"
+              to="/activities/packs"
+            >
+              All packs
+            </Link>
+            <Link
+              className={null}
+              to="/activities/packs?type=diagnostic"
+            >
+              Diagnostic
+            </Link>
+          </div>
+          <DropdownInput
+            options={
+              Array [
+                Object {
+                  "label": "All levels",
+                  "link": "/activities/packs",
+                  "value": null,
+                },
+                Object {
+                  "label": "Starter",
+                  "link": "/activities/packs",
+                  "value": null,
+                },
+                Object {
+                  "label": "Intermediate",
+                  "link": "/activities/packs",
+                  "value": null,
+                },
+                Object {
+                  "label": "Advanced",
+                  "link": "/activities/packs",
+                  "value": null,
+                },
+                Object {
+                  "label": "ELL",
+                  "link": "/activities/packs",
+                  "value": null,
+                },
+              ]
+            }
+            value={
+              Object {
+                "label": "All levels",
+                "link": "/activities/packs",
+                "value": null,
+              }
+            }
+          />
+        </div>
+        <div
+          className="unit-template-minis"
+        >
+          <UnitTemplateMini
+            data={
+              Object {
+                "activities": Array [],
+                "activity_info": "test activity",
+                "author": Object {
+                  "avatar_url": "avatar",
+                  "name": "author",
+                },
+                "created_at": 0,
+                "grades": Array [
+                  "1",
+                  "2",
+                ],
+                "id": 20,
+                "name": "Sentence Structure Diagnostic",
+                "number_of_standards": 1,
+                "order_number": 0,
+                "time": 30,
+                "type": Object {
+                  "name": "Diagnostic",
+                  "primary_color": "#ea9a1a",
+                },
+                "unit_template_category": Object {
+                  "id": 9,
+                  "name": "Diagnostic",
+                  "primary_color": "#00c2a2",
+                  "secondary_color": "#027360",
+                },
+              }
+            }
+            index={0}
+            key="20"
+            signedInTeacher={false}
+          />
+        </div>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;
