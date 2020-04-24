@@ -8,42 +8,51 @@ import FeedbackForm from './feedbackForm.jsx'
 import { ConceptExplanation } from 'quill-component-library/dist/componentLibrary';
 
 class ConceptFeedback extends React.Component {
+
   cancelEdit = (feedbackID) => {
-      this.props.dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
-  };
+    const { dispatch } = this.props
+    dispatch(actions.cancelConceptsFeedbackEdit(feedbackID))
+  }
 
   deleteConceptsFeedback = () => {
-    this.props.dispatch(actions.deleteConceptsFeedback(this.props.params.feedbackID))
-  };
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { feedbackID } = params
+    dispatch(actions.deleteConceptsFeedback(feedbackID))
+  }
 
   submitNewFeedback = (feedbackID, data) => {
-    if(true) {
-      this.props.dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, data)
-      )
-    }
-  };
+    const { dispatch } = this.props
+    dispatch(feedbackActions.submitConceptsFeedbackEdit(feedbackID, data))
+  }
 
   toggleEdit = () => {
-    this.props.dispatch(actions.startConceptsFeedbackEdit(this.props.params.feedbackID))
-  };
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { conceptFeedbackID } = params
+    dispatch(actions.startConceptsFeedbackEdit(conceptFeedbackID))
+  }
 
   render() {
-    const {data, states} = this.props.conceptsFeedback;
-    const {feedbackID} = this.props.params;
+    const { concepts, conceptsFeedback, match } = this.props
+    const { data, states } = conceptsFeedback
+    const { hasreceiveddata } = concepts
+    const { params } = match
+    const { conceptFeedbackID } = params
 
-    if (data && data[feedbackID]) {
-      const isEditing = (states[feedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
+    if (data && data[conceptFeedbackID]) {
+      const isEditing = (states[conceptFeedbackID] === C.START_CONCEPTS_FEEDBACK_EDIT);
       if (isEditing) {
         return (
-          <div key={this.props.params.feedbackID}>
-            <h4 className="title">{data[feedbackID].name}</h4>
-            <FeedbackForm {...data[feedbackID]} cancelEdit={this.cancelEdit} feedbackID={feedbackID} submitNewFeedback={this.submitNewFeedback} />
+          <div className="admin-container" key={conceptFeedbackID}>
+            <h4 className="title">{data[conceptFeedbackID].name}</h4>
+            <FeedbackForm {...data[conceptFeedbackID]} cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
           </div>
         )
       } else {
         return (
-          <div key={this.props.params.feedbackID}>
-            <ConceptExplanation {...data[feedbackID]} />
+          <div className="admin-container" key={conceptFeedbackID}>
+            <ConceptExplanation {...data[conceptFeedbackID]} />
             <p className="control">
               <button className="button is-info" onClick={this.toggleEdit}>Edit Feedback</button> <button className="button is-danger" onClick={this.deleteConceptsFeedback}>Delete Concept</button>
             </p>
@@ -51,12 +60,12 @@ class ConceptFeedback extends React.Component {
         )
       }
 
-    } else if (this.props.concepts.hasreceiveddata === false){
+    } else if (hasreceiveddata === false){
       return (<p>Loading...</p>)
     } else {
       return (
-        <div className="container" key={this.props.params.feedbackID}>
-          <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={this.props.params.feedbackID} submitNewFeedback={this.submitNewFeedback} />
+        <div className="admin-container" key={conceptFeedbackID}>
+          <FeedbackForm cancelEdit={this.cancelEdit} feedbackID={conceptFeedbackID} submitNewFeedback={this.submitNewFeedback} />
         </div>
       )
     }
