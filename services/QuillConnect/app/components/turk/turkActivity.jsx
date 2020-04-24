@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import * as request from 'request'
 import _ from 'underscore';
 import {
-  hashToCollection,
   Spinner,
   CarouselAnimation,
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
@@ -124,7 +123,21 @@ export class TurkActivity extends React.Component {
       const key = questionItem.key;
       const data = this.props[questionType].data[key]; // eslint-disable-line react/destructuring-assignment
       data.key = key;
-      const type = questionType === 'questions' ? 'SC' : 'SF';
+      let type
+      switch (questionType) {
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'titleCards':
+          type = 'TL'
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
+      }
       return { type, data, };
     });
   }

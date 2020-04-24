@@ -43,13 +43,14 @@ function levelOneConceptsQuery(){
 }
 
 const EDIT_CONCEPT = gql`
-mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $changeLogs: [ChangeLogInput!]!){
-    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, changeLogs: $changeLogs}){
+mutation editConcept($id: ID! $name: String, $parentId: ID, $visible: Boolean, $description: String, $explanation: String, $changeLogs: [ChangeLogInput!]!){
+    editConcept(input: {id: $id, name: $name, parentId: $parentId, visible: $visible, description: $description, explanation: $explanation, changeLogs: $changeLogs}){
       concept {
         id
         uid
         name
         description
+        explanation
         parentId
         visible
       }

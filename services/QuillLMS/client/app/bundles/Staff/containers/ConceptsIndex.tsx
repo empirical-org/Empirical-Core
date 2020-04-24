@@ -34,6 +34,7 @@ export interface Concept {
   uid?:string
   name:string;
   description?:string;
+  explanation?:string;
   createdAt?:number;
   parent?:Concept;
   visible?:boolean;

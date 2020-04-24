@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12
--- Dumped by pg_dump version 10.12
+-- Dumped from database version 10.10
+-- Dumped by pg_dump version 10.10
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1214,7 +1214,8 @@ CREATE TABLE public.concepts (
     uid character varying NOT NULL,
     replacement_id integer,
     visible boolean DEFAULT true,
-    description text
+    description text,
+    explanation text
 );
 
 
@@ -5990,3 +5991,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200326152208');
 INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 
 INSERT INTO schema_migrations (version) VALUES ('20200409151835');
+
+INSERT INTO schema_migrations (version) VALUES ('20200415170227');
+
