@@ -125,9 +125,10 @@
 
     @media (max-width: 800px) {
       width: 100vw;
-      right: -15px;
-      margin-top: 34px;
-      height: calc(100vh - 185px);
+      position: fixed;
+      top: 74px !important;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
     }
 
   }

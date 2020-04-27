@@ -28,15 +28,23 @@ interface EditProps {
   id: string;
 }
 
-export default class Edit extends React.Component<EditProps, {mounting: boolean}> {
+const OFFSET_FROM_TOP = 74
+
+export default class Edit extends React.Component<EditProps, {mounting: boolean, tooltipHeight: string}> {
   constructor(props: EditProps) {
     super(props)
 
-    this.state = { mounting: true }
+    this.state = { mounting: true, tooltipHeight: `${window.innerHeight - OFFSET_FROM_TOP}px` }
   }
 
   componentDidMount() {
     this.handleComponentBeingMounted()
+
+    window.addEventListener('resize', this.handleResize)
+  }
+
+  handleResize = () => {
+    this.setState({ tooltipHeight: `${window.innerHeight - OFFSET_FROM_TOP}px` })
   }
 
   handleComponentBeingMounted = () => this.setState({ mounting: false, })
@@ -97,7 +105,7 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean}
   }
 
   renderTooltip() {
-    const { mounting, } = this.state
+    const { mounting, tooltipHeight, } = this.state
     const { activeIndex, index, state, numberOfEdits, next, back, id, } = this.props
     if (mounting || activeIndex !== index) { return }
 
@@ -125,7 +133,7 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean}
         break
     }
     const parentElement = document.getElementById(id)
-    const style = parentElement ? { top: `${parentElement.offsetTop + 5}px` } : {}
+    const style = parentElement ? { top: `${parentElement.offsetTop + 5}px`, height: tooltipHeight } : {}
     const backButton = back ? <button className="quill-button medium secondary outlined focus-on-light" onClick={back} type="button">Back</button> : <div className="placeholder" />
     const nextButton = <button className="quill-button medium primary contained focus-on-light" onClick={next} type="button">{index + 1 === numberOfEdits ? 'Done' : 'Next'}</button>
     return (<div className="edit-tooltip" style={style}>
