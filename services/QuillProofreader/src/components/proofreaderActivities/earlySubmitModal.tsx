@@ -1,15 +1,25 @@
 import * as React from 'react'
 
-const EarlySubmitModal: React.SFC<{closeModal: any, requiredEditCount: number}> = ({ closeModal, requiredEditCount, }) => {
- return (<div className="early-submit-modal-container">
-   <div className="early-submit-modal-background" />
-   <div className="early-submit-modal">
-     <div className="top-section">
-       <h1>Keep looking! You must make at least {requiredEditCount} edits.</h1>
-       <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} tabIndex={1}>Close</button>
-     </div>
-   </div>
- </div>)
+interface EarlySubmitModalProps {
+  closeModal: any,
+  requiredEditCount: number
 }
 
-export default EarlySubmitModal
+export default class EarlySubmitModal extends React.Component<EarlySubmitModalProps> {
+  componentDidMount() {
+    this.modal.focus()
+  }
+
+  render() {
+    const { requiredEditCount, closeModal, } = this.props
+    return (<div className="early-submit-modal-container" ref={(node) => this.modal = node}>
+      <div className="early-submit-modal-background" />
+      <div className="early-submit-modal">
+        <div className="top-section">
+          <h1>Keep looking! You must make at least {requiredEditCount} edits.</h1>
+          <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} type="button">Close</button>
+        </div>
+      </div>
+    </div>)
+  }
+}

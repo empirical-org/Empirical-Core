@@ -37,8 +37,8 @@ export default class Paragraph extends React.Component<ParagraphProps, {}> {
       <EditInput
         key={word.wordIndex}
         {...word}
-        onWordChange={this.handleWordChange}
         numberOfResets={numberOfResets}
+        onWordChange={this.handleWordChange}
       />
     ))
     return <div className={className}>{inputs}</div>
