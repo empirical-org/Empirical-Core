@@ -1,55 +1,59 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import {
   hashToCollection,
-  ArchivedButton,
-  QuestionList
+  ArchivedButton
 } from 'quill-component-library/dist/componentLibrary'
+import { QuestionList } from '../shared/questionList'
 
 class SentenceFragments extends React.Component {
   constructor(props) {
     super(props)
 
+    const { sentenceFragments } = props
+    const { data } = sentenceFragments
+
     this.state = {
       showOnlyArchived: false,
-      questions: {}
+      questions: data || {}
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { questions } = this.state
     const { sentenceFragments } = nextProps
-    if (sentenceFragments.hasreceiveddata) {
-      if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, sentenceFragments.data)) {
-        this.setState({ questions: sentenceFragments.data })
+    const { data, hasreceiveddata } = sentenceFragments
+    if (hasreceiveddata) {
+      if (Object.keys(questions).length === 0 || !_.isEqual(this.props.sentenceFragments.data, data)) {
+        this.setState({ questions: data })
       }
     }
   }
 
   toggleShowArchived = () => {
-    this.setState({
-      showOnlyArchived: !this.state.showOnlyArchived,
-    });
-  };
+    this.setState(prevState => ({ showOnlyArchived: !prevState.showOnlyArchived }))
+  }
 
   render() {
-    const sentenceFragments = hashToCollection(this.state.questions)
+    const { questions, showOnlyArchived } = this.state
+    const sentenceFragments = hashToCollection(questions)
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/sentence-fragments/new'}>
+          <Link to={'/admin/sentence-fragments/new'}>
             <button className="button is-primary">Create a New Sentence Fragment</button>
           </Link>
           <ArchivedButton
             lessons={false}
-            showOnlyArchived={this.state.showOnlyArchived}
+            showOnlyArchived={showOnlyArchived}
             toggleShowArchived={this.toggleShowArchived}
           />
           <p className="menu-label">Sentence Fragments</p>
           <QuestionList
             basePath={'sentence-fragments'}
             questions={sentenceFragments || []}
-            showOnlyArchived={this.state.showOnlyArchived}
+            showOnlyArchived={showOnlyArchived}
           />
         </div>
       </section>

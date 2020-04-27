@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PlayFillInTheBlankQuestion from '../studentLessons/fillInBlank.tsx';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion, resumePreviousSession } from '../../actions.js';
+import { clearData, loadData, nextQuestion, submitResponse } from '../../actions.js';
 
 class TestQuestion extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      responsesForGrading: [],
-      allResponses: [],
-      key: 0,
-    };
-  }
+  
+  state = {
+    responsesForGrading: [],
+    allResponses: [],
+    key: 0,
+  };
 
   componentDidMount() {
     this.reset();
   }
 
   getQuestion = () => {
-    const { fillInBlank, params, } = this.props
-    return fillInBlank.data[params.questionID];
+    const { fillInBlank, match } = this.props
+    const { data } = fillInBlank
+    const { params } = match
+    const { questionID } = params
+    return data[questionID];
   }
 
   setResponse = (response) => {
@@ -28,10 +28,11 @@ class TestQuestion extends Component {
   }
 
   questionsForLesson = () => {
-    const { params, } = this.props
-
-    const question = this.getQuestion();
-    question.key = params.questionID;
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
+    let question = this.getQuestion();
+    question.key = questionID;
     if (!question.attempts) {
       question.attempts = []
     }
@@ -76,9 +77,10 @@ class TestQuestion extends Component {
 
   render() {
     const { playLesson, dispatch, conceptsFeedback, } = this.props
+    const { currentQuestion } = playLesson
     const { key, } = this.state
-    if (playLesson.currentQuestion) {
-      const question = playLesson.currentQuestion.question;
+    if (currentQuestion) {
+      const { question } = currentQuestion
       return (
         <div>
           <div className="test-question-container">
