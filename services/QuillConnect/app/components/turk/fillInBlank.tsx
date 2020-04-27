@@ -39,7 +39,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.setQuestionValues(question)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { question, } = this.props
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)

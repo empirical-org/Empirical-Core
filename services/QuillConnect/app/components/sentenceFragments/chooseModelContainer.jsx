@@ -8,8 +8,9 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 class ChooseModelContainer extends Component {
   constructor(props) {
     super(props);
-    const { params, sentenceFragments } = props
+    const { match, sentenceFragments } = props
     const { data } = sentenceFragments
+    const { params } = match
     const { questionID } = params
     this.state = {
       modelConceptUID: data[questionID].modelConceptUID
@@ -17,17 +18,32 @@ class ChooseModelContainer extends Component {
   }
 
   getModelConceptUID = () => {
-    return this.state.modelConceptUID || this.props.sentenceFragments.data[this.props.params.questionID].modelConceptUID;
+    const { modelConceptUID } = this.state
+    const { match, sentenceFragments } = this.props
+    const { data } = sentenceFragments
+    const { params } = match
+    const { questionID } = params
+    return modelConceptUID || data[questionID].modelConceptUID;
   }
 
   removeModelConcept = () => {
-    let questionData = Object.assign({}, this.props.sentenceFragments.data[this.props.params.questionID], {modelConceptUID: null});
-    this.props.dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(this.props.params.questionID, questionData));
+    const { dispatch, match, sentenceFragments } = this.props
+    const { data } = sentenceFragments
+    const { params } = match
+    const { questionID } = params
+    let questionData = Object.assign({}, data[questionID], {modelConceptUID: null});
+    dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(questionID, questionData));
+    window.history.back();
   };
 
   saveModelConcept = () => {
-    this.props.dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(this.props.params.questionID,
-      Object.assign({}, this.props.sentenceFragments.data[this.props.params.questionID], {modelConceptUID: this.state.modelConceptUID})));
+    const { modelConceptUID } = this.state
+    const { dispatch, match, sentenceFragments } = this.props
+    const { data } = sentenceFragments
+    const { params } = match
+    const { questionID } = params
+    dispatch(sentenceFragmentActions.submitSentenceFragmentEdit(questionID,
+      Object.assign({}, data[questionID], {modelConceptUID: modelConceptUID})));
     window.history.back();
   };
 
@@ -36,11 +52,16 @@ class ChooseModelContainer extends Component {
   };
 
   renderButtons = () => {
+    const { modelConceptUID } = this.state
+    const { match, sentenceFragments } = this.props
+    const { data } = sentenceFragments
+    const { params } = match
+    const { questionID } = params
     return(
       <p className="control">
         <button
           className={'button is-primary'}
-          disabled={this.state.modelConceptUID == this.props.sentenceFragments.data[this.props.params.questionID].modelConceptUID ? 'true' : null}
+          disabled={modelConceptUID === data[questionID].modelConceptUID}
           onClick={this.saveModelConcept}
         >
           Save Model Concept
@@ -64,13 +85,14 @@ class ChooseModelContainer extends Component {
   }
 
   render() {
+    const { conceptsFeedback } = this.props
+    const { data } = conceptsFeedback
     return(
       <div className="box">
         <h4 className="title">Choose Model</h4>
         <div className="control">
           <ConceptSelector currentConceptUID={this.getModelConceptUID()} handleSelectorChange={this.selectConcept} onlyShowConceptsWithConceptFeedback />
-          <ConceptExplanation {...this.props.conceptsFeedback.data[this.getModelConceptUID()]} />
-          {this.props.children}
+          <ConceptExplanation {...data[this.getModelConceptUID()]} />
         </div>
         {this.renderButtons()}
       </div>

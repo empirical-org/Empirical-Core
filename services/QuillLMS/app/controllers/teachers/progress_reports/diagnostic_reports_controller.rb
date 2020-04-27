@@ -47,22 +47,12 @@ class Teachers::ProgressReports::DiagnosticReportsController < Teachers::Progres
       params.permit(:unit_id, :activity_id)
       unit_id = params[:unit_id]
       activity_id = params[:activity_id]
-      classroom_hash = ActiveRecord::Base.connection.execute("
-        SELECT classroom_units.classroom_id from classroom_units
-        LEFT JOIN activity_sessions ON classroom_units.id = activity_sessions.classroom_unit_id
-        JOIN classrooms ON classroom_units.classroom_id = classrooms.id
-        WHERE classroom_units.unit_id = #{ActiveRecord::Base.sanitize(unit_id)}
-          AND activity_sessions.activity_id = #{ActiveRecord::Base.sanitize(activity_id)}
-          AND classroom_units.visible = TRUE
-          AND activity_sessions.visible = TRUE
-          AND classrooms.visible = TRUE
-          AND activity_sessions.is_final_score = TRUE
-        ORDER BY activity_sessions.updated_at DESC
-        LIMIT 1;").to_a
-      if !classroom_hash[0]
+      classroom_units = ClassroomUnit.where(unit_id: unit_id, classroom_id: current_user.classrooms_i_teach.map(&:id))
+      last_activity_session = ActivitySession.where(classroom_unit: classroom_units, activity_id: activity_id, is_final_score: true).order(updated_at: :desc).limit(1)&.first
+      classroom_id = last_activity_session&.classroom_unit&.classroom_id
+      if !classroom_id
         return render json: {}, status: 404
       end
-      classroom_id = classroom_hash[0]['classroom_id']
       render json: { url: "/teachers/progress_reports/diagnostic_reports#/u/#{unit_id}/a/#{activity_id}/c/#{classroom_id}/students" }
     end
 
