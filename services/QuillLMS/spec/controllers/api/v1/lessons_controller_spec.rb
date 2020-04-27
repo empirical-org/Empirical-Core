@@ -58,16 +58,17 @@ describe Api::V1::LessonsController, type: :controller do
 
   describe "#add_question" do
     it "should add a question to the existing record" do
-      data = {"question" => {"key" => question.uid, "questionType" => question.question_type}}
+      data = {"key" => question.uid, "questionType" => "questions"}
       put :add_question, lesson_type: lesson.lesson_type, id: lesson.uid, question: data
       lesson.reload
       expect(lesson.data["questions"]).to include(data)
     end
 
-    # it "should return a 404 if the requested Lesson is not found" do
-    #   get :update, lesson_type: lesson.lesson_type, id: 'doesnotexist'
-    #   expect(response.status).to eq(404)
-    #   expect(response.body).to include("The resource you were looking for does not exist")
-    # end
+    it "should return a 404 if the requested Question is not found" do
+      data = {"question" => {"key" => "notarealID", "questionType" => "question"}}
+      put :add_question, lesson_type: lesson.lesson_type, id: lesson.uid, question: data
+      expect(response.status).to eq(404)
+      expect(response.body).to include("does not exist")
+    end
   end
 end

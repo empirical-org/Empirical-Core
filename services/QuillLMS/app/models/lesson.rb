@@ -25,11 +25,11 @@ class Lesson < ActiveRecord::Base
 
   private def validate_question(question)
     if Question.find_by_uid(question[:key]).blank?
-      errors.add(:question, "Question #{question[:key]} does not exist.")
+      errors.add(:lesson, "Question #{question[:key]} does not exist.")
       return false
     end
     if data["questionType"] != question[:questionType]
-      errors.add(:question, "The question type #{question[:questionType]} does not match the lesson's question type: #{data["questionType"]}")
+      errors.add(:lesson, "The question type #{question[:questionType]} does not match the lesson's question type: #{data["questionType"]}")
       return false
     end
     return true
