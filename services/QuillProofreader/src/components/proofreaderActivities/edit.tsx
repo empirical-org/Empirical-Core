@@ -36,8 +36,10 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean}
   }
 
   componentDidMount() {
-    this.setState({ mounting: false, })
+    this.handleComponentBeingMounted()
   }
+
+  handleComponentBeingMounted = () => this.setState({ mounting: false, })
 
   renderConceptExplanation(): JSX.Element {
     const { concept } = this.props
