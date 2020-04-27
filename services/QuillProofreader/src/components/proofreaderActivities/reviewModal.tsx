@@ -14,7 +14,7 @@ export default class ReviewModal extends React.Component<ReviewModalProps> {
   render() {
     const { closeModal, numberOfErrors, numberOfCorrectChanges, } = this.props
     const highScoreMessage = numberOfCorrectChanges > numberOfErrors / 2 ? "Good work! " : null
-    return (<div className="review-modal-container" ref={node => this.modal = node}>
+    return (<div className="review-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
       <div className="review-modal-background" />
       <div className="review-modal">
         <div className="top-section">

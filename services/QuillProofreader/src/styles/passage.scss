@@ -106,6 +106,8 @@
       line-height: 23px;
     }
     .paragraph {
+      display: flex;
+      flex-wrap: wrap;
       &.no-underline {
         .underlined {
           text-decoration: none !important;
@@ -174,12 +176,12 @@
 }
 
 .edit-input {
-  display: inline-block;
   border: none;
   margin-right: 4px;
   padding: 0px;
   font-size: 21px;
   line-height: 1.52;
+  white-space: nowrap;
   &:focus {
     outline: none;
   }
