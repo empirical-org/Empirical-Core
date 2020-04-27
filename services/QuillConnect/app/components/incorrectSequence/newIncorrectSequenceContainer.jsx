@@ -19,8 +19,9 @@ class NewIncorrectSequencesContainer extends Component {
   componentDidMount() {
     const { actionFile } = this.state
     const { getUsedSequences } = actionFile
-    const { dispatch, generatedIncorrectSequences, params } = this.props
+    const { dispatch, generatedIncorrectSequences, match } = this.props
     const { used } = generatedIncorrectSequences
+    const { params } = match
     const { questionID } = params
     if (!used[questionID] && getUsedSequences) {
       dispatch(getUsedSequences(questionID))
@@ -28,25 +29,32 @@ class NewIncorrectSequencesContainer extends Component {
   }
 
   submitSequenceForm = data => {
+    const { actionFile } = this.state
+    const { submitNewIncorrectSequence } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     delete data.conceptResults.null;
-    this.props.dispatch(this.state.actionFile.submitNewIncorrectSequence(this.props.params.questionID, data));
+    dispatch(submitNewIncorrectSequence(questionID, data));
     window.history.back();
   };
 
   render() {
-    const { generatedIncorrectSequences, params, questions, sentenceFragments, } = this.props
+    const { generatedIncorrectSequences, match, questions, sentenceFragments, } = this.props
+    const { used } = generatedIncorrectSequences
+    const { params } = match
+    const { questionID } = params
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          questionID={params.questionID}
+          questionID={questionID}
           questions={questions}
           sentenceFragments={sentenceFragments}
           states
-          usedSequences={generatedIncorrectSequences.used[params.questionID]}
+          usedSequences={used[questionID]}
         />
-        {this.props.children}
       </div>
     );
   }

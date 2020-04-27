@@ -291,7 +291,7 @@ module PublicProgressReports
         if !unit
           unit = Unit.find_by(user_id: teacher_id, name: UnitTemplate.find_by_id(rec[:activityPackId]).name, visible: true)
         end
-        student_ids = ClassroomUnit.find_by(unit: unit, classroom: classroom).try(:assigned_student_ids) || []
+        student_ids = ClassroomUnit.find_by(unit: unit, classroom: classroom, visible: true).try(:assigned_student_ids) || []
         return_value_for_recommendation(student_ids, rec)
       end
       recommended_lesson_activity_ids = LessonRecommendationsQuery.new(diagnostic.id)
