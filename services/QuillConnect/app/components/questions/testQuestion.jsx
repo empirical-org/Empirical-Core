@@ -18,16 +18,24 @@ class TestQuestion extends Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(clearData());
+    const { dispatch } = this.props
+    dispatch(clearData());
   }
 
   getQuestion = () => {
-    return this.props.questions.data[this.props.params.questionID];
+    const { match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { questionID } = params
+    return data[questionID];
   }
 
   questionsForLesson = () => {
-    const question = this.getQuestion();
-    question.key = this.props.params.questionID;
+    let question = this.getQuestion();
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
+    question.key = questionID;
     return [
       {
         type: 'SC',
@@ -37,29 +45,33 @@ class TestQuestion extends Component {
   }
 
   reset = () => {
-    this.props.dispatch(clearData());
+    const { dispatch } = this.props
+    dispatch(clearData());
     this.startActivity();
-    this.setState({ key: this.state.key + 1, });
+    this.setState(prevState =>  ({ key: prevState.key + 1 }));
   };
 
   startActivity = (name = 'Triangle') => {
+    const { dispatch } = this.props
     const action = loadData(this.questionsForLesson());
-    this.props.dispatch(action);
+    dispatch(action);
     const next = nextQuestion();
-    this.props.dispatch(next);
+    dispatch(next);
   }
 
   render() {
+    const { key } = this.state
     const { playLesson, conceptsFeedback, dispatch, } = this.props
-    if (playLesson.currentQuestion) {
-      const { question, } = playLesson.currentQuestion;
+    const { currentQuestion } = playLesson
+    if (currentQuestion) {
+      const { question } = currentQuestion;
       return (
         <div className="test-question-container">
           <PlayLessonQuestion
             conceptsFeedback={conceptsFeedback}
             dispatch={dispatch}
             isAdmin={true}
-            key={this.state.key}
+            key={key}
             nextQuestion={this.reset}
             prefill={false}
             question={question}

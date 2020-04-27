@@ -38,15 +38,10 @@ class Header extends React.Component<any, any> {
 
   render() {
     return (
-      <Layout.Header style={{
-          height: '64px',
-          width: "100%",
-          backgroundColor: "#06806b",
-          padding: "0 30px"}}
-      >
+      <Layout.Header className="header">
         <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
-          <img alt="Quill logo" src={quillLogoSrc} style={{ height: '32px' }} />
-          <span onClick={this.handleSaveAndExitClick} style={{ color: 'white', cursor: 'pointer', fontWeight: 600 }}>Save and exit</span>
+          <a className="focus-on-dark" href={process.env.EMPIRICAL_BASE_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
+          <button className="focus-on-dark" onClick={this.handleSaveAndExitClick}>Save and exit</button>
         </Row>
       </Layout.Header>
     );

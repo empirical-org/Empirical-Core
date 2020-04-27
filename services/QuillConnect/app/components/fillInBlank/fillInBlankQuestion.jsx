@@ -1,22 +1,19 @@
 import React, { Component } from 'react';
-import activeComponent from 'react-router-active-component';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-
+import { Link, NavLink, Route, Switch, withRouter } from 'react-router-dom';
 import Cues from '../renderForQuestions/cues.jsx';
-import fillInTheBlankActions from '../../actions/fillInBlank';
+import EditFillInBlank from './editFillInBlank.jsx';
+import TestFillInBlankQuestionContainer from './testFillInBlankQuestionContainer.jsx';
+import ResponseComponentWrapper from '../questions/responseRouteWrapper.jsx';
+import MassEditContainer from '../questions/massEditContainer.jsx';
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
-const NavLink = activeComponent('li');
 
 class FillInBlankQuestion extends Component {
-  constructor(props) {
-    super(props);
-    this.getQuestion = this.getQuestion.bind(this);
-  }
 
   getQuestion = () => {
-    const { params, fillInBlank, } = this.props
+    const { match, fillInBlank, } = this.props
+    const { params } = match
     const { questionID, } = params;
     return fillInBlank ? fillInBlank.data[questionID] : null;
   }
@@ -27,17 +24,20 @@ class FillInBlankQuestion extends Component {
   }
 
   render() {
-    const { params, massEdit, fillInBlank, children, } = this.props
-    const { questionID} = params;
-    if (this.isLoading()) {
+    const { match, massEdit, fillInBlank } = this.props
+    const { hasreceiveddata } = fillInBlank
+    const { params } = match
+    const { questionID } = params;
+    const question = this.getQuestion()
+    if (!hasreceiveddata) {
       return (<p>Loading...</p>);
-    } else if (this.getQuestion()) {
+    } else if (question) {
       const activeLink = massEdit.numSelectedResponses > 1
       ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       const data = fillInBlank.data
       return (
-        <div>
+        <div className="admin-container">
           <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <h4 className="title" dangerouslySetInnerHTML={{ __html: data[questionID].prompt, }} />
             <h4 className="title" style={{color: '#00c2a2'}}>Flag: {data[questionID].flag}</h4>
@@ -48,19 +48,24 @@ class FillInBlankQuestion extends Component {
           />
           <div className="feedback-row student-feedback-inner-container admin-feedback-row">
             <img alt="Directions Icon" className="info" src={icon} />
-            <p>{this.getQuestion().instructions || 'Combine the sentences into one sentence.'}</p>
+            <p>{question.instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-            <Link className="button is-outlined is-primary" to={`admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>
+            <Link className="button is-outlined is-primary" to={`/admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>
           </p>
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
               {activeLink}
             </ul>
           </div>
-          {children}
+          <Switch>
+            <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
+            <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
+            <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/:questionID/test`} />
+            <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />
+          </Switch>
         </div>
       );
     } else {
@@ -79,4 +84,4 @@ function select(props) {
   };
 }
 
-export default connect(select)(FillInBlankQuestion);
+export default withRouter(connect(select)(FillInBlankQuestion));

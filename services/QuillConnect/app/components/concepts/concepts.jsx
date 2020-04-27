@@ -1,23 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import { LinkListItem } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from '../shared/linkListItem'
 import actions from '../../actions/concepts'
 
 class Concepts extends React.Component {
+
   submitNewConcept = () => {
-    var newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConcept(newConcept))
+    const { dispatch } = this.props
+    const newConcept = {name: this.refs.newConceptName.value}
+    dispatch(actions.submitNewConcept(newConcept))
     this.refs.newConceptName.value = ""
   };
 
   renderConcepts = () => {
-    const data = this.props.concepts.data["0"];
-    if (data) {
-      return data.map((concept) => {
+    const { concepts } = this.props
+    const { data } = concepts
+    const dataRow = data["0"];
+    if (dataRow) {
+      return dataRow.map((concept) => {
         return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts'
+          excludeResponses={true}
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}

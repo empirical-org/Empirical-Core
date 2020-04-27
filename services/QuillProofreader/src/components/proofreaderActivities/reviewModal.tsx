@@ -1,16 +1,27 @@
 import * as React from 'react'
 
-const ReviewModal: React.SFC<{closeModal: any, numberOfErrors: number, numberOfCorrectChanges: number}> = (props) => {
- return (<div className="review-modal-container">
-   <div className="review-modal-background" />
-   <div className="review-modal">
-     <div className="top-section">
-       {props.numberOfCorrectChanges > props.numberOfErrors / 2 ? <h1>Good work!</h1> : null}
-       <p>You found {props.numberOfCorrectChanges} of {props.numberOfErrors} errors.</p>
-       <button onClick={props.closeModal}>Review Your Work</button>
-     </div>
-   </div>
- </div>)
+interface ReviewModalProps {
+  closeModal: any,
+  numberOfErrors: number,
+  numberOfCorrectChanges: number
 }
 
-export default ReviewModal
+export default class ReviewModal extends React.Component<ReviewModalProps> {
+  componentDidMount() {
+    this.modal.focus()
+  }
+
+  render() {
+    const { closeModal, numberOfErrors, numberOfCorrectChanges, } = this.props
+    const highScoreMessage = numberOfCorrectChanges > numberOfErrors / 2 ? "Good work! " : null
+    return (<div className="review-modal-container" ref={(node) => this.modal = node} tabIndex={-1}>
+      <div className="review-modal-background" />
+      <div className="review-modal">
+        <div className="top-section">
+          <h1>{highScoreMessage} You found {numberOfCorrectChanges} of {numberOfErrors} errors. Let&#39;s review your edits.</h1>
+          <button className="quill-button medium primary contained focus-on-light" onClick={closeModal} type="button">Review</button>
+        </div>
+      </div>
+    </div>)
+  }
+}

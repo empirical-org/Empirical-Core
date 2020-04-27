@@ -1,6 +1,13 @@
-a {
-  color: white;
-}
-img {
-  height: 25px;
+.header {
+  height: 64px;
+  width: 100%;
+  background-color: #06806b;
+  padding: 0 16px;
+  a, button {
+    color: white;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    line-height: normal;
+  }
 }
