@@ -53,8 +53,8 @@ RSpec.describe Lesson, type: :model do
       question_obj = {"key": question.uid, "questionType": "questions"}
       lesson.add_question(question_obj)
       expect(lesson.data["questions"].length).to eq(old_length+1)
-      expect(lesson.data["questions"][-1][:"key"]).to eq(question.uid)
-      expect(lesson.data["questions"][-1][:"questionType"]).to eq("questions")
+      expect(lesson.data["questions"][-1][:key]).to eq(question.uid)
+      expect(lesson.data["questions"][-1][:questionType]).to eq("questions")
     end
 
     it 'should throw error if the question does not exist' do

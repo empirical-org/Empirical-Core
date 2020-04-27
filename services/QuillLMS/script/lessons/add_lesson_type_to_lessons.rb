@@ -6,11 +6,11 @@ Lesson.all.each do |lesson|
     next
   end
   first_question = data["questions"][0]
-  questionType = first_question["questionType"]
+  question_type = first_question["questionType"]
   if !PERMITTED_TYPES.include? questionType
-    raise "Error - the question type #{questionType} is not permitted."
+    raise "Error - the question type #{question_type} is not permitted."
   end
-  data["questionType"] = questionType
+  data["questionType"] = question_type
   lesson.data = data
   lesson.save
 end
