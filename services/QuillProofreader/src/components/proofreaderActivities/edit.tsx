@@ -30,11 +30,19 @@ interface EditProps {
 
 const OFFSET_FROM_TOP = 74
 
+function calculateHeight() {
+  if (window.innerWidth > 800) {
+    return '400px'
+  }
+
+  return `${window.innerHeight - OFFSET_FROM_TOP}px`
+}
+
 export default class Edit extends React.Component<EditProps, {mounting: boolean, tooltipHeight: string}> {
   constructor(props: EditProps) {
     super(props)
 
-    this.state = { mounting: true, tooltipHeight: `${window.innerHeight - OFFSET_FROM_TOP}px` }
+    this.state = { mounting: true, tooltipHeight: calculateHeight() }
   }
 
   componentDidMount() {
@@ -44,7 +52,7 @@ export default class Edit extends React.Component<EditProps, {mounting: boolean,
   }
 
   handleResize = () => {
-    this.setState({ tooltipHeight: `${window.innerHeight - OFFSET_FROM_TOP}px` })
+    this.setState({ tooltipHeight: calculateHeight() })
   }
 
   handleComponentBeingMounted = () => this.setState({ mounting: false, })
