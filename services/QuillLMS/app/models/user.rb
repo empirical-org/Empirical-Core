@@ -626,14 +626,6 @@ class User < ActiveRecord::Base
     extant_user.clever_id != clever_id
   end
 
-  def google_id_present?
-    return false if !google_id
-    return true if !id
-
-    extant_user = User.find_by_id(id)
-    extant_user.google_id != google_id
-  end
-
   def requires_password?
     return false if clever_id
     return false if signed_up_with_google
