@@ -1,43 +1,59 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import QuestionForm from '../questions/questionForm'
 
-const Concept = React.createClass({
-  getInitialState: function (){
-    return {
-      prompt: ''
-    }
-  },
+class Concept extends React.Component {
+  state = {
+    prompt: ''
+  };
 
-  getConcept: function () {
-    const {data} = this.props.concepts, {conceptID} = this.props.params;
+  getConcept = () => {
+    const { concepts, match } = this.props
+    const { data } = concepts
+    const { params } = match
+    const { conceptID } = params
     return _.find(data['0'], {uid: conceptID})
-  },
+  };
 
-  deleteConcept: function () {
+  deleteConcept = () => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { conceptID } = params
     if(confirm("Are you sure?")) {
-      this.props.dispatch(actions.deleteConcept(this.props.params.conceptID))
+      dispatch(actions.deleteConcept(conceptID))
     }
-  },
+  };
 
-  submitNewQuestion: function (questionObj, optimalResponseObj) {
-    const questionObjWithConceptID = { ...questionObj, conceptID: this.props.params.conceptID }
-    this.props.dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
-  },
+  questionsForConcept = () => {
+    const { match, questions } = this.props
+    const { data } = questions
+    const { params } = match
+    const { conceptID } = params
+    const questionsCollection = hashToCollection(data)
+    return questionsCollection.filter(q => q.conceptID === conceptID && q.flag !== 'archived')
+  };
 
-  questionsForConcept: function () {
-    const questionsCollection = hashToCollection(this.props.questions.data)
-    return questionsCollection.filter(q => q.conceptID === this.props.params.conceptID && q.flag !== 'archived')
-  },
+  submitNewQuestion = (questionObj, optimalResponseObj) => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { conceptID } = params
+    const questionObjWithConceptID = { ...questionObj, conceptID: conceptID }
+    dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
+  };
 
-  renderQuestionsForConcept: function () {
-    var questionsForConcept = this.questionsForConcept()
-    var listItems = questionsForConcept.map((question) => {
+  renderNewQuestionForm = () => {
+    const { itemLevels } = this.props
+    return <QuestionForm itemLevels={itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
+  };
+
+  renderQuestionsForConcept = () => {
+    const questionsForConcept = this.questionsForConcept()
+    const listItems = questionsForConcept.map((question) => {
       const archivedTag = question.flag === 'archived' ? <strong>ARCHIVED - </strong> : ''
       return (<li key={question.key}><Link to={'/admin/questions/' + question.key + '/responses'}>{archivedTag}{question.prompt.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "")}</Link></li>)
     })
@@ -45,25 +61,23 @@ const Concept = React.createClass({
       <ul>{listItems}</ul>
     )
 
-  },
+  };
 
-  renderNewQuestionForm: function () {
-    return <QuestionForm itemLevels={this.props.itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
-  },
-
-  render: function (){
-    const {data} = this.props.concepts, {conceptID} = this.props.params;
-    if (this.getConcept()) {
+  render() {
+    const { concepts } = this.props
+    const { hasreceiveddata } = concepts
+    const concept = this.getConcept()
+    if (concept) {
       return (
-        <div>
+        <div className="admin-container">
           <Link to={'admin/concepts'}>Return to All Concepts</Link>
-          <h4 className="title">{this.getConcept().displayName}</h4>
+          <h4 className="title">{concept.displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
           {this.renderNewQuestionForm()}
           {this.renderQuestionsForConcept()}
         </div>
       )
-    } else if (this.props.concepts.hasreceiveddata === false){
+    } else if (hasreceiveddata === false){
       return (<p>Loading...</p>)
     } else {
       return (
@@ -72,7 +86,7 @@ const Concept = React.createClass({
     }
 
   }
-})
+}
 
 function select(state) {
   return {

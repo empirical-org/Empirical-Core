@@ -13,19 +13,17 @@ test_env: &test_env
   <<: *development_env
   database: emp_gr_test
 
+# While we don't actually connect to any follower DBs, they
+# do exist within our infrastructure, so naming conventions
+# here are intended to simplify later decision to use followers
+# as well as disambiguate similarly-named ENV variables.
 leader_db_env: &leader_db_env
   database: <%= ENV['LEADER_DB_NAME'] %>
-  user: <%= ENV['LEADER_DB_USERNAME'] %>
+  username: <%= ENV['LEADER_DB_USERNAME'] %>
   password: <%= ENV['LEADER_DB_PASSWORD'] %>
   host: <%= ENV['LEADER_DB_HOSTNAME'] %>
   port: <%= ENV['LEADER_DB_PORT'] %>
 
-follower_db_env: &follower_db_env
-  database: <%= ENV['FOLLOWER_DB_NAME'] %>
-  user: <%= ENV['FOLLOWER_DB_USERNAME'] %>
-  password: <%= ENV['FOLLOWER_DB_PASSWORD'] %>
-  host: <%= ENV['FOLLOWER_DB_HOSTNAME'] %>
-  port: <%= ENV['FOLLOWER_DB_PORT'] %>
 
 development: &development
   <<: *default

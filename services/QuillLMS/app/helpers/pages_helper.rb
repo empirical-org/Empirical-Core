@@ -59,18 +59,13 @@ module PagesHelper
         members: [
           {
             name: 'Daniel Drabik',
-            title: 'Vice President of Engineering',
+            title: 'Chief Technology Officer',
             img: 'team-daniel-drabik@2x.png'
           },
           {
             name: 'Peter Gault',
             title: 'Executive Director, Cofounder',
             img: 'team-peter-gault@2x.png'
-          },
-          {
-            name: 'Sara Jeruss',
-            title: 'Chief Operating Officer',
-            img: 'team-sara-jeruss@2x.png'
           }
         ]
       },
@@ -82,6 +77,11 @@ module PagesHelper
             name: 'Eric Adams',
             title: 'Software Developer',
             img: 'team-eric-adams@2x.png'
+          },
+          {
+            name: 'Devin Kawailani Barricklow',
+            title: 'Curriculum Associate',
+            img: 'team-devin-barricklow@2x.png'
           },
           {
             name: 'Shannon Browne',
@@ -119,9 +119,19 @@ module PagesHelper
             img: 'team-emilia-friedberg@2x.png'
           },
           {
+            name: 'Daniel Giovanniello',
+            title: 'Partnerships Associate',
+            img: 'team-daniel-giovanniello@2x.png'
+          },
+          {
             name: 'Jeremy Hertz',
             title: 'Director of School Partnerships',
             img: 'team-jeremy-hertz@2x.png'
+          },
+          {
+            name: 'Sherry Lewkowicz',
+            title: 'Senior Instructional Coach',
+            img: 'team-sherry-lewkowicz@2x.png'
           },
           {
             name: 'Maddy Maher',
@@ -155,7 +165,7 @@ module PagesHelper
           },
           {
             name: 'Emma Volk',
-            title: 'Curriculum Developer',
+            title: 'Lead Curriculum Developer',
             img: 'team-emma-volk@2x.png'
           },
           {
@@ -209,6 +219,11 @@ module PagesHelper
             img: 'board-ben-sussman@2x.png'
           },
           {
+            name: 'Peg Tyre',
+            title: 'Director of Strategy at The Edwin Gould Foundation',
+            img: 'board-peg-tyre@2x.png'
+          },
+          {
             name: 'Paul Walker',
             title: 'Quill Board Chair, Retired Partner at Goldman Sachs',
             img: 'board-paul-walker@2x.png'
@@ -220,7 +235,7 @@ module PagesHelper
         members: [
           {
             name: 'Donald McKendrick',
-            title: 'Software Engineer at One Medical',
+            title: 'Curriculum at Chan Zuckerberg Initiative',
             img: 'advisor-donald-mckendrick@2x.png'
           },
           {
@@ -232,21 +247,6 @@ module PagesHelper
             name: 'Alex Redmon',
             title: 'Senior Software Engineer at Cylera',
             img: 'advisor-alex-redmon@2x.png'
-          },
-          {
-            name: 'John Silberstein',
-            title: 'Board of Directors at  Snap Interactive',
-            img: 'advisor-board-avatar.svg'
-          },
-          {
-            name: 'Emily Dalton Smith',
-            title: 'Director of Social Impact  Product at Facebook',
-            img: 'advisor-emily-dalton-smith@2x.png'
-          },
-          {
-            name: 'Peg Tyre',
-            title: 'Director of Strategy at The Edwin Gould Foundation',
-            img: 'board-peg-tyre@2x.png'
           }
         ]
       }

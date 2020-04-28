@@ -22,7 +22,7 @@ export default class Dashboard extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.ajax = {};
     this.ajax.classRoomRequest = requestGet('/teachers/classrooms/classroom_mini', (result) => {
       this.setState({ classrooms: result.classes, });

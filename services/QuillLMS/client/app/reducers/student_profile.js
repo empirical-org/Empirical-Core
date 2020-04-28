@@ -1,5 +1,7 @@
+import { ALL_ACTIVITIES, } from '../constants/student_profile'
+
 const initialState = {
-  classrooms: null,
+  classrooms: [],
   selectedClassroomId: null,
   showDropdown: false,
   notifications: [],
@@ -7,7 +9,8 @@ const initialState = {
   loading: true,
   scores: null,
   student: null,
-  nextActivitySession: null
+  nextActivitySession: null,
+  activeClassworkTab: ALL_ACTIVITIES
 };
 
 export default (state, action) => {
@@ -16,14 +19,9 @@ export default (state, action) => {
   switch(action.type) {
     case 'HANDLE_CLASSROOM_CLICK':
       return Object.assign({}, state, {
+        loading: true,
         selectedClassroomId: action.selectedClassroomId
       });
-    case 'TOGGLE_DROPDOWN':
-      return Object.assign({}, state, {
-        showDropdown: !state.showDropdown
-      });
-    case 'HIDE_DROPDOWN':
-      return Object.assign({}, state, { showDropdown: false });
     case 'RECEIVE_NOTIFICATIONS':
       return Object.assign({}, state, { notifications: action.notifications });
     case 'RECEIVE_STUDENTS_CLASSROOMS':
@@ -36,9 +34,8 @@ export default (state, action) => {
         nextActivitySession: action.data.next_activity_session,
         selectedClassroomId: action.data.classroom_id
       });
-    case 'UPDATE_NUMBER_OF_CLASSROOM_TABS':
-      const numberOfClassroomTabs = action.screenWidth > 1000 ? 5 : 1;
-      return Object.assign({}, state, { numberOfClassroomTabs });
+    case 'UPDATE_ACTIVE_CLASSWORK_TAB':
+      return Object.assign({}, state, { activeClassworkTab: action.activeClassworkTab });
     default:
       return state;
   }

@@ -8,67 +8,52 @@ import { EditorState, ContentState } from 'draft-js'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
 
-export default React.createClass({
-  getInitialState: function () {
-    return {
-      prompt: "",
-      itemLevel: this.props.question.itemLevel ? this.props.question.itemLevel : "",
-      concept: this.props.question.conceptID,
-      instructions: this.props.question.instructions ? this.props.question.instructions : "",
-      flag: this.props.question.flag ? this.props.question.flag : "alpha",
-      cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : ''
-    }
-  },
+export default class extends React.Component {
+  state = {
+    prompt: "",
+    concept: this.props.question.conceptID,
+    instructions: this.props.question.instructions ? this.props.question.instructions : "",
+    flag: this.props.question.flag ? this.props.question.flag : "alpha",
+    cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
+    prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
+  };
 
-  submit: function () {
+  submit = () => {
     const questionObj = {
       conceptUID: this.props.question.conceptUID,
       cuesLabel: this.props.question.cuesLabel,
       focusPoints: this.props.question.focusPoints,
       incorrectSequences: this.props.question.incorrectSequences,
       modelConceptUID: this.props.question.modelConceptUID,
+      prefilledText: this.state.prefilledText,
       prompt: this.state.prompt,
-      prefilledText: this.refs.prefilledText.value,
       cues: this.refs.cues.value.split(','),
-      itemLevel: this.state.itemLevel,
       instructions: this.state.instructions,
       flag: this.state.flag,
       cuesLabel: this.state.cuesLabel
     }
     if (this.props.new) {
-      const optimalResponseObj = {text: this.refs.newQuestionOptimalResponse.value.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
+      const optimalResponseObj = {text: this.state.prefilledText.trim(), optimal: true, count: 0, feedback: "That's a strong sentence!"}
       this.props.submit(questionObj, optimalResponseObj)
     } else {
       questionObj.conceptID = this.state.concept
       this.props.submit(questionObj)
     }
-  },
+  };
 
-  copyAnswerToPrefill: function () {
-    this.refs.prefilledText.value = this.refs.newQuestionOptimalResponse.value
-  },
+  handlePrefilledText = (e) => {
+    this.setState({ prefilledText: e.target.value });
+  };
 
-  handlePromptChange: function (e) {
+  handlePromptChange = (e) => {
     this.setState({prompt: e})
-  },
+  };
 
-  handleLevelChange: function(e) {
-    this.setState({itemLevel: this.refs.itemLevel.value})
-  },
-
-  handleInstructionsChange: function(e) {
+  handleInstructionsChange = (e) => {
     this.setState({instructions: e.target.value})
-  },
+  };
 
-  itemLevelToOptions: function() {
-    return hashToCollection(this.props.itemLevels.data).map((level) => {
-      return (
-        <option>{level.name}</option>
-      )
-    })
-  },
-
-  renderConceptSelector: function() {
+  renderConceptSelector = () => {
     if (!this.props.new) {
       return (<div>
         <label className="label">Concept</label>
@@ -80,36 +65,49 @@ export default React.createClass({
         </div>
       </div>)
     }
-  },
+  };
 
-  renderOptimalResponse: function() {
+  renderOptimalResponse = () => {
     if (this.props.new) {
       return (<div>
         <label className="label">Optimal Response</label>
         <p className="control">
-          <input className="input" onBlur={this.copyAnswerToPrefill} ref="newQuestionOptimalResponse" type="text" />
+          <input className="input" onChange={this.handlePrefilledText} type="text" />
         </p>
       </div>)
     }
-  },
+  };
 
-  handleSelectorChange: function(e) {
+  handleSelectorChange = (e) => {
     this.setState({concept: e.value})
-  },
+  };
 
-  handleConceptChange: function() {
+  handleConceptChange = () => {
     this.setState({concept: this.refs.concept.value})
-  },
+  };
 
-  handleFlagChange: function(e) {
+  handleFlagChange = (e) => {
     this.setState({ flag: e.target.value, });
-  },
+  };
 
-  handleCuesLabelChange: function(e) {
+  handleCuesLabelChange = (e) => {
     this.setState({ cuesLabel: e.target.value, });
-  },
+  };
 
-  render: function () {
+  renderPreFillSection = () => {
+    const { question } = this.props
+    return (
+      <div>
+        <label className="label" htmlFor="prefilledText" >Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
+        <p className="control">
+          <input className="input" defaultValue={question.prefilledText} id="prefilledText" onChange={this.handlePrefilledText} type="text" />
+        </p>
+      </div>
+    );
+  }
+
+  render() {
+    const preFillSection = this.props.new ? <span /> : this.renderPreFillSection()
     if(this.props.new || this.props.concepts.hasreceiveddata) {
       return (
         <div className="box">
@@ -134,20 +132,8 @@ export default React.createClass({
             <input className="input" defaultValue={this.props.question.cues} ref="cues" type="text" />
           </p>
           {this.renderOptimalResponse()}
-          <label className="label">Prefilled Text (place 5 underscores where you want the user to fill in _____)</label>
-          <p className="control">
-            <input className="input" defaultValue={this.props.question.prefilledText} ref="prefilledText" type="text" />
-          </p>
+          {preFillSection}
 
-          <label className="label">Item level</label>
-          <p className="control">
-            <span className="select">
-              <select onChange={this.handleLevelChange} ref="itemLevel" value={this.state.itemLevel}>
-                <option>Select Item Level</option>
-                {this.itemLevelToOptions()}
-              </select>
-            </span>
-          </p>
           <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           {this.renderConceptSelector()}
           <br />
@@ -158,4 +144,4 @@ export default React.createClass({
       return (<div>Loading...</div>)
     }
   }
-})
+}

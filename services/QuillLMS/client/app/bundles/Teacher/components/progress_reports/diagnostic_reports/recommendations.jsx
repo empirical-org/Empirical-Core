@@ -5,10 +5,8 @@ import { requestGet, requestPost } from '../../../../../modules/request';
 import Pusher from 'pusher-js';
 import RecommendationsTableCell from './recommendations_table_cell';
 import LessonsRecommendations from './lessons_recommendations';
-import RecommendationOverview from './recommendation_overview';
 
 export default class Recommendations extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -31,7 +29,7 @@ export default class Recommendations extends React.Component {
     this.getPreviouslyAssignedRecommendationData(params.classroomId, params.activityId, false);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       loading: true,
       assigning: false,
@@ -41,8 +39,14 @@ export default class Recommendations extends React.Component {
     this.getPreviouslyAssignedRecommendationData(nextProps.params.classroomId, nextProps.params.activityId, false);
   }
 
-  setAssignedToFalseAfterFiveSeconds = () => {
-    setTimeout(() => this.setState({ assigned: false, }), 5000);
+  getPreviouslyAssignedRecommendationData = (classroomId, activityId, assigned) => {
+    const that = this;
+    requestGet(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}`, ((data) => {
+      that.setState({
+        previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
+        previouslyAssignedLessonsRecommendations: data.previouslyAssignedLessonsRecommendations,
+      }, that.setSelections(assigned, data.previouslyAssignedLessonsRecommendations));
+    }));
   }
 
   getRecommendationData = (classroomId, activityId) => {
@@ -60,14 +64,8 @@ export default class Recommendations extends React.Component {
     });
   }
 
-  getPreviouslyAssignedRecommendationData = (classroomId, activityId, assigned) => {
-    const that = this;
-    requestGet(`/teachers/progress_reports/previously_assigned_recommendations/${classroomId}/activity/${activityId}`, ((data) => {
-      that.setState({
-        previouslyAssignedRecommendations: data.previouslyAssignedRecommendations,
-        previouslyAssignedLessonsRecommendations: data.previouslyAssignedLessonsRecommendations,
-      }, that.setSelections(assigned, data.previouslyAssignedLessonsRecommendations));
-    }));
+  setAssignedToFalseAfterFiveSeconds = () => {
+    setTimeout(() => this.setState({ assigned: false, }), 5000);
   }
 
   setSelections = (assigned, previouslyAssignedLessonsRecommendations) => {
@@ -96,61 +94,14 @@ export default class Recommendations extends React.Component {
     }
   }
 
-  handleUnselectAllRecommendationsClick = () => {
-    const { selections, } = this.state
-
-    const newSelections = selections.map(selection => {
-      selection.students = []
-      return selection
+  assignToWholeClass  = (unitTemplateId) => {
+    const { params, } = this.props
+    const that = this;
+    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: params.classroomId }, (data) => {
+      this.initializePusher(unitTemplateId)
+    }, (data) => {
+      alert('We had trouble processing your request. Please check your network connection and try again.');
     })
-    this.setState({selections: newSelections})
-  }
-
-  handleSelectAllRecommendationsClick = () => {
-    const { selections, recommendations, } = this.state
-    const newSelections = selections.map((selection, index) => {
-      selection.students = recommendations[index].students
-      return selection
-    })
-    this.setState({selections: newSelections})
-  }
-
-  studentWasAssigned(student, previouslyAssignedRecommendation) {
-    if (previouslyAssignedRecommendation && previouslyAssignedRecommendation.students) {
-      return previouslyAssignedRecommendation.students.includes(student.id);
-    }
-  }
-
-  studentIsSelected(student, selection) {
-    if (student && selection && selection.students && selection.students.length) {
-      return selection.students.includes(student.id);
-    }
-  }
-
-  studentIsRecommended(student, recommendation) {
-    return (_.indexOf(recommendation.students, student.id) != -1);
-  }
-
-  toggleSelected = (student, index) => {
-    const { selections, } = this.state
-    const newSelections = [...selections];
-    if (this.studentIsSelected(student, newSelections[index])) {
-      newSelections[index].students = _.reject(newSelections[index].students, stud => stud === student.id);
-    } else {
-      newSelections[index].students.push(student.id);
-    }
-    this.setState({ selections: newSelections, });
-  }
-
-  handleAssignClick = () => {
-    this.setState({ assigning: true, }, () => {
-      requestPost('/teachers/progress_reports/assign_selected_packs/', this.formatSelectionsForAssignment(), (data) => {
-        this.initializePusher()
-      }, (data) => {
-        alert('We had trouble processing your request. Please check your network connection and try again.');
-        this.setState({ assigning: false, });
-      })
-    });
   }
 
   formatSelectionsForAssignment() {
@@ -173,14 +124,34 @@ export default class Recommendations extends React.Component {
     return { selections: selectionsArr ,};
   }
 
-  assignToWholeClass(unitTemplateId) {
-    const { params, } = this.props
-    const that = this;
-    requestPost('/teachers/progress_reports/assign_selected_packs/', { whole_class: true, unit_template_id: unitTemplateId, classroom_id: params.classroomId }, (data) => {
-      this.initializePusher(unitTemplateId)
-    }, (data) => {
-      alert('We had trouble processing your request. Please check your network connection and try again.');
+  handleAssignClick = () => {
+    this.setState({ assigning: true, }, () => {
+      requestPost('/teachers/progress_reports/assign_selected_packs/', this.formatSelectionsForAssignment(), (data) => {
+        this.initializePusher()
+      }, (data) => {
+        alert('We had trouble processing your request. Please check your network connection and try again.');
+        this.setState({ assigning: false, });
+      })
+    });
+  }
+
+  handleSelectAllRecommendationsClick = () => {
+    const { selections, recommendations, } = this.state
+    const newSelections = selections.map((selection, index) => {
+      selection.students = recommendations[index].students
+      return selection
     })
+    this.setState({selections: newSelections})
+  }
+
+  handleUnselectAllRecommendationsClick = () => {
+    const { selections, } = this.state
+
+    const newSelections = selections.map(selection => {
+      selection.students = []
+      return selection
+    })
+    this.setState({selections: newSelections})
   }
 
   initializePusher(unitTemplateId) {
@@ -204,108 +175,44 @@ export default class Recommendations extends React.Component {
     }
   }
 
-  renderExplanation() {
-    return (
-      <div className="recommendations-explanation-container">
-        <p className="recommendations-explanation">
-					Based on the results of the diagnostic, we created a personalized learning plan for each student.
-          <br />Customize your learning plan by selecting the activity packs you would like to assign.
-        </p>
-      </div>
-    );
+  studentIsRecommended(student, recommendation) {
+    return (_.indexOf(recommendation.students, student.id) != -1);
   }
 
-  renderCheckOrUncheckAllRecommendedActivityPacks() {
+  studentIsSelected(student, selection) {
+    if (student && selection && selection.students && selection.students.length) {
+      return selection.students.includes(student.id);
+    }
+  }
+
+  studentWasAssigned(student, previouslyAssignedRecommendation) {
+    if (previouslyAssignedRecommendation && previouslyAssignedRecommendation.students) {
+      return previouslyAssignedRecommendation.students.includes(student.id);
+    }
+  }
+
+  toggleSelected = (student, index) => {
     const { selections, } = this.state
-    const hasSelectedActivities = selections.find(sel => _.compact(sel.students).length > 0)
-    if (hasSelectedActivities) {
-      return <p className="uncheck-recommendations" onClick={this.handleUnselectAllRecommendationsClick}><img src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg" /><span>Uncheck All</span></p>
+    const newSelections = [...selections];
+    if (this.studentIsSelected(student, newSelections[index])) {
+      newSelections[index].students = _.reject(newSelections[index].students, stud => stud === student.id);
     } else {
-      return <p className="check-recommendations" onClick={this.handleSelectAllRecommendationsClick}><img src="https://assets.quill.org/images/icons/checkall-diagnostic.svg" /><span>Check All</span></p>
+      newSelections[index].students.push(student.id);
     }
-  }
-
-  renderTopBar() {
-    return (
-      <div className="recommendations-top-bar">
-        <div className="recommendations-key">
-          <div className="recommendations-key-icon" />
-          <span className="recommended-activity-pack-text">
-            <p>Recommended Activity Packs</p>
-            {this.renderCheckOrUncheckAllRecommendedActivityPacks()}
-          </span>
-          <div className="assigned-recommendations-key-icon"><i className="fas fa-check-circle" /></div>
-          <span className="assigned-activity-pack-text">
-            <p>Assigned Activity Packs</p>
-            <p>Assigned activities will not be assigned again.</p>
-          </span>
-        </div>
-        {this.renderAssignButton()}
-      </div>
-    );
-  }
-
-  renderAssignButton() {
-    const { assigning, assigned, } = this.state
-    if (assigning) {
-      return (
-        <div className="recommendations-assign-button">
-          <span>Assigning...</span>
-        </div>
-      );
-    } else if (assigned) {
-      return (
-        <div className="recommendations-assign-button">
-          <span>Assigned</span>
-        </div>
-      );
-    }
-    return (
-      <div className="recommendations-assign-button" onClick={this.handleAssignClick}>
-        <span>Assign Activity Packs</span>
-      </div>
-    );
-  }
-
-  renderTableHeader() {
-    return (
-      <div className="recommendations-table-header">
-        <div className="recommendations-table-header-name">Name</div>
-        {this.renderActivityPackHeaderItems()}
-      </div>
-    );
+    this.setState({ selections: newSelections, });
   }
 
   renderActivityPackHeaderItems() {
     const { recommendations, } = this.state
     return recommendations.map(recommendation => {
       /* eslint-disable react/jsx-no-target-blank */
-      const link = <a href={`/activities/packs/${recommendation.activity_pack_id}`} target="_blank">View Pack</a>
+      const link = <a className="focus-on-light view-pack-link" href={`/activities/packs/${recommendation.activity_pack_id}`} target="_blank">View Pack</a>
       /* eslint-enable react/jsx-no-target-blank */
       return (<div className="recommendations-table-header-item" key={recommendation.activity_pack_id}>
         <p>{recommendation.name}</p>
         {link}
       </div>)
     });
-  }
-
-  renderTableRows() {
-    const { students, } = this.state
-    return students.map(student => this.renderTableRow(student));
-  }
-
-  renderTableRow(student) {
-    const { routeParams, } = this.props
-    const { activityId, classroomId, unitId } = routeParams
-    /* eslint-disable react/jsx-no-target-blank */
-    const studentReportLink = <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a>
-    /* eslint-enable react/jsx-no-target-blank */
-    return (
-      <div className="recommendations-table-row" key={student.id}>
-        <div className="recommendations-table-row-name">{studentReportLink}</div>
-        {this.renderActivityPackRowItems(student)}
-      </div>
-    );
   }
 
   renderActivityPackRowItems(student) {
@@ -339,36 +246,55 @@ export default class Recommendations extends React.Component {
     });
   }
 
-  renderIndependentActivityRecommendations() {
-    const { recommendations, } = this.state
-
-    if (!recommendations.length) { return }
-
-    return (
-      <div>
-        <h3
-          id="recommendations-scroll-to"
-          style={{ width: '950px', margin: 'auto', textAlign: 'left', fontSize: '24px', fontWeight: 'bold', color: '#3b3b3b', }}
-        >
-          <img
-            alt="independent practice logo"
-            src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
-            style={{
-              position: 'relative',
-              top: '-3px',
-              marginRight: '15px',
-            }}
-          />
-          Independent Activity Recommendations
-        </h3>
-        {this.renderExplanation()}
-        <div>
-          {this.renderTopBar()}
-          {this.renderTableHeader()}
-          <div className="recommendations-table-row-wrapper">
-            {this.renderTableRows()}
-          </div>
+  renderAssignButton() {
+    const { assigning, assigned, } = this.state
+    if (assigning) {
+      return (
+        <div className="recommendations-assign-button">
+          <span>Assigning...</span>
         </div>
+      );
+    } else if (assigned) {
+      return (
+        <div className="recommendations-assign-button">
+          <span>Assigned</span>
+        </div>
+      );
+    }
+    return (
+      <button className="quill-button focus-on-light    recommendations-assign-button" onClick={this.handleAssignClick} type="submit">
+        <span>Assign Activity Packs</span>
+      </button>
+    );
+  }
+
+  renderCheckOrUncheckAllRecommendedActivityPacks() {
+    const { selections, } = this.state
+    const hasSelectedActivities = selections.find(sel => _.compact(sel.students).length > 0)
+    if (hasSelectedActivities) {
+      return(
+        <button className="quill-button focus-on-light uncheck-recommendations" onClick={this.handleUnselectAllRecommendationsClick} type="reset">
+          <img alt="uncheck-all-logo" src="https://assets.quill.org/images/icons/uncheckall-diagnostic.svg" />
+          <span>Uncheck All</span>
+        </button>
+      );
+    } else {
+      return(
+        <button className="quill-button focus-on-light check-recommendations" onClick={this.handleSelectAllRecommendationsClick} type="submit">
+          <img alt="check-all-logo" src="https://assets.quill.org/images/icons/checkall-diagnostic.svg" />
+          <span>Check All</span>
+        </button>
+      );
+    }
+  }
+
+  renderExplanation() {
+    return (
+      <div className="recommendations-explanation-container">
+        <p className="recommendations-explanation">
+					Based on the results of the diagnostic, we created a personalized learning plan for each student.
+          <br />Customize your learning plan by selecting the activity packs you would like to assign.
+        </p>
       </div>
     );
   }
@@ -386,6 +312,33 @@ export default class Recommendations extends React.Component {
     );
   }
 
+  renderIndependentActivityRecommendations() {
+    const { recommendations, } = this.state
+
+    if (!recommendations.length) { return }
+
+    return (
+      <div className="independent-practice-container">
+        <h3 className="independent-practice-header" id="recommendations-scroll-to" >
+          <img
+            alt="independent practice logo"
+            className="independent-practice-logo"
+            src="https://assets.quill.org/images/icons/independent-lesson-blue.svg"
+          />
+          Independent Activity Recommendations
+        </h3>
+        {this.renderExplanation()}
+        <div>
+          {this.renderTopBar()}
+          {this.renderTableHeader()}
+          <div className="recommendations-table-row-wrapper">
+            {this.renderTableRows()}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderRecommendations() {
     const { recommendations, lessonsRecommendations, } = this.state
     if (recommendations.length || lessonsRecommendations.length) {
@@ -397,9 +350,57 @@ export default class Recommendations extends React.Component {
       );
     } else {
       return (<div className="recommendations-container">
-        <p style={{ fontSize: '24px', }}>We do not yet have recommendations for this diagnostic. Please check back soon.</p>
+        <p className="no-recommendations">We do not yet have recommendations for this diagnostic. Please check back soon.</p>
       </div>)
     }
+  }
+
+  renderTableHeader() {
+    return (
+      <div className="recommendations-table-header">
+        <div className="recommendations-table-header-name">Name</div>
+        {this.renderActivityPackHeaderItems()}
+      </div>
+    );
+  }
+
+  renderTableRow(student) {
+    const { params, } = this.props
+    const { activityId, classroomId, unitId } = params
+    /* eslint-disable react/jsx-no-target-blank */
+    const studentReportLink = <a href={`/teachers/progress_reports/diagnostic_reports#/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${student.id}`} target="_blank"><span>{student.name}</span> <i className="fas fa-icon fa-external-link" /></a>
+    /* eslint-enable react/jsx-no-target-blank */
+    return (
+      <div className="recommendations-table-row" key={student.id}>
+        <div className="recommendations-table-row-name">{studentReportLink}</div>
+        {this.renderActivityPackRowItems(student)}
+      </div>
+    );
+  }
+
+  renderTableRows() {
+    const { students, } = this.state
+    return students.map(student => this.renderTableRow(student));
+  }
+
+  renderTopBar() {
+    return (
+      <div className="recommendations-top-bar">
+        <div className="recommendations-key">
+          <div className="recommendations-key-icon" />
+          <span className="recommended-activity-pack-text">
+            <p>Recommended Activity Packs</p>
+            {this.renderCheckOrUncheckAllRecommendedActivityPacks()}
+          </span>
+          <div className="assigned-recommendations-key-icon"><i className="fas fa-check-circle" /></div>
+          <span className="assigned-activity-pack-text">
+            <p>Assigned Activity Packs</p>
+            <p>Assigned activities will not be assigned again.</p>
+          </span>
+        </div>
+        {this.renderAssignButton()}
+      </div>
+    );
   }
 
   render() {
@@ -411,10 +412,8 @@ export default class Recommendations extends React.Component {
 
     return (
       <div>
-        <RecommendationOverview />
         {this.renderRecommendations()}
       </div>
     );
   }
-
 }

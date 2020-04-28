@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
@@ -103,12 +103,12 @@ export default class RenderFormForAnswer extends React.Component {
         message = 'Check work';
       }
       button = (
-        <button className={`quill-button large primary contained ${toggleDisabled}`} onClick={checkAnswer} type="button">
+        <button className={`quill-button focus-on-light large primary contained ${toggleDisabled}`} onClick={checkAnswer} type="button">
           {message}
         </button>
       );
       if (!responses) {
-        <button className='quill-button large primary contained disabled' type="button">
+        <button className='quill-button focus-on-light large primary contained disabled' type="button">
           {message}
         </button>;
       }

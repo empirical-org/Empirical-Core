@@ -3,9 +3,12 @@ import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import * as _ from 'lodash'
 import { Question, FormattedConceptResult, ResponseAttempt } from '../interfaces/questions'
 
-const scoresForNAttempts = {
+const scoresForNAttempts: { [key:number]: number} = {
   1: 1,
-  2: 0.5,
+  2: 0.75,
+  3: 0.5,
+  4: 0.25,
+  5: 0,
 };
 
 export function getConceptResultsForQuestion(question: Question): FormattedConceptResult[]|undefined {
@@ -75,12 +78,17 @@ export function getConceptResultsForAllQuestions(questions: Question[], starting
   return [].concat.apply([], withKeys); // Flatten array
 }
 
+export function getScoreForQuestion(question: Question): number {
+  if (question.attempts) {
+    return scoresForNAttempts[question.attempts.length] || 0
+  }
+  return 0
+}
+
 export function calculateScoreForLesson(questions: Question[]) {
   let correct = 0;
   questions.forEach((question) => {
-    if (question.attempts) {
-      correct += question.attempts.find((a) => !!a.optimal) ? 1 : 0
-    }
+    correct += getScoreForQuestion(question);
   });
   return Math.round((correct / questions.length) * 100) / 100;
 }

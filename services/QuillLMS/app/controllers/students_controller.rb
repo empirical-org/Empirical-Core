@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
   end
 
   def account_settings
+    @title = 'Settings'
     @current_user = current_user
     @js_file = 'student'
   end
@@ -27,7 +28,7 @@ class StudentsController < ApplicationController
       redirect_to "/student_demo"
     else
       sign_in @user
-      redirect_to '/profile'
+      redirect_to classes_path
     end
   end
 
@@ -71,16 +72,16 @@ class StudentsController < ApplicationController
             flash[:error] = "Oops! The class with the code #{classcode} is archived. Ask your teacher for help."
           end
           flash.keep(:error)
-          redirect_to '/profile'
+          redirect_to classes_path
         else
           redirect_to "/classrooms/#{classroom.id}?joined=success"
         end
       else
         flash[:error] = 'Oops! That link is only accessible for students.'
-        redirect_to '/profile'
+        redirect_to classes_path
       end
     else
-      session[:post_auth_redirect] = request.env['PATH_INFO']
+      session[ApplicationController::POST_AUTH_REDIRECT] = request.env['PATH_INFO']
       session[:post_sign_up_redirect] = request.env['PATH_INFO']
       redirect_to(new_session_path, status: :see_other)
     end
@@ -98,7 +99,7 @@ class StudentsController < ApplicationController
     if classroom_id && (Classroom.find_by(id: classroom_id).nil? || StudentsClassrooms.find_by(student_id: @current_user.id, classroom_id: classroom_id).nil?)
       flash[:error] = 'Oops! You do not belong to that classroom. Your teacher may have archived the class or removed you.'
       flash.keep(:error)
-      redirect_to '/profile'
+      redirect_to classes_path
     end
   end
 

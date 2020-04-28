@@ -1,13 +1,12 @@
 import React from 'react';
 import request from 'request';
-import moment from 'moment'
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx'
-import MarkdownParser from '../../shared/markdown_parser.jsx'
 import PreviewCard from '../../shared/preview_card.jsx';
 import BlogPostContent from '../../blog_posts/blog_post_content'
-import DatePicker from 'react-datepicker'
+import { SingleDatePicker } from 'react-dates'
 import Dropzone from 'react-dropzone'
 import getAuthToken from '../../modules/get_auth_token'
+import moment from 'moment'
 
 const defaultPreviewCardContent = `<img class='preview-card-image' src='http://cultofthepartyparrot.com/parrots/hd/middleparrot.gif' />
 <div class='preview-card-body'>
@@ -69,7 +68,8 @@ export default class CreateOrEditBlogPost extends React.Component {
       pressName: press_name,
       publishedAt: published_at,
       externalLink: external_link,
-      centerImages: center_images
+      centerImages: center_images,
+      focused: false
     };
   }
 
@@ -77,21 +77,77 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.updatePreviewCardBasedOnType();
   }
 
-  handlePremiumChange = () => {
-    this.setState(prevState => ({premium: !prevState.premium}));
+  appropriatePlaceholderImage = () => {
+    const { preview_card_type, } = this.state
+    switch (preview_card_type) {
+      case 'Large Image':
+        return 'http://placehold.it/300x200'
+      case 'Tiny Image':
+        return 'http://placehold.it/300x90'
+      case 'Medium Image':
+      default:
+        return 'http://placehold.it/300x138'
+    }
+  }
+
+  changeAuthor = (e) => {
+    this.setState({author_id: e.id}, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  changePreviewCardType = (e) => {
+    this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
+  }
+
+  changeTopic = (e) => {
+    this.setState({topic: e})
+  }
+
+  goToPreview = () => {
+    const { studentTopics, } = this.props
+    const { slug, externalLink, topic, } = this.state
+    let url
+    if (externalLink) {
+      url = externalLink
+    } else if (studentTopics.includes(topic)) {
+      url = `/student-center/${slug}`
+    } else {
+      url = `/teacher-center/${slug}`
+    }
+    window.open(url, '_blank')
+  }
+
+  handleBlogPostPreviewDescriptionChange = (e) => {
+    this.setState({
+      blogPostPreviewDescription: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  handleBlogPostPreviewImageChange = (e) => {
+    this.setState({
+      blogPostPreviewImage: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  handleBlogPostPreviewTitleChange = (e) => {
+    this.setState({
+      blogPostPreviewTitle: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
+    }, this.updatePreviewCardFromBlogPostPreview)
+  }
+
+  handleBodyChange = (e) => {
+    this.setState({body: e.target.value})
+    const container = document.getElementById('markdown-content');
+    container.rows = 4;
+    const rows = Math.ceil((container.scrollHeight - 64) / 20.3);
+    container.rows = 2 + rows;
   }
 
   handleCenterImagesChange = () => {
     this.setState(prevState => ({centerImages: !prevState.centerImages}));
   }
-
-  handleSaveDraftClick = (e) => { this.handleSubmitClick(e, false) }
-
-  handlePublishClick = (e) => this.handleSubmitClick(e, true)
-
-  handleUnpublishClick = (e) => { this.handleSubmitClick(e, false, true) }
-
-  handleSaveAndPreviewClick = (e) => { this.handleSubmitClick(e, !draft, false, this.goToPreview) }
 
   handleClickEdit = () => {
     this.setState({showArticlePreview: false})
@@ -101,36 +157,38 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({showArticlePreview: true})
   }
 
-  handleTitleChange = (e) => {
-    const { value, } = e.target;
-    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
-    let state = { title: value };
-    if(!previewCardHasAlreadyBeenManuallyEdited) {
-      state['blogPostPreviewTitle'] = value;
-    }
-    this.setState(state, () => {
-      if(!previewCardHasAlreadyBeenManuallyEdited) {
-        this.updatePreviewCardFromBlogPostPreview();
-      }
+  handleCustomPreviewChange = (e) => {
+    this.setState({
+      preview_card_content: e.target.value,
+      custom_preview_card_content: e.target.value,
+      previewCardHasAlreadyBeenManuallyEdited: true
+    })
+    const container = document.getElementById('preview-markdown-content');
+    container.rows = 4;
+    const rows = Math.ceil((container.scrollHeight - 64) / 20.3);
+    container.rows = 2 + rows;
+  }
+
+  handleDrop = (acceptedFiles) => {
+    acceptedFiles.forEach(file => {
+      const data = new FormData()
+      data.append('file', file)
+      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'X-CSRF-Token': getAuthToken()
+        },
+        body: data
+      })
+      .then(response => response.json()) // if the response is a JSON object
+      .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
     });
   }
 
-  handleSubtitleChange = (e) => {
-    const { value, } = e.target;
-    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
-    let state = {subtitle: value};
-    if(!previewCardHasAlreadyBeenManuallyEdited) {
-      state['blogPostPreviewDescription'] = value;
-    }
-    this.setState(state, () => {
-      if(!previewCardHasAlreadyBeenManuallyEdited) {
-        this.updatePreviewCardFromBlogPostPreview();
-      }
-    });
-  }
-
-  handlePressNameChange = (e) => {
-    this.setState({ pressName: e.target.value })
+  handleExternalLinkChange = (e) => {
+    this.setState({externalLink: e.target.value})
   }
 
   handleImageLinkChange = (e) => {
@@ -147,37 +205,62 @@ export default class CreateOrEditBlogPost extends React.Component {
     });
   }
 
-  handleBodyChange = (e) => {
-    this.setState({body: e.target.value})
-    const container = document.getElementById('markdown-content');
-    container.rows = 4;
-    const rows = Math.ceil((container.scrollHeight - 64) / 20.3);
-    container.rows = 2 + rows;
+  handleInsertBold = () => this.insertMarkdown('**', '**')
+
+  handleInsertFileImage = () => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')
+
+  handleInsertH1 = () => this.insertMarkdown('# ')
+
+  handleInsertH2 = () => this.insertMarkdown('## ')
+
+  handleInsertH3 = () => this.insertMarkdown('### ')
+
+  handleInsertItalic = () => this.insertMarkdown('*', '*')
+
+  handleInsertLink = () => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')
+
+  handleInsertOrderedList = () => this.insertMarkdown('1. ')
+
+  handleInsertPrimaryButton = () => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")
+
+  handleInsertQuote = () => this.insertMarkdown('> ')
+
+  handleInsertSecondaryButton = () => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")
+
+  handleInsertUnorderedList = () => this.insertMarkdown('* ')
+
+  handlePremiumChange = () => {
+    this.setState(prevState => ({premium: !prevState.premium}));
   }
 
-  changeTopic = (e) => {
-    this.setState({topic: e})
+  handlePressNameChange = (e) => {
+    this.setState({ pressName: e.target.value })
   }
 
-  handleExternalLinkChange = (e) => {
-    this.setState({externalLink: e.target.value})
-  }
-
-  changeAuthor = (e) => {
-    this.setState({author_id: e.id}, this.updatePreviewCardFromBlogPostPreview)
-  }
-
-  handleCustomPreviewChange = (e) => {
+  handlePreviewCardButtonTextChange = (e) => {
     this.setState({
-      preview_card_content: e.target.value,
-      custom_preview_card_content: e.target.value,
+      previewCardButtonText: e.target.value,
       previewCardHasAlreadyBeenManuallyEdited: true
-    })
-    const container = document.getElementById('preview-markdown-content');
-    container.rows = 4;
-    const rows = Math.ceil((container.scrollHeight - 64) / 20.3);
-    container.rows = 2 + rows;
+    }, this.updatePreviewCardFromBlogPostPreview)
   }
+
+  handlePreviewCardVideoDescriptionChange = (e) => {
+    this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
+  }
+
+  handlePreviewCardVideoLinkChange = (e) => {
+    this.setState({videoLink: e.target.value}, this.updatePreviewCardVideoContent)
+  }
+
+  handlePublishClick = (e) => this.handleSubmitClick(e, true)
+
+  handlePublishedAtChange = (e) => {
+    this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
+  }
+
+  handleSaveAndPreviewClick = (e) => { this.handleSubmitClick(e, !draft, false, this.goToPreview) }
+
+  handleSaveDraftClick = (e) => { this.handleSubmitClick(e, false) }
 
   handleSubmitClick = (e, shouldPublish, unpublish = false, callback) => {
     const { action, postToEdit, } = this.props
@@ -221,7 +304,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           preview_card_content: preview_card_content,
           draft: !shouldPublish,
           premium: premium,
-          published_at: publishedAt ? moment(publishedAt).format() : null,
+          published_at: publishedAt ? new Date(publishedAt) : null,
           external_link: externalLink,
           center_images: centerImages,
           press_name: pressName
@@ -243,57 +326,51 @@ export default class CreateOrEditBlogPost extends React.Component {
     })
   }
 
-  appropriatePlaceholderImage = () => {
-    const { preview_card_type, } = this.state
-    switch (preview_card_type) {
-      case 'Large Image':
-        return 'http://placehold.it/300x200'
-      case 'Tiny Image':
-        return 'http://placehold.it/300x90'
-      case 'Medium Image':
-      default:
-        return 'http://placehold.it/300x138'
+  handleSubtitleChange = (e) => {
+    const { value, } = e.target;
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
+    let state = {subtitle: value};
+    if(!previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewDescription'] = value;
     }
+    this.setState(state, () => {
+      if(!previewCardHasAlreadyBeenManuallyEdited) {
+        this.updatePreviewCardFromBlogPostPreview();
+      }
+    });
   }
 
-  renderSaveDraftButton = () => {
-    const { action, } = this.props
-    const { draft, } = this.state
-    if (action === 'new' || draft) {
-      return <input onClick={this.handleSaveDraftClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
+  handleTitleChange = (e) => {
+    const { value, } = e.target;
+    const { previewCardHasAlreadyBeenManuallyEdited, } = this.state
+    let state = { title: value };
+    if(!previewCardHasAlreadyBeenManuallyEdited) {
+      state['blogPostPreviewTitle'] = value;
     }
+    this.setState(state, () => {
+      if(!previewCardHasAlreadyBeenManuallyEdited) {
+        this.updatePreviewCardFromBlogPostPreview();
+      }
+    });
   }
 
-  renderUnpublishButton = () => {
-    const { action, } = this.props
-    const { draft, } = this.state
-    if (action === 'edit' && !draft) {
-      return <input onClick={this.handleUnpublishClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
-    }
+  handleTweetAuthorChange = (e) => {
+    this.setState({ tweetAuthor: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  renderSaveAndPreviewButton = () => {
-    const { action, } = this.props
-    const { draft, } = this.state
-
-    if (action === 'edit') {
-      return <input onClick={this.handleSaveAndPreviewClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
-    }
+  handleTweetImageChange = (e) => {
+    this.setState({ tweetImage: e.target.value }, this.updatePreviewCardTweetContent)
   }
 
-  goToPreview = () => {
-    const { studentTopics, } = this.props
-    const { slug, externalLink, topic, } = this.state
-    let url
-    if (externalLink) {
-      url = externalLink
-    } else if (studentTopics.includes(topic)) {
-      url = `/student-center/${slug}`
-    } else {
-      url = `/teacher-center/${slug}`
-    }
-    window.open(url, '_blank')
+  handleTweetLinkChange = (e) => {
+    this.setState({ tweetLink: e.target.value }, this.updatePreviewCardTweetContent)
   }
+
+  handleTweetTextChange = (e) => {
+    this.setState({ tweetText: e.target.value }, this.updatePreviewCardTweetContent)
+  }
+
+  handleUnpublishClick = (e) => { this.handleSubmitClick(e, false, true) }
 
   insertMarkdown = (startChar, endChar = null) => {
     /*
@@ -321,28 +398,6 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({ body: newValue });
   }
 
-  changePreviewCardType = (e) => {
-    this.setState({ preview_card_type: e }, this.updatePreviewCardBasedOnType)
-  }
-
-  handleDrop = (acceptedFiles) => {
-    acceptedFiles.forEach(file => {
-      const data = new FormData()
-      data.append('file', file)
-      fetch(`${process.env.DEFAULT_URL}/cms/images`, {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'include',
-        headers: {
-          'X-CSRF-Token': getAuthToken()
-        },
-        body: data
-      })
-      .then(response => response.json()) // if the response is a JSON object
-      .then(response => this.setState({uploadedImageLink: response.url})); // Handle the success response object
-    });
-  }
-
   updatePreviewCardBasedOnType = () => {
     const { preview_card_type, custom_preview_card_content, } = this.state
     switch (preview_card_type) {
@@ -365,34 +420,6 @@ export default class CreateOrEditBlogPost extends React.Component {
     }
   }
 
-  handleBlogPostPreviewImageChange = (e) => {
-    this.setState({
-      blogPostPreviewImage: e.target.value,
-      previewCardHasAlreadyBeenManuallyEdited: true
-    }, this.updatePreviewCardFromBlogPostPreview)
-  }
-
-  handleBlogPostPreviewTitleChange = (e) => {
-    this.setState({
-      blogPostPreviewTitle: e.target.value,
-      previewCardHasAlreadyBeenManuallyEdited: true
-    }, this.updatePreviewCardFromBlogPostPreview)
-  }
-
-  handleBlogPostPreviewDescriptionChange = (e) => {
-    this.setState({
-      blogPostPreviewDescription: e.target.value,
-      previewCardHasAlreadyBeenManuallyEdited: true
-    }, this.updatePreviewCardFromBlogPostPreview)
-  }
-
-  handlePreviewCardButtonTextChange = (e) => {
-    this.setState({
-      previewCardButtonText: e.target.value,
-      previewCardHasAlreadyBeenManuallyEdited: true
-    }, this.updatePreviewCardFromBlogPostPreview)
-  }
-
   updatePreviewCardFromBlogPostPreview = () => {
     const { authors, } = this.props
     const {
@@ -409,7 +436,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${this.formatDate(new Date(publishedAt))}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -430,34 +457,6 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({ preview_card_content: previewCardContent })
   }
 
-  handlePreviewCardVideoLinkChange = (e) => {
-    this.setState({videoLink: e.target.value}, this.updatePreviewCardVideoContent)
-  }
-
-  handlePreviewCardVideoDescriptionChange = (e) => {
-    this.setState({videoDescription: e.target.value}, this.updatePreviewCardVideoContent)
-  }
-
-  handleTweetLinkChange = (e) => {
-    this.setState({ tweetLink: e.target.value }, this.updatePreviewCardTweetContent)
-  }
-
-  handleTweetImageChange = (e) => {
-    this.setState({ tweetImage: e.target.value }, this.updatePreviewCardTweetContent)
-  }
-
-  handleTweetTextChange = (e) => {
-    this.setState({ tweetText: e.target.value }, this.updatePreviewCardTweetContent)
-  }
-
-  handleTweetAuthorChange = (e) => {
-    this.setState({ tweetAuthor: e.target.value }, this.updatePreviewCardTweetContent)
-  }
-
-  handlePublishedAtChange = (e) => {
-    this.setState({ publishedAt: e}, this.updatePreviewCardBasedOnType)
-  }
-
   updatePreviewCardTweetContent = () => {
     const { authors, } = this.props
     const { publishedAt, tweetImage, tweetText, tweetAuthor, author_id, } = this.state
@@ -466,7 +465,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${this.formatDate(new Date(publishedAt))}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -491,7 +490,7 @@ export default class CreateOrEditBlogPost extends React.Component {
     if (author) {
       footerContent = `<p class='author'>by ${author.name}</p>`
     } else if (publishedAt) {
-      footerContent = `<p class='published'>${moment(publishedAt).format('MMMM Do, YYYY')}</p>`
+      footerContent = `<p class='published'>${this.formatDate(new Date(publishedAt))}</p>`
     } else {
       footerContent = `<span/>`
     }
@@ -507,29 +506,91 @@ export default class CreateOrEditBlogPost extends React.Component {
     this.setState({ preview_card_content: previewCardContent, previewCardHasAlreadyBeenManuallyEdited: true })
   }
 
-  handleInsertH1 = () => this.insertMarkdown('# ')
+  formatDate(date) {
+    const options = { year: 'numeric', month: 'long', day: '2-digit' };
+    const dateTimeFormat = new Intl.DateTimeFormat('en-US', options);
+    return dateTimeFormat.format(date)
+  }
 
-  handleInsertH2 = () => this.insertMarkdown('## ')
+  renderArticleMarkdownOrPreview = () => {
+    const { publishedAt, showArticlePreview, body, centerImages, author_id, title, } = this.state
+    const { postToEdit, authors, } = this.props
+    let content, toolbarLeft, mdLink, dateDisplayed
+    if (publishedAt) {
+      dateDisplayed = publishedAt
+    } else if (postToEdit) {
+      dateDisplayed = postToEdit.updated_at
+    } else {
+      dateDisplayed = new Date()
+    }
+    if (showArticlePreview) {
+      toolbarLeft = <div />
+      content = (<div id="article-container">
+        <article>
+          <BlogPostContent
+            author={authors.find(a => a.id == author_id)}
+            body={body}
+            centerImages={centerImages}
+            displayPaywall={false}
+            title={title}
+            updatedAt={dateDisplayed}
+          />
+        </article>
+      </div>)
+    } else {
+        toolbarLeft = (<div className="toolbar-left">
+          <p onClick={this.handleInsertH1}>H1</p>
+          <p onClick={this.handleInsertH2}>H2</p>
+          <p onClick={this.handleInsertH3}>H3</p>
+          <i className="fas fa-bold" onClick={this.handleInsertBold} />
+          <i className="fas fa-italic" onClick={this.handleInsertItalic} />
+          <i className="fas fa-list-ul" onClick={this.handleInsertUnorderedList} />
+          <i className="fas fa-list-ol" onClick={this.handleInsertOrderedList} />
+          <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
+          <i className="fas fa-link" onClick={this.handleInsertLink} />
+          <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
+          <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
+          <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
+        </div>)
+        content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
+        mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
+    }
+    return (<div>
+      <label>Article Content</label>
+      <div className="article-content-container">
+        <div id="article-preview-bar">
+          {toolbarLeft}
+          <div>
+            <span className={`article-tab ${showArticlePreview ? null : 'active'}`} onClick={this.handleClickEdit}>Edit</span>
+            <span className={`article-tab ${showArticlePreview ? 'active' : null}`} onClick={this.handleClickPreview}>Preview</span>
+          </div>
+        </div>
+        {content}
+      </div>
+      {mdLink}
+    </div>)
 
-  handleInsertH3 = () => this.insertMarkdown('### ')
+  }
 
-  handleInsertBold = () => this.insertMarkdown('**', '**')
-
-  handleInsertItalic = () => this.insertMarkdown('*', '*')
-
-  handleInsertUnorderedList = () => this.insertMarkdown('* ')
-
-  handleInsertOrderedList = () => this.insertMarkdown('1. ')
-
-  handleInsertQuote = () => this.insertMarkdown('> ')
-
-  handleInsertLink = () => this.insertMarkdown('[', '](http://samepicofdavecoulier.tumblr.com)')
-
-  handleInsertFileImage = () => this.insertMarkdown('![', '](http://cultofthepartyparrot.com/parrots/hd/parrot.gif)')
-
-  handleInsertPrimaryButton = () => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-primary'>\n", "\n</a>")
-
-  handleInsertSecondaryButton = () => this.insertMarkdown("<a target='_blank' href='https://google.com' class='article-cta-secondary'>\n", "\n</a>")
+  renderDatepicker = () => {
+    const { focused, publishedAt, } = this.state
+    const dropdownIconStyle = focused ? { transform: 'rotate(180deg)', } : null;
+    return (<div>
+      <label>Published At Date:</label>
+      <SingleDatePicker
+        customInputIcon={<img alt="dropdown indicator" src="https://assets.quill.org/images/icons/dropdown.svg" style={dropdownIconStyle} />}
+        date={publishedAt ? moment(publishedAt) : null}
+        focused={focused}
+        id={`date-picker`}
+        inputIconPosition="after"
+        navNext={'›'}
+        navPrev={'‹'}
+        numberOfMonths={1}
+        onDateChange={this.handlePublishedAtChange}
+        onFocusChange={({ focused }) => this.setState({ focused })}
+      />
+    </div>)
+  }
 
   renderPreviewCardContentFields = () => {
     const {
@@ -599,72 +660,29 @@ export default class CreateOrEditBlogPost extends React.Component {
     </div>)
   }
 
-  renderDatepicker = () => {
-    const { publishedAt, } = this.state
-    return (<div>
-      <label>Published At Date:</label>
-      <DatePicker onChange={this.handlePublishedAtChange} selected={publishedAt ? moment(publishedAt) : null} />
-    </div>)
+  renderSaveAndPreviewButton = () => {
+    const { action, } = this.props
+    const { draft, } = this.state
+
+    if (action === 'edit') {
+      return <input onClick={this.handleSaveAndPreviewClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save and Preview" />
+    }
   }
 
-  renderArticleMarkdownOrPreview = () => {
-    const { publishedAt, showArticlePreview, body, centerImages, author_id, title, } = this.state
-    const { postToEdit, authors, } = this.props
-    let content, toolbarLeft, mdLink, dateDisplayed
-    if (publishedAt) {
-      dateDisplayed = publishedAt
-    } else if (postToEdit) {
-      dateDisplayed = postToEdit.updated_at
-    } else {
-      dateDisplayed = moment()
+  renderSaveDraftButton = () => {
+    const { action, } = this.props
+    const { draft, } = this.state
+    if (action === 'new' || draft) {
+      return <input onClick={this.handleSaveDraftClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Save Draft" />
     }
-    if (showArticlePreview) {
-      toolbarLeft = <div />
-      content = (<div id="article-container">
-        <article>
-          <BlogPostContent
-            author={authors.find(a => a.id == author_id)}
-            body={body}
-            centerImages={centerImages}
-            displayPaywall={false}
-            title={title}
-            updatedAt={dateDisplayed}
-          />
-        </article>
-      </div>)
-    } else {
-        toolbarLeft = (<div className="toolbar-left">
-          <p onClick={this.handleInsertH1}>H1</p>
-          <p onClick={this.handleInsertH2}>H2</p>
-          <p onClick={this.handleInsertH3}>H3</p>
-          <i className="fas fa-bold" onClick={this.handleInsertBold} />
-          <i className="fas fa-italic" onClick={this.handleInsertItalic} />
-          <i className="fas fa-list-ul" onClick={this.handleInsertUnorderedList} />
-          <i className="fas fa-list-ol" onClick={this.handleInsertOrderedList} />
-          <i className="fas fa-quote-left" onClick={this.handleInsertQuote} />
-          <i className="fas fa-link" onClick={this.handleInsertLink} />
-          <i className="fas fa-file-image" onClick={this.handleInsertFileImage} />
-          <i className="fas fa-square" onClick={this.handleInsertPrimaryButton} />
-          <i className="far fa-square" onClick={this.handleInsertSecondaryButton} />
-        </div>)
-        content = <textarea id="markdown-content" onChange={this.handleBodyChange} rows={20} type="text" value={body} />
-        mdLink = <a className='markdown-cheatsheet' href="http://commonmark.org/help/" rel="noopener noreferrer" target="_blank">Markdown Cheatsheet</a>
-    }
-    return (<div>
-      <label>Article Content</label>
-      <div className="article-content-container">
-        <div id="article-preview-bar">
-          {toolbarLeft}
-          <div>
-            <span className={`article-tab ${showArticlePreview ? null : 'active'}`} onClick={this.handleClickEdit}>Edit</span>
-            <span className={`article-tab ${showArticlePreview ? 'active' : null}`} onClick={this.handleClickPreview}>Preview</span>
-          </div>
-        </div>
-        {content}
-      </div>
-      {mdLink}
-    </div>)
+  }
 
+  renderUnpublishButton = () => {
+    const { action, } = this.props
+    const { draft, } = this.state
+    if (action === 'edit' && !draft) {
+      return <input onClick={this.handleUnpublishClick} style={{background: 'white', color: '#00c2a2'}} type="submit" value="Unpublish & Save Draft" />
+    }
   }
 
   render = () => {

@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectAClassroom component should render SelectAClassroom 1`] = `
+<div
+  className="container select-a-classroom-container"
+>
+  <div
+    className="select-a-classroom"
+  >
+    <h1>
+      Classes
+    </h1>
+    <div
+      className="classroom-cards"
+    >
+      <button
+        className="classroom-card join-a-class-card"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt="A plus sign inside a circle"
+          src="undefined/images/icons/add-circle.svg"
+        />
+        <h3>
+          Join a class
+        </h3>
+      </button>
+      <button
+        className="classroom-card"
+        key="13"
+        onClick={[Function]}
+        type="button"
+      >
+        <div
+          className="top-section"
+        >
+          <p>
+            Class
+          </p>
+          <h2>
+            Quill Classroom
+          </h2>
+        </div>
+        <div
+          className="bottom-section"
+        >
+          <p>
+            Teacher
+          </p>
+          <h3>
+            Demo Teacher
+          </h3>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -5,7 +5,7 @@ class ReportMilestoneToSegmentWorker
     analytics = SegmentAnalytics.new
     user = User.find(user_id)
     analytics.identify(user)
-    analytics.track(
+    analytics.track(user,
       user_id: user_id,
       event: SegmentIo::BackgroundEvents::USER_COMPLETED_MILESTONE,
       context: { ip: user.ip_address},

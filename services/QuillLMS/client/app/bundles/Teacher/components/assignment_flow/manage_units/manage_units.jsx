@@ -11,10 +11,11 @@ import _ from 'underscore';
 
 const allClassroomKey = 'All Classrooms';
 
-export default React.createClass({
+export default class ManageUnits extends React.Component {
+  constructor(props) {
+    super(props)
 
-  getInitialState() {
-    return {
+    this.state = {
       allUnits: [],
       units: [],
       loaded: false,
@@ -22,7 +23,7 @@ export default React.createClass({
       selectedClassroomId: getParameterByName('classroom_id'),
       activityWithRecommendationsIds: [],
     };
-  },
+  }
 
   componentDidMount() {
     this.getClassrooms()
@@ -31,16 +32,16 @@ export default React.createClass({
       this.setState({ loaded: false, selectedClassroomId: getParameterByName('classroom_id'), });
       this.getUnitsForCurrentClass();
     };
-  },
+  }
 
-  getClassrooms() {
+  getClassrooms = () => {
     request.get(`${process.env.DEFAULT_URL}/teachers/classrooms/classrooms_i_teach`, (error, httpStatus, body) => {
       const classrooms = JSON.parse(body).classrooms;
       this.handleClassrooms(classrooms);
     });
-  },
+  };
 
-  getRecommendationIds() {
+  getRecommendationIds = () => {
     fetch(`${process.env.DEFAULT_URL}/teachers/progress_reports/activity_with_recommendations_ids`, {
       method: 'GET',
       mode: 'cors',
@@ -55,32 +56,32 @@ export default React.createClass({
     }).catch((error) => {
       // to do, use Sentry to capture error
     });
-  },
+  };
 
-  handleClassrooms(classrooms) {
+  handleClassrooms = (classrooms) => {
     if (classrooms.length > 0) {
       this.setState({ classrooms, }, () => this.getUnits());
     } else {
       this.setState({ empty: true, loaded: true, });
     }
-  },
+  };
 
-  hashLinkScroll() {
+  hashLinkScroll = () => {
     const hash = window.location.hash;
     if (hash !== '') {
       const id = hash.replace('#', '');
       const element = document.getElementById(id);
       element ? element.scrollIntoView() : null;
     }
-  },
+  };
 
-  getUnits() {
+  getUnits = () => {
     request.get(`${process.env.DEFAULT_URL}/teachers/units`, (error, httpStatus, body) => {
       this.setAllUnits(JSON.parse(body));
     });
-  },
+  };
 
-  getUnitsForCurrentClass() {
+  getUnitsForCurrentClass = () => {
     if (this.state.selectedClassroomId && this.state.selectedClassroomId != allClassroomKey) {
       // TODO: Refactor this. It is ridiculous that we need to find a classroom and match on name. Instead, the units should just have a list of classroom_ids that we can match on.
       const selectedClassroom = this.state.classrooms.find(c => c.id === Number(this.state.selectedClassroomId));
@@ -89,9 +90,9 @@ export default React.createClass({
     } else {
       this.setState({ units: this.state.allUnits, loaded: true, });
     }
-  },
+  };
 
-  generateNewCaUnit(u) {
+  generateNewCaUnit = (u) => {
     const classroom = { name: u.class_name, totalStudentCount: u.class_size, assignedStudentCount: u.number_of_assigned_students ? u.number_of_assigned_students : u.class_size, };
     const caObj = {
       classrooms: [classroom],
@@ -107,15 +108,15 @@ export default React.createClass({
       cuId: u.classroom_unit_id,
       activityClassificationId: u.activity_classification_id,
       classroomId: u.classroom_id,
-      dueDate: u.due_date,
+      dueDate: u.due_date ? u.due_date.replace(' ', 'T') : null,
       ownedByCurrentUser: u.owned_by_current_user === 't',
       ownerName: u.owner_name,
       uaId: u.unit_activity_id,
     });
     return caObj;
-  },
+  };
 
-  parseUnits(data) {
+  parseUnits = (data) => {
     const parsedUnits = {};
     data.forEach((u) => {
       if (!parsedUnits[u.unit_id]) {
@@ -138,7 +139,7 @@ export default React.createClass({
             activityClassificationId: u.activity_classification_id,
             classroomId: u.classroom_id,
             createdAt: u.ca_created_at,
-            dueDate: u.due_date,
+            dueDate: u.due_date ? u.due_date.replace(' ', 'T') : null,
             ownedByCurrentUser: u.owned_by_current_user === 't',
             ownerName: u.owner_name,
             uaId: u.unit_activity_id,
@@ -146,20 +147,20 @@ export default React.createClass({
       }
     });
     return this.orderUnits(parsedUnits);
-  },
+  };
 
-  orderUnits(units) {
+  orderUnits = (units) => {
     const unitsArr = [];
     Object.keys(units).forEach(unitId => unitsArr.push(units[unitId]));
     return unitsArr;
-  },
+  };
 
-  setAllUnits(data) {
+  setAllUnits = (data) => {
     this.setState({ allUnits: this.parseUnits(data), }, this.getUnitsForCurrentClass);
     this.hashLinkScroll();
-  },
+  };
 
-  hideUnit(id) {
+  hideUnit = (id) => {
     let units,
       x1;
     units = this.state.units;
@@ -169,9 +170,9 @@ export default React.createClass({
     request.put(`${process.env.DEFAULT_URL}/teachers/units/${id}/hide`, {
       json: { authenticity_token: getAuthToken(), },
     });
-  },
+  };
 
-  hideUnitActivity(uaId, unitId) {
+  hideUnitActivity = (uaId, unitId) => {
     request.put({
       url: `${process.env.DEFAULT_URL}/teachers/unit_activities/${uaId}/hide`,
       json: { authenticity_token: getAuthToken(), }, },
@@ -193,30 +194,30 @@ export default React.createClass({
         }
       }
     );
-  },
+  };
 
-  updateDueDate(ua_id, date) {
+  updateDueDate = (ua_id, date) => {
     request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/${ua_id}`, {
       json: { unit_activity: { due_date: date, }, authenticity_token: getAuthToken(), },
     });
-  },
+  };
 
-  updateMultipleDueDates(ua_ids, date) {
+  updateMultipleDueDates = (ua_ids, date) => {
     request.put(`${process.env.DEFAULT_URL}/teachers/unit_activities/update_multiple_due_dates`, {
       json: { unit_activity_ids: ua_ids, due_date: date, authenticity_token: getAuthToken(), },
     });
-  },
+  };
 
-  switchClassrooms(classroom) {
+  switchClassrooms = (classroom) => {
     if (classroom.id) {
       window.history.pushState({}, '', `/teachers/classrooms/activity_planner?classroom_id=${classroom.id}`);
     } else {
       window.history.pushState({}, '', '/teachers/classrooms/activity_planner');
     }
     this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
-  },
+  };
 
-  stateBasedComponent() {
+  stateBasedComponent = () => {
     let content;
     if (this.state.units.length === 0 && this.state.loaded === true) {
       if (this.state.selectedClassroomId) {
@@ -261,11 +262,11 @@ export default React.createClass({
       </span>
     );
     return <span />;
-  },
+  };
 
-  getIdFromUnit(unit) {
+  getIdFromUnit = (unit) => {
     return unit.unitId || unit.unit.id;
-  },
+  };
 
   render() {
     return (
@@ -273,6 +274,5 @@ export default React.createClass({
         {this.stateBasedComponent()}
       </div>
     );
-  },
-
-});
+  }
+}

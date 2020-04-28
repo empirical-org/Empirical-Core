@@ -8,6 +8,38 @@ import { connect } from 'react-redux';
 const jsDiff = require('diff');
 
 class EndState extends React.Component {
+  findDiffs(answer) {
+    const { question, } = this.props
+    let styledString = answer;
+    const sanitizedQuestionArray = this.returnSanitizedArray(question.prompt);
+    const sanitizedAnswerArray = this.returnSanitizedArray(answer);
+    const diffObjects = jsDiff.diffArrays(sanitizedQuestionArray, sanitizedAnswerArray);
+    diffObjects.forEach((diff) => {
+      if (diff.added) {
+        diff.value.forEach((word) => {
+          const regex = new RegExp(`(^|[^(a-zA-Z>)])${word }($|[^(<a-zA-Z)])`, 'i');
+          if (styledString.match(regex)) {
+            styledString = styledString.replace(regex, `<span class="diffed-word">${styledString.match(regex)[0]}</span>`);
+          }
+          const punctuationAtStartOfString = styledString.match(new RegExp('<span class="diffed-word">[^(a-zA-Z>)]', 'g'));
+          if (punctuationAtStartOfString) {
+            const charToMove = punctuationAtStartOfString[0][punctuationAtStartOfString[0].length - 1];
+            styledString = styledString.replace(new RegExp(`<span class="diffed-word">[${charToMove}]`, 'g'), `${charToMove}<span class="diffed-word">`);
+          }
+          const punctuationAtEndOfString = styledString.match(new RegExp('[^(a-zA-Z)]</span>', 'g'));
+          if (punctuationAtEndOfString) {
+            const charToMove = punctuationAtEndOfString[0][punctuationAtEndOfString[0].length - 8];
+            styledString = styledString.replace(new RegExp(`[${charToMove }]</span>`, 'g'), `</span>${charToMove}`);
+          }
+        });
+      }
+    });
+    return styledString;
+  }
+
+  returnSanitizedArray(str) {
+    return str.toLowerCase().replace(/\n/g, ' ').replace(/(<([^>]+)>)/ig, ' ').replace(/&nbsp;/g, '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g, '').split(' ').sort().join(' ').trim().split(' ');
+  }
 
   renderStaticText = () => {
     const { answeredNonMultipleChoiceCorrectly, multipleChoiceCorrect, } = this.props
@@ -24,39 +56,6 @@ class EndState extends React.Component {
         key="end-state"
       />
     );
-  }
-
-  returnSanitizedArray(str) {
-    return str.toLowerCase().replace(/\n/g, ' ').replace(/(<([^>]+)>)/ig, ' ').replace(/&nbsp;/g, '').replace(/[.",\/#?!$%\^&\*;:{}=\_`~()]/g, '').split(' ').sort().join(' ').trim().split(' ');
-  }
-
-  findDiffs(answer) {
-    const { question, } = this.props
-    let styledString = answer;
-    const sanitizedQuestionArray = this.returnSanitizedArray(question.prompt);
-    const sanitizedAnswerArray = this.returnSanitizedArray(answer);
-    const diffObjects = jsDiff.diffArrays(sanitizedQuestionArray, sanitizedAnswerArray);
-    diffObjects.forEach((diff) => {
-      if (diff.added) {
-        diff.value.forEach((word) => {
-          const regex = new RegExp(`(^|[^(a-zA-Z>)])${word }($|[^(<a-zA-Z)])`, 'i');
-          if (styledString.match(regex)) {
-            styledString = styledString.replace(regex, `<span style="color: green;">${styledString.match(regex)[0]}</span>`);
-          }
-          const punctuationAtStartOfString = styledString.match(new RegExp('<span style="color: green;">[^(a-zA-Z>)]', 'g'));
-          if (punctuationAtStartOfString) {
-            const charToMove = punctuationAtStartOfString[0][punctuationAtStartOfString[0].length - 1];
-            styledString = styledString.replace(new RegExp(`<span style="color: green;">[${charToMove}]`, 'g'), `${charToMove}<span style="color: green;">`);
-          }
-          const punctuationAtEndOfString = styledString.match(new RegExp('[^(a-zA-Z)]</span>', 'g'));
-          if (punctuationAtEndOfString) {
-            const charToMove = punctuationAtEndOfString[0][punctuationAtEndOfString[0].length - 8];
-            styledString = styledString.replace(new RegExp(`[${charToMove }]</span>`, 'g'), `</span>${charToMove}`);
-          }
-        });
-      }
-    });
-    return styledString;
   }
 
   renderTopThreeResponses = () => {

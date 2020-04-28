@@ -7,43 +7,34 @@ import Response from './response.jsx'
 import massEdit from '../../actions/massEdit';
 
 export default class ResponseList extends React.Component {
-  constructor(props) {
-    super(props)
+  addAllResponsesToMassEdit = () => {
+    const keys = this.props.responses.map(r => r.id)
+    this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
+  };
 
-    this.allResponsesChecked = this.allResponsesChecked.bind(this)
-    this.addAllResponsesToMassEdit = this.addAllResponsesToMassEdit.bind(this)
-    this.removeAllResponsesFromMassEdit = this.removeAllResponsesFromMassEdit.bind(this)
-    this.addOrRemoveAllResponsesFromMassEdit = this.addOrRemoveAllResponsesFromMassEdit.bind(this)
-  }
+  addOrRemoveAllResponsesFromMassEdit = () => {
+    if (this.allResponsesChecked()) {
+      this.removeAllResponsesFromMassEdit()
+    } else {
+      this.addAllResponsesToMassEdit()
+    }
+  };
 
-  allResponsesChecked() {
+  allResponsesChecked = () => {
     return !this.props.responses.some((r) => {
       return !(
         this.props.massEdit.selectedResponses.includes(r.key) ||
         this.props.massEdit.selectedResponses.includes(r.id)
       )
     })
-  }
+  };
 
-  addAllResponsesToMassEdit() {
-    const keys = this.props.responses.map(r => r.id)
-    this.props.dispatch(massEdit.addResponsesToMassEditArray(keys))
-  }
-
-  removeAllResponsesFromMassEdit() {
+  removeAllResponsesFromMassEdit = () => {
     const keys = this.props.responses.map(r => r.id)
     this.props.dispatch(massEdit.removeResponsesFromMassEditArray(keys))
-  }
+  };
 
-  addOrRemoveAllResponsesFromMassEdit() {
-    if (this.allResponsesChecked()) {
-      this.removeAllResponsesFromMassEdit()
-    } else {
-      this.addAllResponsesToMassEdit()
-    }
-  }
-
-  renderResponse(resp) {
+  renderResponse = (resp) => {
     return (<Response
       allExpanded={this.props.expanded}
       conceptID={this.props.conceptID}
@@ -71,19 +62,23 @@ export default class ResponseList extends React.Component {
     />)
   }
 
+  isValidAndNotEmptyRegex = (string) => {
+    return string.length && isValidRegex(string)
+  }
+
   render() {
     const responseListItems = this.props.responses.map((resp) => {
       if (resp && resp.statusCode !== 1 && resp.statusCode !== 0 && this.props.selectedIncorrectSequences) {
-        const incorrectSequences = this.props.selectedIncorrectSequences.filter(is => is.length > 0)
+        const incorrectSequences = this.props.selectedIncorrectSequences.filter(this.isValidAndNotEmptyRegex)
         const anyMatches = incorrectSequences.some(inSeq => incorrectSequenceMatchHelper(resp.text, inSeq))
         if (anyMatches) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
       }
       if (resp && this.props.selectedFocusPoints) {
-        const focusPoints = this.props.selectedFocusPoints.filter(fp => fp.length > 0)
-        const matchAllFocusPoints = focusPoints.some(fp => focusPointMatchHelper(resp.text, fp))
-        if (matchAllFocusPoints) {
+        const focusPoints = this.props.selectedFocusPoints.filter(this.isValidAndNotEmptyRegex)
+        const noMatchedFocusPoints = focusPoints.every(fp => !focusPointMatchHelper(resp.text, fp))
+        if (noMatchedFocusPoints) {
           return <AffectedResponse key={resp.key}>{this.renderResponse(resp)}</AffectedResponse>
         }
       }

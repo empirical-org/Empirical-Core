@@ -1,6 +1,10 @@
 import React from 'react';
 
 export default class RecommendationsTableCell extends React.Component {
+  handleCheckboxClick = () => {
+    const { checkboxOnClick, student, index, } = this.props
+    checkboxOnClick(student, index)
+  }
 
   renderCheck() {
     const { previouslyAssigned, selected, } = this.props
@@ -13,11 +17,6 @@ export default class RecommendationsTableCell extends React.Component {
         <img className="recommendation-check" src="/images/recommendation_check.svg" />
       );
     }
-  }
-
-  handleCheckboxClick = () => {
-    const { checkboxOnClick, student, index, } = this.props
-    checkboxOnClick(student, index)
   }
 
   render() {

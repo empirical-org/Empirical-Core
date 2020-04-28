@@ -83,7 +83,7 @@ class CreateNewAccounts extends React.Component<any, any> {
     return (<div id="create_new_accounts">
       <div className="header">
         <h2>Create New Accounts and Link Existing Teachers</h2>
-        <a className="green-link" href="mailto:becca@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
+        <a className="green-link" href="mailto:hello@quill.org?subject=Bulk Upload Teachers via CSV&body=Please attach your CSV file to this email.">
           <button className="bg-white text-black" type="button">Upload Teachers via CSV</button>
         </a>
       </div>
@@ -113,7 +113,7 @@ class CreateNewAccounts extends React.Component<any, any> {
           <div className="schools-list">
             {this.schoolsList()}
           </div>
-          <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:becca@quill.org">Email Becca</a></p>
+          <p className="need-access pull-right">Need access to additional schools? <a className="green-link" href="mailto:hello@quill.org">Email Quill</a></p>
         </div>
       </div>
       {this.renderError()}

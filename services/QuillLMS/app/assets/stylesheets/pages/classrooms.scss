@@ -313,8 +313,21 @@
     padding-right: 0px;
     .removable {
       margin-right: 0px;
+      padding: 0px !important;
+      background-color: transparent;
       img {
         cursor: pointer;
+      }
+    }
+    .data-table-row {
+      .data-table-row-section {
+        button {
+          min-width: 30px;
+          background-color: white;
+        }
+        button:hover {
+          background-color: #f2f2f2;
+        }
       }
     }
     .data-table-row:last-of-type {

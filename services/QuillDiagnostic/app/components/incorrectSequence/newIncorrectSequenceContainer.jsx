@@ -3,43 +3,60 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions';
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
 
 class NewIncorrectSequencesContainer extends Component {
   constructor() {
     super();
 
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
+    const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
+    const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
+    const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
+
+    this.state = { questionType, actionFile, questionTypeLink };
   }
 
-  componentWillMount() {
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid]) {
-      this.props.dispatch(questionActions.getUsedSequences(qid))
+  UNSAFE_componentWillMount() {
+    const { actionFile } = this.state;
+    const { dispatch, generatedIncorrectSequences, match } = this.props;
+    const { used } = generatedIncorrectSequences;
+    const { params, url } = match;
+    const { questionID } = params;
+    const type = url.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
+    if (!used[questionID]) {
+      dispatch(actionFile.getUsedSequences(questionID, type))
     }
   }
 
-  submitSequenceForm(data) {
+  submitSequenceForm = data => {
+    const { actionFile, questionTypeLink } = this.state;
+    const { dispatch, history, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     delete data.conceptResults.null;
-    this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.params.questionID, data));
-    window.history.back();
+    // TODO: fix add new incorrect sequence action to show new incorrect sequence without refreshing
+    dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
+    history.push(`/admin/${questionTypeLink}/${questionID}/incorrect-sequences`)
   }
 
   render() {
-    const {generatedIncorrectSequences, params, questions, fillInBlank, sentenceFragments, diagnosticQuestions, states} = this.props
+    const { diagnosticQuestions, fillInBlank, generatedIncorrectSequences, match, sentenceFragments, questions } = this.props;
+    const { used } = generatedIncorrectSequences;
+    const { params } = match;
+    const { questionID } = params;
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
-          diagnosticQuestions
-          fillInBlank
+          diagnosticQuestions={diagnosticQuestions}
+          fillInBlank={fillInBlank}
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          questionID={this.props.params.questionID}
-          questions={this.props.questions}
-          sentenceFragments
+          questionID={questionID}
+          questions={questions}
+          sentenceFragments={sentenceFragments}
           states
-          usedSequences={this.props.generatedIncorrectSequences.used[this.props.params.questionID]}
+          usedSequences={used[questionID]}
         />
-        {this.props.children}
       </div>
     );
   }
@@ -47,11 +64,11 @@ class NewIncorrectSequencesContainer extends Component {
 
 function select(props) {
   return {
+    diagnosticQuestions: props.diagnosticQuestions,
+    fillInBlank: props.fillInBlank,
     questions: props.questions,
     generatedIncorrectSequences: props.generatedIncorrectSequences,
-    fillInBlank: props.fillInBlank,
     sentenceFragments: props.sentenceFragments,
-    diagnosticQuestions: props.diagnosticQuestions,
     states: props.states
   };
 }

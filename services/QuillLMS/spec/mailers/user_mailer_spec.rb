@@ -74,14 +74,14 @@ describe UserMailer do
 
   describe 'lesson_plan_email' do
     let(:user) { build(:user) }
-    let(:lesson) { build(:lesson) }
+    let(:lesson) { build(:lesson_classification) }
     let(:unit) { build(:unit) }
     let(:mail) { described_class.lesson_plan_email(user, [lesson], unit) }
 
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("Next Steps for the Lessons in Your New Activity Pack, #{unit.name}")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["amr.thameen@quill.org"])
+      expect(mail.from).to eq(["hello@quill.org"])
     end
   end
 
@@ -116,7 +116,7 @@ describe UserMailer do
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("#{user.first_name}, you are now an admin on Quill!")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["becca@quill.org"])
+      expect(mail.from).to eq(["hello@quill.org"])
     end
   end
 
@@ -126,7 +126,7 @@ describe UserMailer do
 
     it 'should set the subject, receiver and the sender' do
       expect(mail.subject).to eq("#{user.name} has purchased School Premium for a missing school")
-      expect(mail.to).to eq(["becca@quill.org", "amr@quill.org", "emilia@quill.org"])
+      expect(mail.to).to eq(["hello@quill.org", "emilia@quill.org"])
       expect(mail.from).to eq(['hello@quill.org'])
     end
   end

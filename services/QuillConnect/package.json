@@ -9,12 +9,12 @@
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch --reporter dot",
     "storybook": "start-storybook -p 9001",
-    "lint": "eslint app/app.jsx",
-    "lint:fix": "eslint app/app.jsx --fix",
+    "lint": "eslint app/app.tsx",
+    "lint:fix": "eslint app/app.tsx --fix",
     "build:staging": "npm install && rm -r dist/; QUILL_CMS=https://cms.quill.org EMPIRICAL_BASE_URL=https://staging.quill.org QUILL_CDN_URL=https://assets.quill.org NODE_ENV=staging webpack --optimize-minimize",
     "build:prod": "npm install && rm -r dist/; QUILL_CMS=https://cms.quill.org EMPIRICAL_BASE_URL=https://www.quill.org QUILL_CDN_URL=https://assets.quill.org NODE_ENV=production webpack --optimize-minimize",
     "cypress:open": "cypress open",
-    "jest": "jest",
+    "jest": "node --expose-gc ./node_modules/.bin/jest --maxWorkers=2 --logHeapUsage",
     "jest:u": "jest --updateSnapshot",
     "jest:watch": "jest:watch",
     "jest:coverage": "jest:coverage"
@@ -42,7 +42,7 @@
     "@types/request": "^2.48.3",
     "@types/request-promise": "^4.1.45",
     "@types/underscore": "^1.9.4",
-    "acorn": "^6.4.0",
+    "acorn": "^6.4.1",
     "acorn-dynamic-import": "^4.0.0",
     "assets-webpack-plugin": "^3.9.10",
     "awesome-typescript-loader": "^5.2.1",
@@ -52,9 +52,10 @@
     "bulma": "0.2.3",
     "compression-webpack-plugin": "^3.0.1",
     "css-loader": "^2.1.1",
-    "enzyme": "^2.7.1",
-    "enzyme-to-json": "^1.5.0",
-    "eslint": "^3.13.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
+    "eslint": "^6.8.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^3.0.2",
@@ -72,7 +73,7 @@
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.7.0",
     "mocha": "^6.2.2",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "quill-string-normalizer": "0.0.3",
     "react-hot-loader": "^4.12.18",
     "react-radio-group": "^3.0.1",
@@ -89,13 +90,15 @@
     "typescript": "^2.6.2",
     "url-loader": "^1.1.2",
     "webpack": "^4.41.2",
-    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-bundle-analyzer": "^3.6.1",
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@sentry/browser": "^5.15.4",
     "actioncable": "^5.2.4",
     "animejs": "^2.2.0",
+    "antd": "^4.1.4",
     "apply-feature": "^1.0.1",
     "babel-loader": "^8.0.6",
     "babel-polyfill": "^6.23.0",
@@ -110,7 +113,7 @@
     "es6-promise": "^4.2.8",
     "eslint-plugin-jsx-a11y": "^3.0.1",
     "fetch-ie8": "^1.5.0",
-    "firebase": "^6.6.2",
+    "firebase": "^7.6.1",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.4.6",
     "fuzzyset.js": "0.0.3",
@@ -123,20 +126,22 @@
     "pos": "^0.4.2",
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.4.0",
-    "quill-component-library": "0.6.3",
-    "quill-marking-logic": "0.12.13",
-    "raven-js": "^3.27.2",
-    "react": "^15.6.2",
+    "quill-component-library": "^0.7.34",
+    "quill-marking-logic": "0.13.1",
+    "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
-    "react-dom": "^15.6.1",
+    "react-contenteditable": "^3.3.2",
+    "react-dom": "^16.13.1",
     "react-onclickout": "^2.0.4",
     "react-redux": "^5.1.2",
-    "react-router": "^3.2.5",
+    "react-router": "^5.1.2",
     "react-router-active-component": "^4.0.0",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.1.2",
     "react-router-redux": "^4.0.8",
     "react-select": "^1.0.0-rc.5",
-    "react-select-search": "^0.5.5",
+    "react-select-search": "^0.5.6",
     "react-selectize": "^2.1.0",
     "react-simple-pie-chart": "^0.4.1",
     "react-sortable": "^2.0.0",
@@ -149,7 +154,7 @@
     "request-promise": "^4.2.5",
     "socket.io-client": "^2.3.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "underscore": "^1.8.3",
+    "underscore": "^1.10.2",
     "uuid": "^3.3.3",
     "warning": "^3.0.0",
     "webpack-cli": "^3.3.10",
@@ -158,15 +163,26 @@
     "xlsx": "^0.14.5"
   },
   "jest": {
+    "roots": [
+      "app"
+    ],
     "transform": {
-      ".*": "./test/jest.preprocessor.js"
+      "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
     },
     "moduleFileExtensions": [
       "js",
       "jsx",
       "ts",
-      "tsx"
+      "tsx",
+      "json",
+      "node"
     ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    },
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
@@ -176,6 +192,9 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-    }
+    },
+    "setupFiles": [
+      "<rootDir>/app/setupTests.ts"
+    ]
   }
 }

@@ -1,20 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, } from 'enzyme';
 
 import StudentProfileUnits from '../student_profile_units';
-
 import StudentProfileUnit from '../student_profile_unit';
+import { activities } from './test_data'
+
+import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../../constants/student_profile'
 
 describe('StudentProfileUnits component', () => {
 
   it('should render <StudentProfileUnit /> components with correct props', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <StudentProfileUnits
-        data={{
-          '0': {unit_id: 1, unit_name: 'Same ID'},
-          '1': {unit_id: 1, unit_name: 'Same ID'},
-          '2': {unit_id: 2, unit_name: 'Different'},
-        }}
+        data={[
+          {unit_id: 1, unit_name: 'Same ID'},
+          {unit_id: 1, unit_name: 'Same ID'},
+          {unit_id: 2, unit_name: 'Different'},
+        ]}
       />
     );
     expect(wrapper.find(StudentProfileUnit).length).toBe(2);
@@ -23,14 +25,92 @@ describe('StudentProfileUnits component', () => {
     expect(wrapper.find(StudentProfileUnit).at(1).props().data.incomplete[0].unit_name).toBe('Different');
   });
 
-  it('should render LOADING if loading', () => {
-    const wrapper = shallow(
-      <StudentProfileUnits
-        data={{}}
-        loading={true}
-      />
-    );
-    expect(wrapper.find('.container').html()).toBe('<div class="container">LOADING</div>');
-  });
+  it('should render all activities and units if the active tab is all activities', () => {
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={ALL_ACTIVITIES}
+      data={activities}
+      teacherName="Emilia F"
+    />)
+
+    const uniqueUnitIds = Array.from(new Set(activities.map(act => act.unit_id)))
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find(StudentProfileUnit).length).toBe(uniqueUnitIds.length)
+    expect(wrapper.find('.data-table-row').length).toBe(activities.length)
+  })
+
+  it('should render only incomplete activities if the active tab is to-do activities', () => {
+    const incompleteActivities = activities.filter(act => !act.max_percentage)
+    const uniqueUnitIds = Array.from(new Set(incompleteActivities.map(act => act.unit_id)))
+
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={TO_DO_ACTIVITIES}
+      data={activities}
+      teacherName="Emilia F"
+    />)
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find(StudentProfileUnit).length).toBe(uniqueUnitIds.length)
+    expect(wrapper.find('.data-table-row').length).toBe(incompleteActivities.length)
+  })
+
+  it('should render only completed activities if the active tab is completed activities', () => {
+    const completeActivities = activities.filter(act => act.max_percentage)
+    const uniqueUnitIds = Array.from(new Set(completeActivities.map(act => act.unit_id)))
+
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={COMPLETED_ACTIVITIES}
+      data={activities}
+      teacherName="Emilia F"
+    />)
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find(StudentProfileUnit).length).toBe(uniqueUnitIds.length)
+    expect(wrapper.find('.data-table-row').length).toBe(completeActivities.length)
+  })
+
+  it('should render the pinned activity bar if there is a pinned activity', () => {
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={ALL_ACTIVITIES}
+      data={activities}
+      teacherName="Emilia F"
+    />)
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find('.pinned-activity').length).toBe(1)
+  })
+
+  it('should render the pinned activity modal if there is a pinned activity', () => {
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={ALL_ACTIVITIES}
+      data={activities}
+      teacherName="Emilia F"
+    />)
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find('.pinned-activity-modal').length).toBe(1)
+  })
+
+  it('should not render the pinned activity modal if there is no pinned activity', () => {
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={ALL_ACTIVITIES}
+      data={activities.filter(act => act.pinned === 'f')}
+      teacherName="Emilia F"
+    />)
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find('.pinned-activity').length).toBe(0)
+  })
+
+  it('should not render the pinned activity modal if there is no pinned activity', () => {
+    const wrapper = mount(<StudentProfileUnits
+      activeClassworkTab={ALL_ACTIVITIES}
+      data={activities.filter(act => act.pinned === 'f')}
+      teacherName="Emilia F"
+    />)
+
+    expect(wrapper).toMatchSnapshot()
+    expect(wrapper.find('.pinned-activity-modal').length).toBe(0)
+  })
 
 });

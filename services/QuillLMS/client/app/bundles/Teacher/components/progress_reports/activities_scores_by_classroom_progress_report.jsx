@@ -15,7 +15,6 @@ import _ from 'underscore'
 const showAllClassroomKey = 'All Classrooms'
 
 export default class extends React.Component {
-
   constructor() {
     super()
     this.state = {
@@ -23,7 +22,6 @@ export default class extends React.Component {
       errors: false,
       selectedClassroom: showAllClassroomKey
     }
-    this.switchClassrooms = this.switchClassrooms.bind(this)
   }
 
   componentDidMount() {
@@ -34,23 +32,10 @@ export default class extends React.Component {
       const data = JSON.parse(body).data
       const classroomsData = data;
       // gets unique classroom names
-      const classroomNames = [...new Set(classroomsData.map(row => row.classroom_name))]
+      const classroomNames = Array.from(new Set(classroomsData.map(row => row.classroom_name)))
       classroomNames.unshift(showAllClassroomKey)
       that.setState({loading: false, errors: body.errors, classroomsData, classroomNames});
     });
-  }
-
-  formatDataForCSV(data) {
-    const csvData = [
-      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
-    ]
-    data.forEach((row) => {
-      csvData.push([
-        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
-        row['activity_count']
-      ])
-    })
-    return csvData
   }
 
   columns() {
@@ -88,7 +73,7 @@ export default class extends React.Component {
 				resizable: false,
         minWidth: 90,
         Cell: row => (<a className='row-link-disguise' href={`/teachers/progress_reports/student_overview?classroom_id=${row.original.classroom_id}&student_id=${row.original.student_id}`}>
-          {row.last_active ? moment(row.last_active).format("MM/DD/YYYY") : <span />}
+          {row.original.last_active ? moment(row.original.last_active).format("MM/DD/YYYY") : <span />}
         </a>),
 				sortMethod: sortFromSQLTimeStamp,
 			},
@@ -114,16 +99,29 @@ export default class extends React.Component {
     ])
   }
 
-  switchClassrooms(classroom) {
-    this.setState({selectedClassroom: classroom})
-  }
-
   filteredClassroomsData() {
     if (this.state.selectedClassroom === showAllClassroomKey) {
       return this.state.classroomsData
     }
     return this.state.classroomsData.filter((row) => row.classroom_name === this.state.selectedClassroom)
   }
+
+  formatDataForCSV(data) {
+    const csvData = [
+      ['Classroom Name', 'Student Name', 'Average Score', 'Activity Count']
+    ]
+    data.forEach((row) => {
+      csvData.push([
+        row['classroom_name'], row['name'], (row['average_score'] * 100).toString() + '%',
+        row['activity_count']
+      ])
+    })
+    return csvData
+  }
+
+  switchClassrooms = classroom => {
+    this.setState({selectedClassroom: classroom})
+  };
 
   tableOrEmptyMessage(filteredClassroomsData){
     if (filteredClassroomsData.length) {

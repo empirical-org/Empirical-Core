@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fillInBlankActions from '../../actions/fillInBlank.js';
+import fillInBlankActions from '../../actions/fillInBlank';
 import FillInBlankForm from './fillInBlankForm.jsx';
 
 class NewFillInBlank extends Component {
-  constructor() {
-    super();
-    this.submitNewQuestion = this.submitNewQuestion.bind(this);
-  }
-
-  submitNewQuestion(data, newQuestionOptimalResponse) {
+  submitNewQuestion = (data, newQuestionOptimalResponse) => {
+    const { dispatch } = this.props;
     if (data.prompt !== '') {
       const questionData = data
       questionData.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
-      this.props.dispatch(fillInBlankActions.submitNewQuestion(
+      dispatch(fillInBlankActions.submitNewQuestion(
         questionData,
         {
           text: newQuestionOptimalResponse.trim(),
@@ -23,7 +19,7 @@ class NewFillInBlank extends Component {
         }
       ));
     }
-  }
+  };
 
   render() {
     return <FillInBlankForm action={this.submitNewQuestion} />;

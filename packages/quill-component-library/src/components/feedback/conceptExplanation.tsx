@@ -1,8 +1,15 @@
 import React from 'react'
 
+function getClassName(description, leftBox, rightBox) {
+  if (description && leftBox && rightBox) {
+    return "concept-explanation"
+  }
+  return "concept-explanation empty"
+}
+
 const ConceptExplanation = ({ description, leftBox, rightBox, }) => (
-  <div className="concept-explanation">
-    <div className="concept-explanation-title"><img alt="Book Icon" src={`${process.env.QUILL_CDN_URL}/images/icons/books.png`} style={{ height: '24px', width: '24px' }} /> Here&#39;s a Hint</div>
+  <div className={getClassName(description, leftBox, rightBox)}>
+    <div className="concept-explanation-title"><img alt="Light Bulb Icon" src={`${process.env.QUILL_CDN_URL}/images/icons/hint.svg`} /><span>Hint</span></div>
     <div className="concept-explanation-description" dangerouslySetInnerHTML={{__html: description}} />
     <div className="concept-explanation-see-write">
       <div className="concept-explanation-see" dangerouslySetInnerHTML={{__html: leftBox}} />

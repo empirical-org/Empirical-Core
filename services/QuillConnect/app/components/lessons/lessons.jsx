@@ -4,10 +4,10 @@ import actions from '../../actions/lessons';
 import _ from 'underscore';
 import {
   Modal,
-  LinkListItem,
   ArchivedButton,
   FlagDropdown
 } from 'quill-component-library/dist/componentLibrary';
+import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.jsx';
 
 class Lessons extends React.Component {
@@ -18,32 +18,27 @@ class Lessons extends React.Component {
       lessonFlags: 'production',
       showOnlyArchived: false,
     }
-
-    this.createNew = this.createNew.bind(this)
-    this.submitNewLesson = this.submitNewLesson.bind(this)
-    this.toggleShowArchived = this.toggleShowArchived.bind(this)
-    this.renderLessons = this.renderLessons.bind(this)
-    this.renderModal = this.renderModal.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
-
   }
 
-  createNew() {
+  createNew = () => {
     this.props.dispatch(actions.toggleNewLessonModal());
-  }
+  };
 
-  submitNewLesson(data) {
+  handleSelect = e => {
+    this.setState({ lessonFlags: e.target.value, });
+  };
+
+  submitNewLesson = data => {
     this.props.dispatch(actions.submitNewLesson(data));
-    // this.props.dispatch(actions.toggleNewLessonModal())
-  }
+  };
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
-  renderLessons() {
+  renderLessons = () => {
     const { data, } = this.props.lessons;
     const questionsData = this.props.questions.data
     let keys = _.keys(data);
@@ -62,14 +57,15 @@ class Lessons extends React.Component {
       <LinkListItem
         activeClassName='is-active'
         basePath='lessons'
+        excludeResponses={true}
         itemKey={key}
         key={key}
         text={data[key].name || 'No name'}
       />
     ));
-  }
+  };
 
-  renderModal() {
+  renderModal = () => {
     const stateSpecificClass = this.props.lessons.submittingnew ? 'is-loading' : '';
     if (this.props.lessons.newLessonModalOpen) {
       return (
@@ -78,11 +74,7 @@ class Lessons extends React.Component {
         </Modal>
       );
     }
-  }
-
-  handleSelect(e) {
-    this.setState({ lessonFlags: e.target.value, });
-  }
+  };
 
   render() {
     return (
@@ -108,10 +100,8 @@ class Lessons extends React.Component {
           </div>
         </div>
       </section>
-
     );
   }
-
 }
 
 function select(state) {

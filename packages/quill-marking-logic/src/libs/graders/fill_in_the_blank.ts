@@ -9,11 +9,15 @@ export function checkFillInTheBlankQuestion(
   question_uid: string,
   response: string,
   responses: Array<Response>,
-  defaultConceptUID?: string
+  caseInsensitive: boolean=false,
+  defaultConceptUID?: string,
+  isDiagnosticFIB: boolean=false
 ): Response {
   const data = {
     response: response.trim().replace(/\s{2,}/g, ' '),
-    responses
+    responses,
+    caseInsensitive,
+    isDiagnosticFIB
   }
   const responseTemplate = {
     text: data.response,
@@ -30,10 +34,10 @@ export function checkFillInTheBlankQuestion(
 }
 
 function* firstPassMatchers(data) {
-  const {response, responses, focusPoints} = data;
+  const {response, responses, caseInsensitive, isDiagnosticFIB} = data;
   const submission = response
   yield exactMatch(submission, responses)
-  yield caseInsensitiveChecker(submission, responses, true)
+  yield caseInsensitiveChecker(submission, responses, true, caseInsensitive, isDiagnosticFIB)
 }
 
 function checkForMatches(data, matchingFunction: Function) {

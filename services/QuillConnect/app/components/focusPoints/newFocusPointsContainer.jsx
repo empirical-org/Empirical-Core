@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import FocusPointsInputAndConceptResultSelectorForm from '../shared/focusPointsInputAndConceptSelectorForm'
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 
 class NewFocusPointsContainer extends Component {
   constructor() {
@@ -13,36 +13,49 @@ class NewFocusPointsContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, questionTypeLink, actionFile }
-
-    this.submitFocusPointForm = this.submitFocusPointForm.bind(this);
   }
 
-  getFocusPoints() {
-    return this.props[this.state.questionType].data[this.props.params.questionID].focusPoints;
+  getFocusPoints = () => {
+    const { questionType } = this.state
+    const { match } = this.props
+    const { params } = match
+    const { questionID } = params
+    return this.props[questionType].data[questionID].focusPoints;
   }
 
-  submitFocusPointForm(data) {
+  submitFocusPointForm = data => {
+    const { actionFile } = this.state
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     delete data.conceptResults.null;
     data.order = _.keys(this.getFocusPoints()).length + 1;
-    this.props.dispatch(this.state.actionFile.submitNewFocusPoint(this.props.params.questionID, data));
+    dispatch(actionFile.submitNewFocusPoint(questionID, data));
     window.history.back();
-  }
+  };
 
   render() {
-    const states = true
-    return (
-      <div>
-        <FocusPointsInputAndConceptResultSelectorForm
-          itemLabel="Focus Point"
-          onSubmit={this.submitFocusPointForm}
-          questionID={this.props.params.questionID}
-          questions={this.props.questions}
-          sentenceFragments={this.props.sentenceFragments}
-          states={states}
-        />
-        {this.props.children}
-      </div>
-    );
+    const { match, questions, sentenceFragments } = this.props
+    const { params } = match
+    const { questionID } = params
+    if(questions && questionID && sentenceFragments) {
+      return (
+        <div>
+          <FocusPointsInputAndConceptResultSelectorForm
+            itemLabel="Focus Point"
+            onSubmit={this.submitFocusPointForm}
+            questionID={questionID}
+            questions={questions}
+            sentenceFragments={sentenceFragments}
+            states={true}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <h1>Loading...</h1>
+      ); 
+    }
   }
 }
 

@@ -54,6 +54,17 @@ class ActivitySession < ActiveRecord::Base
 
   RESULTS_PER_PAGE = 25
 
+  CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT = [
+    'JVJhNIHGZLbHF6LYw605XA',
+    'H-2lrblngQAQ8_s-ctye4g',
+    '5E8cleeh-dUUFncVhLy9AQ',
+    'jaUtRoHeqvvNhiEBOhjvhg'
+  ]
+
+  PROFICIENT = 'Proficient'
+  NEARLY_PROFICIENT = 'Nearly proficient'
+  NOT_YET_PROFICIENT = 'Not yet proficient'
+
   def self.paginate(current_page, per_page)
     offset = (current_page.to_i - 1) * per_page
     limit(per_page).offset(offset)
@@ -224,7 +235,33 @@ class ActivitySession < ActiveRecord::Base
   end
 
   def parse_for_results
-    all_concept_stats(self)
+    concept_results_by_concept = concept_results.group_by { |c| c.concept_id }
+
+    results = {
+      PROFICIENT => [],
+      NEARLY_PROFICIENT => [],
+      NOT_YET_PROFICIENT => []
+    }
+
+    concept_results_by_concept.each do |concept_id, arr|
+      concept = Concept.find_by_id(concept_id)
+      if CONCEPT_UIDS_TO_EXCLUDE_FROM_REPORT.include?(concept.uid) && arr.length < 4
+        next
+      end
+
+      number_correct = arr.inject(0) { |sum, cr| sum + cr.metadata['correct'] }
+      average_correct = number_correct.to_f / arr.length
+
+      if average_correct >= ProficiencyEvaluator.proficiency_cutoff
+        results[PROFICIENT].push(concept.name)
+      elsif average_correct >= ProficiencyEvaluator.nearly_proficient_cutoff
+        results[NEARLY_PROFICIENT].push(concept.name)
+      else
+        results[NOT_YET_PROFICIENT].push(concept.name)
+      end
+    end
+
+    results
   end
 
   alias owner user
@@ -254,8 +291,10 @@ class ActivitySession < ActiveRecord::Base
 
     concept_results.each do |concept_result|
       activity_session_id = activity_sessions.find do |activity_session|
-        activity_session[:uid] == concept_result[:activity_session_uid]
-      end[:id]
+        if activity_session && concept_result
+          activity_session[:uid] == concept_result[:activity_session_uid]
+        end
+      end&.id
       concept = Concept.find_by_id_or_uid(concept_result[:concept_id])
       concept_result[:metadata] = concept_result[:metadata].to_json
       concept_result[:concept_id] = concept.id

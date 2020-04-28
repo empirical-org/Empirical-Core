@@ -10,16 +10,12 @@ import l from 'lodash';
 import notLessonsOrDiagnostic from '../../../../modules/activity_classifications.js';
 
 export default class extends React.Component {
-
   constructor() {
     super();
     this.state = {
       loading: true,
       errors: false,
     };
-    this.calculateCountAndAverage = this.calculateCountAndAverage.bind(this);
-    this.defaultBackButton = this.defaultBackButton.bind(this);
-    this.backButton = this.backButton.bind(this);
   }
 
   componentDidMount() {
@@ -35,28 +31,7 @@ export default class extends React.Component {
     });
   }
 
-  grayAndYellowStat(grayContent, yellowContent, optionalClassName) {
-    return (
-      <td className={optionalClassName}>
-        <div className="gray-text">{grayContent}</div>
-        <div className="yellow-text">{yellowContent}</div>
-      </td>
-    );
-  }
-
-  defaultBackButton() {
-    const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
-    const previousLocation = this.props.previousLocation ||
-      '/teachers/progress_reports/activities_scores_by_classroom';
-
-    return (
-      <a className="navigate-back" href={previousLocation}>
-        <img alt="" src={imageSrc} /> Back to Activity Scores
-      </a>
-    );
-  }
-
-  backButton() {
+  backButton = () => {
     const { children, } = this.props;
 
     if (children) {
@@ -64,9 +39,9 @@ export default class extends React.Component {
     }
 
     return this.defaultBackButton();
-  }
+  };
 
-  calculateCountAndAverage() {
+  calculateCountAndAverage = () => {
     let count = 0;
     let cumulativeScore = 0;
     let countForAverage = 0;
@@ -84,6 +59,27 @@ export default class extends React.Component {
       average = `${Math.round((cumulativeScore / countForAverage) * 100)}%`;
     }
     return { count, average, };
+  };
+
+  defaultBackButton = () => {
+    const imageSrc = 'https://assets.quill.org/images/icons/chevron-dark-green.svg';
+    const previousLocation = this.props.previousLocation ||
+      '/teachers/progress_reports/activities_scores_by_classroom';
+
+    return (
+      <a className="navigate-back" href={previousLocation}>
+        <img alt="" src={imageSrc} /> Back to Activity Scores
+      </a>
+    );
+  };
+
+  grayAndYellowStat(grayContent, yellowContent, optionalClassName) {
+    return (
+      <td className={optionalClassName}>
+        <div className="gray-text">{grayContent}</div>
+        <div className="yellow-text">{yellowContent}</div>
+      </td>
+    );
   }
 
   studentOverviewSection() {
@@ -183,5 +179,4 @@ export default class extends React.Component {
       </div>
     );
   }
-
 }

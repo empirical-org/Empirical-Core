@@ -1,6 +1,7 @@
 class UserMailer < ActionMailer::Base
   default from: 'hello@quill.org'
   include EmailApiHelper
+  include ActionView::Helpers::NumberHelper
 
   COTEACHER_SUPPORT_ARTICLE = 'http://support.quill.org/getting-started-for-teachers/manage-classes/how-do-i-share-a-class-with-my-co-teacher'
 
@@ -44,7 +45,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @lessons = lessons
     @unit = unit
-    mail from: "Amr Thameen <amr.thameen@quill.org>", to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
+    mail from: "The Quill Team <hello@quill.org>", to: user.email, subject: "Next Steps for the Lessons in Your New Activity Pack, #{@unit.name}"
   end
 
   def premium_user_subscription_email(user)
@@ -62,7 +63,7 @@ class UserMailer < ActionMailer::Base
   def new_admin_email(user, school)
     @user = user
     @school = school
-    mail from: "Becca Garrison <becca@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
+    mail from: "Quill Team <hello@quill.org>", to: user.email, subject: "#{user.first_name}, you are now an admin on Quill!"
   end
 
   def activated_referral_email(referrer_hash, referral_hash)
@@ -78,7 +79,7 @@ class UserMailer < ActionMailer::Base
 
   def premium_missing_school_email(user)
     @user = user
-    mail to: ["Becca Garrison <becca@quill.org>", "Amr Thameen <amr@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
+    mail to: ["Quill Team <hello@quill.org>", "Emilia Friedberg <emilia@quill.org>"], subject: "#{user.name} has purchased School Premium for a missing school"
   end
 
   def recommendations_assignment_report_email
@@ -95,7 +96,7 @@ class UserMailer < ActionMailer::Base
 
   def declined_renewal_email(user)
     @user = user
-    mail from: "Maddy Maher <maddy@quill.org>", to: user.email, subject: "Quill Premium Renewal"
+    mail from: "Quill Team <hello@quill.org>", to: user.email, subject: "Quill Premium Renewal"
   end
 
   def daily_stats_email(date_string)
@@ -107,6 +108,7 @@ class UserMailer < ActionMailer::Base
 
     teacher_count = User.where(role: "teacher").count
     new_premium_accounts = User.joins(:user_subscription).where(users: {role: "teacher"}).where(user_subscriptions: {created_at: start_time..end_time}).count
+    conversion_rate = new_premium_accounts/teacher_count.to_f
 
     @current_date = date_object.strftime("%A, %B %d")
     @daily_active_teachers = User.where(role: "teacher").where(last_sign_in: start_time..end_time).size
@@ -119,11 +121,16 @@ class UserMailer < ActionMailer::Base
     # there are an average of 10 sentences per activity.    
     @sentences_written = ActivitySession.where(completed_at: start_time..end_time).size * 10
     @diagnostics_completed = ActivitySession.where(completed_at: start_time..end_time).where(activity_id: Activity.diagnostic_activity_ids).size
-    @teacher_conversion_rate = (new_premium_accounts/teacher_count.to_f).round(5)
+    @teacher_conversion_rate = number_to_percentage(conversion_rate, precision: 5)
     @support_tickets_resolved = get_intercom_data(start_time, end_time)
     @satismeter_nps_data = get_satismeter_nps_data(start_time, end_time)
     @satismeter_comment_data = get_satismeter_comment_data(start_time, end_time)
     mail to: "team@quill.org", subject: "Quill Daily Analytics - #{subject_date}"
+  end
+
+  def ell_starter_diagnostic_info_email(name, email)
+    @name = name
+    mail from: "Quill Team <hello@quill.org>", to: email, subject: "ELL Starter Diagnostic Next Steps"
   end
 
 end

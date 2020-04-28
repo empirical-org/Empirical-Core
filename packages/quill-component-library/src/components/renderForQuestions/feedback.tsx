@@ -4,6 +4,7 @@ const revise = `${process.env.QUILL_CDN_URL}/images/icons/revise.svg`
 const multiple = `${process.env.QUILL_CDN_URL}/images/icons/multiple-choice.svg`
 const success  = `${process.env.QUILL_CDN_URL}/images/icons/correct.svg`
 const arrow = `${process.env.QUILL_CDN_URL}/images/icons/continue.svg`
+const brownArrow = `${process.env.QUILL_CDN_URL}/images/icons/continue-brown.svg`
 
 function getIconClassName(feedbackType: string): string {
   let returnVal;
@@ -46,6 +47,9 @@ function getFeedbackIcon(feedbackType: string): string {
     case "override":
       returnVal = multiple;
       break;
+    case "incorrect-continue":
+      returnVal = brownArrow;
+      break;
     case "continue":
       returnVal = arrow;
       break;
@@ -72,6 +76,7 @@ function getIconAlt(feedbackType: string): string {
     case "override":
       returnVal = 'Choice Icon';
       break;
+    case "incorrect-continue":
     case "continue":
       returnVal = 'Next Icon';
       break;
@@ -90,6 +95,7 @@ function getCSSClasses(feedbackType: string): string {
   switch (feedbackType) {
     case "revise-unmatched":
     case "revise-matched":
+    case "incorrect-continue":
       returnVal = "revise"
       break;
     case "correct-matched":
@@ -109,7 +115,7 @@ function getCSSClasses(feedbackType: string): string {
 }
 
 const Feedback = ({ feedbackType, feedback, }: any) => (
-  <div className={getCSSClasses(feedbackType)}>
+  <div className={getCSSClasses(feedbackType)} role="status">
     <div className='feedback-row student-feedback-inner-container'>
       <img alt={getIconAlt(feedbackType)} className={getIconClassName(feedbackType)} src={getFeedbackIcon(feedbackType)}  />
       {feedback}

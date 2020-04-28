@@ -121,14 +121,9 @@ ul.is-unstyled {
   }
 }
 
-.register-container {
+.register-container, .register {
   width: 100%;
-  max-width: 700px;
   margin: 0 auto;
-}
-
-h2.register {
-  text-align: center;
 }
 
 .is-question {
@@ -367,7 +362,7 @@ textarea.submission {
   width: 100%;
   padding: 15;
   height: calc(100vh - 30px);
-  overflow-y: scroll;
+  overflow-y: auto;
     .select {
       display: block !important;
     }
@@ -375,4 +370,72 @@ textarea.submission {
 
 .wf-loading {
   visibility: hidden;
+}
+
+.search-container {
+  display: flex;
+}
+
+.search {
+  margin-left: 20px;
+}
+
+.add-incorrect-sequence {
+  .concept-explanation {
+    margin: 16px 0px;
+    border-radius: 4px;
+  }
+
+  .concept-explanation.empty {
+    background-color: #ffcccc;
+  }
+}
+
+.control.checkbox-wrapper {
+  display: inline-block;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin: 8px;
+}
+
+.admin-menu {
+  min-width: 220; 
+  border-right: '1px solid #e3e3e3'; 
+  padding: 30px 15px 15px 0px;
+}
+
+.concept-feedback-button-container {
+  margin-top: 20px;
+}
+
+.concept-feedback-edit {
+  margin-right: 20px;
+}
+.control.checkbox-wrapper {
+  display: inline-block;
+}
+
+.checkbox-label {
+  display: inline-block;
+  margin: 8px;
+}
+
+.main-admin-container {
+  display: flex;
+  background-color: white;
+}
+
+.main-admin-section {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-right: 1px solid rgb(227, 227, 227);
+}
+
+.concepts-container {
+  width: 100%;
+  margin-bottom: 20px;
 }

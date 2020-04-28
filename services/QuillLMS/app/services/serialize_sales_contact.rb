@@ -17,7 +17,7 @@ class SerializeSalesContact
         admin: teacher.admin?,
         auditor: teacher.auditor?,
         purchaser: teacher.purchaser?,
-        school_point_of_contact: teacher.school_poc?, 
+        school_point_of_contact: teacher.school_poc?,
         premium_status: premium_status,
         premium_expiry_date: subscription_expiration_date,
         number_of_students: number_of_students,
@@ -106,6 +106,8 @@ class SerializeSalesContact
   def subscription_expiration_date
     if subscription.present?
       subscription.expiration
+    elsif teacher.last_expired_subscription.present?
+      teacher.last_expired_subscription.expiration
     else
       'NA'
     end
@@ -114,10 +116,6 @@ class SerializeSalesContact
   def subscription
     if teacher.subscription.present?
       return teacher.subscription
-    end
-
-    if teacher.last_expired_subscription.present?
-      teacher.last_expired_subscription
     end
   end
 

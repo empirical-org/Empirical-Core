@@ -25,7 +25,7 @@ import {
 
 const request = require('request');
 
-class StudentDiagnostic extends React.Component {
+export class StudentDiagnostic extends React.Component {
   constructor(props) {
     super(props)
 
@@ -36,7 +36,7 @@ class StudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillMount = () => {
+  UNSAFE_componentWillMount = () => {
     const { dispatch, } = this.props
     const { sessionID, } = this.state
     dispatch(clearData());
@@ -47,7 +47,7 @@ class StudentDiagnostic extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { playDiagnostic, } = this.props
     if (nextProps.playDiagnostic.answeredQuestions.length !== playDiagnostic.answeredQuestions.length) {
       this.saveSessionData(nextProps.playDiagnostic);
@@ -92,13 +92,14 @@ class StudentDiagnostic extends React.Component {
   }
 
   saveToLMS = () => {
-    const { playDiagnostic, params, } = this.props
     const { sessionID, } = this.state
+    const { playDiagnostic, match } = this.props
+    const { params } = match
+    const { diagnosticID } = params
 
     this.setState({ error: false, });
 
     const results = getConceptResultsForAllQuestions(playDiagnostic.answeredQuestions);
-    const { diagnosticID, } = params;
 
     if (sessionID) {
       this.finishActivitySession(sessionID, results, 1);
@@ -109,7 +110,8 @@ class StudentDiagnostic extends React.Component {
 
   finishActivitySession = (sessionID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+      {
+        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
         method: 'PUT',
         json:
         {
@@ -136,7 +138,8 @@ class StudentDiagnostic extends React.Component {
 
   createAnonActivitySession = (lessonID, results, score) => {
     request(
-      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+      {
+        url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
         method: 'POST',
         json:
         {
@@ -163,9 +166,10 @@ class StudentDiagnostic extends React.Component {
   }
 
   questionsForDiagnostic = () => {
-    const { questions, lessons, params, } = this.props
+    const { questions, lessons, match, } = this.props
     const questionsCollection = hashToCollection(questions.data);
     const { data, } = lessons
+    const { params } = match
     const { lessonID, } = params
     return data[lessonID].questions.map(id => _.find(questionsCollection, { key: id, }));
   }
@@ -198,12 +202,16 @@ class StudentDiagnostic extends React.Component {
   }
 
   getLesson = () => {
-    const { lessons, params, } = this.props
-    return lessons.data[params.diagnosticID];
+    const { lessons, match } = this.props
+    const { data } = lessons
+    const { params } = match
+    const { diagnosticID } = params
+    return data[diagnosticID];
   }
 
   questionsForLesson = () => {
-    const { lessons, params, } = this.props
+    const { lessons, match } = this.props
+    const { params } = match
     const { data, } = lessons
     const { diagnosticID, } = params
     const filteredQuestions = data[diagnosticID].questions.filter(ques => {
@@ -239,8 +247,10 @@ class StudentDiagnostic extends React.Component {
   }
 
   getQuestionCount = () => {
-    const { params, } = this.props
-    if (params.diagnosticID == 'researchDiagnostic') {
+    const { match } = this.props
+    const { params } = match
+    const { diagnosticID } = params
+    if (diagnosticID == 'researchDiagnostic') {
       return '15';
     }
     return '22';
@@ -272,8 +282,9 @@ class StudentDiagnostic extends React.Component {
   }
 
   landingPageHtml = () => {
-    const { lessons, params, } = this.props
-    const { data, } = lessons
+    const { lessons, match } = this.props
+    const { params } = match
+    const { data } = lessons
     const { diagnosticID, } = params;
     return data[diagnosticID].landingPageHtml
   }
@@ -291,28 +302,17 @@ class StudentDiagnostic extends React.Component {
 
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount}
+      label='questions'
       percent={getProgressPercent(playDiagnostic)}
       questionCount={questionCount(playDiagnostic)}
     />)
   }
 
   render() {
-    const { playDiagnostic, lessons, questions, sentenceFragments, dispatch, } = this.props
+    const { playDiagnostic, dispatch } = this.props
     const { error, saved, } = this.state
     const questionType = playDiagnostic.currentQuestion ? playDiagnostic.currentQuestion.type : ''
     let component;
-
-    if (!(lessons.hasreceiveddata && questions.hasreceiveddata && sentenceFragments.hasreceiveddata)) {
-      return (
-        <div>
-          <section className="section is-fullheight minus-nav student">
-            <div className="student-container student-container-diagnostic">
-              <SmartSpinner key="step1" message='Loading Your Lesson 25%' />
-            </div>
-          </section>
-        </div>
-      );
-    }
 
     if (!playDiagnostic.questionSet) {
       return (

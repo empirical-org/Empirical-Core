@@ -109,6 +109,14 @@
   width: 80px;
 }
 
+.SingleDatePicker, .SingleDatePickerInput, .DateInput {
+  border-radius: 6px;
+}
+
+.DateInput_input:hover {
+  cursor: pointer;
+}
+
 .cms-container#blog-post {
   form {
     max-width: 725px;
@@ -118,7 +126,7 @@
       display: block;
     }
 
-    input, textarea {
+    input:not(#date-picker), textarea {
       border-radius: 5px;
       border: 1px solid #cecece;
       display: block;
@@ -134,7 +142,7 @@
       }
     }
 
-    input {
+    input:not(#date-picker) {
       margin-bottom: 20px;
     }
 
@@ -250,10 +258,10 @@
     .short-fields {
       display: flex;
       margin-bottom: 20px;
-      div {
+      div:not(.DayPickerNavigation_button) {
         flex: 1
       }
-      input {
+      input:not(#date-picker) {
         width: 214px;
       }
     }

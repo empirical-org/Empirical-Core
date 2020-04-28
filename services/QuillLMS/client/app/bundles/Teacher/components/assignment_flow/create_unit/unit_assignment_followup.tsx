@@ -11,7 +11,7 @@ import {
   UNIT_NAME,
   ACTIVITY_IDS_ARRAY,
   CLASSROOMS,
-  UNIT_ID
+  UNIT_ID,
 } from '../localStorageKeyConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
@@ -30,7 +30,8 @@ interface UnitAssignmentFollowupProps {
   selectedActivities: Array<any>;
   unitName: string;
   referralCode: string;
-  router: any;
+  location: any;
+  history: any;
 }
 
 interface UnitAssignmentFollowupState {
@@ -48,7 +49,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const assignedClassrooms = props.classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
 
     this.state = {
-      showNextOptions: props.router.location.pathname === '/assign/next',
+      showNextOptions: props.location.pathname === '/assign/next',
       assignedClassrooms,
       showSnackbar: false,
       snackbarCopy: '',
@@ -56,14 +57,17 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     }
   }
 
-  componentWillUnmount() {
-    this.setState({ leaving: true, }, () => {
-      window.localStorage.removeItem(UNIT_TEMPLATE_ID)
-      window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
-      window.localStorage.removeItem(UNIT_NAME)
-      window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
-      window.localStorage.removeItem(CLASSROOMS)
-      window.localStorage.removeItem(UNIT_ID)
+  async prepareToLeavePage = () => {
+    return new Promise((resolve) => {
+      return this.setState({ leaving: true, }, () => {
+        window.localStorage.removeItem(UNIT_TEMPLATE_ID)
+        window.localStorage.removeItem(UNIT_TEMPLATE_NAME)
+        window.localStorage.removeItem(UNIT_NAME)
+        window.localStorage.removeItem(ACTIVITY_IDS_ARRAY)
+        window.localStorage.removeItem(CLASSROOMS)
+        window.localStorage.removeItem(UNIT_ID)
+        resolve()
+      })
     })
   }
 
@@ -81,8 +85,8 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
   handleCopyLink = () => this.showSnackbar('Link copied')
 
   handleClickNext = () => {
-    const { router, } = this.props
-    router.push('/assign/next')
+    const { history, } = this.props
+    history.push('/assign/next')
     this.setState({ showNextOptions: true })
   }
 
@@ -96,14 +100,16 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return `${numberOfClassrooms} ${numberOfClassrooms === 1 ? 'class' : 'classes'}`
   }
 
-  handleGoToClassroomIndex = () => window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`
+  handleClickToDashboard = () => this.prepareToLeavePage().then(() => window.location.href = process.env.DEFAULT_URL)
+
+  handleGoToClassroomIndex = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms`)
 
   handleGoToAssignedActivity = () => {
     const unitId = window.localStorage.getItem(UNIT_ID)
-    window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`
+    this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/teachers/classrooms/activity_planner#${unitId}`)
   }
 
-  handleGoToAssignMoreActivities = () => window.location.href = `${process.env.DEFAULT_URL}/assign`
+  handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/assign`)
 
   renderInviteStudents = () => {
     const { assignedClassrooms, } = this.state
@@ -158,7 +164,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <div className="referral-card">
         <img alt="gift" src={giftSrc} />
         <h1>Share Quill and earn a month of free Quill Premium for Teachers.</h1>
-        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word. </p>
+        <p>As a nonprofit organization that provides free activities, Quill relies on teachers to share the word.</p>
         <p>For every teacher that signs up for Quill with your referral link and completes an activity with their students, you earn a month of free Quill Premium, and they receive a one-month free trial.</p>
         <div className='share-box'>
           <div className="referral-link-container">
@@ -198,7 +204,7 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   render() {
     const { showNextOptions, } = this.state
-    let button = <a className="quill-button medium contained primary" href="/">Take me to my dashboard</a>
+    let button = <button className="quill-button medium contained primary" onClick={this.handleClickToDashboard}>Take me to my dashboard</button>
     if (!(showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.handleClickNext} type="button">Next</button>
     }

@@ -41,7 +41,9 @@ RailsAdmin.config do |config|
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
   config.actions do
-    dashboard                     # mandatory
+    dashboard do
+      statistics false
+    end
     index                         # mandatory
     new
     export
@@ -78,13 +80,14 @@ RailsAdmin.config do |config|
         searchable true
         # TODO: get this displaying emails
         # formatted_value do # used in form views
-        #    
+        #
         #   bindings[:object].email
         # end
         # pretty_value do # used in list view columns and show views, defaults to formatted_value for non-association fields
         #   bindings[:object].email
         # end
       end
+      limited_pagination true
     end
   end
 
@@ -137,6 +140,34 @@ RailsAdmin.config do |config|
     end
   end
 
-  config.excluded_models << 'ActivitySession'
-  config.excluded_models << 'ConceptResult'
+  config.model Activity do
+    edit do
+      exclude_fields :classroom_units, :classrooms, :unit_activities
+    end
+  end
+
+  # Limit pagination for models with large datasets (~1M+) because of performance
+  config.model ClassroomActivity do
+    list { limited_pagination true }
+  end
+  config.model UnitActivity do
+    list { limited_pagination true }
+  end
+  config.model ClassroomUnit do
+    list { limited_pagination true }
+  end
+
+
+  # Exclude the models with huge datasets (~10M+) because they are performance hits
+  MODELS_TO_EXCLUDE = [
+    'ActivitySessionInteractionLog',
+    'ActivitySession',
+    'ConceptResult',
+    'Notification',
+    'OauthAccessToken',
+    'OldActivitySession',
+    'StudentClassroom'
+  ]
+
+  config.excluded_models.push(*MODELS_TO_EXCLUDE)
 end

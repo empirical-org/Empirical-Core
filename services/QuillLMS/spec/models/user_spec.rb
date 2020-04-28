@@ -776,11 +776,17 @@ describe User, type: :model do
   end
 
   describe '#generate_password' do
-    let(:user) { build(:user, password: 'currentpassword', last_name: 'lastname') }
+    let(:user1) { build(:user, password: 'currentpassword', last_name: 'Last Name') }
+    let(:user2) { build(:user, password: 'currentpassword', last_name: 'lastName') }
 
-    it 'sets password to value of last_name' do
-      user.generate_password
-      expect(user.password).to eq(user.last_name)
+    it 'sets password to the value of the last name with any spaces replaced with hyphens' do
+      user1.generate_password
+      expect(user1.password).to eq('Last-Name')
+    end
+
+    it 'sets password to value of last name with a capitalized first letter' do
+      user2.generate_password
+      expect(user2.password).to eq('LastName')
     end
   end
 
@@ -797,7 +803,7 @@ describe User, type: :model do
       user1.generate_student(classroom.id)
       user1.save
       user2 = build(:user, first_name: 'first', last_name: 'last', classrooms: [classroom])
-      expect(user2.send(:generate_username, classroom.id)).to eq('first.last2@cc')
+      expect(user2.send(:generate_username, classroom.id)).to eq('first.last1@cc')
     end
   end
 

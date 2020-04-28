@@ -1,11 +1,59 @@
 import React from 'react';
 import _ from 'underscore';
 import StudentProfileUnit from './student_profile_unit.jsx';
+import LoadingIndicator from '../shared/loading_indicator'
+import activityLaunchLink from '../modules/generate_activity_launch_link.js';
+import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
 
-export default React.createClass({
+const clipboardSrc = `${process.env.CDN_URL}/images/illustrations/clipboard.svg`
+
+export default class StudentProfileUnits extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      closedModal: false
+    }
+  }
+
+  componentDidMount() {
+    document.title = 'Quill.org | Classwork'
+  }
+
+  displayedUnits = () => {
+    const { activeClassworkTab, } = this.props
+    const groupedUnits = this.groupUnits()
+
+    switch(activeClassworkTab) {
+      case TO_DO_ACTIVITIES:
+        const unitsWithIncompleteActivities = groupedUnits.filter(u => u.incomplete && u.incomplete.length)
+        return unitsWithIncompleteActivities.map(u => ({ incomplete: u.incomplete }))
+      case COMPLETED_ACTIVITIES:
+        const unitsWithCompletedActivities = groupedUnits.filter(u => u.complete && u.complete.length)
+        return unitsWithCompletedActivities.map(u => ({ complete: u.complete }))
+      case ALL_ACTIVITIES:
+      default:
+        return groupedUnits
+    }
+  }
+
+  emptyStateText = () => {
+    const { activeClassworkTab, } = this.props
+
+    switch(activeClassworkTab) {
+      case TO_DO_ACTIVITIES:
+        return this.groupUnits().length ? 'Write on! You’re all finished with your activities.' : 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+      case COMPLETED_ACTIVITIES:
+        return 'Nothing to see here yet! Once you complete an activity it will show up here.'
+      case ALL_ACTIVITIES:
+      default:
+        return 'Nothing to see here yet! Once your teacher assigns activities they will show up here.'
+    }
+  }
 
   groupUnits() {
-    const groupedUnits = _.groupBy(this.props.data, 'unit_id');
+    const { data, } = this.props
+    const groupedUnits = _.groupBy(data, 'unit_id');
     const unitsWithGroupedActivities = {};
     for (const unit in groupedUnits) {
       const partitionedActivities = _.partition(groupedUnits[unit], activity => (activity.max_percentage != null));
@@ -28,18 +76,74 @@ export default React.createClass({
       }
     });
     return resultWithSortedUnits;
-  },
+  }
+
+  handleCloseModalClick = () => {
+    this.setState({ closedModal: true, })
+  }
+
+  renderContent = () => {
+    const { loading, nextActivitySession, } = this.props
+    if (loading) { return <LoadingIndicator /> }
+    
+    const content = this.displayedUnits().map(unit => {
+      const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
+      return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
+    })
+
+    return content.length ? content : this.renderEmptyState()
+  }
+
+  renderEmptyState = () => (
+    <div className="student-profile-empty-state">
+      <img alt="Clipboard with notes written on it" src={clipboardSrc} />
+      <p>{this.emptyStateText()}</p>
+    </div>
+  )
+
+  renderPinnedActivityBar = () => {
+    const { data, } = this.props
+    const pinnedActivity = data.find(act => act.pinned === 't')
+    if (!pinnedActivity) { return }
+
+    const { name, ca_id, activity_id, } = pinnedActivity
+    return (<div className="pinned-activity">
+      <span>{name}</span>
+      <a className="quill-button medium primary contained focus-on-dark" href={activityLaunchLink(ca_id, activity_id)}>Join</a>
+    </div>)
+  }
+
+  renderPinnedActivityModal = () => {
+    const { data, teacherName, } = this.props
+    const { closedModal, } = this.state
+    const pinnedActivity = data.find(act => act.pinned === 't')
+    if (!pinnedActivity || closedModal) { return }
+
+    const { name, ca_id, activity_id, } = pinnedActivity
+    return (<div className="modal-container pinned-activity-modal-container">
+      <div className="modal-background" />
+      <div className="pinned-activity-modal quill-modal modal-body">
+        <div>
+          <h3 className="title">Join: {name}</h3>
+        </div>
+        <div className="pinned-activity-modal-text">
+          <p>Your teacher, {teacherName}, has launched a live Quill Lesson.</p>
+        </div>
+        <div className="form-buttons">
+          <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleCloseModalClick} type="button">Not now</button>
+          <a className="quill-button contained primary medium focus-on-light" href={activityLaunchLink(ca_id, activity_id)}>Join the lesson</a>
+        </div>
+      </div>
+    </div>)
+  }
 
   render() {
-    let content = 'LOADING';
-    if (!this.props.loading) {
-      // give unit unit id key whether it is complete or incomplete
-      content = this.groupUnits().map(unit => <StudentProfileUnit data={unit} key={unit[Object.keys(unit)[0]][0].unit_id} />);
-    }
     return (
       <div className="container">
-        {content}
+        {this.renderPinnedActivityBar()}
+        {this.renderPinnedActivityModal()}
+        {this.renderContent()}
       </div>
     );
-  },
-});
+  }
+}

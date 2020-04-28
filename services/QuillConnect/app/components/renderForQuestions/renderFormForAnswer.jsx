@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import handleFocus from './handleFocus.js';
 import TextEditor from './renderTextEditor.jsx';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
@@ -18,10 +17,6 @@ export default class RenderFormForAnswer extends React.Component {
 
     this.state = { modalOpen: false, }
   }
-
-  closeHelpModal = () => this.setState({ modalOpen: false, })
-
-  handleHintClick = () => this.setState({ modalOpen: true, })
 
   getHelpModal = () => {
     const { modalOpen, } = this.state
@@ -45,6 +40,10 @@ export default class RenderFormForAnswer extends React.Component {
       );
     }
   }
+
+  closeHelpModal = () => this.setState({ modalOpen: false, })
+
+  handleHintClick = () => this.setState({ modalOpen: true, })
 
   renderConceptExplanation = () => {
     const { conceptExplanation, } = this.props
@@ -74,6 +73,7 @@ export default class RenderFormForAnswer extends React.Component {
       handleChange,
       spellCheck,
       value,
+      isAdmin
     } = this.props
     let content
     let button
@@ -100,8 +100,9 @@ export default class RenderFormForAnswer extends React.Component {
       }
       button = (
         <button
-          className={`quill-button large primary contained ${toggleDisabled}`}
+          className={`quill-button focus-on-light large primary contained ${toggleDisabled}`}
           onClick={checkAnswer}
+          tabIndex="0"
           type="button"
         >
           {message}
@@ -109,7 +110,8 @@ export default class RenderFormForAnswer extends React.Component {
       );
       if (!responses) {
         <button
-          className='quill-button large primary contained disabled'
+          className='quill-button focus-on-light large primary contained disabled'
+          tabIndex="0"
           type="button"
         >
           {message}
@@ -132,6 +134,7 @@ export default class RenderFormForAnswer extends React.Component {
             defaultValue={initialValue}
             disabled={disabled}
             getResponse={getResponse}
+            isAdmin={isAdmin}
             key={questionID}
             latestAttempt={getLatestAttempt(question.attempts)}
             onChange={handleChange}

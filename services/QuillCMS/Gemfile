@@ -7,13 +7,11 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 5.2.4.2'
 # Use Postgres for our database
 gem 'pg'
-# Use Makara for read/write splitting on replica dbs
-gem 'makara', '0.4.1'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 3.12'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -32,7 +30,9 @@ gem 'redis-rails'
 gem 'redis-rack-cache'
 
 # Use Sidekiq for background jobs
-gem 'sidekiq'
+source "https://gems.contribsys.com/" do
+  gem 'sidekiq-pro'
+end
 gem 'sinatra', require: false # Used for the web-based queue management interface
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible

@@ -43,7 +43,7 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     this.setQuestionValues(question)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { question, } = this.props
     if (nextProps.question.prompt !== question.prompt) {
       this.setQuestionValues(nextProps.question)
@@ -247,14 +247,15 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
 
   zipInputsAndText = () => {
     const { inputVals, splitPrompt, } = this.state
-
-    const zipped = _.zip(splitPrompt, inputVals);
-    return _.flatten(zipped).join('');
+    const trimmedInputVals = inputVals.map(iv => iv.trim())
+    const zipped = _.zip(splitPrompt, trimmedInputVals);
+    return _.flatten(zipped).join('').trim();
   }
 
   handleSubmitClick = () => {
-    const { submitResponse, } = this.props
-    const { inputErrors, blankAllowed, inputVals, responses, } = this.state
+    const { question, submitResponse, } = this.props;
+    const { caseInsensitive, conceptID, key } = question;
+    const { inputErrors, blankAllowed, inputVals, responses, } = this.state;
     if (!inputErrors.size) {
       if (!blankAllowed) {
         if (inputVals.length === 0) {
@@ -263,9 +264,10 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
         }
       }
       const zippedAnswer = this.zipInputsAndText();
-      const questionUID = this.getQuestion().key
-      const responsesArray = hashToCollection(responses)
-      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray)}
+      const questionUID = key;
+      const defaultConceptUID = conceptID;
+      const responsesArray = hashToCollection(responses);
+      const response = {response: checkFillInTheBlankQuestion(questionUID, zippedAnswer, responsesArray, caseInsensitive, defaultConceptUID)};
       this.updateResponseResource(response);
       submitResponse(response);
     }
@@ -317,16 +319,16 @@ export class PlayFillInTheBlankQuestion extends React.Component<any, any> {
     const { responses, } = this.state
     if (this.showNextQuestionButton()) {
       return (
-        <button className="quill-button large primary contained" onClick={nextQuestion} type="button">Next</button>
+        <button className="quill-button focus-on-light large primary contained" onClick={nextQuestion} type="button">Next</button>
       );
     } else if (responses) {
       if (question && question.attempts ? question.attempts.length > 0 : false) {
-        return <button className="quill-button large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Recheck work</button>;
       } else {
-        return <button className="quill-button large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
+        return <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitClick} type="button">Submit</button>;
       }
     } else {
-      <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+      <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     }
   }
 

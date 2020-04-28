@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'underscore';
 import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSequencesInputAndConceptSelectorForm.jsx';
 import questionActions from '../../actions/questions';
-import sentenceFragmentActions from '../../actions/sentenceFragments.js';
+import sentenceFragmentActions from '../../actions/sentenceFragments';
 
 class NewIncorrectSequencesContainer extends Component {
   constructor() {
@@ -14,37 +14,47 @@ class NewIncorrectSequencesContainer extends Component {
     const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
 
     this.state = { questionType, actionFile, questionTypeLink };
-
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
   }
 
-  componentWillMount() {
-    const qid = this.props.params.questionID
-    if (!this.props.generatedIncorrectSequences.used[qid] && this.state.actionFile.getUsedSequences) {
-      this.props.dispatch(this.state.actionFile.getUsedSequences(this.props.params.questionID))
+  componentDidMount() {
+    const { actionFile } = this.state
+    const { getUsedSequences } = actionFile
+    const { dispatch, generatedIncorrectSequences, match } = this.props
+    const { used } = generatedIncorrectSequences
+    const { params } = match
+    const { questionID } = params
+    if (!used[questionID] && getUsedSequences) {
+      dispatch(getUsedSequences(questionID))
     }
   }
 
-  submitSequenceForm(data) {
+  submitSequenceForm = data => {
+    const { actionFile } = this.state
+    const { submitNewIncorrectSequence } = actionFile
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { questionID } = params
     delete data.conceptResults.null;
-    this.props.dispatch(this.state.actionFile.submitNewIncorrectSequence(this.props.params.questionID, data));
+    dispatch(submitNewIncorrectSequence(questionID, data));
     window.history.back();
-  }
+  };
 
   render() {
-    const { generatedIncorrectSequences, params, questions, sentenceFragments, } = this.props
+    const { generatedIncorrectSequences, match, questions, sentenceFragments, } = this.props
+    const { used } = generatedIncorrectSequences
+    const { params } = match
+    const { questionID } = params
     return (
       <div>
         <IncorrectSequencesInputAndConceptSelectorForm
           itemLabel='Incorrect Sequence'
           onSubmit={this.submitSequenceForm}
-          questionID={params.questionID}
+          questionID={questionID}
           questions={questions}
           sentenceFragments={sentenceFragments}
           states
-          usedSequences={generatedIncorrectSequences.used[params.questionID]}
+          usedSequences={used[questionID]}
         />
-        {this.props.children}
       </div>
     );
   }

@@ -6,10 +6,10 @@ import {
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 import RenderQuestionFeedback from '../renderForQuestions/feedbackStatements.jsx';
-import RenderQuestionCues from '../renderForQuestions/cues.jsx';
+import RenderQuestionCues from '../renderForQuestions/cues.tsx';
 import { Feedback, SentenceFragments } from 'quill-component-library/dist/componentLibrary';
 import getResponse from '../renderForQuestions/checkAnswer';
-import submitQuestionResponse from '../renderForQuestions/submitResponse.js';
+import { submitQuestionResponse } from '../renderForQuestions/submitResponse.js';
 import updateResponseResource from '../renderForQuestions/updateResponseResource.js';
 import submitPathway from '../renderForQuestions/submitPathway.js';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
@@ -82,8 +82,7 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   submitResponse = (response) => {
-    const { sessionKey, } = this.state
-    submitQuestionResponse(response, this.props, sessionKey, submitResponse);
+    submitQuestionResponse(response, this.props, submitResponse);
   }
 
   renderSentenceFragments = () => {
@@ -104,9 +103,10 @@ class PlayDiagnosticQuestion extends React.Component {
   }
 
   renderCues = () => {
+    const { question } = this.props;
     return (<RenderQuestionCues
       displayArrowAndText={true}
-      getQuestion={this.getQuestion}
+      question={question}
     />);
   }
 
@@ -210,7 +210,7 @@ class PlayDiagnosticQuestion extends React.Component {
     const { question, } = this.props
     const { responses, error, response, } = this.state
     const questionID = question.key;
-    const button = responses ? <button className="quill-button large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="quill-button large primary contained disabled" type="button">Submit</button>;
+    const button = responses ? <button className="quill-button focus-on-light large primary contained" onClick={this.handleSubmitResponse} type="button">Submit</button> : <button className="quill-button focus-on-light large primary contained disabled" type="button">Submit</button>;
     if (question) {
       const instructions = (question.instructions && question.instructions !== '') ? question.instructions : 'Combine the sentences into one sentence.';
       return (

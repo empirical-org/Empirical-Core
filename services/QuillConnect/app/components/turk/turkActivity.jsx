@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as request from 'request'
 import _ from 'underscore';
 import {
-  hashToCollection,
   Spinner,
   CarouselAnimation,
   PlayTitleCard,
   ProgressBar
 } from 'quill-component-library/dist/componentLibrary';
-import { clearData, loadData, nextQuestion, submitResponse, updateName, updateCurrentQuestion } from '../../actions/turk.js';
+import { clearData, loadData, nextQuestion, submitResponse, updateCurrentQuestion } from '../../actions/turk.js';
 import diagnosticQuestions from './diagnosticQuestions.jsx';
 import PlaySentenceFragment from './sentenceFragment.jsx';
 import PlayFillInTheBlankQuestion from './fillInBlank.tsx';
 import PlayTurkQuestion from './question.tsx';
 import LandingPage from './landing.jsx';
 import FinishedDiagnostic from './finishedDiagnostic.jsx';
+import { getConceptResultsForAllQuestions } from '../../libs/conceptResults/diagnostic'
 import {
   questionCount,
   answeredQuestionCount,
@@ -30,27 +32,79 @@ export class TurkActivity extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, } = this.props
     dispatch(clearData());
   }
 
-  saveToLMS = () => {
-    this.setState({ saved: true, });
+
+  getData = () => {
+    const { match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    if (lessonID) {
+      return this.questionsForLesson();
+    }
+    return diagnosticQuestions();
   }
 
-  submitResponse = (response) => {
-    const { dispatch, } = this.props
-    const action = submitResponse(response);
-    dispatch(action);
+  getLesson = () => {
+    const { lessons, match } = this.props
+    const { data } = lessons
+    const { params } = match
+    const { lessonID } = params
+    return data[lessonID];
   }
 
-  startActivity = () => {
+  createAnonActivitySession = (lessonID, results, score) => {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        method: 'POST',
+        json:
+        {
+          state: 'finished',
+          activity_uid: lessonID,
+          concept_results: results,
+          percentage: score,
+        }
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse && httpResponse.statusCode === 200) {
+          // to do, use Sentry to capture error
+          this.setState({ saved: true, });
+        }
+      }
+    );
+  }
+
+  finishActivitySession = (sessionID, results, score) => {
+    request(
+      { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+        method: 'PUT',
+        json:
+        {
+          state: 'finished',
+          concept_results: results,
+          percentage: score,
+        }
+      },
+      (err, httpResponse, body) => {
+        if (httpResponse && httpResponse.statusCode === 200) {
+          // to do, use Sentry to capture error
+          SessionActions.delete(sessionID);
+          this.setState({ saved: true, });
+        } else {
+          // to do, use Sentry to capture error
+          this.setState({ saved: false, error: true, });
+        }
+      }
+    );
+  }
+
+  markIdentify = (bool) => {
     const { dispatch, } = this.props
-    const action = loadData(this.questionsForLesson());
+    const action = updateCurrentQuestion({ identified: bool, });
     dispatch(action);
-    const next = nextQuestion();
-    dispatch(next);
   }
 
   nextQuestion = () => {
@@ -59,13 +113,9 @@ export class TurkActivity extends React.Component {
     dispatch(next);
   }
 
-  getLesson = () => {
-    const { lessons, params, } = this.props
-    return lessons.data[params.lessonID];
-  }
-
   questionsForLesson = () => {
-    const { lessons, params, } = this.props
+    const { lessons, match } = this.props
+    const { params } = match
     const { data, } = lessons
     const { lessonID, } = params
 
@@ -80,40 +130,69 @@ export class TurkActivity extends React.Component {
       const key = questionItem.key;
       const data = this.props[questionType].data[key]; // eslint-disable-line react/destructuring-assignment
       data.key = key;
-      const type = questionType === 'questions' ? 'SC' : 'SF';
+      let type
+      switch (questionType) {
+        case 'questions':
+          type = 'SC'
+          break
+        case 'fillInBlank':
+          type = 'FB'
+          break
+        case 'titleCards':
+          type = 'TL'
+          break
+        case 'sentenceFragments':
+        default:
+          type = 'SF'
+      }
       return { type, data, };
     });
   }
 
-  getData = () => {
-    const { params, } = this.props
-    if (params.lessonID) {
-      return this.questionsForLesson();
+  saveToLMS = () => {
+    const { sessionID, } = this.state
+    const { playTurk, match } = this.props
+    const { answeredQuestions } = playTurk
+    const { params } = match
+    const { lessonID } = params
+
+    this.setState({ error: false, });
+    const results = getConceptResultsForAllQuestions(answeredQuestions);
+
+    if (sessionID) {
+      this.finishActivitySession(sessionID, results, 1);
+    } else {
+      this.createAnonActivitySession(lessonID, results, 1);
     }
-    return diagnosticQuestions();
   }
 
-  markIdentify = (bool) => {
+  startActivity = () => {
     const { dispatch, } = this.props
-    const action = updateCurrentQuestion({ identified: bool, });
+    const action = loadData(this.questionsForLesson());
+    dispatch(action);
+    const next = nextQuestion();
+    dispatch(next);
+  }
+
+  submitResponse = (response) => {
+    const { dispatch, } = this.props
+    const action = submitResponse(response);
     dispatch(action);
   }
 
   renderProgressBar = () => {
     const { playTurk, } = this.props
-    if (!playTurk.currentQuestion) { return }
 
     if (!playTurk.currentQuestion) { return }
 
     const calculatedAnsweredQuestionCount = answeredQuestionCount(playTurk)
-
     const currentQuestionIsTitleCard = playTurk.currentQuestion.type === 'TL'
     const currentQuestionIsNotFirstQuestion = calculatedAnsweredQuestionCount !== 0
-
     const displayedAnsweredQuestionCount = currentQuestionIsTitleCard && currentQuestionIsNotFirstQuestion ? calculatedAnsweredQuestionCount + 1 : calculatedAnsweredQuestionCount
 
     return (<ProgressBar
       answeredQuestionCount={displayedAnsweredQuestionCount}
+      label='questions'
       percent={getProgressPercent(playTurk)}
       questionCount={questionCount(playTurk)}
     />)
@@ -122,8 +201,9 @@ export class TurkActivity extends React.Component {
 
   render() {
     const { saved, } = this.state
-    const { lessons, params, playTurk, questions, sentenceFragments, dispatch, conceptsFeedback, } = this.props
+    const { lessons, match, playTurk, questions, sentenceFragments, dispatch, conceptsFeedback, } = this.props
     const { data, } = lessons
+    const { params } = match
     const { lessonID, } = params
     const questionType = playTurk.currentQuestion ? playTurk.currentQuestion.type : ''
     let component;
@@ -205,4 +285,4 @@ function select(state) {
     fillInBlank: state.fillInBlank
   };
 }
-export default connect(select)(TurkActivity);
+export default withRouter(connect(select)(TurkActivity));

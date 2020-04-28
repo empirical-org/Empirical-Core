@@ -15,8 +15,8 @@ export default class ClassReport extends React.Component {
   }
 
   columnDefinitions = () => {
-    const { params, } = this.props
-    const { unitId, activityId, classroomId, } = params
+    const { match, } = this.props
+    const { unitId, activityId, classroomId, } = match.params
     return [
       {
         name: 'Name',
@@ -63,6 +63,25 @@ export default class ClassReport extends React.Component {
     ];
   }
 
+  handleFetchSuccess = (responseData) => {
+    this.setState({
+      students: responseData.students,
+      startedNames: this.sortByLastName(responseData.started_names),
+      unstartedNames: this.sortByLastName(responseData.unstarted_names),
+      missedNames: this.sortByLastName(responseData.missed_names)
+    });
+  }
+
+  showInProgressAndUnstartedStudents = (bool) => this.setState({ showInProgressAndUnstartedStudents: bool })
+
+  sortByLastName(names) {
+    return names.sort((a, b) => {
+      const aLast = a.split(' ')[1]
+      const bLast = b.split(' ')[1]
+      return aLast.localeCompare(bLast)
+    })
+  }
+
   sortDefinitions() {
     return {
       config: {
@@ -78,23 +97,6 @@ export default class ClassReport extends React.Component {
         direction: 'asc'
       }
     };
-  }
-
-  sortByLastName(names) {
-    return names.sort((a, b) => {
-      const aLast = a.split(' ')[1]
-      const bLast = b.split(' ')[1]
-      return aLast.localeCompare(bLast)
-    })
-  }
-
-  handleFetchSuccess = (responseData) => {
-    this.setState({
-      students: responseData.students,
-      startedNames: this.sortByLastName(responseData.started_names),
-      unstartedNames: this.sortByLastName(responseData.unstarted_names),
-      missedNames: this.sortByLastName(responseData.missed_names)
-    });
   }
 
   startedAndUnstartedStudents() {
@@ -115,11 +117,9 @@ export default class ClassReport extends React.Component {
     )
   }
 
-  showInProgressAndUnstartedStudents = (bool) => this.setState({ showInProgressAndUnstartedStudents: bool })
-
   render() {
     const { students, } = this.state
-    const { params, premiumStatus, } = this.props
+    const { match, premiumStatus, } = this.props
     const overviewBoxes = students ? <OverviewBoxes data={students} /> : null
 
     return (
@@ -132,13 +132,13 @@ export default class ClassReport extends React.Component {
             filterTypes={[]}
             hideFaqLink={Boolean(true)}
             jsonResultsKey='students'
-            key={params.classroomId}
+            key={match.params.classroomId}
             onFetchSuccess={this.handleFetchSuccess}
             pagination={false}
             premiumStatus={premiumStatus}
             showInProgressAndUnstartedStudents={this.showInProgressAndUnstartedStudents}
             sortDefinitions={this.sortDefinitions}
-            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`}
+            sourceUrl={`/teachers/progress_reports/students_by_classroom/u/${match.params.unitId}/a/${match.params.activityId}/c/${match.params.classroomId}`}
           />
           {this.startedAndUnstartedStudents()}
         </div>

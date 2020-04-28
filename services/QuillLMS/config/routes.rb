@@ -7,6 +7,10 @@ EmpiricalGrammar::Application.routes.draw do
     mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
   end
 
+  # temporary setup for AP landing pages
+  get '/AP' => redirect('activities/packs/193')
+  get '/ap' => redirect('activities/packs/193')
+
   post "/graphql", to: "graphql#execute"
 
   mount RailsAdmin::Engine => '/staff', as: 'rails_admin'
@@ -17,6 +21,7 @@ EmpiricalGrammar::Application.routes.draw do
   get '/classrooms/:classroom', to: 'students#index', as: :classroom
   get '/add_classroom', to: 'students#index'
   get '/study', to: "students#index"
+  get '/classes', to: "students#index"
 
   resources :admins, only: [:show], format: 'json' do
     resources :teachers, only: [:index, :create]
@@ -72,6 +77,9 @@ EmpiricalGrammar::Application.routes.draw do
   resources :subscriptions do
     member do
       get :purchaser_name
+    end
+    collection do
+      get :activate_covid_subscription
     end
   end
   resources :assessments
@@ -384,6 +392,8 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
+      resources :lessons, except: [:destroy]
+      resources :concept_feedback, except: [:destroy]
       resources :questions, except: [:destroy] do
         resources :focus_points do
           put :update_all, on: :collection
@@ -413,7 +423,9 @@ EmpiricalGrammar::Application.routes.draw do
   # for some reason, session_path with method :delete does not evaluate correctly in profiles/student.html.erb
   # so we have the patch below:
   get '/session', to: 'sessions#destroy'
+  get '/finish_sign_up', to: 'sessions#finish_sign_up'
   post '/session/login_through_ajax', to: 'sessions#login_through_ajax'
+  post '/session/set_post_auth_redirect', to: 'sessions#set_post_auth_redirect'
   resource :session
 
   resource :account, only: [:new, :create, :edit, :update] do

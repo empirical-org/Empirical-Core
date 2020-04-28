@@ -1,30 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  listenToResponsesWithCallback
-} from '../../actions/responses';
 import ResponseComponent from './responseComponent.jsx';
 
-const ResponseComponentWrapper = React.createClass({
-  getInitialState() {
-    return {
-      responses: {},
-      loadedResponses: false,
-    };
-  },
+class ResponseComponentWrapper extends React.Component {
+  state = {
+    responses: {},
+    loadedResponses: false,
+  };
 
-  componentWillMount() {
-    const { questionID, } = this.props.params;
-  },
+  getResponses = () => {
+    const { responses } = this.state;
+    return responses;
+  };
 
-  getResponses() {
-    return this.state.responses;
-  },
-
-  returnAppropriateDataset() {
-    const { questionID, } = this.props.params;
+  returnAppropriateDataset = () => {
+    const { match, questions } = this.props;
+    const { params } = match;
+    const { questionID, } = params;
     const datasets = ['fillInBlank', 'sentenceFragments'];
-    let theDatasetYouAreLookingFor = this.props.questions.data[questionID];
+    let theDatasetYouAreLookingFor = questions.data[questionID];
     let mode = 'questions';
     datasets.forEach((dataset) => {
       if (this.props[dataset].data[questionID]) {
@@ -33,13 +27,15 @@ const ResponseComponentWrapper = React.createClass({
       }
     });
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
-  },
+  };
 
   render() {
     const appropriateData = this.returnAppropriateDataset();
     const { dataset, mode, } = appropriateData;
-    const { states, } = this.props.questions;
-    const { questionID, } = this.props.params;
+    const { match, questions } = this.props;
+    const { params } = match;
+    const { states, } = questions;
+    const { questionID, } = params;
     return (
       <ResponseComponent
         admin
@@ -51,8 +47,8 @@ const ResponseComponentWrapper = React.createClass({
         states={states}
       />
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {

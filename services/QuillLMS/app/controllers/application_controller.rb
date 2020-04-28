@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   CLEVER_REDIRECT = :clever_redirect
   GOOGLE_REDIRECT = :google_redirect
+  POST_AUTH_REDIRECT = :post_auth_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   #helper CMS::Helper
@@ -143,10 +144,25 @@ class ApplicationController < ActionController::Base
   end
 
   def confirm_valid_session
+    now = Time.now().in_time_zone.utc
     # Don't do anything if there's no authorized user or session
     return if !current_user || !session
+    # if user is staff, logout if last_sign_in was more than 4 hours ago
+    if current_user && current_user.role == 'staff' && current_user.last_sign_in
+      time_diff = now - current_user.last_sign_in
+      time_diff = time_diff.round.abs
+      hours = time_diff / 3600
+      if hours > 4
+        user_id = current_user.id
+        auth_credential = AuthCredential.where(user_id: user_id).first
+        if auth_credential.present?
+          auth_credential.destroy!
+        end
+        return if !current_user || !session
+      end
+    end
     # If the user is google authed, but doesn't have a valid refresh
     # token, then we need to invalidate their session
-    return reset_session if current_user.google_id && !current_user.auth_credential&.refresh_token
+    return reset_session if current_user.google_id && current_user.auth_credential && !current_user.auth_credential&.refresh_token
   end
 end

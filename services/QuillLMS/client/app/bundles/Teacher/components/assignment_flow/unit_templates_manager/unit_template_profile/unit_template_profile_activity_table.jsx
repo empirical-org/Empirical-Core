@@ -1,20 +1,13 @@
-'use strict'
+import React from 'react'
+import ReactTooltip from 'react-tooltip'
+import ReactTable from 'react-table'
 
- import React from 'react'
- import ReactTooltip from 'react-tooltip'
- import ReactTable from 'react-table'
-
- export default React.createClass({
-  propTypes: {
-    data: React.PropTypes.object,
-    actions: React.PropTypes.object
-  },
-
-  redirectToActivity(activityId) {
+export default class UnitTemplateProfileActivityTable extends React.Component {
+  redirectToActivity = (activityId) => {
     window.open(`/activity_sessions/anonymous?activity_id=${activityId}`, '_blank');
-  },
+  };
 
-  columnDefinitions() {
+  columnDefinitions = () => {
     // Student, Date, Activity, Score, Standard, Tool
     return [
       {
@@ -59,7 +52,7 @@
         Cell: props => <a className='row-link-disguise' onClick={() => this.redirectToActivity(props.value.id)}>Preview<img className="chevron-right" src="https://assets.quill.org/images/icons/chevron-dark-green.svg" /></a>,
       }
     ];
-  },
+  };
 
   render() {
     return (
@@ -88,4 +81,4 @@
       />
     )
   }
-});
+}

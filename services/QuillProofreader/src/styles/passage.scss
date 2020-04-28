@@ -1,34 +1,45 @@
 .passage-container {
   .header-section {
     background-color: #ededed;
-    min-height: 130px;
     align-items: center;
     justify-content: center;
     display: flex;
+    padding: 0px 16px;
+    flex-direction: column;
+    .progress-bar-container {
+      width: 100%;
+    }
   }
   .inner-header {
-    margin: 15px 30px;
     display: flex;
     flex-direction: column;
     max-width: 800px;
     width: 100%;
   }
   h1 {
-    line-height: 1.25;
-    font-size: 36px;
-    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.27;
+    color: #2f2f2f;
+    margin-top: 4px;
   }
   .instructions {
     justify-content: space-between;
     align-items: center;
     display: flex;
-    margin-top: 10px;
+    margin-top: 20px;
+    border-radius: 2px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #e5e5e5;
     img {
       height: 22px;
       margin-right: 10px;
     }
     p {
-      margin: 0px;
+      font-size: 20px;
+      line-height: 1.45;
+      color: #3f3f3f;
+      margin-top: -3px;
     }
     div {
       display: flex;
@@ -79,10 +90,8 @@
     margin: auto;
     line-height: 2.0;
     font-size: 16px;
-    font-family: courier new;
-    color: #333;
+    color: #000;
     font-weight: 400;
-    // padding: 0px 50px;
     strong {
       color: #333;
     }
@@ -97,21 +106,8 @@
       line-height: 23px;
     }
     .paragraph {
-      .edit-input {
-        font-family: courier new;
-        border: none;
-        margin-right: 3px;
-        padding: 0px;
-        &:focus {
-          outline: none;
-        }
-        &.underlined {
-          text-decoration: underline;
-        }
-        &.bolded {
-          font-weight: 700;
-        }
-      }
+      display: flex;
+      flex-wrap: wrap;
       &.no-underline {
         .underlined {
           text-decoration: none !important;
@@ -120,8 +116,21 @@
     }
   }
 
+  .reviewer-container {
+    max-width: 800px;
+    margin: auto;
+    position: relative;
+  }
+
   .reviewer {
-    padding-bottom: 300px;
+    font-size: 21px;
+    max-width: 448px;
+    line-height: 1.52;
+    margin: 0px;
+    white-space: pre-wrap;
+    @media (max-width: 800px) {
+      max-width: 100%;
+    }
   }
 
   .ql-editor:focus {
@@ -130,7 +139,7 @@
 
   .passage {
     background-color: white;
-    padding: 30px 60px;
+    padding: 40px 16px;
     u {
       text-decoration: none;
     }
@@ -143,51 +152,43 @@
   }
 
   .bottom-section {
-    max-width: 800px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    .check-work {
-      background-color: #00c2a2;
-      color: white;
-      border: none;
-      box-shadow: none;
-      margin-top: 37px;
-      font-size: 15px;
-      border-radius: 6px;
-      height: 40px;
-      width: 135px;
-      font-weight: 700;
-      cursor: pointer;
-      -webkit-appearance: none;
-      &:focus {
-        outline: none;
-      }
-    }
-    .reset-button {
-      width: 104px;
-      height: 40px;
-      border-radius: 4px;
-      background-color: #ffffff;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 8px 16px;
+    padding: 40px 16px;
+    background-color: #ededed;
+    min-height: 100vh;
+    .button-container {
+      max-width: 800px;
+      margin: auto;
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-      color: #000000;
-      &.disabled {
-        border: solid 1px #bdbdbd;
-        color: #878787;
-        cursor: default;
-        img {
-          filter: invert(.5);
-        }
-      }
+      align-items: flex-end;
     }
-    @media (max-width: 1000px) {
-      padding: 0px 60px 300px;
+    @media (max-width: 800px) {
+      padding-top: 24px;
     }
+  }
+}
+
+.hidden-element {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+  white-space: pre;
+}
+
+.edit-input {
+  border: none;
+  margin-right: 4px;
+  padding: 0px;
+  font-size: 21px;
+  line-height: 1.52;
+  white-space: nowrap;
+  &:focus {
+    outline: none;
+  }
+  &.underlined {
+    text-decoration: underline;
+  }
+  &.bolded {
+    font-weight: 700;
   }
 }

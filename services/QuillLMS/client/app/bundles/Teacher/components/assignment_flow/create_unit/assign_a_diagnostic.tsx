@@ -8,21 +8,24 @@ const starterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagno
 const intermediateDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-intermediate.svg`
 const advancedDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-advanced.svg`
 const ellDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell.svg`
+const ellStarterDiagnosticSrc = `${process.env.CDN_URL}/images/illustrations/diagnostics-ell-starter.svg`
 
 const STARTER_DIAGNOSTIC = 'Starter Diagnostic'
 const INTERMEDIATE_DIAGNOSTIC = 'Intermediate Diagnostic'
 const ADVANCED_DIAGNOSTIC = 'Advanced Diagnostic'
 const ELL_DIAGNOSTIC = 'ELL Diagnostic'
+const ELL_STARTER_DIAGNOSTIC = 'ELL Starter Diagnostic'
 
-const selectCard = (router, unitTemplateName, activityIdsArray, unitTemplateId) => {
+const selectCard = (history: any, unitTemplateName: string, activityIdsArray: string, unitTemplateId: number) => {
+  const unitTemplateIdString = unitTemplateId.toString();
   window.localStorage.setItem(UNIT_TEMPLATE_NAME, unitTemplateName)
   window.localStorage.setItem(UNIT_NAME, unitTemplateName)
   window.localStorage.setItem(ACTIVITY_IDS_ARRAY, activityIdsArray)
-  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateId)
-  router.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateId}`)
+  window.localStorage.setItem(UNIT_TEMPLATE_ID, unitTemplateIdString)
+  history.push(`/assign/select-classes?diagnostic_unit_template_id=${unitTemplateIdString}`)
 }
 
-const minis = (props) => [
+const minis = (props: any) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization', },
@@ -33,7 +36,7 @@ const minis = (props) => [
     header={STARTER_DIAGNOSTIC}
     imgAlt="page with a little writing"
     imgSrc={starterDiagnosticSrc}
-    selectCard={() => selectCard(props.router, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
+    selectCard={() => selectCard(props.history, STARTER_DIAGNOSTIC, encodeURIComponent([849].toString()), 99)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -45,7 +48,7 @@ const minis = (props) => [
     header={INTERMEDIATE_DIAGNOSTIC}
     imgAlt="page with a medium amount of writing"
     imgSrc={intermediateDiagnosticSrc}
-    selectCard={() => selectCard(props.router, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
+    selectCard={() => selectCard(props.history, INTERMEDIATE_DIAGNOSTIC, encodeURIComponent([850].toString()), 100)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -57,7 +60,19 @@ const minis = (props) => [
     header={ADVANCED_DIAGNOSTIC}
     imgAlt="page with a large amount of writing"
     imgSrc={advancedDiagnosticSrc}
-    selectCard={() => selectCard(props.router, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
+    selectCard={() => selectCard(props.history, ADVANCED_DIAGNOSTIC, encodeURIComponent([888].toString()), 126)}
+  />),
+  (<AssignmentCard
+    bodyArray={[
+      { key: 'What', text: 'Simple verb conjugation, articles, subject verb agreement, simple word order, singular vs plural nouns, and adjective placement', },
+      { key: 'When', text: 'Built for beginning English Language Learners who are working on foundational grammar skills.', }
+    ]}
+    buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
+    buttonText="Preview"
+    header={ELL_STARTER_DIAGNOSTIC}
+    imgAlt="page with less writing that says ELL in the corner"
+    imgSrc={ellStarterDiagnosticSrc}
+    selectCard={() => selectCard(props.history, ELL_STARTER_DIAGNOSTIC, encodeURIComponent([1161].toString()), 154)}
   />),
   (<AssignmentCard
     bodyArray={[
@@ -69,11 +84,11 @@ const minis = (props) => [
     header={ELL_DIAGNOSTIC}
     imgAlt="page with writing that says ELL in the corner"
     imgSrc={ellDiagnosticSrc}
-    selectCard={() => selectCard(props.router, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
+    selectCard={() => selectCard(props.history, ELL_DIAGNOSTIC, encodeURIComponent([447].toString()), 34)}
   />)
 ];
 
-const AssignADiagnostic = (props) => (
+const AssignADiagnostic = (props: any) => (
   <div className="assignment-flow-container">
     <AssignmentFlowNavigation />
     <ScrollToTop />

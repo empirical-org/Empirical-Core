@@ -4,12 +4,12 @@ exports[`Unit assignment followup component When there are only empty classes as
 <div>
   <AssignmentFlowNavigation
     button={
-      <a
+      <button
         className="quill-button medium contained primary"
-        href="/"
+        onClick={[Function]}
       >
         Take me to my dashboard
-      </a>
+      </button>
     }
   />
   <ScrollToTop />
@@ -90,6 +90,7 @@ exports[`Unit assignment followup component When there are students assigned on 
             className="referral-link-container"
           >
             <Input
+              autoComplete="on"
               disabled={true}
               id="referral-link"
               value="undefined/?referral_code=code"
@@ -166,12 +167,12 @@ exports[`Unit assignment followup component When there are students assigned on 
 <div>
   <AssignmentFlowNavigation
     button={
-      <a
+      <button
         className="quill-button medium contained primary"
-        href="/"
+        onClick={[Function]}
       >
         Take me to my dashboard
-      </a>
+      </button>
     }
   />
   <ScrollToTop />

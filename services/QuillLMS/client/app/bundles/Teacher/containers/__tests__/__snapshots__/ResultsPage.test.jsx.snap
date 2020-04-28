@@ -1,0 +1,530 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsPage container anonymous should render 1`] = `
+<ResultsPage
+  activityName="Cool Activity"
+  activityType="type"
+  anonymous={true}
+  percentage={0.76}
+  resultCategoryNames={
+    Object {
+      "NEARLY_PROFICIENT": "Nearly proficient",
+      "NOT_YET_PROFICIENT": "Not yet proficient",
+      "PROFICIENT": "Proficient",
+    }
+  }
+  results={
+    Object {
+      "Nearly proficient": Array [
+        "Parallel Structure",
+      ],
+      "Not yet proficient": Array [
+        "Punctuation",
+      ],
+      "Proficient": Array [
+        "Regular Past Participles",
+        "Commas in Lists",
+        "Capitalize Geographic Names",
+      ],
+    }
+  }
+>
+  <div
+    id="results-page"
+  >
+    <ScrollToTop />
+    <div
+      className="top-section"
+    >
+      <ResultsIcon
+        activityType="type"
+        percentage={0.76}
+      >
+        <div
+          className="results-icon-container"
+        >
+          <div
+            className="icon"
+            style={
+              Object {
+                "backgroundColor": "#eb9911",
+              }
+            }
+          >
+            <img
+              alt="activity-type"
+              src="undefined/images/tools/tool-proofreader-white.svg"
+            />
+          </div>
+          <span>
+            Nearly proficient
+          </span>
+        </div>
+      </ResultsIcon>
+      <h1>
+        Activity Complete!
+      </h1>
+      <a
+        className="quill-button primary contained large focus-on-light"
+        href="/account/new"
+      >
+        Sign up
+      </a>
+    </div>
+    <div
+      className="bottom-section"
+    >
+      <h2>
+        Results for 
+        Cool Activity
+      </h2>
+      <div
+        className="results-container"
+      >
+        <div
+          className="result-section"
+          key="Nearly proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square nearly-proficient"
+            />
+            <span>
+              Nearly proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have almost mastered. Keep practicing!
+          </h2>
+          <ul>
+            <li
+              key="Parallel Structure"
+            >
+              Parallel Structure
+            </li>
+          </ul>
+        </div>
+        <div
+          className="result-section"
+          key="Not yet proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square not-yet-proficient"
+            />
+            <span>
+              Not yet proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have not mastered yet. Try again!
+          </h2>
+          <ul>
+            <li
+              key="Punctuation"
+            >
+              Punctuation
+            </li>
+          </ul>
+        </div>
+        <div
+          className="result-section"
+          key="Proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square proficient"
+            />
+            <span>
+              Proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have mastered. Good work!
+          </h2>
+          <ul>
+            <li
+              key="Regular Past Participles"
+            >
+              Regular Past Participles
+            </li>
+            <li
+              key="Commas in Lists"
+            >
+              Commas in Lists
+            </li>
+            <li
+              key="Capitalize Geographic Names"
+            >
+              Capitalize Geographic Names
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ResultsPage>
+`;
+
+exports[`ResultsPage container integration should render 1`] = `
+<ResultsPage
+  activityName="Cool Activity"
+  activityType="type"
+  integrationPartnerName="Integration Partner"
+  integrationPartnerSessionId="blahblah"
+  percentage={0.76}
+  resultCategoryNames={
+    Object {
+      "NEARLY_PROFICIENT": "Nearly proficient",
+      "NOT_YET_PROFICIENT": "Not yet proficient",
+      "PROFICIENT": "Proficient",
+    }
+  }
+  results={
+    Object {
+      "Nearly proficient": Array [
+        "Parallel Structure",
+      ],
+      "Not yet proficient": Array [
+        "Punctuation",
+      ],
+      "Proficient": Array [
+        "Regular Past Participles",
+        "Commas in Lists",
+        "Capitalize Geographic Names",
+      ],
+    }
+  }
+>
+  <div
+    id="results-page"
+  >
+    <ScrollToTop />
+    <div
+      className="top-section"
+    >
+      <ResultsIcon
+        activityType="type"
+        percentage={0.76}
+      >
+        <div
+          className="results-icon-container"
+        >
+          <div
+            className="icon"
+            style={
+              Object {
+                "backgroundColor": "#eb9911",
+              }
+            }
+          >
+            <img
+              alt="activity-type"
+              src="undefined/images/tools/tool-proofreader-white.svg"
+            />
+          </div>
+          <span>
+            Nearly proficient
+          </span>
+        </div>
+      </ResultsIcon>
+      <h1>
+        Activity Complete!
+      </h1>
+      <a
+        className="quill-button primary contained large focus-on-light"
+        href="/Integration Partner?session_id=blahblah"
+      >
+        Back to activity list
+      </a>
+    </div>
+    <div
+      className="bottom-section"
+    >
+      <h2>
+        Results for 
+        Cool Activity
+      </h2>
+      <div
+        className="results-container"
+      >
+        <div
+          className="result-section"
+          key="Nearly proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square nearly-proficient"
+            />
+            <span>
+              Nearly proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have almost mastered. Keep practicing!
+          </h2>
+          <ul>
+            <li
+              key="Parallel Structure"
+            >
+              Parallel Structure
+            </li>
+          </ul>
+        </div>
+        <div
+          className="result-section"
+          key="Not yet proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square not-yet-proficient"
+            />
+            <span>
+              Not yet proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have not mastered yet. Try again!
+          </h2>
+          <ul>
+            <li
+              key="Punctuation"
+            >
+              Punctuation
+            </li>
+          </ul>
+        </div>
+        <div
+          className="result-section"
+          key="Proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square proficient"
+            />
+            <span>
+              Proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have mastered. Good work!
+          </h2>
+          <ul>
+            <li
+              key="Regular Past Participles"
+            >
+              Regular Past Participles
+            </li>
+            <li
+              key="Commas in Lists"
+            >
+              Commas in Lists
+            </li>
+            <li
+              key="Capitalize Geographic Names"
+            >
+              Capitalize Geographic Names
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</ResultsPage>
+`;
+
+exports[`ResultsPage container not anonymous should render 1`] = `
+<ResultsPage
+  activityName="Cool Activity"
+  activityType="type"
+  percentage={0.76}
+  resultCategoryNames={
+    Object {
+      "NEARLY_PROFICIENT": "Nearly proficient",
+      "NOT_YET_PROFICIENT": "Not yet proficient",
+      "PROFICIENT": "Proficient",
+    }
+  }
+  results={
+    Object {
+      "Nearly proficient": Array [
+        "Parallel Structure",
+      ],
+      "Not yet proficient": Array [
+        "Punctuation",
+      ],
+      "Proficient": Array [
+        "Regular Past Participles",
+        "Commas in Lists",
+        "Capitalize Geographic Names",
+      ],
+    }
+  }
+>
+  <div
+    id="results-page"
+  >
+    <ScrollToTop />
+    <div
+      className="top-section"
+    >
+      <ResultsIcon
+        activityType="type"
+        percentage={0.76}
+      >
+        <div
+          className="results-icon-container"
+        >
+          <div
+            className="icon"
+            style={
+              Object {
+                "backgroundColor": "#eb9911",
+              }
+            }
+          >
+            <img
+              alt="activity-type"
+              src="undefined/images/tools/tool-proofreader-white.svg"
+            />
+          </div>
+          <span>
+            Nearly proficient
+          </span>
+        </div>
+      </ResultsIcon>
+      <h1>
+        Activity Complete!
+      </h1>
+      <a
+        className="quill-button primary contained large focus-on-light"
+        href="/classes"
+      >
+        Back to your dashboard
+      </a>
+    </div>
+    <div
+      className="bottom-section"
+    >
+      <h2>
+        Results for 
+        Cool Activity
+      </h2>
+      <div
+        className="results-container"
+      >
+        <div
+          className="result-section"
+          key="Nearly proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square nearly-proficient"
+            />
+            <span>
+              Nearly proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have almost mastered. Keep practicing!
+          </h2>
+          <ul>
+            <li
+              key="Parallel Structure"
+            >
+              Parallel Structure
+            </li>
+          </ul>
+        </div>
+        <div
+          className="result-section"
+          key="Not yet proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square not-yet-proficient"
+            />
+            <span>
+              Not yet proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have not mastered yet. Try again!
+          </h2>
+          <ul>
+            <li
+              key="Punctuation"
+            >
+              Punctuation
+            </li>
+          </ul>
+        </div>
+        <div
+          className="result-section"
+          key="Proficient"
+        >
+          <div
+            className="result-section-header"
+          >
+            <div
+              className="colored-square proficient"
+            />
+            <span>
+              Proficient
+            </span>
+          </div>
+          <h2>
+            Concepts you have mastered. Good work!
+          </h2>
+          <ul>
+            <li
+              key="Regular Past Participles"
+            >
+              Regular Past Participles
+            </li>
+            <li
+              key="Commas in Lists"
+            >
+              Commas in Lists
+            </li>
+            <li
+              key="Capitalize Geographic Names"
+            >
+              Capitalize Geographic Names
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        className="replay-button-container"
+      >
+        <p>
+          All writers revise their work. Try this activity again.
+        </p>
+        <a
+          className="quill-button primary outlined large focus-on-light"
+          href="/activity_sessions/classroom_units/undefined/activities/undefined"
+        >
+          Replay
+        </a>
+      </div>
+    </div>
+  </div>
+</ResultsPage>
+`;

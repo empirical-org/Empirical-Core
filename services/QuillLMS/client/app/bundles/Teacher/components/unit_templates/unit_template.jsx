@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import CheckBoxes from '../general_components/check_boxes/check_boxes.jsx';
 import DropdownSelector from '../general_components/dropdown_selectors/dropdown_selector.jsx';
 import ActivitySearchAndSelect from '../assignment_flow/create_unit/activity_search/activity_search_and_select.jsx';
@@ -11,10 +12,32 @@ import MarkdownParser from '../shared/markdown_parser.jsx';
 import $ from 'jquery';
 import _ from 'underscore';
 
-export default React.createClass({
-  propTypes: {
-    unitTemplate: React.PropTypes.object.isRequired,
-    returnToIndex: React.PropTypes.func.isRequired,
+export default createReactClass({
+  displayName: 'unit_template',
+
+  getInitialState() {
+    this.initializeModules();
+
+    let model = {
+      name: null,
+      activity_info: null,
+      time: null,
+      grades: [],
+      activities: [],
+      unit_template_category_id: null,
+      flag: this.props.unitTemplate.flag || null,
+      author_id: null,
+      order_number: this.props.unitTemplate.order_number || null,
+    };
+    model = _.extend(model, this.props.unitTemplate);
+    const options = this.modules.optionsLoader.initialOptions();
+
+    const hash = { model, options, };
+    return hash;
+  },
+
+  componentDidMount() {
+    this.modules.optionsLoader.get();
   },
 
   resourceNameSingular: 'unit_template',
@@ -58,32 +81,6 @@ export default React.createClass({
     return this.modelOptions;
   },
 
-  getInitialState() {
-    this.initializeModules();
-
-    let model = {
-      name: null,
-      activity_info: null,
-      time: null,
-      grades: [],
-      activities: [],
-      unit_template_category_id: null,
-      flag: this.props.unitTemplate.flag || null,
-      author_id: null,
-      order_number: this.props.unitTemplate.order_number || null,
-
-    };
-    model = _.extend(model, this.props.unitTemplate);
-    const options = this.modules.optionsLoader.initialOptions();
-
-    const hash = { model, options, };
-    return hash;
-  },
-
-  componentDidMount() {
-    this.modules.optionsLoader.get();
-  },
-
   // TODO: abstract out the below 3 methods
   // can also combine first two by replacing 'key' with fnl equivalent
   updateState(key, value) {
@@ -114,6 +111,7 @@ export default React.createClass({
 
   save() {
     const model = this.state.model;
+
     if (this.state.options.authors.length == 1) {
       model.author_id = this.state.options.authors[0].id;
     }
@@ -124,6 +122,19 @@ export default React.createClass({
     ];
 
     this.modules.server.save(model, { callback: (() => { window.location.href = `${process.env.DEFAULT_URL}/cms/unit_templates` }), fieldsToNormalize ,});
+  },
+
+  toggleActivitySelection(activity) {
+    const { model, } = this.state
+    if (model.activities.find(act => act.id === activity.id)) {
+      const activities = model.activities.filter(act => act.id !== activity.id)
+      this.updateModelState('activities', activities)
+    } else {
+      const newActivity = activity
+      newActivity.order_number = model.activities.length
+      const activities = model.activities.concat([newActivity])
+      this.updateModelState('activities', activities)
+    }
   },
 
   determineErrorMessage() {
@@ -150,6 +161,18 @@ export default React.createClass({
 
   determineErrorMessageClass() {
     return '';
+  },
+
+  handleSort(sortInfo) {
+    const { model, } = this.state
+    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrderedActivities = newOrder.map((key, i) => {
+      const activity = model.activities[key];
+      activity.order_number = i;
+      return activity;
+    }).sort((act1, act2) => act1.order_number - act2.order_number)
+    model.activities = newOrderedActivities
+    this.updateModelState('activities', newOrderedActivities)
   },
 
   getGradeCheckBoxes() {
@@ -202,7 +225,9 @@ export default React.createClass({
     return (<ActivitySearchAndSelect
       errorMessage={this.props.errorMessage}
       selectedActivities={this.state.model.activities}
-      toggleActivitySelection={this.modules.indicatorGenerator.stateItemToggler('activities')}
+      sortable={true}
+      sortCallback={this.handleSort}
+      toggleActivitySelection={this.toggleActivitySelection}
     />);
   },
 

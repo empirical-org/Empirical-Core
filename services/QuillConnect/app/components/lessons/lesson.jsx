@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
 import { permittedFlag } from '../../libs/flagArray'
@@ -12,15 +12,39 @@ String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
-const Lesson = React.createClass({
+class Lesson extends React.Component {
+  cancelEditingLesson = () => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    dispatch(lessonActions.cancelLessonEdit(lessonID));
+  };
 
-  lesson() {
-    const { data, } = this.props.lessons
-    const { lessonID, } = this.props.params;
+  deleteLesson = () => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    if (confirm('do you want to do this?')) {
+      dispatch(lessonActions.deleteLesson(lessonID));
+    }
+  };
+
+  editLesson = () => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    dispatch(lessonActions.startLessonEdit(lessonID));
+  };
+
+  lesson = () => {
+    const { lessons, match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    const { data } = lessons
     return data[lessonID]
-  },
+  };
 
-  questionsForLesson() {
+  questionsForLesson = () => {
     if (this.lesson().questions) {
       return this.lesson().questions.map((question) => {
         const questions = this.props[question.questionType].data;
@@ -30,9 +54,32 @@ const Lesson = React.createClass({
         return qFromDB;
       });
     }
-  },
+  };
 
-  renderQuestionsForLesson() {
+  saveLessonEdits = (vals) => {
+    const { dispatch, match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    const qids = vals.questions ? vals.questions.map(q => q.key) : []
+    dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
+  };
+
+  renderEditLessonForm = () => {
+    const { lessons, match } = this.props
+    const { states } = lessons
+    const { params } = match
+    const { lessonID } = params
+    const lesson = this.lesson();
+    if (states[lessonID] === C.EDITING_LESSON) {
+      return (
+        <Modal close={this.cancelEditingLesson}>
+          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
+        </Modal>
+      );
+    }
+  };
+
+  renderQuestionsForLesson = () => {
     const questionsForLesson = this.questionsForLesson();
     const lessonFlag = this.lesson().flag
     if (questionsForLesson) {
@@ -43,7 +90,7 @@ const Lesson = React.createClass({
         const flagTag = permittedFlag(lessonFlag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
         return (
           <li key={key}>
-            <Link to={`/admin/${questionTypeLink || 'questions'}/${key}`}>
+            <Link to={`/admin/${questionTypeLink || 'questions'}/${key}/responses`}>
               {flagTag}
               {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
             </Link>
@@ -56,59 +103,25 @@ const Lesson = React.createClass({
     return (
       <ul>No questions</ul>
     );
-  },
-
-  deleteLesson() {
-    const { lessonID, } = this.props.params;
-    if (confirm('do you want to do this?')) {
-      this.props.dispatch(lessonActions.deleteLesson(lessonID));
-    }
-  },
-
-  cancelEditingLesson() {
-    const { lessonID, } = this.props.params;
-    this.props.dispatch(lessonActions.cancelLessonEdit(this.props.params.lessonID));
-  },
-
-  saveLessonEdits(vals) {
-    const { lessonID, } = this.props.params;
-    const qids = vals.questions ? vals.questions.map(q => q.key) : []
-    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
-  },
-
-  editLesson() {
-    const { lessonID, } = this.props.params;
-    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-    // // console.log("Edit button clicked");
-  },
-
-  renderEditLessonForm() {
-    const { lessonID, } = this.props.params;
-    const lesson = this.lesson();
-    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
-      return (
-        <Modal close={this.cancelEditingLesson}>
-          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
-        </Modal>
-      );
-    }
-  },
+  };
 
   render() {
-    const { lessonID, } = this.props.params;
-    if (this.lesson()) {
-      const numberOfQuestions = this.lesson().questions ? this.lesson().questions.length : 0;
+    const { match } = this.props
+    const { params } = match
+    const { lessonID } = params
+    const lesson = this.lesson()
+    if (lesson) {
+      const numberOfQuestions = lesson.questions ? lesson.questions.length : 0;
       return (
-        <div>
-          <Link to={'admin/lessons'}>Return to All Activities</Link>
+        <div className="admin-container">
+          <Link to={'/admin/lessons'}>Return to All Activities</Link>
           <br />
           {this.renderEditLessonForm()}
-          <h4 className="title">{this.lesson().name}</h4>
+          <h4 className="title">{lesson.name}</h4>
 
-          <h6 className="subtitle">{this.lesson().flag}</h6>
+          <h6 className="subtitle">{lesson.flag}</h6>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
-          <h6 className="subtitle"><Link to={`play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
-          <h6 className="subtitle"><Link to={`admin/lessons/${lessonID}/results`}>View Results</Link></h6>
+          <h6 className="subtitle"><Link to={`/play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
           <p className="control">
             <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
           </p>
@@ -121,9 +134,8 @@ const Lesson = React.createClass({
     return (
       <p>404: No Concept Found</p>
     );
-  },
-
-});
+  }
+}
 
 function select(state) {
   return {

@@ -1,16 +1,23 @@
 import { Action } from "redux";
+import { v4 as uuid4 } from "uuid";
 import { ActionTypes } from "../actions/actionTypes";
 
 import { FeedbackObject } from '../interfaces/feedback'
 
 export interface SessionReducerState {
-  submittedResponses: { [key:string]: Array<FeedbackObject> }|{}
+  sessionID: string
+  submittedResponses: { [key: string]: FeedbackObject[] }|{}
 }
 
 type SessionAction = Action & { promptID: string } & { feedbackObj: FeedbackObject }
 
 export default (
-    currentState: SessionReducerState = { submittedResponses: {} },
+    currentState: SessionReducerState = {
+      // Currently we want to initialize a random session for each
+      // page load
+      sessionID: uuid4(),
+      submittedResponses: {}
+    },
     action: SessionAction
 ) => {
     switch (action.type) {

@@ -1,25 +1,42 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import _ from 'lodash'
 
-const ItemLevelForm = React.createClass({
-
-  getInitialState: function() {
-    if(this.props.mode==="Edit") {
-      return {
-        name: this.props.data.name,
-        integerValue: this.props.data.integerValue,
-      }
+class ItemLevelForm extends React.Component {
+  constructor(props) {
+    super(props);
+    if(props.mode==="Edit") {
+      this.state = {
+        name: props.data.name,
+        integerValue: props.data.integerValue,
+      };
     } else {
-        return {
-          name: "",
-          integerValue: "",
-        }
-      }
-  },
+      this.state = {
+        name: "",
+        integerValue: "",
+      };
+    }
+  }
 
-  submit: function() {
+  cancelEdit = () => {
+    this.props.cancelEdit(this.props.levelID)
+  };
+
+  deleteItemLevel = () => {
+    if(confirm("Are you sure you want to delete this item level?")) {
+      this.props.deleteItemLevel(this.props.levelID)
+    }
+  };
+
+  handleChange = () => {
+    this.setState({
+      name: this.refs.newItemLevelName.value,
+      integerValue: this.refs.integerValue.value,
+    })
+  };
+
+  submit = () => {
     if(this.refs.newItemLevelName.value==="" || this.refs.integerValue.value==="") { //has not chosen an associated concept
       alert("You must choose a name for this item level")
       return
@@ -30,26 +47,9 @@ const ItemLevelForm = React.createClass({
     }
     this.props.submitNewItemLevel(newItemLevel, this.props.levelID) //id will be undefined if creating a new level
     this.setState(newItemLevel)
-  },
+  };
 
-  deleteItemLevel: function() {
-    if(confirm("Are you sure you want to delete this item level?")) {
-      this.props.deleteItemLevel(this.props.levelID)
-    }
-  },
-
-  cancelEdit: function() {
-    this.props.cancelEdit(this.props.levelID)
-  },
-
-  handleChange: function() {
-    this.setState({
-      name: this.refs.newItemLevelName.value,
-      integerValue: this.refs.integerValue.value,
-    })
-  },
-
-  render: function() {
+  render() {
     if(this.props.concepts.hasreceiveddata===true) {
       let name="Name", integerValue="1", className="", cancelAndDeleteButtons=<div />;
       if(this.props.mode==="Edit") {
@@ -107,7 +107,7 @@ const ItemLevelForm = React.createClass({
         )
     }
   }
-})
+}
 
 function select(state) {
   return {

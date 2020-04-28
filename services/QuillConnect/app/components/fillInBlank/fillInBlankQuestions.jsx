@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import {
-  QuestionList,
   hashToCollection,
   ArchivedButton
 } from 'quill-component-library/dist/componentLibrary';
+import { QuestionList } from '../shared/questionList'
 
 class FillInBlankQuestions extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props)
+
+    const { fillInBlank } = props
+
     this.state = {
-      showOnlyArchived: false,
-      questions: {}
+      questions: fillInBlank.data || null,
+      showOnlyArchived: false
     }
-    this.toggleShowArchived = this.toggleShowArchived.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { fillInBlank, } = nextProps
     if (fillInBlank.hasreceiveddata) {
       if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.fillInBlank.data, fillInBlank.data) || (!_.isEqual(this.props.diagnosticLessons.data, diagnosticLessons.data))) {
@@ -26,17 +28,17 @@ class FillInBlankQuestions extends Component {
     }
   }
 
-  toggleShowArchived() {
+  toggleShowArchived = () => {
     this.setState({
       showOnlyArchived: !this.state.showOnlyArchived,
     });
-  }
+  };
 
   render() {
     return (
       <section className="section">
         <div className="container">
-          <Link to={'admin/fill-in-the-blanks/new'}>
+          <Link to={'/admin/fill-in-the-blanks/new'}>
             <button className="button is-primary">Create a New Fill In The Blank</button>
           </Link>
           <ArchivedButton lessons={false} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
@@ -50,7 +52,6 @@ class FillInBlankQuestions extends Component {
       </section>
     );
   }
-
 }
 
 function select(props) {

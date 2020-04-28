@@ -5,6 +5,7 @@ export default class StudentGeneralAccountInfo extends Component {
   constructor(props) {
     super(props);
     const { email, firstName, lastName, userName} = props;
+
     this.state = {
       email: email,
       firstName: firstName,
@@ -35,57 +36,31 @@ export default class StudentGeneralAccountInfo extends Component {
     }
   }
 
+  onEmailChange = e => this.updateField(e, 'email')
+
+  onFirstNameChange = e => this.updateField(e, 'firstName')
+
+  onLastNameChange = e => this.updateField(e, 'lastName')
+
+  onUsernameChange = e => this.updateField(e, 'userName')
+
   activateSection = () => {
     const { active, activateSection } = this.props;
-    if (!active || !this.state.showButtonSection) {
+    const { showButtonSection, } = this.state
+    if (!active || !showButtonSection) {
       this.setState({ showButtonSection: true }, activateSection);
     }
   }
 
-  reset = () => {
-    const { email, firstName, lastName, userName } = this.props
-    this.setState({
-      email,
-      firstName,
-      lastName,
-      userName,
-      showButtonSection: false
-    });
-  }
-
-  resetAndDeactivateSection = () => {
+  handleCancel = () => {
+    const { deactivateSection, } = this.props
     this.reset();
-    this.props.deactivateSection();
-  }
-
-  updateField = (e, field) => {
-    this.setState({[field]: e.target.value });
-  }
-
-  submitClass = () => {
-    const { email, firstName, lastName, userName } = this.state;
-    let buttonClass = 'quill-button contained primary medium';
-    if (firstName === this.props.firstName
-      && lastName === this.props.lastName
-      && email === this.props.email
-      && userName === this.props.userName
-    ) {
-      buttonClass += ' disabled';
-    }
-    return buttonClass;
-  }
-
-  renderButtonSection() {
-    if (this.state.showButtonSection) {
-      return (<div className="button-section">
-        <div className="quill-button outlined secondary medium" id="cancel" onClick={this.resetAndDeactivateSection}>Cancel</div>
-        <input className={this.submitClass()} name="commit" type="submit" value="Save changes" />
-      </div>)
-    }
+    deactivateSection();
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { updateUser, } = this.props
     const { email, firstName, lastName, userName } = this.state;
     const name = `${firstName} ${lastName}`;
     const errorMessages = ['First name cannot be blank', 'Last name cannot be blank', 'Username cannot be blank'];
@@ -107,7 +82,48 @@ export default class StudentGeneralAccountInfo extends Component {
       email,
       username: userName
     };
-    this.props.updateUser(data, '/students/update_account', 'Settings saved', errors);
+    updateUser(data, '/students/update_account', 'Settings saved', errors);
+  }
+
+  reset = () => {
+    const { email, firstName, lastName, userName } = this.props
+    this.setState({
+      email,
+      firstName,
+      lastName,
+      userName,
+      showButtonSection: false
+    });
+  }
+
+  submitClass = () => {
+    const { email, firstName, lastName, userName } = this.state;
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
+    // disabling destructuring because destructuring would cause a namespace collision
+    /* eslint-disable react/destructuring-assignment */
+    if (firstName === this.props.firstName
+      && lastName === this.props.lastName
+      && email === this.props.email
+      && userName === this.props.userName
+    ) {
+      /* eslint-enable react/destructuring-assignment */
+      buttonClass += ' disabled';
+    }
+    return buttonClass;
+  }
+
+  updateField = (e, field) => {
+    this.setState({[field]: e.target.value });
+  }
+
+  renderButtonSection() {
+    const { showButtonSection, } = this.state
+    if (showButtonSection) {
+      return (<div className="button-section">
+        <button className="quill-button outlined secondary medium focus-on-light" id="cancel" onClick={this.handleCancel} type="button">Cancel</button>
+        <input aria-label="Save changes" className={this.submitClass()} name="commit" type="submit" value="Save changes" />
+      </div>)
+    }
   }
 
   render() {
@@ -125,10 +141,11 @@ export default class StudentGeneralAccountInfo extends Component {
         <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
           <div className="fields">
             <Input
+              autoComplete="given-name"
               characterLimit={oAuthed ? 0 : 50}
               disabled={isDisabled}
               error={errors.firstName}
-              handleChange={e => this.updateField(e, 'firstName')}
+              handleChange={this.onFirstNameChange}
               id={`first-name${editStatus}`}
               label="First name"
               onClick={!isDisabled ? this.activateSection : null}
@@ -137,10 +154,11 @@ export default class StudentGeneralAccountInfo extends Component {
               value={firstName}
             />
             <Input
+              autoComplete="family-name"
               characterLimit={oAuthed ? 0 : 50}
               disabled={isDisabled}
               error={errors.lastName}
-              handleChange={e => this.updateField(e, 'lastName')}
+              handleChange={this.onLastNameChange}
               id={`last-name${editStatus}`}
               label="Last name"
               onClick={!isDisabled ? this.activateSection : null}
@@ -149,9 +167,10 @@ export default class StudentGeneralAccountInfo extends Component {
               value={lastName}
             />
             <Input
+              autoComplete="username"
               disabled={isDisabled || teacherCreated}
               error={errors.username}
-              handleChange={e => this.updateField(e, 'userName')}
+              handleChange={this.onUsernameChange}
               helperText={teacherCreated ? 'Only your teacher can change your username' : ''}
               id={`username${(isDisabled || teacherCreated) ? '-not-editable' : ''}`}
               label="Username"
@@ -161,9 +180,10 @@ export default class StudentGeneralAccountInfo extends Component {
               value={userName}
             />
             <Input
+              autoComplete="email"
               disabled={isDisabled}
               error={errors.email}
-              handleChange={e => this.updateField(e, 'email')}
+              handleChange={this.onEmailChange}
               id={`email${editStatus}`}
               label={emailLabel}
               onClick={!isDisabled ? this.activateSection : null}

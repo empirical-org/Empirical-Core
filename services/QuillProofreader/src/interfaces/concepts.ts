@@ -5,4 +5,5 @@ export interface Concept {
   level: number;
   name: string;
   parent_id: number|null;
+  explanation?: string;
 }

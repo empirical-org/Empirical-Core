@@ -11,12 +11,9 @@ export default class GoogleUnsync extends React.Component {
       newEmail: '',
       password: ''
     }
-
-    this.submit = this.submit.bind(this)
-    this.updateField = this.updateField.bind(this)
   }
 
-  submit() {
+  submit = () => {
     const that = this
     request.put({
       url: `${process.env.DEFAULT_URL}/teacher_fix/google_unsync_account`,
@@ -34,11 +31,11 @@ export default class GoogleUnsync extends React.Component {
         // to do, use Sentry to capture error
       }
     })
-  }
+  };
 
-  updateField(e, key) {
+  updateField = (e, key) => {
     this.setState({[key]: e.target.value})
-  }
+  };
 
   renderError() {
     if (this.state.error) {

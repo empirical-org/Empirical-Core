@@ -1,69 +1,40 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
-import { Modal, LinkListItem } from 'quill-component-library/dist/componentLibrary'
+import { LinkListItem } from '../shared/linkListItem'
 import actions from '../../actions/concepts'
 
-const Concepts = React.createClass({
-  createNew: function () {
-    this.props.dispatch(actions.toggleNewConceptModal())
-  },
+class Concepts extends React.Component {
 
-  submitNewConcept: function () {
-    var newConcept = {name: this.refs.newConceptName.value}
-    this.props.dispatch(actions.submitNewConcept(newConcept))
+  submitNewConcept = () => {
+    const { dispatch } = this.props
+    const newConcept = {name: this.refs.newConceptName.value}
+    dispatch(actions.submitNewConcept(newConcept))
     this.refs.newConceptName.value = ""
-    // this.props.dispatch(actions.toggleNewConceptModal())
-  },
+  };
 
-  renderConcepts: function () {
-    const data = this.props.concepts.data["0"];
-    // const keys = _.keys(data["0"]);
-    if (data) {
-      return data.map((concept) => {
+  renderConcepts = () => {
+    const { concepts } = this.props
+    const { data } = concepts
+    const dataRow = data["0"];
+    if (dataRow) {
+      return dataRow.map((concept) => {
         return (<LinkListItem
           activeClassName='is-active'
           basePath='concepts'
+          excludeResponses={true}
           itemKey={concept.uid}
           key={concept.uid}
           text={concept.displayName}
         />)
       })
     }
-  },
+  };
 
-  renderModal: function () {
-    var stateSpecificClass = this.props.concepts.submittingnew ? 'is-loading' : '';
-    if (this.props.concepts.newConceptModalOpen) {
-        return (
-          <Modal close={this.createNew}>
-            <div className="box">
-              <h4 className="title">Add New Concept</h4>
-              <p className="control">
-                <label className="label">Name</label>
-                <input
-                  className="input"
-                  placeholder="Text input"
-                  ref="newConceptName"
-                  type="text"
-                />
-              </p>
-              <p className="control">
-                <button className={"button is-primary " + stateSpecificClass} onClick={this.submitNewConcept}>Submit</button>
-              </p>
-            </div>
-          </Modal>
-        )
-      }
-  },
-
-  render: function (){
-    // // console.log("this.props.concepts", this.props.concepts)
+  render() {
     return (
       <section className="section">
         <div className="container">
-          <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New concept</button></h1>
-          { this.renderModal() }
           <aside className="menu">
             <p className="menu-label">
                   Concepts
@@ -76,7 +47,7 @@ const Concepts = React.createClass({
       </section>
     )
   }
-})
+}
 
 function select(state) {
   return {

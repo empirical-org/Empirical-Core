@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import moment from 'moment';
+import "react-dates/initialize";
 
 import { SingleDatePicker } from 'react-dates'
 import { DataTable } from 'quill-component-library/dist/componentLibrary'
@@ -40,14 +41,6 @@ export default class ReviewActivities extends React.Component {
     })
 
     this.state = state
-
-    this.removeRow = this.removeRow.bind(this)
-  }
-
-  removeRow(id) {
-    const { activities, toggleActivitySelection } = this.props
-    const activity = activities.find(act => act.id === id)
-    toggleActivitySelection(activity, false)
   }
 
   handleDueDateChange(id, date) {
@@ -58,10 +51,16 @@ export default class ReviewActivities extends React.Component {
     if (date && existingDate && existingDate.dayOfYear() === date.dayOfYear()) {
       assignActivityDueDate(activity, null)
     } else {
-      const formattedDate = date ? `${date.year()}-${date.month() + 1}-${date.date()}` : null
+      const formattedDate = date ? `${date.year()}/${date.month() + 1}/${date.date()}` : null
       assignActivityDueDate(activity, formattedDate);
     }
   }
+
+  removeRow = id => {
+    const { activities, toggleActivitySelection } = this.props
+    const activity = activities.find(act => act.id === id)
+    toggleActivitySelection(activity, false)
+  };
 
   rows() {
     const { activities, dueDates, } = this.props
@@ -74,6 +73,7 @@ export default class ReviewActivities extends React.Component {
         activity_category,
         description,
         id,
+        anonymous_path
       } = activity
       const selectedDate = dueDates[id] ? moment(dueDates[id]) : null
       const focusedKey = `focused-${id}`
@@ -102,7 +102,7 @@ export default class ReviewActivities extends React.Component {
       const activityName = (<div>
         <div className="activate-tooltip" data-for={nameTooltipId} data-tip={`<h1>${name}</h1><p>Tool: ${activity_classification.alias}</p><p>${section.name}</p><p>${description}</p>`}>
           <ReactTooltip className="react-tooltip-custom" effect="solid" html id={nameTooltipId} multiline type="light" />
-          <span className="tooltip-trigger activity-name">{name}</span>
+          <a className="tooltip-trigger activity-name" href={anonymous_path} rel='noreferrer noopener' target="_blank">{name}</a>
         </div>
       </div>)
 

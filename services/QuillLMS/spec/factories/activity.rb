@@ -37,8 +37,8 @@ FactoryBot.define do
     end
 
     factory :lesson_activity do
-      classification { ActivityClassification.find_by_key attributes_for(:lesson)[:key] || create(:lesson) }
-      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:lesson)[:key])&.id || create(:lesson).id }
+      classification { ActivityClassification.find_by_key attributes_for(:lesson_classification)[:key] || create(:lesson_classification) }
+      activity_classification_id { ActivityClassification.find_by_key(attributes_for(:lesson_classification)[:key])&.id || create(:lesson_classification).id }
       repeatable false
       supporting_info { "https://www.example.com/example.pdf" }
 

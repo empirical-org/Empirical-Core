@@ -4,14 +4,13 @@ import { SegmentAnalytics, Events } from '../../../../../modules/analytics';
 import { Input } from 'quill-component-library/dist/componentLibrary'
 
 import PasswordInfo from './password_info.jsx';
+import AssignActivityPackBanner from '../assignActivityPackBanner'
 import getAuthToken from '../../modules/get_auth_token';
 
 class LoginFormApp extends React.Component {
-  constructor() {
-    super();
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  constructor(props) {
+    super(props);
+
     this.state = {
       showPass: false,
       email: '',
@@ -21,39 +20,66 @@ class LoginFormApp extends React.Component {
     };
   }
 
-  clickHandler() {
-    this.setState(prevState => ({
-      showPass: !prevState.showPass,
-    }));
-    let setState = this.state.showPass ? 'showPassword' : 'hidePassword';
-    SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
-  }
-
-  togglePass() {
-    return !this.state.showPass ? 'password' : 'text';
-  }
-
-  toggleButtonText() {
-    return !this.state.showPass ? 'Show' : 'Hide';
-  }
-
-  submitClass() {
-    let buttonClass = 'quill-button contained primary medium';
-    if (!this.state.password.length || !this.state.email.length) {
-      buttonClass += ' disabled';
-    }
-    return buttonClass;
-  }
-
-  handleEmailChange(e) {
+  onEmailChange = (e) => {
     this.setState({ email: e.target.value, });
   }
 
-  handlePasswordChange(e) {
+  onPasswordChange = (e) => {
     this.setState({ password: e.target.value, });
   }
 
-  handleSubmit(e) {
+  async fetchUser() {
+    return fetch('/api/v1/users.json', {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'include',
+    }).then((response) => {
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    return response.json();
+    });
+  }
+
+  handleCleverClick = (e) => {
+    const { cleverLink, } = this.props
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})
+    window.location.href = cleverLink
+  }
+
+  handleGoogleClick = (e) => {
+    SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE});
+    this.fetchUser().then(userData => {
+        var now = new Date().toISOString();
+        if (userData.user === null || (userData.hasOwnProperty('role') && !userData.user.has_refresh_token) ||
+            now > userData.user.refresh_token_expires_at) {
+          window.location.href = '/auth/google_oauth2?prompt=consent';
+        }
+        else {
+            window.location.href = '/auth/google_oauth2';
+        }
+      }
+    );
+  }
+
+  handleKeyEnterOnSignUpLink = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleSignUpClick(e)
+  }
+
+  handleKeyEnterOnTogglePassword = (e) => {
+    if (e.key !== 'Enter') { return }
+
+    this.handleTogglePassClick(e)
+  }
+
+  handleSignUpClick = (e) => {
+    SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})
+    window.location.href = '/account/new'
+  }
+
+  handleSubmit = (e) => {
     const { timesSubmitted, email, password, } = this.state;
     e.preventDefault();
     SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.EMAIL});
@@ -71,7 +97,7 @@ class LoginFormApp extends React.Component {
     (err, httpResponse, body) => {
       if (httpResponse.statusCode === 200 && body.redirect) {
         // console.log(body);
-        window.location = `${process.env.DEFAULT_URL}${body.redirect}`;
+        window.location = body.redirect;
       } else {
         let state;
         if (body.type && body.message) {
@@ -90,62 +116,92 @@ class LoginFormApp extends React.Component {
     });
   }
 
+  handleTogglePassClick = () => {
+    this.setState(prevState => ({
+      showPass: !prevState.showPass,
+    }), () => {
+      const { showPass, } = this.state
+      let setState = showPass ? 'showPassword' : 'hidePassword';
+      SegmentAnalytics.track(Events.CLICK_SHOW_HIDE_PASSWORD, {setState: setState});
+    });
+  }
+
+  submitClass = () => {
+    const { password, email, } = this.state
+    let buttonClass = 'quill-button contained primary medium focus-on-light';
+    if (!password.length || !email.length) {
+      buttonClass += ' disabled';
+    }
+    return buttonClass;
+  }
+
+  toggleButtonText = () => {
+    const { showPass, } = this.state
+    return !showPass ? 'Show' : 'Hide';
+  }
+
+  togglePass = () => {
+    const { showPass, } = this.state
+    return !showPass ? 'password' : 'text';
+  }
+
   render() {
     const { errors, email, password, timesSubmitted, authToken, } = this.state;
     return (
-      <div className="container account-form">
-        <h1>Good to see you again!</h1>
-        <div className="account-container text-center">
-          <div className="auth-section">
-            <a href="/auth/google_oauth2" onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.GOOGLE})}>
-              <img alt="google icon" src="/images/google_icon.svg" />
-              <span>Log in with Google</span>
-            </a>
-            <a href={this.props.cleverLink} onClick={(e) => SegmentAnalytics.track(Events.SUBMIT_LOG_IN, {provider: Events.providers.CLEVER})}>
-              <img alt="clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
-              <span>Log in with Clever</span>
-            </a>
-          </div>
-          <div className="break"><span  />or<span  /></div>
-          <div className="login-form">
-            <div>
-              <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
-                <input name="utf8" type="hidden" value="✓" />
-                <input name="authenticity_token" type="hidden" value={authToken} />
-                <Input
-                  className="email"
-                  error={errors.email}
-                  handleChange={this.handleEmailChange}
-                  label="Email or username"
-                  timesSubmitted={timesSubmitted}
-                  type="text"
-                  value={email}
-                />
-                <Input
-                  className="password inspectletIgnore"
-                  error={errors.password}
-                  handleChange={this.handlePasswordChange}
-                  label="Password"
-                  timesSubmitted={timesSubmitted}
-                  type={this.togglePass()}
-                  value={password}
-                />
-                <div className="forget-and-show-password">
-                  <a href="/password_reset">Forgot password?</a>
-                  <span onClick={() => { this.clickHandler(); }}>
-                    {this.toggleButtonText()} password
-                  </span>
-                </div>
-                <input className={this.submitClass()} name="commit" type="submit" value="Log in" />
-              </form>
+      <div>
+        <AssignActivityPackBanner login={true} />
+        <div className="container account-form">
+          <h1>Good to see you again!</h1>
+          <div className="account-container text-center">
+            <div className="auth-section">
+              <button onClick={this.handleGoogleClick} type="button">
+                <img alt="Google icon" src={`${process.env.CDN_URL}/images/shared/google_icon.svg`} />
+                <span>Log in with Google</span>
+              </button>
+              <button onClick={this.handleCleverClick} type="button">
+                <img alt="Clever icon" src={`${process.env.CDN_URL}/images/shared/clever_icon.svg`} />
+                <span>Log in with Clever</span>
+              </button>
+            </div>
+            <div className="break"><span  />or<span  /></div>
+            <div className="login-form">
+              <div>
+                <form acceptCharset="UTF-8" onSubmit={this.handleSubmit} >
+                  <input aria-hidden="true" aria-label="utf8" name="utf8" type="hidden" value="✓" />
+                  <input aria-hidden="true" aria-label="authenticity token" name="authenticity_token" type="hidden" value={authToken} />
+                  <Input
+                    className="email"
+                    error={errors.email}
+                    handleChange={this.onEmailChange}
+                    label="Email or username"
+                    timesSubmitted={timesSubmitted}
+                    type="text"
+                    value={email}
+                  />
+                  <Input
+                    autoComplete="current-password"
+                    className="password inspectletIgnore"
+                    error={errors.password}
+                    handleChange={this.onPasswordChange}
+                    label="Password"
+                    timesSubmitted={timesSubmitted}
+                    type={this.togglePass()}
+                    value={password}
+                  />
+                  <div className="forget-and-show-password">
+                    <a className="inline-link" href="/password_reset">Forgot password?</a>
+                    <span className="inline-link" onClick={this.handleTogglePassClick} onKeyDown={this.handleKeyEnterOnTogglePassword} role="button" tabIndex={0}>
+                      {this.toggleButtonText()} password
+                    </span>
+                  </div>
+                  <input aria-label="Log in" className={this.submitClass()} name="commit" type="submit" value="Log in" />
+                </form>
+              </div>
             </div>
           </div>
+          <p className="sign-up-link">Don&#39;t have an account?&nbsp;<span className="inline-link" onClick={this.handleSignUpClick} onKeyDown={this.handleKeyEnterOnSignUpLink} role="link" tabIndex={0}>Sign up</span></p>
+          <PasswordInfo showHintBox={Object.keys(errors).length} />
         </div>
-        <p className="sign-up-link">Don't have an account?&nbsp;<a
-          href="/account/new"
-          onClick={(e) => SegmentAnalytics.track(Events.CLICK_SIGN_UP, {location: 'doNotHaveAccount'})}
-        >Sign up</a></p>
-        <PasswordInfo showHintBox={Object.keys(this.state.errors).length} />
       </div>
     );
   }

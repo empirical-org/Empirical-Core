@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import TextEditor from '../renderForQuestions/renderTextEditor.jsx';
 import _ from 'underscore';
 import ReactTransition from 'react-addons-css-transition-group';
 import POSMatcher from '../../libs/sentenceFragment.js';
-import fragmentActions from '../../actions/sentenceFragments.js';
 import {
-  submitResponse,
-  incrementChildResponseCount,
-  incrementResponseCount,
-  getResponsesWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
@@ -21,6 +16,7 @@ import {
 } from 'quill-component-library/dist/componentLibrary';
 import translations from '../../libs/translations/index.js';
 import translationMap from '../../libs/translations/ellQuestionMapper.js';
+import { ENGLISH, rightToLeftLanguages } from '../../../public/locales/languagePageInfo';
 
 const key = ''; // enables this component to be used by both play/sentence-fragments and play/diagnostic
 
@@ -47,8 +43,8 @@ class PlaySentenceFragment extends React.Component {
     const { language, } = this.props
     const textKey = translationMap[this.getQuestion().key];
     let text = translations.english[textKey];
-    if (language && language !== 'english') {
-      const textClass = language === 'arabic' ? 'right-to-left' : '';
+    if (language && language !== ENGLISH) {
+      const textClass = rightToLeftLanguages.includes(language) ? 'right-to-left' : '';
       text += `<br/><br/><span class="${textClass}">${translations[language][textKey]}</span>`;
     }
     return (<p dangerouslySetInnerHTML={{ __html: text, }} />);
@@ -57,7 +53,7 @@ class PlaySentenceFragment extends React.Component {
   getChoiceHTML = () => {
     const { language, } = this.props
     let text = translations.english['sentence-fragment-complete-vs-incomplete-button-choice-instructions'];
-    if (language !== 'english') {
+    if (language !== ENGLISH) {
       text += `<br/><br/>${translations[language]['sentence-fragment-complete-vs-incomplete-button-choice-instructions']}`;
     }
     return text;
@@ -105,8 +101,8 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     return (
       <div className="sf-button-group">
-        <button className="button sf-button" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
-        <button className="button sf-button" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickCompleteSentence} type="button" value="Sentence">Complete / Completa la oración</button>
+        <button className="button sf-button focus-on-light" onClick={this.handleClickIncompleteSentence} type="button" value="Fragment">Incomplete / Oración incompleta</button>
       </div>
     );
   }
@@ -172,7 +168,7 @@ class PlaySentenceFragment extends React.Component {
   getSubmitButtonText = () => {
     const { language, } = this.props
     let text = translations.english['submit button text'];
-    if (language && language !== 'english') {
+    if (language && language !== ENGLISH) {
       text += ` / ${translations[language]['submit button text']}`;
     }
     return text;
@@ -183,9 +179,9 @@ class PlaySentenceFragment extends React.Component {
     // HARDCODED
     let button
     if (responses) {
-      button = <button className="quill-button large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained" onClick={this.handleResponseSubmission} type="button">{this.getSubmitButtonText()}</button>;
     } else {
-      button = <button className="quill-button large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
+      button = <button className="quill-button focus-on-light large primary contained disabled" type="button">{this.getSubmitButtonText()}</button>;
     }
 
     if (!this.choosingSentenceOrFragment()) {

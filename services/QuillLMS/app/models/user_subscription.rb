@@ -2,7 +2,7 @@ class UserSubscription < ActiveRecord::Base
   validates :user_id, :subscription_id, presence: true
   belongs_to :user
   belongs_to :subscription
-  after_commit :send_premium_emails, on: :create
+  after_create :send_premium_emails
 
   def self.create_user_sub_from_school_sub_if_they_do_not_have_that_school_sub(user_id, subscription_id)
       if !UserSubscription.where(user_id: user_id, subscription_id: subscription_id).exists?
@@ -20,8 +20,10 @@ class UserSubscription < ActiveRecord::Base
   def send_premium_emails
     if Rails.env.production? || User.find(user_id).email.match('quill.org')
       if subscription.account_type.downcase != 'teacher trial' && subscription.school_subscriptions.empty?
+        #if subscription&.account_type&.downcase != 'teacher trial' && subscription&.school_subscriptions&.empty?
         PremiumUserSubscriptionEmailWorker.perform_async(user_id)
       elsif subscription.account_type.downcase != 'teacher trial'
+        logger.info("A premium school subscription email is being sent for Subscription #{subscription.id} and User #{user_id}")
         PremiumSchoolSubscriptionEmailWorker.perform_async(user_id)
       end
     end

@@ -23,6 +23,7 @@ import {
   getMultipleChoiceResponseOptionsWithCallback,
   getGradedResponsesWithCallback
 } from '../../actions/responses.js';
+import EditCaretPositioning from '../../libs/EditCaretPositioning'
 
 const RenderSentenceFragments = SentenceFragments
 const C = require('../../constants').default;
@@ -207,10 +208,11 @@ export default class PlayLessonQuestion extends React.Component {
     return 'disabled';
   }
 
-  onChange = (e) => {
+  onChange = (e, element) => {
     const { response, } = this.state
     if (e !== response) {
-      this.setState({ editing: true, response: e, });
+      const caretPosition = EditCaretPositioning.saveSelection(element)
+      this.setState({ editing: true, response: e, }, () => EditCaretPositioning.restoreSelection(element, caretPosition))
     }
   }
 
@@ -246,21 +248,21 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   renderNextQuestionButton = () => {
-    return (<button className="quill-button primary contained large" onClick={this.handleNextQuestionClick} type="button">Next question</button>);
+    return (<button className="quill-button focus-on-light primary contained large" onClick={this.handleNextQuestionClick} type="button">Next question</button>);
   }
 
   renderFinishedQuestionButton = () => {
     const nextF = () => {
       this.setState({ finished: true, });
     };
-    return (<button className="quill-button primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
   }
 
   renderMultipleChoiceButton = () => {
     const nextF = () => {
       this.setState({ multipleChoice: true, });
     };
-    return (<button className="quill-button primary contained large" onClick={nextF} type="button">Next</button>);
+    return (<button className="quill-button focus-on-light primary contained large" onClick={nextF} type="button">Next</button>);
   }
 
   finishQuestion = () => {
@@ -271,43 +273,52 @@ export default class PlayLessonQuestion extends React.Component {
     return hashToCollection(conceptResults).filter(cr => !cr.correct);
   }
 
-  getNegativeConceptResultForResponse(conceptResults) {
-    const negCRs = this.getNegativeConceptResultsForResponse(conceptResults);
-    return negCRs.length > 0 ? negCRs[0] : undefined;
-  }
-
   renderConceptExplanation = () => {
     const { question, conceptsFeedback, } = this.props
-
     const latestAttempt:{response: Response}|undefined = getLatestAttempt(question.attempts);
-    if (latestAttempt && latestAttempt.response && !latestAttempt.response.optimal ) {
+
+    // we do not want to show concept feedback if a response is optimal
+    if (!latestAttempt || !latestAttempt.response || latestAttempt.response.optimal) { return }
+
+    if (latestAttempt.response.author) {
+      // we only want to show response-specific (ie, concept-result-specific) concept feedback if the response is matched
+
       if (latestAttempt.response.conceptResults) {
-          const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.conceptResults);
-          if (conceptID) {
-            const data = conceptsFeedback.data[conceptID.conceptUID];
-            if (data) {
-              return <ConceptExplanation {...data} />;
-            }
-          }
-      } else if (latestAttempt.response.concept_results) {
-        const conceptID = this.getNegativeConceptResultForResponse(latestAttempt.response.concept_results);
-        if (conceptID) {
-          const data = conceptsFeedback.data[conceptID.conceptUID];
-          if (data) {
-            return <ConceptExplanation {...data} />;
-          }
+        const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.conceptResults);
+        const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
+          return conceptsFeedback.data[c.conceptUID]
+        })
+        if (negativeConceptWithConceptFeedback) {
+          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
         }
-      } else if (this.getQuestion() && this.getQuestion().modelConceptUID) {
+      }
+
+      if (latestAttempt.response.concept_results) {
+        const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.concept_results);
+        const negativeConceptWithConceptFeedback = negativeConcepts.find(c => {
+          return conceptsFeedback.data[c.conceptUID]
+        })
+        if (negativeConceptWithConceptFeedback) {
+          return <ConceptExplanation {...conceptsFeedback.data[negativeConceptWithConceptFeedback.conceptUID]} />
+        }
+      }
+
+    } else {
+      // we only want to show question-level concept feedback if the response is unmatched
+      if (this.getQuestion() && this.getQuestion().modelConceptUID) {
         const dataF = conceptsFeedback.data[this.getQuestion().modelConceptUID];
         if (dataF) {
           return <ConceptExplanation {...dataF} />;
         }
-      } else if (this.getQuestion().conceptID) {
+      }
+
+      if (this.getQuestion().conceptID) {
         const data = conceptsFeedback.data[this.getQuestion().conceptID];
         if (data) {
           return <ConceptExplanation {...data} />;
         }
       }
+
     }
   }
 
@@ -316,13 +327,14 @@ export default class PlayLessonQuestion extends React.Component {
   }
 
   render() {
-    const { question, } = this.props
+    const { question, isAdmin, } = this.props
     const { response, finished, multipleChoice, multipleChoiceCorrect, multipleChoiceResponseOptions, } = this.state
     const questionID = question.key;
     if (question) {
       const sharedProps = {
         value: response,
         question: question,
+        isAdmin: isAdmin,
         responses: this.getResponses(),
         getResponse: this.getResponse2,
         feedback: this.renderFeedback(),

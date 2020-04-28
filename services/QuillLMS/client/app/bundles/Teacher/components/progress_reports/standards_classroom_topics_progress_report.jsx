@@ -1,20 +1,16 @@
-"use strict";
 import React from 'react'
 import ProgressReport from './progress_report.jsx'
 
+export default class extends React.Component {
+  constructor(props) {
+    super(props)
 
-export default  React.createClass({
-  propTypes: {
-    sourceUrl: React.PropTypes.string.isRequired
-  },
-
-  getInitialState: function() {
-    return {
+    this.state = {
       classroom: {}
     };
-  },
+  }
 
-  columnDefinitions: function() {
+  columnDefinitions = () => {
     return [
       {
         name: 'Standard Level',
@@ -49,7 +45,7 @@ export default  React.createClass({
         }
       },
       {
-        name: 'Not Yet Proficient',
+        name: 'Not yet proficient',
         field: 'not_proficient_student_count',
         sortByField: 'not_proficient_student_count',
         className: 'not-proficient-column',
@@ -64,9 +60,9 @@ export default  React.createClass({
         className: 'activities-column'
       }
     ];
-  },
+  };
 
-  sortDefinitions: function() {
+  sortDefinitions = () => {
     return {
       config: {
         name: 'natural',
@@ -80,15 +76,15 @@ export default  React.createClass({
         direction: 'asc'
       }
     };
-  },
+  };
 
-  onFetchSuccess: function(responseData) {
+  onFetchSuccess = (responseData) => {
     this.setState({
       classroom: responseData.classroom
     });
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <ProgressReport
         columnDefinitions={this.columnDefinitions}
@@ -104,5 +100,4 @@ export default  React.createClass({
       </ProgressReport>
     );
   }
-
-});
+}

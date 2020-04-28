@@ -1,76 +1,61 @@
-'use strict'
-
 import React from 'react'
-import {Router, Route, Link, hashHistory, withRouter} from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import NavBar from './nav_bar.jsx'
 import $ from 'jquery'
 import LoadingSpinner from '../../shared/loading_indicator.jsx'
-require('../../../../../assets/styles/app-variables.scss')
+import StudentReport from './student_report.tsx'
+import ClassReport from './class_report.jsx'
+import QuestionReport from './question_report.jsx'
+import Recommendations from './recommendations.jsx'
 
-const DiagnosticReports = React.createClass({
+class DiagnosticReports extends React.Component {
+  constructor(props) {
+    super(props)
 
-	getInitialState: function() {
-		return ({
-			loading: true,
-			classrooms: null,
-			selectedStudent: null,
-			selectedActivity: {}});
-	},
+    this.state = {
+      loading: true,
+      classrooms: null,
+      selectedStudent: null,
+      selectedActivity: {}
+    };
+  }
 
-	componentDidMount: function() {
+  componentDidMount() {
+    const params = this.parseParams(this.props.location.pathname);
 		// /activity_packs, /not_completed, and /diagnostics are the only report that doesn't require the classroom, unit, etc...
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
 			this.getStudentAndActivityData();
 		}
-		if (this.props.params.studentId) {
-			this.setStudentId(this.props.params.studentId);
+		if (params.studentId) {
+			this.setStudentId(params.studentId);
 		}
-	},
+	}
 
-	componentWillReceiveProps: function(nextProps) {
-		if (nextProps.params && nextProps.params.studentId) {
-			this.setStudentId(nextProps.params.studentId);
+  UNSAFE_componentWillReceiveProps = (nextProps) => {
+    const nextParams = this.parseParams(nextProps.location.pathname)
+		if (nextParams && nextParams.studentId) {
+			this.setStudentId(nextParams.studentId);
 		}
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) === -1) {
-			this.getStudentAndActivityData(nextProps.params);
+			this.getStudentAndActivityData(nextParams);
 		}
-	},
+	};
 
-	componentWillUnmount: function() {
-		let ajax = this.ajax;
-		for (var call in ajax) {
-			if (ajax.hasOwnProperty(call)) {
-				call.abort();
-			}
-		}
-	},
+  parseParams = (pathname) => {
+    const activityIdChunk = (pathname.match(/\/a\/[^\/]*/) || [])[0]
+    const activityId = activityIdChunk ? activityIdChunk.replace('/a/', '') : null
+    const unitIdChunk = (pathname.match(/\/u\/[^\/]*/) || [])[0]
+    const unitId = unitIdChunk ? unitIdChunk.replace('/u/', '') : null
+    const classroomIdChunk = (pathname.match(/\/c\/[^\/]*/) || [])[0]
+    const classroomId = classroomIdChunk ? classroomIdChunk.replace('/c/', '') : null
+    const studentIdChunk = (pathname.match(/\/student_report\/[^\/]*/) || [])[0]
+    const studentId = studentIdChunk ? studentIdChunk.replace('/student_report/', '') : null
+    return { activityId, unitId, classroomId, studentId, }
+  }
 
-	setStudentId: function(studentId){
-		this.setState({selectedStudentId: Number(studentId)});
-	},
-
-	getStudentAndActivityData: function(params) {
-		this.getClassroomsWithStudents(params);
-		this.getActivityData(params);
-	},
-
-
-	getClassroomsWithStudents: function(params) {
-		this.ajax = {};
-		let ajax = this.ajax;
-		let that = this;
-		const p = params || this.props.params;
-		ajax.getClassroomsWithStudents = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
-			that.setState({
-				classrooms: data,
-				loading: false
-			});
-		});
-	},
-
-	getActivityData: function (params) {
-		let that = this;
-		const p = params || this.props.params;
+  getActivityData = (params) => {
+		const p = params || this.parseParams(this.props.location.pathname);
+    const that = this
 		this.ajax.getActivityData = $.get(`/api/v1/activities/${p.activityId}.json`, function(data) {
       if (data) {
         that.setState({
@@ -78,52 +63,73 @@ const DiagnosticReports = React.createClass({
         });
       }
 		});
-	},
+	};
 
-	changeStudent: function(student) {
+  getClassroomsWithStudents = (params) => {
+		this.ajax = {};
+		let ajax = this.ajax;
+    const that = this
+    const p = params || this.parseParams(this.props.location.pathname);
+		ajax.getClassroomsWithStudents = $.get(`/teachers/progress_reports/classrooms_with_students/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}`, function(data) {
+			that.setState({
+				classrooms: data,
+				loading: false
+			});
+		});
+	};
+
+  getStudentAndActivityData = (params) => {
+		this.getClassroomsWithStudents(params);
+		this.getActivityData(params);
+	};
+
+  setStudentId = (studentId) => {
+		this.setState({selectedStudentId: Number(studentId)});
+	};
+
+  changeClassroom = (classroom) => {
+		this.setState({
+			selectedStudentId: null,
+			students: classroom.students
+		});
+    const p = this.parseParams(this.props.location.pathname);
+		let report;
+		if (this.props.location.pathname.includes('student_report')) {
+			report = 'student_report';
+		}
+		else {
+			let reportBeginningIndex = window.location.hash.lastIndexOf('/');
+			// get report name without hash history junk
+			report = window.location.hash.substring(reportBeginningIndex + 1).split('?').shift()
+		}
+		this.props.history.push(`/u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
+	};
+
+  changeReport = (reportName) => {
+    const p = this.parseParams(this.props.location.pathname);
+		this.props.history.push(`/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
+	};
+
+  changeStudent = (student) => {
 		this.setState({selectedStudentId: student})
-		const p = this.props.params;
-		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
-	},
+    const p = this.parseParams(this.props.location.pathname);
+		this.props.history.push(`/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
+	};
 
-	findClassroomById: function(id) {
+  findClassroomById = (id) => {
 		return this.props.classrooms
 			? this.props.classrooms.find((c) => c.id === id)
 			: null
-	},
+	};
 
-
-
-	changeClassroom: function(classroom) {
-			this.setState({
-				selectedStudentId: null,
-				students: classroom.students
-			});
-			const p = this.props.params;
-			let report;
-			if (this.props.location.pathname.includes('student_report')) {
-				report = 'student_report';
-			}
-			else {
-				let reportBeginningIndex = window.location.hash.lastIndexOf('/');
-				// get report name without hash history junk
-				report = window.location.hash.substring(reportBeginningIndex + 1).split('?').shift()
-			}
-			this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${classroom.id}/${report}`)
-	},
-
-	changeReport: function(reportName) {
-		const p = this.props.params;
-		this.props.router.push(`u/${p.unitId}/a/${p.activityId}/c/${p.classroomId || 'classroom'}/${reportName}`)
-	},
-
-	showStudentDropdown: function(){
+  showStudentDropdown = () => {
 		const currPath = this.props.location.pathname;
 		// we only want to show the student dropdown if the route includes student report
 		return currPath.includes('student_report')
-	},
+	};
 
-	render: function() {
+  render() {
+    const params = this.parseParams(this.props.location.pathname);
 		// we don't want to render a navbar for the activity packs, not_completed, or diagnostics
 		if (['/activity_packs', '/not_completed', '/diagnostics'].indexOf(this.props.location.pathname) !== -1) {
 			return (
@@ -139,19 +145,24 @@ const DiagnosticReports = React.createClass({
       classrooms={this.state.classrooms}
       dropdownCallback={this.changeClassroom}
       key={'key'}
-      params={this.props.params}
+      params={params}
       selectedActivity={this.state.selectedActivity}
-      selectedStudentId={this.props.params.studentId}
+      selectedStudentId={params.studentId}
       showStudentDropdown={this.showStudentDropdown()}
       studentDropdownCallback={this.changeStudent}
       students={this.state.students}
     />
     {this.props.children}
+    <Switch>
+      <Route component={routerProps => <StudentReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/student_report/:studentId' />
+      <Route component={routerProps => <Recommendations params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/recommendations' />
+      <Route component={routerProps => <QuestionReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/questions' />
+      <Route component={routerProps => <ClassReport params={params} {...routerProps} />} path='/u/:unitId/a/:activityId/c/:classroomId/students' />
+    </Switch>
   </div>
 			);
 		}
 	}
+}
 
-});
-
-export default withRouter(DiagnosticReports)
+export default DiagnosticReports

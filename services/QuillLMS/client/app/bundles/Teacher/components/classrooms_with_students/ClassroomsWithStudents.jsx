@@ -4,18 +4,18 @@ import EditStudentsButton from './EditStudentsButton.jsx';
 import getParameterByName from '../modules/get_parameter_by_name.js';
 
 export default class ClassroomsWithStudents extends React.Component {
-
-  constructor() {
-    super();
-    this.ajaxData = this.ajaxData.bind(this);
-    this.classroomUpdates = this.classroomUpdates.bind(this);
+  ajaxData = () => {
+    const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
+    if (this.props.createOrEdit === 'create') {
+      data.create = true,
+      data.unit_template_id = getParameterByName('unit_template_id');
+      data.name = this.props.unitName,
+			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
+    }
+    return data;
   }
 
-  resetPage() {
-    window.location = '/teachers/classrooms/lesson_planner';
-  }
-
-  classroomUpdates() {
+  classroomUpdates = () => {
     const classrooms_data = [];
     let classroomsWithNoAssignedStudents = 0;
     this.props.classrooms.forEach((classy) => {
@@ -46,18 +46,7 @@ export default class ClassroomsWithStudents extends React.Component {
     }
 	);
     return classrooms_data;
-  }
-
-  ajaxData = () => {
-    const data = { classrooms: JSON.stringify(this.classroomUpdates()), };
-    if (this.props.createOrEdit === 'create') {
-      data.create = true,
-      data.unit_template_id = getParameterByName('unit_template_id');
-      data.name = this.props.unitName,
-			data.activities = JSON.stringify(this.props.activityIds.split(',').map(actId => ({ id: actId, due_date: null, })));
-    }
-    return data;
-  }
+  };
 
   createButton() {
     if (!this.props.isSaveButtonEnabled) { return null }
@@ -74,6 +63,14 @@ export default class ClassroomsWithStudents extends React.Component {
     );
   }
 
+  createOrUpdateButton() {
+	 	return this.props.createOrEdit === 'create' ? this.createButton() : this.updateButton();
+  }
+
+  resetPage() {
+    window.location = '/teachers/classrooms/lesson_planner';
+  }
+
   updateButton() {
     return (
       <EditStudentsButton
@@ -86,10 +83,6 @@ export default class ClassroomsWithStudents extends React.Component {
         url={`/teachers/units/${this.props.unitId}/update_classroom_unit_assigned_students`}
       />
     );
-  }
-
-  createOrUpdateButton() {
-	 	return this.props.createOrEdit === 'create' ? this.createButton() : this.updateButton();
   }
 
   render() {
@@ -122,5 +115,4 @@ export default class ClassroomsWithStudents extends React.Component {
       </div>
     );
   }
-
 }

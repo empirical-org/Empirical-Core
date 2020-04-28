@@ -7,6 +7,7 @@
 @import '../../../../app/assets/stylesheets/shared/subnav.scss';
 @import '../../../../app/assets/stylesheets/shared/footer.scss';
 @import '../../../../app/assets/stylesheets/shared/flash.scss';
+@import '../../../../app/assets/stylesheets/shared/covid-banner.scss';
 @import '/notification_bar.scss';
 @import './typography.scss';
 @import './tool-section.scss';
@@ -20,7 +21,7 @@ body {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "adelle-sans", "Helvetica", "Arial", sans-serif;
+  font-family: "adelle-sans", "Arial", sans-serif;
 }
 
 .q-h1, .q-h2 {
@@ -105,6 +106,15 @@ a.q-button {
     font-size: 20px;
     font-weight: bold;
     padding: 8px 33px;
+  }
+  &.cta-home {
+    margin-right: 10px;
+    margin-left: 10px;
+    font-weight: 600;
+  }
+  &.cta-home:hover {
+    color: #ffffff;
+    background-color: #00DFB1;
   }
   &:hover.text-white {
     color: white;

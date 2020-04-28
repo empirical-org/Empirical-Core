@@ -104,13 +104,13 @@ describe SessionsController, type: :controller do
     context 'when user is authenticated' do
       context 'when session post auth redirect present' do
         before do
-          session[:post_auth_redirect] = root_path
+          session[ApplicationController::POST_AUTH_REDIRECT] = root_path
         end
 
         it 'should redirect to the value' do
           post :login_through_ajax, user: { email: user.email, password: "test123" }, format: :json
           expect(response.body).to eq({redirect: root_path}.to_json)
-          expect(session[:post_auth_redirect]).to eq nil
+          expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq nil
         end
       end
 
@@ -194,11 +194,39 @@ describe SessionsController, type: :controller do
   describe '#new' do
     it 'should set the js file, role in session  and post auth redirect in session' do
       session[:role] = "something"
-      session[:post_auth_redirect] = "something else"
+      session[ApplicationController::POST_AUTH_REDIRECT] = "something else"
       get :new, redirect: root_path
       expect(assigns(:js_file)).to eq "login"
       expect(session[:role]).to eq nil
-      expect(session[:post_auth_redirect]).to eq root_path
+      expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq root_path
     end
+  end
+
+  describe '#set post_auth_redirect' do
+    it 'should save the post_auth_redirect param to the session' do
+      url = "/blah"
+      get :set_post_auth_redirect, post_auth_redirect: url
+      expect(session[ApplicationController::POST_AUTH_REDIRECT]).to eq url
+    end
+  end
+
+  describe '#finish_sign_up' do
+    context 'when there is a post auth redirect saved' do
+      it 'should redirect to the post auth redirect and remove it from the session' do
+        url = "/blah"
+        session[ApplicationController::POST_AUTH_REDIRECT] = url
+        get :finish_sign_up
+        expect(response).to redirect_to url
+        expect(session[ApplicationController::POST_AUTH_REDIRECT]).to be nil
+      end
+    end
+
+    context 'when there is no post auth redirect' do
+      it 'should redirect to the profile path' do
+        get :finish_sign_up
+        expect(response).to redirect_to profile_path
+      end
+    end
+
   end
 end

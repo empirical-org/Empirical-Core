@@ -32,12 +32,9 @@ class MassEditContainer extends React.Component {
       massEditSummaryListDisplay: 'none',
       massEditSummaryListButtonText: 'Expand List',
     };
-
-    this.handleMassEditFeedbackTextChange = this.handleMassEditFeedbackTextChange.bind(this);
-    this.updateConceptResults = this.updateConceptResults.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getResponses();
   }
 
@@ -47,7 +44,7 @@ class MassEditContainer extends React.Component {
     }
   }
 
-  getResponses() {
+  getResponses = () => {
     request(
       {
         url: `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
@@ -63,11 +60,23 @@ class MassEditContainer extends React.Component {
       );
   }
 
-  chooseMassEditBoilerplateCategory(e) {
+  boilerplateCategoriesToOptions = () => {
+    return getBoilerplateFeedback().map(category => (
+      <option className="boilerplate-feedback-dropdown-option" key={category.key}>{category.description}</option>
+        ));
+  }
+
+  boilerplateSpecificFeedbackToOptions = (selectedCategory) => {
+    return selectedCategory.children.map(childFeedback => (
+      <option className="boilerplate-feedback-dropdown-option" key={childFeedback.key}>{childFeedback.description}</option>
+        ));
+  }
+
+  chooseMassEditBoilerplateCategory = (e) => {
     this.setState({ selectedMassEditBoilerplateCategory: e.target.value, });
   }
 
-  chooseMassEditSpecificBoilerplateFeedback(e) {
+  chooseMassEditSpecificBoilerplateFeedback = (e) => {
     if (e.target.value === 'Select specific boilerplate feedback') {
       this.setState({ selectedMassEditBoilerplate: '', });
     } else {
@@ -75,26 +84,71 @@ class MassEditContainer extends React.Component {
     }
   }
 
-  clearResponsesFromMassEditArray() {
+  clearResponsesFromMassEditArray = () => {
     this.props.dispatch(massEdit.clearResponsesFromMassEditArray());
     this.goBackToResponses();
   }
 
-  removeResponseFromMassEditArray(responseKey) {
-    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
-  }
-
-  incrementAllResponsesInMassEditArray() {
+  deleteAllResponsesInMassEditArray = () => {
     const selectedResponses = this.props.massEdit.selectedResponses;
-    selectedResponses.forEach(response => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
+    const qid = this.props.params.questionID;
+
+    if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
+      this.props.dispatch(massEditDeleteResponses(selectedResponses, qid));
+      this.clearResponsesFromMassEditArray();
+    }
   }
 
-  goBackToResponses() {
+  displayMessage = () => {
+    if (this.props.display.message || this.props.display.error) {
+      const alert = this.props.display.message || this.props.display.error;
+      window.alert(`${alert}`);
+      this.props.dispatch(clearDisplayMessageAndError());
+    }
+  }
+
+  goBackToResponses = () => {
     const newLocation = window.location.hash.replace('mass-edit', 'responses');
     window.location = newLocation;
   }
 
-  updateResponseFeedbackInMassEditArray() {
+  handleMassEditFeedbackTextChange = value => {
+    this.setState({ massEditFeedback: value, });
+  };
+
+  incrementAllResponsesInMassEditArray = () => {
+    const selectedResponses = this.props.massEdit.selectedResponses;
+    selectedResponses.forEach(response => this.props.dispatch(incrementResponseCount(this.props.questionID, response)));
+  }
+
+  removeResponseFromMassEditArray = (responseKey) => {
+    this.props.dispatch(massEdit.removeResponseFromMassEditArray(responseKey));
+  }
+
+  toggleMassEditSummaryList = () => {
+    let display = 'none';
+    let text = 'Expand List';
+    if (this.state.massEditSummaryListButtonText == 'Expand List') {
+      display = 'block';
+      text = 'Collapse List';
+    }
+    this.setState({
+      massEditSummaryListDisplay: display,
+      massEditSummaryListButtonText: text,
+    });
+  }
+
+  updateConceptResults = conceptResults => {
+    this.setState({ conceptResults, });
+  };
+
+  updateResponseConceptResultInMassEditArray = () => {
+    const selectedResponses = this.props.massEdit.selectedResponses;
+    const qid = this.props.params.questionID;
+    this.props.dispatch(submitMassEditConceptResults(selectedResponses, this.state.conceptResults, qid));
+  }
+
+  updateResponseFeedbackInMassEditArray = () => {
     const selectedResponses = this.props.massEdit.selectedResponses;
     const feedback = this.state.massEditFeedback;
     const optimal = this.refs.massEditOptimal.checked || false;
@@ -110,102 +164,7 @@ class MassEditContainer extends React.Component {
     this.props.dispatch(submitMassEditFeedback(selectedResponses, payload, qid));
   }
 
-  displayMessage() {
-    if (this.props.display.message || this.props.display.error) {
-      const alert = this.props.display.message || this.props.display.error;
-      window.alert(`${alert}`);
-      this.props.dispatch(clearDisplayMessageAndError());
-    }
-  }
-
-  updateConceptResults(conceptResults) {
-    this.setState({ conceptResults, });
-  }
-
-  updateResponseConceptResultInMassEditArray() {
-    const selectedResponses = this.props.massEdit.selectedResponses;
-    const qid = this.props.params.questionID;
-    this.props.dispatch(submitMassEditConceptResults(selectedResponses, this.state.conceptResults, qid));
-  }
-
-  deleteAllResponsesInMassEditArray() {
-    const selectedResponses = this.props.massEdit.selectedResponses;
-    const qid = this.props.params.questionID;
-
-    if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
-      this.props.dispatch(massEditDeleteResponses(selectedResponses, qid));
-      this.clearResponsesFromMassEditArray();
-    }
-  }
-
-  handleMassEditFeedbackTextChange(value) {
-    this.setState({ massEditFeedback: value, });
-  }
-
-  toggleMassEditSummaryList() {
-    let display = 'none';
-    let text = 'Expand List';
-    if (this.state.massEditSummaryListButtonText == 'Expand List') {
-      display = 'block';
-      text = 'Collapse List';
-    }
-    this.setState({
-      massEditSummaryListDisplay: display,
-      massEditSummaryListButtonText: text,
-    });
-  }
-
-  renderMassEditSummaryListResponse(response) {
-    return (
-      <p><input checked defaultChecked onClick={() => this.removeResponseFromMassEditArray(response)} style={{ marginRight: '0.5em', }} type="checkbox" />{this.state.responses[response].text}</p>
-    );
-  }
-
-  renderMassEditSummaryList() {
-    const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
-    return (<div className="content">{summaryResponses}</div>);
-  }
-
-  boilerplateCategoriesToOptions() {
-    return getBoilerplateFeedback().map(category => (
-      <option className="boilerplate-feedback-dropdown-option" key={category.key}>{category.description}</option>
-        ));
-  }
-
-  boilerplateSpecificFeedbackToOptions(selectedCategory) {
-    return selectedCategory.children.map(childFeedback => (
-      <option className="boilerplate-feedback-dropdown-option" key={childFeedback.key}>{childFeedback.description}</option>
-        ));
-  }
-
-  renderBoilerplateCategoryDropdown(onChangeEvent) {
-    const style = { marginRight: '20px', };
-    return (
-      <span className="select" style={style}>
-        <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent}>
-          <option className="boilerplate-feedback-dropdown-option">Select boilerplate feedback category</option>
-          {this.boilerplateCategoriesToOptions()}
-        </select>
-      </span>
-    );
-  }
-
-  renderBoilerplateCategoryOptionsDropdown(onChangeEvent, description) {
-    const selectedCategory = _.find(getBoilerplateFeedback(), { description, });
-    if (selectedCategory) {
-      return (
-        <span className="select">
-          <select className="boilerplate-feedback-dropdown" onChange={onChangeEvent} ref="boilerplate">
-            <option className="boilerplate-feedback-dropdown-option">Select specific boilerplate feedback</option>
-            {this.boilerplateSpecificFeedbackToOptions(selectedCategory)}
-          </select>
-        </span>
-      );
-    }
-    return (<span />);
-  }
-
-  renderMassEditForm() {
+  renderMassEditForm = () => {
     const selectedResponses = this.props.massEdit.selectedResponses;
     return (
       <div>
@@ -230,7 +189,7 @@ class MassEditContainer extends React.Component {
           </header>
           <div className="card-content">
             <div className="content">
-              <h3>FEEDBACK <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All other feedback associated with selected responses will be overwritten ⚠️️</span></h3>
+              <h3>FEEDBACK</h3>
               <TextEditor
                 boilerplate={this.state.selectedMassEditBoilerplate}
                 ContentState={ContentState}
@@ -240,22 +199,13 @@ class MassEditContainer extends React.Component {
               />
             </div>
             <div className="content">
-              <h4>Boilerplate Feedback</h4>
-              <div className="boilerplate-feedback-dropdown-container">
-                {this.renderBoilerplateCategoryDropdown(this.chooseMassEditBoilerplateCategory)}
-                {this.renderBoilerplateCategoryOptionsDropdown(this.chooseMassEditSpecificBoilerplateFeedback, this.state.selectedMassEditBoilerplateCategory)}
-              </div>
-            </div>
-            <div className="content">
               <label className="checkbox">
-                <h3><input defaultChecked={false} ref="massEditOptimal" type="checkbox" /> OPTIMAL <span style={{ fontSize: '0.7em', marginLeft: '0.75em', }}>⚠️️ All selected responses will be marked with this optimality ⚠️️</span></h3>
+                <h3><input defaultChecked={false} ref="massEditOptimal" type="checkbox" /> OPTIMAL</h3>
               </label>
             </div>
           </div>
           <footer className="card-footer">
-            {/* <a className="card-footer-item" onClick={() => this.incrementAllResponsesInMassEditArray()}>Increment</a> */}
             <a className="card-footer-item" onClick={() => this.updateResponseFeedbackInMassEditArray()}>Update Feedback</a>
-            {/* <a className="card-footer-item" onClick={() => alert('This has not been implemented yet.')}>Rematch</a>  */}
           </footer>
         </div>
         <div className="card is-fullwidth has-bottom-margin has-top-margin">
@@ -273,6 +223,17 @@ class MassEditContainer extends React.Component {
           </footer>
         </div>
       </div>
+    );
+  }
+
+  renderMassEditSummaryList = () => {
+    const summaryResponses = this.props.massEdit.selectedResponses.map(response => this.renderMassEditSummaryListResponse(response));
+    return (<div className="content">{summaryResponses}</div>);
+  }
+
+  renderMassEditSummaryListResponse = (response) => {
+    return (
+      <p><input checked defaultChecked onClick={() => this.removeResponseFromMassEditArray(response)} style={{ marginRight: '0.5em', }} type="checkbox" />{this.state.responses[response].text}</p>
     );
   }
 

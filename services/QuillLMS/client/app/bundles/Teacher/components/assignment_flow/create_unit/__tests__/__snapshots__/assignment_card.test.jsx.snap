@@ -19,19 +19,30 @@ exports[`AssignmentCard component should render 1`] = `
         Starter Diagnostic
       </h2>
     </div>
-    <a
-      className="quill-button fun outlined secondary"
-      href="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
-      target="_blank"
+    <div
+      className="button-container"
     >
-      Preview
-    </a>
+      <a
+        className="quill-button fun outlined secondary"
+        href="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
+        target="_blank"
+      >
+        Preview
+      </a>
+      <a
+        className="quill-button fun contained primary"
+        target="_blank"
+      >
+        Select
+      </a>
+    </div>
   </div>
   <div
     className="body"
   >
     <div
       className="body-element"
+      key="What"
     >
       <p
         className="key"
@@ -46,6 +57,7 @@ exports[`AssignmentCard component should render 1`] = `
     </div>
     <div
       className="body-element"
+      key="When"
     >
       <p
         className="key"

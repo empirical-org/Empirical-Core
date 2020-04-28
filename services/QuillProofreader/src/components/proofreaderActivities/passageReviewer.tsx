@@ -3,8 +3,16 @@ import * as React from 'react';
 import { Concept } from '../../interfaces/concepts'
 import Edit from './edit'
 
-// import * as jsdiff from 'diff'
-// import * as _ from 'underscore'
+import {
+  UNNECESSARY_SPACE,
+  MULTIPLE_UNNECESSARY_DELETION,
+  SINGLE_UNNECESSARY_DELETION,
+  MULTIPLE_UNNECESSARY_ADDITION,
+  SINGLE_UNNECESSARY_ADDITION,
+  UNNECESSARY_CHANGE
+} from '../../helpers/determineUnnecessaryEditType'
+
+const unnecessaryArray = [UNNECESSARY_SPACE, MULTIPLE_UNNECESSARY_DELETION, SINGLE_UNNECESSARY_DELETION, MULTIPLE_UNNECESSARY_ADDITION, SINGLE_UNNECESSARY_ADDITION, UNNECESSARY_CHANGE]
 
 interface PassageReviewerProps {
   text: string;
@@ -28,37 +36,43 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
       activeIndex: 0,
       numberOfEdits
     }
-
-    this.next = this.next.bind(this)
-    this.renderFormattedText = this.renderFormattedText.bind(this)
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    this.scrollToActiveIndex()
   }
 
-  next() {
+  next = () => {
     const { activeIndex, numberOfEdits } = this.state
+    const { finishReview, } = this.props
     if (activeIndex + 1 === numberOfEdits) {
-      this.props.finishReview()
+      finishReview()
     } else {
-      this.setState({
-        activeIndex: activeIndex + 1
-      })
-      const el = document.getElementById(String(activeIndex + 1))
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }
+      this.setState(prevState => ({ activeIndex: prevState.activeIndex + 1}), this.scrollToActiveIndex)
+    }
+  }
+
+  back = () => {
+    const { activeIndex, } = this.state
+    if (activeIndex === 0) { return }
+
+    this.setState(prevState => ({ activeIndex: prevState.activeIndex - 1}), this.scrollToActiveIndex)
+  }
+
+  scrollToActiveIndex() {
+    const { activeIndex, } = this.state
+    const el = document.getElementById(String(activeIndex))
+    if (el) {
+      window.scrollTo(0, window.pageYOffset + el.getBoundingClientRect().top - 34)
     }
   }
 
   renderFormattedText() {
     const { text, concepts } = this.props
     const paragraphs = text.split('</p><p>')
-    const punctuationRegex = /^[.,:;]/
     const { activeIndex, numberOfEdits } = this.state
     let index = 0
-    return paragraphs.map((paragraph: string) => {
+    return paragraphs.map((paragraph: string, paragraphIndex: number) => {
       const parts: Array<string|JSX.Element> = paragraph.replace(/<p>|<\/p>/g, '').split(/{|}/g)
       for (let i = 0; i < parts.length; i +=1) {
         if (typeof parts[i] === "string" && parts[i][0] === '+') {
@@ -68,41 +82,42 @@ export default class PassageReviewer extends React.Component<PassageReviewerProp
           const conceptUID = conceptUIDMatch ? conceptUIDMatch[1] : ''
           const negativeMatch = parts[i].match(/\-([^-]+)\|/m)
           const negative = negativeMatch ? negativeMatch[1] : null
-          const concept = this.props.concepts.find(c => c.uid === conceptUID)
+          const concept = concepts.find(c => c.uid === conceptUID)
           const indexToPass = index
           let state = 'correct'
-          if (conceptUID === 'unnecessary') {
-            state = 'unnecessary'
+          if (unnecessaryArray.includes(conceptUID)) {
+            state = conceptUID
           } else if (negative) {
             state = 'incorrect'
           }
           index+=1
           parts[i] = (<Edit
             activeIndex={activeIndex}
+            back={indexToPass ? this.back : null}
             concept={concept}
             displayText={plus}
-            id={`${index}`}
+            id={`${indexToPass}`}
             incorrectText={negative}
             index={indexToPass}
             next={this.next}
             numberOfEdits={numberOfEdits}
             state={state}
           />)
-          if (punctuationRegex.test(parts[i + 1])) {
-            parts[i + 1] = `${parts[i + 1]}`
-          } else {
-            parts[i + 1] = ` ${parts[i + 1]}`
-          }
+          parts[i + 1] = `${parts[i + 1]}`
         }
       }
-      return <p>{parts}</p>
+      return <p key={paragraphIndex}>{parts}</p>
     })
   }
 
   render() {
-    if (this.props.text) {
-      return (<div className="reviewer" >
-        {this.renderFormattedText()}
+    const { text, } = this.props
+
+    if (text) {
+      return (<div className="reviewer-container">
+        <div className="reviewer" >
+          {this.renderFormattedText()}
+        </div>
       </div>)
     } else {
       return <p>No passage</p>

@@ -2,53 +2,79 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import questionActions from '../../actions/questions';
-import {
-  hashToCollection,
-  SortableList
-} from 'quill-component-library/dist/componentLibrary';
-import request from 'request'
+import sentenceFragmentActions from '../../actions/sentenceFragments.ts';
+import { SortableList } from 'quill-component-library/dist/componentLibrary';
 
 class IncorrectSequencesContainer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.deleteSequence = this.deleteSequence.bind(this);
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
-    this.sortCallback = this.sortCallback.bind(this);
+    const questionType = window.location.href.includes('sentence-fragments') ? 'sentenceFragments' : 'questions'
+    const questionTypeLink = questionType === 'sentenceFragments' ? 'sentence-fragments' : 'questions'
+    const actionFile = questionType === 'sentenceFragments' ? sentenceFragmentActions : questionActions
+    const { sentenceFragments } = props
+
+    this.state = {
+      questionType: questionType,
+      actionFile: actionFile,
+      questionTypeLink: questionTypeLink,
+      sentenceFragments: sentenceFragments
+    };
   }
 
-  componentWillMount() {
-    this.props.dispatch(questionActions.getUsedSequences(this.props.params.questionID))
+  UNSAFE_componentWillMount() {
+    const { actionFile } = this.state;
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
+    const type = window.location.href.includes('sentence-fragments') ? 'sentence-fragment' : 'sentence-combining'
+    dispatch(actionFile.getUsedSequences(questionID, type))
   }
 
   getQuestion() {
-    return this.props.questions.data[this.props.params.questionID];
+    const { match, questions } = this.props;
+    const { params } = match;
+    const { data } = questions;
+    const { questionID } = params;
+    return data[questionID];
   }
 
   getSequences() {
     return this.getQuestion().incorrectSequences;
   }
 
-  submitSequenceForm(data, sequence) {
+  submitSequenceForm = (data, sequence) => {
+    const { match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     delete data.conceptResults.null;
+    const { actionFile } = this.state;
     if (sequence) {
-      this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, sequence));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, sequence));
     } else {
-      this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.params.questionID, data));
+      dispatch(actionFile.submitNewIncorrectSequence(questionID, data));
     }
-  }
+  };
 
-  deleteSequence(sequenceID) {
+  deleteSequence = sequenceID => {
+    const { actionFile } = this.state
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
-      this.props.dispatch(questionActions.deleteIncorrectSequence(this.props.params.questionID, sequenceID));
+      dispatch(actionFile.deleteIncorrectSequence(questionID, sequenceID));
     }
-  }
+  };
 
   deleteConceptResult(conceptResultKey, sequenceKey) {
+    const { actionFile } = this.state
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       const data = this.getSequences()[sequenceKey];
       delete data.conceptResults[conceptResultKey];
-      this.props.dispatch(questionActions.submitEditedIncorrectSequence(this.props.params.questionID, data, sequenceKey));
+      dispatch(actionFile.submitEditedIncorrectSequence(questionID, data, sequenceKey));
     }
   }
 
@@ -71,6 +97,10 @@ class IncorrectSequencesContainer extends Component {
   }
 
   renderSequenceList() {
+    const { match } = this.props;
+    const { params, url } = match;
+    const { questionID } = params;
+    const path = url.includes('sentence-fragments') ? 'sentence-fragments' : 'questions'
     const components = _.mapObject(this.getSequences(), (val, key) => (
       <div className="card is-fullwidth has-bottom-margin" key={key}>
         <header className="card-header">
@@ -86,7 +116,7 @@ class IncorrectSequencesContainer extends Component {
           {this.renderConceptResults(val.conceptResults, key)}
         </div>
         <footer className="card-footer">
-          <a className="card-footer-item" href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
+          <a className="card-footer-item" href={`/#/admin/${path}/${questionID}/incorrect-sequences/${key}/edit`}>Edit</a>
           <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
         </footer>
       </div>
@@ -94,32 +124,46 @@ class IncorrectSequencesContainer extends Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  sortCallback(sortInfo) {
+  sortCallback = sortInfo => {
+    const { actionFile } = this.state
+    const { dispatch, match } = this.props;
+    const { params } = match;
+    const { questionID } = params;
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
-    this.props.dispatch(questionActions.updateIncorrectSequences(this.props.params.questionID, newIncorrectSequences));
-  }
+    dispatch(actionFile.updateIncorrectSequences(questionID, newIncorrectSequences));
+  };
 
   render() {
+    const { match } = this.props;
+    const { params, url } = match;
+    const { questionID } = params;
+    const path = url.includes('sentence-fragments') ? 'sentence-fragments' : 'questions'
     return (
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/questions/${this.props.params.questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`/#/admin/${path}/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
-        {this.props.children}
       </div>
     );
   }
 }
 
 function select(props) {
-  return {
-    questions: props.questions,
-    generatedIncorrectSequences: props.generatedIncorrectSequences
-  };
-}
+  let mapState
+  if (window.location.href.includes('sentence-fragments')) {
+    mapState = {
+      questions: props.sentenceFragments
+    };
+  } else {
+    mapState = {
+      questions: props.questions
+    };
+  }
+  return Object.assign(mapState, { generatedIncorrectSequences: props.generatedIncorrectSequences })
+};
 
 export default connect(select)(IncorrectSequencesContainer);
