@@ -1,0 +1,66 @@
+.welcome-page {
+  .header-section {
+    padding: 48px 0px 24px;
+    h1 {
+      font-size: 28px;
+    }
+  }
+  .button-section {
+    padding: 40px 0 96px;
+    background-color: #ededed;
+  }
+  .header-section, .button-section {
+    max-width: 800px;
+    margin: auto;
+  }
+  .steps-section {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    .step {
+      width: 261px;
+      padding: 32px 0px 24px;
+      .step-number {
+        width: 32px;
+        height: 32px;
+        border: solid 1px #979797;
+        background-color: #9e9e9e;
+        border-radius: 16px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+      }
+      p {
+        height: 72px;
+        font-size: 16px;
+        line-height: normal;
+        text-align: center;
+        color: #333333;
+        margin-bottom: 16px;
+      }
+    }
+  }
+  @media (max-width: 832px) {
+    .header-section, .button-section {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .steps-section {
+      flex-direction: column;
+      align-items: center;
+      .step:not(:last-of-type) {
+        padding-bottom: 0px;
+      }
+    }
+  }
+}
