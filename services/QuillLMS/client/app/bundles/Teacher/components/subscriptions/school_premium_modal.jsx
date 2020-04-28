@@ -1,18 +1,14 @@
 import React from 'react';
-import capitalize from 'underscore.string/capitalize';
-import Modal from 'react-bootstrap/lib/Modal';
 
-export default class extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <Modal {...this.props} dialogClassName="school-premium-modal" onHide={this.props.hideModal} restoreFocus show={this.props.show}>
-        <Modal.Body>
-          <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={this.props.hideModal} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} />
+export default function({ hideModal, purchaseSchoolPremium, show }) {
+  if(!show) {
+    return <span />
+  } else {
+    return(
+      <div className="school-premium-modal">
+        <div className="modal-background" />
+        <div className="modal-content">
+          <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={hideModal} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} />
           <div className="pricing-info text-center">
             <div className="current-year">
               <h1>Quill School Premium</h1>
@@ -24,7 +20,7 @@ export default class extends React.Component {
             <h3>How would you like to renew your School’s <br />Premium subscription?</h3>
             <div className="flex-row space-between">
               <a className="q-button bg-quillgreen text-white" href="https://quillpremium.wufoo.com/forms/quill-premium-quote">Email Me a Quote</a>
-              <button className="q-button bg-quillgreen text-white" onClick={this.props.purchaseSchoolPremium}>Pay with Credit Card</button>
+              <button className="q-button bg-quillgreen text-white" onClick={purchaseSchoolPremium} type="submit">Pay with Credit Card</button>
             </div>
           </div>
           <div className="not-the-purchaser-section">
@@ -44,8 +40,8 @@ export default class extends React.Component {
               </p>
             </div>
           </div>
-        </Modal.Body>
-      </Modal>
-    );
+        </div>
+      </div>
+    )
   }
 }

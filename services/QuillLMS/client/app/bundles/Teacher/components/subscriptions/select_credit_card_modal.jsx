@@ -78,7 +78,7 @@ export default class extends React.Component {
   render() {
     const { price, show, type } = this.props
     if(!show) {
-      return <span/>
+      return <span />
     } else {
       return (
         <div className="select-credit-card-modal">

@@ -239,7 +239,7 @@
   }
   .modal-content {
     top: 30%;
-    left: 50%;
+    left: 49%;
     position: fixed;
     transform: translate(-50%, -50%);
     border-radius: 13px;
@@ -310,8 +310,8 @@
   }
   .fas{
     padding-right: 15px;
-font-size: 14px;
-color: #875a12;
+    font-size: 14px;
+    color: #875a12;
   }
   .react-bootstrap-close {
     height: 17px;
@@ -321,6 +321,18 @@ color: #875a12;
   .modal-content {
     min-height: 620px;
     background-color: #fafafa;
+    position: fixed;
+    left: 35%;
+    top: 5%;
+    z-index: 100;
+    padding: 20px 0px 20px 0px;
+    width: 460px;
+  }
+  img:hover {
+    cursor: pointer;
+  }
+  html {
+    overflow: hidden;
   }
   .pricing-info {
     padding-top: 33px;
