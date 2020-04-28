@@ -8,7 +8,6 @@ from collections import namedtuple
 from spacy.tokens.doc import Doc
 from spacy.tokens.token import Token
 
-
 BASE_SPACY_MODEL = "en_core_web_sm"
 
 # Tag, part-of-speech and dependency constants
