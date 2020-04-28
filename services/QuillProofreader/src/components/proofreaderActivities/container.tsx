@@ -94,7 +94,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     constructor(props: any) {
       super(props);
 
-      const { currentActivity, } = props.proofreaderActivities
+      const { proofreaderActivities, admin, } = props
+
+      const { currentActivity, } = proofreaderActivities
 
       const firebaseSessionID = getParameterByName('student', window.location.href)
 
@@ -112,7 +114,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showReviewModal: false,
         showResetModal: false,
         showFollowupModal: false,
-        showWelcomePage: true,
+        showWelcomePage: !admin,
         numberOfResets: 0,
         loadingFirebaseSession: !!firebaseSessionID,
         firebaseSessionID,

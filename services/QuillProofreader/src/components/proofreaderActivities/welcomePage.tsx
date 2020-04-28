@@ -7,7 +7,7 @@ const practiceExampleSrc = `${process.env.QUILL_CDN_URL}/images/illustrations/pr
 const WelcomePage = ({onNextClick}) => {
   return (<div className="welcome-page">
     <div className="header-section">
-      <h1>Welcome to Quill Proofreader</h1>
+      <h1>Welcome to Quill Proofreader!</h1>
     </div>
     <div className="steps-section">
       <div className="step">
