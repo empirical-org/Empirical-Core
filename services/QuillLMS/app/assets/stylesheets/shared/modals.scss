@@ -244,14 +244,28 @@
     margin: 39 0px;
   }
 }
+
 .premium-confirmation {
   text-align: center;
   .modal-content {
-    background-image: url("https://assets.quill.org/images/illustrations/teacher-premium-modal.png");
+    padding: 32px;
+    margin-bottom: 32px;
+    background-image: url(https://assets.quill.org/images/illustrations/teacher-premium-modal.png);
     background-repeat: no-repeat;
     max-height: 628px;
-    max-width: 500px;
-    width: 100%;
+    max-width: 470px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    top: 35%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    border-radius: 13px;
+    z-index: 100;
+  }
+  img:hover {
+    cursor: pointer;
   }
   h1 {
     margin-top: 229px;
@@ -259,18 +273,20 @@
     margin-bottom: 12px;
     font-weight: 600;
   }
-  h2 {
+  #subscription-type {
     font-size: 18px;
+    font-weight: 100 !important;
   }
   p {
     font-size: 16px;
     margin-bottom: 40px;
 	  line-height: 1.75;
   }
-  a.cta-button {
-    padding: 12px 36px;
+  #view-premium-reports-button {
+    padding: 10px 36px;
     font-size: 14px;
     margin-top: 40px;
+    margin-right: 0px;
   }
 }
 
