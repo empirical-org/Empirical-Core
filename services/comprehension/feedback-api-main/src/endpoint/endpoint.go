@@ -153,7 +153,6 @@ func recordFeedback(incoming_params [] byte, feedback APIResponse) {
 type APIRequest struct {
 	Entry string `json:"entry"`
 	Prompt_id int `json:"prompt_id"`
-	Prompt_text string `json:"prompt_text"`
 	Session_id string `json:"session_id"`
 	Attempt int `json:"attempt"`
 }
