@@ -8,10 +8,13 @@
 @import "~bulma/bulma.sass";
 @import "~quill-component-library/src/styles/styles.scss";
 
+body, button, input, select, textarea, {
+  font-family: adelle-sans,Arial,sans-serif;
+}
+
 .ant-layout {
   height: 100vw;
   background-color: #ededed;
-  font-family: adelle-sans,Arial,sans-serif;
 }
 
 button {
