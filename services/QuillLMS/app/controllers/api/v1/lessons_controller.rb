@@ -28,6 +28,14 @@ class Api::V1::LessonsController < Api::ApiController
     render(plain: 'OK')
   end
 
+  def add_question
+    if @lesson.add_question(params[:question])
+      render(json: @lesson.as_json)
+    else
+      render :json => { :errors => @lesson.errors.full_messages }, :status => 404
+    end
+  end
+
   private def lesson_type
     @lesson_type = params[:lesson_type]
   end
