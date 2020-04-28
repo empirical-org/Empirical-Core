@@ -1,23 +1,21 @@
 import * as React from 'react'
+import ContentEditable from 'react-contenteditable';
 
 import { WordObject } from '../../interfaces/proofreaderActivities'
 
-type EditInputProps = WordObject & { handleWordChange: Function }
+type EditInputProps = WordObject & { onWordChange: Function, numberOfResets: number }
 
 export default class EditInput extends React.Component<EditInputProps, {}> {
-  constructor(props: EditInputProps) {
-    super(props)
-
-    this.handleWordChange = this.handleWordChange.bind(this)
+  handleWordChange = (e: any) => {
+    const { wordIndex, onWordChange } = this.props
+    const stripHTML = e.target.value.replace(/<\/?[^>]+(>|$)/g, '').replace(/&nbsp;/g, ' ')
+    onWordChange(stripHTML, wordIndex, this.editInput)
   }
 
-  handleWordChange(e: any) {
-    const { wordIndex, handleWordChange } = this.props
-    handleWordChange(e.target.value, wordIndex)
-  }
+  setEditInputRef = node => this.editInput = node
 
   render() {
-    const { currentText, originalText, underlined, wordIndex, paragraphIndex } = this.props
+    const { currentText, originalText, underlined, wordIndex, paragraphIndex, numberOfResets, } = this.props
     let className = 'edit-input'
     if (underlined ) {
       className += ' underlined'
@@ -25,14 +23,16 @@ export default class EditInput extends React.Component<EditInputProps, {}> {
     if (currentText !== originalText) {
       className += ' bolded'
     }
-    const width = (currentText.length * 10) + 3
-    return (<input
+    const key = `${paragraphIndex}-${wordIndex}-${numberOfResets}`
+    return (<ContentEditable
       className={className}
-      key={`${paragraphIndex}-${wordIndex}`}
+      data-gramm={false}
+      html={currentText}
+      innerRef={this.setEditInputRef}
+      key={key}
       onChange={this.handleWordChange}
       spellCheck={false}
-      style={{width: `${width}px`}}
-      value={currentText}
+      tagName="span"
     />)
   }
 }
