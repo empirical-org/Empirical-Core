@@ -238,10 +238,20 @@
     }
   }
   .modal-content {
+    top: 30%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    border-radius: 13px;
+    z-index: 100;
     max-height: 476px;
+    width: 460px;
   }
   h2 {
     margin: 39 0px;
+  }
+  img:hover {
+    cursor: pointer;
   }
 }
 
