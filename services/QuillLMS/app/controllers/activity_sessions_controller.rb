@@ -16,6 +16,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def result
+    allow_iframe
     if session[:partner_session]
       @partner_name = session[:partner_session]["partner_name"]
       @partner_session_id = session[:partner_session]["session_id"]
@@ -118,6 +119,10 @@ class ActivitySessionsController < ApplicationController
         "integrations"
       end
     end
+  end
+
+  def allow_iframe
+    response.headers.delete "X-Frame-Options"
   end
 
 end

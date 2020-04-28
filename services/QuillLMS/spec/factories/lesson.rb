@@ -2,6 +2,7 @@ FactoryBot.define do
   data = {
     flag: "archived",
     introURL: "",
+    questionType: "questions",
     name: "Mr. Scibienski 1",
     questions: [{
       key: "-KDvcYlMzXMGe2pZFkoe",

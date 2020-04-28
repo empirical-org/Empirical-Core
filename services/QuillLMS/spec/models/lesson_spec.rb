@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Lesson, type: :model do
   let(:lesson) { create(:lesson) }
+  let(:question) { create(:question)}
 
   describe '#valid?' do
     it 'should be valid from the factory' do
@@ -43,6 +44,29 @@ RSpec.describe Lesson, type: :model do
   describe '#as_json' do
     it 'should just be the data attribute' do
       expect(lesson.as_json).to eq(lesson.data)
+    end
+  end
+
+  describe '#add_question' do
+    it 'should add a question to the lesson' do
+      old_length = lesson.data["questions"].length
+      question_obj = {"key": question.uid, "questionType": "questions"}
+      lesson.add_question(question_obj)
+      expect(lesson.data["questions"].length).to eq(old_length+1)
+      expect(lesson.data["questions"][-1][:key]).to eq(question.uid)
+      expect(lesson.data["questions"][-1][:questionType]).to eq("questions")
+    end
+
+    it 'should throw error if the question does not exist' do
+      question_obj = {"key": "fakeid", "questionType": "questions"}
+      lesson.add_question(question_obj)
+      expect(lesson.errors[:question]).to include('Question fakeid does not exist.')
+    end
+
+    it 'should throw error if the question type does not match' do
+      question_obj = {"key": question.uid, "questionType": "faketype"}
+      lesson.add_question(question_obj)
+      expect(lesson.errors[:question]).to include("The question type faketype does not match the lesson's question type: questions")
     end
   end
 end

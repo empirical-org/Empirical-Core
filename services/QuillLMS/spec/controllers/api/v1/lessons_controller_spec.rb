@@ -3,15 +3,16 @@ require 'rails_helper'
 
 describe Api::V1::LessonsController, type: :controller do
   let!(:lesson) { create(:lesson) }
+  let!(:question) { create(:question) }
 
   describe "#index" do
     it "should return a list of Lessons" do
-      get :index, lesson_type: lesson.lesson_type 
+      get :index, lesson_type: lesson.lesson_type
       expect(JSON.parse(response.body).keys.length).to eq(1)
     end
 
     it "should include the response from the db" do
-      get :index, lesson_type: lesson.lesson_type 
+      get :index, lesson_type: lesson.lesson_type
       expect(JSON.parse(response.body).keys.first).to eq(lesson.uid)
     end
   end
@@ -52,6 +53,22 @@ describe Api::V1::LessonsController, type: :controller do
       get :update, lesson_type: lesson.lesson_type, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
+    end
+  end
+
+  describe "#add_question" do
+    it "should add a question to the existing record" do
+      data = {"key" => question.uid, "questionType" => "questions"}
+      put :add_question, lesson_type: lesson.lesson_type, id: lesson.uid, question: data
+      lesson.reload
+      expect(lesson.data["questions"]).to include(data)
+    end
+
+    it "should return a 404 if the requested Question is not found" do
+      data = {"question" => {"key" => "notarealID", "questionType" => "question"}}
+      put :add_question, lesson_type: lesson.lesson_type, id: lesson.uid, question: data
+      expect(response.status).to eq(404)
+      expect(response.body).to include("does not exist")
     end
   end
 end
