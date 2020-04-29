@@ -36,9 +36,6 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  # this blog post needs to be redirected
-  get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
-
   resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
     collection do
       get '/topic/press', to: redirect('/press')
