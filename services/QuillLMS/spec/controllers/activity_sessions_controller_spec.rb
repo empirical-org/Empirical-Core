@@ -40,11 +40,6 @@ describe ActivitySessionsController, type: :controller do
       expect(assigns(:classroom_id)).to eq activity_session.classroom_unit.classroom_id
     end
 
-    it 'should allow iFrames for this endpoint' do
-      get :result, uid: activity_session.uid
-      expect(response.headers).not_to include('X-Frame-Options')
-    end
-
     it 'shouldnt error unfound sessions' do
       get :result, uid: 923123213123123123
 

@@ -29,7 +29,6 @@ describe BlogPostsController, type: :controller do
 
   describe '#show' do
     let(:blog_post) { create(:blog_post) }
-    let(:redirected_post) { create(:blog_post) }
     let(:three_most_recent_posts) { create_list(:blog_post, 3) }
 
     it 'should return a 404 if no such post found' do
@@ -69,13 +68,6 @@ describe BlogPostsController, type: :controller do
       blog_post = create(:blog_post, subtitle: nil)
       get :show, slug: blog_post.slug
       expect(assigns(:description)).to eq(blog_post.title)
-    end
-
-    it 'should redirect the blog post if post is in redirect list' do
-      redirected_post.slug = "teacher-toolbox-setting-up-remote-routines-with-quill"
-      redirected_post.save!
-      get :show, slug: '4-tips-to-maximize-remote-learning-with-quill'
-      expect(assigns(:blog_post)).to eq(redirected_post)
     end
   end
 
