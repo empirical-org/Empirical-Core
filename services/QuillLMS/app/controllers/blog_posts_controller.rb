@@ -4,6 +4,8 @@ class BlogPostsController < ApplicationController
 
   skip_before_action :stick_to_leader_db, only: [:index, :show]
 
+  SLUGS_TO_REDIRECT = { "4-tips-to-maximize-remote-learning-with-quill": "teacher-toolbox-setting-up-remote-routines-with-quill"}
+
   def index
     topic_names = BlogPost::TOPICS
     @topics = []
@@ -25,7 +27,7 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    find_by_hash = { slug: params[:slug] }
+    find_by_hash = { slug: filter_slug(params[:slug]) }
     find_by_hash[:draft] = false unless @role == 'staff'
     @blog_post = BlogPost.find_by!(find_by_hash)
     @topic = @blog_post.topic
@@ -82,5 +84,12 @@ class BlogPostsController < ApplicationController
 
   def set_role
     @role = current_user ? current_user.role : nil
+  end
+
+  def filter_slug(slug)
+    if SLUGS_TO_REDIRECT.keys.include? slug.to_sym
+      return SLUGS_TO_REDIRECT[slug.to_sym]
+    end
+    return slug
   end
 end
