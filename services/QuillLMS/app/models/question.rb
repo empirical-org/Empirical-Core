@@ -6,7 +6,8 @@ class Question < ActiveRecord::Base
     TYPE_DIAGNOSTIC_SENTENCE_COMBINING = 'diagnostic_sentence_combining',
     TYPE_DIAGNOSTIC_SENTENCE_FRAGMENTS = 'diagnostic_sentence_fragments',
     TYPE_DIAGNOSTIC_FILL_IN_BLANKS = 'diagnostic_fill_in_blanks',
-    TYPE_GRAMMAR_QUESTION = 'grammar'
+    TYPE_GRAMMAR_QUESTION = 'grammar',
+    TYPE_PROOFREADER_PASSAGE = 'proofreader_passage'
   ]
   validates :data, presence: true
   validates :question_type, presence: true, inclusion: {in: TYPES}
