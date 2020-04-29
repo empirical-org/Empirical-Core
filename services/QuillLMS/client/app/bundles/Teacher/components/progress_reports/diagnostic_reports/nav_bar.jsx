@@ -3,6 +3,7 @@ import ItemDropdown from '../../general_components/dropdown_selectors/item_dropd
 import NavButtonGroup from './nav_button_group.jsx';
 import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx';
 import blackIconAppName from '../../modules/get_black_icon_app_name_from_classification.js'
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 import l from 'lodash'
 import $ from 'jquery';
 
@@ -36,18 +37,23 @@ export default class Navbar extends React.Component {
     })
   }
 
+  getStudentDropdownOptions = () => {
+    return this.students().map(student => ({ label: student.name, value: student }))
+  }
+
   studentDropdown = () => {
+    const { params, showStudentDropdown, studentDropdownCallback } = this.props
+    const { studentId } = params
     let selectedStudent;
-    const studentId = this.props.params.studentId;
     if (studentId) {
-      selectedStudent = this.students().find(student => student.id === Number(studentId));
+      selectedStudent = this.getStudentDropdownOptions().find(student => student.value.id === Number(studentId));
     }
-    if (this.props.showStudentDropdown) {
-      return (<StudentDropdown
-        callback={this.props.studentDropdownCallback}
-        key={studentId}
-        selectedStudent={selectedStudent || (this.students()[0] || null)}
-        students={this.students()}
+    if (showStudentDropdown) {
+      return (<DropdownInput
+        className="student-dropdown"
+        handleChange={studentDropdownCallback}
+        options={this.getStudentDropdownOptions()}
+        value={selectedStudent}
       />);
     }
   };
@@ -100,19 +106,18 @@ export default class Navbar extends React.Component {
             <img alt="common-core-icon" src='https://assets.quill.org/images/icons/common-core-gray.svg' />
             {this.props.selectedActivity && this.props.selectedActivity.topic ? this.props.selectedActivity.topic.name : ''}
           </p>
-
-          <div className="nav-elements">
-            <ItemDropdown
-              callback={this.props.dropdownCallback}
-              items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
-              selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
-            />
-            <NavButtonGroup
-              clickCallback={this.props.buttonGroupCallback}
-              params={this.props.params}
-            />
-            {this.studentDropdown()}
-          </div>
+            <div className="nav-elements">
+              <ItemDropdown
+                callback={this.props.dropdownCallback}
+                items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
+                selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
+              />
+              <NavButtonGroup
+                clickCallback={this.props.buttonGroupCallback}
+                params={this.props.params}
+              />     
+              {this.studentDropdown()}
+            </div>
         </div>
       </div>
     );

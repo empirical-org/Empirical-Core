@@ -8,7 +8,18 @@
     font-weight: 700;
   }
   .nav-elements {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 28px;
+    .student-dropdown {
+      width: 100px;
+      min-height: auto;
+      border-radius: 6px;
+      .dropdown__value-container {
+        margin-left: 10px;
+      }
+    }
   }
 }
 
