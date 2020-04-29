@@ -14,7 +14,7 @@ export const routes: RouteConfig[] = [
     component: () => (<Lesson />)
   },
   {
-    path: "/turk/:lessonID",
+    path: "/play/turk/:lessonID",
     component: () => (<Turk />)
   }
 ];
