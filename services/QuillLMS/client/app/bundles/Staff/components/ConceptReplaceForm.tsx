@@ -125,10 +125,6 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
     }
   }
 
-  handleConceptsInUseAlert = () => {
-    alert("This feature no longer works. Please contact the current Support Dev to get Concepts in Use info for particular concept(s).")
-  }
-
   render() {
     return (
       <Mutation mutation={REPLACE_CONCEPT} onCompleted={this.props.showSuccessBanner}>
@@ -138,7 +134,7 @@ class ConceptReplaceForm extends React.Component<ConceptReplaceFormProps, Concep
             <div className="find-and-replace-section">
               <div className="find-and-replace-section-header">
                 <div className="section-number">1</div>
-                <a onClick={this.handleConceptsInUseAlert}>View Concepts in use</a>
+                <a href="/cms/concepts/concepts_in_use.csv">View Concepts in use</a>
               </div>
             </div>
             <form acceptCharset="UTF-8" className="find-and-replace-form" onSubmit={this.handleSubmit} >
