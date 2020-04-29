@@ -30,6 +30,7 @@ import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import FollowupModal from './followupModal'
 import ProgressBar from './progressBar'
+import WelcomePage from './welcomePage'
 import formatInitialPassage from './formatInitialPassage'
 import LoadingSpinner from '../shared/loading_spinner'
 
@@ -49,6 +50,7 @@ interface PlayProofreaderContainerState {
   showReviewModal: boolean;
   showResetModal: boolean;
   showFollowupModal: boolean;
+  showWelcomePage: boolean;
   firebaseSessionID: string|null;
   loadingFirebaseSession: boolean;
   currentActivity: any;
@@ -92,7 +94,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     constructor(props: any) {
       super(props);
 
-      const { currentActivity, } = props.proofreaderActivities
+      const { proofreaderActivities, admin, } = props
+
+      const { currentActivity, } = proofreaderActivities
 
       const firebaseSessionID = getParameterByName('student', window.location.href)
 
@@ -110,6 +114,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showReviewModal: false,
         showResetModal: false,
         showFollowupModal: false,
+        showWelcomePage: !admin,
         numberOfResets: 0,
         loadingFirebaseSession: !!firebaseSessionID,
         firebaseSessionID,
@@ -334,6 +339,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       }
     }
 
+    handleNextClick = () => {
+      this.setState({ showWelcomePage: false })
+    }
+
     handleResetClick = () => {
       this.setState({ showResetModal: true })
     }
@@ -459,12 +468,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     render(): JSX.Element {
       const { proofreaderActivities, session, } = this.props
-      const { edits, necessaryEdits, loadingFirebaseSession, } = this.state
+      const { edits, necessaryEdits, loadingFirebaseSession, showWelcomePage, } = this.state
       const { currentActivity } = proofreaderActivities
+
+      if (loadingFirebaseSession) { return <LoadingSpinner />}
+
+      if (showWelcomePage) { return <WelcomePage onNextClick={this.handleNextClick} /> }
 
       if (session.error) { return <div>{session.error}</div> }
 
-      if (loadingFirebaseSession || !currentActivity) { return <LoadingSpinner />}
+      if (!currentActivity) { return <LoadingSpinner />}
 
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1
