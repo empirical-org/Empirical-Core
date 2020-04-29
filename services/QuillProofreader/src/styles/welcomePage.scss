@@ -20,6 +20,9 @@
     .step {
       width: 261px;
       padding: 32px 0px 24px;
+      &:not(:last-of-type) {
+        margin-right: 9px;
+      }
       .step-number {
         width: 32px;
         height: 32px;
@@ -60,6 +63,7 @@
       align-items: center;
       .step:not(:last-of-type) {
         padding-bottom: 0px;
+        margin-right: 0px;
       }
     }
   }
