@@ -817,3 +817,9 @@
     }
   }
 }
+
+#custom-activity-pack-dropdown {
+  .dropdown__menu-list {
+    max-height: 70vh !important;
+  }
+}
