@@ -35,6 +35,8 @@ class BlogPost < ActiveRecord::Base
     WHATS_NEW
   ]
 
+  TEACHER_TOPICS = TOPICS.select { |t| ![PRESS_RELEASES, IN_THE_NEWS].include?(t) }
+
   STUDENT_TOPICS = [STUDENT_GETTING_STARTED, STUDENT_HOW_TO]
 
   before_create :generate_slug, :set_order_number

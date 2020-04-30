@@ -21,7 +21,7 @@ describe Cms::BlogPostsController, type: :controller do
     it 'should set the blog posts name and id and topics' do
       get :index
       expect(assigns(:blog_posts_name_and_id).first).to include({'rating' => post.average_rating})
-      expect(assigns(:topics)).to eq(BlogPost::TOPICS)
+      expect(assigns(:topics)).to eq(BlogPost::TEACHER_TOPICS)
     end
   end
 
