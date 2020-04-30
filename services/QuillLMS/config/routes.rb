@@ -476,6 +476,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
+    resources :comprehension, only: [:index]
     resources :sections
     resources :topics
     resources :subscriptions
