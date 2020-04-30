@@ -78,7 +78,8 @@ const findSentence = (paragraphSentences: string[], wordIndex: number, word: str
   for (const paragraphSentence of paragraphSentences) {
     indexOfLastWordInSentence += paragraphSentence.length
     if (wordIndex <= indexOfLastWordInSentence && paragraphSentence.includes(word)) {
-      return paragraphSentence
+      const paragraphSentenceWithBoldedWord = paragraphSentence.replace(word, `<strong>${word}</strong>`)
+      return paragraphSentenceWithBoldedWord
     }
   }
   return ''
