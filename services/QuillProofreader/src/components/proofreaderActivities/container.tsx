@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as request from 'request';
 import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
+import { sentences } from 'sbd'
 
 const directionSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -70,6 +71,17 @@ const editCount = (paragraphs: Array<Array<any>>) => {
     editCount+= changedWords.length
   })
   return editCount
+}
+
+const findSentence = (paragraphSentences: string[], wordIndex: number, word: string) => {
+  let indexOfLastWordInSentence = 0
+  for (const paragraphSentence of paragraphSentences) {
+    indexOfLastWordInSentence += paragraphSentence.length
+    if (wordIndex <= indexOfLastWordInSentence && paragraphSentence.includes(word)) {
+      return paragraphSentence
+    }
+  }
+  return ''
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
@@ -233,12 +245,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (passage && necessaryEdits) {
         let reviewablePassage = ''
         passage.forEach((paragraph: Array<any>) => {
+          const originalParagraphString = paragraph.map(w => stringNormalize(w.originalText)).join(' ')
+          const paragraphSentences = sentences(originalParagraphString, {})
           const words:Array<string> = []
           paragraph.forEach((word: any) => {
-            const { necessaryEditIndex, correctText, conceptUID, originalText, currentText } = word
+            const { necessaryEditIndex, correctText, conceptUID, originalText, currentText, wordIndex } = word
             const stringNormalizedCurrentText = stringNormalize(currentText)
             const stringNormalizedCorrectText = stringNormalize(correctText)
             const stringNormalizedOriginalText = stringNormalize(originalText)
+            const prompt = findSentence(paragraphSentences, wordIndex, stringNormalizedOriginalText)
             if (necessaryEditIndex || necessaryEditIndex === 0) {
               if (stringNormalizedCorrectText.split('~').includes(stringNormalizedCurrentText)) {
                 numberOfCorrectChanges +=1
@@ -247,7 +262,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                     answer: stringNormalizedCurrentText,
                     correct: 1,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: stringNormalizedOriginalText,
+                    prompt,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
                   },
@@ -261,7 +276,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                     answer: stringNormalizedCurrentText,
                     correct: 0,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: stringNormalizedOriginalText,
+                    prompt,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: stringNormalizedCurrentText === stringNormalizedOriginalText,
                   },
