@@ -1,28 +1,24 @@
-import rootRef from '../firebase';
 import * as _ from 'lodash'
 import { push } from 'react-router-redux';
 import { ActionTypes } from './actionTypes'
-const activitiesRef = rootRef.child('passageProofreadings')
+import { ProofreaderPassageApi } from '../lib/proofreader_activities_api'
 import { ProofreaderActivities } from '../interfaces/proofreaderActivities'
 
 export const startListeningToActivities = () => {
   return (dispatch: Function) => {
-    activitiesRef.on('value', (snapshot: any) => {
-      const activities: ProofreaderActivities[] = snapshot.val()
+    ProofreaderPassageApi.getAll().then((activities) => {
       if (activities) {
         dispatch({ type: ActionTypes.RECEIVE_PROOFREADER_ACTIVITIES_DATA, data: activities, });
       } else {
         dispatch({ type: ActionTypes.NO_PROOFREADER_ACTIVITIES_FOUND })
       }
     });
-
   }
 }
 
 export const getActivity = (activityUID: string) => {
   return (dispatch: Function) => {
-    activitiesRef.child(activityUID).once('value', (snapshot: any) => {
-      const activity: ProofreaderActivities = snapshot.val()
+    ProofreaderPassageApi.get(activityUID).then((activity) => {
       if (activity) {
         dispatch({ type: ActionTypes.RECEIVE_PROOFREADER_ACTIVITY_DATA, data: activity, });
       } else {
@@ -41,16 +37,16 @@ export const submitNewLesson = (content: ProofreaderActivity) => {
   const cleanedContent = _.pickBy(content)
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_LESSON_RESPONSE, });
-    const newRef = activitiesRef.push(cleanedContent, (error: string) => {
+    ProofreaderPassageApi.create(cleanedContent).then((activity) => {
+      const UID = Object.keys(question)[0];
       dispatch({ type: ActionTypes.RECEIVE_NEW_LESSON_RESPONSE, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        const action = push(`/admin/lessons/${newRef.key}`);
-        dispatch(action);
-      }
-    });
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+      const action = push(`/admin/lessons/${UID}`);
+      dispatch(action);
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.RECEIVE_NEW_LESSON_RESPONSE, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+    })
   };
 }
 
@@ -62,33 +58,33 @@ export const cancelLessonEdit = (cid: string) => {
   return { type: ActionTypes.FINISH_LESSON_EDIT, cid, };
 }
 
-export const submitLessonEdit = (cid: string, content: GrammarActivity) => {
+export const submitLessonEdit = (cid: string, content: ProofreaderActivity) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
     const cleanedContent = _.pickBy(content)
-    activitiesRef.child(cid).set(cleanedContent, (error: string) => {
+    ProofreaderPassageApi.update(cid, cleanedContent).then((activity) => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
-    });
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      dispatch(startListeningToActivities());
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+    })
   };
 }
 
 export const deleteLesson = (cid: string) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
-    activitiesRef.child(cid).remove((error: string) => {
+    ProofreaderPassageApi.remove(cid).then((result) => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
-        const action = push(`/admin/lessons`)
-        dispatch(action)
-      }
-    });
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
+      const action = push(`/admin/lessons`)
+      dispatch(action)
+      dispatch(startListeningToActivities());
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+    })
   };
 }
