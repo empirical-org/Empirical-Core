@@ -1,0 +1,58 @@
+.main-admin-container {
+  display: flex;
+  border-bottom: 1px solid lightgray;
+
+  .left-side-menu, .right-panel {
+    width: 15vw;
+    height: 80vh;
+    padding: 20px;
+  }
+
+  .right-panel {
+    border-left: 1px solid lightgray;
+  }
+
+  .left-side-menu {
+    border-right: 1px solid lightgray;
+
+    .menu-label {
+      color: #5b5b5b;
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0px;
+
+      a {
+        padding: 5px;
+        color: #5b5b5b;
+        text-decoration: none;
+      }
+      .is-active {
+        background-color: #00c2a2;
+        border-radius: 6px;
+        color: white
+      }
+    }
+  }
+
+  .activities-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    padding-top: 20px;
+
+    .activities-table {
+      
+      .data-table-body {
+        max-height: 600px;
+      }
+    }
+  }
+}

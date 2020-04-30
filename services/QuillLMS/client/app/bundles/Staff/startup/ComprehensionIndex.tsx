@@ -4,7 +4,7 @@ import { HashRouter, Route,  } from 'react-router-dom'
 
 const ComprehensionIndex = () => (
   <HashRouter>
-    <Route component={ComprehensionLanding} exact path="/" />
+    <Route component={ComprehensionLanding} path="/" />
   </HashRouter>
 );
 
