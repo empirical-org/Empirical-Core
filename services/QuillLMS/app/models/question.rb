@@ -15,6 +15,7 @@ class Question < ActiveRecord::Base
   validate :data_must_be_hash
 
   after_save :expire_all_questions_cache
+  after_destroy :expire_all_questions_cache
 
   def as_json(options=nil)
     data

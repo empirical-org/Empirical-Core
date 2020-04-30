@@ -398,7 +398,7 @@ EmpiricalGrammar::Application.routes.draw do
         end
       end
       resources :concept_feedback, except: [:destroy]
-      resources :questions, except: [:destroy] do
+      resources :questions do
         resources :focus_points do
           put :update_all, on: :collection
         end
