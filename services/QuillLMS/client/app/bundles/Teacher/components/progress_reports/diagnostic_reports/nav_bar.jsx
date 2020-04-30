@@ -106,18 +106,18 @@ export default class Navbar extends React.Component {
             <img alt="common-core-icon" src='https://assets.quill.org/images/icons/common-core-gray.svg' />
             {this.props.selectedActivity && this.props.selectedActivity.topic ? this.props.selectedActivity.topic.name : ''}
           </p>
-            <div className="nav-elements">
-              <ItemDropdown
-                callback={this.props.dropdownCallback}
-                items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
-                selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
-              />
-              <NavButtonGroup
-                clickCallback={this.props.buttonGroupCallback}
-                params={this.props.params}
-              />     
-              {this.studentDropdown()}
-            </div>
+          <div className="nav-elements">
+            <ItemDropdown
+              callback={this.props.dropdownCallback}
+              items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
+              selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
+            />
+            <NavButtonGroup
+              clickCallback={this.props.buttonGroupCallback}
+              params={this.props.params}
+            />     
+            {this.studentDropdown()}
+          </div>
         </div>
       </div>
     );
