@@ -43,6 +43,7 @@ export const submitNewLesson = (content: ProofreaderActivity) => {
       dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       const action = push(`/admin/lessons/${UID}`);
       dispatch(action);
+      dispatch(startListeningToActivities());
     }).catch((error) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_LESSON_RESPONSE, });
       dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
