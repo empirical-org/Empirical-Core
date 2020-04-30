@@ -21,6 +21,10 @@ class ProofreaderPassageApi {
   static update(uid: string, data: ProofreaderActivity): Promise<ProofreaderActivity> {
     return requestPut(`${questionApiBaseUrl}/${uid}.json`, {question: data});
   }
+
+  static remove(uid: string): Promise<string> {
+    return requestDelete(`${questionApiBaseUrl}/${uid}.json`);
+  }
 }
 
 export {
