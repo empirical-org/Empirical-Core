@@ -51,7 +51,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	}
 
 	// Note, arrays can't be constants in Go, so this has to stay in the method
-	urls := [...]string{
+	urls := []string{
 		plagiarism_api,
 		automl_api,
 		regex_rules_api,
@@ -71,7 +71,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	for response := range c {
 		results[response.Priority] = response.APIResponse
-		return_index, returnable := processResults(results, len(urls))
+		return_index, returnable := processResults(results, len(urls), urls)
 
 		if returnable {
 			returnable_result = results[return_index]
@@ -89,8 +89,17 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	wg.Wait()
 }
+
+func getIndexOfElement(array [] string, element string) (int) {
+	for i, v := range array {
+		if v == element {
+			return i
+		}
+	}
+	return -1
+}
 // returns a typle of results index and that should be returned.
-func processResults(results map[int]APIResponse, length int) (int, bool) {
+func processResults(results map[int]APIResponse, length int, urls []string) (int, bool) {
 	for i := 0; i < len(results); i++ {
 		result, has_key := results[i]
 		if !has_key {
@@ -104,7 +113,7 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 
 	all_correct := len(results) >= length
 
-	return 1, all_correct
+	return getIndexOfElement(urls, automl_api), all_correct
 }
 
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
@@ -152,6 +161,7 @@ func recordFeedback(incoming_params [] byte, feedback APIResponse) {
 
 type APIRequest struct {
 	Entry string `json:"entry"`
+	Prompt_text string `json:"prompt_text"`
 	Prompt_id int `json:"prompt_id"`
 	Session_id string `json:"session_id"`
 	Attempt int `json:"attempt"`
