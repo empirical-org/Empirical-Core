@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { mockLessonApi, } from '../__mocks__/lesson_api'
 const MOCK_LESSON_TYPE = 'TYPE'
 jest.mock('../../app/libs/lessons_api', () => ({
