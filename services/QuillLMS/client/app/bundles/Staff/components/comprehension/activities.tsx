@@ -41,8 +41,8 @@ const Activities = () => {
   }
 
   const dataTableFields = [
-    { name: "Title", attribute:"title", width: "800px" }, 
-    { name: "Course", attribute:"course", width: "400px" }
+    { name: "Title", attribute:"title", width: "700px" }, 
+    { name: "Course", attribute:"course", width: "300px" }
   ];
 
   return(
