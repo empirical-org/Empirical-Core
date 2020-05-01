@@ -83,6 +83,7 @@
     "redux-devtools-dock-monitor": "^1.0.1",
     "redux-devtools-log-monitor": "^1.0.1",
     "redux-slider-monitor": "^1.0.0",
+    "redux-mock-store": "^1.5.4",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
@@ -187,7 +188,8 @@
       "<rootDir>/node_modules/enzyme-to-json/serializer"
     ],
     "testMatch": [
-      "**/__tests__/**/*.js?(x)"
+      "**/__tests__/**/*.js?(x)",
+      "test/actions/*.ts?(x)"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
