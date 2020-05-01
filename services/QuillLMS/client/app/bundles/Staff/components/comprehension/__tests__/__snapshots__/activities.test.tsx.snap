@@ -13,12 +13,12 @@ exports[`Activities component should render Activities 1`] = `
         Object {
           "attribute": "title",
           "name": "Title",
-          "width": "800px",
+          "width": "700px",
         },
         Object {
           "attribute": "course",
           "name": "Course",
-          "width": "400px",
+          "width": "300px",
         },
       ]
     }
