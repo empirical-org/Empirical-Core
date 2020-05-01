@@ -7,10 +7,10 @@ const ComprehensionLanding = () => {
     <div className="main-admin-container">
       <section className="left-side-menu">
         <p className="menu-label">
-          Activity
+          Home
         </p>
         <ul className="menu-list">
-          <NavLink activeClassName="is-active" to='/activities'>Overview</NavLink>
+          <NavLink activeClassName="is-active" to='/activities'>Activities Index</NavLink>
         </ul>
       </section>
       <Switch>
