@@ -9,7 +9,8 @@ class RefreshGoogleRefreshTokensWorker
 
   def perform
     User.where.not(google_id: [nil, ""]).each do |user|
-      if !user.auth_credential.refresh_token:
+      # only update users whose auth_credentials is about to expire
+      if user.auth_credential && (user.auth_credential.expires_at.nil? || Time.now > user.auth_credential.expires_at)
         verified_credentials = GoogleIntegration::Client.new(user)
         client = verified_credentials.send(:client)
         client_secrets = Google::APIClient::ClientSecrets.load
