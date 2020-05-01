@@ -36,11 +36,6 @@ describe "Cron", type: :model do
       expect(DailyStatsEmailJob).to receive(:perform_async)
       Cron.interval_1_day
     end
-
-    it "enqueuesRefreshGoogleRefreshTokensWorker" do
-      expect(RefreshGoogleRefreshTokensWorker).to receive(:perform_async)
-      Cron.interval_1_day
-    end
   end
 
   describe "#run_saturday" do
