@@ -10,6 +10,7 @@
 
   .right-panel {
     border-left: 1px solid lightgray;
+    margin-left: 20px;
   }
 
   .left-side-menu {
@@ -41,18 +42,30 @@
     }
   }
 
-  .activities-container {
+  .activities-container, .spinner-container, .error-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 80vw;
     padding-top: 20px;
 
     .activities-table {
+      align-self: flex-start;
       
       .data-table-body {
         max-height: 600px;
+        overflow: auto;
+
+        .data-table-row:hover {
+          cursor: pointer;
+          color: #00c2a2;
+        }
       }
+    }
+
+    .spinner-container {
+      width: 100px;
+      height: 100px;
     }
   }
 }

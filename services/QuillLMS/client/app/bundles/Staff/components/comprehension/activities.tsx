@@ -1,44 +1,60 @@
 import * as React from "react";
-import { DataTable, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+const fetchAllActivitiesAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json';
 
 const Activities = () => {
   const [activities, setActivities] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null)
+  const [error, setError] = React.useState(null);
   
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json');
+        const response = await fetch(fetchAllActivitiesAPI);
         const json = await response.json();
-        setActivities(json.activities)
-        setLoading(false)
+        const { activities } = json
+        setActivities(activities);
+        setLoading(false);
       } catch (error) {
         setError(error);
-        setLoading(false)
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
-  const renderActivites = () => {
-    const fields = [{ name: "Title", attribute:"title", width: "800px" }, { name: "Course", attribute:"course", width: "400px" }]
+  if(loading) {
     return(
-      <DataTable
-        className="activities-table"
-        headers={fields}
-        rows={activities}
-      />
-    )
+      <div className="spinner-container">
+        <Spinner />
+      </div>
+    );
   }
+
+  if(error) {
+    return(
+      <div className="error-container">
+        <Error error={`${error}`} />
+      </div>
+    );
+  }
+
+  const dataTableFields = [
+    { name: "Title", attribute:"title", width: "800px" }, 
+    { name: "Course", attribute:"course", width: "400px" }
+  ];
+
   return(
     <div className="activities-container">
-      {loading && <div className="spinner-container"><Spinner /></div>}
-      {error && <div className="error-container">{`${error}`}</div>}
-      {activities && activities.length !== 0 && renderActivites()}
+      <DataTable
+        className="activities-table"
+        defaultSortAttribute="title"
+        headers={dataTableFields}
+        rows={activities}
+      />
     </div>
-  )
+  );
 }
 
 export default Activities

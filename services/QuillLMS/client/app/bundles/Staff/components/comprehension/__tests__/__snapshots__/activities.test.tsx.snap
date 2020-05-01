@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Activities component should render Activities 1`] = `
+<div
+  className="activities-container"
+>
+  <DataTable
+    averageFontWidth={7}
+    className="activities-table"
+    defaultSortAttribute="title"
+    headers={
+      Array [
+        Object {
+          "attribute": "title",
+          "name": "Title",
+          "width": "800px",
+        },
+        Object {
+          "attribute": "course",
+          "name": "Course",
+          "width": "400px",
+        },
+      ]
+    }
+    rows={Array []}
+  />
+</div>
+`;
