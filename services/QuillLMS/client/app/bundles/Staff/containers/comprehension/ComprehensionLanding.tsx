@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import Activities from '../../components/comprehension/activities'
 
-const ComprehensionIndex = () => {
+const ComprehensionLanding = () => {
   return(
     <div className="main-admin-container">
       <section className="left-side-menu">
@@ -22,4 +22,4 @@ const ComprehensionIndex = () => {
   )
 }
 
-export default withRouter(ComprehensionIndex)
+export default withRouter(ComprehensionLanding)
