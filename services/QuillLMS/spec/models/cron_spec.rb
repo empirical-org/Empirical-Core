@@ -37,8 +37,8 @@ describe "Cron", type: :model do
       Cron.interval_1_day
     end
 
-    it "enqueuesRefreshGoogleAccessTokensWorker" do
-      expect(RefreshGoogleAccessTokensWorker).to receive(:perform_async)
+    it "enqueuesRefreshGoogleRefreshTokensWorker" do
+      expect(RefreshGoogleRefreshTokensWorker).to receive(:perform_async)
       Cron.interval_1_day
     end
   end
