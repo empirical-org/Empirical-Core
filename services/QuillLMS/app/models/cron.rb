@@ -20,7 +20,7 @@ class Cron
     RenewExpiringRecurringSubscriptionsWorker.perform_async
     SyncSalesmachineWorker.perform_async
     DailyStatsEmailJob.perform_async(date)
-    RefreshGoogleAccessTokensWorker.perform_async
+    RefreshGoogleRefreshTokensWorker.perform_async
   end
 
   def self.run_saturday
