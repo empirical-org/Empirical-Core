@@ -5,6 +5,7 @@ const initialState = {
   lessons: {
     hasreceiveddata: false,
     submittingnew: false,
+    flag: 'alpha',
     states: {}, // this will store per quote id if we're reading, editing or awaiting DB response
     data: {} // this will contain firebase data
   }
@@ -42,6 +43,10 @@ export default function(currentstate,action){
         case C.TOGGLE_NEW_LESSON_MODAL:
             return Object.assign({},currentstate,{
                 newLessonModalOpen: !currentstate.newLessonModalOpen
+            });
+        case C.SET_LESSON_FLAG:
+            return Object.assign({},currentstate,{
+                flag: action.flag
             });
         default: return currentstate || initialState.lessons;
     }
