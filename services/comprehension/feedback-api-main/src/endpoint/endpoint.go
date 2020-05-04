@@ -18,12 +18,19 @@ const (
 	regex_rules_api = "https://comprehension-247816.appspot.com/feedback/rules/first_pass"
 	spell_check_local = "https://us-central1-comprehension-247816.cloudfunctions.net/spell-check-cloud-function"
 	spell_check_bing = "https://us-central1-comprehension-247816.cloudfunctions.net/bing-API-spell-check"
-
 	feedback_history_url = "https://comprehension-247816.appspot.com/feedback/history"
-
+	automl_index = 1
 )
 
 var wg sync.WaitGroup
+
+var urls = [...]string{
+	plagiarism_api,
+	automl_api,
+	regex_rules_api,
+	grammar_check_api,
+	spell_check_bing,
+}
 
 func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 	// need this for javascript cors requests
@@ -48,15 +55,6 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 		//TODO make this response in the same format maybe?
 		http.Error(responseWriter, err.Error(), http.StatusInternalServerError)
 		return
-	}
-
-	// Note, arrays can't be constants in Go, so this has to stay in the method
-	urls := [...]string{
-		plagiarism_api,
-		automl_api,
-		regex_rules_api,
-		grammar_check_api,
-		spell_check_bing,
 	}
 
 	results := map[int]APIResponse{}
@@ -104,7 +102,7 @@ func processResults(results map[int]APIResponse, length int) (int, bool) {
 
 	all_correct := len(results) >= length
 
-	return 0, all_correct
+	return automl_index, all_correct
 }
 
 func getAPIResponse(url string, priority int, json_params [] byte, c chan InternalAPIResponse) {
