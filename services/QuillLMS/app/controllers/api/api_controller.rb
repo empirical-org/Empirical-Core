@@ -1,9 +1,16 @@
 class Api::ApiController < ActionController::Base
 
+  class AccessForbidden < StandardError; end
+
   before_filter :add_platform_doc_header
 
   rescue_from ActiveRecord::RecordNotFound do |e|
     not_found
+  end
+
+  rescue_from AccessForbidden do
+    render json: {meta: { message: 'You are not authorized to access this resource', status: :forbidden }},
+           status: 403
   end
 
   rescue_from ActiveRecord::RecordInvalid do |e|
@@ -13,6 +20,10 @@ class Api::ApiController < ActionController::Base
   protected def not_found
     render json: {meta: { message: 'The resource you were looking for does not exist', status: :not_found }},
            status: 404
+  end
+
+  protected def staff_only
+    raise AccessForbidden unless current_user&.role == 'staff'
   end
 
   private def add_platform_doc_header
