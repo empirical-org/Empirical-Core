@@ -87,15 +87,6 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	wg.Wait()
 }
-
-func getIndexOfElement(array [] string, element string) (int) {
-	for i, v := range array {
-		if v == element {
-			return i
-		}
-	}
-	return -1
-}
 // returns a typle of results index and that should be returned.
 func processResults(results map[int]APIResponse, length int) (int, bool) {
 	for i := 0; i < len(results); i++ {
