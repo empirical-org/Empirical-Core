@@ -17,7 +17,7 @@ describe('Lessons component', () => {
     data: {},
   }}
 
-  const wrapper = shallow(<Provider store={store}><Lessons props={props}/></Provider>)
+  const wrapper = shallow(<Provider store={store}><Lessons props={props} /></Provider>)
   it('matches the snapshot', () => {
     expect(toJson(wrapper)).toMatchSnapshot()
   })

@@ -19,7 +19,7 @@ describe('ExpandLessonQuestions component', () => {
     showHideButtonText: 'show hide'
   }
 
-  const wrapper = shallow(<Provider store={store}><ExpandLessonQuestions props={props}/></Provider>)
+  const wrapper = shallow(<Provider store={store}><ExpandLessonQuestions props={props} /></Provider>)
   it('matches the snapshot', () => {
     expect(toJson(wrapper)).toMatchSnapshot()
   })
