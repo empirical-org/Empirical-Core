@@ -5,13 +5,16 @@ jest.mock('../../app/libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,
   QuestionApi: mockQuestionApi,
+  LessonApi: mockLessonApi,
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
 
 import { SENTENCE_COMBINING_TYPE } from '../../app/libs/questions_api'
+import { TYPE_CONNECT_LESSON } from '../../app/libs/lessons_api'
 
 import questionActions from '../../app/actions/questions'
+import { mockLessonApi } from '../__mocks__/lesson_api'
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
@@ -53,6 +56,13 @@ describe('Questions actions', () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, ""))
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE, MOCK_CONTENT)
+    })
+
+    it('should call LessonApi.addQuestion() if lessonID is present', () => {
+      const MOCK_CONTENT = { mock: 'content', answers: [] }
+      const MOCK_LESSON_ID = "lessonID"
+      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, "", MOCK_LESSON_ID))
+      expect(mockLessonApi.addQuestion).toHaveBeenLastCalledWith(TYPE_CONNECT_LESSON, MOCK_CONTENT)
     })
   })
 
