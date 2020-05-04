@@ -12,7 +12,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
         "entries": Array [
           Object {
             "hash": "",
-            "key": "kinumx",
+            "key": "0a1cju",
             "pathname": "/activities",
             "search": "",
             "state": undefined,
@@ -26,7 +26,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
         "listen": [Function],
         "location": Object {
           "hash": "",
-          "key": "kinumx",
+          "key": "0a1cju",
           "pathname": "/activities",
           "search": "",
           "state": undefined,
@@ -47,7 +47,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
             "entries": Array [
               Object {
                 "hash": "",
-                "key": "kinumx",
+                "key": "0a1cju",
                 "pathname": "/activities",
                 "search": "",
                 "state": undefined,
@@ -61,7 +61,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
             "listen": [Function],
             "location": Object {
               "hash": "",
-              "key": "kinumx",
+              "key": "0a1cju",
               "pathname": "/activities",
               "search": "",
               "state": undefined,
@@ -73,7 +73,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
         location={
           Object {
             "hash": "",
-            "key": "kinumx",
+            "key": "0a1cju",
             "pathname": "/activities",
             "search": "",
             "state": undefined,
@@ -154,7 +154,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
               location={
                 Object {
                   "hash": "",
-                  "key": "kinumx",
+                  "key": "0a1cju",
                   "pathname": "/activities",
                   "search": "",
                   "state": undefined,
@@ -172,7 +172,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
                     "entries": Array [
                       Object {
                         "hash": "",
-                        "key": "kinumx",
+                        "key": "0a1cju",
                         "pathname": "/activities",
                         "search": "",
                         "state": undefined,
@@ -186,7 +186,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
                     "listen": [Function],
                     "location": Object {
                       "hash": "",
-                      "key": "kinumx",
+                      "key": "0a1cju",
                       "pathname": "/activities",
                       "search": "",
                       "state": undefined,
@@ -198,7 +198,7 @@ exports[`ComprehensionLanding component should render ComprehensionLanding 1`] =
                 location={
                   Object {
                     "hash": "",
-                    "key": "kinumx",
+                    "key": "0a1cju",
                     "pathname": "/activities",
                     "search": "",
                     "state": undefined,
