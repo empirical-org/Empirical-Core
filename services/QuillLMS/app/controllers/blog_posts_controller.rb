@@ -5,7 +5,7 @@ class BlogPostsController < ApplicationController
   skip_before_action :stick_to_leader_db, only: [:index, :show]
 
   def index
-    topic_names = BlogPost::TOPICS
+    topic_names = BlogPost::TEACHER_TOPICS
     @topics = []
     topic_names.each do |name|
       @topics.push({ name: name, slug: CGI::escape(name.downcase.gsub(' ','-'))})
