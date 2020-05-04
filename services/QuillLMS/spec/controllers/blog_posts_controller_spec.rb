@@ -72,7 +72,7 @@ describe BlogPostsController, type: :controller do
   end
 
   describe '#show_topic' do
-    let(:topic) { BlogPost::TOPICS.sample }
+    let(:topic) { BlogPost::TEACHER_TOPICS.sample }
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }
 
