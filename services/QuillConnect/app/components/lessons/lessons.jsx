@@ -5,10 +5,10 @@ import _ from 'underscore';
 import {
   Modal,
   ArchivedButton,
-  FlagDropdown
+  FlagDropdown,
 } from 'quill-component-library/dist/componentLibrary';
-import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.jsx';
+import { ExpandLessonQuestions } from './expandLessonQuestions';
 
 class Lessons extends React.Component {
   constructor(props) {
@@ -40,7 +40,6 @@ class Lessons extends React.Component {
 
   renderLessons = () => {
     const { data, flag } = this.props.lessons;
-    const questionsData = this.props.questions.data
     let keys = _.keys(data);
     if (flag !== 'All Flags') {
       keys = _.filter(keys, key => data[key].flag === flag);
@@ -48,21 +47,30 @@ class Lessons extends React.Component {
     if (this.state.showOnlyArchived) {
       keys = keys.filter((key) => {
         return data[key].questions && data[key].questions.some((q) => {
+          const questionsData = this.props[q.questionType].data
           const question = questionsData[q.key]
           return question && question.flag === 'archived'
         })
       })
     }
-    return keys.map(key => (
-      <LinkListItem
+    return keys.map(key => {
+      let questions = data[key].questions.map((q) => {
+        const questionsData = this.props[q.questionType].data
+        if (questionsData[q.key]) return questionsData[q.key].prompt
+        return ''
+      })
+      return (<ExpandLessonQuestions
         activeClassName='is-active'
         basePath='lessons'
-        excludeResponses={true}
+        className='activity-link'
+        goToButtonText='View Activity'
         itemKey={key}
         key={key}
+        listElements={questions}
+        showHideButtonText={{'show':'Show Prompts','hide':'Hide Prompts'}}
         text={data[key].name || 'No name'}
-      />
-    ));
+      />)
+    });
   };
 
   renderModal = () => {
@@ -93,7 +101,7 @@ class Lessons extends React.Component {
                 <p className="menu-label">
                   Activities
                 </p>
-                <ul className="menu-list">
+                <ul className="menu-list activities-list">
                   {this.renderLessons()}
                 </ul>
               </aside>
@@ -110,6 +118,9 @@ function select(state) {
     lessons: state.lessons,
     routing: state.routing,
     questions: state.questions,
+    sentenceFragments: state.sentenceFragments,
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
   };
 }
 
