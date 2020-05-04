@@ -100,7 +100,7 @@ module PagesHelper
           },
           {
             name: 'Rachel Dantzler',
-            title: 'Curriculum Associate',
+            title: 'Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
           },
           {
