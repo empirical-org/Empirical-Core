@@ -24,7 +24,6 @@ func TestPublishMessage(t *testing.T) {
 }
 
 func TestAllOptimal(t *testing.T) {
-
 	responseOptimal := APIResponse{Optimal: true}
 
 	results := map[int]APIResponse{}
@@ -43,7 +42,6 @@ func TestAllOptimal(t *testing.T) {
 }
 
 func TestAutoMLIndex(t *testing.T) {
-
 	if automl_api != urls[automl_index] {
 		t.Errorf("automl_index does not match automl_api")
 	}
