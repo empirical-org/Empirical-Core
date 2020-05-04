@@ -1,12 +1,13 @@
 class Teachers::ClassroomManagerController < ApplicationController
 
   respond_to :json, :html
-  before_filter :teacher_or_public_activity_packs
+  before_filter :teacher_or_public_activity_packs, except: [:unset_preview_as_student]
   # WARNING: these filter methods check against classroom_id, not id.
-  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner]
+  before_filter :authorize_owner!, except: [:scores, :scorebook, :lesson_planner, :preview_as_student, :unset_preview_as_student]
   before_filter :authorize_teacher!, only: [:scores, :scorebook, :lesson_planner]
   before_filter :set_alternative_schools, only: [:my_account, :update_my_account, :update_my_password]
   include ScorebookHelper
+  include QuillAuthentication
 
   MY_ACCOUNT = 'my_account'
   ASSIGN = 'assign'
@@ -181,6 +182,19 @@ class Teachers::ClassroomManagerController < ApplicationController
       selected_classroom_ids
     )
     render json: { id: current_user.id }
+  end
+
+  def preview_as_student
+    student = User.find_by_id(params[:student_id])
+    if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
+      set_preview_student_id(params[:student_id])
+    end
+    redirect_to '/profile'
+  end
+
+  def unset_preview_as_student
+    unset_preview_student_id
+    redirect_to '/profile'
   end
 
   private

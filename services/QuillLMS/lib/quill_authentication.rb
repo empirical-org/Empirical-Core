@@ -15,7 +15,9 @@ module QuillAuthentication
 
   def current_user
     begin
-      if session[:user_id]
+      if session[:preview_student_id]
+        @current_user ||= User.find(session[:preview_student_id])
+      elsif session[:user_id]
         @current_user ||= User.find(session[:user_id])
       elsif doorkeeper_token
         User.find_by_id(doorkeeper_token.resource_owner_id)
@@ -63,6 +65,16 @@ module QuillAuthentication
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
     @current_user = user
+  end
+
+  def set_preview_student_id(student_id)
+    session[:preview_student_id] = student_id
+    @current_user = User.find(session[:preview_student_id])
+  end
+
+  def unset_preview_student_id
+    session[:preview_student_id] = nil
+    @current_user = User.find(session[:user_id])
   end
 
   def sign_out
