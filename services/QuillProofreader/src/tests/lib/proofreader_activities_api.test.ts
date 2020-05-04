@@ -14,7 +14,7 @@ jest.mock('../../lib/request', () => ({
 import {
   ProofreaderPassageApi,
   PROOFREADER_PASSAGE_TYPE,
-  questionApiBaseUrl,
+  lessonApiBaseUrl,
 } from '../../lib/proofreader_activities_api'
 
 import {
@@ -24,7 +24,7 @@ import {
 describe('ProofreaderPassageApi calls', () => {
   describe('getAll', () => {
     it('should call requestGet', () => {
-      const url = `${questionApiBaseUrl}.json?question_type=${PROOFREADER_PASSAGE_TYPE}`
+      const url = `${lessonApiBaseUrl}.json?question_type=${PROOFREADER_PASSAGE_TYPE}`
       ProofreaderPassageApi.getAll()
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
@@ -33,7 +33,7 @@ describe('ProofreaderPassageApi calls', () => {
   describe('get', () => {
     it('should call requestGet', () => {
       const MOCK_ID = 'id'
-      const url = `${questionApiBaseUrl}/${MOCK_ID}.json`
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.get(MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
@@ -60,7 +60,7 @@ describe('ProofreaderPassageApi calls', () => {
         underlineErrorsInProofreader: true, 
         flag: 'alpha',
       }
-      const url = `${questionApiBaseUrl}.json?question_type=${PROOFREADER_PASSAGE_TYPE}`
+      const url = `${lessonApiBaseUrl}.json?question_type=${PROOFREADER_PASSAGE_TYPE}`
       ProofreaderPassageApi.create(MOCK_CONTENT)
       expect(mockRequestPost).toHaveBeenLastCalledWith(url, {question: MOCK_CONTENT})
     })
@@ -88,7 +88,7 @@ describe('ProofreaderPassageApi calls', () => {
         underlineErrorsInProofreader: true, 
         flag: 'alpha',
       }
-      const url = `${questionApiBaseUrl}/${MOCK_ID}.json`
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.update(MOCK_ID, MOCK_CONTENT)
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {question: MOCK_CONTENT})
     })
