@@ -8,11 +8,6 @@
     padding: 20px;
   }
 
-  .right-panel {
-    border-left: 1px solid lightgray;
-    margin-left: 20px;
-  }
-
   .left-side-menu {
     border-right: 1px solid lightgray;
 
@@ -42,12 +37,13 @@
     }
   }
 
-  .activities-container, .spinner-container, .error-container {
+  .activities-container, .loading-spinner-container, .error-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 70vw;
     padding-top: 20px;
+    border-right: 1px solid lightgray;
 
     .activities-table {
       align-self: flex-start;

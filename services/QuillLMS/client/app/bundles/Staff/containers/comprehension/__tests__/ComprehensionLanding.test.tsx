@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 import ComprehensionLanding from '../ComprehensionLanding';
 
 describe('ComprehensionLanding component', () => {
-  const container = shallow(<ComprehensionLanding />);
+  const container = mount(
+    <MemoryRouter>
+      <ComprehensionLanding />
+    </MemoryRouter>
+  );
 
   it('should render ComprehensionLanding', () => {
     expect(container).toMatchSnapshot();

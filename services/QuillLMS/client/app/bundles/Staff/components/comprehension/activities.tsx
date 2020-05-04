@@ -7,26 +7,27 @@ const Activities = () => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(fetchAllActivitiesAPI);
+      const json = await response.json();
+      const { activities } = json
+      setActivities(activities);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
+
   React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(fetchAllActivitiesAPI);
-        const json = await response.json();
-        const { activities } = json
-        setActivities(activities);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
     fetchData();
   }, []);
 
   if(loading) {
     return(
-      <div className="spinner-container">
+      <div className="loading-spinner-container">
         <Spinner />
       </div>
     );
