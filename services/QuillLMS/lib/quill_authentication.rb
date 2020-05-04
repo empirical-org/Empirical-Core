@@ -6,7 +6,7 @@ module QuillAuthentication
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   included do
-    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?
+    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?, :previewing_student_dashboard?
   end
 
   def require_user
@@ -75,6 +75,10 @@ module QuillAuthentication
   def unset_preview_student_id
     session[:preview_student_id] = nil
     @current_user = User.find(session[:user_id])
+  end
+
+  def previewing_student_dashboard?
+    !!session[:preview_student_id]
   end
 
   def sign_out
