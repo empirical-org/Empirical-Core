@@ -10,7 +10,7 @@ function setup() {
   const params = { questionID: 100, };
   const questions = { data: { 100: genericQuestion, }, };
   const props = { match: { params }, questions };
-  const wrapper = shallow(<Router><FocusPointsContainer {...props} /></Router>);
+  const wrapper = mount(<Router><FocusPointsContainer {...props} /></Router>);
 
   return {
     props,
@@ -26,21 +26,21 @@ describe('The focusPointsContainer', () => {
   });
 
   describe('focus points', () => {
-    // it('should render in a sortable list', () => {
-    //   const { props, } = setup();
-    //   const wrapper = mount(
-    //     <Router><FocusPointsContainer {...props} /></Router>
-    //     );
-    //   expect(wrapper.find(SortableList)).toHaveLength(1);
-    // });
+    it('should render in a sortable list', () => {
+      const { props, } = setup();
+      const wrapper = mount(
+        <Router><FocusPointsContainer {...props} /></Router>
+        );
+      expect(wrapper.find(SortableList)).toHaveLength(1);
+    });
 
-    // it('should render in the correct order', () => {
-    //   const { props, } = setup();
-    //   const wrapper = mount(
-    //     <Router><FocusPointsContainer {...props} /></Router>
-    //     );
-    //   const order = wrapper.find('.card-header-icon').map(node => Number(node.text()));
-    //   expect(order).toEqual([1, 2, 3]);
-    // });
+    it('should render in the correct order', () => {
+      const { props, } = setup();
+      const wrapper = mount(
+        <Router><FocusPointsContainer {...props} /></Router>
+        );
+      const order = wrapper.find('.card-header-icon').map(node => Number(node.text()));
+      expect(order).toEqual([1, 2, 3]);
+    });
   });
 });
