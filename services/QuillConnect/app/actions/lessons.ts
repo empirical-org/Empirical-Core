@@ -118,6 +118,7 @@ import * as titleCardActions from './titleCards.ts';
     const cleanedContent = pickBy(content)
     return (dispatch, getState) => {
       dispatch({ type: C.AWAIT_NEW_LESSON_RESPONSE, });
+      console.log(cleanedContent)
       LessonApi.create(TYPE_CONNECT_LESSON, cleanedContent).then((lesson) => {
         const lessonUid = Object.keys(lesson)[0];
         dispatch(loadLesson(lessonUid))

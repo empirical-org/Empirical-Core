@@ -108,6 +108,8 @@ class Lesson extends React.Component {
   saveLessonEdits = (vals) => {
     const { lessonID, } = this.props.match.params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
+    console.log("saving")
+    console.log(vals)
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
@@ -180,12 +182,6 @@ class Lesson extends React.Component {
     this.props.dispatch(lessonActions.cancelLessonEdit(lessonID));
   }
 
-  saveLessonEdits = (vals) => {
-    const { lessonID, } = this.props.match.params;
-    const qids = vals.questions ? vals.questions.map(q => q.key) : []
-    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
-  }
-
   handleEditLesson = () => {
     const { lessonID, } = this.props.match.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
@@ -205,9 +201,9 @@ class Lesson extends React.Component {
   }
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
-    const { dispatch, params } = this.props
+    const { dispatch, match } = this.props
     const action = this.getQuestionAction()
-    dispatch(action(questionObj, optimalResponseObj, params.match.lessonID))
+    dispatch(action(questionObj, optimalResponseObj, match.params.lessonID))
     this.setState({ newQuestion: false, });
   }
 

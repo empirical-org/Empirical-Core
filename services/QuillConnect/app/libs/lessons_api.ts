@@ -1,5 +1,5 @@
 import { requestDelete, requestGet, requestPost, requestPut } from './request';
-import { Lesson, Lessons } from '../interfaces/lessons';
+import { Lesson, Lessons, LessonQuestion } from '../interfaces/lessons';
 
 const lessonApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons`;
 
@@ -25,6 +25,10 @@ class LessonApi {
 
   static remove(lesson_type: string, uid: string): Promise<string> {
     return requestDelete(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`);
+  }
+
+  static addQuestion(lesson_type: string, uid: string, question: LessonQuestion): Promise<string> {
+    return requestPut(`${lessonApiBaseUrl}/${uid}/add_question.json`, {lesson_type: lesson_type, question: question});
   }
 }
 
