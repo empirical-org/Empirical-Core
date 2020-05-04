@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 const fetchAllActivitiesAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json';
 
@@ -24,6 +25,17 @@ const Activities = () => {
   React.useEffect(() => {
     fetchData();
   }, []);
+
+  const formattedRows = () => {
+    return activities.map(activity => {
+      const { course, id, title } = activity;
+      const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
+      return {
+        title: activityLink,
+        course 
+      }
+    });
+  }
 
   if(loading) {
     return(
@@ -52,7 +64,7 @@ const Activities = () => {
         className="activities-table"
         defaultSortAttribute="title"
         headers={dataTableFields}
-        rows={activities}
+        rows={formattedRows()}
       />
     </div>
   );

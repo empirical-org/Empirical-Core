@@ -45,16 +45,27 @@
     padding-top: 20px;
     border-right: 1px solid lightgray;
 
-    .activities-table {
+    .activities-table, .tabs-container {
       align-self: flex-start;
       
       .data-table-body {
         max-height: 600px;
         overflow: auto;
 
-        .data-table-row:hover {
-          cursor: pointer;
-          color: #00c2a2;
+        .data-table-row {
+          
+          span {
+
+            a {
+              color: #00c2a2;
+            }
+
+            .a:hover {
+  
+              cursor: pointer;
+              color: #19a08a;
+            }
+          }
         }
       }
     }
@@ -62,6 +73,56 @@
     .spinner-container {
       width: 100px;
       height: 100px;
+    }
+  }
+
+  .activity-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 70vw;
+    border-right: 1px solid lightgray;
+
+    .tabs-container {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      background-color: #f8f8f8;
+
+      a {
+        color: black;
+      }
+      
+      .tab-option {
+        margin-top: 5px;
+        padding: 10px;
+      }
+
+      .is-active {
+        color: #19a08a;
+        text-decoration: none;
+
+        .tab-option {
+          border-top: 1px solid lightgray;
+          border-right: 1px solid lightgray;
+          border-left: 1px solid lightgray;
+          border-top-right-radius: 10px;
+          border-top-left-radius: 10px;
+          background-color: white;
+        }
+      }
+    }
+  }
+
+  .activity-settings-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    .activity-general-settings-table {
+      border: 1px solid lightgray;
     }
   }
 }
