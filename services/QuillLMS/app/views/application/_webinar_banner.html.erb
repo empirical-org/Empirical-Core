@@ -4,7 +4,7 @@
 <% between_two_and_three = current_hour == 14%>
 <% monday_tuesday_or_thursday = current_time_on_east_coast.monday? || current_time_on_east_coast.thursday? || current_time_on_east_coast.tuesday? %>
 
-<% if (between_twelve_and_one || between_two_and_three) && monday_tuesday_or_thursday %>
+<% if (!current_user || current_user.teacher?) && (between_twelve_and_one || between_two_and_three) && monday_tuesday_or_thursday %>
   <% if (between_twelve_and_one) %>
     <div class="covid-banner" id="webinar-banner">
       <div class="content-container">
