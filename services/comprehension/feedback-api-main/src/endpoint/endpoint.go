@@ -69,7 +69,7 @@ func Endpoint(responseWriter http.ResponseWriter, request *http.Request) {
 
 	for response := range c {
 		results[response.Priority] = response.APIResponse
-		return_index, returnable := processResults(results, len(urls), urls)
+		return_index, returnable := processResults(results, len(urls))
 
 		if returnable {
 			returnable_result = results[return_index]
@@ -97,7 +97,7 @@ func getIndexOfElement(array [] string, element string) (int) {
 	return -1
 }
 // returns a typle of results index and that should be returned.
-func processResults(results map[int]APIResponse, length int, urls []string) (int, bool) {
+func processResults(results map[int]APIResponse, length int) (int, bool) {
 	for i := 0; i < len(results); i++ {
 		result, has_key := results[i]
 		if !has_key {
