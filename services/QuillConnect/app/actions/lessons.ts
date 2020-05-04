@@ -134,6 +134,12 @@ import * as titleCardActions from './titleCards.ts';
     };
   }
 
+  const setFlag = (flag) => {
+    return (dispatch) => {
+      dispatch({ type: C.SET_LESSON_FLAG, flag, })
+    };
+  }
+
 export default {
   startListeningToLessons,
   loadLesson,
@@ -145,5 +151,6 @@ export default {
   submitLessonEdit,
   updateQuestions,
   toggleNewLessonModal,
-  submitNewLesson
+  submitNewLesson,
+  setFlag
 };

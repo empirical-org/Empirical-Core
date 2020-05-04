@@ -15,7 +15,6 @@ class Lessons extends React.Component {
     super(props)
 
     this.state = {
-      lessonFlags: 'production',
       showOnlyArchived: false,
     }
   }
@@ -25,7 +24,8 @@ class Lessons extends React.Component {
   };
 
   handleSelect = e => {
-    this.setState({ lessonFlags: e.target.value, });
+    const { dispatch } = this.props
+    dispatch(actions.setFlag(e.target.value));
   };
 
   submitNewLesson = data => {
@@ -85,13 +85,14 @@ class Lessons extends React.Component {
   };
 
   render() {
+    const { lessons } = this.props
     return (
       <section className="section">
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true} />
+            <FlagDropdown flag={lessons.flag} handleFlagChange={this.handleSelect} isLessons={true} />
           </div>
           <ArchivedButton lessons={true} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
           <div className="columns">
