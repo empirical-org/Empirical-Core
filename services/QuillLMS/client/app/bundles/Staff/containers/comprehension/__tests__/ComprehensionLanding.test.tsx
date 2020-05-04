@@ -11,6 +11,6 @@ describe('ComprehensionLanding component', () => {
   );
 
   it('should render ComprehensionLanding', () => {
-    expect(container).toMatchSnapshot();
+    expect(container.find(ComprehensionLanding).length).toEqual(1);
   });
 });
