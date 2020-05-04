@@ -33,7 +33,7 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
       <tr>
         <td>Prompt</td>
         <td />
-        <td><span>{prompt}</span></td>
+        <td><span dangerouslySetInnerHTML={{ __html: prompt }} /></td>
       </tr>
     );
   }

@@ -48,3 +48,27 @@ type ResponseJson struct {
 	Response_id string
 	Highlight []string
 }
+
+func TestAllOptimal(t *testing.T) {
+	responseOptimal := APIResponse{Optimal: true}
+
+	results := map[int]APIResponse{}
+	results[0] = responseOptimal
+	results[1] = responseOptimal
+	results[2] = responseOptimal
+
+	return_index, returnable := processResults(results, 3)
+
+	if return_index != automl_index {
+		t.Errorf("processResults got index %v, want %v", return_index, automl_index)
+	}
+	if !returnable {
+		t.Errorf("processResults returnable should be true")
+	}
+}
+
+func TestAutoMLIndex(t *testing.T) {
+	if automl_api != urls[automl_index] {
+		t.Errorf("automl_index does not match automl_api")
+	}
+}
