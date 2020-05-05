@@ -1,8 +1,21 @@
-import React from 'react';
+import * as React from 'react';
+import 'whatwg-fetch'
 import { shallow } from 'enzyme';
 import { sentenceCombiningQuestionWithOneAttempt, conceptsFeedback } from './data.ts'
-
+import {
+  getMultipleChoiceResponseOptionsWithCallback,
+  getGradedResponsesWithCallback
+} from '../../../actions/responses.js';
+import submitQuestionResponse from '../../renderForQuestions/submitResponse.js';
 import PlayLessonQuestion from '../question.tsx';
+
+
+// required function mocks
+jest.mock('request', () => jest.fn(() => {}));
+getGradedResponsesWithCallback = jest.fn();
+getMultipleChoiceResponseOptionsWithCallback = jest.fn()
+submitQuestionResponse = jest.fn();
+
 
 describe('PlayLessonQuestion component', () => {
   const wrapper = shallow(
