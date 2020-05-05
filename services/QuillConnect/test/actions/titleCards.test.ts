@@ -7,7 +7,7 @@ import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
 
 import { CONNECT_TITLE_CARD_TYPE } from '../../app/libs/title_cards_api'
 
-import * as titleCardActions from '../../app/actions/titleCards'
+import titleCardActions from '../../app/actions/titleCards'
 
 describe('TitleCards actions', () => {
   describe('startListeningToTitleCards', () => {

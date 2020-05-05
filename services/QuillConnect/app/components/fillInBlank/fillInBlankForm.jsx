@@ -63,7 +63,8 @@ class FillInBlankForm extends Component {
   };
 
   submit = () => {
-    const { questionID } = this.state
+    const { questionID, newQuestionOptimalResponse } = this.state
+    const { action } = this.props
     const data = {
       prompt: this.state.prompt,
       blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
@@ -74,7 +75,20 @@ class FillInBlankForm extends Component {
       flag: this.state.flag ? this.state.flag : 'alpha',
       cuesLabel: this.state.cuesLabel
     };
-    this.props.action(data, this.state.newQuestionOptimalResponse);
+    data.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
+    if (this.props.new && data.prompt != '') {
+      action(
+        data,
+        {
+          text: newQuestionOptimalResponse.trim(),
+          optimal: true,
+          count: 0,
+          feedback: "That's a strong sentence!"
+        }
+      );
+    } else {
+      action(data, newQuestionOptimalResponse);
+    }
   };
 
   toggleQuestionBlankAllowed = () => {

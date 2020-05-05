@@ -19,7 +19,7 @@ export interface TitleCardFormProps {
   titleCards: any
   routing: any
   match: any
-  dispatch(any): void 
+  dispatch(any): void
 }
 
 class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
@@ -63,10 +63,12 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   }
 
   submit = () => {
-    const { dispatch, match } = this.props
+    const { dispatch, match, submit } = this.props
     const { params } = match
     const { titleCardID } = params
-    if (titleCardID) {
+    if (submit) {
+      submit(this.state)
+    } else if (titleCardID) {
       dispatch(submitTitleCardEdit(titleCardID, this.state))
     } else {
       dispatch(submitNewTitleCard(this.state))

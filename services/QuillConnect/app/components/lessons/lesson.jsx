@@ -138,7 +138,7 @@ class Lesson extends React.Component {
         const cuesList = (cues && cues[0] != "") ? cues.map((cue, index) => {
           return <span className="tag" key={index}>{cue}</span>
         }) : null
-        const questionURL = lessonQuestionType === 'title-cards' ? `admin/lessons/${params.lessonID}/${lessonQuestionType}/${key}` :
+        const questionURL = lessonQuestionType === 'title-cards' ? `/admin/${lessonQuestionType}/${key}/` :
                             `/admin/${lessonQuestionType}/${key}/responses`
         return (
           <li className={className} key={key} >
@@ -210,14 +210,14 @@ class Lesson extends React.Component {
 
   renderNewQuestionForm = () => {
     const lesson = this.lesson()
-    console.log(lesson)
     const { newQuestion } = this.state
     const question = {flag: lesson.flag, conceptID: lesson.modelConceptUID}
+    const match = { params: { titleCardID: null }}
     const PromptForm = this.promptForm()
     if (newQuestion) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <PromptForm action={this.submitNewQuestion} new={true} question={question} data={question} routeParams={} submit={this.submitNewQuestion} />
+          <PromptForm action={this.submitNewQuestion} conceptID={lesson.modelConceptUID} data={question} flag={lesson.flag} match={match} new={true} question={question} routeParams={} submit={this.submitNewQuestion} />
         </Modal>
       )
     }

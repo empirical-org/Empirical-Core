@@ -3,6 +3,8 @@ import { push } from 'react-router-redux';
 import { TitleCardApi, CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api'
 
 const C = require('../constants').default;
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api'
+import lessonActions from '../actions/lessons'
 
 
 function startListeningToTitleCards() {
@@ -37,12 +39,27 @@ function loadSpecifiedTitleCards(uids) {
   }
 }
 
-function submitNewTitleCard(content) {
+function submitNewTitleCard(content, response, lessonID) {
   return (dispatch) => {
     TitleCardApi.create(CONNECT_TITLE_CARD_TYPE, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
-      const action = push(`/admin/title-cards/${body.uid}`);
-      dispatch(action);
+      if (lessonID) {
+        console.log(body)
+        const lessonQuestion = {key: body['uid'], questionType: 'titleCards'}
+        console.log(lessonQuestion)
+        dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
+        LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+          dispatch(lessonActions.loadLesson(lessonID));
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
+        }).catch( (error) => {
+          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+          dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
+        });
+      } else {
+        const action = push(`/admin/title-cards/${body.uid}`);
+        dispatch(action);
+      }
     })
     .catch((body) => {
       dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${body}`, });
@@ -63,7 +80,7 @@ function submitTitleCardEdit(uid, content) {
   };
 }
 
-export {
+export default {
   submitNewTitleCard,
   loadTitleCards,
   loadSpecifiedTitleCards,
