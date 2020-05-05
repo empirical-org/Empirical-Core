@@ -1,9 +1,10 @@
 import * as React from "react";
 import { withRouter } from 'react-router-dom';
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { ActivityInterface } from '../../interfaces/comprehension/activityInterface'
 
-const ActivitySettings = (props) => {
-  const [activity, setActivity] = React.useState({});
+const ActivitySettings = (props: any) => {
+  const [activity, setActivity] = React.useState<ActivityInterface>({});
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const { match } = props;
@@ -28,8 +29,9 @@ const ActivitySettings = (props) => {
     fetchData();
   }, []);
 
-  const generalSettingsRows = () => {
-    const { course, flag, title } = activity
+  const generalSettingsRows = (activity) => {
+    // format for DataTable to display labels on left side and values on right
+    const { course, flag, passages, prompts, title } = activity
     const fields = [
       { 
         label: 'Name',
@@ -42,14 +44,39 @@ const ActivitySettings = (props) => {
       {
         label: 'Development Status',
         value: flag
-      }
-    ]
+      },
+      {
+        label: 'Passage Length',
+        value: passages ? passages[0].split(' ').length : null
+      },
+      {
+        label: 'Target Reading Level',
+        value: null
+      },
+      {
+        label: 'Reading Level Score',
+        value: null
+      },
+      {
+        label: "Because",
+        value: prompts ? prompts[0].text : null
+      },
+      {
+        label: "But",
+        value: prompts ? prompts[1].text : null
+      },
+      {
+        label: "So",
+        value: prompts ? prompts[2].text : null
+      },
+    ];
     return fields.map(field => {
+      const { label, value } = field
       return {
-        field: field.label,
-        value: field.value
+        field: label,
+        value
       }
-    })
+    });
   }
 
   if(loading) {
@@ -78,10 +105,10 @@ const ActivitySettings = (props) => {
       <DataTable
         className="activity-general-settings-table"
         headers={dataTableFields}
-        rows={generalSettingsRows()}
+        rows={generalSettingsRows(activity)}
       />
     </div>
   );
 }
 
-export default withRouter(ActivitySettings)
+export default ActivitySettings

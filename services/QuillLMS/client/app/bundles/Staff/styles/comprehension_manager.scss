@@ -121,8 +121,10 @@
     align-items: center;
     margin-top: 20px;
 
-    .activity-general-settings-table {
+    .activity-general-settings-table, .passage-settings-table {
       border: 1px solid lightgray;
+      border-radius: 6px;
+      text-align: left;
     }
   }
 }

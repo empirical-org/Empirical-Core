@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Activity component should render ActivitySettings 1`] = `
+<div
+  className="activity-settings-container"
+>
+  <DataTable
+    averageFontWidth={7}
+    className="activity-general-settings-table"
+    headers={
+      Array [
+        Object {
+          "attribute": "field",
+          "name": "Field",
+          "width": "200px",
+        },
+        Object {
+          "attribute": "value",
+          "name": "Value",
+          "width": "400px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "field": "Name",
+          "value": undefined,
+        },
+        Object {
+          "field": "Course",
+          "value": undefined,
+        },
+        Object {
+          "field": "Development Status",
+          "value": undefined,
+        },
+        Object {
+          "field": "Passage Length",
+          "value": null,
+        },
+        Object {
+          "field": "Target Reading Level",
+          "value": null,
+        },
+        Object {
+          "field": "Reading Level Score",
+          "value": null,
+        },
+        Object {
+          "field": "Because",
+          "value": null,
+        },
+        Object {
+          "field": "But",
+          "value": null,
+        },
+        Object {
+          "field": "So",
+          "value": null,
+        },
+      ]
+    }
+  />
+</div>
+`;

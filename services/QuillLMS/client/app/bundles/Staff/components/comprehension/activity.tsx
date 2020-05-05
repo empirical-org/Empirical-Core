@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import ActivitySettings from './activitySettings'
 
-const Activity = (props) => {
+const Activity = (props: any) => {
   const { match } = props;
   const { params } = match;
   const { activityId } = params;

@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { ActivitiesInterface } from '../../interfaces/comprehension/activitiesInterface'
 const fetchAllActivitiesAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json';
 
 const Activities = () => {
-  const [activities, setActivities] = React.useState([]);
+  const [activities, setActivities] = React.useState<ActivitiesInterface>([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   
