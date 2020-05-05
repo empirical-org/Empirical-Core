@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import SessionActions, { denormalizeSession,
                          normalizeSession,
                          allQuestions } from '../../app/actions/sessions';
