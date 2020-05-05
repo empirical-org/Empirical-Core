@@ -5,6 +5,9 @@
   &#webinar-banner {
     border-top: 1px solid #fff;
   }
+  &.webinar-banner {
+    display: block;
+  }
   p, a {
     font-size: 16px;
     color: #fff;

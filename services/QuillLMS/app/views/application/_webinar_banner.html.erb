@@ -1,11 +1,11 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
 <% current_hour = current_time_on_east_coast.hour %>
 <% between_twelve_and_one = current_hour == 12 %>
-<% between_two_and_three = current_hour == 14%>
+<% between_two_and_three = current_hour == 11%>
 <% monday_tuesday_or_thursday = current_time_on_east_coast.monday? || current_time_on_east_coast.thursday? || current_time_on_east_coast.tuesday? %>
 
-<% if (!current_user || current_user.teacher?) && (between_twelve_and_one || between_two_and_three) && monday_tuesday_or_thursday %>
-  <% if (between_twelve_and_one) %>
+<% if (!current_user || current_user.teacher?) %>
+  <% if (between_twelve_and_one && monday_tuesday_or_thursday) %>
     <div class="covid-banner" id="webinar-banner">
       <div class="content-container">
         <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
@@ -16,7 +16,7 @@
   <% end %>
 
   <% if (between_two_and_three && current_time_on_east_coast.monday?) %>
-    <div class="covid-banner" id="monday-banner">
+    <div class="covid-banner webinar-banner" id="monday-banner">
       <div class="content-container">
         <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_RiGS-BOtSxyArdJtoPdtrQ" target="_blank">Click here to register and join.</a></p>
       </div>
@@ -24,7 +24,7 @@
   <% end %>
 
   <% if (between_two_and_three && current_time_on_east_coast.tuesday?) %>
-    <div class="covid-banner" id="tuesday-banner">
+    <div class="covid-banner webinar-banner" id="tuesday-banner">
       <div class="content-container">
         <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_lF7bauoERjmFER-bfds2wQ" target="_blank">Click here to register and join.</a></p>
       </div>
@@ -32,7 +32,7 @@
   <% end %>
 
   <% if (between_two_and_three && current_time_on_east_coast.thursday?) %>
-    <div class="covid-banner" id="thursday-banner">
+    <div class="covid-banner webinar-banner" id="thursday-banner">
       <div class="content-container">
         <p><strong>Quill Webinar 301: Diving into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_DuEYB-0xQ-WaL7mXJLFmFA" target="_blank">Click here to register and join.</a></p>
       </div>
