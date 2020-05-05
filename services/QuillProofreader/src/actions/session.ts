@@ -34,7 +34,7 @@ export const setSessionReducerToSavedSession = (sessionID: string, initialLoad?:
       const session = snapshot.val()
       if (session && !session.error) {
         if (session.conceptResults && initialLoad) {
-          window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${sessionID}`
+          window.location.href = `${window.location.origin}/#/play/sw?proofreaderSessionId=${sessionID}`
         } else {
           dispatch(setSessionReducer(session.passage))
         }
