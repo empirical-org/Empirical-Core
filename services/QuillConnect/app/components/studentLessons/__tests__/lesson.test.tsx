@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+import 'whatwg-fetch'
 import { shallow } from 'enzyme';
 import { clearData, loadData, resumePreviousSession, submitResponse, updateCurrentQuestion, nextQuestion } from '../../../actions.js';
 import { Lesson } from '../lesson.jsx';
@@ -39,8 +40,10 @@ const mockProps = {
     },
     hasreceiveddata: true
   },
-  params: {
-    lessonID: "-KTAQiTDo_9gAnk3aBG5"
+  match: {
+    params: {
+      lessonID: "-KTAQiTDo_9gAnk3aBG5"
+    }
   },
   playLesson: {
     answeredQuestions: [{}],
@@ -234,7 +237,7 @@ describe('Lesson Container functions', () => {
     expect(SessionActions.update).toHaveBeenCalled()
   });
   it("renderProgressBar render progress dependent on props", () => {
-    mockProps.lessons = { 
+    mockProps.lessons = {
       hasreceiveddata: true,
       data: {
         "-KTAQiTDo_9gAnk3aBG5": {
