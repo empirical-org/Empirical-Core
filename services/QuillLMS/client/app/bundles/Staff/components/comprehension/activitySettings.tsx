@@ -1,12 +1,12 @@
 import * as React from "react";
-import { withRouter } from 'react-router-dom';
-import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { DataTable, DropdownInput, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehension/activityInterface'
 
 const ActivitySettings = (props: any) => {
   const [activity, setActivity] = React.useState<ActivityInterface>({});
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [flag, setFlag] = React.useState(null)
   const { match } = props;
   const { params } = match;
   const { activityId } = params;
@@ -17,7 +17,9 @@ const ActivitySettings = (props: any) => {
       setLoading(true);
       const response = await fetch(fetchActivityAPI);
       const activity = await response.json();
+      const { flag } = activity
       setActivity(activity);
+      setFlag({ label: flag, value: flag });
       setLoading(false);
     } catch (error) {
       setError(error);
@@ -29,9 +31,40 @@ const ActivitySettings = (props: any) => {
     fetchData();
   }, []);
 
+  const handleFlagChange = (flag) => {
+    // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
+    setFlag(flag);
+  }
+
+  const flagDropdown = () => {
+    const { activity_id } = activity
+    // TODO: update to reflect the true development status options
+    const flagOptions = [
+      {
+        label: 'alpha',
+        value: 'alpha'
+      },
+      {
+        label: 'beta',
+        value: 'beta'
+      },
+      {
+        label: 'production',
+        value: 'production'
+      },
+    ]
+    const dropdown = (<DropdownInput
+      className="flag-dropdown"
+      handleChange={handleFlagChange}
+      options={flagOptions}
+      value={flag}
+    />);
+    return dropdown;
+  }
+
   const generalSettingsRows = (activity) => {
     // format for DataTable to display labels on left side and values on right
-    const { course, flag, passages, prompts, title } = activity
+    const { course, passages, prompts, title } = activity
     const fields = [
       { 
         label: 'Name',
@@ -43,11 +76,11 @@ const ActivitySettings = (props: any) => {
       },
       {
         label: 'Development Status',
-        value: flag
+        value: flagDropdown()
       },
       {
         label: 'Passage Length',
-        value: passages ? passages[0].split(' ').length : null
+        value: passages ? `${passages[0].split(' ').length} words` : null
       },
       {
         label: 'Target Reading Level',
@@ -107,6 +140,9 @@ const ActivitySettings = (props: any) => {
         headers={dataTableFields}
         rows={generalSettingsRows(activity)}
       />
+      <div className="button-container">
+        <button className="quill-button fun primary contained" type="submit">Configure</button>
+      </div>
     </div>
   );
 }

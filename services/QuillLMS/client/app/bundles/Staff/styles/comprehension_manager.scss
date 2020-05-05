@@ -2,7 +2,7 @@
   display: flex;
   border-bottom: 1px solid lightgray;
 
-  .left-side-menu, .right-panel {
+  .left-side-menu {
     width: 15vw;
     height: 80vh;
     padding: 20px;
@@ -117,14 +117,36 @@
   .activity-settings-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 30px;
 
-    .activity-general-settings-table, .passage-settings-table {
+    .activity-general-settings-table {
       border: 1px solid lightgray;
       border-radius: 6px;
       text-align: left;
+
+      .dropdown__menu {
+        position: relative;
+      }
+      .flag-dropdown {
+        align-items: flex-start;
+
+        .dropdown__single-value, .dropdown__option {
+          font-size: 14px;
+          color: #5b5b5b;
+        }
+      }
+
+      .flag-dropdown:hover {
+        cursor: pointer;
+      }
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      width: 690px;
+      padding: 20px 10px 20px 0px;
     }
   }
 }

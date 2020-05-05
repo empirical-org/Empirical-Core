@@ -19,7 +19,6 @@ const ComprehensionLanding = () => {
         <Route component={Activity} path='/activities/:activityId' />
         <Route component={Activities} path='/activities' />
       </Switch>
-      <section className="right-panel" />
     </div>
   )
 }
