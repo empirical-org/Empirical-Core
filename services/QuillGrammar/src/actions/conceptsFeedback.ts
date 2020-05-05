@@ -65,8 +65,6 @@ export const submitNewConceptsFeedback = (content: ConceptFeedback) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
       dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       dispatch(loadConceptsFeedback())
-      const action = push(`/admin/concepts_feedback/${UID}`);
-      dispatch(action);
     }).catch((error) => {
       dispatch({ type: ActionTypes.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
       dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
