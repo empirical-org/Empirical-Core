@@ -82,12 +82,13 @@ class GetConceptsInUseIndividualConceptWorker
         LEFT JOIN concepts AS parent_concepts ON concepts.parent_id = parent_concepts.id
         LEFT JOIN concepts AS grandparent_concepts ON parent_concepts.parent_id = grandparent_concepts.id
         LEFT JOIN concept_results ON concept_results.concept_id = concepts.id
-        LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id AND activity_sessions.completed_at > (CURRENT_DATE - INTERVAL '1 week')
+        LEFT JOIN activity_sessions ON concept_results.activity_session_id = activity_sessions.id
         LEFT JOIN activities on activity_sessions.activity_id = activities.id
         LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
         LEFT JOIN criteria ON criteria.concept_id = concepts.id
         LEFT JOIN recommendations ON criteria.recommendation_id = recommendations.id
         WHERE concepts.id = #{id}
+        AND activities.flags = '{production}'
         GROUP BY concept_name, parent_concepts.name, grandparent_concepts.name, activity_name, concept_uid, classification_name, recommendations.name
         ORDER BY grandparent_concepts.name, parent_concepts.name, concept_name, classification_name
       ").to_a

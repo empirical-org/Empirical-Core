@@ -5,17 +5,16 @@ import _ from 'underscore';
 import {
   Modal,
   ArchivedButton,
-  FlagDropdown
+  FlagDropdown,
 } from 'quill-component-library/dist/componentLibrary';
-import { LinkListItem } from '../shared/linkListItem';
 import EditLessonForm from './lessonForm.jsx';
+import { ExpandLessonQuestions } from './expandLessonQuestions';
 
 class Lessons extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      lessonFlags: 'production',
       showOnlyArchived: false,
     }
   }
@@ -25,7 +24,8 @@ class Lessons extends React.Component {
   };
 
   handleSelect = e => {
-    this.setState({ lessonFlags: e.target.value, });
+    const { dispatch } = this.props
+    dispatch(actions.setFlag(e.target.value));
   };
 
   submitNewLesson = data => {
@@ -39,30 +39,38 @@ class Lessons extends React.Component {
   };
 
   renderLessons = () => {
-    const { data, } = this.props.lessons;
-    const questionsData = this.props.questions.data
+    const { data, flag } = this.props.lessons;
     let keys = _.keys(data);
-    if (this.state.lessonFlags !== 'All Flags') {
-      keys = _.filter(keys, key => data[key].flag === this.state.lessonFlags);
+    if (flag !== 'All Flags') {
+      keys = _.filter(keys, key => data[key].flag === flag);
     }
     if (this.state.showOnlyArchived) {
       keys = keys.filter((key) => {
         return data[key].questions && data[key].questions.some((q) => {
+          const questionsData = this.props[q.questionType].data
           const question = questionsData[q.key]
           return question && question.flag === 'archived'
         })
       })
     }
-    return keys.map(key => (
-      <LinkListItem
+    return keys.map(key => {
+      let questions = data[key].questions.map((q) => {
+        const questionsData = this.props[q.questionType].data
+        if (questionsData[q.key]) return questionsData[q.key].prompt
+        return ''
+      })
+      return (<ExpandLessonQuestions
         activeClassName='is-active'
         basePath='lessons'
-        excludeResponses={true}
+        className='activity-link'
+        goToButtonText='View Activity'
         itemKey={key}
         key={key}
+        listElements={questions}
+        showHideButtonText={{'show':'Show Prompts','hide':'Hide Prompts'}}
         text={data[key].name || 'No name'}
-      />
-    ));
+      />)
+    });
   };
 
   renderModal = () => {
@@ -77,13 +85,14 @@ class Lessons extends React.Component {
   };
 
   render() {
+    const { lessons } = this.props
     return (
       <section className="section">
         <div className="container">
           <h1 className="title"><button className="button is-primary" onClick={this.createNew}>Create New Activity</button></h1>
           { this.renderModal() }
           <div style={{display: 'inline-block'}}>
-            <FlagDropdown flag={this.state.lessonFlags} handleFlagChange={this.handleSelect} isLessons={true} />
+            <FlagDropdown flag={lessons.flag} handleFlagChange={this.handleSelect} isLessons={true} />
           </div>
           <ArchivedButton lessons={true} showOnlyArchived={this.state.showOnlyArchived} toggleShowArchived={this.toggleShowArchived} />
           <div className="columns">
@@ -92,7 +101,7 @@ class Lessons extends React.Component {
                 <p className="menu-label">
                   Activities
                 </p>
-                <ul className="menu-list">
+                <ul className="menu-list activities-list">
                   {this.renderLessons()}
                 </ul>
               </aside>
@@ -109,6 +118,9 @@ function select(state) {
     lessons: state.lessons,
     routing: state.routing,
     questions: state.questions,
+    sentenceFragments: state.sentenceFragments,
+    fillInBlank: state.fillInBlank,
+    titleCards: state.titleCards
   };
 }
 
