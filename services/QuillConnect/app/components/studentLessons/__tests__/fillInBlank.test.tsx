@@ -1,8 +1,9 @@
-import React from 'react';
+import 'whatwg-fetch'
+import * as React from 'react';
 import { shallow } from 'enzyme';
-import { fillInBlankQuestionWithOneAttempt, conceptsFeedback } from './data.ts'
+import { fillInBlankQuestionWithOneAttempt, conceptsFeedback } from './data'
 
-import PlayFillInBlankQuestion from '../fillInBlank.tsx';
+import PlayFillInBlankQuestion from '../fillInBlank';
 
 describe('PlayFillInBlankQuestion component', () => {
   const wrapper = shallow(
