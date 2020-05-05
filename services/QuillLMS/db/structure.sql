@@ -4346,10 +4346,10 @@ CREATE INDEX index_concept_feedbacks_on_activity_type ON public.concept_feedback
 
 
 --
--- Name: index_concept_feedbacks_on_uid; Type: INDEX; Schema: public; Owner: -
+-- Name: index_concept_feedbacks_on_uid_and_activity_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_concept_feedbacks_on_uid ON public.concept_feedbacks USING btree (uid);
+CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.concept_feedbacks USING btree (uid, activity_type);
 
 
 --
