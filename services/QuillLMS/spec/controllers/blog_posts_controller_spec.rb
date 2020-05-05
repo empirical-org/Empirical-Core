@@ -9,9 +9,10 @@ describe BlogPostsController, type: :controller do
     let(:blog_posts) { create_list(:blog_post, 3) }
     let(:draft_post) { create(:blog_post, :draft) }
 
-    it 'should return all non-draft blog posts' do
+    it 'should return all non-draft blog posts where the topic is a teacher topic' do
       get :index
-      expect(assigns(:blog_posts)).to match_array(blog_posts)
+      teacher_blog_posts = blog_posts.select { |bp| BlogPost::TEACHER_TOPICS.include?(bp.topic) }
+      expect(assigns(:blog_posts)).to match_array(teacher_blog_posts)
     end
 
     it 'should never return a draft' do
@@ -72,7 +73,7 @@ describe BlogPostsController, type: :controller do
   end
 
   describe '#show_topic' do
-    let(:topic) { BlogPost::TOPICS.sample }
+    let(:topic) { BlogPost::TEACHER_TOPICS.sample }
     let(:blog_posts) { create_list(:blog_post, 3, topic: topic) }
     let(:draft_post) { create(:blog_post, :draft, topic: topic) }
 
