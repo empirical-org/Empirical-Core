@@ -194,6 +194,7 @@ class Teachers::ClassroomManagerController < ApplicationController
 
   def unset_preview_as_student
     unset_preview_student_id
+    return redirect_to params[:redirect] if params[:redirect]
     redirect_to '/profile'
   end
 
