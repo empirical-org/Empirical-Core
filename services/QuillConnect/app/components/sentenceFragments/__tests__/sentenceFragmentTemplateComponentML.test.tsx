@@ -1,4 +1,5 @@
-import React from 'react';
+import 'whatwg-fetch'
+import * as React from 'react';
 import { shallow } from 'enzyme';
 import { sentenceFragmentQuestionWithOneAttempt, conceptsFeedback } from '../../studentLessons/__tests__/data.ts'
 

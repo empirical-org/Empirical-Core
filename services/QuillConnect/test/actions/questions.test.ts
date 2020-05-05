@@ -1,3 +1,5 @@
+import * as React from 'react';
+import 'whatwg-fetch'
 import { mockQuestionApi, } from '../__mocks__/question_api'
 import { mockFocusPointApi, } from '../__mocks__/focus_point_api'
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api'
