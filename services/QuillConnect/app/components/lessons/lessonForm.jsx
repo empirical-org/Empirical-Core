@@ -15,7 +15,6 @@ class LessonForm extends React.Component {
     super(props)
 
     const { currentValues, } = props;
-    console.log(currentValues)
 
     this.state = {
       name: currentValues ? currentValues.name : '',

@@ -80,7 +80,6 @@ class Lesson extends React.Component {
 
   urlString = () => {
     const questionType = this.lesson().questionType
-    console.log(questionType)
     if (questionType == 'questions') {
       return 'questions'
     } else if (questionType == 'sentenceFragments') {
@@ -108,8 +107,6 @@ class Lesson extends React.Component {
   saveLessonEdits = (vals) => {
     const { lessonID, } = this.props.match.params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
-    console.log("saving")
-    console.log(vals)
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
@@ -213,12 +210,14 @@ class Lesson extends React.Component {
 
   renderNewQuestionForm = () => {
     const lesson = this.lesson()
+    console.log(lesson)
     const { newQuestion } = this.state
+    const question = {flag: lesson.flag, conceptID: lesson.modelConceptUID}
     const PromptForm = this.promptForm()
     if (newQuestion) {
       return (
         <Modal close={this.cancelEditingQuestion}>
-          <PromptForm action={this.submitNewQuestion} new={true} question={{flag: lesson.flag, conceptID: lesson.modelConceptUID}} routeParams={} submit={this.submitNewQuestion} />
+          <PromptForm action={this.submitNewQuestion} new={true} question={question} data={question} routeParams={} submit={this.submitNewQuestion} />
         </Modal>
       )
     }
