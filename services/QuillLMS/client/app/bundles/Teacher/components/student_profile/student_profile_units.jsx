@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'underscore';
 import StudentProfileUnit from './student_profile_unit.jsx';
+import PinnedActivityModal from './pinned_activity_modal'
+import PreviewActivityModal from './pinned_activity_modal'
+import PinnedActivityBar from './pinned_activity_bar'
 import LoadingIndicator from '../shared/loading_indicator'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
@@ -87,7 +90,7 @@ export default class StudentProfileUnits extends React.Component {
     this.setState({ showPreviewModal: false, previewActivityId: null, })
   }
 
-  showPreviewModal = (activityId) => {
+  handleShowPreviewModal = (activityId) => {
     this.setState({ showPreviewModal: true, previewActivityId: activityId, })
   }
 
@@ -124,17 +127,12 @@ export default class StudentProfileUnits extends React.Component {
 
     const { name, ca_id, activity_id, } = pinnedActivity
 
-    let link = <a className="quill-button medium primary contained focus-on-dark" href={activityLaunchLink(ca_id, activity_id)}>Join</a>
-
-    if (isBeingPreviewed) {
-      const onClick = () => this.showPreviewModal(activity_id)
-      link = <button className="quill-button medium primary contained focus-on-dark" onClick={onClick} type="button">Join</button>
-    }
-
-    return (<div className="pinned-activity">
-      <span>{name}</span>
-      {link}
-    </div>)
+    return (<PinnedActivityBar
+      activityId={activity_id}
+      classroomUnitId={ca_id}
+      isBeingPreviewed={isBeingPreviewed}
+      onShowPreviewModal={this.handleShowPreviewModal}
+    />)
   }
 
   renderPreviewModal = () => {
@@ -142,21 +140,10 @@ export default class StudentProfileUnits extends React.Component {
 
     if (!(showPreviewModal && previewActivityId)) { return }
 
-    return (<div className="modal-container student-profile-modal-container">
-      <div className="modal-background" />
-      <div className="student-profile-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Only a student can complete an activity, but you can still preview it.</h3>
-        </div>
-        <div className="student-profile-modal-text">
-          <p>None of your responses will be saved, and the activity will not be marked as complete.</p>
-        </div>
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleClosePreviewActivityModalClick} type="button">Cancel</button>
-          <a className="quill-button contained primary medium focus-on-light" href={`/activity_sessions/anonymous?activity_id=${previewActivityId}`} onClick={this.handleClosePreviewActivityModalClick} rel="noopener noreferrer" target="_blank">Preview activity</a>
-        </div>
-      </div>
-    </div>)
+    return (<PreviewActivityModal
+      onClosePreviewActivityModalClick={this.handleClosePreviewActivityModalClick}
+      previewActivityId={previewActivityId}
+    />)
   }
 
   renderPinnedActivityModal = () => {
@@ -166,21 +153,13 @@ export default class StudentProfileUnits extends React.Component {
     if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity
-    return (<div className="modal-container pinned-activity-modal-container">
-      <div className="modal-background" />
-      <div className="pinned-activity-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Join: {name}</h3>
-        </div>
-        <div className="pinned-activity-modal-text">
-          <p>Your teacher, {teacherName}, has launched a live Quill Lesson.</p>
-        </div>
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleClosePinnedActivityModalClick} type="button">Not now</button>
-          <a className="quill-button contained primary medium focus-on-light" href={activityLaunchLink(ca_id, activity_id)}>Join the lesson</a>
-        </div>
-      </div>
-    </div>)
+    return (<PinnedActivityModal
+      activityId={activity_id}
+      classroomUnitId={ca_id}
+      name={name}
+      onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
+      teacherName={teacherName}
+    />)
   }
 
   render() {

@@ -1,60 +1,80 @@
-# require 'rails_helper'
-# include QuillAuthentication
-#
-#
-# describe QuillAuthentication, type: :concern do
-#   # quill_auth = QuillAuthentication
-#   # let (:test_class) { Struct.new(:bloop) { include QuillAuthentication } }
-#   #  let (:quill_auth) { test_class.new() }
-#   # let(:session) {{}}
-#   # describe 'authentication methods' do
-#   #   let(:classroom) { create(:classroom, :with_coteacher) }
-#   #   let(:coteacher) { classroom.coteachers.first }
-#   #   let(:owner) { classroom.owner }
-#   #   let(:random_teacher) {create(:teacher)}
-#   #
-#   #   describe '#classroom_owner' do
-#   #     it 'should return nil if current_user is owner of the classroom' do
-#   #       session[:user_id] = owner.id
-#   #       expect(classroom_owner!(classroom)).to eq(nil)
-#       # end
-#
-#     #   it 'should redirect if current_user is not owner of the classroom' do
-#     #     session[:user_id] = coteacher.id
-#     #     expect(quill_auth).to receive(:auth_failed)
-#     #     QuillAuthentication.classroom_owner!(classroom)
-#     #   end
-#     # end
-#     #
-#     # describe '#classroom_coteacher' do
-#     #   it 'should return nil if current_user is coteacher of the classroom' do
-#     #     session[:user_id] = coteacher.id
-#     #     expect(classroom_coteacher!(classroom)).to eq(nil)
-#     #   end
-#     #
-#     #   it 'should redirect if current_user is not coteacher of the classroom' do
-#     #     session[:user_id] = owner.id
-#     #     expect(quill_auth).to receive(:auth_failed)
-#     #     QuillAuthentication.classroom_coteacher!(classroom)
-#     #   end
-#     # end
-#     #
-#     # describe '#classroom_teacher' do
-#     #   it 'should return nil if current_user is coteacher of the classroom' do
-#     #     session[:user_id] = coteacher.id
-#     #     expect(classroom_teacher!(classroom)).to eq(nil)
-#     #   end
-#     #
-#     #   it 'should return nil if current_user is owner of the classroom' do
-#     #     session[:user_id] = owner.id
-#     #     expect(classroom_teacher!(classroom)).to eq(nil)
-#     #   end
-#     #
-#     #   it 'should redirect if current_user is not associated with the classroom via classrooms_teachers' do
-#     #     session[:user_id] = random_teacher.id
-#     #     expect(quill_auth).to receive(:auth_failed)
-#     #     concern.classroom_teacher!(classroom)
-#     #   end
-#   #   end
-#   # end
-# end
+require 'rails_helper'
+
+class FakeController < ApplicationController
+  include QuillAuthentication
+end
+
+describe FakeController, type: :controller do
+
+  describe 'authentication methods' do
+    let(:classroom) { create(:classroom, :with_coteacher) }
+    let(:coteacher) { classroom.coteachers.first }
+    let(:owner) { classroom.owner }
+    let(:random_teacher) {create(:teacher)}
+
+    describe '#classroom_owner' do
+      it 'should return nil if current_user is owner of the classroom' do
+        session[:user_id] = owner.id
+        expect(controller.classroom_owner!(classroom)).to eq(nil)
+      end
+
+      it 'should redirect if current_user is not owner of the classroom' do
+        session[:user_id] = coteacher.id
+        expect(controller).to receive(:auth_failed)
+        controller.classroom_owner!(classroom)
+      end
+    end
+
+    describe '#classroom_coteacher' do
+      it 'should return nil if current_user is coteacher of the classroom' do
+        session[:user_id] = coteacher.id
+        expect(controller.classroom_coteacher!(classroom)).to eq(nil)
+      end
+
+      it 'should redirect if current_user is not coteacher of the classroom' do
+        session[:user_id] = owner.id
+        expect(controller).to receive(:auth_failed)
+        controller.classroom_coteacher!(classroom)
+      end
+    end
+
+    describe '#classroom_teacher' do
+      it 'should return nil if current_user is coteacher of the classroom' do
+        session[:user_id] = coteacher.id
+        expect(controller.classroom_teacher!(classroom)).to eq(nil)
+      end
+
+      it 'should return nil if current_user is owner of the classroom' do
+        session[:user_id] = owner.id
+        expect(controller.classroom_teacher!(classroom)).to eq(nil)
+      end
+
+      it 'should redirect if current_user is not associated with the classroom via classrooms_teachers' do
+        session[:user_id] = random_teacher.id
+        expect(controller).to receive(:auth_failed)
+        controller.classroom_teacher!(classroom)
+      end
+    end
+
+    describe '#set_preview_student_id' do
+      let!(:student) { create(:student) }
+
+      it 'should set the session preview_student_id and the current user to the student' do
+        controller.set_preview_student_id(student.id)
+        expect(session[:preview_student_id]).to eq(student.id)
+        expect(controller.current_user).to eq(student)
+      end
+    end
+
+    describe '#unset_preview_student_id' do
+      let!(:teacher) { create(:teacher) }
+
+      it 'should set the session preview_student_id to nil and the current user to the one saved in the session' do
+        session[:user_id] = teacher.id
+        controller.unset_preview_student_id
+        expect(session[:preview_student_id]).to eq(nil)
+        expect(controller.current_user).to eq(teacher)
+      end
+    end
+  end
+end

@@ -371,4 +371,62 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(response.body).to eq({classrooms: []}.to_json)
    end
   end
+
+  describe '#preview_as_student' do
+    let!(:teacher) { create(:teacher) }
+    let!(:classroom) { create(:classroom) }
+    let!(:classrooms_teacher) { create(:classrooms_teacher, classroom: classroom, user: teacher)}
+    let!(:student1) { create(:student)}
+    let!(:student2) { create(:student)}
+    let!(:students_classrooms) { create(:students_classrooms, student: student1, classroom: classroom)}
+
+    before do
+      allow(controller).to receive(:current_user) { teacher }
+    end
+
+    it 'will call set_preview_student_id if the student exists and is in one of the teachers classrooms' do
+      expect(controller).to receive(:set_preview_student_id).with(student1.id.to_s)
+      get :preview_as_student, student_id: student1.id
+    end
+
+    it 'will not call set_preview_student_id if the student exists and is not in one of the teachers classrooms' do
+      expect(controller).not_to receive(:set_preview_student_id).with(student2.id.to_s)
+      get :preview_as_student, student_id: student2.id
+    end
+
+    it 'will not call set_preview_student_id if the student does not exist' do
+      expect(controller).not_to receive(:set_preview_student_id).with('random')
+      get :preview_as_student, student_id: 'random'
+    end
+
+    it 'will redirect to the profile path' do
+      get :preview_as_student, student_id: 'random'
+      expect(response).to redirect_to profile_path
+    end
+  end
+
+  describe '#unset_preview_as_student' do
+    let!(:teacher) { create(:teacher) }
+
+    before do
+      controller.sign_in(teacher)
+    end
+
+    it 'will redirect to the redirect param if it exists' do
+      redirect = '/teachers/classes'
+      get :unset_preview_as_student, redirect: redirect
+      expect(response).to redirect_to redirect
+    end
+
+    it 'will redirect to the profile path if there is no redirect param' do
+      get :unset_preview_as_student
+      expect(response).to redirect_to profile_path
+    end
+
+    it 'will call unset_preview_student_id' do
+      expect(controller).to receive(:unset_preview_student_id)
+      get :unset_preview_as_student
+    end
+
+  end
 end

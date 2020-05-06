@@ -1,5 +1,6 @@
 module QuillAuthentication
   extend ActiveSupport::Concern
+  include ActionController::Helpers
 
   CLEVER_REDIRECT = :clever_redirect
   GOOGLE_REDIRECT = :google_redirect

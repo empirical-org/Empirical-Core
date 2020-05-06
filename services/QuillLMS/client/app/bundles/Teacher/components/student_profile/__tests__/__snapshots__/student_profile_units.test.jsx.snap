@@ -4420,64 +4420,76 @@ exports[`StudentProfileUnits component should render all activities and units if
   <div
     className="container"
   >
-    <div
-      className="pinned-activity"
-    >
-      <span>
-        Lesson 1: Missing Subject or Verb Fragments
-      </span>
-      <a
-        className="quill-button medium primary contained focus-on-dark"
-        href="/activity_sessions/classroom_units/10/activities/560"
-      >
-        Join
-      </a>
-    </div>
-    <div
-      className="modal-container pinned-activity-modal-container"
+    <PinnedActivityBar
+      activityId="560"
+      classroomUnitId="10"
+      onShowPreviewModal={[Function]}
     >
       <div
-        className="modal-background"
-      />
-      <div
-        className="pinned-activity-modal quill-modal modal-body"
+        className="pinned-activity"
       >
-        <div>
-          <h3
-            className="title"
-          >
-            Join: 
-            Lesson 1: Missing Subject or Verb Fragments
-          </h3>
-        </div>
-        <div
-          className="pinned-activity-modal-text"
+        <span>
+          nodejs
+        </span>
+        <a
+          className="quill-button medium primary contained focus-on-dark"
+          href="/activity_sessions/classroom_units/10/activities/560"
         >
-          <p>
-            Your teacher, 
-            Emilia F
-            , has launched a live Quill Lesson.
-          </p>
-        </div>
+          Join
+        </a>
+      </div>
+    </PinnedActivityBar>
+    <PinnedActivityModal
+      activityId="560"
+      classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
+      teacherName="Emilia F"
+    >
+      <div
+        className="modal-container pinned-activity-modal-container"
+      >
         <div
-          className="form-buttons"
+          className="modal-background"
+        />
+        <div
+          className="pinned-activity-modal quill-modal modal-body"
         >
-          <button
-            className="quill-button outlined secondary medium focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div>
+            <h3
+              className="title"
+            >
+              Join: 
+              Lesson 1: Missing Subject or Verb Fragments
+            </h3>
+          </div>
+          <div
+            className="pinned-activity-modal-text"
           >
-            Not now
-          </button>
-          <a
-            className="quill-button contained primary medium focus-on-light"
-            href="/activity_sessions/classroom_units/10/activities/560"
+            <p>
+              Your teacher, 
+              Emilia F
+              , has launched a live Quill Lesson.
+            </p>
+          </div>
+          <div
+            className="form-buttons"
           >
-            Join the lesson
-          </a>
+            <button
+              className="quill-button outlined secondary medium focus-on-light"
+              type="button"
+            >
+              Not now
+            </button>
+            <a
+              className="quill-button contained primary medium focus-on-light"
+              href="/activity_sessions/classroom_units/10/activities/560"
+            >
+              Join the lesson
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </PinnedActivityModal>
     <StudentProfileUnit
       data={
         Object {
@@ -6654,64 +6666,76 @@ exports[`StudentProfileUnits component should render only completed activities i
   <div
     className="container"
   >
-    <div
-      className="pinned-activity"
-    >
-      <span>
-        Lesson 1: Missing Subject or Verb Fragments
-      </span>
-      <a
-        className="quill-button medium primary contained focus-on-dark"
-        href="/activity_sessions/classroom_units/10/activities/560"
-      >
-        Join
-      </a>
-    </div>
-    <div
-      className="modal-container pinned-activity-modal-container"
+    <PinnedActivityBar
+      activityId="560"
+      classroomUnitId="10"
+      onShowPreviewModal={[Function]}
     >
       <div
-        className="modal-background"
-      />
-      <div
-        className="pinned-activity-modal quill-modal modal-body"
+        className="pinned-activity"
       >
-        <div>
-          <h3
-            className="title"
-          >
-            Join: 
-            Lesson 1: Missing Subject or Verb Fragments
-          </h3>
-        </div>
-        <div
-          className="pinned-activity-modal-text"
+        <span>
+          nodejs
+        </span>
+        <a
+          className="quill-button medium primary contained focus-on-dark"
+          href="/activity_sessions/classroom_units/10/activities/560"
         >
-          <p>
-            Your teacher, 
-            Emilia F
-            , has launched a live Quill Lesson.
-          </p>
-        </div>
+          Join
+        </a>
+      </div>
+    </PinnedActivityBar>
+    <PinnedActivityModal
+      activityId="560"
+      classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
+      teacherName="Emilia F"
+    >
+      <div
+        className="modal-container pinned-activity-modal-container"
+      >
         <div
-          className="form-buttons"
+          className="modal-background"
+        />
+        <div
+          className="pinned-activity-modal quill-modal modal-body"
         >
-          <button
-            className="quill-button outlined secondary medium focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div>
+            <h3
+              className="title"
+            >
+              Join: 
+              Lesson 1: Missing Subject or Verb Fragments
+            </h3>
+          </div>
+          <div
+            className="pinned-activity-modal-text"
           >
-            Not now
-          </button>
-          <a
-            className="quill-button contained primary medium focus-on-light"
-            href="/activity_sessions/classroom_units/10/activities/560"
+            <p>
+              Your teacher, 
+              Emilia F
+              , has launched a live Quill Lesson.
+            </p>
+          </div>
+          <div
+            className="form-buttons"
           >
-            Join the lesson
-          </a>
+            <button
+              className="quill-button outlined secondary medium focus-on-light"
+              type="button"
+            >
+              Not now
+            </button>
+            <a
+              className="quill-button contained primary medium focus-on-light"
+              href="/activity_sessions/classroom_units/10/activities/560"
+            >
+              Join the lesson
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </PinnedActivityModal>
     <StudentProfileUnit
       data={
         Object {
@@ -7445,64 +7469,76 @@ exports[`StudentProfileUnits component should render only incomplete activities 
   <div
     className="container"
   >
-    <div
-      className="pinned-activity"
-    >
-      <span>
-        Lesson 1: Missing Subject or Verb Fragments
-      </span>
-      <a
-        className="quill-button medium primary contained focus-on-dark"
-        href="/activity_sessions/classroom_units/10/activities/560"
-      >
-        Join
-      </a>
-    </div>
-    <div
-      className="modal-container pinned-activity-modal-container"
+    <PinnedActivityBar
+      activityId="560"
+      classroomUnitId="10"
+      onShowPreviewModal={[Function]}
     >
       <div
-        className="modal-background"
-      />
-      <div
-        className="pinned-activity-modal quill-modal modal-body"
+        className="pinned-activity"
       >
-        <div>
-          <h3
-            className="title"
-          >
-            Join: 
-            Lesson 1: Missing Subject or Verb Fragments
-          </h3>
-        </div>
-        <div
-          className="pinned-activity-modal-text"
+        <span>
+          nodejs
+        </span>
+        <a
+          className="quill-button medium primary contained focus-on-dark"
+          href="/activity_sessions/classroom_units/10/activities/560"
         >
-          <p>
-            Your teacher, 
-            Emilia F
-            , has launched a live Quill Lesson.
-          </p>
-        </div>
+          Join
+        </a>
+      </div>
+    </PinnedActivityBar>
+    <PinnedActivityModal
+      activityId="560"
+      classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
+      teacherName="Emilia F"
+    >
+      <div
+        className="modal-container pinned-activity-modal-container"
+      >
         <div
-          className="form-buttons"
+          className="modal-background"
+        />
+        <div
+          className="pinned-activity-modal quill-modal modal-body"
         >
-          <button
-            className="quill-button outlined secondary medium focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div>
+            <h3
+              className="title"
+            >
+              Join: 
+              Lesson 1: Missing Subject or Verb Fragments
+            </h3>
+          </div>
+          <div
+            className="pinned-activity-modal-text"
           >
-            Not now
-          </button>
-          <a
-            className="quill-button contained primary medium focus-on-light"
-            href="/activity_sessions/classroom_units/10/activities/560"
+            <p>
+              Your teacher, 
+              Emilia F
+              , has launched a live Quill Lesson.
+            </p>
+          </div>
+          <div
+            className="form-buttons"
           >
-            Join the lesson
-          </a>
+            <button
+              className="quill-button outlined secondary medium focus-on-light"
+              type="button"
+            >
+              Not now
+            </button>
+            <a
+              className="quill-button contained primary medium focus-on-light"
+              href="/activity_sessions/classroom_units/10/activities/560"
+            >
+              Join the lesson
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </PinnedActivityModal>
     <StudentProfileUnit
       data={
         Object {
@@ -9277,64 +9313,76 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
   <div
     className="container"
   >
-    <div
-      className="pinned-activity"
-    >
-      <span>
-        Lesson 1: Missing Subject or Verb Fragments
-      </span>
-      <a
-        className="quill-button medium primary contained focus-on-dark"
-        href="/activity_sessions/classroom_units/10/activities/560"
-      >
-        Join
-      </a>
-    </div>
-    <div
-      className="modal-container pinned-activity-modal-container"
+    <PinnedActivityBar
+      activityId="560"
+      classroomUnitId="10"
+      onShowPreviewModal={[Function]}
     >
       <div
-        className="modal-background"
-      />
-      <div
-        className="pinned-activity-modal quill-modal modal-body"
+        className="pinned-activity"
       >
-        <div>
-          <h3
-            className="title"
-          >
-            Join: 
-            Lesson 1: Missing Subject or Verb Fragments
-          </h3>
-        </div>
-        <div
-          className="pinned-activity-modal-text"
+        <span>
+          nodejs
+        </span>
+        <a
+          className="quill-button medium primary contained focus-on-dark"
+          href="/activity_sessions/classroom_units/10/activities/560"
         >
-          <p>
-            Your teacher, 
-            Emilia F
-            , has launched a live Quill Lesson.
-          </p>
-        </div>
+          Join
+        </a>
+      </div>
+    </PinnedActivityBar>
+    <PinnedActivityModal
+      activityId="560"
+      classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
+      teacherName="Emilia F"
+    >
+      <div
+        className="modal-container pinned-activity-modal-container"
+      >
         <div
-          className="form-buttons"
+          className="modal-background"
+        />
+        <div
+          className="pinned-activity-modal quill-modal modal-body"
         >
-          <button
-            className="quill-button outlined secondary medium focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div>
+            <h3
+              className="title"
+            >
+              Join: 
+              Lesson 1: Missing Subject or Verb Fragments
+            </h3>
+          </div>
+          <div
+            className="pinned-activity-modal-text"
           >
-            Not now
-          </button>
-          <a
-            className="quill-button contained primary medium focus-on-light"
-            href="/activity_sessions/classroom_units/10/activities/560"
+            <p>
+              Your teacher, 
+              Emilia F
+              , has launched a live Quill Lesson.
+            </p>
+          </div>
+          <div
+            className="form-buttons"
           >
-            Join the lesson
-          </a>
+            <button
+              className="quill-button outlined secondary medium focus-on-light"
+              type="button"
+            >
+              Not now
+            </button>
+            <a
+              className="quill-button contained primary medium focus-on-light"
+              href="/activity_sessions/classroom_units/10/activities/560"
+            >
+              Join the lesson
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </PinnedActivityModal>
     <StudentProfileUnit
       data={
         Object {
@@ -11511,64 +11559,76 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
   <div
     className="container"
   >
-    <div
-      className="pinned-activity"
-    >
-      <span>
-        Lesson 1: Missing Subject or Verb Fragments
-      </span>
-      <a
-        className="quill-button medium primary contained focus-on-dark"
-        href="/activity_sessions/classroom_units/10/activities/560"
-      >
-        Join
-      </a>
-    </div>
-    <div
-      className="modal-container pinned-activity-modal-container"
+    <PinnedActivityBar
+      activityId="560"
+      classroomUnitId="10"
+      onShowPreviewModal={[Function]}
     >
       <div
-        className="modal-background"
-      />
-      <div
-        className="pinned-activity-modal quill-modal modal-body"
+        className="pinned-activity"
       >
-        <div>
-          <h3
-            className="title"
-          >
-            Join: 
-            Lesson 1: Missing Subject or Verb Fragments
-          </h3>
-        </div>
-        <div
-          className="pinned-activity-modal-text"
+        <span>
+          nodejs
+        </span>
+        <a
+          className="quill-button medium primary contained focus-on-dark"
+          href="/activity_sessions/classroom_units/10/activities/560"
         >
-          <p>
-            Your teacher, 
-            Emilia F
-            , has launched a live Quill Lesson.
-          </p>
-        </div>
+          Join
+        </a>
+      </div>
+    </PinnedActivityBar>
+    <PinnedActivityModal
+      activityId="560"
+      classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
+      teacherName="Emilia F"
+    >
+      <div
+        className="modal-container pinned-activity-modal-container"
+      >
         <div
-          className="form-buttons"
+          className="modal-background"
+        />
+        <div
+          className="pinned-activity-modal quill-modal modal-body"
         >
-          <button
-            className="quill-button outlined secondary medium focus-on-light"
-            onClick={[Function]}
-            type="button"
+          <div>
+            <h3
+              className="title"
+            >
+              Join: 
+              Lesson 1: Missing Subject or Verb Fragments
+            </h3>
+          </div>
+          <div
+            className="pinned-activity-modal-text"
           >
-            Not now
-          </button>
-          <a
-            className="quill-button contained primary medium focus-on-light"
-            href="/activity_sessions/classroom_units/10/activities/560"
+            <p>
+              Your teacher, 
+              Emilia F
+              , has launched a live Quill Lesson.
+            </p>
+          </div>
+          <div
+            className="form-buttons"
           >
-            Join the lesson
-          </a>
+            <button
+              className="quill-button outlined secondary medium focus-on-light"
+              type="button"
+            >
+              Not now
+            </button>
+            <a
+              className="quill-button contained primary medium focus-on-light"
+              href="/activity_sessions/classroom_units/10/activities/560"
+            >
+              Join the lesson
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </PinnedActivityModal>
     <StudentProfileUnit
       data={
         Object {
