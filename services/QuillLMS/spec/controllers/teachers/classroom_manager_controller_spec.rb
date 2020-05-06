@@ -384,18 +384,18 @@ describe Teachers::ClassroomManagerController, type: :controller do
       allow(controller).to receive(:current_user) { teacher }
     end
 
-    it 'will call set_preview_student_id if the student exists and is in one of the teachers classrooms' do
-      expect(controller).to receive(:set_preview_student_id).with(student1.id.to_s)
+    it 'will call preview_student_id= if the student exists and is in one of the teachers classrooms' do
+      expect(controller).to receive(:preview_student_id=).with(student1.id.to_s)
       get :preview_as_student, student_id: student1.id
     end
 
-    it 'will not call set_preview_student_id if the student exists and is not in one of the teachers classrooms' do
-      expect(controller).not_to receive(:set_preview_student_id).with(student2.id.to_s)
+    it 'will not call preview_student_id= if the student exists and is not in one of the teachers classrooms' do
+      expect(controller).not_to receive(:preview_student_id=).with(student2.id.to_s)
       get :preview_as_student, student_id: student2.id
     end
 
-    it 'will not call set_preview_student_id if the student does not exist' do
-      expect(controller).not_to receive(:set_preview_student_id).with('random')
+    it 'will not call preview_student_id= if the student does not exist' do
+      expect(controller).not_to receive(:preview_student_id=).with('random')
       get :preview_as_student, student_id: 'random'
     end
 
@@ -423,8 +423,8 @@ describe Teachers::ClassroomManagerController, type: :controller do
       expect(response).to redirect_to profile_path
     end
 
-    it 'will call unset_preview_student_id' do
-      expect(controller).to receive(:unset_preview_student_id)
+    it 'will call preview_student_id=' do
+      expect(controller).to receive(:preview_student_id=).with(nil)
       get :unset_preview_as_student
     end
 

@@ -187,13 +187,13 @@ class Teachers::ClassroomManagerController < ApplicationController
   def preview_as_student
     student = User.find_by_id(params[:student_id])
     if student && (student&.classrooms&.to_a & current_user&.classrooms_i_teach)&.any?
-      set_preview_student_id(params[:student_id])
+      self.preview_student_id= params[:student_id]
     end
     redirect_to '/profile'
   end
 
   def unset_preview_as_student
-    unset_preview_student_id
+    self.preview_student_id= nil
     return redirect_to params[:redirect] if params[:redirect]
     redirect_to '/profile'
   end

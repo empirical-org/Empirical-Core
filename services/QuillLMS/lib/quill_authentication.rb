@@ -68,14 +68,13 @@ module QuillAuthentication
     @current_user = user
   end
 
-  def set_preview_student_id(student_id)
+  def preview_student_id=(student_id)
     session[:preview_student_id] = student_id
-    @current_user = User.find(session[:preview_student_id])
-  end
-
-  def unset_preview_student_id
-    session[:preview_student_id] = nil
-    @current_user = User.find(session[:user_id])
+    if student_id
+      @current_user = User.find(session[:preview_student_id])
+    else
+      @current_user = User.find(session[:user_id])
+    end
   end
 
   def previewing_student_dashboard?

@@ -356,7 +356,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         }
       }
       key="16"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -932,7 +932,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
@@ -2413,7 +2413,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         }
       }
       key="16"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -2989,7 +2989,7 @@ exports[`StudentProfileUnits component should not render the pinned activity mod
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
@@ -4585,7 +4585,7 @@ exports[`StudentProfileUnits component should render all activities and units if
         }
       }
       key="16"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -5238,7 +5238,7 @@ exports[`StudentProfileUnits component should render all activities and units if
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
@@ -6792,7 +6792,7 @@ exports[`StudentProfileUnits component should render only completed activities i
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
@@ -7640,7 +7640,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         }
       }
       key="16"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -8249,7 +8249,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
@@ -9487,7 +9487,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         }
       }
       key="16"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -10140,7 +10140,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
@@ -11736,7 +11736,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         }
       }
       key="16"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="Basic Fragments Group Lessons"
     >
       <div
@@ -12389,7 +12389,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
         }
       }
       key="7"
-      showPreviewModal={[Function]}
+      onShowPreviewModal={[Function]}
       unitName="History: Age of Exploration"
     >
       <div
