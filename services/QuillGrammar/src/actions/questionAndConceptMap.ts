@@ -8,7 +8,7 @@ import { Concept } from '../interfaces/concepts'
 import { SharedCacheApi } from '../libs/shared_cache_api'
 
 
-const SHARED_CACHE_KEY = 'GRAMMAR_QUESTIONS_AND_CONCEPTS_MAP'
+export const SHARED_CACHE_KEY = 'GRAMMAR_QUESTIONS_AND_CONCEPTS_MAP'
 
 
 export function startListeningToQuestionAndConceptMapData() {
