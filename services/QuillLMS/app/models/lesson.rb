@@ -1,7 +1,9 @@
 class Lesson < ActiveRecord::Base
   TYPES = [
     TYPE_CONNECT_LESSON = 'connect_lesson',
-    TYPE_DIAGNOSTIC_LESSON = 'diagnostic_lesson'
+    TYPE_DIAGNOSTIC_LESSON = 'diagnostic_lesson',
+    TYPE_GRAMMAR_ACTIVITY = 'grammar_activity',
+    TYPE_PROOFREADER_PASSAGE = 'proofreader_passage'
   ]
   validates :data, presence: true
   validates :uid, presence: true, uniqueness: true

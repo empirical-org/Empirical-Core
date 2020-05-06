@@ -1,4 +1,5 @@
 import expect from 'expect';
+import 'whatwg-fetch';
 import responsesReducer from '../../app/reducers/responsesReducer'
 import {updateStatus, deleteStatus, updateData} from '../../app/actions/responses'
 
