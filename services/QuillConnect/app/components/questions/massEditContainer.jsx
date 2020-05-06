@@ -24,6 +24,7 @@ class MassEditContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log(props)
     this.state = {
       responses: {},
       selectedMassEditBoilerplateCategory: '',
@@ -90,8 +91,9 @@ class MassEditContainer extends React.Component {
   }
 
   deleteAllResponsesInMassEditArray = () => {
+    const { match } = this.props
     const selectedResponses = this.props.massEdit.selectedResponses;
-    const qid = this.props.params.questionID;
+    const qid = match.params.questionID;
 
     if (window.confirm(`⚠️ Delete ${selectedResponses.length} responses?! 😱`)) {
       this.props.dispatch(massEditDeleteResponses(selectedResponses, qid));
@@ -143,12 +145,14 @@ class MassEditContainer extends React.Component {
   };
 
   updateResponseConceptResultInMassEditArray = () => {
+    const { match } = this.props
     const selectedResponses = this.props.massEdit.selectedResponses;
-    const qid = this.props.params.questionID;
+    const qid = match.params.questionID;
     this.props.dispatch(submitMassEditConceptResults(selectedResponses, this.state.conceptResults, qid));
   }
 
   updateResponseFeedbackInMassEditArray = () => {
+    const { match } = this.props
     const selectedResponses = this.props.massEdit.selectedResponses;
     const feedback = this.state.massEditFeedback;
     const optimal = this.refs.massEditOptimal.checked || false;
@@ -160,7 +164,7 @@ class MassEditContainer extends React.Component {
       parent_id,
       author,
     };
-    const qid = this.props.params.questionID;
+    const qid = match.params.questionID;
     this.props.dispatch(submitMassEditFeedback(selectedResponses, payload, qid));
   }
 
