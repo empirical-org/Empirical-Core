@@ -4423,13 +4423,14 @@ exports[`StudentProfileUnits component should render all activities and units if
     <PinnedActivityBar
       activityId="560"
       classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
       onShowPreviewModal={[Function]}
     >
       <div
         className="pinned-activity"
       >
         <span>
-          nodejs
+          Lesson 1: Missing Subject or Verb Fragments
         </span>
         <a
           className="quill-button medium primary contained focus-on-dark"
@@ -4443,6 +4444,7 @@ exports[`StudentProfileUnits component should render all activities and units if
       activityId="560"
       classroomUnitId="10"
       name="Lesson 1: Missing Subject or Verb Fragments"
+      onClosePinnedActivityModalClick={[Function]}
       teacherName="Emilia F"
     >
       <div
@@ -4476,6 +4478,7 @@ exports[`StudentProfileUnits component should render all activities and units if
           >
             <button
               className="quill-button outlined secondary medium focus-on-light"
+              onClick={[Function]}
               type="button"
             >
               Not now
@@ -6669,13 +6672,14 @@ exports[`StudentProfileUnits component should render only completed activities i
     <PinnedActivityBar
       activityId="560"
       classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
       onShowPreviewModal={[Function]}
     >
       <div
         className="pinned-activity"
       >
         <span>
-          nodejs
+          Lesson 1: Missing Subject or Verb Fragments
         </span>
         <a
           className="quill-button medium primary contained focus-on-dark"
@@ -6689,6 +6693,7 @@ exports[`StudentProfileUnits component should render only completed activities i
       activityId="560"
       classroomUnitId="10"
       name="Lesson 1: Missing Subject or Verb Fragments"
+      onClosePinnedActivityModalClick={[Function]}
       teacherName="Emilia F"
     >
       <div
@@ -6722,6 +6727,7 @@ exports[`StudentProfileUnits component should render only completed activities i
           >
             <button
               className="quill-button outlined secondary medium focus-on-light"
+              onClick={[Function]}
               type="button"
             >
               Not now
@@ -7472,13 +7478,14 @@ exports[`StudentProfileUnits component should render only incomplete activities 
     <PinnedActivityBar
       activityId="560"
       classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
       onShowPreviewModal={[Function]}
     >
       <div
         className="pinned-activity"
       >
         <span>
-          nodejs
+          Lesson 1: Missing Subject or Verb Fragments
         </span>
         <a
           className="quill-button medium primary contained focus-on-dark"
@@ -7492,6 +7499,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
       activityId="560"
       classroomUnitId="10"
       name="Lesson 1: Missing Subject or Verb Fragments"
+      onClosePinnedActivityModalClick={[Function]}
       teacherName="Emilia F"
     >
       <div
@@ -7525,6 +7533,7 @@ exports[`StudentProfileUnits component should render only incomplete activities 
           >
             <button
               className="quill-button outlined secondary medium focus-on-light"
+              onClick={[Function]}
               type="button"
             >
               Not now
@@ -9316,13 +9325,14 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
     <PinnedActivityBar
       activityId="560"
       classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
       onShowPreviewModal={[Function]}
     >
       <div
         className="pinned-activity"
       >
         <span>
-          nodejs
+          Lesson 1: Missing Subject or Verb Fragments
         </span>
         <a
           className="quill-button medium primary contained focus-on-dark"
@@ -9336,6 +9346,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
       activityId="560"
       classroomUnitId="10"
       name="Lesson 1: Missing Subject or Verb Fragments"
+      onClosePinnedActivityModalClick={[Function]}
       teacherName="Emilia F"
     >
       <div
@@ -9369,6 +9380,7 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
           >
             <button
               className="quill-button outlined secondary medium focus-on-light"
+              onClick={[Function]}
               type="button"
             >
               Not now
@@ -11562,13 +11574,14 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
     <PinnedActivityBar
       activityId="560"
       classroomUnitId="10"
+      name="Lesson 1: Missing Subject or Verb Fragments"
       onShowPreviewModal={[Function]}
     >
       <div
         className="pinned-activity"
       >
         <span>
-          nodejs
+          Lesson 1: Missing Subject or Verb Fragments
         </span>
         <a
           className="quill-button medium primary contained focus-on-dark"
@@ -11582,6 +11595,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
       activityId="560"
       classroomUnitId="10"
       name="Lesson 1: Missing Subject or Verb Fragments"
+      onClosePinnedActivityModalClick={[Function]}
       teacherName="Emilia F"
     >
       <div
@@ -11615,6 +11629,7 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
           >
             <button
               className="quill-button outlined secondary medium focus-on-light"
+              onClick={[Function]}
               type="button"
             >
               Not now

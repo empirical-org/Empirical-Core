@@ -4,6 +4,7 @@ import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 interface PinnedActivityBarProps {
   activityId: string,
   classroomUnitId: string,
+  name: string,
   isBeingPreviewed: boolean,
   onShowPreviewModal: (activityId: string) => void
 }
@@ -15,7 +16,7 @@ export default class PinnedActivityBar extends React.Component<PinnedActivityBar
   }
 
   render() {
-    const { isBeingPreviewed, classroomUnitId, activityId, } = this.props
+    const { isBeingPreviewed, classroomUnitId, activityId, name, } = this.props
     let link = <a className="quill-button medium primary contained focus-on-dark" href={activityLaunchLink(classroomUnitId, activityId)}>Join</a>
 
     if (isBeingPreviewed) {

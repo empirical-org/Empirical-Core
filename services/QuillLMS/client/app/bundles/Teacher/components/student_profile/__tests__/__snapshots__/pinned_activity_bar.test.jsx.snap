@@ -10,9 +10,7 @@ exports[`PinnedActivityBar component should render if it is being previewed 1`] 
   <div
     className="pinned-activity"
   >
-    <span>
-      nodejs
-    </span>
+    <span />
     <button
       className="quill-button medium primary contained focus-on-dark"
       onClick={[Function]}
@@ -34,9 +32,7 @@ exports[`PinnedActivityBar component should render if it is not being previewed 
   <div
     className="pinned-activity"
   >
-    <span>
-      nodejs
-    </span>
+    <span />
     <a
       className="quill-button medium primary contained focus-on-dark"
       href="/activity_sessions/classroom_units/2/activities/1"
