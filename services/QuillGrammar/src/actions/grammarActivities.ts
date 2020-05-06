@@ -1,34 +1,30 @@
+import { pickBy } from 'lodash';
 import { push } from 'react-router-redux';
-import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
-const activitiesRef = rootRef.child('grammarActivities')
 import { GrammarActivities, GrammarActivity } from '../interfaces/grammarActivities'
+import { GrammarActivityApi, } from '../libs/grammar_activities_api'
 
 export const startListeningToActivities = () => {
   return (dispatch: Function) => {
-    activitiesRef.on('value', (snapshot: any) => {
-      const activities: GrammarActivities[] = snapshot.val()
+    GrammarActivityApi.getAll().then((activities) => {
       if (activities) {
         dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_ACTIVITIES_DATA, data: activities, });
       } else {
         dispatch({ type: ActionTypes.NO_GRAMMAR_ACTIVITIES_FOUND })
       }
     });
-
   }
 }
 
 export const getActivity = (activityUID: string) => {
   return (dispatch: Function) => {
-    activitiesRef.child(activityUID).once('value', (snapshot: any) => {
-      const activity: GrammarActivity = snapshot.val()
+    GrammarActivityApi.get(activityUID).then((activity) => {
       if (activity) {
         dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_ACTIVITY_DATA, data: activity, });
       } else {
         dispatch({ type: ActionTypes.NO_GRAMMAR_ACTIVITY_FOUND })
       }
     });
-
   }
 }
 
@@ -37,18 +33,19 @@ export const toggleNewLessonModal = () => {
 }
 
 export const submitNewLesson = (content: GrammarActivity) => {
-  const cleanedContent = _.pickBy(content)
+  const cleanedContent = pickBy(content)
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_LESSON_RESPONSE, });
-    const newRef = activitiesRef.push(cleanedContent, (error: string) => {
+    GrammarActivityApi.create(content).then((activity) => {
+      const lessonUid = Object.keys(lesson)[0];
       dispatch({ type: ActionTypes.RECEIVE_NEW_LESSON_RESPONSE, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        const action = push(`/admin/lessons/${newRef.key}`);
-        dispatch(action);
-      }
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+      const action = push(`/admin/lessons/${lessonUid}`);
+      dispatch(action);
+      dispatch(startListeningToActivities());
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.RECEIVE_NEW_LESSON_RESPONSE, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
     });
   };
 }
@@ -64,14 +61,14 @@ export const cancelLessonEdit = (cid: string) => {
 export const submitLessonEdit = (cid: string, content: GrammarActivity) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
-    const cleanedContent = _.pickBy(content)
-    activitiesRef.child(cid).set(cleanedContent, (error: string) => {
+    const cleanedContent = pickBy(content)
+    GrammarActivityApi.update(cid, content).then(() => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      dispatch(startListeningToActivities());
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
     });
   };
 }
@@ -79,15 +76,15 @@ export const submitLessonEdit = (cid: string, content: GrammarActivity) => {
 export const deleteLesson = (cid: string) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_LESSON_EDIT, cid, });
-    activitiesRef.child(cid).remove((error: string) => {
+    GrammarActivityApi.remove(cid).then(() => {
       dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
-        const action = push(`/admin/lessons`)
-        dispatch(action)
-      }
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Lesson successfully deleted!', });
+      const action = push(`/admin/lessons`)
+      dispatch(action)
+      dispatch(startListeningToActivities());
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.FINISH_LESSON_EDIT, cid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
     });
   };
 }
