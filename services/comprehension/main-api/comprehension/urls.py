@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.urls import include, path
 
 from . import views
 from .views.activity import ActivityView
@@ -12,6 +13,17 @@ from .views.session_feedback_history_detail import (
     SessionFeedbackHistoryDetailView
 )
 from .models.rule_set import RuleSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'activities_api', views.ActivityViewSet)
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -37,4 +49,6 @@ urlpatterns = [
     url(r'^session_history/(?P<session_id>.*)$',
         SessionFeedbackHistoryDetailView.as_view(),
         name='get_session_feedback_history_detail'),
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
