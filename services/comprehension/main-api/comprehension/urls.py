@@ -43,5 +43,7 @@ urlpatterns = [
         SessionFeedbackHistoryDetailView.as_view(),
         name='get_session_feedback_history_detail'),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/',
+         include('rest_framework.urls',
+         namespace='rest_framework'))
 ]

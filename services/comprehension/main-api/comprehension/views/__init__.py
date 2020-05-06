@@ -9,6 +9,7 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from ..serializers import ActivitySerializer
 
+
 class ApiView(View):
     @method_decorator(csrf_exempt)
     def dispatch(self, *args, **kwargs):
@@ -22,6 +23,7 @@ def index(request):
 def list_activities(request):
     activities = Activity.objects.all()
     return HttpResponse(f"There are {len(activities)} Activities in the DB")
+
 
 class ActivityViewSet(viewsets.ModelViewSet):
     """
