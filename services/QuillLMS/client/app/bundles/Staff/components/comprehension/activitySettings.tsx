@@ -1,12 +1,15 @@
 import * as React from "react";
-import { DataTable, DropdownInput, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehension/activityInterface'
+import ActivityForm from './activityForm'
+import { flagOptions } from '../../../../constants/comprehension'
 
 const ActivitySettings = (props: any) => {
   const [activity, setActivity] = React.useState<ActivityInterface>({});
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [flag, setFlag] = React.useState(null)
+  const [flag, setFlag] = React.useState(null);
+  const [showModal, setShowModal] = React.useState(false)
   const { match } = props;
   const { params } = match;
   const { activityId } = params;
@@ -31,28 +34,17 @@ const ActivitySettings = (props: any) => {
     fetchData();
   }, []);
 
+  const submitActivity = (activity) => {
+    // TODO: hook into Activity PUT/POST API
+    setShowModal(false)
+  }
+
   const handleFlagChange = (flag) => {
     // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
     setFlag(flag);
   }
 
   const flagDropdown = () => {
-    const { activity_id } = activity
-    // TODO: update to reflect the true development status options
-    const flagOptions = [
-      {
-        label: 'alpha',
-        value: 'alpha'
-      },
-      {
-        label: 'beta',
-        value: 'beta'
-      },
-      {
-        label: 'production',
-        value: 'production'
-      },
-    ]
     const dropdown = (<DropdownInput
       className="flag-dropdown"
       handleChange={handleFlagChange}
@@ -62,12 +54,28 @@ const ActivitySettings = (props: any) => {
     return dropdown;
   }
 
+  const editActivity = () => {
+    setShowModal(true);
+  }
+
+  const closeModal = () => {
+    setShowModal(false)
+  }
+
+  const renderActivityForm = () => {
+    return(
+      <Modal>
+        <ActivityForm activity={activity} closeModal={closeModal} submitActivity={submitActivity} />
+      </Modal>
+    );
+  }
+
   const generalSettingsRows = (activity) => {
     // format for DataTable to display labels on left side and values on right
     const { course, passages, prompts, title } = activity
     const fields = [
       { 
-        label: 'Name',
+        label: 'Title',
         value: title 
       },
       {
@@ -135,16 +143,17 @@ const ActivitySettings = (props: any) => {
 
   return(
     <div className="activity-settings-container">
+      {showModal && renderActivityForm()}
       <DataTable
         className="activity-general-settings-table"
         headers={dataTableFields}
         rows={generalSettingsRows(activity)}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" type="submit">Configure</button>
+        <button className="quill-button fun primary contained" onClick={editActivity} type="submit">Configure</button>
       </div>
     </div>
   );
 }
 
-export default ActivitySettings
+export default ActivitySettings;
