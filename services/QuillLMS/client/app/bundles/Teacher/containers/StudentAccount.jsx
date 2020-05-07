@@ -129,7 +129,7 @@ export default class StudentAccount extends Component {
 
   render() {
     const { firstName, lastName, userName, email, timesSubmitted, activeSection, errors } = this.state;
-    const { googleId, cleverId, accountType, role } = this.props;
+    const { googleId, cleverId, accountType, role, isBeingPreviewed } = this.props;
     return(
       <div className="user-account">
         {(cleverId || googleId) && this.renderExplanation()}
@@ -143,6 +143,7 @@ export default class StudentAccount extends Component {
           errors={errors}
           firstName={firstName}
           googleId={googleId}
+          isBeingPreviewed={isBeingPreviewed}
           lastName={lastName}
           timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
@@ -155,6 +156,7 @@ export default class StudentAccount extends Component {
           deactivateSection={this.deactivatePasswordSection}
           errors={errors}
           googleId={googleId}
+          isBeingPreviewed={isBeingPreviewed}
           role={role}
           timesSubmitted={timesSubmitted}
           updateUser={this.updateUser}
