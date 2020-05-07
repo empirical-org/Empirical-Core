@@ -33,7 +33,7 @@ namespace :firebase do
     set_arg_values(args)
     @TYPE_NAME = args[:type_name]
 
-    for_each_firebase_key do |obj, data|
+    for_each_firebase_key_with_type do |obj, data|
       obj.send("#{@TYPE_NAME}=", @QUESTION_TYPE)
       obj.data = data
       begin
@@ -137,6 +137,22 @@ namespace :firebase do
           puts("updating #{@RAILS_MODEL} with uid '#{key}'")
         else
           puts("creating #{@RAILS_MODEL} with uid '#{key}'")
+        end
+        yield(obj, data)
+      end
+    end
+
+    def for_each_firebase_key_with_type
+      klass = get_klass(@RAILS_MODEL)
+      firebase_shallow = fetch_firebase_data("#{@FIREBASE_URL}.json?shallow=true")
+      firebase_keys = firebase_shallow.keys
+      firebase_keys.each do |key|
+        data = fetch_firebase_data("#{@FIREBASE_URL}/#{key}.json")
+        obj = klass.find_or_create_by({:uid => key, @TYPE_NAME => @QUESTION_TYPE})
+        if obj.valid?
+          puts("updating #{@RAILS_MODEL} with uid '#{key}' and #{@TYPE_NAME} '#{@QUESTION_TYPE}'")
+        else
+          puts("creating #{@RAILS_MODEL} with uid '#{key}' and #{@TYPE_NAME} '#{@QUESTION_TYPE}'")
         end
         yield(obj, data)
       end
