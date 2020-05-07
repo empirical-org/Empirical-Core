@@ -1,11 +1,36 @@
+html {
+  overflow: hidden;
+}
+
 .main-admin-container {
   display: flex;
   border-bottom: 1px solid lightgray;
+  overflow: auto;
 
   .left-side-menu {
     width: 15vw;
     height: 80vh;
     padding: 20px;
+  }
+
+  .modal {
+    display: flex;
+
+    .modal-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+
+      .modal-content {
+        overflow: auto;
+      }
+    }
+    .modal-close {
+      display: none;
+    }
   }
 
   .left-side-menu {
@@ -28,11 +53,24 @@
         padding: 5px;
         color: #5b5b5b;
         text-decoration: none;
-      }
-      .is-active {
-        background-color: #00c2a2;
         border-radius: 6px;
-        color: white
+      }
+
+      a:hover, .create-activity-button:hover {
+        background-color: lightgray;
+      }
+
+      .is-active {
+        background-color: #00c2a2 !important;
+        color: white !important;
+      }
+      .create-activity-button {
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        padding: 5px;
+        outline: none;
+        border-radius: 6px;
       }
     }
   }
@@ -118,12 +156,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    justify-content: center;
+    height: 100%;
 
     .activity-general-settings-table {
       border: 1px solid lightgray;
       border-radius: 6px;
       text-align: left;
+
+      .data-table-headers {
+        display: none;
+      }
 
       .dropdown__menu {
         position: relative;
@@ -193,6 +236,13 @@
       .so-input {
         margin: 20px 0px 20px 0px;
       }
+      .error-message {
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.33;
+        color: #ff0000;
+        margin-top: 20px;
+      }
     }
 
     .close-button-container {
@@ -217,6 +267,21 @@
       }
       .cancel-button {
         margin-left: 10px;
+      }
+      .error-message-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+
+        .all-errors-message {
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: normal;
+          color: #ff0000;
+          display: flex;
+          text-align: left;
+        }
       }
     }
   }

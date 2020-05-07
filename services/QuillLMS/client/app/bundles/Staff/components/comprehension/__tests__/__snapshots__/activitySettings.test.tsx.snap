@@ -11,12 +11,12 @@ exports[`Activity component should render ActivitySettings 1`] = `
       Array [
         Object {
           "attribute": "field",
-          "name": "Field",
+          "name": "",
           "width": "200px",
         },
         Object {
           "attribute": "value",
-          "name": "Value",
+          "name": "",
           "width": "400px",
         },
       ]
@@ -24,27 +24,39 @@ exports[`Activity component should render ActivitySettings 1`] = `
     rows={
       Array [
         Object {
-          "field": "Name",
+          "field": "Title",
           "value": undefined,
         },
         Object {
-          "field": "Course",
-          "value": undefined,
-        },
-        Object {
-          "field": "Development Status",
-          "value": undefined,
+          "field": "Development Stage",
+          "value": <DropdownInput
+            className="flag-dropdown"
+            handleChange={[Function]}
+            options={
+              Array [
+                Object {
+                  "label": "draft",
+                  "value": "draft",
+                },
+                Object {
+                  "label": "beta",
+                  "value": "beta",
+                },
+                Object {
+                  "label": "production",
+                  "value": "production",
+                },
+                Object {
+                  "label": "archived",
+                  "value": "archived",
+                },
+              ]
+            }
+            value={null}
+          />,
         },
         Object {
           "field": "Passage Length",
-          "value": null,
-        },
-        Object {
-          "field": "Target Reading Level",
-          "value": null,
-        },
-        Object {
-          "field": "Reading Level Score",
           "value": null,
         },
         Object {
@@ -62,5 +74,16 @@ exports[`Activity component should render ActivitySettings 1`] = `
       ]
     }
   />
+  <div
+    className="button-container"
+  >
+    <button
+      className="quill-button fun primary contained"
+      onClick={[Function]}
+      type="submit"
+    >
+      Configure
+    </button>
+  </div>
 </div>
 `;

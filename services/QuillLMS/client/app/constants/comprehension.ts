@@ -2,8 +2,8 @@
 
 export const flagOptions = [
   {
-    label: 'alpha',
-    value: 'alpha'
+    label: 'draft',
+    value: 'draft'
   },
   {
     label: 'beta',
@@ -12,6 +12,10 @@ export const flagOptions = [
   {
     label: 'production',
     value: 'production'
+  },
+  {
+    label: 'archived',
+    value: 'archived'
   },
 ];
 

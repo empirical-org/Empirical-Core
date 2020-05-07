@@ -12,12 +12,12 @@ const mockProps = {
   }
 }
 const fields = [
-  'Name', 
-  'Course', 
-  'Development Status', 
+  'Title', 
+  // 'Course', 
+  'Development Stage', 
   'Passage Length', 
-  'Target Reading Level',
-  'Reading Level Score',
+  // 'Target Reading Level',
+  // 'Reading Level Score',
   'Because',
   'But',
   'So'

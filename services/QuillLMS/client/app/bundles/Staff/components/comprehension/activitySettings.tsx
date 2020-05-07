@@ -35,7 +35,7 @@ const ActivitySettings = (props: any) => {
   }, []);
 
   const submitActivity = (activity) => {
-    // TODO: hook into Activity PUT/POST API
+    // TODO: hook into Activity PUT API
     setShowModal(false)
   }
 
@@ -70,6 +70,7 @@ const ActivitySettings = (props: any) => {
     );
   }
 
+  // TODO: re-enable data inputs for course, target reading level and reading level score
   const generalSettingsRows = (activity) => {
     // format for DataTable to display labels on left side and values on right
     const { course, passages, prompts, title } = activity
@@ -78,26 +79,26 @@ const ActivitySettings = (props: any) => {
         label: 'Title',
         value: title 
       },
+      // {
+      //   label: 'Course',
+      //   value: course
+      // },
       {
-        label: 'Course',
-        value: course
-      },
-      {
-        label: 'Development Status',
+        label: 'Development Stage',
         value: flagDropdown()
       },
       {
         label: 'Passage Length',
         value: passages ? `${passages[0].split(' ').length} words` : null
       },
-      {
-        label: 'Target Reading Level',
-        value: null
-      },
-      {
-        label: 'Reading Level Score',
-        value: null
-      },
+      // {
+      //   label: 'Target Reading Level',
+      //   value: null
+      // },
+      // {
+      //   label: 'Reading Level Score',
+      //   value: null
+      // },
       {
         label: "Because",
         value: prompts ? prompts[0].text : null
@@ -137,8 +138,8 @@ const ActivitySettings = (props: any) => {
   }
 
   const dataTableFields = [
-    { name: "Field", attribute:"field", width: "200px" }, 
-    { name: "Value", attribute:"value", width: "400px" }
+    { name: "", attribute:"field", width: "200px" }, 
+    { name: "", attribute:"value", width: "400px" }
   ];
 
   return(
