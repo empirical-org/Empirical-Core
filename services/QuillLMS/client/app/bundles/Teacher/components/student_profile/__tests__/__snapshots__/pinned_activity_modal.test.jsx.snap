@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PinnedActivityModal component should render 1`] = `
+<PinnedActivityModal
+  activityId={1}
+  classroomUnitId={2}
+  name="An Activity"
+  teacherName="Mr. Teacherman"
+>
+  <div
+    className="modal-container pinned-activity-modal-container"
+  >
+    <div
+      className="modal-background"
+    />
+    <div
+      className="pinned-activity-modal quill-modal modal-body"
+    >
+      <div>
+        <h3
+          className="title"
+        >
+          Join: 
+          An Activity
+        </h3>
+      </div>
+      <div
+        className="pinned-activity-modal-text"
+      >
+        <p>
+          Your teacher, 
+          Mr. Teacherman
+          , has launched a live Quill Lesson.
+        </p>
+      </div>
+      <div
+        className="form-buttons"
+      >
+        <button
+          className="quill-button outlined secondary medium focus-on-light"
+          type="button"
+        >
+          Not now
+        </button>
+        <a
+          className="quill-button contained primary medium focus-on-light"
+          href="/activity_sessions/classroom_units/2/activities/1"
+        >
+          Join the lesson
+        </a>
+      </div>
+    </div>
+  </div>
+</PinnedActivityModal>
+`;

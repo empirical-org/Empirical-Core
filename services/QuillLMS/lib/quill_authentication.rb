@@ -1,12 +1,13 @@
 module QuillAuthentication
   extend ActiveSupport::Concern
+  include ActionController::Helpers
 
   CLEVER_REDIRECT = :clever_redirect
   GOOGLE_REDIRECT = :google_redirect
   GOOGLE_OR_CLEVER_JUST_SET = :google_or_clever_just_set
 
   included do
-    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?
+    helper_method :current_user, :signed_in?, :sign_out?, :admin?, :staff?, :previewing_student_dashboard?
   end
 
   def require_user
@@ -15,7 +16,9 @@ module QuillAuthentication
 
   def current_user
     begin
-      if session[:user_id]
+      if session[:preview_student_id]
+        @current_user ||= User.find(session[:preview_student_id])
+      elsif session[:user_id]
         @current_user ||= User.find(session[:user_id])
       elsif doorkeeper_token
         User.find_by_id(doorkeeper_token.resource_owner_id)
@@ -63,6 +66,19 @@ module QuillAuthentication
     session[:user_id] = user.id
     session[:admin_id] = user.id if user.admin?
     @current_user = user
+  end
+
+  def preview_student_id=(student_id)
+    session[:preview_student_id] = student_id
+    if student_id
+      @current_user = User.find(session[:preview_student_id])
+    else
+      @current_user = User.find(session[:user_id])
+    end
+  end
+
+  def previewing_student_dashboard?
+    !!session[:preview_student_id]
   end
 
   def sign_out
