@@ -1,0 +1,24 @@
+.student-profile-modal-container {
+  .student-profile-modal {
+    height: min-content;
+    transform: translate(-50%, -50%);
+    bottom: inherit;
+    top: 50%;
+    max-width: 560px;
+    width: 100%;
+    .title {
+      margin-bottom: 24px;
+    }
+    .student-profile-modal-text {
+      font-size: 14px;
+      line-height: 1.57;
+      color: #646464;
+      margin-bottom: 48px;
+    }
+  }
+  @media (max-width: 650px) {
+    .student-profile-modal {
+      padding: 32px 16px;
+    }
+  }
+}

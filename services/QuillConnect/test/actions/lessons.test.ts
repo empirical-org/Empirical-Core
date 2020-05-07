@@ -1,3 +1,4 @@
+import 'whatwg-fetch'
 import { mockLessonApi, } from '../__mocks__/lesson_api'
 import configureStore from 'redux-mock-store';
 const MOCK_LESSON_TYPE = 'TYPE'
@@ -70,13 +71,12 @@ describe('Lessons actions', () => {
   })
 
   describe('setLessonFlag', () => {
-    const MOCK_FLAG = 'production'
-    dispatch(lessonActions.setFlag(MOCK_FLAG))
     const expectedActions = [{
         'type': 'SET_LESSON_FLAG',
         'flag': 'production'
       }
     ]
+    store.dispatch(expectedActions[0])
     expect(store.getActions()).toEqual(expectedActions);
   })
 })
