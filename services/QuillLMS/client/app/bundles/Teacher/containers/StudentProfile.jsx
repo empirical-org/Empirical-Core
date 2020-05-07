@@ -19,10 +19,6 @@ import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../.
 
 
 class StudentProfile extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const {
       fetchNotifications,
@@ -58,10 +54,6 @@ class StudentProfile extends React.Component {
     if (student !== nextProps.student) {
       this.initializePusher(nextProps)
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize');
   }
 
   handleClassroomTabClick = (classroomId) => {
@@ -114,12 +106,13 @@ class StudentProfile extends React.Component {
       nextActivitySession,
       loading,
       scores,
-      activeClassworkTab
+      activeClassworkTab,
+      isBeingPreviewed,
     } = this.props;
 
     if (loading) { return <LoadingIndicator /> }
 
-    if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} onClickCard={this.handleClassroomTabClick} />)}
+    if (!selectedClassroomId) { return (<SelectAClassroom classrooms={classrooms} isBeingPreviewed={isBeingPreviewed} onClickCard={this.handleClassroomTabClick} />)}
 
     return (<div className="student-profile-container">
       <StudentProfileHeader
@@ -140,6 +133,7 @@ class StudentProfile extends React.Component {
         <StudentProfileUnits
           activeClassworkTab={activeClassworkTab}
           data={scores}
+          isBeingPreviewed={isBeingPreviewed}
           loading={loading}
           nextActivitySession={nextActivitySession}
           teacherName={student.classroom.teacher.name}
