@@ -81,6 +81,31 @@ describe Api::V1::LessonsController, type: :controller do
     end
   end
 
+  describe "#destroy" do
+    let(:staff) { create(:staff) }
+    let(:teacher) { create(:teacher) }
+
+    it "should destroy the existing record if the current user is staff" do
+      allow(controller).to receive(:current_user).and_return(staff)
+      delete :destroy, lesson_type: lesson.lesson_type, id: lesson.uid
+      expect(Lesson.where(uid: lesson.uid).count).to eq(0)
+    end
+
+    it "should return a 404 if the requested Lesson is not found if the current user is staff" do
+      allow(controller).to receive(:current_user).and_return(staff)
+      delete :destroy, lesson_type: lesson.lesson_type, id: 'doesnotexist'
+      expect(response.status).to eq(404)
+      expect(response.body).to include("The resource you were looking for does not exist")
+    end
+
+    it "should return a 403 if the current user is not staff" do
+      allow(controller).to receive(:current_user).and_return(teacher)
+      delete :destroy, lesson_type: lesson.lesson_type, id: lesson.uid
+      expect(response.status).to eq(403)
+      expect(response.body).to include("You are not authorized to access this resource")
+    end
+  end
+
   describe "#add_question" do
     it "should add a question to the existing record" do
       data = {"key" => question.uid, "questionType" => "questions"}
