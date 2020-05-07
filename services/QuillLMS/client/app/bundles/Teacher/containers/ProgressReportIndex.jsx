@@ -40,7 +40,6 @@ export default class ProgressReportIndex extends React.Component {
       'progress-reports-concepts-concepts': <ConceptsConceptsProgressReport {...props} />,
       'progress-reports-landing-page-container': <LandingPageContainer {...props} />,
       'progress-reports-activities-scores-by-classroom': <ActivitiesScoresByClassroomProgressReport {...props} />,
-      'progress-reports-real-time': <RealTimeProgressReport {...props} />,
       'progress-reports-student-overview': <StudentOverview {...props} />,
     };
 
