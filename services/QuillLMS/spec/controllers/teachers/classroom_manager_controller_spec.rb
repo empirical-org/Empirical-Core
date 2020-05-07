@@ -390,12 +390,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
     end
 
     it 'will not call preview_student_id= if the student exists and is not in one of the teachers classrooms' do
-      expect(controller).not_to receive(:preview_student_id=).with(student2.id.to_s)
+      expect(controller).not_to receive(:preview_student_id=)
       get :preview_as_student, student_id: student2.id
     end
 
     it 'will not call preview_student_id= if the student does not exist' do
-      expect(controller).not_to receive(:preview_student_id=).with('random')
+      expect(controller).not_to receive(:preview_student_id=)
       get :preview_as_student, student_id: 'random'
     end
 
