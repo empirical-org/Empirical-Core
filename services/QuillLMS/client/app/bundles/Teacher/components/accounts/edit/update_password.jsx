@@ -35,11 +35,11 @@ export default class UpdatePassword extends Component {
 
   handleClickChangePassword = (e) => {
     const { showButtonSection, } = this.state
-    const { active, activateSection } = this.props;
-    if (!active || !showButtonSection) {
-      this.setState({ showButtonSection: true, });
-      activateSection();
-    }
+    const { active, activateSection, isBeingPreviewed, } = this.props;
+    if (isBeingPreviewed || active || showButtonSection ) { return }
+    
+    this.setState({ showButtonSection: true, });
+    activateSection();
   }
 
   handleSubmit = (e) => {

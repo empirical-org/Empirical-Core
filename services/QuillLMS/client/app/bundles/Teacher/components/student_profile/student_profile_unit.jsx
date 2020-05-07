@@ -88,6 +88,7 @@ const completeHeaders = [
 
 export default class StudentProfileUnit extends React.Component {
   actionButton = (act, nextActivitySession) => {
+    const { isBeingPreviewed, onShowPreviewModal, } = this.props
     const { repeatable, max_percentage, locked, marked_complete, activity_classification_id, resume_link, ca_id, activity_id, } = act
     let linkText = 'Start'
 
@@ -105,6 +106,12 @@ export default class StudentProfileUnit extends React.Component {
 
     const isNextActivity = nextActivitySession && ca_id === nextActivitySession.ca_id && activity_id === nextActivitySession.activity_id
     const buttonStyle = isNextActivity ? 'primary contained' : 'secondary outlined'
+
+    if (isBeingPreviewed) {
+      const onClick = () => onShowPreviewModal(activity_id)
+      return <button className={`quill-button medium focus-on-light ${buttonStyle}`} onClick={onClick} type="button">{linkText}</button>;
+    }
+
     return <a className={`quill-button medium focus-on-light ${buttonStyle}`} href={activityLaunchLink(ca_id, activity_id)}>{linkText}</a>;
   }
 
