@@ -128,9 +128,9 @@ export default class StudentGeneralAccountInfo extends Component {
 
   render() {
     const { email, firstName, lastName, userName } = this.state;
-    const { accountType, cleverId, errors, googleId, timesSubmitted } = this.props;
+    const { accountType, cleverId, errors, googleId, timesSubmitted, isBeingPreviewed } = this.props;
     const oAuthed = (cleverId || googleId);
-    const isDisabled = !!oAuthed;
+    const isDisabled = !!oAuthed || isBeingPreviewed;
     const editStatus = isDisabled ? '-not-editable' : '';
     const emailLabel = oAuthed ? 'Email' : 'Email (Optional)';
     const teacherCreated = accountType === "Teacher Created Account";
@@ -142,7 +142,7 @@ export default class StudentGeneralAccountInfo extends Component {
           <div className="fields">
             <Input
               autoComplete="given-name"
-              characterLimit={oAuthed ? 0 : 50}
+              characterLimit={isDisabled ? 0 : 50}
               disabled={isDisabled}
               error={errors.firstName}
               handleChange={this.onFirstNameChange}
@@ -155,7 +155,7 @@ export default class StudentGeneralAccountInfo extends Component {
             />
             <Input
               autoComplete="family-name"
-              characterLimit={oAuthed ? 0 : 50}
+              characterLimit={isDisabled ? 0 : 50}
               disabled={isDisabled}
               error={errors.lastName}
               handleChange={this.onLastNameChange}
