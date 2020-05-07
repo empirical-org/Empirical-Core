@@ -1,6 +1,11 @@
 class ConceptFeedback < ActiveRecord::Base
+  TYPES = [
+    TYPE_CONNECT = 'connect',
+    TYPE_GRAMMAR = 'grammar'
+  ]
   validates :data, presence: true
-  validates :uid, presence: true, uniqueness: true
+  validates :uid, presence: true, uniqueness: { scope: :activity_type }
+  validates :activity_type, presence: true, inclusion: {in: TYPES}
   validate :data_must_be_hash
 
   def as_json(options=nil)

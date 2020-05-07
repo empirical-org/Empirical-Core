@@ -14,6 +14,7 @@ jest.mock('../../app/libs/request', () => ({
 import {
   ConceptFeedbackApi,
   conceptFeedbackApiBaseUrl,
+  CONNECT_TYPE
 } from '../../app/libs/concept_feedback_api'
 
 import {
@@ -23,7 +24,7 @@ import {
 describe('ConceptFeedbackApi calls', () => {
   describe('getAll', () => {
     it('should call requestGet', () => {
-      const url = `${conceptFeedbackApiBaseUrl}.json`
+      const url = `${conceptFeedbackApiBaseUrl}.json?activity_type=${CONNECT_TYPE}`
       ConceptFeedbackApi.getAll()
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
@@ -32,7 +33,7 @@ describe('ConceptFeedbackApi calls', () => {
   describe('get', () => {
     it('should call requestGet', () => {
       const MOCK_ID = 'id'
-      const url = `${conceptFeedbackApiBaseUrl}/${MOCK_ID}.json`
+      const url = `${conceptFeedbackApiBaseUrl}/${MOCK_ID}.json?activity_type=${CONNECT_TYPE}`
       ConceptFeedbackApi.get(MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
@@ -43,7 +44,7 @@ describe('ConceptFeedbackApi calls', () => {
       const MOCK_CONTENT : ConceptFeedback = {
         name: 'test',
       }
-      const url = `${conceptFeedbackApiBaseUrl}.json`
+      const url = `${conceptFeedbackApiBaseUrl}.json?activity_type=${CONNECT_TYPE}`
       ConceptFeedbackApi.create(MOCK_CONTENT)
       expect(mockRequestPost).toHaveBeenLastCalledWith(url, {concept_feedback: MOCK_CONTENT})
     })
@@ -55,7 +56,7 @@ describe('ConceptFeedbackApi calls', () => {
       const MOCK_CONTENT : ConceptFeedback = {
         name: 'test',
       }
-      const url = `${conceptFeedbackApiBaseUrl}/${MOCK_ID}.json`
+      const url = `${conceptFeedbackApiBaseUrl}/${MOCK_ID}.json?activity_type=${CONNECT_TYPE}`
       ConceptFeedbackApi.update(MOCK_ID, MOCK_CONTENT)
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {concept_feedback: MOCK_CONTENT})
     })
@@ -64,7 +65,7 @@ describe('ConceptFeedbackApi calls', () => {
   describe('remove', () => {
     it('should call requestDelete', () => {
       const MOCK_QUESTION_ID = 'id'
-      const url = `${conceptFeedbackApiBaseUrl}/${MOCK_QUESTION_ID}.json`
+      const url = `${conceptFeedbackApiBaseUrl}/${MOCK_QUESTION_ID}.json?activity_type=${CONNECT_TYPE}`
       ConceptFeedbackApi.remove(MOCK_QUESTION_ID)
       expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
     })
