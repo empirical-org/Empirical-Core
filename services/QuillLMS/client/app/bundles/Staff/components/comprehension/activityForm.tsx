@@ -13,7 +13,7 @@ const ActivityForm = (props) => {
   const becausePrompt = prompts ? prompts[0].text : '';
   const butPrompt = prompts ? prompts[1].text : '';
   const soPrompt = prompts ? prompts[2].text : '';
-  
+
   const [activityTitle, setActivityTitle] = React.useState(activity.title || '');
   const [activityCourse, setActivityCourse] = React.useState(formattedCourse);
   const [activityFlag, setActivityFlag] = React.useState(formattedFlag);
@@ -23,6 +23,7 @@ const ActivityForm = (props) => {
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState(soPrompt);
+  const [errors, setErrors] = React.useState([]);
 
   const handleSetActivityTitle = (e) => { setActivityTitle(e.target.value) };
   const handleSetActivityCourse = (course) => { setActivityCourse(course) };
@@ -33,6 +34,11 @@ const ActivityForm = (props) => {
   const handleSetActivityBecausePrompt = (e) => { setActivityBecausePrompt(e.target.value) };
   const handleSetActivityButPrompt = (e) => { setActivityButPrompt(e.target.value) };
   const handleSetActivitySoPrompt = (e) => { setActivitySoPrompt(e.target.value) };
+
+  const handleSubmitActivity = () => {
+    // TODO: add validations for each input 
+    submitActivity();
+  }
 
   return(
     <div className="activity-form-container">
@@ -83,23 +89,23 @@ const ActivityForm = (props) => {
         <Input
           className="because-input"
           handleChange={handleSetActivityBecausePrompt}
-          label="Because"
+          label="Because Stem"
           value={activityBecausePrompt}
         />
         <Input
           className="but-input"
           handleChange={handleSetActivityButPrompt}
-          label="But"
+          label="But Stem"
           value={activityButPrompt}
         />
         <Input
           className="so-input"
           handleChange={handleSetActivitySoPrompt}
-          label="So"
+          label="So Stem" 
           value={activitySoPrompt}
         />
         <div className="submit-button-container">
-          <button className="quill-button fun primary contained submit-button" onClick={submitActivity} type="submit">
+          <button className="quill-button fun primary contained submit-button" onClick={handleSubmitActivity} type="submit">
             Submit
           </button>
           <button className="quill-button fun primary contained cancel-button" onClick={closeModal} type="submit">
