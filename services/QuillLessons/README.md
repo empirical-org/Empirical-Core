@@ -1,4 +1,4 @@
-# Quill-Connect
+# Quill-Lessons
 Writing tool that focuses on sentence combining.
 
 Tools used
