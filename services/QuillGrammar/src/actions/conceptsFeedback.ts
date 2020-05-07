@@ -1,21 +1,18 @@
 import { ConceptFeedback } from '../interfaces/conceptsFeedback'
 import { ActionTypes } from './actionTypes'
-import rootRef from '../firebase';
-const	feedbackRef = rootRef.child('conceptsFeedback');
 import { push } from 'react-router-redux';
+import { ConceptFeedbackApi } from '../libs/concept_feedback_api';
 
 export const startListeningToConceptsFeedback = () => {
   return (dispatch: Function) => {
-    feedbackRef.on('value', (snapshot: any) => {
-      dispatch({ type: ActionTypes.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: snapshot.val(), });
-    });
+    dispatch(loadConceptsFeedback())
   };
 }
 
 export const loadConceptsFeedback = () => {
   return (dispatch: Function) => {
-    feedbackRef.once('value', (snapshot: any) => {
-      dispatch({ type: ActionTypes.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: snapshot.val(), });
+    ConceptFeedbackApi.getAll().then((data) => {
+      dispatch({ type: ActionTypes.RECEIVE_CONCEPTS_FEEDBACK_DATA, data: data, });
     });
   };
 }
@@ -31,28 +28,28 @@ export const cancelConceptsFeedbackEdit = (cid: string) => {
 export const deleteConceptsFeedback = (cid: string) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_CONCEPTS_FEEDBACK_EDIT, cid, });
-    feedbackRef.child(cid).remove((error: string) => {
+    ConceptFeedbackApi.remove(cid).then(() => {
       dispatch({ type: ActionTypes.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'ConceptsFeedback successfully deleted!', });
-      }
-    });
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'ConceptsFeedback successfully deleted!', });
+      dispatch(loadConceptsFeedback())
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Deletion failed! ${error}`, });
+    })
   };
 }
 
 export const submitConceptsFeedbackEdit = (cid: string, content: ConceptFeedback) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.SUBMIT_CONCEPTS_FEEDBACK_EDIT, cid, });
-    feedbackRef.child(cid).update(content, (error: string) => {
+    ConceptFeedbackApi.update(cid, content).then(() => {
       dispatch({ type: ActionTypes.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      }
-    });
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      dispatch(loadConceptsFeedback())
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.FINISH_CONCEPTS_FEEDBACK_EDIT, cid, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Update failed! ${error}`, });
+    })
   };
 }
 
@@ -63,15 +60,14 @@ export const toggleNewConceptsFeedbackModal = () => {
 export const submitNewConceptsFeedback = (content: ConceptFeedback) => {
   return (dispatch: Function) => {
     dispatch({ type: ActionTypes.AWAIT_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
-    const newRef = feedbackRef.push(content, (error: string) => {
+    ConceptFeedbackApi.create(content).then((result) => {
+      const UID = Object.keys(question)[0]
       dispatch({ type: ActionTypes.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
-      if (error) {
-        dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
-      } else {
-        dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-        const action = push(`/admin/concepts_feedback/${newRef.key}`);
-        dispatch(action);
-      }
-    });
+      dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
+      dispatch(loadConceptsFeedback())
+    }).catch((error) => {
+      dispatch({ type: ActionTypes.RECEIVE_NEW_CONCEPTS_FEEDBACK_RESPONSE, });
+      dispatch({ type: ActionTypes.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
+    })
   };
 }
