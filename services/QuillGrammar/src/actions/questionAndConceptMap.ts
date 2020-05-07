@@ -1,22 +1,21 @@
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
 import * as _ from 'lodash'
 
-import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
 import { DashboardConceptRow, DashboardActivity, DashboardQuestionRow } from '../interfaces/dashboards'
 import { GrammarActivity } from '../interfaces/grammarActivities'
 import { Concept } from '../interfaces/concepts'
+import { SharedCacheApi } from '../libs/shared_cache_api'
 
-const	grammarQuestionsAndConceptsRef = rootRef.child('grammarQuestionsAndConceptsMap');
-const setTimeoutRef = rootRef.child('timeouts/grammarQuestionsAndConceptsMap');
 
-const moment = require('moment');
+export const SHARED_CACHE_KEY = 'GRAMMAR_QUESTIONS_AND_CONCEPTS_MAP'
+
 
 export function startListeningToQuestionAndConceptMapData() {
   return function (dispatch: Function) {
-    grammarQuestionsAndConceptsRef.on('value', (snapshot: any) => {
-      dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_QUESTION_AND_CONCEPT_MAP, data: snapshot.val(), });
-    });
+    SharedCacheApi.get(SHARED_CACHE_KEY).then((data) => {
+      dispatch({ type: ActionTypes.RECEIVE_GRAMMAR_QUESTION_AND_CONCEPT_MAP, data: data, });
+    })
   };
 }
 
@@ -76,16 +75,21 @@ export function updateData() {
       conceptRow.implicitlyAssignedActivities = uniqueImplicitlyAssignedActivities
       return removeNullAndUndefinedValues(conceptRow)
     })
-    grammarQuestionsAndConceptsRef.child('questionRows').set(questionRows)
-    grammarQuestionsAndConceptsRef.child('conceptRows').set(conceptRows)
+    SharedCacheApi.update(SHARED_CACHE_KEY, {
+      questionRows: questionRows,
+      conceptRows: conceptRows
+    }).then(() => {
+      dispatch(startListeningToQuestionAndConceptMapData())
+    })
   }
 }
 
 export function checkTimeout() {
   return function (dispatch: Function) {
-    setTimeoutRef.once('value', (snapshot: any) => {
-      if (moment().format('x') - (snapshot.val() || 0) > 300000) {
-        setTimeoutRef.set(moment().format('x'));
+    SharedCacheApi.get(SHARED_CACHE_KEY).then((result) => {
+      dispatch(startListeningToQuestionAndConceptMapData())
+    }).catch((response) => {
+      if (response.status == 404) {
         dispatch(updateData())
       }
     })
