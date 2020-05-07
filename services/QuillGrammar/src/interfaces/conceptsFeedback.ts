@@ -3,3 +3,7 @@ export interface ConceptFeedback {
   leftBox: string;
   rightBox: string;
 }
+
+export interface ConceptFeedbackCollection {
+  [key: string]: ConceptFeedback
+}
