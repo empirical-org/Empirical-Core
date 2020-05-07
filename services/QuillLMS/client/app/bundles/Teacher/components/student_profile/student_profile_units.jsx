@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'underscore';
 import StudentProfileUnit from './student_profile_unit.jsx';
+import PinnedActivityModal from './pinned_activity_modal'
+import PreviewActivityModal from './preview_activity_modal'
+import PinnedActivityBar from './pinned_activity_bar'
 import LoadingIndicator from '../shared/loading_indicator'
 import activityLaunchLink from '../modules/generate_activity_launch_link.js';
 import { ALL_ACTIVITIES, TO_DO_ACTIVITIES, COMPLETED_ACTIVITIES, } from '../../../../constants/student_profile'
@@ -12,7 +15,8 @@ export default class StudentProfileUnits extends React.Component {
     super(props)
 
     this.state = {
-      closedModal: false
+      closedPinnedActivityModal: false,
+      showPreviewModal: false
     }
   }
 
@@ -78,17 +82,32 @@ export default class StudentProfileUnits extends React.Component {
     return resultWithSortedUnits;
   }
 
-  handleCloseModalClick = () => {
-    this.setState({ closedModal: true, })
+  handleClosePinnedActivityModalClick = () => {
+    this.setState({ closedPinnedActivityModal: true, })
+  }
+
+  handleClosePreviewActivityModalClick = () => {
+    this.setState({ showPreviewModal: false, previewActivityId: null, })
+  }
+
+  handleShowPreviewModal = (activityId) => {
+    this.setState({ showPreviewModal: true, previewActivityId: activityId, })
   }
 
   renderContent = () => {
-    const { loading, nextActivitySession, } = this.props
+    const { loading, nextActivitySession, isBeingPreviewed, } = this.props
     if (loading) { return <LoadingIndicator /> }
-    
+
     const content = this.displayedUnits().map(unit => {
       const { unit_id, unit_name, } = unit[Object.keys(unit)[0]][0]
-      return <StudentProfileUnit data={unit} key={unit_id} nextActivitySession={nextActivitySession} unitName={unit_name} />
+      return (<StudentProfileUnit
+        data={unit}
+        isBeingPreviewed={isBeingPreviewed}
+        key={unit_id}
+        nextActivitySession={nextActivitySession}
+        onShowPreviewModal={this.handleShowPreviewModal}
+        unitName={unit_name}
+      />)
     })
 
     return content.length ? content : this.renderEmptyState()
@@ -102,39 +121,46 @@ export default class StudentProfileUnits extends React.Component {
   )
 
   renderPinnedActivityBar = () => {
-    const { data, } = this.props
+    const { data, isBeingPreviewed, } = this.props
     const pinnedActivity = data.find(act => act.pinned === 't')
     if (!pinnedActivity) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity
-    return (<div className="pinned-activity">
-      <span>{name}</span>
-      <a className="quill-button medium primary contained focus-on-dark" href={activityLaunchLink(ca_id, activity_id)}>Join</a>
-    </div>)
+
+    return (<PinnedActivityBar
+      activityId={activity_id}
+      classroomUnitId={ca_id}
+      isBeingPreviewed={isBeingPreviewed}
+      name={name}
+      onShowPreviewModal={this.handleShowPreviewModal}
+    />)
+  }
+
+  renderPreviewModal = () => {
+    const { showPreviewModal, previewActivityId, } = this.state
+
+    if (!(showPreviewModal && previewActivityId)) { return }
+
+    return (<PreviewActivityModal
+      onClosePreviewActivityModalClick={this.handleClosePreviewActivityModalClick}
+      previewActivityId={previewActivityId}
+    />)
   }
 
   renderPinnedActivityModal = () => {
-    const { data, teacherName, } = this.props
-    const { closedModal, } = this.state
+    const { data, teacherName, isBeingPreviewed, } = this.props
+    const { closedPinnedActivityModal, } = this.state
     const pinnedActivity = data.find(act => act.pinned === 't')
-    if (!pinnedActivity || closedModal) { return }
+    if (isBeingPreviewed || !pinnedActivity || closedPinnedActivityModal) { return }
 
     const { name, ca_id, activity_id, } = pinnedActivity
-    return (<div className="modal-container pinned-activity-modal-container">
-      <div className="modal-background" />
-      <div className="pinned-activity-modal quill-modal modal-body">
-        <div>
-          <h3 className="title">Join: {name}</h3>
-        </div>
-        <div className="pinned-activity-modal-text">
-          <p>Your teacher, {teacherName}, has launched a live Quill Lesson.</p>
-        </div>
-        <div className="form-buttons">
-          <button className="quill-button outlined secondary medium focus-on-light" onClick={this.handleCloseModalClick} type="button">Not now</button>
-          <a className="quill-button contained primary medium focus-on-light" href={activityLaunchLink(ca_id, activity_id)}>Join the lesson</a>
-        </div>
-      </div>
-    </div>)
+    return (<PinnedActivityModal
+      activityId={activity_id}
+      classroomUnitId={ca_id}
+      name={name}
+      onClosePinnedActivityModalClick={this.handleClosePinnedActivityModalClick}
+      teacherName={teacherName}
+    />)
   }
 
   render() {
@@ -142,6 +168,7 @@ export default class StudentProfileUnits extends React.Component {
       <div className="container">
         {this.renderPinnedActivityBar()}
         {this.renderPinnedActivityModal()}
+        {this.renderPreviewModal()}
         {this.renderContent()}
       </div>
     );
