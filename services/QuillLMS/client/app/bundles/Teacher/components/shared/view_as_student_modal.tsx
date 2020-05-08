@@ -39,11 +39,13 @@ export default class ViewAsStudentModal extends React.Component<ViewAsStudentMod
 
     const { classrooms, defaultClassroomId, } = props
 
-    const classroomOptions = classrooms.map(classroom => {
+    const classroomsWithStudents = classrooms.filter(classroom => classroom.students.length)
+    const classroomsSortedByCreationDate = classroomsWithStudents.sort((classroomA, classroomB) => classroomA.created_at - classroomB.created_at)
+    const classroomOptions = classroomsSortedByCreationDate.map(classroom => {
       classroom.value = classroom.id
       classroom.label = classroom.name
       return classroom
-    }).sort((classroomA, classroomB) => classroomA.created_at - classroomB.created_at)
+    })
 
     const selectedClassroom = defaultClassroomId ? classroomOptions.find(classroom => classroom.id === defaultClassroomId) : classroomOptions[0]
 
