@@ -2,7 +2,6 @@ import * as React from 'react';
 import _ from 'underscore';
 import ContentEditable from 'react-contenteditable';
 import { generateStyleObjects } from '../../libs/markupUserResponses';
-import { sendActivitySessionInteractionLog } from '../../libs/sendActivitySessionInteractionLog';
 import { getParameterByName } from '../../libs/getParameterByName';
 const C = require('../../constants').default;
 
@@ -142,12 +141,6 @@ export default class RenderTextEditor extends React.Component {
     onSubmitResponse();
   }
 
-  handleKeyUp = () => {
-    const { questionID, } = this.props
-    // commenting out 1/29/20 to see if it resolves a traffic issue we're having on the LMS
-    // sendActivitySessionInteractionLog(getParameterByName('student'), { info: 'textbox interaction', current_question: questionID, });
-  }
-
   handleTextChange = (e) => {
     const { disabled, onChange, } = this.props
     if (disabled) { return }
@@ -171,7 +164,6 @@ export default class RenderTextEditor extends React.Component {
               innerRef={this.setAnswerBoxRef}
               onChange={this.handleTextChange}
               onKeyDown={this.handleKeyDown}
-              onKeyUp={this.handleKeyUp}
               placeholder={placeholder}
               spellCheck={false}
             />
