@@ -11,7 +11,7 @@ class GrammarActivityApi {
   }
 
   static get(uid: string): Promise<GrammarActivity> {
-    return requestGet(`${grammarActivityApiBaseUrl}/${uid}.json?lesson_type=${TYPE_GRAMMAR_ACTIVITY}`);
+    return requestGet(`${grammarActivityApiBaseUrl}/${uid}.json`);
   }
 
   static create(data: GrammarActivity): Promise<GrammarActivity> {
@@ -19,11 +19,11 @@ class GrammarActivityApi {
   }
 
   static update(uid: string, data: GrammarActivity): Promise<GrammarActivity> {
-    return requestPut(`${grammarActivityApiBaseUrl}/${uid}.json?lesson_type=${TYPE_GRAMMAR_ACTIVITY}`, {lesson: data});
+    return requestPut(`${grammarActivityApiBaseUrl}/${uid}.json`, {lesson: data});
   }
 
   static remove(uid: string): Promise<string> {
-    return requestDelete(`${grammarActivityApiBaseUrl}/${uid}.json?lesson_type=${TYPE_GRAMMAR_ACTIVITY}`);
+    return requestDelete(`${grammarActivityApiBaseUrl}/${uid}.json`);
   }
 }
 

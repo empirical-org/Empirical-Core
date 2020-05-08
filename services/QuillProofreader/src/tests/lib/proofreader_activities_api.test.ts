@@ -33,7 +33,7 @@ describe('ProofreaderPassageApi calls', () => {
   describe('get', () => {
     it('should call requestGet', () => {
       const MOCK_ID = 'id'
-      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.get(MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
@@ -88,9 +88,18 @@ describe('ProofreaderPassageApi calls', () => {
         underlineErrorsInProofreader: true, 
         flag: 'alpha',
       }
-      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       ProofreaderPassageApi.update(MOCK_ID, MOCK_CONTENT)
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
+    })
+  })
+
+  describe('remove', () => {
+    it('should call requestDelete', () => {
+      const MOCK_ID = 'id'
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
+      ProofreaderPassageApi.remove(MOCK_ID)
+      expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
     })
   })
 })
