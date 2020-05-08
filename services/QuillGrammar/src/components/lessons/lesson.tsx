@@ -108,9 +108,9 @@ class Lesson extends React.Component<LessonProps> {
         })
         return this.renderQuestionsAsList(questionsForLesson)
       } else if (lessonConcepts) {
-        const questions = this.props.questions ? hashToCollection(questions.data) : []
+        const questionsData = this.props.questions ? hashToCollection(questions.data) : []
         const conceptUids = Object.keys(this.lesson().concepts)
-        questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid) && permittedFlag(this.lesson().flag, q.flag))
+        questionsForLesson = questionsData.filter(q => conceptUids.includes(q.concept_uid) && permittedFlag(this.lesson().flag, q.flag))
         return this.renderQuestionsByConcept(questionsForLesson)
       }
       return (
