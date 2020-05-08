@@ -189,11 +189,6 @@ module PagesHelper
             img: 'board-stephanie-cohen@2x.png'
           },
           {
-            name: 'Reuben Gutoff',
-            title: 'Retired Vice President at General Electric',
-            img: 'board-reuben-gutoff@2x.png'
-          },
-          {
             name: 'Rhys Kidd',
             title: 'Vice President at Macquarie Group',
             img: 'board-rhys-kidd@2x.png'
