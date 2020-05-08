@@ -137,6 +137,7 @@ const ActivitySettings = (props: any) => {
     );
   }
 
+  // The header labels felt redundant so passing empty strings and hiding header display
   const dataTableFields = [
     { name: "", attribute:"field", width: "200px" }, 
     { name: "", attribute:"value", width: "400px" }

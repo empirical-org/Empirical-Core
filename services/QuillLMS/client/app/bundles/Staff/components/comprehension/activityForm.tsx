@@ -10,7 +10,7 @@ const ActivityForm = (props) => {
   const { activity, closeModal, submitActivity } = props;
   const { flag, passages, prompts } = activity;
   // const formattedCourse = course ? { label: course, value: course } : courseOptions[0];
-  const formattedFlag = flag ? { label: flag, value: flag } : '';
+  const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedPassage = passages ? passages[0] : '';
   const becausePrompt = prompts ? prompts[0].text : '';
   const butPrompt = prompts ? prompts[1].text : '';

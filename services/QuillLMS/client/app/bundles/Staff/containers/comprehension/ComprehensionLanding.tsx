@@ -8,24 +8,29 @@ import Activity from '../../components/comprehension/activity'
 const ComprehensionLanding = (props) => {
   const { location } = props
   const { pathname } = location
-  const [showModal, setShowModal] = React.useState(false)
+  const [modalActive, setModalActive] = React.useState(false)
 
-  const checkActive = () => {
+  const checkIndexActive = () => {
     if(!location) return false;
-    return pathname !== '/activities';
+    return pathname === '/activities' && !modalActive;
+  }
+
+  const checkOverviewActive = () => {
+    if(!location) return false;
+    return pathname !== '/activities' && !modalActive;
   }
 
   const createNewActivity = () => {
-    setShowModal(true);
+    setModalActive(true);
   }
 
   const closeModal = () => {
-    setShowModal(false)
+    setModalActive(false)
   }
 
   const submitActivity = (activity) => {
     // TODO: hook into Activity POST API
-    setShowModal(false)
+    setModalActive(false)
   }
 
   const renderActivityForm = () => {
@@ -43,18 +48,18 @@ const ComprehensionLanding = (props) => {
           Home
         </p>
         <ul className="menu-list">
-          <NavLink activeClassName='is-active' exact to='/activities'>
+          <NavLink activeClassName='is-active' isActive={checkIndexActive} to='/activities'>
             Activities Index
           </NavLink>
-          <NavLink activeClassName='is-active' isActive={checkActive} to={pathname}>
+          <NavLink activeClassName='is-active' isActive={checkOverviewActive} to={pathname}>
             Activity Overview
           </NavLink>
-          <button className="create-activity-button" onClick={createNewActivity} type="submit">
+          <button className={`create-activity-button ${modalActive ? 'is-active' :''}`} onClick={createNewActivity} type="submit">
             Create New Activity
           </button>
         </ul>
       </section>
-      {showModal && renderActivityForm()}
+      {modalActive && renderActivityForm()}
       <Switch>
         <Redirect component={Activities} exact from='/' to='/activities' />
         <Route component={Activity} path='/activities/:activityId' />
