@@ -7,11 +7,14 @@ import thunk from 'redux-thunk';
 
 const store = createStore(studentProfile, applyMiddleware(thunk));
 
-export default props => (
+const StudentProfileAppClient = ({ match, history, isBeingPreviewed, }) => (
   <Provider store={store}>
     <StudentProfile
-      classroomId={props && props.params ? props.params.classroomId : null}
-      history={props.history}
+      classroomId={match && match.params ? match.params.classroomId : null}
+      history={history}
+      isBeingPreviewed={isBeingPreviewed}
     />
   </Provider>
 );
+
+export default StudentProfileAppClient

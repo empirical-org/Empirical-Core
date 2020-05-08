@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10
--- Dumped by pg_dump version 10.10
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1143,7 +1143,8 @@ CREATE TABLE public.concept_feedbacks (
     uid character varying,
     data jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    activity_type character varying NOT NULL
 );
 
 
@@ -4338,10 +4339,17 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 
 
 --
--- Name: index_concept_feedbacks_on_uid; Type: INDEX; Schema: public; Owner: -
+-- Name: index_concept_feedbacks_on_activity_type; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_concept_feedbacks_on_uid ON public.concept_feedbacks USING btree (uid);
+CREATE INDEX index_concept_feedbacks_on_activity_type ON public.concept_feedbacks USING btree (activity_type);
+
+
+--
+-- Name: index_concept_feedbacks_on_uid_and_activity_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.concept_feedbacks USING btree (uid, activity_type);
 
 
 --
@@ -5993,4 +6001,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 INSERT INTO schema_migrations (version) VALUES ('20200409151835');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415170227');
+
+INSERT INTO schema_migrations (version) VALUES ('20200505171239');
 
