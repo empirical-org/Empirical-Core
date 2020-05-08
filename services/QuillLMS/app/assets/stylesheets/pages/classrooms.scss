@@ -242,6 +242,12 @@
         justify-content: space-between;
         width: 100%;
         min-height: 76px;
+        div {
+          display: flex;
+          .quill-button {
+            margin-right: 16px;
+          }
+        }
       }
     }
     .student-actions-dropdown {

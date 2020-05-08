@@ -12,7 +12,6 @@ import ViewAsStudentModal from '../shared/view_as_student_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
-const classCodeLinksPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`
 const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
@@ -194,6 +193,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
   uncheckAllRows = () => {
     this.setState({ selectedStudentIds: [] })
   }
+
+  handleClickViewAsStudentButton = () => this.viewAsStudent()
 
   selectAction = (action) => {
     action.value()
@@ -448,15 +449,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const allCleverStudents = this.allCleverStudents()
     if (!classroom.visible) { return null }
     let loginPdfHref = `/teachers/classrooms/${classroom.id}/student_logins`
-    let download
+    let download: boolean
     if (allGoogleStudents) {
       loginPdfHref = googleSetupInstructionsPdf
       download = true
     } else if (allCleverStudents) {
       loginPdfHref = cleverSetupInstructionsPdf
-      download = true
-    } else if (classroom.students.length === 0) {
-      loginPdfHref = classCodeLinksPdf
       download = true
     }
     /* eslint-disable react/jsx-no-target-blank */
@@ -464,7 +462,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     /* eslint-enable react/jsx-no-target-blank */
 
     return (<div className="students-section-header-buttons">
-      {loginPdfLink}
+      <div>
+        {loginPdfLink}
+        <button className="quill-button secondary outlined small" onClick={this.handleClickViewAsStudentButton} type="button">View as student</button>
+      </div>
       {this.renderInviteStudents()}
     </div>)
   }
@@ -516,7 +517,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
           {this.renderInviteStudents()}
         </div>
         <div className="no-students">
-          <img src={emptyDeskSrc} />
+          <img alt="Three empty desks" src={emptyDeskSrc} />
           <p>{copy}</p>
         </div>
       </div>)
