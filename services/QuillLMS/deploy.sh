@@ -4,8 +4,7 @@ current_branch=`git rev-parse --abbrev-ref HEAD`
 username=$(git config user.name)
 app_name="QuillLMS"
 
-start_message="*$app_name Deploy* \`STARTED\`: $username started a deploy of \`$current_branch\` to the \`$1\` environment"
-sh ../../scripts/post_slack_dev_channel.sh "$start_message"
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
 case $1 in
   prod)
@@ -44,5 +43,4 @@ else
 fi
 
 #Add slack message
-message="*$app_name Deploy* \`FINISHED\`: $username started a deploy of \`$current_branch\` to the \`$1\` environment"
-sh ../../scripts/post_slack_dev_channel.sh "$message"
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
