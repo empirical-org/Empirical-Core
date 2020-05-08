@@ -109,11 +109,6 @@ module PagesHelper
             img: 'team-maximilian-de-martino@2x.png'
           },
           {
-            name: 'Haronil Estevez',
-            title: 'Senior Software Developer',
-            img: 'team-haronil-estevez@2x.png'
-          },
-          {
             name: 'Emilia Friedberg',
             title: 'Software Developer',
             img: 'team-emilia-friedberg@2x.png'
