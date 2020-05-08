@@ -15,7 +15,7 @@ async function handleFetch(url: string, method: string, payload?: object): Promi
   }
   return fetch(url, options).then((response) => {
     if (!response.ok) {
-      throw new Error(response.json())
+      throw response
     }
     if (response.headers.get('content-type').startsWith('application/json;')) {
       return response.json()

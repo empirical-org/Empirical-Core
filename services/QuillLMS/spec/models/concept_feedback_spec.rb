@@ -18,6 +18,16 @@ RSpec.describe ConceptFeedback, type: :model do
       expect(concept_feedback.valid?).to be false
     end
 
+    it 'should be invalid without activity_type' do
+      concept_feedback.activity_type = nil
+      expect(concept_feedback.valid?).to be false
+    end
+
+    it 'should be invalid if activity_type is not an allowed value' do
+      concept_feedback.activity_type = 'some_totally_invalid_type'
+      expect(concept_feedback.valid?).to be false
+    end
+
     it 'should be invalid if data is not a hash' do
       concept_feedback.data = 1
       expect(concept_feedback.valid?).to be false
