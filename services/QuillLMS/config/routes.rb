@@ -36,6 +36,9 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  # this blog post needs to be redirected
+  get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
+
   resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
     collection do
       get '/topic/press', to: redirect('/press')
@@ -208,6 +211,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
+    get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
+    get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
@@ -392,11 +397,12 @@ EmpiricalGrammar::Application.routes.draw do
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
-      resources :lessons, except: [:destroy] do
+      resources :lessons do
         member do
           put 'add_question'
         end
       end
+      resources :shared_cache, only: [:show, :update, :destroy]
       resources :concept_feedback, except: [:destroy]
       resources :questions, except: [:destroy] do
         resources :focus_points do
@@ -473,6 +479,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
+    resources :comprehension, only: [:index]
     resources :sections
     resources :topics
     resources :subscriptions

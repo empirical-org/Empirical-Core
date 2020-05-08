@@ -2,8 +2,11 @@
   background-color: #014f92;
   padding: 16px 0px;
   display: none;
-  &#webinar-banner {
+  &#webinar-banner, &#monday-banner, &#tuesday-banner, &#thursday-banner {
     border-top: 1px solid #fff;
+  }
+  &.webinar-banner {
+    display: block;
   }
   p, a {
     font-size: 16px;
