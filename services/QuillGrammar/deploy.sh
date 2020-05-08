@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 current_branch=`git rev-parse --abbrev-ref HEAD`
-username=$(git config user.name)
 app_name="QuillGrammar"
 
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false

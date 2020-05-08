@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 current_branch=`git rev-parse --abbrev-ref HEAD`
-username=$(git config user.name)
 app_name="QuillDiagnostic"
 # Set environment-specific values
 # Add slack message
