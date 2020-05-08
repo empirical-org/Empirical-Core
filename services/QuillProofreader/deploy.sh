@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-
+current_branch=`git rev-parse --abbrev-ref HEAD`
 # Set environment-specific values
 case $1 in
   prod)
     # ENSURE THAT WE'RE ON MASTER FOR PRODUCTION DEPLOYS
-    current_branch=`git rev-parse --abbrev-ref HEAD`
+
     if [ "$current_branch" != "master" ]
     then
       echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
@@ -26,10 +26,5 @@ esac
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws
 
 # Add slack message
-case $1 in
-  prod)
-    export SLACK_API_TOKEN=$(heroku config:get SLACK_API_TOKEN --app empirical-grammar)
-    export PROJECT_NAME="QuillProofreader"
-    python3 ../post_slack_message.py
-    ;;
-esac
+message="QuillProofreader Deploy: $(git config user.name) deployed $current_branch to $1 environment"
+sh ../../scripts/post_slack_dev_channel.sh "$message"

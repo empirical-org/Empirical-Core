@@ -14,12 +14,7 @@ esac
 
 eb deploy ${EB_ENVIRONMENT_NAME}
 # Add slack message
-case $1 in
-  prod)
-    export SLACK_API_TOKEN=$(heroku config:get SLACK_API_TOKEN --app empirical-grammar)
-    export PROJECT_NAME="QuillCMS"
-    python3 ../post_slack_message.py
-    ;;
-esac
+message="QuillCMS Deploy: $(git config user.name) deployed $current_branch to $1 environment"
+sh ../../scripts/post_slack_dev_channel.sh "$message"
 
 open "https://rpm.newrelic.com/accounts/770600/applications/74496669"
