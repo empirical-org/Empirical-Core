@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 current_branch=`git rev-parse --abbrev-ref HEAD`
+username=$(git config user.name)
+app_name="QuillGrammar"
+
+start_message="*$app_name Deploy* \`STARTED\`: $username started a deploy of \`$current_branch\` to the \`$1\` environment"
+sh ../../scripts/post_slack_dev_channel.sh "$start_message"
 # Set environment-specific values
 case $1 in
   prod)
@@ -26,5 +31,5 @@ esac
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws
 
 # Add slack message
-message="QuillGrammar Deploy: $(git config user.name) deployed $current_branch to $1 environment"
+message="*$app_name Deploy* \`FINISHED\`: $username started a deploy of \`$current_branch\` to the \`$1\` environment"
 sh ../../scripts/post_slack_dev_channel.sh "$message"
