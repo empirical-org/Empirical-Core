@@ -48,5 +48,3 @@ aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws
 
 #Add slack message
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
-
-
