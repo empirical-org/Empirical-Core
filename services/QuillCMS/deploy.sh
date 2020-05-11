@@ -1,4 +1,6 @@
 #!/bin/bash
+current_branch=`git rev-parse --abbrev-ref HEAD`
+app_name="QuillCMS"
 
 case $1 in
   prod)
@@ -12,14 +14,12 @@ case $1 in
     exit 1
 esac
 
-eb deploy ${EB_ENVIRONMENT_NAME}
-# Add slack message
-case $1 in
-  prod)
-    export SLACK_API_TOKEN=$(heroku config:get SLACK_API_TOKEN --app empirical-grammar)
-    export PROJECT_NAME="QuillCMS"
-    python3 ../post_slack_message.py
-    ;;
-esac
+# Slack deploy start
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
-open "https://rpm.newrelic.com/accounts/770600/applications/74496669"
+eb deploy ${EB_ENVIRONMENT_NAME}
+open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
+
+# Slack deploy finish
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
+
