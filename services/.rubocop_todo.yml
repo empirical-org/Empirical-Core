@@ -453,7 +453,6 @@ Style/AndOr:
     - 'QuillLMS/app/models/concept.rb'
     - 'QuillLMS/app/models/user.rb'
     - 'QuillLMS/app/models/zipcode_info.rb'
-    - 'QuillLMS/app/pusher_modules/pusher_activity_session_interaction_log_posted.rb'
     - 'QuillLMS/app/services/fullname_validator.rb'
     - 'QuillLMS/app/services/validate_full_name.rb'
     - 'QuillLMS/config/unicorn.rb'
@@ -726,7 +725,6 @@ Style/SymbolProc:
 # SupportedStylesForMultiline: comma, consistent_comma, no_comma
 Style/TrailingCommaInArguments:
   Exclude:
-    - 'QuillLMS/app/controllers/api/v1/activity_session_interaction_logs_controller.rb'
     - 'QuillLMS/app/models/activity_session.rb'
     - 'QuillLMS/app/models/user.rb'
     - 'QuillLMS/app/services/demo/create_admin_report.rb'
