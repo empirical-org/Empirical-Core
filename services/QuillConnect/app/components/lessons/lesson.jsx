@@ -37,18 +37,18 @@ class Lesson extends React.Component {
     if (confirm('do you want to do this?')) {
       this.props.dispatch(lessonActions.deleteLesson(lessonID));
     }
-  }
+  };
 
   editLesson = () => {
     const { lessonID, } = this.props.match.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-  }
+  };
 
   lesson = () => {
     const { data, } = this.props.lessons
     const { lessonID, } = this.props.match.params;
     return data[lessonID]
-  }
+  };
 
   getQuestionAction = () => {
     const questionType = this.lesson().questionType
@@ -62,7 +62,7 @@ class Lesson extends React.Component {
       return titleCardActions.submitNewTitleCard
     }
     return questionActions.submitNewQuestion
-  }
+  };
 
   promptForm = () => {
     const questionType = this.lesson().questionType
@@ -76,7 +76,7 @@ class Lesson extends React.Component {
       return TitleCardForm
     }
     return QuestionForm
-  }
+  };
 
   urlString = () => {
     const questionType = this.lesson().questionType
@@ -90,7 +90,7 @@ class Lesson extends React.Component {
       return 'title-cards'
     }
     return 'questions'
-  }
+  };
 
   questionsForLesson = () => {
     if (this.lesson().questions) {
@@ -102,7 +102,7 @@ class Lesson extends React.Component {
         return qFromDB;
       });
     }
-  }
+  };
 
   saveLessonEdits = (vals) => {
     const { lessonID, } = this.props.match.params;
@@ -120,7 +120,7 @@ class Lesson extends React.Component {
         </Modal>
       );
     }
-  }
+  };
 
   renderQuestionsForLesson = () => {
     const { params } = this.props.match
@@ -156,38 +156,38 @@ class Lesson extends React.Component {
     return (
       <ul>No questions</ul>
     );
-  }
+  };
 
   onSelect = (e) => {
     const { dispatch } = this.props
     dispatch(lessonActions.setFlag(e.target.value))
-  }
+  };
 
   handleCreatePrompt = () => {
     this.setState({ newQuestion: true, });
-  }
+  };
 
   cancelEditingLesson = () => {
     const { lessonID, } = this.props.match.params;
     this.props.dispatch(lessonActions.cancelLessonEdit(lessonID));
-  }
+  };
 
   handleEditLesson = () => {
     const { lessonID, } = this.props.match.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
     // // console.log("Edit button clicked");
-  }
+  };
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
     const { dispatch, match } = this.props
     const action = this.getQuestionAction()
     dispatch(action(questionObj, optimalResponseObj, match.params.lessonID))
     this.setState({ newQuestion: false, });
-  }
+  };
 
   cancelEditingQuestion = () => {
     this.setState({ newQuestion: false})
-  }
+  };
 
   renderNewQuestionForm = () => {
     const lesson = this.lesson()
@@ -202,7 +202,7 @@ class Lesson extends React.Component {
         </Modal>
       )
     }
-  }
+  };
 
   render() {
     const { isSidebar, lessons, match } = this.props;
@@ -255,7 +255,7 @@ class Lesson extends React.Component {
       <p>404: No Concept Found</p>
     );
   }
-}
+};
 
 function select(state) {
   return {
