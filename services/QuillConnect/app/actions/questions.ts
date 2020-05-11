@@ -70,7 +70,6 @@ function cancelQuestionEdit(qid) {
 }
 
 function submitQuestionEdit(qid, content) {
-  console.log(content)
   return (dispatch, getState) => {
     dispatch({ type: C.SUBMIT_QUESTION_EDIT, qid, });
     QuestionApi.update(qid, content).then( () => {

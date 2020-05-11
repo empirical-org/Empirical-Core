@@ -21,7 +21,6 @@ class QuestionApi {
   }
 
   static update(uid: string, data: Question): Promise<Question> {
-    console.log(data)
     return requestPut(`${questionApiBaseUrl}/${uid}.json`, {question: data});
   }
 
