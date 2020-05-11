@@ -15,7 +15,6 @@ class ActivitySession < ActiveRecord::Base
   has_one :unit, through: :classroom_unit
   has_many :concept_results
   has_many :teachers, through: :classroom
-  has_many :activity_session_interaction_logs, dependent: :destroy
   has_many :concepts, -> { uniq }, through: :concept_results
 
   validate :correctly_assigned, :on => :create
@@ -423,13 +422,6 @@ class ActivitySession < ActiveRecord::Base
         started_at: Time.now
       )
     end
-  end
-
-  def add_interaction_log(meta={},date=DateTime.now)
-    # NOTE: the below won't work because activity session interaction logs have no primary key, this is ok
-    # `self.activity_session_interaction_logs << ActivitySessionInteractionLog.create(meta: meta, date: date)`
-    ActivitySessionInteractionLog.create(meta: meta, date: date, activity_session_id: id)
-    # Dually, please do not add reload here, the db cost is not worth it
   end
 
   def minutes_to_complete

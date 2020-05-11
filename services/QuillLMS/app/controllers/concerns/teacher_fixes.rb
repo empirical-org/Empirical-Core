@@ -133,7 +133,6 @@ module TeacherFixes
   def self.delete_last_activity_session(user_id, activity_id)
     last_activity_session = get_all_completed_activity_sessions_for_a_given_user_and_activity(user_id, activity_id).order("activity_sessions.completed_at DESC").limit(1)[0]
     if last_activity_session
-      last_activity_session.activity_session_interaction_logs.delete_all
       last_activity_session.delete
     else
       raise 'This activity session does not exist'
