@@ -78,6 +78,8 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      const action = push(`/admin/fill-in-the-blanks/${qid}/responses`);
+      dispatch(action);
     }).catch( (error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });

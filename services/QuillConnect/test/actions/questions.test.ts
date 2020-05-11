@@ -69,7 +69,6 @@ describe('Questions actions', () => {
       dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, {}, MOCK_LESSON_ID))
       await questionActions.submitNewQuestion(MOCK_CONTENT, {}, MOCK_LESSON_ID)
       expect(mockLessonApi.addQuestion).toHaveBeenLastCalledWith(TYPE_CONNECT_LESSON, MOCK_LESSON_ID, MOCK_LESSON_QUESTION)
-
     })
   })
 
