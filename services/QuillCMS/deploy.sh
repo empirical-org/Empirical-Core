@@ -2,8 +2,6 @@
 current_branch=`git rev-parse --abbrev-ref HEAD`
 app_name="QuillCMS"
 
-sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-
 case $1 in
   prod)
     EB_ENVIRONMENT_NAME=production
@@ -16,7 +14,12 @@ case $1 in
     exit 1
 esac
 
+# Slack deploy start
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+
 eb deploy ${EB_ENVIRONMENT_NAME}
 open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
-# Add slack message
+
+# Slack deploy finish
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
+

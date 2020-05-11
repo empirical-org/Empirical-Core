@@ -32,12 +32,12 @@ esac
 read -r -p "Deploy branch '$CURRENT_BRANCH' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
-    #Add slack start message
+    # Slack deploy start
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
     git push -f ${DEPLOY_GIT_REMOTE} ${current_branch}:master -v
     open $URL
     open $NR_URL
-    #Add slack finish message
+    # Slack deploy finish
     sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
 else
     echo "Ok, we won't deploy. Have a good day!"

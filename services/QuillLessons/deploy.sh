@@ -5,8 +5,6 @@ QUILL_CMS=https://cms.quill.org
 current_branch=`git rev-parse --abbrev-ref HEAD`
 app_name="QuillLessons"
 
-sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-
 # Set environment-specific values
 case $1 in
   prod)
@@ -40,11 +38,14 @@ then
   rm -rf ./dist
 fi
 
+# Slack deploy start
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
+
 # Execute a new build
 npm run build
 
 # Upload build to S3 bucket
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws
 
-#Add slack message
+# Slack deploy finish
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true

@@ -2,7 +2,6 @@
 current_branch=`git rev-parse --abbrev-ref HEAD`
 app_name="QuillGrammar"
 
-sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 # Set environment-specific values
 case $1 in
   prod)
@@ -24,9 +23,11 @@ case $1 in
     exit 1
 esac
 
+# Slack deploy start
+sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
 
 # Upload build to S3 bucket
 aws s3 sync ./dist ${S3_DEPLOY_BUCKET} --profile peter-aws
 
-# Add slack message
+# Slack deploy finish
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
