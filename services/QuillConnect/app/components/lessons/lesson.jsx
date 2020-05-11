@@ -163,13 +163,6 @@ class Lesson extends React.Component {
     dispatch(lessonActions.setFlag(e.target.value))
   }
 
-  deleteLesson = () => {
-    const { lessonID, } = this.props.match.params;
-    if (confirm('do you want to do this?')) {
-      this.props.dispatch(lessonActions.deleteLesson(lessonID));
-    }
-  }
-
   handleCreatePrompt = () => {
     this.setState({ newQuestion: true, });
   }
@@ -183,18 +176,6 @@ class Lesson extends React.Component {
     const { lessonID, } = this.props.match.params;
     this.props.dispatch(lessonActions.startLessonEdit(lessonID));
     // // console.log("Edit button clicked");
-  }
-
-  renderEditLessonForm = () => {
-    const { lessonID, } = this.props.match.params;
-    const lesson = this.lesson();
-    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
-      return (
-        <Modal close={this.cancelEditingLesson}>
-          <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
-        </Modal>
-      );
-    }
   }
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
