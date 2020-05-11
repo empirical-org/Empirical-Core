@@ -84,7 +84,7 @@ export default class extends React.Component {
         <div className="select-credit-card-modal">
           <div className="modal-background" />
           <div className="modal-content">
-            <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
+            <img alt="close-modal" className="pull-right modal-button-close" onClick={this.hideModal} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
             <div className="pricing-info text-center">
               <h1>Quill {capitalize(type)} Premium</h1>
               <span>${price} for one-year subscription</span>

@@ -43,7 +43,7 @@ export default class extends React.Component {
       <div className="premium-confirmation">
         <div className="modal-background" />
         <div className="modal-content">
-          <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={hideModal} onKeyPress={this.handleKeyPress} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
+          <img alt="close-modal" className="pull-right modal-button-close" onClick={hideModal} onKeyPress={this.handleKeyPress} src={`${process.env.CDN_URL}/images/shared/close_x.svg`} />
           <h1>Congratulations!</h1>
           <h2 id="subscription-type">You have a {account_type} Subscription</h2>
           {content}

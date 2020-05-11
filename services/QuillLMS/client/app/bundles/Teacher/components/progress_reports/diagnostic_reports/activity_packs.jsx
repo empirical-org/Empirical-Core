@@ -237,6 +237,7 @@ export default class ActivityPacks extends React.Component {
           <p>Select a classroom:</p>
           <ItemDropdown
             callback={this.switchClassrooms}
+            className="activity-analysis-classroom-dropdown"
             items={classrooms.filter(Boolean)}
             selectedItem={selectedClassroom}
           />
@@ -247,6 +248,7 @@ export default class ActivityPacks extends React.Component {
   }
 
   switchClassrooms = (classroom) => {
+    console.log('classroom', classroom)
     const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
    	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
  		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());

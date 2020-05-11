@@ -8,7 +8,7 @@ export default function({ hideModal, purchaseSchoolPremium, show }) {
       <div className="school-premium-modal">
         <div className="modal-background" />
         <div className="modal-content">
-          <img alt="close-modal" className="pull-right react-bootstrap-close" onClick={hideModal} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} />
+          <img alt="close-modal" className="pull-right modal-button-close" onClick={hideModal} src={`${process.env.CDN_URL}/images/icons/CloseIcon.svg`} />
           <div className="pricing-info text-center">
             <div className="current-year">
               <h1>Quill School Premium</h1>

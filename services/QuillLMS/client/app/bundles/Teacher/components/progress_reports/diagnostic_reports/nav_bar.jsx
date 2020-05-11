@@ -1,7 +1,6 @@
 import React from 'react';
 import ItemDropdown from '../../general_components/dropdown_selectors/item_dropdown.jsx';
 import NavButtonGroup from './nav_button_group.jsx';
-import StudentDropdown from '../../general_components/dropdown_selectors/student_dropdown.jsx';
 import blackIconAppName from '../../modules/get_black_icon_app_name_from_classification.js'
 import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 import l from 'lodash'
@@ -52,11 +51,12 @@ export default class Navbar extends React.Component {
       return (<DropdownInput
         className="student-dropdown"
         handleChange={studentDropdownCallback}
+        isSearchable={true}
         options={this.getStudentDropdownOptions()}
         value={selectedStudent}
       />);
     }
-  };
+  }
 
   students = () => {
     const selectedClassroomId = parseInt(this.props.params.classroomId);
@@ -82,39 +82,42 @@ export default class Navbar extends React.Component {
   };
 
   render() {
+    const { buttonGroupCallback, classrooms, dropdownCallback, params, selectedActivity } = this.props;
+    const { classification, description, id, name, topic } = selectedActivity;
     let appName, image, previewLink
-    if (l.has(this.props.selectedActivity, 'classification.id')) {
-      appName = blackIconAppName(this.props.selectedActivity.classification.id)
+    if (l.has(selectedActivity, 'classification.id')) {
+      appName = blackIconAppName(classification.id)
       image = <img alt={`${appName}-icon`} src={`https://assets.quill.org/images/icons/${appName}-black.svg`} />
-      previewLink = <a href={`/activity_sessions/anonymous?activity_id=${this.props.selectedActivity.id}`}>Preview Activity</a>
+      previewLink = <a href={`/activity_sessions/anonymous?activity_id=${id}`}>Preview Activity</a>
     }
     return (
       <div className="diagnostic-nav-container">
         <div id="reports-navbar">
           <div className='name-and-preview flex-row name-and-preview flex-row vertically-centered'>
             {image}
-            <h1>{this.props.selectedActivity ? this.props.selectedActivity.name : ''}</h1>
+            <h1>{selectedActivity ? name : ''}</h1>
             {previewLink}
           </div>
 
           <p className='description'>
             <img alt="info-icon" src='https://assets.quill.org/images/icons/info-black.svg' />
-            {this.props.selectedActivity.description}
+            {description}
           </p>
 
           <p className='standard'>
             <img alt="common-core-icon" src='https://assets.quill.org/images/icons/common-core-gray.svg' />
-            {this.props.selectedActivity && this.props.selectedActivity.topic ? this.props.selectedActivity.topic.name : ''}
+            {selectedActivity && topic ? topic.name : ''}
           </p>
           <div className="nav-elements">
             <ItemDropdown
-              callback={this.props.dropdownCallback}
-              items={this.props.classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
-              selectedItem={this.props.classrooms.find(cl => cl.id === Number(this.props.params.classroomId))}
+              callback={dropdownCallback}
+              className="class-dropdown"
+              items={classrooms || [{ name: 'Please Add a Classroom', id: null, }]}
+              selectedItem={classrooms.find(cl => cl.id === Number(params.classroomId))}
             />
             <NavButtonGroup
-              clickCallback={this.props.buttonGroupCallback}
-              params={this.props.params}
+              clickCallback={buttonGroupCallback}
+              params={params}
             />     
             {this.studentDropdown()}
           </div>

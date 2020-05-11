@@ -38,6 +38,21 @@
   .dropdown-container {
     margin-top: 21px;
     margin-bottom: 21px;
+    width: 100%;
+    .student-reports-class-dropdown {
+      .dropdown__control {
+        border-radius: 6px;
+        padding: 7px 14px;
+        height: 40px;
+        width: 180px;
+        border: solid 1px #cecece;
+        border-radius: 6px !important;
+      }
+    }
+  }
+  #standards-dropdown-container {
+    display: flex;
+    width: 200px !important;
   }
 
   .-sort-asc, .-sort-desc {

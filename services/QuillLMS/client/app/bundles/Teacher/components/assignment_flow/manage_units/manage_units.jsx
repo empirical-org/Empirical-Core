@@ -253,6 +253,7 @@ export default class ManageUnits extends React.Component {
         <div className="classroom-selector">
           <p>Select a classroom: </p>
           <ItemDropdown
+            className="manage-units-classroom-dropdown"
             callback={this.switchClassrooms}
             items={classrooms}
             selectedItem={selectedClassroom}

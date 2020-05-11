@@ -12,12 +12,14 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 28px;
-    .student-dropdown {
-      width: 100px;
-      min-height: auto;
-      border-radius: 6px;
-      .dropdown__value-container {
-        margin-left: 10px;
+    .student-dropdown, .class-dropdown {
+      .dropdown__control {
+        border-radius: 6px;
+        padding: 7px 14px;
+        height: 40px;
+        min-width: 200px;
+        border: solid 1px #cecece;
+        border-radius: 6px !important;
       }
     }
   }

@@ -202,9 +202,9 @@ export default class StandardsAllClassroomsProgressReport extends React.Componen
             <a className='how-we-grade' href="https://support.quill.org/activities-implementation/how-does-grading-work">How We Grade<i className="fas fa-long-arrow-alt-right" /></a>
           </div>
         </div>
-        <div className='dropdown-container'>
-          <ItemDropdown callback={this.switchClassrooms} items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
-          <ItemDropdown callback={this.goToStudentPage} items={_.uniq(this.state.students.map(s => s.name))} />
+        <div className='dropdown-container' id="standards-dropdown-container">
+          <ItemDropdown callback={this.switchClassrooms} className="student-reports-class-dropdown" items={this.state.classrooms.map(c => c.name)} selectedItem={this.state.selectedClassroom} />
+          <ItemDropdown callback={this.goToStudentPage} className="student-reports-class-dropdown" items={_.uniq(this.state.students.map(s => s.name))} />
         </div>
         {this.tableOrEmptyMessage()}
       </div>
