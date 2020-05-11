@@ -906,13 +906,11 @@ color: #875a12;
     flex: 1;
     overflow: hidden;
     padding: 0px 32px 32px;
-    .dropdown {
+    .dropdown-container {
       min-width: 400px;
       width: min-content;
-      margin-bottom: 40px;
-      &.active {
-        margin-bottom: 52px;
-      }
+      height: 89px;
+      justify-content: flex-start;
     }
     .view-button-section {
       margin-right: 0px;
