@@ -17,5 +17,6 @@ case $1 in
 esac
 
 eb deploy ${EB_ENVIRONMENT_NAME}
+open "https://rpm.newrelic.com/accounts/2639113/applications/548895592"
 # Add slack message
 sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch true
