@@ -8,7 +8,8 @@ exports[`Activities component should render Activities 1`] = `
     className="close-button-container"
   >
     <button
-      className="quill-button fun primary contained close-button"
+      className="quill-button fun primary contained"
+      id="activity-close-button"
       onClick={[MockFunction]}
       type="submit"
     >
@@ -28,6 +29,7 @@ exports[`Activities component should render Activities 1`] = `
     <DropdownInput
       className="flag-input"
       handleChange={[Function]}
+      isSearchable={true}
       label="Development Stage"
       options={
         Array [
@@ -88,14 +90,16 @@ exports[`Activities component should render Activities 1`] = `
       className="submit-button-container"
     >
       <button
-        className="quill-button fun primary contained submit-button"
+        className="quill-button fun primary contained"
+        id="activity-submit-button"
         onClick={[Function]}
         type="submit"
       >
         Submit
       </button>
       <button
-        className="quill-button fun primary contained cancel-button"
+        className="quill-button fun primary contained"
+        id="activity-cancel-button"
         onClick={[MockFunction]}
         type="submit"
       >

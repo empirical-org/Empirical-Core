@@ -9,7 +9,8 @@ const ActivitySettings = (props: any) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [flag, setFlag] = React.useState(null);
-  const [showModal, setShowModal] = React.useState(false)
+  const [showEditActivityModal, setShowEditActivityModal] = React.useState(false)
+  const [showEditFlagModal, setShowEditFlagModal] = React.useState(false)
   const { match } = props;
   const { params } = match;
   const { activityId } = params;
@@ -19,15 +20,15 @@ const ActivitySettings = (props: any) => {
     try {
       setLoading(true);
       const response = await fetch(fetchActivityAPI);
-      const activity = await response.json();
-      const { flag } = activity
-      setActivity(activity);
-      setFlag({ label: flag, value: flag });
-      setLoading(false);
+      var activity = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
     }
+    const { flag } = activity
+    setActivity(activity);
+    setFlag({ label: flag, value: flag });
+    setLoading(false);
   };
 
   React.useEffect(() => {
@@ -36,69 +37,85 @@ const ActivitySettings = (props: any) => {
 
   const submitActivity = (activity) => {
     // TODO: hook into Activity PUT API
-    setShowModal(false)
+    toggleEditActivityModal();
+  }
+
+  const handleUpdateFlag = () => {
+    // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
+    toggleFlagModal();
   }
 
   const handleFlagChange = (flag) => {
-    // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
     setFlag(flag);
   }
 
-  const flagDropdown = () => {
-    const dropdown = (<DropdownInput
-      className="flag-dropdown"
-      handleChange={handleFlagChange}
-      options={flagOptions}
-      value={flag}
-    />);
-    return dropdown;
+
+  const toggleEditActivityModal = () => {
+    setShowEditActivityModal(!showEditActivityModal);
   }
 
-  const editActivity = () => {
-    setShowModal(true);
+  const toggleFlagModal = () => {
+    setShowEditFlagModal(!showEditFlagModal);
   }
 
-  const closeModal = () => {
-    setShowModal(false)
-  }
+  const flagModal = (
+    <button className="quill-button fun primary outlined" id="edit-flag-button" onClick={toggleFlagModal} type="submit">
+      {flag ? flag.label : ''}
+    </button>
+  );
 
   const renderActivityForm = () => {
     return(
       <Modal>
-        <ActivityForm activity={activity} closeModal={closeModal} submitActivity={submitActivity} />
+        <ActivityForm activity={activity} closeModal={toggleEditActivityModal} submitActivity={submitActivity} />
       </Modal>
     );
   }
 
-  // TODO: re-enable data inputs for course, target reading level and reading level score
+  const renderFlagEditModal = () => {
+    return(
+      <Modal>
+        <div className="edit-flag-container">
+          <div className="close-button-container">
+            <button className="quill-button fun primary contained" id="flag-close-button" onClick={toggleFlagModal} type="submit">x</button>
+          </div>
+          <DropdownInput
+            className="flag-dropdown"
+            handleChange={handleFlagChange}
+            isSearchable={true}
+            label="Development Stage"
+            options={flagOptions}
+            value={flag}
+          />
+          <div className="submit-button-container">
+            <button className="quill-button fun primary contained" id="flag-submit-button" onClick={handleUpdateFlag} type="submit">
+              Submit
+            </button>
+            <button className="quill-button fun primary contained" id="flag-cancel-button" onClick={toggleFlagModal} type="submit">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
+    )
+  }
+
   const generalSettingsRows = (activity) => {
     // format for DataTable to display labels on left side and values on right
-    const { course, passages, prompts, title } = activity
+    const { passages, prompts, title } = activity
     const fields = [
       { 
         label: 'Title',
         value: title 
       },
-      // {
-      //   label: 'Course',
-      //   value: course
-      // },
       {
         label: 'Development Stage',
-        value: flagDropdown()
+        value: flagModal
       },
       {
         label: 'Passage Length',
         value: passages ? `${passages[0].split(' ').length} words` : null
       },
-      // {
-      //   label: 'Target Reading Level',
-      //   value: null
-      // },
-      // {
-      //   label: 'Reading Level Score',
-      //   value: null
-      // },
       {
         label: "Because",
         value: prompts ? prompts[0].text : null
@@ -145,14 +162,15 @@ const ActivitySettings = (props: any) => {
 
   return(
     <div className="activity-settings-container">
-      {showModal && renderActivityForm()}
+      {showEditActivityModal && renderActivityForm()}
+      {showEditFlagModal && renderFlagEditModal()}
       <DataTable
         className="activity-general-settings-table"
         headers={dataTableFields}
         rows={generalSettingsRows(activity)}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" onClick={editActivity} type="submit">Configure</button>
+        <button className="quill-button fun primary contained" id="edit-activity-button" onClick={toggleEditActivityModal} type="submit">Configure</button>
       </div>
     </div>
   );

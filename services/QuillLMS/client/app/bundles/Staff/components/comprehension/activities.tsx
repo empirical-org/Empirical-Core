@@ -13,30 +13,28 @@ const Activities = () => {
     try {
       setLoading(true);
       const response = await fetch(fetchAllActivitiesAPI);
-      const json = await response.json();
-      const { activities } = json
-      setActivities(activities);
-      setLoading(false);
+      var json = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
     }
+    const { activities } = json
+    setActivities(activities);
+    setLoading(false);
   };
 
   React.useEffect(() => {
     fetchData();
   }, []);
 
-  const formattedRows = () => {
-    return activities.map(activity => {
-      const { course, id, title } = activity;
-      const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
-      return {
-        title: activityLink,
-        course 
-      }
-    });
-  }
+  const formattedRows = activities.map(activity => {
+    const { course, id, title } = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
+    return {
+      title: activityLink,
+      course 
+    }
+  });
 
   if(loading) {
     return(
@@ -65,7 +63,7 @@ const Activities = () => {
         className="activities-table"
         defaultSortAttribute="title"
         headers={dataTableFields}
-        rows={formattedRows()}
+        rows={formattedRows}
       />
     </div>
   );

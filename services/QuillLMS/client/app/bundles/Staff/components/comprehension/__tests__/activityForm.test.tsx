@@ -24,18 +24,20 @@ describe('Activities component', () => {
   });
 
   it('should render a DropdownInput, Input, or TextEditor component for each field', () => {
-    expect(container.find(DropdownInput).length).toEqual(1);
+    // Input: Title, But Stem, Because Stem, So Stem (4)
+    // DropdownInput: Development Stage (1)
+    // TextEditor: Passage (1)
     expect(container.find(Input).length).toEqual(4);
+    expect(container.find(DropdownInput).length).toEqual(1);
     expect(container.find(TextEditor).length).toEqual(1);
   });
   it('clicking the "x" button or "close" button should call closeModal prop', () => {
-    container.find('button').first().simulate('click');
-    expect(mockProps.closeModal).toHaveBeenCalled();
-    container.find('button').last().simulate('click');
-    expect(mockProps.closeModal).toHaveBeenCalled();
+    container.find('#activity-close-button').simulate('click');
+    container.find('#activity-cancel-button').simulate('click');
+    expect(mockProps.closeModal).toHaveBeenCalledTimes(2);
   });
   it('clicking submit button should call submitActivity prop', () => {
-    container.find('button').at(1).simulate('click');
+    container.find('#activity-submit-button').simulate('click');
     expect(mockProps.submitActivity).toHaveBeenCalled();
   });
 });
