@@ -28,7 +28,6 @@ class LessonApi {
   }
 
   static addQuestion(lesson_type: string, uid: string, question: LessonQuestion): Promise<string> {
-    console.log(question)
     return requestPut(`${lessonApiBaseUrl}/${uid}/add_question.json`, {lesson_type: lesson_type, question: question});
   }
 }

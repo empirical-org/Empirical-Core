@@ -124,7 +124,6 @@ class sentenceFragmentForm extends React.Component {
   };
 
   render() {
-    console.log(this.state)
     return(
     <div className="box">
         <h6 className="title is-h6">Edit Sentence Fragment</h6>

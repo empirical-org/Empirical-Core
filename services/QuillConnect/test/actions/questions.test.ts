@@ -3,10 +3,13 @@ import 'whatwg-fetch'
 import { mockQuestionApi, } from '../__mocks__/question_api'
 import { mockFocusPointApi, } from '../__mocks__/focus_point_api'
 import { mockIncorrectSequenceApi, } from '../__mocks__/incorrect_sequence_api'
+import { mockLessonApi, } from '../__mocks__/lesson_api'
 jest.mock('../../app/libs/questions_api', () => ({
   FocusPointApi: mockFocusPointApi,
   IncorrectSequenceApi: mockIncorrectSequenceApi,
   QuestionApi: mockQuestionApi,
+}))
+jest.mock('../../app/libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
 }))
 
@@ -16,7 +19,6 @@ import { SENTENCE_COMBINING_TYPE } from '../../app/libs/questions_api'
 import { TYPE_CONNECT_LESSON } from '../../app/libs/lessons_api'
 
 import questionActions from '../../app/actions/questions'
-import { mockLessonApi } from '../__mocks__/lesson_api'
 
 describe('Questions actions', () => {
   describe('startListeningToQuestions', () => {
@@ -60,11 +62,14 @@ describe('Questions actions', () => {
       expect(mockQuestionApi.create).toHaveBeenLastCalledWith(SENTENCE_COMBINING_TYPE, MOCK_CONTENT)
     })
 
-    it('should call LessonApi.addQuestion() if lessonID is present', () => {
+    it('should call LessonApi.addQuestion() if lessonID is present', async () => {
       const MOCK_CONTENT = { mock: 'content', answers: [] }
       const MOCK_LESSON_ID = "lessonID"
-      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, "", MOCK_LESSON_ID))
-      expect(mockLessonApi.addQuestion).toHaveBeenLastCalledWith(TYPE_CONNECT_LESSON, MOCK_CONTENT)
+      const MOCK_LESSON_QUESTION = {"key": "question", "questionType": "questions"}
+      dispatch(questionActions.submitNewQuestion(MOCK_CONTENT, {}, MOCK_LESSON_ID))
+      await questionActions.submitNewQuestion(MOCK_CONTENT, {}, MOCK_LESSON_ID)
+      expect(mockLessonApi.addQuestion).toHaveBeenLastCalledWith(TYPE_CONNECT_LESSON, MOCK_LESSON_ID, MOCK_LESSON_QUESTION)
+
     })
   })
 

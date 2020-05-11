@@ -4,10 +4,7 @@ import {
   TextEditor,
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import {
-  submitNewTitleCard,
-  submitTitleCardEdit
-} from '../../actions/titleCards'
+import titleCardActions from '../../actions/titleCards'
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -69,9 +66,9 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
     if (submit) {
       submit(this.state)
     } else if (titleCardID) {
-      dispatch(submitTitleCardEdit(titleCardID, this.state))
+      dispatch(titleCardActions.submitTitleCardEdit(titleCardID, this.state))
     } else {
-      dispatch(submitNewTitleCard(this.state))
+      dispatch(titleCardActions.submitNewTitleCard(this.state))
     }
   }
 
