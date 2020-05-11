@@ -916,6 +916,9 @@ color: #875a12;
     }
     .view-button-section {
       margin-right: 0px;
+      .quill-button {
+        width: 88px;
+      }
     }
     .data-table {
       height: calc(100% - 58px);

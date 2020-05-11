@@ -196,6 +196,8 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
 
   handleClickViewAsStudentButton = () => this.viewAsStudent()
 
+  onClickViewAsIndividualStudent = (id: string|number) => this.viewAsStudent(id)
+
   selectAction = (action) => {
     action.value()
   }
@@ -323,6 +325,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         classrooms={classrooms}
         close={this.closeModal}
         defaultClassroomId={classroom.id}
+        handleViewClick={this.onClickViewAsIndividualStudent}
       />)
     }
   }
