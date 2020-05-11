@@ -12,12 +12,6 @@ class Api::V1::ProgressReportsController < Api::ApiController
     end
   end
 
-  def real_time_data
-    student_ids = current_user.students.map(&:id)
-    data = ProgressReports::RealTime.results(student_ids)
-    render json: { data: data }
-  end
-
   def district_activity_scores
     if current_user.admin?
       serialized_district_activity_scores_json = $redis.get("SERIALIZED_DISTRICT_ACTIVITY_SCORES_FOR_#{current_user.id}")
