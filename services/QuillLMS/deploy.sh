@@ -29,7 +29,7 @@ case $1 in
     exit 1
 esac
 
-read -r -p "Deploy branch '$CURRENT_BRANCH' to '$1' environment? [y/N]" response
+read -r -p "Deploy branch '$current_branch' to '$1' environment? [y/N]" response
 if [[ "$response" =~ ^([y])$ ]]
 then
     # Slack deploy start
