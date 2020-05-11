@@ -19,12 +19,12 @@ describe Api::V1::LessonsController, type: :controller do
 
   describe "#show" do
     it "should return the specified lesson" do
-      get :show, lesson_type: lesson.lesson_type, id: lesson.uid
+      get :show, id: lesson.uid
       expect(JSON.parse(response.body)).to eq(lesson.data)
     end
 
     it "should return a 404 if the requested Lesson is not found" do
-      get :show, lesson_type: lesson.lesson_type, id: 'doesnotexist'
+      get :show, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -44,13 +44,13 @@ describe Api::V1::LessonsController, type: :controller do
   describe "#update" do
     it "should update the existing record" do
       data = {"foo" => "bar"}
-      put :update, lesson_type: lesson.lesson_type, id: lesson.uid, lesson: data
+      put :update, id: lesson.uid, lesson: data
       lesson.reload
       expect(lesson.data).to eq(data)
     end
 
     it "should return a 404 if the requested Lesson is not found" do
-      get :update, lesson_type: lesson.lesson_type, id: 'doesnotexist'
+      get :update, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
@@ -62,45 +62,20 @@ describe Api::V1::LessonsController, type: :controller do
 
     it "should destroy the existing record if the current user is staff" do
       allow(controller).to receive(:current_user).and_return(staff)
-      delete :destroy, lesson_type: lesson.lesson_type, id: lesson.uid
+      delete :destroy, id: lesson.uid
       expect(Lesson.where(uid: lesson.uid).count).to eq(0)
     end
 
     it "should return a 404 if the requested Lesson is not found if the current user is staff" do
       allow(controller).to receive(:current_user).and_return(staff)
-      delete :destroy, lesson_type: lesson.lesson_type, id: 'doesnotexist'
+      delete :destroy, id: 'doesnotexist'
       expect(response.status).to eq(404)
       expect(response.body).to include("The resource you were looking for does not exist")
     end
 
     it "should return a 403 if the current user is not staff" do
       allow(controller).to receive(:current_user).and_return(teacher)
-      delete :destroy, lesson_type: lesson.lesson_type, id: lesson.uid
-      expect(response.status).to eq(403)
-      expect(response.body).to include("You are not authorized to access this resource")
-    end
-  end
-
-  describe "#destroy" do
-    let(:staff) { create(:staff) }
-    let(:teacher) { create(:teacher) }
-
-    it "should destroy the existing record if the current user is staff" do
-      allow(controller).to receive(:current_user).and_return(staff)
-      delete :destroy, lesson_type: lesson.lesson_type, id: lesson.uid
-      expect(Lesson.where(uid: lesson.uid).count).to eq(0)
-    end
-
-    it "should return a 404 if the requested Lesson is not found if the current user is staff" do
-      allow(controller).to receive(:current_user).and_return(staff)
-      delete :destroy, lesson_type: lesson.lesson_type, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
-    end
-
-    it "should return a 403 if the current user is not staff" do
-      allow(controller).to receive(:current_user).and_return(teacher)
-      delete :destroy, lesson_type: lesson.lesson_type, id: lesson.uid
+      delete :destroy, id: lesson.uid
       expect(response.status).to eq(403)
       expect(response.body).to include("You are not authorized to access this resource")
     end
@@ -109,14 +84,14 @@ describe Api::V1::LessonsController, type: :controller do
   describe "#add_question" do
     it "should add a question to the existing record" do
       data = {"key" => question.uid, "questionType" => "questions"}
-      put :add_question, lesson_type: lesson.lesson_type, id: lesson.uid, question: data
+      put :add_question, id: lesson.uid, question: data
       lesson.reload
       expect(lesson.data["questions"]).to include(data)
     end
 
     it "should return a 404 if the requested Question is not found" do
       data = {"question" => {"key" => "notarealID", "questionType" => "question"}}
-      put :add_question, lesson_type: lesson.lesson_type, id: lesson.uid, question: data
+      put :add_question, id: lesson.uid, question: data
       expect(response.status).to eq(404)
       expect(response.body).to include("does not exist")
     end
