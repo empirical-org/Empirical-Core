@@ -12,7 +12,7 @@ class LessonApi {
   }
 
   static get(lesson_type: string, uid: string): Promise<Lesson> {
-    return requestGet(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`);
+    return requestGet(`${lessonApiBaseUrl}/${uid}.json`);
   }
 
   static create(lesson_type: string, data: Lesson): Promise<Lesson> {
@@ -20,11 +20,11 @@ class LessonApi {
   }
 
   static update(lesson_type: string, uid: string, data: Lesson): Promise<Lesson> {
-    return requestPut(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`, {lesson: data});
+    return requestPut(`${lessonApiBaseUrl}/${uid}.json`, {lesson: data});
   }
 
   static remove(lesson_type: string, uid: string): Promise<string> {
-    return requestDelete(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${lesson_type}`);
+    return requestDelete(`${lessonApiBaseUrl}/${uid}.json`);
   }
 
   static addQuestion(lesson_type: string, uid: string, question: LessonQuestion): Promise<string> {

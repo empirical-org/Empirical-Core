@@ -11,7 +11,7 @@ class ProofreaderPassageApi {
   }
 
   static get(uid: string): Promise<ProofreaderActivity> {
-    return requestGet(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`);
+    return requestGet(`${lessonApiBaseUrl}/${uid}.json`);
   }
 
   static create(data: ProofreaderActivity): Promise<ProofreaderActivities> {
@@ -19,11 +19,11 @@ class ProofreaderPassageApi {
   }
 
   static update(uid: string, data: ProofreaderActivity): Promise<ProofreaderActivity> {
-    return requestPut(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`, {lesson: data});
+    return requestPut(`${lessonApiBaseUrl}/${uid}.json`, {lesson: data});
   }
 
   static remove(uid: string): Promise<string> {
-    return requestDelete(`${lessonApiBaseUrl}/${uid}.json?lesson_type=${PROOFREADER_PASSAGE_TYPE}`);
+    return requestDelete(`${lessonApiBaseUrl}/${uid}.json`);
   }
 }
 
