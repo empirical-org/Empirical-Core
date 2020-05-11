@@ -160,7 +160,6 @@ RailsAdmin.config do |config|
 
   # Exclude the models with huge datasets (~10M+) because they are performance hits
   MODELS_TO_EXCLUDE = [
-    'ActivitySessionInteractionLog',
     'ActivitySession',
     'ConceptResult',
     'Notification',
