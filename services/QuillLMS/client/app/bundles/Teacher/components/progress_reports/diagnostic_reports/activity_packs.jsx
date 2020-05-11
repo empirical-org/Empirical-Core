@@ -248,7 +248,6 @@ export default class ActivityPacks extends React.Component {
   }
 
   switchClassrooms = (classroom) => {
-    console.log('classroom', classroom)
     const path = '/teachers/progress_reports/diagnostic_reports/#/activity_packs';
    	window.history.pushState({}, '', classroom.id ? `${path}?classroom_id=${classroom.id}` : path);
  		this.setState({ selectedClassroomId: classroom.id, }, () => this.getUnitsForCurrentClass());
