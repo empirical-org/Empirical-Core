@@ -63,6 +63,7 @@ class ActivitySession < ActiveRecord::Base
   PROFICIENT = 'Proficient'
   NEARLY_PROFICIENT = 'Nearly proficient'
   NOT_YET_PROFICIENT = 'Not yet proficient'
+  FINISHED_STATE = 'finished'
 
   def self.paginate(current_page, per_page)
     offset = (current_page.to_i - 1) * per_page
@@ -81,11 +82,12 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
+  def finished?; state == FINISHED_STATE; end
+
   def calculate_timespent
-    # database level function
-    ActiveRecord::Base.connection.execute(
-        "SELECT * FROM timespent_activity_session(#{id})"
-    )[0]["timespent_activity_session"].to_i
+    return nil if !finished? || started_at.nil? || completed_at.nil?
+
+    completed_at - started_at
   end
 
   def eligible_for_tracking?
