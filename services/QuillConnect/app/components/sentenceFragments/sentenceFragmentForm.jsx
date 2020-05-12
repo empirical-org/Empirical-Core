@@ -33,15 +33,8 @@ class sentenceFragmentForm extends React.Component {
     }
   }
 
-  conceptsToOptions = () => {
-    const { concepts } = this.props
-    const { data } = concepts
-    return _.map(data['0'], concept => (
-        { name: concept.displayName, value: concept.uid, shortenedName: concept.name, }
-      ));
-  };
-
-  handleChange = (key, e) => {
+  handleChange = e => {
+    const key = e.currentTarget.getAttribute('data-value')
     const { wordCountChange } = this.state
     switch (key) {
       case 'prompt':
@@ -59,8 +52,6 @@ class sentenceFragmentForm extends React.Component {
       case 'needsIdentification':
         this.setState({ needsIdentification: e.target.checked, });
         break;
-      case 'concept':
-        this.setState({ conceptID: e.value, });
       case 'maxWordCountChange':
         let newWordCountChange = { ...wordCountChange }
         newWordCountChange.max = e.target ? e.target.value : '';
@@ -71,12 +62,17 @@ class sentenceFragmentForm extends React.Component {
         newWordCountChange.min = e.target ? e.target.value : '';
         this.setState({ wordCountChange: newWordCountChange, });
         break;
-      case 'flag':
-        this.setState({ flag: e.target.value, });
-        break;
       default:
     }
   };
+
+  handleFlagChange = e => {
+    this.setState({ flag: e.target.value, });
+  }
+
+  handleConceptChange = e => {
+    this.setState({ conceptID: e.value, });
+  }
 
   submitSentenceFragment = () => {
     const { submit } = this.props
@@ -117,7 +113,7 @@ class sentenceFragmentForm extends React.Component {
     [
         (<label className="label">Optimal Answer Text (The most obvious short answer, you can add more later)</label>),
         (<p className="control">
-          <input className="input" onChange={this.handleChange.bind(null, 'optimalResponseText')} type="text" value={optimalResponseText} />
+          <input className="input" data-value="optimalResponseText" onChange={this.handleChange} type="text" value={optimalResponseText} />
         </p>)
     ]
     );
@@ -130,42 +126,43 @@ class sentenceFragmentForm extends React.Component {
         <div>
           <label className="label">Sentence / Fragment Prompt</label>
           <p className="control">
-            <input className="input" onChange={this.handleChange.bind(null, 'prompt')} type="text" value={this.state.prompt} />
+            <input className="input" data-value="prompt" onChange={this.handleChange} type="text" value={this.state.prompt} />
           </p>
           <label className="label">Instructions</label>
           <p className="control">
-            <textarea className="input" onChange={this.handleChange.bind(null, 'instructions')} value={this.state.instructions} />
+            <textarea className="input" data-value="instructions" onChange={this.handleChange} value={this.state.instructions} />
           </p>
           <p className="control">
             <label className="checkbox">
-              <input checked={this.state.isFragment} onClick={this.handleChange.bind(null, 'isFragment')} type="checkbox" />
+              <input checked={this.state.isFragment} data-value="isFragment" onClick={this.handleChange} type="checkbox" />
               This is a fragment.
             </label>
           </p>
           <p className="control">
             <label className="max_word_count_change">
               Max Word Count Change
-              <input onChange={this.handleChange.bind(null, 'maxWordCountChange')} type="number" value={this.wordCountInfo('max')} />
+              <input data-value="maxWordCountChange" onChange={this.handleChange} type="number" value={this.wordCountInfo('max')} />
             </label>
             <br />
             <label className="min_word_count_change">
               Min Word Count Change
-              <input onChange={this.handleChange.bind(null, 'minWordCountChange')} type="number" value={this.wordCountInfo('min')} />
+              <input data-value="minWordCountChange" onChange={this.handleChange} type="number" value={this.wordCountInfo('min')} />
             </label>
           </p>
           <p className="control">
             <label className="checkbox">
-              <input checked={this.state.needsIdentification} onClick={this.handleChange.bind(null, 'needsIdentification')} type="checkbox" />
+              <input checked={this.state.needsIdentification} data-value="needsIdentification" onClick={this.handleChange} type="checkbox" />
               Show a multiple choice question to identify sentence or fragment.
             </label>
           </p>
           {this.renderOptimalResponseTextInput()}
-          <FlagDropdown flag={this.state.flag} handleFlagChange={this.handleChange.bind(null, 'flag')} isLessons={false} />
+          <FlagDropdown data-value="flag" flag={this.state.flag} handleFlagChange={this.handleFlagChange} isLessons={false} />
           <p className="control">
             <label className="label">Associated Concept</label>
             <ConceptSelector
               currentConceptUID={this.state.conceptID}
-              handleSelectorChange={this.handleChange.bind(null, 'concept')}
+              data-value="concept"
+              handleSelectorChange={this.handleConceptChange}
             />
           </p>
           <button className="button is-primary is-outlined" onClick={this.submitSentenceFragment}>Save</button>
