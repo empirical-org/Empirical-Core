@@ -7,6 +7,7 @@ exports[`Unit assignment followup component When there are only empty classes as
       <button
         className="quill-button medium contained primary"
         onClick={[Function]}
+        type="button"
       >
         Take me to my dashboard
       </button>
@@ -170,6 +171,7 @@ exports[`Unit assignment followup component When there are students assigned on 
       <button
         className="quill-button medium contained primary"
         onClick={[Function]}
+        type="button"
       >
         Take me to my dashboard
       </button>
@@ -187,24 +189,31 @@ exports[`Unit assignment followup component When there are students assigned on 
       </h1>
       <Card
         header="See what I have assigned"
-        imgAlt="clipboard with check"
+        imgAlt="Clipboard with check"
         imgSrc="undefined/images/illustrations/assigned-activities.svg"
         onClick={[Function]}
         text="View your assigned packs."
       />
       <Card
         header="Invite students"
-        imgAlt="students"
+        imgAlt="Four person icons in a circle"
         imgSrc="undefined/images/illustrations/add-students.svg"
         onClick={[Function]}
         text="Add students to your classes."
       />
       <Card
         header="Assign more activities"
-        imgAlt="squares with plus sign"
+        imgAlt="Stacked pages with plus sign on top one"
         imgSrc="undefined/images/illustrations/assign-activities.svg"
         onClick={[Function]}
         text="Select or build another pack."
+      />
+      <Card
+        header="View as student"
+        imgAlt="Magnifying glass around person icon"
+        imgSrc="undefined/images/illustrations/view-student.svg"
+        onClick={[Function]}
+        text="Preview what students will see on their dashboards."
       />
     </div>
   </div>

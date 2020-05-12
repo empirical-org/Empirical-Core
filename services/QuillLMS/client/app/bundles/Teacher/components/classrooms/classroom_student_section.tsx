@@ -8,10 +8,10 @@ import ResetStudentPasswordModal from './reset_student_password_modal'
 import MergeStudentAccountsModal from './merge_student_accounts_modal'
 import MoveStudentsModal from './move_students_modal'
 import RemoveStudentsModal from './remove_students_modal'
+import ViewAsStudentModal from '../shared/view_as_student_modal'
 
 const emptyDeskSrc = `${process.env.CDN_URL}/images/illustrations/empty-desks.svg`
 const bulbSrc = `${process.env.CDN_URL}/images/illustrations/bulb.svg`
-const classCodeLinksPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/class_code_links.pdf`
 const cleverSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/clever_setup_instructions.pdf`
 const googleSetupInstructionsPdf = `${process.env.CDN_URL}/documents/setup_instructions_pdfs/google_setup_instructions.pdf`
 
@@ -52,7 +52,8 @@ enum modalNames {
   resetStudentPasswordModal = 'resetStudentPasswordModal',
   mergeStudentAccountsModal = 'mergeStudentAccountsModal',
   moveStudentsModal = 'moveStudentsModal',
-  removeStudentsModal = 'removeStudentsModal'
+  removeStudentsModal = 'removeStudentsModal',
+  viewAsStudentModal = 'viewAsStudentModal'
 }
 
 interface ClassroomStudentSectionProps {
@@ -68,45 +69,30 @@ interface ClassroomStudentSectionProps {
 interface ClassroomStudentSectionState {
   selectedStudentIds: Array<string|number>;
   studentIdsForModal: Array<string|number>;
-  showModal?: modalNames.editStudentAccountModal|modalNames.resetStudentPasswordModal|modalNames.mergeStudentAccountsModal|modalNames.moveStudentsModal|modalNames.removeStudentsModal;
+  showModal?: modalNames.editStudentAccountModal|modalNames.resetStudentPasswordModal|modalNames.mergeStudentAccountsModal|modalNames.moveStudentsModal|modalNames.removeStudentsModal|modalNames.viewAsStudentModal;
 }
 
 export default class ClassroomStudentSection extends React.Component<ClassroomStudentSectionProps, ClassroomStudentSectionState> {
-  constructor(props) {
+  constructor(props: ClassroomStudentSectionProps) {
     super(props)
 
     this.state = {
       selectedStudentIds: [],
       studentIdsForModal: []
     }
-
-    this.individualStudentActions = this.individualStudentActions.bind(this)
-    this.dropdownActions = this.dropdownActions.bind(this)
-    this.actionsForIndividualStudent = this.actionsForIndividualStudent.bind(this)
-    this.checkRow = this.checkRow.bind(this)
-    this.uncheckRow = this.uncheckRow.bind(this)
-    this.checkAllRows = this.checkAllRows.bind(this)
-    this.uncheckAllRows = this.uncheckAllRows.bind(this)
-    this.selectAction = this.selectAction.bind(this)
-    this.editStudentAccount = this.editStudentAccount.bind(this)
-    this.resetStudentPassword = this.resetStudentPassword.bind(this)
-    this.mergeStudentAccounts = this.mergeStudentAccounts.bind(this)
-    this.moveClass = this.moveClass.bind(this)
-    this.removeStudentFromClass = this.removeStudentFromClass.bind(this)
-    this.closeModal = this.closeModal.bind(this)
   }
 
-  allGoogleStudents() {
+  allGoogleStudents = () => {
     const { classroom } = this.props
     return classroom.students.every(student => student.google_id)
   }
 
-  allCleverStudents() {
+  allCleverStudents = () => {
     const { classroom } = this.props
     return classroom.students.every(student => student.clever_id)
   }
 
-  individualStudentActions() {
+  individualStudentActions = () => {
     return {
       editAccount: {
         name: 'Edit account',
@@ -127,11 +113,15 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       removeFromClass: {
         name: 'Remove from class',
         action: (id) => this.removeStudentFromClass(id)
+      },
+      viewAsStudent: {
+        name: 'View as student',
+        action: (id) => this.viewAsStudent(id)
       }
     }
   }
 
-  dropdownActions() {
+  dropdownActions = () => {
     return {
       editAccount: {
         label: 'Edit account',
@@ -152,97 +142,114 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       removeFromClass: {
         label: 'Remove from class',
         value: this.removeStudentFromClass
+      },
+      viewAsStudent: {
+        label: 'View as student',
+        value: this.viewAsStudent
       }
     }
   }
 
-  actionsForIndividualStudent(student) {
+  actionsForIndividualStudent = (student) => {
     const { google_id, clever_id, } = student
     const { classrooms, isOwnedByCurrentUser, } = this.props
     const {
       editAccount,
       resetPassword,
+      viewAsStudent,
       mergeAccounts,
       moveClass,
       removeFromClass
     } = this.individualStudentActions()
     if (google_id || clever_id) {
-      return [ removeFromClass ]
+      return [ viewAsStudent, removeFromClass ]
     } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
-      return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
+      return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
     } else if (isOwnedByCurrentUser) {
-      return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
+      return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, removeFromClass ]
     } else {
-      return [ editAccount, resetPassword, removeFromClass ]
+      return [ editAccount, resetPassword, viewAsStudent, removeFromClass ]
     }
   }
 
-  checkRow(id) {
+  checkRow = (id) => {
     const { selectedStudentIds } = this.state
     const newSelectedStudentIds = selectedStudentIds.concat(id)
     this.setState({ selectedStudentIds: newSelectedStudentIds })
   }
 
-  uncheckRow(id) {
+  uncheckRow = (id) => {
     const { selectedStudentIds } = this.state
     const newSelectedStudentIds = selectedStudentIds.filter(selectedId => selectedId !== id)
     this.setState({ selectedStudentIds: newSelectedStudentIds })
   }
 
-  checkAllRows() {
+  checkAllRows = () => {
     const { classroom } = this.props
     const selectedStudentIds = classroom.students.map(student => student.id)
     this.setState({ selectedStudentIds })
   }
 
-  uncheckAllRows() {
+  uncheckAllRows = () => {
     this.setState({ selectedStudentIds: [] })
   }
 
-  selectAction(action) {
+  handleClickViewAsStudentButton = () => this.viewAsStudent()
+
+  onClickViewAsIndividualStudent = (id: string|number) => this.viewAsStudent(id)
+
+  selectAction = (action) => {
     action.value()
   }
 
-  editStudentAccount(id=null) {
+  editStudentAccount = (id=null) => {
     const { selectedStudentIds } = this.state
     // we will only show the edit student account dropdown option when only one student is selected
     const studentId = id || selectedStudentIds[0]
     this.setState( { showModal: modalNames.editStudentAccountModal, studentIdsForModal: [studentId] })
   }
 
-  resetStudentPassword(id=null) {
+  resetStudentPassword = (id=null) => {
     const { selectedStudentIds } = this.state
     // we will only show the reset password account dropdown option when only one student is selected
     const studentId = id || selectedStudentIds[0]
     this.setState( { showModal: modalNames.resetStudentPasswordModal, studentIdsForModal: [studentId] })
   }
 
-  mergeStudentAccounts(id=null) {
+  mergeStudentAccounts = (id=null) => {
     const { selectedStudentIds } = this.state
     // we will only show the merge student accounts account dropdown option when one or two students are selected
     const studentIds = id ? [id] : selectedStudentIds
     this.setState( { showModal: modalNames.mergeStudentAccountsModal, studentIdsForModal: studentIds })
   }
 
-  moveClass(id=null) {
+  moveClass = (id=null) => {
     const { selectedStudentIds } = this.state
     // we will show the move class dropdown option when any number of students are selected
     const studentIds = id ? [id] : selectedStudentIds
     this.setState( { showModal: modalNames.moveStudentsModal, studentIdsForModal: studentIds })
   }
 
-  removeStudentFromClass(id=null) {
+  removeStudentFromClass = (id=null) => {
     const { selectedStudentIds } = this.state
     // we will show the remove student from class dropdown option when any number of students are selected
     const studentIds = id ? [id] : selectedStudentIds
     this.setState( { showModal: modalNames.removeStudentsModal, studentIdsForModal: studentIds })
   }
 
-  closeModal() {
+  viewAsStudent = (id=null) => {
+    if (id) {
+      window.location.href = `/teachers/preview_as_student/${id}`
+    } else {
+      this.setState({ showModal: modalNames.viewAsStudentModal })
+    }
+  }
+
+  closeModal = () => {
     this.setState({ showModal: null, studentIdsForModal: []})
   }
 
-  renderEditStudentAccountModal() {
+  renderEditStudentAccountModal = () => {
     const { classroom, onSuccess } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.editStudentAccountModal && studentIdsForModal.length === 1) {
@@ -256,7 +263,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  renderResetStudentPasswordModal() {
+  renderResetStudentPasswordModal = () => {
     const { classroom, onSuccess } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.resetStudentPasswordModal && studentIdsForModal.length === 1) {
@@ -270,7 +277,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  renderMergeStudentAccountsModal() {
+  renderMergeStudentAccountsModal = () => {
     const { classroom, onSuccess } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.mergeStudentAccountsModal) {
@@ -283,7 +290,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  renderMoveStudentsModal() {
+  renderMoveStudentsModal = () => {
     const { classroom, onSuccess, classrooms, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.moveStudentsModal) {
@@ -297,7 +304,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  renderRemoveStudentsModal() {
+  renderRemoveStudentsModal = () => {
     const { classroom, onSuccess, } = this.props
     const { showModal, studentIdsForModal } = this.state
     if (showModal === modalNames.removeStudentsModal) {
@@ -310,7 +317,20 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  optionsForStudentActions() {
+  renderViewAsStudentModal = () => {
+    const { classroom, classrooms, } = this.props
+    const { showModal, } = this.state
+    if (showModal === modalNames.viewAsStudentModal) {
+      return (<ViewAsStudentModal
+        classrooms={classrooms}
+        close={this.closeModal}
+        defaultClassroomId={classroom.id}
+        handleViewClick={this.onClickViewAsIndividualStudent}
+      />)
+    }
+  }
+
+  optionsForStudentActions = () => {
     const { classrooms, isOwnedByCurrentUser, classroom, } = this.props
     const { selectedStudentIds } = this.state
 
@@ -324,32 +344,33 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
       resetPassword,
       mergeAccounts,
       moveClass,
-      removeFromClass
+      removeFromClass,
+      viewAsStudent
     } = this.dropdownActions()
 
     if (anySelectedStudentsAreGoogleOrClever) {
-      return [ removeFromClass ]
+      return [ viewAsStudent, removeFromClass ]
     } else if (classrooms.length > 1 && isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
-        return [ editAccount, resetPassword, mergeAccounts, moveClass, removeFromClass ]
+        return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
       } else if (selectedStudentIds.length === 2) {
-        return [ mergeAccounts, moveClass, removeFromClass ]
+        return [ viewAsStudent, mergeAccounts, moveClass, removeFromClass ]
       } else {
-        return [ moveClass, removeFromClass ]
+        return [ viewAsStudent, moveClass, removeFromClass ]
       }
     } else if (isOwnedByCurrentUser) {
       if (selectedStudentIds.length === 1) {
-        return [ editAccount, resetPassword, mergeAccounts, removeFromClass ]
+        return [ editAccount, resetPassword, viewAsStudent, mergeAccounts, removeFromClass ]
       } else if (selectedStudentIds.length === 2) {
-        return [ mergeAccounts, removeFromClass ]
+        return [ viewAsStudent, mergeAccounts, removeFromClass ]
       } else {
-        return [ removeFromClass ]
+        return [ viewAsStudent, removeFromClass ]
       }
     } else {
       if (selectedStudentIds.length === 1) {
-        return [ editAccount, resetPassword, removeFromClass ]
+        return [ editAccount, resetPassword, viewAsStudent, removeFromClass ]
       } else {
-        return [ removeFromClass ]
+        return [ viewAsStudent, removeFromClass ]
       }
     }
   }
@@ -431,15 +452,12 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     const allCleverStudents = this.allCleverStudents()
     if (!classroom.visible) { return null }
     let loginPdfHref = `/teachers/classrooms/${classroom.id}/student_logins`
-    let download
+    let download: boolean
     if (allGoogleStudents) {
       loginPdfHref = googleSetupInstructionsPdf
       download = true
     } else if (allCleverStudents) {
       loginPdfHref = cleverSetupInstructionsPdf
-      download = true
-    } else if (classroom.students.length === 0) {
-      loginPdfHref = classCodeLinksPdf
       download = true
     }
     /* eslint-disable react/jsx-no-target-blank */
@@ -447,7 +465,10 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     /* eslint-enable react/jsx-no-target-blank */
 
     return (<div className="students-section-header-buttons">
-      {loginPdfLink}
+      <div>
+        {loginPdfLink}
+        <button className="quill-button secondary outlined small" onClick={this.handleClickViewAsStudentButton} type="button">View as student</button>
+      </div>
       {this.renderInviteStudents()}
     </div>)
   }
@@ -468,7 +489,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  renderStudentSection() {
+  renderStudentSection = () => {
     const { classroom, } = this.props
     if (classroom.students.length) {
       return (<div className="students-section">
@@ -477,6 +498,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
         {this.renderMergeStudentAccountsModal()}
         {this.renderMoveStudentsModal()}
         {this.renderRemoveStudentsModal()}
+        {this.renderViewAsStudentModal()}
         <div className="students-section-header with-students">
           <h3>Students</h3>
           {this.renderStudentHeaderButtons()}
@@ -498,7 +520,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
           {this.renderInviteStudents()}
         </div>
         <div className="no-students">
-          <img src={emptyDeskSrc} />
+          <img alt="Three empty desks" src={emptyDeskSrc} />
           <p>{copy}</p>
         </div>
       </div>)
@@ -511,7 +533,7 @@ export default class ClassroomStudentSection extends React.Component<ClassroomSt
     }
   }
 
-  render() {
+  render = () => {
     return this.renderStudentSection()
   }
 }
