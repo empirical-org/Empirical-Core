@@ -52,6 +52,17 @@ describe('LessonApi calls', () => {
     })
   })
 
+  describe('addQuestion', () => {
+    it('should call requestPut', () => {
+      const MOCK_LESSON_TYPE = 'TYPE';
+      const MOCK_LESSON_ID = 'id';
+      const MOCK_LESSON_QUESTION = {"key": "key", "questionType": "type"}
+      const url = `${lessonApiBaseUrl}/${MOCK_LESSON_ID}/add_question.json`
+      LessonApi.addQuestion(MOCK_LESSON_TYPE, MOCK_LESSON_ID, MOCK_LESSON_QUESTION)
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url,  {lesson_type: MOCK_LESSON_TYPE, question: MOCK_LESSON_QUESTION})
+    })
+  })
+
   describe('update', () => {
     it('should call requestPut', () => {
       const MOCK_LESSON_TYPE = 'TYPE';
