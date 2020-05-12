@@ -217,14 +217,16 @@ class Lesson extends React.Component {
     if (!newQuestion) return
     return (
       <Modal close={this.cancelEditingQuestion}>
-        <PromptForm action={this.submitNewQuestion}
-                    conceptID={lesson.modelConceptUID}
-                    data={question}
-                    flag={lesson.flag}
-                    match={match} new={true}
-                    question={question}
-                    routeParams={}
-                    submit={this.submitNewQuestion}
+        <PromptForm
+          action={this.submitNewQuestion}
+          conceptID={lesson.modelConceptUID}
+          data={question}
+          flag={lesson.flag}
+          match={match}
+          new={true}
+          question={question}
+          routeParams={}
+          submit={this.submitNewQuestion}
         />
       </Modal>
     )
