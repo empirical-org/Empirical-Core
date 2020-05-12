@@ -95,12 +95,12 @@ class Lesson extends React.Component<LessonProps> {
   }
 
   renderQuestionsForLesson(): JSX.Element[]|JSX.Element {
-    const lessonQuestions = this.lesson()? this.lesson().questions : null
-    const lessonConcepts = this.lesson()? this.lesson().concepts : null
+    const lessonQuestions = this.lesson() ? this.lesson().questions : null
+    const lessonConcepts = this.lesson() ? this.lesson().concepts : null
     let questionsForLesson
     const { questions } = this.props
     if (questions.hasreceiveddata) {
-      if (lessonQuestions) {
+      if (lessonQuestions && lessonQuestions.length) {
         questionsForLesson = lessonQuestions.map(q => {
           const question = questions.data[q.key]
           question.key = q.key
@@ -108,8 +108,8 @@ class Lesson extends React.Component<LessonProps> {
         })
         return this.renderQuestionsAsList(questionsForLesson)
       } else if (lessonConcepts) {
-        const questionsData = this.props.questions ? hashToCollection(questions.data) : []
-        const conceptUids = Object.keys(this.lesson().concepts)
+        const questionsData = questions ? hashToCollection(questions.data) : []
+        const conceptUids = Object.keys(lessonConcepts)
         questionsForLesson = questionsData.filter(q => conceptUids.includes(q.concept_uid) && permittedFlag(this.lesson().flag, q.flag))
         return this.renderQuestionsByConcept(questionsForLesson)
       }
