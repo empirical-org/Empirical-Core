@@ -84,6 +84,13 @@ export default class CmsSchoolIndex extends React.Component {
       ];
   }
 
+  handleKeyPress = e => {
+    const key = e.keyCode
+    if (key == 13) {
+      this.search()
+    }
+  }
+
   setSort = newSorted => {
     const sort = newSorted[0].id
     const sort_direction = newSorted[0].desc ? 'desc' : 'asc'
@@ -211,27 +218,27 @@ export default class CmsSchoolIndex extends React.Component {
         <div className='cms-meta-middle'>
           <div className='cms-form-row'>
             <label>School Name</label>
-            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
+            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} onKeyDown={this.handleKeyPress} value={this.state.query.school_name} />
           </div>
 
           <div className='cms-form-row'>
             <label>City</label>
-            <input id='school_city' name='school_city' onChange={e => this.updateField(e, 'school_city')} value={this.state.query.school_city} />
+            <input id='school_city' name='school_city' onChange={e => this.updateField(e, 'school_city')} onKeyDown={this.handleKeyPress} value={this.state.query.school_city} />
           </div>
 
           <div className='cms-form-row'>
             <label>State</label>
-            <input id='school_state' name='school_state' onChange={e => this.updateField(e, 'school_state')} value={this.state.query.school_state} />
+            <input id='school_state' name='school_state' onChange={e => this.updateField(e, 'school_state')} onKeyDown={this.handleKeyPress} value={this.state.query.school_state} />
           </div>
 
           <div className='cms-form-row'>
             <label>Zip</label>
-            <input id='school_zip' name='school_zip' onChange={e => this.updateField(e, 'school_zip')} value={this.state.query.school_zip} />
+            <input id='school_zip' name='school_zip' onChange={e => this.updateField(e, 'school_zip')} onKeyDown={this.handleKeyPress} value={this.state.query.school_zip} />
           </div>
 
           <div className='cms-form-row'>
             <label>District Name</label>
-            <input id='district_name' name='district_name' onChange={e => this.updateField(e, 'district_name')} value={this.state.query.district_name} />
+            <input id='district_name' name='district_name' onChange={e => this.updateField(e, 'district_name')} onKeyDown={this.handleKeyPress} value={this.state.query.district_name} />
           </div>
         </div>
 
