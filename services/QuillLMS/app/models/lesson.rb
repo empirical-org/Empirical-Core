@@ -26,7 +26,7 @@ class Lesson < ActiveRecord::Base
   end
 
   private def validate_question(question)
-    if Question.find_by_uid(question[:key]).blank?
+    if Question.find_by_uid(question[:key]).blank? && TitleCard.find_by_uid(question[:key]).blank?
       errors.add(:question, "Question #{question[:key]} does not exist.")
       return false
     end
