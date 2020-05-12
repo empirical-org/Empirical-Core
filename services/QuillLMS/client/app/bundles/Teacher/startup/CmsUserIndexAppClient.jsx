@@ -5,7 +5,7 @@ import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
 
-export default class CmsUserIndexApp extends React.Component {
+export default class CmsUserIndex extends React.Component {
   constructor(props) {
     super(props)
 
@@ -102,7 +102,6 @@ export default class CmsUserIndexApp extends React.Component {
   handleKeyPress = e => {
     const key = e.keyCode
     if (key == 13) {
-      console.log("enter was pressed")
       this.search()
     }
   }
