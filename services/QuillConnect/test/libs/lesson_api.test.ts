@@ -34,7 +34,7 @@ describe('LessonApi calls', () => {
     it('should call requestGet', () => {
       const MOCK_LESSON_TYPE = 'TYPE';
       const MOCK_ID = 'id'
-      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       LessonApi.get(MOCK_LESSON_TYPE, MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
     })
@@ -52,6 +52,17 @@ describe('LessonApi calls', () => {
     })
   })
 
+  describe('addQuestion', () => {
+    it('should call requestPut', () => {
+      const MOCK_LESSON_TYPE = 'TYPE';
+      const MOCK_LESSON_ID = 'id';
+      const MOCK_LESSON_QUESTION = {"key": "key", "questionType": "type"}
+      const url = `${lessonApiBaseUrl}/${MOCK_LESSON_ID}/add_question.json`
+      LessonApi.addQuestion(MOCK_LESSON_TYPE, MOCK_LESSON_ID, MOCK_LESSON_QUESTION)
+      expect(mockRequestPut).toHaveBeenLastCalledWith(url,  {lesson_type: MOCK_LESSON_TYPE, question: MOCK_LESSON_QUESTION})
+    })
+  })
+
   describe('update', () => {
     it('should call requestPut', () => {
       const MOCK_LESSON_TYPE = 'TYPE';
@@ -59,7 +70,7 @@ describe('LessonApi calls', () => {
       const MOCK_CONTENT : Lesson = {
         name: 'test',
       }
-      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      const url = `${lessonApiBaseUrl}/${MOCK_ID}.json`
       LessonApi.update(MOCK_LESSON_TYPE, MOCK_ID, MOCK_CONTENT)
       expect(mockRequestPut).toHaveBeenLastCalledWith(url, {lesson: MOCK_CONTENT})
     })
@@ -69,7 +80,7 @@ describe('LessonApi calls', () => {
     it('should call requestDelete', () => {
       const MOCK_LESSON_TYPE = 'TYPE';
       const MOCK_QUESTION_ID = 'id'
-      const url = `${lessonApiBaseUrl}/${MOCK_QUESTION_ID}.json?lesson_type=${MOCK_LESSON_TYPE}`
+      const url = `${lessonApiBaseUrl}/${MOCK_QUESTION_ID}.json`
       LessonApi.remove(MOCK_LESSON_TYPE, MOCK_QUESTION_ID)
       expect(mockRequestDelete).toHaveBeenLastCalledWith(url)
     })
