@@ -18,6 +18,7 @@ import titleCardActions from '../../actions/titleCards'
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
+//fake commit for linting
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
@@ -33,63 +34,72 @@ class Lesson extends React.Component {
   }
 
   deleteLesson = () => {
-    const { lessonID, } = this.props.match.params;
+    const { match } = this.props
+    const { lessonID, } = match.params;
     if (confirm('do you want to do this?')) {
-      this.props.dispatch(lessonActions.deleteLesson(lessonID));
+      dispatch(lessonActions.deleteLesson(lessonID));
     }
   };
 
   editLesson = () => {
-    const { lessonID, } = this.props.match.params;
-    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
+    const { match, dispatch } = this.props
+    const { lessonID, } = match.params;
+    dispatch(lessonActions.startLessonEdit(lessonID));
   };
 
   lesson = () => {
-    const { data, } = this.props.lessons
-    const { lessonID, } = this.props.match.params;
+    const { lessons, match } = this.props
+    const { data } = lessons
+    const { lessonID, } = match.params;
     return data[lessonID]
   };
 
   getQuestionAction = () => {
     const questionType = this.lesson().questionType
-    if (questionType == 'questions') {
-      return questionActions.submitNewQuestion
-    } else if (questionType == 'sentenceFragments') {
-      return sentenceFragmentActions.submitNewSentenceFragment
-    } else if (questionType == 'fillInBlank') {
-      return fillInBlankActions.submitNewQuestion
-    } else if (questionType == 'titleCards') {
-      return titleCardActions.submitNewTitleCard
+    switch (questionType) {
+      case 'questions':
+        return questionActions.submitNewQuestion
+      case 'sentenceFragments':
+        return sentenceFragmentActions.submitNewSentenceFragment
+      case 'fillInBlank':
+        return fillInBlankActions.submitNewQuestion
+      case 'titleCards':
+        return sentenceFragmentActions.submitNewSentenceFragment
+      default:
+        return questionActions.submitNewQuestion
     }
-    return questionActions.submitNewQuestion
   };
 
   promptForm = () => {
     const questionType = this.lesson().questionType
-    if (questionType == 'questions') {
-      return QuestionForm
-    } else if (questionType == 'sentenceFragments') {
-      return SentenceFragmentForm
-    } else if (questionType == 'fillInBlank') {
-      return FillInBlankForm
-    } else if (questionType == 'titleCards') {
-      return TitleCardForm
+    switch (questionType) {
+      case 'questions':
+        return QuestionForm
+      case 'sentenceFragments':
+        return SentenceFragmentForm
+      case 'fillInBlank':
+        return FillInBlankForm
+      case 'titleCards':
+        return TitleCardForm
+      default:
+        return QuestionForm
     }
-    return QuestionForm
   };
 
   urlString = () => {
     const questionType = this.lesson().questionType
-    if (questionType == 'questions') {
-      return 'questions'
-    } else if (questionType == 'sentenceFragments') {
-      return 'sentence-fragments'
-    } else if (questionType == 'fillInBlank') {
-      return 'fill-in-the-blanks'
-    } else if (questionType == 'titleCards') {
-      return 'title-cards'
+    switch (questionType) {
+      case 'questions':
+        return 'questions'
+      case 'sentenceFragments':
+        return 'sentence-fragments'
+      case 'fillInBlank':
+        return 'fill-in-the-blanks'
+      case 'titleCards':
+        return 'title-cards'
+      default:
+        return 'questions'
     }
-    return 'questions'
   };
 
   questionsForLesson = () => {
@@ -105,15 +115,19 @@ class Lesson extends React.Component {
   };
 
   saveLessonEdits = (vals) => {
-    const { lessonID, } = this.props.match.params;
+    const { match } = this.props
+    const { params } = match
+    const { lessonID, } = params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
     this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
   renderEditLessonForm = () => {
-    const { lessonID, } = this.props.match.params;
+    const { match, lessons } = this.props
+    const { params } = match
+    const { lessonID, } = params;
     const lesson = this.lesson();
-    if (this.props.lessons.states[lessonID] === C.EDITING_LESSON) {
+    if (lessons.states[lessonID] === C.EDITING_LESSON) {
       return (
         <Modal close={this.cancelEditingLesson}>
           <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
@@ -123,13 +137,14 @@ class Lesson extends React.Component {
   };
 
   renderQuestionsForLesson = () => {
-    const { params } = this.props.match
+    const { match } = this.props
+    const { params } = match
     const questionsForLesson = this.questionsForLesson();
     const lessonFlag = this.lesson().flag
     const lessonQuestionType = this.urlString()
     if (questionsForLesson) {
       const listItems = questionsForLesson.map((question, index) => {
-        const questionNumber = (index + 1).toString().concat(". ")
+        const questionNumber = `${index + 1}. `
         const { questionType, title, prompt, key, flag, cues } = question
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
@@ -140,11 +155,12 @@ class Lesson extends React.Component {
         }) : null
         const questionURL = lessonQuestionType === 'title-cards' ? `/admin/${lessonQuestionType}/${key}/` :
                             `/admin/${lessonQuestionType}/${key}/responses`
+        const questionDisplayString = questionNumber.concat(displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''))
         return (
-          <li className={className} key={key} >
+          <li className={className} key={index} >
             <Link to={questionURL}>
               {flagTag}
-              {questionNumber.concat(displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''))}
+              {questionDisplayString}
               {cuesList}
             </Link>
           </li>);
@@ -168,14 +184,17 @@ class Lesson extends React.Component {
   };
 
   cancelEditingLesson = () => {
-    const { lessonID, } = this.props.match.params;
-    this.props.dispatch(lessonActions.cancelLessonEdit(lessonID));
+    const { match, dispatch } = this.props
+    const { params } = match
+    const { lessonID, } = params;
+    dispatch(lessonActions.cancelLessonEdit(lessonID));
   };
 
   handleEditLesson = () => {
-    const { lessonID, } = this.props.match.params;
-    this.props.dispatch(lessonActions.startLessonEdit(lessonID));
-    // // console.log("Edit button clicked");
+    const { match, dispatch } = this.props
+    const { params } = match
+    const { lessonID, } = params;
+    dispatch(lessonActions.startLessonEdit(lessonID));
   };
 
   submitNewQuestion = (questionObj, optimalResponseObj) => {
@@ -195,13 +214,20 @@ class Lesson extends React.Component {
     const question = {flag: lesson.flag, conceptID: lesson.modelConceptUID}
     const match = { params: { titleCardID: null }}
     const PromptForm = this.promptForm()
-    if (newQuestion) {
-      return (
-        <Modal close={this.cancelEditingQuestion}>
-          <PromptForm action={this.submitNewQuestion} conceptID={lesson.modelConceptUID} data={question} flag={lesson.flag} match={match} new={true} question={question} routeParams={} submit={this.submitNewQuestion} />
-        </Modal>
-      )
-    }
+    if (!newQuestion) return
+    return (
+      <Modal close={this.cancelEditingQuestion}>
+        <PromptForm action={this.submitNewQuestion}
+                    conceptID={lesson.modelConceptUID}
+                    data={question}
+                    flag={lesson.flag}
+                    match={match} new={true}
+                    question={question}
+                    routeParams={}
+                    submit={this.submitNewQuestion}
+        />
+      </Modal>
+    )
   };
 
   render() {
@@ -248,7 +274,7 @@ class Lesson extends React.Component {
           {this.renderQuestionsForLesson()}
         </div>
       );
-    } else if (this.props.lessons.hasreceiveddata === false) {
+    } else if (lessons.hasreceiveddata === false) {
       return (<p>Loading...</p>);
     }
     return (
