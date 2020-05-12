@@ -4,44 +4,103 @@ import { Link } from 'react-router-dom';
 import _ from 'underscore';
 import lessonActions from '../../actions/lessons';
 import { permittedFlag } from '../../libs/flagArray'
-import { Modal } from 'quill-component-library/dist/componentLibrary';
+import { FlagDropdown, Modal } from 'quill-component-library/dist/componentLibrary';
 import C from '../../constants.js';
 import EditLessonForm from './lessonForm.jsx';
+import QuestionForm from '../questions/questionForm'
+import SentenceFragmentForm from '../sentenceFragments/sentenceFragmentForm'
+import FillInBlankForm from '../fillInBlank/fillInBlankForm'
+import TitleCardForm from '../titleCards/titleCardForm'
+import questionActions from '../../actions/questions'
+import sentenceFragmentActions from '../../actions/sentenceFragments'
+import fillInBlankActions from '../../actions/fillInBlank'
+import titleCardActions from '../../actions/titleCards'
+import * as C from '../../constants.js'
 
+const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+
+//fake commit for linting
 String.prototype.toKebab = function () {
   return this.replace(/([A-Z])/g, char => `-${char.toLowerCase()}`);
 };
 
 class Lesson extends React.Component {
-  cancelEditingLesson = () => {
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { lessonID } = params
-    dispatch(lessonActions.cancelLessonEdit(lessonID));
-  };
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      newQuestion: false
+    }
+  }
 
   deleteLesson = () => {
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { lessonID } = params
+    const { match } = this.props
+    const { lessonID, } = match.params;
     if (confirm('do you want to do this?')) {
       dispatch(lessonActions.deleteLesson(lessonID));
     }
   };
 
   editLesson = () => {
-    const { dispatch, match } = this.props
-    const { params } = match
-    const { lessonID } = params
+    const { match, dispatch } = this.props
+    const { lessonID, } = match.params;
     dispatch(lessonActions.startLessonEdit(lessonID));
   };
 
   lesson = () => {
     const { lessons, match } = this.props
-    const { params } = match
-    const { lessonID } = params
     const { data } = lessons
+    const { lessonID, } = match.params;
     return data[lessonID]
+  };
+
+  getQuestionAction = () => {
+    const questionType = this.lesson().questionType
+    switch (questionType) {
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
+        return questionActions.submitNewQuestion
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
+        return sentenceFragmentActions.submitNewSentenceFragment
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
+        return fillInBlankActions.submitNewQuestion
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return titleCardActions.submitNewTitleCard
+      default:
+        return questionActions.submitNewQuestion
+    }
+  };
+
+  promptForm = () => {
+    const questionType = this.lesson().questionType
+    switch (questionType) {
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
+        return QuestionForm
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
+        return SentenceFragmentForm
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
+        return FillInBlankForm
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return TitleCardForm
+      default:
+        return QuestionForm
+    }
+  };
+
+  urlString = () => {
+    const questionType = this.lesson().questionType
+    switch (questionType) {
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
+        return 'questions'
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
+        return 'sentence-fragments'
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
+        return 'fill-in-the-blanks'
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return 'title-cards'
+      default:
+        return 'questions'
+    }
   };
 
   questionsForLesson = () => {
@@ -57,20 +116,19 @@ class Lesson extends React.Component {
   };
 
   saveLessonEdits = (vals) => {
-    const { dispatch, match } = this.props
+    const { match, dispatch } = this.props
     const { params } = match
-    const { lessonID } = params
+    const { lessonID, } = params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
     dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
   renderEditLessonForm = () => {
-    const { lessons, match } = this.props
-    const { states } = lessons
+    const { match, lessons } = this.props
     const { params } = match
-    const { lessonID } = params
+    const { lessonID, } = params;
     const lesson = this.lesson();
-    if (states[lessonID] === C.EDITING_LESSON) {
+    if (lessons.states[lessonID] === C.EDITING_LESSON) {
       return (
         <Modal close={this.cancelEditingLesson}>
           <EditLessonForm currentValues={lesson} lesson={lesson} submit={this.saveLessonEdits} />
@@ -80,19 +138,31 @@ class Lesson extends React.Component {
   };
 
   renderQuestionsForLesson = () => {
+    const { match } = this.props
+    const { params } = match
     const questionsForLesson = this.questionsForLesson();
     const lessonFlag = this.lesson().flag
+    const lessonQuestionType = this.urlString()
     if (questionsForLesson) {
-      const listItems = questionsForLesson.map((question) => {
-        const { questionType, title, prompt, key, flag } = question
+      const listItems = questionsForLesson.map((question, index) => {
+        const questionNumber = `${index + 1}. `
+        const { questionType, title, prompt, key, flag, cues } = question
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
         const flagTag = permittedFlag(lessonFlag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
+        const className = (key === params.questionID) ? "selected" : ""
+        const cuesList = (cues && cues[0] != "") ? cues.map((cue, index) => {
+          return <span className="tag" key={index}>{cue}</span>
+        }) : null
+        const questionURL = lessonQuestionType === 'title-cards' ? `/admin/${lessonQuestionType}/${key}/` :
+                            `/admin/${lessonQuestionType}/${key}/responses`
+        const questionDisplayString = questionNumber.concat(displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''))
         return (
-          <li key={key}>
-            <Link to={`/admin/${questionTypeLink || 'questions'}/${key}/responses`}>
+          <li className={className} key={index} >
+            <Link to={questionURL}>
               {flagTag}
-              {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
+              {questionDisplayString}
+              {cuesList}
             </Link>
           </li>);
       });
@@ -105,37 +175,116 @@ class Lesson extends React.Component {
     );
   };
 
+  onSelect = (e) => {
+    const { dispatch } = this.props
+    dispatch(lessonActions.setFlag(e.target.value))
+  };
+
+  handleCreatePrompt = () => {
+    this.setState({ newQuestion: true, });
+  };
+
+  cancelEditingLesson = () => {
+    const { match, dispatch } = this.props
+    const { params } = match
+    const { lessonID, } = params;
+    dispatch(lessonActions.cancelLessonEdit(lessonID));
+  };
+
+  handleEditLesson = () => {
+    const { match, dispatch } = this.props
+    const { params } = match
+    const { lessonID, } = params;
+    dispatch(lessonActions.startLessonEdit(lessonID));
+  };
+
+  submitNewQuestion = (questionObj, optimalResponseObj) => {
+    const { dispatch, match } = this.props
+    const action = this.getQuestionAction()
+    dispatch(action(questionObj, optimalResponseObj, match.params.lessonID))
+    this.setState({ newQuestion: false, });
+  };
+
+  cancelEditingQuestion = () => {
+    this.setState({ newQuestion: false})
+  };
+
+  renderNewQuestionForm = () => {
+    const lesson = this.lesson()
+    const { newQuestion } = this.state
+    const question = {flag: lesson.flag, conceptID: lesson.modelConceptUID}
+    const match = { params: { titleCardID: null }}
+    const PromptForm = this.promptForm()
+    if (!newQuestion) return
+    return (
+      <Modal close={this.cancelEditingQuestion}>
+        <PromptForm
+          action={this.submitNewQuestion}
+          conceptID={lesson.modelConceptUID}
+          data={question}
+          flag={lesson.flag}
+          match={match}
+          new={true}
+          question={question}
+          routeParams={}
+          submit={this.submitNewQuestion}
+        />
+      </Modal>
+    )
+  };
+
   render() {
-    const { match } = this.props
+    const { isSidebar, lessons, match } = this.props;
     const { params } = match
     const { lessonID } = params
-    const lesson = this.lesson()
-    if (lesson) {
-      const numberOfQuestions = lesson.questions ? lesson.questions.length : 0;
+    if (this.lesson()) {
+      const numberOfQuestions = this.lesson().questions ? this.lesson().questions.length : 0;
+      if (isSidebar) {
+        return (
+          <div className="edit-activity">
+            <Link to={`admin/lessons/${lessonID}`}>Back</Link>
+            <br /><br />
+            {this.renderEditLessonForm()}
+            <h4 className="title">{this.lesson().name}</h4>
+            <h6 className="subtitle">{this.lesson().flag}</h6>
+            <p className="control">
+              <button className="button" onClick={this.handleEditLesson} type="button">Edit Activity</button>
+            </p>
+            <h6 className="subtitle">{numberOfQuestions} Questions</h6>
+            {this.renderQuestionsForLesson()}
+          </div>
+        );
+      }
       return (
-        <div className="admin-container">
-          <Link to={'/admin/lessons'}>Return to All Activities</Link>
+        <div className="edit-activity">
+          {this.renderNewQuestionForm()}
+          <div style={{display: 'inline-block'}}>
+            <FlagDropdown flag={lessons.flag} handleFlagChange={this.onSelect} isLessons={true} />
+          </div>
           <br />
+          <Link to='/admin/lessons'>Return to {lessons.flag} Activities</Link>
+          <br /><br />
           {this.renderEditLessonForm()}
-          <h4 className="title">{lesson.name}</h4>
-
-          <h6 className="subtitle">{lesson.flag}</h6>
-          <h6 className="subtitle">{numberOfQuestions} Questions</h6>
-          <h6 className="subtitle"><Link to={`/play/lesson/${lessonID}`}>{`quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`}</Link></h6>
+          <h4 className="title">{this.lesson().name}</h4>
+          <h6 className="subtitle">{this.lesson().flag}</h6>
           <p className="control">
-            <button className="button is-info" onClick={this.editLesson}>Edit Activity</button> <button className="button is-danger" onClick={this.deleteLesson}>Delete Activity</button>
+            <button className="button" onClick={this.handleEditLesson} type="button">Edit Activity</button>
+            <button className="button" onClick={this.deleteLesson} type="button">Delete Activity</button>
+            <button className="button" onClick={this.handleCreatePrompt} type="button">Create Prompt</button>
+            <a className="button" href={`https://quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
           </p>
+          <h6 className="subtitle">{numberOfQuestions} Questions</h6>
           {this.renderQuestionsForLesson()}
         </div>
       );
-    } else if (this.props.lessons.hasreceiveddata === false) {
+    } else if (lessons.hasreceiveddata === false) {
       return (<p>Loading...</p>);
     }
     return (
       <p>404: No Concept Found</p>
     );
   }
-}
+};
 
 function select(state) {
   return {

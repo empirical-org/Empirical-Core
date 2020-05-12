@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import questionActions from './questions'
 import fillInBlankActions from './fillInBlank';
 import sentenceFragmentActions from './sentenceFragments';
-import * as titleCardActions from './titleCards.ts';
+import titleCardActions from './titleCards.ts';
 
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
