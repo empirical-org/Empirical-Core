@@ -1,7 +1,7 @@
 class Api::V1::LessonsController < Api::ApiController
   before_action :staff_only, only: [:destroy]
-  before_action :lesson_type
-  before_action :lesson_by_uid, except: [:index, :create, :show]
+  before_action :lesson_type, only: [:index, :create]
+  before_action :lesson_by_uid, except: [:index, :create]
 
   def index
     all_lessons = Lesson.where(lesson_type: @lesson_type).reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
@@ -9,8 +9,7 @@ class Api::V1::LessonsController < Api::ApiController
   end
 
   def show
-    @lesson = Lesson.find_by!(uid: params[:id], lesson_type: @lesson_type).to_json
-    render(json: @lesson)
+    render(json: @lesson.as_json)
   end
 
   def create
@@ -42,7 +41,7 @@ class Api::V1::LessonsController < Api::ApiController
   end
 
   private def lesson_by_uid
-    @lesson = Lesson.find_by!(uid: params[:id], lesson_type: @lesson_type)
+    @lesson = Lesson.find_by!(uid: params[:id])
   end
 
   private def valid_params

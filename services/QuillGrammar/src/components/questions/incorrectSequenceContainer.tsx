@@ -9,7 +9,6 @@ class IncorrectSequencesContainer extends React.Component {
     super();
 
     this.deleteSequence = this.deleteSequence.bind(this);
-    this.handleDeleteConceptResult = this.handleDeleteConceptResult.bind(this);
     this.handleDeleteSequence = this.handleDeleteSequence.bind(this);
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
     this.sortCallback = this.sortCallback.bind(this);
@@ -65,7 +64,7 @@ class IncorrectSequencesContainer extends React.Component {
         <p className="control sub-title is-6" key={`${val.name}`}>{val.name}
           {val.correct ? <span className="tag is-small is-success" style={{ marginLeft: 5, }}>Correct</span>
           : <span className="tag is-small is-danger" style={{ marginLeft: 5, }}>Incorrect</span> }
-          <button className="tag is-small is-warning" onClick={this.handleDeleteConceptResult(key, sequenceKey)} style={{ cursor: 'pointer', marginLeft: 5, }} type="button">Delete</button>
+          <button className="tag is-small is-warning" onClick={() => this.handleDeleteConceptResult(key, sequenceKey)} style={{ cursor: 'pointer', marginLeft: 5, }} type="button">Delete</button>
         </p>
         )
       );
@@ -73,8 +72,7 @@ class IncorrectSequencesContainer extends React.Component {
     }
   }
 
-  handleDeleteConceptResult(key, sequenceKey) {
-    alert('clicked delete');
+  handleDeleteConceptResult = (key, sequenceKey) => {
     this.deleteConceptResult(key, sequenceKey)
   }
 

@@ -358,9 +358,7 @@ EmpiricalGrammar::Application.routes.draw do
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
-      resources :activity_sessions,       except: [:index, :new, :edit] do
-        resources :activity_session_interaction_logs, only: :create
-      end
+      resources :activity_sessions,       except: [:index, :new, :edit]
       resources :lessons_tokens,          only: [:create]
       resources :sections,                only: [:index]
       resources :topics,                  only: [:index]
@@ -392,7 +390,6 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
-      get 'progress_reports/real_time_data' => 'progress_reports#real_time_data'
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
@@ -402,6 +399,7 @@ EmpiricalGrammar::Application.routes.draw do
           put 'add_question'
         end
       end
+      resources :shared_cache, only: [:show, :update, :destroy]
       resources :concept_feedback, except: [:destroy]
       resources :questions, except: [:destroy] do
         resources :focus_points do
