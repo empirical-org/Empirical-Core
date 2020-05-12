@@ -24,7 +24,9 @@ import ShowTitleCard from '../titleCards/showTitleCard.tsx';
 import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
 import TestFillInBlankQuestionContainer from '../fillInBlank/testFillInBlankQuestionContainer.jsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
+import NewFillInBlank from '../fillInBlank/newFillInBlank';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
+import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
 import SentenceFragment from 'components/sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
 import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
@@ -120,9 +122,11 @@ class adminContainer extends React.Component {
           <Route component={TitleCardForm} path='/admin/title-cards/:titleCardID/edit' />
           <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
           <Route component={TitleCards} path='/admin/title-cards' />
+          <Route component={NewFillInBlank} path='/admin/fill-in-the-blanks/new' />
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
+          <Route component={NewSentenceFragment} path='/admin/sentence-fragments/new' />
           <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
           <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
           <Route component={TestSentenceFragmentContainer} path='/admin/sentence-fragments/test' />
