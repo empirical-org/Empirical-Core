@@ -8,7 +8,7 @@ import questionActions from '../../actions/questions';
 import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
-import * as titleCardActions from '../../actions/titleCards.ts';
+import titleCardActions from '../../actions/titleCards.ts';
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
