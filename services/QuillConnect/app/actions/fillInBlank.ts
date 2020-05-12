@@ -23,9 +23,6 @@ import {
 import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api'
 import lessonActions from '../actions/lessons'
 
-// this is different from how we store the type in the LMS
-const FILL_IN_BLANKS_APP_TYPE = 'fillInBlank'
-
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
 function startListeningToQuestions() {
@@ -104,7 +101,7 @@ function submitNewQuestion(content, response, lessonID) {
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       if (lessonID) {
-        const lessonQuestion = {key: response.questionUID, questionType: FILL_IN_BLANKS_APP_TYPE}
+        const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_FILL_IN_BLANK_TYPE}
         dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
         LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
           dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });

@@ -44,7 +44,7 @@ function submitNewTitleCard(content, response, lessonID) {
     TitleCardApi.create(CONNECT_TITLE_CARD_TYPE, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       if (lessonID) {
-        const lessonQuestion = {key: body['uid'], questionType: 'titleCards'}
+        const lessonQuestion = {key: body['uid'], questionType: C.INTERNAL_TITLE_CARDS_TYPE}
         dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
         LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
           dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });

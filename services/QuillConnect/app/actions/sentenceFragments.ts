@@ -116,7 +116,7 @@ function submitNewSentenceFragment(content, response, lessonID) {
       dispatch(loadSentenceFragment(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       if (lessonID) {
-        const lessonQuestion = {key: response.questionUID, questionType: 'sentenceFragments'}
+        const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_FRAGMENTS_TYPE}
         dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
         LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
           dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });

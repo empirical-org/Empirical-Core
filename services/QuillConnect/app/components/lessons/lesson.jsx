@@ -15,6 +15,7 @@ import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import fillInBlankActions from '../../actions/fillInBlank'
 import titleCardActions from '../../actions/titleCards'
+import * as C from '../../constants.js'
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -57,14 +58,14 @@ class Lesson extends React.Component {
   getQuestionAction = () => {
     const questionType = this.lesson().questionType
     switch (questionType) {
-      case 'questions':
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
         return questionActions.submitNewQuestion
-      case 'sentenceFragments':
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
         return sentenceFragmentActions.submitNewSentenceFragment
-      case 'fillInBlank':
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
         return fillInBlankActions.submitNewQuestion
-      case 'titleCards':
-        return sentenceFragmentActions.submitNewSentenceFragment
+      case C.INTERNAL_TITLE_CARDS_TYPE:
+        return titleCardActions.submitNewTitleCard
       default:
         return questionActions.submitNewQuestion
     }
@@ -73,13 +74,13 @@ class Lesson extends React.Component {
   promptForm = () => {
     const questionType = this.lesson().questionType
     switch (questionType) {
-      case 'questions':
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
         return QuestionForm
-      case 'sentenceFragments':
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
         return SentenceFragmentForm
-      case 'fillInBlank':
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
         return FillInBlankForm
-      case 'titleCards':
+      case C.INTERNAL_TITLE_CARDS_TYPE:
         return TitleCardForm
       default:
         return QuestionForm
@@ -89,13 +90,13 @@ class Lesson extends React.Component {
   urlString = () => {
     const questionType = this.lesson().questionType
     switch (questionType) {
-      case 'questions':
+      case C.INTERNAL_SENTENCE_COMBINING_TYPE:
         return 'questions'
-      case 'sentenceFragments':
+      case C.INTERNAL_SENTENCE_FRAGMENTS_TYPE:
         return 'sentence-fragments'
-      case 'fillInBlank':
+      case C.INTERNAL_FILL_IN_BLANK_TYPE:
         return 'fill-in-the-blanks'
-      case 'titleCards':
+      case C.INTERNAL_TITLE_CARDS_TYPE:
         return 'title-cards'
       default:
         return 'questions'
@@ -115,11 +116,11 @@ class Lesson extends React.Component {
   };
 
   saveLessonEdits = (vals) => {
-    const { match } = this.props
+    const { match, dispatch } = this.props
     const { params } = match
     const { lessonID, } = params;
     const qids = vals.questions ? vals.questions.map(q => q.key) : []
-    this.props.dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
+    dispatch(lessonActions.submitLessonEdit(lessonID, vals, qids));
   };
 
   renderEditLessonForm = () => {

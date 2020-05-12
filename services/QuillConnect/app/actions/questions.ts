@@ -98,7 +98,7 @@ function submitNewQuestion(content, response, lessonID) {
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
       if (lessonID) {
-        const lessonQuestion = {key: response.questionUID, questionType: 'questions'}
+        const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_COMBINING_TYPE}
         dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
         LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
           dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });

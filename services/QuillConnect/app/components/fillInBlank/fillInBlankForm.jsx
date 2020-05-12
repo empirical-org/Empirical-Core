@@ -63,17 +63,17 @@ class FillInBlankForm extends Component {
   };
 
   submit = () => {
-    const { questionID, newQuestionOptimalResponse } = this.state
+    const { questionID, newQuestionOptimalResponse, prompt, blankAllowed, caseInsensitive, cues, instructions, conceptID, flag, cuesLabel } = this.state
     const { action } = this.props
     const data = {
-      prompt: this.state.prompt,
-      blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
-      caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false,
-      cues: this.state.cues.split(','),
-      instructions: this.state.instructions,
-      conceptID: this.state.conceptID,
-      flag: this.state.flag ? this.state.flag : 'alpha',
-      cuesLabel: this.state.cuesLabel
+      prompt: prompt,
+      blankAllowed: blankAllowed ? blankAllowed : false,
+      caseInsensitive: caseInsensitive ? caseInsensitive : false,
+      cues: cues.split(','),
+      instructions: instructions,
+      conceptID: conceptID,
+      flag: flag ? flag : 'alpha',
+      cuesLabel: cuesLabel
     };
     data.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
     if (this.props.new && data.prompt != '') {
