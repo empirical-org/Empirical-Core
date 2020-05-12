@@ -39,7 +39,7 @@
     margin-top: 21px;
     margin-bottom: 21px;
     width: 100%;
-    .student-reports-class-dropdown {
+    .student-reports-class-dropdown, .admin-activity-dropdown, .admin-concept-dropdown {
       .dropdown__control {
         border-radius: 6px;
         padding: 7px 14px;
@@ -50,9 +50,12 @@
       }
     }
   }
-  #standards-dropdown-container {
+  #flexed {
     display: flex;
     width: 200px !important;
+    .admin-activity-dropdown, .admin-concept-dropdown, .student-reports-class-dropdown {
+      margin-right: 10px;
+    }
   }
 
   .-sort-asc, .-sort-desc {

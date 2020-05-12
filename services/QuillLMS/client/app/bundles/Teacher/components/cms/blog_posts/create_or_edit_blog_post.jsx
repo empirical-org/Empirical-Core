@@ -650,10 +650,11 @@ export default class CreateOrEditBlogPost extends React.Component {
 
   renderPreviewCardTypeDropdown = () => {
     const { preview_card_type, } = this.state
-    return (<div>
+    return (<div className="preview-card-container">
       <label>Preview Card Template:</label>
       <ItemDropdown
         callback={this.changePreviewCardType}
+        className="blog-dropdown"
         items={['Tiny Image', 'Medium Image', 'Large Image', 'YouTube Video', 'Tweet', 'Custom HTML']}
         selectedItem={preview_card_type}
       />
@@ -718,15 +719,15 @@ export default class CreateOrEditBlogPost extends React.Component {
           <label>Press Name (optional):</label>
           <input onChange={this.handlePressNameChange} type="text" value={pressName} />
 
-          <div className='short-fields'>
+          <div className='dropdown-container'>
             <div>
               <label>Author:</label>
-              <ItemDropdown callback={this.changeAuthor} items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />
+              <ItemDropdown callback={this.changeAuthor} className="blog-dropdown" items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />
               <a className="link" href="/cms/authors/new" target="_blank">Create New Author</a>
             </div>
             <div>
               <label>Topic:</label>
-              <ItemDropdown callback={this.changeTopic} items={allTopics} selectedItem={topics.find(t => t === topic)} />
+              <ItemDropdown callback={this.changeTopic} className="blog-dropdown" items={allTopics} selectedItem={topics.find(t => t === topic)} />
             </div>
           </div>
 
