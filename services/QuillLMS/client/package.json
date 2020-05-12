@@ -66,7 +66,6 @@
     "react-addons-shallow-compare": "^15.6.2",
     "react-addons-update": "^15.2.1",
     "react-apollo": "^2.1.9",
-    "react-bootstrap": "^0.33.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-csv": "^1.0.8",
     "react-dates": "21.8.0",
