@@ -5,7 +5,7 @@ import { sortByLastName, sortFromSQLTimeStamp } from 'modules/sortingMethods';
 import getAuthToken from '../components/modules/get_auth_token';
 import LoadingIndicator from '../components/shared/loading_indicator'
 
-export default class CmsUserIndex extends React.Component {
+export default class CmsUserIndexApp extends React.Component {
   constructor(props) {
     super(props)
 
@@ -98,6 +98,14 @@ export default class CmsUserIndex extends React.Component {
       this.setState(newState, this.search)
     }
   };
+
+  handleKeyPress = e => {
+    const key = e.keyCode
+    if (key == 13) {
+      console.log("enter was pressed")
+      this.search()
+    }
+  }
 
   search = () => {
     this.setState({loading: true})
@@ -224,27 +232,27 @@ export default class CmsUserIndex extends React.Component {
         <div className='cms-meta-middle'>
           <div className='cms-form-row'>
             <label>Name</label>
-            <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name} />
+            <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} onKeyDown={this.handleKeyPress} value={this.state.query.user_name} />
           </div>
 
           <div className='cms-form-row'>
             <label>Username</label>
-            <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username} />
+            <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} onKeyDown={this.handleKeyPress} value={this.state.query.user_username} />
           </div>
 
           <div className='cms-form-row'>
             <label>Email</label>
-            <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email} />
+            <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} onKeyDown={this.handleKeyPress} value={this.state.query.user_email} />
           </div>
 
           <div className='cms-form-row'>
             <label>Ip</label>
-            <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} value={this.state.query.user_ip} />
+            <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} onKeyDown={this.handleKeyPress} value={this.state.query.user_ip} />
           </div>
 
           <div className='cms-form-row'>
             <label>School Name</label>
-            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
+            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} onKeyDown={this.handleKeyPress} value={this.state.query.school_name} />
           </div>
         </div>
 
