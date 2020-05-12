@@ -82,7 +82,9 @@ class ActivitySession < ActiveRecord::Base
     end
   end
 
-  def finished?; state == FINISHED_STATE; end
+  def finished?
+    state == FINISHED_STATE
+  end
 
   def calculate_timespent
     return nil if !finished? || started_at.nil? || completed_at.nil?
