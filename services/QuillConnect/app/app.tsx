@@ -15,7 +15,7 @@ import questionActions from './actions/questions';
 import fillInBlankActions from './actions/fillInBlank';
 import sentenceFragmentActions from './actions/sentenceFragments';
 import lessonActions from './actions/lessons';
-import * as titleCardActions from './actions/titleCards.ts';
+import titleCardActions from './actions/titleCards.ts';
 import 'styles/style.scss';
 //import * as Sentry from '@sentry/browser';
 import quillNormalizer from './libs/quillNormalizer';
