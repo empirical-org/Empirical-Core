@@ -242,14 +242,18 @@
         justify-content: space-between;
         width: 100%;
         min-height: 76px;
+        div {
+          display: flex;
+          .quill-button {
+            margin-right: 16px;
+          }
+        }
       }
     }
     .student-actions-dropdown {
       width: 200px;
-      margin-bottom: 32px;
-      &.active {
-        margin-bottom: 82px;
-      }
+      height: 91px;
+      justify-content: flex-start;
       .dropdown {
         font-size: 16px;
       }

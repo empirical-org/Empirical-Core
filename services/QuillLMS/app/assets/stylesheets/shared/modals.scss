@@ -925,3 +925,48 @@
     }
   }
 }
+
+.view-as-student-modal {
+  width: 760px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin-bottom: 0px;
+  .top-section {
+    padding: 32px 32px 0px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+  }
+  .middle-section {
+    flex: 1;
+    overflow: hidden;
+    padding: 0px 32px 32px;
+    .dropdown-container {
+      min-width: 400px;
+      width: min-content;
+      height: 89px;
+      justify-content: flex-start;
+    }
+    .view-button-section {
+      margin-right: 0px;
+      .quill-button {
+        width: 88px;
+      }
+    }
+    .data-table {
+      height: calc(100% - 58px);
+    }
+    .data-table-row:last-of-type {
+      border-bottom: 1px solid #e0e0e0 !important;
+    }
+  }
+  .bottom-section {
+    padding: 24px 32px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #e0e0e0;
+  }
+}
