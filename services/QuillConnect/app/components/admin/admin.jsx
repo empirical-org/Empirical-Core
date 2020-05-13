@@ -26,7 +26,6 @@ import ShowTitleCard from '../titleCards/showTitleCard.tsx';
 import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
 import TestFillInBlankQuestionContainer from '../fillInBlank/testFillInBlankQuestionContainer.jsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
-import NewFillInBlank from '../fillInBlank/newFillInBlank';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
 import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
 import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
@@ -98,6 +97,8 @@ class adminContainer extends React.Component {
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
+          <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
+          <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={SentenceFragment} path='/admin/lesson-view/:lessonID/sentence-fragments/:questionID' />
           <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
           <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
