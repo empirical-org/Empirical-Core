@@ -27,7 +27,6 @@ import FillInBlankQuestions from '../fillInBlank/fillInBlankQuestions.jsx';
 import TestFillInBlankQuestionContainer from '../fillInBlank/testFillInBlankQuestionContainer.jsx';
 import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
-import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
 import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
 const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
