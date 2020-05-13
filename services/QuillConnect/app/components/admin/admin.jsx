@@ -29,9 +29,8 @@ import FillInBlankQuestion from '../fillInBlank/fillInBlankQuestion.jsx';
 import NewFillInBlank from '../fillInBlank/newFillInBlank';
 import SentenceFragments from '../sentenceFragments/sentenceFragments.jsx';
 import NewSentenceFragment from '../sentenceFragments/newSentenceFragment.jsx';
-import SentenceFragment from 'components/sentenceFragments/sentenceFragment.jsx';
+import SentenceFragment from '../sentenceFragments/sentenceFragment.jsx';
 import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFragmentContainer.jsx';
-import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
 const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
 

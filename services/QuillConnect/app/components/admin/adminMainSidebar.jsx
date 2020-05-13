@@ -8,7 +8,7 @@ const TabLink = props => {
   </li>)
 };
 
-function AdminMainSidebar() {
+const AdminMainSidebar = () => {
   return (
     <section className="main-admin-section section is-fullheight">
       <aside className="admin-menu">

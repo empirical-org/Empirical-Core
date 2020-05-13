@@ -15,7 +15,6 @@ import questionActions from '../../actions/questions'
 import sentenceFragmentActions from '../../actions/sentenceFragments'
 import fillInBlankActions from '../../actions/fillInBlank'
 import titleCardActions from '../../actions/titleCards'
-import * as C from '../../constants.js'
 
 const icon = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -220,7 +219,7 @@ class Lesson extends React.Component {
           match={match}
           new={true}
           question={question}
-          routeParams={}
+          routeParams={null}
           submit={this.submitNewQuestion}
         />
       </Modal>

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {
@@ -8,7 +8,7 @@ import {
 export interface ComponentProps {
   titleCards: any
   routing: any
-  match: any 
+  match: any
 }
 class ShowTitleCard extends React.Component<ComponentProps, any> {
 
