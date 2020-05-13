@@ -841,7 +841,6 @@ end
       expect(activity_session.timespent).to be_nil
     end
 
-
     it "should calculate time using started and completed" do
       time = Time.zone.now
       interval = 76.seconds
