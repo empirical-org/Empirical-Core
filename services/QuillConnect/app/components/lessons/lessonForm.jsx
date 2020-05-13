@@ -22,7 +22,7 @@ class LessonForm extends React.Component {
       landingPageHtml: currentValues ? currentValues.landingPageHtml || '' : '',
       selectedQuestions: currentValues && currentValues.questions ? currentValues.questions : [],
       flag: currentValues ? currentValues.flag : 'alpha',
-      questionType: 'questions',
+      questionType: currentValues ? currentValues.questionType || 'questions' : 'questions',
       modelConceptUID: currentValues ? currentValues.modelConceptUID : null
     }
   }
@@ -67,13 +67,14 @@ class LessonForm extends React.Component {
   };
 
   submit = () => {
-    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, } = this.state
+    const { name, selectedQuestions, landingPageHtml, flag, modelConceptUID, questionType } = this.state
     this.props.submit({
       name,
       questions: selectedQuestions,
       landingPageHtml,
       flag,
-      modelConceptUID
+      modelConceptUID,
+      questionType
     });
   };
 
@@ -121,6 +122,7 @@ class LessonForm extends React.Component {
   };
 
   render() {
+    const { questionType } = this.state
     return (
       <div className="box">
         <h4 className="title">Add New Activity</h4>
@@ -158,7 +160,7 @@ class LessonForm extends React.Component {
         <p className="control">
           <label className="label">Question Type</label>
           <span className="select">
-            <select defaultValue={'questions'} onChange={this.handleSelectQuestionType}>
+            <select defaultValue={questionType} onChange={this.handleSelectQuestionType}>
               <option value="questions">Sentence Combining</option>
               <option value="sentenceFragments">Sentence Fragment</option>
               <option value="fillInBlank">Fill In the Blank</option>

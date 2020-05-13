@@ -15,11 +15,13 @@ import {
 } from '../localStorageKeyConstants'
 
 import ScrollToTop from '../../shared/scroll_to_top'
+import ViewAsStudentModal from '../../shared/view_as_student_modal'
 
 const assignedActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assigned-activities.svg`
 const assignActivitiesSrc = `${process.env.CDN_URL}/images/illustrations/assign-activities.svg`
 const addStudentsSrc = `${process.env.CDN_URL}/images/illustrations/add-students.svg`
 const giftSrc = `${process.env.CDN_URL}/images/illustrations/gift.svg`
+const viewStudentSrc = `${process.env.CDN_URL}/images/illustrations/view-student.svg`
 const twitterSrc = `${process.env.CDN_URL}/images/icons/ui-share-twitter.svg`
 const facebookSrc = `${process.env.CDN_URL}/images/icons/ui-share-facebook.svg`
 const googleSrc = `${process.env.CDN_URL}/images/icons/ui-share-google.svg`
@@ -36,6 +38,7 @@ interface UnitAssignmentFollowupProps {
 
 interface UnitAssignmentFollowupState {
   showNextOptions: boolean;
+  showViewAsStudentModal: boolean;
   assignedClassrooms: Array<any>;
   showSnackbar: boolean;
   snackbarCopy: string;
@@ -49,12 +52,17 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     const assignedClassrooms = props.classrooms.filter(c => c.classroom.emptyClassroomSelected || c.students.find(s => s.isSelected))
 
     this.state = {
+      showViewAsStudentModal: false,
       showNextOptions: props.location.pathname === '/assign/next',
       assignedClassrooms,
       showSnackbar: false,
       snackbarCopy: '',
       leaving: false
     }
+  }
+
+  componentWillUnmount() {
+    this.prepareToLeavePage()
   }
 
   async prepareToLeavePage = () => {
@@ -111,6 +119,12 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
 
   handleGoToAssignMoreActivities = () => this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/assign`)
 
+  onClickViewAsIndividualStudent = (studentId) => this.prepareToLeavePage().then(() => window.location.href = `${process.env.DEFAULT_URL}/teachers/preview_as_student/${studentId}`)
+
+  handleViewAsStudent = () => this.setState({ showViewAsStudentModal: true, })
+
+  closeViewAsStudentModal = () => this.setState({ showViewAsStudentModal: false, })
+
   renderInviteStudents = () => {
     const { assignedClassrooms, } = this.state
     const { unitName, classrooms, } = this.props
@@ -132,24 +146,31 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
       <h1>What would you like to do next?</h1>
       <Card
         header="See what I have assigned"
-        imgAlt="clipboard with check"
+        imgAlt="Clipboard with check"
         imgSrc={assignedActivitiesSrc}
         onClick={this.handleGoToAssignedActivity}
         text="View your assigned packs."
       />
       <Card
         header="Invite students"
-        imgAlt="students"
+        imgAlt="Four person icons in a circle"
         imgSrc={addStudentsSrc}
         onClick={this.handleGoToClassroomIndex}
         text="Add students to your classes."
       />
       <Card
         header="Assign more activities"
-        imgAlt="squares with plus sign"
+        imgAlt="Stacked pages with plus sign on top one"
         imgSrc={assignActivitiesSrc}
         onClick={this.handleGoToAssignMoreActivities}
         text="Select or build another pack."
+      />
+      <Card
+        header="View as student"
+        imgAlt="Magnifying glass around person icon"
+        imgSrc={viewStudentSrc}
+        onClick={this.handleViewAsStudent}
+        text="Preview what students will see on their dashboards."
       />
     </div>
   )
@@ -202,15 +223,34 @@ export default class UnitAssignmentFollowup extends React.Component<UnitAssignme
     return this.renderNextOptions()
   }
 
+  renderViewAsStudentModal() {
+    const { showViewAsStudentModal, } = this.state
+    const { classrooms, } = this.props
+
+    if (!showViewAsStudentModal) { return }
+
+    const classroomsToPass = classrooms.map(c => {
+      c.classroom.students = c.students
+      return c.classroom
+    })
+
+    return (<ViewAsStudentModal
+      classrooms={classroomsToPass}
+      close={this.closeViewAsStudentModal}
+      handleViewClick={this.onClickViewAsIndividualStudent}
+    />)
+  }
+
   render() {
     const { showNextOptions, } = this.state
-    let button = <button className="quill-button medium contained primary" onClick={this.handleClickToDashboard}>Take me to my dashboard</button>
+    let button = <button className="quill-button medium contained primary" onClick={this.handleClickToDashboard} type="button">Take me to my dashboard</button>
     if (!(showNextOptions || this.allAssignedClassroomsAreEmpty())) {
       button = <button className="quill-button medium contained primary" onClick={this.handleClickNext} type="button">Next</button>
     }
     return (<div>
       <AssignmentFlowNavigation button={button} />
       <ScrollToTop />
+      {this.renderViewAsStudentModal()}
       <div className="container">
         {this.renderFollowUp()}
       </div>
