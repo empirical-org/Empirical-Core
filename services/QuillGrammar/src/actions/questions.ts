@@ -168,9 +168,11 @@ export const cancelQuestionEdit = (qid: string) => {
 
 export const submitQuestionEdit = (qid: string, content: Question) => {
   return (dispatch: Function, getState: Function) => {
+    const stateContent = getState().questions.data[qid]
+    const mergedContent = Object.assign(stateContent, content)
     dispatch({ type: ActionTypes.SUBMIT_QUESTION_EDIT, qid, });
     content.answers.forEach(a => dispatch(saveOptimalResponse(qid, content.concept_uid, a)))
-    QuestionApi.update(qid, content).then(() => {
+    QuestionApi.update(qid, mergedContent).then(() => {
       dispatch(getQuestion(qid))
       dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });

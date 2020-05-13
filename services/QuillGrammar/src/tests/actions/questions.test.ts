@@ -66,7 +66,10 @@ describe('Questions actions', () => {
     it('should call QuestionApi.update()', () => {
       const MOCK_ID = 1
       const MOCK_CONTENT = { mock: 'content', answers: [] }
-      dispatch(submitQuestionEdit(MOCK_ID, MOCK_CONTENT))
+      const MOCK_STATE = () => ({
+        questions: { data: { [MOCK_ID]: {} } }
+      })
+      dispatch(submitQuestionEdit(MOCK_ID, MOCK_CONTENT), MOCK_STATE)
       expect(mockQuestionApi.update).toHaveBeenLastCalledWith(MOCK_ID, MOCK_CONTENT)
     })
   })
