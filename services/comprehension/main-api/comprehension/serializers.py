@@ -7,8 +7,15 @@ from .models.prompt import Prompt
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        #fields = ['title', 'flag', 'passages', 'prompts']
-        fields = ['id', 'title', 'flag', 'passages', 'prompts']
+        fields = ['id', 'title']
+
+    def create(self, validated_data):
+        return Activity.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.update(**validated_data)
+        instance.save()
+        return instance
 
 class PassageSerializer(serializers.ModelSerializer):
     activity_passage = ActivitySerializer(read_only=True)
