@@ -9,6 +9,8 @@ import fillInBlankActions from '../../actions/fillInBlank';
 import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import titleCardActions from '../../actions/titleCards.ts';
+import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
+import AdminLessonSidebar from '../../components/admin/adminLessonSidebar.jsx'
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
@@ -30,13 +32,6 @@ import TestSentenceFragmentContainer from '../sentenceFragments/testSentenceFrag
 import ChooseModelContainer from '../sentenceFragments/chooseModelContainer.jsx';
 const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
-
-const TabLink = props => {
-  const { children, to } = props
-  return (<li>
-    <NavLink activeClassName="is-active" to={to}>{children}</NavLink>
-  </li>)
-};
 
 class adminContainer extends React.Component {
 
@@ -75,37 +70,13 @@ class adminContainer extends React.Component {
   render() {
     return (
       <div className="main-admin-container">
-        <section className="main-admin-section section is-fullheight">
-          <aside className="admin-menu">
-            <p className="menu-label">
-              General
-            </p>
-            <ul className="menu-list">
-              <TabLink activeClassName="is-active" to='/admin/lessons'>Activities</TabLink>
-            </ul>
-            <p className="menu-label">
-              Questions
-            </p>
-            <ul className="menu-list">
-              <TabLink activeClassName="is-active" to='/admin/questions'>Sentence Combining</TabLink>
-              <TabLink activeClassName="is-active" to='/admin/sentence-fragments'>Sentence Fragments</TabLink>
-              <TabLink activeClassName="is-active" to='/admin/fill-in-the-blanks'>Fill In The Blanks</TabLink>
-            </ul>
-            <p className="menu-label">
-              Supporting
-            </p>
-            <ul className="menu-list">
-              <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
-              <TabLink activeClassName="is-active" to='/admin/concepts-feedback'>Concept Feedback</TabLink>
-            </ul>
-            <p className="menu-label">
-              Title Cards
-            </p>
-            <ul className="menu-list">
-              <TabLink activeClassName="is-active" to='/admin/title-cards'>Title Cards</TabLink>
-            </ul>
-          </aside>
-        </section>
+        <Switch>
+          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/questions/:questionID' />
+          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/sentence-fragments/:questionID' />
+          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID' />
+          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID' />
+          <Route component={AdminMainSidebar} path='/admin' />
+        </Switch>
         <Switch>
           <Redirect component={Lessons} exact from='/admin' to='/admin/lessons' />
           <Route component={ConceptFeedback} path='/admin/concepts-feedback/:conceptFeedbackID' />
@@ -114,15 +85,19 @@ class adminContainer extends React.Component {
           <Route component={Concepts} path='/admin/concepts' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />
           <Route component={Lessons} path='/admin/lessons' />
+          <Route component={Question} path='/admin/lesson-view/:lessonID/questions/:questionID' />
           <Route component={Question} path='/admin/questions/:questionID' />
           <Route component={Questions} path='/admin/questions' />
           <Route component={TitleCardForm} path='/admin/title-cards/new' />
           <Route component={TitleCardForm} path='/admin/title-cards/:titleCardID/edit' />
+          <Route component={ShowTitleCard} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID' />
           <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
           <Route component={TitleCards} path='/admin/title-cards' />
+          <Route component={FillInBlankQuestion} path='/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID' />
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
+          <Route component={SentenceFragment} path='/admin/lesson-view/:lessonID/sentence-fragments/:questionID' />
           <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
           <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
           <Route component={TestSentenceFragmentContainer} path='/admin/sentence-fragments/test' />

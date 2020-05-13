@@ -34,18 +34,12 @@ class Lesson extends React.Component {
     }
   }
 
-  deleteLesson = () => {
+  handleDeleteLesson = () => {
     const { match } = this.props
     const { lessonID, } = match.params;
     if (confirm('do you want to do this?')) {
       dispatch(lessonActions.deleteLesson(lessonID));
     }
-  };
-
-  editLesson = () => {
-    const { match, dispatch } = this.props
-    const { lessonID, } = match.params;
-    dispatch(lessonActions.startLessonEdit(lessonID));
   };
 
   lesson = () => {
@@ -105,8 +99,10 @@ class Lesson extends React.Component {
 
   questionsForLesson = () => {
     if (this.lesson().questions) {
+      const { propsData } = this.props
+      const questionData = propsData[question.questionType]
       return this.lesson().questions.map((question) => {
-        const questions = this.props[question.questionType].data;
+        const questions = questionData.data;
         const qFromDB = Object.assign({}, questions[question.key]);
         qFromDB.questionType = question.questionType;
         qFromDB.key = question.key;
@@ -150,12 +146,12 @@ class Lesson extends React.Component {
         const displayName = (questionType === 'titleCards' ? title : prompt) || 'No question prompt';
         const questionTypeLink = questionType === 'fillInBlank' ? 'fill-in-the-blanks' : questionType.toKebab()
         const flagTag = permittedFlag(lessonFlag, flag) ? '' : <strong>{flag.toUpperCase()} - </strong>
-        const className = (key === params.questionID) ? "selected" : ""
+        const className = (key === params.questionID || key === params.titleCardID) ? "selected" : ""
         const cuesList = (cues && cues[0] != "") ? cues.map((cue, index) => {
           return <span className="tag" key={index}>{cue}</span>
         }) : null
-        const questionURL = lessonQuestionType === 'title-cards' ? `/admin/${lessonQuestionType}/${key}/` :
-                            `/admin/${lessonQuestionType}/${key}/responses`
+        const questionURL = lessonQuestionType === 'title-cards' ? `/admin/lesson-view/${params.lessonID}/${lessonQuestionType}/${key}/` :
+                            `/admin/lesson-view/${params.lessonID}/${lessonQuestionType}/${key}/responses`
         const questionDisplayString = questionNumber.concat(displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, ''))
         return (
           <li className={className} key={index} >
@@ -242,7 +238,7 @@ class Lesson extends React.Component {
       if (isSidebar) {
         return (
           <div className="edit-activity">
-            <Link to={`admin/lessons/${lessonID}`}>Back</Link>
+            <Link to={`/admin/lessons/${lessonID}`}>Back</Link>
             <br /><br />
             {this.renderEditLessonForm()}
             <h4 className="title">{this.lesson().name}</h4>
@@ -269,7 +265,7 @@ class Lesson extends React.Component {
           <h6 className="subtitle">{this.lesson().flag}</h6>
           <p className="control">
             <button className="button" onClick={this.handleEditLesson} type="button">Edit Activity</button>
-            <button className="button" onClick={this.deleteLesson} type="button">Delete Activity</button>
+            <button className="button" onClick={this.handleDeleteLesson} type="button">Delete Activity</button>
             <button className="button" onClick={this.handleCreatePrompt} type="button">Create Prompt</button>
             <a className="button" href={`https://quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
           </p>
