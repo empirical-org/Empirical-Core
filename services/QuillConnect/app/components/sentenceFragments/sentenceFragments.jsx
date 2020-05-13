@@ -41,9 +41,6 @@ class SentenceFragments extends React.Component {
     return (
       <section className="section">
         <div className="container">
-          <Link to={'/admin/sentence-fragments/new'}>
-            <button className="button is-primary">Create a New Sentence Fragment</button>
-          </Link>
           <ArchivedButton
             lessons={false}
             showOnlyArchived={showOnlyArchived}
