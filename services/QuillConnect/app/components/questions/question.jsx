@@ -231,7 +231,6 @@ class Question extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const { questions, match, massEdit } = this.props
     const { data } = questions
     const { params } = match
