@@ -37,7 +37,7 @@ class ShowTitleCard extends React.Component<ComponentProps, any> {
         <div className="container">
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
             {titleCard ? <h1 style={{fontSize: '30px'}}>{titleCard.title}</h1> : <span />}
-            <Link to={`/admin/title-cards/${titleCardID}/edit`}>
+            <Link to={"edit"}>
               <button className="button is-primary">Edit Title Card</button>
             </Link>
           </div>
