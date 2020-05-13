@@ -78,7 +78,7 @@
     "react-redux": "^4.4.1",
     "react-router-dom": "^5.1.2",
     "react-select": "^3.0.8",
-    "react-sortable": "^1.2.0",
+    "react-sortable": "^2.0.0",
     "react-table": "^6.7.5",
     "react-timezone": "^2.3.0",
     "react-tooltip": "^4.1.2",

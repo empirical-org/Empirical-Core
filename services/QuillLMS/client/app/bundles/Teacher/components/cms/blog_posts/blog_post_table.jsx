@@ -43,7 +43,7 @@ export default class BlogPostTable extends React.Component {
 
   updateOrder = sortInfo => {
     const originalOrder = this.state.blogPosts;
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.map(item => item.key);
     const newOrderedBlogPosts = newOrder.map((key, i) => {
       const newBlogPost = originalOrder[key];
       newBlogPost.order_number = i;

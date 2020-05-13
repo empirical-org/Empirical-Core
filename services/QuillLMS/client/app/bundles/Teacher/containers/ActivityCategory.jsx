@@ -46,7 +46,7 @@ export default class ActivityCategory extends React.Component {
 
   updateActivityOrder = sortInfo => {
     const originalOrderedActivities = this.state.selectedActivities
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.map(item => item.key);
     const newOrderedActivities = newOrder.map((key, i) => {
       const newActivity = originalOrderedActivities[key]
       newActivity.order_number = i

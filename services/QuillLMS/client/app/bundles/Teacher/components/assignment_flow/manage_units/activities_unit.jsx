@@ -222,19 +222,9 @@ export default class ActivitiesUnit extends React.Component {
   }
 
   updateSortOrder = (sortableListState) => {
-    // There are data states in which this update call is triggered with no items in the
-    // sortableListState.  If there are no items, there's nothing to do, so we bail
-    if (!sortableListState.items) return;
-
     const startingSortOrder = this.state.activityOrder;
-    const newSortOrder = sortableListState.items.map( (i) => i.props.data.activityId );
-    // Check to see if the drag/drop action is completed
-    // (draggingIndex === null on drag initiation and termination, and a change in order
-    // guarantees that it isn't an initiation)
-    if (!startingSortOrder.every((e, i) => e == newSortOrder[i]) &&
-        sortableListState.draggingIndex === null) {
-      this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
-    }
+    const newSortOrder = sortableListState.map( (i) => i.props.data.activityId );
+    this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
   }
 
   renderClassroomActivities = () => {
@@ -263,7 +253,7 @@ export default class ActivitiesUnit extends React.Component {
       }
     }
     if (this.state.allowSorting) {
-      return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
+      return <SortableList data={classroomActivitiesArr} helperClass="sortable-activity-row" sortCallback={this.updateSortOrder} />
     } else {
       return classroomActivitiesArr;
     }
