@@ -11,6 +11,6 @@ describe('Activity component', () => {
   );
 
   it('should render 3 NavLinks', () => {
-    expect(container.find(NavLink).length).toEqual(3);
+    expect(container.find(NavLink).length).toEqual(6);
   });
 });
