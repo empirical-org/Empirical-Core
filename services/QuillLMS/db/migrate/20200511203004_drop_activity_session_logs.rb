@@ -1,6 +1,7 @@
 class DropActivitySessionLogs < ActiveRecord::Migration
   def up
-    connection.execute(<<~SQL.squish
+    connection.execute(
+      <<~SQL.squish
         DROP FUNCTION timespent_activity_session;
       SQL
     )
