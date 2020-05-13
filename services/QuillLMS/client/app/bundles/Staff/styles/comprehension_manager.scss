@@ -86,7 +86,7 @@ html {
     .activities-table, .tabs-container {
       align-self: flex-start;
       
-      .data-table-body {
+      .data-table-body{
         max-height: 600px;
         overflow: auto;
 
@@ -156,13 +156,12 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100%;
 
     .activity-general-settings-table {
       border: 1px solid lightgray;
       border-radius: 6px;
       text-align: left;
+      margin-top: 50px;
 
       .data-table-headers {
         display: none;
@@ -319,6 +318,42 @@ html {
           text-align: left;
         }
       }
+    }
+  }
+  .rulesets-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .rulesets-table {
+      margin-top: 50px;
+
+      .data-table-body{
+        max-height: 800px;
+        overflow: auto;
+
+        .data-table-row {
+          
+          span {
+
+            a {
+              color: #00c2a2;
+            }
+
+            .a:hover {
+  
+              cursor: pointer;
+              color: #19a08a;
+            }
+          }
+        }
+      }
+    }
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 10px 20px 0px;
+      width: 900px;
     }
   }
 }

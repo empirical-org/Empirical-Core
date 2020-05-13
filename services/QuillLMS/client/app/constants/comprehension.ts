@@ -64,3 +64,5 @@ export const readingLevelOptions = [
     value: 12
   },
 ];
+
+export const promptStems = ['because', 'but', 'so'];
