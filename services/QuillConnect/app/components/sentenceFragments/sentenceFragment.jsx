@@ -158,7 +158,7 @@ class SentenceFragment extends React.Component {
       );
     } else if (data[questionID]) {
       const activeLink = massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+      ? <NavLink activeClassName="is-active" to='mass-edit'>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       return (
         <div className="admin-container">
@@ -179,25 +179,25 @@ class SentenceFragment extends React.Component {
 
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/test`}>Play Question</NavLink>
-              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/choose-model`}>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
-              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/focus-points`}>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
-              <NavLink activeClassName="is-active" to={`/admin/sentence-fragments/${questionID}/incorrect-sequences`}>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
+              <NavLink activeClassName="is-active" to={`${match.url}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to='test'>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to='choose-model'>{data[questionID].modelConceptUID ? 'Edit' : 'Add'} Model Concept</NavLink>
+              <NavLink activeClassName="is-active" to='focus-points'>{data[questionID].focusPoints ? 'Edit' : 'Add'} Focus Points</NavLink>
+              <NavLink activeClassName="is-active" to='incorrect-sequences'>{data[questionID].incorrectSequences ? 'Edit' : 'Add'} Incorrect Sequences</NavLink>
               {activeLink}
             </ul>
           </div>
           <Switch>
-            <Route component={EditIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/:incorrectSequenceID/edit`} />
-            <Route component={NewIncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences/new`} />
-            <Route component={IncorrectSequenceContainer} path={`/admin/sentence-fragments/:questionID/incorrect-sequences`} />
-            <Route component={EditFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/:focusPointID/edit`} />
-            <Route component={NewFocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points/new`} />
-            <Route component={FocusPointsContainer} path={`/admin/sentence-fragments/:questionID/focus-points`} />
-            <Route component={TestQuestionContainer} path={`/admin/sentence-fragments/:questionID/test`} />
-            <Route component={ChooseModelContainer} path={`/admin/sentence-fragments/:questionID/choose-model`} />
-            <Route component={MassEditContainer} path={`/admin/sentence-fragments/:questionID/mass-edit`} />
-            <Route component={ResponseComponentWrapper} path={`/admin/sentence-fragments/:questionID/responses`} />
+            <Route component={EditIncorrectSequenceContainer} path={`${match.path}/incorrect-sequences/:incorrectSequenceID/edit`} />
+            <Route component={NewIncorrectSequenceContainer} path={`${match.path}/incorrect-sequences/new`} />
+            <Route component={IncorrectSequenceContainer} path={`${match.path}/incorrect-sequences`} />
+            <Route component={EditFocusPointsContainer} path={`${match.path}/:focusPointID/edit`} />
+            <Route component={NewFocusPointsContainer} path={`${match.path}/focus-points/new`} />
+            <Route component={FocusPointsContainer} path={`${match.path}/focus-points`} />
+            <Route component={TestQuestionContainer} path={`${match.path}/test`} />
+            <Route component={ChooseModelContainer} path={`${match.path}/choose-model`} />
+            <Route component={MassEditContainer} path={`${match.path}/mass-edit`} />
+            <Route component={ResponseComponentWrapper} path={`${match.path}/responses`} />
           </Switch>
         </div>
       );

@@ -99,10 +99,8 @@ class Lesson extends React.Component {
 
   questionsForLesson = () => {
     if (this.lesson().questions) {
-      const { propsData } = this.props
-      const questionData = propsData[question.questionType]
       return this.lesson().questions.map((question) => {
-        const questions = questionData.data;
+        const questions = this.props[question.questionType].data;
         const qFromDB = Object.assign({}, questions[question.key]);
         qFromDB.questionType = question.questionType;
         qFromDB.key = question.key;
