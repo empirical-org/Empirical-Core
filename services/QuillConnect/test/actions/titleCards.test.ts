@@ -1,13 +1,19 @@
 import { mockTitleCardApi, } from '../__mocks__/title_card_api'
+import { mockLessonApi, } from '../__mocks__/lesson_api'
+import 'whatwg-fetch'
 jest.mock('../../app/libs/title_cards_api', () => ({
   TitleCardApi: mockTitleCardApi,
+}))
+jest.mock('../../app/libs/lessons_api', () => ({
+  LessonApi: mockLessonApi,
 }))
 
 import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
 
 import { CONNECT_TITLE_CARD_TYPE } from '../../app/libs/title_cards_api'
+import { TYPE_CONNECT_LESSON } from '../../app/libs/lessons_api'
 
-import * as titleCardActions from '../../app/actions/titleCards'
+import titleCardActions from '../../app/actions/titleCards'
 
 describe('TitleCards actions', () => {
   describe('startListeningToTitleCards', () => {
@@ -40,6 +46,15 @@ describe('TitleCards actions', () => {
       const MOCK_CONTENT = { mock: 'content' }
       dispatch(titleCardActions.submitNewTitleCard(MOCK_CONTENT, ""))
       expect(mockTitleCardApi.create).toHaveBeenLastCalledWith(CONNECT_TITLE_CARD_TYPE, MOCK_CONTENT)
+    })
+
+    it('should call LessonApi.addQuestion() if lessonID is present', async () => {
+      const MOCK_CONTENT = { mock: 'content', answers: [] }
+      const MOCK_LESSON_ID = "lessonID"
+      const MOCK_LESSON_QUESTION = {"key": "uid", "questionType": "titleCards"}
+      dispatch(titleCardActions.submitNewTitleCard(MOCK_CONTENT, {}, MOCK_LESSON_ID))
+      await titleCardActions.submitNewTitleCard(MOCK_CONTENT, {}, MOCK_LESSON_ID)
+      expect(mockLessonApi.addQuestion).toHaveBeenLastCalledWith(TYPE_CONNECT_LESSON, MOCK_LESSON_ID, MOCK_LESSON_QUESTION)
     })
   })
 
