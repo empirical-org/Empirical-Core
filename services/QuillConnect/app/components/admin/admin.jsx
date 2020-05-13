@@ -87,8 +87,8 @@ class adminContainer extends React.Component {
           <Route component={Question} path='/admin/lesson-view/:lessonID/questions/:questionID' />
           <Route component={Question} path='/admin/questions/:questionID' />
           <Route component={Questions} path='/admin/questions' />
-          <Route component={TitleCardForm} path='/admin/title-cards/new' />
           <Route component={TitleCardForm} path='/admin/title-cards/:titleCardID/edit' />
+          <Route component={TitleCardForm} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID/edit' />
           <Route component={ShowTitleCard} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID' />
           <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
           <Route component={TitleCards} path='/admin/title-cards' />
