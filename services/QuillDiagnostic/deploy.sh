@@ -23,9 +23,6 @@ case $1 in
     exit 1
 esac
 
-# Slack deploy start
-sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-
 
 # Execute a new build
 # Upload build to S3 bucket
