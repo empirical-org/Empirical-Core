@@ -4,8 +4,9 @@
 <% between_two_and_three = current_hour == 14 %>
 <% monday_tuesday_or_thursday = current_time_on_east_coast.monday? || current_time_on_east_coast.thursday? || current_time_on_east_coast.tuesday? %>
 <% still_doing_live_q_and_a = current_time_on_east_coast < Date.parse("19/05/2020") %>
+<% still_doing_webinars = current_time_on_east_coast < Date.parse("29/05/2020") %>
 
-<% if (!current_user || current_user.teacher?) %>
+<% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
   <% if (between_twelve_and_one && monday_tuesday_or_thursday && still_doing_live_q_and_a) %>
     <div class="covid-banner" id="webinar-banner">
       <div class="content-container">
