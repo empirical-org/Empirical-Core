@@ -8,3 +8,5 @@ class ActivityFactory(factory.django.DjangoModelFactory):
 
     title = 'Test title'
     flag = Activity.FLAGS.DRAFT
+    target_reading_level = '7'
+    scored_reading_level = '7'

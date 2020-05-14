@@ -6,6 +6,7 @@ from ..factories.activity_passage import ActivityPassageFactory
 from ..factories.activity_prompt import ActivityPromptFactory
 from ..factories.passage import PassageFactory
 from ..factories.prompt import PromptFactory
+from ...models.activity import Activity
 
 
 class ActivityModelTest(TestCase):
@@ -15,12 +16,24 @@ class ActivityModelTest(TestCase):
     def test_title_not_nullable(self):
         self.activity.title = None
         with self.assertRaises(ValidationError):
-            self.activity.save()
+            self.activity.full_clean()
 
     def test_flag_validation(self):
         self.activity.flag = 'DEFINITELY NOT A VALID FLAG'
         with self.assertRaises(ValidationError):
-            self.activity.save()
+            self.activity.full_clean()
+
+    def test_flag_default_to_draft(self):
+        new_act = Activity(title=self.activity.title)
+        self.assertEqual(new_act.flag, Activity.FLAGS.DRAFT)
+
+    def test_target_reading_level_nullable(self):
+        self.activity.target_reading_level = None
+        self.assertIsNone(self.activity.full_clean())
+
+    def test_scored_reading_level_nullable(self):
+        self.activity.scored_reading_level = None
+        self.assertIsNone(self.activity.full_clean())
 
     def test_get_passages_order(self):
         self.passage1 = PassageFactory(text='passage1')
