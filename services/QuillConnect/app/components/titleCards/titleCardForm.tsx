@@ -4,10 +4,7 @@ import {
   TextEditor,
 } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import {
-  submitNewTitleCard,
-  submitTitleCardEdit
-} from '../../actions/titleCards'
+import titleCardActions from '../../actions/titleCards'
 import _ from 'lodash'
 
 interface TitleCardFormState {
@@ -19,7 +16,7 @@ export interface TitleCardFormProps {
   titleCards: any
   routing: any
   match: any
-  dispatch(any): void 
+  dispatch(any): void
 }
 
 class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormState> {
@@ -63,13 +60,15 @@ class TitleCardForm extends React.Component<TitleCardFormProps, TitleCardFormSta
   }
 
   submit = () => {
-    const { dispatch, match } = this.props
+    const { dispatch, match, submit } = this.props
     const { params } = match
     const { titleCardID } = params
-    if (titleCardID) {
-      dispatch(submitTitleCardEdit(titleCardID, this.state))
+    if (submit) {
+      submit(this.state)
+    } else if (titleCardID) {
+      dispatch(titleCardActions.submitTitleCardEdit(titleCardID, this.state))
     } else {
-      dispatch(submitNewTitleCard(this.state))
+      dispatch(titleCardActions.submitNewTitleCard(this.state))
     }
   }
 
