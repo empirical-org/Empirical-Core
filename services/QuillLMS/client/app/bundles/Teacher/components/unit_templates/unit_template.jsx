@@ -165,7 +165,7 @@ export default createReactClass({
 
   handleSort(sortInfo) {
     const { model, } = this.state
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.map(item => item.key);
     const newOrderedActivities = newOrder.map((key, i) => {
       const activity = model.activities[key];
       activity.order_number = i;
