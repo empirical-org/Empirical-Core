@@ -15,20 +15,21 @@ class GoogleIntegration::User
   def user
     @user ||= begin
       @user_class.where('google_id = ? OR email = ?', data.google_id&.to_s, data.email&.downcase).first_or_initialize.tap do |user|
+        new_attributes = user_params(user)
         if user.new_record?
-          user.assign_attributes(user_params)
+          user.assign_attributes(new_attributes)
         else
-          user.update(user_params)
+          user.update(new_attributes)
         end
       end
     end
   end
 
-  def user_params
+  def user_params(user)
     @user_params ||= begin
       params = {
         signed_up_with_google:      true,
-        post_google_classroom_assignments: true,
+        post_google_classroom_assignments: user.new_record? ? true : user.post_google_classroom_assignments,
         auth_credential_attributes: auth_credential_attributes,
       }
       params[:name]      = data.name      if data.name.present?

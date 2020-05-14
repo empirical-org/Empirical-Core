@@ -302,18 +302,18 @@ $lightgray: #cecece;
   margin: 0 auto;
   max-width: 950px;
   width: 100%;
-  
+
   .independent-practice-container {
     margin-top: 30px;
     border-top: solid 1px #e9e9e9;
     padding-top: 30px;
 
     .independent-practice-header {
-      width: 950px; 
-      margin: auto; 
-      text-align: left; 
-      font-size: 24px; 
-      font-weight: bold; 
+      width: 950px;
+      margin: auto;
+      text-align: left;
+      font-size: 24px;
+      font-weight: bold;
       color: #3b3b3b;
 
       .independent-practice-logo {
@@ -714,4 +714,20 @@ $lightgray: #cecece;
     padding-right: 15px;
   }
   padding-bottom: 15px;
+}
+
+.sortable-activity-row {
+  .row {
+    width: 100% !important;
+    border: 1px solid #cecece;
+    padding: 0px 30px 0px 15px;
+    background-color: white;
+    min-height: 62px;
+    .delete-classroom-activity, .due-date-field {
+      display: none;
+    }
+  }
+  .row::before {
+    content: none;
+  }
 }

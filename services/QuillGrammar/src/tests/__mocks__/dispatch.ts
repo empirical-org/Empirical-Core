@@ -1,7 +1,7 @@
 const mockDispatch = jest.fn()
-mockDispatch.mockImplementation((action: any) => {
+mockDispatch.mockImplementation((action: any, state: any) => {
   if (action instanceof Function) {
-    action(mockDispatch)
+    action(mockDispatch, state)
   }
 })
 

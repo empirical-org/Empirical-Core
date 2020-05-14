@@ -1,9 +1,11 @@
 import * as React from "react";
+import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { ActivitiesInterface } from '../../interfaces/comprehension/activitiesInterface'
 const fetchAllActivitiesAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json';
 
 const Activities = () => {
-  const [activities, setActivities] = React.useState([]);
+  const [activities, setActivities] = React.useState<ActivitiesInterface>([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   
@@ -11,19 +13,28 @@ const Activities = () => {
     try {
       setLoading(true);
       const response = await fetch(fetchAllActivitiesAPI);
-      const json = await response.json();
-      const { activities } = json
-      setActivities(activities);
-      setLoading(false);
+      var json = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
     }
+    const { activities } = json
+    setActivities(activities);
+    setLoading(false);
   };
 
   React.useEffect(() => {
     fetchData();
   }, []);
+
+  const formattedRows = activities.map(activity => {
+    const { course, id, title } = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
+    return {
+      title: activityLink,
+      course 
+    }
+  });
 
   if(loading) {
     return(
@@ -52,7 +63,7 @@ const Activities = () => {
         className="activities-table"
         defaultSortAttribute="title"
         headers={dataTableFields}
-        rows={activities}
+        rows={formattedRows}
       />
     </div>
   );
