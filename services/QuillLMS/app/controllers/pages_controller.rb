@@ -9,6 +9,7 @@ class PagesController < ApplicationController
   NUMBER_OF_TEACHERS = "NUMBER_OF_TEACHERS"
   NUMBER_OF_SCHOOLS = "NUMBER_OF_SCHOOLS"
   NUMBER_OF_LOW_INCOME_SCHOOLS = "NUMBER_OF_LOW_INCOME_SCHOOLS"
+  OPEN_POSITIONS = Configs[:careers][:open_positions]
 
   def home
     if signed_in?
@@ -57,6 +58,7 @@ class PagesController < ApplicationController
   end
 
   def careers
+    @open_positions = OPEN_POSITIONS
   end
 
   def beta
