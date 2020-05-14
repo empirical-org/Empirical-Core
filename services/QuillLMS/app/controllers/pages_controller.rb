@@ -9,6 +9,12 @@ class PagesController < ApplicationController
   NUMBER_OF_TEACHERS = "NUMBER_OF_TEACHERS"
   NUMBER_OF_SCHOOLS = "NUMBER_OF_SCHOOLS"
   NUMBER_OF_LOW_INCOME_SCHOOLS = "NUMBER_OF_LOW_INCOME_SCHOOLS"
+  JobPosition = Struct.new(:category, :title, :angelco_url)
+  OPEN_POSITIONS = [
+    JobPosition.new('Product', 'Product Manager', '738265-quill-org-product-manager-nonprofit-edtech-startup'),
+    JobPosition.new('Product', 'Software Engineer', '581557-software-engineer-rails-react-python'),
+    JobPosition.new('Product', 'Senior Software Engineer', '587292-senior-software-engineer-rails-react-python'),
+  ]
 
   def home
     if signed_in?
@@ -57,6 +63,7 @@ class PagesController < ApplicationController
   end
 
   def careers
+    @open_positions = OPEN_POSITIONS
   end
 
   def beta
