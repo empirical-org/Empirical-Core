@@ -58,7 +58,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     this.updateConceptResults = this.updateConceptResults.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getResponses();
   }
 

@@ -14,7 +14,7 @@ class IncorrectSequencesContainer extends React.Component {
     this.sortCallback = this.sortCallback.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, match, } = this.props
     dispatch(questionActions.getUsedSequences(match.params.questionID))
   }

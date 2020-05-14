@@ -56,7 +56,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       }
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       const { dispatch, } = this.props
       const activityUID = getParameterByName('uid', window.location.href)
       const sessionID = getParameterByName('student', window.location.href)
@@ -83,7 +83,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
       dispatch(startListeningToConcepts());
     }
 
-    componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
+    UNSAFE_componentWillReceiveProps(nextProps: PlayGrammarContainerProps) {
       const { dispatch, session, } = this.props
       if (nextProps.grammarActivities.hasreceiveddata && nextProps.grammarActivities.currentActivity && !nextProps.session.hasreceiveddata && !nextProps.session.pending && !nextProps.session.error) {
         const { questions, concepts, flag } = nextProps.grammarActivities.currentActivity

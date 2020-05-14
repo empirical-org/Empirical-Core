@@ -60,7 +60,7 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
     );
   }
 
-  componentWillReceiveProps(nextProps: QuestionProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: QuestionProps) {
     const { currentQuestion, } = this.props
     if (nextProps.currentQuestion && nextProps.currentQuestion.attempts && nextProps.currentQuestion.attempts.length > 0) {
       this.setState({ questionStatus: this.getCurrentQuestionStatus(nextProps.currentQuestion) })

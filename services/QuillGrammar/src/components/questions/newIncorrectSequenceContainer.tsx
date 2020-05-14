@@ -10,7 +10,7 @@ class NewIncorrectSequencesContainer extends React.Component {
     this.submitSequenceForm = this.submitSequenceForm.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const qid = this.props.match.params.questionID
     if (!this.props.generatedIncorrectSequences.used[qid]) {
       this.props.dispatch(questionActions.getUsedSequences(qid))

@@ -27,7 +27,7 @@ class SortableList extends React.Component<any, any> {
   }
 
 
-	componentWillReceiveProps(nextProps: any) {
+	UNSAFE_componentWillReceiveProps(nextProps: any) {
 		if (nextProps.data !== this.state.data.items) {
 			this.setState({data: {items: nextProps.data}})
 		}

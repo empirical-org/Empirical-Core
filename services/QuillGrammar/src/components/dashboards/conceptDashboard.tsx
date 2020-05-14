@@ -34,7 +34,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     this.sortActivityArray = this.sortActivityArray.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.dispatch(QuestionAndConceptMapActions.checkTimeout())
   }
 

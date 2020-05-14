@@ -37,7 +37,7 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
     this.updateAllowedQuestionFlags = this.updateAllowedQuestionFlags.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.dispatch(QuestionAndConceptMapActions.checkTimeout())
   }
 
