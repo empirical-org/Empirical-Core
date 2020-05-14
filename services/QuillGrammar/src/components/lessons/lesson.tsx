@@ -90,8 +90,9 @@ class Lesson extends React.Component<LessonProps> {
             {flagTag}
             {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
           </Link>
-        </li>)
-    })
+        </li>
+      );
+    });
   }
 
   renderQuestionsForLesson(): JSX.Element[]|JSX.Element {

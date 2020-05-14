@@ -93,7 +93,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
 
   normalizeStringForSorting(string: string) {
     if (string) {
-      return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim()
+      return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim();
     } else {
       return ''
     }

@@ -201,9 +201,11 @@ export class QuestionComponent extends React.Component<QuestionProps, QuestionSt
       if (showExample) {
         componentClasses += ' show'
       }
-      return (<Row align="middle" className={componentClasses} justify="start" type="flex">
-        <div className="example" dangerouslySetInnerHTML={{ __html: example.replace(/\n/g, "<br />") }} />
-      </Row>)
+      return (
+        <Row align="middle" className={componentClasses} justify="start" type="flex">
+          <div className="example" dangerouslySetInnerHTML={{ __html: example.replace(/\n/g, "<br />") }} />
+        </Row>
+      );
 
     } else {
       return undefined

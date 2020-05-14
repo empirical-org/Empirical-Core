@@ -116,7 +116,7 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
 
   normalizeStringForSorting(string: string) {
     if (string) {
-      return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim()
+      return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim();
     } else {
       return ''
     }
