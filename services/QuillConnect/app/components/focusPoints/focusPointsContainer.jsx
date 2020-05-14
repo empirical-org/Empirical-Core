@@ -128,7 +128,7 @@ export class FocusPointsContainer extends Component {
               {this.renderConceptResults(fp.conceptResults, fp.key)}
             </div>
             <footer className="card-footer">
-              <NavLink className="card-footer-item" to={`/admin/${questionTypeLink}/${questionID}/focus-points/${fp.key}/edit`}>Edit</NavLink>
+              <NavLink className="card-footer-item" to={`${match.url}/${fp.key}/edit`}>Edit</NavLink>
               <a className="card-footer-item" onClick={() => this.deleteFocusPoint(fp.key)}>Delete</a>
             </footer>
           </div>
@@ -158,7 +158,7 @@ export class FocusPointsContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Focus Points</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/${questionTypeLink}/${questionID}/focus-points/new`} style={{ float: 'right', }}>Add Focus Point</a>
+          <a className="button is-outlined is-primary" href={`#${match.url}/new`} style={{ float: 'right', }}>Add Focus Point</a>
           {this.renderfPButton()}
         </div>
         {this.renderFocusPointsList()}
