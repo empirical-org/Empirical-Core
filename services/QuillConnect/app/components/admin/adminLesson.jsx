@@ -10,7 +10,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 const AdminLesson = () => {
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{display: 'flex', width: '100%'}}>
       <Switch>
         <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/questions/:questionID' />
         <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/sentence-fragments/:questionID' />
