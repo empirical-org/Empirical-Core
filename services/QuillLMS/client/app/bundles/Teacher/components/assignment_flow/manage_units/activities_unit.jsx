@@ -228,31 +228,41 @@ export default class ActivitiesUnit extends React.Component {
   }
 
   renderClassroomActivities = () => {
+    const { allowSorting, activityOrder, classroomActivities, } = this.state
+    const {
+      activityReport,
+      activityWithRecommendationsIds,
+      hideUnitActivity,
+      data,
+      lesson,
+      report,
+      updateDueDate,
+    } = this.props
     const classroomActivitiesArr = [];
     let i = 0;
-    for (let key of this.state.activityOrder) {
-      const ca = this.state.classroomActivities.get(key);
+    for (let key of activityOrder) {
+      const ca = classroomActivities.get(key);
       if (ca) {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            activityReport={this.props.activityReport}
-            activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+            activityReport={activityReport}
+            activityWithRecommendationsIds={activityWithRecommendationsIds}
             data={ca}
-            hideUnitActivity={this.props.hideUnitActivity}
+            hideUnitActivity={hideUnitActivity}
             isFirst={i === 0}
-            key={`${this.props.data.unitId}-${key}`}
-            lesson={this.props.lesson}
+            key={`${data.unitId}-${key}`}
+            lesson={lesson}
             numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
-            report={this.props.report}
-            unitId={this.props.data.unitId}
+            report={report}
+            unitId={data.unitId}
             updateAllDueDates={this.updateAllDueDates}
-            updateDueDate={this.props.updateDueDate}
+            updateDueDate={updateDueDate}
           />
         );
         i += 1;
       }
     }
-    if (this.state.allowSorting) {
+    if (allowSorting) {
       return <SortableList data={classroomActivitiesArr} helperClass="sortable-activity-row" sortCallback={this.updateSortOrder} />
     } else {
       return classroomActivitiesArr;
