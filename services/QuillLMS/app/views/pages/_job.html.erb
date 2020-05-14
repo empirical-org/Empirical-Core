@@ -1,15 +1,15 @@
-<!-- locals: job of type Struct.new(:category, :title, :angelco_url) -->
+<!-- locals: job hash with keys :category, :title, :angelco_url -->
 <% base_image_url = "#{ENV['CDN_URL']}/images/careers" %>
 <% expand_icon_url = "#{base_image_url}/expand.svg" %>
 
 <div class="job-section">
   <div class="position-category hide-mobile">
-    <h3><%= job.category %></h3>
+    <h3><%= job[:category] %></h3>
   </div>
   <div class="positions">
-    <a target="_blank" href="https://angel.co/company/quill-org/jobs/<%= job.angelco_url %>">
+    <a target="_blank" href="https://angel.co/company/quill-org/jobs/<%= job[:angelco_url] %>">
       <div class="position">
-        <div><%= job.title %></div>
+        <div><%= job[:title] %></div>
         <img class="icon-img" src=<%= "#{expand_icon_url}" %> width=24 height=24 />
       </div>
     </a>
