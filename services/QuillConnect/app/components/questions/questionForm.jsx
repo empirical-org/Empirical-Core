@@ -6,6 +6,7 @@ import {
 import { EditorState, ContentState } from 'draft-js'
 import _ from 'lodash'
 import ConceptSelector from '../shared/conceptSelector.jsx'
+import C from '../../constants.js'
 
 export default class extends React.Component {
   state = {
@@ -14,7 +15,8 @@ export default class extends React.Component {
     instructions: this.props.question.instructions ? this.props.question.instructions : "",
     flag: this.props.question.flag ? this.props.question.flag : "alpha",
     cuesLabel: this.props.question.cuesLabel ? this.props.question.cuesLabel : '',
-    prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : ''
+    prefilledText: this.props.question.prefilledText ? this.props.question.prefilledText : '',
+    showDefaultInstructions: false,
   };
 
   submit = () => {
@@ -50,6 +52,29 @@ export default class extends React.Component {
 
   handleInstructionsChange = (e) => {
     this.setState({instructions: e.target.value})
+    if (e.target.value == '/') {
+      this.setState({ showDefaultInstructions: true})
+    } else {
+      this.setState({ showDefaultInstructions: false})
+    }
+  };
+
+  renderDefaultInstructions = () => {
+    const { showDefaultInstructions } = this.state
+    const defaultInstructionsDiv = C.DEFAULT_SENTENCE_COMBINING_INSTRUCTIONS.map((item, i) =>
+      (<button
+        className="default"
+        key={i}
+        onClick={this.handleInstructionsChange}
+        type="button"
+        value={item}
+      >
+        {item}
+      </button>)
+    )
+    if (showDefaultInstructions) {
+      return <div className='default-instructions'>{defaultInstructionsDiv}</div>
+    }
   };
 
   renderConceptSelector = () => {
@@ -104,6 +129,8 @@ export default class extends React.Component {
 
   render() {
     if(this.props.new || this.props.concepts.hasreceiveddata) {
+      const { instructions } = this.state
+      const { question } = this.props
       const preFillSection = this.props.new ? <span /> : this.renderPreFillSection()
       return (
         <div className="box">
@@ -117,8 +144,9 @@ export default class extends React.Component {
           />
           <label className="label">Instructions for student</label>
           <p className="control">
-            <textarea className="input" defaultValue={this.props.question.instructions} onChange={this.handleInstructionsChange} ref="instructions" type="text" />
+            <textarea className="input" defaultValue={question.instructions} onChange={this.handleInstructionsChange} placeholder="Type '/' for list of instructions" ref="instructions" type="text" value={instructions} />
           </p>
+          {this.renderDefaultInstructions()}
           <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
           <p className="control">
             <input className="input" defaultValue={this.props.question.cuesLabel} onChange={this.handleCuesLabelChange} type="text" />
