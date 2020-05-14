@@ -26,30 +26,33 @@ export default class TextEditor extends React.Component <any, any> {
     super(props)
 
     this.state = {
-      text: this.props.EditorState.createWithContent(convertFromHTML(this.props.text || ''))
+      text: props.EditorState.createWithContent(convertFromHTML(props.text || ''))
     }
-
-    this.handleTextChange = this.handleTextChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps: any) {
-    if (nextProps.boilerplate !== this.props.boilerplate) {
-      this.setState({text: this.props.EditorState.createWithContent(convertFromHTML(nextProps.boilerplate))},
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
+    const { boilerplate, EditorState, handleTextChange, } = this.props
+    if (nextProps.boilerplate !== boilerplate) {
+      this.setState({text: EditorState.createWithContent(convertFromHTML(nextProps.boilerplate))},
       () => {
-        this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()))
+        const { text, } = this.state
+        handleTextChange(convertToHTML(text.getCurrentContent()))
       }
     )
     }
   }
 
-  handleTextChange(e: Event) {
+  handleTextChange = (e: Event) => {
+    const { handleTextChange, } = this.props
+
     this.setState({text: e}, () => {
-      this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'))
+      const { text, } = this.state
+      handleTextChange(convertToHTML(text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'))
     });
   }
 
   render() {
-
+    const { text, } = this.state
     return (
       <div className="card is-fullwidth">
         <header className="card-header">
@@ -64,7 +67,7 @@ export default class TextEditor extends React.Component <any, any> {
         </header>
         <div className="card-content">
           <div className="content landing-page-html-editor">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]} />
+            <Editor editorState={text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]} />
           </div>
         </div>
       </div>
