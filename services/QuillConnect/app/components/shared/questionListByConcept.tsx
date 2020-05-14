@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import _ from 'lodash'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary';
 import { LinkListItem } from './linkListItem'
