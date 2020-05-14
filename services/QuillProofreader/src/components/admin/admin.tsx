@@ -6,9 +6,7 @@ import * as conceptsActions from '../../actions/concepts'
 import Lessons from '../lessons/lessons'
 import Lesson from '../lessons/lesson'
 import Concepts from '../concepts/concepts'
-// import Concept from '../concepts/concept'
 import TabLink from './tabLink'
-import request from 'request';
 
 const usersEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/users.json`;
 const newSessionEndpoint = `${process.env.EMPIRICAL_BASE_URL}/session/new`;
@@ -20,19 +18,16 @@ interface PathParamsType {
 type AdminContainerProps = RouteComponentProps<PathParamsType> & { dispatch: Function }
 
 class AdminContainer extends React.Component<AdminContainerProps> {
-  constructor(props: AdminContainerProps) {
-    super(props)
-  }
-
-  componentWillMount() {
+  componentDidMount() {
+    const { dispatch, } = this.props
     this.fetchUser().then(userData => {
         if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
-          window.location = newSessionEndpoint;
+          window.location.href = newSessionEndpoint;
         }
       }
     );
-    this.props.dispatch(proofreaderActivitiesActions.startListeningToActivities());
-    this.props.dispatch(conceptsActions.startListeningToConcepts());
+    dispatch(proofreaderActivitiesActions.startListeningToActivities());
+    dispatch(conceptsActions.startListeningToConcepts());
   }
 
   async fetchUser() {
@@ -49,6 +44,7 @@ class AdminContainer extends React.Component<AdminContainerProps> {
   }
 
   render() {
+    const { children, } = this.props
     return (
       <div style={{ display: 'flex', backgroundColor: "white", height: '100vw' }}>
         <section className="section is-fullheight" style={{ display: 'flex', flexDirection: 'row', paddingTop: 0, paddingBottom: 0, }}>
@@ -57,23 +53,23 @@ class AdminContainer extends React.Component<AdminContainerProps> {
               General
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/lessons'}>Proofreader Activities</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/lessons'>Proofreader Activities</TabLink>
             </ul>
             <p className="menu-label">
               Supporting
             </p>
             <ul className="menu-list">
-              <TabLink activeClassName="is-active" to={'/admin/concepts'}>Concepts</TabLink>
+              <TabLink activeClassName="is-active" to='/admin/concepts'>Concepts</TabLink>
             </ul>
           </aside>
           <div className="admin-container">
-            {this.props.children}
+            {children}
           </div>
         </section>
         <Switch>
-          <Route component={Lesson} path={`/admin/lessons/:lessonID`} />
-          <Route component={Lessons} path={`/admin/lessons`} />
-          <Route component={Concepts} path={`/admin/concepts`} />
+          <Route component={Lesson} path="/admin/lessons/:lessonID" />
+          <Route component={Lessons} path="/admin/lessons" />
+          <Route component={Concepts} path="/admin/concepts" />
         </Switch>
       </div>
     );

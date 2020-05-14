@@ -115,69 +115,6 @@ CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
 
 
 --
--- Name: timespent_activity_session(integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-        DECLARE
-            first_item timestamp;
-          last_item timestamp;
-          max_item timestamp;
-          as_created_at timestamp;
-          arow record;
-          time_spent float;
-          item timestamp;
-        BEGIN
-          -- backward compatibility block
-          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          IF as_created_at IS NULL OR as_created_at < timestamp '2018-08-25 00:00:00.000000' THEN
-            SELECT SUM(
-                  CASE
-                  WHEN (activity_sessions.started_at IS NULL)
-                    OR (activity_sessions.completed_at IS NULL)
-                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
-                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
-                  THEN 441
-                  ELSE
-                    EXTRACT (
-                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
-                    )
-                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
-                RETURN COALESCE(time_spent,0);
-          END IF;
-          -- modern calculation (using activity session interaction logs) 
-          first_item := NULL;
-          last_item := NULL;
-          max_item := NULL;
-          time_spent := 0.0;
-          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
-            item := arow;
-            IF last_item IS NULL THEN
-              first_item := item;
-              max_item := item;
-              last_item := item;
-            ELSIF item - last_item <= '2 minute'::interval THEN
-              max_item := item;
-              last_item := item;
-            ELSE
-              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-              first_item := item;
-              last_item := item;
-              max_item := item;
-            END IF;
-          END LOOP;
-          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
-            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-          END IF;
-          RETURN time_spent;
-        END;
-      $$;
-
-
---
 -- Name: timespent_question(integer, character varying); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -478,38 +415,6 @@ CREATE SEQUENCE public.activity_classifications_id_seq
 --
 
 ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_classifications.id;
-
-
---
--- Name: activity_session_interaction_logs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_session_interaction_logs (
-    id integer NOT NULL,
-    date timestamp without time zone,
-    meta jsonb,
-    activity_session_id integer
-);
-
-
---
--- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_session_interaction_logs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_session_interaction_logs_id_seq OWNED BY public.activity_session_interaction_logs.id;
 
 
 --
@@ -2930,13 +2835,6 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
--- Name: activity_session_interaction_logs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs ALTER COLUMN id SET DEFAULT nextval('public.activity_session_interaction_logs_id_seq'::regclass);
-
-
---
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3436,14 +3334,6 @@ ALTER TABLE ONLY public.activity_category_activities
 
 ALTER TABLE ONLY public.activity_classifications
     ADD CONSTRAINT activity_classifications_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_session_interaction_logs activity_session_interaction_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs
-    ADD CONSTRAINT activity_session_interaction_logs_pkey PRIMARY KEY (id);
 
 
 --
@@ -4028,13 +3918,6 @@ CREATE UNIQUE INDEX index_activities_on_uid ON public.activities USING btree (ui
 --
 
 CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_classifications USING btree (uid);
-
-
---
--- Name: index_activity_session_interaction_logs_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_session_interaction_logs_on_activity_session_id ON public.activity_session_interaction_logs USING btree (activity_session_id);
 
 
 --
@@ -5167,14 +5050,6 @@ ALTER TABLE ONLY public.change_logs
 
 
 --
--- Name: activity_session_interaction_logs fk_rails_1ac1e7b3b5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs
-    ADD CONSTRAINT fk_rails_1ac1e7b3b5 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
-
-
---
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5670,7 +5545,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170505195744');
 
 INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
+INSERT INTO schema_migrations (version) VALUES ('20170523175919');
+
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170601140325');
 
 INSERT INTO schema_migrations (version) VALUES ('20170718160133');
 
@@ -5806,6 +5685,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
 INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 
+INSERT INTO schema_migrations (version) VALUES ('20180214051916');
+
 INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221162940');
@@ -5900,6 +5781,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
+INSERT INTO schema_migrations (version) VALUES ('20180809210431');
+
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180815174156');
@@ -5952,6 +5835,8 @@ INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
 INSERT INTO schema_migrations (version) VALUES ('20181105212102');
 
+INSERT INTO schema_migrations (version) VALUES ('20181126221244');
+
 INSERT INTO schema_migrations (version) VALUES ('20181203161708');
 
 INSERT INTO schema_migrations (version) VALUES ('20181214192858');
@@ -6002,5 +5887,9 @@ INSERT INTO schema_migrations (version) VALUES ('20200409151835');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415170227');
 
+INSERT INTO schema_migrations (version) VALUES ('20200417172506');
+
 INSERT INTO schema_migrations (version) VALUES ('20200505171239');
+
+INSERT INTO schema_migrations (version) VALUES ('20200511203004');
 
