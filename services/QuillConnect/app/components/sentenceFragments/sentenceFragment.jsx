@@ -191,7 +191,7 @@ class SentenceFragment extends React.Component {
             <Route component={EditIncorrectSequenceContainer} path={`${match.path}/incorrect-sequences/:incorrectSequenceID/edit`} />
             <Route component={NewIncorrectSequenceContainer} path={`${match.path}/incorrect-sequences/new`} />
             <Route component={IncorrectSequenceContainer} path={`${match.path}/incorrect-sequences`} />
-            <Route component={EditFocusPointsContainer} path={`${match.path}/:focusPointID/edit`} />
+            <Route component={EditFocusPointsContainer} path={`${match.path}/focus-points/:focusPointID/edit`} />
             <Route component={NewFocusPointsContainer} path={`${match.path}/focus-points/new`} />
             <Route component={FocusPointsContainer} path={`${match.path}/focus-points`} />
             <Route component={TestQuestionContainer} path={`${match.path}/test`} />
