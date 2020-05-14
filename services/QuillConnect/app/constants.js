@@ -301,4 +301,39 @@ export default {
 
   // DIAGNOSTIC LESSON ACTIONS
   RECEIVE_DIAGNOSTIC_LESSONS_DATA: 'RECEIVE_DIAGNOSTIC_LESSONS_DATA',
+
+  // NAMING CONSTANTS
+  INTERNAL_SENTENCE_COMBINING_TYPE: 'questions',
+  INTERNAL_SENTENCE_FRAGMENTS_TYPE: 'sentenceFragments',
+  INTERNAL_FILL_IN_BLANK_TYPE: 'fillInBlank',
+  INTERNAL_TITLE_CARDS_TYPE: 'titleCards',
+
+  // DEFAULT INSTRUCTIONS FOR QUESTIONS
+  DEFAULT_SENTENCE_COMBINING_INSTRUCTIONS: [
+    "Combine the sentences into one sentence.",
+    "Combine the sentences into one sentence. Use the joining word.",
+    "Combine the sentences into one sentence. Use one of the joining words.",
+    "Combine the sentences into one sentence. Use both of the joining words.",
+    "Combine the sentences into one sentence. Use two of the joining words.",
+    "Combine the sentences into one sentence. Do not add any new words.",
+    "Combine the sentences into one sentence. Put the describing information at the beginning.",
+    "Combine the sentences into one sentence. Put the describing information in the middle.",
+    "Combine the sentences into one sentence. Put the -ing phrase at the beginning.",
+    "Combine the sentences into one sentence. Put the -ing phrase in the middle.",
+    "Combine the sentences into one sentence. Put the -ing phrase at the end."
+  ],
+  DEFAULT_SENTENCE_FRAGMENT_INSTRUCTIONS: [
+    "Make the fragment a complete sentence by adding one word.",
+    "Make the fragment a complete sentence by adding two or three words.",
+    "Make the fragment a complete sentence by adding one to three words.",
+    "Make the fragment a complete sentence by adding two words. You may also need to update the capitalization and punctuation.",
+    "Make the fragment a complete sentence by adding to it. Add as few words as possible."
+  ],
+  DEFAULT_FILL_IN_BLANKS_INSTRUCTIONS: [
+    "Fill in the blank with the correct joining word.",
+    "Fill in the blank with the correct word.",
+    "Fill in the blank with the correct pronoun.",
+    "Fill in the blank with the correct action word.",
+    "Fill in the blank with the correct set of words."
+  ]
 };

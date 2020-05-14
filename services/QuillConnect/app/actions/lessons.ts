@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import questionActions from './questions'
 import fillInBlankActions from './fillInBlank';
 import sentenceFragmentActions from './sentenceFragments';
-import * as titleCardActions from './titleCards.ts';
+import titleCardActions from './titleCards.ts';
 
 	// called when the app starts. this means we immediately download all quotes, and
 	// then receive all quotes again as soon as anyone changes anything.
@@ -83,7 +83,9 @@ import * as titleCardActions from './titleCards.ts';
     return (dispatch, getState) => {
       dispatch({ type: C.SUBMIT_LESSON_EDIT, cid, });
       const cleanedContent = pickBy(content)
-      dispatch(updateQuestions(cleanedContent, qids))
+      if (cleanedContent.questionType != C.INTERNAL_TITLE_CARDS_TYPE) {
+        dispatch(updateQuestions(cleanedContent, qids))
+      }
       LessonApi.update(TYPE_CONNECT_LESSON, cid, cleanedContent).then((lesson) => {
         dispatch(loadLesson(cid))
         dispatch({ type: C.FINISH_LESSON_EDIT, cid, });
@@ -123,7 +125,9 @@ import * as titleCardActions from './titleCards.ts';
         dispatch(loadLesson(lessonUid))
         dispatch({ type: C.RECEIVE_NEW_LESSON_RESPONSE, });
         const qids = cleanedContent.questions ? cleanedContent.questions.map(q => q.key) : []
-        dispatch(updateQuestions(cleanedContent, qids))
+        if (cleanedContent.questionType != C.INTERNAL_TITLE_CARDS_TYPE) {
+          dispatch(updateQuestions(cleanedContent, qids))
+        }
         dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
         const action = push(`/admin/lessons/${lessonUid}`);
         dispatch(action);

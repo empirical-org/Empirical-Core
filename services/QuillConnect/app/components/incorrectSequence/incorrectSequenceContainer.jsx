@@ -110,26 +110,30 @@ class IncorrectSequencesContainer extends Component {
     const { match } = this.props
     const { params } = match
     const { questionID } = params
-    const components = _.mapObject(this.getSequences(), (val, key) => (
-      <div className="card is-fullwidth has-bottom-margin" key={key}>
-        <header className="card-header">
-          <p className="card-header-title" style={{ display: 'inline-block', }}>
-            {this.renderTagsForSequence(val.text)}
-          </p>
-          <p className="card-header-icon">
-            {val.order}
-          </p>
-        </header>
-        <div className="card-content">
-          <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + val.feedback, }} />
-          {this.renderConceptResults(val.conceptResults, key)}
-        </div>
-        <footer className="card-footer">
-          <NavLink className="card-footer-item" to={`/admin/${questionTypeLink}/${questionID}/incorrect-sequences/${key}/edit`}>Edit</NavLink>
-          <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
-        </footer>
-      </div>
-    ));
+    const components = _.mapObject(this.getSequences(), (val, key) => {
+      if (val.text) {
+        return (
+          <div className="card is-fullwidth has-bottom-margin" key={key}>
+            <header className="card-header">
+              <p className="card-header-title" style={{ display: 'inline-block', }}>
+                {this.renderTagsForSequence(val.text)}
+              </p>
+              <p className="card-header-icon">
+                {val.order}
+              </p>
+            </header>
+            <div className="card-content">
+              <p className="control title is-4" dangerouslySetInnerHTML={{ __html: '<strong>Feedback</strong>: ' + val.feedback, }} />
+              {this.renderConceptResults(val.conceptResults, key)}
+            </div>
+            <footer className="card-footer">
+              <NavLink className="card-footer-item" to={`${match.url}/${key}/edit`}>Edit</NavLink>
+              <a className="card-footer-item" onClick={() => this.deleteSequence(key)}>Delete</a>
+            </footer>
+          </div>
+        )
+      }
+    });
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
@@ -146,7 +150,7 @@ class IncorrectSequencesContainer extends Component {
       <div>
         <div className="has-top-margin">
           <h1 className="title is-3" style={{ display: 'inline-block', }}>Incorrect Sequences</h1>
-          <a className="button is-outlined is-primary" href={`/#/admin/${questionTypeLink}/${questionID}/incorrect-sequences/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
+          <a className="button is-outlined is-primary" href={`#${match.url}/new`} style={{ float: 'right', }}>Add Incorrect Sequence</a>
         </div>
         {this.renderSequenceList()}
       </div>

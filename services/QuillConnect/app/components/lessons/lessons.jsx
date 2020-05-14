@@ -54,6 +54,9 @@ class Lessons extends React.Component {
       })
     }
     return keys.map(key => {
+      if (!data[key].questions) {
+        return ''
+      }
       let questions = data[key].questions.map((q) => {
         const questionsData = this.props[q.questionType].data
         if (questionsData[q.key]) return questionsData[q.key].prompt

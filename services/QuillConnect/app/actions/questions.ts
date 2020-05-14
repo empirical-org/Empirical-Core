@@ -20,7 +20,8 @@ import {
   IncorrectSequenceApi,
   SENTENCE_COMBINING_TYPE
 } from '../libs/questions_api'
-
+import { LessonApi, TYPE_CONNECT_LESSON} from  '../libs/lessons_api'
+import lessonActions from '../actions/lessons'
 
 
 function startListeningToQuestions() {
@@ -86,7 +87,7 @@ function toggleNewQuestionModal() {
   return { type: C.TOGGLE_NEW_QUESTION_MODAL, };
 }
 
-function submitNewQuestion(content, response) {
+function submitNewQuestion(content, response, lessonID) {
   return (dispatch, getState) => {
     dispatch({ type: C.AWAIT_NEW_QUESTION_RESPONSE, });
     QuestionApi.create(SENTENCE_COMBINING_TYPE, content).then((question) => {
@@ -96,8 +97,21 @@ function submitNewQuestion(content, response) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const action = push(`/admin/questions/${response.questionUID}`);
-      dispatch(action);
+      if (lessonID) {
+        const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_COMBINING_TYPE}
+        dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
+        LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+          dispatch(lessonActions.loadLesson(lessonID));
+          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
+        }).catch( (error) => {
+          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+          dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
+        });
+      } else {
+        const action = push(`/admin/questions/${response.questionUID}`);
+        dispatch(action);
+      }
     }, (error) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
