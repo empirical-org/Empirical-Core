@@ -10,7 +10,7 @@ declare global {
 
 import request from 'request';
 import _ from 'underscore';
-import { push } from 'react-router-redux';
+import { push, goBack } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
@@ -78,7 +78,7 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      const action = push(`/admin/fill-in-the-blanks/${qid}/responses`);
+      const action = goBack();
       dispatch(action);
     }).catch( (error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });

@@ -475,3 +475,19 @@ textarea.submission {
     }
   }
 }
+
+.lesson-sidebar-section {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.lesson-sidebar {
+  width: 300;
+  border-right: 1px solid #e3e3e3;
+  padding: 15;
+  padding-left: 0;
+  overflow-y: scroll;
+  height: 100vh;
+}

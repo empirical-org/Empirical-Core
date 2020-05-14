@@ -33,7 +33,7 @@ class FillInBlankQuestion extends Component {
       return (<p>Loading...</p>);
     } else if (question) {
       const activeLink = massEdit.numSelectedResponses > 1
-      ? <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/mass-edit`}>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
+      ? <NavLink activeClassName="is-active" to='mass-edit'>Mass Edit ({massEdit.numSelectedResponses})</NavLink>
       : <li style={{color: "#a2a1a1"}}>Mass Edit ({massEdit.numSelectedResponses})</li>
       const data = fillInBlank.data
       return (
@@ -51,20 +51,20 @@ class FillInBlankQuestion extends Component {
             <p>{question.instructions || 'Combine the sentences into one sentence.'}</p>
           </div>
           <p className="control button-group" style={{ marginTop: 10, }}>
-            <Link className="button is-outlined is-primary" to={`/admin/fill-in-the-blanks/${questionID}/edit`}>Edit Question</Link>
+            <Link className="button is-outlined is-primary" to='edit'>Edit Question</Link>
           </p>
           <div className="tabs">
             <ul>
-              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/responses`}>Responses</NavLink>
-              <NavLink activeClassName="is-active" to={`/admin/fill-in-the-blanks/${questionID}/test`}>Play Question</NavLink>
+              <NavLink activeClassName="is-active" to={`${match.url}/responses`}>Responses</NavLink>
+              <NavLink activeClassName="is-active" to='test'>Play Question</NavLink>
               {activeLink}
             </ul>
           </div>
           <Switch>
-            <Route component={ResponseComponentWrapper} path={`/admin/fill-in-the-blanks/:questionID/responses`} />
-            <Route component={MassEditContainer} path={`/admin/fill-in-the-blanks/:questionID/mass-edit`} />
-            <Route component={TestFillInBlankQuestionContainer} path={`/admin/fill-in-the-blanks/:questionID/test`} />
-            <Route component={EditFillInBlank} path={`/admin/fill-in-the-blanks/:questionID/edit`} />
+            <Route component={ResponseComponentWrapper} path={`${match.path}/responses`} />
+            <Route component={MassEditContainer} path={`${match.path}/mass-edit`} />
+            <Route component={TestFillInBlankQuestionContainer} path={`${match.path}/test`} />
+            <Route component={EditFillInBlank} path={`${match.path}/edit`} />
           </Switch>
         </div>
       );
