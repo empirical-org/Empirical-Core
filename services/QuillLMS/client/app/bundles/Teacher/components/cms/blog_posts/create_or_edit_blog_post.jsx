@@ -719,7 +719,7 @@ export default class CreateOrEditBlogPost extends React.Component {
           <label>Press Name (optional):</label>
           <input onChange={this.handlePressNameChange} type="text" value={pressName} />
 
-          <div className='dropdown-container'>
+          <div className='blog-dropdown-container'>
             <div>
               <label>Author:</label>
               <ItemDropdown callback={this.changeAuthor} className="blog-dropdown" items={[nullAuthor].concat(authors)} selectedItem={authors.find(a => a.id === author_id) || nullAuthor} />

@@ -11,7 +11,7 @@ export default class Classroom extends React.Component {
 
  handleClassroomSelection = (e) => {
    const { classroom, toggleClassroomSelection } = this.props
-   const checked = e.target.checked;
+   const { checked, } = e.target
    toggleClassroomSelection(classroom, checked);
  };
 
