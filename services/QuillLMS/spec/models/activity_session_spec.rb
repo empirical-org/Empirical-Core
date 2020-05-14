@@ -829,4 +829,30 @@ end
       expect(activity_session.minutes_to_complete).to be_nil
     end
   end
+
+  describe "#timespent" do
+    it "should be nil for unfinished sessions" do
+      activity_session = build(:activity_session, state: 'started')
+      expect(activity_session.timespent).to be_nil
+    end
+
+    it "should be nil for finished sessions without data" do
+      activity_session = build(:activity_session, state: 'finished', started_at: nil, completed_at: nil)
+      expect(activity_session.timespent).to be_nil
+    end
+
+    it "should calculate time using started and completed" do
+      time = Time.zone.now
+      interval = 76.seconds
+      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time)
+      expect(activity_session.timespent).to eq(76)
+    end
+
+    it "should have calculation overridden by DB value" do
+      time = Time.zone.now
+      interval = 76.seconds
+      activity_session = build(:activity_session, state: 'finished', started_at: time - interval, completed_at: time, timespent: 99)
+      expect(activity_session.timespent).to eq(99)
+    end
+  end
 end
