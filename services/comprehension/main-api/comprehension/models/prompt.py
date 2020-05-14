@@ -117,6 +117,7 @@ class Prompt(TimestampedModel):
     @property
     def conjunction(self):
         """
-        We assume that the last word of the text value is the prompt conjunction
+        We assume that the last word of the text value is the prompt
+        conjunction
         """
         return self.text.split(' ')[-1]

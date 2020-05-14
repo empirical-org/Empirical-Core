@@ -4,4 +4,4 @@ from .views.api import ActivityViewSet
 
 
 ApiRouter = routers.DefaultRouter()
-ApiRouter.register(r'activities', ActivityViewSet)
+ApiRouter.register(r'activities', ActivityViewSet, 'activities')

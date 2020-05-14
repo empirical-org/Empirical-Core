@@ -1,6 +1,5 @@
 from django.test import RequestFactory, TestCase
 
-from ...models.activity import Activity
 from ...views import index
 
 
