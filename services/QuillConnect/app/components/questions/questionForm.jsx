@@ -69,7 +69,7 @@ export default class extends React.Component {
         type="button"
         value={item}
       >
-          {item}
+        {item}
       </button>)
     )
     if (showDefaultInstructions) {
