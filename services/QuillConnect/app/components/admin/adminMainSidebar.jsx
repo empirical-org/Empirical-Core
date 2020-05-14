@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const TabLink = props => {
-  const { children, to } = props
+const TabLink = ({ children, to }) => {
   return (<li>
     <NavLink activeClassName="is-active" to={to}>{children}</NavLink>
   </li>)

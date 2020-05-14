@@ -65,7 +65,7 @@
     "expect-jsx": "^2.2.1",
     "file-loader": "^3.0.1",
     "hard-source-webpack-plugin": "^0.5.18",
-    "history": "^2.0.1",
+    "history": "^3.3.0",
     "jest": "^24.9.0",
     "jsdom": "11.11.0",
     "jsdom-global": "3.0.2",

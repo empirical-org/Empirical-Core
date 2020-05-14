@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as userActions from '../../actions/users';
 import conceptActions from '../../actions/concepts';
@@ -10,7 +10,7 @@ import sentenceFragmentActions from '../../actions/sentenceFragments';
 import diagnosticLessonActions from '../../actions/diagnosticLessons'
 import titleCardActions from '../../actions/titleCards.ts';
 import AdminMainSidebar from '../../components/admin/adminMainSidebar.jsx'
-import AdminLessonSidebar from '../../components/admin/adminLessonSidebar.jsx'
+import AdminLesson from './adminLesson.jsx'
 import ConceptsFeedback from '../feedback/concepts-feedback.jsx';
 import ConceptFeedback from '../feedback/concept-feedback.jsx';
 import Concepts from '../concepts/concepts.jsx';
@@ -70,10 +70,7 @@ class adminContainer extends React.Component {
     return (
       <div className="main-admin-container">
         <Switch>
-          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/questions/:questionID' />
-          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/sentence-fragments/:questionID' />
-          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID' />
-          <Route component={AdminLessonSidebar} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID' />
+          <Route component={AdminLesson} path='/admin/lesson-view' />
           <Route component={AdminMainSidebar} path='/admin' />
         </Switch>
         <Switch>
@@ -84,21 +81,16 @@ class adminContainer extends React.Component {
           <Route component={Concepts} path='/admin/concepts' />
           <Route component={Lesson} path='/admin/lessons/:lessonID' />
           <Route component={Lessons} path='/admin/lessons' />
-          <Route component={Question} path='/admin/lesson-view/:lessonID/questions/:questionID' />
           <Route component={Question} path='/admin/questions/:questionID' />
           <Route component={Questions} path='/admin/questions' />
           <Route component={TitleCardForm} path='/admin/title-cards/:titleCardID/edit' />
-          <Route component={TitleCardForm} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID/edit' />
-          <Route component={ShowTitleCard} path='/admin/lesson-view/:lessonID/title-cards/:titleCardID' />
           <Route component={ShowTitleCard} path='/admin/title-cards/:titleCardID' />
           <Route component={TitleCards} path='/admin/title-cards' />
-          <Route component={FillInBlankQuestion} path='/admin/lesson-view/:lessonID/fill-in-the-blanks/:questionID' />
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
           <Route component={FillInBlankQuestions} path='/admin/fill-in-the-blanks' />
           <Route component={FillInBlankQuestion} path='/admin/fill-in-the-blanks/:questionID' />
           <Route component={TestFillInBlankQuestionContainer} path='/admin/fill-in-the-blanks/test' />
-          <Route component={SentenceFragment} path='/admin/lesson-view/:lessonID/sentence-fragments/:questionID' />
           <Route component={SentenceFragment} path='/admin/sentence-fragments/:questionID' />
           <Route component={ChooseModelContainer} path='/admin/sentence-fragments/choose-model' />
           <Route component={TestSentenceFragmentContainer} path='/admin/sentence-fragments/test' />
