@@ -166,11 +166,13 @@ export const cancelQuestionEdit = (qid: string) => {
   return { type: ActionTypes.FINISH_QUESTION_EDIT, qid, };
 }
 
-export const submitQuestionEdit = (qid: string, content: Question) => {
+export const submitQuestionEdit = (qid: string, formContent: Question) => {
   return (dispatch: Function, getState: Function) => {
+    const unmodifiedContent = getState().questions.data[qid]
+    const updatedContent = Object.assign(unmodifiedContent, formContent)
     dispatch({ type: ActionTypes.SUBMIT_QUESTION_EDIT, qid, });
-    content.answers.forEach(a => dispatch(saveOptimalResponse(qid, content.concept_uid, a)))
-    QuestionApi.update(qid, content).then(() => {
+    updatedContent.answers.forEach(a => dispatch(saveOptimalResponse(qid, updatedContent.concept_uid, a)))
+    QuestionApi.update(qid, updatedContent).then(() => {
       dispatch(getQuestion(qid))
       dispatch({ type: ActionTypes.FINISH_QUESTION_EDIT, qid, });
       dispatch({ type: ActionTypes.DISPLAY_MESSAGE, message: 'Update successfully saved!', });

@@ -119,7 +119,7 @@ export default class Cms extends React.Component {
       if (this.state.flag === 'Not Archived') {
         originalOrder = originalOrder.filter(resource => resource.flag !== 'archived')
       }
-      const newOrder = sortInfo.data.items.map(item => item.key);
+      const newOrder = sortInfo.map(item => item.key);
       const newOrderedResources = newOrder.map((key, i) => {
         const newResource = originalOrder[key];
         newResource.order_number = i;

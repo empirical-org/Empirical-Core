@@ -38,9 +38,6 @@ then
   rm -rf ./dist
 fi
 
-# Slack deploy start
-sh ../../scripts/post_slack_deploy.sh $app_name $1 $current_branch false
-
 # Execute a new build
 npm run build
 
