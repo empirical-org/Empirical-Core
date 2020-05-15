@@ -25,11 +25,21 @@ class ActivityModelTest(TestCase):
 
     def test_flag_default_to_draft(self):
         new_act = Activity(title=self.activity.title)
-        self.assertEqual(new_act.flag, Activity.FLAGS.DRAFT)
+        self.assertEqual(new_act.flag, Activity.FLAGS.ALPHA)
 
     def test_target_reading_level_nullable(self):
         self.activity.target_reading_level = None
         self.assertIsNone(self.activity.full_clean())
+
+    def test_target_reading_level_min_validation(self):
+        self.activity.target_reading_level = 3 # min is 4
+        with self.assertRaises(ValidationError):
+            self.assertIsNone(self.activity.full_clean())
+
+    def test_target_reading_level_max_validation(self):
+        self.activity.target_reading_level = 13 # max is 12
+        with self.assertRaises(ValidationError):
+            self.assertIsNone(self.activity.full_clean())
 
     def test_scored_reading_level_nullable(self):
         self.activity.scored_reading_level = None

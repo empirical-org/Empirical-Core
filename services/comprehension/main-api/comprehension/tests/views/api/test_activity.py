@@ -112,8 +112,8 @@ class TestActivityApiCreateView(TestCase):
         self.user = UserFactory(is_staff=True)
         self.payload = {
             "title": "Test create title",
-            "target_reading_level": 1,
-            "scored_reading_level": 1,
+            "target_reading_level": 4,
+            "scored_reading_level": 4,
             "passages": [{"text": "Test create passage text"}],
             "prompts": [
                 {
@@ -185,8 +185,8 @@ class TestActivityApiUpdateView(TestCase):
         self.user = UserFactory(is_staff=True)
         self.payload = {
             "title": "Test create title",
-            "target_reading_level": 1,
-            "scored_reading_level": 1,
+            "target_reading_level": 4,
+            "scored_reading_level": 4,
             "passages": [{"text": "Test create passage text"}],
             "prompts": [
                 {

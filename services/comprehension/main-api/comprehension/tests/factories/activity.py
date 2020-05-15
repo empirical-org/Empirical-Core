@@ -7,6 +7,6 @@ class ActivityFactory(factory.django.DjangoModelFactory):
         model = Activity
 
     title = 'Test title'
-    flag = Activity.FLAGS.DRAFT
-    target_reading_level = '7'
+    flag = Activity.FLAGS.ALPHA
+    target_reading_level = 7
     scored_reading_level = '7'
