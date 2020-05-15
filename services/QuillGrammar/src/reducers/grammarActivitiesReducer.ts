@@ -53,6 +53,8 @@ export default (
             newstate = _.cloneDeep(currentState);
             newstate.states[action.cid] = ActionTypes.SUBMITTING_LESSON;
             return newstate;
+        case ActionTypes.START_NEW_ACTIVITY:
+        return Object.assign({}, currentState, { currentActivity: null, })
         default:
             return currentState;
     }
