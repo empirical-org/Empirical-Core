@@ -99,7 +99,8 @@ export default class CmsUserIndex extends React.Component {
     }
   };
 
-  search = () => {
+  search = (e) => {
+    e.preventDefault();
     this.setState({loading: true})
     const link = `${process.env.DEFAULT_URL}/cms/users/search`
     const data = new FormData();
@@ -219,58 +220,61 @@ export default class CmsUserIndex extends React.Component {
   }
 
   render() {
-    return (<div>
-      <div className='cms-form'>
-        <div className='cms-meta-middle'>
-          <div className='cms-form-row'>
-            <label>Name</label>
-            <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name} />
-          </div>
+    return (
+      <div>
+        <form acceptCharset="UTF-8" onSubmit={this.search} >
+          <div className='cms-form'>
+            <div className='cms-meta-middle'>
+              <div className='cms-form-row'>
+                <label>Name</label>
+                <input id='user_name' name='user_name' onChange={e => this.updateField(e, 'user_name')} value={this.state.query.user_name} />
+              </div>
 
-          <div className='cms-form-row'>
-            <label>Username</label>
-            <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username} />
-          </div>
+              <div className='cms-form-row'>
+                <label>Username</label>
+                <input id='user_username' name='user_username' onChange={e => this.updateField(e, 'user_username')} value={this.state.query.user_username} />
+              </div>
 
-          <div className='cms-form-row'>
-            <label>Email</label>
-            <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email} />
-          </div>
+              <div className='cms-form-row'>
+                <label>Email</label>
+                <input id='user_email' name='user_email' onChange={e => this.updateField(e, 'user_email')} value={this.state.query.user_email} />
+              </div>
 
-          <div className='cms-form-row'>
-            <label>Ip</label>
-            <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} value={this.state.query.user_ip} />
-          </div>
+              <div className='cms-form-row'>
+                <label>Ip</label>
+                <input id='user_ip' name='user_ip' onChange={e => this.updateField(e, 'user_ip')} value={this.state.query.user_ip} />
+              </div>
 
-          <div className='cms-form-row'>
-            <label>School Name</label>
-            <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
-          </div>
-        </div>
+              <div className='cms-form-row'>
+                <label>School Name</label>
+                <input id='school_name' name='school_name' onChange={e => this.updateField(e, 'school_name')} value={this.state.query.school_name} />
+              </div>
+            </div>
 
-        <div className='cms-meta-right'>
-          <div className='cms-form-row'>
-            <label>Premium Status</label>
-            {this.renderPremiumStatusSelect()}
-          </div>
+            <div className='cms-meta-right'>
+              <div className='cms-form-row'>
+                <label>Premium Status</label>
+                {this.renderPremiumStatusSelect()}
+              </div>
 
-          <div className='cms-form-row'>
-            <label>Role</label>
-            {this.renderUserRoleSelect()}
-          </div>
+              <div className='cms-form-row'>
+                <label>Role</label>
+                {this.renderUserRoleSelect()}
+              </div>
 
-          <div className='cms-form-row'>
-            <label>Flags Contain</label>
-            {this.renderUserFlagSelect()}
-          </div>
+              <div className='cms-form-row'>
+                <label>Flags Contain</label>
+                {this.renderUserFlagSelect()}
+              </div>
 
-          <div className='cms-submit-row'>
-            <input onClick={this.search} type="submit" value="Submit" />
+              <div className='cms-submit-row'>
+                <input type="submit" value="Submit" />
+              </div>
+            </div>
           </div>
-        </div>
+        </form>
+        {this.renderTableOrLoading()}
       </div>
-      {this.renderTableOrLoading()}
-    </div>
     )
   }
 }

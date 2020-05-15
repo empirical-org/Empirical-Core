@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextEditor, FlagDropdown } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import ConceptSelector from '../shared/conceptSelector.jsx';
+import C from '../../constants.js'
 
 
 class FillInBlankForm extends Component {
@@ -18,6 +19,7 @@ class FillInBlankForm extends Component {
       instructions: instructions || '',
       newQuestionOptimalResponse: '',
       prompt: prompt || '',
+      showDefaultInstructions: false,
     };
   }
 
@@ -30,7 +32,8 @@ class FillInBlankForm extends Component {
       instructions: '',
       conceptID: null,
       flag: 'alpha',
-      cuesLabel: ''
+      cuesLabel: '',
+      showDefaultInstructions: false,
     });
   }
 
@@ -48,6 +51,11 @@ class FillInBlankForm extends Component {
 
   handleInstructionsChange = e => {
     this.setState({instructions: e.target.value});
+    if (e.target.value == '/') {
+      this.setState({ showDefaultInstructions: true})
+    } else {
+      this.setState({ showDefaultInstructions: false})
+    }
   };
 
   handleNewQuestionOptimalResponseChange = e => {
@@ -62,19 +70,57 @@ class FillInBlankForm extends Component {
     this.setState({conceptID: e.value});
   };
 
+  renderDefaultInstructions = () => {
+    const { showDefaultInstructions } = this.state
+    const defaultInstructionsDiv = C.DEFAULT_FILL_IN_BLANKS_INSTRUCTIONS.map((item, i) =>
+      (<button
+        className="default"
+        key={i}
+        onClick={this.handleInstructionsChange}
+        type="button"
+        value={item}
+      >
+        {item}
+      </button>)
+                                    )
+    if (showDefaultInstructions) {
+      return (
+        <div style={{position: 'relative'}}>
+          <div className='default-instructions'>
+            {defaultInstructionsDiv}
+          </div>
+        </div>
+      )
+    }
+  };
+
   submit = () => {
-    const { questionID } = this.state
+    const { questionID, newQuestionOptimalResponse, prompt, blankAllowed, caseInsensitive, cues, instructions, conceptID, flag, cuesLabel } = this.state
+    const { action } = this.props
     const data = {
-      prompt: this.state.prompt,
-      blankAllowed: this.state.blankAllowed ? this.state.blankAllowed : false,
-      caseInsensitive: this.state.caseInsensitive ? this.state.caseInsensitive : false,
-      cues: this.state.cues.split(','),
-      instructions: this.state.instructions,
-      conceptID: this.state.conceptID,
-      flag: this.state.flag ? this.state.flag : 'alpha',
-      cuesLabel: this.state.cuesLabel
+      prompt: prompt,
+      blankAllowed: blankAllowed ? blankAllowed : false,
+      caseInsensitive: caseInsensitive ? caseInsensitive : false,
+      cues: cues.split(','),
+      instructions: instructions,
+      conceptID: conceptID,
+      flag: flag ? flag : 'alpha',
+      cuesLabel: cuesLabel
     };
-    this.props.action(data, this.state.newQuestionOptimalResponse);
+    data.prompt = data.prompt.replace('<p>', '').replace('</p>', '')
+    if (this.props.new && data.prompt != '') {
+      action(
+        data,
+        {
+          text: newQuestionOptimalResponse.trim(),
+          optimal: true,
+          count: 0,
+          feedback: "That's a strong sentence!"
+        }
+      );
+    } else {
+      action(data, newQuestionOptimalResponse);
+    }
   };
 
   toggleQuestionBlankAllowed = () => {
@@ -103,6 +149,7 @@ class FillInBlankForm extends Component {
   }
 
   render() {
+    const { instructions } = this.state
     return(
       <form className="box" onSubmit={this.submit}>
         <h6 className="control subtitle">Create a new question</h6>
@@ -116,8 +163,9 @@ class FillInBlankForm extends Component {
         <br />
         <label className="label">Instructions for student</label>
         <p className="control">
-          <textarea className="input" onChange={this.handleInstructionsChange} type="text" value={this.state.instructions} />
+          <textarea className="input" onChange={this.handleInstructionsChange} placeholder="Type '/' for list of instructions" ref="instructions" type="text" value={instructions} />
         </p>
+        {this.renderDefaultInstructions()}
         <label className="label">Cues Label (default is "joining words"/"joining word" for single cues, enter a space to have no label)</label>
         <p className="control">
           <input className="input" onChange={this.handleCuesLabelChange} type="text" value={this.state.cuesLabel} />

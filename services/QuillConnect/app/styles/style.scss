@@ -401,8 +401,8 @@ textarea.submission {
 }
 
 .admin-menu {
-  min-width: 220; 
-  border-right: '1px solid #e3e3e3'; 
+  min-width: 220;
+  border-right: '1px solid #e3e3e3';
   padding: 30px 15px 15px 0px;
 }
 
@@ -438,4 +438,79 @@ textarea.submission {
 .concepts-container {
   width: 100%;
   margin-bottom: 20px;
+}
+
+.activities-list {
+  width: 800px;
+}
+
+.edit-activity {
+  padding: 20px;
+  .button {
+    border: 1px solid black;
+    margin-right: 10px;
+  }
+  .button:hover {
+    border: 1px solid lightgray;
+  }
+  ul {
+    max-width: 800px;
+    a {
+      color: black;
+      display: inline-block;
+      padding: 12 8 12 8;
+    }
+    a:hover {
+      background-color: #f7f5f5;
+    }
+    .selected {
+      background-color: #00c2a2;
+      a {
+        background-color: #00c2a2;
+        color: white;
+      }
+    }
+    .tag {
+      margin-left: 3px;
+    }
+  }
+}
+
+.default-instructions {
+  position: absolute;
+  background-color: white;
+  background: white;
+  z-index: 1;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  button {
+    text-align: left;
+    color: black;
+    display: block;
+    padding: 5px;
+    background: none;
+    border: none;
+    font-size: 1em;
+    width: 100%;
+  }
+  button:hover {
+    cursor: pointer;
+    background-color: #f7f5f5;
+  }
+}
+
+.lesson-sidebar-section {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.lesson-sidebar {
+  width: 300;
+  border-right: 1px solid #e3e3e3;
+  padding: 15;
+  padding-left: 0;
+  overflow-y: scroll;
+  height: 100vh;
 }

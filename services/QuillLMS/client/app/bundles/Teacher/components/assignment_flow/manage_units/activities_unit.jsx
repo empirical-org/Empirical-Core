@@ -222,48 +222,48 @@ export default class ActivitiesUnit extends React.Component {
   }
 
   updateSortOrder = (sortableListState) => {
-    // There are data states in which this update call is triggered with no items in the
-    // sortableListState.  If there are no items, there's nothing to do, so we bail
-    if (!sortableListState.items) return;
-
     const startingSortOrder = this.state.activityOrder;
-    const newSortOrder = sortableListState.items.map( (i) => i.props.data.activityId );
-    // Check to see if the drag/drop action is completed
-    // (draggingIndex === null on drag initiation and termination, and a change in order
-    // guarantees that it isn't an initiation)
-    if (!startingSortOrder.every((e, i) => e == newSortOrder[i]) &&
-        sortableListState.draggingIndex === null) {
-      this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
-    }
+    const newSortOrder = sortableListState.map( (i) => i.props.data.activityId );
+    this.setState({activityOrder: newSortOrder}, this.saveSortOrder);
   }
 
   renderClassroomActivities = () => {
+    const { allowSorting, activityOrder, classroomActivities, } = this.state
+    const {
+      activityReport,
+      activityWithRecommendationsIds,
+      hideUnitActivity,
+      data,
+      lesson,
+      report,
+      updateDueDate,
+    } = this.props
     const classroomActivitiesArr = [];
     let i = 0;
-    for (let key of this.state.activityOrder) {
-      const ca = this.state.classroomActivities.get(key);
+    for (let key of activityOrder) {
+      const ca = classroomActivities.get(key);
       if (ca) {
         classroomActivitiesArr.push(
           <ClassroomActivity
-            activityReport={this.props.activityReport}
-            activityWithRecommendationsIds={this.props.activityWithRecommendationsIds}
+            activityReport={activityReport}
+            activityWithRecommendationsIds={activityWithRecommendationsIds}
             data={ca}
-            hideUnitActivity={this.props.hideUnitActivity}
+            hideUnitActivity={hideUnitActivity}
             isFirst={i === 0}
-            key={`${this.props.data.unitId}-${key}`}
-            lesson={this.props.lesson}
+            key={`${data.unitId}-${key}`}
+            lesson={lesson}
             numberOfStudentsAssignedToUnit={this.numberOfStudentsAssignedToUnit()}
-            report={this.props.report}
-            unitId={this.props.data.unitId}
+            report={report}
+            unitId={data.unitId}
             updateAllDueDates={this.updateAllDueDates}
-            updateDueDate={this.props.updateDueDate}
+            updateDueDate={updateDueDate}
           />
         );
         i += 1;
       }
     }
-    if (this.state.allowSorting) {
-      return <SortableList data={classroomActivitiesArr} sortCallback={this.updateSortOrder} />
+    if (allowSorting) {
+      return <SortableList data={classroomActivitiesArr} helperClass="sortable-activity-row" sortCallback={this.updateSortOrder} />
     } else {
       return classroomActivitiesArr;
     }

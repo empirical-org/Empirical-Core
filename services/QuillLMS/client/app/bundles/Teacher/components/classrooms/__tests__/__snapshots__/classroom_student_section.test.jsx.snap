@@ -26,6 +26,7 @@ exports[`ClassroomStudentSection component classroom without students should ren
     className="no-students"
   >
     <img
+      alt="Three empty desks"
       src="undefined/images/illustrations/empty-desks.svg"
     />
     <p>
@@ -48,13 +49,22 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     <div
       className="students-section-header-buttons"
     >
-      <a
-        className="quill-button secondary outlined small"
-        href="/teachers/classrooms/285383/student_logins"
-        target="_blank"
-      >
-        Download setup instructions
-      </a>
+      <div>
+        <a
+          className="quill-button secondary outlined small"
+          href="/teachers/classrooms/285383/student_logins"
+          target="_blank"
+        >
+          Download setup instructions
+        </a>
+        <button
+          className="quill-button secondary outlined small"
+          onClick={[Function]}
+          type="button"
+        >
+          View as student
+        </button>
+      </div>
       <div
         className="invite-quill-classroom-students"
       >
@@ -75,6 +85,10 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
     label="Actions"
     options={
       Array [
+        Object {
+          "label": "View as student",
+          "value": [Function],
+        },
         Object {
           "label": "Remove from class",
           "value": [Function],
@@ -119,6 +133,10 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             },
             Object {
               "action": [Function],
+              "name": "View as student",
+            },
+            Object {
+              "action": [Function],
               "name": "Remove from class",
             },
           ],
@@ -137,6 +155,10 @@ exports[`ClassroomStudentSection component with students should render 1`] = `
             Object {
               "action": [Function],
               "name": "Reset password",
+            },
+            Object {
+              "action": [Function],
+              "name": "View as student",
             },
             Object {
               "action": [Function],

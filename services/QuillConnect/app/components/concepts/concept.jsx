@@ -5,7 +5,6 @@ import actions from '../../actions/concepts'
 import questionActions from '../../actions/questions'
 import _ from 'underscore'
 import { hashToCollection } from 'quill-component-library/dist/componentLibrary'
-import QuestionForm from '../questions/questionForm'
 
 class Concept extends React.Component {
   state = {
@@ -46,11 +45,6 @@ class Concept extends React.Component {
     dispatch(questionActions.submitNewQuestion(questionObjWithConceptID, optimalResponseObj))
   };
 
-  renderNewQuestionForm = () => {
-    const { itemLevels } = this.props
-    return <QuestionForm itemLevels={itemLevels} new={true} question={{}} submit={this.submitNewQuestion} />
-  };
-
   renderQuestionsForConcept = () => {
     const questionsForConcept = this.questionsForConcept()
     const listItems = questionsForConcept.map((question) => {
@@ -73,7 +67,6 @@ class Concept extends React.Component {
           <Link to={'admin/concepts'}>Return to All Concepts</Link>
           <h4 className="title">{concept.displayName}</h4>
           <h6 className="subtitle">{this.questionsForConcept().length} Questions</h6>
-          {this.renderNewQuestionForm()}
           {this.renderQuestionsForConcept()}
         </div>
       )
