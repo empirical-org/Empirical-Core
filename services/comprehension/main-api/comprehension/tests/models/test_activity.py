@@ -32,12 +32,12 @@ class ActivityModelTest(TestCase):
         self.assertIsNone(self.activity.full_clean())
 
     def test_target_reading_level_min_validation(self):
-        self.activity.target_reading_level = 3 # min is 4
+        self.activity.target_reading_level = 3  # min is 4
         with self.assertRaises(ValidationError):
             self.assertIsNone(self.activity.full_clean())
 
     def test_target_reading_level_max_validation(self):
-        self.activity.target_reading_level = 13 # max is 12
+        self.activity.target_reading_level = 13  # max is 12
         with self.assertRaises(ValidationError):
             self.assertIsNone(self.activity.full_clean())
 
