@@ -115,21 +115,16 @@ function submitNewSentenceFragment(content, response, lessonID) {
       dispatch(submitResponse(response));
       dispatch(loadSentenceFragment(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      if (lessonID) {
-        const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_FRAGMENTS_TYPE}
-        dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
-        LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
-          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
-          dispatch(lessonActions.loadLesson(lessonID));
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
-        }).catch( (error) => {
-          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
-          dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
-        });
-      } else {
-        const action = push(`/admin/sentence-fragments/${response.questionUID}`);
-        dispatch(action);
-      }
+      const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_SENTENCE_FRAGMENTS_TYPE}
+      dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
+      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+        dispatch(lessonActions.loadLesson(lessonID));
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
+      }).catch( (error) => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
+      });
     }, (error) => {
       dispatch({ type: C.RECEIVE_NEW_QUESTION_RESPONSE, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });
