@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RuleSet component should render RuleSet 1`] = `
+<div
+  className="ruleset-container"
+>
+  <div
+    className="header-container"
+  >
+    <p>
+      Rule Set
+    </p>
+  </div>
+  <DataTable
+    averageFontWidth={7}
+    className="ruleset-table"
+    headers={
+      Array [
+        Object {
+          "attribute": "field",
+          "name": "",
+          "width": "180px",
+        },
+        Object {
+          "attribute": "value",
+          "name": "",
+          "width": "600px",
+        },
+      ]
+    }
+    rows={
+      Array [
+        Object {
+          "field": "Description",
+          "value": undefined,
+        },
+        Object {
+          "field": "Feedback",
+          "value": undefined,
+        },
+        Object {
+          "field": "Because",
+          "value": null,
+        },
+        Object {
+          "field": "But",
+          "value": null,
+        },
+        Object {
+          "field": "So",
+          "value": null,
+        },
+      ]
+    }
+  />
+  <div
+    className="button-container"
+  >
+    <button
+      className="quill-button fun primary contained"
+      id="edit-ruleset-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      Configure
+    </button>
+  </div>
+</div>
+`;

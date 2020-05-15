@@ -1,8 +1,9 @@
 import * as React from "react";
 import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { ActivityInterface } from '../../interfaces/comprehension/activityInterface'
-import ActivityForm from './activityForm'
-import { flagOptions } from '../../../../constants/comprehension'
+import { ActivityInterface } from '../../../interfaces/comprehension/activityInterface';
+import ActivityForm from './activityForm';
+import { flagOptions } from '../../../../../constants/comprehension';
+import useSWR from 'swr';
 
 const ActivitySettings = (props: any) => {
   const [activity, setActivity] = React.useState<ActivityInterface>({});
@@ -14,7 +15,7 @@ const ActivitySettings = (props: any) => {
   const { match } = props;
   const { params } = match;
   const { activityId } = params;
-  const fetchActivityAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityId}.json`
+  const fetchActivityAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/1.json`
   
   const fetchData = async () => {
     try {
@@ -29,7 +30,12 @@ const ActivitySettings = (props: any) => {
     setActivity(activity);
     setFlag({ label: flag, value: flag });
     setLoading(false);
+    // return activity object for swr caching
+    return activity;
   };
+
+  // cache activity data
+  useSWR('activity', fetchData);
 
   React.useEffect(() => {
     fetchData();

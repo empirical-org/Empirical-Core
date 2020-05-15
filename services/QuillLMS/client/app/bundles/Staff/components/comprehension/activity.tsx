@@ -1,7 +1,9 @@
 import * as React from "react";
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import ActivitySettings from './activitySettings'
-import RuleSets from './ruleSets'
+import ActivitySettings from './configureSettings/activitySettings';
+import RuleSets from './configureRegex/ruleSets';
+import RuleSet from './configureRegex/ruleSet';
+
 const Activity = (props: any) => {
   const { match } = props;
   const { params } = match;
@@ -43,6 +45,7 @@ const Activity = (props: any) => {
       <Switch>
         <Redirect component={ActivitySettings} exact from='/activities/:activityId' to='/activities/:activityId/settings' />
         <Route component={ActivitySettings} path='/activities/:activityId/settings' />
+        <Route component={RuleSet} path='/activities/:activityId/rulesets/:regexId' />
         <Route component={RuleSets} path='/activities/:activityId/rulesets' />
       </Switch>
     </div>

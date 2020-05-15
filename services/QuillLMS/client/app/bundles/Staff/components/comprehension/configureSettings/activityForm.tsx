@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import { flagOptions } from '../../../../constants/comprehension'
+import { flagOptions } from '../../../../../constants/comprehension'
 
 // TODO: add form inputs for course, target reading level and reading level score
 

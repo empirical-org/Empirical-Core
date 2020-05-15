@@ -1,9 +1,9 @@
 import * as React from "react";
 import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import ActivityForm from '../../components/comprehension/activityForm'
-import Activities from '../../components/comprehension/activities'
-import Activity from '../../components/comprehension/activity'
+import ActivityForm from './configureSettings/activityForm'
+import Activities from './activities'
+import Activity from './activity'
 
 const ComprehensionLanding = (props) => {
   const { location } = props

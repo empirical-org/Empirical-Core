@@ -133,7 +133,7 @@ html {
       border: 1px solid lightgray;
       border-radius: 6px;
       text-align: left;
-      margin-top: 50px;
+      margin-top: 80px;
       .data-table-headers {
         display: none;
       }
@@ -269,14 +269,21 @@ html {
       }
     }
   }
-  .rulesets-container {
+  .rulesets-container, .ruleset-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    .rulesets-table {
-      margin-top: 50px;
+    .header-container {
+      margin-top: 80px;
+      width: 900px;
+      p {
+        font-size: 20px;
+        font-weight: bold;
+      }
+    }
+    .rulesets-table, .ruleset-table {
       .data-table-body{
-        max-height: 800px;
+        max-height: 500px;
         overflow: auto;
         .data-table-row {
           span {
@@ -289,6 +296,21 @@ html {
             }
           }
         }
+        .quill-tooltip-trigger {
+          .quill-tooltip {
+            display: none;
+          }
+        }
+      }
+    }
+    .ruleset-table {
+      border: 1px solid lightgray;
+      border-radius: 6px;
+      .data-table-headers {
+        display: none;
+      }
+      .data-table-row-section {
+        white-space: pre-wrap;
       }
     }
     .button-container {
@@ -296,6 +318,9 @@ html {
       justify-content: flex-end;
       padding: 20px 10px 20px 0px;
       width: 900px;
+      #edit-ruleset-button {
+        margin-right: 10px;
+      }
     }
   }
 }

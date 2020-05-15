@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
-import ActivityForm from '../activityForm';
+import ActivityForm from '../configureSettings/activityForm';
 
 const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
