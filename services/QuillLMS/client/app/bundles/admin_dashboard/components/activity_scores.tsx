@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ActivityScoresTable from './activity_scores_table';
-import ItemDropdown from './item_dropdown';
+import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown';
 import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
 
 interface ActivityScoresProps {
@@ -55,19 +55,22 @@ const ActivityScores: React.SFC<ActivityScoresProps> = ({
           </a>
         </div>
       </div>
-      <div className="dropdown-container">
+      <div className="dropdown-container" id="flexed">
         <ItemDropdown
           callback={switchSchool}
+          className="admin-activity-dropdown"
           items={schoolNames}
           selectedItem={selectedSchool}
         />
         <ItemDropdown
           callback={switchTeacher}
+          className="admin-activity-dropdown"
           items={teacherNames}
           selectedItem={selectedTeacher}
         />
         <ItemDropdown
           callback={switchClassroom}
+          className="admin-activity-dropdown"
           items={classroomNames}
           selectedItem={selectedClassroom}
         />

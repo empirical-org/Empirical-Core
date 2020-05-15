@@ -115,7 +115,7 @@ class Api::V1::ActivitySessionsController < Api::ApiController
                   :anonymous,
                   :temporary)
       .merge(data: @data).reject {|k,v| v.nil? }
-      .merge(timespent: @activity_session&.calculate_timespent)
+      .merge(timespent: @activity_session&.timespent)
   end
 
   def transform_incoming_request
