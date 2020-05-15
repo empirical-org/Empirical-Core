@@ -142,7 +142,7 @@ RailsAdmin.config do |config|
 
   config.model Activity do
     edit do
-      exclude_fields :classroom_units, :classrooms, :unit_activities
+      exclude_fields :classroom_units, :classrooms, :unit_activities, :units
     end
   end
 

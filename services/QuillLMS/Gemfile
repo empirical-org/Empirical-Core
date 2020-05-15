@@ -68,6 +68,7 @@ gem 'rubyzip'
 gem 'httparty'
 gem 'intercom', '~> 3.5.23'
 gem 'haversine'
+gem 'configs'
 
 # WEBSOCKETS
 gem 'pusher'
