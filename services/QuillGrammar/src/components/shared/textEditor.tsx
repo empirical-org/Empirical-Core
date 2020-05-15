@@ -3,14 +3,6 @@ import Editor from 'draft-js-plugins-editor'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 
-const richButtonsPlugin = createRichButtonsPlugin();
-const {
-  // inline buttons
-  ItalicButton, BoldButton, UnderlineButton,
-  // block buttons
-  BlockquoteButton, ULButton, H3Button
-} = richButtonsPlugin;
-
 // interface TextEditorProps {
 //   text: string;
 //   boilerplate: string;
@@ -29,7 +21,7 @@ export default class TextEditor extends React.Component <any, any> {
       text: this.props.EditorState.createWithContent(convertFromHTML(this.props.text || ''))
     }
 
-    this.handleTextChange = this.handleTextChange.bind(this)
+    this.richButtonsPlugin = createRichButtonsPlugin();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: any) {
@@ -42,13 +34,19 @@ export default class TextEditor extends React.Component <any, any> {
     }
   }
 
-  handleTextChange(e: Event) {
+  handleTextChange = (e: Event) => {
     this.setState({text: e}, () => {
       this.props.handleTextChange(convertToHTML(this.state.text.getCurrentContent()).replace(/<p><\/p>/g, '<br/>').replace(/&nbsp;/g, '<br/>'))
     });
   }
 
   render() {
+    const {
+      // inline buttons
+      ItalicButton, BoldButton, UnderlineButton,
+      // block buttons
+      BlockquoteButton, ULButton, H3Button
+    } = this.richButtonsPlugin;
 
     return (
       <div className="card is-fullwidth">
@@ -64,7 +62,7 @@ export default class TextEditor extends React.Component <any, any> {
         </header>
         <div className="card-content">
           <div className="content landing-page-html-editor">
-            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[richButtonsPlugin]} />
+            <Editor editorState={this.state.text} onChange={this.handleTextChange} plugins={[this.richButtonsPlugin]} />
           </div>
         </div>
       </div>

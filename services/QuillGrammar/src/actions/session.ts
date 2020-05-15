@@ -1,6 +1,6 @@
 import rootRef from '../firebase';
 import { ActionTypes } from './actionTypes'
-const questionsRef = rootRef.child('questions')
+import { QuestionApi, GRAMMAR_QUESTION_TYPE } from '../libs/questions_api'
 const sessionsRef = rootRef.child('sessions')
 const proofreaderSessionsRef = rootRef.child('proofreaderSessions')
 import * as responseActions from './responses'
@@ -25,8 +25,7 @@ export const setSessionReducerToSavedSession = (sessionID: string) => {
     sessionsRef.child(sessionID).once('value', (snapshot) => {
       const session = snapshot.val()
       if (session && Object.keys(session).length > 1 && !session.error) {
-        questionsRef.orderByChild('concept_uid').once('value', (questionsSnapshot) => {
-          const allQuestions = questionsSnapshot.val()
+        QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((allQuestions) => {
           if (session.currentQuestion) {
             if (!session.currentQuestion.prompt || !session.currentQuestion.answers) {
               const currentQuestion = allQuestions[session.currentQuestion.uid]
@@ -87,8 +86,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
   return (dispatch, getState) => {
     dispatch(setSessionPending(true))
     const conceptUIDs = Object.keys(concepts)
-    questionsRef.orderByChild('concept_uid').once('value', (snapshot) => {
-      const questions = snapshot.val()
+    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((questions) => {
       const questionsForConcepts = {}
       Object.keys(questions).map(q => {
         if (conceptUIDs.includes(questions[q].concept_uid) && questions[q].prompt && questions[q].answers && permittedFlag(flag, questions[q].flag)) {
@@ -129,8 +127,7 @@ export const getQuestionsForConcepts = (concepts: any, flag: string) => {
 export const getQuestions = (questions: any, flag: string) => {
   return dispatch => {
     dispatch(setSessionPending(true))
-    questionsRef.once('value', (snapshot) => {
-      const allQuestions = snapshot.val()
+    QuestionApi.getAll(GRAMMAR_QUESTION_TYPE).then((allQuestions) => {
       const arrayOfQuestions = questions.map(q => {
         const question = allQuestions[q.key]
         question.uid = q.key
