@@ -12,4 +12,14 @@
   p {
     margin-bottom: 15px;
   }
+  .subscription-dropdown {
+    .dropdown__control {
+      border-radius: 6px !important;
+      padding: 7px 14px !important;
+      height: 40px !important;
+      width: 180px !important;
+      border: solid 1px #cecece !important;
+      border-radius: 6px !important;
+    }
+  }
 }

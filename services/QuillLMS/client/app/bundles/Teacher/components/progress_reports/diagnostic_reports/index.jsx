@@ -111,9 +111,13 @@ class DiagnosticReports extends React.Component {
 	};
 
   changeStudent = (student) => {
-		this.setState({selectedStudentId: student})
-    const p = this.parseParams(this.props.location.pathname);
-		this.props.history.push(`/u/${p.unitId}/a/${p.activityId}/c/${p.classroomId}/student_report/${student}`)
+		const { history } = this.props
+		const { value } = student
+		const { id } = value
+		this.setState({selectedStudentId: id })
+		const p = this.parseParams(this.props.location.pathname);
+		const { activityId, classroomId, unitId } = p
+		history.push(`/u/${unitId}/a/${activityId}/c/${classroomId}/student_report/${id}`)
 	};
 
   findClassroomById = (id) => {
