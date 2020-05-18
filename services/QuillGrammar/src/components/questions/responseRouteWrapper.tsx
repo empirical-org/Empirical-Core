@@ -15,7 +15,7 @@ class ResponseComponentWrapper extends React.Component {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { questionID, } = this.props.match.params;
   }
 
