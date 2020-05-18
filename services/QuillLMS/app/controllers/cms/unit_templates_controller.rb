@@ -37,6 +37,8 @@ class Cms::UnitTemplatesController < Cms::CmsController
   def update_order_numbers
     unit_templates = params[:unit_templates]
     unit_templates.each { |ut| UnitTemplate.find(ut['id']).update(order_number: ut['order_number']) }
+    UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
+    UnitTemplate.delete_all_caches
     render json: {unit_templates: UnitTemplate.order(order_number: :asc)}
   end
 
