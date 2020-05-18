@@ -22,30 +22,20 @@ interface QuestionDashboardState {
 }
 
 class QuestionDashboard extends React.Component<QuestionDashboardProps, QuestionDashboardState> {
-  constructor(props: QuestionDashboardProps) {
-    super(props)
-
-    this.state = {
-      allowedActivityFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE],
-      allowedQuestionFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE]
-    }
-
-    this.defaultSort = this.defaultSort.bind(this)
-    this.sortActivityArray = this.sortActivityArray.bind(this)
-    this.normalizeStringForSorting = this.normalizeStringForSorting.bind(this)
-    this.updateAllowedActivityFlags = this.updateAllowedActivityFlags.bind(this)
-    this.updateAllowedQuestionFlags = this.updateAllowedQuestionFlags.bind(this)
+  state = {
+    allowedActivityFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE],
+    allowedQuestionFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE]
   }
 
   UNSAFE_componentWillMount() {
     this.props.dispatch(QuestionAndConceptMapActions.checkTimeout())
   }
 
-  updateAllowedActivityFlags(flags: Array<string>) {
+  updateAllowedActivityFlags = (flags: Array<string>) => {
     this.setState({ allowedActivityFlags: flags, })
   }
 
-  updateAllowedQuestionFlags(flags: Array<string>) {
+  updateAllowedQuestionFlags = (flags: Array<string>) => {
     this.setState({ allowedQuestionFlags: flags, })
   }
 
@@ -104,7 +94,7 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
     })
   }
 
-  sortActivityArray(activityArrayA: Array<DashboardActivity>, activityArrayB: Array<DashboardActivity>) {
+  sortActivityArray = (activityArrayA: Array<DashboardActivity>, activityArrayB: Array<DashboardActivity>) => {
     if (!(activityArrayB && activityArrayB.length)) { return 1 }
     if (!(activityArrayA && activityArrayA.length)) { return -1 }
 
@@ -114,7 +104,7 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
     return this.defaultSort(firstActivityInArrayA, firstActivityInArrayB)
   }
 
-  normalizeStringForSorting(string: string) {
+  normalizeStringForSorting = (string: string) => {
     if (string) {
       return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim();
     } else {
@@ -122,7 +112,7 @@ class QuestionDashboard extends React.Component<QuestionDashboardProps, Question
     }
   }
 
-  defaultSort(a: string, b: string) {
+  defaultSort = (a: string, b: string) => {
     return this.normalizeStringForSorting(a).localeCompare(this.normalizeStringForSorting(b))
   }
 

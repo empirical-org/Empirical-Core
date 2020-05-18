@@ -39,24 +39,14 @@ interface MassEditProps {
 }
 
 class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
-  constructor(props: MassEditProps) {
-    super(props);
-
-    this.state = {
-      responses: {},
-      selectedMassEditBoilerplateCategory: '',
-      newMassEditConceptResultConceptUID: '',
-      newMassEditConceptResultCorrect: false,
-      massEditSummaryListDisplay: 'none',
-      massEditSummaryListButtonText: 'Expand List',
-    };
-
-    this.handleMassEditFeedbackTextChange = this.handleMassEditFeedbackTextChange.bind(this);
-    this.updateConceptResults = this.updateConceptResults.bind(this);
-    this.toggleMassEditSummaryList = this.toggleMassEditSummaryList.bind(this)
-    this.getResponses = this.getResponses.bind(this)
-    this.updateConceptResults = this.updateConceptResults.bind(this)
-  }
+  state = {
+    responses: {},
+    selectedMassEditBoilerplateCategory: '',
+    newMassEditConceptResultConceptUID: '',
+    newMassEditConceptResultCorrect: false,
+    massEditSummaryListDisplay: 'none',
+    massEditSummaryListButtonText: 'Expand List',
+  };
 
   UNSAFE_componentWillMount() {
     this.getResponses();
@@ -68,7 +58,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     }
   }
 
-  getResponses() {
+  getResponses = () => {
     request(
       {
         url: `${process.env.QUILL_CMS}/responses/mass_edit/show_many`,
@@ -122,7 +112,7 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     }
   }
 
-  updateConceptResults(conceptResults: {[key: string]: boolean}) {
+  updateConceptResults = (conceptResults: {[key: string]: boolean}) => {
     this.setState({ conceptResults, });
   }
 
@@ -142,11 +132,11 @@ class MassEditContainer extends React.Component<MassEditProps, MassEditState> {
     }
   }
 
-  handleMassEditFeedbackTextChange(value: string) {
+  handleMassEditFeedbackTextChange = (value: string) => {
     this.setState({ massEditFeedback: value, });
   }
 
-  toggleMassEditSummaryList() {
+  toggleMassEditSummaryList = () => {
     let display = 'none';
     let text = 'Expand List';
     if (this.state.massEditSummaryListButtonText === 'Expand List') {

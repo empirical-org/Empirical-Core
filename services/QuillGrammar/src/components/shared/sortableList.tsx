@@ -22,8 +22,6 @@ class SortableList extends React.Component<any, any> {
 				items: this.props.data
 			}
     }
-
-    this.updateState = this.updateState.bind(this)
   }
 
 
@@ -33,7 +31,7 @@ class SortableList extends React.Component<any, any> {
 		}
 	}
 
-	updateState(obj: object) {
+	updateState = (obj: object) => {
 		this.setState(obj, this.props.sortCallback(this.state));
 	}
 

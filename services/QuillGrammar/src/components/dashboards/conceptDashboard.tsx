@@ -21,24 +21,15 @@ interface ConceptDashboardState {
 }
 
 class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDashboardState> {
-  constructor(props: ConceptDashboardProps) {
-    super(props)
-
-    this.state = {
-      allowedActivityFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE]
-    }
-
-    this.defaultSort = this.defaultSort.bind(this)
-    this.normalizeStringForSorting = this.normalizeStringForSorting.bind(this)
-    this.updateAllowedActivityFlags = this.updateAllowedActivityFlags.bind(this)
-    this.sortActivityArray = this.sortActivityArray.bind(this)
+  state = {
+    allowedActivityFlags: [PRODUCTION, BETA, ALPHA, ARCHIVED, NONE]
   }
 
   UNSAFE_componentWillMount() {
     this.props.dispatch(QuestionAndConceptMapActions.checkTimeout())
   }
 
-  updateAllowedActivityFlags(flags: Array<string>) {
+  updateAllowedActivityFlags = (flags: Array<string>) => {
     this.setState({ allowedActivityFlags: flags, })
   }
 
@@ -81,7 +72,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     })
   }
 
-  sortActivityArray(activityArrayA: Array<DashboardActivity>, activityArrayB: Array<DashboardActivity>) {
+  sortActivityArray = (activityArrayA: Array<DashboardActivity>, activityArrayB: Array<DashboardActivity>) => {
     if (!(activityArrayB && activityArrayB.length)) { return 1 }
     if (!(activityArrayA && activityArrayA.length)) { return -1 }
 
@@ -91,7 +82,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     return this.defaultSort(firstActivityInArrayA, firstActivityInArrayB)
   }
 
-  normalizeStringForSorting(string: string) {
+  normalizeStringForSorting = (string: string) => {
     if (string) {
       return string.replace(/(<([^>]+)>)/ig, "").replace(/&nbsp;/ig, "").replace(/"|“/g, '').replace(/_+/g, '_').trim();
     } else {
@@ -99,7 +90,7 @@ class ConceptDashboard extends React.Component<ConceptDashboardProps, ConceptDas
     }
   }
 
-  defaultSort(a: string, b: string) {
+  defaultSort = (a: string, b: string) => {
     return this.normalizeStringForSorting(a).localeCompare(this.normalizeStringForSorting(b))
   }
 
