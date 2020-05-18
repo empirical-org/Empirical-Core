@@ -125,6 +125,7 @@ export default class EditOrCreateSubscription extends React.Component {
           <label>Purchaser From School</label>
           <ItemDropdown
             callback={this.changePurchaserId}
+            className="subscription-dropdown"
             items={[{ name: 'None', id: '', }].concat(schoolsUsers)}
             selectedItem={schoolsUsers.find(u => u.id === subscription.purchaser_id)}
           />
@@ -210,6 +211,7 @@ export default class EditOrCreateSubscription extends React.Component {
         <label>Premium Status</label>
         <ItemDropdown
           callback={this.changeAccountType}
+          className="subscription-dropdown"
           items={premiumTypes}
           selectedItem={subscription.account_type || ''}
         />
@@ -219,6 +221,7 @@ export default class EditOrCreateSubscription extends React.Component {
         <label>Payment Method</label>
         <ItemDropdown
           callback={this.changePaymentMethod}
+          className="subscription-dropdown"
           items={subscriptionPaymentMethods}
           selectedItem={subscription.payment_method || ''}
         />

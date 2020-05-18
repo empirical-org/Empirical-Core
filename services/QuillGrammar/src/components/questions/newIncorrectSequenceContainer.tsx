@@ -4,20 +4,14 @@ import IncorrectSequencesInputAndConceptSelectorForm from '../shared/incorrectSe
 import * as questionActions from '../../actions/questions';
 
 class NewIncorrectSequencesContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const qid = this.props.match.params.questionID
     if (!this.props.generatedIncorrectSequences.used[qid]) {
       this.props.dispatch(questionActions.getUsedSequences(qid))
     }
   }
 
-  submitSequenceForm(data) {
+  submitSequenceForm = (data) => {
     delete data.conceptResults.null;
     this.props.dispatch(questionActions.submitNewIncorrectSequence(this.props.match.params.questionID, data));
     window.history.back();
