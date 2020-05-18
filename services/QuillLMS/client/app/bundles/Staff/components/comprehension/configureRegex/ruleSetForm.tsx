@@ -10,6 +10,7 @@ const RuleSetForm = (props) => {
   const [ruleSetDescription, setRuleSetDescription] = React.useState(description || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState(feedback || '');
   const [ruleSetStems, setRuleSetStems] = React.useState({})
+  const [regexRules, setRegexRules] = React.useState({})
   const [errors, setErrors] = React.useState([]);
 
   const handleSetRuleSetDescription = (e) => { setRuleSetDescription(e.target.value) };
@@ -22,13 +23,26 @@ const RuleSetForm = (props) => {
   };
 
   React.useEffect(() => {  
+    formatPrompts();
+    formatRegexRules();
+  }, []);
+
+  const formatPrompts = () => {
     let formatted = {};
     prompts && prompts.forEach(prompt => {
       const { conjunction } = prompt;
       formatted[conjunction] = true;
     });
     setRuleSetStems(formatted);
-  }, []);
+  }
+
+  const formatRegexRules = () => {
+    let formatted = {};
+    rules && rules.map((rule, i) => {
+      formatted[`regex-rule-${i}`] = rule;
+    });
+    setRegexRules(formatted);
+  }
 
   const buildRuleSet = () => {
     return {
@@ -47,6 +61,79 @@ const RuleSetForm = (props) => {
     } else {
       submitRuleSet(ruleSet);
     }
+  }
+
+  const handleSetRegexRule = (e) => {
+    const { target } = e;
+    const { id, value } = target;
+    let updatedRules = {...regexRules};
+    if(value === 'change-case-sensitivity') {
+      updatedRules[id].case_sensitive = !regexRules[id].case_sensitive;
+    } else {
+      updatedRules[id].regex_text = value;
+    }
+    setRegexRules(updatedRules);
+  }
+
+  const handleAddRegexInput = () => {
+    let updatedRules = {...regexRules};
+    let id = Object.keys(updatedRules).length;
+    const newRegexRule = { regex_text: '', case_sensitive: false };
+    // increment id so exisiting rules are not overwritten
+    while(updatedRules[`regex-rule-${id}`] ) {
+      id += 1;
+    }
+    updatedRules[`regex-rule-${id}`] = newRegexRule;
+    setRegexRules(updatedRules);
+  }
+
+  const handleDeleteRegexRule = (e) => {
+    const { target } = e;
+    const { id } = target;
+    let updatedRules = {...regexRules};
+    delete updatedRules[id];
+    setRegexRules(updatedRules);
+  }
+
+  const renderRegexSection = () => {
+    const regexRuleKeys = Object.keys(regexRules);
+    return(
+      <div className="regex-rules-container">
+        {regexRuleKeys.length !== 0 && regexRuleKeys.map((ruleKey, i) => {
+          return(
+            <div className="regex-rule-container" key={`regex-rule-container-${i}`}>
+              <div className="regex-input-container">
+                <Input
+                  className="regex-input"
+                  handleChange={handleSetRegexRule}
+                  id={ruleKey}
+                  value={regexRules[ruleKey].regex_text}
+                />
+                <div className="checkbox-container">
+                  <label className="case-sensitive-label" htmlFor={ruleKey}>
+                    Case Sensitive?
+                  </label>
+                  <input
+                    aria-labelledby={ruleKey}
+                    checked={regexRules[ruleKey].case_sensitive}
+                    id={ruleKey}
+                    onChange={handleSetRegexRule}
+                    type="checkbox"
+                    value="change-case-sensitivity"
+                  />
+                </div>
+              </div>
+              <button className="quill-button fun primary outlined delete-regex-button" id={ruleKey} onClick={handleDeleteRegexRule} type="submit">
+                remove
+              </button>
+            </div>
+          );
+        })}
+        <button className="quill-button fun primary outlined add-regex-button" onClick={handleAddRegexInput} type="submit">
+          Add Regex Rule +
+        </button>
+      </div>
+    )
   }
 
   const errorsPresent = Object.keys(errors).length !== 0;
@@ -112,6 +199,8 @@ const RuleSetForm = (props) => {
             />
           </div>
         </div>
+        <p className="form-subsection-label" id="regex-rules-label">Regex Rules</p>
+        {renderRegexSection()}
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>

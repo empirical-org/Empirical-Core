@@ -331,6 +331,9 @@ html {
         color: #7f7f7f;
         margin-top: 15px;
       }
+      #regex-rules-label {
+        margin-bottom: 0px;
+      }
       .checkboxes-container {
         display: flex;
         .checkbox-container {
@@ -339,6 +342,31 @@ html {
             margin-right: 5px;
           }
         }
+      }
+      .regex-rules-container {
+        .regex-rule-container {
+          display: flex;
+          align-items: center;
+          .regex-input-container {
+            width: 100%;
+            margin-right: 30px;
+            .checkbox-container {
+              .case-sensitive-label {
+                margin-right: 10px;
+              }
+            }
+          }
+          .delete-regex-button {
+            margin: 10px 10px 0px 0px;
+            min-width: 20px;
+            padding: 0px 12px 5px 12px;
+          }
+        }
+      }
+      .add-regex-button {
+        margin: 30px 10px 0px 0px;
+        min-width: 20px;
+        padding: 0px 7px 5px 7px;
       }
     }
   }

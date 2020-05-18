@@ -8,7 +8,8 @@ const ActivitySettings = (props: any) => {
   const [activity, setActivity] = React.useState<ActivityInterface>({});
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [flag, setFlag] = React.useState(null);
+  const [activityFlag, setActivityFlag] = React.useState(null);
+  const [originalFlag, setOriginalFlag] = React.useState(null);
   const [showEditActivityModal, setShowEditActivityModal] = React.useState(false)
   const [showEditFlagModal, setShowEditFlagModal] = React.useState(false)
   const { match } = props;
@@ -26,8 +27,10 @@ const ActivitySettings = (props: any) => {
       setLoading(false);
     }
     const { flag } = activity
+    const flagObject = { label: flag, value: flag };
     setActivity(activity);
-    setFlag({ label: flag, value: flag });
+    setOriginalFlag(flagObject);
+    setActivityFlag(flagObject);
     setLoading(false);
     return activity;
   };
@@ -43,11 +46,11 @@ const ActivitySettings = (props: any) => {
 
   const handleUpdateFlag = () => {
     // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
-    toggleFlagModal();
+    setShowEditFlagModal(false);
   }
 
   const handleFlagChange = (flag) => {
-    setFlag(flag);
+    setActivityFlag(flag);
   }
 
 
@@ -56,12 +59,16 @@ const ActivitySettings = (props: any) => {
   }
 
   const toggleFlagModal = () => {
+    // only update flag if submit button is clicked
+    if(activityFlag !== originalFlag) {
+      setActivityFlag(originalFlag);
+    }
     setShowEditFlagModal(!showEditFlagModal);
   }
 
   const flagModal = (
     <button className="quill-button fun primary outlined" id="edit-flag-button" onClick={toggleFlagModal} type="submit">
-      {flag ? flag.label : ''}
+      {activityFlag ? activityFlag.label : ''}
     </button>
   );
 
@@ -86,7 +93,7 @@ const ActivitySettings = (props: any) => {
             isSearchable={true}
             label="Development Stage"
             options={flagOptions}
-            value={flag}
+            value={activityFlag}
           />
           <div className="submit-button-container">
             <button className="quill-button fun primary contained" id="flag-submit-button" onClick={handleUpdateFlag} type="submit">

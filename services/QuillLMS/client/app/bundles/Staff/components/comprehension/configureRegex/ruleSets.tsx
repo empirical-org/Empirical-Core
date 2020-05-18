@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from 'react-router-dom'
-import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
+import RuleSetForm from './ruleSetForm';
 import { getPromptsIcons } from '../../../../../helpers/comprehension'
 const fetchAllRuleSetsAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/regex_index.json';
 
@@ -9,6 +10,7 @@ const RuleSets = (props) => {
   const { params } = match;
   const { activityId } = params;
   const [activityRuleSets, setActivityRuleSets] = React.useState([]);
+  const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   
@@ -43,6 +45,23 @@ const RuleSets = (props) => {
     }
   });
 
+  const submitRuleSet = () => {
+    // TODO: hook into RuleSet POST API
+    toggleShowAddRuleSetModal();
+  }
+
+  const toggleShowAddRuleSetModal = () => {
+    setShowAddRuleSetModal(!showAddRuleSetModal);
+  }
+
+  const renderRuleSetForm = () => {
+    return(
+      <Modal>
+        <RuleSetForm activityRuleSet={{}} closeModal={toggleShowAddRuleSetModal} submitRuleSet={submitRuleSet} />
+      </Modal>
+    );
+  } 
+
   if(loading) {
     return(
       <div className="loading-spinner-container">
@@ -69,6 +88,7 @@ const RuleSets = (props) => {
 
   return(
     <div className="rulesets-container">
+      {showAddRuleSetModal && renderRuleSetForm()}
       <div className="header-container">
         <p>Rule Sets</p>
       </div>
@@ -79,7 +99,9 @@ const RuleSets = (props) => {
         rows={formattedRows}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" id="add-rule-button" type="submit">Add Rule</button>
+        <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleShowAddRuleSetModal} type="submit">
+          Add Rule
+        </button>
       </div>
     </div>
   );
