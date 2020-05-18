@@ -66,6 +66,14 @@ class UnitTemplate < ActiveRecord::Base
     AssignRecommendationsWorker.perform_async(unit_template_id, class_id, student_ids, true, true, assign_on_join)
   end
 
+  def self.delete_all_caches
+    UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
+    $redis.del('production_unit_templates')
+    $redis.del('beta_unit_templates')
+    $redis.del('alpha_unit_templates')
+    $redis.del('private_unit_templates')
+  end
+
   private
 
   def delete_relevant_caches

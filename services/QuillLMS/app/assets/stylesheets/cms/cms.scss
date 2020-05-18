@@ -258,11 +258,23 @@
     .short-fields {
       display: flex;
       margin-bottom: 20px;
-      div:not(.DayPickerNavigation_button) {
-        flex: 1
-      }
       input:not(#date-picker) {
         width: 214px;
+      }
+      .blog-dropdown {
+        margin-right: 100px;
+        width: 188px;
+        .dropdown__control {
+          border-radius: 6px;
+          padding: 7px 14px;
+          height: 40px;
+          width: 180px;
+          border: solid 1px #cecece;
+          border-radius: 6px !important;
+          .dropdown__dropdown-indicator {
+            margin-bottom: 25px;
+          }
+        }
       }
     }
 
@@ -271,6 +283,28 @@
       display: block;
       margin: 5px 0 20px;
       text-align: right;
+    }
+  }
+  
+  .blog-dropdown-container {
+    display: flex;
+    .blog-dropdown {
+      margin-right: 100px;
+      width: 188px;
+      .dropdown__control {
+        border-radius: 6px;
+        padding: 7px 14px;
+        height: 40px;
+        width: 180px;
+        border: solid 1px #cecece;
+        border-radius: 6px !important;
+        .dropdown__dropdown-indicator {
+          margin-bottom: 25px;
+        }
+      }
+    }
+    .link {
+      margin-bottom: 20px;
     }
   }
 }

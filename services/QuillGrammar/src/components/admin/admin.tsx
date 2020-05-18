@@ -34,7 +34,7 @@ class AdminContainer extends React.Component<AdminContainerProps> {
     super(props)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.fetchUser().then(userData => {
         if (userData.user === null || (userData.hasOwnProperty('role') && userData.user.role !== 'staff')) {
           window.location = newSessionEndpoint;
