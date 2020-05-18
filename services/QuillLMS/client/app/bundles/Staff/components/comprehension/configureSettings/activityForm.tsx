@@ -2,6 +2,7 @@ import * as React from "react";
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
+import { validateForm } from '../../../../../helpers/comprehension';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -39,24 +40,11 @@ const ActivityForm = (props) => {
     };
   }
 
-  const validateForm = () => {
-    let errors = {};
-    const keys = ['Title', 'Passage', 'Because stem', 'But stem', 'So stem'];
-    const state = [activityTitle, activityPassage, activityBecausePrompt, activityButPrompt, activitySoPrompt];
-    state.map((value, i) => {
-      // Text Editor is empty
-      if(i === 1 && value === '<br/>') {
-        errors[keys[i]] = `${keys[i]} cannot be blank.`;
-      } else if(!value || value.length === 0) {
-        errors[keys[i]] = `${keys[i]} cannot be blank.`;
-      }
-    });
-    return errors;
-  }
-
   const handleSubmitActivity = () => {
     const activity = buildActivity();
-    const validationErrors = validateForm();
+    const keys = ['Title', 'Passage', 'Because stem', 'But stem', 'So stem'];
+    const state = [activityTitle, activityPassage, activityBecausePrompt, activityButPrompt, activitySoPrompt];
+    const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
     } else {

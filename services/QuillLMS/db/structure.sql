@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12
--- Dumped by pg_dump version 10.12
+-- Dumped from database version 10.11
+-- Dumped by pg_dump version 10.11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -5545,11 +5545,7 @@ INSERT INTO schema_migrations (version) VALUES ('20170505195744');
 
 INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
-INSERT INTO schema_migrations (version) VALUES ('20170523175919');
-
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
-
-INSERT INTO schema_migrations (version) VALUES ('20170601140325');
 
 INSERT INTO schema_migrations (version) VALUES ('20170718160133');
 
@@ -5685,8 +5681,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
 INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 
-INSERT INTO schema_migrations (version) VALUES ('20180214051916');
-
 INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221162940');
@@ -5781,8 +5775,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
-INSERT INTO schema_migrations (version) VALUES ('20180809210431');
-
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180815174156');
@@ -5835,8 +5827,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
 INSERT INTO schema_migrations (version) VALUES ('20181105212102');
 
-INSERT INTO schema_migrations (version) VALUES ('20181126221244');
-
 INSERT INTO schema_migrations (version) VALUES ('20181203161708');
 
 INSERT INTO schema_migrations (version) VALUES ('20181214192858');
@@ -5886,8 +5876,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 INSERT INTO schema_migrations (version) VALUES ('20200409151835');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415170227');
-
-INSERT INTO schema_migrations (version) VALUES ('20200417172506');
 
 INSERT INTO schema_migrations (version) VALUES ('20200505171239');
 

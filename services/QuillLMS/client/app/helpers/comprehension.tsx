@@ -1,6 +1,7 @@
 import * as React from "react";
 import { promptStems } from '../constants/comprehension';
-const quillCheckmark = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`;
+import stripHtml from "string-strip-html";
+const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
 export const getPromptsIcons = (prompts) => {
   const icons = {};
@@ -13,4 +14,16 @@ export const getPromptsIcons = (prompts) => {
     }
   });
   return icons;
+}
+
+export const validateForm = (keys, state) => {
+  let errors = {};
+  state.map((value, i) => {
+    // strip TextEditor value of breaks or whitespaces
+    const strippedValue = stripHtml(value);
+    if(!strippedValue || strippedValue.length === 0) {
+      errors[keys[i]] = `${keys[i]} cannot be blank.`;
+    }
+  });
+  return errors;
 }

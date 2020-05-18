@@ -206,8 +206,8 @@ html {
       }
     }
   }
-  .activity-form-container {
-    .activity-form {
+  .activity-form-container, .ruleset-form-container {
+    .activity-form , .ruleset-form {
       padding: 0px 30px 0px 30px;
       max-height: 80vh;
       .card {
@@ -320,6 +320,25 @@ html {
       width: 900px;
       #edit-ruleset-button {
         margin-right: 10px;
+      }
+    }
+  }
+  .ruleset-form-container {
+    .ruleset-form {
+      .form-subsection-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: #7f7f7f;
+        margin-top: 15px;
+      }
+      .checkboxes-container {
+        display: flex;
+        .checkbox-container {
+          margin-right: 30px;
+          #stem-label-1, #stem-label-2, #stem-label-3 {
+            margin-right: 5px;
+          }
+        }
       }
     }
   }
