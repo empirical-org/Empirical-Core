@@ -46,7 +46,7 @@ const RuleSets = (props) => {
   });
 
   const submitRuleSet = () => {
-    // TODO: hook into RuleSet POST API
+    // TODO: hook into RuleSet and RegEx POST API
     toggleShowAddRuleSetModal();
   }
 

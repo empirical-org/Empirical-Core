@@ -3,6 +3,7 @@ import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component
 import { ActivityInterface } from '../../../interfaces/comprehension/activityInterface';
 import ActivityForm from './activityForm';
 import { flagOptions } from '../../../../../constants/comprehension';
+import useSWR from 'swr';
 
 const ActivitySettings = (props: any) => {
   const [activity, setActivity] = React.useState<ActivityInterface>({});
@@ -34,6 +35,9 @@ const ActivitySettings = (props: any) => {
     setLoading(false);
     return activity;
   };
+
+  // cache activity data to access activity prompts for regex configuration
+  useSWR("activity", fetchData);
 
   React.useEffect(() => {
     fetchData();

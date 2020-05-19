@@ -44,13 +44,13 @@ const RuleSet = (props) => {
 
   const ruleSetRows = (activityRuleSet) => {
     // format for DataTable to display labels on left side and values on right
-    const { description, feedback, prompts, rules } = activityRuleSet
+    const { feedback, name, prompts, rules } = activityRuleSet
     const promptsIcons = prompts && getPromptsIcons(prompts);
     const regexRules = rules && getRegexRules(rules);
     let fields = [
       { 
-        label: 'Description',
-        value: description 
+        label: 'Name',
+        value: name 
       },
       {
         label: 'Feedback',
@@ -82,7 +82,7 @@ const RuleSet = (props) => {
   }
 
   const submitRuleSet = () => {
-    // TODO: hook into RuleSet PUT API
+    // TODO: hook into RuleSet and RegEx PUT API
     toggleShowEditRuleSetModal();
   }
 

@@ -2,24 +2,33 @@ import * as React from "react";
 import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../../../helpers/comprehension';
+import useSWR from 'swr';
 
 const RuleSetForm = (props) => {
 
+  // get cached activity data 
+  const { data } = useSWR("activity");
+
   const { activityRuleSet, closeModal, submitRuleSet } = props;
-  const { description, feedback, prompts, rules } = activityRuleSet;
-  const [ruleSetDescription, setRuleSetDescription] = React.useState(description || '');
+  const { feedback, id, name, rules } = activityRuleSet;
+  const [ruleSetName, setRuleSetName] = React.useState(name || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState(feedback || '');
-  const [ruleSetStems, setRuleSetStems] = React.useState({})
+  const [ruleSetPrompts, setRuleSetPrompts] = React.useState({})
   const [regexRules, setRegexRules] = React.useState({})
   const [errors, setErrors] = React.useState([]);
 
-  const handleSetRuleSetDescription = (e) => { setRuleSetDescription(e.target.value) };
+  const handleSetRuleSetName = (e) => { setRuleSetName(e.target.value) };
   const handleSetRuleSetFeedback = (text) => { setRuleSetFeedback(text) };
-  const handleRuleSetStemChange = (e) => {
-    const stem = e.target.value;
-    let updatedStems = {...ruleSetStems};
-    updatedStems[stem] = !ruleSetStems[stem];
-    setRuleSetStems(updatedStems);
+  const handleRuleSetPromptChange = (e) => {
+    const { target } = e;
+    const { id, value } = target;
+    let updatedPrompts = {...ruleSetPrompts};
+    const checked = updatedPrompts[value].checked
+    updatedPrompts[value] = {
+      id: parseInt(id),
+      checked: !checked
+    };
+    setRuleSetPrompts(updatedPrompts);
   };
 
   React.useEffect(() => {  
@@ -28,12 +37,24 @@ const RuleSetForm = (props) => {
   }, []);
 
   const formatPrompts = () => {
+    let checkedPrompts = {};
     let formatted = {};
-    prompts && prompts.forEach(prompt => {
-      const { conjunction } = prompt;
-      formatted[conjunction] = true;
+
+    // get ids of all applied prompts 
+    activityRuleSet && activityRuleSet.prompts && activityRuleSet.prompts.forEach(prompt => {
+      const { id } = prompt;
+      checkedPrompts[id] = true;
     });
-    setRuleSetStems(formatted);
+
+    // use activity data to apply each prompt ID
+    data && data.prompts && data.prompts.forEach(prompt => {
+      const { conjunction, prompt_id } = prompt;
+      formatted[conjunction] = {
+        id: prompt_id,
+        checked: !!checkedPrompts[prompt_id] 
+      };
+    });
+    setRuleSetPrompts(formatted);
   }
 
   const formatRegexRules = () => {
@@ -45,16 +66,35 @@ const RuleSetForm = (props) => {
   }
 
   const buildRuleSet = () => {
-    return {
-      description: ruleSetDescription,
+    const promptIds = [];
+    const rules = [];
+    const ruleSet = {
+      name: ruleSetName,
       feedback: ruleSetFeedback
     };
+    if(id) {
+      ruleSet.id = id;
+    }
+    Object.keys(ruleSetPrompts).forEach(key => {
+      ruleSetPrompts[key].checked && promptIds.push(ruleSetPrompts[key].id);
+    });
+    Object.keys(regexRules).forEach(key => {
+      rules.push(regexRules[key]);
+    });
+    ruleSet.prompt_ids = promptIds;
+    ruleSet.rules = rules;
+    return ruleSet;
   }
 
   const handleSubmitRuleSet = () => {
     const ruleSet = buildRuleSet();
-    const keys = ['Description', 'Feedback'];
-    const state = [ruleSetDescription, ruleSetFeedback];
+    const keys = ['Name', 'Feedback'];
+    const state = [ruleSetName, ruleSetFeedback];
+    // add input values of each regex rule
+    Object.keys(regexRules).map((key, i) => {
+      keys.push(`Regex rule ${i + 1}`);
+      state.push(regexRules[key].regex_text);
+    });
     const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
@@ -105,6 +145,7 @@ const RuleSetForm = (props) => {
               <div className="regex-input-container">
                 <Input
                   className="regex-input"
+                  error={errors[`Regex rule ${i + 1}`]}
                   handleChange={handleSetRegexRule}
                   id={ruleKey}
                   value={regexRules[ruleKey].regex_text}
@@ -123,19 +164,22 @@ const RuleSetForm = (props) => {
                   />
                 </div>
               </div>
-              <button className="quill-button fun primary outlined delete-regex-button" id={ruleKey} onClick={handleDeleteRegexRule} type="submit">
+              <button className="quill-button fun primary outlined delete-regex-button" id={ruleKey} onClick={handleDeleteRegexRule} type="button">
                 remove
               </button>
             </div>
           );
         })}
-        <button className="quill-button fun primary outlined add-regex-button" onClick={handleAddRegexInput} type="submit">
+        <button className="quill-button fun primary outlined add-regex-button" onClick={handleAddRegexInput} type="button">
           Add Regex Rule +
         </button>
       </div>
     )
   }
 
+  const becausePrompt = ruleSetPrompts['because'];
+  const butPrompt = ruleSetPrompts['but'];
+  const soPrompt = ruleSetPrompts['so'];
   const errorsPresent = Object.keys(errors).length !== 0;
 
   return(
@@ -145,11 +189,11 @@ const RuleSetForm = (props) => {
       </div>
       <form className="ruleset-form">
         <Input
-          className="description-input"
-          error={errors['Description']}
-          handleChange={handleSetRuleSetDescription}
-          label="Description"
-          value={ruleSetDescription}
+          className="name-input"
+          error={errors['Name']}
+          handleChange={handleSetRuleSetName}
+          label="Name"
+          value={ruleSetName}
         />
         <p className="form-subsection-label">Feedback</p>
         <TextEditor
@@ -163,37 +207,37 @@ const RuleSetForm = (props) => {
         <p className="form-subsection-label">Apply To Stems</p>
         <div className="checkboxes-container">
           <div className="checkbox-container">
-            <label htmlFor="because-stem" id="stem-label-1">Because</label>
+            <label htmlFor={becausePrompt && becausePrompt.id} id="stem-label-1">Because</label>
             <input
               aria-labelledby="stem-label-1"
-              checked={ruleSetStems['because']}
-              id="because-stem"
+              checked={becausePrompt && becausePrompt.checked}
+              id={becausePrompt && becausePrompt.id}
               name="Because"
-              onChange={handleRuleSetStemChange}
+              onChange={handleRuleSetPromptChange}
               type="checkbox"
               value="because"
             />
           </div>
           <div className="checkbox-container">
-            <label htmlFor="but-stem" id="stem-label-2">But</label>
+            <label htmlFor={butPrompt && butPrompt.id} id="stem-label-2">But</label>
             <input
               aria-labelledby="stem-label-2"
-              checked={ruleSetStems['but']}
-              id="but-stem"
+              checked={butPrompt && butPrompt.checked}
+              id={butPrompt && butPrompt.id}
               name="But"
-              onChange={handleRuleSetStemChange}
+              onChange={handleRuleSetPromptChange}
               type="checkbox"
               value="but"
             />
           </div>
           <div className="checkbox-container">
-            <label htmlFor="but-stem" id="stem-label-3">So</label>
+            <label htmlFor={soPrompt && soPrompt.id} id="stem-label-3">So</label>
             <input
               aria-labelledby="stem-label-3"
-              checked={ruleSetStems['so']}
-              id="so-stem"
+              checked={soPrompt && soPrompt.checked}
+              id={soPrompt && soPrompt.id}
               name="So"
-              onChange={handleRuleSetStemChange}
+              onChange={handleRuleSetPromptChange}
               type="checkbox"
               value="so"
             />
@@ -205,7 +249,7 @@ const RuleSetForm = (props) => {
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
           </div>}
-          <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitRuleSet} type="submit">
+          <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitRuleSet} type="button">
             Submit
           </button>
           <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="submit">

@@ -5,7 +5,7 @@ import { DataTable } from 'quill-component-library/dist/componentLibrary';
 import 'whatwg-fetch';
 
 const fields = [
-  'Description',
+  'Name',
   'Feedback',
   'Because',
   'But',

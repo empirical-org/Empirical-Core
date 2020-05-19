@@ -31,7 +31,7 @@ exports[`RuleSet component should render RuleSet 1`] = `
     rows={
       Array [
         Object {
-          "field": "Description",
+          "field": "Name",
           "value": undefined,
         },
         Object {

@@ -2,6 +2,9 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import ActivityForm from '../configureSettings/activityForm';
+jest.mock('string-strip-html', () => ({
+  default: jest.fn()
+}))
 
 const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
@@ -36,8 +39,8 @@ describe('Activities component', () => {
     container.find('#activity-cancel-button').simulate('click');
     expect(mockProps.closeModal).toHaveBeenCalledTimes(2);
   });
-  it('clicking submit button should call submitActivity prop', () => {
+  it('clicking submit button should submit activity', () => {
     container.find('#activity-submit-button').simulate('click');
-    expect(mockProps.submitActivity).toHaveBeenCalled();
+    expect(mockProps.closeModal).toHaveBeenCalled();
   });
 });
