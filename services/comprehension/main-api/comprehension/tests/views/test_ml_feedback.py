@@ -128,7 +128,7 @@ class TestMLFeedbackView(TestCase):
 
         self.assertEqual(PromptEntry.objects.count(), 0)
 
-        response = MLFeedbackView().post(request)
+        MLFeedbackView().post(request)
 
         self.assertEqual(PromptEntry.objects.count(), 1)
 
