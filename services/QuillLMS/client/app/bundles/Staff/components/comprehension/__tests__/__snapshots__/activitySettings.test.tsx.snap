@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Activity component should render ActivitySettings 1`] = `
+exports[`ActivitySettings component should render ActivitySettings 1`] = `
 <div
   className="activity-settings-container"
 >

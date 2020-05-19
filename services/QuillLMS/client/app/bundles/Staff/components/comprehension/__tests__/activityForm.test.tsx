@@ -15,11 +15,10 @@ const mockActivity = {
 const mockProps = {
   activity: mockActivity,
   closeModal: jest.fn(),
-  isNewActivity: true,
   submitActivity: jest.fn()
 };
 
-describe('Activities component', () => {
+describe('Activity Form component', () => {
   const container = shallow(<ActivityForm {...mockProps} />);
 
   it('should render Activities', () => {

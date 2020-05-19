@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Activities component should render Activities 1`] = `
+exports[`Activity Form component should render Activities 1`] = `
 <div
   className="activity-form-container"
 >

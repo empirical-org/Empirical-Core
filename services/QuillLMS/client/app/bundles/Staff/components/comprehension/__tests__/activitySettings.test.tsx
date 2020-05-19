@@ -20,7 +20,7 @@ const fields = [
   'So'
 ]
 
-describe('Activity component', () => {
+describe('ActivitySettings component', () => {
   const container = shallow(<ActivitySettings {...mockProps} />);
 
   it('should render ActivitySettings', () => {

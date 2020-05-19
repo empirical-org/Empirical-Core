@@ -2,6 +2,7 @@ import * as React from "react";
 import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../../../helpers/comprehension';
+import RegexSection from './regexSection';
 import useSWR from 'swr';
 
 const RuleSetForm = (props) => {
@@ -105,10 +106,10 @@ const RuleSetForm = (props) => {
 
   const handleSetRegexRule = (e) => {
     const { target } = e;
-    const { id, value } = target;
+    const { id, type, value } = target;
     let updatedRules = {...regexRules};
-    if(value === 'change-case-sensitivity') {
-      updatedRules[id].case_sensitive = !regexRules[id].case_sensitive;
+    if(type === 'checkbox') {
+      updatedRules[value].case_sensitive = !regexRules[value].case_sensitive;
     } else {
       updatedRules[id].regex_text = value;
     }
@@ -129,52 +130,10 @@ const RuleSetForm = (props) => {
 
   const handleDeleteRegexRule = (e) => {
     const { target } = e;
-    const { id } = target;
+    const { value } = target;
     let updatedRules = {...regexRules};
-    delete updatedRules[id];
+    delete updatedRules[value];
     setRegexRules(updatedRules);
-  }
-
-  const renderRegexSection = () => {
-    const regexRuleKeys = Object.keys(regexRules);
-    return(
-      <div className="regex-rules-container">
-        {regexRuleKeys.length !== 0 && regexRuleKeys.map((ruleKey, i) => {
-          return(
-            <div className="regex-rule-container" key={`regex-rule-container-${i}`}>
-              <div className="regex-input-container">
-                <Input
-                  className="regex-input"
-                  error={errors[`Regex rule ${i + 1}`]}
-                  handleChange={handleSetRegexRule}
-                  id={ruleKey}
-                  value={regexRules[ruleKey].regex_text}
-                />
-                <div className="checkbox-container">
-                  <label className="case-sensitive-label" htmlFor={ruleKey}>
-                    Case Sensitive?
-                  </label>
-                  <input
-                    aria-labelledby={ruleKey}
-                    checked={regexRules[ruleKey].case_sensitive}
-                    id={ruleKey}
-                    onChange={handleSetRegexRule}
-                    type="checkbox"
-                    value="change-case-sensitivity"
-                  />
-                </div>
-              </div>
-              <button className="quill-button fun primary outlined delete-regex-button" id={ruleKey} onClick={handleDeleteRegexRule} type="button">
-                remove
-              </button>
-            </div>
-          );
-        })}
-        <button className="quill-button fun primary outlined add-regex-button" onClick={handleAddRegexInput} type="button">
-          Add Regex Rule +
-        </button>
-      </div>
-    )
   }
 
   const becausePrompt = ruleSetPrompts['because'];
@@ -244,7 +203,13 @@ const RuleSetForm = (props) => {
           </div>
         </div>
         <p className="form-subsection-label" id="regex-rules-label">Regex Rules</p>
-        {renderRegexSection()}
+        <RegexSection 
+          errors={errors}
+          handleAddRegexInput={handleAddRegexInput} 
+          handleDeleteRegexRule={handleDeleteRegexRule} 
+          handleSetRegexRule={handleSetRegexRule}
+          regexRules={regexRules}
+        />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">
             <p className="all-errors-message">Please check that all fields have been completed correctly.</p>
