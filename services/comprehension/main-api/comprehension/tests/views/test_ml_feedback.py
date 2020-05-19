@@ -9,6 +9,7 @@ from ..factories.highlight import HighlightFactory
 from ..factories.ml_feedback import MLFeedbackFactory
 from ..factories.prompt import PromptFactory
 from ...models.prompt import Prompt
+from ...models.prompt_entry import PromptEntry
 from ...views.ml_feedback import MLFeedbackView
 from ...views.ml_feedback import FEEDBACK_TYPE
 from ...utils import construct_feedback_payload
@@ -119,3 +120,30 @@ class TestMLFeedbackView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json_body, expected)
+
+    def test_record_prompt_entry(self, fetch_feedback_mock):
+        request = self.factory.post(reverse('get_ml_feedback'),
+                                    data=json.dumps(self.request_body),
+                                    content_type='application/json')
+
+        self.assertEqual(PromptEntry.objects.count(), 0)
+
+        response = MLFeedbackView().post(request)
+
+        self.assertEqual(PromptEntry.objects.count(), 1)
+
+    def test_no_errors_on_duplicate_prompt_entry(self, fetch_feedback_mock):
+        request = self.factory.post(reverse('get_ml_feedback'),
+                                    data=json.dumps(self.request_body),
+                                    content_type='application/json')
+
+        self.assertEqual(PromptEntry.objects.count(), 0)
+
+        MLFeedbackView().post(request)
+
+        self.assertEqual(PromptEntry.objects.count(), 1)
+
+        response = MLFeedbackView().post(request)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(PromptEntry.objects.count(), 1)
