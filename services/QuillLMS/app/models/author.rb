@@ -10,9 +10,6 @@ class Author < ActiveRecord::Base
 
   private
   def delete_relevant_caches
-    UnitTemplate.all.each { |ut| $redis.del("unit_template_id:#{ut.id}_serialized") }
-    $redis.del('production_unit_templates')
-    $redis.del('beta_unit_templates')
-    $redis.del('alpha_unit_templates')
+    UnitTemplate.delete_all_caches
   end
 end

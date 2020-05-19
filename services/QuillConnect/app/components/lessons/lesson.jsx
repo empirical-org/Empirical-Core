@@ -264,7 +264,7 @@ class Lesson extends React.Component {
             <button className="button" onClick={this.handleEditLesson} type="button">Edit Activity</button>
             <button className="button" onClick={this.handleDeleteLesson} type="button">Delete Activity</button>
             <button className="button" onClick={this.handleCreatePrompt} type="button">Create Prompt</button>
-            <a className="button" href={`https://quillconnect.firebaseapp.com/#/play/lesson/${lessonID}`} rel="noopener noreferrer" target="_blank">Play Activity</a>
+            <Link className="button" rel="noopener noreferrer" target="_blank" to={`/play/lesson/${lessonID}`}>Play Activity</Link>
           </p>
           <h6 className="subtitle">{numberOfQuestions} Questions</h6>
           {this.renderQuestionsForLesson()}

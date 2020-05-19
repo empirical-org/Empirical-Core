@@ -14,8 +14,10 @@ export interface SessionState {
 
 type SessionAction = Action & { data: any, attempts: any, response: any, session: any }
 
+const initialState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null, pending: true}
+
 export default (
-    currentState: SessionState = {hasreceiveddata: false, answeredQuestions: [], unansweredQuestions: [], currentQuestion: null, pending: true},
+    currentState: SessionState = initialState,
     action: SessionAction,
 ): SessionState => {
     let currentQuestion: Question|{}
@@ -44,6 +46,8 @@ export default (
             return Object.assign({}, currentState, {proofreaderSession: action.data})
         case ActionTypes.SET_SESSION_PENDING:
             return Object.assign({}, currentState, {pending: action.pending})
+        case ActionTypes.START_NEW_SESSION:
+            return Object.assign({}, initialState, { pending: false, })
         default:
             return currentState;
     }
