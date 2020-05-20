@@ -42,12 +42,16 @@ class PromptValidationTest(PromptModelTest):
         self.assertEqual(prompt.labeling_approach,
                          Prompt.LABELING_APPROACHES.MULTI)
 
-
-class PromptFunctionTest(PromptModelTest):
     def test_max_attempts_feedback_not_null(self):
         with self.assertRaises(ValidationError):
             Prompt.objects.create(text='foo', ml_model=MLModelFactory())
 
+    def test_ml_model_is_nullable(self):
+        self.prompt.ml_model = None
+        self.assertIsNone(self.prompt.full_clean())
+
+
+class PromptFunctionTest(PromptModelTest):
     def test_get_for_labels_single_label(self):
         feedback = MLFeedbackFactory(combined_labels='Test1',
                                      prompt=self.prompt)
@@ -67,6 +71,11 @@ class PromptFunctionTest(PromptModelTest):
     def test_get_default(self):
         self.assertEqual(list(self.prompt._get_default_feedback()),
                          [self.default])
+
+    def test_conjunction_property(self):
+        conjunction = 'CONJUNCTION'
+        self.prompt.text = "the last word is the {}".format(conjunction)
+        self.assertEqual(self.prompt.conjunction, conjunction)
 
 
 class PromptFetchAutoMLFeedbackTest(PromptModelTest):

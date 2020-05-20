@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from . import DjangoChoices, TimestampedModel
@@ -7,13 +8,20 @@ from .prompt import Prompt
 
 class Activity(TimestampedModel):
     class FLAGS(DjangoChoices):
-        DRAFT = 'draft'
+        ALPHA = 'alpha'
         BETA = 'beta'
         PRODUCTION = 'production'
         ARCHIVED = 'archived'
 
     title = models.TextField(null=False)
-    flag = models.TextField(null=False, choices=FLAGS.get_for_choices())
+    flag = models.TextField(null=False, choices=FLAGS.get_for_choices(),
+                            default=FLAGS.ALPHA)
+    target_reading_level = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(4), MaxValueValidator(12)]
+    )
+    scored_reading_level = models.TextField(null=True, blank=True)
     passages = models.ManyToManyField(Passage, through='ActivityPassage',
                                       related_name='activities')
     prompts = models.ManyToManyField(Prompt, through='ActivityPrompt',
