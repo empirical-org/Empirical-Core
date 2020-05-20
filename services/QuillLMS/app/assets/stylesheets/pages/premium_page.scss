@@ -557,15 +557,15 @@ li.premium-tab > a:hover {
       padding: 24px;
       max-width: 100%;
       margin: 56px auto 0px;
-      -webkit-box-pack: center;
-          -ms-flex-pack: center;
-              justify-content: center;
     }
     @media (max-width: 500px) {
       width: 100%;
       text-align: left;
       display: block;
       height: min-content;
+      .quill-button {
+        margin-top: 16px;
+      }
     }
   }
 }
@@ -668,6 +668,7 @@ li.premium-tab > a:hover {
 .district-pricing-box {
 	max-width: 980px;
   width: 100%;
+  min-height: 88px;
 	height: min-content;
   padding-left: 18px;
   padding-right: 20px;
