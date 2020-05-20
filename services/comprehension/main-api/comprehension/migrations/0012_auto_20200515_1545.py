@@ -10,6 +10,11 @@ def change_draft_flag_to_alpha(apps, schema_editor):
     Activity.objects.filter(flag='draft').update(flag='alpha')
 
 
+def change_alpha_flag_to_draft(apps, schema_editor):
+    Activity = apps.get_model("comprehension", "Activity")
+    Activity.objects.filter(flag='alpha').update(flag='draft')
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -32,7 +37,7 @@ class Migration(migrations.Migration):
             name='flag',
             field=models.TextField(choices=[('alpha', 'alpha'), ('archived', 'archived'), ('beta', 'beta'), ('production', 'production')], default='alpha'),
         ),
-        migrations.RunPython(change_draft_flag_to_alpha),
+        migrations.RunPython(change_draft_flag_to_alpha, reverse_code=change_alpha_flag_to_draft),
         migrations.AlterField(
             model_name='prompt',
             name='ml_model',
