@@ -170,6 +170,8 @@ li.premium-tab > a:hover {
   }
   .premium-pricing-row {
     margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
   }
   .pricing-mini {
     font-size: 15px;
