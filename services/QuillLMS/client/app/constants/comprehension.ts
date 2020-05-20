@@ -66,3 +66,45 @@ export const readingLevelOptions = [
 ];
 
 export const promptStems = ['because', 'but', 'so'];
+
+export const BECAUSE = 'because';
+export const BUT = 'but';
+export const SO = 'so';
+
+export const blankActivity = {
+  activity_id: null, 
+  title: '', 
+  flag:'', 
+  passages: [''],
+  prompts: [
+    {
+      prompt_id: null,
+      conjunction: 'because',
+      text: '',
+      max_attempts: 5,
+      max_attempts_feedback: ''
+    },
+    {
+      prompt_id: null,
+      conjunction: 'but',
+      text: '',
+      max_attempts: 5,
+      max_attempts_feedback: ''
+    },
+    {
+      prompt_id: null,
+      conjunction: 'so',
+      text: '',
+      max_attempts: 5,
+      max_attempts_feedback: ''
+    }
+  ]
+}
+
+export const blankRuleSet = {
+  id: null,
+	name: '',
+	feedback: '',
+	rules: [], 
+  prompts: []
+}

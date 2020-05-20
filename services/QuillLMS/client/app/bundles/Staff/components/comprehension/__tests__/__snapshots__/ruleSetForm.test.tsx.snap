@@ -102,7 +102,7 @@ exports[`RuleSetForm component should render RuleSetForm 1`] = `
       Regex Rules
     </p>
     <RegexSection
-      errors={Array []}
+      errors={Object {}}
       handleAddRegexInput={[Function]}
       handleDeleteRegexRule={[Function]}
       handleSetRegexRule={[Function]}

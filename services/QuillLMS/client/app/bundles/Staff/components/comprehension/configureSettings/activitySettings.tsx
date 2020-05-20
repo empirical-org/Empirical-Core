@@ -1,19 +1,19 @@
 import * as React from "react";
+import { RouteComponentProps } from 'react-router-dom';
 import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { ActivityInterface } from '../../../interfaces/comprehension/activityInterface';
+import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
 import ActivityForm from './activityForm';
-import { flagOptions } from '../../../../../constants/comprehension';
+import { blankActivity, flagOptions } from '../../../../../constants/comprehension';
 import useSWR from 'swr';
 
-const ActivitySettings = (props: any) => {
-  const [activity, setActivity] = React.useState<ActivityInterface>({});
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [activityFlag, setActivityFlag] = React.useState(null);
-  const [originalFlag, setOriginalFlag] = React.useState(null);
-  const [showEditActivityModal, setShowEditActivityModal] = React.useState(false)
-  const [showEditFlagModal, setShowEditFlagModal] = React.useState(false)
-  const { match } = props;
+const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
+  const [activity, setActivity] = React.useState<ActivityInterface>(blankActivity);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string>(null);
+  const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(null);
+  const [originalFlag, setOriginalFlag] = React.useState<FlagInterface>(null);
+  const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false)
+  const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false)
   const { params } = match;
   const { activityId } = params;
   const fetchActivityAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/1.json`
@@ -43,7 +43,7 @@ const ActivitySettings = (props: any) => {
     fetchData();
   }, []);
 
-  const submitActivity = (activity) => {
+  const submitActivity = (activity: ActivityInterface) => {
     // TODO: hook into Activity PUT API
     toggleEditActivityModal();
   }
@@ -53,7 +53,7 @@ const ActivitySettings = (props: any) => {
     setShowEditFlagModal(false);
   }
 
-  const handleFlagChange = (flag) => {
+  const handleFlagChange = (flag: { label: string, value: {}}) => {
     setActivityFlag(flag);
   }
 
@@ -112,7 +112,7 @@ const ActivitySettings = (props: any) => {
     )
   }
 
-  const generalSettingsRows = (activity) => {
+  const generalSettingsRows = (activity: ActivityInterface) => {
     // format for DataTable to display labels on left side and values on right
     const { passages, prompts, title } = activity
     const fields = [

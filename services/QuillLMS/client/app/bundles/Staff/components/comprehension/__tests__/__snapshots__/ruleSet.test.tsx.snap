@@ -32,23 +32,23 @@ exports[`RuleSet component should render RuleSet 1`] = `
       Array [
         Object {
           "field": "Name",
-          "value": undefined,
+          "value": "",
         },
         Object {
           "field": "Feedback",
-          "value": undefined,
+          "value": "",
         },
         Object {
           "field": "Because",
-          "value": null,
+          "value": undefined,
         },
         Object {
           "field": "But",
-          "value": null,
+          "value": undefined,
         },
         Object {
           "field": "So",
-          "value": null,
+          "value": undefined,
         },
       ]
     }
@@ -60,7 +60,7 @@ exports[`RuleSet component should render RuleSet 1`] = `
       className="quill-button fun primary contained"
       id="edit-ruleset-button"
       onClick={[Function]}
-      type="submit"
+      type="button"
     >
       Configure
     </button>

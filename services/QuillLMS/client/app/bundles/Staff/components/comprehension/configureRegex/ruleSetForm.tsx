@@ -2,35 +2,28 @@ import * as React from "react";
 import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../../../helpers/comprehension';
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import { ActivityRuleSetInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import RegexSection from './regexSection';
 import useSWR from 'swr';
 
-const RuleSetForm = (props) => {
+interface RuleSetFormProps {
+  activityRuleSet: ActivityRuleSetInterface,
+  closeModal: (event: React.MouseEvent) => void,
+  submitRuleSet: (ruleSet: ActivityRuleSetInterface) => void
+}
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
+
+const RuleSetForm = ({ activityRuleSet, closeModal, submitRuleSet }: RuleSetFormProps) => {
 
   // get cached activity data 
   const { data } = useSWR("activity");
-
-  const { activityRuleSet, closeModal, submitRuleSet } = props;
   const { feedback, id, name, rules } = activityRuleSet;
-  const [ruleSetName, setRuleSetName] = React.useState(name || '');
-  const [ruleSetFeedback, setRuleSetFeedback] = React.useState(feedback || '');
-  const [ruleSetPrompts, setRuleSetPrompts] = React.useState({})
-  const [regexRules, setRegexRules] = React.useState({})
-  const [errors, setErrors] = React.useState([]);
-
-  const handleSetRuleSetName = (e) => { setRuleSetName(e.target.value) };
-  const handleSetRuleSetFeedback = (text) => { setRuleSetFeedback(text) };
-  const handleRuleSetPromptChange = (e) => {
-    const { target } = e;
-    const { id, value } = target;
-    let updatedPrompts = {...ruleSetPrompts};
-    const checked = updatedPrompts[value].checked
-    updatedPrompts[value] = {
-      id: parseInt(id),
-      checked: !checked
-    };
-    setRuleSetPrompts(updatedPrompts);
-  };
+  const [ruleSetName, setRuleSetName] = React.useState<string>(name || '');
+  const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
+  const [ruleSetPrompts, setRuleSetPrompts] = React.useState<{}>({})
+  const [regexRules, setRegexRules] = React.useState<{}>({})
+  const [errors, setErrors] = React.useState<{}>({});
 
   React.useEffect(() => {  
     formatPrompts();
@@ -48,7 +41,7 @@ const RuleSetForm = (props) => {
     });
 
     // use activity data to apply each prompt ID
-    data && data.prompts && data.prompts.forEach(prompt => {
+    data && data.prompts && data.prompts.forEach((prompt: PromptInterface) => {
       const { conjunction, prompt_id } = prompt;
       formatted[conjunction] = {
         id: prompt_id,
@@ -70,12 +63,12 @@ const RuleSetForm = (props) => {
     const promptIds = [];
     const rules = [];
     const ruleSet = {
+      id: id || null,
       name: ruleSetName,
-      feedback: ruleSetFeedback
+      feedback: ruleSetFeedback,
+      prompt_ids: [],
+      rules: []
     };
-    if(id) {
-      ruleSet.id = id;
-    }
     Object.keys(ruleSetPrompts).forEach(key => {
       ruleSetPrompts[key].checked && promptIds.push(ruleSetPrompts[key].id);
     });
@@ -87,6 +80,20 @@ const RuleSetForm = (props) => {
     return ruleSet;
   }
 
+  const handleSetRuleSetName = (e: InputEvent) => { setRuleSetName(e.target.value) };
+  const handleSetRuleSetFeedback = (text: string) => { setRuleSetFeedback(text) };
+  const handleRuleSetPromptChange = (e: InputEvent) => {
+    const { target } = e;
+    const { id, value } = target;
+    let updatedPrompts = {...ruleSetPrompts};
+    const checked = updatedPrompts[value].checked
+    updatedPrompts[value] = {
+      id: parseInt(id),
+      checked: !checked
+    };
+    setRuleSetPrompts(updatedPrompts);
+  };
+
   const handleSubmitRuleSet = () => {
     const ruleSet = buildRuleSet();
     const keys = ['Name', 'Feedback'];
@@ -97,14 +104,14 @@ const RuleSetForm = (props) => {
       state.push(regexRules[key].regex_text);
     });
     const validationErrors = validateForm(keys, state);
-    if(validationErrors && Object.keys(validationErrors).length !== 0) {
+    if(validationErrors && !!Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
       submitRuleSet(ruleSet);
     }
   }
 
-  const handleSetRegexRule = (e) => {
+  const handleSetRegexRule = (e: InputEvent) => {
     const { target } = e;
     const { id, type, value } = target;
     let updatedRules = {...regexRules};
@@ -128,7 +135,7 @@ const RuleSetForm = (props) => {
     setRegexRules(updatedRules);
   }
 
-  const handleDeleteRegexRule = (e) => {
+  const handleDeleteRegexRule = (e: InputEvent) => {
     const { target } = e;
     const { value } = target;
     let updatedRules = {...regexRules};
@@ -136,10 +143,10 @@ const RuleSetForm = (props) => {
     setRegexRules(updatedRules);
   }
 
-  const becausePrompt = ruleSetPrompts['because'];
-  const butPrompt = ruleSetPrompts['but'];
-  const soPrompt = ruleSetPrompts['so'];
-  const errorsPresent = Object.keys(errors).length !== 0;
+  const becausePrompt = ruleSetPrompts[BECAUSE];
+  const butPrompt = ruleSetPrompts[BUT];
+  const soPrompt = ruleSetPrompts[SO];
+  const errorsPresent = !!Object.keys(errors).length;
 
   return(
     <div className="ruleset-form-container">

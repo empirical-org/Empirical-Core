@@ -31,7 +31,7 @@ const mockProps = {
   regexRules: mockRegexRules
 };
 
-describe('RuleSetForm component', () => {
+describe('RegexSection component', () => {
   const container = shallow(<RegexSection {...mockProps} />);
 
   it('should render RegexSection', () => {

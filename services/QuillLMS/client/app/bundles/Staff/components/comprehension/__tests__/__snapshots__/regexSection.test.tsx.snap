@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RuleSetForm component should render RegexSection 1`] = `
+exports[`RegexSection component should render RegexSection 1`] = `
 <div
   className="regex-rules-container"
 >

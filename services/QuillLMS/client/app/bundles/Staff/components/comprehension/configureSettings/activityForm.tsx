@@ -3,38 +3,75 @@ import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/c
 import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm } from '../../../../../helpers/comprehension';
+import { ActivityInterface, FlagInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
-const ActivityForm = (props) => {
+interface ActivityFormProps {
+  activity: ActivityInterface,
+  closeModal: (event: React.MouseEvent) => void,
+  submitActivity: (activity: ActivityInterface) => void
+}
+type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-  const { activity, closeModal, submitActivity } = props;
-  const { flag, passages, prompts } = activity;
+const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
+
+  const { activity_id, flag, passages, prompts } = activity;
   const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedPassage = passages ? passages[0] : '';
-  const becausePrompt = prompts ? prompts[0].text : '';
-  const butPrompt = prompts ? prompts[1].text : '';
-  const soPrompt = prompts ? prompts[2].text : '';
+  const becausePrompt = prompts ? prompts[0] : { 
+    conjunction: BECAUSE,
+    text: '',
+    max_attempts: 5,
+    max_attempts_feedback: ''
+  };
+  const butPrompt = prompts ? prompts[1] : { 
+    conjunction: BUT,
+    text: '',
+    max_attempts: 5,
+    max_attempts_feedback: ''
+  };
+  const soPrompt = prompts ? prompts[2] : { 
+    conjunction: SO,
+    text: '',
+    max_attempts: 5,
+    max_attempts_feedback: ''
+  };
 
-  const [activityTitle, setActivityTitle] = React.useState(activity.title || '');
-  const [activityFlag, setActivityFlag] = React.useState(formattedFlag);
-  const [activityPassage, setActivityPassage] = React.useState(formattedPassage);
-  const [activityBecausePrompt, setActivityBecausePrompt] = React.useState(becausePrompt);
-  const [activityButPrompt, setActivityButPrompt] = React.useState(butPrompt);
-  const [activitySoPrompt, setActivitySoPrompt] = React.useState(soPrompt);
-  const [errors, setErrors] = React.useState([]);
+  const [activityTitle, setActivityTitle] = React.useState<string>(activity.title || '');
+  const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
+  const [activityPassage, setActivityPassage] = React.useState<string>(formattedPassage);
+  const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
+  const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
+  const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
+  const [errors, setErrors] = React.useState<{}>({});
 
-  const handleSetActivityTitle = (e) => { setActivityTitle(e.target.value) };
-  const handleSetActivityFlag = (flag) => { setActivityFlag(flag) };
-  const handleSetActivityPassage = (text) => { setActivityPassage(text) };
-  const handleSetActivityBecausePrompt = (e) => { setActivityBecausePrompt(e.target.value) };
-  const handleSetActivityButPrompt = (e) => { setActivityButPrompt(e.target.value) };
-  const handleSetActivitySoPrompt = (e) => { setActivitySoPrompt(e.target.value) };
+  const handleSetActivityTitle = (e: InputEvent) => { setActivityTitle(e.target.value) };
+  const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
+  const handleSetActivityPassage = (text: string) => { setActivityPassage(text) };
+  const handleSetActivityBecausePrompt = (e: InputEvent) => {
+    const updatedBecausePrompt = {...activityBecausePrompt};
+    updatedBecausePrompt.text = e.target.value;
+    setActivityBecausePrompt(updatedBecausePrompt) 
+  };
+  const handleSetActivityButPrompt = (e: InputEvent) => { 
+    const updatedButPrompt = {...activityButPrompt};
+    updatedButPrompt.text = e.target.value;
+    setActivityButPrompt(updatedButPrompt)  
+  };
+  const handleSetActivitySoPrompt = (e: InputEvent) => { 
+    const updatedSoPrompt = {...activitySoPrompt};
+    updatedSoPrompt.text = e.target.value;
+    setActivitySoPrompt(updatedSoPrompt)  
+  };
 
   const buildActivity = () => {
+    const { label } = activityFlag;
     return {
+      activity_id: activity_id || null,
       title: activityTitle,
-      flag: activityFlag,
+      flag: label,
       passages: [activityPassage],
       prompts: [becausePrompt, butPrompt, soPrompt]
     };
@@ -43,7 +80,7 @@ const ActivityForm = (props) => {
   const handleSubmitActivity = () => {
     const activity = buildActivity();
     const keys = ['Title', 'Passage', 'Because stem', 'But stem', 'So stem'];
-    const state = [activityTitle, activityPassage, activityBecausePrompt, activityButPrompt, activitySoPrompt];
+    const state = [activityTitle, activityPassage, activityBecausePrompt.text, activityButPrompt.text, activitySoPrompt.text];
     const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
@@ -52,7 +89,7 @@ const ActivityForm = (props) => {
     }
   }
 
-  const errorsPresent = Object.keys(errors).length !== 0;
+  const errorsPresent = !!Object.keys(errors).length;
 
   return(
     <div className="activity-form-container">
@@ -88,21 +125,21 @@ const ActivityForm = (props) => {
           error={errors['Because stem']}
           handleChange={handleSetActivityBecausePrompt}
           label="Because Stem"
-          value={activityBecausePrompt}
+          value={activityBecausePrompt.text}
         />
         <Input
           className="but-input"
           error={errors['But stem']}
           handleChange={handleSetActivityButPrompt}
           label="But Stem"
-          value={activityButPrompt}
+          value={activityButPrompt.text}
         />
         <Input
           className="so-input"
           error={errors['So stem']}
           handleChange={handleSetActivitySoPrompt}
           label="So Stem" 
-          value={activitySoPrompt}
+          value={activitySoPrompt.text}
         />
         <div className="submit-button-container">
           {errorsPresent && <div className="error-message-container">

@@ -14,12 +14,12 @@ exports[`RuleSets component should render RuleSets 1`] = `
   <DataTable
     averageFontWidth={7}
     className="rulesets-table"
-    defaultSortAttribute="description"
+    defaultSortAttribute="name"
     headers={
       Array [
         Object {
-          "attribute": "description",
-          "name": "Description",
+          "attribute": "name",
+          "name": "Name",
           "width": "400px",
         },
         Object {
