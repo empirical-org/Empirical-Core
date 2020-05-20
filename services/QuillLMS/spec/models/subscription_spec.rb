@@ -304,10 +304,10 @@ describe Subscription, type: :model do
         expect(new_sub.expiration).to eq(Date.today + 30)
       end
 
-      it 'create a trial subscription with an expiration 30 days after the extant subscription expiration' do
+      it 'create a trial subscription with an expiration 31 days after the extant subscription expiration' do
         attributes = { account_type: 'Teacher Trial' }
         new_sub = Subscription.create_with_user_join(user_with_extant_subscription.id, attributes)
-        expect(new_sub.expiration).to eq(extant_subscription.expiration + 30)
+        expect(new_sub.expiration).to eq(extant_subscription.expiration + 31)
       end
     end
 
