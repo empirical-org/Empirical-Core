@@ -43,6 +43,7 @@ export default class PremiumPricingGuide extends React.Component {
   render() {
     return (
       <div>
+        {this.renderCovidBanner()}
         <div className="container" id="premium-pricing-guide">
           <div className="overview text-center">
             <div className="header">
