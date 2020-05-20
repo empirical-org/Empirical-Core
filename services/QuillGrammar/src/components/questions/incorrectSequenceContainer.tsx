@@ -5,16 +5,8 @@ import * as questionActions from '../../actions/questions';
 import SortableList from '../shared/sortableList';
 
 class IncorrectSequencesContainer extends React.Component {
-  constructor() {
-    super();
 
-    this.deleteSequence = this.deleteSequence.bind(this);
-    this.handleDeleteSequence = this.handleDeleteSequence.bind(this);
-    this.submitSequenceForm = this.submitSequenceForm.bind(this);
-    this.sortCallback = this.sortCallback.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { dispatch, match, } = this.props
     dispatch(questionActions.getUsedSequences(match.params.questionID))
   }
@@ -28,7 +20,7 @@ class IncorrectSequencesContainer extends React.Component {
     return this.getQuestion().incorrectSequences;
   }
 
-  submitSequenceForm(data, sequence) {
+  submitSequenceForm = (data, sequence) => {
     const { dispatch, match, } = this.props
     delete data.conceptResults.null;
     if (sequence) {
@@ -38,7 +30,7 @@ class IncorrectSequencesContainer extends React.Component {
     }
   }
 
-  deleteSequence(sequenceID: string) {
+  deleteSequence = (sequenceID: string) => {
     const { dispatch, match, } = this.props
     if (confirm('⚠️ Are you sure you want to delete this? 😱')) {
       dispatch(questionActions.deleteIncorrectSequence(match.params.questionID, sequenceID));
@@ -76,7 +68,7 @@ class IncorrectSequencesContainer extends React.Component {
     this.deleteConceptResult(key, sequenceKey)
   }
 
-  handleDeleteSequence(key) {
+  handleDeleteSequence = (key) => {
     this.deleteSequence(key)
   }
 
@@ -106,7 +98,7 @@ class IncorrectSequencesContainer extends React.Component {
     return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
-  sortCallback(sortInfo) {
+  sortCallback = (sortInfo) => {
     const { dispatch, match, } = this.props
     const incorrectSequences = this.getSequences()
     const newOrder = sortInfo.data.items.map(item => item.key);

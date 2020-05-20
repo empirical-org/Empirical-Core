@@ -60,7 +60,7 @@ export default class Response extends React.Component<any, any> {
     this.renderFromResponsePathways = this.renderFromResponsePathways.bind(this)
   }
 
-  componentWillReceiveProps(nextProps: any) {
+  UNSAFE_componentWillReceiveProps(nextProps: any) {
     if (!_.isEqual(nextProps.response, this.props.response)) {
       let conceptResults = {}
       if (nextProps.response.concept_results) {

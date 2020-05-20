@@ -21,21 +21,13 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
       caseInsensitive: item ? (item.caseInsensitive ? item.caseInsensitive : false) : true,
       matchedCount: 0
     }
-
-    this.getNewAffectedCount = this.getNewAffectedCount.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleConceptChange = this.handleConceptChange.bind(this)
-    this.handleFeedbackChange = this.handleFeedbackChange.bind(this)
-    this.deleteConceptResult = this.deleteConceptResult.bind(this)
-    this.toggleCheckboxCorrect = this.toggleCheckboxCorrect.bind(this)
-    this.handleToggleQuestionCaseInsensitive = this.handleToggleQuestionCaseInsensitive.bind(this)
   }
 
   addOrEditItemLabel() {
     return this.props.item ? `Edit ${this.props.itemLabel}` : `Add New ${this.props.itemLabel}`;
   }
 
-  getNewAffectedCount() {
+  getNewAffectedCount = () => {
     const qid = this.props.questionID
     const usedSeqs = this.props.usedSequences
     const newSeqs = this.state.itemText.split(/\|{3}(?!\|)/)
@@ -51,7 +43,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     );
   }
 
-  handleChange(stateKey, e) {
+  handleChange = (stateKey, e) => {
     const obj = {};
     let value = e.target.value;
     if (stateKey === 'itemText') {
@@ -61,7 +53,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     this.setState(obj);
   }
 
-  handleConceptChange(e) {
+  handleConceptChange = (e) => {
     const concepts = this.state.itemConcepts;
     if (!concepts.hasOwnProperty(e.value)) {
       concepts[e.value] = { correct: false, name: e.label, conceptUID: e.value, };
@@ -71,7 +63,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     }
   }
 
-  handleFeedbackChange(e) {
+  handleFeedbackChange = (e) => {
     this.setState({itemFeedback: e})
   }
 
@@ -113,13 +105,13 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     return _.values(components);
   }
 
-  deleteConceptResult(key) {
+  deleteConceptResult = (key) => {
     const newConceptResults = Object.assign({}, this.state.itemConcepts)
     delete newConceptResults[key]
     this.setState({itemConcepts: newConceptResults})
   }
 
-  toggleCheckboxCorrect(key) {
+  toggleCheckboxCorrect = (key) => {
     const data = this.state;
     data.itemConcepts[key].correct = !data.itemConcepts[key].correct;
     this.setState(data);
@@ -132,7 +124,7 @@ export default class IncorrectSequencesInputAndConceptSelectorForm extends React
     return { dataset: theDatasetYouAreLookingFor, mode, }; // "These are not the datasets you're looking for."
   }
 
-  handleToggleQuestionCaseInsensitive() {
+  handleToggleQuestionCaseInsensitive = () => {
     const data = this.state;
     data.caseInsensitive = !data.caseInsensitive;
     this.setState(data);
