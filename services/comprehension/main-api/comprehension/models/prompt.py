@@ -30,7 +30,8 @@ class Prompt(TimestampedModel):
     max_attempts = models.PositiveIntegerField(default=5)
     max_attempts_feedback = models.TextField(null=False)
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
-                                 related_name='prompts', null=True)
+                                 related_name='prompts', null=True,
+                                 blank=True)
 
     class NoDefaultMLFeedbackError(ComprehensionException):
         """
@@ -112,3 +113,11 @@ class Prompt(TimestampedModel):
     @staticmethod
     def _filter_feedback(labels):
         return lambda x: x.get('labels') == labels
+
+    @property
+    def conjunction(self):
+        """
+        We assume that the last word of the text value is the prompt
+        conjunction
+        """
+        return self.text.split(' ')[-1]
