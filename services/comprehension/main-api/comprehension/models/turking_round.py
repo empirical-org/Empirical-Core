@@ -4,6 +4,7 @@ from pytz import utc
 from django.db import models
 
 from . import TimestampedModel
+from .activity import Activity
 
 
 class TurkingRound(TimestampedModel):
