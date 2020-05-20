@@ -5,17 +5,14 @@ import SchoolPricingMini from './premium_minis/school_pricing_mini.jsx';
 import PremiumConfirmationModal from '../subscriptions/premium_confirmation_modal';
 import PurchaseModal from '../../containers/PurchaseModal';
 
-export default class extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showPremiumConfirmationModal: false,
-      showPurchaseModal: false,
-      subscriptionType: null,
-      subscriptionStatus: null,
-      userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
-    };
-  }
+export default class PremiumPricingMinisRow extends React.Component {
+  state = {
+    showPremiumConfirmationModal: false,
+    showPurchaseModal: false,
+    subscriptionType: null,
+    subscriptionStatus: null,
+    userIsSignedIn: !!Number(document.getElementById('current-user-id').getAttribute('content')),
+  };
 
   hidePremiumConfirmationModal = () => {
     this.setState({ showPremiumConfirmationModal: false, });
@@ -44,37 +41,44 @@ export default class extends React.Component {
   };
 
   render() {
+    const { lastFour, } = this.props
+    
+    const {
+      userIsSignedIn,
+      showPremiumConfirmationModal,
+      subscriptionStatus,
+      showPurchaseModal,
+      subscriptionType,
+    } = this.state
+
     return (
       <div className="premium-pricing-row row text-center">
         <div className="col-md-4">
-          <BasicPricingMini />
+          <BasicPricingMini
+            userIsSignedIn={userIsSignedIn}
+          />
         </div>
         <div className="col-md-4">
           <TeacherPricingMini
             {...this.props}
             hidePurchaseModal={this.hidePurchaseModal}
             showPurchaseModal={this.showPurchaseModal}
-            userIsSignedIn={this.state.userIsSignedIn}
+            userIsSignedIn={userIsSignedIn}
           />
         </div>
         <div className="col-md-4">
-          <SchoolPricingMini
-            {...this.props}
-            hidePurchaseModal={this.hidePurchaseModal}
-            showPurchaseModal={this.showPurchaseModalForSchoolPurchase}
-            userIsSignedIn={this.state.userIsSignedIn}
-          />
+          <SchoolPricingMini />
         </div>
         <PremiumConfirmationModal
           hideModal={this.hidePremiumConfirmationModal}
-          show={this.state.showPremiumConfirmationModal}
-          subscription={this.state.subscriptionStatus}
+          show={showPremiumConfirmationModal}
+          subscription={subscriptionStatus}
         />
         <PurchaseModal
           hideModal={this.hidePurchaseModal}
-          lastFour={this.props.lastFour}
-          show={this.state.showPurchaseModal}
-          subscriptionType={this.state.subscriptionType}
+          lastFour={lastFour}
+          show={showPurchaseModal}
+          subscriptionType={subscriptionType}
           updateSubscriptionStatus={this.updateSubscriptionStatus}
         />
       </div>

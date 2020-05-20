@@ -1,3 +1,21 @@
+.covid-premium-banner {
+  padding: 16px 0px;
+  background-color: #e1f3f1;
+  text-align: center;
+  p {
+    font-size: 16px;
+    max-width: 656px;
+    margin: 0px auto;
+    a {
+      text-decoration: underline;
+    }
+    &:first-of-type {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+  }
+}
+
 .district-premium-button {
   width: 171px;
   height: 40px;
@@ -11,34 +29,6 @@
   color: white;
 }
 
-.premium-button {
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: normal;
-  border-radius: 6px;
-  text-align: center;
-  color: white;
-  display: inline-block;
-  margin: 40px;
-  text-decoration: none;
-  &.dark-green {
-    background-color: #06806b;
-  }
-  &.dark-green:hover {
-    text-decoration: none;
-    color: white;
-  }
-  &.dark-green:visited {
-    color: white;
-    text-decoration: none;
-  }
-  @media only screen and (max-width: 600px) {
-    &.dark-green {
-      margin: 15px;
-    }
-  }
-}
 
 .premium-tab {
   a {
@@ -135,7 +125,7 @@ li.premium-tab > a:hover {
 
 #premium-pricing-guide {
   color: #333333;
-  padding: 60 0 0 0px;
+  padding: 40 0 0 0px;
   width: 100%;
   text-align: center;
   & > .row > div {
@@ -192,6 +182,16 @@ li.premium-tab > a:hover {
         margin-top: 30px;
       }
     }
+    .premium-button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 136px;
+      .quill-button {
+        width: 138px;
+        margin-bottom: 16px;
+      }
+    }
     .promo-tab {
       width: 239px;
       height: 28px;
@@ -213,9 +213,10 @@ li.premium-tab > a:hover {
     section {
       border: none;
     }
-    h4 {
-      font-size: 16px;
-      font-weight: 600;
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
     }
     ul {
       text-align: left;
@@ -264,7 +265,11 @@ li.premium-tab > a:hover {
       }
       .premium-rates {
         position: relative;
-        min-height: 130px;
+        min-height: 78px;
+        .school-premium-rate {
+          font-size: 20px;
+          line-height: 1.5;
+        }
         .red-line {
           position: absolute;
           top: 4px;
@@ -273,28 +278,17 @@ li.premium-tab > a:hover {
           margin-right: 10px;
         }
         h3 {
-          font-size: 18px;
-          font-weight: normal;
-          line-height: normal;
-          text-align: center;
-          color: #333333;
-          margin-bottom: 8px;
+          font-size: 30px;
+          line-height: 1.43;
           &.strikethrough {
             text-decoration: line-through;
             color: #707070;
           }
-          &.bold {
-            font-weight: bold;
-          }
         }
         h4 {
-          font-size: 16px;
-          font-weight: 600;
-          line-height: normal;
+          font-size: 15px;
           text-align: center;
-          color: #333333;
-          margin-bottom: 24px;
-          padding: 0px 20px;
+          color: #555555;
         }
         &.all-h4 {
           h4 {
@@ -445,10 +439,6 @@ li.premium-tab > a:hover {
       &.right {
         grid-column: 2;
         padding-left: 30px;
-      }
-      h3 {
-        font-weight: bold;
-        padding-bottom: 10px;
       }
       p {
         font-size: 16px;
@@ -716,9 +706,6 @@ li.premium-tab > a:hover {
     font-weight: bold;
     height: 40px;
   }
-  .premium-button {
-    margin: 0px;
-  }
   @media (max-width: 990px) {
     padding: 30px;
     max-width: 75%;
@@ -737,9 +724,6 @@ li.premium-tab > a:hover {
     max-width: 90%;
     padding: 20px;
     height: auto;
-    .premium-button {
-      margin: 20px 0px;
-    }
   }
 }
 
