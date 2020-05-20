@@ -1,5 +1,5 @@
 .covid-premium-banner {
-  padding: 16px 0px;
+  padding: 16px;
   background-color: #e1f3f1;
   text-align: center;
   p {
@@ -152,8 +152,13 @@ li.premium-tab > a:hover {
         color: #333333;
       }
       @media only screen and (max-width: 656px) {
-        width: 90%;
+        width: 100%;
+        padding: 0px 16px;
         text-align: left;
+        margin-bottom: 0px;
+        h1 {
+          font-size: 30px;
+        }
       }
     }
     @media (min-width: 768px) {
@@ -179,7 +184,7 @@ li.premium-tab > a:hover {
       margin: auto;
       margin-top: 24px;
       &.first {
-        margin-top: 30px;
+        margin-top: 32px;
       }
     }
     .premium-button-container {
@@ -365,10 +370,10 @@ li.premium-tab > a:hover {
   }
 }
 .logo-group {
-  padding-top: 50px;
+  padding-top: 80px;
   h2 {
     font-weight: bold;
-    padding: 30px;
+    margin-bottom: 32px;
   }
   .logo-group-wrapper {
     display: -webkit-box;
@@ -386,6 +391,17 @@ li.premium-tab > a:hover {
     margin: 0 auto;
     .logo-wrapper {
       margin: 5px;
+      &:nth-of-type(1), &:nth-of-type(4n + 1) {
+        margin-left: 0px;
+      }
+      &:nth-of-type(4n) {
+        margin-right: 0px;
+      }
+    }
+    @media only screen and (max-width: 1000px) {
+      .logo-wrapper {
+        margin: 5px !important;
+      }
     }
     @media only screen and (max-width: 600px) {
       text-align: center;
@@ -397,7 +413,6 @@ li.premium-tab > a:hover {
       .logo-wrapper {
         margin: initial;
         display: inline-block;
-        padding: 10px;
       }
       img {
         width: 300px;
@@ -451,6 +466,12 @@ li.premium-tab > a:hover {
         display: table-cell;
         vertical-align: middle;
         height: 224px;
+        h3 {
+          font-size: 24px;
+          font-weight: bold;
+          line-height: 1.5;
+          margin: 0px auto 8px;
+        }
       }
       .switch-to-right {
         order: 1;
@@ -481,6 +502,9 @@ li.premium-tab > a:hover {
       }
       .switch-to-left {
         order: 1;
+      }
+      h3 {
+        margin-top: 56px;
       }
     }
   }
@@ -515,9 +539,6 @@ li.premium-tab > a:hover {
       }
     }
   }
-  .premium-features-body {
-    padding-bottom: 30px;
-  }
   .printable-summary-box {
     width: 950px;
     height: 88px;
@@ -532,46 +553,25 @@ li.premium-tab > a:hover {
     span {
       font-size: 16px;
     }
-    .pdf-button {
-      padding: 10px 24px;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: normal;
-      border-radius: 4px;
-      text-align: center;
-      color: black;
-      display: block;
-      border: solid 1px #bdbdbd;
-    }
     @media (max-width: 990px) {
-      padding: 30px;
-      max-width: 75%;
-      margin: 50px auto;
-      margin: 50px auto;
+      padding: 24px;
+      max-width: 100%;
+      margin: 56px auto 0px;
       -webkit-box-pack: center;
           -ms-flex-pack: center;
               justify-content: center;
-      .q-button {
-        margin-top: 15px;
-        margin-left: 0px;
-      }
     }
     @media (max-width: 500px) {
-      max-width: 90%;
+      width: 100%;
       text-align: left;
       display: block;
-      height: 166px;
-      .pdf-button {
-        margin: 10px 0px;
-      }
+      height: min-content;
     }
   }
 }
 
 .premium-testimonial {
-  margin: auto;
-  margin-top: 69px;
-  margin-bottom: 69px;
+  margin: 56px auto 80px;
   max-width: 691px;
   .quote-text {
     margin-top: 8px;
@@ -590,7 +590,6 @@ li.premium-tab > a:hover {
     color: #646464;
   }
   @media only screen and (max-width: 600px) {
-    width: 90%;
     text-align: left;
   }
 }
@@ -600,7 +599,7 @@ li.premium-tab > a:hover {
   background-color: white;
   text-align: center;
   .q-and-a-inner-wrapper {
-    padding: 20px 10px;
+    padding: 0px 10px;
     h1 {
       color: black;
       font-weight: bold;
@@ -658,33 +657,18 @@ li.premium-tab > a:hover {
     }
   }
   @media only screen and (max-width: 600px) {
-    padding: 0px 0px 60px 0px;
-  }
-
-}
-
-@media screen and (max-width: 768px) {
-  #fourth-preview-section {
-    .preview-questions {
-      max-width: 90%;
-
-      .preview-questions-column {
-        float: none;
-        margin: 0 auto;
-        max-width: 95%;
-
-        &:first-child {
-          margin: 0 auto 39px auto;
-        }
-      }
+    padding: 80px 0px;
+    h1 {
+      text-align: left;
     }
   }
+
 }
 
 .district-pricing-box {
 	max-width: 980px;
   width: 100%;
-	height:88px;
+	height: min-content;
   padding-left: 18px;
   padding-right: 20px;
 	background-color: #ffffff;
@@ -697,32 +681,20 @@ li.premium-tab > a:hover {
   span {
     font-size: 16px;
   }
-  .q-button {
-    border-color: #00c2a2;
-    color: #00c2a2;
-    padding-top: 9px;
-    margin-bottom: 5px;
-  	font-size: 14px;
-    font-weight: bold;
-    height: 40px;
-  }
   @media (max-width: 990px) {
     padding: 30px;
-    max-width: 75%;
-    margin: 50px auto;
-    margin: 50px auto;
+    margin: 24px auto 0px;
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
     text-align: left;
-    .q-button {
-      margin-top: 15px;
-      margin-left: 0px;
+    .quill-button {
+      margin-top: 16px;
     }
   }
   @media (max-width: 600px) {
-    max-width: 90%;
-    padding: 20px;
+    width: 300px;
+    padding: 24px;
     height: auto;
   }
 }
