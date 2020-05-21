@@ -129,9 +129,9 @@ class RuleSerializer(serializers.ModelSerializer):
         get_object_or_404(Activity, pk=activities_pk)
         rule_set = get_object_or_404(RuleSet, pk=rule_set_pk)
         if instance not in rule_set.rules.all():
-            raise serializers.ValidationError(f''''Rule {instance.id} does not
-                                              belong to RuleSet
-                                              {rule_set.id}''')
+            raise serializers.ValidationError(f'Rule {instance.id} does not'
+                                              'belong to RuleSet'
+                                              f'{rule_set.id}')
 
         Rule.objects.filter(pk=instance.pk).update(**validated_data)
         instance.refresh_from_db()
