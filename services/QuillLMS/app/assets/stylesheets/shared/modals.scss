@@ -248,8 +248,8 @@
     }
   }
   .modal-content {
-    top: 30%;
-    left: 49%;
+    top: 50%;
+    left: 50%;
     position: fixed;
     transform: translate(-50%, -50%);
     border-radius: 13px;
@@ -269,6 +269,8 @@
   text-align: center;
   .modal-content {
     padding: 32px;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 32px;
     background-image: url(https://assets.quill.org/images/illustrations/teacher-premium-modal.png);
     background-repeat: no-repeat;
@@ -277,7 +279,7 @@
     background-color: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.2);
     background-clip: padding-box;
-    top: 35%;
+    top: 50%;
     left: 50%;
     position: fixed;
     transform: translate(-50%, -50%);

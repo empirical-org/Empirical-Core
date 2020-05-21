@@ -56,7 +56,7 @@ const SchoolPremium = () => {
           <span className='bold-segment'>Looking for a printable summary?</span>
           We have you covered.
         </span>
-        <a className='pdf-button dark-green' href='https://assets.quill.org/documents/quill_premium.pdf' rel="noopener noreferrer" target="_blank">Download PDF</a>
+        <a className='quill-button medium outlined secondary' href='https://assets.quill.org/documents/quill_premium.pdf' rel="noopener noreferrer" target="_blank">Download PDF</a>
       </div>
     </div>
   );
