@@ -11,3 +11,4 @@ rm google-cloud-sdk-272.0.0-darwin-x86_64.tar.gz
 ~/google-cloud-sdk/bin/gcloud init
 brew install openssl
 env LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib" pip install -r requirements.txt.dev
+gcloud config set app/cloud_build_timeout 1000
