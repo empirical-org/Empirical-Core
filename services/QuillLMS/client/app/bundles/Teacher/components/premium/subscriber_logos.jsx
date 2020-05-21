@@ -1,7 +1,8 @@
 import React from 'react'
-export default class extends React.Component {
+export default class SubscriberLogos extends React.Component {
   mapLogos = () => {
-    var logos = this.props.subscribers.map(function(subscriber, index) {
+    const { subscribers, } = this.props
+    const logos = subscribers.map(function(subscriber, index) {
       return (
         <div className='logo-wrapper' id={subscriber.id} key={index}>
           <img alt={subscriber.name} id={subscriber.id} src={subscriber.source}  />
@@ -13,7 +14,7 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div className='logo-group'>.
+      <div className='logo-group container'>
         <h2>Trusted by Some of the Best Schools</h2>
         <div className='logo-group-wrapper'>
           {this.mapLogos()}
