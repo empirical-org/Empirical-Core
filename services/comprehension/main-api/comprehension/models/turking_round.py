@@ -9,10 +9,9 @@ from .activity import Activity
 
 class TurkingRound(TimestampedModel):
     activity = models.ForeignKey(Activity, on_delete=models.PROTECT,
-                                 related_name='turking_rounds', null=True,
-                                 blank=True)
-    expires_at = models.DateTimeField()
+                                 related_name='turking_rounds', null=False)
+    expires_at = models.DateTimeField(null=False)
 
     @property
     def expired(self):
-        return self.expires_at > utc.localize(datetime.now())
+        return self.expires_at < utc.localize(datetime.now())
