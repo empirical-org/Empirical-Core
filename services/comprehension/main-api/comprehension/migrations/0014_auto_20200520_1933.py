@@ -28,7 +28,7 @@ def transfer_prompt_rule_sets_one_to_one(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comprehension', '0012_auto_20200515_1545'),
+        ('comprehension', '0013_promptentry'),
     ]
 
     operations = [
