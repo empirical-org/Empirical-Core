@@ -77,6 +77,11 @@ class PromptFunctionTest(PromptModelTest):
         self.prompt.text = "the last word is the {}".format(conjunction)
         self.assertEqual(self.prompt.conjunction, conjunction)
 
+    def test_get_rule_sets(self):
+        self.prompt.rule_sets.add(RuleSetFactory())
+        rule_sets = self.prompt.rule_sets.all()
+        self.assertEqual(rule_sets.count(), 1)
+
 
 class PromptFetchAutoMLFeedbackTest(PromptModelTest):
     @patch.object(MLModel, 'request_single_label')
