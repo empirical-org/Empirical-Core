@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('priority', models.IntegerField(default=1)),
                 ('pass_order', models.TextField(choices=[('first', 'first'), ('second', 'second')])),
                 ('test_for_contains', models.BooleanField(default=True)),
-                ('prompt', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='rule_sets', to='comprehension.Prompt')),
+                ('prompt', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, default=None, null=True, related_name='rule_sets', to='comprehension.Prompt')),
             ],
             options={
                 'unique_together': {('prompt', 'priority', 'pass_order')},
