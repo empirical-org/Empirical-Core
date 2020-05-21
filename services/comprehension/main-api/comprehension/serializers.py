@@ -208,6 +208,6 @@ class RuleSetCreateUpdateSerializer(serializers.ModelSerializer):
         for prompt_id in prompts:
             prompt = get_object_or_404(Prompt, pk=prompt_id)
             if prompt not in activity_prompts:
-                raise serializers.ValidationError(f'''Prompt number {prompt.id}
-                                                  does not belong to the
-                                                  activity {activity.id}.''')
+                raise serializers.ValidationError(f'Prompt number {prompt.id}'
+                                                  ' does not belong to the'
+                                                  f' activity {activity.id}.')
