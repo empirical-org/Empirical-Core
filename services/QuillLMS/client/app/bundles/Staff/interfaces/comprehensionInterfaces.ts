@@ -7,10 +7,7 @@ export interface ActivityRuleSetInterface {
 	name: string,
   feedback: string,
   rules?: RegexRuleInterface[],
-  prompts?: {
-    id: number,
-    conjunction: string,
-  }[],
+  prompts?: ActivityRuleSetPrompt[],
   prompt_ids?: number[]
 }
 
@@ -39,4 +36,9 @@ export interface RegexRuleInterface {
 export interface FlagInterface {
   label: string,
   value: {}
+}
+
+export interface ActivityRuleSetPrompt {
+  id: number,
+  conjunction: string
 }

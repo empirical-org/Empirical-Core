@@ -2,9 +2,9 @@ import * as React from "react";
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm } from '../../../../../helpers/comprehension';
+import { validateForm, buildBlankPrompt } from '../../../../../helpers/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import { BECAUSE, BUT, SO, DEFAULT_MAX_ATTEMPTS } from '../../../../../constants/comprehension';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -20,24 +20,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const { activity_id, flag, passages, prompts } = activity;
   const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedPassage = passages ? passages[0] : '';
-  const becausePrompt = prompts ? prompts[0] : { 
-    conjunction: BECAUSE,
-    text: '',
-    max_attempts: 5,
-    max_attempts_feedback: ''
-  };
-  const butPrompt = prompts ? prompts[1] : { 
-    conjunction: BUT,
-    text: '',
-    max_attempts: 5,
-    max_attempts_feedback: ''
-  };
-  const soPrompt = prompts ? prompts[2] : { 
-    conjunction: SO,
-    text: '',
-    max_attempts: 5,
-    max_attempts_feedback: ''
-  };
+  const becausePrompt = prompts ? prompts[0] : buildBlankPrompt('because');
+  const butPrompt = prompts ? prompts[1] : buildBlankPrompt('but');
+  const soPrompt = prompts ? prompts[2] : buildBlankPrompt('so');
 
   const [activityTitle, setActivityTitle] = React.useState<string>(activity.title || '');
   const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);

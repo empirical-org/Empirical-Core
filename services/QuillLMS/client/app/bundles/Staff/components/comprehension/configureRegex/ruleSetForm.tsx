@@ -104,7 +104,7 @@ const RuleSetForm = ({ activityRuleSet, closeModal, submitRuleSet }: RuleSetForm
       state.push(regexRules[key].regex_text);
     });
     const validationErrors = validateForm(keys, state);
-    if(validationErrors && !!Object.keys(validationErrors).length) {
+    if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
       submitRuleSet(ruleSet);
