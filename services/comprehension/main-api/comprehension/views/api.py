@@ -62,8 +62,8 @@ class RuleSetViewSet(viewsets.ModelViewSet):
         order_list = request.data['rulesetIDs']
         if not order_list or len(order_list) != len(self.get_queryset()):
             raise ValidationError('Your list of rule set IDs does not'
-                                    'match the rule sets belonging to activity'
-                                    f'{activities_pk}')
+                                  'match the rule sets belonging to activity'
+                                  f'{activities_pk}')
 
         if not all(isinstance(s, int) for s in order_list):
             raise ValidationError('Please provide a list of integers'
