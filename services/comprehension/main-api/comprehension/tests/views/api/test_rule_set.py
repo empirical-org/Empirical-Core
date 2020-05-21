@@ -8,15 +8,13 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 from ...factories.rule_set import RuleSetFactory
 from ...factories.rule import RuleFactory
 from ...factories.activity import ActivityFactory
-from ...factories.activity_passage import ActivityPassageFactory
 from ...factories.activity_prompt import ActivityPromptFactory
-from ...factories.passage import PassageFactory
 from ...factories.prompt import PromptFactory
 from ...factories.user import UserFactory
-from ....models.activity import Activity
 from ....models.rule_set import RuleSet
 from ....models.prompt import Prompt
-from ....views.api import (RuleSetViewSet, RuleViewSet)
+from ....views.api import RuleSetViewSet
+
 
 class TestRuleSetApiListView(TestCase):
     def setUp(self):
@@ -29,7 +27,8 @@ class TestRuleSetApiListView(TestCase):
                               order=1)
 
     def test_show_activity_404(self):
-        request = self.factory.get(f'api/activities/{self.activity.id}/rulesets/')
+        request = self.factory.get(reverse('rulesets-list',
+                                           kwargs={'activities_pk': 400}))
         response = self.view(request, activities_pk=400)
 
         self.assertEqual(response.status_code, 404)
@@ -38,9 +37,11 @@ class TestRuleSetApiListView(TestCase):
         rule_set1 = RuleSetFactory(priority=1)
         rule_set2 = RuleSetFactory(priority=2)
         rule = RuleFactory(regex_text='^test', rule_set=rule_set1)
-        self.prompt.rule_sets.add(rule_set1,rule_set2)
+        self.prompt.rule_sets.add(rule_set1, rule_set2)
 
-        request = self.factory.get(f'api/activities/{self.activity.id}/rulesets/')
+        request = self.factory.get(reverse('rulesets-list',
+                                           kwargs={'activities_pk':
+                                                   self.activity.id}))
         response = self.view(request, activities_pk=self.activity.id)
 
         self.assertEqual(response.status_code, 200)
@@ -80,37 +81,53 @@ class TestRuleSetApiRetrieveView(TestCase):
         self.rule = RuleFactory(regex_text='^test', rule_set=self.rule_set)
 
     def test_show_activity_404(self):
-        request = self.factory.get(f'api/activities/{self.activity.id}/rulesets/')
+        request = self.factory.get(reverse('rulesets-detail',
+                                           kwargs={'activities_pk': 400,
+                                                   'pk': self.rule_set.id}))
         response = self.view(request, activities_pk=400)
 
         self.assertEqual(response.status_code, 404)
 
     def test_show_rule_set_404(self):
-        request = self.factory.get(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}/')
+        request = self.factory.get(reverse('rulesets-detail',
+                                           kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': 400
+                                           }))
         response = self.view(request, activities_pk=self.activity.id, pk=400)
 
         self.assertEqual(response.status_code, 404)
 
     def test_show_rule_set_format(self):
-        request = self.factory.get(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}/')
-        response = self.view(request, activities_pk=self.activity.id, pk=self.rule_set.id)
+        request = self.factory.get(reverse('rulesets-detail',
+                                           kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': self.rule_set.id
+                                           }))
+        response = self.view(request,
+                             activities_pk=self.activity.id,
+                             pk=self.rule_set.id)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(json.loads(response.render().content),
-            {'id': self.rule_set.id,
-             'name': self.rule_set.name,
-             'feedback': self.rule_set.feedback,
-             'rules': [{
-               'id': self.rule.id,
-               'regex_text': self.rule.regex_text,
-               'case_sensitive': self.rule.case_sensitive
-             }],
-             'prompts': [
-               {'id': self.prompt.id,
-                'conjunction': self.prompt.conjunction
-                }
-              ]
-             }
+                         {
+                            'id': self.rule_set.id,
+                            'name': self.rule_set.name,
+                            'feedback': self.rule_set.feedback,
+                            'rules': [
+                                {
+                                    'id': self.rule.id,
+                                    'regex_text': self.rule.regex_text,
+                                    'case_sensitive': self.rule.case_sensitive
+                                }
+                            ],
+                            'prompts': [
+                                {
+                                    'id': self.prompt.id,
+                                    'conjunction': self.prompt.conjunction
+                                }
+                            ]
+                        }
         )
 
 
@@ -126,12 +143,15 @@ class TestRuleSetApiCreateView(TestCase):
                               order=1)
         self.payload = {
             "name": "remove all instances of 'it contains methane'",
-	          "feedback": "Revise your work. Delete the phrase 'it contains methane' because it repeats the first part of the sentence",
+            "feedback": "Revise your work.",
             "prompt_ids": [self.prompt.id]
         }
 
     def test_403_when_unauthed(self):
-        request = self.factory.post(f'api/activities/{self.activity.id}/rulesets/', self.payload,
+        request = self.factory.post(reverse('rulesets-list',
+                                            kwargs={'activities_pk':
+                                                    self.activity.id}),
+                                    self.payload,
                                     format='json')
 
         response = self.view(request, activities_pk=self.activity.id)
@@ -139,7 +159,10 @@ class TestRuleSetApiCreateView(TestCase):
         self.assertEqual(response.status_code, 403)
 
     def test_success_when_authed(self):
-        request = self.factory.post(f'api/activities/{self.activity.id}/rulesets/', self.payload,
+        request = self.factory.post(reverse('rulesets-list',
+                                            kwargs={'activities_pk':
+                                                    self.activity.id}),
+                                    self.payload,
                                     format='json')
         force_authenticate(request, user=self.user)
 
@@ -155,7 +178,10 @@ class TestRuleSetApiCreateView(TestCase):
     def test_prompt_does_not_exist(self):
         payload = self.payload
         payload['prompt_ids'] = [100]
-        request = self.factory.post(f'api/activities/{self.activity.id}/rulesets/', payload,
+        request = self.factory.post(reverse('rulesets-list',
+                                            kwargs={'activities_pk':
+                                                    self.activity.id}),
+                                    self.payload,
                                     format='json')
         force_authenticate(request, user=self.user)
 
@@ -168,7 +194,10 @@ class TestRuleSetApiCreateView(TestCase):
         payload = self.payload
         payload['prompt_ids'] = [bad_prompt.id]
 
-        request = self.factory.post(f'api/activities/{self.activity.id}/rulesets/', payload,
+        request = self.factory.post(reverse('rulesets-list',
+                                            kwargs={'activities_pk':
+                                                    self.activity.id}),
+                                    self.payload,
                                     format='json')
 
         force_authenticate(request, user=self.user)
@@ -192,14 +221,28 @@ class TestRuleSetApiDeleteView(TestCase):
         self.prompt.rule_sets.add(self.rule_set)
 
     def test_403_when_unauthed(self):
-        request = self.factory.delete(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}')
+        request = self.factory.delete(reverse(
+                                        'rulesets-detail',
+                                        kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': self.rule_set.id
+                                        }
+                                      ))
 
-        response = self.view(request, activities_pk=self.activity.id, pk=self.rule_set.id)
+        response = self.view(request,
+                             activities_pk=self.activity.id,
+                             pk=self.rule_set.id)
 
         self.assertEqual(response.status_code, 403)
 
     def test_404_when_no_ruleset(self):
-        request = self.factory.delete(f'api/activities/{self.activity.id}/rulesets/404')
+        request = self.factory.delete(reverse(
+                                        'rulesets-detail',
+                                        kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': 400
+                                        }
+                                      ))
         force_authenticate(request, user=self.user)
 
         response = self.view(request, activities_pk=self.activity.id, pk=404)
@@ -207,14 +250,23 @@ class TestRuleSetApiDeleteView(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_success_on_auth(self):
-        request = self.factory.delete(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}')
+        request = self.factory.delete(reverse(
+                                        'rulesets-detail',
+                                        kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': self.rule_set.id
+                                        }
+                                      ))
         force_authenticate(request, user=self.user)
 
-        response = self.view(request, activities_pk=self.activity.id, pk=self.rule_set.id)
+        response = self.view(request,
+                             activities_pk=self.activity.id,
+                             pk=self.rule_set.id)
 
         self.assertEqual(response.status_code, 204)
         self.assertEqual(self.prompt.rule_sets.count(), 0)
         self.assertEqual(Prompt.objects.filter(pk=self.rule_set.id).count(), 0)
+
 
 class TestRuleSetApiUpdateView(TestCase):
     def setUp(self):
@@ -234,45 +286,74 @@ class TestRuleSetApiUpdateView(TestCase):
         self.prompt.rule_sets.add(self.rule_set)
         self.payload = {
             "name": "updated name",
-	          "feedback": "updated feedback",
+            "feedback": "updated feedback",
             "prompt_ids": [self.prompt2.id]
         }
 
     def test_403_when_unauthed(self):
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}', self.payload,
-                                    format='json')
+        request = self.factory.put(reverse(
+                                        'rulesets-detail',
+                                        kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': self.rule_set.id
+                                        }
+                                    ),
+                                   self.payload,
+                                   format='json')
 
-        response = self.view(request, activities_pk=self.activity.id, pk=self.rule_set.id)
+        response = self.view(request,
+                             activities_pk=self.activity.id,
+                             pk=self.rule_set.id)
 
         self.assertEqual(response.status_code, 403)
 
     def test_success_when_authed(self):
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}', self.payload,
-                                    format='json')
+        request = self.factory.put(reverse(
+                                        'rulesets-detail',
+                                        kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': self.rule_set.id
+                                        }
+                                    ),
+                                   self.payload,
+                                   format='json')
         force_authenticate(request, user=self.user)
 
-        response = self.view(request, activities_pk=self.activity.id, pk=self.rule_set.id)
+        response = self.view(request,
+                             activities_pk=self.activity.id,
+                             pk=self.rule_set.id)
 
         self.assertEqual(response.status_code, 200)
         rule_set = RuleSet.objects.filter(name=self.payload['name']).first()
         self.assertEqual(rule_set.feedback, self.payload['feedback'])
         prompt_ids = self.payload['prompt_ids']
         prompts = Prompt.objects.filter(id__in=prompt_ids)
-        self.assertEqual(list(prompts.all()), list(self.rule_set.prompt_set.all()))
+        self.assertEqual(list(prompts.all()),
+                         list(self.rule_set.prompt_set.all()))
 
     def test_delete_prompts(self):
         payload = self.payload
         payload['prompt_ids'] = []
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/{self.rule_set.id}', payload,
-                                    format='json')
+        request = self.factory.put(reverse(
+                                        'rulesets-detail',
+                                        kwargs={
+                                            'activities_pk': self.activity.id,
+                                            'pk': self.rule_set.id
+                                        }
+                                    ),
+                                   self.payload,
+                                   format='json')
         force_authenticate(request, user=self.user)
 
-        response = self.view(request, activities_pk=self.activity.id, pk=self.rule_set.id)
+        response = self.view(request,
+                             activities_pk=self.activity.id,
+                             pk=self.rule_set.id)
 
         self.assertEqual(response.status_code, 200)
         prompt_ids = self.payload['prompt_ids']
         prompts = Prompt.objects.filter(id__in=prompt_ids)
-        self.assertEqual(list(prompts.all()), list(self.rule_set.prompt_set.all()))
+        self.assertEqual(list(prompts.all()),
+                         list(self.rule_set.prompt_set.all()))
 
 
 class TestRuleSetApiOrderView(TestCase):
@@ -288,23 +369,38 @@ class TestRuleSetApiOrderView(TestCase):
         self.rule_set1 = RuleSetFactory(priority=1)
         self.rule_set2 = RuleSetFactory(priority=2)
         self.rule_set3 = RuleSetFactory(priority=3)
-        self.prompt.rule_sets.add(self.rule_set1, self.rule_set2, self.rule_set3)
+        self.prompt.rule_sets.add(self.rule_set1,
+                                  self.rule_set2,
+                                  self.rule_set3)
         self.payload = {
-            "rulesetIDs": [ int(self.rule_set3.id), int(self.rule_set2.id), int(self.rule_set1.id)]
+            "rulesetIDs": [
+                int(self.rule_set3.id),
+                int(self.rule_set2.id),
+                int(self.rule_set1.id)
+            ]
         }
 
     def test_403_when_unauthed(self):
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/order/', self.payload,
-                                    format='json')
-
+        request = self.factory.put(reverse('rulesets-order',
+                                           kwargs={
+                                             'activities_pk': self.activity.id
+                                           }),
+                                   self.payload,
+                                   format='json'
+                                   )
         response = self.view(request, activities_pk=self.activity.id)
 
         self.assertEqual(response.status_code, 403)
 
     def test_400_when_list_does_not_match(self):
-        payload = { "rulesetIDs": [int(self.rule_set1.id)] }
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/order/', payload,
-                                    format='json')
+        payload = {"rulesetIDs": [int(self.rule_set1.id)]}
+        request = self.factory.put(reverse('rulesets-order',
+                                           kwargs={
+                                             'activities_pk': self.activity.id
+                                           }),
+                                   payload,
+                                   format='json'
+                                   )
         force_authenticate(request, user=self.user)
 
         response = self.view(request, activities_pk=self.activity.id)
@@ -313,9 +409,18 @@ class TestRuleSetApiOrderView(TestCase):
 
     def test_400_when_list_rulesets_dont_belong_to_activity(self):
         wrong_rule_set = RuleSetFactory()
-        payload = { "rulesetIDs": [int(self.rule_set1.id), int(self.rule_set2.id), int(wrong_rule_set.id)] }
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/order/', payload,
-                                    format='json')
+        payload = {"rulesetIDs": [
+                                    int(self.rule_set1.id),
+                                    int(self.rule_set2.id),
+                                    int(wrong_rule_set.id)
+                   ]}
+        request = self.factory.put(reverse('rulesets-order',
+                                           kwargs={
+                                             'activities_pk': self.activity.id
+                                           }),
+                                   payload,
+                                   format='json'
+                                   )
         force_authenticate(request, user=self.user)
 
         response = self.view(request, activities_pk=self.activity.id)
@@ -323,9 +428,14 @@ class TestRuleSetApiOrderView(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_400_when_list_contains_non_rulesets(self):
-        payload = { "rulesetIDs": [int(self.rule_set1.id), 400] }
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/order/', payload,
-                                    format='json')
+        payload = {"rulesetIDs": [int(self.rule_set1.id), 400]}
+        request = self.factory.put(reverse('rulesets-order',
+                                           kwargs={
+                                             'activities_pk': self.activity.id
+                                           }),
+                                   payload,
+                                   format='json'
+                                   )
         force_authenticate(request, user=self.user)
 
         response = self.view(request, activities_pk=self.activity.id)
@@ -333,8 +443,13 @@ class TestRuleSetApiOrderView(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_update_order(self):
-        request = self.factory.put(f'api/activities/{self.activity.id}/rulesets/order/', self.payload,
-                                    format='json')
+        request = self.factory.put(reverse('rulesets-order',
+                                           kwargs={
+                                             'activities_pk': self.activity.id
+                                           }),
+                                   self.payload,
+                                   format='json'
+                                   )
         force_authenticate(request, user=self.user)
 
         response = self.view(request, activities_pk=self.activity.id)
