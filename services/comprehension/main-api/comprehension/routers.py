@@ -17,11 +17,11 @@ ActivitiesRouter = routers.NestedSimpleRouter(ApiRouter,
                                               lookup='activities')
 ActivitiesRouter.register(r'rulesets',
                           RuleSetViewSet,
-                          basename='RuleSet')
+                          basename='rulesets')
 RuleSetsRouter = routers.NestedSimpleRouter(ActivitiesRouter,
                                             r'rulesets',
                                             lookup='rulesets')
-RuleSetsRouter.register(r'rules', RuleViewSet, basename='Rule')
+RuleSetsRouter.register(r'rules', RuleViewSet, basename='rules')
 
 apiurls = format_suffix_patterns([
     url(r'^', include(ApiRouter.urls)),
