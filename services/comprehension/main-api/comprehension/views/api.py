@@ -61,19 +61,19 @@ class RuleSetViewSet(viewsets.ModelViewSet):
     def order(self, request, activities_pk=None, format='json'):
         order_list = request.data['rulesetIDs']
         if not order_list or len(order_list) != len(self.get_queryset()):
-            raise ValidationError(f'''Your list of rule set IDs does not
-                                    match the rule sets belonging to activity
-                                    {activities_pk}''')
+            raise ValidationError('Your list of rule set IDs does not'
+                                    'match the rule sets belonging to activity'
+                                    f'{activities_pk}')
 
         if not all(isinstance(s, int) for s in order_list):
-            raise ValidationError('''Please provide a list of integers
-                                  for prompt ids.''')
+            raise ValidationError('Please provide a list of integers'
+                                  'for prompt ids.')
 
         for i, rule_set_id in enumerate(order_list):
             rule_set = get_object_or_404(RuleSet, pk=rule_set_id)
             if rule_set not in self.get_queryset():
-                raise ValidationError(f'''Rule set {rule_set_id} does not
-                                      belong to activity {activities_pk}.''')
+                raise ValidationError(f'Rule set {rule_set_id} does not'
+                                      f'belong to activity {activities_pk}.')
             rule_set.priority = i
             rule_set.save()
 
