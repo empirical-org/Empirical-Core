@@ -1,9 +1,13 @@
+import pytz
+
+from datetime import datetime
 from functools import reduce
 from unittest import TestCase
 
 from ...utils import combine_labels
 from ...utils import construct_feedback_payload
 from ...utils import construct_highlight_payload
+from ...utils import to_iso_8601
 
 
 class TestCombineLabels(TestCase):
@@ -115,3 +119,22 @@ class TestConstructHighlightPayload(TestCase):
         self.assertEqual(type(result['text']), str)
         self.assertEqual(type(result['category']), str)
         self.assertEqual(type(result['character']), int)
+
+
+class TestToIso8601(TestCase):
+    def setUp(self):
+        self.now = datetime.now()
+
+    def test_zulu_offset_string(self):
+        utc_now = pytz.utc.localize(self.now)
+        self.assertEqual(to_iso_8601(utc_now),
+                         utc_now.strftime('%Y-%m-%dT%H:%M:%S.%fZ'))
+
+    def test_timezone_aware_string(self):
+        eastern_now = pytz.timezone('US/Eastern').localize(self.now)
+        self.assertEqual(to_iso_8601(eastern_now),
+                         eastern_now.strftime('%Y-%m-%dT%H:%M:%S.%f%z'))
+
+    def test_timezone_naive_string(self):
+        self.assertEqual(to_iso_8601(self.now),
+                         self.now.strftime('%Y-%m-%dT%H:%M:%S.%f'))

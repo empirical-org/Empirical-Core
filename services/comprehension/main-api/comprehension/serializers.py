@@ -95,6 +95,10 @@ class ActivityListSerializer(serializers.ModelSerializer):
 
 
 class TurkingRoundSerializer(serializers.ModelSerializer):
+    activity_id = serializers.PrimaryKeyRelatedField(
+        source='activity',
+        queryset=Activity.objects.all())
+
     class Meta:
         model = TurkingRound
         fields = ['id', 'activity_id', 'expires_at', 'expired']
