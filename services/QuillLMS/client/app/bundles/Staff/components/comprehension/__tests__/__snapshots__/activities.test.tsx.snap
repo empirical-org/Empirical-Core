@@ -13,16 +13,21 @@ exports[`Activities component should render Activities 1`] = `
         Object {
           "attribute": "title",
           "name": "Title",
-          "width": "700px",
-        },
-        Object {
-          "attribute": "course",
-          "name": "Course",
-          "width": "300px",
+          "width": "900px",
         },
       ]
     }
-    rows={Array []}
+    rows={
+      Array [
+        Object {
+          "title": <ForwardRef
+            to="/activities/null"
+          >
+            
+          </ForwardRef>,
+        },
+      ]
+    }
   />
 </div>
 `;

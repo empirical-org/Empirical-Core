@@ -1,14 +1,15 @@
 import * as React from "react";
-import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import { Modal } from 'quill-component-library/dist/componentLibrary';
-import ActivityForm from '../../components/comprehension/activityForm'
-import Activities from '../../components/comprehension/activities'
-import Activity from '../../components/comprehension/activity'
+import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
+import { blankActivity } from '../../../../constants/comprehension';
+import ActivityForm from './configureSettings/activityForm'
+import Activities from './activities'
+import Activity from './activity'
 
-const ComprehensionLanding = (props) => {
-  const { location } = props
+const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
-  const [modalActive, setModalActive] = React.useState(false)
+  const [modalActive, setModalActive] = React.useState<boolean>(false)
 
   const checkIndexActive = () => {
     if(!location) return false;
@@ -28,7 +29,7 @@ const ComprehensionLanding = (props) => {
     setModalActive(false)
   }
 
-  const submitActivity = (activity) => {
+  const submitActivity = (activity: ActivityInterface) => {
     // TODO: hook into Activity POST API
     setModalActive(false)
   }
@@ -36,7 +37,7 @@ const ComprehensionLanding = (props) => {
   const renderActivityForm = () => {
     return(
       <Modal>
-        <ActivityForm activity={{}} closeModal={closeModal} submitActivity={submitActivity} />
+        <ActivityForm activity={blankActivity} closeModal={closeModal} submitActivity={submitActivity} />
       </Modal>
     );
   }
@@ -61,7 +62,7 @@ const ComprehensionLanding = (props) => {
       </section>
       {modalActive && renderActivityForm()}
       <Switch>
-        <Redirect component={Activities} exact from='/' to='/activities' />
+        <Redirect exact from='/' to='/activities' />
         <Route component={Activity} path='/activities/:activityId' />
         <Route component={Activities} path='/activities' />
       </Switch>

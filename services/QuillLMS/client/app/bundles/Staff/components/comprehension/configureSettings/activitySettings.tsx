@@ -1,20 +1,22 @@
 import * as React from "react";
+import { RouteComponentProps } from 'react-router-dom';
 import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { ActivityInterface } from '../../interfaces/comprehension/activityInterface'
-import ActivityForm from './activityForm'
-import { flagOptions } from '../../../../constants/comprehension'
+import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
+import ActivityForm from './activityForm';
+import { blankActivity, flagOptions } from '../../../../../constants/comprehension';
+import useSWR from 'swr';
 
-const ActivitySettings = (props: any) => {
-  const [activity, setActivity] = React.useState<ActivityInterface>({});
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-  const [flag, setFlag] = React.useState(null);
-  const [showEditActivityModal, setShowEditActivityModal] = React.useState(false)
-  const [showEditFlagModal, setShowEditFlagModal] = React.useState(false)
-  const { match } = props;
+const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
+  const [activity, setActivity] = React.useState<ActivityInterface>(blankActivity);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [error, setError] = React.useState<string>(null);
+  const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(null);
+  const [originalFlag, setOriginalFlag] = React.useState<FlagInterface>(null);
+  const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false)
+  const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false)
   const { params } = match;
   const { activityId } = params;
-  const fetchActivityAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/${activityId}.json`
+  const fetchActivityAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/1.json`
   
   const fetchData = async () => {
     try {
@@ -26,27 +28,33 @@ const ActivitySettings = (props: any) => {
       setLoading(false);
     }
     const { flag } = activity
+    const flagObject = { label: flag, value: flag };
     setActivity(activity);
-    setFlag({ label: flag, value: flag });
+    setOriginalFlag(flagObject);
+    setActivityFlag(flagObject);
     setLoading(false);
+    return activity;
   };
+
+  // cache activity data to access activity prompts for regex configuration
+  useSWR("activity", fetchData);
 
   React.useEffect(() => {
     fetchData();
   }, []);
 
-  const submitActivity = (activity) => {
+  const submitActivity = (activity: ActivityInterface) => {
     // TODO: hook into Activity PUT API
     toggleEditActivityModal();
   }
 
   const handleUpdateFlag = () => {
     // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
-    toggleFlagModal();
+    setShowEditFlagModal(false);
   }
 
-  const handleFlagChange = (flag) => {
-    setFlag(flag);
+  const handleFlagChange = (flag: { label: string, value: {}}) => {
+    setActivityFlag(flag);
   }
 
 
@@ -55,12 +63,16 @@ const ActivitySettings = (props: any) => {
   }
 
   const toggleFlagModal = () => {
+    // only update flag if submit button is clicked
+    if(activityFlag !== originalFlag) {
+      setActivityFlag(originalFlag);
+    }
     setShowEditFlagModal(!showEditFlagModal);
   }
 
   const flagModal = (
     <button className="quill-button fun primary outlined" id="edit-flag-button" onClick={toggleFlagModal} type="submit">
-      {flag ? flag.label : ''}
+      {activityFlag ? activityFlag.label : ''}
     </button>
   );
 
@@ -85,7 +97,7 @@ const ActivitySettings = (props: any) => {
             isSearchable={true}
             label="Development Stage"
             options={flagOptions}
-            value={flag}
+            value={activityFlag}
           />
           <div className="submit-button-container">
             <button className="quill-button fun primary contained" id="flag-submit-button" onClick={handleUpdateFlag} type="submit">
@@ -100,7 +112,7 @@ const ActivitySettings = (props: any) => {
     )
   }
 
-  const generalSettingsRows = (activity) => {
+  const generalSettingsRows = (activity: ActivityInterface) => {
     // format for DataTable to display labels on left side and values on right
     const { passages, prompts, title } = activity
     const fields = [
