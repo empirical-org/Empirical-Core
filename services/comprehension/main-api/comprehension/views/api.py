@@ -66,7 +66,7 @@ class RuleSetViewSet(viewsets.ModelViewSet):
                                     {activities_pk}''')
 
         if not all(isinstance(s, int) for s in order_list):
-            raise ValidationError(f'''Please provide a list of integers
+            raise ValidationError('''Please provide a list of integers
                                   for prompt ids.''')
 
         for i, rule_set_id in enumerate(order_list):
