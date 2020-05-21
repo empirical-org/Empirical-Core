@@ -55,4 +55,4 @@ class RuleSet(BaseModel):
 
     @property
     def prompt_ids(self):
-        return self.prompt_set.values_list('id', flat=True)
+        return list(self.prompt_set.values_list('id', flat=True))

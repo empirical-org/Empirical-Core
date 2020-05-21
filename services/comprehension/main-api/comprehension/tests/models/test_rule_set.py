@@ -24,15 +24,6 @@ class RuleSetValidationTest(RuleSetModelTest):
         with self.assertRaises(ValidationError):
             self.rule_set.save()
 
-    # def test_priority_unique_on_prompt_id(self):
-    #     self.rule_set_duplicate = RuleSet(prompt=self.rule_set.prompt,
-    #                                       name="duplicate",
-    #                                       pass_order=self.rule_set.pass_order,
-    #                                       feedback="duplicate",
-    #                                       priority=self.rule_set.priority)
-    #     with self.assertRaises(ValidationError):
-    #         self.rule_set_duplicate.save()
-
     def test_pass_order_validation(self):
         self.rule_set.pass_order = 'DEFINITELY NOT A VALID FLAG'
         with self.assertRaises(ValidationError):
@@ -103,3 +94,9 @@ class RuleSetFunctionTest(RuleSetModelTest):
         self.assertTrue(result_one)
         self.assertTrue(result_two)
         self.assertFalse(result_three)
+
+    def test_prompt_ids_property(self):
+        rule_set = RuleSetFactory()
+        prompt = PromptFactory()
+        prompt.rule_sets.add(rule_set)
+        self.assertEqual(rule_set.prompt_ids, [prompt.id])
