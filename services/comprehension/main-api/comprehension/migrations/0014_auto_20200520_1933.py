@@ -22,7 +22,9 @@ def transfer_prompt_rule_sets_one_to_one(apps, schema_editor):
     for prompt in prompts:
         rule_sets = prompt.rule_sets.all()
         for rule_set in rule_sets:
+            print(f'adding Prompt {prompt.id} to RuleSet {rule_set.id}')
             rule_set.prompt = prompt
+            rule_set.save()
 
 
 class Migration(migrations.Migration):
