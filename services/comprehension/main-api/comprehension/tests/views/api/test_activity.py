@@ -77,6 +77,7 @@ class TestActivityApiRetrieveView(TestCase):
         self.assertEqual(json.loads(response.render().content), {
                          'id': self.activity.id,
                          'title': self.activity.title,
+                         'flag': self.activity.flag,
                          'target_reading_level':
                              self.activity.target_reading_level,
                          'scored_reading_level':
