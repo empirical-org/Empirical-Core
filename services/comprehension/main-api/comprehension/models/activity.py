@@ -34,6 +34,8 @@ class Activity(TimestampedModel):
     def get_prompts(self):
         return list(self.prompts.order_by('activityprompt__order').all())
 
+    # TODO: Move this function to be a @classmethod of the RuleSet model
+    # instead of being here
     def get_next_priority(self):
         rule_sets = RuleSet.objects.filter(prompt__in=self.prompts.all())
         if not rule_sets:
