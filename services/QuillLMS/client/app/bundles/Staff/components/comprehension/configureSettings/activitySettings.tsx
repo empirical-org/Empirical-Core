@@ -16,13 +16,14 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false)
   const { params } = match;
   const { activityId } = params;
-  const fetchActivityAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/1.json`
+  const activityAPI = `https://comprehension-247816.appspot.com/api/activities/${activityId}.json`
   
   const fetchData = async () => {
+    let activity: ActivityInterface;
     try {
       setLoading(true);
-      const response = await fetch(fetchActivityAPI);
-      var activity = await response.json();
+      const response = await fetch(activityAPI);
+      activity = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
@@ -43,8 +44,24 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     fetchData();
   }, []);
 
-  const submitActivity = (activity: ActivityInterface) => {
-    // TODO: hook into Activity PUT API
+  const submitActivity = async (activity: ActivityInterface) => {
+    let updatedActivity: ActivityInterface;
+    try {
+      setLoading(true);
+      const response = await fetch(activityAPI, {
+        method: "PUT",
+        credentials: 'include',
+        body: JSON.stringify(activity),
+        headers: {
+          "Accept": "application/JSON",
+          "Content-Type": "application/json"
+        },
+      });
+      updatedActivity = await response.json();
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
     toggleEditActivityModal();
   }
 
@@ -126,19 +143,19 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       },
       {
         label: 'Passage Length',
-        value: passages ? `${passages[0].split(' ').length} words` : null
+        value: passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null
       },
       {
         label: "Because",
-        value: prompts ? prompts[0].text : null
+        value: prompts && prompts[0] ? prompts[0].text : null
       },
       {
         label: "But",
-        value: prompts ? prompts[1].text : null
+        value: prompts && prompts[1] ? prompts[1].text : null
       },
       {
         label: "So",
-        value: prompts ? prompts[2].text : null
+        value: prompts && prompts[2] ? prompts[2].text : null
       },
     ];
     return fields.map(field => {

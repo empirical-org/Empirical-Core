@@ -72,28 +72,24 @@ export const BUT = 'but';
 export const SO = 'so';
 export const DEFAULT_MAX_ATTEMPTS = 5;
 
-export const blankActivity = {
-  activity_id: null, 
+export const blankActivity = { 
   title: '', 
   flag:'', 
-  passages: [''],
+  passages: [{ text: '' }],
   prompts: [
     {
-      prompt_id: null,
       conjunction: 'because',
       text: '',
       max_attempts: 5,
       max_attempts_feedback: ''
     },
     {
-      prompt_id: null,
       conjunction: 'but',
       text: '',
       max_attempts: 5,
       max_attempts_feedback: ''
     },
     {
-      prompt_id: null,
       conjunction: 'so',
       text: '',
       max_attempts: 5,
@@ -103,7 +99,6 @@ export const blankActivity = {
 }
 
 export const blankRuleSet = {
-  id: null,
 	name: '',
 	feedback: '',
 	rules: [], 

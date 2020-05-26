@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
-const fetchAllActivitiesAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json';
+const fetchAllActivitiesAPI = 'https://comprehension-247816.appspot.com/api/activities.json';
 
 const Activities = () => {
   const [activities, setActivities] = React.useState<ActivityInterface[]>([blankActivity]);
@@ -11,15 +11,15 @@ const Activities = () => {
   const [error, setError] = React.useState<string>(null);
   
   const fetchData = async () => {
+    let activities: ActivityInterface[];
     try {
       setLoading(true);
       const response = await fetch(fetchAllActivitiesAPI);
-      var json = await response.json();
+      activities = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
     }
-    const { activities } = json
     setActivities(activities);
     setLoading(false);
   };
@@ -29,8 +29,8 @@ const Activities = () => {
   }, []);
 
   const formattedRows = activities.map((activity: ActivityInterface) => {
-    const { activity_id,  title } = activity;
-    const activityLink = (<Link to={`/activities/${activity_id}`}>{title}</Link>);
+    const { id,  title } = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     return {
       title: activityLink
     }

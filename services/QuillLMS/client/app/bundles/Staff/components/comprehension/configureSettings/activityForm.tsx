@@ -3,8 +3,7 @@ import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/c
 import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildBlankPrompt } from '../../../../../helpers/comprehension';
-import { ActivityInterface, FlagInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO, DEFAULT_MAX_ATTEMPTS } from '../../../../../constants/comprehension';
+import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -17,16 +16,16 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { activity_id, flag, passages, prompts } = activity;
+  const { id, flag, passages, prompts } = activity;
   const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
-  const formattedPassage = passages ? passages[0] : '';
-  const becausePrompt = prompts ? prompts[0] : buildBlankPrompt('because');
-  const butPrompt = prompts ? prompts[1] : buildBlankPrompt('but');
-  const soPrompt = prompts ? prompts[2] : buildBlankPrompt('so');
+  const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
+  const becausePrompt = prompts && prompts.length ? prompts[0] : buildBlankPrompt('because');
+  const butPrompt = prompts && prompts.length ? prompts[1] : buildBlankPrompt('but');
+  const soPrompt = prompts && prompts.length ? prompts[2] : buildBlankPrompt('so');
 
   const [activityTitle, setActivityTitle] = React.useState<string>(activity.title || '');
   const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
-  const [activityPassage, setActivityPassage] = React.useState<string>(formattedPassage);
+  const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
@@ -34,7 +33,11 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   const handleSetActivityTitle = (e: InputEvent) => { setActivityTitle(e.target.value) };
   const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
-  const handleSetActivityPassage = (text: string) => { setActivityPassage(text) };
+  const handleSetActivityPassages = (text: string) => { 
+    const updatedPassages = [...activityPassages];
+    updatedPassages[0].text = text;
+    setActivityPassages(updatedPassages)
+   };
   const handleSetActivityBecausePrompt = (e: InputEvent) => {
     const updatedBecausePrompt = {...activityBecausePrompt};
     updatedBecausePrompt.text = e.target.value;
@@ -54,10 +57,10 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const buildActivity = () => {
     const { label } = activityFlag;
     return {
-      activity_id: activity_id || null,
+      id: id || null,
       title: activityTitle,
       flag: label,
-      passages: [activityPassage],
+      passages: activityPassages,
       prompts: [becausePrompt, butPrompt, soPrompt]
     };
   }
@@ -65,7 +68,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const handleSubmitActivity = () => {
     const activity = buildActivity();
     const keys = ['Title', 'Passage', 'Because stem', 'But stem', 'So stem'];
-    const state = [activityTitle, activityPassage, activityBecausePrompt.text, activityButPrompt.text, activitySoPrompt.text];
+    const state = [activityTitle, activityPassages[0].text, activityBecausePrompt.text, activityButPrompt.text, activitySoPrompt.text];
     const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
@@ -100,9 +103,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
-          handleTextChange={handleSetActivityPassage}
+          handleTextChange={handleSetActivityPassages}
           key="passage-description"
-          text={activityPassage}
+          text={activityPassages[0].text}
         />
         {errors['Passage'] && <p className="error-message">{errors['Passage']}</p>}
         <Input
