@@ -46,7 +46,7 @@ describe('The whitespaceChecker', () => {
   it('Should return a partialResponse object if the string matches then whitespace is added', () => {
     const responseString:string = "My do g took a nap.";
     const partialResponse: PartialResponse =  {
-        feedback: feedbackStrings.tooMuchWhitespaceError,
+        feedback: feedbackStrings.extraWhitespaceError,
         author: 'Whitespace Hint',
         parent_id: whitespaceMatch(responseString, savedResponses).id,
         concept_results: [
