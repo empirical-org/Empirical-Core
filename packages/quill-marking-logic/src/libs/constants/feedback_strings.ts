@@ -28,7 +28,7 @@ export const feedbackStrings: FeedbackStrings = {
   additionalWordError: 'Revise your work. You may have added an extra word.',
   missingWordError: 'Revise your work. You may have left out an important word.',
   missingWhitespaceError: 'Check your spacing. You may have forgotten a space between two words.',
-  tooMuchWhitespaceError: 'Check your spacing. You may have added an extra space between words.',
+  tooMuchWhitespaceError: 'Check your spacing. You may have added an extra space in the middle of a word.',
   flexibleModifiedWordError: 'Revise your work. You may have mixed up a word.',
   flexibleAdditionalWordError: 'Revise your work. You may have added an extra word.',
   flexibleMissingWordError: 'Revise your work. You may have left out an important word.',
