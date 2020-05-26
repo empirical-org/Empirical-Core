@@ -16,6 +16,7 @@ class RuleSet(BaseModel):
     feedback = models.TextField(null=False)
     priority = models.IntegerField(null=False, default=1)
     pass_order = models.TextField(null=False,
+                                  default=PASS_ORDER.FIRST,
                                   choices=PASS_ORDER.get_for_choices())
     match = models.TextField(null=False,
                              default=REGEX_MATCH_TYPES.ALL,
