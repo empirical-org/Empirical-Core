@@ -6,7 +6,6 @@ from ..factories.activity_passage import ActivityPassageFactory
 from ..factories.activity_prompt import ActivityPromptFactory
 from ..factories.passage import PassageFactory
 from ..factories.prompt import PromptFactory
-from ..factories.rule_set import RuleSetFactory
 from ...models.activity import Activity
 
 
@@ -87,14 +86,3 @@ class ActivityModelTest(TestCase):
 
         self.assertEqual(self.activity.get_prompts(),
                          [self.prompt2, self.prompt1])
-
-    def test_get_next_priority(self):
-        self.prompt = PromptFactory()
-        ActivityPromptFactory(activity=self.activity,
-                              prompt=self.prompt,
-                              order=1)
-        self.assertEqual(self.activity.get_next_priority(), 0)
-
-        self.prompt.rule_sets.add(RuleSetFactory())
-        self.prompt.rule_sets.add(RuleSetFactory())
-        self.assertEqual(self.activity.get_next_priority(), 2)
