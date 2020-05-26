@@ -101,10 +101,13 @@ class RulePromptSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prompt
         fields = ['id', 'conjunction']
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'conjunction']
 
 
 class RuleSerializer(serializers.ModelSerializer):
+    # TODO: See if any of the data checking you're doing can be moved to either
+    # a field validator on this Class OR to the Queryset on the View
+    # TODO: See if any of our queries can be simplified with filter join "__" notation
     class Meta:
         model = Rule
         fields = ['id', 'regex_text', 'case_sensitive']
@@ -152,22 +155,14 @@ class RuleSetListSerializer(serializers.ModelSerializer):
 
 
 class RuleSetViewSerializer(serializers.ModelSerializer):
-    rules = RuleSerializer(many=True)
-    prompts = RulePromptSerializer(source='prompt_set', many=True)
+    rules = RuleSerializer(many=True, read_only=True)
+    prompts = RulePromptSerializer(source='prompt_set', many=True, read_only=True)
+    prompt_ids = serializers.ListField(write_only=True)
 
     class Meta:
         model = RuleSet
-        fields = ['id', 'name', 'feedback', 'rules', 'prompts']
-        read_only_fields = ['id']
-
-
-class RuleSetCreateUpdateSerializer(serializers.ModelSerializer):
-    prompt_ids = serializers.ListField()
-
-    class Meta:
-        model = RuleSet
-        fields = ['id', 'name', 'feedback', 'prompt_ids']
-        read_only_fields = ['id']
+        fields = ['id', 'name', 'feedback', 'rules', 'prompts', 'prompt_ids']
+        read_only_fields = ['id', 'rules', 'prompts']
 
     def create(self, validated_data):
         activities_pk = self.context["view"].kwargs["activities_pk"]
@@ -175,39 +170,36 @@ class RuleSetCreateUpdateSerializer(serializers.ModelSerializer):
         prompt_ids = validated_data.pop('prompt_ids', None)
 
         validated_data['priority'] = activity.get_next_priority()
-        validated_data['match'] = RuleSet.REGEX_MATCH_TYPES.ALL
-        validated_data['pass_order'] = RuleSet.PASS_ORDER.FIRST
 
         instance = RuleSet(**validated_data)
         instance.save()
 
-        self._update_prompts(activity, prompt_ids, instance)
+        instance.prompt_set.set(prompt_ids)
 
         return instance
 
     def update(self, instance, validated_data):
         activities_pk = self.context["view"].kwargs["activities_pk"]
         activity = get_object_or_404(Activity, pk=activities_pk)
-        prompt_ids = validated_data.pop('prompt_ids', None)
+        prompt_ids = validated_data.pop('prompt_ids')
 
         RuleSet.objects.filter(pk=instance.pk).update(**validated_data)
         instance.refresh_from_db()
 
-        self._update_prompts(activity, prompt_ids, instance)
+        instance.prompt_set.set(prompt_ids)
 
         return instance
 
-    def _update_prompts(self, activity, prompt_ids, rule_set):
-        self._validate_prompts(activity, prompt_ids)
-
-        new_prompts = Prompt.objects.filter(id__in=prompt_ids)
-        rule_set.prompt_set.set(new_prompts)
-
-    def _validate_prompts(self, activity, prompts):
-        activity_prompts = activity.prompts.all()
-        for prompt_id in prompts:
-            prompt = get_object_or_404(Prompt, pk=prompt_id)
-            if prompt not in activity_prompts:
-                raise serializers.ValidationError(f'Prompt number {prompt.id}'
-                                                  ' does not belong to the'
-                                                  f' activity {activity.id}.')
+    def validate_prompt_ids(self, value):
+        # TODO: Write actually useful error messages here
+        # This may involve going back to the loop check on Prompt IDs/Activity IDs
+        if len(value) == 0:
+            raise serializers.ValidationError('blah')
+        activities_pk = self.context["view"].kwargs["activities_pk"]
+        prompts = Prompt.objects.filter(pk__in=value, activities=activities_pk).count()
+        if prompts != len(value):
+            raise serializers.ValidationError('blah')
+            raise serializers.ValidationError(f'Prompt number {prompt.id}'
+                                              ' does not belong to the'
+                                              f' activity {activity.id}.')
+        return value
