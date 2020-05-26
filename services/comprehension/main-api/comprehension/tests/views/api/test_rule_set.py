@@ -331,7 +331,7 @@ class TestRuleSetApiUpdateView(TestCase):
         self.assertEqual(list(prompts.all()),
                          list(self.rule_set.prompt_set.all()))
 
-    def test_delete_prompts(self):
+    def test_delete_all_prompts_error(self):
         payload = self.payload
         payload['prompt_ids'] = []
         request = self.factory.put(reverse(
@@ -349,11 +349,7 @@ class TestRuleSetApiUpdateView(TestCase):
                              activities_pk=self.activity.id,
                              pk=self.rule_set.id)
 
-        self.assertEqual(response.status_code, 200)
-        prompt_ids = self.payload['prompt_ids']
-        prompts = Prompt.objects.filter(id__in=prompt_ids)
-        self.assertEqual(list(prompts.all()),
-                         list(self.rule_set.prompt_set.all()))
+        self.assertEqual(response.status_code, 400)
 
 
 class TestRuleSetApiOrderView(TestCase):

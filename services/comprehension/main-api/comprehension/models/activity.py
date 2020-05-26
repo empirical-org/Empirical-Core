@@ -4,7 +4,6 @@ from django.db import models
 from . import DjangoChoices, TimestampedModel
 from .passage import Passage
 from .prompt import Prompt
-from .rule_set import RuleSet
 
 
 class Activity(TimestampedModel):
@@ -33,14 +32,6 @@ class Activity(TimestampedModel):
 
     def get_prompts(self):
         return list(self.prompts.order_by('activityprompt__order').all())
-
-    # TODO: Move this function to be a @classmethod of the RuleSet model
-    # instead of being here
-    def get_next_priority(self):
-        rule_sets = RuleSet.objects.filter(prompt__in=self.prompts.all())
-        if not rule_sets:
-            return 0
-        return rule_sets.latest('priority').priority + 1
 
 
 class ActivityPassage(models.Model):

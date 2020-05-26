@@ -43,9 +43,10 @@ class RuleSetViewSet(viewsets.ModelViewSet):
         return RuleSetViewSerializer
 
     def get_queryset(self):
-        get_object_or_404(Activity, pk=self.kwargs['activities_pk'])
+        activities_pk = self.kwargs['activities_pk']
+        get_object_or_404(Activity, pk=activities_pk)
         return (RuleSet.objects
-                       .filter(prompt__activities__pk=self.kwargs['activities_pk'])
+                       .filter(prompt__activities__pk=activities_pk)
                        .order_by('priority')
                        .distinct())
 
@@ -78,5 +79,7 @@ class RuleViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        get_object_or_404(Activity, pk=self.kwargs['activities_pk'])
-        return Rule.objects.filter(rule_set__prompt__activities__pk=self.kwargs['activities_pk'])
+        activities_pk = self.kwargs['activities_pk']
+        get_object_or_404(Activity, pk=activities_pk)
+        return (Rule.objects
+                    .filter(rule_set__prompt__activities__pk=activities_pk))

@@ -2,6 +2,8 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from ..factories.prompt import PromptFactory
+from ..factories.activity import ActivityFactory
+from ..factories.activity_prompt import ActivityPromptFactory
 from ..factories.rule_set import RuleSetFactory
 from ..factories.rule import RuleFactory
 from ...models.rule_set import RuleSet
@@ -100,3 +102,21 @@ class RuleSetFunctionTest(RuleSetModelTest):
         prompt = PromptFactory()
         prompt.rule_sets.add(rule_set)
         self.assertEqual(rule_set.prompt_ids, [prompt.id])
+
+    def test_get_next_rule_set_priority_for_activity(self):
+        self.prompt = PromptFactory()
+        self.activity = ActivityFactory()
+        ActivityPromptFactory(activity=self.activity,
+                              prompt=self.prompt,
+                              order=1)
+        self.assertEqual(RuleSet
+                         .get_next_rule_set_priority_for_activity(
+                             self.activity
+                             ), 0)
+
+        self.prompt.rule_sets.add(RuleSetFactory())
+        self.prompt.rule_sets.add(RuleSetFactory())
+        self.assertEqual(RuleSet
+                         .get_next_rule_set_priority_for_activity(
+                             self.activity
+                             ), 2)

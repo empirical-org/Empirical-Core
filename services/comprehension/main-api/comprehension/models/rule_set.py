@@ -57,3 +57,10 @@ class RuleSet(BaseModel):
     @property
     def prompt_ids(self):
         return list(self.prompt_set.values_list('id', flat=True))
+
+    @staticmethod
+    def get_next_rule_set_priority_for_activity(activity):
+        rule_sets = RuleSet.objects.filter(prompt__in=activity.prompts.all())
+        if not rule_sets:
+            return 0
+        return rule_sets.latest('priority').priority + 1
