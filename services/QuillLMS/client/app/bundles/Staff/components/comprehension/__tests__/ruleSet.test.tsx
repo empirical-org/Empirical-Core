@@ -1,29 +1,21 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import ActivitySettings from '../configureSettings/activitySettings';
+import RuleSet from '../configureRegex/ruleSet';
 import { DataTable } from 'quill-component-library/dist/componentLibrary';
 import 'whatwg-fetch';
 
-const mockProps = {
-  match: {
-    params: {
-      activityId: 1
-    }
-  }
-}
 const fields = [
-  'Title', 
-  'Development Stage', 
-  'Passage Length', 
+  'Name',
+  'Feedback',
   'Because',
   'But',
   'So'
 ]
 
-describe('ActivitySettings component', () => {
-  const container = shallow(<ActivitySettings {...mockProps} />);
+describe('RuleSet component', () => {
+  const container = shallow(<RuleSet />);
 
-  it('should render ActivitySettings', () => {
+  it('should render RuleSet', () => {
     expect(container).toMatchSnapshot();
   });
   it('should render a DataTable component', () => {
