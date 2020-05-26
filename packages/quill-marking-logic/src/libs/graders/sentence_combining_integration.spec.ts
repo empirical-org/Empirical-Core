@@ -85,7 +85,7 @@ describe('The checking a sentence combining question', () => {
     it('should be able to find an extra whitespace match', () => {
       const questionString = "Bats have wi ngs, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.tooMuchWhitespaceError);
+      assert.equal(matchedResponse.feedback, feedbackStrings.extraWhitespaceError);
     });
 
     it('should be able to find a rigid change match', () => {

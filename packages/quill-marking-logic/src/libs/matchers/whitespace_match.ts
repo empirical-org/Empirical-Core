@@ -6,7 +6,7 @@ import {conceptResultTemplate} from '../helpers/concept_result_template'
 import {getTopOptimalResponse} from '../sharedResponseFunctions'
 import {feedbackStrings} from '../constants/feedback_strings'
 
-const TOO_MUCH_WHITESPACE_ERROR = 1
+const EXTRA_WHITESPACE_ERROR = 1
 const MISSING_WHITESPACE_ERROR = 2
 
 export function whitespaceMatch (response:string, responses: Array<Response>): Response|undefined {
@@ -26,13 +26,13 @@ export function whitespaceChecker(responseString: string, responses:Array<Respon
     if (countSpaces(match.text) > countSpaces(responseString)) {
       return whitespaceResponseBuilder(responses, parent_id, MISSING_WHITESPACE_ERROR)
     }
-    return whitespaceResponseBuilder(responses, parent_id, TOO_MUCH_WHITESPACE_ERROR)
+    return whitespaceResponseBuilder(responses, parent_id, EXTRA_WHITESPACE_ERROR)
   }
 }
 
 export function whitespaceResponseBuilder(responses:Array<Response>, parent_id: string|number, errorType: number): PartialResponse {
   const res = {
-    feedback: errorType === TOO_MUCH_WHITESPACE_ERROR ? feedbackStrings.tooMuchWhitespaceError : feedbackStrings.missingWhitespaceError,
+    feedback: errorType === EXTRA_WHITESPACE_ERROR ? feedbackStrings.extraWhitespaceError : feedbackStrings.missingWhitespaceError,
     author: 'Whitespace Hint',
     parent_id,
     concept_results: [
