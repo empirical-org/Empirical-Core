@@ -153,7 +153,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
       assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words[0], 'zings')
+      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
     it('should be able to find a flexible change match', () => {
@@ -161,7 +161,14 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.author, 'Modified Word Hint');
       assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words[0], 'shave')
+      assert.equal(matchedResponse.misspelled_words, undefined)
+    });
+
+    it('should return misspelled word if spelling is the only error', () => {
+      const questionString = "Bats have wingss, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.author, 'Spelling Hint');
+      assert.equal(matchedResponse.misspelled_words[0], 'wingss')
     });
 
   })

@@ -66,8 +66,7 @@ export function checkSentenceCombining(
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
     const spellingFeedbackObj = {
       text: data.response,
-      spelling_error: true,
-      misspelled_words: misspelledWords
+      spelling_error: true
     }
     return Object.assign(responseTemplate, spellingAwareFeedback, spellingFeedbackObj);
   };
@@ -95,7 +94,6 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   yield spacingBeforePunctuationChecker(submission, responses);
   yield spacingAfterCommaChecker(submission, responses);
   yield whitespaceChecker(submission, responses);
-  yield wordsOutOfOrderChecker(submission, responses);
   yield rigidChangeObjectChecker(submission, responses);
 }
 
@@ -106,6 +104,7 @@ function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
   yield minLengthChecker(response, responses);
   yield maxLengthChecker(response, responses);
   yield caseStartChecker(response, responses);
+  yield wordsOutOfOrderChecker(response, responses);
   yield punctuationEndChecker(response, responses);
 }
 
