@@ -66,14 +66,15 @@ export function checkSentenceCombining(
     const spellingAwareFeedback = getSpellingFeedback(spellingPass);
     const spellingFeedbackObj = {
       text: data.response,
-      spelling_error: true
+      spelling_error: true,
+      misspelled_words: misspelledWords
     }
     return Object.assign(responseTemplate, spellingAwareFeedback, spellingFeedbackObj);
   };
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
   if (secondPass) {
-    return Object.assign(responseTemplate, secondPass, { misspelled_words: misspelledWords });
+    return Object.assign(responseTemplate, secondPass);
   };
 
   return responseTemplate;
@@ -104,7 +105,7 @@ function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
   yield minLengthChecker(response, responses);
   yield maxLengthChecker(response, responses);
   yield caseStartChecker(response, responses);
-  yield wordsOutOfOrderChecker(response, responses);
+  yield wordsOutOfOrderChecker(spellCorrectedResponse, responses);
   yield punctuationEndChecker(response, responses);
 }
 

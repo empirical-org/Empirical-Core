@@ -40,12 +40,6 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
     });
 
-    it('should be able to find a match even if some of the words are out of order.', () => {
-      const questionString: string = "Bats have fly, so they can wings.";
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
-    });
-
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
@@ -153,7 +147,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, spellingFeedbackStrings[matchedResponse.author]);
       assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words, undefined)
+      assert.equal(matchedResponse.misspelled_words[0], 'zings')
     });
 
     it('should be able to find a flexible change match', () => {
@@ -161,7 +155,7 @@ describe('The checking a sentence combining question', () => {
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.author, 'Modified Word Hint');
       assert.equal(matchedResponse.spelling_error, true);
-      assert.equal(matchedResponse.misspelled_words, undefined)
+      assert.equal(matchedResponse.misspelled_words[0], 'shave')
     });
 
     it('should return misspelled word if spelling is the only error', () => {
@@ -190,6 +184,13 @@ describe('The checking a sentence combining question', () => {
       const questionString = "bats have wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
+    });
+
+    it('should be able to find a match even if some of the words are out of order.', () => {
+      const questionString: string = "Bats have fly, so they can wings.";
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
+      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
     it('should be able to find a punctuation end match', () => {
