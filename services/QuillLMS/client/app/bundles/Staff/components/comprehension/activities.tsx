@@ -29,8 +29,8 @@ const Activities = () => {
   }, []);
 
   const formattedRows = activities.map((activity: ActivityInterface) => {
-    const { activity_id,  title } = activity;
-    const activityLink = (<Link to={`/activities/${activity_id}`}>{title}</Link>);
+    const { id,  title } = activity;
+    const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     return {
       title: activityLink
     }

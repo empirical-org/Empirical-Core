@@ -12,7 +12,7 @@ export interface ActivityRuleSetInterface {
 }
 
 export interface ActivityInterface {
-  activity_id?: string,
+  id?: string,
   title: string,
   flag: string,
   passages: string[],
