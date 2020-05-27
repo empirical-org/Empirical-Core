@@ -4,6 +4,7 @@ import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component
 import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
 import ActivityForm from './activityForm';
 import { blankActivity, flagOptions } from '../../../../../constants/comprehension';
+import { getCookie } from '../../../../../helpers/comprehension';
 import useSWR from 'swr';
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
@@ -46,6 +47,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
 
   const submitActivity = async (activity: ActivityInterface) => {
     let updatedActivity: ActivityInterface;
+    const csrftoken = getCookie('csrftoken');
     try {
       setLoading(true);
       const response = await fetch(activityAPI, {
@@ -54,7 +56,8 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
         body: JSON.stringify(activity),
         headers: {
           "Accept": "application/JSON",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          'X-CSRFToken': csrftoken
         },
       });
       updatedActivity = await response.json();

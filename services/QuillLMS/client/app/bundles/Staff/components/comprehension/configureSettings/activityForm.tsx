@@ -4,6 +4,7 @@ import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildBlankPrompt } from '../../../../../helpers/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
+import CSRFToken from '../shared/csrftoken';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -85,6 +86,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
         <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
       </div>
       <form className="activity-form">
+        <CSRFToken />
         <Input
           className="title-input"
           error={errors['Title']}
