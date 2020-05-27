@@ -45,5 +45,5 @@ export const spellingFeedbackStrings: any = {
   'Additional Word Hint': 'You may have added an extra word. Proofread your work, and check your spelling.',
   'Missing Word Hint': 'You may have left out an important word. Revise your work, and then check your spelling.',
   'Whitespace Hint': 'Proofread your work. You may have forgotten a space between two words. Also check your spelling.',
-  'Spacing After Comma Hint': 'Revise your work. Always put a space after a comma. Also check your spelling.',
+  'Spacing After Comma Hint': feedbackStrings.spacingAfterCommaError
 }

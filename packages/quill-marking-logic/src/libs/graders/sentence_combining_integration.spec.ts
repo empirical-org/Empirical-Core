@@ -6,6 +6,7 @@ import {Response} from '../../interfaces';
 import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 import { conceptResultTemplate } from '../helpers/concept_result_template';
+import { match } from 'react-router';
 
 describe('The checking a sentence combining question', () => {
 
@@ -164,13 +165,6 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.misspelled_words[0], 'shave')
     });
 
-    it('should return misspelled word if spelling is the only error', () => {
-      const questionString = "Bats have wingss, so they can fly."
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.author, 'Spelling Hint');
-      assert.equal(matchedResponse.misspelled_words[0], 'wingss')
-    });
-
   })
 
   describe('second matchers - original sentence', () => {
@@ -196,13 +190,19 @@ describe('The checking a sentence combining question', () => {
       const questionString: string = "Bats have fly, so they can wings.";
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
-      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
     it('should be able to find a punctuation end match', () => {
       const questionString = "Bats have wings, so they can fly";
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
+    });
+
+    it('should not return misspelled words array with second pass non-spelling feedback.', () => {
+      const questionString: string = "Batss have fly, so they can wings.";
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
+      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
   });
