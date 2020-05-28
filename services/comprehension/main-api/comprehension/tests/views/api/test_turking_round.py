@@ -73,15 +73,15 @@ class TestTurkingRoundSecureApiView(TestCase):
             'expires_at': pytz.utc.localize(datetime.now()),
         }
 
-    def test_403_when_unauthed_post(self):
+    def test_success_when_unauthed_post(self):
         request = self.factory.post(reverse('turking-list'), self.payload,
                                     format='json')
 
         response = self.view(request)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 201)
 
-    def test_403_when_unauthed_put(self):
+    def test_success_when_unauthed_put(self):
         request = self.factory.put(
             reverse('turking-detail',
                     kwargs={'pk': self.turking_round.pk}),
@@ -90,7 +90,7 @@ class TestTurkingRoundSecureApiView(TestCase):
 
         response = self.view(request, pk=self.turking_round.pk)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def test_success_when_authed_post(self):
         request = self.factory.post(reverse('turking-list'),
