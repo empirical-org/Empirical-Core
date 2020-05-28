@@ -14,23 +14,11 @@ def transfer_prompt_rule_sets_many_to_many(apps, schema_editor):
             prompt.rule_sets.add(rule_set)
             prompt.save()
 
-def transfer_prompt_rule_sets_one_to_one(apps, schema_editor):
-    Prompt = apps.get_model('comprehension', 'Prompt')
-    RuleSet = apps.get_model('comprehension', 'RuleSet')
-
-    prompts = Prompt.objects.all()
-    for prompt in prompts:
-        rule_sets = prompt.rule_sets.all()
-        for rule_set in rule_sets:
-            print(f'adding Prompt {prompt.id} to RuleSet {rule_set.id}')
-            rule_set.prompt = prompt
-            rule_set.save()
-
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comprehension', '0013_promptentry'),
+        ('comprehension', '0014_turkinground'),
     ]
 
     operations = [
@@ -40,7 +28,7 @@ class Migration(migrations.Migration):
             field=models.ManyToManyField(to='comprehension.RuleSet'),
         ),
 
-        migrations.RunPython(transfer_prompt_rule_sets_many_to_many, reverse_code=transfer_prompt_rule_sets_one_to_one),
+        migrations.RunPython(transfer_prompt_rule_sets_many_to_many),
 
         migrations.AlterUniqueTogether(
             name='ruleset',

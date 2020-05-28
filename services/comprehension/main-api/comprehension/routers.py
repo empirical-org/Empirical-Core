@@ -12,6 +12,7 @@ from .views.api import ActivityViewSet, TurkingRoundViewSet
 ApiRouter = routers.DefaultRouter()
 ApiRouter.include_format_suffixes = False
 ApiRouter.register(r'activities', ActivityViewSet, 'activities')
+ApiRouter.register(r'turking', TurkingRoundViewSet, 'turking')
 
 ActivitiesRouter = routers.NestedSimpleRouter(ApiRouter,
                                               r'activities',
@@ -29,5 +30,3 @@ apiurls = format_suffix_patterns([
     url(r'^', include(ActivitiesRouter.urls)),
     url(r'^', include(RuleSetsRouter.urls))
 ], allowed=['json'])
-
-ApiRouter.register(r'turking', TurkingRoundViewSet, 'turking')
