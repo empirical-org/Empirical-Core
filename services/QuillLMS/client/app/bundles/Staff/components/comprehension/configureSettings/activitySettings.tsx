@@ -4,7 +4,7 @@ import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component
 import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
 import ActivityForm from './activityForm';
 import { blankActivity, flagOptions } from '../../../../../constants/comprehension';
-import { getCookie } from '../../../../../helpers/comprehension';
+import { activityGetAPI, activityPutAPI } from '../../../utils/comprehensionAPIs';
 import useSWR from 'swr';
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
@@ -17,13 +17,12 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false)
   const { params } = match;
   const { activityId } = params;
-  const activityAPI = `https://comprehension-247816.appspot.com/api/activities/${activityId}.json`
   
   const fetchData = async () => {
     let activity: ActivityInterface;
     try {
       setLoading(true);
-      const response = await fetch(activityAPI);
+      const response = await fetch(activityGetAPI(activityId));
       activity = await response.json();
     } catch (error) {
       setError(error);
@@ -38,7 +37,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     return activity;
   };
 
-  // cache activity data to access activity prompts for regex configuration
+  // cache activity data for updates
   useSWR("activity", fetchData);
 
   React.useEffect(() => {
@@ -47,17 +46,14 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
 
   const submitActivity = async (activity: ActivityInterface) => {
     let updatedActivity: ActivityInterface;
-    const csrftoken = getCookie('csrftoken');
     try {
       setLoading(true);
-      const response = await fetch(activityAPI, {
-        method: "PUT",
-        credentials: 'include',
+      const response = await fetch(activityPutAPI(activityId), {
+        method: 'PUT',
         body: JSON.stringify(activity),
         headers: {
           "Accept": "application/JSON",
-          "Content-Type": "application/json",
-          'X-CSRFToken': csrftoken
+          "Content-Type": "application/json"
         },
       });
       updatedActivity = await response.json();
@@ -65,11 +61,19 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       setError(error);
       setLoading(false);
     }
-    toggleEditActivityModal();
+    const { flag } = updatedActivity
+    const flagObject = { label: flag, value: flag };
+    setActivity(updatedActivity);
+    setOriginalFlag(flagObject);
+    setActivityFlag(flagObject);
+    setLoading(false);
+    setShowEditActivityModal(false);
   }
 
   const handleUpdateFlag = () => {
-    // TODO: hook into Activity PUT API for updating only the development status (as requested by curriculum)
+    let updatedActivity: any = activity;
+    updatedActivity.flag = activityFlag.value;
+    submitActivity(activity);
     setShowEditFlagModal(false);
   }
 

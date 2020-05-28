@@ -2,8 +2,8 @@
 
 export const flagOptions = [
   {
-    label: 'draft',
-    value: 'draft'
+    label: 'alpha',
+    value: 'alpha'
   },
   {
     label: 'beta',
@@ -81,19 +81,19 @@ export const blankActivity = {
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: ''
+      max_attempts_feedback: 'try again.'
     },
     {
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: ''
+      max_attempts_feedback: 'try again.'
     },
     {
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: ''
+      max_attempts_feedback: 'try again.'
     }
   ]
 }

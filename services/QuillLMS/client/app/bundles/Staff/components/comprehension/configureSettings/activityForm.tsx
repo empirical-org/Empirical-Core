@@ -4,7 +4,6 @@ import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildBlankPrompt } from '../../../../../helpers/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
-import CSRFToken from '../shared/csrftoken';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -62,19 +61,19 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       title: activityTitle,
       flag: label,
       passages: activityPassages,
-      prompts: [becausePrompt, butPrompt, soPrompt]
+      prompts: [activityBecausePrompt, activityButPrompt, activitySoPrompt]
     };
   }
 
   const handleSubmitActivity = () => {
-    const activity = buildActivity();
+    const activityObject = buildActivity();
     const keys = ['Title', 'Passage', 'Because stem', 'But stem', 'So stem'];
     const state = [activityTitle, activityPassages[0].text, activityBecausePrompt.text, activityButPrompt.text, activitySoPrompt.text];
     const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
     } else {
-      submitActivity(activity);
+      submitActivity(activityObject);
     }
   }
 
@@ -83,10 +82,9 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   return(
     <div className="activity-form-container">
       <div className="close-button-container">
-        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="submit">x</button>
+        <button className="quill-button fun primary contained" id="activity-close-button" onClick={closeModal} type="button">x</button>
       </div>
       <form className="activity-form">
-        <CSRFToken />
         <Input
           className="title-input"
           error={errors['Title']}
@@ -138,7 +136,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           <button className="quill-button fun primary contained" id="activity-submit-button" onClick={handleSubmitActivity} type="submit">
             Submit
           </button>
-          <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="submit">
+          <button className="quill-button fun primary contained" id="activity-cancel-button" onClick={closeModal} type="button">
             Cancel
           </button>
         </div>

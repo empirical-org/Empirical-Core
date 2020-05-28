@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
-const fetchAllActivitiesAPI = 'https://comprehension-247816.appspot.com/api/activities.json';
+import { activitiesGetAPI } from '../../utils/comprehensionAPIs';
+import useSWR from 'swr';
 
 const Activities = () => {
   const [activities, setActivities] = React.useState<ActivityInterface[]>([blankActivity]);
@@ -14,7 +15,7 @@ const Activities = () => {
     let activities: ActivityInterface[];
     try {
       setLoading(true);
-      const response = await fetch(fetchAllActivitiesAPI);
+      const response = await fetch(activitiesGetAPI);
       activities = await response.json();
     } catch (error) {
       setError(error);
@@ -23,6 +24,9 @@ const Activities = () => {
     setActivities(activities);
     setLoading(false);
   };
+
+  // cache activity data for updates
+  useSWR("activities", fetchData);
 
   React.useEffect(() => {
     fetchData();
