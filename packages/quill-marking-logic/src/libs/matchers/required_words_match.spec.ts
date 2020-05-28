@@ -6,7 +6,7 @@ import {conceptResultTemplate} from '../helpers/concept_result_template'
 const savedResponses: Array<Response> = [
   {
     id: 1,
-    text: "My dog took a nap.",
+    text: "My dog took a Nap.",
     feedback: "Good job, that's a sentence!",
     optimal: true,
     count: 1,
@@ -14,7 +14,7 @@ const savedResponses: Array<Response> = [
   },
   {
     id: 2,
-    text: "My dog took a Nap.",
+    text: "My dog took a nap.",
     feedback: "Good job, that's a sentence!",
     optimal: true,
     count: 1,
