@@ -33,7 +33,7 @@ class Prompt(TimestampedModel):
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
                                  related_name='prompts', null=True,
                                  blank=True)
-    rule_sets = models.ManyToManyField(RuleSet)
+    rule_sets = models.ManyToManyField(RuleSet, related_name='prompts')
 
     class NoDefaultMLFeedbackError(ComprehensionException):
         """

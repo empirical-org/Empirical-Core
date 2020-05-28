@@ -140,8 +140,7 @@ class RuleSerializer(serializers.ModelSerializer):
 
 class RuleSetListSerializer(serializers.ModelSerializer):
     rules = RuleSerializer(many=True, required=False)
-    prompts = RulePromptSerializer(source='prompt_set',
-                                   many=True,
+    prompts = RulePromptSerializer(many=True,
                                    required=False)
 
     class Meta:
@@ -152,8 +151,7 @@ class RuleSetListSerializer(serializers.ModelSerializer):
 
 class RuleSetViewSerializer(serializers.ModelSerializer):
     rules = RuleSerializer(many=True, read_only=True)
-    prompts = RulePromptSerializer(source='prompt_set',
-                                   many=True,
+    prompts = RulePromptSerializer(many=True,
                                    read_only=True)
     prompt_ids = serializers.ListField(write_only=True)
 
@@ -199,7 +197,7 @@ class RuleSetViewSerializer(serializers.ModelSerializer):
         instance = RuleSet(**validated_data)
         instance.save()
 
-        instance.prompt_set.set(prompt_ids)
+        instance.prompts.set(prompt_ids)
 
         return instance
 
@@ -209,6 +207,6 @@ class RuleSetViewSerializer(serializers.ModelSerializer):
         RuleSet.objects.filter(pk=instance.pk).update(**validated_data)
         instance.refresh_from_db()
 
-        instance.prompt_set.set(prompt_ids)
+        instance.prompts.set(prompt_ids)
 
         return instance
