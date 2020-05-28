@@ -3,7 +3,10 @@ from rest_framework import permissions
 from rest_framework.response import Response
 
 from ..models.activity import Activity
-from ..serializers import ActivitySerializer, ActivityListSerializer
+from ..models.turking_round import TurkingRound
+from ..serializers import (ActivityListSerializer,
+                           ActivitySerializer,
+                           TurkingRoundSerializer)
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
@@ -22,3 +25,12 @@ class ActivityViewSet(viewsets.ModelViewSet):
         """
         serializer = ActivityListSerializer(self.queryset, many=True)
         return Response(serializer.data)
+
+
+class TurkingRoundViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows activities to be viewed or edited.
+    """
+    queryset = TurkingRound.objects.all().order_by('created_at')
+    serializer_class = TurkingRoundSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
