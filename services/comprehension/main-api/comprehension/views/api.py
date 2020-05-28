@@ -98,4 +98,4 @@ class TurkingRoundViewSet(viewsets.ModelViewSet):
     """
     queryset = TurkingRound.objects.all().order_by('created_at')
     serializer_class = TurkingRoundSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
