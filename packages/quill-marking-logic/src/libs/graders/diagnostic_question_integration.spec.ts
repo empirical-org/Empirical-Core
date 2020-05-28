@@ -45,7 +45,7 @@ describe('The checking a diagnostic question', () => {
     it('should be able to find a whitespace match', () => {
       const questionString = "Batshave wings, so they can fly."
       const matchedResponse = checkDiagnosticQuestion(responses[0].question_uid, questionString, responses, null, null, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.whitespaceError);
+      assert.equal(matchedResponse.feedback, feedbackStrings.missingWhitespaceError);
     });
 
     it('should be able to find a levenshtein change match', () => {
