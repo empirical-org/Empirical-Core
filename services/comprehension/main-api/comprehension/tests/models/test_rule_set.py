@@ -32,6 +32,19 @@ class RuleSetValidationTest(RuleSetModelTest):
             self.rule_set.save()
 
 
+class RuleSetAttributesTest(RuleSetModelTest):
+    def test_prompt_ids_property(self):
+        rule_set = RuleSetFactory()
+        prompt = PromptFactory()
+        prompt.rule_sets.add(rule_set)
+        self.assertEqual(rule_set.prompt_ids, [prompt.id])
+
+    def test_default_pass_order(self):
+        new_rule_set = RuleSet(name='test', feedback='test')
+        new_rule_set.save()
+        self.assertEqual(new_rule_set.pass_order, RuleSet.PASS_ORDER.FIRST)
+
+
 class RuleSetFunctionTest(RuleSetModelTest):
     def test_first_pass(self):
         rule_set = (RuleSetFactory(
@@ -91,12 +104,6 @@ class RuleSetFunctionTest(RuleSetModelTest):
         self.assertTrue(result_one)
         self.assertTrue(result_two)
         self.assertFalse(result_three)
-
-    def test_prompt_ids_property(self):
-        rule_set = RuleSetFactory()
-        prompt = PromptFactory()
-        prompt.rule_sets.add(rule_set)
-        self.assertEqual(rule_set.prompt_ids, [prompt.id])
 
     def test_get_next_rule_set_priority_for_activity(self):
         self.prompt = PromptFactory()

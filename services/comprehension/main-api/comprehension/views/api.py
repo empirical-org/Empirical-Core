@@ -85,7 +85,6 @@ class RuleViewSet(viewsets.ModelViewSet):
         get_object_or_404(Activity, pk=activities_pk)
         return (Rule.objects
                     .filter(rule_set__prompts__activities__pk=activities_pk))
-                    .filter(rule_set__prompt__activities__pk=activities_pk))
 
 
 class TurkingRoundViewSet(viewsets.ModelViewSet):
