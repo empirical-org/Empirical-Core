@@ -76,10 +76,16 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, feedbackStrings.spacingAfterCommaError);
     });
 
-    it('should be able to find a whitespace match', () => {
+    it('should be able to find a missing whitespace match', () => {
       const questionString = "Batshave wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.whitespaceError);
+      assert.equal(matchedResponse.feedback, feedbackStrings.missingWhitespaceError);
+    });
+
+    it('should be able to find an extra whitespace match', () => {
+      const questionString = "Bats have wi ngs, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.extraWhitespaceError);
     });
 
     it('should be able to find a rigid change match', () => {

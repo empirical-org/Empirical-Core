@@ -6,6 +6,7 @@ from .models.passage import Passage
 from .models.prompt import Prompt
 from .models.rule_set import RuleSet
 from .models.rule import Rule
+from .models.turking_round import TurkingRound
 
 
 class PassageSerializer(serializers.ModelSerializer):
@@ -211,3 +212,14 @@ class RuleSetCreateUpdateSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(f'Prompt number {prompt.id}'
                                                   ' does not belong to the'
                                                   f' activity {activity.id}.')
+
+
+class TurkingRoundSerializer(serializers.ModelSerializer):
+    activity_id = serializers.PrimaryKeyRelatedField(
+        source='activity',
+        queryset=Activity.objects.all())
+
+    class Meta:
+        model = TurkingRound
+        fields = ['id', 'activity_id', 'expires_at', 'expired']
+        read_only_fields = ['id', 'expired']
