@@ -101,8 +101,7 @@ export function extractSentencesFromResponses(responses:Array<Response>):Array<s
 
 export function getMissingWordsFromResponses(userString:string, sentences:Array<string>):Array<string> {
   const missingWords = getMissingWords(userString, sentences);
-  //1. sort by length, then 2. sort alphabetically, then 3. reverse the entire result
-  return missingWords.sort((a, b) => a.length - b.length || a.localeCompare(b)).reverse();
+  return _.sortBy(missingWords, word => word.length).reverse();
 }
 
 export function checkForMissingWords(userString:string, responses:Array<Response>, isSentenceFragment:boolean = false):FeedbackObject {
