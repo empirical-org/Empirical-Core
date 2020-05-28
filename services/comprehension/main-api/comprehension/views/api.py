@@ -9,11 +9,13 @@ from rest_framework.exceptions import ValidationError
 from ..models.activity import Activity
 from ..models.rule_set import RuleSet
 from ..models.rule import Rule
+from ..models.turking_round import TurkingRound
 from ..serializers import (ActivitySerializer,
                            ActivityListSerializer,
                            RuleSetViewSerializer,
                            RuleSetListSerializer,
-                           RuleSerializer)
+                           RuleSerializer,
+                           TurkingRoundSerializer)
 
 
 class ActivityViewSet(viewsets.ModelViewSet):
@@ -83,3 +85,12 @@ class RuleViewSet(viewsets.ModelViewSet):
         get_object_or_404(Activity, pk=activities_pk)
         return (Rule.objects
                     .filter(rule_set__prompt__activities__pk=activities_pk))
+
+
+class TurkingRoundViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows activities to be viewed or edited.
+    """
+    queryset = TurkingRound.objects.all().order_by('created_at')
+    serializer_class = TurkingRoundSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
