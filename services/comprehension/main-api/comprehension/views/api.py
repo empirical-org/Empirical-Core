@@ -56,7 +56,6 @@ class RuleSetViewSet(viewsets.ModelViewSet):
         serializer = RuleSetViewSerializer(rule_set, many=False)
         return Response(serializer.data)
 
-
     @action(detail=False, methods=['put'])
     def order(self, request, activities_pk=None, format='json'):
         order_list = request.data['rulesetIDs']
