@@ -62,6 +62,7 @@ class Subscription < ActiveRecord::Base
   ALL_PAID_TYPES = GRANDFATHERED_PAID_TYPES.dup.concat(OFFICIAL_PAID_TYPES)
   ALL_OFFICIAL_TYPES = OFFICIAL_PAID_TYPES.dup.concat(OFFICIAL_FREE_TYPES)
   TRIAL_TYPES = ['Teacher Trial', 'trial']
+  COVID_TYPES = [COVID_19_SCHOOL_SUBSCRIPTION_TYPE, COVID_19_SUBSCRIPTION_TYPE]
   SCHOOL_RENEWAL_PRICE = 90000
 
   TYPES_HASH = {
@@ -268,8 +269,15 @@ class Subscription < ActiveRecord::Base
       end
   end
 
-  def self.set_trial_expiration_and_start_date
-    {expiration: Date.today + 30, start_date: Date.today}
+  def self.set_trial_expiration_and_start_date(user=nil)
+    expiration = Date.today + 30
+    start_date = Date.today
+    existing_sub = user&.subscription
+    if existing_sub&.expiration && existing_sub.expiration > Date.today
+      start_date = existing_sub.expiration + 1
+      expiration = start_date + 30
+    end
+    {expiration: expiration, start_date: start_date}
   end
 
   def self.set_covid_expiration_and_start_date
@@ -300,7 +308,7 @@ class Subscription < ActiveRecord::Base
       # TODO: 'subscription type spot'
       if attributes[:account_type]&.downcase == 'teacher trial'
         PremiumAnalyticsWorker.perform_async(school_or_user_id, attributes[:account_type])
-        attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date)
+        attributes = attributes.merge(Subscription.set_trial_expiration_and_start_date(school_or_user))
       elsif [COVID_19_SUBSCRIPTION_TYPE, COVID_19_SCHOOL_SUBSCRIPTION_TYPE].include?(attributes[:account_type])
         attributes = attributes.merge(Subscription.set_covid_expiration_and_start_date)
         extend_current_subscription_for_covid_19(school_or_user)
