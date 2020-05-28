@@ -6,6 +6,7 @@ from django.urls import include
 from .views.api import ActivityViewSet
 from .views.api import RuleSetViewSet
 from .views.api import RuleViewSet
+from .views.api import ActivityViewSet, TurkingRoundViewSet
 
 
 ApiRouter = routers.DefaultRouter()
@@ -28,3 +29,5 @@ apiurls = format_suffix_patterns([
     url(r'^', include(ActivitiesRouter.urls)),
     url(r'^', include(RuleSetsRouter.urls))
 ], allowed=['json'])
+
+ApiRouter.register(r'turking', TurkingRoundViewSet, 'turking')
