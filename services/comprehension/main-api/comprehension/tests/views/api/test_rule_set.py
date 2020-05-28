@@ -173,7 +173,7 @@ class TestRuleSetApiCreateView(TestCase):
         self.assertEqual(rule_set.feedback, self.payload['feedback'])
         prompt_ids = self.payload['prompt_ids']
         prompts = Prompt.objects.filter(id__in=prompt_ids)
-        self.assertEqual(list(prompts.all()), list(rule_set.prompt_set.all()))
+        self.assertEqual(list(prompts.all()), list(rule_set.prompts.all()))
 
     def test_prompt_does_not_exist(self):
         payload = self.payload
@@ -329,7 +329,7 @@ class TestRuleSetApiUpdateView(TestCase):
         prompt_ids = self.payload['prompt_ids']
         prompts = Prompt.objects.filter(id__in=prompt_ids)
         self.assertEqual(list(prompts.all()),
-                         list(self.rule_set.prompt_set.all()))
+                         list(self.rule_set.prompts.all()))
 
     def test_delete_all_prompts_error(self):
         payload = self.payload

@@ -36,8 +36,7 @@ class RuleSetFunctionTest(RuleSetModelTest):
     def test_first_pass(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
-                    pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=self.prompt))
+                    pass_order=RuleSet.PASS_ORDER.FIRST))
         RuleFactory(regex_text='^test', rule_set=rule_set)
         result = rule_set.process_rule_set('incorrect test correct')
         self.assertFalse(result)
@@ -46,8 +45,7 @@ class RuleSetFunctionTest(RuleSetModelTest):
 
     def test_second_pass(self):
         rule_set = (RuleSetFactory(feedback='Test feedback',
-                                   pass_order=RuleSet.PASS_ORDER.SECOND,
-                                   prompt=self.prompt))
+                                   pass_order=RuleSet.PASS_ORDER.SECOND))
         RuleFactory(regex_text='^test', rule_set=rule_set)
         result = rule_set.process_rule_set('incorrect test correct')
         self.assertFalse(result)
@@ -59,7 +57,6 @@ class RuleSetFunctionTest(RuleSetModelTest):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=prompt,
                     match='all'))
         RuleFactory(regex_text='incorrect sequence', rule_set=rule_set)
         result = rule_set.process_rule_set('test incorrect sequence')
@@ -71,7 +68,6 @@ class RuleSetFunctionTest(RuleSetModelTest):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=self.prompt,
                     match='any'))
         RuleFactory(regex_text='^test', rule_set=rule_set)
         result = rule_set.process_rule_set('wrong sequence test')
@@ -83,7 +79,6 @@ class RuleSetFunctionTest(RuleSetModelTest):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=self.prompt,
                     match='any'))
 
         RuleFactory(regex_text='^test', rule_set=rule_set)

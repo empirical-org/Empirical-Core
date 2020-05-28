@@ -7,7 +7,6 @@ class RuleSetFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = RuleSet
 
-    prompt = factory.SubFactory(PromptFactory)
     name = 'Test rule set name'
     feedback = 'Test feedback'
     priority = 1
