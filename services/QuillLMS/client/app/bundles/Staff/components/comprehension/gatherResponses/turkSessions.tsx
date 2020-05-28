@@ -2,10 +2,13 @@ import * as React from "react";
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
+import "react-dates/initialize";
+import { SingleDatePicker } from 'react-dates'
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [turkSessions, setTurkSessions] = React.useState<[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
+  const [focused, setFocusedState] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
   const { params } = match;
   const { activityId } = params;
@@ -38,6 +41,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       expiration
     }
   });
+  
+  const handleDateChange = (date) => {
+    console.log('date', date);
+  }
 
   if(loading) {
     return(
@@ -62,6 +69,21 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   return(
     <div className="turk-sessions-container">
+      <div className="add-session-container">
+        <div>
+          <p>Add Expiration Date</p>
+          <SingleDatePicker
+            date={null}
+            focused={focused}
+            id={`date-picker`}
+            inputIconPosition="after"
+            numberOfMonths={1}
+            onDateChange={handleDateChange}
+            onFocusChange={({ focused }) => setFocusedState(focused)}
+          />
+        </div>
+        <button>Generate Turk Session</button>
+      </div>
       <DataTable
         className="turk-sessions-table"
         headers={dataTableFields}

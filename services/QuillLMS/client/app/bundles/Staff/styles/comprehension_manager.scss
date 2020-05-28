@@ -372,5 +372,13 @@ html {
   }
   .turk-sessions-container {
     margin-top: 30px;
+    .SingleDatePicker_picker {
+      z-index: 100;
+    }
+    .add-session-container {
+      display: flex;
+      align-items: center;
+      
+    }
   }
 }
