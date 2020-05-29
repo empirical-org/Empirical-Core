@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models.activity import Activity, ActivityPassage, ActivityPrompt
 from .models.passage import Passage
 from .models.prompt import Prompt
+from .models.turking_round import TurkingRound
 
 
 class PassageSerializer(serializers.ModelSerializer):
@@ -25,7 +26,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Activity
-        fields = ['id', 'title', 'target_reading_level',
+        fields = ['id', 'title', 'target_reading_level', 'flag',
                   'scored_reading_level', 'passages', 'prompts']
         read_only_fields = ['id']
 
@@ -91,3 +92,14 @@ class ActivityListSerializer(serializers.ModelSerializer):
         model = Activity
         fields = ['id', 'title']
         read_only_fields = ['id']
+
+
+class TurkingRoundSerializer(serializers.ModelSerializer):
+    activity_id = serializers.PrimaryKeyRelatedField(
+        source='activity',
+        queryset=Activity.objects.all())
+
+    class Meta:
+        model = TurkingRound
+        fields = ['id', 'activity_id', 'expires_at', 'expired']
+        read_only_fields = ['id', 'expired']
