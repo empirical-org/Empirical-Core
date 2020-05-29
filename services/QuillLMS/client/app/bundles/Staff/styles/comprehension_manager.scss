@@ -372,13 +372,32 @@ html {
   }
   .turk-sessions-container {
     margin-top: 30px;
-    .SingleDatePicker_picker {
-      z-index: 100;
-    }
     .add-session-container {
       display: flex;
       align-items: center;
-      
+      width: 90%;
+      .date-picker-container {
+        display: flex;
+        align-items: center;
+        margin-right: 30px;
+        .datepicker-label {
+          margin: 0px 10px 0px 0px;
+          font-weight: 100;
+        }
+        .SingleDatePicker {
+          z-index: 100;
+          .DateInput {
+            .DateInput_input {
+              padding: 3px;
+              font-size: 14px;
+              line-height: 0;
+            }
+          }
+        }
+        .DateInput_input:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

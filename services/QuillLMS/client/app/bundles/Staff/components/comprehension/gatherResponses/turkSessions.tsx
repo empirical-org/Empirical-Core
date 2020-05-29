@@ -7,6 +7,7 @@ import { SingleDatePicker } from 'react-dates'
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [turkSessions, setTurkSessions] = React.useState<[]>([]);
+  const [turkSessionDate, setTurkSessionDate] = React.useState<{}>(null)
   const [loading, setLoading] = React.useState<boolean>(false);
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
@@ -42,9 +43,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     }
   });
   
-  const handleDateChange = (date) => {
-    console.log('date', date);
-  }
+  const handleDateChange = (date) => { setTurkSessionDate(date) };
+  const handleFocusChange = ({ focused }) => { 
+    setFocusedState(focused) 
+  };
 
   if(loading) {
     return(
@@ -64,25 +66,25 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   const dataTableFields = [
     { name: "Link", attribute:"link", width: "800px" }, 
-    { name: "Expiration", attribute:"expiration", width: "200px" }
+    { name: "Expiration Date", attribute:"expiration", width: "200px" }
   ];
 
   return(
     <div className="turk-sessions-container">
       <div className="add-session-container">
-        <div>
-          <p>Add Expiration Date</p>
+        <div className="date-picker-container">
+          <label className="datepicker-label" htmlFor="date-picker">Add Expiration Date</label>
           <SingleDatePicker
-            date={null}
+            date={turkSessionDate}
             focused={focused}
-            id={`date-picker`}
+            id="date-picker"
             inputIconPosition="after"
             numberOfMonths={1}
             onDateChange={handleDateChange}
-            onFocusChange={({ focused }) => setFocusedState(focused)}
+            onFocusChange={handleFocusChange}
           />
         </div>
-        <button>Generate Turk Session</button>
+        <button className="generate-session-button quill-button fun primary contained" type="submit">Generate Turk Session</button>
       </div>
       <DataTable
         className="turk-sessions-table"
