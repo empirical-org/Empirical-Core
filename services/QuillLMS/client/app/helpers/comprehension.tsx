@@ -2,7 +2,6 @@ import * as React from "react";
 import { promptStems, DEFAULT_MAX_ATTEMPTS } from '../constants/comprehension';
 import { ActivityRuleSetPrompt } from '../bundles/Staff/interfaces/comprehensionInterfaces'
 import stripHtml from "string-strip-html";
-import $ from 'jquery';
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
 
 export const getPromptsIcons = (prompts: ActivityRuleSetPrompt[]) => {
