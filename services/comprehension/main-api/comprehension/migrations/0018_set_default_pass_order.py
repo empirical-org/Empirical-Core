@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comprehension', '0015_auto_20200520_1933'),
+        ('comprehension', '0017_delete_rule_set_on_prompt'),
     ]
 
     operations = [
