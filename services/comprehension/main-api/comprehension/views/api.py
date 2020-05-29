@@ -45,7 +45,7 @@ class RuleViewSet(viewsets.ModelViewSet):
 
 
 class RuleSetViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
     def get_serializer_class(self):
         if self.action == 'list':

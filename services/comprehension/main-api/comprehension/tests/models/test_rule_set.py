@@ -104,12 +104,6 @@ class RuleSetFunctionTest(RuleSetModelTest):
         self.assertTrue(result_two)
         self.assertFalse(result_three)
 
-    def test_prompt_ids_property(self):
-        rule_set = RuleSetFactory()
-        prompt = PromptFactory()
-        prompt.rule_sets.add(rule_set)
-        self.assertEqual(rule_set.prompt_ids, [prompt.id])
-
     def test_get_next_rule_set_priority_for_activity(self):
         self.prompt = PromptFactory()
         self.activity = ActivityFactory()
