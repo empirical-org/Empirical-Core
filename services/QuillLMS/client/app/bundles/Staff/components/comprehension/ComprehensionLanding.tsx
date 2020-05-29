@@ -1,12 +1,13 @@
 import * as React from "react";
 import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
-import { Error, Modal } from 'quill-component-library/dist/componentLibrary';
+import { Modal } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
 import ActivityForm from './configureSettings/activityForm'
 import Activities from './activities'
 import Activity from './activity'
 import { activityPostAPI } from '../../utils/comprehensionAPIs';
+import useSWR, { mutate } from 'swr'
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
@@ -47,13 +48,14 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
         "Content-Type": "application/json"
       },
     });
-    const json = response.json();
     // not a 2xx status
     if(Math.round(response.status / 100) !== 2) {
       setError('Activity submission failed, please try again.');
     }
     setShowCreateActivityModal(false)
     setShowSubmissionModal(true)
+    // update activities cache to display newly created activity
+    mutate("activities");
   }
 
   const renderActivityForm = () => {
