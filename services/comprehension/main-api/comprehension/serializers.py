@@ -94,7 +94,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 class ActivityListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'title']
+        fields = ['id', 'flag', 'title']
         read_only_fields = ['id']
 
 
