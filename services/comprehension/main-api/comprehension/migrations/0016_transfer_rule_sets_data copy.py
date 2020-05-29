@@ -18,26 +18,11 @@ def transfer_prompt_rule_sets_many_to_many(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('comprehension', '0014_turkinground'),
+        ('comprehension', '0015_add_rule_sets_to_prompts'),
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='prompt',
-            name='rule_sets',
-            field=models.ManyToManyField(to='comprehension.RuleSet'),
-        ),
-
         migrations.RunPython(transfer_prompt_rule_sets_many_to_many),
-
-        migrations.AlterUniqueTogether(
-            name='ruleset',
-            unique_together=set(),
-        ),
-        migrations.RemoveField(
-            model_name='ruleset',
-            name='prompt',
-        ),
     ]
 
 
