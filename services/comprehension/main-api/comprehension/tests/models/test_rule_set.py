@@ -66,7 +66,6 @@ class RuleSetFunctionTest(RuleSetModelTest):
         self.assertTrue(result)
 
     def test_match_all_regex(self):
-        prompt = PromptFactory()
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,

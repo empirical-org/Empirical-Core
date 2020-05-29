@@ -3,7 +3,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from django.conf.urls import url
 from django.urls import include
 
-from .views.api import ActivityViewSet
 from .views.api import RuleSetViewSet
 from .views.api import RuleViewSet
 from .views.api import ActivityViewSet, TurkingRoundViewSet

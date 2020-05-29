@@ -212,7 +212,7 @@ class RuleSetViewSerializer(serializers.ModelSerializer):
 
         return instance
 
-      
+
 class TurkingRoundSerializer(serializers.ModelSerializer):
     activity_id = serializers.PrimaryKeyRelatedField(
         source='activity',
