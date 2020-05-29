@@ -7,6 +7,9 @@
   display: flex;
   cursor: pointer;
   overflow: hidden;
+  &:focus {
+    outline: none;
+  }
   .passage-title, button, .feedback-section {
     margin-left: 48px;
   }

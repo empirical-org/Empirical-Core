@@ -1,6 +1,8 @@
 from django.conf.urls import url
+from django.urls import include, path
 
-from . import views
+from .routers import ApiRouter
+from .views import index
 from .views.activity import ActivityView
 from .views.feedback_history import FeedbackHistoryView
 from .views.feedback_rules import RulesBasedFeedbackView
@@ -13,9 +15,10 @@ from .views.session_feedback_history_detail import (
 )
 from .models.rule_set import RuleSet
 
+
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^activities$', views.list_activities, name='list_activities'),
+    url(r'^$', index, name='index'),
+    path('api/', include(ApiRouter.urls)),
     url(r'^activities/(?P<id>.*)$', ActivityView.as_view(),
         name='show_activity'),
     url(r'^rules$', RuleView.count_rules, name='count_rules'),
@@ -37,4 +40,7 @@ urlpatterns = [
     url(r'^session_history/(?P<session_id>.*)$',
         SessionFeedbackHistoryDetailView.as_view(),
         name='get_session_feedback_history_detail'),
+    path('api-auth/',
+         include('rest_framework.urls',
+                 namespace='rest_framework'))
 ]
