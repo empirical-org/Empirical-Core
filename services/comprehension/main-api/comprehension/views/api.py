@@ -38,10 +38,10 @@ class RuleViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        get_object_or_404(Activity, pk=self.kwargs['activities_pk'])
-
-        rule_set = get_object_or_404(RuleSet, pk=self.kwargs['rulesets_pk'])
-        return Rule.objects.filter(rule_set=rule_set)
+        activities_pk = self.kwargs['activities_pk']
+        get_object_or_404(Activity, pk=activities_pk)
+        return (Rule.objects
+                    .filter(rule_set__prompts__activities__pk=activities_pk))
 
 
 class RuleSetViewSet(viewsets.ModelViewSet):
@@ -82,17 +82,6 @@ class RuleSetViewSet(viewsets.ModelViewSet):
 
         serializer = RuleSetListSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
-
-
-class RuleViewSet(viewsets.ModelViewSet):
-    serializer_class = RuleSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def get_queryset(self):
-        activities_pk = self.kwargs['activities_pk']
-        get_object_or_404(Activity, pk=activities_pk)
-        return (Rule.objects
-                    .filter(rule_set__prompts__activities__pk=activities_pk))
 
 
 class TurkingRoundViewSet(viewsets.ModelViewSet):

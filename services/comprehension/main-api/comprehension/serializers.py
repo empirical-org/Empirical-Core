@@ -98,67 +98,6 @@ class ActivityListSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
-class RulePromptSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Prompt
-        fields = ['id', 'conjunction']
-        read_only_fields = ['id']
-
-
-class RuleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Rule
-        fields = ['id', 'regex_text', 'case_sensitive']
-        read_only_fields = ['id']
-
-    def create(self, validated_data):
-        rule_set_pk = self.context["view"].kwargs["rulesets_pk"]
-        activities_pk = self.context["view"].kwargs["activities_pk"]
-
-        get_object_or_404(Activity, pk=activities_pk)
-        validated_data['rule_set'] = get_object_or_404(RuleSet, pk=rule_set_pk)
-
-        instance = Rule(**validated_data)
-        instance.save()
-
-        return instance
-
-    def update(self, instance, validated_data):
-        rule_set_pk = self.context["view"].kwargs["rulesets_pk"]
-        activities_pk = self.context["view"].kwargs["activities_pk"]
-
-        get_object_or_404(Activity, pk=activities_pk)
-        rule_set = get_object_or_404(RuleSet, pk=rule_set_pk)
-        if instance not in rule_set.rules.all():
-            raise serializers.ValidationError(f'Rule {instance.id} does not'
-                                              'belong to RuleSet'
-                                              f'{rule_set.id}')
-
-        Rule.objects.filter(pk=instance.pk).update(**validated_data)
-        instance.refresh_from_db()
-
-        return instance
-
-
-class RuleSetListSerializer(serializers.ModelSerializer):
-    rules = RuleSerializer(many=True, required=False)
-    prompts = RulePromptSerializer(source='prompt_set',
-                                   many=True,
-                                   required=False)
-
-    class Meta:
-        model = RuleSet
-        fields = ['id', 'name', 'rules', 'prompts']
-        read_only_fields = ['id']
-
-
-class RulePromptSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Prompt
-        fields = ['id', 'conjunction']
-        read_only_fields = ['id', 'conjunction']
-
-
 class RuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rule
@@ -191,6 +130,13 @@ class RuleSerializer(serializers.ModelSerializer):
         instance.refresh_from_db()
 
         return instance
+
+
+class RulePromptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prompt
+        fields = ['id', 'conjunction']
+        read_only_fields = ['id', 'conjunction']
 
 
 class RuleSetListSerializer(serializers.ModelSerializer):
