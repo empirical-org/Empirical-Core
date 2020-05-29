@@ -1,5 +1,4 @@
 import factory
-from .prompt import PromptFactory
 from ...models.rule_set import RuleSet
 
 
