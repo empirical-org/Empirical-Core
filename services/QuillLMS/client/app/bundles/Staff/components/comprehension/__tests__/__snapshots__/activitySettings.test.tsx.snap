@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Activity component should render ActivitySettings 1`] = `
+exports[`ActivitySettings component should render ActivitySettings 1`] = `
 <div
   className="activity-settings-container"
 >
@@ -25,7 +25,7 @@ exports[`Activity component should render ActivitySettings 1`] = `
       Array [
         Object {
           "field": "Title",
-          "value": undefined,
+          "value": "",
         },
         Object {
           "field": "Development Stage",
@@ -40,19 +40,19 @@ exports[`Activity component should render ActivitySettings 1`] = `
         },
         Object {
           "field": "Passage Length",
-          "value": null,
+          "value": "1 words",
         },
         Object {
           "field": "Because",
-          "value": null,
+          "value": "",
         },
         Object {
           "field": "But",
-          "value": null,
+          "value": "",
         },
         Object {
           "field": "So",
-          "value": null,
+          "value": "",
         },
       ]
     }

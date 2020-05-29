@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import ActivitySettings from '../activitySettings';
+import ActivitySettings from '../configureSettings/activitySettings';
 import { DataTable } from 'quill-component-library/dist/componentLibrary';
 import 'whatwg-fetch';
 
@@ -13,17 +13,14 @@ const mockProps = {
 }
 const fields = [
   'Title', 
-  // 'Course', 
   'Development Stage', 
   'Passage Length', 
-  // 'Target Reading Level',
-  // 'Reading Level Score',
   'Because',
   'But',
   'So'
 ]
 
-describe('Activity component', () => {
+describe('ActivitySettings component', () => {
   const container = shallow(<ActivitySettings {...mockProps} />);
 
   it('should render ActivitySettings', () => {

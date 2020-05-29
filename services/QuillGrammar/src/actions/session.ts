@@ -195,3 +195,10 @@ export const setSessionPending = (pendingStatus: boolean) => {
     dispatch({ type: ActionTypes.SET_SESSION_PENDING, pending: pendingStatus })
   }
 }
+
+export const startNewSession = () => {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.START_NEW_SESSION, })
+    dispatch({ type: ActionTypes.START_NEW_ACTIVITY, })
+  }
+}

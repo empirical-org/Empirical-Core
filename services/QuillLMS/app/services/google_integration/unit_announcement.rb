@@ -16,8 +16,7 @@ class GoogleIntegration::UnitAnnouncement
   end
 
   def update_recipients(new_recipients)
-    recipients = new_recipients - classroom_unit.assigned_student_ids
-    make_request(recipients)
+    make_request(new_recipients)
   end
 
   private

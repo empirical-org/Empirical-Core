@@ -1,6 +1,6 @@
 import React from 'react';
 import ConceptReportsTable from './concept_reports_table';
-import ItemDropdown from './item_dropdown.tsx';
+import ItemDropdown from '../../Teacher/components/general_components/dropdown_selectors/item_dropdown';
 import CSVDownloadForProgressReport from '../../Teacher/components/progress_reports/csv_download_for_progress_report';
 
 const ConceptReports = ({
@@ -34,21 +34,24 @@ const ConceptReports = ({
         </a>
       </div>
     </div>
-    <div className="dropdown-container">
+    <div className="dropdown-container" id="flexed">
       <ItemDropdown
         callback={switchSchool}
+        className="admin-concept-dropdown"
         dropdownId="cr-school-select-dropdown"
         items={schoolNames}
         selectedItem={selectedSchool}
       />
       <ItemDropdown
         callback={switchTeacher}
+        className="admin-concept-dropdown"
         dropdownId="cr-teacher-select-dropdown"
         items={teacherNames}
         selectedItem={selectedTeacher}
       />
       <ItemDropdown
         callback={switchClassroom}
+        className="admin-concept-dropdown"
         dropdownId="cr-classroom-select-dropdown"
         items={classroomNames}
         selectedItem={selectedClassroom}

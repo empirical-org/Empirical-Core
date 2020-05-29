@@ -44,7 +44,7 @@ class Questions extends React.Component {
     this.renderSearchBox = this.renderSearchBox.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { questions } = nextProps
     if (questions.hasreceiveddata) {
       if (Object.keys(this.state.questions).length === 0 || !_.isEqual(this.props.questions.data, questions.data)) {
