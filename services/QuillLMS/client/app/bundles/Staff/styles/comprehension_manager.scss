@@ -375,7 +375,8 @@ html {
     .add-session-container {
       display: flex;
       align-items: center;
-      width: 90%;
+      align-self: flex-start;
+      margin-left: 35px;
       .date-picker-container {
         display: flex;
         align-items: center;
@@ -398,6 +399,25 @@ html {
           cursor: pointer;
         }
       }
+      .error {
+        margin: 0px 0px 0px 10px;
+        color: red;
+      }
+    }
+  }
+  .modal {
+    .close-button-container {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        margin: 10px 10px 0px 0px;
+        height: auto;
+        min-width: 20px;
+        padding: 5px 7px 5px 7px;
+      }
+    }
+    .submission-message {
+      padding: 20px;
     }
   }
 }

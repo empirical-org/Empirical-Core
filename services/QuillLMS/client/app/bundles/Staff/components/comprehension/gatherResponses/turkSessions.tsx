@@ -1,52 +1,103 @@
 import * as React from "react";
-import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
+import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
 import "react-dates/initialize";
-import { SingleDatePicker } from 'react-dates'
+import { SingleDatePicker } from 'react-dates';
+import moment from 'moment';
+import useSWR, { mutate } from 'swr'
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [turkSessions, setTurkSessions] = React.useState<[]>([]);
-  const [turkSessionDate, setTurkSessionDate] = React.useState<{}>(null)
+  const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null)
   const [loading, setLoading] = React.useState<boolean>(false);
   const [focused, setFocusedState] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>(null);
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
+  const [loadingError, setLoadingError] = React.useState<string>('');
+  const [dateError, setDateError] = React.useState<string>('');
+  const [submissionError, setSubmissionError] = React.useState<string>('');
   const { params } = match;
   const { activityId } = params;
-  const fetchTurkSessionsAPI = `https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/turk-sessions.json`
+  const turkSessionsAPI = 'http://comprehension-247816.appspot.com/api/turking.json';
 
   const fetchData = async () => {
     let turkSessions: any;
     try {
       setLoading(true);
-      const response = await fetch(fetchTurkSessionsAPI);
+      const response = await fetch(turkSessionsAPI);
       turkSessions = await response.json();
     } catch (error) {
-      setError(error);
+      setLoadingError(error);
       setLoading(false);
     }
     setTurkSessions(turkSessions);
     setLoading(false);
   };
 
+  // cache turk sessions data for updates
+  useSWR("turk-sessions", fetchData);
+
   React.useEffect(() => {
     fetchData();
   }, []);
 
+  const handleGenerateNewTurkSession = async () => {
+    if(!newTurkSessionDate) {
+      setDateError('Please choose an expiration date.')
+    }
+    const response = await fetch(turkSessionsAPI, {
+      method: 'POST',
+      body: JSON.stringify({
+        activity_id: activityId,
+        expires_at: newTurkSessionDate.toDate()
+      }),
+      headers: {
+        "Accept": "application/JSON",
+        "Content-Type": "application/json"
+      },
+    });
+    setNewTurkSessionDate(null);
+    setDateError('');
+    // not a 2xx status
+    if(Math.round(response.status / 100) !== 2) {
+      setSubmissionError('Turk session submission failed, please try again.');
+    }
+    setShowSubmissionModal(true);
+    // update turk sessions cache to display newly created turk session
+    mutate("turk-sessions");
+  }
+
+  const renderSubmissionModal = () => {
+    const message = submissionError ? submissionError : 'Submission successful!';
+    return(
+      <Modal>
+        <div className="close-button-container">
+          <button className="quill-button fun primary contained" id="flag-close-button" onClick={toggleSubmissionModal} type="submit">x</button>
+        </div>
+        <p className="submission-message">{message}</p>
+      </Modal>
+    );
+  }
+
   const turkSessionsRows = turkSessions.map((turkSession: any) => {
-    const { activity_id, expiration, uid } = turkSession;
-    const url = `https://comprehension-247816.appspot.com/turk/${activity_id}/${uid}`;
-    const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>
+    const { activity_id, expires_at, id } = turkSession;
+    const url = `https://comprehension-247816.appspot.com/#/turk/${activity_id}/${id}`;
+    const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
+    const editButton = <button className="quill-button fun primary contained" type="submit">edit</button>
+    const deleteButton = <button className="quill-button fun primary contained" type="submit">delete</button>
     return {
       link,
-      expiration
+      expiration: moment(expires_at).format('MMMM Do, YYYY'),
+      edit: editButton,
+      delete: deleteButton
     }
   });
   
-  const handleDateChange = (date) => { setTurkSessionDate(date) };
-  const handleFocusChange = ({ focused }) => { 
-    setFocusedState(focused) 
-  };
+  const handleDateChange = (date) => { setNewTurkSessionDate(date) };
+  
+  const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
+  
+  const toggleSubmissionModal = () => { setShowSubmissionModal(!showSubmissionModal) }
 
   if(loading) {
     return(
@@ -56,26 +107,29 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  if(error) {
+  if(loadingError) {
     return(
       <div className="error-container">
-        <Error error={`${error}`} />
+        <Error error={`${loadingError}`} />
       </div>
     );
   }
 
   const dataTableFields = [
-    { name: "Link", attribute:"link", width: "800px" }, 
-    { name: "Expiration Date", attribute:"expiration", width: "200px" }
+    { name: "Link", attribute:"link", width: "600px" }, 
+    { name: "Expiration Date", attribute:"expiration", width: "200px" },
+    { name: "", attribute:"edit", width: "100px" },
+    { name: "", attribute:"delete", width: "100px" },
   ];
 
   return(
     <div className="turk-sessions-container">
+      {showSubmissionModal && renderSubmissionModal()}
       <div className="add-session-container">
         <div className="date-picker-container">
-          <label className="datepicker-label" htmlFor="date-picker">Add Expiration Date</label>
+          <label className="datepicker-label" htmlFor="date-picker">Expiration</label>
           <SingleDatePicker
-            date={turkSessionDate}
+            date={newTurkSessionDate}
             focused={focused}
             id="date-picker"
             inputIconPosition="after"
@@ -84,7 +138,14 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
             onFocusChange={handleFocusChange}
           />
         </div>
-        <button className="generate-session-button quill-button fun primary contained" type="submit">Generate Turk Session</button>
+        <button 
+          className="generate-session-button quill-button fun primary contained" 
+          onClick={handleGenerateNewTurkSession}
+          type="submit"
+        >
+          Generate Turk Session
+        </button>
+        {dateError && <Error error={`${dateError}`} />}
       </div>
       <DataTable
         className="turk-sessions-table"
