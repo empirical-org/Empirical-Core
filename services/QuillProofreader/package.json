@@ -50,7 +50,7 @@
     "net": "^1.0.2",
     "node-sass": "^4.14.1",
     "quill-component-library": "0.7.35",
-    "quill-marking-logic": "0.13.3",
+    "quill-marking-logic": "0.13.7",
     "quill-string-normalizer": "0.0.9",
     "react": "^16.13.1",
     "react-contenteditable": "^3.3.4",
