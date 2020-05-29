@@ -128,7 +128,7 @@
     "promise-polyfill": "^6.0.2",
     "pusher-js": "^4.4.0",
     "quill-component-library": "^0.7.35",
-    "quill-marking-logic": "0.13.3",
+    "quill-marking-logic": "0.13.7",
     "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-shallow-compare": "^15.6.0",
