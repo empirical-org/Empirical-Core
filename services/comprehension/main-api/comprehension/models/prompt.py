@@ -5,6 +5,7 @@ from .ml_feedback import MLFeedback
 from .ml_model import MLModel
 from ..exceptions import ComprehensionException
 from ..utils import combine_labels
+from .rule_set import RuleSet
 
 CORRECT_FEEDBACK_OBJ = {
                           'feedback': 'All rules-based checks passed!',
@@ -32,6 +33,7 @@ class Prompt(TimestampedModel):
     ml_model = models.ForeignKey(MLModel, on_delete=models.PROTECT,
                                  related_name='prompts', null=True,
                                  blank=True)
+    rule_sets = models.ManyToManyField(RuleSet, related_name='prompts')
 
     class NoDefaultMLFeedbackError(ComprehensionException):
         """
