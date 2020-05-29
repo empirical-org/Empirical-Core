@@ -6,6 +6,7 @@ import {Response} from '../../interfaces';
 import { feedbackStrings, spellingFeedbackStrings } from '../constants/feedback_strings';
 import {spacingBeforePunctuation} from '../algorithms/spacingBeforePunctuation'
 import { conceptResultTemplate } from '../helpers/concept_result_template';
+import { match } from 'react-router';
 
 describe('The checking a sentence combining question', () => {
 
@@ -40,12 +41,6 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, incorrectSequences[0].feedback);
     });
 
-    it('should be able to find a match even if some of the words are out of order.', () => {
-      const questionString: string = "Bats have fly, so they can wings.";
-      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
-    });
-
     it('should be able to find a case insensitive match', () => {
       const questionString = "bats have wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
@@ -76,10 +71,16 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, feedbackStrings.spacingAfterCommaError);
     });
 
-    it('should be able to find a whitespace match', () => {
+    it('should be able to find a missing whitespace match', () => {
       const questionString = "Batshave wings, so they can fly."
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
-      assert.equal(matchedResponse.feedback, feedbackStrings.whitespaceError);
+      assert.equal(matchedResponse.feedback, feedbackStrings.missingWhitespaceError);
+    });
+
+    it('should be able to find an extra whitespace match', () => {
+      const questionString = "Bats have wi ngs, so they can fly."
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.extraWhitespaceError);
     });
 
     it('should be able to find a rigid change match', () => {
@@ -185,10 +186,23 @@ describe('The checking a sentence combining question', () => {
       assert.equal(matchedResponse.feedback, feedbackStrings.caseError);
     });
 
+    it('should be able to find a match even if some of the words are out of order.', () => {
+      const questionString: string = "Bats have fly, so they can wings.";
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
+    });
+
     it('should be able to find a punctuation end match', () => {
       const questionString = "Bats have wings, so they can fly";
       const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
       assert.equal(matchedResponse.feedback, feedbackStrings.punctuationError);
+    });
+
+    it('should not return misspelled words array with second pass non-spelling feedback.', () => {
+      const questionString: string = "Batss have fly, so they can wings.";
+      const matchedResponse = checkSentenceCombining(responses[0].question_uid, questionString, responses, focusPoints, incorrectSequences, responses[0].question_uid);
+      assert.equal(matchedResponse.feedback, feedbackStrings.wordsOutOfOrderError);
+      assert.equal(matchedResponse.misspelled_words, undefined)
     });
 
   });
