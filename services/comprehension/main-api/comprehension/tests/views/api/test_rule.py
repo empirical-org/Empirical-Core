@@ -19,12 +19,11 @@ class TestRuleApiCreateView(TestCase):
         self.view = RuleViewSet.as_view({'post': 'create'})
         self.activity = ActivityFactory()
         self.user = UserFactory(is_staff=True)
-        self.prompt = PromptFactory()
+        self.rule_set = RuleSetFactory()
+        self.prompt = PromptFactory(rule_sets=[self.rule_set])
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt,
                               order=1)
-        self.rule_set = RuleSetFactory()
-        self.prompt.rule_sets.add(self.rule_set)
         self.payload = {
             "regex_text": "^test",
             "case_sensitive": False
@@ -91,12 +90,11 @@ class TestRuleSetApiUpdateView(TestCase):
         self.view = RuleViewSet.as_view({'put': 'update'})
         self.activity = ActivityFactory()
         self.user = UserFactory(is_staff=True)
-        self.prompt = PromptFactory()
+        self.rule_set = RuleSetFactory(priority=1)
+        self.prompt = PromptFactory(rule_sets=[self.rule_set])
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt,
                               order=1)
-        self.rule_set = RuleSetFactory(priority=1)
-        self.prompt.rule_sets.add(self.rule_set)
         self.rule = RuleFactory(rule_set=self.rule_set)
         self.payload = {
             "regex_text": "^update",
@@ -190,12 +188,11 @@ class TestRuleSetApiDeleteView(TestCase):
         self.view = RuleViewSet.as_view({'delete': 'destroy'})
         self.activity = ActivityFactory()
         self.user = UserFactory(is_staff=True)
-        self.prompt = PromptFactory()
+        self.rule_set = RuleSetFactory(priority=1)
+        self.prompt = PromptFactory(rule_sets=[self.rule_set])
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt,
                               order=1)
-        self.rule_set = RuleSetFactory(priority=1)
-        self.prompt.rule_sets.add(self.rule_set)
         self.rule = RuleFactory(rule_set=self.rule_set)
 
     def test_success_when_unauthed(self):

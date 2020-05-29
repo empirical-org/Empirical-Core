@@ -13,7 +13,6 @@ from ..models.turking_round import TurkingRound
 from ..serializers import (ActivitySerializer,
                            ActivityListSerializer,
                            RuleSetViewSerializer,
-                           RuleSetCreateUpdateSerializer,
                            RuleSetListSerializer,
                            RuleSerializer,
                            TurkingRoundSerializer)
@@ -34,27 +33,32 @@ class ActivityViewSet(viewsets.ModelViewSet):
         return ActivitySerializer
 
 
-class RuleSetViewSet(viewsets.ModelViewSet):
-    serializer_class = RuleSetCreateUpdateSerializer
+class RuleViewSet(viewsets.ModelViewSet):
+    serializer_class = RuleSerializer
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        activity = get_object_or_404(Activity, pk=self.kwargs['activities_pk'])
-        prompts = activity.prompts.all()
+        get_object_or_404(Activity, pk=self.kwargs['activities_pk'])
+
+        rule_set = get_object_or_404(RuleSet, pk=self.kwargs['rulesets_pk'])
+        return Rule.objects.filter(rule_set=rule_set)
+
+
+class RuleSetViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return RuleSetListSerializer
+        return RuleSetViewSerializer
+
+    def get_queryset(self):
+        activities_pk = self.kwargs['activities_pk']
+        get_object_or_404(Activity, pk=activities_pk)
         return (RuleSet.objects
-                       .filter(prompt__in=prompts)
+                       .filter(prompts__activities__pk=activities_pk)
                        .order_by('priority')
                        .distinct())
-
-    def list(self, request, activities_pk=None, format='json'):
-        serializer = RuleSetListSerializer(self.get_queryset(), many=True)
-        return Response(serializer.data)
-
-    def retrieve(self, request, pk=None, activities_pk=None, format='json'):
-        get_object_or_404(Activity, pk=activities_pk)
-        rule_set = get_object_or_404(RuleSet, pk=pk)
-        serializer = RuleSetViewSerializer(rule_set, many=False)
-        return Response(serializer.data)
 
     @action(detail=False, methods=['put'])
     def order(self, request, activities_pk=None, format='json'):
@@ -82,13 +86,13 @@ class RuleSetViewSet(viewsets.ModelViewSet):
 
 class RuleViewSet(viewsets.ModelViewSet):
     serializer_class = RuleSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        get_object_or_404(Activity, pk=self.kwargs['activities_pk'])
-
-        rule_set = get_object_or_404(RuleSet, pk=self.kwargs['rulesets_pk'])
-        return Rule.objects.filter(rule_set=rule_set)
+        activities_pk = self.kwargs['activities_pk']
+        get_object_or_404(Activity, pk=activities_pk)
+        return (Rule.objects
+                    .filter(rule_set__prompts__activities__pk=activities_pk))
 
 
 class TurkingRoundViewSet(viewsets.ModelViewSet):

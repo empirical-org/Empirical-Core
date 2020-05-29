@@ -102,5 +102,4 @@ function checkForMatches(data, matchingFunction: Function) {
   if (next.value) {
     return next.value;
   }
-
 }

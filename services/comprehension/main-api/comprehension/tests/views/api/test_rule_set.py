@@ -72,12 +72,11 @@ class TestRuleSetApiRetrieveView(TestCase):
         self.factory = APIRequestFactory()
         self.view = RuleSetViewSet.as_view({'get': 'retrieve'})
         self.activity = ActivityFactory()
-        self.prompt = PromptFactory()
+        self.rule_set = RuleSetFactory(priority=1)
+        self.prompt = PromptFactory(rule_sets=[self.rule_set])
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt,
                               order=1)
-        self.rule_set = RuleSetFactory(priority=1)
-        self.prompt.rule_sets.add(self.rule_set)
         self.rule = RuleFactory(regex_text='^test', rule_set=self.rule_set)
 
     def test_show_activity_404(self):
@@ -173,7 +172,7 @@ class TestRuleSetApiCreateView(TestCase):
         self.assertEqual(rule_set.feedback, self.payload['feedback'])
         prompt_ids = self.payload['prompt_ids']
         prompts = Prompt.objects.filter(id__in=prompt_ids)
-        self.assertEqual(list(prompts.all()), list(rule_set.prompt_set.all()))
+        self.assertEqual(list(prompts.all()), list(rule_set.prompts.all()))
 
     def test_prompt_does_not_exist(self):
         payload = self.payload
@@ -213,12 +212,11 @@ class TestRuleSetApiDeleteView(TestCase):
         self.view = RuleSetViewSet.as_view({'delete': 'destroy'})
         self.activity = ActivityFactory()
         self.user = UserFactory(is_staff=True)
-        self.prompt = PromptFactory()
+        self.rule_set = RuleSetFactory(priority=1)
+        self.prompt = PromptFactory(rule_sets=[self.rule_set])
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt,
                               order=1)
-        self.rule_set = RuleSetFactory(priority=1)
-        self.prompt.rule_sets.add(self.rule_set)
 
     def test_success_when_unauthed(self):
         request = self.factory.delete(reverse(
@@ -274,7 +272,8 @@ class TestRuleSetApiUpdateView(TestCase):
         self.view = RuleSetViewSet.as_view({'put': 'update'})
         self.activity = ActivityFactory()
         self.user = UserFactory(is_staff=True)
-        self.prompt = PromptFactory()
+        self.rule_set = RuleSetFactory(priority=1)
+        self.prompt = PromptFactory(rule_sets=[self.rule_set])
         self.prompt2 = PromptFactory()
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt,
@@ -282,8 +281,6 @@ class TestRuleSetApiUpdateView(TestCase):
         ActivityPromptFactory(activity=self.activity,
                               prompt=self.prompt2,
                               order=1)
-        self.rule_set = RuleSetFactory(priority=1)
-        self.prompt.rule_sets.add(self.rule_set)
         self.payload = {
             "name": "updated name",
             "feedback": "updated feedback",
@@ -329,9 +326,9 @@ class TestRuleSetApiUpdateView(TestCase):
         prompt_ids = self.payload['prompt_ids']
         prompts = Prompt.objects.filter(id__in=prompt_ids)
         self.assertEqual(list(prompts.all()),
-                         list(self.rule_set.prompt_set.all()))
+                         list(self.rule_set.prompts.all()))
 
-    def test_delete_prompts(self):
+    def test_delete_all_prompts_error(self):
         payload = self.payload
         payload['prompt_ids'] = []
         request = self.factory.put(reverse(
@@ -349,11 +346,7 @@ class TestRuleSetApiUpdateView(TestCase):
                              activities_pk=self.activity.id,
                              pk=self.rule_set.id)
 
-        self.assertEqual(response.status_code, 200)
-        prompt_ids = self.payload['prompt_ids']
-        prompts = Prompt.objects.filter(id__in=prompt_ids)
-        self.assertEqual(list(prompts.all()),
-                         list(self.rule_set.prompt_set.all()))
+        self.assertEqual(response.status_code, 400)
 
 
 class TestRuleSetApiOrderView(TestCase):
@@ -362,16 +355,16 @@ class TestRuleSetApiOrderView(TestCase):
         self.view = RuleSetViewSet.as_view({'put': 'order'})
         self.activity = ActivityFactory()
         self.user = UserFactory(is_staff=True)
-        self.prompt = PromptFactory()
-        ActivityPromptFactory(activity=self.activity,
-                              prompt=self.prompt,
-                              order=1)
         self.rule_set1 = RuleSetFactory(priority=1)
         self.rule_set2 = RuleSetFactory(priority=2)
         self.rule_set3 = RuleSetFactory(priority=3)
-        self.prompt.rule_sets.add(self.rule_set1,
+        self.prompt = PromptFactory(rule_sets=[
+                                  self.rule_set1,
                                   self.rule_set2,
-                                  self.rule_set3)
+                                  self.rule_set3])
+        ActivityPromptFactory(activity=self.activity,
+                              prompt=self.prompt,
+                              order=1)
         self.payload = {
             "rulesetIDs": [
                 int(self.rule_set3.id),

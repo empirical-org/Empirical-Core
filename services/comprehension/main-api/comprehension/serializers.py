@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 
 from .models.activity import Activity, ActivityPassage, ActivityPrompt
 from .models.passage import Passage
@@ -152,66 +152,119 @@ class RuleSetListSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
-class RuleSetViewSerializer(serializers.ModelSerializer):
-    rules = RuleSerializer(many=True)
-    prompts = RulePromptSerializer(source='prompt_set', many=True)
-
+class RulePromptSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RuleSet
-        fields = ['id', 'name', 'feedback', 'rules', 'prompts']
+        model = Prompt
+        fields = ['id', 'conjunction']
+        read_only_fields = ['id', 'conjunction']
+
+
+class RuleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rule
+        fields = ['id', 'regex_text', 'case_sensitive']
         read_only_fields = ['id']
 
-
-class RuleSetCreateUpdateSerializer(serializers.ModelSerializer):
-    prompt_ids = serializers.ListField()
-
-    class Meta:
-        model = RuleSet
-        fields = ['id', 'name', 'feedback', 'prompt_ids']
-        read_only_fields = ['id']
+    def validate(self, data):
+        activities_pk = self.context["view"].kwargs["activities_pk"]
+        get_object_or_404(Activity, pk=activities_pk)
+        return data
 
     def create(self, validated_data):
-        activities_pk = self.context["view"].kwargs["activities_pk"]
-        activity = get_object_or_404(Activity, pk=activities_pk)
-        prompt_ids = validated_data.pop('prompt_ids', None)
+        rule_set_pk = self.context["view"].kwargs["rulesets_pk"]
+        validated_data['rule_set'] = get_object_or_404(RuleSet, pk=rule_set_pk)
 
-        validated_data['priority'] = activity.get_next_priority()
-        validated_data['match'] = RuleSet.REGEX_MATCH_TYPES.ALL
-        validated_data['pass_order'] = RuleSet.PASS_ORDER.FIRST
-
-        instance = RuleSet(**validated_data)
+        instance = Rule(**validated_data)
         instance.save()
-
-        self._update_prompts(activity, prompt_ids, instance)
 
         return instance
 
     def update(self, instance, validated_data):
+        rule_set_pk = self.context["view"].kwargs["rulesets_pk"]
+        rule_set = get_object_or_404(RuleSet, pk=rule_set_pk)
+        if instance not in rule_set.rules.all():
+            raise serializers.ValidationError(f'Rule {instance.id} does not'
+                                              'belong to RuleSet'
+                                              f'{rule_set.id}')
+
+        Rule.objects.filter(pk=instance.pk).update(**validated_data)
+        instance.refresh_from_db()
+
+        return instance
+
+
+class RuleSetListSerializer(serializers.ModelSerializer):
+    rules = RuleSerializer(many=True, required=False)
+    prompts = RulePromptSerializer(many=True,
+                                   required=False)
+
+    class Meta:
+        model = RuleSet
+        fields = ['id', 'name', 'rules', 'prompts']
+        read_only_fields = ['id']
+
+
+class RuleSetViewSerializer(serializers.ModelSerializer):
+    rules = RuleSerializer(many=True, read_only=True)
+    prompts = RulePromptSerializer(many=True,
+                                   read_only=True)
+    prompt_ids = serializers.ListField(write_only=True)
+
+    class Meta:
+        model = RuleSet
+        fields = ['id', 'name', 'feedback', 'rules', 'prompts', 'prompt_ids']
+        read_only_fields = ['id', 'rules', 'prompts']
+
+    def validate_prompt_ids(self, prompt_ids):
+        if len(prompt_ids) == 0:
+            raise serializers.ValidationError('You added no prompts, which '
+                                              'will make this rule set '
+                                              'unreachable. '
+                                              'Either include a '
+                                              'prompt ID or delete this '
+                                              'rule set.'
+                                              )
+        activities_pk = self.context["view"].kwargs["activities_pk"]
+        get_list_or_404(Prompt, pk__in=prompt_ids)
+        prompts = (Prompt.objects
+                         .filter(pk__in=prompt_ids,
+                                 activities=activities_pk)
+                         .count())
+        if prompts != len(prompt_ids):
+            raise serializers.ValidationError(f'Your prompt IDs {prompt_ids} '
+                                              'do not match the prompts on '
+                                              'this activity.')
+        return prompt_ids
+
+    def validate(self, data):
+        activities_pk = self.context["view"].kwargs["activities_pk"]
+        get_object_or_404(Activity, pk=activities_pk)
+        return data
+
+    def create(self, validated_data):
+        prompt_ids = validated_data.pop('prompt_ids', None)
         activities_pk = self.context["view"].kwargs["activities_pk"]
         activity = get_object_or_404(Activity, pk=activities_pk)
-        prompt_ids = validated_data.pop('prompt_ids', None)
+
+        validated_data['priority'] = \
+            (RuleSet.get_next_rule_set_priority_for_activity(activity))
+
+        instance = RuleSet(**validated_data)
+        instance.save()
+
+        instance.prompts.set(prompt_ids)
+
+        return instance
+
+    def update(self, instance, validated_data):
+        prompt_ids = validated_data.pop('prompt_ids')
 
         RuleSet.objects.filter(pk=instance.pk).update(**validated_data)
         instance.refresh_from_db()
 
-        self._update_prompts(activity, prompt_ids, instance)
+        instance.prompts.set(prompt_ids)
 
         return instance
-
-    def _update_prompts(self, activity, prompt_ids, rule_set):
-        self._validate_prompts(activity, prompt_ids)
-
-        new_prompts = Prompt.objects.filter(id__in=prompt_ids)
-        rule_set.prompt_set.set(new_prompts)
-
-    def _validate_prompts(self, activity, prompts):
-        activity_prompts = activity.prompts.all()
-        for prompt_id in prompts:
-            prompt = get_object_or_404(Prompt, pk=prompt_id)
-            if prompt not in activity_prompts:
-                raise serializers.ValidationError(f'Prompt number {prompt.id}'
-                                                  ' does not belong to the'
-                                                  f' activity {activity.id}.')
 
 
 class TurkingRoundSerializer(serializers.ModelSerializer):
