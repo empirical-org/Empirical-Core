@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
-import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import useSWR, { mutate } from 'swr';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
-  const [turkSessions, setTurkSessions] = React.useState<[]>([]);
+  const [turkSessions, setTurkSessions] = React.useState<TurkSessionInterface[]>([]);
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
   const [editTurkSessionId, setEditTurkSessionId] = React.useState<string>(null);
   const [editTurkSessionDate, setEditTurkSessionDate] = React.useState<string>(null);
@@ -25,7 +25,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const turkSessionsAPI = 'https://comprehension-247816.appspot.com/api/turking.json';
 
   const fetchData = async () => {
-    let turkSessions: any;
+    let turkSessions: TurkSessionInterface[];
     try {
       setLoading(true);
       const response = await fetch(turkSessionsAPI);
@@ -108,14 +108,14 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  const turkSessionsRows = turkSessions.map((turkSession: any) => {
+  const turkSessionsRows = turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `https://comprehension-247816.appspot.com/#/turk/${activity_id}/${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
     const editButton = (
       <button 
         className="quill-button fun primary contained" 
-        id={id} 
+        id={`${id}`} 
         onClick={handleEditOrDeleteTurkSession} 
         type="submit"
         value={expires_at}
@@ -126,7 +126,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     const deleteButton = (
       <button 
         className="quill-button fun primary contained" 
-        id={id} 
+        id={`${id}`} 
         onClick={handleEditOrDeleteTurkSession} 
         type="submit"
       >
@@ -141,7 +141,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     }
   });
   
-  const handleDateChange = (date) => { setNewTurkSessionDate(date) };
+  const handleDateChange = (date: string) => { setNewTurkSessionDate(date) };
   
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
   

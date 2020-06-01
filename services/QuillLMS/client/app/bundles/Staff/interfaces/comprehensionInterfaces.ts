@@ -28,9 +28,9 @@ export interface PromptInterface {
 }
 
 export interface RegexRuleInterface {
-  id?: number;
-  regex_text: string;
-  case_sensitive: boolean;
+  id?: number,
+  regex_text: string,
+  case_sensitive: boolean
 }
 
 export interface FlagInterface {
@@ -41,4 +41,11 @@ export interface FlagInterface {
 export interface ActivityRuleSetPrompt {
   id: number,
   conjunction: string
+}
+
+export interface TurkSessionInterface {
+  id: number
+  activity_id: 3, 
+  expires_at: string,
+  expired: boolean
 }
