@@ -1,9 +1,13 @@
+import { applyFeatureToPercentage } from 'apply-feature';
+
 import rootRef from '../libs/firebase';
 import { v4rootRef } from '../libs/firebase';
 import { SessionApi } from '../libs/sessions_api';
 import _ from 'lodash';
 
 const C = require('../constants').default;
+
+const NEW_SESSION_PERCENTAGE = 1;
 
 const sessionsRef = rootRef.child('savedSessions');
 const v4sessionsRef = v4rootRef.child('connectSessions');
@@ -42,9 +46,11 @@ export default {
     // Let's start including an updated time on our sessions
     normalizedSession.updatedAt = new Date().getTime();
     // If this session should go to the LMS
-    SessionApi.update(sessionID, normalizedSession);
-    // Else we should use the old approach
-    v4sessionsRef.child(sessionID).set(normalizedSession);
+    if (applyFeatureToPercentage(sessionID, NEW_SESSION_PERCENTAGE)) {
+      SessionApi.update(sessionID, normalizedSession);
+    } else {
+      v4sessionsRef.child(sessionID).set(normalizedSession);
+    }
   },
 
   delete(sessionID) {
