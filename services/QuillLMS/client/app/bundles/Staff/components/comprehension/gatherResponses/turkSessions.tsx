@@ -5,7 +5,7 @@ import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces'
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
-import moment from 'moment';
+import * as moment from 'moment';
 import useSWR, { mutate } from 'swr';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
-import moment from 'moment';
+import * as moment from 'moment';
 import useSWR, { mutate } from 'swr'
 
 const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSessionID }) => {

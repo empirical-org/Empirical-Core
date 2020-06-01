@@ -4,7 +4,7 @@ import { EditorState, ContentState } from 'draft-js'
 import { flagOptions } from '../../../../../constants/comprehension'
 import { validateForm, buildBlankPrompt } from '../../../../../helpers/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
-import { BECAUSE, BUT, SO, DEFAULT_MAX_ATTEMPTS } from '../../../../../constants/comprehension';
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -17,12 +17,12 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { activity_id, flag, passages, prompts } = activity;
+  const { id, flag, passages, prompts } = activity;
   const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedPassage = passages ? passages[0] : '';
-  const becausePrompt = prompts ? prompts[0] : buildBlankPrompt('because');
-  const butPrompt = prompts ? prompts[1] : buildBlankPrompt('but');
-  const soPrompt = prompts ? prompts[2] : buildBlankPrompt('so');
+  const becausePrompt = prompts ? prompts[0] : buildBlankPrompt(BECAUSE);
+  const butPrompt = prompts ? prompts[1] : buildBlankPrompt(BUT);
+  const soPrompt = prompts ? prompts[2] : buildBlankPrompt(SO);
 
   const [activityTitle, setActivityTitle] = React.useState<string>(activity.title || '');
   const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
@@ -54,7 +54,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const buildActivity = () => {
     const { label } = activityFlag;
     return {
-      activity_id: activity_id || null,
+      id: id || null,
       title: activityTitle,
       flag: label,
       passages: [activityPassage],
