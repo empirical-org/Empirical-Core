@@ -94,15 +94,8 @@ class ActivitySerializer(serializers.ModelSerializer):
 class ActivityListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ['id', 'title']
+        fields = ['id', 'flag', 'title']
         read_only_fields = ['id']
-
-
-class RulePromptSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Prompt
-        fields = ['id', 'conjunction']
-        read_only_fields = ['id', 'conjunction']
 
 
 class RuleSerializer(serializers.ModelSerializer):
@@ -137,6 +130,13 @@ class RuleSerializer(serializers.ModelSerializer):
         instance.refresh_from_db()
 
         return instance
+
+
+class RulePromptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prompt
+        fields = ['id', 'conjunction']
+        read_only_fields = ['id', 'conjunction']
 
 
 class RuleSetListSerializer(serializers.ModelSerializer):

@@ -29,8 +29,12 @@ class TestActivityApiListView(TestCase):
         response = self.view(request)
 
         self.assertEqual(json.loads(response.render().content), [
-            {'id': self.activity1.id, 'title': self.activity1.title},
-            {'id': self.activity2.id, 'title': self.activity2.title},
+            {'id': self.activity1.id,
+             'title': self.activity1.title,
+             'flag': self.activity1.flag},
+            {'id': self.activity2.id,
+             'title': self.activity2.title,
+             'flag': self.activity2.flag},
         ])
 
 
@@ -136,13 +140,13 @@ class TestActivityApiCreateView(TestCase):
             ]
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.post(reverse('activities-list'), self.payload,
                                     format='json')
 
         response = self.view(request)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 201)
 
     def test_success_when_authed(self):
         request = self.factory.post(reverse('activities-list'), self.payload,
@@ -208,7 +212,7 @@ class TestActivityApiUpdateView(TestCase):
             ]
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.put(reverse('activities-detail',
                                            kwargs={'pk': self.activity.pk}),
                                    self.payload,
@@ -216,7 +220,7 @@ class TestActivityApiUpdateView(TestCase):
 
         response = self.view(request, pk=self.activity.pk)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def test_success_when_authed(self):
         request = self.factory.put(reverse('activities-detail',
