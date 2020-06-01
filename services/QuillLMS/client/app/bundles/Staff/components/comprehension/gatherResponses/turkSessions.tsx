@@ -2,17 +2,21 @@ import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps } from '../../../interfaces/comprehensionInterfaces';
+import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
-import useSWR, { mutate } from 'swr'
+import useSWR, { mutate } from 'swr';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [turkSessions, setTurkSessions] = React.useState<[]>([]);
-  const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null)
+  const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
+  const [editTurkSessionId, setEditTurkSessionId] = React.useState<string>(null);
+  const [editTurkSessionDate, setEditTurkSessionDate] = React.useState<string>(null);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
+  const [showEditOrDeleteTurkSessionModal, setShowEditOrDeleteTurkSessionModal] = React.useState<boolean>(false);
   const [loadingError, setLoadingError] = React.useState<string>('');
   const [dateError, setDateError] = React.useState<string>('');
   const [submissionError, setSubmissionError] = React.useState<string>('');
@@ -67,14 +71,39 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     mutate("turk-sessions");
   }
 
+  const handleEditOrDeleteTurkSession = (e) => {
+    const { target } = e;
+    const { id, value } = target;
+    setEditTurkSessionId(id);
+    setEditTurkSessionDate(value);
+    setDateError('');
+    setShowEditOrDeleteTurkSessionModal(true);
+  }
+
   const renderSubmissionModal = () => {
     const message = submissionError ? submissionError : 'Submission successful!';
     return(
       <Modal>
         <div className="close-button-container">
-          <button className="quill-button fun primary contained" id="flag-close-button" onClick={toggleSubmissionModal} type="submit">x</button>
+          <button className="quill-button fun primary contained" id="submission-close-button" onClick={toggleSubmissionModal} type="submit">x</button>
         </div>
         <p className="submission-message">{message}</p>
+      </Modal>
+    );
+  }
+
+  const renderEditOrDeleteTurkSessionModal = () => {
+    return(
+      <Modal>
+        <div className="close-button-container">
+          <button className="quill-button fun primary contained" id="turk-edit-close-button" onClick={toggleEditTurkSessionModal} type="submit">x</button>
+        </div>
+        <EditOrDeleteTurkSession 
+          activityID={activityId} 
+          closeModal={toggleEditTurkSessionModal} 
+          originalSessionDate={editTurkSessionDate}
+          turkSessionID={editTurkSessionId} 
+        />
       </Modal>
     );
   }
@@ -83,8 +112,27 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     const { activity_id, expires_at, id } = turkSession;
     const url = `https://comprehension-247816.appspot.com/#/turk/${activity_id}/${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
-    const editButton = <button className="quill-button fun primary contained" type="submit">edit</button>
-    const deleteButton = <button className="quill-button fun primary contained" type="submit">delete</button>
+    const editButton = (
+      <button 
+        className="quill-button fun primary contained" 
+        id={id} 
+        onClick={handleEditOrDeleteTurkSession} 
+        type="submit"
+        value={expires_at}
+      >
+        edit
+      </button>
+    );
+    const deleteButton = (
+      <button 
+        className="quill-button fun primary contained" 
+        id={id} 
+        onClick={handleEditOrDeleteTurkSession} 
+        type="submit"
+      >
+        delete
+      </button>
+    );
     return {
       link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
@@ -98,6 +146,8 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
   
   const toggleSubmissionModal = () => { setShowSubmissionModal(!showSubmissionModal) }
+
+  const toggleEditTurkSessionModal = () => {setShowEditOrDeleteTurkSessionModal(!showEditOrDeleteTurkSessionModal)  }
 
   if(loading) {
     return(
@@ -125,6 +175,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   return(
     <div className="turk-sessions-container">
       {showSubmissionModal && renderSubmissionModal()}
+      {showEditOrDeleteTurkSessionModal && renderEditOrDeleteTurkSessionModal()}
       <div className="add-session-container">
         <div className="date-picker-container">
           <label className="datepicker-label" htmlFor="date-picker">Expiration</label>
