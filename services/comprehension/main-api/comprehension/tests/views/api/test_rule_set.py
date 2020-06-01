@@ -146,7 +146,7 @@ class TestRuleSetApiCreateView(TestCase):
             "prompt_ids": [self.prompt.id]
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.post(reverse('rulesets-list',
                                             kwargs={'activities_pk':
                                                     self.activity.id}),
@@ -155,7 +155,7 @@ class TestRuleSetApiCreateView(TestCase):
 
         response = self.view(request, activities_pk=self.activity.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 201)
 
     def test_success_when_authed(self):
         request = self.factory.post(reverse('rulesets-list',
@@ -218,7 +218,7 @@ class TestRuleSetApiDeleteView(TestCase):
                               prompt=self.prompt,
                               order=1)
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.delete(reverse(
                                         'rulesets-detail',
                                         kwargs={
@@ -231,7 +231,7 @@ class TestRuleSetApiDeleteView(TestCase):
                              activities_pk=self.activity.id,
                              pk=self.rule_set.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 204)
 
     def test_404_when_no_ruleset(self):
         request = self.factory.delete(reverse(
@@ -287,7 +287,7 @@ class TestRuleSetApiUpdateView(TestCase):
             "prompt_ids": [self.prompt2.id]
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.put(reverse(
                                         'rulesets-detail',
                                         kwargs={
@@ -302,7 +302,7 @@ class TestRuleSetApiUpdateView(TestCase):
                              activities_pk=self.activity.id,
                              pk=self.rule_set.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def test_success_when_authed(self):
         request = self.factory.put(reverse(
@@ -373,7 +373,7 @@ class TestRuleSetApiOrderView(TestCase):
             ]
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.put(reverse('rulesets-order',
                                            kwargs={
                                              'activities_pk': self.activity.id
@@ -383,7 +383,7 @@ class TestRuleSetApiOrderView(TestCase):
                                    )
         response = self.view(request, activities_pk=self.activity.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def test_400_when_list_does_not_match(self):
         payload = {"rulesetIDs": [int(self.rule_set1.id)]}
