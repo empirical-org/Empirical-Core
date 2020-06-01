@@ -73,7 +73,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const handleUpdateFlag = () => {
     let updatedActivity: any = activity;
     updatedActivity.flag = activityFlag.value;
-    submitActivity(activity);
+    submitActivity(updatedActivity);
     setShowEditFlagModal(false);
   }
 
