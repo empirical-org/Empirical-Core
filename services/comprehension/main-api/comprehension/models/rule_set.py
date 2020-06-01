@@ -1,7 +1,6 @@
 from django.db import models
 
 from . import DjangoChoices, BaseModel
-from .prompt import Prompt
 
 
 class RuleSet(BaseModel):
@@ -13,20 +12,15 @@ class RuleSet(BaseModel):
         ALL = 'all'
         ANY = 'any'
 
-    prompt = models.ForeignKey(Prompt,
-                               on_delete=models.CASCADE,
-                               related_name='rule_sets')
     name = models.TextField(null=False)
     feedback = models.TextField(null=False)
     priority = models.IntegerField(null=False, default=1)
     pass_order = models.TextField(null=False,
+                                  default=PASS_ORDER.FIRST,
                                   choices=PASS_ORDER.get_for_choices())
     match = models.TextField(null=False,
                              default=REGEX_MATCH_TYPES.ALL,
                              choices=REGEX_MATCH_TYPES.get_for_choices())
-
-    class Meta:
-        unique_together = ('prompt', 'priority', 'pass_order', )
 
     def process_rule_set(self, entry):
         rules_list = self.rules.all()
@@ -59,3 +53,14 @@ class RuleSet(BaseModel):
                 return False
 
         return True
+
+    @property
+    def prompt_ids(self):
+        return list(self.prompts.values_list('id', flat=True))
+
+    @staticmethod
+    def get_next_rule_set_priority_for_activity(activity):
+        rule_sets = RuleSet.objects.filter(prompts__in=activity.prompts.all())
+        if not rule_sets:
+            return 0
+        return rule_sets.latest('priority').priority + 1

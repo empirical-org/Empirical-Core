@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import include, path
 
-from .routers import ApiRouter
+from .routers import apiurls
 from .views import index
 from .views.activity import ActivityView
 from .views.feedback_history import FeedbackHistoryView
@@ -18,7 +18,7 @@ from .models.rule_set import RuleSet
 
 urlpatterns = [
     url(r'^$', index, name='index'),
-    path('api/', include(ApiRouter.urls)),
+    path('api/', include(apiurls)),
     url(r'^activities/(?P<id>.*)$', ActivityView.as_view(),
         name='show_activity'),
     url(r'^rules$', RuleView.count_rules, name='count_rules'),
