@@ -22,22 +22,30 @@ class ActivityViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows activities to be viewed or edited.
     """
-    queryset = Activity.objects.all().order_by('created_at')
-    serializer_class = ActivitySerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
-    def list(self, request, format=None):
-        """
-        Defined to override the default behavior because we use a different
-        serializer when getting lists of Activities than when looking at
-        details
-        """
-        serializer = ActivityListSerializer(self.queryset, many=True)
-        return Response(serializer.data)
+    def get_queryset(self):
+        return Activity.objects.all().order_by('created_at')
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ActivityListSerializer
+        return ActivitySerializer
+
+
+class RuleViewSet(viewsets.ModelViewSet):
+    serializer_class = RuleSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        activities_pk = self.kwargs['activities_pk']
+        get_object_or_404(Activity, pk=activities_pk)
+        return (Rule.objects
+                    .filter(rule_set__prompts__activities__pk=activities_pk))
 
 
 class RuleSetViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -76,21 +84,10 @@ class RuleSetViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class RuleViewSet(viewsets.ModelViewSet):
-    serializer_class = RuleSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def get_queryset(self):
-        activities_pk = self.kwargs['activities_pk']
-        get_object_or_404(Activity, pk=activities_pk)
-        return (Rule.objects
-                    .filter(rule_set__prompts__activities__pk=activities_pk))
-
-
 class TurkingRoundViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows activities to be viewed or edited.
     """
     queryset = TurkingRound.objects.all().order_by('created_at')
     serializer_class = TurkingRoundSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]
