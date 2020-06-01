@@ -22,7 +22,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const [submissionError, setSubmissionError] = React.useState<string>('');
   const { params } = match;
   const { activityId } = params;
-  const turkSessionsAPI = 'http://comprehension-247816.appspot.com/api/turking.json';
+  const turkSessionsAPI = 'https://comprehension-247816.appspot.com/api/turking.json';
 
   const fetchData = async () => {
     let turkSessions: any;

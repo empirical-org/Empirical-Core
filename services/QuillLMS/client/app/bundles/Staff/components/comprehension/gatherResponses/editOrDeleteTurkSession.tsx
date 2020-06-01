@@ -8,7 +8,7 @@ const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSess
   const [turkSessionDate, setTurkSessionDate] = React.useState<any>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>('');
-  const editOrDeleteTurkSessionsAPI = `http://comprehension-247816.appspot.com/api/turking/${turkSessionID}.json`;
+  const editOrDeleteTurkSessionsAPI = `https://comprehension-247816.appspot.com/api/turking/${turkSessionID}.json`;
 
   const handleDateChange = (date) => { setTurkSessionDate(date) };
   
