@@ -413,6 +413,7 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
+      resources :active_activity_sessions, except: [:index]
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
