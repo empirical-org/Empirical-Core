@@ -29,7 +29,7 @@ class TestRuleApiCreateView(TestCase):
             "case_sensitive": False
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.post(reverse('rules-list',
                                             kwargs={
                                              'activities_pk': self.activity.id,
@@ -43,7 +43,7 @@ class TestRuleApiCreateView(TestCase):
                              activities_pk=self.activity.id,
                              rulesets_pk=self.rule_set.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 201)
 
     def test_404_when_rule_set_does_not_exist(self):
         request = self.factory.post(reverse('rules-list',
@@ -84,7 +84,7 @@ class TestRuleApiCreateView(TestCase):
         self.assertEqual(self.rule_set.rules.first(), rule)
 
 
-class TestRuleApiUpdateView(TestCase):
+class TestRuleSetApiUpdateView(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = RuleViewSet.as_view({'put': 'update'})
@@ -101,7 +101,7 @@ class TestRuleApiUpdateView(TestCase):
             "case_sensitive": True
         }
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.put(reverse('rules-detail',
                                            kwargs={
                                              'activities_pk': self.activity.id,
@@ -117,7 +117,7 @@ class TestRuleApiUpdateView(TestCase):
                              rulesets_pk=self.rule_set.id,
                              pk=self.rule.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 200)
 
     def test_404_when_rule_does_not_exist(self):
         request = self.factory.put(reverse('rules-detail',
@@ -182,7 +182,7 @@ class TestRuleApiUpdateView(TestCase):
         self.assertEqual(self.rule_set.rules.first(), rule)
 
 
-class TestRuleApiDeleteView(TestCase):
+class TestRuleSetApiDeleteView(TestCase):
     def setUp(self):
         self.factory = APIRequestFactory()
         self.view = RuleViewSet.as_view({'delete': 'destroy'})
@@ -195,7 +195,7 @@ class TestRuleApiDeleteView(TestCase):
                               order=1)
         self.rule = RuleFactory(rule_set=self.rule_set)
 
-    def test_403_when_unauthed(self):
+    def test_success_when_unauthed(self):
         request = self.factory.delete(reverse(
                                         'rules-detail',
                                         kwargs={
@@ -210,7 +210,7 @@ class TestRuleApiDeleteView(TestCase):
                              rulesets_pk=self.rule_set.id,
                              pk=self.rule.id)
 
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 204)
 
     def test_404_when_no_ruleset(self):
         request = self.factory.delete(reverse(
