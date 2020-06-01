@@ -1,5 +1,5 @@
 class Api::V1::ActiveActivitySessionsController < Api::ApiController
-  before_action :get_activity_session_by_uid, except: [:index, :create]
+  before_action :activity_session_by_uid, except: [:index, :create]
 
   def show
     render(json: @activity_session)
@@ -12,7 +12,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
   end
 
   def update
-    @activity_session.update!({data:valid_params})
+    @activity_session.update!({data: valid_params})
     render(json: @activity_session.as_json)
   end
 
@@ -25,7 +25,7 @@ class Api::V1::ActiveActivitySessionsController < Api::ApiController
     params.require(:active_activity_session).except(:uid)
   end
 
-  private def get_activity_session_by_uid
+  private def activity_session_by_uid
     @activity_session = ActiveActivitySession.find_by!(uid: params[:id])
   end
 end
