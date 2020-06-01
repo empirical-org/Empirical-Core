@@ -6,6 +6,14 @@ import {conceptResultTemplate} from '../helpers/concept_result_template'
 const savedResponses: Array<Response> = [
   {
     id: 1,
+    text: "My dog took a Nap.",
+    feedback: "Good job, that's a sentence!",
+    optimal: true,
+    count: 1,
+    question_uid: 'question 1'
+  },
+  {
+    id: 2,
     text: "My dog took a nap.",
     feedback: "Good job, that's a sentence!",
     optimal: true,
@@ -30,7 +38,7 @@ describe('The requiredWordsChecker', () => {
     const partialResponse: PartialResponse =  {
         feedback: requiredWordsMatch(responseString, savedResponses).feedback,
         author: 'Required Words Hint',
-        parent_id: 1,
+        parent_id: 2,
         concept_results: [
           conceptResultTemplate('mdFUuuNR7N352bbMw4Mj9Q')
         ]
@@ -44,6 +52,11 @@ describe('The requiredWordsChecker', () => {
   it('Should return undefined if the response string is not missing a required word', () => {
     const responseString = "My dog took a nap.";
     assert.equal(requiredWordsChecker(responseString, savedResponses), undefined);
+  });
+
+  it('Should return the lowercased missing word if optimal responses contain both uppercase and lowercase', () => {
+    const responseString = "My dog took a.";
+    assert.notEqual(requiredWordsChecker(responseString, savedResponses).feedback.indexOf('nap'), -1);
   });
 
 })
