@@ -29,8 +29,12 @@ class TestActivityApiListView(TestCase):
         response = self.view(request)
 
         self.assertEqual(json.loads(response.render().content), [
-            {'id': self.activity1.id, 'title': self.activity1.title, 'flag': self.activity1.flag},
-            {'id': self.activity2.id, 'title': self.activity2.title, 'flag': self.activity2.flag},
+            {'id': self.activity1.id,
+             'title': self.activity1.title,
+             'flag': self.activity1.flag},
+            {'id': self.activity2.id,
+             'title': self.activity2.title,
+             'flag': self.activity2.flag},
         ])
 
 
