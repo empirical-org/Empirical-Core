@@ -8,12 +8,12 @@ FactoryBot.define do
         break possible_name unless Activity.exists?(name: possible_name)
       end
     end
-    description             { "This is the description for the '#{name}' activity." }
-    uid                     { SecureRandom.urlsafe_base64 }
-    topic                   { Topic.first || create(:topic) }
-    classification          { create(:classification) }
-    activity_categories     { create_pair(:activity_category) }
-    repeatable              true
+    description                 { "This is the description for the '#{name}' activity." }
+    uid                         { SecureRandom.urlsafe_base64 }
+    topic                       { Topic.first || create(:topic) }
+    classification              { create(:classification) }
+    activity_categories         { create_pair(:activity_category) }
+    repeatable                  true
 
     factory :diagnostic_activity do
       classification { ActivityClassification.find_by_key attributes_for(:diagnostic)[:key] || create(:diagnostic) }
