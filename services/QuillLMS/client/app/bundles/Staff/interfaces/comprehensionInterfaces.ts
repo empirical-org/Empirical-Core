@@ -15,12 +15,12 @@ export interface ActivityInterface {
   id?: string,
   title: string,
   flag: string,
-  passages: string[],
+  passages: PassagesInterface[],
   prompts: PromptInterface[]
 }
 
 export interface PromptInterface {
-  prompt_id?: number,
+  id?: number,
   conjunction: string,
   text: string,
   max_attempts: number,
@@ -45,7 +45,12 @@ export interface ActivityRuleSetPrompt {
 
 export interface TurkSessionInterface {
   id: number
-  activity_id: 3, 
+  activity_id: number, 
   expires_at: string,
   expired: boolean
+}
+
+export interface PassagesInterface {
+  id?: number,
+  text: string
 }

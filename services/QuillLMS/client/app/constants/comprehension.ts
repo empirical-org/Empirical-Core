@@ -2,8 +2,8 @@
 
 export const flagOptions = [
   {
-    label: 'draft',
-    value: 'draft'
+    label: 'alpha',
+    value: 'alpha'
   },
   {
     label: 'beta',
@@ -72,38 +72,33 @@ export const BUT = 'but';
 export const SO = 'so';
 export const DEFAULT_MAX_ATTEMPTS = 5;
 
-export const blankActivity = {
-  id: null, 
+export const blankActivity = { 
   title: '', 
   flag:'', 
-  passages: [''],
+  passages: [{ text: '' }],
   prompts: [
     {
-      prompt_id: null,
       conjunction: 'because',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: ''
+      max_attempts_feedback: 'try again.'
     },
     {
-      prompt_id: null,
       conjunction: 'but',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: ''
+      max_attempts_feedback: 'try again.'
     },
     {
-      prompt_id: null,
       conjunction: 'so',
       text: '',
       max_attempts: 5,
-      max_attempts_feedback: ''
+      max_attempts_feedback: 'try again.'
     }
   ]
 }
 
 export const blankRuleSet = {
-  id: null,
 	name: '',
 	feedback: '',
 	rules: [], 

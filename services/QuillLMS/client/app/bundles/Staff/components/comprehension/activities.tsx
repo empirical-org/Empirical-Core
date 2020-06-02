@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
-const fetchAllActivitiesAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/activities.json';
+import { activitiesGetAPI } from '../../utils/comprehensionAPIs';
+import useSWR from 'swr';
 
 const Activities = () => {
   const [activities, setActivities] = React.useState<ActivityInterface[]>([blankActivity]);
@@ -11,18 +12,21 @@ const Activities = () => {
   const [error, setError] = React.useState<string>(null);
   
   const fetchData = async () => {
+    let activities: ActivityInterface[];
     try {
       setLoading(true);
-      const response = await fetch(fetchAllActivitiesAPI);
-      var json = await response.json();
+      const response = await fetch(activitiesGetAPI);
+      activities = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
     }
-    const { activities } = json
     setActivities(activities);
     setLoading(false);
   };
+
+  // cache activity data for updates
+  useSWR("activities", fetchData);
 
   React.useEffect(() => {
     fetchData();
