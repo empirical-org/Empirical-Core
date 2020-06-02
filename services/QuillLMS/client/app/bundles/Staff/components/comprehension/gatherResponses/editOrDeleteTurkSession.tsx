@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import useSWR, { mutate } from 'swr'
 
 const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSessionID }) => {
-  const [turkSessionDate, setTurkSessionDate] = React.useState<{}>(moment(originalSessionDate));
+  const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>('');
   const editOrDeleteTurkSessionsAPI = `https://comprehension-247816.appspot.com/api/turking/${turkSessionID}.json`;

@@ -71,8 +71,8 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     mutate("turk-sessions");
   }
 
-  const handleEditOrDeleteTurkSession = (e) => {
-    const { target } = e;
+  const handleEditOrDeleteTurkSession = (e: React.SyntheticEvent) => {
+    const target  = e.target as HTMLButtonElement;
     const { id, value } = target;
     setEditTurkSessionId(id);
     setEditTurkSessionDate(value);
