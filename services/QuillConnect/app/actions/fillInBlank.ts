@@ -10,7 +10,7 @@ declare global {
 
 import request from 'request';
 import _ from 'underscore';
-import { push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
@@ -78,7 +78,7 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      const action = push(`/admin/fill-in-the-blanks/${qid}/responses`);
+      const action = goBack();
       dispatch(action);
     }).catch( (error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
@@ -100,21 +100,16 @@ function submitNewQuestion(content, response, lessonID) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      if (lessonID) {
-        const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_FILL_IN_BLANK_TYPE}
-        dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
-        LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
-          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
-          dispatch(lessonActions.loadLesson(lessonID));
-          dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
-        }).catch( (error) => {
-          dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
-          dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
-        });
-      } else {
-        const action = push(`/admin/fill-in-the-blanks/${response.questionUID}`);
-        dispatch(action);
-      }
+      const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_FILL_IN_BLANK_TYPE}
+      dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
+      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+        dispatch(lessonActions.loadLesson(lessonID));
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
+      }).catch( (error) => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
+      });
     }, (error) => {
       dispatch({ type: C.RECEIVE_NEW_FILL_IN_BLANK_QUESTION_RESPONSE, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });

@@ -1,6 +1,7 @@
 import React from 'react';
 import ConceptSelector from '../shared/conceptSelector.jsx';
 import { FlagDropdown } from 'quill-component-library/dist/componentLibrary';
+import C from '../../constants.js'
 
 class sentenceFragmentForm extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class sentenceFragmentForm extends React.Component {
         instructions: '',
         conceptID: '',
         wordCountChange: {},
-        flag: 'alpha'
+        flag: 'alpha',
+        showDefaultInstructions: false
       };
     } else {
       const { prompt, isFragment, optimalResponseText, needsIdentification, instructions, conceptID, wordCountChange, flag } = data
@@ -28,7 +30,8 @@ class sentenceFragmentForm extends React.Component {
         instructions: instructions || '',
         conceptID,
         wordCountChange: wordCountChange || {},
-        flag: flag || 'alpha'
+        flag: flag || 'alpha',
+        showDefaultInstructions: false
       };
     }
   }
@@ -45,6 +48,11 @@ class sentenceFragmentForm extends React.Component {
         break;
       case 'instructions':
         this.setState({ instructions: e.target.value, });
+        if (e.target.value == '/') {
+          this.setState({ showDefaultInstructions: true})
+        } else {
+          this.setState({ showDefaultInstructions: false})
+        }
         break;
       case 'isFragment':
         this.setState({ isFragment: e.target.checked, });
@@ -119,7 +127,27 @@ class sentenceFragmentForm extends React.Component {
     );
   };
 
+  renderDefaultInstructions = () => {
+    const { showDefaultInstructions } = this.state
+    const defaultInstructionsDiv = C.DEFAULT_SENTENCE_FRAGMENT_INSTRUCTIONS.map((item, i) =>
+      (<button
+        className="default"
+        data-value="instructions"
+        key={i}
+        onClick={this.handleChange}
+        type="button"
+        value={item}
+      >
+        {item}
+      </button>)
+    )
+    if (showDefaultInstructions) {
+      return <div className='default-instructions'>{defaultInstructionsDiv}</div>
+    }
+  };
+
   render() {
+    const { instructions } = this.state
     return(
       <div className="box">
         <h6 className="title is-h6">Edit Sentence Fragment</h6>
@@ -130,8 +158,9 @@ class sentenceFragmentForm extends React.Component {
           </p>
           <label className="label">Instructions</label>
           <p className="control">
-            <textarea className="input" data-value="instructions" onChange={this.handleChange} value={this.state.instructions} />
+            <input className="input" data-value="instructions" onChange={this.handleChange} placeholder="Type '/' for list of instructions" value={instructions} />
           </p>
+          {this.renderDefaultInstructions()}
           <p className="control">
             <label className="checkbox">
               <input checked={this.state.isFragment} data-value="isFragment" onClick={this.handleChange} type="checkbox" />

@@ -74,7 +74,7 @@ export function checkSentenceCombining(
 
   const secondPass = checkForMatches(spellCheckedData, secondPassMatchers);
   if (secondPass) {
-    return Object.assign(responseTemplate, secondPass, { misspelled_words: misspelledWords });
+    return Object.assign(responseTemplate, secondPass);
   };
 
   return responseTemplate;
@@ -95,7 +95,6 @@ function* firstPassMatchers(data: GradingObject, spellCorrected=false) {
   yield spacingBeforePunctuationChecker(submission, responses);
   yield spacingAfterCommaChecker(submission, responses);
   yield whitespaceChecker(submission, responses);
-  yield wordsOutOfOrderChecker(submission, responses);
   yield rigidChangeObjectChecker(submission, responses);
 }
 
@@ -106,6 +105,7 @@ function* secondPassMatchers(data: GradingObject, spellCorrected=false) {
   yield minLengthChecker(response, responses);
   yield maxLengthChecker(response, responses);
   yield caseStartChecker(response, responses);
+  yield wordsOutOfOrderChecker(spellCorrectedResponse, responses);
   yield punctuationEndChecker(response, responses);
 }
 

@@ -67,18 +67,31 @@ export function getMissingWords(userString: string, sentences: Array<string>):Ar
   return _.reject(commonWords, commonWord => _.contains(wordsFromUser, commonWord));
 }
 
-function _getCaseSensitiveWord(word: string, optimalSentence: string):string {
+function _getCaseSensitiveWord(word: string, optimalSentences: Array<string>):string {
+  const optimalSentence = optimalSentences[0]
   const normalizedString = removePunctuation(optimalSentence);
   const normalizedStringPlusLower = normalizeString(optimalSentence);
   const startIndex = normalizedStringPlusLower.indexOf(word);
-  return normalizedString.substring(startIndex, word.length + startIndex);
+  const normalizedWord = normalizedString.substring(startIndex, word.length + startIndex);
+  if (normalizedWord != word) {
+    return lowercaseNormalizedWordIfPossible(normalizedWord, word, optimalSentences)
+  }
+  return normalizedWord
+}
+
+function lowercaseNormalizedWordIfPossible(normalizedWord: string, originalWord:string, optimalSentences: Array<string>):string {
+  const optimalWords = _.map(optimalSentences, sentence => normalizeStringWithoutLowercasing(sentence).split(' '));
+  if ([].concat.apply([], optimalWords).indexOf(originalWord) != -1) {
+    return originalWord
+  }
+  return normalizedWord
 }
 
 export function getFeedbackForWord(word: string, sentences:Array<string>, isSentenceFragment:Boolean):string {
   if (isSentenceFragment) {
     return `<p>Revise your work. Use all the words from the prompt, and make it complete by adding to it.</p>`;
   }
-  const caseSensitiveWord = _getCaseSensitiveWord(word, sentences[0]);
+  const caseSensitiveWord = _getCaseSensitiveWord(word, sentences);
   return `<p>Revise your sentence to include the word <em>${caseSensitiveWord}</em>. You may have misspelled it.</p>`;
 }
 
@@ -105,4 +118,8 @@ function normalizeString(string:string = ''):string {
 
 function removePunctuation(string:string = ''):string {
   return string.replace(/[.,?!;]/g, '');
+}
+
+function normalizeStringWithoutLowercasing(string:string=''):string {
+  return stringNormalize(string).replace(/[.,?!;]/g, '');
 }
