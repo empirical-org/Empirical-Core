@@ -2,8 +2,8 @@
 
 export const flagOptions = [
   {
-    label: 'draft',
-    value: 'draft'
+    label: 'alpha',
+    value: 'alpha'
   },
   {
     label: 'beta',
@@ -66,3 +66,41 @@ export const readingLevelOptions = [
 ];
 
 export const promptStems = ['because', 'but', 'so'];
+
+export const BECAUSE = 'because';
+export const BUT = 'but';
+export const SO = 'so';
+export const DEFAULT_MAX_ATTEMPTS = 5;
+
+export const blankActivity = { 
+  title: '', 
+  flag:'', 
+  passages: [{ text: '' }],
+  prompts: [
+    {
+      conjunction: 'because',
+      text: '',
+      max_attempts: 5,
+      max_attempts_feedback: 'try again.'
+    },
+    {
+      conjunction: 'but',
+      text: '',
+      max_attempts: 5,
+      max_attempts_feedback: 'try again.'
+    },
+    {
+      conjunction: 'so',
+      text: '',
+      max_attempts: 5,
+      max_attempts_feedback: 'try again.'
+    }
+  ]
+}
+
+export const blankRuleSet = {
+	name: '',
+	feedback: '',
+	rules: [], 
+  prompts: []
+}

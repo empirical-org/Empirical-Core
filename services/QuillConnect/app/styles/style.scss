@@ -475,3 +475,42 @@ textarea.submission {
     }
   }
 }
+
+.default-instructions {
+  position: absolute;
+  background-color: white;
+  background: white;
+  z-index: 1;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  button {
+    text-align: left;
+    color: black;
+    display: block;
+    padding: 5px;
+    background: none;
+    border: none;
+    font-size: 1em;
+    width: 100%;
+  }
+  button:hover {
+    cursor: pointer;
+    background-color: #f7f5f5;
+  }
+}
+
+.lesson-sidebar-section {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.lesson-sidebar {
+  width: 300;
+  border-right: 1px solid #e3e3e3;
+  padding: 15;
+  padding-left: 0;
+  overflow-y: scroll;
+  height: 100vh;
+}

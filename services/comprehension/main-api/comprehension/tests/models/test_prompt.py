@@ -42,12 +42,16 @@ class PromptValidationTest(PromptModelTest):
         self.assertEqual(prompt.labeling_approach,
                          Prompt.LABELING_APPROACHES.MULTI)
 
-
-class PromptFunctionTest(PromptModelTest):
     def test_max_attempts_feedback_not_null(self):
         with self.assertRaises(ValidationError):
             Prompt.objects.create(text='foo', ml_model=MLModelFactory())
 
+    def test_ml_model_is_nullable(self):
+        self.prompt.ml_model = None
+        self.assertIsNone(self.prompt.full_clean())
+
+
+class PromptFunctionTest(PromptModelTest):
     def test_get_for_labels_single_label(self):
         feedback = MLFeedbackFactory(combined_labels='Test1',
                                      prompt=self.prompt)
@@ -67,6 +71,16 @@ class PromptFunctionTest(PromptModelTest):
     def test_get_default(self):
         self.assertEqual(list(self.prompt._get_default_feedback()),
                          [self.default])
+
+    def test_conjunction_property(self):
+        conjunction = 'CONJUNCTION'
+        self.prompt.text = "the last word is the {}".format(conjunction)
+        self.assertEqual(self.prompt.conjunction, conjunction)
+
+    def test_get_rule_sets(self):
+        self.prompt.rule_sets.add(RuleSetFactory())
+        rule_sets = self.prompt.rule_sets.all()
+        self.assertEqual(rule_sets.count(), 1)
 
 
 class PromptFetchAutoMLFeedbackTest(PromptModelTest):
@@ -138,8 +152,8 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
     def test_first_pass(self):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
-                    pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=self.prompt))
+                    pass_order=RuleSet.PASS_ORDER.FIRST))
+        self.prompt.rule_sets.add(rule_set)
         RuleFactory(regex_text='^test', rule_set=rule_set)
         feedback = (self.prompt.
                     fetch_rules_based_feedback('incorrect test correct',
@@ -149,8 +163,9 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
 
     def test_second_pass(self):
         rule_set = (RuleSetFactory(feedback='Test feedback',
-                                   pass_order=RuleSet.PASS_ORDER.SECOND,
-                                   prompt=self.prompt))
+                                   pass_order=RuleSet.PASS_ORDER.SECOND
+                                   ))
+        self.prompt.rule_sets.add(rule_set)
         RuleFactory(regex_text='^test', rule_set=rule_set)
         feedback = (self.prompt.
                     fetch_rules_based_feedback('incorrect test correct',
@@ -162,14 +177,13 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=self.prompt,
                     match='all'))
         rule_set_two = (RuleSetFactory(
                         feedback='Test feedback',
                         pass_order=RuleSet.PASS_ORDER.FIRST,
-                        prompt=self.prompt,
                         priority=2,
                         match='all'))
+        self.prompt.rule_sets.add(rule_set, rule_set_two)
         RuleFactory(regex_text='incorrect sequence', rule_set=rule_set)
         RuleFactory(regex_text='wrong sequence', rule_set=rule_set_two)
         feedback = (self.prompt.
@@ -182,14 +196,13 @@ class PromptFetchRulesBasedFeedbackTest(PromptModelTest):
         rule_set = (RuleSetFactory(
                     feedback='Test feedback',
                     pass_order=RuleSet.PASS_ORDER.FIRST,
-                    prompt=self.prompt,
                     match='any'))
         rule_set_two = (RuleSetFactory(
                         feedback='Test feedback',
                         pass_order=RuleSet.PASS_ORDER.FIRST,
-                        prompt=self.prompt,
                         priority=2,
                         match='any'))
+        self.prompt.rule_sets.add(rule_set, rule_set_two)
         RuleFactory(regex_text='^test', rule_set=rule_set)
         RuleFactory(regex_text='test$', rule_set=rule_set_two)
         feedback = (self.prompt.

@@ -1,10 +1,11 @@
 import * as React from "react";
-import { NavLink, Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import ActivitySettings from './activitySettings'
-import RuleSets from './ruleSets'
+import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
+import ActivitySettings from './configureSettings/activitySettings';
+import RuleSets from './configureRegex/ruleSets';
+import RuleSet from './configureRegex/ruleSet';
+import { ActivityRouteProps } from '../../interfaces/comprehensionInterfaces';
 
-const Activity = (props: any) => {
-  const { match } = props;
+const Activity: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
   const { activityId } = params;
   return(
@@ -42,12 +43,15 @@ const Activity = (props: any) => {
         </NavLink>
       </div>
       <Switch>
-        <Redirect component={ActivitySettings} exact from='/activities/:activityId' to='/activities/:activityId/settings' />
+        <Redirect exact from='/activities/:activityId' to='/activities/:activityId/settings' />
         <Route component={ActivitySettings} path='/activities/:activityId/settings' />
+<<<<<<< HEAD
+=======
+        <Route component={RuleSet} path='/activities/:activityId/rulesets/:regexId' />
+>>>>>>> 2cefd93296c048018da60e10425af34e1f0fe49a
         <Route component={RuleSets} path='/activities/:activityId/rulesets' />
       </Switch>
     </div>
   );
 }
-
 export default withRouter(Activity)

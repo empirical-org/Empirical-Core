@@ -27,3 +27,10 @@ def construct_highlight_payload(highlight_type, highlight_text,
         'category': str(''),
         'character': int(start_index),
     }
+
+
+def to_iso_8601(date_time):
+    tz_offset = date_time.strftime('%z')
+    if tz_offset == '+0000':
+        tz_offset = 'Z'
+    return "{}{}".format(date_time.strftime('%Y-%m-%dT%H:%M:%S.%f'), tz_offset)

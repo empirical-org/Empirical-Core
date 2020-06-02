@@ -1,49 +1,26 @@
 import React from 'react';
-import {sortable} from 'react-sortable';
-import ListItem from './listItem.jsx'
+import {SortableContainer, SortableElement} from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 
-const SortableListItem = sortable(ListItem);
+const SortableListItem = SortableElement(({value}) => <div className="list-item">{value}</div>);
 
-export default class SortableList extends React.Component {
-  constructor(props) {
-    super(props)
+const SortableList = SortableContainer(({items}) => {
+  return (
+    <div className="list sortable-list">
+      {items.map((value, index) => (
+        <SortableListItem index={index} key={index} value={value} />
+      ))}
+    </div>
+  );
+});
 
-    this.state = {
-      draggingIndex: null,
-      data: {
-        items: this.props.data
-      }
-    }
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.state.data.items) {
-      this.setState({data: {items: nextProps.data}})
-    }
-  }
-
-  updateState = obj => {
-    this.setState(obj, this.props.sortCallback(this.state));
+export default function SortableComponent({ sortCallback, data, helperClass, }) {
+  function onSortEnd({oldIndex, newIndex}) {
+    const newArray = arrayMove(data, oldIndex, newIndex)
+    return sortCallback(newArray)
   };
 
-  render() {
-    const listItems = this.state.data.items.map(function(item, i) {
-      return (
-        <SortableListItem
-          draggingIndex={this.state.draggingIndex}
-          items={this.state.data.items}
-          key={i}
-          outline="list"
-          sortId={i}
-          updateState={this.updateState}
-        >
-          {item}
-        </SortableListItem>
-      );
-    }, this);
+  function onSortMove() {}
 
-    return (
-      <div className="list sortable-list">{listItems}</div>
-    );
-  }
+  return <SortableList distance={2} helperClass={helperClass} items={data} onSortEnd={onSortEnd} onSortMove={onSortMove} />;
 }

@@ -182,6 +182,25 @@ describe UnitTemplate, redis: true, type: :model do
     end
   end
 
+  describe '#delete_all_caches' do
+    let(:template) { create(:unit_template) }
+
+    it 'should clear the unit templates' do
+      $redis.set("unit_template_id:#{template.id}_serialized", "pretend")
+      $redis.set('production_unit_templates', "this")
+      $redis.set('beta_unit_templates', "is")
+      $redis.set('alpha_unit_templates', "real")
+      $redis.set('private_unit_templates', "data")
+      UnitTemplate.delete_all_caches
+      expect($redis.get("unit_template_id:#{template.id}_serialized")).to eq nil
+      expect($redis.get('production_unit_templates')).to eq nil
+      expect($redis.get('beta_unit_templates')).to eq nil
+      expect($redis.get('alpha_unit_templates')).to eq nil
+      expect($redis.get('private_unit_templates')).to eq nil
+    end
+
+  end
+
   describe 'scope results' do
     let!(:production_unit_template){ create(:unit_template, flag: 'production') }
     let!(:beta_unit_template){ create(:unit_template, flag: 'beta') }

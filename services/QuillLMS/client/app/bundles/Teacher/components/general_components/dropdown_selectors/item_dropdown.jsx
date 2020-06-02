@@ -1,49 +1,64 @@
 import React from 'react';
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
+import { DropdownInput } from 'quill-component-library/dist/componentLibrary'
 
 export default class ItemDropdown extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = { selectedItem: props.selectedItem || props.items[0], }
+    const { items, selectedItem } = props;
+    const formattedItem = selectedItem ? this.formatItem(selectedItem) : this.formatItem((items[0]));
+
+    this.state = { selectedItem: formattedItem }
+  }
+
+  formatItem = (item) => {
+    if(typeof item === 'string') {
+      return { label: item, value: { name: item }}
+    } else if(typeof item === 'object') {
+      return { id: item.id ? item.id : null, label: item.name, value: item }
+    }
   }
 
   items = () => {
-    return this.props.items.map((item) => {
-      if (!item.id) {
-        // then we don't need ids
-        return (<MenuItem eventKey={item} key={item}>{item.name || item}</MenuItem>);
-      }
-      return <MenuItem eventKey={item.id} key={item.id}>{item.name}</MenuItem>;
+    const { items } = this.props;
+    return items.map(item => { 
+      return this.formatItem(item);
     });
   };
 
-  findItemByIdOrName = (idOrName) => {
-    return this.props.items.find((c) => {
+  findItemByIdOrName = (itemObject) => {
+    const { items } = this.props;
+    const { value } = itemObject;
+    const { id, name } = value;
+    return items.find((c) => {
       if (!c.id) {
         // then we're matching on name
-        return c === idOrName;
+        return c === name || c.name === name;
       }
-      return c.id === idOrName;
+      return c.id === id;
     });
   };
 
-  handleSelect = (itemId) => {
-    const item = this.findItemByIdOrName(itemId);
-    this.setState({ selectedItem: item, });
-    if (this.props.callback) {
-      this.props.callback(item);
+  handleSelect = (itemObject) => {
+    const { callback } = this.props;
+    const item = this.findItemByIdOrName(itemObject);
+    this.setState({ selectedItem: this.formatItem(item)});
+    if (callback) {
+      callback(item);
     }
   };
 
   render() {
     const { selectedItem, } = this.state
-    const title = selectedItem && selectedItem.name ? selectedItem.name : selectedItem;
+    const { className } = this.props;
     return (
-      <DropdownButton bsStyle="default" class="select-item-dropdown" disabled={!this.props.items.length} onSelect={this.handleSelect} title={title}>
-        {this.items()}
-      </DropdownButton>
+      <DropdownInput
+        className={className ? className : "select-item-dropdown"}
+        handleChange={this.handleSelect}
+        isSearchable={true}
+        options={this.items()}
+        value={selectedItem}
+      />
     );
   }
 }

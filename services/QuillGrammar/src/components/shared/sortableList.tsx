@@ -22,18 +22,16 @@ class SortableList extends React.Component<any, any> {
 				items: this.props.data
 			}
     }
-
-    this.updateState = this.updateState.bind(this)
   }
 
 
-	componentWillReceiveProps(nextProps: any) {
+	UNSAFE_componentWillReceiveProps(nextProps: any) {
 		if (nextProps.data !== this.state.data.items) {
 			this.setState({data: {items: nextProps.data}})
 		}
 	}
 
-	updateState(obj: object) {
+	updateState = (obj: object) => {
 		this.setState(obj, this.props.sortCallback(this.state));
 	}
 

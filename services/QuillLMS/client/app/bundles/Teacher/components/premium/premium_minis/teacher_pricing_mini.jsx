@@ -2,25 +2,31 @@ import React from 'react';
 import PleaseLoginModal from '../please_login_modal.jsx';
 import Stripe from '../../modules/stripe/charge.js';
 
-export default class extends React.Component {
+export default class TeacherPricingMini extends React.Component {
   // TODO: make route for free trial that depends on if they are signed in or not, add stripe integration to free trial
 
-  charge = () => {
-    if (this.props.userIsEligibleForNewSubscription) {
-      this.props.showPurchaseModal();
+  handleClickGetStarted = () => {
+    const { userIsEligibleForNewSubscription, showPurchaseModal, userIsSignedIn, } = this.props
+    if (!userIsSignedIn) {
+      alert('You must be logged in to activate Premium.')
+    } else if (userIsEligibleForNewSubscription) {
+      showPurchaseModal();
     } else {
       alert('You have an active subscription and cannot buy premium now. If your subscription is a school subscription, you may buy Premium when it expires. If your subscription is a teacher one, please turn on recurring payments and we will renew it automatically when your subscription ends.');
     }
   };
 
   beginTrialButton = () => {
-    if (this.props.userIsEligibleForTrial || !this.props.userIsSignedIn) {
-      return <button className="btn btn-default mini-btn empty-blue" onClick={this.beginTrial} type="button">Free Trial</button>;
+    const { userIsEligibleForTrial, userIsSignedIn, } = this.props
+
+    if (userIsEligibleForTrial || !userIsSignedIn) {
+      return <button className="quill-button medium secondary outlined" onClick={this.handleClickStartTrial} type="button">Start free trial</button>;
     }
   };
 
-  beginTrial = () => {
-    if (!this.props.userIsSignedIn === true) {
+  handleClickStartTrial = () => {
+    const { userIsSignedIn, } = this.props
+    if (!userIsSignedIn) {
       alert('You must be logged in to activate Premium.');
     } else {
       $.post('/subscriptions', {
@@ -39,13 +45,7 @@ export default class extends React.Component {
   };
 
   purchaseButton = () => {
-    const { userIsSignedIn, userHasCovid19Subscription, } = this.props
-    if (!userIsSignedIn) {
-      return <a className="premium-button dark-green" href="" id="purchase-btn" onClick={() => alert('You must be logged in to activate Premium.')}>Activate for free</a>;
-    }
-    if (!userHasCovid19Subscription) {
-      return <a className="premium-button dark-green" data-toggle="modal" href="/subscriptions/activate_covid_subscription" id="purchase-btn">Activate for free</a>;
-    }
+    return <button className="quill-button contained medium primary" id="purchase-btn" onClick={this.handleClickGetStarted} type="button">Get started</button>;
   };
 
   render() {
@@ -55,17 +55,16 @@ export default class extends React.Component {
           <div className="img-holder">
             <img alt="Presentation board" className="presentation-board" src={`${process.env.CDN_URL}/images/shared/presentation-board.svg`} />
           </div>
-
         </header>
         <section className="pricing-info">
+          <h2>Teacher Premium</h2>
           <div className="premium-rates">
-            <h3 className="bold">Teacher Premium</h3>
-            <h3 className="strikethrough">$80 per year</h3>
-            <h4>Free for the rest of the 2019/2020 school year</h4>
+            <h3>$80</h3>
+            <h4>Per year</h4>
           </div>
-          <div className="row">
+          <div className="premium-button-container">
             {this.purchaseButton()}
-            <PleaseLoginModal ref="pleaseLoginModal" />
+            {this.beginTrialButton()}
           </div>
           <ul className="text-left">
             <li className="semibold">Everything in Basic</li>

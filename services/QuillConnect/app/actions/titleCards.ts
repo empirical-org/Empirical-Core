@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { push } from 'react-router-redux';
+import { push, goBack } from 'react-router-redux';
 import { TitleCardApi, CONNECT_TITLE_CARD_TYPE } from '../libs/title_cards_api'
 
 const C = require('../constants').default;
@@ -70,7 +70,7 @@ function submitTitleCardEdit(uid, content) {
     TitleCardApi.update(CONNECT_TITLE_CARD_TYPE, uid, content).then((body) => {
       dispatch({ type: C.RECEIVE_TITLE_CARDS_DATA_UPDATE, data: {[body.uid]: body} });
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
-      const action = push(`/admin/title-cards/${uid}`);
+      const action = goBack();
       dispatch(action);
     }).catch((body) => {
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${body}`, });
