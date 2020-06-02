@@ -12,15 +12,15 @@ export interface ActivityRuleSetInterface {
 }
 
 export interface ActivityInterface {
-  activity_id?: string,
+  id?: string,
   title: string,
   flag: string,
-  passages: string[],
+  passages: PassagesInterface[],
   prompts: PromptInterface[]
 }
 
 export interface PromptInterface {
-  prompt_id?: number,
+  id?: number,
   conjunction: string,
   text: string,
   max_attempts: number,
@@ -41,4 +41,9 @@ export interface FlagInterface {
 export interface ActivityRuleSetPrompt {
   id: number,
   conjunction: string
+}
+
+export interface PassagesInterface {
+  id?: number,
+  text: string
 }
