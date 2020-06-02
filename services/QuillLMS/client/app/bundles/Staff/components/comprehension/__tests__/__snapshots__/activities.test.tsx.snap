@@ -21,7 +21,7 @@ exports[`Activities component should render Activities 1`] = `
       Array [
         Object {
           "title": <ForwardRef
-            to="/activities/null"
+            to="/activities/undefined"
           >
             
           </ForwardRef>,
