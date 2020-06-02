@@ -22,7 +22,7 @@ class Lesson < ActiveRecord::Base
   end
 
   private def data_must_be_hash
-    errors.add(:data, "must be a hash") unless data.is_a?(Hash)
+    errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
   end
 
   private def validate_question(question)
