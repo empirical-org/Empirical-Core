@@ -11,7 +11,7 @@ exports[`Activity Form component should render Activities 1`] = `
       className="quill-button fun primary contained"
       id="activity-close-button"
       onClick={[MockFunction]}
-      type="submit"
+      type="button"
     >
       x
     </button>
@@ -34,8 +34,8 @@ exports[`Activity Form component should render Activities 1`] = `
       options={
         Array [
           Object {
-            "label": "draft",
-            "value": "draft",
+            "label": "alpha",
+            "value": "alpha",
           },
           Object {
             "label": "beta",
@@ -63,7 +63,6 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="passage-description"
-      text="..."
     />
     <Input
       autoComplete="on"
@@ -101,7 +100,7 @@ exports[`Activity Form component should render Activities 1`] = `
         className="quill-button fun primary contained"
         id="activity-cancel-button"
         onClick={[MockFunction]}
-        type="submit"
+        type="button"
       >
         Cancel
       </button>
