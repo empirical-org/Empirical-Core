@@ -26,6 +26,19 @@ html {
     .modal-close {
       display: none;
     }
+    .close-button-container {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        margin: 10px 10px 0px 0px;
+        height: auto;
+        min-width: 20px;
+        padding: 5px 7px 5px 7px;
+      }
+    }
+    .submission-message {
+      padding: 20px;
+    }
   }
   .left-side-menu {
     border-right: 1px solid lightgray;
