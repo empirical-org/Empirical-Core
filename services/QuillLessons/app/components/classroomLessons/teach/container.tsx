@@ -70,7 +70,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const lessonId: string = nextProps.params.lessonID
     if (!nextProps.customize.user_id && Object.keys(nextProps.customize.editions).length === 0) {
       this.props.dispatch(getEditionMetadataForUserIds([], lessonId))

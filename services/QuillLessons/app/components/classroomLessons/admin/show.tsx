@@ -38,7 +38,7 @@ class ShowClassroomLesson extends Component<any, any> {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.classroomLessonsReviews.hasreceiveddata !== nextProps.classroomLessonsReviews.hasreceiveddata) {
       const lessonId = nextProps.params.classroomLessonID
       const reviews = nextProps.classroomLessonsReviews.data[lessonId]

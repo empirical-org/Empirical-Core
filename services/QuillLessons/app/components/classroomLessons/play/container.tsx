@@ -70,7 +70,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student') ? getParameterByName('student') : '';
     const npCSData = nextProps.classroomSessions.data
     const lessonId: string = this.props.params.lessonID
