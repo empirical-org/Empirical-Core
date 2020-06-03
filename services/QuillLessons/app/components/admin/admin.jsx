@@ -22,9 +22,6 @@ const TabLink = props => (
 // activeComponent('li');
 
 const adminContainer = React.createClass({
-  componentWillMount() {
-  },
-
   render() {
     return (
       <div>
