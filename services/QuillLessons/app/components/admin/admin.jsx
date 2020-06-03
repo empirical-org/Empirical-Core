@@ -21,9 +21,9 @@ const TabLink = props => (
 
 // activeComponent('li');
 
-const adminContainer = React.createClass({
+class adminContainer extends React.Component {
   componentWillMount() {
-  },
+  }
 
   render() {
     return (
@@ -43,8 +43,8 @@ const adminContainer = React.createClass({
         </section>
       </div>
     );
-  },
-});
+  }
+}
 
 function select(state) {
   return {
