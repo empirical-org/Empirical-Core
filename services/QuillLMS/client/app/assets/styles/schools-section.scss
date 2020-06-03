@@ -144,6 +144,33 @@
     a.cta-button {
       height: auto;
     }
+    .get-started-link:hover {
+      text-decoration: none;
+    }
+    .get-started-button {
+      color: #ffffff;
+      background-color: #06806b;
+      font-weight: bold;
+      border: none;
+      height: 48px;
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      width: min-content;
+      min-width: 88px;
+      padding: 0px 16px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: adelle-sans, "Arial", sans-serif;
+    }
+    .get-started-button:hover {
+      background-color: #08907b;
+    }
   }
 
   @media only screen and (max-width : 850px) {
