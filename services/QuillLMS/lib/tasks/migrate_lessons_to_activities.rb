@@ -12,8 +12,6 @@ Lesson.all.each do |lesson|
       activity.data.merge!(lesson.data)
     end
 
-    activity.save!
-
   else
 
     activity = Activity.new(:name=> lesson[:data]["name"], :uid=>lesson.uid, :flags=>[lesson[:data]["flag"]])
@@ -24,7 +22,7 @@ Lesson.all.each do |lesson|
     elsif lesson.lesson_type == Lesson::TYPE_DIAGNOSTIC_LESSON
       activity.activity_classification_id = 4
       activity.data = lesson.data
-    elsif lesson.lesson_type = Lesson::TYPE_GRAMMAR_ACTIVITY
+    elsif lesson.lesson_type == Lesson::TYPE_GRAMMAR_ACTIVITY
       activity.name = lesson[:data]["title"]
       activity.activity_classification_id = 2
       activity.data.merge!(lesson.data)
@@ -33,7 +31,7 @@ Lesson.all.each do |lesson|
       activity.data.merge!(lesson.data)
     end
 
-    activity.save!
-
   end
+
+  activity.save!
 end
