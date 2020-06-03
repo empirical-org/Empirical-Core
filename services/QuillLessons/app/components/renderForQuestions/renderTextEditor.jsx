@@ -13,7 +13,7 @@ export default class RenderTextEditor extends React.Component {
     text: this.props.value || '',
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
