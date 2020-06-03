@@ -69,7 +69,7 @@ export class AnswerVisualizer extends Component {
 
   renderDiffsBetweenCorrectResponsesAndPrompt() {
     return this.getHumanCorrectResponses().map((response) => {
-      return(
+      return (
         <DiffedResponse
           firstResponse={this.props.questions.data[this.props.params.questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
           newResponse={response}
@@ -80,7 +80,7 @@ export class AnswerVisualizer extends Component {
 
   renderDiffsBetweenIncorrectResponsesAndPrompt() {
     return this.getHumanIncorrectResponses().map((response) => {
-      return(
+      return (
         <DiffedResponse
           firstResponse={this.props.questions.data[this.props.params.questionID].prompt.replace(/\n/g," ").replace(/(<([^>]+)>)/ig," ").replace(/&nbsp;/g, '')}
           newResponse={response}
