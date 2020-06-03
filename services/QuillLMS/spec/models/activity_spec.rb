@@ -304,11 +304,11 @@ describe Activity, type: :model, redis: true do
     end
   end
 
-  describe '#as_json' do
+  describe '#data_as_json' do
     let(:activity) { create(:activity) }
 
     it 'should just be the data attribute' do
-      expect(activity.as_json).to eq(activity.data)
+      expect(activity.data_as_json).to eq(activity.data)
     end
   end
 

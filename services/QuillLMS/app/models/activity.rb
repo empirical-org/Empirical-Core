@@ -141,7 +141,7 @@ class Activity < ActiveRecord::Base
     JSON.parse(activity_search_results)
   end
 
-  def as_json(options=nil)
+  def data_as_json
     data
   end
 
