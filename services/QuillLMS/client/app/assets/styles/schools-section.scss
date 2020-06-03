@@ -526,3 +526,112 @@
     }
   }
 }
+
+.premium-section {
+  height: 608px;
+  background-color: #e1f3f1;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  .premium-text-container {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 100px;
+    .premium-header {
+      font-family: $family-sans-serif;
+      font-size: 36px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.11;
+      letter-spacing: normal;
+      color: #343434;
+    }
+    .premium-text {
+      width: 420px;
+      height: 90px;
+      font-family: $family-sans-serif;
+      font-size: 20px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #343434;
+      margin: 20px 0px 20px 0px;
+    }
+  }
+  .quill-premium-user-interfaces {
+    width: 608px;
+    height: 488px;
+    object-fit: contain;
+  }
+  .premium-text-container {
+    flex-direction: column;
+    width: 420px;
+  }
+  .premium-button-container {
+    display: flex;
+    .sales-button, .premium-info-button {
+      font-weight: bold;
+      border: none;
+      height: 40px;
+      font-size: 15px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      width: min-content;
+      min-width: 88px;
+      padding: 0px 16px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-family: adelle-sans, "Arial", sans-serif;
+      text-decoration: none;
+    }
+    .sales-button {
+      color: #ffffff;
+      background-color: #06806b;
+      margin-right: 20px;
+    }
+    .premium-info-button {
+      border: solid 1px #bdbdbd;
+      background-color: white;
+      color: #000;
+    }
+    .sales-button:hover {
+      background-color: #08907b;
+    }
+    .premium-info-button:hover {
+      background-color: #f5f5f5;
+    }
+  }
+}
+
+@media only screen and (max-width : 1050px){
+  .premium-section {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+  img {
+    max-width: 100%;
+  }
+  .premium-text-container {
+    align-items: center;
+    margin-bottom: 0px !important;
+  }
+  .premium-header {
+    margin-top: 20px;
+  }
+  .premium-text {
+    max-width: 70%;
+    text-align: center;
+  }
+  .premium-button-container {
+    margin-top: 10px !important;
+  }
+}
