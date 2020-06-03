@@ -8,13 +8,9 @@ const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-export default class extends React.Component {
+export default class RenderTextEditor extends React.Component {
   state = {
     text: this.props.value || '',
-  };
-
-  getErrorsForAttempt = (attempt) => {
-    return _.pick(attempt, ...C.ERROR_TYPES);
   };
 
   componentWillReceiveProps(nextProps) {
@@ -45,6 +41,11 @@ export default class extends React.Component {
       }
     }
   }
+
+  getErrorsForAttempt = (attempt) => {
+    return _.pick(attempt, ...C.ERROR_TYPES);
+  };
+
 
   getUnderliningFunction = (errorType, targetString, userString) => {
     switch (errorType) {
