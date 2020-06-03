@@ -7,43 +7,41 @@ import LaunchEditionNavbar from './launchEditionNavbar'
 import CreateCustomizedEditionNavbar from './createCustomizedEditionNavbar'
 import {getParameterByName} from '../../libs/getParameterByName'
 
-const Navbar = React.createClass({
-  getInitialState: function () {
-    return {
-      expanded: false
-    }
-  },
+class Navbar extends React.Component {
+  state = {
+    expanded: false
+  };
 
-  navStyles: function () {
+  navStyles = () => {
     if (this.state.expanded) {
       return {
         background: '#fff',
         display: 'initial'
       }
     }
-  },
+  };
 
-  toggle: function () {
+  toggle = () => {
     this.setState({expanded: !this.state.expanded})
-  },
+  };
 
-  reset: function () {
+  reset = () => {
     this.setState({expanded: false})
-  },
+  };
 
-  inLesson: function () {
+  inLesson = () => {
     return (window.location.href.indexOf('play/lesson') !== -1);
-  },
+  };
 
-  quillLessons: function() {
+  quillLessons = () => {
     return window.location.href.includes('teach/class-lessons');
-  },
+  };
 
-  customizeRoute: function() {
+  customizeRoute = () => {
     return (window.location.href.indexOf('customize') !== -1);
-  },
+  };
 
-  customizeNavbar: function() {
+  customizeNavbar = () => {
     if (this.props.params.editionID) {
       return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params} />
     } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
@@ -51,9 +49,9 @@ const Navbar = React.createClass({
     } else {
       return <CreateCustomizedEditionNavbar />
     }
-  },
+  };
 
-  renderLinks: function () {
+  renderLinks = () => {
     if (this.inLesson()) {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()} />
@@ -68,9 +66,9 @@ const Navbar = React.createClass({
         </div>
       )
     }
-  },
+  };
 
-  render: function () {
+  render() {
     if (this.quillLessons()) {
       return (<TeacherLessonsNavbar params={this.props.params} />);
     } else if (this.customizeRoute()) {
@@ -99,7 +97,7 @@ const Navbar = React.createClass({
     )
     }
   }
-})
+}
 
 const rightNav = (<div className="nav-right nav-menu">
   <span className="nav-item">
