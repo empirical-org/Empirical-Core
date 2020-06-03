@@ -19,7 +19,7 @@ export default React.createClass({
     return _.pick(attempt, ...C.ERROR_TYPES);
   },
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
       if (nextProps.latestAttempt && nextProps.latestAttempt.found) {
         const parentID = nextProps.latestAttempt.response.parentID;
