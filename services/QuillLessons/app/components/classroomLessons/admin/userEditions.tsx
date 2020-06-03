@@ -14,11 +14,11 @@ class UserEditions extends Component<any, any> {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getEditions(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.customize.editions && Object.keys(nextProps.customize.editions).length > 0) {
       if (Object.keys(this.state.editions).length === 0) {
         this.getEditions(nextProps)

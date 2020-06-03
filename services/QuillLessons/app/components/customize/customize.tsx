@@ -65,7 +65,7 @@ class Customize extends React.Component<customizeProps, customizeState> {
     this.goToSuccessPage = this.goToSuccessPage.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.customize.user_id) {
       if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
         let user_ids:Array<Number>|never = []

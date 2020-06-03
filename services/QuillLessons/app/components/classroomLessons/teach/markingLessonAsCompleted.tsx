@@ -46,7 +46,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.classroomSessions.hasreceiveddata && nextProps.classroomLesson.hasreceiveddata) {
       const data: ClassroomLessonSession = nextProps.classroomSessions.data;
       const lessonData: ClassroomLesson = nextProps.classroomLesson.data;

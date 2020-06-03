@@ -93,7 +93,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     setTimeout(this.timeOut, 43200000)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const element = document.getElementsByClassName("main-content")[0];
     if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
       element.scrollTop = 0;

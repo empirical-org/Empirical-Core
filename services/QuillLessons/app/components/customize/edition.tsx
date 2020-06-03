@@ -65,7 +65,7 @@ class CustomizeEdition extends React.Component<any, any> {
     this.afterPublishing = this.afterPublishing.bind(this)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const classroomSessionId: ClassroomSessionId = this.state.classroomSessionId;
     if (classroomSessionId) {
       setEditionId(classroomSessionId, this.props.params.editionID);
@@ -80,7 +80,7 @@ class CustomizeEdition extends React.Component<any, any> {
     this.props.dispatch(setOriginalEditionQuestions(this.props.editionQuestions));
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const hasNewEdition = !_.isEqual(
       nextProps.editionMetadata,
       this.props.editionMetadata
