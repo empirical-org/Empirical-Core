@@ -36,7 +36,7 @@ class Activity < ActiveRecord::Base
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
   # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
-  # the other two, Proofreader and Lesson, contain passages and other data
+  # the other two, Proofreader and Lesson, contain passages and other data, not questions
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
 
   def self.diagnostic_activity_ids
