@@ -149,7 +149,6 @@ class Activity < ActiveRecord::Base
 
   def add_question(question)
     return if !validate_question(question)
-    binding.pry
     if !ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
       errors.add(:activity, "You can't add questions to this type of activity.")
       return
@@ -214,7 +213,6 @@ class Activity < ActiveRecord::Base
       return false
     end
     if data["questionType"] != question[:questionType]
-      binding.pry
       errors.add(:question, "The question type #{question[:questionType]} does not match the lesson's question type: #{data['questionType']}")
       return false
     end
