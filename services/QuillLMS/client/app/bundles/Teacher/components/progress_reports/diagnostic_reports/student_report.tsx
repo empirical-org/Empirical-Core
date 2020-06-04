@@ -40,6 +40,7 @@ export class StudentReport extends React.Component<RouteComponentProps, StudentR
   getStudentData = (params: RouteComponentProps['params']) => {
     requestGet(`/teachers/progress_reports/students_by_classroom/u/${params.unitId}/a/${params.activityId}/c/${params.classroomId}`, (data: { students: Student[] }) => {
       const { students } = data;
+      console.log('students', students);
       this.setState({ students, loading: false });
     });
   }
