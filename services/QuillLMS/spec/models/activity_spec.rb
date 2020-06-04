@@ -313,13 +313,7 @@ describe Activity, type: :model, redis: true do
   end
 
   describe '#add_question' do
-    data = {
-      questions: [
-        {key: 'key', questionType: 'questions'}
-      ],
-      questionType: 'questions'
-    }
-    let(:activity) { create(:connect_activity, data: data) }
+    let(:activity) { create(:connect_activity) }
     let(:question) { create(:question)}
 
     it 'should add a question to the lesson' do
@@ -342,6 +336,15 @@ describe Activity, type: :model, redis: true do
       question_obj = {"key": question.uid, "questionType": "faketype"}
       activity.add_question(question_obj)
       expect(activity.errors[:question]).to include("The question type faketype does not match the lesson's question type: questions")
+    end
+
+    it 'should throw error if the activity classification is Grammar or Lesson' do
+      question_obj = {"key": question.uid, "questionType": "questions"}
+      data = {"questionType": "questions"}
+      grammar_activity = create(:grammar_activity, data: data)
+      activity.add_question(question_obj)
+      puts activity.errors
+      expect(activity.errors[:activity]).to include("You can't add questions to this type of activity.")
     end
   end
 end
