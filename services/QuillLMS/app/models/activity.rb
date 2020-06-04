@@ -35,6 +35,8 @@ class Activity < ActiveRecord::Base
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
 
+  # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
+  # the other two, Proofreader and Lesson, contain passages and other data
   ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
 
   def self.diagnostic_activity_ids
@@ -147,6 +149,7 @@ class Activity < ActiveRecord::Base
 
   def add_question(question)
     return if !validate_question(question)
+    binding.pry
     if !ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
       errors.add(:activity, "You can't add questions to this type of activity.")
       return
@@ -211,6 +214,7 @@ class Activity < ActiveRecord::Base
       return false
     end
     if data["questionType"] != question[:questionType]
+      binding.pry
       errors.add(:question, "The question type #{question[:questionType]} does not match the lesson's question type: #{data['questionType']}")
       return false
     end
