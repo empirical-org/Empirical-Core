@@ -2,13 +2,15 @@ declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash'
-const WakeLock: any = require('react-wakelock').default;
+import WakeLock from 'react-wakelock-react16'
+
 import {
   startListeningToSessionForTeacher,
   goToNextSlide,
   goToPreviousSlide,
   registerTeacherPresence,
-  startLesson
+  startLesson,
+  createPreviewSession
 } from '../../../actions/classroomSessions';
 import {
   getClassLesson,
@@ -56,16 +58,25 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   componentDidMount() {
     const { classroomUnitId, classroomSessionId } = this.state
-    const activityId: string = this.props.match.params.lessonID;
+    const { match, dispatch, classroomLesson, } = this.props
+    const activityId: string = match.params.lessonID;
     if (classroomUnitId) {
       startLesson(classroomUnitId, classroomSessionId, () => {
-        this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
+        dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
       });
       registerTeacherPresence(classroomSessionId);
+    } else {
+      const { lessonID, editionID } = match.params;
+      const classroomUnitId = createPreviewSession(lessonID, editionID)
+      const modalQSValue = getParameterByName('modal')
+      const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
+      if (classroomUnitId) {
+        document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
+      }
     }
-    if (this.props.classroomLesson.hasreceiveddata) {
-      this.props.dispatch(clearClassroomLessonFromStore());
-      this.props.dispatch(clearEditionQuestions());
+    if (classroomLesson.hasreceiveddata) {
+      dispatch(clearClassroomLessonFromStore());
+      dispatch(clearEditionQuestions());
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
   }
@@ -123,9 +134,10 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   render() {
-    const classroomActivityError = this.props.classroomSessions.error;
-    const lessonError = this.props.classroomLesson.error;
-    const teachLessonContainerStyle = this.props.classroomSessions.data && this.props.classroomSessions.data.preview
+    const { match, classroomSessions, classroomLesson, } = this.props
+    const classroomActivityError = classroomSessions.error;
+    const lessonError = classroomLesson.error;
+    const teachLessonContainerStyle = classroomSessions.data && classroomSessions.data.preview
     ? {'height': 'calc(100vh - 113px)'}
     : {'height': 'calc(100vh - 60px)'}
     if (classroomActivityError) {
@@ -136,8 +148,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       return (
         <div className="teach-lesson-container" style={teachLessonContainerStyle}>
           <WakeLock />
-          <Sidebar params={this.props.match.params} />
-          <MainContentContainer params={this.props.match.params} />
+          <Sidebar match={match} />
+          <MainContentContainer match={match} />
         </div>
       );
     }

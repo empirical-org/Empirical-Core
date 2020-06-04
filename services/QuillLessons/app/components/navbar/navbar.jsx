@@ -69,8 +69,9 @@ class Navbar extends React.Component {
   };
 
   render() {
+    const { match, } = this.props
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar params={this.props.match.params} />);
+      return (<TeacherLessonsNavbar match={match} />);
     } else if (this.customizeRoute()) {
       return this.customizeNavbar()
     } else {
