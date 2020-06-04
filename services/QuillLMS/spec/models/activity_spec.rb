@@ -319,7 +319,6 @@ describe Activity, type: :model, redis: true do
     it 'should add a question to the lesson' do
       old_length = activity.data["questions"].length
       question_obj = {"key": question.uid, "questionType": "questions"}
-      puts(activity.activity_classification_id)
       activity.add_question(question_obj)
       expect(activity.data["questions"].length).to eq(old_length+1)
       expect(activity.data["questions"][-1][:key]).to eq(question.uid)
@@ -341,9 +340,9 @@ describe Activity, type: :model, redis: true do
     it 'should throw error if the activity classification is Grammar or Lesson' do
       question_obj = {"key": question.uid, "questionType": "questions"}
       data = {"questionType": "questions"}
-      grammar_activity = create(:grammar_activity, data: data)
-      activity.add_question(question_obj)
-      expect(activity.errors[:activity]).to include("You can't add questions to this type of activity.")
+      proofreader_activity = create(:proofreader_activity, data: data)
+      proofreader_activity.add_question(question_obj)
+      expect(proofreader_activity.errors[:activity]).to include("You can't add questions to this type of activity.")
     end
   end
 end
