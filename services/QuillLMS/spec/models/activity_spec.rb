@@ -343,7 +343,6 @@ describe Activity, type: :model, redis: true do
       data = {"questionType": "questions"}
       grammar_activity = create(:grammar_activity, data: data)
       activity.add_question(question_obj)
-      puts activity.errors
       expect(activity.errors[:activity]).to include("You can't add questions to this type of activity.")
     end
   end
