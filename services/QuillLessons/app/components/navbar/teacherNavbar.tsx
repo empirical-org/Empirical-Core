@@ -40,7 +40,7 @@ class TeacherNavbar extends React.Component<any, any> {
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
 
     this.state = {
       tooltip: '',
@@ -61,7 +61,8 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderCustomizedEditionsTag() {
-    const { params, customize, } = this.props
+    const { match, customize, } = this.props
+    const { params, } = match
     const { editions, } = customize
     const customEdition = Object.keys(editions).find(e => {
       return editions[e].lesson_id === params.lessonID && editions[e].user_id !== 'quill-staff'
@@ -216,8 +217,8 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderEditLink() {
-    const { customize, params, classroomSessions, dispatch, } = this.props
-
+    const { customize, match, classroomSessions, dispatch, } = this.props
+    const { params, } = match
     let action, editText
     const classroomUnitId = getParameterByName('classroom_unit_id')
     if (customize.user_id && classroomUnitId) {
@@ -246,7 +247,8 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   handleSwitchEditionClick = () => {
-    const { customize, params, dispatch, } = this.props
+    const { customize, match, dispatch, } = this.props
+    const { params, } = match
 
     if (customize.user_id) {
       const lessonID: string = params.lessonID
@@ -315,7 +317,8 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   handleExitLessonClick = () => {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
     const classroomUnitId = getParameterByName('classroom_unit_id') || '';
     const shouldExit = window.confirm('Are you sure you want to exit the lesson?')
 

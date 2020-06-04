@@ -44,7 +44,7 @@ class Customize extends React.Component<customizeProps, customizeState> {
     super(props)
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
     const classroomSessionId: ClassroomSessionId|null = classroomUnitId ? classroomUnitId.concat(activityUid) : null
     this.state = {
       classroomUnitId,
@@ -73,26 +73,26 @@ class Customize extends React.Component<customizeProps, customizeState> {
           user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
         }
         user_ids.push(nextProps.customize.user_id)
-        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.params.lessonID))
+        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.match.params.lessonID))
       }
     } else {
       if (Object.keys(nextProps.customize.editions).length === 0) {
-        this.props.dispatch(getEditionMetadataForUserIds([], this.props.params.lessonID))
+        this.props.dispatch(getEditionMetadataForUserIds([], this.props.match.params.lessonID))
       }
     }
   }
 
   goToSuccessPage() {
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    let link = `/customize/${this.props.params.lessonID}/${this.props.params.editionID}/success`
+    let link = `/customize/${this.props.match.params.lessonID}/${this.props.match.params.editionID}/success`
     link = classroomUnitId ? link.concat(`?&classroom_unit_id=${classroomUnitId}`) : link
-    this.props.router.push(link)
+    this.props.history.push(link)
   }
 
   render() {
     return (
       <div>
-        <NavBar goToSuccessPage={this.goToSuccessPage} params={this.props.params} />
+        <NavBar goToSuccessPage={this.goToSuccessPage} params={this.props.match.params} />
         {this.props.children}
       </div>
     );

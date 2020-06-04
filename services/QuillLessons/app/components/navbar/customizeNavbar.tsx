@@ -11,12 +11,13 @@ import { formatDateTime } from '../customize/helpers'
 
 class CustomizeNavbar extends React.Component<any, any> {
   editionMetadata() {
-    const { customize, params, } = this.props
-    return customize.editions[params.editionID]
+    const { customize, match, } = this.props
+    return customize.editions[match.params.editionID]
   }
 
   handlePublishClick = () => {
-    const { customize, dispatch, params, goToSuccessPage, } = this.props
+    const { customize, dispatch, match, goToSuccessPage, } = this.props
+    const { params, } = match
     const slides = customize.workingEditionQuestions.questions.slice(1)
     const incompleteQuestions:Array<number>|never = []
     slides.forEach((s, i) => {

@@ -27,7 +27,7 @@ class ChooseEdition extends React.Component<any, any> {
     super(props)
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
 
     this.state = {
       showNamingModal: false,
@@ -51,7 +51,7 @@ class ChooseEdition extends React.Component<any, any> {
 
   makeNewEdition(editionUid:string|null) {
     if (this.props.customize.user_id) {
-      const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
+      const newEditionUid = createNewEdition(editionUid, this.props.match.params.lessonID, this.props.customize.user_id)
       this.setState({newEditionUid}, this.openNamingModal)
     } else {
       this.setState({showSignupModal: true})
@@ -71,11 +71,11 @@ class ChooseEdition extends React.Component<any, any> {
     let route
     const classroomUnitId = getParameterByName('classroom_unit_id')
     if (classroomUnitId) {
-      route = `/customize/${this.props.params.lessonID}/${editionUid}?&classroom_unit_id=${classroomUnitId}`
+      route = `/customize/${this.props.match.params.lessonID}/${editionUid}?&classroom_unit_id=${classroomUnitId}`
     } else {
-      route = `/customize/${this.props.params.lessonID}/${editionUid}`
+      route = `/customize/${this.props.match.params.lessonID}/${editionUid}`
     }
-    return this.props.router.push(route)
+    return this.props.history.push(route)
   }
 
   archiveEdition(editionUid:string) {
@@ -96,16 +96,16 @@ class ChooseEdition extends React.Component<any, any> {
       let route
       const classroomUnitId = getParameterByName('classroom_unit_id')
       if (classroomUnitId) {
-        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_unit_id=${classroomUnitId}`
+        route = `/customize/${this.props.match.params.lessonID}/${this.state.newEditionUid}?&classroom_unit_id=${classroomUnitId}`
       } else {
-        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
+        route = `/customize/${this.props.match.params.lessonID}/${this.state.newEditionUid}`
       }
-      this.props.router.push(route)
+      this.props.history.push(route)
     }
   }
 
   selectAction(editionKey: string) {
-    const lessonId = this.props.params.lessonID;
+    const lessonId = this.props.match.params.lessonID;
     const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId || '';
     const classroomUnitId:ClassroomUnitId = this.state.classroomUnitId || '';
 
@@ -185,7 +185,7 @@ class ChooseEdition extends React.Component<any, any> {
     Object.keys(editions).forEach((e) => {
       const edition:CustomizeIntF.EditionMetadata = editions[e]
       edition.key = e
-      if (edition.lesson_id === this.props.params.lessonID) {
+      if (edition.lesson_id === this.props.match.params.lessonID) {
         if (edition.user_id === user_id) {
           const editionRow = (<EditionRow
             archiveEdition={this.archiveEdition}

@@ -44,7 +44,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
     this.state = {
       classroomUnitId,
       classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
@@ -56,7 +56,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   componentDidMount() {
     const { classroomUnitId, classroomSessionId } = this.state
-    const activityId: string = this.props.params.lessonID;
+    const activityId: string = this.props.match.params.lessonID;
     if (classroomUnitId) {
       startLesson(classroomUnitId, classroomSessionId, () => {
         this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
@@ -71,7 +71,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const lessonId: string = nextProps.params.lessonID
+    const lessonId: string = nextProps.match.params.lessonID
     if (!nextProps.customize.user_id && Object.keys(nextProps.customize.editions).length === 0) {
       this.props.dispatch(getEditionMetadataForUserIds([], lessonId))
     }
@@ -136,8 +136,8 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       return (
         <div className="teach-lesson-container" style={teachLessonContainerStyle}>
           <WakeLock />
-          <Sidebar params={this.props.params} />
-          <MainContentContainer params={this.props.params} />
+          <Sidebar params={this.props.match.params} />
+          <MainContentContainer params={this.props.match.params} />
         </div>
       );
     }
