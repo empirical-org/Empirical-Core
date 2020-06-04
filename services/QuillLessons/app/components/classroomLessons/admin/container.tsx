@@ -1,10 +1,6 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import rootRef, { firebase } from '../../../libs/firebase';
-import _ from 'lodash'
-import {
-  addLesson
-} from '../../../actions/classroomLesson'
+import ClassroomLessonsIndex from './index'
 import {
   startListeningToEditionMetadata
 } from '../../../actions/customize'
@@ -13,17 +9,19 @@ import {
   listenForClassroomLessonReviews
 } from '../../../actions/classroomLesson';
 
-class AdminClassLessonsContainer extends Component<any, any> {
+class AdminClassLessonsContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(listenForClassroomLessons());
-    this.props.dispatch(listenForClassroomLessonReviews())
-    this.props.dispatch(startListeningToEditionMetadata())
+    const { dispatch, } = this.props
+
+    dispatch(listenForClassroomLessons());
+    dispatch(listenForClassroomLessonReviews())
+    dispatch(startListeningToEditionMetadata())
   }
 
   render() {
-    return <div>{this.props.children}</div>
+    return (<ClassroomLessonsIndex />)
   }
 
 }
@@ -40,4 +38,4 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(AdminClassLessonsContainer);
+export default connect(select, dispatch => ({dispatch}), mergeProps)(AdminClassLessonsContainer)
