@@ -30,7 +30,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
     this.state = {
       classroomUnitId,
       classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
@@ -39,7 +39,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
 
   componentDidMount() {
     const { classroomUnitId, classroomSessionId } = this.state
-    const activityId: string = this.props.params.lessonID;
+    const activityId: string = this.props.match.params.lessonID;
     if (classroomUnitId && classroomSessionId) {
       this.props.dispatch(getClassLesson(activityId));
       this.props.dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
@@ -57,7 +57,7 @@ class MarkingLessonAsCompleted extends React.Component<any, MarkingLessonsAsComp
   finishLesson(nextProps) {
     const questions = nextProps.classroomLesson.data.questions;
     const submissions = nextProps.classroomSessions.data.submissions;
-    const activityId = this.props.params.lessonID;
+    const activityId = this.props.match.params.lessonID;
     const classroomUnitId:ClassroomUnitId|null = this.state.classroomUnitId;
     const conceptResults = generate(questions, submissions);
 

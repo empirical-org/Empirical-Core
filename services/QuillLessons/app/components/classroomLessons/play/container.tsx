@@ -42,7 +42,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     super(props);
 
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
     this.state = {
       easyDemoName: '',
       classroomUnitId,
@@ -73,7 +73,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student') ? getParameterByName('student') : '';
     const npCSData = nextProps.classroomSessions.data
-    const lessonId: string = this.props.params.lessonID
+    const lessonId: string = this.props.match.params.lessonID
     if (nextProps.classroomSessions.hasreceiveddata) {
       if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
         this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))

@@ -42,10 +42,10 @@ class Navbar extends React.Component {
   };
 
   customizeNavbar = () => {
-    if (this.props.params.editionID) {
-      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params} />
+    if (this.props.match.params.editionID) {
+      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.match.params} />
     } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
-      return <LaunchEditionNavbar params={this.props.params} />
+      return <LaunchEditionNavbar params={this.props.match.params} />
     } else {
       return <CreateCustomizedEditionNavbar />
     }
@@ -70,7 +70,7 @@ class Navbar extends React.Component {
 
   render() {
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar params={this.props.params} />);
+      return (<TeacherLessonsNavbar params={this.props.match.params} />);
     } else if (this.customizeRoute()) {
       return this.customizeNavbar()
     } else {
