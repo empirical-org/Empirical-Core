@@ -1,3 +1,5 @@
+@import "../../../node_modules/quill-component-library/src/styles/styles.scss";
+
 .schools-section {
   // min-height: 311px;
   background-color: #f8f9f9;
@@ -69,6 +71,7 @@
 }
 
 .features-section {
+  background-color: #f8f9f9;
   padding: 90px 0 36px;
   .features {
     max-width: 1038px;
@@ -146,30 +149,6 @@
     }
     .get-started-link:hover {
       text-decoration: none;
-    }
-    .get-started-button {
-      color: #ffffff;
-      background-color: #06806b;
-      font-weight: bold;
-      border: none;
-      height: 48px;
-      font-size: 18px;
-      line-height: 1;
-      letter-spacing: normal;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 4px;
-      width: min-content;
-      min-width: 88px;
-      padding: 0px 16px;
-      white-space: nowrap;
-      cursor: pointer;
-      font-family: adelle-sans, "Arial", sans-serif;
-    }
-    .get-started-button:hover {
-      background-color: #08907b;
     }
   }
 
@@ -532,11 +511,11 @@
   background-color: #e1f3f1;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   flex-direction: row;
   .premium-text-container {
     justify-content: center;
     display: flex;
-    margin-bottom: 100px;
     .premium-header {
       font-family: $family-sans-serif;
       font-size: 36px;
@@ -548,8 +527,6 @@
       color: #343434;
     }
     .premium-text {
-      width: 420px;
-      height: 90px;
       font-family: $family-sans-serif;
       font-size: 20px;
       font-weight: normal;
@@ -572,41 +549,8 @@
   }
   .premium-button-container {
     display: flex;
-    .sales-button, .premium-info-button {
-      font-weight: bold;
-      border: none;
-      height: 40px;
-      font-size: 15px;
-      line-height: 1;
-      letter-spacing: normal;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 4px;
-      width: min-content;
-      min-width: 88px;
-      padding: 0px 16px;
-      white-space: nowrap;
-      cursor: pointer;
-      font-family: adelle-sans, "Arial", sans-serif;
-      text-decoration: none;
-    }
     .sales-button {
-      color: #ffffff;
-      background-color: #06806b;
       margin-right: 20px;
-    }
-    .premium-info-button {
-      border: solid 1px #bdbdbd;
-      background-color: white;
-      color: #000;
-    }
-    .sales-button:hover {
-      background-color: #08907b;
-    }
-    .premium-info-button:hover {
-      background-color: #f5f5f5;
     }
   }
 }
