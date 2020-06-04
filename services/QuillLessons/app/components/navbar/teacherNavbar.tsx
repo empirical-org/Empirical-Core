@@ -33,7 +33,7 @@ const EXIT = 'exit'
 const HELP = 'help'
 const PDF = 'pdf'
 
-const HOVER = HOVER
+const HOVER = 'hover'
 
 class TeacherNavbar extends React.Component<any, any> {
   constructor(props) {

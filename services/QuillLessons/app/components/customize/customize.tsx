@@ -1,7 +1,11 @@
 import * as React from 'react';
-import NavBar from '../navbar/navbar';
+import { Redirect, Route, Switch, withRouter, Link } from 'react-router-dom';
 import * as _ from 'lodash'
 import { connect } from 'react-redux';
+
+import Edition from './edition'
+import ChooseEdition from './chooseEdition'
+import NavBar from '../navbar/navbar';
 import {
   getClassLesson
 } from '../../actions/classroomLesson'
@@ -40,7 +44,6 @@ interface customizeState {
 
 class Customize extends React.Component<customizeProps, customizeState> {
   constructor(props: customizeProps) {
-
     super(props)
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
@@ -93,7 +96,11 @@ class Customize extends React.Component<customizeProps, customizeState> {
     return (
       <div>
         <NavBar goToSuccessPage={this.goToSuccessPage} params={this.props.match.params} />
-        {this.props.children}
+        <Switch>
+          <Route component={Edition} path='/customize/:lessonID/:editionID/success' />
+          <Route component={Edition} path='/customize/:lessonID/:editionID' />
+          <Route component={ChooseEdition} path='/customize/:lessonID' />
+        </Switch>
       </div>
     );
   }
@@ -107,4 +114,4 @@ function select(props) {
   }
 }
 
-export default connect(select)(Customize)
+export default withRouter(connect(select)(Customize))

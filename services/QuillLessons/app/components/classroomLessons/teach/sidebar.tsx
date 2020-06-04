@@ -31,7 +31,7 @@ interface ReducerSidebarProps extends React.Props<any> {
 }
 
 interface PassedSidebarProps extends React.Props<any> {
-  params: any
+  match: any
 }
 
 class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {

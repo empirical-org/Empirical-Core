@@ -151,7 +151,7 @@
     "react-simple-pie-chart": "^0.4.1",
     "react-sortable": "^2.0.0",
     "react-transition-group": "^2.2.1",
-    "react-wakelock": "0.0.4",
+    "react-wakelock-react16": "0.0.7",
     "redux-persist": "^4.8.1",
     "request": "^2.72.0",
     "request-promise": "^4.2.2",
