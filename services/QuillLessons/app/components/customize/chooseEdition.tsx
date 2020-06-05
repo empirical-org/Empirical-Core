@@ -4,12 +4,19 @@ import * as _ from 'lodash';
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
 
 import {
+  getClassLesson
+} from '../../actions/classroomLesson'
+
+import {
   createNewEdition,
   saveEditionName,
   archiveEdition,
-  deleteEdition
+  deleteEdition,
+  getCurrentUserAndCoteachersFromLMS,
+  getEditionMetadataForUserIds
 } from '../../actions/customize';
 import {
+  startListeningToSession,
   setEditionId
 } from '../../actions/classroomSessions';
 import {
@@ -19,6 +26,7 @@ import {
 import EditionNamingModal from './editionNamingModal';
 import EditionRow from './editionRow';
 import SignupModal from '../classroomLessons/teach/signupModal';
+import CustomizeNavbar from '../navbar/customizeNavbar'
 import { getParameterByName } from '../../libs/getParameterByName';
 import * as CustomizeIntF from '../../interfaces/customize';
 
@@ -28,6 +36,7 @@ class ChooseEdition extends React.Component<any, any> {
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.match.params.lessonID
+    const classroomSessionId: ClassroomSessionId|null = classroomUnitId ? classroomUnitId.concat(activityUid) : null
 
     this.state = {
       showNamingModal: false,
@@ -35,7 +44,17 @@ class ChooseEdition extends React.Component<any, any> {
       newEditionName: '',
       showSignupModal: false,
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+      classroomSessionId
+    }
+
+    props.dispatch(getCurrentUserAndCoteachersFromLMS())
+
+    if (activityUid) {
+      props.dispatch(getClassLesson(activityUid))
+    }
+
+    if (classroomSessionId) {
+      props.dispatch(startListeningToSession(classroomSessionId))
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -47,6 +66,23 @@ class ChooseEdition extends React.Component<any, any> {
     this.selectAction = this.selectAction.bind(this)
     this.hideSignupModal = this.hideSignupModal.bind(this)
     this.deleteNewEdition = this.deleteNewEdition.bind(this)
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.customize.user_id) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
+        let user_ids:Array<Number>|never = []
+        if (nextProps.customize.coteachers.length > 0) {
+          user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
+        }
+        user_ids.push(nextProps.customize.user_id)
+        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.match.params.lessonID))
+      }
+    } else {
+      if (Object.keys(nextProps.customize.editions).length === 0) {
+        this.props.dispatch(getEditionMetadataForUserIds([], this.props.match.params.lessonID))
+      }
+    }
   }
 
   makeNewEdition(editionUid:string|null) {
@@ -263,14 +299,17 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   render() {
-    return (<div className="choose-edition customize-page">
-      {this.renderSignupModal()}
-      {this.renderBackButton()}
-      {this.renderLessonInfo()}
-      {this.renderHeader()}
-      {this.renderExplanation()}
-      {this.renderEditions()}
-      {this.renderNamingModal()}
+    return (<div>
+      <CustomizeNavbar />
+      <div className="choose-edition customize-page">
+        {this.renderSignupModal()}
+        {this.renderBackButton()}
+        {this.renderLessonInfo()}
+        {this.renderHeader()}
+        {this.renderExplanation()}
+        {this.renderEditions()}
+        {this.renderNamingModal()}
+      </div>
     </div>)
   }
 }

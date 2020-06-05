@@ -1,6 +1,7 @@
 declare function require(name:string);
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 const helpIcon = 'https://assets.quill.org/images/icons/help_icon.svg'
 import { getParameterByName } from '../../libs/getParameterByName';
 import {
@@ -15,8 +16,15 @@ class CustomizeNavbar extends React.Component<any, any> {
     return customize.editions[match.params.editionID]
   }
 
+  goToSuccessPage = () => {
+    const classroomUnitId = getParameterByName('classroom_unit_id')
+    let link = `/customize/${this.props.match.params.lessonID}/${this.props.match.params.editionID}/success`
+    link = classroomUnitId ? link.concat(`?&classroom_unit_id=${classroomUnitId}`) : link
+    this.props.history.push(link)
+  }
+
   handlePublishClick = () => {
-    const { customize, dispatch, match, goToSuccessPage, } = this.props
+    const { customize, dispatch, match, } = this.props
     const { params, } = match
     const slides = customize.workingEditionQuestions.questions.slice(1)
     const incompleteQuestions:Array<number>|never = []
@@ -29,7 +37,7 @@ class CustomizeNavbar extends React.Component<any, any> {
       }
     })
     if (incompleteQuestions.length === 0 && customize.workingEditionMetadata.name) {
-      dispatch(publishEdition(params.editionID, customize.workingEditionMetadata, customize.workingEditionQuestions, goToSuccessPage))
+      dispatch(publishEdition(params.editionID, customize.workingEditionMetadata, customize.workingEditionQuestions, this.goToSuccessPage))
     } else {
       dispatch(setIncompleteQuestions(incompleteQuestions))
     }
@@ -82,4 +90,4 @@ function mergeProps(stateProps: Object, dispatchProps: Object, ownProps: Object)
   return {...ownProps, ...stateProps, ...dispatchProps}
 }
 
-export default connect(select, dispatch => ({dispatch}), mergeProps)(CustomizeNavbar);
+export default withRouter(connect(select, dispatch => ({dispatch}), mergeProps)(CustomizeNavbar))

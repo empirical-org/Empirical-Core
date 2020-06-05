@@ -5,11 +5,17 @@ import _ from 'lodash'
 import Slide from './slide'
 import CustomizeEditionHeader from './customizeEditionHeader'
 import NameAndSampleQuestionModal from './nameAndSampleQuestionModal'
+import CustomizeNavbar from '../navbar/customizeNavbar'
 import SuccessModal from './successModal'
 import { getParameterByName } from '../../libs/getParameterByName'
 import { Question } from '../classroomLessons/interfaces'
 
 import {
+  getClassLesson
+} from '../../actions/classroomLesson'
+
+import {
+  getCurrentUserAndCoteachersFromLMS,
   getEditionMetadata,
   getEditionMetadataForUserIds,
   getEditionQuestions,
@@ -25,6 +31,7 @@ import {
 import {
   setEditionId,
   setTeacherModels,
+  startListeningToSession,
 } from '../../actions/classroomSessions'
 
 import {
@@ -46,12 +53,25 @@ class CustomizeEdition extends React.Component<any, any> {
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
     const activityUid = props.match.params.lessonID
+    const classroomSessionId = classroomUnitId ? classroomUnitId.concat(activityUid) : null
 
     this.state = {
       showEditModal: false,
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+      classroomSessionId
     };
+
+
+    props.dispatch(getCurrentUserAndCoteachersFromLMS())
+
+    if (activityUid) {
+      props.dispatch(getClassLesson(activityUid))
+    }
+
+    if (classroomSessionId) {
+      props.dispatch(startListeningToSession(classroomSessionId))
+    }
+
 
     this.updateQuestion = this.updateQuestion.bind(this)
     this.publish = this.publish.bind(this)
@@ -99,6 +119,21 @@ class CustomizeEdition extends React.Component<any, any> {
       this.props.dispatch(setEditionQuestions(nextProps.editionQuestions));
       this.props.dispatch(setWorkingEditionQuestions(nextProps.editionQuestions));
     }
+
+    if (nextProps.customize.user_id) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
+        let user_ids:Array<Number>|never = []
+        if (nextProps.customize.coteachers.length > 0) {
+          user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
+        }
+        user_ids.push(nextProps.customize.user_id)
+        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.match.params.lessonID))
+      }
+    } else {
+      if (Object.keys(nextProps.customize.editions).length === 0) {
+        this.props.dispatch(getEditionMetadataForUserIds([], this.props.match.params.lessonID))
+      }
+    }
   }
 
   updateQuestion(question: Question, questionIndex: number) {
@@ -109,17 +144,23 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   updateName(e) {
-    const newEditionMetadata = _.merge({}, this.props.editionMetadata)
+    const { dispatch, editionMetadata, customize, } = this.props
+    const newEditionMetadata = _.merge({}, editionMetadata)
     newEditionMetadata.name = e.target.value
-    this.props.dispatch(setEditionMetadata(newEditionMetadata));
-    this.props.dispatch(setWorkingEditionMetadata(newEditionMetadata));
+    const newEditions = {...customize.editions}
+    newEditions[newEditionMetadata.id] = newEditionMetadata
+    dispatch(setEditionMetadata(newEditions));
+    dispatch(setWorkingEditionMetadata(newEditions));
   }
 
   updateSampleQuestion(e) {
-    const newEditionMetadata = _.merge({}, this.props.editionMetadata)
+    const { dispatch, editionMetadata, customize, } = this.props
+    const newEditionMetadata = _.merge({}, editionMetadata)
     newEditionMetadata.sample_question = e.target.value
-    this.props.dispatch(setEditionMetadata(newEditionMetadata));
-    this.props.dispatch(setWorkingEditionMetadata(newEditionMetadata));
+    const newEditions = {...customize.editions}
+    newEditions[newEditionMetadata.id] = newEditionMetadata
+    dispatch(setEditionMetadata(newEditions));
+    dispatch(setWorkingEditionMetadata(newEditions));
   }
 
   showEditModal() {
@@ -216,7 +257,7 @@ class CustomizeEdition extends React.Component<any, any> {
   followUpLink() {
     const {lessonID, editionID} = this.props.match.params
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    return classroomUnitId ? `teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}` : `teach/class-lessons/${lessonID}/preview/${editionID}`
+    return classroomUnitId ? `/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}` : `/teach/class-lessons/${lessonID}/preview/${editionID}`
   }
 
   renderPublishSection() {
@@ -283,25 +324,28 @@ class CustomizeEdition extends React.Component<any, any> {
   }
 
   render() {
-    if (this.props.editionMetadata) {
-      return (<div className="customize-edition-container customize-page">
+    const { editionMetadata, classroomLesson, } = this.props
+
+    if (!editionMetadata) { return <span/> }
+
+    return (<div>
+      <CustomizeNavbar />
+      <div className="customize-edition-container customize-page">
         <div className="customize-edition">
           {this.renderEditModal()}
           {this.renderSuccessModal()}
           <CustomizeEditionHeader
-            editionName={this.props.editionMetadata.name}
-            lessonNumber={this.props.classroomLesson.data.lesson}
-            lessonTitle={this.props.classroomLesson.data.title}
-            sampleQuestion={this.props.editionMetadata.sample_question}
+            editionName={editionMetadata.name}
+            lessonNumber={classroomLesson.data.lesson}
+            lessonTitle={classroomLesson.data.title}
+            sampleQuestion={editionMetadata.sample_question}
             showEditModal={this.showEditModal}
           />
           {this.renderSlides()}
           {this.renderPublishSection()}
         </div>
-      </div>)
-    } else {
-      return <span />
-    }
+      </div>
+    </div>)
   }
 }
 
