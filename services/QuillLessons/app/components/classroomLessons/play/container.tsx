@@ -308,21 +308,21 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
 
     if (this.state.shouldEnterName) {
        mainContent = (
-        <div>
-          <div className="play-lesson-container">
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                <div className="easy-join-name-form-wrapper">
-                  <div className="easy-join-name-form">
-                    <p>Please enter your full name:</p>
-                    <input onChange={this.handleChange} value={this.state.easyDemoName} />
-                    <button onClick={this.easyJoinDemo}>Join</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+         <div>
+           <div className="play-lesson-container">
+             <div className="main-content">
+               <div className="main-content-wrapper">
+                 <div className="easy-join-name-form-wrapper">
+                   <div className="easy-join-name-form">
+                     <p>Please enter your full name:</p>
+                     <input onChange={this.handleChange} value={this.state.easyDemoName} />
+                     <button onClick={this.easyJoinDemo}>Join</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
       )
     } else if (error) {
        mainContent = <ErrorPage text={error} />
@@ -362,9 +362,9 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
        }
      }
      return (<div>
-      <NavBar />
-      {mainContent}
-    </div>)
+       <NavBar />
+       {mainContent}
+     </div>)
    }
 
 }

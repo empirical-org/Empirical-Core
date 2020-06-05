@@ -326,7 +326,7 @@ class CustomizeEdition extends React.Component<any, any> {
   render() {
     const { editionMetadata, classroomLesson, } = this.props
 
-    if (!editionMetadata) { return <span/> }
+    if (!editionMetadata) { return <span /> }
 
     return (<div>
       <CustomizeNavbar />
