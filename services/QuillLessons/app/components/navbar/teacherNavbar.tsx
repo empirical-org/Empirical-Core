@@ -171,7 +171,8 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   renderPDFLink() {
-    const { classroomSessions, params, } = this.props
+    const { classroomSessions, match, } = this.props
+    const { params, } = match
     const { tooltip, } = this.state
 
     if (classroomSessions.data.supportingInfo) {
@@ -262,7 +263,8 @@ class TeacherNavbar extends React.Component<any, any> {
   }
 
   redirectToEdit(lessonID:string, editionID:string, classroomUnitId:string) {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
     window.location.href = `#/customize/${params.lessonID}/${editionID}?&classroom_unit_id=${classroomUnitId}`
   }
 

@@ -9,9 +9,9 @@ interface MainContentContainerProps extends React.Props<any> {
 const MainContentContainer = (props:MainContentContainerProps) =>
   (<div className="main-content">
     <div className="main-content-wrapper">
-      <CurrentSlide params={props.match.params} />
+      <CurrentSlide match={props.match} />
       <div className="next-slide-button-container">
-        <NextSlideButton params={props.match.params} />
+        <NextSlideButton match={props.match} />
       </div>
     </div>
   </div>);

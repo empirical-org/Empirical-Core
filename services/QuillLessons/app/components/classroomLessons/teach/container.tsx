@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash'
 import WakeLock from 'react-wakelock-react16'
 
+import NavBar from '../../navbar/navbar';
 import {
   startListeningToSessionForTeacher,
   goToNextSlide,
@@ -140,19 +141,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     const teachLessonContainerStyle = classroomSessions.data && classroomSessions.data.preview
     ? {'height': 'calc(100vh - 113px)'}
     : {'height': 'calc(100vh - 60px)'}
+    let component = (
+      <div className="teach-lesson-container" style={teachLessonContainerStyle}>
+        <WakeLock />
+        <Sidebar match={match} />
+        <MainContentContainer match={match} />
+      </div>
+    );
+
     if (classroomActivityError) {
-      return <ErrorPage text={classroomActivityError} />
+      component = <ErrorPage text={classroomActivityError} />
     } else if (lessonError) {
-      return <ErrorPage text={lessonError} />
-    }  else {
-      return (
-        <div className="teach-lesson-container" style={teachLessonContainerStyle}>
-          <WakeLock />
-          <Sidebar match={match} />
-          <MainContentContainer match={match} />
-        </div>
-      );
+      component = <ErrorPage text={lessonError} />
     }
+
+    return (<div>
+      <NavBar />
+      {component}
+    </div>)
   }
 }
 
