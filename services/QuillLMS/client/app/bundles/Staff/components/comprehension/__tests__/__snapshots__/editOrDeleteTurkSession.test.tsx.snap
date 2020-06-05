@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditOrDeleteTurkSession component should render EditOrDeleteTurkSession 1`] = `
+<div
+  className="edit-turk-session-container"
+>
+  <div
+    className="date-picker-container"
+  >
+    <label
+      className="datepicker-label"
+      htmlFor="date-picker"
+    >
+      Expiration
+    </label>
+    <withStyles(SingleDatePicker)
+      anchorDirection="left"
+      appendToBody={false}
+      block={false}
+      calendarInfoPosition="bottom"
+      customCloseIcon={null}
+      customInputIcon={null}
+      date={"2020-05-27T21:39:20.000Z"}
+      dayPickerNavigationInlineStyles={null}
+      daySize={39}
+      disableScroll={false}
+      disabled={false}
+      displayFormat={[Function]}
+      enableOutsideDays={false}
+      firstDayOfWeek={null}
+      focused={false}
+      hideKeyboardShortcutsPanel={false}
+      horizontalMargin={0}
+      horizontalMonthPadding={13}
+      id="date-picker"
+      initialVisibleMonth={null}
+      inputIconPosition="after"
+      isDayBlocked={[Function]}
+      isDayHighlighted={[Function]}
+      isOutsideRange={[Function]}
+      isRTL={false}
+      keepFocusOnInput={false}
+      keepOpenOnDateSelect={false}
+      monthFormat="MMMM YYYY"
+      navNext={null}
+      navPosition="navPositionTop"
+      navPrev={null}
+      noBorder={false}
+      numberOfMonths={1}
+      onClose={[Function]}
+      onDateChange={[Function]}
+      onFocusChange={[Function]}
+      onNextMonthClick={[Function]}
+      onPrevMonthClick={[Function]}
+      openDirection="down"
+      orientation="horizontal"
+      phrases={
+        Object {
+          "calendarLabel": "Calendar",
+          "chooseAvailableDate": [Function],
+          "clearDate": "Clear Date",
+          "closeDatePicker": "Close",
+          "dateIsSelected": [Function],
+          "dateIsUnavailable": [Function],
+          "enterKey": "Enter key",
+          "escape": "Escape key",
+          "hideKeyboardShortcutsPanel": "Close the shortcuts panel.",
+          "homeEnd": "Home and end keys",
+          "jumpToNextMonth": "Move forward to switch to the next month.",
+          "jumpToPrevMonth": "Move backward to switch to the previous month.",
+          "keyboardBackwardNavigationInstructions": "Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+          "keyboardForwardNavigationInstructions": "Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+          "keyboardShortcuts": "Keyboard Shortcuts",
+          "leftArrowRightArrow": "Right and left arrow keys",
+          "moveFocusByOneDay": "Move backward (left) and forward (right) by one day.",
+          "moveFocusByOneMonth": "Switch months.",
+          "moveFocusByOneWeek": "Move backward (up) and forward (down) by one week.",
+          "moveFocustoStartAndEndOfWeek": "Go to the first or last day of a week.",
+          "openThisPanel": "Open this panel.",
+          "pageUpPageDown": "page up and page down keys",
+          "questionMark": "Question mark",
+          "returnFocusToInput": "Return to the date input field.",
+          "roleDescription": "datepicker",
+          "selectFocusedDate": "Select the date in focus.",
+          "showKeyboardShortcutsPanel": "Open the keyboard shortcuts panel.",
+          "upArrowDownArrow": "up and down arrow keys",
+        }
+      }
+      placeholder="Date"
+      readOnly={false}
+      regular={false}
+      renderCalendarInfo={null}
+      renderDayContents={null}
+      renderMonthElement={null}
+      renderMonthText={null}
+      renderNavNextButton={null}
+      renderNavPrevButton={null}
+      renderWeekHeaderElement={null}
+      reopenPickerOnClearDate={false}
+      required={false}
+      screenReaderInputMessage=""
+      showClearDate={false}
+      showDefaultInputIcon={false}
+      small={false}
+      verticalHeight={null}
+      verticalSpacing={22}
+      weekDayFormat="dd"
+      withFullScreenPortal={false}
+      withPortal={false}
+    />
+  </div>
+  <div
+    className="submit-button-container"
+  >
+    <button
+      className="quill-button fun primary contained"
+      id="edit-turk-submit-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+`;

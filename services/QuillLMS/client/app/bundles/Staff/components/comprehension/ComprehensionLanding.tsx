@@ -13,7 +13,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
   const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false)
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false)
-  const [error, setError] = React.useState<{}>(null);
+  const [error, setError] = React.useState<string>('');
 
   const checkIndexActive = () => {
     if(!location) return false;
