@@ -3,11 +3,13 @@ import { formattedCues } from '../formattedCues';
 
 export function getConceptResultsForFillInTheBlanks(question) {
   const prompt = question.prompt.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '');
-  const answer = question.attempts[0].submitted;
+  let answer = question.attempts[0].submitted;
   let conceptResults = [];
-  if (question.attempts[0].response) {
-    const conceptResultObject = question.attempts[0].response.conceptResults || question.attempts[0].response.concept_results
+  const responseObject = question.attempts[0].response;
+  if (responseObject) {
+    const conceptResultObject = responseObject.conceptResults || responseObject.concept_results
     conceptResults = hashToCollection(conceptResultObject) || [];
+    answer = responseObject.text;
   } else {
     conceptResults = [];
   }
@@ -19,7 +21,7 @@ export function getConceptResultsForFillInTheBlanks(question) {
   }
   let directions = question.instructions || 'Fill in the blanks.';
   if (question.cues && question.cues[0] !== '') {
-    directions += ` ${formattedCues(question.cues)}`;
+    directions += `${formattedCues(question.cues)}`;
   }
   return conceptResults.map(conceptResult => ({
     concept_uid: conceptResult.conceptUID,
