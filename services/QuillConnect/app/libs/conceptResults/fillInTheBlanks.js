@@ -21,7 +21,7 @@ export function getConceptResultsForFillInTheBlanks(question) {
   }
   let directions = question.instructions || 'Fill in the blanks.';
   if (question.cues && question.cues[0] !== '') {
-    directions += `${formattedCues(question.cues)}`;
+    directions += ` ${formattedCues(question.cues)}`;
   }
   return conceptResults.map(conceptResult => ({
     concept_uid: conceptResult.conceptUID,
