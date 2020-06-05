@@ -80,40 +80,46 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       dispatch(clearEditionQuestions());
     }
     document.getElementsByTagName("html")[0].style.overflowY = "hidden";
+
+    this.setInitialData(this.props)
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const lessonId: string = nextProps.match.params.lessonID
-    if (!nextProps.customize.user_id && Object.keys(nextProps.customize.editions).length === 0) {
-      this.props.dispatch(getEditionMetadataForUserIds([], lessonId))
-    }
-    if (nextProps.classroomSessions.hasreceiveddata) {
-      if (!nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
-        window.location.href =`#/customize/${lessonId}?&classroom_unit_id=${getParameterByName('classroom_unit_id')}`
-      }
-      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length === 0) {
-        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
-      }
-      if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLesson(lessonId));
-      }
-      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && nextProps.classroomSessions.data.edition_id) {
-        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
-      }
-    }
-    if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
-      let user_ids:Array<number> = []
-      if (nextProps.customize.coteachers.length > 0) {
-        user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
-      }
-      user_ids.push(nextProps.customize.user_id)
-      this.props.dispatch(getEditionMetadataForUserIds(user_ids, lessonId))
-    }
+    this.setInitialData(nextProps)
   }
 
   componentWillUnmount() {
     document.getElementsByTagName("html")[0].style.overflowY = "scroll";
     document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+  }
+
+  setInitialData = (props) => {
+    const lessonId: string = props.match.params.lessonID
+    if (!props.customize.user_id && Object.keys(props.customize.editions).length === 0) {
+      this.props.dispatch(getEditionMetadataForUserIds([], lessonId))
+    }
+    if (props.classroomSessions.hasreceiveddata) {
+      if (!props.classroomSessions.data.edition_id && Object.keys(props.customize.editionQuestions).length === 0) {
+        window.location.href =`#/customize/${lessonId}?&classroom_unit_id=${getParameterByName('classroom_unit_id')}`
+      }
+      if (props.classroomSessions.data.edition_id && Object.keys(props.customize.editionQuestions).length === 0) {
+        this.props.dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
+      }
+      if (!props.classroomLesson.hasreceiveddata) {
+        this.props.dispatch(getClassLesson(lessonId));
+      }
+      if (props.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id && props.classroomSessions.data.edition_id) {
+        this.props.dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
+      }
+    }
+    if (props.customize.user_id !== this.props.customize.user_id || !_.isEqual(props.customize.coteachers, this.props.customize.coteachers)) {
+      let user_ids:Array<number> = []
+      if (props.customize.coteachers.length > 0) {
+        user_ids = props.customize.coteachers.map(c => Number(c.id))
+      }
+      user_ids.push(props.customize.user_id)
+      this.props.dispatch(getEditionMetadataForUserIds(user_ids, lessonId))
+    }
   }
 
   handleKeyDown(event) {
