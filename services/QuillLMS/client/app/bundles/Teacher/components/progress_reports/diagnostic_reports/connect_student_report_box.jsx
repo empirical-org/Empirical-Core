@@ -4,27 +4,27 @@ import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
 import NumberSuffix from '../../modules/numberSuffixBuilder.js'
 
-export class ConnectStudentReportBox extends React.Component {
+export default createReactClass({
+    displayName: 'connect_student_report_box',
 
-  groupByAttempt = () => {
+    groupByAttempt: function(){
 		return _.groupBy(this.props.questionData.concepts,
 			(conc)=>conc.attempt
 		);
-	}
+	},
 
-  feedbackOrDirections = (directionsOrFeedback, classNameAndText ) => {
+    feedbackOrDirections: (directionsOrFeedback, classNameAndText ) => {
 		if (directionsOrFeedback) {
 			return (
-			<tr className={classNameAndText}>
-				<td>{classNameAndText}</td>
-				<td />
-				<td>{directionsOrFeedback}</td>
-			</tr>
-			);
+  <tr className={classNameAndText}>
+    <td>{classNameAndText}</td>
+    <td />
+    <td>{directionsOrFeedback}</td>
+  </tr>)
 		}
-	}
+	},
 
-  conceptsByAttempt = () => {
+    conceptsByAttempt: function() {
 		const conceptsByAttempt = this.groupByAttempt();
 		let attemptNum = 1;
 		let results = [];
@@ -58,77 +58,72 @@ export class ConnectStudentReportBox extends React.Component {
 			attemptNum += 1;
 		}
 		return results;
-	}
+	},
 
-  emptyRow = (key) => {
+    emptyRow: function(key){
+		return (<tr key={'empty-row'+key}>
+  <td />
+  <td />
+  <td />
+						</tr>)
+	},
+
+    scoreRow: function(answer, attemptNum, averageScore) {
 		return (
-			<tr key={'empty-row'+key}>
-				<td />
-				<td />
-				<td />
-			</tr>
-		);
-	}
+  <tr className={ScoreColor(averageScore)} key={attemptNum + answer}>
+    <td>{`${NumberSuffix(attemptNum)} Submission`}</td>
+    <td />
+    <td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
+  </tr>
+		)
+	},
 
-  scoreRow = (answer, attemptNum, averageScore) => {
-		return (
-			<tr className={ScoreColor(averageScore)} key={attemptNum + answer}>
-				<td>{`${NumberSuffix(attemptNum)} Submission`}</td>
-				<td />
-				<td><span style={{ whiteSpace: 'pre-wrap' }}>{answer}</span></td>
-			</tr>
-		);
-	}
-
-    questionScore = () => {
+    questionScore: function() {
 		// occassionally there is no questionScore
 		// don't just do ...questionData && ...questionData.questionScore because
 		// if it questionScore is zero it will evaluate to false
-			if (typeof this.props.questionData.questionScore !== undefined) {
-				let score
-				if (this.props.questionData.questionScore) {
-					score = this.props.questionData.questionScore * 100
-				} else if (this.props.questionData.score) {
-					score = this.props.questionData.score
-				} else {
-					score = 0
-				}
-				return (
-					<tr>
-						<td>Score</td>
-						<td />
-						<td>{score}%</td>
-					</tr>
-				);
-			}
+		if (typeof this.props.questionData.questionScore !== undefined) {
+      let score
+      if (this.props.questionData.questionScore) {
+        score = this.props.questionData.questionScore * 100
+      } else if (this.props.questionData.score) {
+        score = this.props.questionData.score
+      } else {
+        score = 0
+      }
+			return (
+  <tr>
+    <td>Score</td>
+    <td />
+    <td>{score}%</td>
+  </tr>
+			);
 		}
+	},
 
-  render() {
+    render: function() {
 		const data = this.props.questionData;
-		console.log('data', this.props)
 		return (
-			<div className='individual-activity-report'>
-				<div className="student-report-box">
-					<div className='student-report-table-and-index'>
-						<div className='question-index'>{this.props.boxNumber}</div>
-						<table>
-							<tbody>
-								{this.feedbackOrDirections(data.directions, 'Directions')}
-								<tr>
-									<td>Prompt</td>
-									<td />
-									<td>{data.prompt}</td>
-								</tr>
-								{this.questionScore()}
-								{this.emptyRow()}
-								{this.conceptsByAttempt()}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+  <div className='individual-activity-report'>
+    <div className="student-report-box">
+      <div className='student-report-table-and-index'>
+        <div className='question-index'>{this.props.boxNumber}</div>
+        <table>
+          <tbody>
+            {this.feedbackOrDirections(data.directions, 'Directions')}
+            <tr>
+              <td>Prompt</td>
+              <td />
+              <td>{data.prompt}</td>
+            </tr>
+            {this.questionScore()}
+            {this.emptyRow()}
+            {this.conceptsByAttempt()}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 		);
-	}
-}
-
-export default ConnectStudentReportBox;
+	},
+});
