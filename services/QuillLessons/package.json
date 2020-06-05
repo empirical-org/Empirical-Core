@@ -56,6 +56,7 @@
     "compression-webpack-plugin": "^3.0.1",
     "css-loader": "^2.1.1",
     "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^14.0.0",
@@ -164,13 +165,26 @@
   },
   "jest": {
     "transform": {
-      ".*": "./test/jest.preprocessor.js"
+      "^.+\\.(js|jsx)?$": "babel-jest",
+      "^.+\\.tsx?$": "ts-jest"
     },
     "moduleFileExtensions": [
       "js",
       "jsx",
       "ts",
       "tsx"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "data.ts$"
+    ],
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    },
+    "setupFiles": [
+      "<rootDir>/app/setupTests.ts"
     ],
     "snapshotSerializers": [
       "<rootDir>/node_modules/enzyme-to-json/serializer"
