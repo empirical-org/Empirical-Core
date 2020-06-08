@@ -30,7 +30,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration
     Lesson.all.each do |lesson|
       activity = Activity.find_by(uid: lesson.uid)
       if activity.blank?
-        activity = Activity.new(:name=> lesson[:data]["name"], :uid=>lesson.uid)
+        activity = Activity.new(:name=> lesson[:data]["name"], :uid=>lesson.uid, :flags=>[lesson[:data]["flag"]])
 
         if lesson.lesson_type == Lesson::TYPE_CONNECT_LESSON
           activity.activity_classification_id = 5
