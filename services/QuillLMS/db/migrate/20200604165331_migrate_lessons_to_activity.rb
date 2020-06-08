@@ -51,7 +51,7 @@ class MigrateLessonsToActivity < ActiveRecord::Migration
       end
 
       activity.data = lesson.data
-      activity.save!
+      activity.save
 
     end
 
