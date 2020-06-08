@@ -5,7 +5,6 @@ import RuleSetForm from './ruleSetForm';
 import { getPromptsIcons } from '../../../../../helpers/comprehension';
 import { ActivityRouteProps, ActivityRuleSetInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
-const fetchAllRuleSetsAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/regex_index.json';
 
 const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
@@ -14,18 +13,18 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState<Boolean>(false);
   const [loading, setLoading] = React.useState<Boolean>(false);
   const [error, setError] = React.useState<String>(null);
+  const fetchAllRuleSetsAPI = `https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets.json/`;
   
   const fetchData = async () => {
-    let json: any;
+    let rulesets: any;
     try {
       setLoading(true);
       const response = await fetch(fetchAllRuleSetsAPI);
-      json = await response.json();
+      rulesets = await response.json();
     } catch (error) {
       setError(error);
       setLoading(false);
     }
-    const { rulesets } = json
     setActivityRuleSets(rulesets);
     setLoading(false);
   };

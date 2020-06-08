@@ -3,33 +3,19 @@ import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
-import { activitiesGetAPI } from '../../utils/comprehensionAPIs';
+import { fetchActivities } from '../../utils/comprehension/activityAPIs';
 import useSWR from 'swr';
 
 const Activities = () => {
   const [activities, setActivities] = React.useState<ActivityInterface[]>([blankActivity]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
-  
-  const fetchData = async () => {
-    let activities: ActivityInterface[];
-    try {
-      setLoading(true);
-      const response = await fetch(activitiesGetAPI);
-      activities = await response.json();
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-    setActivities(activities);
-    setLoading(false);
-  };
 
   // cache activity data for updates
-  useSWR("activities", fetchData);
+  useSWR("activities", fetchActivities);
 
   React.useEffect(() => {
-    fetchData();
+    fetchActivities(setActivities, setError, setLoading);
   }, []);
 
   const formattedRows = activities.map((activity: ActivityInterface) => {

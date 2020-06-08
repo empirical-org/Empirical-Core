@@ -4,7 +4,7 @@ import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component
 import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
 import ActivityForm from './activityForm';
 import { blankActivity, flagOptions } from '../../../../../constants/comprehension';
-import { activityGetAPI, activityPutAPI } from '../../../utils/comprehensionAPIs';
+import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
 import useSWR from 'swr';
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
@@ -17,63 +17,38 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false)
   const { params } = match;
   const { activityId } = params;
-  
-  const fetchData = async () => {
-    let activity: ActivityInterface;
-    try {
-      setLoading(true);
-      const response = await fetch(activityGetAPI(activityId));
-      activity = await response.json();
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-    const { flag } = activity
-    const flagObject = { label: flag, value: flag };
-    setActivity(activity);
-    setOriginalFlag(flagObject);
-    setActivityFlag(flagObject);
-    setLoading(false);
-    return activity;
-  };
 
   // cache activity data for updates
-  useSWR("activity", fetchData);
+  useSWR("activity", fetchActivity);
 
   React.useEffect(() => {
-    fetchData();
+    fetchActivity(
+      activityId, 
+      setActivity, 
+      setActivityFlag, 
+      setError, 
+      setLoading, 
+      setOriginalFlag
+    );
   }, []);
 
-  const submitActivity = async (activity: ActivityInterface) => {
-    let updatedActivity: ActivityInterface;
-    try {
-      setLoading(true);
-      const response = await fetch(activityPutAPI(activityId), {
-        method: 'PUT',
-        body: JSON.stringify(activity),
-        headers: {
-          "Accept": "application/JSON",
-          "Content-Type": "application/json"
-        },
-      });
-      updatedActivity = await response.json();
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-    const { flag } = updatedActivity
-    const flagObject = { label: flag, value: flag };
-    setActivity(updatedActivity);
-    setOriginalFlag(flagObject);
-    setActivityFlag(flagObject);
-    setLoading(false);
-    setShowEditActivityModal(false);
+  const handleUpdateActivity = (activity: ActivityInterface) => {
+    updateActivity(
+      activity,
+      activityId,
+      setActivity, 
+      setActivityFlag, 
+      setError, 
+      setLoading, 
+      setOriginalFlag,
+      setShowEditActivityModal
+    );
   }
 
   const handleUpdateFlag = () => {
     let updatedActivity: any = activity;
     updatedActivity.flag = activityFlag.value;
-    submitActivity(updatedActivity);
+    handleUpdateActivity(updatedActivity);
     setShowEditFlagModal(false);
   }
 
@@ -103,7 +78,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const renderActivityForm = () => {
     return(
       <Modal>
-        <ActivityForm activity={activity} closeModal={toggleEditActivityModal} submitActivity={submitActivity} />
+        <ActivityForm activity={activity} closeModal={toggleEditActivityModal} submitActivity={handleUpdateActivity} />
       </Modal>
     );
   }

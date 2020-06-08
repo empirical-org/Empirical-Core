@@ -6,7 +6,7 @@ import { blankActivity } from '../../../../constants/comprehension';
 import ActivityForm from './configureSettings/activityForm'
 import Activities from './activities'
 import Activity from './activity'
-import { activityPostAPI } from '../../utils/comprehensionAPIs';
+import { createActivity } from '../../utils/comprehension/activityAPIs';
 import useSWR, { mutate } from 'swr'
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
@@ -33,29 +33,16 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
     setShowSubmissionModal(!showSubmissionModal);
   }
 
-  const submitActivity = async (activity: ActivityInterface) => {
-    const activityObject = {
-      flag: activity.flag,
-      passages: activity.passages,
-      prompts: activity.prompts,
-      title: activity.title
-    }
-    const response = await fetch(activityPostAPI, {
-      method: 'POST',
-      body: JSON.stringify(activityObject),
-      headers: {
-        "Accept": "application/JSON",
-        "Content-Type": "application/json"
-      },
+  const submitActivity = (activity: ActivityInterface) => {
+    createActivity(
+      activity,
+      setError,
+      setShowCreateActivityModal,
+      setShowSubmissionModal
+    ).then(() => {
+      // update activities cache to display newly created activity
+      mutate("activities");
     });
-    // not a 2xx status
-    if(Math.round(response.status / 100) !== 2) {
-      setError('Activity submission failed, please try again.');
-    }
-    setShowCreateActivityModal(false)
-    setShowSubmissionModal(true)
-    // update activities cache to display newly created activity
-    mutate("activities");
   }
 
   const renderActivityForm = () => {
