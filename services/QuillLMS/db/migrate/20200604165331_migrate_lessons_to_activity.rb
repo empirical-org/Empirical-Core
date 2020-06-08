@@ -55,5 +55,12 @@ class MigrateLessonsToActivity < ActiveRecord::Migration
 
     end
 
+    Activity.where(:data=> nil).each do |a|
+      data = {}
+      data["flag"] = a.flags[0]
+      a.data = data
+      a.save!
+    end
+
   end
 end
