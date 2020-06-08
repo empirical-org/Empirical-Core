@@ -34,12 +34,13 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   }
 
   const submitActivity = (activity: ActivityInterface) => {
-    createActivity(
-      activity,
-      setError,
-      setShowCreateActivityModal,
-      setShowSubmissionModal
-    ).then(() => {
+    createActivity(activity).then((response) => {
+      const { error } = response;
+
+      error && setError(error);
+      setShowCreateActivityModal(false);
+      setShowSubmissionModal(true);
+
       // update activities cache to display newly created activity
       mutate("activities");
     });

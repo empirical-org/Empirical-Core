@@ -1,54 +1,43 @@
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 
-export const fetchActivities = async (
-  setActivities, 
-  setError, 
-  setLoading
-  ) => {
+export const fetchActivities = async () => {
   let activities: ActivityInterface[];
+  let error: any = null;
   try {
-    setLoading && setLoading(true);
     const response = await fetch('https://comprehension-247816.appspot.com/api/activities.json');
     activities = await response.json();
-  } catch (error) {
-    setError(error);
-    setLoading && setLoading(false);
+  } catch (err) {
+    error = err;
   }
-  setActivities(activities);
-  setLoading && setLoading(false);
+  return { 
+    activities, 
+    error 
+  };
 }
 
-export const fetchActivity = async (
-  activityId: string, 
-  setActivity, 
-  setActivityFlag, 
-  setError, 
-  setLoading, 
-  setOriginalFlag
-  ) => {
+export const fetchActivity = async (activityId: string) => {
   let activity: ActivityInterface;
+  let error: any;
+  let flagObject: any = {};
   try {
-    setLoading(true);
     const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}.json`);
     activity = await response.json();
-  } catch (error) {
-    setError(error);
-    setLoading(false);
+  } catch (err) {
+    error = err;
   }
-  const { flag } = activity
-  const flagObject = { label: flag, value: flag };
-  setActivity(activity);
-  setOriginalFlag(flagObject);
-  setActivityFlag(flagObject);
-  setLoading(false);
+  if(activity) {
+    const { flag } = activity
+    flagObject = { label: flag, value: flag };
+  }
+  return { 
+    activity, 
+    error, 
+    flag: flagObject 
+  };
 }
 
-export const createActivity = async (
-  activity: ActivityInterface,
-  setError,
-  setShowCreateActivityModal,
-  setShowSubmissionModal
-  ) => {
+export const createActivity = async (activity: ActivityInterface) => {
+  let error: any = null;
   const activityObject = {
     flag: activity.flag,
     passages: activity.passages,
@@ -65,25 +54,16 @@ export const createActivity = async (
   });
   // not a 2xx status
   if(Math.round(response.status / 100) !== 2) {
-    setError('Activity submission failed, please try again.');
+    error = 'Activity submission failed, please try again.';
   }
-  setShowCreateActivityModal(false);
-  setShowSubmissionModal(true);
+  return { error };
 }
 
-export const updateActivity = async (
-  activity: ActivityInterface,
-  activityId: string,
-  setActivity, 
-  setActivityFlag, 
-  setError, 
-  setLoading, 
-  setOriginalFlag,
-  setShowEditActivityModal
-) => {
+export const updateActivity = async (activity: ActivityInterface, activityId: string) => {
   let updatedActivity: ActivityInterface;
+  let error: any = null;
+  let flagObject: any = {};
   try {
-    setLoading(true);
     const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}.json`, {
       method: 'PUT',
       body: JSON.stringify(activity),
@@ -93,15 +73,16 @@ export const updateActivity = async (
       },
     });
     updatedActivity = await response.json();
-  } catch (error) {
-    setError(error);
-    setLoading(false);
+  } catch (err) {
+    error = err;
   }
-  const { flag } = updatedActivity
-  const flagObject = { label: flag, value: flag };
-  setActivity(updatedActivity);
-  setOriginalFlag(flagObject);
-  setActivityFlag(flagObject);
-  setLoading(false);
-  setShowEditActivityModal(false);
+  if(updatedActivity) {
+    const { flag } = activity
+    flagObject = { label: flag, value: flag };
+  }
+  return { 
+    updatedActivity,
+    error,
+    flag: flagObject
+  }
 }

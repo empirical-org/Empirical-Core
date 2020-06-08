@@ -2,6 +2,7 @@ import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
+import { fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
@@ -24,25 +25,21 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const { activityId } = params;
   const turkSessionsAPI = 'https://comprehension-247816.appspot.com/api/turking.json';
 
-  const fetchData = async () => {
-    let turkSessions: TurkSessionInterface[];
-    try {
-      setLoading(true);
-      const response = await fetch(turkSessionsAPI);
-      turkSessions = await response.json();
-    } catch (error) {
-      setLoadingError(error);
+  const handleFetchTurkSessions = () => {
+    setLoading(true);
+    fetchTurkSessions().then((response) => {
+      const { error, turkSessions } = response;
+      error && setLoadingError(error);
+      turkSessions && setTurkSessions(turkSessions);
       setLoading(false);
-    }
-    setTurkSessions(turkSessions);
-    setLoading(false);
+    });
   };
 
   // cache turk sessions data for updates
-  useSWR("turk-sessions", fetchData);
+  useSWR("turk-sessions", handleFetchTurkSessions);
 
   React.useEffect(() => {
-    fetchData();
+    handleFetchTurkSessions();
   }, []);
 
   const handleGenerateNewTurkSession = async () => {

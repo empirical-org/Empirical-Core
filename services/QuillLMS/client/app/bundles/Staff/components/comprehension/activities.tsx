@@ -11,11 +11,21 @@ const Activities = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
 
+  const handleFetchActivities = () => {
+    setLoading(true);
+    fetchActivities().then((response) => {
+      const { activities, error } = response;
+      error && setError(error);
+      activities && setActivities(activities);
+      setLoading(false);
+    });
+  }
+
   // cache activity data for updates
-  useSWR("activities", fetchActivities);
+  useSWR("activities", handleFetchActivities);
 
   React.useEffect(() => {
-    fetchActivities(setActivities, setError, setLoading);
+    handleFetchActivities();
   }, []);
 
   const formattedRows = activities.map((activity: ActivityInterface) => {

@@ -18,31 +18,36 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const { params } = match;
   const { activityId } = params;
 
+  const handleFetchActivity = (activityId) => {
+    setLoading(true);
+    fetchActivity(activityId).then(response => {
+      const { activity, error, flag } = response;
+      error && setError(error);
+      activity && setActivity(activity);
+      flag && setOriginalFlag(flag);
+      flag && setActivityFlag(flag);
+      setLoading(false);
+    });
+  }
+
   // cache activity data for updates
   useSWR("activity", fetchActivity);
 
   React.useEffect(() => {
-    fetchActivity(
-      activityId, 
-      setActivity, 
-      setActivityFlag, 
-      setError, 
-      setLoading, 
-      setOriginalFlag
-    );
+    handleFetchActivity(activityId);
   }, []);
 
   const handleUpdateActivity = (activity: ActivityInterface) => {
-    updateActivity(
-      activity,
-      activityId,
-      setActivity, 
-      setActivityFlag, 
-      setError, 
-      setLoading, 
-      setOriginalFlag,
-      setShowEditActivityModal
-    );
+    setLoading(true);
+    updateActivity(activity, activityId).then((response) => {
+      const { updatedActivity, error, flag } = response;
+      updatedActivity && setActivity(updatedActivity);
+      flag && setOriginalFlag(flag);
+      flag && setActivityFlag(flag);
+      error && setError(error);
+      setShowEditActivityModal(false);
+      setLoading(false);
+    });
   }
 
   const handleUpdateFlag = () => {
