@@ -1,4 +1,6 @@
 FactoryBot.define do
+  data = {questionType: "questions", questions: []}
+
   factory :simple_activity, class: 'Activity' do; end
 
   factory :activity do
@@ -14,6 +16,7 @@ FactoryBot.define do
     classification          { create(:classification) }
     activity_categories     { create_pair(:activity_category) }
     repeatable              true
+    data                    data
 
     factory :diagnostic_activity do
       classification { ActivityClassification.find_by_key attributes_for(:diagnostic)[:key] || create(:diagnostic) }
