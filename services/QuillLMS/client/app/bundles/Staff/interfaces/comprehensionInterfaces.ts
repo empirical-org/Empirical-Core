@@ -12,15 +12,15 @@ export interface ActivityRuleSetInterface {
 }
 
 export interface ActivityInterface {
-  activity_id?: string,
+  id?: string,
   title: string,
   flag: string,
-  passages: string[],
+  passages: PassagesInterface[],
   prompts: PromptInterface[]
 }
 
 export interface PromptInterface {
-  prompt_id?: number,
+  id?: number,
   conjunction: string,
   text: string,
   max_attempts: number,
@@ -28,9 +28,9 @@ export interface PromptInterface {
 }
 
 export interface RegexRuleInterface {
-  id?: number;
-  regex_text: string;
-  case_sensitive: boolean;
+  id?: number,
+  regex_text: string,
+  case_sensitive: boolean
 }
 
 export interface FlagInterface {
@@ -41,4 +41,16 @@ export interface FlagInterface {
 export interface ActivityRuleSetPrompt {
   id: number,
   conjunction: string
+}
+
+export interface TurkSessionInterface {
+  id: number
+  activity_id: number, 
+  expires_at: string,
+  expired: boolean
+}
+
+export interface PassagesInterface {
+  id?: number,
+  text: string
 }
