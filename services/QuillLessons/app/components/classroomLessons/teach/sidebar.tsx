@@ -31,7 +31,7 @@ interface ReducerSidebarProps extends React.Props<any> {
 }
 
 interface PassedSidebarProps extends React.Props<any> {
-  params: any
+  match: any
 }
 
 class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {
@@ -40,7 +40,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
     this.state = {
       classroomUnitId,
       classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null,
