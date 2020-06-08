@@ -2,6 +2,8 @@ class Activity < ActiveRecord::Base
   include Flags
   include Uid
 
+  validate :data_must_be_hash
+
   has_and_belongs_to_many :unit_templates
   belongs_to :classification, class_name: 'ActivityClassification', foreign_key: 'activity_classification_id'
   belongs_to :topic
@@ -32,6 +34,10 @@ class Activity < ActiveRecord::Base
   scope :alpha_user, -> { where("'alpha' = ANY(activities.flags) OR 'beta' = ANY(activities.flags) OR 'production' = ANY(activities.flags)")}
 
   scope :with_classification, -> { includes(:classification).joins(:classification) }
+
+  # only Grammar (2), Connect (5), and Diagnostic (4) Activities contain questions
+  # the other two, Proofreader and Lesson, contain passages and other data, not questions
+  ACTIVITY_TYPES_WITH_QUESTIONS = [2,4,5]
 
   def self.diagnostic_activity_ids
     ActivityClassification.find_by(key: 'diagnostic')&.activities&.pluck(:id) || []
@@ -137,7 +143,26 @@ class Activity < ActiveRecord::Base
     JSON.parse(activity_search_results)
   end
 
+  def data_as_json
+    data
+  end
+
+  def add_question(question)
+    return if !validate_question(question)
+    if !ACTIVITY_TYPES_WITH_QUESTIONS.include?(activity_classification_id)
+      errors.add(:activity, "You can't add questions to this type of activity.")
+      return
+    end
+    data['questions'] ||= []
+    data['questions'].push(question)
+    save
+  end
+
   private
+
+  def data_must_be_hash
+    errors.add(:data, "must be a hash") unless data.is_a?(Hash) || data.blank?
+  end
 
   def flag_as_beta
     flag 'beta'
@@ -180,5 +205,17 @@ class Activity < ActiveRecord::Base
     end
 
     @url
+  end
+
+  def validate_question(question)
+    if Question.find_by_uid(question[:key]).blank? && TitleCard.find_by_uid(question[:key]).blank?
+      errors.add(:question, "Question #{question[:key]} does not exist.")
+      return false
+    end
+    if data["questionType"] != question[:questionType]
+      errors.add(:question, "The question type #{question[:questionType]} does not match the lesson's question type: #{data['questionType']}")
+      return false
+    end
+    return true
   end
 end
