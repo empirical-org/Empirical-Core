@@ -29,7 +29,7 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   componentDidMount() {
-    const lessonId = this.props.params.classroomLessonID
+    const lessonId = this.props.match.params.classroomLessonID
     if (this.props.classroomLessonsReviews.hasreceiveddata) {
       const reviews = this.props.classroomLessonsReviews.data[lessonId]
       if (reviews) {
@@ -40,7 +40,7 @@ class ShowClassroomLesson extends Component<any, any> {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.classroomLessonsReviews.hasreceiveddata !== nextProps.classroomLessonsReviews.hasreceiveddata) {
-      const lessonId = nextProps.params.classroomLessonID
+      const lessonId = nextProps.match.params.classroomLessonID
       const reviews = nextProps.classroomLessonsReviews.data[lessonId]
       if (reviews) {
         this.scoreReviews(reviews)
@@ -49,7 +49,7 @@ class ShowClassroomLesson extends Component<any, any> {
   }
 
   classroomLesson() {
-    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+    return this.props.classroomLessons.data[this.props.match.params.classroomLessonID]
   }
 
   scoreReviews(reviews) {
@@ -65,25 +65,25 @@ class ShowClassroomLesson extends Component<any, any> {
   deleteLesson() {
     const confirmation = window.confirm('Are you sure you want to delete this lesson?')
     if (confirmation) {
-      deleteLesson(this.props.params.classroomLessonID)
+      deleteLesson(this.props.match.params.classroomLessonID)
       window.location.href = `${window.location.origin}/#/admin/classroom-lessons/`
     }
   }
 
   saveLessonDetails(lesson) {
-    this.props.dispatch(updateClassroomLessonDetails(this.props.params.classroomLessonID, lesson))
+    this.props.dispatch(updateClassroomLessonDetails(this.props.match.params.classroomLessonID, lesson))
   }
 
   addEdition() {
     if (this.state.newEditionName) {
-      createNewAdminEdition(null, this.props.params.classroomLessonID, 'quill-staff', null, this.state.newEditionName)
+      createNewAdminEdition(null, this.props.match.params.classroomLessonID, 'quill-staff', null, this.state.newEditionName)
     } else {
       alert('Name the new edition!')
     }
   }
 
   copyEdition(editionID) {
-    createNewAdminEdition(editionID, this.props.params.classroomLessonID, 'quill-staff', null, 'New Edition')
+    createNewAdminEdition(editionID, this.props.match.params.classroomLessonID, 'quill-staff', null, 'New Edition')
   }
 
   changeNewEditionName(e) {
@@ -99,13 +99,13 @@ class ShowClassroomLesson extends Component<any, any> {
   renderEditionsList() {
     const editions = Object.keys(this.props.customize.editions).map(e => {
       const edition = this.props.customize.editions[e]
-      if (edition.user_id === 'quill-staff' && edition.lesson_id === this.props.params.classroomLessonID) {
+      if (edition.user_id === 'quill-staff' && edition.lesson_id === this.props.match.params.classroomLessonID) {
         return (<li>
           <div>{edition.name}</div>
           <div>
-            <span onClick={() => this.props.router.push(`admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)} style={{margin: '0px 5px'}}>Edit</span>
+            <span onClick={() => this.props.history.push(`/admin/classroom-lessons/${edition.lesson_id}/editions/${e}`)} style={{margin: '0px 5px'}}>Edit</span>
             |
-            <span onClick={() => this.props.router.push(`teach/class-lessons/${edition.lesson_id}/preview/${e}`)} style={{margin: '0px 5px'}}>Preview</span>
+            <span onClick={() => this.props.history.push(`/teach/class-lessons/${edition.lesson_id}/preview/${e}`)} style={{margin: '0px 5px'}}>Preview</span>
             |
             <span onClick={() => this.copyEdition(e)} style={{margin: '0px 5px'}}>Make A Copy</span>
           </div>
@@ -145,7 +145,7 @@ class ShowClassroomLesson extends Component<any, any> {
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata && this.classroomLesson()) {
-      const classroomLessonID = this.props.params.classroomLessonID
+      const classroomLessonID = this.props.match.params.classroomLessonID
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">

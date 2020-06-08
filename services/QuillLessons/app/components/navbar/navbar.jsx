@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
+import { withRouter } from 'react-router-dom';
 import TeacherLessonsNavbar from './teacherNavbar'
 import CustomizeNavbar from './customizeNavbar'
 import LaunchEditionNavbar from './launchEditionNavbar'
@@ -42,10 +43,10 @@ class Navbar extends React.Component {
   };
 
   customizeNavbar = () => {
-    if (this.props.params.editionID) {
-      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params} />
+    if (this.props.match.params.editionID) {
+      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} match={this.props.match} />
     } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
-      return <LaunchEditionNavbar params={this.props.params} />
+      return <LaunchEditionNavbar match={this.props.match} />
     } else {
       return <CreateCustomizedEditionNavbar />
     }
@@ -69,8 +70,9 @@ class Navbar extends React.Component {
   };
 
   render() {
+    const { match, } = this.props
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar params={this.props.params} />);
+      return (<TeacherLessonsNavbar match={match} />);
     } else if (this.customizeRoute()) {
       return this.customizeNavbar()
     } else {
@@ -119,4 +121,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Navbar)
+export default withRouter(connect(select)(Navbar))

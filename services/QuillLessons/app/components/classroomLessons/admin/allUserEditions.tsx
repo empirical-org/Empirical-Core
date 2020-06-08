@@ -19,11 +19,13 @@ class AllUserEditions extends Component<any, any> {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    const { customize, } = this.props
+    const { editions, } = this.state
     if (nextProps.classroomLessons.hasreceiveddata) {
       if (nextProps.customize.editions && Object.keys(nextProps.customize.editions).length > 0) {
-        if (Object.keys(this.state.editions).length === 0) {
+        if (Object.keys(editions).length === 0) {
           this.getEditions(nextProps)
-        } else if (!_.isEqual(this.props.customize.editions, nextProps.customize.editions)) {
+        } else if (!_.isEqual(customize.editions, nextProps.customize.editions)) {
           this.getEditions(nextProps)
         }
       }
@@ -31,7 +33,6 @@ class AllUserEditions extends Component<any, any> {
   }
 
   getEditions(props) {
-    const classroomLessonID = props.params.classroomLessonID
     const allEditions: CustomizeIntf.EditionsMetadata = props.customize.editions
     if (allEditions && Object.keys(allEditions).length > 0) {
       const editions = {}
@@ -46,7 +47,8 @@ class AllUserEditions extends Component<any, any> {
   }
 
   sortData(data) {
-    switch (this.state.sort) {
+    const { sort, } = this.state
+    switch (sort) {
       case 'name':
       case 'lessonName':
         return this.sortAlphabetically(data);
@@ -57,37 +59,43 @@ class AllUserEditions extends Component<any, any> {
   }
 
   sortNumerically(data) {
+    const { sort, } = this.state
     return data.sort((a, b) => {
-      const aSort = a[this.state.sort] ? a[this.state.sort] : 0
-      const bSort = b[this.state.sort] ? b[this.state.sort] : 0
+      const aSort = a[sort] ? a[sort] : 0
+      const bSort = b[sort] ? b[sort] : 0
       return aSort - bSort
     })
   }
 
   sortAlphabetically(data) {
+    const { sort, } = this.state
     return data.sort((a, b,) => {
-      const aSort = a[this.state.sort] ? a[this.state.sort] : 'No Name'
-      const bSort = b[this.state.sort] ? b[this.state.sort] : 'No Name'
+      const aSort = a[sort] ? a[sort] : 'No Name'
+      const bSort = b[sort] ? b[sort] : 'No Name'
       return aSort.localeCompare(bSort)
     })
   }
 
-  clickSort(sort) {
-    let direction = 'dsc';
-    if (this.state.sort === sort) {
-      direction = this.state.direction === 'dsc' ? 'asc' : 'dsc';
+  clickSort(newSort) {
+    const { sort, direction, } = this.state
+    let newDirection = 'dsc';
+    if (sort === newSort) {
+      newDirection = direction === 'dsc' ? 'asc' : 'dsc';
     }
     this.setState({
-      sort, direction,
+      sort: newSort,
+      direction: newDirection,
     });
   }
 
   classroomLesson() {
-    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+    const { classroomLessons, match, } = this.props
+    return classroomLessons.data[match.params.classroomLessonID]
   }
 
   renderEditionTable() {
-    if (Object.keys(this.state.editions).length > 0) {
+    const { editions, } = this.state
+    if (Object.keys(editions).length) {
       return (<table className="table is-striped is-bordered">
         <thead>
           <tr>
@@ -105,9 +113,10 @@ class AllUserEditions extends Component<any, any> {
   }
 
   renderEditionRows() {
-    const data: Array<CustomizeIntf.EditionMetadata> = hashToCollection(this.state.editions)
+    const { direction, editions, } = this.state
+    const data: Array<CustomizeIntf.EditionMetadata> = hashToCollection(editions)
     const sorted = this.sortData(data)
-    const directed = this.state.direction === 'dsc' ? sorted.reverse() : sorted;
+    const directed = direction === 'dsc' ? sorted.reverse() : sorted;
     return _.map(directed, e => {
       const edition:CustomizeIntf.EditionMetadata|any = e
       const link = `#/teach/class-lessons/${edition.lesson_id}/preview/${edition.key}`
@@ -123,14 +132,15 @@ class AllUserEditions extends Component<any, any> {
   }
 
   renderMessage() {
-    if (Object.keys(this.state.editions).length === 0) {
+    const { editions, } = this.state
+    if (!Object.keys(editions).length) {
       return <p>No editions have been created for this lesson.</p>
     }
   }
 
   render() {
-    if (this.props.classroomLessons.hasreceiveddata) {
-      const classroomLessonID = this.props.params.classroomLessonID
+    const { classroomLessons, } = this.props
+    if (classroomLessons.hasreceiveddata) {
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">
