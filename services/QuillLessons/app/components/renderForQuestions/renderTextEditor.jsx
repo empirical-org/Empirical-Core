@@ -8,16 +8,10 @@ const noUnderlineErrors = [];
 
 const feedbackStrings = C.FEEDBACK_STRINGS;
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      text: this.props.value || '',
-    };
-  },
-
-  getErrorsForAttempt(attempt) {
-    return _.pick(attempt, ...C.ERROR_TYPES);
-  },
+export default class RenderTextEditor extends React.Component {
+  state = {
+    text: this.props.value || '',
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.latestAttempt !== this.props.latestAttempt) {
@@ -46,9 +40,14 @@ export default React.createClass({
         }
       }
     }
-  },
+  }
 
-  getUnderliningFunction(errorType, targetString, userString) {
+  getErrorsForAttempt = (attempt) => {
+    return _.pick(attempt, ...C.ERROR_TYPES);
+  };
+
+
+  getUnderliningFunction = (errorType, targetString, userString) => {
     switch (errorType) {
       case 'punctuationError':
       case 'typingError':
@@ -64,9 +63,9 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  };
 
-  getUnderliningFunctionFromAuthor(author, targetString, userString) {
+  getUnderliningFunctionFromAuthor = (author, targetString, userString) => {
     switch (author) {
       case 'Punctuation Hint':
       case 'Capitalization Hint':
@@ -81,9 +80,9 @@ export default React.createClass({
       default:
         return undefined;
     }
-  },
+  };
 
-  applyNewStyle(newStyle) {
+  applyNewStyle = (newStyle) => {
     if (newStyle.inlineStyleRanges[0]) {
       const offset = newStyle.inlineStyleRanges[0].offset;
       const end = offset + newStyle.inlineStyleRanges[0].length;
@@ -91,28 +90,28 @@ export default React.createClass({
       input.selectionStart = offset;
       input.selectionEnd = end;
     }
-  },
+  };
 
-  clearStyle() {
+  clearStyle = () => {
     const input = this.refs.answerBox;
     input.selectionStart = 0;
     input.selectionEnd = 0;
-  },
+  };
 
-  handleTextChange(e) {
+  handleTextChange = (e) => {
     if (!this.props.disabled) {
       this.props.handleChange(e.target.value, this.props.editorIndex);
     }
-  },
+  };
 
-  handleKeyDown(e) {
+  handleKeyDown = (e) => {
     if (!this.props.disabled) {
       if (e.key === 'Enter') {
         e.preventDefault();
         this.props.checkAnswer();
       }
     }
-  },
+  };
 
   render() {
     return (
@@ -136,5 +135,5 @@ export default React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}

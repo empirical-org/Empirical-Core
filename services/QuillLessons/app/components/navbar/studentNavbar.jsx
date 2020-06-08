@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import StudentLessonsNavBar from './studentLessonsNavbar.jsx';
 
-const Navbar = React.createClass({
+class Navbar extends React.Component {
   render() {
     return <StudentLessonsNavBar />;
-  },
-});
+  }
+}
 
 function select(state) {
   return {
