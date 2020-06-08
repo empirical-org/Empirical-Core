@@ -2,7 +2,6 @@ require 'test_helper'
 
 module Comprehension
   class ActivitiesControllerTest < ActionController::TestCase
-    include FactoryBot::Syntax::Methods
     setup do
       @routes = Engine.routes
     end
@@ -122,30 +121,19 @@ module Comprehension
 
     end
 
-    # test "should create activity" do
-    #   assert_difference('Activity.count') do
-    #     post :create, activity: { quill_activity_id: @activity.quill_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title }
-    #   end
+    context 'destroy' do
+      setup do
+        @activity = create(:comprehension_activity)
+      end
 
-    #   assert_equal
-    # end
+      should "destroy record at id" do
+        delete :destroy, id: @activity.id
 
-    # test "should show activity" do
-    #   get :show, id: @activity
-    #   assert_response :success
-    # end
-
-    # test "should update activity" do
-      # patch :update, id: @activity, activity: { quill_activity_id: @activity.quill_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title }
-      # assert_redirected_to activity_path(assigns(:activity))
-    # end
-
-    # test "should destroy activity" do
-    #   assert_difference('Activity.count', -1) do
-    #     delete :destroy, id: @activity
-    #   end
-
-    #   assert_redirected_to activities_path
-    # end
+        assert_equal "", response.body
+        assert_equal 204, response.code.to_i
+        assert @activity.id # still in test memory
+        assert_nil Activity.find_by_id(@activity.id) # not in DB.
+      end
+    end
   end
 end

@@ -25,7 +25,6 @@ module Comprehension
       end
     end
 
-
     # PATCH/PUT /activities/1.json
     def update
       if @activity.update(activity_params)
