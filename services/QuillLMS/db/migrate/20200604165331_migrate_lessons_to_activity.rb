@@ -19,6 +19,12 @@ class MigrateLessonsToActivity < ActiveRecord::Migration
         else
           activity.activity_classification_id = 1
         end
+
+        if lesson[:data]["flag"] == "archived"
+          activity.flags = ["archived"]
+        elsif lesson[:data]["flag"] == "alpha"
+          activity.flags = ["alpha"]
+        end
       end
 
       activity.data = lesson.data
