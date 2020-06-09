@@ -7,7 +7,10 @@ module Comprehension
     MAX_SCORED_LEVEL_LENGTH = 100
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
+    has_many :prompts, inverse_of: :activity, dependent: :destroy
+
     accepts_nested_attributes_for :passages, reject_if: Proc.new { |p| p['text'].blank? }
+    accepts_nested_attributes_for :prompts, reject_if: Proc.new { |p| p['text'].blank? }
 
     validates :quill_activity_id, presence: true, uniqueness: {allow_nil: true}
     validates :target_level, presence: true,
@@ -19,11 +22,10 @@ module Comprehension
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
 
-
     def serializable_hash(options = {})
       super(options.reverse_merge(
         only: [:id, :quill_activity_id, :title, :target_level, :scored_level],
-        include: [:passages]
+        include: [:passages, :prompts]
       ))
     end
   end

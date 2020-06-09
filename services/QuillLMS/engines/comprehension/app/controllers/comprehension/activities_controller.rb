@@ -19,7 +19,7 @@ module Comprehension
       @activity = Activity.new(activity_params)
 
       if @activity.save
-        render json: @activity, status: :created, location: @activity
+        render json: @activity, status: :created
       else
         render json: @activity.errors, status: :unprocessable_entity
       end
@@ -50,7 +50,8 @@ module Comprehension
         :quill_activity_id,
         :target_level,
         :scored_level,
-        passages_attributes: [:id, :text]
+        passages_attributes: [:id, :text],
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts_feedback]
       )
     end
   end

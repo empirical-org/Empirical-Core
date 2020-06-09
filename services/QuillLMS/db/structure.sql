@@ -1108,6 +1108,42 @@ ALTER SEQUENCE public.comprehension_passages_id_seq OWNED BY public.comprehensio
 
 
 --
+-- Name: comprehension_prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_prompts (
+    id integer NOT NULL,
+    activity_id integer,
+    max_attempts smallint,
+    conjunction character varying(20),
+    text character varying,
+    max_attempts_feedback text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_prompts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_prompts_id_seq OWNED BY public.comprehension_prompts.id;
+
+
+--
 -- Name: concept_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3036,6 +3072,13 @@ ALTER TABLE ONLY public.comprehension_passages ALTER COLUMN id SET DEFAULT nextv
 
 
 --
+-- Name: comprehension_prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_id_seq'::regclass);
+
+
+--
 -- Name: concept_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3568,6 +3611,14 @@ ALTER TABLE ONLY public.comprehension_activities
 
 ALTER TABLE ONLY public.comprehension_passages
     ADD CONSTRAINT comprehension_passages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_prompts comprehension_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts
+    ADD CONSTRAINT comprehension_prompts_pkey PRIMARY KEY (id);
 
 
 --
@@ -4331,6 +4382,13 @@ CREATE INDEX index_comprehension_activities_on_quill_activity_id ON public.compr
 --
 
 CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension_passages USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_prompts_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_on_activity_id ON public.comprehension_prompts USING btree (activity_id);
 
 
 --
@@ -6008,4 +6066,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200511203004');
 INSERT INTO schema_migrations (version) VALUES ('20200605152131');
 
 INSERT INTO schema_migrations (version) VALUES ('20200608234132');
+
+INSERT INTO schema_migrations (version) VALUES ('20200609014434');
 

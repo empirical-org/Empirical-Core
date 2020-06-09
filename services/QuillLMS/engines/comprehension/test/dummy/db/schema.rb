@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200608233222) do
+ActiveRecord::Schema.define(version: 20200609005839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,5 +35,17 @@ ActiveRecord::Schema.define(version: 20200608233222) do
   end
 
   add_index "comprehension_passages", ["activity_id"], name: "index_comprehension_passages_on_activity_id", using: :btree
+
+  create_table "comprehension_prompts", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "max_attempts",          limit: 2
+    t.string   "conjunction",           limit: 20
+    t.string   "text"
+    t.text     "max_attempts_feedback"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "comprehension_prompts", ["activity_id"], name: "index_comprehension_prompts_on_activity_id", using: :btree
 
 end
