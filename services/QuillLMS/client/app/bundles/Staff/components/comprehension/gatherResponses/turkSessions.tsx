@@ -2,7 +2,7 @@ import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
-import { fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
+import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
@@ -45,27 +45,17 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const handleGenerateNewTurkSession = async () => {
     if(!newTurkSessionDate) {
       setDateError('Please choose an expiration date.')
+    } else {
+      createTurkSession(activityId, newTurkSessionDate).then((response) => {
+        const { error } = response;
+        error && setSubmissionError(error);
+        setNewTurkSessionDate(null);
+        setDateError('');
+        setShowSubmissionModal(true);
+        // update turk sessions cache to display newly created turk session
+        mutate("turk-sessions");
+      });
     }
-    const response = await fetch(turkSessionsAPI, {
-      method: 'POST',
-      body: JSON.stringify({
-        activity_id: activityId,
-        expires_at: newTurkSessionDate.toDate()
-      }),
-      headers: {
-        "Accept": "application/JSON",
-        "Content-Type": "application/json"
-      },
-    });
-    setNewTurkSessionDate(null);
-    setDateError('');
-    // not a 2xx status
-    if(Math.round(response.status / 100) !== 2) {
-      setSubmissionError('Turk session submission failed, please try again.');
-    }
-    setShowSubmissionModal(true);
-    // update turk sessions cache to display newly created turk session
-    mutate("turk-sessions");
   }
 
   const handleEditOrDeleteTurkSession = (e: React.SyntheticEvent) => {
@@ -96,10 +86,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
           <button className="quill-button fun primary contained" id="turk-edit-close-button" onClick={toggleEditTurkSessionModal} type="submit">x</button>
         </div>
         <EditOrDeleteTurkSession 
-          activityID={activityId} 
+          activityId={activityId} 
           closeModal={toggleEditTurkSessionModal} 
           originalSessionDate={editTurkSessionDate}
-          turkSessionID={editTurkSessionId} 
+          turkSessionId={editTurkSessionId} 
         />
       </Modal>
     );

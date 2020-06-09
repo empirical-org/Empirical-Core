@@ -1,55 +1,45 @@
 import * as React from "react";
+import { deleteTurkSession, editTurkSession } from '../../../utils/comprehension/turkAPIs';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
 import useSWR, { mutate } from 'swr'
 
-const EditTurkSession = ({ activityID, closeModal, originalSessionDate, turkSessionID }) => {
+const EditTurkSession = ({ activityId, closeModal, originalSessionDate, turkSessionId }) => {
   const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>('');
-  const editOrDeleteTurkSessionsAPI = `https://comprehension-247816.appspot.com/api/turking/${turkSessionID}.json`;
 
   const handleDateChange = (date: {}) => { setTurkSessionDate(date) };
   
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
 
   const handleEditTurkSession = async () => {
-    try {
-      await fetch(editOrDeleteTurkSessionsAPI, {
-        method: 'PUT',
-        body: JSON.stringify({
-          activity_id: activityID, 
-          expires_at: turkSessionDate 
-        }),
-        headers: {
-          "Accept": "application/JSON",
-          "Content-Type": "application/json"
-        },
-      });
-    } catch (error) {
-      setError(error);
-    }
-    // update turk sessions cache to display newly created turk session
-    mutate("turk-sessions");
-
-    setError('');
-    closeModal();
+    editTurkSession(activityId, turkSessionId, turkSessionDate).then((response) => {
+      const { error } = response;
+      if(error) {
+        setError(error);
+      } else {
+        // update turk sessions cache to display newly created turk session
+        mutate("turk-sessions");
+        setError('');
+        closeModal();
+      }
+    });
   }
 
   const handleDeleteTurkSession = async () => {
-    try {
-      await fetch(editOrDeleteTurkSessionsAPI, {
-        method: 'DELETE'
-      });
-    } catch (error) {
-      setError(error);
-    }
-    // update turk sessions cache to reflect deleted turk session
-    mutate("turk-sessions");
-
-    setError('');
-    closeModal();
+    deleteTurkSession(activityId).then((response) => {
+      const { error } = response;
+      if(error) {
+        setError(error);
+      } else {
+        // update turk sessions cache to reflect deleted turk session
+        mutate("turk-sessions");
+        setError('');
+        closeModal();
+      }
+    });
   }
 
   const renderEditContent = () => {

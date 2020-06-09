@@ -2,7 +2,7 @@ import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
-  let error: any = null;
+  let error: any;
   try {
     const response = await fetch('https://comprehension-247816.appspot.com/api/activities.json');
     activities = await response.json();
@@ -37,7 +37,7 @@ export const fetchActivity = async (activityId: string) => {
 }
 
 export const createActivity = async (activity: ActivityInterface) => {
-  let error: any = null;
+  let error: any;
   const activityObject = {
     flag: activity.flag,
     passages: activity.passages,
@@ -61,7 +61,7 @@ export const createActivity = async (activity: ActivityInterface) => {
 
 export const updateActivity = async (activity: ActivityInterface, activityId: string) => {
   let updatedActivity: ActivityInterface;
-  let error: any = null;
+  let error: any;
   let flagObject: any = {};
   try {
     const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}.json`, {
