@@ -55,7 +55,6 @@ module Comprehension
         assert_equal 1, Activity.count
       end
 
-
       should "not create an invalid record and return errors as json" do
         post :create, activity: { quill_activity_id: @activity.quill_activity_id }
 
@@ -65,12 +64,26 @@ module Comprehension
         assert parsed_response['title'].include?("can't be blank")
         assert_equal 0, Activity.count
       end
+
+
+      should "create a valid record with passage attributes" do
+        post :create, activity: { quill_activity_id: @activity.quill_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, passages_attributes: [{text: ("Hello " * 20) }] }
+
+        parsed_response = JSON.parse(response.body)
+
+        assert_equal 201, response.code.to_i
+        assert_equal "First Activity", parsed_response['title']
+        assert_equal 1, Activity.count
+        assert_equal 1, Activity.first.passages.count
+        assert_equal ("Hello " * 20), Activity.first.passages.first.text
+      end
     end
 
 
     context "show" do
       setup do
         @activity = create(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @passage = create(:comprehension_passage, activity: @activity, text: ('Hello' * 20))
       end
 
       should "return json if found" do
@@ -80,6 +93,7 @@ module Comprehension
 
         assert_equal 200, response.code.to_i
         assert_equal "First Activity", parsed_response['title']
+        assert_equal ('Hello' * 20), parsed_response['passages'].first['text']
       end
 
 
@@ -93,6 +107,7 @@ module Comprehension
     context "update" do
       setup do
         @activity = create(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @passage = create(:comprehension_passage, activity: @activity)
       end
 
       should "update record if valid, return nothing" do
@@ -110,6 +125,19 @@ module Comprehension
         assert_equal "New title",  @activity.title
       end
 
+      should "update passage if valid, return nothing" do
+        put :update, id: @activity.id, activity: { passages_attributes: [{id: @passage.id, text: ('Goodbye' * 20)}] }
+
+
+        assert_equal "", response.body
+        assert_equal 204, response.code.to_i
+
+        @passage.reload
+
+        assert_equal ('Goodbye' * 20), @passage.text
+      end
+
+
       should "not update record and return errors as json" do
         put :update, id: @activity.id, activity: { quill_activity_id: 2, scored_level: "5th grade", target_level: 99999999, title: "New title" }
 
@@ -118,12 +146,12 @@ module Comprehension
         assert_equal 422, response.code.to_i
         assert parsed_response['target_level'].include?("must be less than or equal to 12"), "Missing error message in response #{parsed_response['target_level']}"
       end
-
     end
 
     context 'destroy' do
       setup do
         @activity = create(:comprehension_activity)
+        @passage = create(:comprehension_passage, activity: @activity)
       end
 
       should "destroy record at id" do
@@ -133,6 +161,8 @@ module Comprehension
         assert_equal 204, response.code.to_i
         assert @activity.id # still in test memory
         assert_nil Activity.find_by_id(@activity.id) # not in DB.
+        assert @passage.id
+        assert_nil Passage.find_by_id(@passage.id)
       end
     end
   end

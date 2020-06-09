@@ -1075,6 +1075,39 @@ ALTER SEQUENCE public.comprehension_activities_id_seq OWNED BY public.comprehens
 
 
 --
+-- Name: comprehension_passages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_passages (
+    id integer NOT NULL,
+    activity_id integer,
+    text text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_passages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_passages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_passages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_passages_id_seq OWNED BY public.comprehension_passages.id;
+
+
+--
 -- Name: concept_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2996,6 +3029,13 @@ ALTER TABLE ONLY public.comprehension_activities ALTER COLUMN id SET DEFAULT nex
 
 
 --
+-- Name: comprehension_passages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_passages ALTER COLUMN id SET DEFAULT nextval('public.comprehension_passages_id_seq'::regclass);
+
+
+--
 -- Name: concept_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3520,6 +3560,14 @@ ALTER TABLE ONLY public.classrooms_teachers
 
 ALTER TABLE ONLY public.comprehension_activities
     ADD CONSTRAINT comprehension_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_passages comprehension_passages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_passages
+    ADD CONSTRAINT comprehension_passages_pkey PRIMARY KEY (id);
 
 
 --
@@ -4276,6 +4324,13 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 --
 
 CREATE INDEX index_comprehension_activities_on_quill_activity_id ON public.comprehension_activities USING btree (quill_activity_id);
+
+
+--
+-- Name: index_comprehension_passages_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension_passages USING btree (activity_id);
 
 
 --
@@ -5951,4 +6006,6 @@ INSERT INTO schema_migrations (version) VALUES ('20200505171239');
 INSERT INTO schema_migrations (version) VALUES ('20200511203004');
 
 INSERT INTO schema_migrations (version) VALUES ('20200605152131');
+
+INSERT INTO schema_migrations (version) VALUES ('20200608234132');
 

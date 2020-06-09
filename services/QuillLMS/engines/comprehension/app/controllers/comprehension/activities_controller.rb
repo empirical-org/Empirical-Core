@@ -45,7 +45,13 @@ module Comprehension
     end
 
     private def activity_params
-      params.require(:activity).permit(:title, :quill_activity_id, :target_level, :scored_level)
+      params.require(:activity).permit(
+        :title,
+        :quill_activity_id,
+        :target_level,
+        :scored_level,
+        passages_attributes: [:id, :text]
+      )
     end
   end
 end

@@ -4,6 +4,10 @@ require 'test_helper'
 module Comprehension
   class ActivityTest < ActiveSupport::TestCase
 
+    context 'associations' do
+      should have_many(:passages).dependent(:destroy)
+    end
+
     context 'validations' do
       should validate_presence_of(:quill_activity_id)
       should validate_uniqueness_of(:quill_activity_id).allow_nil
