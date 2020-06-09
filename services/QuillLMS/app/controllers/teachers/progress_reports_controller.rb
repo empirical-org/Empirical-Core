@@ -1,11 +1,17 @@
 class Teachers::ProgressReportsController < ApplicationController
-  before_action :authorize!, except: [:demo, :admin_demo]
+  before_action :authorize!, except: [:demo, :admin_demo, :demo_ap]
   before_action :set_vary_header, if: -> { request.xhr? || request.format == :json }
   layout 'progress_reports'
 
   def demo
     set_user
     switch_current_user(@user)
+    redirect_to demo_redirect_path
+  end
+
+  def demo_ap
+    set_ap_user
+    switch_current_user(@ap_user)
     redirect_to demo_redirect_path
   end
 
@@ -70,6 +76,10 @@ class Teachers::ProgressReportsController < ApplicationController
       recreate_demo
       set_user
     end
+  end
+
+  def set_ap_user
+    @ap_user = User.find_by_email "hello+#{demo_name}+ap@quill.org"
   end
 
   def demo_name
