@@ -13,10 +13,8 @@ gemspec
 # To use a debugger
 gem 'byebug', group: [:development, :test]
 
-
 group :test do
   gem 'shoulda'
   gem 'shoulda-matchers', '~> 2.0'
   gem 'rails-controller-testing'
 end
-

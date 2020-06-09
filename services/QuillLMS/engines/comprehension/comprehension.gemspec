@@ -7,8 +7,8 @@ require "comprehension/version"
 Gem::Specification.new do |s|
   s.name        = "comprehension"
   s.version     = Comprehension::VERSION
-  s.authors     = ["Daniel Drabik"]
-  s.email       = ["dan@quill.org"]
+  s.authors     = ["Quill.org"]
+  s.email       = ["devtools@quill.org"]
   s.homepage    = "https://www.quill.org"
   s.summary     = "Comprehension app as a rails engine"
   s.description = "API endpoints used by Comprehension to be mounted in the main app"

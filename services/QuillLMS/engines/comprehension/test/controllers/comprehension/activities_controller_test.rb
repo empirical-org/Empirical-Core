@@ -90,7 +90,6 @@ module Comprehension
       end
     end
 
-
     context "show" do
       setup do
         @activity = create(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
@@ -109,7 +108,6 @@ module Comprehension
         assert_equal "it is good.", parsed_response['prompts'].first['text']
       end
 
-
       should "raise if not found (to be handled by parent app)" do
         assert_raises ActiveRecord::RecordNotFound do
           get :show, id: 99999
@@ -127,7 +125,6 @@ module Comprehension
       should "update record if valid, return nothing" do
         put :update, id: @activity.id, activity: { quill_activity_id: 2, scored_level: "5th grade", target_level: 9, title: "New title" }
 
-
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
 
@@ -142,7 +139,6 @@ module Comprehension
       should "update passage if valid, return nothing" do
         put :update, id: @activity.id, activity: { passages_attributes: [{id: @passage.id, text: ('Goodbye' * 20)}] }
 
-
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
 
@@ -153,7 +149,6 @@ module Comprehension
 
       should "update prompt if valid, return nothing" do
         put :update, id: @activity.id, activity: { prompts_attributes: [{id: @prompt.id, text: "this is a good thing."}] }
-
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
