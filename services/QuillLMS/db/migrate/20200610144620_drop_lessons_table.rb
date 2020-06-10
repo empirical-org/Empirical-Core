@@ -1,4 +1,4 @@
-class DropProductsTable < ActiveRecord::Migration
+class DropLessonsTable < ActiveRecord::Migration
   def up
     drop_table :lessons
   end
