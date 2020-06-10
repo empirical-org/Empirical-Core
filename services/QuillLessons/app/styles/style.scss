@@ -374,3 +374,14 @@ textarea.submission {
 .wf-loading {
   visibility: hidden;
 }
+
+.interactive-wrapper {
+  background-color: transparent;
+  border: none;
+}
+
+@media (max-width: 1000px) {
+  .play-lesson-container, .student-lessons {
+    padding: 0px 20px;
+  }
+}
