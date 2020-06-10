@@ -15,7 +15,7 @@ export const fetchActivities = async () => {
   };
 }
 
-export const fetchActivity = async (activityId: string) => {
+export const fetchActivity = async (key: string, activityId: string) => {
   let activity: ActivityInterface;
   let error: any;
   let flagObject: any = {};

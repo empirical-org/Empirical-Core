@@ -6,7 +6,7 @@ import { blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchRuleSet } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
-import useSWR from 'swr';
+import { queryCache, useQuery } from 'react-query'
 
 const RuleSet = ({ match }) => {
   const { params } = match;
@@ -16,8 +16,11 @@ const RuleSet = ({ match }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
 
-  // get cached activity data 
-  const { data } = useSWR(activityId, fetchActivity);
+  // get cached activity data to pass to ruleSetForm 
+  const { data } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
 
   const handleFetchRuleSet = async () => {
     setLoading(true);

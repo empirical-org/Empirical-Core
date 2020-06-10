@@ -3,7 +3,7 @@ import { deleteTurkSession, editTurkSession } from '../../../utils/comprehension
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import useSWR, { mutate } from 'swr'
+import { queryCache } from 'react-query';
 
 const EditTurkSession = ({ activityId, closeModal, originalSessionDate, turkSessionId }) => {
   const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
@@ -20,8 +20,8 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, turkSess
       if(error) {
         setError(error);
       } else {
-        // update turk sessions cache to display newly created turk session
-        mutate("turk-sessions");
+        // update turk sessions cache to display edited turk session
+        queryCache.refetchQueries(`turk-sessions-${activityId}`)
         setError('');
         closeModal();
       }
@@ -29,13 +29,13 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, turkSess
   }
 
   const handleDeleteTurkSession = async () => {
-    deleteTurkSession(activityId).then((response) => {
+    deleteTurkSession(turkSessionId).then((response) => {
       const { error } = response;
       if(error) {
         setError(error);
       } else {
         // update turk sessions cache to reflect deleted turk session
-        mutate("turk-sessions");
+        queryCache.refetchQueries(`turk-sessions-${activityId}`)
         setError('');
         closeModal();
       }

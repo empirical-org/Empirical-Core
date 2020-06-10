@@ -1,6 +1,6 @@
 import { TurkSessionInterface } from '../../interfaces/comprehensionInterfaces';
 
-export const fetchTurkSessions = async () => {
+export const fetchTurkSessions = async (key: string, activityId: string) => {
   let turkSessions: TurkSessionInterface[];
   let error: any;
   try {
@@ -9,9 +9,12 @@ export const fetchTurkSessions = async () => {
   } catch (err) {
     error = err;
   }
+  const filteredTurkSessions = turkSessions.filter((turkSession: TurkSessionInterface)  => {
+    return turkSession.activity_id === parseInt(activityId);
+  });
   return {
     error,
-    turkSessions
+    turkSessions: filteredTurkSessions
   }
 }
 

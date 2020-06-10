@@ -2,33 +2,15 @@ import * as React from "react";
 import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { blankActivity } from '../../../../constants/comprehension';
 import { fetchActivities } from '../../utils/comprehension/activityAPIs';
-import useSWR from 'swr';
+import { useQuery } from 'react-query'
 
 const Activities = () => {
-  const [activities, setActivities] = React.useState<ActivityInterface[]>([blankActivity]);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>(null);
-
-  const handleFetchActivities = () => {
-    setLoading(true);
-    fetchActivities().then((response) => {
-      const { activities, error } = response;
-      error && setError(error);
-      activities && setActivities(activities);
-      setLoading(false);
-    });
-  }
 
   // cache activity data for updates
-  useSWR("activities", fetchActivities);
+  const { data } = useQuery("activities", fetchActivities);
 
-  React.useEffect(() => {
-    handleFetchActivities();
-  }, []);
-
-  const formattedRows = activities.map((activity: ActivityInterface) => {
+  const formattedRows = data && data.activities && data.activities.map((activity: ActivityInterface) => {
     const { id,  title } = activity;
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     return {
@@ -37,7 +19,7 @@ const Activities = () => {
     }
   });
 
-  if(loading) {
+  if(!data) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -45,10 +27,10 @@ const Activities = () => {
     );
   }
 
-  if(error) {
+  if(data && data.error) {
     return(
       <div className="error-container">
-        <Error error={`${error}`} />
+        <Error error={`${data.error}`} />
       </div>
     );
   }
@@ -63,7 +45,7 @@ const Activities = () => {
         className="activities-table"
         defaultSortAttribute="title"
         headers={dataTableFields}
-        rows={formattedRows}
+        rows={formattedRows ? formattedRows : []}
       />
     </div>
   );

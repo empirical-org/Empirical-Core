@@ -7,39 +7,25 @@ import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
-import useSWR, { mutate } from 'swr';
+import { queryCache, useQuery } from 'react-query';
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
-  const [turkSessions, setTurkSessions] = React.useState<TurkSessionInterface[]>([]);
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
   const [editTurkSessionId, setEditTurkSessionId] = React.useState<string>(null);
   const [editTurkSessionDate, setEditTurkSessionDate] = React.useState<string>(null);
-  const [loading, setLoading] = React.useState<boolean>(false);
   const [focused, setFocusedState] = React.useState<boolean>(false);
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [showEditOrDeleteTurkSessionModal, setShowEditOrDeleteTurkSessionModal] = React.useState<boolean>(false);
-  const [loadingError, setLoadingError] = React.useState<string>('');
   const [dateError, setDateError] = React.useState<string>('');
   const [submissionError, setSubmissionError] = React.useState<string>('');
   const { params } = match;
   const { activityId } = params;
 
-  const handleFetchTurkSessions = () => {
-    setLoading(true);
-    fetchTurkSessions().then((response) => {
-      const { error, turkSessions } = response;
-      error && setLoadingError(error);
-      turkSessions && setTurkSessions(turkSessions);
-      setLoading(false);
-    });
-  };
-
-  // cache turk sessions data for updates
-  useSWR("turk-sessions", fetchTurkSessions);
-
-  React.useEffect(() => {
-    handleFetchTurkSessions();
-  }, []);
+  // get turk session data 
+  const { data } = useQuery({
+    queryKey: [`turk-sessions-${activityId}`, activityId],
+    queryFn: fetchTurkSessions
+  });
 
   const handleGenerateNewTurkSession = async () => {
     if(!newTurkSessionDate) {
@@ -52,7 +38,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
         setDateError('');
         setShowSubmissionModal(true);
         // update turk sessions cache to display newly created turk session
-        mutate("turk-sessions");
+        queryCache.refetchQueries(`turk-sessions-${activityId}`)
       });
     }
   }
@@ -94,7 +80,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  const turkSessionsRows = turkSessions.map((turkSession: TurkSessionInterface) => {
+  const turkSessionsRows = data && data.turkSessions && data.turkSessions.map((turkSession: TurkSessionInterface) => {
     const { activity_id, expires_at, id } = turkSession;
     const url = `https://comprehension-247816.appspot.com/#/turk/${activity_id}/${id}`;
     const link = <a href={url} rel="noopener noreferrer" target="_blank">{url}</a>;
@@ -136,7 +122,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
 
   const toggleEditTurkSessionModal = () => {setShowEditOrDeleteTurkSessionModal(!showEditOrDeleteTurkSessionModal)  }
 
-  if(loading) {
+  if(!data) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -144,10 +130,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     );
   }
 
-  if(loadingError) {
+  if(data && data.error) {
     return(
       <div className="error-container">
-        <Error error={`${loadingError}`} />
+        <Error error={`${data.error}`} />
       </div>
     );
   }
@@ -188,7 +174,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       <DataTable
         className="turk-sessions-table"
         headers={dataTableFields}
-        rows={turkSessionsRows}
+        rows={turkSessionsRows ? turkSessionsRows : []}
       />
     </div>
   );

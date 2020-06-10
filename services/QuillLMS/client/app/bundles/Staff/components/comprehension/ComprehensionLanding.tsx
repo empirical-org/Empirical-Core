@@ -7,7 +7,7 @@ import ActivityForm from './configureSettings/activityForm'
 import Activities from './activities'
 import Activity from './activity'
 import { createActivity } from '../../utils/comprehension/activityAPIs';
-import useSWR, { mutate } from 'swr'
+import { queryCache } from 'react-query'
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
@@ -42,7 +42,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
       setShowSubmissionModal(true);
 
       // update activities cache to display newly created activity
-      mutate("activities");
+      queryCache.refetchQueries('activities')
     });
   }
 

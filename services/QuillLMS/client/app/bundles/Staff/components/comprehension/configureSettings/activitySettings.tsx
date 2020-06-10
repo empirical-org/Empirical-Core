@@ -3,55 +3,43 @@ import { RouteComponentProps } from 'react-router-dom';
 import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
 import ActivityForm from './activityForm';
-import { blankActivity, flagOptions } from '../../../../../constants/comprehension';
+import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
-import useSWR from 'swr';
+import { queryCache, useQuery } from 'react-query'
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
-  const [activity, setActivity] = React.useState<ActivityInterface>(blankActivity);
+
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
   const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(null);
-  const [originalFlag, setOriginalFlag] = React.useState<FlagInterface>(null);
-  const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false)
-  const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false)
+  const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false);
+  const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false);
   const { params } = match;
   const { activityId } = params;
 
-  const handleFetchActivity = (activityId: string) => {
-    setLoading(true);
-    fetchActivity(activityId).then(response => {
-      const { activity, error, flag } = response;
-      error && setError(error);
-      activity && setActivity(activity);
-      flag && setOriginalFlag(flag);
-      flag && setActivityFlag(flag);
-      setLoading(false);
-    });
-  }
-
   // cache activity data for updates
-  useSWR(activityId, fetchActivity);
-
-  React.useEffect(() => {
-    handleFetchActivity(activityId);
-  }, []);
+  const { data } = useQuery({
+    queryKey: [`activity-${activityId}`, activityId],
+    queryFn: fetchActivity
+  });
 
   const handleUpdateActivity = (activity: ActivityInterface) => {
     setLoading(true);
     updateActivity(activity, activityId).then((response) => {
-      const { updatedActivity, error, flag } = response;
-      updatedActivity && setActivity(updatedActivity);
-      flag && setOriginalFlag(flag);
-      flag && setActivityFlag(flag);
-      error && setError(error);
-      setShowEditActivityModal(false);
-      setLoading(false);
+      const { error } = response;
+      if(error) {
+        setError(error);
+        setLoading(false);
+      } else {
+        queryCache.refetchQueries(`activity-${activityId}`)
+        setShowEditActivityModal(false);
+        setLoading(false);
+      }
     });
   }
 
   const handleUpdateFlag = () => {
-    let updatedActivity: any = activity;
+    let updatedActivity: any = data.activity;
     updatedActivity.flag = activityFlag.value;
     handleUpdateActivity(updatedActivity);
     setShowEditFlagModal(false);
@@ -68,22 +56,22 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
 
   const toggleFlagModal = () => {
     // only update flag if submit button is clicked
-    if(activityFlag !== originalFlag) {
-      setActivityFlag(originalFlag);
+    if(activityFlag !== data.flag) {
+      setActivityFlag(data.flag);
     }
     setShowEditFlagModal(!showEditFlagModal);
   }
 
   const flagModal = (
     <button className="quill-button fun primary outlined" id="edit-flag-button" onClick={toggleFlagModal} type="submit">
-      {activityFlag ? activityFlag.label : ''}
+      {data && data.flag ? data.flag.label : ''}
     </button>
   );
 
   const renderActivityForm = () => {
     return(
       <Modal>
-        <ActivityForm activity={activity} closeModal={toggleEditActivityModal} submitActivity={handleUpdateActivity} />
+        <ActivityForm activity={data && data.activity} closeModal={toggleEditActivityModal} submitActivity={handleUpdateActivity} />
       </Modal>
     );
   }
@@ -101,7 +89,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
             isSearchable={true}
             label="Development Stage"
             options={flagOptions}
-            value={activityFlag}
+            value={activityFlag ? activityFlag : data.flag}
           />
           <div className="submit-button-container">
             <button className="quill-button fun primary contained" id="flag-submit-button" onClick={handleUpdateFlag} type="submit">
@@ -116,46 +104,50 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     )
   }
 
-  const generalSettingsRows = (activity: ActivityInterface) => {
-    // format for DataTable to display labels on left side and values on right
-    const { passages, prompts, title } = activity
-    const fields = [
-      { 
-        label: 'Title',
-        value: title 
-      },
-      {
-        label: 'Development Stage',
-        value: flagModal
-      },
-      {
-        label: 'Passage Length',
-        value: passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null
-      },
-      {
-        label: "Because",
-        value: prompts && prompts[0] ? prompts[0].text : null
-      },
-      {
-        label: "But",
-        value: prompts && prompts[1] ? prompts[1].text : null
-      },
-      {
-        label: "So",
-        value: prompts && prompts[2] ? prompts[2].text : null
-      },
-    ];
-    return fields.map((field, i) => {
-      const { label, value } = field
-      return {
-        id: `${field}-${i}`,
-        field: label,
-        value
-      }
-    });
+  const generalSettingsRows = (data) => {
+    if(data && data.activity) {
+      // format for DataTable to display labels on left side and values on right
+      const { passages, prompts, title } = data.activity
+      const fields = [
+        { 
+          label: 'Title',
+          value: title 
+        },
+        {
+          label: 'Development Stage',
+          value: flagModal
+        },
+        {
+          label: 'Passage Length',
+          value: passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null
+        },
+        {
+          label: "Because",
+          value: prompts && prompts[0] ? prompts[0].text : null
+        },
+        {
+          label: "But",
+          value: prompts && prompts[1] ? prompts[1].text : null
+        },
+        {
+          label: "So",
+          value: prompts && prompts[2] ? prompts[2].text : null
+        },
+      ];
+      return fields.map((field, i) => {
+        const { label, value } = field
+        return {
+          id: `${field}-${i}`,
+          field: label,
+          value
+        }
+      });
+    } else {
+      return [];
+    }
   }
 
-  if(loading) {
+  if(!data || loading) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -163,7 +155,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     );
   }
 
-  if(error) {
+  if((data && data.error) || error) {
     return(
       <div className="error-container">
         <Error error={`${error}`} />
@@ -184,7 +176,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       <DataTable
         className="activity-general-settings-table"
         headers={dataTableFields}
-        rows={generalSettingsRows(activity)}
+        rows={generalSettingsRows(data)}
       />
       <div className="button-container">
         <button className="quill-button fun primary contained" id="edit-activity-button" onClick={toggleEditActivityModal} type="submit">Configure</button>

@@ -23,3 +23,5 @@ export const fetchRuleSet = async (activityId: string, ruleSetId: string) => {
   }
   return { error, ruleset };
 }
+
+// export const updateRuleSet = async (rule)

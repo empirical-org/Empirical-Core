@@ -51,7 +51,11 @@ export default class PremiumPricingMinisRow extends React.Component {
   }
 
   renderPurchaseModal() {
-    const { showPurchaseModal, } = this.state
+    const {
+      showPurchaseModal,
+      subscriptionType
+    } = this.state
+    const { lastFour, } = this.props
     if (!showPurchaseModal) { return }
     return (<PurchaseModal
       hideModal={this.hidePurchaseModal}
