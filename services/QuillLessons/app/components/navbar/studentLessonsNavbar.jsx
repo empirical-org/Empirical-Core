@@ -9,20 +9,9 @@ const handleLogoClick = () => {
   }
 }
 
-const getSlideName = (editionData, data) => {
-  if (!(editionData && editionData.questions && data)) { return '' }
-
-  if (data.current_slide > 0) {
-    return [<span key="slide-number">Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
-  }
-
-  return "Lobby"
-}
-
-const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
+export const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
   const { data } = classroomSessions;
   const lessonData = classroomLesson.data;
-  const editionData = customize.editionQuestions;
 
   // need to subtract one from the number of questions to account for the lobby slide
   const numberOfQuestions = lessonData && lessonData.questions ? lessonData.questions.length - 1 : null
@@ -52,7 +41,6 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
-    customize: props.customize
   };
 }
 
