@@ -336,8 +336,24 @@
       justify-content: flex-end;
       padding: 20px 10px 20px 0px;
       width: 900px;
-      #edit-ruleset-button {
+      #edit-ruleset-button, #delete-ruleset-button {
         margin-right: 10px;
+      }
+    }
+  }
+
+  .ruleset-container {
+    .delete-ruleset-container {
+      .delete-ruleset-text {
+        padding: 20px;
+      }
+      .delete-ruleset-button-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        #delete-ruleset-button {
+          margin-right: 10px;
+        }
       }
     }
   }

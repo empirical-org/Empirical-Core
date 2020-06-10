@@ -7,7 +7,7 @@ import { ActivityInterface, ActivityRuleSetInterface, PromptInterface } from '..
 import RegexSection from './regexSection';
 
 interface RuleSetFormProps {
-  activityData?: ActivityInterface,
+  activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
   submitRuleSet: (ruleSet: ActivityRuleSetInterface) => void
@@ -39,13 +39,14 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     });
 
     // use activity data to apply each prompt ID
-    activityData && activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
+    activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
       const { conjunction, id } = prompt;
       formatted[conjunction] = {
         id,
         checked: !!checkedPrompts[id] 
       };
     });
+    
     setRuleSetPrompts(formatted);
   }
 
