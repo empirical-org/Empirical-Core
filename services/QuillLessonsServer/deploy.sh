@@ -27,5 +27,5 @@ then
     open $DASHBOARD
     echo "Deploy screen opened in your browser, you can monitor from there."
 else
-    echo "Ok, we won't deploy. Have a good day!"
+    echo "Ok, we won't deploy. Have a good day!!!"
 fi
