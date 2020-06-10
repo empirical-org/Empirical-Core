@@ -80,6 +80,10 @@ class Teachers::ProgressReportsController < ApplicationController
 
   def set_ap_user
     @ap_user = User.find_by_email "hello+#{demo_name}+ap@quill.org"
+    if @ap_user.nil?
+      Demo::ReportDemoAPCreator.create_demo(demo_name)
+      set_ap_user
+    end
   end
 
   def demo_name

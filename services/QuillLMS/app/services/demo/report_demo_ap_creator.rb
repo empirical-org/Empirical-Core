@@ -4,6 +4,7 @@ module Demo::ReportDemoAPCreator
     teacher = create_teacher(name)
     create_classrooms_and_populate_units(teacher)
     subscription = create_subscription(teacher)
+    teacher
   end
 
   def self.create_teacher(name)
