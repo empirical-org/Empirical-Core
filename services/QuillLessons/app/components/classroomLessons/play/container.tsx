@@ -173,7 +173,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     dispatch(goToPreviousSlide(sessionData, editionData, classroomSessionId))
   }
 
-
   handleKeyDown(event) {
     const { classroomSessionId, } = this.state
     const { classroomSessions, customize, dispatch, } = this.props
