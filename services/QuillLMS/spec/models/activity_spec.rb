@@ -32,6 +32,12 @@ describe Activity, type: :model, redis: true do
       invalid_activity.valid?
       expect(invalid_activity.errors).to include(:uid)
     end
+
+    it 'should be invalid if data is not a hash' do
+      invalid_activity = build(:activity, data: 1)
+      expect(invalid_activity.valid?).to be false
+      expect(invalid_activity.errors[:data]).to include('must be a hash')
+    end
   end
 
   describe 'callbacks' do
@@ -295,6 +301,48 @@ describe Activity, type: :model, redis: true do
     it 'should call clear_activity_search_cache' do
       expect(Activity).to receive(:clear_activity_search_cache)
       activity.clear_activity_search_cache
+    end
+  end
+
+  describe '#data_as_json' do
+    let(:activity) { create(:activity) }
+
+    it 'should just be the data attribute' do
+      expect(activity.data_as_json).to eq(activity.data)
+    end
+  end
+
+  describe '#add_question' do
+    let(:activity) { create(:connect_activity) }
+    let(:question) { create(:question)}
+
+    it 'should add a question to the lesson' do
+      old_length = activity.data["questions"].length
+      question_obj = {"key": question.uid, "questionType": "questions"}
+      activity.add_question(question_obj)
+      expect(activity.data["questions"].length).to eq(old_length+1)
+      expect(activity.data["questions"][-1][:key]).to eq(question.uid)
+      expect(activity.data["questions"][-1][:questionType]).to eq("questions")
+    end
+
+    it 'should throw error if the question does not exist' do
+      question_obj = {"key": "fakeid", "questionType": "questions"}
+      activity.add_question(question_obj)
+      expect(activity.errors[:question]).to include('Question fakeid does not exist.')
+    end
+
+    it 'should throw error if the question type does not match' do
+      question_obj = {"key": question.uid, "questionType": "faketype"}
+      activity.add_question(question_obj)
+      expect(activity.errors[:question]).to include("The question type faketype does not match the lesson's question type: questions")
+    end
+
+    it 'should throw error if the activity classification is Grammar or Lesson' do
+      question_obj = {"key": question.uid, "questionType": "questions"}
+      data = {"questionType": "questions"}
+      proofreader_activity = create(:proofreader_activity, data: data)
+      proofreader_activity.add_question(question_obj)
+      expect(proofreader_activity.errors[:activity]).to include("You can't add questions to this type of activity.")
     end
   end
 end
