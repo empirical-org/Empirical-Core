@@ -14,11 +14,11 @@ class UserEditions extends Component<any, any> {
     }
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getEditions(this.props)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.customize.editions && Object.keys(nextProps.customize.editions).length > 0) {
       if (Object.keys(this.state.editions).length === 0) {
         this.getEditions(nextProps)
@@ -29,7 +29,7 @@ class UserEditions extends Component<any, any> {
   }
 
   getEditions(props) {
-    const classroomLessonID = props.params.classroomLessonID
+    const classroomLessonID = props.match.params.classroomLessonID
     const allEditions = props.customize.editions
     if (allEditions && Object.keys(allEditions).length > 0) {
       const lessonEditions = {}
@@ -81,7 +81,7 @@ class UserEditions extends Component<any, any> {
   }
 
   classroomLesson() {
-    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+    return this.props.classroomLessons.data[this.props.match.params.classroomLessonID]
   }
 
   renderEditionTable() {
@@ -128,7 +128,7 @@ class UserEditions extends Component<any, any> {
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata) {
-      const classroomLessonID = this.props.params.classroomLessonID
+      const classroomLessonID = this.props.match.params.classroomLessonID
       return (
         <div className="admin-classroom-lessons-container">
           <div className="lesson-header">

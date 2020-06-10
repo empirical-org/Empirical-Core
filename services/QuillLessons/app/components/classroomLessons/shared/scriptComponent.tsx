@@ -80,7 +80,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.resetSlide = this.resetSlide.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState( {
       projecting: nextProps.modes && (nextProps.modes[nextProps.current_slide] === "PROJECT") ? true : false
     })

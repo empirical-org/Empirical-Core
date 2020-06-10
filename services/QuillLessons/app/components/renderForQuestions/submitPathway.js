@@ -5,7 +5,7 @@ import pathwayActions from '../../actions/pathways';
 function getQuestion(props, playQuestion) {
   if (playQuestion === 'play') {
     const { data, } = props.questions,
-      { questionID, } = props.params;
+      { questionID, } = props.match.params;
     return (data[questionID]);
   } else {
     return props.question;
@@ -34,7 +34,7 @@ export default function submitPathway(response, props, playQuestion) {
     data.toResponseID = newAttempt.key;
 
     if (playQuestion === 'play') {
-      data.questionID = props.params.questionID;
+      data.questionID = props.match.params.questionID;
     } else {
       data.props.question.key = props.question.key;
     }
