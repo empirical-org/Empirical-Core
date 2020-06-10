@@ -24,17 +24,25 @@ const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
   const lessonData = classroomLesson.data;
   const editionData = customize.editionQuestions;
 
+  // need to subtract one from the number of questions to account for the lobby slide
+  const numberOfQuestions = lessonData && lessonData.questions ? lessonData.questions.length - 1 : null
+  const counterText = numberOfQuestions ? `${data.current_slide} of ${numberOfQuestions}` : ''
+
   return (
     <header className='nav student-nav'>
       <nav className="student-lessons">
-        <img
-          alt="Quill.org logo"
-          className="quill-logo"
+        <button
+          className="focus-on-dark interactive-wrapper"
           onClick={handleLogoClick}
-          src={quillLogoSrc}
-        />
-        <div className="slide-name" key="slide-name">{getSlideName(editionData, data)}</div>
-        <div className="lesson-name">{lessonData.title}</div>
+          type="button"
+        >
+          <img
+            alt="Quill.org logo"
+            className="quill-logo"
+            src={quillLogoSrc}
+          />
+        </button>
+        <p className="counter">{counterText}</p>
       </nav>
     </header>
   );
