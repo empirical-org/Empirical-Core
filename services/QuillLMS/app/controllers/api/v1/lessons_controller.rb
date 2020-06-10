@@ -10,7 +10,7 @@ class Api::V1::LessonsController < Api::ApiController
   }
 
   def index
-    all_lessons = Activity.where(classification: @classification).reduce({}) { |agg, q| agg.update({q.uid => q.as_json}) }
+    all_lessons = Activity.where(classification: @classification).reduce({}) { |agg, q| agg.update({q.uid => q.data_as_json}) }
     render(json: all_lessons)
   end
 
