@@ -18,7 +18,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   const { params } = match;
   const { activityId } = params;
 
-  const handleFetchActivity = (activityId) => {
+  const handleFetchActivity = (activityId: string) => {
     setLoading(true);
     fetchActivity(activityId).then(response => {
       const { activity, error, flag } = response;
@@ -31,7 +31,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   }
 
   // cache activity data for updates
-  useSWR("activity", fetchActivity);
+  useSWR(activityId, fetchActivity);
 
   React.useEffect(() => {
     handleFetchActivity(activityId);
@@ -145,9 +145,10 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
         value: prompts && prompts[2] ? prompts[2].text : null
       },
     ];
-    return fields.map(field => {
+    return fields.map((field, i) => {
       const { label, value } = field
       return {
+        id: `${field}-${i}`,
         field: label,
         value
       }

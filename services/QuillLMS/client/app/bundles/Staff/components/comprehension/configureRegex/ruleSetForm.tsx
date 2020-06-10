@@ -3,26 +3,24 @@ import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { ActivityRuleSetInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, ActivityRuleSetInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
 import RegexSection from './regexSection';
-import useSWR from 'swr';
 
 interface RuleSetFormProps {
+  activityData?: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
   submitRuleSet: (ruleSet: ActivityRuleSetInterface) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-const RuleSetForm = ({ activityRuleSet, closeModal, submitRuleSet }: RuleSetFormProps) => {
+const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet }: RuleSetFormProps) => {
 
-  // get cached activity data 
-  const { data } = useSWR("activity");
   const { feedback, id, name, rules } = activityRuleSet;
   const [ruleSetName, setRuleSetName] = React.useState<string>(name || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
-  const [ruleSetPrompts, setRuleSetPrompts] = React.useState<{}>({})
-  const [regexRules, setRegexRules] = React.useState<{}>({})
+  const [ruleSetPrompts, setRuleSetPrompts] = React.useState<{}>({});
+  const [regexRules, setRegexRules] = React.useState<{}>({});
   const [errors, setErrors] = React.useState<{}>({});
 
   React.useEffect(() => {  
@@ -41,11 +39,11 @@ const RuleSetForm = ({ activityRuleSet, closeModal, submitRuleSet }: RuleSetForm
     });
 
     // use activity data to apply each prompt ID
-    data && data.prompts && data.prompts.forEach((prompt: PromptInterface) => {
-      const { conjunction, prompt_id } = prompt;
+    activityData && activityData.prompts && activityData.prompts.forEach((prompt: PromptInterface) => {
+      const { conjunction, id } = prompt;
       formatted[conjunction] = {
-        id: prompt_id,
-        checked: !!checkedPrompts[prompt_id] 
+        id,
+        checked: !!checkedPrompts[id] 
       };
     });
     setRuleSetPrompts(formatted);

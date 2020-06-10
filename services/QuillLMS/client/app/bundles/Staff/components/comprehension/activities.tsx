@@ -22,7 +22,7 @@ const Activities = () => {
   }
 
   // cache activity data for updates
-  useSWR("activities", handleFetchActivities);
+  useSWR("activities", fetchActivities);
 
   React.useEffect(() => {
     handleFetchActivities();
@@ -32,6 +32,7 @@ const Activities = () => {
     const { id,  title } = activity;
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     return {
+      id,
       title: activityLink
     }
   });

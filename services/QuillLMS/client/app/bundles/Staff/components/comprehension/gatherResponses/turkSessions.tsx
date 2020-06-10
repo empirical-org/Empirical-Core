@@ -23,7 +23,6 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const [submissionError, setSubmissionError] = React.useState<string>('');
   const { params } = match;
   const { activityId } = params;
-  const turkSessionsAPI = 'https://comprehension-247816.appspot.com/api/turking.json';
 
   const handleFetchTurkSessions = () => {
     setLoading(true);
@@ -36,7 +35,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   };
 
   // cache turk sessions data for updates
-  useSWR("turk-sessions", handleFetchTurkSessions);
+  useSWR("turk-sessions", fetchTurkSessions);
 
   React.useEffect(() => {
     handleFetchTurkSessions();
@@ -121,6 +120,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
       </button>
     );
     return {
+      id: `${activity_id}-${id}`,
       link,
       expiration: moment(expires_at).format('MMMM Do, YYYY'),
       edit: editButton,

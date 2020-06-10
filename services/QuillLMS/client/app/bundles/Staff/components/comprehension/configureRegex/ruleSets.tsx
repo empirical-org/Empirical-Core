@@ -5,6 +5,7 @@ import RuleSetForm from './ruleSetForm';
 import { getPromptsIcons } from '../../../../../helpers/comprehension';
 import { ActivityRouteProps, ActivityRuleSetInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
+import { fetchRuleSets } from '../../../utils/comprehension/ruleSetAPIs';
 
 const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const { params } = match;
@@ -13,24 +14,19 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState<Boolean>(false);
   const [loading, setLoading] = React.useState<Boolean>(false);
   const [error, setError] = React.useState<String>(null);
-  const fetchAllRuleSetsAPI = `https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets.json/`;
   
-  const fetchData = async () => {
-    let rulesets: any;
-    try {
-      setLoading(true);
-      const response = await fetch(fetchAllRuleSetsAPI);
-      rulesets = await response.json();
-    } catch (error) {
-      setError(error);
+  const handleFetchRuleSets = async () => {
+    setLoading(true);
+    fetchRuleSets(activityId).then((response) => {
+      const { error, rulesets } = response;
+      error && setError(error);
+      rulesets && setActivityRuleSets(rulesets);
       setLoading(false);
-    }
-    setActivityRuleSets(rulesets);
-    setLoading(false);
+    });
   };
 
   React.useEffect(() => {
-    fetchData();
+    handleFetchRuleSets();
   }, []);
 
   const formattedRows = activityRuleSets.map(rule => {
@@ -38,6 +34,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     const ruleSetLink = (<Link to={`/activities/${activityId}/rulesets/${id}`}>{name}</Link>);
     const promptsIcons = getPromptsIcons(prompts);
     return {
+      id: `${activityId}-${id}`,
       name: ruleSetLink,
       because_prompt: promptsIcons[BECAUSE],
       but_prompt: promptsIcons[BUT],
@@ -58,7 +55,11 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const renderRuleSetForm = () => {
     return(
       <Modal>
-        <RuleSetForm activityRuleSet={blankRuleSet} closeModal={toggleShowAddRuleSetModal} submitRuleSet={submitRuleSet} />
+        <RuleSetForm 
+          activityRuleSet={blankRuleSet} 
+          closeModal={toggleShowAddRuleSetModal} 
+          submitRuleSet={submitRuleSet} 
+        />
       </Modal>
     );
   } 

@@ -20,6 +20,7 @@ exports[`Activities component should render Activities 1`] = `
     rows={
       Array [
         Object {
+          "id": undefined,
           "title": <ForwardRef
             to="/activities/undefined"
           >

@@ -25,10 +25,12 @@ exports[`ActivitySettings component should render ActivitySettings 1`] = `
       Array [
         Object {
           "field": "Title",
+          "id": "[object Object]-0",
           "value": "",
         },
         Object {
           "field": "Development Stage",
+          "id": "[object Object]-1",
           "value": <button
             className="quill-button fun primary outlined"
             id="edit-flag-button"
@@ -40,18 +42,22 @@ exports[`ActivitySettings component should render ActivitySettings 1`] = `
         },
         Object {
           "field": "Passage Length",
+          "id": "[object Object]-2",
           "value": "1 words",
         },
         Object {
           "field": "Because",
+          "id": "[object Object]-3",
           "value": "",
         },
         Object {
           "field": "But",
+          "id": "[object Object]-4",
           "value": "",
         },
         Object {
           "field": "So",
+          "id": "[object Object]-5",
           "value": "",
         },
       ]

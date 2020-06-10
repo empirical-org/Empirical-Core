@@ -3,31 +3,34 @@ import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/c
 import { getPromptsIcons } from '../../../../../helpers/comprehension';
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { blankRuleSet } from '../../../../../constants/comprehension';
+import { fetchRuleSet } from '../../../utils/comprehension/ruleSetAPIs';
+import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
-const fetchRuleSetAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/regex-1.json';
+import useSWR from 'swr';
 
-const RuleSet = () => {
+const RuleSet = ({ match }) => {
+  const { params } = match;
+  const { activityId, ruleSetId } = params;
   const [activityRuleSet, setActivityRuleSet] = React.useState<ActivityRuleSetInterface>(blankRuleSet);
   const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
-  
-  const fetchData = async () => {
-    let ruleSet: any;
-    try {
-      setLoading(true);
-      const response = await fetch(fetchRuleSetAPI);
-      ruleSet = await response.json();
-    } catch (error) {
-      setError(error);
+
+  // get cached activity data 
+  const { data } = useSWR(activityId, fetchActivity);
+
+  const handleFetchRuleSet = async () => {
+    setLoading(true);
+    fetchRuleSet(activityId, ruleSetId).then((response) => {
+      const { error, ruleset } = response;
+      error && setError(error);
+      ruleset && setActivityRuleSet(ruleset);
       setLoading(false);
-    }
-    setActivityRuleSet(ruleSet);
-    setLoading(false);
+    });
   };
 
   React.useEffect(() => {
-    fetchData();
+    handleFetchRuleSet();
   }, []);
 
   const toggleShowEditRuleSetModal = () => {
@@ -74,16 +77,17 @@ const RuleSet = () => {
     if(regexRules) {
       fields = fields.concat(regexRules);
     }
-    return fields.map(field => {
+    return fields.map((field, i) => {
       const { label, value } = field
       return {
+        id: `${label}-${i}`,
         field: label,
         value
       }
     });
   }
 
-  const submitRuleSet = () => {
+  const submitRuleSet = (ruleSet: ActivityRuleSetInterface) => {
     // TODO: hook into RuleSet and RegEx PUT API
     toggleShowEditRuleSetModal();
   }
@@ -91,7 +95,12 @@ const RuleSet = () => {
   const renderRuleSetForm = () => {
     return(
       <Modal>
-        <RuleSetForm activityRuleSet={activityRuleSet} closeModal={toggleShowEditRuleSetModal} submitRuleSet={submitRuleSet} />
+        <RuleSetForm 
+          activityData={data && data.activity}
+          activityRuleSet={activityRuleSet} 
+          closeModal={toggleShowEditRuleSetModal} 
+          submitRuleSet={submitRuleSet} 
+        />
       </Modal>
     );
   } 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { createMemoryHistory, createLocation } from 'history';
 import ActivitySettings from '../configureSettings/activitySettings';
 import { DataTable } from 'quill-component-library/dist/componentLibrary';
 import 'whatwg-fetch';
@@ -7,9 +8,14 @@ import 'whatwg-fetch';
 const mockProps = {
   match: {
     params: {
-      activityId: 1
-    }
-  }
+      activityId: '1'
+    },
+    isExact: true,
+    path: '',
+    url:''
+  },
+  history: createMemoryHistory(),
+  location: createLocation('')
 }
 const fields = [
   'Title', 
