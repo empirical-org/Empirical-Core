@@ -71,8 +71,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 127px;
-        height: 20px;
+        min-width: 155px;
+        width: min-content;
+        padding: 0px 10px;
+        height: min-content;
         border-radius: 100px;
         background-color: #00c2a2;
         font-size: 11px;
@@ -82,7 +84,7 @@
           margin-right: 4px;
         }
         span {
-          margin-top: -2px;
+          white-space: nowrap;
         }
       }
       .slide-number {

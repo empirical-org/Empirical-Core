@@ -44,7 +44,7 @@ class MultipleTextEditor extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.text !== this.props.text) {
       if (nextProps.text === '' || this.props.text === '' || nextProps.reset) {
         if (nextProps.text !== convertToHTML(this.state.text.getCurrentContent())) {

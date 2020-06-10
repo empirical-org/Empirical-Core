@@ -1,13 +1,12 @@
 import React from 'react';
-import NavBar from './navbar/studentNavbar';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import Play from './classroomLessons/play/container.tsx'
 
-const StudentRoot = ({ children }) => {
-  return (
-    <div>
-      <NavBar />
-      {children}
-    </div>
-  );
-};
+const StudentRoot = () => (
+  <Switch>
+    <Route component={Play} path='/play/class-lessons/:lessonID' />
+    <Route component={Play} path='/play/class-lessons' />
+  </Switch>
+)
 
 export default StudentRoot;
