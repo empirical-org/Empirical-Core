@@ -31,17 +31,17 @@ class ShowAdminEdition extends Component<any, any> {
       newSlideType: 'CL-ST'
     }
 
-    props.dispatch(getEditionQuestions(props.params.editionID))
+    props.dispatch(getEditionQuestions(props.match.params.editionID))
   }
 
   classroomLesson = () => {
-    const { classroomLessons, params, } = this.props
-    return classroomLessons.data[params.classroomLessonID]
+    const { classroomLessons, match, } = this.props
+    return classroomLessons.data[match.params.classroomLessonID]
   }
 
   edition = () => {
-    const { customize, params, } = this.props
-    return customize.editions[params.editionID]
+    const { customize, match, } = this.props
+    return customize.editions[match.params.editionID]
   }
 
   loaded = () => {
@@ -55,18 +55,21 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   goToNewSlide = (slideID) => {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
     window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${params.classroomLessonID}/editions/${params.editionID}/slide/${slideID}`
   }
 
   handleAddSlideClick = () => {
-    const { params, customize, } = this.props
+    const { match, customize, } = this.props
     const { newSlideType, } = this.state
+    const { params, } = match
     addSlide(params.editionID, customize.editionQuestions, newSlideType, this.goToNewSlide)
   }
 
   deleteEdition = () => {
-    const { dispatch, params, } = this.props
+    const { dispatch, match, } = this.props
+    const { params, } = match
 
     const confirmation = window.confirm('Are you sure you want to delete this edition?')
     if (confirmation) {
@@ -75,7 +78,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   saveEditionDetails = (edition) => {
-    const { dispatch, params, } = this.props
+    const { dispatch, match, } = this.props
+    const { params, } = match
 
     dispatch(updateEditionDetails(params.editionID, edition))
   }
@@ -85,7 +89,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   updateSlideOrder = (sortInfo) => {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
     const originalSlides = this.editionQuestions()
     const newOrder = sortInfo.data.items.map(item => item.key);
     const firstSlide = originalSlides[0]
@@ -96,7 +101,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   deleteSlide = (slideID) => {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
     const confirmation = window.confirm('Are you sure you want to delete this slide?')
     if (confirmation) {
       const slides = this.editionQuestions()
@@ -105,7 +111,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   renderSortableMiddleSlides = () => {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
     if (this.loaded()) {
       const questions = this.editionQuestions()
       const slides = Object.keys(questions).slice(1, -1).map(key => this.renderSlide(questions, params.editionID, key))
@@ -114,7 +121,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   renderSlide = (questions, editionId, key) => {
-    const { params, } = this.props
+    const { match, } = this.props
+    const { params, } = match
 
     const exitSlideIndex = questions.length - 1
     const deleteSlideButton = key === 0 || key === exitSlideIndex ? <span /> : <DeleteSlideButton deleteSlide={this.deleteSlide} slideKey={key} />
@@ -150,7 +158,8 @@ class ShowAdminEdition extends Component<any, any> {
   }
 
   render() {
-    const { classroomLessons, params, } = this.props
+    const { classroomLessons, match, } = this.props
+    const { params, } = match
     if (this.loaded() && classroomLessons.hasreceiveddata) {
       const questions = this.editionQuestions()
       const editionId = params.editionID

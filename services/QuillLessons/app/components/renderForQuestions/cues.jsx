@@ -6,9 +6,8 @@ import {
 
 const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
 
-export default React.createClass({
-
-  getJoiningWordsText() {
+export default class extends React.Component {
+  getJoiningWordsText = () => {
     let text;
     if (this.props.getQuestion().cues && this.props.getQuestion().cuesLabel) {
       return this.props.getQuestion().cuesLabel;
@@ -18,9 +17,9 @@ export default React.createClass({
     }
     text = 'joining words';
     return text;
-  },
+  };
 
-  renderExplanation() {
+  renderExplanation = () => {
     let text;
     if (this.props.customText) {
       text = this.props.customText;
@@ -30,9 +29,9 @@ export default React.createClass({
     return (
       <CueExplanation text={text} />
     );
-  },
+  };
 
-  renderCues() {
+  renderCues = () => {
     let arrowPicture,
       text;
     if (this.props.displayArrowAndText) {
@@ -52,9 +51,9 @@ export default React.createClass({
         </div>
       );
     }
-  },
+  };
 
   render() {
     return <div>{this.renderCues()}</div>;
-  },
-});
+  }
+}

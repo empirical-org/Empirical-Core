@@ -1,13 +1,17 @@
 import React from 'react';
-import NavBar from './navbar/navbar';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import MarkingLessonAsCompleted from './classroomLessons/teach/markingLessonAsCompleted.tsx'
+import Teach from './classroomLessons/teach/container.tsx'
 
-const Root = ({ params, children }) => {
+const Root = () => {
   return (
-    <div>
-      <NavBar params={params} />
-      {children}
-    </div>
+    <Switch>
+      <Route component={Teach} path='/teach/class-lessons/:lessonID/preview/:editionID' />
+      <Route component={Teach} path='/teach/class-lessons/:lessonID/preview' />
+      <Route component={MarkingLessonAsCompleted} path='/teach/class-lessons/:lessonID/mark_lesson_as_completed' />
+      <Route component={Teach} path='/teach/class-lessons/:lessonID' />
+    </Switch>
   );
 };
 
-export default Root;
+export default withRouter(Root);
