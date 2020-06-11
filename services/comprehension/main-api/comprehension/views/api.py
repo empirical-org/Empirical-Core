@@ -41,7 +41,8 @@ class RuleViewSet(viewsets.ModelViewSet):
         activities_pk = self.kwargs['activities_pk']
         get_object_or_404(Activity, pk=activities_pk)
         return (Rule.objects
-                    .filter(rule_set__prompts__activities__pk=activities_pk))
+                    .filter(rule_set__prompts__activities__pk=activities_pk)
+                    .distinct())
 
 
 class RuleSetViewSet(viewsets.ModelViewSet):
