@@ -169,9 +169,9 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
           default:
             thumb = questions[slide].type;
         }
-        const headerText = slide === '0'
-        ? <span>Title Slide{titleSection}</span>
-        : <span>Slide {slide} / {length}{titleSection}</span>
+        const isLobbySlide = slide === '0'
+        const headerText = isLobbySlide ? <span>Title Slide{titleSection}</span> : <span>Slide {slide} / {length}{titleSection}</span>
+        const scalerClassName = isLobbySlide ? 'scaler lobby-scaler' : 'scaler'
         components.push((
           <div id={slide} key={counter} onClick={() => this.goToSlide(slide)}>
             <div className="sidebar-header">
@@ -179,7 +179,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
               {currentSlide === slide ? this.presentStudents() : null}
             </div>
             <div className={`slide-preview ${activeClass}`}>
-              <div className="scaler">
+              <div className={scalerClassName}>
                 {thumb}
               </div>
             </div>
