@@ -3,14 +3,14 @@ import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary
 import { EditorState, ContentState } from 'draft-js'
 import { validateForm } from '../../../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
-import { ActivityInterface, ActivityRuleSetInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import RegexSection from './regexSection';
 
 interface RuleSetFormProps {
   activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitRuleSet: (ruleSet: ActivityRuleSetInterface, rulesToDelete: object, rulesToUpdate: object) => void
+  submitRuleSet: (ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -109,7 +109,8 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
-      submitRuleSet(ruleSet, rulesToCreate, rulesToDelete, rulesToUpdate);
+      const rules = [...Object.values(rulesToCreate), ...Object.values(rulesToDelete), ...Object.values(rulesToUpdate)]
+      submitRuleSet(ruleSet, rules, rulesToDelete, rulesToUpdate);
     }
   }
 

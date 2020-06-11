@@ -128,8 +128,7 @@ const RuleSet = ({ history, match }) => {
     });
   }
 
-  const submitRuleSet = (ruleSet: ActivityRuleSetInterface, rulesToCreate: object, rulesToDelete: object, rulesToUpdate: object) => {
-    const rules = [...Object.values(rulesToCreate), ...Object.values(rulesToDelete), ...Object.values(rulesToUpdate)];
+  const submitRuleSet = (ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object) => {
     updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
       const { error } = response;
       if(error) {
