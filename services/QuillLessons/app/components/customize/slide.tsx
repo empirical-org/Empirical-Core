@@ -17,7 +17,7 @@ export default class Slide extends React.Component<any, any> {
     this.toggleShowSlide = this.toggleShowSlide.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.incompletePrompt) {
       this.setState({showSlide: true})
     }

@@ -4,12 +4,19 @@ import * as _ from 'lodash';
 import { Spinner } from 'quill-component-library/dist/componentLibrary'
 
 import {
+  getClassLesson
+} from '../../actions/classroomLesson'
+
+import {
   createNewEdition,
   saveEditionName,
   archiveEdition,
-  deleteEdition
+  deleteEdition,
+  getCurrentUserAndCoteachersFromLMS,
+  getEditionMetadataForUserIds
 } from '../../actions/customize';
 import {
+  startListeningToSession,
   setEditionId
 } from '../../actions/classroomSessions';
 import {
@@ -19,6 +26,7 @@ import {
 import EditionNamingModal from './editionNamingModal';
 import EditionRow from './editionRow';
 import SignupModal from '../classroomLessons/teach/signupModal';
+import CustomizeNavbar from '../navbar/customizeNavbar'
 import { getParameterByName } from '../../libs/getParameterByName';
 import * as CustomizeIntF from '../../interfaces/customize';
 
@@ -27,7 +35,8 @@ class ChooseEdition extends React.Component<any, any> {
     super(props)
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
+    const classroomSessionId: ClassroomSessionId|null = classroomUnitId ? classroomUnitId.concat(activityUid) : null
 
     this.state = {
       showNamingModal: false,
@@ -35,7 +44,17 @@ class ChooseEdition extends React.Component<any, any> {
       newEditionName: '',
       showSignupModal: false,
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
+      classroomSessionId
+    }
+
+    props.dispatch(getCurrentUserAndCoteachersFromLMS())
+
+    if (activityUid) {
+      props.dispatch(getClassLesson(activityUid))
+    }
+
+    if (classroomSessionId) {
+      props.dispatch(startListeningToSession(classroomSessionId))
     }
 
     this.makeNewEdition = this.makeNewEdition.bind(this)
@@ -49,9 +68,26 @@ class ChooseEdition extends React.Component<any, any> {
     this.deleteNewEdition = this.deleteNewEdition.bind(this)
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.customize.user_id) {
+      if (nextProps.customize.user_id !== this.props.customize.user_id || !_.isEqual(nextProps.customize.coteachers, this.props.customize.coteachers)) {
+        let user_ids:Array<Number>|never = []
+        if (nextProps.customize.coteachers.length > 0) {
+          user_ids = nextProps.customize.coteachers.map(c => Number(c.id))
+        }
+        user_ids.push(nextProps.customize.user_id)
+        this.props.dispatch(getEditionMetadataForUserIds(user_ids, this.props.match.params.lessonID))
+      }
+    } else {
+      if (Object.keys(nextProps.customize.editions).length === 0) {
+        this.props.dispatch(getEditionMetadataForUserIds([], this.props.match.params.lessonID))
+      }
+    }
+  }
+
   makeNewEdition(editionUid:string|null) {
     if (this.props.customize.user_id) {
-      const newEditionUid = createNewEdition(editionUid, this.props.params.lessonID, this.props.customize.user_id)
+      const newEditionUid = createNewEdition(editionUid, this.props.match.params.lessonID, this.props.customize.user_id)
       this.setState({newEditionUid}, this.openNamingModal)
     } else {
       this.setState({showSignupModal: true})
@@ -71,11 +107,11 @@ class ChooseEdition extends React.Component<any, any> {
     let route
     const classroomUnitId = getParameterByName('classroom_unit_id')
     if (classroomUnitId) {
-      route = `/customize/${this.props.params.lessonID}/${editionUid}?&classroom_unit_id=${classroomUnitId}`
+      route = `/customize/${this.props.match.params.lessonID}/${editionUid}?&classroom_unit_id=${classroomUnitId}`
     } else {
-      route = `/customize/${this.props.params.lessonID}/${editionUid}`
+      route = `/customize/${this.props.match.params.lessonID}/${editionUid}`
     }
-    return this.props.router.push(route)
+    return this.props.history.push(route)
   }
 
   archiveEdition(editionUid:string) {
@@ -96,16 +132,16 @@ class ChooseEdition extends React.Component<any, any> {
       let route
       const classroomUnitId = getParameterByName('classroom_unit_id')
       if (classroomUnitId) {
-        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}?&classroom_unit_id=${classroomUnitId}`
+        route = `/customize/${this.props.match.params.lessonID}/${this.state.newEditionUid}?&classroom_unit_id=${classroomUnitId}`
       } else {
-        route = `/customize/${this.props.params.lessonID}/${this.state.newEditionUid}`
+        route = `/customize/${this.props.match.params.lessonID}/${this.state.newEditionUid}`
       }
-      this.props.router.push(route)
+      this.props.history.push(route)
     }
   }
 
   selectAction(editionKey: string) {
-    const lessonId = this.props.params.lessonID;
+    const lessonId = this.props.match.params.lessonID;
     const classroomSessionId:ClassroomSessionId = this.state.classroomSessionId || '';
     const classroomUnitId:ClassroomUnitId = this.state.classroomUnitId || '';
 
@@ -185,7 +221,7 @@ class ChooseEdition extends React.Component<any, any> {
     Object.keys(editions).forEach((e) => {
       const edition:CustomizeIntF.EditionMetadata = editions[e]
       edition.key = e
-      if (edition.lesson_id === this.props.params.lessonID) {
+      if (edition.lesson_id === this.props.match.params.lessonID) {
         if (edition.user_id === user_id) {
           const editionRow = (<EditionRow
             archiveEdition={this.archiveEdition}
@@ -263,14 +299,17 @@ class ChooseEdition extends React.Component<any, any> {
   }
 
   render() {
-    return (<div className="choose-edition customize-page">
-      {this.renderSignupModal()}
-      {this.renderBackButton()}
-      {this.renderLessonInfo()}
-      {this.renderHeader()}
-      {this.renderExplanation()}
-      {this.renderEditions()}
-      {this.renderNamingModal()}
+    return (<div>
+      <CustomizeNavbar />
+      <div className="choose-edition customize-page">
+        {this.renderSignupModal()}
+        {this.renderBackButton()}
+        {this.renderLessonInfo()}
+        {this.renderHeader()}
+        {this.renderExplanation()}
+        {this.renderEditions()}
+        {this.renderNamingModal()}
+      </div>
     </div>)
   }
 }

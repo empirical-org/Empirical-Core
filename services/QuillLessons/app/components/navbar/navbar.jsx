@@ -1,59 +1,58 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
+import { withRouter } from 'react-router-dom';
 import TeacherLessonsNavbar from './teacherNavbar'
 import CustomizeNavbar from './customizeNavbar'
 import LaunchEditionNavbar from './launchEditionNavbar'
 import CreateCustomizedEditionNavbar from './createCustomizedEditionNavbar'
 import {getParameterByName} from '../../libs/getParameterByName'
 
-const Navbar = React.createClass({
-  getInitialState: function () {
-    return {
-      expanded: false
-    }
-  },
+class Navbar extends React.Component {
+  state = {
+    expanded: false
+  };
 
-  navStyles: function () {
+  navStyles = () => {
     if (this.state.expanded) {
       return {
         background: '#fff',
         display: 'initial'
       }
     }
-  },
+  };
 
-  toggle: function () {
+  toggle = () => {
     this.setState({expanded: !this.state.expanded})
-  },
+  };
 
-  reset: function () {
+  reset = () => {
     this.setState({expanded: false})
-  },
+  };
 
-  inLesson: function () {
+  inLesson = () => {
     return (window.location.href.indexOf('play/lesson') !== -1);
-  },
+  };
 
-  quillLessons: function() {
+  quillLessons = () => {
     return window.location.href.includes('teach/class-lessons');
-  },
+  };
 
-  customizeRoute: function() {
+  customizeRoute = () => {
     return (window.location.href.indexOf('customize') !== -1);
-  },
+  };
 
-  customizeNavbar: function() {
-    if (this.props.params.editionID) {
-      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} params={this.props.params} />
+  customizeNavbar = () => {
+    if (this.props.match.params.editionID) {
+      return <CustomizeNavbar goToSuccessPage={this.props.goToSuccessPage} match={this.props.match} />
     } else if (getParameterByName('classroom_unit_id') || getParameterByName('preview')) {
-      return <LaunchEditionNavbar params={this.props.params} />
+      return <LaunchEditionNavbar match={this.props.match} />
     } else {
       return <CreateCustomizedEditionNavbar />
     }
-  },
+  };
 
-  renderLinks: function () {
+  renderLinks = () => {
     if (this.inLesson()) {
       return (
         <div className="nav-right nav-menu" style={this.navStyles()} />
@@ -68,11 +67,12 @@ const Navbar = React.createClass({
         </div>
       )
     }
-  },
+  };
 
-  render: function () {
+  render() {
+    const { match, } = this.props
     if (this.quillLessons()) {
-      return (<TeacherLessonsNavbar params={this.props.params} />);
+      return (<TeacherLessonsNavbar match={match} />);
     } else if (this.customizeRoute()) {
       return this.customizeNavbar()
     } else {
@@ -99,7 +99,7 @@ const Navbar = React.createClass({
     )
     }
   }
-})
+}
 
 const rightNav = (<div className="nav-right nav-menu">
   <span className="nav-item">
@@ -121,4 +121,4 @@ function select(state) {
   }
 }
 
-export default connect(select)(Navbar)
+export default withRouter(connect(select)(Navbar))

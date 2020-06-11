@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-const WakeLock: any = require('react-wakelock').default;
+import WakeLock from 'react-wakelock-react16'
 import {
   startListeningToSession,
   registerPresence,
@@ -22,6 +22,8 @@ import CLMultistep from './multistep';
 import ProjectorModal from './projectorModal';
 import ErrorPage from '../shared/errorPage';
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
+import NavBar from '../../navbar/studentNavbar';
+
 import { getClassLesson } from '../../../actions/classroomLesson';
 import { getEditionQuestions } from '../../../actions/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
@@ -41,8 +43,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
+    const { match, } = props
+
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = match.params.lessonID
     this.state = {
       easyDemoName: '',
       classroomUnitId,
@@ -53,7 +57,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
 
-    // props.dispatch(firebaseAuth())
+    if (!activityUid) {
+      const classroom_unit_id = getParameterByName('classroom_unit_id');
+      const lessonID = getParameterByName('uid');
+      document.title = 'Quill Lessons';
+      const student = getParameterByName('student');
+      if (lessonID) {
+        document.location.href = `${document.location.origin + document.location.pathname}#/play/class-lessons/${lessonID}?student=${student}&classroom_unit_id=${classroom_unit_id}`;
+      }
+    }
 
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
     this.easyJoinDemo = this.easyJoinDemo.bind(this);
@@ -68,21 +80,31 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       this.props.dispatch(startListeningToSession(classroomSessionId));
     }
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
+    this.setInitialData(this.props)
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    const student = getParameterByName('student') ? getParameterByName('student') : '';
-    const npCSData = nextProps.classroomSessions.data
-    const lessonId: string = this.props.params.lessonID
-    if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
-        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    this.setInitialData(nextProps)
+  }
+
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+  }
+
+  setInitialData = (props) => {
+    const student = getParameterByName('student') || '';
+    const npCSData = props.classroomSessions.data
+    const lessonId: string = this.props.match.params.lessonID
+    if (props.classroomSessions.hasreceiveddata) {
+      if (props.classroomSessions.data.edition_id && Object.keys(props.customize.editionQuestions).length < 1) {
+        this.props.dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
       }
-      if (!nextProps.classroomLesson.hasreceiveddata) {
+      if (!props.classroomLesson.hasreceiveddata) {
         this.props.dispatch(getClassLesson(lessonId));
       }
-      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
-        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      if (props.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
+        this.props.dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
       }
     }
     if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.followUpActivityName)) {
@@ -104,9 +126,9 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
           break
       }
     }
-    if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
+    if (!props.classroomSessions.error && !props.classroomLesson.error) {
       const element = document.getElementsByClassName("main-content")[0];
-      if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+      if (element && (props.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
         element.scrollTop = 0;
       }
       const student = getParameterByName('student');
@@ -120,8 +142,8 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       } else if (classroomSessionId && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
         registerPresence(classroomSessionId, student);
       } else {
-        if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
-          if (nextProps.classroomSessions.data.public) {
+        if (hasreceiveddata && !this.studentEnrolledInClass(student) && !props.classroomSessions.error) {
+          if (props.classroomSessions.data.public) {
             this.setState({shouldEnterName: true})
           } else {
             this.props.dispatch(updateNoStudentError(student))
@@ -129,11 +151,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         }
       }
     }
-  }
-
-  componentWillUnmount() {
-    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
   }
 
   handleKeyDown(event) {
@@ -283,30 +300,36 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   public render() {
     const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
     const lessonError = this.props.classroomLesson.error;
+    let mainContent = (
+      <div>
+        <Spinner />
+      </div>
+    );
+
     if (this.state.shouldEnterName) {
-      return (
-        <div>
-          <div className="play-lesson-container">
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                <div className="easy-join-name-form-wrapper">
-                  <div className="easy-join-name-form">
-                    <p>Please enter your full name:</p>
-                    <input onChange={this.handleChange} value={this.state.easyDemoName} />
-                    <button onClick={this.easyJoinDemo}>Join</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       mainContent = (
+         <div>
+           <div className="play-lesson-container">
+             <div className="main-content">
+               <div className="main-content-wrapper">
+                 <div className="easy-join-name-form-wrapper">
+                   <div className="easy-join-name-form">
+                     <p>Please enter your full name:</p>
+                     <input onChange={this.handleChange} value={this.state.easyDemoName} />
+                     <button onClick={this.easyJoinDemo}>Join</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
       )
     } else if (error) {
-       return <ErrorPage text={error} />
+       mainContent = <ErrorPage text={error} />
      } else if (lessonError) {
-       return <ErrorPage text={lessonError} />
+       mainContent = <ErrorPage text={lessonError} />
      } else if (this.state.flaggedStudentCompletionScreen) {
-       return <FlaggedStudentCompletedPage />
+       mainContent = <FlaggedStudentCompletedPage />
      } else {
        const lessonData: ClassroomLesson = this.props.classroomLesson.data;
        const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
@@ -320,7 +343,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
        if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
          const component = this.renderCurrentSlide(data, lessonData, editionData);
          if (component) {
-           return (
+           mainContent = (
              <div>
                <WakeLock />
                {absentTeacher || watchTeacher}
@@ -337,12 +360,11 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
            );
          }
        }
-       return (
-         <div>
-           <Spinner />
-         </div>
-       );
      }
+     return (<div>
+       <NavBar />
+       {mainContent}
+     </div>)
    }
 
 }
