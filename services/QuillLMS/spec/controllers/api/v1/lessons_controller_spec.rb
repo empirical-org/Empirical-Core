@@ -33,20 +33,22 @@ describe Api::V1::LessonsController, type: :controller do
   describe "#create" do
     it "should create a new Lesson record" do
       uuid = SecureRandom.uuid
-      data = {foo: "bar"}
+      data = {foo: "bar", name: "name", flag: "alpha"}
       expect(SecureRandom).to receive(:uuid).and_return(uuid)
       pre_create_count = Activity.count
       post :create, lesson_type: "connect_lesson", lesson: data
       expect(Activity.count).to eq(pre_create_count + 1)
+      expect(Activity.find_by(name: data[:name]).flag = data[:flag])
     end
   end
 
   describe "#update" do
     it "should update the existing record" do
-      data = {"foo" => "bar"}
+      data = {"foo" => "bar", "flag" => "alpha", "name" => "new name"}
       put :update, id: activity.uid, lesson: data
       activity.reload
       expect(activity.data).to eq(data)
+      expect(Activity.find_by(name: data["name"]).flag = data["flag"])
     end
 
     it "should return a 404 if the requested Lesson is not found" do
