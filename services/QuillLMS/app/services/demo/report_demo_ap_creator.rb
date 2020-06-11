@@ -154,13 +154,18 @@ module Demo::ReportDemoAPCreator
       {
         name: "Bell Hooks",
         username: "bell.hooks.#{classroom.id}@demo-teacher",
+        email: 'bell_hooks_demo@quill.org',
         role: "student",
         password: 'password',
         password_confirmation: 'password'
       }
     ]
     student_values.each do |values|
-      student = User.create(values)
+      if !values[:email].blank?
+        student = User.find_by(email: values[:email]) || User.create(values)
+      else
+        student = User.create(values)
+      end
       students.push(student)
       StudentsClassrooms.create({student_id: student.id, classroom_id: classroom.id})
     end
