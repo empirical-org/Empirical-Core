@@ -12,12 +12,19 @@ describe Teachers::ProgressReportsController do
 
   describe '#demo' do
     context 'when name not given' do
-      context 'when demo account exists' do
+      context 'when demo accounts exist' do
         let!(:user) { create(:user, email: "hello+demoteacher@quill.org" ) }
+        let!(:ap_user) { create(:user, email: "hello+demoteacher+ap@quill.org" ) }
 
         it 'should use the hello+demot\eacher@quill account and redirect to scorebook teachers classrooms path' do
           get :demo
           expect(assigns(:user)).to eq user
+          expect(response).to redirect_to scorebook_teachers_classrooms_path
+        end
+
+        it 'should use the hello+demot\eacher+ap@quill account and redirect to scorebook teachers classrooms path' do
+          get :demo_ap
+          expect(assigns(:ap_user)).to eq ap_user
           expect(response).to redirect_to scorebook_teachers_classrooms_path
         end
       end
@@ -123,6 +130,31 @@ describe Teachers::ProgressReportsController do
           .and_return(admin_report_service)
 
         get :admin_demo
+      end
+    end
+  end
+
+  describe '#demo_ap' do
+
+    context 'when demo account exists' do
+      it 'sets the user and redirects to scorebook teachers classrooms path when user exists' do
+        ap_user = create(:user, email: "hello+demoteacher+ap@quill.org")
+        get :demo_ap
+        expect(assigns(:ap_user)).to eq ap_user
+        expect(response).to redirect_to scorebook_teachers_classrooms_path
+      end
+    end
+
+    context 'when demo account does not exist' do
+      before do
+        allow(Demo::ReportDemoAPCreator).to receive(:create_demo) {|name| create(:user, email: "hello+#{name}+ap@quill.org") }
+      end
+
+      it 'sets the user, redirects to scorebook teachers classrooms path when user doesnt exist' do
+        expect(Demo::ReportDemoAPCreator).to receive(:create_demo).with("demoteacher")
+
+        get :demo_ap
+        expect(response).to redirect_to scorebook_teachers_classrooms_path
       end
     end
   end
