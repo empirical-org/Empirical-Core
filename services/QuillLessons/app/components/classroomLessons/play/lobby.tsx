@@ -36,11 +36,11 @@ class Lobby extends React.Component<LobbyProps, {}> {
       return sortByLastName(key1, key2, students);
     })
     const numberOfStudents = Object.keys(students).length
-    const numberOfPresentStudents = Object.keys(presence).length
+    const numberOfPresentStudents = presence ? Object.keys(presence).length : 0
 
     const studentList = studentUidsSortedByLastName.map(studentUID => {
       const studentName = students[studentUID]
-      const present = presence[studentUID]
+      const present = presence ? presence[studentUID] : false
       return this.renderStudentBox(studentName, present)
     })
     return (<div className="projector-view">

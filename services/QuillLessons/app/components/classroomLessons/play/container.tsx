@@ -343,7 +343,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const { shouldEnterName, easyDemoName, flaggedStudentCompletionScreen, projector, } = this.state
     const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = classroomSessions;
     const lessonError = classroomLesson.error;
-    const navbar = classroomSessions.data.current_slide === "0" ? null : <NavBar />
+    const navbar = Number(classroomSessions.data.current_slide) === 0 ? null : <NavBar />
     let mainContent = (
       <div>
         <Spinner />
