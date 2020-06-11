@@ -1,5 +1,6 @@
 .student-lobby {
   .projector-view {
+    color: #000;
     .projector-header {
       width: 100vw;
       position: absolute;
@@ -67,7 +68,6 @@
             }
           }
           p {
-            color: #000000;
             font-size: 20px;
             line-height: 1.4;
             max-height: 54px;
