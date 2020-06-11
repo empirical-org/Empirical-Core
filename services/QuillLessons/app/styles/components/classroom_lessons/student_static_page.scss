@@ -1,20 +1,24 @@
 .student-static-page-container {
   display: flex;
   font-size: 36px;
+  line-height: 1.17;
   background-color: white;
   height: calc(100vh - 50px);
-  text-align: center;
+  text-align: left;
   color: #000000;
-  margin-top: 30px;
+  margin-top: 40px;
   .student-static-page {
     width: 100%;
-    max-width: 770px;
     margin:0 auto;
     blockquote {
-      margin-top: 40px;
-      border-radius: 3px;
-      padding: 20 55;
-      background-color: #fafafa;
+      border-radius: 4px;
+      background-color: #e5e5e5;
+      padding: 20px;
+      line-height: 1.17;
+      margin-bottom: 24px;
+    }
+    p {
+      margin-bottom: 32px;
     }
     ul {
       margin-top: 55px;
