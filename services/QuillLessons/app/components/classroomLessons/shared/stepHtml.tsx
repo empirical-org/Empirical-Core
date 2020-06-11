@@ -27,7 +27,7 @@ export default class StepHtml extends React.Component<StepHtmlProps, StepHtmlSta
     this.toggleHideBody = this.toggleHideBody.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.onlyShowHeaders !== this.props.onlyShowHeaders) {
       this.setState({hideBody: nextProps.onlyShowHeaders})
     }

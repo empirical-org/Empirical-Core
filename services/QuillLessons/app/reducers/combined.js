@@ -31,7 +31,7 @@ export function getIncompleteQuestions(store) {
 }
 
 export function getStoredEditionMetadata(store, props) {
-  const editionId = props.params.editionID;
+  const editionId = props.match.params.editionID;
   const editions = FromCustomize.getEditionMetadata(store.customize);
 
   return editions[editionId];

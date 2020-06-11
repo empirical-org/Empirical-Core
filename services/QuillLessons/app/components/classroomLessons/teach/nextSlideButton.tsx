@@ -20,7 +20,7 @@ class NextSlideButton extends React.Component<StateFromProps & NextSlideButtonPr
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
     this.state = {
       classroomUnitId,
       classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
