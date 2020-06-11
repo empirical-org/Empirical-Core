@@ -17,3 +17,5 @@ task :update_todays_expired_recurring_subscriptions => :environment do
     puts 'expired recurring subscriptions have been updated'
     puts 'update_todays_expired_recurring_subscriptions'
 end
+
+#hello
