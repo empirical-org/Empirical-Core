@@ -10,7 +10,7 @@ interface RuleSetFormProps {
   activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitRuleSet: (ruleSet: ActivityRuleSetInterface) => void
+  submitRuleSet: (ruleSet: ActivityRuleSetInterface, rulesToDelete: object) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -19,9 +19,10 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
   const { feedback, id, name, rules } = activityRuleSet;
   const [ruleSetName, setRuleSetName] = React.useState<string>(name || '');
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
-  const [ruleSetPrompts, setRuleSetPrompts] = React.useState<{}>({});
-  const [regexRules, setRegexRules] = React.useState<{}>({});
-  const [errors, setErrors] = React.useState<{}>({});
+  const [ruleSetPrompts, setRuleSetPrompts] = React.useState<object>({});
+  const [regexRules, setRegexRules] = React.useState<object>({});
+  const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
+  const [errors, setErrors] = React.useState<object>({});
 
   React.useEffect(() => {  
     formatPrompts();
@@ -106,7 +107,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
-      submitRuleSet(ruleSet);
+      submitRuleSet(ruleSet, rulesToDelete);
     }
   }
 
@@ -138,6 +139,13 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     const { target } = e;
     const { value } = target;
     let updatedRules = {...regexRules};
+    const rule = updatedRules[value]
+    // add to regexRulesToDelete array to delete during ruleSet update
+    if(rule.id) {
+      const updatedHash = rulesToDelete;
+      updatedHash[rule.id] = rule;
+      setRulesToDelete(updatedHash);
+    }
     delete updatedRules[value];
     setRegexRules(updatedRules);
   }

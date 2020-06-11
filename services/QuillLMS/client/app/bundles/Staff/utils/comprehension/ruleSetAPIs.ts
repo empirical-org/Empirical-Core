@@ -1,5 +1,4 @@
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../interfaces/comprehensionInterfaces';
-import activity from '../../components/comprehension/activity';
 
 export const fetchRuleSets = async (key: string, activityId: string) => {
   let rulesets: ActivityRuleSetInterface[];
@@ -39,12 +38,35 @@ export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSet
   const newRuleSet = await response.json();
   // not a 2xx status
   if(Math.round(response.status / 100) !== 2) {
-    error = 'Activity submission failed, please try again.';
+    error = 'RuleSet creation failed, please try again.';
   }
   return { 
     error, 
     rules,
     ruleSetId: newRuleSet && newRuleSet.id
+  };
+}
+
+export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleSet: ActivityRuleSetInterface) => {
+  let error: any;
+  const { rules } = ruleSet;
+  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}.json/`, {
+    method: 'PUT',
+    body: JSON.stringify(ruleSet),
+    headers: {
+      "Accept": "application/JSON",
+      "Content-Type": "application/json"
+    },
+  });
+  const updatedRuleSet = await response.json();
+  // not a 2xx status
+  if(Math.round(response.status / 100) !== 2) {
+    error = `RuleSet with id ${ruleSetId} failed, please try again.`;
+  }
+  return { 
+    error, 
+    rules,
+    ruleSetId: updatedRuleSet && updatedRuleSet.id
   };
 }
 
@@ -72,7 +94,39 @@ export const createRule = async (activityId: string, rule: RegexRuleInterface, r
   });
   // not a 2xx status
   if(Math.round(response.status / 100) !== 2) {
-    error = 'Activity submission failed, please try again.';
+    error = 'Rule creation failed, please try again.';
+  }
+  return { error };
+}
+
+export const updateRule = async (activityId: string, rule: RegexRuleInterface, ruleSetId: string, ruleId: number) => {
+  let error: any;
+  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules/${ruleId}.json/`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      regex_text: rule.regex_text,
+      case_sensitive: rule.case_sensitive
+    }),
+    headers: {
+      "Accept": "application/JSON",
+      "Content-Type": "application/json"
+    },
+  });
+  // not a 2xx status
+  if(Math.round(response.status / 100) !== 2) {
+    error = `Rule with id ${ruleId} update failed, please try again.`;
+  }
+  return { error };
+}
+
+export const deleteRule = async (activityId: string, ruleSetId: string, ruleId: number) => {
+  let error: any;
+  try {
+    await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets/${ruleSetId}/rules/${ruleId}.json`, {
+      method: 'DELETE'
+    });
+  } catch (err) {
+    error = err;
   }
   return { error };
 }

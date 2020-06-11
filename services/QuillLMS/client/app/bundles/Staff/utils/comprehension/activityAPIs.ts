@@ -60,11 +60,9 @@ export const createActivity = async (activity: ActivityInterface) => {
 }
 
 export const updateActivity = async (activity: ActivityInterface, activityId: string) => {
-  let updatedActivity: ActivityInterface;
   let error: any;
-  let flagObject: any = {};
   try {
-    const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}.json`, {
+    await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}.json`, {
       method: 'PUT',
       body: JSON.stringify(activity),
       headers: {
@@ -72,17 +70,8 @@ export const updateActivity = async (activity: ActivityInterface, activityId: st
         "Content-Type": "application/json"
       },
     });
-    updatedActivity = await response.json();
   } catch (err) {
     error = err;
   }
-  if(updatedActivity) {
-    const { flag } = activity
-    flagObject = { label: flag, value: flag };
-  }
-  return { 
-    updatedActivity,
-    error,
-    flag: flagObject
-  }
+  return { error }
 }

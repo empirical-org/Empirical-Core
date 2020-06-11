@@ -41,7 +41,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     }
   });
 
-  const handleRuleCreation = (activityId: string, rules: RegexRuleInterface[], ruleSetId: string) => {
+  const handleRuleCreation = (rules: RegexRuleInterface[], ruleSetId: string) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       createRule(activityId, rule, ruleSetId).then((response) => {
         const { error } = response;
@@ -62,7 +62,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         updatedErrors['ruleSetError'] = error;
         setErrors(updatedErrors);
       } else if(rules.length && ruleSetId) {
-        handleRuleCreation(activityId, rules, ruleSetId);
+        handleRuleCreation(rules, ruleSetId);
       }
       // update ruleSets cache to display newly created ruleSet
       queryCache.refetchQueries(`ruleSets-${activityId}`);

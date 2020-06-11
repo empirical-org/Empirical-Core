@@ -2,8 +2,7 @@ import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { getPromptsIcons } from '../../../../../helpers/comprehension';
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
-import { blankRuleSet } from '../../../../../constants/comprehension';
-import { deleteRuleSet, fetchRuleSet } from '../../../utils/comprehension/ruleSetAPIs';
+import { deleteRuleSet, fetchRuleSet, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
 import { queryCache, useQuery } from 'react-query'
@@ -13,7 +12,7 @@ const RuleSet = ({ history, match }) => {
   const { activityId, ruleSetId } = params;
   const [showDeleteRuleSetModal, setShowDeleteRuleSetModal] = React.useState<boolean>(false);
   const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<boolean>(false);
+  const [errors, setErrors] = React.useState<object>({});
 
   // get cached activity data to pass to ruleSetForm 
   const { data: activityData } = useQuery({
@@ -23,7 +22,7 @@ const RuleSet = ({ history, match }) => {
 
   // cache ruleSet data 
   const { data: ruleSetData } = useQuery({
-    queryKey: [`ruleSet-${activityId}`, activityId, ruleSetId],
+    queryKey: [`ruleSet-${ruleSetId}`, activityId, ruleSetId],
     queryFn: fetchRuleSet
   });
 
@@ -89,15 +88,66 @@ const RuleSet = ({ history, match }) => {
     }
   }
 
-  const submitRuleSet = (ruleSet: ActivityRuleSetInterface) => {
-    // TODO: hook into RuleSet and RegEx PUT API
+  const handleCreateOrUpdateRules = (rules: RegexRuleInterface[], ruleSetId: string, rulesToDelete: object) => {
+    rules.map((rule: RegexRuleInterface, i: number) => {
+      const { id } = rule;
+      if(id && rulesToDelete[id]) {
+        deleteRule(activityId, ruleSetId, id).then((response) => {
+          const { error } = response;
+          if(error) {
+            let updatedErrors = errors;
+            updatedErrors[`delete rule-${i} error`] = error;
+            setErrors(updatedErrors);
+          }
+        });
+      } else if(id) {
+        updateRule(activityId, rule, ruleSetId, id).then((response) => {
+          const { error } = response;
+          if(error) {
+            let updatedErrors = errors;
+            updatedErrors[`update rule-${i} error`] = error;
+            setErrors(updatedErrors);
+          }
+        });
+      } else {
+        createRule(activityId, rule, ruleSetId).then((response) => {
+          const { error } = response;
+          if(error) {
+            let updatedErrors = errors;
+            updatedErrors[`create rule-${i} error`] = error;
+            setErrors(updatedErrors);
+          }
+        });
+      }
+    });
+  }
+
+  const submitRuleSet = (ruleSet: ActivityRuleSetInterface, regexRulesToDelete: object[]) => {
+    updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
+      const { error, rules, ruleSetId } = response;
+      if(error) {
+        let updatedErrors = errors;
+        updatedErrors['update error'] = error;
+        setErrors(updatedErrors);
+      } else if(rules && ruleSetId) {
+        handleCreateOrUpdateRules(rules, ruleSetId, regexRulesToDelete);
+      }
+    });
+
+    // update ruleSet cache to display newly updated ruleSet
+    queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
+
     toggleShowEditRuleSetModal();
   }
 
   const handleDeleteRuleSet = () => {
     deleteRuleSet(activityId, ruleSetId).then((response) => {
       const { error } = response;
-      error && setError(error);
+      if(error) {
+        let updatedErrors = errors;
+        updatedErrors['delete error'] = error;
+        setErrors(updatedErrors);
+      }
       toggleShowDeleteRuleSetModal();
 
       // update ruleSets cache to remove delete ruleSet
