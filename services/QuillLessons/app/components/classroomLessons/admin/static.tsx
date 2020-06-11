@@ -21,7 +21,7 @@ class AdminStatic extends React.Component<AdminStaticProps, any>{
     this.save = this.save.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!_.isEqual(this.state.question, nextProps.question)) {
       this.setState({question: nextProps.question})
     }

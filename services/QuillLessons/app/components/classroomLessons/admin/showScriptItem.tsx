@@ -20,15 +20,15 @@ class showScriptItem extends Component<any, any> {
     this.saveAlert = this.saveAlert.bind(this)
     this.delete = this.delete.bind(this)
 
-    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
+    this.props.dispatch(getEditionQuestions(this.props.match.params.editionID))
   }
 
   classroomLesson(): IntF.ClassroomLesson {
-    return this.props.classroomLessons.data[this.props.params.classroomLessonID]
+    return this.props.classroomLessons.data[this.props.match.params.classroomLessonID]
   }
 
   edition(): CustomizeIntF.EditionMetadata {
-    return this.props.customize.editions[this.props.params.editionID]
+    return this.props.customize.editions[this.props.match.params.editionID]
   }
 
   editionQuestions(): CustomizeIntF.EditionQuestions {
@@ -36,16 +36,16 @@ class showScriptItem extends Component<any, any> {
   }
 
   currentSlide(): IntF.Question {
-    return this.editionQuestions()[this.props.params.slideID]
+    return this.editionQuestions()[this.props.match.params.slideID]
   }
 
   getCurrentScriptItem(): CLIntF.ScriptItem {
-    const {editionID, slideID, scriptItemID} = this.props.params;
+    const {editionID, slideID, scriptItemID} = this.props.match.params;
     return this.currentSlide().data.teach.script[scriptItemID]
   }
 
   save(scriptItem: CLIntF.ScriptItem) {
-    const {editionID, slideID, scriptItemID} = this.props.params;
+    const {editionID, slideID, scriptItemID} = this.props.match.params;
     saveEditionScriptItem(editionID, slideID, scriptItemID, scriptItem, this.saveAlert)
   }
 
@@ -54,7 +54,7 @@ class showScriptItem extends Component<any, any> {
   }
 
   delete() {
-    const {classroomLessonID, editionID, slideID, scriptItemID} = this.props.params;
+    const {classroomLessonID, editionID, slideID, scriptItemID} = this.props.match.params;
     const script = this.currentSlide().data.teach.script;
     deleteScriptItem(editionID, slideID, scriptItemID, script)
     window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
@@ -62,7 +62,7 @@ class showScriptItem extends Component<any, any> {
 
   render() {
     if (this.props.classroomLessons.hasreceiveddata && this.editionQuestions()) {
-      const {editionID, classroomLessonID, slideID, scriptItemID} = this.props.params;
+      const {editionID, classroomLessonID, slideID, scriptItemID} = this.props.match.params;
       const editionLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
       const slideLink = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}/slide/${slideID}`
       return (
