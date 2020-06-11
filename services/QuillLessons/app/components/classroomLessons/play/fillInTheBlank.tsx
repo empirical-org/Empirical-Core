@@ -51,7 +51,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     this.updateBlankValue = this.updateBlankValue.bind(this);
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     const student = getParameterByName('student');
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       const submissionVals = nextProps.submissions[student].data.match(/<strong>(.*?)<\/strong>/g).map((term) => term.replace(/<strong>|<\/strong>/g, ''))
