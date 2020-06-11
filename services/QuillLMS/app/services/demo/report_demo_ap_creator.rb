@@ -105,7 +105,7 @@ module Demo::ReportDemoAPCreator
       unit = create_unit(teacher, v[:unit])
       create_classroom_units(classroom, unit)
       create_unit_activities(unit, v[:activities])
-      create_activity_sessions(students, v[:templates])
+      create_activity_sessions(students, v[:templates], classroom)
     end
 
     classrooms
@@ -197,12 +197,12 @@ module Demo::ReportDemoAPCreator
     end
   end
 
-  def self.create_activity_sessions(students, templates)
+  def self.create_activity_sessions(students, templates, classroom)
     students.each_with_index do |student, num|
       templates[num].each do |act_id, user_id|
         temp = ActivitySession.unscoped.where({activity_id: act_id, user_id: user_id, is_final_score: true}).first
         next unless temp
-        cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids)").to_a.first
+        cu = ClassroomUnit.where("#{student.id} = ANY (assigned_student_ids) AND classroom_id=#{classroom.id}")
         act_session = ActivitySession.create({activity_id: act_id, classroom_unit_id: cu.id, user_id: student.id, state: "finished", percentage: temp.percentage})
         temp.concept_results.each do |cr|
           values = {
