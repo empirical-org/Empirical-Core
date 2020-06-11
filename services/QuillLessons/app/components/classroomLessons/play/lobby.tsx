@@ -32,6 +32,8 @@ class Lobby extends React.Component<LobbyProps, {}> {
   renderProjectorView() {
     const { data, } = this.props
     const { students, presence, } = data
+    if (!students) { return }
+
     const studentUidsSortedByLastName: Array<string> = Object.keys(students).sort((key1, key2) => {
       return sortByLastName(key1, key2, students);
     })
