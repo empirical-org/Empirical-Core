@@ -44,10 +44,12 @@ const RuleSet = ({ history, match }) => {
     });
   }
 
-  const ruleSetRows = (ruleSetData) => {
-    if(ruleSetData && ruleSetData.ruleset) {
+  const ruleSetRows = ({ ruleset }) => {
+    if(!ruleset) {
+      return [];
+    } else {
       // format for DataTable to display labels on left side and values on right
-      const { feedback, name, prompts, rules } = ruleSetData.ruleset;
+      const { feedback, name, prompts, rules } = ruleset;
       const promptsIcons = prompts && getPromptsIcons(prompts);
       const regexRules = rules && getRegexRules(rules);
       let fields = [
@@ -83,12 +85,10 @@ const RuleSet = ({ history, match }) => {
           value
         }
       });
-    } else {
-      return [];
     }
   }
 
-  const handleCreateOrUpdateRules = (rules: RegexRuleInterface[], ruleSetId: string, rulesToDelete: object) => {
+  const handleCreateOrUpdateRules = (rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object) => {
     rules.map((rule: RegexRuleInterface, i: number) => {
       const { id } = rule;
       if(id && rulesToDelete[id]) {
@@ -99,8 +99,10 @@ const RuleSet = ({ history, match }) => {
             updatedErrors[`delete rule-${i} error`] = error;
             setErrors(updatedErrors);
           }
+          // update ruleSet cache to remove deleted rule
+          queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
-      } else if(id) {
+      } else if(id && rulesToUpdate[id]) {
         updateRule(activityId, rule, ruleSetId, id).then((response) => {
           const { error } = response;
           if(error) {
@@ -108,6 +110,8 @@ const RuleSet = ({ history, match }) => {
             updatedErrors[`update rule-${i} error`] = error;
             setErrors(updatedErrors);
           }
+          // update ruleSet cache to display newly updated rule
+          queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       } else {
         createRule(activityId, rule, ruleSetId).then((response) => {
@@ -117,25 +121,27 @@ const RuleSet = ({ history, match }) => {
             updatedErrors[`create rule-${i} error`] = error;
             setErrors(updatedErrors);
           }
+          // update ruleSet cache to display newly created rule
+          queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
         });
       }
     });
   }
 
-  const submitRuleSet = (ruleSet: ActivityRuleSetInterface, regexRulesToDelete: object[]) => {
+  const submitRuleSet = (ruleSet: ActivityRuleSetInterface, rulesToCreate: object, rulesToDelete: object, rulesToUpdate: object) => {
+    const rules = [...Object.values(rulesToCreate), ...Object.values(rulesToDelete), ...Object.values(rulesToUpdate)];
     updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
-      const { error, rules, ruleSetId } = response;
+      const { error } = response;
       if(error) {
         let updatedErrors = errors;
         updatedErrors['update error'] = error;
         setErrors(updatedErrors);
-      } else if(rules && ruleSetId) {
-        handleCreateOrUpdateRules(rules, ruleSetId, regexRulesToDelete);
+      } else if(rules) {
+        handleCreateOrUpdateRules(rules, rulesToDelete, rulesToUpdate);
       }
+      // update ruleSet cache to display newly updated ruleSet
+      queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
     });
-
-    // update ruleSet cache to display newly updated ruleSet
-    queryCache.refetchQueries(`ruleSet-${ruleSetId}`);
 
     toggleShowEditRuleSetModal();
   }

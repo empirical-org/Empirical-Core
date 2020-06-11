@@ -104,8 +104,10 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     )
   }
 
-  const generalSettingsRows = (data) => {
-    if(data && data.activity) {
+  const generalSettingsRows = ({ activity }) => {
+    if(!activity) {
+      return [];
+    } else {
       // format for DataTable to display labels on left side and values on right
       const { passages, prompts, title } = data.activity
       const fields = [
@@ -142,8 +144,6 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
           value
         }
       });
-    } else {
-      return [];
     }
   }
 

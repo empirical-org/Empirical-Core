@@ -10,7 +10,7 @@ interface RuleSetFormProps {
   activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitRuleSet: (ruleSet: ActivityRuleSetInterface, rulesToDelete: object) => void
+  submitRuleSet: (ruleSet: ActivityRuleSetInterface, rulesToDelete: object, rulesToUpdate: object) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -21,7 +21,9 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
   const [ruleSetFeedback, setRuleSetFeedback] = React.useState<string>(feedback || '');
   const [ruleSetPrompts, setRuleSetPrompts] = React.useState<object>({});
   const [regexRules, setRegexRules] = React.useState<object>({});
+  const [rulesToCreate, setRulesToCreate] = React.useState<object>({});
   const [rulesToDelete, setRulesToDelete] = React.useState<object>({});
+  const [rulesToUpdate, setRulesToUpdate] = React.useState<object>({});
   const [errors, setErrors] = React.useState<object>({});
 
   React.useEffect(() => {  
@@ -107,7 +109,7 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
-      submitRuleSet(ruleSet, rulesToDelete);
+      submitRuleSet(ruleSet, rulesToCreate, rulesToDelete, rulesToUpdate);
     }
   }
 
@@ -119,6 +121,16 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
       updatedRules[value].case_sensitive = !regexRules[value].case_sensitive;
     } else {
       updatedRules[id].regex_text = value;
+    }
+    const rule = updatedRules[value] || updatedRules[id];
+    if(rule.id) {
+      const updatedHash = rulesToUpdate;
+      updatedHash[rule.id] = rule;
+      setRulesToUpdate(updatedHash);
+    } else {
+      const updatedHash = rulesToCreate;
+      updatedHash[rule] = rule;
+      setRulesToCreate(updatedHash);
     }
     setRegexRules(updatedRules);
   }

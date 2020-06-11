@@ -63,10 +63,16 @@ export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleS
   if(Math.round(response.status / 100) !== 2) {
     error = `RuleSet with id ${ruleSetId} failed, please try again.`;
   }
+
+  const mergedRules = updatedRuleSet.rules;
+  rules.forEach(rule => {
+    // add rules without IDs for later creation
+    !rule.id && mergedRules.push(rule);
+  });
   return { 
     error, 
-    rules,
-    ruleSetId: updatedRuleSet && updatedRuleSet.id
+    rules: mergedRules,
+    ruleSetId: updatedRuleSet.id
   };
 }
 
