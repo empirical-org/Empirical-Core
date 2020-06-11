@@ -14,7 +14,10 @@ import {
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
 import { QuestionData } from '../../../interfaces/classroomLessons'
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg' ;
+
+const laptopGlyphSrc = `${process.env.QUILL_CDN_URL}/images/icons/laptop-glyph.svg` ;
+
+const PROJECT = 'PROJECT'
 
 interface SingleAnswerProps {
   data: QuestionData,
@@ -37,48 +40,52 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     const student = getParameterByName('student');
+    const { submissions, data, } = props
     this.state = {
-      response: student && this.props.submissions && this.props.submissions[student] ?
-                this.props.submissions[student].data :
-                props.data.play.prefilledText,
+      response: student && submissions && submissions[student] ?
+                submissions[student].data :
+                data.play.prefilledText,
       editing: false,
       submitted: false,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.submitSubmission = this.submitSubmission.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    const { editing, submitted, response, } = this.state
     const student = getParameterByName('student');
-    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
+    if (student && nextProps.submissions && nextProps.submissions[student] && !submitted) {
       this.setState({ submitted: true })
       this.setState({ response: nextProps.submissions[student].data })
     }
     // this will reset the state when a teacher resets a question
     const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
-    if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
+    if (submitted === true && (nextProps.submissions === null || retryForStudent)) {
       this.setState({ submitted: false, editing: false, response: nextProps.data.play.prefilledText || '', });
     }
-    if (this.state.editing === false && (nextProps.data.play.prefilledText !== this.state.response)) {
+    if (editing === false && (nextProps.data.play.prefilledText !== response)) {
       this.setState({response: nextProps.data.play.prefilledText})
     }
   }
 
-  submitSubmission() {
-    if (this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.state.response);
-      this.setState({ submitted: true, });
-    }
+  handleSubmit = () => {
+    const { handleStudentSubmission, } = this.props
+    const { response, } = this.state
+
+    if (!handleStudentSubmission) { return }
+
+    handleStudentSubmission(response);
+    this.setState({ submitted: true, });
   }
 
-  handleChange(e) {
+  onChange = (e) => {
     this.setState({ editing: true, response: e, });
   }
 
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
-    const classAnswers = this.props.selected_submissions && this.props.selected_submission_order
+    const { selected_submissions, selected_submission_order, } = this.props
+    const classAnswers = selected_submissions && selected_submission_order
     ? (<div>
       <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
       {this.renderClassAnswersList()}
@@ -93,12 +100,15 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderYourAnswer() {
-    if (!this.props.projector) {
-      return (<div>
-        <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
-        <p className="your-answer">{this.state.response}</p>
-      </div>)
-    }
+    const { projector, } = this.props
+    const { response, } = this.state
+
+    if (projector ) { return }
+
+    return (<div>
+      <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+      <p className="your-answer">{response}</p>
+    </div>)
   }
 
   renderClassAnswersList() {
@@ -126,80 +136,93 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   modeAppropriateRender() {
-    if (this.props.mode === 'PROJECT') {
-      return this.renderProject();
-    }
-    const textBoxDisabled = !!this.state.submitted || this.props.projector
-      return (
-        <TextEditor
-          checkAnswer={this.submitSubmission}
-          defaultValue={''}
-          disabled={textBoxDisabled}
-          handleChange={this.handleChange}
-          hasError={undefined}
-          placeholder={this.props.projector ? 'Students type their response.' : "Type your answer here."}
-          value={this.state.response}
-        />
-      );
+    const { mode, projector, } = this.props
+    const { submitted, response, } = this.state
+
+    if (mode === PROJECT) { return this.renderProject(); }
+
+    const textBoxDisabled = !!submitted || projector
+    const value = projector ? 'Students type responses here' : response
+    return (
+      <TextEditor
+        checkAnswer={this.handleSubmit}
+        defaultValue=""
+        disabled={textBoxDisabled}
+        handleChange={this.onChange}
+        hasError={undefined}
+        placeholder="Type your response here"
+        value={value}
+      />
+    );
   }
 
   renderInstructions() {
-    if (this.props.mode !== 'PROJECT') {
-      if (this.state.submitted) {
-        return (<FeedbackRow />);
-      } else if (this.props.data.play.instructions) {
-        return (<Feedback
-          feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
-          feedbackType="default"
-        />);
-      }
+    const { mode, data, } = this.props
+    const { submitted, } = this.state
+
+    if (mode === PROJECT) { return }
+
+    if (submitted) {
+      return (<FeedbackRow />);
+    } else if (data.play.instructions) {
+      return (<Feedback
+        feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
+        feedbackType="default"
+      />);
     }
   }
 
   renderCues() {
-    if (this.props.mode !== 'PROJECT') {
-      if (this.props.data.play.cues) {
-        return (
-          <Cues
-            displayArrowAndText={false}
-            getQuestion={() => ({
-              cues: this.props.data.play.cues,
-            })}
-          />
-        );
-      }
+    const { mode, data, } = this.props
+
+    if (mode === PROJECT) { return }
+
+    const getQuestion = () => ({ cues: data.play.cues })
+
+    if (data.play.cues) {
       return (
-        <span />
+        <Cues
+          displayArrowAndText={false}
+          getQuestion={getQuestion}
+        />
       );
     }
+    return (
+      <span />
+    );
   }
 
   renderSubmitButton() {
-    if (this.props.mode !== 'PROJECT') {
-      const disabled = !this.state.response || this.state.response.length === 0 ? 'is-disabled' : null
+    const { mode, } = this.props
+    const { response, submitted, } = this.state
+    if (mode !== PROJECT) {
+      const disabled = !response || response.length === 0 || submitted ? 'disabled' : null
       return (<div className="question-button-group">
-        <button className={`button student-submit ${disabled}`} disabled={!!(this.state.submitted || disabled)} onClick={this.submitSubmission}>Submit</button>
+        <button className={`quill-button primary contained large focus-on-light ${disabled}`} disabled={!!disabled} onClick={this.handleSubmit} type="button">Submit</button>
       </div>);
     }
   }
 
   renderProjectorHeader() {
-    if (this.props.projector) {
-      const studentCount:number|undefined = this.props.studentCount
-      const submissionCount:number = this.props.submissions ? Object.keys(this.props.submissions).length : 0
-      const studentCountText:string = studentCount && submissionCount ? `${submissionCount} of ${studentCount} Answered` : ''
-      return (<div className="projector-header-section">
-        <div className="students-type-tag tag">Students Type Response</div>
-        <p className="answered-count">{studentCountText}</p>
-      </div>)
-    }
+    const { projector, studentCount, submissions, } = this.props
+
+    if (!projector) { return }
+
+    const submissionCount:number = submissions ? Object.keys(submissions).length : 0
+    const studentCountText:string = studentCount ? `${submissionCount} of ${studentCount} have responded` : ''
+    return (<div className="projector-header-section">
+      <div className="students-type-tag tag"><img alt="Laptop Icon" src={laptopGlyphSrc} /><span>Students type response</span></div>
+      <p className="answered-count">{studentCountText}</p>
+    </div>)
   }
 
   render() {
+    const { data, projector, } = this.props
+    const className = projector ? "single-answer projector" : "single-answer"
     return (
-      <div>
+      <div className={className}>
         {this.renderProjectorHeader()}
-        <SentenceFragments prompt={this.props.data.play.prompt} />
+        <SentenceFragments prompt={data.play.prompt} />
         {this.renderCues()}
         {this.renderInstructions()}
         {this.modeAppropriateRender()}

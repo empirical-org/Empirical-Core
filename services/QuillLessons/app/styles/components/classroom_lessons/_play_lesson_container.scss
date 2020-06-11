@@ -161,13 +161,21 @@
     color: #f8a724;
   }
   .students-type-tag {
-    background-color: #d1eaff;
-    color: #348fdf;
+    border-radius: 0px 0px 4px 4px;
+    border: solid 2px #06806b;
+    border-top: 0px;
+    padding: 16px;
+    margin-top: -1px;
+    height: min-content;
+    background-color: #e1f3f1;
+    img {
+      margin-right: 8px;
+    }
   }
   .answered-count {
-    font-size: 16px;
-    font-weight: 600;
-    color: #666666;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #000;
   }
 }
 

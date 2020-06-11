@@ -37,12 +37,14 @@ export default class Home extends React.Component<any, any> {
   render() {
     const { showFocusState, } = this.state
     const className = showFocusState ? '' : 'hide-focus-outline'
+    const mainContent = document.getElementById("main-content")
+    const skipToMainContentButton = mainContent ? <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button> : null
     return(
       <Layout className={className}>
         <Layout>
           <Layout.Content>
-            <button className="skip-main" onClick={this.handleSkipToMainContentClick} type="button">Skip to main content</button>
-            <div id="main-content" tabIndex={-1}>{renderRoutes(routes)}</div>
+            {skipToMainContentButton}
+            {renderRoutes(routes)}
           </Layout.Content>
         </Layout>
       </Layout>

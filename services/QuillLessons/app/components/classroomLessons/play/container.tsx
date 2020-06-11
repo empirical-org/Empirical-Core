@@ -237,7 +237,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
-    const studentCount = data.students && Object.keys(data.students) ? Object.keys(data.students).length : 0
+    const studentCount = data.presence && Object.keys(data.presence) ? Object.keys(data.presence).length : 0
     const props = { mode, submissions, selected_submissions, selected_submission_order, projector, studentCount};
     let slide
     switch (current.type) {
@@ -407,7 +407,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
      }
      return (<div>
        {navbar}
-       {mainContent}
+       <div id="main-content" tabIndex={-1}>{mainContent}</div>
      </div>)
    }
 
