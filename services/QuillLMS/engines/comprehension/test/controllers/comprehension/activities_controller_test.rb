@@ -35,7 +35,7 @@ module Comprehension
 
           assert_equal  "First Activity", parsed_response.first['title']
           assert_equal  8, parsed_response.first['target_level']
-          assert_equal  8, parsed_response.first['target_level']
+          assert_equal  1, parsed_response.first['parent_activity_id']
         end
       end
     end
