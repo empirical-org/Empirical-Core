@@ -5,11 +5,11 @@ module Comprehension
 
     config.generators do |g|
 
-      g.orm             :active_record
-      g.test_framework  :shoulda, fixtures: false
+      g.orm :active_record
+      g.test_framework :shoulda, fixtures: false
       g.fixtures false
 
-      g.stylesheets     false
+      g.stylesheets false
       g.helper false
       g.javascript false
       g.assets false

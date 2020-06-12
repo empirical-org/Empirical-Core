@@ -12,7 +12,7 @@ module Comprehension
     end
 
     private def ensure_json_format_for(options)
-      return options unless json = options[:json] # doesn't have json
+      return options unless (json = options[:json]) # doesn't have json
       return options if json.is_a?(String) # json already formatted
 
       options.merge(json: json.to_json)

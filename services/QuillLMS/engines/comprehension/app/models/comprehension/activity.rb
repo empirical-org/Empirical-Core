@@ -9,8 +9,8 @@ module Comprehension
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
 
-    accepts_nested_attributes_for :passages, reject_if: Proc.new { |p| p['text'].blank? }
-    accepts_nested_attributes_for :prompts, reject_if: Proc.new { |p| p['text'].blank? }
+    accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
+    accepts_nested_attributes_for :prompts, reject_if: proc { |p| p['text'].blank? }
 
     validates :quill_activity_id, presence: true, uniqueness: {allow_nil: true}
     validates :target_level, presence: true,
