@@ -6,6 +6,7 @@ module Comprehension
 
     context 'associations' do
       should have_many(:passages).dependent(:destroy)
+      should have_many(:prompts).dependent(:destroy)
     end
 
     context 'validations' do
@@ -23,7 +24,6 @@ module Comprehension
 
       should validate_length_of(:scored_level).is_at_most(100)
     end
-
 
     context 'serializable_hash' do
       setup do
@@ -53,7 +53,6 @@ module Comprehension
         assert_equal prompt_hash['text'], "it is good."
         assert_equal prompt_hash['max_attempts'], 5
         assert_equal prompt_hash['max_attempts_feedback'], "good work!."
-
       end
     end
   end
