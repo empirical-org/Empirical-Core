@@ -1,0 +1,35 @@
+
+.pre-ap-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 0px 20px 0px;
+  .header-left {
+    display: flex;
+    flex-direction: column;
+    .logo-container {
+      display: flex;
+      flex-direction: row;
+      margin: 20px 0px 40px 0px;
+    }
+    .header-text-container {
+      max-width: 475px;
+      h1 {
+        font-size: 30px;
+        font-weight: bold;
+        line-height: 1.33;
+        color: black;
+      }
+      p {
+        opacity: 0.9;
+        font-size: 16px;
+        line-height: 1.5;
+        color: black;
+        margin: 10px 0px 30px 0px;
+      }
+    }
+  }
+  .header-right {
+
+  }
+}
