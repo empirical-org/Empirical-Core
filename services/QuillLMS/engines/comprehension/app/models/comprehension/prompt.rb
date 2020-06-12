@@ -17,7 +17,8 @@ module Comprehension
     validates :conjunction, presence: true, inclusion: { in: CONJUNCTIONS }
     validates :max_attempts, inclusion: { in: MIN_MAX_ATTEMPTS..MAX_MAX_ATTEMPTS }
 
-    def serializable_hash(options = {})
+    def serializable_hash(options = nil)
+      options ||= {}
       super(options.reverse_merge(
         only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       ))
