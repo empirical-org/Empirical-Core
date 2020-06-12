@@ -55,6 +55,26 @@ describe StudentsController do
     end
   end
 
+  describe '#student_demo_ap' do
+    context 'when bell hooks exists' do
+      let!(:bell) { create(:user, email: 'bell_hooks_demo@quill.org') }
+
+      it 'should sign in bell and redirect to profile' do
+        get :demo_ap
+        expect(session[:user_id]).to eq bell.id
+        expect(response).to redirect_to '/classes'
+      end
+    end
+
+    context 'when bell hooks does not exist' do
+      it 'should recreate the demo and redirect to student demo' do
+        expect(Demo::ReportDemoAPCreator).to receive(:create_demo).with(nil)
+        get :demo_ap
+        expect(response).to redirect_to "/student_demo_ap"
+      end
+    end
+  end
+
   describe '#update_account' do
     let!(:user) { create(:user, name: "Maya Angelou", email: 'maya_angelou_demo@quill.org', username: "maya-angelou", role: "student") }
     let!(:second_user) { create(:user, name: "Harvey Milk", email: 'harvey@quill.org', username: "harvey-milk", role: "student") }
