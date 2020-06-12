@@ -9,32 +9,29 @@ const handleLogoClick = () => {
   }
 }
 
-const getSlideName = (editionData, data) => {
-  if (!(editionData && editionData.questions && data)) { return '' }
-
-  if (data.current_slide > 0) {
-    return [<span key="slide-number">Slide {parseInt(data.current_slide)}</span>, `: ${editionData.questions[data.current_slide].data.teach.title}`]
-  }
-
-  return "Lobby"
-}
-
-const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
+export const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
   const { data } = classroomSessions;
   const lessonData = classroomLesson.data;
-  const editionData = customize.editionQuestions;
+
+  // need to subtract one from the number of questions to account for the lobby slide
+  const numberOfQuestions = lessonData && lessonData.questions ? lessonData.questions.length - 1 : null
+  const counterText = numberOfQuestions ? `${data.current_slide} of ${numberOfQuestions}` : ''
 
   return (
     <header className='nav student-nav'>
       <nav className="student-lessons">
-        <img
-          alt="Quill.org logo"
-          className="quill-logo"
+        <button
+          className="focus-on-dark interactive-wrapper"
           onClick={handleLogoClick}
-          src={quillLogoSrc}
-        />
-        <div className="slide-name" key="slide-name">{getSlideName(editionData, data)}</div>
-        <div className="lesson-name">{lessonData.title}</div>
+          type="button"
+        >
+          <img
+            alt="Quill.org logo"
+            className="quill-logo"
+            src={quillLogoSrc}
+          />
+        </button>
+        <p className="counter">{counterText}</p>
       </nav>
     </header>
   );
@@ -44,7 +41,6 @@ function select(props) {
   return {
     classroomSessions: props.classroomSessions,
     classroomLesson: props.classroomLesson,
-    customize: props.customize
   };
 }
 

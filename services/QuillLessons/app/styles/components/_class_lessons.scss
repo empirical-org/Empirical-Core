@@ -7,11 +7,10 @@
 @import 'classroom_lessons/_scalers.scss';
 @import 'classroom_lessons/_teacher_navbar.scss';
 @import 'classroom_lessons/_tooltip.scss';
-@import 'classroom_lessons/_watch_teacher.scss';
+@import 'classroom_lessons/_full_page_modal.scss';
 @import 'classroom_lessons/_generic_student.scss';
 @import 'classroom_lessons/_fill_in_the_blank.scss';
 @import 'classroom_lessons/_teacher_model.scss';
-@import 'classroom_lessons/_absent_teacher.scss';
 @import 'classroom_lessons/_admin.scss';
 @import 'classroom_lessons/_projector_modal.scss';
 @import 'classroom_lessons/_preview_modal.scss';
@@ -71,8 +70,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 127px;
-        height: 20px;
+        min-width: 155px;
+        width: min-content;
+        padding: 0px 10px;
+        height: min-content;
         border-radius: 100px;
         background-color: #00c2a2;
         font-size: 11px;
@@ -82,7 +83,7 @@
           margin-right: 4px;
         }
         span {
-          margin-top: -2px;
+          white-space: nowrap;
         }
       }
       .slide-number {
