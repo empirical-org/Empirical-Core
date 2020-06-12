@@ -23,15 +23,30 @@
       }
     }
   }
-  .card-content {
+  .student.text-editor.card {
     border-radius: 4px;
     border: solid 2px #8e8e8e;
+    box-shadow: none;
     textarea {
       font-size: 24px;
+      color: #000;
     }
   }
   .question-button-group {
     margin-bottom: 100px;
+  }
+
+  .submitted-bar {
+    background-color: #e1f3f1;
+    padding: 18px 20px;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #000;
   }
 
   @media (max-width: 400px) {
@@ -53,17 +68,21 @@
     }
   }
 
-  &.projector {
-    .disabled-editor {
-      opacity: 1 !important;
-      .card-content {
-        background-color: #e5e5e5;
-        border: none;
-        textarea {
-          color: #000;
-          line-height: 1.33;
-        }
+  .student.text-editor.card.disabled-editor {
+    opacity: 1 !important;
+    border: none;
+    .card-content {
+      background-color: #e5e5e5;
+      textarea {
+        color: #000;
+        line-height: 1.33;
       }
+    }
+  }
+
+  &.editing {
+    .student.text-editor.card {
+      border: solid 2px #06806b;
     }
   }
 }

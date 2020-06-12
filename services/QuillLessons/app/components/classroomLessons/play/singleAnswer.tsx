@@ -78,7 +78,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   onChange = (e) => {
-    this.setState({ editing: true, response: e, });
+    this.setState({ editing: e.length, response: e, });
   }
 
   // this is the mode where the teacher has chosen to project some of the students'
@@ -158,18 +158,13 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
   renderInstructions() {
     const { mode, data, } = this.props
-    const { submitted, } = this.state
 
-    if (mode === PROJECT) { return }
+    if (mode === PROJECT || !data.play.instructions) { return }
 
-    if (submitted) {
-      return (<FeedbackRow />);
-    } else if (data.play.instructions) {
-      return (<Feedback
-        feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
-        feedbackType="default"
-      />);
-    }
+    return (<Feedback
+      feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
+      feedbackType="default"
+    />);
   }
 
   renderCues() {
@@ -195,12 +190,12 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   renderSubmitButton() {
     const { mode, } = this.props
     const { response, submitted, } = this.state
-    if (mode !== PROJECT) {
-      const disabled = !response || response.length === 0 || submitted ? 'disabled' : null
-      return (<div className="question-button-group">
-        <button className={`quill-button primary contained large focus-on-light ${disabled}`} disabled={!!disabled} onClick={this.handleSubmit} type="button">Submit</button>
-      </div>);
-    }
+    if (submitted || mode === PROJECT) { return }
+
+    const disabled = !response || response.length === 0 ? 'disabled' : null
+    return (<div className="question-button-group">
+      <button className={`quill-button primary contained large focus-on-light ${disabled}`} disabled={!!disabled} onClick={this.handleSubmit} type="button">Submit</button>
+    </div>);
   }
 
   renderProjectorHeader() {
@@ -216,9 +211,22 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     </div>)
   }
 
+  renderSubmittedBar() {
+    const { mode, } = this.props
+    const { submitted, } = this.state
+
+    if (!submitted || mode === PROJECT) { return }
+
+    return <div className="submitted-bar">Please wait as your teacher reviews your response.</div>
+  }
+
   render() {
     const { data, projector, } = this.props
-    const className = projector ? "single-answer projector" : "single-answer"
+    const { editing, } = this.state
+    let className = 'single-answer '
+    className+= projector ? "projector " : ""
+    className+= editing ? "editing " : ""
+
     return (
       <div className={className}>
         {this.renderProjectorHeader()}
@@ -227,6 +235,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         {this.renderInstructions()}
         {this.modeAppropriateRender()}
         {this.renderSubmitButton()}
+        {this.renderSubmittedBar()}
       </div>
     );
   }
