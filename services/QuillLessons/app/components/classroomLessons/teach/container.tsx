@@ -59,7 +59,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   componentDidMount() {
     const { classroomUnitId, classroomSessionId } = this.state
-    const { match, dispatch, classroomLesson, } = this.props
+    const { match, dispatch, classroomLesson, history, } = this.props
     const activityId: string = match.params.lessonID;
     if (classroomUnitId) {
       startLesson(classroomUnitId, classroomSessionId, () => {
@@ -67,13 +67,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       });
       registerTeacherPresence(classroomSessionId);
     } else {
-      const { lessonID, editionID } = match.params;
-      const classroomUnitId = createPreviewSession(lessonID, editionID)
-      const modalQSValue = getParameterByName('modal')
-      const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
-      if (classroomUnitId) {
-        document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
-      }
+      this.setupPreviewSession()
     }
     if (classroomLesson.hasreceiveddata) {
       dispatch(clearClassroomLessonFromStore());
@@ -119,6 +113,24 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       }
       user_ids.push(props.customize.user_id)
       this.props.dispatch(getEditionMetadataForUserIds(user_ids, lessonId))
+    }
+  }
+
+  setupPreviewSession = () => {
+    const { match, history, dispatch, } = this.props
+    const { lessonID, editionID } = match.params;
+    const classroomUnitId = createPreviewSession(lessonID, editionID)
+    const modalQSValue = getParameterByName('modal')
+    const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
+    if (classroomUnitId) {
+      const route = `/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
+      history.push(route)
+      const classroomSessionId = classroomUnitId.concat(lessonID)
+      this.setState({ classroomSessionId, })
+      startLesson(classroomUnitId, classroomSessionId, () => {
+        dispatch(startListeningToSessionForTeacher(lessonID, classroomUnitId, classroomSessionId));
+      });
+      registerTeacherPresence(classroomSessionId);
     }
   }
 
