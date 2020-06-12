@@ -2,7 +2,8 @@ import * as React from "react";
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from './ruleSetForm';
-import { getPromptsIcons } from '../../../../../helpers/comprehension';
+import SubmissionModal from '../shared/submissionModal';
+import { buildErrorMessage, getPromptsIcons } from '../../../../../helpers/comprehension';
 import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -13,6 +14,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   const { params } = match;
   const { activityId } = params;
   const [showAddRuleSetModal, setShowAddRuleSetModal] = React.useState<boolean>(false);
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
   // cache ruleSets data for updates 
@@ -67,12 +69,17 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
       // update ruleSets cache to display newly created ruleSet
       queryCache.refetchQueries(`ruleSets-${activityId}`);
 
-      toggleShowAddRuleSetModal();
+      toggleAddRuleSetModal();
+      toggleSubmissionModal();
     });
   }
 
-  const toggleShowAddRuleSetModal = () => {
+  const toggleAddRuleSetModal = () => {
     setShowAddRuleSetModal(!showAddRuleSetModal);
+  }
+
+  const toggleSubmissionModal = () => {
+    setShowSubmissionModal(!showSubmissionModal);
   }
 
   const renderRuleSetForm = () => {
@@ -81,12 +88,20 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         <RuleSetForm
           activityData={activityData && activityData.activity}
           activityRuleSet={blankRuleSet} 
-          closeModal={toggleShowAddRuleSetModal} 
+          closeModal={toggleAddRuleSetModal} 
           submitRuleSet={submitRuleSet} 
         />
       </Modal>
     );
-  } 
+  }
+
+  const renderSubmissionModal = () => {
+    let message = 'Rule set successfully updated!';
+    if(errors) {
+      message = buildErrorMessage(errors);
+    }
+    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
+  }
 
   if(!ruleSetsData) {
     return(
@@ -115,6 +130,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   return(
     <div className="rulesets-container">
       {showAddRuleSetModal && renderRuleSetForm()}
+      {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
         <p>Rule Sets</p>
       </div>
@@ -125,7 +141,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
         rows={formattedRows ? formattedRows : []}
       />
       <div className="button-container">
-        <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleShowAddRuleSetModal} type="submit">
+        <button className="quill-button fun primary contained" id="add-rule-button" onClick={toggleAddRuleSetModal} type="submit">
           Add Rule
         </button>
       </div>

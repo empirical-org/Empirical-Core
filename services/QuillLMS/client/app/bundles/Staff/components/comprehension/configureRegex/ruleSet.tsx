@@ -1,10 +1,11 @@
 import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { getPromptsIcons } from '../../../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons } from '../../../../../helpers/comprehension';
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { deleteRuleSet, fetchRuleSet, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
+import SubmissionModal from '../shared/submissionModal';
 import { queryCache, useQuery } from 'react-query'
 
 const RuleSet = ({ history, match }) => {
@@ -12,6 +13,7 @@ const RuleSet = ({ history, match }) => {
   const { activityId, ruleSetId } = params;
   const [showDeleteRuleSetModal, setShowDeleteRuleSetModal] = React.useState<boolean>(false);
   const [showEditRuleSetModal, setShowEditRuleSetModal] = React.useState<boolean>(false);
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [errors, setErrors] = React.useState<object>({});
 
   // get cached activity data to pass to ruleSetForm 
@@ -32,6 +34,10 @@ const RuleSet = ({ history, match }) => {
 
   const toggleShowDeleteRuleSetModal = () => {
     setShowDeleteRuleSetModal(!showDeleteRuleSetModal);
+  }
+
+  const toggleSubmissionModal = () => {
+    setShowSubmissionModal(!showSubmissionModal);
   }
 
   const getRegexRules = (rules: RegexRuleInterface[]) => {
@@ -192,6 +198,14 @@ const RuleSet = ({ history, match }) => {
     )
   }
 
+  const renderSubmissionModal = () => {
+    let message = 'Rule set successfully updated!';
+    if(errors) {
+      message = buildErrorMessage(errors);
+    }
+    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
+  }
+
   // The header labels felt redundant so passing empty strings and hiding header display
   const dataTableFields = [
     { name: "", attribute:"field", width: "180px" }, 
@@ -218,6 +232,7 @@ const RuleSet = ({ history, match }) => {
     <div className="ruleset-container">
       {showDeleteRuleSetModal && renderDeleteRuleSetModal()}
       {showEditRuleSetModal && renderRuleSetForm()}
+      {showSubmissionModal && renderSubmissionModal()}
       <div className="header-container">
         <p>Rule Set</p>
       </div>

@@ -3,16 +3,17 @@ import { NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } fro
 import { Modal } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { blankActivity } from '../../../../constants/comprehension';
-import ActivityForm from './configureSettings/activityForm'
-import Activities from './activities'
-import Activity from './activity'
+import ActivityForm from './configureSettings/activityForm';
+import Activities from './activities';
+import Activity from './activity';
+import SubmissionModal from './shared/submissionModal';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
 import { queryCache } from 'react-query'
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
-  const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false)
-  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false)
+  const [showCreateActivityModal, setShowCreateActivityModal] = React.useState<boolean>(false);
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>('');
 
   const checkIndexActive = () => {
@@ -36,7 +37,6 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const submitActivity = (activity: ActivityInterface) => {
     createActivity(activity).then((response) => {
       const { error } = response;
-
       error && setError(error);
       setShowCreateActivityModal(false);
       setShowSubmissionModal(true);
@@ -56,14 +56,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
 
   const renderSubmissionModal = () => {
     const message = error ? error : 'Submission successful!';
-    return(
-      <Modal>
-        <div className="close-button-container">
-          <button className="quill-button fun primary contained" id="flag-close-button" onClick={toggleSubmissionModal} type="submit">x</button>
-        </div>
-        <p className="submission-message">{message}</p>
-      </Modal>
-    );
+    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   return(
@@ -95,4 +88,4 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   )
 }
 
-export default withRouter(ComprehensionLanding)
+export default withRouter(ComprehensionLanding);

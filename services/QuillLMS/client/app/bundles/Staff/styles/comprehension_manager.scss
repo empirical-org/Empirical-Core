@@ -441,14 +441,13 @@
       margin-left: 35px;
     }
     .edit-turk-session-container {
-      width: 300px;
-      height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       .date-picker-container {
         justify-content: center;
         margin-right: 0px;
+        padding: 20px;
         .SingleDatePicker {
           div {
             .SingleDatePickerInput {
@@ -467,6 +466,9 @@
         align-items: center;
         #edit-turk-submit-button, #delete-turk-submit-button {
           margin-right: 10px;
+        }
+        #edit-turk-submit-button {
+          margin-bottom: 10px;
         }
         .edit-error-message {
           margin: 0px 10px 0px 0px;

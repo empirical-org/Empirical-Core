@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { ActivityRouteProps, TurkSessionInterface } from '../../../interfaces/comprehensionInterfaces';
 import { createTurkSession, fetchTurkSessions } from '../../../utils/comprehension/turkAPIs';
 import EditOrDeleteTurkSession from './editOrDeleteTurkSession';
+import SubmissionModal from '../shared/submissionModal';
 import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
@@ -50,18 +51,16 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     setEditTurkSessionDate(value);
     setDateError('');
     setShowEditOrDeleteTurkSessionModal(true);
+    toggleSubmissionModal();
+  }
+
+  const handleEditOrDeleteError = (error) => {
+    setSubmissionError(error);
   }
 
   const renderSubmissionModal = () => {
     const message = submissionError ? submissionError : 'Submission successful!';
-    return(
-      <Modal>
-        <div className="close-button-container">
-          <button className="quill-button fun primary contained" id="submission-close-button" onClick={toggleSubmissionModal} type="submit">x</button>
-        </div>
-        <p className="submission-message">{message}</p>
-      </Modal>
-    );
+    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   const renderEditOrDeleteTurkSessionModal = () => {
@@ -72,8 +71,9 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
         </div>
         <EditOrDeleteTurkSession 
           activityId={activityId} 
-          closeModal={toggleEditTurkSessionModal} 
+          closeModal={toggleEditTurkSessionModal}
           originalSessionDate={editTurkSessionDate}
+          setError={handleEditOrDeleteError}
           turkSessionId={editTurkSessionId} 
         />
       </Modal>
@@ -118,7 +118,10 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   
   const handleFocusChange = ({ focused }) => { setFocusedState(focused) };
   
-  const toggleSubmissionModal = () => { setShowSubmissionModal(!showSubmissionModal) }
+  const toggleSubmissionModal = () => { 
+    setShowSubmissionModal(!showSubmissionModal);
+    setSubmissionError('');
+  }
 
   const toggleEditTurkSessionModal = () => {setShowEditOrDeleteTurkSessionModal(!showEditOrDeleteTurkSessionModal)  }
 

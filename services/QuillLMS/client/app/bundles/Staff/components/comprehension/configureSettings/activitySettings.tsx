@@ -3,17 +3,18 @@ import { RouteComponentProps } from 'react-router-dom';
 import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
 import ActivityForm from './activityForm';
+import SubmissionModal from '../shared/submissionModal';
 import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
 import { queryCache, useQuery } from 'react-query'
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
 
-  const [loading, setLoading] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string>(null);
   const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(null);
   const [showEditActivityModal, setShowEditActivityModal] = React.useState<boolean>(false);
   const [showEditFlagModal, setShowEditFlagModal] = React.useState<boolean>(false);
+  const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const { params } = match;
   const { activityId } = params;
 
@@ -24,17 +25,12 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
   });
 
   const handleUpdateActivity = (activity: ActivityInterface) => {
-    setLoading(true);
     updateActivity(activity, activityId).then((response) => {
       const { error } = response;
-      if(error) {
-        setError(error);
-        setLoading(false);
-      } else {
-        queryCache.refetchQueries(`activity-${activityId}`)
-        setShowEditActivityModal(false);
-        setLoading(false);
-      }
+      error && setError(error);
+      queryCache.refetchQueries(`activity-${activityId}`)
+      setShowEditActivityModal(false);
+      toggleSubmissionModal();
     });
   }
 
@@ -60,6 +56,10 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
       setActivityFlag(data.flag);
     }
     setShowEditFlagModal(!showEditFlagModal);
+  }
+
+  const toggleSubmissionModal = () => {
+    setShowSubmissionModal(!showSubmissionModal);
   }
 
   const flagModal = (
@@ -102,6 +102,11 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
         </div>
       </Modal>
     )
+  }
+
+  const renderSubmissionModal = () => {
+    const message = error ? error : 'Activity successfully updated!';
+    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
   }
 
   const generalSettingsRows = ({ activity }) => {
@@ -147,7 +152,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     }
   }
 
-  if(!data || loading) {
+  if(!data) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -155,7 +160,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     );
   }
 
-  if((data && data.error) || error) {
+  if(data && data.error) {
     return(
       <div className="error-container">
         <Error error={`${error}`} />
@@ -173,6 +178,7 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     <div className="activity-settings-container">
       {showEditActivityModal && renderActivityForm()}
       {showEditFlagModal && renderFlagEditModal()}
+      {showSubmissionModal && renderSubmissionModal()}
       <DataTable
         className="activity-general-settings-table"
         headers={dataTableFields}

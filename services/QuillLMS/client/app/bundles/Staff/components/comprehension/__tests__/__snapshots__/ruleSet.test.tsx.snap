@@ -2,73 +2,8 @@
 
 exports[`RuleSet component should render RuleSet 1`] = `
 <div
-  className="ruleset-container"
+  className="loading-spinner-container"
 >
-  <div
-    className="header-container"
-  >
-    <p>
-      Rule Set
-    </p>
-  </div>
-  <DataTable
-    averageFontWidth={7}
-    className="ruleset-table"
-    headers={
-      Array [
-        Object {
-          "attribute": "field",
-          "name": "",
-          "width": "180px",
-        },
-        Object {
-          "attribute": "value",
-          "name": "",
-          "width": "600px",
-        },
-      ]
-    }
-    rows={
-      Array [
-        Object {
-          "field": "Name",
-          "id": "Name-0",
-          "value": "",
-        },
-        Object {
-          "field": "Feedback",
-          "id": "Feedback-1",
-          "value": "",
-        },
-        Object {
-          "field": "Because",
-          "id": "Because-2",
-          "value": undefined,
-        },
-        Object {
-          "field": "But",
-          "id": "But-3",
-          "value": undefined,
-        },
-        Object {
-          "field": "So",
-          "id": "So-4",
-          "value": undefined,
-        },
-      ]
-    }
-  />
-  <div
-    className="button-container"
-  >
-    <button
-      className="quill-button fun primary contained"
-      id="edit-ruleset-button"
-      onClick={[Function]}
-      type="button"
-    >
-      Configure
-    </button>
-  </div>
+  <Spinner />
 </div>
 `;

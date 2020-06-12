@@ -8,11 +8,12 @@ import 'whatwg-fetch';
 const mockProps = {
   match: {
     params: {
-      activityId: '1'
+      activityId: '1',
+      ruleSetId: '104'
     },
     isExact: true,
     path: '',
-    url:''
+    url:'`https://comprehension-247816.appspot.com/api/activities/:activityId/rulesets/:ruleSetId.json/`'
   },
   history: createMemoryHistory(),
   location: createLocation('')
@@ -32,7 +33,7 @@ describe('RuleSet component', () => {
   it('should render RuleSet', () => {
     expect(container).toMatchSnapshot();
   });
-  it('should render a DataTable component', () => {
+  it('should render a DataTable component', async () => {
     expect(container.find(DataTable).length).toEqual(1);
   });
   it('should render a row for each field', () => {
