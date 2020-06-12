@@ -21,6 +21,6 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 require 'factory_bot_rails'
-class ActionController::TestCase
+class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 end

@@ -19,7 +19,7 @@ module Comprehension
 
     def serializable_hash(options = {})
       super(options.reverse_merge(
-        only: [:id, :conjuction, :text, :max_attempts, :max_attempts_feedback]
+        only: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       ))
     end
 
