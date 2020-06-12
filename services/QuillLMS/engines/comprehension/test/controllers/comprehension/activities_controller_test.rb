@@ -19,8 +19,8 @@ module Comprehension
 
       context 'with actitivites' do
         setup do
-          create(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8)
-          create(:comprehension_activity, quill_activity_id: 2, title: "Second Activity",
+          create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8)
+          create(:comprehension_activity, parent_activity_id: 2, title: "Second Activity",
             target_level: 5)
         end
 
@@ -42,11 +42,11 @@ module Comprehension
 
     context "create" do
       setup do
-        @activity = build(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @activity = build(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
       end
 
       should "create a valid record and return it as json" do
-        post :create, activity: { quill_activity_id: @activity.quill_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title }
 
         parsed_response = JSON.parse(response.body)
 
@@ -56,7 +56,7 @@ module Comprehension
       end
 
       should "not create an invalid record and return errors as json" do
-        post :create, activity: { quill_activity_id: @activity.quill_activity_id }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id }
 
         parsed_response = JSON.parse(response.body)
 
@@ -66,7 +66,7 @@ module Comprehension
       end
 
       should "create a valid record with passage attributes" do
-        post :create, activity: { quill_activity_id: @activity.quill_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, passages_attributes: [{text: ("Hello " * 20) }] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, passages_attributes: [{text: ("Hello " * 20) }] }
 
         parsed_response = JSON.parse(response.body)
 
@@ -78,7 +78,7 @@ module Comprehension
       end
 
       should "create a valid record with prompt attributes" do
-        post :create, activity: { quill_activity_id: @activity.quill_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because" }] }
+        post :create, activity: { parent_activity_id: @activity.parent_activity_id, scored_level: @activity.scored_level, target_level: @activity.target_level, title: @activity.title, prompts_attributes: [{text: "meat is bad for you.", conjunction: "because" }] }
 
         parsed_response = JSON.parse(response.body)
 
@@ -92,7 +92,7 @@ module Comprehension
 
     context "show" do
       setup do
-        @activity = create(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @activity = create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
         @passage = create(:comprehension_passage, activity: @activity, text: ('Hello' * 20))
         @prompt = create(:comprehension_prompt, activity: @activity, text: "it is good.")
       end
@@ -117,20 +117,20 @@ module Comprehension
 
     context "update" do
       setup do
-        @activity = create(:comprehension_activity, quill_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
+        @activity = create(:comprehension_activity, parent_activity_id: 1, title: "First Activity", target_level: 8, scored_level: "4th grade")
         @passage = create(:comprehension_passage, activity: @activity)
         @prompt = create(:comprehension_prompt, activity: @activity)
       end
 
       should "update record if valid, return nothing" do
-        put :update, id: @activity.id, activity: { quill_activity_id: 2, scored_level: "5th grade", target_level: 9, title: "New title" }
+        put :update, id: @activity.id, activity: { parent_activity_id: 2, scored_level: "5th grade", target_level: 9, title: "New title" }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
 
         @activity.reload
 
-        assert_equal 2, @activity.quill_activity_id
+        assert_equal 2, @activity.parent_activity_id
         assert_equal "5th grade",  @activity.scored_level
         assert_equal 9, @activity.target_level
         assert_equal "New title",  @activity.title
@@ -160,7 +160,7 @@ module Comprehension
 
 
       should "not update record and return errors as json" do
-        put :update, id: @activity.id, activity: { quill_activity_id: 2, scored_level: "5th grade", target_level: 99999999, title: "New title" }
+        put :update, id: @activity.id, activity: { parent_activity_id: 2, scored_level: "5th grade", target_level: 99999999, title: "New title" }
 
         parsed_response = JSON.parse(response.body)
 

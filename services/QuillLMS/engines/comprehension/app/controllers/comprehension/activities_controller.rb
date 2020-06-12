@@ -49,7 +49,7 @@ module Comprehension
     private def activity_params
       params.require(:activity).permit(
         :title,
-        :quill_activity_id,
+        :parent_activity_id,
         :target_level,
         :scored_level,
         passages_attributes: [:id, :text],

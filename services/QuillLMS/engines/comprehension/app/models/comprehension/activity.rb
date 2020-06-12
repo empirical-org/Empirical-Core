@@ -8,11 +8,12 @@ module Comprehension
 
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
+    belongs_to :parent_activity, class_name: Comprehension.parent_activity_class
 
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
     accepts_nested_attributes_for :prompts, reject_if: proc { |p| p['text'].blank? }
 
-    validates :quill_activity_id, presence: true, uniqueness: {allow_nil: true}
+    validates :parent_activity_id, presence: true, uniqueness: {allow_nil: true}
     validates :target_level, presence: true,
       numericality: {
         only_integer: true,
@@ -26,7 +27,7 @@ module Comprehension
     def serializable_hash(options = nil)
       options ||= {}
       super(options.reverse_merge(
-        only: [:id, :quill_activity_id, :title, :target_level, :scored_level],
+        only: [:id, :parent_activity_id, :title, :target_level, :scored_level],
         include: [:passages, :prompts]
       ))
     end

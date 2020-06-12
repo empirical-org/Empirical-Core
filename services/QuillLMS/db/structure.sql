@@ -1046,7 +1046,7 @@ ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teac
 CREATE TABLE public.comprehension_activities (
     id integer NOT NULL,
     title character varying(100),
-    quill_activity_id integer,
+    parent_activity_id integer,
     target_level smallint,
     scored_level character varying(100),
     created_at timestamp without time zone NOT NULL,
@@ -4371,10 +4371,10 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 
 
 --
--- Name: index_comprehension_activities_on_quill_activity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comprehension_activities_on_parent_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_comprehension_activities_on_quill_activity_id ON public.comprehension_activities USING btree (quill_activity_id);
+CREATE INDEX index_comprehension_activities_on_parent_activity_id ON public.comprehension_activities USING btree (parent_activity_id);
 
 
 --
@@ -6063,9 +6063,9 @@ INSERT INTO schema_migrations (version) VALUES ('20200505171239');
 
 INSERT INTO schema_migrations (version) VALUES ('20200511203004');
 
-INSERT INTO schema_migrations (version) VALUES ('20200605152131');
+INSERT INTO schema_migrations (version) VALUES ('20200612165828');
 
-INSERT INTO schema_migrations (version) VALUES ('20200608234132');
+INSERT INTO schema_migrations (version) VALUES ('20200612165829');
 
-INSERT INTO schema_migrations (version) VALUES ('20200609014434');
+INSERT INTO schema_migrations (version) VALUES ('20200612165830');
 
