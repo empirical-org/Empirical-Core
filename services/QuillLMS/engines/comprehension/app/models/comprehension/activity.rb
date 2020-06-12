@@ -22,7 +22,9 @@ module Comprehension
     validates :title, presence: true, length: {in: MIN_TITLE_LENGTH..MAX_TITLE_LENGTH}
     validates :scored_level, length: { maximum: MAX_SCORED_LEVEL_LENGTH, allow_nil: true}
 
-    def serializable_hash(options = {})
+    # match signature of method
+    def serializable_hash(options = nil)
+      options ||= {}
       super(options.reverse_merge(
         only: [:id, :quill_activity_id, :title, :target_level, :scored_level],
         include: [:passages, :prompts]

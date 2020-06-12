@@ -1,3 +1,5 @@
+require_dependency 'comprehension/application_controller'
+
 module Comprehension
   class ActivitiesController < ApplicationController
     before_action :set_activity, only: [:show, :update, :destroy]
@@ -16,7 +18,7 @@ module Comprehension
 
     # POST /activities.json
     def create
-      @activity = Activity.new(activity_params)
+      @activity = Comprehension::Activity.new(activity_params)
 
       if @activity.save
         render json: @activity, status: :created
@@ -41,7 +43,7 @@ module Comprehension
     end
 
     private def set_activity
-      @activity = Activity.find(params[:id])
+      @activity = Comprehension::Activity.find(params[:id])
     end
 
     private def activity_params
