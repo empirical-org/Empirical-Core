@@ -59,7 +59,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
 
   componentDidMount() {
     const { classroomUnitId, classroomSessionId } = this.state
-    const { match, dispatch, classroomLesson, } = this.props
+    const { match, dispatch, classroomLesson, history, } = this.props
     const activityId: string = match.params.lessonID;
     if (classroomUnitId) {
       startLesson(classroomUnitId, classroomSessionId, () => {
@@ -72,7 +72,15 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
       const modalQSValue = getParameterByName('modal')
       const modalQS = modalQSValue ? `&modal=${modalQSValue}` : ''
       if (classroomUnitId) {
-        document.location.href = `${document.location.origin + document.location.pathname}#/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
+        const route = `/teach/class-lessons/${lessonID}?&classroom_unit_id=${classroomUnitId}${modalQS}`;
+        history.push(route)
+        const classroomSessionId = classroomUnitId.concat(lessonID)
+        this.setState({ classroomSessionId, })
+
+        startLesson(classroomUnitId, classroomSessionId, () => {
+          dispatch(startListeningToSessionForTeacher(activityId, classroomUnitId, classroomSessionId));
+        });
+        registerTeacherPresence(classroomSessionId);
       }
     }
     if (classroomLesson.hasreceiveddata) {
