@@ -1,4 +1,4 @@
 # Ignore rubocop in the dummy app
 AllCops:
   Exclude:
-    - '*'
+    - 'dummy/**/*'
