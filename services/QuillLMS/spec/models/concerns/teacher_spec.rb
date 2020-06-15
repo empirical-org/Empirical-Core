@@ -345,7 +345,20 @@ describe User, type: :model do
         let!(:user_subscription) { create(:user_subscription, user_id: teacher.id, subscription: subscription) }
         context 'user is on a valid trial' do
           it "returns 'trial'" do
+            subscription.update(account_type: 'trial')
+            expect(teacher.premium_state).to eq('trial')
+
             subscription.update(account_type: 'Teacher Trial')
+            expect(teacher.premium_state).to eq('trial')
+          end
+        end
+
+        context 'user has been on a COVID premium subscription' do
+          it "returns 'trial'" do
+            subscription.update(account_type: Subscription::COVID_19_SUBSCRIPTION_TYPE)
+            expect(teacher.premium_state).to eq('trial')
+
+            subscription.update(account_type: Subscription::COVID_19_SCHOOL_SUBSCRIPTION_TYPE)
             expect(teacher.premium_state).to eq('trial')
           end
         end
