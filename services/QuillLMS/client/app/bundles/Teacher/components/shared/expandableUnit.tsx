@@ -32,7 +32,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
             <a id={cb_anchor_tag}>{title}</a>
             <p>{description}</p>
           </div>
-          <a className="quill-button medium primary outlined" href={activity_link} target="_blank">View</a>
+          <a className="quill-button medium primary outlined" href={activity_link} rel="noopener noreferrer" target="_blank">View</a>
         </div>
       )
     })
@@ -46,7 +46,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
           return(
             <div className="learning-cycle-container">
               <p className="learning-cycle-header">Learning Cycle {i + 1}</p>
-              <div className="divider"/>
+              <div className="divider" />
               <div className="cycle-activities-container">
                 {renderActivities(activities, isLastCycle)}
               </div>
