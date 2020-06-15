@@ -40,13 +40,68 @@
     background-color: #e1f3f1;
     padding: 18px 20px;
     width: 100vw;
-    position: absolute;
+    position: fixed;
+    margin-left: calc(50% - 50vw);
     left: 0;
     bottom: 0;
     text-align: center;
     font-size: 20px;
     line-height: 1.45;
     color: #000;
+  }
+
+  .student.text-editor.card.disabled-editor {
+    opacity: 1 !important;
+    border: none !important;
+    .card-content {
+      background-color: #e5e5e5;
+      textarea {
+        color: #000;
+        line-height: 1.33;
+      }
+    }
+  }
+
+  .display-answers-divider {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    .display-answers-divider-content {
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+    button {
+      width: 89px;
+      background-color: white;
+      border: #8e8e8e 2px solid;
+      border-top: 2px solid white;
+      margin-top: -2px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 4px 0px 9px;
+      color: #000;
+    }
+    &.prompt-showing {
+      margin-top: 24px;
+      border-top: #8e8e8e solid 2px;
+    }
+  }
+
+  &.editing {
+    .student.text-editor.card {
+      border: solid 2px #06806b;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .display-answers-divider {
+      .display-answers-divider-content {
+        padding: 0px 20px;
+      }
+    }
   }
 
   @media (max-width: 400px) {
@@ -65,24 +120,6 @@
       img {
         height: 24px;
       }
-    }
-  }
-
-  .student.text-editor.card.disabled-editor {
-    opacity: 1 !important;
-    border: none;
-    .card-content {
-      background-color: #e5e5e5;
-      textarea {
-        color: #000;
-        line-height: 1.33;
-      }
-    }
-  }
-
-  &.editing {
-    .student.text-editor.card {
-      border: solid 2px #06806b;
     }
   }
 }
