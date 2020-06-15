@@ -34,6 +34,7 @@ interface SingleAnswerState {
   response: string|null,
   editing: boolean,
   submitted: boolean,
+  showPrompt: boolean
 }
 
 class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
@@ -46,7 +47,8 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
                 submissions[student].data :
                 data.play.prefilledText,
       editing: false,
-      submitted: false,
+      submitted: student && submissions && submissions[student],
+      showPrompt: true
     };
   }
 
@@ -54,15 +56,14 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     const { editing, submitted, response, } = this.state
     const student = getParameterByName('student');
     if (student && nextProps.submissions && nextProps.submissions[student] && !submitted) {
-      this.setState({ submitted: true })
-      this.setState({ response: nextProps.submissions[student].data })
+      this.setState({ submitted: true, response: nextProps.submissions[student].data })
     }
     // this will reset the state when a teacher resets a question
     const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
-    if (submitted === true && (nextProps.submissions === null || retryForStudent)) {
+    if (submitted && (nextProps.submissions === null || retryForStudent)) {
       this.setState({ submitted: false, editing: false, response: nextProps.data.play.prefilledText || '', });
     }
-    if (editing === false && (nextProps.data.play.prefilledText !== response)) {
+    if (!editing && !submitted && (nextProps.data.play.prefilledText !== response)) {
       this.setState({response: nextProps.data.play.prefilledText})
     }
   }
@@ -81,16 +82,21 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     this.setState({ editing: e.length, response: e, });
   }
 
+  handleShowPromptButtonClick = () => {
+    this.setState(prevState => ({ showPrompt: !prevState.showPrompt, }))
+  }
+
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
     const { selected_submissions, selected_submission_order, } = this.props
-    const classAnswers = selected_submissions && selected_submission_order
-    ? (<div>
-      <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
-      {this.renderClassAnswersList()}
-    </div>)
-    : <span />;
+    let classAnswers
+    if (selected_submissions && selected_submission_order) {
+      classAnswers = (<div>
+        <p className="answer-header">Class responses</p>
+        {this.renderClassAnswersList()}
+      </div>)
+    }
     return (
       <div className="display-mode">
         {this.renderYourAnswer()}
@@ -103,16 +109,16 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     const { projector, } = this.props
     const { response, } = this.state
 
-    if (projector ) { return }
+    if (projector || !response) { return }
 
     return (<div>
-      <p className="answer-header"><i className="fa fa-user" />Your Answer:</p>
+      <p className="answer-header">Your response</p>
       <p className="your-answer">{response}</p>
     </div>)
   }
 
   renderClassAnswersList() {
-    const { selected_submissions, submissions, selected_submission_order, data} = this.props;
+    const { submissions, selected_submission_order, data} = this.props;
     const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
       let text
       if (submissions && submissions[key] && submissions[key].data) {
@@ -122,16 +128,12 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
       } else {
         text = ''
       }
-      return (
-        <li key={index}>
-          <span className="answer-number">{index + 1}</span>{text}
-        </li>
-      );
+      return <li key={index}>{text}</li>
     }) : null;
     return (
-      <ul className="class-answer-list">
+      <ol className="class-answer-list">
         {selected}
-      </ul>
+      </ol>
     );
   }
 
@@ -199,9 +201,9 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
   }
 
   renderProjectorHeader() {
-    const { projector, studentCount, submissions, } = this.props
+    const { projector, studentCount, submissions, mode, } = this.props
 
-    if (!projector) { return }
+    if (!projector || mode === PROJECT) { return }
 
     const submissionCount:number = submissions ? Object.keys(submissions).length : 0
     const studentCountText:string = studentCount ? `${submissionCount} of ${studentCount} have responded` : ''
@@ -220,8 +222,34 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     return <div className="submitted-bar">Please wait as your teacher reviews your response.</div>
   }
 
+  renderPrompt() {
+    const { showPrompt, } = this.state
+    const { data, mode, } = this.props
+
+    const prompt = <SentenceFragments prompt={data.play.prompt} />
+
+    if (mode !== PROJECT) { return prompt }
+
+    if (showPrompt) {
+      return (<React.Fragment>
+        {prompt}
+        <div className="display-answers-divider prompt-showing">
+          <div className="display-answers-divider-content">
+            <button onClick={this.handleShowPromptButtonClick} type="button">Hide</button>
+          </div>
+        </div>
+      </React.Fragment>)
+    }
+
+    return (<div className="display-answers-divider prompt-hidden">
+      <div className="display-answers-divider-content">
+        <button onClick={this.handleShowPromptButtonClick} type="button">Show</button>
+      </div>
+    </div>)
+  }
+
   render() {
-    const { data, projector, } = this.props
+    const { projector, } = this.props
     const { editing, } = this.state
     let className = 'single-answer '
     className+= projector ? "projector " : ""
@@ -230,7 +258,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     return (
       <div className={className}>
         {this.renderProjectorHeader()}
-        <SentenceFragments prompt={data.play.prompt} />
+        {this.renderPrompt()}
         {this.renderCues()}
         {this.renderInstructions()}
         {this.modeAppropriateRender()}
