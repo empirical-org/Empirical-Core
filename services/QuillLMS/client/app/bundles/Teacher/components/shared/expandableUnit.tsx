@@ -7,7 +7,7 @@ export interface ExpandableUnitProps {
       title: string;
       description: string;
       activity_link: string;
-      cb_link: string;
+      cb_anchor_tag: string;
     }[]
   }[]
 }
