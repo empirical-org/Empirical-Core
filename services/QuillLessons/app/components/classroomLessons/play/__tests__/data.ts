@@ -150,7 +150,7 @@ const questions = [
   }
 ]
 
-export const props = {
+export const playClassroomLessonContainerProps = {
   history: {
     length: 1,
     action: "POP",
@@ -232,4 +232,49 @@ export const props = {
       questions
     }
   }
+}
+
+export const singleAnswerProps = {
+data: {
+  play: {
+    cues: [""],
+    instructions: "Complete the sentence.",
+    prompt: "<p>Yesterday, riding my bike through the town.</p>"
+  },
+  teach:
+    {
+      script: [
+        {
+          data: {
+            body: "<p><strong>Say:</strong> You’ve seen two ways you can correct an incomplete sentence that has an -ing word. Now try correcting one with your partner. You can use either method as long as you write a complete sentence.&nbsp;</p>",
+            heading: "Ask pairs to complete the sentence."
+          },
+          type: "STEP-HTML"
+        },
+        {
+          type: "T-REVIEW"
+        },
+        {
+          data: {
+            body: "<p><em>Read the responses out loud.</em></p>\n<p><strong>Say: </strong>Are there any responses that are still incomplete sentences?</p>",
+            heading: "Select 2-3 correct responses and 1-2 incorrect responses to display and discuss."
+          },
+          type: "STEP-HTML"
+        },
+        {
+          data: {
+            body: "<p><em>Ask the following questions about the incorrect responses:</em></p>\n<ul>\n  <li>How could we revise this sentence to make it a complete sentence?</li>\n  <li>What information is needed to finish the idea?</li>\n  <li>Is there anything else we need to change to make the sentence correct?</li>\n</ul>",
+            heading: "Discuss responses that are incomplete sentences."
+          },
+          type: "STEP-HTML"
+        }
+      ],
+      title: "Paired Practice"
+    }
+  },
+  mode: null,
+  submissions: null,
+  selected_submissions: null,
+  selected_submission_order: null,
+  studentCount: 1
 }

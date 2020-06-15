@@ -1,0 +1,799 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SingleAnswer component projector view inactive renders 1`] = `
+<SingleAnswer
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "Complete the sentence.",
+        "prompt": "<p>Yesterday, riding my bike through the town.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> You’ve seen two ways you can correct an incomplete sentence that has an -ing word. Now try correcting one with your partner. You can use either method as long as you write a complete sentence.&nbsp;</p>",
+              "heading": "Ask pairs to complete the sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Read the responses out loud.</em></p>
+<p><strong>Say: </strong>Are there any responses that are still incomplete sentences?</p>",
+              "heading": "Select 2-3 correct responses and 1-2 incorrect responses to display and discuss.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask the following questions about the incorrect responses:</em></p>
+<ul>
+  <li>How could we revise this sentence to make it a complete sentence?</li>
+  <li>What information is needed to finish the idea?</li>
+  <li>Is there anything else we need to change to make the sentence correct?</li>
+</ul>",
+              "heading": "Discuss responses that are incomplete sentences.",
+            },
+            "type": "STEP-HTML",
+          },
+        ],
+        "title": "Paired Practice",
+      },
+    }
+  }
+  mode={null}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={null}
+>
+  <div
+    className="single-answer "
+  >
+    <SentenceFragments
+      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    >
+      <div
+        className="draft-js sentence-fragments prevent-selection"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+          }
+        }
+      />
+    </SentenceFragments>
+    <_default
+      displayArrowAndText={false}
+      getQuestion={[Function]}
+    >
+      <div />
+    </_default>
+    <Feedback
+      feedback={
+        <p
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Complete the sentence.",
+            }
+          }
+        />
+      }
+      feedbackType="default"
+    >
+      <div
+        className="student-feedback-container default"
+        role="status"
+      >
+        <div
+          className="feedback-row student-feedback-inner-container"
+        >
+          <img
+            alt="Directions Icon"
+            className="info"
+            src="undefined/images/icons/direction.svg"
+          />
+          <p
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Complete the sentence.",
+              }
+            }
+          />
+        </div>
+      </div>
+    </Feedback>
+    <RenderTextEditor
+      checkAnswer={[Function]}
+      defaultValue=""
+      handleChange={[Function]}
+      placeholder="Type your response here"
+    >
+      <div
+        className="student text-editor card is-fullwidth  "
+      >
+        <div
+          className="card-content"
+        >
+          <div
+            className="content"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoFocus={true}
+              className="connect-text-area"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                autoFocus={true}
+                className="connect-text-area"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </div>
+        </div>
+      </div>
+    </RenderTextEditor>
+    <div
+      className="question-button-group"
+    >
+      <button
+        className="quill-button primary contained large focus-on-light disabled"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</SingleAnswer>
+`;
+
+exports[`SingleAnswer component projector view when an answer is being displayed renders 1`] = `
+<SingleAnswer
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "Complete the sentence.",
+        "prompt": "<p>Yesterday, riding my bike through the town.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> You’ve seen two ways you can correct an incomplete sentence that has an -ing word. Now try correcting one with your partner. You can use either method as long as you write a complete sentence.&nbsp;</p>",
+              "heading": "Ask pairs to complete the sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Read the responses out loud.</em></p>
+<p><strong>Say: </strong>Are there any responses that are still incomplete sentences?</p>",
+              "heading": "Select 2-3 correct responses and 1-2 incorrect responses to display and discuss.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask the following questions about the incorrect responses:</em></p>
+<ul>
+  <li>How could we revise this sentence to make it a complete sentence?</li>
+  <li>What information is needed to finish the idea?</li>
+  <li>Is there anything else we need to change to make the sentence correct?</li>
+</ul>",
+              "heading": "Discuss responses that are incomplete sentences.",
+            },
+            "type": "STEP-HTML",
+          },
+        ],
+        "title": "Paired Practice",
+      },
+    }
+  }
+  mode="PROJECT"
+  selected_submission_order={
+    Array [
+      "student",
+    ]
+  }
+  selected_submissions={
+    Object {
+      "student": true,
+    }
+  }
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": "Blah",
+        "timestamp": "2020-06-15T20:02:41.677Z",
+      },
+    }
+  }
+>
+  <div
+    className="single-answer "
+  >
+    <SentenceFragments
+      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    >
+      <div
+        className="draft-js sentence-fragments prevent-selection"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+          }
+        }
+      />
+    </SentenceFragments>
+    <div
+      className="display-answers-divider prompt-showing"
+    >
+      <div
+        className="display-answers-divider-content"
+      >
+        <button
+          className="focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Hide
+        </button>
+      </div>
+    </div>
+    <div
+      className="display-mode"
+    >
+      <div>
+        <p
+          className="answer-header"
+        >
+          Your response
+        </p>
+        <p
+          className="your-answer"
+        >
+          Blah
+        </p>
+      </div>
+      <div>
+        <p
+          className="answer-header"
+        >
+          Class responses
+        </p>
+        <ol
+          className="class-answer-list"
+        >
+          <li
+            key="0"
+          >
+            Blah
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</SingleAnswer>
+`;
+
+exports[`SingleAnswer component student view inactive renders 1`] = `
+<SingleAnswer
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "Complete the sentence.",
+        "prompt": "<p>Yesterday, riding my bike through the town.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> You’ve seen two ways you can correct an incomplete sentence that has an -ing word. Now try correcting one with your partner. You can use either method as long as you write a complete sentence.&nbsp;</p>",
+              "heading": "Ask pairs to complete the sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Read the responses out loud.</em></p>
+<p><strong>Say: </strong>Are there any responses that are still incomplete sentences?</p>",
+              "heading": "Select 2-3 correct responses and 1-2 incorrect responses to display and discuss.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask the following questions about the incorrect responses:</em></p>
+<ul>
+  <li>How could we revise this sentence to make it a complete sentence?</li>
+  <li>What information is needed to finish the idea?</li>
+  <li>Is there anything else we need to change to make the sentence correct?</li>
+</ul>",
+              "heading": "Discuss responses that are incomplete sentences.",
+            },
+            "type": "STEP-HTML",
+          },
+        ],
+        "title": "Paired Practice",
+      },
+    }
+  }
+  mode={null}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={null}
+>
+  <div
+    className="single-answer "
+  >
+    <SentenceFragments
+      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    >
+      <div
+        className="draft-js sentence-fragments prevent-selection"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+          }
+        }
+      />
+    </SentenceFragments>
+    <_default
+      displayArrowAndText={false}
+      getQuestion={[Function]}
+    >
+      <div />
+    </_default>
+    <Feedback
+      feedback={
+        <p
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Complete the sentence.",
+            }
+          }
+        />
+      }
+      feedbackType="default"
+    >
+      <div
+        className="student-feedback-container default"
+        role="status"
+      >
+        <div
+          className="feedback-row student-feedback-inner-container"
+        >
+          <img
+            alt="Directions Icon"
+            className="info"
+            src="undefined/images/icons/direction.svg"
+          />
+          <p
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Complete the sentence.",
+              }
+            }
+          />
+        </div>
+      </div>
+    </Feedback>
+    <RenderTextEditor
+      checkAnswer={[Function]}
+      defaultValue=""
+      handleChange={[Function]}
+      placeholder="Type your response here"
+    >
+      <div
+        className="student text-editor card is-fullwidth  "
+      >
+        <div
+          className="card-content"
+        >
+          <div
+            className="content"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoFocus={true}
+              className="connect-text-area"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                autoFocus={true}
+                className="connect-text-area"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </div>
+        </div>
+      </div>
+    </RenderTextEditor>
+    <div
+      className="question-button-group"
+    >
+      <button
+        className="quill-button primary contained large focus-on-light disabled"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</SingleAnswer>
+`;
+
+exports[`SingleAnswer component student view when an answer is being displayed renders 1`] = `
+<SingleAnswer
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "Complete the sentence.",
+        "prompt": "<p>Yesterday, riding my bike through the town.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> You’ve seen two ways you can correct an incomplete sentence that has an -ing word. Now try correcting one with your partner. You can use either method as long as you write a complete sentence.&nbsp;</p>",
+              "heading": "Ask pairs to complete the sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Read the responses out loud.</em></p>
+<p><strong>Say: </strong>Are there any responses that are still incomplete sentences?</p>",
+              "heading": "Select 2-3 correct responses and 1-2 incorrect responses to display and discuss.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask the following questions about the incorrect responses:</em></p>
+<ul>
+  <li>How could we revise this sentence to make it a complete sentence?</li>
+  <li>What information is needed to finish the idea?</li>
+  <li>Is there anything else we need to change to make the sentence correct?</li>
+</ul>",
+              "heading": "Discuss responses that are incomplete sentences.",
+            },
+            "type": "STEP-HTML",
+          },
+        ],
+        "title": "Paired Practice",
+      },
+    }
+  }
+  mode="PROJECT"
+  selected_submission_order={
+    Array [
+      "student",
+    ]
+  }
+  selected_submissions={
+    Object {
+      "student": true,
+    }
+  }
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": "Blah",
+        "timestamp": "2020-06-15T20:02:41.677Z",
+      },
+    }
+  }
+>
+  <div
+    className="single-answer "
+  >
+    <SentenceFragments
+      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    >
+      <div
+        className="draft-js sentence-fragments prevent-selection"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+          }
+        }
+      />
+    </SentenceFragments>
+    <div
+      className="display-answers-divider prompt-showing"
+    >
+      <div
+        className="display-answers-divider-content"
+      >
+        <button
+          className="focus-on-light"
+          onClick={[Function]}
+          type="button"
+        >
+          Hide
+        </button>
+      </div>
+    </div>
+    <div
+      className="display-mode"
+    >
+      <div>
+        <p
+          className="answer-header"
+        >
+          Your response
+        </p>
+        <p
+          className="your-answer"
+        >
+          Blah
+        </p>
+      </div>
+      <div>
+        <p
+          className="answer-header"
+        >
+          Class responses
+        </p>
+        <ol
+          className="class-answer-list"
+        >
+          <li
+            key="0"
+          >
+            Blah
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</SingleAnswer>
+`;
+
+exports[`SingleAnswer component student view when the student has submitted an answer renders 1`] = `
+<SingleAnswer
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "Complete the sentence.",
+        "prompt": "<p>Yesterday, riding my bike through the town.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say:</strong> You’ve seen two ways you can correct an incomplete sentence that has an -ing word. Now try correcting one with your partner. You can use either method as long as you write a complete sentence.&nbsp;</p>",
+              "heading": "Ask pairs to complete the sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-REVIEW",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Read the responses out loud.</em></p>
+<p><strong>Say: </strong>Are there any responses that are still incomplete sentences?</p>",
+              "heading": "Select 2-3 correct responses and 1-2 incorrect responses to display and discuss.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "data": Object {
+              "body": "<p><em>Ask the following questions about the incorrect responses:</em></p>
+<ul>
+  <li>How could we revise this sentence to make it a complete sentence?</li>
+  <li>What information is needed to finish the idea?</li>
+  <li>Is there anything else we need to change to make the sentence correct?</li>
+</ul>",
+              "heading": "Discuss responses that are incomplete sentences.",
+            },
+            "type": "STEP-HTML",
+          },
+        ],
+        "title": "Paired Practice",
+      },
+    }
+  }
+  mode={null}
+  selected_submission_order={null}
+  selected_submissions={null}
+  studentCount={1}
+  submissions={
+    Object {
+      "student": Object {
+        "data": "Blah",
+        "timestamp": "2020-06-15T20:02:41.677Z",
+      },
+    }
+  }
+>
+  <div
+    className="single-answer "
+  >
+    <SentenceFragments
+      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    >
+      <div
+        className="draft-js sentence-fragments prevent-selection"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+          }
+        }
+      />
+    </SentenceFragments>
+    <_default
+      displayArrowAndText={false}
+      getQuestion={[Function]}
+    >
+      <div />
+    </_default>
+    <Feedback
+      feedback={
+        <p
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Complete the sentence.",
+            }
+          }
+        />
+      }
+      feedbackType="default"
+    >
+      <div
+        className="student-feedback-container default"
+        role="status"
+      >
+        <div
+          className="feedback-row student-feedback-inner-container"
+        >
+          <img
+            alt="Directions Icon"
+            className="info"
+            src="undefined/images/icons/direction.svg"
+          />
+          <p
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Complete the sentence.",
+              }
+            }
+          />
+        </div>
+      </div>
+    </Feedback>
+    <RenderTextEditor
+      checkAnswer={[Function]}
+      defaultValue=""
+      disabled={true}
+      handleChange={[Function]}
+      placeholder="Type your response here"
+      value="Blah"
+    >
+      <div
+        className="student text-editor card is-fullwidth  disabled-editor"
+      >
+        <div
+          className="card-content"
+        >
+          <div
+            className="content"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoFocus={true}
+              className="connect-text-area"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Blah"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                autoFocus={true}
+                className="connect-text-area"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Blah"
+              />
+            </TextareaAutosize>
+          </div>
+        </div>
+      </div>
+    </RenderTextEditor>
+    <div
+      className="submitted-bar"
+    >
+      Please wait as your teacher reviews your response.
+    </div>
+  </div>
+</SingleAnswer>
+`;

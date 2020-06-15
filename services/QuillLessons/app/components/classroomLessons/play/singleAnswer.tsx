@@ -1,5 +1,5 @@
 declare function require(name:string);
-import React, { Component } from 'react';
+import * as React from 'react';
 import Cues from '../../../components/renderForQuestions/cues';
 import FeedbackRow from './feedbackRow'
 import {
@@ -17,7 +17,7 @@ import { QuestionData } from '../../../interfaces/classroomLessons'
 
 const laptopGlyphSrc = `${process.env.QUILL_CDN_URL}/images/icons/laptop-glyph.svg` ;
 
-const PROJECT = 'PROJECT'
+export const PROJECT = 'PROJECT'
 
 interface SingleAnswerProps {
   data: QuestionData,
@@ -37,7 +37,7 @@ interface SingleAnswerState {
   showPrompt: boolean
 }
 
-class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
+class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState> {
   constructor(props) {
     super(props);
     const student = getParameterByName('student');
