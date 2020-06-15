@@ -36,6 +36,11 @@ describe "Cron", type: :model do
       expect(DailyStatsEmailJob).to receive(:perform_async)
       Cron.interval_1_day
     end
+
+    it "enqueues ResetDemoAccountWorker" do
+      expect(ResetDemoAccountWorker).to receive(:perform_async)
+      Cron.interval_1_day
+    end
   end
 
   describe "#run_saturday" do
