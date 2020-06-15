@@ -28,7 +28,7 @@
               cb_anchor_tag: 'the-red-fox-fur-coat'
             },
             {
-              title: 'https://www.quill.org/activities/packs/219',
+              title: 'Sentence Combining: “Lamb to the Slaughter” by Roald Dahl',
               description: 'Explore narrative revelations with sudden character shifts',
               activity_link: 'https://www.quill.org/activities/packs/220',
               cb_anchor_tag: 'lamb-to-the-slaughter'
@@ -257,10 +257,12 @@
         <h2>Passage-Aligned Activities</h2>
         <div class="ap-english-tag">For Pre-AP English 1</div>
       </div>
-      <div class="units-container">
-        <% @units.each do |unit, i| %>
-          <%= react_component('ExpandableUnitSection', props: {title: unit[:title], learning_cycles: unit[:learning_cycles]}) %>
-        <% end %>
+      <div class="white-section-wrapper">
+        <div class="units-container">
+          <% @units.each_with_index do |unit, i| %>
+            <%= react_component('ExpandableUnitSection', props: {title: unit[:title], is_first: i===0, learning_cycles: unit[:learning_cycles]}) %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
