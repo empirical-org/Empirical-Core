@@ -80,7 +80,7 @@ class Subscription < ActiveRecord::Base
 
 
   def is_trial?
-    account_type && TRIAL_TYPES.include?(account_type)
+    account_type && (TRIAL_TYPES | COVID_TYPES).include?(account_type)
   end
 
   def check_if_purchaser_email_is_in_database
