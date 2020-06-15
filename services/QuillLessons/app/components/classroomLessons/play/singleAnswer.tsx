@@ -235,7 +235,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
         {prompt}
         <div className="display-answers-divider prompt-showing">
           <div className="display-answers-divider-content">
-            <button onClick={this.handleShowPromptButtonClick} type="button">Hide</button>
+            <button className="focus-on-light" onClick={this.handleShowPromptButtonClick} type="button">Hide</button>
           </div>
         </div>
       </React.Fragment>)
@@ -243,7 +243,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
 
     return (<div className="display-answers-divider prompt-hidden">
       <div className="display-answers-divider-content">
-        <button onClick={this.handleShowPromptButtonClick} type="button">Show</button>
+        <button className="focus-on-light" onClick={this.handleShowPromptButtonClick} type="button">Show</button>
       </div>
     </div>)
   }
