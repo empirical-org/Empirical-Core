@@ -179,76 +179,40 @@
   }
 }
 
-.left-button, .right-button {
+.projector-navigation-button {
   position: absolute;
+  border: none;
+  width: 140px;
+  height: 140px;
+  opacity: 0.3;
+  background-color: #000000;
+  border-radius: 78px;
   top: 50%;
-  width: 50px;
   cursor: pointer;
-}
-
-@media (min-width: 1750px) {
-  .right-button {
-    right: 10%;
-  }
-  .left-button {
-    left: 10%;
-  }
-}
-
-@media (max-width: 1749px) and (min-width: 1440px) {
-  .left-button {
-    left: 10%;
-  }
-
-  .right-button {
-    right: 10%;
-    &.keep-right {
-      right: 3%;
+  transition: 0.3s;
+  &.right {
+    right: -112px;
+    &:hover, &:focus {
+      right: -70px;
+    }
+    img {
+      margin-left: 33px;
     }
   }
-}
-
-@media (max-width: 1440px) and (min-width: 1101px) {
-  .left-button {
-    left: 5%;
-  }
-
-  .right-button {
-    right: 5%;
-    &.keep-right {
-      right: 0.5%;
+  &.left {
+    left: -112px;
+    &:hover, &:focus {
+      left: -70px;
+      justify-content: flex-end;
+    }
+    img {
+      margin-right: 33px;
     }
   }
-}
-
-@media (max-width: 1440px) and (min-width: 1360px) {
-  .right-button.keep-right {
-    right: 2%;
+  &:hover, &:focus {
+    display: flex;
+    opacity: 0.74;
+    align-items: center;
+    outline: none;
   }
-}
-
-@media (max-width: 1359px) and (min-width: 1101px) {
-  .right-button.keep-right {
-    right: 1%;
-  }
-}
-
-@media (max-width: 1100px) {
-  .left-button {
-    left: 2%;
-  }
-
-  .right-button {
-    right: 2%;
-    &.keep-right {
-      right: 0.5%;
-    }
-  }
-}
-
-@media (max-width: 910px) {
-  .left-button, .right-button {
-    display: none;
-  }
-
 }

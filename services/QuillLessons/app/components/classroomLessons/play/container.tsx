@@ -38,6 +38,7 @@ import * as CustomizeIntf from '../../../interfaces/customize';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
+const arrowSrc = `${process.env.QUILL_CDN_URL}/images/icons/chevron-arrow-filled.svg`
 
 class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
@@ -148,14 +149,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       }
     }
   }
-
-  handleRightHover = () => this.setState({ rightHover: true, })
-
-  handleRightHoverOff = () => this.setState({ rightHover: false, })
-
-  handleLeftHover = () => this.setState({ leftHover: true, })
-
-  handleLeftHoverOff = () => this.setState({ leftHover: false, })
 
   handleClickRightButton = () => {
     const { classroomSessionId, } = this.state
@@ -288,54 +281,36 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   renderLeftButton() {
-    const { leftHover, } = this.state
-    const { classroomSessions, customize, } = this.props
-    if (getParameterByName('projector') && classroomSessions.data.current_slide !== '0') {
-      const sessionData: ClassroomLessonSession = classroomSessions.data;
-      const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
-      const imageSrc = leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
-      return (<button
-        className="interactive-wrapper"
-        onBlur={this.handleLeftHover}
-        onClick={this.handleClickLeftButton}
-        onFocus={this.handleLeftHoverOff}
-        onMouseOut={this.handleLeftHoverOff}
-        onMouseOver={this.handleLeftHover}
-        type="button"
-      >
-        <img
-          alt="Arrow pointing left in circle"
-          className="left-button"
-          src={imageSrc}
-        />
-      </button>)
-    }
-
+    const { classroomSessions, } = this.props
+    const currentSlide = Number(classroomSessions.data.current_slide)
+    if (!getParameterByName('projector') || currentSlide === 0) { return }
+    return (<button
+      className="projector-navigation-button left"
+      onClick={this.handleClickLeftButton}
+      type="button"
+    >
+      <img
+        alt="Arrow pointing left in circle"
+        className="left-button"
+        src={arrowSrc}
+      />
+    </button>)
   }
 
   renderRightButton() {
-    const { rightHover, } = this.state
     const { classroomSessions, customize,  } = this.props
     const currentSlide = Number(classroomSessions.data.current_slide)
-    if (getParameterByName('projector') && currentSlide !== customize.editionQuestions.questions.length - 1) {
-      const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
-      const imageSrc = rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
-      return (<button
-        className="interactive-wrapper"
-        onBlur={this.handleRightHover}
-        onClick={this.handleClickRightButton}
-        onFocus={this.handleRightHoverOff}
-        onMouseOut={this.handleRightHoverOff}
-        onMouseOver={this.handleRightHover}
-        type="button"
-      >
-        <img
-          alt="Arrow pointing right in circle"
-          className={className}
-          src={imageSrc}
-        />
-      </button>)
-    }
+    if (!getParameterByName('projector') || currentSlide === customize.editionQuestions.questions.length - 1) { return }
+    return (<button
+      className="projector-navigation-button right"
+      onClick={this.handleClickRightButton}
+      type="button"
+    >
+      <img
+        alt="Arrow pointing right"
+        src={arrowSrc}
+      />
+    </button>)
   }
 
   public render() {
