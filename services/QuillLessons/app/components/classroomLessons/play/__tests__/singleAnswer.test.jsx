@@ -41,7 +41,7 @@ describe('SingleAnswer component', () => {
 
     describe('when an answer is being displayed', () => {
       it('renders', () => {
-        const wrapper = mount(<SingleAnswer {...singleAnswerProps} mode={PROJECT} selected_submissions={selectedSubmissions} selected_submission_order={selectedSubmissionOrder} submissions={submissions} />)
+        const wrapper = mount(<SingleAnswer {...singleAnswerProps} mode={PROJECT} selected_submission_order={selectedSubmissionOrder} selected_submissions={selectedSubmissions} submissions={submissions} />)
         expect(toJson(wrapper)).toMatchSnapshot()
       })
     })
@@ -63,7 +63,7 @@ describe('SingleAnswer component', () => {
 
     describe('when an answer is being displayed', () => {
       it('renders', () => {
-        const wrapper = mount(<SingleAnswer {...singleAnswerProps} mode={PROJECT} selected_submissions={selectedSubmissions} selected_submission_order={selectedSubmissionOrder} submissions={submissions} />)
+        const wrapper = mount(<SingleAnswer {...singleAnswerProps} mode={PROJECT} selected_submission_order={selectedSubmissionOrder} selected_submissions={selectedSubmissions} submissions={submissions} />)
         expect(toJson(wrapper)).toMatchSnapshot()
       })
     })
