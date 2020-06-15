@@ -1,124 +1,162 @@
-
-.pre-ap-header-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px 0px 40px 0px;
-  .header-left {
-    display: flex;
-    flex-direction: column;
-    .logo-container {
+.pre-ap-container {
+  .section-wrapper {
+    padding-top: 20px;
+    .pre-ap-header-container {
       display: flex;
       flex-direction: row;
-      margin: 20px 0px 40px 0px;
-    }
-    .header-text-container {
-      max-width: 475px;
-      h1 {
-        font-size: 30px;
-        font-weight: bold;
-        line-height: 1.33;
-        color: black;
-      }
-      p {
-        opacity: 0.9;
-        font-size: 16px;
-        line-height: 1.5;
-        color: black;
-        margin: 10px 0px 30px 0px;
-      }
-    }
-  }
-}
-
-.pre-ap-activities-section {
-  padding: 40px 0px 40px 0px;
-  .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 40px;
-    .text-container {
-      max-width: 640px;
-      h2 {
-        font-size: 24px;
-        font-weight: bold;
-        line-height: 1.5;
-        color: black;
-        margin-bottom: 10px;
-      }
-      p {
-        font-size: 16px;
-        line-height: 1.5;
-        color: black;
+      justify-content: space-between;
+      padding: 20px 0px 40px 0px;
+      .header-left {
+        display: flex;
+        flex-direction: column;
+        margin-right: 30px;
+        .logo-container {
+          display: flex;
+          flex-direction: row;
+          margin: 20px 0px 40px 0px;
+          .divider {
+            width: 2px;
+            height: 46px;
+            background-color: #221f20;
+            margin: 0px 20px 0px 20px;
+          }
+        }
+        .header-text-container {
+          max-width: 475px;
+          h1 {
+            font-size: 30px;
+            font-weight: bold;
+            line-height: 1.33;
+            color: black;
+          }
+          p {
+            opacity: 0.9;
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+            margin: 10px 0px 30px 0px;
+          }
+        }
       }
     }
   }
-  .activities-subheader {
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    h2 {
-      font-size: 20px;
-      font-weight: 600;
-      color: black;
-      margin-right: 10px;
-    }
-    .ap-english-tag {
-      border-radius: 6px;
-      border: solid 1px #e2c447;
-      background-color: #fdf1be;
-      font-size: 16px;
-      font-weight: 600;
-      color: black;
-      text-align: center;
-      padding: 3px;
-      margin: 0px 3px 0px 3px;
-    }
-  }
-  .activity-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 6px;
-    border: solid 1px #e0e0e0;
-    .activity-text-container {
-      display: flex;
-      flex-direction: column;
-      max-width: 735px;
-      .activity-header {
-        font-size: 16px;
-        font-weight: bold;
-        color: #06806b;
-        padding-bottom: 10px;
+  .white-section-wrapper {
+    background-color: white;
+    .pre-ap-activities-section {
+      padding: 40px 0px 40px 0px;
+      .header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 40px;
+        .text-container {
+          max-width: 640px;
+          h2 {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.5;
+            color: black;
+            margin-bottom: 10px;
+          }
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+          }
+        }
       }
-      .activity-sub-header {
-        color: #646464;
-        font-size: 14px;
-        line-height: 1.5;
-        padding: 10px 0px 10px 0px;
+      .activities-subheader {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        h2 {
+          font-size: 20px;
+          font-weight: 600;
+          color: black;
+          margin-right: 10px;
+        }
+        .ap-english-tag {
+          border-radius: 6px;
+          border: solid 1px #e2c447;
+          background-color: #fdf1be;
+          font-size: 16px;
+          font-weight: 600;
+          color: black;
+          text-align: center;
+          padding: 3px;
+          margin: 0px 3px 0px 3px;
+        }
       }
-      .activity-sub-text {
-        color: black;
-        font-size: 14px;
-        line-height: 1.5;
+      .activity-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        border: solid 1px #e0e0e0;
+        .activity-text-container {
+          display: flex;
+          flex-direction: column;
+          max-width: 735px;
+          .activity-header {
+            font-size: 16px;
+            font-weight: bold;
+            color: #06806b;
+            padding-bottom: 10px;
+            text-decoration: none;
+          }
+          .activity-sub-header {
+            color: #646464;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 10px 0px 10px 0px;
+          }
+          .activity-sub-text {
+            color: black;
+            font-size: 14px;
+            line-height: 1.5;
+          }
+        }
+        .view-button {
+          margin-right: 20px;
+        }
       }
-    }
-    .view-button {
-      margin-right: 20px;
     }
   }
 }
 
 @media only screen and (max-width : 750px){
-  .pre-ap-header-container {
-    flex-direction: column;
-  }
-  .header-text-container {
-    button {
-      margin-bottom: 40px;
+  .pre-ap-container {
+    .section-wrapper {
+      padding: 20px;
+      .pre-ap-header-container {
+        flex-direction: column;
+        .header-left {
+          .logo-container {
+            flex-direction: column;
+            align-items: center;
+            .divider {
+              width: 210px;
+              height: 2px;
+              background-color: #221f20;
+              margin: 20px;
+            }
+          }
+          .header-text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            a {
+              margin-bottom: 40px;
+            }
+          }
+        }
+      }
+    }
+    .white-section-wrapper {
+      padding: 20px;
     }
   }
 }
