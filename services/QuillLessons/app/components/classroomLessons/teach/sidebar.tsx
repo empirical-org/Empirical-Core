@@ -86,10 +86,11 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 105, count+1)}, 40);
   }
 
-  goToSlide(slide_id: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+  goToSlide = (slide_id: string) => {
+    const { dispatch, } = this.props
+    const { classroomSessionId, } = this.state
     if (classroomSessionId) {
-      this.props.dispatch(updateCurrentSlide(slide_id, classroomSessionId));
+      dispatch(updateCurrentSlide(slide_id, classroomSessionId));
     }
   }
 
