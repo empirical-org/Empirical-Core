@@ -3,12 +3,11 @@
   height: calc(100vh - 50px);
   display: flex;
   justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
   .main-content {
     width: 100%;
-    max-width: 960px;
-    margin: 0 35;
-    // overflow-y: scroll;
-
     .easy-join-name-form-wrapper {
       text-align: center;
       .easy-join-name-form {
@@ -40,12 +39,6 @@
           cursor: pointer;
         }
       }
-    }
-    @media (max-width: 1250px) {
-      max-width: 800px;
-    }
-    @media (max-width: 940px) {
-      max-width: 750px;
     }
   }
 }
