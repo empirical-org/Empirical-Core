@@ -40,7 +40,7 @@
     text-align: center;
     margin-bottom: 40px;
     .text-container {
-      max-width: 560px;
+      max-width: 640px;
       h2 {
         font-size: 24px;
         font-weight: bold;
@@ -58,6 +58,7 @@
   .activities-subheader {
     display: flex;
     align-items: center;
+    padding: 20px;
     h2 {
       font-size: 20px;
       font-weight: 600;
@@ -73,6 +74,40 @@
       color: black;
       text-align: center;
       padding: 3px;
+      margin: 0px 3px 0px 3px;
+    }
+  }
+  .activity-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: solid 1px #e0e0e0;
+    .activity-text-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 735px;
+      .activity-header {
+        font-size: 16px;
+        font-weight: bold;
+        color: #06806b;
+        padding-bottom: 10px;
+      }
+      .activity-sub-header {
+        color: #646464;
+        font-size: 14px;
+        line-height: 1.5;
+        padding: 10px 0px 10px 0px;
+      }
+      .activity-sub-text {
+        color: black;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+    .view-button {
+      margin-right: 20px;
     }
   }
 }
