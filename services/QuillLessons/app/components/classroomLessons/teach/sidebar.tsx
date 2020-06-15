@@ -128,7 +128,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         switch (questions[slide].type) {
           case 'CL-LB':
             thumb = (
-              <CLStudentLobby data={data} title={lessonData.title} />
+              <CLStudentLobby data={data} projector={true} title={lessonData.title} />
             );
             break;
           case 'CL-ST':
@@ -169,9 +169,8 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
           default:
             thumb = questions[slide].type;
         }
-        const headerText = slide === '0'
-        ? <span>Title Slide{titleSection}</span>
-        : <span>Slide {slide} / {length}{titleSection}</span>
+        const isLobbySlide = Number(slide) === 0
+        const headerText = isLobbySlide ? <span>Title Slide{titleSection}</span> : <span>Slide {slide} / {length}{titleSection}</span>
         components.push((
           <div id={slide} key={counter} onClick={() => this.goToSlide(slide)}>
             <div className="sidebar-header">
