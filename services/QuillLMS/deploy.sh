@@ -9,9 +9,9 @@ case $1 in
     HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
-    if [ ${current_branch} != "master" ]
+    if [ ${current_branch} != "production" ]
     then
-      echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
+      echo "You can not make a production deploy from a branch other than 'production'.  Don't forget to make sure you have the latest code pulled."
       exit 1
     fi
     ;;

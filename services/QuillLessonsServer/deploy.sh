@@ -3,9 +3,9 @@ app_name="QuillLessonsServer"
 
 case $1 in
   prod)
-    if [ ${current_branch} != "master" ]
+    if [ ${current_branch} != "production" ]
     then
-      echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
+      echo "You can not make a production deploy from a branch other than 'production'.  Don't forget to make sure you have the latest code pulled."
       exit 1
     fi
     DEPLOY_GIT_BRANCH=deploy-lessons-server-prod
