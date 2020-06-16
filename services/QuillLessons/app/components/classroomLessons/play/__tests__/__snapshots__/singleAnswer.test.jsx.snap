@@ -49,14 +49,35 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
     }
   }
   mode={null}
+  projector={true}
   selected_submission_order={null}
   selected_submissions={null}
   studentCount={1}
   submissions={null}
 >
   <div
-    className="single-answer "
+    className="single-answer projector "
   >
+    <div
+      className="projector-header-section"
+    >
+      <div
+        className="students-type-tag tag"
+      >
+        <img
+          alt="Laptop Icon"
+          src="undefined/images/icons/laptop-glyph.svg"
+        />
+        <span>
+          Students type response
+        </span>
+      </div>
+      <p
+        className="answered-count"
+      >
+        0 of 1 have responded
+      </p>
+    </div>
     <SentenceFragments
       prompt="<p>Yesterday, riding my bike through the town.</p>"
     >
@@ -112,11 +133,13 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
     <RenderTextEditor
       checkAnswer={[Function]}
       defaultValue=""
+      disabled={true}
       handleChange={[Function]}
       placeholder="Type your response here"
+      value="Students type responses here"
     >
       <div
-        className="student text-editor card is-fullwidth  "
+        className="student text-editor card is-fullwidth  disabled-editor"
       >
         <div
           className="card-content"
@@ -129,6 +152,7 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
               autoCorrect="off"
               autoFocus={true}
               className="connect-text-area"
+              disabled={true}
               onChange={[Function]}
               onHeightChange={[Function]}
               onInput={[Function]}
@@ -136,12 +160,14 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
               placeholder="Type your response here"
               spellCheck={false}
               useCacheForDOMMeasurements={false}
+              value="Students type responses here"
             >
               <textarea
                 autoCapitalize="off"
                 autoCorrect="off"
                 autoFocus={true}
                 className="connect-text-area"
+                disabled={true}
                 onChange={[Function]}
                 onInput={[Function]}
                 onKeyDown={[Function]}
@@ -152,6 +178,7 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
                     "height": 0,
                   }
                 }
+                value="Students type responses here"
               />
             </TextareaAutosize>
           </div>
@@ -223,6 +250,7 @@ exports[`SingleAnswer component projector view when an answer is being displayed
     }
   }
   mode="PROJECT"
+  projector={true}
   selected_submission_order={
     Array [
       "student",
@@ -244,7 +272,7 @@ exports[`SingleAnswer component projector view when an answer is being displayed
   }
 >
   <div
-    className="single-answer "
+    className="single-answer projector "
   >
     <SentenceFragments
       prompt="<p>Yesterday, riding my bike through the town.</p>"
@@ -276,18 +304,6 @@ exports[`SingleAnswer component projector view when an answer is being displayed
     <div
       className="display-mode"
     >
-      <div>
-        <p
-          className="answer-header"
-        >
-          Your response
-        </p>
-        <p
-          className="your-answer"
-        >
-          Blah
-        </p>
-      </div>
       <div>
         <p
           className="answer-header"
@@ -589,18 +605,6 @@ exports[`SingleAnswer component student view when an answer is being displayed r
         <p
           className="answer-header"
         >
-          Your response
-        </p>
-        <p
-          className="your-answer"
-        >
-          Blah
-        </p>
-      </div>
-      <div>
-        <p
-          className="answer-header"
-        >
           Class responses
         </p>
         <ol
@@ -737,13 +741,11 @@ exports[`SingleAnswer component student view when the student has submitted an a
     <RenderTextEditor
       checkAnswer={[Function]}
       defaultValue=""
-      disabled={true}
       handleChange={[Function]}
       placeholder="Type your response here"
-      value="Blah"
     >
       <div
-        className="student text-editor card is-fullwidth  disabled-editor"
+        className="student text-editor card is-fullwidth  "
       >
         <div
           className="card-content"
@@ -756,7 +758,6 @@ exports[`SingleAnswer component student view when the student has submitted an a
               autoCorrect="off"
               autoFocus={true}
               className="connect-text-area"
-              disabled={true}
               onChange={[Function]}
               onHeightChange={[Function]}
               onInput={[Function]}
@@ -764,14 +765,12 @@ exports[`SingleAnswer component student view when the student has submitted an a
               placeholder="Type your response here"
               spellCheck={false}
               useCacheForDOMMeasurements={false}
-              value="Blah"
             >
               <textarea
                 autoCapitalize="off"
                 autoCorrect="off"
                 autoFocus={true}
                 className="connect-text-area"
-                disabled={true}
                 onChange={[Function]}
                 onInput={[Function]}
                 onKeyDown={[Function]}
@@ -782,7 +781,6 @@ exports[`SingleAnswer component student view when the student has submitted an a
                     "height": 0,
                   }
                 }
-                value="Blah"
               />
             </TextareaAutosize>
           </div>
@@ -790,9 +788,16 @@ exports[`SingleAnswer component student view when the student has submitted an a
       </div>
     </RenderTextEditor>
     <div
-      className="submitted-bar"
+      className="question-button-group"
     >
-      Please wait as your teacher reviews your response.
+      <button
+        className="quill-button primary contained large focus-on-light disabled"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        Submit
+      </button>
     </div>
   </div>
 </SingleAnswer>
