@@ -656,6 +656,9 @@ li.premium-tab > a:hover {
       font-weight: 600;
       text-decoration: none;
       padding: 10px 0px;
+      &.hidden {
+        display: none;
+      }
     }
   }
   @media only screen and (max-width: 600px) {

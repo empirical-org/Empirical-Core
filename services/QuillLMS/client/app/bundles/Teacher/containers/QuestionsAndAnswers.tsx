@@ -3,12 +3,22 @@ import QuestionAndAnswer from '../components/shared/QuestionAndAnswer.jsx'
 import lessons from '../components/modules/questionsAndAnswers/lessons'
 import admin from '../components/modules/questionsAndAnswers/admin'
 import premium from '../components/modules/questionsAndAnswers/premium'
+import preap from '../components/modules/questionsAndAnswers/preap'
 
-export default class QuestionsAndAnswers extends React.Component {
-  constructor(props) {
+export interface QuestionsAndAnswersProps {
+  questionsAndAnswersFile: string;
+  supportLink: string;
+}
+
+interface QuestionsAndAnswersState {
+  questionsAndAnswers: object[]
+}
+
+export default class QuestionsAndAnswers extends React.Component<QuestionsAndAnswersProps, QuestionsAndAnswersState> {
+  constructor(props: QuestionsAndAnswersProps) {
     super(props)
 
-    let questionsAndAnswers
+    let questionsAndAnswers;
     switch (props.questionsAndAnswersFile) {
       case 'admin':
         questionsAndAnswers = admin
@@ -18,6 +28,9 @@ export default class QuestionsAndAnswers extends React.Component {
         break
       case 'premium':
         questionsAndAnswers = premium
+        break
+      case 'preap':
+        questionsAndAnswers = preap
         break
       default:
         questionsAndAnswers = []
@@ -30,17 +43,19 @@ export default class QuestionsAndAnswers extends React.Component {
   }
 
   renderQuestionsAndAnswers() {
-    const { questionsAndAnswersFile } = this.props
-    return this.state.questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa} questionsAndAnswersFile={questionsAndAnswersFile} />)
+    const { questionsAndAnswersFile } = this.props;
+    const { questionsAndAnswers } = this.state;
+    return questionsAndAnswers.map((qa, i) => <QuestionAndAnswer key={i} qa={qa} questionsAndAnswersFile={questionsAndAnswersFile} />)
   }
 
   render() {
+    const { supportLink } = this.props;
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
           <h1>Questions and Answers</h1>
           {this.renderQuestionsAndAnswers()}
-          <a className="support-link" href={this.props.supportLink}>View all questions and answers</a>
+          <a className={`support-link ${!supportLink ? 'hidden' : ''}`} href={supportLink}>View all questions and answers</a>
         </div>
       </div>
     )
