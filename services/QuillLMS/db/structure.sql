@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12
--- Dumped by pg_dump version 10.12
+-- Dumped from database version 10.11
+-- Dumped by pg_dump version 10.11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -245,7 +245,7 @@ CREATE TABLE public.activities (
     name character varying,
     description text,
     uid character varying NOT NULL,
-    data public.hstore,
+    data jsonb,
     activity_classification_id integer,
     topic_id integer,
     created_at timestamp without time zone,
@@ -1599,40 +1599,6 @@ CREATE SEQUENCE public.ip_locations_id_seq
 --
 
 ALTER SEQUENCE public.ip_locations_id_seq OWNED BY public.ip_locations.id;
-
-
---
--- Name: lessons; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.lessons (
-    id integer NOT NULL,
-    uid character varying,
-    data jsonb,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    lesson_type character varying NOT NULL
-);
-
-
---
--- Name: lessons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.lessons_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lessons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.lessons_id_seq OWNED BY public.lessons.id;
 
 
 --
@@ -3170,13 +3136,6 @@ ALTER TABLE ONLY public.ip_locations ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: lessons id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessons ALTER COLUMN id SET DEFAULT nextval('public.lessons_id_seq'::regclass);
-
-
---
 -- Name: milestones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3723,14 +3682,6 @@ ALTER TABLE ONLY public.invitations
 
 ALTER TABLE ONLY public.ip_locations
     ADD CONSTRAINT ip_locations_pkey PRIMARY KEY (id);
-
-
---
--- Name: lessons lessons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.lessons
-    ADD CONSTRAINT lessons_pkey PRIMARY KEY (id);
 
 
 --
@@ -4522,20 +4473,6 @@ CREATE INDEX index_ip_locations_on_user_id ON public.ip_locations USING btree (u
 --
 
 CREATE INDEX index_ip_locations_on_zip ON public.ip_locations USING btree (zip);
-
-
---
--- Name: index_lessons_on_lesson_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_lessons_on_lesson_type ON public.lessons USING btree (lesson_type);
-
-
---
--- Name: index_lessons_on_uid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_lessons_on_uid ON public.lessons USING btree (uid);
 
 
 --
@@ -5715,11 +5652,7 @@ INSERT INTO schema_migrations (version) VALUES ('20170505195744');
 
 INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
-INSERT INTO schema_migrations (version) VALUES ('20170523175919');
-
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
-
-INSERT INTO schema_migrations (version) VALUES ('20170601140325');
 
 INSERT INTO schema_migrations (version) VALUES ('20170718160133');
 
@@ -5855,8 +5788,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
 INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 
-INSERT INTO schema_migrations (version) VALUES ('20180214051916');
-
 INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221162940');
@@ -5951,8 +5882,6 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
-INSERT INTO schema_migrations (version) VALUES ('20180809210431');
-
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180815174156');
@@ -6005,8 +5934,6 @@ INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
 INSERT INTO schema_migrations (version) VALUES ('20181105212102');
 
-INSERT INTO schema_migrations (version) VALUES ('20181126221244');
-
 INSERT INTO schema_migrations (version) VALUES ('20181203161708');
 
 INSERT INTO schema_migrations (version) VALUES ('20181214192858');
@@ -6057,11 +5984,15 @@ INSERT INTO schema_migrations (version) VALUES ('20200409151835');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415170227');
 
-INSERT INTO schema_migrations (version) VALUES ('20200417172506');
-
 INSERT INTO schema_migrations (version) VALUES ('20200505171239');
 
 INSERT INTO schema_migrations (version) VALUES ('20200511203004');
+
+INSERT INTO schema_migrations (version) VALUES ('20200603171807');
+
+INSERT INTO schema_migrations (version) VALUES ('20200604165331');
+
+INSERT INTO schema_migrations (version) VALUES ('20200610144620');
 
 INSERT INTO schema_migrations (version) VALUES ('20200612165828');
 

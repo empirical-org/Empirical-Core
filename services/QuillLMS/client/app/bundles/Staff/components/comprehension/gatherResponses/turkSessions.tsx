@@ -18,7 +18,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   const [showSubmissionModal, setShowSubmissionModal] = React.useState<boolean>(false);
   const [showEditOrDeleteTurkSessionModal, setShowEditOrDeleteTurkSessionModal] = React.useState<boolean>(false);
   const [dateError, setDateError] = React.useState<string>('');
-  const [submissionError, setSubmissionError] = React.useState<string>('');
+  const [submissionMessage, setSubmissionMessage] = React.useState<string>('');
   const { params } = match;
   const { activityId } = params;
 
@@ -34,7 +34,11 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     } else {
       createTurkSession(activityId, newTurkSessionDate).then((response) => {
         const { error } = response;
-        error && setSubmissionError(error);
+        if(error) {
+          setSubmissionMessage(error);
+        } else {
+          setSubmissionMessage('Turk session successfully created!');
+        }
         setNewTurkSessionDate(null);
         setDateError('');
         setShowSubmissionModal(true);
@@ -54,13 +58,12 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     toggleSubmissionModal();
   }
 
-  const handleEditOrDeleteError = (error) => {
-    setSubmissionError(error);
+  const handleEditOrDeleteMessage = (message: string) => {
+    setSubmissionMessage(message);
   }
 
   const renderSubmissionModal = () => {
-    const message = submissionError ? submissionError : 'Submission successful!';
-    return <SubmissionModal close={toggleSubmissionModal} message={message} />;
+    return <SubmissionModal close={toggleSubmissionModal} message={submissionMessage} />;
   }
 
   const renderEditOrDeleteTurkSessionModal = () => {
@@ -73,7 +76,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
           activityId={activityId} 
           closeModal={toggleEditTurkSessionModal}
           originalSessionDate={editTurkSessionDate}
-          setError={handleEditOrDeleteError}
+          setMessage={handleEditOrDeleteMessage}
           turkSessionId={editTurkSessionId} 
         />
       </Modal>
@@ -120,7 +123,7 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
   
   const toggleSubmissionModal = () => { 
     setShowSubmissionModal(!showSubmissionModal);
-    setSubmissionError('');
+    setSubmissionMessage('');
   }
 
   const toggleEditTurkSessionModal = () => {setShowEditOrDeleteTurkSessionModal(!showEditOrDeleteTurkSessionModal)  }

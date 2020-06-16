@@ -96,8 +96,8 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   }
 
   const renderSubmissionModal = () => {
-    let message = 'Rule set successfully updated!';
-    if(errors) {
+    let message = 'Rule set successfully created!';
+    if(Object.keys(errors).length) {
       message = buildErrorMessage(errors);
     }
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;

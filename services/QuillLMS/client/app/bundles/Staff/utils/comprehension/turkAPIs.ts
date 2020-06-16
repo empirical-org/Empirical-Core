@@ -21,7 +21,7 @@ export const fetchTurkSessions = async (key: string, activityId: string) => {
 
 export const createTurkSession = async (activityId: string, newTurkSessionDate: any) => {
   let error: string;
-  const response = await fetch('https://comprehension-247816.appspot.com/ap/turking.json', {
+  const response = await fetch('https://comprehension-247816.appspot.com/api/turking.json', {
     method: 'POST',
     body: JSON.stringify({
       activity_id: activityId,
@@ -41,7 +41,7 @@ export const createTurkSession = async (activityId: string, newTurkSessionDate: 
 
 export const editTurkSession = async (activityId: string, turkSessionId: string, turkSessionDate: any) => {
   let error: any;
-  const response = await fetch(`https://comprehension-247816.appspot.com/ap/turking/${turkSessionId}.json`, {
+  const response = await fetch(`https://comprehension-247816.appspot.com/api/turking/${turkSessionId}.json`, {
     method: 'PUT',
     body: JSON.stringify({
       activity_id: activityId, 
@@ -61,7 +61,7 @@ export const editTurkSession = async (activityId: string, turkSessionId: string,
 
 export const deleteTurkSession = async (turkSessionId: string) => {
   let error: any;
-  const response = await fetch(`https://comprehension-247816.appspot.com/ap/turking/${turkSessionId}.json`, {
+  const response = await fetch(`https://comprehension-247816.appspot.com/api/turking/${turkSessionId}.json`, {
     method: 'DELETE'
   });
   const { status } = response;

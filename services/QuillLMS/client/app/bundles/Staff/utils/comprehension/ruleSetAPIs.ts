@@ -59,20 +59,23 @@ export const updateRuleSet = async (activityId: string, ruleSetId: string, ruleS
       "Content-Type": "application/json"
     },
   });
-  const updatedRuleSet = await response.json();
   const { status } = response;
   if(requestFailed(status)) {
     error = 'Failed to update rule set, please try again.';
   }
-  const mergedRules = updatedRuleSet.rules;
-  rules.forEach(rule => {
-    // add rules without IDs for rule creation
-    !rule.id && mergedRules.push(rule);
-  });
+  const updatedRuleSet = await response.json();
+  let mergedRules: object[];
+  if(updatedRuleSet) {
+    mergedRules = updatedRuleSet.rules;
+    rules.forEach(rule => {
+      // add rules without IDs for rule creation
+      !rule.id && mergedRules.push(rule);
+    });
+  }
   return { 
     error, 
-    rules: mergedRules,
-    ruleSetId: updatedRuleSet.id
+    rules: updatedRuleSet && mergedRules,
+    ruleSetId: updatedRuleSet && updatedRuleSet.id
   };
 }
 

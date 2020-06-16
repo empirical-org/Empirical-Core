@@ -5,7 +5,7 @@ import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
 import { queryCache } from 'react-query';
 
-const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setError, turkSessionId }) => {
+const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setMessage, turkSessionId }) => {
   const [turkSessionDate, setTurkSessionDate] = React.useState<object>(moment(originalSessionDate));
   const [focused, setFocusedState] = React.useState<boolean>(false);
 
@@ -16,10 +16,13 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setError
   const handleEditTurkSession = async () => {
     editTurkSession(activityId, turkSessionId, turkSessionDate).then((response) => {
       const { error } = response;
-      error && setError(error);
+      if(error) {
+        setMessage(error);
+      } else {
+        setMessage('Turk session successfully edited!')
+      }
       // update turk sessions cache to display edited turk session
-      queryCache.refetchQueries(`turk-sessions-${activityId}`)
-      setError('');
+      queryCache.refetchQueries(`turk-sessions-${activityId}`);
       closeModal();
     });
   }
@@ -27,10 +30,13 @@ const EditTurkSession = ({ activityId, closeModal, originalSessionDate, setError
   const handleDeleteTurkSession = async () => {
     deleteTurkSession(turkSessionId).then((response) => {
       const { error } = response;
-      setError(error);
+      if(error) {
+        setMessage(error);
+      } else {
+        setMessage('Turk session successfully deleted!')
+      }
       // update turk sessions cache to reflect deleted turk session
-      queryCache.refetchQueries(`turk-sessions-${activityId}`)
-      setError('');
+      queryCache.refetchQueries(`turk-sessions-${activityId}`);
       closeModal();
     });
   }

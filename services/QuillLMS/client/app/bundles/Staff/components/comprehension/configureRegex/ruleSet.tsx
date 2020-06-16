@@ -149,6 +149,7 @@ const RuleSet = ({ history, match }) => {
     });
 
     toggleShowEditRuleSetModal();
+    toggleSubmissionModal();
   }
 
   const handleDeleteRuleSet = () => {
@@ -161,9 +162,13 @@ const RuleSet = ({ history, match }) => {
       }
       toggleShowDeleteRuleSetModal();
 
-      // update ruleSets cache to remove delete ruleSet
-      queryCache.refetchQueries(`ruleSets-${activityId}`);
-      history.push(`/activities/${activityId}/rulesets`);
+      if(errors) {
+        toggleSubmissionModal();
+      } else {
+        // update ruleSets cache to remove delete ruleSet
+        queryCache.refetchQueries(`ruleSets-${activityId}`);
+        history.push(`/activities/${activityId}/rulesets`);
+      }
     });
   }
 
@@ -200,7 +205,7 @@ const RuleSet = ({ history, match }) => {
 
   const renderSubmissionModal = () => {
     let message = 'Rule set successfully updated!';
-    if(errors) {
+    if(Object.keys(errors).length) {
       message = buildErrorMessage(errors);
     }
     return <SubmissionModal close={toggleSubmissionModal} message={message} />;

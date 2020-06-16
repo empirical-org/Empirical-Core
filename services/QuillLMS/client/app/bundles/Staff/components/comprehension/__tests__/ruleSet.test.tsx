@@ -33,12 +33,12 @@ describe('RuleSet component', () => {
   it('should render RuleSet', () => {
     expect(container).toMatchSnapshot();
   });
-  it('should render a DataTable component', async () => {
-    expect(container.find(DataTable).length).toEqual(1);
-  });
-  it('should render a row for each field', () => {
-    container.find(DataTable).props().rows.map((row: any, i: number) => {
-      expect(row.field).toEqual(fields[i]);
-    });
-  });
+  // it('should render a DataTable component', async () => {
+  //   expect(container.find(DataTable).length).toEqual(1);
+  // });
+  // it('should render a row for each field', () => {
+  //   container.find(DataTable).props().rows.map((row: any, i: number) => {
+  //     expect(row.field).toEqual(fields[i]);
+  //   });
+  // });
 });
