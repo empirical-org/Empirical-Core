@@ -365,7 +365,7 @@ module Teacher
 
   def premium_state
     if subscription
-      subscription.account_type == 'Teacher Trial' ? 'trial' : 'paid'
+      (Subscription::TRIAL_TYPES | Subscription::COVID_TYPES).include?(subscription.account_type) ? 'trial' : 'paid'
     elsif subscriptions.exists?
       # then they have an expired or 'locked' sub
       'locked'

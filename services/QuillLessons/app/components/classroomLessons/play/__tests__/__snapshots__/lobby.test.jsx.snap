@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Lobby component projector view renders 1`] = `
+<Lobby
+  data={
+    Object {
+      "absentTeacherState": false,
+      "classroom_name": "Quill Classroom",
+      "current_slide": "0",
+      "edition_id": "-L1uY6dpgZ-Il6ZuquY6",
+      "followUpActivityName": "Follow-up Activity for Lesson 1: Adverbs",
+      "id": "2897973-KsKmzdhUYHYCB6EDKz_",
+      "presence": Object {
+        "fkFfOdAvTy-QkfjAQhzcpQ": true,
+      },
+      "startTime": "2020-06-11T13:17:42.823Z",
+      "student_ids": Object {
+        "5204393": true,
+        "5204394": true,
+        "5204396": true,
+        "5204397": true,
+      },
+      "students": Object {
+        "GunvLfWJk7FK_aBH99WukA": "Harper Lee",
+        "S9Fibh5Nkh21LhPZLGwQ9w": "William Shakespeare",
+        "fkFfOdAvTy-QkfjAQhzcpQ": "Maya Angelou",
+        "gduTfHrLpDdondOlx7-_Ag": "James Joyce",
+      },
+      "supportingInfo": "https://assets.quill.org/documents/quill_lessons_pdf/adverbs/lesson1_adverbs.pdf",
+      "teacher_ids": Object {
+        "5204392": true,
+      },
+      "teacher_name": "Demo Teacher",
+      "timestamps": Object {
+        "0": "2020-06-11T13:17:53.121Z",
+      },
+    }
+  }
+  projector={true}
+  title="Adverbs"
+>
+  <div
+    className="student-lobby"
+  >
+    <div
+      className="projector-view"
+    >
+      <div
+        className="projector-header"
+      >
+        <div
+          className="projector-header-content"
+        >
+          <h1>
+            Join the lesson
+          </h1>
+          <ol>
+            <li>
+              Go to quill.org
+            </li>
+            <li>
+              Log in
+            </li>
+            <li>
+              Select “Join”
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div
+        className="projector-body"
+      >
+        <h2>
+          1
+           of 
+          4
+           students have joined
+        </h2>
+        <div
+          className="student-list"
+        >
+          <div
+            className="student-box present"
+            key="Maya Angelou"
+          >
+            <div
+              className="decorative-circle"
+            />
+            <p>
+              Maya Angelou
+            </p>
+          </div>
+          <div
+            className="student-box"
+            key="James Joyce"
+          >
+            <div
+              className="decorative-circle"
+            />
+            <p>
+              James Joyce
+            </p>
+          </div>
+          <div
+            className="student-box"
+            key="Harper Lee"
+          >
+            <div
+              className="decorative-circle"
+            />
+            <p>
+              Harper Lee
+            </p>
+          </div>
+          <div
+            className="student-box"
+            key="William Shakespeare"
+          >
+            <div
+              className="decorative-circle"
+            />
+            <p>
+              William Shakespeare
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Lobby>
+`;
+
+exports[`Lobby component student view renders 1`] = `
+<Lobby
+  data={
+    Object {
+      "absentTeacherState": false,
+      "classroom_name": "Quill Classroom",
+      "current_slide": "0",
+      "edition_id": "-L1uY6dpgZ-Il6ZuquY6",
+      "followUpActivityName": "Follow-up Activity for Lesson 1: Adverbs",
+      "id": "2897973-KsKmzdhUYHYCB6EDKz_",
+      "presence": Object {
+        "fkFfOdAvTy-QkfjAQhzcpQ": true,
+      },
+      "startTime": "2020-06-11T13:17:42.823Z",
+      "student_ids": Object {
+        "5204393": true,
+        "5204394": true,
+        "5204396": true,
+        "5204397": true,
+      },
+      "students": Object {
+        "GunvLfWJk7FK_aBH99WukA": "Harper Lee",
+        "S9Fibh5Nkh21LhPZLGwQ9w": "William Shakespeare",
+        "fkFfOdAvTy-QkfjAQhzcpQ": "Maya Angelou",
+        "gduTfHrLpDdondOlx7-_Ag": "James Joyce",
+      },
+      "supportingInfo": "https://assets.quill.org/documents/quill_lessons_pdf/adverbs/lesson1_adverbs.pdf",
+      "teacher_ids": Object {
+        "5204392": true,
+      },
+      "teacher_name": "Demo Teacher",
+      "timestamps": Object {
+        "0": "2020-06-11T13:17:53.121Z",
+      },
+    }
+  }
+  projector={false}
+  title="Adverbs"
+>
+  <div
+    className="student-lobby"
+  >
+    <div
+      className="full-page-modal-container"
+    >
+      <div
+        className="full-page-modal"
+      >
+        <img
+          alt="An illustration of a laptop connected to Quill Lessons"
+          src="undefined/images/illustrations/laptop-connecting-to-lessons.svg"
+        />
+        <h1>
+          You've joined the lesson!
+        </h1>
+        <h2>
+          Wait for other students to join and for your teacher to begin.
+        </h2>
+      </div>
+    </div>
+  </div>
+</Lobby>
+`;
