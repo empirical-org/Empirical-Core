@@ -5,7 +5,7 @@ app_name="QuillLMS"
 
 case $1 in
   prod)
-    DEPLOY_GIT_BRANCH=deploy-lms-staging
+    DEPLOY_GIT_BRANCH=deploy-lms-prod
     HEROKU_APP=empirical-grammar
     URL="https://www.quill.org/"
     NR_URL="https://rpm.newrelic.com/accounts/2639113/applications/548856875"
