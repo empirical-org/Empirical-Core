@@ -42,6 +42,54 @@
         }
       }
     }
+    .cb-message-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      margin-top: 100px;
+      margin-bottom: 120px;
+      .cb-message-header {
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 1.5;
+        color: black;
+        max-width: 554px;
+        padding: 60px 0px 40px 0px;
+      }
+      .sub-header-container {
+        max-width: 554px;
+        width: 100%;
+        .cb-message-sub-header {
+          font-size: 16px;
+          font-weight: bold;
+          color: black;
+        }
+      }
+      .quote-container {
+        display: flex;
+        max-width: 648px;
+        padding: 25px 0px 50px 0px;
+        .inner-text-container {
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: black;
+          }
+          p:nth-of-type(1) {
+            padding-bottom: 25px;
+          }
+        }
+        #first-quote {
+          align-self: flex-start;
+          margin-right: 15px;
+        }
+        #second-quote {
+          align-self: flex-end;
+          margin-left: 15px;
+        }
+      }
+    }
   }
   .white-section-wrapper {
     background-color: white;
@@ -254,6 +302,13 @@
             a {
               margin-bottom: 40px;
             }
+          }
+        }
+      }
+      .cb-message-container {
+        .quote-container {
+          img {
+            display: none;
           }
         }
       }
