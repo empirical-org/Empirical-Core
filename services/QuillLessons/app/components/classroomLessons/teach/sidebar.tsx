@@ -31,7 +31,8 @@ interface ReducerSidebarProps extends React.Props<any> {
 }
 
 interface PassedSidebarProps extends React.Props<any> {
-  match: any
+  match: any,
+  classroomSessionId?: string
 }
 
 class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {
@@ -40,10 +41,8 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.match.params.lessonID
     this.state = {
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null,
       currentSlide: null
     }
   }
@@ -87,8 +86,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
   }
 
   goToSlide = (slide_id: string) => {
-    const { dispatch, } = this.props
-    const { classroomSessionId, } = this.state
+    const { dispatch, classroomSessionId, } = this.props
     if (classroomSessionId) {
       dispatch(updateCurrentSlide(slide_id, classroomSessionId));
     }
