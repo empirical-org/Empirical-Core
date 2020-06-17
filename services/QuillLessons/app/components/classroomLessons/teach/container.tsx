@@ -153,6 +153,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
   }
 
   render() {
+    const { classroomSessionId, } = this.state
     const { match, classroomSessions, classroomLesson, } = this.props
     const classroomActivityError = classroomSessions.error;
     const lessonError = classroomLesson.error;
@@ -162,7 +163,7 @@ class TeachClassroomLessonContainer extends React.Component<any, any> {
     let component = (
       <div className="teach-lesson-container" style={teachLessonContainerStyle}>
         <WakeLock />
-        <Sidebar match={match} />
+        <Sidebar classroomSessionId={classroomSessionId} match={match} />
         <MainContentContainer match={match} />
       </div>
     );

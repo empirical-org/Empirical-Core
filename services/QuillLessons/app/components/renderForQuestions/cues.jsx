@@ -6,6 +6,20 @@ import {
 
 const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
 
+// temporarily making this an export and leaving the default export because of the other components that use it
+export const Cues = ({ cues, }: { cues: string[] }) => {
+  if (!(cues && cues.length)) { return <span /> }
+
+  const cueDivs = cues.map((cue, i) => <Cue cue={cue} key={`${i}${cue}`} />)
+  return (
+    <div className="cues">
+      {cueDivs}
+      <img alt="Arrow Icon" src={arrow} />
+      <CueExplanation text='choose one' />
+    </div>
+  )
+}
+
 export default class extends React.Component {
   getJoiningWordsText = () => {
     let text;
