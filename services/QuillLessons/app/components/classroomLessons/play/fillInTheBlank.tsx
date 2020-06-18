@@ -11,7 +11,7 @@ import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
-import { Cues, } from '../../../components/renderForQuestions/cues';
+import { Cues, } from '../../renderForQuestions/cues';
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import { PROJECT } from './constants'
 import { getParameterByName } from '../../../libs/getParameterByName';
@@ -136,7 +136,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   zipInputsAndText() {
     const { inputVals, splitPrompt, } = this.state
-    const boldInputs = inputVals.map((val) => `<strong>${val}</strong>&nbsp;`)
+    const boldInputs = inputVals.map((val) => `<strong>${val}</strong>`)
     const strippedPrompts = splitPrompt.map(p => htmlStrip(p))
     const zipped = _.zip(strippedPrompts, boldInputs);
     return _.flatten(zipped).join('');
@@ -153,7 +153,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     inputClass += inputErrors[i] ? ' error' : ''
     const value = inputVals[i] ? inputVals[i] : ''
     const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
-    const width = longestCue ? (longestCue.length * 15) + 10 : 50
+    const width = longestCue ? (longestCue.length * 20) + 10 : 50
     const styling = { width: `${width}px` }
     const updateBlankValue = (e) => this.updateBlankValue(e, i)
     return (

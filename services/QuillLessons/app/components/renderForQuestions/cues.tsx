@@ -4,7 +4,7 @@ import {
   CueExplanation
 } from 'quill-component-library/dist/componentLibrary';
 
-const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
+const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 
 // temporarily making this an export and leaving the default export because of the other components that use it
 export const Cues = ({ cues, }: { cues: string[] }) => {
