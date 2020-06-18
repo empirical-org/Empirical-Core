@@ -8,7 +8,7 @@ const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
 
 // temporarily making this an export and leaving the default export because of the other components that use it
 export const Cues = ({ cues, }: { cues: string[] }) => {
-  if (!(cues && cues.length)) { return <span /> }
+  if (!(cues && cues.length && cues.filter(cue => cue.length).length)) { return <span /> }
 
   const cueDivs = cues.map((cue, i) => <Cue cue={cue} key={`${i}${cue}`} />)
   return (
