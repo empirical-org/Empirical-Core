@@ -278,3 +278,43 @@ data: {
   selected_submission_order: null,
   studentCount: 1
 }
+
+export const fillInTheBlankProps = {
+  data: {
+    play: {
+      cues: [
+        "the",
+        "a"
+      ],
+      instructions: "Fill in the blank with one of the highlighted words.",
+      prompt: "We waited in line at the store. ___ line was very long!"
+    },
+    teach: {
+      script: [
+        {
+          data: {
+            body: "<p><strong>Say:</strong> Let’s practice. With your partner, decide whether to use <em>a</em> or <em>the</em> in this sentence. Discuss why as well.</p>",
+            heading: "Ask pairs to fill in the blank with \"a\" or \"the.\""
+          },
+          type: "STEP-HTML"
+        },
+        {
+          type: "T-REVIEW"
+        },
+        {
+          data: {
+            body: "<p><em>Ask students to share their explanations for why they chose “a” or why they chose “the.”</em></p>\n<p><strong>Say: </strong>Thank you for sharing your ideas! As many of you explained, we use <em>the</em> here because we're talking about a specific line—the one we waited in! The sentence tells us which line we’re talking about.</p>",
+            heading: "Select 1 correct response and 1 incorrect responses to display and discuss. "
+          },
+          type: "STEP-HTML"
+        }
+      ],
+      title: "Paired Practice"
+    }
+  },
+  mode: null,
+  submissions: null,
+  selected_submissions: null,
+  selected_submission_order: null,
+  studentCount: 1
+}
