@@ -1,7 +1,10 @@
 declare function require(name:string);
 import * as React from 'react';
 import * as _ from 'lodash'
-import { Feedback } from 'quill-component-library/dist/componentLibrary'
+import {
+  Feedback,
+  SentenceFragments,
+} from 'quill-component-library/dist/componentLibrary'
 
 import {
 QuestionData,
@@ -11,7 +14,7 @@ ClassroomLessonSession,
 SelectedSubmissionsForQuestion,
 QuestionSubmissionsList
 } from '../interfaces'
-import TextEditor from '../shared/textEditor';
+import TextEditor from '../../renderForQuestions/renderTextEditor';
 import SubmitButton from './submitButton'
 import FeedbackRow from './feedbackRow'
 import ProjectorHeader from './projectorHeader'
@@ -137,8 +140,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   textEditListComponents(i){
+    const { projector, } = this.props
     const { isSubmittable, submitted, answers, } = this.state
-    const disabled:boolean = Boolean(!isSubmittable && submitted)
+    const disabled:boolean = submitted || projector
+    const value = projector ? 'Students type responses here' : answers[i]
     return (
       <div className="list-component" key={`${i}`}>
         <span className="list-number">{`${i + 1}.`}</span>
@@ -147,29 +152,29 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
           index={i}
-          value={answers[i]}
+          placeholder="Type your response here"
+          value={value}
         />
       </div>
     )
   }
 
   listBlanks() {
-    const { projector, data, } = this.props
+    const { data, } = this.props
     // let { a, b }: { a: string, b: number } = o;
     const nBlanks = data.play.nBlanks;
     const textEditorArr : JSX.Element[]  = [];
     for (let i = 0; i < nBlanks; i+=1) {
-        textEditorArr.push(
+      textEditorArr.push(
         this.textEditListComponents(i)
       )
     }
-    if (!projector) {
-      return (
-        <div className="list-blanks">
-          {textEditorArr}
-        </div>
-      )
-    }
+
+    return (
+      <div className="list-blanks">
+        {textEditorArr}
+      </div>
+    )
   }
 
   answerValues(){
@@ -210,6 +215,14 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     );
   }
 
+  renderProjectorHeader() {
+    const { projector, studentCount, submissions, mode, } = this.props
+
+    if (!projector || mode === PROJECT) { return }
+
+    return <ProjectorHeader studentCount={studentCount} submissions={submissions} />
+  }
+
   renderModeSpecificContent(){
     const { errors, submitted, isSubmittable, } = this.state
     const { mode, data, projector, } = this.props
@@ -223,22 +236,20 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         feedbackType="default"
       />) : null;
       const disabled = submitted || !isSubmittable
+      const prompt = <SentenceFragments prompt={data.play.prompt} />
       return (
         <div>
           <PromptSection
             mode={mode}
             promptElement={prompt}
           />
-          <h1 className="prompt">
-            <div dangerouslySetInnerHTML={{__html: data.play.prompt}} />
-          </h1>
           {instructionsRow}
           {this.listBlanks()}
           <div>
             <div className='feedback-and-button-container'>
               {errorArea}
               <div style={{marginBottom: 20}}>{feedbackRow}</div>
-              return <SubmitButton disabled={disabled} onClick={this.handleStudentSubmission} />
+              <SubmitButton disabled={disabled} onClick={this.handleStudentSubmission} />
             </div>
           </div>
         </div>
@@ -249,7 +260,8 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   render() {
     return (
-      <div className="list-blanks">
+      <div className="list-blanks-container">
+        {this.renderProjectorHeader()}
         {this.renderModeSpecificContent()}
       </div>
     );

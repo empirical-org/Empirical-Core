@@ -1,0 +1,33 @@
+.student.text-editor.card {
+  border-radius: 4px;
+  border: solid 2px #8e8e8e;
+  box-shadow: none;
+  textarea {
+    font-size: 24px;
+    color: #000;
+  }
+}
+
+.student.text-editor.card.disabled-editor {
+  opacity: 1 !important;
+  border: none !important;
+  .card-content {
+    background-color: #e5e5e5;
+    textarea {
+      color: #000;
+      line-height: 1.33;
+    }
+  }
+}
+
+.editing {
+  .student.text-editor.card {
+    border: solid 2px #06806b;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-content textarea {
+    font-size: 20px;
+  }
+}
