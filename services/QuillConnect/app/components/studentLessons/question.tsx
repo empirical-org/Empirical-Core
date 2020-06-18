@@ -280,8 +280,9 @@ export default class PlayLessonQuestion extends React.Component {
     // we do not want to show concept feedback if a response is optimal
     if (!latestAttempt || !latestAttempt.response || latestAttempt.response.optimal) { return }
 
-    if (latestAttempt.response.author) {
+    if (latestAttempt.response.author || [true, false].includes(latestAttempt.response.optimal)) {
       // we only want to show response-specific (ie, concept-result-specific) concept feedback if the response is matched
+      // The presence of 'author' indicates a match via algorithm, and an explicitly-set 'optimal' property indicates a match via explicit human grading
 
       if (latestAttempt.response.conceptResults) {
         const negativeConcepts = this.getNegativeConceptResultsForResponse(latestAttempt.response.conceptResults);
