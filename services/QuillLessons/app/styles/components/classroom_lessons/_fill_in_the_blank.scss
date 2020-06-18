@@ -7,12 +7,6 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    .warning {
-      z-index: 99;
-      position: relative;
-      top: 0;
-      left: 0;
-    }
     input {
       border-radius: 4px;
       border: solid 2px #8e8e8e;
@@ -42,34 +36,6 @@
       background-color: #f4f4f4;
       border: none;
 
-    }
-  }
-  .answer-header {
-    padding-top: 35px;
-  }
-  .warning-dialogue {
-    border: 1px #ff3730 solid;
-    color: #ff3730;
-    font-size: 14px;
-    top: -37px;
-    position: absolute;
-    text-align: center;
-    background-color: white;
-    height: 26px;
-    z-index: 100;
-    padding: 0px 7px;
-    display: flex;
-    align-items: center;
-    left: 8px;
-    span {
-      white-space: nowrap;
-    }
-    i {
-      font-size: 15px;
-      color: white;
-      position: absolute;
-      top: 18px;
-      text-shadow: 0px 1px 0px #ff3730;
     }
   }
   @media (max-width: 400px) {

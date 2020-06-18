@@ -104,12 +104,12 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
         />
       </SentenceFragments>
     </PromptSection>
-    <default_1
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </default_1>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -199,18 +199,23 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -339,12 +344,12 @@ exports[`SingleAnswer component projector view when an answer is being displayed
         />
       </SentenceFragments>
     </PromptSection>
-    <default_1
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </default_1>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -434,18 +439,23 @@ exports[`SingleAnswer component projector view when an answer is being displayed
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -528,12 +538,12 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
         />
       </SentenceFragments>
     </PromptSection>
-    <default_1
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </default_1>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -617,18 +627,23 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -724,12 +739,12 @@ exports[`SingleAnswer component student view when an answer is being displayed r
         />
       </SentenceFragments>
     </PromptSection>
-    <default_1
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </default_1>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -813,18 +828,23 @@ exports[`SingleAnswer component student view when an answer is being displayed r
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -914,12 +934,12 @@ exports[`SingleAnswer component student view when the student has submitted an a
         />
       </SentenceFragments>
     </PromptSection>
-    <default_1
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </default_1>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -1003,18 +1023,23 @@ exports[`SingleAnswer component student view when the student has submitted an a
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;

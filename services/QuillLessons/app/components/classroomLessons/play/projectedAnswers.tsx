@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-const ProjectedAnswers = ({ selectedSubmissions, selectedSubmissionOrder, projector, response, data, submissions, }) => {
+const ProjectedAnswers = ({ selectedSubmissions, selectedSubmissionOrder, projector, response, sampleCorrectAnswer, submissions, }) => {
   const renderYourAnswer = () => {
     if (projector || !response) { return }
 
-    return (<div>
+    return (<div className="your-answer-container">
       <p className="answer-header">Your response</p>
       <p className="your-answer" dangerouslySetInnerHTML={{ __html: response}} />
     </div>)
@@ -15,8 +15,8 @@ const ProjectedAnswers = ({ selectedSubmissions, selectedSubmissionOrder, projec
       let text
       if (submissions && submissions[key] && submissions[key].data) {
         text = submissions[key].data
-      } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
-        text = data.play.sampleCorrectAnswer
+      } else if (key === 'correct' && sampleCorrectAnswer){
+        text = sampleCorrectAnswer
       } else {
         text = ''
       }
