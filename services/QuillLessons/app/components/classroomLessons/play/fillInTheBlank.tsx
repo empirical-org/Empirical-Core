@@ -9,6 +9,7 @@ import { stringNormalize } from 'quill-string-normalizer';
 import ProjectorHeader from './projectorHeader'
 import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
+import SubmitButton from './submitButton'
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
 import { Cues, } from '../../renderForQuestions/cues';
@@ -224,10 +225,8 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const { submitted, inputVals, } = this.state
     if (submitted || mode === PROJECT) { return }
 
-    const disabled = inputVals.find(val => val.length) ? null : 'disabled'
-    return (<div className="question-button-group">
-      <button className={`quill-button primary contained large focus-on-light ${disabled}`} disabled={!!disabled} onClick={this.handleSubmit} type="button">Submit</button>
-    </div>);
+    const disabled = !inputVals.find(val => val.length)
+    return <SubmitButton disabled={disabled} onClick={this.handleSubmit} />
   }
 
   renderPrompt(elements: Array<JSX.Element>|undefined) {
@@ -243,11 +242,12 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const { selected_submissions, selected_submission_order, data, projector, submissions, mode, } = this.props
 
     if (mode !== PROJECT) { return }
+    const { sampleCorrectAnswer, } = data.play
 
     return (<ProjectedAnswers
-      data={data}
       projector={projector}
       response={this.zipInputsAndText()}
+      sampleCorrectAnswer={sampleCorrectAnswer}
       selectedSubmissionOrder={selected_submission_order}
       selectedSubmissions={selected_submissions}
       submissions={submissions}

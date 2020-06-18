@@ -12,6 +12,7 @@ import { getParameterByName } from '../../../libs/getParameterByName';
 import ProjectorHeader from './projectorHeader'
 import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
+import SubmitButton from './submitButton'
 import { PROJECT } from './constants'
 import {
   QuestionSubmissionsList,
@@ -85,10 +86,12 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
   renderProject() {
     const { selected_submissions, selected_submission_order, data, projector, submissions, } = this.props
     const { response, } = this.state
+    const { sampleCorrectAnswer, } = data.play
+    
     return (<ProjectedAnswers
-      data={data}
       projector={projector}
       response={response}
+      sampleCorrectAnswer={sampleCorrectAnswer}
       selectedSubmissionOrder={selected_submission_order}
       selectedSubmissions={selected_submissions}
       submissions={submissions}
@@ -152,10 +155,8 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     const { response, submitted, } = this.state
     if (submitted || mode === PROJECT) { return }
 
-    const disabled = !response || response.length === 0 ? 'disabled' : null
-    return (<div className="question-button-group">
-      <button className={`quill-button primary contained large focus-on-light ${disabled}`} disabled={!!disabled} onClick={this.handleSubmit} type="button">Submit</button>
-    </div>);
+    const disabled = !response || response.length === 0
+    return <SubmitButton disabled={disabled} onClick={this.handleSubmit} />
   }
 
   renderSubmittedBar() {

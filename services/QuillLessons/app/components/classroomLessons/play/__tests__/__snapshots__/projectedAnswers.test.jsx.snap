@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectedAnswers component renders on the projector screen 1`] = `
+<ProjectedAnswers
+  projector={true}
+  response={null}
+  selectedSubmissionOrder={
+    Array [
+      "student",
+    ]
+  }
+  selectedSubmissions={
+    Object {
+      "student": true,
+    }
+  }
+  submissions={
+    Object {
+      "student": Object {
+        "data": "We waited in line at the store. <strong>The</strong> line was very long!",
+        "timestamp": "2020-06-18T13:22:44.449Z",
+      },
+    }
+  }
+>
+  <div
+    className="display-mode"
+  >
+    <div>
+      <p
+        className="answer-header"
+      >
+        Class responses
+      </p>
+      <ol
+        className="class-answer-list"
+      >
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
+            }
+          }
+          key="0"
+        />
+      </ol>
+    </div>
+  </div>
+</ProjectedAnswers>
+`;
+
+exports[`ProjectedAnswers component renders on the student screen 1`] = `
+<ProjectedAnswers
+  response="We waited in line at the store. <strong>The</strong> line was very long!"
+  selectedSubmissionOrder={
+    Array [
+      "student",
+    ]
+  }
+  selectedSubmissions={
+    Object {
+      "student": true,
+    }
+  }
+  submissions={
+    Object {
+      "student": Object {
+        "data": "We waited in line at the store. <strong>The</strong> line was very long!",
+        "timestamp": "2020-06-18T13:22:44.449Z",
+      },
+    }
+  }
+>
+  <div
+    className="display-mode"
+  >
+    <div
+      className="your-answer-container"
+    >
+      <p
+        className="answer-header"
+      >
+        Your response
+      </p>
+      <p
+        className="your-answer"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
+          }
+        }
+      />
+    </div>
+    <div>
+      <p
+        className="answer-header"
+      >
+        Class responses
+      </p>
+      <ol
+        className="class-answer-list"
+      >
+        <li
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
+            }
+          }
+          key="0"
+        />
+      </ol>
+    </div>
+  </div>
+</ProjectedAnswers>
+`;
