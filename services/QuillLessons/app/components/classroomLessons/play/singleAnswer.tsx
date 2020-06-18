@@ -1,6 +1,6 @@
 declare function require(name:string);
 import * as React from 'react';
-import Cues from '../../../components/renderForQuestions/cues';
+import { Cues, } from '../../renderForQuestions/cues';
 import FeedbackRow from './feedbackRow'
 import {
   Feedback,
