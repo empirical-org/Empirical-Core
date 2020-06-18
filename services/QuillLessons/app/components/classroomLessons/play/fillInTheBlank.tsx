@@ -1,6 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
-import _ from 'underscore'
+import * as _ from 'underscore'
 import {
   Feedback
 } from 'quill-component-library/dist/componentLibrary'
