@@ -1,0 +1,12 @@
+.prompt {
+  font-size: 30px;
+  line-height: 1.53;
+  color: #000;
+  margin: 40px 0px 24px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  @media (max-width: 400px) {
+    margin: 24px 0px;
+  }
+}

@@ -45,10 +45,10 @@
 }
 
 .list-number {
-  font-family: RobotoMono;
-	font-size: 20px;
-	color: #969696;
-  margin-right: 33px;
+  font-size: 24px;
+  line-height: 1.33;
+  color: #808080;
+  width: 32px;
 }
 
 .sentence-fragments {
@@ -72,7 +72,7 @@
 .list-component {
   display: flex;
   align-items: center;
-  // justify-content: space-around;
+  margin-bottom: 24px;
 }
 .feedback-row {
   .info {
@@ -87,11 +87,10 @@
 }
 
 .list-blanks {
-  margin-top: 30px;
-  background-color: 'yellow';
   .student.text-editor.card {
     min-width: 250px;
     min-height: 40px;
+    margin-bottom: 0px;
     .card-content {
       padding: 9px;
     }
