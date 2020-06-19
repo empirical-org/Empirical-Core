@@ -22,7 +22,7 @@ describe ActivitySearch do
           "section_id" => section.id.to_s,
           "section_name" => section.name,
           "topic_name" => topic.name,
-          "order_number" => activity_classification.order_number.to_s,
+          "order_number" => activity_category_activity.order_number.to_s,
           "classification_id" => activity_classification.id.to_s
         }
       )
