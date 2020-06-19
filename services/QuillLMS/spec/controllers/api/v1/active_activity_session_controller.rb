@@ -17,17 +17,6 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     end
   end
 
-  describe "#create" do
-    it "should create a new activity session record" do
-      uuid = SecureRandom.uuid
-      data = {foo: "bar"}
-      expect(SecureRandom).to receive(:uuid).and_return(uuid)
-      pre_create_count = ActiveActivitySession.count
-      post :create, active_activity_session: data
-      expect(ActiveActivitySession.count).to eq(pre_create_count + 1)
-    end
-  end
-
   describe "#update" do
     it "should update the existing record" do
       data = {"foo" => "bar"}
@@ -37,9 +26,10 @@ describe Api::V1::ActiveActivitySessionsController, type: :controller do
     end
 
     it "should return a 404 if the requested activity session is not found" do
-      get :update, id: 'doesnotexist'
-      expect(response.status).to eq(404)
-      expect(response.body).to include("The resource you were looking for does not exist")
+      data = {"foo" => "bar"}
+      put :update, id: 'doesnotexist', active_activity_session: data
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(data.to_json)
     end
   end
 
