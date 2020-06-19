@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-const WakeLock: any = require('react-wakelock').default;
+import WakeLock from 'react-wakelock-react16'
 import {
   startListeningToSession,
   registerPresence,
@@ -22,6 +22,8 @@ import CLMultistep from './multistep';
 import ProjectorModal from './projectorModal';
 import ErrorPage from '../shared/errorPage';
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
+import NavBar from '../../navbar/studentNavbar';
+
 import { getClassLesson } from '../../../actions/classroomLesson';
 import { getEditionQuestions } from '../../../actions/customize';
 import { getParameterByName } from '../../../libs/getParameterByName';
@@ -41,8 +43,10 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
+    const { match, } = props
+
     const classroomUnitId = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = match.params.lessonID
     this.state = {
       easyDemoName: '',
       classroomUnitId,
@@ -53,49 +57,64 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       document.addEventListener("keydown", this.handleKeyDown.bind(this));
     }
 
-    // props.dispatch(firebaseAuth())
-
-    this.handleStudentSubmission = this.handleStudentSubmission.bind(this);
-    this.easyJoinDemo = this.easyJoinDemo.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.hideProjectorModal = this.hideProjectorModal.bind(this)
+    if (!activityUid) {
+      const classroom_unit_id = getParameterByName('classroom_unit_id');
+      const lessonID = getParameterByName('uid');
+      document.title = 'Quill Lessons';
+      const student = getParameterByName('student');
+      if (lessonID) {
+        document.location.href = `${document.location.origin + document.location.pathname}#/play/class-lessons/${lessonID}?student=${student}&classroom_unit_id=${classroom_unit_id}`;
+      }
+    }
   }
 
   componentDidMount() {
-    const classroomSessionId: ClassroomSessionId = this.state.classroomSessionId;
-    const student = getParameterByName('student');
+    const { dispatch, } = this.props
+    const { classroomSessionId, } = this.state
     if (classroomSessionId) {
-      this.props.dispatch(startListeningToSession(classroomSessionId));
+      dispatch(startListeningToSession(classroomSessionId));
     }
     document.getElementsByTagName("html")[0].style.backgroundColor = "white";
+    this.setInitialData(this.props)
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
-    const student = getParameterByName('student') ? getParameterByName('student') : '';
-    const npCSData = nextProps.classroomSessions.data
-    const lessonId: string = this.props.params.lessonID
-    if (nextProps.classroomSessions.hasreceiveddata) {
-      if (nextProps.classroomSessions.data.edition_id && Object.keys(nextProps.customize.editionQuestions).length < 1) {
-        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    this.setInitialData(nextProps)
+  }
+
+  componentWillUnmount() {
+    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
+    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+  }
+
+  setInitialData = (props) => {
+    const { match, dispatch, classroomSessions, } = this.props
+    const { projector, } = this.state
+    const { data, hasreceiveddata } = classroomSessions;
+    const student = getParameterByName('student') || '';
+    const lessonId: string = match.params.lessonID
+    if (props.classroomSessions.hasreceiveddata) {
+      if (props.classroomSessions.data.edition_id && Object.keys(props.customize.editionQuestions).length < 1) {
+        dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
       }
-      if (!nextProps.classroomLesson.hasreceiveddata) {
-        this.props.dispatch(getClassLesson(lessonId));
+      if (!props.classroomLesson.hasreceiveddata) {
+        dispatch(getClassLesson(lessonId));
       }
-      if (nextProps.classroomSessions.data.edition_id !== this.props.classroomSessions.data.edition_id) {
-        this.props.dispatch(getEditionQuestions(nextProps.classroomSessions.data.edition_id))
+      if (props.classroomSessions.data.edition_id !== data.edition_id) {
+        dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
       }
     }
-    if (npCSData.followUpUrl && (npCSData.followUpOption || !npCSData.followUpActivityName)) {
-      switch(npCSData.followUpOption) {
+    if (data.followUpUrl && (data.followUpOption || !data.followUpActivityName)) {
+      switch(data.followUpOption) {
         case "Small Group Instruction and Independent Practice":
-          if (typeof(student) === 'string' && Object.keys(npCSData.flaggedStudents).indexOf(student) !== -1) {
+          if (typeof(student) === 'string' && Object.keys(data.flaggedStudents).indexOf(student) !== -1) {
             this.setState({flaggedStudentCompletionScreen: true})
           } else {
-            window.location.href = npCSData.followUpUrl
+            window.location.href = data.followUpUrl
           }
           break
         case "All Students Practice Now":
-          window.location.href = npCSData.followUpUrl
+          window.location.href = data.followUpUrl
           break
         case "All Students Practice Later":
         case "No Follow Up Practice":
@@ -104,51 +123,71 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
           break
       }
     }
-    if (!nextProps.classroomSessions.error && !nextProps.classroomLesson.error) {
+    if (!props.classroomSessions.error && !props.classroomLesson.error) {
       const element = document.getElementsByClassName("main-content")[0];
-      if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
+      if (element && (props.classroomSessions.data.current_slide !== data.current_slide)) {
         element.scrollTop = 0;
       }
       const student = getParameterByName('student');
       const { classroomSessionId } = this.state
-      const projector = getParameterByName('projector')
-      const { data, hasreceiveddata } = this.props.classroomSessions;
-      if (projector === "true") {
-        if (!this.state.projector) {
+      const projectorFromParam = getParameterByName('projector')
+      if (projectorFromParam === "true") {
+        if (!projector) {
           this.setState({projector: true, showProjectorModal: true})
         }
       } else if (classroomSessionId && student && hasreceiveddata && this.studentEnrolledInClass(student)) {
         registerPresence(classroomSessionId, student);
       } else {
-        if (hasreceiveddata && !this.studentEnrolledInClass(student) && !nextProps.classroomSessions.error) {
-          if (nextProps.classroomSessions.data.public) {
+        if (hasreceiveddata && !this.studentEnrolledInClass(student) && !props.classroomSessions.error) {
+          if (props.classroomSessions.data.public) {
             this.setState({shouldEnterName: true})
           } else {
-            this.props.dispatch(updateNoStudentError(student))
+            dispatch(updateNoStudentError(student))
           }
         }
       }
     }
   }
 
-  componentWillUnmount() {
-    document.getElementsByTagName("html")[0].style.backgroundColor = "whitesmoke";
-    document.removeEventListener("keydown", this.handleKeyDown.bind(this));
+  handleRightHover = () => this.setState({ rightHover: true, })
+
+  handleRightHoverOff = () => this.setState({ rightHover: false, })
+
+  handleLeftHover = () => this.setState({ leftHover: true, })
+
+  handleLeftHoverOff = () => this.setState({ leftHover: false, })
+
+  handleClickRightButton = () => {
+    const { classroomSessionId, } = this.state
+    const { dispatch, classroomSessions, customize, } = this.props
+    const sessionData: ClassroomLessonSession = classroomSessions.data;
+    const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
+    dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))
   }
 
+  handleClickLeftButton = () => {
+    const { classroomSessionId, } = this.state
+    const { dispatch, classroomSessions, customize, } = this.props
+    const sessionData: ClassroomLessonSession = classroomSessions.data;
+    const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
+    dispatch(goToPreviousSlide(sessionData, editionData, classroomSessionId))
+  }
+
+
   handleKeyDown(event) {
+    const { classroomSessionId, } = this.state
+    const { classroomSessions, customize, dispatch, } = this.props
     const tag = event.target.tagName.toLowerCase()
     const className = event.target.className.toLowerCase()
     if (tag !== 'input' && tag !== 'textarea' && className.indexOf("drafteditor") === -1 && (event.keyCode === 39 || event.keyCode === 37)) {
-      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId
-      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+      const sessionData: ClassroomLessonSession = classroomSessions.data;
+      const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
       if (classroomSessionId) {
         const updateInStore = event.keyCode === 39
           ? goToNextSlide(sessionData, editionData, classroomSessionId)
           : goToPreviousSlide(sessionData, editionData, classroomSessionId)
         if (updateInStore) {
-          this.props.dispatch(updateInStore);
+          dispatch(updateInStore);
         }
       }
     }
@@ -157,13 +196,15 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
 
 
   studentEnrolledInClass(student: string|null) {
-    return student && this.props.classroomSessions.data.students ? !!this.props.classroomSessions.data.students[student] : false
+    const { classroomSessions, } = this.props
+    return student && classroomSessions.data.students ? !!classroomSessions.data.students[student] : false
   }
 
-  handleStudentSubmission(data: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+  onStudentSubmission = (data: string) => {
+    const { classroomSessionId, } = this.state
+    const { classroomSessions, } = this.props
     const student: string|null = getParameterByName('student');
-    const currentSlide: string = this.props.classroomSessions.data.current_slide;
+    const currentSlide: string = classroomSessions.data.current_slide;
     const safeData = scriptTagStrip(data)
     const submission = {data: safeData}
     if (classroomSessionId && student && this.studentEnrolledInClass(student)) {
@@ -177,16 +218,18 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
   }
 
   renderProjectorModal() {
-    if (this.state.projector && this.state.showProjectorModal) {
-      return <ProjectorModal closeModal={this.hideProjectorModal} />
-    }
+    const { projector, showProjectorModal, } = this.state
+    if (!(projector && showProjectorModal)) { return }
+
+    return <ProjectorModal closeModal={this.hideProjectorModal} />
   }
 
-  hideProjectorModal() {
+  hideProjectorModal = () => {
     this.setState({showProjectorModal: false})
   }
 
   renderCurrentSlide(data: ClassroomLessonSession, lessonData: ClassroomLesson, editionData: CustomizeIntf.EditionQuestions) {
+    const { projector, } = this.state
     const current = editionData.questions[data.current_slide];
     const prompt = data.prompts && data.prompts[data.current_slide] ? data.prompts[data.current_slide] : null;
     const model: string|null = data.models && data.models[data.current_slide] ? data.models[data.current_slide] : null;
@@ -194,7 +237,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const submissions: QuestionSubmissionsList | null = data.submissions && data.submissions[data.current_slide] ? data.submissions[data.current_slide] : null;
     const selected_submissions = data.selected_submissions && data.selected_submissions[data.current_slide] ? data.selected_submissions[data.current_slide] : null;
     const selected_submission_order = data.selected_submission_order && data.selected_submission_order[data.current_slide] ? data.selected_submission_order[data.current_slide] : null;
-    const projector = this.state.projector
     const studentCount = data.students && Object.keys(data.students) ? Object.keys(data.students).length : 0
     const props = { mode, submissions, selected_submissions, selected_submission_order, projector, studentCount};
     let slide
@@ -209,16 +251,16 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
         slide = <CLStudentModelQuestion data={current.data} key={data.current_slide} model={model} projector={projector} prompt={prompt} />
         break
       case 'CL-SA':
-        slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
+        slide = <CLStudentSingleAnswer data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-FB':
-        slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
+        slide = <CLStudentFillInTheBlank data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-FL':
-        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
+        slide = <CLListBlanks data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-MS':
-        slide = <CLMultistep data={current.data} handleStudentSubmission={this.handleStudentSubmission} key={data.current_slide} {...props} />
+        slide = <CLMultistep data={current.data} handleStudentSubmission={this.onStudentSubmission} key={data.current_slide} {...props} />
         break
       case 'CL-EX':
         slide = <CLStudentStatic data={current.data} key={data.current_slide} />
@@ -232,95 +274,120 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     </div>)
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       easyDemoName: e.target.value
     })
   }
 
-  easyJoinDemo() {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+  handleClickJoinDemo = () => {
+    const { classroomSessionId, easyDemoName, } = this.state
     if (classroomSessionId) {
-      easyJoinLessonAddName(classroomSessionId, this.state.easyDemoName)
+      easyJoinLessonAddName(classroomSessionId, easyDemoName)
     }
   }
 
   renderLeftButton() {
-    if (getParameterByName('projector') && this.props.classroomSessions.data.current_slide !== '0') {
-      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
-      const imageSrc = this.state.leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
-      return (<img
-        className="left-button"
-        onClick={() => this.props.dispatch(goToPreviousSlide(sessionData, editionData, classroomSessionId))}
-        onMouseOut={() => this.setState({leftHover: false})}
-        onMouseOver={() => this.setState({leftHover: true})}
-        src={imageSrc}
-      />)
+    const { leftHover, } = this.state
+    const { classroomSessions, customize, } = this.props
+    if (getParameterByName('projector') && classroomSessions.data.current_slide !== '0') {
+      const sessionData: ClassroomLessonSession = classroomSessions.data;
+      const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
+      const imageSrc = leftHover ? 'https://assets.quill.org/images/icons/left-button-hover.svg' : 'https://assets.quill.org/images/icons/left-button.svg'
+      return (<button
+        className="interactive-wrapper"
+        onBlur={this.handleLeftHover}
+        onClick={this.handleClickLeftButton}
+        onFocus={this.handleLeftHoverOff}
+        onMouseOut={this.handleLeftHoverOff}
+        onMouseOver={this.handleLeftHover}
+        type="button"
+      >
+        <img
+          alt="Arrow pointing left in circle"
+          className="left-button"
+          src={imageSrc}
+        />
+      </button>)
     }
 
   }
 
   renderRightButton() {
-    const currentSlide = Number(this.props.classroomSessions.data.current_slide)
-    if (getParameterByName('projector') && currentSlide !== this.props.customize.editionQuestions.questions.length - 1) {
-      const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-      const sessionData: ClassroomLessonSession = this.props.classroomSessions.data;
-      const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+    const { rightHover, } = this.state
+    const { classroomSessions, customize,  } = this.props
+    const currentSlide = Number(classroomSessions.data.current_slide)
+    if (getParameterByName('projector') && currentSlide !== customize.editionQuestions.questions.length - 1) {
       const className: string = currentSlide === 0 ? 'right-button keep-right' : 'right-button'
-      const imageSrc = this.state.rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
-      return (<img
-        className={className}
-        onClick={() => this.props.dispatch(goToNextSlide(sessionData, editionData, classroomSessionId))}
-        onMouseOut={() => this.setState({rightHover: false})}
-        onMouseOver={() => this.setState({rightHover: true})}
-        src={imageSrc}
-      />)
+      const imageSrc = rightHover ? 'https://assets.quill.org/images/icons/right-button-hover.svg' : 'https://assets.quill.org/images/icons/right-button.svg'
+      return (<button
+        className="interactive-wrapper"
+        onBlur={this.handleRightHover}
+        onClick={this.handleClickRightButton}
+        onFocus={this.handleRightHoverOff}
+        onMouseOut={this.handleRightHoverOff}
+        onMouseOver={this.handleRightHover}
+        type="button"
+      >
+        <img
+          alt="Arrow pointing right in circle"
+          className={className}
+          src={imageSrc}
+        />
+      </button>)
     }
   }
 
   public render() {
-    const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = this.props.classroomSessions;
-    const lessonError = this.props.classroomLesson.error;
-    if (this.state.shouldEnterName) {
-      return (
-        <div>
-          <div className="play-lesson-container">
-            <div className="main-content">
-              <div className="main-content-wrapper">
-                <div className="easy-join-name-form-wrapper">
-                  <div className="easy-join-name-form">
-                    <p>Please enter your full name:</p>
-                    <input onChange={this.handleChange} value={this.state.easyDemoName} />
-                    <button onClick={this.easyJoinDemo}>Join</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    const { classroomLesson, classroomSessions, customize, } = this.props
+    const { shouldEnterName, easyDemoName, flaggedStudentCompletionScreen, projector, } = this.state
+    const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = classroomSessions;
+    const lessonError = classroomLesson.error;
+    const navbar = Number(classroomSessions.data.current_slide) === 0 ? null : <NavBar />
+    let mainContent = (
+      <div>
+        <Spinner />
+      </div>
+    );
+
+    if (shouldEnterName) {
+       mainContent = (
+         <div>
+           <div className="play-lesson-container">
+             <div className="main-content">
+               <div className="main-content-wrapper">
+                 <div className="easy-join-name-form-wrapper">
+                   <div className="easy-join-name-form">
+                     <p>Please enter your full name:</p>
+                     <input aria-label="Full name" onChange={this.handleChange} value={easyDemoName} />
+                     <button onClick={this.handleClickJoinDemo} type="button">Join</button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
       )
     } else if (error) {
-       return <ErrorPage text={error} />
+       mainContent = <ErrorPage text={error} />
      } else if (lessonError) {
-       return <ErrorPage text={lessonError} />
-     } else if (this.state.flaggedStudentCompletionScreen) {
-       return <FlaggedStudentCompletedPage />
+       mainContent = <ErrorPage text={lessonError} />
+     } else if (flaggedStudentCompletionScreen) {
+       mainContent = <FlaggedStudentCompletedPage />
      } else {
-       const lessonData: ClassroomLesson = this.props.classroomLesson.data;
-       const lessonDataLoaded: boolean = this.props.classroomLesson.hasreceiveddata;
-       const editionData: CustomizeIntf.EditionQuestions = this.props.customize.editionQuestions;
+       const lessonData: ClassroomLesson = classroomLesson.data;
+       const lessonDataLoaded: boolean = classroomLesson.hasreceiveddata;
+       const editionData: CustomizeIntf.EditionQuestions = customize.editionQuestions;
        const editionDataLoaded: boolean = Object.keys(editionData).length > 0;
-       // const data: ClassroomLessonSessions  = this.props.classroomSessions.data;
-       // const hasreceiveddata = this.props.classroomSessions.hasreceiveddata
-       const absentTeacher = this.props.classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
-       const watchTeacher = this.props.classroomSessions.data.watchTeacherState && !this.state.projector ? <CLWatchTeacher /> : null
+       // const data: ClassroomLessonSessions  = classroomSessions.data;
+       // const hasreceiveddata = classroomSessions.hasreceiveddata
+       const absentTeacher = classroomSessions.data.absentTeacherState ? <CLAbsentTeacher /> : null
+       const watchTeacher = classroomSessions.data.watchTeacherState && !projector ? <CLWatchTeacher /> : null
 
        if (hasreceiveddata && lessonDataLoaded && editionDataLoaded) {
          const component = this.renderCurrentSlide(data, lessonData, editionData);
          if (component) {
-           return (
+           mainContent = (
              <div>
                <WakeLock />
                {absentTeacher || watchTeacher}
@@ -337,12 +404,11 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
            );
          }
        }
-       return (
-         <div>
-           <Spinner />
-         </div>
-       );
      }
+     return (<div>
+       {navbar}
+       {mainContent}
+     </div>)
    }
 
 }

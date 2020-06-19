@@ -36,15 +36,15 @@ class ShowEditionSlide extends Component<any, any> {
     this.goToNewScriptItem = this.goToNewScriptItem.bind(this)
     this.alertSave = this.alertSave.bind(this)
 
-    this.props.dispatch(getEditionQuestions(this.props.params.editionID))
+    this.props.dispatch(getEditionQuestions(this.props.match.params.editionID))
   }
 
   classroomLesson(): IntF.ClassroomLesson {
-    return getClassroomLesson(this.props.classroomLessons.data, this.props.params.classroomLessonID)
+    return getClassroomLesson(this.props.classroomLessons.data, this.props.match.params.classroomLessonID)
   }
 
   edition(): CustomizeIntF.EditionMetadata {
-    return this.props.customize.editions[this.props.params.editionID]
+    return this.props.customize.editions[this.props.match.params.editionID]
   }
 
   editionQuestions() {
@@ -52,7 +52,7 @@ class ShowEditionSlide extends Component<any, any> {
   }
 
   currentSlide() {
-    return this.editionQuestions() ? this.editionQuestions()[this.props.params.slideID] : null
+    return this.editionQuestions() ? this.editionQuestions()[this.props.match.params.slideID] : null
   }
 
   alertSave() {
@@ -60,23 +60,23 @@ class ShowEditionSlide extends Component<any, any> {
   }
 
   save(newValues) {
-    const {editionID, slideID} = this.props.params;
+    const {editionID, slideID} = this.props.match.params;
     saveEditionSlide(editionID, slideID, newValues, this.alertSave)
   }
 
   deleteSlide() {
-    const {classroomLessonID, editionID, slideID} = this.props.params;
+    const {classroomLessonID, editionID, slideID} = this.props.match.params;
     const slides = this.editionQuestions()
     deleteEditionSlide(editionID, slideID, slides)
     window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${classroomLessonID}/editions/${editionID}`
   }
 
   goToNewScriptItem(scriptItemID) {
-    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/editions/${this.props.params.editionID}/slide/${this.props.params.slideID}/scriptItem/${scriptItemID}`
+    window.location.href = `${window.location.origin}/#/admin/classroom-lessons/${this.props.match.params.classroomLessonID}/editions/${this.props.match.params.editionID}/slide/${this.props.match.params.slideID}/scriptItem/${scriptItemID}`
   }
 
   addScriptItem() {
-    addScriptItem(this.props.params.editionID, this.props.params.slideID, this.currentSlide(), this.state.newScriptItemType, this.goToNewScriptItem)
+    addScriptItem(this.props.match.params.editionID, this.props.match.params.slideID, this.currentSlide(), this.state.newScriptItemType, this.goToNewScriptItem)
   }
 
   selectNewScriptItemType(e) {
@@ -107,7 +107,7 @@ class ShowEditionSlide extends Component<any, any> {
   updateScriptItemOrder(sortInfo) {
     const newOrder = sortInfo.data.items.map(item => item.key);
     const newScriptItems = newOrder.map((key) => this.currentSlide().data.teach.script[key])
-    const {editionID, slideID} = this.props.params;
+    const {editionID, slideID} = this.props.match.params;
     updateSlideScriptItems(editionID, slideID, newScriptItems)
   }
 
@@ -116,7 +116,7 @@ class ShowEditionSlide extends Component<any, any> {
       const Component = getComponent(this.currentSlide().type)
       return (
         <div className="admin-classroom-lessons-container">
-          <h4 className="title is-4">Edition: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.params.classroomLessonID}/editions/${this.props.params.editionID}`}>
+          <h4 className="title is-4">Edition: <a href={`${window.location.origin}/#/admin/classroom-lessons/${this.props.match.params.classroomLessonID}/editions/${this.props.match.params.editionID}`}>
             {this.edition().name}
           </a></h4>
           <h5 className="title is-5">Slide: {this.currentSlide().data.teach.title}</h5>
@@ -124,10 +124,10 @@ class ShowEditionSlide extends Component<any, any> {
           <button className="button is-primary" onClick={this.deleteSlide}>Delete Slide</button>
           <Component question={this.currentSlide().data} save={this.save} />
           <Script
-            editionID={this.props.params.editionID}
-            lesson={this.props.params.classroomLessonID}
+            editionID={this.props.match.params.editionID}
+            lesson={this.props.match.params.classroomLessonID}
             script={this.currentSlide().data.teach.script}
-            slide={this.props.params.slideID}
+            slide={this.props.match.params.slideID}
             updateScriptItemOrder={this.updateScriptItemOrder}
           />
           {this.renderAddScriptItem()}

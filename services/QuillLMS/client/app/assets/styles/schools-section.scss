@@ -1,3 +1,5 @@
+@import "../../../node_modules/quill-component-library/src/styles/styles.scss";
+
 .schools-section {
   // min-height: 311px;
   background-color: #f8f9f9;
@@ -69,6 +71,7 @@
 }
 
 .features-section {
+  background-color: #f8f9f9;
   padding: 90px 0 36px;
   .features {
     max-width: 1038px;
@@ -144,6 +147,9 @@
     a.cta-button {
       height: auto;
     }
+    .get-started-link:hover {
+      text-decoration: none;
+    }
   }
 
   @media only screen and (max-width : 850px) {
@@ -209,8 +215,7 @@
     margin: 0 auto;
     max-width: 1030px;
     color: #e1e1e1;
-    padding-bottom: 26px;
-    border-bottom: 2px solid rgba(203, 203, 203, 0.5);
+    padding-top: 26px;
     form {
       max-width: 322px;
       width: 100%;
@@ -246,7 +251,7 @@
       }
     }
     div {
-      a {
+      a, p {
         margin-left: 14px;
         margin-right: 14px;
         &:first-child {
@@ -269,6 +274,12 @@
         }
       }
     }
+    .cb-disclaimer {
+      margin-top: 15px;
+      color: #8c8c8c;
+      font-size: 15px;
+    }
+
     @media (max-width: 1000px) {
       flex-direction: column;
       .pas-left, .pas-right {
@@ -286,6 +297,7 @@
     line-height: 1.93;
     max-width: 1030px;
     margin: 0 auto;
+    border-bottom: 2px solid rgba(203, 203, 203, 0.5);
     p a {
       color: #e1e1e1;
     }
@@ -293,7 +305,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 8px;
+      margin-top: 20px;
       > img {
         flex: 1 1 auto;
         overflow-y: auto;
@@ -472,7 +484,7 @@
       }
     }
 
-    .line, .line-2, {
+    .line, .line-2 {
       display: none;
     }
 
@@ -497,5 +509,79 @@
         padding-left: 10px;
       }
     }
+  }
+}
+
+.premium-section {
+  height: 608px;
+  background-color: #e1f3f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  .premium-text-container {
+    justify-content: center;
+    display: flex;
+    .premium-header {
+      font-family: $family-sans-serif;
+      font-size: 36px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.11;
+      letter-spacing: normal;
+      color: #343434;
+    }
+    .premium-text {
+      font-family: $family-sans-serif;
+      font-size: 20px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #343434;
+      margin: 20px 0px 20px 0px;
+    }
+  }
+  .quill-premium-user-interfaces {
+    width: 608px;
+    height: 488px;
+    object-fit: contain;
+  }
+  .premium-text-container {
+    flex-direction: column;
+    width: 420px;
+  }
+  .premium-button-container {
+    display: flex;
+    .sales-button {
+      margin-right: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width : 1050px){
+  .premium-section {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+  img {
+    max-width: 100%;
+  }
+  .premium-text-container {
+    align-items: center;
+    margin-bottom: 0px !important;
+  }
+  .premium-header {
+    margin-top: 20px;
+  }
+  .premium-text {
+    max-width: 70%;
+    text-align: center;
+  }
+  .premium-button-container {
+    margin-top: 10px !important;
   }
 }

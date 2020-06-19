@@ -48,7 +48,7 @@ class SingleAnswer extends Component<SingleAnswerProps, SingleAnswerState> {
     this.submitSubmission = this.submitSubmission.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student');
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       this.setState({ submitted: true })

@@ -1,16 +1,14 @@
 declare function require(name:string);
 import * as React from 'react';
-const AbsentTeacherIllustration = 'https://assets.quill.org/images/icons/absent_teacher_illustration.svg'
+const AbsentTeacherIllustration = `${process.env.QUILL_CDN_URL}/images/illustrations/night-sky.svg`
 
-const AbsentTeacher = props => (
-  <div>
-    <div className="absent-teacher-container">
-      <div className="absent-teacher">
-        <img src={AbsentTeacherIllustration} />
-        <h1>Your teacher is not in this lesson!</h1>
-      </div>
+const AbsentTeacher = () => (
+  <div className="absent-teacher-container full-page-modal-container">
+    <div className="absent-teacher full-page-modal">
+      <img alt="An illustration of a night sky with clouds, stars, and a moon" src={AbsentTeacherIllustration} />
+      <h1>Your teacher has left this lesson.</h1>
+      <a className="quill-button focus-on-dark outlined secondary large" href={`${process.env.EMPIRICAL_BASE_URL}`}>Exit lesson</a>
     </div>
-    <a href={`${process.env.EMPIRICAL_BASE_URL}`}><button className="absent-teacher-button">Back To Profile</button></a>
   </div>
 )
 

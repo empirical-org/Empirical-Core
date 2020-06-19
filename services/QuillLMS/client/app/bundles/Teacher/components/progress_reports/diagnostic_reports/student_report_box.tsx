@@ -37,10 +37,14 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
     );
   }
 
+  formatAnswer = (answer: string) => {
+    return answer.replace(/&#x27;/g, "'").replace(/&nbsp;/g, '').replace(/(<([^>]+)>)/ig, '')
+  }
+
   render() {
     const { boxNumber, questionData } = this.props;
     const { answer, concepts, directions, prompt, score } = questionData;
-    const formattedAnswer = answer ? answer.replace('&#x27;', "'") : ''
+    const formattedAnswer = answer ? this.formatAnswer(answer) : ''
     return(
       <div className='individual-activity-report'>
         <div className="student-report-box">
