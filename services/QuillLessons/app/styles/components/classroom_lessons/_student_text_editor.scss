@@ -2,32 +2,23 @@
   border-radius: 4px;
   border: solid 2px #8e8e8e;
   box-shadow: none;
-  textarea {
-    font-size: 24px;
-    color: #000;
-  }
-}
-
-.student.text-editor.card.disabled-editor {
-  opacity: 1 !important;
-  border: none !important;
-  .card-content {
+  font-size: 24px;
+  color: #000;
+  padding: 20px;
+  line-height: 1.33;
+  min-height: 72px;
+  &.disabled-editor {
+    opacity: 1 !important;
+    border: none !important;
     background-color: #e5e5e5;
-    textarea {
-      color: #000;
-      line-height: 1.33;
-    }
   }
-}
-
-.editing {
-  .student.text-editor.card {
+  &:focus {
+    border-radius: 4px;
     border: solid 2px #06806b;
+    outline: none;
   }
-}
 
-@media (max-width: 400px) {
-  .card-content textarea {
+  @media (max-width: 400px) {
     font-size: 20px;
   }
 }

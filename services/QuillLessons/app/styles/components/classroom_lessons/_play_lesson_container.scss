@@ -65,9 +65,9 @@
   }
 }
 .question-button-group {
-  button[disabled] {
-    background-color: #e9e9e9;
-  }
+  display: flex;
+  justify-content: flex-end;
+  margin: 24px 0px 100px;
 }
 .list-component {
   display: flex;
@@ -90,7 +90,6 @@
   margin-top: 24px;
   .student.text-editor.card {
     min-width: 250px;
-    min-height: 40px;
     margin-bottom: 0px;
     .card-content {
       padding: 20px;

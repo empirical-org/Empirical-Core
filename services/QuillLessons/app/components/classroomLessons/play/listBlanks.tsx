@@ -141,7 +141,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   textEditListComponents(i){
     const { projector, } = this.props
-    const { isSubmittable, submitted, answers, } = this.state
+    const { submitted, answers, } = this.state
     const disabled:boolean = submitted || projector
     const value = projector ? 'Students type responses here' : answers[i]
     return (
@@ -149,9 +149,9 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
         <span className="list-number">{`${i + 1}.`}</span>
         <TextEditor
           disabled={disabled}
+          editorIndex={i}
           handleChange={this.customChangeEvent}
           hasError={this.itemHasError(i)}
-          index={i}
           placeholder="Type your response here"
           value={value}
         />
