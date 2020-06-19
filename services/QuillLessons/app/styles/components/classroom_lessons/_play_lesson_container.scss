@@ -210,3 +210,12 @@
     outline: none;
   }
 }
+
+.student-slide-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .all-but-submitted-bar {
+    flex: 1 0 auto;
+  }
+}

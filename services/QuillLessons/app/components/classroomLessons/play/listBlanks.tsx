@@ -230,39 +230,43 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       return this.renderProject()
     } else {
       let errorArea = errors ? this.renderWarning() : null;
-      let feedbackRow = submitted ? <FeedbackRow /> : null;
       let instructionsRow = data.play.instructions ? (<Feedback
         feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
         feedbackType="default"
       />) : null;
-      const disabled = submitted || !isSubmittable
+      const submitButton = submitted ? null : <SubmitButton disabled={!isSubmittable} onClick={this.handleStudentSubmission} />
       const prompt = <SentenceFragments prompt={data.play.prompt} />
       return (
-        <div>
+        <React.Fragment>
           <PromptSection
             mode={mode}
             promptElement={prompt}
           />
           {instructionsRow}
           {this.listBlanks()}
-          <div>
-            <div className='feedback-and-button-container'>
-              {errorArea}
-              <div style={{marginBottom: 20}}>{feedbackRow}</div>
-              <SubmitButton disabled={disabled} onClick={this.handleStudentSubmission} />
-            </div>
-          </div>
-        </div>
+          {submitButton}
+        </React.Fragment>
       )
     }
   }
 
+  renderSubmittedBar() {
+    const { mode, } = this.props
+    const { submitted, } = this.state
+
+    if (!submitted || mode === PROJECT) { return }
+
+    return <div className="submitted-bar">Please wait as your teacher reviews your response.</div>
+  }
 
   render() {
     return (
-      <div className="list-blanks-container">
-        {this.renderProjectorHeader()}
-        {this.renderModeSpecificContent()}
+      <div className="list-blanks-container student-slide-wrapper">
+        <div className="all-but-submitted-bar">
+          {this.renderProjectorHeader()}
+          {this.renderModeSpecificContent()}
+        </div>
+        {this.renderSubmittedBar()}
       </div>
     );
   }
