@@ -1,6 +1,6 @@
 declare function require(name:string);
 import React, { Component } from 'react';
-import Cues from '../../../components/renderForQuestions/cues';
+import Cues from '../../renderForQuestions/cues';
 import {
   QuestionData
 } from '../../../interfaces/classroomLessons';
