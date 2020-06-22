@@ -56,7 +56,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !submitted) {
       const submittedAnswers = {};
-      const splitAnswers = nextProps.submissions[student].data.split(", ");
+      const splitAnswers = nextProps.submissions[student].data.split("; ");
       for (let i = 0; i < splitAnswers.length; i+=1) {
         submittedAnswers[i] = splitAnswers[i]
       }
@@ -77,7 +77,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   toObject(answers) {
-    const arr = answers.split(',')
+    const arr = answers.split('; ')
     const objectifiedArr = {};
     for (var i = 0; i < arr.length; i+=1) {
       objectifiedArr[i] = arr[i];
@@ -189,7 +189,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   sortedAndJoinedAnswers(){
       const sortedAnswers = this.answerValues()
-      return sortedAnswers.join(', ')
+      return sortedAnswers.join('; ')
   }
 
   handleStudentSubmission = () => {

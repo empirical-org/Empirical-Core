@@ -11,6 +11,7 @@ import {
   toggleStudentFlag,
   setModel,
   removeStudentSubmission,
+  saveStudentSubmission,
   redirectAssignedStudents,
   updateStudentSubmissionOrder,
   setPrompt,
@@ -137,9 +138,12 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     }
   }
 
-  clearStudentSubmission(currentSlideId: string, student: string) {
+  clearStudentSubmission(currentSlideId: string, student: string, submission?: string) {
     const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     if (classroomSessionId) {
+      if (submission) {
+        saveStudentSubmission(classroomSessionId, currentSlideId, student, submission)
+      }
       removeStudentSubmission(classroomSessionId, currentSlideId, student);
     }
   }

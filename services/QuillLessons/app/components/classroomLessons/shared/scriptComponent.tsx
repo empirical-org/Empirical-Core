@@ -1,10 +1,11 @@
 declare function require(name:string);
 import * as React from 'react'
+
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
+import ReviewStudentRow from './reviewStudentRow'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
 import Cues from '../../renderForQuestions/cues';
-import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {
   ClassroomLessonSessions,
@@ -28,7 +29,6 @@ const uncheckedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_
 const checkedGreenCheckbox = 'https://assets.quill.org/images/icons/box_green_checked.svg'
 const grayFlag = 'https://assets.quill.org/images/icons/flag_gray.svg'
 const blueFlag = 'https://assets.quill.org/images/icons/flag_blue.svg'
-const moment = require('moment');
 
 interface ScriptContainerProps {
   script: Array<ScriptItem>,
@@ -166,13 +166,13 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.clearAllSubmissions()
   }
 
-  retryQuestionForStudent(student) {
+  retryQuestionForStudent(student, submission) {
     const submissions: Submissions = this.props.submissions;
     const current_slide: string = this.props.current_slide;
-    if (submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length === 1){
+    if (!submission && submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length === 1){
       this.retryQuestion()
     } else if (submissions && submissions[current_slide] && submissions[current_slide][student]) {
-      this.props.clearStudentSubmission(current_slide, student)
+      this.props.clearStudentSubmission(current_slide, student, submission)
     }
   }
 
@@ -417,7 +417,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     return sortedRows
   }
 
-  renderFlag(studentKey: string) {
+  renderFlag = (studentKey: string) => {
     let flag = grayFlag
     if (this.props.flaggedStudents && this.props.flaggedStudents[studentKey]) {
       flag = blueFlag
@@ -440,37 +440,26 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderSubmissionRow(studentKey: string, index: number) {
-    const { selected_submissions, submissions, current_slide, students, selected_submission_order, slideType } = this.props;
-    const text: any = submissions[current_slide][studentKey].data
-    const submissionText = this.state.showDifferences ? findDifferences(text, this.props.lessonPrompt) : text;
-    const html: any = <span dangerouslySetInnerHTML={{__html: submissionText}} />
-    const submittedTimestamp: string = submissions[current_slide][studentKey].timestamp
-    const elapsedTime: any = this.formatElapsedTime(moment(submittedTimestamp))
-    const checked: boolean = selected_submissions && selected_submissions[current_slide] ? selected_submissions[current_slide][studentKey] : false
-    const checkbox = this.determineCheckbox(checked)
-    const studentNumber: number | null = checked === true && selected_submission_order && selected_submission_order[current_slide] ? selected_submission_order[current_slide].indexOf(studentKey) + 1 : null
-    const studentNumberClassName: string = checked === true ? 'answer-number' : ''
-    const studentName: string = students[studentKey]
-      return (<tr key={index}>
-        <td>{studentName}</td>
-        <td>{this.renderFlag(studentKey)}</td>
-        <td>{html}</td>
-        <td>{elapsedTime}</td>
-        <td>
-          <input
-            defaultChecked={checked}
-            id={studentName}
-            name={studentName}
-            type="checkbox"
-          />
-          <label htmlFor={studentName} onClick={(e) => { this.props.toggleSelected(e, current_slide, studentKey); }}>
-            {checkbox}
-          </label>
-        </td>
-        <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell"><i className="fa fa-refresh student-retry-question" onClick={() => this.retryQuestionForStudent(studentKey)} /></td>
-      </tr>)
+    const { selected_submissions, submissions, current_slide, students, selected_submission_order, slideType, lessonPrompt, toggleSelected, timestamps, } = this.props;
+    const { showDifferences, } = this.state
 
+    return <ReviewStudentRow
+      currentSlide={current_slide}
+      determineCheckbox={this.determineCheckbox}
+      index={index}
+      lessonPrompt={lessonPrompt}
+      renderFlag={this.renderFlag}
+      retryQuestionForStudent={this.retryQuestionForStudent}
+      selectedSubmissionOrder={selected_submission_order}
+      selectedSubmissions={selected_submissions}
+      showDifferences={showDifferences}
+      slideType={slideType}
+      studentKey={studentKey}
+      students={students}
+      submissions={submissions}
+      timestamps={timestamps}
+      toggleSelected={toggleSelected}
+    />
   }
 
   renderNoSubmissionsTable(numStudents: number, index: number) {
@@ -497,24 +486,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     </li>)
   }
 
-  elapsedMilliseconds(submittedTimestamp: any) {
-    return submittedTimestamp.diff(moment(this.props.timestamps[this.props.current_slide]))
-  }
-
-  formatElapsedTime(submittedTimestamp: any) {
-    const elapsedMilliseconds : number  = this.elapsedMilliseconds(submittedTimestamp)
-    const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
-    const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
-    const formattedMinutes: string|number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
-    const formattedSeconds: string|number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
-    return formattedMinutes + ':' + formattedSeconds
-  }
-
-  determineCheckbox(checked: boolean) {
+  determineCheckbox = (checked: boolean) => {
+    const { projecting, } = this.state
     if (checked) {
-      return this.state.projecting ? <img src={checkedGreenCheckbox} /> : <img src={checkedGrayCheckbox} />
+      return projecting ? <img src={checkedGreenCheckbox} /> : <img src={checkedGrayCheckbox} />
     } else {
-      return this.state.projecting ? <img src={uncheckedGreenCheckbox} /> : <img src={uncheckedGrayCheckbox} />
+      return projecting ? <img src={uncheckedGreenCheckbox} /> : <img src={uncheckedGrayCheckbox} />
     }
   }
 
