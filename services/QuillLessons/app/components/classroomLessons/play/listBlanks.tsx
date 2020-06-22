@@ -66,12 +66,12 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       })
     }
     if (student && submitted) {
-      const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
-      if (!nextProps.submissions || retryForStudent) {
+      const thereAreSubmissions = student && nextProps.submissions
+      const retryForStudent = !thereAreSubmissions || !nextProps.submissions[student] || !_.isEqual(this.toObject(nextProps.submissions[student].data), this.state.answers);
+      if (retryForStudent) {
         // this will  reset the state when a teacher resets a question
-        this.setState({ submitted: false, answers: {}, });
-      } else {
-        this.setState({answers: this.toObject(nextProps.submissions[student].data)})
+        const newAnswers = nextProps.submissions && nextProps.submissions[student] ? this.toObject(nextProps.submissions[student].data) : {}
+        this.setState({ submitted: false, answers: newAnswers, });
       }
     }
   }

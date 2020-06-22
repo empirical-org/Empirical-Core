@@ -3,10 +3,6 @@ import * as moment from 'moment'
 
 import { findDifferences } from './findDifferences'
 
-const calculateElapsedMilliseconds = (submittedTimestamp, timestamps, currentSlide): number => {
-  return submittedTimestamp.diff(moment(timestamps[currentSlide]))
-}
-
 const responseSpan = (text) => <span dangerouslySetInnerHTML={{__html: text}} />
 
 const RetryCell = ({ index, handleRetryClick, submissionText, }) => {
@@ -34,7 +30,8 @@ const ReviewStudentRow = ({
   index,
   timestamps,
   retryQuestionForStudent,
-  renderFlag
+  renderFlag,
+  calculateElapsedMilliseconds
 }) => {
 
   const formatElapsedTime = (submittedTimestamp) => {
@@ -76,26 +73,49 @@ const ReviewStudentRow = ({
   )
   let retryCellContent: JSX.Element|Array<JSX.Element> = (<RetryCell index={0} handleRetryClick={handleRetryClick} submissionText={submissionText} />)
 
-  if (slideType === "CL-FL") {
-    const splitSubmissions = submissionText.split('; ')
-    responseCellContent = []
-    checkboxCellContent = []
-    retryCellContent = []
-    splitSubmissions.forEach((sub, index) => {
-      responseCellContent.push(responseSpan(sub))
-      retryCellContent.push(<RetryCell index={index} handleRetryClick={handleRetryClick} submissionText={submissionText} />)
-    })
+  if (slideType !== "CL-FL") {
+    return (<tr className="first last" key={index}>
+      <td>{studentName}</td>
+      <td>{renderFlag(studentKey)}</td>
+      <td>{responseCellContent}</td>
+      <td>{elapsedTime}</td>
+      <td>{checkboxCellContent}</td>
+      <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
+      <td className="retry-question-cell">{retryCellContent}</td>
+    </tr>)
   }
 
-  return (<tr key={index}>
-    <td>{studentName}</td>
-    <td>{renderFlag(studentKey)}</td>
-    <td>{responseCellContent}</td>
-    <td>{elapsedTime}</td>
-    <td>{checkboxCellContent}</td>
-    <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-    <td className="retry-question-cell">{retryCellContent}</td>
-  </tr>)
+  const splitSubmissions = submissionText.split('; ')
+  responseCellContent = []
+  checkboxCellContent = []
+  retryCellContent = []
+  const rows = splitSubmissions.filter(s => s.length).map((sub, subIndex) => {
+    responseCellContent = responseSpan(sub)
+    retryCellContent = <RetryCell index={subIndex} handleRetryClick={handleRetryClick} submissionText={submissionText} />
+    if (subIndex === 0) {
+      return (<tr className="first" key={`${index}-${subIndex}`}>
+        <td>{studentName}</td>
+        <td>{renderFlag(studentKey)}</td>
+        <td>{responseCellContent}</td>
+        <td>{elapsedTime}</td>
+        <td>{checkboxCellContent}</td>
+        <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
+        <td className="retry-question-cell">{retryCellContent}</td>
+      </tr>)
+    }
+    const lastClassname = subIndex === splitSubmissions.length - 1 ? 'last' : null
+    return (<tr className={lastClassname} key={`${index}-${subIndex}`}>
+      <td></td>
+      <td></td>
+      <td>{responseCellContent}</td>
+      <td></td>
+      <td>{checkboxCellContent}</td>
+      <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
+      <td className="retry-question-cell">{retryCellContent}</td>
+    </tr>)
+  })
+
+  return rows
 }
 
 export default ReviewStudentRow

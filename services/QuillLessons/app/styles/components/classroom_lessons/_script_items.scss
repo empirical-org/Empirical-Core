@@ -124,21 +124,26 @@
           color: #c0c0c0;
         }
         tr {
-          border-bottom: 1px solid #e9e9e9;
+          &.last {
+            border-bottom: 1px solid #e9e9e9;
+          }
           td {
-            vertical-align: middle;
-            padding: 10px 0px;
+            vertical-align: top;
+            padding: 8px 8px 8px 0px;
             &:nth-of-type(1) {
               padding-left: 20px;
             }
-            &:nth-of-type(7) {
-              padding-right: 20px;
+            &:nth-of-type(2) {
+              padding: 8px;
             }
             &:nth-of-type(5) {
               text-align: center;
             }
             input {
               display: none;
+            }
+            img {
+              padding-top: 5px;
             }
             .student-retry-question {
               cursor: pointer;

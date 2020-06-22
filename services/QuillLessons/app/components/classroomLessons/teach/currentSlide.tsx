@@ -142,9 +142,11 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
     if (classroomSessionId) {
       if (submission) {
-        saveStudentSubmission(classroomSessionId, currentSlideId, student, submission)
+        const submissionObj = { data: submission, }
+        saveStudentSubmission(classroomSessionId, currentSlideId, student, submissionObj)
+      } else {
+        removeStudentSubmission(classroomSessionId, currentSlideId, student);
       }
-      removeStudentSubmission(classroomSessionId, currentSlideId, student);
     }
   }
 

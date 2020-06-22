@@ -1,5 +1,6 @@
 declare function require(name:string);
 import * as React from 'react'
+import * as moment from 'moment'
 
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import ReviewStudentRow from './reviewStudentRow'
@@ -46,6 +47,10 @@ interface ScriptContainerState {
   model: string,
   showDifferences: boolean,
   prompt: string,
+}
+
+const calculateElapsedMilliseconds = (submittedTimestamp, timestamps, currentSlide): number => {
+  return submittedTimestamp.diff(moment(timestamps[currentSlide]))
 }
 
 class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContainerState> {
@@ -247,7 +252,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   sortedRows(studentsToBeSorted: Array<string>) {
-    const {submissions, selected_submissions, current_slide, students, flaggedStudents} = this.props
+    const {submissions, selected_submissions, current_slide, students, flaggedStudents, timestamps, } = this.props
     const sortedRows = studentsToBeSorted.sort((studentKey1, studentKey2) => {
       switch(this.state.sort) {
         case 'flag':
@@ -261,8 +266,8 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           const answer2 = submissions[current_slide][studentKey2].data
           return sortByAnswer(answer1, answer2)
         case 'time':
-          const time1 = this.elapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp))
-          const time2 = this.elapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp))
+          const time1 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey1].timestamp), timestamps, current_slide)
+          const time2 = calculateElapsedMilliseconds(moment(submissions[current_slide][studentKey2].timestamp), timestamps, current_slide)
           return sortByTime(time1, time2)
         case 'displayed':
           if (selected_submissions && selected_submissions[current_slide]) {
@@ -445,6 +450,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { showDifferences, } = this.state
 
     return <ReviewStudentRow
+      calculateElapsedMilliseconds={calculateElapsedMilliseconds}
       currentSlide={current_slide}
       determineCheckbox={this.determineCheckbox}
       index={index}
