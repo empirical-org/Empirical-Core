@@ -275,6 +275,35 @@
       }
     }
   }
+  #q-and-a {
+    .q-and-a-inner-wrapper {
+      border-bottom: 1px solid #e0e0e0;;
+      .qa-section {
+        .qa {
+          .answer {
+            div {
+              .preap-q-and-a-text {
+                padding-bottom: 15px;
+              }
+              ul {
+                li {
+                  p:first-of-type {
+                    font-weight: 600;
+                  }
+                }
+              }
+            }
+            p {
+              line-height: 1.5;
+            }
+            .preap-block {
+              padding: 15px 0px 15px 0px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width : 750px){
