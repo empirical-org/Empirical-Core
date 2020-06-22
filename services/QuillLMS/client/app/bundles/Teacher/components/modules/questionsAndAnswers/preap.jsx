@@ -70,7 +70,7 @@ const preap = () => [
     question: 'What if I have a question about Quill.org? ',
     answer: (
       <div>
-        <p className="preap-q-and-a-text">Visit our teacher center for additional resources and more information about how to use Quill: <a href="https://www.quill.org/teacher-center">https://www.quill.org/teacher-center</a>. You can also reach out to either one of your Quill representatives via email. We&apos;re always happy to help!</p>
+        <p className="preap-q-and-a-text">Visit our teacher center for additional resources and more information about how to use Quill: <a className="focus-on-light" href="https://www.quill.org/teacher-center">https://www.quill.org/teacher-center</a>. You can also reach out to either one of your Quill representatives via email. We&apos;re always happy to help!</p>
         <p className="preap-block">Quill Representatives:</p>
         <div className="preap-block">
           <p>Christina Collins</p>

@@ -362,3 +362,13 @@
     }
   }
 }
+
+body:not(.show-focus) button.expand-collapse-button:focus {
+  outline: dashed 2px #06806b !important;
+  outline-offset: 2px;
+}
+
+body:not(.show-focus) [tabindex]:focus {
+  outline: dashed 2px #06806b !important;
+  outline-offset: 2px;
+}

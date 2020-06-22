@@ -32,7 +32,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
             <a id={cb_anchor_tag}>{title}</a>
             <p>{description}</p>
           </div>
-          <a className="quill-button medium primary outlined" href={activity_link} rel="noopener noreferrer" target="_blank">View</a>
+          <a className="quill-button medium primary outlined focus-on-light" href={activity_link} rel="noopener noreferrer" target="_blank">View</a>
         </div>
       )
     })
@@ -67,7 +67,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
             <p>5 Passage-Aligned Activities</p>
           </div>
         </div>
-        <img className="expand-arrow" onClick={handleSetExpanded} src={expandSrc} />
+        <img className="expand-arrow focus-on-light" onClick={handleSetExpanded} src={expandSrc} />
       </div>
       {expanded && renderBottomSection()}
     </div>
