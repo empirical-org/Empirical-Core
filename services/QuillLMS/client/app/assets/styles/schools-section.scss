@@ -215,8 +215,7 @@
     margin: 0 auto;
     max-width: 1030px;
     color: #e1e1e1;
-    padding-bottom: 26px;
-    border-bottom: 2px solid rgba(203, 203, 203, 0.5);
+    padding-top: 26px;
     form {
       max-width: 322px;
       width: 100%;
@@ -252,7 +251,7 @@
       }
     }
     div {
-      a {
+      a, p {
         margin-left: 14px;
         margin-right: 14px;
         &:first-child {
@@ -275,6 +274,12 @@
         }
       }
     }
+    .cb-disclaimer {
+      margin-top: 15px;
+      color: #8c8c8c;
+      font-size: 15px;
+    }
+
     @media (max-width: 1000px) {
       flex-direction: column;
       .pas-left, .pas-right {
@@ -292,6 +297,7 @@
     line-height: 1.93;
     max-width: 1030px;
     margin: 0 auto;
+    border-bottom: 2px solid rgba(203, 203, 203, 0.5);
     p a {
       color: #e1e1e1;
     }
@@ -299,7 +305,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 8px;
+      margin-top: 20px;
       > img {
         flex: 1 1 auto;
         overflow-y: auto;
@@ -510,7 +516,7 @@
   height: 608px;
   background-color: #e1f3f1;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   flex-direction: row;
   .premium-text-container {
