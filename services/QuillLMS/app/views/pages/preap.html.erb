@@ -110,7 +110,7 @@
               title: 'Sentence Combining: “Drowning in Dishes, but Finding a Home” by Danial Adkison',
               description: 'Explore how seemingly menial work may lead to meaningful life lessons',
               activity_link: 'https://www.quill.org/activities/packs/228',
-              cb_anchor_tag: 'the-work-you-do-the-person-you-are'
+              cb_anchor_tag: 'drowning-in-dishes-but-finding-a-home'
             },
           ]
         },
@@ -288,7 +288,7 @@
       <div class="white-section-wrapper">
         <div class="units-container">
           <% @units.each_with_index do |unit, i| %>
-            <%= react_component('ExpandableUnitSection', props: {title: unit[:title], is_first: i===0, learning_cycles: unit[:learning_cycles]}) %>
+            <%= react_component('ExpandableUnitSection', props: {title: unit[:title], is_first: i===0, learning_cycles: unit[:learning_cycles] }) %>
           <% end %>
         </div>
       </div>

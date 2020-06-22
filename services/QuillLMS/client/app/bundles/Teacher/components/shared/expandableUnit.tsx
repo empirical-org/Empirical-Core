@@ -17,6 +17,7 @@ export interface ExpandableUnitProps {
 const ExpandableUnit = (props: ExpandableUnitProps) => {
   const { title, is_first, learning_cycles } = props;
   const [expanded, setExpanded] = React.useState<boolean>(is_first);
+  const locationHash = document.location.hash;
 
   const handleSetExpanded = () => {
     setExpanded(!expanded);
@@ -25,36 +26,21 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
   const renderActivities = (activities, isLastCycle) => {
     return activities.map((activity, i) => {
       const { activity_link, cb_anchor_tag, description, title } = activity;
+      const isLocationMatch = locationHash === `#${cb_anchor_tag}`;
+      if(isLocationMatch && !expanded) {
+        setExpanded(true);
+      }
       const lastActivity = isLastCycle && i === activities.length - 1;
       return(
-        <div className={`cycle-activity-container ${lastActivity ? 'last-activity' : ''}`}>
+        <div className={`cycle-activity-container ${lastActivity ? 'last-activity' : ''} ${isLocationMatch ? 'highlighted' : ''}`} key={i}>
           <div className="cycle-activity-content">
-            <a id={cb_anchor_tag}>{title}</a>
+            <a href={activity_link} id={cb_anchor_tag} rel="noopener noreferrer" target="_blank">{title}</a>
             <p>{description}</p>
           </div>
           <a className="quill-button medium primary outlined focus-on-light" href={activity_link} rel="noopener noreferrer" target="_blank">View</a>
         </div>
       )
     })
-  }
-  const renderBottomSection = () => {
-    return(
-      <div className='bottom-section'>
-        {learning_cycles.map((learningCycle, i) => {
-          const { activities } = learningCycle;
-          const isLastCycle = i === learning_cycles.length - 1;
-          return(
-            <div className="learning-cycle-container">
-              <p className="learning-cycle-header">Learning Cycle {i + 1}</p>
-              <div className="divider" />
-              <div className="cycle-activities-container">
-                {renderActivities(activities, isLastCycle)}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
   }
   return(
     <div className="activity-container expandable">
@@ -67,9 +53,25 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
             <p>5 Passage-Aligned Activities</p>
           </div>
         </div>
-        <img className="expand-arrow focus-on-light" onClick={handleSetExpanded} src={expandSrc} />
+        <button className="expand-collapse-button" onClick={handleSetExpanded} type="button">
+          <img alt="arrow icon" className="expand-arrow focus-on-light" src={expandSrc} />
+        </button>
       </div>
-      {expanded && renderBottomSection()}
+      <div className={`bottom-section ${!expanded ? 'hidden' : ''}`}>
+        {learning_cycles.map((learningCycle, i) => {
+          const { activities } = learningCycle;
+          const isLastCycle = i === learning_cycles.length - 1;
+          return(
+            <div className="learning-cycle-container" key={i}>
+              <p className="learning-cycle-header">Learning Cycle {i + 1}</p>
+              <div className="divider" />
+              <div className="cycle-activities-container">
+                {renderActivities(activities, isLastCycle)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

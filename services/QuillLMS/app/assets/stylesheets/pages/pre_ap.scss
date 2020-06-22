@@ -194,8 +194,13 @@
               }
             }
           }
-          .expand-arrow:hover {
-            cursor: pointer;
+          .expand-collapse-button {
+            .expand-arrow:hover {
+              cursor: pointer;
+            }
+            &.focus { 
+              outline-offset: -5px;
+            }
           }
           &.open {
             .expand-arrow {
@@ -220,6 +225,13 @@
                 justify-content: space-between;
                 padding: 30px 0px 30px 0px;
                 border-bottom: solid 1px #e0e0e0;
+                &.highlighted {
+                  background-color: #e8f7f3;
+                  margin-right: -20px;
+                  margin-left: -20px;
+                  padding-right: 20px;
+                  padding-left: 20px;
+                }
                 .cycle-activity-content {
                   a {
                     font-size: 16px;
@@ -235,6 +247,9 @@
                 }
               }
             }
+          }
+          &.hidden {
+            display: none;
           }
         }
         &.expandable {
