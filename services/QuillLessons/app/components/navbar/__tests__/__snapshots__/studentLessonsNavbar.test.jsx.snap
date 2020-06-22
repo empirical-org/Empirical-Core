@@ -40,9 +40,7 @@ exports[`Navbar component renders 1`] = `
       </button>
       <p
         className="counter"
-      >
-        1 of 2
-      </p>
+      />
     </nav>
   </header>
 </Navbar>
