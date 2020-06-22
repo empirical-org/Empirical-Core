@@ -34,7 +34,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
       return(
         <div className={`cycle-activity-container ${lastActivity ? 'last-activity' : ''} ${isLocationMatch ? 'highlighted' : ''}`} key={i}>
           <div className="cycle-activity-content">
-            <a href={activity_link} id={cb_anchor_tag} rel="noopener noreferrer" target="_blank">{title}</a>
+            <a href={activity_link} id={cb_anchor_tag} rel="noopener noreferrer" tabIndex={-1} target="_blank">{title}</a>
             <p>{description}</p>
           </div>
           <a className="quill-button medium primary outlined focus-on-light" href={activity_link} rel="noopener noreferrer" target="_blank">View</a>

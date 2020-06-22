@@ -210,7 +210,7 @@ nav.q-navbar-home {
         padding: 20px 0px;
       }
       &:focus {
-        outline: dashed 2px #fff;
+        outline: dashed 2px #fff !important;
         outline-offset: 2px;
       }
       a {
