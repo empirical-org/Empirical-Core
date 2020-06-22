@@ -78,6 +78,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const { cues, } = data.play
     const { inputErrors, inputVals, } = this.state
     const newErrors = inputErrors;
+
+    if (!(cues && cues.filter(cue => cue.length).length)) {
+      return Promise.resolve(true);
+    }
+
     for (let i = 0; i < inputVals.length; i++) {
       const inputVal = inputVals[i] || '';
       const inputSufficient = inputVal;

@@ -1,5 +1,5 @@
 // temporarily applying the .student-feedback-container style rules only to specific question types so as not to mess with the other slides, but will remove at the end of this project
-.single-answer, .fill-in-the-blank {
+.single-answer, .fill-in-the-blank, .list-blanks-container {
   .student-feedback-container {
     margin: 24px 0px;
     border-radius: 4px;
