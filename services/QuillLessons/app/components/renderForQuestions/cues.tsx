@@ -1,10 +1,24 @@
-import React from 'react';
+import * as React from 'react';
 import {
   Cue,
   CueExplanation
 } from 'quill-component-library/dist/componentLibrary';
 
-const arrow = 'https://assets.quill.org/images/icons/arrow_icon.svg';
+const arrow = `${process.env.QUILL_CDN_URL}/images/icons/pointing-arrow.svg`;
+
+// temporarily making this an export and leaving the default export because of the other components that use it
+export const Cues = ({ cues, }: { cues: string[] }) => {
+  if (!(cues && cues.length && cues.filter(cue => cue.length).length)) { return <span /> }
+
+  const cueDivs = cues.map((cue, i) => <Cue cue={cue} key={`${i}${cue}`} />)
+  return (
+    <div className="cues">
+      {cueDivs}
+      <img alt="Arrow Icon" src={arrow} />
+      <CueExplanation text='choose one' />
+    </div>
+  )
+}
 
 export default class extends React.Component {
   getJoiningWordsText = () => {
