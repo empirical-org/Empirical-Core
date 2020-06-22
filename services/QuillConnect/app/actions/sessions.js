@@ -18,7 +18,7 @@ export default {
   get(sessionID, cb) {
     // First attempt to get the new normalized session object for this ID
     SessionApi.get(sessionID).then((session) => {
-      handleSessionSnapshot(session, cb)
+      handleSessionSnapshot(denormalizeSession(session), cb)
     }).catch((error) => {
       v4sessionsRef.child(sessionID).once('value', (snapshot) => {
         if (snapshot.exists()) {
