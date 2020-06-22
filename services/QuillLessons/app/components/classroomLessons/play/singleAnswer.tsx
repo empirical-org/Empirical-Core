@@ -1,23 +1,24 @@
 declare function require(name:string);
 import * as React from 'react';
-import Cues from '../../../components/renderForQuestions/cues';
+import { Cues, } from '../../renderForQuestions/cues';
 import FeedbackRow from './feedbackRow'
 import {
   Feedback,
   SentenceFragments
 } from 'quill-component-library/dist/componentLibrary'
+
 import TextEditor from '../../renderForQuestions/renderTextEditor';
 import { getParameterByName } from '../../../libs/getParameterByName';
-import { firebase } from '../../../libs/firebase';
+import ProjectorHeader from './projectorHeader'
+import ProjectedAnswers from './projectedAnswers'
+import PromptSection from './promptSection'
+import SubmitButton from './submitButton'
+import { PROJECT } from './constants'
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion,
 } from '../interfaces';
 import { QuestionData } from '../../../interfaces/classroomLessons'
-
-const laptopGlyphSrc = `${process.env.QUILL_CDN_URL}/images/icons/laptop-glyph.svg` ;
-
-export const PROJECT = 'PROJECT'
 
 interface SingleAnswerProps {
   data: QuestionData,
@@ -34,7 +35,6 @@ interface SingleAnswerState {
   response: string|null,
   editing: boolean,
   submitted: boolean,
-  showPrompt: boolean
 }
 
 class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState> {
@@ -47,8 +47,7 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
                 submissions[student].data :
                 data.play.prefilledText,
       editing: false,
-      submitted: student && submissions && submissions[student],
-      showPrompt: true
+      submitted: student && submissions && submissions[student]
     };
   }
 
@@ -82,59 +81,21 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     this.setState({ editing: e.length, response: e, });
   }
 
-  handleShowPromptButtonClick = () => {
-    this.setState(prevState => ({ showPrompt: !prevState.showPrompt, }))
-  }
-
   // this is the mode where the teacher has chosen to project some of the students'
   // answers, NOT what is being projected on the board.
   renderProject() {
-    const { selected_submissions, selected_submission_order, } = this.props
-    let classAnswers
-    if (selected_submissions && selected_submission_order) {
-      classAnswers = (<div>
-        <p className="answer-header">Class responses</p>
-        {this.renderClassAnswersList()}
-      </div>)
-    }
-    return (
-      <div className="display-mode">
-        {this.renderYourAnswer()}
-        {classAnswers}
-      </div>
-    );
-  }
-
-  renderYourAnswer() {
-    const { projector, } = this.props
+    const { selected_submissions, selected_submission_order, data, projector, submissions, } = this.props
     const { response, } = this.state
-
-    if (projector || !response) { return }
-
-    return (<div>
-      <p className="answer-header">Your response</p>
-      <p className="your-answer">{response}</p>
-    </div>)
-  }
-
-  renderClassAnswersList() {
-    const { submissions, selected_submission_order, data} = this.props;
-    const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
-      let text
-      if (submissions && submissions[key] && submissions[key].data) {
-        text = submissions[key].data
-      } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
-        text = data.play.sampleCorrectAnswer
-      } else {
-        text = ''
-      }
-      return <li key={index}>{text}</li>
-    }) : null;
-    return (
-      <ol className="class-answer-list">
-        {selected}
-      </ol>
-    );
+    const { sampleCorrectAnswer, } = data.play
+    
+    return (<ProjectedAnswers
+      projector={projector}
+      response={response}
+      sampleCorrectAnswer={sampleCorrectAnswer}
+      selectedSubmissionOrder={selected_submission_order}
+      selectedSubmissions={selected_submissions}
+      submissions={submissions}
+    />)
   }
 
   modeAppropriateRender() {
@@ -194,23 +155,8 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     const { response, submitted, } = this.state
     if (submitted || mode === PROJECT) { return }
 
-    const disabled = !response || response.length === 0 ? 'disabled' : null
-    return (<div className="question-button-group">
-      <button className={`quill-button primary contained large focus-on-light ${disabled}`} disabled={!!disabled} onClick={this.handleSubmit} type="button">Submit</button>
-    </div>);
-  }
-
-  renderProjectorHeader() {
-    const { projector, studentCount, submissions, mode, } = this.props
-
-    if (!projector || mode === PROJECT) { return }
-
-    const submissionCount:number = submissions ? Object.keys(submissions).length : 0
-    const studentCountText:string = studentCount ? `${submissionCount} of ${studentCount} have responded` : ''
-    return (<div className="projector-header-section">
-      <div className="students-type-tag tag"><img alt="Laptop Icon" src={laptopGlyphSrc} /><span>Students type response</span></div>
-      <p className="answered-count">{studentCountText}</p>
-    </div>)
+    const disabled = !response || response.length === 0
+    return <SubmitButton disabled={disabled} onClick={this.handleSubmit} />
   }
 
   renderSubmittedBar() {
@@ -223,29 +169,22 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
   }
 
   renderPrompt() {
-    const { showPrompt, } = this.state
     const { data, mode, } = this.props
 
     const prompt = <SentenceFragments prompt={data.play.prompt} />
 
-    if (mode !== PROJECT) { return prompt }
+    return (<PromptSection
+      mode={mode}
+      promptElement={prompt}
+    />)
+  }
 
-    if (showPrompt) {
-      return (<React.Fragment>
-        {prompt}
-        <div className="display-answers-divider prompt-showing">
-          <div className="display-answers-divider-content">
-            <button className="focus-on-light" onClick={this.handleShowPromptButtonClick} type="button">Hide</button>
-          </div>
-        </div>
-      </React.Fragment>)
-    }
+  renderProjectorHeader() {
+    const { projector, studentCount, submissions, mode, } = this.props
 
-    return (<div className="display-answers-divider prompt-hidden">
-      <div className="display-answers-divider-content">
-        <button className="focus-on-light" onClick={this.handleShowPromptButtonClick} type="button">Show</button>
-      </div>
-    </div>)
+    if (!projector || mode === PROJECT) { return }
+
+    return <ProjectorHeader studentCount={studentCount} submissions={submissions} />
   }
 
   render() {

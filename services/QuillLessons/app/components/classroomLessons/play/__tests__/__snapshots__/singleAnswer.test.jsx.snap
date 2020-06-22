@@ -58,44 +58,58 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
   <div
     className="single-answer projector "
   >
-    <div
-      className="projector-header-section"
+    <ProjectorHeader
+      studentCount={1}
+      submissions={null}
     >
       <div
-        className="students-type-tag tag"
+        className="projector-header-section"
       >
-        <img
-          alt="Laptop Icon"
-          src="undefined/images/icons/laptop-glyph.svg"
-        />
-        <span>
-          Students type response
-        </span>
+        <div
+          className="students-type-tag tag"
+        >
+          <img
+            alt="Laptop Icon"
+            src="undefined/images/icons/laptop-glyph.svg"
+          />
+          <span>
+            Students type response
+          </span>
+        </div>
+        <p
+          className="answered-count"
+        >
+          0 of 1 have responded
+        </p>
       </div>
-      <p
-        className="answered-count"
-      >
-        0 of 1 have responded
-      </p>
-    </div>
-    <SentenceFragments
-      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    </ProjectorHeader>
+    <PromptSection
+      mode={null}
+      promptElement={
+        <SentenceFragments
+          prompt="<p>Yesterday, riding my bike through the town.</p>"
+        />
+      }
     >
-      <div
-        className="draft-js sentence-fragments prevent-selection"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+      <SentenceFragments
+        prompt="<p>Yesterday, riding my bike through the town.</p>"
+      >
+        <div
+          className="draft-js sentence-fragments prevent-selection"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Yesterday, riding my bike through the town.</p>",
+            }
           }
-        }
-      />
-    </SentenceFragments>
-    <_default
+        />
+      </SentenceFragments>
+    </PromptSection>
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </_default>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -185,18 +199,23 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -249,7 +268,6 @@ exports[`SingleAnswer component projector view when an answer is being displayed
       },
     }
   }
-  mode="PROJECT"
   projector={true}
   selected_submission_order={
     Array [
@@ -274,53 +292,170 @@ exports[`SingleAnswer component projector view when an answer is being displayed
   <div
     className="single-answer projector "
   >
-    <SentenceFragments
-      prompt="<p>Yesterday, riding my bike through the town.</p>"
-    >
-      <div
-        className="draft-js sentence-fragments prevent-selection"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<p>Yesterday, riding my bike through the town.</p>",
-          }
+    <ProjectorHeader
+      studentCount={1}
+      submissions={
+        Object {
+          "student": Object {
+            "data": "Blah",
+            "timestamp": "2020-06-15T20:02:41.677Z",
+          },
         }
-      />
-    </SentenceFragments>
-    <div
-      className="display-answers-divider prompt-showing"
+      }
     >
       <div
-        className="display-answers-divider-content"
+        className="projector-header-section"
+      >
+        <div
+          className="students-type-tag tag"
+        >
+          <img
+            alt="Laptop Icon"
+            src="undefined/images/icons/laptop-glyph.svg"
+          />
+          <span>
+            Students type response
+          </span>
+        </div>
+        <p
+          className="answered-count"
+        >
+          1 of 1 have responded
+        </p>
+      </div>
+    </ProjectorHeader>
+    <PromptSection
+      promptElement={
+        <SentenceFragments
+          prompt="<p>Yesterday, riding my bike through the town.</p>"
+        />
+      }
+    >
+      <SentenceFragments
+        prompt="<p>Yesterday, riding my bike through the town.</p>"
+      >
+        <div
+          className="draft-js sentence-fragments prevent-selection"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Yesterday, riding my bike through the town.</p>",
+            }
+          }
+        />
+      </SentenceFragments>
+    </PromptSection>
+    <Component
+      displayArrowAndText={false}
+      getQuestion={[Function]}
+    >
+      <span />
+    </Component>
+    <Feedback
+      feedback={
+        <p
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Complete the sentence.",
+            }
+          }
+        />
+      }
+      feedbackType="default"
+    >
+      <div
+        className="student-feedback-container default"
+        role="status"
+      >
+        <div
+          className="feedback-row student-feedback-inner-container"
+        >
+          <img
+            alt="Directions Icon"
+            className="info"
+            src="undefined/images/icons/direction.svg"
+          />
+          <p
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Complete the sentence.",
+              }
+            }
+          />
+        </div>
+      </div>
+    </Feedback>
+    <RenderTextEditor
+      checkAnswer={[Function]}
+      defaultValue=""
+      disabled={true}
+      handleChange={[Function]}
+      placeholder="Type your response here"
+      value="Students type responses here"
+    >
+      <div
+        className="student text-editor card is-fullwidth  disabled-editor"
+      >
+        <div
+          className="card-content"
+        >
+          <div
+            className="content"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoFocus={true}
+              className="connect-text-area"
+              disabled={true}
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+              value="Students type responses here"
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                autoFocus={true}
+                className="connect-text-area"
+                disabled={true}
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+                value="Students type responses here"
+              />
+            </TextareaAutosize>
+          </div>
+        </div>
+      </div>
+    </RenderTextEditor>
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
+    >
+      <div
+        className="question-button-group"
       >
         <button
-          className="focus-on-light"
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
-          Hide
+          Submit
         </button>
       </div>
-    </div>
-    <div
-      className="display-mode"
-    >
-      <div>
-        <p
-          className="answer-header"
-        >
-          Class responses
-        </p>
-        <ol
-          className="class-answer-list"
-        >
-          <li
-            key="0"
-          >
-            Blah
-          </li>
-        </ol>
-      </div>
-    </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -382,24 +517,33 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
   <div
     className="single-answer "
   >
-    <SentenceFragments
-      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    <PromptSection
+      mode={null}
+      promptElement={
+        <SentenceFragments
+          prompt="<p>Yesterday, riding my bike through the town.</p>"
+        />
+      }
     >
-      <div
-        className="draft-js sentence-fragments prevent-selection"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+      <SentenceFragments
+        prompt="<p>Yesterday, riding my bike through the town.</p>"
+      >
+        <div
+          className="draft-js sentence-fragments prevent-selection"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Yesterday, riding my bike through the town.</p>",
+            }
           }
-        }
-      />
-    </SentenceFragments>
-    <_default
+        />
+      </SentenceFragments>
+    </PromptSection>
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </_default>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -483,18 +627,23 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -547,7 +696,6 @@ exports[`SingleAnswer component student view when an answer is being displayed r
       },
     }
   }
-  mode="PROJECT"
   selected_submission_order={
     Array [
       "student",
@@ -571,53 +719,132 @@ exports[`SingleAnswer component student view when an answer is being displayed r
   <div
     className="single-answer "
   >
-    <SentenceFragments
-      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    <PromptSection
+      promptElement={
+        <SentenceFragments
+          prompt="<p>Yesterday, riding my bike through the town.</p>"
+        />
+      }
     >
-      <div
-        className="draft-js sentence-fragments prevent-selection"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+      <SentenceFragments
+        prompt="<p>Yesterday, riding my bike through the town.</p>"
+      >
+        <div
+          className="draft-js sentence-fragments prevent-selection"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Yesterday, riding my bike through the town.</p>",
+            }
           }
-        }
-      />
-    </SentenceFragments>
-    <div
-      className="display-answers-divider prompt-showing"
+        />
+      </SentenceFragments>
+    </PromptSection>
+    <Component
+      displayArrowAndText={false}
+      getQuestion={[Function]}
+    >
+      <span />
+    </Component>
+    <Feedback
+      feedback={
+        <p
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "Complete the sentence.",
+            }
+          }
+        />
+      }
+      feedbackType="default"
     >
       <div
-        className="display-answers-divider-content"
+        className="student-feedback-container default"
+        role="status"
+      >
+        <div
+          className="feedback-row student-feedback-inner-container"
+        >
+          <img
+            alt="Directions Icon"
+            className="info"
+            src="undefined/images/icons/direction.svg"
+          />
+          <p
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Complete the sentence.",
+              }
+            }
+          />
+        </div>
+      </div>
+    </Feedback>
+    <RenderTextEditor
+      checkAnswer={[Function]}
+      defaultValue=""
+      handleChange={[Function]}
+      placeholder="Type your response here"
+    >
+      <div
+        className="student text-editor card is-fullwidth  "
+      >
+        <div
+          className="card-content"
+        >
+          <div
+            className="content"
+          >
+            <TextareaAutosize
+              autoCapitalize="off"
+              autoCorrect="off"
+              autoFocus={true}
+              className="connect-text-area"
+              onChange={[Function]}
+              onHeightChange={[Function]}
+              onInput={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Type your response here"
+              spellCheck={false}
+              useCacheForDOMMeasurements={false}
+            >
+              <textarea
+                autoCapitalize="off"
+                autoCorrect="off"
+                autoFocus={true}
+                className="connect-text-area"
+                onChange={[Function]}
+                onInput={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Type your response here"
+                spellCheck={false}
+                style={
+                  Object {
+                    "height": 0,
+                  }
+                }
+              />
+            </TextareaAutosize>
+          </div>
+        </div>
+      </div>
+    </RenderTextEditor>
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
+    >
+      <div
+        className="question-button-group"
       >
         <button
-          className="focus-on-light"
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
           onClick={[Function]}
           type="button"
         >
-          Hide
+          Submit
         </button>
       </div>
-    </div>
-    <div
-      className="display-mode"
-    >
-      <div>
-        <p
-          className="answer-header"
-        >
-          Class responses
-        </p>
-        <ol
-          className="class-answer-list"
-        >
-          <li
-            key="0"
-          >
-            Blah
-          </li>
-        </ol>
-      </div>
-    </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;
@@ -686,24 +913,33 @@ exports[`SingleAnswer component student view when the student has submitted an a
   <div
     className="single-answer "
   >
-    <SentenceFragments
-      prompt="<p>Yesterday, riding my bike through the town.</p>"
+    <PromptSection
+      mode={null}
+      promptElement={
+        <SentenceFragments
+          prompt="<p>Yesterday, riding my bike through the town.</p>"
+        />
+      }
     >
-      <div
-        className="draft-js sentence-fragments prevent-selection"
-        dangerouslySetInnerHTML={
-          Object {
-            "__html": "<p>Yesterday, riding my bike through the town.</p>",
+      <SentenceFragments
+        prompt="<p>Yesterday, riding my bike through the town.</p>"
+      >
+        <div
+          className="draft-js sentence-fragments prevent-selection"
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<p>Yesterday, riding my bike through the town.</p>",
+            }
           }
-        }
-      />
-    </SentenceFragments>
-    <_default
+        />
+      </SentenceFragments>
+    </PromptSection>
+    <Component
       displayArrowAndText={false}
       getQuestion={[Function]}
     >
-      <div />
-    </_default>
+      <span />
+    </Component>
     <Feedback
       feedback={
         <p
@@ -787,18 +1023,23 @@ exports[`SingleAnswer component student view when the student has submitted an a
         </div>
       </div>
     </RenderTextEditor>
-    <div
-      className="question-button-group"
+    <SubmitButton
+      disabled={true}
+      onClick={[Function]}
     >
-      <button
-        className="quill-button primary contained large focus-on-light disabled"
-        disabled={true}
-        onClick={[Function]}
-        type="button"
+      <div
+        className="question-button-group"
       >
-        Submit
-      </button>
-    </div>
+        <button
+          className="quill-button primary contained large focus-on-light disabled"
+          disabled={true}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
+      </div>
+    </SubmitButton>
   </div>
 </SingleAnswer>
 `;

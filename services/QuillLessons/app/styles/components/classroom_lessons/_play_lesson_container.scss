@@ -6,6 +6,7 @@
   width: 100%;
   max-width: 1000px;
   margin: auto;
+  color: #000;
   .main-content {
     width: 100%;
     .easy-join-name-form-wrapper {
@@ -108,6 +109,9 @@
     font-weight: bold;
     line-height: 1.25;
     margin-top: 24px;
+  }
+  .your-answer-container {
+    margin-bottom: 40px;
   }
   .your-answer {
     border-radius: 4px;
