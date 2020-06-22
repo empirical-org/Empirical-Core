@@ -355,6 +355,7 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
+
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
@@ -413,6 +414,8 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
+
+      mount Comprehension::Engine => "/comprehension", as: :comprehension
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -651,6 +654,8 @@ EmpiricalGrammar::Application.routes.draw do
   get 'student_demo' => 'students#student_demo'
   get 'student_demo_ap' => 'students#demo_ap'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
+  get 'preap' => 'pages#preap'
+  get 'pre-ap', to: redirect('/preap')
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'

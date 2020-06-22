@@ -13,7 +13,7 @@ class ActivitySearch
       flags = "'production'"
     end
 
-    ActiveRecord::Base.connection.execute("SELECT
+    ActiveRecord::Base.connection.execute("SELECT DISTINCT
         activities.name AS activity_name,
     		activities.description AS activity_description,
     		activities.flags AS activity_flag,
@@ -24,7 +24,10 @@ class ActivitySearch
         sections.id AS section_id,
         sections.name AS section_name,
         topics.name AS topic_name,
-        activity_classifications.id AS classification_id
+        activity_classifications.id AS classification_id,
+        activity_classifications.order_number,
+        activity_categories.order_number,
+        activity_category_activities.order_number
       FROM activities
       LEFT JOIN activity_classifications ON activities.activity_classification_id = activity_classifications.id
       LEFT JOIN topics ON activities.topic_id = topics.id
