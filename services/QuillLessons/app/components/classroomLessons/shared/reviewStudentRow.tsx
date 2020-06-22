@@ -3,16 +3,43 @@ import * as moment from 'moment'
 
 import { findDifferences } from './findDifferences'
 
+const generateKey = (studentKey, index) => `${studentKey}#${index}`
 const responseSpan = (text) => <span dangerouslySetInnerHTML={{__html: text}} />
 
-const RetryCell = ({ index, handleRetryClick, submissionText, }) => {
-  const splitSubmissions = submissionText.split('; ')
-  splitSubmissions[index] = ''
-  const newSubmissionText = splitSubmissions.join('; ')
-  const handleClick = () => handleRetryClick(newSubmissionText)
-  return (<button className="interactive-wrapper" onClick={handleClick}>
+const RetryCell = ({ index, handleRetryClick, splitSubmissions, }) => {
+  const newSplitSubmissions = [...splitSubmissions]
+  newSplitSubmissions[index] = ''
+  const handleClick = () => handleRetryClick(newSplitSubmissions)
+  return (<button className="interactive-wrapper" onClick={handleClick} type="button">
     <i className="fa fa-refresh student-retry-question" />
   </button>)
+}
+
+const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, index, studentKey, studentName, handleClickCheckbox, }) => {
+  const key = generateKey(studentKey, index)
+  const handleClick = (e) => handleClickCheckbox(e, key)
+  const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][key] : false
+  const checkbox = determineCheckbox(checked)
+  return (<React.Fragment>
+    <input
+      defaultChecked={checked}
+      id={key}
+      name={studentName}
+      onClick={handleClick}
+      type="checkbox"
+    />
+    <label aria-checked={checked} htmlFor={key}>
+      {checkbox}
+    </label>
+  </React.Fragment>)
+}
+
+const AnswerNumber = ({ selectedSubmissions, selectedSubmissionOrder, currentSlide, studentKey, index, }) => {
+  const key = generateKey(studentKey, index)
+  const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][key] : false
+  const studentNumber: number | null = checked === true && selectedSubmissionOrder && selectedSubmissionOrder[currentSlide] ? selectedSubmissionOrder[currentSlide].indexOf(key) + 1 : null
+  const studentNumberClassName: string = checked === true ? 'answer-number' : ''
+  return <span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span>
 }
 
 const ReviewStudentRow = ({
@@ -45,72 +72,36 @@ const ReviewStudentRow = ({
 
   const handleRetryClick = (newSubmission) => retryQuestionForStudent(studentKey, newSubmission)
 
-  const handleClickCheckbox = (e) => toggleSelected(e, currentSlide, studentKey)
+  const handleClickCheckbox = (e, key) => toggleSelected(e, currentSlide, key)
 
   const text: any = submissions[currentSlide][studentKey].data
   const submissionText = showDifferences ? findDifferences(text, lessonPrompt) : text;
   const submittedTimestamp: string = submissions[currentSlide][studentKey].timestamp
   const elapsedTime: any = formatElapsedTime(moment(submittedTimestamp))
-  const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][studentKey] : false
-  const checkbox = determineCheckbox(checked)
-  const studentNumber: number | null = checked === true && selectedSubmissionOrder && selectedSubmissionOrder[currentSlide] ? selectedSubmissionOrder[currentSlide].indexOf(studentKey) + 1 : null
-  const studentNumberClassName: string = checked === true ? 'answer-number' : ''
   const studentName: string = students[studentKey]
 
-  let responseCellContent: JSX.Element|Array<JSX.Element> = responseSpan(submissionText)
-  let checkboxCellContent: JSX.Element|Array<JSX.Element> = (
-    <React.Fragment>
-      <input
-        defaultChecked={checked}
-        id={studentName}
-        name={studentName}
-        type="checkbox"
-      />
-      <label htmlFor={studentName} onClick={handleClickCheckbox} role="checkbox">
-        {checkbox}
-      </label>
-    </React.Fragment>
-  )
-  let retryCellContent: JSX.Element|Array<JSX.Element> = (<RetryCell index={0} handleRetryClick={handleRetryClick} submissionText={submissionText} />)
-
-  if (slideType !== "CL-FL") {
-    return (<tr className="first last" key={index}>
-      <td>{studentName}</td>
-      <td>{renderFlag(studentKey)}</td>
-      <td>{responseCellContent}</td>
-      <td>{elapsedTime}</td>
-      <td>{checkboxCellContent}</td>
-      <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-      <td className="retry-question-cell">{retryCellContent}</td>
-    </tr>)
-  }
-
-  const splitSubmissions = submissionText.split('; ')
-  responseCellContent = []
-  checkboxCellContent = []
-  retryCellContent = []
+  const splitSubmissions = submissionText instanceof Object ? Object.keys(submissionText).map(k => submissionText[k]) : [submissionText]
   const rows = splitSubmissions.filter(s => s.length).map((sub, subIndex) => {
-    responseCellContent = responseSpan(sub)
-    retryCellContent = <RetryCell index={subIndex} handleRetryClick={handleRetryClick} submissionText={submissionText} />
+    let className = ''
+    className+= subIndex === 0 ? ' first' : ''
+    className+= subIndex === splitSubmissions.length - 1 ? ' last' : ''
+    let studentNameCellContent, flagCellContent, elapsedTimeCellContent
+    let responseCellContent: JSX.Element|Array<JSX.Element> = responseSpan(sub)
+    let checkboxCellContent: JSX.Element|Array<JSX.Element> = (<CheckboxCell currentSlide={currentSlide} determineCheckbox={determineCheckbox} handleClickCheckbox={handleClickCheckbox} index={subIndex} selectedSubmissions={selectedSubmissions} studentKey={studentKey} studentName={studentName} />)
+    let retryCellContent: JSX.Element|Array<JSX.Element> = (<RetryCell handleRetryClick={handleRetryClick} index={subIndex} splitSubmissions={splitSubmissions} />)
+    let answerNumberContent: JSX.Element = (<AnswerNumber currentSlide={currentSlide} index={subIndex} selectedSubmissionOrder={selectedSubmissionOrder} selectedSubmissions={selectedSubmissions} studentKey={studentKey} />)
     if (subIndex === 0) {
-      return (<tr className="first" key={`${index}-${subIndex}`}>
-        <td>{studentName}</td>
-        <td>{renderFlag(studentKey)}</td>
-        <td>{responseCellContent}</td>
-        <td>{elapsedTime}</td>
-        <td>{checkboxCellContent}</td>
-        <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
-        <td className="retry-question-cell">{retryCellContent}</td>
-      </tr>)
+      studentNameCellContent = studentName
+      flagCellContent = renderFlag(studentKey)
+      elapsedTimeCellContent = elapsedTime
     }
-    const lastClassname = subIndex === splitSubmissions.length - 1 ? 'last' : null
-    return (<tr className={lastClassname} key={`${index}-${subIndex}`}>
-      <td></td>
-      <td></td>
+    return (<tr className={className} key={`${index}-${subIndex}`}>
+      <td>{studentNameCellContent}</td>
+      <td>{flagCellContent}</td>
       <td>{responseCellContent}</td>
-      <td></td>
+      <td>{elapsedTimeCellContent}</td>
       <td>{checkboxCellContent}</td>
-      <td><span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span></td>
+      <td>{answerNumberContent}</td>
       <td className="retry-question-cell">{retryCellContent}</td>
     </tr>)
   })

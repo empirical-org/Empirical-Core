@@ -21,7 +21,6 @@ import ProjectedAnswers from './projectedAnswers'
 import PromptSection from './promptSection'
 import { PROJECT } from './constants'
 
-import numberToWord from '../../../libs/numberToWord'
 import { getParameterByName } from '../../../libs/getParameterByName';
 
 interface ListBlankProps {
@@ -38,15 +37,6 @@ interface ListBlankState {
   submittedAnswers?: { [key:string]: string };
 }
 
-const toObject = (answers) => {
-  const arr = answers.split('; ')
-  const objectifiedArr = {};
-  for (var i = 0; i < arr.length; i+=1) {
-    objectifiedArr[i] = arr[i];
-  }
-  return objectifiedArr;
-}
-
 const answerCount = (answers) => {
   let nonBlankAnswers = 0;
   if (answers) {
@@ -58,30 +48,19 @@ const answerCount = (answers) => {
   return nonBlankAnswers
 }
 
-const savedSubmission = (props) => {
+const savedSubmission = (submissions) => {
   const student = getParameterByName('student')
-  return props.submissions && props.submissions[student] && props.submissions[student].data && toObject(props.submissions[student].data)
+  return submissions && submissions[student] && submissions[student].data
 }
-
 
 class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   constructor(props) {
     super(props)
 
-    const submittedAnswers = savedSubmission(props)
+    const submittedAnswers = savedSubmission(props.submissions)
     this.state = {
-      answers: submittedAnswers || {},
-      submittedAnswers
+      answers: submittedAnswers || {}
     }
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (!_.isEqual(savedSubmission(props), state.submittedAnswers)) {
-      return {
-        submittedAnswers: savedSubmission(props)
-      };
-    }
-    return null;
   }
 
   customChangeEvent = (e, index) => {
@@ -91,6 +70,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderProject() {
+    const { answers, } = this.state
     const { selected_submissions, selected_submission_order, data, projector, submissions, mode, } = this.props
 
     if (mode !== PROJECT) { return }
@@ -98,7 +78,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
     return (<ProjectedAnswers
       projector={projector}
-      response={this.sortedAndJoinedAnswers()}
+      response={answers}
       sampleCorrectAnswer={sampleCorrectAnswer}
       selectedSubmissionOrder={selected_submission_order}
       selectedSubmissions={selected_submissions}
@@ -113,8 +93,9 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   textEditListComponents(i){
-    const { projector, } = this.props
-    const { answers, submittedAnswers, } = this.state
+    const { projector, submissions, } = this.props
+    const { answers, } = this.state
+    const submittedAnswers = savedSubmission(submissions)
     const disabled:boolean = (submittedAnswers && submittedAnswers[i]) || projector
     const value = projector ? 'Students type responses here' : answers[i]
     return (
@@ -148,25 +129,11 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     )
   }
 
-  answerValues(){
-    // TODO use Object.values once we figure out typescript ECMA-2017
-    const answerArr : Array<string|null> = [];
-    const { answers, } = this.state
-    for (let key in answers) {
-      answerArr.push(answers[key])
-    }
-    return answerArr
-  }
-
-  sortedAndJoinedAnswers(){
-    const sortedAnswers = this.answerValues()
-    return sortedAnswers.join('; ')
-  }
-
   handleStudentSubmission = () => {
+    const { answers, } = this.state
     const { handleStudentSubmission, } = this.props
     if (this.isSubmittable() && handleStudentSubmission) {
-      handleStudentSubmission(this.sortedAndJoinedAnswers())
+      handleStudentSubmission(answers)
     }
   }
 
@@ -179,8 +146,9 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderInstructions() {
-    const { submittedAnswers, } = this.state
-    const { data, } = this.props
+    const { data, submissions, } = this.props
+
+    const submittedAnswers = savedSubmission(submissions)
 
     if (!data.play.instructions && (!submittedAnswers || answerCount(submittedAnswers) === data.play.nBlanks)) { return }
 
@@ -198,12 +166,11 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderModeSpecificContent(){
-    const { submittedAnswers, } = this.state
-    const { mode, data, } = this.props
+    const { mode, data, submissions, } = this.props
     if (mode==='PROJECT') {
       return this.renderProject()
     } else {
-      const submitButton = answerCount(submittedAnswers) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
+      const submitButton = answerCount(savedSubmission(submissions)) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
       const prompt = <SentenceFragments prompt={data.play.prompt} />
       return (
         <React.Fragment>
@@ -220,8 +187,9 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   renderSubmittedBar() {
-    const { submittedAnswers, } = this.state
-    const { mode, data, } = this.props
+    const { mode, data, submissions, } = this.props
+
+    const submittedAnswers = savedSubmission(submissions)
 
     if (!submittedAnswers || answerCount(submittedAnswers) !== data.play.nBlanks || mode === PROJECT) { return }
 
