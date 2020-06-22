@@ -1,4 +1,4 @@
-import { applyFeatureToPercentage } from 'apply-feature';
+import { applyFeatureToPercentage } from '../libs/apply-feature';
 
 import rootRef from '../libs/firebase';
 import { v4rootRef } from '../libs/firebase';
