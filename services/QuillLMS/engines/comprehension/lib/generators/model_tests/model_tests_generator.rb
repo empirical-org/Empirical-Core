@@ -25,4 +25,3 @@ class ModelTestsGenerator < TestUnit::Generators::Base # :nodoc:
       end
     end
 end
-
