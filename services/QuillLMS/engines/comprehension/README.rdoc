@@ -38,6 +38,11 @@ There is a way to refactor this so that we replace Rail's templates with our own
 
 `bundle exec rake quill_scaffold:generate['FakeModel activity:reference title:string score:integer']
 
+After generating the scaffold
+- Update the migration with any other specifications
+- Fill in model validations, relationships, and json hash
+- Search for `FIXME` to find tests and functionality to replace
+
 #### Migrations
 
 You run migrations in the parent app, not in the engine. So if you add a migration, run this in the parent app:
@@ -45,6 +50,3 @@ You run migrations in the parent app, not in the engine. So if you add a migrati
 `rake comprehension:install:migrations`
 
 See the Rails guide for more details.
-
-
-
