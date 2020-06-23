@@ -9,12 +9,11 @@ const handleLogoClick = () => {
   }
 }
 
-export const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
+export const Navbar = ({ classroomSessions, customize, }) => {
   const { data } = classroomSessions;
-  const lessonData = classroomLesson.data;
 
   // need to subtract one from the number of questions to account for the lobby slide
-  const numberOfQuestions = lessonData && lessonData.questions ? lessonData.questions.length - 1 : null
+  const numberOfQuestions = customize && customize.editionQuestions && customize.editionQuestions.questions ? customize.editionQuestions.questions.length - 1 : null
   const counterText = numberOfQuestions ? `${data.current_slide} of ${numberOfQuestions}` : ''
 
   return (
@@ -40,7 +39,7 @@ export const Navbar = ({ classroomSessions, classroomLesson, customize, }) => {
 function select(props) {
   return {
     classroomSessions: props.classroomSessions,
-    classroomLesson: props.classroomLesson,
+    customize: props.customize,
   };
 }
 
