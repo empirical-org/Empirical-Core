@@ -71,7 +71,6 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
       prompt: promptNotEmpty ?  textEditorInputClean(prompt) : textEditorInputClean(lessonPrompt)
     }
-    this.resetSlide = this.resetSlide.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -441,7 +440,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const { selected_submissions, submissions, current_slide, students, selected_submission_order, slideType, lessonPrompt, toggleSelected, timestamps, } = this.props;
     const { showDifferences, } = this.state
 
-    return <ReviewStudentRow
+    return (<ReviewStudentRow
       calculateElapsedMilliseconds={calculateElapsedMilliseconds}
       currentSlide={current_slide}
       determineCheckbox={this.determineCheckbox}
@@ -458,7 +457,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
       submissions={submissions}
       timestamps={timestamps}
       toggleSelected={toggleSelected}
-    />
+    />)
   }
 
   renderNoSubmissionsTable(numStudents: number, index: number) {

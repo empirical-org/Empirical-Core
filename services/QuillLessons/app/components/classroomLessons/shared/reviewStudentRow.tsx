@@ -91,10 +91,6 @@ const ReviewStudentRow = ({
     className+= subIndex === 0 ? ' first' : ''
     className+= subIndex === splitSubmissions.length - 1 ? ' last' : ''
     let studentNameCellContent, flagCellContent, elapsedTimeCellContent
-    let responseCellContent = responseSpan(sub)
-    let checkboxCellContent = (<CheckboxCell currentSlide={currentSlide} determineCheckbox={determineCheckbox} handleClickCheckbox={handleClickCheckbox} index={subIndex} selectedSubmissions={selectedSubmissions} studentKey={studentKey} studentName={studentName} />)
-    let retryCellContent = (<RetryCell handleRetryClick={handleRetryClick} index={subIndex} splitSubmissions={splitSubmissions} />)
-    let answerNumberContent = (<AnswerNumber currentSlide={currentSlide} index={subIndex} selectedSubmissionOrder={selectedSubmissionOrder} selectedSubmissions={selectedSubmissions} studentKey={studentKey} />)
     if (subIndex === 0) {
       studentNameCellContent = studentName
       flagCellContent = renderFlag(studentKey)
@@ -103,11 +99,35 @@ const ReviewStudentRow = ({
     return (<tr className={className} key={`${index}-${subIndex}`}>
       <td>{studentNameCellContent}</td>
       <td>{flagCellContent}</td>
-      <td>{responseCellContent}</td>
+      <td>{responseSpan(sub)}</td>
       <td>{elapsedTimeCellContent}</td>
-      <td>{checkboxCellContent}</td>
-      <td>{answerNumberContent}</td>
-      <td className="retry-question-cell">{retryCellContent}</td>
+      <td>
+        <CheckboxCell
+          currentSlide={currentSlide}
+          determineCheckbox={determineCheckbox}
+          handleClickCheckbox={handleClickCheckbox}
+          index={subIndex}
+          selectedSubmissions={selectedSubmissions}
+          studentKey={studentKey}
+          studentName={studentName}
+        />
+      </td>
+      <td>
+        <AnswerNumber
+          currentSlide={currentSlide}
+          index={subIndex}
+          selectedSubmissionOrder={selectedSubmissionOrder}
+          selectedSubmissions={selectedSubmissions}
+          studentKey={studentKey}
+        />
+      </td>
+      <td className="retry-question-cell">
+        <RetryCell
+          handleRetryClick={handleRetryClick}
+          index={subIndex}
+          splitSubmissions={splitSubmissions}
+        />
+      </td>
     </tr>)
   })
 

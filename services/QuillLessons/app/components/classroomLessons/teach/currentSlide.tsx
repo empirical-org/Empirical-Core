@@ -138,15 +138,15 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     }
   }
 
-  clearStudentSubmission(currentSlideId: string, student: string, submission?: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-    if (classroomSessionId) {
-      if (submission) {
-        const submissionObj = { data: submission, }
-        saveStudentSubmission(classroomSessionId, currentSlideId, student, submissionObj)
-      } else {
-        removeStudentSubmission(classroomSessionId, currentSlideId, student);
-      }
+  clearStudentSubmission = (currentSlideId: string, student: string, submission?: string) => {
+    const { classroomSessionId, } = this.state
+    if (!classroomSessionId) { return }
+    
+    if (submission) {
+      const submissionObj = { data: submission, }
+      saveStudentSubmission(classroomSessionId, currentSlideId, student, submissionObj)
+    } else {
+      removeStudentSubmission(classroomSessionId, currentSlideId, student);
     }
   }
 
