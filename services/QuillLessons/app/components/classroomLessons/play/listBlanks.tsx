@@ -34,7 +34,6 @@ interface ListBlankProps {
 }
 interface ListBlankState {
   answers: { [key:string]: string };
-  submittedAnswers?: { [key:string]: string };
 }
 
 const answerCount = (answers) => {

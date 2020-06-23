@@ -3,12 +3,26 @@ import * as moment from 'moment'
 
 import { findDifferences } from './findDifferences'
 
+const formatElapsedTime = (submittedTimestamp, timestamps, currentSlide, calculateElapsedMilliseconds) => {
+  const elapsedMilliseconds: number = calculateElapsedMilliseconds(submittedTimestamp, timestamps, currentSlide)
+  const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
+  const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
+  const formattedMinutes: string|number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
+  const formattedSeconds: string|number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
+  return formattedMinutes + ':' + formattedSeconds
+}
+
 const generateKey = (studentKey, index) => `${studentKey}#${index}`
+
 const responseSpan = (text) => <span dangerouslySetInnerHTML={{__html: text}} />
 
 const RetryCell = ({ index, handleRetryClick, splitSubmissions, }) => {
-  const newSplitSubmissions = [...splitSubmissions]
-  newSplitSubmissions[index] = ''
+  // the split submissions are an optional argument for the retry method. if there is only one item in the array, we pass nothing back because we want the whole student submission to be removed from the tree rather than set to an empty string.
+  let newSplitSubmissions
+  if (splitSubmissions.length > 1) {
+    newSplitSubmissions = [...splitSubmissions]
+    newSplitSubmissions[index] = ''
+  }
   const handleClick = () => handleRetryClick(newSplitSubmissions)
   return (<button className="interactive-wrapper" onClick={handleClick} type="button">
     <i className="fa fa-refresh student-retry-question" />
@@ -61,23 +75,14 @@ const ReviewStudentRow = ({
   calculateElapsedMilliseconds
 }) => {
 
-  const formatElapsedTime = (submittedTimestamp) => {
-    const elapsedMilliseconds: number = calculateElapsedMilliseconds(submittedTimestamp, timestamps, currentSlide)
-    const elapsedMinutes: number = moment.duration(elapsedMilliseconds).minutes()
-    const elapsedSeconds: number = moment.duration(elapsedMilliseconds).seconds()
-    const formattedMinutes: string|number = elapsedMinutes > 9 ? elapsedMinutes : 0 + elapsedMinutes.toString()
-    const formattedSeconds: string|number = elapsedSeconds > 9 ? elapsedSeconds : 0 + elapsedSeconds.toString()
-    return formattedMinutes + ':' + formattedSeconds
-  }
-
   const handleRetryClick = (newSubmission) => retryQuestionForStudent(studentKey, newSubmission)
 
   const handleClickCheckbox = (e, key) => toggleSelected(e, currentSlide, key)
 
   const text: any = submissions[currentSlide][studentKey].data
   const submissionText = showDifferences ? findDifferences(text, lessonPrompt) : text;
-  const submittedTimestamp: string = submissions[currentSlide][studentKey].timestamp
-  const elapsedTime: any = formatElapsedTime(moment(submittedTimestamp))
+  const submittedTimestamp = moment(submissions[currentSlide][studentKey].timestamp)
+  const elapsedTime: any = formatElapsedTime(submittedTimestamp, timestamps, currentSlide, calculateElapsedMilliseconds)
   const studentName: string = students[studentKey]
 
   const splitSubmissions = submissionText instanceof Object ? Object.keys(submissionText).map(k => submissionText[k]) : [submissionText]
@@ -86,10 +91,10 @@ const ReviewStudentRow = ({
     className+= subIndex === 0 ? ' first' : ''
     className+= subIndex === splitSubmissions.length - 1 ? ' last' : ''
     let studentNameCellContent, flagCellContent, elapsedTimeCellContent
-    let responseCellContent: JSX.Element|Array<JSX.Element> = responseSpan(sub)
-    let checkboxCellContent: JSX.Element|Array<JSX.Element> = (<CheckboxCell currentSlide={currentSlide} determineCheckbox={determineCheckbox} handleClickCheckbox={handleClickCheckbox} index={subIndex} selectedSubmissions={selectedSubmissions} studentKey={studentKey} studentName={studentName} />)
-    let retryCellContent: JSX.Element|Array<JSX.Element> = (<RetryCell handleRetryClick={handleRetryClick} index={subIndex} splitSubmissions={splitSubmissions} />)
-    let answerNumberContent: JSX.Element = (<AnswerNumber currentSlide={currentSlide} index={subIndex} selectedSubmissionOrder={selectedSubmissionOrder} selectedSubmissions={selectedSubmissions} studentKey={studentKey} />)
+    let responseCellContent = responseSpan(sub)
+    let checkboxCellContent = (<CheckboxCell currentSlide={currentSlide} determineCheckbox={determineCheckbox} handleClickCheckbox={handleClickCheckbox} index={subIndex} selectedSubmissions={selectedSubmissions} studentKey={studentKey} studentName={studentName} />)
+    let retryCellContent = (<RetryCell handleRetryClick={handleRetryClick} index={subIndex} splitSubmissions={splitSubmissions} />)
+    let answerNumberContent = (<AnswerNumber currentSlide={currentSlide} index={subIndex} selectedSubmissionOrder={selectedSubmissionOrder} selectedSubmissions={selectedSubmissions} studentKey={studentKey} />)
     if (subIndex === 0) {
       studentNameCellContent = studentName
       flagCellContent = renderFlag(studentKey)
