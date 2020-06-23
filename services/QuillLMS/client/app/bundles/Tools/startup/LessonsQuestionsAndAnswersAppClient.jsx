@@ -1,8 +1,8 @@
 import React from 'react';
 import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
 
-const LessonsQuestionsAndAnswersAppClient = (props) => (
+const LessonsQuestionsAndAnswersApp = (props) => (
   <QuestionsAndAnswers {...props} />
 );
 
-export default LessonsQuestionsAndAnswersAppClient
+export default LessonsQuestionsAndAnswersApp
