@@ -23,7 +23,7 @@ export default class QuestionAndAnswer extends React.Component {
     const { expanded } = this.state
     let innerElement;
 
-    if (questionsAndAnswersFile === 'premium' || 'preap') {
+    if (questionsAndAnswersFile === 'premium' || questionsAndAnswersFile === 'preap') {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
       innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
     } else {
