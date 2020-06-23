@@ -194,14 +194,6 @@
               }
             }
           }
-          .expand-collapse-button {
-            .expand-arrow:hover {
-              cursor: pointer;
-            }
-            &.focus { 
-              outline-offset: -5px;
-            }
-          }
           &.open {
             .expand-arrow {
               transform: rotate(180deg);
@@ -380,10 +372,10 @@
 
 body:not(.show-focus) button.expand-collapse-button:focus {
   outline: dashed 2px #06806b !important;
-  outline-offset: 2px;
+  outline-offset: -8px;
 }
 
 body:not(.show-focus) [tabindex]:focus {
   outline: dashed 2px #06806b !important;
-  outline-offset: 2px;
+  outline-offset: -8px;
 }

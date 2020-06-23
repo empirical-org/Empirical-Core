@@ -21,22 +21,22 @@ export default class QuestionAndAnswer extends React.Component {
   expandOrCollapseButton() {
     const { questionsAndAnswersFile } = this.props
     const { expanded } = this.state
-    let buttonText = ''
+    let innerElement;
 
     if (questionsAndAnswersFile === 'premium' || 'preap') {
       const imageLink = expanded ? 'collapse.svg' : 'expand.svg'
-      buttonText = <button className="expand-collapse-button" type="button"><img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} /></button>
+      innerElement = <img alt="expand-and-collapse" src={`${process.env.CDN_URL}/images/shared/${imageLink}`} />
     } else {
-      buttonText = expanded ? 'Collapse' : 'Expand'
+      innerElement = expanded ? <p>Collapse</p> : <p>Expand</p>
     }
-    return <p className="expand-or-collapse" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress}>{buttonText}</p>
+    return <button className="expand-collapse-button" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
   }
 
   handleKeyPress = (e) => {
     e.preventDefault();
     const { key } = e;
     if(key === 'Enter') {
-      this.setState(prevState => ({ expanded: !prevState.expanded }));
+      this.handleToggleExpansion();
     }
   }
 
@@ -50,7 +50,7 @@ export default class QuestionAndAnswer extends React.Component {
     return (
       <div className="qa-section">
         <div className="qa">
-          <p className="question" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress}>{question}</p>
+          <p className="question">{question}</p>
           {this.answer()}
         </div>
         {this.expandOrCollapseButton()}

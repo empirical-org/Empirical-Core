@@ -31,8 +31,9 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
         setExpanded(true);
       }
       const lastActivity = isLastCycle && i === activities.length - 1;
+      const additionalStyle = `${lastActivity ? 'last-activity' : ''} ${isLocationMatch ? 'highlighted' : ''}`
       return(
-        <div className={`cycle-activity-container ${lastActivity ? 'last-activity' : ''} ${isLocationMatch ? 'highlighted' : ''}`} key={i}>
+        <div className={`cycle-activity-container ${additionalStyle}`} key={i}>
           <div className="cycle-activity-content">
             <a href={activity_link} id={cb_anchor_tag} rel="noopener noreferrer" tabIndex={-1} target="_blank">{title}</a>
             <p>{description}</p>
@@ -42,9 +43,26 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
       )
     })
   }
+
+  const topSectionStyle = `${expanded ? 'open' : 'closed'}`;
+  
+  const learningCycles = learning_cycles.map((learningCycle, i) => {
+    const { activities } = learningCycle;
+    const isLastCycle = i === learning_cycles.length - 1;
+    return(
+      <div className="learning-cycle-container" key={i}>
+        <p className="learning-cycle-header">Learning Cycle {i + 1}</p>
+        <div className="divider" />
+        <div className="cycle-activities-container">
+          {renderActivities(activities, isLastCycle)}
+        </div>
+      </div>
+    );
+  });
+
   return(
     <div className="activity-container expandable">
-      <div className={`top-section ${expanded ? 'open' : 'closed'}`}>
+      <div className={`top-section ${topSectionStyle}`}>
         <div className="unit-header-container">
           <p className="unit-title">{title}</p>
           <div className="unit-sub-header-container">
@@ -58,19 +76,7 @@ const ExpandableUnit = (props: ExpandableUnitProps) => {
         </button>
       </div>
       <div className={`bottom-section ${!expanded ? 'hidden' : ''}`}>
-        {learning_cycles.map((learningCycle, i) => {
-          const { activities } = learningCycle;
-          const isLastCycle = i === learning_cycles.length - 1;
-          return(
-            <div className="learning-cycle-container" key={i}>
-              <p className="learning-cycle-header">Learning Cycle {i + 1}</p>
-              <div className="divider" />
-              <div className="cycle-activities-container">
-                {renderActivities(activities, isLastCycle)}
-              </div>
-            </div>
-          );
-        })}
+        {learningCycles}
       </div>
     </div>
   );
