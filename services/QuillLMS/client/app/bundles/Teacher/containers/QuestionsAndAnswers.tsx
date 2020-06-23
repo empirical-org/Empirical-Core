@@ -50,12 +50,13 @@ export default class QuestionsAndAnswers extends React.Component<QuestionsAndAns
 
   render() {
     const { supportLink } = this.props;
+    const style = `support-link ${!supportLink ? 'hidden' : ''}`;
     return(
       <div id="q-and-a">
         <div className="q-and-a-inner-wrapper">
           <h1>Questions and Answers</h1>
           {this.renderQuestionsAndAnswers()}
-          <a className={`support-link ${!supportLink ? 'hidden' : ''}`} href={supportLink}>View all questions and answers</a>
+          <a className={style} href={supportLink}>View all questions and answers</a>
         </div>
       </div>
     )
