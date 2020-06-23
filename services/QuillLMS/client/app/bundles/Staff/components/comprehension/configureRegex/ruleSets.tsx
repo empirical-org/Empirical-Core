@@ -56,7 +56,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     });
   }
 
-  const submitRuleSet = (ruleSet: ActivityRuleSetInterface) => {
+  const submitRuleSet = ({ ruleSet }) => {
     createRuleSet(activityId, ruleSet).then((response) => {
       const { error, rules, ruleSetId } = response;
       if(error) {
@@ -111,7 +111,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
     );
   }
 
-  if(ruleSetsData && ruleSetsData.error) {
+  if(ruleSetsData.error) {
     return(
       <div className="error-container">
         <Error error={`${ruleSetsData.error}`} />

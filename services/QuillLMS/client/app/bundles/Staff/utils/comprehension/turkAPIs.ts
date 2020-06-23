@@ -1,26 +1,20 @@
 import { TurkSessionInterface } from '../../interfaces/comprehensionInterfaces';
-import { requestFailed } from '../../../../helpers/comprehension'
+import { handleApiError } from '../../../../helpers/comprehension'
 
 export const fetchTurkSessions = async (key: string, activityId: string) => {
   let turkSessions: TurkSessionInterface[];
-  let error: string;
   const response = await fetch('https://comprehension-247816.appspot.com/api/turking.json');
-  const { status } = response;
-  if(requestFailed(status)) {
-    error = 'Failed to fetch turk sessions, please refresh the page.';
-  }
   turkSessions = await response.json();
   const filteredTurkSessions = turkSessions.filter((turkSession: TurkSessionInterface)  => {
     return turkSession.activity_id === parseInt(activityId);
   });
   return {
-    error,
+    error: handleApiError('Failed to fetch turk sessions, please refresh the page.', response),
     turkSessions: filteredTurkSessions
   }
 }
 
 export const createTurkSession = async (activityId: string, newTurkSessionDate: any) => {
-  let error: string;
   const response = await fetch('https://comprehension-247816.appspot.com/api/turking.json', {
     method: 'POST',
     body: JSON.stringify({
@@ -32,15 +26,10 @@ export const createTurkSession = async (activityId: string, newTurkSessionDate: 
       "Content-Type": "application/json"
     },
   });
-  const { status } = response;
-  if(requestFailed(status)) {
-    error = 'Failed to create turk session, please try again.';
-  }
-  return { error };
+  return { error: handleApiError('Failed to create turk session, please try again.', response) };
 }
 
 export const editTurkSession = async (activityId: string, turkSessionId: string, turkSessionDate: any) => {
-  let error: any;
   const response = await fetch(`https://comprehension-247816.appspot.com/api/turking/${turkSessionId}.json`, {
     method: 'PUT',
     body: JSON.stringify({
@@ -52,21 +41,12 @@ export const editTurkSession = async (activityId: string, turkSessionId: string,
       "Content-Type": "application/json"
     },
   });
-  const { status } = response;
-  if(requestFailed(status)) {
-    error = 'Failed to edit turk session, please try again.';
-  }
-  return { error };
+  return { error: handleApiError('Failed to edit turk session, please try again.', response) };
 }
 
 export const deleteTurkSession = async (turkSessionId: string) => {
-  let error: any;
   const response = await fetch(`https://comprehension-247816.appspot.com/api/turking/${turkSessionId}.json`, {
     method: 'DELETE'
   });
-  const { status } = response;
-  if(requestFailed(status)) {
-    error = 'Failed to delete turk session, please try again.';
-  }
-  return { error };
+  return { error: handleApiError('Failed to delete turk session, please try again.', response) };
 }

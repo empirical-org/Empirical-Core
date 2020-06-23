@@ -41,14 +41,13 @@ export const validateForm = (keys: string[], state: string[]) => {
 // not a 2xx status
 export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;
 
-export const buildErrorMessage = (errors: object) => {
-  let message: string;
-  Object.keys(errors).map((error, i) => {
-    if(i === 0) {
-      message = `${errors[error]}`;
-    } else {
-      message = message + `, ${errors[error]}`;
-    }
-  });
-  return message;
+export const buildErrorMessage = (errors: object) => Object.values(errors).join(', ');
+
+export const handleApiError = (errorMessage: string, response: any) => {
+  let error: string;
+  const { status } = response;
+  if(requestFailed(status)) {
+    error = errorMessage;
+  }
+  return error;
 }

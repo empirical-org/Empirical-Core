@@ -10,7 +10,7 @@ interface RuleSetFormProps {
   activityData: ActivityInterface,
   activityRuleSet: ActivityRuleSetInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitRuleSet: (ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object) => void
+  submitRuleSet: (argumentsHash: { ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object }) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -109,8 +109,8 @@ const RuleSetForm = ({ activityData, activityRuleSet, closeModal, submitRuleSet 
     if(validationErrors && Object.keys(validationErrors).length) {
       setErrors(validationErrors);
     } else {
-      const rules = [...Object.values(rulesToCreate), ...Object.values(rulesToDelete), ...Object.values(rulesToUpdate)]
-      submitRuleSet(ruleSet, rules, rulesToDelete, rulesToUpdate);
+      const rules = [...Object.values(rulesToCreate), ...Object.values(rulesToDelete), ...Object.values(rulesToUpdate)];
+      submitRuleSet({ ruleSet, rules, rulesToDelete, rulesToUpdate });
     }
   }
 

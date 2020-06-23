@@ -37,7 +37,7 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const submitActivity = (activity: ActivityInterface) => {
     createActivity(activity).then((response) => {
       const { error } = response;
-      error && setError(error);
+      if(error) setError(error);
       setShowCreateActivityModal(false);
       setShowSubmissionModal(true);
 

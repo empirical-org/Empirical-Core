@@ -1,7 +1,8 @@
 import * as React from "react";
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { buildErrorMessage, getPromptsIcons } from '../../../../../helpers/comprehension';
-import { ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import { RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { deleteRuleSet, fetchRuleSet, updateRuleSet, createRule, updateRule, deleteRule } from '../../../utils/comprehension/ruleSetAPIs';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
 import RuleSetForm from './ruleSetForm';
@@ -69,15 +70,15 @@ const RuleSet = ({ history, match }) => {
         },
         {
           label: "Because",
-          value: promptsIcons ? promptsIcons['because'] : null
+          value: promptsIcons ? promptsIcons[BECAUSE] : null
         },
         {
           label: "But",
-          value: promptsIcons ? promptsIcons['but'] : null
+          value: promptsIcons ? promptsIcons[BUT] : null
         },
         {
           label: "So",
-          value: promptsIcons ? promptsIcons['so'] : null
+          value: promptsIcons ? promptsIcons[SO] : null
         },
       ];
       if(regexRules) {
@@ -134,7 +135,7 @@ const RuleSet = ({ history, match }) => {
     });
   }
 
-  const submitRuleSet = (ruleSet: ActivityRuleSetInterface, rules: RegexRuleInterface[], rulesToDelete: object, rulesToUpdate: object) => {
+  const submitRuleSet = ({ ruleSet, rules, rulesToDelete, rulesToUpdate }) => {
     updateRuleSet(activityId, ruleSetId, ruleSet).then((response) => {
       const { error } = response;
       if(error) {
@@ -225,7 +226,7 @@ const RuleSet = ({ history, match }) => {
     );
   }
 
-  if(ruleSetData && ruleSetData.error) {
+  if(ruleSetData.error) {
     return(
       <div className="error-container">
         <Error error={`${ruleSetData.error}`} />

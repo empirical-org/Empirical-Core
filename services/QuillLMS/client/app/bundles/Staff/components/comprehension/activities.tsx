@@ -27,7 +27,7 @@ const Activities = () => {
     );
   }
 
-  if(data && data.error) {
+  if(data.error) {
     return(
       <div className="error-container">
         <Error error={`${data.error}`} />
