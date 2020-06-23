@@ -51,8 +51,8 @@ const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, in
 const AnswerNumber = ({ selectedSubmissions, selectedSubmissionOrder, currentSlide, studentKey, index, }) => {
   const key = generateKey(studentKey, index)
   const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][key] : false
-  const studentNumber: number | null = checked === true && selectedSubmissionOrder && selectedSubmissionOrder[currentSlide] ? selectedSubmissionOrder[currentSlide].indexOf(key) + 1 : null
-  const studentNumberClassName: string = checked === true ? 'answer-number' : ''
+  const studentNumber: number | null = checked && selectedSubmissionOrder && selectedSubmissionOrder[currentSlide] ? selectedSubmissionOrder[currentSlide].indexOf(key) + 1 : null
+  const studentNumberClassName: string = checked ? 'answer-number' : ''
   return <span className={`answer-number-container ${studentNumberClassName}`}>{studentNumber}</span>
 }
 
