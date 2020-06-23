@@ -57,32 +57,20 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
 
   constructor(props) {
     super(props);
-    const current = this.props.current_slide;
-    const models = this.props.models;
+
+    const { current_slide, models, prompt, modes, lessonPrompt, } = this.props
+    const current = current_slide;
     const modelNotEmpty = models && textEditorInputNotEmpty(models[current]);
-    const prompt = this.props.prompt;
     const promptNotEmpty = textEditorInputNotEmpty(prompt);
     this.state = {
-      projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
+      projecting: modes && (modes[current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
       sort: 'lastName',
       sortDirection: 'desc',
       showDifferences: false,
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
-      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : textEditorInputClean(this.props.lessonPrompt),
-      // numberOfHeaders: props.script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
-      // numberOfToggledHeaders: 0
+      prompt: promptNotEmpty ?  textEditorInputClean(prompt) : textEditorInputClean(lessonPrompt)
     }
-    this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
-    this.toggleShowAllStudents = this.toggleShowAllStudents.bind(this);
-    this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
-    this.clearSelectedSubmissions = this.clearSelectedSubmissions.bind(this)
-    this.clearAllSubmissions = this.clearAllSubmissions.bind(this)
-    this.retryQuestion = this.retryQuestion.bind(this);
-    this.handleModelChange = this.handleModelChange.bind(this);
-    this.retryQuestionForStudent = this.retryQuestionForStudent.bind(this);
-    this.toggleShowDifferences = this.toggleShowDifferences.bind(this);
-    this.handlePromptChange = this.handlePromptChange.bind(this);
     this.resetSlide = this.resetSlide.bind(this);
   }
 
@@ -144,41 +132,42 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     });
   }
 
-  startDisplayingAnswers() {
+  startDisplayingAnswers = () => {
+    const { startDisplayingAnswers, } = this.props
     this.setState({projecting: true})
-    this.props.startDisplayingAnswers();
+    startDisplayingAnswers();
   }
 
-  toggleShowAllStudents() {
-    this.setState({showAllStudents: !this.state.showAllStudents})
+  toggleShowAllStudents = () => {
+    this.setState(prevState => ({showAllStudents: !prevState.showAllStudents}))
   }
 
-  toggleShowDifferences() {
-    this.setState({showDifferences: !this.state.showDifferences})
+  toggleShowDifferences = () => {
+    this.setState(prevState => ({showDifferences: !prevState.showDifferences}))
   }
 
-  stopDisplayingAnswers() {
+  stopDisplayingAnswers = () => {
+    const { stopDisplayingAnswers, } = this.props
     this.setState({projecting: false})
-    this.props.stopDisplayingAnswers();
+    stopDisplayingAnswers();
   }
 
   renderRetryQuestionButton() {
     return <p onClick={this.retryQuestion}><i className="fa fa-refresh" />Retry Question</p>
   }
 
-  retryQuestion() {
+  retryQuestion = () => {
     this.stopDisplayingAnswers()
     this.clearSelectedSubmissions()
     this.clearAllSubmissions()
   }
 
-  retryQuestionForStudent(student, submission) {
-    const submissions: Submissions = this.props.submissions;
-    const current_slide: string = this.props.current_slide;
-    if (!submission && submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length === 1){
+  retryQuestionForStudent = (student, submission) => {
+    const { current_slide, submissions, clearStudentSubmission, } = this.props
+    if (!submission && submissions && submissions[current_slide] && Object.keys(submissions[current_slide]).length === 1) {
       this.retryQuestion()
     } else if (submissions && submissions[current_slide] && submissions[current_slide][student]) {
-      this.props.clearStudentSubmission(current_slide, student, submission)
+      clearStudentSubmission(current_slide, student, submission)
     }
   }
 
@@ -234,12 +223,14 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     }
   }
 
-  clearSelectedSubmissions() {
-    this.props.clearAllSelectedSubmissions(this.props.current_slide)
+  clearSelectedSubmissions = () => {
+    const { clearAllSelectedSubmissions, current_slide, } = this.props
+    clearAllSelectedSubmissions(current_slide)
   }
 
   clearAllSubmissions() {
-    this.props.clearAllSubmissions(this.props.current_slide)
+    const { clearAllSubmissions, current_slide, } = this.props
+    clearAllSubmissions(current_slide)
   }
 
   setSort(sort: string) {
@@ -424,11 +415,12 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderFlag = (studentKey: string) => {
+    const { flaggedStudents, toggleStudentFlag, } = this.props
     let flag = grayFlag
-    if (this.props.flaggedStudents && this.props.flaggedStudents[studentKey]) {
+    if (flaggedStudents && flaggedStudents[studentKey]) {
       flag = blueFlag
     }
-    return <img onClick={() => this.props.toggleStudentFlag(studentKey)} src={flag} />
+    return <img onClick={() => toggleStudentFlag(studentKey)} src={flag} />
   }
 
   renderNoSubmissionRow(studentKey: string) {
@@ -502,22 +494,24 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     }
   }
 
-  handleModelChange(e) {
+  handleModelChange = (e) => {
+    const { saveModel, } = this.props
     this.setState({ model: textEditorInputClean(e) });
-    this.props.saveModel(textEditorInputClean(e));
+    saveModel(textEditorInputClean(e));
   }
 
-  handlePromptChange(e) {
+  handlePromptChange = (e) => {
+    const { savePrompt, } = this.props
     this.setState({ prompt: textEditorInputClean(e) });
-    this.props.savePrompt(textEditorInputClean(e));
+    savePrompt(textEditorInputClean(e));
   }
 
-  resetSlide() {
-    const lessonPrompt = this.props.lessonPrompt
+  resetSlide = () => {
+    const { lessonPrompt, savePrompt, saveModel, } = this.props
     this.setState({ prompt: lessonPrompt ? textEditorInputClean(lessonPrompt) : '' });
-    this.props.savePrompt(lessonPrompt ? textEditorInputClean(lessonPrompt) : '');
+    savePrompt(lessonPrompt ? textEditorInputClean(lessonPrompt) : '');
     this.setState({ model: ''})
-    this.props.saveModel('');
+    saveModel('');
 
   }
 
