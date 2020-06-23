@@ -65,7 +65,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     this.state = {
       projecting: this.props.modes && (this.props.modes[this.props.current_slide] === "PROJECT") ? true : false,
       showAllStudents: false,
-      sort: 'time',
+      sort: 'lastName',
       sortDirection: 'desc',
       showDifferences: false,
       model: modelNotEmpty ? textEditorInputClean(models[current]) : '',
@@ -275,7 +275,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           }
         case 'lastName':
         default:
-        return sortByLastName(studentKey1, studentKey2, students)
+          return sortByLastName(studentKey1, studentKey2, students)
       }
     })
 

@@ -69,7 +69,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     this.setState(newState)
   }
 
-  renderProject() {
+  renderProjectedAnswers() {
     const { answers, } = this.state
     const { selected_submissions, selected_submission_order, data, projector, submissions, mode, } = this.props
 
@@ -167,23 +167,28 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
   renderModeSpecificContent(){
     const { mode, data, submissions, } = this.props
-    if (mode==='PROJECT') {
-      return this.renderProject()
-    } else {
-      const submitButton = answerCount(savedSubmission(submissions)) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
-      const prompt = <SentenceFragments prompt={data.play.prompt} />
-      return (
-        <React.Fragment>
-          <PromptSection
-            mode={mode}
-            promptElement={prompt}
-          />
-          {this.renderInstructions()}
-          {this.listBlanks()}
-          {submitButton}
-        </React.Fragment>
-      )
+    const prompt = <SentenceFragments prompt={data.play.prompt} />
+    const promptSection = (
+      <PromptSection
+        mode={mode}
+        promptElement={prompt}
+      />
+    )
+    if (mode === PROJECT) {
+      return <React.Fragment>
+        {promptSection}
+        {this.renderProjectedAnswers()}
+      </React.Fragment>
     }
+    const submitButton = answerCount(savedSubmission(submissions)) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
+    return (
+      <React.Fragment>
+        {promptSection}
+        {this.renderInstructions()}
+        {this.listBlanks()}
+        {submitButton}
+      </React.Fragment>
+    )
   }
 
   renderSubmittedBar() {
