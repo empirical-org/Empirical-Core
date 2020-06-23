@@ -57,13 +57,15 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     end
 
     should "not create an invalid record and return errors as json" do
+      # FIX ME, update the attributes passed to the endpoint get an invalid response and then update the error message below to match
       post :create, <%= "#{singular_table_name}: { #{attributes_hash} }" %>
 
       parsed_response = JSON.parse(response.body)
 
       assert_equal 422, response.code.to_i
+      # FIX ME, update this to the attribute with the invalid value and update the error message
       assert parsed_response['<%= attributes_names.first %>'].include?("FIX ME")
-      assert_equal 0, Activity.count
+      assert_equal 0, <%= class_name %>.count
     end
   end
 
@@ -96,25 +98,27 @@ class <%= controller_class_name %>ControllerTest < ActionController::TestCase
     end
 
     should "update record if valid, return nothing" do
-      # TODO FIX ME, update attriubutes to something different
+      # FIX ME, update the attributes to something different than the original object
       patch :update, id: <%= "@#{singular_table_name}" %>.id, <%= "#{singular_table_name}: { #{attributes_hash} }" %>
 
       assert_equal "", response.body
       assert_equal 204, response.code.to_i
 
       <%= "@#{singular_table_name}" %>.reload
+      # FIX ME, update the attributes below the new values to confirm they saved
       <% attributes_names.each do |name| %>
       assert_equal "FIX ME", @<%= singular_table_name %>.<%= name %>
       <%- end %>
     end
 
     should "not update record and return errors as json" do
-      # TODO FIX ME, update attriubutes to something different
+      # FIX ME, update an attribute sent to the endpoint that would result in an invalid record.
       patch :update, id: <%= "@#{singular_table_name}" %>.id, <%= "#{singular_table_name}: { #{attributes_hash} }" %>
 
       parsed_response = JSON.parse(response.body)
 
       assert_equal 422, response.code.to_i
+      # FIX ME, update this to the attribute with the invalid value and update the error message
       assert parsed_response['<%= attributes_names.first %>'].include?("FIX ME")
     end
   end
