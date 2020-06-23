@@ -89,6 +89,7 @@ exports[`ProjectedAnswers component renders on the student screen 1`] = `
             "__html": "We waited in line at the store. <strong>The</strong> line was very long!",
           }
         }
+        key="We waited in line at the store. <strong>The</strong> line was very long!"
       />
     </div>
     <div>
