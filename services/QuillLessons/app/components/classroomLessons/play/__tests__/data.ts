@@ -318,3 +318,49 @@ export const fillInTheBlankProps = {
   selected_submission_order: null,
   studentCount: 1
 }
+
+export const listBlanksProps = {
+  data: {
+    play: {
+      blankLabel: "",
+      cues: [""],
+      instructions: "",
+      nBlanks: 3,
+      prompt: "List three action words:"
+    },
+    teach: {
+      script: [
+        {
+          data: {
+            body: "<p><strong>Say:</strong> Every sentence must have at least one action word. Take one minute and think of three action words like <em>ate</em> or <em>dance</em>. Type one action word in each box and submit your response.</p>",
+            heading: "Ask students to list 3 action words on their own."
+          },
+          type: "STEP-HTML"
+        },
+        {
+          type: "T-REVIEW"
+        },
+        {
+          data: {
+            body: "<p><em>Ask a student to read the list of words out loud.</em></p>\n<p><strong>Say: </strong>Good work! Every sentence needs an action word like one of these words. Remember that words like <em>is</em> and <em>are</em> also count because they show that something <em>existed</em>. If an action word is missing, your sentence is incomplete.</p>",
+            heading: "Select and display 4-5 correct student responses."
+          },
+          type: "STEP-HTML"
+        },
+        {
+          data: {
+            body: "<p>If your students are unfamiliar with linking verbs like <em>is, am, are, was,</em> and<em> were</em>, you may choose to spend additional time providing examples of these words in a sentence.</p>",
+            heading: "Note:"
+          },
+          type: "STEP-HTML-TIP"
+        }
+      ],
+      title: "Individual Response"
+    }
+  },
+  mode: null,
+  submissions: null,
+  selected_submissions: null,
+  selected_submission_order: null,
+  studentCount: 1
+}
