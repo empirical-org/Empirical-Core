@@ -175,10 +175,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
       />
     )
     if (mode === PROJECT) {
-      return <React.Fragment>
+      return (<React.Fragment>
         {promptSection}
         {this.renderProjectedAnswers()}
-      </React.Fragment>
+      </React.Fragment>)
     }
     const submitButton = answerCount(savedSubmission(submissions)) === data.play.nBlanks ? null : <SubmitButton disabled={!this.isSubmittable()} onClick={this.handleStudentSubmission} />
     return (
