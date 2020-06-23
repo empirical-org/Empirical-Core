@@ -3,7 +3,7 @@ import * as React from 'react'
 import { sortByLastName, sortByDisplayed, sortByTime, sortByFlag, sortByAnswer } from './studentSorts'
 import MultipleTextEditor from './multipleTextEditor'
 import StepHtml from './stepHtml'
-import Cues from '../../../components/renderForQuestions/cues';
+import Cues from '../../renderForQuestions/cues';
 import { findDifferences } from './findDifferences'
 import { textEditorInputNotEmpty, textEditorInputClean } from './textEditorClean'
 import {

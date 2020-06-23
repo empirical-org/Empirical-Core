@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubmitButton component renders when disabled 1`] = `
+<SubmitButton
+  disabled={true}
+  onClick={[Function]}
+>
+  <div
+    className="question-button-group"
+  >
+    <button
+      className="quill-button primary contained large focus-on-light disabled"
+      disabled={true}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </div>
+</SubmitButton>
+`;
+
+exports[`SubmitButton component renders when not disabled 1`] = `
+<SubmitButton
+  disabled={false}
+  onClick={[Function]}
+>
+  <div
+    className="question-button-group"
+  >
+    <button
+      className="quill-button primary contained large focus-on-light "
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Submit
+    </button>
+  </div>
+</SubmitButton>
+`;
