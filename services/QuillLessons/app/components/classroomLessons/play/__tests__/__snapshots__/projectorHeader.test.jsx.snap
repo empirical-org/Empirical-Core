@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProjectorHeader component renders 1`] = `
+<ProjectorHeader
+  studentCount={1}
+  submissions={null}
+>
+  <div
+    className="projector-header-section"
+  >
+    <div
+      className="students-type-tag tag"
+    >
+      <img
+        alt="Laptop Icon"
+        src="undefined/images/icons/laptop-glyph.svg"
+      />
+      <span>
+        Students type response
+      </span>
+    </div>
+    <p
+      className="answered-count"
+    >
+      0 of 1 have responded
+    </p>
+  </div>
+</ProjectorHeader>
+`;

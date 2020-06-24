@@ -384,6 +384,10 @@ textarea.submission {
   .concept-explanation {
     margin: 16px 0px;
     border-radius: 4px;
+
+    p {
+      margin-bottom: 0;
+    }
   }
 
   .concept-explanation.empty {
