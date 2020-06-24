@@ -49,6 +49,7 @@
   line-height: 1.33;
   color: #808080;
   width: 32px;
+  padding-top: 22px;
 }
 
 .sentence-fragments {
@@ -71,7 +72,7 @@
 }
 .list-component {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 24px;
 }
 .feedback-row {
