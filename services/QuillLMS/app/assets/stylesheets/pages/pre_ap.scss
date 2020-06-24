@@ -41,6 +41,9 @@
           }
         }
       }
+      img {
+        object-fit: contain
+      }
     }
     .cb-message-container {
       display: flex;
@@ -135,33 +138,41 @@
           font-weight: 600;
           color: black;
           text-align: center;
-          padding: 3px;
+          padding: 3px 16px 3px 16px;
           margin: 0px 3px 0px 3px;
         }
       }
       .activity-container {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
         margin-bottom: 20px;
         border-radius: 6px;
         border: solid 1px #e0e0e0;
-        .activity-text-container {
+        padding-top: 20px;
+        .activity-header-container {
           display: flex;
-          flex-direction: column;
-          max-width: 735px;
+          align-items: baseline;
+          justify-content: space-between;
           .activity-header {
             font-size: 16px;
             font-weight: bold;
             color: #06806b;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
+            margin-left: 24px;
             text-decoration: none;
           }
+          .view-button {
+            margin: 12px 26px 0px 0px;
+          }
+        }
+        .activity-text-container {
+          display: flex;
+          flex-direction: column;
+          max-width: 735px;
+          padding: 0px 0px 24px 24px;
           .activity-sub-header {
             color: #646464;
             font-size: 14px;
             line-height: 1.5;
-            padding: 10px 0px 10px 0px;
+            padding: 8px 0px 8px 0px;
           }
           .activity-sub-text {
             color: black;
@@ -169,18 +180,17 @@
             line-height: 1.5;
           }
         }
-        .view-button {
-          margin-right: 20px;
-        }
         .top-section {
           display: flex;
           width: 100%;
           justify-content: space-between;
+          padding: 0px 20px 20px 20px;
           .unit-header-container {
             .unit-title {
               font-size: 20px;
               font-weight: bold;
               color: black;
+              padding-bottom: 8px;
             }
             .unit-sub-header-container {
               display: flex;
@@ -192,7 +202,14 @@
                   margin: 0px 10px 0px 10px;
                 }
               }
+              p:nth-of-type(2) {
+                color: #BDBDBD;
+              }
             }
+          }
+          .expand-collapse-button {
+            background-color: white;
+            margin-top: 14px;
           }
           &.open {
             .expand-arrow {
@@ -201,7 +218,8 @@
           }
         }
         .bottom-section {
-          border-top: solid 1px #e0e0e0;;
+          border-top: solid 1px #e0e0e0;
+          padding: 0px 20px 0px 20px;
           .learning-cycle-container {
             .divider {
 
@@ -209,12 +227,10 @@
             .learning-cycle-header {
               font-size: 20px;
               border-bottom: solid 1px #e0e0e0;
-              padding: 30px 0px 5px 0px;
+              padding: 40px 0px 5px 0px;
             }
             .cycle-activities-container {
               .cycle-activity-container {
-                display: flex;
-                justify-content: space-between;
                 padding: 30px 0px 30px 0px;
                 border-bottom: solid 1px #e0e0e0;
                 &.highlighted {
@@ -224,15 +240,20 @@
                   padding-right: 20px;
                   padding-left: 20px;
                 }
-                .cycle-activity-content {
-                  a {
+                .top-content {
+                  display: flex;
+                  justify-content: space-between;
+                  .activity-title {
                     font-size: 16px;
                     font-weight: bold;
                     color: #06806b;
                   }
-                  p {
-
+                  .activity-title:hover {
+                    text-decoration: none;
                   }
+                }
+                .description {
+                  margin-top: -8px;
                 }
                 &.last-activity {
                   border-bottom: none;
@@ -248,9 +269,6 @@
           display: flex;
           flex-direction: column;
         }
-        .bottom-section, .top-section {
-          padding: 20px 0px 20px 0px;
-        }
       }
     }
     .info-blurbs-section {
@@ -262,13 +280,14 @@
         .text-container {
           display: flex;
           flex-direction: column;
-          justify-content: space-around;
+          justify-content: center;
           max-width: 447px;
           .info-blurb-header {
             font-size: 24px;
             font-weight: bold;
             line-height: 1.5;
             color: black;
+            padding-bottom: 8px;
           }
           .info-blurb-text {
             font-size: 16px;
@@ -287,6 +306,9 @@
       border-bottom: 1px solid #e0e0e0;;
       .qa-section {
         .qa {
+          .question:focus {
+            outline: none !important;
+          }
           .answer {
             div {
               .preap-q-and-a-text {
@@ -308,6 +330,9 @@
             }
           }
         }
+        .expand-collapse-button {
+          background-color: white;
+        }
       }
     }
   }
@@ -319,7 +344,9 @@
       padding: 20px;
       .pre-ap-header-container {
         flex-direction: column;
+        align-items: center;
         .header-left {
+          margin-right: 0px;
           .logo-container {
             flex-direction: column;
             align-items: center;
@@ -340,6 +367,9 @@
             }
           }
         }
+        // img {
+        //   object-fit: contain
+        // }
       }
       .cb-message-container {
         .quote-container {
@@ -366,16 +396,93 @@
           flex-direction: column;
         }
       }
+      .pre-ap-activities-section {
+        .activities-subheader {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 0px;
+          .ap-english-tag:nth-of-type(1) {
+            margin: 16px 0px 8px 0px;
+          }
+          .ap-english-tag:nth-of-type(2) {
+            margin: 0px 0px 16px 0px;
+          }
+        }
+        .activity-container {
+          padding: 16px;
+          .activity-header-container {
+            align-items: flex-start;
+            .activity-header {
+              margin: 0px;
+              max-width: 152px;
+            }
+            .view-button {
+              margin: 0px;
+            }
+          }
+          .activity-text-container {
+            padding: 0px;
+          }
+        }
+      }
+      .units-container {
+        .activity-container {
+          padding: 0px;
+          .top-section {
+            padding-top: 20px;
+            .unit-header-container {
+              .unit-sub-header-container {
+                display: flex;
+                flex-direction: column;
+                .bullet {
+                  display: none;
+                }
+              }
+            }
+            div {
+              .expand-collapse-button {
+                margin-top: 0px;
+              }
+            }
+          }
+          .bottom-section {
+            .learning-cycle-container {
+              .cycle-activities-container {
+                .cycle-activity-container {
+                  .top-content {
+                    .activity-title {
+                      max-width: 152px;
+                    }
+                  }
+                  .description {
+                    margin-top: 8px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
-}
-
-body:not(.show-focus) button.expand-collapse-button:focus {
-  outline: dashed 2px #06806b !important;
-  outline-offset: -8px;
-}
-
-body:not(.show-focus) [tabindex]:focus {
-  outline: dashed 2px #06806b !important;
-  outline-offset: -8px;
+  #q-and-a {
+    .q-and-a-inner-wrapper {
+      padding: 0px 16px 0px 16px !important;
+      .qa-section {
+        .qa {
+          .question {
+            text-align: left;
+          }
+          .answer {
+            div {
+              .preap-q-and-a-text {
+                padding-left: 6px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

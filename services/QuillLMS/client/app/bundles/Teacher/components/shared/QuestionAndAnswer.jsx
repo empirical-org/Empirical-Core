@@ -29,7 +29,7 @@ export default class QuestionAndAnswer extends React.Component {
     } else {
       innerElement = expanded ? <p>Collapse</p> : <p>Expand</p>
     }
-    return <button className="expand-collapse-button" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
+    return <button className="expand-collapse-button focus-on-light" onClick={this.handleToggleExpansion} onKeyPress={this.handleKeyPress} type="button">{innerElement}</button>
   }
 
   handleKeyPress = (e) => {
@@ -50,10 +50,12 @@ export default class QuestionAndAnswer extends React.Component {
     return (
       <div className="qa-section">
         <div className="qa">
-          <p className="question">{question}</p>
+          <button className="question" onClick={this.handleToggleExpansion} tabIndex={-1} type="button">{question}</button>
           {this.answer()}
         </div>
-        {this.expandOrCollapseButton()}
+        <div>
+          {this.expandOrCollapseButton()}
+        </div>
       </div>
     )
   }
