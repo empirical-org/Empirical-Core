@@ -7,10 +7,6 @@ class SessionApi {
     return requestGet(`${sessionApiBaseUrl}/${uid}.json`);
   }
 
-  static create(data: object): Promise<object> {
-    return requestPost(`${sessionApiBaseUrl}.json`, {active_activity_session: data});
-  }
-
   static update(uid: string, data: object): Promise<object> {
     return requestPut(`${sessionApiBaseUrl}/${uid}.json`, {active_activity_session: data});
   }

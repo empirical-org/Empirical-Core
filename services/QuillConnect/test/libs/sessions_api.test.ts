@@ -1,13 +1,11 @@
 import {
   mockRequestDelete,
   mockRequestGet,
-  mockRequestPost,
   mockRequestPut,
 } from '../__mocks__/request_wrapper'
 jest.mock('../../app/libs/request', () => ({
   requestDelete: mockRequestDelete,
   requestGet: mockRequestGet,
-  requestPost: mockRequestPost,
   requestPut: mockRequestPut,
 }))
 
@@ -23,17 +21,6 @@ describe('SessionApi calls', () => {
       const url = `${sessionApiBaseUrl}/${MOCK_ID}.json`
       SessionApi.get(MOCK_ID)
       expect(mockRequestGet).toHaveBeenLastCalledWith(url)
-    })
-  })
-
-  describe('create', () => {
-    it('should call requestPost', () => {
-      const MOCK_CONTENT  = {
-        foo: 'bar',
-      }
-      const url = `${sessionApiBaseUrl}.json`
-      SessionApi.create(MOCK_CONTENT)
-      expect(mockRequestPost).toHaveBeenLastCalledWith(url, {active_activity_session: MOCK_CONTENT})
     })
   })
 
