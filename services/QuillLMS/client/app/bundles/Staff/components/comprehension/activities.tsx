@@ -2,45 +2,24 @@ import * as React from "react";
 import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
-import { blankActivity } from '../../../../constants/comprehension';
-import { activitiesGetAPI } from '../../utils/comprehensionAPIs';
-import useSWR from 'swr';
+import { fetchActivities } from '../../utils/comprehension/activityAPIs';
+import { useQuery } from 'react-query'
 
 const Activities = () => {
-  const [activities, setActivities] = React.useState<ActivityInterface[]>([blankActivity]);
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string>(null);
-  
-  const fetchData = async () => {
-    let activities: ActivityInterface[];
-    try {
-      setLoading(true);
-      const response = await fetch(activitiesGetAPI);
-      activities = await response.json();
-    } catch (error) {
-      setError(error);
-      setLoading(false);
-    }
-    setActivities(activities);
-    setLoading(false);
-  };
 
   // cache activity data for updates
-  useSWR("activities", fetchData);
+  const { data } = useQuery("activities", fetchActivities);
 
-  React.useEffect(() => {
-    fetchData();
-  }, []);
-
-  const formattedRows = activities.map((activity: ActivityInterface) => {
+  const formattedRows = data && data.activities && data.activities.map((activity: ActivityInterface) => {
     const { id,  title } = activity;
     const activityLink = (<Link to={`/activities/${id}`}>{title}</Link>);
     return {
+      id,
       title: activityLink
     }
   });
 
-  if(loading) {
+  if(!data) {
     return(
       <div className="loading-spinner-container">
         <Spinner />
@@ -48,10 +27,10 @@ const Activities = () => {
     );
   }
 
-  if(error) {
+  if(data.error) {
     return(
       <div className="error-container">
-        <Error error={`${error}`} />
+        <Error error={`${data.error}`} />
       </div>
     );
   }
@@ -66,7 +45,7 @@ const Activities = () => {
         className="activities-table"
         defaultSortAttribute="title"
         headers={dataTableFields}
-        rows={formattedRows}
+        rows={formattedRows ? formattedRows : []}
       />
     </div>
   );

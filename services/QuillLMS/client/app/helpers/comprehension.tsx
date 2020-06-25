@@ -37,3 +37,17 @@ export const validateForm = (keys: string[], state: string[]) => {
   });
   return errors;
 }
+
+// not a 2xx status
+export const requestFailed = (status: number ) => Math.round(status / 100) !== 2;
+
+export const buildErrorMessage = (errors: object) => Object.values(errors).join(', ');
+
+export const handleApiError = (errorMessage: string, response: any) => {
+  let error: string;
+  const { status } = response;
+  if(requestFailed(status)) {
+    error = errorMessage;
+  }
+  return error;
+}
