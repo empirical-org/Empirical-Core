@@ -1,8 +1,13 @@
+import { applyFeatureToPercentage } from '../libs/apply-feature';
+
 import rootRef from '../libs/firebase';
 import { v4rootRef } from '../libs/firebase';
+import { SessionApi } from '../libs/sessions_api';
 import _ from 'lodash';
 
 const C = require('../constants').default;
+
+const NEW_SESSION_PERCENTAGE = 1;
 
 const sessionsRef = rootRef.child('savedSessions');
 const v4sessionsRef = v4rootRef.child('connectSessions');
@@ -12,20 +17,24 @@ let questionsInitialized = {};
 export default {
   get(sessionID, cb) {
     // First attempt to get the new normalized session object for this ID
-    v4sessionsRef.child(sessionID).once('value', (snapshot) => {
-      if (snapshot.exists()) {
-        const v4session = denormalizeSession(snapshot.val());
-        handleSessionSnapshot(v4session, cb);
-      } else {
-        // If we can't find a new style session, look for an old one
-        sessionsRef.child(sessionID).once('value', (snapshot) => {
-          if (snapshot.exists()) {
-            const v2session = snapshot.val();
-            handleSessionSnapshot(v2session, cb);
-          }
-        });
-      }
-    });
+    SessionApi.get(sessionID).then((session) => {
+      handleSessionSnapshot(denormalizeSession(session), cb)
+    }).catch((error) => {
+      v4sessionsRef.child(sessionID).once('value', (snapshot) => {
+        if (snapshot.exists()) {
+          const v4session = denormalizeSession(snapshot.val());
+          handleSessionSnapshot(v4session, cb);
+        } else {
+          // If we can't find a new style session, look for an old one
+          sessionsRef.child(sessionID).once('value', (snapshot) => {
+            if (snapshot.exists()) {
+              const v2session = snapshot.val();
+              handleSessionSnapshot(v2session, cb);
+            }
+          });
+        }
+      });
+    })
   },
 
   update(sessionID, session) {
@@ -36,12 +45,18 @@ export default {
     const normalizedSession = normalizeSession(cleanedSession)
     // Let's start including an updated time on our sessions
     normalizedSession.updatedAt = new Date().getTime();
-    v4sessionsRef.child(sessionID).set(normalizedSession);
+    // If this session should go to the LMS
+    if (applyFeatureToPercentage(sessionID, NEW_SESSION_PERCENTAGE)) {
+      SessionApi.update(sessionID, normalizedSession);
+    } else {
+      v4sessionsRef.child(sessionID).set(normalizedSession);
+    }
   },
 
   delete(sessionID) {
     sessionsRef.child(sessionID).remove();
     v4sessionsRef.child(sessionID).remove();
+    SessionApi.remove(sessionID);
   },
 
   populateQuestions(questionType, questions, forceRefresh) {
