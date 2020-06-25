@@ -1,0 +1,8 @@
+Description:
+    Generate  API endpoints. Uses the syntax of rails scaffold generators.
+
+Example:
+    rails generate quill_scaffold_controller FakeModel name:string level:integer
+
+    This will create:
+        controller endpoints
