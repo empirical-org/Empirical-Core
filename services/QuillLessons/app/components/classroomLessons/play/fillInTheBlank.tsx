@@ -79,7 +79,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const { inputErrors, inputVals, } = this.state
     const newErrors = inputErrors;
 
-    if (!(cues && cues.filter(cue => cue.length).length)) {
+    if (!(cues && cues.some(cue => cue.length))) {
       return Promise.resolve(true);
     }
 
