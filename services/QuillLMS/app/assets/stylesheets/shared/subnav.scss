@@ -35,6 +35,10 @@
       margin-right: 20px;
       padding-left: 5px;
       padding-right: 5px;
+      &:focus {
+        outline: dashed 2px #06806b;
+        outline-offset: -3px;
+      }
     }
     &:first-of-type {
       a {
