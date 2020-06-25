@@ -28,7 +28,7 @@ const selectCard = (history: any, unitTemplateName: string, activityIdsArray: st
 const minis = (props: any) => [
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization', },
+      { key: 'What', text: 'Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization', },
       { key: 'When', text: 'Your students are working on basic grammar concepts.', }
     ]}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LKX2sTTnPVhTOrWyUx9"
@@ -64,8 +64,8 @@ const minis = (props: any) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Simple verb conjugation, articles, subject verb agreement, simple word order, singular vs plural nouns, and adjective placement', },
-      { key: 'When', text: 'Built for beginning English Language Learners who are working on foundational grammar skills.', }
+      { key: 'What', text: 'Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement', },
+      { key: 'When', text: 'Your students are beginning English language learners who are working on foundational grammar skills.', }
     ]}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-LyFRZvbHAmooTTIIVE2"
     buttonText="Preview"
@@ -77,7 +77,7 @@ const minis = (props: any) => [
   (<AssignmentCard
     bodyArray={[
       { key: 'What', text: 'Subject-verb agreement, verb tense, adjectives, adverbs, articles, and prepositions', },
-      { key: 'When', text: 'Built for English Language Learners at the developing, expanding or bridging stages of language proficiency (WIDA Levels 3-5).', }
+      { key: 'When', text: 'Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.', }
     ]}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/ell"
     buttonText="Preview"
