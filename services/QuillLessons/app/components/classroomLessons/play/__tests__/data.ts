@@ -364,3 +364,38 @@ export const listBlanksProps = {
   selected_submission_order: null,
   studentCount: 1
 }
+
+export const multistepProps = {
+  data: {
+    play: {
+      cues: [""],
+      instructions: "",
+      prompt: "Label each group of words as a fragment or a complete sentence.",
+      stepLabels: [
+        "Even though he had practiced every night and he was a talented singer.",
+        "After finding out about the secret spot and walking three miles to get there.",
+        "Before he went home, he took photographs of all his friends and said goodbye."
+      ]
+    },
+    teach: {
+      script: [
+        {
+          data: {
+            body: "<p><strong>Say:</strong> CHANGE ME</p>",
+            heading: "STEP HTML HEADING"
+          },
+          type: "STEP-HTML"
+        },
+        {
+          type: "T-REVIEW"
+        }
+      ],
+      title: "MULTISTEP SLIDE TITLE"
+    }
+  },
+  mode: null,
+  submissions: null,
+  selected_submissions: null,
+  selected_submission_order: null,
+  studentCount: 2
+}

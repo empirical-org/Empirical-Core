@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
-import ListBlanks, { PROJECT } from '../singleAnswer';
+import ListBlanks, { PROJECT } from '../listBlanks';
 import { listBlanksProps } from './data'
 
 const submissions = {
