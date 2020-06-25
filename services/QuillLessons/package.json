@@ -17,7 +17,7 @@
     "deploy:lessons": "./deploy_lessons.sh",
     "deploy:staging": "./staging.sh",
     "test:singular": "mocha $FILE --watch --reporter dot",
-    "jest": "jest",
+    "jest": "node --expose-gc ./node_modules/.bin/jest --maxWorkers=2 --logHeapUsage",
     "jest:u": "jest --updateSnapshot",
     "jest:watch": "jest:watch",
     "jest:coverage": "jest:coverage"
