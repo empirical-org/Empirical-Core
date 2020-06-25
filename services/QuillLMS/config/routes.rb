@@ -414,6 +414,7 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
+      resources :active_activity_sessions, only: [:show, :update, :destroy]
 
       mount Comprehension::Engine => "/comprehension", as: :comprehension
     end
