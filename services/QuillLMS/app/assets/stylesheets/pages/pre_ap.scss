@@ -432,6 +432,9 @@
           .top-section {
             padding-top: 20px;
             .unit-header-container {
+              .unit-title {
+                max-width: 200px;
+              }
               .unit-sub-header-container {
                 display: flex;
                 flex-direction: column;
