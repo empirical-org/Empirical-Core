@@ -52,7 +52,7 @@ exports[`AssignmentCard component should render 1`] = `
       <p
         className="text"
       >
-        Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization
+        Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization
       </p>
     </div>
     <div

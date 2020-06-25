@@ -322,14 +322,38 @@
       .data-table-row-section {
         white-space: pre-wrap;
       }
+      .data-table-row:nth-of-type(1) {
+        height: 80px;
+        overflow-y: auto;
+      }
+      .data-table-row:nth-of-type(2) {
+        height: 100px;
+        overflow-y: auto;
+      }
     }
     .button-container {
       display: flex;
       justify-content: flex-end;
       padding: 20px 10px 20px 0px;
       width: 900px;
-      #edit-ruleset-button {
+      #edit-ruleset-button, #delete-ruleset-button {
         margin-right: 10px;
+      }
+    }
+  }
+
+  .ruleset-container {
+    .delete-ruleset-container {
+      .delete-ruleset-text {
+        padding: 20px;
+      }
+      .delete-ruleset-button-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px;
+        #delete-ruleset-button {
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -417,14 +441,13 @@
       margin-left: 35px;
     }
     .edit-turk-session-container {
-      width: 300px;
-      height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       .date-picker-container {
         justify-content: center;
         margin-right: 0px;
+        padding: 20px;
         .SingleDatePicker {
           div {
             .SingleDatePickerInput {
@@ -443,6 +466,9 @@
         align-items: center;
         #edit-turk-submit-button, #delete-turk-submit-button {
           margin-right: 10px;
+        }
+        #edit-turk-submit-button {
+          margin-bottom: 10px;
         }
         .edit-error-message {
           margin: 0px 10px 0px 0px;

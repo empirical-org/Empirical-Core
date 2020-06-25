@@ -11,7 +11,7 @@ describe('Activities component', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should render a DataTable component', () => {
-    expect(container.find(DataTable).length).toEqual(1);
-  });
+  // it('should render a DataTable component', () => {
+  //   expect(container.find(DataTable).length).toEqual(1);
+  // });
 });

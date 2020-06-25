@@ -1,6 +1,8 @@
 import React from 'react';
-import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.jsx';
+import QuestionsAndAnswers from '../../Teacher/containers/QuestionsAndAnswers.tsx';
 
-export default (props) => (
+const LessonsQuestionsAndAnswersApp = (props) => (
   <QuestionsAndAnswers {...props} />
 );
+
+export default LessonsQuestionsAndAnswersApp
