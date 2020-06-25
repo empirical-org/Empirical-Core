@@ -16,14 +16,14 @@ const generateKey = (studentKey, identifier) => `${studentKey}#${identifier}`
 
 const responseSpan = (text) => <span dangerouslySetInnerHTML={{__html: text}} />
 
-const RetryCell = ({ identifier, handleRetryClick, splitSubmissions, }) => {
+const RetryCell = ({ identifier, handleRetryClick, submissions, }) => {
   // the split submissions are an optional argument for the retry method. if there is only one item in the array, we pass nothing back because we want the whole student submission to be removed from the tree rather than set to an empty string.
-  let newSplitSubmissions
-  if (splitSubmissions.length > 1) {
-    newSplitSubmissions = [...splitSubmissions]
-    newSplitSubmissions[identifier] = ''
+  let newSubmissions
+  if (Object.values(submissions).length > 1) {
+    newSubmissions = {...submissions}
+    newSubmissions[identifier] = ''
   }
-  const handleClick = () => handleRetryClick(newSplitSubmissions)
+  const handleClick = () => handleRetryClick(newSubmissions)
   return (<button className="interactive-wrapper" onClick={handleClick} type="button">
     <i className="fa fa-refresh student-retry-question" />
   </button>)
@@ -128,7 +128,7 @@ const ReviewStudentRow = ({
         <RetryCell
           handleRetryClick={handleRetryClick}
           identifier={key}
-          splitSubmissions={Object.values(textObject)}
+          submissions={textObject}
         />
       </td>
     </tr>)

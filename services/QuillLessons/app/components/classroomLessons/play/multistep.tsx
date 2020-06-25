@@ -36,14 +36,9 @@ interface ListBlankState {
 }
 
 const answerCount = (answers) => {
-  let nonBlankAnswers = 0;
-  if (answers) {
-      // counts the number of truthy answers or adds to empty answer count
-      for (let key in answers) {
-        answers[key] ? nonBlankAnswers+=1 : null
-      }
-  }
-  return nonBlankAnswers
+  if (!answers) { return 0 }
+
+  return Object.values(answers).filter(val => val).length
 }
 
 const savedSubmission = (submissions) => {
@@ -68,7 +63,6 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   customChangeEvent = (e, sl) => {
-    debugger;
     const newState = {...this.state}
     newState.answers[sl] = e
     this.setState(newState)
@@ -81,14 +75,27 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     if (mode !== PROJECT) { return }
     const { sampleCorrectAnswer, } = data.play
 
-    return (<ProjectedAnswers
-      projector={projector}
-      response={answers}
-      sampleCorrectAnswer={sampleCorrectAnswer}
-      selectedSubmissionOrder={selected_submission_order}
-      selectedSubmissions={selected_submissions}
-      submissions={submissions}
-    />)
+    const commonProps = { projector, submissions, sampleCorrectAnswer, }
+    const rows = data.play.stepLabels.map((sl, i) => {
+      const response = { [sl]: answers[sl] }
+      const selectedSubmissionOrder = selected_submission_order.filter(key => key.includes(sl))
+      const selectedSubmissions = {}
+      Object.keys(selected_submissions).filter(key => key.includes(sl)).forEach(key => selectedSubmissions[key] = selected_submissions[key])
+      let className = "multistep-display-answers-row "
+      className+= i === 0 ? 'first' : ''
+
+      return (<div className={className} key={sl}>
+        <p className="step-label">{sl}</p>
+        <ProjectedAnswers
+          {...commonProps}
+          response={response}
+          selectedSubmissionOrder={selectedSubmissionOrder}
+          selectedSubmissions={selectedSubmissions}
+        />
+      </div>)
+    })
+
+    return rows
   }
 
   isSubmittable = () => {
@@ -103,8 +110,10 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     const submittedAnswers = savedSubmission(submissions)
     const disabled:boolean = (submittedAnswers && submittedAnswers[sl]) || projector
     const value = projector ? 'Students type responses here' : answers[sl]
+    let className = "list-component "
+    className+= i === 0 ? 'first' : ''
     return (
-      <div className="list-component" key={sl}>
+      <div className={className} key={sl}>
         <span className="step-label">{sl}</span>
         <TextEditor
           disabled={disabled}
@@ -207,8 +216,11 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
   }
 
   render() {
+    const { projector, } = this.props
+    let className = "multistep student-slide-wrapper "
+    className+= projector ? 'projector ' : ''
     return (
-      <div className="multistep student-slide-wrapper">
+      <div className={className}>
         <div className="all-but-submitted-bar">
           {this.renderProjectorHeader()}
           {this.renderModeSpecificContent()}
