@@ -37,14 +37,9 @@ interface ListBlankState {
 }
 
 const answerCount = (answers) => {
-  let nonBlankAnswers = 0;
-  if (answers) {
-      // counts the number of truthy answers or adds to empty answer count
-      for (let key in answers) {
-        answers[key] ? nonBlankAnswers+=1 : null
-      }
-  }
-  return nonBlankAnswers
+  if (!answers) { return 0 }
+
+  return Object.values(answers).filter(val => val).length
 }
 
 const savedSubmission = (submissions) => {
