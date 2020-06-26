@@ -9,8 +9,12 @@ jest.mock('string-strip-html', () => ({
 const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
   flag: 'beta',
-  passages: ['...'],
-  prompts: [{text: '1'}, {text: '2'}, {text: '3'}]
+  passages: [{text: '...'}],
+  prompts: [
+    { conjunction: 'because', text: '1', max_attempts: 5, max_attempts_feedback: 'WRONG!' }, 
+    { conjunction: 'but', text: '2', max_attempts: 5, max_attempts_feedback: 'WRONG!' }, 
+    { conjunction: 'so', text: '3', max_attempts: 5, max_attempts_feedback: 'WRONG!' }
+  ]
 }
 const mockProps = {
   activity: mockActivity,

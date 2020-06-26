@@ -2,7 +2,6 @@
    Navbar styles
    ========================================================================== */
 
-
 .navbar-brand {
   cursor: pointer !important;
 }
@@ -209,6 +208,16 @@ nav.q-navbar-home {
       margin-left: 20px;
       &:not(.sign-up-button) {
         padding: 20px 0px;
+      }
+      &:focus {
+        outline: dashed 2px #fff !important;
+        outline-offset: 2px;
+      }
+      a {
+        &:focus {
+          outline: dashed 2px #fff;
+          outline-offset: 2px;
+        }
       }
     }
 
