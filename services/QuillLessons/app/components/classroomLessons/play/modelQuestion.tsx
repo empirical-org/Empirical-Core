@@ -45,18 +45,14 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
 
   renderTeacherModel() {
     const { model, } = this.props
-    const modelNotEmpty = textEditorInputNotEmpty(model);
-    if (modelNotEmpty) {
-      return (
-        <div className="display-mode">
-          <p className="answer-header">
-            Teacher response
-          </p>
-          <p className="teacher-model" dangerouslySetInnerHTML={{__html: model}} />
-        </div>
-      )
-    }
-
+    return (
+      <div className="display-mode">
+        <p className="answer-header">
+          Teacher response
+        </p>
+        <p className="teacher-model" dangerouslySetInnerHTML={{__html: model}} />
+      </div>
+    )
   }
 
   renderQuestionOrHTML() {
