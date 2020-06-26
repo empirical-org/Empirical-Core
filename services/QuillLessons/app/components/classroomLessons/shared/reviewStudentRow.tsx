@@ -12,25 +12,25 @@ const formatElapsedTime = (submittedTimestamp, timestamps, currentSlide, calcula
   return formattedMinutes + ':' + formattedSeconds
 }
 
-const generateKey = (studentKey, index) => `${studentKey}#${index}`
+const generateKey = (studentKey, identifier) => `${studentKey}#${identifier}`
 
 const responseSpan = (text) => <span dangerouslySetInnerHTML={{__html: text}} />
 
-const RetryCell = ({ index, handleRetryClick, splitSubmissions, }) => {
+const RetryCell = ({ identifier, handleRetryClick, submissions, }) => {
   // the split submissions are an optional argument for the retry method. if there is only one item in the array, we pass nothing back because we want the whole student submission to be removed from the tree rather than set to an empty string.
-  let newSplitSubmissions
-  if (splitSubmissions.length > 1) {
-    newSplitSubmissions = [...splitSubmissions]
-    newSplitSubmissions[index] = ''
+  let newSubmissions
+  if (Object.values(submissions).length > 1) {
+    newSubmissions = {...submissions}
+    newSubmissions[identifier] = ''
   }
-  const handleClick = () => handleRetryClick(newSplitSubmissions)
+  const handleClick = () => handleRetryClick(newSubmissions)
   return (<button className="interactive-wrapper" onClick={handleClick} type="button">
     <i className="fa fa-refresh student-retry-question" />
   </button>)
 }
 
-const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, index, studentKey, studentName, handleClickCheckbox, }) => {
-  const key = generateKey(studentKey, index)
+const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, identifier, studentKey, studentName, handleClickCheckbox, }) => {
+  const key = generateKey(studentKey, identifier)
   const handleClick = (e) => handleClickCheckbox(e, key)
   const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][key] : false
   const checkbox = determineCheckbox(checked)
@@ -48,8 +48,8 @@ const CheckboxCell = ({ determineCheckbox, selectedSubmissions, currentSlide, in
   </React.Fragment>)
 }
 
-const AnswerNumber = ({ selectedSubmissions, selectedSubmissionOrder, currentSlide, studentKey, index, }) => {
-  const key = generateKey(studentKey, index)
+const AnswerNumber = ({ selectedSubmissions, selectedSubmissionOrder, currentSlide, studentKey, identifier, }) => {
+  const key = generateKey(studentKey, identifier)
   const checked: boolean = selectedSubmissions && selectedSubmissions[currentSlide] ? selectedSubmissions[currentSlide][key] : false
   const studentNumber: number | null = checked && selectedSubmissionOrder && selectedSubmissionOrder[currentSlide] ? selectedSubmissionOrder[currentSlide].indexOf(key) + 1 : null
   const studentNumberClassName: string = checked ? 'answer-number' : ''
@@ -80,16 +80,19 @@ const ReviewStudentRow = ({
   const handleClickCheckbox = (e, key) => toggleSelected(e, currentSlide, key)
 
   const text: any = submissions[currentSlide][studentKey].data
-  const submissionText = showDifferences ? findDifferences(text, lessonPrompt) : text;
+  const textObject = text instanceof Object ? text : { 0: text }
   const submittedTimestamp = moment(submissions[currentSlide][studentKey].timestamp)
   const elapsedTime: any = formatElapsedTime(submittedTimestamp, timestamps, currentSlide, calculateElapsedMilliseconds)
   const studentName: string = students[studentKey]
 
-  const splitSubmissions = submissionText instanceof Object ? Object.keys(submissionText).map(k => submissionText[k]) : [submissionText]
-  const rows = splitSubmissions.filter(s => s.length).map((sub, subIndex) => {
+  const filteredKeys = Object.keys(textObject).filter((key) => textObject[key].length)
+  const rows = filteredKeys.map((key, subIndex) => {
+    const sub = textObject[key]
+    const submissionText = showDifferences ? findDifferences(sub, lessonPrompt) : sub;
+    const stepLabel = slideType === "CL-MS" ? responseSpan(key) : null
     let className = ''
     className+= subIndex === 0 ? ' first' : ''
-    className+= subIndex === splitSubmissions.length - 1 ? ' last' : ''
+    className+= subIndex === filteredKeys.length ? ' last' : ''
     let studentNameCellContent, flagCellContent, elapsedTimeCellContent
     if (subIndex === 0) {
       studentNameCellContent = studentName
@@ -99,14 +102,14 @@ const ReviewStudentRow = ({
     return (<tr className={className} key={`${index}-${subIndex}`}>
       <td>{studentNameCellContent}</td>
       <td>{flagCellContent}</td>
-      <td>{responseSpan(sub)}</td>
+      <td className="response-cell">{stepLabel}{responseSpan(submissionText)}</td>
       <td>{elapsedTimeCellContent}</td>
       <td>
         <CheckboxCell
           currentSlide={currentSlide}
           determineCheckbox={determineCheckbox}
           handleClickCheckbox={handleClickCheckbox}
-          index={subIndex}
+          identifier={key}
           selectedSubmissions={selectedSubmissions}
           studentKey={studentKey}
           studentName={studentName}
@@ -115,7 +118,7 @@ const ReviewStudentRow = ({
       <td>
         <AnswerNumber
           currentSlide={currentSlide}
-          index={subIndex}
+          identifier={key}
           selectedSubmissionOrder={selectedSubmissionOrder}
           selectedSubmissions={selectedSubmissions}
           studentKey={studentKey}
@@ -124,8 +127,8 @@ const ReviewStudentRow = ({
       <td className="retry-question-cell">
         <RetryCell
           handleRetryClick={handleRetryClick}
-          index={subIndex}
-          splitSubmissions={splitSubmissions}
+          identifier={key}
+          submissions={textObject}
         />
       </td>
     </tr>)
