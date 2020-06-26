@@ -7,6 +7,7 @@ module Comprehension
     context 'associations' do
       should have_many(:passages).dependent(:destroy)
       should have_many(:prompts).dependent(:destroy)
+      should have_many(:rule_sets).dependent(:destroy)
     end
 
     context 'validations' do
