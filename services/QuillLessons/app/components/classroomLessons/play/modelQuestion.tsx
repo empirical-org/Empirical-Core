@@ -1,5 +1,5 @@
 declare function require(name:string);
-import React, { Component } from 'react';
+import * as React from 'react';
 import Cues from '../../renderForQuestions/cues';
 import {
   QuestionData
@@ -9,7 +9,7 @@ import {
   Feedback,
   SentenceFragments
 } from 'quill-component-library/dist/componentLibrary'
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
+const teacherPointingSrc = 'https://assets.quill.org/images/icons/teacher-pointing.svg'
 
 interface ModelQuestionProps {
   data: QuestionData,
@@ -20,92 +20,86 @@ interface ModelQuestionProps {
 
 interface ModelQuestionState {}
 
-class ModelQuestion extends Component<ModelQuestionProps, ModelQuestionState> {
-  constructor(props) {
-    super(props)
-  }
-
+class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionState> {
   renderInstructions() {
-    if (this.props.data.play.instructions) {
-      return (<Feedback
-        feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
-        feedbackType="default"
-      />);
-    }
+    const { data, } = this.props
+
+    if (!data.play.instructions) { return }
+
+    return (<Feedback
+      feedback={(<p dangerouslySetInnerHTML={{__html: data.play.instructions}} />)}
+      feedbackType="default"
+    />);
   }
 
   renderCues() {
-    if (this.props.data.play.cues) {
-      return (
-        <Cues
-          displayArrowAndText={false}
-          getQuestion={() => ({
-            cues: this.props.data.play.cues,
-          })}
-        />
-      );
-    }
+    const { data, } = this.props
+    if (!data.play.cues) { return }
     return (
-      <span />
+      <Cues
+        cues={data.play.cues}
+        displayArrowAndText={false}
+      />
     );
   }
 
   renderTeacherModel() {
-    const model = this.props.model;
+    const { model, } = this.props
     const modelNotEmpty = textEditorInputNotEmpty(model);
-    if (modelNotEmpty && this.props.model) {
+    if (modelNotEmpty) {
       return (
-        <div className="teacher-model-container">
+        <div className="display-mode">
           <p className="answer-header">
-            Teacher Answer:
+            Teacher&#39;s response
           </p>
-          <p className="teacher-model" dangerouslySetInnerHTML={{__html: this.props.model}} />
+          <p className="teacher-model" dangerouslySetInnerHTML={{__html: model}} />
         </div>
-      )
-    } else {
-      return (
-        <span />
       )
     }
 
   }
 
   renderQuestionOrHTML() {
-    if (this.props.data.play.prompt) {
-      const editedPrompt = this.props.prompt;
-      const promptNotEmpty = textEditorInputNotEmpty(editedPrompt);
-      const prompt = promptNotEmpty ? editedPrompt : this.props.data.play.prompt;
-      return (
-        <div>
-          <SentenceFragments prompt={prompt} />
-          {this.renderCues()}
-          {this.renderInstructions()}
-        </div>
-      )
-    } else {
-      return (
-        <div className="student-model-question">
-          <p dangerouslySetInnerHTML={{__html: this.props.data.play.html}} />
-        </div>
-      )
-    }
+    const { data, prompt, } = this.props
+    if (!data.play.prompt) { return }
+    const editedPrompt = prompt;
+    const promptNotEmpty = textEditorInputNotEmpty(editedPrompt);
+    const promptToShow = promptNotEmpty ? editedPrompt : data.play.prompt;
+    return (
+      <div>
+        <SentenceFragments prompt={promptToShow} />
+        {this.renderCues()}
+        {this.renderInstructions()}
+      </div>
+    )
   }
 
   renderProjectorHeader() {
-    if (this.props.projector) {
-      return (<div className="projector-header-section">
-        <div className="students-watch-teacher tag">Students Watch Teacher</div>
-      </div>)
-    }
+    const { projector, } = this.props
+    if (!projector) { return }
+    return (<div className="projector-header-section">
+      <div className="students-type-tag tag"><img alt="Teacher pointing to a chalkboard icon" src={teacherPointingSrc} /><span>Students watch</span></div>
+    </div>)
+  }
+
+  renderSubmittedBar() {
+    const { projector, } = this.props
+
+    if (projector) { return }
+
+    return <div className="submitted-bar"><strong>Watch your teacher.</strong> No need to type a response this time.</div>
   }
 
 
   render() {
     return (
-      <div className="student-model-wrapper">
-        {this.renderProjectorHeader()}
-        {this.renderQuestionOrHTML()}
-        {this.renderTeacherModel()}
+      <div className="student-model-wrapper student-slide-wrapper">
+        <div className="all-but-submitted-bar">
+          {this.renderProjectorHeader()}
+          {this.renderQuestionOrHTML()}
+          {this.renderTeacherModel()}
+        </div>
+        {this.renderSubmittedBar()}
       </div>
     );
   }
