@@ -9,7 +9,7 @@ import {
   Feedback,
   SentenceFragments
 } from 'quill-component-library/dist/componentLibrary'
-const teacherPointingSrc = 'https://assets.quill.org/images/icons/teacher-pointing.svg'
+const teacherPointingSrc = `${process.env.QUILL_CDN_URL}/images/icons/teacher-pointing.svg`
 
 interface ModelQuestionProps {
   data: QuestionData,
@@ -50,7 +50,7 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
       return (
         <div className="display-mode">
           <p className="answer-header">
-            Teacher&#39;s response
+            Teacher response
           </p>
           <p className="teacher-model" dangerouslySetInnerHTML={{__html: model}} />
         </div>
@@ -78,7 +78,7 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
     const { projector, } = this.props
     if (!projector) { return }
     return (<div className="projector-header-section">
-      <div className="students-type-tag tag"><img alt="Teacher pointing to a chalkboard icon" src={teacherPointingSrc} /><span>Students watch</span></div>
+      <div className="students-watch-tag tag"><img alt="Teacher pointing to a chalkboard icon" src={teacherPointingSrc} /><span>Students watch</span></div>
     </div>)
   }
 
