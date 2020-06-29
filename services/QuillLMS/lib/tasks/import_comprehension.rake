@@ -13,32 +13,20 @@ namespace :import_comprehension do
     all_activities.each do |a|
       activities_url = "#{base_url}/api/activities/#{a["id"]}.json"
       response = HTTParty.get(activities_url)
-      source_activity = JSON.load(response.body)
-      Comprehension::Activity.transaction do
-        begin
-          new_activity = Comprehension::Activity.create! do |act|
-            act.title = source_activity['title']
-            act.target_level = source_activity['target_reading_level'] || 12
-          end
-          source_activity['passages'].each do |source_passage|
-            Comprehension::Passage.create! do |passage|
-              passage.text = source_passage['text']
-              passage.activity = new_activity
-            end
-          end
-          source_activity['prompts'].each do |source_prompt|
-            Comprehension::Prompt.create! do |prompt|
-              prompt.activity = new_activity
-              prompt.max_attempts = source_prompt['max_attempts']
-              prompt.max_attempts_feedback = source_prompt['max_attempts_feedback']
-              prompt.text = source_prompt['text'].split[0..-2]
-              prompt.conjunction = source_prompt['text'].split[-1]
-            end
-          end
-        rescue ActiveRecord::RecordInvalid => err
-          raise ActiveRecord::Rollback
-        end
-      end
+      source_activity = JSON.parse(response.body)
+      activity = Comprehension::Activity.create(
+        title: source_activity['title'],
+        target_level: source_activity['target_reading_level'] || 12,
+        passages: source_activity['passages'].map { |p| Comprehension::Passage.new(text: p['text']) },
+        prompts: source_activity['prompts'].map { |p|
+          Comprehension::Prompt.new(
+            max_attempts: p['max_attempts'],
+            max_attempts_feedback: p['max_attempts_feedback'],
+            text: p['text'].split[0..-2],
+            conjunction: p['text'].split[-1]
+          )
+        }
+      )
     end
   end
 end
