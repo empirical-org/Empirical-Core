@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import {
 QuestionData
 } from '../../../interfaces/classroomLessons'
@@ -7,19 +7,8 @@ interface StaticProps {
   data: QuestionData
 }
 
-interface StaticState {}
-
-class Static extends Component<StaticProps, StaticState> {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="student-static-page-container"><div className="student-static-page" dangerouslySetInnerHTML={{ __html: this.props.data.play.html, }} /></div>
-    );
-  }
-
-}
+const Static = ({ data, }: StaticProps) => (
+  <div className="student-static-page-container"><div className="student-static-page" dangerouslySetInnerHTML={{ __html: data.play.html, }} /></div>
+)
 
 export default Static;

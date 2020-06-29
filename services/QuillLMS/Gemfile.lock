@@ -1,3 +1,9 @@
+PATH
+  remote: engines/comprehension
+  specs:
+    comprehension (0.0.1)
+      rails (~> 4.2.11.1)
+
 GEM
   remote: https://rubygems.org/
   remote: https://gems.contribsys.com/
@@ -126,6 +132,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
+    configs (1.4.0)
+      activesupport (> 3.0)
     connection_pool (2.2.2)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
@@ -742,6 +750,8 @@ DEPENDENCIES
   codeclimate-test-reporter
   codecov
   coffee-rails
+  comprehension!
+  configs
   cypress-on-rails (~> 1.0)
   database_cleaner
   doorkeeper (>= 4.2.0)

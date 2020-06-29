@@ -1,12 +1,12 @@
 declare function require(name:string);
 import * as React from 'react';
-const WatchTeacherIllustration = 'https://assets.quill.org/images/illustrations/watch_teacher_illustration.svg'
+const WatchTeacherIllustration = `${process.env.QUILL_CDN_URL}/images/illustrations/teacher-presenting-lessons.svg`
 
-const WatchTeacher = props => (
-  <div className="watch-teacher-container">
-    <div className="watch-teacher">
-      <img src={WatchTeacherIllustration} />
-      <h1>Watch Your Teacher!</h1>
+const WatchTeacher = () => (
+  <div className="watch-teacher-container full-page-modal-container">
+    <div className="watch-teacher full-page-modal">
+      <img alt="An illustration of a teacher pointing to a smart board" src={WatchTeacherIllustration} />
+      <h1>Watch your teacher.</h1>
     </div>
   </div>
 )

@@ -30,7 +30,23 @@ describe('The whitespaceChecker', () => {
   it('Should return a partialResponse object if the string matches then whitespace is removed', () => {
     const responseString:string = "Mydogtookanap.";
     const partialResponse: PartialResponse =  {
-        feedback: feedbackStrings.whitespaceError,
+        feedback: feedbackStrings.missingWhitespaceError,
+        author: 'Whitespace Hint',
+        parent_id: whitespaceMatch(responseString, savedResponses).id,
+        concept_results: [
+          conceptResultTemplate('5Yv4-kNHwwCO2p8HI90oqQ')
+        ]
+      }
+    assert.equal(whitespaceChecker(responseString, savedResponses).feedback, partialResponse.feedback);
+    assert.equal(whitespaceChecker(responseString, savedResponses).author, partialResponse.author);
+    assert.equal(whitespaceChecker(responseString, savedResponses).parent_id, partialResponse.parent_id);
+    assert.equal(whitespaceChecker(responseString, savedResponses).concept_results.length, partialResponse.concept_results.length);
+  });
+
+  it('Should return a partialResponse object if the string matches then whitespace is added', () => {
+    const responseString:string = "My do g took a nap.";
+    const partialResponse: PartialResponse =  {
+        feedback: feedbackStrings.extraWhitespaceError,
         author: 'Whitespace Hint',
         parent_id: whitespaceMatch(responseString, savedResponses).id,
         concept_results: [

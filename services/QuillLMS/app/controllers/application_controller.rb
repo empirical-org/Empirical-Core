@@ -164,5 +164,9 @@ class ApplicationController < ActionController::Base
     # If the user is google authed, but doesn't have a valid refresh
     # token, then we need to invalidate their session
     return reset_session if current_user.google_id && current_user.auth_credential && !current_user.auth_credential&.refresh_token
+
+    # Assuming that the refresh_token expires at (current_user.auth_credential.created_at  + 6 months),
+    # we can reset the session whenever (Time.now > (current_user.auth_credential.created_at + 5 months))
+    return reset_session if current_user.google_id && current_user.auth_credential && Time.now > (current_user.auth_credential.created_at + 5.months)
   end
 end

@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { QuestionList } from '../shared/questionList'
 export interface ComponentProps {
   titleCards: any
   routing: any
-  routeParams: any 
+  routeParams: any
 }
 
 class TitleCards extends React.Component<ComponentProps, any> {

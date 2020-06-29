@@ -43,7 +43,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
     this.handleStudentSubmission = this.handleStudentSubmission.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const student = getParameterByName('student')
     if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
       const submittedAnswers = {};

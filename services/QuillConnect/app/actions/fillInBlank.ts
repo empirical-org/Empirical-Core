@@ -10,7 +10,7 @@ declare global {
 
 import request from 'request';
 import _ from 'underscore';
-import { push } from 'react-router-redux';
+import { goBack } from 'react-router-redux';
 import pathwaysActions from './pathways';
 import { submitResponse } from './responses';
 import { Questions, Question, FocusPoint, IncorrectSequence } from '../interfaces/questions'
@@ -20,6 +20,8 @@ import {
   IncorrectSequenceApi,
   FILL_IN_BLANKS_TYPE
 } from '../libs/questions_api'
+import { LessonApi, TYPE_CONNECT_LESSON } from '../libs/lessons_api'
+import lessonActions from '../actions/lessons'
 
 // called when the app starts. this means we immediately download all questions, and
 // then receive all questions again as soon as anyone changes anything.
@@ -76,6 +78,8 @@ function submitQuestionEdit(qid, content) {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch(loadQuestion(qid));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Update successfully saved!', });
+      const action = goBack();
+      dispatch(action);
     }).catch( (error) => {
       dispatch({ type: C.FINISH_FILL_IN_BLANK_QUESTION_EDIT, qid, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Update failed! ${error}`, });
@@ -86,7 +90,7 @@ function toggleNewQuestionModal() {
   return { type: C.TOGGLE_NEW_FILL_IN_BLANK_QUESTION_MODAL, };
 }
 
-function submitNewQuestion(content, response) {
+function submitNewQuestion(content, response, lessonID) {
   return (dispatch, getState) => {
     dispatch({ type: C.AWAIT_NEW_FILL_IN_BLANK_QUESTION_RESPONSE, });
     QuestionApi.create(FILL_IN_BLANKS_TYPE, content).then((question) => {
@@ -96,8 +100,16 @@ function submitNewQuestion(content, response) {
       dispatch(submitResponse(response));
       dispatch(loadQuestion(response.questionUID));
       dispatch({ type: C.DISPLAY_MESSAGE, message: 'Submission successfully saved!', });
-      const action = push(`/admin/fill-in-the-blanks/${response.questionUID}`);
-      dispatch(action);
+      const lessonQuestion = {key: response.questionUID, questionType: C.INTERNAL_FILL_IN_BLANK_TYPE}
+      dispatch({ type: C.SUBMIT_LESSON_EDIT, cid: lessonID, });
+      LessonApi.addQuestion(TYPE_CONNECT_LESSON, lessonID, lessonQuestion).then( () => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+        dispatch(lessonActions.loadLesson(lessonID));
+        dispatch({ type: C.DISPLAY_MESSAGE, message: 'Question successfully added to lesson!', });
+      }).catch( (error) => {
+        dispatch({ type: C.FINISH_LESSON_EDIT, cid: lessonID, });
+        dispatch({ type: C.DISPLAY_ERROR, error: `Add to lesson failed! ${error}`, });
+      });
     }, (error) => {
       dispatch({ type: C.RECEIVE_NEW_FILL_IN_BLANK_QUESTION_RESPONSE, });
       dispatch({ type: C.DISPLAY_ERROR, error: `Submission failed! ${error}`, });

@@ -41,7 +41,7 @@ jobs:
           name: NPM install, should be short-cutted if cache is present
           command: |
             cd services/QuillLMS
-            npm install
+            npm install && npm run build:test
       - save_cache:
           key: bundle-cache-lms-v2-{{ checksum "services/QuillLMS/Gemfile.lock" }}
           paths:
@@ -71,6 +71,7 @@ jobs:
           command: |
             cd services/QuillLMS
             bundle exec rake db:structure:load
+            bundle exec rake db:migrate
           environment:
             DATABASE_URL: "postgres://ubuntu@localhost:5432/quill_test_db"
       - run:
@@ -201,8 +202,7 @@ jobs:
           name: Run QuillLessons Tests
           command: |
             cd services/QuillLessons
-            FORCE_COLOR=true npm run jest --colors --runInBand app/
-            FORCE_COLOR=true npm run jest --colors --runInBand test/
+            npm run jest app/
   grammar_node_build:
     working_directory: ~/Empirical-Core
     docker:

@@ -1,17 +1,49 @@
 <% current_time_on_east_coast = Time.now.in_time_zone('America/New_York') %>
 <% current_hour = current_time_on_east_coast.hour %>
-<% between_nine_and_ten = current_hour == 9 %>
 <% between_twelve_and_one = current_hour == 12 %>
-<% not_a_weekend = !current_time_on_east_coast.saturday? && !current_time_on_east_coast.sunday? %>
+<% between_two_and_three = current_hour == 14 %>
+<% monday_tuesday_or_thursday = current_time_on_east_coast.monday? || current_time_on_east_coast.thursday? || current_time_on_east_coast.tuesday? %>
+<% still_doing_live_q_and_a = current_time_on_east_coast < Date.parse("19/05/2020") %>
+<% still_doing_webinars = current_time_on_east_coast < Date.parse("29/05/2020") %>
 
-<% if (!current_user || current_user.teacher?) && (between_nine_and_ten || between_twelve_and_one) && not_a_weekend %>
-  <div class="covid-banner" id="webinar-banner">
-    <div class="content-container">
-      <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
-      <p><a href="https://zoom.us/j/178949041">Join our live question and answer session</a> with Quill experts to ask questions about using Quill remotely with students.</p>
-      <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+<% if (still_doing_webinars && (!current_user || current_user.teacher?)) %>
+  <% if (between_twelve_and_one && monday_tuesday_or_thursday && still_doing_live_q_and_a) %>
+    <div class="covid-banner" id="webinar-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><a href="https://zoom.us/j/178949041">Join our live question and answer session</a> with Quill experts to ask questions about using Quill remotely with students.</p>
+        <img alt="White X" id="close-webinar-banner" src=<%= "#{ENV['CDN_URL']}/images/icons/close-white.svg" %>>
+      </div>
     </div>
-  </div>
+  <% end %>
+
+  <% if (between_two_and_three && current_time_on_east_coast.monday?) %>
+    <div class="covid-banner webinar-banner" id="monday-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><strong>Quill Webinar 101: Getting Started</strong> is live now! <a href="https://zoom.us/webinar/register/WN_RiGS-BOtSxyArdJtoPdtrQ" target="_blank">Register to join our live webinar, Getting Started.</a></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if (between_two_and_three && current_time_on_east_coast.tuesday?) %>
+    <div class="covid-banner webinar-banner" id="tuesday-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><strong>Quill Webinar 201: Diving into Data</strong> is live now! <a href="https://zoom.us/webinar/register/WN_lF7bauoERjmFER-bfds2wQ" target="_blank">Register to join our live webinar, Diving into Data.</a></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if (between_two_and_three && current_time_on_east_coast.thursday?) %>
+    <div class="covid-banner webinar-banner" id="thursday-banner">
+      <div class="content-container">
+        <img alt="Video player with play symbol" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/live-stream.svg" %>>
+        <p><strong>Quill Webinar 301: Diving into Instruction</strong> is live now! <a href="https://zoom.us/webinar/register/WN_DuEYB-0xQ-WaL7mXJLFmFA" target="_blank">Register to join our live webinar, Diving into Instruction.</a></p>
+      </div>
+    </div>
+  <% end %>
+
 
   <script>
     window.addEventListener('load', function(e) {

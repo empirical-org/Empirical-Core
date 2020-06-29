@@ -18,6 +18,9 @@
 
   .concept-explanation-see-write {
     display: flex;
+    p {
+      margin-bottom: 0;
+    }
     .concept-explanation-see {
       margin-right: 16px;
     }

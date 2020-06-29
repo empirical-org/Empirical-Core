@@ -30,7 +30,7 @@ class ClassLessonsIndex extends Component<any, any> {
     props.dispatch(startListeningToEditionMetadata())
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.classroomLessonsReviews.hasreceiveddata !== nextProps.classroomLessonsReviews.hasreceiveddata) {
       this.scoreReviews(nextProps.classroomLessonsReviews.data)
     } else if (Object.keys(nextProps.classroomLessonsReviews.data).length > 0 && Object.keys(this.state.scores).length === 0) {

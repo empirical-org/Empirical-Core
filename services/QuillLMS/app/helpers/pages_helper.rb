@@ -100,18 +100,13 @@ module PagesHelper
           },
           {
             name: 'Rachel Dantzler',
-            title: 'Curriculum Associate',
+            title: 'Curriculum Developer',
             img: 'team-rachel-dantzler@2x.png'
           },
           {
             name: 'Maximilian de Martino',
             title: 'Curriculum Developer',
             img: 'team-maximilian-de-martino@2x.png'
-          },
-          {
-            name: 'Haronil Estevez',
-            title: 'Senior Software Developer',
-            img: 'team-haronil-estevez@2x.png'
           },
           {
             name: 'Emilia Friedberg',
@@ -192,11 +187,6 @@ module PagesHelper
             name: 'Stephanie Cohen',
             title: 'Chief Strategy Officer at Goldman Sachs',
             img: 'board-stephanie-cohen@2x.png'
-          },
-          {
-            name: 'Reuben Gutoff',
-            title: 'Retired Vice President at General Electric',
-            img: 'board-reuben-gutoff@2x.png'
           },
           {
             name: 'Rhys Kidd',

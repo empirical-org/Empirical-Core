@@ -221,6 +221,16 @@
   }
 }
 
+.school-premium-modal {
+  .modal-content {
+    .modal-button-close {
+      height: 15px;
+      width: 15px;
+      margin-right: 15px;
+    }
+  }
+}
+
 .select-credit-card-modal {
   .modal-body {
     padding: 1px;
@@ -238,20 +248,46 @@
     }
   }
   .modal-content {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    border-radius: 13px;
+    z-index: 100;
     max-height: 476px;
+    width: 460px;
   }
   h2 {
     margin: 39 0px;
   }
+  img:hover {
+    cursor: pointer;
+  }
 }
+
 .premium-confirmation {
   text-align: center;
   .modal-content {
-    background-image: url("https://assets.quill.org/images/illustrations/teacher-premium-modal.png");
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    background-image: url(https://assets.quill.org/images/illustrations/teacher-premium-modal.png);
     background-repeat: no-repeat;
     max-height: 628px;
-    max-width: 500px;
-    width: 100%;
+    max-width: 470px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    border-radius: 13px;
+    z-index: 100;
+  }
+  img:hover {
+    cursor: pointer;
   }
   h1 {
     margin-top: 229px;
@@ -259,18 +295,20 @@
     margin-bottom: 12px;
     font-weight: 600;
   }
-  h2 {
+  #subscription-type {
     font-size: 18px;
+    font-weight: 100 !important;
   }
   p {
     font-size: 16px;
     margin-bottom: 40px;
 	  line-height: 1.75;
   }
-  a.cta-button {
-    padding: 12px 36px;
+  #view-premium-reports-button {
+    padding: 10px 36px;
     font-size: 14px;
     margin-top: 40px;
+    margin-right: 0px;
   }
 }
 
@@ -284,8 +322,8 @@
   }
   .fas{
     padding-right: 15px;
-font-size: 14px;
-color: #875a12;
+    font-size: 14px;
+    color: #875a12;
   }
   .react-bootstrap-close {
     height: 17px;
@@ -295,6 +333,18 @@ color: #875a12;
   .modal-content {
     min-height: 620px;
     background-color: #fafafa;
+    position: fixed;
+    left: 35%;
+    top: 5%;
+    z-index: 100;
+    padding: 20px 0px 20px 0px;
+    width: 460px;
+  }
+  img:hover {
+    cursor: pointer;
+  }
+  html {
+    overflow: hidden;
   }
   .pricing-info {
     padding-top: 33px;
@@ -885,5 +935,50 @@ color: #875a12;
         }
       }
     }
+  }
+}
+
+.view-as-student-modal {
+  width: 760px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin-bottom: 0px;
+  .top-section {
+    padding: 32px 32px 0px;
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+  }
+  .middle-section {
+    flex: 1;
+    overflow: hidden;
+    padding: 0px 32px 32px;
+    .dropdown-container {
+      min-width: 400px;
+      width: min-content;
+      height: 89px;
+      justify-content: flex-start;
+    }
+    .view-button-section {
+      margin-right: 0px;
+      .quill-button {
+        width: 88px;
+      }
+    }
+    .data-table {
+      height: calc(100% - 58px);
+    }
+    .data-table-row:last-of-type {
+      border-bottom: 1px solid #e0e0e0 !important;
+    }
+  }
+  .bottom-section {
+    padding: 24px 32px;
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #e0e0e0;
   }
 }

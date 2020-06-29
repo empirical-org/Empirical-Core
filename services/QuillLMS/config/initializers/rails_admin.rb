@@ -142,7 +142,7 @@ RailsAdmin.config do |config|
 
   config.model Activity do
     edit do
-      exclude_fields :classroom_units, :classrooms, :unit_activities
+      exclude_fields :classroom_units, :classrooms, :unit_activities, :units
     end
   end
 
@@ -160,7 +160,6 @@ RailsAdmin.config do |config|
 
   # Exclude the models with huge datasets (~10M+) because they are performance hits
   MODELS_TO_EXCLUDE = [
-    'ActivitySessionInteractionLog',
     'ActivitySession',
     'ConceptResult',
     'Notification',

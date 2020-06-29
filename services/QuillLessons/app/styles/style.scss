@@ -12,9 +12,14 @@
 @import '../../node_modules/react-selectize/themes/index.css';
 @import '../../node_modules/react-select/dist/react-select.css';
 @import '../../node_modules/font-awesome/css/font-awesome.css';
+@import '../../node_modules/quill-component-library/dist/componentLibrary.css';
 
 body {
   color: #3D3D3D
+}
+
+#main-content {
+  outline: none;
 }
 
 .button-group {
@@ -372,4 +377,15 @@ textarea.submission {
 
 .wf-loading {
   visibility: hidden;
+}
+
+.interactive-wrapper {
+  background-color: transparent;
+  border: none;
+}
+
+@media (max-width: 1000px) {
+  .play-lesson-container, .student-lessons {
+    padding: 0px 20px;
+  }
 }

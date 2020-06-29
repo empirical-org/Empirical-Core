@@ -1,7 +1,6 @@
 import * as React from 'react'
 import ScoreColor from '../../modules/score_color.js'
 import ConceptResultTableRow from './concept_result_table_row.tsx'
-import stripHtml from "string-strip-html";
 import Concept from '../../../../interfaces/concept.ts';
 import QuestionData from '../../../../interfaces/questionData.ts';
 
@@ -33,14 +32,19 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
       <tr>
         <td>Prompt</td>
         <td />
-        <td><span>{prompt}</span></td>
+        <td><span dangerouslySetInnerHTML={{ __html: prompt }} /></td>
       </tr>
     );
+  }
+
+  formatAnswer = (answer: string) => {
+    return answer.replace(/&#x27;/g, "'").replace(/&nbsp;/g, '').replace(/(<([^>]+)>)/ig, '')
   }
 
   render() {
     const { boxNumber, questionData } = this.props;
     const { answer, concepts, directions, prompt, score } = questionData;
+    const formattedAnswer = answer ? this.formatAnswer(answer) : ''
     return(
       <div className='individual-activity-report'>
         <div className="student-report-box">
@@ -50,10 +54,10 @@ export class StudentReportBox extends React.Component<StudentReportBoxProps> {
               <tbody>
                 {directions && this.renderDirections(directions)}
                 {prompt && this.renderPrompt(prompt)}
-                <tr className={score && ScoreColor(score)}>
+                <tr className={(score || score === 0) && ScoreColor(score)}>
                   <td>Submission</td>
                   <td />
-                  <td><span style={{ whiteSpace: 'pre-wrap' }}>{answer ? stripHtml(answer) : ''}</span></td>
+                  <td><span style={{ whiteSpace: 'pre-wrap' }}>{formattedAnswer}</span></td>
                 </tr>
                 {concepts && this.renderConcepts(concepts)}
               </tbody>

@@ -90,30 +90,36 @@ class Lesson extends React.Component<LessonProps> {
             {flagTag}
             {displayName.replace(/(<([^>]+)>)/ig, '').replace(/&nbsp;/ig, '')}
           </Link>
-        </li>)
-    })
+        </li>
+      );
+    });
   }
 
   renderQuestionsForLesson(): JSX.Element[]|JSX.Element {
-    const lessonQuestions = this.lesson()? this.lesson().questions : null
-    const lessonConcepts = this.lesson()? this.lesson().concepts : null
+    const lessonQuestions = this.lesson() ? this.lesson().questions : null
+    const lessonConcepts = this.lesson() ? this.lesson().concepts : null
     let questionsForLesson
-    if (lessonQuestions) {
-      questionsForLesson = lessonQuestions.map(q => {
-        const question = this.props.questions.data[q.key]
-        question.key = q.key
-        return question
-      })
-      return this.renderQuestionsAsList(questionsForLesson)
-    } else if (lessonConcepts) {
-      const questions = this.props.questions ? hashToCollection(this.props.questions.data) : []
-      const conceptUids = Object.keys(this.lesson().concepts)
-      questionsForLesson = questions.filter(q => conceptUids.includes(q.concept_uid) && permittedFlag(this.lesson().flag, q.flag))
-      return this.renderQuestionsByConcept(questionsForLesson)
+    const { questions } = this.props
+    if (questions.hasreceiveddata) {
+      if (lessonQuestions && lessonQuestions.length) {
+        questionsForLesson = lessonQuestions.map(q => {
+          const question = questions.data[q.key]
+          question.key = q.key
+          return question
+        })
+        return this.renderQuestionsAsList(questionsForLesson)
+      } else if (lessonConcepts) {
+        const questionsData = questions ? hashToCollection(questions.data) : []
+        const conceptUids = Object.keys(lessonConcepts)
+        questionsForLesson = questionsData.filter(q => conceptUids.includes(q.concept_uid) && permittedFlag(this.lesson().flag, q.flag))
+        return this.renderQuestionsByConcept(questionsForLesson)
+      }
+      return (
+        <ul>No questions</ul>
+      );
+    } else {
+      return (<div>Loading...</div>)
     }
-    return (
-      <ul>No questions</ul>
-    );
   }
 
   deleteLesson(): void {

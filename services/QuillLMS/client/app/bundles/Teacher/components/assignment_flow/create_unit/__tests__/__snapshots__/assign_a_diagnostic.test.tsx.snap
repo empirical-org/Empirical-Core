@@ -20,7 +20,7 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization",
+              "text": "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization",
             },
             Object {
               "key": "When",
@@ -80,11 +80,11 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Simple verb conjugation, articles, subject verb agreement, simple word order, singular vs plural nouns, and adjective placement",
+              "text": "Simple verb conjugation, articles, subject-verb agreement, simple word order, singular and plural nouns, and adjective placement",
             },
             Object {
               "key": "When",
-              "text": "Built for beginning English Language Learners who are working on foundational grammar skills.",
+              "text": "Your students are beginning English language learners who are working on foundational grammar skills.",
             },
           ]
         }
@@ -104,7 +104,7 @@ exports[`AssignADiagnostic component should render 1`] = `
             },
             Object {
               "key": "When",
-              "text": "Built for English Language Learners at the developing, expanding or bridging stages of language proficiency (WIDA Levels 3-5).",
+              "text": "Your students are English language learners at the developing, expanding, or bridging stages of language proficiency.",
             },
           ]
         }

@@ -7,8 +7,10 @@ from .models.ml_feedback import MLFeedback
 from .models.ml_model import MLModel
 from .models.passage import Passage
 from .models.prompt import Prompt
+from .models.prompt_entry import PromptEntry
 from .models.rule import Rule
 from .models.rule_set import RuleSet
+from .models.turking_round import TurkingRound
 
 
 admin.site.register(Activity)
@@ -20,5 +22,7 @@ admin.site.register(MLFeedback)
 admin.site.register(MLModel)
 admin.site.register(Passage)
 admin.site.register(Prompt)
+admin.site.register(PromptEntry)
 admin.site.register(Rule)
 admin.site.register(RuleSet)
+admin.site.register(TurkingRound)

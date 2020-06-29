@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as request from 'request';
 import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
+import { sentences } from 'sbd'
 
 const directionSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
 
@@ -30,6 +31,7 @@ import ResetModal from './resetModal'
 import ReviewModal from './reviewModal'
 import FollowupModal from './followupModal'
 import ProgressBar from './progressBar'
+import WelcomePage from './welcomePage'
 import formatInitialPassage from './formatInitialPassage'
 import LoadingSpinner from '../shared/loading_spinner'
 
@@ -49,6 +51,7 @@ interface PlayProofreaderContainerState {
   showReviewModal: boolean;
   showResetModal: boolean;
   showFollowupModal: boolean;
+  showWelcomePage: boolean;
   firebaseSessionID: string|null;
   loadingFirebaseSession: boolean;
   currentActivity: any;
@@ -68,6 +71,18 @@ const editCount = (paragraphs: Array<Array<any>>) => {
     editCount+= changedWords.length
   })
   return editCount
+}
+
+const findSentence = (paragraphSentences: string[], wordIndex: number, word: string) => {
+  let indexOfLastWordInSentence = 0
+  for (const paragraphSentence of paragraphSentences) {
+    indexOfLastWordInSentence += paragraphSentence.length
+    if (wordIndex <= indexOfLastWordInSentence && paragraphSentence.includes(word)) {
+      const paragraphSentenceWithBoldedWord = paragraphSentence.replace(word, `<strong>${word}</strong>`)
+      return paragraphSentenceWithBoldedWord
+    }
+  }
+  return ''
 }
 
 export class PlayProofreaderContainer extends React.Component<PlayProofreaderContainerProps, PlayProofreaderContainerState> {
@@ -92,7 +107,9 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
     constructor(props: any) {
       super(props);
 
-      const { currentActivity, } = props.proofreaderActivities
+      const { proofreaderActivities, admin, } = props
+
+      const { currentActivity, } = proofreaderActivities
 
       const firebaseSessionID = getParameterByName('student', window.location.href)
 
@@ -110,6 +127,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         showReviewModal: false,
         showResetModal: false,
         showFollowupModal: false,
+        showWelcomePage: !admin,
         numberOfResets: 0,
         loadingFirebaseSession: !!firebaseSessionID,
         firebaseSessionID,
@@ -228,12 +246,15 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       if (passage && necessaryEdits) {
         let reviewablePassage = ''
         passage.forEach((paragraph: Array<any>) => {
+          const originalParagraphString = paragraph.map(w => stringNormalize(w.originalText)).join(' ')
+          const paragraphSentences = sentences(originalParagraphString, {})
           const words:Array<string> = []
           paragraph.forEach((word: any) => {
-            const { necessaryEditIndex, correctText, conceptUID, originalText, currentText } = word
+            const { necessaryEditIndex, correctText, conceptUID, originalText, currentText, wordIndex } = word
             const stringNormalizedCurrentText = stringNormalize(currentText)
             const stringNormalizedCorrectText = stringNormalize(correctText)
             const stringNormalizedOriginalText = stringNormalize(originalText)
+            const prompt = findSentence(paragraphSentences, wordIndex, stringNormalizedOriginalText)
             if (necessaryEditIndex || necessaryEditIndex === 0) {
               if (stringNormalizedCorrectText.split('~').includes(stringNormalizedCurrentText)) {
                 numberOfCorrectChanges +=1
@@ -242,7 +263,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                     answer: stringNormalizedCurrentText,
                     correct: 1,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: stringNormalizedOriginalText,
+                    prompt,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: false,
                   },
@@ -256,7 +277,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
                     answer: stringNormalizedCurrentText,
                     correct: 0,
                     instructions: currentActivity.description || this.defaultInstructions(),
-                    prompt: stringNormalizedOriginalText,
+                    prompt,
                     questionNumber: necessaryEditIndex + 1,
                     unchanged: stringNormalizedCurrentText === stringNormalizedOriginalText,
                   },
@@ -332,6 +353,10 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         dispatch(setPassage(newParagraphs))
         this.setState({ edits: editCount(newParagraphs), }, () => EditCaretPositioning.restoreSelection(editInput, caretPosition))
       }
+    }
+
+    handleNextClick = () => {
+      this.setState({ showWelcomePage: false })
     }
 
     handleResetClick = () => {
@@ -459,12 +484,16 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     render(): JSX.Element {
       const { proofreaderActivities, session, } = this.props
-      const { edits, necessaryEdits, loadingFirebaseSession, } = this.state
+      const { edits, necessaryEdits, loadingFirebaseSession, showWelcomePage, } = this.state
       const { currentActivity } = proofreaderActivities
+
+      if (loadingFirebaseSession) { return <LoadingSpinner />}
+
+      if (showWelcomePage) { return <WelcomePage onNextClick={this.handleNextClick} /> }
 
       if (session.error) { return <div>{session.error}</div> }
 
-      if (loadingFirebaseSession || !currentActivity) { return <LoadingSpinner />}
+      if (!currentActivity) { return <LoadingSpinner />}
 
       const className = currentActivity.underlineErrorsInProofreader ? 'underline-errors' : ''
       const necessaryEditsLength = necessaryEdits ? necessaryEdits.length : 1

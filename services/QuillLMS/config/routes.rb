@@ -36,6 +36,9 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
+  # this blog post needs to be redirected
+  get '/teacher-center/4-tips-to-maximize-remote-learning-with-quill' => redirect('teacher-center/teacher-toolbox-setting-up-remote-routines-with-quill')
+
   resources :blog_posts, path: 'teacher-center', only: [:index, :show], param: :slug do
     collection do
       get '/topic/press', to: redirect('/press')
@@ -208,6 +211,8 @@ EmpiricalGrammar::Application.routes.draw do
       end
     end
 
+    get 'unset_preview_as_student', to: 'classroom_manager#unset_preview_as_student'
+    get 'preview_as_student/:student_id', to: 'classroom_manager#preview_as_student'
     get 'getting_started' => 'classroom_manager#getting_started'
     get 'add_students' => 'classroom_manager#generic_add_students'
     get 'teacher_guide' => 'classroom_manager#teacher_guide'
@@ -350,12 +355,11 @@ EmpiricalGrammar::Application.routes.draw do
   # API routes
   namespace :api do
     namespace :v1 do
+
       get 'activities/uids_and_flags' => 'activities#uids_and_flags'
       resources :activities,              except: [:index, :new, :edit]
       resources :activity_flags,          only: [:index]
-      resources :activity_sessions,       except: [:index, :new, :edit] do
-        resources :activity_session_interaction_logs, only: :create
-      end
+      resources :activity_sessions,       except: [:index, :new, :edit]
       resources :lessons_tokens,          only: [:create]
       resources :sections,                only: [:index]
       resources :topics,                  only: [:index]
@@ -387,12 +391,16 @@ EmpiricalGrammar::Application.routes.draw do
       get 'users/current_user_and_coteachers', to: 'users#current_user_and_coteachers'
       post 'published_edition' => 'activities#published_edition'
       get 'progress_reports/activities_scores_by_classroom_data' => 'progress_reports#activities_scores_by_classroom_data'
-      get 'progress_reports/real_time_data' => 'progress_reports#real_time_data'
       get 'progress_reports/district_activity_scores' => 'progress_reports#district_activity_scores'
       get 'progress_reports/district_concept_reports' => 'progress_reports#district_concept_reports'
       get 'progress_reports/district_standards_reports' => 'progress_reports#district_standards_reports'
       get 'progress_reports/student_overview_data/:student_id/:classroom_id' => 'progress_reports#student_overview_data'
-      resources :lessons, except: [:destroy]
+      resources :lessons do
+        member do
+          put 'add_question'
+        end
+      end
+      resources :shared_cache, only: [:show, :update, :destroy]
       resources :concept_feedback, except: [:destroy]
       resources :questions, except: [:destroy] do
         resources :focus_points do
@@ -406,6 +414,9 @@ EmpiricalGrammar::Application.routes.draw do
           put 'update_model_concept'
         end
       end
+      resources :active_activity_sessions, only: [:show, :update, :destroy]
+
+      mount Comprehension::Engine => "/comprehension", as: :comprehension
     end
 
     # Try to route any GET, DELETE, POST, PUT or PATCH to the proper controller.
@@ -469,6 +480,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :categories
     get '/concepts/concepts_in_use', to: 'concepts#concepts_in_use', only: [:csv], defaults: { format: 'csv' }
     resources :concepts
+    resources :comprehension, only: [:index]
     resources :sections
     resources :topics
     resources :subscriptions
@@ -639,8 +651,12 @@ EmpiricalGrammar::Application.routes.draw do
   end
 
   get 'demo' => 'teachers/progress_reports#demo'
+  get 'demo_ap' => 'teachers/progress_reports#demo_ap'
   get 'student_demo' => 'students#student_demo'
+  get 'student_demo_ap' => 'students#demo_ap'
   get 'admin_demo', to: 'teachers/progress_reports#admin_demo'
+  get 'preap' => 'pages#preap'
+  get 'pre-ap', to: redirect('/preap')
 
   get '/404' => 'errors#error_404'
   get '/500' => 'errors#error_500'

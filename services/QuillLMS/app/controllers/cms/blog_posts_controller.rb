@@ -74,7 +74,7 @@ class Cms::BlogPostsController < Cms::CmsController
   end
 
   def topics
-    @topics = BlogPost::TOPICS
+    @topics = BlogPost::TEACHER_TOPICS
     @student_topics = BlogPost::STUDENT_TOPICS
   end
 end

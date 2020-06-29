@@ -118,6 +118,7 @@ export default class ActivitySearchFilter extends React.Component {
     return (<DropdownInput
       className={this.props.data.field}
       handleChange={(opt) => this.handleFilterButtonClick(opt.value)}
+      id="custom-activity-pack-dropdown"
       label={this.props.data.alias}
       options={options}
       value={options.find(opt => opt.value === this.state.activeFilterId)}

@@ -4,9 +4,9 @@ const DistrictPricingBox = () => (
   <div className="district-pricing-box flex-row vertically-centered space-between">
     <span>
       <span className='bold-segment'>Multiple schools or a district?</span>
-		  Free for the rest of the 2019/2020 school year.
+		  We provide group pricing, on-site training, and district dashboards.
     </span>
-    <a className='premium-button dark-green' href='https://forms.gle/ePA3C866hfKkN6BRA' rel="noopener noreferrer" target="_blank">Request free access</a>
+    <a className='quill-button medium primary contained' href='https://quillpremium.wufoo.com/forms/quill-premium-quote/' rel="noopener noreferrer" target="_blank">Request consultation</a>
   </div>
 )
 

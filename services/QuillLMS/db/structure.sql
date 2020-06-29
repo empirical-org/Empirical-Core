@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.10
--- Dumped by pg_dump version 10.10
+-- Dumped from database version 10.12
+-- Dumped by pg_dump version 10.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -111,69 +111,6 @@ CREATE FUNCTION public.old_timespent_teacher(teacher integer) RETURNS bigint
           ) AS time_spent_query ON users.id = time_spent_query.teacher_id
           WHERE users.id = teacher
           GROUP BY users.id) as times_spent;
-      $$;
-
-
---
--- Name: timespent_activity_session(integer); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION public.timespent_activity_session(act_sess integer) RETURNS integer
-    LANGUAGE plpgsql
-    AS $$
-        DECLARE
-            first_item timestamp;
-          last_item timestamp;
-          max_item timestamp;
-          as_created_at timestamp;
-          arow record;
-          time_spent float;
-          item timestamp;
-        BEGIN
-          -- backward compatibility block
-          SELECT created_at INTO as_created_at FROM activity_sessions WHERE id = act_sess;
-          IF as_created_at IS NULL OR as_created_at < timestamp '2018-08-25 00:00:00.000000' THEN
-            SELECT SUM(
-                  CASE
-                  WHEN (activity_sessions.started_at IS NULL)
-                    OR (activity_sessions.completed_at IS NULL)
-                    OR (activity_sessions.completed_at - activity_sessions.started_at < interval '1 minute')
-                    OR (activity_sessions.completed_at - activity_sessions.started_at > interval '30 minutes')
-                  THEN 441
-                  ELSE
-                    EXTRACT (
-                      'epoch' FROM (activity_sessions.completed_at - activity_sessions.started_at)
-                    )
-                END) INTO time_spent FROM activity_sessions WHERE id = act_sess AND state='finished';
-                
-                RETURN COALESCE(time_spent,0);
-          END IF;
-          -- modern calculation (using activity session interaction logs) 
-          first_item := NULL;
-          last_item := NULL;
-          max_item := NULL;
-          time_spent := 0.0;
-          FOR arow IN (SELECT date FROM activity_session_interaction_logs WHERE activity_session_id = act_sess order by date) LOOP
-            item := arow;
-            IF last_item IS NULL THEN
-              first_item := item;
-              max_item := item;
-              last_item := item;
-            ELSIF item - last_item <= '2 minute'::interval THEN
-              max_item := item;
-              last_item := item;
-            ELSE
-              time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-              first_item := item;
-              last_item := item;
-              max_item := item;
-            END IF;
-          END LOOP;
-          IF max_item IS NOT NULL AND first_item IS NOT NULL THEN
-            time_spent := time_spent + EXTRACT( EPOCH FROM max_item - first_item );
-          END IF;
-          RETURN time_spent;
-        END;
       $$;
 
 
@@ -478,38 +415,6 @@ CREATE SEQUENCE public.activity_classifications_id_seq
 --
 
 ALTER SEQUENCE public.activity_classifications_id_seq OWNED BY public.activity_classifications.id;
-
-
---
--- Name: activity_session_interaction_logs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.activity_session_interaction_logs (
-    id integer NOT NULL,
-    date timestamp without time zone,
-    meta jsonb,
-    activity_session_id integer
-);
-
-
---
--- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.activity_session_interaction_logs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_session_interaction_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.activity_session_interaction_logs_id_seq OWNED BY public.activity_session_interaction_logs.id;
 
 
 --
@@ -1135,6 +1040,110 @@ ALTER SEQUENCE public.classrooms_teachers_id_seq OWNED BY public.classrooms_teac
 
 
 --
+-- Name: comprehension_activities; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_activities (
+    id integer NOT NULL,
+    title character varying(100),
+    parent_activity_id integer,
+    target_level smallint,
+    scored_level character varying(100),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_activities_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_activities_id_seq OWNED BY public.comprehension_activities.id;
+
+
+--
+-- Name: comprehension_passages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_passages (
+    id integer NOT NULL,
+    activity_id integer,
+    text text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_passages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_passages_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_passages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_passages_id_seq OWNED BY public.comprehension_passages.id;
+
+
+--
+-- Name: comprehension_prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_prompts (
+    id integer NOT NULL,
+    activity_id integer,
+    max_attempts smallint,
+    conjunction character varying(20),
+    text character varying,
+    max_attempts_feedback text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_prompts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_prompts_id_seq OWNED BY public.comprehension_prompts.id;
+
+
+--
 -- Name: concept_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1143,7 +1152,8 @@ CREATE TABLE public.concept_feedbacks (
     uid character varying,
     data jsonb,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    activity_type character varying NOT NULL
 );
 
 
@@ -2929,13 +2939,6 @@ ALTER TABLE ONLY public.activity_classifications ALTER COLUMN id SET DEFAULT nex
 
 
 --
--- Name: activity_session_interaction_logs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs ALTER COLUMN id SET DEFAULT nextval('public.activity_session_interaction_logs_id_seq'::regclass);
-
-
---
 -- Name: activity_sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3052,6 +3055,27 @@ ALTER TABLE ONLY public.classrooms ALTER COLUMN id SET DEFAULT nextval('public.c
 --
 
 ALTER TABLE ONLY public.classrooms_teachers ALTER COLUMN id SET DEFAULT nextval('public.classrooms_teachers_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_activities id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_activities ALTER COLUMN id SET DEFAULT nextval('public.comprehension_activities_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_passages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_passages ALTER COLUMN id SET DEFAULT nextval('public.comprehension_passages_id_seq'::regclass);
+
+
+--
+-- Name: comprehension_prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts ALTER COLUMN id SET DEFAULT nextval('public.comprehension_prompts_id_seq'::regclass);
 
 
 --
@@ -3438,14 +3462,6 @@ ALTER TABLE ONLY public.activity_classifications
 
 
 --
--- Name: activity_session_interaction_logs activity_session_interaction_logs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs
-    ADD CONSTRAINT activity_session_interaction_logs_pkey PRIMARY KEY (id);
-
-
---
 -- Name: activity_sessions activity_sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3579,6 +3595,30 @@ ALTER TABLE ONLY public.classrooms
 
 ALTER TABLE ONLY public.classrooms_teachers
     ADD CONSTRAINT classrooms_teachers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_activities comprehension_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_activities
+    ADD CONSTRAINT comprehension_activities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_passages comprehension_passages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_passages
+    ADD CONSTRAINT comprehension_passages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_prompts comprehension_prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_prompts
+    ADD CONSTRAINT comprehension_prompts_pkey PRIMARY KEY (id);
 
 
 --
@@ -4030,13 +4070,6 @@ CREATE UNIQUE INDEX index_activity_classifications_on_uid ON public.activity_cla
 
 
 --
--- Name: index_activity_session_interaction_logs_on_activity_session_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_session_interaction_logs_on_activity_session_id ON public.activity_session_interaction_logs USING btree (activity_session_id);
-
-
---
 -- Name: index_activity_sessions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4338,10 +4371,38 @@ CREATE INDEX index_classrooms_teachers_on_user_id ON public.classrooms_teachers 
 
 
 --
--- Name: index_concept_feedbacks_on_uid; Type: INDEX; Schema: public; Owner: -
+-- Name: index_comprehension_activities_on_parent_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_concept_feedbacks_on_uid ON public.concept_feedbacks USING btree (uid);
+CREATE INDEX index_comprehension_activities_on_parent_activity_id ON public.comprehension_activities USING btree (parent_activity_id);
+
+
+--
+-- Name: index_comprehension_passages_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_passages_on_activity_id ON public.comprehension_passages USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_prompts_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_prompts_on_activity_id ON public.comprehension_prompts USING btree (activity_id);
+
+
+--
+-- Name: index_concept_feedbacks_on_activity_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_concept_feedbacks_on_activity_type ON public.concept_feedbacks USING btree (activity_type);
+
+
+--
+-- Name: index_concept_feedbacks_on_uid_and_activity_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_concept_feedbacks_on_uid_and_activity_type ON public.concept_feedbacks USING btree (uid, activity_type);
 
 
 --
@@ -5159,14 +5220,6 @@ ALTER TABLE ONLY public.change_logs
 
 
 --
--- Name: activity_session_interaction_logs fk_rails_1ac1e7b3b5; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.activity_session_interaction_logs
-    ADD CONSTRAINT fk_rails_1ac1e7b3b5 FOREIGN KEY (activity_session_id) REFERENCES public.activity_sessions(id);
-
-
---
 -- Name: classroom_units fk_rails_3e1ff09783; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5662,7 +5715,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170505195744');
 
 INSERT INTO schema_migrations (version) VALUES ('20170517152031');
 
+INSERT INTO schema_migrations (version) VALUES ('20170523175919');
+
 INSERT INTO schema_migrations (version) VALUES ('20170526220204');
+
+INSERT INTO schema_migrations (version) VALUES ('20170601140325');
 
 INSERT INTO schema_migrations (version) VALUES ('20170718160133');
 
@@ -5798,6 +5855,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180207165525');
 
 INSERT INTO schema_migrations (version) VALUES ('20180209153502');
 
+INSERT INTO schema_migrations (version) VALUES ('20180214051916');
+
 INSERT INTO schema_migrations (version) VALUES ('20180220204422');
 
 INSERT INTO schema_migrations (version) VALUES ('20180221162940');
@@ -5892,6 +5951,8 @@ INSERT INTO schema_migrations (version) VALUES ('20180709192646');
 
 INSERT INTO schema_migrations (version) VALUES ('20180718195853');
 
+INSERT INTO schema_migrations (version) VALUES ('20180809210431');
+
 INSERT INTO schema_migrations (version) VALUES ('20180810181001');
 
 INSERT INTO schema_migrations (version) VALUES ('20180815174156');
@@ -5944,6 +6005,8 @@ INSERT INTO schema_migrations (version) VALUES ('20181030155356');
 
 INSERT INTO schema_migrations (version) VALUES ('20181105212102');
 
+INSERT INTO schema_migrations (version) VALUES ('20181126221244');
+
 INSERT INTO schema_migrations (version) VALUES ('20181203161708');
 
 INSERT INTO schema_migrations (version) VALUES ('20181214192858');
@@ -5993,4 +6056,16 @@ INSERT INTO schema_migrations (version) VALUES ('20200326220320');
 INSERT INTO schema_migrations (version) VALUES ('20200409151835');
 
 INSERT INTO schema_migrations (version) VALUES ('20200415170227');
+
+INSERT INTO schema_migrations (version) VALUES ('20200417172506');
+
+INSERT INTO schema_migrations (version) VALUES ('20200505171239');
+
+INSERT INTO schema_migrations (version) VALUES ('20200511203004');
+
+INSERT INTO schema_migrations (version) VALUES ('20200612165828');
+
+INSERT INTO schema_migrations (version) VALUES ('20200612165829');
+
+INSERT INTO schema_migrations (version) VALUES ('20200612165830');
 

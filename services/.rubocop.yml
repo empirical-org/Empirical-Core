@@ -1,5 +1,14 @@
 inherit_from: .rubocop_todo.yml
 
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - 'QuillLMS/engines/comprehension/test/dummy/**/*'
+    - 'QuillLMS/engines/comprehension/lib/generators/**/*'
+
 Style/ZeroLengthPredicate:
   Enabled: true
 

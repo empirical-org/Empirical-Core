@@ -1,4 +1,6 @@
+import 'whatwg-fetch'
 import { mockLessonApi, } from '../__mocks__/lesson_api'
+import configureStore from 'redux-mock-store';
 const MOCK_LESSON_TYPE = 'TYPE'
 jest.mock('../../app/libs/lessons_api', () => ({
   LessonApi: mockLessonApi,
@@ -10,6 +12,9 @@ import { mockDispatch as dispatch, } from '../__mocks__/dispatch'
 import lessonActions from '../../app/actions/lessons'
 
 describe('Lessons actions', () => {
+  const mockStore = configureStore();
+  const store = mockStore();
+
   describe('startListeningToLessons', () => {
     it('should call LessonsApi.getAll()', () => {
       dispatch(lessonActions.startListeningToLessons())
@@ -63,5 +68,15 @@ describe('Lessons actions', () => {
       dispatch(lessonActions.loadLesson(MOCK_ID))
       expect(mockLessonApi.get).toHaveBeenLastCalledWith(MOCK_LESSON_TYPE, MOCK_ID)
     })
+  })
+
+  describe('setLessonFlag', () => {
+    const expectedActions = [{
+        'type': 'SET_LESSON_FLAG',
+        'flag': 'production'
+      }
+    ]
+    store.dispatch(expectedActions[0])
+    expect(store.getActions()).toEqual(expectedActions);
   })
 })
