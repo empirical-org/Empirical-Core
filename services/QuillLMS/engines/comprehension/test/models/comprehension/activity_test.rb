@@ -11,7 +11,6 @@ module Comprehension
     end
 
     context 'validations' do
-      should validate_presence_of(:parent_activity_id)
       should validate_uniqueness_of(:parent_activity_id).allow_nil
 
       should validate_presence_of(:target_level)

@@ -14,7 +14,7 @@ module Comprehension
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
     accepts_nested_attributes_for :prompts, reject_if: proc { |p| p['text'].blank? }
 
-    validates :parent_activity_id, presence: true, uniqueness: {allow_nil: true}
+    validates :parent_activity_id, uniqueness: {allow_nil: true}
     validates :target_level, presence: true,
       numericality: {
         only_integer: true,
