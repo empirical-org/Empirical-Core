@@ -3,17 +3,24 @@ import * as React from 'react'
 const renderYourAnswer = (projector, response) => {
   if (projector || !response) { return }
 
+  const responseArray = response instanceof Object ? Object.values(response) : [response]
+
+  const responses = responseArray.map(r => <p className="your-answer" dangerouslySetInnerHTML={{ __html: r}} key={r} />)
+
   return (<div className="your-answer-container">
     <p className="answer-header">Your response</p>
-    <p className="your-answer" dangerouslySetInnerHTML={{ __html: response}} />
+    {responses}
   </div>)
 }
 
 const renderClassAnswersList = (selectedSubmissionOrder, submissions, sampleCorrectAnswer) => {
   const selected = selectedSubmissionOrder ? selectedSubmissionOrder.map((key, index) => {
     let text
-    if (submissions && submissions[key] && submissions[key].data) {
-      text = submissions[key].data
+    const splitKey = key.split('#')
+    const studentKey = splitKey[0]
+    const subIndex = splitKey[1]
+    if (submissions && submissions[studentKey] && submissions[studentKey].data) {
+      text = submissions[studentKey].data instanceof Object ? submissions[studentKey].data[subIndex] : submissions[studentKey].data
     } else if (key === 'correct' && sampleCorrectAnswer){
       text = sampleCorrectAnswer
     } else {

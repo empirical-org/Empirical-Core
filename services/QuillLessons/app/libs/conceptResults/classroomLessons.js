@@ -8,6 +8,7 @@ export function generate(lessonQuestionData, studentSessionData, modifications) 
 }
 
 export function generateConceptResult(questionData, studentSubmission) {
+  const answer = studentSubmission.data instanceof Object ? Object.values(studentSubmission.data).join('; ') : studentSubmission.data
   return {
     concept_id: 'X37oyfiNxSphA34npOb-Ig',
     question_type: 'lessons-slide',

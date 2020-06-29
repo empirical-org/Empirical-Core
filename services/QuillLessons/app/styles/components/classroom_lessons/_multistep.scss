@@ -1,0 +1,47 @@
+.multistep {
+  .step-label, .student.text-editor.card, .display-mode {
+    flex: 1;
+  }
+  .step-label {
+    margin-right: 24px;
+    font-size: 24px;
+    line-height: 1.25;
+  }
+  .list-component, .multistep-display-answers-row {
+    padding: 24px 0px;
+    border-bottom: 2px solid #8e8e8e;
+    margin-bottom: 0px;
+    align-items: flex-start;
+    display: flex;
+    &.first {
+      border-top: 2px solid #8e8e8e;
+      margin-top: 24px;
+    }
+    .your-answer-container .answer-header {
+      margin-top: 0px;
+    }
+  }
+
+  &.projector {
+    .answer-header {
+      margin-top: 0px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .list-component, .multistep-display-answers-row {
+      flex-direction: column;
+      .step-label, .student.text-editor.card, .display-mode {
+        max-width: 100%;
+        width: 100%;
+        .answer-header, .step-label, .your-answer, ol {
+          font-size: 20px;
+          line-height: 1.45;
+        }
+      }
+      .step-label {
+        margin-bottom: 16px;
+      }
+    }
+  }
+}
