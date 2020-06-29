@@ -8,8 +8,7 @@ module Comprehension
     has_and_belongs_to_many :prompts, inverse_of: :rule_sets
     has_many :rules, inverse_of: :rule_set, dependent: :destroy
 
-    accepts_nested_attributes_for :rules, allow_destroy: true,
-      reject_if: proc { |p| p['regex_text'].blank? }
+    accepts_nested_attributes_for :rules, reject_if: proc { |r| r['regex_text'].blank? }
 
     validates_presence_of :activity
     validates :name, presence: true, length: {maximum: MAX_NAME_LENGTH}
@@ -23,7 +22,7 @@ module Comprehension
         only: [:id, :activity_id, :name, :feedback, :priority],
         include: {
           rules: {},
-          prompts: { only: 'id' }
+          prompts: { only: [:id, :conjunction] }
         }
       ))
     end
