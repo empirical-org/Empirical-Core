@@ -9,9 +9,9 @@ namespace :import_comprehension do
     base_url = args[:options]
     activities_list_url = "#{base_url}/api/activities.json"
     response = HTTParty.get(activities_list_url)
-    all_activities = JSON.load(response.body)
+    all_activities = JSON.parse(response.body)
     all_activities.each do |a|
-      activities_url = "#{base_url}/api/activities/#{a["id"]}.json"
+      activities_url = "#{base_url}/api/activities/#{a['id']}.json"
       response = HTTParty.get(activities_url)
       source_activity = JSON.parse(response.body)
       activity = Comprehension::Activity.create(
