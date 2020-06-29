@@ -1,6 +1,7 @@
 import * as React from "react";
+const checkIcon = <img alt="check icon" src={`${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`} />;
 
-const TurkLanding = () => {
+const TurkLanding = ({ handleStartActivity}) => {
   return(
     <div className="turk-landing-container">
       <div className="turk-landing-header-container">
@@ -9,36 +10,49 @@ const TurkLanding = () => {
       </div>
       <div className="turk-landing-directions-container">
         <h1>Directions:</h1>
-        <p>In order to accurately complete the HIT for payment, you <p>must</p> do the following:</p>
+        <div className="bolded">In order to accurately complete the HIT for payment, you <p>must</p> do the following:</div>
         <ul>
           <li>
+            {checkIcon}
             <p>Read the passage</p>
           </li>
           <li>
+            {checkIcon}
             <p>Complete all three sentences</p>
           </li>
           <li>
+            {checkIcon}
             <p>Analyze the feedback provided</p>
           </li>
           <li>
-            <p>Use the feedback to revise each sentence up to <p>five</p> times</p>
+            {checkIcon}
+            <div>Use the feedback to revise each sentence up to <p>five</p> times</div>
           </li>
         </ul>
-        <p>Each of your sentences <p>must</p>:</p>
+        <div className="bolded">Each of your sentences <p>must</p>:</div>
         <ul>
           <li>
-            <p>Be <p>one</p> sentence long</p>
+            {checkIcon}
+            <div>Be <p>one</p> sentence long</div>
           </li>
           <li>
+            {checkIcon}
             <p>Use proper capitalization (i.e. do not write in capital letters)</p>
           </li>
           <li>
+            {checkIcon}
             <p>Be based on the text, but written in your own words</p>
           </li>
         </ul>
-        <p>By following these directions, you will be provided with a code to input in order to be paid for the HIT.</p>
+        <p className="bolded">By following these directions, you will be provided with a code to input in order to be paid for the HIT.</p>
       </div>
-      <button className="quill-button small primary contained" type="button">Start Activity</button>
+      <div className="button-container">
+        <button 
+          className="quill-button small primary contained focus-on-light" 
+          onClick={handleStartActivity}
+          type="button"
+        >Start Activity</button>
+      </div>
     </div>
   )
 }

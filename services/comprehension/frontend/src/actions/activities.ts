@@ -11,8 +11,8 @@ export const getActivity = (sessionID: string, activityUID: string) => {
       sessionID: sessionID
     }));
 
-    const activityUrl = `https://comprehension-247816.appspot.com/activities/${activityUID}`
-
+    const activityUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/comprehension/activities/${activityUID}.json`;
+    
     request.get(activityUrl, (e, r, body) => {
       const activity = JSON.parse(body)
       if (activity) {
