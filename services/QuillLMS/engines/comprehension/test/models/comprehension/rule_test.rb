@@ -9,7 +9,6 @@ module Comprehension
     end
 
     context 'validations' do
-      # FIXME put validation tests here.
       should validate_presence_of(:rule_set)
       should validate_presence_of(:regex_text)
       should validate_length_of(:regex_text).is_at_most(200)
@@ -23,6 +22,12 @@ module Comprehension
 
       should 'provide a default value for "case_sensitive"' do
         assert_equal @rule.case_sensitive, true
+      end
+
+      should 'not override a "case_sensitive" with the default if one is provided' do
+        rule = Rule.create(rule_set: @rule_set, regex_text: 'test regex', case_sensitive: false)
+        assert rule.valid?
+        assert_equal rule.case_sensitive, false
       end
 
       should 'validate the presence of "case_sensitive"' do

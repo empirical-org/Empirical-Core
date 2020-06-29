@@ -16,7 +16,6 @@ module Comprehension
 
     # POST /rule_sets.json
     def create
-
       @rule_set = RuleSet.new({
         activity_id: params[:activity_id]
       }.merge(rule_set_params))

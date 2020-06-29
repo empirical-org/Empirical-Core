@@ -9,19 +9,19 @@ module Comprehension
 
     validates_presence_of :rule_set
     validates :regex_text, presence: true, length: {maximum: MAX_REGEX_TEXT_LENGTH}
-    validates :case_sensitive, presence: true
+    validates :case_sensitive, inclusion: [true, false]
 
-    # FIXME, fill in attributes for json
     def serializable_hash(options = nil)
       options ||= {}
 
       super(options.reverse_merge(
-        only: [:id, :regex_text, :case_sensitive]
+        only: [:id, :rule_set_id, :regex_text, :case_sensitive]
       ))
     end
 
     private def set_default_case_sensitivity
-      self.case_sensitive = case_sensitive || DEFAULT_CASE_SENSITIVITY
+      return if self.case_sensitive.in? [true, false]
+      self.case_sensitive = DEFAULT_CASE_SENSITIVITY
     end
   end
 end
