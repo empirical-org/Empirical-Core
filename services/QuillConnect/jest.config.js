@@ -14,5 +14,13 @@ module.exports = {
     'ts-jest': {
       diagnostics: false
     }
-  }
+  },
+  moduleFileExtensions: [
+    "js",
+    "jsx",
+    "ts",
+    "tsx",
+    "json",
+    "node"
+  ]
 };

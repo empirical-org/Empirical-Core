@@ -78,6 +78,11 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const { cues, } = data.play
     const { inputErrors, inputVals, } = this.state
     const newErrors = inputErrors;
+
+    if (!(cues && cues.some(cue => cue.length))) {
+      return Promise.resolve(true);
+    }
+
     for (let i = 0; i < inputVals.length; i++) {
       const inputVal = inputVals[i] || '';
       const inputSufficient = inputVal;
@@ -301,13 +306,15 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
 
   render() {
     return(
-      <div className="fill-in-the-blank">
-        {this.renderProjectorHeader()}
-        {this.renderPrompt(this.getPromptElements())}
-        {this.renderCues()}
-        {this.renderInstructions()}
-        {this.renderProject()}
-        {this.renderSubmitButton()}
+      <div className="fill-in-the-blank student-slide-wrapper">
+        <div className="all-but-submitted-bar">
+          {this.renderProjectorHeader()}
+          {this.renderPrompt(this.getPromptElements())}
+          {this.renderCues()}
+          {this.renderInstructions()}
+          {this.renderProject()}
+          {this.renderSubmitButton()}
+        </div>
         {this.renderSubmittedBar()}
       </div>
 

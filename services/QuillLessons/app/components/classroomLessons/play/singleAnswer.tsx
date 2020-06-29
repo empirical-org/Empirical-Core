@@ -87,7 +87,7 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
     const { selected_submissions, selected_submission_order, data, projector, submissions, } = this.props
     const { response, } = this.state
     const { sampleCorrectAnswer, } = data.play
-    
+
     return (<ProjectedAnswers
       projector={projector}
       response={response}
@@ -190,18 +190,20 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
   render() {
     const { projector, } = this.props
     const { editing, } = this.state
-    let className = 'single-answer '
+    let className = 'student-slide-wrapper single-answer '
     className+= projector ? "projector " : ""
     className+= editing ? "editing " : ""
 
     return (
       <div className={className}>
-        {this.renderProjectorHeader()}
-        {this.renderPrompt()}
-        {this.renderCues()}
-        {this.renderInstructions()}
-        {this.modeAppropriateRender()}
-        {this.renderSubmitButton()}
+        <div className="all-but-submitted-bar">
+          {this.renderProjectorHeader()}
+          {this.renderPrompt()}
+          {this.renderCues()}
+          {this.renderInstructions()}
+          {this.modeAppropriateRender()}
+          {this.renderSubmitButton()}
+        </div>
         {this.renderSubmittedBar()}
       </div>
     );
