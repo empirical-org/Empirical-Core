@@ -14,13 +14,14 @@ def check_grammar(request):
     request_json = request.get_json()
 
     entry = request_json.get('entry')
+    prompt_text = request_json.get('prompt_text', None)
     prompt_id = request_json.get('prompt_id')
 
     if entry is None or prompt_id is None:
         return make_response(jsonify(message="error"), 400)
 
     # errors is a list of tuples (token, token character offset, error type)
-    errors = checker.check(entry)
+    errors = checker.check(entry, prompt=prompt_text)
     # convert errors to hashes fitting the API protocol for highlights
     highlights = list(map(lambda e: highlight_hash(e), errors))
 

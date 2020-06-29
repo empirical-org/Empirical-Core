@@ -115,14 +115,11 @@ def get_multilabel_bert_classifier(model_type: str, num_labels: int,
     Returns: a BertForSequenceClassification model
 
     """
-    if model_file:
-        model_state_dict = torch.load(model_file, map_location=lambda storage, loc: storage)
-        model = BertForMultiLabelSequenceClassification.from_pretrained(model_type,
-                                                                        state_dict=model_state_dict,
-                                                                        num_labels=num_labels)
-    else:
-        model = BertForMultiLabelSequenceClassification.from_pretrained(model_type,
-                                                                        num_labels=num_labels)
+
+    model_state_dict = model_file and torch.load(model_file, map_location=lambda storage, loc: storage) or None
+    model = BertForMultiLabelSequenceClassification.from_pretrained(model_type,
+                                                                    state_dict=model_state_dict,
+                                                                    num_labels=num_labels)
 
     model.to(device)
     return model

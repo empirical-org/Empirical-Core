@@ -597,27 +597,35 @@ class SpaCyGrammarChecker:
                             before="ner")
         self.rule_based_checker = RuleBasedGrammarChecker()
 
-    def check(self, sentence: str) -> List[Error]:
+    def check(self, response: str, prompt: str = None) -> List[Error]:
         """
         Check a sentence for grammar errors.
 
         Args:
-            sentence: the sentence that will be checked
+            response: the response that will be checked
+            prompt: the prompt the student was given
 
         Returns: a list of errors. Every error is a tuple of (token,
                  token character offset, error type)
 
         """
 
-        doc = self.model(sentence)
+        if prompt is not None:
+            response = " ".join([prompt, response])
+
+        doc = self.model(response)
 
         # Get rule-based errors
-        errors = self.rule_based_checker(doc)
+        errors = []
+        for error in self.rule_based_checker(doc):
+            if prompt is None or error.index >= len(prompt):
+                errors.append(error)
 
         # Add statistical errors
         for token in doc:
-            # Exclude spaCy's built-in entity types
-            # (characterized by upper characters)
+            if prompt is not None and token.idx < len(prompt):
+                continue
+
             if token.ent_type_ and token.ent_type_ in statistical_error_map:
                 errors.append(Error(token.text,
                                     token.idx,

@@ -141,3 +141,38 @@ def test_grammar_errors(app):
                 assert data.get('feedback_type') == 'grammar'
                 assert data.get('optimal') is True
                 assert len(data.get('highlight')) == 0
+
+
+def test_grammar_errors_with_prompt(app):
+
+    errors = [("he readed a book.", "He likes to read, so", 24, GrammarError.VERB_TENSE.value),
+              ("he likes to read.", "He readed a book, because", None, None),
+              ("its a hot day.", "He is wearing a T-shirt, because", 33, GrammarError.ITS_IT_S.value),
+              ("a hot day.", "He is wearing a T-shirt, because its", None, None)]
+
+    for error, prompt, index, error_type in errors:
+        with app.test_request_context(json={'entry': error,
+                                            'prompt_text': prompt,
+                                            'prompt_id': 000}):
+            response = main.check_grammar(flask.request)
+            data = json.loads(response.data)
+
+            print(error)
+            print(data)
+
+            if index is not None:
+                assert response.status_code == 200
+                assert data.get('feedback') == 'Try again. ' \
+                                               'There may be a grammar error.'
+                assert data.get('feedback_type') == 'grammar'
+                assert data.get('optimal') is False
+                assert index == data.get('highlight')[0].get('character')
+                assert error_type in [h["category"]
+                                      for h in data.get('highlight')]
+            else:
+
+                assert response.status_code == 200
+                assert data.get('feedback') == 'Correct grammar!'
+                assert data.get('feedback_type') == 'grammar'
+                assert data.get('optimal') is True
+                assert len(data.get('highlight')) == 0
