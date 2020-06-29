@@ -1,0 +1,25 @@
+.student.text-editor.card {
+  border-radius: 4px;
+  border: solid 2px #8e8e8e;
+  box-shadow: none;
+  font-size: 24px;
+  color: #000;
+  padding: 20px;
+  line-height: 1.33;
+  min-height: 72px;
+  resize: none;
+  &.disabled-editor {
+    opacity: 1 !important;
+    border: none !important;
+    background-color: #e5e5e5;
+  }
+  &:focus {
+    border-radius: 4px;
+    border: solid 2px #06806b;
+    outline: none;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 20px;
+  }
+}

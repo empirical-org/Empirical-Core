@@ -63,6 +63,7 @@ exports[`Activity Form component should render Activities 1`] = `
       EditorState={[Function]}
       handleTextChange={[Function]}
       key="passage-description"
+      text="..."
     />
     <Input
       autoComplete="on"
