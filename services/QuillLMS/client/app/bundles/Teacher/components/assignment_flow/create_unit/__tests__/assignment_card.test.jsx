@@ -13,7 +13,7 @@ const props = {
   bodyArray: [
     {
       key: "What",
-      text: "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manners, commas, prepositions, and capitalization"
+      text: "Plural and possessive nouns, pronouns, verbs, adjectives, adverbs of manner, commas, prepositions, and capitalization"
     }, {
       key: "When",
       text: "Your students are working on basic grammar concepts."

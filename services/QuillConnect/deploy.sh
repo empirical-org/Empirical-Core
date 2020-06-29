@@ -5,10 +5,10 @@ app_name="QuillConnect"
 # Set environment-specific values
 case $1 in
   prod)
-    # ENSURE THAT WE'RE ON MASTER FOR PRODUCTION DEPLOYS
-    if [ "$current_branch" != "master" ]
+    # ENSURE THAT WE'RE ON production FOR PRODUCTION DEPLOYS
+    if [ "$current_branch" != "production" ]
     then
-      echo "You can not make a production deploy from a branch other than 'master'.  Don't forget to make sure you have the latest code pulled."
+      echo "You can not make a production deploy from a branch other than 'production'.  Don't forget to make sure you have the latest code pulled."
       exit 1
     fi
     S3_DEPLOY_BUCKET=s3://aws-website-quillconnect-6sy4b

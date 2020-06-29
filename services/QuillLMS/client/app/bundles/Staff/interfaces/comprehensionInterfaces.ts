@@ -39,7 +39,7 @@ export interface FlagInterface {
 }
 
 export interface ActivityRuleSetPrompt {
-  id: number,
+  id?: number,
   conjunction: string
 }
 

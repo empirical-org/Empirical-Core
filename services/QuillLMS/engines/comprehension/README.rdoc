@@ -1,0 +1,52 @@
+= Comprehension
+
+### Summary
+
+A Rails Engine to provide the API endpoints for the Quill Comprehension app. This will live inside the QuillLMS Rails application. Engines are a way to compartmentalize code without having to host a separate app.
+
+### Setup in Parent App
+
+Mount in a parent rails application in `routes.rb`:
+```ruby
+mount Comprehension::Engine => "/comprehension", as: :comprehension
+```
+
+Configure the parent_activity in parent rails app, in a `config/initializer/comprehension.rb` file:
+
+### Development
+
+It's worth reading through the guide to Rails Engines. This covers most of what you need to know about the difference between an Engine and a full rails app.
+
+Guide for Rails 4.2
+https://guides.rubyonrails.org/v4.2/engines.html
+
+#### Install gems
+
+`bundle install`
+
+#### Run tests
+
+`bundle exec rake test`
+
+#### Use custom scaffolding
+
+I've created some custom scaffold generators in `lib/generators` and a `rake task` to run them in the correct order.
+
+It follows the syntax of rails scaffolds, just passed in as an arugment to the rake task.
+
+There is a way to refactor this so that we replace Rail's templates with our own, but I failed to find the correct place to put the templates, so hence this stand-in rake task and generators.
+
+`bundle exec rake quill_scaffold:generate['FakeModel activity:reference title:string score:integer']
+
+After generating the scaffold
+- Update the migration with any other specifications
+- Fill in model validations, relationships, and json hash
+- Search for `FIXME` to find tests and functionality to replace
+
+#### Migrations
+
+You run migrations in the parent app, not in the engine. So if you add a migration, run this in the parent app:
+
+`rake comprehension:install:migrations`
+
+See the Rails guide for more details.

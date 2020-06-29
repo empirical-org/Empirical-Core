@@ -202,8 +202,7 @@ jobs:
           name: Run QuillLessons Tests
           command: |
             cd services/QuillLessons
-            FORCE_COLOR=true npm run jest --colors --runInBand app/
-            FORCE_COLOR=true npm run jest --colors --runInBand test/
+            npm run jest app/
   grammar_node_build:
     working_directory: ~/Empirical-Core
     docker:

@@ -11,6 +11,7 @@ import {
   toggleStudentFlag,
   setModel,
   removeStudentSubmission,
+  saveStudentSubmission,
   redirectAssignedStudents,
   updateStudentSubmissionOrder,
   setPrompt,
@@ -54,7 +55,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     const lessonData: ClassroomLesson = props.classroomLesson.data;
     const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
+    const activityUid = props.match.params.lessonID
 
     this.state = {
       numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
@@ -68,7 +69,6 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
       classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
-    this.toggleSelected = this.toggleSelected.bind(this);
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
     this.stopDisplayingAnswers = this.stopDisplayingAnswers.bind(this);
     this.toggleOnlyShowHeaders = this.toggleOnlyShowHeaders.bind(this);
@@ -93,7 +93,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     setTimeout(this.timeOut, 43200000)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const element = document.getElementsByClassName("main-content")[0];
     if (element && (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide)) {
       element.scrollTop = 0;
@@ -108,18 +108,19 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     }
   }
 
-  toggleSelected(currentSlideId: string, student: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-    if (classroomSessionId) {
-      const submissions: SelectedSubmissions | null = this.props.classroomSessions.data.selected_submissions;
-      const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideId] : null;
-      const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
-      updateStudentSubmissionOrder(classroomSessionId, currentSlideId, student)
-      if (!currentValue) {
-        saveSelectedStudentSubmission(classroomSessionId, currentSlideId, student);
-      } else {
-        removeSelectedStudentSubmission(classroomSessionId, currentSlideId, student);
-      }
+  toggleSelected = (currentSlideId: string, student: string) => {
+    const { classroomSessionId, } = this.state
+    const { classroomSessions, } = this.props
+    if (!classroomSessionId) { return }
+
+    const submissions: SelectedSubmissions | null = classroomSessions.data.selected_submissions;
+    const currentSlide: SelectedSubmissionsForQuestion | null = submissions ? submissions[currentSlideId] : null;
+    const currentValue: boolean | null = currentSlide ? currentSlide[student] : null;
+    updateStudentSubmissionOrder(classroomSessionId, currentSlideId, student)
+    if (!currentValue) {
+      saveSelectedStudentSubmission(classroomSessionId, currentSlideId, student);
+    } else {
+      removeSelectedStudentSubmission(classroomSessionId, currentSlideId, student);
     }
   }
 
@@ -137,9 +138,14 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     }
   }
 
-  clearStudentSubmission(currentSlideId: string, student: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
-    if (classroomSessionId) {
+  clearStudentSubmission = (currentSlideId: string, student: string, submission?: string) => {
+    const { classroomSessionId, } = this.state
+    if (!classroomSessionId) { return }
+
+    if (submission) {
+      const submissionObj = { data: submission, }
+      saveStudentSubmission(classroomSessionId, currentSlideId, student, submissionObj)
+    } else {
       removeStudentSubmission(classroomSessionId, currentSlideId, student);
     }
   }

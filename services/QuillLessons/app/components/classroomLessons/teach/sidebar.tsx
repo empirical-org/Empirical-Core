@@ -31,7 +31,8 @@ interface ReducerSidebarProps extends React.Props<any> {
 }
 
 interface PassedSidebarProps extends React.Props<any> {
-  params: any
+  match: any,
+  classroomSessionId?: string
 }
 
 class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps & DispatchFromProps, any> {
@@ -40,21 +41,19 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     super(props);
 
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.params.lessonID
     this.state = {
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null,
       currentSlide: null
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.classroomSessions.data.current_slide !== this.props.classroomSessions.data.current_slide) {
       this.scrollToSlide(nextProps.classroomSessions.data.current_slide)
     }
   }
 
-  componentWillUpdate(prevProps, prevState) {
+  UNSAFE_componentWillUpdate(prevProps, prevState) {
     if (!this.state.currentSlide) {
       this.scrollToSlide(this.props.classroomSessions.data.current_slide)
     }
@@ -86,10 +85,10 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
     setTimeout(() => {this.scrollToPosition(elem, this.state.currentSlide.offsetTop - 105, count+1)}, 40);
   }
 
-  goToSlide(slide_id: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+  goToSlide = (slide_id: string) => {
+    const { dispatch, classroomSessionId, } = this.props
     if (classroomSessionId) {
-      this.props.dispatch(updateCurrentSlide(slide_id, classroomSessionId));
+      dispatch(updateCurrentSlide(slide_id, classroomSessionId));
     }
   }
 
@@ -128,7 +127,7 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
         switch (questions[slide].type) {
           case 'CL-LB':
             thumb = (
-              <CLStudentLobby data={data} title={lessonData.title} />
+              <CLStudentLobby data={data} projector={true} title={lessonData.title} />
             );
             break;
           case 'CL-ST':
@@ -169,9 +168,8 @@ class Sidebar extends React.Component<ReducerSidebarProps & PassedSidebarProps &
           default:
             thumb = questions[slide].type;
         }
-        const headerText = slide === '0'
-        ? <span>Title Slide{titleSection}</span>
-        : <span>Slide {slide} / {length}{titleSection}</span>
+        const isLobbySlide = Number(slide) === 0
+        const headerText = isLobbySlide ? <span>Title Slide{titleSection}</span> : <span>Slide {slide} / {length}{titleSection}</span>
         components.push((
           <div id={slide} key={counter} onClick={() => this.goToSlide(slide)}>
             <div className="sidebar-header">

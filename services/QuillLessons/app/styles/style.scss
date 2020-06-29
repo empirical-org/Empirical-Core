@@ -1,5 +1,4 @@
 @import 'variables';
-@import 'textbox';
 @import "components/student-nav";
 @import "components/student-container";
 @import "components/student-question";
@@ -16,6 +15,10 @@
 
 body {
   color: #3D3D3D
+}
+
+#main-content {
+  outline: none;
 }
 
 .button-group {
@@ -373,4 +376,15 @@ textarea.submission {
 
 .wf-loading {
   visibility: hidden;
+}
+
+.interactive-wrapper {
+  background-color: transparent;
+  border: none;
+}
+
+@media (max-width: 1000px) {
+  .play-lesson-container, .student-lessons {
+    padding: 0px 20px;
+  }
 }

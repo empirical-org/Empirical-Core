@@ -20,12 +20,14 @@ class Api::V1::LessonsController < Api::ApiController
 
   def create
     uid = SecureRandom.uuid
-    @lesson = Activity.create!(uid: uid, classification: @classification, data: valid_params)
+    name = valid_params[:name] || valid_params[:title]
+    @lesson = Activity.create!(uid: uid, classification: @classification, data: valid_params, name: name, flag: valid_params[:flag])
     render(json: {@lesson.uid => @lesson.data_as_json})
   end
 
   def update
-    @lesson.update!({data: valid_params})
+    name = valid_params[:name] || valid_params[:title]
+    @lesson.update!({data: valid_params, name: name, flag: valid_params[:flag]})
     render(json: @lesson.data_as_json)
   end
 

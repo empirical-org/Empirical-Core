@@ -19,7 +19,7 @@ export default createReactClass({
   <tr className={classNameAndText}>
     <td>{classNameAndText}</td>
     <td />
-    <td>{directionsOrFeedback}</td>
+    <td>{directionsOrFeedback.replace(/&#x27;/g, "'")}</td>
   </tr>)
 		}
 	},
@@ -114,7 +114,7 @@ export default createReactClass({
             <tr>
               <td>Prompt</td>
               <td />
-              <td>{data.prompt}</td>
+              <td>{data.prompt.replace(/&#x27;/g, "'")}</td>
             </tr>
             {this.questionScore()}
             {this.emptyRow()}

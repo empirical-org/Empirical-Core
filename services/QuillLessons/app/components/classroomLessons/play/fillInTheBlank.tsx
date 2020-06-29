@@ -1,22 +1,25 @@
 declare function require(name:string);
 import * as React from 'react'
-import { firebase } from '../../../libs/firebase';
-import _ from 'underscore'
-import { QuestionData } from '../../../interfaces/classroomLessons'
-import Cues from '../../../components/renderForQuestions/cues';
-import TextEditor from '../../renderForQuestions/renderTextEditor';
+import * as _ from 'underscore'
 import {
-  WarningDialogue,
   Feedback
 } from 'quill-component-library/dist/componentLibrary'
+import { stringNormalize } from 'quill-string-normalizer';
+
+import ProjectorHeader from './projectorHeader'
+import ProjectedAnswers from './projectedAnswers'
+import PromptSection from './promptSection'
+import SubmitButton from './submitButton'
+import promptSplitter from '../shared/promptSplitter'
+import htmlStrip from '../shared/htmlStrip'
+import { Cues, } from '../../renderForQuestions/cues';
+import { QuestionData } from '../../../interfaces/classroomLessons'
+import { PROJECT } from './constants'
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   QuestionSubmissionsList,
   SelectedSubmissionsForQuestion
 } from '../interfaces';
-import promptSplitter from '../shared/promptSplitter'
-import htmlStrip from '../shared/htmlStrip'
-const icon = 'https://assets.quill.org/images/icons/question_icon.svg'
 
 interface fillInTheBlankProps {
   data: QuestionData,
@@ -47,28 +50,58 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
       inputVals: this.generateInputs(splitPrompt),
       inputErrors: new Set()
     };
-    this.submitSubmission = this.submitSubmission.bind(this);
-    this.updateBlankValue = this.updateBlankValue.bind(this);
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+    const { splitPrompt, submitted, } = this.state
     const student = getParameterByName('student');
-    if (student && nextProps.submissions && nextProps.submissions[student] && !this.state.submitted) {
+    if (student && nextProps.submissions && nextProps.submissions[student] && !submitted) {
       const submissionVals = nextProps.submissions[student].data.match(/<strong>(.*?)<\/strong>/g).map((term) => term.replace(/<strong>|<\/strong>/g, ''))
       this.setState({ submitted: true, inputVals: submissionVals })
     }
     // this will reset the state when a teacher resets a question
     const retryForStudent = student && nextProps.submissions && !nextProps.submissions[student];
-    if (this.state.submitted === true && (nextProps.submissions === null || retryForStudent)) {
+    if (submitted === true && (nextProps.submissions === null || retryForStudent)) {
       const splitPrompt = promptSplitter(nextProps.data.play.prompt)
       this.setState({ submitted: false, editing: false, inputVals: this.generateInputs(splitPrompt) });
     }
 
     // this will update the prompt when it changes
     const newSplitPrompt = promptSplitter(nextProps.data.play.prompt)
-    if (!_.isEqual(newSplitPrompt,this.state.splitPrompt)) {
+    if (!_.isEqual(newSplitPrompt, splitPrompt)) {
       this.setState({splitPrompt: newSplitPrompt, inputVals: this.generateInputs(newSplitPrompt)})
     }
+  }
+
+  validateAllInputs = () => {
+    const { data, } = this.props
+    const { cues, } = data.play
+    const { inputErrors, inputVals, } = this.state
+    const newErrors = inputErrors;
+
+    if (!(cues && cues.some(cue => cue.length))) {
+      return Promise.resolve(true);
+    }
+
+    for (let i = 0; i < inputVals.length; i++) {
+      const inputVal = inputVals[i] || '';
+      const inputSufficient = inputVal;
+      const cueMatch = (inputVal && cues.some(c => stringNormalize(c).toLowerCase() === stringNormalize(inputVal).toLowerCase().trim())) || (inputVal === '' && blankAllowed);
+
+      if (inputSufficient && cueMatch) {
+        delete newErrors[i]
+      } else {
+        newErrors[i] = true;
+      }
+    }
+    // following condition will return false if no new errors
+    if (_.size(newErrors)) {
+      const newInputVals = inputVals
+      this.setState({ inputErrors: newErrors, inputVals: newInputVals })
+    } else {
+      this.setState({ inputErrors: newErrors });
+    }
+    return Promise.resolve(true);
   }
 
   generateInputs(promptArray): Array<string> {
@@ -80,58 +113,65 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
   }
 
   getPromptElements(): Array<JSX.Element>|undefined {
-    if (this.state.splitPrompt) {
-      const { splitPrompt } = this.state;
-      const l = splitPrompt.length;
-      const splitPromptWithInput: Array<JSX.Element|Array<JSX.Element>> = [];
-      splitPrompt.forEach((section, i) => {
-        if (i !== l - 1) {
-          splitPromptWithInput.push(this.renderText(section));
-          splitPromptWithInput.push(this.renderInput(i));
-        } else {
-          splitPromptWithInput.push(this.renderText(section));
-        }
-      });
-      return _.flatten(splitPromptWithInput);
-    }
+    const { splitPrompt } = this.state;
+
+    if (!splitPrompt) { return }
+
+    const l = splitPrompt.length;
+    const splitPromptWithInput: Array<JSX.Element|Array<JSX.Element>> = [];
+    splitPrompt.forEach((section, i) => {
+      if (i !== l - 1) {
+        splitPromptWithInput.push(this.renderText(section));
+        splitPromptWithInput.push(this.renderInput(i));
+      } else {
+        splitPromptWithInput.push(this.renderText(section));
+      }
+    });
+    return _.flatten(splitPromptWithInput);
   }
 
-  updateBlankValue(e: React.ChangeEvent<HTMLInputElement>, i: number) {
-    const existing = [...this.state.inputVals];
+  updateBlankValue = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
+    const { inputVals, } = this.state
+    const existing = [...inputVals];
     existing[i] = e.target.value.trim();
     this.setState({
-      editing: true,
+      editing: existing.find(val => val.length),
       inputVals: existing,
     });
   }
 
   zipInputsAndText() {
-    const boldInputs = this.state.inputVals.map((val) => `<strong>${val}</strong>&nbsp;`)
-    const strippedPrompts = this.state.splitPrompt.map(p => htmlStrip(p))
+    const { inputVals, splitPrompt, } = this.state
+    const boldInputs = inputVals.map((val) => `<strong>${val}</strong>`)
+    const strippedPrompts = splitPrompt.map(p => htmlStrip(p))
     const zipped = _.zip(strippedPrompts, boldInputs);
     return _.flatten(zipped).join('');
   }
 
-  renderInput(i: number) {
-    let inputClass = this.state.submitted || this.props.mode === 'PROJECT' ? "disabled-button" : "";
-    let warning
-    if (this.state.inputErrors.has(i)) {
-      warning = this.renderWarning();
-      inputClass += 'bad-input'
-    }
-    const value = this.state.inputVals[i] ? this.state.inputVals[i] : ''
+  renderInput = (i: number) => {
+    const { mode, data, projector, } = this.props
+    const { submitted, inputVals, inputErrors, editing, } = this.state
+    const { cues, } = data.play
+
+    const disabled = submitted || mode === PROJECT || projector
+    let inputClass = disabled ? "disabled" : "";
+    inputClass += editing && !submitted ? ' editing' : ''
+    inputClass += inputErrors[i] ? ' error' : ''
+    const value = inputVals[i] ? inputVals[i] : ''
+    const longestCue = cues && cues.length ? cues.sort((a: { length: number }, b: { length: number }) => b.length - a.length)[0] : null
+    const width = longestCue ? (longestCue.length * 20) + 10 : 50
+    const styling = { width: `${width}px` }
+    const updateBlankValue = (e) => this.updateBlankValue(e, i)
     return (
       <span key={`span${i}`}>
-        <div className='warning'>
-          {warning}
-        </div>
         <input
+          aria-label={`input${i}`}
           className={inputClass}
-          disabled={inputClass === "disabled-button"}
+          disabled={disabled}
           id={`input${i}`}
           key={i + 100}
-          onBlur={() => this.validateInput(i)}
-          onChange={(e) => this.updateBlankValue(e, i)}
+          onChange={updateBlankValue}
+          style={styling}
           type="text"
           value={value}
         />
@@ -149,113 +189,83 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     return wordArray
   }
 
-  submitSubmission() {
-    if (this.state.inputErrors.size === 0 && this.props.handleStudentSubmission) {
-      this.props.handleStudentSubmission(this.zipInputsAndText());
-      this.setState({ submitted: true, });
-    }
+  handleSubmit = () => {
+    this.validateAllInputs().then(() => {
+      const { inputErrors, } = this.state;
+      const { handleStudentSubmission, } = this.props
+      const noErrors = _.size(inputErrors) === 0;
+      if (noErrors && handleStudentSubmission) {
+        handleStudentSubmission(this.zipInputsAndText());
+        this.setState({ submitted: true, });
+      }
+    })
   }
 
   renderInstructions() {
-    if (this.props.mode !== 'PROJECT') {
-      if (this.state.submitted) {
-        return (<Feedback
-          feedback={(<p>Great Work! Please wait as your teacher reviews your answer...</p>)}
-          feedbackType="correct-matched"
-        />);
-      } else if (this.props.data.play.instructions) {
-        return (<Feedback
-          feedback={(<p dangerouslySetInnerHTML={{__html: this.props.data.play.instructions}} />)}
-          feedbackType="default"
-        />);
-      }
-    }
+    const { mode, data, } = this.props
+    const { inputErrors, } = this.state
+    const errorsPresent = _.size(inputErrors) !== 0;
+
+    if (mode === PROJECT || (!errorsPresent && !data.play.instructions)) { return }
+
+    const feedback = errorsPresent ? 'Choose one of the options provided. Make sure it is spelled correctly.' : data.play.instructions
+    const feedbackType = errorsPresent ? 'revise-unmatched' : 'default'
+
+    return (<Feedback
+      feedback={(<p dangerouslySetInnerHTML={{__html: feedback}} />)}
+      feedbackType={feedbackType}
+    />);
   }
 
   renderCues() {
-    if (this.props.mode !== 'PROJECT') {
-      if (this.props.data.play.cues) {
-        return (
-          <Cues
-            displayArrowAndText={false}
-            getQuestion={() => ({
-              cues: this.props.data.play.cues,
-            })}
-          />
-        );
-      }
-      return (
-        <span />
-      );
-    }
-  }
-
-  inputsEmpty() {
-    return this.state.inputVals.indexOf('') !== -1
+    const { mode, data, } = this.props
+    if (mode === PROJECT || !data.play.cues) { return }
+    return (
+      <Cues cues={data.play.cues} />
+    );
   }
 
   renderSubmitButton() {
-    if (this.props.mode !== 'PROJECT' && !this.props.projector) {
-      if (this.state.editing && !this.inputsEmpty()) {
-        return (<div className="question-button-group">
-          <button className="button student-submit" disabled={this.state.submitted} onClick={this.submitSubmission}>Submit</button>
-        </div>);
-      } else {
-        return (<div className="question-button-group">
-          <button className="button student-submit" disabled={true}>Submit</button>
-        </div>);
-      }
+    const { mode, } = this.props
+    const { submitted, inputVals, } = this.state
+    if (submitted || mode === PROJECT) { return }
 
-    }
+    const disabled = !inputVals.find(val => val.length)
+    return <SubmitButton disabled={disabled} onClick={this.handleSubmit} />
   }
 
   renderPrompt(elements: Array<JSX.Element>|undefined) {
-    return <div className="prompt">{elements}</div>
+    const { mode, } = this.props
+    const prompt = <div className="prompt">{elements}</div>
+    return (<PromptSection
+      mode={mode}
+      promptElement={prompt}
+    />)
   }
 
   renderProject() {
-    const classAnswers = this.props.selected_submissions
-    ? (<div>
-      <p className="answer-header"><i className="fa fa-users" />Class Answers:</p>
-      {this.renderClassAnswersList()}
-    </div>)
-    : <span />;
-    return (
-      <div className="display-mode">
-        {this.renderPrompt(this.getPromptElements())}
-        {classAnswers}
-      </div>
-    );
+    const { selected_submissions, selected_submission_order, data, projector, submissions, mode, } = this.props
+
+    if (mode !== PROJECT) { return }
+    const { sampleCorrectAnswer, } = data.play
+
+    return (<ProjectedAnswers
+      projector={projector}
+      response={this.zipInputsAndText()}
+      sampleCorrectAnswer={sampleCorrectAnswer}
+      selectedSubmissionOrder={selected_submission_order}
+      selectedSubmissions={selected_submissions}
+      submissions={submissions}
+    />)
   }
 
-  renderClassAnswersList() {
-    const { selected_submissions, submissions, selected_submission_order, data} = this.props;
-    const selected = selected_submission_order ? selected_submission_order.map((key, index) => {
-      let html
-      if (submissions && submissions[key] && submissions[key].data) {
-        html = submissions[key].data
-      } else if (key === 'correct' && data.play && data.play.sampleCorrectAnswer){
-        html = data.play.sampleCorrectAnswer
-      } else {
-        html = ''
-      }
-      return (
-        <li key={index}>
-          <span className="answer-number">{index + 1}</span><div dangerouslySetInnerHTML={{__html: html}} style={{display: 'inline'}} />
-        </li>
-      );
-    }) : null;
-    return (
-      <ul className="class-answer-list">
-        {selected}
-      </ul>
-    );
-  }
 
   validateInput(i: number) {
-    const newErrors = new Set(this.state.inputErrors);
-    const inputVal = this.state.inputVals[i] || '';
-    const cues = this.props.data.play.cues
+    const { data, } = this.props
+    const { inputErrors, inputVals, } = this.state
+    const newErrors = new Set(inputErrors);
+    const inputVal = inputVals[i] || '';
+    const { cues, } = data.play
     // the check that the first cue is not '' can disappear once the cms has been updated not to save an empty
     // array of cues as ''
     if (inputVal && cues.length > 0 && cues[0] !== '') {
@@ -268,6 +278,14 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     this.setState({ inputErrors: newErrors });
   }
 
+  renderProjectorHeader() {
+    const { projector, studentCount, submissions, mode, } = this.props
+
+    if (!projector || mode === PROJECT) { return }
+
+    return <ProjectorHeader studentCount={studentCount} submissions={submissions} />
+  }
+
   renderWarning() {
     return (
       <div className="warning-dialogue">
@@ -277,25 +295,27 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     );
   }
 
+  renderSubmittedBar() {
+    const { mode, } = this.props
+    const { submitted, } = this.state
+
+    if (!submitted || mode === PROJECT) { return }
+
+    return <div className="submitted-bar">Please wait as your teacher reviews your response.</div>
+  }
+
   render() {
-    let content
-    if (this.props.mode === 'PROJECT') {
-      content = this.renderProject()
-    } else {
-      content = (
-        <div>
+    return(
+      <div className="fill-in-the-blank student-slide-wrapper">
+        <div className="all-but-submitted-bar">
+          {this.renderProjectorHeader()}
           {this.renderPrompt(this.getPromptElements())}
           {this.renderCues()}
-          <div style={{marginBottom: 20}}>
-            {this.renderInstructions()}
-          </div>
+          {this.renderInstructions()}
+          {this.renderProject()}
           {this.renderSubmitButton()}
         </div>
-        )
-    }
-    return(
-      <div className="fill-in-the-blank">
-        {content}
+        {this.renderSubmittedBar()}
       </div>
 
     )

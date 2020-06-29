@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   include QuillAuthentication
 
-  before_filter :authorize!, except: [:student_demo, :join_classroom]
+  before_filter :authorize!, except: [:student_demo, :demo_ap, :join_classroom]
   before_action :redirect_to_profile, only: [:index]
 
   def index
@@ -26,6 +26,17 @@ class StudentsController < ApplicationController
       Demo::ReportDemoDestroyer.destroy_demo(nil)
       Demo::ReportDemoCreator.create_demo(nil)
       redirect_to "/student_demo"
+    else
+      sign_in @user
+      redirect_to classes_path
+    end
+  end
+
+  def demo_ap
+    @user = User.find_by_email 'bell_hooks_demo@quill.org'
+    if @user.nil?
+      Demo::ReportDemoAPCreator.create_demo(nil)
+      redirect_to "/student_demo_ap"
     else
       sign_in @user
       redirect_to classes_path
