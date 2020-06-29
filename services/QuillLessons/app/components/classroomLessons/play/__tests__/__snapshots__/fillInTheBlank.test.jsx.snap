@@ -45,36 +45,138 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
   submissions={null}
 >
   <div
-    className="fill-in-the-blank"
+    className="fill-in-the-blank student-slide-wrapper"
   >
-    <ProjectorHeader
-      studentCount={1}
-      submissions={null}
+    <div
+      className="all-but-submitted-bar"
     >
-      <div
-        className="projector-header-section"
+      <ProjectorHeader
+        studentCount={1}
+        submissions={null}
       >
         <div
-          className="students-type-tag tag"
+          className="projector-header-section"
         >
-          <img
-            alt="Laptop Icon"
-            src="undefined/images/icons/laptop-glyph.svg"
-          />
-          <span>
-            Students type response
-          </span>
+          <div
+            className="students-type-tag tag"
+          >
+            <img
+              alt="Laptop Icon"
+              src="undefined/images/icons/laptop-glyph.svg"
+            />
+            <span>
+              Students type response
+            </span>
+          </div>
+          <p
+            className="answered-count"
+          >
+            0 of 1 have responded
+          </p>
         </div>
-        <p
-          className="answered-count"
-        >
-          0 of 1 have responded
-        </p>
-      </div>
-    </ProjectorHeader>
-    <PromptSection
-      mode={null}
-      promptElement={
+      </ProjectorHeader>
+      <PromptSection
+        mode={null}
+        promptElement={
+          <div
+            className="prompt"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "We&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "waited&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "in&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "at&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "the&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "store.&nbsp;",
+                }
+              }
+            />
+            <span>
+              <input
+                aria-label="input0"
+                className="disabled"
+                disabled={true}
+                id="input0"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "70px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </span>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "was&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "very&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "long!&nbsp;",
+                }
+              }
+            />
+          </div>
+        }
+      >
         <div
           className="prompt"
         >
@@ -84,6 +186,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "We&nbsp;",
               }
             }
+            key="We0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -91,6 +194,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "waited&nbsp;",
               }
             }
+            key="waited1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -98,6 +202,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "in&nbsp;",
               }
             }
+            key="in2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -105,6 +210,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "line&nbsp;",
               }
             }
+            key="line3"
           />
           <div
             dangerouslySetInnerHTML={
@@ -112,6 +218,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "at&nbsp;",
               }
             }
+            key="at4"
           />
           <div
             dangerouslySetInnerHTML={
@@ -119,6 +226,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "the&nbsp;",
               }
             }
+            key="the5"
           />
           <div
             dangerouslySetInnerHTML={
@@ -126,13 +234,17 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "store.&nbsp;",
               }
             }
+            key="store.6"
           />
-          <span>
+          <span
+            key="span0"
+          >
             <input
               aria-label="input0"
               className="disabled"
               disabled={true}
               id="input0"
+              key="100"
               onChange={[Function]}
               style={
                 Object {
@@ -149,6 +261,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "line&nbsp;",
               }
             }
+            key="line0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -156,6 +269,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "was&nbsp;",
               }
             }
+            key="was1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -163,6 +277,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "very&nbsp;",
               }
             }
+            key="very2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -170,192 +285,58 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
                 "__html": "long!&nbsp;",
               }
             }
+            key="long!3"
           />
         </div>
-      }
-    >
-      <div
-        className="prompt"
+      </PromptSection>
+      <Component
+        cues={
+          Array [
+            "the",
+            "a",
+          ]
+        }
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "We&nbsp;",
-            }
-          }
-          key="We0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "waited&nbsp;",
-            }
-          }
-          key="waited1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "in&nbsp;",
-            }
-          }
-          key="in2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line3"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "at&nbsp;",
-            }
-          }
-          key="at4"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "the&nbsp;",
-            }
-          }
-          key="the5"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "store.&nbsp;",
-            }
-          }
-          key="store.6"
-        />
-        <span
-          key="span0"
+          className="cues"
         >
-          <input
-            aria-label="input0"
-            className="disabled"
-            disabled={true}
-            id="input0"
-            key="100"
-            onChange={[Function]}
-            style={
-              Object {
-                "width": "70px",
-              }
-            }
-            type="text"
-            value=""
-          />
-        </span>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "was&nbsp;",
-            }
-          }
-          key="was1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "very&nbsp;",
-            }
-          }
-          key="very2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "long!&nbsp;",
-            }
-          }
-          key="long!3"
-        />
-      </div>
-    </PromptSection>
-    <Component
-      cues={
-        Array [
-          "the",
-          "a",
-        ]
-      }
-    >
-      <div
-        className="cues"
-      >
-        <Cue
-          cue="the"
-          key="0the"
-        >
-          <div
-            className="cue"
+          <Cue
+            cue="the"
+            key="0the"
           >
-            the
-          </div>
-        </Cue>
-        <Cue
-          cue="a"
-          key="1a"
-        >
-          <div
-            className="cue"
+            <div
+              className="cue"
+            >
+              the
+            </div>
+          </Cue>
+          <Cue
+            cue="a"
+            key="1a"
           >
-            a
-          </div>
-        </Cue>
-        <img
-          alt="Arrow Icon"
-          src="undefined/images/icons/pointing-arrow.svg"
-        />
-        <CueExplanation
-          text="choose one"
-        >
-          <div
-            className="cue-explanation"
-          >
-            choose one
-          </div>
-        </CueExplanation>
-      </div>
-    </Component>
-    <Feedback
-      feedback={
-        <p
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Fill in the blank with one of the highlighted words.",
-            }
-          }
-        />
-      }
-      feedbackType="default"
-    >
-      <div
-        className="student-feedback-container default"
-        role="status"
-      >
-        <div
-          className="feedback-row student-feedback-inner-container"
-        >
+            <div
+              className="cue"
+            >
+              a
+            </div>
+          </Cue>
           <img
-            alt="Directions Icon"
-            className="info"
-            src="undefined/images/icons/direction.svg"
+            alt="Arrow Icon"
+            src="undefined/images/icons/pointing-arrow.svg"
           />
+          <CueExplanation
+            text="choose one"
+          >
+            <div
+              className="cue-explanation"
+            >
+              choose one
+            </div>
+          </CueExplanation>
+        </div>
+      </Component>
+      <Feedback
+        feedback={
           <p
             dangerouslySetInnerHTML={
               Object {
@@ -363,26 +344,49 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
               }
             }
           />
-        </div>
-      </div>
-    </Feedback>
-    <SubmitButton
-      disabled={true}
-      onClick={[Function]}
-    >
-      <div
-        className="question-button-group"
+        }
+        feedbackType="default"
       >
-        <button
-          className="quill-button primary contained large focus-on-light disabled"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="student-feedback-container default"
+          role="status"
         >
-          Submit
-        </button>
-      </div>
-    </SubmitButton>
+          <div
+            className="feedback-row student-feedback-inner-container"
+          >
+            <img
+              alt="Directions Icon"
+              className="info"
+              src="undefined/images/icons/direction.svg"
+            />
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Fill in the blank with one of the highlighted words.",
+                }
+              }
+            />
+          </div>
+        </div>
+      </Feedback>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
   </div>
 </FillInTheBlank>
 `;
@@ -446,42 +450,144 @@ exports[`FillInTheBlank component projector view when an answer is being display
   }
 >
   <div
-    className="fill-in-the-blank"
+    className="fill-in-the-blank student-slide-wrapper"
   >
-    <ProjectorHeader
-      studentCount={1}
-      submissions={
-        Object {
-          "student": Object {
-            "data": "Blah",
-            "timestamp": "2020-06-15T20:02:41.677Z",
-          },
-        }
-      }
+    <div
+      className="all-but-submitted-bar"
     >
-      <div
-        className="projector-header-section"
+      <ProjectorHeader
+        studentCount={1}
+        submissions={
+          Object {
+            "student": Object {
+              "data": "Blah",
+              "timestamp": "2020-06-15T20:02:41.677Z",
+            },
+          }
+        }
       >
         <div
-          className="students-type-tag tag"
+          className="projector-header-section"
         >
-          <img
-            alt="Laptop Icon"
-            src="undefined/images/icons/laptop-glyph.svg"
-          />
-          <span>
-            Students type response
-          </span>
+          <div
+            className="students-type-tag tag"
+          >
+            <img
+              alt="Laptop Icon"
+              src="undefined/images/icons/laptop-glyph.svg"
+            />
+            <span>
+              Students type response
+            </span>
+          </div>
+          <p
+            className="answered-count"
+          >
+            1 of 1 have responded
+          </p>
         </div>
-        <p
-          className="answered-count"
-        >
-          1 of 1 have responded
-        </p>
-      </div>
-    </ProjectorHeader>
-    <PromptSection
-      promptElement={
+      </ProjectorHeader>
+      <PromptSection
+        promptElement={
+          <div
+            className="prompt"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "We&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "waited&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "in&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "at&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "the&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "store.&nbsp;",
+                }
+              }
+            />
+            <span>
+              <input
+                aria-label="input0"
+                className="disabled"
+                disabled={true}
+                id="input0"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "70px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </span>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "was&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "very&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "long!&nbsp;",
+                }
+              }
+            />
+          </div>
+        }
+      >
         <div
           className="prompt"
         >
@@ -491,6 +597,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "We&nbsp;",
               }
             }
+            key="We0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -498,6 +605,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "waited&nbsp;",
               }
             }
+            key="waited1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -505,6 +613,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "in&nbsp;",
               }
             }
+            key="in2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -512,6 +621,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "line&nbsp;",
               }
             }
+            key="line3"
           />
           <div
             dangerouslySetInnerHTML={
@@ -519,6 +629,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "at&nbsp;",
               }
             }
+            key="at4"
           />
           <div
             dangerouslySetInnerHTML={
@@ -526,6 +637,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "the&nbsp;",
               }
             }
+            key="the5"
           />
           <div
             dangerouslySetInnerHTML={
@@ -533,13 +645,17 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "store.&nbsp;",
               }
             }
+            key="store.6"
           />
-          <span>
+          <span
+            key="span0"
+          >
             <input
               aria-label="input0"
               className="disabled"
               disabled={true}
               id="input0"
+              key="100"
               onChange={[Function]}
               style={
                 Object {
@@ -556,6 +672,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "line&nbsp;",
               }
             }
+            key="line0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -563,6 +680,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "was&nbsp;",
               }
             }
+            key="was1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -570,6 +688,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "very&nbsp;",
               }
             }
+            key="very2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -577,192 +696,58 @@ exports[`FillInTheBlank component projector view when an answer is being display
                 "__html": "long!&nbsp;",
               }
             }
+            key="long!3"
           />
         </div>
-      }
-    >
-      <div
-        className="prompt"
+      </PromptSection>
+      <Component
+        cues={
+          Array [
+            "the",
+            "a",
+          ]
+        }
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "We&nbsp;",
-            }
-          }
-          key="We0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "waited&nbsp;",
-            }
-          }
-          key="waited1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "in&nbsp;",
-            }
-          }
-          key="in2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line3"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "at&nbsp;",
-            }
-          }
-          key="at4"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "the&nbsp;",
-            }
-          }
-          key="the5"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "store.&nbsp;",
-            }
-          }
-          key="store.6"
-        />
-        <span
-          key="span0"
+          className="cues"
         >
-          <input
-            aria-label="input0"
-            className="disabled"
-            disabled={true}
-            id="input0"
-            key="100"
-            onChange={[Function]}
-            style={
-              Object {
-                "width": "70px",
-              }
-            }
-            type="text"
-            value=""
-          />
-        </span>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "was&nbsp;",
-            }
-          }
-          key="was1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "very&nbsp;",
-            }
-          }
-          key="very2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "long!&nbsp;",
-            }
-          }
-          key="long!3"
-        />
-      </div>
-    </PromptSection>
-    <Component
-      cues={
-        Array [
-          "the",
-          "a",
-        ]
-      }
-    >
-      <div
-        className="cues"
-      >
-        <Cue
-          cue="the"
-          key="0the"
-        >
-          <div
-            className="cue"
+          <Cue
+            cue="the"
+            key="0the"
           >
-            the
-          </div>
-        </Cue>
-        <Cue
-          cue="a"
-          key="1a"
-        >
-          <div
-            className="cue"
+            <div
+              className="cue"
+            >
+              the
+            </div>
+          </Cue>
+          <Cue
+            cue="a"
+            key="1a"
           >
-            a
-          </div>
-        </Cue>
-        <img
-          alt="Arrow Icon"
-          src="undefined/images/icons/pointing-arrow.svg"
-        />
-        <CueExplanation
-          text="choose one"
-        >
-          <div
-            className="cue-explanation"
-          >
-            choose one
-          </div>
-        </CueExplanation>
-      </div>
-    </Component>
-    <Feedback
-      feedback={
-        <p
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Fill in the blank with one of the highlighted words.",
-            }
-          }
-        />
-      }
-      feedbackType="default"
-    >
-      <div
-        className="student-feedback-container default"
-        role="status"
-      >
-        <div
-          className="feedback-row student-feedback-inner-container"
-        >
+            <div
+              className="cue"
+            >
+              a
+            </div>
+          </Cue>
           <img
-            alt="Directions Icon"
-            className="info"
-            src="undefined/images/icons/direction.svg"
+            alt="Arrow Icon"
+            src="undefined/images/icons/pointing-arrow.svg"
           />
+          <CueExplanation
+            text="choose one"
+          >
+            <div
+              className="cue-explanation"
+            >
+              choose one
+            </div>
+          </CueExplanation>
+        </div>
+      </Component>
+      <Feedback
+        feedback={
           <p
             dangerouslySetInnerHTML={
               Object {
@@ -770,26 +755,49 @@ exports[`FillInTheBlank component projector view when an answer is being display
               }
             }
           />
-        </div>
-      </div>
-    </Feedback>
-    <SubmitButton
-      disabled={true}
-      onClick={[Function]}
-    >
-      <div
-        className="question-button-group"
+        }
+        feedbackType="default"
       >
-        <button
-          className="quill-button primary contained large focus-on-light disabled"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="student-feedback-container default"
+          role="status"
         >
-          Submit
-        </button>
-      </div>
-    </SubmitButton>
+          <div
+            className="feedback-row student-feedback-inner-container"
+          >
+            <img
+              alt="Directions Icon"
+              className="info"
+              src="undefined/images/icons/direction.svg"
+            />
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Fill in the blank with one of the highlighted words.",
+                }
+              }
+            />
+          </div>
+        </div>
+      </Feedback>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
   </div>
 </FillInTheBlank>
 `;
@@ -838,11 +846,112 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
   submissions={null}
 >
   <div
-    className="fill-in-the-blank"
+    className="fill-in-the-blank student-slide-wrapper"
   >
-    <PromptSection
-      mode={null}
-      promptElement={
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        mode={null}
+        promptElement={
+          <div
+            className="prompt"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "We&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "waited&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "in&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "at&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "the&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "store.&nbsp;",
+                }
+              }
+            />
+            <span>
+              <input
+                aria-label="input0"
+                className=""
+                id="input0"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "70px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </span>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "was&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "very&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "long!&nbsp;",
+                }
+              }
+            />
+          </div>
+        }
+      >
         <div
           className="prompt"
         >
@@ -852,6 +961,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "We&nbsp;",
               }
             }
+            key="We0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -859,6 +969,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "waited&nbsp;",
               }
             }
+            key="waited1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -866,6 +977,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "in&nbsp;",
               }
             }
+            key="in2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -873,6 +985,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "line&nbsp;",
               }
             }
+            key="line3"
           />
           <div
             dangerouslySetInnerHTML={
@@ -880,6 +993,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "at&nbsp;",
               }
             }
+            key="at4"
           />
           <div
             dangerouslySetInnerHTML={
@@ -887,6 +1001,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "the&nbsp;",
               }
             }
+            key="the5"
           />
           <div
             dangerouslySetInnerHTML={
@@ -894,12 +1009,16 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "store.&nbsp;",
               }
             }
+            key="store.6"
           />
-          <span>
+          <span
+            key="span0"
+          >
             <input
               aria-label="input0"
               className=""
               id="input0"
+              key="100"
               onChange={[Function]}
               style={
                 Object {
@@ -916,6 +1035,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "line&nbsp;",
               }
             }
+            key="line0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -923,6 +1043,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "was&nbsp;",
               }
             }
+            key="was1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -930,6 +1051,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "very&nbsp;",
               }
             }
+            key="very2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -937,191 +1059,58 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
                 "__html": "long!&nbsp;",
               }
             }
+            key="long!3"
           />
         </div>
-      }
-    >
-      <div
-        className="prompt"
+      </PromptSection>
+      <Component
+        cues={
+          Array [
+            "the",
+            "a",
+          ]
+        }
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "We&nbsp;",
-            }
-          }
-          key="We0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "waited&nbsp;",
-            }
-          }
-          key="waited1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "in&nbsp;",
-            }
-          }
-          key="in2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line3"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "at&nbsp;",
-            }
-          }
-          key="at4"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "the&nbsp;",
-            }
-          }
-          key="the5"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "store.&nbsp;",
-            }
-          }
-          key="store.6"
-        />
-        <span
-          key="span0"
+          className="cues"
         >
-          <input
-            aria-label="input0"
-            className=""
-            id="input0"
-            key="100"
-            onChange={[Function]}
-            style={
-              Object {
-                "width": "70px",
-              }
-            }
-            type="text"
-            value=""
-          />
-        </span>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "was&nbsp;",
-            }
-          }
-          key="was1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "very&nbsp;",
-            }
-          }
-          key="very2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "long!&nbsp;",
-            }
-          }
-          key="long!3"
-        />
-      </div>
-    </PromptSection>
-    <Component
-      cues={
-        Array [
-          "the",
-          "a",
-        ]
-      }
-    >
-      <div
-        className="cues"
-      >
-        <Cue
-          cue="the"
-          key="0the"
-        >
-          <div
-            className="cue"
+          <Cue
+            cue="the"
+            key="0the"
           >
-            the
-          </div>
-        </Cue>
-        <Cue
-          cue="a"
-          key="1a"
-        >
-          <div
-            className="cue"
+            <div
+              className="cue"
+            >
+              the
+            </div>
+          </Cue>
+          <Cue
+            cue="a"
+            key="1a"
           >
-            a
-          </div>
-        </Cue>
-        <img
-          alt="Arrow Icon"
-          src="undefined/images/icons/pointing-arrow.svg"
-        />
-        <CueExplanation
-          text="choose one"
-        >
-          <div
-            className="cue-explanation"
-          >
-            choose one
-          </div>
-        </CueExplanation>
-      </div>
-    </Component>
-    <Feedback
-      feedback={
-        <p
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Fill in the blank with one of the highlighted words.",
-            }
-          }
-        />
-      }
-      feedbackType="default"
-    >
-      <div
-        className="student-feedback-container default"
-        role="status"
-      >
-        <div
-          className="feedback-row student-feedback-inner-container"
-        >
+            <div
+              className="cue"
+            >
+              a
+            </div>
+          </Cue>
           <img
-            alt="Directions Icon"
-            className="info"
-            src="undefined/images/icons/direction.svg"
+            alt="Arrow Icon"
+            src="undefined/images/icons/pointing-arrow.svg"
           />
+          <CueExplanation
+            text="choose one"
+          >
+            <div
+              className="cue-explanation"
+            >
+              choose one
+            </div>
+          </CueExplanation>
+        </div>
+      </Component>
+      <Feedback
+        feedback={
           <p
             dangerouslySetInnerHTML={
               Object {
@@ -1129,26 +1118,49 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
               }
             }
           />
-        </div>
-      </div>
-    </Feedback>
-    <SubmitButton
-      disabled={true}
-      onClick={[Function]}
-    >
-      <div
-        className="question-button-group"
+        }
+        feedbackType="default"
       >
-        <button
-          className="quill-button primary contained large focus-on-light disabled"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="student-feedback-container default"
+          role="status"
         >
-          Submit
-        </button>
-      </div>
-    </SubmitButton>
+          <div
+            className="feedback-row student-feedback-inner-container"
+          >
+            <img
+              alt="Directions Icon"
+              className="info"
+              src="undefined/images/icons/direction.svg"
+            />
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Fill in the blank with one of the highlighted words.",
+                }
+              }
+            />
+          </div>
+        </div>
+      </Feedback>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
   </div>
 </FillInTheBlank>
 `;
@@ -1211,10 +1223,111 @@ exports[`FillInTheBlank component student view when an answer is being displayed
   }
 >
   <div
-    className="fill-in-the-blank"
+    className="fill-in-the-blank student-slide-wrapper"
   >
-    <PromptSection
-      promptElement={
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        promptElement={
+          <div
+            className="prompt"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "We&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "waited&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "in&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "at&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "the&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "store.&nbsp;",
+                }
+              }
+            />
+            <span>
+              <input
+                aria-label="input0"
+                className=""
+                id="input0"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "70px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </span>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "was&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "very&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "long!&nbsp;",
+                }
+              }
+            />
+          </div>
+        }
+      >
         <div
           className="prompt"
         >
@@ -1224,6 +1337,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "We&nbsp;",
               }
             }
+            key="We0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1231,6 +1345,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "waited&nbsp;",
               }
             }
+            key="waited1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1238,6 +1353,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "in&nbsp;",
               }
             }
+            key="in2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1245,6 +1361,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "line&nbsp;",
               }
             }
+            key="line3"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1252,6 +1369,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "at&nbsp;",
               }
             }
+            key="at4"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1259,6 +1377,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "the&nbsp;",
               }
             }
+            key="the5"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1266,12 +1385,16 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "store.&nbsp;",
               }
             }
+            key="store.6"
           />
-          <span>
+          <span
+            key="span0"
+          >
             <input
               aria-label="input0"
               className=""
               id="input0"
+              key="100"
               onChange={[Function]}
               style={
                 Object {
@@ -1288,6 +1411,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "line&nbsp;",
               }
             }
+            key="line0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1295,6 +1419,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "was&nbsp;",
               }
             }
+            key="was1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1302,6 +1427,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "very&nbsp;",
               }
             }
+            key="very2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1309,191 +1435,58 @@ exports[`FillInTheBlank component student view when an answer is being displayed
                 "__html": "long!&nbsp;",
               }
             }
+            key="long!3"
           />
         </div>
-      }
-    >
-      <div
-        className="prompt"
+      </PromptSection>
+      <Component
+        cues={
+          Array [
+            "the",
+            "a",
+          ]
+        }
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "We&nbsp;",
-            }
-          }
-          key="We0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "waited&nbsp;",
-            }
-          }
-          key="waited1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "in&nbsp;",
-            }
-          }
-          key="in2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line3"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "at&nbsp;",
-            }
-          }
-          key="at4"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "the&nbsp;",
-            }
-          }
-          key="the5"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "store.&nbsp;",
-            }
-          }
-          key="store.6"
-        />
-        <span
-          key="span0"
+          className="cues"
         >
-          <input
-            aria-label="input0"
-            className=""
-            id="input0"
-            key="100"
-            onChange={[Function]}
-            style={
-              Object {
-                "width": "70px",
-              }
-            }
-            type="text"
-            value=""
-          />
-        </span>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "was&nbsp;",
-            }
-          }
-          key="was1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "very&nbsp;",
-            }
-          }
-          key="very2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "long!&nbsp;",
-            }
-          }
-          key="long!3"
-        />
-      </div>
-    </PromptSection>
-    <Component
-      cues={
-        Array [
-          "the",
-          "a",
-        ]
-      }
-    >
-      <div
-        className="cues"
-      >
-        <Cue
-          cue="the"
-          key="0the"
-        >
-          <div
-            className="cue"
+          <Cue
+            cue="the"
+            key="0the"
           >
-            the
-          </div>
-        </Cue>
-        <Cue
-          cue="a"
-          key="1a"
-        >
-          <div
-            className="cue"
+            <div
+              className="cue"
+            >
+              the
+            </div>
+          </Cue>
+          <Cue
+            cue="a"
+            key="1a"
           >
-            a
-          </div>
-        </Cue>
-        <img
-          alt="Arrow Icon"
-          src="undefined/images/icons/pointing-arrow.svg"
-        />
-        <CueExplanation
-          text="choose one"
-        >
-          <div
-            className="cue-explanation"
-          >
-            choose one
-          </div>
-        </CueExplanation>
-      </div>
-    </Component>
-    <Feedback
-      feedback={
-        <p
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Fill in the blank with one of the highlighted words.",
-            }
-          }
-        />
-      }
-      feedbackType="default"
-    >
-      <div
-        className="student-feedback-container default"
-        role="status"
-      >
-        <div
-          className="feedback-row student-feedback-inner-container"
-        >
+            <div
+              className="cue"
+            >
+              a
+            </div>
+          </Cue>
           <img
-            alt="Directions Icon"
-            className="info"
-            src="undefined/images/icons/direction.svg"
+            alt="Arrow Icon"
+            src="undefined/images/icons/pointing-arrow.svg"
           />
+          <CueExplanation
+            text="choose one"
+          >
+            <div
+              className="cue-explanation"
+            >
+              choose one
+            </div>
+          </CueExplanation>
+        </div>
+      </Component>
+      <Feedback
+        feedback={
           <p
             dangerouslySetInnerHTML={
               Object {
@@ -1501,26 +1494,49 @@ exports[`FillInTheBlank component student view when an answer is being displayed
               }
             }
           />
-        </div>
-      </div>
-    </Feedback>
-    <SubmitButton
-      disabled={true}
-      onClick={[Function]}
-    >
-      <div
-        className="question-button-group"
+        }
+        feedbackType="default"
       >
-        <button
-          className="quill-button primary contained large focus-on-light disabled"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="student-feedback-container default"
+          role="status"
         >
-          Submit
-        </button>
-      </div>
-    </SubmitButton>
+          <div
+            className="feedback-row student-feedback-inner-container"
+          >
+            <img
+              alt="Directions Icon"
+              className="info"
+              src="undefined/images/icons/direction.svg"
+            />
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Fill in the blank with one of the highlighted words.",
+                }
+              }
+            />
+          </div>
+        </div>
+      </Feedback>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
   </div>
 </FillInTheBlank>
 `;
@@ -1576,11 +1592,112 @@ exports[`FillInTheBlank component student view when the student has submitted an
   }
 >
   <div
-    className="fill-in-the-blank"
+    className="fill-in-the-blank student-slide-wrapper"
   >
-    <PromptSection
-      mode={null}
-      promptElement={
+    <div
+      className="all-but-submitted-bar"
+    >
+      <PromptSection
+        mode={null}
+        promptElement={
+          <div
+            className="prompt"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "We&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "waited&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "in&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "at&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "the&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "store.&nbsp;",
+                }
+              }
+            />
+            <span>
+              <input
+                aria-label="input0"
+                className=""
+                id="input0"
+                onChange={[Function]}
+                style={
+                  Object {
+                    "width": "70px",
+                  }
+                }
+                type="text"
+                value=""
+              />
+            </span>
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "line&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "was&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "very&nbsp;",
+                }
+              }
+            />
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "long!&nbsp;",
+                }
+              }
+            />
+          </div>
+        }
+      >
         <div
           className="prompt"
         >
@@ -1590,6 +1707,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "We&nbsp;",
               }
             }
+            key="We0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1597,6 +1715,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "waited&nbsp;",
               }
             }
+            key="waited1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1604,6 +1723,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "in&nbsp;",
               }
             }
+            key="in2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1611,6 +1731,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "line&nbsp;",
               }
             }
+            key="line3"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1618,6 +1739,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "at&nbsp;",
               }
             }
+            key="at4"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1625,6 +1747,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "the&nbsp;",
               }
             }
+            key="the5"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1632,12 +1755,16 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "store.&nbsp;",
               }
             }
+            key="store.6"
           />
-          <span>
+          <span
+            key="span0"
+          >
             <input
               aria-label="input0"
               className=""
               id="input0"
+              key="100"
               onChange={[Function]}
               style={
                 Object {
@@ -1654,6 +1781,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "line&nbsp;",
               }
             }
+            key="line0"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1661,6 +1789,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "was&nbsp;",
               }
             }
+            key="was1"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1668,6 +1797,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "very&nbsp;",
               }
             }
+            key="very2"
           />
           <div
             dangerouslySetInnerHTML={
@@ -1675,191 +1805,58 @@ exports[`FillInTheBlank component student view when the student has submitted an
                 "__html": "long!&nbsp;",
               }
             }
+            key="long!3"
           />
         </div>
-      }
-    >
-      <div
-        className="prompt"
+      </PromptSection>
+      <Component
+        cues={
+          Array [
+            "the",
+            "a",
+          ]
+        }
       >
         <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "We&nbsp;",
-            }
-          }
-          key="We0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "waited&nbsp;",
-            }
-          }
-          key="waited1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "in&nbsp;",
-            }
-          }
-          key="in2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line3"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "at&nbsp;",
-            }
-          }
-          key="at4"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "the&nbsp;",
-            }
-          }
-          key="the5"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "store.&nbsp;",
-            }
-          }
-          key="store.6"
-        />
-        <span
-          key="span0"
+          className="cues"
         >
-          <input
-            aria-label="input0"
-            className=""
-            id="input0"
-            key="100"
-            onChange={[Function]}
-            style={
-              Object {
-                "width": "70px",
-              }
-            }
-            type="text"
-            value=""
-          />
-        </span>
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "line&nbsp;",
-            }
-          }
-          key="line0"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "was&nbsp;",
-            }
-          }
-          key="was1"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "very&nbsp;",
-            }
-          }
-          key="very2"
-        />
-        <div
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "long!&nbsp;",
-            }
-          }
-          key="long!3"
-        />
-      </div>
-    </PromptSection>
-    <Component
-      cues={
-        Array [
-          "the",
-          "a",
-        ]
-      }
-    >
-      <div
-        className="cues"
-      >
-        <Cue
-          cue="the"
-          key="0the"
-        >
-          <div
-            className="cue"
+          <Cue
+            cue="the"
+            key="0the"
           >
-            the
-          </div>
-        </Cue>
-        <Cue
-          cue="a"
-          key="1a"
-        >
-          <div
-            className="cue"
+            <div
+              className="cue"
+            >
+              the
+            </div>
+          </Cue>
+          <Cue
+            cue="a"
+            key="1a"
           >
-            a
-          </div>
-        </Cue>
-        <img
-          alt="Arrow Icon"
-          src="undefined/images/icons/pointing-arrow.svg"
-        />
-        <CueExplanation
-          text="choose one"
-        >
-          <div
-            className="cue-explanation"
-          >
-            choose one
-          </div>
-        </CueExplanation>
-      </div>
-    </Component>
-    <Feedback
-      feedback={
-        <p
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "Fill in the blank with one of the highlighted words.",
-            }
-          }
-        />
-      }
-      feedbackType="default"
-    >
-      <div
-        className="student-feedback-container default"
-        role="status"
-      >
-        <div
-          className="feedback-row student-feedback-inner-container"
-        >
+            <div
+              className="cue"
+            >
+              a
+            </div>
+          </Cue>
           <img
-            alt="Directions Icon"
-            className="info"
-            src="undefined/images/icons/direction.svg"
+            alt="Arrow Icon"
+            src="undefined/images/icons/pointing-arrow.svg"
           />
+          <CueExplanation
+            text="choose one"
+          >
+            <div
+              className="cue-explanation"
+            >
+              choose one
+            </div>
+          </CueExplanation>
+        </div>
+      </Component>
+      <Feedback
+        feedback={
           <p
             dangerouslySetInnerHTML={
               Object {
@@ -1867,26 +1864,49 @@ exports[`FillInTheBlank component student view when the student has submitted an
               }
             }
           />
-        </div>
-      </div>
-    </Feedback>
-    <SubmitButton
-      disabled={true}
-      onClick={[Function]}
-    >
-      <div
-        className="question-button-group"
+        }
+        feedbackType="default"
       >
-        <button
-          className="quill-button primary contained large focus-on-light disabled"
-          disabled={true}
-          onClick={[Function]}
-          type="button"
+        <div
+          className="student-feedback-container default"
+          role="status"
         >
-          Submit
-        </button>
-      </div>
-    </SubmitButton>
+          <div
+            className="feedback-row student-feedback-inner-container"
+          >
+            <img
+              alt="Directions Icon"
+              className="info"
+              src="undefined/images/icons/direction.svg"
+            />
+            <p
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Fill in the blank with one of the highlighted words.",
+                }
+              }
+            />
+          </div>
+        </div>
+      </Feedback>
+      <SubmitButton
+        disabled={true}
+        onClick={[Function]}
+      >
+        <div
+          className="question-button-group"
+        >
+          <button
+            className="quill-button primary contained large focus-on-light disabled"
+            disabled={true}
+            onClick={[Function]}
+            type="button"
+          >
+            Submit
+          </button>
+        </div>
+      </SubmitButton>
+    </div>
   </div>
 </FillInTheBlank>
 `;
