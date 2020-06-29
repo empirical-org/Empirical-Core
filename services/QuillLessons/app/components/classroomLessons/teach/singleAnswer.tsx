@@ -51,7 +51,9 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
   }
 
   render() {
-    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, selected_submission_order, prompts} = this.props.data;
+    const { data, editionData, } = this.props
+    const { selected_submissions, submissions, current_slide, students, presence, modes, timestamps, flaggedStudents, models, selected_submission_order, prompts} = data;
+    const currentSlideType = editionData.questions[current_slide].type
     const promptNotEmpty = prompts && prompts[current_slide] && textEditorInputNotEmpty(prompts[current_slide]);
     const showHeaderText: string = this.props.onlyShowHeaders ? 'Show Step-By-Step Guide' : 'Hide Step-By-Step Guide';
     return (
@@ -68,8 +70,9 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
           clearAllSelectedSubmissions={this.props.clearAllSelectedSubmissions}
           clearAllSubmissions={this.props.clearAllSubmissions}
           clearStudentSubmission={this.props.clearStudentSubmission}
-          cues={this.props.editionData.questions[current_slide].data.play.cues || undefined}
+          cues={editionData.questions[current_slide].data.play.cues || undefined}
           current_slide={current_slide}
+          currentSlideType={currentSlideType}
           flaggedStudents={flaggedStudents}
           lessonPrompt={this.props.editionData.questions[current_slide].data.play.prompt}
           models={models}

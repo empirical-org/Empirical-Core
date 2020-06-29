@@ -5,7 +5,7 @@ import SubscriberLogos from '../components/premium/subscriber_logos.jsx';
 import DistrictPricingBox from '../components/premium/district_pricing_box.jsx';
 import TeacherPremium from '../components/premium/teacher_premium.jsx';
 import SchoolPremium from '../components/premium/school_premium.jsx';
-import QuestionsAndAnswers from './QuestionsAndAnswers.jsx'
+import QuestionsAndAnswers from './QuestionsAndAnswers.tsx'
 
 export default class PremiumPricingGuide extends React.Component {
   subscribers = () => {
