@@ -7,7 +7,7 @@ module Comprehension
     end
 
     context "index" do
-     should "return successfully - no rule_set" do
+      should "return successfully - no rule_set" do
         get :index, activity_id: 1
 
         parsed_response = JSON.parse(response.body)

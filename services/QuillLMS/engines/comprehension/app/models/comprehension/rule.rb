@@ -20,7 +20,7 @@ module Comprehension
     end
 
     private def set_default_case_sensitivity
-      return if self.case_sensitive.in? [true, false]
+      return if case_sensitive.in? [true, false]
       self.case_sensitive = DEFAULT_CASE_SENSITIVITY
     end
   end
