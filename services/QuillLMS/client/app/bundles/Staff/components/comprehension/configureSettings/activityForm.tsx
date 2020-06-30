@@ -1,10 +1,11 @@
 import * as React from "react";
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildBlankPrompt } from '../../../../../helpers/comprehension';
+// import { flagOptions } from '../../../../../constants/comprehension'
+import { validateForm, buildBlankPrompt, formatPrompt } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
+import { Prompt } from "react-router-dom";
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -17,15 +18,19 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { id, flag, passages, prompts } = activity;
-  const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
+  const { id, passages, prompts, scored_level, target_level, title} = activity;
+  // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
+  const formattedScoredLevel = scored_level ? scored_level : '';
+  const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
   const becausePrompt = prompts && prompts.length ? prompts[0] : buildBlankPrompt(BECAUSE);
   const butPrompt = prompts && prompts.length ? prompts[1] : buildBlankPrompt(BUT);
   const soPrompt = prompts && prompts.length ? prompts[2] : buildBlankPrompt(SO);
 
-  const [activityTitle, setActivityTitle] = React.useState<string>(activity.title || '');
-  const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
+  const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
+  // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
+  const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
+  const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
@@ -33,22 +38,31 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const [errors, setErrors] = React.useState<{}>({});
 
   const handleSetActivityTitle = (e: InputEvent) => { setActivityTitle(e.target.value) };
-  const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
+
+  // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
+
+  const handleSetActivityScoredReadingLevel = (e: InputEvent) => { setActivityScoredReadingLevel(e.target.value) };
+
+  const handleSetActivityTargetReadingLevel = (e: InputEvent) => { setActivityTargetReadingLevel(e.target.value) };
+
   const handleSetActivityPassages = (text: string) => { 
     const updatedPassages = [...activityPassages];
     updatedPassages[0].text = text;
     setActivityPassages(updatedPassages)
    };
+
   const handleSetActivityBecausePrompt = (e: InputEvent) => {
     const updatedBecausePrompt = {...activityBecausePrompt};
     updatedBecausePrompt.text = e.target.value;
     setActivityBecausePrompt(updatedBecausePrompt) 
   };
+
   const handleSetActivityButPrompt = (e: InputEvent) => { 
     const updatedButPrompt = {...activityButPrompt};
     updatedButPrompt.text = e.target.value;
     setActivityButPrompt(updatedButPrompt)  
   };
+
   const handleSetActivitySoPrompt = (e: InputEvent) => { 
     const updatedSoPrompt = {...activitySoPrompt};
     updatedSoPrompt.text = e.target.value;
@@ -56,20 +70,42 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   };
 
   const buildActivity = () => {
-    const { label } = activityFlag;
+    // const { label } = activityFlag;
     return {
       id: id || null,
       title: activityTitle,
-      flag: label,
+      // flag: label,
+      scored_level: activityScoredReadingLevel,
+      target_level: parseInt(activityTargetReadingLevel),
       passages: activityPassages,
-      prompts: [activityBecausePrompt, activityButPrompt, activitySoPrompt]
+      prompts: [
+        formatPrompt(activityBecausePrompt), 
+        formatPrompt(activityButPrompt), 
+        formatPrompt(activitySoPrompt)
+      ]
     };
   }
 
   const handleSubmitActivity = () => {
     const activityObject = buildActivity();
-    const keys = ['Title', 'Passage', 'Because stem', 'But stem', 'So stem'];
-    const state = [activityTitle, activityPassages[0].text, activityBecausePrompt.text, activityButPrompt.text, activitySoPrompt.text];
+    const keys = [
+      'Title', 
+      'Scored reading level', 
+      'Target reading level', 
+      'Passage', 
+      'Because stem', 
+      'But stem', 
+      'So stem'
+    ];
+    const state = [
+      activityTitle,
+      activityScoredReadingLevel,
+      activityTargetReadingLevel,
+      activityPassages[0].text, 
+      activityBecausePrompt.text, 
+      activityButPrompt.text, 
+      activitySoPrompt.text
+    ];
     const validationErrors = validateForm(keys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
@@ -93,13 +129,27 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           label="Title"
           value={activityTitle}
         />
-        <DropdownInput
+        {/* <DropdownInput
           className="flag-input"
           handleChange={handleSetActivityFlag}
           isSearchable={true}
           label="Development Stage"
           options={flagOptions}
           value={activityFlag}
+        /> */}
+        <Input
+          className="scored-reading-level-input"
+          error={errors['Scored reading level']}
+          handleChange={handleSetActivityScoredReadingLevel}
+          label="Scored Reading Level"
+          value={activityScoredReadingLevel}
+        />
+        <Input
+          className="target-reading-level-input"
+          error={errors['Target reading level']}
+          handleChange={handleSetActivityTargetReadingLevel}
+          label="Target Reading Level"
+          value={activityTargetReadingLevel}
         />
         <TextEditor
           ContentState={ContentState}

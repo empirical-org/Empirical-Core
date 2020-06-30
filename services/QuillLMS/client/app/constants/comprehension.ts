@@ -74,7 +74,9 @@ export const DEFAULT_MAX_ATTEMPTS = 5;
 
 export const blankActivity = { 
   title: '', 
-  flag:'', 
+  // flag:'',
+  scored_level: '',
+  target_level: '',
   passages: [{ text: '' }],
   prompts: [
     {

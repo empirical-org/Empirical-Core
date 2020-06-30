@@ -14,7 +14,9 @@ export interface ActivityRuleSetInterface {
 export interface ActivityInterface {
   id?: string,
   title: string,
-  flag: string,
+  // flag: string,
+  scored_level: string,
+  target_level: number,
   passages: PassagesInterface[],
   prompts: PromptInterface[]
 }
