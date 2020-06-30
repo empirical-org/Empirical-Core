@@ -6,7 +6,7 @@ module Comprehension
 
     # GET /activities.json
     def index
-      @activities = Activity.all
+      @activities = Comprehension::Activity.all
 
       render json: @activities
     end
