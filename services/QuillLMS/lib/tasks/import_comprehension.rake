@@ -25,7 +25,7 @@ namespace :import_comprehension do
           Comprehension::Prompt.new(
             max_attempts: p['max_attempts'],
             max_attempts_feedback: p['max_attempts_feedback'],
-            text: p['text'].split[0..-2],
+            text: p['text'].split[0..-2].join(' '),
             conjunction: p['text'].split[-1]
           )
         end,
