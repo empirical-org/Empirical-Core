@@ -54,5 +54,35 @@ module Comprehension
         assert_equal prompt_hash['max_attempts_feedback'], "good work!."
       end
     end
+
+    context 'dependent destroy' do
+      should 'destroy dependent passages' do
+        @activity = create(:comprehension_activity)
+        @passage = create(:comprehension_passage, activity: @activity)
+
+        @activity.destroy
+        assert_equal Passage.exists?(@passage), false
+      end
+
+      should 'destroy dependent prompts' do
+        @activity = create(:comprehension_activity)
+        @prompt = create(:comprehension_prompt, activity: @activity)
+
+        @activity.destroy
+        assert_equal Prompt.exists?(@prompt), false
+      end
+    end
+
+    context 'before_destroy' do
+      should 'expire all associated Turking Rounds before destroy' do
+        @activity = create(:comprehension_activity)
+        @turking_round = create(:comprehension_turking_round, activity: @activity)
+
+        assert_operator @turking_round.expires_at, :>, Time.zone.now
+        @activity.destroy
+        @turking_round.reload
+        assert_operator @turking_round.expires_at, :<, Time.zone.now
+      end
+    end
   end
 end

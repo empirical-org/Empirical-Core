@@ -30,11 +30,8 @@ module Comprehension
           assert_response :success
           assert_equal Array, parsed_response.class
           refute parsed_response.empty?
-      
           assert_equal @turking_round.activity.id, parsed_response.first['activity_id']
-
-          assert_equal @turking_round.expires_at, parsed_response.first['expires_at']
-
+          assert_equal @turking_round.expires_at.iso8601(3), parsed_response.first['expires_at']
         end
       end
     end
@@ -46,13 +43,13 @@ module Comprehension
       end
 
       should "create a valid record and return it as json" do
-        post :create, turking_round: { activity_id: @activity.id, expires_at: @turking_round.expires_at }
+        post :create, turking_round: { activity_id: @activity.id, expires_at: @turking_round.expires_at.iso8601(3) }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal @turking_round.activity_id, parsed_response['activity_id']
-        assert_equal @turking_round.expires_at, parsed_response['expires_at']
+        assert_equal @turking_round.expires_at.iso8601(3), parsed_response['expires_at']
         assert_equal 1, TurkingRound.count
       end
 
@@ -79,11 +76,8 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-    
         assert_equal @turking_round.activity.id, parsed_response['activity_id']
-
-        assert_equal @turking_round.expires_at, parsed_response['expires_at']
-
+        assert_equal @turking_round.expires_at.iso8601(3), parsed_response['expires_at']
       end
 
       should "raise if not found (to be handled by parent app)" do

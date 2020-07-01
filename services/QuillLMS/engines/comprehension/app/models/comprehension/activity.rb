@@ -6,9 +6,11 @@ module Comprehension
     MAX_TITLE_LENGTH = 100
     MAX_SCORED_LEVEL_LENGTH = 100
 
+    before_destroy :expire_turking_rounds
+
     has_many :passages, inverse_of: :activity, dependent: :destroy
     has_many :prompts, inverse_of: :activity, dependent: :destroy
-    has_many :turking_rounds, inverse_of: :activity, dependent: :destroy
+    has_many :turking_rounds, inverse_of: :activity
     belongs_to :parent_activity, class_name: Comprehension.parent_activity_class
 
     accepts_nested_attributes_for :passages, reject_if: proc { |p| p['text'].blank? }
@@ -31,6 +33,10 @@ module Comprehension
         only: [:id, :parent_activity_id, :title, :target_level, :scored_level],
         include: [:passages, :prompts]
       ))
+    end
+
+    private def expire_turking_rounds
+      turking_rounds.each(&:expire!)
     end
   end
 end
