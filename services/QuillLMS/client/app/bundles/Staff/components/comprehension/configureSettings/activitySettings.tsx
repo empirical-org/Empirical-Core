@@ -24,8 +24,8 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     queryFn: fetchActivity
   });
 
-  const handleUpdateActivity = (activity: ActivityInterface) => {
-    updateActivity(activity, activityId).then((response) => {
+  const handleUpdateActivity = (activity: ActivityInterface, csrfToken: string) => {
+    updateActivity(activity, activityId, csrfToken).then((response) => {
       const { error } = response;
       error && setError(error);
       queryCache.refetchQueries(`activity-${activityId}`)

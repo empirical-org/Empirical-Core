@@ -5,24 +5,25 @@ import { EditorState, ContentState } from 'draft-js'
 import { validateForm, buildBlankPrompt, formatPrompt } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
-import { Prompt } from "react-router-dom";
+import stripHtml from "string-strip-html";
 
 // TODO: add form inputs for course, target reading level and reading level score
 
 interface ActivityFormProps {
   activity: ActivityInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitActivity: (activity: ActivityInterface) => void
+  submitActivity: (activity: ActivityInterface, csrfToken: string) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { id, passages, prompts, scored_level, target_level, title} = activity;
+  const { passages, prompts, scored_level, target_level, title } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level ? scored_level : '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
+  const formattedMaxFeedback = prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
   const becausePrompt = prompts && prompts.length ? prompts[0] : buildBlankPrompt(BECAUSE);
   const butPrompt = prompts && prompts.length ? prompts[1] : buildBlankPrompt(BUT);
   const soPrompt = prompts && prompts.length ? prompts[2] : buildBlankPrompt(SO);
@@ -32,6 +33,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const [activityScoredReadingLevel, setActivityScoredReadingLevel] = React.useState<string>(formattedScoredLevel);
   const [activityTargetReadingLevel, setActivityTargetReadingLevel] = React.useState<string>(formattedTargetLevel);
   const [activityPassages, setActivityPassages] = React.useState<PassagesInterface[]>(formattedPassage);
+  const [activityMaxFeedback, setActivityMaxFeedback] = React.useState<string>(formattedMaxFeedback)
   const [activityBecausePrompt, setActivityBecausePrompt] = React.useState<PromptInterface>(becausePrompt);
   const [activityButPrompt, setActivityButPrompt] = React.useState<PromptInterface>(butPrompt);
   const [activitySoPrompt, setActivitySoPrompt] = React.useState<PromptInterface>(soPrompt);
@@ -40,6 +42,8 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const handleSetActivityTitle = (e: InputEvent) => { setActivityTitle(e.target.value) };
 
   // const handleSetActivityFlag = (flag: FlagInterface) => { setActivityFlag(flag) };
+
+  const handleSetActivityMaxFeedback = (text: string) => { setActivityMaxFeedback(text) };
 
   const handleSetActivityScoredReadingLevel = (e: InputEvent) => { setActivityScoredReadingLevel(e.target.value) };
 
@@ -71,27 +75,32 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   const buildActivity = () => {
     // const { label } = activityFlag;
+    const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt].map(prompt => {
+      prompt.max_attempts_feedback = activityMaxFeedback
+      return prompt;
+    });
     return {
-      id: id || null,
       title: activityTitle,
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
-      passages: activityPassages,
-      prompts: [
-        formatPrompt(activityBecausePrompt), 
-        formatPrompt(activityButPrompt), 
-        formatPrompt(activitySoPrompt)
+      passage_attributes: activityPassages,
+      prompt_attributes: [
+        formatPrompt(prompts[0]), 
+        formatPrompt(prompts[1]), 
+        formatPrompt(prompts[2])
       ]
     };
   }
 
   const handleSubmitActivity = () => {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const activityObject = buildActivity();
     const keys = [
       'Title', 
       'Scored reading level', 
-      'Target reading level', 
+      'Target reading level',
+      'Max attempts feedback',
       'Passage', 
       'Because stem', 
       'But stem', 
@@ -101,6 +110,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityTitle,
       activityScoredReadingLevel,
       activityTargetReadingLevel,
+      activityMaxFeedback,
       activityPassages[0].text, 
       activityBecausePrompt.text, 
       activityButPrompt.text, 
@@ -110,11 +120,13 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
     } else {
-      submitActivity(activityObject);
+      submitActivity(activityObject, csrfToken);
     }
   }
 
   const errorsPresent = !!Object.keys(errors).length;
+  const passageLabelStyle = stripHtml(activityPassages[0].text).length ? 'has-text' : '';
+  const maxAttemptStyle = stripHtml(activityMaxFeedback).length ? 'has-text' : '';
 
   return(
     <div className="activity-form-container">
@@ -151,6 +163,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           label="Target Reading Level"
           value={activityTargetReadingLevel}
         />
+        <p className={`text-editor-label ${passageLabelStyle}`}>Passage</p>
         <TextEditor
           ContentState={ContentState}
           EditorState={EditorState}
@@ -159,6 +172,15 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           text={activityPassages[0].text}
         />
         {errors['Passage'] && <p className="error-message">{errors['Passage']}</p>}
+        <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attemps Feedback</p>
+        <TextEditor
+          ContentState={ContentState}
+          EditorState={EditorState}
+          handleTextChange={handleSetActivityMaxFeedback}
+          key="max-attempt-feedback"
+          text={activityMaxFeedback}
+        />
+        {errors['Max attempts feedback'] && <p className="error-message">{errors['Max attempts feedback']}</p>}
         <Input
           className="because-input"
           error={errors['Because stem']}

@@ -76,9 +76,9 @@ export const blankActivity = {
   title: '', 
   // flag:'',
   scored_level: '',
-  target_level: '',
-  passages: [{ text: '' }],
-  prompts: [
+  target_level: null,
+  passage_attributes: [{ text: '' }],
+  prompt_attributes: [
     {
       conjunction: 'because',
       text: '',

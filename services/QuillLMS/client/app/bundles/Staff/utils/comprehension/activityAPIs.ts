@@ -1,6 +1,6 @@
 import { ActivityInterface } from '../../interfaces/comprehensionInterfaces';
 import { handleApiError } from '../../helpers/comprehension';
-const baseUrl = process.env.DEFAULT_URL === 'http://localhost:3000' ? 'https://staging.quill.org' : process.env.DEFAULT_URL;
+const baseUrl = process.env.DEFAULT_URL;
 
 export const fetchActivities = async () => {
   let activities: ActivityInterface[];
@@ -28,31 +28,27 @@ export const fetchActivity = async (key: string, activityId: string) => {
   };
 }
 
-export const createActivity = async (activity: ActivityInterface) => {
-  const activityObject = {
-    // flag: activity.flag,
-    passages: activity.passages,
-    prompts: activity.prompts,
-    title: activity.title
-  }
+export const createActivity = async (activity: any, csrfToken: string) => {
   const response = await fetch(`${baseUrl}/api/v1/comprehension/activities.json`, {
     method: 'POST',
-    body: JSON.stringify(activityObject),
+    body: JSON.stringify(activity),
     headers: {
       "Accept": "application/JSON",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
     },
   });
   return { error: handleApiError('Failed to create activity, please try again.', response) };
 }
 
-export const updateActivity = async (activity: ActivityInterface, activityId: string) => {
+export const updateActivity = async (activity: any, activityId: string, csrfToken: string) => {
   const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}.json`, {
     method: 'PUT',
     body: JSON.stringify(activity),
     headers: {
       "Accept": "application/JSON",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
     },
   });
   return { error: handleApiError('Failed to update activity, please try again.', response) }

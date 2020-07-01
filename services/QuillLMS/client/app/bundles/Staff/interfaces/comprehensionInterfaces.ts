@@ -17,8 +17,10 @@ export interface ActivityInterface {
   // flag: string,
   scored_level: string,
   target_level: number,
-  passages: PassagesInterface[],
-  prompts: PromptInterface[]
+  passages?: PassagesInterface[],
+  prompts?: PromptInterface[],
+  passage_attributes?: PassagesInterface[],
+  prompt_attributes?: PromptInterface[]
 }
 
 export interface PromptInterface {
