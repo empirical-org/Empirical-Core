@@ -32,6 +32,7 @@ module Comprehension
           refute parsed_response.empty?
           assert_equal @turking_round.activity.id, parsed_response.first['activity_id']
           assert_equal @turking_round.expires_at.iso8601(3), parsed_response.first['expires_at']
+          assert_equal @turking_round.uuid, parsed_response.first['uuid']
         end
       end
     end
@@ -43,12 +44,13 @@ module Comprehension
       end
 
       should "create a valid record and return it as json" do
-        post :create, turking_round: { activity_id: @activity.id, expires_at: @turking_round.expires_at.iso8601(3) }
+        post :create, turking_round: { activity_id: @activity.id, uuid: @turking_round.uuid, expires_at: @turking_round.expires_at.iso8601(3) }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
         assert_equal @turking_round.activity_id, parsed_response['activity_id']
+        assert_equal @turking_round.uuid, parsed_response['uuid']
         assert_equal @turking_round.expires_at.iso8601(3), parsed_response['expires_at']
         assert_equal 1, TurkingRound.count
       end
@@ -77,6 +79,7 @@ module Comprehension
 
         assert_equal 200, response.code.to_i
         assert_equal @turking_round.activity.id, parsed_response['activity_id']
+        assert_equal @turking_round.uuid, parsed_response['uuid']
         assert_equal @turking_round.expires_at.iso8601(3), parsed_response['expires_at']
       end
 
@@ -95,24 +98,27 @@ module Comprehension
       should "update record if valid, return nothing" do
         new_activity = create(:comprehension_activity)
         new_datetime = DateTime.now.utc
-        patch :update, id: @turking_round.id, turking_round: { activity_id: new_activity.id, expires_at: new_datetime }
+        new_uuid = SecureRandom.uuid
+        patch :update, id: @turking_round.id, turking_round: { activity_id: new_activity.id, uuid: new_uuid, expires_at: new_datetime }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
 
         @turking_round.reload
         assert_equal new_activity.id, @turking_round.activity_id
+        assert_equal new_uuid, @turking_round.uuid
         assert_equal new_datetime.to_s(:db), @turking_round.expires_at.to_s(:db)
 
       end
 
       should "not update record and return errors as json" do
-        patch :update, id: @turking_round.id, turking_round: { activity_id: nil, expires_at: nil }
+        patch :update, id: @turking_round.id, turking_round: { activity_id: nil, uuid: nil, expires_at: nil }
 
         parsed_response = JSON.parse(response.body)
 
         assert_equal 422, response.code.to_i
         assert parsed_response['activity_id'].include?("can't be blank")
+        assert parsed_response['uuid'].include?("can't be blank")
         assert parsed_response['expires_at'].include?("can't be blank")
       end
     end

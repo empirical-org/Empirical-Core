@@ -1,8 +1,12 @@
 module Comprehension
   class TurkingRound < ActiveRecord::Base
+    before_validation :set_default_uuid, on: :create
+
     belongs_to :activity, inverse_of: :turking_rounds
 
     validates_presence_of :activity_id
+    validates_presence_of :uuid, on: :update
+    validates :uuid, uniqueness: true
     validates :expires_at, presence: true
     validate :expires_at_in_future, on: :create
 
@@ -10,7 +14,7 @@ module Comprehension
       options ||= {}
 
       super(options.reverse_merge(
-        only: ['id', 'activity_id', 'expires_at']
+        only: ['id', 'uuid', 'activity_id', 'expires_at']
       ))
     end
 
@@ -21,6 +25,10 @@ module Comprehension
     private def expires_at_in_future
       return if expires_at.blank?
       errors.add(:expires_at, 'must be in the future') unless expires_at > Time.zone.now
+    end
+
+    private def set_default_uuid
+      self.uuid ||= SecureRandom.uuid
     end
   end
 end

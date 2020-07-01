@@ -46,7 +46,7 @@ module Comprehension
     end
 
     private def turking_round_params
-      params.require(:turking_round).permit(:activity_id, :expires_at)
+      params.require(:turking_round).permit(:activity_id, :uuid, :expires_at)
     end
   end
 end
