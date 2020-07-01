@@ -15,7 +15,7 @@ module Comprehension
     end
 
     def expire!
-      self.update_attributes(expires_at: Time.zone.now)
+      update_attributes(expires_at: Time.zone.now)
     end
 
     private def expires_at_in_future
