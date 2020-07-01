@@ -12,7 +12,7 @@ import PromptSection from './promptSection'
 import SubmitButton from './submitButton'
 import promptSplitter from '../shared/promptSplitter'
 import htmlStrip from '../shared/htmlStrip'
-import { Cues, } from '../../renderForQuestions/cues';
+import Cues from '../../renderForQuestions/cues';
 import { QuestionData } from '../../../interfaces/classroomLessons'
 import { PROJECT } from './constants'
 import { getParameterByName } from '../../../libs/getParameterByName';
@@ -221,7 +221,7 @@ class FillInTheBlank extends React.Component<fillInTheBlankProps, fillInTheBlank
     const { mode, data, } = this.props
     if (mode === PROJECT || !data.play.cues) { return }
     return (
-      <Cues cues={data.play.cues} />
+      <Cues cues={data.play.cues} displayArrowAndText={true} />
     );
   }
 
