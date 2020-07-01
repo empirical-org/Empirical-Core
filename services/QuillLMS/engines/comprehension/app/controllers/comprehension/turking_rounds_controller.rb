@@ -4,7 +4,7 @@ module Comprehension
 
     # GET /turking_rounds.json
     def index
-      @turking_rounds = TurkingRound.all
+      @turking_rounds = Comprehension::TurkingRound.all
 
       render json: @turking_rounds
     end
@@ -16,7 +16,7 @@ module Comprehension
 
     # POST /turking_rounds.json
     def create
-      @turking_round = TurkingRound.new(turking_round_params)
+      @turking_round = Comprehension::TurkingRound.new(turking_round_params)
 
       if @turking_round.save
         render json: @turking_round, status: :created, location: @turking_round
@@ -42,7 +42,7 @@ module Comprehension
     end
 
     private def set_turking_round
-      @turking_round = TurkingRound.find(params[:id])
+      @turking_round = Comprehension::TurkingRound.find(params[:id])
     end
 
     private def turking_round_params
