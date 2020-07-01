@@ -40,17 +40,17 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= orm_instance.destroy %>
     head :no_content
   end
-  private
-    def <%= "set_#{singular_table_name}" %>
-      @<%= singular_table_name %> = <%= namespace %>::<%= orm_class.find(class_name, "params[:id]") %>
-    end
 
-    def <%= "#{singular_table_name}_params" %>
-      <%- if defined?(attributes_names) -%>
-      params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
-      <%- else -%>
-      params[:<%= singular_table_name %>]
-      <%- end -%>
-    end
+  private def <%= "set_#{singular_table_name}" %>
+    @<%= singular_table_name %> = <%= namespace %>::<%= orm_class.find(class_name, "params[:id]") %>
+  end
+
+  private def <%= "#{singular_table_name}_params" %>
+    <%- if defined?(attributes_names) -%>
+    params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+    <%- else -%>
+    params[:<%= singular_table_name %>]
+    <%- end -%>
+  end
 end
 <% end -%>
