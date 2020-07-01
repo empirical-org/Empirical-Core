@@ -4,7 +4,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET <%= route_url %>.json
   def index
-    @<%= plural_table_name %> = Comprehension::<%= orm_class.all(class_name) %>
+    @<%= plural_table_name %> = <%= namespace %>::<%= orm_class.all(class_name) %>
 
     render json: <%= "@#{plural_table_name}" %>
   end
@@ -16,7 +16,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # POST <%= route_url %>.json
   def create
-    @<%= singular_table_name %> = Comprehension::<%= orm_class.build(class_name, "#{singular_table_name}_params") %>
+    @<%= singular_table_name %> = <%= namespace %>::<%= orm_class.build(class_name, "#{singular_table_name}_params") %>
 
     if @<%= orm_instance.save %>
       render json: <%= "@#{singular_table_name}" %>, status: :created, location: <%= "@#{singular_table_name}" %>
@@ -42,7 +42,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
   private
     def <%= "set_#{singular_table_name}" %>
-      @<%= singular_table_name %> = Comprehension::<%= orm_class.find(class_name, "params[:id]") %>
+      @<%= singular_table_name %> = <%= namespace %>::<%= orm_class.find(class_name, "params[:id]") %>
     end
 
     def <%= "#{singular_table_name}_params" %>
