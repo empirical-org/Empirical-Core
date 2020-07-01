@@ -48,7 +48,7 @@ class ModelQuestion extends React.Component<ModelQuestionProps, ModelQuestionSta
     return (
       <div className="display-mode">
         <p className="answer-header">
-          Teacher response
+          Teacher&#39;s response
         </p>
         <p className="teacher-model" dangerouslySetInnerHTML={{__html: model}} />
       </div>
