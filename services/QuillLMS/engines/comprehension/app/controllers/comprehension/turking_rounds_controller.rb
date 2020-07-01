@@ -40,13 +40,13 @@ module Comprehension
       @turking_round.destroy
       head :no_content
     end
-    private
-      def set_turking_round
-        @turking_round = TurkingRound.find(params[:id])
-      end
 
-      def turking_round_params
-        params.require(:turking_round).permit(:activity_id, :expires_at)
-      end
+    private def set_turking_round
+      @turking_round = TurkingRound.find(params[:id])
+    end
+
+    private def turking_round_params
+      params.require(:turking_round).permit(:activity_id, :expires_at)
+    end
   end
 end
