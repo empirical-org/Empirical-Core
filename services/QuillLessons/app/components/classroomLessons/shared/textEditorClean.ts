@@ -1,5 +1,5 @@
 export function textEditorInputNotEmpty(textInput) {
-  return textInput && (textInput.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (textInput.replace(/[\n\r]/g, '') !== "<p><br></p>");
+  return textInput && textInput !== '<br/>' && (textInput.replace(/[\n\r]/g, '') !== "<p><br>&nbsp;</p>") && (textInput.replace(/[\n\r]/g, '') !== "<p><br></p>");
 }
 
 export function textEditorInputClean(prompt) {
