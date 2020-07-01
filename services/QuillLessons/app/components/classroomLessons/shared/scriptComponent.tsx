@@ -515,18 +515,15 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderCues() {
-    if (this.props.cues) {
-      return (
-        <Cues
-          displayArrowAndText={false}
-          getQuestion={() => ({
-            cues: this.props.cues,
-          })}
-        />
-      );
-    }
+    const { cues, } = this.props
+
+    if (!cues) { return }
+    
     return (
-      <span />
+      <Cues
+        cues={cues}
+        displayArrowAndText={false}
+      />
     );
   }
 

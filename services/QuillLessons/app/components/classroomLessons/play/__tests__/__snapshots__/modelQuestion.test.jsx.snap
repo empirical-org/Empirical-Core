@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModelQuestion component renders on a projector 1`] = `
+<Static
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "prompt": "<p>The magician made a _________ dragon appear on stage.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say: </strong>Let’s try adding our own describing word to a sentence. Watch as I add a describing word to this sentence.</p>
+<p><strong>Say: </strong>The magician made a dragon appear on stage.</p>
+<p><strong>Say: </strong>I’m going to add a describing word in the blank. The word I add needs to describe the word right after it. In this sentence, that word is <em>dragon</em>. Does anyone have any suggestions of how I could describe the dragon?</p>
+<p><em>Write the students’ suggestions in the Model Your Answer box.&nbsp;</em></p>
+<p><strong>Say: </strong>Any of these words will work! Let’s choose one to complete our sentence.&nbsp;</p>
+<p><em>Choose one describing word or have the students vote on the one they like the best.</em></p>
+<p><em>In the Model Your Answer box, write the prompt, adding the chosen describing word to the sentence</em>.</p>",
+              "heading": "Model adding a describing word to the example sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-MODEL",
+          },
+        ],
+        "title": "Teacher Model",
+      },
+    }
+  }
+  model="<p>The magician made a <strong>magic</strong> dragon appear on stage.</p>"
+  projector={true}
+  prompt="<p>The magician made a _________ dragon appear on stage.</p>"
+>
+  <div
+    className="student-static-page-container"
+  >
+    <div
+      className="student-static-page"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
+  </div>
+</Static>
+`;
+
+exports[`ModelQuestion component renders on the student screen 1`] = `
+<Static
+  data={
+    Object {
+      "play": Object {
+        "cues": Array [
+          "",
+        ],
+        "instructions": "",
+        "prompt": "<p>The magician made a _________ dragon appear on stage.</p>",
+      },
+      "teach": Object {
+        "script": Array [
+          Object {
+            "data": Object {
+              "body": "<p><strong>Say: </strong>Let’s try adding our own describing word to a sentence. Watch as I add a describing word to this sentence.</p>
+<p><strong>Say: </strong>The magician made a dragon appear on stage.</p>
+<p><strong>Say: </strong>I’m going to add a describing word in the blank. The word I add needs to describe the word right after it. In this sentence, that word is <em>dragon</em>. Does anyone have any suggestions of how I could describe the dragon?</p>
+<p><em>Write the students’ suggestions in the Model Your Answer box.&nbsp;</em></p>
+<p><strong>Say: </strong>Any of these words will work! Let’s choose one to complete our sentence.&nbsp;</p>
+<p><em>Choose one describing word or have the students vote on the one they like the best.</em></p>
+<p><em>In the Model Your Answer box, write the prompt, adding the chosen describing word to the sentence</em>.</p>",
+              "heading": "Model adding a describing word to the example sentence.",
+            },
+            "type": "STEP-HTML",
+          },
+          Object {
+            "type": "T-MODEL",
+          },
+        ],
+        "title": "Teacher Model",
+      },
+    }
+  }
+  model="<p>The magician made a <strong>magic</strong> dragon appear on stage.</p>"
+  prompt="<p>The magician made a _________ dragon appear on stage.</p>"
+>
+  <div
+    className="student-static-page-container"
+  >
+    <div
+      className="student-static-page"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
+  </div>
+</Static>
+`;

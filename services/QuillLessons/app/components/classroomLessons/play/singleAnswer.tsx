@@ -1,6 +1,6 @@
 declare function require(name:string);
 import * as React from 'react';
-import { Cues, } from '../../renderForQuestions/cues';
+import Cues from '../../renderForQuestions/cues';
 import FeedbackRow from './feedbackRow'
 import {
   Feedback,
@@ -133,20 +133,13 @@ class SingleAnswer extends React.Component<SingleAnswerProps, SingleAnswerState>
   renderCues() {
     const { mode, data, } = this.props
 
-    if (mode === PROJECT) { return }
+    if (mode === PROJECT || !data.play.cues) { return }
 
-    const getQuestion = () => ({ cues: data.play.cues })
-
-    if (data.play.cues) {
-      return (
-        <Cues
-          displayArrowAndText={false}
-          getQuestion={getQuestion}
-        />
-      );
-    }
     return (
-      <span />
+      <Cues
+        cues={data.play.cues}
+        displayArrowAndText={false}
+      />
     );
   }
 

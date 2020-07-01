@@ -107,12 +107,16 @@ exports[`SingleAnswer component projector view inactive renders 1`] = `
           />
         </SentenceFragments>
       </PromptSection>
-      <Component
+      <Cues
+        cues={
+          Array [
+            "",
+          ]
+        }
         displayArrowAndText={false}
-        getQuestion={[Function]}
       >
         <span />
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -337,12 +341,16 @@ exports[`SingleAnswer component projector view when an answer is being displayed
           />
         </SentenceFragments>
       </PromptSection>
-      <Component
+      <Cues
+        cues={
+          Array [
+            "",
+          ]
+        }
         displayArrowAndText={false}
-        getQuestion={[Function]}
       >
         <span />
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -521,12 +529,16 @@ exports[`SingleAnswer component student view inactive renders 1`] = `
           />
         </SentenceFragments>
       </PromptSection>
-      <Component
+      <Cues
+        cues={
+          Array [
+            "",
+          ]
+        }
         displayArrowAndText={false}
-        getQuestion={[Function]}
       >
         <span />
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -712,12 +724,16 @@ exports[`SingleAnswer component student view when an answer is being displayed r
           />
         </SentenceFragments>
       </PromptSection>
-      <Component
+      <Cues
+        cues={
+          Array [
+            "",
+          ]
+        }
         displayArrowAndText={false}
-        getQuestion={[Function]}
       >
         <span />
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -897,12 +913,16 @@ exports[`SingleAnswer component student view when the student has submitted an a
           />
         </SentenceFragments>
       </PromptSection>
-      <Component
+      <Cues
+        cues={
+          Array [
+            "",
+          ]
+        }
         displayArrowAndText={false}
-        getQuestion={[Function]}
       >
         <span />
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
