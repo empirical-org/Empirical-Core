@@ -20,6 +20,7 @@ import CLStudentFillInTheBlank from './fillInTheBlank';
 import CLStudentModelQuestion from './modelQuestion';
 import CLMultistep from './multistep';
 import ProjectorModal from './projectorModal';
+import FollowUp from './followUp';
 import ErrorPage from '../shared/errorPage';
 import FlaggedStudentCompletedPage from './flaggedStudentCompleted';
 import NavBar from '../../navbar/studentNavbar';
@@ -36,6 +37,7 @@ import {
 import { ClassroomLesson } from '../../../interfaces/classroomLessons';
 import * as CustomizeIntf from '../../../interfaces/customize';
 import { scriptTagStrip } from '../shared/scriptTagStrip';
+
 import { Spinner } from 'quill-component-library/dist/componentLibrary';
 
 const arrowSrc = `${process.env.QUILL_CDN_URL}/images/icons/chevron-arrow-filled.svg`
@@ -92,7 +94,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const { match, dispatch, classroomSessions, } = this.props
     const { projector, } = this.state
     const { data, hasreceiveddata } = classroomSessions;
-    const student = getParameterByName('student') || '';
     const lessonId: string = match.params.lessonID
     if (props.classroomSessions.hasreceiveddata) {
       if (props.classroomSessions.data.edition_id && Object.keys(props.customize.editionQuestions).length < 1) {
@@ -103,25 +104,6 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       }
       if (props.classroomSessions.data.edition_id !== data.edition_id) {
         dispatch(getEditionQuestions(props.classroomSessions.data.edition_id))
-      }
-    }
-    if (data.followUpUrl && (data.followUpOption || !data.followUpActivityName)) {
-      switch(data.followUpOption) {
-        case "Small Group Instruction and Independent Practice":
-          if (typeof(student) === 'string' && Object.keys(data.flaggedStudents).indexOf(student) !== -1) {
-            this.setState({flaggedStudentCompletionScreen: true})
-          } else {
-            window.location.href = data.followUpUrl
-          }
-          break
-        case "All Students Practice Now":
-          window.location.href = data.followUpUrl
-          break
-        case "All Students Practice Later":
-        case "No Follow Up Practice":
-        default:
-          window.location.href = process.env.EMPIRICAL_BASE_URL ? String(process.env.EMPIRICAL_BASE_URL) : ''
-          break
       }
     }
     if (!props.classroomSessions.error && !props.classroomLesson.error) {
@@ -317,6 +299,13 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
     const { classroomLesson, classroomSessions, customize, } = this.props
     const { shouldEnterName, easyDemoName, flaggedStudentCompletionScreen, projector, } = this.state
     const { data, hasreceiveddata, error }: { data: ClassroomLessonSession, hasreceiveddata: boolean, error: string } = classroomSessions;
+
+    if (data.followUpOption) {
+      const student = getParameterByName('student') || '';
+      const isFlagged = data.flaggedStudents && Object.keys(data.flaggedStudents).includes(student)
+      return <FollowUp followUpOption={data.followUpOption} followUpUrl={data.followUpUrl} isFlagged={isFlagged} />
+    }
+
     const lessonError = classroomLesson.error;
     const navbar = Number(classroomSessions.data.current_slide) === 0 ? null : <NavBar />
     let mainContent = (

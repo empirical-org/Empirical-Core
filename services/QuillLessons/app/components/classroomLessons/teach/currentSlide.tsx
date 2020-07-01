@@ -27,6 +27,13 @@ import PreviewModal from './previewModal'
 import TimeoutModal from './timeoutModal'
 import CongratulationsModal from './congratulationsModal'
 import SignupModal from './signupModal'
+import {
+  SMALL_GROUP_AND_INDEPENDENT,
+  PRACTICE_NOW,
+  PRACTICE_LATER,
+  NO_PRACTICE
+} from '../../constants'
+
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -63,7 +70,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
       showTimeoutModal: false,
       showCongratulationsModal: false,
       completed: false,
-      selectedOptionKey: data.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
+      selectedOptionKey: data.followUpActivityName ? SMALL_GROUP_AND_INDEPENDENT : '',
       classroomUnitId,
     }
 
