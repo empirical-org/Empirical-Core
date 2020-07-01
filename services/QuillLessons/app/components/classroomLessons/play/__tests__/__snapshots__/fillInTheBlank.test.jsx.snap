@@ -289,13 +289,14 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
           />
         </div>
       </PromptSection>
-      <Component
+      <Cues
         cues={
           Array [
             "the",
             "a",
           ]
         }
+        displayArrowAndText={true}
       >
         <div
           className="cues"
@@ -334,7 +335,7 @@ exports[`FillInTheBlank component projector view inactive renders 1`] = `
             </div>
           </CueExplanation>
         </div>
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -700,13 +701,14 @@ exports[`FillInTheBlank component projector view when an answer is being display
           />
         </div>
       </PromptSection>
-      <Component
+      <Cues
         cues={
           Array [
             "the",
             "a",
           ]
         }
+        displayArrowAndText={true}
       >
         <div
           className="cues"
@@ -745,7 +747,7 @@ exports[`FillInTheBlank component projector view when an answer is being display
             </div>
           </CueExplanation>
         </div>
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -1063,13 +1065,14 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
           />
         </div>
       </PromptSection>
-      <Component
+      <Cues
         cues={
           Array [
             "the",
             "a",
           ]
         }
+        displayArrowAndText={true}
       >
         <div
           className="cues"
@@ -1108,7 +1111,7 @@ exports[`FillInTheBlank component student view inactive renders 1`] = `
             </div>
           </CueExplanation>
         </div>
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -1439,13 +1442,14 @@ exports[`FillInTheBlank component student view when an answer is being displayed
           />
         </div>
       </PromptSection>
-      <Component
+      <Cues
         cues={
           Array [
             "the",
             "a",
           ]
         }
+        displayArrowAndText={true}
       >
         <div
           className="cues"
@@ -1484,7 +1488,7 @@ exports[`FillInTheBlank component student view when an answer is being displayed
             </div>
           </CueExplanation>
         </div>
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p
@@ -1809,13 +1813,14 @@ exports[`FillInTheBlank component student view when the student has submitted an
           />
         </div>
       </PromptSection>
-      <Component
+      <Cues
         cues={
           Array [
             "the",
             "a",
           ]
         }
+        displayArrowAndText={true}
       >
         <div
           className="cues"
@@ -1854,7 +1859,7 @@ exports[`FillInTheBlank component student view when the student has submitted an
             </div>
           </CueExplanation>
         </div>
-      </Component>
+      </Cues>
       <Feedback
         feedback={
           <p

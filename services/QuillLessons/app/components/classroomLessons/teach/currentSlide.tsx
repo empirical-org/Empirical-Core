@@ -27,6 +27,13 @@ import PreviewModal from './previewModal'
 import TimeoutModal from './timeoutModal'
 import CongratulationsModal from './congratulationsModal'
 import SignupModal from './signupModal'
+import {
+  SMALL_GROUP_AND_INDEPENDENT,
+  PRACTICE_NOW,
+  PRACTICE_LATER,
+  NO_PRACTICE
+} from '../../constants'
+
 import { getParameterByName } from '../../../libs/getParameterByName';
 import {
   SelectedSubmissions,
@@ -55,7 +62,6 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     const lessonData: ClassroomLesson = props.classroomLesson.data;
     const script: Array<ScriptItem> = lessonData && lessonData.questions && lessonData.questions[data.current_slide] ? lessonData.questions[data.current_slide].data.teach.script : []
     const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
-    const activityUid = props.match.params.lessonID
 
     this.state = {
       numberOfHeaders: script.filter(scriptItem => scriptItem.type === 'STEP-HTML' || scriptItem.type === 'STEP-HTML-TIP').length,
@@ -64,9 +70,8 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
       showTimeoutModal: false,
       showCongratulationsModal: false,
       completed: false,
-      selectedOptionKey: data.followUpActivityName ? "Small Group Instruction and Independent Practice" : '',
+      selectedOptionKey: data.followUpActivityName ? SMALL_GROUP_AND_INDEPENDENT : '',
       classroomUnitId,
-      classroomSessionId: classroomUnitId ? classroomUnitId.concat(activityUid) : null
     }
 
     this.startDisplayingAnswers = this.startDisplayingAnswers.bind(this);
@@ -108,8 +113,15 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     }
   }
 
+  classroomSessionId = () => {
+    const { match, } = this.props
+    const classroomUnitId: ClassroomUnitId|null = getParameterByName('classroom_unit_id')
+    const { lessonID, } = match.params
+    return classroomUnitId.concat(lessonID)
+  }
+
   toggleSelected = (currentSlideId: string, student: string) => {
-    const { classroomSessionId, } = this.state
+    const classroomSessionId = this.classroomSessionId()
     const { classroomSessions, } = this.props
     if (!classroomSessionId) { return }
 
@@ -125,21 +137,21 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
   }
 
   clearAllSelectedSubmissions(currentSlide: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     if (classroomSessionId) {
       clearAllSelectedSubmissions(classroomSessionId, currentSlide);
     }
   }
 
   clearAllSubmissions(currentSlide: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     if (classroomSessionId) {
       clearAllSubmissions(classroomSessionId, currentSlide);
     }
   }
 
   clearStudentSubmission = (currentSlideId: string, student: string, submission?: string) => {
-    const { classroomSessionId, } = this.state
+    const classroomSessionId = this.classroomSessionId()
     if (!classroomSessionId) { return }
 
     if (submission) {
@@ -155,26 +167,26 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
   }
 
   startDisplayingAnswers() {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     if (classroomSessionId) {
       setMode(classroomSessionId, this.props.classroomSessions.data.current_slide, 'PROJECT');
     }
   }
 
   stopDisplayingAnswers() {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     if (classroomSessionId) {
       removeMode(classroomSessionId, this.props.classroomSessions.data.current_slide);
     }
   }
 
   toggleStudentFlag(studentId: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     toggleStudentFlag(classroomSessionId, studentId);
   }
 
   saveModel(model: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     if (classroomSessionId) {
       setModel(classroomSessionId, this.props.classroomSessions.data.current_slide, model);
     }
@@ -190,7 +202,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
   }
 
   savePrompt(prompt: string) {
-    const classroomSessionId: ClassroomSessionId|null = this.state.classroomSessionId;
+    const classroomSessionId: ClassroomSessionId|null = this.classroomSessionId();
     if (classroomSessionId) {
       setPrompt(classroomSessionId, this.props.classroomSessions.data.current_slide, prompt);
     }
@@ -228,7 +240,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
     const followUp = this.props.classroomSessions.data.followUpActivityName && this.state.selectedOptionKey !== 'No Follow Up Practice';
     const activityId = this.props.classroomLesson.data.id;
     const classroomUnitId = this.state.classroomUnitId || '';
-    const classroomSessionId = this.state.classroomSessionId || '';
+    const classroomSessionId = this.classroomSessionId() || '';
     const conceptResults = generate(questions, submissions);
     const editionId: string|undefined = this.props.classroomSessions.data.edition_id;
 
@@ -271,7 +283,7 @@ class CurrentSlide extends React.Component<CurrentSlideProps & StateFromProps, a
 
   renderCongratulationsModal() {
     if (this.state.showCongratulationsModal) {
-      return <CongratulationsModal classroomSessionId={this.state.classroomSessionId} closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} />
+      return <CongratulationsModal classroomSessionId={this.classroomSessionId()} closeModal={this.closeCongratulationsModal} lessonId={this.props.lessonId} />
     }
   }
 

@@ -1,5 +1,14 @@
 declare function require(name:string);
 import * as React from 'react'
+
+import {
+  SMALL_GROUP_AND_INDEPENDENT,
+  PRACTICE_NOW,
+  PRACTICE_LATER,
+  NO_PRACTICE
+} from '../../constants'
+
+
 const RadioButtonHover = 'https://assets.quill.org/images/icons/radioButtonHover.svg'
 const RadioButtonIcon = 'https://assets.quill.org/images/icons/radioButtonIcon.svg'
 const RadioButtonSelected = 'https://assets.quill.org/images/icons/radioButtonSelected.svg'
@@ -13,10 +22,10 @@ class AssignmentOptions extends React.Component<{numberOfStudents: number, updat
     const {numberOfStudents} = this.props
     return (
       {
-        "Small Group Instruction and Independent Practice": "Unflagged students will start the independent practice now. You can pull the flagged students aside for small group instruction.",
-        "All Students Practice Now": `All ${numberOfStudents} students in the class will enter the activity now.`,
-        "All Students Practice Later": `All ${numberOfStudents} students will be assigned the activity, and they will see it on their profile.`,
-        "No Follow Up Practice": "Students receive no follow up activity."
+        [SMALL_GROUP_AND_INDEPENDENT]: "Unflagged students will start the independent practice now. You can pull the flagged students aside for small group instruction.",
+        [PRACTICE_NOW]: `All ${numberOfStudents} students in the class will enter the activity now.`,
+        [PRACTICE_LATER]: `All ${numberOfStudents} students will be assigned the activity, and they will see it on their profile.`,
+        [NO_PRACTICE]: "Students receive no follow up activity."
       }
     )
   }
