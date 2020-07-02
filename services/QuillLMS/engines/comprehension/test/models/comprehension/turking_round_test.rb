@@ -3,17 +3,15 @@ require 'test_helper'
 module Comprehension
   class TurkingRoundTest < ActiveSupport::TestCase
     context 'validations' do
+      setup do
+        create(:comprehension_turking_round)
+      end
+
       should validate_presence_of(:activity_id)
       should validate_presence_of(:expires_at)
 
-      should 'enforce uuid uniqueness' do
-        activity = create(:comprehension_activity)
-        turking_round = create(:comprehension_turking_round)
-        new_turking_round = TurkingRound.create(activity: turking_round.activity, uuid: turking_round.uuid, expires_at: turking_round.expires_at)
-
-        assert !new_turking_round.valid?
-        assert new_turking_round.errors[:uuid].include?('has already been taken')
-      end
+      should have_readonly_attribute(:uuid)
+      should validate_uniqueness_of(:uuid)
 
       should 'validate presence of uuid on any update call' do
         turking_round = create(:comprehension_turking_round)
@@ -23,24 +21,21 @@ module Comprehension
       end
 
       should 'set a default uuid when creating a new record' do
-        activity = create(:comprehension_activity)
-        turking_round = TurkingRound.create(activity: activity, expires_at: 1.month.from_now)
+        turking_round = create(:comprehension_turking_round, uuid: nil)
 
         assert_not_nil turking_round.uuid
       end
 
       should 'ensure expires_at is a future date on create' do
-        activity = create(:comprehension_activity)
-        turking_round = TurkingRound.create(activity: activity, expires_at: 1.month.ago)
-        assert_equal turking_round.valid?, false
+        turking_round = build(:comprehension_turking_round, expires_at: 1.month.ago)
+        refute turking_round.valid?
         assert turking_round.errors[:expires_at].include?('must be in the future')
       end
 
-      should 'allow updates with expires_at in the past' do
-        turking_round = create(:comprehension_turking_round, expires_at: 1.second.from_now)
-        sleep 2
-        assert_operator turking_round.expires_at, :<, Time.zone.now
-        assert_equal turking_round.valid?, true
+      should 'allow updates to expires_at to be in the past even though creates should not' do
+        turking_round = create(:comprehension_turking_round)
+        turking_round.expires_at = 1.second.ago
+        assert turking_round.valid?
       end
     end
 

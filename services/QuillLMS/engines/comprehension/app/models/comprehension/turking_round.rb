@@ -1,5 +1,7 @@
 module Comprehension
   class TurkingRound < ActiveRecord::Base
+    attr_readonly :uuid
+
     before_validation :set_default_uuid, on: :create
 
     belongs_to :activity, inverse_of: :turking_rounds

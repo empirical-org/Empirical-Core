@@ -98,17 +98,14 @@ module Comprehension
       should "update record if valid, return nothing" do
         new_activity = create(:comprehension_activity)
         new_datetime = DateTime.now.utc
-        new_uuid = SecureRandom.uuid
-        patch :update, id: @turking_round.id, turking_round: { activity_id: new_activity.id, uuid: new_uuid, expires_at: new_datetime }
+        patch :update, id: @turking_round.id, turking_round: { activity_id: new_activity.id, expires_at: new_datetime }
 
         assert_equal "", response.body
         assert_equal 204, response.code.to_i
 
         @turking_round.reload
         assert_equal new_activity.id, @turking_round.activity_id
-        assert_equal new_uuid, @turking_round.uuid
         assert_equal new_datetime.to_s(:db), @turking_round.expires_at.to_s(:db)
-
       end
 
       should "not update record and return errors as json" do
