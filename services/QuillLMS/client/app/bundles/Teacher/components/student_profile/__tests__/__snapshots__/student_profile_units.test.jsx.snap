@@ -4460,7 +4460,6 @@ exports[`StudentProfileUnits component should render all activities and units if
             <h3
               className="title"
             >
-              Join: 
               Lesson 1: Missing Subject or Verb Fragments
             </h3>
           </div>
@@ -6709,7 +6708,6 @@ exports[`StudentProfileUnits component should render only completed activities i
             <h3
               className="title"
             >
-              Join: 
               Lesson 1: Missing Subject or Verb Fragments
             </h3>
           </div>
@@ -7515,7 +7513,6 @@ exports[`StudentProfileUnits component should render only incomplete activities 
             <h3
               className="title"
             >
-              Join: 
               Lesson 1: Missing Subject or Verb Fragments
             </h3>
           </div>
@@ -9362,7 +9359,6 @@ exports[`StudentProfileUnits component should render the pinned activity bar if 
             <h3
               className="title"
             >
-              Join: 
               Lesson 1: Missing Subject or Verb Fragments
             </h3>
           </div>
@@ -11611,7 +11607,6 @@ exports[`StudentProfileUnits component should render the pinned activity modal i
             <h3
               className="title"
             >
-              Join: 
               Lesson 1: Missing Subject or Verb Fragments
             </h3>
           </div>

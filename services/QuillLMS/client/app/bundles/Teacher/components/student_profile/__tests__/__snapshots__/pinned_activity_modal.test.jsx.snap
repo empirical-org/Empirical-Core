@@ -20,7 +20,6 @@ exports[`PinnedActivityModal component should render 1`] = `
         <h3
           className="title"
         >
-          Join: 
           An Activity
         </h3>
       </div>

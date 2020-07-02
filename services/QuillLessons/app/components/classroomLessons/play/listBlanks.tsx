@@ -148,7 +148,7 @@ class ListBlanks extends React.Component<ListBlankProps, ListBlankState> {
 
     let feedback = data.play.instructions
     let feedbackType = 'default'
-    if (answerCount(submittedAnswers) !== data.play.nBlanks) {
+    if (submittedAnswers && (answerCount(submittedAnswers) !== data.play.nBlanks)) {
       feedback = 'Your teacher wants you to try again. Submit a new response.'
       feedbackType = 'revise-unmatched'
     }
