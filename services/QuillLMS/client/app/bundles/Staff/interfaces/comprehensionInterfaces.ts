@@ -13,6 +13,7 @@ export interface ActivityRuleSetInterface {
 
 export interface ActivityInterface {
   id?: string,
+  parent_activity_id?: string,
   title: string,
   // flag: string,
   scored_level: string,

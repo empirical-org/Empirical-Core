@@ -18,7 +18,7 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProps) => {
 
-  const { passages, prompts, scored_level, target_level, title } = activity;
+  const { parent_activity_id, passages, prompts, scored_level, target_level, title } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
   const formattedScoredLevel = scored_level ? scored_level : '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
@@ -81,11 +81,12 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     });
     return {
       title: activityTitle,
+      parent_activity_id,
       // flag: label,
       scored_level: activityScoredReadingLevel,
       target_level: parseInt(activityTargetReadingLevel),
-      passage_attributes: activityPassages,
-      prompt_attributes: [
+      passages_attributes: activityPassages,
+      prompts_attributes: [
         formatPrompt(prompts[0]), 
         formatPrompt(prompts[1]), 
         formatPrompt(prompts[2])
