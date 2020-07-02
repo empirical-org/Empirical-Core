@@ -1,12 +1,14 @@
 import * as React from "react";
 import { RouteComponentProps } from 'react-router-dom';
 import { DataTable, DropdownInput, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
-import { ActivityInterface, ActivityRouteProps, FlagInterface } from '../../../interfaces/comprehensionInterfaces';
+import { ActivityInterface, ActivityRouteProps, FlagInterface, PromptInterface } from '../../../interfaces/comprehensionInterfaces';
+import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import ActivityForm from './activityForm';
 import SubmissionModal from '../shared/submissionModal';
 // import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
 import { queryCache, useQuery } from 'react-query'
+import { promptsByConjunction } from "../../../helpers/comprehension";
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
 
@@ -115,6 +117,13 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     } else {
       // format for DataTable to display labels on left side and values on right
       const { passages, prompts, title, scored_level, target_level } = activity
+
+      const passageLength = passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null;
+      const formattedPrompts = promptsByConjunction(prompts);
+      const becauseText = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE].text : null;
+      const butText = formattedPrompts && formattedPrompts[BUT] ? formattedPrompts[BUT].text : null;
+      const soText = formattedPrompts && formattedPrompts[SO] ? formattedPrompts[SO].text : null;
+
       const fields = [
         { 
           label: 'Title',
@@ -134,19 +143,19 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
         },
         {
           label: 'Passage Length',
-          value: passages && passages[0] ? `${passages[0].text.split(' ').length} words` : null
+          value: passageLength
         },
         {
           label: "Because",
-          value: prompts && prompts[0] ? prompts[0].text : null
+          value: becauseText
         },
         {
           label: "But",
-          value: prompts && prompts[1] ? prompts[1].text : null
+          value: butText
         },
         {
           label: "So",
-          value: prompts && prompts[2] ? prompts[2].text : null
+          value: soText
         },
       ];
       return fields.map((field, i) => {

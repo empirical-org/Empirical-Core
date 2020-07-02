@@ -26,6 +26,45 @@ export const buildBlankPrompt = (conjunction: string) => {
   }
 }
 
+export const buildActivity = ({
+  activityTitle,
+  activityScoredReadingLevel,
+  activityTargetReadingLevel,
+  activityPassages,
+  activityMaxFeedback,
+  activityBecausePrompt,
+  activityButPrompt,
+  activitySoPrompt,
+  parent_activity_id,
+}) => {
+  // const { label } = activityFlag;
+  const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt].map(prompt => {
+    prompt.max_attempts_feedback = activityMaxFeedback
+    return prompt;
+  });
+  return {
+    activity: {
+      title: activityTitle,
+      parent_activity_id,
+      // flag: label,
+      scored_level: activityScoredReadingLevel,
+      target_level: parseInt(activityTargetReadingLevel),
+      passages_attributes: activityPassages,
+      prompts_attributes: [
+        formatPrompt(prompts[0]), 
+        formatPrompt(prompts[1]), 
+        formatPrompt(prompts[2])
+      ]
+    }
+  };
+}
+
+export const promptsByConjunction = (prompts: PromptInterface[]) => {
+  const formattedPrompts = {};
+  prompts && prompts.map((prompt: PromptInterface) => formattedPrompts[prompt.conjunction] = prompt);
+  return formattedPrompts;
+}
+
 export const formatPrompt = (prompt: PromptInterface) => {
   let formattedPrompt = prompt;
   const text = formattedPrompt.text;
@@ -80,3 +119,5 @@ export const handleApiError = (errorMessage: string, response: any) => {
   }
   return error;
 }
+
+export const getCsrfToken = () => document.querySelector('meta[name="csrf-token"]').getAttribute('content');

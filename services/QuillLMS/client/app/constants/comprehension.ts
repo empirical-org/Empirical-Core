@@ -106,3 +106,14 @@ export const blankRuleSet = {
 	rules: [], 
   prompts: []
 }
+
+export const activityFormKeys = [
+  'Title', 
+  'Scored reading level', 
+  'Target reading level',
+  'Max attempts feedback',
+  'Passage', 
+  'Because stem', 
+  'But stem', 
+  'So stem'
+];

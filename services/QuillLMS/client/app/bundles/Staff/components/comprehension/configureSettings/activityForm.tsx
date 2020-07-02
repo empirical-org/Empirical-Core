@@ -2,8 +2,8 @@ import * as React from "react";
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 // import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildBlankPrompt, formatPrompt } from '../../../helpers/comprehension';
-import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
+import { validateForm, buildActivity, buildBlankPrompt, formatPrompt, promptsByConjunction, getCsrfToken } from '../../../helpers/comprehension';
+import { BECAUSE, BUT, SO, activityFormKeys } from '../../../../../constants/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 import stripHtml from "string-strip-html";
 
@@ -12,7 +12,7 @@ import stripHtml from "string-strip-html";
 interface ActivityFormProps {
   activity: ActivityInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitActivity: (activity: ActivityInterface, csrfToken: string) => void
+  submitActivity: (activity: object, csrfToken: string) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -23,10 +23,11 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   const formattedScoredLevel = scored_level ? scored_level : '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
-  const formattedMaxFeedback = prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
-  const becausePrompt = prompts && prompts.length ? prompts[0] : buildBlankPrompt(BECAUSE);
-  const butPrompt = prompts && prompts.length ? prompts[1] : buildBlankPrompt(BUT);
-  const soPrompt = prompts && prompts.length ? prompts[2] : buildBlankPrompt(SO);
+  const formattedMaxFeedback = prompts && prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
+  const formattedPrompts = promptsByConjunction(prompts);
+  const becausePrompt = formattedPrompts && formattedPrompts[BECAUSE] ? formattedPrompts[BECAUSE] : buildBlankPrompt(BECAUSE);
+  const butPrompt = formattedPrompts && formattedPrompts[BUT] ? formattedPrompts[BUT] : buildBlankPrompt(BUT);
+  const soPrompt = formattedPrompts && formattedPrompts[SO] ? formattedPrompts[SO] : buildBlankPrompt(SO);
 
   const [activityTitle, setActivityTitle] = React.useState<string>(title || '');
   // const [activityFlag, setActivityFlag] = React.useState<FlagInterface>(formattedFlag);
@@ -73,40 +74,19 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     setActivitySoPrompt(updatedSoPrompt)  
   };
 
-  const buildActivity = () => {
-    // const { label } = activityFlag;
-    const prompts = [activityBecausePrompt, activityButPrompt, activitySoPrompt].map(prompt => {
-      prompt.max_attempts_feedback = activityMaxFeedback
-      return prompt;
-    });
-    return {
-      title: activityTitle,
-      parent_activity_id,
-      // flag: label,
-      scored_level: activityScoredReadingLevel,
-      target_level: parseInt(activityTargetReadingLevel),
-      passages_attributes: activityPassages,
-      prompts_attributes: [
-        formatPrompt(prompts[0]), 
-        formatPrompt(prompts[1]), 
-        formatPrompt(prompts[2])
-      ]
-    };
-  }
-
   const handleSubmitActivity = () => {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const activityObject = buildActivity();
-    const keys = [
-      'Title', 
-      'Scored reading level', 
-      'Target reading level',
-      'Max attempts feedback',
-      'Passage', 
-      'Because stem', 
-      'But stem', 
-      'So stem'
-    ];
+    const csrfToken = getCsrfToken();
+    const activityObject = buildActivity({
+      activityTitle,
+      activityScoredReadingLevel,
+      activityTargetReadingLevel,
+      activityPassages,
+      activityMaxFeedback,
+      activityBecausePrompt,
+      activityButPrompt,
+      activitySoPrompt,
+      parent_activity_id,
+    });
     const state = [
       activityTitle,
       activityScoredReadingLevel,
@@ -117,7 +97,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       activityButPrompt.text, 
       activitySoPrompt.text
     ];
-    const validationErrors = validateForm(keys, state);
+    const validationErrors = validateForm(activityFormKeys, state);
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
     } else {

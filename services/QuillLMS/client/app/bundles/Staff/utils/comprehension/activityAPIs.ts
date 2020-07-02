@@ -28,7 +28,7 @@ export const fetchActivity = async (key: string, activityId: string) => {
   };
 }
 
-export const createActivity = async (activity: any, csrfToken: string) => {
+export const createActivity = async (activity: object, csrfToken: string) => {
   const response = await fetch(`${baseUrl}/api/v1/comprehension/activities.json`, {
     method: 'POST',
     body: JSON.stringify(activity),
@@ -41,7 +41,7 @@ export const createActivity = async (activity: any, csrfToken: string) => {
   return { error: handleApiError('Failed to create activity, please try again.', response) };
 }
 
-export const updateActivity = async (activity: any, activityId: string, csrfToken: string) => {
+export const updateActivity = async (activity: object, activityId: string, csrfToken: string) => {
   const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}.json`, {
     method: 'PUT',
     body: JSON.stringify(activity),
