@@ -10,6 +10,12 @@ class StatusesController < ApplicationController
     render plain: 'OK'
   end
 
+  def database_write
+    post = BlogPost.first
+    post.update(updated_at: Time.zone.now)
+    render plain: 'OK'
+  end
+
   def database_follower
     User.first
     render plain: 'OK'
