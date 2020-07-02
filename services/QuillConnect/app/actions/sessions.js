@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 const C = require('../constants').default;
 
-const NEW_SESSION_PERCENTAGE = 1;
+const NEW_SESSION_PERCENTAGE = 10;
 
 const sessionsRef = rootRef.child('savedSessions');
 const v4sessionsRef = v4rootRef.child('connectSessions');
