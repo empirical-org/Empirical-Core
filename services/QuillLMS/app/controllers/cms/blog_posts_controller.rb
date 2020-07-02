@@ -1,11 +1,9 @@
 class Cms::BlogPostsController < Cms::CmsController
   before_action :set_blog_post, only: [:update, :destroy, :edit, :show, :unpublish]
-  before_action :authors, :topics, only: [:edit, :new]
+  before_action :authors, :topics, only: [:index, :edit, :new]
 
   def index
     @blog_posts_name_and_id = BlogPost.all.map{|bp| bp.attributes.merge({'rating' => bp.average_rating})}
-    @topics = BlogPost::TOPICS
-    @student_topics = BlogPost::STUDENT_TOPICS
     #cms/blog_posts/index.html.erb
   end
 
@@ -74,7 +72,7 @@ class Cms::BlogPostsController < Cms::CmsController
   end
 
   def topics
-    @topics = BlogPost::TEACHER_TOPICS
+    @topics = BlogPost::TOPICS
     @student_topics = BlogPost::STUDENT_TOPICS
   end
 end
