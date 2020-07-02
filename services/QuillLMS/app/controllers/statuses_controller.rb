@@ -11,8 +11,7 @@ class StatusesController < ApplicationController
   end
 
   def database_write
-    post = BlogPost.first
-    post.update(updated_at: Time.zone.now)
+    BlogPost.first.touch
     render plain: 'OK'
   end
 
