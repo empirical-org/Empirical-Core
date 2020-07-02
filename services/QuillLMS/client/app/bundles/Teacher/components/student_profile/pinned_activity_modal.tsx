@@ -13,7 +13,7 @@ const PinnedActivityModal = ({ name, teacherName, classroomUnitId, activityId, o
   <div className="modal-background" />
   <div className="pinned-activity-modal quill-modal modal-body">
     <div>
-      <h3 className="title">Join: {name}</h3>
+      <h3 className="title">{name}</h3>
     </div>
     <div className="pinned-activity-modal-text">
       <p>Your teacher, {teacherName}, has launched a live Quill Lesson.</p>
