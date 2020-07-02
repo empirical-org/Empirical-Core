@@ -5,7 +5,6 @@ import { EditorState, ContentState } from 'draft-js'
 import { validateForm, buildActivity, buildBlankPrompt, formatPrompt, promptsByConjunction, getCsrfToken } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO, activityFormKeys } from '../../../../../constants/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
-import stripHtml from "string-strip-html";
 
 // TODO: add form inputs for course, target reading level and reading level score
 
@@ -106,8 +105,8 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   }
 
   const errorsPresent = !!Object.keys(errors).length;
-  const passageLabelStyle = stripHtml(activityPassages[0].text).length ? 'has-text' : '';
-  const maxAttemptStyle = stripHtml(activityMaxFeedback).length ? 'has-text' : '';
+  const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
+  const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
 
   return(
     <div className="activity-form-container">
