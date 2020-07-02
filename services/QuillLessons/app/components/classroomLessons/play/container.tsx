@@ -115,6 +115,7 @@ class PlayClassroomLessonContainer extends React.Component<any, any> {
       const { classroomSessionId } = this.state
       const projectorFromParam = getParameterByName('projector')
       if (projectorFromParam === "true") {
+        document.title = 'Quill Lessons | Projector Mode'
         if (!projector) {
           this.setState({projector: true, showProjectorModal: true})
         }
