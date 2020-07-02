@@ -3,9 +3,9 @@ class CreateComprehensionRuleSets < ActiveRecord::Migration
     create_table :comprehension_rule_sets do |t|
       t.integer :activity_id
       t.integer :prompt_id
-      t.string :name
-      t.string :feedback
-      t.integer :priority
+      t.string :name, limit: 100
+      t.text :feedback
+      t.integer :priority, limit: 2
 
       t.timestamps null: false
     end

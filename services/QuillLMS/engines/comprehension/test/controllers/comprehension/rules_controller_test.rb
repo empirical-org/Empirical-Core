@@ -36,11 +36,8 @@ module Comprehension
           refute parsed_response.empty?
       
           assert_equal @rule.rule_set_id, parsed_response.first['rule_set_id']
-
           assert_equal @rule.regex_text, parsed_response.first['regex_text']
-
           assert_equal @rule.case_sensitive, parsed_response.first['case_sensitive']
-
         end
       end
     end
@@ -58,13 +55,9 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
-
         assert_equal @rule_set.id, parsed_response['rule_set_id']
-
         assert_equal @rule.regex_text, parsed_response['regex_text']
-
         assert_equal @rule.case_sensitive, parsed_response['case_sensitive']
-
         assert_equal 1, Rule.count
       end
 
@@ -92,13 +85,9 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 200, response.code.to_i
-    
         assert_equal @rule.rule_set_id, parsed_response['rule_set_id']
-
         assert_equal @rule.regex_text, parsed_response['regex_text']
-
         assert_equal @rule.case_sensitive, parsed_response['case_sensitive']
-
       end
 
       should "raise if not found (to be handled by parent app)" do
@@ -124,9 +113,7 @@ module Comprehension
         @rule.reload
     
         assert_equal 'Updated text', @rule.regex_text
-
         assert_equal false, @rule.case_sensitive
-
       end
 
       should "not update record and return errors as json" do

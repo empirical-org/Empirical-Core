@@ -5,7 +5,8 @@ module Comprehension
     MIN_PRIORITY = 0
 
     belongs_to :activity, inverse_of: :rule_sets
-    has_and_belongs_to_many :prompts, inverse_of: :rule_sets
+    has_many :prompts_rule_sets
+    has_many :prompts, through: :prompts_rule_sets, inverse_of: :rule_sets
     has_many :rules, inverse_of: :rule_set, dependent: :destroy
 
     accepts_nested_attributes_for :rules, reject_if: proc { |r| r['regex_text'].blank? }

@@ -3,7 +3,6 @@ require 'test_helper'
 module Comprehension
   class RuleTest < ActiveSupport::TestCase
 
-
     context 'relationships' do
       should belong_to(:rule_set)
     end
@@ -21,18 +20,18 @@ module Comprehension
       end
 
       should 'provide a default value for "case_sensitive"' do
-        assert_equal @rule.case_sensitive, true
+        assert @rule.case_sensitive
       end
 
       should 'not override a "case_sensitive" with the default if one is provided' do
         rule = Rule.create(rule_set: @rule_set, regex_text: 'test regex', case_sensitive: false)
         assert rule.valid?
-        assert_equal rule.case_sensitive, false
+        refute rule.case_sensitive
       end
 
       should 'validate the presence of "case_sensitive"' do
         @rule.case_sensitive = nil
-        assert_equal @rule.valid?, false
+        refute @rule.valid?
       end
     end
   end

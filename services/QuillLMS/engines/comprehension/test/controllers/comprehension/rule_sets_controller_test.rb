@@ -8,7 +8,8 @@ module Comprehension
 
     context "index" do
       should "return successfully - no rule_set" do
-        get :index, activity_id: 1
+        activity = create(:comprehension_activity)
+        get :index, activity_id: activity.id
 
         parsed_response = JSON.parse(response.body)
 
@@ -32,15 +33,10 @@ module Comprehension
           refute parsed_response.empty?
       
           assert_equal @rule_set.activity_id, parsed_response.first['activity_id']
-
           assert_equal @rule_set.prompts, parsed_response.first['prompts']
-
           assert_equal @rule_set.name, parsed_response.first['name']
-
           assert_equal @rule_set.feedback, parsed_response.first['feedback']
-
           assert_equal @rule_set.priority, parsed_response.first['priority']
-
         end
       end
     end
@@ -57,17 +53,11 @@ module Comprehension
         parsed_response = JSON.parse(response.body)
 
         assert_equal 201, response.code.to_i
-
 	assert_equal @activity.id, parsed_response['activity_id']
-
         assert_equal @rule_set.prompts, parsed_response['prompts']
-
         assert_equal @rule_set.name, parsed_response['name']
-
         assert_equal @rule_set.feedback, parsed_response['feedback']
-
         assert_equal @rule_set.priority, parsed_response['priority']
-
         assert_equal 1, RuleSet.count
       end
 
@@ -132,13 +122,9 @@ module Comprehension
         @rule_set.reload
     
         assert_equal [@prompt], @rule_set.prompts
-
         assert_equal "Updated name", @rule_set.name
-
         assert_equal "Updated feedback", @rule_set.feedback
-
         assert_equal 100, @rule_set.priority
-
       end
 
       should "update rule if valid, return nothing" do

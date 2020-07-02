@@ -5,7 +5,8 @@ module Comprehension
 
     context 'relationships' do
       should belong_to(:activity)
-      should have_and_belong_to_many(:prompts)
+      should have_many(:prompts_rule_sets)
+      should have_many(:prompts).through(:prompts_rule_sets)
       should have_many(:rules).dependent(:destroy)
     end
 

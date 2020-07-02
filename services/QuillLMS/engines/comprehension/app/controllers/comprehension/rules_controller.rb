@@ -5,7 +5,7 @@ module Comprehension
 
     # GET /rules.json
     def index
-      @rules = Rule.all
+      @rules = @rule_set.rules
 
       render json: @rules
     end
@@ -17,9 +17,7 @@ module Comprehension
 
     # POST /rules.json
     def create
-      @rule = Rule.new({
-        rule_set_id: params[:rule_set_id],
-      }.merge(rule_params))
+      @rule = @rule_set.rules.build(rule_params)
 
       if @rule.save
         render json: @rule, status: :created
@@ -45,17 +43,17 @@ module Comprehension
     end
 
     private
+      def set_activity_and_rule_set
+        @activity = Activity.find(params[:activity_id])
+        @rule_set = @activity.rule_sets.find(params[:rule_set_id])
+      end
+
       def set_rule
-        @rule = Rule.find_by!(rule_set: @rule_set, id: params[:id])
+        @rule = @rule_set.rules.find(params[:id])
       end
 
       def rule_params
         params.require(:rule).permit(:regex_text, :case_sensitive)
-      end
-
-      def set_activity_and_rule_set
-        @activity = Activity.find(params[:activity_id])
-        @rule_set = RuleSet.find_by!(activity_id: params[:activity_id], id: params[:rule_set_id])
       end
   end
 end
