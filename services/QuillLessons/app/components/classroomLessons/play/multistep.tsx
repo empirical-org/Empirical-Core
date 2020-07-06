@@ -168,7 +168,7 @@ class Multistep extends React.Component<MultistepProps, MultistepState> {
 
     let feedback = data.play.instructions
     let feedbackType = 'default'
-    if (answerCount(submittedAnswers) !== data.play.stepLabels.length) {
+    if (submittedAnswers && (answerCount(submittedAnswers) !== data.play.stepLabels.length)) {
       feedback = 'Your teacher wants you to try again. Submit a new response.'
       feedbackType = 'revise-unmatched'
     }

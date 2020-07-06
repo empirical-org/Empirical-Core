@@ -1,5 +1,5 @@
 # This migration comes from comprehension (originally 20200626181312)
-class CreatePromptsRuleSetsTable < ActiveRecord::Migration
+class CreateComprehensionPromptsRuleSetsTable < ActiveRecord::Migration
   def change
     create_table :comprehension_prompts_rule_sets do |t|
       t.integer :prompt_id

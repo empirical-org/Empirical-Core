@@ -13,6 +13,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    max-width: 800px;
     img {
       display: block;
       margin: auto;
@@ -22,6 +23,7 @@
     h1 {
       margin-top: 40px;
       font-size: 36px;
+      line-height: 1.17;
       font-weight: bold;
       color: $white;
       text-align: center;
@@ -32,6 +34,9 @@
       text-align: center;
       color: #e1f3f1;
       margin-top: 8px;
+    }
+    h1, h2 {
+      padding: 0px 16px;
     }
     .quill-button {
       margin: 32px auto 0px;

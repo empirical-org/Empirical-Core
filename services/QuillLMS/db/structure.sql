@@ -1278,6 +1278,40 @@ ALTER SEQUENCE public.comprehension_rules_id_seq OWNED BY public.comprehension_r
 
 
 --
+-- Name: comprehension_turking_rounds; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.comprehension_turking_rounds (
+    id integer NOT NULL,
+    activity_id integer,
+    uuid uuid,
+    expires_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: comprehension_turking_rounds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.comprehension_turking_rounds_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: comprehension_turking_rounds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.comprehension_turking_rounds_id_seq OWNED BY public.comprehension_turking_rounds.id;
+
+
+--
 -- Name: concept_feedbacks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3207,6 +3241,13 @@ ALTER TABLE ONLY public.comprehension_rules ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: comprehension_turking_rounds id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_turking_rounds ALTER COLUMN id SET DEFAULT nextval('public.comprehension_turking_rounds_id_seq'::regclass);
+
+
+--
 -- Name: concept_feedbacks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3772,6 +3813,14 @@ ALTER TABLE ONLY public.comprehension_rule_sets
 
 ALTER TABLE ONLY public.comprehension_rules
     ADD CONSTRAINT comprehension_rules_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: comprehension_turking_rounds comprehension_turking_rounds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.comprehension_turking_rounds
+    ADD CONSTRAINT comprehension_turking_rounds_pkey PRIMARY KEY (id);
 
 
 --
@@ -4576,6 +4625,20 @@ CREATE INDEX index_comprehension_rule_sets_on_prompt_id ON public.comprehension_
 --
 
 CREATE INDEX index_comprehension_rules_on_rule_set_id ON public.comprehension_rules USING btree (rule_set_id);
+
+
+--
+-- Name: index_comprehension_turking_rounds_on_activity_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_comprehension_turking_rounds_on_activity_id ON public.comprehension_turking_rounds USING btree (activity_id);
+
+
+--
+-- Name: index_comprehension_turking_rounds_on_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_comprehension_turking_rounds_on_uuid ON public.comprehension_turking_rounds USING btree (uuid);
 
 
 --
@@ -6242,5 +6305,7 @@ INSERT INTO schema_migrations (version) VALUES ('20200629191908');
 
 INSERT INTO schema_migrations (version) VALUES ('20200629191909');
 
-INSERT INTO schema_migrations (version) VALUES ('20200629191910');
+INSERT INTO schema_migrations (version) VALUES ('20200702140252');
+
+INSERT INTO schema_migrations (version) VALUES ('20200706135059');
 

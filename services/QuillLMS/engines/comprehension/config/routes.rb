@@ -4,4 +4,5 @@ Comprehension::Engine.routes.draw do
       resources :rules, only: [:index, :show, :create, :update, :destroy]
     end
   end
+  resources :turking_rounds, only: [:index, :show, :create, :update, :destroy]
 end

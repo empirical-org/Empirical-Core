@@ -251,7 +251,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
           const studentFlag2 = flaggedStudents[studentKey2] ? flaggedStudents[studentKey2] : false
           return sortByFlag(studentFlag1, studentFlag2)
         }
-        case 'answers':
+        case 'responses':
           const answer1 = submissions[current_slide][studentKey1].data
           const answer2 = submissions[current_slide][studentKey2].data
           return sortByAnswer(answer1, answer2)
@@ -352,7 +352,7 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
     const fields = {
       'lastName': 'Students',
       'flag': 'Flag',
-      'answers': 'Answers',
+      'responses': 'Responses',
       'time': 'Time',
       'displayed': 'Select to Display',
       'order': 1,
@@ -515,18 +515,15 @@ class ScriptContainer extends React.Component<ScriptContainerProps, ScriptContai
   }
 
   renderCues() {
-    if (this.props.cues) {
-      return (
-        <Cues
-          displayArrowAndText={false}
-          getQuestion={() => ({
-            cues: this.props.cues,
-          })}
-        />
-      );
-    }
+    const { cues, } = this.props
+
+    if (!cues) { return }
+
     return (
-      <span />
+      <Cues
+        cues={cues}
+        displayArrowAndText={false}
+      />
     );
   }
 
