@@ -31,14 +31,14 @@ exports[`Activity Form component should render Activities 1`] = `
       className="scored-reading-level-input"
       handleChange={[Function]}
       label="Scored Reading Level"
-      value={7}
+      value="7"
     />
     <Input
       autoComplete="on"
       className="target-reading-level-input"
       handleChange={[Function]}
       label="Target Reading Level"
-      value=""
+      value="7"
     />
     <p
       className="text-editor-label has-text"
