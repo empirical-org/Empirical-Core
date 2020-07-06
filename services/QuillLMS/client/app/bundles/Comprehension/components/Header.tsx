@@ -3,7 +3,7 @@ import * as Redux from "redux";
 import { connect } from "react-redux";
 import { TrackAnalyticsEvent } from '../actions/analytics';
 import { Events } from '../modules/analytics';
-import '../styles/header.scss'
+import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 
