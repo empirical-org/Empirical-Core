@@ -61,7 +61,7 @@ module Comprehension
         @passage = create(:comprehension_passage, activity: @activity)
 
         @activity.destroy
-        assert_equal Passage.exists?(@passage), false
+        refute Passage.exists?(@passage)
       end
 
       should 'destroy dependent prompts' do
@@ -69,7 +69,7 @@ module Comprehension
         @prompt = create(:comprehension_prompt, activity: @activity)
 
         @activity.destroy
-        assert_equal Prompt.exists?(@prompt), false
+        refute Prompt.exists?(@prompt)
       end
     end
 

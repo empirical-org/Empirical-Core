@@ -16,7 +16,7 @@ module Comprehension
       should 'validate presence of uuid on any update call' do
         turking_round = create(:comprehension_turking_round)
         turking_round.uuid = nil
-        assert_equal turking_round.valid?, false
+        refute turking_round.valid?
         assert turking_round.errors[:uuid].include?("can't be blank")
       end
 
