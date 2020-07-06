@@ -1,4 +1,4 @@
-import dispatch from '../../../__mocks__/dispatch'
+import dispatch from '../../__mocks__/dispatch'
 
 const mockTrack = jest.fn()
 jest.mock('../../modules/analytics', () => ({

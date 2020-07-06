@@ -89,6 +89,7 @@ exports[`PromptStep component active state before any responses have been submit
               </ContentEditable>
               <button
                 className="disabled clear-button"
+                type="button"
               >
                 <img
                   alt="circle with an x in it"
@@ -204,6 +205,7 @@ exports[`PromptStep component active state when a profane response has been subm
               </ContentEditable>
               <button
                 className="disabled clear-button"
+                type="button"
               >
                 <img
                   alt="circle with an x in it"
@@ -402,6 +404,7 @@ exports[`PromptStep component active state when a response with multiple sentenc
               </ContentEditable>
               <button
                 className="disabled clear-button"
+                type="button"
               >
                 <img
                   alt="circle with an x in it"
@@ -610,6 +613,7 @@ exports[`PromptStep component active state when a suboptimal response has been s
               </ContentEditable>
               <button
                 className="disabled clear-button"
+                type="button"
               >
                 <img
                   alt="circle with an x in it"
@@ -837,6 +841,7 @@ exports[`PromptStep component active state when a too-long response has been sub
               </ContentEditable>
               <button
                 className="disabled clear-button"
+                type="button"
               >
                 <img
                   alt="circle with an x in it"
@@ -1035,6 +1040,7 @@ exports[`PromptStep component active state when a too-short response has been su
               </ContentEditable>
               <button
                 className="disabled clear-button"
+                type="button"
               >
                 <img
                   alt="circle with an x in it"

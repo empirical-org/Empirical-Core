@@ -1,4 +1,4 @@
-import dispatch from '../../../__mocks__/dispatch'
+import dispatch from '../../__mocks__/dispatch'
 
 const mockPost = jest.fn()
 jest.mock('request', () => ({
