@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { DataTable, Error, Spinner } from 'quill-component-library/dist/componentLibrary';
 import { promptStems } from '../../../../constants/comprehension'
 const quillCheckmark = `https://assets.quill.org/images/icons/check-circle-small.svg`;
-// const quillCheckmark = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`;
+// const quillCheckmark = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`;
 const fetchAllRuleSetsAPI = 'https://comprehension-dummy-data.s3.us-east-2.amazonaws.com/activities/regex_index.json';
 
 const RuleSets = (props) => {

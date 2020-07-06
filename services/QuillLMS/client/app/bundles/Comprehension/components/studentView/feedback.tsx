@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import ReactCSSTransitionReplace from 'react-css-transition-replace'
 
-const loopSrc = `${process.env.QUILL_CDN_URL}/images/icons/loop.svg`
-const smallCheckCircleSrc = `${process.env.QUILL_CDN_URL}/images/icons/check-circle-small.svg`
+const loopSrc = `${process.env.CDN_URL}/images/icons/loop.svg`
+const smallCheckCircleSrc = `${process.env.CDN_URL}/images/icons/check-circle-small.svg`
 
 const feedbackToShow = (lastSubmittedResponse, submittedResponses, prompt, customFeedback) => {
 

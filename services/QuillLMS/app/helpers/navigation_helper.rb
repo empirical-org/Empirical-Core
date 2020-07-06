@@ -52,6 +52,14 @@ module NavigationHelper
     current_uri&.match(%r{assign/.*}) != nil
   end
 
+  def is_playing_activity?
+    ['comprehension'].include?(action_name)
+  end
+
+  def should_show_default_header_and_footer?
+    !(in_assignment_flow? || is_playing_activity?)
+  end
+
   # NOTE: subnavs for other pages are handled on the front end with React.
   def should_render_subnav?
     home_page_should_be_active? || classes_page_should_be_active? || student_reports_page_should_be_active?

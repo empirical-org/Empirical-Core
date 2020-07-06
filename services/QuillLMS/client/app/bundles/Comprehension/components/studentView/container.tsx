@@ -12,8 +12,8 @@ import { getFeedback } from '../../actions/session'
 import { ActivitiesReducerState } from '../../reducers/activitiesReducer'
 import { SessionReducerState } from '../../reducers/sessionReducer'
 
-const bigCheckSrc =  `${process.env.QUILL_CDN_URL}/images/icons/check-circle-big.svg`
-const tadaSrc =  `${process.env.QUILL_CDN_URL}/images/illustrations/tada.svg`
+const bigCheckSrc =  `${process.env.CDN_URL}/images/icons/check-circle-big.svg`
+const tadaSrc =  `${process.env.CDN_URL}/images/illustrations/tada.svg`
 
 interface StudentViewContainerProps {
   dispatch: Function;

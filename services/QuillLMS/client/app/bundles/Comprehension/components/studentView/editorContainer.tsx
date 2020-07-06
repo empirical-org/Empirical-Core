@@ -1,8 +1,8 @@
 import * as React from 'react'
 import ContentEditable from 'react-contenteditable'
 
-const enabledClearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear-enabled.svg`
-const disabledClearSrc =  `${process.env.QUILL_CDN_URL}/images/icons/clear-disabled.svg`
+const enabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-enabled.svg`
+const disabledClearSrc =  `${process.env.CDN_URL}/images/icons/clear-disabled.svg`
 
 
 interface EditorContainerProps {
@@ -30,7 +30,7 @@ export default class EditorContainer extends React.Component<EditorContainerProp
     if (disabled) { return }
 
     if (isResettable) {
-      return (<button className="clear-button" onClick={resetText}>
+      return (<button className="clear-button" onClick={resetText} type="button">
         <img
           alt="circle with an x in it"
           className="clear"
@@ -40,7 +40,7 @@ export default class EditorContainer extends React.Component<EditorContainerProp
       </button>)
     }
 
-    return (<button className="disabled clear-button">
+    return (<button className="disabled clear-button" type="button">
       <img
         alt="circle with an x in it"
         className="clear"

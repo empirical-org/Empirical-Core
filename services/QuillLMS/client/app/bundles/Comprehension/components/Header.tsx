@@ -7,8 +7,8 @@ import '../styles/Header.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 
-const logoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white.svg`
-const mobileLogoSrc = `${process.env.QUILL_CDN_URL}/images/logos/quill-logo-white-mobile.svg`
+const logoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white.svg`
+const mobileLogoSrc = `${process.env.CDN_URL}/images/logos/quill-logo-white-mobile.svg`
 
 export class Header extends React.Component<any, any> {
   constructor(props: any) {
@@ -20,7 +20,7 @@ export class Header extends React.Component<any, any> {
   }
 
   goToLMS = () => {
-    window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
+    window.location.href = "/"
   }
 
   trackSaveAndExitEvent = () => {

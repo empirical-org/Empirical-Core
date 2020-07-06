@@ -8,6 +8,10 @@ const store = configureStore();
 store.dispatch(initStore());
 
 class App extends React.Component<{}, {}> {
+  componentDidMount() {
+    document.title = 'Quill Comprehension'
+  }
+
   public render(): JSX.Element {
     return (
       <Provider store={store}>
