@@ -8,7 +8,7 @@ import SubmissionModal from '../shared/submissionModal';
 // import { flagOptions } from '../../../../../constants/comprehension';
 import { fetchActivity, updateActivity } from '../../../utils/comprehension/activityAPIs';
 import { queryCache, useQuery } from 'react-query'
-import { promptsByConjunction } from "../../../helpers/comprehension";
+import { promptsByConjunction, getCsrfToken } from "../../../helpers/comprehension";
 
 const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
 
@@ -26,7 +26,8 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
     queryFn: fetchActivity
   });
 
-  const handleUpdateActivity = (activity: ActivityInterface, csrfToken: string) => {
+  const handleUpdateActivity = (activity: ActivityInterface) => {
+    const csrfToken = getCsrfToken();
     updateActivity(activity, activityId, csrfToken).then((response) => {
       const { error } = response;
       error && setError(error);
@@ -135,11 +136,11 @@ const ActivitySettings: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ m
         // },
         {
           label: 'Scored Reading Level',
-          value: !scored_level ? 'not set' : scored_level
+          value: scored_level || 'not set'
         },
         {
           label: 'Target Reading Level',
-          value: !target_level ? 'not set' : target_level
+          value: target_level || 'not set'
         },
         {
           label: 'Passage Length',

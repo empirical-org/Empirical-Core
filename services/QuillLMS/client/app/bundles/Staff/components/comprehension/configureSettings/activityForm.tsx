@@ -2,8 +2,21 @@ import * as React from "react";
 import { DropdownInput, Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
 // import { flagOptions } from '../../../../../constants/comprehension'
-import { validateForm, buildActivity, buildBlankPrompt, formatPrompt, promptsByConjunction, getCsrfToken } from '../../../helpers/comprehension';
-import { BECAUSE, BUT, SO, activityFormKeys } from '../../../../../constants/comprehension';
+import { validateForm, buildActivity, buildBlankPrompt, promptsByConjunction } from '../../../helpers/comprehension';
+import { 
+  BECAUSE, 
+  BUT, 
+  SO, 
+  activityFormKeys, 
+  TITLE,
+  SCORED_READING_LEVEL,
+  TARGET_READING_LEVEL,
+  MAX_ATTEMPTS_FEEDBACK,
+  PASSAGE,
+  BECAUSE_STEM,
+  BUT_STEM,
+  SO_STEM 
+} from '../../../../../constants/comprehension';
 import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } from '../../../interfaces/comprehensionInterfaces';
 
 // TODO: add form inputs for course, target reading level and reading level score
@@ -11,7 +24,7 @@ import { ActivityInterface, FlagInterface, PromptInterface, PassagesInterface } 
 interface ActivityFormProps {
   activity: ActivityInterface,
   closeModal: (event: React.MouseEvent) => void,
-  submitActivity: (activity: object, csrfToken: string) => void
+  submitActivity: (activity: object) => void
 }
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -19,7 +32,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
 
   const { parent_activity_id, passages, prompts, scored_level, target_level, title } = activity;
   // const formattedFlag = flag ? { label: flag, value: flag } : flagOptions[0];
-  const formattedScoredLevel = scored_level ? scored_level : '';
+  const formattedScoredLevel = scored_level || '';
   const formattedTargetLevel = target_level ? target_level.toString() : '';
   const formattedPassage = passages && passages.length ? passages : [{ text: ''}];
   const formattedMaxFeedback = prompts && prompts[0] && prompts[0].max_attempts_feedback ? prompts[0].max_attempts_feedback : '';
@@ -74,7 +87,6 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
   };
 
   const handleSubmitActivity = () => {
-    const csrfToken = getCsrfToken();
     const activityObject = buildActivity({
       activityTitle,
       activityScoredReadingLevel,
@@ -100,10 +112,10 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
     if(validationErrors && Object.keys(validationErrors).length !== 0) {
       setErrors(validationErrors);
     } else {
-      submitActivity(activityObject, csrfToken);
+      submitActivity(activityObject);
     }
   }
-
+  
   const errorsPresent = !!Object.keys(errors).length;
   const passageLabelStyle = activityPassages[0].text.length  && activityPassages[0].text !== '<br/>' ? 'has-text' : '';
   const maxAttemptStyle = activityMaxFeedback.length && activityMaxFeedback !== '<br/>' ? 'has-text' : '';
@@ -116,7 +128,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
       <form className="activity-form">
         <Input
           className="title-input"
-          error={errors['Title']}
+          error={errors[TITLE]}
           handleChange={handleSetActivityTitle}
           label="Title"
           value={activityTitle}
@@ -131,14 +143,14 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
         /> */}
         <Input
           className="scored-reading-level-input"
-          error={errors['Scored reading level']}
+          error={errors[SCORED_READING_LEVEL]}
           handleChange={handleSetActivityScoredReadingLevel}
           label="Scored Reading Level"
           value={activityScoredReadingLevel}
         />
         <Input
           className="target-reading-level-input"
-          error={errors['Target reading level']}
+          error={errors[TARGET_READING_LEVEL]}
           handleChange={handleSetActivityTargetReadingLevel}
           label="Target Reading Level"
           value={activityTargetReadingLevel}
@@ -151,7 +163,7 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           key="passage-description"
           text={activityPassages[0].text}
         />
-        {errors['Passage'] && <p className="error-message">{errors['Passage']}</p>}
+        {errors[PASSAGE] && <p className="error-message">{errors[PASSAGE]}</p>}
         <p className={`text-editor-label ${maxAttemptStyle}`}>Max Attemps Feedback</p>
         <TextEditor
           ContentState={ContentState}
@@ -160,24 +172,24 @@ const ActivityForm = ({ activity, closeModal, submitActivity }: ActivityFormProp
           key="max-attempt-feedback"
           text={activityMaxFeedback}
         />
-        {errors['Max attempts feedback'] && <p className="error-message">{errors['Max attempts feedback']}</p>}
+        {errors[MAX_ATTEMPTS_FEEDBACK] && <p className="error-message">{errors[MAX_ATTEMPTS_FEEDBACK]}</p>}
         <Input
           className="because-input"
-          error={errors['Because stem']}
+          error={errors[BECAUSE_STEM]}
           handleChange={handleSetActivityBecausePrompt}
           label="Because Stem"
           value={activityBecausePrompt.text}
         />
         <Input
           className="but-input"
-          error={errors['But stem']}
+          error={errors[BUT_STEM]}
           handleChange={handleSetActivityButPrompt}
           label="But Stem"
           value={activityButPrompt.text}
         />
         <Input
           className="so-input"
-          error={errors['So stem']}
+          error={errors[SO_STEM]}
           handleChange={handleSetActivitySoPrompt}
           label="So Stem" 
           value={activitySoPrompt.text}

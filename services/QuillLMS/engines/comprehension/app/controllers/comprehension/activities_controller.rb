@@ -53,7 +53,7 @@ module Comprehension
         :target_level,
         :scored_level,
         passages_attributes: [:id, :text],
-        prompts_attributes: [:id, :conjunction, :text, :max_attempts_feedback]
+        prompts_attributes: [:id, :conjunction, :text, :max_attempts, :max_attempts_feedback]
       )
     end
   end

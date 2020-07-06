@@ -11,8 +11,8 @@ document.head.innerHTML = `<meta name="csrf-token" content="${csrfToken}">`;
 
 const mockActivity = {
   title: 'Could Capybaras Create Chaos?',
-  scored_level: 7,
-  target_level: '',
+  scored_level: '7',
+  target_level: 7,
   passages: [{text: '...'}],
   prompts: [
     { conjunction: 'because', text: '1', max_attempts: 5, max_attempts_feedback: 'WRONG!' }, 

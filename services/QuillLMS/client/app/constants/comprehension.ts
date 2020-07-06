@@ -65,11 +65,10 @@ export const readingLevelOptions = [
   },
 ];
 
-export const promptStems = ['because', 'but', 'so'];
-
 export const BECAUSE = 'because';
 export const BUT = 'but';
 export const SO = 'so';
+export const promptStems = [BECAUSE, BUT, SO];
 export const DEFAULT_MAX_ATTEMPTS = 5;
 
 export const blankActivity = { 
@@ -107,13 +106,25 @@ export const blankRuleSet = {
   prompts: []
 }
 
+export const TITLE = 'Title';
+export const SCORED_READING_LEVEL = 'Scored reading level';
+export const TARGET_READING_LEVEL = 'Target reading level';
+export const MAX_ATTEMPTS_FEEDBACK = 'Max attempts feedback';
+export const PASSAGE = 'Passage';
+export const BECAUSE_STEM = 'Because stem';
+export const BUT_STEM = 'But stem';
+export const SO_STEM = 'So stem';
+
 export const activityFormKeys = [
-  'Title', 
-  'Scored reading level', 
-  'Target reading level',
-  'Max attempts feedback',
-  'Passage', 
-  'Because stem', 
-  'But stem', 
-  'So stem'
+  TITLE,
+  SCORED_READING_LEVEL,
+  TARGET_READING_LEVEL,
+  MAX_ATTEMPTS_FEEDBACK,
+  PASSAGE,
+  BECAUSE_STEM,
+  BUT_STEM,
+  SO_STEM
 ];
+
+export const MINIMUM_READING_LEVEL = 4;
+export const MAXIMUM_READING_LEVEL = 12;

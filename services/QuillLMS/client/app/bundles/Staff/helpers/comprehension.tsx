@@ -1,5 +1,5 @@
 import * as React from "react";
-import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE } from '../../../constants/comprehension';
+import { promptStems, DEFAULT_MAX_ATTEMPTS, BECAUSE, MINIMUM_READING_LEVEL, MAXIMUM_READING_LEVEL, TARGET_READING_LEVEL, SCORED_READING_LEVEL } from '../../../constants/comprehension';
 import { ActivityRuleSetPrompt, PromptInterface } from '../interfaces/comprehensionInterfaces'
 import stripHtml from "string-strip-html";
 const quillCheckmark = 'https://assets.quill.org/images/icons/check-circle-small.svg';
@@ -77,31 +77,48 @@ export const formatPrompt = (prompt: PromptInterface) => {
   return formattedPrompt;
 }
 
+const targetReadingLevelError = (value: string) => {
+  if(!value) {
+    return `${TARGET_READING_LEVEL} must be a number between 4 and 12, and cannot be blank.`
+  }
+  const num = parseInt(value);
+  if(num < MINIMUM_READING_LEVEL || num > MAXIMUM_READING_LEVEL) {
+    return `${TARGET_READING_LEVEL} must be a number between ${MINIMUM_READING_LEVEL} and ${MAXIMUM_READING_LEVEL}.`
+  }
+}
+
+const scoredReadingLevelError = (value: string) => {
+  if(value === '') {
+    return;
+  }
+  const num = parseInt(value);
+  if(isNaN(num) || num < 4 || num > 12) {
+    return `${SCORED_READING_LEVEL} must be a number between 4 and 12, or left blank.`;
+  }
+}
+
 export const validateForm = (keys: string[], state: string[]) => {
   let errors = {};
   state.map((value, i) => {
-    if(keys[i] === 'Target reading level') {
-      if(!value) {
-        errors[keys[i]] = `${keys[i]} must be a number between 4 and 12, and cannot be blank.`;
-      } else {
-        const num = parseInt(value);
-        if(num < 4 || num > 12) {
-          errors[keys[i]] = `${keys[i]} must be a number between 4 and 12.`;
+    switch(keys[i]) {
+      case TARGET_READING_LEVEL:
+        const targetError = targetReadingLevelError(value);
+        if(targetError) {
+          errors[TARGET_READING_LEVEL] = targetError;
         }
-      }
-    } else if(keys[i] === 'Scored reading level' && value !== '') {
-      const num = parseInt(value);
-      if(isNaN(num) || num < 4 || num > 12) {
-        errors[keys[i]] = `${keys[i]} must be a number between 4 and 12, or left blank.`;
-      }
-    } else if(keys[i] !== 'Scored reading level') {
-      // strip TextEditor value of breaks or whitespaces
-      const strippedValue = stripHtml(value);
-      if(!strippedValue || strippedValue.length === 0) {
-        errors[keys[i]] = `${keys[i]} cannot be blank.`;
-      }
-    }
-
+        break;
+      case SCORED_READING_LEVEL:
+        const scoredError = scoredReadingLevelError(value);
+        if(scoredError) {
+          errors[SCORED_READING_LEVEL] = scoredError
+        }
+        break;
+      default:
+        const strippedValue = stripHtml(value);
+        if(!strippedValue || strippedValue.length === 0) {
+          errors[keys[i]] = `${keys[i]} cannot be blank.`;
+        }
+     }
   });
   return errors;
 }
