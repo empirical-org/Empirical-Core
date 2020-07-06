@@ -95,7 +95,7 @@ jobs:
       - run:
           name: Install NPM dependencies
           command: |
-            cd services/QuillLMS/client
+            cd services/QuillLMS
             npm install
       - save_cache:
           key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
