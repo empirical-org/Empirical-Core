@@ -52,12 +52,12 @@ module NavigationHelper
     current_uri&.match(%r{assign/.*}) != nil
   end
 
-  def is_playing_activity?
+  def playing_activity?
     ['comprehension'].include?(action_name)
   end
 
   def should_show_default_header_and_footer?
-    !(in_assignment_flow? || is_playing_activity?)
+    !(in_assignment_flow? || playing_activity?)
   end
 
   # NOTE: subnavs for other pages are handled on the front end with React.

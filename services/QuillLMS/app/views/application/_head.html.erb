@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" lazyload>
 
   <%= render partial: 'typekit' unless Rails.env.test? %>
-  <% if !is_playing_activity? %>
+  <% if !playing_activity? %>
     <%= stylesheet_pack_tag('app') %>
   <% end %>
   <% if @style_file %>
