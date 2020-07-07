@@ -134,9 +134,7 @@ class IncorrectSequencesContainer extends Component {
         )
       }
     });
-    const arr = _.values(components);
-    arr.push(null);
-    return <SortableList data={arr} key={_.values(components).length} sortCallback={this.sortCallback} />;
+    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
   renderTagsForSequence = (sequenceString) => {
