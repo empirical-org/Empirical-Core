@@ -63,7 +63,8 @@ class Cms::BlogPostsController < Cms::CmsController
                     :published_at,
                     :center_images,
                     :image_link,
-                    :press_name
+                    :press_name,
+                    :featured_order_number
                   )
   end
 
