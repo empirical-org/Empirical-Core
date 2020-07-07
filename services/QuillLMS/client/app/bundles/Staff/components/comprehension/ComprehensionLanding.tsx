@@ -8,7 +8,8 @@ import Activities from './activities';
 import Activity from './activity';
 import SubmissionModal from './shared/submissionModal';
 import { createActivity } from '../../utils/comprehension/activityAPIs';
-import { queryCache } from 'react-query'
+import { getCsrfToken } from "../../helpers/comprehension";
+import { queryCache } from 'react-query';
 
 const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   const { pathname } = location
@@ -35,7 +36,8 @@ const ComprehensionLanding = ({ location }: RouteComponentProps) => {
   }
 
   const submitActivity = (activity: ActivityInterface) => {
-    createActivity(activity).then((response) => {
+    const csrfToken = getCsrfToken();
+    createActivity(activity, csrfToken).then((response) => {
       const { error } = response;
       if(error) setError(error);
       setShowCreateActivityModal(false);
