@@ -13,10 +13,15 @@ export interface ActivityRuleSetInterface {
 
 export interface ActivityInterface {
   id?: string,
+  parent_activity_id?: string,
   title: string,
-  flag: string,
-  passages: PassagesInterface[],
-  prompts: PromptInterface[]
+  // flag: string,
+  scored_level: string,
+  target_level: number,
+  passages?: PassagesInterface[],
+  prompts?: PromptInterface[],
+  passage_attributes?: PassagesInterface[],
+  prompt_attributes?: PromptInterface[]
 }
 
 export interface PromptInterface {

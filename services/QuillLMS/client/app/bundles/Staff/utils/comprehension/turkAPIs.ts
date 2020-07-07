@@ -1,5 +1,5 @@
 import { TurkSessionInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError } from '../../../../helpers/comprehension'
+import { handleApiError } from '../../helpers/comprehension'
 
 export const fetchTurkSessions = async (key: string, activityId: string) => {
   let turkSessions: TurkSessionInterface[];
