@@ -105,7 +105,7 @@ const minis = ({ history }) => [
   />),
   (<AssignmentCard
     bodyArray={[
-      { key: 'What', text: 'Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences', },
+      { key: 'What', text: 'Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure', },
       { key: 'When', text: 'Your students are working on basic sentence patterns and the skills outlined in the Pre-AP® English High School Course Framework.', }
     ]}
     buttonLink="https://diagnostic.quill.org/#/play/diagnostic/-M2ngd3CX44IwmKr_PY7"

@@ -140,7 +140,7 @@ exports[`AssignADiagnostic component should render 1`] = `
           Array [
             Object {
               "key": "What",
-              "text": "Subject-verb agreement, pronouns, compound subjects, objects, and predicates, and compound and complex sentences",
+              "text": "Conjunctive adverbs, relative clauses, appositive phrases, participial phrases, and parallel structure",
             },
             Object {
               "key": "When",
