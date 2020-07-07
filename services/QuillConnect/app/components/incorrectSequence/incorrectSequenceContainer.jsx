@@ -38,7 +38,7 @@ class IncorrectSequencesContainer extends Component {
   }
 
   getSequences = () => {
-    return this.getQuestion().incorrectSequences;
+    return this.getQuestion().incorrectSequences.filter(incorrectSequence => incorrectSequence);
   }
 
   deleteConceptResult = (conceptResultKey, sequenceKey) => {
@@ -72,7 +72,7 @@ class IncorrectSequencesContainer extends Component {
     const { params } = match
     const { questionID } = params
     const incorrectSequences = this.getSequences()
-    const newOrder = sortInfo.data.items.map(item => item.key);
+    const newOrder = sortInfo.data.items.filter(item => item).map(item => item.key);
     const newIncorrectSequences = newOrder.map((key) => incorrectSequences[key])
     dispatch(updateIncorrectSequences(questionID, newIncorrectSequences));
   };
@@ -134,7 +134,9 @@ class IncorrectSequencesContainer extends Component {
         )
       }
     });
-    return <SortableList data={_.values(components)} key={_.values(components).length} sortCallback={this.sortCallback} />;
+    const arr = _.values(components);
+    arr.push(null);
+    return <SortableList data={arr} key={_.values(components).length} sortCallback={this.sortCallback} />;
   }
 
   renderTagsForSequence = (sequenceString) => {
