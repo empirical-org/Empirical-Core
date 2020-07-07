@@ -38,7 +38,12 @@ class IncorrectSequencesContainer extends Component {
   }
 
   getSequences = () => {
-    return this.getQuestion().incorrectSequences.filter(incorrectSequence => incorrectSequence);
+    const sequences = this.getQuestion().incorrectSequences;
+    if(sequences.length) {
+      return sequences.filter(incorrectSequence => incorrectSequence);
+    } else {
+      return sequences;
+    }
   }
 
   deleteConceptResult = (conceptResultKey, sequenceKey) => {
