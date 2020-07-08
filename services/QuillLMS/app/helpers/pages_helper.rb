@@ -240,7 +240,7 @@ module PagesHelper
           },
           {
             name: 'Alex Redmon',
-            title: 'Senior Software Engineer at Cylera',
+            title: 'Engineering Manager at Hearst',
             img: 'advisor-alex-redmon@2x.png'
           },
           {
