@@ -5,6 +5,7 @@ import moment from 'moment';
 
 import CreateOrEditBlogPost from '../components/cms/blog_posts/create_or_edit_blog_post.jsx';
 import BlogPostTable from '../components/cms/blog_posts/blog_post_table.jsx';
+import FeaturedBlogPosts from '../components/cms/blog_posts/featured_blog_posts.tsx'
 import BlogPostIndex from '../components/blog_posts/blog_post_index.jsx';
 import BlogPost from '../components/blog_posts/blog_post.jsx';
 import getAuthToken from '../components/modules/get_auth_token';
@@ -26,7 +27,7 @@ export default class BlogPosts extends React.Component {
 
   featuredBlogPosts = () => {
     const { blogPosts, } = this.state
-    return blogPosts.filter(bp => bp.featured_order_number)
+    return blogPosts.filter(bp => bp.featured_order_number !== null)
   }
 
   saveOrder = (topic, blogPosts, ) => {
@@ -53,14 +54,42 @@ export default class BlogPosts extends React.Component {
     })
   };
 
-  updateOrder = (sortInfo) => {
+  onClickSaveFeaturedOrder = () => {
+    const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_featured_order_numbers`
+    const data = new FormData();
+    data.append( "blog_posts", JSON.stringify(this.featuredBlogPosts()) );
+    fetch(link, {
+      method: 'PUT',
+      mode: 'cors',
+      credentials: 'include',
+      body: data,
+      headers: {
+        'X-CSRF-Token': getAuthToken()
+      }
+    }).then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    }).then((response) => {
+      alert(`Order for featured blog posts has been saved.`)
+    }).catch((error) => {
+      // to do, use Sentry to capture error
+    })
+  };
+
+  updateOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'order_number')
+
+  updateFeaturedOrderNumber = (sortInfo) => this.updateOrder(sortInfo, 'featured_order_number')
+
+  updateOrder = (sortInfo, orderAttribute) => {
     const { blogPosts, } = this.state
     const newOrder = sortInfo.map(item => item.key);
     const newOrderedBlogPosts = blogPosts.map((bp, i) => {
       const newBlogPost = bp
       const newIndex = newOrder.findIndex(key => Number(key) === Number(bp.id))
       if (newIndex !== -1) {
-        newBlogPost.order_number = newIndex
+        newBlogPost[orderAttribute] = newIndex
       }
       return newBlogPost
     })
@@ -70,7 +99,7 @@ export default class BlogPosts extends React.Component {
   onClickStar = (blogPostId) => {
     const { blogPosts, } = this.state
     const blogPost = blogPosts.find(bp => bp.id === blogPostId)
-    const featuredOrderNumber = blogPost.featured_order_number ? null : this.featuredBlogPosts().length + 1
+    const featuredOrderNumber = blogPost.featured_order_number === null ? this.featuredBlogPosts().length : null
     const link = `${process.env.DEFAULT_URL}/cms/blog_posts/${blogPostId}`
     const data = { blog_post: { featured_order_number: featuredOrderNumber, } }
     fetch(link, {
@@ -97,8 +126,9 @@ export default class BlogPosts extends React.Component {
   }
 
   renderBlogPostsByTopic = () => {
+    const { topics, studentTopics, } = this.props
     const { blogPosts, } = this.state
-    const allTopics = this.props.topics.concat(this.props.studentTopics)
+    const allTopics = topics.concat(studentTopics)
     const tables = allTopics.map(t => {
       const filteredBlogPosts = blogPosts.filter(bp => bp.topic === t)
       if (filteredBlogPosts.length > 0) {
@@ -108,7 +138,7 @@ export default class BlogPosts extends React.Component {
           handleClickStar={this.onClickStar}
           saveOrder={this.saveOrder}
           topic={t}
-          updateOrder={this.updateOrder}
+          updateOrder={this.updateOrderNumber}
         />)
       }
     }
@@ -117,11 +147,12 @@ export default class BlogPosts extends React.Component {
   };
 
   render() {
-    if (['new', 'edit'].includes(this.props.action)) {
+    const { action, route, } = this.props
+    if (['new', 'edit'].includes(action)) {
       return <CreateOrEditBlogPost {...this.props} />;
-    } else if (this.props.route === 'show') {
+    } else if (route === 'show') {
       return <BlogPost {...this.props} />;
-    } else if (this.props.route === 'index') {
+    } else if (route === 'index') {
       return <BlogPostIndex {...this.props} />;
     }
     return (
@@ -129,6 +160,12 @@ export default class BlogPosts extends React.Component {
         <h1>Teacher Center</h1>
         <a className="quill-button medium primary contained" href="/cms/blog_posts/new">Add a post</a>
         <br /><br />
+        <FeaturedBlogPosts
+          featuredBlogPosts={this.featuredBlogPosts()}
+          handleClickSaveOrder={this.onClickSaveFeaturedOrder}
+          handleClickStar={this.onClickStar}
+          updateOrder={this.updateFeaturedOrderNumber}
+        />
         {this.renderBlogPostsByTopic()}
       </div>
     );

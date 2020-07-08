@@ -17,10 +17,10 @@ const BlogPostRow = ({
   featuredBlogPostLimitReached,
 }) => {
   const handleClickStar = () => onClickStar(id)
-  const star = featuredOrderNumber ? <i className="fas fa-star" /> : <i className="far fa-star" />
+  const star = featuredOrderNumber === null ? <i className="far fa-star" /> : <i className="fas fa-star" />
   let featuredCellContent = <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
 
-  if (featuredBlogPostLimitReached && !featuredOrderNumber) {
+  if (featuredBlogPostLimitReached && featuredOrderNumber === null) {
     featuredCellContent = null
   }
 
