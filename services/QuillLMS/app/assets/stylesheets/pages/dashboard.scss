@@ -364,10 +364,8 @@
       line-height: 29px;
     }
   }
-  @media (min-width: 1000px) {
-    #preview-card-container {
-      justify-content: space-between;
-    }
+  a.preview-card-link:not(:nth-child(3n)) {
+    margin-right: 40px;
   }
 }
 
