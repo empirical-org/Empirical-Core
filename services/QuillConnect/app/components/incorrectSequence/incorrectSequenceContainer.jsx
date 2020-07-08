@@ -39,7 +39,7 @@ class IncorrectSequencesContainer extends Component {
 
   getSequences = () => {
     const sequences = this.getQuestion().incorrectSequences;
-    if(sequences.length) {
+    if(sequences && sequences.length) {
       return sequences.filter(incorrectSequence => incorrectSequence);
     } else {
       return sequences;
