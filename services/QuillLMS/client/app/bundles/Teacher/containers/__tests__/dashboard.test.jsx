@@ -6,7 +6,7 @@ import Dashboard from '../dashboard.jsx';
 
 import ClassOverview from '../../components/dashboard/class_overview'
 import MyClasses from '../../components/dashboard/my_classes'
-import MyResources from '../../components/dashboard/my_resources'
+import TeacherCenter from '../../components/dashboard/teacher_center'
 import DashboardFooter from '../../components/dashboard/dashboard_footer'
 
 describe('dashboard container', () => {
@@ -70,14 +70,9 @@ describe('dashboard container', () => {
     });
   });
 
-  describe('MyResources component', () => {
+  describe('TeacherCenter component', () => {
     it('should render', () => {
-      expect(wrapper.find(MyResources).exists()).toBe(true);
-    });
-
-    it('should pass state to data prop', () => {
-      wrapper.setState({secret: 'bosco'});
-      expect(wrapper.find(MyResources).props().data.secret).toBe('bosco');
+      expect(wrapper.find(TeacherCenter).exists()).toBe(true);
     });
   });
 
