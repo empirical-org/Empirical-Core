@@ -33,6 +33,7 @@
       .featured-blog-post-header {
         display: flex;
         align-items: flex-start;
+        justify-content: space-between;
       }
       .title {
         -webkit-line-clamp: 4;
