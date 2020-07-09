@@ -41,6 +41,11 @@ class Cms::BlogPostsController < Cms::CmsController
     render json: {}
   end
 
+  def update_featured_order_numbers
+    JSON.parse(params[:blog_posts]).each { |bp| BlogPost.find(bp['id']).update(featured_order_number: bp['featured_order_number'])}
+    render json: {}
+  end
+
   private
 
   def authors
@@ -63,7 +68,8 @@ class Cms::BlogPostsController < Cms::CmsController
                     :published_at,
                     :center_images,
                     :image_link,
-                    :press_name
+                    :press_name,
+                    :featured_order_number
                   )
   end
 
