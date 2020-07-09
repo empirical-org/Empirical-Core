@@ -68,8 +68,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 
 # For searching via Elasticsearch
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+gem 'elasticsearch-model', '~> 5.0'
+gem 'elasticsearch-rails', '~> 5.0'
 
 # for importing multiple db records at once.
 gem 'activerecord-import'

@@ -67,18 +67,18 @@ GEM
     crass (1.0.6)
     dalli (2.7.10)
     diff-lcs (1.4.4)
-    elasticsearch (7.8.0)
-      elasticsearch-api (= 7.8.0)
-      elasticsearch-transport (= 7.8.0)
-    elasticsearch-api (7.8.0)
+    elasticsearch (5.0.5)
+      elasticsearch-api (= 5.0.5)
+      elasticsearch-transport (= 5.0.5)
+    elasticsearch-api (5.0.5)
       multi_json
-    elasticsearch-model (7.1.0)
+    elasticsearch-model (5.1.0)
       activesupport (> 3)
-      elasticsearch (> 1)
+      elasticsearch (~> 5)
       hashie
-    elasticsearch-rails (7.1.0)
-    elasticsearch-transport (7.8.0)
-      faraday (~> 1)
+    elasticsearch-rails (5.1.0)
+    elasticsearch-transport (5.0.5)
+      faraday
       multi_json
     erubi (1.9.0)
     factory_bot (4.8.2)
@@ -264,7 +264,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    websocket-driver (0.7.2)
+    websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
 
@@ -278,8 +278,8 @@ DEPENDENCIES
   byebug
   connection_pool
   dalli
-  elasticsearch-model
-  elasticsearch-rails
+  elasticsearch-model (~> 5.0)
+  elasticsearch-rails (~> 5.0)
   factory_bot_rails (~> 4.8.2)
   httparty
   kaminari
