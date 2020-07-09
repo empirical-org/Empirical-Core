@@ -209,16 +209,6 @@ nav.q-navbar-home {
       &:not(.sign-up-button) {
         padding: 20px 0px;
       }
-      &:focus {
-        outline: dashed 2px #fff !important;
-        outline-offset: 2px;
-      }
-      a {
-        &:focus {
-          outline: dashed 2px #fff;
-          outline-offset: 2px;
-        }
-      }
     }
 
     .nav-element:not(.sign-up-button):hover {

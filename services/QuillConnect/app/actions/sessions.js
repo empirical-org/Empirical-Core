@@ -7,8 +7,6 @@ import _ from 'lodash';
 
 const C = require('../constants').default;
 
-const NEW_SESSION_PERCENTAGE = 10;
-
 const sessionsRef = rootRef.child('savedSessions');
 const v4sessionsRef = v4rootRef.child('connectSessions');
 let allQuestions = {};
@@ -45,12 +43,7 @@ export default {
     const normalizedSession = normalizeSession(cleanedSession)
     // Let's start including an updated time on our sessions
     normalizedSession.updatedAt = new Date().getTime();
-    // If this session should go to the LMS
-    if (applyFeatureToPercentage(sessionID, NEW_SESSION_PERCENTAGE)) {
-      SessionApi.update(sessionID, normalizedSession);
-    } else {
-      v4sessionsRef.child(sessionID).set(normalizedSession);
-    }
+    SessionApi.update(sessionID, normalizedSession);
   },
 
   delete(sessionID) {
