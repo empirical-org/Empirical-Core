@@ -1,13 +1,13 @@
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError } from '../../helpers/comprehension'
+import { handleApiError } from '../../helpers/comprehension';
+const baseUrl = process.env.DEFAULT_URL;
 
 export const fetchRuleSets = async (key: string, activityId: string) => {
-  let rulesets: ActivityRuleSetInterface[];
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets.json/`);
-  rulesets = await response.json();
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets.json`);
+  const rulesets = await response.json();
   return { 
     error: handleApiError('Failed to fetch rule sets, please refresh the page.', response), 
-    rulesets 
+    rulesets: rulesets.rule_sets || rulesets 
   };
 }
 
@@ -21,14 +21,15 @@ export const fetchRuleSet = async (key: string, activityId: string, ruleSetId: s
   };
 }
 
-export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSetInterface) => {
+export const createRuleSet = async (activityId: string, ruleSet: ActivityRuleSetInterface, csrfToken: string) => {
   const { rules } = ruleSet;
-  const response = await fetch(`https://comprehension-247816.appspot.com/api/activities/${activityId}/rulesets.json/`, {
+  const response = await fetch(`${baseUrl}/api/v1/comprehension/activities/${activityId}/rule_sets.json`, {
     method: 'POST',
     body: JSON.stringify(ruleSet),
     headers: {
       "Accept": "application/JSON",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "X-CSRF-Token": csrfToken
     },
   });
   const newRuleSet = await response.json();

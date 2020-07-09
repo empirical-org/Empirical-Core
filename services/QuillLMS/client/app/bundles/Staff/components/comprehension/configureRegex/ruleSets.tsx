@@ -3,7 +3,7 @@ import { Link, RouteComponentProps } from 'react-router-dom'
 import { DataTable, Error, Modal, Spinner } from 'quill-component-library/dist/componentLibrary';
 import RuleSetForm from './ruleSetForm';
 import SubmissionModal from '../shared/submissionModal';
-import { buildErrorMessage, getPromptsIcons } from '../../../helpers/comprehension';
+import { buildErrorMessage, getPromptsIcons, getCsrfToken } from '../../../helpers/comprehension';
 import { ActivityRouteProps, ActivityRuleSetInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import { BECAUSE, BUT, SO, blankRuleSet } from '../../../../../constants/comprehension';
 import { fetchActivity } from '../../../utils/comprehension/activityAPIs';
@@ -57,7 +57,8 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
   }
 
   const submitRuleSet = ({ ruleSet }) => {
-    createRuleSet(activityId, ruleSet).then((response) => {
+    const csrfToken = getCsrfToken();
+    createRuleSet(activityId, ruleSet, csrfToken).then((response) => {
       const { error, rules, ruleSetId } = response;
       if(error) {
         let updatedErrors = errors;
@@ -89,6 +90,7 @@ const RuleSets: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) 
           activityData={activityData && activityData.activity}
           activityRuleSet={blankRuleSet} 
           closeModal={toggleAddRuleSetModal} 
+          ruleSetsCount={ruleSetsData && ruleSetsData.rulesets.length}
           submitRuleSet={submitRuleSet} 
         />
       </Modal>

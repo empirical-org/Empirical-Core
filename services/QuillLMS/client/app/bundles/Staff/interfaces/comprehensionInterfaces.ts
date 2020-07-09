@@ -6,6 +6,7 @@ export interface ActivityRuleSetInterface {
   id?: number,
 	name: string,
   feedback: string,
+  priority: number,
   rules?: RegexRuleInterface[],
   prompts?: ActivityRuleSetPrompt[],
   prompt_ids?: number[]
