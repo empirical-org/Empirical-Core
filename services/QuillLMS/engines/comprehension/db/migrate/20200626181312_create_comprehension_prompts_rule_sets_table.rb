@@ -1,4 +1,4 @@
-class CreatePromptsRuleSetsTable < ActiveRecord::Migration
+class CreateComprehensionPromptsRuleSetsTable < ActiveRecord::Migration
   def change
     create_table :comprehension_prompts_rule_sets do |t|
       t.integer :prompt_id
