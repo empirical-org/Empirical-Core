@@ -1,6 +1,6 @@
 module Comprehension
   class RulesController < ApplicationController
-    before_action :set_activity_and_rule_set
+    before_action :set_rule_set
     before_action :set_rule, only: [:show, :update, :destroy]
 
     # GET /rules.json
@@ -43,9 +43,8 @@ module Comprehension
     end
 
     private
-      def set_activity_and_rule_set
-        @activity = Activity.find(params[:activity_id])
-        @rule_set = @activity.rule_sets.find(params[:rule_set_id])
+      def set_rule_set
+        @rule_set = RuleSet.find(params[:rule_set_id])
       end
 
       def set_rule
