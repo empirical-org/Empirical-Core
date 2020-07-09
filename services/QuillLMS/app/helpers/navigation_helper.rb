@@ -53,10 +53,10 @@ module NavigationHelper
   end
 
   def playing_activity?
-    ['comprehension'].include?(action_name)
+    controller.class == PagesController && [ApplicationController::COMPREHENSION].include?(action_name)
   end
 
-  def should_show_default_header_and_footer?
+  def show_site_navigation?
     !(in_assignment_flow? || playing_activity?)
   end
 

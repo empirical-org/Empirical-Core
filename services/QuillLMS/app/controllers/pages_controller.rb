@@ -440,7 +440,7 @@ class PagesController < ApplicationController
   end
 
   def comprehension
-    @style_file = 'comprehension'
+    @style_file = ApplicationController::COMPREHENSION
   end
 
   private
@@ -462,8 +462,8 @@ class PagesController < ApplicationController
       @js_file = 'tools'
     when 'backpack'
       @js_file = 'staff'
-    when 'comprehension'
-      @js_file = 'comprehension'
+    when ApplicationController::COMPREHENSION
+      @js_file = ApplicationController::COMPREHENSION
     end
   end
 
