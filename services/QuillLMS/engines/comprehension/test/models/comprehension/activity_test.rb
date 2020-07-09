@@ -7,6 +7,7 @@ module Comprehension
     context 'associations' do
       should have_many(:passages).dependent(:destroy)
       should have_many(:prompts).dependent(:destroy)
+      should have_many(:rule_sets).dependent(:destroy)
     end
 
     context 'validations' do
@@ -61,7 +62,7 @@ module Comprehension
         @passage = create(:comprehension_passage, activity: @activity)
 
         @activity.destroy
-        refute Passage.exists?(@passage)
+        refute Passage.exists?(@passage.id)
       end
 
       should 'destroy dependent prompts' do
@@ -69,7 +70,7 @@ module Comprehension
         @prompt = create(:comprehension_prompt, activity: @activity)
 
         @activity.destroy
-        refute Prompt.exists?(@prompt)
+        refute Prompt.exists?(@prompt.id)
       end
     end
 
