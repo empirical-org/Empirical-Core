@@ -185,6 +185,9 @@ describe Teachers::ClassroomManagerController, type: :controller do
 
   describe '#dashboard' do
     let(:teacher) { create(:teacher) }
+    let(:blog_post1) { create(:blog_post, featured_order_number: 0)}
+    let(:blog_post2) { create(:blog_post, featured_order_number: 1)}
+    let(:blog_post3) { create(:blog_post, featured_order_number: 2)}
 
     before do
       allow(controller).to receive(:current_user) { teacher }
@@ -196,6 +199,12 @@ describe Teachers::ClassroomManagerController, type: :controller do
     it 'should set the firewall test to true' do
       get :dashboard
       expect(assigns(:firewall_test)).to eq true
+    end
+
+    it 'should set the featured_blog_posts variable to the array of featured blog posts' do
+      get :dashboard
+      expect(assigns(:featured_blog_posts)).to eq [blog_post1, blog_post2, blog_post3]
+
     end
   end
 
