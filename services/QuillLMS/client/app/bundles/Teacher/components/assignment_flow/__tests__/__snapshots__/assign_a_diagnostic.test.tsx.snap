@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AssignADiagnostic component should render 1`] = `
+exports[`AssignADiagnostic component should render AssignADiagnostic 1`] = `
 <div
   className="assignment-flow-container"
 >
