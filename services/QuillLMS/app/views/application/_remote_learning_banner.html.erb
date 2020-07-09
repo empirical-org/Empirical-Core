@@ -1,4 +1,4 @@
-<% if !current_user || current_user.teacher? %>
+<% if (!current_user || current_user.teacher?) && !playing_activity? %>
   <div class="covid-banner" id="remote-learning-banner">
     <div class="content-container">
       <img alt="Earth icon with pin in it" class="banner-icon" src=<%= "#{ENV['CDN_URL']}/images/icons/earth-pin.svg" %>>
