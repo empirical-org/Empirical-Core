@@ -490,6 +490,7 @@ EmpiricalGrammar::Application.routes.draw do
     resources :unit_templates, only: [:index, :create, :update, :destroy]
     resources :unit_template_categories, only: [:index, :create, :update, :destroy]
     put '/blog_posts/update_order_numbers', to: 'blog_posts#update_order_numbers'
+    put '/blog_posts/update_featured_order_numbers', to: 'blog_posts#update_featured_order_numbers'
     resources :blog_posts
     get '/blog_posts/:id/delete', to: 'blog_posts#destroy'
     get '/blog_posts/:id/unpublish', to: 'blog_posts#unpublish'
@@ -537,7 +538,7 @@ EmpiricalGrammar::Application.routes.draw do
     end
   end
 
-  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers)
+  other_pages = %w(beta ideas board press partners develop mission about faq tos privacy activities impact stats team premium teacher_resources media_kit play news home_new map firewall_info referrals_toc announcements backpack careers comprehension)
 
   all_pages = other_pages
   all_pages.each do |page|
@@ -646,7 +647,7 @@ EmpiricalGrammar::Application.routes.draw do
   # Uptime status
   resource :status, only: [] do
     collection do
-      get :index, :database, :database_follower, :redis_cache, :redis_queue, :firebase
+      get :index, :database, :database_write, :database_follower, :redis_cache, :redis_queue, :firebase
     end
   end
 

@@ -1,5 +1,5 @@
 import { ActivityRuleSetInterface, RegexRuleInterface } from '../../interfaces/comprehensionInterfaces';
-import { handleApiError } from '../../../../helpers/comprehension'
+import { handleApiError } from '../../helpers/comprehension'
 
 export const fetchRuleSets = async (key: string, activityId: string) => {
   let rulesets: ActivityRuleSetInterface[];

@@ -10,6 +10,11 @@ class StatusesController < ApplicationController
     render plain: 'OK'
   end
 
+  def database_write
+    BlogPost.first.touch
+    render plain: 'OK'
+  end
+
   def database_follower
     User.first
     render plain: 'OK'

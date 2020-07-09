@@ -7,6 +7,7 @@ module Comprehension
     context 'associations' do
       should have_many(:passages).dependent(:destroy)
       should have_many(:prompts).dependent(:destroy)
+      should have_many(:rule_sets).dependent(:destroy)
     end
 
     context 'validations' do
@@ -52,6 +53,36 @@ module Comprehension
         assert_equal prompt_hash['text'], "it is good."
         assert_equal prompt_hash['max_attempts'], 5
         assert_equal prompt_hash['max_attempts_feedback'], "good work!."
+      end
+    end
+
+    context 'dependent destroy' do
+      should 'destroy dependent passages' do
+        @activity = create(:comprehension_activity)
+        @passage = create(:comprehension_passage, activity: @activity)
+
+        @activity.destroy
+        refute Passage.exists?(@passage.id)
+      end
+
+      should 'destroy dependent prompts' do
+        @activity = create(:comprehension_activity)
+        @prompt = create(:comprehension_prompt, activity: @activity)
+
+        @activity.destroy
+        refute Prompt.exists?(@prompt.id)
+      end
+    end
+
+    context 'before_destroy' do
+      should 'expire all associated Turking Rounds before destroy' do
+        @activity = create(:comprehension_activity)
+        @turking_round = create(:comprehension_turking_round, activity: @activity)
+
+        assert_operator @turking_round.expires_at, :>, Time.zone.now
+        @activity.destroy
+        @turking_round.reload
+        assert_operator @turking_round.expires_at, :<, Time.zone.now
       end
     end
   end

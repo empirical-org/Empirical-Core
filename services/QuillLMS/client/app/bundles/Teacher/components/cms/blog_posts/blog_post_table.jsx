@@ -6,55 +6,15 @@ import moment from 'moment';
 import getAuthToken from '../../modules/get_auth_token';
 
 export default class BlogPostTable extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {blogPosts: props.blogPosts.sort((bp1, bp2) => bp1.order_number - bp2.order_number)}
-  }
-
   confirmDelete(e) {
     if(window.prompt('To delete this post, please type DELETE.') !== 'DELETE') {
       e.preventDefault();
     }
   }
 
-  saveOrder = () => {
-    const link = `${process.env.DEFAULT_URL}/cms/blog_posts/update_order_numbers`
-    const data = new FormData();
-    data.append( "blog_posts", JSON.stringify(this.state.blogPosts) );
-    fetch(link, {
-      method: 'PUT',
-      mode: 'cors',
-      credentials: 'include',
-      body: data,
-      headers: {
-        'X-CSRF-Token': getAuthToken()
-      }
-    }).then((response) => {
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.json();
-    }).then((response) => {
-      alert(`Order for ${this.props.topic} blog posts has been saved.`)
-    }).catch((error) => {
-      // to do, use Sentry to capture error
-    })
-  };
-
-  updateOrder = sortInfo => {
-    const { blogPosts, } = this.state
-    const newOrder = sortInfo.map(item => item.key);
-    const newOrderedBlogPosts = newOrder.map((key, i) => {
-      const newBlogPost = blogPosts[key];
-      newBlogPost.order_number = i;
-      return newBlogPost;
-    });
-    this.setState({blogPosts: newOrderedBlogPosts});
-  };
-
   renderTableHeader() {
     return (<tr>
-      <th />
+      <th>Featured</th>
       <th>Title</th>
       <th>Topic</th>
       <th>Created</th>
@@ -68,29 +28,46 @@ export default class BlogPostTable extends React.Component {
   }
 
   renderTableRow(blogPost, index) {
+    const { handleClickStar, featuredBlogPostLimitReached, } = this.props
+    const { created_at, id, draft, featured_order_number, external_link, slug, rating, title, topic, updated_at, read_count, } = blogPost
     return (<BlogPostRow
-      createdAt={moment(blogPost.created_at).format('MM-DD-YY')}
-      deleteLink={`/cms/blog_posts/${blogPost.id}/delete`}
-      draft={blogPost.draft ? 'DRAFT' : ''}
-      editLink={`/cms/blog_posts/${blogPost.id}/edit`}
-      key={index}
-      previewLink={blogPost.external_link ? blogPost.external_link : `/teacher-center/${blogPost.slug}`}
-      rating={blogPost.rating}
-      title={blogPost.title}
-      topic={blogPost.topic}
-      updatedAt={moment(blogPost.updated_at).format('MM-DD-YY')}
-      views={blogPost.read_count}
+      createdAt={moment(created_at).format('MM-DD-YY')}
+      deleteLink={`/cms/blog_posts/${id}/delete`}
+      draft={draft}
+      editLink={`/cms/blog_posts/${id}/edit`}
+      featuredBlogPostLimitReached={featuredBlogPostLimitReached}
+      featuredOrderNumber={featured_order_number}
+      id={id}
+      key={id}
+      onClickStar={handleClickStar}
+      previewLink={external_link || `/teacher-center/${slug}`}
+      rating={rating}
+      title={title}
+      topic={topic}
+      updatedAt={moment(updated_at).format('MM-DD-YY')}
+      views={read_count}
     />)
   }
 
+  orderedBlogPosts = () => {
+    const { blogPosts, } = this.props
+    return blogPosts.sort((bp1, bp2) => bp1.order_number - bp2.order_number)
+  }
+
+  handleClickSaveOrder = () => {
+    const { topic, saveOrder, } = this.props
+    saveOrder(topic, this.orderedBlogPosts())
+  }
+
   render() {
-    const blogPostRows = this.state.blogPosts.map((bp, i) => this.renderTableRow(bp, i))
+    const { updateOrder, } = this.props
+    const blogPostRows = this.orderedBlogPosts().map((bp, i) => this.renderTableRow(bp, i))
     return (<div>
-      <h1>{this.props.topic} <span className="save-order" onClick={this.saveOrder}>Save Order</span></h1>
+      <h2>{this.props.topic} <span className="save-order" onClick={this.handleClickSaveOrder}>Save Order</span></h2>
       <div className="blog-post-table">
         <table>
           {this.renderTableHeader()}
-          <SortableList data={blogPostRows} sortCallback={this.updateOrder} />
+          <SortableList data={blogPostRows} sortCallback={updateOrder} />
         </table>
       </div>
     </div>)

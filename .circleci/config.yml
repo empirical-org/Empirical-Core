@@ -95,7 +95,7 @@ jobs:
       - run:
           name: Install NPM dependencies
           command: |
-            cd services/QuillLMS/client
+            cd services/QuillLMS
             npm install
       - save_cache:
           key: npm-cache-lms-v3-{{ checksum "services/QuillLMS/client/package-lock.json" }}-{{ checksum "services/QuillLMS/client/package-lock.json" }}
@@ -107,6 +107,12 @@ jobs:
             cd services/QuillLMS/client
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
             node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
+      - run:
+          name: Run Comprehension Mocha tests
+          command: |
+            cd services/QuillLMS
+            npm run test:comprehension
+
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:

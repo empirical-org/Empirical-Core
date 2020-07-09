@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Input, TextEditor } from 'quill-component-library/dist/componentLibrary';
 import { EditorState, ContentState } from 'draft-js'
-import { validateForm } from '../../../../../helpers/comprehension';
+import { validateForm } from '../../../helpers/comprehension';
 import { BECAUSE, BUT, SO } from '../../../../../constants/comprehension';
 import { ActivityInterface, ActivityRuleSetInterface, PromptInterface, RegexRuleInterface } from '../../../interfaces/comprehensionInterfaces';
 import RegexSection from './regexSection';
