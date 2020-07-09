@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200609005839) do
+ActiveRecord::Schema.define(version: 20200630161345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,5 +47,47 @@ ActiveRecord::Schema.define(version: 20200609005839) do
   end
 
   add_index "comprehension_prompts", ["activity_id"], name: "index_comprehension_prompts_on_activity_id", using: :btree
+
+  create_table "comprehension_prompts_rule_sets", force: :cascade do |t|
+    t.integer "prompt_id"
+    t.integer "rule_set_id"
+  end
+
+  add_index "comprehension_prompts_rule_sets", ["prompt_id"], name: "index_comprehension_prompts_rule_sets_on_prompt_id", using: :btree
+  add_index "comprehension_prompts_rule_sets", ["rule_set_id"], name: "index_comprehension_prompts_rule_sets_on_rule_set_id", using: :btree
+
+  create_table "comprehension_rule_sets", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.integer  "prompt_id"
+    t.string   "name",        limit: 100
+    t.text     "feedback"
+    t.integer  "priority",    limit: 2
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "comprehension_rule_sets", ["activity_id"], name: "index_comprehension_rule_sets_on_activity_id", using: :btree
+  add_index "comprehension_rule_sets", ["prompt_id"], name: "index_comprehension_rule_sets_on_prompt_id", using: :btree
+
+  create_table "comprehension_rules", force: :cascade do |t|
+    t.integer  "rule_set_id"
+    t.string   "regex_text",     limit: 200
+    t.boolean  "case_sensitive"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "comprehension_rules", ["rule_set_id"], name: "index_comprehension_rules_on_rule_set_id", using: :btree
+
+  create_table "comprehension_turking_rounds", force: :cascade do |t|
+    t.integer  "activity_id"
+    t.uuid     "uuid"
+    t.datetime "expires_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "comprehension_turking_rounds", ["activity_id"], name: "index_comprehension_turking_rounds_on_activity_id", using: :btree
+  add_index "comprehension_turking_rounds", ["uuid"], name: "index_comprehension_turking_rounds_on_uuid", unique: true, using: :btree
 
 end

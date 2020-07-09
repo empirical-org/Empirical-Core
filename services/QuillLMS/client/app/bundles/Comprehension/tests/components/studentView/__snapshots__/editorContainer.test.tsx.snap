@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditorContainer component when the activity has loaded renders 1`] = `
+<EditorContainer
+  className="step"
+  disabled={false}
+  handleTextChange={[Function]}
+  html="Here is some text <u>because</u> "
+  innerRef={[Function]}
+  resetText={[Function]}
+  stripHtml={[Function]}
+  unsubmittableResponses={Array []}
+>
+  <div
+    className="editor-container"
+  >
+    <ContentEditable
+      className="step"
+      data-gramm={false}
+      disabled={false}
+      html="Here is some text <u>because</u> "
+      innerRef={[Function]}
+      onChange={[Function]}
+      spellCheck={false}
+    >
+      <div
+        className="step"
+        contentEditable={true}
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "Here is some text <u>because</u> ",
+          }
+        }
+        data-gramm={false}
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onInput={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        spellCheck={false}
+      />
+    </ContentEditable>
+    <button
+      className="disabled clear-button"
+      type="button"
+    >
+      <img
+        alt="circle with an x in it"
+        className="clear"
+        src="undefined/images/icons/clear-disabled.svg"
+      />
+      Clear response
+    </button>
+  </div>
+</EditorContainer>
+`;
