@@ -224,6 +224,11 @@ module PagesHelper
         team: 'Advisors',
         members: [
           {
+            name: 'Rick Benger',
+            title: 'Creator of Once upon a Pancake',
+            img: 'advisor-rick-benger@2x.png'
+          },
+          {
             name: 'Donald McKendrick',
             title: 'Curriculum at Chan Zuckerberg Initiative',
             img: 'advisor-donald-mckendrick@2x.png'
@@ -235,8 +240,13 @@ module PagesHelper
           },
           {
             name: 'Alex Redmon',
-            title: 'Senior Software Engineer at Cylera',
+            title: 'Engineering Manager at Hearst',
             img: 'advisor-alex-redmon@2x.png'
+          },
+          {
+            name: 'Ashley Winn',
+            title: 'English Language Arts Teacher, Educational Consultant',
+            img: 'advisor-ashley-winn@2x.png'
           }
         ]
       }
