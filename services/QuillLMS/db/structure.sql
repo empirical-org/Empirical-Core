@@ -6305,7 +6305,7 @@ INSERT INTO schema_migrations (version) VALUES ('20200629191908');
 
 INSERT INTO schema_migrations (version) VALUES ('20200629191909');
 
-INSERT INTO schema_migrations (version) VALUES ('20200629191910');
-
 INSERT INTO schema_migrations (version) VALUES ('20200702140252');
+
+INSERT INTO schema_migrations (version) VALUES ('20200706135059');
 
