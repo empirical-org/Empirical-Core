@@ -110,7 +110,7 @@ jobs:
   cms_rails_build:
     working_directory: ~/Empirical-Core
     docker:
-      - image: ruby:2.3.1
+      - image: ruby:2.6.6
         environment:
           PG_DB: quill_cms_test_db
           PG_USER: ubuntu
