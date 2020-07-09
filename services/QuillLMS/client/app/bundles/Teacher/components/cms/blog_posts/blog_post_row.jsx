@@ -1,5 +1,14 @@
 import React from 'react'
 
+const featuredCellContent = ({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, }) => {
+  if (draft) { return 'DRAFT' }
+  if (featuredBlogPostLimitReached && featuredOrderNumber === null) { return }
+
+  const star = featuredOrderNumber === null ? <i className="far fa-star" /> : <i className="fas fa-star" />
+  return <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
+}
+
+
 const BlogPostRow = ({
   id,
   draft,
@@ -17,19 +26,9 @@ const BlogPostRow = ({
   featuredBlogPostLimitReached,
 }) => {
   const handleClickStar = () => onClickStar(id)
-  const star = featuredOrderNumber === null ? <i className="far fa-star" /> : <i className="fas fa-star" />
-  let featuredCellContent = <button className="interactive-wrapper" onClick={handleClickStar} type="button">{star}</button>
-
-  if (featuredBlogPostLimitReached && featuredOrderNumber === null) {
-    featuredCellContent = null
-  }
-
-  if (draft) {
-    featuredCellContent = 'DRAFT'
-  }
 
   return (<tr className="blog-post-row">
-    <td>{featuredCellContent}</td>
+    <td>{featuredCellContent({ featuredOrderNumber, featuredBlogPostLimitReached, handleClickStar, draft, })}</td>
     <td>{title}</td>
     <td>{topic}</td>
     <td>{createdAt}</td>
