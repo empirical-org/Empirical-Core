@@ -455,6 +455,8 @@ class PagesController < ApplicationController
       'home'
     when 'home_new', 'diagnostic_tool', 'connect_tool', 'grammar_tool', 'proofreader_tool', 'lessons_tool'
       'twenty_seventeen_home'
+    when ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER
+      'activity'
     end
   end
 

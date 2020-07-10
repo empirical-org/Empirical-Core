@@ -57,7 +57,7 @@ module NavigationHelper
   end
 
   def show_site_navigation?
-    !(in_assignment_flow? || playing_activity?)
+    !in_assignment_flow?
   end
 
   # NOTE: subnavs for other pages are handled on the front end with React.

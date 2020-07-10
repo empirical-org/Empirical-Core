@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { stringNormalize } from 'quill-string-normalizer'
 import { sentences } from 'sbd'
 
-const directionSrc = `${process.env.QUILL_CDN_URL}/images/icons/direction.svg`
+const directionSrc = `${process.env.CDN_URL}/images/icons/direction.svg`
 
 import getParameterByName from '../../helpers/getParameterByName';
 import EditCaretPositioning from '../../helpers/EditCaretPositioning'
