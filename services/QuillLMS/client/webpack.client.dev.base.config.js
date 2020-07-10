@@ -82,6 +82,9 @@ module.exports = {
     ],
     comprehension: [
       './app/bundles/Comprehension/clientRegistration.js'
+    ],
+    proofreader: [
+      './app/bundles/Proofreader/clientRegistration'
     ]
   },
   resolve: {

@@ -443,6 +443,10 @@ class PagesController < ApplicationController
     @style_file = ApplicationController::COMPREHENSION
   end
 
+  def proofreader
+    @style_file = ApplicationController::PROOFREADER
+  end
+
   private
 
   def determine_layout
@@ -464,6 +468,8 @@ class PagesController < ApplicationController
       @js_file = 'staff'
     when ApplicationController::COMPREHENSION
       @js_file = ApplicationController::COMPREHENSION
+    when ApplicationController::PROOFREADER
+      @js_file = ApplicationController::PROOFREADER
     end
   end
 

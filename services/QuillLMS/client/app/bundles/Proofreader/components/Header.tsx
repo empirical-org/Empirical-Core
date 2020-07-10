@@ -22,7 +22,7 @@ class Header extends React.Component<any, any> {
   }
 
   goToLMS = () => {
-    window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
+    window.location.href = `${process.env.DEFAULT_URL}`
   }
 
   handleSaveAndExitClick = () => {
@@ -40,7 +40,7 @@ class Header extends React.Component<any, any> {
     return (
       <Layout.Header className="header">
         <Row align="middle" justify="space-between" style={{height: '100%', maxWidth: '800px', margin: 'auto'}} type="flex">
-          <a className="focus-on-dark" href={process.env.EMPIRICAL_BASE_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
+          <a className="focus-on-dark" href={process.env.DEFAULT_URL}><img alt="Quill logo" src={quillLogoSrc} /></a>
           <button className="focus-on-dark" onClick={this.handleSaveAndExitClick}>Save and exit</button>
         </Row>
       </Layout.Header>

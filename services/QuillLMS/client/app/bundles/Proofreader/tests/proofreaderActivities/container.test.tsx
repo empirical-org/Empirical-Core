@@ -3,7 +3,7 @@ import { shallow } from "enzyme";
 import { PlayProofreaderContainer } from "../../components/proofreaderActivities/container";
 import { ProofreaderActivityReducer } from './data'
 
-process.env.EMPIRICAL_BASE_URL = 'https://staging.quill.org'
+process.env.DEFAULT_URL = 'https://staging.quill.org'
 process.env.QUILL_CMS = 'https://cms.quill.org'
 
 describe("<PlayProofreaderContainer />", () => {

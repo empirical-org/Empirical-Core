@@ -197,7 +197,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     handleCheckWorkClickSession = (sessionID: string, results: ConceptResultObject[], score: number) => {
       request(
-        { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
           json:
           {
@@ -209,7 +209,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
             removeSession(sessionID)
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${sessionID}`;
+            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${sessionID}`;
           }
         }
       );
@@ -217,7 +217,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
 
     createAnonActivitySession = (lessonID: string, results: ConceptResultObject[], score: number, sessionID: string|null) => {
       request(
-        { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
           method: 'POST',
           json:
           {
@@ -230,7 +230,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
             if (sessionID) { removeSession(sessionID) }
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
           }
         }
       );
@@ -317,7 +317,7 @@ export class PlayProofreaderContainer extends React.Component<PlayProofreaderCon
       window.location.href = `${process.env.QUILL_GRAMMAR_URL}/play/sw?proofreaderSessionId=${firebaseSessionID}`
     }
 
-    goToLMS = () =>  window.location.href = `${process.env.EMPIRICAL_BASE_URL}`
+    goToLMS = () =>  window.location.href = `${process.env.DEFAULT_URL}`
 
     finishReview = () => {
       const { firebaseSessionID, originalPassage, conceptResultsObjects, necessaryEdits, numberOfCorrectChanges, } = this.state
