@@ -439,6 +439,10 @@ class PagesController < ApplicationController
     @style_file = 'staff'
   end
 
+  def comprehension
+    @style_file = ApplicationController::COMPREHENSION
+  end
+
   private
 
   def determine_layout
@@ -458,6 +462,8 @@ class PagesController < ApplicationController
       @js_file = 'tools'
     when 'backpack'
       @js_file = 'staff'
+    when ApplicationController::COMPREHENSION
+      @js_file = ApplicationController::COMPREHENSION
     end
   end
 
