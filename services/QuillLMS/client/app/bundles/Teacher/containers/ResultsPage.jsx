@@ -38,7 +38,7 @@ export default class ResultsPage extends React.Component {
       return (<a className={buttonClassName} href='/account/new'>Sign up</a>)
     }
 
-    const link = classroomId ? `/classrooms/${classroomId}` : '/classes'
+    const link = classroomId ? `/classrooms/${classroomId}` : '/'
     return <a className={buttonClassName} href={link}>Back to your dashboard</a>
   }
 

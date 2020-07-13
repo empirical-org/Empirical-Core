@@ -31,7 +31,6 @@ export default class PageLayout extends React.Component<any, { showFocusState: b
 
   handleSkipToMainContentClick = () => {
     const element = document.getElementById("main-content")
-    debugger;
     if (!element) { return }
     element.focus()
     element.scrollIntoView()

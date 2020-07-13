@@ -44,7 +44,7 @@
     "es5-shim": "^4.5.7",
     "expose-loader": "^0.7.1",
     "file-loader": "^4.0.0",
-    "firebase": "^7.6.1",
+    "firebase": "^7.14.1",
     "fuse.js": "^3.2.1",
     "fuzzyset.js": "0.0.7",
     "graphql": "^0.13.2",
@@ -143,7 +143,8 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.8.3",
     "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.5.0"
+    "webpack-dev-server": "^3.5.0",
+    "whatwg-fetch": "^2.0.4"
   },
   "browser": {
     "fs": false
