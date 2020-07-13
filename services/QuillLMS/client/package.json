@@ -68,6 +68,7 @@
     "pusher": "^2.2.2",
     "pusher-js": "^5.0.1",
     "quill-component-library": "0.7.35",
+    "quill-string-normalizer": "0.0.9",
     "react": "^16.13.1",
     "react-addons-css-transition-group": "^15.2.0",
     "react-addons-shallow-compare": "^15.6.2",
