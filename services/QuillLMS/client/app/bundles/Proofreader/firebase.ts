@@ -1,8 +1,11 @@
-const prod = process.env.NODE_ENV === 'production';
+const prod = process.env.RAILS_ENV === 'production';
 
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/performance';
+
+console.log('RAILS_ENV', process.env.RAILS_ENV)
+console.log('NODE_ENV', process.env.NODE_ENV)
 
 let config = {};
 if (prod) {
