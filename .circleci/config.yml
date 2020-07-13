@@ -422,7 +422,6 @@ workflows:
       - grammar_node_build
       - cms_rails_build
       - lessons_node_build
-      - proofreader_node_build
       - spellchecker_node_build
       - comprehension_rails_build
       - comprehension_python_build
