@@ -108,10 +108,10 @@ jobs:
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
             node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
       - run:
-          name: Run Comprehension Mocha tests
+          name: Run Mocha tests
           command: |
             cd services/QuillLMS
-            npm run test:comprehension
+            npm run test:mocha
 
   cms_rails_build:
     working_directory: ~/Empirical-Core
