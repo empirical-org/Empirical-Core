@@ -2,7 +2,7 @@ import * as React from "react";
 import { Layout, Row } from "antd";
 import * as Redux from "redux";
 import { connect } from "react-redux";
-import '../styles/header.scss'
+import '../styles/headerStyling.scss'
 
 import getParameterByName from '../helpers/getParameterByName';
 
