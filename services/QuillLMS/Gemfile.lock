@@ -306,6 +306,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.7.0)
       launchy (~> 2.2)
+    libsqreen (0.6.1.0.1)
     libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -672,9 +673,15 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sq_mini_racer (0.2.4.sqreen2)
-    sqreen (1.16.2)
+    sq_mini_racer (0.2.5.0.1.beta3)
+    sqreen (1.20.1)
+      libsqreen (~> 0.6.1.0.0)
       sq_mini_racer (~> 0.2.4.sqreen2)
+      sqreen-backport (~> 0.1.0)
+      sqreen-kit (~> 0.2.1)
+    sqreen-backport (0.1.0)
+    sqreen-kit (0.2.1)
+      sqreen-backport (~> 0.1.0)
     stripe (4.9.0)
       faraday (~> 0.13)
       net-http-persistent (~> 3.0)
@@ -869,7 +876,7 @@ DEPENDENCIES
   webpacker (~> 3.0.0)
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.6.6p146
 
 BUNDLED WITH
    1.17.3
