@@ -10,5 +10,5 @@ namespace :remove_order_number_duplicates do
         ids_check[ids] = true
       end
     end
- end
+  end
 end

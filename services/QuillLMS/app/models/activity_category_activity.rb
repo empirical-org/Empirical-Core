@@ -4,7 +4,7 @@ class ActivityCategoryActivity < ActiveRecord::Base
 
   after_commit :clear_activity_search_cache
   
-  validates :activity_category, uniqueness: { scope: :activity }
+  validates :activity_category_id, uniqueness: { scope: :activity_id }
 
   def clear_activity_search_cache
     Activity.clear_activity_search_cache
