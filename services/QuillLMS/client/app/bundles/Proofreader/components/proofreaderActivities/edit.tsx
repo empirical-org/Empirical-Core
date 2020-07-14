@@ -11,9 +11,9 @@ import {
   UNNECESSARY_CHANGE
 } from '../../helpers/determineUnnecessaryEditType'
 
-const notNecessaryIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/review-not-necessary.svg`
-const incorrectIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/review-incorrect.svg`
-const correctIconSrc = `${process.env.QUILL_CDN_URL}/images/icons/review-correct.svg`
+const notNecessaryIconSrc = `${process.env.CDN_URL}/images/icons/review-not-necessary.svg`
+const incorrectIconSrc = `${process.env.CDN_URL}/images/icons/review-incorrect.svg`
+const correctIconSrc = `${process.env.CDN_URL}/images/icons/review-correct.svg`
 
 interface EditProps {
   displayText: string;
