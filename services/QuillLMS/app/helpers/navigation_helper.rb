@@ -53,11 +53,11 @@ module NavigationHelper
   end
 
   def playing_activity?
-    controller.class == PagesController && [ApplicationController::COMPREHENSION].include?(action_name)
+    controller.class == PagesController && [ApplicationController::COMPREHENSION, ApplicationController::PROOFREADER].include?(action_name)
   end
 
   def show_site_navigation?
-    !(in_assignment_flow? || playing_activity?)
+    !in_assignment_flow?
   end
 
   # NOTE: subnavs for other pages are handled on the front end with React.

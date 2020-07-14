@@ -2,7 +2,7 @@ import * as request from 'request';
 import * as _ from 'underscore';
 import { ActionTypes } from './actionTypes'
 import { Concept } from '../interfaces/concepts'
-const conceptsEndpoint = `${process.env.EMPIRICAL_BASE_URL}/api/v1/concepts.json`;
+const conceptsEndpoint = `${process.env.DEFAULT_URL}/api/v1/concepts.json`;
 
 function splitInLevels(concepts: Concept[]) {
   return _.groupBy(concepts, 'level');

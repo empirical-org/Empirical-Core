@@ -108,10 +108,10 @@ jobs:
             TESTFILES=$(circleci tests glob "app/**/*.test.*" | circleci tests split)
             node --expose-gc ./node_modules/.bin/jest $TESTFILES --maxWorkers=2 --logHeapUsage
       - run:
-          name: Run Comprehension Mocha tests
+          name: Run Mocha tests
           command: |
             cd services/QuillLMS
-            npm run test:comprehension
+            npm run test:mocha
 
   cms_rails_build:
     working_directory: ~/Empirical-Core
@@ -249,22 +249,6 @@ jobs:
           name: Run QuillDiagnostic Tests
           command: |
             cd services/QuillDiagnostic
-            FORCE_COLOR=true npm run test --colors
-  proofreader_node_build:
-    working_directory: ~/Empirical-Core
-    docker:
-      - image: circleci/node:8.11.2
-    steps:
-      - checkout
-      - run:
-          name: Install NPM dependencies
-          command: |
-            cd services/QuillProofreader
-            npm install
-      - run:
-          name: Run QuillProofreader Tests
-          command: |
-            cd services/QuillProofreader
             FORCE_COLOR=true npm run test --colors
   spellchecker_node_build:
     working_directory: ~/Empirical-Core
@@ -438,7 +422,6 @@ workflows:
       - grammar_node_build
       - cms_rails_build
       - lessons_node_build
-      - proofreader_node_build
       - spellchecker_node_build
       - comprehension_rails_build
       - comprehension_python_build
