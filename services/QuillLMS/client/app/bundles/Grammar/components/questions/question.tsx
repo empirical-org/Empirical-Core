@@ -12,7 +12,7 @@ import {
 } from '../../actions/responses';
 import EditForm from './questionForm';
 import getBoilerplateFeedback from './boilerplateFeedback';
-const icon = `${process.env.QUILL_CDN_URL}/images/icons/question_icon.svg`
+const icon = `${process.env.CDN_URL}/images/icons/question_icon.svg`
 import ResponseComponentWrapper from './responseRouteWrapper'
 import ChooseModelContainer from './chooseModelContainer'
 import TestQuestion from './testQuestion'

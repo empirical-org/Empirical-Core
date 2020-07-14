@@ -1,7 +1,7 @@
 import { requestDelete, requestGet, requestPost, requestPut } from './request';
 import { GrammarActivities, GrammarActivity } from '../interfaces/grammarActivities'
 
-const grammarActivityApiBaseUrl = `${process.env.EMPIRICAL_BASE_URL}/api/v1/lessons`;
+const grammarActivityApiBaseUrl = `${process.env.DEFAULT_URL}/api/v1/lessons`;
 
 const TYPE_GRAMMAR_ACTIVITY = 'grammar_activity'
 

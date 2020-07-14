@@ -5,10 +5,10 @@
 @import './selectSearch.scss';
 @import './dashboards.scss';
 @import './intro.scss';
-@import './Header.scss';
+@import './headerStyling.scss';
 @import '~react-table/react-table.css';
 @import "~quill-component-library/src/styles/styles.scss";
-
+@import '~antd/dist/antd.css';
 
 body, #app {
   height: 100%;

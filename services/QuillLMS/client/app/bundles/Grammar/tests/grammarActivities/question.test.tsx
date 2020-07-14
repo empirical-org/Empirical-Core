@@ -27,7 +27,7 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-process.env.EMPIRICAL_BASE_URL = 'https://staging.quill.org'
+process.env.DEFAULT_URL = 'https://staging.quill.org'
 process.env.QUILL_CMS = 'https://cms.quill.org'
 
 describe("<PlayGrammarContainer />", () => {

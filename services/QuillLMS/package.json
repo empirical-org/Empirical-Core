@@ -29,6 +29,7 @@
     "build:dev:client": "(cd client && npm run build:dev:client --silent)",
     "build:dev:server": "(cd client && npm run build:dev:server --silent)",
     "start:dev": "foreman start -f Procfile.static; npm run build:clean",
+    "start:prod-cms": "QUILL_CMS=https://cms.quill.org foreman start -f Procfile.static",
     "hot-assets": "(cd client && npm run hot-assets)",
     "jest": "./script/jest.sh",
     "jest:u": "cd client && npm run jest -- -u",

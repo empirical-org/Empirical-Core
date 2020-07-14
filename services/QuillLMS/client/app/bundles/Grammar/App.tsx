@@ -1,26 +1,24 @@
 import * as React from "react";
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import { LocaleProvider } from "antd";
-import enUS from "antd/lib/locale-provider/en_US";
-
 import {route} from "./routes";
-import './styles/style.scss';
 import { configureStore, initStore } from "./store/configStore";
 
 const store = configureStore();
 store.dispatch(initStore());
 
 class App extends React.Component<{}, {}> {
-    public render(): JSX.Element {
-        return (
-          <LocaleProvider locale={enUS}>
-            <Provider store={store}>
-              <HashRouter basename="/">{route}</HashRouter>
-            </Provider>
-          </LocaleProvider>
-        );
-    }
+  componentDidMount() {
+    document.title = 'Quill Proofreader'
+  }
+
+  public render(): JSX.Element {
+    return (
+      <Provider store={store}>
+        <HashRouter basename="/">{route}</HashRouter>
+      </Provider>
+    );
+  }
 }
 
 export default App;

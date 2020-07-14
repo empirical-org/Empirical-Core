@@ -158,7 +158,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
 
     finishActivitySession = (sessionID: string, results: FormattedConceptResult[], score: number) => {
       request(
-        { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/${sessionID}`,
+        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/${sessionID}`,
           method: 'PUT',
           json:
           {
@@ -170,7 +170,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
         (err, httpResponse, body) => {
           if (httpResponse && httpResponse.statusCode === 200) {
             this.removeSession()
-            document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+            document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
             this.setState({ saved: true, });
           } else {
             this.setState({
@@ -185,7 +185,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
     createAnonActivitySession = (lessonID: string, results: FormattedConceptResult[], score: number) => {
       const { showTurkCode, } = this.state
       request(
-        { url: `${process.env.EMPIRICAL_BASE_URL}/api/v1/activity_sessions/`,
+        { url: `${process.env.DEFAULT_URL}/api/v1/activity_sessions/`,
           method: 'POST',
           json:
           {
@@ -199,7 +199,7 @@ export class PlayGrammarContainer extends React.Component<PlayGrammarContainerPr
           if (httpResponse && httpResponse.statusCode === 200) {
             this.removeSession()
             if (!showTurkCode) {
-              document.location.href = `${process.env.EMPIRICAL_BASE_URL}/activity_sessions/${body.activity_session.uid}`;
+              document.location.href = `${process.env.DEFAULT_URL}/activity_sessions/${body.activity_session.uid}`;
             }
           }
         }
