@@ -9,6 +9,7 @@ import "react-dates/initialize";
 import { SingleDatePicker } from 'react-dates';
 import * as moment from 'moment';
 import { queryCache, useQuery } from 'react-query';
+import { getCsrfToken } from "../../../helpers/comprehension";
 
 const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match }) => {
   const [newTurkSessionDate, setNewTurkSessionDate] = React.useState<any>(null);
@@ -32,7 +33,8 @@ const TurkSessions: React.FC<RouteComponentProps<ActivityRouteProps>> = ({ match
     if(!newTurkSessionDate) {
       setDateError('Please choose an expiration date.')
     } else {
-      createTurkSession(activityId, newTurkSessionDate).then((response) => {
+      const csrfToken = getCsrfToken();
+      createTurkSession(activityId, newTurkSessionDate, csrfToken).then((response) => {
         const { error } = response;
         if(error) {
           setSubmissionMessage(error);

@@ -23,6 +23,11 @@ const mockRuleSet = {
 }
 const mockProps = {
   activityRuleSet: mockRuleSet,
+  activityData: {
+    title: 'test',
+    scored_level: '7',
+    target_level: 7
+  },
   closeModal: jest.fn(),
   submitRuleSet: jest.fn()
 };

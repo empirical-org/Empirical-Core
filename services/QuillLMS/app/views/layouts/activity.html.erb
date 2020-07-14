@@ -1,0 +1,34 @@
+<html lang='en'>
+  <%= render partial: 'head' %>
+  <script>
+    function handleTabNavigation(e) {
+      if (e.code !== 'Tab') { return }
+
+      const element = document.getElementById("body")
+      if (element) { element.classList.remove("hide-focus-outline") }
+    }
+  </script>
+  <body class="hide-focus-outline" id="body" onkeydown="handleTabNavigation(event)">
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, "<p>#{value}</p><i class='fas fa-times-circle' aria-hidden='true'></i>".html_safe, {class: "flash #{key}", onClick: "$(this).slideUp(300)"}) %>
+    <% end %>
+    <% if ENV['UPGRADE'] && ENV['UPGRADE_END_TIME'] && Time.now < Time.parse(ENV['UPGRADE_END_TIME'])%>
+      <%= render partial: 'application/upgraded_bar' %>
+    <% else %>
+      <%= render partial: 'application/notification_bar' %>
+    <% end %>
+    <%= yield %>
+    <!-- This is a placeholder for ReactOnRails to know where to render the store props for
+     client side hydration -->
+    <%= redux_store_hydration_data %>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <script>var stripePubKey="<%=ENV["STRIPE_PUBLIC_KEY"] %>"</script>
+    <script src="https://checkout.stripe.com/checkout.js" >
+          data-key= stripePubKey
+          data-locale="auto">
+    </script>
+  </body>
+
+</html>
